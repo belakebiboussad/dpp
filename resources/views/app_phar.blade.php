@@ -3,13 +3,9 @@
     <title>Gestion Des Patients</title>
     @include('partials.htmlheader')
 <body class="no-skin">
-
+    @include('partials.scripts')
     @include('partials.navbar')
-
     <div class="main-container" id="main-container">
-     {{--    <script type="text/javascript">
-           try{ace.settings.check('main-container' , 'fixed')}catch(e){}
-        </script> --}}
         @yield('page-script')
         @include('partials.sidebar_pharm')
 
@@ -30,7 +26,4 @@
 
     </div>
     <!-- /main-container -->
-
-    @include('partials.scripts')
-
 </body>

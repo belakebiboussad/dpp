@@ -70,14 +70,27 @@ class HomeController extends Controller
                            ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
                            ->join('employs', 'consultations.Employe_ID_Employe','=','employs.id')
                           ->select('demandehospitalisations.*','consultations.Employe_ID_Employe','consultations.Date_Consultation','patients.Nom','patients.Prenom','patients.Dat_Naissance','employs.Nom_Employe','employs.Prenom_Employe')->get();
-                      $colloques=colloque::join('membres','colloques.id','=','membres.id_colloque')
-                           ->join('employs','membres.id_employ','=','employs.id')->join('dem_colloques','colloques.id','=','dem_colloques.id_colloque')
-                           ->join('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')
-                           ->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')
-                           ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
-                           ->select('demandehospitalisations.id','consultations.Date_Consultation','colloques.id as id_colloque','colloques.*','employs.Nom_Employe','employs.Prenom_Employe','patients.Nom','patients.Prenom')
-                           ->get();                                    
-                     return view('home.home_dele_coll', compact('demandes','colloques'));
+                           $colloques=colloque::join('membres','colloques.id','=','membres.id_colloque')->join('employs','membres.id_employ','=','employs.id')->leftJoin('dem_colloques','colloques.id','=','dem_colloques.id_colloque')->leftJoin('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')->leftJoin('consultations','demandehospitalisations.id_consultation','=','consultations.id')->leftJoin('patients','consultations.Patient_ID_Patient','=','patients.id')->leftJoin('type_colloques','colloques.type_colloque','=','type_colloques.id')->select('demandehospitalisations.id as id-demande','colloques.id as id_colloque','colloques.*','employs.Nom_Employe','employs.Prenom_Employe','patients.Nom','patients.Prenom','type_colloques.type','dem_colloques.id_demande','consultations.Date_Consultation')->get();
+                           $colloque= array();
+                          foreach( $colloques as $col){
+                            if (!array_key_exists($col->id_colloque,$colloque))
+                              {
+                                    $colloque[$col->id_colloque]= array("dat"=> $col->date_colloque ,"creation"=>$col->date_creation,"Type"=>$col->type,"Etat"=>$col->etat_colloque,"membres"=> array ("$col->Nom_Employe $col->Prenom_Employe"),
+                                    "demandes"=>array($col->id_demande=>array(
+                                      "id_dem"=>$col->id_demande ,"date_dem"=>$col->Date_demande ,"patient"=>"$col->Nom $col->Prenom")));
+                              }
+                            else{
+                                        if (array_search("$col->Nom_Employe $col->Prenom_Employe", $colloque[$col->id_colloque]["membres"])===false)
+                                             $colloque[$col->id_colloque]["membres"][]="$col->Nom_Employe $col->Prenom_Employe";
+                                    
+                                      if (!array_key_exists($col->id_demande, $colloque[$col->id_colloque]["demandes"])) {      
+                                        $colloque[$col->id_colloque]["demandes"][$col->id_demande]=array(
+                                          "id_dem"=>$col->id ,"date_dem"=>$col->Date_demande ,"patient"=>"$col->Nom $col->Prenom");
+                                      }
+                               
+                              }
+                      }
+                     return view('colloques.liste_colloque', compact('colloque'));
                      break;
                 case "Chef de service":
                   $meds = medcamte::all();

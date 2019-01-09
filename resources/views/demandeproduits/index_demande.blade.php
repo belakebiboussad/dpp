@@ -1,4 +1,14 @@
 @extends('app_chef_ser')
+@section('page.script')
+<script type="text/javascript">
+	$('#demandes_liste').dataTable({
+       		ordering: true,
+	        	"language": 
+	            {
+	            		"url": '/localisation/fr_FR.json'
+	            }, 
+   	 });
+</script>
 @section('main-content')
 <div class="row">
 	<div class="col-xs-12">

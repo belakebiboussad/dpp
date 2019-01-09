@@ -49,6 +49,7 @@
 <script src="{{ asset('/js/bootstrap-tagsinput-angular.min.js') }}"></script>
 <script src="{{ asset('/js/bootstrap-multiselect.js') }}"></script>
 <script src="{{ asset('/js/bootstrap-toggle.min.js') }}"></script>
+<script src="{{ asset('/js/datatables.js') }}"></script>
 <script type="text/javascript">
 $(document).ready(function(){
     $('#avis').change(function(){
@@ -333,21 +334,14 @@ $(document).ready(function(){
                         if (col[j].style.display === 'none') 
                             col[j].style.display='table-cell' ;}    
                             lignes[i].style.display='table-row';
-                    
-
-                    var t=col[0].innerHTML;                         
+                            var t=col[0].innerHTML;                         
                     var index=id_demh.indexOf(t);                   
                     id_demh.splice(index, 1);                   
                     id_medt.splice(index, 1);                   
                     id_prio.splice(index, 1);                           
                     obs.splice(index, 1);
                     console.log(id_medt);
-                    
-                     
-      $(lignes[i]).appendTo('#table1');
-
-
-      
+      $(lignes[i]).appendTo('#table1');      
   }
            
         }lignes=null;
@@ -372,34 +366,6 @@ $(document).ready(function(){
 </script>
 <script type="text/javascript">
 $(document).ready(function() {
-    $('#meds_table').dataTable({
-        ordering: true,
-        "language": 
-            {
-                "url": '/localisation/fr_FR.json'
-            }, 
-    });
-    $('#dispo_table').dataTable({
-        ordering: true,
-        "language": 
-            {
-                "url": '/localisation/fr_FR.json'
-            }, 
-    });
-    $('#reactif_table').dataTable({
-        ordering: true,
-        "language": 
-            {
-                "url": '/localisation/fr_FR.json'
-            }, 
-    });
-    $('#demandes_liste').dataTable({
-        ordering: true,
-        "language": 
-            {
-                "url": '/localisation/fr_FR.json'
-            }, 
-    });
     $('#patients_liste').dataTable();
     $('#choixp').dataTable({
         ordering: true,
