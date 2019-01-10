@@ -18,6 +18,7 @@ use App\modeles\employ;
 use App\modeles\rol;
 use App\modeles\Specialite;
 use Hash;
+use DB;
 class UsersController extends Controller
 {
    
@@ -296,4 +297,36 @@ class UsersController extends Controller
     {
         dd($request);
     }
+    public function searchUser(Request $request)
+        {
+              if($request->ajax())  
+             {
+                        $output="";
+                         //$users=DB::table('utilisateurs')->where('name','LIKE','%',$request->search."%")->get();
+                         $users=DB::table('utilisateurs')->where('name','LIKE','%'.$request->search."%")->get();
+                        if($users)
+                        {
+                                       $i=0;
+                                       foreach ($users as $key => $user) {
+                                                    $i++;
+                                                    $compte='<span class="label label-sm label-danger">desactivé</span>';
+                                                    if($user->active)
+                                                                $compte='<span class="label label-sm label-success">active</span>';
+                                                    //$role = rol
+                                                    $role = rol::FindOrFail($user->role_id);          
+                                                    $output.='<tr>'.
+                                                     '<td >'.$i.'</td>'.
+                                                     '<td hidden>'.$user->id.'</td>'.
+                                                     '<td>'.$user->name.'</td>'.
+                                                     '<td>'.$user->email.'</td>'.
+                                                     '<td>'.$role->role.'</td>'.
+                                                     '<td>'.$compte.'</td>'.   
+                                                     '<td>'.'<a href="/users/'.$user->id.'" class="'.'btn btn-white btn-pink btn-sm"><i class="ace-icon fa fa-hand-o-up bigger-100"></i>&nbsp;Détails</a>'."&nbsp;&nbsp;".'<a href="/users/'.$user->id.'/edit" class="'.'btn btn-white btn-success"><i class="ce-icon fa fa-pencil-square-o bigger-100"></i>&nbsp;Modifier</a>'.'</td>'.   
+                                                     '</tr>';
+                                       }
+                          }
+                          return Response($output)->withHeaders(['count' => $i]);
+             }
+         
+    } 
 }

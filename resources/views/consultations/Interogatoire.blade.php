@@ -112,32 +112,31 @@
 	   	<div class="space-4"></div>  
                      <div class="space-4"></div>  
 	  	<div class="left">
-                                <div class="profile-contact-links align-left menu">
-			      		 <a  href="#" data-target="#Ordonnance" class="text btn  btn-primary btn-lg tooltip-link" 
-			      	 style= " width: 100%;" data-toggle="modal" data-toggle="tooltip" data-original-title="prescrire des medicaaments" >        
+                           	 <div class="space-12"></div><div class="space-12"></div><div class="space-12"></div><br><br>
+			{{-- <div class="profile-contact-info menu"> --}}
+			<div class="profile-contact-links align-center">
+				<a  href="#" data-target="#Ordonnance" class="text btn  btn-primary btn-lg tooltip-link" 
+			      	 style= " width:100%;" data-toggle="modal" data-toggle="tooltip" data-original-title="prescrire des medicaaments" >        
 					<div class="fa fa-plus-circle"></div>
                                                     <span class="bigger-140"> Ordonnance</span>
                                           </a>  
-			</div>
-				
-			<div class="space-12"></div>
-			<div class="profile-contact-info menu">
-				<div class="profile-contact-links align-center">
-					<a  href="#" data-target="#demandehosp" class="text btn  btn-primary btn-lg tooltip-link" style= " width: 100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title="création d'une demande d'hospitalisation" >                       	<div class="fa fa-plus-circle"></div>
+                                          <div class="space-12"></div>
+				<a  href="#" data-target="#demandehosp" class="text btn  btn-primary btn-lg tooltip-link" style= " width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title="création d'une demande d'hospitalisation" > 
+					           <div class="fa fa-plus-circle"></div>
                                                      <span class="bigger-140"> Hospitalisation</span>
-                                                      </a>
-					<div class="space-12"></div>
-					<a class="text btn btn-primary btn-lg" data-toggle="modal" data-target="#lettreorient" style= " width: 100%;overflow-wrap: break-word;" onclick="lettreoriet('{{ $employe->Nom_Employe }}',
+                                           </a>
+				<div class="space-12"></div>
+				<a class="text btn btn-primary btn-lg" data-toggle="modal" data-target="#lettreorient" style= " width:100%;overflow-wrap: break-word;" onclick="lettreoriet('{{ $employe->Nom_Employe }}',
 						'{{ $employe->Prenom_Employe }}',
 						'{{ $employe->Specialite_Emploiye }}',
 						'{{ $employe->tele_mobile }}')">
 						{{--  <i class="ace-icon fa fa-plus-circle bigger-120 black fa-vc"></i> --}}
 						<div class="fa fa-plus-circle"></div>
 						 <span class="bigger-140" style="overflow-wrap: break-word;" >Orientation</span>
- 					</a>
-				</div>
-				<div class="space-6"></div>	
-			</div>       
+ 				</a>
+			</div>
+			<div class="space-6"></div>	
+			{{-- </div> --}}       
                                 </div>
                       </div>
 

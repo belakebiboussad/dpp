@@ -2,14 +2,15 @@
 <html lang="en">
     <title>Gestion Des Utilisateurs</title>
     @include('partials.htmlheader')
+    @include('partials.scripts')
 <body class="no-skin">
-
     @include('partials.navbar')
 
     <div class="main-container" id="main-container">
         <script type="text/javascript">
             try{ace.settings.check('main-container' , 'fixed')}catch(e){}
         </script>
+           @yield('page-script')
         @if(App\modeles\rol::where("id",Illuminate\Support\Facades\Auth::user()->role_id)->first()->role == "reception")
             @include('partials.sidebar_rec')
         @elseif(App\modeles\rol::where("id",Illuminate\Support\Facades\Auth::user()->role_id)->first()->role == "Medecine")
@@ -36,8 +37,5 @@
 
     </div>
     <!-- /main-container -->
-
-    @include('partials.scripts')
-
 </body>
 </html>

@@ -163,7 +163,7 @@ Route::get('/role/show/{userId}','RolesController@show');
 Route::get('/role/show/{userId}','RolesController@show');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('AddANTCD','AntecedantsController@createATCDAjax');
-
+Route::get('/searchUser','UsersController@searchUser');
 // Route::get('/pdf', function () {
 //     return view('pdf');
 // });
