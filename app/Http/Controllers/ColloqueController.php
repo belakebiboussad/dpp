@@ -72,7 +72,6 @@ class ColloqueController extends Controller
 
     public function create()
     {
-
            $membre = user::join('employs', 'utilisateurs.employee_id','=','employs.id')->join('rols','utilisateurs.role_id', '=', 'rols.id')->select('employs.id','Nom_Employe','Prenom_Employe')->where('rols.id', '=','1' )->orWhere('rols.id', '=','2' )
              ->orWhere('rols.id', '=','5' ) ->orWhere('rols.id', '=','6' )->get(); 
 
@@ -89,39 +88,36 @@ class ColloqueController extends Controller
      */
     public function store(Request $request)
     { 
-      $demandes = consultation::join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
-                                                        ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
-                                                        ->join('employs', 'consultations.Employe_ID_Employe','=','employs.id')
-                                                        ->select('demandehospitalisations.*','consultations.Employe_ID_Employe','consultations.Date_Consultation','patients.Nom','patients.Prenom','patients.Dat_Naissance','employs.Nom_Employe','employs.Prenom_Employe')
-                                                        ->get();
-                                                      
-       $medecins = user::join('employs', 'utilisateurs.employee_id','=','employs.id')->join('rols','utilisateurs.role_id', '=', 'rols.id')->select('employs.id','Nom_Employe','Prenom_Employe')->where('rols.role', '=','Medecine')->get(); 
 
-       $date_creation = Date::Now();
-       $col=colloque::create([
-        "date_colloque"=>$request->date_colloque,
-        "etat_colloque"=>"en cours",
-        "date_creation"=>$date_creation,
-        "type_colloque"=>$request->type_colloque,
-        
-       ]);
-      foreach ($request->elt as $elts) {
+                $typeCol=$request->type_colloque;
+                $demandes = DemandeHospitalisation::join('consultations','consultations.id','=','demandehospitalisations.id_consultation')
+                 ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
+                 ->join('employs', 'consultations.Employe_ID_Employe','=','employs.id')
+                 ->join('services','demandehospitalisations.service','=','services.id')
+                ->join('specialites','specialites.id','=','demandehospitalisations.specialite')->select('demandehospitalisations.*','specialites.nom as nomSpec','specialites.type','consultations.Date_Consultation','patients.Nom as nomPat','patients.Prenom as prenomPat','patients.Dat_Naissance','patients.group_sang','patients.rhesus','employs.Nom_Employe','employs.Prenom_Employe','services.nom as nomService')
+                      ->where('specialites.type',$typeCol)->get(); 
+             //liste medecins   
 
-          membre::create([
-            "id_colloque"=>$col->id,
-            "id_employ"=>$elts,
-       ]);
+             $medecins = user::join('employs', 'utilisateurs.employee_id','=','employs.id')->join('rols','utilisateurs.role_id', '=', 'rols.id')->select('employs.id','Nom_Employe','Prenom_Employe')->where('rols.role', '=','Medecine')->get();                         
+                   // $date_creation = Date::Now();
+                  
+             $colloque=colloque::create([
+                  "date_colloque"=>$request->date_colloque,
+                  "etat_colloque"=>"en cours",
+                  "date_creation"=>Date::Now(),
+                  "type_colloque"=>$request->type_colloque,              
+             ]);    
 
-      }
-
-     
-      //$colloques = colloque::FindOrFail($col->id);
-
-      $colloques=colloque::select('colloques.*')->where('colloques.id','=',$col->id)->get();
-      //dd($colloques);
-     return view('colloques.new_colloque', compact('demandes','medecins','colloques'));
-
-     //return redirect()->action('ColloqueController@new',['id_colloque'=>$colloque->id]);  
+            $medmemebres =$request->membres;
+            dd($medmemebres);
+             foreach ($medmemebres as $elt) {
+                   membre::create([
+                        "id_colloque"=>$colloque->id,
+                        "id_employ"=>$elt,
+                    ]);
+             }   
+           // return view('colloques.runcolloque', compact('demandes','medecins','colloques'));  
+           return view('colloques.runcolloque', compact('demandes','medecins','colloque'));  
     }
 
 public function show($id_colloque)
@@ -135,15 +131,15 @@ public function show($id_colloque)
      */
     public function edit($id)
     {
-     
-          $colloque=colloque::select('colloques.*')->where('colloques.id','=',$id)->get()->first();
-          $demandes = DemandeHospitalisation::join('consultations','consultations.id','=','demandehospitalisations.id_consultation')
+
+           $colloque=colloque::select('colloques.*')->where('colloques.id','=',$id)->get()->first();
+             $demandes = DemandeHospitalisation::join('consultations','consultations.id','=','demandehospitalisations.id_consultation')
                  ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
                  ->join('employs', 'consultations.Employe_ID_Employe','=','employs.id')
                  ->join('services','demandehospitalisations.service','=','services.id')
                 ->join('specialites','specialites.id','=','demandehospitalisations.specialite')->select('demandehospitalisations.*','specialites.nom as nomSpec','specialites.type','consultations.Date_Consultation','patients.Nom as nomPat','patients.Prenom as prenomPat','patients.Dat_Naissance','patients.group_sang','patients.rhesus','employs.Nom_Employe','employs.Prenom_Employe','services.nom as nomService')
                       ->where('specialites.type',$colloque->type_colloque)->get(); 
-          $medecins = user::join('employs', 'utilisateurs.employee_id','=','employs.id')->join('rols','utilisateurs.role_id', '=', 'rols.id')->select('employs.id','Nom_Employe','Prenom_Employe')->where('rols.role', '=','Medecine')->get();
+              $medecins = user::join('employs', 'utilisateurs.employee_id','=','employs.id')->join('rols','utilisateurs.role_id', '=', 'rols.id')->select('employs.id','Nom_Employe','Prenom_Employe')->where('rols.role', '=','Medecine')->get();
                 return view('colloques.runcolloque', compact('demandes','medecins','colloque'));
     }
 

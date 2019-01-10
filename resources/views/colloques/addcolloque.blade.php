@@ -43,7 +43,7 @@
                         <div class="col-xs-5">
                            <label for="liste_membre_to"> <h4> <b>&nbsp;Liste des membres:</b></h4></label>&nbsp;
                            <br>
-                            <select name="membres[]" id="liste_membre_to" class="form-control" size="7" multiple="multiple" ></select>
+                            <select name="membres[]" id="liste_membre_to" class="form-control" size="7" multiple="multiple" required></select>
                         </div>
                     </div>
                     <div class="space-12"></div>

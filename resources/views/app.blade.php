@@ -10,7 +10,8 @@
         <script type="text/javascript">
             try{ace.settings.check('main-container' , 'fixed')}catch(e){}
         </script>
-           @yield('page-script')
+          @yield('page-script')
+
         @if(App\modeles\rol::where("id",Illuminate\Support\Facades\Auth::user()->role_id)->first()->role == "reception")
             @include('partials.sidebar_rec')
         @elseif(App\modeles\rol::where("id",Illuminate\Support\Facades\Auth::user()->role_id)->first()->role == "Medecine")

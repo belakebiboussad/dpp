@@ -49,6 +49,7 @@
 <script src="{{ asset('/js/bootstrap-multiselect.js') }}"></script>
 <script src="{{ asset('/js/multiselect.min.js') }}"></script>
 <script src="{{ asset('/js/prettify.min.js') }}"></script>
+<script src="{{ asset('/js/bootstrap-toggle.min.js') }}"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -336,21 +337,14 @@ $(document).ready(function(){
                         if (col[j].style.display === 'none') 
                             col[j].style.display='table-cell' ;}    
                             lignes[i].style.display='table-row';
-                    
-
-                    var t=col[0].innerHTML;                         
+                            var t=col[0].innerHTML;                         
                     var index=id_demh.indexOf(t);                   
                     id_demh.splice(index, 1);                   
                     id_medt.splice(index, 1);                   
                     id_prio.splice(index, 1);                           
                     obs.splice(index, 1);
                     console.log(id_medt);
-                    
-                     
-      $(lignes[i]).appendTo('#table1');
-
-
-      
+      $(lignes[i]).appendTo('#table1');      
   }
            
         }lignes=null;
@@ -375,34 +369,6 @@ $(document).ready(function(){
 </script>
 <script type="text/javascript">
 $(document).ready(function() {
-    $('#meds_table').dataTable({
-        ordering: true,
-        "language": 
-            {
-                "url": '/localisation/fr_FR.json'
-            }, 
-    });
-    $('#dispo_table').dataTable({
-        ordering: true,
-        "language": 
-            {
-                "url": '/localisation/fr_FR.json'
-            }, 
-    });
-    $('#reactif_table').dataTable({
-        ordering: true,
-        "language": 
-            {
-                "url": '/localisation/fr_FR.json'
-            }, 
-    });
-    $('#demandes_liste').dataTable({
-        ordering: true,
-        "language": 
-            {
-                "url": '/localisation/fr_FR.json'
-            }, 
-    });
     $('#patients_liste').dataTable();
     $('#choixp').dataTable({
         ordering: true,
@@ -416,31 +382,6 @@ $(document).ready(function() {
     $('#patients').dataTable();
     $('#choix-patient-atcd').dataTable();
     $('#users').dataTable();
- //    $( "#liste_membre" )
- //  .change(function () {
- //   var select = document.getElementById("liste_membre");
- //    var sel=document.getElementById("elt");
- //    var choice = select.selectedIndex;
- //    var valeur = select.options[choice].value;
- //    var texte = select.options[choice].text;
-
- //    if (document.getElementById("choix_membre").value.search(texte)==-1 ) {
-       
- //    sel.options[sel.options.length] = new Option (valeur, valeur,false,true);   
- //    document.getElementById("choix_membre").value +=texte+"\n"; 
- //    }
-
- //    else{
- //        texte=texte+"\n"
- //        document.getElementById("choix_membre").value=document.getElementById("choix_membre").value.replace(texte,"");
-        
- //        for (var i=0; i<sel.length; i++){
- //             if (sel.options[i].value == valeur )
- //                sel.remove(i);
- //        }
-
- //    }
- // });
 });
 function addRequiredAttr()
 {

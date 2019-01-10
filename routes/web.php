@@ -169,4 +169,3 @@ Route::get('/searchPatient','PatientController@search');
 // Route::get('/pdf', function () {
 //     return view('pdf');
 // });
-

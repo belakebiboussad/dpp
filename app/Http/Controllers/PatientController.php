@@ -14,7 +14,6 @@ use App\modeles\hospitalisation;
 use Validator;
 use Redirect;
 use MessageBag;
-
 class PatientController extends Controller
 {
     /**

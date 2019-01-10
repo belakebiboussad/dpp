@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
-
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -18,7 +18,6 @@ use App\modeles\employ;
 use App\modeles\rol;
 use App\modeles\Specialite;
 use Hash;
-use DB;
 class UsersController extends Controller
 {
    
@@ -297,7 +296,8 @@ class UsersController extends Controller
     {
         dd($request);
     }
-    public function searchUser(Request $request)
+
+      public function searchUser(Request $request)
         {
               if($request->ajax())  
              {

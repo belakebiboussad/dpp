@@ -2,7 +2,9 @@
 <html lang="en">
     <title>Gestion Des Patients</title>
     @include('partials.htmlheader')
-    <body class="no-skin">
+
+<body class="no-skin">
+    @include('partials.scripts')
     @include('partials.navbar')
     @include('partials.scripts')
     <div class="main-container" id="main-container">
@@ -23,11 +25,8 @@
             <!-- /main-content-inner -->
         </div>
         <!-- /main-content -->
-
         @include('partials.footer')
-
     </div>
     <!-- /main-container -->
-
 </body>
 </html>
