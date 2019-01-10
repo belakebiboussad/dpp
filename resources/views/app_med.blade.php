@@ -2,17 +2,15 @@
 <html lang="en">
     <title>Gestion Des Patients</title>
     @include('partials.htmlheader')
-<body class="no-skin">
-
+    <body class="no-skin">
     @include('partials.navbar')
-
+    @include('partials.scripts')
     <div class="main-container" id="main-container">
-     {{--    <script type="text/javascript">
+        <script type="text/javascript">
            try{ace.settings.check('main-container' , 'fixed')}catch(e){}
-        </script> --}}
+        </script>
         @yield('page-script')
         @include('partials.sidebar_med')
-
         <div class="main-content">
             <div class="main-content-inner">
                 @include('partials.breadcrumbs_rec')
@@ -30,8 +28,6 @@
 
     </div>
     <!-- /main-container -->
-
-    @include('partials.scripts')
 
 </body>
 </html>

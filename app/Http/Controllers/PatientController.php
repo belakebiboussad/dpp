@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Controllers;
-
+use DB;
 use App\modeles\patient;
 use Illuminate\Http\Request;
 use Jenssegers\Date\Date;
@@ -471,4 +471,33 @@ class PatientController extends Controller
             ->make(true);
             // <i class="ace-icon fa fa-hand-o-up bigger-120">
     }
+    public function search(Request $request)
+{
+         if($request->ajax())  
+         {
+                $output="";
+                $patients=DB::table('patients')->where('Nom','LIKE','%'.$request->search."%")->get();
+                if($patients)
+                {
+                          $i=0;
+                          foreach ($patients as $key => $patient) {
+                               $i++;
+                               $output.='<tr>'.
+                               '<td hidden>'.$patient->id.'</td>'.
+                                '<td hidden>'.$patient->code_barre.'</td>'.
+                                '<td>'.$patient->Nom.'</td>'.
+                               '<td>'.$patient->Prenom.'</td>'.
+                               '<td>'.$patient->Dat_Naissance.'</td>'.
+                               '<td>'.$patient->Sexe.'</td>'.
+                               '<td>'."unknown".'</td>'.
+                               '<td>'.$patient->situation_familiale.'</td>'.
+                               '<td>'.$patient->Type.'</td>'.
+                               '<td>'.'<a href="/patient/'.$patient->id.'" class="'.'btn btn-white btn-pink btn-sm"><i class="ace-icon fa fa-hand-o-up bigger-120"></i>&nbsp;Détails</a>'."&nbsp;&nbsp;".'<a href="/patient/'.$patient->id.'/edit" class="'.'btn btn-white btn-success"><i class="ce-icon fa fa-pencil-square-o bigger-120"></i>&nbsp;Modifier</a>'.'</td>'.
+                               '</tr>';
+                          }
+                        return Response($output)->withHeaders(['count' => $i]);
+                
+               }     
+        } 
+}
 }

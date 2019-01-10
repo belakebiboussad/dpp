@@ -13,7 +13,7 @@
      if('ontouchstart' in document.documentElement) document.write("<script src='{{asset('/js/jquery.mobile.custom.min.js')}}'>"+"<"+"/script>");
 </script>
 <script src="{{asset('/js/bootstrap.min.js')}}"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<script src="{{asset('/js/angular.min.js')}}"></script>
 <script src="{{asset('/js/jquery-ui.custom.min.js')}}"></script>
 <script src="{{asset('/js/jquery.ui.touch-punch.min.js')}}"></script>
 <script src="{{asset('/js/jquery.easypiechart.min.js')}}"></script>
@@ -23,9 +23,9 @@
 <script src="{{asset('/js/jquery.flot.resize.min.js')}}"></script>
 <script src="{{asset('/js/bootbox.js')}}"></script>
 <script src="{{asset('/js/jquery.easypiechart.min.js')}}"></script>
-<script src="{{asset('/js/jquery.gritter.min.js')}}"></script>
- <script src="{{asset('/js/spin.js')}}"></script>
-<script src="{{asset('/js/moment.min.js')}}"></script>
+<script src="{{ asset('/js/jquery.gritter.min.js') }}"></script>
+<script src="{{ asset('/js/spin.js') }}"></script>
+<script src="{{ asset('/js/moment.min.js') }}"></script>
  <!-- ace scripts -->
 <script src="{{asset('/js/ace-elements.min.js')}}"></script>
 <script src="{{asset('/js/ace.min.js')}}"></script>
@@ -46,9 +46,10 @@
 <script src="{{ asset('/js/jquery.hotkeys.index.min.js') }}"></script>
 <script src="{{ asset('/js/bootstrap-wysiwyg.min.js') }}"></script>
 <script src="{{ asset('/js/bootstrap-tagsinput.min.js') }}"></script>
-<script src="{{ asset('/js/bootstrap-tagsinput-angular.min.js') }}"></script>
 <script src="{{ asset('/js/bootstrap-multiselect.js') }}"></script>
-<script src="{{ asset('/js/bootstrap-toggle.min.js') }}"></script>
+<script src="{{ asset('/js/multiselect.min.js') }}"></script>
+<script src="{{ asset('/js/prettify.min.js') }}"></script>
+
 <script type="text/javascript">
 $(document).ready(function(){
     $('#avis').change(function(){
@@ -146,6 +147,8 @@ $(document).ready(function(){
     });
 });  
 </script>
+
+
 <script type="text/javascript">
     //And for the first simple table, which doesn't have TableTools or dataTables
     //select/deselect all rows according to table1 header checkbox
@@ -413,31 +416,31 @@ $(document).ready(function() {
     $('#patients').dataTable();
     $('#choix-patient-atcd').dataTable();
     $('#users').dataTable();
-    $( "#liste_membre" )
-  .change(function () {
-    var select = document.getElementById("liste_membre");
-    var sel=document.getElementById("elt");
-    var choice = select.selectedIndex;
-    var valeur = select.options[choice].value;
-    var texte = select.options[choice].text;
+ //    $( "#liste_membre" )
+ //  .change(function () {
+ //   var select = document.getElementById("liste_membre");
+ //    var sel=document.getElementById("elt");
+ //    var choice = select.selectedIndex;
+ //    var valeur = select.options[choice].value;
+ //    var texte = select.options[choice].text;
 
-    if (document.getElementById("choix_membre").value.search(texte)==-1 ) {
+ //    if (document.getElementById("choix_membre").value.search(texte)==-1 ) {
        
-    sel.options[sel.options.length] = new Option (valeur, valeur,false,true);   
-    document.getElementById("choix_membre").value +=texte+"\n"; 
-    }
+ //    sel.options[sel.options.length] = new Option (valeur, valeur,false,true);   
+ //    document.getElementById("choix_membre").value +=texte+"\n"; 
+ //    }
 
-    else{
-        texte=texte+"\n"
-        document.getElementById("choix_membre").value=document.getElementById("choix_membre").value.replace(texte,"");
+ //    else{
+ //        texte=texte+"\n"
+ //        document.getElementById("choix_membre").value=document.getElementById("choix_membre").value.replace(texte,"");
         
-        for (var i=0; i<sel.length; i++){
-             if (sel.options[i].value == valeur )
-                sel.remove(i);
-        }
+ //        for (var i=0; i<sel.length; i++){
+ //             if (sel.options[i].value == valeur )
+ //                sel.remove(i);
+ //        }
 
-    }
- });
+ //    }
+ // });
 });
 function addRequiredAttr()
 {

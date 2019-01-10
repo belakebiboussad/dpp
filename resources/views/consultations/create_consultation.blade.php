@@ -1,6 +1,6 @@
 @extends('app_med')
 @section('page-script')
-<script src="{{asset('/js/jquery.min.js')}}"></script>
+{{-- <script src="{{asset('/js/jquery.min.js')}}"></script> --}}
 <script>
       $('document').ready(function(){
            $( 'ul.nav li' ).on( 'click', function() {
