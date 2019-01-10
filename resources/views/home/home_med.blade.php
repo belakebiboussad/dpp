@@ -86,7 +86,7 @@
 		<div class="row">
 			<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3>Rechercher un Dossier Patient:</h3>
+				<h3>Rechercher un  Patient:</h3>
 			</div>
 			<div class="panel-body">
 				<div class="form-group   has-feedback">

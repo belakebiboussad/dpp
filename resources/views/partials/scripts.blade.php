@@ -50,7 +50,6 @@
 <script src="{{ asset('/js/multiselect.min.js') }}"></script>
 <script src="{{ asset('/js/prettify.min.js') }}"></script>
 <script src="{{ asset('/js/bootstrap-toggle.min.js') }}"></script>
-
 <script type="text/javascript">
 $(document).ready(function(){
     $('#avis').change(function(){
@@ -370,13 +369,6 @@ $(document).ready(function(){
 <script type="text/javascript">
 $(document).ready(function() {
     $('#patients_liste').dataTable();
-    $('#choixp').dataTable({
-        ordering: true,
-        "language": 
-            {
-                "url": '/localisation/fr_FR.json'
-            },
-    });
     $('#choixpatientrdv').dataTable();
     $('#rdvs_liste').dataTable();
     $('#patients').dataTable();
