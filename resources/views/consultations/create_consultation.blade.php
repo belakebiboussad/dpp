@@ -1,4 +1,5 @@
-@extends('app_med')
+@extends('app')
+@section('title',  'Ajouter Consultation' )
 @section('page-script')
 {{-- <script src="{{asset('/js/jquery.min.js')}}"></script> --}}
 <script>

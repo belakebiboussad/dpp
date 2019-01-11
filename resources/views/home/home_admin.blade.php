@@ -1,4 +1,5 @@
 @extends('app')
+@section('title','Gestion des Utilisateures')
 @section('page-script')
 <script>
 $( document ).ready(function() {

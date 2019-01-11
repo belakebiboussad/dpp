@@ -1,5 +1,5 @@
 
-@extends('app_med')
+@extends('app')
 @section('page-script')
  <script type="text/javascript" src="{{ asset('js/app-med.js') }}"></script>
  <script type="text/javascript">
