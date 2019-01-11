@@ -1,4 +1,5 @@
 @extends('app')
+@section('title','Ajouter un Utilisateure')
 @section('main-content')
 	<div class="page-header">
 		<h1>Ajouter un nouveau utilisateur :</h1>

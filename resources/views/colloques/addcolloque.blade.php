@@ -1,4 +1,5 @@
 @extends('app_dele')
+@section('title','Ajouter Colloque')
 @section('page-script')
 <script type="text/javascript">
     $(document).ready(function() {

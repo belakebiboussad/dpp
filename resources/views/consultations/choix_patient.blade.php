@@ -1,34 +1,8 @@
-@extends('app_med')
-@section('page-script')
-<script>
-	$('#choixp').dataTable({
-        ordering: true,
-        "language": 
-            {
-                "url": '/localisation/fr_FR.json'
-            },
-    });
-</script>
-@endsection
+@extends('app')
 @section('main-content')
-<div class="row">
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h3>Rechercher un Patient:</h3>
-		</div>
-		<div class="panel-body">
-			<div class="form-group   has-feedback">
-				<label class="control-label" for="nomPatient" >Nom du Patient :</label>
-			           <input type="text" class="form-control" id="nomPatient" name="nomPatient"  placeholder="Rechercher..."/>
-				 <span class="glyphicon glyphicon-search form-control-feedback"></span>
-			</div>
-				
-		</div>
-	</div>
+<div class="page-header">
+	<h1>Choix du patient :</h1>
 </div>
-<div class="space-12"></div>
-<div class="space-12"></div>
-<div class="row">
 <table id="choixp" class="table  table-bordered table-hover">
 	<thead>
 		<tr>
@@ -67,5 +41,4 @@
 		@endforeach
 	</tbody>
 </table>
-</div>
 @endsection

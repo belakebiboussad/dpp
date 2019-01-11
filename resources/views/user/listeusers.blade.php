@@ -1,4 +1,5 @@
 @extends('app')
+@section('title','Gestion des Utilisateures')
 @section('main-content')
 <div class="page-header">
 	<h1>Liste Des Utilisateurs :</h1>

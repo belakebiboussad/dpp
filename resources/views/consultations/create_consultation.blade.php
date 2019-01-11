@@ -1,7 +1,5 @@
 @extends('app')
-@section('title',  'Ajouter Consultation' )
 @section('page-script')
-{{-- <script src="{{asset('/js/jquery.min.js')}}"></script> --}}
 <script>
       $('document').ready(function(){
            $( 'ul.nav li' ).on( 'click', function() {

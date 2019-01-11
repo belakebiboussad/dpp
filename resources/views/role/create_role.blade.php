@@ -1,4 +1,5 @@
 @extends('app')
+@section('title','Ajouter un Rôle')
 @section('main-content')
 <div class="page-header">
 	<h1><strong>Ajouter un Role :</strong></h1>
@@ -10,7 +11,7 @@
 				{{ csrf_field() }}
 				<div class="form-group">
 					<label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-						<strong> Nom du role </strong>
+						<strong> Nom: </strong>
 					</label>
 					<div class="col-sm-9">
 						<input type="text" id="rolename" name="rolename" placeholder="Nom du role" class="col-xs-10 col-sm-5" required/>
