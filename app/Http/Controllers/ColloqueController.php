@@ -88,7 +88,6 @@ class ColloqueController extends Controller
      */
     public function store(Request $request)
     { 
-
                 $typeCol=$request->type_colloque;
                 $demandes = DemandeHospitalisation::join('consultations','consultations.id','=','demandehospitalisations.id_consultation')
                  ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
@@ -108,9 +107,8 @@ class ColloqueController extends Controller
                   "type_colloque"=>$request->type_colloque,              
              ]);    
 
-            $medmemebres =$request->membres;
-            dd($medmemebres);
-             foreach ($medmemebres as $elt) {
+           $medmemebres =$request->membres;
+          foreach ($medmemebres as $elt) {
                    membre::create([
                         "id_colloque"=>$colloque->id,
                         "id_employ"=>$elt,

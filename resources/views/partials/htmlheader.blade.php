@@ -34,9 +34,9 @@
     <link rel="stylesheet" href="{{ asset('/css/bootstrap-multiselect.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/wfmi-style.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/bootstrap-toggle.min.css') }}">
-
+      <link rel="stylesheet" href="{{ asset('/css/jquery.timepicker.min.css') }}">
        <!-- ace settings handler -->
-    <script src="{{ asset('/js/ace-extra.min.js') }}"></script>
+ 
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

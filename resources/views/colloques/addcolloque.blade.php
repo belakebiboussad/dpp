@@ -9,11 +9,13 @@
                 $('#liste_membre_to').empty();       
                  });
         });
-     function myFunction(){
-        select = document.getElementById('liste_membre_to'); // or in jQuery use: select = this;
-        if(select.value )
-            return select.value;
-         return false;
+     function myFunction()
+     {
+         // select = document.getElementById('liste_membre_to'); // or in jQuery use: select = this;
+        if( $('#liste_membre_to').has('option').length > 0 ) {
+          return true
+        }
+        return false;
     }
 </script>
 @endsection
@@ -44,7 +46,7 @@
                         <div class="col-xs-5">
                            <label for="liste_membre_to"> <h4> <b>&nbsp;Liste des membres:</b></h4></label>&nbsp;
                            <br>
-                            <select name="membres[]" id="liste_membre_to" class="form-control" size="7" multiple="multiple" required></select>
+                            <select name="membres[]" id="liste_membre_to" class="form-control" size="7" multiple="multiple"></select>
                         </div>
                     </div>
                     <div class="space-12"></div>
