@@ -12,9 +12,13 @@
 */
 // Route::group(['middleware' => ['web']], function () {});
     //
-Route::get('/', function () {
+Route::group(['middleware' => 'revalidate'],function()
+{
+    Route::get('/', function () {
     return view('auth/login');
 });
+});
+
 route::get('/home_chef', function(){
     $meds = App\modeles\medcamte::all();
     $dispositifs = App\modeles\dispositif::all();
