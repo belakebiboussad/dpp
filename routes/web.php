@@ -140,7 +140,6 @@ route::get('/getpatientcons','PatientController@getpatientconsult');
 route::get('/getpatientrdv','PatientController@getpatientrdv');
 route::get('/getpatientatcd','PatientController@getpatientatcd');
 route::get('/choixpat','ConsultationsController@choix');
-// route::get('/choixpat','PatientController@index');
 route::get('/choixpatatcd','AntecedantsController@choixpatatcd');
 route::get('/getspecialite/{id}','demandeprodController@get_specialite');
 route::get('/getproduits/{idgamme}/{idspec}','demandeprodController@get_produit');
@@ -166,6 +165,11 @@ Route::post('AddANTCD','AntecedantsController@createATCDAjax');
 Route::get('/searchUser','UsersController@searchUser');
 Route::get('/searchUser','UsersController@searchUser');
 Route::get('/searchPatient','PatientController@search');
+Route::get('/getlits/{id}','LitsController@getlits');
+// Route::get('/getlits/{id}',function(){
+//     return('fqsfd');
+// });
+
 // Route::get('/pdf', function () {
 //     return view('pdf');
 // });

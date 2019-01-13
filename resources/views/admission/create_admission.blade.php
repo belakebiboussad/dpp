@@ -20,22 +20,40 @@
 		            type : 'GET',
 		            dataType : 'json',
 		            success : function(data){
-		                console.log(data);
-		                if(data.length != 0){
+		               if(data.length != 0){
+		                	var select = $('#salle').empty();
 		                    $.each(data,function(){
-		                        $('#salle').html("<option value='"+this.id+"'>"+this.nom+"</option>");
+		                    		select.append("<option value='"+this.id+"'>"+this.nom+"</option>");
 		                    });
 		                }
 		                else
-		                {
-		                    $('#salle').html("<option value=>Pas de salle</option>");
+		                {      
+		                		select.html('<option value="" selected disabled>Pas de salle</option>');
 		                }
 		            },
 		        });
     		});
 		$('#salle').change(function(){
 			$('#lit').removeAttr("disabled");
-		})
+			 $.ajax({
+			 		url : '/getlits/'+ $('#salle').val(),
+		       			type : 'GET',
+		            		dataType : 'json',
+		         			success : function(data){
+		         				console.log(data);
+		             	          		if(data.length != 0){
+		             				var selectLit = $('#lit').empty();
+		                    				$.each(data,function(){
+		                    					selectLit.append("<option value='"+this.id+"'>"+this.nom+"</option>");
+		                    				});
+		                		     	}
+		               		     	else
+		                		     	{
+		                    			      selectLit.html('<option value="" selected disabled>Pas de Lit</option>');
+		                		     	}
+		            		},
+			 });
+		});
 
 	})
 	

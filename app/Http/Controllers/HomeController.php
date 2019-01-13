@@ -15,6 +15,7 @@ use App\modeles\admission;
 use App\modeles\medcamte;
 use App\modeles\reactif;
 use App\modeles\dispositif;
+use App\modeles\dem_colloque;
 use App\User;
 use Auth; 
 use Date;
@@ -59,10 +60,13 @@ class HomeController extends Controller
                      return view('home.home_admin', compact('users'));
                      break;
                case "Surveillant medical":
+                          /*
                           $demandes = consultation::join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
                                 ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
                                 ->join('employs', 'consultations.Employe_ID_Employe','=','employs.id')
-                                ->select('demandehospitalisations.*','consultations.Employe_ID_Employe','consultations.Date_Consultation','patients.Nom','patients.Prenom','patients.Dat_Naissance','employs.Nom_Employe','employs.Prenom_Employe')->get();
+                                ->select('demandehospitalisations.*','consultations.Employe_ID_Employe','consultations.Date_Consultation','patients.Nom','patients.Prenom','patients.Dat_Naissance','employs.Nom_Employe','employs.Prenom_Employe')->get();*/
+                          $demandes= dem_colloque::join('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')->join('patients','consultations.Patient_ID_Patient','=','patients.id')->select('dem_colloques.*','demandehospitalisations.*','consultations.Date_Consultation','patients.Nom','patients.Prenom')->get();
+                         // dd($demandes);     
                           return view('home.home_surv_med', compact('demandes'));
                           break;
                 case "Delegue colloque":

@@ -1,4 +1,31 @@
 @extends('app')
+@section('page-script')
+<script type="text/javascript">
+	$('document').ready(function(){
+		
+		$('#service').change(function(){
+			$('#chambre').removeAttr("disabled");
+			 $.ajax({
+		            url : '/getsalles/'+ $('#service').val(),
+		            type : 'GET',
+		            dataType : 'json',
+		            success : function(data){
+		               if(data.length != 0){
+		                	var select = $('#chambre').empty();
+		                    $.each(data,function(){
+		                               select.append("<option value='"+this.id+"'>"+this.nom+"</option>");
+		                    });
+		                }
+		                else
+		                {
+		                    $('#chambre').html('<option value="" disabled selected>Pas de salle</option>');
+		                }
+		            },
+		        });
+		})
+	});
+</script>
+@endsection
 @section('main-content')
 	<div class="page-header">
 		<h1>Ajouter un Lit :</h1>
@@ -11,11 +38,13 @@
 				<div class="widget-toolbar widget-toolbar-light no-border">
 					<i class="ace-icon fa fa-table"></i>
 					<a href="/lit"> <b>&nbsp;Liste des Lits</b></a>
-			</div>
+				</div>
+			</div>	
 			<div class="widget-body">
 			<div class="widget-main">
 			<form class="form-horizontal" role="form" method="POST" action="{{ route('lit.store') }}">
 				{{ csrf_field() }}
+				<div class="space-12"></div>	
 				<div class="form-group">
 					<label class="col-sm-3 control-label no-padding-right" for="numlit"><strong> Numéro Lit : </strong>
 					</label>
@@ -31,13 +60,24 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="salle"><strong>Chambre :</strong></label>
+					<label class="col-sm-3 control-label no-padding-right" for="service"><strong>Service :</strong></label>
 					<div class="col-sm-9">
-						<select class="col-xs-10 col-sm-5" id="salle" name="idsalle" required>
-						<option value="">Choisir Une Chambre...</option>
-						@foreach($salles as $salle)
-						<option value="{{ $salle->id }}">{{ $salle->nom }}</option>
+						<select class="col-xs-10 col-sm-5" id="service" name="service" required>
+						<option value="">Choisir un Service...</option>
+						@foreach($services as $service)
+						<option value="{{ $service->id }}">{{ $service->nom }}</option>
 						@endforeach
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for="chambre"><strong>Chambre :</strong></label>
+					<div class="col-sm-9">
+						<select class="col-xs-10 col-sm-5" id="chambre" name="chambre" required>
+						<option value="" selected disabled>Choisir un Chambre...</option>
+						{{-- @foreach($services as $service)
+						<option value="{{ $service->id }}">{{ $service->nom }}</option>
+						@endforeach --}}
 						</select>
 					</div>
 				</div>
@@ -67,7 +107,7 @@
 			</form>
 			</div>
 		</div>
-		</div>
+	{{-- 	</div> --}}
 		</div>
 	</div>
 @endsection

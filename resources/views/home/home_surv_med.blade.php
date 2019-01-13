@@ -14,7 +14,7 @@
 							<thead class="thin-border-bottom">
 								<tr>
 									<th>Patient</th>
-									<th>Motif</th>
+									<th>Mode Admission</th>
 									<th>Priorité</th>
 									<th>Observation</th>
 									<th>Degré/date</th>
@@ -28,7 +28,7 @@
 								@if(date('d M Y',strtotime(($demande->date_colloque).' monday next week')-1) == date('d M Y',strtotime($d)-1))
 								<tr>
 									<td>{{ $demande->Nom }} {{$demande->Prenom }}</td>
-									<td>{{ $demande->motif }}</td>
+									<td>{{ $demande->modeAdmission }}</td>
 									<td>{{ $demande->ordre_priorite }}</td>
 									<td>{{ $demande->observation }}</td>
 									<td>

@@ -22,6 +22,9 @@
 						<thead>
 							<tr>
 								<th>Nom De Service</th>
+								<th>Type De Service</th>
+								<th>Chef De Seervice</th>
+								<th>Seervice d'urence</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -29,6 +32,9 @@
 							@foreach($services as $service)
 							<tr>
 								<td>{{ $service->nom }}</td>
+								<td>{{ $service->type }}</td>
+								<td> {{ $service->responable_id}}</td>
+								<td> {{ $service->urgence}}</td>
 								<td>
 									<div class="pull-right">
 										<div class="hidden-sm hidden-xs btn-group">

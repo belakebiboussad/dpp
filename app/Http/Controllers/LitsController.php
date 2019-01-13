@@ -27,8 +27,8 @@ class LitsController extends Controller
      */
     public function createlit()
     {
-        $salles = salle::all();
-        return view('lits.create_lit_2', compact('salles'));
+        $services = service::all();
+        return view('lits.create_lit_2', compact('services'));
     }
 
     public function create($id_salle)
@@ -44,15 +44,15 @@ class LitsController extends Controller
      */
     public function store(Request $request)
     {
-             $etat = 1;
-             if(isset($_POST['etat']) )
+           $etat = 1;
+           if(isset($_POST['etat']) )
                  $etat = 0;  
            $l=  lit::create([
                     "num"=>$request->numlit,
                     "nom"=>$request->nom,
                     "etat"=>$etat,
                     "affectation"=>0,
-                    "id_salle"=>$request->idsalle,
+                    "id_salle"=>$request->chambre,
         ]);
         return redirect()->action('LitsController@index');
     }
@@ -93,8 +93,7 @@ class LitsController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-           $lit = lit::FindOrFail($id);
+          $lit = lit::FindOrFail($id);
            $etat =$lit->etat ;
            if(isset($_POST['etat']) )
                  $etat = 0;   
@@ -119,4 +118,14 @@ class LitsController extends Controller
     {
         //
     }
+
+/**
+function ajax return lits
+*/
+public function getlits($salleid)
+{
+        $lits = lit::where('id_salle',$salleid)->get();
+        return $lits;
+}
+
 }
