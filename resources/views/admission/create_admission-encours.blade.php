@@ -2,62 +2,38 @@
 @section('page-script')
 <script type="text/javascript">
 	$('document').ready(function(){
-		$('.timepicker').timepicker({
-			timeFormat: 'h:mm p',
-    			interval: 15,
-			minTime: '08',
-			maxTime: '6:00pm',
-			defaultTime: '08',
-			 startTime: '08:00',
-			 dynamic: true,
-			 dropdown: true,
-			 scrollbar: true
-		});
-		$('#serviceh').change(function(){
-			$('#salle').removeAttr("disabled");
-		          $.ajax({
-		            url : '/getsalles/'+ $('#serviceh').val(),
-		            type : 'GET',
-		            dataType : 'json',
-		            success : function(data){
-		                console.log(data);
-		                if(data.length != 0){
-		                    $.each(data,function(){
-		                        $('#salle').html("<option value='"+this.id+"'>"+this.nom+"</option>");
-		                    });
-		                }
-		                else
-		                {
-		                    $('#salle').html("<option value=>Pas de salle</option>");
-		                }
-		            },
-		        });
-    		});
-		$('#salle').change(function(){
-			$('#lit').removeAttr("disabled");
-		})
-
+		$('.timepicker').timepicker();	
 	})
 	
 </script>
 @endsection
 @section('main-content')
-@foreach($demande as $demandes)
+	<?php $services= array();
+	$services=array_values($services);	
+	$salles= array();
+	$salles=array_values($salles);								
+	foreach ($lits as $lit) {
+		    if (!array_key_exists($lit->id_salle, $salles)) 
+				{
+					$salles[$lit->id_salle]=$lit->nom_salle;
+					}
+			if (!array_key_exists($lit->id_service, $services)) 
+				{
+					$services[$lit->id_service]=$lit->nom_service;
+					}
+
+			}?>
+	@foreach($demande as $demandes)
 		<div class="page-header">
 			<h1>
 				Ajouter Un RDV Hospitalisation pour   <strong>&laquo;{{$demandes->Nom}} {{$demandes->Prenom}}&raquo;</strong>
 			</h1>
 		</div><!-- /.page-header -->
-		<div class="space-12"></div>
-		<div class="space-12"></div><div class="space-12"></div>
 		<div class="row">
 			<div class="col-xs-12">
 				<form class="form-horizontal" role="form" method="POST" action="{{ route('admission.store') }}">
 					{{ csrf_field() }}
 					<input type="text" name="id_demande" value="{{$demandes->id_demande}}" hidden>
-					<div class="page-header">
-				  	<h1>informations concernant l'hospitalisation</h1>
-					</div>
 					<div class="form-group">
 						<label class="col-sm-3 control-label no-padding-right" for="service">
 							<strong> 
@@ -68,7 +44,7 @@
 							<input type="text" id="service" name="service" placeholder="Motif De L'hospitalisation" value="{{ $demandes->nomService }}" class="col-xs-10 col-sm-5" disabled/>
 						</div>
 					</div>
-					<div class="space-12"></div>
+
 					<div class="form-group">
 						<label class="col-sm-3 control-label no-padding-right" for="motif">
 							<strong> 
@@ -98,7 +74,6 @@
 								<span class="lbl"> 3 </span>
 							</label>
 						</div>
-
 					</div>
 					<div class="form-group">
 						<label class="col-sm-3 control-label no-padding-right" for="motif">
@@ -108,11 +83,6 @@
 							<input type="text" id="motif" name="motifhos" placeholder="Motif De L'hospitalisation" value="{{$demandes->observation}}" class="col-xs-10 col-sm-5" disabled/>
 						</div>
 					</div>
-					<div class="page-header">
-				  	<h1>Admission</h1>
-					</div>
-					<div class="space-12"></div>
-
 					<div class="form-group">
 						<label class="col-sm-3 control-label no-padding-right" for="date">
 						 	<strong> Date prévue d'hospitalisation : 
@@ -126,62 +96,24 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-3 control-label no-padding-right" for="heure_rdvh" style="padding: 0.9%;">
+						<label class="col-sm-3 control-label no-padding-right" for="heure_rdvh">
 						 	<strong> Heure Prévue d'hospitalisation :</strong>
 						</label>
-						<div class="input-group col-sm-9" style ="width:34.5%;padding: 0.8%;">	
-							<input id="heure_rdvh" name="heure_rdvh" class="form-control timepicker" type="text"  required>
+						{{-- style="width: 350px" --}}
+						<div class="input-group col-sm-8  timepicker" style ="width:32%">	
+							<input id="heure_rdvh" name="heure_rdvh" class="form-control" type="text"  required>
 							<span class="input-group-addon">
 								<i class="fa fa-clock-o bigger-110"></i>
 							</span>						
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-3 control-label no-padding-right" for="serviceh">
-						 	<strong> 
-						 		Service d'hospitalisation : 
-							</strong>
-						</label>
-						<div class="col-sm-9">
-						<select id="serviceh" name="serviceh" data-placeholder="selectionnez le service d'hospitalisation" class="selectpicker show-menu-arrow place_holde col-xs-5 col-sm-5" required>
-							<option value="" selected disabled>selectionnez le service d'hospitalisation</option>
-							@foreach($services as $service)
-								<option value="{{ $service->id }}">{{ $service->nom }}</option>
-							@endforeach
-						</select>
-						</div>
+						<input id="basicExample" type="text" class="time ui-timepicker-input" autocomplete="off">
 					</div>
-					<div class="space-12"></div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label no-padding-right" for="salle">
-						 	<strong> 
-						 		Salle d'hospitalisation : 
-							</strong>
-						</label>
-						<div class="col-sm-9">
-							<select id="salle" name="salle" data-placeholder="selectionnez la salle d'hospitalisation" class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-5" disabled required>
-							<option value="" selected>selectionnez la salle d'hospitalisation
-							</option>
-						</select>
-						</div>
-					</div>
-					<div class="form-group">
-							<label class="col-sm-3 control-label" for="heure_rdvh">
-							 	<strong> 
-							 		Lit d'hospitalisation : 
-								</strong>
-							</label>
-							<div class="col-sm-9">
-								<select id="lit" name="lit" data-placeholder="selectionnez le lit" class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-5" onchange="" disabled required>
-								<option value="" selected disabled>selectionnez le lit
-								</option>
-							</select>
-							</div>
-							
-						</div>
-						
-				</form>
-			</div>
-		</div>
+				
+                                	
+			</form>
+			</div>{{-- col-xs-12 --}}
+		</div>	{{-- row --}}
 	@endforeach
 @endsection

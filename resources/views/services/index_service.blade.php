@@ -12,6 +12,7 @@
 					<span><b>Liste Des Services</b></span>
 				</h5>
 				<div class="widget-toolbar widget-toolbar-light no-border">
+					<div class="fa fa-plus-circle bigger-90"></div>
 					<a href="{{ route('service.create') }}"> <b>Ajouter Un Service</b></a>
 				</div>
 			</div>

@@ -9,10 +9,11 @@
 			<div class="widget-header">
 				<h5 class="widget-title bigger lighter">
 					<i class="ace-icon fa fa-table"></i>
-					Liste Des Lits :
+					Liste des Lits :
 				</h5>
 				<div class="widget-toolbar widget-toolbar-light no-border">
-					<a href="/createlit"> <b>Ajouter Un Lit</b></a>
+					<div class="fa fa-plus-circle bigger-90"></div>
+					<a href="/createlit"> <b>&nbsp;Ajouter un Lit</b></a>
 				</div>
 			</div>
 			<div class="widget-body">
@@ -20,10 +21,11 @@
 					<table class="table table-striped table-bordered table-hover">
 						<thead>
 							<tr>
-								<th>Numéro De Lit</th>
-								<th>Etat De Lit</th>
+								<th>Numérot</th>
+								<th>Nom</th>
+								<th>Bloqué </th>
 								<th>Affectation</th>
-								<th>Numéro De La Chambre</th>
+								<th>Chambre</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -31,20 +33,20 @@
 							@foreach($lits as $lit)
 								<tr>
 									<td>{{ $lit->num }}</td>
-									<td>{{ $lit->etat == 1 ? "Non Bloqué" : "Bloqué" }}</td>
-									<td>{{ $lit->affectation == 0 ? "Non Affecté" : "Affecté" }}</td>
-									<td>{{ App\modeles\salle::where("id",$lit->id_salle)->get()->first()->num }}</td>
+									<td>{{ $lit->nom }}</td>
+									<td>{{ $lit->etat == 1 ? "Non" : "Oui" }}</td>
+									<td>{{ $lit->affectation == 0 ? "Non" : "Oui" }}</td>
+									<td>{{ $lit->nomSalle }}</td>
+						{{-- {{ App\modeles\salle::where("id",$lit->id_salle)->get()->first()->nom }} --}}
 									<td>
 										<div class="pull-right">
-											<div class="hidden-sm hidden-xs btn-group">
-												<a href="{{ route('lit.show', $lit->id) }}" class="btn btn-xs btn-success">
-													<i class="ace-icon fa fa-sign-in bigger-120"></i>
-													Afficher
-												</a>
-												<a href="{{ route('lit.edit', $lit->id) }}" class="btn btn-xs btn-info">
-													<i class="ace-icon fa fa-pencil bigger-120"></i>
-													Modifier
-												</a>
+										<div class="hidden-sm hidden-xs btn-group">
+											<a href="{{ route('lit.show', $lit->id) }}" class="btn btn-xs btn-success">
+												<i class="ace-icon fa fa-sign-in bigger-120"></i>Afficher
+											</a>&nbsp;&nbsp;&nbsp;
+											<a href="{{ route('lit.edit', $lit->id) }}" class="btn btn-xs btn-info">
+												<i class="ace-icon fa fa-pencil bigger-120"></i>Modifier
+											</a>
 												&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
 											</div>
 										</div>

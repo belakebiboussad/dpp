@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\modeles\service;
+use App\user;
 
 class ServiceController extends Controller
 {
@@ -25,7 +26,9 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        return view('services.create_service');
+           $membres = user::join('employs', 'utilisateurs.employee_id','=','employs.id')->join('rols','utilisateurs.role_id', '=', 'rols.id')->select('employs.id','Nom_Employe','Prenom_Employe')->where('rols.id', '=','1' )->orWhere('rols.id', '=','2' )
+                  ->orWhere('rols.id', '=','5' ) ->orWhere('rols.id', '=','6' )->get(); 
+           return view('services.create_service',compact('membres'));
     }
 
     /**
@@ -36,8 +39,12 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        service::create([
-            "nom"=>$request->nom,
+        dd($request);
+           service::create([
+              "nom"=>$request->nom,
+              "typs"=>$request->type,
+              "responsable_id"=>$request->responsable,
+
         ]);
         return redirect()->action('ServiceController@index');
     }

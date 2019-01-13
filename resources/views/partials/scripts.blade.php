@@ -128,25 +128,6 @@ $(document).ready(function(){
             }
         });
     });
-    $('#serviceh').change(function(){
-         $.ajax({
-            url : '/getsalles/'+ $('#serviceh').val(),
-            type : 'GET',
-            dataType : 'json',
-            success : function(data){
-                console.log(data);
-                if(data.length != 0){
-                    $.each(data,function(){
-                        $('#salle').html("<option value='"+this.id+"'>"+this.num+"</option>");
-                    });
-                }
-                else
-                {
-                    $('#salle').html("<option value=>Pas de salle</option>");
-                }
-            },
-        });
-    });
 });  
 </script>
 

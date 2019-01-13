@@ -156,6 +156,7 @@
 					<div>
 						<table id="liste_patients" class="table table-striped table-bordered">
 							<thead>
+								<tr class="info "><th colspan="12">Selectionner le patient dans la liste</th></tr>
 								<tr>
 									<th hidden>id</th>
 									<th hidden>code</th>

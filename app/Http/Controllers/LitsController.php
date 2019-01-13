@@ -16,7 +16,7 @@ class LitsController extends Controller
      */
     public function index()
     {
-        $lits = lit::all();
+         $lits=lit::join('salles','lits.id_salle','=','salles.id')->select('lits.*','salles.nom as nomSalle')->get();
         return view('lits.index_lit', compact('lits'));
     }
 
@@ -44,11 +44,15 @@ class LitsController extends Controller
      */
     public function store(Request $request)
     {
-        lit::create([
-            "num"=>$request->numlit,
-            "etat"=>$request->etat,
-            "affectation"=>0,
-            "id_salle"=>$request->idsalle,
+             $etat = 1;
+             if(isset($_POST['etat']) )
+                 $etat = 0;  
+           $l=  lit::create([
+                    "num"=>$request->numlit,
+                    "nom"=>$request->nom,
+                    "etat"=>$etat,
+                    "affectation"=>0,
+                    "id_salle"=>$request->idsalle,
         ]);
         return redirect()->action('LitsController@index');
     }
@@ -89,12 +93,18 @@ class LitsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $lit = lit::FindOrFail($id);
-        $lit->update([
-            "num"=>$request->numlit,
-            "etat"=>$request->etat,
-            "affectation"=>$request->affectation,
-            "id_salle"=>$request->salle,
+
+           $lit = lit::FindOrFail($id);
+           $etat =$lit->etat ;
+           if(isset($_POST['etat']) )
+                 $etat = 0;   
+           //dd($etat);  
+           $lit->update([
+                "num"=>$request->numlit,
+                "nom"=>$request->nom,
+                "etat"=>$etat,
+                "affectation"=>$request->affectation,
+                "id_salle"=>$request->salle,
         ]);
         return redirect()->action('LitsController@index');
     }
