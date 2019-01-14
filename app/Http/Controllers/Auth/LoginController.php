@@ -34,7 +34,15 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('auth');
+        $this->middleware('auth');
         $this->middleware('guest')->except('logout');
+        $this->middleware('revalidate');
+    }
+    public function logout() {
+        dd("dfdsf");
+        Auth::logout(); // logout user
+        Session::flush();
+        Redirect::back();
+        return Redirect::to('/login'); //redirect back to login
     }
 }

@@ -3,6 +3,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="and Validation" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
     <title>{{ $html_title or 'Dossier Patient' }}</title>
      <meta name="description" content="{{ $html_description or ' Dossier Patient' }}" />
     <meta name="csrf-token" content="{{csrf_token()}}">

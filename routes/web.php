@@ -12,11 +12,12 @@
 */
 // Route::group(['middleware' => ['web']], function () {});
     //
-Route::group(['middleware' => 'revalidate'],function()
-{
-    Route::get('/', function () {
-    return view('auth/login');
-});
+Route::group(['middleware' => 'revalidate'], function()
+{          
+        Auth::routes();     
+         Route::get('/', function () {
+              return view('auth/login');
+        });
 });
 
 route::get('/home_chef', function(){
@@ -77,7 +78,7 @@ Route::get('exbio/{filename}', function ($filename)
 
     return $response;
 });
-Auth::routes();
+// Auth::routes();
 route::get('/detailsdemande/{id}','demandeprodController@details_demande');
 route::get('/listedemandes','demandeprodController@liste_demande');
 route::get('/traiterdemande/{id}','demandeprodController@traiter_demande');
@@ -174,6 +175,3 @@ Route::get('/getlits/{id}','LitsController@getlits');
 //     return('fqsfd');
 // });
 
-// Route::get('/pdf', function () {
-//     return view('pdf');
-// });

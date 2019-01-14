@@ -17,13 +17,19 @@ lass Authenticate extends Middleware
     	}
       	public function handle($request, Closure $next, $guard = null)
     	{
-        		if (Auth::guard($guard)->guest()) {
-            		if ($request->ajax() || $request->wantsJson()) {
-                			return response('Unauthorized.', 401);
-            		} else {
-                			return redirect()->guest('login');
-            		}
-        		}
-        		return $next($request);
-    }
+        		if (!Auth::check()) {
+			
+			Session::flash('message', trans('errors.session_label'));
+          			 Session::flash('type', 'warning');
+			 return redirect()->route('/');
+		}
+   	 }
+   	 protected function nocache($response)
+	    {
+	        $response->headers->set('Cache-Control','nocache, no-store, max-age=0, must-revalidate');
+	        $response->headers->set('Expires','Fri, 01 Jan 1990 00:00:00 GMT');
+	        $response->headers->set('Pragma','no-cache');
+
+	        return $response;
+	    }
 }

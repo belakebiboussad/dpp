@@ -5,31 +5,31 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-12">
-				<div class="widget-box" id="widget-box-1">
-					<div class="widget-header">
-						<h5 class="widget-title">Ajouter Une Chambre :</h5>
+			<div class="widget-box" id="widget-box-1">
+			<div class="widget-header">
+				<h5 class="widget-title">Ajouter Une Chambre :</h5>
+			</div>
+			<div class="widget-body">
+			<div class="widget-main">
+			<form class="form-horizontal" role="form" method="POST" action="{{ route('salle.store') }}">
+				{{ csrf_field() }}
+				<input type="text" name="idservice" value="{{$idservice}}" hidden>
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for="numsalle"><strong> Numéro Chambre : </strong></label>
+					<div class="col-sm-9">
+						<input type="text" id="numsalle" name="numsalle" placeholder="Numéro De La Chambre" class="col-xs-10 col-sm-5" />
 					</div>
-					<div class="widget-body">
-						<div class="widget-main">
-							<form class="form-horizontal" role="form" method="POST" action="{{ route('salle.store') }}">
-								{{ csrf_field() }}
-								<input type="text" name="idservice" value="{{$idservice}}" hidden>
-								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="numsalle"><strong> Numéro Chambre : </strong></label>
-									<div class="col-sm-9">
-										<input type="text" id="numsalle" name="numsalle" placeholder="Numéro De La Chambre" class="col-xs-10 col-sm-5" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="nomsalle"><strong> Nom Chambre : </strong></label>
-									<div class="col-sm-9">
-										<input type="text" id="nomsalle" name="nomsalle" placeholder="Nom De La Chambre" class="col-xs-10 col-sm-5" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="maxlits"><strong> Max Des Lits : </strong></label>
-									<div class="col-sm-9">
-										<input type="text" id="maxlits" name="maxlits" placeholder="Max Des Lits" class="col-xs-10 col-sm-5" />
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for="nomsalle"><strong> Nom Chambre : </strong></label>
+					<div class="col-sm-9">
+						<input type="text" id="nomsalle" name="nomsalle" placeholder="Nom De La Chambre" class="col-xs-10 col-sm-5" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for="maxlits"><strong> Max Des Lits : </strong></label>
+					<div class="col-sm-9">
+					<input type="number" id="maxlits" name="maxlits" placeholder="Max Des Lits" class="col-xs-10 col-sm-5" />
 									</div>
 								</div>
 								<div class="form-group">

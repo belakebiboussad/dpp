@@ -31,9 +31,7 @@
                                 </ul>
                             </div>
                         @endif
-
                         @yield('content')
-
                     </div>
                     <!-- /.position-relative -->
                 </div>
@@ -91,7 +89,5 @@
         });
     });
 </script>
-
-
 </body>
 </html>
