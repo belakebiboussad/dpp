@@ -74,7 +74,6 @@ class ColloqueController extends Controller
     {
            $membre = user::join('employs', 'utilisateurs.employee_id','=','employs.id')->join('rols','utilisateurs.role_id', '=', 'rols.id')->select('employs.id','Nom_Employe','Prenom_Employe')->where('rols.id', '=','1' )->orWhere('rols.id', '=','2' )
              ->orWhere('rols.id', '=','5' ) ->orWhere('rols.id', '=','6' )->get(); 
-
            $type_c=type_colloque::select('id', 'type')->get();
            return view('colloques.addcolloque',compact('membre','type_c'));
     }
@@ -96,7 +95,6 @@ class ColloqueController extends Controller
                 ->join('specialites','specialites.id','=','demandehospitalisations.specialite')->select('demandehospitalisations.*','specialites.nom as nomSpec','specialites.type','consultations.Date_Consultation','patients.Nom as nomPat','patients.Prenom as prenomPat','patients.Dat_Naissance','patients.group_sang','patients.rhesus','employs.Nom_Employe','employs.Prenom_Employe','services.nom as nomService')
                       ->where('specialites.type',$typeCol)->get(); 
              //liste medecins   
-
              $medecins = user::join('employs', 'utilisateurs.employee_id','=','employs.id')->join('rols','utilisateurs.role_id', '=', 'rols.id')->select('employs.id','Nom_Employe','Prenom_Employe')->where('rols.role', '=','Medecine')->get();                         
                    // $date_creation = Date::Now();
                   
