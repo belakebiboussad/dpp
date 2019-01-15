@@ -18,6 +18,7 @@ use App\modeles\employ;
 use App\modeles\rol;
 use App\modeles\Specialite;
 use Hash;
+use View;
 class UsersController extends Controller
 {
    
@@ -319,11 +320,11 @@ class UsersController extends Controller
                                                      '<td hidden>'.$user->id.'</td>'.
                                                      // '<td>'.$user->name.'</td>'.
                                                      // '<td><a href="/users/'.$user->id.'">'.$user->name.'</a></td>'.
-                                                     '<td><a href="#" id ="'.$user->id.'" onclick ="go();">'.$user->name.'</a></td>'.
+                                                     '<td><a href="#" id ="'.$user->id.'" onclick ="getPatientdetail('.$user->id.');">'.$user->name.'</a></td>'.
                                                      '<td>'.$user->email.'</td>'.
                                                      '<td>'.$role->role.'</td>'.
                                                      '<td>'.$compte.'</td>'.   
-                                                     '<td>'.'<a href="/users/'.$user->id.'" class="'.'btn btn-white btn-pink btn-sm"><i class="ace-icon fa fa-hand-o-up bigger-100"></i>&nbsp;Détails</a>'."&nbsp;&nbsp;".'<a href="/users/'.$user->id.'/edit" class="'.'btn btn-white btn-success"><i class="ce-icon fa fa-pencil-square-o bigger-100"></i>&nbsp;Modifier</a>'.'</td>'.   
+                                                     '<td>'.'<a href="/users/'.$user->id.'" class="'.'btn btn-white btn-pink btn-sm"><i class="ace-icon fa fa-hand-o-up bigger-80"></i></a>'."&nbsp;&nbsp;".'<a href="/users/'.$user->id.'/edit" class="'.'btn btn-white btn-success"><i class="ce-icon fa fa-pencil-square-o"></i></a>'.'</td>'.   
                                                      '</tr>';
                                        }
                           }
@@ -335,5 +336,16 @@ class UsersController extends Controller
             return User::where('name', 'LIKE', '%'.$request->q.'%')->get();
            // return "df";
     } 
+    public function getUserDetails(Request $request)
+    {
+         $user = User::FindOrFail($request->search);
+         // return ($user);
+       // $html = View::make("user.ajax_userdetail")->render();
+       // return Response::json(['html' => $html]);
+       // return (String) view('user.ajax_userdetail');//ok
+            $view = view("user.ajax_userdetail",compact('user'))->render();
+            return response()->json(['html'=>$view]);
+
+    }
 
 }

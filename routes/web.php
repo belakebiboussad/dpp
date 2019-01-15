@@ -172,6 +172,11 @@ Route::get('/searchUser','UsersController@searchUser');
 Route::get('/searchPatient','PatientController@search');
 Route::get('/getlits/{id}','LitsController@getlits');
 Route::get('/user/find', 'UsersController@AutoCompleteUsername');
+Route::get('/userdetail', 'UsersController@getUserDetails');
+// Route::get('/userdetail/{id}', function(){
+//     return($id);
+// });
+
 // Route::get('/getlits/{id}',function(){
 //     return('fqsfd');
 // });

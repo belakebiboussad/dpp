@@ -47,17 +47,17 @@
 <!-- basic scripts -->
 
 <!--[if !IE]> -->
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     window.jQuery || document.write("<script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'>"+"<"+"/script>");
-</script>
+</script> --}}
 
 <!-- <![endif]-->
 
-<!--[if IE]>
+<!--[if IE]>-->
 <script type="text/javascript">
-    window.jQuery || document.write("<script src='{{ asset('/js/jquery1x.min.js') }}'>"+"<"+"/script>");
+    window.jQuery || document.write("<script src='{{ asset('/js/jquery-2.2.4.min.js') }}'>"+"<"+"/script>");
 </script>
-<![endif]-->
+<!--[endif]-->
 <script type="text/javascript">
     if('ontouchstart' in document.documentElement) document.write("<script src='{{ asset('/js/jquery.mobile.custom.min.js') }}'>"+"<"+"/script>");
 </script>

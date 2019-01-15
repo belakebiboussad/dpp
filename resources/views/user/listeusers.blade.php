@@ -20,7 +20,6 @@ $(document).ready(function() {
 				name: 'users',
 				source: bloodhound,
 				display: function(data) {
-					console.log(data.name);
 					return data.name  //Input value to be set when you select a suggestion. 
 				},
 				templates: {
@@ -50,9 +49,18 @@ $(document).ready(function() {
                             }
                        });
 	}
-	function go()
-	{
-			
+	function getPatientdetail($id)
+	{	
+	          // console.log($id);	
+	          $.ajax({
+                            type : 'get',
+                            url : '{{URL::to('userdetail')}}',
+                            data:{'search':$id},
+                            success:function(data1,status, xhr){
+                            	// console.log(data1);
+                                $('#userDetail').html(data1.html);
+                            }
+                       });	
 	}
 </script>
 @endsection
@@ -60,7 +68,7 @@ $(document).ready(function() {
 <div class="page-header">
 	<h1>Liste Des Utilisateurs :</h1>
 	<div class="row">
-		<div class="col-sm-6">
+		<div class="col-sm-7">
 			<div class="space-12"></div>
 			<div class="row">
 				<div class="panel panel-default">
@@ -78,12 +86,12 @@ $(document).ready(function() {
 				</div>
 			</div>
 		</div>{{-- col-sm-5 --}}
-		<div class="col-sm-7">
+		<div class="col-sm-5">
 			
 		</div>{{-- col-sm-7 --}}
 	</div>
 	<div class="row">
-		<div class="col-sm-6">
+		<div class="col-sm-7">
 		<div class="widget-box transparent">
 			<div class="widget-header widget-header-flat widget-header-small">
 				<h5 class="widget-title"><i class="ace-icon fa fa-user"></i>Resultats: </h5> 
@@ -112,7 +120,7 @@ $(document).ready(function() {
 			</div>
 		</div>
 		</div>{{-- col-sm-6 --}}
-		<div class="col-sm-6">
+		<div class="col-sm-5" id="userDetail">
 		
 		</div>
 	</div>
