@@ -208,7 +208,7 @@ class UsersController extends Controller
                     <a class="green" href="'.route('users.edit',$user->id).'">
                         <i class="ace-icon fa fa-pencil bigger-130"></i>
                     </a>
-                    <a class="red" href="#">
+                    <a class="red" href="">
                         <i class="ace-icon fa fa-trash-o bigger-130"></i>
                     </a>
                 </div>';
@@ -317,7 +317,9 @@ class UsersController extends Controller
                                                     $output.='<tr>'.
                                                      '<td >'.$i.'</td>'.
                                                      '<td hidden>'.$user->id.'</td>'.
-                                                     '<td>'.$user->name.'</td>'.
+                                                     // '<td>'.$user->name.'</td>'.
+                                                     // '<td><a href="/users/'.$user->id.'">'.$user->name.'</a></td>'.
+                                                     '<td><a href="#" id ="'.$user->id.'" onclick ="go();">'.$user->name.'</a></td>'.
                                                      '<td>'.$user->email.'</td>'.
                                                      '<td>'.$role->role.'</td>'.
                                                      '<td>'.$compte.'</td>'.   
@@ -326,7 +328,12 @@ class UsersController extends Controller
                                        }
                           }
                           return Response($output)->withHeaders(['count' => $i]);
-             }
-         
+             }    
+    }
+    public function AutoCompleteUsername(Request $request)
+    {
+            return User::where('name', 'LIKE', '%'.$request->q.'%')->get();
+           // return "df";
     } 
+
 }

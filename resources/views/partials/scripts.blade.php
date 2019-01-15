@@ -52,6 +52,9 @@
 <script src="{{ asset('/js/bootstrap-toggle.min.js') }}"></script>
 <script src="{{ asset('/js/ace-extra.min.js') }}"></script>
 <script src="{{ asset('/js/jquery.timepicker.min.js') }}"></script>
+<script src="{{ asset('/js/typeahead.bundle.min.js') }}"></script>
+
+
 <script type="text/javascript">
 $(document).ready(function(){
     $('#avis').change(function(){
