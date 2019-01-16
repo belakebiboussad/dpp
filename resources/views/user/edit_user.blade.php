@@ -201,14 +201,10 @@
 		<div class="form-group">
 			<div class="col-sm-12 input-group">
 			    	@if( $user->active)
-				    	<label class ="pull-right">
-					<b>Désactiver le Compte:</b>&nbsp;
-<<<<<<< HEAD
-					<input type="checkbox" name="desactiveCompt" class="collapse" checked data-toggle="toggle" data-on="<i class='fa fa-play'></i> Oui" data-off="<i class='fa fa-pause'></i> Non" data-size="mini" data-onstyle="primary" data-offstyle="danger" data-style="slow" value="0">
-=======
-					<input type="checkbox" name="desactiveCompt" class="collapse" checked data-toggle="toggle" data-on="Non" data-off="Oui" data-size="mini" data-onstyle="primary" data-offstyle="danger" data-style="slow" value="0"> 
->>>>>>> aad3bfc349023a03744f7a1118e33184bc7c5bbb
-					</label>
+				<label class ="pull-right">
+				<b>Désactiver le Compte:</b>&nbsp;
+				<input type="checkbox" name="desactiveCompt" class="collapse" checked data-toggle="toggle" data-on="Non" data-off="Oui" data-size="mini" data-onstyle="primary" data-offstyle="danger" data-style="slow" value="0"> 
+				</label>
 				@else
 					<label class ="pull-right">
 					<b>Activer le Compte:</b>&nbsp;

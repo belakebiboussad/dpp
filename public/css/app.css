@@ -6396,3 +6396,7 @@ option:checked, option:hover {
 .hide {
     display: none !important;
 }
+.noborders{
+    border-right:hidden!important;
+    text-align:right;
+}
