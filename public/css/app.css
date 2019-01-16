@@ -6400,3 +6400,14 @@ option:checked, option:hover {
     border-right:hidden!important;
     text-align:right;
 }
+.table-condensed {
+width: 100% !important;
+}
+/*border: 1px solid black;
+    width: 1000px;*/
+.table-condensed tbody{
+font-size:12px !important;
+}
+table-condensed thead th{
+  height: 20px !important;
+}
