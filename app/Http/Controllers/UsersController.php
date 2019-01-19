@@ -17,6 +17,7 @@ use App\modeles\service;
 use App\modeles\employ;
 use App\modeles\rol;
 use App\modeles\Specialite;
+use App\modeles\patient;
 use Hash;
 use View;
 class UsersController extends Controller
@@ -318,13 +319,12 @@ class UsersController extends Controller
                                                     $output.='<tr>'.
                                                      '<td >'.$i.'</td>'.
                                                      '<td hidden>'.$user->id.'</td>'.
-                                                     // '<td>'.$user->name.'</td>'.
                                                      // '<td><a href="/users/'.$user->id.'">'.$user->name.'</a></td>'.
-                                                     '<td><a href="#" id ="'.$user->id.'" onclick ="getPatientdetail('.$user->id.');">'.$user->name.'</a></td>'.
+                                                     '<td><a href="#" id ="'.$user->id.'" onclick ="getUserdetail('.$user->id.');">'.$user->name.'</a></td>'.
                                                      '<td>'.$user->email.'</td>'.
                                                      '<td>'.$role->role.'</td>'.
                                                      '<td>'.$compte.'</td>'.   
-                                                     '<td>'.'<a href="/users/'.$user->id.'" class="'.'btn btn-white btn-pink btn-sm"><i class="ace-icon fa fa-hand-o-up bigger-80"></i></a>'."&nbsp;&nbsp;".'<a href="/users/'.$user->id.'/edit" class="'.'btn btn-white btn-success"><i class="ce-icon fa fa-pencil-square-o"></i></a>'.'</td>'.   
+                                                     '<td>'.'<a href="/users/'.$user->id.'" class="'.'btn btn-white btn-sm"><i class="ace-icon fa fa-hand-o-up bigger-80"></i></a>'."&nbsp;&nbsp;".'<a href="/users/'.$user->id.'/edit" class="'.'btn btn-white btn-sm"><i class="fa fa-edit fa-lg" aria-hidden="true" style="font-size:16px;"></i></a>'.'</td>'.   
                                                      '</tr>';
                                        }
                           }
@@ -334,18 +334,17 @@ class UsersController extends Controller
     public function AutoCompleteUsername(Request $request)
     {
             return User::where('name', 'LIKE', '%'.$request->q.'%')->get();
-           // return "df";
     } 
+      public function AutoCompletePatientname(Request $request)
+    {
+         return patient::where('Nom', 'LIKE', '%'.$request->q.'%')->get();     
+    }
     public function getUserDetails(Request $request)
     {
-         $user = User::FindOrFail($request->search);
-         $employe = employ::FindOrFail($user->employee_id);
-          $role = rol::FindOrFail($user->role_id);          
-                                                  
-         // return ($user);
-       // $html = View::make("user.ajax_userdetail")->render();
-       // return Response::json(['html' => $html]);
-       // return (String) view('user.ajax_userdetail');//ok
+           $user = User::FindOrFail($request->search);
+           $employe = employ::FindOrFail($user->employee_id);
+           //$role =  $user->getUserRole();
+           // return (String) view('user.ajax_userdetail');//ok
             $view = view("user.ajax_userdetail",compact('user','role','employe'))->render();
             return response()->json(['html'=>$view]);
 

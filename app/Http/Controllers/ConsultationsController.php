@@ -57,7 +57,7 @@ class ConsultationsController extends Controller
 
           $consultation = consultation::join('lieuconsultations','lieuconsultations.id','=','consultations.id_lieu')
           ->where('consultations.id', '=',$id_cons) ->select('consultations.*','lieuconsultations.Nom')->get()->first(); 
-          $patient = patient::where("id",$consultation->Patient_ID_Patient)->get()->first();
+          $patient = patient::where("id",$consultation->Patient_ID_Patient)->get()->first();    
           // liste des consultations du patient
           $consults = consultation::join('codesims', 'codesims.id', '=', 'consultations.id_code_sim')
                  ->join('lieuconsultations','lieuconsultations.id','=','consultations.id_lieu')

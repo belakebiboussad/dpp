@@ -49,7 +49,7 @@ $(document).ready(function() {
                             }
                        });
 	}
-	function getPatientdetail($id)
+	function getUserdetail($id)
 	{	
 	          // console.log($id);	
 	          $.ajax({
@@ -57,7 +57,7 @@ $(document).ready(function() {
                             url : '{{URL::to('userdetail')}}',
                             data:{'search':$id},
                             success:function(data1,status, xhr){
-                            	// console.log(data1);
+                            	//console.log(data1);
                                 $('#userDetail').html(data1.html);
                             }
                        });	
@@ -66,20 +66,19 @@ $(document).ready(function() {
 @endsection
 @section('main-content')
 <div class="page-header">
-	<h1>Liste Des Utilisateurs :</h1>
+	{{-- <h1>Liste Des Utilisateurs :</h1> --}}
 	<div class="row">
 		<div class="col-sm-7">
 			<div class="space-12"></div>
 			<div class="row">
 				<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3>Rechercher un Utilisateur:</h3>
+				<div class="panel-heading initialism" style="height: 50px; font-size: 3.4vh;">
+					<strong>Rechercher un Utilisateur</strong>
 				</div>
 				<div class="panel-body">
-					<div class="form-group   has-feedback">
+					<div class="form-group has-feedback">
 						<label class="control-label" for="userName" ><strong>Nom Utilisateur:</strong></label>
-						 &nbsp;&nbsp;   <input type="text" class="form-control" id="userName" name="nomUser"  placeholder="Rechercher..."/>
-						    {{-- <span class="glyphicon glyphicon-search form-control-feedback"></span> --}}
+						 &nbsp;&nbsp;<input type="text" class="form-control input input-sm" id="userName" name="nomUser"  placeholder="Rechercher..."/>
 						     <button type="submit" class="btn-sm btn-success" onclick="XHRgetUser();"><i class="fa fa-search"></i></button>
 					</div>
 				</div>
@@ -104,13 +103,13 @@ $(document).ready(function() {
 					<tr>
 						<th class="center">#</th>
 						<th hidden>id</th>
-						<th><strong style="font-size:16px;">Nom Utilisateur</strong></th>
+						<th><strong style="font-size:16px;">Username</strong></th>
 						<th><strong style="font-size:16px;">E-mail</strong>
 						</th>
 						<th><strong style="font-size:16px;">Rôle</strong>
 						</th>
-						<th>Acive</th>
-						<th>Actions</th>
+						<th><strong>Active</strong></th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>	
@@ -119,10 +118,10 @@ $(document).ready(function() {
 				</div>	{{-- div --}}
 			</div>
 		</div>
-		</div>{{-- col-sm-6 --}}
+		</div>{{-- col-sm-7 --}}
 		<div class="col-sm-5" id="userDetail">
-		
-		</div>
+			
+		</div>{{-- col-sm-5 --}}
 	</div>
 </div>
 @endsection

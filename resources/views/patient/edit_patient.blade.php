@@ -104,7 +104,7 @@
 				<div class="col-sm-4">
 					<select id="rh" name="rh">
 						<option value="{{ $patient->Rihesus }}">{{ $patient->Rihesus }}</option>
-						<option value="+">+</option>
+						<option value="+" selected>+</option>
 						<option value="-">-</option>
 					</select>
 				</div>
@@ -215,11 +215,11 @@
 		<div class="row">
 			<div class="col-sm-6">
 				<div>
-					<i class="fa fa-map-marker light-orange bigger-110"></i>
-					<label for="adresse"><b>Adresse :</b></label>
-					<textarea class="form-control" id="adresse" name="adresse" placeholder="Adresse...">
-						{{ $patient->Adresse }}
-					</textarea>
+				<i class="fa fa-map-marker light-orange bigger-110"></i>
+				<label for="adresse"><b>Adresse :</b></label>
+				<textarea class="form-control" id="adresse" name="adresse" placeholder="Adresse...">
+				{{ $patient->Adresse }}
+				</textarea>
 				</div>
 			</div>
 			<div class="col-sm-3">
@@ -258,20 +258,20 @@
 					<div class="col-sm-9">
 						<div class="radio">
 						<label>
-							<input name="etatass" value="En exercice" type="radio" class="ace" {{ $assure->Etat ==="En exercice" ? "Checked":"" }} />
-							<span class="lbl"> En exercice</span>
+						<input name="etatass" value="En exercice" type="radio" class="ace" {{ $assure->Etat ==="En exercice" ? "Checked":"" }} />
+						<span class="lbl"> En exercice</span>
 						</label>
 						<label>
-							<input name="etatass" value="Retraité" type="radio" class="ace" {{ $assure->Etat ==="Retraité" ? "Checked":"" }} />
-							<span class="lbl"> Retraité</span>
+						<input name="etatass" value="Retraité" type="radio" class="ace" {{ $assure->Etat ==="Retraité" ? "Checked":"" }} />
+						<span class="lbl"> Retraité</span>
 						</label>
 						<label>
-							<input name="etatass" value="Invalide" type="radio" class="ace" {{ $assure->Etat ==="Invalide" ? "Checked":"" }} />
-							<span class="lbl"> Invalide</span>
+						<input name="etatass" value="Invalide" type="radio" class="ace" {{ $assure->Etat ==="Invalide" ? "Checked":"" }} />
+						<span class="lbl"> Invalide</span>
 						</label>
 						<label>
-							<input name="etatass" value="Mise en disponibilité" type="radio" class="ace"  {{ $assure->Etat ==="Mise en disponibilité" ? "Checked":"" }} />
-								<span class="lbl"> Mise en disponibilité</span>
+						<input name="etatass" value="Mise en disponibilité" type="radio" class="ace"  {{ $assure->Etat ==="Mise en disponibilité" ? "Checked":"" }} />
+						<span class="lbl"> Mise en disponibilité</span>
 						</label>
 						</div>
 					</div>
@@ -279,40 +279,40 @@
 			</div>
 			<div id="foncinput" class="col-sm-12">
 				<div class="form-group">
-				         <br>
-					<label class="col-sm-3 control-label no-padding-right" for="service">
-						<b>Service:</b>
-					</label>
-					<div class="col-sm-9">
-						<select id="service" name="service" class="col-xs-12 col-sm-6"/>
-							<option value="{{ $assure->Service }}">{{ $assure->Service }}</option>
-							<option value="Agent civile">Agent civile</option>
-							<option value="Sécurité publique">Sécurité publique</option>
-							<option value="Police judiciaire (PJ)">Police judiciaire (PJ)</option>
-							<option value=" Brigade mobile de la police judiciaire (BMPJ)">
-								Brigade mobile de la police judiciaire (BMPJ)
-							</option>
-							<option value="Service protection et sécurité des personnalités (SPS)">
-								Service protection et sécurité des personnalités (SPS)
-							</option>
-							<option value="L'Unité aérienne de la sûreté nationale">
-								L'Unité aérienne de la sûreté nationale
-							</option>
-							<option value="Unités républicaines de sécurité (URS)">
-								Unités républicaines de sécurité (URS)
-							</option>
-							<option value="Police scientifique et technique">Police scientifique et technique</option>
-							<option value="Police aux frontières et de l'immigration (PAF)">
-								Police aux frontières et de l'immigration (PAF)
-							</option>
-							<option value="La Brigade de recherche et d'intervention (BRI)">
-								La Brigade de recherche et d'intervention (BRI)
-							</option>
-							<option value="Le Groupe des opérations spéciales de la police (GOSP)">
-								Le Groupe des opérations spéciales de la police (GOSP)
-							</option>
-						</select>
-					</div>
+				<br>
+				<label class="col-sm-3 control-label no-padding-right" for="service">
+				<b>Service:</b>
+				</label>
+				<div class="col-sm-9">
+				<select id="service" name="service" class="col-xs-12 col-sm-6"/>
+				<option value="{{ $assure->Service }}">{{ $assure->Service }}</option>
+				<option value="Agent civile">Agent civile</option>
+				<option value="Sécurité publique">Sécurité publique</option>
+				<option value="Police judiciaire (PJ)">Police judiciaire (PJ)</option>
+				<option value=" Brigade mobile de la police judiciaire (BMPJ)">
+				Brigade mobile de la police judiciaire (BMPJ)
+				</option>
+				<option value="Service protection et sécurité des personnalités (SPS)">
+				Service protection et sécurité des personnalités (SPS)
+				</option>
+				<option value="L'Unité aérienne de la sûreté nationale">
+				L'Unité aérienne de la sûreté nationale
+				</option>
+				<option value="Unités républicaines de sécurité (URS)">
+				Unités républicaines de sécurité (URS)
+				</option>
+				<option value="Police scientifique et technique">Police scientifique et technique</option>
+				<option value="Police aux frontières et de l'immigration (PAF)">
+				Police aux frontières et de l'immigration (PAF)
+				</option>
+				<option value="La Brigade de recherche et d'intervention (BRI)">
+				La Brigade de recherche et d'intervention (BRI)
+				</option>
+				<option value="Le Groupe des opérations spéciales de la police (GOSP)">
+				Le Groupe des opérations spéciales de la police (GOSP)
+				</option>
+				</select>
+				</div>
 				</div>
 				
 			</div>
@@ -324,17 +324,17 @@
 					</label>
 					<div class="col-sm-9">
 						<select id="grade" name="grade" class="col-xs-12 col-sm-6"/>
-							<option value="Agent de police AP" {{ $assure->Grade === "Agent de police AP" ? "Selected":"" }} >Agent de police AP</option>
-							<option value="Brigadier de police BP" {{ $assure->Grade === "Brigadier de police BP" ? "Selected":"" }}>Brigadier de police BP</option>
-							<option value="Brigadier-Chef" >Brigadier-Chef</option>
-							<option value="Inspecteur de Police">Inspecteur de Police</option>
-							<option value="Inspecteur Principal de Police">Inspecteur Principal de Police</option>
-							<option value="Lieutenant de police">Lieutenant de police</option>
-							<option value="Commissaire de Police">Commissaire de Police</option>
-							<option value="Commissaire Principal de Police">Commissaire Principal de Police</option>
-							<option value="Commissaire Divisionnaire de Police">Commissaire Divisionnaire de Police</option>
-							<option value="Contrôleur de Police">Contrôleur de Police</option>
-							<option value="Contrôleur Général de Police">Contrôleur Général de Police</option>
+						<option value="Agent de police AP" {{ $assure->Grade === "Agent de police AP" ? "Selected":"" }} >Agent de police AP</option>
+						<option value="Brigadier de police BP" {{ $assure->Grade === "Brigadier de police BP" ? "Selected":"" }}>Brigadier de police BP</option>
+						<option value="Brigadier-Chef" >Brigadier-Chef</option>
+						<option value="Inspecteur de Police">Inspecteur de Police</option>
+						<option value="Inspecteur Principal de Police">Inspecteur Principal de Police</option>
+						<option value="Lieutenant de police">Lieutenant de police</option>
+						<option value="Commissaire de Police">Commissaire de Police</option>
+						<option value="Commissaire Principal de Police">Commissaire Principal de Police</option>
+						<option value="Commissaire Divisionnaire de Police">Commissaire Divisionnaire de Police</option>
+						<option value="Contrôleur de Police">Contrôleur de Police</option>
+						<option value="Contrôleur Général de Police">Contrôleur Général de Police</option>
 						</select>
 					</div>
 				</div>
@@ -437,26 +437,26 @@
 			<div class="col-sm-6">
 				<div class="form-group">
 					<label class="col-sm-3 control-label no-padding-right" for="sexe">
-						<b>Sexe</b>
+						<b>Sexe:</b>
 					</label>
 					<div class="col-sm-9">
-						<div class="radio">
-							<label>
-								<input name="sexef" value="M" type="radio" class="ace" {{ $assure->Sexe === "M" ? "Checked" : "" }}/>
-								<span class="lbl"> Masculin</span>
-							</label>
-							<label>
-								<input name="sexef" value="F" type="radio" class="ace" {{  $assure->Sexe=== "F" ? "checked" : "" }} />
-								<span class="lbl"> Féminin</span>
-							</label>
-						</div>
+					<div class="radio">
+					<label>
+					<input name="sexef" value="M" type="radio" class="ace" {{ $assure->Sexe === "M" ? "Checked" : "" }}/>
+					<span class="lbl"> Masculin</span>
+					</label>
+					<label>
+					<input name="sexef" value="F" type="radio" class="ace" {{  $assure->Sexe=== "F" ? "checked" : "" }} />
+					<span class="lbl"> Féminin</span>
+					</label>
+					</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-sm-6">
 				<div class="form-group">
 					<label class="col-sm-3 control-label no-padding-right" for="servicef">
-						<b>Service</b>
+						<b>Service:</b>
 					</label>
 					<div class="col-sm-9">
 						<select id="servicef" name="servicef" class="col-xs-12 col-sm-6"/>
@@ -488,7 +488,7 @@
 			<div class="col-sm-6">
 				<div class="form-group">
 					<label class="col-sm-3 control-label no-padding-right" for="gradef">
-						<b>Grade</b>
+						<b>Grade:</b>
 					</label>
 					<div class="col-sm-9">
 						<select id="gradef" name="gradef" class="col-xs-12 col-sm-6"/>
@@ -510,7 +510,7 @@
 			<div class="col-sm-6" id="statut">
 				<div class="form-group">
 					<label class="col-sm-3 control-label no-padding-right" for="etatf">
-						<b>Etat</b>
+						<b>Etat:</b>
 					</label>
 					<div class="col-sm-9">
 						<div class="radio">
@@ -565,7 +565,7 @@
 			<div class="col-sm-6">
 				<div class="form-group">
 					<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="matf">
-						<b>Matricule</b>
+						<b>Matricule:</b>
 					</label>
 					<div class="col-sm-9">
 						<div class="clearfix">

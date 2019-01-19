@@ -14,6 +14,7 @@ use App\modeles\hospitalisation;
 use Validator;
 use Redirect;
 use MessageBag;
+use Carbon\Carbon;
 class PatientController extends Controller
 {
     /**
@@ -198,13 +199,12 @@ class PatientController extends Controller
      */
     public function update(Request $request,$id)
     {
-
            $date = Date::Now();
            static $assurObj;
            $patient = patient::FindOrFail($id);
-           if($patient->Type != "Autre")
+           dd($request->Type);
+           if($Type->Type != "Autre")
            {
-
                     $assure = assur::FindOrFail($patient->Assurs_ID_Assure);
                      if($request->type == "Assure")
                      {     
@@ -300,7 +300,23 @@ class PatientController extends Controller
                                            }
                                            else
                                            {
-                                            dd("sdf");
+                                                   $patient -> update([
+                                                            "Nom"=>$request->nom,
+                                                            "Prenom"=>$request->prenom,
+                                                            "Dat_Naissance"=>$request->datenaissance,
+                                                            "Lieu_Naissance"=>$request->lieunaissance,
+                                                            "Sexe"=>$request->sexe,
+                                                            "Adresse"=>$request->adresse,
+                                                            "situation_familiale"=>$request->sf,
+                                                            "tele_mobile1"=>$request->mobile1,
+                                                            "tele_mobile2"=>$request->mobile2,
+                                                            "group_sang"=>$request->gs,
+                                                            "Rihesus"=>$request->rh, 
+                                                             "Type"=>$request->type,
+                                                            "Date_creation"=>$date,
+                                                             "NSS"=> $request->NSS,
+                                                             "description"=> $request->description, 
+                                                   ]);
                                            }
                                 }
                               
@@ -470,7 +486,7 @@ class PatientController extends Controller
             ->make(true);
             // <i class="ace-icon fa fa-hand-o-up bigger-120">
     }
-    public function search(Request $request)
+public function search(Request $request)
 {
          if($request->ajax())  
          {
@@ -481,17 +497,18 @@ class PatientController extends Controller
                           $i=0;
                           foreach ($patients as $key => $patient) {
                                $i++;
+                               $age = Carbon::createFromDate(date('Y', strtotime($patient->Dat_Naissance)), date('m', strtotime($patient->Dat_Naissance)), date('d', strtotime($patient->Dat_Naissance)))->age;
                                $output.='<tr>'.
                                '<td hidden>'.$patient->id.'</td>'.
                                 '<td hidden>'.$patient->code_barre.'</td>'.
-                                '<td>'.$patient->Nom.'</td>'.
+                                '<td><a href="#" id ="'.$patient->id.'" onclick ="getPatientdetail('.$patient->id.');">'.$patient->Nom.'</a></td>'.
+                                // '<td>'.$patient->Nom.'</td>'.
                                '<td>'.$patient->Prenom.'</td>'.
                                '<td>'.$patient->Dat_Naissance.'</td>'.
                                '<td>'.$patient->Sexe.'</td>'.
-                               '<td>'."unknown".'</td>'.
-                               '<td>'.$patient->situation_familiale.'</td>'.
+                               '<td>'.$age.'</td>'.
                                '<td>'.$patient->Type.'</td>'.
-                               '<td>'.'<a href="/patient/'.$patient->id.'" class="'.'btn btn-white btn-pink btn-sm"><i class="ace-icon fa fa-hand-o-up bigger-120"></i>&nbsp;Détails</a>'."&nbsp;&nbsp;".'<a href="/patient/'.$patient->id.'/edit" class="'.'btn btn-white btn-success"><i class="ce-icon fa fa-pencil-square-o bigger-120"></i>&nbsp;Modifier</a>'.'</td>'.
+                               '<td>'.'<a href="/patient/'.$patient->id.'" class="'.'btn btn-white btn-sm"><i class="ace-icon fa fa-hand-o-up"></i>&nbsp;</a>'."&nbsp;&nbsp;".'<a href="/patient/'.$patient->id.'/edit" class="'.'btn btn-white btn-sm"><i class="fa fa-edit fa-lg" aria-hidden="true" style="font-size:16px;"></i></a>'.'</td>'.
                                '</tr>';
                           }
                         return Response($output)->withHeaders(['count' => $i]);
@@ -499,4 +516,14 @@ class PatientController extends Controller
                }     
         } 
 }
+    public function AutoCompletePatientname(Request $request)
+    {
+           return patient::where('Nom', 'LIKE', '%'.$request->q.'%')->get();    
+    }
+    public function getPatientDetails(Request $request)
+    {
+        $patient = patient::FindOrFail($request->search);
+        $view = view("patient.ajax_patientdetail",compact('patient'))->render();
+            return response()->json(['html'=>$view]);
+    }
 }

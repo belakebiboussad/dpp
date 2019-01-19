@@ -126,7 +126,6 @@
 						</label>
 						<div class="col-sm-2">
 							<select id="rh" name="rh">
-								<option value="">----</option>
 								<option value="+">+</option>
 								<option value="-">-</option>
 							</select>

@@ -130,7 +130,6 @@ Route::get('/patient/listerdv/{id}','PatientController@listerdv');
 Route::get('/atcd/create/{id}','AntecedantsController@create');
 Route::get('/atcd/index/{id}','AntecedantsController@index');
 Route::get('/admission/create/{id}','AdmissionController@create');
-// Route::get('/store1','AntecedantsController@store1');
 Route::post('/atcd/store/{id}','AntecedantsController@store');
 Route::get('/rdv/create/{id}','RDVController@create');
 Route::get('/rdv/valider/{id}','RDVController@valider');
@@ -168,16 +167,15 @@ Route::get('/role/show/{userId}','RolesController@show');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('AddANTCD','AntecedantsController@createATCDAjax');
 Route::get('/searchUser','UsersController@searchUser');
-Route::get('/searchUser','UsersController@searchUser');
 Route::get('/searchPatient','PatientController@search');
 Route::get('/getlits/{id}','LitsController@getlits');
 Route::get('/user/find', 'UsersController@AutoCompleteUsername');
 Route::get('/userdetail', 'UsersController@getUserDetails');
-// Route::get('/userdetail/{id}', function(){
-//     return($id);
+Route::get('/user/find1', 'UsersController@AutoCompletePatientname');
+Route::get('/patientdetail', 'PatientController@getPatientDetails');
+// Route::get('/patient/find', function(){
+//       return("fgsfdg");
 // });
 
-// Route::get('/getlits/{id}',function(){
-//     return('fqsfd');
-// });
+
 

@@ -3,7 +3,7 @@
 @section('page-script')
  <script type="text/javascript" src="{{ asset('js/app-med.js') }}"></script>
  <script type="text/javascript">
-    //ajax pour charcher les patients
+           //ajax pour chercher les patients
             $( document ).ready(function() {
                 $('#nomPatient').on('keyup',function(){
                          $value=$(this).val();
@@ -28,9 +28,9 @@
 	<div class="col-sm-12">
 		<div class="center">
 			<h1 class="blue">
-				Bienvenue Docteur:
-				{{ App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Nom_Employe }}
-				{{ App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Prenom_Employe}}
+				<strong>Bienvenue Docteur:</strong>
+				<q> {{ App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Nom_Employe }}
+				{{ App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Prenom_Employe}} </q>
 			</h1>
 		</div>
 	</div>		
@@ -42,10 +42,8 @@
 <div class="row">
 <div class="col-sm-12">
 	<div class="col-sm-6">
-	<div class="center">
-		{{-- <h4 class="blue">Rechercher d'un Dossier Patient:</h4> --}}
+	<div class="center">{{-- <h4 class="blue">Rechercher d'un Dossier Patient:</h4> --}}
 	</div>
-	{{-- --}}
 	<div class="space-12"></div>
 		{{-- <div class="row">
 			<div class="form-group">
@@ -86,7 +84,7 @@
 		<div class="row">
 			<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3>Rechercher un  Patient:</h3>
+				<h3>Rechercher un  Patient</h3>
 			</div>
 			<div class="panel-body">
 				<div class="form-group   has-feedback">
@@ -141,8 +139,7 @@
 </div>	
 </div>
 </div>
-<div class="space-12"></div>
-<div class="space-12"></div>
+{{-- <div class="space-12"></div> --}}
 <div class="row">
 	<div class="col-sm-12">
 		<div class="row">
@@ -156,7 +153,7 @@
 					<div>
 						<table id="liste_patients" class="table table-striped table-bordered">
 							<thead>
-								<tr class="info "><th colspan="12">Selectionner le patient dans la liste</th></tr>
+								<tr class="info"><th colspan="12">Selectionner le patient dans la liste</th></tr>
 								<tr>
 									<th hidden>id</th>
 									<th hidden>code</th>

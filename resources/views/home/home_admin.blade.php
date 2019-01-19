@@ -94,6 +94,7 @@ $( document ).ready(function() {
 					<div>
 						<table id="user" class="table table-striped table-bordered" role="grid">
 							<thead>
+								<tr class="success"><th colspan="12">Selectionner l'utilisateur dans la liste</th></tr>
 								<tr>
 									<th class="center">#</th>
 									<th hidden>id</th>
@@ -102,8 +103,8 @@ $( document ).ready(function() {
 									</th>
 									<th><strong style="font-size:16px;">Rôle</strong>
 									</th>
-									<th>Acive</th>
-									<th>Actions</th>
+									<th><strong>Acive</strong></th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>	
