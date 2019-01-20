@@ -116,9 +116,9 @@
 							<strong>Groupe sanguin :</strong>
 						</label>
 						<div class="col-sm-2">
+						{{ isset($patient->group_sang) ? $patient->group_sang : ' ' }}
 							<select class="form-control" id="gs" name="gs">	
-isset($name) ? $name : 'Guest'
-							@if (!isset($patient->group_sang))
+							@if (if($patient->group_sang) ==' ')
 								<option value="">------</option>
 							@else 		
 								<option value="A" @if( $patient->group_sang =="A") selected @endif>A</option>
