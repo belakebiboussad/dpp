@@ -22,6 +22,7 @@ $(document).ready(function(){
 				name: 'patients',
 				source: bloodhound,
 				display: function(data) {
+					$('#Controls').removeClass('invisible');
 					return data.Nom  //Input value to be set when you select a suggestion. 
 				},
 				templates: {
@@ -39,7 +40,6 @@ $(document).ready(function(){
 });  
 function XHRgePatient()
 {
-	$('#Controls').removeClass('invisible');
 	$value=$('#patientName').val();
 		$.ajax({
                             type : 'get',
@@ -87,31 +87,29 @@ function getPatientdetail($id)
 <div class="row">
 	<div class="col-sm-7">
 	<div class="space-12"></div>
-		<div class="row">
-		            <div class="form-horizontal">
-			<div class="panel panel-default">
-				<div class="panel-heading initialism" style="height: 50px; font-size: 3vh;">
-					Rechercher un Patient
-				</div>
-				<div class="panel-body">
-					<div class="form-group has-feedback">
-						<label class="control-label" for="patientName" ><strong>Nom Patient:</strong></label>&nbsp;&nbsp; 
-						 <input type="text" class="form-control input input-sm" id="patientName" name="patientName"  placeholder="Rechercher..."/>
-						   &nbsp;&nbsp;&nbsp;&nbsp; <button type="submit" class="btn-sm btn-primary" onclick="XHRgePatient();"><i class="fa fa-search"></i></button>
-
-					</div>
-				</div>	{{-- panel-body --}} 
-				<div class="bs-example" style = "height:45px;">
-				<div class="form-control invisible" style ="border:none;" id="Controls">
-					<button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-angle-right fa-lg"></i><i class="fa fa-angle-left fa-lg"></i>&nbsp;Fusion</button>
-                 				
-				            <a  class="btn btn-primary btn-sm " href="#" role="button" aria-pressed="true" hidden><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>
-				</div>            
-				</div> 
-			</div>
+	<div class="row">
+	            <div class="form-horizontal">
+		<div class="panel panel-default">
+		<div class="panel-heading initialism" style="height: 50px; font-size: 3vh;">
+			Rechercher un Patient
+		</div>
+		<div class="panel-body">
+			<div class="form-group has-feedback w-70">
+				<label class="control-label" for="patientName" ><strong>Nom Patient:</strong></label>&nbsp;&nbsp; 
+				 <input type="text" class="form-control input-sm" id="patientName" name="patientName"  placeholder="Rechercher..."/> &nbsp;&nbsp;&nbsp;&nbsp; 
+				 <button type="submit" class="btn-sm btn-primary" onclick="XHRgePatient();"><i class="fa fa-search"></i></button>
 				
-			</div>	{{-- PANEL --}}
-		</div>{{-- row --}}
+			</div>
+		</div>	{{-- panel-body --}} 
+		<div class="bs-example" style = "height:45px;">
+		<div class="form-control" style ="border:none;" id="Controls">
+			<button type="button" class="btn btn-outline-primary btn-sm" style ="margin-left:20%"><i class="fa fa-angle-right fa-lg"></i><i class="fa fa-angle-left fa-lg"></i>&nbsp;Fusion</button>
+                 		<a  class="btn btn-primary btn-sm " href="patient/create" role="button" aria-pressed="true" hidden><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>
+		</div>            
+		</div> 
+		</div>	
+		</div>	{{-- PANEL --}}
+	</div>{{-- row --}}
 	</div>	{{-- col-sm-7	 --}}
 	<div class="col-sm-5"></div>	
 </div>{{-- row --}}
@@ -126,16 +124,18 @@ function getPatientdetail($id)
 					<div>
 						<table id="liste_patients" class="table table-striped table-bordered">
 							<thead>
-								<tr class="info"><th colspan="12">Selectionner le patient dans la liste</th></tr>
-								<tr>
-									<th hidden>id</th>
-									<th hidden>code</th>
-									<th>Nom</th>
-									<th>Prénom</th>
-									<th>Date Naissance</th>
-									<th>Sexe</th>
-									<th>Age</th>
-									<th>Type</th>
+							<tr class="info"><th colspan="12">Selectionner le patient dans la liste</th>
+							</tr>
+							<tr>
+								<th hidden>id</th>
+								<th hidden>code</th>
+								<th  class="center" width="3%" ></th>
+								<th>Nom</th>
+								<th>Prénom</th>
+								<th>Né(e) le</th>
+								<th>Sexe</th>
+								<th>Age</th>
+								<th>Type</th>
 									<th></th>
 								</tr>
 							</thead>

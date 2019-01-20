@@ -84,8 +84,7 @@ var selectDemande =function(elm,line,id){
 			    <tr>
 			            <td hidden>{{$j}}</td>	
 			           <td class="center">
-				  <label class="pos-rel">
-							{{-- 1 --}}
+				  <label class="pos-rel">{{-- 1 --}}
 					<input type="checkbox" class="ace" name ="valider[]" value ="{{$demande->id}}" />
 					<span class="lbl"></span>   
 				   </label>

@@ -343,11 +343,8 @@ class UsersController extends Controller
     {
            $user = User::FindOrFail($request->search);
            $employe = employ::FindOrFail($user->employee_id);
-           //$role =  $user->getUserRole();
-           // return (String) view('user.ajax_userdetail');//ok
             $view = view("user.ajax_userdetail",compact('user','role','employe'))->render();
             return response()->json(['html'=>$view]);
-
     }
 
 }

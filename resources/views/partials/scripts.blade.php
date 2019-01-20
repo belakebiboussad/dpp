@@ -367,34 +367,7 @@ function addRequiredAttr()
          $("ul#menuPatient li:not(.active) a").prop('disabled', false);
      
 }
-function showType(value){
-    switch(value){
-           case "Assure":
-                     $("#nomf").val($("#nom").val());
-                     $("#prenomf").val($("#prenom").val());
-                     $("#datenaissancef").val($("#datenaissance").val());
-                     $("#lieunaissancef").val($("#lieunaissance").val());
-                     $("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);  
-                     $("#foncform").addClass('hide'); 
-                     $('#Type_p').attr('required', false);  
-                     addRequiredAttr();
-                      break;
-           case "Ayant_droit":
-                    $("#nomf").val("");
-                    $("#prenomf").val("");
-                    $("#foncform").removeClass('hide');
-                    $('#Type_p').attr('required', true); 
-                    addRequiredAttr();
-                
-                break;
-           case "Autre":
-                     $(".starthidden").show(250);
-                     $("#foncform").addClass('hide');
-                     $('#Type_p').attr('required', false); 
-                     $("ul#menuPatient li:not(.active) a").prop('disabled', true);
-               break;         
-    }
-}
+
 function typepCreation()
 {
     
