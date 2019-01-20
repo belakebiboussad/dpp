@@ -184,7 +184,6 @@ class PatientController extends Controller
 
             $patient = patient::FindOrFail($id);
             // dd($patient);
-           //  dd($patient);
             if($patient->Type != "Autre")
                  //chercher l'assurée
                   $assure =  assur::FindOrFail($patient->Assurs_ID_Assure); 

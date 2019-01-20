@@ -1,34 +1,34 @@
 @extends('app')
 @section('page-script')
 	<script>
-		function showType(value){
-    switch(value){
-           case "Assure":
-                     $("#nomf").val($("#nom").val());
-                     $("#prenomf").val($("#prenom").val());
-                     $("#datenaissancef").val($("#datenaissance").val());
-                     $("#lieunaissancef").val($("#lieunaissance").val());
-                     $("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);  
-                     $("#foncform").addClass('hide'); 
-                     $('#Type_p').attr('required', false);  
-                     addRequiredAttr();
-                      break;
-           case "Ayant_droit":
-                    $("#nomf").val("");
-                    $("#prenomf").val("");
-                    $("#foncform").removeClass('hide');
-                    $('#Type_p').attr('required', true); 
-                    addRequiredAttr();
-                
-                break;
-           case "Autre":
-                     $(".starthidden").show(250);
-                     $("#foncform").addClass('hide');
-                     $('#Type_p').attr('required', false); 
-                     $("ul#menuPatient li:not(.active) a").prop('disabled', true);
-               break;         
-    }
-}
+	function showType(value){
+    		switch(value){
+		           case "Assure":
+		                     $("#nomf").val($("#nom").val());
+		                     $("#prenomf").val($("#prenom").val());
+		                     $("#datenaissancef").val($("#datenaissance").val());
+		                     $("#lieunaissancef").val($("#lieunaissance").val());
+		                     $("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);  
+		                     $("#foncform").addClass('hide'); 
+		                     $('#Type_p').attr('required', false);  
+		                     addRequiredAttr();
+		                      break;
+		           case "Ayant_droit":
+		                    $("#nomf").val("");
+		                    $("#prenomf").val("");
+		                    $("#foncform").removeClass('hide');
+		                    $('#Type_p').attr('required', true); 
+		                    addRequiredAttr();
+		                
+		                break;
+		           case "Autre":
+		                     $(".starthidden").show(250);
+		                     $("#foncform").addClass('hide');
+		                     $('#Type_p').attr('required', false); 
+		                     $("ul#menuPatient li:not(.active) a").prop('disabled', true);
+		               break;         
+			}			
+		}
 	</script>
 @endsection
 @section('main-content')
@@ -180,14 +180,12 @@
 			</div>	{{-- row --}}
 			<div class="row">
 				<div class="col-sm-12">
-					<h3 class="header smaller lighter blue">
-						<strong>Contact</strong>
-					</h3>
+				<h3 class="header smaller lighter blue">Contact</h3>
 				</div>
 			</div>	{{-- row --}}
 			<div class="space-12"></div>
 			<div class="row">
-				<div class="col-sm-5">
+				<div class="col-sm-6">
 					<div class="form-group">
 						<label class="control-label col-sm-3" for="adresse"><strong>Adresse :</strong></label>
 						<div class="col-sm-9">
@@ -273,7 +271,6 @@
 				</div>			
 			 	</div> 	
 			</div> 	{{-- row --}}
-
 			<div class="space-12"></div>
 			<div class="row">
 				<div class="col-sm-6 starthidden">
