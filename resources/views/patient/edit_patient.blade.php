@@ -1,4 +1,52 @@
-@extends('app_recep')
+@extends('app')
+@section('page-script')
+	<script>
+
+	 function showType(value,i){
+	 	switch(value){
+		           case "Assure":
+		                     $("#nomf").val($("#nom").val());
+		                     $("#prenomf").val($("#prenom").val());
+		                     $("#datenaissancef").val($("#datenaissance").val());
+		                     $("#lieunaissancef").val($("#lieunaissance").val());
+		                     $("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);  
+		                     $("#foncform").addClass('hide'); 
+		                     $('#Type_p').attr('required', false);  
+		                     addRequiredAttr();
+		                      break;
+		           case "Ayant_droit":
+		           	      if(i !=0)
+		           	      {
+		           	      	$("#nomf").val("");
+		                   	$("#prenomf").val("");
+		                    	$("#datenaissancef").val("");
+		                    	 $("#lieunaissancef").val("");		
+		           	      }	
+		                     $("#foncform").removeClass('hide');
+		                     $('#Type_p').attr('required', true); 
+		                      $('#nsspatient').attr('disabled', false); 
+		                    addRequiredAttr();
+		                
+		                break;
+		           case "Autre":
+		                     $(".starthidden").show(250);
+		                     $("#foncform").addClass('hide');
+		                     $('#Type_p').attr('required', false); 
+		                     $("ul#menuPatient li:not(.active) a").prop('disabled', true);
+		                     $('#nomf').attr('required', false);
+		                     $('#prenomf').attr('required', false);
+		                     $('#nsspatient').attr('required', false);    
+		                     $('#nsspatient').attr('disabled', true); 
+
+		               break;         
+			}			
+		}
+		 $(document).ready(function () {
+      			var value =  $("input[type=radio][name='type']:checked").val();
+      			showType(value,0);
+    		});
+	</script>
+@endsection
 @section('main-content')
 <div class="page-header">
 	<h1 style="display: inline;"><strong>modification Du Patient :</strong> {{ $patient->Nom }} {{ $patient->Prenom }}</h1>
@@ -27,11 +75,6 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-sm-12">
-		<h3 class="header smaller lighter blue">
-			Informations administratives
-		</h3>
-	</div>
 	<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
    		 <li class="active"><a data-toggle="tab" href="#Patient">
    		 	<span class="bigger-130"><strong>Patient</strong></span></a>
@@ -42,6 +85,11 @@
   	</ul>
   	<div class="tab-content">
 	 	<div id="Patient" class="tab-pane fade in active">
+	      		<div class="row">
+	      			<div class="col-sm-12">
+				<h3 class="header smaller lighter blue">Informations administratives</h3>
+			</div>
+	      		</div>
 	      		<div class="row">
 				<div class="col-sm-6">
 					<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
@@ -116,10 +164,15 @@
 							<strong>Groupe sanguin :</strong>
 						</label>
 						<div class="col-sm-2">
-							<select class="form-control" id="gs" name="gs">	
-							@if ($patient->group_sang) ==' ')
-								<option value="">------</option>
+							<select class="form-control" id="gs" name="gs">
+							@if(!isset($patient->group_sang)  && empty($patient->group_sang)) 
+								<option value="" selected >------</option>
+								<option value="A" >A</option>
+								<option value="B">B</option>
+								<option value="AB" >AB</option>
+								<option value="O" >O</option>
 							@else 		
+								<option value="" selected >------</option>
 								<option value="A" @if( $patient->group_sang =="A") selected @endif>A</option>
 								<option value="B" @if( $patient->group_sang =="B") selected @endif>B</option>
 								<option value="AB" @if( $patient->group_sang =="AB") selected @endif>AB</option>
@@ -130,18 +183,149 @@
 						<label class="col-sm-3 control-label no-padding-right" for="rh">
 							<strong>Rhésus :</strong>
 						</label>
-						{{-- <div class="col-sm-2">
-							<select id="rh" name="rh">
-								<option value="">------</option>
-								<option value="+" @if( $patient->rhesus =="+") selected @endif>+</option>
-								<option value="-" @if( $patient->rhesus =="-") selected @endif>-</option>
-							</select>
-						</div> --}}
+						<div class="col-sm-2">
+						<select id="rh" name="rh">
+						@if(!isset($patient->rhesus)  && empty($patient->rhesus)) 
+							<option value="" selected >------</option>
+							<option value="+">+</option>
+							<option value="-">-</option>
+						@else
+							<option value="" >------</option>
+							<option value="+" @if( $patient->rhesus =="+") selected @endif>+</option>
+							<option value="-" @if( $patient->rhesus =="-") selected @endif>-</option>
+						@endif
+						</select>
+						</div>
 					</div>
 				</div>{{-- col-sm-6 --}}
 	      		</div> {{-- row --}}
-
-
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group">
+					<label class="col-sm-3 control-label" for="sf">
+						<strong class="text-nowrap">Civilité :</strong>
+					</label>
+				
+					<div class="col-sm-9">
+						<select class="form-control" id="sf" name="sf">
+							<option value="celibataire" @if( $patient->situation_familiale =='celibataire') selected @endif >Célibataire</option>
+							<option value="marie" @if( $patient->situation_familiale =='marie') selected @endif>Marié</option>
+							<option value="divorce" @if( $patient->situation_familiale =="divorce") selected @endif >Divorcé</option>
+							<option value="veuf" @if( $patient->situation_familiale =="veuf") selected @endif  >Veuf</option>
+						</select>
+					</div>
+					</div>
+				</div>
+				{{-- /nom de jeune fille --}}
+			</div>	{{-- row --}}
+			<div class="row">
+				<div class="col-sm-12">
+				<h3 class="header smaller lighter blue">Contact</h3>
+				</div>
+			</div>	{{-- row --}}
+			<div class="space-12"></div>	
+			<div class="row">
+				<div class="col-sm-5">
+					<div class="form-group">
+						<label class="control-label col-sm-3" for="adresse"><strong>Adresse :</strong></label>
+						<div class="col-sm-9">
+						<textarea class="form-control" id="adresse" name="adresse" placeholder="Adresse...">{{ $patient->Adresse }}</textarea>	
+						</div>
+					</div>
+				</div>{{-- coli-sm-6 --}}
+				<div class="col-sm-7">
+					<div class="form-group">
+						<div class="form-group">
+						<label class="control-label text-nowrap col-sm-2 for="operateur1"><i class="fa fa-phone"></i><strong>Mob1:</strong></label>
+						<div class="col-sm-2" style="width:80px;">
+							<select name="operateur1" id="operateur1" class="form-control" required="">
+					                                     @php	$operator = substr($patient->tele_mobile1,0,2) @endphp
+		 						<option value="05" @if($operator == '05') selected @endif >05</option>         
+							   	<option value="06" @if($operator == '06') selected @endif >06</option>
+							           <option value="07" @if($operator == '07') selected @endif>07</option>
+                       					</select>	
+						</div>
+						<input id="mobile1" name="mobile1"  maxlength =8 minlength =8  name="mobile1" type="tel" autocomplete="off" class="col-sm-2" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX"  value= "{{  substr($patient->tele_mobile1,2,10) }}" required />	
+						<label class="control-label text-nowrap col-sm-2 for="mobile2"><i class="fa fa-phone"></i><strong>Mob2:</strong></label>
+						<div class="col-sm-2" style="width:80px;">
+				        		<select name="operateur2" id="operateur2" class="form-control">
+						@if(!isset($patient->tele_mobile2)  && empty($patient->tele_mobile2))		
+					              	 <option value="" selected >XX</option>
+					              	  <option value="05" >05</option>
+							 <option value="06">06</option>
+							 <option value="07">07</option>
+						@else
+							@php  $operator2 = substr($patient->tele_mobile2,0,2) @endphp
+							<option value="" >XX</option>
+							 <option value="" @if($operator2 == '05') selected @endif>05</option>
+							 <option value="" @if($operator2 == '06') selected @endif>06</option>
+							 <option value="" @if($operator2 == '07') selected @endif>07</option>
+						@endif				
+                       					</select>
+          						</div>
+          						<input id="mobile2" name="mobile2"  maxlength =8 minlength =8  type="tel" autocomplete="off" class="col-sm-2" value="{{  substr($patient->tele_mobile2,2,10) }}" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"   placeholder="XX XX XX XX">
+						</div>
+					</div>
+				</div>
+			</div>{{-- row --}}
+			<div class="space-12"></div>
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="col-sm-2">
+						<label class="control-label no-padding-right pull-right" style=" padding-top: 0px;"><strong>Type :</strong></label>
+					</div>
+					<div class="col-sm-9">
+						<label class="line-height-1 blue">
+							<input id="fonc" name="type" value="Assure" type="radio" class="ace" onclick="showType('Assure',1)"  @if($patient->Type =='Assure') Checked @endif />
+							<span class="lbl"> Assuré(e)</span>
+						</label>&nbsp;&nbsp;&nbsp;
+						<label class="line-height-1 blue">
+							<input id="ayant" name="type" value="Ayant_droit" type="radio" class="ace" onclick="showType('Ayant_droit',1)" @if($patient->Type =='Ayant_droit') Checked @endif />
+							<span class="lbl"> Ayant droit</span>
+						</label>&nbsp;&nbsp;&nbsp;
+						<label class="line-height-1 blue">
+							<input id="autre" name="type" value="Autre" type="radio" class="ace" onclick="showType('Autre',1)" @if($patient->Type =='Autre') Checked @endif />
+							<span class="lbl"> Autre</span>
+						</label>	
+					</div>		
+				</div>{{-- col-sm-6 --}}
+			</div>	{{-- row --}}
+			<div class="space-12"></div>
+			<div class="row" id="foncform">
+			<div class="col-sm-6">
+				<div class="form-group">
+				 <label class="col-sm-3 control-label" for="Type_p">
+					<strong>Type :</strong>
+				</label>
+				<div class="col-sm-9">
+		  			<select class="form-control col-xs-12 col-sm-6" id="Type_p" name="Type_p" >
+						<option value="">------</option>
+						<option value="Ascendant" @if($patient->Type_p == 'Ascendant')  selected @endif>Ascendant</option>
+						<option value="Descendant" @if($patient->Type_p == 'Descendant')  selected @endif>Descendant</option>
+						<option value="Conjoint" @if($patient->Type_p == 'Conjoint')  selected @endif>Conjoint</option>
+					</select>
+				</div>	
+				</div>					
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group">
+					 <label class="col-sm-4 control-label" for="nsspatient">
+						<strong>NSS (patient):</strong>
+					</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control col-xs-12 col-sm-6" id="nsspatient" name="nsspatient" value="{{ $patient->NSS }}"
+						pattern="[0-9]{2}[0-9]{4}[0-9]{4}[0-9]{2}"  placeholder="XXXXXXXXXXXX" />
+					</div>
+				</div>			
+			 </div>	
+			</div>{{-- row --}}
+			<div class="space-12"></div>
+			<div class="row">
+				<div class="col-sm-6 starthidden">
+					<label for="description"><strong>Autre information :</strong></label>
+					<textarea class="form-control" id="description" name="description" placeholder="Description" >{{ $patient->description }}</textarea>
+				</div>
+			</div>
 	      	</div> {{-- tab-pane --}}
 	      	<div id="Assure" class="tab-pane fade">
 	      	<div id ="assurePart">
@@ -152,7 +336,193 @@
 					</h3>
 				</div>	
 			</div>{{-- row --}}
+			<div class="row">
+				<div class="col-sm-6">
+						<div class="form-group">
+							<label class="col-sm-3 control-label" for="nomf">
+							<strong>Nom :</strong> 
+							</label>
+						<div class="col-sm-9">
+							<input type="text" id="nomf" name="nomf"  value="{{ $assure->Nom }}" class="col-xs-12 col-sm-12" autocomplete= "off" required alpha/>
+						</div>
+						<br>
+						</div>
+						<br>
+				</div>
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="prenomf">
+							<strong>Prénom :</strong>
+						</label>
+						<div class="col-sm-9">
+							<input type="text" id="prenomf" name="prenomf"  value="{{ $assure->Prenom }}" class="col-xs-12 col-sm-12" autocomplete= "off" required alpha/>
+						</div>
+						<br>
+					</div>
+					<br>
+				</div>
+			</div>{{-- row --}}
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="datenaissancef">
+							<strong class="text-nowrap">Né(e) le :</strong>
+						</label>
+						<div class="col-sm-9">
+						<input class="col-xs-12 col-sm-12 date-picker" id="datenaissancef" name="datenaissancef" type="text" data-date-format="yyyy-mm-dd" value="{{ $assure->Date_Naissance }}"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="lieunaissancef">
+							<span class="text-nowrap"><strong>Lieu de naiss :</strong></span>
+						</label>
+						<div class="col-sm-9">
+						<input type="text" id="lieunaissancef" name="lieunaissancef"class="col-xs-12 col-sm-12" value="{{ $assure->lieunaissance }}" autocomplete= "off" />
+						</div>
+						<br>
+					</div>
+					<br>
+				</div>
+			</div>	{{-- row --}}
+			<div class="row">
+				<div class="col-sm-6">
+              			<div class="form-group">
+			           		<label class="col-sm-3 control-label no-padding-right" for="sexe">
+			                        		<Strong>Sexe:</Strong>
+			                         </label>
+                  			            <div class="col-sm-9">
+			                         <div class="radio">
+			                         <label>
+			                          <input name="sexef" value="M" type="radio" class="ace" {{ $assure->Sexe === "M" ? "Checked" : "" }}/>
+			                    		<span class="lbl"> Masculin</span>
+			                          </label>
+			                         <label>
+			                         <input name="sexef" value="F" type="radio" class="ace" {{  $assure->Sexe=== "F" ? "checked" : "" }} />
+			                         <span class="lbl"> Féminin</span>
+			                         </label>
+			                         </div>
+                    				</div>
+             			</div>
+           				</div>
+           				<div class="col-sm-6">
+					<div class="form-group">
+						<label class="col-sm-3 control-label " for="grade">
+							<strong>Grade :</strong>
+						</label>
+						<div class="col-sm-9">
+						<select id="grade" name="grade" class="col-xs-12 col-sm-6"/>
+						<option value="" @if(!isset($assure->Grade)  && empty($assure->Grade)) Selected @endif   >---------------------</option>
+						<option value="Agent de police AP" {{ $assure->Grade === "Agent de police AP" ? "Selected":"" }} >Agent de police AP</option>
+						<option value="Brigadier de police BP" {{ $assure->Grade === "Brigadier de police BP" ? "Selected":"" }}>Brigadier de police BP</option>
+						<option value="Brigadier-Chef"  {{ $assure->Grade === "Brigadier-Chef" ? "Selected":"" }} >Brigadier-Chef</option>
+						<option value="Inspecteur de Police" {{ $assure->Grade === "Inspecteur de Police" ? "Selected":"" }}>Inspecteur de Police</option>
+						<option value="Inspecteur Principal de Police" {{ $assure->Grade === "Inspecteur Principal de Police" ? "Selected":"" }}>Inspecteur Principal de Police</option>
+						<option value="Lieutenant de police" {{ $assure->Grade === "Lieutenant de police" ? "Selected":"" }}>Lieutenant de police</option>
+						<option value="Commissaire de Police"  {{ $assure->Grade === "Commissaire de Police" ? "Selected":"" }}>Commissaire de Police</option>
+						<option value="Commissaire Principal de Police" {{ $assure->Grade === "Commissaire Principal de Police" ? "Selected":"" }}>Commissaire Principal de Police</option>
+						<option value="Commissaire Divisionnaire de Police" {{ $assure->Grade === "Commissaire Divisionnaire de Police" ? "Selected":"" }}>Commissaire Divisionnaire de Police</option>
+						<option value="Contrôleur de Police" {{ $assure->Grade === "Contrôleur de Police" ? "Selected":"" }}>Contrôleur de Police</option>
+						<option value="Contrôleur Général de Police" {{ $assure->Grade === "Contrôleur Général de Police" ? "Selected":"" }}>Contrôleur Général de Police</option>
+						</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			{{-- row --}}
+			<div class="space-12"></div>		
+			<div class="row">
+				<div class="col-sm-6" id="statut">
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="etatf">
+						<strong>Etat :</strong>
+						</label>
+						<div class="col-sm-9">
+						<div class="radio">
+						<label hidden>
+						<input name="etat" value="" type="radio" class="ace" @if(!isset($assure->Etat)  && empty($assure->Etat)) Checked @endif />
+							<span class="lbl"> Autre</span>
+						</label>
+						<label>
+							<input name="etat" value="En exercice" type="radio" class="ace" {{ $assure->Etat ==="En exercice" ? "Checked":"" }} />
+							<span class="lbl"> En exercice</span>
+						</label>
+						<label>
+							<input name="etat" value="Retraité" type="radio" class="ace" {{ $assure->Etat ==="Retraité" ? "Checked":"" }} />
+							<span class="lbl"> Retraité</span>
+						</label>
+						<label>
+							<input name="etat" value="Invalide" type="radio" class="ace" {{ $assure->Etat ==="Invalide" ? "Checked":"" }} />
+								<span class="lbl"> Invalide</span>
+						</label>
+						<label>
+							<input name="etat" value="Mise en disponibilité" type="radio" class="ace"  {{ $assure->Etat ==="Mise en disponibilité" ? "Checked":"" }} />
+								<span class="lbl"> Mise en disponibilité</span>
+						</label>
+						</div>
+						</div>
+					</div>
+				</div>	
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label class="control-label col-xs-12 col-sm-3" for="matf">
+							<strong>Matricule :</strong>
+						</label>
+						<div class="col-sm-9">
+						<div class="clearfix">
+							<input type="text" id="matf" name="matf" class="col-xs-12 col-sm-6" value="{{ $assure->Matricule }}"  placeholder="XXXXXXXX" />
+						</div>
+						</div>
+					</div>
+				</div>
+			</div>	{{-- row --}}
+			<div class="space-12"></div>
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label class="control-label col-xs-12 col-sm-3" for="NMGSN">
+							<strong>NMGSN :</strong>
+						</label>
+						<div class="col-sm-9">
+							<div class="clearfix">
+								<input type="text" id="NMGSN" name="NMGSN" class="col-xs-12 col-sm-12" value="{{ $assure->NMGSN }}" />
+							</div>
+						</div>
+					</div>
+					<br>
+				</div>
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label class="control-label col-xs-12 col-sm-3" for="nss2">
+							<strong>NSS :</strong>
+						</label>
+						<div class="col-sm-9">
+						<div class="clearfix">
+						<input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12" placeholder="XX XXXX XXXX XX" value="{{ $assure->NSS }}"/>{{-- pattern="^\[0-9]{2}+' '+\[0-9]{4}+' '+\[0-9]{4}+' '+\[0-9]{2}$" --}}
+						</div>
+						</div>
+					</div>
+					<br><br>
+				</div>
+				
+			</div>{{-- row --}}
+			
 		</div>{{-- assurePart --}}
 	      	</div> {{-- tab-pane --}}
 	</div> {{-- tab-content --}}
+	<div class="hr hr-dotted"></div>
+	<div class="row">
+		<div class="center">
+			<br>
+			<button class="btn btn-info" type="submit">
+				<i class="ace-icon fa fa-save bigger-110"></i>
+				Enregistrer
+			</button>&nbsp; &nbsp; &nbsp;
+			<button class="btn" type="reset">
+				<i class="ace-icon fa fa-undo bigger-110"></i>
+				Réinitialiser
+			</button>
+		</div>
+	</div>	
 @endsection

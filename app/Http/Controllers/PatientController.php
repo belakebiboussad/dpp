@@ -183,13 +183,12 @@ class PatientController extends Controller
     {
 
             $patient = patient::FindOrFail($id);
-            // dd($patient);
-           //  dd($patient);
-            if($patient->Type != "Autre")
+             if($patient->Type != "Autre")
                  //chercher l'assurée
                   $assure =  assur::FindOrFail($patient->Assurs_ID_Assure); 
            else
                   $assure = new assur;
+            // dd($assure);   
            return view('patient.edit_patient',compact('patient','assure'));
     }
 
@@ -200,21 +199,89 @@ class PatientController extends Controller
      * @param  \App\modeles\patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
-    {
-             $date = Date::Now();
-           static $assurObj;
-           $patient = patient::FindOrFail($id);
-           switch ($request->type) {
-               case 'Autre':
-                   # code...
-                   break;
-               
-               default:
-                   # code...
-                   break;
-           }
-    }
+      public function updateAssurer(Request $request,$assure)
+      {
+            $assure->update([
+                                       "Nom"=>$request->nomf,
+                                        "Prenom"=>$request->prenomf,
+                                        "Date_Naissance"=>$request->datenaissancef,
+                                        "lieunaissance"=>$request->lieunaissancef,
+                                        "Sexe"=>$request->sexef,
+                                        "Matricule"=>$request->matf, 
+                                        "Etat"=>$request->etat,
+                                        //"Service"=>$request->service,
+                                        "Grade"=>$request->grade,
+                                        "NMGSN"=>$request->NMGSN,
+                                        "NSS"=>$request->nss,
+             ]);
+          
+      }
+      public function createUpdateAssurer(Request $request, $create)
+      {
+             dd($create); 
+             // $id= $assure->firstOrCreate([
+             //                                        "Nom"=>$request->nomf,
+             //                                        "Prenom"=>$request->prenomf,
+             //                                        "Date_Naissance"=>$request->datenaissancef,
+             //                                        "lieunaissance"=>$request->lieunaissancef,
+             //                                        "Sexe"=>$request->sexef,
+             //                                        "Matricule"=>$request->matf, 
+             //                                        "Etat"=>$request->etat,
+             //                                        //"Service"=>$request->service,
+             //                                        "Grade"=>$request->grade,
+             //                                        "NMGSN"=>$request->NMGSN,
+             //                                        "NSS"=>$request->nss,
+             // ]);
+             // return $id;
+      }
+   
+      public function update(Request $request,$id)
+      {
+            // dd($request->all());
+            $assur; 
+            $date = Date::Now();
+            $patient = patient::FindOrFail($id);
+                
+             if($request->type !="Autre")
+            {
+                    dd("1");        
+             }else
+             {
+                   //dd($patient->Assurs_ID_Assure);
+                  //    dd($patient->Assurs_ID_Assure);
+                    if($patient->Assurs_ID_Assure != null)
+                    {
+                        dd("dsf");
+                    }else
+                    {
+                         //dd($request->all());
+                          $p =   $patient -> updateOrCreate([
+                                      "code_barre"=>$codebarre,
+                                      "Nom"=>$request->nom,
+                                      "Prenom"=>$request->prenom,
+                                      "Dat_Naissance"=>$request->datenaissance,
+                                      "Lieu_Naissance"=>$request->lieunaissance,
+                                      "Sexe"=>$request->sexe,
+                                      "situation_familiale"=>$request->sf, 
+                                      "Adresse"=>$request->adresse,
+                                      "tele_mobile1"=>$request->operateur1 . $request->mobile1,
+                                      "tele_mobile2"=>$request->operateur2 . $request->mobile2,
+                                      "group_sang"=>$request->gs,
+                                      "Rihesus"=>$request->rh,
+                                     // "Assurs_ID_Assure"=>null,
+                                      "Type"=>$request->type,
+                                      "Type_p"=> $request->description->Type_p,
+                                      "description"=> $request->description,
+                                      "NSS"=>$request->nsspatient,
+                                      "Date_creation"=>$date,
+                               
+                          ]);
+                          dd($p);  
+                   }
+                   
+             } 
+
+     }
 
     /**
      * Remove the specified resource from storage.
