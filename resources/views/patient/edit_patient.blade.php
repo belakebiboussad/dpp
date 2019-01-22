@@ -11,7 +11,9 @@
 		                     $("#lieunaissancef").val($("#lieunaissance").val());
 		                     $("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);  
 		                     $("#foncform").addClass('hide'); 
-		                     $('#Type_p').attr('required', false);  
+		                     $('#Type_p').attr('required', false); 
+		                      $('#nsspatient').attr('required', false);    
+		                     $('#nsspatient').attr('disabled', true);  
 		                     addRequiredAttr();
 		                      break;
 		           case "Ayant_droit":

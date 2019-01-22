@@ -200,7 +200,7 @@ class PatientController extends Controller
      */ 
       public function update(Request $request,$id)
       {
-           $date = Date::Now();
+          $date = Date::Now();
            static $assurObj;
            $patient = patient::FindOrFail($id);
           if($request->type == "Autre")
@@ -228,8 +228,9 @@ class PatientController extends Controller
                 //si patient !=autre
                 if($patient->Type !="Autre")
                 {
-                     $assure = assur::FindOrFail($patient->Assurs_ID_Assure);
-                     $assure->update([
+                     //dd($request->all()); 
+                     $assurObj = assur::FindOrFail($patient->Assurs_ID_Assure);
+                     $assurObj->update([
                                         "Nom"=>$request->nomf,
                                         "Prenom"=>$request->prenomf,
                                         "Date_Naissance"=>$request->datenaissancef,
@@ -242,6 +243,7 @@ class PatientController extends Controller
                                         "NMGSN"=>$request->NMGSN,
                                         "NSS"=>$request->nss,
                                  ]); 
+                   
                 }//finpatienttype !=autre
                 else//patient type =autre
                 {
@@ -260,7 +262,23 @@ class PatientController extends Controller
                                                   "NSS"=>$request->nss,
                                           ]);
                 }
-                 $patient -> update([
+                $Type_p;
+                $nss;
+                if (isset($request->nss))   
+                {
+                      $nss=$request->nss;
+                }else
+                {
+                    $nss=null;
+                }
+                if (isset($request->Type_p))   
+                {
+                      $typeP=$request->Type_p;
+                }else
+                {
+                    $typeP=null;
+                }
+                $patient -> update([
                                 "Nom"=>$request->nom,
                                 "Prenom"=>$request->prenom,
                                 "Dat_Naissance"=>$request->datenaissance,
@@ -273,13 +291,15 @@ class PatientController extends Controller
                                "group_sang"=>$request->gs,
                                "rhesus"=>$request->rh, 
                                "Type"=>$request->type,
+                               "Type_p"=>$typeP,
                                "Assurs_ID_Assure"=>$assurObj->id,
-                               "Date_creation"=>$date,
                                "description"=> $request->description,
+                               "NSS"=>$nss,
+                               "Date_creation"=>$date,
+                            
                      ]);
+
            }
-           // return view('patients.show_patient','patient'); //
-          //return view('patients.show_patient','patient');
             return redirect(Route('patient.show',$patient->id));
       }
 
@@ -387,6 +407,7 @@ public function search(Request $request)
                                '<td>'.$patient->Dat_Naissance.'</td>'.
                                '<td>'.$patient->Sexe.'</td>'.
                                '<td>'.$age.'</td>'.
+                               '<td>'.$patient->situation_familiale.'</td>'.
                                '<td>'.$patient->Type.'</td>'.
                                '<td>'.'<a href="/patient/'.$patient->id.'" class="'.'btn btn-white btn-sm"><i class="ace-icon fa fa-hand-o-up"></i>&nbsp;</a>'."&nbsp;&nbsp;".'<a href="/patient/'.$patient->id.'/edit" class="'.'btn btn-white btn-sm"><i class="fa fa-edit fa-lg" aria-hidden="true" style="font-size:16px;"></i></a>'.'</td>'.
                                '</tr>';

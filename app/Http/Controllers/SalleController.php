@@ -17,6 +17,7 @@ class SalleController extends Controller
     public function getsalles($id)
     {
         $salles = salle::where('id_service',$id)->get();
+        //verifier si la salle dispose de lit libre
         return $salles;
     }
     public function index()

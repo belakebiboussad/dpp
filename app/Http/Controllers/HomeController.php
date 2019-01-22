@@ -40,11 +40,12 @@ class HomeController extends Controller
     public function index()
     {
            $role = rol::FindOrFail(Auth::user()->role_id);
+           $employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
            switch ($role->role) {
                 case "Medecine":
                      $date = Date::Now()->toDateString();
                       $patients = patient::all();
-                      $employe = employ::where("id",Auth::user()->employee_id)->get()->first();                     
+                      // $employe = employ::where("id",Auth::user()->employee_id)->get()->first();                     
                      $rdvs = ticket::where("specialite",$employe->Specialite_Emploiye)
                                 ->where("date",$date)->get();   
                       return view('home.home_med',compact('patients','rdvs'));
@@ -60,13 +61,8 @@ class HomeController extends Controller
                      return view('home.home_admin', compact('users'));
                      break;
                case "Surveillant medical":
-                          /*
-                          $demandes = consultation::join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
-                                ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
-                                ->join('employs', 'consultations.Employe_ID_Employe','=','employs.id')
-                                ->select('demandehospitalisations.*','consultations.Employe_ID_Employe','consultations.Date_Consultation','patients.Nom','patients.Prenom','patients.Dat_Naissance','employs.Nom_Employe','employs.Prenom_Employe')->get();*/
-                          $demandes= dem_colloque::join('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')->join('patients','consultations.Patient_ID_Patient','=','patients.id')->select('dem_colloques.*','demandehospitalisations.*','consultations.Date_Consultation','patients.Nom','patients.Prenom')->get();
-                         // dd($demandes);     
+                      //dd($employe);
+                     $demandes= dem_colloque::join('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')->join('patients','consultations.Patient_ID_Patient','=','patients.id')->select('dem_colloques.*','demandehospitalisations.*','consultations.Date_Consultation','patients.Nom','patients.Prenom')->where('demandehospitalisations.service',$employe->Service_Employe)->get();
                           return view('home.home_surv_med', compact('demandes'));
                           break;
                 case "Delegue colloque":

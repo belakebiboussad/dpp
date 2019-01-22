@@ -184,19 +184,30 @@
 						</div>
 					</div>
 					<div class="form-group">
-							<label class="col-sm-3 control-label" for="heure_rdvh">
-							 	<strong> 
-							 		Lit d'hospitalisation : 
-								</strong>
-							</label>
-							<div class="col-sm-9">
-								<select id="lit" name="lit" data-placeholder="selectionnez le lit" class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-5" onchange="" disabled required>
+						<label class="col-sm-3 control-label" for="heure_rdvh">
+						 	<strong> 
+						 		Lit d'hospitalisation : 
+							</strong>
+						</label>
+						<div class="col-sm-9">
+							<select id="lit" name="lit" data-placeholder="selectionnez le lit" class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-5" onchange="" disabled required>
 								<option value="" selected disabled>selectionnez le lit
 								</option>
 							</select>
-							</div>
-							
 						</div>
+							
+					</div>
+					<div class="col-md-offset-3 col-md-9">
+						<button class="btn btn-info" type="submit">
+							<i class="ace-icon fa fa-save bigger-110"></i>
+							Enregistrer
+						</button>
+						&nbsp; &nbsp; &nbsp;
+						<button class="btn" type="reset">
+							<i class="ace-icon fa fa-undo bigger-110"></i>
+							Annuler
+						</button>
+					</div>
 						
 				</form>
 			</div>

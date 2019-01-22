@@ -17,14 +17,14 @@
 									<th>Mode Admission</th>
 									<th>Priorité</th>
 									<th>Observation</th>
-									<th>Degré/date</th>
+									<th>date</th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
 								<?php $d=Date::Now().' monday next week'
 								?>
 							@foreach($demandes as $demande)
-
 								@if(date('d M Y',strtotime(($demande->date_colloque).' monday next week')-1) == date('d M Y',strtotime($d)-1))
 								<tr>
 									<td>{{ $demande->Nom }} {{$demande->Prenom }}</td>
@@ -35,8 +35,9 @@
 										<span class="label label-sm label-{{$demande->degree_urgence == "Haut" ? "danger" : "warning"}}" style="color: black;">
 											<strong>{{ $demande->degree_urgence }}</strong>
 										</span>
-										{{ App\modeles\consultation::where("id",$demande->id_consultation)->get()->first()->Date_Consultation }}
-									</td>								
+										{{ $demande->Date_Consultation }}
+									</td>
+									
 									<td>
 										<div class="hidden-sm hidden-xs btn-group">
 											<a href="/admission/create/{{$demande->id}}" class="btn btn-xs btn-success">

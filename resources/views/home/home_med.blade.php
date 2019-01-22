@@ -157,6 +157,7 @@
 								<tr>
 									<th hidden>id</th>
 									<th hidden>code</th>
+									<<th></th>
 									<th>Nom</th>
 									<th>Prénom</th>
 									<th>Date Naissance</th>
