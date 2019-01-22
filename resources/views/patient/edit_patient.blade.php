@@ -257,9 +257,9 @@
 						@else
 							@php  $operator2 = substr($patient->tele_mobile2,0,2) @endphp
 							<option value="" >XX</option>
-							 <option value="" @if($operator2 == '05') selected @endif>05</option>
-							 <option value="" @if($operator2 == '06') selected @endif>06</option>
-							 <option value="" @if($operator2 == '07') selected @endif>07</option>
+							 <option value="05" @if($operator2 == '05') selected @endif>05</option>
+							 <option value="06" @if($operator2 == '06') selected @endif>06</option>
+							 <option value="07" @if($operator2 == '07') selected @endif>07</option>
 						@endif				
                        					</select>
           						</div>

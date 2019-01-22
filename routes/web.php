@@ -173,9 +173,9 @@ Route::get('/user/find', 'UsersController@AutoCompleteUsername');
 Route::get('/userdetail', 'UsersController@getUserDetails');
 Route::get('/user/find1', 'UsersController@AutoCompletePatientname');
 Route::get('/patientdetail', 'PatientController@getPatientDetails');
-// Route::get('/patient/find', function(){
-//       return("fgsfdg");
-// });
+Route::get('/patienta', function(){
+      return("fgsfdg");
+});
 
 
 
