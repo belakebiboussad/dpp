@@ -113,9 +113,13 @@ class UsersController extends Controller
     public function show($id)
     {
        $user = User::FindOrFail($id);
-       $employe = employ::FindOrFail($user->employee_id);
+        $employe = employ::FindOrFail($user->employee_id);
+       $service = service::FindOrFail($employe->Service_Employe);
+       $specialite= Specialite::FindOrFail($employe->Specialite_Emploiye);
        $roles = rol::all();
-       return view('user.show_user',compact('user','employe','roles'));
+       $services=service::all();
+       $specialites=specialite::all();
+       return view('user.show_user',compact('user','employe','roles','service','specialite','services','specialites'));
     }
 
     /**
@@ -150,7 +154,6 @@ class UsersController extends Controller
                     "email"=> "nullable|email",//|unique:utilisateurs
                     "role"=> "required",
            ]); 
-           
            $activer = $user->active;
            if($user->active)
            {

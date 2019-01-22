@@ -111,15 +111,15 @@
 					<div class="form-group">
 						<label class="col-sm-4 control-label no-padding-right" for="nom"><b>Service</b></label>
 						<div class="col-sm-8">
-							<label class="blue">{{ $employe->Service_Employe }}</label>
+							<label class="blue">{{ $service->nom }}</label>
 						</div>
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-4">
 					<div class="form-group">
-						<label class="col-sm-4 control-label no-padding-right" for="nom"><b>Spécialité:</b></label>
+						<label class="col-sm-4 control-label no-padding-right" for="nom"><strong>Spécialité:</strong></label>
 						<div class="col-sm-8">
-							<label class="blue">{{ $employe->Specialite_Emploiye }}</label>
+							<label class="blue">{{ $specialite->nom }}</label>
 						</div>
 					</div>
 				</div>
@@ -261,28 +261,11 @@
 						<div class="{{ $errors->has('service') ? "has-error" : "" }}">
 							<label for="service"><b>Service</b></label>
 							<select class="form-control" id="service" name="service">
-								<option value="{{ $employe->Service_Employe }}">{{ $employe->Service_Employe }}</option>
-								<option value="Immunologie">Immunologie</option>
-								<option value="Radiologie">Radiologie</option>
-								<option value="Chirurgie">Chirurgie</option>
-								<option value="Neurologie">Neurologie</option>
-								<option value="Pneumologie">Pneumologie</option>
-								<option value="Cardiologie">Cardiologie</option>
-								<option value="Odontologie">Odontologie</option>
-								<option value="Dermatologie">Dermatologie</option>
-								<option value="Service d'accueil de traitement des urgences">
-									Service d'accueil de traitement des urgences
-								</option>
-								<option value="traumatologie">traumatologie</option>
-								<option value="Médecine interne">Médecine interne</option>
-								<option value="Endocrinologie">Endocrinologie</option>
-								<option value="Anatomo-pathologie">Anatomo-pathologie</option>
-								<option value="Hématologie">Hématologie</option>
-								<option value="Gastro-entérologie">Gastro-entérologie</option>
-								<option value="Urologie">Urologie</option>
-								<option value="Maternité">Maternité</option>
-								<option value="Pédiatrie">Pédiatrie</option>
-								<option value="Service des grands brûlés">Service des grands brûlés</option>
+								<option value="{{ $employe->Service_Employe }}">{{ $service->nom }}</option>
+								@foreach ($services as $key=>$service)
+									{{-- expr --}}
+									<option value="{{ $service->id }}"> {{ $service->nom }}</option>
+								@endforeach
 							</select>
 						</div>
 					</div>
@@ -290,44 +273,11 @@
 						<div>
 							<label for="specialite"><b>Spécialité</b></label>
 							<select class="form-control" id="specialite" name="specialite">
-								<option value="{{ $employe->Specialite_Emploiye }}">{{ $employe->Specialite_Emploiye }}</option>
-								<option value="Allergologie">Allergologie</option>
-								<option value="Anesthésiologie">Anesthésiologie</option>
-								<option value="Andrologie">Andrologie</option>
-								<option value="Cardiologie">Cardiologie</option>
-								<option value="Chirurgie">Chirurgie</option>
-								<option value="Dermatologie">Dermatologie</option>
-								<option value="Endocrinologie">Endocrinologie</option>
-								<option value="Gastro-entérologie">Gastro-entérologie</option>
-								<option value="Gériatrie">Gériatrie</option>
-								<option value="Gynécologie">Gynécologie</option>
-								<option value="Hématologie">Hématologie</option>
-								<option value="Hépatologie">Hépatologie</option>
-								<option value="Infectiologie">Infectiologie</option>
-								<option value="Médecine aiguë">Médecine aiguë</option>
-								<option value="Médecine du travail">Médecine du travail</option>
-								<option value="Médecine générale">Médecine générale</option>
-								<option value="Médecine interne">Médecine interne</option>
-								<option value="Médecine nucléaire">Médecine nucléaire</option>
-								<option value="Médecine palliative">Médecine palliative</option>
-								<option value="Médecine physique">Médecine physique</option>
-								<option value="Médecine préventive">Médecine préventive</option>
-								<option value="Néonatologie">Néonatologie</option>
-								<option value="Néphrologie">Néphrologie</option>
-								<option value="Neurologie">Neurologie</option>
-								<option value="Odontologie">Odontologie</option>
-								<option value="Oncologie">Oncologie</option>
-								<option value="Obstétrique">Obstétrique</option>
-								<option value="Ophtalmologie">Ophtalmologie</option>
-								<option value="Orthopédie">Orthopédie</option>
-								<option value="Oto-rhino-laryngologie">Oto-rhino-laryngologie</option>
-								<option value="Pédiatrie">Pédiatrie</option>
-								<option value="Pneumologie">Pneumologie</option>
-								<option value="Psychiatrie">Psychiatrie</option>
-								<option value="Radiologie">Radiologie</option>
-								<option value="Radiothérapie">Radiothérapie</option>
-								<option value="Rhumatologie">Rhumatologie</option>
-								<option value="Urologie">Urologie</option>
+								<option value="{{ $employe->Specialite_Emploiye }}">{{ $specialite->nom }}</option>
+								@foreach ($specialites as $specialite)
+									{{-- expr --}}
+									<option value="{{ $specialite->id }}">{{ $specialite->nom }}</option>
+								@endforeach
 							</select>
 						</div>
 					</div>
