@@ -9,8 +9,7 @@ use App\modeles\Lit;
 use App\modeles\admission;
 use App\modeles\rdv_hospitalisation;
 use App\modeles\service;
-
-
+use Carbon\Carbon;
 class AdmissionController extends Controller
 {
     /**
@@ -60,18 +59,14 @@ class AdmissionController extends Controller
                 "id_lit"=>$request->lit,
       
            ]);
-          // dd($adm);
-         //dd($request->all());  
           $a =  rdv_hospitalisation::firstOrCreate([
                      "date_RDVh"=>$request->date,
                      "heure_RDVh"=>$request->heure_rdvh,   
                     "id_admission"=>$adm->id,       
                     "etat_RDVh"=>"en attente",
-                    "date_Prevu_Sortie"=>$request->date,
-      
+                    "date_Prevu_Sortie"=>$request->dateSortie,
         ]); 
-          dd($a);
-      
+    
             $lit = Lit::FindOrFail($request->lit);          
             $lit-> update([
             "affectation"=>1,

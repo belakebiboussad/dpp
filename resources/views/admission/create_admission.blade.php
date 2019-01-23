@@ -4,7 +4,7 @@
 	$('document').ready(function(){
 		$('.timepicker').timepicker({
 			// timeFormat: 'h:mm p',
-			timeFormat: 'HH:mm::ss',
+			timeFormat: 'HH:mm:ss',
     			interval: 15,
 			minTime: '08',
 			maxTime: '21:00pm',
@@ -131,10 +131,9 @@
 				  	<h1>Admission</h1>
 					</div>
 					<div class="space-12"></div>
-
 					<div class="form-group">
 						<label class="col-sm-3 control-label no-padding-right" for="date">
-						 	<strong> Date prévue d'hospitalisation : 
+						 	<strong> Date entrée prévue : 
 							</strong>
 						</label>
 						<div class="col-sm-9">
@@ -146,13 +145,26 @@
 					</div>
 					<div class="form-group">
 						<label class="col-sm-3 control-label no-padding-right" for="heure_rdvh" style="padding: 0.9%;">
-						 	<strong> Heure Prévue d'hospitalisation :</strong>
+						 	<strong> Heure  entrée Prévue :</strong>
 						</label>
 						<div class="input-group col-sm-9" style ="width:34.5%;padding: 0.8%;">	
 							<input id="heure_rdvh" name="heure_rdvh" class="form-control timepicker" type="text"  required>
 							<span class="input-group-addon">
 								<i class="fa fa-clock-o bigger-110"></i>
 							</span>						
+						</div>
+					</div>
+					<div class="space-12"></div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label no-padding-right" for="dateSortie">
+						 	<strong> Date sortie prévue : 
+							</strong>
+						</label>
+						<div class="col-sm-9">
+							<input class="col-xs-5 col-sm-5 date-picker" id="dateSortie" name="dateSortie" type="text" placeholder="Date prévue d'hospitalisation" data-date-format="yyyy-mm-dd" required />
+							<button class="btn btn-sm" onclick="$('#dateSortie').focus()">
+								<i class="fa fa-calendar"></i>
+							 </button>
 						</div>
 					</div>
 					<div class="form-group">
