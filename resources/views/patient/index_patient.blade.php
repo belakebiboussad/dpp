@@ -107,8 +107,8 @@ function getPatientdetail($id)
                  		<a  class="btn btn-primary btn-sm " href="patient/create" role="button" aria-pressed="true" hidden><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>
 		</div>            
 		</div> 
-		</div>	
 		</div>	{{-- PANEL --}}
+		</div>	
 	</div>{{-- row --}}
 	</div>	{{-- col-sm-7	 --}}
 	<div class="col-sm-5"></div>	

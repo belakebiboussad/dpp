@@ -95,7 +95,6 @@ Route::get('/consultations/demandeExm/{id_cons}','ConsultationsController@demand
 Route::resource('listeadmiscolloque','listeadmisColloqueController');
 Route::post('/colloque/store/{id}','ColloqueController@store');// a revoir
 Route::put('/colloque/{membres,id_demh}', 'ColloqueController@store');// a revoir
-//Route::get('/colloque/new/{id_colloque}','ColloqueController@new');
 Route::resource('colloque','ColloqueController');
 Route::resource('admission','AdmissionController');
 Route::resource('role','RolesController');
@@ -111,6 +110,7 @@ Route::resource('demandehosp','DemandeHospitalisationController');
 Route::resource('consultations','ConsultationsController');
 Route::post('users/changePassword', 'UsersController@changePassword');
 Route::resource('users','UsersController');
+Route::post('/users/store/','UsersController@store');
 Route::resource('employs','EmployeController');
 Route::resource('rdv','RDVController');
 Route::resource('employe','EmployeController');
@@ -130,6 +130,10 @@ Route::get('/patient/listerdv/{id}','PatientController@listerdv');
 Route::get('/atcd/create/{id}','AntecedantsController@create');
 Route::get('/atcd/index/{id}','AntecedantsController@index');
 Route::get('/admission/create/{id}','AdmissionController@create');
+// Route::get('/admission/create/{id}',function(){
+//         'as'    => 'id',
+//         'uses'  => 'AdmissionController@AdmissionController'
+// });
 Route::post('/atcd/store/{id}','AntecedantsController@store');
 Route::get('/rdv/create/{id}','RDVController@create');
 Route::get('/rdv/valider/{id}','RDVController@valider');
@@ -177,5 +181,6 @@ Route::get('/patienta', function(){
       return("fgsfdg");
 });
 
+      
 
 

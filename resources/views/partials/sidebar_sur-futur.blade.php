@@ -1,5 +1,5 @@
 <!-- #section:basics/sidebar -->
-<div id="sidebar" class="sidebar responsive">
+<div id="sidebar" class="sidebar  responsive">
     <script type="text/javascript">
         try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
     </script>
@@ -59,18 +59,16 @@
         <li class="">
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-h-square"></i>
-                            <span class="menu-text">
-                                Hospitalisations
-                            </span>
+                            <span class="menu-text">Hospitalisations</span>
                 <b class="arrow fa fa-angle-down"></b>
             </a>
-
             <b class="arrow"></b>
+
             <ul class="submenu">
                 <li class="">
                     <a href="#">
                         <i class="menu-icon fa fa-caret-right"></i>
-                        Affectation Des Lits
+                        Affectation des Lits
                     </a>
                     <b class="arrow"></b>
                 </li>
@@ -83,32 +81,7 @@
                 </li>
             </ul>
         </li>
-           <li class="">
-                     <a href="#" class="dropdown-toggle">
-                     <i class="menu-icon fa fa-calendar"></i>
-                            <span class="menu-text">
-                                Rendez-Vous
-                            </span>
-                <b class="arrow fa fa-angle-down"></b>
-            </a>
-            <b class="arrow"></b>
-            <ul class="submenu">
-                    <li class="">
-                               <a href="#">
-                                    <i class="menu-icon fa fa-plus"></i>
-                                    Ajouter Rendez-Vous
-                                </a>
-                                <b class="arrow"></b>
-                    </li>
-                    <li class="">
-                               <a href="#">
-                                    <i class="menu-icon fa fa-clock-o"></i>
-                                        Liste des Rendez-Vous
-                                </a>
-                                <b class="arrow"></b>
-                    </li>
-            </ul>
-            </li>
+  
     </ul><!-- /.nav-list -->
 
     <!-- #section:basics/sidebar.layout.minimize -->
@@ -122,4 +95,4 @@
     </script>
 </div>
 
-<!-- /section:basics/sidebar -->
+<!-- /section:basics/sidebar

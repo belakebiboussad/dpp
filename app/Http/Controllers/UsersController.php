@@ -60,20 +60,20 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-       $request->validate([
+           $request->validate([
             "nom"=> "required",
             "prenom"=> "required",
             "datenaissance"=> "required",
             "lieunaissance"=> "required",
             "adresse"=> "required",
             "mobile"=> "required",
-            "fixe"=> "required",
-            "mat"=> "required",
-            "service"=> "required",
+            //"fixe"=> "required",age
+           // "mat"=> "required",
+            //"service"=> "required",
             "nss"=> "required",
             "username"=> "required",
             "password"=> "required",
-            // "mail"=> "required",
+            "mail"=> "required",
             "role"=> "required",
         ]);
         $employe = employ::firstOrCreate([

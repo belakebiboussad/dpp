@@ -3,10 +3,11 @@
 <script type="text/javascript">
 	$('document').ready(function(){
 		$('.timepicker').timepicker({
-			timeFormat: 'h:mm p',
+			// timeFormat: 'h:mm p',
+			timeFormat: 'HH:mm::ss',
     			interval: 15,
 			minTime: '08',
-			maxTime: '6:00pm',
+			maxTime: '21:00pm',
 			defaultTime: '08',
 			 startTime: '08:00',
 			 dynamic: true,

@@ -33,11 +33,11 @@ class AdmissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
-    {   
-        /*
-        $demande=demandehospitalisation::join('dem_colloques','demandehospitalisations.id','=','dem_colloques.id_demande')->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')->join('patients','consultations.Patient_ID_Patient','=','patients.id')->select('demandehospitalisations.id as id_demande','demandehospitalisations.*','patients.Nom','patients.Prenom','dem_colloques.ordre_priorite','dem_colloques.observation','consultations.Employe_ID_Employe','consultations.Date_Consultation')->where('demandehospitalisations.id',$id)->get()->first(); */      
-         $demande=demandehospitalisation::join('dem_colloques','demandehospitalisations.id','=','dem_colloques.id_demande')->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')->join('patients','consultations.Patient_ID_Patient','=','patients.id')->join('services','demandehospitalisations.service','=','services.id')->select('demandehospitalisations.id as id_demande','demandehospitalisations.*','patients.Nom','patients.Prenom','dem_colloques.ordre_priorite','dem_colloques.observation','consultations.Employe_ID_Employe','consultations.Date_Consultation','services.nom as nomService')->where('demandehospitalisations.id',$id)->get();
+      public function create($id)
+    {  
+          /*
+            $demande=demandehospitalisation::join('dem_colloques','demandehospitalisations.id','=','dem_colloques.id_demande')->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')->join('patients','consultations.Patient_ID_Patient','=','patients.id')->select('demandehospitalisations.id as id_demande','demandehospitalisations.*','patients.Nom','patients.Prenom','dem_colloques.ordre_priorite','dem_colloques.observation','consultations.Employe_ID_Employe','consultations.Date_Consultation')->where('demandehospitalisations.id',$id)->get()->first(); */      
+          $demande=demandehospitalisation::join('dem_colloques','demandehospitalisations.id','=','dem_colloques.id_demande')->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')->join('patients','consultations.Patient_ID_Patient','=','patients.id')->join('services','demandehospitalisations.service','=','services.id')->select('demandehospitalisations.id as id_demande','demandehospitalisations.*','patients.Nom','patients.Prenom','dem_colloques.ordre_priorite','dem_colloques.observation','consultations.Employe_ID_Employe','consultations.Date_Consultation','services.nom as nomService')->where('demandehospitalisations.id',$id)->get();
            $lits = Lit::join('salles','lits.id_salle','=','salles.id')
                      ->join('services','salles.id_service','=','services.id')
                      ->select('lits.*','salles.nom as nom_salle','salles.etat','services.nom as nom_service')
@@ -54,20 +54,24 @@ class AdmissionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-       $adm=admission::create([
-            
-        "id_demande"=>$request->id_demande,       
-        "id_lit"=>$request->lit,
+    { 
+          $adm=admission::create([     
+                "id_demande"=>$request->id_demande,       
+                "id_lit"=>$request->lit,
       
-       ]);
-          rdv_hospitalisation::create([
-             "date_RDVh"=>$request->date,
-             "heure_RDVh"=>$request->heure_rdvh,   
-             "id_admission"=>$adm->id,       
-             "etat_RDVh"=>"en attente",
+           ]);
+          // dd($adm);
+         //dd($request->all());  
+          $a =  rdv_hospitalisation::firstOrCreate([
+                     "date_RDVh"=>$request->date,
+                     "heure_RDVh"=>$request->heure_rdvh,   
+                    "id_admission"=>$adm->id,       
+                    "etat_RDVh"=>"en attente",
+                    "date_Prevu_Sortie"=>$request->date,
       
-       ]);
+        ]); 
+          dd($a);
+      
             $lit = Lit::FindOrFail($request->lit);          
             $lit-> update([
             "affectation"=>1,

@@ -38,6 +38,7 @@ $(document).ready(function() {
 	function XHRgetUser()
 	{
 		$value=$('#userName').val();
+		$('#Controls').removeClass('hidden');
 		      $.ajax({
                             type : 'get',
                             url : '{{URL::to('searchUser')}}',
@@ -82,6 +83,12 @@ $(document).ready(function() {
 						     <button type="submit" class="btn-sm btn-success" onclick="XHRgetUser();"><i class="fa fa-search"></i></button>
 					</div>
 				</div>
+				<div class="bs-example" style = "height:45px;">
+				<div class="col-sm-8"></div>
+				<div class="form-control hidden" style ="border:none;" id="Controls">
+		                 		<a  class="btn btn-primary btn-sm " href="users/create" role="button" aria-pressed="true" hidden><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>
+				</div>            
+				</div> 
 				</div>
 			</div>
 		</div>{{-- col-sm-5 --}}
