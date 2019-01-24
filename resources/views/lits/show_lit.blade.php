@@ -53,7 +53,7 @@
 								<strong> Chambre : </strong>
 							</label>
 							<div>
-								<strong> {{ App\modeles\salle::where("id",$lit->id_salle)->get()->first()->nom }}</strong>
+								<strong> {{ App\modeles\salle::where("id",$lit->salle_id)->get()->first()->nom }}</strong>
 							</div>
 						</div>
 						<div class="form-group">

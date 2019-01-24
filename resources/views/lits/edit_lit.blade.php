@@ -34,8 +34,8 @@
 					<label class="col-sm-3 control-label no-padding-right" for="etage"><strong> Chambre : </strong></label>
 					<div class="col-sm-9">
 						<select class="col-xs-10 col-sm-5" id="salle" name="salle" required>
-							<option value="{{ $lit->id_salle }}">
-							{{ App\modeles\salle::where("id", $lit->id_salle)->get()->first()->nom }}
+							<option value="{{ $lit->salle_id }}">
+							{{ App\modeles\salle::where("id", $lit->salle_id)->get()->first()->nom }}
 							</option>
 							@foreach($salles as $salle)
 							<option value="{{ $salle->id }}">{{ $salle->nom }}</option>

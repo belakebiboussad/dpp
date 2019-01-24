@@ -48,8 +48,8 @@
 					<label class="col-sm-3 control-label no-padding-right" for="etage"><strong> Service : </strong></label>
 					<div class="col-sm-9">
 						<select class="col-xs-10 col-sm-5" id="service" name="service">
-						<option value="{{$salle->id_service}}">
-						{{ App\modeles\service::where("id", $salle->id_service)->get()->first()->nom }}
+						<option value="{{$salle->service_id}}">
+						{{ App\modeles\service::where("id", $salle->service_id)->get()->first()->nom }}
 						</option>
 						@foreach($services as $service)
 						<option value="{{ $service->id }}">{{ $service->nom }}</option>

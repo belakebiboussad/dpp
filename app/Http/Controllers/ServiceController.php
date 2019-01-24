@@ -39,7 +39,6 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
            service::create([
               "nom"=>$request->nom,
               "typs"=>$request->type,

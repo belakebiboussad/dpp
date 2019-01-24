@@ -7,7 +7,11 @@
 		<div class="col-xs-12">
 				<div class="widget-box" id="widget-box-1">
 					<div class="widget-header">
-						<h5 class="widget-title">Ajouter Un Lit :</h5>
+						<h5 class="widget-title">Lit :</h5>
+						<div class="widget-toolbar widget-toolbar-light no-border">
+						<i class="ace-icon fa fa-table"></i>
+						<a href="/lit"> <b>&nbsp;Liste des Lits</b></a>
+				</div>
 					</div>
 					<div class="widget-body">
 						<div class="widget-main">
@@ -17,36 +21,44 @@
 								<div class="form-group">
 									<label class="col-sm-3 control-label no-padding-right" for="numlit"><strong> Numéro Du Lit : </strong></label>
 									<div class="col-sm-9">
-										<input type="text" id="numlit" name="numlit" placeholder="Numéro De La Chambre" class="col-xs-10 col-sm-5" />
+										<input type="text" id="numlit" name="numlit" placeholder="Numéro du  lit" class="col-xs-10 col-sm-5" />
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="etatlit"><strong> Etat Du Lit : </strong></label>
+									<label class="col-sm-3 control-label no-padding-right" for="nom"><strong> nom   Lit : </strong>
+									</label>
 									<div class="col-sm-9">
-										<div class="radio">
-											<label>
-												<input name="etat" value="0" type="radio" class="ace" />
-												<span class="lbl"> Bloqué</span>
-											</label>
-										</div>
-										<div class="radio">
-											<label>
-												<input name="etat" value="1" type="radio" class="ace" />
-												<span class="lbl"> Non Bloqué</span>
-											</label>
-										</div>
+									<input type="text" id="nom" name="nom" placeholder="nom complet du lit" class="col-xs-10 col-sm-5" />
 									</div>
+								</div>
+								<div class="form-group" hidden>
+									<label class="col-sm-3 control-label no-padding-right" for="chambre"><strong>Chambre :</strong></label>
+									<div class="col-sm-9">
+										<select class="col-xs-10 col-sm-5" id="chambre" name="chambre" required>
+										<option value=" {{ $id_salle }}" ></option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right" for="etatlit"><strong> Bloquer le Lit : </strong></label>
+								<div class="col-sm-9">
+								<div class="checkbox">
+								            <label>
+									               <input type="checkbox" name="etat" value ="1">
+								            </label>
+								</div>
+								</div>
 								</div>
 								<div>
 									<div class="center">
 										<button class="btn btn-info" type="submit">
-											<i class="ace-icon fa fa-check bigger-110"></i>
-											Submit
+											<i class="ace-icon fa fa-save bigger-110"></i>
+											Enregistrer
 										</button>
 										&nbsp; &nbsp; &nbsp;
 										<button class="btn" type="reset">
 											<i class="ace-icon fa fa-undo bigger-110"></i>
-											Reset
+											Annuler
 										</button>
 									</div>
 								</div>

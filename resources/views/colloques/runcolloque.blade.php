@@ -38,11 +38,10 @@ var selectDemande =function(elm,line,id){
 		<div class="col-xs-12 page-header">
 			<div class="col-xs-12">
 				<h1>			
-					Déroulement du Colloque de la semaine du 
-					<?php 
+					Déroulement du Colloque {{ $colloque->type }} de la semaine du  &quot;<?php 
 					$d=$colloque->date_colloque.' monday next week';
 					echo(date('d M Y',strtotime($d)-1));
-					?>
+					?>&quot;
 				</h1>
 			</div>
 		</div><!-- /.page-header -->

@@ -12,6 +12,10 @@ class service extends Model
     	{
         		return $this->hasMany('App\modeles\employ');
     	}
+    	public function salles()
+    	{
+        		return $this->hasMany('App\modeles\salle');    		
+    	}
 
 }
 

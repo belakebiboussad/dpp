@@ -37,8 +37,8 @@ class listeadmisColloqueController extends Controller
 
      $demandes= colloque::join('dem_colloques','colloques.id','=','dem_colloques.id_colloque')->join('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')->join('patients','consultations.Patient_ID_Patient','=','patients.id')->select('demandehospitalisations.id as id_demande','demandehospitalisations.*','colloques.id as id_colloque','colloques.*','patients.Nom','patients.Prenom','consultations.Patient_ID_Patient','dem_colloques.ordre_priorite','dem_colloques.observation')->whereNotIn('demandehospitalisations.id',$d)->get();
 
-    $lits = Lit::join('salles','lits.id_salle','=','salles.id')
-                ->join('services','salles.id_service','=','services.id')->select('lits.*','salles.nom as nom_salle','services.id as id_service','services.nom as nom_service')->where([['lits.etat','=','1'],['lits.affectation','=','0'],['salles.etat','=','Non bloquée']])->get();
+    $lits = Lit::join('salles','lits.salle_id','=','salles.id')
+                ->join('services','salles.service_id','=','services.id')->select('lits.*','salles.nom as nom_salle','services.id as id_service','services.nom as nom_service')->where([['lits.etat','=','1'],['lits.affectation','=','0'],['salles.etat','=','Non bloquée']])->get();
 
 
 return view('colloques.listeadmiscolloque', compact('demandes','lits'));

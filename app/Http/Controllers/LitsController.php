@@ -16,8 +16,8 @@ class LitsController extends Controller
      */
     public function index()
     {
-         $lits=lit::join('salles','lits.id_salle','=','salles.id')
-                  ->join('services','salles.id_service','=','services.id')
+         $lits=lit::join('salles','lits.salle_id','=','salles.id')
+                  ->join('services','salles.service_id','=','services.id')
          ->select('lits.*','salles.nom as nomSalle','services.nom as nomService')->get();
         return view('lits.index_lit', compact('lits'));
     }
@@ -35,7 +35,10 @@ class LitsController extends Controller
 
     public function create($id_salle)
     {
-        return view('lits.create_lit',compact('id_salle'));
+          $salle = salle::FindOrFail($id_salle);
+          $service = service::FindOrFail($salle->service_id);
+          // dd($service);
+        return view('lits.create_lit',compact('id_salle','id_salle'));
     }
 
     /**
@@ -46,7 +49,7 @@ class LitsController extends Controller
      */
     public function store(Request $request)
     {
-           $etat = 1;
+          $etat = 1;
            if(isset($_POST['etat']) )
                  $etat = 0;  
            $l=  lit::create([
@@ -54,7 +57,7 @@ class LitsController extends Controller
                     "nom"=>$request->nom,
                     "etat"=>$etat,
                     "affectation"=>0,
-                    "id_salle"=>$request->chambre,
+                    "salle_id"=>$request->chambre,
         ]);
         return redirect()->action('LitsController@index');
     }
@@ -68,8 +71,8 @@ class LitsController extends Controller
     public function show($id)
     {
         $lit = lit::FindOrFail($id);
-        $salle = salle::FindOrFail($lit->id_salle);
-        $service = service::FindOrFail($salle->id_service);
+        $salle = salle::FindOrFail($lit->salle_id);
+        $service = service::FindOrFail($salle->service_id);
         return view('lits.show_lit', compact('lit','service'));
     }
 
@@ -95,16 +98,17 @@ class LitsController extends Controller
      */
     public function update(Request $request, $id)
     {
+
            $lit = lit::FindOrFail($id);
               $etat =1 ;
-           if(isset($_POST['etat']) )
+          if(isset($_POST['etat']) )
                      $etat = 0;   
            $lit->update([
                 "num"=>$request->numlit,
                 "nom"=>$request->nom,
                 "etat"=>$etat,
                 "affectation"=>$request->affectation,
-                "id_salle"=>$request->salle,
+                "salle_id"=>$request->salle,
             ]);
            return redirect()->action('LitsController@index');
     }
@@ -125,8 +129,8 @@ function ajax return lits
 */
 public function getlits($salleid)
 {
-        $lits = lit::where('id_salle',$salleid)->get();
-        return $lits;
+          $lits = lit::where('salle_id',$salleid)->get();
+                   return $lits;
 }
 
 }

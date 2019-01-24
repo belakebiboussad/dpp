@@ -58,20 +58,31 @@
 					</select>
 				</div>
 			</div>
-								<div>
-									<div class="center">
-										<button class="btn btn-info" type="submit">
-											<i class="ace-icon fa fa-save bigger-110"></i>
-											Enregistrer
-										</button>
-										&nbsp; &nbsp; &nbsp;
-										<button class="btn" type="reset">
-											<i class="ace-icon fa fa-undo bigger-110"></i>
-											Annuler
-										</button>
-									</div>
-								</div>
-							</form>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="etatlit"><strong> 	Bloquer la chambre : </strong>
+				</label>
+				<div class="col-sm-9">
+					<div class="checkbox">
+					            <label>
+						           <input type="checkbox" name="etat" value ="1">
+					            </label>
+					</div>
+				</div>
+			</div>
+			<div>
+				<div class="center">
+					<button class="btn btn-info" type="submit">
+						<i class="ace-icon fa fa-save bigger-110"></i>
+							Enregistrer
+					</button>
+					&nbsp; &nbsp; &nbsp;
+					<button class="btn" type="reset">
+						<i class="ace-icon fa fa-undo bigger-110"></i>
+						Annuler
+					</button>
+				</div>
+			</div>
+		</form>
 						</div>
 					</div>
 				</div>

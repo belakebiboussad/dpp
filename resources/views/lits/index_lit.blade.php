@@ -38,7 +38,7 @@
 					<td>{{ $lit->etat == 1 ? "Non" : "Oui" }}</td>
 					<td>{{ $lit->affectation == 0 ? "Non" : "Oui" }}</td>
 					
-					{{-- {{ App\modeles\salle::where("id",$lit->id_salle)->get()->first()->nom }} --}}
+					{{-- {{ App\modeles\salle::where("id",$lit->salle_id)->get()->first()->nom }} --}}
 					<td>{{ $lit->nomService }}</td>
 					<td>{{ $lit->nomSalle }}</td>
 			           	<td>
