@@ -9,10 +9,7 @@
 	<div class="row">
 		<div class="col-xs-12 page-header">
 			<div class="col-xs-12">
-				<h1>			
-					Liste des Rendez-Vous d'Hospitalisation 
-					
-				</h1>
+				<h1>Liste des Rendez-Vous d'Hospitalisation </h1>
 			</div>
 		</div><!-- /.page-header -->
 	</div>
@@ -36,15 +33,15 @@
 			<thead class="thin-border-bottom">
 		            	<tr>
 		            	 	<th hidden></th>
-					<th  class="center" width="3%" ></th>
-					<th class="text-center" width="11%"><h5><strong>Patient</strong></h5></th>
-					<th class="text-center"  width="10%"><h5><strong>Date Demande</strong></h5></th>
-					<th class="text-center" width="10%"><h5><strong>Medcin traitant</strong></h5></th>
+				<th  class="center" width="3%" ></th>
+				<th class="text-center" width="11%"><h5><strong>Patient</strong></h5></th>
+				<th class="text-center"  width="10%"><h5><strong>Date Demande</strong></h5></th>
+				<th class="text-center" width="10%"><h5><strong>Medcin traitant</strong></h5></th>
 			            	<th width="12%" class="text-center"><h5><strong>Priorité</strong></h5></th>
-					<th class="font-weight-bold text-center"><h5><strong>Observation</strong></h5></th>
-					<th>Date Rendez-Vous</th>
-					<th>lit</th>
-					<th class="detail-col  text-center"><h5> <strong>Actions</strong></h5></th>
+				<th class="font-weight-bold text-center"><h5><strong>Observation</strong></h5></th>
+				<th>Date Rendez-Vous</th>
+				<th>lit</th>
+				<th class="detail-col  text-center"><h5> <strong>Actions</strong></h5></th>
 		            	</tr>
 		            </thead>
 		            <tbody id ="rendez-VousBody" class="bodyClass">
@@ -57,7 +54,21 @@
 							<span class="lbl"></span>   
 				   		</label>
 					</td>
-					<td >{{ $demande->nomPat}} {{$demande->prenomPat }}</td>
+					<td >{{ $demande->Nom}} {{$demande->Prenom }}</td>
+					<td>{{ $demande->Date_Consultation }}</td>
+					<td>{{ $demande->Nom_Employe}} {{$demande->Prenom_Employe }}</td>
+					<td  class="center">{{ $demande->ordre_priorite }}</td>
+					<td> {{  $demande->observation }}</td>
+					<td>{{ $demande->date_RDVh }} {{ $demande->heure_RDVh }}</td>
+					<td class="center">{{ $demande->id_lit }}</td>
+					<td>
+						<a href="#" class="green btn-lg show-details-btn" title="Show Details" data-toggle="collapse" id="{{$i}}" data-target=".{{$i}}collapsed"  >
+					              <i class="fa fa-eye-slash" aria-hidden="true"></i>
+					              <span class="sr-only">Details</span>
+					</a>
+					 <a href="#" class="btn btn-success btn-xs aaaa"  title= "Annuler RDV"  onclick= "selectDemande(this,{{ $j }},{{$demande->id}});">
+						 <i class="ace-icon fa fa-check" ></i>Annuler
+                              			</a></td>
 				@endforeach
 		             <tr>
 		            </table>

@@ -2,9 +2,6 @@
 @section('title','Colloque')
 @section('page-script')
 <script type="text/javascript">
-// $('document').ready(function(){
-// 	alert("sf");
-// });
 var selectDemande =function(elm,line,id){ 
            row = $(".bodyClass").find('tr').eq(line);  // row.find("select").attr('disabled',true);
            checkbox = row.find("input[type=checkbox]");

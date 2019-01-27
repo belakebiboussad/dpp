@@ -102,9 +102,13 @@ class HospitalisationController extends Controller
     }
     public function getlisteRDVs()
     {
-           $employe = employ::where("id",Auth::user()->employee_id)->get()->first();  
-           $demandes= dem_colloque::join('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')->join('patients','consultations.Patient_ID_Patient','=','patients.id')->select('dem_colloques.*','demandehospitalisations.*','consultations.Date_Consultation','patients.Nom','patients.Prenom')->where('demandehospitalisations.service',$employe->Service_Employe )->where('demandehospitalisations.etat','programme')->get();
-           // dd("erezr"); 
+        // 
+        $employe = employ::where("id",Auth::user()->employee_id)->get()->first();  
+           $demandes= dem_colloque::join('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')->join('patients','consultations.Patient_ID_Patient','=','patients.id')->join('employs','employs.id','=','dem_colloques.id_medecin')
+                         ->join('admissions','admissions.id_demande','=','demandehospitalisations.id')->join('rdv_hospitalisations','admissions.id','=','rdv_hospitalisations.id_admission')
+                         ->join('lits','admissions.id_lit','=','lits.id')->('salles','salles.id','=','lits.salle_id')
+                        ->select('dem_colloques.*','demandehospitalisations.*','consultations.Date_Consultation','patients.Nom','patients.Prenom','employs.Nom_Employe','employs.Prenom_Employe','admissions.id_lit','salles.nom','rdv_hospitalisations.date_RDVh','rdv_hospitalisations.heure_RDVh')->where('demandehospitalisations.service',$employe->Service_Employe )->where('demandehospitalisations.etat','programme')->get();
+            dd($demandes); 
           return view('Hospitalisations.listRDVs_hospitalisation', compact('demandes'));
 
     }
