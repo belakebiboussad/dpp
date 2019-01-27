@@ -101,7 +101,7 @@
                                 <b class="arrow"></b>
                     </li>
                     <li class="">
-                               <a href="#">
+                               <a href="hospitalisation/listeRDVs">
                                     <i class="menu-icon fa fa-clock-o"></i>
                                         Liste des Rendez-Vous
                                 </a>

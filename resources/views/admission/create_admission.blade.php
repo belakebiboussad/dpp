@@ -29,14 +29,13 @@
 		                }
 		                else
 		                {      
-		                		select.html('<option value="" selected disabled>Pas de salle</option>');
+		                	select.html('<option value="" selected disabled>Pas de salle</option>');
 		                }
 		            },
 		        });
     		});
 		$('#salle').change(function(){
 			$('#lit').removeAttr("disabled");
-			alert('fgsdf');
 			 $.ajax({
 			 		url : '/getlits/'+ $('#salle').val(),
 		       			type : 'GET',
@@ -72,7 +71,9 @@
 		<div class="space-12"></div><div class="space-12"></div>
 		<div class="row">
 			<div class="col-xs-12">
-				<form class="form-horizontal" role="form" method="POST" action="{{ route('admission.store') }}">
+			{{-- {{ route('admission.store') }} --}}
+			<form class="form-horizontal" role="form" method="POST" action="{{  route('admission.store') }}">
+			
 					{{ csrf_field() }}
 					<input type="text" name="id_demande" value="{{$demandes->id_demande}}" hidden>
 					<div class="page-header">

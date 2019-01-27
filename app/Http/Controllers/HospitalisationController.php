@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\modeles\DemandeHospitalisation;
 use App\modeles\hospitalisation;
 use App\modeles\consultation;
-
+use App\modeles\dem_colloque;
+use App\modeles\employ;
+use Illuminate\Support\Facades\Auth;
 class HospitalisationController extends Controller
 {
     /**
@@ -79,9 +81,13 @@ class HospitalisationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updatep(Request $request, $id)
     {
         //
+       dd("update");
+    }
+     public function update(Request $request)
+    {
     }
 
     /**
@@ -93,5 +99,13 @@ class HospitalisationController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function getlisteRDVs()
+    {
+           $employe = employ::where("id",Auth::user()->employee_id)->get()->first();  
+           $demandes= dem_colloque::join('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')->join('patients','consultations.Patient_ID_Patient','=','patients.id')->select('dem_colloques.*','demandehospitalisations.*','consultations.Date_Consultation','patients.Nom','patients.Prenom')->where('demandehospitalisations.service',$employe->Service_Employe )->where('demandehospitalisations.etat','programme')->get();
+           // dd("erezr"); 
+          return view('Hospitalisations.listRDVs_hospitalisation', compact('demandes'));
+
     }
 }

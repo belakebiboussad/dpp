@@ -102,6 +102,7 @@ Route::resource('ticket','ticketController');
 Route::resource('service','ServiceController');
 Route::resource('exmbio','ExamenbioController');
 Route::resource('exmimg','ExmImgrieController');
+Route::get('hospitalisation/listeRDVs', 'HospitalisationController@getlisteRDVs');
 Route::resource('hospitalisation','HospitalisationController');
 Route::resource('salle','SalleController');
 Route::resource('ordonnace','OrdonnanceController');
@@ -180,7 +181,3 @@ Route::get('/patientdetail', 'PatientController@getPatientDetails');
 Route::get('/patienta', function(){
       return("fgsfdg");
 });
-
-      
-
-

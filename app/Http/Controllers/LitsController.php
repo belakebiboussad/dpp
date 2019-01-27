@@ -129,8 +129,9 @@ function ajax return lits
 */
 public function getlits($salleid)
 {
-          $lits = lit::where('salle_id',$salleid)->get();
-                   return $lits;
+          //on retourne pas les lits bloque ou occupé 
+          $lits = lit::where('salle_id',$salleid)->where('etat',1)->where("affectation",0)->get();
+           return $lits;
 }
 
 }

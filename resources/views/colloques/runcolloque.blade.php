@@ -45,7 +45,7 @@ var selectDemande =function(elm,line,id){
 				</h1>
 			</div>
 		</div><!-- /.page-header -->
-	</div>
+	</div>{{-- //row --}}
 <div class="row">
 <div class="col-xs-12 widget-container-col" id="widget-container-col-1"><br/>
      <div class="col-xs-12 widget-container-col" id="widget-container-col-12">
@@ -79,8 +79,7 @@ var selectDemande =function(elm,line,id){
 			<tbody id ="demandesBody" class="bodyClass">
 			<?php $j = 0; ?>
 			@foreach( $demandes as $i=>$demande)
-			    @if($demande->etat == "En attente")	
-			    <tr>
+		             <tr>
 			            <td hidden>{{$j}}</td>	
 			           <td class="center">
 				  <label class="pos-rel">{{-- 1 --}}
@@ -185,7 +184,6 @@ var selectDemande =function(elm,line,id){
 				</td>
 			      </tr>
 			      <?php $j++ ?>
-			     @endif
 			     @endforeach
 			</tbody>
 		 </table>
