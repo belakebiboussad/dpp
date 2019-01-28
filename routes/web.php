@@ -122,6 +122,10 @@ Route::resource('medicaments','MedicamentsController');
 Route::resource('exclinique','ExamenCliniqueController');
 Route::resource('demandeproduit','demandeprodController');
 route::get('/getsalles/{id}','SalleController@getsalles');
+// route::get('/annullerRDV/{id}',function(){
+//     return($id);
+// });
+route::get('/annullerRDV/{id}','AdmissionController@annulerRDV');
 Route::post('/consultations/store/{id}','ConsultationsController@store');
 Route::post('/exclinique/store/{id}','ExamenCliniqueController@store');
 Route::get('/consultations/create/{id}','ConsultationsController@create');
@@ -131,10 +135,14 @@ Route::get('/patient/listerdv/{id}','PatientController@listerdv');
 Route::get('/atcd/create/{id}','AntecedantsController@create');
 Route::get('/atcd/index/{id}','AntecedantsController@index');
 Route::get('/admission/create/{id}','AdmissionController@create');
-// Route::get('/admission/create/{id}',function(){
-//         'as'    => 'id',
-//         'uses'  => 'AdmissionController@AdmissionController'
-// });
+Route::get('/admission/reporter/{id}','AdmissionController@reporterRDV');
+
+
+Route::get('/admission/create/{id}{bool}',function(){
+        // 'as'    => 'id',
+        // 'uses'  => 'AdmissionController@AdmissionController'
+   
+});
 Route::post('/atcd/store/{id}','AntecedantsController@store');
 Route::get('/rdv/create/{id}','RDVController@create');
 Route::get('/rdv/valider/{id}','RDVController@valider');
@@ -178,6 +186,3 @@ Route::get('/user/find', 'UsersController@AutoCompleteUsername');
 Route::get('/userdetail', 'UsersController@getUserDetails');
 Route::get('/user/find1', 'UsersController@AutoCompletePatientname');
 Route::get('/patientdetail', 'PatientController@getPatientDetails');
-Route::get('/patienta', function(){
-      return("fgsfdg");
-});

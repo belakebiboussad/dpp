@@ -1,5 +1,21 @@
 @extends('app_sur')
 @section('page-script')
+<script type="text/javascript">
+	function annulerRDV(elm,line,id)
+	{
+		 row = $(".bodyClass").find('tr').eq(line);
+		$.ajax({
+			url: '/annullerRDV/'+id,
+                    		type: 'GET',
+                    		//dataType: 'JSON',
+		           success: function (data) { 
+		                    	 //$(".writeinfo").append(data.msg); 
+		                     	
+		               }	
+		});
+		
+	}
+</script>
 @endsection
 @section('main-content')
 <form id="form-rdvsHosp" class="form-horizontal" role="form" method="POST" action="#">
@@ -40,35 +56,39 @@
 			            	<th width="12%" class="text-center"><h5><strong>Priorité</strong></h5></th>
 				<th class="font-weight-bold text-center"><h5><strong>Observation</strong></h5></th>
 				<th>Date Rendez-Vous</th>
-				<th>lit</th>
+				<th>Lit</th>
+				<th>Salle</th>
 				<th class="detail-col  text-center"><h5> <strong>Actions</strong></h5></th>
 		            	</tr>
 		            </thead>
 		            <tbody id ="rendez-VousBody" class="bodyClass">
 			<?php $j = 0; ?>
-				@foreach( $demandes as $i=>$demande)
+				@foreach( $rdvHospitalisation as $i=>$rdv)
+				<tr>
 					<td hidden>{{$j}}</td>	
 			           	<td class="center">
 				  		<label class="pos-rel">{{-- 1 --}}
-							<input type="checkbox" class="ace" name ="valider[]" value ="{{$demande->id}}" />
+							<input type="checkbox" class="ace" name ="valider[]" value ="{{$rdv->id}}" />
 							<span class="lbl"></span>   
 				   		</label>
 					</td>
-					<td >{{ $demande->Nom}} {{$demande->Prenom }}</td>
-					<td>{{ $demande->Date_Consultation }}</td>
-					<td>{{ $demande->Nom_Employe}} {{$demande->Prenom_Employe }}</td>
-					<td  class="center">{{ $demande->ordre_priorite }}</td>
-					<td> {{  $demande->observation }}</td>
-					<td>{{ $demande->date_RDVh }} {{ $demande->heure_RDVh }}</td>
-					<td class="center">{{ $demande->id_lit }}</td>
+					<td >{{ $rdv->Nom}} {{$rdv->Prenom }}</td>
+					<td>{{ $rdv->Date_Consultation }}</td>
+					<td>{{ $rdv->Nom_Employe}} {{$rdv->Prenom_Employe }}</td>
+					<td  class="center">{{ $rdv->ordre_priorite }}</td>
+					<td> {{  $rdv->observation }}</td>
+					<td><strong>{{ $rdv->date_RDVh }} {{ $rdv->heure_RDVh }}</strong></td>
+					<td class="center"><strong>{{ $rdv->id_lit }}</strong></td>
+					<td><strong>{{ $rdv->nomsalle }}</strong></td>
 					<td>
-						<a href="#" class="green btn-lg show-details-btn" title="Show Details" data-toggle="collapse" id="{{$i}}" data-target=".{{$i}}collapsed"  >
-					              <i class="fa fa-eye-slash" aria-hidden="true"></i>
-					              <span class="sr-only">Details</span>
-					</a>
-					 <a href="#" class="btn btn-success btn-xs aaaa"  title= "Annuler RDV"  onclick= "selectDemande(this,{{ $j }},{{$demande->id}});">
-						 <i class="ace-icon fa fa-check" ></i>Annuler
-                              			</a></td>
+						 <a href="/admission/reporter/{{$rdv->idRDV}}" class="btn btn-success btn-xs aaaa"  title= "Reporer RDV" >
+							 <i class="menu-icon fa fa-clock-o fa-lg"></i>&nbsp;Reporter
+                              				</a>
+                              				 <a href="#" class="btn btn-danger btn-xs aaaa"  title= "Reporer RDV"  onclick= "annulerRDV(this,{{ $j }},{{$rdv->idRDV}});">
+							 <i class="ace-icon fa fa-close" ></i>Annuler RDV
+                              				</a>
+                              			</td>
+                              		</tr>			
 				@endforeach
 		             <tr>
 		            </table>

@@ -21,7 +21,7 @@
 								<div class="form-group">
 									<label class="col-sm-3 control-label no-padding-right" for="numlit"><strong> Numéro Du Lit : </strong></label>
 									<div class="col-sm-9">
-										<input type="text" id="numlit" name="numlit" placeholder="Numéro du  lit" class="col-xs-10 col-sm-5" />
+										<input type="number" id="numlit" name="numlit" placeholder="Numéro du  lit" class="col-xs-10 col-sm-5"  min="0"/>
 									</div>
 								</div>
 								<div class="form-group">

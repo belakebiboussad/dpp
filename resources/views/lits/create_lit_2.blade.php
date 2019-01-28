@@ -49,7 +49,7 @@
 					<label class="col-sm-3 control-label no-padding-right" for="numlit"><strong> Numéro Lit : </strong>
 					</label>
 					<div class="col-sm-9">
-					<input type="number" id="numlit" name="numlit" placeholder="numéro du  lit" class="col-xs-10 col-sm-5"  required />
+					<input type="number" id="numlit" name="numlit" placeholder="numéro du  lit" class="col-xs-10 col-sm-5"  min="0"9 required />
 					</div>
 				</div>
 				<div class="form-group">

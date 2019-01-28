@@ -89,7 +89,7 @@ var selectDemande =function(elm,line,id){
 				<td>{{$demande->Date_Consultation }}
 				</td>
 				<td>
-				<select id="MedT" name = "MedT{{$demande->id}}" data-placeholder="selectionnez le medecin traitant..."class="selectpicker show-menu-arrow place_holder "  widh="18%">
+				<select id="MedT" name = "MedT{{$demande->id}}" data-placeholder="selectionnez le medecin traitant..."class="selectpicker show-menu-arrow place_holder "  widh="18%" required>
 					<option value="" selected disabled value>selectionnez... </option>
 					@foreach ($medecins as $medecin)
 					<option value="{{$medecin->id}}" >{{$medecin->Nom_Employe}} {{$medecin->Prenom_Employe}}
