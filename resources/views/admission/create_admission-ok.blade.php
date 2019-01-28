@@ -4,12 +4,7 @@
 	var nowDate = new Date();
 	var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
 	$('document').ready(function(){
-		$('#date').datepicker({
-			 startDate: today
-		 });
-		$('#dateSortie').datepicker({
-			 startDate: today
-		 });
+		$('#date').datepicker({ startDate: today });
 		$('.timepicker').timepicker({
 			// timeFormat: 'h:mm p',
 			timeFormat: 'HH:mm:ss',
@@ -157,13 +152,14 @@
 						<label class="col-sm-3 control-label no-padding-right" for="heure_rdvh" style="padding: 0.9%;">
 						 	<strong> Heure  entrée Prévue :</strong>
 						</label>
-						<div class="input-group col-sm-9" style ="width:35.8%;padding: 0.8%;">	
+						<div class="input-group col-sm-9" style ="width:34.5%;padding: 0.8%;">	
 							<input id="heure_rdvh" name="heure_rdvh" class="form-control timepicker" type="text"  required>
 							<span class="input-group-addon">
 								<i class="fa fa-clock-o bigger-110"></i>
 							</span>						
 						</div>
 					</div>
+					<div class="space-12"></div>
 					<div class="form-group">
 						<label class="col-sm-3 control-label no-padding-right" for="dateSortie">
 						 	<strong> Date sortie prévue : 

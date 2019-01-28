@@ -9,8 +9,7 @@
                     		type: 'GET',
                     		//dataType: 'JSON',
 		           success: function (data) { 
-		                    	 //$(".writeinfo").append(data.msg); 
-		                     	
+		                    row.remove();
 		               }	
 		});
 		

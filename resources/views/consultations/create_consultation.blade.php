@@ -69,11 +69,11 @@
 
 </script>
 @endsection
-
-
+@section('title')
+  Nouvelle Consultation
+@endsection
 @section('main-content')
 <div class="page-header" width="100%">
-  <h1><strong>Détails du Consultation Pour :</h1>
   @include('partials._patientInfo')
 </div>
 <div class="content">

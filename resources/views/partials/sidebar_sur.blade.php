@@ -94,7 +94,7 @@
             <b class="arrow"></b>
             <ul class="submenu">
                     <li class="">
-                               <a href="#">
+                               <a href="hospitalisation/addRDV">
                                     <i class="menu-icon fa fa-plus"></i>
                                     Ajouter Rendez-Vous
                                 </a>
