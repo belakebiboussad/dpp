@@ -109,9 +109,6 @@ Route::resource('medicaments','MedicamentsController');
 Route::resource('exclinique','ExamenCliniqueController');
 Route::resource('demandeproduit','demandeprodController');
 route::get('/getsalles/{id}','SalleController@getsalles');
-// route::get('/annullerRDV/{id}',function(){
-//     return($id);
-// });
 route::get('/annullerRDV/{id}','AdmissionController@annulerRDV');
 Route::post('/consultations/store/{id}','ConsultationsController@store');
 Route::post('/exclinique/store/{id}','ExamenCliniqueController@store');
@@ -165,9 +162,12 @@ Route::get('/role/show/{userId}','RolesController@show');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('AddANTCD','AntecedantsController@createATCDAjax');
 Route::get('/searchUser','UsersController@searchUser');
+
 Route::get('/searchPatient','PatientController@search');
 Route::get('/getlits/{id}','LitsController@getlits');
 Route::get('/user/find', 'UsersController@AutoCompleteUsername');
 Route::get('/userdetail', 'UsersController@getUserDetails');
 Route::get('/user/find1', 'UsersController@AutoCompletePatientname');
 Route::get('/patientdetail', 'PatientController@getPatientDetails');
+
+Route::get('/serviceRooms', 'ServiceController@getRooms');

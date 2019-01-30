@@ -77,7 +77,7 @@ jQuery(function() {
 				<th class="text-center" width="10%"><h5><strong>Medcin traitant</strong></h5></th>
 			              <th width="12%" class="text-center"><h5><strong>Priorité</strong></h5></th>
 				<th class="font-weight-bold text-center"><h5><strong>Observation</strong></h5></th>
-				<th class="detail-col  text-center"><h5> <strong>Actions</strong></h5></th>
+				<th class="detail-col  text-center">{{-- <h5> <strong>Actions</strong></h5> --}}</th>
 			</tr>
 			</thead>
 			<tbody id ="demandesBody" class="bodyClass">

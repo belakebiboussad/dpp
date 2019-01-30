@@ -3,7 +3,16 @@
 <script type="text/javascript">
 function getServiceRoom($id)
 {
-	alert("dsfsd");
+// console.log($id);	
+	$.ajax({
+                         type : 'get',
+                          url : '{{URL::to('serviceRooms')}}',
+                            data:{'search':$id},
+                            success:function(data1,status, xhr){
+                            	//console.log(data1.html);
+                        	        	$('#serviceRooms').html(data1.html);
+                           }
+           });
 }	
 </script>
 
@@ -13,7 +22,7 @@ function getServiceRoom($id)
 	<h1>Liste Des Services :</h1>
 </div>
 <div class="row">
-	<div class="col-xs-6">
+	<div class="col-xs-7">
 		<div class="widget-box widget-color-blue" id="widget-box-2">
 		<div class="widget-header">
 			<h5 class="widget-title bigger lighter">
@@ -32,31 +41,27 @@ function getServiceRoom($id)
 						<tr>
 							<th>Nom De Service</th>
 							<th>Type De Service</th>
-							<th>Chef De Seervice</th>
-							<th>Seervice d'urence</th>
+							<th>Chef De Service</th>
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
 					@foreach($services as $service)
 					<tr>
-						<td><a href="#" onclick="getServiceRoom();"></a>{{ $service->nom }}</td>
+						<td><a href="#" id ={{  $service->id }} onclick="getServiceRoom({{ $service->id }});">{{ $service->nom }}</a></td>
 						<td>{{ $service->Type }}</td>
 						<td> {{ $service->responable_id}}</td>
-						<td> {{ $service->urgence}}</td>
-						<td>
+						<td class="">
 							<div class="pull-right">
 							<div class="hidden-sm hidden-xs btn-group">
-							<a href="/salle/create/{{ $service->id }}" class="btn btn-xs btn-grey">
-								<i class="ace-icon fa fa-cube bigger-120"></i>Ajouter Chambre
+							<a href="/salle/create/{{ $service->id }}" class="btn btn-xs btn-grey smalltext">
+								<i class="ace-icon fa fa-plus bigger-90"></i>Chambre
 							</a>
-							&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
-							<a href="{{ route('service.show',$service->id) }}" class="btn btn-xs btn-success">
-								<i class="ace-icon fa fa-sign-in bigger-120"></i>Afficher
+							<a href="{{ route('service.show',$service->id) }}" class="btn btn-xs btn-success smalltext">
+								<i class="ace-icon fa fa-sign-in bigger-90"></i>Afficher
 							</a>
-							&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
-							<a href="{{ route('service.edit', $service->id) }}" class="btn btn-xs btn-info">
-								<i class="ace-icon fa fa-pencil bigger-120"></i>Modifier
+							<a href="{{ route('service.edit', $service->id) }}" class="btn btn-xs btn-info smalltext">
+								<i class="ace-icon fa fa-pencil bigger-90"></i>Modifier
 							</a>
 							</div>
 							</div>
@@ -69,32 +74,7 @@ function getServiceRoom($id)
 			</div>	{{-- widget-body --}}
 		</div>
 	</div>{{-- col-xs-12 --}}
-	<div class ="col-xs-6"> 
-		<div class="servive-block servive-block-grey" id="widget-box-2">
-		<div class="widget-header">
-			<h5 class="widget-title bigger lighter">
-				<i class="ace-icon fa fa-table"></i>
-				<span><b>Liste des chambres</b></span>
-			</h5>
-			</div>
-			<div class="widget-body">
-				<div class="widget-main no-padding">
-				<table class="table table-striped table-bordered table-hover">
-					<thead>
-						<tr>
-							<th>Numéro chambre</th>
-							<th>nom chambre</th>
-							<th>nombre de lits</th>
-							<th>Etat</th>
-						</tr>
-					</thead>
-					<tbody id="serviceRoom">
-
-					</tbody>
-				</table>
-				</div>	{{-- widget-main --}}
-			</div>{{-- widget-body --}}
-			</div>
+	<div class ="col-xs-5" id="serviceRooms"> 
 	</div>	
 </div>
 {{-- row --}}

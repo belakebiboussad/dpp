@@ -57,7 +57,7 @@
 				<th>Date Rendez-Vous</th>
 				<th>Lit</th>
 				<th>Salle</th>
-				<th class="detail-col  text-center"><h5> <strong>Actions</strong></h5></th>
+				<th class="detail-col  text-center">{{-- <h5> <strong>Actions</strong></h5> --}}</th>
 		            	</tr>
 		            </thead>
 		            <tbody id ="rendez-VousBody" class="bodyClass">

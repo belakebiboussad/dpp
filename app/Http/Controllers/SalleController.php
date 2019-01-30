@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\modeles\salle;
 use App\modeles\lit;
 use App\modeles\service;
+use Validator;
+use Redirect;
+use MessageBag;
 
 class SalleController extends Controller
 {

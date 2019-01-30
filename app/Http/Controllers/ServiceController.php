@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\modeles\service;
 use App\user;
-
+use  App\modeles\salle;
 class ServiceController extends Controller
 {
     /**
@@ -97,5 +96,16 @@ class ServiceController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getRooms(Request $request)
+    {
+             $salles = salle::where('service_id',$request->search)->get();
+              // return $salles; 
+            // $service = service::FindOrFail($id);
+            //  return response()->json($service);
+            // //return response()->json($service->salles);
+            $view = view("services.ajax_servicerooms",compact('salles'))->render();
+           return response()->json(['html'=>$view]);
     }
 }

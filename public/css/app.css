@@ -6411,3 +6411,6 @@ font-size:12px !important;
 table-condensed thead th{
   height: 20px !important;
 }
+.smalltext{
+    font-size: x-small;
+}

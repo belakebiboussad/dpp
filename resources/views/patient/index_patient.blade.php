@@ -51,8 +51,6 @@ function XHRgePatient()
                                 $(".numberUser").html(count);
                             }
            });
-
-
 }
 function getPatientdetail($id)
 {
