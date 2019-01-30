@@ -33,12 +33,10 @@ class LitsController extends Controller
         return view('lits.create_lit_2', compact('services'));
     }
 
-    public function create($id_salle)
+    public function create($id_salle = null)
     {
-          $salle = salle::FindOrFail($id_salle);
-          $service = service::FindOrFail($salle->service_id);
-          // dd($service);
-        return view('lits.create_lit',compact('id_salle','id_salle'));
+           $services = service::all();
+           return view('lits.create_lit', compact('services','id_salle'));
     }
 
     /**
@@ -49,7 +47,7 @@ class LitsController extends Controller
      */
     public function store(Request $request)
     {
-          $etat = 1;
+           $etat = 1;
            if(isset($_POST['etat']) )
                  $etat = 0;  
            $l=  lit::create([
@@ -58,8 +56,8 @@ class LitsController extends Controller
                     "etat"=>$etat,
                     "affectation"=>0,
                     "salle_id"=>$request->chambre,
-        ]);
-        return redirect()->action('LitsController@index');
+           ]);
+           return redirect()->action('LitsController@index');
     }
 
     /**

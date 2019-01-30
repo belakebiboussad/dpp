@@ -13,7 +13,9 @@
 				</h5>
 				<div class="widget-toolbar widget-toolbar-light no-border">
 					<div class="fa fa-plus-circle bigger-90"></div>
-					<a href="/createlit"> <b>&nbsp;Ajouter un Lit</b></a>
+					{{-- <a href="/createlit"> --}}
+					<a href="/lit/create/"</a>
+					 <b>&nbsp;Ajouter un Lit</b></a>
 				</div>
 			</div>
 			<div class="widget-body">

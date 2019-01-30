@@ -3,27 +3,34 @@
 @section('page-script')
 <script type="text/javascript">
 var selectDemande =function(elm,line,id){ 
-           row = $(".bodyClass").find('tr').eq(line);  // row.find("select").attr('disabled',true);
-           checkbox = row.find("input[type=checkbox]");
-           row.find('select,textarea,input[type="radio"]:not(:checked)').each(function(){ $(this).attr('disabled', !(checkbox.is(':checked'))); });
-           if(!(checkbox.is(':checked')))
-           {
-                 $(elm).html('<i class="fa fa-close" style="font-size:14px"></i> Annuler');
-                  $(elm).removeClass("btn-success").addClass("btn-danger");
-            } 
-           else
-            {
-                $(elm).html('<i class="ace-icon fa fa-check"></i>Valider');
-                $(elm).removeClass("btn-danger").addClass("btn-success"); 
-                 row.find('textarea').val("");
-            }
-             checkbox.prop('checked', !(checkbox.is(':checked')));
-     }//endFunction
-       jQuery(function() {
-            $('#detail_coll').bind('submit', function() {
-                                  jQuery(this).find(':disabled').removeAttr('disabled');
+	row = $(".bodyClass").find('tr').eq(line); 
+	var  select =  row.find("select");
+	if (select.val() == null) {
+	 	 select.attr('required', true);
+          		 select.after('<div class="red">Name is Required</div>');     
+            } else {
+            	checkbox = row.find("input[type=checkbox]");
+		row.find('select,textarea,input[type="radio"]:not(:checked)').each(function(){ $(this).attr('disabled', !(checkbox.is(':checked')));});
+		if(!(checkbox.is(':checked')))
+		{
+		           $(elm).html('<i class="fa fa-close" style="font-size:14px"></i> Annuler');
+	 	          $(elm).removeClass("btn-success").addClass("btn-danger");
+		} 
+		else
+		{
+		           $(elm).html('<i class="ace-icon fa fa-check"></i>Valider');
+		           $(elm).removeClass("btn-danger").addClass("btn-success"); 
+	    	          row.find('textarea').val("");
+		}
+		checkbox.prop('checked', !(checkbox.is(':checked')));	
+           }
+	
+}//endFunction
+jQuery(function() {
+           $('#detail_coll').bind('submit', function() {
+                     jQuery(this).find(':disabled').removeAttr('disabled');
         
-        });
+});
  });
     
 </script>
@@ -89,8 +96,8 @@ var selectDemande =function(elm,line,id){
 				<td>{{$demande->Date_Consultation }}
 				</td>
 				<td>
-				<select id="MedT" name = "MedT{{$demande->id}}" data-placeholder="selectionnez le medecin traitant..."class="selectpicker show-menu-arrow place_holder "  widh="18%" required>
-					<option value="" selected disabled value>selectionnez... </option>
+				<select id="MedT" name = "MedT{{$demande->id}}" data-placeholder="selectionnez le medecin traitant..."class="selectpicker show-menu-arrow place_holder "  widh="18%">
+					<option value="" selected disabled>selectionnez... </option>
 					@foreach ($medecins as $medecin)
 					<option value="{{$medecin->id}}" >{{$medecin->Nom_Employe}} {{$medecin->Prenom_Employe}}
 					</option>

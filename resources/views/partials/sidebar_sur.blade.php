@@ -67,20 +67,22 @@
 
             <b class="arrow"></b>
             <ul class="submenu">
-                <li class="">
-                    <a href="#">
-                        <i class="menu-icon fa fa-caret-right"></i>
-                        Affectation Des Lits
-                    </a>
+                     <li class="">
+                              {{-- <a href="{{ route('hospitalisation.index') }}"> --}}
+                              <a href="{{ URL::route('hospitalisation.index') }}">
+                                   <i class="menu-icon fa fa-caret-right"></i>
+                                     Liste Hospitalisations
+                            </a>
+                            <b class="arrow"></b>
+                    </li>
+                    <li class="">
+                            <a href="#">
+                                    <i class="menu-icon fa fa-caret-right"></i>
+                                    Affectation des Lits
+                             </a>
                     <b class="arrow"></b>
                 </li>
-                <li class="">
-                    <a href="{{ route('hospitalisation.index') }}">
-                        <i class="menu-icon fa fa-caret-right"></i>
-                        Liste Hospitalisations
-                    </a>
-                    <b class="arrow"></b>
-                </li>
+               
             </ul>
         </li>
            <li class="">
@@ -94,14 +96,14 @@
             <b class="arrow"></b>
             <ul class="submenu">
                     <li class="">
-                               <a href="hospitalisation/addRDV">
+                               <a href="/hospitalisation/addRDV">
                                     <i class="menu-icon fa fa-plus"></i>
                                     Ajouter Rendez-Vous
                                 </a>
                                 <b class="arrow"></b>
                     </li>
                     <li class="">
-                               <a href="hospitalisation/listeRDVs">
+                               <a href="/hospitalisation/listeRDVs">
                                     <i class="menu-icon fa fa-clock-o"></i>
                                         Liste des Rendez-Vous
                                 </a>

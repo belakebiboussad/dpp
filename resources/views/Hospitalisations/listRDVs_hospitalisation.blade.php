@@ -77,7 +77,7 @@
 					<td  class="center">{{ $rdv->ordre_priorite }}</td>
 					<td> {{  $rdv->observation }}</td>
 					<td><strong>{{ $rdv->date_RDVh }} {{ $rdv->heure_RDVh }}</strong></td>
-					<td class="center"><strong>{{ $rdv->id_lit }}</strong></td>
+					<td class="center"><strong>{{ $rdv->num }}</strong></td>
 					<td><strong>{{ $rdv->nomsalle }}</strong></td>
 					<td>
 						 <a href="/admission/reporter/{{$rdv->idRDV}}" class="btn btn-success btn-xs aaaa"  title= "Reporer RDV" >

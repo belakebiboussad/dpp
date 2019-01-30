@@ -47,23 +47,9 @@ route::get('/home_medcine',function (){
 route::get('/home_reception',function (){
     return view('home.home_recep');
 })->name('home_rec');
-route::get('/home_sur',function (){
-$d=App\modeles\admission::select('id_demande')->get();
-     $demandes= App\modeles\colloque::join('dem_colloques','colloques.id','=','dem_colloques.id_colloque')->join('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')->join('patients','consultations.Patient_ID_Patient','=','patients.id')->select('demandehospitalisations.id as id_demande','demandehospitalisations.*','colloques.id as id_colloque','colloques.*','patients.Nom','patients.Prenom','dem_colloques.ordre_priorite','dem_colloques.observation')->whereNotIn('demandehospitalisations.id',$d)->get();
-    return view('home.home_surv_med', compact('demandes'));
+route::get('/home_reception','HomeController@index');
+route::get('/home_dele','HomeController@index');
 
-});
-route::get('/home_dele',function (){
-    $demandes = App\modeles\consultation::join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
-                                                        ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
-                                                        ->select('demandehospitalisations.*','demandehospitalisations.id as ident','consultations.Employe_ID_Employe','consultations.Date_Consultation','patients.Nom','patients.Prenom','patients.Dat_Naissance')
-                                                        ->get();
-                                                        //dd($demandes);
-        $colloques= App\modeles\colloque::join('membres','colloques.id','=','membres.id_colloque')->join('employs','membres.id_employ','=','employs.id')->join('dem_colloques','colloques.id','=','dem_colloques.id_colloque')->join('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')->join('patients','consultations.Patient_ID_Patient','=','patients.id')->select('demandehospitalisations.id','demandehospitalisations.Date_demande','colloques.id as id_colloque','colloques.*','employs.Nom_Employe','employs.Prenom_Employe','patients.Nom','patients.Prenom')->get();
-        //dd($colloques);
-    return view('home.home_dele_coll', compact('demandes','colloques'));
-
-});
 Route::get('exbio/{filename}', function ($filename)
 {
     // im not 100% sure about the $path thingy, you need to fiddle with this one around.
@@ -137,8 +123,6 @@ Route::get('/atcd/create/{id}','AntecedantsController@create');
 Route::get('/atcd/index/{id}','AntecedantsController@index');
 Route::get('/admission/create/{id}','AdmissionController@create');
 Route::get('/admission/reporter/{id}','AdmissionController@reporterRDV');
-
-
 Route::get('/admission/create/{id}{bool}',function(){
         // 'as'    => 'id',
         // 'uses'  => 'AdmissionController@AdmissionController'

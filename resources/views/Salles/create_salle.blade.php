@@ -17,7 +17,7 @@
 				<div class="form-group">
 					<label class="col-sm-3 control-label no-padding-right" for="numsalle"><strong> Numéro Chambre : </strong></label>
 					<div class="col-sm-9">
-						<input type="text" id="numsalle" name="numsalle" placeholder="Numéro De La Chambre" class="col-xs-10 col-sm-5" />
+						<input type="number" id="numsalle" name="numsalle" placeholder="Numéro de la Chambre" min="1" class="col-xs-10 col-sm-5" />
 					</div>
 				</div>
 				<div class="form-group">

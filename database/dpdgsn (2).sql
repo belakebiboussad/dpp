@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 24, 2019 at 04:44 PM
+-- Generation Time: Jan 30, 2019 at 03:07 PM
 -- Server version: 5.7.14
 -- PHP Version: 7.0.10
 
@@ -100,32 +100,20 @@ CREATE TABLE `admissions` (
 --
 
 INSERT INTO `admissions` (`id`, `id_demande`, `id_lit`) VALUES
-(5, 16, 4),
-(6, 21, 4),
-(7, 24, 4),
-(8, 24, 4),
-(9, 20, 4),
-(10, 20, 4),
-(11, 20, 4),
-(12, 21, 7),
-(13, 21, 7),
-(14, 21, 7),
-(15, 21, 7),
-(16, 21, 4),
-(17, 20, 2),
-(18, 20, 2),
-(19, 21, 7),
-(20, 21, 7),
-(21, 20, 2),
-(22, 21, 5),
-(23, 17, 4),
-(24, 18, 7),
-(25, 18, 7),
-(26, 18, 7),
-(27, 18, 7),
-(28, 18, 7),
-(29, 17, 3),
-(30, 14, 3);
+(83, 29, 9),
+(94, 30, 8),
+(84, 29, 2),
+(85, 29, 2),
+(86, 29, 1),
+(87, 38, 2),
+(88, 38, 2),
+(97, 33, 3),
+(98, 34, 7),
+(99, 34, 7),
+(105, 35, 9),
+(103, 36, 11),
+(102, 36, 11),
+(104, 36, 11);
 
 -- --------------------------------------------------------
 
@@ -493,16 +481,16 @@ INSERT INTO `colloques` (`id`, `date_colloque`, `etat_colloque`, `date_creation`
 (16, '2019-01-14', 'cloturé', '2018-12-30 09:47:51', 2),
 (17, '2019-01-22', 'cloturé', '2019-01-08 10:44:58', 1),
 (19, '2019-01-29', 'en cours', '2019-01-08 11:03:36', 2),
-(20, '2019-01-21', 'en cours', '2019-01-08 11:11:45', 1),
+(20, '2019-01-21', 'cloturé', '2019-01-08 11:11:45', 1),
 (22, '2019-01-21', 'cloturé', '2019-01-08 11:15:24', 1),
 (23, '2019-01-21', 'cloturé', '2019-01-08 11:15:33', 1),
 (24, '2019-01-14', 'cloturé', '2019-01-08 11:18:05', 1),
 (25, '2019-01-23', 'en cours', '2019-01-08 12:15:58', 2),
-(26, '2019-01-22', 'en cours', '2019-01-08 12:18:05', 2),
+(26, '2019-01-22', 'cloturé', '2019-01-08 12:18:05', 2),
 (27, '2019-01-01', 'cloturé', '2019-01-08 12:46:52', 1),
 (28, '2019-01-23', 'en cours', '2019-01-10 14:05:19', 1),
 (29, '2019-01-23', 'en cours', '2019-01-10 14:07:36', 2),
-(30, '2019-01-28', 'en cours', '2019-01-10 14:08:46', 1),
+(30, '2019-01-28', 'cloturé', '2019-01-10 14:08:46', 1),
 (31, '2019-01-24', 'en cours', '2019-01-10 14:11:54', 2),
 (32, '2019-01-24', 'en cours', '2019-01-10 14:12:08', 2),
 (33, '2019-01-24', 'en cours', '2019-01-10 14:12:35', 2),
@@ -510,9 +498,14 @@ INSERT INTO `colloques` (`id`, `date_colloque`, `etat_colloque`, `date_creation`
 (35, '2019-01-24', 'en cours', '2019-01-10 14:13:01', 2),
 (36, '2019-01-24', 'en cours', '2019-01-10 14:13:46', 2),
 (37, '2019-02-07', 'en cours', '2019-01-10 14:15:44', 2),
-(38, '2019-01-29', 'en cours', '2019-01-13 08:50:30', 1),
-(39, '2019-01-22', 'en cours', '2019-01-14 13:28:11', 1),
-(40, '2019-01-25', 'cloturé', '2019-01-22 14:00:00', 1);
+(38, '2019-01-29', 'cloturé', '2019-01-13 08:50:30', 1),
+(39, '2019-01-22', 'cloturé', '2019-01-14 13:28:11', 1),
+(40, '2019-01-25', 'cloturé', '2019-01-22 14:00:00', 1),
+(41, '2019-01-29', 'cloturé', '2019-01-28 16:11:45', 1),
+(42, '2019-01-28', 'cloturé', '2019-01-30 08:59:06', 1),
+(43, '2019-01-28', 'cloturé', '2019-01-30 08:59:07', 1),
+(44, '2019-01-30', 'cloturé', '2019-01-30 09:13:14', 1),
+(45, '2019-01-30', 'cloturé', '2019-01-30 09:25:09', 1);
 
 -- --------------------------------------------------------
 
@@ -41868,44 +41861,17 @@ CREATE TABLE `consultations` (
 --
 
 INSERT INTO `consultations` (`id`, `Motif_Consultation`, `histoire_maladie`, `Date_Consultation`, `Diagnostic`, `Resume_OBS`, `isOriented`, `lettreorientaioncontent`, `Employe_ID_Employe`, `Patient_ID_Patient`, `id_code_sim`, `id_lieu`) VALUES
-(1017, 'dd', 's', '2018-04-19', NULL, 'd', 0, NULL, 88, 30, NULL, 1),
-(1018, 'dd', 's', '2018-04-19', NULL, 'd', 0, NULL, 88, 30, NULL, 1),
-(1019, 'dd', 's', '2018-04-19', NULL, 'd', 0, NULL, 88, 30, NULL, 1),
-(1020, 'dd', 's', '2018-04-19', NULL, 'd', 0, NULL, 88, 30, NULL, 1),
-(1021, 'dd', 's', '2018-04-19', NULL, 'd', 0, NULL, 88, 30, NULL, 1),
-(1022, 'dd', 's', '2018-04-19', NULL, 'd', 0, NULL, 88, 30, NULL, 1),
-(1023, 'dd', 's', '2018-04-19', NULL, 'd', 0, NULL, 88, 30, NULL, 1),
-(1024, 'dbfb', 'df', '2018-12-23', NULL, 'bfdb', 1, NULL, 88, 30, 19, 1),
-(1025, 'mtf', 'hist', '2018-12-23', 'fsdf', 'fsdf', 0, NULL, 88, 26, 18, 1),
-(1026, 'teste', 'fh', '2018-12-23', NULL, 'tete', 0, NULL, 88, 26, NULL, 1),
-(1027, 'teste', 'fh', '2018-12-23', NULL, 'tete', 0, NULL, 88, 26, NULL, 1),
-(1028, 'teste', 'fh', '2018-12-23', NULL, 'tete', 0, NULL, 88, 26, NULL, 1),
-(1029, 'exameple', 'hist', '2018-12-23', 'este', 'resme', 1, NULL, 88, 37, NULL, 1),
-(1030, 'mtf', 'fdg', '2018-12-23', 'gf', 'fdg', 0, NULL, 88, 46, 17, 1),
-(1031, 'teste', 'csdc', '2018-12-23', 'cdc', 'cdc', 0, NULL, 88, 31, 15, 1),
-(1032, 'teste', 'firvre', '2018-12-28', NULL, 'citron', 1, NULL, 88, 26, NULL, 1),
-(1033, 'teste', 'teste', '2018-12-28', NULL, 'jtyj', 1, NULL, 88, 49, NULL, 1),
-(1034, 'jtyj', 'istoir', '2018-12-28', NULL, 'jtyj', 1, NULL, 88, 31, NULL, 1),
-(1035, 'teste', 'histoi', '2018-12-28', NULL, 'ftert', 0, NULL, 88, 22, NULL, 1),
-(1036, 'uioui', 'ouio', '2018-12-28', NULL, 'oioio', 0, NULL, 88, 47, 15, 1),
-(1037, 'utyu', 'utyu', '2018-12-28', NULL, 'utyu', 0, NULL, 88, 31, NULL, 1),
-(1038, 'teste', 'gg', '2018-12-29', NULL, 'gg', 0, NULL, 88, 48, NULL, 1),
-(1039, 'utyu', 'histoire', '2018-12-29', NULL, 'resume', 1, NULL, 88, 48, NULL, 1),
-(1040, 'cdc', 'cdc', '2018-12-30', NULL, 'cazc', 0, NULL, 88, 30, NULL, 1),
-(1041, 'gdfg', 'gsdfg', '2018-12-30', NULL, 'gfdsg', 0, NULL, 88, 37, NULL, 1),
-(1042, 'bfdb', 'bdfb', '2018-12-30', NULL, 'bfdb', 0, NULL, 88, 46, NULL, 1),
-(1043, 'fzef', 'fzef', '2019-01-02', NULL, 'fzef', 0, NULL, 88, 31, NULL, 1),
-(1044, 'teste', 'histoire', '2019-01-07', NULL, 'resummé', 0, NULL, 88, 30, NULL, 1),
-(1045, 'teste', 'histoire', '2019-01-07', NULL, 'resume', 0, NULL, 88, 30, NULL, 1),
-(1046, 'motif', 'histoire', '2019-01-08', NULL, 'resume', 0, NULL, 88, 30, NULL, 1),
-(1047, 'motif', 'hist', '2019-01-08', NULL, 'res', 0, NULL, 88, 22, NULL, 1),
-(1048, 'a', 'èp_çp', '2019-01-08', NULL, 'p_çp', 0, NULL, 88, 22, NULL, 1),
-(1049, 'motif', 'histr', '2019-01-10', NULL, 'resume', 0, NULL, 88, 26, NULL, 1),
-(1050, 'motif', 'hist', '2019-01-10', NULL, 'resu', 0, NULL, 88, 26, NULL, 1),
-(1051, 'motif', 'hist', '2019-01-10', NULL, 'resu', 0, NULL, 88, 22, NULL, 1),
-(1052, 'motif', 'hist', '2019-01-10', NULL, 'resume', 0, NULL, 88, 22, NULL, 1),
-(1053, 'motif', 'histoi', '2019-01-10', NULL, 'resume', 0, NULL, 88, 22, NULL, 1),
-(1054, 'motif', 'hist', '2019-01-13', NULL, 'resume', 0, NULL, 88, 22, NULL, 1);
+(1056, 'dh', 'grippe', '2019-01-28', 'di', 'resue', 0, NULL, 88, 22, 6, 1),
+(1057, 'motif', 'histoire', '2019-01-28', 'diag', 'resume', 0, NULL, 88, 46, 18, 1),
+(1058, 'motif', 'histoire', '2019-01-28', 'diag', 'resume', 0, NULL, 88, 46, 18, 1),
+(1059, 'motif', 'histoire', '2019-01-28', 'diag', 'resume', 0, NULL, 88, 46, 18, 1),
+(1060, 'motif', 'histoire', '2019-01-28', 'diag', 'resume', 0, NULL, 88, 46, 18, 1),
+(1061, 'motif', 'histoire', '2019-01-28', 'diag', 'resume', 0, NULL, 88, 46, 18, 1),
+(1062, 'motif', 'histoire', '2019-01-28', 'diag', 'resume', 0, NULL, 88, 47, 19, 1),
+(1063, 'motif', 'histoire', '2019-01-28', 'diag', 'resume', 0, NULL, 88, 47, 19, 1),
+(1064, 'motif', 'hrt', '2019-01-28', 'htrh', 'htrhtrh', 0, NULL, 88, 48, NULL, 1),
+(1065, 'motif', 'hrt', '2019-01-28', 'htrh', 'htrhtrh', 0, NULL, 88, 48, NULL, 1),
+(1066, 'a', 'h', '2019-01-30', 'h', 'hre', 0, NULL, 88, 49, 18, 1);
 
 -- --------------------------------------------------------
 
@@ -41976,7 +41942,7 @@ CREATE TABLE `demandehospitalisations` (
   `specialite` int(11) NOT NULL,
   `modeAdmission` enum('Ambulatoire','urgence','programme') DEFAULT NULL,
   `degree_urgence` enum('F','M','H') DEFAULT NULL,
-  `etat` enum('en attente','valide','programme','annule') DEFAULT NULL,
+  `etat` enum('en attente','valide','programme','annule','admise') DEFAULT 'en attente',
   `id_consultation` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -41985,20 +41951,16 @@ CREATE TABLE `demandehospitalisations` (
 --
 
 INSERT INTO `demandehospitalisations` (`id`, `service`, `specialite`, `modeAdmission`, `degree_urgence`, `etat`, `id_consultation`) VALUES
-(14, 1, 5, 'Ambulatoire', NULL, 'valide', 1040),
-(15, 3, 8, 'programme', NULL, 'valide', 1041),
-(16, 2, 3, 'Ambulatoire', NULL, 'valide', 1042),
-(17, 2, 8, 'Ambulatoire', NULL, 'valide', 1043),
-(18, 1, 8, 'urgence', NULL, 'valide', 1044),
-(19, 4, 2, 'Ambulatoire', NULL, 'valide', 1045),
-(20, 2, 5, 'programme', NULL, 'valide', 1046),
-(21, 2, 8, 'Ambulatoire', NULL, 'en attente', 1047),
-(22, 2, 2, 'Ambulatoire', NULL, 'en attente', 1048),
-(23, 2, 5, 'urgence', NULL, 'en attente', 1049),
-(24, 2, 5, 'programme', NULL, 'en attente', 1050),
-(25, 1, 8, 'Ambulatoire', NULL, 'en attente', 1052),
-(26, 1, 8, 'Ambulatoire', NULL, 'en attente', 1053),
-(27, 1, 2, 'Ambulatoire', NULL, 'en attente', 1054);
+(29, 2, 5, 'programme', NULL, 'valide', 1056),
+(30, 2, 1, 'Ambulatoire', NULL, 'programme', 1058),
+(31, 2, 1, 'Ambulatoire', NULL, 'en attente', 1059),
+(32, 2, 1, 'Ambulatoire', NULL, 'valide', 1060),
+(33, 2, 1, 'Ambulatoire', NULL, 'admise', 1061),
+(34, 2, 4, 'programme', NULL, 'admise', 1062),
+(35, 2, 4, 'programme', NULL, 'admise', 1063),
+(36, 2, 4, 'urgence', NULL, 'admise', 1064),
+(37, 2, 4, 'urgence', NULL, 'valide', 1065),
+(38, 2, 1, 'Ambulatoire', NULL, 'valide', 1066);
 
 -- --------------------------------------------------------
 
@@ -42019,18 +41981,15 @@ CREATE TABLE `dem_colloques` (
 --
 
 INSERT INTO `dem_colloques` (`id_colloque`, `id_demande`, `id_medecin`, `ordre_priorite`, `observation`) VALUES
-(13, 15, 87, 3, 'dsqqd'),
-(14, 14, 87, 3, 'dsd'),
-(14, 16, 79, 2, 'dsd'),
-(15, 18, NULL, 2, ';b,:h;,:'),
-(16, 19, NULL, 2, NULL),
-(17, 17, NULL, 1, 'jhk'),
-(24, 20, NULL, 1, 'uiot'),
-(23, 25, NULL, 1, NULL),
-(23, 26, NULL, 3, 'uouop'),
-(22, 21, NULL, 1, 'observ'),
-(27, 24, NULL, 2, 'ghjnhj'),
-(40, 26, NULL, 1, 'nfgnfg');
+(38, 29, 87, 1, 'teste'),
+(41, 38, 87, 2, NULL),
+(43, 37, 87, 2, NULL),
+(42, 36, 87, 1, NULL),
+(42, 35, 87, 1, 'ss'),
+(42, 34, 87, 1, 's'),
+(42, 33, 87, 2, 'jk'),
+(44, 32, 87, 2, 'ss'),
+(45, 30, 87, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -42374,7 +42333,11 @@ CREATE TABLE `hospitalisations` (
 
 INSERT INTO `hospitalisations` (`id`, `Date_entree`, `Date_Prevu_Sortie`, `Date_Sortie`, `id_demande`) VALUES
 (3, '2017-12-12', '2017-12-21', NULL, 14),
-(4, '2017-12-17', '2018-01-03', NULL, 15);
+(4, '2017-12-17', '2018-01-03', NULL, 15),
+(7, '2019-01-30', '2019-01-31', NULL, 33),
+(8, '2019-01-30', '2019-01-30', NULL, 36),
+(10, '2019-01-30', '2019-01-31', NULL, 35),
+(11, '2019-01-30', '2019-01-31', NULL, 34);
 
 -- --------------------------------------------------------
 
@@ -42450,14 +42413,24 @@ CREATE TABLE `lits` (
 --
 
 INSERT INTO `lits` (`id`, `num`, `nom`, `etat`, `affectation`, `salle_id`) VALUES
-(1, 2, 'lit2', 0, 0, 1),
-(2, 1, 'lit1', 1, 0, 2),
+(1, 2, 'lit2', 1, 0, 1),
+(2, 1, 'lit1', 1, 1, 2),
 (3, 3, 'lit3', 1, 1, 3),
-(4, 4, 'lit4', 0, 1, 4),
+(4, 4, 'lit4', 0, 0, 4),
 (5, 5, 'lit7', 1, 0, 4),
 (7, 4, 'lit4', 1, 1, 2),
-(8, 6, 'lit6', 1, 0, 4),
-(9, 5, 'lit5', 1, 0, 2);
+(8, 6, 'lit6', 1, 1, 4),
+(9, 5, 'lit5', 1, 1, 2),
+(10, 8, 'lit8', 1, 0, 1),
+(11, 9, 'lit9', 1, 1, 2),
+(12, 1, 'lit1', 1, 0, 7),
+(13, 1, 'lit2', 1, 0, 7),
+(14, 10, 'lit10', 1, 0, 5),
+(16, 10, 'lit10', 1, 0, 7),
+(17, 11, 'lit11', 1, 0, 7),
+(18, 12, 'lit12', 1, 0, 7),
+(19, 13, 'lit13', 1, 0, 1),
+(20, 14, 'lit14', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -47346,7 +47319,19 @@ INSERT INTO `membres` (`id_colloque`, `id_employ`) VALUES
 (39, 94),
 (40, 68),
 (40, 89),
-(40, 87);
+(40, 87),
+(41, 81),
+(41, 89),
+(41, 87),
+(42, 81),
+(42, 80),
+(43, 81),
+(43, 80),
+(44, 80),
+(44, 94),
+(44, 87),
+(45, 81),
+(45, 89);
 
 -- --------------------------------------------------------
 
@@ -47797,15 +47782,28 @@ CREATE TABLE `rdv_hospitalisations` (
 --
 
 INSERT INTO `rdv_hospitalisations` (`id`, `date_RDVh`, `heure_RDVh`, `id_admission`, `etat_RDVh`, `date_Prevu_Sortie`, `heure_Prevu_Sortie`) VALUES
-(1, '2018-04-29', '10:00:00', 7, 'valide', '2019-01-02', '15:00:00'),
-(12, '2019-02-20', '08:00:00', 23, 'en attente', '2019-01-25', '15:00:00'),
-(13, '2019-01-31', '08:45:00', 24, 'en attente', '2019-02-01', '15:00:00'),
-(14, '2019-01-31', '08:45:00', 25, 'en attente', '2019-02-01', '15:00:00'),
-(15, '2019-01-31', '08:45:00', 26, 'en attente', '2019-02-01', '15:00:00'),
-(16, '2019-01-31', '08:45:00', 27, 'en attente', '2019-02-01', '15:00:00'),
-(17, '2019-01-31', '08:45:00', 28, 'en attente', '2019-02-01', '15:00:00'),
-(18, '2019-01-25', '08:00:00', 29, 'en attente', '2019-01-26', '15:00:00'),
-(19, '2019-01-24', '08:00:00', 30, 'en attente', '2019-01-26', '15:00:00');
+(71, '2019-01-28', '08:00:00', 82, 'Annule', '2019-01-29', '15:00:00'),
+(72, '2019-01-28', '08:30:00', 83, 'Annule', '2019-01-28', '15:00:00'),
+(74, '2019-01-28', '09:00:00', 85, 'Annule', '2019-01-28', '15:00:00'),
+(75, '2019-01-29', '08:00:00', 86, 'Annule', '2019-01-29', '15:00:00'),
+(77, '2019-01-30', '08:45:00', 86, 'Annule', '2019-01-30', '15:00:00'),
+(78, '2019-01-30', '08:00:00', 89, 'Annule', '2019-01-30', '15:00:00'),
+(79, '2019-01-31', '09:00:00', 90, 'Annule', '2019-01-31', '15:00:00'),
+(80, '2019-01-30', '11:45:00', 91, 'Annule', '2019-01-31', '15:00:00'),
+(81, '2019-01-30', '08:45:00', 92, 'Annule', '2019-01-30', '15:00:00'),
+(82, '2019-01-30', '08:30:00', 93, 'Annule', '2019-01-30', '15:00:00'),
+(83, '2019-01-31', '08:00:00', 94, 'en attente', '2019-01-31', '15:00:00'),
+(84, '2019-01-30', '08:00:00', 95, 'Annule', '2019-01-30', '15:00:00'),
+(85, '2019-01-31', '08:30:00', 96, 'Annule', '2019-01-31', '15:00:00'),
+(86, '2019-01-30', '08:00:00', 97, 'valide', '2019-01-31', '15:00:00'),
+(87, '2019-01-30', '08:45:00', 87, 'Annule', '2019-01-30', '15:00:00'),
+(88, '2019-01-30', '08:00:00', 99, 'valide', '2019-01-31', '15:00:00'),
+(89, '2019-01-30', '08:00:00', 100, 'Annule', '2019-02-01', '15:00:00'),
+(90, '2019-01-31', '08:15:00', 101, 'Annule', '2019-01-31', '15:00:00'),
+(91, '2019-01-31', '08:15:00', 102, 'en attente', '2019-01-31', '15:00:00'),
+(92, '2019-01-30', '08:00:00', 103, 'valide', '2019-01-30', '15:00:00'),
+(93, '2019-01-30', '08:00:00', 104, 'valide', '2019-01-30', '15:00:00'),
+(94, '2019-01-30', '13:45:00', 105, 'valide', '2019-01-31', '15:00:00');
 
 -- --------------------------------------------------------
 
@@ -47859,7 +47857,8 @@ INSERT INTO `salles` (`id`, `num`, `nom`, `max_lit`, `bolc`, `etage`, `etat`, `s
 (3, 3, 'interne', 6, '1', 1, 'Non bloquee', 1),
 (4, 4, 'salle 4', 6, '0', 0, 'Non bloquee', 1),
 (5, 3, 'salle3', 4, 'A', 1, 'Non bloquee', 1),
-(6, 5, 'sale5', 4, 'B', 2, 'Non bloquee', 1);
+(6, 5, 'sale5', 4, 'B', 2, 'Non bloquee', 1),
+(7, 1, 'chambre1', 6, 'c', 2, 'Non bloquee', 3);
 
 -- --------------------------------------------------------
 
@@ -48024,19 +48023,19 @@ CREATE TABLE `utilisateurs` (
 
 INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `role_id`, `remember_token`, `active`) VALUES
 (3, 'inf', '$2y$10$pdjh/zLZsoWtaF0lUjGQ6OhI6KEnqOE9fmzCoBB6Cs5PvHV7FXHqm', 'ee@g.sz', 1, 3, 'VodiEttYcpiHWgkKsXGGQKUsVTLLTtVbOeIDm8DGWyGdhNxhnJRDKd8Wn0jj', 1),
-(25, 'admin', '$2y$10$QoThTBvPlnvI2EPMgfS2mu07jd7Mu4Zk3kcw0.7q.kmsdSNGZddta', 'mail@live.fr', 65, 4, 'Y03oIhvo5Dyqo1nAM5moDOkQal81zkb0wYObpB1NG0XG7jqWDyJRZozmYUkg', 1),
+(25, 'admin', '$2y$10$QoThTBvPlnvI2EPMgfS2mu07jd7Mu4Zk3kcw0.7q.kmsdSNGZddta', 'mail@live.fr', 65, 4, 'M7NRmppcSjkTRZl7WPXF1cf4G6b9zbFGWaale9ZaM6vO7mFDyaIqeCicK247', 1),
 (26, 'reception', '$2y$10$.1s2b93NX/JlU9kBpFZiW.N3hvdCwr29H.yx8cBL9GBc.ON4EGgiu', 'ikesskess@gmail.com', 68, 2, 'IF80B1DMWySGMH3fPrMogBgXhQQj0hMPGf4QlbL9bYSujsQaAaG5UGVHGAtN', 1),
 (28, 'medcine', '$2y$10$pQUSmb7bjuwzKU7Iwe28EOLPdI5YD6clMEKTRlFCA1/AkH0Qkjutm', 'az@e.fr', 79, 1, 'd3f9QXNc5ERHAuEuaPlkKjgUDkHOGp0eE1QzbbXQ9eMHXvu4B0fLWirQiQiX', 1),
 (29, 'colloque', '$2y$10$Ve5h8oMwfAmfzHgTLrfJTOmGUiBpZLdxrfEfYC/7g2a1G62ZkM2QO', 'gdcedgg@yah.fr', 80, 5, 'gpZZ7n5wZzyDItBNWBgOWJBuHVN9zPFAVCnhFigz3AQFygICRp4ENyCc2B8W', 0),
-(30, 'sur', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'rlakhneche@cdta.dz', 81, 5, 'vbhmL5rypjn2SUKHD452krNUB21jrqKs8HEQoIv3nLkvXcnxe8KHCGEeDPZc', 1),
+(30, 'sur', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'rlakhneche@cdta.dz', 81, 5, 'cyfloxYFm8JMkhLZt0sesrbv9NjFTewmVVJT9rEdpIqjM0im3ZzEiqkeuuhX', 1),
 (31, 'rec', '$2y$10$bh1btpM3wPiCwRfRMxPaQeuHhBM44Dp9.nB/DqFqMn.h1IyDdiyMa', NULL, 82, 3, 'SsIBFmbUPID9Kk6mKSJUzHPPYmqOvqZLdUFli8ZFEn8082rMbuKMYl1vDXr2', 1),
 (33, 'test', '$2y$10$44j/9SsU6Do5NeTA.3MtsO9DIWn0v7TNuu47zpCz6wxCcXtKvXvwC', 'test@gmail', 87, 1, NULL, 1),
-(34, 'med', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'med@gmail.com', 88, 1, 'qqDPXTdwMu0Z82WV2k3B10t5oPSTk71Nh4U6n3jVtWcZpfrWmJr4mwfN26iN', 1),
-(35, 'delCol', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'll@a.fr', 89, 6, 'FYlEQ1cdz8X6fn4SCPSyA3HahnVnAyuHPB5sNWxVjlyNf3ksQ0Sakdky2OYi', 1),
+(34, 'med', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'med@gmail.com', 88, 1, 'O8NzY8DHKVmZUgpcYr0czMfsmoz3Wxu0eHvMzcZWFh1kQFSxydpO57gFh3iz', 1),
+(35, 'delCol', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'll@a.fr', 89, 6, 'Anrn3eQaCxcKdBYjSprp04tsprYjZsFfBxuTMMwk2L885r4AS0QSlizgxpj3', 1),
 (38, 'user', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'jj@hot.frr', 93, 3, NULL, 1),
-(39, 'surMed', '$2y$10$zUdI0W5QV/1fmnBnhmL2TOTqN8GMNEdZZK6o4gclrJ1CKfxVq.Rca', 'bbedeebi@cdta.dz', 94, 5, 'MX4iMvmhiOx07NoyHriHy2ckkWTraASq3eEnrqJuzecTqP3TmpbkXqeH1Vvg', 1),
+(39, 'surMed', '$2y$10$zUdI0W5QV/1fmnBnhmL2TOTqN8GMNEdZZK6o4gclrJ1CKfxVq.Rca', 'bbedeebi@cdta.dz', 94, 5, 'CUO4OD8e02wMURcx3ngRXDFR7BTkS6JXQCsNXoij8AjcUgoI1dJuN0M5USmK', 1),
 (40, 'agentAdm', '$2y$10$hdM9SGYyzFH7FJtz5GJZLux7cmOIrwrjovi0ZUuForyu8OoVoh7e2', 'agentAdm@hop.dz', 95, 9, NULL, 1),
-(41, 'agent', '$2y$10$RsD.pKjSIV73uBbaLJNE.uXhzCmCixdBf71lcxBq2wmQu0dsRzdmy', 'agent@hop.dz', 96, 9, NULL, 1);
+(41, 'agent', '$2y$10$RsD.pKjSIV73uBbaLJNE.uXhzCmCixdBf71lcxBq2wmQu0dsRzdmy', 'agent@hop.dz', 96, 9, '3zWtbsYJdhcUzlnV0Lt9g8U66heMslc1YAC42dHGhfCdmG8sXMvlNipIsz0A', 1);
 
 -- --------------------------------------------------------
 
@@ -48509,7 +48508,7 @@ ALTER TABLE `actes_paramedicauxs`
 -- AUTO_INCREMENT for table `admissions`
 --
 ALTER TABLE `admissions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 --
 -- AUTO_INCREMENT for table `antecedants`
 --
@@ -48539,7 +48538,7 @@ ALTER TABLE `codesims`
 -- AUTO_INCREMENT for table `colloques`
 --
 ALTER TABLE `colloques`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT for table `communes_suisse`
 --
@@ -48549,7 +48548,7 @@ ALTER TABLE `communes_suisse`
 -- AUTO_INCREMENT for table `consultations`
 --
 ALTER TABLE `consultations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1055;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1067;
 --
 -- AUTO_INCREMENT for table `demandeexamimags`
 --
@@ -48559,7 +48558,7 @@ ALTER TABLE `demandeexamimags`
 -- AUTO_INCREMENT for table `demandehospitalisations`
 --
 ALTER TABLE `demandehospitalisations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 --
 -- AUTO_INCREMENT for table `employs`
 --
@@ -48609,7 +48608,7 @@ ALTER TABLE `histoire_maladis`
 -- AUTO_INCREMENT for table `hospitalisations`
 --
 ALTER TABLE `hospitalisations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `interogatoirs`
 --
@@ -48629,7 +48628,7 @@ ALTER TABLE `lieuconsultations`
 -- AUTO_INCREMENT for table `lits`
 --
 ALTER TABLE `lits`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `medicaments`
 --
@@ -48679,7 +48678,7 @@ ALTER TABLE `rdvs`
 -- AUTO_INCREMENT for table `rdv_hospitalisations`
 --
 ALTER TABLE `rdv_hospitalisations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 --
 -- AUTO_INCREMENT for table `rols`
 --
@@ -48689,7 +48688,7 @@ ALTER TABLE `rols`
 -- AUTO_INCREMENT for table `salles`
 --
 ALTER TABLE `salles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `services`
 --

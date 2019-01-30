@@ -10,6 +10,7 @@ use App\modeles\dem_colloque;
 use App\modeles\employ;
 use App\modeles\rdv_hospitalisation;
 use Illuminate\Support\Facades\Auth;
+use App\modeles\admission;
 class HospitalisationController extends Controller
 {
     /**
@@ -19,7 +20,8 @@ class HospitalisationController extends Controller
      */
     public function index()
     {
-        $hospitalisations = consultation::join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
+
+         $hospitalisations = consultation::join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
                                                         ->join('hospitalisations','hospitalisations.id_demande','=','demandehospitalisations.id')
                                                         ->select('demandehospitalisations.*','hospitalisations.*','consultations.Employe_ID_Employe','Patient_ID_Patient')
                                                         ->get();
@@ -45,12 +47,19 @@ class HospitalisationController extends Controller
      */
     public function store(Request $request)
     {
-       hospitalisation::create([
-        "Date_entree"=>$request->date,
-        "Date_Prevu_Sortie"=>$request->dateprevu,
-        "Date_Sortie"=>null,
-        "id_demande"=>$request->id_demande,
-       ]);
+
+          // dd($request->all()); 
+          $rdvHospi =  rdv_hospitalisation::find($request->id_RDV);
+            $rdvHospi->etat_RDVh="valide";   $rdvHospi->save();
+           $demande= demandehospitalisation::find(admission::find($request->id_ad)->id_demande);
+           $demande->etat = "admise";$demande->save(); 
+          $a = hospitalisation::create([
+                "Date_entree"=>$rdvHospi->date_RDVh,
+                "Date_Prevu_Sortie"=>$rdvHospi->date_Prevu_Sortie,
+                "Date_Sortie"=>null,
+                "id_demande"=>$demande->id,
+           ]);
+          return \Redirect::route('HomeController@index');
     }
 
     /**
@@ -103,11 +112,19 @@ class HospitalisationController extends Controller
     }
     public function getlisteRDVs()
     {
-           // ->where('demandehospitalisations.etat','programme')
-           $employe = employ::where("id",Auth::user()->employee_id)->get()->first();  
-           $rdvHospitalisation=rdv_hospitalisation::join('admissions','rdv_hospitalisations.id_admission','=','admissions.id')->join('lits','admissions.id_lit','=','lits.id')->join('salles','lits.salle_id','=','salles.id')->join('demandehospitalisations','admissions.id_demande','=','demandehospitalisations.id')->join('dem_colloques','demandehospitalisations.id','=','dem_colloques.id_demande')->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')->join('patients','consultations.Patient_ID_Patient','=','patients.id')->join('employs','employs.id','=','dem_colloques.id_medecin')->select('rdv_hospitalisations.*','rdv_hospitalisations.id as idRDV','admissions.id_lit','salles.nom as nomsalle','dem_colloques.observation','dem_colloques.ordre_priorite','consultations.Date_Consultation','patients.Nom','patients.Prenom','employs.Nom_Employe','employs.Prenom_Employe','demandehospitalisations.etat','demandehospitalisations.id as iddemande')->where('rdv_hospitalisations.etat_RDVh','en attente')->where('demandehospitalisations.etat','programme')->get();        
-          // dd($rdvHospitalisation);
-          return view('Hospitalisations.listRDVs_hospitalisation', compact('rdvHospitalisation'));
+           $employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
+          $rdvHospitalisation=rdv_hospitalisation::join('admissions','rdv_hospitalisations.id_admission','=','admissions.id')->join('lits','admissions.id_lit','=','lits.id')
+                    ->join('salles','lits.salle_id','=','salles.id')
+                    ->join('demandehospitalisations','admissions.id_demande','=','demandehospitalisations.id')
+                    ->join('dem_colloques','demandehospitalisations.id','=','dem_colloques.id_demande')
+                    ->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')
+                    ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
+                    ->join('employs','employs.id','=','dem_colloques.id_medecin')
+                    ->select('rdv_hospitalisations.*','rdv_hospitalisations.id as idRDV','lits.num','salles.nom as nomsalle','dem_colloques.observation','dem_colloques.ordre_priorite','consultations.Date_Consultation','patients.Nom','patients.Prenom','employs.Nom_Employe','employs.Prenom_Employe','demandehospitalisations.etat','demandehospitalisations.id as iddemande')
+                    ->where('rdv_hospitalisations.etat_RDVh','en attente')
+                    ->where('demandehospitalisations.etat','programme')->get();
+          //dd($rdvHospitalisation); 
+           return view('Hospitalisations.listRDVs_hospitalisation', compact('rdvHospitalisation'));
     }
     public function ajouterRDV()
     {
