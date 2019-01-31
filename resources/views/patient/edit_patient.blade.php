@@ -161,36 +161,7 @@
 					</div>
 				</div>	{{-- col-sm-6 --}}
 				<div class="col-sm-6">
-					<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
-						<label class="col-sm-3 control-label" for="lieuresidence">
-							<strong class="text-nowrap">Lieu de Residence :</strong>
-						</label>
-					<div class="col-sm-9">
-					<input type="text" id="lieuresidence" name="lieuresidence" placeholder="Lieu de residence..."  autocomplete = "off" class="col-xs-12 col-sm-12" value="{{ $patient->Lieu_Naissance }}"required/>
-					 {!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
-					</div>
-					</div>
-				</div>{{-- col-sm-6 --}}
-	      		</div> {{-- row --}}
-			<div class="row">
-				<div class="col-sm-6">
 					<div class="form-group">
-					<label class="col-sm-3 control-label" for="sf">
-						<strong class="text-nowrap">Civilité :</strong>
-					</label>
-				
-					<div class="col-sm-9">
-						<select class="form-control" id="sf" name="sf">
-							<option value="celibataire" @if( $patient->situation_familiale =='celibataire') selected @endif >Célibataire</option>
-							<option value="marie" @if( $patient->situation_familiale =='marie') selected @endif>Marié</option>
-							<option value="divorce" @if( $patient->situation_familiale =="divorce") selected @endif >Divorcé</option>
-							<option value="veuf" @if( $patient->situation_familiale =="veuf") selected @endif  >Veuf</option>
-						</select>
-					</div>
-					</div>
-				</div>
-				<div class="col-sm-6">
-						<div class="form-group">
 						<label class="col-sm-3 control-label text-nowrap" for="gs">
 							<strong>Groupe sanguin :</strong>
 						</label>
@@ -228,6 +199,27 @@
 						</select>
 						</div>
 					</div>
+				</div>{{-- col-sm-6 --}}
+	      		</div> {{-- row --}}
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group">
+					<label class="col-sm-3 control-label" for="sf">
+						<strong class="text-nowrap">Civilité :</strong>
+					</label>
+				
+					<div class="col-sm-9">
+						<select class="form-control" id="sf" name="sf">
+							<option value="celibataire" @if( $patient->situation_familiale =='celibataire') selected @endif >Célibataire</option>
+							<option value="marie" @if( $patient->situation_familiale =='marie') selected @endif>Marié</option>
+							<option value="divorce" @if( $patient->situation_familiale =="divorce") selected @endif >Divorcé</option>
+							<option value="veuf" @if( $patient->situation_familiale =="veuf") selected @endif  >Veuf</option>
+						</select>
+					</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+						
 				</div>
 				{{-- /nom de jeune fille --}}
 			</div>	{{-- row --}}

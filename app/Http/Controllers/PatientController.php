@@ -52,8 +52,9 @@ class PatientController extends Controller
      */
     public function store(Request $request)
       {
-             static $assurObj;
-            $date = Date::Now();
+           dd($request->all());
+           static $assurObj;
+           $date = Date::Now();
             //dd($request->Rihesus);
             $rule = array(
                   "nom" => 'required',

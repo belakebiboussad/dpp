@@ -148,25 +148,29 @@
 					<div class="widget-header widget-header-flat widget-header-small">
 						<h5 class="widget-title">
 						<i class="ace-icon fa fa-user"></i>
-						Resultats: </h5> <label for=""><span class="badge badge-info numberResult"></span></label>
+						Resultats: </h5> 
+						<label for=""><span class="badge badge-info numberResult"> </span>
+						</label>
 					</div>
 					<div>
-						<table id="liste_patients" class="table table-striped table-bordered">
+					<table id="liste_patients" class="table table-striped table-bordered">
 							<thead>
-								<tr class="info"><th colspan="12">Selectionner le patient dans la liste</th></tr>
-								<tr>
-									<th hidden>id</th>
-									<th hidden>code</th>
-									<<th></th>
-									<th>Nom</th>
-									<th>Prénom</th>
-									<th>Date Naissance</th>
-									<th>Sexe</th>
-									<th>Age</th>
-									<th>Civilité</th>
-									<th>Type</th>
-									<th></th>
-								</tr>
+							<tr class="info">
+							<th colspan="12">Selectionner le patient dans la liste</th>
+							</tr>
+							<tr>
+								<th hidden>id</th>
+								<th hidden>code</th>
+								<th></th>
+								<th>Nom</th>
+								<th>Prénom</th>
+								<th>Date Naissance</th>
+								<th>Sexe</th>
+								<th>Age</th>
+								<th>Civilité</th>
+								<th>Type</th>
+								<th></th>
+							</tr>
 							</thead>
 							<tbody>
 							</tbody>

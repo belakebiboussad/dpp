@@ -65,6 +65,7 @@ class HomeController extends Controller
                      return view('home.home_surv_med', compact('demandes'));
                      break;
                 case "Delegue colloque":
+                     // $type = 0;
                      $demandes=  DemandeHospitalisation::join('consultations','consultations.id','=','demandehospitalisations.id_consultation')->join('patients','consultations.Patient_ID_Patient','=','patients.id')
                              ->join('employs', 'consultations.Employe_ID_Employe','=','employs.id')
                             ->select('demandehospitalisations.*','consultations.Employe_ID_Employe','consultations.Date_Consultation','patients.Nom','patients.Prenom','patients.Dat_Naissance','employs.Nom_Employe','employs.Prenom_Employe')->where('demandehospitalisations.etat','en attente')->get();    

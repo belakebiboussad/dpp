@@ -36,10 +36,24 @@ class ColloqueController extends Controller
      * @return \App\modeles\medecin_traitant
      */ 
 
-    public function index()
+    public function index($type)
     { 
-            $colloque= array();
-            $colloques=colloque::join('membres','colloques.id','=','membres.id_colloque')->join('employs','membres.id_employ','=','employs.id')->leftJoin('dem_colloques','colloques.id','=','dem_colloques.id_colloque')->leftJoin('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')->leftJoin('consultations','demandehospitalisations.id_consultation','=','consultations.id')->leftJoin('patients','consultations.Patient_ID_Patient','=','patients.id')->leftJoin('type_colloques','colloques.type_colloque','=','type_colloques.id')->select('demandehospitalisations.id as id-demande','colloques.id as id_colloque','colloques.*','employs.Nom_Employe','employs.Prenom_Employe','patients.Nom','patients.Prenom','type_colloques.type','dem_colloques.id_demande','consultations.Date_Consultation')->where('etat_colloque','<>','cloturé')->get();  
+          $colloque= array();
+          switch ($type) {
+                 case 1:
+                # code...
+                      $colloques=colloque::join('membres','colloques.id','=','membres.id_colloque')->join('employs','membres.id_employ','=','employs.id')->leftJoin('dem_colloques','colloques.id','=','dem_colloques.id_colloque')->leftJoin('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')->leftJoin('consultations','demandehospitalisations.id_consultation','=','consultations.id')->leftJoin('patients','consultations.Patient_ID_Patient','=','patients.id')->leftJoin('type_colloques','colloques.type_colloque','=','type_colloques.id')->select('demandehospitalisations.id as id-demande','colloques.id as id_colloque','colloques.*','employs.Nom_Employe','employs.Prenom_Employe','patients.Nom','patients.Prenom','type_colloques.type','dem_colloques.id_demande','consultations.Date_Consultation')->where('etat_colloque','<>','cloturé')->where('type_colloques.id','=',1)->get();  
+                      break;
+                case 2:
+                      $colloques=colloque::join('membres','colloques.id','=','membres.id_colloque')->join('employs','membres.id_employ','=','employs.id')->leftJoin('dem_colloques','colloques.id','=','dem_colloques.id_colloque')->leftJoin('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')->leftJoin('consultations','demandehospitalisations.id_consultation','=','consultations.id')->leftJoin('patients','consultations.Patient_ID_Patient','=','patients.id')->leftJoin('type_colloques','colloques.type_colloque','=','type_colloques.id')->select('demandehospitalisations.id as id-demande','colloques.id as id_colloque','colloques.*','employs.Nom_Employe','employs.Prenom_Employe','patients.Nom','patients.Prenom','type_colloques.type','dem_colloques.id_demande','consultations.Date_Consultation')->where('etat_colloque','<>','cloturé')->where('type_colloques.id','=',2)->get();   
+                # code...
+                break;
+              default:
+                # code...
+                break;
+          }
+            
+          
              foreach( $colloques as $col){
                   if (!array_key_exists($col->id_colloque,$colloque))
                     {
@@ -62,6 +76,11 @@ class ColloqueController extends Controller
               return view('colloques.liste_colloque', compact('colloque'));
             // return view('home.home_dele_coll', compact('demandes','colloques'));
   
+    }
+
+    public function index1($type)
+    {
+          dd($type);
     }
      /**
      * Show the form for creating a new resource.

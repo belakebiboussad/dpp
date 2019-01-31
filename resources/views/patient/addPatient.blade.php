@@ -133,35 +133,6 @@
 					</div>
 				</div>
 				<div class="col-sm-6">
-					<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
-						<label class="col-sm-3 control-label" for="lieuresidence">
-							<strong class="text-nowrap">Lieu de Residence :</strong>
-						</label>
-						<div class="col-sm-9">
-						<input type="text" id="lieuresidence" name="lieuresidence" placeholder="Lieu de residence..."  autocomplete = "off" class="col-xs-12 col-sm-12" value="{{ $patient->Lieu_Naissance }}"required/>
-					 	{!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
-						</div>
-					</div>
-				</div>
-			</div>{{-- row --}}
-			<div class="row">
-				<div class="col-sm-6">
-					<div class="form-group">
-					<label class="col-sm-3 control-label" for="sf">
-						<strong class="text-nowrap">Cevilite :</strong>
-					</label>
-					<div class="col-sm-9">
-						<select class="form-control" id="sf" name="sf">
-							<option value="">------</option>
-							<option value="celibataire">Célibataire</option>
-							<option value="marie">Marié</option>
-							<option value="divorce">Divorcé</option>
-							<option value="veuf">Veuf</option>
-						</select>
-					</div>
-					</div>
-				</div>
-				<div class="col-sm-6">
 					<div class="form-group">
 						<label class="col-sm-3 control-label text-nowrap" for="gs">
 							<strong>Groupe sanguin :</strong>
@@ -185,8 +156,28 @@
 								<option value="-">-</option>
 							</select>
 						</div>
-					</div>	{{-- col-sm-6 --}}
+					</div>	
 				</div>
+			</div>{{-- row --}}
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group">
+					<label class="col-sm-3 control-label" for="sf">
+						<strong class="text-nowrap">Cevilite :</strong>
+					</label>
+					<div class="col-sm-9">
+						<select class="form-control" id="sf" name="sf">
+							<option value="">------</option>
+							<option value="celibataire">Célibataire</option>
+							<option value="marie">Marié</option>
+							<option value="divorce">Divorcé</option>
+							<option value="veuf">Veuf</option>
+						</select>
+					</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+				</div>{{-- col-sm-6 --}}
 				{{-- /nom de jeune fille --}}
 			</div>	{{-- row --}}
 			<div class="row">
