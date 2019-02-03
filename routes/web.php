@@ -170,9 +170,9 @@ Route::get('/searchPatient','PatientController@search');
 Route::get('/getlits/{id}','LitsController@getlits');
 Route::get('/user/find', 'UsersController@AutoCompleteUsername');
 Route::get('/userdetail', 'UsersController@getUserDetails');
-Route::get('/user/find1', 'UsersController@AutoCompletePatientname');
+Route::get('/user/find1', 'PatientController@AutoCompletePatientname');
 
-Route::get('/user/find2','UsersController@AutoCompletePatientPrenom');
+Route::get('/user/find2','PatientController@AutoCompletePatientPrenom');
 
 Route::get('/patientdetail', 'PatientController@getPatientDetails');
 Route::get('/serviceRooms', 'ServiceController@getRooms');

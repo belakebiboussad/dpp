@@ -76,7 +76,6 @@ $(document).ready(function(){
 	});
 
 }); 
-
 function XHRgePatient()
 {
 	nom=$('#patientName').val();
@@ -84,13 +83,12 @@ function XHRgePatient()
 	code_barre=$('#IPP').val();
 	$.ajax({
                      type : 'get',
-                      url : '{{URL::to('searchPatient')}}',
+        
+                    url : '{{URL::to('searchPatient')}}',
                       data:{'search':nom,'prenom':prenom,'code_barre':code_barre},
                       success:function(data,status, xhr){
                         	$('tbody').html(data);
                           	$(".numberResult").html(xhr.getResponseHeader("count"));
-                                //  $('#btnCreate').removeClass('hidden')
-                                // $('#FusionButton').removeClass('hidden')   
                      }
            });
 }
@@ -112,6 +110,33 @@ function doMerge()
 {
 	alert("sdf");
 }
+var NewCount = 0;
+function KeepCount() {
+	NewCount+=1;
+	 var n = $( "input:checked" ).length;
+	console.log(n);
+	if(NewCount  >= 2){
+		// $('.check:not(:checked)').attr('disabled','disabled');
+		$('.check:not(:checked)').prop("disabled", true);
+		$('.check:not(:checked)').attr('disabled');
+	}else
+	{
+		// alert(n);
+		//$(':checkbox:disabled').closest("td").prop("disabled",false);
+		// $( "input:not(:checked)").prop("disabled",false);
+		$( "input:not(:checked)").removeAttr("disabled");
+	}
+}
+ $(function () {
+            $('td .chkTrt input[type=checkbox]').change(function () {
+                checkedValue = $(this).is(':checked');
+                alert(checkedValue);
+                // $('div .chkTrt input[type=checkbox]').each(function () {
+                //     $(this).attr('checked', false);
+                // });
+                // $(this).prop('checked', checkedValue);
+            });
+        });
 </script>
 @endsection
 @section('main-content')
@@ -136,19 +161,18 @@ function doMerge()
 			Rechercher un Patient
 		</div>
 		<div class="panel-body">
-			<div class="row">
-				<label class="control-label" for="patientName" ><strong>&nbsp;&nbsp;&nbsp;Nom :</strong></label>&nbsp;&nbsp; 
-				 <input type="text" class="form-control input-sm" id="patientName" name="patientName"  placeholder="Rechercher..."/> 
-				 <label class="control-label" for="patientFirstName" ><strong>&nbsp;&nbsp;&nbsp;Prenom :</strong></label>&nbsp;&nbsp; 
-				 <input type="text" class="input-sm" id="patientFirstName" name="patientFirstName"  placeholder="Rechercher...">&nbsp;&nbsp;
-				<label class="control-label" for="IPP" ><strong>&nbsp;&nbsp;&nbsp;Identif :</strong></label>&nbsp;&nbsp; 
-				 <input type="text" class="input-sm" id="IPP" name="IPP"  placeholder="Rechercher...">
-	{{-- 		</div> --}}
-			</div>
-			<div class="space-12"></div>
-			<div class="row">
-			
-			</div>
+		<div class="row">
+			<div class="col-sm-2"><label class="control-label" for="patientName" ><strong>&nbsp;&nbsp;&nbsp;Nom :</strong></label></div>
+			<div class="col-sm-4"><input type="text" class="form-control input-sm" id="patientName" name="patientName"  placeholder="Rechercher..."/> </div>
+			<div class="col-sm-2"><label class="control-label" for="patientFirstName" ><strong>Prenom :</strong></label> </div>
+			<div class="col-sm-4"><input type="text" class="form-control input-sm" id="patientFirstName" name="patientFirstName"  placeholder="Rechercher..."></div>
+		</div>
+		<div class="space-12"></div>
+		<div class="row">
+			<div class="col-sm-2"><label class="control-label" for="IPP" ><strong>&nbsp;&nbsp;&nbsp;Id:</strong></label></div>
+			<div class="col-sm-4">   <input type="text" class="form-control input-sm" id="IPP" name="IPP"  placeholder="Rechercher..."></div>
+		</div>{{-- &nbsp;&nbsp; --}} 
+		<div class="space-12"></div>
 		</div>	{{-- panel-body --}} 
 		<div class="bs-example" style = "height:45px;">
 		<div class="form-control" style ="border:none;">

@@ -338,14 +338,6 @@ class UsersController extends Controller
     {
             return User::where('name', 'LIKE', '%'.trim($request->q).'%')->get();
     } 
-      public function AutoCompletePatientname(Request $request)
-    {
-         return patient::where('Nom', 'LIKE', '%'.trim($request->q).'%')->get();     
-    }
-     public function AutoCompletePatientPrenom(Request $request)
-     {
-            return patient::where('Prenom', 'LIKE', '%'.trim($request->prenom).'%')->get();     
-     }
     public function getUserDetails(Request $request)
     {
            $user = User::FindOrFail($request->search);

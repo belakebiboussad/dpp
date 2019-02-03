@@ -402,9 +402,8 @@ public function search(Request $request)
                                $output.='<tr>'.
                                '<td hidden>'.$patient->id.'</td>'.
                                 '<td hidden>'.$patient->code_barre.'</td>'.
-                                '<td class ="center">'.'<input type="checkbox" class="ace" name="fusioner[]" value="'.$patient->id.'"/>'.'<span class="lbl"></span>   '.'</td>'.
+                                '<td class ="center" id="merge">'.'<input type="checkbox" class="ace check" name="fusioner[]" value="'.$patient->id.'"/>'.'<span class="lbl"></span>   '.'</td>'.
                                 '<td><a href="#" id ="'.$patient->id.'" onclick ="getPatientdetail('.$patient->id.');">'.$patient->Nom.'</a></td>'.
-                             
                                '<td>'.$patient->Prenom.'</td>'.
                                '<td>'.$patient->Dat_Naissance.'</td>'.
                                '<td>'.$patient->Sexe.'</td>'.
