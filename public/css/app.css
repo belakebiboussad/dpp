@@ -1253,10 +1253,10 @@ abbr[data-original-title] {
   cursor: help;
   border-bottom: 1px dotted #777777;
 }
-.initialism {
+/*.initialism {
   font-size: 90%;
   text-transform: uppercase;
-}
+}*/
 blockquote {
   padding: 10px 20px;
   margin: 0 0 20px;
@@ -6413,4 +6413,8 @@ table-condensed thead th{
 }
 .smalltext{
     font-size: x-small;
+}
+.modal-ku {
+  width: 1250px;
+  margin: auto;
 }

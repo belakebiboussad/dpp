@@ -130,7 +130,10 @@ function doMerge()
 </div>	{{-- row --}}
 <div class="space-12"></div>
 <div class="row">
-	<div class="col-sm-7 col-lg-7">
+	<div class="col-sm-7">
+	<div class="space-12"></div>
+	<div class="row">
+	            <div class="form-horizontal container-fluid">
 		<div class="panel panel-default">
 		<div class="panel-heading" style="height: 50px; font-size: 2.6vh;">
 			Rechercher un Patient
@@ -149,6 +152,9 @@ function doMerge()
 			<div class="row">
 			
 			</div>
+			
+
+			
 		</div>	{{-- panel-body --}} 
 		<div class="bs-example" style = "height:45px;">
 		<div class="form-control" style ="border:none;">
@@ -158,8 +164,10 @@ function doMerge()
 		</div>            
 		</div> 
 		</div>	{{-- PANEL --}}
+		</div>	
+	</div>{{-- row --}}
 	</div>	{{-- col-sm-7	 --}}
-	<div class="col-sm-5 col-lg-7"></div>	
+	<div class="col-sm-5"></div>	
 </div>{{-- row --}}
 <div class="row">
 	<div class="col-sm-7">

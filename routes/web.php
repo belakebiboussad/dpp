@@ -171,6 +171,8 @@ Route::get('/getlits/{id}','LitsController@getlits');
 Route::get('/user/find', 'UsersController@AutoCompleteUsername');
 Route::get('/userdetail', 'UsersController@getUserDetails');
 Route::get('/user/find1', 'UsersController@AutoCompletePatientname');
-Route::get('/patientdetail', 'PatientController@getPatientDetails');
 
+Route::get('/user/find2','UsersController@AutoCompletePatientPrenom');
+
+Route::get('/patientdetail', 'PatientController@getPatientDetails');
 Route::get('/serviceRooms', 'ServiceController@getRooms');

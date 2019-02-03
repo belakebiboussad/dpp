@@ -336,18 +336,22 @@ class UsersController extends Controller
     }
     public function AutoCompleteUsername(Request $request)
     {
-            return User::where('name', 'LIKE', '%'.$request->q.'%')->get();
+            return User::where('name', 'LIKE', '%'.trim($request->q).'%')->get();
     } 
       public function AutoCompletePatientname(Request $request)
     {
-         return patient::where('Nom', 'LIKE', '%'.$request->q.'%')->get();     
+         return patient::where('Nom', 'LIKE', '%'.trim($request->q).'%')->get();     
     }
+     public function AutoCompletePatientPrenom(Request $request)
+     {
+            return patient::where('Prenom', 'LIKE', '%'.trim($request->prenom).'%')->get();     
+     }
     public function getUserDetails(Request $request)
     {
            $user = User::FindOrFail($request->search);
            $employe = employ::FindOrFail($user->employee_id);
-            $view = view("user.ajax_userdetail",compact('user','role','employe'))->render();
-            return response()->json(['html'=>$view]);
+           $view = view("user.ajax_userdetail",compact('user','role','employe'))->render();
+           return response()->json(['html'=>$view]);
     }
 
 }

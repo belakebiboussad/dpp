@@ -1,6 +1,5 @@
 <?php
 namespace App\Http\Controllers;
-use DB;
 use App\modeles\patient;
 use Illuminate\Http\Request;
 use Jenssegers\Date\Date;
@@ -384,10 +383,12 @@ class PatientController extends Controller
     }
 public function search(Request $request)
 {
-         if($request->ajax())  
-         {
+     if($request->ajax())  
+     {
                 $output="";
-                $patients=DB::table('patients')->where('Nom','LIKE','%'.$request->search."%")->get();
+                // 
+                $patients = patient::where('Nom','LIKE','%'.trim($request->search)."%")->where('Prenom','LIKE','%'.trim($request->prenom)."%")->where('code_barre','LIKE','%'.$request->code_barre."%")->get();
+                // code_barre
                 if($patients)
                 {
                           $i=0;
@@ -422,10 +423,10 @@ public function search(Request $request)
     {
            return patient::where('Nom', 'LIKE', '%'.$request->q.'%')->get();    
     }
-    public function getPatientDetails(Request $request)
-    {
-        $patient = patient::FindOrFail($request->search);
-        $view = view("patient.ajax_patientdetail",compact('patient'))->render();
+     public function getPatientDetails(Request $request)
+     {
+          $patient = patient::FindOrFail($request->search);
+           $view = view("patient.ajax_patientdetail",compact('patient'))->render();
             return response()->json(['html'=>$view]);
     }
 }
