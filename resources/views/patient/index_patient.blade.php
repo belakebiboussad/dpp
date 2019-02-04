@@ -83,11 +83,10 @@ function XHRgePatient()
 	code_barre=$('#IPP').val();
 	$.ajax({
                      type : 'get',
-        
                     url : '{{URL::to('searchPatient')}}',
                       data:{'search':nom,'prenom':prenom,'code_barre':code_barre},
                       success:function(data,status, xhr){
-                        	$('tbody').html(data);
+                        	$('#liste_patients tbody').html(data);
                           	$(".numberResult").html(xhr.getResponseHeader("count"));
                      }
            });
@@ -100,43 +99,48 @@ function getPatientdetail($id)
                             url : '{{URL::to('patientdetail')}}',
                             data:{'search':$id},
                             success:function(data1,status, xhr){
-                            	        //console.log(data1);
-                        	        $('#patientDetail').html(data1.html);
+                            	          $('#patientDetail').html(data1.html);
                            }
            });
 }
+var values = new Array();
 
 function doMerge()
 {
-	alert("sdf");
+	$.ajax({
+                     type : 'get',
+                    url : '{{URL::to('getPatientsToMerge')}}',
+                      data:{'search':values},
+                      success:function(data,status, xhr){
+                      	$('#PatiensMerge tbody').html(data.html);
+                     }
+           });
 }
-var NewCount = 0;
 function KeepCount() {
-	NewCount+=1;
-	 var n = $( "input:checked" ).length;
-	console.log(n);
-	if(NewCount  >= 2){
-		// $('.check:not(:checked)').attr('disabled','disabled');
-		$('.check:not(:checked)').prop("disabled", true);
-		$('.check:not(:checked)').attr('disabled');
+	var n = $("input:checked").length;
+	if(n >= 2){
+		$('.check:not(:checked)').attr('disabled','disabled');
+		$.each( $("input:checked"), function( key, value ) {
+  			values.push($(this).val());
+  			//alert($(this).parent().parent());
+  			$(this).parent().parent().css('background-color','#dd9900');
+		});
 	}else
 	{
-		// alert(n);
-		//$(':checkbox:disabled').closest("td").prop("disabled",false);
-		// $( "input:not(:checked)").prop("disabled",false);
 		$( "input:not(:checked)").removeAttr("disabled");
 	}
 }
- $(function () {
-            $('td .chkTrt input[type=checkbox]').change(function () {
-                checkedValue = $(this).is(':checked');
-                alert(checkedValue);
-                // $('div .chkTrt input[type=checkbox]').each(function () {
-                //     $(this).attr('checked', false);
-                // });
-                // $(this).prop('checked', checkedValue);
-            });
-        });
+
+function setField(field,value)
+{
+	if($('#'+field).is("input"))
+		$('#'+field).val(value);
+	else
+		//$(#'+field option:eq(value)').prop('selected', true);
+		//$('#'+field+'option[value="'+value'"]').attr("selected", "selected");	
+		$('#'+field).val(value);
+	
+}
 </script>
 @endsection
 @section('main-content')
@@ -177,7 +181,7 @@ function KeepCount() {
 		<div class="bs-example" style = "height:45px;">
 		<div class="form-control" style ="border:none;">
 			<button type="submit" class="btn-sm btn-primary" onclick="XHRgePatient();"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
-			<button type="button" class="btn btn-outline-primary btn-sm" id="FusionButton" data-toggle="modal" data-target="#mergeModal" style ="margin-left:20%" data-backdrop="false"><i class="fa fa-angle-right fa-lg"></i><i class="fa fa-angle-left fa-lg"></i>&nbsp;Fusion</button>
+			<button type="button" class="btn btn-outline-primary btn-sm" id="FusionButton"  onclick ="doMerge();"data-toggle="modal" data-target="#mergeModal" style ="margin-left:20%" data-backdrop="false"><i class="fa fa-angle-right fa-lg"></i><i class="fa fa-angle-left fa-lg"></i>&nbsp;Fusion</button>
                  		<a  class="btn btn-primary btn-sm hidden" href="patient/create" id=btnCreate role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>
 		</div>            
 		</div> 
@@ -194,8 +198,8 @@ function KeepCount() {
 						Resultats: </h5> <label for=""><span class="badge badge-info numberResult"></span></label>
 					</div>
 					<div>
-						<table id="liste_patients" class="table table-striped table-bordered">
-							<thead>
+					<table id="liste_patients" class="table table-striped table-bordered">
+						<thead>
 							<tr class="info"><th colspan="12">Selectionner le patient dans la liste</th>
 							</tr>
 							<tr>
@@ -207,12 +211,13 @@ function KeepCount() {
 								<th>Né(e) le</th>
 								<th>Sexe</th>
 								<th>Age</th>
+								<th>Cévilité</th>
 								<th>Type</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-							</tbody>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
 						</table>
 					</div>
 				</div>
@@ -234,10 +239,22 @@ function KeepCount() {
 					les données du paient selectionner vont étre merger dans  l'enregistrement de patient souligné
 	        			</p>
 	        			<p> <span  style="color: red;">
-	        			mergé les patient est permanent et ne  peut pas  étre refait !!	
-	        			</span></p>
+	        			mergé les patient est permanent et ne  peut pas  étre refait !!
+	        			</span>
+				</p>
 	        		</div>
-	      		<form id="mergeform" class="form-horizontal" role="form" method="POST" action="">	
+	      		<form id="form-merge" class="form-horizontal" role="form" method="POST" action="">	
+	      			<table id ="PatiensMerge" class="table table-striped table-bordered">
+	      				<thead>
+	     					<th class="category narrow"></th>
+	      					<th>Résultat</th>
+	      					<th>Patient1</th>
+	      					<th>Patient2</th>
+	      				</thead>
+	      				<tbody id="mergepatients">
+	      					
+	      				</tbody>
+	      			</table>
 	      			<div class="modal-footer">
 	        				<button type="button" class="btn btn-default" data-dismiss="modal">
 	        					 <i class="ace-icon fa fa-undo bigger-120"></i>

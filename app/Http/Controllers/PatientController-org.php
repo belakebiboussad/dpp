@@ -513,8 +513,7 @@ public function search(Request $request)
                                '</tr>';
                           }
                           $i++;
-                        return Response($output)->withHeaders(['count' => $i]);
-                
+                        return Response($output)->withHeaders(['count' => $i]);      
                }     
         } 
 }
@@ -537,4 +536,8 @@ public function search(Request $request)
      {
             return patient::where('Prenom', 'LIKE', '%'.trim($request->prenom).'%')->get();     
      }
+     // public function patientsToMerege(Request $request)
+     // {
+     //    return ("cwdf");
+     // }
 }

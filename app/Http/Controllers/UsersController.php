@@ -345,5 +345,5 @@ class UsersController extends Controller
            $view = view("user.ajax_userdetail",compact('user','role','employe'))->render();
            return response()->json(['html'=>$view]);
     }
-
+    
 }
