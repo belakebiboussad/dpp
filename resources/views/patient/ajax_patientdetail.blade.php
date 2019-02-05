@@ -41,7 +41,7 @@
                 </tr> 
                 <tr>
                           <td colspan="1" class ="noborders"><strong>Sang :</strong></td>
-                          <td>{{ $patient->group_sang }}{{ $patient->Rihesus }}</td>
+                          <td>{{ $patient->group_sang }}{{ $patient->rhesus }}</td>
                           <td class ="noborders"><strong>Type:</strong></td>
                           <td>{{ $patient->Type }}</td>
                 </tr>           

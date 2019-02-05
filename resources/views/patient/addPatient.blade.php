@@ -168,10 +168,10 @@
 					<div class="col-sm-9">
 						<select class="form-control" id="sf" name="sf">
 							<option value="">------</option>
-							<option value="celibataire">Célibataire</option>
-							<option value="marie">Marié</option>
-							<option value="divorce">Divorcé</option>
-							<option value="veuf">Veuf</option>
+							<option value="celibataire">Célibataire(e)</option>
+							<option value="marie">Marié(e)</option>
+							<option value="divorce">Divorcé(e)</option>
+							<option value="veuf">Veuf(veuve)</option>
 						</select>
 					</div>
 					</div>

@@ -10,6 +10,7 @@ use App\modeles\consultation;
 use App\modeles\examenbiologique;
 use App\modeles\DemandeHospitalisation;
 use App\modeles\hospitalisation;
+use App\Utils\ArrayClass;
 use Validator;
 use Redirect;
 use MessageBag;
@@ -51,10 +52,9 @@ class PatientController extends Controller
      */
     public function store(Request $request)
       {
-           dd($request->all());
            static $assurObj;
            $date = Date::Now();
-            //dd($request->Rihesus);
+            //dd($request->rhesus);
             $rule = array(
                   "nom" => 'required',
                   "prenom" => 'required',
@@ -182,7 +182,11 @@ class PatientController extends Controller
      */
     public function edit($id)
     {
+
           $patient = patient::FindOrFail($id);
+          /////////
+
+          /////////////////////////
           if($patient->Type != "Autre")
                 $assure =  assur::FindOrFail($patient->Assurs_ID_Assure); 
            else
@@ -430,58 +434,50 @@ public function search(Request $request)
     }
       public function patientsToMerege(Request $request)
      {
-          $output="";
-          $patient1 = patient::FindOrFail($request->search[0]);
-          $patient2 = patient::FindOrFail($request->search[1]);
-          $view = view("patient.ajax_patient_merge",compact('patient1','patient2'))->render();
-          return response()->json(['html'=>$view]);
-              // $output.='<tr>'.
-              //          '<td align="center"><strong>nom</strong></td>'.
-              //          '<td><input type="text" id ="Nom" value="'.$patient1->Nom.'"/>'.'</td>'.
-              //           '<td>'.'<input  type="radio" name="choixNom" onclick="setField(\''.'Nom'.'\',\''.$patient1->Nom.'\');">'.$patient1->Nom.'</td>'.
-              //            '<td>'.'<input type="radio" name="choixNom" onclick="setField(\''.'Nom'.'\',\''.$patient2->Nom.'\');">'.$patient2->Nom.'</td>'.
-              //            '</tr>'.
-              //            '<tr>'.
-              //            '<td align="center"><strong>prenom</strong></td>'.
-              //          '<td><input type="text" id ="Prenom" value="'.$patient1->Prenom.'"/>'.'</td>'.
-              //           '<td>'.'<input id ="nom" type="radio" name="choixPrenom" onclick="setField(\''.'Prenom'.'\',\''.$patient1->Prenom.'\');">'.$patient1->Prenom.'</td>'.
-              //            '<td>'.'<input id ="nom" type="radio" name="choixPrenom" onclick="setField(\''.'Prenom'.'\',\''.$patient2->Prenom.'\');">'.$patient2->Prenom.'</td>'.
-              //          '</tr>'.
-              //          '<tr>'.
-              //            '<td align="center"><strong>code</strong></td>'.
-              //          '<td><input type="text" id ="code_barre" value="'.$patient1->code_barre.'"/>'.'</td>'.
-              //           '<td>'.'<input type="radio" name="choixCode" onclick="setField(\''.'code_barre'.'\',\''.$patient1->code_barre.'\');">'.$patient1->code_barre.'</td>'.
-              //            '<td>'.'<input  type="radio" name="choixCode" onclick="setField(\''.'code_barre'.'\',\''.$patient2->code_barre.'\');">'.$patient2->code_barre.'</td>'.
-              //            '</tr>'.
-              //            '<tr>'.
-              //            '<td align="center"><strong>Né(e) le</strong></td>'.
-              //            '<td><input type="text" id ="Dat_Naissance" value="'.$patient1->Dat_Naissance.'"/>'.'</td>'.
-              //            '<td>'.'<input type="radio" name="choix_Dat_Naissance" onclick="setField(\''.'Dat_Naissance'.'\',\''.$patient1->Dat_Naissance.'\');">'.$patient1->Dat_Naissance.'</td>'.
-              //             '<td>'.'<input  type="radio" name="choix_Dat_Naissance" onclick="setField(\''.'Dat_Naissance'.'\',\''.$patient2->Dat_Naissance.'\');">'.$patient2->Dat_Naissance.'</td>'.
-              //             '</tr>'.
-              //             '<tr>'.
-              //             '<td align="center"><strong>à</strong></td>'.
-              //             '<td><input type="text" id ="Lieu_Naissance" value="'.$patient1->Lieu_Naissance.'"/>'.'</td>'.
-              //             '<td>'.'<input type="radio" name="choix_Lieu_Naissance" onclick="setField(\''.'Lieu_Naissance'.'\',\''.$patient1->Lieu_Naissance.'\');">'.$patient1->Lieu_Naissance.'</td>'.
-              //             '<td>'.'<input  type="radio" name="choix_Lieu_Naissance" onclick="setField(\''.'Lieu_Naissance'.'\',\''.$patient2->Lieu_Naissance.'\');">'.$patient2->Lieu_Naissance.'</td>'. 
-              //              '</tr>'.
-              //              '<tr>'.
-              //              '<td align="center"><strong>Sexe</strong></td>'.
-              //               '<td><input type="text" id ="Sexe" value="'.$patient1->Sexe.'"/>'.'</td>'.
-              //              // '<td><select id ="Sexe" class="ace"><option value="">Sexe</option>
-              //              // <option value="M" @if('."fsd".'==="M") selected @endif>Masculin</option><option value="F" class="">Féminin</option>
-              //              // </select>'.'</td>'.
+           $statuses = array();
+           $values;
+           $patient = new patient;
+           $patient1 = patient::FindOrFail($request->search[0]);
+           $patient2 = patient::FindOrFail($request->search[1]);    
+           $patients=[$patient1->getAttributes(),$patient2->getAttributes()];
+          foreach ($patient->getFillable() as $field) {
+              
+                $values = ArrayClass::pluck($patients, $field);      
+                // var_dump($values);echo("<br>");
+                ArrayClass::removeValue("", $values);
+                if (!count($values)) {
+                        $statuses[$field] = "none";
+                        continue;
+                }
+               $patient->$field = reset($values);
+                // One unique value
+                if (count($values) == 1) {
+                     $statuses[$field] = "unique";
+                     continue;
+                }
+                // Multiple values
+                $statuses[$field] = count(array_unique($values)) == 1 ? "duplicate" : "multiple";
+           }
 
-              //              '<td>'.'<input type="radio" name="choix_Sexe" onclick="setField(\''.'Sexe'.'\',\''.$patient1->Sexe.'\');">'.$patient1->Sexe.'</td>'.
-              //             '<td>'.'<input  type="radio" name="choix_Sexe" onclick="setField(\''.'Sexe'.'\',\''.$patient2->Sexe.'\');">'.$patient2->Sexe.'</td>'. 
-              //              '</tr>'.
-              //              '<tr>'.
-              //              '<td align="center"><strong>civilité</strong></td>'.
-              //              '<td><input type="text" id ="situation_familiale" value="'.$patient1->situation_familiale.'"/>'.'</td>'.
-              //              '<td>'.'<input type="radio" name="choix_situation_familiale" onclick="setField(\''.'situation_familiale'.'\',\''.$patient1->situation_familiale.'\');">'.$patient1->situation_familiale.'</td>'.
-              //             '<td>'.'<input  type="radio" name="choix_situation_familiale" onclick="setField(\''.'situation_familiale'.'\',\''.$patient2->situation_familiale.'\');">'.$patient2->situation_familiale.'</td>'. 
-              //          '</tr>';
-              //           return Response($output);
+         // Count statuses
+          $counts = array(
+            "none"      => 0,
+            "unique"    => 0,
+            "duplicate" => 0,
+            "multiple"  => 0,
+          );
+          foreach ($statuses as $status) {
+                $counts[$status]++;
+          }
+          //ArrayClass
+          $view = view("patient.ajax_patient_merge",compact('patient1','patient2','statuses','counts'))->render();
+          return response()->json(['html'=>$view]);
+             
+     }
+     public function merge(Request $request)
+     {
+          dd($request->all());
+         
      }
    
 }

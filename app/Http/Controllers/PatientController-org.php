@@ -140,7 +140,7 @@ class PatientController extends Controller
                 "tele_mobile1"=>$request->operateur1 . $request->mobile1,
                 "tele_mobile2"=>$request->operateur2 . $request->mobile2,
                 "group_sang"=>$request->gs,
-                "Rihesus"=>$request->rh,
+                "rhesus"=>$request->rh,
                 "Assurs_ID_Assure"=>$assurID,
                 "Type"=>$request->type,
                 "Type_p"=> $request->Type_p,
@@ -231,7 +231,7 @@ class PatientController extends Controller
                                     "tele_mobile1"=>$request->mobile1,
                                     "tele_mobile2"=>$request->mobile2,
                                     "group_sang"=>$request->gs,
-                                    "Rihesus"=>$request->rh, 
+                                    "rhesus"=>$request->rh, 
                                      "Type"=>$request->type,
                                     "Date_creation"=>$date,
                                      "NSS"=> $request->NSS,    
@@ -266,7 +266,7 @@ class PatientController extends Controller
                                                     "tele_mobile1"=>$request->mobile1,
                                                     "tele_mobile2"=>$request->mobile2,
                                                     "group_sang"=>$request->gs,
-                                                    "Rihesus"=>$request->rh, 
+                                                    "rhesus"=>$request->rh, 
                                                      "Type"=>$request->type,
                                                     "Date_creation"=>$date,
                                                      "NSS"=> $request->NSS,    
@@ -288,7 +288,7 @@ class PatientController extends Controller
                                                             "tele_mobile1"=>$request->mobile1,
                                                             "tele_mobile2"=>$request->mobile2,
                                                             "group_sang"=>$request->gs,
-                                                            "Rihesus"=>$request->rh, 
+                                                            "rhesus"=>$request->rh, 
                                                              "Type"=>$request->type,
                                                             "Date_creation"=>$date,
                                                              "NSS"=> $request->NSS,
@@ -308,7 +308,7 @@ class PatientController extends Controller
                                                             "tele_mobile1"=>$request->mobile1,
                                                             "tele_mobile2"=>$request->mobile2,
                                                             "group_sang"=>$request->gs,
-                                                            "Rihesus"=>$request->rh, 
+                                                            "rhesus"=>$request->rh, 
                                                              "Type"=>$request->type,
                                                             "Date_creation"=>$date,
                                                              "NSS"=> $request->NSS,
@@ -335,7 +335,7 @@ class PatientController extends Controller
                                 "tele_mobile1"=>$request->mobile1,
                                 "tele_mobile2"=>$request->mobile2,
                                 "group_sang"=>$request->gs,
-                                "Rihesus"=>$request->rh, 
+                                "rhesus"=>$request->rh, 
                                  "Type"=>$request->type,
                                 "Date_creation"=>$date,
                                 "NSS"=> $request->NSS, 
@@ -391,7 +391,7 @@ class PatientController extends Controller
                                 "tele_mobile1"=>$request->mobile1,
                                 "tele_mobile2"=>$request->mobile2,
                                 "group_sang"=>$request->gs,
-                                "Rihesus"=>$request->rh, 
+                                "rhesus"=>$request->rh, 
                                  "Type"=>$request->type,
                                 "Date_creation"=>$date,
                                 "NSS"=> $request->NSS,//hfg
@@ -536,8 +536,16 @@ public function search(Request $request)
      {
             return patient::where('Prenom', 'LIKE', '%'.trim($request->prenom).'%')->get();     
      }
-     // public function patientsToMerege(Request $request)
-     // {
-     //    return ("cwdf");
-     // }
+     public function patientsToMerege(Request $request)
+     {
+          $patient1 = patient::FindOrFail($request->search[0]);
+          $patient2 = patient::FindOrFail($request->search[1]);
+          $view = view("patient.ajax_patient_merge",compact('patient1','patient2'))->render();
+          return response()->json(['html'=>$view]);
+     }
+     public function merge(Request $request)
+     {
+         // dd($request->all());
+        dd("a");
+     }
 }

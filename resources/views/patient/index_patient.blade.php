@@ -112,7 +112,9 @@ function doMerge()
                     url : '{{URL::to('getPatientsToMerge')}}',
                       data:{'search':values},
                       success:function(data,status, xhr){
-                      	$('#PatiensMerge tbody').html(data.html);
+                      	console.log(data);
+                                $('#tablePatientToMerge').html(data.html);
+
                      }
            });
 }
@@ -122,12 +124,14 @@ function KeepCount() {
 		$('.check:not(:checked)').attr('disabled','disabled');
 		$.each( $("input:checked"), function( key, value ) {
   			values.push($(this).val());
-  			//alert($(this).parent().parent());
   			$(this).parent().parent().css('background-color','#dd9900');
 		});
 	}else
 	{
 		$( "input:not(:checked)").removeAttr("disabled");
+		$.each( $("input:unchecked"), function( key, value ) {
+			$(this).parent().parent().css('background-color','#ffffff');
+		});
 	}
 }
 
@@ -136,9 +140,13 @@ function setField(field,value)
 	if($('#'+field).is("input"))
 		$('#'+field).val(value);
 	else
-		//$(#'+field option:eq(value)').prop('selected', true);
-		//$('#'+field+'option[value="'+value'"]').attr("selected", "selected");	
-		$('#'+field).val(value);
+	{
+		var select = $('#'+field);
+		$("select option").filter(function() {
+		     return $(this).val() == value; 
+		}).prop('selected', true);
+	}
+		
 	
 }
 </script>
@@ -232,41 +240,34 @@ function setField(field,value)
 		<div class="modal-content">
 	      		<div class="modal-header">
 	        			<button type="button" class="close" data-dismiss="modal">&times;</button>
-	        			<h4 class="modal-title">Mergerg les patients :</h4>
+	        			<h4 class="modal-title">Merger les données des Patients :</h4>
 	      		</div>
 	      		<div class="modal-body">
-	        			<p>
-					les données du paient selectionner vont étre merger dans  l'enregistrement de patient souligné
+	        			<p class="center">
+					êtes-vous sûr de vouloir de vouloire merger les deux patients ?
 	        			</p>
 	        			<p> <span  style="color: red;">
 	        			mergé les patient est permanent et ne  peut pas  étre refait !!
 	        			</span>
 				</p>
+				<form id="form-merge" class="form-horizontal" role="form" method="POST" action="{{ url('/patient/merge') }}">	
+	      				{{ csrf_field() }}
+		      			<div id="tablePatientToMerge"></div>
+		        			<div class="modal-footer">
+		        				<button type="button" class="btn btn-default" data-dismiss="modal">
+		        					 <i class="ace-icon fa fa-undo bigger-120"></i>
+		        						Fermer
+		        				</button>
+		        				<button  type="submit" class="btn btn-success" >
+		        					  <i class="ace-icon fa fa-check bigger-120"></i>
+		        					Valider
+		        				</button>
+		      			</div> 
+		      			
+	      			</form>
 	        		</div>
-	      		<form id="form-merge" class="form-horizontal" role="form" method="POST" action="">	
-	      			<table id ="PatiensMerge" class="table table-striped table-bordered">
-	      				<thead>
-	     					<th class="category narrow"></th>
-	      					<th>Résultat</th>
-	      					<th>Patient1</th>
-	      					<th>Patient2</th>
-	      				</thead>
-	      				<tbody id="mergepatients">
-	      					
-	      				</tbody>
-	      			</table>
-	      			<div class="modal-footer">
-	        				<button type="button" class="btn btn-default" data-dismiss="modal">
-	        					 <i class="ace-icon fa fa-undo bigger-120"></i>
-	        						Fermer
-	        				</button>
-	        				<button  type="submit" class="btn btn-success" >
-	        					  <i class="ace-icon fa fa-check bigger-120"></i>
-	        					Valider
-	        				</button>
-	      			</div> 
-	      		</form>
-	   	</div>
+	        		
+	      	</div>  	{{-- modal-content --}}
 	</div>
 	</div>
 </div>{{-- row --}}

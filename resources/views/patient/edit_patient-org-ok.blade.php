@@ -103,7 +103,7 @@
 				</label>
 				<div class="col-sm-4">
 					<select id="rh" name="rh">
-						<option value="{{ $patient->Rihesus }}">{{ $patient->Rihesus }}</option>
+						<option value="{{ $patient->rhesus }}">{{ $patient->rhesus }}</option>
 						<option value="+" selected>+</option>
 						<option value="-">-</option>
 					</select>
