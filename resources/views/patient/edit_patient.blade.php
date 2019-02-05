@@ -454,7 +454,7 @@
 							<span class="lbl"> En exercice</span>
 						</label>
 						<label>
-							<input name="etat" value="Retraité" type="radio" class="ace" {{ $assure->Etat ==="Retraité" ? "Checked":"" }} />
+							<input name="etat" value="Retraite" type="radio" class="ace" {{ $assure->Etat ==="Retraite" ? "Checked":"" }} />
 							<span class="lbl"> Retraité</span>
 						</label>
 						<label>
@@ -462,7 +462,7 @@
 								<span class="lbl"> Invalide</span>
 						</label>
 						<label>
-							<input name="etat" value="Mise en disponibilité" type="radio" class="ace"  {{ $assure->Etat ==="Mise en disponibilité" ? "Checked":"" }} />
+							<input name="etat" value="Mise en disponibilite" type="radio" class="ace"  {{ $assure->Etat ==="Mise en disponibilite" ? "Checked":"" }} />
 								<span class="lbl"> Mise en disponibilité</span>
 						</label>
 						</div>
