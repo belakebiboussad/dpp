@@ -6432,3 +6432,6 @@ table.merger tr.duplicate td,
 table.merger tr.duplicate th {
   background-color: #afa;
 }
+input.tt-input {
+width:auto !important;
+}

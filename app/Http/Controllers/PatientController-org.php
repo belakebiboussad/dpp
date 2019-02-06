@@ -194,12 +194,7 @@ public function update(Request $request,$id)
               $date = Date::Now();
               static $assurObj;
               $patient = patient::FindOrFail($id);
-              // dd($patient);    
-             // dd($patient->Assurs_ID_Assure);
-              //dd($request->all());
-               // dd($patient->Type);
-               //dd($request->type);
-             switch ($patient->Type) {
+               switch ($patient->Type) {
                           case 'Assure':
                                         switch ($request->type) {
                                                     case 'Assure':
@@ -888,7 +883,10 @@ public function search(Request $request)
      }
      public function merge(Request $request)
      {
-         // dd($request->all());
-        dd("a");
+            $patient1=patient::FindOrFail($request->$patient1_id);
+          $patient1=patient::FindOrFail($request->$patient2_id);
+         //chargement des consultation du patient2 
+         $consultations = consultation::where('Patient_ID_Patient',$request->$patient2_id)->get();
+         dd( $consultations);
      }
 }

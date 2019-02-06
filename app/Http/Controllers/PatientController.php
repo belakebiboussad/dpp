@@ -10,7 +10,9 @@ use App\modeles\consultation;
 use App\modeles\examenbiologique;
 use App\modeles\DemandeHospitalisation;
 use App\modeles\hospitalisation;
+use App\modeles\antecedant;
 use App\Utils\ArrayClass;
+use App\modeles\ticket;
 use Validator;
 use Redirect;
 use MessageBag;
@@ -30,8 +32,8 @@ class PatientController extends Controller
     }
     public function index()
     {
-        $patients = patient::all();
-        return view('patient.index_patient', compact('patients'));
+        //$patients = patient::all(); // return view('patient.index_patient', compact('patients'));
+      return view('patient.index_patient');
     }
 
     /**
@@ -52,10 +54,10 @@ class PatientController extends Controller
      */
     public function store(Request $request)
       {
-           static $assurObj;
-           $date = Date::Now();
-            //dd($request->rhesus);
-            $rule = array(
+            static $assurObj;
+            $date = Date::Now();
+             dd($request->all());
+             $rule = array(
                   "nom" => 'required',
                   "prenom" => 'required',
                   "datenaissance" => 'required|date|date_format:Y-m-d',
@@ -203,109 +205,302 @@ class PatientController extends Controller
      * @return \Illuminate\Http\Response
      */ 
       public function update(Request $request,$id)
-      {
-          $date = Date::Now();
-           static $assurObj;
-           $patient = patient::FindOrFail($id);
-          if($request->type == "Autre")
-           {
-                     $patient -> update([
-                                "Nom"=>$request->nom,
-                                "Prenom"=>$request->prenom,
-                                "Dat_Naissance"=>$request->datenaissance,
-                               "Lieu_Naissance"=>$request->lieunaissance,
-                               "Sexe"=>$request->sexe,
-                               "Adresse"=>$request->adresse,
-                               "situation_familiale"=>$request->sf,
-                               "tele_mobile1"=>$request->operateur1.$request->mobile1,
-                               "tele_mobile2"=>$request->operateur2.$request->mobile2,
-                               "group_sang"=>$request->gs,
-                               "rhesus"=>$request->rh, 
-                               "Type"=>$request->type,
-                               "Assurs_ID_Assure"=>null,
-                               "Date_creation"=>$date,
-                               "description"=> $request->description,
-                     ]);           
-           }//finautre
-           else//(requette !=autre)
-           {
-                //si patient !=autre
-                if($patient->Type !="Autre")
-                {
-                     //dd($request->all()); 
-                     $assurObj = assur::FindOrFail($patient->Assurs_ID_Assure);
-                     $assurObj->update([
-                                        "Nom"=>$request->nomf,
-                                        "Prenom"=>$request->prenomf,
-                                        "Date_Naissance"=>$request->datenaissancef,
-                                        "lieunaissance"=>$request->lieunaissancef,
-                                        "Sexe"=>$request->sexef,
-                                        "Matricule"=>$request->matf, 
-                                        "Etat"=>$request->etat,
-                                        "Service"=>null,
-                                        "Grade"=>$request->grade,
-                                        "NMGSN"=>$request->NMGSN,
-                                        "NSS"=>$request->nss,
-                                 ]); 
-                   
-                }//finpatienttype !=autre
-                else//patient type =autre
-                {
-                     $assure = new assur;
-                     $assurObj =  $assure->firstOrCreate([
-                                                  "Nom"=>$request->nomf,
-                                                  "Prenom"=>$request->prenomf,
-                                                  "Date_Naissance"=>$request->datenaissancef,
-                                                  "lieunaissance"=>$request->lieunaissancef,
-                                                  "Sexe"=>$request->sexef,
-                                                  "Matricule"=>$request->matf, 
-                                                  "Etat"=>$request->etat,
-                                                  "Service"=>null,
-                                                  "Grade"=>$request->grade,
-                                                  "NMGSN"=>$request->NMGSN,
-                                                  "NSS"=>$request->nss,
-                                          ]);
-                }
-                $Type_p;
-                $nss;
-                if (isset($request->nss))   
-                {
-                      $nss=$request->nss;
-                }else
-                {
-                    $nss=null;
-                }
-                if (isset($request->Type_p))   
-                {
-                      $typeP=$request->Type_p;
-                }else
-                {
-                    $typeP=null;
-                }
-                $patient -> update([
-                                "Nom"=>$request->nom,
-                                "Prenom"=>$request->prenom,
-                                "Dat_Naissance"=>$request->datenaissance,
-                               "Lieu_Naissance"=>$request->lieunaissance,
-                               "Sexe"=>$request->sexe,
-                               "Adresse"=>$request->adresse,
-                               "situation_familiale"=>$request->sf,
-                               "tele_mobile1"=>$request->operateur1.$request->mobile1,
-                               "tele_mobile2"=>$request->operateur2.$request->mobile2,
-                               "group_sang"=>$request->gs,
-                               "rhesus"=>$request->rh, 
-                               "Type"=>$request->type,
-                               "Type_p"=>$typeP,
-                               "Assurs_ID_Assure"=>$assurObj->id,
-                               "description"=> $request->description,
-                               "NSS"=>$nss,
-                               "Date_creation"=>$date,
-                            
-                     ]);
-
-           }
+{
+              $date = Date::Now();
+              static $assurObj;
+              $patient = patient::FindOrFail($id);
+               switch ($patient->Type) {
+                          case 'Assure':
+                                        switch ($request->type) {
+                                                    case 'Assure':
+                                                               $assure = assur::FindOrFail($patient->Assurs_ID_Assure);
+                                                                 $assure->update([
+                                                                            "Nom"=>$request->nom,
+                                                                            "Prenom"=>$request->prenom,
+                                                                            "Date_Naissance"=>$request->datenaissance,
+                                                                            "lieunaissance"=>$request->lieunaissance,
+                                                                            "Sexe"=>$request->sexe,
+                                                                            "Matricule"=>$request->matf, 
+                                                                            "Etat"=>$request->etat,
+                                                                            "Grade"=>$request->grade,
+                                                                           "NMGSN"=>$request->NMGSN,
+                                                                            "NSS"=>$request->nss,
+                                                                 ]);
+                                                                 $patient -> update([
+                                                                            "Nom"=>$request->nom,
+                                                                            "Prenom"=>$request->prenom,
+                                                                            "Dat_Naissance"=>$request->datenaissance,
+                                                                            "Lieu_Naissance"=>$request->lieunaissance,
+                                                                            "Sexe"=>$request->sexe,
+                                                                            "Adresse"=>$request->adresse,
+                                                                            "situation_familiale"=>$request->sf,
+                                                                            "tele_mobile1"=>$request->operateur1.$request->mobile1,
+                                                                            "tele_mobile2"=>$request->operateur2.$request->mobile2,
+                                                                            "group_sang"=>$request->gs,
+                                                                            "rhesus"=>$request->rh, 
+                                                                             "Type"=>$request->type,
+                                                                             "Type_p"=>null,
+                                                                             "description"=>"",
+                                                                               "NSS"=> $request->NSS,    
+                                                                              "Date_creation"=>$date,  
+                                                                 ]);
+                                                                  break;
+                                                     case 'Ayant_droit':
+                                                                  $assure = new assur;
+                                                                  $assurObj =  $assure->firstOrCreate([
+                                                                              "Nom"=>$request->nomf,
+                                                                               "Prenom"=>$request->prenomf,
+                                                                              "Date_Naissance"=>$request->datenaissancef,
+                                                                               "lieunaissance"=>$request->lieunaissancef,
+                                                                              "Sexe"=>$request->sexef,
+                                                                              "Matricule"=>$request->matf, 
+                                                                              "Etat"=>$request->etat,
+                                                                              "Grade"=>$request->grade,
+                                                                              "NMGSN"=>$request->NMGSN,
+                                                                              "NSS"=>$request->nss,
+                                                                  ]);
+                                                                 $patient -> update([
+                                                                            "Nom"=>$request->nom,
+                                                                            "Prenom"=>$request->prenom,
+                                                                            "Dat_Naissance"=>$request->datenaissance,
+                                                                            "Lieu_Naissance"=>$request->lieunaissance,
+                                                                            "Sexe"=>$request->sexe,
+                                                                            "Adresse"=>$request->adresse,
+                                                                            "situation_familiale"=>$request->sf,
+                                                                            "tele_mobile1"=>$request->operateur1.$request->mobile1,
+                                                                            "tele_mobile2"=>$request->operateur2.$request->mobile2,
+                                                                            "group_sang"=>$request->gs,
+                                                                            "rhesus"=>$request->rh, 
+                                                                            "Assurs_ID_Assure"=>$assurObj->id,
+                                                                             "Type"=>$request->type,
+                                                                             "Type_p"=>$request->Type_p,
+                                                                             // "description"=> $request->description, 
+                                                                             "description"=>"",
+                                                                               "NSS"=> $request->nsspatient,    
+                                                                              "Date_creation"=>$date,  
+                                                                 ]);
+                                                                  break;
+                                                     case 'Autre':
+                                                                $patient -> update([
+                                                                            "Nom"=>$request->nom,
+                                                                            "Prenom"=>$request->prenom,
+                                                                            "Dat_Naissance"=>$request->datenaissance,
+                                                                            "Lieu_Naissance"=>$request->lieunaissance,
+                                                                            "Sexe"=>$request->sexe,
+                                                                            "Adresse"=>$request->adresse,
+                                                                            "situation_familiale"=>$request->sf,
+                                                                            "tele_mobile1"=>$request->operateur1.$request->mobile1,
+                                                                            "tele_mobile2"=>$request->operateur2.$request->mobile2,
+                                                                            "group_sang"=>$request->gs,
+                                                                            "rhesus"=>$request->rh, 
+                                                                            "Assurs_ID_Assure"=>null,
+                                                                             "Type"=>$request->type,
+                                                                             "Type_p"=>null,
+                                                                             "description"=> $request->description, 
+                                                                            "Date_creation"=>$date,  
+                                                                 ]);
+                                                                break;             
+                                                    default:
+                                                                # code...
+                                                                break;
+                                        }             
+                                      // dd($p);
+                                       break;
+                           case 'Ayant_droit':
+                                        switch ($request->type) {
+                                                    case 'Assure':
+                                                                   $assure = new assur;
+                                                                  $assurObj =  $assure->firstOrCreate([
+                                                                              "Nom"=>$request->nom,
+                                                                               "Prenom"=>$request->prenom,
+                                                                              "Date_Naissance"=>$request->datenaissance,
+                                                                               "lieunaissance"=>$request->lieunaissance,
+                                                                              "Sexe"=>$request->sexe,
+                                                                              "Matricule"=>$request->matf, 
+                                                                              "Etat"=>$request->etat,
+                                                                              "Grade"=>$request->grade,
+                                                                              "NMGSN"=>$request->NMGSN,
+                                                                              "NSS"=>$request->nss,
+                                                                  ]);
+                                                                 $patient -> update([
+                                                                            "Nom"=>$request->nom,
+                                                                            "Prenom"=>$request->prenom,
+                                                                            "Dat_Naissance"=>$request->datenaissance,
+                                                                            "Lieu_Naissance"=>$request->lieunaissance,
+                                                                            "Sexe"=>$request->sexe,
+                                                                            "Adresse"=>$request->adresse,
+                                                                            "situation_familiale"=>$request->sf,
+                                                                            "tele_mobile1"=>$request->operateur1.$request->mobile1,
+                                                                            "tele_mobile2"=>$request->operateur2.$request->mobile2,
+                                                                            "group_sang"=>$request->gs,
+                                                                            "rhesus"=>$request->rh, 
+                                                                            "Assurs_ID_Assure"=>$assurObj->id,
+                                                                             "Type"=>$request->type,
+                                                                             "Type_p"=>null,
+                                                                             "description"=>"",
+                                                                               "NSS"=> null,    
+                                                                              "Date_creation"=>$date,  
+                                                                 ]);
+                                                                break;
+                                                    case 'Ayant_droit':
+                                                                # code...           
+                                                                 $assure = assur::FindOrFail($patient->Assurs_ID_Assure);
+                                                                 $assure->update([
+                                                                            "Nom"=>$request->nomf,
+                                                                            "Prenom"=>$request->prenomf,
+                                                                            "Date_Naissance"=>$request->datenaissancef,
+                                                                            "lieunaissance"=>$request->lieunaissancef,
+                                                                            "Sexe"=>$request->sexef,
+                                                                            "Matricule"=>$request->matf, 
+                                                                            "Etat"=>$request->etat,
+                                                                            "Grade"=>$request->grade,
+                                                                           "NMGSN"=>$request->NMGSN,
+                                                                            "NSS"=>$request->nss,
+                                                                 ]);
+                                                                 $patient -> update([
+                                                                            "Nom"=>$request->nom,
+                                                                            "Prenom"=>$request->prenom,
+                                                                            "Dat_Naissance"=>$request->datenaissance,
+                                                                            "Lieu_Naissance"=>$request->lieunaissance,
+                                                                            "Sexe"=>$request->sexe,
+                                                                            "Adresse"=>$request->adresse,
+                                                                            "situation_familiale"=>$request->sf,
+                                                                            "tele_mobile1"=>$request->operateur1.$request->mobile1,
+                                                                            "tele_mobile2"=>$request->operateur2.$request->mobile2,
+                                                                            "group_sang"=>$request->gs,
+                                                                            "rhesus"=>$request->rh, 
+                                                                             "Type"=>$request->type,
+                                                                             "Type_p"=>$request->Type_p,
+                                                                             "description"=>"",
+                                                                               "NSS"=> $request->nsspatient,    
+                                                                              "Date_creation"=>$date,  
+                                                                 ]);
+                                                                break;
+                                                    case 'Autre':
+                                                                $patient -> update([
+                                                                             "Nom"=>$request->nom,
+                                                                             "Prenom"=>$request->prenom,
+                                                                              "Dat_Naissance"=>$request->datenaissance,
+                                                                              "Lieu_Naissance"=>$request->lieunaissance,
+                                                                              "Sexe"=>$request->sexe,
+                                                                              "Adresse"=>$request->adresse,
+                                                                              "situation_familiale"=>$request->sf,
+                                                                              "tele_mobile1"=>$request->operateur1.$request->mobile1,
+                                                                              "tele_mobile2"=>$request->operateur2.$request->mobile2,
+                                                                              "group_sang"=>$request->gs,
+                                                                              "rhesus"=>$request->rh, 
+                                                                               "Assurs_ID_Assure"=>null,
+                                                                               "Type"=>$request->type,
+                                                                              "Type_p"=>null,
+                                                                              "description"=> $request->description, 
+                                                                                            "Date_creation"=>$date,  
+                                                                               ]);
+                                                                        break;             
+                                                    default:
+                                                                # code...
+                                                                break;
+                                        }
+                                        break;
+                            case 'Autre':
+                                        switch ($request->type) {
+                                                    case 'Assure':
+                                                                   $assure = new assur;
+                                                                  $assurObj =  $assure->firstOrCreate([
+                                                                              "Nom"=>$request->nom,
+                                                                               "Prenom"=>$request->prenom,
+                                                                              "Date_Naissance"=>$request->datenaissance,
+                                                                               "lieunaissance"=>$request->lieunaissance,
+                                                                              "Sexe"=>$request->sexe,
+                                                                              "Matricule"=>$request->matf, 
+                                                                              "Etat"=>$request->etat,
+                                                                              "Grade"=>$request->grade,
+                                                                              "NMGSN"=>$request->NMGSN,
+                                                                              "NSS"=>$request->nss,
+                                                                  ]);
+                                                                 $patient -> update([
+                                                                            "Nom"=>$request->nom,
+                                                                            "Prenom"=>$request->prenom,
+                                                                            "Dat_Naissance"=>$request->datenaissance,
+                                                                            "Lieu_Naissance"=>$request->lieunaissance,
+                                                                            "Sexe"=>$request->sexe,
+                                                                            "Adresse"=>$request->adresse,
+                                                                            "situation_familiale"=>$request->sf,
+                                                                            "tele_mobile1"=>$request->operateur1.$request->mobile1,
+                                                                            "tele_mobile2"=>$request->operateur2.$request->mobile2,
+                                                                            "group_sang"=>$request->gs,
+                                                                            "rhesus"=>$request->rh, 
+                                                                            "Assurs_ID_Assure"=>$assurObj->id,
+                                                                             "Type"=>$request->type,
+                                                                             "Type_p"=>null,
+                                                                              "description"=>"", 
+                                                                              "Date_creation"=>$date,  
+                                                                 ]);
+                                                                break;
+                                                     case'Ayant_droit':
+                                                                  $assure = new assur;
+                                                                  $assurObj =  $assure->firstOrCreate([
+                                                                              "Nom"=>$request->nomf,
+                                                                               "Prenom"=>$request->prenomf,
+                                                                              "Date_Naissance"=>$request->datenaissancef,
+                                                                               "lieunaissance"=>$request->lieunaissancef,
+                                                                              "Sexe"=>$request->sexef,
+                                                                              "Matricule"=>$request->matf, 
+                                                                              "Etat"=>$request->etat,
+                                                                              "Grade"=>$request->grade,
+                                                                              "NMGSN"=>$request->NMGSN,
+                                                                              "NSS"=>$request->nss,
+                                                                  ]);
+                                                                  //dd($assurObj->id);
+                                                                 $p = $patient -> update([
+                                                                            "Nom"=>$request->nom,
+                                                                            "Prenom"=>$request->prenom,
+                                                                            "Dat_Naissance"=>$request->datenaissance,
+                                                                            "Lieu_Naissance"=>$request->lieunaissance,
+                                                                            "Sexe"=>$request->sexe,
+                                                                            "Adresse"=>$request->adresse,
+                                                                            "situation_familiale"=>$request->sf,
+                                                                            "tele_mobile1"=>$request->operateur1.$request->mobile1,
+                                                                            "tele_mobile2"=>$request->operateur2.$request->mobile2,
+                                                                            "group_sang"=>$request->gs,
+                                                                            "rhesus"=>$request->rh, 
+                                                                            "Assurs_ID_Assure"=>$assurObj->id,
+                                                                             "Type"=>$request->type,
+                                                                             "Type_p"=>$request->Type_p,
+                                                                             "description"=>"",
+                                                                               "NSS"=> $request->nsspatient,    
+                                                                              "Date_creation"=>$date,  
+                                                                 ]);      
+                                                    case 'Autre':
+                                                                 $patient -> update([
+                                                                             "Nom"=>$request->nom,
+                                                                             "Prenom"=>$request->prenom,
+                                                                              "Dat_Naissance"=>$request->datenaissance,
+                                                                              "Lieu_Naissance"=>$request->lieunaissance,
+                                                                              "Sexe"=>$request->sexe,
+                                                                              "Adresse"=>$request->adresse,
+                                                                              "situation_familiale"=>$request->sf,
+                                                                              "tele_mobile1"=>$request->operateur1.$request->mobile1,
+                                                                              "tele_mobile2"=>$request->operateur2.$request->mobile2,
+                                                                              "group_sang"=>$request->gs,
+                                                                              "rhesus"=>$request->rh, 
+                                                                               "Assurs_ID_Assure"=>null,
+                                                                               "Type"=>$request->type,
+                                                                              "Type_p"=>null,
+                                                                              "description"=> $request->description, 
+                                                                                            "Date_creation"=>$date,  
+                                                                               ]);
+                                                                break;
+                                                    
+                                                    default:
+                                                                # code...
+                                                                break;
+                                        }
+                           default:
+                                      # code...
+                                        break;
+             }           
             return redirect(Route('patient.show',$patient->id));
-      }
+}
 
     /**
      * Remove the specified resource from storage.
@@ -383,7 +578,7 @@ class PatientController extends Controller
             })
             ->rawColumns(['action2','action'])
             ->make(true);
-            // <i class="ace-icon fa fa-hand-o-up bigger-120">
+    
     }
 public function search(Request $request)
 {
@@ -409,6 +604,7 @@ public function search(Request $request)
                                 '<td class ="center chkTrt">'.'<input type="checkbox" class="ace check" name="fusioner[]" onClick="return KeepCount()" value="'.$patient->id.'"/>'.'<span class="lbl"></span>   '.'</td>'.
                                 '<td><a href="#" id ="'.$patient->id.'" onclick ="getPatientdetail('.$patient->id.');">'.$patient->Nom.'</a></td>'.
                                '<td>'.$patient->Prenom.'</td>'.
+                               '<td>'.$patient->code_barre.'</td>'.
                                '<td>'.$patient->Dat_Naissance.'</td>'.
                                '<td>'.$patient->Sexe.'</td>'.
                                '<td>'.$age.'</td>'.
@@ -436,11 +632,11 @@ public function search(Request $request)
      {
            $statuses = array();
            $values;
-           $patient = new patient;
+           $patientResult = new patient;
            $patient1 = patient::FindOrFail($request->search[0]);
            $patient2 = patient::FindOrFail($request->search[1]);    
            $patients=[$patient1->getAttributes(),$patient2->getAttributes()];
-          foreach ($patient->getFillable() as $field) {
+          foreach ($patientResult->getFillable() as $field) {
               
                 $values = ArrayClass::pluck($patients, $field);      
                 // var_dump($values);echo("<br>");
@@ -449,7 +645,7 @@ public function search(Request $request)
                         $statuses[$field] = "none";
                         continue;
                 }
-               $patient->$field = reset($values);
+               $patientResult->$field = reset($values);
                 // One unique value
                 if (count($values) == 1) {
                      $statuses[$field] = "unique";
@@ -458,6 +654,7 @@ public function search(Request $request)
                 // Multiple values
                 $statuses[$field] = count(array_unique($values)) == 1 ? "duplicate" : "multiple";
            }
+          // dd($result);
 
          // Count statuses
           $counts = array(
@@ -470,14 +667,55 @@ public function search(Request $request)
                 $counts[$status]++;
           }
           //ArrayClass
-          $view = view("patient.ajax_patient_merge",compact('patient1','patient2','statuses','counts'))->render();
+          $view = view("patient.ajax_patient_merge",compact('patientResult','patient1','patient2','statuses','counts'))->render();
           return response()->json(['html'=>$view]);
              
      }
      public function merge(Request $request)
      {
-          dd($request->all());
-         
-     }
-   
+          $patient1=patient::FindOrFail($request->patient1_id);
+          $patient2=patient::FindOrFail($request->patient2_id);
+           //chargement des consultation du patient2 
+          $consuls = consultation::where('Patient_ID_Patient',$request->patient2_id)->get();
+          $antecedants=antecedant::where('Patient_ID_Patient',$request->patient2_id)->get();
+           foreach ($antecedants as $key => $antecedant) {
+                     $antecedant->update(["Patient_ID_Patient"=>$patient1->id]);  
+          }
+          foreach ($consuls as $key => $consult) {
+                $consult->update(["Patient_ID_Patient"=>$patient1->id]);  
+          }
+          // tickets
+          $tickets = ticket::where('id_patient',$request->patient2_id)->get();
+           foreach ($tickets as $key => $ticket) {
+                $ticket->update(["id_patient"=>$patient1->id]);  
+           }
+           $rdvs = rdv::where('Patient_ID_Patient',$request->patient2_id)->get();
+           foreach ($rdvs as $key => $rdv) {
+                $rdv->update(["Patient_ID_Patient"=>$patient1->id]);  
+           }
+           //dd($request->all());
+           $patient1 -> update([
+                "Nom"=>$request->nom,
+                "Prenom"=>$request->prenom,
+                "code_barre"=>$request->code,
+                "Dat_Naissance"=>$request->datenaissance,
+                "Lieu_Naissance"=>$request->lieunaissance,
+                "Sexe"=>$request->sexe,
+                "Adresse"=>$request->adresse,
+                "situation_familiale"=>$request->sf,
+                "tele_mobile1"=>$request->mobile1,
+                "tele_mobile2"=>$request->mobile2,
+                "group_sang"=>$request->gs,
+                "rhesus"=>$request->rh, 
+                "Assurs_ID_Assure"=>$patient1->Assurs_ID_Assure,
+                "Type"=>$request->type,
+                "Type_p"=>$request->Type_p,
+                "description"=>$request->description,
+                "NSS"=> $request->nss,    
+                "Date_creation"=>$request->date,  
+           ]);
+           //desactiver patient 2
+           $patient2->active=0;$patient2->save();
+           return redirect()->route('patient.index');
+    }
 }

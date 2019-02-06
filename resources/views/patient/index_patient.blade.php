@@ -174,15 +174,40 @@ function setField(field,value)
 		</div>
 		<div class="panel-body">
 		<div class="row">
-			<div class="col-sm-2"><label class="control-label" for="patientName" ><strong>&nbsp;&nbsp;&nbsp;Nom :</strong></label></div>
-			<div class="col-sm-4"><input type="text" class="form-control input-sm" id="patientName" name="patientName"  placeholder="Rechercher..."/> </div>
-			<div class="col-sm-2"><label class="control-label" for="patientFirstName" ><strong>Prenom :</strong></label> </div>
-			<div class="col-sm-4"><input type="text" class="form-control input-sm" id="patientFirstName" name="patientFirstName"  placeholder="Rechercher..."></div>
+			<div class="col-sm-2">
+				<label class="control-label" for="patientName" ><strong>&nbsp;&nbsp;&nbsp;Nom :</strong>
+				</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control input-sm" id="patientName" name="patientName"  placeholder="Rechercher..."/>
+			 </div>
+			<div class="col-sm-2">
+				<label class="control-label" for="patientFirstName" ><strong>Prenom :</strong>
+				</label> 
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control input-sm" id="patientFirstName" name="patientFirstName"  placeholder="Rechercher...">
+			</div>
 		</div>
 		<div class="space-12"></div>
 		<div class="row">
-			<div class="col-sm-2"><label class="control-label" for="IPP" ><strong>&nbsp;&nbsp;&nbsp;Id:</strong></label></div>
-			<div class="col-sm-4">   <input type="text" class="form-control input-sm" id="IPP" name="IPP"  placeholder="Rechercher..."></div>
+	
+			<div class="col-sm-2"><label class="control-label" for="IPP" ><strong>&nbsp;&nbsp;&nbsp;Id:</strong></label>
+			</div>
+			<div class="col-sm-2">
+			   <input type="text" class="form-control input-sm tt-input" id="IPP" name="IPP"  placeholder="Rechercher...">
+			 </div>
+			 <div class="col-sm-2 offset-sm-1">
+			</div>	
+			{{-- <div class="col-sm-2 offset-sm-2">
+				<label class="control-label" for="patientFirstName" ><strong>Date Naiss:</strong>
+				</label> 
+			</div>
+			
+			<div class="col-sm-2 offset-sm-2">
+				<input type="text" class="form-control input-sm tt-input" id="patientFirstName" name="patientFirstName"  placeholder="Rechercher...">
+			</div> --}} 
+			
 		</div>{{-- &nbsp;&nbsp; --}} 
 		<div class="space-12"></div>
 		</div>	{{-- panel-body --}} 
@@ -216,6 +241,7 @@ function setField(field,value)
 								<th  class="center" width="3%" ></th>
 								<th>Nom</th>
 								<th>Prénom</th>
+								<th>IPP</th>
 								<th>Né(e) le</th>
 								<th>Sexe</th>
 								<th>Age</th>
@@ -252,6 +278,7 @@ function setField(field,value)
 				</p>
 				<form id="form-merge" class="form-horizontal" role="form" method="POST" action="{{ url('/patient/merge') }}">	
 	      				{{ csrf_field() }}
+
 		      			<div id="tablePatientToMerge"></div>
 		        			<div class="modal-footer">
 		        				<button type="button" class="btn btn-default" data-dismiss="modal">

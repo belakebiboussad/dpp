@@ -1,6 +1,13 @@
 @extends('app')
 @section('page-script')
 	<script>
+		$( document ).ready(function() {
+			$( ".civilite" ).change(function() {
+				var a = $("select.civilite option").filter(":selected").val();
+	  			alert( a );
+			});
+		});
+		
 	function showType(value){
     		switch(value){
 		           case "Assure":
@@ -166,7 +173,7 @@
 						<strong class="text-nowrap">Cevilite :</strong>
 					</label>
 					<div class="col-sm-9">
-						<select class="form-control" id="sf" name="sf">
+						<select class="form-control civilite" id="sf" name="sf">
 							<option value="">------</option>
 							<option value="celibataire">Célibataire(e)</option>
 							<option value="marie">Marié(e)</option>
@@ -176,7 +183,14 @@
 					</div>
 					</div>
 				</div>
-				<div class="col-sm-6">
+				<div class="col-sm-6" id="Div-nomjeuneFille" hidden>
+					<label class="col-sm-3 control-label" for="nom">
+						<strong class="text-nowrap">Nom de jeune fille :</strong>
+					</label>
+					<div class="col-sm-9">
+					<input type="text" id="nom_jeune_fille" name="nom_jeune_fille" placeholder="Nom jeune fille..."  autocomplete = "off" class="col-xs-12 col-sm-12" required/>
+					 {!! $errors->first('nom_jeune_fille', '<small class="alert-danger">:message</small>') !!}
+					</div>
 				</div>{{-- col-sm-6 --}}
 				{{-- /nom de jeune fille --}}
 			</div>	{{-- row --}}
