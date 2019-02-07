@@ -24,7 +24,8 @@
                 @include('partials.breadcrumbs')
 
                 <div class="page-content">
-              	    @yield('main-content')
+                           @include('flashy::message')
+              	 @yield('main-content')
                 </div>
                 <!-- /page-content -->
             </div>

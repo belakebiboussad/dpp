@@ -19,7 +19,7 @@ use App\modeles\dem_colloque;
 use App\User;
 use Auth; 
 use Date;
-
+use Flashy;
 class HomeController extends Controller
 {
     /**
@@ -39,12 +39,11 @@ class HomeController extends Controller
      */
     public function index()
     {
+            Flashy::success('Authentification avec succée!');
            $role = rol::FindOrFail(Auth::user()->role_id);
            $employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
            switch ($role->role) {
                 case "Medecine":
-// $date = Date::Now()->toDateString();//  $rdvs = ticket::where("specialite",$employe->Specialite_Emploiye)//            ->where("date",$date)->get();   
-                      //return view('home.home_med',compact('patients','rdvs'));
                      return view('patient.index_patient');
                       break;
                 case "Receptioniste":

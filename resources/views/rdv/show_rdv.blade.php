@@ -92,7 +92,7 @@
 							</div><!-- /.row -->
 							<div class="space"></div>
 							<hr>
-							@include('flash::message')
+							{{-- @include('flash::message') --}}
 						</div>
 					</div>
 				</div>

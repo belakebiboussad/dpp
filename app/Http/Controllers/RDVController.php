@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 use PDF;
+use Flashy;
 class RDVController extends Controller
 {
     /**
@@ -75,6 +76,7 @@ class RDVController extends Controller
         ]);
         $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
         $specialite = $employe->Specialite_Emploiye; 
+        // $rdv = rdv::create($request->all());
         $rdv = rdv::firstOrCreate([
            "Date_RDV"=>$request->daterdv,
            "specialite"=>$specialite,
@@ -82,7 +84,8 @@ class RDVController extends Controller
            "Patient_ID_Patient"=>$request->id_patient,
            "Etat_RDV"=> "en attente",
         ]);
-         flash('RDV ajouter avec succès')->success();
+
+         Flashy::success('RDV ajouter avec succès');
          return redirect()->route("rdv.show",$rdv->id);
     }
 

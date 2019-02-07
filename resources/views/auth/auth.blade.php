@@ -31,6 +31,7 @@
                                 </ul>
                             </div>
                         @endif
+                        @include('flashy::message')
                         @yield('content')
                     </div>
                     <!-- /.position-relative -->

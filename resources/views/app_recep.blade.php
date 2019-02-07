@@ -2,6 +2,7 @@
 <html lang="en">
     <title>Gestion Des Patients</title>
     @include('partials.htmlheader')
+     @include('partials.scripts')
 <body class="no-skin">
 
     @include('partials.navbar')
@@ -21,6 +22,7 @@
                 @include('partials.breadcrumbs_rec')
 
                 <div class="page-content">
+                @include('flashy::message')
             	    @yield('main-content')
                 </div>
                 <!-- /page-content -->
@@ -34,7 +36,7 @@
     </div>
     <!-- /main-container -->
 
-    @include('partials.scripts')
+   
 
 </body>
 </html>

@@ -187,7 +187,7 @@
 				</div>
 				<div class="col-sm-6" id="Div-nomjeuneFille" hidden>
 					<label class="col-sm-3 control-label" for="nom">
-						<strong class="text-nowrap">Nom de jeune fille :</strong>
+						<strong class="text-nowrap">Nom  jeune fille:</strong>
 					</label>
 					<div class="col-sm-9">
 					<input type="text" id="nom_jeune_fille" name="nom_jeune_fille" placeholder="Nom jeune fille..."  autocomplete = "off" class="col-xs-12 col-sm-12" />

@@ -1,8 +1,4 @@
-@extends('app_recep')
-{{-- @section('page-script')
-	<script>
-	</script>
-@endsection --}}
+@extends('app')
 @section('main-content')
 	<div >
 		@include('partials._patientInfo')
@@ -31,8 +27,7 @@
 			@if(App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role =="Medecine")
 			<li>
 			<a data-toggle="tab" href="#feed">
-				<i class="orange ace-icon fa fa-stethoscope bigger-120"></i>Consultations&nbsp;<span class="badge badge-warning">{{ $consultations->count() }}
-							</span>
+				<i class="orange ace-icon fa fa-stethoscope bigger-120"></i>Consultations&nbsp;<span class="badge badge-warning">{{ count($consultations) }}</span>
 			</a>
 			</li>
 			@endif
@@ -40,14 +35,14 @@
 			<li>
 			<a data-toggle="tab" href="#pictures">
 			<i class="pink ace-icon fa fa-h-square bigger-120"></i>
-			Hospitalisations&nbsp;<span class="badge badge-pink">{{ $hospitalisations->count() }}</span>
+			Hospitalisations&nbsp;<span class="badge badge-pink">{{count($hospitalisations) }} </span>
 			</a>
 			</li>
 			@endif
 			<li>
 			<a data-toggle="tab" href="#friends">
 				<i class="blue ace-icon fa fa-calendar-o bigger-120"></i>
-				RDV&nbsp;<span class="badge badge-info">{{ $rdvs->count() }}</span>
+				RDV&nbsp;<span class="badge badge-info">{{count($rdvs) }}</span>
 			</a>
 			</li>
 			</ul>

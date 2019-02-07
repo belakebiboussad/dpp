@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
 use Redirect;
 // use Session;
+use Flashy;
 class LoginController extends Controller
 {
     /*
@@ -43,6 +44,8 @@ class LoginController extends Controller
             Auth::logout(); // logout user
            // Session::flush();
            // Redirect::back();
+            Flashy::success('You have been logged out.', 'http://your-awesome-link.com');
+
            return Redirect::to('/login'); //redirect back to login
     }
 }
