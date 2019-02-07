@@ -3,11 +3,13 @@
 	<script>
 		$( document ).ready(function() {
 			$( ".civilite" ).change(function() {
-				var a = $("select.civilite option").filter(":selected").val();
-	  			alert( a );
+				var civilite= $("select.civilite option").filter(":selected").val();
+	  			if((civilite =="marie")|| (civilite =="veuf"))
+	  				$('#Div-nomjeuneFille').removeAttr('hidden');
+	  			else
+	  				$('#Div-nomjeuneFille').attr('hidden','');	
 			});
 		});
-		
 	function showType(value){
     		switch(value){
 		           case "Assure":
@@ -105,7 +107,7 @@
 							<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" data-date-format="yyyy-mm-dd" placeholder="Date de naissance..." pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" required/>
 							{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
 						</div>
-				</div>
+					</div>
 				</div>
 				<div class="col-sm-6">
 					<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
@@ -188,7 +190,7 @@
 						<strong class="text-nowrap">Nom de jeune fille :</strong>
 					</label>
 					<div class="col-sm-9">
-					<input type="text" id="nom_jeune_fille" name="nom_jeune_fille" placeholder="Nom jeune fille..."  autocomplete = "off" class="col-xs-12 col-sm-12" required/>
+					<input type="text" id="nom_jeune_fille" name="nom_jeune_fille" placeholder="Nom jeune fille..."  autocomplete = "off" class="col-xs-12 col-sm-12" />
 					 {!! $errors->first('nom_jeune_fille', '<small class="alert-danger">:message</small>') !!}
 					</div>
 				</div>{{-- col-sm-6 --}}

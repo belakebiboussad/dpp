@@ -1,7 +1,6 @@
 @extends('app')
 @section('title','Rechercher un ptient')
 @section('page-script')
-<script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>
 <script>
 $(document).ready(function(){
 	// Defining the local datase
@@ -25,7 +24,7 @@ $(document).ready(function(){
 	$('#patientName').typeahead({
 				hint: true,
 				highlight: true,
-				minLength: 2
+				minLength: 1
 			}, {
 				name: 'patientnom',
 				source: bloodhound,
@@ -56,7 +55,7 @@ $(document).ready(function(){
 		source: bloodhoundPrenom,
 		display: function(data) {
 			$('#btnCreate').removeClass('hidden')
-                                $('#FusionButton').removeClass('hidden')   
+                                $('#FusionButton').removeClass('hidden') 
 			return data.Prenom  //Input value to be set when you select a suggestion. 
 		},
 		templates: {
@@ -68,16 +67,14 @@ $(document).ready(function(){
 				],
 				suggestion: function(data) {
 					return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item">' + data.Prenom + '</div></div>'
-				}
-					
+				}		
 			}
-
-	
 	});
-
 }); 
 function XHRgePatient()
 {
+	$('#btnCreate').removeClass('hidden');
+           $('#FusionButton').removeClass('hidden');
 	nom=$('#patientName').val();
 	prenom=$('#patientFirstName').val();
 	code_barre=$('#IPP').val();
@@ -153,74 +150,107 @@ function setField(field,value)
 @endsection
 @section('main-content')
 <div class="page-content">
-<div class="space-12"></div>
+{{-- <div class="space-12"></div> --}}
 <div class="row">
 	<div class="col-sm-12">
 		<div class="center">
 			<h2 class="blue">
-				<strong>Bienvenue Docteur:</strong>
+				<strong>Bienvenue Docteurs:</strong>
 				<q> {{ App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Nom_Employe }}
 				{{ App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Prenom_Employe}} </q>
 			</h2>
 		</div>
+		
 	</div>		
 </div>	{{-- row --}}
+<div class="space-12"></div>
 <div class="space-12"></div>
 <div class="row">
 	<div class="col-sm-7 col-lg-7">
 		<div class="panel panel-default">
-		<div class="panel-heading" style="height: 50px; font-size: 2.6vh;">
-			Rechercher un Patient
-		</div>
-		<div class="panel-body">
-		<div class="row">
-			<div class="col-sm-2">
-				<label class="control-label" for="patientName" ><strong>&nbsp;&nbsp;&nbsp;Nom :</strong>
-				</label>
+			<div class="panel-heading" style="height: 50px; font-size: 2.6vh;">
+				Rechercher un Patient
 			</div>
-			<div class="col-sm-4">
-				<input type="text" class="form-control input-sm" id="patientName" name="patientName"  placeholder="Rechercher..."/>
-			 </div>
-			<div class="col-sm-2">
-				<label class="control-label" for="patientFirstName" ><strong>Prenom :</strong>
-				</label> 
+		    	<div class="panel-body">
+				<div class="row">
+				<div class="col-sm-2">
+					<label class="control-label pull-right" for="patientName" ><strong>&nbsp;&nbsp;&nbsp;Nom :</strong>
+					</label>
+				</div>
+				<div class="col-sm-4">
+					<input type="text" class="form-control input-sm" id="patientName" name="patientName"  placeholder="Rechercher..."/>
+				 </div>
+				<div class="col-sm-2">
+					<label class="control-label pull-right" for="patientFirstName" ><strong>Prenom :</strong>
+					</label> 
+				</div>
+				<div class="col-sm-4">
+					<input type="text" class="form-control input-sm" id="patientFirstName" name="patientFirstName"  placeholder="Rechercher...">
+				</div>
 			</div>
-			<div class="col-sm-4">
-				<input type="text" class="form-control input-sm" id="patientFirstName" name="patientFirstName"  placeholder="Rechercher...">
+			<div class="space-12"></div>
+			<div class="row">
+		
+				<div class="col-sm-2"><label class="control-label pull-right" for="IPP" ><strong>Id:</strong></label>
+				</div>
+				<div class="col-sm-2">
+				   <input type="text" class="form-control input-sm tt-input" id="IPP" name="IPP"  placeholder="Rechercher...">
+				 </div>
+				 <div class="col-sm-2 offset-sm-1">
+				</div>	
 			</div>
-		</div>
-		<div class="space-12"></div>
-		<div class="row">
-	
-			<div class="col-sm-2"><label class="control-label" for="IPP" ><strong>&nbsp;&nbsp;&nbsp;Id:</strong></label>
-			</div>
-			<div class="col-sm-2">
-			   <input type="text" class="form-control input-sm tt-input" id="IPP" name="IPP"  placeholder="Rechercher...">
-			 </div>
-			 <div class="col-sm-2 offset-sm-1">
-			</div>	
-			{{-- <div class="col-sm-2 offset-sm-2">
-				<label class="control-label" for="patientFirstName" ><strong>Date Naiss:</strong>
-				</label> 
-			</div>
-			
-			<div class="col-sm-2 offset-sm-2">
-				<input type="text" class="form-control input-sm tt-input" id="patientFirstName" name="patientFirstName"  placeholder="Rechercher...">
-			</div> --}} 
-			
-		</div>{{-- &nbsp;&nbsp; --}} 
-		<div class="space-12"></div>
-		</div>	{{-- panel-body --}} 
-		<div class="bs-example" style = "height:45px;">
-		<div class="form-control" style ="border:none;">
-			<button type="submit" class="btn-sm btn-primary" onclick="XHRgePatient();"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
-			<button type="button" class="btn btn-outline-primary btn-sm" id="FusionButton"  onclick ="doMerge();"data-toggle="modal" data-target="#mergeModal" style ="margin-left:20%" data-backdrop="false"><i class="fa fa-angle-right fa-lg"></i><i class="fa fa-angle-left fa-lg"></i>&nbsp;Fusion</button>
-                 		<a  class="btn btn-primary btn-sm hidden" href="patient/create" id=btnCreate role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>
-		</div>            
-		</div> 
-		</div>	{{-- PANEL --}}
+			<div class="space-12"></div>	
+		    	</div>  {{-- body --}}
+		   	<div class="panel-footer">
+		   		<button type="submit" class="btn-sm btn-primary" onclick="XHRgePatient();"><i class="fa fa-search"></i>&nbsp;Rechercher
+				</button>
+				<div class="pull-right">
+					<button type="button" class="btn btn-danger btn-sm hidden" id="FusionButton"  onclick ="doMerge();"data-toggle="modal" data-target="#mergeModal"  data-backdrop="false"><i class="fa fa-angle-right fa-lg"></i><i class="fa fa-angle-left fa-lg"></i>&nbsp;Fusion
+					</button>
+					<a  class="btn btn-primary btn-sm hidden" href="patient/create" id=btnCreate role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>
+				</div>
+				
+		   	</div>
+ 		 </div>
 	</div>	{{-- col-sm-7	 --}}
-	<div class="col-sm-5 col-lg-7"></div>	
+	<div class="col-sm-5 col-lg-5">
+		<div class="infobox infobox-green">
+		<div class="infobox-icon">
+		<i class="ace-icon fa fa-users"></i>
+		</div>
+		<div class="infobox-data">
+			<span class="infobox-data-number">{{ App\modeles\patient::all()->count() }}</span>
+			<div class="infobox-content"><b>Patients</b></div>
+		</div>
+		</div>
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-user-md"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{ App\modeles\consultation::all()->count() }}</span>
+				<div class="infobox-content"><b>Consultations</b></div>
+			</div>
+		</div>
+		<div class="infobox infobox-pink">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-table"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{ App\modeles\rdv::all()->count() }}</span>
+				<div class="infobox-content"><b>Rendez-vous</b></div>
+			</div>
+		</div>
+		<div class="infobox infobox-red">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-hospital-o"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{ App\modeles\hospitalisation::all()->count() }}</span>
+				<div class="infobox-content"><b>Hospitalisations</b></div>
+			</div>
+		</div>
+	</div>	
 </div>{{-- row --}}
 <div class="row">
 	<div class="col-sm-7">
@@ -239,15 +269,15 @@ function setField(field,value)
 								<th hidden>id</th>
 								<th hidden>code</th>
 								<th  class="center" width="3%" ></th>
-								<th>Nom</th>
-								<th>Prénom</th>
-								<th>IPP</th>
-								<th>Né(e) le</th>
-								<th>Sexe</th>
-								<th>Age</th>
-								<th>Cévilité</th>
-								<th>Type</th>
-								<th></th>
+								<th class="blue">Nom</th>
+								<th class="blue">Prénom</th>
+								<th class="blue">IPP</th>
+								<th class="blue">Né(e) le</th>
+								<th class="blue">Sexe</th>
+								<th class="blue">Age</th>
+								<th class="blue">Cévilité</th>
+								<th class="blue">Type</th>
+								<th class="blue"></th>
 							</tr>
 						</thead>
 						<tbody>

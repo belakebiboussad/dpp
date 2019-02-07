@@ -17,6 +17,7 @@ use Validator;
 use Redirect;
 use MessageBag;
 use Carbon\Carbon;
+// use Session;
 class PatientController extends Controller
 {
     /**
@@ -56,7 +57,7 @@ class PatientController extends Controller
       {
             static $assurObj;
             $date = Date::Now();
-             dd($request->all());
+             //dd($request->all());
              $rule = array(
                   "nom" => 'required',
                   "prenom" => 'required',
@@ -129,8 +130,7 @@ class PatientController extends Controller
                 }
            }
            $assurID= $assurObj !=null ? $assurObj->id : null;
-            //dd($request->all());   
-            $patient = patient::firstOrCreate([
+           $patient = patient::firstOrCreate([
                 "code_barre"=>$codebarre,
                 "Nom"=>$request->nom,
                 "Prenom"=>$request->prenom,
@@ -138,6 +138,7 @@ class PatientController extends Controller
                 "Lieu_Naissance"=>$request->lieunaissance,
                 "Sexe"=>$request->sexe,
                 "situation_familiale"=>$request->sf, 
+                "nom_jeune_fille"=>$request->nom_jeune_fille,
                 "Adresse"=>$request->adresse,
                 "tele_mobile1"=>$request->operateur1 . $request->mobile1,
                 "tele_mobile2"=>$request->operateur2 . $request->mobile2,
@@ -162,10 +163,10 @@ class PatientController extends Controller
      */
     public function show($id)
     {   
-         //dd("df"); 
-        $patient = patient::FindOrFail($id);
-        $consultations = consultation::where('Patient_ID_Patient',$patient->id)->get();
-        $hospitalisations = consultation::join('patients','consultations.Patient_ID_Patient','=','patients.id')
+          $patient = patient::FindOrFail($id);
+           //dd($patient);
+          $consultations = consultation::where('Patient_ID_Patient',$patient->id)->get();
+          $hospitalisations = consultation::join('patients','consultations.Patient_ID_Patient','=','patients.id')
                                         ->where('patients.id','=',$patient->id)
                                         ->join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
                                         ->join('hospitalisations','demandehospitalisations.id','=','hospitalisations.id_demande')
@@ -607,7 +608,7 @@ public function search(Request $request)
                                '<td>'.$patient->code_barre.'</td>'.
                                '<td>'.$patient->Dat_Naissance.'</td>'.
                                '<td>'.$patient->Sexe.'</td>'.
-                               '<td>'.$age.'</td>'.
+                               '<td class="numberCircle20">'.$age.'</td>'.
                                '<td>'.$patient->situation_familiale.'</td>'.
                                '<td>'.$patient->Type.'</td>'.
                                '<td>'.'<a href="/patient/'.$patient->id.'" class="'.'btn btn-white btn-sm"><i class="ace-icon fa fa-hand-o-up"></i>&nbsp;</a>'."&nbsp;&nbsp;".'<a href="/patient/'.$patient->id.'/edit" class="'.'btn btn-white btn-sm"><i class="fa fa-edit fa-lg" aria-hidden="true" style="font-size:16px;"></i></a>'.'</td>'.
@@ -622,6 +623,10 @@ public function search(Request $request)
     {
            return patient::where('Nom', 'LIKE', '%'.$request->q.'%')->get();    
     }
+    public function AutoCompletePatientPrenom(Request $request)
+     {
+            return patient::where('Prenom', 'LIKE', '%'.trim($request->prenom).'%')->get();     
+     }
      public function getPatientDetails(Request $request)
      {
           $patient = patient::FindOrFail($request->search);
@@ -630,6 +635,7 @@ public function search(Request $request)
     }
       public function patientsToMerege(Request $request)
      {
+
            $statuses = array();
            $values;
            $patientResult = new patient;
@@ -673,6 +679,7 @@ public function search(Request $request)
      }
      public function merge(Request $request)
      {
+          /*
           $patient1=patient::FindOrFail($request->patient1_id);
           $patient2=patient::FindOrFail($request->patient2_id);
            //chargement des consultation du patient2 
@@ -714,8 +721,11 @@ public function search(Request $request)
                 "NSS"=> $request->nss,    
                 "Date_creation"=>$request->date,  
            ]);
+         
            //desactiver patient 2
-           $patient2->active=0;$patient2->save();
+
+           $patient2->active=0;$patient2->save();  */
+
            return redirect()->route('patient.index');
     }
 }

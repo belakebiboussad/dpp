@@ -24,7 +24,7 @@
                 @include('partials.breadcrumbs')
 
                 <div class="page-content">
-            	    @yield('main-content')
+              	    @yield('main-content')
                 </div>
                 <!-- /page-content -->
             </div>

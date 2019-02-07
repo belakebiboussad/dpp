@@ -46,6 +46,18 @@
 		 $(document).ready(function () {
       			var value =  $("input[type=radio][name='type']:checked").val();
       			showType(value,0);
+      			$( ".civilite" ).change(function() {
+				var civilite= $("select.civilite option").filter(":selected").val();
+	  			
+	  			if((civilite =="marie")|| (civilite =="veuf"))
+	  			{
+	  				$('#Div-nomjeuneFille').removeAttr('hidden');
+	  			}else
+	  			{		
+	  				$('#Div-nomjeuneFille').attr('hidden','');	
+	  				
+	  			}
+			});
     		});
 	</script>
 @endsection
@@ -209,7 +221,7 @@
 					</label>
 				
 					<div class="col-sm-9">
-						<select class="form-control" id="sf" name="sf">
+						<select class="form-control civilite" id="sf" name="sf">
 							<option value="celibataire" @if( $patient->situation_familiale =='celibataire') selected @endif >Célibataire</option>
 							<option value="marie" @if( $patient->situation_familiale =='marie') selected @endif>Marié</option>
 							<option value="divorce" @if( $patient->situation_familiale =="divorce") selected @endif >Divorcé</option>
@@ -218,8 +230,16 @@
 					</div>
 					</div>
 				</div>
-				<div class="col-sm-6">
-						
+				<div class="col-sm-6" id="Div-nomjeuneFille" @if($patient->nom_jeune_fille == "") hidden @endif>
+					
+					<label class="col-sm-3 control-label" for="nom">
+						<strong class="text-nowrap">Nom de jeune fille :</strong>
+					</label>
+					<div class="col-sm-9">
+						<input type="text" id="nom_jeune_fille" name="nom_jeune_fille" placeholder="Nom jeune fille..." value="{{ $patient->nom_jeune_fille }}" autocomplete = "off" class="col-xs-12 col-sm-12" required/>
+						 {!! $errors->first('nom_jeune_fille', '<small class="alert-danger">:message</small>') !!}
+					</div>
+					
 				</div>
 				{{-- /nom de jeune fille --}}
 			</div>	{{-- row --}}

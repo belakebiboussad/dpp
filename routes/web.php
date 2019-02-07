@@ -176,7 +176,4 @@ Route::get('/patientdetail', 'PatientController@getPatientDetails');
 Route::get('/serviceRooms', 'ServiceController@getRooms');
 Route::get('/getPatientsToMerge','PatientController@patientsToMerege');
 Route::post('/patient/merge','PatientController@merge');
-// Route::post('/patientsmerge',function(){
-    
-// });
-
+Route::get("flash","HomeController@flash");

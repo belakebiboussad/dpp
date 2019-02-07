@@ -43,11 +43,9 @@ class HomeController extends Controller
            $employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
            switch ($role->role) {
                 case "Medecine":
-                     $date = Date::Now()->toDateString();
-                      $patients = patient::all();
-                             $rdvs = ticket::where("specialite",$employe->Specialite_Emploiye)
-                                ->where("date",$date)->get();   
-                      return view('home.home_med',compact('patients','rdvs'));
+// $date = Date::Now()->toDateString();//  $rdvs = ticket::where("specialite",$employe->Specialite_Emploiye)//            ->where("date",$date)->get();   
+                      //return view('home.home_med',compact('patients','rdvs'));
+                     return view('patient.index_patient');
                       break;
                 case "Receptioniste":
                       return view('home.home_recep');
@@ -113,5 +111,11 @@ class HomeController extends Controller
                    return view('errors.500');
                    break;
            }
+    }
+     public function flash()
+    {
+
+      flashy()->success('You get success notification.', 'hdtuto.com');
+         return view('flash');
     }
 }

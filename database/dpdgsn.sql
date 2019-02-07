@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 06, 2019 at 03:12 PM
+-- Generation Time: Feb 07, 2019 at 02:54 PM
 -- Server version: 5.7.14
 -- PHP Version: 7.0.10
 
@@ -47711,7 +47711,7 @@ CREATE TABLE `patients` (
   `code_barre` varchar(900) DEFAULT NULL,
   `Nom` varchar(100) DEFAULT NULL,
   `Prenom` varchar(100) DEFAULT NULL,
-  `nom_jeune_fille` varchar(60) NOT NULL,
+  `nom_jeune_fille` varchar(60) DEFAULT NULL,
   `Dat_Naissance` date DEFAULT NULL,
   `Lieu_Naissance` varchar(100) DEFAULT NULL,
   `Sexe` enum('M','F') DEFAULT NULL,
@@ -47747,10 +47747,15 @@ INSERT INTO `patients` (`id`, `code_barre`, `Nom`, `Prenom`, `nom_jeune_fille`, 
 (49, 'M2018/49', 'malade4', 'malade4', '', '2018-05-24', 'hd', 'M', 'marie', 'trh', '0555555555', '0665154247', NULL, NULL, 'A', '+', 35, 'Assure', NULL, NULL, 1, '2018-05-09'),
 (50, 'M2019/50', 'patient14', 'fqsdf', '', '2019-01-22', 'alger', 'M', 'marie', 'qsdfqsdf', '0552555555', NULL, NULL, NULL, 'O', '+', NULL, 'Autre', NULL, 'fsdfqsdf', 1, '2019-02-06'),
 (51, 'M2019/51', 'patient3', 'patient3', '', '2018-12-30', 'alger', 'F', 'celibataire', 'gsdfgdsfg', '0555555555', '', NULL, NULL, NULL, NULL, 38, 'Assure', NULL, 'fqsdfqsdf', 1, '2019-01-22'),
-(52, 'M2019/52', 'patient15', 'dghdh', '', '2018-12-30', 'dfghdfgh', 'M', 'divorce', 'hdfhdfgh', '0555555555', '', NULL, NULL, 'O', '+', 37, 'Assure', NULL, '', 0, '2019-02-06'),
+(52, 'M2019/52', 'patient15', 'dghdh', '', '2018-12-30', 'dfghdfgh', 'M', 'divorce', 'hdfhdfgh', '0555555555', '', NULL, NULL, 'O', '+', 37, 'Assure', NULL, '', 1, '2019-02-06'),
 (53, 'M2019/53', 'dfhdfgh', 'dghdh', '', '2018-12-30', 'dfghdfgh', 'M', 'divorce', 'hdfhdfgh', '0555555555', '', NULL, NULL, 'O', NULL, 37, 'Assure', NULL, NULL, 1, '2019-01-20'),
 (54, 'M2019/54', 'patient5', 'patient5', '', '2014-05-26', 'alger', 'M', 'marie', 'alger', '0555555555', '0666666666', NULL, '76 0330 0192 49', 'A', '+', 40, 'Assure', 'Ascendant', 'fgdf', 1, '2019-02-06'),
-(55, 'M2019/55', 'patient15', 'patient15', '', '2011-06-21', 'alger', 'M', 'marie', 'alger', '0555555555', '', NULL, NULL, 'B', '+', 41, 'Assure', NULL, NULL, 1, '2019-02-05');
+(55, 'M2019/55', 'patient15', 'patient15', '', '2011-06-21', 'alger', 'M', 'marie', 'alger', '0555555555', '', NULL, NULL, 'B', '+', 41, 'Assure', NULL, NULL, 1, '2019-02-05'),
+(56, 'M2019/56', 'patient16', 'patient16', 'malade16', '2007-02-13', 'alger', 'M', 'marie', 'alge', '0555555555', '0666666666', NULL, NULL, 'A', '+', NULL, 'Autre', NULL, 'derogation', 1, '2019-02-07'),
+(57, 'M2019/57', 'patient17', 'patient17', 'hfg', '2019-02-07', 'hdfh', 'M', 'celibataire', 'dhfh', '0555555555', '', NULL, NULL, 'A', '+', NULL, 'Autre', NULL, 'dfhdf', 1, '2019-02-07'),
+(58, 'M2019/58', 'patient18', 'patient18', 'dfh', '2002-07-02', 'dfh', 'M', 'marie', 'hdhdfh', '0555555555', '', NULL, NULL, 'A', '-', NULL, 'Autre', NULL, 'dfhdfg', 1, '2019-02-07'),
+(59, 'M2019/59', 'patient18', 'patient18', 'sdfg', '2010-05-24', 'alger', 'M', 'marie', 'alger', '0552555555', '', NULL, NULL, 'A', '+', NULL, 'Autre', NULL, 'sdfg', 1, '2019-02-07'),
+(60, 'M2019/60', 'patient18', 'patient18', NULL, '1990-01-15', 'blida', 'M', 'marie', 'blida', '0556988747', '', NULL, '12 4569 1235 56', 'A', '+', NULL, 'Ayant_droit', 'Ascendant', NULL, 1, '2019-02-07');
 
 -- --------------------------------------------------------
 
@@ -48074,7 +48079,7 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (30, 'sur', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'rlakhneche@cdta.dz', 81, 5, 'cyfloxYFm8JMkhLZt0sesrbv9NjFTewmVVJT9rEdpIqjM0im3ZzEiqkeuuhX', 1),
 (31, 'rec', '$2y$10$bh1btpM3wPiCwRfRMxPaQeuHhBM44Dp9.nB/DqFqMn.h1IyDdiyMa', NULL, 82, 3, 'SsIBFmbUPID9Kk6mKSJUzHPPYmqOvqZLdUFli8ZFEn8082rMbuKMYl1vDXr2', 1),
 (33, 'test', '$2y$10$44j/9SsU6Do5NeTA.3MtsO9DIWn0v7TNuu47zpCz6wxCcXtKvXvwC', 'test@gmail', 87, 1, NULL, 1),
-(34, 'med', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'med@gmail.com', 88, 1, '2aO0ZqCzKPoPayQ2cNeHyh2as09sbZszMzJTPFlqC4GRckxbDdGyDZ6TcIUg', 1),
+(34, 'med', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'med@gmail.com', 88, 1, 'ar8HoWXhXdcTss2BelT0sF5bkt6qlDnCum0FipgPcupdQSfXb9RZ85TjQMTP', 1),
 (35, 'delCol', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'll@a.fr', 89, 6, 'ohFWVtjuvv3tgpG9e7oxsN1eD33HZhgu9Y441GNdkU8984FuZv9Mb6uhqRT2', 1),
 (38, 'user', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'jj@hot.frr', 93, 3, NULL, 1),
 (39, 'surMed', '$2y$10$zUdI0W5QV/1fmnBnhmL2TOTqN8GMNEdZZK6o4gclrJ1CKfxVq.Rca', 'bbedeebi@cdta.dz', 94, 5, '3eHcxAHWUDocXcTf2hVO0NDAClkiK4G26mYB0onlYg175KA2iClcGdLVprU7', 1),
@@ -48702,7 +48707,7 @@ ALTER TABLE `parametrs`
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 --
 -- AUTO_INCREMENT for table `prescription_soins`
 --

@@ -16,6 +16,9 @@ use Validator;
 use Redirect;
 use MessageBag;
 use Carbon\Carbon;
+use Session;
+use View;
+use Flashy;
 class PatientController extends Controller
 {
     /**
@@ -842,51 +845,109 @@ public function search(Request $request)
     
            public function patientsToMerege(Request $request)
             {
-                   $statuses = array();
-                   $values;
-                   $patient = new patient;
-                   $patient1 = patient::FindOrFail($request->search[0]);
-                   $patient2 = patient::FindOrFail($request->search[1]);    
-                   $patients=[$patient1->getAttributes(),$patient2->getAttributes()];
-                  foreach ($patient->getFillable() as $field) {
-                      
-                        $values = ArrayClass::pluck($patients, $field);      
-                        // var_dump($values);echo("<br>");
-                        ArrayClass::removeValue("", $values);
-                        if (!count($values)) {
-                                $statuses[$field] = "none";
-                                continue;
-                        }
-                       $patient->$field = reset($values);
-                        // One unique value
-                        if (count($values) == 1) {
-                             $statuses[$field] = "unique";
-                             continue;
-                        }
-                        // Multiple values
-                        $statuses[$field] = count(array_unique($values)) == 1 ? "duplicate" : "multiple";
-                   }
+            $statuses = array();
+           $values;
+           $patientResult = new patient;
+           $patient1 = patient::FindOrFail($request->search[0]);
+           $patient2 = patient::FindOrFail($request->search[1]);    
+           $patients=[$patient1->getAttributes(),$patient2->getAttributes()];
+          foreach ($patientResult->getFillable() as $field) {
+              
+                $values = ArrayClass::pluck($patients, $field);      
+                // var_dump($values);echo("<br>");
+                ArrayClass::removeValue("", $values);
+                if (!count($values)) {
+                        $statuses[$field] = "none";
+                        continue;
+                }
+               $patientResult->$field = reset($values);
+                // One unique value
+                if (count($values) == 1) {
+                     $statuses[$field] = "unique";
+                     continue;
+                }
+                // Multiple values
+                $statuses[$field] = count(array_unique($values)) == 1 ? "duplicate" : "multiple";
+           }
+          // dd($result);
 
-                 // Count statuses
-                  $counts = array(
-                    "none"      => 0,
-                    "unique"    => 0,
-                    "duplicate" => 0,
-                    "multiple"  => 0,
-                  );
-                  foreach ($statuses as $status) {
-                        $counts[$status]++;
-                  }
-                  //ArrayClass
-                  $view = view("patient.ajax_patient_merge",compact('patient1','patient2','statuses','counts'))->render();
-                  return response()->json(['html'=>$view]);
+         // Count statuses
+          $counts = array(
+            "none"      => 0,
+            "unique"    => 0,
+            "duplicate" => 0,
+            "multiple"  => 0,
+          );
+          foreach ($statuses as $status) {
+                $counts[$status]++;
+          }
+          //ArrayClass
+          $view = view("patient.ajax_patient_merge",compact('patientResult','patient1','patient2','statuses','counts'))->render();
+          return response()->json(['html'=>$view]);
      }
      public function merge(Request $request)
      {
-            $patient1=patient::FindOrFail($request->$patient1_id);
-          $patient1=patient::FindOrFail($request->$patient2_id);
-         //chargement des consultation du patient2 
-         $consultations = consultation::where('Patient_ID_Patient',$request->$patient2_id)->get();
-         dd( $consultations);
+            /*
+          $patient1=patient::FindOrFail($request->patient1_id);
+          $patient2=patient::FindOrFail($request->patient2_id);
+           //chargement des consultation du patient2 
+          $consuls = consultation::where('Patient_ID_Patient',$request->patient2_id)->get();
+          $antecedants=antecedant::where('Patient_ID_Patient',$request->patient2_id)->get();
+           foreach ($antecedants as $key => $antecedant) {
+                     $antecedant->update(["Patient_ID_Patient"=>$patient1->id]);  
+          }
+          foreach ($consuls as $key => $consult) {
+                $consult->update(["Patient_ID_Patient"=>$patient1->id]);  
+          }
+          // tickets
+          $tickets = ticket::where('id_patient',$request->patient2_id)->get();
+           foreach ($tickets as $key => $ticket) {
+                $ticket->update(["id_patient"=>$patient1->id]);  
+           }
+           $rdvs = rdv::where('Patient_ID_Patient',$request->patient2_id)->get();
+           foreach ($rdvs as $key => $rdv) {
+                $rdv->update(["Patient_ID_Patient"=>$patient1->id]);  
+           }
+           //dd($request->all());
+           $patient1 -> update([
+                "Nom"=>$request->nom,
+                "Prenom"=>$request->prenom,
+                "code_barre"=>$request->code,
+                "Dat_Naissance"=>$request->datenaissance,
+                "Lieu_Naissance"=>$request->lieunaissance,
+                "Sexe"=>$request->sexe,
+                "Adresse"=>$request->adresse,
+                "situation_familiale"=>$request->sf,
+                "tele_mobile1"=>$request->mobile1,
+                "tele_mobile2"=>$request->mobile2,
+                "group_sang"=>$request->gs,
+                "rhesus"=>$request->rh, 
+                "Assurs_ID_Assure"=>$patient1->Assurs_ID_Assure,
+                "Type"=>$request->type,
+                "Type_p"=>$request->Type_p,
+                "description"=>$request->description,
+                "NSS"=> $request->nss,    
+                "Date_creation"=>$request->date,  
+           ]);   
+           //desactiver patient 2
+           $patient2->active=0;$patient2->save();  */
+          // return redirect()->route('patient.index')->with('success','Item created successfully!');
+           //return Redirect::to('patient.index');
+          Flashy::info('Message', 'http://your-awesome-link.com')
+
+        Flashy::success('Message', 'http://your-awesome-link.com')
+
+        Flashy::error('Message', 'http://your-awesome-link.com')
+
+        Flashy::warning('Message', 'http://your-awesome-link.com')
+
+        Flashy::primary('Message', 'http://your-awesome-link.com')
+
+        Flashy::primaryDark('Message', 'http://your-awesome-link.com')
+
+        Flashy::muted('Message', 'http://your-awesome-link.com')
+
+        Flashy::mutedDark('Message', 'http://your-awesome-link.com')
+            Return View::make('patient.index');
      }
 }

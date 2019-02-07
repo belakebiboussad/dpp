@@ -1,4 +1,8 @@
 @extends('app_recep')
+{{-- @section('page-script')
+	<script>
+	</script>
+@endsection --}}
 @section('main-content')
 	<div >
 		@include('partials._patientInfo')
@@ -7,7 +11,7 @@
 	<div class="pull-right">
 		<a href="{{ route('patient.index') }}" class="btn btn-white btn-info btn-bold">
 		<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>
-			Retour a La Liste Des Patients
+			Liste Des Patients
 		</a>
 		<a href="{{route('patient.destroy',$patient->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-white btn-warning btn-bold"">
         		<i class="ace-icon fa fa-trash-o bigger-120 orange"> Supprimer</i>
@@ -75,72 +79,78 @@
 				</h4>
 				<div class="profile-user-info">
 				<div class="profile-info-row">
-					<div class="profile-info-name">Nom</div>
+					<div class="profile-info-name"><strong>Nom</strong></div>
 					<div class="profile-info-value">
 					<span>{{ $patient->Nom }}</span>
 					</div>
 				</div>
 				<div class="profile-info-row">
-					<div class="profile-info-name">Prénom</div>
+					<div class="profile-info-name"><strong>Prénom</strong></div>
 					<div class="profile-info-value">
 					<span>{{ $patient->Prenom }}</span>
 					</div>
 				</div>
-				<div class="profile-info-row">
-					<div class="profile-info-name">Sexe </div>
+				@if($patient->nom_jeune_fille != "")
+				<div class="profile-info-row" hidden>
+					<div class="profile-info-name"><strong>Nom jeune fille</strong></div>
 					<div class="profile-info-value">
-						<span>{{ $patient->Sexe =="M" ? "Homme" : "Femme" }}</span>
+					<span>{{ $patient->nom_jeune_fille }}</span>
+					</div>
+				</div>
+				@endif
+
+				<div class="profile-info-row">
+					<div class="profile-info-name"><strong>Sexe</strong> </div>
+					<div class="profile-info-value">
+						<span>{{ $patient->Sexe =="M" ? "Homme ": "Femme" }}</span>
+						@if($patient->Sexe =="M") <i class="fa fa-male fa_custom fa-1x"></i>@else <i class="fa fa-female fa_custom fa-1x"></i>@endif
 					</div>
 				</div>
 				<div class="profile-info-row">
-					<div class="profile-info-name">Date Naissance </div>
+					<div class="profile-info-name"><strong>Date Naissance</strong> </div>
 					<div class="profile-info-value">
 					<span>{{ $patient->Dat_Naissance }}</span>
 					</div>
 				</div>
 				<div class="profile-info-row">
-					<div class="profile-info-name"> Age </div>
-					<div class="profile-info-value">
-						<span>
-						{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }} ans
-						</span>
-					</div>
+					<div class="profile-info-name"><strong>Age</strong></div>
+					<div class="numberCircle">{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }}</div> <span class="blue">Ans</span>
 				</div>
 				<div class="profile-info-row">
-					<div class="profile-info-name"> Lieu Naissance </div>
+					<div class="profile-info-name"> <strong>Lieu Naissance</strong> </div>
 					<div class="profile-info-value">
 					<i class="fa fa-map-marker light-orange bigger-110"></i>
 					<span>{{ $patient->Lieu_Naissance }}</span>
 					</div>
 				</div>
 				<div class="profile-info-row">
-					<div class="profile-info-name"> Civilité </div>
+					<div class="profile-info-name"><strong>Civilité </strong></div>
 					<div class="profile-info-value">
 					<span>{{ $patient->situation_familiale }}</span>
 					</div>
 				</div>
 				<div class="profile-info-row">
-					<div class="profile-info-name"> Adresse </div>
+					<div class="profile-info-name"><strong>Adresse</strong> </div>
 					<div class="profile-info-value">
 					<i class="fa fa-map-marker light-orange bigger-110"></i>
 					<span>{{ $patient->Adresse }}</span>
 					</div>
 				</div>
 				<div class="profile-info-row">
-					<div class="profile-info-name"> Télé mobile 1 </div>
+					<div class="profile-info-name"><strong>Télé mobile 1</strong>  </div>
 					<div class="profile-info-value">
 					<span>{{ $patient->tele_mobile1 }}</span>
 					</div>
 				</div>
 				<div class="profile-info-row">
-					<div class="profile-info-name"> Télé mobile 2 </div>
+					<div class="profile-info-name"><strong>Télé mobile 2 </strong> </div>
 					<div class="profile-info-value">
 					<span>{{ $patient->tele_mobile2 }}</span>
 										</div>
 				</div>
 				@if($patient->Fonction != null)
 				<div class="profile-info-row">
-					<div class="profile-info-name"> Service </div>
+					<div class="profile-info-name"><strong>Service</strong> </div>
 					<div class="profile-info-value">
 					<span>{{ $patient->Fonction }}</span>
 					</div>
@@ -148,7 +158,7 @@
 				@endif
 				@if($patient->Grade != null)
 				<div class="profile-info-row">
-					<div class="profile-info-name"> Grade </div>
+					<div class="profile-info-name"><strong>Grade </strong> </div>
 					<div class="profile-info-value">
 					<span>{{ $patient->Grade }}</span>
 					</div>
@@ -156,34 +166,34 @@
 				@endif
 				@if($patient->etat != null)
 				<div class="profile-info-row">
-					<div class="profile-info-name"> Etat </div>
+					<div class="profile-info-name"><strong>Etat </strong> </div>
 					<div class="profile-info-value">
 					<span>{{ $patient->etat }}</span>
 					</div>
 				</div>
 				@endif
 				<div class="profile-info-row">
-				<div class="profile-info-name"> Groupe Sang</div>
+				<div class="profile-info-name"><strong> Groupe Sang</strong></div>
 				<div class="profile-info-value">
 				<span>{{ $patient->group_sang }}</span>
 				</div>
 				</div>
 				<div class="profile-info-row">
-					<div class="profile-info-name"> Rhésus </div>
+					<div class="profile-info-name"><strong>Rhésus</strong>  </div>
 					<div class="profile-info-value">
 					<span>{{ $patient->Rihesus == "+" ? "Positif" : "Négatif" }}</span>
 					</div>
 				</div>
 				@if($patient->matricule != null)
 				<div class="profile-info-row">
-					<div class="profile-info-name">Matricule</div>
+					<div class="profile-info-name"><strong>Matricule</strong></div>
 					<div class="profile-info-value">
 					<span>{{ $patient->matricule }}</span>
 					</div>
 				</div>
 				@endif
 				<div class="profile-info-row">
-					<div class="profile-info-name">Date Création</div>
+					<div class="profile-info-name"><strong>Date Création</strong></div>
 					<div class="profile-info-value">
 					<span>{{ $patient->Date_creation }}</span>
 					</div>
