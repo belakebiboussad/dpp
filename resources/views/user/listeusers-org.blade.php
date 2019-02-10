@@ -1,4 +1,7 @@
 @extends('app')
+@section('page-script')
+	 $('#users').dataTable();
+@endsection
 @section('title','Gestion des Utilisateures')
 @section('main-content')
 <div class="page-header">

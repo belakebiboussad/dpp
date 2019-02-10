@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 use PDF;
 use Flashy;
+use Calendar;
+use Illuminate\Support\Facades\Gate;
 class RDVController extends Controller
 {
     /**
@@ -45,13 +47,38 @@ class RDVController extends Controller
         return view('rdv.choix_patient_rdv', compact('patients'));
     }
 
-    public function index()
+    public function indexOrg()
     {
         $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
         $rdvs = rdv::where("specialite", $employe->Specialite_Emploiye)->get();
         return view('rdv.index_rdv', compact('rdvs'));
     }
-
+    public function index()
+    {
+        $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
+        $rdvs = rdv::where("specialite", $employe->Specialite_Emploiye)->get();
+        $rendezvous = [];
+        $data = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')->select('rdvs.*','patients.Nom','patients.Prenom')->where("specialite", $employe->Specialite_Emploiye)->get();
+        if($data->count()) {
+                    foreach ($data as $key => $value) {
+                             $rendezvous[] = Calendar::event(
+                            $value->title,
+                            true,
+                            new \DateTime($value->Date_RDV),
+                            new \DateTime($value->Date_RDV.' +1 day'),
+                            null,
+                            // Add color and link on event
+                         [
+                             'color' => '#ff0000',
+                             'url' => 'pass here url and any route',
+                         ]
+                        );
+                    }
+        }
+        $planning = Calendar::addEvents($rendezvous);
+        return view('rdv.index_rdv', compact('planning'));
+        //return view('rdv.index_rdv', compact('rdvs'));
+    }
     /**
      * Show the form for creating a new resource.
      *

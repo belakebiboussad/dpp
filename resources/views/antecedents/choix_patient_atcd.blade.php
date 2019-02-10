@@ -1,4 +1,7 @@
 @extends('app_recep')
+@section('page-script')
+	 $('#choix-patient-atcd').dataTable();
+@endsection
 @section('main-content')
 	<div class="page-header">
 		<h1 style="display: inline;"><strong>Choix Du Patient :</strong></h1>

@@ -53,7 +53,8 @@
 <script src="{{ asset('/js/ace-extra.min.js') }}"></script>
 <script src="{{ asset('/js/jquery.timepicker.min.js') }}"></script>
 <script src="{{ asset('/js/typeahead.bundle.min.js') }}"></script>
-
+<script src="{{ asset('/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
+<script src="{{ asset('/plugins/fullcalendar/locale/fr.js') }}"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -354,12 +355,7 @@ $(document).ready(function(){
 </script>
 <script type="text/javascript">
 $(document).ready(function() {
-    $('#patients_liste').dataTable();
-    $('#choixpatientrdv').dataTable();
-    $('#rdvs_liste').dataTable();
-    $('#patients').dataTable();
-    $('#choix-patient-atcd').dataTable();
-    $('#users').dataTable();
+    // $('#patients_liste').dataTable();    // $('#choixpatientrdv').dataTable();  // $('#rdvs_liste').dataTable();    // $('#patients').dataTable();    // $('#choix-patient-atcd').dataTable();//$('#users').dataTable();
 });
 function addRequiredAttr()
 {

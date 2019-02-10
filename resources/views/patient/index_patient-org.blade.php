@@ -1,4 +1,7 @@
 @extends('app_recep')
+@section('page-script')
+	 $('#patients').dataTable();
+@endsection
 @section('main-content')
 	<div class="page-header">
 		<h1>Liste Des Patients :</h1>

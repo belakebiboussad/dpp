@@ -21,7 +21,6 @@
         <div class="main-content">
             <div class="main-content-inner">
                 @include('partials.breadcrumbs_rec')
-
                 <div class="page-content">
             	    @yield('main-content')
                 </div>
@@ -32,7 +31,6 @@
         <!-- /main-content -->
 
         @include('partials.footer')
-
     </div>
     <!-- /main-container -->
 </body>
