@@ -62,15 +62,17 @@ class RDVController extends Controller
         if($data->count()) {
                     foreach ($data as $key => $value) {
                              $rendezvous[] = Calendar::event(
-                            $value->title,
+                            $value->Nom." ".$value->Prenom,
                             true,
                             new \DateTime($value->Date_RDV),
                             new \DateTime($value->Date_RDV.' +1 day'),
                             null,
                             // Add color and link on event
                          [
-                             'color' => '#ff0000',
-                             'url' => 'pass here url and any route',
+                             'color' => '#0000ff',
+                             'url' => '#',
+                               'description' => "Event Description",
+                             // 'textColor' => '#0A0A0A'
                          ]
                         );
                     }
