@@ -39,7 +39,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-            Flashy::success('Authentification avec succée!');
            $role = rol::FindOrFail(Auth::user()->role_id);
            $employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
            switch ($role->role) {

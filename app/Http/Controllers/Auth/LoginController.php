@@ -44,8 +44,6 @@ class LoginController extends Controller
             Auth::logout(); // logout user
            // Session::flush();
            // Redirect::back();
-            Flashy::success('You have been logged out.', 'http://your-awesome-link.com');
-
            return Redirect::to('/login'); //redirect back to login
     }
 }

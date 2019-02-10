@@ -42,9 +42,10 @@
                             <span class="bigger-110">Entrer</span>
                         </button>
                     </div>
-
-                    <div class="space-4"></div>
+                    <div class="space-4"></div> 
+                            @include('flashy::message')
                 </fieldset>
+
             </form>
         </div>
         <!-- /.widget-main -->
