@@ -11,10 +11,12 @@
 							<i class="ace-icon fa fa-calendar blue"></i>
 							Détails RDV :
 						</h3>
+						@if (Carbon\Carbon::today()->lte(Carbon\Carbon::parse($rdv->Date_RDV->format('Y-m-d H:i:s'))))	
+
 						<div class="widget-toolbar no-border invoice-info">
 							<a href="{{route('rdv.edit',$rdv->id)}}" class="btn btn-white btn-info btn-bold">
 								<i class="ace-icon fa fa-floppy-o bigger-120 blue"></i>
-									Modifier le RDV
+								Modifier le RDV
 							</a>
 							<br/>
 							<a href="{{route('rdv.destroy',$rdv->id)}}" class="btn btn-white btn-warning btn-bold" data-method="DELETE" data-confirm="Etes Vous Sur pour Annuler le RDV ?">
@@ -22,12 +24,14 @@
 									Annuler le RDV
 							</a>	
 						</div>
+
 						<div class="widget-toolbar hidden-480">
 							<a href="{{route('order.pdf',$rdv->id)}}">
 								<i class="ace-icon fa fa-print"></i>
 								Imprimer récu RDV
 							</a>
 						</div>
+						@endif
 					</div>
 					<div class="widget-body">
 						<div class="widget-main padding-24">

@@ -11,7 +11,8 @@ use Yajra\DataTables\Facades\DataTables;
 use PDF;
 use Flashy;
 use Calendar;
-use Illuminate\Support\Facades\Gate;
+use Carbon\Carbon;
+// use Illuminate\Support\Facades\Gate;
 class RDVController extends Controller
 {
     /**
@@ -57,27 +58,62 @@ class RDVController extends Controller
     {
         $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
         $rdvs = rdv::where("specialite", $employe->Specialite_Emploiye)->get();
-        $rendezvous = [];
-        $data = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')->select('rdvs.*','patients.Nom','patients.Prenom')->where("specialite", $employe->Specialite_Emploiye)->get();
-        if($data->count()) {
+        //dd($rdvs);
+          $rendezvous = [];
+          $data = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient')->where("specialite", $employe->Specialite_Emploiye)->get();
+           if($data->count()) {
                     foreach ($data as $key => $value) {
-                             $rendezvous[] = Calendar::event(
-                            $value->Nom." ".$value->Prenom,
-                            true,
-                            new \DateTime($value->Date_RDV),
-                            new \DateTime($value->Date_RDV.' +1 day'),
-                            null,
-                            // Add color and link on event
-                         [
-                             'color' => '#0000ff',
-                             'url' => '#',
-                               'description' => "Event Description",
-                             // 'textColor' => '#0A0A0A'
-                         ]
-                        );
-                    }
-        }
-        $planning = Calendar::addEvents($rendezvous);
+                                if (Carbon::today()->gt(Carbon::parse($value->Date_RDV->format('Y-m-d H:i:s')))) {
+              
+                                           $color = '#D3D3D3';
+                                           $rendezvous[] = Calendar::event(
+                                           $value->Nom." ".$value->Prenom,
+                                           true,
+                                           new \DateTime($value->Date_RDV),
+                                           new \DateTime($value->Date_RDV.' +1 day'),
+                                           $value->id,
+                                           // Add color and link on event
+                                           [
+                                                     'color' =>$color,
+                                                     'url' => '/rdv/'.$value->id,
+                                                      'description' => "Event Description",
+                                                      //'textColor' => '#0A0A0A'                                 
+                                           ]
+                                );
+                                 } else {
+                                                     $color = '#00c0ef';
+                                                     $rendezvous[] = Calendar::event(
+                                                     $value->Nom." ".$value->Prenom,
+                                                     true,
+                                                     new \DateTime($value->Date_RDV),
+                                                     new \DateTime($value->Date_RDV.' +1 day'),
+                                                     $value->id,
+                                                     // Add color and link on event
+                                                     [
+                                                            'color' =>$color,
+                        //'url' =>'/consultations/create/'.$value->idPatient,// 'textColor' => '#0A0A0A'
+                                                            'description' => "Event Description",
+                                                     ]
+                                          );
+                                }
+                     }
+           }
+           $events = array();
+           $planning = Calendar::addEvents($rendezvous);   
+            $eloquentRDV= rdv::first(); //EventModel implements MaddHatter\LaravelFullcalendar\Event
+           $planning = \Calendar::addEvents($events) //add an array with addEvents
+             ->addEvent($eloquentRDV, [ //set custom color fo this event
+                     'color' => '#800',
+                 ])->setOptions([ //set fullcalendar options
+                'firstDay' => 7
+           ])->setCallbacks([ //set fullcalendar callback options (will not be JSON encoded)
+           'viewRender' => 'function() {console.log("Callbacks!");}',
+           'eventClick' => 'function(event) {
+             showModal(event.id);
+         }'
+
+         ]);
+           dd($planning);
         return view('rdv.index_rdv', compact('planning'));
         //return view('rdv.index_rdv', compact('rdvs'));
     }

@@ -5,9 +5,12 @@
 
 @section('main-content')
 <div class="page-header">
-	<h1 style="display: inline;"><strong>Choix du patient :</strong></h1>
+	<h1 style="display: inline;">Selectionner un  Patient</h1>
 </div>
-<table id="choixpatientrdv" class="table  table-bordered table-hover">
+<hr>
+<div class="space-12"></div>
+<div class="row">
+	<table id="choixpatientrdv" class="table  table-bordered table-hover">
 	<thead>
 		<tr>
 			<th hidden>CODE_BARRE</th>
@@ -44,4 +47,6 @@
 		@endforeach
 	</tbody>
 </table>
+</div>
+
 @endsection

@@ -1,7 +1,7 @@
 @extends('app')
 @section('main-content')
 <div class="page-header">
-	<h1>Choix du patient :</h1>
+	<h1>Selectionner un  Patient</h1>
 </div>
 <table id="choixp" class="table  table-bordered table-hover">
 	<thead>

@@ -7,7 +7,7 @@ use Auth;
 use Redirect;
 // use Session;
 use Flashy;
-class LoginController extends Controller
+class LoginControllerOrg extends Controller
 {
     /*
     |--------------------------------------------------------------------------
