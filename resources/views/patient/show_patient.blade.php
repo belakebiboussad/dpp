@@ -337,7 +337,7 @@
 				</h5>
 				<div class="widget-toolbar widget-toolbar-light no-border">
 					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-					<a href="#"><b>Ajouter Un RDV</b></a>
+					<a href="/rdv/create/{{ $patient->id }}"><b>Ajouter Un RDV</b></a>
 				</div>
 			</div>
 			<div class="widget-body">
