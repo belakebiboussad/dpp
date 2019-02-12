@@ -1,6 +1,9 @@
 @extends('app_recep')
 @section('page-script')
-	 $('#choixpatientrdv').dataTable();
+	<script>
+		 $('#choixpatientrdv').dataTable();
+	
+	</script>
 @endsection
 
 @section('main-content')

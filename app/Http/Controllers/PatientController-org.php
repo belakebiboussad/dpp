@@ -603,11 +603,10 @@ public function search(Request $request)
                                        $patient->Sexe="Femme";
                                $output.='<tr>'.
                                '<td hidden>'.$patient->id.'</td>'.
-                                '<td hidden>'.$patient->code_barre.'</td>'.
                                 '<td class ="center chkTrt">'.'<input type="checkbox" class="ace check" name="fusioner[]" onClick="return KeepCount()" value="'.$patient->id.'"/>'.'<span class="lbl"></span>   '.'</td>'.
                                 '<td><a href="#" id ="'.$patient->id.'" onclick ="getPatientdetail('.$patient->id.');">'.$patient->Nom.'</a></td>'.
-                             
                                '<td>'.$patient->Prenom.'</td>'.
+                                '<td>'.$patient->code_barre.'</td>'.
                                '<td>'.$patient->Dat_Naissance.'</td>'.
                                '<td>'.$patient->Sexe.'</td>'.
                                '<td>'.$age.'</td>'.

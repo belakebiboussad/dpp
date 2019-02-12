@@ -44,30 +44,21 @@ class RDVController extends Controller
     }
     public function choixpatient()
     {
-        $patients = patient::all();
-        return view('rdv.choix_patient_rdv', compact('patients'));
-    }
-
-    public function indexOrg()
-    {
-        $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
-        $rdvs = rdv::where("specialite", $employe->Specialite_Emploiye)->get();
-        return view('rdv.index_rdv', compact('rdvs'));
+           // $patients = patient::all();
+           // return view('rdv.choix_patient_rdv', compact('patients'));
+             return view('patient.index_patient');
     }
     public function index()
     {
-        $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
-        //$rdvs = rdv::where("specialite", $employe->Specialite_Emploiye)->get();
-        //dd($rdvs);
+          $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
           $rendezvous = [];
           $data = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->where("specialite", $employe->Specialite_Emploiye)->get();
            if($data->count())
            {
                       $color=0;  
                      foreach ($data as $key => $value) {  
+                               $Age=  Carbon::parse($value->Dat_Naissance)->age;
                                 if (Carbon::today()->gt(Carbon::parse($value->Date_RDV->format('Y-m-d H:i:s')))) {
-                                           $Age=  Carbon::parse($value->Dat_Naissance)->age;
-                                           // dd($age);
                                            $color = '#D3D3D3';
                                            $rendezvous[] = Calendar::event(
                                                    $value->Nom." ".$value->Prenom,
@@ -77,9 +68,8 @@ class RDVController extends Controller
                                                    $value->id,
                                                    // Add color and link on event
                                                    [
-                                                             'color' =>$color,
-                                                             'url' => '/rdv/'.$value->id,
-                                                                            
+                                                                'color' =>$color,
+                                                                'url' => '/rdv/'.$value->id,
                                                    ]
                                           );
                                 } else {
@@ -93,7 +83,8 @@ class RDVController extends Controller
                                                    // Add color and link on event
                                                    [
                                                              'color' =>$color,
-                                                              'age'=> $Age; 
+                                                             'idPatient' =>$value->idPatient,
+                                                              'age'=> $Age,
                                                              'tel'=>$value->tele_mobile1,                             
                                                    ]
                                           );
@@ -101,6 +92,7 @@ class RDVController extends Controller
 
                      }
            }
+          // dd($rendezvous);
            $events = array();
          //  $planning = Calendar::addEvents($rendezvous);   
             $eloquentRDV= rdv::first(); //EventModel implements MaddHatter\LaravelFullcalendar\Event
@@ -118,10 +110,10 @@ class RDVController extends Controller
            ])->setCallbacks([ //set fullcalendar callback options (will not be JSON encoded)
                  'viewRender' => 'function() {console.log("Callbacks!");}',
                  'eventClick' => 'function(event) {
-                           showModal(event.id,event.title,event.start,event.tel,event.age);
+                           showModal(event.id,event.title,event.start,event.idPatient,event.tel,event.age);
                  }'
          ]);
-           //dd($planning);
+        // dd($planning);
         return view('rdv.index_rdv', compact('planning'));
         //return view('rdv.index_rdv', compact('rdvs'));
     }
@@ -215,7 +207,8 @@ class RDVController extends Controller
     public function destroy($id)
     {
         rdv::destroy($id);
-        return redirect()->route('rdv.index');
+        //return redirect()->route('rdv.index');
+        return redirect()->action('RDVController@index');
     }
     public function orderPdf($id)
      {

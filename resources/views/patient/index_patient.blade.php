@@ -172,7 +172,7 @@ function setField(field,value)
 				Rechercher un Patient
 			</div>
 		    	<div class="panel-body">
-				<div class="row">
+			<div class="row">
 				<div class="col-sm-2">
 					<label class="control-label pull-right" for="patientName" ><strong>&nbsp;&nbsp;&nbsp;Nom :</strong>
 					</label>
@@ -180,13 +180,14 @@ function setField(field,value)
 				<div class="col-sm-4">
 					<input type="text" class="form-control input-sm" id="patientName" name="patientName"  placeholder="Rechercher..."/>
 				 </div>
-				<div class="col-sm-2">
+				 <div class="col-sm-2">
 					<label class="control-label pull-right" for="patientFirstName" ><strong>Prenom :</strong>
 					</label> 
 				</div>
 				<div class="col-sm-4">
 					<input type="text" class="form-control input-sm" id="patientFirstName" name="patientFirstName"  placeholder="Rechercher...">
 				</div>
+			</div>	
 			</div>
 			<div class="space-12"></div>
 			<div class="row">
@@ -214,7 +215,7 @@ function setField(field,value)
  		 </div>
 	</div>	{{-- col-sm-7	 --}}
 	<div class="col-sm-5 col-lg-5">
-		<div class="infobox infobox-green">
+		{{-- <div class="infobox infobox-green">
 		<div class="infobox-icon">
 		<i class="ace-icon fa fa-users"></i>
 		</div>
@@ -249,7 +250,7 @@ function setField(field,value)
 				<span class="infobox-data-number">{{ App\modeles\hospitalisation::all()->count() }}</span>
 				<div class="infobox-content"><b>Hospitalisations</b></div>
 			</div>
-		</div>
+		</div> --}}
 	</div>	
 </div>{{-- row --}}
 <div class="row">
@@ -267,7 +268,6 @@ function setField(field,value)
 							</tr>
 							<tr>
 								<th hidden>id</th>
-								<th hidden>code</th>
 								<th  class="center" width="3%" ></th>
 								<th class="blue">Nom</th>
 								<th class="blue">Prénom</th>
@@ -275,7 +275,6 @@ function setField(field,value)
 								<th class="blue">Né(e) le</th>
 								<th class="blue">Sexe</th>
 								<th class="blue">Age</th>
-								<th class="blue">Cévilité</th>
 								<th class="blue">Type</th>
 								<th class="blue"></th>
 							</tr>

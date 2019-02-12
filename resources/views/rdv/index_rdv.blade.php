@@ -13,7 +13,6 @@
                    </div>
                   <div class="panel-body">
                             {!! $planning->calendar() !!}
-                        {{-- <div id="calendar"></div>                 --}}
                 </div>
             </div>
         </div>
@@ -27,7 +26,7 @@
      <div class="modal-header">
            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
           <h5 class="modal-title" id="myModalLabel">
-              Modifier Rendez-Vous <q> <strong id="patient" class="blue"></strong></q>
+              Modifier Rendez-Vous <q><a href="" id="lien"><span id="patient" class="blue"></span></a> </q>
            </h5>
            <hr>
            <div class="row">
@@ -35,7 +34,7 @@
                      <i class="fa fa-phone" aria-hidden="true"></i>tel:&nbsp;<span id="patient_tel" class="blue"></span>
                 </div>
                 <div class="col-sm-6">
-                             Age:&nbsp;<span id="" class="blue"></span>
+                             Age:&nbsp;<span id="agePatient" class="blue"></span>
                 </div>
               </div>
      </div>
@@ -59,14 +58,15 @@
  
       <div class="modal-footer center">
  
-        <a type="button" class="btn btn btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
+        <a type="button" id="btnConsulter" class="btn btn btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
  
         <button type="button" class="btn btn btn-info" onclick="envoie();">
        <i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer</button>
-          <button type="button" class="btn btn-warning">
-          <i class="fa fa-undo" aria-hidden="true"></i> Annuler</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">
-          <i class="fa fa-trash" aria-hidden="true"></i> Supprimer</button>
+          <button type="button" class="btn btn-warning" data-dismiss="modal">
+          <i class="fa fa-undo" aria-hidden="true" ></i> Annuler</button>
+        <a  href=""  id="btnDelete" class="btn btn-bold btn-danger" data-method="DELETE" data-confirm="Etes Vous Sur ?" data-dismiss="modal">
+                <i class="fa fa-trash" aria-hidden="true"></i> Supprimer
+          </a>
       </div>
     </div>
   </div>
@@ -75,16 +75,21 @@
 @section('page-script')
 {!! $planning->script() !!}
     <script>
-          function  showModal(id,title,date,tel,age) {
-                alert(age);
+          function  showModal(id,title,date,idPatient,tel,age) {
                 var CurrentDate = (new Date()).setHours(0, 0, 0, 0);
                 GivenDate = (new Date(date)).setHours(0, 0, 0, 0);;
                 if( CurrentDate <= GivenDate )
                 {
                      $('#patient').text(title);
                      $('#updateRdv').attr('action','/rdv/'.concat(id));
+                     $('#lien').attr('href','/patient/'.concat(idPatient));
+                     $('#btnConsulter').attr('href','/consultations/create/'.concat(idPatient));
+                     $('#btnDelete').attr('href','/rdv/'.concat(id));
+                     
+                     
                      $("#id_rdv").val(id);
                       $('#patient_tel').text(tel);
+                      $('#agePatient').text(age);
                      $("#daterdv").val(date.format('Y-MM-DD'));
                      $('#myModal').modal({
                            show: 'true'
