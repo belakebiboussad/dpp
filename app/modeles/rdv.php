@@ -3,9 +3,10 @@
 namespace App\modeles;
 
 use Illuminate\Database\Eloquent\Model;
-use MaddHatter\LaravelFullcalendar\Event;
+// use MaddHatter\LaravelFullcalendar\Event;
+use MaddHatter\LaravelFullcalendar\IdentifiableEvent;
 use Calendar;
-class rdv extends Model implements Event
+class rdv extends Model implements IdentifiableEvent
 {
 	public $timestamps = false;
 	protected $fillable =['Date_RDV','Temp_rdv','specialite', 'Patient_ID_Patient','Employe_ID_Employe','Etat_RDV'];
@@ -29,5 +30,11 @@ class rdv extends Model implements Event
 	{
 	        return $this->Date_RDV;
 	}
+	// public function getEventOptions()
+ //    	{
+ //        		return [
+            		
+	//           ];
+ //  	  }
 
 }

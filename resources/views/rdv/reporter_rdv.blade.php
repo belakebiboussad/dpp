@@ -6,7 +6,7 @@
 	</h1>
 </div>
 <div class="col-xs-12">
-	<form class="form-horizontal" role="form" action="/rdv/storereporte/{{$rdv->id}}" method="POST">
+	<form class="form-horizontal" role="form" action="/rdv/reporte/{{$rdv->id}}" method="POST">
 		{{ csrf_field() }}
 		<div class="col-xs-12 widget-container-col" id="widget-container-col-1">
 			<div class="widget-box" id="widget-box-1">

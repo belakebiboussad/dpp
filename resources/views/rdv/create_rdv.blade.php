@@ -10,8 +10,8 @@
 <hr>
 <form role="form" method="POST" action="{{route('rdv.store')}}">
 	{{ csrf_field() }}
-	<label for="date"><b>Date :</b></label>
 	<input type="text" name="id_patient" value="{{$patient->id}}" hidden>
+	<label for="date"><b>Date :</b></label>
 	<div class="row">
 		<div class="col-xs-3{{ $errors->has('daterdv') ? "has-error" : "" }}">
 			<div class="input-group">

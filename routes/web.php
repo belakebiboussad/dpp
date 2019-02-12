@@ -132,7 +132,7 @@ Route::post('/atcd/store/{id}','AntecedantsController@store');
 Route::get('/rdv/create/{id}','RDVController@create');
 Route::get('/rdv/valider/{id}','RDVController@valider');
 Route::get('/rdv/reporter/{id}','RDVController@reporter');
-Route::post('/rdv/storereporte/{id}','RDVController@storereporte');
+Route::post('/rdv/reporte/{id}','RDVController@storereporte');
 Route::get('/choixpatient','RDVController@choixpatient');
 Route::get('/home', 'HomeController@index')->name('home');
 route::get('/getAddEditRemoveColumnData','UsersController@getAddEditRemoveColumnData');
