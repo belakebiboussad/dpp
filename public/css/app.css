@@ -6454,3 +6454,7 @@ width:auto !important;
 .pull-right {
   float: right !important;
 }
+.header th {
+       height: 20px;
+       line-height: 20px;
+    }

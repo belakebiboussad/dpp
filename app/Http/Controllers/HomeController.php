@@ -105,6 +105,9 @@ class HomeController extends Controller
                     $reactifs = reactif::all();
                     return view('home.home_pharmacien', compact('meds','dispositifs','reactifs'));
                     break;
+                case "Receptioniste":
+                    return view('home.home_recep');
+                    break;    
            default:
                    return view('errors.500');
                    break;

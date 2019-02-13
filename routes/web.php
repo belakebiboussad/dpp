@@ -177,3 +177,6 @@ Route::get('/serviceRooms', 'ServiceController@getRooms');
 Route::get('/getPatientsToMerge','PatientController@patientsToMerege');
 Route::post('/patient/merge','PatientController@merge');
 Route::get("flash","HomeController@flash");
+route::get('/home_reception',function (){
+    return view('home.home_recep');
+})->name('home_rec');

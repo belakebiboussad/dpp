@@ -47,26 +47,29 @@
                 <div class="row">
                       <label for="date"><b>Date Rendez-Vous :</b></label>
                       <div class="input-group">
-                                <input class="form-control date-picker" id="daterdv" name="daterdv" type="text" data-date-format="yyyy-mm-dd" required />
-                                 <span class="input-group-addon">
-                                 <i class="fa fa-calendar bigger-110"></i>
-                          </span>
+                          @if(App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role =="Receptioniste") 
+                                  <input class="form-control" id="daterdv" type="text" data-date-format="yyyy-mm-dd" desable readonly /><span class="input-group-addon"><i class="fa fa-calendar bigger-110"></i> 
+                           @else
+                               <input class="form-control date-picker" id="daterdv" name="daterdv" type="text" data-date-format="yyyy-mm-dd" required 
+                                /><span class="input-group-addon"><i class="fa fa-calendar bigger-110"></i>    
+                          </span> 
+                           @endif 
                      </div>
                 </div>
            </form>   
       </div>
  
       <div class="modal-footer center">
- 
-        <a type="button" id="btnConsulter" class="btn btn btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
- 
-        <button type="button" class="btn btn btn-info" onclick="envoie();">
-       <i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer</button>
-          <button type="button" class="btn btn-warning" data-dismiss="modal">
-          <i class="fa fa-undo" aria-hidden="true" ></i> Annuler</button>
-        <a  href=""  id="btnDelete" class="btn btn-bold btn-danger" data-method="DELETE" data-confirm="Etes Vous Sur ?" data-dismiss="modal">
-                <i class="fa fa-trash" aria-hidden="true"></i> Supprimer
-          </a>
+      @if(App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role =="Medecine")
+      <a type="button" id="btnConsulter" class="btn btn btn-sm btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
+     <button type="button" class="btn btn btn-sm btn-info" onclick="envoie();">
+          <i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer</button>
+      <a  href=""  id="btnDelete" class="btn btn-bold btn-sm btn-danger" data-method="DELETE" data-confirm="Etes Vous Sur ?" data-dismiss="modal">
+                <i class="fa fa-trash" aria-hidden="true"></i> Annuler
+     </a>
+     <button type="button" class="btn btn-sm btn-warning" data-dismiss="modal">
+           <i class="fa fa-undo" aria-hidden="true" ></i> Fermer</button>
+     @endif
       </div>
     </div>
   </div>

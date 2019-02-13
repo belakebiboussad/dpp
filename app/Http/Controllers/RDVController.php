@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\modeles\rdv;
 use App\modeles\patient;
 use App\modeles\employ;
+use App\modeles\rol;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
@@ -52,7 +53,11 @@ class RDVController extends Controller
     {
           $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
           $rendezvous = [];
-          $data = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->where("specialite", $employe->Specialite_Emploiye)->get();
+           if(rol::where("id",Auth::User()->role_id)->get()->first()->role =="Receptioniste")
+                $data = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->get();
+           else
+           
+                $data = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->where("specialite", $employe->Specialite_Emploiye)->get();
            if($data->count())
            {
                       $color=0;  

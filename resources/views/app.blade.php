@@ -18,6 +18,8 @@
             @include('partials.sidebar')
         @elseif(App\modeles\rol::where("id",Illuminate\Support\Facades\Auth::user()->role_id)->first()->role == "surveillant médical")
             @include('partials.sidebar_sur')
+        @elseif(App\modeles\rol::where("id",Illuminate\Support\Facades\Auth::user()->role_id)->first()->role == "Receptioniste")
+            @include('partials.sidebar_rec')    
         @endif
         <div class="main-content">
             <div class="main-content-inner">

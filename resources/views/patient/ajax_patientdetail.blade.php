@@ -1,4 +1,5 @@
 <div class="container-fluid">
+
         <div class="page-header bg-success" style="height:40px;" >
                  <h5 class ="w-25"><strong>Resumé du&nbsp;</strong><q>{{ $patient->Nom}} {{ $patient->Prenom }}</q></h5>
          </div>
@@ -48,4 +49,3 @@
             </tbody>
          </table>
  </div>           
-    

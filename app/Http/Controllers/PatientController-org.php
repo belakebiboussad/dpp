@@ -611,11 +611,11 @@ public function search(Request $request)
                                '<td>'.$patient->Sexe.'</td>'.
                                '<td>'.$age.'</td>'.
                                '<td>'.$patient->Type.'</td>'.
-                               '<td>'.'<a href="/patient/'.$patient->id.'" class="'.'btn btn-white btn-sm"><i class="ace-icon fa fa-hand-o-up"></i>&nbsp;</a>'."&nbsp;&nbsp;".'<a href="/patient/'.$patient->id.'/edit" class="'.'btn btn-white btn-sm"><i class="fa fa-edit fa-lg" aria-hidden="true" style="font-size:16px;"></i></a>'.'</td>'.
-                               '</tr>';
-                          }
-                          $i++;
-                        return Response($output)->withHeaders(['count' => $i]);      
+                               '<td>'.'<a href="/patient/'.$patient->id.'" class="'.'btn btn-warning btn-sm"><i class="fa fa-hand-o-up fa-xs"></i>&nbsp;</a>'."&nbsp;&nbsp;".'<a href="/patient/'.$patient->id.'/edit" class="'.'btn btn-info btn-sm"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></a>'.'</td>'.
+                               '</tr>'; 
+                                $i++;
+                           }
+                      return Response($output)->withHeaders(['count' => $i]);      
                }     
         } 
 }
@@ -625,9 +625,19 @@ public function search(Request $request)
     // }
     public function getPatientDetails(Request $request)
     {
+        //$a= $request->all();
+       
         $patient = patient::FindOrFail($request->search);
-        $view = view("patient.ajax_patientdetail",compact('patient'))->render();
-            return response()->json(['html'=>$view]);
+      if($patient->Type !="Autre")
+      {
+           $assure=  assur::FindOrFail($patient->Assurs_ID_Assure); 
+           $view = view("patient.ajax_patient_detail",compact('patient','assure'))->render();
+        }
+        else
+        {
+               $view = view("patient.ajax_patient_detail",compact('patient'))->render();
+        }
+         return response()->json(['html'=>$view]);
     }
 
     public function AutoCompletePatientname(Request $request)
@@ -639,8 +649,8 @@ public function search(Request $request)
             return patient::where('Prenom', 'LIKE', '%'.trim($request->prenom).'%')->get();     
      }
     
-           public function patientsToMerege(Request $request)
-            {
+     public function patientsToMerege(Request $request)
+    {
             $statuses = array();
            $values;
            $patientResult = new patient;
@@ -663,8 +673,8 @@ public function search(Request $request)
                      continue;
                 }
                 // Multiple values
-                $statuses[$field] = count(array_unique($values)) == 1 ? "duplicate" : "multiple";
-           }
+              $statuses[$field] = count(array_unique($values)) == 1 ? "duplicate" : "multiple";
+     }
           // dd($result);
 
          // Count statuses

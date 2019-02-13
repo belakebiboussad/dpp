@@ -83,19 +83,20 @@ function XHRgePatient()
                     url : '{{URL::to('searchPatient')}}',
                       data:{'search':nom,'prenom':prenom,'code_barre':code_barre},
                       success:function(data,status, xhr){
-                        	$('#liste_patients tbody').html(data);
+                      	$('#liste_patients tbody').html(data);
                           	$(".numberResult").html(xhr.getResponseHeader("count"));
                      }
            });
 }
-function getPatientdetail($id)
+function getPatientdetail(id)
 {
-	// console.log($id);	
+	// console.log(id);	
 	$.ajax({
                      type : 'get',
                             url : '{{URL::to('patientdetail')}}',
-                            data:{'search':$id},
+                            data:{'search':id},
                             success:function(data1,status, xhr){
+                            		// console.log(data1);
                             	          $('#patientDetail').html(data1.html);
                            }
            });
@@ -106,10 +107,9 @@ function doMerge()
 {
 	$.ajax({
                      type : 'get',
-                    url : '{{URL::to('getPatientsToMerge')}}',
+                      url : '{{URL::to('getPatientsToMerge')}}',
                       data:{'search':values},
                       success:function(data,status, xhr){
-                      	console.log(data);
                                 $('#tablePatientToMerge').html(data.html);
 
                      }
@@ -268,7 +268,7 @@ function setField(field,value)
 							</tr>
 							<tr>
 								<th hidden>id</th>
-								<th  class="center" width="3%" ></th>
+								<th  class="center" width="3%" >#</th>
 								<th class="blue">Nom</th>
 								<th class="blue">Prénom</th>
 								<th class="blue">IPP</th>
@@ -276,7 +276,7 @@ function setField(field,value)
 								<th class="blue">Sexe</th>
 								<th class="blue">Age</th>
 								<th class="blue">Type</th>
-								<th class="blue"></th>
+								<th class="blue"><em class="fa fa-cog"></em></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -285,7 +285,8 @@ function setField(field,value)
 					</div>
 				</div>
 		</div>{{-- col-sm-7 --}}
-		<div class="col-sm-5" id="patientDetail">
+		<br><br>
+		<div class="col-md-5 col-sm-5"  id="patientDetail">
 			
 		</div>
 </div>{{-- row --}}
