@@ -22,7 +22,7 @@
 			</div>
 		</div>
 		<div class="space-12"></div>
-        @include('flash::message')
+                    {{-- @include('flash::message') --}}
 	</div>
 </div>
 @endsection

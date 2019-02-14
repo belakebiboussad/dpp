@@ -157,7 +157,7 @@
                  <li class="">
                     <a href="{{ route('lit.index') }}">
                         <i class="menu-icon fa fa-caret-right"></i>
-                        Lites
+                        Lits
                     </a>
 
                     <b class="arrow"></b>

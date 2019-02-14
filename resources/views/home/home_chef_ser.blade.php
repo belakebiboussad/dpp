@@ -1,4 +1,31 @@
 @extends('app_chef_ser')
+@section('page.script')
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#meds_table').dataTable({
+        			ordering: true,
+		        	"language": 
+		            	{
+		             	   "url": '/localisation/fr_FR.json'
+		            }, 
+		 });
+		$('#dispo_table').dataTable({
+       		 	ordering: true,
+        			"language": 
+      			{
+               			 "url": '/localisation/fr_FR.json'
+            			}, 
+    		});
+		$('#reactif_table').dataTable({
+        			ordering: true,
+        			"language": 
+            			{
+                			"url": '/localisation/fr_FR.json'
+            			}, 
+    		});	
+    });
+</script>
+@endsection
 @section('main-content')
 <div class="row">
 	<div class="col-xs-12">

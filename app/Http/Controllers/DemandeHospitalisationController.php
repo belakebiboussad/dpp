@@ -45,14 +45,15 @@ class DemandeHospitalisationController extends Controller
      */
     public function store(Request $request ,$consultID)
     { 
-            
-            DemandeHospitalisation::create([
+         
+           $a =  DemandeHospitalisation::create([
             "modeAdmission"=>$request->modeAdmission,
             "service"=>$request->service,
             "specialite"=>$request->specialiteDemande,
             "degree_urgence"=>$request->degreurg,
             "id_consultation"=>$consultID,
-            ]);
+            "etat " =>"en attente",
+            ]);  
     }
     public function storeOLD(Request $request)
     {

@@ -1,16 +1,50 @@
-@extends('app_recep')
+@extends('app')
 @section('page-script')
-{{-- <script src="{{asset('/js/jquery.min.js')}}"></script>
-<script src="{{asset('/js/bootstrap.min.js')}}"></script> --}}
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script>
+		$( document ).ready(function() {
+			$( ".civilite" ).change(function() {
+				var civilite= $("select.civilite option").filter(":selected").val();
+	  			if((civilite =="marie")|| (civilite =="veuf"))
+	  				$('#Div-nomjeuneFille').removeAttr('hidden');
+	  			else
+	  				$('#Div-nomjeuneFille').attr('hidden','');	
+			});
+		});
+	function showType(value){
+    		switch(value){
+		           case "Assure":
+		                     $("#nomf").val($("#nom").val());
+		                     $("#prenomf").val($("#prenom").val());
+		                     $("#datenaissancef").val($("#datenaissance").val());
+		                     $("#lieunaissancef").val($("#lieunaissance").val());
+		                     $("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);  
+		                     $("#foncform").addClass('hide'); 
+		                     $('#Type_p').attr('required', false);  
+		                     addRequiredAttr();
+		                      break;
+		           case "Ayant_droit":
+		                    $("#nomf").val("");
+		                    $("#prenomf").val("");
+		                    $("#foncform").removeClass('hide');
+		                    $('#Type_p').attr('required', true); 
+		                    addRequiredAttr();
+		                
+		                break;
+		           case "Autre":
+		                     $(".starthidden").show(250);
+		                     $("#foncform").addClass('hide');
+		                     $('#Type_p').attr('required', false); 
+		                     $("ul#menuPatient li:not(.active) a").prop('disabled', true);
+		               break;         
+			}			
+		}
+	</script>
 @endsection
 @section('main-content')
 <div class="container-fluid">
 <div class="row">
 <div class="page-header">
-	<h1>Ajouter Un Patient :</h1>
+	<h1>Ajouter Un Patient</h1>
 </div>
 <form class="form-horizontal" id = "addPAtient" action="{{ route('patient.store') }}" method="POST" role="form" autocomplete="off" onsubmit="return checkFormAddPAtient(this);">
 	  {{ csrf_field() }}
@@ -31,10 +65,10 @@
 	</div>
 	<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
    		 <li class="active"><a data-toggle="tab" href="#Patient">
-   		 	<span class="bigger-130"><b>Patient</b></span></a>
+   		 	<span class="bigger-130"><strong>Patient</strong></span></a>
    		 </li>
     		<li><a data-toggle="tab" href="#Assure">
-    			<span class="bigger-130"><b>Assure</b></span></a>
+    			<span class="bigger-130"><strong>Assure</strong></span></a>
     		</li>
   	</ul>
 	<div class="tab-content">
@@ -43,7 +77,7 @@
 	      			<div class="col-sm-6">
 					<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
 						<label class="col-sm-3 control-label" for="nom">
-							<b>Nom :</b> 
+							<strong>Nom :</strong> 
 						</label>
 						<div class="col-sm-9">
 							<input type="text" id="nom" name="nom" placeholder="Nom..." class="col-xs-12 col-sm-12" autocomplete= "off" required alpha/>
@@ -54,7 +88,7 @@
 				<div class="col-sm-6">
 					<div class="form-group {{ $errors->has('prenom') ? "has-error" : "" }}">
 						<label class="col-sm-3 control-label" for="prenom">
-							<b>Prénom :</b>
+							<strong>Prénom :</strong>
 						</label>
 						<div class="col-sm-9">
 							<input type="text" id="prenom" name="prenom" placeholder="Prénom..." class="form-control form-control-lg col-xs-12 col-sm-12" autocomplete="off" required/>
@@ -67,7 +101,7 @@
 		      		<div class="col-sm-6">
 					<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
 						<label class="col-sm-3 control-label" for="datenaissance">
-							<b>Né(e) le :</b>
+							<strong>Né(e) le :</strong>
 						</label>
 						<div class="col-sm-9">
 							<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" data-date-format="yyyy-mm-dd" placeholder="Date de naissance..." pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" required/>
@@ -78,7 +112,7 @@
 				<div class="col-sm-6">
 					<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
 						<label class="col-sm-3 control-label" for="lieunaissance">
-							<b class="text-nowrap">Lieu de naissance :</b>
+							<strong class="text-nowrap">Lieu de naissance :</strong>
 						</label>
 					<div class="col-sm-9">
 					<input type="text" id="lieunaissance" name="lieunaissance" placeholder="Lieu de naissance..."  autocomplete = "off" class="col-xs-12 col-sm-12" required/>
@@ -91,7 +125,7 @@
 				<div class="col-sm-6">
 					<div class="form-group {{ $errors->has('sexe') ? "has-error" : "" }}">
 						<label class="col-sm-3 control-label" for="sexe">
-							<b>Sexe :</b>
+							<strong>Sexe :</strong>
 						</label>
 						<div class="col-sm-9">
 							<div class="radio">
@@ -110,7 +144,7 @@
 				<div class="col-sm-6">
 					<div class="form-group">
 						<label class="col-sm-3 control-label text-nowrap" for="gs">
-							<b>Groupe sanguin :</b>
+							<strong>Groupe sanguin :</strong>
 						</label>
 						<div class="col-sm-2">
 							<select class="form-control" id="gs" name="gs">
@@ -122,48 +156,56 @@
 							</select>
 						</div>
 						<label class="col-sm-3 control-label no-padding-right" for="rh">
-							<b>Rhésus :</b>
+							<strong>Rhésus :</strong>
 						</label>
 						<div class="col-sm-2">
 							<select id="rh" name="rh">
-								<option value="">----</option>
+								<option value="">------</option>
 								<option value="+">+</option>
 								<option value="-">-</option>
 							</select>
 						</div>
-					</div>
+					</div>	
 				</div>
 			</div>{{-- row --}}
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="form-group">
 					<label class="col-sm-3 control-label" for="sf">
-						<b class="text-nowrap">Situation familiale :</b>
+						<strong class="text-nowrap">Cevilite :</strong>
 					</label>
 					<div class="col-sm-9">
-						<select class="form-control" id="sf" name="sf">
+						<select class="form-control civilite" id="sf" name="sf">
 							<option value="">------</option>
-							<option value="célibataire">Célibataire</option>
-							<option value="marié">Marié</option>
-							<option value="divorcé">divorcé</option>
+							<option value="celibataire">Célibataire(e)</option>
+							<option value="marie">Marié(e)</option>
+							<option value="divorce">Divorcé(e)</option>
+							<option value="veuf">Veuf(veuve)</option>
 						</select>
 					</div>
 					</div>
 				</div>
+				<div class="col-sm-6" id="Div-nomjeuneFille" hidden>
+					<label class="col-sm-3 control-label" for="nom">
+						<strong class="text-nowrap">Nom  jeune fille:</strong>
+					</label>
+					<div class="col-sm-9">
+					<input type="text" id="nom_jeune_fille" name="nom_jeune_fille" placeholder="Nom jeune fille..."  autocomplete = "off" class="col-xs-12 col-sm-12" />
+					 {!! $errors->first('nom_jeune_fille', '<small class="alert-danger">:message</small>') !!}
+					</div>
+				</div>{{-- col-sm-6 --}}
 				{{-- /nom de jeune fille --}}
 			</div>	{{-- row --}}
 			<div class="row">
 				<div class="col-sm-12">
-					<h3 class="header smaller lighter blue">
-						<b>Contact</b>
-					</h3>
+				<h3 class="header smaller lighter blue">Contact</h3>
 				</div>
 			</div>	{{-- row --}}
 			<div class="space-12"></div>
 			<div class="row">
-				<div class="col-sm-5">
+				<div class="col-sm-6">
 					<div class="form-group">
-						<label class="control-label col-sm-3" for="adresse"><b>Adresse :</b></label>
+						<label class="control-label col-sm-3" for="adresse"><strong>Adresse :</strong></label>
 						<div class="col-sm-9">
 						<textarea class="form-control" id="adresse" name="adresse" placeholder="Adresse..."></textarea>	
 						</div>
@@ -172,7 +214,7 @@
 				<div class="col-sm-6">
 					<div class="form-group">
 						<div class="form-group">
-						<label class="control-label text-nowrap col-sm-2 for="mobile1"><i class="fa fa-phone"></i><b>Mob1 :</b></label>
+						<label class="control-label text-nowrap col-sm-2 for="mobile1"><i class="fa fa-phone"></i><strong>Mob1 :</strong></label>
 						<div class="col-sm-2">
 							<select name="operateur1" id="operateur1" class="form-control" required="">
 							           <option value="">XX</option>
@@ -182,7 +224,7 @@
                        					</select>	
 						</div>
 						<input id="mobile1" name="mobile1"  maxlength =8 minlength =8  name="mobile1" type="tel" autocomplete="off" class="col-sm-2" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX" required />	
-						<label class="control-label text-nowrap col-sm-2 for="mobile2"><i class="fa fa-phone"></i><b>Mob2 :</b></label>
+						<label class="control-label text-nowrap col-sm-2 for="mobile2"><i class="fa fa-phone"></i><strong>Mob2 :</strong></label>
 
 						<div class="col-sm-2">
 				        			<select name="operateur2" id="operateur2" class="form-control">
@@ -201,7 +243,7 @@
 			<div class="row">
 				 <div class="form-group">
 					<div class="col-sm-1">
-						<label class="control-label no-padding-right pull-right" style=" padding-top: 0px;"><b>Type :</b></label>
+						<label class="control-label no-padding-right pull-right" style=" padding-top: 0px;"><strong>Type :</strong></label>
 					</div>
 					<div class="col-sm-9">
 						<label class="line-height-1 blue">
@@ -213,7 +255,7 @@
 							<span class="lbl"> Ayant droit</span>
 						</label>&nbsp;&nbsp;&nbsp;
 						<label class="line-height-1 blue">
-							<input id="ayant" name="type" value="Autre" type="radio" class="ace" onclick="showType('Autre')"/>
+							<input id="autre" name="type" value="Autre" type="radio" class="ace" onclick="showType('Autre')"/>
 							<span class="lbl"> Autre</span>
 						</label>	
 					</div>
@@ -223,7 +265,7 @@
 				<div class="col-sm-6">
 				<div class="form-group">
 					 <label class="col-sm-3 control-label" for="Type_p">
-					<b>Type :</b>
+					<strong>Type :</strong>
 					</label>
 					<div class="col-sm-9">
 					<select class="form-control col-xs-12 col-sm-6" id="Type_p" name="Type_p" required>
@@ -238,7 +280,7 @@
 				<div class="col-sm-6">
 				<div class="form-group">
 					 <label class="col-sm-4 control-label" for="nsspatient">
-						<b>NSS (patient):</b>
+						<strong>NSS (patient):</strong>
 					</label>
 					<div class="col-sm-8">
 						<input type="text" class="form-control col-xs-12 col-sm-6" id="nsspatient" name="nsspatient"
@@ -247,11 +289,10 @@
 				</div>			
 			 	</div> 	
 			</div> 	{{-- row --}}
-
 			<div class="space-12"></div>
 			<div class="row">
 				<div class="col-sm-6 starthidden">
-					<label for="description"><b>Autre information :</b></label>
+					<label for="description"><strong>Autre information :</strong></label>
 					<textarea class="form-control" id="description" name="description" placeholder="Description du la dérogation" ></textarea>
 				</div>
 			</div>
@@ -261,7 +302,7 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<h3 class="header smaller lighter blue">
-							<b>Information L'Assuré(e)</b>
+							<strong>Information L'Assuré(e)</strong>
 						</h3>
 					</div>	
 				</div>{{-- row --}}
@@ -269,7 +310,7 @@
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="nomf">
-							<b>Nom :</b> 
+							<strong>Nom :</strong> 
 							</label>
 						<div class="col-sm-9">
 							<input type="text" id="nomf" name="nomf" placeholder="Nom..." class="col-xs-12 col-sm-12" />
@@ -281,7 +322,7 @@
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="prenomf">
-							<b>Prénom :</b>
+							<strong>Prénom :</strong>
 						</label>
 						<div class="col-sm-9">
 							<input type="text" id="prenomf" name="prenomf" placeholder="Prénom..." class="col-xs-12 col-sm-12" />
@@ -296,7 +337,7 @@
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="datenaissancef">
-								<b class="text-nowrap">Né(e) le :</b>
+								<strong class="text-nowrap">Né(e) le :</strong>
 							</label>
 							<div class="col-sm-9">
 							<input class="col-xs-12 col-sm-12 date-picker" id="datenaissancef" name="datenaissancef" type="text" data-date-format="yyyy-mm-dd" placeholder="Date de naissance..." />
@@ -306,7 +347,7 @@
 					<div class="col-sm-6">
 						<div class="form-group">
 						<label class="col-sm-3 control-label" for="lieunaissancef">
-							<span class="text-nowrap"><b>Lieu de naiss :</b></span>
+							<span class="text-nowrap"><strong>Lieu de naiss :</strong></span>
 						</label>
 						<div class="col-sm-9">
 						<input type="text" id="lieunaissancef" name="lieunaissancef" placeholder="Lieu de naissance..." class="col-xs-12 col-sm-12" autocomplete= "off" />
@@ -321,7 +362,7 @@
 					<div class="col-sm-6">
 					<div class="form-group">
 						<label class="col-sm-3 control-label " for="gradef">
-							<b>Grade :</b>
+							<strong>Grade :</strong>
 						</label>
 						<div class="col-sm-9">
 							<select id="gradef" name="gradef" class="col-xs-12 col-sm-12"/>
@@ -345,7 +386,7 @@
 					<div class="col-sm-6">
 					<div class="form-group">
 						<label class="control-label col-xs-12 col-sm-3" for="NMGSN">
-							<b>NMGSN :</b>
+							<strong>NMGSN :</strong>
 						</label>
 						<div class="col-sm-9">
 							<div class="clearfix">
@@ -361,7 +402,7 @@
 					<div class="col-sm-6" id="statut">
 					<div class="form-group">
 						<label class="col-sm-3 control-label" for="etatf">
-						<b>Etat :</b>
+						<strong>Etat :</strong>
 						</label>
 						<div class="col-sm-9">
 						<div class="radio">
@@ -388,7 +429,7 @@
 					<div class="col-sm-6">
 					<div class="form-group">
 						<label class="control-label col-xs-12 col-sm-3" for="nss2">
-							<b>NSS :</b>
+							<strong>NSS :</strong>
 						</label>
 						<div class="col-sm-9">
 						<div class="clearfix">
@@ -403,7 +444,7 @@
 					<div class="col-sm-6">
 					<div class="form-group">
 						<label class="control-label col-xs-12 col-sm-3" for="matf">
-							<b>Matricule :</b>
+							<strong>Matricule :</strong>
 						</label>
 						<div class="col-sm-9">
 						<div class="clearfix">
@@ -432,7 +473,7 @@
 				Réinitialiser
 			</button>
 		</div>
-	</div>	
+		</div>	
 	</form>
 </div>{{-- row --}}
 </div>{{-- container-fluid --}}

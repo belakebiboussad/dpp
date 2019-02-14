@@ -13,7 +13,7 @@
      if('ontouchstart' in document.documentElement) document.write("<script src='{{asset('/js/jquery.mobile.custom.min.js')}}'>"+"<"+"/script>");
 </script>
 <script src="{{asset('/js/bootstrap.min.js')}}"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+{{-- <script src="{{asset('/js/angular.min.js')}}"></script> --}}
 <script src="{{asset('/js/jquery-ui.custom.min.js')}}"></script>
 <script src="{{asset('/js/jquery.ui.touch-punch.min.js')}}"></script>
 <script src="{{asset('/js/jquery.easypiechart.min.js')}}"></script>
@@ -23,9 +23,9 @@
 <script src="{{asset('/js/jquery.flot.resize.min.js')}}"></script>
 <script src="{{asset('/js/bootbox.js')}}"></script>
 <script src="{{asset('/js/jquery.easypiechart.min.js')}}"></script>
-<script src="{{asset('/js/jquery.gritter.min.js')}}"></script>
- <script src="{{asset('/js/spin.js')}}"></script>
-<script src="{{asset('/js/moment.min.js')}}"></script>
+<script src="{{ asset('/js/jquery.gritter.min.js') }}"></script>
+<script src="{{ asset('/js/spin.js') }}"></script>
+<script src="{{ asset('/js/moment.min.js') }}"></script>
  <!-- ace scripts -->
 <script src="{{asset('/js/ace-elements.min.js')}}"></script>
 <script src="{{asset('/js/ace.min.js')}}"></script>
@@ -46,9 +46,16 @@
 <script src="{{ asset('/js/jquery.hotkeys.index.min.js') }}"></script>
 <script src="{{ asset('/js/bootstrap-wysiwyg.min.js') }}"></script>
 <script src="{{ asset('/js/bootstrap-tagsinput.min.js') }}"></script>
-<script src="{{ asset('/js/bootstrap-tagsinput-angular.min.js') }}"></script>
 <script src="{{ asset('/js/bootstrap-multiselect.js') }}"></script>
+<script src="{{ asset('/js/multiselect.min.js') }}"></script>
+<script src="{{ asset('/js/prettify.min.js') }}"></script>
 <script src="{{ asset('/js/bootstrap-toggle.min.js') }}"></script>
+<script src="{{ asset('/js/ace-extra.min.js') }}"></script>
+<script src="{{ asset('/js/jquery.timepicker.min.js') }}"></script>
+<script src="{{ asset('/js/typeahead.bundle.min.js') }}"></script>
+<script src="{{ asset('/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
+<script src="{{ asset('/plugins/fullcalendar/locale/fr.js') }}"></script>
+
 <script type="text/javascript">
 $(document).ready(function(){
     $('#avis').change(function(){
@@ -125,27 +132,10 @@ $(document).ready(function(){
             }
         });
     });
-    $('#serviceh').change(function(){
-         $.ajax({
-            url : '/getsalles/'+ $('#serviceh').val(),
-            type : 'GET',
-            dataType : 'json',
-            success : function(data){
-                console.log(data);
-                if(data.length != 0){
-                    $.each(data,function(){
-                        $('#salle').html("<option value='"+this.id+"'>"+this.num+"</option>");
-                    });
-                }
-                else
-                {
-                    $('#salle').html("<option value=>Pas de salle</option>");
-                }
-            },
-        });
-    });
 });  
 </script>
+
+
 <script type="text/javascript">
     //And for the first simple table, which doesn't have TableTools or dataTables
     //select/deselect all rows according to table1 header checkbox
@@ -333,21 +323,14 @@ $(document).ready(function(){
                         if (col[j].style.display === 'none') 
                             col[j].style.display='table-cell' ;}    
                             lignes[i].style.display='table-row';
-                    
-
-                    var t=col[0].innerHTML;                         
+                            var t=col[0].innerHTML;                         
                     var index=id_demh.indexOf(t);                   
                     id_demh.splice(index, 1);                   
                     id_medt.splice(index, 1);                   
                     id_prio.splice(index, 1);                           
                     obs.splice(index, 1);
                     console.log(id_medt);
-                    
-                     
-      $(lignes[i]).appendTo('#table1');
-
-
-      
+      $(lignes[i]).appendTo('#table1');      
   }
            
         }lignes=null;
@@ -372,106 +355,14 @@ $(document).ready(function(){
 </script>
 <script type="text/javascript">
 $(document).ready(function() {
-    $('#meds_table').dataTable({
-        ordering: true,
-        "language": 
-            {
-                "url": '/localisation/fr_FR.json'
-            }, 
-    });
-    $('#dispo_table').dataTable({
-        ordering: true,
-        "language": 
-            {
-                "url": '/localisation/fr_FR.json'
-            }, 
-    });
-    $('#reactif_table').dataTable({
-        ordering: true,
-        "language": 
-            {
-                "url": '/localisation/fr_FR.json'
-            }, 
-    });
-    $('#demandes_liste').dataTable({
-        ordering: true,
-        "language": 
-            {
-                "url": '/localisation/fr_FR.json'
-            }, 
-    });
-    $('#patients_liste').dataTable();
-    $('#choixp').dataTable({
-        ordering: true,
-        "language": 
-            {
-                "url": '/localisation/fr_FR.json'
-            },
-    });
-    $('#choixpatientrdv').dataTable();
-    $('#rdvs_liste').dataTable();
-    $('#patients').dataTable();
-    $('#choix-patient-atcd').dataTable();
-    $('#users').dataTable();
-    $( "#liste_membre" )
-  .change(function () {
-    var select = document.getElementById("liste_membre");
-    var sel=document.getElementById("elt");
-    var choice = select.selectedIndex;
-    var valeur = select.options[choice].value;
-    var texte = select.options[choice].text;
-
-    if (document.getElementById("choix_membre").value.search(texte)==-1 ) {
-       
-    sel.options[sel.options.length] = new Option (valeur, valeur,false,true);   
-    document.getElementById("choix_membre").value +=texte+"\n"; 
-    }
-
-    else{
-        texte=texte+"\n"
-        document.getElementById("choix_membre").value=document.getElementById("choix_membre").value.replace(texte,"");
-        
-        for (var i=0; i<sel.length; i++){
-             if (sel.options[i].value == valeur )
-                sel.remove(i);
-        }
-
-    }
- });
+    // $('#patients_liste').dataTable();    // $('#choixpatientrdv').dataTable();  // $('#rdvs_liste').dataTable();    // $('#patients').dataTable();    // $('#choix-patient-atcd').dataTable();//$('#users').dataTable();
 });
 function addRequiredAttr()
 {
-         $(".starthidden").hide(250); 
-         $("ul#menuPatient li:not(.active) a").prop('disabled', false);
-     
-}
-function showType(value){
-    switch(value){
-           case "Assure":
-                     $("#nomf").val($("#nom").val());
-                     $("#prenomf").val($("#prenom").val());
-                     $("#datenaissancef").val($("#datenaissance").val());
-                     $("#lieunaissancef").val($("#lieunaissance").val());
-                     $("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);  
-                     $("#foncform").addClass('hide'); 
-                     $('#Type_p').attr('required', false);  
-                     addRequiredAttr();
-                      break;
-           case "Ayant_droit":
-                    $("#nomf").val("");
-                    $("#prenomf").val("");
-                    $("#foncform").removeClass('hide');
-                    $('#Type_p').attr('required', true); 
-                    addRequiredAttr();
-                
-                break;
-           case "Autre":
-                     $(".starthidden").show(250);
-                     $("#foncform").addClass('hide');
-                     $('#Type_p').attr('required', false); 
-                     $("ul#menuPatient li:not(.active) a").prop('disabled', true);
-               break;         
-    }
+             $(".starthidden").hide(250); 
+             $("ul#menuPatient li:not(.active) a").prop('disabled', false); 
+             jQuery('input:radio[name="sexef"]').filter('[value="M"]').attr('checked', true);
+              jQuery('input:radio[name="etat"]').filter('[value="En exercice"]').attr('checked', true);
 }
 function typepCreation()
 {

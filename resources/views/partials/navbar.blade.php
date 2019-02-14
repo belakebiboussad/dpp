@@ -40,24 +40,26 @@
                 <li class="light-blue">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
                         <img class="nav-user-photo" src="{{ asset('/avatars/user.jpg') }}" alt="admins's Photo" />
-						<span class="user-info">
-							<small>Bienvenue,</small>
-                            {{ Auth::user()->name }}
-						</span>
+			<span class="user-info">
+				<small>Bienvenue,</small>
+                                                      {{ Auth::user()->name }}      
+                                </span>
                         <i class="ace-icon fa fa-caret-down"></i>
                     <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
                         <li>
-                            <a href="/setting/{{Auth::user()->id}}">
-                                <i class="ace-icon fa fa-cog"></i>
-                                Settings
-                            </a>
+                        
+                                           <a href="/setting/{{Auth::user()->id}}">
+                                            <i class="ace-icon fa fa-cog"></i>
+                                            Settings
+                                </a>
+
                         </li>
 
                         <li>
-                            <a href="{{ url('/profile',Auth::user()->id) }}">
-                                <i class="ace-icon fa fa-user"></i>
-                                Profile
-                            </a>
+                                <a href="{{ url('/profile',Auth::user()->id) }}">                     
+                                               <i class="ace-icon fa fa-user"></i>Profile
+                                </a>  
+                             
                         </li>
 
                         <li class="divider"></li>

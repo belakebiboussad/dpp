@@ -13,7 +13,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
            Validator::extend('NSSValide', function($attribute, $value, $parameters, $validator) {
            if(!empty($value) && (strlen($value) % 2) != 0){
                      $matches = null;
@@ -40,6 +39,7 @@ class AppServiceProvider extends ServiceProvider
            }
            return false;
         });
+
     }
 
     /**

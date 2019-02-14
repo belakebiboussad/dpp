@@ -5,10 +5,15 @@ namespace App\Http\Controllers;
 use App\modeles\rdv;
 use App\modeles\patient;
 use App\modeles\employ;
+use App\modeles\rol;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 use PDF;
+use Flashy;
+use Calendar;
+use Carbon\Carbon;
+// use Illuminate\Support\Facades\Gate;
 class RDVController extends Controller
 {
     /**
@@ -26,31 +31,97 @@ class RDVController extends Controller
     }
     public function reporter($id)
     {
-        $rdv = rdv::FindOrFail($id);
-        $patient = patient::FindOrFail($rdv->Patient_ID_Patient);
-        return view('rdv.reporter_rdv',compact('rdv','patient'));
+           $rdv = rdv::FindOrFail($id);
+           $patient = patient::FindOrFail($rdv->Patient_ID_Patient);
+          return view('rdv.reporter_rdv',compact('rdv','patient'));
     }
     public function storereporte(Request $request,$id)
     {
-        $rdv = rdv::FindOrFail($id);
-        $rdv->update([
-            "Date_RDV"=>$request->daterdv,
-        ]);
-        return redirect()->route("rdv.show",$rdv->id);
+            $rdv = rdv::FindOrFail($id);
+            $rdv->update([
+                "Date_RDV"=>$request->daterdv,
+            ]);
+            return redirect()->route("rdv.show",$rdv->id);
     }
     public function choixpatient()
     {
-        $patients = patient::all();
-        return view('rdv.choix_patient_rdv', compact('patients'));
+           // $patients = patient::all();
+           // return view('rdv.choix_patient_rdv', compact('patients'));
+             return view('patient.index_patient');
     }
-
     public function index()
     {
-        $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
-        $rdvs = rdv::where("specialite", $employe->Specialite_Emploiye)->get();
-        return view('rdv.index_rdv', compact('rdvs'));
-    }
+          $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
+          $rendezvous = [];
+           if(rol::where("id",Auth::User()->role_id)->get()->first()->role =="Receptioniste")
+                $data = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->get();
+           else
+           
+                $data = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->where("specialite", $employe->Specialite_Emploiye)->get();
+           if($data->count())
+           {
+                      $color=0;  
+                     foreach ($data as $key => $value) {  
+                               $Age=  Carbon::parse($value->Dat_Naissance)->age;
+                                if (Carbon::today()->gt(Carbon::parse($value->Date_RDV->format('Y-m-d H:i:s')))) {
+                                           $color = '#D3D3D3';
+                                           $rendezvous[] = Calendar::event(
+                                                   $value->Nom." ".$value->Prenom,
+                                                   true,
+                                                   new \DateTime($value->Date_RDV),
+                                                   new \DateTime($value->Date_RDV.' +1 day'),
+                                                   $value->id,
+                                                   // Add color and link on event
+                                                   [
+                                                                'color' =>$color,
+                                                                'url' => '/rdv/'.$value->id,
+                                                   ]
+                                          );
+                                } else {
+                                                 $color = '#00c0ef';
+                                                 $rendezvous[] = Calendar::event(
+                                                   $value->Nom." ".$value->Prenom,
+                                                   true,
+                                                   new \DateTime($value->Date_RDV),
+                                                   new \DateTime($value->Date_RDV.' +1 day'),
+                                                   $value->id,
+                                                   // Add color and link on event
+                                                   [
+                                                             'color' =>$color,
+                                                             'idPatient' =>$value->idPatient,
+                                                              'age'=> $Age,
+                                                             'tel'=>$value->tele_mobile1,                             
+                                                   ]
+                                          );
+                                }                                             
 
+                     }
+           }
+          // dd($rendezvous);
+           $events = array();
+         //  $planning = Calendar::addEvents($rendezvous);   
+            $eloquentRDV= rdv::first(); //EventModel implements MaddHatter\LaravelFullcalendar\Event
+           $planning = \Calendar::addEvents($rendezvous) //add an array with addEvents
+             ->addEvent($eloquentRDV, [ //set custom color fo this event
+                     'color' => '#800',
+                 ])->setOptions([ //set fullcalendar options
+                'firstDay' => 7,
+                'timeFormat'        => 'H:mm',
+                 'axisFormat'        => 'H:mm',
+                 'selectable' => true,
+                 'minTime' => '08:00:00',
+                 'maxTime' => '20:00:00',
+                'slotDuration' => '00:30:01',
+           ])->setCallbacks([ //set fullcalendar callback options (will not be JSON encoded)
+                 'viewRender' => 'function() {console.log("Callbacks!");}',
+                 'eventClick' => 'function(event) {
+                           showModal(event.id,event.title,event.start,event.idPatient,event.tel,event.age);
+                 }'
+         ]);
+        // dd($planning);
+        return view('rdv.index_rdv', compact('planning'));
+        //return view('rdv.index_rdv', compact('rdvs'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -70,11 +141,13 @@ class RDVController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+         // dd($request->all());
+          $request->validate([
             "daterdv"=> 'required',
-        ]);
+           ]);
         $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
         $specialite = $employe->Specialite_Emploiye; 
+        // $rdv = rdv::create($request->all());
         $rdv = rdv::firstOrCreate([
            "Date_RDV"=>$request->daterdv,
            "specialite"=>$specialite,
@@ -82,7 +155,8 @@ class RDVController extends Controller
            "Patient_ID_Patient"=>$request->id_patient,
            "Etat_RDV"=> "en attente",
         ]);
-         flash('RDV ajouter avec succès')->success();
+
+         Flashy::success('RDV ajouter avec succès');
          return redirect()->route("rdv.show",$rdv->id);
     }
 
@@ -95,6 +169,7 @@ class RDVController extends Controller
     public function show($id)
     {
         $rdv = rdv::FindOrFail($id);
+        // dd($rdv);
         return view('rdv.show_rdv',compact('rdv'));
     }
 
@@ -120,10 +195,10 @@ class RDVController extends Controller
      */
     public function update(Request $request, $id)
     {
-       $rdv = rdv::FindOrFail($id);
-       $rdv->update([
-            "Date_RDV"=>$request->daterdv,
-            "Temp_rdv"=>$request->heurrdv
+           $rdv = rdv::FindOrFail($id);
+           $rdv->update([
+                "Date_RDV"=>$request->daterdv,
+                "Temp_rdv"=>$request->heurrdv
        ]);
        return redirect()->route("rdv.show",$rdv->id);
     }
@@ -137,7 +212,8 @@ class RDVController extends Controller
     public function destroy($id)
     {
         rdv::destroy($id);
-        return redirect()->route('rdv.index');
+        //return redirect()->route('rdv.index');
+        return redirect()->action('RDVController@index');
     }
     public function orderPdf($id)
      {

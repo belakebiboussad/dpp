@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\modeles\service;
-
+use App\user;
+use  App\modeles\salle;
 class ServiceController extends Controller
 {
     /**
@@ -25,7 +25,9 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        return view('services.create_service');
+           $membres = user::join('employs', 'utilisateurs.employee_id','=','employs.id')->join('rols','utilisateurs.role_id', '=', 'rols.id')->select('employs.id','Nom_Employe','Prenom_Employe')->where('rols.id', '=','1' )->orWhere('rols.id', '=','2' )
+                  ->orWhere('rols.id', '=','5' ) ->orWhere('rols.id', '=','6' )->get(); 
+           return view('services.create_service',compact('membres'));
     }
 
     /**
@@ -36,8 +38,11 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        service::create([
-            "nom"=>$request->nom,
+           service::create([
+              "nom"=>$request->nom,
+              "typs"=>$request->type,
+              "responsable_id"=>$request->responsable,
+
         ]);
         return redirect()->action('ServiceController@index');
     }
@@ -91,5 +96,16 @@ class ServiceController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getRooms(Request $request)
+    {
+             $salles = salle::where('service_id',$request->search)->get();
+              // return $salles; 
+            // $service = service::FindOrFail($id);
+            //  return response()->json($service);
+            // //return response()->json($service->salles);
+            $view = view("services.ajax_servicerooms",compact('salles'))->render();
+           return response()->json(['html'=>$view]);
     }
 }

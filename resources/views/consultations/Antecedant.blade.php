@@ -38,7 +38,7 @@
             		<span class="lbl"> &nbsp; &nbsp;ethylisme</span>
         		</label>
 	</div>
-	<br><br>
+	<br>
 	<div>
 		<label for="dateatcd"><strong>Date :</strong></label>
 		<input type="text" name="dateAntcd" class="form-control date-picker" id="dateAntcd"  data-date-format="yyyy-mm-dd" data-provide="datepicker" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
@@ -48,10 +48,10 @@
 		<textarea class="form-control" id="description" name="description" required></textarea>
 	</div>
 	<div class="space-12"></div>
-	<div style="text-align: left;">
-		<button type="button" class="btn btn-primary"onclick="ajaxfunc({{$patient->id}});" style="width:250px;" id="AddANTCD">
-			<div class="fa fa-plus-circle"></div>
-			<span class="bigger-200">Ajouter</span> 
+	<div style="text-align: right;">
+		<button type="button" class="btn btn-primary"onclick="ajaxfunc({{$patient->id}});" style="width:50%;" id="AddANTCD">
+			<div class="fa fa-plus-circle"></div>&nbsp;
+			<span class="bigger-120">Ajouter</span> 
 		</button>
 		<div class="space-12"></div>
 {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#" onclick="addAntecedant()" style="width:250px;">

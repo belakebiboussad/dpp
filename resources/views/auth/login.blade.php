@@ -1,5 +1,4 @@
 @extends('auth.auth')
-
 @section('content')
 <div id="login-box" class="login-box visible widget-box no-border">
     <div class="widget-body">
@@ -30,7 +29,7 @@
                     </label>
 
                     <div class="space"></div>
-
+                        <? php echo Session::get('message');?>
                     <div class="clearfix">
                         <label class="inline">
                             <input type="checkbox" class="ace" name="remember"/>
@@ -43,9 +42,10 @@
                             <span class="bigger-110">Entrer</span>
                         </button>
                     </div>
-
-                    <div class="space-4"></div>
+                    <div class="space-4"></div> 
+                            @include('flashy::message')
                 </fieldset>
+
             </form>
         </div>
         <!-- /.widget-main -->

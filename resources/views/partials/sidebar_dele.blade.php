@@ -67,14 +67,19 @@
             </a>
 
             <b class="arrow"></b>
-
+                @php $i = 1 @endphp
+              {{--   @php $j = 2 @endphp --}}
+                
             <ul class="submenu">
                 <li class="">
-                    <a href="{{ route('colloque.index')}}">
+                    <a href="/listecolloques/{{ $i }}">
                         <i class="menu-icon fa fa-caret-right"></i>
-                        Liste des colloques
+                        Colloques Médicaux
                     </a>
                     <b class="arrow"></b>
+                </li>
+                <li>
+                    <a href="/listecolloques/{{ ++$i }}">Colloques Chirurgicaux</a>
                 </li>
                 <li class="">
                     <a href="{{ route('colloque.create')}}">

@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Dossier Patient'),
 
     /*
     |--------------------------------------------------------------------------
@@ -184,8 +184,9 @@ return [
         Jenssegers\Date\DateServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Milon\Barcode\BarcodeServiceProvider::class,
-        Laracasts\Flash\FlashServiceProvider::class,
         Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
+        MercurySeries\Flashy\FlashyServiceProvider::class,
+        MaddHatter\LaravelFullcalendar\ServiceProvider::class,
     ],
 
     /*
@@ -240,6 +241,7 @@ return [
         'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
         'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
         'Input'     => Illuminate\Support\Facades\Input::class,
+         'Flashy' => MercurySeries\Flashy\Flashy::class,
+         'Calendar'=>MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
     ],
-
 ];

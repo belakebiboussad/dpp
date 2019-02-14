@@ -1253,10 +1253,10 @@ abbr[data-original-title] {
   cursor: help;
   border-bottom: 1px dotted #777777;
 }
-.initialism {
+/*.initialism {
   font-size: 90%;
   text-transform: uppercase;
-}
+}*/
 blockquote {
   padding: 10px 20px;
   margin: 0 0 20px;
@@ -6396,3 +6396,65 @@ option:checked, option:hover {
 .hide {
     display: none !important;
 }
+.noborders{
+    border-right:hidden!important;
+    text-align:right;
+}
+.table-condensed {
+width: 100% !important;
+}
+/*border: 1px solid black;
+    width: 1000px;*/
+.table-condensed tbody{
+font-size:12px !important;
+}
+table-condensed thead th{
+  height: 20px !important;
+}
+.smalltext{
+    font-size: x-small;
+}
+.modal-ku {
+  width: 1250px;
+  margin: auto;
+}
+/*table.merger tr.unique td, 
+table.merger tr.unique th {
+  background-color: #aaf;
+}*/
+
+table.merger tr.multiple td, 
+table.merger tr.multiple th {
+  background-color: #faa;
+}
+
+table.merger tr.duplicate td, 
+table.merger tr.duplicate th {
+  background-color: #afa;
+}
+input.tt-input {
+width:auto !important;
+}
+.numberCircle {
+    width: 45px;
+    line-height: 45px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 26px;
+    border: 2px solid #666;
+}
+.numberCircle20{
+    width: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 20px;
+    border: 2px solid #666;
+}
+.pull-right {
+  float: right !important;
+}
+.header th {
+       height: 20px;
+       line-height: 20px;
+    }

@@ -1,4 +1,5 @@
 @extends('app')
+@section('title','Ajouter un Utilisateure')
 @section('main-content')
 	<div class="page-header">
 		<h1>Ajouter un nouveau utilisateur :</h1>
@@ -6,8 +7,9 @@
 	<div class="widget-box" id="widget-box-1">
 		<div class="widget-body">
 			<div class="widget-main">
-				<form class="form-horizontal" action="{{route('users.store')}}" method="POST">
-					{{ csrf_field() }}
+			{{-- "{{route('users.store')}} --}}
+			<form class="form-horizontal" action="{{ url('/users/store') }}" method="POST">
+				{{ csrf_field() }}
 				<h4 class="header blue bolder smaller">Informations adminstratives</h4>
 				<div class="row">
 					<div class="vspace-12-sm"></div>
@@ -217,6 +219,10 @@
 				<button type="submit" class="btn btn-sm btn-primary">
 					&nbsp;Enregistrer
 					<i class="ace-icon fa fa-save icon-on-left bigger-110"></i>
+				</button>
+				<button type="reset" class="btn btn-sm btn-default">
+					&nbsp;Annuler
+					<i class="ace-icon fa fa-undo icon-on-left bigger-110"></i>
 				</button>
 			</div>
 			</form>

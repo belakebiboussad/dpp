@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\modeles\salle;
 use App\modeles\lit;
 use App\modeles\service;
+use Validator;
+use Redirect;
+use MessageBag;
 
 class SalleController extends Controller
 {
@@ -16,7 +18,22 @@ class SalleController extends Controller
      */
     public function getsalles($id)
     {
-        $salles = salle::where('id_service',$id)->get();
+        $salles = salle::where('service_id',$id)->where('etat','Non bloquee')->get();
+        //verifier si la salle dispose de lit libre et elle n'est pas bloquee
+         // dd($salles);
+        foreach ($salles as $key => $salle) {
+                    $libre=false;
+                    foreach ($salle->lits as $key => $lit) {
+                                # code...
+                               if(!($lit->affectation) && ($lit->etat) )
+                               {
+                                    $libre=true;
+                                     continue;
+                               }    
+                    }
+                     if(!$libre)
+                        $salles->pull($key);
+          }
         return $salles;
     }
     public function index()
@@ -50,15 +67,18 @@ class SalleController extends Controller
      */
     public function store(Request $request)
     {
-        salle::create([
-            "num"=>$request->numsalle,
-            "nom"=>$request->nomsalle,
-            "max_lit"=>$request->maxlits,
-            "bolc"=>$request->bloc,
-            "etage"=>$request->etage,
-            "etat"=>"bloquée",
-            "id_service"=>$request->idservice,
-        ]);
+           $etat = 1;
+           if(isset($_POST['etat']) )
+                 $etat = 0;  
+          salle::create([
+                "num"=>$request->numsalle,
+                "nom"=>$request->nomsalle,
+                "max_lit"=>$request->maxlits,
+                "bolc"=>$request->bloc,
+                "etage"=>$request->etage,
+                "etat"=>"Non bloquee",
+                "service_id"=>$request->idservice,
+           ]);
         return redirect()->action('SalleController@index');
     }
 
@@ -71,7 +91,7 @@ class SalleController extends Controller
     public function show($id)
     {
         $salle = salle::FindOrFail($id);
-        $lits = lit::where("id_salle", $salle->id)->get()->all();
+        $lits = lit::where("salle_id", $salle->id)->get()->all();
         return view('Salles.show_salle', compact('salle','lits'));
     }
 
@@ -105,7 +125,7 @@ class SalleController extends Controller
             "bolc"=>$request->bloc,
             "etage"=>$request->etage,
             "etat"=>$request->etat,
-            "id_service"=>$request->service,
+            "service_id"=>$request->service,
         ]);
         return redirect()->action('SalleController@index');
     }

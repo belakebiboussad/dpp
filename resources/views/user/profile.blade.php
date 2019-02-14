@@ -176,7 +176,7 @@
               <div class="form-group{{ $errors->has('current-password') ? ' has-error' : '' }}"> </div>
                   
                      <div class="form-group">
-                           <label class="col-md-4 control-label"><b>Mot de passe Actuel:</b></label>
+                           <label class="col-md-4 control-label" align="right"><b>Mot de passe Actuel:</b></label>
                            <div class="col-md-6">
                                 <input type="password"  class="form-control" id="curPassword" name="curPassword" placeholder="taper le mot de passe actuel" required/>
                                 <small class="help-block"></small>
@@ -186,7 +186,7 @@
            
                    
                       <div class="form-group">
-                           <label class="col-md-4 control-label"><b>Nouveau mot de passe:</b></label>
+                           <label class="col-md-4 control-label" align="right"><b>Nouveau mot de passe:</b></label>
                            <div class="col-md-6">
                                 <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="taper un nouveau mot de passe" required />
                                 <small class="help-block"></small>
@@ -196,7 +196,7 @@
            
       
                <div class="form-group">
-                        <label class="col-md-4 control-label"><b>Confirmer nouveau mot de passe:</b></label>
+                        <label class="col-md-4 control-label" align="right"><b>Confirmer nouveau mot de passe:</b></label>
                         <div class="col-md-6">
                             <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Confirmer mot de passe" required />
                         </div>

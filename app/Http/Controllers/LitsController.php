@@ -16,7 +16,9 @@ class LitsController extends Controller
      */
     public function index()
     {
-        $lits = lit::all();
+         $lits=lit::join('salles','lits.salle_id','=','salles.id')
+                  ->join('services','salles.service_id','=','services.id')
+         ->select('lits.*','salles.nom as nomSalle','services.nom as nomService')->get();
         return view('lits.index_lit', compact('lits'));
     }
 
@@ -27,13 +29,14 @@ class LitsController extends Controller
      */
     public function createlit()
     {
-        $salles = salle::all();
-        return view('lits.create_lit_2', compact('salles'));
+        $services = service::all();
+        return view('lits.create_lit_2', compact('services'));
     }
 
-    public function create($id_salle)
+    public function create($id_salle = null)
     {
-        return view('lits.create_lit',compact('id_salle'));
+           $services = service::all();
+           return view('lits.create_lit', compact('services','id_salle'));
     }
 
     /**
@@ -44,13 +47,17 @@ class LitsController extends Controller
      */
     public function store(Request $request)
     {
-        lit::create([
-            "num"=>$request->numlit,
-            "etat"=>$request->etat,
-            "affectation"=>0,
-            "id_salle"=>$request->idsalle,
-        ]);
-        return redirect()->action('LitsController@index');
+           $etat = 1;
+           if(isset($_POST['etat']) )
+                 $etat = 0;  
+           $l=  lit::create([
+                    "num"=>$request->numlit,
+                    "nom"=>$request->nom,
+                    "etat"=>$etat,
+                    "affectation"=>0,
+                    "salle_id"=>$request->chambre,
+           ]);
+           return redirect()->action('LitsController@index');
     }
 
     /**
@@ -62,8 +69,8 @@ class LitsController extends Controller
     public function show($id)
     {
         $lit = lit::FindOrFail($id);
-        $salle = salle::FindOrFail($lit->id_salle);
-        $service = service::FindOrFail($salle->id_service);
+        $salle = salle::FindOrFail($lit->salle_id);
+        $service = service::FindOrFail($salle->service_id);
         return view('lits.show_lit', compact('lit','service'));
     }
 
@@ -89,14 +96,19 @@ class LitsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $lit = lit::FindOrFail($id);
-        $lit->update([
-            "num"=>$request->numlit,
-            "etat"=>$request->etat,
-            "affectation"=>$request->affectation,
-            "id_salle"=>$request->salle,
-        ]);
-        return redirect()->action('LitsController@index');
+
+           $lit = lit::FindOrFail($id);
+              $etat =1 ;
+          if(isset($_POST['etat']) )
+                     $etat = 0;   
+           $lit->update([
+                "num"=>$request->numlit,
+                "nom"=>$request->nom,
+                "etat"=>$etat,
+                "affectation"=>$request->affectation,
+                "salle_id"=>$request->salle,
+            ]);
+           return redirect()->action('LitsController@index');
     }
 
     /**
@@ -109,4 +121,15 @@ class LitsController extends Controller
     {
         //
     }
+
+/**
+function ajax return lits
+*/
+public function getlits($salleid)
+{
+          //on retourne pas les lits bloque ou occupé 
+          $lits = lit::where('salle_id',$salleid)->where('etat',1)->where("affectation",0)->get();
+           return $lits;
+}
+
 }

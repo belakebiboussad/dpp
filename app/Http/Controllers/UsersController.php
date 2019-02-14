@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
-
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -17,7 +17,9 @@ use App\modeles\service;
 use App\modeles\employ;
 use App\modeles\rol;
 use App\modeles\Specialite;
+use App\modeles\patient;
 use Hash;
+use View;
 class UsersController extends Controller
 {
    
@@ -58,20 +60,20 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-       $request->validate([
+           $request->validate([
             "nom"=> "required",
             "prenom"=> "required",
             "datenaissance"=> "required",
             "lieunaissance"=> "required",
             "adresse"=> "required",
             "mobile"=> "required",
-            "fixe"=> "required",
-            "mat"=> "required",
-            "service"=> "required",
+            //"fixe"=> "required",age
+           // "mat"=> "required",
+            //"service"=> "required",
             "nss"=> "required",
             "username"=> "required",
             "password"=> "required",
-            // "mail"=> "required",
+            "mail"=> "required",
             "role"=> "required",
         ]);
         $employe = employ::firstOrCreate([
@@ -111,9 +113,13 @@ class UsersController extends Controller
     public function show($id)
     {
        $user = User::FindOrFail($id);
-       $employe = employ::FindOrFail($user->employee_id);
+        $employe = employ::FindOrFail($user->employee_id);
+       $service = service::FindOrFail($employe->Service_Employe);
+       $specialite= Specialite::FindOrFail($employe->Specialite_Emploiye);
        $roles = rol::all();
-       return view('user.show_user',compact('user','employe','roles'));
+       $services=service::all();
+       $specialites=specialite::all();
+       return view('user.show_user',compact('user','employe','roles','service','specialite','services','specialites'));
     }
 
     /**
@@ -148,7 +154,6 @@ class UsersController extends Controller
                     "email"=> "nullable|email",//|unique:utilisateurs
                     "role"=> "required",
            ]); 
-           
            $activer = $user->active;
            if($user->active)
            {
@@ -208,7 +213,7 @@ class UsersController extends Controller
                     <a class="green" href="'.route('users.edit',$user->id).'">
                         <i class="ace-icon fa fa-pencil bigger-130"></i>
                     </a>
-                    <a class="red" href="#">
+                    <a class="red" href="">
                         <i class="ace-icon fa fa-trash-o bigger-130"></i>
                     </a>
                 </div>';
@@ -296,4 +301,49 @@ class UsersController extends Controller
     {
         dd($request);
     }
+
+      public function searchUser(Request $request)
+        {
+              if($request->ajax())  
+             {
+                        $output="";
+                         //$users=DB::table('utilisateurs')->where('name','LIKE','%',$request->search."%")->get();
+                         $users=DB::table('utilisateurs')->where('name','LIKE','%'.$request->search."%")->get();
+                        if($users)
+                        {
+                                       $i=0;
+                                       foreach ($users as $key => $user) {
+                                                    $i++;
+                                                    $compte='<span class="label label-sm label-danger">desactivé</span>';
+                                                    if($user->active)
+                                                                $compte='<span class="label label-sm label-success">active</span>';
+                                                    //$role = rol
+                                                    $role = rol::FindOrFail($user->role_id);          
+                                                    $output.='<tr>'.
+                                                     '<td >'.$i.'</td>'.
+                                                     '<td hidden>'.$user->id.'</td>'.
+                                                     // '<td><a href="/users/'.$user->id.'">'.$user->name.'</a></td>'.
+                                                     '<td><a href="#" id ="'.$user->id.'" onclick ="getUserdetail('.$user->id.');">'.$user->name.'</a></td>'.
+                                                     '<td>'.$user->email.'</td>'.
+                                                     '<td>'.$role->role.'</td>'.
+                                                     '<td>'.$compte.'</td>'.   
+                                                     '<td>'.'<a href="/users/'.$user->id.'" class="'.'btn btn-white btn-sm"><i class="ace-icon fa fa-hand-o-up bigger-80"></i></a>'."&nbsp;&nbsp;".'<a href="/users/'.$user->id.'/edit" class="'.'btn btn-white btn-sm"><i class="fa fa-edit fa-lg" aria-hidden="true" style="font-size:16px;"></i></a>'.'</td>'.   
+                                                     '</tr>';
+                                       }
+                          }
+                          return Response($output)->withHeaders(['count' => $i]);
+             }    
+    }
+    public function AutoCompleteUsername(Request $request)
+    {
+            return User::where('name', 'LIKE', '%'.trim($request->q).'%')->get();
+    } 
+    public function getUserDetails(Request $request)
+    {
+           $user = User::FindOrFail($request->search);
+           $employe = employ::FindOrFail($user->employee_id);
+           $view = view("user.ajax_userdetail",compact('user','role','employe'))->render();
+           return response()->json(['html'=>$view]);
+    }
+    
 }

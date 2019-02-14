@@ -36,7 +36,7 @@
 								<strong> Nombre Lits : </strong>
 							</label>
 							<div>
-								<strong>{{ App\modeles\lit::where("id_salle",$salle->id)->count() }} Lits</strong>
+								<strong>{{ App\modeles\lit::where("salle_id",$salle->id)->count() }} Lits</strong>
 							</div>
 						</div>
 						<div class="form-group">
@@ -60,7 +60,7 @@
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right blue" for="service"><strong> Service : </strong></label>
 							<div>
-								<strong>{{ App\modeles\service::where("id", $salle->id_service)->get()->first()->nom }}</strong>
+								<strong>{{ App\modeles\service::where("id", $salle->service_id)->get()->first()->nom }}</strong>
 							</div>
 						</div>
 					</div>

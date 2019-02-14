@@ -40,7 +40,7 @@
 									<td width="10%">{{ $salle->bolc }}</td>
 									<td>{{ $salle->etage }}</td>
 									<td>{{ $salle->etat }}</td>
-									<td >{{ App\modeles\service::where("id",$salle->id_service)->get()->first()->nom }}</td>
+									<td >{{ App\modeles\service::where("id",$salle->service_id)->get()->first()->nom }}</td>
 									<td width="30%">
 									<div >
 									<div  class="hidden-sm hidden-xs btn-group pull-right">

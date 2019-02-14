@@ -23,23 +23,23 @@
                                Valider
                             </a>
                    	</div>
-                    </div>
+                     </div>
 		<div class="widget-body" id ="ATCDWidget">
-                        <div class="widget-main no-padding">
-                            <table class="table table-striped table-bordered table-hover" id="ants-tab">
-                              	<thead class="thin-border-bottom">
-                                	<tr>
-	                                 	<th>Type</th>
-	                                  	<th><i class="fa fa-clock-o" aria-hidden="true"></i>Date</th>
-	                                  	<th class="hidden-480">Description</th>
-	                                  	<th class="hidden-480"></th>
-                                	</tr>
-                       			</thead>
-		                        <tbody>
-		                        </tbody>
-                            </table>
-                     	</div>
-                    </div>
+	                      <div class="widget-main no-padding">
+	                            <table class="table table-striped table-bordered table-hover" id="ants-tab">
+	                              	<thead class="thin-border-bottom">
+	                                	<tr>
+		                                 	<th>Type</th>
+		                                  	<th><i class="fa fa-clock-o" aria-hidden="true"></i>Date</th>
+		                                  	<th class="hidden-480">Description</th>
+		                                  	<th class="hidden-480"></th>
+	                                	</tr>
+	                       			</thead>
+			                        <tbody>
+			                        </tbody>
+	                            </table>
+	                     	</div>
+                      </div>
         		</div>
 			</div>
 					</div>
@@ -50,14 +50,14 @@
 				<div style="text-align: center;">
 					<button class="btn btn-info" type="submit">
 						<i class="ace-icon fa fa-check bigger-110"></i>
-						Submit
+						Enregistrer
 					</button>
 						&nbsp; &nbsp; &nbsp;
 					<button class="btn" type="reset">
 					<i class="ace-icon fa fa-undo bigger-110"></i>
-						Reset
+						Annuler
 					</button>
 				</div>
 			</div>														
-	</form> --}}
+	</form>
 @endsection

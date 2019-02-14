@@ -46,6 +46,7 @@ class EmployeController extends Controller
     public function show($id)
     {
         $employe = employ::FindOrFail($id);
+        //$employe = employ::with('service')->FindOrFail($id);
         return view('employe.show_employe',compact('employe'));
     }
 
@@ -69,23 +70,22 @@ class EmployeController extends Controller
      */
     public function update(Request $request, employ $employ)
     {
-        //
+           // dd($request->all());
          $employe = employ::FindOrFail($employ->id);
-
-       //  dd($request->datenaissance);
+        // dd($request->datenaissance);
          $request->validate([
-            "nom"=> "required | max:120",
-            "prenom"=> "required|alpha_num",
-            "datenaissance"=> "required | date",
-            "lieunaissance"=> "required",
-            "sexe"=> "required",
-            "adresse"=> "required",
-            "mobile"=> "required | regex:/[0][567][0-9]{8}/",
-            "fixe"=> "numeric | regex:/[0][0-9]{8}/",
-            "mat"=> "required",
-            "service"=> "required",          
-            "nss"=> "required | regex:/[0-9]{14}/",
-            'specialite'=>"required",
+                "nom"=> "required | max:120",
+                "prenom"=> "required|alpha_num",
+                "datenaissance"=> "required | date",
+                "lieunaissance"=> "required",
+                "sexe"=> "required",
+                "adresse"=> "required",
+                 "mobile"=> "required | regex:/[0][567][0-9]{8}/",
+                 "fixe"=> "numeric | regex:/[0][0-9]{8}/",
+                 //"mat"=> "required",
+                "service"=> "required",          
+                "nss"=> "required | regex:/[0-9]{12}/",
+                'specialite'=>"required",
         ]);
            $employe->update([
             "Nom_Employe"=>$request->nom,

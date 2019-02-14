@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
-class LoginController extends Controller
+use Auth;
+use Redirect;
+// use Session;
+use Flashy;
+class LoginControllerOrg extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -36,5 +38,12 @@ class LoginController extends Controller
     {
         // $this->middleware('auth');
         $this->middleware('guest')->except('logout');
+        // $this->middleware('revalidate');
+    }
+    public function logout() {
+            Auth::logout(); // logout user
+           // Session::flush();
+           // Redirect::back();
+           return Redirect::to('/login'); //redirect back to login
     }
 }

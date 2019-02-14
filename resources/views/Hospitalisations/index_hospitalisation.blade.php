@@ -24,6 +24,7 @@
 								<th>Date Prévue Pour La Sortie</th>
 								<th>Date Sortié</th>
 								<th>Médecin</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -40,6 +41,9 @@
 								<td>
 									{{ App\modeles\employ::where("id",$hosp->Employe_ID_Employe)->get()->first()->Nom_Employe }}
 									{{ App\modeles\employ::where("id",$hosp->Employe_ID_Employe)->get()->first()->Prenom_Employe }}
+								</td>
+								<td>
+									
 								</td>
 							</tr>
 							@endforeach

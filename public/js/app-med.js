@@ -207,8 +207,9 @@
        	}	
        	function checkFormAddPAtient()
        	{
-       	          InverserUl();	
-       	          var nomf = $('#nomf').val();
+       		
+       	             InverserUl();	
+       	            var nomf = $('#nomf').val();
        		var prenomf = $('#prenomf').val();
        		var NMGSN = $('#NMGSN').val();
        		var nss = $('#nss').val();
@@ -219,15 +220,17 @@
    			$(obj).detach();
 		});
      		var erreur =true;
-     		jQuery.each( inputVal, function( i, val ) {
-
-  			if(val =="" )
-  			{
-  				erreur =false;
-  				InverserUl();
-  				$('#error').after('<span class="error"> STP, saisir le ' + inputMessage[i]+' du l\'ssure '  + '</span>'+'<br/>');
-     			}
-		});
+     		if(!($('#autre').is(':checked'))){ 
+		  	jQuery.each( inputVal, function( i, val ) {
+	  			if(val =="" )
+	  			{
+	  				erreur =false;
+	  				InverserUl();
+	  				$('#error').after('<span class="error"> STP, saisir le ' + inputMessage[i]+' du l\'ssure '  + '</span>'+'<br/>');
+	     			}
+			});
+		}
+     
      		return erreur;
        	}
 	function clearInput() {

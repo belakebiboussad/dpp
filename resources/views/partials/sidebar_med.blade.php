@@ -1,4 +1,4 @@
-<div id="sidebar" class="sidebar                  responsive">
+<div id="sidebar" class="sidebar responsive">
     <script type="text/javascript">
         try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
     </script>
@@ -17,7 +17,6 @@
             <button class="btn btn-warning">
                 <i class="ace-icon fa fa-users"></i>
             </button>
-
             <button class="btn btn-danger">
                 <i class="ace-icon fa fa-cogs"></i>
             </button>

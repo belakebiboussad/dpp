@@ -1,7 +1,10 @@
 @extends('app_recep')
+@section('page-script')
+	 $('#choix-patient-atcd').dataTable();
+@endsection
 @section('main-content')
 	<div class="page-header">
-		<h1 style="display: inline;"><strong>Choix Du Patient :</strong></h1>
+		<h1 style="display: inline;">Selectionner un  Patient</h1>
 	</div>
 	<table id="choix-patient-atcd" class="table  table-bordered table-hover">
 	<thead>

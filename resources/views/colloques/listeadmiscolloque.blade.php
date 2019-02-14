@@ -6,13 +6,13 @@ $services=array_values($services);
 $salles= array();
 $salles=array_values($salles);								
 foreach ($lits as $lit) {
-	    if (!array_key_exists($lit->id_salle, $salles)) 
+	    if (!array_key_exists($lit->salle_id, $salles)) 
 			{
-				$salles[$lit->id_salle]=$lit->nom_salle;
+				$salles[$lit->salle_id]=$lit->nom_salle;
 				}
-		if (!array_key_exists($lit->id_service, $services)) 
+		if (!array_key_exists($lit->service_id, $services)) 
 			{
-				$services[$lit->id_service]=$lit->nom_service;
+				$services[$lit->service_id]=$lit->nom_service;
 				}
 
 		}?>
@@ -162,19 +162,18 @@ var ligne = document.getElementsByTagName("tr");
 		
 		if (valeur== <?php echo ($lit->id); ?>) {
 			for (var s = 0; s < sal.length; s++) {
-				if(sal.options[s].value==<?php echo ($lit->id_salle); ?>) sal.options[s].selected="selected";
+				if(sal.options[s].value==<?php echo ($lit->salle_id); ?>) sal.options[s].selected="selected";
 			}
 
 			for (var s = 1; s < serv.length; s++) {
-				if(serv.options[s].value==<?php echo ($lit->id_service); ?>) serv.options[s].selected="selected";
+				if(serv.options[s].value==<?php echo ($lit->service_id); ?>) serv.options[s].selected="selected";
 								
 			}
 			
 		}
 			<?php endforeach ?>	
 
-		//document.getElementById("tst").value +=lesSalles+"\n";	
-				
+		//document.getElementById("tst").value +=lesSalles+"\n";		
 			//sal.value=$lits->id_salle;
 		}
 	}
@@ -190,12 +189,12 @@ if ((this.name).indexOf("salle")!=-1) {
 		
 
 		<?php foreach ($lits as $cle=>$lit ):?>
-		if (valeur== <?php echo ($lit->id_salle); ?>) {
+		if (valeur== <?php echo ($lit->salle_id); ?>) {
 			li.options[li.options.length] = new Option (<?php echo ($lit->num); ?>,<?php echo ($lit->id); ?>, false,false);
 			
-			serv.value=<?php echo ($lit->id_service);?>;
+			serv.value=<?php echo ($lit->service_id);?>;
 			console.log("ser.value="+serv.value+" ser.text="+serv.options[serv.selectedIndex].text);
-			console.log("lit.value="+<?php echo ($lit->id_service); ?>);
+			console.log("lit.value="+<?php echo ($lit->service_id); ?>);
 			cle=" <?php echo ($lit->nom_service); ?>";
 			console.log("lit.nom_service="+ cle);
 
@@ -220,9 +219,9 @@ if ((this.name).indexOf("service")!=-1) {
 		
 
 		<?php foreach ($lits as $cle=>$lit ):?>
-		if (valeur== <?php echo ($lit->id_service); ?>) {
-			if (!exist(sal,<?php echo ($lit->id_salle); ?>)) 
-				sal.options[sal.options.length] = new Option ("<?php echo ($lit->nom_salle); ?>",<?php echo ($lit->id_salle); ?>, false,false);
+		if (valeur== <?php echo ($lit->service_id); ?>) {
+			if (!exist(sal,<?php echo ($lit->salle_id); ?>)) 
+				sal.options[sal.options.length] = new Option ("<?php echo ($lit->nom_salle); ?>",<?php echo ($lit->salle_id); ?>, false,false);
 			
 			li.options[li.options.length] = new Option (<?php echo ($lit->num); ?>,<?php echo ($lit->id); ?>, false,false);
 

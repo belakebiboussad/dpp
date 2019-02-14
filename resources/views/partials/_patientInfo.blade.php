@@ -32,9 +32,8 @@
 					&nbsp;&nbsp;&nbsp;
 					<label class="inline">
 						<span class="blue"><strong>Age du Patient :</strong></span>
-						<span class="lbl"> 
-							{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }} ans
-						</span>
+						<span class="lbl">{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }}
+						</span>ans
 					</label>
 				</div>
 			</div>
