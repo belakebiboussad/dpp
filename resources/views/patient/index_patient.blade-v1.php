@@ -170,8 +170,7 @@ function setField(field,value)
 	<div class="col-sm-7 col-lg-7">
 		<div class="panel panel-default">
 			<div class="panel-heading" style="height: 50px; font-size: 2.6vh;">
-				Rechercher 
-				<input type="checkbox" name="desactiveCompt" class="collapse" checked data-toggle="toggle" data-on="Fonctionnaire" data-off="Patient" data-size="mini" data-onstyle="primary" data-offstyle="danger" data-style="slow" value="0"> 
+				Rechercher un Patient
 			</div>
 		    	<div class="panel-body">
 			<div class="row">

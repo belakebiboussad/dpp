@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 07, 2019 at 02:54 PM
+-- Generation Time: Feb 14, 2019 at 06:26 PM
 -- Server version: 5.7.14
 -- PHP Version: 7.0.10
 
@@ -108,17 +108,15 @@ INSERT INTO `admissions` (`id`, `id_demande`, `id_lit`) VALUES
 (87, 38, 2),
 (88, 38, 2),
 (97, 33, 3),
-(107, 37, 1),
 (98, 34, 7),
 (99, 34, 7),
 (105, 35, 9),
 (103, 36, 11),
 (102, 36, 11),
 (104, 36, 11),
-(108, 37, 1),
 (109, 29, 14),
 (110, 38, 10),
-(111, 32, 5);
+(112, 32, 5);
 
 -- --------------------------------------------------------
 
@@ -249,7 +247,7 @@ INSERT INTO `assurs` (`id`, `Nom`, `Prenom`, `Date_Naissance`, `lieunaissance`, 
 (33, 'malade2', 'malade2', '2018-05-17', 'z', 'M', NULL, NULL, NULL, 'En exercice', NULL, NULL),
 (34, 'x', 'd', '2018-05-23', 'd', 'M', NULL, NULL, NULL, 'En exercice', NULL, NULL),
 (35, 'malade4', 'malade4', '2018-05-24', 'alger', 'M', '85694515', 'Brigadier-Chef', NULL, 'En exercice', '76 0330 0192 49', 'G1567256'),
-(36, ',f', 'fe', '2018-05-18', 'fez', 'M', NULL, NULL, NULL, 'En exercice', 'gr', 'sdfg'),
+(36, 'assure', 'assure', '2018-05-18', 'boumerdes', 'M', NULL, NULL, NULL, 'En exercice', '58 1245 7898 49', '5ssf545'),
 (37, 'patient15', 'dghdh', '2018-12-30', 'dfghdfgh', 'M', NULL, NULL, NULL, 'En exercice', '0136546+413', NULL),
 (38, 'hdfgh', 'dfghd', '2018-12-16', 'hdfgh', 'M', NULL, 'Agent de police AP', NULL, 'En exercice', NULL, NULL),
 (39, 'patient5', 'patient5', '2014-05-26', 'alger', 'M', '85694520', 'Brigadier-Chef', NULL, 'En exercice', '14 1475 7575 60', NULL),
@@ -41974,7 +41972,7 @@ INSERT INTO `demandehospitalisations` (`id`, `service`, `specialite`, `modeAdmis
 (34, 2, 4, 'programme', NULL, 'admise', 1062),
 (35, 2, 4, 'programme', NULL, 'admise', 1063),
 (36, 2, 4, 'urgence', NULL, 'admise', 1064),
-(37, 2, 4, 'urgence', NULL, 'programme', 1065),
+(37, 2, 4, 'urgence', NULL, 'valide', 1065),
 (38, 2, 1, 'Ambulatoire', NULL, 'programme', 1066),
 (39, 2, 1, 'programme', NULL, 'en attente', 1067),
 (40, 1, 2, 'programme', NULL, 'en attente', 1068),
@@ -42439,7 +42437,7 @@ CREATE TABLE `lits` (
 --
 
 INSERT INTO `lits` (`id`, `num`, `nom`, `etat`, `affectation`, `salle_id`) VALUES
-(1, 2, 'lit2', 1, 1, 1),
+(1, 2, 'lit2', 1, 0, 1),
 (2, 1, 'lit1', 1, 1, 2),
 (3, 3, 'lit3', 1, 1, 3),
 (4, 4, 'lit4', 0, 0, 4),
@@ -47742,8 +47740,8 @@ INSERT INTO `patients` (`id`, `code_barre`, `Nom`, `Prenom`, `nom_jeune_fille`, 
 (31, 'F2018/31', 'malade', 'ma2', '', '2018-03-05', 'alger', 'M', 'celibataire', 'alger', '0558596231', '0569891554', NULL, '55', 'AB', '+', 19, 'Autre', NULL, 'vffv', 1, '2018-04-01'),
 (37, 'M2018/36', 'Assurer', 'Assurer', '', '2018-03-07', 'alger', 'M', 'celibataire', 'alger', '0555555555', '6666666614', NULL, NULL, 'A', '+', 26, 'Assure', 'Ascendant', NULL, 1, '2018-05-23'),
 (46, 'M2018/38', 'malade2', 'patient12', '', '2018-05-17', 'z', 'M', 'celibataire', NULL, '0556128584', '', NULL, NULL, NULL, NULL, 33, 'Assure', NULL, NULL, 1, '2019-02-03'),
-(47, 'M2018/47', 'malade1', 'malade1', '', '2018-05-23', 'd', 'M', 'celibataire', NULL, '0622110011', '', NULL, NULL, 'A', '+', 36, 'Ayant_droit', 'Ascendant', 'description', 1, '2018-05-22'),
-(48, 'M2018/48', 'malade3', 'malade3', '', '2018-05-30', 'dz', 'M', 'marie', 'dz', '0555555555', NULL, NULL, NULL, NULL, NULL, 36, 'Ayant_droit', 'Descendant', 'fsdfqsdf', 1, '2019-02-06'),
+(47, 'M2018/47', 'malade1', 'malade1', '', '2018-05-23', 'blida', 'M', 'celibataire', 'alger', '0622110011', '', NULL, NULL, 'A', '+', 36, 'Ayant_droit', 'Ascendant', '', 1, '2019-02-14'),
+(48, 'M2018/48', 'malade3', 'malade3', '', '2018-05-30', 'dz', 'M', 'marie', 'dz', '0555555555', '', NULL, NULL, NULL, NULL, 36, 'Ayant_droit', 'Descendant', '', 1, '2019-02-13'),
 (49, 'M2018/49', 'malade4', 'malade4', '', '2018-05-24', 'hd', 'M', 'marie', 'trh', '0555555555', '0665154247', NULL, NULL, 'A', '+', 35, 'Assure', NULL, NULL, 1, '2018-05-09'),
 (50, 'M2019/50', 'patient14', 'fqsdf', '', '2019-01-22', 'alger', 'M', 'marie', 'qsdfqsdf', '0552555555', NULL, NULL, NULL, 'O', '+', NULL, 'Autre', NULL, 'fsdfqsdf', 1, '2019-02-06'),
 (51, 'M2019/51', 'patient3', 'patient3', '', '2018-12-30', 'alger', 'F', 'celibataire', 'gsdfgdsfg', '0555555555', '', NULL, NULL, NULL, NULL, 38, 'Assure', NULL, 'fqsdfqsdf', 1, '2019-01-22'),
@@ -47788,7 +47786,7 @@ CREATE TABLE `privilegs` (
 CREATE TABLE `rdvs` (
   `id` int(11) NOT NULL,
   `Date_RDV` date DEFAULT NULL,
-  `Temp_rdv` time NOT NULL DEFAULT '10:00:00',
+  `Temp_rdv` time DEFAULT '10:00:00',
   `specialite` varchar(50) DEFAULT NULL,
   `Patient_ID_Patient` int(11) NOT NULL,
   `Employe_ID_Employe` int(11) NOT NULL,
@@ -47801,7 +47799,21 @@ CREATE TABLE `rdvs` (
 
 INSERT INTO `rdvs` (`id`, `Date_RDV`, `Temp_rdv`, `specialite`, `Patient_ID_Patient`, `Employe_ID_Employe`, `Etat_RDV`) VALUES
 (1, '2018-04-03', '10:00:00', 'pediatrie', 26, 88, 'en attente'),
-(2, '2019-02-07', '10:00:00', '5', 48, 88, 'en attente');
+(2, '2019-02-07', '10:00:00', '5', 48, 88, 'en attente'),
+(3, '2019-02-04', '10:00:00', '5', 37, 88, 'en attente'),
+(4, '2019-02-11', '10:00:00', '5', 22, 88, 'en attente'),
+(5, '2019-02-11', '10:00:00', '5', 58, 88, 'en attente'),
+(6, '2019-02-12', '10:00:00', '5', 51, 88, 'en attente'),
+(7, '2019-02-13', '10:00:00', '5', 37, 88, 'en attente'),
+(8, '2019-02-15', NULL, '5', 46, 88, 'en attente'),
+(10, '2019-02-16', NULL, '5', 31, 88, 'en attente'),
+(11, '2019-02-16', NULL, '5', 47, 88, 'en attente'),
+(12, '2019-02-13', NULL, '5', 48, 88, 'en attente'),
+(13, '2019-02-14', '10:00:00', '5', 48, 88, 'en attente'),
+(15, '2019-02-15', '10:00:00', '5', 31, 88, 'en attente'),
+(16, '2019-02-15', NULL, '5', 37, 88, 'en attente'),
+(17, '2019-02-14', '10:00:00', '5', 22, 88, 'en attente'),
+(18, '2019-02-14', '10:00:00', '7', 55, 87, 'en attente');
 
 -- --------------------------------------------------------
 
@@ -47847,11 +47859,12 @@ INSERT INTO `rdv_hospitalisations` (`id`, `date_RDVh`, `heure_RDVh`, `id_admissi
 (93, '2019-01-30', '08:00:00', 104, 'valide', '2019-01-30', '15:00:00'),
 (94, '2019-01-30', '13:45:00', 105, 'valide', '2019-01-31', '15:00:00'),
 (95, '2019-01-31', '15:45:00', 106, 'Annule', '2019-02-01', '15:00:00'),
-(96, '2019-02-06', '08:00:00', 107, 'en attente', '2019-02-06', '15:00:00'),
-(97, '2019-02-06', '08:00:00', 108, 'en attente', '2019-02-06', '15:00:00'),
+(96, '2019-02-06', '08:00:00', 107, 'Annule', '2019-02-06', '15:00:00'),
+(97, '2019-02-06', '08:00:00', 108, 'Annule', '2019-02-06', '15:00:00'),
 (98, '2019-03-06', '08:00:00', 109, 'en attente', '2019-02-07', '15:00:00'),
 (99, '2019-02-05', '08:00:00', 110, 'en attente', '2019-02-06', '15:00:00'),
-(100, '2019-03-05', '08:00:00', 111, 'en attente', '2019-02-06', '15:00:00');
+(100, '2019-03-05', '08:00:00', 111, 'Annule', '2019-02-06', '15:00:00'),
+(101, '2019-02-27', '08:00:00', 112, 'en attente', '2019-02-28', '15:00:00');
 
 -- --------------------------------------------------------
 
@@ -48072,17 +48085,17 @@ CREATE TABLE `utilisateurs` (
 
 INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `role_id`, `remember_token`, `active`) VALUES
 (3, 'inf', '$2y$10$pdjh/zLZsoWtaF0lUjGQ6OhI6KEnqOE9fmzCoBB6Cs5PvHV7FXHqm', 'ee@g.sz', 1, 3, 'VodiEttYcpiHWgkKsXGGQKUsVTLLTtVbOeIDm8DGWyGdhNxhnJRDKd8Wn0jj', 1),
-(25, 'admin', '$2y$10$QoThTBvPlnvI2EPMgfS2mu07jd7Mu4Zk3kcw0.7q.kmsdSNGZddta', 'mail@live.fr', 65, 4, 'MrcxZzThhnReNoa0tx7BSX6F4FPngyN52p491wAUSWWvQRU27SsEpr4xUwcA', 1),
-(26, 'reception', '$2y$10$.1s2b93NX/JlU9kBpFZiW.N3hvdCwr29H.yx8cBL9GBc.ON4EGgiu', 'ikesskess@gmail.com', 68, 2, 'IF80B1DMWySGMH3fPrMogBgXhQQj0hMPGf4QlbL9bYSujsQaAaG5UGVHGAtN', 1),
-(28, 'medcine', '$2y$10$pQUSmb7bjuwzKU7Iwe28EOLPdI5YD6clMEKTRlFCA1/AkH0Qkjutm', 'az@e.fr', 79, 1, 'd3f9QXNc5ERHAuEuaPlkKjgUDkHOGp0eE1QzbbXQ9eMHXvu4B0fLWirQiQiX', 1),
+(25, 'admin', '$2y$10$QoThTBvPlnvI2EPMgfS2mu07jd7Mu4Zk3kcw0.7q.kmsdSNGZddta', 'mail@live.fr', 65, 4, 'HggOuInzWIL3f5MYOfWNBN7IgfjE8B66hScvH2rmT9uifnk57sM6PaCG37zc', 1),
+(26, 'reception', '$2y$10$.1s2b93NX/JlU9kBpFZiW.N3hvdCwr29H.yx8cBL9GBc.ON4EGgiu', 'ikesskess@gmail.com', 68, 2, 'Zj3124PuUzGe9hDaumbkL0nuAadd6bBCtEPSYSONtVfybHAzuJ3e7oiTOift', 1),
+(28, 'medcine', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'az@e.fr', 79, 1, 'd3f9QXNc5ERHAuEuaPlkKjgUDkHOGp0eE1QzbbXQ9eMHXvu4B0fLWirQiQiX', 1),
 (29, 'colloque', '$2y$10$Ve5h8oMwfAmfzHgTLrfJTOmGUiBpZLdxrfEfYC/7g2a1G62ZkM2QO', 'gdcedgg@yah.fr', 80, 5, 'gpZZ7n5wZzyDItBNWBgOWJBuHVN9zPFAVCnhFigz3AQFygICRp4ENyCc2B8W', 1),
 (30, 'sur', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'rlakhneche@cdta.dz', 81, 5, 'cyfloxYFm8JMkhLZt0sesrbv9NjFTewmVVJT9rEdpIqjM0im3ZzEiqkeuuhX', 1),
-(31, 'rec', '$2y$10$bh1btpM3wPiCwRfRMxPaQeuHhBM44Dp9.nB/DqFqMn.h1IyDdiyMa', NULL, 82, 3, 'SsIBFmbUPID9Kk6mKSJUzHPPYmqOvqZLdUFli8ZFEn8082rMbuKMYl1vDXr2', 1),
-(33, 'test', '$2y$10$44j/9SsU6Do5NeTA.3MtsO9DIWn0v7TNuu47zpCz6wxCcXtKvXvwC', 'test@gmail', 87, 1, NULL, 1),
-(34, 'med', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'med@gmail.com', 88, 1, 'ar8HoWXhXdcTss2BelT0sF5bkt6qlDnCum0FipgPcupdQSfXb9RZ85TjQMTP', 1),
+(31, 'rec', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2a', NULL, 82, 3, 'SsIBFmbUPID9Kk6mKSJUzHPPYmqOvqZLdUFli8ZFEn8082rMbuKMYl1vDXr2', 1),
+(33, 'test', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'test@gmail', 87, 1, 'vOPiwaTdqixSdeIHAEvAbr9FKcLRyihyEbiPMYVrKGTCn5HMf9zUjrCBsUyc', 1),
+(34, 'med', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'med@gmail.com', 88, 1, 'VQ0imXNlkPfu7ToJpON96Y4s3QEy98CWq0pnkVqhj6jBuRd4WyB8Svwfe1X7', 1),
 (35, 'delCol', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'll@a.fr', 89, 6, 'ohFWVtjuvv3tgpG9e7oxsN1eD33HZhgu9Y441GNdkU8984FuZv9Mb6uhqRT2', 1),
 (38, 'user', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'jj@hot.frr', 93, 3, NULL, 1),
-(39, 'surMed', '$2y$10$zUdI0W5QV/1fmnBnhmL2TOTqN8GMNEdZZK6o4gclrJ1CKfxVq.Rca', 'bbedeebi@cdta.dz', 94, 5, '3eHcxAHWUDocXcTf2hVO0NDAClkiK4G26mYB0onlYg175KA2iClcGdLVprU7', 1),
+(39, 'surMed', '$2y$10$zUdI0W5QV/1fmnBnhmL2TOTqN8GMNEdZZK6o4gclrJ1CKfxVq.Rca', 'bbedeebi@cdta.dz', 94, 5, 'WQPdbhbIrdjGTjeg0s4qEM6jPOdmJFftHfI6V2PVuxkwtS9TCFCZ94Pc7hyV', 1),
 (40, 'agentAdm', '$2y$10$hdM9SGYyzFH7FJtz5GJZLux7cmOIrwrjovi0ZUuForyu8OoVoh7e2', 'agentAdm@hop.dz', 95, 9, NULL, 1),
 (41, 'agent', '$2y$10$RsD.pKjSIV73uBbaLJNE.uXhzCmCixdBf71lcxBq2wmQu0dsRzdmy', 'agent@hop.dz', 96, 9, 'pNy2C0jCZPNcj7Ve6F4gH15twChj2R6rKT2tunkofiTYcImcNfhGdyGY0zxu', 1);
 
@@ -48557,7 +48570,7 @@ ALTER TABLE `actes_paramedicauxs`
 -- AUTO_INCREMENT for table `admissions`
 --
 ALTER TABLE `admissions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
 --
 -- AUTO_INCREMENT for table `antecedants`
 --
@@ -48722,12 +48735,12 @@ ALTER TABLE `privilegs`
 -- AUTO_INCREMENT for table `rdvs`
 --
 ALTER TABLE `rdvs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `rdv_hospitalisations`
 --
 ALTER TABLE `rdv_hospitalisations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 --
 -- AUTO_INCREMENT for table `rols`
 --

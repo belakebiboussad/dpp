@@ -12,7 +12,7 @@
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#patient" data-toggle="tab">Patient</a></li>
                             @if(isset($assure))
-                            <li><a href="#assure" data-toggle="tab">Assure</a></li>
+                            <li><a href="#assure" data-toggle="tab"><strong>Assure</strong></a></li>
                            @endif
                         </ul>
                 </div>
@@ -25,38 +25,39 @@
                            <tbody>
                                 <tr>
                                     <td colspan="1" class ="noborders"><strong>nom:</strong></td>
-                                    <td colspan="1">{{ $patient->Nom }}</td>
+                                    <td colspan="1" align="left">{{ $patient->Nom }}</td>
                                     <td colspan="1" class ="noborders"><strong>prenom :</strong></td>
-                                    <td colspan="1">{{ $patient->Prenom }}</td>
+                                    <td colspan="1" align="left">{{ $patient->Prenom }}</td>
                                 </tr>
                                 <tr>
                                       <td colspan="1" class ="noborders"><strong><strong>Né(e) le :</strong></strong></td>
-                                      <td> {{ $patient->Dat_Naissance }}</td>
-                                      <td  colspan="1" class ="noborders"><strong>Né(e) a:</strong></td><td>{{ $patient->Lieu_Naissance }}</td>
+                                      <td align="left"> {{ $patient->Dat_Naissance }}</td>
+                                      <td  colspan="1" class ="noborders"><strong>Né(e) a:</strong></td >
+                                      <td align="left">{{ $patient->Lieu_Naissance }}</td>
                                 </tr>
                                 <tr>
                                        <td colspan="1" class ="noborders"><strong>Sexe :</strong></td>
-                                       <td>@if ( $patient->Sexe == 'F' ) Femme   @else  Homme @endif </td>
+                                       <td align="left">@if ( $patient->Sexe == 'F' ) Femme   @else  Homme @endif </td>
                                        <td colspan="1" class ="noborders"><strong>Civilité:</strong></td>
-                                      <td>{{ $patient->situation_familiale }}</td>
+                                      <td align="left">{{ $patient->situation_familiale }}</td>
                                 </tr>
                                 <tr>
-                                           <td colspan="1" class ="noborders"><strong>Adr :</strong></td>
-                                            <td>{{ $patient->Adresse }}</td>
-                                           <td class ="noborders"><strong>Mob1:</strong></td>
-                                           <td>{{ $patient->tele_mobile1 }}</td>
+                                      <td colspan="1" class ="noborders"><strong>Adress :</strong></td>
+                                      <td align="left">{{ $patient->Adresse }}</td>
+                                      <td class ="noborders"><strong>Mob1:</strong></td>
+                                      <td align="left">{{ $patient->tele_mobile1 }}</td>
                                 </tr> 
                                 <tr>
                                             <td colspan="1" class ="noborders"><strong>Mob2 :</strong></td>
-                                            <td>{{ $patient->tele_mobile2 }}</td>
+                                            <td align="left">{{ $patient->tele_mobile2 }}</td>
                                             <td class ="noborders"><strong>NSS:</strong></td>
-                                            <td>{{ $patient->NSS }}</td>
+                                            <td align="left">{{ $patient->NSS }}</td>
                                   </tr> 
                                   <tr>
                                             <td colspan="1" class ="noborders"><strong>Sang :</strong></td>
-                                            <td>{{ $patient->group_sang }}{{ $patient->rhesus }}</td>
+                                            <td align="left">{{ $patient->group_sang }}{{ $patient->rhesus }}</td>
                                             <td class ="noborders"><strong>Type:</strong></td>
-                                            <td>{{ $patient->Type }}</td>
+                                            <td align="left">{{ $patient->Type }}</td>
                                   </tr>           
                                   </tbody>
                                 </table>
