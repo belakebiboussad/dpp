@@ -118,7 +118,7 @@ class ticketController extends Controller
     public function ticketPdf($id)
     {
         $ticket = ticket::FindOrFail($id);
-        $pdf = PDF::loadView('ticket', compact('ticket'))->setPaper('a6', 'landscape');;
+        $pdf = PDF::loadView('ticket', compact('ticket'))->setPaper('a4','landscape');
         $name = "Ticket.pdf";
         return $pdf->download($name);
     }

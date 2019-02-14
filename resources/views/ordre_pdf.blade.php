@@ -11,9 +11,10 @@
 	<div style="text-align: center;">
 		<img src="data:image/png;base64,{{DNS2D::getBarcodePNG(App\modeles\patient::where("id",$order->Patient_ID_Patient)->get()->first()->code_barre, 'QRCODE')}}" alt="barcode" />
 	</div>
-	<div>
+	<div style="text-align: center;">
 		<br><br>
-		<table width="600">
+		<div>
+		<table width="100%">
 			<tr>
 				<td>
 					<b>Nom Patient :</b>
@@ -33,6 +34,7 @@
 				</td>
 			</tr>
 		</table>
+		</div>
 	</div>
 	<br/>
 	<span style="float: right; text-align: right;"> Signature</span>
