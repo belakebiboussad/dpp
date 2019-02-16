@@ -55,6 +55,8 @@
 <script src="{{ asset('/js/typeahead.bundle.min.js') }}"></script>
 <script src="{{ asset('/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
 <script src="{{ asset('/plugins/fullcalendar/locale/fr.js') }}"></script>
+<script src="{{ asset('/js/jquery-editable-select.js') }}"></script>
+
 
 <script type="text/javascript">
 $(document).ready(function(){

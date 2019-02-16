@@ -591,7 +591,9 @@ public function search(Request $request)
          if($request->ajax())  
          {
                 $output="";
-                $patients=DB::table('patients')->where('Nom','LIKE','%'.$request->search."%")->get();
+                //$patients=DB::table('patients')->where('Nom','LIKE','%'.$request->search."%")->get();
+                                // 
+                $patients = patient::where('Nom','LIKE','%'.trim($request->search)."%")->where('Prenom','LIKE','%'.trim($request->prenom)."%")->where('code_barre','LIKE','%'.trim($request->code_barre)."%")->where('Dat_Naissance','LIKE','%'.trim($request->Dat_Naissance)."%")->get();
                 if($patients)
                 {
                           $i=0;

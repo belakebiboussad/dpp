@@ -74,15 +74,15 @@ $(document).ready(function(){
 function XHRgePatient()
 {
 	$('#btnCreate').removeClass('hidden');
-           $('#FusionButton').removeClass('hidden');
+               $('#FusionButton').removeClass('hidden');
 	nom=$('#patientName').val();
 	prenom=$('#patientFirstName').val();
 	code_barre=$('#IPP').val();
-	matricule=$('');
+	date_Naiss=$('#Dat_Naissance').val();
 	$.ajax({
                      type : 'get',
-                    url : '{{URL::to('searchPatient')}}',
-                      data:{'search':nom,'prenom':prenom,'code_barre':code_barre},
+                     url : '{{URL::to('searchPatient')}}',
+                      data:{'search':nom,'prenom':prenom,'code_barre':code_barre,'Dat_Naissance':date_Naiss},
                       success:function(data,status, xhr){
                       	$('#liste_patients tbody').html(data);
                           	$(".numberResult").html(xhr.getResponseHeader("count"));
@@ -170,8 +170,7 @@ function setField(field,value)
 	<div class="col-sm-7 col-lg-7">
 		<div class="panel panel-default">
 			<div class="panel-heading" style="height: 50px; font-size: 2.6vh;">
-				Rechercher 
-				<input type="checkbox" name="desactiveCompt" class="collapse" checked data-toggle="toggle" data-on="Fonctionnaire" data-off="Patient" data-size="mini" data-onstyle="primary" data-offstyle="danger" data-style="slow" value="0"> 
+				Rechercher un Patient
 			</div>
 		    	<div class="panel-body">
 			<div class="row">
@@ -197,10 +196,10 @@ function setField(field,value)
 				<div class="col-sm-4">
 				   <input type="text" class="form-control input-sm tt-input" id="IPP" name="IPP"  placeholder="Rechercher...">
 				 </div>
-				 <div class="col-sm-2"><label class="control-label pull-right" for="Matricule" ><strong>Matricule:</strong></label>
+				 <div class="col-sm-2"><label class="control-label pull-right" for="Dat_Naissance" ><strong>date Nai:</strong></label>
 				</div>
 				<div class="col-sm-4">
-				   <input type="text" class="form-control input-sm tt-input" id="Matricule" name="Matricule"  placeholder="Rechercher...">
+				   <input type="text" class="form-control input-sm tt-input date-picker" id="Dat_Naissance" name="Dat_Naissance"  data-date-format="yyyy-mm-dd" placeholder="Rechercher...">
 				 </div>
 			</div>
 			<div class="space-12"></div>	

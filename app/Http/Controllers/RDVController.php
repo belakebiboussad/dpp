@@ -106,17 +106,22 @@ class RDVController extends Controller
                      'color' => '#800',
                  ])->setOptions([ //set fullcalendar options
                 'firstDay' => 7,
+                'themeSystem' => 'bootstrap4',
                 'timeFormat'        => 'H:mm',
                  'axisFormat'        => 'H:mm',
                  'selectable' => true,
                  'minTime' => '08:00:00',
                  'maxTime' => '20:00:00',
                 'slotDuration' => '00:30:01',
+             //   'eventLimit'     => 4,
            ])->setCallbacks([ //set fullcalendar callback options (will not be JSON encoded)
-                 'viewRender' => 'function() {console.log("Callbacks!");}',
+                 'viewRender' => 'function() {}',
                  'eventClick' => 'function(event) {
                            showModal(event.id,event.title,event.start,event.idPatient,event.tel,event.age);
-                 }'
+                 }',
+                 'dayClick'=>'function(calEvent, jsEvent, view){
+              $("#fullCalModal").modal();
+                 }',
          ]);
         // dd($planning);
         return view('rdv.index_rdv', compact('planning'));
