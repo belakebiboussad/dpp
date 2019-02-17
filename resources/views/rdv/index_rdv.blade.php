@@ -1,6 +1,33 @@
 @extends('app_recep')
-{{-- @section('style') --}}
-{{-- @endsection --}}
+@section('style')
+        <style>
+                #listePatient {
+                       padding: 5px;
+                }
+                #select-containe {
+                  width: 400px;
+                }
+                .option {
+                  padding: 5px;
+                  display: none;
+                  color: white;
+                  background: orange;
+                  cursor: hand;
+                }
+                .option:hover {
+                  color: orange;
+                  background: white;
+                }
+                .options {
+                  height: 100px;
+                  width: 190px;
+                  overflow: auto;
+                  padding: 0;
+                  margin: 0;
+                  display: absolute;
+          }
+  </style>
+@endsection
 @section('page-script')
   {!! $planning->script() !!}
     <script>
@@ -31,7 +58,7 @@
 
        <script>/*
                 $(function() {
-                              $('#calendar-{{$planning->getId()}}').fullCalendar({
+                              // $('#calendar-{{$planning->getId()}}').fullCalendar({
                               selectable: true,
                               header: {
                               left: 'prev,next today',
@@ -52,32 +79,61 @@
 
       //<![CDATA[
         $(document).ready(function(){
-          $('#editable-select').editableSelect({
-  // // enable filter
-  // filter: true,
-  // // default, fade or slide
-  // effects: 'default',
-  // // fast, slow or [0-9]+
-  // duration: 'fast',
-  // // Where to append the dropdown list.
-  // appendTo: 'body',
-  // // "focus" or "manual"
-  // trigger: 'focus',
-  // // callback events
-  // onCreate: function () {},
-  // onShow: function () {},
-  // onHide: function () {},
-  // onSelect: function (element) {}
-    warpClass: 'ui-select-wrap',
-  editable: true
-
-
+          // $('#editable-select').editableSelect({
+                // // enable filter
+                // filter: true,
+                // // default, fade or slide
+                // effects: 'default',
+                // // fast, slow or [0-9]+
+                // duration: 'fast',
+                // // Where to append the dropdown list.
+                // appendTo: 'body',
+                // // "focus" or "manual"
+                // trigger: 'focus',
+                // // callback events
+                // onCreate: function () {},
+                // onShow: function () {},
+                // onHide: function () {},
+                // onSelect: function (element) {}
+          //         warpClass: 'ui-select-wrap',
+          //       editable: true
+          // });
+          $('#listePatient').editableSelect('hide');
+          $("#listePatient").on("keyup", function() {
+                //to call ajax
+                remoteSearch();
+                //or static search
+                // var v = this.value.replace(/\s+/g, " ").trim().toLowerCase();
+                  // if (v == "") return $(".option").hide();
+                  // $(".option").hide();
+                  // $(".option").each(function() {
+                  //         var t = $(this).text().toLowerCase();
+                  //   if (t.indexOf(v) > -1) $(this).show();
           });
-          });
-      //]]>
-    
-
-         ///////////////////
+      });
+     function remoteSearch() {
+            $.ajax({
+              // url: "data.php",
+                 url : '{{URL::to('getPatients')}}',
+                data: {
+                  "nom": $("#listePatient").val() //search box value
+                },
+                //dataType: "json", // recommended response type
+                success: function(data) {
+                    //data = ["name1","name2","name3"];
+                   // $(".options").html(data); //remove list
+                  $("#listePatient").append(data);
+                   
+                    // $.each(data, function(i, v) {
+                    //   //$(".options").append("<li class='option'>" + v + "</li>");
+                    // });
+                    console.log(data);
+                },
+                error: function() {
+                  alert("can't connect to db");
+                }
+            });
+      }
        </script>
 
  @endsection
@@ -170,17 +226,29 @@
                               <label for="patient"><b>Selectioner le patient :</b></label>
                               <div class="input-group col-sm-6">
                                       {{-- <input class="form-control" id="patient" name="patient" type="text" required />     --}}
-                                   {{--   <select class=" col-sm-12 combobox optional overall classes" id="patient" name="patient" 
+                               {{--       <select class=" col-sm-12 combobox optional overall classes" id="patient" name="patient" 
                                             data-btn-class="option toggle classes" required>
                                                   <option value="">Choisir un Patient...</option>
                                      </select> --}}
-                                  <select id="editable-select">
-                                            <option>Alfa Romeo</option>
-                                            <option>Audi</option>
-                                            <option>BMW</option>
-                                            <option>Citroen</option>
+                                <select id="listePatient" name ="listePatient" style="width:300px;">     
                                 </select>   
-                               </div>    
+
+
+                          {{-- marche bien --}}
+                           {{--      <div id='select-container'>
+                                      <input id='listePatient' style="width:300px;" placeholder='chercher le patient...' />
+                                      <ul class='options'>
+                                           
+                                      </ul>
+                                </div> --}}
+                  
+                           </div> 
+                   {{--         <div class="col-md-2">Descripcion:</div>
+                            <div class="col-md-3">
+                                   <select id ="search" title="0" contenteditable="true" class="form-control cbDescripcion">
+                                     
+                                   </select>
+                            </div>   --}} 
                       </div>
                       <div class="space-12"></div>
                        <div class="row">

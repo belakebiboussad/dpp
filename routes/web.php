@@ -167,6 +167,7 @@ Route::post('AddANTCD','AntecedantsController@createATCDAjax');
 Route::get('/searchUser','UsersController@searchUser');
 
 Route::get('/searchPatient','PatientController@search');
+Route::get('/getPatients','PatientController@getPatientsArray');
 Route::get('/getlits/{id}','LitsController@getlits');
 Route::get('/user/find', 'UsersController@AutoCompleteUsername');
 Route::get('/userdetail', 'UsersController@getUserDetails');

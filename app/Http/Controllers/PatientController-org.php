@@ -585,14 +585,36 @@ class PatientController extends Controller
             ->rawColumns(['action2','action'])
             ->make(true);
             // <i class="ace-icon fa fa-hand-o-up bigger-120">
+}
+
+
+public function getPatientsArray(Request $request)
+{
+     if($request->ajax())  
+     {
+           $patients = patient::where('Nom','LIKE','%'.trim($request->nom)."%")->get();
+            // $liste = array();
+             $output="";
+            if($patients)
+            {        $i=0;
+                     foreach ($patients as $key => $patient) {
+                           // $liste[$i]=$patient->Nom;
+                           // $i++;
+                              $output.='<option value="'.$patient->id.'">'.$patient->code_barre.$patient->Nom.$patient->Prenom.'</option>';
+                      }
+            }
+           return $output;
+           // return $request->nom;
+            // return Response($output);
+          // return response()->json(json_encode($liste));
+ 
     }
+}
 public function search(Request $request)
 {
          if($request->ajax())  
          {
                 $output="";
-                //$patients=DB::table('patients')->where('Nom','LIKE','%'.$request->search."%")->get();
-                                // 
                 $patients = patient::where('Nom','LIKE','%'.trim($request->search)."%")->where('Prenom','LIKE','%'.trim($request->prenom)."%")->where('code_barre','LIKE','%'.trim($request->code_barre)."%")->where('Dat_Naissance','LIKE','%'.trim($request->Dat_Naissance)."%")->get();
                 if($patients)
                 {
