@@ -132,10 +132,11 @@ class RDVController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id_patient)
+    public function create(Request $request,$id_patient)
     {
-        $patient = patient::FindOrFail($id_patient);
-        return view('rdv.create_rdv',compact('patient'));
+           dd($request->all()); 
+           $patient = patient::FindOrFail($id_patient);
+           return view('rdv.create_rdv',compact('patient'));
     }
 
     /**

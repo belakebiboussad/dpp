@@ -2,10 +2,7 @@
 @section('style')
         <style>
                 #listePatient {
-                       padding: 5px;
-                }
-                #select-containe {
-                  width: 400px;
+                      /*padding: 5px;*/
                 }
                 .option {
                   padding: 5px;
@@ -18,14 +15,15 @@
                   color: orange;
                   background: white;
                 }
-                .options {
-                  height: 100px;
-                  width: 190px;
-                  overflow: auto;
-                  padding: 0;
-                  margin: 0;
-                  display: absolute;
-          }
+        
+                .es-list {
+               
+                    max-height: 50px !important;
+                    width:250px;
+                  /*  margin-bottom: 10px;*/
+                    overflow:scroll;
+                     -webkit-overflow-scrolling: touch;
+                }
   </style>
 @endsection
 @section('page-script')
@@ -78,39 +76,17 @@
          //////////////
 
       //<![CDATA[
-        $(document).ready(function(){
-          // $('#editable-select').editableSelect({
-                // // enable filter
-                // filter: true,
-                // // default, fade or slide
-                // effects: 'default',
-                // // fast, slow or [0-9]+
-                // duration: 'fast',
-                // // Where to append the dropdown list.
-                // appendTo: 'body',
-                // // "focus" or "manual"
-                // trigger: 'focus',
-                // // callback events
-                // onCreate: function () {},
-                // onShow: function () {},
-                // onHide: function () {},
-                // onSelect: function (element) {}
-          //         warpClass: 'ui-select-wrap',
-          //       editable: true
-          // });
-          $('#listePatient').editableSelect('hide');
-          $("#listePatient").on("keyup", function() {
-                //to call ajax
-                remoteSearch();
-                //or static search
-                // var v = this.value.replace(/\s+/g, " ").trim().toLowerCase();
-                  // if (v == "") return $(".option").hide();
-                  // $(".option").hide();
-                  // $(".option").each(function() {
-                  //         var t = $(this).text().toLowerCase();
-                  //   if (t.indexOf(v) > -1) $(this).show();
-          });
-      });
+     $(document).ready(function(){
+                $('#listePatient').editableSelect({
+                      effects: 'slide', 
+                      editable: false,  
+                      // warpClass: 'ui-select-wrap',
+                });
+                $("#listePatient").on("keyup", function() {
+                      //to call ajax
+                      remoteSearch();    
+                });
+     });
      function remoteSearch() {
             $.ajax({
               // url: "data.php",
@@ -118,23 +94,28 @@
                 data: {
                   "nom": $("#listePatient").val() //search box value
                 },
-                //dataType: "json", // recommended response type
+                dataType: "json", // recommended response type
                 success: function(data) {
-                    //data = ["name1","name2","name3"];
-                   // $(".options").html(data); //remove list
-                  $("#listePatient").append(data);
-                   
-                    // $.each(data, function(i, v) {
-                    //   //$(".options").append("<li class='option'>" + v + "</li>");
-                    // });
-                    console.log(data);
+                   $(".es-list").html(""); //remove list
+                    $.each(data['data'], function(i, v) {
+                 
+                      $(".es-list").append($('<li></li>').attr('value', v['id']).attr('class','es-visible list-group-item option').text(v['code_barre']+" "+v['Nom']+" "+v['Prenom'])); 
+                    }); 
                 },
                 error: function() {
                   alert("can't connect to db");
                 }
             });
       }
-       </script>
+      // $( "#EnregistrerRDV" ).click(function() {
+      //       //$( "#target" ).submit();
+      //    console.log('sdfsdf');
+      // });  
+       function EnregistrerRDV()
+       {
+          alert("Bonjour");
+       }
+      </script>
 
  @endsection
 @section('main-content')
@@ -220,7 +201,7 @@
             </div>
             <div id="modalBody" class="modal-body">
                     @if(App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role !="Receptioniste") 
-                        <form id ="addRdv" role="form" action="" method="POST">
+                        <form id ="addRdv" role="form" action="rdv/create/22" method="POST">
                        {{ csrf_field() }}
                       <div class="row">
                               <label for="patient"><b>Selectioner le patient :</b></label>
@@ -231,25 +212,9 @@
                                                   <option value="">Choisir un Patient...</option>
                                      </select> --}}
                                 <select id="listePatient" name ="listePatient" style="width:300px;">     
-                                </select>   
-
-
-                          {{-- marche bien --}}
-                           {{--      <div id='select-container'>
-                                      <input id='listePatient' style="width:300px;" placeholder='chercher le patient...' />
-                                      <ul class='options'>
-                                           
-                                      </ul>
-                                </div> --}}
-                  
+                                </select>                        
                            </div> 
-                   {{--         <div class="col-md-2">Descripcion:</div>
-                            <div class="col-md-3">
-                                   <select id ="search" title="0" contenteditable="true" class="form-control cbDescripcion">
-                                     
-                                   </select>
-                            </div>   --}} 
-                      </div>
+                     </div>
                       <div class="space-12"></div>
                        <div class="row">
                                 <label for="dadaterdvte"><b>Date Rendez-Vous :</b></label>
@@ -259,13 +224,17 @@
                                     </span>    
                                </div>
                        </div>
+                       <div class="row">
+                         <button type="submit">Send</button>
+                       </div>
            </form> 
            @else
            @endif 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button class="btn btn-primary"><a id="eventUrl" target="_blank">Event Page</a></button>
+                <button class="btn btn-primary">
+                <a id="EnregistrerRDV" target="_blank" href="" onclick="EnregistrerRDV();">Enregistrer</a></button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
             </div>
         </div>
     </div>
