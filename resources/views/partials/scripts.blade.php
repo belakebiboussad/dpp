@@ -195,6 +195,13 @@ $(document).ready(function(){
                     if(this.checked) $row.addClass(active_class);
                     else $row.removeClass(active_class);
                 });
+                $('.select2').css('width','400px').select2({allowClear:true})
+                $('#select2-multiple-style .btn').on('click', function(e){
+                    var target = $(this).find('input[type=radio]');
+                    var which = parseInt(target.val());
+                    if(which == 2) $('.select2').addClass('tag-input-style');
+                     else $('.select2').removeClass('tag-input-style');
+                });
                 //add horizontal scrollbars to a simple table
                 /*$('#table2').css({'width':'50px', 'max-width': 'none'}).wrap('<div style="width: 50px;" />').parent().ace_scroll(
                   {
@@ -372,6 +379,13 @@ $(document).ready(function(){
 </script>
 <script type="text/javascript">
 $(document).ready(function() {
+    $('#consultations').dataTable({
+        ordering: true,
+        "language": 
+            {
+                "url": '/localisation/fr_FR.json'
+            }, 
+    });
     $('#meds_table').dataTable({
         ordering: true,
         "language": 
@@ -1120,9 +1134,9 @@ $('#typeexm').on('change', function() {
             
                 
                 $('#id-input-file-1 , #id-input-file-2').ace_file_input({
-                    no_file:'No File ...',
-                    btn_choose:'Choose',
-                    btn_change:'Change',
+                    no_file:'Pas de fichier ...',
+                    btn_choose:'Sélectionner',
+                    btn_change:'Changement',
                     droppable:false,
                     onchange:null,
                     thumbnail:false //| true | large

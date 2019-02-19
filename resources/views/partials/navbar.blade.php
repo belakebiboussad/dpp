@@ -49,14 +49,14 @@
                         <li>
                             <a href="/setting/{{Auth::user()->id}}">
                                 <i class="ace-icon fa fa-cog"></i>
-                                Settings
+                                Réglages
                             </a>
                         </li>
 
                         <li>
                             <a href="{{ url('/profile',Auth::user()->id) }}">
                                 <i class="ace-icon fa fa-user"></i>
-                                Profile
+                                Profil
                             </a>
                         </li>
 
@@ -66,7 +66,7 @@
                             <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
 
                                 <i class="ace-icon fa fa-power-off"></i>
-                                Logout
+                                Déconnexion
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         {{ csrf_field() }}
                                 </form>

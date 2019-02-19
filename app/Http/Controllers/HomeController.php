@@ -15,6 +15,7 @@ use App\modeles\admission;
 use App\modeles\medcamte;
 use App\modeles\reactif;
 use App\modeles\dispositif;
+use App\modeles\demandeexb;
 use App\User;
 use Auth; 
 use Date;
@@ -89,6 +90,9 @@ class HomeController extends Controller
                   $dispositifs = dispositif::all();
                   $reactifs = reactif::all();
                   return view('home.home_pharmacien', compact('meds','dispositifs','reactifs'));
+                case "Laboratoire d'analyses":
+                  $demandesexb = demandeexb::where('etat','E')->get();
+                  return view('home.home_laboanalyses', compact('demandesexb'));
                 break;
            default:
                return view('errors.500');

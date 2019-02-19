@@ -115,6 +115,9 @@ Route::resource('atcd','AntecedantsController');
 Route::resource('medicaments','MedicamentsController');
 Route::resource('exclinique','ExamenCliniqueController');
 Route::resource('demandeproduit','demandeprodController');
+Route::resource('demandeexb','DemandeExbController');
+Route::resource('demandeexr','DemandeExamenRadio');
+route::get('/demandeexbio/{id}','DemandeExbController@createexb');
 route::get('/getsalles/{id}','SalleController@getsalles');
 Route::post('/consultations/store/{id}','ConsultationsController@store');
 Route::post('/exclinique/store/{id}','ExamenCliniqueController@store');
@@ -163,7 +166,18 @@ Route::get('/role/show/{userId}','RolesController@show');
 Route::get('/role/show/{userId}','RolesController@show');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('AddANTCD','AntecedantsController@createATCDAjax');
-
+route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');
+route::post('/uploadresultat','DemandeExbController@uploadresultat');
+route::get('/download/{filename}', function($filename)
+{
+    return Storage::download($filename);
+});
+route::get('/listedemandesexb','DemandeExbController@listedemandesexb');
+route::get('/createexr/{id}','DemandeExamenRadio@createexr');
+route::get('/homelaboexb',function(){
+    $demandesexb = App\modeles\demandeexb::where('etat','E')->get();
+    return view('home.home_laboanalyses', compact('demandesexb'));
+})->name('homelaboexb');
 // Route::get('/pdf', function () {
 //     return view('pdf');
 // });
