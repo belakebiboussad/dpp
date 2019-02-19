@@ -122,11 +122,11 @@
                 success: function(data) {
                     //data = ["name1","name2","name3"];
                    // $(".options").html(data); //remove list
-                  $("#listePatient").append(data);
+                  //$("#listePatient").append(data);
                    
-                    // $.each(data, function(i, v) {
-                    //   //$(".options").append("<li class='option'>" + v + "</li>");
-                    // });
+                    $.each(data, function(i, v) {
+                      //$(".options").append("<li class='option'>" + v + "</li>");
+                    });
                     console.log(data);
                 },
                 error: function() {
@@ -230,17 +230,17 @@
                                             data-btn-class="option toggle classes" required>
                                                   <option value="">Choisir un Patient...</option>
                                      </select> --}}
-                                <select id="listePatient" name ="listePatient" style="width:300px;">     
-                                </select>   
+                               {{--  <select id="listePatient" name ="listePatient" style="width:300px;">     
+                                </select>    --}}
 
 
                           {{-- marche bien --}}
-                           {{--      <div id='select-container'>
+                                <div id='select-container'>
                                       <input id='listePatient' style="width:300px;" placeholder='chercher le patient...' />
                                       <ul class='options'>
                                            
                                       </ul>
-                                </div> --}}
+                                </div>
                   
                            </div> 
                    {{--         <div class="col-md-2">Descripcion:</div>

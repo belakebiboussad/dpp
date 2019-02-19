@@ -592,6 +592,7 @@ public function getPatientsArray(Request $request)
 {
      if($request->ajax())  
      {
+           /* 
            $patients = patient::where('Nom','LIKE','%'.trim($request->nom)."%")->get();
             // $liste = array();
              $output="";
@@ -603,7 +604,8 @@ public function getPatientsArray(Request $request)
                               $output.='<option value="'.$patient->id.'">'.$patient->code_barre.$patient->Nom.$patient->Prenom.'</option>';
                       }
             }
-           return $output;
+           return $output;*/
+           patient::where('Nom','LIKE','%'.trim($request->nom)."%")->pluck('a')->toArray();
            // return $request->nom;
             // return Response($output);
           // return response()->json(json_encode($liste));
