@@ -134,7 +134,6 @@ class RDVController extends Controller
      */
     public function create(Request $request,$id_patient)
     {
-           dd($request->all()); 
            $patient = patient::FindOrFail($id_patient);
            return view('rdv.create_rdv',compact('patient'));
     }
@@ -147,7 +146,7 @@ class RDVController extends Controller
      */
     public function store(Request $request)
     {
-         // dd($request->all());
+          dd($request->all());
           $request->validate([
             "daterdv"=> 'required',
            ]);

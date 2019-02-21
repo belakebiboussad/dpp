@@ -618,8 +618,6 @@ public function getPatientsArray(Request $request)
             //         'data'   => $patients
             //     ));
             return ['success' => true, 'data' => $patients]; 
-          // return Response($patients); 
- 
     }
 }
 public function search(Request $request)

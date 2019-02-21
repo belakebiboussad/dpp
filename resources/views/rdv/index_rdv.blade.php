@@ -20,8 +20,7 @@
                
                     max-height: 50px !important;
                     width:250px;
-                  /*  margin-bottom: 10px;*/
-                    overflow:scroll;
+                     overflow:scroll;
                      -webkit-overflow-scrolling: touch;
                 }
   </style>
@@ -50,7 +49,8 @@
           }
           function envoie()
           {
-                $('form#updateRdv').submit();
+                // alert("sdf");
+               $('form#updateRdv').submit();
           }
        </script>
 
@@ -86,6 +86,13 @@
                       //to call ajax
                       remoteSearch();    
                 });
+                $(".es-list").click(function(e) 
+                { 
+                  
+                   // elem =   $('li:not([style])').hide();
+                   elem =  $('ul> li:not([style*="display: none"])');
+                     alert(elem.val());
+                });
      });
      function remoteSearch() {
             $.ajax({
@@ -98,8 +105,7 @@
                 success: function(data) {
                    $(".es-list").html(""); //remove list
                     $.each(data['data'], function(i, v) {
-                 
-                      $(".es-list").append($('<li></li>').attr('value', v['id']).attr('class','es-visible list-group-item option').text(v['code_barre']+" "+v['Nom']+" "+v['Prenom'])); 
+                          $(".es-list").append($('<li></li>').attr('value', v['id']).attr('class','es-visible list-group-item option').text(v['code_barre']+" "+v['Nom']+" "+v['Prenom']));   
                     }); 
                 },
                 error: function() {
@@ -113,7 +119,8 @@
       // });  
        function EnregistrerRDV()
        {
-          alert("Bonjour");
+           alert("dfqds"); 
+           $('form#updateRdv').submit();
        }
       </script>
 
@@ -201,39 +208,40 @@
             </div>
             <div id="modalBody" class="modal-body">
                     @if(App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role !="Receptioniste") 
-                        <form id ="addRdv" role="form" action="rdv/create/22" method="POST">
-                       {{ csrf_field() }}
-                      <div class="row">
-                              <label for="patient"><b>Selectioner le patient :</b></label>
-                              <div class="input-group col-sm-6">
-                                      {{-- <input class="form-control" id="patient" name="patient" type="text" required />     --}}
-                               {{--       <select class=" col-sm-12 combobox optional overall classes" id="patient" name="patient" 
-                                            data-btn-class="option toggle classes" required>
-                                                  <option value="">Choisir un Patient...</option>
-                                     </select> --}}
-                                <select id="listePatient" name ="listePatient" style="width:300px;">     
-                                </select>                        
-                           </div> 
-                     </div>
-                      <div class="space-12"></div>
-                       <div class="row">
-                                <label for="dadaterdvte"><b>Date Rendez-Vous :</b></label>
-                                <div class="input-group col-sm-6">
-                                      <input class="form-control date-picker " id="daterdv" name="daterdv" type="text" data-date-format="yyyy-mm-dd" required 
-                                          /><span class="input-group-addon"><i class="fa fa-calendar bigger-110"></i>    
-                                    </span>    
+                     <form id ="addRdv" role="form" action="{{ route('rdv.store') }}" method="POST">
+                          {{ csrf_field() }}
+                          <input type="text" name="id_patient" value="5" hidden>
+                          <div class="row">
+                                  <label for="patient"><b>Selectioner le patient :</b></label>
+                                  <div class="input-group col-sm-6">
+                                          {{-- <input class="form-control" id="patient" name="patient" type="text" required />     --}}
+                                   {{--       <select class=" col-sm-12 combobox optional overall classes" id="patient" name="patient" 
+                                                data-btn-class="option toggle classes" required>
+                                                      <option value="">Choisir un Patient...</option>
+                                         </select> --}}
+                                    <select id="listePatient" name ="listePatient" style="width:300px;">     
+                                    </select>                        
+                               </div> 
+                                </div>
+                                <div class="space-12"></div>
+                                <div class="row">
+                                        <label for="dadaterdvte"><b>Date Rendez-Vous :</b></label>
+                                        <div class="input-group col-sm-6">
+                                              <input class="form-control date-picker " id="daterdv" name="daterdv" type="text" data-date-format="yyyy-mm-dd" required 
+                                                  /><span class="input-group-addon"><i class="fa fa-calendar bigger-110"></i>    
+                                            </span>    
+                                       </div>
                                </div>
-                       </div>
-                       <div class="row">
-                         <button type="submit">Send</button>
-                       </div>
-           </form> 
+                               <div class="row">
+                                     <button type="submit">Send</button>
+                                </div>
+                     </form> 
            @else
            @endif 
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary">
-                <a id="EnregistrerRDV" target="_blank" href="" onclick="EnregistrerRDV();">Enregistrer</a></button>
+                <a id="EnregistrerRDV" target="" href="" onclick="EnregistrerRDV();">Enregistrer</a></button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
             </div>
         </div>
