@@ -49,33 +49,27 @@
           }
           function envoie()
           {
-                // alert("sdf");
                $('form#updateRdv').submit();
           }
        </script>
 
-       <script>/*
-                $(function() {
-                              // $('#calendar-{{$planning->getId()}}').fullCalendar({
+       <script>
+        $(function() {
+                     $('#calendar-{{$planning->getId()}}').fullCalendar({
                               selectable: true,
-                              header: {
-                              left: 'prev,next today',
+                              header: {left: 'prev,next today',
                               center: 'title',
                               right: 'month,agendaWeek,agendaDay'
                               },
                               dayClick: function(date) {
-                              alert('clicked ' + date.format());
+                                    alert('clicked ' + date.format());
                               },
                               select: function(startDate, endDate) {
-                              alert('selected ' + startDate.format() + ' to ' + endDate.format());
-                              }
-                              });
-
-                });*/
-
-         //////////////
-
-      //<![CDATA[
+                               alert('selected ' + startDate.format() + ' to ' + endDate.format());
+                             }
+                           });
+                         });
+////////////// //<![CDATA[
      $(document).ready(function(){
                 $('#listePatient').editableSelect({
                       effects: 'slide', 
@@ -88,16 +82,30 @@
                 });
                 $(".es-list").click(function(e) 
                 { 
-                  
-                   // elem =   $('li:not([style])').hide();
-                   elem =  $('ul> li:not([style*="display: none"])');
-                     alert(elem.val());
                 });
+
      });
+     function showModal(date)
+     {
+              var mydate = moment(date).toDate();
+              var CurrentDate = new Date();   CurrentDate.setHours(0);
+               CurrentDate.setMinutes(0); CurrentDate.setSeconds(0);
+               if (mydate >= CurrentDate  ) {
+                     var dd = mydate.getDate();             
+                     var mm = mydate.getMonth() + 1;
+                     var yyyy = mydate.getFullYear();     
+                      var ToDate = yyyy + '-' + mm + '-' +dd ;
+                       var startDate = new Date(yyyy, mm, dd);
+                       alert(ToDate);
+                       $('#daterdv').val(ToDate );
+                       $('#daterdv').datepicker().datepicker('setDate', ToDate);
+
+                      $("#fullCalModal").modal();
+                }
+     }
      function remoteSearch() {
             $.ajax({
-              // url: "data.php",
-                 url : '{{URL::to('getPatients')}}',
+                url : '{{URL::to('getPatients')}}',
                 data: {
                   "nom": $("#listePatient").val() //search box value
                 },
@@ -113,15 +121,14 @@
                 }
             });
       }
-      // $( "#EnregistrerRDV" ).click(function() {
-      //       //$( "#target" ).submit();
-      //    console.log('sdfsdf');
-      // });  
+      /*
        function EnregistrerRDV()
        {
-           alert("dfqds"); 
-           $('form#updateRdv').submit();
-       }
+             a = $('#listePatient').val();
+             var arr = a.split(' ');
+             $('#id_patient').val(arr[0]);
+             // $('form#updateRdv').submit();
+       }*/
       </script>
 
  @endsection
@@ -206,45 +213,40 @@
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
                 <h4 id="modalTitle" class="modal-title">Ajouter Rendez-Vous</h4>
             </div>
-            <div id="modalBody" class="modal-body">
-                    @if(App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role !="Receptioniste") 
-                     <form id ="addRdv" role="form" action="{{ route('rdv.store') }}" method="POST">
+            {{-- {{ route('rdv.store') }} --}}
+            @if(App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role !="Receptioniste") 
+                     <form id ="addRdv" role="form" action="/createRDV"method="POST">
                           {{ csrf_field() }}
-                          <input type="text" name="id_patient" value="5" hidden>
+                          <input type="text" name="id_patient" value="" hidden>
+                     <div id="modalBody" class="modal-body">
                           <div class="row">
                                   <label for="patient"><b>Selectioner le patient :</b></label>
                                   <div class="input-group col-sm-6">
-                                          {{-- <input class="form-control" id="patient" name="patient" type="text" required />     --}}
-                                   {{--       <select class=" col-sm-12 combobox optional overall classes" id="patient" name="patient" 
-                                                data-btn-class="option toggle classes" required>
-                                                      <option value="">Choisir un Patient...</option>
-                                         </select> --}}
                                     <select id="listePatient" name ="listePatient" style="width:300px;">     
                                     </select>                        
-                               </div> 
-                                </div>
-                                <div class="space-12"></div>
-                                <div class="row">
-                                        <label for="dadaterdvte"><b>Date Rendez-Vous :</b></label>
-                                        <div class="input-group col-sm-6">
-                                              <input class="form-control date-picker " id="daterdv" name="daterdv" type="text" data-date-format="yyyy-mm-dd" required 
-                                                  /><span class="input-group-addon"><i class="fa fa-calendar bigger-110"></i>    
+                                </div> 
+                          </div>
+                           <div class="space-12"></div>
+                           <div class="row">
+                                <label for="dadaterdvte"><b>Date Rendez-Vous :</b></label>
+                                <div class="input-group col-sm-6">
+                                     <input class="form-control date-picker " id="daterdv" name="daterdv" type="text" data-date-format="yyyy-mm-dd" required 
+                                       /><span class="input-group-addon"><i class="fa fa-calendar bigger-110"></i>    
                                             </span>    
-                                       </div>
-                               </div>
-                               <div class="row">
-                                     <button type="submit">Send</button>
                                 </div>
-                     </form> 
-           @else
-           @endif 
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary">
-                <a id="EnregistrerRDV" target="" href="" onclick="EnregistrerRDV();">Enregistrer</a></button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-            </div>
+                           </div>
+                           {{-- <div class="row"> <button type="submit">Send</button></div> --}}
+                </div>{{-- modalBody --}}
+                <div class="modal-footer">
+                      <button class="btn btn-primary" type="submit">Enregistrer
+                          {{--  <a id="EnregistrerRDV" target="" href="" onclick="EnregistrerRDV();">Enregistrer</a> --}}
+                      </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                 </div>
         </div>
+        </form> 
+           @else
+             @endif 
     </div>
 </div>
 @endsection

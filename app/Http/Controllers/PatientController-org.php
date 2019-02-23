@@ -593,31 +593,8 @@ public function getPatientsArray(Request $request)
      if($request->ajax())  
      {
          
-           $patients = patient::where('Nom','LIKE','%'.trim($request->nom)."%")->select('patients.id','patients.Nom','patients.code_barre','patients.Prenom')->get();
-            // $liste = array();
-            /*  $output="";
-            if($patients)
-            {        $i=0;
-                     foreach ($patients as $key => $patient) {
-                           // $liste[$i]=$patient->Nom;
-                           // $i++;
-                              $output.='<option value="'.$patient->id.'">'.$patient->code_barre.$patient->Nom.$patient->Prenom.'</option>';
-                      }
-            }
-           return $output;
-           solution 1
-           */
-           // return $request->nom;
-            // return Response($output);
-          // return response()->json(json_encode($liste));
-           // solution2
-    
-           //$patients = patient::select('Nom')->where('Nom','LIKE','%'.trim($request->nom)."%")->all();
-            // return Response::json(array(
-            //         'success' => true,
-            //         'data'   => $patients
-            //     ));
-            return ['success' => true, 'data' => $patients]; 
+            $patients = patient::where('Nom','LIKE','%'.trim($request->nom)."%")->select('patients.id','patients.Nom','patients.code_barre','patients.Prenom')->get();
+             return ['success' => true, 'data' => $patients]; 
     }
 }
 public function search(Request $request)

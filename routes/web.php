@@ -130,6 +130,9 @@ Route::get('/admission/create/{id}{bool}',function(){
 });
 Route::post('/atcd/store/{id}','AntecedantsController@store');
 Route::get('/rdv/create/{id}','RDVController@create');
+
+Route::post('/createRDV','RDVController@AddRDV');
+
 Route::get('/rdv/valider/{id}','RDVController@valider');
 Route::get('/rdv/reporter/{id}','RDVController@reporter');
 Route::post('/rdv/reporte/{id}','RDVController@storereporte');
