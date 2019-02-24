@@ -118,7 +118,7 @@
             <div class="widget-main">
               <div class="row">
                 <div class="col-xs-12">
-                  <form method="POST" action="#">
+                  <form method="POST" action="{{ route('demandeexr.store') }}">
                     {{ csrf_field() }}
                     <input type="text" name="id_consultation" value="{{ $consultation->id }}" hidden>
                     <div>

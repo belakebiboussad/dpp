@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\modeles\consultation;
 use App\modeles\patient;
 use App\modeles\ordonnance;
+use Jenssegers\Date\Date;
 
 class OrdonnanceController extends Controller
 {
@@ -27,8 +28,7 @@ class OrdonnanceController extends Controller
     public function create($id_consultation)
     {
         $consultation = consultation::where("id",$id_consultation)->get()->first();
-        $patient = patient::where("id",$consultation->Patient_ID_Patient)->get()->first();
-        return view("ordennance.create_ordennance",compact('consultation','patient'));
+        return view("ordennance.create_ordennance",compact('consultation'));
     }
 
     /**
@@ -37,22 +37,21 @@ class OrdonnanceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,$consultID)
+    public function store(Request $request)
     {
-        // dd($request->dateord);
-          $liste = explode(",",$request->listeMedicaments);unset($liste[0]);
-          foreach ($liste as $key => $value) {
-              # code...
-                $tab= explode('|',$value);
-                $liste[$key] = array_reverse($tab);
-          }
-          $medics = json_encode($liste); //dd($medics);
-         // dd($medics);
-          ordonnance::create([
-            "duree"=>$request->dureeefois.' '.$request->foisss,
-            "medicaments"=>$medics,
-            "id_consultation"=>$consultID,
+        $date = Date::now();
+        $ordonnance = ordonnance::FirstOrCreate([
+            "date" => $date,
+            "id_consultation" => $request->id_consultation,   
         ]);
+
+        $listes = json_decode($request->liste);
+        for ($i=1; $i < count($listes); $i++) { 
+           $id_med = $listes[$i]->med;
+           $ordonnance->medicamentes()->attach($id_med,['posologie' => $listes[$i]->posologie]); 
+        }
+
+        return redirect()->route('consultations.show', $request->id_consultation);
     }
     public function storeold(Request $request)
     {
@@ -77,7 +76,8 @@ class OrdonnanceController extends Controller
      */
     public function show($id)
     {
-        //
+        $ordonnance = ordonnance::FindOrFail($id);
+        return view('ordennance.show_ordennance', compact('ordonnance'));
     }
 
     /**

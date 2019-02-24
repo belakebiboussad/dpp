@@ -23,5 +23,15 @@ class consultation extends Model
     {
         return $this->hasMany('App\modeles\demandeexb','id_consultation');
     }
+
+    public function examensradiologiques()
+    {
+        return $this->hasMany('App\modeles\demandeexr','id_consultation');
+    }
+
+    public function ordonnaces()
+    {
+        return $this->hasMany('App\modeles\ordonnance','id_consultation');
+    }
 }
   

@@ -87,7 +87,7 @@
                           <div class="space space-4"></div>
                           <div class="profile-contact-info">
                             <div class="profile-contact-links align-left">
-                              <a href="#" class="btn btn-link">
+                              <a href="/ordonnace/create/{{ $consultation->id }}" class="btn btn-link">
                                 <i class="ace-icon fa fa-plus-circle bigger-120 green"></i>
                                 Ordonnance
                               </a>
@@ -153,7 +153,28 @@
                       </div><!-- /.row -->
                     </div><!-- /#home -->
                     <div id="feed" class="tab-pane">
-      
+                      <table class="table table-striped table-bordered">
+                        <thead>
+                          <tr>
+                            <th class="center">#</th>
+                            <th>Date</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @foreach($consultation->ordonnaces as $index => $ordonnace)
+                          <tr>
+                            <td class="center">{{ $index + 1 }}</td>
+                            <td>{{ $ordonnace->date }}</td>
+                            <td class="center">
+                              <a href="{{ route('ordonnace.show', $ordonnace->id) }}">
+                                <i class="fa fa-eye"></i>
+                              </a>
+                            </td>
+                          </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
                     </div><!-- /#feed -->
                     <div id="friends" class="tab-pane">
                       <div>
@@ -198,10 +219,31 @@
                             <tr>
                               <th class="center">#</th>
                               <th>Date</th>
+                              <th>Etat</th>
                               <th></th>
                             </tr>
                           </thead>
-                          <tbody>               
+                          <tbody>
+                            @foreach($consultation->examensradiologiques as $index => $exr)
+                            <tr>
+                              <td class="center">{{ $index + 1 }}</td>
+                              <td>{{ $exr->Date }}</td>
+                              <td>
+                                @if($exr->etat == "E")
+                                  En Attente
+                                @elseif($exr->etat == "V")
+                                  Validé
+                                @else
+                                  Rejeté
+                                @endif
+                              </td>
+                              <td class="center">
+                                <a href="{{ route('demandeexr.show', $exr->id) }}">
+                                  <i class="fa fa-eye"></i>
+                                </a>
+                              </td>
+                            </tr>
+                            @endforeach               
                           </tbody>
                         </table>
                       </div>

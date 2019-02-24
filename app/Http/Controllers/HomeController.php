@@ -16,6 +16,7 @@ use App\modeles\medcamte;
 use App\modeles\reactif;
 use App\modeles\dispositif;
 use App\modeles\demandeexb;
+use App\modeles\demandeexr;
 use App\User;
 use Auth; 
 use Date;
@@ -94,6 +95,10 @@ class HomeController extends Controller
                   $demandesexb = demandeexb::where('etat','E')->get();
                   return view('home.home_laboanalyses', compact('demandesexb'));
                 break;
+                case 'Radiologue':
+                  $demandesexr = demandeexr::where('etat','E')->get();
+                  return view('home.home_radiologue', compact('demandesexr'));
+                  break;
            default:
                return view('errors.500');
                break;

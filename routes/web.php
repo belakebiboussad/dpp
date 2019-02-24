@@ -168,6 +168,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('AddANTCD','AntecedantsController@createATCDAjax');
 route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');
 route::post('/uploadresultat','DemandeExbController@uploadresultat');
+route::post('/uploadexr','DemandeExamenRadio@upload_exr');
 route::get('/download/{filename}', function($filename)
 {
     return Storage::download($filename);
@@ -178,6 +179,12 @@ route::get('/homelaboexb',function(){
     $demandesexb = App\modeles\demandeexb::where('etat','E')->get();
     return view('home.home_laboanalyses', compact('demandesexb'));
 })->name('homelaboexb');
+route::get('/homeradiologue',function(){
+    $demandesexr = App\modeles\demandeexr::where('etat','E')->get();
+    return view('home.home_radiologue', compact('demandesexr'));
+})->name('homeradiologue');
+route::get('/details_exr/{id}','DemandeExamenRadio@details_exr');
+route::get('/listeexrs','DemandeExamenRadio@liste_exr');
 // Route::get('/pdf', function () {
 //     return view('pdf');
 // });
