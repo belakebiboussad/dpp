@@ -11,6 +11,7 @@ use App\modeles\consultation;
 use App\modeles\examenbiologique;
 use App\modeles\DemandeHospitalisation;
 use App\modeles\hospitalisation;
+use App\modeles\homme_conf;
 use Validator;
 use Redirect;
 use MessageBag;
@@ -68,7 +69,17 @@ class PatientController extends Controller
                   "datenaissancef"=> 'required_if:type,Ayant_droit|date|date_format:Y-m-d',
                   "lieunaissancef"=> 'required_if:type,Ayant_droit',
                   "NMGSN"=> 'required_if:type,Ayant_droit',
-                   
+/**********************************************/
+                  "prenomA"=>'required_with:nom_homme_c',
+                  "datenaissance_h_c"=>'required_with:nom_homme_c',
+                  "adresseA"=>'required_with:nom_homme_c',
+                  "type_piece_id"=>'required_with:nom_homme_c', 
+                  "npiece_id"=>'required_with:nom_homme_c', 
+                  "lien"=>'required_with:nom_homme_c',
+                  "date_piece_id"=>'required_with:nom_homme_c',
+                  "mobileA"=>['required_with:nom_homme_c', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],
+                  "operateur_h"=>'required_with:mobileA',
+                 
                   
                 //  
            );
@@ -76,12 +87,15 @@ class PatientController extends Controller
                      "required"         => "Le champ :attribute est obligatoire.",
                       "NSSValide"    => 'le numéro du securite sociale est invalide ',
                       "date"             => "Le champ :attribute n'est pas une date valide.",
+                       "required_with"         => "Veuillez compléter les informations de l'homme de confiance.",
+
             ];
            $validator = Validator::make($request->all(),$rule,$messages);         
            if ($validator->fails()) {
                     $errors=$validator->errors(); 
                      return view('patient.addPatient')->withErrors($errors);
            } 
+           
            if(patient::all()->isNotEmpty())
             {
                 $nomb = patient::all()->last()->id;
@@ -147,6 +161,24 @@ class PatientController extends Controller
                 "NSS"=>$request->nsspatient,
                 "Date_creation"=>$date,
             ]);
+           /*insert homme_c*/
+        if( $request->nom_homme_c!="") 
+             $homme = homme_conf::firstOrCreate([
+                "id_patient"=>$patient->id,
+                "nom"=>$request->nom_homme_c,
+                "prénom"=>$request->prenomA, 
+                "date_naiss"=>$request->datenaissance_h_c,
+                "lien_par"=>$request->lien,
+                "type_piece"=>$request->type_piece_id,
+                "num_piece"=>$request->npiece_id,
+                "date_deliv"=>$request->date_piece_id,
+                "adresse"=>$request->adresseA,
+                "mob"=>$request->operateur_h.$request->mobileA,
+                 ]);
+
+                  
+                 
+
         return redirect(Route('patient.show',$patient->id));
     }
 
@@ -159,6 +191,8 @@ class PatientController extends Controller
     public function show($id)
     {   
         $patient = patient::FindOrFail($id);
+        $homme_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get()->first();
+        
         $consultations = consultation::where('Patient_ID_Patient',$patient->id)->get();
         $hospitalisations = consultation::join('patients','consultations.Patient_ID_Patient','=','patients.id')
                                         ->where('patients.id','=',$patient->id)
@@ -168,7 +202,7 @@ class PatientController extends Controller
                                         ->get();
         //dd($hospitalisations);
         $rdvs = rdv::all();
-        return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations'));
+        return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations','homme_c'));
     }
 
     /**
@@ -179,14 +213,17 @@ class PatientController extends Controller
      */
     public function edit($id)
     {
-
           $patient = patient::FindOrFail($id);
+          $homme_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get()->first();
+          
           if($patient->Type != "Autre")
                  //chercher l'assurée
                   $assure =  assur::FindOrFail($patient->Assurs_ID_Assure); 
            else
                   $assure = new assur;
-           return view('patient.edit_patient',compact('patient','assure'));
+            if (is_null($homme_c))
+                $homme_c=new homme_conf;
+           return view('patient.edit_patient',compact('patient','assure','homme_c'));
     }
 
     /**
@@ -197,8 +234,30 @@ class PatientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request,$id)
-    {
+    { 
+        /**********************************************/
+       /* $rule = array(
+                  "prenom_h"=>'required_with:nom_h',
+                  "datenaissance_h"=>'required_with:nom_h',
+                  "adresse_h"=>'required_with:nom_h',
+                  "type_piece"=>'required_with:nom_h', 
+                  "num_piece"=>'required_with:nom_h', 
+                  "lien_par"=>'required_with:nom_h',
+                  "date_piece_id"=>'required_with:nom_h',
+                  "mobile_h"=>['required_with:nom_h', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],
+                 
+           );      
+            $messages = [
+                     
+                       "required_with"         => "Veuillez compléter les informations de l'homme de confiance.",
 
+            ];
+           $validator = Validator::make($request->all(),$rule,$messages);         
+           if ($validator->fails()) {
+                    $errors=$validator->errors(); 
+                     return back()->withErrors($errors);
+           }  */
+        /**********************************************/ 
            $date = Date::Now();
            static $assurObj;
            $patient = patient::FindOrFail($id);
@@ -208,7 +267,7 @@ class PatientController extends Controller
                     $assure = assur::FindOrFail($patient->Assurs_ID_Assure);
                      if($request->type == "Assure")
                      {     
-                                 dd($request->type ." Assure ");    
+                                 //dd($request->type ." Assure ");    
                                 $assure->update([
                                         "Nom"=>$request->nom,
                                         "Prenom"=>$request->prenom,
@@ -300,7 +359,7 @@ class PatientController extends Controller
                                            }
                                            else
                                            {
-                                            dd("sdf");
+                                          //  dd("sdf");
                                            }
                                 }
                               
@@ -389,6 +448,43 @@ class PatientController extends Controller
           }
          
            // dd( $patient);
+          /******************************/
+
+          $h=homme_conf::FindOrFail($request->id_h);
+        
+         if ((!is_null($h)) && ($request->etat_h=="actuel")) {
+            $h-> update([
+                "id_patient"=>$patient->id,
+                "nom"=>$request->nom_h,
+                "prénom"=>$request->prenom_h, 
+                "date_naiss"=>$request->datenaissance_h,
+                "lien_par"=>$request->lien_par,
+                "type_piece"=>$request->type_piece,
+                "num_piece"=>$request->num_piece,
+                "date_deliv"=>$request->date_piece_id,
+                "adresse"=>$request->adresse_h,
+                "mob"=>$request->mobile_h,
+                 ]);
+             
+         } 
+         else
+         {
+            $homme = homme_conf::firstOrCreate([
+                "id_patient"=>$patient->id,
+                "nom"=>$request->nom_h,
+                "prénom"=>$request->prenom_h, 
+                "date_naiss"=>$request->datenaissance_h,
+                "lien_par"=>$request->lien_par,
+                "type_piece"=>$request->type_piece,
+                "num_piece"=>$request->num_piece,
+                "date_deliv"=>$request->date_piece_id,
+                "adresse"=>$request->adresse_h,
+                "mob"=>$request->mobile_h,
+                
+                 ]);
+            $h-> update(["etat_hc"=>$request->etat_h,]);
+         }
+          /******************************/
            return redirect(Route('patient.show',$patient->id));
     }
 

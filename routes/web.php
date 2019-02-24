@@ -177,3 +177,16 @@ Route::get('/getlits/{id}','LitsController@getlits');
 // Route::get('/pdf', function () {
 //     return view('pdf');
 // });
+/************partie viste d'hospitalisation**************/
+Route::resource('consigne','ConsigneController');
+Route::resource('surveillance','SurveillanceController');
+Route::get('/visite/create/{id}','VisiteController@create');
+Route::get('/patient/listecons/{id}','PatientController@listecons');
+Route::post('/visite/store/{id}','VisiteController@store');
+Route::post('/surveillances/store/{id}','SurveillanceController@store');
+route::get('/getpatientvisite','PatientController@getpatientvisite');
+route::get('/getpatientconsigne','PatientController@getpatientconsigne');
+route::get('/choixpatvisite','VisiteController@choixpatvisite');
+route::get('/choixhospconsigne','ConsigneController@choixhospconsigne');
+route::get('/consigne','ConsigneController@choixhospconsigne');
+/**************************

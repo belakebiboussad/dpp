@@ -65,7 +65,7 @@ function typep()
     }
     else
     {
-           if('#ayant').is(':checked'))
+           if('#ayant').is(':checked')
            {
                   $('#foncinput').css('display', 'none');
                   $('#nssinput').css('display', 'none');

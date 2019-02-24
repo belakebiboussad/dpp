@@ -203,12 +203,23 @@
   			$('div#' + section).addClass('in active');
   			$('div#' + sectionActive).removeClass('active');
        		}
+       		/*******/
+       		if(section == "Homme_C")
+       		{
+       			var liNonActive =$("ul#menuPatient li:not(.active)");
+       			var section = $("ul#menuPatient li:not(.active) a").prop('href').split("#")[2];
+  			var sectionActive = $("ul#menuPatient li.active a").prop('href').split("#")[2];
+  			$('ul#menuPatient li.active').removeClass('active');
+  			liNonActive.addClass('in active');
+  			$('div#' + section).addClass('in active');
+  			$('div#' + sectionActive).removeClass('active');
+       		}
   		
        	}	
        	function checkFormAddPAtient()
        	{
        	          InverserUl();	
-       	          var nomf = $('#nomf').val();
+       	    var nomf = $('#nomf').val();
        		var prenomf = $('#prenomf').val();
        		var NMGSN = $('#NMGSN').val();
        		var nss = $('#nss').val();
