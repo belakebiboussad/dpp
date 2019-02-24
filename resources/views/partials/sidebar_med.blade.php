@@ -133,7 +133,7 @@
             <ul class="submenu">
 
                 <li class="">
-                    <a href="/choixpatient">
+                    <a href="{{ route('rdv.index') }}">
                         <i class="menu-icon fa fa-plus purple"></i>
                         Ajouter RDV
                     </a>
