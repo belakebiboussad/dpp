@@ -69,8 +69,9 @@
 <script src="{{asset('/js/jquery-2.1.4.min.js')}}"></script>
 <script type="text/javascript">
 	var i = 1;
+	console.log($("#Matin").prop('checked'));
 $("#addtolist").click(function(){
-  $( "#tabconsigne" ).append( "<tr><td>"+i+"</td><td>"+$("#cons").val()+"</td><td>"+$("#nbr_j").val()+"</td><td><input type='checkbox' value='"+$("#Matin").val()+"' checked='"+$("#Matin").prop('checked')+"'></td><td><input type='checkbox' value='"+$("#Midi").val()+"' checked='"+$("#Midi").prop('checked')+"'></td><td><input type='checkbox' value='"+$("#Soir").val()+"' checked='"+$("#Soir").prop('checked')+"'></td><td>"+"</td></tr>" );
+  $( "#tabconsigne" ).append( "<tr><td>"+i+"</td><td>"+$("#cons").val()+"</td><td>"+$("#nbr_j").val()+"</td><td><input type='checkbox' value='"+$("#Matin").val()+"' checked=fals></td><td><input type='checkbox' value='"+$("#Midi").val()+"' checked='"+$("#Midi").prop('checked')+"'></td><td><input type='checkbox' value='"+$("#Soir").val()+"' checked='"+$("#Soir").prop('checked')+"'></td><td>"+"</td></tr>" );
   i = i + 1;
 }); 
 $("#submitetatbesoin").click(function(){
