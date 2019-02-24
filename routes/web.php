@@ -172,6 +172,7 @@ Route::get('/searchUser','UsersController@searchUser');
 Route::get('/searchPatient','PatientController@search');
 Route::get('/getPatients','PatientController@getPatientsArray');
 Route::get('/getlits/{id}','LitsController@getlits');
+<<<<<<< HEAD
 Route::get('/user/find', 'UsersController@AutoCompleteUsername');
 Route::get('/userdetail', 'UsersController@getUserDetails');
 Route::get('/user/find1', 'PatientController@AutoCompletePatientname');
@@ -184,3 +185,25 @@ Route::get("flash","HomeController@flash");
 route::get('/home_reception',function (){
     return view('home.home_recep');
 })->name('home_rec');
+=======
+// Route::get('/getlits/{id}',function(){
+//     return('fqsfd');
+// });
+
+// Route::get('/pdf', function () {
+//     return view('pdf');
+// });
+/************partie viste d'hospitalisation**************/
+Route::resource('consigne','ConsigneController');
+Route::resource('surveillance','SurveillanceController');
+Route::get('/visite/create/{id}','VisiteController@create');
+Route::get('/patient/listecons/{id}','PatientController@listecons');
+Route::post('/visite/store/{id}','VisiteController@store');
+Route::post('/surveillances/store/{id}','SurveillanceController@store');
+route::get('/getpatientvisite','PatientController@getpatientvisite');
+route::get('/getpatientconsigne','PatientController@getpatientconsigne');
+route::get('/choixpatvisite','VisiteController@choixpatvisite');
+route::get('/choixhospconsigne','ConsigneController@choixhospconsigne');
+route::get('/consigne','ConsigneController@choixhospconsigne');
+/**************************
+>>>>>>> e3e729a4a9b624b67f91ea710e0b3d6887a5fe66
