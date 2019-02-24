@@ -109,21 +109,10 @@
                 },
                 dataType: "json", // recommended response type
                 success: function(data) {
-<<<<<<< HEAD
-                    //data = ["name1","name2","name3"];
-                   // $(".options").html(data); //remove list
-                  //$("#listePatient").append(data);
-                   
-                    $.each(data, function(i, v) {
-                      //$(".options").append("<li class='option'>" + v + "</li>");
-                    });
-                    console.log(data);
-=======
                    $(".es-list").html(""); //remove list
                     $.each(data['data'], function(i, v) {
                           $(".es-list").append($('<li></li>').attr('value', v['id']).attr('class','es-visible list-group-item option').text(v['code_barre']+" "+v['Nom']+" "+v['Prenom']));   
                     }); 
->>>>>>> dev_bouz
                 },
                 error: function() {
                   alert("can't connect to db");
@@ -219,31 +208,9 @@
                 <input type="text" id="date_RDV" name="date_RDV" data-date-format='yyyy-mm-dd' value="" style="display:none;">{{-- hidden --}}
                 <div id="modalBody" class="modal-body">
                       <div class="row">
-<<<<<<< HEAD
-                              <label for="patient"><b>Selectioner le patient :</b></label>
-                              <div class="input-group col-sm-6">
-                                      {{-- <input class="form-control" id="patient" name="patient" type="text" required />     --}}
-                               {{--       <select class=" col-sm-12 combobox optional overall classes" id="patient" name="patient" 
-                                            data-btn-class="option toggle classes" required>
-                                                  <option value="">Choisir un Patient...</option>
-                                     </select> --}}
-                               {{--  <select id="listePatient" name ="listePatient" style="width:300px;">     
-                                </select>    --}}
-
-
-                          {{-- marche bien --}}
-                                <div id='select-container'>
-                                      <input id='listePatient' style="width:300px;" placeholder='chercher le patient...' />
-                                      <ul class='options'>
-                                           
-                                      </ul>
-                                </div>
-                  
-=======
                            <label for="patient"><b>Selectioner le patient :</b></label>
                            <div class="input-group col-sm-6">
                                 <select id="listePatient" name ="listePatient" style="width:300px;" required></select>                        
->>>>>>> dev_bouz
                            </div> 
                       </div>
                       <div class="space-12"></div>
