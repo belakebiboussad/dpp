@@ -15,6 +15,7 @@ lass Authenticate extends Middleware
             		return route('login');
     	    	}
     	}
+        
       	public function handle($request, Closure $next, $guard = null)
     	{
         		if (!Auth::check()) {

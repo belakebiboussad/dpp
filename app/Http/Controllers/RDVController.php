@@ -45,9 +45,7 @@ class RDVController extends Controller
     }
     public function choixpatient()
     {
-           // $patients = patient::all();
-           // return view('rdv.choix_patient_rdv', compact('patients'));
-             return view('patient.index_patient');
+       return view('patient.index_patient');
     }
     public function index()
     {
@@ -117,25 +115,24 @@ class RDVController extends Controller
            ])->setCallbacks([ //set fullcalendar callback options (will not be JSON encoded)
                  'viewRender' => 'function() {}',
                  'eventClick' => 'function(event) {
-                           showModal(event.id,event.title,event.start,event.idPatient,event.tel,event.age);
+                           showModal1(event.id,event.title,event.start,event.idPatient,event.tel,event.age);
                  }',
                  'dayClick'=>'function(calEvent, jsEvent, view){
-              $("#fullCalModal").modal();
+                          showModal(calEvent);
                  }',
          ]);
         // dd($planning);
         return view('rdv.index_rdv', compact('planning'));
-        //return view('rdv.index_rdv', compact('rdvs'));
     }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id_patient)
+    public function create(Request $request,$id_patient)
     {
-        $patient = patient::FindOrFail($id_patient);
-        return view('rdv.create_rdv',compact('patient'));
+           $patient = patient::FindOrFail($id_patient);
+           return view('rdv.create_rdv',compact('patient'));
     }
 
     /**
@@ -146,7 +143,6 @@ class RDVController extends Controller
      */
     public function store(Request $request)
     {
-         // dd($request->all());
           $request->validate([
             "daterdv"=> 'required',
            ]);
@@ -273,5 +269,25 @@ class RDVController extends Controller
                     })
             ->rawColumns(['action5','action4','action3','action1','action2','action'])
             ->make(true);
+    }
+    function AddRDV(Request $request)
+    {
+           $arr = explode(" ", $request->listePatient);
+           $patient=patient::where('code_barre',$arr[0])->first();
+           $request->validate([
+                     "date_RDV"=> 'required',
+           ]);
+           $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
+           $specialite = $employe->Specialite_Emploiye; 
+           // $rdv = rdv::create($request->all());
+           $rdv = rdv::firstOrCreate([
+                 "Date_RDV"=>$request->date_RDV,
+                 "specialite"=>$specialite,
+                 "Employe_ID_Employe"=>Auth::user()->employee_id,
+                 "Patient_ID_Patient"=>$patient->id,
+                 "Etat_RDV"=> "en attente",
+              ]);
+             Flashy::success('RDV ajouter avec succès');
+              return redirect()->route("rdv.index");
     }
 }

@@ -15,6 +15,7 @@
        	 </div>
 	</div>
 	<div>
+<<<<<<< HEAD
 	<div id="user-profile-2" class="user-profile">
 	<div class="tabbable">
 		<ul class="nav nav-tabs padding-18">
@@ -61,6 +62,61 @@
 				<a class="btn btn-sm btn-block btn-primary" data-toggle="modal" data-target="#ticket">
 				<i class="ace-icon fa fa-plus bigger-120"></i>
 				<span class="bigger-110">Ajouter Ticket</span>
+=======
+		<div id="user-profile-2" class="user-profile">
+			<div class="tabbable">
+				<ul class="nav nav-tabs padding-18">
+					<li class="active">
+						<a data-toggle="tab" href="#home">
+							<i class="green ace-icon fa fa-user bigger-120"></i>
+							Informations Administratives
+						</a>
+					</li>
+					@if (!is_null($homme_c))
+					<li >
+						<a data-toggle="tab" href="#homme_conf">
+							<i class="green ace-icon fa fa-user bigger-120"></i>
+							Homme de confiance
+						</a>
+					</li>
+					@endif
+					@if(App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role =="Medecine")
+					<li>
+						<a data-toggle="tab" href="#feed">
+						<i class="orange ace-icon fa fa-stethoscope bigger-120"></i>Consultations&nbsp;<span class="badge badge-warning">{{ $consultations->count() }}
+							</span>
+						</a>
+					</li>
+					@endif
+					@if(App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role =="Medecine")
+					<li>
+					<a data-toggle="tab" href="#pictures">
+						<i class="pink ace-icon fa fa-h-square bigger-120"></i>
+						Hospitalisations&nbsp;<span class="badge badge-pink">{{ $hospitalisations->count() }}</span>
+						</a>
+					</li>
+					@endif
+					<li>
+						<a data-toggle="tab" href="#friends">
+							<i class="blue ace-icon fa fa-calendar-o bigger-120"></i>
+							RDV&nbsp;<span class="badge badge-info">{{ $rdvs->count() }}</span>
+						</a>
+					</li>
+				</ul>
+				<div class="tab-content no-border padding-24">
+					<div id="home" class="tab-pane in active">
+						<div class="row">
+							<div class="col-xs-12 col-sm-3 center">
+								<span class="profile-picture">
+								<img class="editable img-responsive" alt="Alex's Avatar" id="avatar2" src="{{asset('/avatars/profile-pic.jpg')}}" />
+								</span>
+								<div class="space space-4"></div>
+								<a href="{{ route('patient.edit', $patient->id) }}" class="btn btn-sm btn-block btn-success">
+									<i class="ace-icon fa fa-pencil bigger-120"></i>
+									<span class="bigger-110">Modifier Les Informations</span>
+								</a>
+								<a class="btn btn-sm btn-block btn-primary" data-toggle="modal" data-target="#ticket">
+>>>>>>> e3e729a4a9b624b67f91ea710e0b3d6887a5fe66
 
 				</a>
 				</div><!-- /.col -->
@@ -142,6 +198,7 @@
 					<div class="profile-info-value">
 					<span>{{ $patient->tele_mobile2 }}</span>
 										</div>
+<<<<<<< HEAD
 				</div>
 				@if($patient->Fonction != null)
 				<div class="profile-info-row">
@@ -418,6 +475,276 @@
 				</div>
 				</div>
 				</div><!-- /#pictures -->
+=======
+									</div>
+								@endif
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+						<div class="space-20"></div>
+					</div><!-- /#home -->
+					<!--homme_conf -->
+					@if (!is_null($homme_c))
+                
+					<div id="homme_conf" class="tab-pane">
+						<div class="row">
+							<div class="col-xs-12 col-sm-3 center">
+								<span class="profile-picture">
+								<img class="editable img-responsive" alt="Alex's Avatar" id="avatar3" src="{{asset('/avatars/avatar-372-456324.png')}}" />
+								</span>
+								<div class="space space-4"></div>
+								<a href="{{ route('patient.edit', $patient->id) }}" class="btn btn-sm btn-block btn-success">
+									<i class="ace-icon fa fa-pencil bigger-120"></i>
+									<span class="bigger-110">Modifier Les Informations</span>
+								</a>
+							</div><!-- /.col -->
+							<div class="col-xs-12 col-sm-9">
+								<h4 class="blue">
+									<span class="middle"> {{ $homme_c->nom }} {{ $homme_c->prénom }}</span>
+									<span class="label label-purple arrowed-in-right">
+										<i class="ace-icon fa fa-circle smaller-80 align-middle"></i>
+										{{ $homme_c->mob }}
+									</span>
+								</h4>
+								<div class="profile-user-info">
+									<div class="profile-info-row">
+										<div class="profile-info-name">Nom</div>
+										<div class="profile-info-value">
+											<span>{{ $homme_c->nom}}</span>
+										</div>
+									</div>
+									<div class="profile-info-row">
+										<div class="profile-info-name">Prénom</div>
+										<div class="profile-info-value">
+											<span>{{$homme_c->prénom }}</span>
+										</div>
+									</div>
+									<div class="profile-info-row">
+										<div class="profile-info-name">Sexe </div>
+										<div class="profile-info-value">
+											<span>{{ $patient->Sexe =="M" ? "Homme" : "Femme" }}</span>
+										</div>
+									</div>
+									<div class="profile-info-row">
+										<div class="profile-info-name">Date Naissance </div>
+										<div class="profile-info-value">
+											<span>{{ $homme_c->date_naiss }}</span>
+										</div>
+									</div>
+									<div class="profile-info-row">
+										<div class="profile-info-name"> Age </div>
+										<div class="profile-info-value">
+											<span>
+												{{ Jenssegers\Date\Date::parse($homme_c->date_naiss)->age }} ans
+											</span>
+										</div>
+									</div>
+									<div class="profile-info-row">
+										<div class="profile-info-name"> Lien de parenté </div>
+										<div class="profile-info-value">
+											<span>{{ $homme_c->lien_par }}</span>
+										</div>
+									</div>
+									<div class="profile-info-row">
+										<div class="profile-info-name"> Adresse </div>
+										<div class="profile-info-value">
+											<i class="fa fa-map-marker light-orange bigger-110"></i>
+											<span>{{ $homme_c->adresse }}</span>
+										</div>
+									</div>
+									<div class="profile-info-row">
+										<div class="profile-info-name"> Télé mobile  </div>
+										<div class="profile-info-value">
+											<span>{{ $homme_c->mob }}</span>
+										</div>
+									</div>
+									<div class="profile-info-row">
+										<div class="profile-info-name"> Type de la pièce </div>
+										<div class="profile-info-value">
+											<span>@if ($homme_c->type_piece=="CNI") Carte d'identité nationale
+											@elseif ($homme_c->type_piece=="Permis") Permis de Conduire
+											@else Passeport
+											@endif
+											</span>
+										</div>
+									</div>
+									<div class="profile-info-row">
+										<div class="profile-info-name"> N° pièce </div>
+										<div class="profile-info-value">
+											<span>{{ $homme_c->num_piece }}</span>
+										</div>
+									</div>
+									<div class="profile-info-row">
+										<div class="profile-info-name">Délivré le </div>
+										<div class="profile-info-value">
+											<span>{{ $homme_c->date_deliv }}</span>
+										</div>
+									</div>
+								
+									<div class="profile-info-row">
+										<div class="profile-info-name"> Créer par </div>
+										<div class="profile-info-value">
+											<span>{{ App\modeles\employ::where("id",$homme_c->created_by)->get()->first()->Nom_Employe }}  {{ App\modeles\employ::where("id",$homme_c->created_by)->get()->first()->Prenom_Employe }}</span>
+										</div>
+									</div>
+								</div>
+								
+								
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+						<div class="space-20"></div>
+					</div><!-- /#homme_conf -->
+					@endif
+					<div id="feed" class="tab-pane">
+						<div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2">
+							<div class="widget-box widget-color-blue" id="widget-box-2">
+								<div class="widget-header">
+									<h5 class="widget-title bigger lighter">
+										<i class="ace-icon fa fa-table"></i>
+										Liste Des Consultations :
+									</h5>
+									<div class="widget-toolbar widget-toolbar-light no-border">
+										{{-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> --}}
+										<div class="fa fa-plus-circle"></div>
+										<a href="/consultations/create/{{$patient->id}}">
+											<b>Ajouter Une Consultation </b>
+										</a>
+									</div>
+								</div>
+								<div class="widget-body">
+									<div class="widget-main no-padding">
+										<table class="table table-striped table-bordered table-hover">
+											<thead class="thin-border-bottom">
+												<tr>
+													<th>Motif De Consultation</th>
+													<th>Date De Consultation</th>
+													<th>Diagnostic</th>
+													<th>Nom Du Médecin Traitant</th>
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+												@foreach($consultations as $consultation)
+													@if($consultation->Patient_ID_Patient == $patient->id)
+													<tr>
+														<td>{{ $consultation->Motif_Consultation }}</td>
+														<td>{{ $consultation->Date_Consultation }}</td>
+														<td>{{ $consultation->Diagnostic }}</td>
+														<td>
+														{{ App\modeles\employ::where("id",$consultation->Employe_ID_Employe)->get()->first()->Nom_Employe }}
+														{{ App\modeles\employ::where("id",$consultation->Employe_ID_Employe)->get()->first()->Prenom_Employe }}
+														</td>
+														<td>
+															<div class="hidden-sm hidden-xs btn-group">
+                            									<a class="btn btn-xs btn-success" href="/consultations/detailcons/{{$consultation->id}}">
+                                									<i class="ace-icon fa fa-hand-o-up bigger-120"></i>
+                                									Détails
+                           										</a>
+                           									</div>
+														</td>
+													</tr>
+													@endif
+												@endforeach
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>	
+					</div><!-- /#feed -->
+					<div id="friends" class="tab-pane">
+						<div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2">
+							<div class="widget-box widget-color-blue" id="widget-box-2">
+								<div class="widget-header">
+									<h5 class="widget-title bigger lighter">
+										<i class="ace-icon fa fa-table"></i>
+										Liste Des RDV :
+									</h5>
+									<div class="widget-toolbar widget-toolbar-light no-border">
+										<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+										<a href="#"><b>Ajouter Un RDV</b></a>
+									</div>
+								</div>
+								<div class="widget-body">
+									<div class="widget-main no-padding">
+										<table class="table table-striped table-bordered table-hover">
+											<thead class="thin-border-bottom">
+												<tr>
+													<th>Date RDV</th>
+													<th>Nom Médcine Traitant</th>
+													<th>Etat RDV</th>
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+												@foreach($rdvs as $rdv)
+												@if($rdv->Patient_ID_Patient == $patient->id)
+												<tr>
+													<td>{{ $rdv->Date_RDV }}</td>
+													<td>
+														{{ App\modeles\employ::where("id",$rdv->Employe_ID_Employe)->get()->first()->Nom_Employe }}
+														{{ App\modeles\employ::where("id",$rdv->Employe_ID_Employe)->get()->first()->Prenom_Employe }}
+													</td>
+													<td class="center">
+														<span class="label label-{{$rdv->Etat_RDV == "en attente" ? "warning" : "success"}}" style="color: black;">
+															<b>{{ $rdv->Etat_RDV }}</b>
+														</span>
+													</td>
+													<td class="center">
+														<div class="hidden-sm hidden-xs btn-group">
+                            								<a class="btn btn-xs btn-success" href="{{ route('rdv.show', $rdv->id) }}">
+                                								<i class="ace-icon fa fa-hand-o-up bigger-120"></i>
+                                								Détails
+                           									</a>
+                           								</div>
+                           							</td>
+												</tr>
+												@endif
+												@endforeach
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div><!-- /#friends -->
+					<div id="pictures" class="tab-pane">
+						<div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2">
+							<div class="widget-box widget-color-blue" id="widget-box-2">
+								<div class="widget-header">
+									<h5 class="widget-title bigger lighter">
+										<i class="ace-icon fa fa-table"></i>
+										Listes Des Hospitalisations :
+									</h5>
+								
+								</div>
+								<div class="widget-body">
+									<div class="widget-main no-padding">
+										<table class="table table-striped table-bordered table-hover">
+											<thead class="thin-border-bottom">
+												<tr>
+													<th>Date d'entrée</th>				
+													<th>date prévue de sortir</th>				
+													<th>Date de sortir</th>
+													<th></th>				
+												</tr>
+											</thead>
+											<tbody>
+												@foreach($hospitalisations as $hosp)
+													<tr>
+														<td>{{ $hosp->Date_entree }}</td>
+														<td>{{ $hosp->Date_Prevu_Sortie }}</td>
+														<td>{{ $hosp->Date_Sortie == null ? 'Pas Encore' : $hosp->Date_Sortie }}</td>
+														<td></td>
+													</tr>
+												@endforeach
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div><!-- /#pictures -->
+>>>>>>> e3e729a4a9b624b67f91ea710e0b3d6887a5fe66
 				</div>
 			</div>
 		</div>

@@ -2,10 +2,7 @@
 @section('style')
         <style>
                 #listePatient {
-                       padding: 5px;
-                }
-                #select-containe {
-                  width: 400px;
+                      /*padding: 5px;*/
                 }
                 .option {
                   padding: 5px;
@@ -18,20 +15,20 @@
                   color: orange;
                   background: white;
                 }
-                .options {
-                  height: 100px;
-                  width: 190px;
-                  overflow: auto;
-                  padding: 0;
-                  margin: 0;
-                  display: absolute;
-          }
+        
+                .es-list {
+               
+                    max-height: 50px !important;
+                    width:250px;
+                     overflow:scroll;
+                     -webkit-overflow-scrolling: touch;
+                }
   </style>
 @endsection
 @section('page-script')
   {!! $planning->script() !!}
     <script>
-          function  showModal(id,title,date,idPatient,tel,age) {
+          function  showModal1(id,title,date,idPatient,tel,age) {
                 var CurrentDate = (new Date()).setHours(0, 0, 0, 0);
                 GivenDate = (new Date(date)).setHours(0, 0, 0, 0);;
                 if( CurrentDate <= GivenDate )
@@ -52,74 +49,67 @@
           }
           function envoie()
           {
-                $('form#updateRdv').submit();
+               $('form#updateRdv').submit();
           }
        </script>
 
-       <script>/*
-                $(function() {
-                              // $('#calendar-{{$planning->getId()}}').fullCalendar({
-                              selectable: true,
-                              header: {
-                              left: 'prev,next today',
-                              center: 'title',
-                              right: 'month,agendaWeek,agendaDay'
-                              },
-                              dayClick: function(date) {
-                              alert('clicked ' + date.format());
-                              },
-                              select: function(startDate, endDate) {
-                              alert('selected ' + startDate.format() + ' to ' + endDate.format());
-                              }
-                              });
+       <script>
+        // $(function() {
+        //              $('#calendar-{{$planning->getId()}}').fullCalendar({
+        //                       selectable: true,
+        //                       header: {left: 'prev,next today',
+        //                       center: 'title',
+        //                       right: 'month,agendaWeek,agendaDay'
+        //                       },
+        //                       dayClick: function(date) {
+        //                             alert('clicked ' + date.format());
+        //                       },
+        //                       select: function(startDate, endDate) {
+        //                        alert('selected ' + startDate.format() + ' to ' + endDate.format());
+        //                      }
+        //                    });
+        // });
+////////////// //<![CDATA[
+     $(document).ready(function(){
+                $('#listePatient').editableSelect({
+                      effects: 'slide', 
+                      editable: false,  
+                      // warpClass: 'ui-select-wrap',
+                });
+                $("#listePatient").on("keyup", function() {
+                      //to call ajax
+                      remoteSearch();    
+                });
+                $(".es-list").click(function(e) 
+                { 
+                });
 
-                });*/
-
-         //////////////
-
-      //<![CDATA[
-        $(document).ready(function(){
-          // $('#editable-select').editableSelect({
-                // // enable filter
-                // filter: true,
-                // // default, fade or slide
-                // effects: 'default',
-                // // fast, slow or [0-9]+
-                // duration: 'fast',
-                // // Where to append the dropdown list.
-                // appendTo: 'body',
-                // // "focus" or "manual"
-                // trigger: 'focus',
-                // // callback events
-                // onCreate: function () {},
-                // onShow: function () {},
-                // onHide: function () {},
-                // onSelect: function (element) {}
-          //         warpClass: 'ui-select-wrap',
-          //       editable: true
-          // });
-          $('#listePatient').editableSelect('hide');
-          $("#listePatient").on("keyup", function() {
-                //to call ajax
-                remoteSearch();
-                //or static search
-                // var v = this.value.replace(/\s+/g, " ").trim().toLowerCase();
-                  // if (v == "") return $(".option").hide();
-                  // $(".option").hide();
-                  // $(".option").each(function() {
-                  //         var t = $(this).text().toLowerCase();
-                  //   if (t.indexOf(v) > -1) $(this).show();
-          });
-      });
+     });
+     function showModal(date)
+     {
+                //var mydate = moment(date,'YYYY-MM-DD').toDate();
+                var mydate=  moment(date,'YYYY-MM-DD').toDate();
+                var CurrentDate = new Date();   CurrentDate.setHours(0);
+               CurrentDate.setMinutes(0); CurrentDate.setSeconds(0);
+               if (mydate >= CurrentDate  ) {
+                     var dd = mydate.getDate();             
+                     var mm = mydate.getMonth() + 1;
+                     var yyyy = mydate.getFullYear();     
+                     var ToDate = yyyy + '-' + mm + '-' +dd ;
+                     var startDate = new Date(yyyy, mm, dd);
+                     $('#date_RDV').datepicker("setDate",mydate);//new Date(yyyy,mm,dd)
+                     $("#fullCalModal").modal();
+                }
+     }
      function remoteSearch() {
             $.ajax({
-              // url: "data.php",
-                 url : '{{URL::to('getPatients')}}',
+                url : '{{URL::to('getPatients')}}',
                 data: {
                   "nom": $("#listePatient").val() //search box value
                 },
-                //dataType: "json", // recommended response type
+                dataType: "json", // recommended response type
                 success: function(data) {
+<<<<<<< HEAD
                     //data = ["name1","name2","name3"];
                    // $(".options").html(data); //remove list
                   //$("#listePatient").append(data);
@@ -128,13 +118,19 @@
                       //$(".options").append("<li class='option'>" + v + "</li>");
                     });
                     console.log(data);
+=======
+                   $(".es-list").html(""); //remove list
+                    $.each(data['data'], function(i, v) {
+                          $(".es-list").append($('<li></li>').attr('value', v['id']).attr('class','es-visible list-group-item option').text(v['code_barre']+" "+v['Nom']+" "+v['Prenom']));   
+                    }); 
+>>>>>>> dev_bouz
                 },
                 error: function() {
                   alert("can't connect to db");
                 }
             });
       }
-       </script>
+      </script>
 
  @endsection
 @section('main-content')
@@ -144,7 +140,7 @@
                    <div class="panel panel-default">
                    &nbsp;&nbsp;&nbsp;&nbsp; <div class="panel-heading" style="margin-top:-20px">
                     <div class="left"> <strong>Liste Des Rendez-Vous</strong></div>
-                    <div class="right" style ="margin-top:-25px"><a href="/choixpatient" class ="btn btn-sm btn-success" class="right"><i class="ace-icon  fa fa-plus-circle bigger-120"></i>&nbsp;Rendez-vous</a></div>
+                {{--     <div class="right" style ="margin-top:-25px"><a href="/choixpatient" class ="btn btn-sm btn-success" class="right"><i class="ace-icon  fa fa-plus-circle bigger-120"></i>&nbsp;Rendez-vous</a></div> --}}
                    
                    </div>
                   <div class="panel-body">
@@ -170,7 +166,7 @@
                      <i class="fa fa-phone" aria-hidden="true"></i>tel:&nbsp;<span id="patient_tel" class="blue"></span>
                 </div>
                 <div class="col-sm-6">
-                             Age:&nbsp;<span id="agePatient" class="blue"></span>
+                             Age:&nbsp;<span id="agePatient" class="blue"></span> <small>Ans</small>
                 </div>
               </div>
      </div>
@@ -184,11 +180,10 @@
                       <label for="date"><b>Date Rendez-Vous :</b></label>
                       <div class="input-group">
                           @if(App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role =="Receptioniste") 
-                                  <input class="form-control" id="daterdv" type="text" data-date-format="yyyy-mm-dd" desable readonly /><span class="input-group-addon"><i class="fa fa-calendar bigger-110"></i> 
+                                  <input class="form-control" id="daterdv" type="text" data-date-format="yyyy-mm-dd" desable readonly />
                            @else
                                <input class="form-control date-picker" id="daterdv" name="daterdv" type="text" data-date-format="yyyy-mm-dd" required 
-                                /><span class="input-group-addon"><i class="fa fa-calendar bigger-110"></i>    
-                          </span> 
+                                /><span class="input-group-addon"><i class="fa fa-calendar bigger-110"></i></span> 
                            @endif 
                      </div>
                 </div>
@@ -214,15 +209,17 @@
 <div id="fullCalModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
+            @if(App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role !="Receptioniste")  
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
                 <h4 id="modalTitle" class="modal-title">Ajouter Rendez-Vous</h4>
             </div>
-            <div id="modalBody" class="modal-body">
-                    @if(App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role !="Receptioniste") 
-                        <form id ="addRdv" role="form" action="" method="POST">
-                       {{ csrf_field() }}
+           <form id ="addRdv" role="form" action="/createRDV"method="POST">
+                {{ csrf_field() }}
+                <input type="text" id="date_RDV" name="date_RDV" data-date-format='yyyy-mm-dd' value="" style="display:none;">{{-- hidden --}}
+                <div id="modalBody" class="modal-body">
                       <div class="row">
+<<<<<<< HEAD
                               <label for="patient"><b>Selectioner le patient :</b></label>
                               <div class="input-group col-sm-6">
                                       {{-- <input class="form-control" id="patient" name="patient" type="text" required />     --}}
@@ -242,32 +239,25 @@
                                       </ul>
                                 </div>
                   
+=======
+                           <label for="patient"><b>Selectioner le patient :</b></label>
+                           <div class="input-group col-sm-6">
+                                <select id="listePatient" name ="listePatient" style="width:300px;" required></select>                        
+>>>>>>> dev_bouz
                            </div> 
-                   {{--         <div class="col-md-2">Descripcion:</div>
-                            <div class="col-md-3">
-                                   <select id ="search" title="0" contenteditable="true" class="form-control cbDescripcion">
-                                     
-                                   </select>
-                            </div>   --}} 
                       </div>
                       <div class="space-12"></div>
-                       <div class="row">
-                                <label for="dadaterdvte"><b>Date Rendez-Vous :</b></label>
-                                <div class="input-group col-sm-6">
-                                      <input class="form-control date-picker " id="daterdv" name="daterdv" type="text" data-date-format="yyyy-mm-dd" required 
-                                          /><span class="input-group-addon"><i class="fa fa-calendar bigger-110"></i>    
-                                    </span>    
-                               </div>
-                       </div>
-           </form> 
-           @else
-           @endif 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button class="btn btn-primary"><a id="eventUrl" target="_blank">Event Page</a></button>
-            </div>
+                </div>{{-- modalBody --}}
+                <div class="modal-footer">
+                      <button class="btn btn-primary" type="submit">Enregistrer
+                          {{--  <a id="EnregistrerRDV" target="" href="" onclick="EnregistrerRDV();">Enregistrer</a> --}}
+                      </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                 </div>
         </div>
+        </form> 
+           @else
+             @endif 
     </div>
 </div>
 @endsection

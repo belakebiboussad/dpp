@@ -46,4 +46,6 @@ class LoginControllerOrg extends Controller
            // Redirect::back();
            return Redirect::to('/login'); //redirect back to login
     }
+
+  
 }
