@@ -132,7 +132,6 @@ class RDVController extends Controller
     public function create(Request $request,$id_patient)
     {
            $patient = patient::FindOrFail($id_patient);
-           dd($patient)
            return view('rdv.create_rdv',compact('patient'));
     }
 
