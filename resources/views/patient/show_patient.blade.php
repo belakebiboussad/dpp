@@ -9,7 +9,7 @@
 		<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>
 			Liste Des Patients
 		</a>
-		<a href="{{route('patient.destroy',$patient->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-white btn-warning btn-bold"">
+		<a href="{{route('patient.destroy',$patient->id)}}" data-method="DELETE" data-confirm="Êtes Vous Sûr de Supprimer le Patient ?" class="btn btn-white btn-warning btn-bold"">
         		<i class="ace-icon fa fa-trash-o bigger-120 orange"> Supprimer</i>
         		</a>
        	 </div>

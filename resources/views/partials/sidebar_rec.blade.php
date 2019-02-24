@@ -98,12 +98,9 @@
 
                 <b class="arrow fa fa-angle-down"></b>
             </a>
-
             <b class="arrow"></b>
-
             <ul class="submenu">
-
-                <li class="">
+          {{--       <li class="">
                     <a href="/choixpatient">
                         <i class="menu-icon fa fa-caret-right"></i>
                         Ajouter RDV
@@ -111,11 +108,11 @@
 
                     <b class="arrow"></b>
                 </li>
-
+             --}}
                 <li class="">
                     <a href="{{ route('rdv.index') }}">
                         <i class="menu-icon fa fa-caret-right"></i>
-                        Liste RDV
+                        Liste RDVs
                     </a>
 
                     <b class="arrow"></b>

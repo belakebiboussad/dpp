@@ -1,5 +1,5 @@
 @extends('app')
-@section('title','Rechercher un ptient')
+@section('title','Rechercher un patient')
 @section('page-script')
 <script>
 $(document).ready(function(){
