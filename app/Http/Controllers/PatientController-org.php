@@ -592,30 +592,9 @@ public function getPatientsArray(Request $request)
 {
      if($request->ajax())  
      {
-<<<<<<< HEAD
-           /* 
-           $patients = patient::where('Nom','LIKE','%'.trim($request->nom)."%")->get();
-            // $liste = array();
-             $output="";
-            if($patients)
-            {        $i=0;
-                     foreach ($patients as $key => $patient) {
-                           // $liste[$i]=$patient->Nom;
-                           // $i++;
-                              $output.='<option value="'.$patient->id.'">'.$patient->code_barre.$patient->Nom.$patient->Prenom.'</option>';
-                      }
-            }
-           return $output;*/
-           patient::where('Nom','LIKE','%'.trim($request->nom)."%")->pluck('a')->toArray();
-           // return $request->nom;
-            // return Response($output);
-          // return response()->json(json_encode($liste));
- 
-=======
-         
             $patients = patient::where('Nom','LIKE','%'.trim($request->nom)."%")->select('patients.id','patients.Nom','patients.code_barre','patients.Prenom')->get();
              return ['success' => true, 'data' => $patients]; 
->>>>>>> 9e7972688438c4ccf38815394390e30d39afed57
+
     }
 }
 public function search(Request $request)
@@ -771,7 +750,7 @@ public function search(Request $request)
           // return redirect()->route('patient.index')->with('success','Item created successfully!');
        
           //Flashy::info('le merge est fait', 'http://your-awesome-link.com');
-         Flashy::success('merge est fait avec succè');
+           Flashy::success('merge est fait avec succè');
             Return View::make('patient.index_patient');
      }
 }
