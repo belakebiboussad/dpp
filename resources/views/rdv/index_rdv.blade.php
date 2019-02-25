@@ -102,7 +102,7 @@
                 }
      }
      function remoteSearch() {
-                $.ajax({
+            $.ajax({
                 url : '{{URL::to('getPatients')}}',
                 data: {
                   "nom": $("#listePatient").val() //search box value
@@ -208,31 +208,9 @@
                 <input type="text" id="date_RDV" name="date_RDV" data-date-format='yyyy-mm-dd' value="" style="display:none;">{{-- hidden --}}
                 <div id="modalBody" class="modal-body">
                       <div class="row">
-<<<<<<< HEAD
-                              <label for="patient"><b>Selectioner le patient :</b></label>
-                              <div class="input-group col-sm-6">
-                                      {{-- <input class="form-control" id="patient" name="patient" type="text" required />     --}}
-                               {{--       <select class=" col-sm-12 combobox optional overall classes" id="patient" name="patient" 
-                                            data-btn-class="option toggle classes" required>
-                                                  <option value="">Choisir un Patient...</option>
-                                     </select> --}}
-                               {{--  <select id="listePatient" name ="listePatient" style="width:300px;">     
-                                </select>    --}}
-
-
-                          {{-- marche bien --}}
-                                <div id='select-container'>
-                                      <input id='listePatient' style="width:300px;" placeholder='chercher le patient...' />
-                                      <ul class='options'>
-                                           
-                                      </ul>
-                                </div>
-                  
-=======
                            <label for="patient"><b>Selectioner le patient :</b></label>
                            <div class="input-group col-sm-6">
                                 <select id="listePatient" name ="listePatient" style="width:300px;" required></select>                        
->>>>>>> dev_bouz
                            </div> 
                       </div>
                       <div class="space-12"></div>
