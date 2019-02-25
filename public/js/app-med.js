@@ -218,14 +218,8 @@
        	}	
        	function checkFormAddPAtient()
        	{
-<<<<<<< HEAD
-       		
-       	             InverserUl();	
-       	            var nomf = $('#nomf').val();
-=======
-       	          InverserUl();	
-       	    var nomf = $('#nomf').val();
->>>>>>> e3e729a4a9b624b67f91ea710e0b3d6887a5fe66
+       	           InverserUl();	
+       	           var nomf = $('#nomf').val();
        		var prenomf = $('#prenomf').val();
        		var NMGSN = $('#NMGSN').val();
        		var nss = $('#nss').val();

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 @extends('app')
 @section('page-script')
 	<script>
@@ -67,17 +66,9 @@
 	<h1 style="display: inline;"><strong>modification Du Patient :</strong> {{ $patient->Nom }} {{ $patient->Prenom }}</h1>
 	<div class="pull-right">
 		<a href="{{route('patient.index')}}" class="btn btn-white btn-info btn-bold">
-=======
-@extends('app_recep')
-@section('main-content')
-	<div class="page-header">
-		<h1 style="display: inline;"><strong>modification Du Patient :</strong> {{ $patient->Nom }} {{ $patient->Prenom }}</h1>
-		<div class="pull-right">
-			<a href="{{route('patient.index')}}" class="btn btn-white btn-info btn-bold">
->>>>>>> e3e729a4a9b624b67f91ea710e0b3d6887a5fe66
-				<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>
+			<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>
 				Retour a La Liste Des Patients
-			</a>
+		</a>
 	</div>
 </div>
 <form class="form-horizontal" action="{{ route('patient.update',$patient ->id) }}" method="POST">
@@ -439,8 +430,8 @@
 			                         </div>
                     				</div>
              			</div>
-           				</div>
-           				<div class="col-sm-6">
+           			</div>
+           			<div class="col-sm-6">
 					<div class="form-group">
 						<label class="col-sm-3 control-label " for="grade">
 							<strong>Grade :</strong>
@@ -463,8 +454,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			{{-- row --}}
+			</div>{{-- row --}}
 			<div class="space-12"></div>		
 			<div class="row">
 				<div class="col-sm-6" id="statut">
@@ -539,36 +529,22 @@
 					</div>
 					<br><br>
 				</div>
-<<<<<<< HEAD
-				
-			</div>{{-- row --}}
-			
-		</div>{{-- assurePart --}}
-	      	</div> {{-- tab-pane --}}
-	</div> {{-- tab-content --}}
-	<div class="hr hr-dotted"></div>
-	<div class="row">
-		<div class="center">
-=======
-			</div>
-		</div>
-	{{-- 	@endif --}}
+			</div>	{{-- row --}}
+		</div>	{{-- 	@endif --}}
 	</div>
-
 {{-- homme de confiance --}}
 	<div class="row">
-			<div class="col-sm-12">				
-				<h3 class="header smaller lighter blue">
-					Informations de l'homme de confiance
-					&nbsp;&nbsp;&nbsp;
-					 <a class="orange" href="#" id="edit_hc" ><i class="glyphicon glyphicon-pencil"></i></a>&nbsp;&nbsp;
-					 <a class="green" href="#" id="add_hc"><i class="glyphicon glyphicon-plus-sign"></i></a>
-				</h3>
-
-			</div>
+		<div class="col-sm-12">				
+			<h3 class="header smaller lighter blue">
+				Informations de l'homme de confiance
+				&nbsp;&nbsp;&nbsp;
+				 <a class="orange" href="#" id="edit_hc" ><i class="glyphicon glyphicon-pencil"></i></a>&nbsp;&nbsp;
+				 <a class="green" href="#" id="add_hc"><i class="glyphicon glyphicon-plus-sign"></i></a>
+			</h3>
 		</div>
-		<div id ="Homme_cInputs">
-		<div class="row">
+	</div>
+	<div id ="Homme_cInputs">
+	<div class="row">
 		<div class="col-sm-6">
 			<div class="form-group ">
 				<label class="col-sm-3 control-label no-padding-right" for="nom_h">
@@ -591,8 +567,8 @@
 				</div>
 			</div>
 		</div>
-		</div>
-		<div class="row">
+	</div>
+	<div class="row">
 		<div class="col-sm-6">
 			<div class="form-group ">
 				<label class="col-sm-3 control-label no-padding-right" for="datenaissance_h">
@@ -622,9 +598,8 @@
 				</div>
 			</div>
 		</div>		
-		
-		</div>
-		<div class="row">
+	</div>
+	<div class="row">
 		<div class="col-sm-12">
 			<div class="form-group">
 				<label class="col-sm-3 control-label no-padding-right" for="type_piece">
@@ -648,19 +623,19 @@
 				</div>
 			</div>
 		</div>
-		</div>
-		<div class="row">	
-			<div class="col-sm-6">
-				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="sf">
-						<b>N° de la pièce: </b>
-					</label>
-					<div class="col-sm-9">
+	</div>
+	<div class="row">	
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="sf">
+					<b>N° de la pièce: </b>
+				</label>
+				<div class="col-sm-9">
 					<input type="text" id="num_piece" name="num_piece" value="{{ $homme_c->num_piece }}" placeholder="N° pièce..." class="col-xs-12 col-sm-6" readonly/>
 				</div>
-				</div>
 			</div>
-			<div class="col-sm-6">
+		</div>
+		<div class="col-sm-6">
 			<div class="form-group ">
 				<label class="col-sm-3 control-label no-padding-right" for="date_piece_id">
 					<b class="text-nowrap">Délivré le :</b>
@@ -670,44 +645,40 @@
 				</div>
 			</div>
 		</div>
-	
-		</div>
-		<div class="row">
-			<div class="col-sm-12">
-				<h3 class="header smaller lighter blue">
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<h3 class="header smaller lighter blue">
 					Informations Contact
-				</h3>
-			</div>
+			</h3>
 		</div>
-		<div class="row">
-			<div class="col-sm-6">
-				<div>
-					<i class="fa fa-map-marker light-orange bigger-110"></i>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div>
+				<i class="fa fa-map-marker light-orange bigger-110"></i>
 					<label for="adresse"><b>Adresse :</b></label>
 					<textarea class="form-control" id="adresse_h" name="adresse_h" placeholder="Adresse..." readonly>
 						{{ $homme_c->adresse }}
 					</textarea>
-				</div>
 			</div>
-			<div class="col-sm-3">
-				<div class="form-group">
-					<i class="fa fa-phone"></i>
-					<label for="mobile_h"><b>Tél-mob : </b></label>
-					<br/>
-					<input type="tel" id="mobile_h" name="mobile_h" value="{{$homme_c->mob}}" placeholder="XX XX XX XX XX" autocomplete="off" maxlength="10" minlength="10"  pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"  readonly>
-					<span class="tel validity"></span>
-				</div>
-			</div>			
 		</div>
+		<div class="col-sm-3">
+			<div class="form-group">
+				<i class="fa fa-phone"></i>
+				<label for="mobile_h"><b>Tél-mob : </b></label>
+				<br/>
+				<input type="tel" id="mobile_h" name="mobile_h" value="{{$homme_c->mob}}" placeholder="XX XX XX XX XX" autocomplete="off" maxlength="10" minlength="10"  pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"  readonly>
+					<span class="tel validity"></span>
+			</div>
+		</div>			
 	</div>
-
+</div>
 {{-- fin info homme de confiance --}}		
 {{-- ///////////////////////// --}}
-		{{--  @endif  ancien fin foncform --}}
-		
-		<div class="hr hr-dotted"></div>
+	{{--  @endif  ancien fin foncform --}}
+	<div class="hr hr-dotted"></div>
 		<div class="col-sm-12 center">
->>>>>>> e3e729a4a9b624b67f91ea710e0b3d6887a5fe66
 			<br>
 			<button class="btn btn-info" type="submit">
 				<i class="ace-icon fa fa-save bigger-110"></i>
@@ -718,10 +689,6 @@
 				Réinitialiser
 			</button>
 		</div>
-<<<<<<< HEAD
-	</div>	
-@endsection
-=======
 	</form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -769,5 +736,6 @@ $('#etat_h').val('archivé');
 
 return false;
 });
-</script>@endsection
+</script>
+@endsection
 >>>>>>> e3e729a4a9b624b67f91ea710e0b3d6887a5fe66
