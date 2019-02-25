@@ -33,8 +33,8 @@ class PatientController extends Controller
     }
     public function index()
     {
-        //$patients = patient::all(); // return view('patient.index_patient', compact('patients'));
-      return view('patient.index_patient');
+          //$patients = patient::all(); // return view('patient.index_patient', compact('patients'));
+          return view('patient.index_patient');
     }
 
     /**
@@ -185,12 +185,8 @@ class PatientController extends Controller
      */
     public function edit($id)
     {
-
           $patient = patient::FindOrFail($id);
-          /////////
-
-          /////////////////////////
-          if($patient->Type != "Autre")
+           if($patient->Type != "Autre")
                 $assure =  assur::FindOrFail($patient->Assurs_ID_Assure); 
            else
                   $assure = new assur;
@@ -720,11 +716,8 @@ public function search(Request $request)
                 "NSS"=> $request->nss,    
                 "Date_creation"=>$request->date,  
            ]);
-         
            //desactiver patient 2
-
            $patient2->active=0;$patient2->save(); 
-
            return redirect()->route('patient.index');
     }
 }
