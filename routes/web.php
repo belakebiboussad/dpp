@@ -185,6 +185,7 @@ Route::get("flash","HomeController@flash");
 route::get('/home_reception',function (){
     return view('home.home_recep');
 })->name('home_rec');
+
 // Route::get('/pdf', function () {
 //     return view('pdf');
 // });
