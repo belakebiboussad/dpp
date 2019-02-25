@@ -120,6 +120,7 @@ function KeepCount() {
 	var n = $("input:checked").length;
 	if(n >= 2){
 		$('.check:not(:checked)').attr('disabled','disabled');
+		 $('#FusionButton').removeClass('invisible');
 		$.each( $("input:checked"), function( key, value ) {
   			values.push($(this).val());
   			$(this).parent().parent().css('background-color','#dd9900');
@@ -127,6 +128,7 @@ function KeepCount() {
 	}else
 	{
 		$( "input:not(:checked)").removeAttr("disabled");
+		 $('#FusionButton').addClass('invisible');
 		$.each( $("input:unchecked"), function( key, value ) {
 			$(this).parent().parent().css('background-color','#ffffff');
 		});
@@ -208,7 +210,7 @@ function setField(field,value)
 		   		<button type="submit" class="btn-sm btn-primary" onclick="XHRgePatient();"><i class="fa fa-search"></i>&nbsp;Rechercher
 				</button>
 				<div class="pull-right">
-					<button type="button" class="btn btn-danger btn-sm hidden" id="FusionButton"  onclick ="doMerge();"data-toggle="modal" data-target="#mergeModal"  data-backdrop="false"><i class="fa fa-angle-right fa-lg"></i><i class="fa fa-angle-left fa-lg"></i>&nbsp;Fusion
+					<button type="button" class="btn btn-danger btn-sm hidden invisible" id="FusionButton"  onclick ="doMerge();"data-toggle="modal" data-target="#mergeModal" data-backdrop="false" hidden><i class="fa fa-angle-right fa-lg"></i><i class="fa fa-angle-left fa-lg"></i>&nbsp;Fusion
 					</button>
 					<a  class="btn btn-primary btn-sm hidden" href="patient/create" id=btnCreate role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>
 				</div>

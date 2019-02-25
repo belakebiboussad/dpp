@@ -109,7 +109,7 @@
                   @if(App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role =="Medecine")
                   <a  href="/consultations/create/{{ $patient->id }}" class="btn btn-sm btn-primary btn-create"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Consultation</a>
                   @endif
-                 &nbsp;&nbsp;&nbsp;&nbsp;<a href="rdv/create/{{ $patient->id }}" class="btn btn-sm btn-primary btn-create"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Rendez-Vous</a>
+            {{--      &nbsp;&nbsp;&nbsp;&nbsp;<a href="rdv/create/{{ $patient->id }}" class="btn btn-sm btn-primary btn-create"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Rendez-Vous</a> --}}
             </div>
              
            
