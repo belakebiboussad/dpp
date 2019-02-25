@@ -34,8 +34,7 @@ class PatientController extends Controller
     }
     public function index()
     {
-        $patients = patient::all();
-        return view('patient.index_patient', compact('patients'));
+         return view('patient.index_patient');
     }
 
     /**
@@ -189,8 +188,7 @@ class PatientController extends Controller
      */
     public function edit($id)
     {
-
-          $patient = patient::FindOrFail($id);
+         $patient = patient::FindOrFail($id);
           if($patient->Type != "Autre")
                  //chercher l'assurée
                   $assure =  assur::FindOrFail($patient->Assurs_ID_Assure); 
@@ -748,9 +746,12 @@ public function search(Request $request)
            //desactiver patient 2
            $patient2->active=0;$patient2->save();  
           // return redirect()->route('patient.index')->with('success','Item created successfully!');
-       
-          //Flashy::info('le merge est fait', 'http://your-awesome-link.com');
-         Flashy::success('merge est fait avec succè');
-            Return View::make('patient.index_patient');
+           //Flashy::info('le merge est fait', 'http://your-awesome-link.com');
+           Flashy::success('merge est fait avec succè');
+           Return View::make('patient.index_patient');
+           //return redirect()->route('patient.index');
      }
+
+         
+
 }

@@ -34,8 +34,7 @@ class PatientController extends Controller
     }
     public function index()
     {
-        $patients = patient::all();
-        return view('patient.index_patient', compact('patients'));
+           return view('patient.index_patient');
     }
 
     /**
@@ -56,10 +55,8 @@ class PatientController extends Controller
      */
     public function store(Request $request)
     {
-           //dd($request->etatf); 
           static $assurObj;
           $date = Date::Now();
-          //dd($request->all());
           $rule = array(
                   "nom" => 'required',
                   "prenom" => 'required',
@@ -168,17 +165,16 @@ class PatientController extends Controller
      */
     public function show($id)
     {   
-        $patient = patient::FindOrFail($id);
-        $consultations = consultation::where('Patient_ID_Patient',$patient->id)->get();
-        $hospitalisations = consultation::join('patients','consultations.Patient_ID_Patient','=','patients.id')
-                                        ->where('patients.id','=',$patient->id)
-                                        ->join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
-                                        ->join('hospitalisations','demandehospitalisations.id','=','hospitalisations.id_demande')
-                                        ->select('hospitalisations.id','hospitalisations.Date_entree','hospitalisations.Date_entree','hospitalisations.Date_Prevu_Sortie','hospitalisations.Date_Sortie','hospitalisations.id_demande')
-                                        ->get();
-        //dd($hospitalisations);
-        $rdvs = rdv::all();
-        return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations'));
+          $patient = patient::FindOrFail($id);
+          $consultations = consultation::where('Patient_ID_Patient',$patient->id)->get();
+          $hospitalisations = consultation::join('patients','consultations.Patient_ID_Patient','=','patients.id')
+                                          ->where('patients.id','=',$patient->id)
+                                          ->join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
+                                          ->join('hospitalisations','demandehospitalisations.id','=','hospitalisations.id_demande')
+                                          ->select('hospitalisations.id','hospitalisations.Date_entree','hospitalisations.Date_entree','hospitalisations.Date_Prevu_Sortie','hospitalisations.Date_Sortie','hospitalisations.id_demande')
+                                          ->get();
+          $rdvs = rdv::all();
+          return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations'));
     }
 
     /**
@@ -189,7 +185,6 @@ class PatientController extends Controller
      */
     public function edit($id)
     {
-
           $patient = patient::FindOrFail($id);
           if($patient->Type != "Autre")
                  //chercher l'assurée
@@ -747,8 +742,7 @@ public function search(Request $request)
            ]);   
            //desactiver patient 2
            $patient2->active=0;$patient2->save();  
-          // return redirect()->route('patient.index')->with('success','Item created successfully!');
-       
+          // return redirect()->route('patient.index')->with('success','Item created successfully!');      
           //Flashy::info('le merge est fait', 'http://your-awesome-link.com');
            Flashy::success('merge est fait avec succè');
             Return View::make('patient.index_patient');
