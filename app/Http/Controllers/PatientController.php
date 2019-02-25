@@ -679,7 +679,6 @@ public function search(Request $request)
      }
      public function merge(Request $request)
      {
-          /*
           $patient1=patient::FindOrFail($request->patient1_id);
           $patient2=patient::FindOrFail($request->patient2_id);
            //chargement des consultation du patient2 
@@ -724,7 +723,7 @@ public function search(Request $request)
          
            //desactiver patient 2
 
-           $patient2->active=0;$patient2->save();  */
+           $patient2->active=0;$patient2->save(); 
 
            return redirect()->route('patient.index');
     }

@@ -130,7 +130,6 @@
                    &nbsp;&nbsp;&nbsp;&nbsp; <div class="panel-heading" style="margin-top:-20px">
                     <div class="left"> <strong>Liste Des Rendez-Vous</strong></div>
                 {{--     <div class="right" style ="margin-top:-25px"><a href="/choixpatient" class ="btn btn-sm btn-success" class="right"><i class="ace-icon  fa fa-plus-circle bigger-120"></i>&nbsp;Rendez-vous</a></div> --}}
-                   
                    </div>
                   <div class="panel-body">
                             {!! $planning->calendar() !!}
