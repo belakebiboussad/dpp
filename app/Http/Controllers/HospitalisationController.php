@@ -20,14 +20,12 @@ class HospitalisationController extends Controller
      */
     public function index()
     {
-
-         $hospitalisations = consultation::join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
+          $hospitalisations = consultation::join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
                                                         ->join('hospitalisations','hospitalisations.id_demande','=','demandehospitalisations.id')
                                                         ->select('demandehospitalisations.*','hospitalisations.*','consultations.Employe_ID_Employe','Patient_ID_Patient')
                                                         ->get();
-        return view('Hospitalisations.index_hospitalisation', compact('hospitalisations'));  
+           return view('Hospitalisations.index_hospitalisation', compact('hospitalisations'));  
     }
-
     /**
      * Show the form for creating a new resource.
      *

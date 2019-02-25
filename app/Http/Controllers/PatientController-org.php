@@ -32,7 +32,7 @@ class PatientController extends Controller
        $rdvs = rdv::where("Patient_ID_Patient",$id_patient)->get()->all(); 
        return view('patient.liste_rdv_pat',compact('patient','rdvs'));
     }
-    public function index1()
+    public function index()
     {
            return view('patient.index_patient');
     }
