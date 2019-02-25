@@ -149,7 +149,7 @@
 									<span>{{ $patient->tele_mobile2 }}</span>
 								</div>
 							</div>
-						@endif
+						{{-- @endif --}}
 					</div><!-- /.col -->
 					</div><!-- /.row -->
 						<div class="space-20"></div>

@@ -28,8 +28,8 @@ class HommeConfs extends Migration
             $table->string('adresse');
             $table->string('mob',10);
             $table->enum('etat_hc', ['actuel', 'archivé'])->default('actuel');
-            $table->integer('updated_by',11);
-            $table->integer('created_by',11);
+            // $table->integer('updated_by',11);
+            // $table->integer('created_by',11);
             $table->timestamps(); 
 
         });
