@@ -176,9 +176,9 @@ class PatientController extends Controller
                       "created_by"=>Auth::user()->employee_id,
                 ]);
                 //////////
-           $consultations=array();
-           $rdvs=array();
-           $hospitalisations = array();
+           // $consultations=array();
+           // $rdvs=array();
+           // $hospitalisations = array();
            Flashy::success('Patient créer avec succés!');
           // return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations'));
            return redirect(Route('patient.show',$patient->id));
@@ -216,6 +216,7 @@ class PatientController extends Controller
     public function edit($id)
     {
           $patient = patient::FindOrFail($id);
+          $homme_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get()->first();
           if($patient->Type != "Autre")
                  //chercher l'assurée
                   $assure =  assur::FindOrFail($patient->Assurs_ID_Assure); 
