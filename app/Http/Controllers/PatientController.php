@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use DB;
 use App\modeles\patient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Jenssegers\Date\Date;
 use App\modeles\assur;
 use App\modeles\rdv;
@@ -12,6 +13,7 @@ use App\modeles\examenbiologique;
 use App\modeles\DemandeHospitalisation;
 use App\modeles\hospitalisation;
 use App\Utils\ArrayClass;
+use App\modeles\homme_conf;
 use Validator;
 use Redirect;
 use MessageBag;
@@ -55,10 +57,8 @@ class PatientController extends Controller
      */
     public function store(Request $request)
     {
-           //dd($request->etatf); 
-          static $assurObj;
+         static $assurObj;
           $date = Date::Now();
-          //dd($request->all());
           $rule = array(
                   "nom" => 'required',
                   "prenom" => 'required',
@@ -72,7 +72,17 @@ class PatientController extends Controller
                   // "datenaissancef"=> 'required_if:type,Ayant_droit|date|date_format:Y-m-d',
                    "lieunaissancef"=> 'required_if:type,Ayant_droit',
                   "NMGSN"=> 'required_if:type,Ayant_droit',
-                //  
+                 //  homme de confrnace
+                  /**********************************************/
+                  "prenomA"=>'required_with:nom_homme_c',
+                  "datenaissance_h_c"=>'required_with:nom_homme_c',
+                  "adresseA"=>'required_with:nom_homme_c',
+                  "type_piece_id"=>'required_with:nom_homme_c', 
+                  "npiece_id"=>'required_with:nom_homme_c', 
+                  "lien"=>'required_with:nom_homme_c',
+                  "date_piece_id"=>'required_with:nom_homme_c',
+                  "mobileA"=>['required_with:nom_homme_c', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],
+                  "operateur_h"=>'required_with:mobileA',
            );
            $messages = [
                      "required"         => "Le champ :attribute est obligatoire.",
@@ -148,14 +158,29 @@ class PatientController extends Controller
                 "description"=> $request->description,
                 "NSS"=>$request->nsspatient,
                 "Date_creation"=>$date,
-            ]);
-           //dd($patient);
-             $consultations=array();
-             $rdvs=array();
-             $hospitalisations = array();
-             Flashy::success('Patient créer avec succés!');
-             // return  view('patient.show_patient','patient','consultations','rdvs','hospitalisations');
-             return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations'));
+          ]);
+           /*insert homme_c*/
+          if( $request->nom_homme_c!="") 
+                $homme = homme_conf::firstOrCreate([
+                      "id_patient"=>$patient->id,
+                      "nom"=>$request->nom_homme_c,
+                      "prénom"=>$request->prenomA, 
+                      "date_naiss"=>$request->datenaissance_h_c,
+                      "lien_par"=>$request->lien,
+                      "type_piece"=>$request->type_piece_id,
+                      "num_piece"=>$request->npiece_id,
+                      "date_deliv"=>$request->date_piece_id,
+                      "adresse"=>$request->adresseA,
+                      "mob"=>$request->operateur_h.$request->mobileA,
+                      "created_by"=>Auth::user()->employee_id,
+                ]);
+                //////////
+           $consultations=array();
+           $rdvs=array();
+           $hospitalisations = array();
+           Flashy::success('Patient créer avec succés!');
+           // return  view('patient.show_patient','patient','consultations','rdvs','hospitalisations');
+           return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations'));
              //return redirect(Route('patient.show',$patient->id,true));
     }
 
