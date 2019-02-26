@@ -11,7 +11,6 @@
                $(this).removeAttr('disabled');
             });
       });
-
       $(function() {
            // Get the form fields and hidden div
            var checkbox = $("#isOriented");
@@ -22,16 +21,11 @@
                 if (checkbox.is(':checked')) {
                      // Show the hidden fields.
                      hidden.show();
-                     // Populate the input.
-                     // populate.val("Dude, this input got populated!");
+ 
                     } else {
-                          // Make sure that the hidden fields are indeed
-                          // hidden.
-                          hidden.hide();
-                          // This would do the job:
-            //
-            $("#lettreorientaioncontent").val("");
-            }
+                                hidden.hide();
+                                $("#lettreorientaioncontent").val("");
+                      }
             })
       }); 
       $(".two-decimals").change(function(){
