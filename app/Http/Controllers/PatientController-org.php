@@ -180,9 +180,10 @@ class PatientController extends Controller
            $rdvs=array();
            $hospitalisations = array();
            Flashy::success('Patient créer avec succés!');
-           // return  view('patient.show_patient','patient','consultations','rdvs','hospitalisations');
-           return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations'));
+          // return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations'));
+           return redirect(Route('patient.show',$patient->id));
              //return redirect(Route('patient.show',$patient->id,true));
+
     }
 
     /**
@@ -195,7 +196,7 @@ class PatientController extends Controller
     {   
           $patient = patient::FindOrFail($id);
           $homme_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get()->first();
-          $consultations = consultation::where('Patient_ID_Patient',$patient->id)->get();
+          $consultations = consultation::where('Patient_ID_Patient',$patient->id)->get(); 
           $hospitalisations = consultation::join('patients','consultations.Patient_ID_Patient','=','patients.id')
                                           ->where('patients.id','=',$patient->id)
                                           ->join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
@@ -203,9 +204,8 @@ class PatientController extends Controller
                                           ->select('hospitalisations.id','hospitalisations.Date_entree','hospitalisations.Date_entree','hospitalisations.Date_Prevu_Sortie','hospitalisations.Date_Sortie','hospitalisations.id_demande')
                                           ->get();
           $rdvs = rdv::all();
-         // return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations'));
-          return redirect(Route('patient.show',$patient->id));
-    }
+          return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations','homme_c'));
+      }
 
     /**
      * Show the form for editing the specified resource.
