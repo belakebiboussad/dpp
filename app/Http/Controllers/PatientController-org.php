@@ -81,9 +81,10 @@ class PatientController extends Controller
                      "npiece_id"=>'required_with:nom_homme_c', 
                      "lien"=>'required_with:nom_homme_c',
                      "date_piece_id"=>'required_with:nom_homme_c',
-                     "mobile_homme_c"=>['required_with:nom_homme_c', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],
+                     "mobile_homme_c"=>['required_with:nom_homme_c'],
                      "operateur_h"=>'required_with:mobileA',
            );
+           // , 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'
            $messages = [
                      "required"         => "Le champ :attribute est obligatoire.",
                       "NSSValide"    => 'le numéro du securite sociale est invalide ',
@@ -160,7 +161,6 @@ class PatientController extends Controller
                 "Date_creation"=>$date,
           ]);
            /*insert homme_c*/
-         //  $employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
            if( $request->nom_homme_c!="") 
                 $homme = homme_conf::firstOrCreate([
                       "id_patient"=>$patient->id,
@@ -172,7 +172,7 @@ class PatientController extends Controller
                       "num_piece"=>$request->npiece_id,
                       "date_deliv"=>$request->date_piece_id,
                       "adresse"=>$request->adresseA,
-                      "mob"=>$request->operateur_h.$request->mobileA,
+                      "mob"=>$request->operateur_h.$request->mobile_homme_c,
                       "created_by"=>Auth::user()->employee_id,
                 ]);
                 //////////
@@ -217,7 +217,7 @@ class PatientController extends Controller
     {
           $patient = patient::FindOrFail($id);
           $homme_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get()->first();
-          //dd($homme_c);
+        // dd($homme_c);
           if($patient->Type != "Autre")
                  //chercher l'assurée
                   $assure =  assur::FindOrFail($patient->Assurs_ID_Assure); 
@@ -234,15 +234,15 @@ class PatientController extends Controller
      * @param  \App\modeles\patient  $patient
      * @return \Illuminate\Http\Response
      */
-   public function update(Request $request,$id)
+public function update(Request $request,$id)
 {
-              $date = Date::Now();
-              static $assurObj;
-              $patient = patient::FindOrFail($id);
-               switch ($patient->Type) {
-                          case 'Assure':
-                                        switch ($request->type) {
-                                                    case 'Assure':
+           $date = Date::Now();
+           static $assurObj;
+           $patient = patient::FindOrFail($id);
+                switch ($patient->Type) {
+                           case 'Assure':
+                                           switch ($request->type) {
+                                                     case 'Assure':
                                                                $assure = assur::FindOrFail($patient->Assurs_ID_Assure);
                                                                  $assure->update([
                                                                             "Nom"=>$request->nom,
@@ -330,17 +330,16 @@ class PatientController extends Controller
                                                                             "Date_creation"=>$date,  
                                                                  ]);
                                                                 break;             
-                                                    default:
+                                                     default:
                                                                 # code...
                                                                 break;
-                                        }             
-                                      // dd($p);
-                                       break;
+                                           }             
+                                           break;
                            case 'Ayant_droit':
-                                        switch ($request->type) {
-                                                    case 'Assure':
-                                                                   $assure = new assur;
-                                                                  $assurObj =  $assure->firstOrCreate([
+                                           switch ($request->type) {
+                                                     case 'Assure':
+                                                                $assure = new assur;
+                                                                $assurObj =  $assure->firstOrCreate([
                                                                               "Nom"=>$request->nom,
                                                                                "Prenom"=>$request->prenom,
                                                                               "Date_Naissance"=>$request->datenaissance,
@@ -372,7 +371,7 @@ class PatientController extends Controller
                                                                               "Date_creation"=>$date,  
                                                                  ]);
                                                                 break;
-                                                    case 'Ayant_droit':
+                                                     case 'Ayant_droit':
                                                                 # code...           
                                                                  $assure = assur::FindOrFail($patient->Assurs_ID_Assure);
                                                                  $assure->update([
@@ -406,7 +405,7 @@ class PatientController extends Controller
                                                                               "Date_creation"=>$date,  
                                                                  ]);
                                                                 break;
-                                                    case 'Autre':
+                                                     case 'Autre':
                                                                 $patient -> update([
                                                                              "Nom"=>$request->nom,
                                                                              "Prenom"=>$request->prenom,
@@ -426,28 +425,28 @@ class PatientController extends Controller
                                                                                             "Date_creation"=>$date,  
                                                                                ]);
                                                                         break;             
-                                                    default:
+                                                     default:
                                                                 # code...
                                                                 break;
                                         }
                                         break;
-                            case 'Autre':
-                                        switch ($request->type) {
-                                                    case 'Assure':
-                                                                   $assure = new assur;
-                                                                  $assurObj =  $assure->firstOrCreate([
-                                                                              "Nom"=>$request->nom,
-                                                                               "Prenom"=>$request->prenom,
-                                                                              "Date_Naissance"=>$request->datenaissance,
-                                                                               "lieunaissance"=>$request->lieunaissance,
-                                                                              "Sexe"=>$request->sexe,
-                                                                              "Matricule"=>$request->matf, 
-                                                                              "Etat"=>$request->etat,
-                                                                              "Grade"=>$request->grade,
-                                                                              "NMGSN"=>$request->NMGSN,
-                                                                              "NSS"=>$request->nss,
-                                                                  ]);
-                                                                 $patient -> update([
+                           case 'Autre':
+                                           switch ($request->type) {
+                                                     case 'Assure':
+                                                                    $assure = new assur;
+                                                                     $assurObj =  $assure->firstOrCreate([
+                                                                                "Nom"=>$request->nom,
+                                                                                 "Prenom"=>$request->prenom,
+                                                                                "Date_Naissance"=>$request->datenaissance,
+                                                                                 "lieunaissance"=>$request->lieunaissance,
+                                                                                "Sexe"=>$request->sexe,
+                                                                                "Matricule"=>$request->matf, 
+                                                                                "Etat"=>$request->etat,
+                                                                                "Grade"=>$request->grade,
+                                                                                "NMGSN"=>$request->NMGSN,
+                                                                                "NSS"=>$request->nss,
+                                                                      ]);
+                                                                     $patient -> update([
                                                                             "Nom"=>$request->nom,
                                                                             "Prenom"=>$request->prenom,
                                                                             "Dat_Naissance"=>$request->datenaissance,
@@ -464,8 +463,8 @@ class PatientController extends Controller
                                                                              "Type_p"=>null,
                                                                               "description"=>"", 
                                                                               "Date_creation"=>$date,  
-                                                                 ]);
-                                                                break;
+                                                                     ]);
+                                                                     break;
                                                      case'Ayant_droit':
                                                                   $assure = new assur;
                                                                   $assurObj =  $assure->firstOrCreate([
@@ -500,8 +499,8 @@ class PatientController extends Controller
                                                                                "NSS"=> $request->nsspatient,    
                                                                               "Date_creation"=>$date,  
                                                                  ]);      
-                                                    case 'Autre':
-                                                                 $patient -> update([
+                                                     case 'Autre':
+                                                                     $patient -> update([
                                                                              "Nom"=>$request->nom,
                                                                              "Prenom"=>$request->prenom,
                                                                               "Dat_Naissance"=>$request->datenaissance,
@@ -528,10 +527,68 @@ class PatientController extends Controller
                            default:
                                       # code...
                                         break;
-             }    
-             // Flashy::primary('Patient modifié avec succés!');
-            flashy('Some message', 'http://your-awesome-link.com');
-            return redirect(Route('patient.show',$patient->id));
+           }
+
+           /******************************/
+           //(!is_null($h))            
+           if ((isset($request->id_h))) {
+                $h=homme_conf::FindOrFail($request->id_h); 
+                if(($request->etat_h=="actuel")) {
+                      $h-> update([
+                            "id_patient"=>$patient->id,
+                            "nom"=>$request->nom_h,
+                            "prénom"=>$request->prenom_h, 
+                            "date_naiss"=>$request->datenaissance_h,
+                            "lien_par"=>$request->lien_par,
+                            "type_piece"=>$request->type_piece,
+                            "num_piece"=>$request->num_piece,
+                            "date_deliv"=>$request->date_piece_id,
+                            "adresse"=>$request->adresse_h,
+                            "mob"=>$request->mobile_h,
+                        ]);  
+                }else{
+                           if(!is_null($request->nom_h))
+                           {
+                                $homme = homme_conf::firstOrCreate([
+                                        "id_patient"=>$patient->id,
+                                        "nom"=>$request->nom_h,
+                                        "prénom"=>$request->prenom_h, 
+                                        "date_naiss"=>$request->datenaissance_h,
+                                        "lien_par"=>$request->lien_par,
+                                        "type_piece"=>$request->type_piece,
+                                        "num_piece"=>$request->num_piece,
+                                        "date_deliv"=>$request->date_piece_id,
+                                        "adresse"=>$request->adresse_h,
+                                        "mob"=>$request->mobile_h,
+                                         "created_by"=>Auth::user()->employee_id,
+                                ]);
+                           } 
+                          $h-> update(["etat_hc"=>$request->etat_h,]);
+                }
+                       
+          }else{      
+                
+                if(!is_null($request->nom_h))
+                {
+                     $homme = homme_conf::firstOrCreate([
+                            "id_patient"=>$patient->id,
+                            "nom"=>$request->nom_h,
+                            "prénom"=>$request->prenom_h, 
+                            "date_naiss"=>$request->datenaissance_h,
+                            "lien_par"=>$request->lien_par,
+                            "type_piece"=>$request->type_piece,
+                            "num_piece"=>$request->num_piece,
+                            "date_deliv"=>$request->date_piece_id,
+                            "adresse"=>$request->adresse_h,
+                            "mob"=>$request->mobile_h,
+                             "created_by"=>Auth::user()->employee_id,
+                    ]);
+                }
+          }
+          /******************************/    
+           // Flashy::primary('Patient modifié avec succés!');
+           //flashy('Some message', 'http://your-awesome-link.com');
+           return redirect(Route('patient.show',$patient->id));
 
 }
 

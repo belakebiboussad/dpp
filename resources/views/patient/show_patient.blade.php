@@ -9,7 +9,7 @@
 		<div class="pull-right">
 			<a href="{{ route('patient.index') }}" class="btn btn-white btn-info btn-bold">
 				<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>
-				Retour a La Liste Des Patients
+				Rechercher un Patient
 			</a>
 			<a href="{{route('patient.destroy',$patient->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-white btn-warning btn-bold"">
         				<i class="ace-icon fa fa-trash-o bigger-120 orange"> Supprimer</i>
