@@ -284,7 +284,7 @@
 					</label>
 					<div class="col-sm-8">
 						<input type="text" class="form-control col-xs-12 col-sm-6" id="nsspatient" name="nsspatient"
-						pattern="^\[0-9]{2}+' '+\[0-9]{4} +' '+\[0-9]{4}+' '+[0-9]{2}$"  placeholder="XX XXXX XXXX XX" />
+						pattern="^\[0-9]{2}+' '+\[0-9]{4} +' '+\[0-9]{4}+' '+[0-9]{2}$"  placeholder="XXXXXXXXXXXX" maxlength =12 minlength =12 />
 					</div>
 				</div>			
 			 	</div> 	
@@ -433,7 +433,7 @@
 						</label>
 						<div class="col-sm-9">
 						<div class="clearfix">
-						<input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12" placeholder="XX XXXX XXXX XX"/>{{-- pattern="^\[0-9]{2}+' '+\[0-9]{4}+' '+\[0-9]{4}+' '+\[0-9]{2}$" --}}
+						<input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12" placeholder="XXXXXXXXXXXX" maxlength =8 minlength =8/>{{-- pattern="^\[0-9]{2}+' '+\[0-9]{4}+' '+\[0-9]{4}+' '+\[0-9]{2}$" --}}
 						</div>
 						</div>
 					</div>
