@@ -217,12 +217,13 @@ class PatientController extends Controller
     {
           $patient = patient::FindOrFail($id);
           $homme_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get()->first();
+          //dd($homme_c);
           if($patient->Type != "Autre")
                  //chercher l'assurée
                   $assure =  assur::FindOrFail($patient->Assurs_ID_Assure); 
            else
                   $assure = new assur;
-           return view('patient.edit_patient',compact('patient','assure'));
+           return view('patient.edit_patient',compact('patient','assure','homme_c'));
     }
 
 

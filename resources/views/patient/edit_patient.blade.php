@@ -96,6 +96,9 @@
     		<li><a data-toggle="tab" href="#Assure">
     			<span class="bigger-130"><strong>Assure</strong></span></a>
     		</li>
+    		<li><a data-toggle="tab" href="#Assure">
+    			<span class="bigger-130"><strong>Homme Confiance</strong></span></a>
+    		</li>
   	</ul>
   	<div class="tab-content">
 	 	<div id="Patient" class="tab-pane fade in active">
@@ -738,4 +741,3 @@ return false;
 });
 </script>
 @endsection
->>>>>>> e3e729a4a9b624b67f91ea710e0b3d6887a5fe66
