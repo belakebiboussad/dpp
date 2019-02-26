@@ -7,6 +7,7 @@ use App\modeles\consultation;
 use App\modeles\patient;
 use App\modeles\ordonnance;
 use Jenssegers\Date\Date;
+use PDF;
 
 class OrdonnanceController extends Controller
 {
@@ -112,5 +113,12 @@ class OrdonnanceController extends Controller
     public function destroy($id)
     {
         //
+    }
+    
+    public function show_ordonnance($id)
+    {
+        $ordonnance = ordonnance::FindOrFail($id);
+        $pdf = PDF::loadView('ordonnance', compact('ordonnance'));
+        return $pdf->stream('ordonnance.pdf');
     }
 }

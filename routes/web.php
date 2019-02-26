@@ -185,6 +185,9 @@ route::get('/homeradiologue',function(){
 })->name('homeradiologue');
 route::get('/details_exr/{id}','DemandeExamenRadio@details_exr');
 route::get('/listeexrs','DemandeExamenRadio@liste_exr');
+route::get('/showordonnance/{id}','OrdonnanceController@show_ordonnance');
+route::get('/showdemandeexb/{id}','DemandeExbController@show_demande_exb');
+route::get('/showdemandeexr/{id}','DemandeExamenRadio@show_demande_exr');
 // Route::get('/pdf', function () {
 //     return view('pdf');
 // });

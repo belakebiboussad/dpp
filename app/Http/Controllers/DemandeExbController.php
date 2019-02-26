@@ -8,6 +8,7 @@ use App\modeles\consultation;
 use Jenssegers\Date\Date;
 use App\modeles\demandeexb;
 use Illuminate\Support\Facades\Storage;
+use PDF;
 
 class DemandeExbController extends Controller
 {
@@ -132,5 +133,12 @@ class DemandeExbController extends Controller
     {
         $demandesexb = demandeexb::where('etat','E')->get();
         return view('examenbio.liste_demande_exb', compact('demandesexb'));
+    }
+
+    public function show_demande_exb($id)
+    {
+        $demande = demandeexb::FindOrFail($id);
+        $pdf = PDF::loadView('demande_exb', compact('demande'));
+        return $pdf->stream('demande_examen_biologique.pdf');
     }
 }

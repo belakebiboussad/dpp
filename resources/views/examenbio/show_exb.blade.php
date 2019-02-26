@@ -131,6 +131,10 @@
       </div>
       <label>Résultat :</label>&nbsp;&nbsp;
       <span><a href='/download/{{ $demande->resultat }}'>{{ $demande->resultat }}</a></span>
+      <a href="/showdemandeexb/{{ $demande->id_demandeexb }}" target="_blank" class="btn btn-primary pull-right">
+        <i class="fa fa-eye"></i>&nbsp;
+        Visualiser Demande examens biologiques
+      </a>
     </div>
   </div>
 </div>
