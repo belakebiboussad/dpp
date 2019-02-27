@@ -478,51 +478,25 @@
 				</div>	{{-- row --}}
 				<div class="row">
 					<div class="col-sm-6">
-	              			<div class="form-group">
-				           		<label class="col-sm-3 control-label no-padding-right" for="sexe">
-				                        		<Strong>Sexe:</Strong>
-				                         </label>
-	                  			            <div class="col-sm-9">
-				                         <div class="radio">
-				                         <label>
-				                          <input name="sexef" value="M" type="radio" class="ace" {{ $assure->Sexe === "M" ? "Checked" : "" }}/>
-				                    		<span class="lbl"> Masculin</span>
-				                          </label>
-				                         <label>
-				                         <input name="sexef" value="F" type="radio" class="ace" {{  $assure->Sexe=== "F" ? "checked" : "" }} />
-				                         <span class="lbl"> Féminin</span>
-				                         </label>
-				                         </div>
-	                    				</div>
-	             			</div>
+		              			<div class="form-group">
+					           		<label class="col-sm-3 control-label no-padding-right" for="sexe">
+					                        		<Strong>Sexe:</Strong>
+					                         </label>
+		                  			            <div class="col-sm-9">
+					                         <div class="radio">
+					                         <label>
+					                          <input name="sexef" value="M" type="radio" class="ace" {{ $assure->Sexe === "M" ? "Checked" : "" }}/>
+					                    		<span class="lbl"> Masculin</span>
+					                          </label>
+					                         <label>
+					                         <input name="sexef" value="F" type="radio" class="ace" {{  $assure->Sexe=== "F" ? "checked" : "" }} />
+					                         <span class="lbl"> Féminin</span>
+					                         </label>
+					                         </div>
+		                    				</div>
+		             			</div>
 	           				</div>
-	           				<div class="col-sm-6">
-						<div class="form-group">
-							<label class="col-sm-3 control-label " for="grade">
-								<strong>Grade :</strong>
-							</label>
-							<div class="col-sm-9">
-							<select id="grade" name="grade" class="col-xs-12 col-sm-6"/>
-							<option value="" @if(!isset($assure->Grade)  && empty($assure->Grade)) Selected @endif   >---------------------</option>
-							<option value="Agent de police AP" {{ $assure->Grade === "Agent de police AP" ? "Selected":"" }} >Agent de police AP</option>
-							<option value="Brigadier de police BP" {{ $assure->Grade === "Brigadier de police BP" ? "Selected":"" }}>Brigadier de police BP</option>
-							<option value="Brigadier-Chef"  {{ $assure->Grade === "Brigadier-Chef" ? "Selected":"" }} >Brigadier-Chef</option>
-							<option value="Inspecteur de Police" {{ $assure->Grade === "Inspecteur de Police" ? "Selected":"" }}>Inspecteur de Police</option>
-							<option value="Inspecteur Principal de Police" {{ $assure->Grade === "Inspecteur Principal de Police" ? "Selected":"" }}>Inspecteur Principal de Police</option>
-							<option value="Lieutenant de police" {{ $assure->Grade === "Lieutenant de police" ? "Selected":"" }}>Lieutenant de police</option>
-							<option value="Commissaire de Police"  {{ $assure->Grade === "Commissaire de Police" ? "Selected":"" }}>Commissaire de Police</option>
-							<option value="Commissaire Principal de Police" {{ $assure->Grade === "Commissaire Principal de Police" ? "Selected":"" }}>Commissaire Principal de Police</option>
-							<option value="Commissaire Divisionnaire de Police" {{ $assure->Grade === "Commissaire Divisionnaire de Police" ? "Selected":"" }}>Commissaire Divisionnaire de Police</option>
-							<option value="Contrôleur de Police" {{ $assure->Grade === "Contrôleur de Police" ? "Selected":"" }}>Contrôleur de Police</option>
-							<option value="Contrôleur Général de Police" {{ $assure->Grade === "Contrôleur Général de Police" ? "Selected":"" }}>Contrôleur Général de Police</option>
-							</select>
-							</div>
-						</div>
-					</div>
-				</div>{{-- row --}}
-				<div class="space-12"></div>		
-				<div class="row">
-					<div class="col-sm-6" id="statut">
+	           				<div class="col-sm-6" id="statut">
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="etatf">
 							<strong>Etat :</strong>
@@ -553,6 +527,23 @@
 							</div>
 						</div>
 					</div>	
+				</div>{{-- row --}}
+				<div class="space-12"></div>		
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label class="col-sm-3 control-label " for="grade">
+								<strong>Grade :</strong>
+							</label>
+							<div class="col-sm-9">
+							<select id="grade" name="grade" class="col-xs-12 col-sm-6"/>
+								@foreach ($grades as $key=>$grade)
+								<option value="{{ $grade->id }}" {{ $assure->Grade === $grade->id   ? "selected":"jj" }} >{{ $grade->nom }}</option>
+								@endforeach
+							</select>
+							</div>
+						</div>
+					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label class="control-label col-xs-12 col-sm-3" for="matf">
@@ -666,6 +657,7 @@
 								<option value="soeur">Soeur </option>
 								<option value="membre_famille">Membre de famille </option>
 								<option value="ami">Ami </option>
+								<option value="Autre">Autre </option>
 							</select>
 						</div>
 					</div>

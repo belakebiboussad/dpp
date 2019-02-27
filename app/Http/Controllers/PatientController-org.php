@@ -12,6 +12,7 @@ use App\modeles\consultation;
 use App\modeles\examenbiologique;
 use App\modeles\DemandeHospitalisation;
 use App\modeles\hospitalisation;
+use App\modeles\grade;
 use App\Utils\ArrayClass;
 use App\modeles\homme_conf;
 use Validator;
@@ -46,7 +47,8 @@ class PatientController extends Controller
      */
     public function create()
     {
-        return view('patient.addPatient');
+            $grades = grade::all(); 
+            return view('patient.addPatient',compact('grades'));
     }
 
     /**
@@ -90,7 +92,7 @@ class PatientController extends Controller
                       "NSSValide"    => 'le numéro du securite sociale est invalide ',
                       "date"             => "Le champ :attribute n'est pas une date valide.",
              ];
-            $validator = Validator::make($request->all(),$rule,$messages);         
+             $validator = Validator::make($request->all(),$rule,$messages);         
              if ($validator->fails()) {
                     $errors=$validator->errors(); 
                      return view('patient.addPatient')->withErrors($errors);
@@ -104,8 +106,10 @@ class PatientController extends Controller
                    $nomb = 0;
              }
              $codebarre =$request->sexe.$date->year."/".($nomb+1);
-             if($request->type =="Ayant droit")
-             {
+
+             if($request->type =="Ayant_droit")
+             {    
+                    //dd($request->all());
                     $assurObj = assur::firstOrCreate([
                           "Nom"=>$request->nomf,
                           "Prenom"=>$request->prenomf,
@@ -114,7 +118,7 @@ class PatientController extends Controller
                           "Sexe"=>$request->sexef,
                           "Matricule"=>$request->matf,
                           "service"=>$request->servicef,
-                          "Grade"=>$request->gradef,
+                          "Grade"=>$request->grade,
                           "Etat"=>$request->etatf,
                           "NSS"=>$request->nss2,
                           "NMGSN"=>$request->NMGSN, 
@@ -122,7 +126,7 @@ class PatientController extends Controller
         }
         else
         {
-             if( $request->type=="Assure")
+                   if( $request->type=="Assure")
                    {
                           $assurObj = assur::firstOrCreate([
                                 "Nom"=>$request->nom,
@@ -212,16 +216,17 @@ class PatientController extends Controller
      */
     public function edit($id)
     {
-            $patient = patient::FindOrFail($id);
-            //dd($patient);
-            $homme_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get()->first();
-          
+             $grades = grade::all(); 
+             $patient = patient::FindOrFail($id);
+             $homme_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get()->first();
              if($patient->Type != "Autre")
+             {
                    //chercher l'assurée
                     $assure =  assur::FindOrFail($patient->Assurs_ID_Assure); 
+             }  
              else
                   $assure = new assur;
-             return view('patient.edit_patient',compact('patient','assure','homme_c'));
+             return view('patient.edit_patient',compact('patient','assure','homme_c','grades'));
     }
 
 
@@ -234,14 +239,15 @@ class PatientController extends Controller
      */
 public function update(Request $request,$id)
 {
-           $date = Date::Now();
-           static $assurObj;
-           $patient = patient::FindOrFail($id);
-                switch ($patient->Type) {
-                           case 'Assure':
-                                           switch ($request->type) {
+             $date = Date::Now();
+             static $assurObj;
+             $patient = patient::FindOrFail($id); 
+             //dd($patient->Type) ;
+             switch ($patient->Type) {
+                          case 'Assure':
+                                             switch ($request->type) {
                                                      case 'Assure':
-                                                               $assure = assur::FindOrFail($patient->Assurs_ID_Assure);
+                                                                 $assure = assur::FindOrFail($patient->Assurs_ID_Assure);
                                                                  $assure->update([
                                                                             "Nom"=>$request->nom,
                                                                             "Prenom"=>$request->prenom,
@@ -269,13 +275,13 @@ public function update(Request $request,$id)
                                                                              "Type"=>$request->type,
                                                                              "Type_p"=>null,
                                                                              "description"=>"",
-                                                                               "NSS"=> $request->NSS,    
+                                                                              "NSS"=> $request->NSS,    
                                                                               "Date_creation"=>$date,  
                                                                  ]);
                                                                   break;
                                                      case 'Ayant_droit':
-                                                                  $assure = new assur;
-                                                                  $assurObj =  $assure->firstOrCreate([
+                                                                 $assure = new assur;
+                                                                 $assurObj =  $assure->firstOrCreate([
                                                                               "Nom"=>$request->nomf,
                                                                                "Prenom"=>$request->prenomf,
                                                                               "Date_Naissance"=>$request->datenaissancef,
@@ -334,7 +340,7 @@ public function update(Request $request,$id)
                                            }             
                                            break;
                            case 'Ayant_droit':
-                                           switch ($request->type) {
+                                              switch ($request->type) {
                                                      case 'Assure':
                                                                 $assure = new assur;
                                                                 $assurObj =  $assure->firstOrCreate([
@@ -370,8 +376,9 @@ public function update(Request $request,$id)
                                                                  ]);
                                                                 break;
                                                      case 'Ayant_droit':
-                                                                # code...           
+                                                          
                                                                  $assure = assur::FindOrFail($patient->Assurs_ID_Assure);
+                                                          
                                                                  $assure->update([
                                                                             "Nom"=>$request->nomf,
                                                                             "Prenom"=>$request->prenomf,
@@ -383,7 +390,8 @@ public function update(Request $request,$id)
                                                                             "Grade"=>$request->grade,
                                                                            "NMGSN"=>$request->NMGSN,
                                                                             "NSS"=>$request->nss,
-                                                                 ]);
+                                                                 ]);      
+                                                                $assure->save();
                                                                  $patient -> update([
                                                                             "Nom"=>$request->nom,
                                                                             "Prenom"=>$request->prenom,
@@ -429,10 +437,10 @@ public function update(Request $request,$id)
                                         }
                                         break;
                            case 'Autre':
-                                           switch ($request->type) {
-                                                     case 'Assure':
-                                                                    $assure = new assur;
-                                                                     $assurObj =  $assure->firstOrCreate([
+                                             switch ($request->type) {
+                                                    case 'Assure':
+                                                                 $assure = new assur;
+                                                                 $assurObj =  $assure->firstOrCreate([
                                                                                 "Nom"=>$request->nom,
                                                                                  "Prenom"=>$request->prenom,
                                                                                 "Date_Naissance"=>$request->datenaissance,
@@ -444,7 +452,7 @@ public function update(Request $request,$id)
                                                                                 "NMGSN"=>$request->NMGSN,
                                                                                 "NSS"=>$request->nss,
                                                                       ]);
-                                                                     $patient -> update([
+                                                                 $patient -> update([
                                                                             "Nom"=>$request->nom,
                                                                             "Prenom"=>$request->prenom,
                                                                             "Dat_Naissance"=>$request->datenaissance,
@@ -461,9 +469,9 @@ public function update(Request $request,$id)
                                                                              "Type_p"=>null,
                                                                               "description"=>"", 
                                                                               "Date_creation"=>$date,  
-                                                                     ]);
-                                                                     break;
-                                                     case'Ayant_droit':
+                                                                 ]);
+                                                                 break;
+                                                    case'Ayant_droit':
                                                                   $assure = new assur;
                                                                   $assurObj =  $assure->firstOrCreate([
                                                                               "Nom"=>$request->nomf,
@@ -497,8 +505,8 @@ public function update(Request $request,$id)
                                                                                "NSS"=> $request->nsspatient,    
                                                                               "Date_creation"=>$date,  
                                                                  ]);      
-                                                     case 'Autre':
-                                                                     $patient -> update([
+                                                    case 'Autre':
+                                                                 $patient -> update([
                                                                              "Nom"=>$request->nom,
                                                                              "Prenom"=>$request->prenom,
                                                                               "Dat_Naissance"=>$request->datenaissance,
@@ -516,9 +524,8 @@ public function update(Request $request,$id)
                                                                               "Type_p"=>null,
                                                                               "description"=> $request->description, 
                                                                                             "Date_creation"=>$date,  
-                                                                               ]);
+                                                                 ]);
                                                                 break;
-                                                    
                                                     default:
                                                                 # code...
                                                                 break;
