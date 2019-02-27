@@ -63,7 +63,6 @@ class PatientController extends Controller
                   "lieunaissance" => 'required',
                   "mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],
                   "Type_p" =>'required_if:type,Ayant_droit',
-                  "nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
                   "nomf" => 'required_if:type,Ayant_droit',
                   "prenomf"=> 'required_if:type,Ayant_droit',
                   "datenaissancef"=> 'required_if:type,Ayant_droit|date|date_format:Y-m-d',
@@ -91,8 +90,8 @@ class PatientController extends Controller
             {
                 $nomb = 0;
             }
-        $codebarre =$request->sexe.$date->year."/".($nomb+1);
-           if($request->type =="Ayant droit")
+        
+           if($request->type =="Ayant_droit")
           {
               $assurObj = assur::firstOrCreate([
                 "Nom"=>$request->nomf,
@@ -129,7 +128,6 @@ class PatientController extends Controller
            }
            $assurID= $assurObj !=null ? $assurObj->id : null;
            $patient = patient::firstOrCreate([
-                "code_barre"=>$codebarre,
                 "Nom"=>$request->nom,
                 "Prenom"=>$request->prenom,
                 "Dat_Naissance"=>$request->datenaissance,
@@ -147,6 +145,19 @@ class PatientController extends Controller
                 "description"=> $request->description,
                 "NSS"=>$request->nsspatient,
                 "Date_creation"=>$date,
+            ]);
+
+            if ($request->sexe == "H") {
+                $sexe = 1;
+            }
+            else{
+                $sexe = 0;
+            }
+
+            $codebarre =$sexe.$date->year.$patient->id;
+
+            $patient->update([
+                "code_barre" => $codebarre,
             ]);
         return redirect(Route('patient.show',$patient->id));
     }
