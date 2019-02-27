@@ -17,21 +17,18 @@
 				               addRequiredAttr();
 				               break;
 			              case "Ayant_droit":
-			              	if(i !=0)
+			           	   	if(i !=0)
 			           	    	{
-			           	             	$("#nomf").val("");
+				           	      	$("#nomf").val("");
 				                   	$("#prenomf").val("");
 				                    	$("#datenaissancef").val("");
-				                    	$("#lieunaissancef").val("");		
-				                         	$("select#grade").prop('selectedIndex', 0);
-				                         	$("#matf").val("");
-				                           $("#NMGSN").val("");            	
+				                    	 $("#lieunaissancef").val("");		
 				           	}	
-				             $("#foncform").removeClass('hide');
-				             $('#Type_p').attr('required', true); 
-				             $('#nsspatient').attr('disabled', false); 
-			                          addRequiredAttr();
-			                          break;
+				               $("#foncform").removeClass('hide');
+				               $('#Type_p').attr('required', true); 
+				              $('#nsspatient').attr('disabled', false); 
+			                             addRequiredAttr();
+			                              break;
 			           case "Autre":
 				             $(".starthidden").show(250);
 				             $("#foncform").addClass('hide');
@@ -45,12 +42,9 @@
 				}			
 			}
 			$(function() {
-			             var checkbox = $("#hommeConf");
+			               var checkbox = $("#hommeConf");
 			    	checkbox.change(function() {
-		    			if(checkbox.is(":checked"))
-		    			 	 $("#hommelink").removeClass('invisible');
-		    			 else
-		    				  $("#hommelink").addClass('invisible');	
+		    			  $(".hidden_fields").toggle();				
 			           	 })
 			}); 
 			$(document).ready(function () {
@@ -113,9 +107,9 @@
 	<h1 style="display: inline;"><strong>modification Du Patient :</strong> {{ $patient->Nom }} {{ $patient->Prenom }}</h1>
 	<div class="pull-right">
 		<a href="{{route('patient.index')}}" class="btn btn-white btn-info btn-bold">
-			<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>
+				<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>
 				 Rechercher un Patient
-		</a>
+			</a>
 	</div>
 </div>
 <form class="form-horizontal" action="{{ route('patient.update',$patient ->id) }}" method="POST">
@@ -143,14 +137,13 @@
 		 <li  @if($patient->Type =="Autre")  style= "display:none" @endif><a data-toggle="tab" href="#Assure" >
     			<span class="bigger-130"><strong>Assure</strong></span></a>
     		</li>
-    		{{--  --}}
-	    	<li  id ="hommelink" @if(!isset($homme_c))  class="invisible" @endif><a data-toggle="tab" href="#Homme">
+	    	<li class="hidden_fields" @if(!isset($homme_c))  style= "display:none" @endif><a data-toggle="tab" href="#Homme">
 	    		<span class="bigger-130"><strong>Homme de Confiance</strong></span></a>
 	    	</li>
     	</ul>
   	<div class="tab-content">
-  		<div id="Patient" class="tab-pane fade in active">
-  				<div class="row">
+	 	<div id="Patient" class="tab-pane fade in active">
+	      		<div class="row">
 	      			<div class="col-sm-12">
 				<h3 class="header smaller lighter blue">Informations administratives</h3>
 			</div>
@@ -416,9 +409,9 @@
 				</div>				
 			</div>		
 			@endif	
-  		</div> {{-- tab-pane Patient --}}
-  		<div id="Assure" class="tab-pane fade">
-  			<div id ="assurePart">
+	      	</div> {{-- tab-pane --}}
+	      	<div id="Assure" class="tab-pane fade">
+	      		<div id ="assurePart">
 				<div class="row">
 					<div class="col-sm-12">
 						<h3 class="header smaller lighter blue">
@@ -596,10 +589,10 @@
 					</div>	
 				</div>{{-- row --}}	
 			</div>{{-- assurePart --}}
-  		</div>{{-- tab-pane Assure --}} 
-  		{{-- @if(!isset($homme_c)) style= "display:none" @endif --}}
-  		<div id="Homme" class="tab-pane fade hidden_fields">
-  			<div class="row">
+	      	</div> {{-- tab-pane  assure--}}
+	      	{{-- deuxieme --}}
+	      	<div id="Homme" class="tab-pane fade hidden_fields" @if(!isset($homme_c)) style= "display:none" @endif>
+	      		<div class="row">
 				<div class="col-sm-12">				
 					<h3 class="header smaller lighter blue">
 						Informations de l'homme de confiance
@@ -747,9 +740,9 @@
 						<span class="tel validity"></span>
 					</div>
 				</div>			
-			</div>	{{-- row --}}			
-  		</div>{{-- tab-pane Homme --}}
-  	</div> {{-- tab-content --}}
+			</div>	{{-- row --}}	
+	      	</div>    {{-- fin homme pane --}}
+	</div> {{-- tab-content --}}
 	<div class="hr hr-dotted"></div>
 	<div class="row">
 		<div class="center">

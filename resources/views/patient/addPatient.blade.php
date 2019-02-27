@@ -34,7 +34,8 @@
 		                     $(".starthidden").show(250);
 		                     $("#foncform").addClass('hide');
 		                     $('#Type_p').attr('required', false); 
-		                     $("ul#menuPatient li:not(.active) a").prop('disabled', true);
+		                     //$("ul#menuPatient li:not(.active) a").prop('disabled', true);
+		                     $("ul#menuPatient li:eq(1)").css('display', 'none');
 		               break;         
 			}			
 		}
@@ -64,13 +65,13 @@
 		</div>
 	</div>
 	<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
-   		 <li class="active"><a data-toggle="tab" href="#Patient">
+   		 <li class="active"><a class="jumbotron" data-toggle="tab" href="#Patient">
    		 	<span class="bigger-130"><strong>Patient</strong></span></a>
    		 </li>
-    		<li><a data-toggle="tab" href="#Assure">
+    		<li><a data-toggle="tab" href="#Assure" class="jumbotron">
     			<span class="bigger-130"><strong>Assure</strong></span></a>
     		</li>
-    		<li><a data-toggle="tab" href="#Homme_C">
+    		<li><a class="jumbotron" data-toggle="tab" href="#Homme_C">
     			<span class="bigger-130"><b>Homme de confiance</b></span></a>
     		</li>
 
