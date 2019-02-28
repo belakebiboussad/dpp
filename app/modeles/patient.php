@@ -3,6 +3,7 @@
 namespace App\modeles;
 
 use Illuminate\Database\Eloquent\Model;
+use App\modeles\Wilaya;
 use Carbon\Carbon;
 class patient extends Model
 {
@@ -11,5 +12,9 @@ class patient extends Model
   	  public function getAge(){	
     		return (Carbon::createFromDate(date('Y', strtotime($this->Dat_Naissance)), date('m', strtotime($this->Dat_Naissance)), date('d', strtotime($this->Dat_Naissance)))->age);
 
+	}
+	public function wilaya()
+	{
+		return $this->belongsTo('Wilaya');
 	}
 }

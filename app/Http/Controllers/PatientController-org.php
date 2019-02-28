@@ -221,7 +221,7 @@ class PatientController extends Controller
     {
              $grades = grade::all(); 
              $patient = patient::FindOrFail($id);
-             dd($patient);
+             dd($patient->wilaya->nom_wilaya);
              $homme_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get()->first();
              if($patient->Type != "Autre")
              {
