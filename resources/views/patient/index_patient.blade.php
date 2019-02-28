@@ -9,7 +9,7 @@ $(document).ready(function(){
 	        datumTokenizer: Bloodhound.tokenizers.whitespace,
 	        queryTokenizer: Bloodhound.tokenizers.whitespace,
 	        remote: {
-			url: '/user/find1?q=%QUERY%',
+			url: '/patients/find?q=%QUERY%',
 				wildcard: '%QUERY%'
 		},
 	});
@@ -17,7 +17,7 @@ $(document).ready(function(){
 	        datumTokenizer: Bloodhound.tokenizers.whitespace,
 	        queryTokenizer: Bloodhound.tokenizers.whitespace,
 	        remote: {
-			url: '/user/find2?prenom=%QUERY%',
+			url: '/patients/findprenom?prenom=%QUERY%',
 				wildcard: '%QUERY%'
 		},
 	});  
@@ -30,7 +30,7 @@ $(document).ready(function(){
 				source: bloodhound,
 				display: function(data) {
 					$('#btnCreate').removeClass('hidden')
-                                		$('#FusionButton').removeClass('hidden')   
+                                			$('#FusionButton').removeClass('hidden')   
 					return data.Nom  //Input value to be set when you select a suggestion. 
 				},
 				templates: {
@@ -145,9 +145,7 @@ function setField(field,value)
 		$("select option").filter(function() {
 		     return $(this).val() == value; 
 		}).prop('selected', true);
-	}
-		
-	
+	}	
 }
 </script>
 @endsection

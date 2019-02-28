@@ -13,6 +13,7 @@ use App\modeles\examenbiologique;
 use App\modeles\DemandeHospitalisation;
 use App\modeles\hospitalisation;
 use App\modeles\grade;
+use App\modeles\Commune;
 use App\Utils\ArrayClass;
 use App\modeles\homme_conf;
 use Validator;
@@ -153,6 +154,8 @@ class PatientController extends Controller
                 "Sexe"=>$request->sexe,
                 "situation_familiale"=>$request->sf, 
                 "Adresse"=>$request->adresse,
+                'commune_res'=>$request->idcommune,
+                'wilaya_res'=>$request->idwilaya,
                 "tele_mobile1"=>$request->operateur1 . $request->mobile1,
                 "tele_mobile2"=>$request->operateur2 . $request->mobile2,
                 "group_sang"=>$request->gs,
@@ -218,6 +221,7 @@ class PatientController extends Controller
     {
              $grades = grade::all(); 
              $patient = patient::FindOrFail($id);
+             dd($patient);
              $homme_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get()->first();
              if($patient->Type != "Autre")
              {
@@ -749,7 +753,11 @@ public function search(Request $request)
      {
             return patient::where('Prenom', 'LIKE', '%'.trim($request->prenom).'%')->get();     
      }
-    
+       public function AutoCompleteCommune(Request $request)
+      {
+              return  Commune::select('communes.*','wilayas.*')->join('daira','communes.Id_daira','=','daira.Id_daira')->join('wilayas','daira.id_wilaya','=','wilayas.Id_wilaya')->where('nom_commune', 'LIKE', '%'.trim($request->com).'%')->get();
+              // 'communes.*','wilayas.*'  
+      }
      public function patientsToMerege(Request $request)
     {
             $statuses = array();

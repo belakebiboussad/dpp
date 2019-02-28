@@ -299,68 +299,81 @@
 			</div>	{{-- row --}}
 			<div class="space-12"></div>	
 			<div class="row">
-				<div class="col-sm-5">
-					<div class="form-group">
-						<label class="control-label col-sm-3" for="adresse"><strong>Adresse :</strong></label>
-						<div class="col-sm-9">
-						<textarea class="form-control" id="adresse" name="adresse" placeholder="Adresse...">{{ $patient->Adresse }}</textarea>	
-						</div>
-					</div>
-				</div>{{-- coli-sm-6 --}}
-				<div class="col-sm-7">
-					<div class="form-group">
-						<div class="form-group">
-						<label class="control-label text-nowrap col-sm-2 for="operateur1"><i class="fa fa-phone"></i><strong>Mob1:</strong></label>
-						<div class="col-sm-2" style="width:80px;">
+				
+				<div class="col-sm-4" style="padding-left:7%">
+					<label class="" for="adresse" ><strong>Adresse :&nbsp;</strong></label>
+					<input type="text" value="{{ $patient->Adresse }}"" id="adresse" name="adresse" placeholder="Adresse..."/>
+				</div>
+				<div class="col-sm-4" style="margin-top: -0.1%;">
+					<label><strong>Commune :</strong></label>
+					<input type="hidden" name="idcommune" id="idcommune">
+					<input type="text" value="" id="commune"  placeholder="commune..." />
+				</div>
+					<div class="col-sm-4">
+					   <label><strong>Wilaya :</strong></label>
+				  	 <input type="hidden" name="idwilaya" id="idwilaya">
+				              <input type="text" value=""  id="wilaya" placeholder="wilaya..." />
+				</div>	
+
+			</div>{{-- row --}}
+			<div class="space-12"></div>
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="form-group" style="padding-left:13%;">
+						<label class="control-label text-nowrap col-sm-3 for="mobile1"><i class="fa fa-phone"></i><strong>Mob1:</strong></label>
+						<div class="col-sm-3" >
 							<select name="operateur1" id="operateur1" class="form-control" required="">
 					                                     @php	$operator = substr($patient->tele_mobile1,0,2) @endphp
 		 						<option value="05" @if($operator == '05') selected @endif >05</option>         
 							   	<option value="06" @if($operator == '06') selected @endif >06</option>
 							           <option value="07" @if($operator == '07') selected @endif>07</option>
-                       					</select>	
+                       						</select>	
 						</div>
-						<input id="mobile1" name="mobile1"  maxlength =8 minlength =8  name="mobile1" type="tel" autocomplete="off" class="col-sm-2" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX"  value= "{{  substr($patient->tele_mobile1,2,10) }}" required />	
-						<label class="control-label text-nowrap col-sm-2 for="mobile2"><i class="fa fa-phone"></i><strong>Mob2:</strong></label>
-						<div class="col-sm-2" style="width:80px;">
-				        		<select name="operateur2" id="operateur2" class="form-control">
-						@if(!isset($patient->tele_mobile2)  && empty($patient->tele_mobile2))		
-					              	 <option value="" selected >XX</option>
-					              	  <option value="05" >05</option>
-							 <option value="06">06</option>
-							 <option value="07">07</option>
-						@else
-							@php  $operator2 = substr($patient->tele_mobile2,0,2) @endphp
-							<option value="" >XX</option>
-							 <option value="05" @if($operator2 == '05') selected @endif>05</option>
-							 <option value="06" @if($operator2 == '06') selected @endif>06</option>
-							 <option value="07" @if($operator2 == '07') selected @endif>07</option>
-						@endif				
-                       					</select>
-          						</div>
-          						<input id="mobile2" name="mobile2"  maxlength =8 minlength =8  type="tel" autocomplete="off" class="col-sm-2" value="{{  substr($patient->tele_mobile2,2,10) }}" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"   placeholder="XX XX XX XX">
+						<input id="mobile1" name="mobile1"  maxlength =8 minlength =8  name="mobile1" type="tel" autocomplete="off" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX"  value= "{{  substr($patient->tele_mobile1,2,10) }}" required />	
+					 </div>		
+				</div>	 
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label" for="mobile2"><i class="fa fa-phone"></i><strong class="text-nowrap">Mob2 :</strong>
+						</label>
+						<div class="col-sm-4">
+							<select name="operateur2" id="operateur2" class="form-control">
+							@if(!isset($patient->tele_mobile2)  && empty($patient->tele_mobile2))		
+						              	 <option value="" selected >XX</option>
+						              	  <option value="05" >05</option>
+								 <option value="06">06</option>
+								 <option value="07">07</option>
+							@else
+								@php  $operator2 = substr($patient->tele_mobile2,0,2) @endphp
+								<option value="" >XX</option>
+								 <option value="05" @if($operator2 == '05') selected @endif>05</option>
+								 <option value="06" @if($operator2 == '06') selected @endif>06</option>
+								 <option value="07" @if($operator2 == '07') selected @endif>07</option>
+							@endif				
+	                       					</select>
 						</div>
+						<input id="mobile2" name="mobile2"  maxlength =8 minlength =8  type="tel" autocomplete="off" class="col-sm-4" value="{{  substr($patient->tele_mobile2,2,10) }}" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"   placeholder="XX XX XX XX">
 					</div>
-				</div>
-			</div>{{-- row --}}
-			<div class="space-12"></div>
-			<div class="row">
-				<div class="col-sm-6">
+				</div>		
+				<div class="col-sm-4">
+					<div class="form-group">
 					<div class="col-sm-2">
-						<label class="control-label no-padding-right pull-right" style=" padding-top: 0px;"><strong>Type :</strong></label>
+						<label class="control-label no-padding-right pull-right no-wrap" style=" padding-top: 0px;"><strong>Type :</strong></label>
 					</div>
-					<div class="col-sm-9">
+					<div class="col-sm-10">
 						<label class="line-height-1 blue">
 							<input id="fonc" name="type" value="Assure" type="radio" class="ace" onclick="showType('Assure',1)"  @if($patient->Type =='Assure') Checked @endif />
-							<span class="lbl"> Assuré(e)</span>
-						</label>&nbsp;&nbsp;&nbsp;
+							<span class="lbl">Assuré</span>
+						</label>
 						<label class="line-height-1 blue">
 							<input id="ayant" name="type" value="Ayant_droit" type="radio" class="ace" onclick="showType('Ayant_droit',1)" @if($patient->Type =='Ayant_droit') Checked @endif />
-							<span class="lbl"> Ayant droit</span>
-						</label>&nbsp;&nbsp;&nbsp;
+							<span class="lbl">Ayant droit</span>
+						</label>
 						<label class="line-height-1 blue">
 							<input id="autre" name="type" value="Autre" type="radio" class="ace" onclick="showType('Autre',1)" @if($patient->Type =='Autre') Checked @endif />
-							<span class="lbl"> Autre</span>
+							<span class="lbl">Autre</span>
 						</label>	
+					</div>
 					</div>		
 				</div>{{-- col-sm-6 --}}
 			</div>	{{-- row --}}

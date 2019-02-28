@@ -1,7 +1,40 @@
 @extends('app')
+@section('title','Ajouter un patient')
 @section('page-script')
 	<script>
 		$( document ).ready(function() {
+			var bloodhound1 = new Bloodhound({
+			        datumTokenizer: Bloodhound.tokenizers.whitespace,
+			        queryTokenizer: Bloodhound.tokenizers.whitespace,
+			        remote: {
+					url: '/patients/findcom?com=%QUERY%',
+						wildcard: '%QUERY%'
+				},
+			});
+			$('#commune').typeahead({
+				hint: true,
+				highlight: true,
+				minLength: 1
+			}, {
+				name: 'communenom',
+				source: bloodhound1,
+				display: function(data) {
+					//$("#wilaya").text(data.nom_wilaya)
+					return data.nom_commune  //Input value to be set when you select a suggestion. 
+				},
+				templates: {
+					empty: [
+						'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
+					],
+					header: [
+						'<div class="list-group search-results-dropdown">'
+					],
+					suggestion: function(data) {
+						return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="show(\''+data.Id_wilaya+','+data.nom_wilaya+','+data.Id_commune+'\')">' + data.nom_commune+ '</div></div>'
+					}
+					
+				}
+			});
 			$( ".civilite" ).change(function() {
 				 var sex =  $('input[name=sexe]:checked').val();
 				 if(sex == "F")
@@ -14,7 +47,16 @@
 				 }
 	    				
 			});
+
 		});
+		function show(wilaya)
+		{
+			var res = wilaya.split(",");
+			$("#idwilaya").val(res[0]);
+			$("#wilaya").val(	res[1]);
+			$("#idcommune").val(res[2]);
+
+		}
 		function showType(value){
 	    		switch(value){
 			           case "Assure":
@@ -215,66 +257,83 @@
 				<h3 class="header smaller lighter blue">Contact</h3>
 				</div>
 			</div>	{{-- row --}}
+			<div class="space-12"></div>		
+			<div class="row">
+					<div class="col-sm-4" style="padding-left:7%">
+						<label class="" for="adresse" ><strong>Adresse :&nbsp;</strong></label>
+					             <input type="text" value="" id="adresse" name="adresse" placeholder="Adresse..."/>
+					</div>
+					<div class="col-sm-4" style="margin-top: -0.1%;">
+						<label><strong>Commune :</strong></label>
+						<input type="hidden" name="idcommune" id="idcommune">
+					         	<input type="text" value="" id="commune"  placeholder="commune..." />
+					</div>
+					<div class="col-sm-4">
+					   <label><strong>Wilaya :</strong></label>
+					  	 <input type="hidden" name="idwilaya" id="idwilaya">
+					              <input type="text" value=""  id="wilaya" placeholder="wilaya..." />
+					</div>
+			</div>
 			<div class="space-12"></div>
 			<div class="row">
-				<div class="col-sm-6">
-					<div class="form-group">
-						<label class="control-label col-sm-3" for="adresse"><strong>Adresse :</strong></label>
-						<div class="col-sm-9">
-						<textarea class="form-control" id="adresse" name="adresse" placeholder="Adresse..."></textarea>	
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-6">
-					<div class="form-group">
-						<div class="form-group">
-						<label class="control-label text-nowrap col-sm-2 for="mobile1"><i class="fa fa-phone"></i><strong>Mob1 :</strong></label>
-						<div class="col-sm-2">
+				<div class="col-sm-4">
+					<div class="form-group" style="padding-left:10%;">
+						<label class="col-sm-3 control-label" for="mobile1">
+							<i class="fa fa-phone"></i>
+							<strong class="text-nowrap">Mob1 :</strong>
+						</label>
+						<div class="col-sm-3">
 							<select name="operateur1" id="operateur1" class="form-control" required="">
 							           <option value="">XX</option>
 							         	<option value="05">05</option>         
 							   	<option value="06">06</option>
 							           <option value="07">07</option>
-                       					</select>	
+                       						</select>	
 						</div>
-						<input id="mobile1" name="mobile1"  maxlength =8 minlength =8  name="mobile1" type="tel" autocomplete="off" class="col-sm-2" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX" required />	
-						<label class="control-label text-nowrap col-sm-2 for="mobile2"><i class="fa fa-phone"></i><strong>Mob2 :</strong></label>
-
-						<div class="col-sm-2">
+						<input id="mobile1" name="mobile1"  maxlength =8 minlength =8 type="tel" autocomplete="off" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX" required />	
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="mobile2">
+							<i class="fa fa-phone"></i>
+							<strong class="text-nowrap">Mob2 :</strong>
+						</label>
+						<div class="col-sm-3">
 				        			<select name="operateur2" id="operateur2" class="form-control">
-						           	<option value="">XX</option>
+						           		<option value="">XX</option>
 						         		<option value="05">05</option>         
 						   		<option value="06">06</option>
 						          		 <option value="07">07</option>
-                       					</select>
+                       						</select>
           						</div>
-          						<input id="mobile2" name="mobile2"  maxlength =8 minlength =8  type="tel" autocomplete="off" class="col-sm-2" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"   placeholder="XXXXXXXX">
+						<input id="mobile2" name="mobile2"  maxlength =8 minlength =8  type="tel" autocomplete="off" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"   placeholder="XXXXXXXX"/>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<div class="col-sm-3">
+							<label class="control-label no-padding-right pull-right" style=" padding-top: 0px;"><strong>Type :</strong></label>
+						</div>
+						<div class="col-sm-9">
+							<label class="line-height-1 blue">
+								<input id="fonc" name="type" value="Assure" type="radio" class="ace" onclick="showType('Assure')" />
+								<span class="lbl"> Assuré</span>
+							</label>&nbsp;&nbsp;&nbsp;
+							<label class="line-height-1 blue">
+								<input id="ayant" name="type" value="Ayant_droit" type="radio" class="ace" onclick="showType('Ayant_droit')" Checked/>
+								<span class="lbl"> Ayant droit</span>
+							</label>&nbsp;&nbsp;&nbsp;
+							<label class="line-height-1 blue">
+								<input id="autre" name="type" value="Autre" type="radio" class="ace" onclick="showType('Autre')"/>
+								<span class="lbl"> Autre</span>
+							</label>	
 						</div>
 					</div>
 				</div>
-			</div>	{{-- row --}}
+			</div>	
 			<div class="space-12"></div>
-			<div class="row">
-				 <div class="form-group">
-					<div class="col-sm-1">
-						<label class="control-label no-padding-right pull-right" style=" padding-top: 0px;"><strong>Type :</strong></label>
-					</div>
-					<div class="col-sm-9">
-						<label class="line-height-1 blue">
-							<input id="fonc" name="type" value="Assure" type="radio" class="ace" onclick="showType('Assure')" />
-							<span class="lbl"> Assuré(e)</span>
-						</label>&nbsp;&nbsp;&nbsp;
-						<label class="line-height-1 blue">
-							<input id="ayant" name="type" value="Ayant_droit" type="radio" class="ace" onclick="showType('Ayant_droit')" Checked/>
-							<span class="lbl"> Ayant droit</span>
-						</label>&nbsp;&nbsp;&nbsp;
-						<label class="line-height-1 blue">
-							<input id="autre" name="type" value="Autre" type="radio" class="ace" onclick="showType('Autre')"/>
-							<span class="lbl"> Autre</span>
-						</label>	
-					</div>
-				</div>
-			</div>	{{-- row --}}
+	
 			<div class="row" id="foncform">
 				<div class="col-sm-6">
 				<div class="form-group">

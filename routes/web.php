@@ -175,8 +175,11 @@ Route::get('/getlits/{id}','LitsController@getlits');
 
 Route::get('/user/find', 'UsersController@AutoCompleteUsername');
 Route::get('/userdetail', 'UsersController@getUserDetails');
-Route::get('/user/find1', 'PatientController@AutoCompletePatientname');
-Route::get('/user/find2','PatientController@AutoCompletePatientPrenom');
+Route::get('/patients/find', 'PatientController@AutoCompletePatientname');
+Route::get('/patients/findprenom','PatientController@AutoCompletePatientPrenom');
+
+Route::get('/patients/findcom','PatientController@AutoCompleteCommune');
+
 Route::get('/patientdetail', 'PatientController@getPatientDetails');
 Route::get('/serviceRooms', 'ServiceController@getRooms');
 Route::get('/getPatientsToMerge','PatientController@patientsToMerege');
