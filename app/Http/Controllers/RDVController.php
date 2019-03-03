@@ -132,7 +132,31 @@ class RDVController extends Controller
     public function create(Request $request,$id_patient)
     {
            $patient = patient::FindOrFail($id_patient);
-           return view('rdv.create_rdv',compact('patient'));
+           $events = array();
+           $eloquentRDV= rdv::first(); 
+           $planning = \Calendar::addEvents($events) //add an array with addEvents
+                ->addEvent($eloquentRDV, [ //set custom color fo this event
+                       'color' => '#800',
+                   ])->setOptions([ //set fullcalendar options
+                  'firstDay' => 7,
+                  'themeSystem' => 'bootstrap4',
+                  'timeFormat'        => 'H:mm',
+                   'axisFormat'        => 'H:mm',
+                   'selectable' => true,
+                   'minTime' => '08:00:00',
+                   'maxTime' => '20:00:00',
+                  'slotDuration' => '00:30:01',
+               //   'eventLimit'     => 4,
+             ])->setCallbacks([ //set fullcalendar callback options (will not be JSON encoded)
+                   'viewRender' => 'function() {}',
+                   'eventClick' => 'function(event) {
+                             showModal1(event.id,event.title,event.start,event.idPatient,event.tel,event.age);
+                   }',
+                   'dayClick'=>'function(calEvent, jsEvent, view){
+                            showModal(calEvent);
+                   }',
+           ]);
+           return view('rdv.create_rdv',compact('patient','planning'));
     }
 
     /**

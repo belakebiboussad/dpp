@@ -132,7 +132,9 @@
 										<div class="profile-info-name"> Adresse </div>
 										<div class="profile-info-value">
 											<i class="fa fa-map-marker light-orange bigger-110"></i>
-											<span>{{ $patient->Adresse }}</span>
+											<span>
+												{{ $patient->Adresse }} ,{{ $patient->commune->nom_commune}} , {{ $patient->wilaya->nom_wilaya }}
+											</span>
 										</div>
 									</div>
 									<div class="profile-info-row">

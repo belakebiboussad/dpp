@@ -55,7 +55,6 @@
 			$("#idwilaya").val(res[0]);
 			$("#wilaya").val(	res[1]);
 			$("#idcommune").val(res[2]);
-
 		}
 		function showType(value){
 	    		switch(value){

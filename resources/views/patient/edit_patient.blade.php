@@ -4,8 +4,7 @@
 		 function showType(value,i){
 		 	switch(value){
 			              case "Assure":  	
-			              	// $("ul#menuPatient li:not(.active.hidden_fields)").css('display', '');
-				             $("#nomf").val($("#nom").val());
+			              	   $("#nomf").val($("#nom").val());// $("ul#menuPatient li:not(.active.hidden_fields)").css('display', '');
 				              $("#prenomf").val($("#prenom").val());
 				               $("#datenaissancef").val($("#datenaissance").val());
 				               $("#lieunaissancef").val($("#lieunaissance").val());
@@ -43,69 +42,107 @@
 				               $('#nsspatient').attr('disabled', true); 
 				                break;         
 				}			
-			}
-			$(function() {
-			             var checkbox = $("#hommeConf");
-			    	checkbox.change(function() {
-		    			if(checkbox.is(":checked"))
-		    			 	 $("#hommelink").removeClass('invisible');
-		    			 else
-		    				  $("#hommelink").addClass('invisible');	
-			           	 })
-			}); 
-			$(document).ready(function () {
-	      			var value =  $("input[type=radio][name='type']:checked").val();
-	      			showType(value,0);
-	      			$( ".civilite" ).change(function() {
-					var civilite= $("select.civilite option").filter(":selected").val();
-		  			
-		  			if((civilite =="marie")|| (civilite =="veuf"))
-		  			{
-		  				$('#Div-nomjeuneFille').removeAttr('hidden');
-		  			}else
-		  			{		
-		  				$('#Div-nomjeuneFille').attr('hidden','');	
-		  				
-		  			}
-				});
-	      			$("#edit_hc").click(function(e) { 
-					$('#nom_h').prop('readonly', false);
-					$('#nom_h').focus();
-					$('#prenom_h').attr('readonly', false);
-					$('#datenaissance_h').attr('readonly', false);
-					$('#lien_par').attr('readonly', false);
-					$('#type_piece').attr('readonly', false);
-					$('#num_piece').attr('readonly', false);
-					$('#date_piece_id').attr('readonly', false);
-					$('#adresse_h').attr('readonly', false);
-					$('#mobile_h').attr('readonly', false);
-					return false;
-				});
-				$("#add_hc").click(function(e) { 
-		   			$('#nom_h').prop('readonly', false);
-					$('#prenom_h').attr('readonly', false);
-					$('#datenaissance_h').attr('readonly', false);
-					$('#lien_par').attr('readonly', false);
-					$('#type_piece').attr('readonly', false);
-					$('#num_piece').attr('readonly', false);
-					$('#date_piece_id').attr('readonly', false);
-					$('#adresse_h').attr('readonly', false);
-					$('#mobile_h').attr('readonly', false);
-					$('#nom_h').val('');
-					$('#nom_h').focus();
-					//$('#id_h').val('');
-					$('#prenom_h').val('');
-					$('#datenaissance_h').val('');
-					$('#lien_par').val('');
-					$('input[name="type_piece"]').prop('checked', false);
-					$('#num_piece').val('');
-					$('#date_piece_id').val('');
-					$('#adresse_h').val('');
-					$('#mobile_h').val('');
-					$('#etat_h').val('archivé');
-					return false;
-				});
-	    		});
+		}
+		$(function() {
+		           var checkbox = $("#hommeConf");
+		    	checkbox.change(function() {
+		 		if(checkbox.is(":checked"))
+		    		 	 $("#hommelink").removeClass('invisible');
+		    		 else
+		    			  $("#hommelink").addClass('invisible');	
+			})
+		});
+		function show(wilaya)
+		{
+			var res = wilaya.split(",");
+			$("#idwilaya").val(res[0]);
+			$("#wilaya").val(	res[1]);
+			$("#idcommune").val(res[2]);
+		} 
+		$(document).ready(function () {
+		          var bloodhoundcom = new Bloodhound({
+		          datumTokenizer: Bloodhound.tokenizers.whitespace,
+		          queryTokenizer: Bloodhound.tokenizers.whitespace,
+		        	remote: {
+					url: '/patients/findcom?com=%QUERY%',
+						wildcard: '%QUERY%'
+				},
+			});
+			$('#commune').typeahead({
+				hint: true,
+				highlight: true,
+				minLength: 1
+			},{
+				name: 'communenom',
+				source: bloodhoundcom,
+				display: function(data) {
+					//$("#wilaya").text(data.nom_wilaya)
+					return data.nom_commune  //Input value to be set when you select a suggestion. 
+				},
+				templates: {
+					empty: [
+						'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
+					],
+					header: [
+						'<div class="list-group search-results-dropdown">'
+					],
+					suggestion: function(data) {
+						return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="show(\''+data.Id_wilaya+','+data.nom_wilaya+','+data.Id_commune+'\')">' + data.nom_commune+ '</div></div>'
+					}
+					
+				}
+			});
+	      		var value =  $("input[type=radio][name='type']:checked").val();
+	      		showType(value,0);
+	      		$( ".civilite" ).change(function() {
+				var civilite= $("select.civilite option").filter(":selected").val();
+	  			if((civilite =="marie")|| (civilite =="veuf"))
+	  			{
+	  				$('#Div-nomjeuneFille').removeAttr('hidden');
+	  			}else
+	  			{		
+	  				$('#Div-nomjeuneFille').attr('hidden','');	
+	  			
+	  			}
+			});
+		      	$("#edit_hc").click(function(e) { 
+				$('#nom_h').prop('readonly', false);
+				$('#nom_h').focus();
+				$('#prenom_h').attr('readonly', false);
+				$('#datenaissance_h').attr('readonly', false);
+				$('#lien_par').attr('readonly', false);
+				$('#type_piece').attr('readonly', false);
+				$('#num_piece').attr('readonly', false);
+				$('#date_piece_id').attr('readonly', false);
+				$('#adresse_h').attr('readonly', false);
+				$('#mobile_h').attr('readonly', false);
+				return false;
+			});
+			$("#add_hc").click(function(e) { 
+			 	$('#nom_h').prop('readonly', false);
+				$('#prenom_h').attr('readonly', false);
+				$('#datenaissance_h').attr('readonly', false);
+				$('#lien_par').attr('readonly', false);
+				$('#type_piece').attr('readonly', false);
+				$('#num_piece').attr('readonly', false);
+				$('#date_piece_id').attr('readonly', false);
+				$('#adresse_h').attr('readonly', false);
+				$('#mobile_h').attr('readonly', false);
+				$('#nom_h').val('');
+				$('#nom_h').focus();
+				//$('#id_h').val('');
+				$('#prenom_h').val('');
+				$('#datenaissance_h').val('');
+				$('#lien_par').val('');
+				$('input[name="type_piece"]').prop('checked', false);
+				$('#num_piece').val('');
+				$('#date_piece_id').val('');
+				$('#adresse_h').val('');
+				$('#mobile_h').val('');
+				$('#etat_h').val('archivé');
+				return false;
+			});
+	    	});
 	</script>
 @endsection
 @section('main-content')
@@ -306,13 +343,13 @@
 				</div>
 				<div class="col-sm-4" style="margin-top: -0.1%;">
 					<label><strong>Commune :</strong></label>
-					<input type="hidden" name="idcommune" id="idcommune">
-					<input type="text" value="" id="commune"  placeholder="commune..." />
+					<input type="hidden" name="idcommune" id="idcommune" value="{{ $patient->commune->Id_commune}}"/>
+					<input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}"/>					
 				</div>
-					<div class="col-sm-4">
-					   <label><strong>Wilaya :</strong></label>
-				  	 <input type="hidden" name="idwilaya" id="idwilaya">
-				              <input type="text" value=""  id="wilaya" placeholder="wilaya..." />
+				<div class="col-sm-4">
+					   	<label><strong>Wilaya :</strong></label>
+				  	 	<input type="hidden" name="idwilaya" id="idwilaya" value="{{ $patient->wilaya->immatriculation_wilaya }}"/>
+				           	<input type="text" id="wilaya" placeholder="wilaya..." value="{{ $patient->wilaya->nom_wilaya }}"/>	
 				</div>	
 
 			</div>{{-- row --}}

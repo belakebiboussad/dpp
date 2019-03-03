@@ -219,15 +219,16 @@ class PatientController extends Controller
      */
     public function edit($id)
     {
-             $grades = grade::all(); 
-             $patient = patient::FindOrFail($id);
-             dd($patient->wilaya->nom_wilaya);
-             $homme_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get()->first();
-             if($patient->Type != "Autre")
-             {
-                   //chercher l'assurée
-                    $assure =  assur::FindOrFail($patient->Assurs_ID_Assure); 
-             }  
+               $grades = grade::all(); 
+                $patient = patient::FindOrFail($id);
+                //dd($patient);
+                //dd($patient->commune->nom_commune);
+                $homme_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get()->first();
+                if($patient->Type != "Autre")
+                {
+                     //chercher l'assurée
+                     $assure =  assur::FindOrFail($patient->Assurs_ID_Assure); 
+                }  
              else
                   $assure = new assur;
              return view('patient.edit_patient',compact('patient','assure','homme_c','grades'));
@@ -243,16 +244,15 @@ class PatientController extends Controller
      */
 public function update(Request $request,$id)
 {
-             $date = Date::Now();
-             static $assurObj;
-             $patient = patient::FindOrFail($id); 
-             //dd($patient->Type) ;
-             switch ($patient->Type) {
+                $date = Date::Now();
+                static $assurObj;
+                $patient = patient::FindOrFail($id); 
+                switch ($patient->Type) {
                           case 'Assure':
                                              switch ($request->type) {
                                                      case 'Assure':
-                                                                 $assure = assur::FindOrFail($patient->Assurs_ID_Assure);
-                                                                 $assure->update([
+                                                                $assure = assur::FindOrFail($patient->Assurs_ID_Assure);
+                                                                $assure->update([
                                                                             "Nom"=>$request->nom,
                                                                             "Prenom"=>$request->prenom,
                                                                             "Date_Naissance"=>$request->datenaissance,
@@ -263,24 +263,26 @@ public function update(Request $request,$id)
                                                                             "Grade"=>$request->grade,
                                                                            "NMGSN"=>$request->NMGSN,
                                                                             "NSS"=>$request->nss,
-                                                                 ]);
-                                                                 $patient -> update([
-                                                                            "Nom"=>$request->nom,
-                                                                            "Prenom"=>$request->prenom,
-                                                                            "Dat_Naissance"=>$request->datenaissance,
-                                                                            "Lieu_Naissance"=>$request->lieunaissance,
-                                                                            "Sexe"=>$request->sexe,
-                                                                            "Adresse"=>$request->adresse,
-                                                                            "situation_familiale"=>$request->sf,
-                                                                            "tele_mobile1"=>$request->operateur1.$request->mobile1,
-                                                                            "tele_mobile2"=>$request->operateur2.$request->mobile2,
-                                                                            "group_sang"=>$request->gs,
-                                                                            "rhesus"=>$request->rh, 
-                                                                             "Type"=>$request->type,
-                                                                             "Type_p"=>null,
-                                                                             "description"=>"",
-                                                                              "NSS"=> $request->NSS,    
-                                                                              "Date_creation"=>$date,  
+                                                                ]);
+                                                                $patient -> update([
+                                                                           "Nom"=>$request->nom,
+                                                                           "Prenom"=>$request->prenom,
+                                                                           "Dat_Naissance"=>$request->datenaissance,
+                                                                           "Lieu_Naissance"=>$request->lieunaissance,
+                                                                           "Sexe"=>$request->sexe,
+                                                                           "Adresse"=>$request->adresse,
+                                                                           'commune_res'=>$request->idcommune,
+                                                                           'wilaya_res'=>$request->idwilaya,
+                                                                           "situation_familiale"=>$request->sf,
+                                                                           "tele_mobile1"=>$request->operateur1.$request->mobile1,
+                                                                           "tele_mobile2"=>$request->operateur2.$request->mobile2,
+                                                                           "group_sang"=>$request->gs,
+                                                                           "rhesus"=>$request->rh, 
+                                                                           "Type"=>$request->type,
+                                                                           "Type_p"=>null,
+                                                                           "description"=>"",
+                                                                           "NSS"=> $request->NSS,    
+                                                                           "Date_creation"=>$date,  
                                                                  ]);
                                                                   break;
                                                      case 'Ayant_droit':
@@ -304,6 +306,8 @@ public function update(Request $request,$id)
                                                                             "Lieu_Naissance"=>$request->lieunaissance,
                                                                             "Sexe"=>$request->sexe,
                                                                             "Adresse"=>$request->adresse,
+                                                                            'commune_res'=>$request->idcommune,
+                                                                            'wilaya_res'=>$request->idwilaya,
                                                                             "situation_familiale"=>$request->sf,
                                                                             "tele_mobile1"=>$request->operateur1.$request->mobile1,
                                                                             "tele_mobile2"=>$request->operateur2.$request->mobile2,
@@ -320,22 +324,24 @@ public function update(Request $request,$id)
                                                                   break;
                                                      case 'Autre':
                                                                 $patient -> update([
-                                                                            "Nom"=>$request->nom,
-                                                                            "Prenom"=>$request->prenom,
-                                                                            "Dat_Naissance"=>$request->datenaissance,
-                                                                            "Lieu_Naissance"=>$request->lieunaissance,
-                                                                            "Sexe"=>$request->sexe,
-                                                                            "Adresse"=>$request->adresse,
-                                                                            "situation_familiale"=>$request->sf,
-                                                                            "tele_mobile1"=>$request->operateur1.$request->mobile1,
-                                                                            "tele_mobile2"=>$request->operateur2.$request->mobile2,
-                                                                            "group_sang"=>$request->gs,
-                                                                            "rhesus"=>$request->rh, 
-                                                                            "Assurs_ID_Assure"=>null,
-                                                                             "Type"=>$request->type,
-                                                                             "Type_p"=>null,
-                                                                             "description"=> $request->description, 
-                                                                            "Date_creation"=>$date,  
+                                                                           "Nom"=>$request->nom,
+                                                                           "Prenom"=>$request->prenom,
+                                                                           "Dat_Naissance"=>$request->datenaissance,
+                                                                           "Lieu_Naissance"=>$request->lieunaissance,
+                                                                           "Sexe"=>$request->sexe,
+                                                                           "Adresse"=>$request->adresse,
+                                                                           'commune_res'=>$request->idcommune,
+                                                                           'wilaya_res'=>$request->idwilaya,
+                                                                           "situation_familiale"=>$request->sf,
+                                                                           "tele_mobile1"=>$request->operateur1.$request->mobile1,
+                                                                           "tele_mobile2"=>$request->operateur2.$request->mobile2,
+                                                                           "group_sang"=>$request->gs,
+                                                                           "rhesus"=>$request->rh, 
+                                                                           "Assurs_ID_Assure"=>null,
+                                                                           "Type"=>$request->type,
+                                                                           "Type_p"=>null,
+                                                                           "description"=> $request->description, 
+                                                                           "Date_creation"=>$date,  
                                                                  ]);
                                                                 break;             
                                                      default:
@@ -366,6 +372,8 @@ public function update(Request $request,$id)
                                                                             "Lieu_Naissance"=>$request->lieunaissance,
                                                                             "Sexe"=>$request->sexe,
                                                                             "Adresse"=>$request->adresse,
+                                                                            'commune_res'=>$request->idcommune,
+                                                                            'wilaya_res'=>$request->idwilaya,
                                                                             "situation_familiale"=>$request->sf,
                                                                             "tele_mobile1"=>$request->operateur1.$request->mobile1,
                                                                             "tele_mobile2"=>$request->operateur2.$request->mobile2,
@@ -382,7 +390,6 @@ public function update(Request $request,$id)
                                                      case 'Ayant_droit':
                                                           
                                                                  $assure = assur::FindOrFail($patient->Assurs_ID_Assure);
-                                                          
                                                                  $assure->update([
                                                                             "Nom"=>$request->nomf,
                                                                             "Prenom"=>$request->prenomf,
@@ -403,6 +410,8 @@ public function update(Request $request,$id)
                                                                             "Lieu_Naissance"=>$request->lieunaissance,
                                                                             "Sexe"=>$request->sexe,
                                                                             "Adresse"=>$request->adresse,
+                                                                             'commune_res'=>$request->idcommune,
+                                                                             'wilaya_res'=>$request->idwilaya,
                                                                             "situation_familiale"=>$request->sf,
                                                                             "tele_mobile1"=>$request->operateur1.$request->mobile1,
                                                                             "tele_mobile2"=>$request->operateur2.$request->mobile2,
@@ -423,6 +432,8 @@ public function update(Request $request,$id)
                                                                               "Lieu_Naissance"=>$request->lieunaissance,
                                                                               "Sexe"=>$request->sexe,
                                                                               "Adresse"=>$request->adresse,
+                                                                               'commune_res'=>$request->idcommune,
+                                                                                'wilaya_res'=>$request->idwilaya,
                                                                               "situation_familiale"=>$request->sf,
                                                                               "tele_mobile1"=>$request->operateur1.$request->mobile1,
                                                                               "tele_mobile2"=>$request->operateur2.$request->mobile2,
@@ -463,6 +474,8 @@ public function update(Request $request,$id)
                                                                             "Lieu_Naissance"=>$request->lieunaissance,
                                                                             "Sexe"=>$request->sexe,
                                                                             "Adresse"=>$request->adresse,
+                                                                             'commune_res'=>$request->idcommune,
+                                                                             'wilaya_res'=>$request->idwilaya,
                                                                             "situation_familiale"=>$request->sf,
                                                                             "tele_mobile1"=>$request->operateur1.$request->mobile1,
                                                                             "tele_mobile2"=>$request->operateur2.$request->mobile2,
@@ -497,6 +510,8 @@ public function update(Request $request,$id)
                                                                             "Lieu_Naissance"=>$request->lieunaissance,
                                                                             "Sexe"=>$request->sexe,
                                                                             "Adresse"=>$request->adresse,
+                                                                             'commune_res'=>$request->idcommune,
+                                                                             'wilaya_res'=>$request->idwilaya,
                                                                             "situation_familiale"=>$request->sf,
                                                                             "tele_mobile1"=>$request->operateur1.$request->mobile1,
                                                                             "tele_mobile2"=>$request->operateur2.$request->mobile2,
@@ -517,6 +532,8 @@ public function update(Request $request,$id)
                                                                               "Lieu_Naissance"=>$request->lieunaissance,
                                                                               "Sexe"=>$request->sexe,
                                                                               "Adresse"=>$request->adresse,
+                                                                              'commune_res'=>$request->idcommune,
+                                                                              'wilaya_res'=>$request->idwilaya,
                                                                               "situation_familiale"=>$request->sf,
                                                                               "tele_mobile1"=>$request->operateur1.$request->mobile1,
                                                                               "tele_mobile2"=>$request->operateur2.$request->mobile2,

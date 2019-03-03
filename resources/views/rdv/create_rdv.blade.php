@@ -1,4 +1,24 @@
 @extends('app_recep')
+@section('page-script')
+	<script>
+		$(function() {
+                      $('#calendar-{{$planning->getId()}}').fullCalendar({
+                               selectable: true,
+                               header: {left: 'prev,next today',
+                               center: 'title',
+                               right: 'month,agendaWeek,agendaDay'
+                               },
+                               dayClick: function(date) {
+                                     alert('clicked ' + date.format());
+                               },
+                               select: function(startDate, endDate) {
+                                alert('selected ' + startDate.format() + ' to ' + endDate.format());
+                              }
+                            });
+         });
+	</script>
+	
+@endsection
 @section('main-content')
 <div class="page-header" width="100%">
   @include('partials._patientInfo')
@@ -21,13 +41,19 @@
 				</span>
 			</div>
 		</div>
-	<div>
-		<button type="submit" class="btn btn-sm btn-primary">
-			<i class="ace-icon fa fa-calendar-o"></i>
-			Valider rdv
-		</button>
+		<div>
+			<button type="submit" class="btn btn-sm btn-primary">
+				<i class="ace-icon fa fa-calendar-o"></i>
+				Valider rdv
+			</button>
+		</div>
 	</div>
+	<div class="row">
+		<div class="panel-body">
+                            {!! $planning->calendar() !!}
+               	 </div>
 	</div>
+
 </form>
 </div>
 @endsection

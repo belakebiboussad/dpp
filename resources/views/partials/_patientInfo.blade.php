@@ -4,24 +4,24 @@
 		<div class="widget-box">
 			<div class="widget-header">
 				<h4 class="widget-title"> 
-					<i class="fa fa-angle-right" aria-hidden="true"></i>
+					<i class="fa fa-user" aria-hidden="true"></i>
 					<strong>Patient :</strong>
 				</h4>
 			</div>
 			<div class="widget-body">
 				<div class="widget-main">
 					<label class="inline">
-						<span class="blue"><strong>Nom du Patient :</strong></span>
+						<span class="blue"><strong>Nom :</strong></span>
 						<span class="lbl"> {{ $patient->Nom }}</span>
 					</label>
 					&nbsp;&nbsp;&nbsp;
 					<label class="inline">
-						<span class="blue"><strong>Prénom du Patient :</strong></span>
+						<span class="blue"><strong>Prénom :</strong></span>
 						<span class="lbl"> {{ $patient->Prenom }}</span>
 					</label>
 					&nbsp;&nbsp;&nbsp;
 					<label class="inline">
-						<span class="blue"><strong>Sexe du Patient :</strong></span>
+						<span class="blue"><strong>Sexe:</strong></span>
 						<span class="lbl"> {{ $patient->Sexe == "M" ? "Masculin" : "Féminin" }}</span>
 					</label>
 					&nbsp;&nbsp;&nbsp;
@@ -31,8 +31,14 @@
 					</label>
 					&nbsp;&nbsp;&nbsp;
 					<label class="inline">
-						<span class="blue"><strong>Age du Patient :</strong></span>
-						<span class="lbl">{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }}
+						<span class="blue"><strong>Age:</strong></span>
+						<span class="lb circle">{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }}
+						</span>ans
+					</label>
+					&nbsp;&nbsp;&nbsp;
+					<label class="inline">
+						<span class="blue"><strong>Mobile<i class="fa fa-phone"></i> :</strong></span>
+						<span class="lbl">{{ $patient->tele_mobile1 }}
 						</span>ans
 					</label>
 				</div>
