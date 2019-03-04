@@ -42,17 +42,17 @@
 	                                defaultView: 'agendaWeek',
 	                                weekNumbers: true,
 	                                firstDay: 7,
-	                                 minTime:'08:00:00',
+	                                // minTime:'08:00:00',
 	                                 maxTime:'18:00:00',
 	                                // weekends: false,
 	                                theme: true,	
 	                                events:[
 	                              		@foreach($data as $rdv)
-              				{
-              					title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
-              					start : '{{ $rdv->getAsDate() }}',
-              				},
-              				@endforeach
+              					{
+              						title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
+              						start : '{{ $rdv->getAsDate() }}',
+              					},
+              					@endforeach
 	                                ],		
 	                                dayClick: function(date) {
 	                                     alert('clicked ' + date.format());
