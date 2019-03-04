@@ -13,6 +13,7 @@ use PDF;
 use Flashy;
 use Calendar;
 use Carbon\Carbon;
+use DateTime;
 // use Illuminate\Support\Facades\Gate;
 class RDVController extends Controller
 {
@@ -54,7 +55,6 @@ class RDVController extends Controller
            if(rol::where("id",Auth::User()->role_id)->get()->first()->role =="Receptioniste")
                 $data = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->get();
            else
-           
                 $data = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->where("specialite", $employe->Specialite_Emploiye)->get();
            if($data->count())
            {
@@ -91,14 +91,11 @@ class RDVController extends Controller
                                                              'tel'=>$value->tele_mobile1,                             
                                                    ]
                                           );
-                                }                                             
-
+                                }                                            
                      }
            }
-          // dd($rendezvous);
-           $events = array();
-         //  $planning = Calendar::addEvents($rendezvous);   
-            $eloquentRDV= rdv::first(); //EventModel implements MaddHatter\LaravelFullcalendar\Event
+           $events = array();      //  $planning = Calendar::addEvents($rendezvous);   
+           $eloquentRDV= rdv::first(); //EventModel implements MaddHatter\LaravelFullcalendar\Event
            $planning = \Calendar::addEvents($rendezvous) //add an array with addEvents
              ->addEvent($eloquentRDV, [ //set custom color fo this event
                      'color' => '#800',
@@ -111,6 +108,7 @@ class RDVController extends Controller
                  'minTime' => '08:00:00',
                  'maxTime' => '20:00:00',
                 'slotDuration' => '00:30:01',
+                 'defaultView'=> 'agendaWeek',
              //   'eventLimit'     => 4,
            ])->setCallbacks([ //set fullcalendar callback options (will not be JSON encoded)
                  'viewRender' => 'function() {}',
@@ -131,32 +129,28 @@ class RDVController extends Controller
      */
     public function create(Request $request,$id_patient)
     {
+           $employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
            $patient = patient::FindOrFail($id_patient);
            $events = array();
            $eloquentRDV= rdv::first(); 
+           $data = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->where("specialite", $employe->Specialite_Emploiye)->get();
            $planning = \Calendar::addEvents($events) //add an array with addEvents
                 ->addEvent($eloquentRDV, [ //set custom color fo this event
                        'color' => '#800',
-                   ])->setOptions([ //set fullcalendar options
-                  'firstDay' => 7,
-                  'themeSystem' => 'bootstrap4',
-                  'timeFormat'        => 'H:mm',
-                   'axisFormat'        => 'H:mm',
-                   'selectable' => true,
-                   'minTime' => '08:00:00',
-                   'maxTime' => '20:00:00',
-                  'slotDuration' => '00:30:01',
-               //   'eventLimit'     => 4,
-             ])->setCallbacks([ //set fullcalendar callback options (will not be JSON encoded)
-                   'viewRender' => 'function() {}',
-                   'eventClick' => 'function(event) {
-                             showModal1(event.id,event.title,event.start,event.idPatient,event.tel,event.age);
-                   }',
-                   'dayClick'=>'function(calEvent, jsEvent, view){
-                            showModal(calEvent);
-                   }',
+             //  ])->setOptions([ 
+             //      'firstDay' => 7,
+             //      'themeSystem' => 'bootstrap4',
+             //      'timeFormat'        => 'H:mm',
+             //       'axisFormat'        => 'H:mm',
+             //       'selectable' => true,
+             //      Dtae
+             //       'maxTime' => '20:00:00',
+             //      'slotDuration' => '00:30:01',
+             //   //   'eventLimit'     => 4,
+               ])->setCallbacks([ //set fullcalendar callback options (will not be JSON encoded)
+    
            ]);
-           return view('rdv.create_rdv',compact('patient','planning'));
+           return view('rdv.create_rdv',compact('patient','planning','data'));
     }
 
     /**
@@ -236,8 +230,7 @@ class RDVController extends Controller
      */
     public function destroy($id)
     {
-        rdv::destroy($id);
-        //return redirect()->route('rdv.index');
+        rdv::destroy($id);    //return redirect()->route('rdv.index');
         return redirect()->action('RDVController@index');
     }
     public function orderPdf($id)
@@ -313,5 +306,23 @@ class RDVController extends Controller
               ]);
              Flashy::success('RDV ajouter avec succès');
               return redirect()->route("rdv.index");
-    }
+      }
+      public function checkFullCalendar(Request $request)
+     {
+           $events = array(); 
+           $today = Carbon::now()->format('Y-m-d');
+           $rendezVous = rdv::all();
+           foreach ($rendezVous as $rdv) {
+                $patient = patient::FindOrFail($rdv->Patient_ID_Patient);
+                $rdv = array();
+                $e['id'] = $patient->id;
+                $e['title'] =$patient->Nom + $patient->Prenom  ;
+                $e['start'] = new DateTime($patient->Date_RDV);
+                $e['end'] = new DateTime($patient->Date_RDV.' +1 day');
+                 array_push($events, $e);
+           }
+           // return response()->json(['events' , $events]);
+           return response()->json($events);
+     }
+
 }

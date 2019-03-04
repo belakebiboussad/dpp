@@ -30,11 +30,20 @@ class rdv extends Model implements IdentifiableEvent
 	{
 	        return $this->Date_RDV;
 	}
-	// public function getEventOptions()
- //    	{
- //        		return [
-            		
-	//           ];
- //  	  }
+	public function getTime()
+	{
+	        return $this->Temp_rdv;
+	}
+	public function patient()
+	{
+		if(isset($this->Patient_ID_Patient))
+			return $this->belongsTo('App\modeles\Patient','Patient_ID_Patient','id');
+	}
+	public function getAsDate()
+	{
+		$date =date('d/m/Y h:i:s A', strtotime($this->Date_RDV. '+10 hours')); 
+		return $date;
+	}
+
 
 }

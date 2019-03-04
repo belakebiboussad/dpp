@@ -188,7 +188,7 @@ Route::get("flash","HomeController@flash");
 route::get('/home_reception',function (){
     return view('home.home_recep');
 })->name('home_rec');
-
+Route::post('/get-all-events','RDVController@checkFullCalendar');
 // Route::get('/pdf', function () {
 //     return view('pdf');
 // });
