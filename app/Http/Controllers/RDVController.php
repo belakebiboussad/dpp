@@ -101,6 +101,7 @@ class RDVController extends Controller
                      'color' => '#800',
                  ])->setOptions([ //set fullcalendar options
                 'firstDay' => 7,
+                'timeZone'=> 'CET',
                 'themeSystem' => 'bootstrap4',
                 'timeFormat'        => 'H:mm',
                  'axisFormat'        => 'H:mm',
@@ -118,6 +119,9 @@ class RDVController extends Controller
                  'dayClick'=>'function(calEvent, jsEvent, view){
                           showModal(calEvent);
                  }',
+                'select'=>'function(startDate, endDate, jsEvent, view, resource) {
+                     go(startDate, endDate, jsEvent, view, resource);
+                }',
          ]);
         // dd($planning);
         return view('rdv.index_rdv', compact('planning'));
@@ -131,26 +135,10 @@ class RDVController extends Controller
     {
            $employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
            $patient = patient::FindOrFail($id_patient);
-           $events = array();
-           $eloquentRDV= rdv::first(); 
-           $data = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->where("specialite", $employe->Specialite_Emploiye)->get();
-           $planning = \Calendar::addEvents($events) //add an array with addEvents
-                ->addEvent($eloquentRDV, [ //set custom color fo this event
-                       'color' => '#800',
-             //  ])->setOptions([ 
-             //      'firstDay' => 7,
-             //      'themeSystem' => 'bootstrap4',
-             //      'timeFormat'        => 'H:mm',
-             //       'axisFormat'        => 'H:mm',
-             //       'selectable' => true,
-             //      Dtae
-             //       'maxTime' => '20:00:00',
-             //      'slotDuration' => '00:30:01',
-             //   //   'eventLimit'     => 4,
-               ])->setCallbacks([ //set fullcalendar callback options (will not be JSON encoded)
-    
-           ]);
-           return view('rdv.create_rdv',compact('patient','planning','data'));
+           // $data = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->where("specialite", $employe->Specialite_Emploiye)->get();
+           $data = rdv::all();
+      
+           return view('rdv.create_rdv',compact('patient','data'));
     }
 
     /**
@@ -162,21 +150,21 @@ class RDVController extends Controller
     public function store(Request $request)
     {
           $request->validate([
-            "daterdv"=> 'required',
+                "daterdv"=> 'required',
            ]);
-        $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
-        $specialite = $employe->Specialite_Emploiye; 
-        // $rdv = rdv::create($request->all());
-        $rdv = rdv::firstOrCreate([
-           "Date_RDV"=>$request->daterdv,
-           "specialite"=>$specialite,
-           "Employe_ID_Employe"=>Auth::user()->employee_id,
-           "Patient_ID_Patient"=>$request->id_patient,
-           "Etat_RDV"=> "en attente",
-        ]);
+           $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
+           $specialite = $employe->Specialite_Emploiye; 
+           // $rdv = rdv::create($request->all());
+           $rdv = rdv::firstOrCreate([
+               "Date_RDV"=>$request->daterdv,
+               "specialite"=>$specialite,
+               "Employe_ID_Employe"=>Auth::user()->employee_id,
+               "Patient_ID_Patient"=>$request->id_patient,
+               "Etat_RDV"=> "en attente",
+           ]);
 
-         Flashy::success('RDV ajouter avec succès');
-         return redirect()->route("rdv.show",$rdv->id);
+           Flashy::success('RDV ajouter avec succès');
+           return redirect()->route("rdv.show",$rdv->id);
     }
 
     /**
@@ -294,11 +282,20 @@ class RDVController extends Controller
            $request->validate([
                      "date_RDV"=> 'required',
            ]);
-           $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
+           
+           $x = preg_replace('/\s*:\s*/', ':', $request->Temp_rdv);
+           $time = date('G:i', strtotime($x));
+           // $mySqlTime = date('H:i:s', $x);
+           //dd($time);
+          $b = Carbon\Carbon::createFromFormat('H:i:s',$time)->format('h:i');
+           dd($b);
+            $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
            $specialite = $employe->Specialite_Emploiye; 
+
            // $rdv = rdv::create($request->all());
            $rdv = rdv::firstOrCreate([
                  "Date_RDV"=>$request->date_RDV,
+                 "Temp_rdv"=>$time,
                  "specialite"=>$specialite,
                  "Employe_ID_Employe"=>Auth::user()->employee_id,
                  "Patient_ID_Patient"=>$patient->id,

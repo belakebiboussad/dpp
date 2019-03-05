@@ -41,7 +41,7 @@ class rdv extends Model implements IdentifiableEvent
 	}
 	public function getAsDate()
 	{
-		$date =date('d/m/Y h:i:s A', strtotime($this->Date_RDV. '+10 hours')); 
+		$date =date('Y-m-d h:i:s A', strtotime($this->Date_RDV. '+12 hours')); 
 		return $date;
 	}
 

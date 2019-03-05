@@ -53,24 +53,8 @@
           }
        </script>
 
-       <script>
-        // $(function() {
-        //              $('#calendar-{{$planning->getId()}}').fullCalendar({
-        //                       selectable: true,
-        //                       header: {left: 'prev,next today',
-        //                       center: 'title',
-        //                       right: 'month,agendaWeek,agendaDay'
-        //                       },
-        //                       dayClick: function(date) {
-        //                             alert('clicked ' + date.format());
-        //                       },
-        //                       select: function(startDate, endDate) {
-        //                        alert('selected ' + startDate.format() + ' to ' + endDate.format());
-        //                      }
-        //                    });
-        // });
-////////////// //<![CDATA[
-     $(document).ready(function(){
+      <script>
+      $(document).ready(function(){
                 $('#listePatient').editableSelect({
                       effects: 'slide', 
                       editable: false,  
@@ -85,19 +69,24 @@
                 });
 
      });
+      function go(startDate, endDate, jsEvent, view, resource)
+      {
+              //var a= moment.tz(startDate, "Europe/London").format();
+              //alert(startDate.time());
+              // alert(calEvent.start.);
+              //alert(endDate);
+      }
      function showModal(date)
      {
-                //var mydate = moment(date,'YYYY-MM-DD').toDate();
-                var mydate=  moment(date,'YYYY-MM-DD').toDate();
-                var CurrentDate = new Date();   CurrentDate.setHours(0);
-               CurrentDate.setMinutes(0); CurrentDate.setSeconds(0);
-               if (mydate >= CurrentDate  ) {
-                     var dd = mydate.getDate();             
-                     var mm = mydate.getMonth() + 1;
-                     var yyyy = mydate.getFullYear();     
-                     var ToDate = yyyy + '-' + mm + '-' +dd ;
-                     var startDate = new Date(yyyy, mm, dd);
+                  //var mydate = moment(date,'YYYY-MM-DD').toDate(); 
+                 var a = moment.tz(date, "Africa/Algiers").format('YYYY-MM-DD HH:mm');
+                 var mydate = moment(a).format("YYYY-MM-DD");
+                var heur= moment(a).format('HH:mm:ss');
+                var x = moment.tz(new Date(), "Africa/Algiers").format('YYYY-MM-DD HH:mm');
+                var CurrentDate = moment(x).format("YYYY-MM-DD");            
+                 if (mydate >= CurrentDate  ) {            
                      $('#date_RDV').datepicker("setDate",mydate);//new Date(yyyy,mm,dd)
+                     $('#Temp_rdv').val(heur);//new Date(yyyy,mm,dd)
                      $("#fullCalModal").modal();
                 }
      }
@@ -204,7 +193,9 @@
             </div>
            <form id ="addRdv" role="form" action="/createRDV"method="POST">
                 {{ csrf_field() }}
-                <input type="text" id="date_RDV" name="date_RDV" data-date-format='yyyy-mm-dd' value="" style="display:none;">{{-- hidden --}}
+                <input type="text" id="date_RDV" name="date_RDV" data-date-format='yyyy-mm-dd' value="" style="display:none">{{-- style="display:none;" --}}
+                <input type="time" id="Temp_rdv" name="Temp_rdv"  value=""  min="8:00" max="18:00" style="display:none">
+                
                 <div id="modalBody" class="modal-body">
                       <div class="row">
                            <label for="patient"><b>Selectioner le patient :</b></label>
