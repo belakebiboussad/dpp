@@ -48,15 +48,13 @@ class RDVController extends Controller
     {
        return view('patient.index_patient');
     }
-    public function indexfut()
+    public function index()
     {
 
-           $rdvs = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->get();
-         
-           
-
+                $rdvs = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->get();
+              return view('rdv.index', compact('rdvs')); 
     }
-    public function index()
+    public function indexorg()
     {
           $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
           $rendezvous = [];
