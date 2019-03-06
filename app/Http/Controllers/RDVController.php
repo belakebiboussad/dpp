@@ -48,6 +48,14 @@ class RDVController extends Controller
     {
        return view('patient.index_patient');
     }
+    public function indexfut()
+    {
+
+           $rdvs = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->get();
+         
+           
+
+    }
     public function index()
     {
           $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
@@ -284,17 +292,15 @@ class RDVController extends Controller
            ]);
            
            $x = preg_replace('/\s*:\s*/', ':', $request->Temp_rdv);
-           $time = date('G:i', strtotime($x));
-           // $mySqlTime = date('H:i:s', $x);
-           //dd($time);
-          $b = Carbon\Carbon::createFromFormat('H:i:s',$time)->format('h:i');
-           dd($b);
-            $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
+           //$time = date('G:i', strtotime($x));
+          $time = strtotime( $request->Temp_rdv);
+           $date =  strtotime( $request->date_RDV);
+           $dateTime = new DateTime();
+           $dateTime->setTimestamp($date+$time);
+           $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
            $specialite = $employe->Specialite_Emploiye; 
-
-           // $rdv = rdv::create($request->all());
            $rdv = rdv::firstOrCreate([
-                 "Date_RDV"=>$request->date_RDV,
+                 "Date_RDV"=>$dateTime,
                  "Temp_rdv"=>$time,
                  "specialite"=>$specialite,
                  "Employe_ID_Employe"=>Auth::user()->employee_id,

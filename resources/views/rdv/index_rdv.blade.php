@@ -193,8 +193,8 @@
             </div>
            <form id ="addRdv" role="form" action="/createRDV"method="POST">
                 {{ csrf_field() }}
-                <input type="text" id="date_RDV" name="date_RDV" data-date-format='yyyy-mm-dd' value="" style="display:none">{{-- style="display:none;" --}}
-                <input type="time" id="Temp_rdv" name="Temp_rdv"  value=""  min="8:00" max="18:00" style="display:none">
+                <input type="text" id="date_RDV" name="date_RDV" data-date-format='yyyy-mm-dd' value="">{{-- style="display:none;" --}}
+                <input type="time" id="Temp_rdv" name="Temp_rdv"  value=""  min="8:00" max="18:00" >              {{-- style="display:none" --}}
                 
                 <div id="modalBody" class="modal-body">
                       <div class="row">
