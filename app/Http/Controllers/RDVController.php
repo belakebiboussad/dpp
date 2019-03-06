@@ -290,13 +290,12 @@ class RDVController extends Controller
            $request->validate([
                      "date_RDV"=> 'required',
            ]);
-           
            $x = preg_replace('/\s*:\s*/', ':', $request->Temp_rdv);
-           //$time = date('G:i', strtotime($x));
-          $time = strtotime( $request->Temp_rdv);
-           $date =  strtotime( $request->date_RDV);
-           $dateTime = new DateTime();
-           $dateTime->setTimestamp($date+$time);
+
+
+            $date = new DateTime($request->date_RDV);
+           $time = new DateTime($request->Temp_rdv);
+           $dateTime = new DateTime($date->format('Y-m-d') .' ' .$time->format('H:i:s'));  
            $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
            $specialite = $employe->Specialite_Emploiye; 
            $rdv = rdv::firstOrCreate([
