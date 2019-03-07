@@ -51,8 +51,8 @@ class RDVController extends Controller
     public function index()
     {
 
-                $rdvs = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->get();
-              return view('rdv.index', compact('rdvs')); 
+           $rdvs = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->get();
+           return view('rdv.index', compact('rdvs')); 
     }
     public function indexorg()
     {
@@ -282,16 +282,40 @@ class RDVController extends Controller
             ->make(true);
     }
     function AddRDV(Request $request)
+     {
+           $arr = explode("-", $request->listePatient);
+           $patient=patient::where('code_barre',$arr[0])->first();
+           $request->validate([
+                     "date_RDV"=> 'required',
+           ]);
+           $dateRdv = new DateTime($request->date_RDV);
+           $dateFinRdv = new DateTime($request->date_Fin);
+           //dd($dateFinRdv);
+           //$time = date("H:i:s",strtotime($request->Temp_rdv));
+           $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
+           $specialite = $employe->Specialite_Emploiye;  
+           $rdv = rdv::firstOrCreate([
+                "Date_RDV"=>$dateRdv,
+                 //"Temp_rdv"=>$time,
+                 'Fin_RDV'=>$dateFinRdv, 
+                "specialite"=>$specialite,
+                "Employe_ID_Employe"=>Auth::user()->employee_id,
+                 "Patient_ID_Patient"=>$patient->id,
+                 "Etat_RDV"=> "en attente",
+           ]);
+           Flashy::success('RDV ajouter avec succès');
+           return redirect()->route("rdv.index"); 
+
+     }     
+    function AddRDVOrg(Request $request)
     {
-           $arr = explode(" ", $request->listePatient);
+           $arr = explode("-", $request->listePatient);
            $patient=patient::where('code_barre',$arr[0])->first();
            $request->validate([
                      "date_RDV"=> 'required',
            ]);
            $x = preg_replace('/\s*:\s*/', ':', $request->Temp_rdv);
-
-
-            $date = new DateTime($request->date_RDV);
+           $date = new DateTime($request->date_RDV);
            $time = new DateTime($request->Temp_rdv);
            $dateTime = new DateTime($date->format('Y-m-d') .' ' .$time->format('H:i:s'));  
            $employe = employ::where("id",Auth::user()->employee_id)->get()->first();

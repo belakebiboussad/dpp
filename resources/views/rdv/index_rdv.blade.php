@@ -30,21 +30,21 @@
     <script>
           function  showModal1(id,title,date,idPatient,tel,age) {
                 var CurrentDate = (new Date()).setHours(0, 0, 0, 0);
-                GivenDate = (new Date(date)).setHours(0, 0, 0, 0);;
+                GivenDate = (new Date(date)).setHours(0, 0, 0, 0);
                 if( CurrentDate <= GivenDate )
                 {
-                     $('#patient').text(title);
-                     $('#updateRdv').attr('action','/rdv/'.concat(id));
-                     $('#lien').attr('href','/patient/'.concat(idPatient));
-                     $('#btnConsulter').attr('href','/consultations/create/'.concat(idPatient));
-                     $('#btnDelete').attr('href','/rdv/'.concat(id));
-                     $("#id_rdv").val(id);
-                      $('#patient_tel').text(tel);
-                      $('#agePatient').text(age);
-                     $("#daterdv").val(date.format('Y-MM-DD'));
-                     $('#myModal').modal({
-                           show: 'true'
-                     }); 
+                       $('#patient').text(title);
+                       $('#updateRdv').attr('action','/rdv/'.concat(id));
+                       $('#lien').attr('href','/patient/'.concat(idPatient));
+                       $('#btnConsulter').attr('href','/consultations/create/'.concat(idPatient));
+                       $('#btnDelete').attr('href','/rdv/'.concat(id));
+                       $("#id_rdv").val(id);
+                        $('#patient_tel').text(tel);
+                        $('#agePatient').text(age);
+                       $("#daterdv").val(date.format('Y-MM-DD'));
+                       $('#myModal').modal({
+                             show: 'true'
+                       }); 
                 }
           }
           function envoie()
@@ -199,10 +199,10 @@
                 
                 <div id="modalBody" class="modal-body">
                       <div class="row">
-                           <label for="patient"><b>Selectioner le patient :</b></label>
-                           <div class="input-group col-sm-6">
+                           <fieldset class="inline-fields"> 
+                                <label for="patient"><strong>Selectioner le patient :</strong></label>
                                 <select id="listePatient" name ="listePatient" style="width:300px;" required></select>                        
-                           </div> 
+                           </fieldset>
                       </div>
                       <div class="space-12"></div>
                 </div>{{-- modalBody --}}
