@@ -38,8 +38,8 @@ class RDVController extends Controller
     }
     public function storereporte(Request $request,$id)
     {
-            $rdv = rdv::FindOrFail($id);
-            $rdv->update([
+           $rdv = rdv::FindOrFail($id);
+           $rdv->update([
                 "Date_RDV"=>$request->daterdv,
             ]);
             return redirect()->route("rdv.show",$rdv->id);
@@ -50,7 +50,6 @@ class RDVController extends Controller
     }
     public function index()
     {
-
            $rdvs = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->get();
            return view('rdv.index', compact('rdvs')); 
     }
@@ -207,13 +206,18 @@ class RDVController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-           $rdv = rdv::FindOrFail($id);
+    { 
+            dd($id);
+           $rdv = rdv::FindOrFail($request->id_rdv);    
+           $dateRdv = new DateTime($request->daterdv);
+           $dateFinRdv = new DateTime($request->datefinrdv);
            $rdv->update([
-                "Date_RDV"=>$request->daterdv,
-                "Temp_rdv"=>$request->heurrdv
+                "Date_RDV"=>$dateRdv,
+                "Fin_RDV"=>$dateFinRdv,
        ]);
-       return redirect()->route("rdv.show",$rdv->id);
+       //return redirect()->route("rdv.show",$rdv->id);
+       return redirect()->route("rdv.index");
+
     }
 
     /**
@@ -224,8 +228,8 @@ class RDVController extends Controller
      */
     public function destroy($id)
     {
-        rdv::destroy($id);    //return redirect()->route('rdv.index');
-        return redirect()->action('RDVController@index');
+           rdv::destroy($id);    //return redirect()->route('rdv.index');
+           return redirect()->action('RDVController@index');
     }
     public function orderPdf($id)
      {
@@ -290,7 +294,6 @@ class RDVController extends Controller
            ]);
            $dateRdv = new DateTime($request->date_RDV);
            $dateFinRdv = new DateTime($request->date_Fin);
-           //dd($dateFinRdv);
            //$time = date("H:i:s",strtotime($request->Temp_rdv));
            $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
            $specialite = $employe->Specialite_Emploiye;  
@@ -307,30 +310,7 @@ class RDVController extends Controller
            return redirect()->route("rdv.index"); 
 
      }     
-    function AddRDVOrg(Request $request)
-    {
-           $arr = explode("-", $request->listePatient);
-           $patient=patient::where('code_barre',$arr[0])->first();
-           $request->validate([
-                     "date_RDV"=> 'required',
-           ]);
-           $x = preg_replace('/\s*:\s*/', ':', $request->Temp_rdv);
-           $date = new DateTime($request->date_RDV);
-           $time = new DateTime($request->Temp_rdv);
-           $dateTime = new DateTime($date->format('Y-m-d') .' ' .$time->format('H:i:s'));  
-           $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
-           $specialite = $employe->Specialite_Emploiye; 
-           $rdv = rdv::firstOrCreate([
-                 "Date_RDV"=>$dateTime,
-                 "Temp_rdv"=>$time,
-                 "specialite"=>$specialite,
-                 "Employe_ID_Employe"=>Auth::user()->employee_id,
-                 "Patient_ID_Patient"=>$patient->id,
-                 "Etat_RDV"=> "en attente",
-              ]);
-             Flashy::success('RDV ajouter avec succès');
-              return redirect()->route("rdv.index");
-      }
+  
       public function checkFullCalendar(Request $request)
      {
            $events = array(); 

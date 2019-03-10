@@ -33,17 +33,17 @@
                 GivenDate = (new Date(date)).setHours(0, 0, 0, 0);
                 if( CurrentDate <= GivenDate )
                 {
-                       $('#patient').text(title);
-                       $('#updateRdv').attr('action','/rdv/'.concat(id));
-                       $('#lien').attr('href','/patient/'.concat(idPatient));
-                       $('#btnConsulter').attr('href','/consultations/create/'.concat(idPatient));
-                       $('#btnDelete').attr('href','/rdv/'.concat(id));
-                       $("#id_rdv").val(id);
-                        $('#patient_tel').text(tel);
-                        $('#agePatient').text(age);
-                       $("#daterdv").val(date.format('Y-MM-DD'));
-                       $('#myModal').modal({
-                             show: 'true'
+                     $('#patient').text(title);
+                     $('#updateRdv').attr('action','/rdv/'.concat(id));
+                     $('#lien').attr('href','/patient/'.concat(idPatient));
+                     $('#btnConsulter').attr('href','/consultations/create/'.concat(idPatient));
+                     $('#btnDelete').attr('href','/rdv/'.concat(id));
+                     $("#id_rdv").val(id);
+                     $('#patient_tel').text(tel);
+                     $('#agePatient').text(age);
+                     $("#daterdv").val(date.format('Y-MM-DD'));
+                     $('#myModal').modal({
+                           show: 'true'
                        }); 
                 }
           }
