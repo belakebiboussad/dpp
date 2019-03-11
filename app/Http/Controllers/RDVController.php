@@ -207,8 +207,10 @@ class RDVController extends Controller
      */
     public function update(Request $request, $id)
     { 
-            dd($id);
-           $rdv = rdv::FindOrFail($request->id_rdv);    
+           // dd($id);
+           $rdv = rdv::FindOrFail($id);  
+           //dd($rdv);
+           //$rdv = rdv::FindOrFail($request->id_rdv);    
            $dateRdv = new DateTime($request->daterdv);
            $dateFinRdv = new DateTime($request->datefinrdv);
            $rdv->update([

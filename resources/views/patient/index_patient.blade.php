@@ -24,7 +24,7 @@ $(document).ready(function(){
 	$('#patientName').typeahead({
 				hint: true,
 				highlight: true,
-				minLength: 1
+				minLength: 2
 			}, {
 				name: 'patientnom',
 				source: bloodhound,
@@ -49,7 +49,7 @@ $(document).ready(function(){
 	$('#patientFirstName').typeahead({
 		hint: true,
 		highlight: true,
-		minLength: 1
+		minLength: 2
 	},{
 		name: 'patientprenom',
 		source: bloodhoundPrenom,

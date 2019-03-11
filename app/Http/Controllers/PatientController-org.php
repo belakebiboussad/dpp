@@ -199,7 +199,7 @@ class PatientController extends Controller
     public function show($id)
     {   
           $patient = patient::FindOrFail($id);
-          $homme_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get()->first();
+           $homme_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get()->first();
           $consultations = consultation::where('Patient_ID_Patient',$patient->id)->get(); 
           $hospitalisations = consultation::join('patients','consultations.Patient_ID_Patient','=','patients.id')
                                           ->where('patients.id','=',$patient->id)
@@ -695,15 +695,17 @@ public function update(Request $request,$id)
             ->make(true);
             // <i class="ace-icon fa fa-hand-o-up bigger-120">
 }
-
-
 public function getPatientsArray(Request $request)
 {
      if($request->ajax())  
-     {
-            $patients = patient::where('Nom','LIKE','%'.trim($request->nom)."%")->select('patients.id','patients.Nom','patients.code_barre','patients.Prenom')->get();
-             return ['success' => true, 'data' => $patients]; 
-
+     {           
+           if($request->field =="Dat_Naissance")
+           {
+                $patient = patient::FindOrFail($request->value);
+           } 
+            else
+                $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->select('patients.id','patients.Nom','patients.code_barre','patients.Prenom')->get(); 
+           return ['success' => true, 'data' => $patients]; 
     }
 }
 public function search(Request $request)
@@ -743,23 +745,20 @@ public function search(Request $request)
     // {
     //        return patient::where('Nom', 'LIKE', '%'.$request->q.'%')->get();    
     // }
-    public function getPatientDetails(Request $request)
-    {
-        //$a= $request->all();
-       
-        $patient = patient::FindOrFail($request->search);
+public function getPatientDetails(Request $request)
+{
+     $patient = patient::FindOrFail($request->search);
       if($patient->Type !="Autre")
       {
            $assure=  assur::FindOrFail($patient->Assurs_ID_Assure); 
            $view = view("patient.ajax_patient_detail",compact('patient','assure'))->render();
-        }
-        else
-        {
+      }
+      else
+      {
                $view = view("patient.ajax_patient_detail",compact('patient'))->render();
-        }
-         return response()->json(['html'=>$view]);
-    }
-
+      }
+       return response()->json(['html'=>$view]);
+}
     public function AutoCompletePatientname(Request $request)
     {
          return patient::where('Nom', 'LIKE', '%'.trim($request->q).'%')->get();     
@@ -774,7 +773,7 @@ public function search(Request $request)
               // 'communes.*','wilayas.*'  
       }
      public function patientsToMerege(Request $request)
-    {
+     {
             $statuses = array();
            $values;
            $patientResult = new patient;
@@ -798,20 +797,18 @@ public function search(Request $request)
                 }
                 // Multiple values
               $statuses[$field] = count(array_unique($values)) == 1 ? "duplicate" : "multiple";
-     }
-          // dd($result);
-
-         // Count statuses
-          $counts = array(
-            "none"      => 0,
-            "unique"    => 0,
-            "duplicate" => 0,
-            "multiple"  => 0,
-          );
-          foreach ($statuses as $status) {
-                $counts[$status]++;
-          }
-          //ArrayClass
+           }
+           // Count statuses
+           $counts = array(
+                  "none"      => 0,
+                  "unique"    => 0,
+                  "duplicate" => 0,
+                  "multiple"  => 0,
+           );
+           foreach ($statuses as $status) {
+                 $counts[$status]++;
+           }
+           //ArrayClass
           $view = view("patient.ajax_patient_merge",compact('patientResult','patient1','patient2','statuses','counts'))->render();
           return response()->json(['html'=>$view]);
      }
@@ -837,8 +834,7 @@ public function search(Request $request)
            foreach ($rdvs as $key => $rdv) {
                 $rdv->update(["Patient_ID_Patient"=>$patient1->id]);  
            }
-           //dd($request->all());
-           $patient1 -> update([
+          $patient1 -> update([
                 "Nom"=>$request->nom,
                 "Prenom"=>$request->prenom,
                 "code_barre"=>$request->code,
@@ -860,9 +856,9 @@ public function search(Request $request)
            ]);   
            //desactiver patient 2
            $patient2->active=0;$patient2->save();  
-          // return redirect()->route('patient.index')->with('success','Item created successfully!');      
-          //Flashy::info('le merge est fait', 'http://your-awesome-link.com');
+           // return redirect()->route('patient.index')->with('success','Item created successfully!');      
+           //Flashy::info('le merge est fait', 'http://your-awesome-link.com');
            Flashy::success('merge est fait avec succè');
-            Return View::make('patient.index_patient');
+           Return View::make('patient.index_patient');
      }
 }

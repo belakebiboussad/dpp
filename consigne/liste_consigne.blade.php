@@ -100,7 +100,7 @@
 									<strong>Observation:</strong>
 								</label>
 								<div class="col-sm-9">
-									<textarea class="col-xs-12" id="obs" name="obs" placeholder="Observation"></textarea>
+									<textarea class="col-xs-12" id="obs" name="obs" placeholder="Observation..."></textarea>
 								</div>
 							</div>	
 

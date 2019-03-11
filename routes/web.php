@@ -82,9 +82,7 @@ Route::resource('listeadmiscolloque','listeadmisColloqueController');
 Route::post('/colloque/store/{id}','ColloqueController@store');// a revoir
 Route::put('/colloque/{membres,id_demh}', 'ColloqueController@store');// a revoir
 Route::resource('colloque','ColloqueController');
-
 Route::get('/listecolloques/{type}','ColloqueController@index');
-
 Route::resource('admission','AdmissionController');
 Route::resource('role','RolesController');
 Route::resource('ticket','ticketController');

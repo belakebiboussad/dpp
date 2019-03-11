@@ -7,33 +7,48 @@
      .fc-agendaDay-view tr {
           height: 40px;
      }
-  /*   .fc-fri { background-color:yellow; }
-     .fc-sat { background-color:red;  }*/
-</style>
+     .es-list { 
+            max-height: 160px !important;
+            margin-left: 0px;
+            margin-right: -1  px; 
+             overflow-y: scroll;
+     }
+     .es-list li {
+                list-style: none;
+      }
+     .input-group.md-form.form-sm.form-1 input{
+            border: 1px solid #bdbdbd;
+            border-top-right-radius: 0.25rem;
+            border-bottom-right-radius: 0.25rem;
+      }
+     </style>
 
 @endsection
-@section('page-script')
-  {{-- {!! $planning->script() !!} --}}
-  <script>
-     function createRDVModal(debut,fin)
-      {        var CurrentDate = (new Date()).setHours(0, 0, 0, 0);
+@section('page-script') {{-- {!! $planning->script() !!} --}}
+      <script>
+      function createRDVModal(debut,fin)
+      {        
+                var CurrentDate = (new Date()).setHours(0, 0, 0, 0);
                 var GivenDate = (new Date(debut)).setHours(0, 0, 0, 0);
-               if( CurrentDate <= GivenDate )
-               { 
-                      debut = moment.tz(debut, "Europe/London").format('YYYY-MM-DD HH:mm');  //debut =moment.utc(debut).zone(-60).format();
-                      fin = moment.tz(fin, "Europe/London").format('YYYY-MM-DD HH:mm');  //fin =moment.utc(fin).zone(-60).format();//
-                     var heur= moment(debut).format('HH:mm:ss');
+                if( CurrentDate <= GivenDate )
+                { 
+                     debut = moment(debut).format('YYYY-MM-DD HH:mm'); //debut = moment.tz(debut, "America/Los_Angeles").format('YYYY-MM-DD HH:mm');
+                     fin = moment(fin).format('YYYY-MM-DD HH:mm');     //fin = moment.tz(fin, "Europe/London").format('YYYY-MM-DD HH:mm');
+                      var heur= moment(debut).format('HH:mm:ss');
                      $('#date_RDV').val(debut); $('#date_Fin').val(fin); $('#Temp_rdv').val(heur);
                      $('#myModal').modal({
                                  show: 'true'
                       }); 
                }
       }
-     function remoteSearch() {
+      //reccherche par nom
+     function remoteSearch(field,value) {
+
             $.ajax({
                 url : '{{URL::to('getPatients')}}',
-                data: {
-                  "nom": $("#listePatient").val() //search box value
+                data: {    
+                    "field":field,
+                    "value":value,
                 },
                 dataType: "json", // recommended response type
                 success: function(data) {
@@ -56,17 +71,13 @@
                      $('#agePatient').text(event.age);
                      $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
                      $('#lien').text(event.title);
-                      $("#id_rdv").val(event.id);
                      $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
                      $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
                      $('#btnConsulter').attr('href','/consultations/create/'.concat(event.idPatient));
-                     $('#btnDelete').attr('href','/rdv/'.concat(event.idrdv));
-                     //$('#updateRdv').attr('action','/rdv/'.concat(event.idrdv));
+                     $('#btnDelete').attr('href','/rdv/'.concat(event.id));   //$('#updateRdv').attr('action','/rdv/'.concat(event.idrdv));
                      var url = '{{ route("rdv.update", ":slug") }}';
                      url = url.replace(':slug',event.id);
-                     alert(url)
                      $('#updateRdv').attr('action',url);
-
                      $('#fullCalModal').modal({
                           show: 'true'
                      }); 
@@ -76,6 +87,27 @@
      {
            $('form#updateRdv').submit();
      }
+     function reset_in()
+     {
+           $('.es-list').val('');
+           $('#listePatient').val('');
+     }
+     function layout()
+     {
+           reset_in(); 
+           var field = $("select#filtre option").filter(":selected").val();
+           if(field == "Dat_Naissance")
+              {
+                $('#listePatient').datepicker().format("YYYY-MM-DD");
+                $("#btnSave").attr("disabled",false);
+              }
+           else
+           { 
+                $("#btnSave").attr("disabled", true);
+                $("#listePatient").datepicker("destroy");
+           }
+               
+     }
   	$(document).ready(function() {
            var CurrentDate = (new Date()).setHours(0, 0, 0, 0); 
        	$('.calendar1').fullCalendar({
@@ -84,8 +116,7 @@
                       center: 'title',
                       right: 'month,agendaWeek,agendaDay'
                 },
-                defaultView: 'agendaWeek',
-                //weekends: false,
+                defaultView: 'agendaWeek',  //weekends: false,
                 firstDay: 0, 
                 slotDuration: '00:15:00',
                 navLinks: true, // can click day/week names to navigate views
@@ -96,24 +127,10 @@
                 eventColor: '#87CEFA',
                 contentHeight: 700,
                 editable: true,
-                eventLimit: true, // allow "more" link when too many events
-               // displayEventEnd: true,
+                eventLimit: true, // allow "more" link when too many events      // displayEventEnd: true,       
+                hiddenDays: [ 5, 6 ],
                weekNumberCalculation: 'ISO',
-                views: {
-                      month: { // name of view
-                          columnFormat: 'ddd'
-                              // other view-specific options here
-                      },
-                      agendaWeek: {
-                          columnFormat: 'ddd D'
-                      },
-                      agendaDay: {
-                          columnFormat: 'ddd D'
-                      },
-                      listWeek: {
-                          buttonText: 'list week'
-                      }
-                },
+                views: {},
                 select: function(start, end) {
                      if(start >= CurrentDate)
                            createRDVModal(start,end);
@@ -159,31 +176,22 @@
                 eventDrop: function(event, delta, revertFunc) { // si changement de position
                      edit(event);
                 },       
-       	});
+       	}); // calendar
            $('#listePatient').editableSelect({
-                effects: 'slide', 
-                editable: false,            // warpClass: 'ui-select-wrap', 
+               effects: 'default', 
+                editable: false, 
+           }).on('select.editable-select', function (e, li) {
+                     $('#last-selected').html(
+                             li.val() + '. ' + li.text()
+                      );
+                     $("#btnSave").removeAttr("disabled");
            });
            $("#listePatient").on("keyup", function() {
-                //to call ajax
-                remoteSearch();    
-           });
-           $(".es-list").click(function(e) 
-           {
-                $("#btnSave").removeAttr("disabled")
-           });
-           $('[data-dismiss=modal]').on('click', function (e) {
-                var $t = $(this),
-                target = $t[0].href || $t.data("target") || $t.parents('.modal') || [];
-                $(target)
-                  .find("input,textarea,select")
-                     .val('')
-                     .end()
-                  .find("input[type=checkbox], input[type=radio]")
-                     .prop("checked", "")
-                     .end();
-           });
-     });
+                var field = $("select#filtre option").filter(":selected").val();
+                if(field != "Dat_Naissance")
+                      remoteSearch(field,$("#listePatient").val());        //to call ajax
+          });
+      });
   </script>
 @endsection
 @section('main-content')
@@ -202,7 +210,7 @@
     </div>
     <div class="row">   
           <div id="myModal" class="modal fade">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-lg">
                      <div class="modal-content">
                           <div class="modal-header" style="padding:35px 50px;">
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
@@ -213,18 +221,39 @@
                                       <input type="datetime" id="date_RDV" name="date_RDV" data-date-format='yyyy-mm-dd' value="" style="display:none;">
                                       <input type="datetime" id="date_Fin" name="date_Fin" data-date-format='yyyy-mm-dd' value="" style="display:none;">
                                       <input type="time" id="Temp_rdv" name="Temp_rdv"  value=""  min="8:00" max="18:00" style="display:none;" >
-                                     <div id="modalBody" class="modal-body">
-                                           <div class="row">
-                                                 <label for="patient"><span class="glyphicon glyphicon-user"></span><strong> Selectioner le patient :</strong></label>
-                                                 <div class="input-group col-sm-6">
-                                                      <select id="listePatient" name ="listePatient" style="width:300px;" required></select>                        
-                                                 </div> 
-                                           </div>
-                                           <div class="space-12"></div>
+                                     <div id="modalBody" class="modal-body" style="padding:40px 50px;">
+                                           <div class="panel panel-default">
+                                                <div class="panel-heading" style="">
+                                                      <span class="glyphicon glyphicon-user"></span>Rechercher un Patient
+                                                </div>
+                                                <div class="panel-body">
+                                                           <div class="row">
+                                                                <div class="col-sm-4">
+                                                                     <div class="form-group">
+                                                                          <label class="control-label col-sm-2" for=""> <strong>Filtre: </strong></label>
+                                                                           <div class="col-sm-10">          
+                                                                                <select class="form-control" placeholder="choisir le filtre" id="filtre" onchange="layout();">
+                                                                                      <option value="Nom">Nom</option>
+                                                                                      <option value="Prenom">Prenom</option>
+                                                                                      <option value="code_barre">Code</option>
+                                                                                      <option value="Dat_Naissance">Date Naisssance</option>
+                                                                                </select>
+                                                                          </div>
+                                                                        </div>
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                      <span class="input-icon" style="margin-right: -190px;">
+                                                                           <select  placeholder="Rechercher... " class="nav-search-input" id="listePatient" name ="listePatient" autocomplete="off" style="width:300px;" data-date-format="yyyy-mm-dd"></select>
+                                                                            <i class="ace-icon fa fa-search nav-search-icon"></i>
+                                                                     </span>   
+                                                                 </div>                               
+                                                         </div>                                                  
+                                                </div> {{-- panel-body --}}
+                                           </div>{{-- panel --}}
                                      </div>{{-- modalBody --}}
                                      <div class="modal-footer">
-                                           <button class="btn btn-primary" type="submit" id ="btnSave">Enregistrer  </button>                                         
-                                           <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                                           <button class="btn btn-sm btn-primary" type="submit" id ="btnSave" disabled><i class="ace-icon fa fa-save bigger-110" ></i>Enregistrer  </button>                                         
+                                           <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"onclick="reset_in();"><i class="fa fa-undo" aria-hidden="true"  ></i>Fermer</button>
                                      </div>   
                            </form> 
                       </div>
@@ -234,7 +263,7 @@
     <div class="row">
       <!-- Modal --> 
 <div class="modal fade" id="fullCalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-     <div class="modal-dialog" role="document">
+     <div class="modal-dialog modal-lg" role="document">
      <div class="modal-content">
      <div class="modal-header"  style="padding:35px 50px;">
            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
@@ -245,10 +274,11 @@
            <hr>
            <div class="row">
                 <div class="col-sm-6">    
-                     <i class="fa fa-phone" aria-hidden="true"></i>tel:&nbsp;<span id="patient_tel" class="blue"></span>
+                     <i class="fa fa-phone" aria-hidden="true"></i><strong>Téléphone:&nbsp;</strong><span id="patient_tel" class="blue"></span>
                 </div>
                 <div class="col-sm-6">
-                     Age:&nbsp;<span id="agePatient" class="blue"></span> <small>Ans</small>
+                     <strong>Age:&nbsp;</strong>
+                     <span id="agePatient" class="blue"></span> <small>Ans</small>
                 </div>
               </div>
      </div>
@@ -256,7 +286,6 @@
            <form id ="updateRdv" role="form" action="" method="POST">      {{-- {{route('rdv.update',5)}} /rdv/5--}}
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
-                <input type="hidden" name="id_rdv" id ="id_rdv"/>
                 <div class="well">
                      <div class="row">
                            <label for="date"><span class="glyphicon glyphicon-time fa-lg"></span><strong> Date Rendez-Vous :</strong></label>
@@ -273,17 +302,17 @@
            </form>   
       </div>
       <br>
-      <div class="modal-footer center">
+      <div class="modal-footer">
       @if(App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role =="Medecine")
       <a type="button" id="btnConsulter" class="btn btn btn-sm btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
-     <button type="button" class="btn btn btn-sm btn-info" onclick="update();">
+     <button type="button" class="btn btn-sm btn-primary" onclick="update();">
                 @if(App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role !="Receptioniste") 
                         <i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer</button>
                  @endif       
       <a  href=""  id="btnDelete" class="btn btn-bold btn-sm btn-danger" data-method="DELETE" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal">
                 <i class="fa fa-trash" aria-hidden="true"></i> Annuler
      </a>
-     <button type="button" class="btn btn-sm btn-warning" data-dismiss="modal">
+     <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
            <i class="fa fa-undo" aria-hidden="true" ></i> Fermer</button>
      @endif
       </div>
