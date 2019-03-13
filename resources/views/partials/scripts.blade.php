@@ -364,9 +364,6 @@ $(document).ready(function(){
 </script>
 <script type="text/javascript">
 $(document).ready(function() {
-<<<<<<< HEAD
-    // $('#patients_liste').dataTable();    // $('#choixpatientrdv').dataTable();  // $('#rdvs_liste').dataTable();    // $('#patients').dataTable();    // $('#choix-patient-atcd').dataTable();//$('#users').dataTable();
-=======
     $('#consultations').dataTable({
         ordering: true,
         "language": 
@@ -440,7 +437,7 @@ $(document).ready(function() {
 
     }
  });
->>>>>>> ramzi
+
 });
 function addRequiredAttr()
 {

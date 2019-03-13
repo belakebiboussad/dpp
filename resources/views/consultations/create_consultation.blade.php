@@ -62,12 +62,9 @@
 });
 </script>
 @endsection
-<<<<<<< HEAD
 @section('title')
   Nouvelle Consultation
 @endsection
-=======
->>>>>>> ramzi
 @section('main-content')
 <div class="page-header" width="100%">
   @include('partials._patientInfo')

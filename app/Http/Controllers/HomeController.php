@@ -93,9 +93,7 @@ class HomeController extends Controller
                        break;
                 case "Admission":
                      $admissions= rdv_hospitalisation::join('admissions','rdv_hospitalisations.id_admission','=','admissions.id')->join('lits','lits.id','=','admissions.id_lit')->join('salles','salles.id','=','lits.salle_id')->join('services','services.id','=','salles.service_id')->join('demandehospitalisations','admissions.id_demande','=','demandehospitalisations.id')->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')->join('patients','consultations.Patient_ID_Patient','=','patients.id')->select('demandehospitalisations.id as id_demande','admissions.id as id_admission','admissions.id_lit','lits.num as num_lit','salles.nom as nom_salle','services.nom as nom_service','rdv_hospitalisations.*','rdv_hospitalisations.id as idRDV','patients.Nom','patients.Prenom')->where('etat_RDVh','=','en attente')->get(); 
-        
-                     //dd($admissions);
-                     return view('home.home_agent_admis', compact('admissions'));
+                return view('home.home_agent_admis', compact('admissions'));
                      break;       
                 case "Chef de service":
                     $meds = medcamte::all();
@@ -103,7 +101,6 @@ class HomeController extends Controller
                     $reactifs = reactif::all();
                     return view('home.home_chef_ser', compact('meds','dispositifs','reactifs'));
                 case "Pharmacien":
-
                     $meds = medcamte::all();
                     $dispositifs = dispositif::all();
                     $reactifs = reactif::all();
@@ -112,8 +109,6 @@ class HomeController extends Controller
                 case "Receptioniste":
                     return view('home.home_recep');
                     break;    
-
-          
                 case "Laboratoire d'analyses":
                   $demandesexb = demandeexb::where('etat','E')->get();
                   return view('home.home_laboanalyses', compact('demandesexb'));

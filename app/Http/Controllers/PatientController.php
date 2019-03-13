@@ -66,10 +66,7 @@ class PatientController extends Controller
                   "lieunaissance" => 'required',
                   "mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],
                   "Type_p" =>'required_if:type,Ayant_droit',
-<<<<<<< HEAD
                   //"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
-=======
->>>>>>> ramzi
                   "nomf" => 'required_if:type,Ayant_droit',
                    "prenomf"=> 'required_if:type,Ayant_droit',
                   // "datenaissancef"=> 'required_if:type,Ayant_droit|date|date_format:Y-m-d',
@@ -160,8 +157,17 @@ class PatientController extends Controller
                 "description"=> $request->description,
                 "NSS"=>$request->nsspatient,
                 "Date_creation"=>$date,
-<<<<<<< HEAD
           ]);
+           if ($request->sexe == "H") {
+                $sexe = 1;
+           }
+           else{
+                $sexe = 0;
+           }
+           $codebarre =$sexe.$date->year.$patient->id;
+           $patient->update([
+                "code_barre" => $codebarre,
+            ]);
            /*insert homme_c*/
           if( $request->nom_homme_c!="") 
                 $homme = homme_conf::firstOrCreate([
@@ -178,30 +184,9 @@ class PatientController extends Controller
                       "created_by"=>Auth::user()->employee_id,
                 ]);
                 //////////
-           $consultations=array();
-           $rdvs=array();
-           $hospitalisations = array();
+
            Flashy::success('Patient créer avec succés!');
-           // return  view('patient.show_patient','patient','consultations','rdvs','hospitalisations');
-           return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations'));
-             //return redirect(Route('patient.show',$patient->id,true));
-=======
-            ]);
-
-            if ($request->sexe == "H") {
-                $sexe = 1;
-            }
-            else{
-                $sexe = 0;
-            }
-
-            $codebarre =$sexe.$date->year.$patient->id;
-
-            $patient->update([
-                "code_barre" => $codebarre,
-            ]);
-        return redirect(Route('patient.show',$patient->id));
->>>>>>> ramzi
+           return redirect(Route('patient.show',$patient->id));
     }
 
     /**

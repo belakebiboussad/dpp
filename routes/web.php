@@ -166,9 +166,7 @@ Route::get('/role/show/{userId}','RolesController@show');
 Route::get('/role/show/{userId}','RolesController@show');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('AddANTCD','AntecedantsController@createATCDAjax');
-<<<<<<< HEAD
 Route::get('/searchUser','UsersController@searchUser');
-
 Route::get('/searchPatient','PatientController@search');
 Route::get('/getPatients','PatientController@getPatientsArray');
 Route::get('/getlits/{id}','LitsController@getlits');
@@ -189,7 +187,7 @@ route::get('/home_reception',function (){
     return view('home.home_recep');
 })->name('home_rec');
 Route::post('/get-all-events','RDVController@checkFullCalendar');
-=======
+
 route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');
 route::post('/uploadresultat','DemandeExbController@uploadresultat');
 route::post('/uploadexr','DemandeExamenRadio@upload_exr');
@@ -212,10 +210,6 @@ route::get('/listeexrs','DemandeExamenRadio@liste_exr');
 route::get('/showordonnance/{id}','OrdonnanceController@show_ordonnance');
 route::get('/showdemandeexb/{id}','DemandeExbController@show_demande_exb');
 route::get('/showdemandeexr/{id}','DemandeExamenRadio@show_demande_exr');
->>>>>>> ramzi
-// Route::get('/pdf', function () {
-//     return view('pdf');
-// });
 /************partie viste d'hospitalisation**************/
 Route::resource('consigne','ConsigneController');
 Route::resource('surveillance','SurveillanceController');
