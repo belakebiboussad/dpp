@@ -106,9 +106,7 @@ class PatientController extends Controller
              {
                    $nomb = 0;
              }
-             $codebarre =$request->sexe.$date->year."/".($nomb+1);
-
-             if($request->type =="Ayant_droit")
+           if($request->type =="Ayant_droit")
              {    
                     //dd($request->all());
                     $assurObj = assur::firstOrCreate([
@@ -145,8 +143,9 @@ class PatientController extends Controller
                     }
       }
       $assurID= $assurObj !=null ? $assurObj->id : null;
-      $patient = patient::firstOrCreate([
-                "code_barre"=>$codebarre,
+     //  $codebarre =$request->sexe.$date->year."/".($nomb+1);
+     $patient = patient::firstOrCreate([
+                // "code_barre"=>$codebarre,
                 "Nom"=>$request->nom,
                 "Prenom"=>$request->prenom,
                 "Dat_Naissance"=>$request->datenaissance,
@@ -167,6 +166,16 @@ class PatientController extends Controller
                 "NSS"=>$request->nsspatient,
                 "Date_creation"=>$date,
       ]);
+     if ($request->sexe == "H") {
+                $sexe = 1;
+     }
+     else{
+           $sexe = 0;
+     }
+     $codebarre =$sexe.$date->year.$patient->id;
+     $patient->update([
+           "code_barre" => $codebarre,
+     ]);
        /*insert homme_c*/
        if( $request->nom_homme_c!="") 
              $homme = homme_conf::firstOrCreate([
