@@ -60,93 +60,89 @@ class PatientController extends Controller
      */
     public function store(Request $request)
     {
-             static $assurObj;
-             $date = Date::Now();
-             $rule = array(
-                    "nom" => 'required',
-                    "prenom" => 'required',
-                    "datenaissance" => 'required|date|date_format:Y-m-d',
-                    "lieunaissance" => 'required',
-                    "mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],
-                    "Type_p" =>'required_if:type,Ayant_droit',
-                    //"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
-                    "nomf" => 'required_if:type,Ayant_droit',
-                     "prenomf"=> 'required_if:type,Ayant_droit',
-                     // "datenaissancef"=> 'required_if:type,Ayant_droit|date|date_format:Y-m-d',
-                     "lieunaissancef"=> 'required_if:type,Ayant_droit',
-                     "NMGSN"=> 'required_if:type,Ayant_droit',
-                     //  homme de confrnace
-                     /**********************************************/
-                     "prenom_homme_c"=>'required_with:nom_homme_c',
-                     "datenaissance_h_c"=>'required_with:nom_homme_c',
-                     "adresseA"=>'required_with:nom_homme_c',
-                     "type_piece_id"=>'required_with:nom_homme_c', 
-                     "npiece_id"=>'required_with:nom_homme_c', 
-                     "lien"=>'required_with:nom_homme_c',
-                     "date_piece_id"=>'required_with:nom_homme_c',
-                     "mobile_homme_c"=>['required_with:nom_homme_c'],
-                     "operateur_h"=>'required_with:mobileA',
-             );
-             // , 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'
-             $messages = [
+            static $assurObj;
+          $date = Date::Now();
+          $rule = array(
+                  "nom" => 'required',
+                  "prenom" => 'required',
+                  "datenaissance" => 'required|date|date_format:Y-m-d',
+                  "lieunaissance" => 'required',
+                  "mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],
+                  "Type_p" =>'required_if:type,Ayant_droit',
+                  //"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
+                  "nomf" => 'required_if:type,Ayant_droit',
+                   "prenomf"=> 'required_if:type,Ayant_droit',
+                  // "datenaissancef"=> 'required_if:type,Ayant_droit|date|date_format:Y-m-d',
+                   "lieunaissancef"=> 'required_if:type,Ayant_droit',
+                  "NMGSN"=> 'required_if:type,Ayant_droit',
+                 //  homme de confiance
+                  /**********************************************/
+                  "prenomA"=>'required_with:nom_homme_c',
+                  "datenaissance_h_c"=>'required_with:nom_homme_c',
+                  "adresseA"=>'required_with:nom_homme_c',
+                  "type_piece_id"=>'required_with:nom_homme_c', 
+                  "npiece_id"=>'required_with:nom_homme_c', 
+                  "lien"=>'required_with:nom_homme_c',
+                  "date_piece_id"=>'required_with:nom_homme_c',
+                  "mobileA"=>['required_with:nom_homme_c', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],
+                  "operateur_h"=>'required_with:mobileA',
+           );
+           $messages = [
                      "required"         => "Le champ :attribute est obligatoire.",
                       "NSSValide"    => 'le numéro du securite sociale est invalide ',
                       "date"             => "Le champ :attribute n'est pas une date valide.",
-             ];
-             $validator = Validator::make($request->all(),$rule,$messages);         
-             if ($validator->fails()) {
+            ];
+           $validator = Validator::make($request->all(),$rule,$messages);         
+           if ($validator->fails()) {
                     $errors=$validator->errors(); 
                      return view('patient.addPatient')->withErrors($errors);
-             } 
-             if(patient::all()->isNotEmpty())
-             {
+           } 
+           if(patient::all()->isNotEmpty())
+            {
                 $nomb = patient::all()->last()->id;
-             }
-             else
-             {
-                   $nomb = 0;
-             }
-             $codebarre =$request->sexe.$date->year."/".($nomb+1);
-
-             if($request->type =="Ayant_droit")
-             {    
-                    //dd($request->all());
-                    $assurObj = assur::firstOrCreate([
-                          "Nom"=>$request->nomf,
-                          "Prenom"=>$request->prenomf,
-                          "Date_Naissance"=>$request->datenaissancef,
-                          "lieunaissance"=>$request->lieunaissancef,
-                          "Sexe"=>$request->sexef,
-                          "Matricule"=>$request->matf,
-                          "service"=>$request->servicef,
-                          "Grade"=>$request->grade,
-                          "Etat"=>$request->etatf,
-                          "NSS"=>$request->nss2,
-                          "NMGSN"=>$request->NMGSN, 
-                    ]);   
+            }
+        else
+            {
+                $nomb = 0;
+            }
+        
+           if($request->type =="Ayant_droit")
+          {
+              $assurObj = assur::firstOrCreate([
+                "Nom"=>$request->nomf,
+                "Prenom"=>$request->prenomf,
+                "Date_Naissance"=>$request->datenaissancef,
+                "lieunaissance"=>$request->lieunaissancef,
+                "Sexe"=>$request->sexef,
+                "Matricule"=>$request->matf,
+                "service"=>$request->servicef,
+                "Grade"=>$request->gradef,
+                "Etat"=>$request->etatf,
+                "NSS"=>$request->nss2,
+                "NMGSN"=>$request->NMGSN, 
+            ]);   
         }
         else
         {
-                   if( $request->type=="Assure")
-                   {
-                          $assurObj = assur::firstOrCreate([
-                                "Nom"=>$request->nom,
-                                "Prenom"=>$request->prenom,
-                                "Date_Naissance"=>$request->datenaissance,
-                                "lieunaissance"=>$request->lieunaissance,
-                                "Sexe"=>$request->sexe,
-                                "Matricule"=>$request->mat,
-                                "Service"=>$request->service,
-                                "Grade"=>$request->grade,
-                                "Etat"=>$request->etatf,
-                                "NSS"=>$request->nss,
-                                "NMGSN"=>$request->nmgsnAss, 
-                          ]);  
-                    }
-      }
-      $assurID= $assurObj !=null ? $assurObj->id : null;
-      $patient = patient::firstOrCreate([
-                "code_barre"=>$codebarre,
+            if( $request->type=="Assure")
+                {
+                    $assurObj = assur::firstOrCreate([
+                        "Nom"=>$request->nom,
+                        "Prenom"=>$request->prenom,
+                        "Date_Naissance"=>$request->datenaissance,
+                        "lieunaissance"=>$request->lieunaissance,
+                        "Sexe"=>$request->sexe,
+                        "Matricule"=>$request->mat,
+                        "Service"=>$request->service,
+                        "Grade"=>$request->grade,
+                        "Etat"=>$request->etatf,
+                        "NSS"=>$request->nss,
+                        "NMGSN"=>$request->nmgsnAss, 
+                    ]);  
+                }
+           }
+           $assurID= $assurObj !=null ? $assurObj->id : null;
+           $patient = patient::firstOrCreate([
                 "Nom"=>$request->nom,
                 "Prenom"=>$request->prenom,
                 "Dat_Naissance"=>$request->datenaissance,
@@ -154,8 +150,6 @@ class PatientController extends Controller
                 "Sexe"=>$request->sexe,
                 "situation_familiale"=>$request->sf, 
                 "Adresse"=>$request->adresse,
-                'commune_res'=>$request->idcommune,
-                'wilaya_res'=>$request->idwilaya,
                 "tele_mobile1"=>$request->operateur1 . $request->mobile1,
                 "tele_mobile2"=>$request->operateur2 . $request->mobile2,
                 "group_sang"=>$request->gs,
@@ -166,28 +160,35 @@ class PatientController extends Controller
                 "description"=> $request->description,
                 "NSS"=>$request->nsspatient,
                 "Date_creation"=>$date,
-      ]);
-       /*insert homme_c*/
-       if( $request->nom_homme_c!="") 
-             $homme = homme_conf::firstOrCreate([
-                   "id_patient"=>$patient->id,
-                   "nom"=>$request->nom_homme_c,
-                    "prénom"=>$request->prenom_homme_c, 
-                    "date_naiss"=>$request->datenaissance_h_c,
-                    "lien_par"=>$request->lien,
-                    "type_piece"=>$request->type_piece_id,
-                    "num_piece"=>$request->npiece_id,
-                    "date_deliv"=>$request->date_piece_id,
-                    "adresse"=>$request->adresseA,
-                    "mob"=>$request->operateur_h.$request->mobile_homme_c,
-                   "created_by"=>Auth::user()->employee_id,
-             ]);
-       //////////// $consultations=array();// $rdvs=array();// $hospitalisations = array();
-      Flashy::success('Patient créer avec succés!');
-       // return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations'));
-       return redirect(Route('patient.show',$patient->id));
-       //return redirect(Route('patient.show',$patient->id,true));
-
+          ]);
+           if ($request->sexe == "H") {
+                $sexe = 1;
+           }
+           else{
+                $sexe = 0;
+           }
+           $codebarre =$sexe.$date->year.$patient->id;
+           $patient->update([
+                "code_barre" => $codebarre,
+            ]);
+           /*insert homme_c*/
+          if( $request->nom_homme_c!="") 
+                $homme = homme_conf::firstOrCreate([
+                      "id_patient"=>$patient->id,
+                      "nom"=>$request->nom_homme_c,
+                      "prénom"=>$request->prenomA, 
+                      "date_naiss"=>$request->datenaissance_h_c,
+                      "lien_par"=>$request->lien,
+                      "type_piece"=>$request->type_piece_id,
+                      "num_piece"=>$request->npiece_id,
+                      "date_deliv"=>$request->date_piece_id,
+                      "adresse"=>$request->adresseA,
+                      "mob"=>$request->operateur_h.$request->mobileA,
+                      "created_by"=>Auth::user()->employee_id,
+                ]);
+                //////////
+           Flashy::success('Patient créer avec succés!');
+           return redirect(Route('patient.show',$patient->id));
     }
 
     /**

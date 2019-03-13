@@ -109,7 +109,7 @@ class HomeController extends Controller
                 case "Receptioniste":
                     return view('home.home_recep');
                     break;    
-                case "Laboratoire d'analyses":
+                case "Laborantin":
                   $demandesexb = demandeexb::where('etat','E')->get();
                   return view('home.home_laboanalyses', compact('demandesexb'));
                 break;
