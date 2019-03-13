@@ -60,166 +60,81 @@
             event.preventDefault();
       });
 });
-
 </script>
 @endsection
+<<<<<<< HEAD
 @section('title')
   Nouvelle Consultation
 @endsection
+=======
+>>>>>>> ramzi
 @section('main-content')
 <div class="page-header" width="100%">
   @include('partials._patientInfo')
 </div>
 <div class="content">
-<form action="/consultations/store/{{$patient->id}}" method="POST" role="form" id ="consultForm" class="passenger-validation" onsubmit="return checkForm(this);"  novalidate>
-  {{ csrf_field() }}
-  <div id="prompt"></div>
-  <div class="tabpanel">
-           <ul class = "nav nav-pills nav-justified list-group" role="tablist" id="menu">
-                <li role= "presentation" class="active col-md-4">
-                    <a href="#Interogatoire" aria-controls="Interogatoire" role="tab" data-toggle="tab" class="btn btn-secondary btn-lg">
-                     <i class="fa fa-commenting" aria-hidden="true"></i>
-                      <span class="bigger-160"> Interogatoire</span></a>
-                </li>
-                <li role= "presentation"  class="col-md-4">
-                    <a href="#ExamClinique"  ria-controls="ExamClinique" role="tab" data-toggle="tab" class="btn btn-success btn-lg"> 
-                      <span class="bigger-160">Examen Clinique</span></a>
-                </li>
-                <li role= "presentation" class="col-md-4">
-                      <a href="#ExamComp" aria-controls="ExamComp" role="tab" data-toggle="tab" class="btn btn-danger btn-lg" >
-                          <span class="bigger-160">Examen Complémentaire</span>
-                      </a>
-                </li>
-           </ul>
-          <div class ="tab-content"  style = "border-style: none;" >
-                    <div role="tabpanel" class = "tab-pane active " id="Interogatoire"> 
-                          <div class= "col-md-12 col-xs-12">
-                                @include('consultations.Interogatoire')
-                          </div>  {{--  <div class= "col-md-3 col-xs-9"> </div> --}}
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="widget-box">
+        <div class="widget-body">
+          <div class="widget-main">
+            <form class="form-horizontal" method="POST" action="{{ route('consultations.store') }}">
+              {{ csrf_field() }}
+              <input type="text" name="id_patient" value="{{ $patient->id }}" hidden>
+              <div class="form-group">
+                  <div class="col-sm-9">
+                    <div class="checkbox">
+                      <label>
+                        <input name="isOriented" type="checkbox" class="ace"/>
+                        <span class="lbl"> Patient Orienté</span>
+                      </label>
                     </div>
-                 {{-- finexamenclinique --}}
-                   <div role="tabpanel" class = "tab-pane" id="ExamClinique">
-                          <div class="row">
-                                <div class= "col-md-12 col-xs-12">
-                                      @include('consultations.examenClinique')
-                                </div>
-                           </div>  {{-- row --}}
-                   </div> {{-- finexamenclinique --}}
-                   <div role="tabpanel" class = "tab-pane" id="ExamComp">
-                         <div class= "col-md-12 col-xs-12">    
-                              @include('consultations.ExamenCompl')   
-                          </div>{{-- <div class= "col-md-3 col-xs-9"> </div> --}}
-                  </div> 
-
-  </div>
-  
-    <div class="space-12"></div>
-   <div class="center">
-   <br><br>
-    <div id="error" aria-live="polite"></div>
-   <div class="space-12"></div>
-  <button class="btn btn-info" type="submit" id="send">
-    <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
-  </button>
-  &nbsp; &nbsp; &nbsp;
-  <button class="btn btn-info" type="button" id="annuler">
-    <i class="ace-icon fa fa-undo-110"></i>Annuler
-  </button> 
-</div>
-</div>
-</form>
-</div>
-
-<!-- Modal -->
-<div id="Ordonnance" class="modal" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-           <button type="button" class="close" data-dismiss="modal">&times;</button>
-           <h4 class="modal-title">Ordonnance</h4>
-           @include('partials._patientInfo')
-      </div>
-      <div class="modal-body">
-          <div class="container-fluid">
-                 @include('consultations.ExamenCompl.Ordonnance')
-          </div>        
-      </div> 
-    </div>
-
-  </div>
-</div>
-{{-- endModal --}}
-
-<!-- Modal -->
-
-<div>
-  @include('consultations.LettreOrientation')
-</div>
-{{-- endModal --}}
- 
-<!-- Modal -->
-<div id="demandehosp" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-lg">
-
-    <!-- Modal content-->
-    <div class="modal-content custom-height-modal">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Demande d'hospitalisation</h4>
-      </div>
-      <div class="modal-body">
-        <form action="#" method="POST">
-          <div class="row">
-            <div class="col-md-12">
-              <div>
-        <label for="mode"><b>Mode Admission</b></label>
-        <br/>
-        <select class="form-control" id="modeAdmission" name="modeAdmission">
-                <option value="">Sélectionner...</option>
-           @foreach($modesAdmission as $mode =>$value)
-                 <option value="{{ $mode}}">{{ $value }}</option>
-           @endforeach
-           </select>
-        </div>
-        <br/><br/><br/>
-        <div>
-          <label for="specialite"><b>Specialite:</b></label>
-         <select class="form-control" id="specialiteDemande" name="specialiteDemande">
-            <option value="">Sélectionner...</option>
-           @foreach($specialites as $specialite)
-             <option value="{{ $specialite->id}}">
-              {{$specialite->nom}}
-              </option>
-           @endforeach 
-          </select>
-      </div>
-          <br/><br/><br/>
-          <div>
-            <label for="degreurg"><b>Service</b></label>
-            <select class="form-control" id="service" name="service">
-
-              <option value="">Sélectionner...</option>
-
-                     @foreach($services as $service)
-                            <option value="{{ $service->id }}">{{ $service->nom }}</option>
-                      @endforeach     
-            </select>
+                  </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right"> <b>Motif De Consultation :</b> </label>
+                  <div class="col-sm-9">
+                    <input type="text" id="motif" name="motif" placeholder="Motif De Consultation..." class="col-xs-10 col-sm-5"/>
+                    <p class="col-xs-12">
+                      {!! $errors->first('motif', '<small class="alert-danger"><b>:message</b></small>') !!}
+                    </p>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label no-padding-right"> <b>Histoire de la maladie :</b> </label>
+                  <div class="col-sm-9">
+                    <textarea id="histoire" name="histoire" class="col-xs-10 col-sm-5"></textarea>
+                    <p class="col-xs-12">
+                      {!! $errors->first('histoire', '<small class="alert-danger"><b>:message</b></small>') !!}
+                    </p>
+                  </div>
+                </div>
+                <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right"> <b>Diagnostic :</b> </label>
+                  <div class="col-sm-9">
+                    <input type="text" id="diag" name="diag" placeholder="Diagnostic..." class="col-xs-10 col-sm-5" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label no-padding-right"> <b>Résumé :</b> </label>
+                  <div class="col-sm-9">
+                    <textarea id="resume" name="resume" class="col-xs-10 col-sm-5"></textarea>
+                    <p class="col-xs-12">
+                      {!! $errors->first('resume', '<small class="alert-danger"><b>:message</b></small>') !!}
+                    </p>
+                  </div>
+                </div>
+                <div class="clearfix form-actions">
+                  <div class="col-md-offset-4 col-md-8">
+                    <button class="btn btn-info" type="submit">
+                      <i class="ace-icon fa fa-check bigger-110"></i>
+                      Enregistrer
+                    </button>
+                  </div>
+                </div>
+            </form>
           </div>
-          <br/>
-
         </div>
-
-      </div>
-    </form>
-      </div>
-      <div class="modal-footer">
-          <button type="button" class="btn btn-success" onclick="demandehosp()">
-             <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
-          </button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">
-               <i class="ace-icon fa fa-close bigger-110"></i>Fermer
-           </button>
       </div>
     </div>
   </div>

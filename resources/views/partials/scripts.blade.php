@@ -187,6 +187,13 @@ $(document).ready(function(){
                     if(this.checked) $row.addClass(active_class);
                     else $row.removeClass(active_class);
                 });
+                $('.select2').css('width','400px').select2({allowClear:true})
+                $('#select2-multiple-style .btn').on('click', function(e){
+                    var target = $(this).find('input[type=radio]');
+                    var which = parseInt(target.val());
+                    if(which == 2) $('.select2').addClass('tag-input-style');
+                     else $('.select2').removeClass('tag-input-style');
+                });
                 //add horizontal scrollbars to a simple table
                 /*$('#table2').css({'width':'50px', 'max-width': 'none'}).wrap('<div style="width: 50px;" />').parent().ace_scroll(
                   {
@@ -357,7 +364,83 @@ $(document).ready(function(){
 </script>
 <script type="text/javascript">
 $(document).ready(function() {
+<<<<<<< HEAD
     // $('#patients_liste').dataTable();    // $('#choixpatientrdv').dataTable();  // $('#rdvs_liste').dataTable();    // $('#patients').dataTable();    // $('#choix-patient-atcd').dataTable();//$('#users').dataTable();
+=======
+    $('#consultations').dataTable({
+        ordering: true,
+        "language": 
+            {
+                "url": '/localisation/fr_FR.json'
+            }, 
+    });
+    $('#meds_table').dataTable({
+        ordering: true,
+        "language": 
+            {
+                "url": '/localisation/fr_FR.json'
+            }, 
+    });
+    $('#dispo_table').dataTable({
+        ordering: true,
+        "language": 
+            {
+                "url": '/localisation/fr_FR.json'
+            }, 
+    });
+    $('#reactif_table').dataTable({
+        ordering: true,
+        "language": 
+            {
+                "url": '/localisation/fr_FR.json'
+            }, 
+    });
+    $('#demandes_liste').dataTable({
+        ordering: true,
+        "language": 
+            {
+                "url": '/localisation/fr_FR.json'
+            }, 
+    });
+    $('#patients_liste').dataTable();
+    $('#choixp').dataTable({
+        ordering: true,
+        "language": 
+            {
+                "url": '/localisation/fr_FR.json'
+            },
+    });
+    $('#choixpatientrdv').dataTable();
+    $('#rdvs_liste').dataTable();
+    $('#patients').dataTable();
+    $('#choix-patient-atcd').dataTable();
+    $('#users').dataTable();
+    $( "#liste_membre" )
+  .change(function () {
+    var select = document.getElementById("liste_membre");
+    var sel=document.getElementById("elt");
+    var choice = select.selectedIndex;
+    var valeur = select.options[choice].value;
+    var texte = select.options[choice].text;
+
+    if (document.getElementById("choix_membre").value.search(texte)==-1 ) {
+       
+    sel.options[sel.options.length] = new Option (valeur, valeur,false,true);   
+    document.getElementById("choix_membre").value +=texte+"\n"; 
+    }
+
+    else{
+        texte=texte+"\n"
+        document.getElementById("choix_membre").value=document.getElementById("choix_membre").value.replace(texte,"");
+        
+        for (var i=0; i<sel.length; i++){
+             if (sel.options[i].value == valeur )
+                sel.remove(i);
+        }
+
+    }
+ });
+>>>>>>> ramzi
 });
 function addRequiredAttr()
 {
@@ -482,30 +565,21 @@ $('#typeexm').on('change', function() {
         <script type="text/javascript">
            function medicm(med)
            {
-                    $.ajax({
-                        type: 'GET',
-                        url: '/getmed/'+med,
-                        dataType: "json",
-                        success: function (result)
-                            {
-                                $("#nommedic").val(result['Nom_com']+' '+result['Dosage']);
-                                $("#forme").val(result['Forme']);
-                                $("#medicamentId").val(result['id']);
-                                $(".disabledElem").removeClass("disabledElem").addClass("enabledElem"); //$('#Ordonnance').reset();
-                            }
-                      });
-           }
-            function posologiefun()
-            {
-                $("#pos").val( $("#nbprise").val()+' fois par '+$("#fois").val()+' Pendant '+$("#duree").val()+' '+$("#dureefois").val()+'. ');//+$("#temps").val()+'.'
+                $.ajax({
+                    type: 'GET',
+                    url: '/getmed/'+med,
+                    dataType: "json",
+                    success: function (result)
+                    {
+                        $("#id_medicament").val(result.id);
+                        $("#nommed").val(result.Nom_com);
+                        $("#form").val(result.Forme);
+                        $("#dosage").val(result.Dosage);
+                    }
+                });
             }
-            function addmidifun()
-            {
-                     $("#ordonnance").append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td id='nom_medec'>" + $("#nommedic").val() + "</td><td id='form_medec'>" + $("#forme").val() + "</td><td  id='qte_medec'>" + $("#qte").val() +"</td><td id='posolog_medec'>"+$("#pos").val()+"</td><td style='display:none;' id='id_medec'>"+$("#medicamentId").val()+"</td></tr>");
-                     $(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
-                    clearInput();
-                     
-            }
+           
+           
             function supcolonne()
             {
                 $("tr:has(input:checked)").remove(); 
@@ -630,106 +704,23 @@ $('#typeexm').on('change', function() {
                                $('input[type=checkbox][value='+arrayOfSelected[i]+']').prop('checked',true);
                                 }
                 });
-           });          
-        function lettreoriet(nommedt,prenommedt,servmedt,telmedt,nompatient,prenompatient,agepatient)
-        {
-           var specialite = $( "#specialite option:selected" ).text().trim();
-           var medecin =  $("#medecin option:selected").text().trim();
-           $('#lettreorientation').show();
-           $('#lettreorientation').removeClass("hidden");
-            var d = new Date();
-            var dd = d.getDate();
-            var mm = d.getMonth()+1; 
-            var yyyy = d.getFullYear();
-            var lettre = new jsPDF({orientation: "p", lineHeight: 1.5})
-            lettre.setFontSize(18);
-            lettre.lineHeightProportion = 100;
-            lettre.text(105,20, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
-            lettre.text(105,28, 'HOPITAL CENTRAL DE LA SURETE NATIONALE "LES GLYCINES"', null, null, 'center');
-            lettre.text(105,36, '12, Chemin des Glycines - ALGER', null, null, 'center');
-            lettre.text(105,44, 'Tél : 23-93-34 - 23-93-58', null, null, 'center');
-            lettre.text(200,58, 'Alger,le : '+dd+'/'+mm+'/'+yyyy, null, null, 'right');
-            
-            lettre.text(20,68, 'Emetteur : '+nommedt+' '+prenommedt, null, null);
-            lettre.text(20,76, 'Tél : '+telmedt, null, null);
-            lettre.text(200,68, 'Destinataire : '+medecin , null, null, 'right');
-            lettre.text(200,76, 'Specialite : '+specialite , null, null,'right');
-            lettre.setFontType("bold");
-            lettre.text(105,90, "Lettre d'orientation", null, null, 'center');
-            var text = "permettez moi de vous adresser le(la) patient(e) sus-nommé(e), "+nompatient+" "+prenompatient+" âgé(e) de "+agepatient+" ans, qui s'est présenté ce jour pour  "+$('#motifOrient').val()+"  . je vous le confie pour prise en charge spécialisé. respectueusement confraternellement.";
-            lines = lettre.splitTextToSize(text, 185);
-            lettre.text(20,110,lines,null,null);
-            lettre.text(200,180,'signature',null,null,'right');
-            var string = lettre.output('datauristring');
-            $('#lettreorientation').attr('src', string);
-        }
-        function createord(nompatient,nommedcin) {
-            var pdf = new jsPDF()
-            pdf.text(105,20, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
-            pdf.text(105,26, 'HOPITAL CENTRAL DE LA SURETE NATIONALE "LES GLYCINES"', null, null, 'center');
-            pdf.text(105,32, '12, Chemin des Glycines - ALGER', null, null, 'center');
-            pdf.text(105,38, 'Tél : 23-93-34 - 23-93-58', null, null, 'center');
-            pdf.text(200,50, 'Alger,le : '+$('#dateord').val(), null, null, 'right');
-            pdf.text(20,60, 'Docteur : '+nommedcin, null, null);
-            pdf.text(200,60, 'Patient : '+nompatient, null, null, 'right');
-            pdf.setFontType("bold");
-            pdf.text(105,70, 'ORDONNANCE', null, null, 'center');
-            var arrayLignes = document.getElementById("ordonnance").rows;
-            var longueur = arrayLignes.length;
-            for(var i=1; i<longueur; i++)
-            {
-            pdf.text(30,73+(i*(20)), arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML, null, null);
-            pdf.text(30,80+(i*(20)), arrayLignes[i].cells[4].innerHTML, null, null);
-            }
-            var string = pdf.output('datauristring');
-            $('#ordpdf').attr('src', string);
-
-            }
-            function storeord()
-            {   
+           });  
+           $("#addliste").click(function() {
+                 $("#ordonnance").append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td hidden>"+$("#id_medicament").val()+"</td><td>"+$("#nommed").val()+"</td><td>"+$("#form").val()+"</td><td>"+$("#dosage").val()+"</td><td>"+$("#posologie").val()+"</td></tr>");
+            });        
+            $("#terminer").click(function() {
                 var arrayLignes = document.getElementById("ordonnance").rows;
                 var longueur = arrayLignes.length;
-                var tab = [];
-                for(var i=1; i<longueur; i++)
+                var ordonnance = [];
+                for(var i=0; i<longueur; i++)
                 {
-					tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;
+ ordonnance[i] = { med: arrayLignes[i].cells[1].innerHTML, posologie: arrayLignes[i].cells[5].innerHTML }
                 }
-                var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");
-                champ.appendTo('#ordonnace_form');
-                //console.log(JSON.stringify(tab));
-                $('#ordonnace_form').submit();
-            }
-
-           function createexbio(nomp,prenomp){      
-                     var exbio = new jsPDF();
-                     var d = new Date();
-                     var dd = d.getDate();
-                     var mm = d.getMonth()+1; 
-                     var yyyy = d.getFullYear();
-                     exbio.text(200,20, 'Date : '+dd+'/'+mm+'/'+yyyy, null, null, 'right');
-                     exbio.text(20,25, 'Nom : '+nomp, null, null);
-                     exbio.text(20,35, 'Prénom : '+prenomp, null, null);
-                     exbio.text(20,45, 'Age : 30 ans', null, null);
-                     exbio.setFontType("bold");
-                     exbio.text(105,55, 'Priére de faire', null, null, 'center');
-                     exbio.setFontSize(14);
-                     exbio.text(45,65,'Analyses Demandées :',null,null,'center');
-                     exbio.setFontSize(13);
-                     var i =0;
-                       $('input.ace:checkbox:checked').each(function() {
-                              exbio.text(25,72+i,$(this).attr('value')+", ");
-                        i=i+10;
-                    });
-                    var autresex = $("#autr").tagsinput('items');
-                    var long = autresex.length; 
-                    for (var j = 0;  j< long; j++) {
-                        exbio.text(25,72+i,autresex[j]+", ");
-                        i=i+10;
-                    }
-                    var string = exbio.output('datauristring');
-                    $('#exbiopdf').attr('src', string);
-           }
-          function createeximg(nomp,prenomp){
+         var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
+                champ.appendTo('#ord');
+                $('#ord').submit();
+            });
+            function createeximg(nomp,prenomp){
                      var d = new Date();
                       var yyyy = d.getFullYear().toString();
                       var mm = (d.getMonth()+1).toString();
@@ -1013,9 +1004,9 @@ $('#typeexm').on('change', function() {
             
                 
                 $('#id-input-file-1 , #id-input-file-2').ace_file_input({
-                    no_file:'No File ...',
-                    btn_choose:'Choose',
-                    btn_change:'Change',
+                    no_file:'Pas de fichier ...',
+                    btn_choose:'Sélectionner',
+                    btn_change:'Changement',
                     droppable:false,
                     onchange:null,
                     thumbnail:false //| true | large

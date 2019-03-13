@@ -109,6 +109,9 @@ Route::resource('atcd','AntecedantsController');
 Route::resource('medicaments','MedicamentsController');
 Route::resource('exclinique','ExamenCliniqueController');
 Route::resource('demandeproduit','demandeprodController');
+Route::resource('demandeexb','DemandeExbController');
+Route::resource('demandeexr','DemandeExamenRadio');
+route::get('/demandeexbio/{id}','DemandeExbController@createexb');
 route::get('/getsalles/{id}','SalleController@getsalles');
 route::get('/annullerRDV/{id}','AdmissionController@annulerRDV');
 Route::post('/consultations/store/{id}','ConsultationsController@store');
@@ -163,6 +166,7 @@ Route::get('/role/show/{userId}','RolesController@show');
 Route::get('/role/show/{userId}','RolesController@show');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('AddANTCD','AntecedantsController@createATCDAjax');
+<<<<<<< HEAD
 Route::get('/searchUser','UsersController@searchUser');
 
 Route::get('/searchPatient','PatientController@search');
@@ -185,6 +189,30 @@ route::get('/home_reception',function (){
     return view('home.home_recep');
 })->name('home_rec');
 Route::post('/get-all-events','RDVController@checkFullCalendar');
+=======
+route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');
+route::post('/uploadresultat','DemandeExbController@uploadresultat');
+route::post('/uploadexr','DemandeExamenRadio@upload_exr');
+route::get('/download/{filename}', function($filename)
+{
+    return Storage::download($filename);
+});
+route::get('/listedemandesexb','DemandeExbController@listedemandesexb');
+route::get('/createexr/{id}','DemandeExamenRadio@createexr');
+route::get('/homelaboexb',function(){
+    $demandesexb = App\modeles\demandeexb::where('etat','E')->get();
+    return view('home.home_laboanalyses', compact('demandesexb'));
+})->name('homelaboexb');
+route::get('/homeradiologue',function(){
+    $demandesexr = App\modeles\demandeexr::where('etat','E')->get();
+    return view('home.home_radiologue', compact('demandesexr'));
+})->name('homeradiologue');
+route::get('/details_exr/{id}','DemandeExamenRadio@details_exr');
+route::get('/listeexrs','DemandeExamenRadio@liste_exr');
+route::get('/showordonnance/{id}','OrdonnanceController@show_ordonnance');
+route::get('/showdemandeexb/{id}','DemandeExbController@show_demande_exb');
+route::get('/showdemandeexr/{id}','DemandeExamenRadio@show_demande_exr');
+>>>>>>> ramzi
 // Route::get('/pdf', function () {
 //     return view('pdf');
 // });

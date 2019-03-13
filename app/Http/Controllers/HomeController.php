@@ -15,7 +15,10 @@ use App\modeles\admission;
 use App\modeles\medcamte;
 use App\modeles\reactif;
 use App\modeles\dispositif;
+
 use App\modeles\dem_colloque;
+use App\modeles\demandeexb;
+use App\modeles\demandeexr;
 use App\User;
 use Auth; 
 use Date;
@@ -100,6 +103,7 @@ class HomeController extends Controller
                     $reactifs = reactif::all();
                     return view('home.home_chef_ser', compact('meds','dispositifs','reactifs'));
                 case "Pharmacien":
+
                     $meds = medcamte::all();
                     $dispositifs = dispositif::all();
                     $reactifs = reactif::all();
@@ -108,6 +112,16 @@ class HomeController extends Controller
                 case "Receptioniste":
                     return view('home.home_recep');
                     break;    
+
+          
+                case "Laboratoire d'analyses":
+                  $demandesexb = demandeexb::where('etat','E')->get();
+                  return view('home.home_laboanalyses', compact('demandesexb'));
+                break;
+                case 'Radiologue':
+                  $demandesexr = demandeexr::where('etat','E')->get();
+                  return view('home.home_radiologue', compact('demandesexr'));
+                  break;
            default:
                    return view('errors.500');
                    break;

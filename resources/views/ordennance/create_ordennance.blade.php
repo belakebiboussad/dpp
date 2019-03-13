@@ -1,7 +1,9 @@
 @extends('app')
 @section('main-content')
 <div class="page-header">
-	<h1><strong>Détails du Consultation Pour :</strong> {{ $patient->Nom }} {{ $patient->Prenom }}</h1>
+	<h1><strong>Détails du Consultation Pour :</strong> 
+		{{ $consultation->patient->Nom }} {{ $consultation->patient->Prenom }}
+	</h1>
 </div>
 <div class="row">
 	<div class="col-sm-6">
@@ -32,89 +34,31 @@
 				<div class="widget-main">
 					<div class="row">
 						<div class="col-xs-12">
-							<div  class="col-xs-9">
-								<label for="form-field-8">
-									<strong>Médicament</strong>
-								</label>
-								<input id="nommedic" class="form-control" type="text"  placeholder="Médicament"/>
+							<div class="col-xs-6">
+								<input type="text" id="id_medicament" name="id_medicament" hidden>
+								<label for="nommed">Nom médicament</label>
+								<input type="text" class="form-control" id="nommed" placeholder="Nom médicament...">
 							</div>
-							<div  class="col-xs-3">
-								<label for="form-field-8">
-									<strong>Présentation</strong>	
-								</label>
-								<input id="forme" class="form-control" type="text"  placeholder="Forme"/>
+							<div class="col-xs-6">
+								<label for="forme">Forme</label>
+								<input type="text" class="form-control" id="form" placeholder="Forme...">
 							</div>
-							<br/><br/><br/><br/>
-							<div  class="col-xs-3">
-								<label for="form-field-8">
-									<strong>Qte</strong>
-								</label>
-								<input id="qte" class="form-control" type="number"/>
+							<br><br><br><br>
+							<div class="col-xs-6">
+								<label for="dosage">Dosage</label>
+								<input type="text" class="form-control" id="dosage" placeholder="Dosage...">
 							</div>
-							<div class="col-xs-9">
-								<label>
-									<strong>Nombre de Prise</strong>
-								</label>
-								<br>
-								<div class="col-xs-2">
-									<input id="nbprise" class="form-control" type="number"/>
-								</div>
-								<div class="col-xs-4">
-									<input class="form-control"  type="text" value="Fois Par" />
-								</div>
-								<div class="col-xs-4">
-									<select id="fois" class="form-control" id="form-field-select-3">
-										<option value="">Choose...</option>
-										<option value="jour">jour</option>
-										<option value="Semaine">Semaine</option>
-										<option value="Mois">Mois</option>
-									</select>
-								</div>
-							</div>
-							<br/><br/><br/><br/>
-							<div class="col-xs-7">
-								<label>
-									<strong>Pendant</strong>
-								</label>
-								<br/>
-								<div class="col-xs-3">
-									<input id="duree" class="form-control" type="number"/>
-								</div>
-								<div class="col-xs-4">
-									<select id="dureefois" class="form-control" id="form-field-select-3">
-										<option value="">Choose...</option>
-										<option value="jour">jour</option>
-										<option value="Semaine">Semaine</option>
-										<option value="Mois">Mois</option>
-									</select>
-								</div>
-							</div>
-							<div>
-							<div class="col-xs-3">
-								<label for="form-field-8">
-									<strong>à prendre</strong>
-								</label>
-								<select id="temps" class="form-control" id="form-field-select-3">
-									<option value="">Choose...</option>
-									<option value="Le matin">Le matin</option>
-									<option value="à midi">à midi</option>
-									<option value="Le Soir">Le Soir</option>
-								</select>
-							</div>
-							<br/><br/><br/><br/>
+							<br><br><br><br>
 							<div class="col-xs-12">
-								<label for="form-field-8">
-									<strong>Posologie</strong>
-								</label>
-								<button class="label label-success label-white middle" onclick="posologiefun()">
-									<i class="fa fa-check-square-o" aria-hidden="true"></i>
-									 Générer automatiquement
-								</button>
-								<input id="pos" type="text"  class="form-control">
+								<label for="posologie">Posologie</label>
+								<input type="text" class="form-control" id="posologie" placeholder="Posologie...">
 							</div>
-							<div>
-								<br/><br/><br/><br/>
-								<button class="btn btn-success" onclick="addmidifun()">Ajouter Médicament</button>
+							<br><br><br><br>
+							<div class="col-xs-12">
+								<button type="button" id="addliste" class="btn btn-success pull-right">
+									Ajouter a la liste
+									&nbsp;<i class="fa fa-mail-forward"></i>
+								</button>
 							</div>
 						</div>
 					</div>
@@ -142,59 +86,24 @@
 				<div class="widget-main">
 					<div class="row">
 						<div class="col-xs-12">
-							<div class="widget-box">
-								<div class="widget-body">
-									<div class="widget-main">
-										<div class="row">
-											<div class="col-xs-12">
-												<div class="col-xs-3">
-													<form id="ordonnace_form" method="POST" action="{{ route('ordonnace.store') }}">
-													{{ csrf_field() }}
-													<input type="text" name="idcons" value="{{ $consultation->id }}" hidden>
-													<label><strong>Date Ordonnance :</strong></label>
-													<div class="input-group">
-														<input id="dateord" name="dateord" class="form-control date-picker" id="id-date-picker-1" type="text" data-date-format="yyyy-mm-dd" />
-														<span class="input-group-addon">
-															<i class="fa fa-calendar bigger-110"></i>
-														</span>
-													</div>
-												</div>
-												<div class="col-xs-9">
-													<label for="form-field-8">
-														<strong>Pendant</strong>
-													</label>
-													<br/>
-													<div class="col-xs-2">
-														<input class="form-control" name="dureeefois" type="number"/>
-													</div>
-													<div class="col-xs-3">
-														<select class="form-control" id="foisss" name="foisss">
-															<option value="">Choose...</option>
-															<option value="jour">jour</option>
-															<option value="Semaine">Semaine</option>
-															<option value="Mois">Mois</option>
-														</select>
-													</div>
-												</div>
-											</div>
-										</div>			
-									</div>
-								</div>
-							</div>
 							<table id="ordonnance" class="table  table-bordered table-hover">
 								<thead>
 									<tr>
 										<th></th>
+										<th hidden>id</th>
 										<th>Médicament</th>
 										<th>Forme</th>
-										<th>Quantité</th>
+										<th>Dosage</th>
 										<th>Posologie</th>
 									</tr>
 								</thead>
 							</table>
+							<form id="ord" method="POST" action="{{ route('ordonnace.store') }}">
+								{{ csrf_field() }}
+								<input type="text" name="id_consultation" value="{{ $consultation->id }}" hidden>
 							</form>
 							<div class="pull-right">
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ord" onclick="createord('{{ $patient->Nom }} {{ $patient->Prenom }}','{{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Nom_Employe}} {{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Prenom_Employe}}')">
+								<button type="button" id="terminer" class="btn btn-primary">
 									Terminer
 								</button>
 							</div>
@@ -206,24 +115,5 @@
 		</div>
 	</div><!-- /.col -->
 </div><!-- /.row -->
-</div>
-<div id="ord" class="modal fade" role="dialog">
-	<div class="modal-dialog">
-		<!-- Modal content-->
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title"><b>Ordonnance :</b></h4>
-			</div>
-			<div class="modal-body">
-				<iframe id="ordpdf" class="preview-pane" type="application/pdf" width="100%" height="500" frameborder="0" style="position:relative;z-index:999"></iframe>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="storeord()">Enregistrer</button>
-				<button type="button" class="btn btn-success" data-dismiss="modal">Enregistrer et Imprimer</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
 </div>
 @endsection

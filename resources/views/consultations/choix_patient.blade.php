@@ -32,9 +32,9 @@
 			<td>{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }} ans</td>
 			<td class="center">
 			{{-- style="width:100%;" --}}
-				 <a  href="/consultations/create/{{$patient->id}}" class="btn  btn-primary" >
-				   	<div class="fa fa-plus-circle pull-left"></div>
-					<span class="bigger-120">Consultation </span>
+				<a  href="/consultations/create/{{$patient->id}}" class="btn btn-xs btn-default">
+				 	<i class="fa fa-stethoscope"></i>
+					&nbsp;&nbsp;Consultation
 				</a>  
 			</td>
 		</tr>
