@@ -693,7 +693,6 @@ public function update(Request $request,$id)
             })
             ->rawColumns(['action2','action'])
             ->make(true);
-            // <i class="ace-icon fa fa-hand-o-up bigger-120">
 }
 public function getPatientsArray(Request $request)
 {

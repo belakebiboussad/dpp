@@ -154,7 +154,7 @@
                      @if( App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role !="Receptioniste") 
                            //updateRDVModal(calEvent.id,calEvent.title,calEvent.start,calEvent.end,calEvent.idPatient,calEvent.tel,calEvent.age);
                            edit(calEvent);
-                     @endif     
+                      @endif     
                 },
                 eventRender: function (event, element, webData) {
                       if(event.start < CurrentDate)
