@@ -1,4 +1,4 @@
-@extends('app_med')
+@extends('app')
 @section('page-script')
 <script src="{{asset('/js/jquery.min.js')}}"></script>
 <script>

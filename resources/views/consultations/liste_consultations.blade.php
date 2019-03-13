@@ -1,4 +1,15 @@
-@extends('app_med')
+@extends('app_mscriptsed')
+@section('page-script')
+<script>
+    $('#consultations').dataTable({
+        ordering: true,
+        "language": 
+            {
+                "url": '/localisation/fr_FR.json'
+            }, 
+    });
+</script>
+@endsection
 
 @section('main-content')
 <div class="page-header">

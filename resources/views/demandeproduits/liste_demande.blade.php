@@ -1,4 +1,5 @@
 @extends('app_phar')
+@section('page.script')
 <script type="text/javascript">
 	$('#demandes_liste').dataTable({
        		ordering: true,
@@ -8,6 +9,7 @@
 	            }, 
    	 });
 </script>
+@endsection
 @section('main-content')
 <div class="row">
 	<div class="col-xs-12">

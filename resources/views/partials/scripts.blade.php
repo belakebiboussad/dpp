@@ -364,54 +364,40 @@ $(document).ready(function(){
 </script>
 <script type="text/javascript">
 $(document).ready(function() {
-    $('#consultations').dataTable({
-        ordering: true,
-        "language": 
-            {
-                "url": '/localisation/fr_FR.json'
-            }, 
-    });
-    $('#meds_table').dataTable({
-        ordering: true,
-        "language": 
-            {
-                "url": '/localisation/fr_FR.json'
-            }, 
-    });
-    $('#dispo_table').dataTable({
-        ordering: true,
-        "language": 
-            {
-                "url": '/localisation/fr_FR.json'
-            }, 
-    });
-    $('#reactif_table').dataTable({
-        ordering: true,
-        "language": 
-            {
-                "url": '/localisation/fr_FR.json'
-            }, 
-    });
-    $('#demandes_liste').dataTable({
-        ordering: true,
-        "language": 
-            {
-                "url": '/localisation/fr_FR.json'
-            }, 
-    });
-    $('#patients_liste').dataTable();
-    $('#choixp').dataTable({
-        ordering: true,
-        "language": 
-            {
-                "url": '/localisation/fr_FR.json'
-            },
-    });
-    $('#choixpatientrdv').dataTable();
-    $('#rdvs_liste').dataTable();
-    $('#patients').dataTable();
-    $('#choix-patient-atcd').dataTable();
-    $('#users').dataTable();
+    // $('#dispo_table').dataTable({
+    //     ordering: true,
+    //     "language": 
+    //         {
+    //             "url": '/localisation/fr_FR.json'
+    //         }, 
+    // });
+    // $('#reactif_table').dataTable({
+    //     ordering: true,
+    //     "language": 
+    //         {
+    //             "url": '/localisation/fr_FR.json'
+    //         }, 
+    // });
+    // $('#demandes_liste').dataTable({
+    //     ordering: true,
+    //     "language": 
+    //         {
+    //             "url": '/localisation/fr_FR.json'
+    //         }, 
+    // });
+    // $('#patients_liste').dataTable();
+    // $('#choixp').dataTable({
+    //     ordering: true,
+    //     "language": 
+    //         {
+    //             "url": '/localisation/fr_FR.json'
+    //         },
+    // });
+    // $('#choixpatientrdv').dataTable();
+    // $('#rdvs_liste').dataTable();
+    // $('#patients').dataTable();
+    // $('#choix-patient-atcd').dataTable();
+    // $('#users').dataTable();
     $( "#liste_membre" )
   .change(function () {
     var select = document.getElementById("liste_membre");
@@ -556,7 +542,7 @@ $('#typeexm').on('change', function() {
     <script>
             $('#flash-overlay-modal').modal();
             $(document).ready(function(){
-             $(".tooltip-link").tooltip();//ajouter info bull
+             // $(".tooltip-link").tooltip();//ajouter info bull
             }); 
 </script>
         <script type="text/javascript">

@@ -1,4 +1,9 @@
 @extends('app_med')
+@section('page.script')
+<script>
+	$('#patients_liste').dataTable();
+</script>
+@endsection
 @section('main-content')
 <div class="page-content">
 	<div class="space-12"></div>

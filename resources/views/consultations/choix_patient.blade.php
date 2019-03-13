@@ -1,4 +1,15 @@
 @extends('app')
+@section('page.script')
+<script>
+	$('#choixp').dataTable({
+		ordering: true,
+		"language": 
+		{
+		             "url": '/localisation/fr_FR.json'
+		},
+	});
+</script>
+@endsection
 @section('main-content')
 <div class="page-header">
 	<h1>Selectionner un  Patient</h1>

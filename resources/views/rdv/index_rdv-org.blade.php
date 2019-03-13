@@ -1,6 +1,9 @@
 @extends('app_recep')
 @section('page-script')
-	 $('#rdvs_liste').dataTable();
+	<script>
+		 $('#rdvs_liste').dataTable();
+	</script>
+	
 @endsection
 @section('main-content')
 <div class="page-header">

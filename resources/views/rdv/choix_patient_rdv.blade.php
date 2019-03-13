@@ -2,7 +2,6 @@
 @section('page-script')
 	<script>
 		 $('#choixpatientrdv').dataTable();
-	
 	</script>
 @endsection
 

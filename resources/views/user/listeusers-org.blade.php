@@ -1,6 +1,9 @@
 @extends('app')
 @section('page-script')
-	 $('#users').dataTable();
+	<script>
+		 $('#users').dataTable();
+	</script>
+	
 @endsection
 @section('title','Gestion des Utilisateures')
 @section('main-content')
