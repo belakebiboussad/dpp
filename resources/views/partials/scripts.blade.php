@@ -806,39 +806,7 @@ $('#typeexm').on('change', function() {
                 ]
             });
         </script>
-        <script>
-            $('#medc_table').DataTable({
-                 processing: true,
-                serverSide: true,
-                ordering: true,
-                 "bInfo" : false,
-                 searching: false,
-                 "language": {
-                "url": '/localisation/fr_FR.json'
-                },
-                 // columnDefs: [ {
-                 //       targets: [ 2],
-                 //         'createdCell':  function (td, cellData, rowData, row, col) {
-                 //              $(td).attr('id', 'Dose-'+row); }
-                 //          }, {
-                 //         targets: [ 0 ],
-                 //       'createdCell':  function (td, cellData, rowData, row, col) {
-                 //              $(td).attr('id', 'nom-com-'+row); }
-                 //        },{
-                 //             targets: [ 1 ],
-                 //       'createdCell':  function (td, cellData, rowData, row, col) {
-                 //              $(td).attr('id', 'form-'+row); }      
-                 //     }],
-                ajax: '/getmedicaments',
-                columns: [
-                    {data: 'Nom_com'},
-                    {data: 'Forme'},
-                    {data: 'Dosage'},
-                    {data: 'action', name: 'action', orderable: false, searchable: false}
-                ]
-            });
-        </script>
-         <script>
+           <script>
             $('#patient-table-atcd').DataTable({
                  processing: true,
                 serverSide: true,

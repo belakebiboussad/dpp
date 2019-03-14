@@ -1,5 +1,6 @@
 @extends('app')
 @section('page-script')
+         
 <script>
       $('document').ready(function(){
            $( 'ul.nav li' ).on( 'click', function() {
@@ -12,10 +13,8 @@
             });
       });
       $(function() {
-           // Get the form fields and hidden div
-           var checkbox = $("#isOriented");
-           var hidden = $("#hidden_fields");
-           // Setup an event listener for when the state of the 
+           var checkbox = $("#isOriented");  // Get the form fields and hidden div
+           var hidden = $("#hidden_fields");  // Setup an event listener for when the state of the 
            // checkbox changes.
            checkbox.change(function() {
                 if (checkbox.is(':checked')) {
@@ -59,6 +58,23 @@
      $("#btnCalc").click(function(event){
             event.preventDefault();
       });
+        $('#medc_table').DataTable({
+                 processing: true,
+                serverSide: true,
+                ordering: true,
+                 "bInfo" : false,
+                 searching: false,
+                "language": {
+                      "url": '/localisation/fr_FR.json'
+                },
+                ajax: '/getmedicaments',
+                      columns: [
+                          {data: 'Nom_com'},
+                          {data: 'Forme'},
+                          {data: 'Dosage'},
+                          {data: 'action', name: 'action', orderable: false, searchable: false}
+                      ]
+     });
 });
 
 </script>
