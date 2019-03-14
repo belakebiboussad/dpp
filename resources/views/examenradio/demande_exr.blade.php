@@ -1,6 +1,7 @@
 @extends('app')
 @section('page-script')
-<script src="{{asset('/js/jquery.min.js')}}"></script>
+{{-- 
+<script src="{{ asset('/js/select2.min.js') }}"></script> --}}
 <script>
       $('document').ready(function(){
            $( 'ul.nav li' ).on( 'click', function() {
@@ -12,7 +13,13 @@
                $(this).removeAttr('disabled');
             });
       });
-
+     $('.select2').css('width','400px').select2({allowClear:true})
+           $('#select2-multiple-style .btn').on('click', function(e){
+                var target = $(this).find('input[type=radio]');
+                var which = parseInt(target.val());
+                if(which == 2) $('.select2').addClass('tag-input-style');
+                     else $('.select2').removeClass('tag-input-style');
+           });
       $(function() {
            // Get the form fields and hidden div
            var checkbox = $("#isOriented");
@@ -125,8 +132,7 @@
                       <label for="infosc">
                         <b>Informations cliniques pertinentes</b>
                       </label>
-                      <textarea class="form-control" id="infosc" name="infosc">
-                      </textarea>
+                      <textarea class="form-control" id="infosc" name="infosc"></textarea>
                       {!! $errors->first('infosc', '<small class="alert-danger"><b>:message</b></small>')!!}
                     </div>
                     <br><br>
@@ -134,8 +140,7 @@
                       <label for="explication">
                         <b>Explication de la demande de diagnostic</b>
                       </label>
-                      <textarea class="form-control" id="explication" name="explication">
-                      </textarea>
+                      <textarea class="form-control" id="explication" name="explication"></textarea>
                       {!! $errors->first('explication', '<small class="alert-danger"><b>:message</b></small>')!!}
                     </div>
                     <br><br>

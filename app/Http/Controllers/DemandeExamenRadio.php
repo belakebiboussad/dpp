@@ -11,7 +11,6 @@ use App\modeles\demandeexr;
 use Illuminate\Support\Facades\Storage;
 use Jenssegers\Date\Date;
 use PDF;
-
 class DemandeExamenRadio extends Controller
 {
     /**
@@ -78,42 +77,41 @@ class DemandeExamenRadio extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            "infosc" => "required",
-            "explication" => "required",
-            "infos" => "required",
-            "examensradio" => "required",
-            "exmns" => "required"
-        ],[
-            "infosc.required" => "Ce champ est obligatoire.",
-            "explication.required" => "Ce champ est obligatoire.",
-            "infos.required" => "Ce champ est obligatoire.",
-            "examensradio.required" => "Ce champ est obligatoire.",
-            "exmns.required" => "Ce champ est obligatoire.",
-        ]);
+           $request->validate([
+                "infosc" => "required",
+                "explication" => "required",
+                "infos" => "required",
+                "examensradio" => "required",
+                "exmns" => "required"
+            ],[
+                "infosc.required" => "Ce champ est obligatoire.",
+                "explication.required" => "Ce champ est obligatoire.",
+                "infos.required" => "Ce champ est obligatoire.",
+                "examensradio.required" => "Ce champ est obligatoire.",
+                "exmns.required" => "Ce champ est obligatoire.",
+           ]); 
+          
+           $date = Date::now();
+          $demande = demandeexr::FirstOrCreate([
+                "Date" => $date,
+                "InfosCliniques" => $request->infosc,
+                "Explecations" => $request->explication,
+                "id_consultation" => $request->id_consultation,
+            ]);
 
-        $date = Date::now();
+            foreach ($request->infos as $id_info) {
+                $demande->infossuppdemande()->attach($id_info);
+            }
 
-        $demande = demandeexr::FirstOrCreate([
-            "Date" => $date,
-            "InfosCliniques" => $request->infosc,
-            "Explecations" => $request->explication,
-            "id_consultation" => $request->id_consultation,
-        ]);
+            foreach ($request->examensradio as $id_exm_radio) {
+                $demande->examensradios()->attach($id_exm_radio);
+            }
 
-        foreach ($request->infos as $id_info) {
-            $demande->infossuppdemande()->attach($id_info);
-        }
+            foreach ($request->exmns as $id_exmn) {
+                $demande->examensrelatifsdemande()->attach($id_exmn);
+            }
 
-        foreach ($request->examensradio as $id_exm_radio) {
-            $demande->examensradios()->attach($id_exm_radio);
-        }
-
-        foreach ($request->exmns as $id_exmn) {
-            $demande->examensrelatifsdemande()->attach($id_exmn);
-        }
-
-        return redirect()->route('consultations.show', $request->id_consultation);
+            return redirect()->route('consultations.show', $request->id_consultation);
     }
 
     /**

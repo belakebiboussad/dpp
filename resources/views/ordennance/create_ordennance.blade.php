@@ -1,10 +1,40 @@
 @extends('app')
 @section('page-script')
 <script>
-$(document).ready({
-	   
-});
-          
+$('document').ready(function(){
+	$('#medc_table').DataTable({
+                 processing: true,
+                serverSide: true,
+                ordering: true,
+                 "bInfo" : false,
+                 searching: false,
+                "language": {
+                      "url": '/localisation/fr_FR.json'
+                },
+                ajax: '/getmedicaments',
+                      columns: [
+                          {data: 'Nom_com'},
+                          {data: 'Forme'},
+                          {data: 'Dosage'},
+                          {data: 'action', name: 'action', orderable: false, searchable: false}
+                      ]
+     	});
+     	$("#addliste").click(function() {
+                   $("#ordonnance").append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td hidden>"+$("#id_medicament").val()+"</td><td>"+$("#nommed").val()+"</td><td>"+$("#form").val()+"</td><td>"+$("#dosage").val()+"</td><td>"+$("#posologie").val()+"</td></tr>");
+           });
+           $("#terminer").click(function() {
+                     var arrayLignes = document.getElementById("ordonnance").rows;
+                     var longueur = arrayLignes.length;
+                     var ordonnance = [];
+                	for(var i=0; i<longueur; i++)
+                	{
+ 			ordonnance[i] = { med: arrayLignes[i].cells[1].innerHTML, posologie: arrayLignes[i].cells[5].innerHTML }
+                	}
+         		var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
+                		champ.appendTo('#ordn');
+                	$('#ordn').submit();
+           }); 	   
+});       
 </script>
 @endsection
 @section('main-content')
@@ -19,18 +49,18 @@ $(document).ready({
 			<div class="widget-body">
 				<div class="widget-main">
 					<div class="row">
-						<div class="col-xs-12">
-							<table id="medc_table" class="table table-striped table-bordered table-hover">
-								<thead>
-									<tr>
-										<th class="hidden-480">Médicament</th>
-										<th class="hidden-480">Forme</th>
-										<th class="hidden-480">Dosage</th>
-										<th class="hidden-480"></th>
+					<div class="col-xs-12">
+						<table id="medc_table" class="table table-striped table-bordered table-hover">
+						<thead>
+							<tr>
+								<th class="hidden-480">Médicament</th>
+								<th class="hidden-480">Forme</th>
+								<th class="hidden-480">Dosage</th>
+								<th class="hidden-480"></th>
 									</tr>
-								</thead>
-							</table>
-						</div>
+						</thead>
+						</table>
+					</div>
 					</div>
 				</div>
 			</div>
@@ -106,7 +136,7 @@ $(document).ready({
 									</tr>
 								</thead>
 							</table>
-							<form id="ord" method="POST" action="{{ route('ordonnace.store') }}">
+							<form id="ordn" method="POST" action="{{ route('ordonnace.store') }}">
 								{{ csrf_field() }}
 								<input type="text" name="id_consultation" value="{{ $consultation->id }}" hidden>
 							</form>

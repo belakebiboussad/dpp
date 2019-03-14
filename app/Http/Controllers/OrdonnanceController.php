@@ -39,7 +39,7 @@ class OrdonnanceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
         $date = Date::now();
         $ordonnance = ordonnance::FirstOrCreate([
             "date" => $date,
