@@ -33,11 +33,10 @@
 		<div class="widget-main"  id = "posologie">
 		<div class="row">
 			
-		</div>
-						
-		</div>
-		</div>
-		</div>
+		</div>{{-- row --}}
+		</div>	{{-- widget-main --}}
+		</div>	{{-- widget-body --}}
+		</div>{{-- "widget-box --}}
 	</div>{{-- col-sm-6 --}}
 </div>
 <br><br>
