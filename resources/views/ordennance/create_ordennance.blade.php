@@ -1,4 +1,12 @@
 @extends('app')
+@section('page-script')
+<script>
+$(document).ready({
+	   
+});
+          
+</script>
+@endsection
 @section('main-content')
 <div class="page-header">
 	<h1><strong>Détails du Consultation Pour :</strong> 
