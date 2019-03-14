@@ -147,7 +147,7 @@
 					<br/><br/><br/>
                                       		<div class="right">
                                          		 <div class="profile-contact-links align-right">
-                                              		 <a  href="#" data-target="#Ordonnance" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title="prescrire des medicaaments" >
+                                              		 <a  href="#" data-target="#Ordonnance" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title="" >
                                                       	<div class="fa fa-plus-circle"></div>
                                                           	<span class="bigger-110" > Ordonnance</span>
                                                 		</a>
@@ -155,7 +155,7 @@
                                              	<div class="space-6"></div>
                                            	<div class="profile-contact-info">
                                                      <div class="profile-contact-links align-right">
-                                                  		 <a  href="#" data-target="#demandehosp" class="btn  btn-primary btn-lg tooltip-link" style="width:250px;" data-toggle="modal"   data-toggle="tooltip" data-original-title="prescrire des medicaaments" >
+                                                  		 <a  href="#" data-target="#demandehosp" class="btn  btn-primary btn-lg tooltip-link" style="width:250px;" data-toggle="modal"   data-toggle="tooltip" data-original-title="" >
                                                         	 <div class="fa fa-plus-circle"></div>
                                                           	<span class="bigger-110"> Hospitalisation</span>
                                                   		</a>
@@ -182,7 +182,7 @@
 					<br/><br/><br/>
                                       		<div class="right">
                                          		 <div class="profile-contact-links align-right">
-                                              		 <a  href="#" data-target="#Ordonnance" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title="prescrire des medicaaments" >
+                                              		 <a  href="#" data-target="#Ordonnance" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title="" >
                                                       	<div class="fa fa-plus-circle"></div>
                                                           	<span class="bigger-110"> Ordonnance</span>
                                                 		</a>
@@ -190,7 +190,7 @@
                                              	<div class="space-6"></div>
                                            	<div class="profile-contact-info">
                                                      <div class="profile-contact-links align-center">
-                                                  		 <a  href="#" data-target="#demandehosp" class="btn  btn-primary btn-lg tooltip-link" style="width:250px;" data-toggle="modal"   data-toggle="tooltip" data-original-title="prescrire des medicaaments" >
+                                                  		 <a  href="#" data-target="#demandehosp" class="btn  btn-primary btn-lg tooltip-link" style="width:250px;" data-toggle="modal"   data-toggle="tooltip" data-original-title="" >
                                                         	<div class="fa fa-plus-circle"></div>
                                                           	<span class="bigger-110"> Hospitalisation</span>
                                                   		</a>

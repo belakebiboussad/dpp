@@ -1,6 +1,20 @@
 @extends('app')
-@section('page-script')
-         
+@section('style')
+<style>
+  .modal {
+    width:105.3% !important;
+    right:-16% !important;
+    left:-2.5% !important;
+    top:-3% !important;
+}
+.modal-body
+{
+    top: -1px !important;
+
+}
+</style>
+@endsection
+@section('page-script')    
 <script>
       $('document').ready(function(){
            $( 'ul.nav li' ).on( 'click', function() {
@@ -34,7 +48,6 @@
       if (object.value.length > object.maxLength)
         object.value = object.value.slice(0, object.maxLength)
   }
-    
   function isNumeric (evt) {
       var theEvent = evt || window.event;
       var key = theEvent.keyCode || theEvent.which;
@@ -59,11 +72,13 @@
             event.preventDefault();
       });
         $('#medc_table').DataTable({
-                 processing: true,
+                processing: true,
                 serverSide: true,
                 ordering: true,
-                 "bInfo" : false,
-                 searching: false,
+                "bInfo" : false,
+                searching: false,
+                pageLength: 7,
+                nowrap:true,
                 "language": {
                       "url": '/localisation/fr_FR.json'
                 },
@@ -75,7 +90,10 @@
                           {data: 'action', name: 'action', orderable: false, searchable: false}
                       ]
      });
-});
+     $('#Ordonnance').on('show.bs.modal', function () {
+           $('.modal-content').css('height',$( window ).height()*0.99);
+     });
+  });
 
 </script>
 @endsection
@@ -145,21 +163,18 @@
 </div>
 </form>
 </div>
-
 <!-- Modal -->
 <div id="Ordonnance" class="modal" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
-    <!-- Modal content-->
-    <div class="modal-content">
+       <div class="modal-content">
       <div class="modal-header">
            <button type="button" class="close" data-dismiss="modal">&times;</button>
            <h4 class="modal-title">Ordonnance</h4>
            @include('partials._patientInfo')
       </div>
       <div class="modal-body">
-          <div class="container-fluid">
-                 @include('consultations.ExamenCompl.Ordonnance')
-          </div>        
+      {{--     <div class="container-fluid"></div>      --}}
+                 @include('consultations.Ordonnance')    
       </div> 
     </div>
 
