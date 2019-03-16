@@ -32,43 +32,79 @@
 				<label for="nommedic">
 					<strong>Médicament :</strong>
 				</label>
-				<input id="nommedic" class="form-control" type="text"  placeholder="Médicament"/>
+				<input id="nommedic" class="form-control" type="text"  placeholder="Médicament" readonly/>
 			</div>
 			<div  class="col-xs-3">
 				<label for="form-field-8">
 					<strong>Présentation :</strong>	
 				</label>
-					<input id="forme" class="form-control" type="text"  placeholder="Forme"/>
+				<input id="forme" class="form-control" type="text"  placeholder="Forme" readonly/>
+			</div>
+		</div>{{-- row --}}
+		<div class="space-12"></div>		
+		<div class="row">
+			<div  class="col-xs-2">
+				<label for="nommedic">
+					<strong>Quantité  :</strong>
+				</label>
+				<input id="qte" class="form-control disabledElem" type="number" value="1" min="1" />
+			</div>
+			<div  class="col-xs-4">
+				<label><strong>&nbsp;&nbsp;</strong></label>
+				<input type="text"  id="conditionnement" placeholder="Conditionnement" readonly/>
+			</div>
+			<div  class="col-xs-2">
+				<label><strong>Posologie:</strong></label>
+				<input id="nbprise" class="form-control disabledElem" type="number" value="1" min="1" max="4" onchange="addTable();"/>
+			</div>
+			<div  class="col-xs-4">
+				<label class="blue" style=""><strong>Fois par</strong></label>
+				<select  id="fois" class="form-control disabledElem my-right-float"  value="Jour" class="form-control" >
+					<option value="Jour">jour</option>
+					<option value="Semaine">Semaine</option>
+					<option value="Mois">Mois</option>
+				</select>
 			</div>
 		</div>{{-- row --}}
 		<div class="space-12"></div>
 		<div class="row">
-			<div  class="col-xs-3">
-				<label for="form-field-8">
-					<strong>Qte :</strong>
+			<div  class="col-xs-2">
+				<label for="nommedic">
+					<strong>Pendant:</strong>
 				</label>
-				<input id="qte" class="form-control" type="number" value="1" min="1" />
+				<input id="duree" class="form-control  input-sm disabledElem" type="number" value="1" min="1" />
 			</div>
-			<div class="col-xs-9">
-				<label>
-					<strong>&nbsp;&nbsp;&nbsp;Nombre de Prise :</strong>
-				</label>
-				<br>
-				<div class="col-xs-3">
-					<input id="nbprise" class="form-control" type="number" value="1" min="1"/>
-				</div>
-				<div class="col-xs-1"></div>
-				<div class="col-xs-3">
-					<label class="" >Fois par</label>
-				</div>
-				<div class="col-xs-4">
-					<select id="fois" class="form-control" id="form-field-select-3">
-						<option value="">Choose...</option>
-						<option value="jour">jour</option>
-						<option value="Semaine">Semaine</option>
-						<option value="Mois">Mois</option>
-					</select>
-				</div>
+			<div class="col-xs-4">
+				<label><strong>&nbsp;&nbsp;</strong></label>
+				<select id="dureefois" class="form-control disabledElem" id="form-field-select-3"  value="Semaine">
+					<option value="Jour" selected>Jour</option>
+					<option value="Semaine" Selected>Semaine</option>
+					<option value="Mois">Mois</option>
+				</select>
+   	                                    
+			</div>
+		</div>
+		<div class="space-12"></div>
+		<div class="row">
+			<div class="col-sm-5">	
+   				 <div class="form-group">
+     					  <label for="inputType" class="col-sm-4 control-label"><strong>Posologie: </strong></label>
+        					<div class="col-sm-8">
+           						<button class="label label-success label-white middle disabledElem" onclick="posologiefun()">
+							<i class="fa fa-check-square-o" aria-hidden="true"></i>
+							 Générer Posologie
+						</button>
+      				     	</div>
+                                                            </div>
+			</div>
+			<div class="col-sm-7">
+				<form class="form-horizontal" role="form">
+   					 <div class="form-group">
+     						<div class="col-sm-12">
+           							<input id="pos" type="text"  class="form-control input-sm" readonly/>
+      				         		 </div>
+                                                                        </div>
+                                                             </form>
 			</div>
 		</div>{{-- row --}}
 		</div>	{{-- widget-main --}}

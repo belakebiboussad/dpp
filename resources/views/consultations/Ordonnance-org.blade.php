@@ -70,9 +70,9 @@
 						 <div class="col-sm-4">
 						 <form class="form-horizontal" role="form">
    							 <div class="form-group">
-     								  <label for="inputType" class="col-sm-5 control-label"><strong>Nbr Prise:</strong></label>
+     								 <label for="inputType" class="col-sm-5 control-label"><strong>Nbr Prise:</strong></label>
         								<div class="col-sm-4">
-           							<input id="nbprise" class="form-control disabledElem" type="number" min="1" max="4" value =1 onchange="addTable();"	/>
+           								<input id="nbprise" class="form-control disabledElem" type="number" min="1" max="4" value =1 onchange="addTable();"/>
       							          </div>
                                                                           </div>
                                                                 </form>
@@ -155,7 +155,7 @@
 								 Générer Posologie
 								</button>
       							          </div>
-                                                                          </div>
+                                                                       		   </div>
 						</div>
 						<div class="col-sm-7">
 							<form class="form-horizontal" role="form">

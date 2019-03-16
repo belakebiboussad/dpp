@@ -93,7 +93,6 @@
 	
 	function Shows(id)
 	{
-
 		$('#multiselect').addClass("hidden").hide().fadeIn();
 		$('#multiselectRMN').addClass("hidden").hide().fadeIn();
 		$('#multiselectRX').addClass("hidden").hide().fadeIn();

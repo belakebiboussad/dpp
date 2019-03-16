@@ -57,7 +57,6 @@
                 if (checkbox.is(':checked')) {
                      // Show the hidden fields.
                      hidden.show();
- 
                     } else {
                                 hidden.hide();
                                 $("#lettreorientaioncontent").val("");
@@ -113,11 +112,11 @@
                           {data: 'Dosage'},
                           {data: 'action', name: 'action', orderable: false, searchable: false}
                       ]
-     });
-     $('#Ordonnance').on('show.bs.modal', function () {
-           $('.modal-content').css('height',$( window ).height()*2);
-     });
-  });
+        });
+        $('#Ordonnance').on('show.bs.modal', function () {
+               $('.modal-content').css('height',$( window ).height()*2);
+      });
+   });
 
 </script>
 @endsection
