@@ -30,13 +30,13 @@
 		<div class="row">
 			<div  class="col-xs-9">
 				<label for="nommedic">
-					<strong>Médicament :</strong>
+					<strong>Nom Médicament :</strong>
 				</label>
 				<input id="nommedic" class="form-control" type="text"  placeholder="Médicament" readonly/>
 			</div>
 			<div  class="col-xs-3">
 				<label for="form-field-8">
-					<strong>Présentation :</strong>	
+					<strong>Forme :</strong>	
 				</label>
 				<input id="forme" class="form-control" type="text"  placeholder="Forme" readonly/>
 			</div>
@@ -72,7 +72,7 @@
 				<label for="nommedic">
 					<strong>Pendant:</strong>
 				</label>
-				<input id="duree" class="form-control  input-sm disabledElem" type="number" value="1" min="1" />
+				<input id="duree" class="form-control disabledElem" type="number" value="1" min="1" />
 			</div>
 			<div class="col-xs-4">
 				<label><strong>&nbsp;&nbsp;</strong></label>
@@ -81,32 +81,20 @@
 					<option value="Semaine" Selected>Semaine</option>
 					<option value="Mois">Mois</option>
 				</select>
-   	                                    
+			</div>
+			<div class="col-sm-6">
+				<label><strong>&nbsp;&nbsp;</strong></label>	
+				<input id="pos" type="text"  class="form-control disabledElem invisible " readonly/>
 			</div>
 		</div>
 		<div class="space-12"></div>
 		<div class="row">
-			<div class="col-sm-5">	
-   				 <div class="form-group">
-     					  <label for="inputType" class="col-sm-4 control-label"><strong>Posologie: </strong></label>
-        					<div class="col-sm-8">
-           						<button class="label label-success label-white middle disabledElem" onclick="posologiefun()">
-							<i class="fa fa-check-square-o" aria-hidden="true"></i>
-							 Générer Posologie
-						</button>
-      				     	</div>
-                                                            </div>
+			<div class="col-xs-12">
+				<button type="button" id="addliste" class="btn btn-success pull-right disabledElem" onclick="addmidifun()">
+					Ajouter a la liste&nbsp;<i class="fa fa-mail-forward"></i>
+				</button>
 			</div>
-			<div class="col-sm-7">
-				<form class="form-horizontal" role="form">
-   					 <div class="form-group">
-     						<div class="col-sm-12">
-           							<input id="pos" type="text"  class="form-control input-sm" readonly/>
-      				         		 </div>
-                                                                        </div>
-                                                             </form>
-			</div>
-		</div>{{-- row --}}
+		</div>
 		</div>	{{-- widget-main --}}
 		</div>	{{-- widget-body --}}
 		</div>{{-- "widget-box --}}
@@ -118,9 +106,12 @@
 		<div class="widget-header">
 			<h5 class="widget-title text-info lighter"> Ordonnance:</h5>
 			<div class="widget-toolbar widget-toolbar-light no-border pull-right" >
-				<button type="button" onclick="supcolonne()" class="btn btn-transparent my-right-float">
+				<button type="button" onclick="supcolonne()" class="btn btn-transparent">
 					<i class="ace-icon fa fa-trash-o orange"></i>
-			</button>
+				</button>
+				<button type="button" class="btn btn-transparent  my-right-float">
+					<i class="ace-icon fa fa-pencil green"></i>
+				</button>
 			</div>
 		</div>	{{-- widget-header --}}
 		<div class="widget-body">
@@ -145,25 +136,34 @@
 				<div class="space-12"></div>
 				<div class="row">
 					<table id="ordonnance" class="table  table-bordered table-hover">
-					<thead>
-						<tr>
-							<th></th>
-							<th>Médicament</th>
-							<th>Forme</th>
-							<th>Quantité</th>
-							<th>Posologie</th>
-							<th style="display:none;"></th>
-						</tr>
-					</thead>
+						<thead>
+							<tr>
+								<th></th>
+								<th>Médicament</th>
+								<th>Forme</th>
+								<th>Quantité</th>
+								<th>Posologie</th>
+								<th style="display:none;"></th>
+							</tr>
+						</thead>
 					</table>
 				</div>	{{-- row --}}
+				<div class="row">
+					<div class="pull-right">
+						<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="storeord1()">Enregistrer</button>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ord" onclick="createord('{{ $patient->Nom }} {{ $patient->Prenom }}','{{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Nom_Employe}} {{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Prenom_Employe}}')">
+									Imprimer
+						</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
+					</div>
+				</div>
 			</div>{{-- widget-main --}}
 		</div>{{-- widget-body --}}
 	</div>{{-- widget-box --}}
 	</div>{{-- widget-container-col --}}
 </div><!-- /.row -->
 <div class="row">
-{{-- 	<div id="ord" class="modal fade" role="dialog">
+	<div id="ord" class="modal fade" role="dialog">
 	<div class="modal-dialog">
 		<!-- Modal content-->
 		<div class="modal-content">
@@ -179,5 +179,5 @@
 			</div>
 		</div>
 	</div>
-</div> --}}
+</div>
 </div>

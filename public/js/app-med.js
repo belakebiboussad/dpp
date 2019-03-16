@@ -88,9 +88,7 @@
 			           break;
 		}		
 
-	}	
-
-	
+	}
 	function Shows(id)
 	{
 		$('#multiselect').addClass("hidden").hide().fadeIn();
@@ -152,7 +150,7 @@
 
            function checkForm(form)
            {
-            	$('.nav-pills li.active').removeClass('active');
+            	      $('.nav-pills li.active').removeClass('active');
                      $('div#ExamClinique').removeClass('active');
                      $('div#ExamComp').removeClass('active');
                      $('div#Interogatoire').addClass('in active');
@@ -250,18 +248,15 @@
 	}
 	function storeord1()
 	{  
-	     // $('#myformelement').append('<input type="hidden" name="myfieldname" value="myvalue" />');
-	            var arrayLignes = document.getElementById("ordonnance").rows;
-	 	// var arrayLignes = $('#ordonnance tr');
-	 	var tab = [];
-	           for(var i=1; i< arrayLignes.length; i++)
-	           {
-		          //  	tab[i]=arrayLignes[i].cells[1].innerHTML +"|"+arrayLignes[i].cells[2].innerHTML+
-	        		// "|"+arrayLignes[i].cells[4].innerHTML+"|"+arrayLignes[i].cells[5].innerHTML;
-	        		tab[i]=arrayLignes[i].cells[4].innerHTML+"|"+arrayLignes[i].cells[5].innerHTML;
-	           }
-	           $("<input type='text' name ='listeMedicaments' value='"+tab.toString()+"' hidden>").appendTo('#consultForm');
-	     	// ($("#dateord").appendTo('#consultForm')).hide();
+	                var arrayLignes = document.getElementById("ordonnance").rows; // $('#myformelement').append('<input type="hidden" name="myfieldname" value="myvalue" />');
+	     	 var tab = [];// var arrayLignes = $('#ordonnance tr');
+	     	 console.log(arrayLignes.length);
+	     	 var drugnumber=(arrayLignes.length);
+	      	 for(var i=1; i<drugnumber ; i++)
+	           	{	
+		      	tab[i-1]=arrayLignes[i].cells[4].innerHTML;//+"|"+arrayLignes[i].cells[5].innerHTML;
+		 }
+		 $("<input type='text' name ='listeMedicaments' value='"+tab.toString()+"' hidden>").appendTo('#consultForm');// ($("#dateord").appendTo('#consultForm')).hide();
 	     	($("#dureeefois").appendTo('#consultForm')).hide();
 	     	($("#foisss").appendTo('#consultForm')).hide();
 	}

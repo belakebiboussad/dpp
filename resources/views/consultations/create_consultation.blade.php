@@ -114,7 +114,7 @@
                       ]
         });
         $('#Ordonnance').on('show.bs.modal', function () {
-               $('.modal-content').css('height',$( window ).height()*2);
+               $('.modal-content').css('height',$( window ).height()*1.4);
       });
    });
 

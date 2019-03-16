@@ -495,16 +495,13 @@ $('#typeexm').on('change', function() {
                                             $(".disabledElem").removeClass("disabledElem").addClass("enabledElem"); //$('#Ordonnance').reset();
                             }
                       });
-           }
-            function posologiefun()
-            {
-                $("#pos").val( $("#nbprise").val()+' fois par '+$("#fois").val()+' Pendant '+$("#duree").val()+' '+$("#dureefois").val()+'. ');//+$("#temps").val()+'.'
-            }
-            function addmidifun()
-            {
-                     $("#ordonnance").append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td id='nom_medec'>" + $("#nommedic").val() + "</td><td id='form_medec'>" + $("#forme").val() + "</td><td  id='qte_medec'>" + $("#qte").val() +"</td><td id='posolog_medec'>"+$("#pos").val()+"</td><td style='display:none;' id='id_medec'>"+$("#medicamentId").val()+"</td></tr>");
-                     $(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
-                    clearInput();
+               }
+               function addmidifun()
+                {
+                            $("#pos").val( $("#nbprise").val()+' fois par '+$("#fois").val()+' Pendant '+$("#duree").val()+' '+$("#dureefois").val()+'. ');//+$("#temps").val()+'.'
+                            $("#ordonnance").append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td id='nom_medec'>" + $("#nommedic").val() + "</td><td id='form_medec'>" + $("#forme").val() + "</td><td  id='qte_medec'>" + $("#qte").val() +"</td><td id='posolog_medec'>"+$("#pos").val()+"</td><td style='display:none;' id='id_medec'>"+$("#medicamentId").val()+"</td></tr>");
+                             $(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
+                             clearInput();
                      
             }
             function supcolonne()

@@ -39,20 +39,19 @@ class OrdonnanceController extends Controller
      */
     public function store(Request $request,$consultID)
     {
-        // dd($request->dateord);
-          $liste = explode(",",$request->listeMedicaments);unset($liste[0]);
-          foreach ($liste as $key => $value) {
-              # code...
-                $tab= explode('|',$value);
-                $liste[$key] = array_reverse($tab);
-          }
-          $medics = json_encode($liste); //dd($medics);
-         // dd($medics);
-          ordonnance::create([
-            "duree"=>$request->dureeefois.' '.$request->foisss,
-            "medicaments"=>$medics,
-            "id_consultation"=>$consultID,
-        ]);
+              // dd($request->dateord);
+              $liste = explode(",",$request->listeMedicaments);unset($liste[0]);
+               foreach ($liste as $key => $value) {
+                        # code...
+                        $tab= explode('|',$value);
+                         $liste[$key] = array_reverse($tab);
+               }
+               $medics = json_encode($liste); //dd($medics);  // dd($medics);
+               ordonnance::create([
+                    "duree"=>$request->dureeefois.' '.$request->foisss,
+                    "medicaments"=>$medics,
+                    "id_consultation"=>$consultID,
+                ]);
     }
     public function storeold(Request $request)
     {
