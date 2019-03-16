@@ -1,17 +1,40 @@
 @extends('app')
 @section('style')
 <style>
-  .modal {
-    width:105.3% !important;
-    right:-16% !important;
-    left:-2.5% !important;
-    top:-3% !important;
-}
-.modal-body
-{
-    top: -1px !important;
-
-}
+      .modal {
+        width:105.3% !important;
+        right:-16% !important;
+        left:-2.5% !important;
+        top:-3% !important;
+    }
+    .modal-body
+    {
+        top: -1px !important;
+    }
+    .dataTables_wrapper {
+        font-family: tahoma;
+        font-size: 10px;
+        position: relative;
+        clear: both;
+        *zoom: 1;
+        zoom: 1;
+    }
+  .btn-transparent {
+      background: transparent;
+      color: #F2F2F2;
+      -webkit-transition: background .2s ease-in-out, border .2s ease-in-out;
+      -moz-transition: background .2s ease-in-out, border .2s ease-in-out;
+      -o-transition: background .2s ease-in-out, border .2s ease-in-out;
+      transition: background .2s ease-in-out, border .2s ease-in-out;
+      border: 2px solid #4992B7;
+  }
+    .btn-transparent:hover {
+        color: white;
+        background-color: rgba(255,255,255,0.2);
+    }
+    .my-right-float {
+        margin-right: -10px;
+    }
 </style>
 @endsection
 @section('page-script')    
@@ -77,7 +100,8 @@
                 ordering: true,
                 "bInfo" : false,
                 searching: false,
-                pageLength: 7,
+                pageLength: 5,         
+                bLengthChange: false,
                 nowrap:true,
                 "language": {
                       "url": '/localisation/fr_FR.json'
@@ -91,7 +115,7 @@
                       ]
      });
      $('#Ordonnance').on('show.bs.modal', function () {
-           $('.modal-content').css('height',$( window ).height()*0.99);
+           $('.modal-content').css('height',$( window ).height()*2);
      });
   });
 
@@ -192,7 +216,6 @@
 <!-- Modal -->
 <div id="demandehosp" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
-
     <!-- Modal content-->
     <div class="modal-content custom-height-modal">
       <div class="modal-header">

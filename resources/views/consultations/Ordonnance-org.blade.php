@@ -123,7 +123,7 @@
 					<div class="col-sm-3">
    						<div class="form-group">
      							 <label for="inputType" class="col-sm-8 control-label"><strong>A prendre:</strong></label>	
-                                                                </div>
+                                                              		  </div>
                                                                           
 					</div>
 					<div class="col-sm-9"></div>	
@@ -186,8 +186,6 @@
 		</div>
 	</div>
 </div>
-	
-
 <div class="row">
 	<div class="col-sm-12">
 		<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
