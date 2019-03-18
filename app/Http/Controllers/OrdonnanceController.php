@@ -40,19 +40,17 @@ class OrdonnanceController extends Controller
      */
     public function store(Request $request)
     {   
-        $date = Date::now();
-        $ordonnance = ordonnance::FirstOrCreate([
-            "date" => $date,
-            "id_consultation" => $request->id_consultation,   
-        ]);
-
-        $listes = json_decode($request->liste);
-        for ($i=1; $i < count($listes); $i++) { 
-           $id_med = $listes[$i]->med;
-           $ordonnance->medicamentes()->attach($id_med,['posologie' => $listes[$i]->posologie]); 
-        }
-
-        return redirect()->route('consultations.show', $request->id_consultation);
+           $date = Date::now();
+           $ordonnance = ordonnance::FirstOrCreate([
+                "date" => $date,
+                "id_consultation" => $request->id_consultation,   
+           ]);
+           $listes = json_decode($request->liste);
+           for ($i=1; $i < count($listes); $i++) { 
+                    $id_med = $listes[$i]->med;
+                   $ordonnance->medicamentes()->attach($id_med,['posologie' => $listes[$i]->posologie]); 
+           }
+           return redirect()->route('consultations.show', $request->id_consultation);
     }
     public function storeold(Request $request)
     {
