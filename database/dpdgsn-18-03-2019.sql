@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 13, 2019 at 10:55 AM
+-- Generation Time: Mar 18, 2019 at 03:18 PM
 -- Server version: 5.7.14
 -- PHP Version: 7.0.10
 
@@ -2126,21 +2126,18 @@ CREATE TABLE `consultations` (
 --
 
 INSERT INTO `consultations` (`id`, `Motif_Consultation`, `histoire_maladie`, `Date_Consultation`, `Diagnostic`, `Resume_OBS`, `isOriented`, `lettreorientaioncontent`, `Employe_ID_Employe`, `Patient_ID_Patient`, `id_code_sim`, `id_lieu`) VALUES
-(1056, 'dh', 'grippe', '2019-01-28', 'di', 'resue', 0, NULL, 88, 22, 6, 1),
-(1057, 'motif', 'histoire', '2019-01-28', 'diag', 'resume', 0, NULL, 88, 46, 18, 1),
-(1058, 'motif', 'histoire', '2019-01-28', 'diag', 'resume', 0, NULL, 88, 46, 18, 1),
-(1059, 'motif', 'histoire', '2019-01-28', 'diag', 'resume', 0, NULL, 88, 46, 18, 1),
-(1060, 'motif', 'histoire', '2019-01-28', 'diag', 'resume', 0, NULL, 88, 46, 18, 1),
-(1061, 'motif', 'histoire', '2019-01-28', 'diag', 'resume', 0, NULL, 88, 46, 18, 1),
-(1062, 'motif', 'histoire', '2019-01-28', 'diag', 'resume', 0, NULL, 88, 47, 19, 1),
-(1063, 'motif', 'histoire', '2019-01-28', 'diag', 'resume', 0, NULL, 88, 47, 19, 1),
-(1064, 'motif', 'hrt', '2019-01-28', 'htrh', 'htrhtrh', 0, NULL, 88, 48, NULL, 1),
-(1065, 'motif', 'hrt', '2019-01-28', 'htrh', 'htrhtrh', 0, NULL, 88, 48, NULL, 1),
-(1066, 'a', 'h', '2019-01-30', 'h', 'hre', 0, NULL, 88, 49, 18, 1),
-(1067, 'a', 'f', '2019-02-06', 'df', 'fbdf', 0, NULL, 88, 48, 18, 1),
-(1068, 'dfgdsf', 'gsdfg', '2019-02-06', NULL, 'gsdfg', 0, NULL, 88, 48, NULL, 1),
-(1069, 'motif1', 'histoire', '2019-02-06', 'dsfds', 'fsdf', 0, NULL, 88, 48, 17, 1),
-(1070, 'motif', 'histoire', '2019-02-28', 'malade', 'resume', 0, NULL, 88, 47, 17, 1);
+(21, 'a', 'hgh', '2019-03-18', 'urtyu', 'hfgh', 0, NULL, 88, 26, NULL, 1),
+(22, 'motif', 'nfn', '2019-03-18', 'fgn', 'gng', 0, NULL, 88, 26, NULL, 1),
+(23, 'motif', 'gre', '2019-03-18', 'zefzefzef', 'gr', 0, NULL, 88, 22, NULL, 1),
+(24, 'motif', 'histoire', '2019-03-18', 'diag', 'asdf', 0, NULL, 88, 22, NULL, 1),
+(25, 'bxcvb', 'bcxvb', '2019-03-18', 'bxcvbbxcvb', 'xcvb', 0, NULL, 88, 48, NULL, 1),
+(26, 'fds', 'hghdfg', '2019-03-18', 'hhdfgh', 'dfghd', 0, NULL, 88, 47, NULL, 1),
+(27, 'motif', 'gsdfg', '2019-03-18', 'gfjg', 'gsdf', 0, NULL, 88, 30, NULL, 1),
+(28, 'ouio', 'ouio', '2019-03-18', 'dqsd', 'iuo', 0, NULL, 88, 30, NULL, 1),
+(29, 'hfgh', 'hfgh', '2019-03-18', NULL, 'fghgfh', 0, NULL, 88, 22, NULL, 1),
+(30, 'hdfgh', 'fghdfg', '2019-03-18', 'hdfgh', 'gfhdfgh', 0, NULL, 88, 31, NULL, 1),
+(31, 'sdfg', 'gsdfg', '2019-03-18', NULL, 'gsdf', 0, NULL, 88, 26, NULL, 1),
+(32, 'motif', 'fgj', '2019-03-18', 'zefzefzef', 'jfgh', 0, NULL, 88, 31, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -2763,7 +2760,144 @@ INSERT INTO `demandeexamimags` (`id`, `infclinpert`, `expdemdiag`, `allergie`, `
 (36, NULL, NULL, 0, 0, 0, 0, 0, '', '{"AutCT": [null], "AutRX": [null], "AutRMN": [null], "AutECHO": [null]}', 824, NULL, NULL),
 (37, NULL, NULL, 0, 0, 0, 0, 0, '', '{"AutCT": [null], "AutRX": [null], "AutRMN": [null], "AutECHO": [null]}', 826, NULL, NULL),
 (38, NULL, NULL, 0, 0, 0, 0, 0, '', '{"AutCT": [null], "AutRX": [null], "AutRMN": [null], "AutECHO": [null]}', 827, NULL, NULL),
-(39, NULL, NULL, 0, 0, 0, 0, 0, '', '{"CT": ["3", "4", "6"], "RX": ["10", "11"], "RMN": ["15", "16", "17"], "ECHO": ["25", "26"], "AutCT": [null], "AutRX": [null], "AutRMN": [null], "AutECHO": [null]}', 985, NULL, NULL);
+(39, NULL, NULL, 0, 0, 0, 0, 0, '', '{"CT": ["3", "4", "6"], "RX": ["10", "11"], "RMN": ["15", "16", "17"], "ECHO": ["25", "26"], "AutCT": [null], "AutRX": [null], "AutRMN": [null], "AutECHO": [null]}', 985, NULL, NULL),
+(40, NULL, NULL, 0, 1, 0, 0, 0, 'sqqs', '{"RX": ["10"], "RMN": ["15"], "ECHO": ["25"], "AutCT": [null], "AutRX": [null], "AutRMN": [null], "AutECHO": [null]}', 1088, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `demandeexb`
+--
+
+CREATE TABLE `demandeexb` (
+  `id_demandeexb` int(11) NOT NULL,
+  `DateDemande` date NOT NULL,
+  `etat` enum('E','V','A') NOT NULL DEFAULT 'E',
+  `resultat` varchar(500) DEFAULT NULL,
+  `id_consultation` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `demandeexb`
+--
+
+INSERT INTO `demandeexb` (`id_demandeexb`, `DateDemande`, `etat`, `resultat`, `id_consultation`) VALUES
+(8, '2019-03-13', 'V', 'a.txt', 1078),
+(9, '2019-03-13', 'V', 'Conflit-13-03-19.png', 1079),
+(10, '2019-03-13', 'V', 'Conflit-13-03-19.png', 1080),
+(11, '2019-03-13', 'V', 'commade artisan.txt', 1080),
+(12, '2019-03-14', 'E', NULL, 1094);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `demandeexb_examenbio`
+--
+
+CREATE TABLE `demandeexb_examenbio` (
+  `id_demandeexb` int(11) NOT NULL,
+  `id_examenbio` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `demandeexb_examenbio`
+--
+
+INSERT INTO `demandeexb_examenbio` (`id_demandeexb`, `id_examenbio`) VALUES
+(10, 30),
+(10, 35),
+(10, 39),
+(10, 72),
+(10, 97),
+(10, 123),
+(11, 26),
+(11, 30),
+(11, 34),
+(11, 39),
+(11, 71),
+(11, 97),
+(11, 128),
+(11, 130),
+(12, 122),
+(12, 126),
+(12, 128);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `demandeexr`
+--
+
+CREATE TABLE `demandeexr` (
+  `id` int(11) NOT NULL,
+  `Date` date NOT NULL,
+  `InfosCliniques` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Explecations` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `etat` enum('E','R','V') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'E',
+  `resultat` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id_consultation` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `demandeexr`
+--
+
+INSERT INTO `demandeexr` (`id`, `Date`, `InfosCliniques`, `Explecations`, `etat`, `resultat`, `id_consultation`) VALUES
+(1, '2019-03-14', 'sdfbsd', 'sbdfb', 'V', 'sublime_text.exe', 1101);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `demandeexradio_exmnsrelatifdemande`
+--
+
+CREATE TABLE `demandeexradio_exmnsrelatifdemande` (
+  `id_demandeexradio` int(11) NOT NULL,
+  `id_examensrelatifdemande` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `demandeexradio_exmnsrelatifdemande`
+--
+
+INSERT INTO `demandeexradio_exmnsrelatifdemande` (`id_demandeexradio`, `id_examensrelatifdemande`) VALUES
+(1, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `demandeexradio_infosupppertinentes`
+--
+
+CREATE TABLE `demandeexradio_infosupppertinentes` (
+  `id_demandeexr` int(11) NOT NULL,
+  `id_infosupp` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `demandeexradio_infosupppertinentes`
+--
+
+INSERT INTO `demandeexradio_infosupppertinentes` (`id_demandeexr`, `id_infosupp`) VALUES
+(1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `demandeexr_examenradio`
+--
+
+CREATE TABLE `demandeexr_examenradio` (
+  `id_demandeexr` int(11) NOT NULL,
+  `id_examenradio` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `demandeexr_examenradio`
+--
+
+INSERT INTO `demandeexr_examenradio` (`id_demandeexr`, `id_examenradio`) VALUES
+(1, 7);
 
 -- --------------------------------------------------------
 
@@ -2780,25 +2914,6 @@ CREATE TABLE `demandehospitalisations` (
   `etat` enum('en attente','valide','programme','annule','admise') DEFAULT 'en attente',
   `id_consultation` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `demandehospitalisations`
---
-
-INSERT INTO `demandehospitalisations` (`id`, `service`, `specialite`, `modeAdmission`, `degree_urgence`, `etat`, `id_consultation`) VALUES
-(29, 2, 5, 'programme', NULL, 'programme', 1056),
-(30, 2, 1, 'Ambulatoire', NULL, 'programme', 1058),
-(31, 2, 1, 'Ambulatoire', NULL, 'valide', 1059),
-(32, 2, 1, 'Ambulatoire', NULL, 'programme', 1060),
-(33, 2, 1, 'Ambulatoire', NULL, 'admise', 1061),
-(34, 2, 4, 'programme', NULL, 'admise', 1062),
-(35, 2, 4, 'programme', NULL, 'admise', 1063),
-(36, 2, 4, 'urgence', NULL, 'admise', 1064),
-(37, 2, 4, 'urgence', NULL, 'valide', 1065),
-(38, 2, 1, 'Ambulatoire', NULL, 'programme', 1066),
-(39, 2, 1, 'programme', NULL, 'en attente', 1067),
-(40, 1, 2, 'programme', NULL, 'en attente', 1068),
-(41, 2, 2, 'Ambulatoire', NULL, 'en attente', 1069);
 
 -- --------------------------------------------------------
 
@@ -2871,7 +2986,9 @@ INSERT INTO `employs` (`id`, `Nom_Employe`, `Prenom_Employe`, `Sexe_Employe`, `D
 (93, 'user', 'user', 'M', '2018-05-03', 'alger', 'alger', '021562325', '0555555555', '3', '2', 'bff44', '055'),
 (94, 'surMed', 'surMed', 'M', '2018-06-03', 'alger', 'alger', '023561428', '0555555555', '3', '2', 'bff44', '25 555 5465 45'),
 (95, 'agentAdm', 'agentAdm', 'M', '2019-01-07', 'alger', 'alger', '215555555', '0555555555', NULL, NULL, NULL, NULL),
-(96, 'agent', 'agent', 'M', '2018-08-06', 'alger', 'alger', '021554544', '0555555555', NULL, NULL, NULL, '76 0330 0192 49');
+(96, 'agent', 'agent', 'M', '2018-08-06', 'alger', 'alger', '021554544', '0555555555', NULL, NULL, NULL, '76 0330 0192 49'),
+(97, 'laborantin', 'laborantin', 'M', '1980-06-24', 'alger', 'alger', '055555555', '0555555555', 'Médecine interne', 'Maternité', '055444', '76 0330 0192 49'),
+(98, 'radiogue', 'radiogue', 'M', '1950-03-31', 'alger', 'fdgfdg', NULL, '0666254944', 'Médecine interne', 'Maternité', '055444', '76 0330 0192 49');
 
 -- --------------------------------------------------------
 
@@ -2912,25 +3029,145 @@ INSERT INTO `examenanapaths` (`id`, `nom`, `id_consultation`) VALUES
 
 CREATE TABLE `examenbiologiques` (
   `id` int(11) NOT NULL,
-  `type` varchar(100) DEFAULT NULL,
-  `description` varchar(500) NOT NULL,
-  `lien` varchar(500) NOT NULL,
-  `Date` date NOT NULL,
-  `id_consultation` int(11) NOT NULL
+  `nom_examen` varchar(500) DEFAULT NULL,
+  `id_specialite_exb` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `examenbiologiques`
 --
 
-INSERT INTO `examenbiologiques` (`id`, `type`, `description`, `lien`, `Date`, `id_consultation`) VALUES
-(10, 'biolo', 'rapport1', 'Cv_ramzi.pdf', '2017-11-19', 9),
-(11, 'bilogique', 'rapport', 'Rapport technique1.pdf', '2017-11-19', 9),
-(12, 'llmhjh', 'jhgjghjgj', 'bill.jpg', '2017-11-20', 9),
-(13, 'rapport', 'examen biologique', 'rapport gestion des images et vidÃ©os.pdf', '2017-12-03', 1),
-(14, 'ex bio', 'ders', 'rapport gestion des images et vidÃ©os.pdf', '2017-12-03', 9),
-(15, 'n vbn', 'bn', 'dpdgsn.sql', '2018-01-03', 2),
-(18, 'gsdrg', 'gd', 'eyJpdiI6IlpYWHZHRGhcL0NienV0MzhYejhkTkF3PT0iLCJ2YWx1ZSI6IndHaW1cL3NqV21xTDFvSGxISG94alFBPT0iLCJtYWMiOiI5MzRkZTBjYjZiZjMxYjI5MzEzOTFjZmYyM2Y2MDYxZmY5NGQ3NGY1NjE3NDIwMWU5YmY3MTE1OTgyNTRlNjI2In0=', '2018-01-03', 4);
+INSERT INTO `examenbiologiques` (`id`, `nom_examen`, `id_specialite_exb`) VALUES
+(1, 'Glycémie', 1),
+(2, 'Hémoglobine glyquée Hb AIC', 1),
+(3, 'Insuline', 1),
+(4, 'Peptide C', 1),
+(5, 'Électrophorèse', 1),
+(6, 'Urée', 1),
+(7, 'Créatinine', 1),
+(8, 'Créatinine-clairance', 1),
+(9, 'Protéinurie de 24 heures', 1),
+(10, 'Micro-albuminurie', 1),
+(11, 'Chimie des urines', 1),
+(12, 'Ionogramme', 1),
+(13, 'Protéines sanguines', 1),
+(14, 'Albumine', 1),
+(15, 'Cholestérol total', 1),
+(16, 'Cholestérol HDL', 1),
+(17, 'Cholestérol LDL', 1),
+(18, 'Triglycérides', 1),
+(19, 'Transaminase TGO', 1),
+(20, 'Transaminase TGP', 1),
+(21, 'Gamma GT', 1),
+(22, 'Bilirubine total', 1),
+(23, 'Bilirubine direct', 1),
+(24, 'CPK', 1),
+(25, 'CK-MB', 1),
+(26, 'Troponine', 1),
+(27, 'Myoglobine', 1),
+(28, 'Phosphatase alcaline', 1),
+(29, 'Amylase', 1),
+(30, 'Lipase', 1),
+(31, 'CRP ultra sensible', 1),
+(32, 'Calcium', 1),
+(33, 'Magnésium', 1),
+(34, 'Phosphore', 1),
+(35, 'La vitamine D', 1),
+(36, 'La vitamine B12', 1),
+(37, 'L\'acide folique', 1),
+(38, 'TSH ultra-sensible', 2),
+(39, 'FT3', 2),
+(40, 'FT4', 2),
+(41, 'Thyroglobuline', 2),
+(42, 'Calcitonine', 2),
+(43, 'B HGG', 2),
+(44, 'FSH', 2),
+(45, 'LH', 2),
+(46, 'Prolactine', 2),
+(47, 'Testostérone', 2),
+(48, 'Progestérone', 2),
+(49, 'Estradiol', 2),
+(50, 'S-DHEA', 2),
+(51, 'Delta 4 anddrosténedione', 2),
+(52, '17-OH-progestérone', 2),
+(53, 'Cortisol', 2),
+(54, 'ACTH', 2),
+(55, 'PTH', 2),
+(56, 'GH Hormone de croissance', 2),
+(57, 'AMH', 2),
+(58, 'FNS', 3),
+(59, 'Frottis sanguin', 3),
+(60, 'Taux de réticulocyte', 3),
+(61, 'Myelogramme (ponction ganglionnaire)', 3),
+(62, 'Frottis nasal', 3),
+(63, 'Temps de saignement', 3),
+(64, 'Temps prothrombine/INR', 3),
+(65, 'Temps de Céphaline Kaolin', 3),
+(66, 'Taux de fibrinogène', 3),
+(67, 'Groupage Sanguin', 3),
+(68, 'Test de Coombs Direct', 3),
+(69, 'Test de Coombs Indirect', 3),
+(70, 'Test auto anti-érythrocytaire', 3),
+(71, 'Dosage de G6PD', 3),
+(72, 'Électrophorèse d\'Hémoglobine', 3),
+(73, 'Vitesse de sédimentation', 3),
+(74, 'Taux des IgE totaux', 4),
+(75, 'IgE spécifiques respiratoire', 4),
+(76, 'IgE spécifiques Alimentaire', 4),
+(77, 'IgE spécifiques pédiatrique', 4),
+(78, 'IgE spécifiques unitaire', 4),
+(79, 'Taux des IgA', 5),
+(80, 'Taux des IgG', 5),
+(81, 'Taux des IgM', 5),
+(82, 'Dosage du complément C3', 5),
+(83, 'Dosage du complément C4', 5),
+(84, 'Anti-TPO', 5),
+(85, 'Anti-TG', 5),
+(86, 'SAPL (cardiolipine IgM)', 5),
+(87, 'SAPL (cardiolipine IgG)', 5),
+(88, 'SAPL (B2 glycoprotéin IgM)', 5),
+(89, 'SAPL (B2 glycoprotéin IgG)', 5),
+(90, 'Anti-gliadine IgA/IgG', 5),
+(91, 'Anti-Transglutaminase IgA/IgG', 5),
+(92, 'ANCA (PR3, MPO, GBM)', 5),
+(93, 'FacteurRhumatoide', 5),
+(94, 'Anti-CCP', 5),
+(95, 'Recherche de cryoglobuline', 5),
+(96, 'Profil hépatique AMA.M2/LKM', 5),
+(97, 'Anti-Endomysium', 5),
+(98, 'Facteur anti-nucléaire(FAN) ', 5),
+(99, 'Anticorps anti-DNA natif', 5),
+(100, 'Anticorps anti-ANA natif ( SSA, SSB, Sm, RNP, JO1, Scl 70, Histones, CNEPB, PM/Scl, PCNA, Prot.PRiB, AMA.M2)', 5),
+(101, 'Sérologie de l\'hépatite A', 6),
+(102, 'Sérologie de l\'hépatite C', 6),
+(103, 'Sérologie complète de l\'hépatite B (Ag HBs, Anti-HBs, Anti-HBc, Ag HBe, Anti-HBe)', 6),
+(104, 'Sérologie de la rubéole (IgM/IgG)', 6),
+(105, 'Sérologie de syphilis', 6),
+(106, 'Sérologie de CMV (IgM/IgG)', 6),
+(107, 'Sérologie Chlamydia', 6),
+(108, 'Trachomatis (IgM/IgA/IgG)', 6),
+(109, 'Sérologie d\'Hélicobacter pylori', 6),
+(110, 'Sérologie de Mycoplasme Urogénitaux', 6),
+(111, 'Sérodiagnostic de Widal et Félix', 6),
+(112, 'Brucellose (Dépistage + titrage)', 6),
+(113, 'Test MNI', 6),
+(114, 'Ag de chlamydia trachomatis', 6),
+(115, 'Ag de mycoplasmes urogénitaux', 6),
+(116, 'ECBU', 6),
+(117, 'Spermoculture', 6),
+(118, 'ECB de prélèvement vaginal', 6),
+(119, 'HLM (Compte d\'ADDIS)', 6),
+(120, 'Coprologie des selles', 6),
+(121, 'Sérologie de la toxoplasmose (IgM/IgG)', 7),
+(122, 'Sérologie de l\'hydatidose', 7),
+(123, 'Scotch test', 7),
+(124, 'Parasitologie des selles', 7),
+(125, 'Spermogramme', 8),
+(126, 'Spermocytogramme', 8),
+(127, 'Acide valproique (Dépakine)', 9),
+(128, 'Carbamazépine (Tégrétol)', 9),
+(129, 'FCV (frottis cervo-vaginal)', 10),
+(130, 'Cyto-ponction divers', 10);
 
 -- --------------------------------------------------------
 
@@ -2947,6 +3184,51 @@ CREATE TABLE `examenimagries` (
   `lien` varchar(500) NOT NULL,
   `id_consultation` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `examenradiologique`
+--
+
+CREATE TABLE `examenradiologique` (
+  `id` int(11) NOT NULL,
+  `nom` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `examenradiologique`
+--
+
+INSERT INTO `examenradiologique` (`id`, `nom`) VALUES
+(6, 'Cérébral'),
+(7, 'Hypophyse / selle turcique'),
+(8, 'Conduit auditifs internes'),
+(9, 'Articulations temporo-mandibulaires'),
+(10, 'Thorax'),
+(11, 'Abdomen'),
+(12, 'Pelvien'),
+(13, 'Colonne cervicale'),
+(14, 'Colonne dorsale'),
+(15, 'Colonne lombaire'),
+(16, 'Cholangio-résonance (MRCP)'),
+(17, 'Seins'),
+(18, 'Cheville Droite'),
+(19, 'Cheville Gauche'),
+(20, 'Coude Droite'),
+(21, 'Coude Gauche'),
+(22, 'Épaule Droite'),
+(23, 'Épaule Gauche'),
+(24, 'Genou Droite'),
+(25, 'Genou Gauche'),
+(26, 'Hanche Droite'),
+(27, 'Hanche Gauche'),
+(28, 'Main Droite'),
+(29, 'Main Gauche'),
+(30, 'Pied Droite'),
+(31, 'Pied Gauche'),
+(32, 'Poignet Droite'),
+(33, 'Poignet Gauche');
 
 -- --------------------------------------------------------
 
@@ -2975,22 +3257,6 @@ CREATE TABLE `examensbiologiques` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `examensbiologiques`
---
-
-INSERT INTO `examensbiologiques` (`id`, `classe`, `nom`, `id_consultation`, `created_at`, `updated_at`) VALUES
-(222, 'Biochimie', 'Amylase', 984, NULL, NULL),
-(223, 'Biochimie', 'clairance urée', 984, NULL, NULL),
-(224, 'Hémobiologie', 'Groupage sanguin', 984, NULL, NULL),
-(225, 'Hémobiologie', 'INR', 984, NULL, NULL),
-(226, 'Biochimie', 'Albumine', 1067, NULL, NULL),
-(227, 'Biochimie', 'Amylase', 1067, NULL, NULL),
-(228, 'Biochimie', 'Fer', 1067, NULL, NULL),
-(229, 'Biochimie', 'Hémoglobine glyquée', 1067, NULL, NULL),
-(230, 'Biochimie', 'HGPO a 50gr', 1067, NULL, NULL),
-(231, 'Biochimie', 'Protéines urinaires de 24h', 1067, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -3151,6 +3417,27 @@ CREATE TABLE `examen_imagrie_consultations` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `exmnsrelatifdemande`
+--
+
+CREATE TABLE `exmnsrelatifdemande` (
+  `id` int(11) NOT NULL,
+  `nom` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `exmnsrelatifdemande`
+--
+
+INSERT INTO `exmnsrelatifdemande` (`id`, `nom`) VALUES
+(1, 'CT'),
+(2, 'RMN'),
+(3, 'RX'),
+(4, 'Echographie');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `grades`
 --
 
@@ -3257,6 +3544,28 @@ INSERT INTO `hospitalisations` (`id`, `Date_entree`, `Date_Prevu_Sortie`, `Date_
 (8, '2019-01-30', '2019-01-30', NULL, 36),
 (10, '2019-01-30', '2019-01-31', NULL, 35),
 (11, '2019-01-30', '2019-01-31', NULL, 34);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `infosupppertinentes`
+--
+
+CREATE TABLE `infosupppertinentes` (
+  `id` int(11) NOT NULL,
+  `nom` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `infosupppertinentes`
+--
+
+INSERT INTO `infosupppertinentes` (`id`, `nom`) VALUES
+(1, 'Allergie'),
+(2, 'Diabète'),
+(3, 'Insuffisance rénale'),
+(4, 'Grossesse'),
+(5, 'Implant');
 
 -- --------------------------------------------------------
 
@@ -8296,22 +8605,56 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `ordennance_medicaments`
+--
+
+CREATE TABLE `ordennance_medicaments` (
+  `id_ordenannce` int(11) NOT NULL,
+  `id_medicament` int(11) NOT NULL,
+  `posologie` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `ordennance_medicaments`
+--
+
+INSERT INTO `ordennance_medicaments` (`id_ordenannce`, `id_medicament`, `posologie`) VALUES
+(13, 2340, 'bsdfbsd'),
+(14, 2340, 'hsgh'),
+(16, 2340, 'etyrs'),
+(17, 2340, 'rt'),
+(18, 2338, 'fdsf'),
+(19, 2338, 'bjkl');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `ordonnances`
 --
 
 CREATE TABLE `ordonnances` (
   `id` int(11) NOT NULL,
-  `id_consultation` int(11) NOT NULL,
-  `duree` varchar(200) NOT NULL,
-  `medicaments` json NOT NULL
+  `date` date NOT NULL,
+  `duree` varchar(500) DEFAULT NULL,
+  `id_consultation` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ordonnances`
 --
 
-INSERT INTO `ordonnances` (`id`, `id_consultation`, `duree`, `medicaments`) VALUES
-(8, 1023, '1 Semaine', '{"1": ["4488", "1 fois par Jour Pendant 1 Semaine. "]}');
+INSERT INTO `ordonnances` (`id`, `date`, `duree`, `id_consultation`) VALUES
+(12, '2019-03-14', NULL, 1106),
+(13, '2019-03-14', NULL, 1107),
+(14, '2019-03-18', NULL, 5),
+(15, '2019-03-18', NULL, 12),
+(16, '2019-03-18', NULL, 12),
+(17, '2019-03-18', NULL, 14),
+(18, '2019-03-18', NULL, 20),
+(19, '2019-03-18', NULL, 22),
+(20, '2019-03-18', NULL, 25),
+(21, '2019-03-18', NULL, 31),
+(22, '2019-03-18', NULL, 32);
 
 -- --------------------------------------------------------
 
@@ -8676,7 +9019,10 @@ INSERT INTO `patients` (`id`, `code_barre`, `Nom`, `Prenom`, `nom_jeune_fille`, 
 (82, 'M2019/82', 'dfg', 'sdfg', NULL, '2016-11-22', 'gsdfg', 'M', 'marie', 'dfg', 1556, 49, '0565454646', '', NULL, '254964631649', 'A', '+', NULL, 'Ayant_droit', 'Ascendant', NULL, 1, '2019-02-27'),
 (83, 'M2019/83', 'pdfgd', 'gsdfg', NULL, '2019-02-14', 'gsdfg', 'M', 'veuf', 'dfgdfg', 1556, 49, '0534563453', '', NULL, '654345636535', 'AB', '-', 60, 'Ayant_droit', 'Ascendant', NULL, 1, '2019-02-27'),
 (84, 'M2019/84', 'bxfg', 'hhfghdf', NULL, '2019-01-27', 'hdfghd', 'M', 'marie', 'dfghdfghd', 1556, 49, '0554565444', '0556456464', NULL, '163546546466', 'B', '-', 61, 'Ayant_droit', 'Ascendant', '', 1, '2019-02-27'),
-(85, 'M2019/85', 'nfgn', 'nfgn', NULL, '2019-02-18', 'nfg', 'M', 'marie', 'nfgn', 613, 16, '0555555555', '', NULL, NULL, 'A', '+', NULL, 'Autre', NULL, NULL, 1, '2019-02-28');
+(85, 'M2019/85', 'nfgn', 'nfgn', NULL, '2019-02-18', 'nfg', 'M', 'marie', 'nfgn', 613, 16, '0555555555', '', NULL, NULL, 'A', '+', NULL, 'Autre', NULL, NULL, 1, '2019-02-28'),
+(86, '0201986', 'hrth', 'hrth', NULL, '2019-03-12', 'hrth', 'F', 'marie', 'hrth', 3, 1, '0555555555', '', NULL, NULL, 'A', '-', NULL, 'Autre', NULL, 'sdfdsf', 1, '2019-03-13'),
+(87, 'M2019/87', 'sg', 'gsdfg', NULL, '2016-06-14', 'gsdfg', 'M', 'marie', 'gsdfg', 423, 13, '0555555555', '', NULL, NULL, 'AB', '-', NULL, 'Autre', NULL, 'gsdfg', 1, '2019-03-13'),
+(88, '0201988', 'dfh', 'dfgh', NULL, '2019-03-11', 'dfgh', 'M', 'celibataire', 'hdfg', 1556, 49, '0555555555', '', NULL, NULL, 'B', '+', NULL, 'Autre', NULL, 'jjfghj', 1, '2019-03-13');
 
 -- --------------------------------------------------------
 
@@ -8711,7 +9057,7 @@ CREATE TABLE `rdvs` (
   `Date_RDV` datetime DEFAULT NULL,
   `Fin_RDV` datetime DEFAULT NULL,
   `Temp_rdv` time DEFAULT '10:00:00',
-  `specialite` varchar(50) DEFAULT NULL,
+  `specialite` int(11) DEFAULT NULL,
   `Patient_ID_Patient` int(11) NOT NULL,
   `Employe_ID_Employe` int(11) NOT NULL,
   `Etat_RDV` varchar(500) DEFAULT NULL
@@ -8722,12 +9068,13 @@ CREATE TABLE `rdvs` (
 --
 
 INSERT INTO `rdvs` (`id`, `Date_RDV`, `Fin_RDV`, `Temp_rdv`, `specialite`, `Patient_ID_Patient`, `Employe_ID_Employe`, `Etat_RDV`) VALUES
-(79, '2019-03-07 11:58:56', '2019-03-07 12:28:56', '10:00:00', '5', 22, 88, 'en attente'),
-(81, '2019-03-09 09:30:00', '2019-03-09 09:45:00', '10:00:00', '5', 50, 88, 'en attente'),
-(82, '2019-03-11 09:30:00', '2019-03-11 09:45:00', '10:00:00', '5', 46, 88, 'en attente'),
-(84, '2019-03-10 11:30:00', '2019-03-10 12:00:00', '10:00:00', '5', 61, 88, 'en attente'),
-(86, '2019-03-12 09:30:00', '2019-03-12 09:45:00', '10:00:00', '5', 50, 88, 'en attente'),
-(87, '2019-03-14 09:45:00', '2019-03-14 10:00:00', '10:00:00', '5', 51, 88, 'en attente');
+(79, '2019-03-07 11:58:56', '2019-03-07 12:28:56', '10:00:00', 5, 22, 88, 'en attente'),
+(81, '2019-03-09 09:30:00', '2019-03-09 09:45:00', '10:00:00', 5, 50, 88, 'en attente'),
+(82, '2019-03-11 09:30:00', '2019-03-11 09:45:00', '10:00:00', 5, 46, 88, 'en attente'),
+(84, '2019-03-10 11:30:00', '2019-03-10 12:00:00', '10:00:00', 5, 61, 88, 'en attente'),
+(86, '2019-03-12 09:30:00', '2019-03-12 09:45:00', '10:00:00', 5, 50, 88, 'en attente'),
+(87, '2019-03-14 09:45:00', '2019-03-14 10:00:00', '10:00:00', 5, 51, 88, 'en attente'),
+(88, '2019-03-17 08:00:00', '2019-03-17 08:15:00', '10:00:00', 5, 53, 88, 'en attente');
 
 -- --------------------------------------------------------
 
@@ -8803,7 +9150,10 @@ INSERT INTO `rols` (`id`, `role`) VALUES
 (5, 'Surveillant medical'),
 (6, 'Delegue colloque'),
 (8, 'Directeur'),
-(9, 'Admission');
+(9, 'Admission'),
+(10, 'Pharmacien'),
+(11, 'Laborantin'),
+(12, 'Radiologue');
 
 -- --------------------------------------------------------
 
@@ -8908,6 +9258,33 @@ INSERT INTO `specialites` (`id`, `nom`, `type`) VALUES
 (10, 'Anatomie', 1),
 (11, 'Anesthésie Réa', 2),
 (12, 'Bactériologie', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `specialite_exb`
+--
+
+CREATE TABLE `specialite_exb` (
+  `id` int(11) NOT NULL,
+  `specialite` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf32;
+
+--
+-- Dumping data for table `specialite_exb`
+--
+
+INSERT INTO `specialite_exb` (`id`, `specialite`) VALUES
+(1, 'Biochimie'),
+(2, 'Hormonologie'),
+(3, 'Hématologie'),
+(4, 'Allergologie'),
+(5, 'Immunologie'),
+(6, 'Microbiologie'),
+(7, 'Parasitologie'),
+(8, 'Spermiologie'),
+(9, 'Pharmaco-Toxicologie'),
+(10, 'Cytologie Pathologique');
 
 -- --------------------------------------------------------
 
@@ -9022,19 +9399,21 @@ CREATE TABLE `utilisateurs` (
 
 INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `role_id`, `remember_token`, `active`) VALUES
 (3, 'inf', '$2y$10$pdjh/zLZsoWtaF0lUjGQ6OhI6KEnqOE9fmzCoBB6Cs5PvHV7FXHqm', 'ee@g.sz', 1, 3, 'VodiEttYcpiHWgkKsXGGQKUsVTLLTtVbOeIDm8DGWyGdhNxhnJRDKd8Wn0jj', 1),
-(25, 'admin', '$2y$10$QoThTBvPlnvI2EPMgfS2mu07jd7Mu4Zk3kcw0.7q.kmsdSNGZddta', 'mail@live.fr', 65, 4, 'RdeEGGbMAhAdCkcJywlgTzIXxNzcOod8qTOwqUjh2HkOcUKoq97PpoHkKTjS', 1),
+(25, 'admin', '$2y$10$QoThTBvPlnvI2EPMgfS2mu07jd7Mu4Zk3kcw0.7q.kmsdSNGZddta', 'mail@live.fr', 65, 4, 'o0x1gs6yTqXk54OyXx9K45r6IT6yO8STw1tY8ZFV9uqMdRcNn8ZrEdHJh1iT', 1),
 (26, 'reception', '$2y$10$.1s2b93NX/JlU9kBpFZiW.N3hvdCwr29H.yx8cBL9GBc.ON4EGgiu', 'ikesskess@gmail.com', 68, 2, 'JgPaOcCOA17jVkAP8cojWkgyN0MDnkxPNFFF9y5OWBuGJoZaBkbz2GrKnERk', 1),
 (28, 'medcine', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'az@e.fr', 79, 1, 'd3f9QXNc5ERHAuEuaPlkKjgUDkHOGp0eE1QzbbXQ9eMHXvu4B0fLWirQiQiX', 1),
 (29, 'colloque', '$2y$10$Ve5h8oMwfAmfzHgTLrfJTOmGUiBpZLdxrfEfYC/7g2a1G62ZkM2QO', 'gdcedgg@yah.fr', 80, 5, 'gpZZ7n5wZzyDItBNWBgOWJBuHVN9zPFAVCnhFigz3AQFygICRp4ENyCc2B8W', 1),
-(30, 'sur', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'rlakhneche@cdta.dz', 81, 5, 'cyfloxYFm8JMkhLZt0sesrbv9NjFTewmVVJT9rEdpIqjM0im3ZzEiqkeuuhX', 1),
+(30, 'sur', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'rlakhneche@cdta.dz', 81, 5, 'JuaE4tMecZFHy3AJcmkBSqAHPfPZDQ7j4PAYeoiufMIN9Bqpjq7e6ckAYyWp', 1),
 (31, 'rec', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2a', NULL, 82, 3, 'SsIBFmbUPID9Kk6mKSJUzHPPYmqOvqZLdUFli8ZFEn8082rMbuKMYl1vDXr2', 1),
 (33, 'test', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'test@gmail', 87, 1, 'vOPiwaTdqixSdeIHAEvAbr9FKcLRyihyEbiPMYVrKGTCn5HMf9zUjrCBsUyc', 1),
-(34, 'med', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'med@gmail.com', 88, 1, '31ZiKwGF3G58vO1jLlGo98SRgD8Ny6bDTFehvQIFulgZ2aWt54T42gXzEfTQ', 1),
+(34, 'med', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'med@gmail.com', 88, 1, '4diVarWV2QuHVJyOYnXjCeb1x6vZ9IbDOik0quPXGZxaJ3oOuN05Adokrbs1', 1),
 (35, 'delCol', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'll@a.fr', 89, 6, 'TwloCZd6amwIry8FFhUfDQgnRvhgKEQKLXpQTltZwcccnKWwJqqOtnEJlOxc', 1),
 (38, 'user', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'jj@hot.frr', 93, 3, NULL, 1),
 (39, 'surMed', '$2y$10$zUdI0W5QV/1fmnBnhmL2TOTqN8GMNEdZZK6o4gclrJ1CKfxVq.Rca', 'bbedeebi@cdta.dz', 94, 5, 'WQPdbhbIrdjGTjeg0s4qEM6jPOdmJFftHfI6V2PVuxkwtS9TCFCZ94Pc7hyV', 1),
 (40, 'agentAdm', '$2y$10$hdM9SGYyzFH7FJtz5GJZLux7cmOIrwrjovi0ZUuForyu8OoVoh7e2', 'agentAdm@hop.dz', 95, 9, NULL, 1),
-(41, 'agent', '$2y$10$RsD.pKjSIV73uBbaLJNE.uXhzCmCixdBf71lcxBq2wmQu0dsRzdmy', 'agent@hop.dz', 96, 9, 'pYKxaBCrzrvsd1wTAvD4uxrkbZsph8kqJEWMIgTHhub4GR8UPWAiO0qNRtF9', 1);
+(41, 'agent', '$2y$10$RsD.pKjSIV73uBbaLJNE.uXhzCmCixdBf71lcxBq2wmQu0dsRzdmy', 'agent@hop.dz', 96, 9, 'pYKxaBCrzrvsd1wTAvD4uxrkbZsph8kqJEWMIgTHhub4GR8UPWAiO0qNRtF9', 1),
+(42, 'laborantin', '$2y$10$ax0tla3a5jSEeGDhNOmXFOtRKq1eHCL8vJnR5GW0HyYpjj4gCHWqK', 'agentAdm@hop.dz', 97, 11, 'Q5y7ICblqraVIQfo0BWhAFojXQUOMljgfAxvnJvghXfYrefpIQG0GvZvKKPA', 1),
+(43, 'radiogue', '$2y$10$k5gKJEykSI5PNYLHyheO.eXq4ge1e6Rkz/HN/mMKUZiKZFe8qMlki', 'rad@hop.dz', 98, 12, 'CH370fJP7DmD8A3KkfoLOA6zfrZTSq5kJhzrwMPjoGxlX5oPtubpN3Okygsv', 1);
 
 -- --------------------------------------------------------
 
@@ -9203,6 +9582,47 @@ ALTER TABLE `demandeexamimags`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `demandeexb`
+--
+ALTER TABLE `demandeexb`
+  ADD PRIMARY KEY (`id_demandeexb`),
+  ADD KEY `id_consultation` (`id_consultation`);
+
+--
+-- Indexes for table `demandeexb_examenbio`
+--
+ALTER TABLE `demandeexb_examenbio`
+  ADD KEY `id_demandeexb` (`id_demandeexb`),
+  ADD KEY `id_examenbio` (`id_examenbio`);
+
+--
+-- Indexes for table `demandeexr`
+--
+ALTER TABLE `demandeexr`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `demandeexradio_exmnsrelatifdemande`
+--
+ALTER TABLE `demandeexradio_exmnsrelatifdemande`
+  ADD KEY `id_demandeexradio` (`id_demandeexradio`),
+  ADD KEY `id_examensrelatifdemande` (`id_examensrelatifdemande`);
+
+--
+-- Indexes for table `demandeexradio_infosupppertinentes`
+--
+ALTER TABLE `demandeexradio_infosupppertinentes`
+  ADD KEY `id_demandeexr` (`id_demandeexr`),
+  ADD KEY `id_infosupp` (`id_infosupp`);
+
+--
+-- Indexes for table `demandeexr_examenradio`
+--
+ALTER TABLE `demandeexr_examenradio`
+  ADD KEY `id_examenradio` (`id_examenradio`),
+  ADD KEY `id_demandeexr` (`id_demandeexr`);
+
+--
 -- Indexes for table `demandehospitalisations`
 --
 ALTER TABLE `demandehospitalisations`
@@ -9227,7 +9647,8 @@ ALTER TABLE `examenanapaths`
 -- Indexes for table `examenbiologiques`
 --
 ALTER TABLE `examenbiologiques`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_specialite_exb` (`id_specialite_exb`);
 
 --
 -- Indexes for table `examenimagries`
@@ -9236,15 +9657,15 @@ ALTER TABLE `examenimagries`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `examensanapaths`
+-- Indexes for table `examenradiologique`
 --
-ALTER TABLE `examensanapaths`
+ALTER TABLE `examenradiologique`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `examensbiologiques`
+-- Indexes for table `examensanapaths`
 --
-ALTER TABLE `examensbiologiques`
+ALTER TABLE `examensanapaths`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -9290,6 +9711,12 @@ ALTER TABLE `examen_imagrie_consultations`
   ADD KEY `fk_Examen_Imagrie_has_Consultation_Examen_Imagrie1_idx` (`Examen_Imagrie_ID_Examen_Imagrie`);
 
 --
+-- Indexes for table `exmnsrelatifdemande`
+--
+ALTER TABLE `exmnsrelatifdemande`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `grades`
 --
 ALTER TABLE `grades`
@@ -9316,6 +9743,12 @@ ALTER TABLE `homme_confs`
 ALTER TABLE `hospitalisations`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_demande` (`id_demande`);
+
+--
+-- Indexes for table `infosupppertinentes`
+--
+ALTER TABLE `infosupppertinentes`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `interogatoirs`
@@ -9362,6 +9795,13 @@ ALTER TABLE `medicament_traitements_habituels`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ordennance_medicaments`
+--
+ALTER TABLE `ordennance_medicaments`
+  ADD KEY `id_medicament` (`id_medicament`),
+  ADD KEY `id_ordenannce` (`id_ordenannce`);
 
 --
 -- Indexes for table `ordonnances`
@@ -9463,6 +9903,12 @@ ALTER TABLE `specialites`
   ADD KEY `fk_typeSpecialite` (`type`);
 
 --
+-- Indexes for table `specialite_exb`
+--
+ALTER TABLE `specialite_exb`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `symptoms`
 --
 ALTER TABLE `symptoms`
@@ -9561,7 +10007,7 @@ ALTER TABLE `communes`
 -- AUTO_INCREMENT for table `consultations`
 --
 ALTER TABLE `consultations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1071;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT for table `daira`
 --
@@ -9571,17 +10017,27 @@ ALTER TABLE `daira`
 -- AUTO_INCREMENT for table `demandeexamimags`
 --
 ALTER TABLE `demandeexamimags`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+--
+-- AUTO_INCREMENT for table `demandeexb`
+--
+ALTER TABLE `demandeexb`
+  MODIFY `id_demandeexb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT for table `demandeexr`
+--
+ALTER TABLE `demandeexr`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `demandehospitalisations`
 --
 ALTER TABLE `demandehospitalisations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `employs`
 --
 ALTER TABLE `employs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 --
 -- AUTO_INCREMENT for table `examenanapaths`
 --
@@ -9591,22 +10047,22 @@ ALTER TABLE `examenanapaths`
 -- AUTO_INCREMENT for table `examenbiologiques`
 --
 ALTER TABLE `examenbiologiques`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
 --
 -- AUTO_INCREMENT for table `examenimagries`
 --
 ALTER TABLE `examenimagries`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `examenradiologique`
+--
+ALTER TABLE `examenradiologique`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+--
 -- AUTO_INCREMENT for table `examensanapaths`
 --
 ALTER TABLE `examensanapaths`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `examensbiologiques`
---
-ALTER TABLE `examensbiologiques`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=232;
 --
 -- AUTO_INCREMENT for table `examensimagerie`
 --
@@ -9617,6 +10073,11 @@ ALTER TABLE `examensimagerie`
 --
 ALTER TABLE `examen_clinique`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+--
+-- AUTO_INCREMENT for table `exmnsrelatifdemande`
+--
+ALTER TABLE `exmnsrelatifdemande`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `grades`
 --
@@ -9637,6 +10098,11 @@ ALTER TABLE `homme_confs`
 --
 ALTER TABLE `hospitalisations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT for table `infosupppertinentes`
+--
+ALTER TABLE `infosupppertinentes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `interogatoirs`
 --
@@ -9671,7 +10137,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `ordonnances`
 --
 ALTER TABLE `ordonnances`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `parametres`
 --
@@ -9686,7 +10152,7 @@ ALTER TABLE `parametrs`
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 --
 -- AUTO_INCREMENT for table `prescription_soins`
 --
@@ -9701,7 +10167,7 @@ ALTER TABLE `privilegs`
 -- AUTO_INCREMENT for table `rdvs`
 --
 ALTER TABLE `rdvs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 --
 -- AUTO_INCREMENT for table `rdv_hospitalisations`
 --
@@ -9711,7 +10177,7 @@ ALTER TABLE `rdv_hospitalisations`
 -- AUTO_INCREMENT for table `rols`
 --
 ALTER TABLE `rols`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `salles`
 --
@@ -9727,6 +10193,11 @@ ALTER TABLE `services`
 --
 ALTER TABLE `specialites`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT for table `specialite_exb`
+--
+ALTER TABLE `specialite_exb`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `symptoms`
 --
@@ -9756,7 +10227,7 @@ ALTER TABLE `type_colloques`
 -- AUTO_INCREMENT for table `utilisateurs`
 --
 ALTER TABLE `utilisateurs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 --
 -- AUTO_INCREMENT for table `wilayas`
 --
@@ -9804,6 +10275,34 @@ ALTER TABLE `consultations`
 --
 ALTER TABLE `daira`
   ADD CONSTRAINT `fk_daira_wilaya1` FOREIGN KEY (`Id_wilaya`) REFERENCES `wilayas` (`Id_wilaya`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `demandeexb_examenbio`
+--
+ALTER TABLE `demandeexb_examenbio`
+  ADD CONSTRAINT `demandeexb_examenbio_ibfk_1` FOREIGN KEY (`id_demandeexb`) REFERENCES `demandeexb` (`id_demandeexb`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `demandeexb_examenbio_ibfk_2` FOREIGN KEY (`id_examenbio`) REFERENCES `examenbiologiques` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `demandeexradio_exmnsrelatifdemande`
+--
+ALTER TABLE `demandeexradio_exmnsrelatifdemande`
+  ADD CONSTRAINT `demandeexradio_exmnsrelatifdemande_ibfk_1` FOREIGN KEY (`id_demandeexradio`) REFERENCES `demandeexr` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `demandeexradio_exmnsrelatifdemande_ibfk_2` FOREIGN KEY (`id_examensrelatifdemande`) REFERENCES `exmnsrelatifdemande` (`id`);
+
+--
+-- Constraints for table `demandeexradio_infosupppertinentes`
+--
+ALTER TABLE `demandeexradio_infosupppertinentes`
+  ADD CONSTRAINT `demandeexradio_infosupppertinentes_ibfk_1` FOREIGN KEY (`id_demandeexr`) REFERENCES `demandeexr` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `demandeexradio_infosupppertinentes_ibfk_2` FOREIGN KEY (`id_infosupp`) REFERENCES `infosupppertinentes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `demandeexr_examenradio`
+--
+ALTER TABLE `demandeexr_examenradio`
+  ADD CONSTRAINT `demandeexr_examenradio_ibfk_1` FOREIGN KEY (`id_examenradio`) REFERENCES `examenradiologique` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `demandeexr_examenradio_ibfk_2` FOREIGN KEY (`id_demandeexr`) REFERENCES `demandeexr` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `demandehospitalisations`
