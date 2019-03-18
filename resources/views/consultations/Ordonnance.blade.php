@@ -41,10 +41,24 @@
 				<input id="forme" class="form-control" type="text"  placeholder="Forme" readonly/>
 			</div>
 		</div>{{-- row --}}
-	
-		
 		<div class="space-12"></div>
 		<div class="row">
+			  <div class="col-xs-6">
+                     		           <label for="dosage">Dosage</label>
+                                	<input type="text" class="form-control" id="dosage" placeholder="Dosage...">
+                            </div>
+		</div>
+		<div class="space-112"></div>
+		<div class="space-12"></div>
+                     <div class="row">
+	                     	<div class="col-xs-12">
+	                                <label for="posologie">Posologie</label>
+	                                <input type="text" class="form-control" id="posologie" placeholder="Posologie...">
+	                     </div>
+                     </div>     
+                	<div class="space-12"></div>
+                	<div class="space-12"></div>
+           	<div class="row">
 			<div class="col-xs-12">
 				<button type="button" id="addliste" class="btn btn-success pull-right disabledElem" onclick="addmidifun()">
 					Ajouter a la liste&nbsp;<i class="fa fa-mail-forward"></i>
