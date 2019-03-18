@@ -45,7 +45,9 @@ class OrdonnanceController extends Controller
                 "date" => $date,
                 "id_consultation" => $request->id_consultation,   
            ]);
-           $listes = json_decode($request->liste);
+           dd($request->all());
+          $listes = json_decode($request->liste);
+
            for ($i=1; $i < count($listes); $i++) { 
                     $id_med = $listes[$i]->med;
                    $ordonnance->medicamentes()->attach($id_med,['posologie' => $listes[$i]->posologie]); 

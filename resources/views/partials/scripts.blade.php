@@ -691,18 +691,18 @@ $('#typeexm').on('change', function() {
            $("#addliste").click(function() {
                  $("#ordonnance").append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td hidden>"+$("#id_medicament").val()+"</td><td>"+$("#nommed").val()+"</td><td>"+$("#form").val()+"</td><td>"+$("#dosage").val()+"</td><td>"+$("#posologie").val()+"</td></tr>");
             });        
-           $("#terminer").click(function() {
-                     var arrayLignes = document.getElementById("ordonnance").rows; 
-                    var longueur = arrayLignes.length;
-                    var ordonnance = [];
-                    for(var i=0; i<longueur; i++)
-                    {
-                        ordonnance[i] = { med: arrayLignes[i].cells[1].innerHTML, posologie: arrayLignes[i].cells[5].innerHTML }
-                    }
-                    var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
-                    champ.appendTo('#ord');
-                    $('#ord').submit();
-           });
+           // $("#terminer").click(function() {
+           //           var arrayLignes = document.getElementById("ordonnance").rows; 
+           //          var longueur = arrayLignes.length;
+           //          var ordonnance = [];
+           //          for(var i=0; i<longueur; i++)
+           //          {
+           //              ordonnance[i] = { med: arrayLignes[i].cells[1].innerHTML, posologie: arrayLignes[i].cells[5].innerHTML }
+           //          }
+           //          var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
+           //          champ.appendTo('#ordn');
+           //          $('#ordn').submit();
+           // });
            function createeximg(nomp,prenomp){
                      var d = new Date();
                       var yyyy = d.getFullYear().toString();

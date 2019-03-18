@@ -1,41 +1,40 @@
 @extends('app')
 @section('page-script')
 <script>
-$('document').ready(function(){
-	$('#medc_table').DataTable({
-                 processing: true,
-                serverSide: true,
-                ordering: true,
-                 "bInfo" : false,
-                 searching: false,
-                "language": {
-                      "url": '/localisation/fr_FR.json'
-                },
-                ajax: '/getmedicaments',
-                      columns: [
-                          {data: 'Nom_com'},
-                          {data: 'Forme'},
-                          {data: 'Dosage'},
-                          {data: 'action', name: 'action', orderable: false, searchable: false}
-                      ]
-     	});
-     	$("#addliste").click(function() {
-                   $("#ordonnance").append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td hidden>"+$("#id_medicament").val()+"</td><td>"+$("#nommed").val()+"</td><td>"+$("#form").val()+"</td><td>"+$("#dosage").val()+"</td><td>"+$("#posologie").val()+"</td></tr>");
-           });
-           $("#terminer").click(function() {
-           	var arrayLignes = document.getElementById("ordonnance").rows;
-                     var longueur = arrayLignes.length; 
-                     var ordonnance = [];
-                	for(var i=0; i<longueur; i++)
-                	{
- 			ordonnance[i] = { med: arrayLignes[i].cells[1].innerHTML, posologie: arrayLignes[i].cells[5].innerHTML }
-                	}
-                	alert(ordonnance);
-         		var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
-                		champ.appendTo('#ordn');
-                	$('#ordn').submit();
-           }); 	   
-});       
+	$('document').ready(function(){
+		$('#medc_table').DataTable({
+	                 processing: true,
+	                serverSide: true,
+	                ordering: true,
+	                 "bInfo" : false,
+	                 searching: false,
+	                "language": {
+	                      "url": '/localisation/fr_FR.json'
+	                },
+	                ajax: '/getmedicaments',
+	                      columns: [
+	                          {data: 'Nom_com'},
+	                          {data: 'Forme'},
+	                          {data: 'Dosage'},
+	                          {data: 'action', name: 'action', orderable: false, searchable: false}
+	                      ]
+	     	});
+	     	$("#addliste").click(function() {
+	                   $("#ordonnance").append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td hidden>"+$("#id_medicament").val()+"</td><td>"+$("#nommed").val()+"</td><td>"+$("#form").val()+"</td><td>"+$("#dosage").val()+"</td><td>"+$("#posologie").val()+"</td></tr>");
+	           });
+	           $("#terminer").click(function() {
+	           	var arrayLignes = document.getElementById("ordonnance").rows;
+	                     var longueur = arrayLignes.length; 
+	                     var ordonnance = [];
+	                	for(var i=0; i<longueur; i++)
+	                	{
+	    			ordonnance[i] = { med: arrayLignes[i].cells[1].innerHTML, posologie: arrayLignes[i].cells[5].innerHTML }
+	                	}
+	                     var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
+	                	champ.appendTo('#ordn');
+	                	$('#ordn').submit();
+	           }); 	   
+	});       
 </script>
 @endsection
 @section('main-content')
