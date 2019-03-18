@@ -496,6 +496,22 @@ $('#typeexm').on('change', function() {
                             }
                       });
                }
+                function medicmV1(med)
+           {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/getmed/'+med,
+                        dataType: "json",
+                        success: function (result)
+                            {
+                                            $("#nommedic").val(result['Nom_com']);
+                                            $("#forme").val(result['Forme']);
+                                             $("#dosage").val(result.Dosage);
+                                            $("#medicamentId").val(result['id']);
+                                            $(".disabledElem").removeClass("disabledElem").addClass("enabledElem"); //$('#Ordonnance').reset();
+                            }
+                      });
+               }
                function addmidifun()
                 {
                             $("#pos").val( $("#nbprise").val()+' fois par '+$("#fois").val()+' Pendant '+$("#duree").val()+' '+$("#dureefois").val()+'. ');//+$("#temps").val()+'.'

@@ -97,12 +97,10 @@ class MedicamentsController extends Controller
             ->addColumn('action', function ($medicament) {
                 return '<div class="hidden-sm hidden-xs btn-group">
                             <button class="btn btn-xs btn-primary"  
-                            onclick="medicm('.$medicament->id.')">
+                            onclick="medicmV1('.$medicament->id.')">
                             <i class="ace-icon  fa fa-plus-circle"></i>
                             </button>';
-                        //     </div><div class="hidden-sm hidden-xs btn-group">
-                        //     <a href="#" class="btn btn-xs btn-success">
-                        //         <i class="ace-icon fa fa-hand-o-up bigger-120"></i>
+        //</div><div class="hidden-sm hidden-xs btn-group">//<a href="#" class="btn btn-xs btn-success"> //<i class="ace-icon fa fa-hand-o-up bigger-120"></i>
                         //     </a>
                         // </div>
             })
