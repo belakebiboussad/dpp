@@ -29,9 +29,8 @@
 		<div class="widget-main"  id = "posologie">
 		<div class="row">
 			<div  class="col-xs-9">
-				<label for="nommedic">
-					<strong>Nom Médicament :</strong>
-				</label>
+				 <input type="text" id="id_medicament" name="id_medicament" hidden>
+				<label for="nommedic"><strong>Nom Médicament :</strong></label>
 				<input id="nommedic" class="form-control" type="text"  placeholder="Médicament" readonly/>
 			</div>
 			<div  class="col-xs-3">
@@ -45,7 +44,7 @@
 		<div class="row">
 			  <div class="col-xs-6">
                      		           <label for="dosage">Dosage:</label>
-                                	<input type="text" class="form-control" id="dosage" placeholder="Dosage...">
+                                	<input type="text" class="form-control" id="dosage" placeholder="Dosage..." readonly>
                             </div>
 		</div>
 		<div class="space-112"></div>
@@ -53,7 +52,8 @@
                      <div class="row">
 	                     	<div class="col-xs-12">
 	                                <label for="posologie">Posologie:</label>
-	                                <input type="text" class="form-control" id="posologie" placeholder="Posologie...">
+	                                {{-- <input type="text" class="form-control" id="posologie" placeholder="Posologie..."> --}}
+	                                 <input type="text" class="form-control" id="posologie_medic" placeholder="Posologie...">
 	                     </div>
                      </div>     
                 	<div class="space-12"></div>
@@ -109,11 +109,12 @@
 						<thead>
 							<tr>
 								<th></th>
+								<th hidden>id</th>
 								<th>Médicament</th>
 								<th>Forme</th>
-								<th>Quantité</th>
+								<th>Dosage</th>
 								<th>Posologie</th>
-								<th style="display:none;"></th>
+								{{-- <th style="display:none;"></th> --}}
 							</tr>
 						</thead>
 					</table>
