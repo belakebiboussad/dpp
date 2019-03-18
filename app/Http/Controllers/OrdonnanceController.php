@@ -56,14 +56,13 @@ class OrdonnanceController extends Controller
     public function storeold(Request $request)
     {
 
-        $liste = explode(",",$request->liste);
-        dd($liste);
-        $medics = json_encode($liste); 
-        ordonnance::create([
-            // "date"=>$request->dateord,
-            "duree"=>$request->dureeefois.' '.$request->foisss,
-            "medicaments"=>$medics,
-            "id_consultation"=>$request->idcons,
+          $liste = explode(",",$request->liste);
+          $medics = json_encode($liste); 
+          ordonnance::create([
+                // "date"=>$request->dateord,
+                "duree"=>$request->dureeefois.' '.$request->foisss,
+                "medicaments"=>$medics,
+                "id_consultation"=>$request->idcons,
         ]);
         return redirect()->action('ConsultationsController@show',['id'=>$request->idcons]);
     }
