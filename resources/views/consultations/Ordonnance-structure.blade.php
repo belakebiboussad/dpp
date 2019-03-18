@@ -41,8 +41,52 @@
 				<input id="forme" class="form-control" type="text"  placeholder="Forme" readonly/>
 			</div>
 		</div>{{-- row --}}
-	
-		
+		<div class="space-12"></div>		
+		<div class="row">
+			<div  class="col-xs-2">
+				<label for="qte">
+					<strong>Quantité  :</strong>
+				</label>
+				<input id="qte" class="form-control disabledElem" type="number" value="1" min="1" />
+			</div>
+			<div  class="col-xs-4">
+				<label for="conditionnement"><strong>&nbsp;&nbsp;Condit:</strong></label><br>
+				<input type="text"  id="conditionnement" placeholder="Conditionnement" readonly/>
+			</div>
+			<div  class="col-xs-2">
+				<label for="nbprise"><strong>Posologie:</strong></label>
+				<input id="nbprise" class="form-control disabledElem" type="number" value="1" min="1" max="4" onchange="addTable();"/>
+			</div>
+			<div  class="col-xs-4">
+				<label class="blue"><strong>Fois par</strong></label>
+				<select  id="fois" class="form-control disabledElem my-right-float"  value="Jour" class="form-control" >
+					<option value="Jour">jour</option>
+					<option value="Semaine">Semaine</option>
+					<option value="Mois">Mois</option>
+				</select>
+			</div>
+		</div>{{-- row --}}
+		<div class="space-12"></div>
+		<div class="row">
+			<div  class="col-xs-2">
+				<label for="nommedic">
+					<strong>Pendant:</strong>
+				</label>
+				<input id="duree" class="form-control disabledElem" type="number" value="1" min="1" />
+			</div>
+			<div class="col-xs-4">
+				<label><strong>&nbsp;&nbsp;</strong></label>
+				<select id="dureefois" class="form-control disabledElem" id="form-field-select-3"  value="Semaine">
+					<option value="Jour" selected>Jour</option>
+					<option value="Semaine" Selected>Semaine</option>
+					<option value="Mois">Mois</option>
+				</select>
+			</div>
+			<div class="col-sm-6">
+				<label><strong>&nbsp;&nbsp;</strong></label>	
+				<input id="pos" type="text"  class="form-control disabledElem invisible " readonly/>
+			</div>
+		</div>
 		<div class="space-12"></div>
 		<div class="row">
 			<div class="col-xs-12">
