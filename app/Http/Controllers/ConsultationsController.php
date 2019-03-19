@@ -121,7 +121,7 @@ class ConsultationsController extends Controller
      */
        public function store(Request $request, $id)
        {  
-                  dd($request->all());
+                //dd($request->all());
                 $request->validate([
                         "motif" => 'required',
                         "histoirem" => 'required',
