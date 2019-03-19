@@ -507,7 +507,7 @@ $('#typeexm').on('change', function() {
                                             $("#nommedic").val(result['Nom_com']);
                                             $("#forme").val(result['Forme']);
                                              $("#dosage").val(result.Dosage);
-                                            $("#medicamentId").val(result['id']);
+                                            $("#id_medicament").val(result['id']);
                                             $(".disabledElem").removeClass("disabledElem").addClass("enabledElem"); //$('#Ordonnance').reset();
                             }
                       });

@@ -128,7 +128,8 @@
   @include('partials._patientInfo')
 </div>
 <div class="content">
-<form action="/consultations/store/{{$patient->id}}" method="POST" role="form" id ="consultForm" class="passenger-validation" onsubmit="return checkForm(this);"  novalidate>
+{{-- <form action="/consultations/store/{{$patient->id}}" method="POST" role="form" id ="consultForm" class="passenger-validation" onsubmit="return checkForm(this);"  novalidate> --}}
+<form  class="form-horizontal" action="/consultationAdd/{{$patient->id}}" method="POST" role="form" id ="consultForm" novalidate>
   {{ csrf_field() }}
   <div id="prompt"></div>
   <div class="tabpanel">

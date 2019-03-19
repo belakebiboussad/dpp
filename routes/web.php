@@ -19,7 +19,6 @@ Route::group(['middleware' => 'revalidate'], function()
               return view('auth/login');
         });
 });
-
 route::get('/home_chef', function(){
     $meds = App\modeles\medcamte::all();
     $dispositifs = App\modeles\dispositif::all();
@@ -55,13 +54,10 @@ Route::get('exbio/{filename}', function ($filename)
     // im not 100% sure about the $path thingy, you need to fiddle with this one around.
     $path = storage_path() . '\\app\\' . $filename;
     if(!File::exists($path)) abort(404);
-
     $file = File::get($path);
     $type = File::mimeType($path);
-
     $response = Response::make($file, 200);
     $response->header("Content-Type", $type);
-
     return $response;
 });
 // Auth::routes();
@@ -111,7 +107,10 @@ Route::resource('exclinique','ExamenCliniqueController');
 Route::resource('demandeproduit','demandeprodController');
 route::get('/getsalles/{id}','SalleController@getsalles');
 route::get('/annullerRDV/{id}','AdmissionController@annulerRDV');
-Route::post('/consultations/store/{id}','ConsultationsController@store');
+
+//Route::post('/consultations/store/{id}','ConsultationsController@store');
+Route::post('/consultationAdd/{id}','ConsultationsController@store');
+
 Route::post('/exclinique/store/{id}','ExamenCliniqueController@store');
 Route::get('/consultations/create/{id}','ConsultationsController@create');
 Route::get('/listcons','ConsultationsController@listecons');
