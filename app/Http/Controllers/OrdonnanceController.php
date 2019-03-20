@@ -5,7 +5,8 @@ use Illuminate\Http\Request;
 use App\modeles\consultation;
 use App\modeles\patient;
 use App\modeles\ordonnance;
-
+use Jenssegers\Date\Date;
+use PDF;
 class OrdonnanceController extends Controller
 {
     /**
@@ -36,34 +37,29 @@ class OrdonnanceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,$consultID)
+    public function store(Request $request,$id_consultation)
     {
            $date = Date::now();
-           dd("sdfqd");
+
            $ordonnance = ordonnance::FirstOrCreate([
                 "date" => $date,
-                "id_consultation" => $request->id_consultation,   
+                "id_consultation" => $id_consultation,   
            ]);
            $listes = json_decode($request->liste);
-           for ($i=1; $i < count($listes); $i++) { 
+           for ($i=0; $i < count($listes); $i++) { 
                     $id_med = $listes[$i]->med;
                     $ordonnance->medicamentes()->attach($id_med,['posologie' => $listes[$i]->posologie]); 
-           }   //return redirect()->route('consultations.show', $request->id_consultation); 
+           }
     }
     public function storeold(Request $request)
     {
-           // dd($request->liste);
            $liste = explode(",",$request->liste);
-            //dd($liste);
-           //unset($liste[0]);
            foreach ($liste as $key => $value) {
                      # code...
                         $tab= explode('|',$value);
                          $liste[$key] = array_reverse($tab);
            }
-          // dd($medics);
            $medics = json_encode($liste); //dd($medics);  // dd($medics);
-           //dd($medics);
           ordonnance::create([
                     "duree"=>$request->dureeefois.' '.$request->foisss,
                     "medicaments"=>$medics,

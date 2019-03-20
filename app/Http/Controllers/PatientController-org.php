@@ -562,7 +562,6 @@ public function update(Request $request,$id)
                                       # code...
                                         break;
            }
-
            /******************************/
            //(!is_null($h))            
            if ((isset($request->id_h))) {
@@ -623,7 +622,6 @@ public function update(Request $request,$id)
            // Flashy::primary('Patient modifié avec succés!');
            //flashy('Some message', 'http://your-awesome-link.com');
            return redirect(Route('patient.show',$patient->id));
-
 }
 
     /**

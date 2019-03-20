@@ -58,20 +58,23 @@ class ConsultationsController extends Controller
                 ->where('consultations.id', '=',$id_cons) ->select('consultations.*','lieuconsultations.Nom')->get()->first(); 
                 $patient = patient::where("id",$consultation->Patient_ID_Patient)->get()->first();    
                 // liste des consultations du patient
-                $consults = consultation::join('codesims', 'codesims.id', '=', 'consultations.id_code_sim')
-                       ->join('lieuconsultations','lieuconsultations.id','=','consultations.id_lieu')
-                      ->join('employs','employs.id','=','consultations.Employe_ID_Employe') 
-                      ->where('consultations.Patient_ID_Patient', $patient->id)
-                      ->select('consultations.*','codesims.description','lieuconsultations.Nom','employs.Nom_Employe','employs.Prenom_Employe')->get(['consultations.*','codesims.description','lieuconsultations.Nom','employs.Nom_Employe','employs.Prenom_Employe']);
-                $examensbios = examenbiologique::where("id_consultation",$id_cons)->get();
-                // $examensimg = examenimagrie::where("id_consultation",$id_cons)->get(); 
+                // $consults = consultation::join('codesims', 'codesims.id', '=', 'consultations.id_code_sim')
+                //                  ->join('lieuconsultations','lieuconsultations.id','=','consultations.id_lieu')
+                //                 ->join('employs','employs.id','=','consultations.Employe_ID_Employe') 
+                //                 ->where('consultations.Patient_ID_Patient', $patient->id)
+                //                 ->select('consultations.*','codesims.description','lieuconsultations.Nom','employs.Nom_Employe','employs.Prenom_Employe')->get(['consultations.*','codesims.description','lieuconsultations.Nom','employs.Nom_Employe','employs.Prenom_Employe']);
+                $consults = consultation::join('employs','employs.id','=','consultations.Employe_ID_Employe')->join('lieuconsultations','lieuconsultations.id','=','consultations.id_lieu')->leftjoin('codesims', 'codesims.id', '=', 'consultations.id_code_sim')->select('consultations.*','employs.Nom_Employe','employs.Prenom_Employe','lieuconsultations.Nom','codesims.description')->where('consultations.Patient_ID_Patient', $patient->id)->get();
+                $examensbios = examenbiologique::where("id_consultation",$id_cons)->get();// $examensimg = examenimagrie::where("id_consultation",$id_cons)->get(); 
                 $demande = demandeExamImag::where("id_consultation",$id_cons)->get(['examsImagerie'])->first(); 
                 if(isset($demande))
                      $examensimg = json_decode($demande->examsImagerie); 
-               $exmclin = examen_cliniqu::where("id_consultation",$id_cons)->get()->first();
-               $ordennances = ordonnance::where("id_consultation",$id_cons)->get(['medicaments'])->first();
-              $medicaments = json_decode( $ordennances['medicaments'],true);
-                return view('consultations.resume_cons', compact('consultation','patient','examensbios','examensimg','exmclin','ordennances','medicaments','consults'));
+                $exmclin = examen_cliniqu::where("id_consultation",$id_cons)->get()->first();
+                //$ordennances = ordonnance::where("id_consultation",$id_cons)->get(['medicaments'])->first();
+                $ordonnance= $consultation->ordonnance;
+                $medicaments =  $ordonnance->medicamentes;
+               dd($medicaments);
+               //$medicaments = json_decode( $ordennances['medicaments'],true);
+                return view('consultations.resume_cons', compact('consultation','patient','examensbios','examensimg','exmclin','ordonnance','medicaments','consults'));
     }
     public function listecons()
     {
@@ -125,7 +128,7 @@ class ConsultationsController extends Controller
                 "resume" => 'required',
            ]);
            $nomlieu = Config::get('constants.lieuc');
-          $lieu = Lieuconsultation::where('Nom', $nomlieu)->first();
+           $lieu = Lieuconsultation::where('Nom', $nomlieu)->first();
            $consult = consultation::create([
                      "Motif_Consultation"=>$request->motif,
                      "histoire_maladie"=>$request->histoirem,
@@ -143,7 +146,6 @@ class ConsultationsController extends Controller
                       $this->ExamCliniqCTLR->store( $request,$consult->id); //save examen clinique
            if($request->liste != null)
                 $this->OrdonnanceCTLR->store( $request,$consult->id);    //save Ordonnance
-           dd("sdf");   
            if($request->AutreBiol != null || $request->exambio != null )  //save ExamBiolo
                 $this->ExamBioloqiqueCTLR->store( $request,$consult->id); 
            if(array_key_exists('RX', $request->examRad) || ($request->examRad["AutRX"][0] != null) || (array_key_exists('ECHO', $request->examRad)) || (array_key_exists('CT', $request->examRad)) || ($request->examRad['AutCT'][0] != null) || (array_key_exists('RMN', $request->examRad))  || ($request->examRad['AutRMN'][0] != null) || ($request->examRad['AutECHO'][0] != null))
@@ -153,18 +155,12 @@ class ConsultationsController extends Controller
            if($request->modeAdmission != null)
                          $this->DemandeHospCTRL->store($request,$consult->id);
                     //enregistrer lettre orientation
-                     if($request->specialite != null){
+           if($request->specialite != null){
                           $this->LettreOrientationCTRL->store($request,$consult->id);
-    
-           }
-           return redirect()->action('PatientController@index');
+           }      
+            // return redirect()->route('consultations.show',$consult->id);    return redirect()->action('PatientController@index');
+           return redirect(Route('patient.show',$request->id));
      }
-       public function storeold(Request $request, $id)
-       {   
-             // return redirect()->action('ConsultationsController@show',['id'=>$consult->id]);
-    }                               
-
-
     /**
      * Display the specified resource.
      *
