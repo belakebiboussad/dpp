@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\modeles\consultation;
 use App\modeles\patient;
@@ -39,7 +38,8 @@ class OrdonnanceController extends Controller
      */
     public function store(Request $request,$consultID)
     {
-          $date = Date::now();
+           $date = Date::now();
+           dd("sdfqd");
            $ordonnance = ordonnance::FirstOrCreate([
                 "date" => $date,
                 "id_consultation" => $request->id_consultation,   
@@ -47,9 +47,8 @@ class OrdonnanceController extends Controller
            $listes = json_decode($request->liste);
            for ($i=1; $i < count($listes); $i++) { 
                     $id_med = $listes[$i]->med;
-                   $ordonnance->medicamentes()->attach($id_med,['posologie' => $listes[$i]->posologie]); 
-           }
-           //return redirect()->route('consultations.show', $request->id_consultation);
+                    $ordonnance->medicamentes()->attach($id_med,['posologie' => $listes[$i]->posologie]); 
+           }   //return redirect()->route('consultations.show', $request->id_consultation); 
     }
     public function storeold(Request $request)
     {
