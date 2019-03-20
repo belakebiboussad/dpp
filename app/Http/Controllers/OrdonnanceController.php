@@ -51,22 +51,6 @@ class OrdonnanceController extends Controller
                     $ordonnance->medicamentes()->attach($id_med,['posologie' => $listes[$i]->posologie]); 
            }
     }
-    public function storeold(Request $request)
-    {
-           $liste = explode(",",$request->liste);
-           foreach ($liste as $key => $value) {
-                     # code...
-                        $tab= explode('|',$value);
-                         $liste[$key] = array_reverse($tab);
-           }
-           $medics = json_encode($liste); //dd($medics);  // dd($medics);
-          ordonnance::create([
-                    "duree"=>$request->dureeefois.' '.$request->foisss,
-                    "medicaments"=>$medics,
-                    "id_consultation"=>$consultID,
-                ]);
-    }
-
     /**
      * Display the specified resource.
      *
@@ -111,4 +95,11 @@ class OrdonnanceController extends Controller
     {
         //
     }
+     public function show_ordonnance($id)
+     {
+           $ordonnance = ordonnance::FindOrFail($id);
+           $pdf = PDF::loadView('ordonnance', compact('ordonnance'));
+           return $pdf->stream('ordonnance.pdf');
+    }
+
 }

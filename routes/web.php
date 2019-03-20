@@ -107,10 +107,6 @@ Route::resource('exclinique','ExamenCliniqueController');
 Route::resource('demandeproduit','demandeprodController');
 route::get('/getsalles/{id}','SalleController@getsalles');
 route::get('/annullerRDV/{id}','AdmissionController@annulerRDV');
-
-//Route::post('/consultations/store/{id}','ConsultationsController@store');
-Route::post('/consultationAdd/{id}','ConsultationsController@store');
-
 Route::post('/exclinique/store/{id}','ExamenCliniqueController@store');
 Route::get('/consultations/create/{id}','ConsultationsController@create');
 Route::get('/listcons','ConsultationsController@listecons');
@@ -163,18 +159,14 @@ Route::get('/role/show/{userId}','RolesController@show');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('AddANTCD','AntecedantsController@createATCDAjax');
 Route::get('/searchUser','UsersController@searchUser');
-
 Route::get('/searchPatient','PatientController@search');
 Route::get('/getPatients','PatientController@getPatientsArray');
 Route::get('/getlits/{id}','LitsController@getlits');
-
 Route::get('/user/find', 'UsersController@AutoCompleteUsername');
 Route::get('/userdetail', 'UsersController@getUserDetails');
 Route::get('/patients/find', 'PatientController@AutoCompletePatientname');
 Route::get('/patients/findprenom','PatientController@AutoCompletePatientPrenom');
-
 Route::get('/patients/findcom','PatientController@AutoCompleteCommune');
-
 Route::get('/patientdetail', 'PatientController@getPatientDetails');
 Route::get('/serviceRooms', 'ServiceController@getRooms');
 Route::get('/getPatientsToMerge','PatientController@patientsToMerege');
@@ -184,9 +176,7 @@ route::get('/home_reception',function (){
     return view('home.home_recep');
 })->name('home_rec');
 Route::post('/get-all-events','RDVController@checkFullCalendar');
-// Route::get('/pdf', function () {
-//     return view('pdf');
-// });
+route::get('/showordonnance/{id}','OrdonnanceController@show_ordonnance');
 /************partie viste d'hospitalisation**************/
 Route::resource('consigne','ConsigneController');
 Route::resource('surveillance','SurveillanceController');
