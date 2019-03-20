@@ -143,6 +143,7 @@ class ConsultationsController extends Controller
                       $this->ExamCliniqCTLR->store( $request,$consult->id); //save examen clinique
            if($request->liste != null)
                 $this->OrdonnanceCTLR->store( $request,$consult->id);    //save Ordonnance
+           dd("sdf");   
            if($request->AutreBiol != null || $request->exambio != null )  //save ExamBiolo
                 $this->ExamBioloqiqueCTLR->store( $request,$consult->id); 
            if(array_key_exists('RX', $request->examRad) || ($request->examRad["AutRX"][0] != null) || (array_key_exists('ECHO', $request->examRad)) || (array_key_exists('CT', $request->examRad)) || ($request->examRad['AutCT'][0] != null) || (array_key_exists('RMN', $request->examRad))  || ($request->examRad['AutRMN'][0] != null) || ($request->examRad['AutECHO'][0] != null))

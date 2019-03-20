@@ -39,6 +39,20 @@ class OrdonnanceController extends Controller
      */
     public function store(Request $request,$consultID)
     {
+          $date = Date::now();
+           $ordonnance = ordonnance::FirstOrCreate([
+                "date" => $date,
+                "id_consultation" => $request->id_consultation,   
+           ]);
+           $listes = json_decode($request->liste);
+           for ($i=1; $i < count($listes); $i++) { 
+                    $id_med = $listes[$i]->med;
+                   $ordonnance->medicamentes()->attach($id_med,['posologie' => $listes[$i]->posologie]); 
+           }
+           //return redirect()->route('consultations.show', $request->id_consultation);
+    }
+    public function storeold(Request $request)
+    {
            // dd($request->liste);
            $liste = explode(",",$request->liste);
             //dd($liste);
@@ -56,19 +70,6 @@ class OrdonnanceController extends Controller
                     "medicaments"=>$medics,
                     "id_consultation"=>$consultID,
                 ]);
-    }
-    public function storeold(Request $request)
-    {
-
-          $liste = explode(",",$request->liste);
-          $medics = json_encode($liste); 
-          ordonnance::create([
-                // "date"=>$request->dateord,
-                "duree"=>$request->dureeefois.' '.$request->foisss,
-                "medicaments"=>$medics,
-                "id_consultation"=>$request->idcons,
-        ]);
-        return redirect()->action('ConsultationsController@show',['id'=>$request->idcons]);
     }
 
     /**
