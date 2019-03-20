@@ -159,7 +159,7 @@
 			</div>
 		</div>
 		@endif
-		@if(count($examensbios) !=0)
+	{{-- 	@if(count($examensbios) !=0)
 		<div class="panel panel-default" >
 			<div class="panel-heading">
 				<h4 class="panel-title">
@@ -194,12 +194,12 @@
 				</tbody>
 			</table>
 			</div>
-			</div>	{{-- widgetbody --}}
-			</div>{{-- widget-box --}}
+			</div>widget-body
+			</div>widget box
 			</div>
 			</div>
 		</div>
-		@endif
+		@endif --}}
 		@if(isset($examensimg)  && count($examensimg) !=0)	
 		<div class="panel panel-default">
 			<div class="panel-heading">
@@ -248,7 +248,19 @@
 			</div>
 		</div>
 		@endif
-		@if(isset($medicaments)  && count($medicaments) !=0)
+		 @if(isset($ordonnance->medicamentes )  && count($ordonnance->medicamentes ) !=0)
+
+			@foreach($ordonnance->medicamentes as $index => $med)
+	                     <tr>
+	                     	          <td>{{ $index + 1 }}</td>
+	                                <td>{{ $med->Nom_com }}</td>
+	                                <td>{{ $med->Dosage }}</td>
+	                                <td>{{ $med->Forme }}</td>
+	                                <td>{{ $med->pivot->posologie }}</td>
+	                      </tr>
+	                     @endforeach
+                     	@endif 
+		{{-- @if(isset($medicaments)  && count($medicaments) !=0)
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h4 class="panel-title">
@@ -283,11 +295,11 @@
 				</tbody>
 				</table>
 				</div>
-			</div>	{{-- widgetbody --}}
-			</div>{{-- widget-box --}}
+			</div>widgetbody
+			</div>widgetbox
 			</div>
 		</div>
-		@endif
+		@endif --}}
 	</div>
 	</div> 	{{-- details consult --}}
 </div>

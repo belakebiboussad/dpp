@@ -64,7 +64,8 @@ class ConsultationsController extends Controller
                 //                 ->where('consultations.Patient_ID_Patient', $patient->id)
                 //                 ->select('consultations.*','codesims.description','lieuconsultations.Nom','employs.Nom_Employe','employs.Prenom_Employe')->get(['consultations.*','codesims.description','lieuconsultations.Nom','employs.Nom_Employe','employs.Prenom_Employe']);
                 $consults = consultation::join('employs','employs.id','=','consultations.Employe_ID_Employe')->join('lieuconsultations','lieuconsultations.id','=','consultations.id_lieu')->leftjoin('codesims', 'codesims.id', '=', 'consultations.id_code_sim')->select('consultations.*','employs.Nom_Employe','employs.Prenom_Employe','lieuconsultations.Nom','codesims.description')->where('consultations.Patient_ID_Patient', $patient->id)->get();
-                $examensbios = examenbiologique::where("id_consultation",$id_cons)->get();// $examensimg = examenimagrie::where("id_consultation",$id_cons)->get(); 
+                //exam biologique en suite
+                //$examensbios = examenbiologique::where("id_consultation",$id_cons)->get();// $examensimg = examenimagrie::where("id_consultation",$id_cons)->get(); 
                 $demande = demandeExamImag::where("id_consultation",$id_cons)->get(['examsImagerie'])->first(); 
                 if(isset($demande))
                      $examensimg = json_decode($demande->examsImagerie); 
@@ -72,9 +73,10 @@ class ConsultationsController extends Controller
                 //$ordennances = ordonnance::where("id_consultation",$id_cons)->get(['medicaments'])->first();
                 $ordonnance= $consultation->ordonnance;
                 $medicaments =  $ordonnance->medicamentes;
-               dd($medicaments);
-               //$medicaments = json_decode( $ordennances['medicaments'],true);
-                return view('consultations.resume_cons', compact('consultation','patient','examensbios','examensimg','exmclin','ordonnance','medicaments','consults'));
+                //dd($medicaments);
+                // dd($medicaments[0]->pivot->posologie); //$medicaments = json_decode( $ordennances['medicaments'],true);
+                // return view('consultations.resume_cons', compact('consultation','patient','examensbios','examensimg','exmclin','ordonnance','medicaments','consults'));
+                return view('consultations.resume_cons', compact('consultation','patient','examensimg','exmclin','ordonnance','medicaments','consults'));
     }
     public function listecons()
     {
