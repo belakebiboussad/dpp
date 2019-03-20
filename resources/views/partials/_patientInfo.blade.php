@@ -39,7 +39,7 @@
 					<label class="inline">
 						<span class="blue"><strong>Mobile<i class="fa fa-phone"></i> :</strong></span>
 						<span class="lbl">{{ $patient->tele_mobile1 }}
-						</span>ans
+						</span>
 					</label>
 				</div>
 			</div>

@@ -247,7 +247,7 @@
 	}
 	function storeord1old()
 	{  
-	           var arrayLignes = document.getElementById("ordonnance").rows; // $('#myformelement').append('<input type="hidden" name="myfieldname" value="myvalue" />');
+	           // var arrayLignes = document.getElementById("ordonnance").rows; // $('#myformelement').append('<input type="hidden" name="myfieldname" value="myvalue" />');
 	     	var tab = [];// var arrayLignes = $('#ordonnance tr');
 	     	var drugnumber=(arrayLignes.length);
 	      	for(var i=1; i<drugnumber ; i++)

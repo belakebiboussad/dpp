@@ -83,7 +83,6 @@ class ConsultationsController extends Controller
     {
         $patient = patient::FindOrFail($id);
         $consultations = consultation::where("Patient_ID_Patient",$patient->id)->get()->all();
-
         return view('consultations.index_consultation', compact('patient','consultations'));
     }
 
@@ -119,52 +118,49 @@ class ConsultationsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-       public function store(Request $request, $id)
-       {  
-                dd($request->all());
-                $request->validate([
-                        "motif" => 'required',
-                        "histoirem" => 'required',
-                        "resume" => 'required',
-                  ]);
-                $nomlieu = Config::get('constants.lieuc');
-                $lieu = Lieuconsultation::where('Nom', $nomlieu)->first();
-                $consult = consultation::create([
-                        "Motif_Consultation"=>$request->motif,
-                        "histoire_maladie"=>$request->histoirem,
-                        "Date_Consultation"=>Date::Now(),
-                        "Diagnostic"=>$request->diagnostic,
-                        "Resume_OBS"=>$request->resume,
-                        "isOriented"=> (!empty($request->isOriented) ? 1 : 0),
-                        "lettreorientaioncontent"=>(!empty($request->isOriented) ? $request->lettreorientaioncontent  : null),
-                        "Employe_ID_Employe"=>Auth::User()->employee_id,
-                        "Patient_ID_Patient"=>$id,
-                        "id_code_sim"=>$request->codesim,
-                        "id_lieu"=> $lieu->id,
-                ]);
-                if($request->poids != 0 || $request->temp != null || $request->taille !=0 || $request->autre)
-                         $this->ExamCliniqCTLR->store( $request,$consult->id); //save examen clinique
-               if($request->listeMedicaments != null)
-                       $this->OrdonnanceCTLR->store( $request,$consult->id);    //save Ordonnance
-                 if($request->AutreBiol != null || $request->exambio != null )  //save ExamBiolo
-                          $this->ExamBioloqiqueCTLR->store( $request,$consult->id); 
-                 if(array_key_exists('RX', $request->examRad) || ($request->examRad["AutRX"][0] != null) || (array_key_exists('ECHO', $request->examRad)) || (array_key_exists('CT', $request->examRad)) || ($request->examRad['AutCT'][0] != null) || (array_key_exists('RMN', $request->examRad))  || ($request->examRad['AutRMN'][0] != null) || ($request->examRad['AutECHO'][0] != null))
+     public function store(Request $request)
+     {
+          $request->validate([
+                "motif" => 'required',   // "histoirem" => 'required',
+                "resume" => 'required',
+           ]);
+           dd($request->all());
+           $nomlieu = Config::get('constants.lieuc');
+          $lieu = Lieuconsultation::where('Nom', $nomlieu)->first();
+           $consult = consultation::create([
+                     "Motif_Consultation"=>$request->motif,
+                     "histoire_maladie"=>$request->histoirem,
+                     "Date_Consultation"=>Date::Now(),
+                     "Diagnostic"=>$request->diagnostic,
+                     "Resume_OBS"=>$request->resume,
+                     "isOriented"=> (!empty($request->isOriented) ? 1 : 0),
+                     "lettreorientaioncontent"=>(!empty($request->isOriented) ? $request->lettreorientaioncontent  : null),
+                     "Employe_ID_Employe"=>Auth::User()->employee_id,
+                     "Patient_ID_Patient"=>$request->id,
+                     "id_code_sim"=>$request->codesim,
+                     "id_lieu"=> $lieu->id,
+           ]);
+           if($request->poids != 0 || $request->temp != null || $request->taille !=0 || $request->autre)
+                      $this->ExamCliniqCTLR->store( $request,$consult->id); //save examen clinique
+           if($request->liste != null)
+                $this->OrdonnanceCTLR->store( $request,$consult->id);    //save Ordonnance
+           if($request->AutreBiol != null || $request->exambio != null )  //save ExamBiolo
+                $this->ExamBioloqiqueCTLR->store( $request,$consult->id); 
+           if(array_key_exists('RX', $request->examRad) || ($request->examRad["AutRX"][0] != null) || (array_key_exists('ECHO', $request->examRad)) || (array_key_exists('CT', $request->examRad)) || ($request->examRad['AutCT'][0] != null) || (array_key_exists('RMN', $request->examRad))  || ($request->examRad['AutRMN'][0] != null) || ($request->examRad['AutECHO'][0] != null))
                       $this->ExamImagerieCTLR->store( $request,$consult->id); 
-                 if($request->examen_Anapath != null) 
+           if($request->examen_Anapath != null) 
                            $this->ExamAnapathCTLR->store( $request,$consult->id);
-                if($request->modeAdmission != null)
+           if($request->modeAdmission != null)
                          $this->DemandeHospCTRL->store($request,$consult->id);
                     //enregistrer lettre orientation
                      if($request->specialite != null){
                           $this->LettreOrientationCTRL->store($request,$consult->id);
     
-                }
-
-
-              
-              
-             return redirect()->action('PatientController@index');
-         
+           }
+           return redirect()->action('PatientController@index');
+     }
+       public function storeold(Request $request, $id)
+       {   
              // return redirect()->action('ConsultationsController@show',['id'=>$consult->id]);
     }                               
 
