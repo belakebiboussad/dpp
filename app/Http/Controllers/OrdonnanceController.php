@@ -41,13 +41,11 @@ class OrdonnanceController extends Controller
     public function store(Request $request)
     {   
            $date = Date::now();
-           $ordonnance = ordonnance::FirstOrCreate([
+          $ordonnance = ordonnance::FirstOrCreate([
                 "date" => $date,
                 "id_consultation" => $request->id_consultation,   
            ]);
-           dd($request->all());
           $listes = json_decode($request->liste);
-
            for ($i=1; $i < count($listes); $i++) { 
                     $id_med = $listes[$i]->med;
                    $ordonnance->medicamentes()->attach($id_med,['posologie' => $listes[$i]->posologie]); 
@@ -56,9 +54,7 @@ class OrdonnanceController extends Controller
     }
     public function storeold(Request $request)
     {
-
-        $liste = explode(",",$request->liste);
-        dd($liste);
+        $liste = explode(",",$request->liste); 
         $medics = json_encode($liste); 
         ordonnance::create([
             // "date"=>$request->dateord,
