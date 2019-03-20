@@ -83,28 +83,54 @@
 	</div> {{-- liste consults --}}
 	</div>
 	<div class="col-sm-6">
-	{{-- 	<div class="space-6"></div> --}}
 		<div id="accordion" class="accordion-style1 panel-group ">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h4 class="panel-title">
-				<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#Interogatoire" aria-expanded="false">
-				<i class="bigger-110 ace-icon fa fa-angle-right" data-icon-hide="ace-icon fa fa-angle-down" data-icon-show="ace-icon fa fa-angle-right"></i>&nbsp;<h4 style ="display: inline-block;">Interogatoire</h4>
-				</a>
-				</h4>
-			</div>
-			<div class="panel-collapse collapse" id="Interogatoire" aria-expanded="false" style="height: 0px;">
-			<div class="panel-body">
-				   <label for="histoire_maladie"><span class="bigger-120"><b>Histoire de la maladie:</b></span></label>
-				<textarea type="text" id="histoire_maladie" style="width:100%; height: 10%;" readonly >{{ $consultation->Motif_Consultation }}</textarea>
+	           <div class="row">
+			<div class="col-sm-12">
+			<div class="widget-box">
+			<div class="widget-header" >
+                        		<h4 class="widget-title">
+                        			<font color="black"><strong>Interogatoire</strong></font>                        			
+                        		</h4>
+                        	</div>		
+               		<div class="widget-body">
+				<div class="widget-main">
+					<div class="row">
+						<div class="col-xs-12">
+							<label for="Motif_Consultation"><strong>Motif de la Consultation :</strong></label>
+							<textarea type="text" id="Motif_Consultation" style="width:100%; height: 8%;" readonly >{{ $consultation->Motif_Consultation }}</textarea>
+						</div>
+					</div>{{-- row	 --}}
+					@if(isset($consultation->histoire_maladie))
+					<div class="row">
+						<div class="col-xs-12">
+							<label for="histoire_maladie"><strong>Histoire de la maladie :</strong></label>
+							<textarea type="text" id="histoire_maladie" style="width:100%; height: 8%;" readonly >{{ $consultation->histoire_maladie }}</textarea>
+						</div>
+					</div>
+					@endif
+					@if(isset($consultation->Diagnostic))
+					<div class="row">
+						<div class="col-xs-12">
+							<label for="Diagnostic"><strong>Diagnostic:</strong></label>
+							<textarea type="text" id="Diagnostic" style="width: 100%; height: 8%;" readonly >{{ $consultation->Diagnostic }}</textarea>
+						</div>
+					</div>
+					@endif
+					@if(isset($consultation->Resume_OBS))
+					<div class="row">
+						<div class="col-xs-12">
+							<label for="Resume_OBS"><span class="bigger-120"><b>Résumé:</b></span></label><textarea type="text" id="Resume_OBS" style="width: 100%; height: 10%;" readonly >{{ $consultation->Resume_OBS }}</textarea>
+						</div>
+					</div>
+					@endif
 
-				<label for="Diagnostic"><span class="bigger-120"><b>Diagnostic:</b></span></label>
-				<textarea type="text" id="Diagnostic" style="width: 100%; height: 10%;" readonly >{{ $consultation->Diagnostic }}</textarea>
-				<label for="Resume_OBS"><span class="bigger-120"><b>Résumé:</b></span></label><textarea type="text" id="Resume_OBS" style="width: 100%; height: 10%;" readonly >{{ $consultation->Resume_OBS }}</textarea>
+				</div>{{-- widget-main--}}
+			</div>{{-- widgetbody --}}
+			</div>	{{-- widgetbox --}}
+			</div>	{{-- sm-12 --}}
+		</div>	{{-- row --}}
 
-			</div>
-			</div>
-		</div>
+	           {{-- examenclique --}}
 		@if(isset($exmclin) )
 		<div class="panel panel-default">
 			<div class="panel-heading">
@@ -253,41 +279,46 @@
 		<div class="row">
 			<div class="col-sm-12">
 			<div class="widget-box">
-			<div class="widget-body">
-				<div class="widget-main">
-					<div class="row">
-						<div class="col-xs-12">
-							<label><b>Date :</b></label>&nbsp;&nbsp;<span>{{ $ordonnance->date }}</span>
-							<br><br>
-							<table class="table table-striped table-bordered">
-	                                      				<thead>
-		                                        				<tr>
-						                                           <th class="center">#</th>
-						                                           <th>Nom</th>
-						                                           <th>Dosage</th>
-						                                           <th>Forme</th>
-						                                           <th>Posologie</th>
-					                                           </tr>
-	                                     				 </thead>
-	                                      				<tbody>
-					                                        @foreach($ordonnance->medicamentes as $index => $med)
-					                                        <tr>
-						                                          <td>{{ $index + 1 }}</td>
-						                                          <td>{{ $med->Nom_com }}</td>
-						                                          <td>{{ $med->Dosage }}</td>
-						                                          <td>{{ $med->Forme }}</td>
-						                                          <td>{{ $med->pivot->posologie }}</td>
-					                                        </tr>
-					                                        @endforeach
-					                                </tbody>
-				                                </table>
-				                                <a href="/showordonnance/{{ $ordonnance->id }}" target="_blank" class="btn btn-primary pull-right">
-				                                	<i class="fa fa-eye"></i>&nbsp;   Visualiser Ordonnance
-				                                </a>
-				                      </div>
-				           </div>
-				          </div>
-			</div>
+				<div class="widget-header" >
+	                        		<h4 class="widget-title">
+	                        			<font color="black"><strong>Ordonnance</strong></font>                        			
+	                        		</h4>
+	                        	</div>	
+				<div class="widget-body">
+					<div class="widget-main">
+						<div class="row">
+							<div class="col-xs-12">
+								{{-- <label><b>Date :</b></label>&nbsp;&nbsp;<span>{{ $ordonnance->date }}</span> --}}
+								<div class="space-12"></div>		
+								<table class="table table-striped table-bordered">
+		                                      				<thead>
+			                                        				<tr>
+							                                           <th class="center">#</th>
+							                                           <th>Nom</th>
+							                                           <th>Dosage</th>
+							                                           <th>Forme</th>
+							                                           <th>Posologie</th>
+						                                           </tr>
+		                                     				 </thead>
+		                                      				<tbody>
+						                                        @foreach($ordonnance->medicamentes as $index => $med)
+						                                        <tr>
+							                                          <td>{{ $index + 1 }}</td>
+							                                          <td>{{ $med->Nom_com }}</td>
+							                                          <td>{{ $med->Dosage }}</td>
+							                                          <td>{{ $med->Forme }}</td>
+							                                          <td>{{ $med->pivot->posologie }}</td>
+						                                        </tr>
+						                                        @endforeach
+						                                </tbody>
+					                                </table>
+					                                <a href="/showordonnance/{{ $ordonnance->id }}" target="_blank" class="btn btn-primary pull-right">
+					                                	<i class="fa fa-eye"></i>&nbsp;   Visualiser Ordonnance
+					                                </a>
+					                      </div>
+					           </div>
+					</div>
+				</div>
 			</div>
 			</div>
 		</div>	

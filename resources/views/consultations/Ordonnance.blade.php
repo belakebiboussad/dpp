@@ -86,7 +86,7 @@
 		</div>	{{-- widget-header --}}
 		<div class="widget-body">
 			<div class="widget-main">
-				<div class="row">
+				{{-- <div class="row">
 					<div class="col-sm-5">
 						<label for="dateord"><strong>Date Ordonnance :&nbsp;</strong></label>
 						<input id="dateord" name="dateord" class="date-picker disabledElem" name ="dateord" type="text" data-date-format="yyyy-mm-dd" data-provide="datepicker"  value='<?php echo date("Y-m-d");?>' />
@@ -102,7 +102,8 @@
 								<option value="Mois">Mois</option>
 							</select>
 						</div>		 
-				</div>{{-- row --}}
+				</div> --}}
+				{{-- row --}}
 				<div class="space-12"></div>
 				<div class="row">
 					<table id="ordonnance" class="table  table-bordered table-hover">
