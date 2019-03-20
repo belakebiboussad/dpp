@@ -53,7 +53,7 @@
 	                     	<div class="col-xs-12">
 	                                <label for="posologie">Posologie:</label>
 	                                {{-- <input type="text" class="form-control" id="posologie" placeholder="Posologie..."> --}}
-	                                 <input type="text" class="form-control" id="posologie_medic" placeholder="Posologie...">
+	                                 <input type="text" class="form-control disabledElem" id="posologie_medic" placeholder="Posologie...">
 	                     </div>
                      </div>     
                 	<div class="space-12"></div>
@@ -93,7 +93,7 @@
 						</div>
 						<div class="col-sm-3">
 							<label for="dureeefois"><strong>Pendant:&nbsp;</strong></label>
-							<input class="" name="dureeefois"  id ="dureeefois" type="number"  value =1 min =1/>
+							<input class="" name="dureeefois"  id ="dureeefois" type="number"  value="1" min="1"/>
 						</div>
 						<div class="col-sm-4">
 							<select class="col-sm-6" id="foisss" name="foisss" value="Semaine">

@@ -73,7 +73,7 @@ class ConsultationsController extends Controller
                 //$ordennances = ordonnance::where("id_consultation",$id_cons)->get(['medicaments'])->first();
                 $ordonnance= $consultation->ordonnance;
                 $medicaments =  $ordonnance->medicamentes;
-                //dd($medicaments);
+                dd($ordonnance);
                 // dd($medicaments[0]->pivot->posologie); //$medicaments = json_decode( $ordennances['medicaments'],true);
                 // return view('consultations.resume_cons', compact('consultation','patient','examensbios','examensimg','exmclin','ordonnance','medicaments','consults'));
                 return view('consultations.resume_cons', compact('consultation','patient','examensimg','exmclin','ordonnance','medicaments','consults'));
