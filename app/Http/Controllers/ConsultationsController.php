@@ -124,7 +124,6 @@ class ConsultationsController extends Controller
                 "motif" => 'required',   // "histoirem" => 'required',
                 "resume" => 'required',
            ]);
-           dd($request->all());
            $nomlieu = Config::get('constants.lieuc');
           $lieu = Lieuconsultation::where('Nom', $nomlieu)->first();
            $consult = consultation::create([

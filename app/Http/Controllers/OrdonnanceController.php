@@ -39,8 +39,8 @@ class OrdonnanceController extends Controller
      */
     public function store(Request $request,$consultID)
     {
-           
-           $liste = explode(",",$request->listeMedicaments);
+           // dd($request->liste);
+           $liste = explode(",",$request->liste);
             //dd($liste);
            //unset($liste[0]);
            foreach ($liste as $key => $value) {
