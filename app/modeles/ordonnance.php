@@ -13,6 +13,6 @@ class ordonnance extends Model
 
     public function consultation()
     {
-        return $this->belongsTo('App\modeles\consultation','id_consultation');
+          return $this->belongsTo('App\modeles\consultation','id_consultation');
     }
 }

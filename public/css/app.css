@@ -6474,3 +6474,6 @@ width:auto !important;
        line-height: 20px;
     }
 .liste th {text-align:center}
+.my-right-float {
+     margin-right: -10px;
+}

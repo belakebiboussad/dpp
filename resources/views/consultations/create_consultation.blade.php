@@ -35,9 +35,6 @@
 	        color: white;
 	        background-color: rgba(255,255,255,0.2);
 	}
-	.my-right-float {
-	        margin-right: -10px;
-	}
 </style>
 @endsection
 @section('page-script')    
