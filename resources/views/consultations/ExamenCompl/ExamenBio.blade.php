@@ -4,7 +4,7 @@
           <div class="widget-box transparent" id="widget-box-12">
             	<div class="widget-header">
 		          <h4 class="widget-title lighter"> 
-		                {{ $specialite->specialite }}
+		               <strong>{{ $specialite->specialite }}</strong> 
 		          </h4>
            	</div>
 			<div class="widget-body">
@@ -16,7 +16,7 @@
 			                     <div class="checkbox">
 			                          <label>
 			          		                <input name="exm[]" type="checkbox" class="ace" value="{{ $exbio->id }}" />
-			               			     <span class="lbl">{{ $exbio->nom_examen }}   </span> 
+			               			     <span class="lbl">{{ $exbio->nom_examen }} </span> 
 			                          </label>
 			                     </div>
 			                </div>
