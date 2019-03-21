@@ -134,7 +134,43 @@
 		</div>
 		@endif
 		@if(isset($consultation->demandeexmbio))
-		
+		          <div id="friends" class="tab-pane">
+                    			<div>
+		                        <table class="table table-striped table-bordered">
+		                          <thead>
+		                            <tr>
+		                              <th class="center">#</th>
+		                              <th>Date</th>
+		                              <th>Etat</th>
+		                              <th></th>
+		                            </tr>
+		                          </thead>
+		                          <tbody>
+		                          @foreach($consultation->demandeexmbio as $index => $demande)
+		                            <tr>
+		                              <td class="center">{{ $index +1 }}</td>
+		                              <td>{{ $demande->DateDemande }}</td>
+		                              <td>
+		                                @if($demande->etat == "E")
+		                                  En Attente
+		                                @elseif($demande->etat == "V")
+		                                  Validé
+		                                @else
+		                                  Rejeté
+		                                @endif
+		                              </td>
+		                              <td class="center">
+		                                {{-- <a href="{{ route('demandeexb.show', $demande->id_demandeexb) }}">
+		                                  <i class="fa fa-eye"></i>
+		                                </a> --}}
+		                              </td>
+		                            </tr>
+		                          @endforeach               
+		                          </tbody>
+		                        </table>
+                     	 </div>
+                    </div><!-- /#friends -->
+                   
 		@endif
 		@if(isset($examensimg)  && count($examensimg) !=0)	
 		<div class="panel panel-default">
