@@ -1179,8 +1179,7 @@ $('#typeexm').on('change', function() {
 
             function showConsult(consult)
             {
-                
-                      alert(consult);
+                     alert("fddsf");
                       // $.each( consults[index], function( key, value ) {
                       //                 $("#"+key).val(consults[index][key]);
                                         

@@ -310,11 +310,11 @@
 		<table id="simple-table" class="table table-striped table-bordered table-hover table-condensed">
 			<thead>
 				<tr> 	{{-- <th  width="5%">#</th> --}}
-					<th class="text-center" width="15%" ><b  style="font-weight: bold;"><h5>Date</h5></b></th>
-					<th class="text-center" width="35%"><strong> <h5>Motif</h5></strong></th>
-					<th class="text-center" width="15%"><h5>Medecin</h5></th>
-					<th class="text-center" width="20%"><span><h5>Lieu consultation</h5></span> </th>
-					<th  class="text-center" width="10%"></th>
+					<th class="text-center" width="15%" ><h5>Date<strong></strong></h5><</th>
+					<th class="text-center" width="40%"><strong> <h5><strong>Motif</strong></h5></strong></th>
+					<th class="text-center" width="20%"><h5><strong>Medecin</strong></h5></th>
+					<th class="text-center" width="20%"><h5><strong>Lieu consultation</strong></h5></th>
+					<th  class="text-center" width="5%"></th>
 				</tr>
 			</thead>
 		</table>
@@ -328,12 +328,12 @@
 								<span>{{$consult->Date_Consultation}}</span>
 							</div>
 						</td>
-						<td class="center" width="35%">
+						<td class="center" width="40%">
 							<div class="action-buttons" >
 								<span >{{$consult->Motif_Consultation}}</span>
 							</div>
 						</td>
-						<td class="center" width="15%">
+						<td class="center" width="20%">
 							<div class="action-buttons">
 							<span >
 							{{ $consult->Nom_Employe }} 
@@ -346,10 +346,10 @@
 								<span >{{$consult->Nom}}</span>
 							</div>
 						</td>
-						<td class="center"  width="10%">
-							<div class="action-buttons">
-							<button onclick="showConsult({{ $consults }} ,{{ $i }})"> 
-							 <i class="ace-icon fa fa-pencil bigger-120"></i></button>
+						<td class="center"  width="5%">
+							<div class="action-buttons my-right-float">
+								<button onclick="showConsult({{ $consults }} ,{{ $i }})"> 
+								 <i class="fa fa-hand-o-up fa-xs"></i></button>
 							</div>
 						</td>
 					</tr>

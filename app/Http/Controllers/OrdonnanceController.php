@@ -98,7 +98,7 @@ class OrdonnanceController extends Controller
      public function show_ordonnance($id)
      {
            $ordonnance = ordonnance::FindOrFail($id);
-           dd($ordonnance->consultation);
+           dd($ordonnance->consultations);
            $pdf = PDF::loadView('ordonnance', compact('ordonnance'));
            return $pdf->stream('ordonnance.pdf');
     }

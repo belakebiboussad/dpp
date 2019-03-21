@@ -69,11 +69,9 @@ class ConsultationsController extends Controller
                 $demande = demandeExamImag::where("id_consultation",$id_cons)->get(['examsImagerie'])->first(); 
                 if(isset($demande))
                      $examensimg = json_decode($demande->examsImagerie); 
-                $exmclin = examen_cliniqu::where("id_consultation",$id_cons)->get()->first();
-                //$ordennances = ordonnance::where("id_consultation",$id_cons)->get(['medicaments'])->first();
-                $ordonnance= $consultation->ordonnance;
-                $medicaments =  $ordonnance->medicamentes;
-                // dd($medicaments[0]->pivot->posologie); //$medicaments = json_decode( $ordennances['medicaments'],true);
+                $exmclin = examen_cliniqu::where("id_consultation",$id_cons)->get()->first();      //$ordennances = ordonnance::where("id_consultation",$id_cons)->get(['medicaments'])->first();
+               $ordonnance= $consultation->ordonnances;
+                $medicaments =  $ordonnance->medicamentes;    // dd($medicaments[0]->pivot->posologie); //$medicaments = json_decode( $ordennances['medicaments'],true);
                 // return view('consultations.resume_cons', compact('consultation','patient','examensbios','examensimg','exmclin','ordonnance','medicaments','consults'));
                 return view('consultations.resume_cons', compact('consultation','patient','examensimg','exmclin','ordonnance','medicaments','consults'));
     }

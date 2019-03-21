@@ -66,8 +66,10 @@
 				</div>
 			</div>
 		</div>
-		<br><br>
-	{{-- 	<div class="col-sm-12">
+	</div>
+	<div class="space-12"></div>			
+	<div class="row">		 
+	 	<div class="col-sm-12">
 			<br>
 			<ol>
 				@foreach($ordonnance->medicamentes as $index => $med)
@@ -78,7 +80,7 @@
 					<br><br>
 				@endforeach
 			</ol>
-		</div>--}}
+		</div>
 	</div> 
 </div>
 </body>
