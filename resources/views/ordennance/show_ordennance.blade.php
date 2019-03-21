@@ -37,9 +37,8 @@
                                       </tbody>
                                     </table>
                                     <a href="/showordonnance/{{ $ordonnance->id }}" target="_blank" class="btn btn-primary pull-right">
-                                      <i class="fa fa-eye"></i>&nbsp;
-                                      Visualiser Ordonnance
-                                    </a>
+                                                        <i class="fa fa-eye"></i>&nbsp;Visualiser Ordonnance
+                                            </a>
                       						</div>
                       					</div>
                       				</div>

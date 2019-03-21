@@ -20,7 +20,7 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-sm-6">
+	<div class="col-sm-5">
 		<div class="table-responsive">
 		<table id="simple-table" class="table table-striped table-bordered table-hover table-condensed">
 		<thead>
@@ -82,7 +82,7 @@
     		</table>
 	</div> {{-- liste consults --}}
 	</div>
-	<div class="col-sm-6">
+	<div class="col-sm-7">
 		<div id="accordion" class="accordion-style1 panel-group ">
 	           <div class="row">
 			<div class="col-sm-12">
@@ -281,7 +281,7 @@
 			<div class="widget-box">
 				<div class="widget-header" >
 	                        		<h4 class="widget-title">
-	                        			<font color="black"><strong>Ordonnance</strong></font>                        			
+	                        			<i class="orange ace-icon fa fa-medkit bigger-120"></i><font color="black"><strong>Ordonnance</strong></font>                        			
 	                        		</h4>
 	                        	</div>	
 				<div class="widget-body">
@@ -298,6 +298,7 @@
 							                                           <th>Dosage</th>
 							                                           <th>Forme</th>
 							                                           <th>Posologie</th>
+							                                           <th></th>
 						                                           </tr>
 		                                     				 </thead>
 		                                      				<tbody>
@@ -308,13 +309,16 @@
 							                                          <td>{{ $med->Dosage }}</td>
 							                                          <td>{{ $med->Forme }}</td>
 							                                          <td>{{ $med->pivot->posologie }}</td>
+							                                          <td>
+							                                          		<a href="/showordonnance/{{ $ordonnance->id }}" target="_blank" class="btn btn-primary pull-right">
+					                                					<i class="fa fa-eye"></i>&nbsp;   Visualiser Ordonnance
+					                               					 </a>
+					                               				</td>
 						                                        </tr>
 						                                        @endforeach
 						                                </tbody>
 					                                </table>
-					                                <a href="/showordonnance/{{ $ordonnance->id }}" target="_blank" class="btn btn-primary pull-right">
-					                                	<i class="fa fa-eye"></i>&nbsp;   Visualiser Ordonnance
-					                                </a>
+					                           
 					                      </div>
 					           </div>
 					</div>
