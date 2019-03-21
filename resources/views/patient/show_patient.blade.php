@@ -431,11 +431,10 @@
 														</td>
 														<td>
 															<div class="hidden-sm hidden-xs btn-group">
-                            									<a class="btn btn-xs btn-success" href="/consultations/detailcons/{{$consultation->id}}">
-                                									<i class="ace-icon fa fa-hand-o-up bigger-120"></i>
-                                									Détails
-                           										</a>
-                           									</div>
+                            														<a class="btn btn-xs btn-success" href="/consultations/detailcons/{{$consultation->id}}">	
+                            															<i class="ace-icon fa fa-hand-o-up bigger-120"></i>Détails
+                           														</a>
+                           													</div>
 														</td>
 													</tr>
 													@endif

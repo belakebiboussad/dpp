@@ -54,15 +54,11 @@ class ConsultationsController extends Controller
     }
     public function detailcons($id_cons)
     {  
+                //dd('qsfd');
                 $consultation = consultation::join('lieuconsultations','lieuconsultations.id','=','consultations.id_lieu')
                 ->where('consultations.id', '=',$id_cons) ->select('consultations.*','lieuconsultations.Nom')->get()->first(); 
                 $patient = patient::where("id",$consultation->Patient_ID_Patient)->get()->first();    
                 // liste des consultations du patient
-                // $consults = consultation::join('codesims', 'codesims.id', '=', 'consultations.id_code_sim')
-                //                  ->join('lieuconsultations','lieuconsultations.id','=','consultations.id_lieu')
-                //                 ->join('employs','employs.id','=','consultations.Employe_ID_Employe') 
-                //                 ->where('consultations.Patient_ID_Patient', $patient->id)
-                //                 ->select('consultations.*','codesims.description','lieuconsultations.Nom','employs.Nom_Employe','employs.Prenom_Employe')->get(['consultations.*','codesims.description','lieuconsultations.Nom','employs.Nom_Employe','employs.Prenom_Employe']);
                 $consults = consultation::join('employs','employs.id','=','consultations.Employe_ID_Employe')->join('lieuconsultations','lieuconsultations.id','=','consultations.id_lieu')->leftjoin('codesims', 'codesims.id', '=', 'consultations.id_code_sim')->select('consultations.*','employs.Nom_Employe','employs.Prenom_Employe','lieuconsultations.Nom','codesims.description')->where('consultations.Patient_ID_Patient', $patient->id)->get();
                 //exam biologique en suite
                 //$examensbios = examenbiologique::where("id_consultation",$id_cons)->get();// $examensimg = examenimagrie::where("id_consultation",$id_cons)->get(); 
@@ -71,7 +67,8 @@ class ConsultationsController extends Controller
                      $examensimg = json_decode($demande->examsImagerie); 
                 $exmclin = examen_cliniqu::where("id_consultation",$id_cons)->get()->first();      //$ordennances = ordonnance::where("id_consultation",$id_cons)->get(['medicaments'])->first();
                $ordonnance= $consultation->ordonnances;
-                $medicaments =  $ordonnance->medicamentes;    // dd($medicaments[0]->pivot->posologie); //$medicaments = json_decode( $ordennances['medicaments'],true);
+                if($ordonnance != null )
+                     $medicaments =  $ordonnance->medicamentes;    // dd($medicaments[0]->pivot->posologie); //$medicaments = json_decode( $ordennances['medicaments'],true);
                 // return view('consultations.resume_cons', compact('consultation','patient','examensbios','examensimg','exmclin','ordonnance','medicaments','consults'));
                 return view('consultations.resume_cons', compact('consultation','patient','examensimg','exmclin','ordonnance','medicaments','consults'));
     }

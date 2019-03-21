@@ -1,4 +1,13 @@
 @extends('app_med')
+@section('style')
+<style>
+	thead th {
+		  font-size: 0.6em;
+		  padding: 1px !important;
+		  height: 15px;
+	}
+</style>
+@endsection
 @section('main-content')
 <div class="page-header">
 <h1><strong>Résumé  du Consultation Pour :</h1>
@@ -307,13 +316,14 @@
 	</div> 	{{-- details consult  7--}}
 	<div class="col-sm-5">
 		<div class="table-responsive">
+		{{-- <table id="simple-table" class="table table-striped table-bordered table-hover table-condensed"> --}}
 		<table id="simple-table" class="table table-striped table-bordered table-hover table-condensed">
 			<thead>
 				<tr> 	{{-- <th  width="5%">#</th> --}}
-					<th class="text-center" width="15%" ><h5>Date<strong></strong></h5><</th>
-					<th class="text-center" width="40%"><strong> <h5><strong>Motif</strong></h5></strong></th>
-					<th class="text-center" width="20%"><h5><strong>Medecin</strong></h5></th>
-					<th class="text-center" width="20%"><h5><strong>Lieu consultation</strong></h5></th>
+					<th class="text-center" width="15%"><strong>Date</strong></th>
+					<th class="text-center" width="40%"><strong>Motif</strong></th>
+					<th class="text-center" width="20%"><strong>Medecin</strong></th>
+					<th class="text-center" width="20%" ><strong>Lieu consultation</strong></th>
 					<th  class="text-center" width="5%"></th>
 				</tr>
 			</thead>
@@ -348,8 +358,11 @@
 						</td>
 						<td class="center"  width="5%">
 							<div class="action-buttons my-right-float">
-								<button onclick="showConsult({{ $consults }} ,{{ $i }})"> 
-								 <i class="fa fa-hand-o-up fa-xs"></i></button>
+								{{-- <button onclick="showConsult({{ $consult->id }} ,{{ $i }})"> 
+								<i class="fa fa-hand-o-up fa-xs"></i></button> --}}
+							           <a class="btn btn-xs btn-success" href="/consultations/detailcons/{{$consult->id}}">	
+                            							<i class="ace-icon fa fa-hand-o-up fa-xs"></i>
+                           						</a>
 							</div>
 						</td>
 					</tr>

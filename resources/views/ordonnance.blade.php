@@ -50,7 +50,7 @@
 	</div>
 	<br><br>
 	<h4 class="center"><b>Ordonnance</b></h4>
-	<br><br>
+	 <br><br><br>
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="section">
@@ -67,7 +67,8 @@
 			</div>
 		</div>
 	</div>
-	<div class="space-12"></div>			
+	<div class="space-12"></div>
+	<div class="space-12"></div> 				
 	<div class="row">		 
 	 	<div class="col-sm-12">
 			<br>

@@ -74,7 +74,7 @@ $(document).ready(function(){
 function XHRgePatient()
 {
 	$('#btnCreate').removeClass('hidden');
-               $('#FusionButton').removeClass('hidden');
+           $('#FusionButton').removeClass('hidden');
 	nom=$('#patientName').val();
 	prenom=$('#patientFirstName').val();
 	code_barre=$('#IPP').val();
