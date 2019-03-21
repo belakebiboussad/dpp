@@ -23,6 +23,7 @@ use App\modeles\demandeExamImag;
 use App\User;
 use App\modeles\Specialite;
 use App\modeles\LettreOrientation;
+use App\modeles\specialite_exb;
 use Config;
 class ConsultationsController extends Controller
 {
@@ -108,8 +109,7 @@ class ConsultationsController extends Controller
            $meds = User::where('role_id',1)->get()->all(); 
           $specialites = Specialite::orderBy('nom')->get();
            $specialitesExamBiolo = specialite_exb::all();
-           dd($specialitesExamBiolo);
-           return view('consultations.create_consultation',compact('patient','employe','antecedants','codesim','lieus','meds','specialites','modesAdmission','services'));
+           return view('consultations.create_consultation',compact('patient','employe','antecedants','codesim','lieus','meds','specialites','specialitesExamBiolo','modesAdmission','services'));
     }
 
     /**
