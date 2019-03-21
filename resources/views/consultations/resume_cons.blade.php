@@ -133,47 +133,9 @@
 			</div>
 		</div>
 		@endif
-	{{-- 	@if(count($examensbios) !=0)
-		<div class="panel panel-default" >
-			<div class="panel-heading">
-				<h4 class="panel-title">
-				<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false"><i class="bigger-110 ace-icon fa fa-angle-right" data-icon-hide="ace-icon fa fa-angle-down" data-icon-show="ace-icon fa fa-angle-right"></i>&nbsp;<h4 style ="display: inline-block;">Examen Biologique</h4>
-				</a>
-				</h4>
-			</div>
-			<div class="panel-collapse collapse" id="collapseTwo" aria-expanded="false">
-			<div class="panel-body">
-			<div class="widget-box widget-color-blue ui-sortable-handle" id="widget-box-2">
-			<div class="widget-body">
-			<div class="widget-main no-padding">
-			<table class="table table-striped table-bordered table-hover">
-				<thead class="thead-dark">
-					<tr>
-						<th class ="text-center">
-						<i class="fa fa-flask deep-purple-text"></i>
-						<span class="bigger-120"><b>Nom examen</b></span> 	
-						</th>					
-						<th class="text-center hidden-480"><span class="bigger-120"><b>Type examen</b></span></th>
-					</tr>
-				</thead>
-				<tbody>
-				@foreach ($examensbios as $exam)
-					<tr>
-					<td class="">{{$exam->nom}}</td>
-					<td>
-					<a href="#">{{$exam->classe}}</a>
-					</td>
-					</tr>
-				@endforeach
-				</tbody>
-			</table>
-			</div>
-			</div>widget-body
-			</div>widget box
-			</div>
-			</div>
-		</div>
-		@endif --}}
+		@if(isset($consultation->demandeexmbio))
+		
+		@endif
 		@if(isset($examensimg)  && count($examensimg) !=0)	
 		<div class="panel panel-default">
 			<div class="panel-heading">
