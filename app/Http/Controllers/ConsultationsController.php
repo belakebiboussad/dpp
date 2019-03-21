@@ -60,7 +60,6 @@ class ConsultationsController extends Controller
                 $patient = patient::where("id",$consultation->Patient_ID_Patient)->get()->first();    
                 // liste des consultations du patient
                 $consults = consultation::join('employs','employs.id','=','consultations.Employe_ID_Employe')->join('lieuconsultations','lieuconsultations.id','=','consultations.id_lieu')->leftjoin('codesims', 'codesims.id', '=', 'consultations.id_code_sim')->select('consultations.*','employs.Nom_Employe','employs.Prenom_Employe','lieuconsultations.Nom','codesims.description')->where('consultations.Patient_ID_Patient', $patient->id)->get();
-                //exam biologique en suite
                 //$examensbios = examenbiologique::where("id_consultation",$id_cons)->get();// $examensimg = examenimagrie::where("id_consultation",$id_cons)->get(); 
                 $demande = demandeExamImag::where("id_consultation",$id_cons)->get(['examsImagerie'])->first(); 
                 if(isset($demande))
@@ -108,6 +107,8 @@ class ConsultationsController extends Controller
            $antecedants = antecedant::where('Patient_ID_Patient',$patient->id)->get();
            $meds = User::where('role_id',1)->get()->all(); 
           $specialites = Specialite::orderBy('nom')->get();
+           $specialitesExamBiolo = specialite_exb::all();
+           dd($specialitesExamBiolo);
            return view('consultations.create_consultation',compact('patient','employe','antecedants','codesim','lieus','meds','specialites','modesAdmission','services'));
     }
 
