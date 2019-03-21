@@ -48,16 +48,15 @@ class DemandeExbController extends Controller
     public function store(Request $request,$consultId)
     {
           $date = Date::now();
+          //dd($request->all());
           $demande = demandeexb::FirstOrCreate([
                 "DateDemande" => $date,
                 "id_consultation" => $consultId,
           ]);
-          dd($demande); 
+      
           foreach($request->exm as $id_exb) {
                  $demande->examensbios()->attach($id_exb);
-        }
-
-        return redirect()->route('consultations.show', $request->id_consultation);
+          }
     }
 
     /**
