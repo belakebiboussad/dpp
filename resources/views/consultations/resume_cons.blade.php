@@ -29,9 +29,9 @@
 	</div>
 </div>
 <div class="row">
-		<div class="col-sm-7">
-		<div id="accordion" class="accordion-style1 panel-group ">
-	           <div class="row">
+	<div class="col-sm-7">
+	<div id="accordion" class="accordion-style1 panel-group ">
+	          <div class="row">
 			<div class="col-sm-12">
 			<div class="widget-box">
 			<div class="widget-header" >
@@ -133,41 +133,67 @@
 			</div>
 		</div>
 		@endif
-		@if(isset($consultation->demandeexmbio))
+		@if(isset($consultation->demandeexmbio) && $consultation->demandeexmbio->count() !=0)
+		<div class="row">
+			<div class="col-sm-12">
+			<div class="widget-box">
+				<div class="widget-header" >
+	                        		<h4 class="widget-title">
+	                        			<i class="fa fa-1x fa-flask deep-purple-text"></i><font color="black"><strong>&nbsp;Examens Bioloiques</strong></font>    
+	                        		</h4>
+	                        		<div class="widget-toolbar no-border my-right-float">
+	                        			{{-- <a href="" target="_blank" class="btn btn-primary my-right-float">
+					                     <i class="fa fa-eye"></i>&nbsp;Visualiser Examens Bioloiques
+					           </a> --}}
+	                        		</div>
+	                        	</div>
+	                        	<div class="widget-body">
+					<div class="widget-main">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="space-12"></div>		
+								<table class="table table-striped table-bordered">
+						                     <thead>
+							                     <tr>
+								                     <th class="center">#</th>
+								                     <th>Date</th>
+								                     <th>Etat</th>
+								                      <th></th>
+							                     </tr>
+						                     </thead>
+			                          			<tbody>
+							           @foreach($consultation->demandeexmbio as $index => $demande)
+							           <tr>
+								           <td class="center">{{ $index +1 }}</td>
+								          <td>{{ $demande->DateDemande }}</td>
+									<td>
+									@if($demande->etat == "E")
+									          En Attente
+									@elseif($demande->etat == "V")
+									          Validé
+									@else
+									           Rejeté
+									@endif
+									</td>
+									<td class="center">
+									           <a href="{{ route('demandeexb.show', $demande->id_demandeexb) }}">
+									           <i class="fa fa-eye"></i>
+									           </a>
+									</td>
+								</tr>
+							          @endforeach               
+						                    </tbody>
+					                              </table>
+		                                     		</div>
+		                                     	</div>
+		                               </div>
+		                      </div>
+	                     </div>{{-- widget-box --}}
+	                     </div>	{{-- col-sm-12 --}}
+	           </div>  {{-- row --}}
 		            <div id="friends" class="tab-pane">
                     			<div>
-		                          <table class="table table-striped table-bordered">
-			                          <thead>
-				                          <tr>
-					                              <th class="center">#</th>
-					                              <th>Date</th>
-					                              <th>Etat</th>
-					                              <th></th>
-				                          </tr>
-			                          </thead>
-			                          <tbody>
-				              @foreach($consultation->demandeexmbio as $index => $demande)
-				                          <tr>
-					                          <td class="center">{{ $index +1 }}</td>
-					                          <td>{{ $demande->DateDemande }}</td>
-					                          <td>
-						             @if($demande->etat == "E")
-						                          En Attente
-						             @elseif($demande->etat == "V")
-						                          Validé
-						             @else
-						                          Rejeté
-						             @endif
-					                          </td>
-					                              <td class="center">
-					                                <a href="{{ route('demandeexb.show', $demande->id_demandeexb) }}">
-					                                  <i class="fa fa-eye"></i>
-					                                </a>
-					                              </td>
-				                          </tr>
-				              @endforeach               
-			                          </tbody>
-		                          </table>
+		                         
                      	 </div>
                     </div><!-- /#friends -->
                    
@@ -313,7 +339,7 @@
 	</div>
 	</div> 	{{-- details consult  7--}}
 	<div class="col-sm-5">
-		<div class="table-responsive">
+		<div class="table-responsive" style="margin-left:-20px !important;">
 		{{-- <table id="simple-table" class="table table-striped table-bordered table-hover table-condensed"> --}}
 		<table id="simple-table" class="table table-striped table-bordered table-hover table-condensed">
 			<thead>
