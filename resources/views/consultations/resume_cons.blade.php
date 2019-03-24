@@ -82,8 +82,8 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 			<h4 class="panel-title">
-			<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#ExamClinique" aria-expanded="false"><i class="bigger-110 ace-icon fa fa-angle-right" data-icon-hide="ace-icon fa fa-angle-down" data-icon-show="ace-icon fa fa-angle-right"></i>&nbsp;<h4 style ="display: inline-block;">Examen Clinique</h4>
-			</a>
+				<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#ExamClinique" aria-expanded="false"><i class="bigger-110 ace-icon fa fa-angle-right" data-icon-hide="ace-icon fa fa-angle-down" data-icon-show="ace-icon fa fa-angle-right"></i>&nbsp;<h4 style ="display: inline-block;">Examen Clinique</h4>
+				</a>
 			</h4>
 			</div>
 			<div class="panel-collapse collapse"  id="ExamClinique" aria-expanded="false" style="height:200px;" >
@@ -134,40 +134,40 @@
 		</div>
 		@endif
 		@if(isset($consultation->demandeexmbio))
-		          <div id="friends" class="tab-pane">
+		            <div id="friends" class="tab-pane">
                     			<div>
-		                        <table class="table table-striped table-bordered">
-		                          <thead>
-		                            <tr>
-		                              <th class="center">#</th>
-		                              <th>Date</th>
-		                              <th>Etat</th>
-		                              <th></th>
-		                            </tr>
-		                          </thead>
-		                          <tbody>
-		                          @foreach($consultation->demandeexmbio as $index => $demande)
-		                            <tr>
-		                              <td class="center">{{ $index +1 }}</td>
-		                              <td>{{ $demande->DateDemande }}</td>
-		                              <td>
-		                                @if($demande->etat == "E")
-		                                  En Attente
-		                                @elseif($demande->etat == "V")
-		                                  Validé
-		                                @else
-		                                  Rejeté
-		                                @endif
-		                              </td>
-		                              <td class="center">
-		                                {{-- <a href="{{ route('demandeexb.show', $demande->id_demandeexb) }}">
-		                                  <i class="fa fa-eye"></i>
-		                                </a> --}}
-		                              </td>
-		                            </tr>
-		                          @endforeach               
-		                          </tbody>
-		                        </table>
+		                          <table class="table table-striped table-bordered">
+			                          <thead>
+				                          <tr>
+					                              <th class="center">#</th>
+					                              <th>Date</th>
+					                              <th>Etat</th>
+					                              <th></th>
+				                          </tr>
+			                          </thead>
+			                          <tbody>
+				              @foreach($consultation->demandeexmbio as $index => $demande)
+				                          <tr>
+					                          <td class="center">{{ $index +1 }}</td>
+					                          <td>{{ $demande->DateDemande }}</td>
+					                          <td>
+						             @if($demande->etat == "E")
+						                          En Attente
+						             @elseif($demande->etat == "V")
+						                          Validé
+						             @else
+						                          Rejeté
+						             @endif
+					                          </td>
+					                              <td class="center">
+					                                <a href="{{ route('demandeexb.show', $demande->id_demandeexb) }}">
+					                                  <i class="fa fa-eye"></i>
+					                                </a>
+					                              </td>
+				                          </tr>
+				              @endforeach               
+			                          </tbody>
+		                          </table>
                      	 </div>
                     </div><!-- /#friends -->
                    
