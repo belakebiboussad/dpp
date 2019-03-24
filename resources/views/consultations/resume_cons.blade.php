@@ -11,7 +11,9 @@
 @section('main-content')
 <div class="page-header">
 <h1><strong>Résumé  du Consultation Pour :</h1>
-  @include('partials._patientInfo')
+  	<?php $patient = $consultation->patient; ?>
+  	 @include('partials._patientInfo', $patient)   
+ {{--  @include('partials._patientInfo') --}}
 </div>
 
 <div class="row-fluid">
@@ -377,7 +379,7 @@
 						</td>
 						<td class="center" width="20%">
 							<div class="action-buttons">
-								<span >{{$consult->Nom}}</span>
+								<span >{{$consult->lieu->Nom}}</span>
 							</div>
 						</td>
 						<td class="center"  width="5%">
