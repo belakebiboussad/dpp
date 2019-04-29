@@ -35,7 +35,7 @@
 								<strong>Lettre d'orientation :</strong>  
 							</label>	
 							<div class="col-sm-8">	
-								<textarea type="text" id="lettreorientaioncontent" name="lettreorientaioncontent" placeholder="..." class="form-control" required  ></textarea>
+								<textarea type="text" id="lettreorientaioncontent" name="lettreorientaioncontent" placeholder="Resumé" class="form-control" required  ></textarea>
 							</div>
 							<!-- <div class="space-12"></div> -->
 							<div class="space-12"></div>
