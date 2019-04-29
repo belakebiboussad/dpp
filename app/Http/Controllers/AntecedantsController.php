@@ -18,11 +18,6 @@ class AntecedantsController extends Controller
     {
         return response()->json(['response' => $message]); 
     }
-    public function choixpatatcd()
-    {
-        $patients = patient::all();
-        return view('antecedents.choix_patient_atcd', compact('patients'));
-    }
     public function index($id)
     {   
         $patient = patient::FindOrFail($id);

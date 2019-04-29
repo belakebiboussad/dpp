@@ -136,7 +136,6 @@ route::get('/getpatientcons','PatientController@getpatientconsult');
 route::get('/getpatientrdv','PatientController@getpatientrdv');
 route::get('/getpatientatcd','PatientController@getpatientatcd');
 route::get('/choixpat','ConsultationsController@choix');
-route::get('/choixpatatcd','AntecedantsController@choixpatatcd');
 route::get('/getspecialite/{id}','demandeprodController@get_specialite');
 route::get('/getproduits/{idgamme}/{idspec}','demandeprodController@get_produit');
 route::get('/createsalle','SalleController@createsalle');
