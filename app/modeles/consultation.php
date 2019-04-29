@@ -31,6 +31,10 @@ class consultation extends Model
     {
            return $this->hasOne('App\modeles\ordonnance','id_consultation');
     }
+    public function lieu()
+    {
+           return $this->belongsTo('App\modeles\Lieuconsultation','id_lieu');
+    }
     // public function ordonnaces()
     // {
     //     return $this->hasMany('App\modeles\ordonnance','id_consultation');

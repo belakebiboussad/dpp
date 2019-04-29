@@ -11,7 +11,9 @@
 @section('main-content')
 <div class="page-header">
 <h1><strong>Résumé  du Consultation Pour :</h1>
-  @include('partials._patientInfo')
+  	<?php $patient = $consultation->patient; ?>
+  	 @include('partials._patientInfo', $patient)   
+ {{--  @include('partials._patientInfo') --}}
 </div>
 
 <div class="row-fluid">
@@ -29,9 +31,9 @@
 	</div>
 </div>
 <div class="row">
-		<div class="col-sm-7">
-		<div id="accordion" class="accordion-style1 panel-group ">
-	           <div class="row">
+	<div class="col-sm-7">
+	<div id="accordion" class="accordion-style1 panel-group ">
+	          <div class="row">
 			<div class="col-sm-12">
 			<div class="widget-box">
 			<div class="widget-header" >
@@ -82,8 +84,8 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 			<h4 class="panel-title">
-			<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#ExamClinique" aria-expanded="false"><i class="bigger-110 ace-icon fa fa-angle-right" data-icon-hide="ace-icon fa fa-angle-down" data-icon-show="ace-icon fa fa-angle-right"></i>&nbsp;<h4 style ="display: inline-block;">Examen Clinique</h4>
-			</a>
+				<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#ExamClinique" aria-expanded="false"><i class="bigger-110 ace-icon fa fa-angle-right" data-icon-hide="ace-icon fa fa-angle-down" data-icon-show="ace-icon fa fa-angle-right"></i>&nbsp;<h4 style ="display: inline-block;">Examen Clinique</h4>
+				</a>
 			</h4>
 			</div>
 			<div class="panel-collapse collapse"  id="ExamClinique" aria-expanded="false" style="height:200px;" >
@@ -133,41 +135,67 @@
 			</div>
 		</div>
 		@endif
-		@if(isset($consultation->demandeexmbio))
-		          <div id="friends" class="tab-pane">
+		@if(isset($consultation->demandeexmbio) && $consultation->demandeexmbio->count() !=0)
+		<div class="row">
+			<div class="col-sm-12">
+			<div class="widget-box">
+				<div class="widget-header" >
+	                        		<h4 class="widget-title">
+	                        			<i class="fa fa-1x fa-flask deep-purple-text"></i><font color="black"><strong>&nbsp;Examens Bioloiques</strong></font>    
+	                        		</h4>
+	                        		<div class="widget-toolbar no-border my-right-float">
+	                        			{{-- <a href="" target="_blank" class="btn btn-primary my-right-float">
+					                     <i class="fa fa-eye"></i>&nbsp;Visualiser Examens Bioloiques
+					           </a> --}}
+	                        		</div>
+	                        	</div>
+	                        	<div class="widget-body">
+					<div class="widget-main">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="space-12"></div>		
+								<table class="table table-striped table-bordered">
+						                     <thead>
+							                     <tr>
+								                     <th class="center">#</th>
+								                     <th>Date</th>
+								                     <th>Etat</th>
+								                      <th></th>
+							                     </tr>
+						                     </thead>
+			                          			<tbody>
+							           @foreach($consultation->demandeexmbio as $index => $demande)
+							           <tr>
+								           <td class="center">{{ $index +1 }}</td>
+								          <td>{{ $demande->DateDemande }}</td>
+									<td>
+									@if($demande->etat == "E")
+									          En Attente
+									@elseif($demande->etat == "V")
+									          Validé
+									@else
+									           Rejeté
+									@endif
+									</td>
+									<td class="center">
+									           <a href="{{ route('demandeexb.show', $demande->id_demandeexb) }}">
+									           <i class="fa fa-eye"></i>
+									           </a>
+									</td>
+								</tr>
+							          @endforeach               
+						                    </tbody>
+					                              </table>
+		                                     		</div>
+		                                     	</div>
+		                               </div>
+		                      </div>
+	                     </div>{{-- widget-box --}}
+	                     </div>	{{-- col-sm-12 --}}
+	           </div>  {{-- row --}}
+		            <div id="friends" class="tab-pane">
                     			<div>
-		                        <table class="table table-striped table-bordered">
-		                          <thead>
-		                            <tr>
-		                              <th class="center">#</th>
-		                              <th>Date</th>
-		                              <th>Etat</th>
-		                              <th></th>
-		                            </tr>
-		                          </thead>
-		                          <tbody>
-		                          @foreach($consultation->demandeexmbio as $index => $demande)
-		                            <tr>
-		                              <td class="center">{{ $index +1 }}</td>
-		                              <td>{{ $demande->DateDemande }}</td>
-		                              <td>
-		                                @if($demande->etat == "E")
-		                                  En Attente
-		                                @elseif($demande->etat == "V")
-		                                  Validé
-		                                @else
-		                                  Rejeté
-		                                @endif
-		                              </td>
-		                              <td class="center">
-		                                {{-- <a href="{{ route('demandeexb.show', $demande->id_demandeexb) }}">
-		                                  <i class="fa fa-eye"></i>
-		                                </a> --}}
-		                              </td>
-		                            </tr>
-		                          @endforeach               
-		                          </tbody>
-		                        </table>
+		                         
                      	 </div>
                     </div><!-- /#friends -->
                    
@@ -313,7 +341,7 @@
 	</div>
 	</div> 	{{-- details consult  7--}}
 	<div class="col-sm-5">
-		<div class="table-responsive">
+		<div class="table-responsive" style="margin-left:-20px !important;">
 		{{-- <table id="simple-table" class="table table-striped table-bordered table-hover table-condensed"> --}}
 		<table id="simple-table" class="table table-striped table-bordered table-hover table-condensed">
 			<thead>
@@ -351,7 +379,7 @@
 						</td>
 						<td class="center" width="20%">
 							<div class="action-buttons">
-								<span >{{$consult->Nom}}</span>
+								<span >{{$consult->lieu->Nom}}</span>
 							</div>
 						</td>
 						<td class="center"  width="5%">

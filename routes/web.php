@@ -176,6 +176,8 @@ route::get('/home_reception',function (){
 })->name('home_rec');
 Route::post('/get-all-events','RDVController@checkFullCalendar');
 route::get('/showordonnance/{id}','OrdonnanceController@show_ordonnance');
+Route::resource('demandeexb','DemandeExbController');
+route::get('/demandeexbio/{id}','DemandeExbController@createexb');
 /************partie viste d'hospitalisation**************/
 Route::resource('consigne','ConsigneController');
 Route::resource('surveillance','SurveillanceController');

@@ -53,8 +53,6 @@
                     <a href="#ExamClinique"  ria-controls="ExamClinique" role="tab" data-toggle="tab" class="btn btn-primary btn-lg   {{ ! isset($consultation) ? 'disabled' : 'enabled' }} " > 
                      <img height="20" width="30" class="thumbnail inline no-margin-bottom" alt="clinique" align="left" src="{{asset('/css/img/doctor-stethoscope.png')}}"/><span class="bigger-130">Examen Clinique</span></a>
               </li>
-
-            
               <li role= "presentation"  style="padding-left: 5px; padding-right: 5px;">
                     <a href="#ExamComp" aria-controls="ExamComp" role="tab" data-toggle="tab" class="btn btn-primary btn-lg   {{ ! isset($consultation) ? 'disabled' : 'enabled' }} " >
                           <img height="20" width="30" class="thumbnail inline no-margin-bottom" alt="comp" align="left" src="{{asset('/css/img/medicine-flask.png')}}" />
