@@ -27,6 +27,7 @@ class consultation extends Model
     {
         return $this->hasMany('App\modeles\demandeexr','id_consultation');
     }
+
     public function ordonnances()
     {
            return $this->hasOne('App\modeles\ordonnance','id_consultation');
