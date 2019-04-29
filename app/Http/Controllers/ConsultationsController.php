@@ -34,12 +34,12 @@ class ConsultationsController extends Controller
         protected $OrdonnanceCTLR,$ExamCliniqueCTLR,$ExamBioloqiqueCTLR,$ExamImagerieCTLR,$ExamAnapathCTLR,$DemandeHospCTRL,
                           $LettreOrientationCTRL;
       public function __construct(OrdonnanceController $OrdonnaceCtrl,
-                                           ExamenCliniqueController $ExamCliniqCtrl,
-                                           DemandeExbController $ExamBiologiqCtrl,
-                                           ExmImgrieController $ExamImagCtrl,
-                                           ExmAnapathController $ExamAnapathCtrl,
-                                           DemandeHospitalisationController $DemandeHospCtrl,
-                                           LettreOrientationController $LettreOrientationCtrl)
+                                       ExamenCliniqueController $ExamCliniqCtrl,
+                                       DemandeExbController $ExamBiologiqCtrl,
+                                       DemandeExamenRadio $ExamImagCtrl,   //ExmImgrieController $ExamImagCtrl,
+                                       ExmAnapathController $ExamAnapathCtrl,
+                                       DemandeHospitalisationController $DemandeHospCtrl,
+                                       LettreOrientationController $LettreOrientationCtrl)
     {
                 $this->OrdonnanceCTLR = $OrdonnaceCtrl;
                 $this->ExamCliniqCTLR = $ExamCliniqCtrl;
@@ -153,7 +153,9 @@ class ConsultationsController extends Controller
           {  
                   $this->ExamBioloqiqueCTLR->store( $request,$consult->id); 
           }
-          //dd($request);
+        
+           if(isset($request->exmns))
+               $this->ExamImagerieCTLR->store( $request,$consult->id); 
 
           if(isset($request->examen_Anapath)) 
                            $this->ExamAnapathCTLR->store( $request,$consult->id);
