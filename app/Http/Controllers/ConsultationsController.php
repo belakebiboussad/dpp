@@ -62,14 +62,16 @@ class ConsultationsController extends Controller
            // liste des consultations du patient
            $consults = consultation::join('employs','employs.id','=','consultations.Employe_ID_Employe')->leftjoin('codesims', 'codesims.id', '=', 'consultations.id_code_sim')->select('consultations.*','employs.Nom_Employe','employs.Prenom_Employe','codesims.description')->where('consultations.Patient_ID_Patient', $consultation->patient->id)->get();
                 //$examensbios = examenbiologique::where("id_consultation",$id_cons)->get();// $examensimg = examenimagrie::where("id_consultation",$id_cons)->get(); 
-          $demande = demandeExamImag::where("id_consultation",$id_cons)->get(['examsImagerie'])->first(); 
-          if(isset($demande))
+            $demande = demandeExamImag::where("id_consultation",$id_cons)->get(['examsImagerie'])->first(); 
+            if(isset($demande))
                     $examensimg = json_decode($demande->examsImagerie); 
-          $exmclin = examen_cliniqu::where("id_consultation",$id_cons)->get()->first();      //$ordennances = ordonnance::where("id_consultation",$id_cons)->get(['medicaments'])->first();
+             $exmclin = examen_cliniqu::where("id_consultation",$id_cons)->get()->first();
+            //$ordennances = ordonnance::where("id_consultation",$id_cons)->get(['medicaments'])->first();
+              //$examsRadio =
              $ordonnance= $consultation->ordonnances;
              if($ordonnance != null )
-                     $medicaments =  $ordonnance->medicamentes;    // dd($medicaments[0]->pivot->posologie); //$medicaments = json_decode( $ordennances['medicaments'],true);
-                // return view('consultations.resume_cons',compact('consultation','patient','examensbios','examensimg','exmclin','ordonnance','medicaments','consults')); 
+                     $medicaments =  $ordonnance->medicamentes;  
+
                 return view('consultations.resume_cons', compact('consultation','examensimg','exmclin','ordonnance','medicaments','consults'));
     }
     public function listecons()
@@ -122,10 +124,12 @@ class ConsultationsController extends Controller
      */
      public function store(Request $request)
      {
+
           $request->validate([
                 "motif" => 'required',   // "histoirem" => 'required',
                 "resume" => 'required',
            ]);
+
            $nomlieu = Config::get('constants.lieuc');
            $lieu = Lieuconsultation::where('Nom', $nomlieu)->first();
            $consult = consultation::create([
@@ -148,12 +152,12 @@ class ConsultationsController extends Controller
            }   
            if($request->liste != null)
                 $this->OrdonnanceCTLR->store( $request,$consult->id);    //save Ordonnance
-         
+       
           if($request->exm  != null)  //save ExamBiolo
           {  
                   $this->ExamBioloqiqueCTLR->store( $request,$consult->id); 
           }
-        
+           
            if(isset($request->exmns))
                $this->ExamImagerieCTLR->store( $request,$consult->id); 
 

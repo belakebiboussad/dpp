@@ -59,6 +59,13 @@
 			           $(this).removeAttr('disabled');
 		            });
 		});
+		$('.select2').css('width','400px').select2({allowClear:true})
+           		$('#select2-multiple-style .btn').on('click', function(e){
+	           		var target = $(this).find('input[type=radio]');
+	                	var which = parseInt(target.val());
+	             	if(which == 2) $('.select2').addClass('tag-input-style');
+	                  	else $('.select2').removeClass('tag-input-style');
+           		});
     		$(function() {
 		           var checkbox = $("#isOriented");  // Get the form fields and hidden div
 		           var hidden = $("#hidden_fields");  // Setup an event listener for when the state of the    // checkbox changes.
@@ -77,10 +84,10 @@
      		 });
     		$("button").click(function (event) {
 		           which = '';
-           		str ='send';
-           		which = $(this).attr("id");
-           		var which = $.trim(which);
-           		var str = $.trim(str);
+           			str ='send';
+           			which = $(this).attr("id");
+           			var which = $.trim(which);
+           			var str = $.trim(str);
           			 if(which==str){
                    			return true;
           			}
