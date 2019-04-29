@@ -147,18 +147,14 @@ class ConsultationsController extends Controller
           {  
                   $this->ExamBioloqiqueCTLR->store( $request,$consult->id); 
           }
-           // if($request->examen_Anapath != null) 
-           //                 $this->ExamAnapathCTLR->store( $request,$consult->id);
+          if(isset($request->examen_Anapath)) 
+                           $this->ExamAnapathCTLR->store( $request,$consult->id);
            if($request->modeAdmission != null)
                 $this->DemandeHospCTRL->store($request,$consult->id);    
 
            // if(array_key_exists('RX', $request->examRad) || ($request->examRad["AutRX"][0] != null) || (array_key_exists('ECHO', $request->examRad)) || (array_key_exists('CT', $request->examRad)) || ($request->examRad['AutCT'][0] != null) || (array_key_exists('RMN', $request->examRad))  || ($request->examRad['AutRMN'][0] != null) || ($request->examRad['AutECHO'][0] != null))
            //            $this->ExamImagerieCTLR->store( $request,$consult->id); 
-          
-       
-           //          //enregistrer lettre orientation
-        
-            // return redirect()->route('consultations.show',$consult->id);    return redirect()->action('PatientController@index');
+           // return redirect()->route('consultations.show',$consult->id);    return redirect()->action('PatientController@index');
            return redirect(Route('patient.show',$request->id));
      }
     /**
