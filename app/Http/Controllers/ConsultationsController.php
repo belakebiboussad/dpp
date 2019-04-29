@@ -92,7 +92,6 @@ class ConsultationsController extends Controller
     {
 
           $employe= employ::where("id",Auth::user()->employee_id)->get()->first() ;
-          // dd($employe);
           $modesAdmission = [
                 'Ambulatoire' => "Ambulatoire",
                 'urgence' => "urgence",
@@ -138,6 +137,9 @@ class ConsultationsController extends Controller
            ]);  
            if($request->poids != 0 || $request->temp != null || $request->taille !=0 || $request->autre)
                       $this->ExamCliniqCTLR->store( $request,$consult->id); //save examen clinique
+          if(isset($request->isOriented)){
+                          $this->LettreOrientationCTRL->store($request,$consult->id);
+           }   
            if($request->liste != null)
                 $this->OrdonnanceCTLR->store( $request,$consult->id);    //save Ordonnance
          
@@ -145,16 +147,17 @@ class ConsultationsController extends Controller
           {  
                   $this->ExamBioloqiqueCTLR->store( $request,$consult->id); 
           }
-           // if(array_key_exists('RX', $request->examRad) || ($request->examRad["AutRX"][0] != null) || (array_key_exists('ECHO', $request->examRad)) || (array_key_exists('CT', $request->examRad)) || ($request->examRad['AutCT'][0] != null) || (array_key_exists('RMN', $request->examRad))  || ($request->examRad['AutRMN'][0] != null) || ($request->examRad['AutECHO'][0] != null))
-           //            $this->ExamImagerieCTLR->store( $request,$consult->id); 
            // if($request->examen_Anapath != null) 
            //                 $this->ExamAnapathCTLR->store( $request,$consult->id);
-           // if($request->modeAdmission != null)
-           //               $this->DemandeHospCTRL->store($request,$consult->id);
+           if($request->modeAdmission != null)
+                $this->DemandeHospCTRL->store($request,$consult->id);    
+
+           // if(array_key_exists('RX', $request->examRad) || ($request->examRad["AutRX"][0] != null) || (array_key_exists('ECHO', $request->examRad)) || (array_key_exists('CT', $request->examRad)) || ($request->examRad['AutCT'][0] != null) || (array_key_exists('RMN', $request->examRad))  || ($request->examRad['AutRMN'][0] != null) || ($request->examRad['AutECHO'][0] != null))
+           //            $this->ExamImagerieCTLR->store( $request,$consult->id); 
+          
+       
            //          //enregistrer lettre orientation
-           // if($request->specialite != null){
-           //                $this->LettreOrientationCTRL->store($request,$consult->id);
-           // }      
+        
             // return redirect()->route('consultations.show',$consult->id);    return redirect()->action('PatientController@index');
            return redirect(Route('patient.show',$request->id));
      }

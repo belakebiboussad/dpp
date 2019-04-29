@@ -31,8 +31,10 @@
 								          	<option value="{{ $specialite->id}}">{{$specialite->nom}}</option>
 							           @endforeach 
 							</select>
+							<br>
 			         		 	</div>		
 			         		 </div>{{-- row --}}
+			     
 			         		 <div class="spcae-12"></div>
 			         		 <div class="row">
 			         		 	<div class="col-xs-12">
@@ -47,6 +49,14 @@
 			         		 </div>
 			         	</form>
 			</div>{{-- modal-body --}}
+			<div class="modal-footer">
+          				<button type="button" class="btn btn-success" onclick="demandehosp()">
+          				   <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
+         				 </button>
+       				<button type="button" class="btn btn-default" data-dismiss="modal">
+            				<i class="ace-icon fa fa-close bigger-110"></i>Fermer
+           			</button>
+      			</div>
 		</div>{{-- modal-content --}}
 	</div>{{-- modal-dialog --}}
 </div>{{-- modal --}}

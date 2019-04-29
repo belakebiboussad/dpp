@@ -86,24 +86,6 @@
 		</div>	{{-- widget-header --}}
 		<div class="widget-body">
 			<div class="widget-main">
-				{{-- <div class="row">
-					<div class="col-sm-5">
-						<label for="dateord"><strong>Date Ordonnance :&nbsp;</strong></label>
-						<input id="dateord" name="dateord" class="date-picker disabledElem" name ="dateord" type="text" data-date-format="yyyy-mm-dd" data-provide="datepicker"  value='<?php echo date("Y-m-d");?>' />
-						</div>
-						<div class="col-sm-3">
-							<label for="dureeefois"><strong>Pendant:&nbsp;</strong></label>
-							<input class="" name="dureeefois"  id ="dureeefois" type="number"  value="1" min="1"/>
-						</div>
-						<div class="col-sm-4">
-							<select class="col-sm-6" id="foisss" name="foisss" value="Semaine">
-								<option value="Jour" selected>Jour</option>
-								<option value="Semaine" selected>Semaine</option>
-								<option value="Mois">Mois</option>
-							</select>
-						</div>		 
-				</div> --}}
-				{{-- row --}}
 				<div class="space-12"></div>
 				<div class="row">
 					<table id="ordonnance" class="table  table-bordered table-hover">

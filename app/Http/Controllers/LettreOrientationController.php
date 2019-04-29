@@ -9,9 +9,9 @@ class LettreOrientationController extends Controller
     //
       public function store(Request $request ,$consultID)
     { 
-           
+       
     	 LettreOrientation::create([
-            "motif"=>$request->motifOrient,
+            "motif"=>$request->lettreorientaioncontent,
             "specialite"=>$request->specialite,
             "medecin"=>$request->medecin,
             "Consultation_ID_Consultation"=>$consultID,
