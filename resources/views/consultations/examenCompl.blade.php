@@ -20,7 +20,6 @@
 	       		</a>
 	      	</li>
 	</ul>
-
 	<div class="tab-content" style = "border-style: none;">
 	 	 <div class="tab-pane active" id="biologique">
 	 	 	<div class= "col-md-9 col-xs-9">
@@ -64,7 +63,7 @@
 
 		<div class="tab-pane" id="radiologique">
 		  	<div class= "col-md-9 col-xs-9">
-       				 @include('consultations.ExamenCompl.ExamenRadio')
+       			@include('consultations.ExamenCompl.ExamenRadio')
        			</div>
        			<div class= "col-md-3 col-xs-3">
 				<br/><br/><br/><br/><br/><br/>

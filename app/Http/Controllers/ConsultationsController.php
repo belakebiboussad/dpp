@@ -24,13 +24,16 @@ use App\User;
 use App\modeles\Specialite;
 use App\modeles\LettreOrientation;
 use App\modeles\specialite_exb;
+use App\modeles\infosupppertinentes;
+use App\modeles\exmnsrelatifdemande;
+use App\modeles\examenradiologique;
 use Config;
 class ConsultationsController extends Controller
 {
 
         protected $OrdonnanceCTLR,$ExamCliniqueCTLR,$ExamBioloqiqueCTLR,$ExamImagerieCTLR,$ExamAnapathCTLR,$DemandeHospCTRL,
                           $LettreOrientationCTRL;
-    public function __construct(OrdonnanceController $OrdonnaceCtrl,
+      public function __construct(OrdonnanceController $OrdonnaceCtrl,
                                            ExamenCliniqueController $ExamCliniqCtrl,
                                            DemandeExbController $ExamBiologiqCtrl,
                                            ExmImgrieController $ExamImagCtrl,
@@ -90,22 +93,25 @@ class ConsultationsController extends Controller
 
     public function create($id_patient)
     {
-
-          $employe= employ::where("id",Auth::user()->employee_id)->get()->first() ;
-          $modesAdmission = [
+            $employe= employ::where("id",Auth::user()->employee_id)->get()->first() ;
+            $modesAdmission = [
                 'Ambulatoire' => "Ambulatoire",
                 'urgence' => "urgence",
                  'programme' => "programme",
-           ];
-           $patient = patient::FindOrFail($id_patient);
-           $codesim = codesim::all();
-           $lieus = Lieuconsultation::all(); 
-           $services = service::all();
-           $antecedants = antecedant::where('Patient_ID_Patient',$patient->id)->get();
-           $meds = User::where('role_id',1)->get()->all(); 
-          $specialites = Specialite::orderBy('nom')->get();
-           $specialitesExamBiolo = specialite_exb::all();
-           return view('consultations.create_consultation',compact('patient','employe','antecedants','codesim','lieus','meds','specialites','specialitesExamBiolo','modesAdmission','services'));
+             ];
+            $patient = patient::FindOrFail($id_patient);
+            $codesim = codesim::all();
+            $lieus = Lieuconsultation::all(); 
+            $services = service::all();
+            $antecedants = antecedant::where('Patient_ID_Patient',$patient->id)->get();
+            $meds = User::where('role_id',1)->get()->all(); 
+            $specialites = Specialite::orderBy('nom')->get();
+            $specialitesExamBiolo = specialite_exb::all();
+            $infossupp = infosupppertinentes::all();
+           $examens = exmnsrelatifdemande::all();
+           $examensradio = examenradiologique::all();
+            return view('consultations.create_consultation',compact('patient','employe','antecedants','codesim','lieus','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp', 
+              'examens','examensradio'));
     }
 
     /**
@@ -147,6 +153,8 @@ class ConsultationsController extends Controller
           {  
                   $this->ExamBioloqiqueCTLR->store( $request,$consult->id); 
           }
+          //dd($request);
+
           if(isset($request->examen_Anapath)) 
                            $this->ExamAnapathCTLR->store( $request,$consult->id);
            if($request->modeAdmission != null)

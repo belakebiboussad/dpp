@@ -156,7 +156,7 @@
 		                     </div> {{-- finexamenclinique --}}
 		                     <div role="tabpanel" class = "tab-pane" id="ExamComp">
 		                     		<div class= "col-md-12 col-xs-12">    
-		                              		@include('consultations.ExamenCompl')   
+		                              	@include('consultations.ExamenCompl')   
 		                          	</div>{{-- <div class= "col-md-3 col-xs-9"> </div> --}}
 		                 	</div> 
 
