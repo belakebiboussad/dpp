@@ -13,26 +13,24 @@
 <h1><strong>Résumé  du Consultation Pour :</h1>
   	<?php $patient = $consultation->patient; ?>
   	 @include('partials._patientInfo', $patient)   
- {{--  @include('partials._patientInfo') --}}
 </div>
-
 <div class="row-fluid">
-	<div class="col-sm-6 alert alert-block alert-success">
+	<div class="col-sm-7 alert alert-block alert-success">
 		{{-- <h2></h2> --}}
-		<span style="font:bold 18px verdana;">les consultations du patient </span>
-		<span"style="font:bold 12px verdana;">&nbsp;"{{$patient->Nom}} {{$patient->Prenom}} "</span>
-	</div>
-	<div class="col-sm-6 alert alert-block alert-success">
-		<div>
 		<span style="font:bold 18px verdana;">Résumé de la Consultation du</span>
-		<span"style="font:bold 12px verdana;">&nbsp;"{{ $consultation->Date_Consultation }}"</span>		
+		<span"style="font:bold 12px verdana;">&nbsp;"{{ $consultation->Date_Consultation }}"</span>
+	</div>
+	<div class="col-sm-5 alert alert-block alert-success">
+		<div>
+		<span style="font:bold 18px verdana;">Liste des consultations du patient</span>
+		{{-- <span"style="font:bold 12px verdana;">&nbsp;"{{$patient->Nom}} {{$patient->Prenom}}"</span>		 --}}
 		</div>
 		
 	</div>
 </div>
 <div class="row">
-	<div class="col-sm-7">
-	<div id="accordion" class="accordion-style1 panel-group ">
+	<div class="col-sm-7" style="margin-top: -1.8%;">
+	<div id="accordion" class="accordion-style1 panel-group " style="margin-right: -1%;">
 	          <div class="row">
 			<div class="col-sm-12">
 			<div class="widget-box">
@@ -78,7 +76,6 @@
 			</div>	{{-- widgetbox --}}
 			</div>	{{-- sm-12 --}}
 		</div>	{{-- row --}}
-
 	           {{-- examenclique --}}
 		@if(isset($exmclin) )
 		<div class="panel panel-default">
@@ -144,17 +141,15 @@
 	                        			<i class="fa fa-1x fa-flask deep-purple-text"></i><font color="black"><strong>&nbsp;Examens Bioloiques</strong></font>    
 	                        		</h4>
 	                        		<div class="widget-toolbar no-border my-right-float">
-	                        			{{-- <a href="" target="_blank" class="btn btn-primary my-right-float">
-					                     <i class="fa fa-eye"></i>&nbsp;Visualiser Examens Bioloiques
-					           </a> --}}
+ {{-- <a href="" target="_blank" class="btn btn-primary my-right-float"> <i class="fa fa-eye"></i>&nbsp;Visualiser Examens Bioloiques</a> --}}
 	                        		</div>
 	                        	</div>
 	                        	<div class="widget-body">
 					<div class="widget-main">
 						<div class="row">
 							<div class="col-xs-12">
-								<div class="space-12"></div>		
-								<table class="table table-striped table-bordered">
+							<div class="space-12"></div>		
+							<table class="table table-striped table-bordered">
 						                     <thead>
 							                     <tr>
 								                     <th class="center">#</th>
@@ -185,7 +180,7 @@
 								</tr>
 							          @endforeach               
 						                    </tbody>
-					                              </table>
+					                         </table>
 		                                     		</div>
 		                                     	</div>
 		                               </div>
@@ -193,13 +188,10 @@
 	                     </div>{{-- widget-box --}}
 	                     </div>	{{-- col-sm-12 --}}
 	           </div>  {{-- row --}}
-		            <div id="friends" class="tab-pane">
-                    			<div>
-		                         
-                     	 </div>
-                    </div><!-- /#friends -->
-                   
-		@endif
+		<div id="friends" class="tab-pane">
+                    		<div> </div>
+                   	 </div><!-- /#friends -->
+                   	@endif
 		@if(isset($examensimg)  && count($examensimg) !=0)	
 		<div class="panel panel-default">
 			<div class="panel-heading">
@@ -266,26 +258,26 @@
 					<div class="widget-main">
 						<div class="row">
 							<div class="col-xs-12">
-								<div class="space-12"></div>		
-								<table class="table table-striped table-bordered">
+							<div class="space-12"></div>		
+							<table class="table table-striped table-bordered">
 		                                      				<thead>
-			                                        				<tr>
-							                                           <th class="center">#</th>
-							                                           <th><strong>Nom</strong></th>
-							                                           <th><strong>Dosage</strong></th>
-							                                           <th><strong>Forme</strong></th>
-							                                           <th><strong>Posologie</strong></th>
-						                                           </tr>
-		                                     				 </thead>
+			                                        		<tr>
+							                          <th class="center">#</th>
+							                          <th><strong>Nom</strong></th>
+							                          <th><strong>Dosage</strong></th>
+							                          <th><strong>Forme</strong></th>
+							                          <th><strong>Posologie</strong></th>
+						                          </tr>
+		                                     				</thead>
 		                                      				<tbody>
-						                                           @foreach($ordonnance->medicamentes as $index => $med)
-						                                           <tr>
-							                                          <td>{{ $index + 1 }}</td>
-							                                          <td>{{ $med->Nom_com }}</td>
-							                                          <td>{{ $med->Dosage }}</td>
-							                                          <td>{{ $med->Forme }}</td>
-							                                          <td>{{ $med->pivot->posologie }}</td>
-						                                           </tr>
+						                          @foreach($ordonnance->medicamentes as $index => $med)
+						                                       <tr>
+							                                     <td>{{ $index + 1 }}</td>
+							                                      <td>{{ $med->Nom_com }}</td>
+							                                      <td>{{ $med->Dosage }}</td>
+							                                      <td>{{ $med->Forme }}</td>
+							                                       <td>{{ $med->pivot->posologie }}</td>
+						                                       </tr>
 						                                           @endforeach
 						                                </tbody>
 					                                </table>
@@ -340,19 +332,20 @@
 		@endif --}}
 	</div>
 	</div> 	{{-- details consult  7--}}
-	<div class="col-sm-5">
-		<div class="table-responsive" style="margin-left:-20px !important;">
+	<div class="col-sm-5"  style="margin-top: -1.7%;margin-left:-0.9%">
+	<div class="table-responsive" style="margin-left:-1.2% !important;width:103%">
 		{{-- <table id="simple-table" class="table table-striped table-bordered table-hover table-condensed"> --}}
 		<table id="simple-table" class="table table-striped table-bordered table-hover table-condensed">
-			<thead>
-				<tr> 	{{-- <th  width="5%">#</th> --}}
-					<th class="text-center" width="15%"><strong>Date</strong></th>
-					<th class="text-center" width="40%"><strong>Motif</strong></th>
-					<th class="text-center" width="20%"><strong>Medecin</strong></th>
-					<th class="text-center" width="20%" ><strong>Lieu consultation</strong></th>
-					<th  class="text-center" width="5%"></th>
-				</tr>
-			</thead>
+		{{-- style="margin-left:0.8% !important;" --}}
+		<thead>
+			<tr> 	{{-- <th  width="5%">#</th> --}}
+				<th class="text-center" width="15%"><strong>Date</strong></th>
+				<th class="text-center" width="40%"><strong>Motif</strong></th>
+				<th class="text-center" width="20%"><strong>Medecin</strong></th>
+				<th class="text-center" width="20%" ><strong>Lieu consultation</strong></th>
+				<th  class="text-center" width="5%"></th>
+			</tr>
+		</thead>
 		</table>
 		 <div class="bodycontainer scrollable" style="margin-top: -2.9%;">
 			 <table class="table table-hover table-striped table-condensed table-scrollable">

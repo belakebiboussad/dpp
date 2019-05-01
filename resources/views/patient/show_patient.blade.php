@@ -414,7 +414,7 @@
 													<th>Motif De Consultation</th>
 													<th>Date De Consultation</th>
 													<th>Diagnostic</th>
-													<th>Nom Du Médecin Traitant</th>
+													<th>Médecin Traitant</th>
 													<th></th>
 												</tr>
 											</thead>

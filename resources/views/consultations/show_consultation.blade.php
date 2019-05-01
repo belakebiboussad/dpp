@@ -1,7 +1,10 @@
 @extends('app_med')
 @section('main-content')
 <div class="page-header">
-	<h1><strong>Détails du Consultation Pour :</strong> {{ $patient->Nom }} {{ $patient->Prenom }}</h1>
+	<h1><strong>Résumé  du Consultation Pour :</h1>
+    <?php $patient = $consultation->patient; ?>
+     @include('partials._patientInfo', $patient)   
+</div>
 </div>
 <div class="row">
   <div class="col-sm-12">

@@ -53,7 +53,7 @@
 						<th class="detail-col">Résumé</th>
 						<th>Motif de consultation</th>
 						<th>Date de consultation</th>
-						<th class="hidden-480">Nom du Médecin traitant</th>
+						<th class="hidden-480">Médecin traitant</th>
 						<th></th>
 					</tr>
 				</thead>

@@ -207,9 +207,7 @@ $(document).ready(function(){
     
     function ajouterligne(){
         var lignes= new Array();
-            nligne= new Array();//la nouvelle ligne
-            
-        console.log("test");
+        nligne= new Array();//la nouvelle ligne
         lignes=document.getElementById("table1").getElementsByTagName("tr");
         //seling=ling.getElementsByClassName("active");
         tableau = document.getElementById("table2");
@@ -276,7 +274,9 @@ $(document).ready(function(){
                     
                 }
             }
-      /////////////
+           lignes=null;
+
+    }
       $('#table2 > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
                     var th_checked = this.checked;//checkbox inside "TH" table2 header
                     
@@ -295,9 +295,7 @@ $(document).ready(function(){
                     else $row.removeClass(active_class);
                 });
   
-        lignes=null;
-
-    }
+  
     function suppligne(){
         var lignes= new Array();
         

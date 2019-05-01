@@ -66,13 +66,12 @@ class ConsultationsController extends Controller
             if(isset($demande))
                     $examensimg = json_decode($demande->examsImagerie); 
              $exmclin = examen_cliniqu::where("id_consultation",$id_cons)->get()->first();
-            //$ordennances = ordonnance::where("id_consultation",$id_cons)->get(['medicaments'])->first();
-              $examsRadio = $consultation->examensradiologiques;
-              $ordonnance= $consultation->ordonnances;
-               if($ordonnance != null )
+             //$ordennances = ordonnance::where("id_consultation",$id_cons)->get(['medicaments'])->first();
+             $examsRadio = $consultation->examensradiologiques;
+             $ordonnance= $consultation->ordonnances;
+             if($ordonnance != null )
                      $medicaments =  $ordonnance->medicamentes;  
-
-                return view('consultations.show_consultation', compact('consultation', 'examensimg', 'exmclin', 'ordonnance', 'examsRadio', 'medicaments','consults'));
+                return view('consultations.resume_cons-new', compact('consultation', 'examensimg', 'exmclin', 'ordonnance', 'examsRadio', 'medicaments','consults'));
     }
     public function listecons()
     {
