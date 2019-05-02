@@ -133,7 +133,7 @@ class DemandeExbController extends Controller
     {
 
         $demande = demandeexb::FindOrFail($id);
-        $pdf = PDF::loadView('demande_exb', compact('demande'));
+        $pdf = PDF::loadView('examenbio.demande_exb', compact('demande'));
         return $pdf->stream('demande_examen_biologique.pdf');
     }
 }
