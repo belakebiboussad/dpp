@@ -131,6 +131,7 @@ class DemandeExbController extends Controller
 
     public function show_demande_exb($id)
     {
+
         $demande = demandeexb::FindOrFail($id);
         $pdf = PDF::loadView('demande_exb', compact('demande'));
         return $pdf->stream('demande_examen_biologique.pdf');
