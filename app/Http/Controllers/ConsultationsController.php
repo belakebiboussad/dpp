@@ -63,19 +63,20 @@ class ConsultationsController extends Controller
            // liste des consultations du patient
            $consults = consultation::join('employs','employs.id','=','consultations.Employe_ID_Employe')->leftjoin('codesims', 'codesims.id', '=', 'consultations.id_code_sim')->select('consultations.*','employs.Nom_Employe','employs.Prenom_Employe','codesims.description')->where('consultations.Patient_ID_Patient', $consultation->patient->id)->get();
                 //$examensbios = examenbiologique::where("id_consultation",$id_cons)->get();// $examensimg = examenimagrie::where("id_consultation",$id_cons)->get(); 
-            $demande = demandeExamImag::where("id_consultation",$id_cons)->get(['examsImagerie'])->first(); 
-            if(isset($demande))
+           $demande = demandeExamImag::where("id_consultation",$id_cons)->get(['examsImagerie'])->first(); 
+           if(isset($demande))
                     $examensimg = json_decode($demande->examsImagerie); 
-             $exmclin = examen_cliniqu::where("id_consultation",$id_cons)->get()->first();
+           $exmclin = examen_cliniqu::where("id_consultation",$id_cons)->get()->first();
              //$ordennances = ordonnance::where("id_consultation",$id_cons)->get(['medicaments'])->first();
-             $examsRadio = $consultation->examensradiologiques;
-             $ordonnance= $consultation->ordonnances;
-             if($ordonnance != null )
-                     $medicaments =  $ordonnance->medicamentes;  
-                return view('consultations.resume_cons-new', compact('consultation', 'examensimg', 'exmclin', 'ordonnance', 'examsRadio', 'medicaments','consults'));
+           $examsRadio = $consultation->examensradiologiques;
+           $ordonnance= $consultation->ordonnances;
+           if($ordonnance != null )
+                $medicaments =  $ordonnance->medicamentes;  
+           return view('consultations.resume_cons-new', compact('consultation', 'examensimg', 'exmclin', 'ordonnance', 'examsRadio', 'medicaments','consults'));
      }
      public function detailconsXHR(Request $request)
      {
+
            $consultation = consultation::FindOrFail($request['id']);
            $demande = demandeExamImag::where("id_consultation",$request['id'])->get(['examsImagerie'])->first(); 
            if(isset($demande))
@@ -86,7 +87,7 @@ class ConsultationsController extends Controller
            if($ordonnance != null )
                 $medicaments =  $ordonnance->medicamentes;  
            //$view = view("consultations.ajax_consult_detail",compact('consultation','examensimg','exmclin','ordonnance','examsRadio', 'medicaments'))->render();
-           $view =  view("consultations.inc_consult",compact('consultation'))->render();
+           $view =  view("consultations.inc_consult",compact('consultation','exmclin','examsRadio'))->render();
            return response()->json(['html'=>$view]);
 
      }

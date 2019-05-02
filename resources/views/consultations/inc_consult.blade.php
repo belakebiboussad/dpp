@@ -21,11 +21,13 @@
 					   </a>
 				</li>
 				@endif
+				@if(isset($examsRadio)  && count($examsRadio) !=0)	
 				<li class="">
 					<a data-toggle="tab" href="#profile2" aria-expanded="false">
 					  <i class="pink ace-icon fa fa-picture-o bigger-100"></i>Examens Radiologique
 					</a>
 				</li>
+				@endif
 			</ul>
 		</div>
 		</div>{{-- header --}}
@@ -113,7 +115,6 @@
 						@endif
 					</div>{{-- ExamClinique --}}
 					@endif
-				
 					@if(isset($consultation->demandeexmbio) && $consultation->demandeexmbio->count() !=0)
 					<div id="eXamBio" class="tab-pane">
 						<div class="row">
@@ -154,9 +155,11 @@
 		                                     	</div> {{-- row --}}
 					</div>{{-- eXamBio --}}
 					@endif
+					@if(isset($examsRadio)  && count($examsRadio) !=0)	
 					<div id="profile2" class="tab-pane">
 						<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
 					</div>
+					@endif
 				</div>
 			</div>
 		</div>	{{-- widget-body --}}
