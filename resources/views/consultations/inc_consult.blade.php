@@ -23,7 +23,7 @@
 				@endif
 				@if(isset($examsRadio)  && count($examsRadio) !=0)	
 				<li class="">
-					<a data-toggle="tab" href="#profile2" aria-expanded="false">
+					<a data-toggle="tab" href="#examImagerie" aria-expanded="false">
 					  <i class="pink ace-icon fa fa-picture-o bigger-100"></i>Examens Radiologique
 					</a>
 				</li>
@@ -156,8 +156,41 @@
 					</div>{{-- eXamBio --}}
 					@endif
 					@if(isset($examsRadio)  && count($examsRadio) !=0)	
-					<div id="profile2" class="tab-pane">
-						<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
+					<div id="examImagerie" class="tab-pane">
+						         <div>
+                        <table class="table table-striped table-bordered">
+                          <thead>
+                            <tr>
+                              <th class="center">#</th>
+                              <th>Date</th>
+                              <th>Etat</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach($consultation->examensradiologiques as $index => $exr)
+                            <tr>
+                              <td class="center">{{ $index + 1 }}</td>
+                              <td>{{ $exr->Date }}</td>
+                              <td>
+                                @if($exr->etat == "E")
+                                  En Attente
+                                @elseif($exr->etat == "V")
+                                  Validé
+                                @else
+                                  Rejeté
+                                @endif
+                              </td>
+                              <td class="center">
+                                <a href="{{ route('demandeexr.show', $exr->id) }}">
+                                  <i class="fa fa-eye"></i>
+                                </a>
+                              </td>
+                            </tr>
+                            @endforeach               
+                          </tbody>
+                        </table>
+                      </div>
 					</div>
 					@endif
 				</div>
