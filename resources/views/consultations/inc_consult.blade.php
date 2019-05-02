@@ -16,11 +16,15 @@
 				@endif
 				@if(isset($consultation->demandeexmbio) && $consultation->demandeexmbio->count() !=0)
 				<li class="">
-					<a data-toggle="tab" href="#eXamBio" aria-expanded="true">Examen Bioloique</a>
+					<a data-toggle="tab" href="#eXamBio" aria-expanded="true">
+					   <i class="blue ace-icon fa fa-file-pdf-o bigger-100"></i>Examen Biologique
+					   </a>
 				</li>
 				@endif
 				<li class="">
-					<a data-toggle="tab" href="#profile2" aria-expanded="false">Examens Radiologique</a>
+					<a data-toggle="tab" href="#profile2" aria-expanded="false">
+					  <i class="pink ace-icon fa fa-picture-o bigger-100"></i>Examens Radiologique
+					</a>
 				</li>
 			</ul>
 		</div>
