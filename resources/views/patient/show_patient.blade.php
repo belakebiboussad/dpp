@@ -1,7 +1,7 @@
 @extends('app_recep')
 @section('main-content')
 	<div >
-		@include('partials._patientInfo')
+		@include('patient._patientInfo')
 	</div>
 	<div class="page-header">
 	{{-- 	<h1 style="display: inline;"><strong>Détails Du Patient :</strong> {{ $patient->Nom }} {{ $patient->Prenom }}</h1> --}}

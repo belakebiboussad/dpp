@@ -12,7 +12,7 @@
 <div class="page-header">
 <h1><strong>Résumé  du Consultation Pour :</h1>
   	<?php $patient = $consultation->patient; ?>
-  	 @include('partials._patientInfo', $patient)   
+  	 @include('patient._patientInfo', $patient)   
 </div>
 <div class="row-fluid">
 	<div class="col-sm-7 alert alert-block alert-success">

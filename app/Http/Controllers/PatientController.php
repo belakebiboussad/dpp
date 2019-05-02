@@ -659,20 +659,18 @@ public function search(Request $request)
     // }
     public function getPatientDetails(Request $request)
     {
-        //$a= $request->all();
-       
-        $patient = patient::FindOrFail($request->search);
-      if($patient->Type !="Autre")
-      {
-           $assure=  assur::FindOrFail($patient->Assurs_ID_Assure); 
-           $view = view("patient.ajax_patient_detail",compact('patient','assure'))->render();
-        }
-        else
-        {
+          $patient = patient::FindOrFail($request->search);
+          if($patient->Type !="Autre")
+           {
+               $assure=  assur::FindOrFail($patient->Assurs_ID_Assure); 
+               $view = view("patient.ajax_patient_detail",compact('patient','assure'))->render();
+          }
+          else
+          {
                $view = view("patient.ajax_patient_detail",compact('patient'))->render();
-        }
+          }
          return response()->json(['html'=>$view]);
-    }
+     }
 
     public function AutoCompletePatientname(Request $request)
     {

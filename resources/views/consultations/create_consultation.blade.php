@@ -124,7 +124,7 @@
 @endsection
 @section('main-content')
 <div class="page-header" width="100%">
-  	@include('partials._patientInfo')
+  	@include('patient._patientInfo')
 </div>
 <div class="content">
 	<form  class="form-horizontal" action="{{ route('consultations.store') }}" method="POST" role="form" id ="consultForm" novalidate>
@@ -192,7 +192,7 @@
 		    	<div class="modal-header">
 		           	<button type="button" class="close" data-dismiss="modal">&times;</button>
 		         		<h4 class="modal-title">Ordonnance</h4>
-		          		@include('partials._patientInfo')
+		          		@include('patient._patientInfo')
 		    	</div>
       			<div class="modal-body">
   		    	       @include('consultations.Ordonnance')    

@@ -39,7 +39,7 @@
  --}}
      <h1><strong>Résumé  du Consultation Pour :</h1>
      <?php $patient = $demande->consultation->patient; ?>
-    @include('partials._patientInfo', $patient)         
+    @include('patient._patientInfo', $patient)         
 </div>
 <div class="content">
   <div class="row">

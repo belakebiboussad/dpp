@@ -91,13 +91,11 @@ function XHRgePatient()
 }
 function getPatientdetail(id)
 {
-	// console.log(id);	
 	$.ajax({
-                     type : 'get',
-                            url : '{{URL::to('patientdetail')}}',
+           	      type : 'get',
+                            url : '{{ URL::to('patientdetail') }}',
                             data:{'search':id},
                             success:function(data1,status, xhr){
-                            		// console.log(data1);
                             	          $('#patientDetail').html(data1.html);
                            }
            });

@@ -1156,18 +1156,9 @@ $('#typeexm').on('change', function() {
                             $(this).find('.chosen-search input').css('width' , '200px');
                         });
                     }
-                })
-                /**
-                //or you can activate the chosen plugin after modal is shown
-                //this way select element becomes visible with dimensions and chosen works as expected
-                $('#modal-form').on('shown', function () {
-                    $(this).find('.modal-chosen').chosen();
-                })
-                */
-
-                $(document).one('ajaxloadstart.page', function(e) {
+                   })
+                     $(document).one('ajaxloadstart.page', function(e) {
                     autosize.destroy('textarea[class*=autosize]')
-                    
                     $('.limiterBox,.autosizejs').remove();
                     $('.daterangepicker.dropdown-menu,.colorpicker.dropdown-menu,.bootstrap-datetimepicker-widget.dropdown-menu').remove();
                 });
@@ -1175,26 +1166,20 @@ $('#typeexm').on('change', function() {
             });
 
 
-          function showConsult(consultId,index)
+          function showConsult(consultId)
           {
-                
-                      // $.each( consults[index], function( key, value ) {
-                      //                 $("#"+key).val(consults[index][key]);
-                                        
-                      //                   // $("#histoire_maladie").val(consults[index]['histoire_maladie']);
-                      //     });
-                     // $("#Resume_OBS").val(consults[index]['Resume_OBS']);
-                     // $("#histoire_maladie").val(consults[index]['histoire_maladie']);
-
                      $.ajax({
                                type : 'get',
-                               url : '{{URL::to('/consultations/detailcons/consultId')}}',
-                              // data:{'search':nom,'prenom':prenom,'code_barre':code_barre,'Dat_Naissance':date_Naiss},
-                               success:function(data,status, xhr){
-                                        // $('#liste_patients tbody').html(data);
-                                        // $(".numberResult").html(xhr.getResponseHeader("count"));
-                                        alert('sdf');
-                               }
+                                url: '{{ route("consultdetailsXHR") }}',
+                                data:{ 'id':consultId },
+                               // success:function(data,status, xhr){
+                               //          // $('#liste_patients tbody').html(data);
+                               //          // $(".numberResult").html(xhr.getResponseHeader("count"));
+                               //          alert(data);
+                               // }
+                                success:function(data,status, xhr){
+                                          $('#consultDetail').html(data.html);  //alert(data.html);     
+                                }
                      });
                    
           }

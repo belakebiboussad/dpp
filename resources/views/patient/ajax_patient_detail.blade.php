@@ -1,7 +1,7 @@
 <div data-role="page" class="ui-responsive-panel">
 <div class="panel panel-default panel-table">
     <div data-role="header " class="panel-heading">
-           <h3 class="panel-title"><strong>Resumé du&nbsp;</strong>{{ $patient->Nom}} {{ $patient->Prenom }}
+           <h3 class="panel-title"><strong>Resumé du&nbsp;</strong>&laquo;{{ $patient->Nom}} {{ $patient->Prenom }}&raquo;
            </h3>
      </div><!-- /header -->
     <div data-role="panel" class="panel-body" data-display="push" id="nav-panel">

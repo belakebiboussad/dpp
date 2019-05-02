@@ -35,7 +35,7 @@
  				--}}
  				<input type="text" id="taille" name="taille"  class="form-control bg"  Required/>
  				<span class="input-group-addon">
-				<strong>m</strong>
+				<small>m</small>
 				</span>
 				</div>
 				</div>
@@ -50,7 +50,7 @@
 				onchange = "IMC()" required /> --}}
 				<input type=" text" name="poids" id="poids" class="form-control" required>
 				<span class="input-group-addon">
-				<strong>Kg</strong>
+				<small>Kg</small>
 				</span>
 				</div>
 				</div>
@@ -61,7 +61,6 @@
 				</div>		 --}}
 				</div> 
         				</div>{{-- end row --}}
-
         				<div class="space-12"></div>
         				<div class="space-12"></div>
         				<div class="space-12"></div>
@@ -73,9 +72,9 @@
         					<div class="col-xs-3">
         					  	<div class="input-group">
 	                                  			<input type="number" id="imc"  name="imc" placeholder="IMC du Patient..." class="form-control col-sm-4" value ="" readonly  />
-	                                     				 <span class="input-group-addon">
-	                                       			 		<strong>Kg/m2</strong>
-	                             				 	</span>
+	                                     			<span class="input-group-addon">
+	                                       				<small>Kg/m2</small>
+	                             				</span>
                             				</div>
         					</div>
         					<div class="col-xs-2">
@@ -100,7 +99,7 @@
 						<div class="input-group">
 						             <input type="number" id="temp" name="temp" placeholder="Temperateur du Patient..." class="form-control"  min ="30" step="any" required/>
 						             <span class="input-group-addon">
-						                          <strong>°C</strong>
+						                          <small>°C</small>
 						             </span>
 						</div>
 					</div>

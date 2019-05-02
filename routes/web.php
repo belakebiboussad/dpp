@@ -73,6 +73,7 @@ Route::get('/lit/create/{id}','LitsController@create');
 Route::get('/hospitalisation/create/{id}','HospitalisationController@create');
 Route::get('/ordonnace/create/{id}','OrdonnanceController@create');
 Route::get('/consultations/detailcons/{id}','ConsultationsController@detailcons')->name('consultDetails');
+Route::get('/consultations/detailConsXHR','ConsultationsController@detailconsXHR')->name('consultdetailsXHR');
 Route::get('/consultations/demandeExm/{id_cons}','ConsultationsController@demandeExm');
 Route::resource('listeadmiscolloque','listeadmisColloqueController');
 Route::post('/colloque/store/{id}','ColloqueController@store');// a revoir

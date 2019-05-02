@@ -62,7 +62,7 @@
 @endsection
 @section('main-content')
 <div class="page-header" width="100%">
-  @include('partials._patientInfo')
+  @include('patient._patientInfo')
 </div>
 {{-- <div class="row"><h5 class="widget-title"><strong>Ajouter un Rendez-Vous </strong></h5></div> --}}
 <div class="page-header">
