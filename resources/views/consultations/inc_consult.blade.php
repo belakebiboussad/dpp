@@ -31,7 +31,7 @@
 			@if(isset($ordonnance))
 			<li class="">
 			<a data-toggle="tab" href="#ordonnance" aria-expanded="false">
-				  <i class="pink ace-icon fa fa-picture-o bigger-100"></i>Ordonnance
+				 <i class="ace-icon fa fa-plus-circle bigger-120 green"></i>Ordonnance
 				</a>
 			</li>
 			@endif
@@ -209,7 +209,21 @@
 				@endif
 				@if(isset($ordonnance))
 				<div id="ordonnance" class="tab-pane">
-
+					<div class="row">
+						<div class="space-12">
+						@foreach($consultation->ordonnaces as $index => $ordonnace)
+			                          <tr>
+			                            <td class="center">{{ $index + 1 }}</td>
+			                            <td>{{ $ordonnace->date }}</td>
+			                            <td class="center">
+			                              <a href="{{ route('ordonnace.show', $ordonnace->id) }}">
+			                                <i class="fa fa-eye"></i>
+			                              </a>
+			                            </td>
+			                          </tr>
+                          @endforeach	
+						</div>
+					</div>
 				</div>{{-- ordonnance --}}
 				@endif
 
