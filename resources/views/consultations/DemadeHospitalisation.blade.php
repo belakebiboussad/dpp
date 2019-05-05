@@ -49,6 +49,7 @@
 			         		 </div>
 			         	</form>
 			</div>{{-- modal-body --}}
+			<div class="space-1"></div>
 			<div class="modal-footer">
           				<button type="button" class="btn btn-success" onclick="demandehosp()">
           				   <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer

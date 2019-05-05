@@ -56,6 +56,8 @@
 <script src="{{ asset('/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
 <script src="{{ asset('/plugins/fullcalendar/locale/fr.js') }}"></script>
 <script src="{{ asset('/js/jquery-editable-select.js') }}"></script>
+<script src="{{asset('/js/jquery-ui.js')}}"></script>
+
 {{-- <script src="{{ asset('/js/moment-timezone.js') }}"></script>
  --}}
  <script type="text/javascript">
@@ -474,7 +476,7 @@ $('#typeexm').on('change', function() {
     <script>
             $('#flash-overlay-modal').modal();
             $(document).ready(function(){
-             $(".tooltip-link").tooltip();//ajouter info bull
+             //$(".tooltip-link").tooltip();//ajouter info bull
             }); 
 </script>
         <script type="text/javascript">

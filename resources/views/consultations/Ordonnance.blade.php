@@ -70,11 +70,12 @@
 		</div>{{-- "widget-box --}}
 	</div>{{-- col-sm-6 --}}
 </div>
+<div class="space-12"></div>
 <div class="row">
 	<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
 	<div class="widget-box widget-color-warning" id="widget-box-2">
 		<div class="widget-header">
-			<h5 class="widget-title text-info lighter"> Ordonnance:</h5>
+			<h5 class="widget-title text-info lighter"><strong>Ordonnance:</strong></h5>
 			<div class="widget-toolbar widget-toolbar-light no-border pull-right" >
 				<button type="button" onclick="supcolonne()" class="btn btn-transparent">
 					<i class="ace-icon fa fa-trash-o orange"></i>
@@ -102,20 +103,14 @@
 						</thead>
 					</table>
 				</div>	{{-- row --}}
-				<div class="row">
-					<div class="pull-right">
-						<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="storeord1()">Enregistrer</button>
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ord" onclick="createord('{{ $patient->Nom }} {{ $patient->Prenom }}','{{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Nom_Employe}} {{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Prenom_Employe}}')">
-									Imprimer
-						</button>
-						<button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
-					</div>
-				</div>
+
 			</div>{{-- widget-main --}}
 		</div>{{-- widget-body --}}
 	</div>{{-- widget-box --}}
 	</div>{{-- widget-container-col --}}
 </div><!-- /.row -->
+{{-- ici la place --}}
+
 <div class="row">
 	<div id="ord" class="modal fade" role="dialog">
 	<div class="modal-dialog">

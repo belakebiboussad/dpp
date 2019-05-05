@@ -1,42 +1,6 @@
 @extends('app')
 @section('main-content')
 <div class="page-header" width="100%">
-{{--    <div class="row">
-    <div class="col-sm-12">
-      <div class="widget-box">
-        <div class="widget-body">
-          <div class="widget-main">
-            <label class="inline">
-            <span class="blue"><strong>Nom :</strong></span>
-            <span class="lbl"> {{ $demande->consultation->patient->Nom }}</span>
-          </label>
-          &nbsp;&nbsp;&nbsp;
-          <label class="inline">
-            <span class="blue"><strong>Prénom :</strong></span>
-            <span class="lbl"> {{ $demande->consultation->patient->Prenom }}</span>
-          </label>
-          &nbsp;&nbsp;&nbsp;
-          <label class="inline">
-            <span class="blue"><strong>Sexe :</strong></span>
-            <span class="lbl"> {{ $demande->consultation->patient->Sexe == "M" ? "Masculin" : "Féminin" }}</span>
-          </label>
-          &nbsp;&nbsp;&nbsp;
-          <label class="inline">
-            <span class="blue"><strong>Date Naissance :</strong></span>
-            <span class="lbl"> {{ $demande->consultation->patient->Dat_Naissance }}</span>
-          </label>
-          &nbsp;&nbsp;&nbsp;
-          <label class="inline">
-            <span class="blue"><strong>Age :</strong></span>
-            <span class="lbl"> {{ Jenssegers\Date\Date::parse($demande->consultation->patient->Dat_Naissance)->age }} ans</span>
-          </label>
-          </div>
-        </div>
-      </div>
-    </div>
-</div>
-  @include('partials._patientInfo', array('patient')
- --}}
      <h1><strong>Résumé  du Consultation Pour :</h1>
      <?php $patient = $demande->consultation->patient; ?>
     @include('patient._patientInfo', $patient)         

@@ -4,15 +4,27 @@
 @endsection
 @section('style')
 <style>
-	.modal {
-	        width:105.3% !important;
+	.modalord {
+	        width:104.7% !important;
 	        right:-16% !important;
 	        left:-2.5% !important;
 	        top:-3% !important;
 	}
+	.modalLettre{
+		height:200%;
+	}
 	.modal-body
 	{
 	        top: -1px !important;
+	}
+	.modal-content {
+		position: relative;
+	}
+	.modal-footer {
+		  background-color: transparent;
+		  position: absolute;
+		  right:2px;		
+  		  bottom: 0px;
 	}
 	.dataTables_wrapper {
 	        font-family: tahoma;
@@ -116,7 +128,7 @@
 		                      ]
 		});
     		$('#Ordonnance').on('show.bs.modal', function () {
-             		  $('.modal-content').css('height',$( window ).height()*1.4);
+             		  $('.modal-content').css('height',$( window ).height()*0.95);
      		 });
     	
     	});
@@ -186,7 +198,7 @@
 	 </form>
 </div>{{-- content --}}
 <!-- Modal -->
-<div id="Ordonnance" class="modal" role="dialog" aria-hidden="true">
+<div id="Ordonnance" class="modal modalord" role="dialog" aria-hidden="true">
   	<div class="modal-dialog modal-lg" role="document">
     		<div class="modal-content">
 		    	<div class="modal-header">
@@ -196,7 +208,19 @@
 		    	</div>
       			<div class="modal-body">
   		    	       @include('consultations.Ordonnance')    
-      			</div> 
+      			</div>
+      			 <div class="modal-footer">
+      			 	<div class="row">
+				<div class="col-xs-12">
+				<div class="pull-right" align="right">
+					<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="storeord1()">Enregistrer</button>
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ord" onclick="createord('{{ $patient->Nom }} {{ $patient->Prenom }}','{{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Nom_Employe}} {{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Prenom_Employe}}')">Imprimer
+								</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
+				</div>
+				</div>
+				</div>
+      			 </div>
    		 </div>
 	</div>
 </div>
