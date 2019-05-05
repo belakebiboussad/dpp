@@ -181,6 +181,7 @@ Route::resource('demandeexb','DemandeExbController');
 route::get('/demandeexbio/{id}','DemandeExbController@createexb');
 route::get('/showdemandeexb/{id}','DemandeExbController@show_demande_exb'); 
 Route::resource('demandeexr','DemandeExamenRadio'); 
+route::get('/showdemandeexr/{id}','DemandeExamenRadio@show_demande_exr');
 /************partie viste d'hospitalisation**************/
 Route::resource('consigne','ConsigneController');
 Route::resource('surveillance','SurveillanceController');
