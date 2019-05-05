@@ -28,6 +28,13 @@
 				</a>
 			</li>
 			@endif
+			@if(isset($ordonnance))
+			<li class="">
+			<a data-toggle="tab" href="#ordonnance" aria-expanded="false">
+				  <i class="pink ace-icon fa fa-picture-o bigger-100"></i>Ordonnance
+				</a>
+			</li>
+			@endif
 		</ul>
 		</div>
 		</div>{{-- header --}}
@@ -163,7 +170,7 @@
 				@endif
 				@if(isset($examsRadio)  && count($examsRadio) !=0)	
 				<div id="examImagerie" class="tab-pane">
-				<div>
+				<div class ="row">
 		                     <table class="table table-striped table-bordered">
 		                     <thead>
 		                      <tr>
@@ -196,9 +203,16 @@
 		                     @endforeach               
 		                     </tbody>
 		                     </table>
-                   			</div>
+		                     </div>{{-- col-sm-12 --}}
+                   			</div>{{-- row --}}
 				</div>	{{-- examImagerie --}}
 				@endif
+				@if(isset($ordonnance))
+				<div id="ordonnance" class="tab-pane">
+
+				</div>{{-- ordonnance --}}
+				@endif
+
 			</div>	{{-- TAB6CONTENT --}}
 			</div>
 		</div>	{{-- widget-body --}}
