@@ -207,25 +207,36 @@
                    			</div>{{-- row --}}
 				</div>	{{-- examImagerie --}}
 				@endif
-				@if(isset($ordonnance))
+			{{-- 	@if(isset($ordonnance)) --}}
 				<div id="ordonnance" class="tab-pane">
-					<div class="row">
-						<div class="space-12">
-						@foreach($consultation->ordonnaces as $index => $ordonnace)
-			                          <tr>
-			                            <td class="center">{{ $index + 1 }}</td>
-			                            <td>{{ $ordonnace->date }}</td>
-			                            <td class="center">
-			                              <a href="{{ route('ordonnace.show', $ordonnace->id) }}">
-			                                <i class="fa fa-eye"></i>
-			                              </a>
-			                            </td>
-			                          </tr>
-                          @endforeach	
-						</div>
-					</div>
+				<div class="row">
+				<div class="col-sm-12">
+				<table class="table table-striped table-bordered">
+                       	          <thead>
+                          		<tr>
+	                            		<th class="center">#</th>
+	                            		<th>Date</th>
+	                            		<th></th>
+	                          	</tr>
+                        		</thead>
+                       		<tbody>
+		                     @foreach($consultation->ordonnaces as $index => $ordonnace)
+		                     <tr>
+		                            	<td class="center">{{ $index + 1 }}</td>
+		                            	<td>{{ $ordonnace->date }}</td>
+		                            	<td class="center">
+		                     		     	<a href="{{ route('ordonnace.show', $ordonnace->id) }}">
+		                               		<i class="fa fa-eye"></i>
+		                              		</a>
+		                           	</td>
+		                      </tr>
+		                      @endforeach
+		                      </tbody>
+		                      </table>	
+				</div>
+				</div>
 				</div>{{-- ordonnance --}}
-				@endif
+				{{-- @endif --}}
 
 			</div>	{{-- TAB6CONTENT --}}
 			</div>
