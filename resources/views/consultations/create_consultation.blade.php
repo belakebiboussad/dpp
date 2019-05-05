@@ -8,7 +8,8 @@
 	        width:104.7% !important;
 	        right:-16% !important;
 	        left:-2.5% !important;
-	        top:-3% !important;
+	        top:-3.1% !important;
+	       /*   display: inline-block;*/
 	}
 	.modalLettre{
 		height:200%;
@@ -209,6 +210,8 @@
       			<div class="modal-body">
   		    	       @include('consultations.Ordonnance')    
       			</div>
+      			<div class="space-12"></div>
+      			<br><br><br><br><br>
       			 <div class="modal-footer">
       			 	<div class="row">
 				<div class="col-xs-12">

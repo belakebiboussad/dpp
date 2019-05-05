@@ -57,10 +57,10 @@ class OrdonnanceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+    // public function show($id)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -95,10 +95,12 @@ class OrdonnanceController extends Controller
     {
         //
     }
-     public function show_ordonnance($id)
-     {
+    // _ordonnance
+     public function show($id)
+     {  
+        
            $ordonnance = ordonnance::FindOrFail($id);
-           $pdf = PDF::loadView('ordonnance', compact('ordonnance'));
+           $pdf = PDF::loadView('ordennance.imprimer', compact('ordonnance'));
            return $pdf->stream('ordonnance.pdf');
     }
 

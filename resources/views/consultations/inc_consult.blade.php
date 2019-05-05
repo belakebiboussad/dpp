@@ -216,7 +216,7 @@
                           		<tr>
 	                            		<th class="center">#</th>
 	                            		<th>Date</th>
-	                            		<th></th>
+	                            		<th><em class="fa fa-cog"></em></th>
 	                          	</tr>
                         		</thead>
                        		<tbody>

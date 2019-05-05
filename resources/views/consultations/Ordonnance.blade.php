@@ -70,7 +70,6 @@
 		</div>{{-- "widget-box --}}
 	</div>{{-- col-sm-6 --}}
 </div>
-<div class="space-12"></div>
 <div class="row">
 	<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
 	<div class="widget-box widget-color-warning" id="widget-box-2">
@@ -86,8 +85,7 @@
 			</div>
 		</div>	{{-- widget-header --}}
 		<div class="widget-body">
-			<div class="widget-main">
-				<div class="space-12"></div>
+			<div class="widget-main" style="margin-top:-0.45%">
 				<div class="row">
 					<table id="ordonnance" class="table  table-bordered table-hover">
 						<thead>
@@ -104,7 +102,7 @@
 					</table>
 				</div>	{{-- row --}}
 
-			</div>{{-- widget-main --}}
+			</div>{{-- widget-main
 		</div>{{-- widget-body --}}
 	</div>{{-- widget-box --}}
 	</div>{{-- widget-container-col --}}

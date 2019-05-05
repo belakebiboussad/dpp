@@ -67,7 +67,6 @@ class ConsultationsController extends Controller
            if(isset($demande))
                     $examensimg = json_decode($demande->examsImagerie); 
            $exmclin = examen_cliniqu::where("id_consultation",$id_cons)->get()->first();
-             //$ordennances = ordonnance::where("id_consultation",$id_cons)->get(['medicaments'])->first();
            $examsRadio = $consultation->examensradiologiques;
            $ordonnance= $consultation->ordonnances;
            // if($ordonnance != null )
