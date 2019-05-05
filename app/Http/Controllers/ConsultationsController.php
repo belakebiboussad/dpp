@@ -70,9 +70,10 @@ class ConsultationsController extends Controller
              //$ordennances = ordonnance::where("id_consultation",$id_cons)->get(['medicaments'])->first();
            $examsRadio = $consultation->examensradiologiques;
            $ordonnance= $consultation->ordonnances;
+           dd($ordonnance);
            if($ordonnance != null )
                 $medicaments =  $ordonnance->medicamentes;  
-           return view('consultations.resume_cons-new', compact('consultation', 'examensimg', 'exmclin', 'ordonnance', 'examsRadio', 'medicaments','consults'));
+           return view('consultations.resume_cons', compact('consultation', 'examensimg', 'exmclin', 'ordonnance', 'examsRadio', 'medicaments','consults'));
      }
      public function detailconsXHR(Request $request)
      {

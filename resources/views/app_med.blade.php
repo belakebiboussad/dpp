@@ -2,7 +2,8 @@
 <html lang="en">
     <title>Gestion Des Patients</title>
     @include('partials.htmlheader')
-
+      @yield('style')
+      @include('partials.scripts')
 <body class="no-skin">
     @include('partials.scripts')
     @include('partials.navbar')

@@ -1165,27 +1165,7 @@ $('#typeexm').on('change', function() {
                     $('.daterangepicker.dropdown-menu,.colorpicker.dropdown-menu,.bootstrap-datetimepicker-widget.dropdown-menu').remove();
                 });
             
-            });
-
-
-          function showConsult(consultId)
-          {
-                     $.ajax({
-                               type : 'get',
-                                url: '{{ route("consultdetailsXHR") }}',
-                                data:{ 'id':consultId },
-                               // success:function(data,status, xhr){
-                               //          // $('#liste_patients tbody').html(data);
-                               //          // $(".numberResult").html(xhr.getResponseHeader("count"));
-                               //          alert(data);
-                               // }
-                                success:function(data,status, xhr){
-                                          $('#consultDetail').html(data.html);  //alert(data.html);     
-                                }
-                     });
-                   
-          }
-         
+            });       
            $('#user-profile-3').ready(function(){
                      if (window.location.hash == '#edit-password') {
                                $('.nav-tabs li.active').removeClass('active');
