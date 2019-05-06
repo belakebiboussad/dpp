@@ -141,14 +141,15 @@ class ConsultationsController extends Controller
      public function store(Request $request)
      {
 
-          $request->validate([
-                "motif" => 'required',   // "histoirem" => 'required',
-                "resume" => 'required',
-           ]);
+            $request->validate([
+                  "motif" => 'required',   // "histoirem" => 'required',
+                  "resume" => 'required',
+            ]);
 
-           $nomlieu = Config::get('constants.lieuc');
-           $lieu = Lieuconsultation::where('Nom', $nomlieu)->first();
-           $consult = consultation::create([
+            $nomlieu = Config::get('constants.lieuc');
+            $lieu = Lieuconsultation::where('Nom', $nomlieu)->first();
+            dd($request);
+            $consult = consultation::create([
                      "Motif_Consultation"=>$request->motif,
                      "histoire_maladie"=>$request->histoirem,
                      "Date_Consultation"=>Date::Now(),
