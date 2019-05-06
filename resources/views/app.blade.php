@@ -35,8 +35,12 @@
             <!-- /main-content-inner -->
         </div>
         <!-- /main-content -->
-
-        @include('partials.footer')
+        <br>
+        <br>
+          <div>
+                @include('partials.footer')
+           </div>
+     
 
     </div>
     <!-- /main-container -->

@@ -16,18 +16,18 @@
 				                          </label>
 				                          <textarea class="form-control" id="infosc" name="infosc"></textarea>
 				                    	{!! $errors->first('infosc', '<small class="alert-danger"><b>:message</b></small>')!!}
-				             </div>
-				             <br><br>
-				             <div>
+				           </div>
+				           <br>
+				           <div>
 				                      <label for="explication">
 				                        <b>Explication de la demande de diagnostic</b>
 				                      </label>
 				                      <textarea class="form-control" id="explication" name="explication"></textarea>
 				                      {!! $errors->first('explication', '<small class="alert-danger"><b>:message</b></small>')!!}
-				             </div>
-				             <br><br>
-				             <div>
-				             <label for="infos">
+				           </div>
+				           <br>
+				           <div>
+				           <label for="infos">
 				                        <b>Informations supplémentaires pertinentes</b>
 				             </label>
 				             <div class="row">
@@ -46,7 +46,7 @@
 			                  	</div>
 			                      	{!! $errors->first('infos', '<small class="alert-danger"><b>:message</b></small>')!!}
 			                    	</div>
-			                   	 <br><br>
+			                   	 <br>
 			                   	<div>
 			                          <label for="explication">
 			                    	    <b>Examen(s) proposé(s)</b>
@@ -60,7 +60,7 @@
 				                        @endforeach
 				             </select>
 			                 	</div>
-			                 	<br><br>
+			                 	<br>
 			                 	<div>
                      				 <label for="infos">
                       					<b>Examen(s) pertinent(s) précédent(s) relatif(s) à la demande de diagnostic</b>

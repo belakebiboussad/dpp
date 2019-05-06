@@ -4,7 +4,7 @@
 @endsection
 @section('style')
 <style>
-	.modalord {
+	/*.modalord {
 	        width:104.7% !important;
 	        right:-16% !important;
 	        left:-2.5% !important;
@@ -25,7 +25,7 @@
 		  position: absolute;
 		  right:2px;		
   		  bottom: 0px;
-	}
+	}*/
 	.dataTables_wrapper {
 	        font-family: tahoma;
 	        font-size: 10px;
@@ -107,10 +107,6 @@
     		$("#btnCalc").click(function(event){
           			  event.preventDefault();
      		 });
-    		// $("#ExamComp").click(function(event))
-    		// {
-    		// 	// alert("'fqsf");
-    		// }
     	 	$('#medc_table').DataTable({
 		           processing: true,
 		           //serverSide: true,
@@ -142,62 +138,68 @@
 <div class="page-header" width="100%">
   	@include('patient._patientInfo')
 </div>
-<div class="content" style="height:800px;">
-{{-- style="height:800px;" --}}
-<form  class="form-horizontal" action="{{ route('consultations.store') }}" method="POST" role="form" id ="consultForm" novalidate>
-	 {{ csrf_field() }}
-	 <input type="hidden" name="id" value="{{$patient->id}}">
-	<div id="prompt"></div>
-	<div class="tabpanel">
-	<ul class = "nav nav-pills nav-justified list-group" role="tablist" id="menu">
-	<li role= "presentation" class="active col-md-4">
-	           <a href="#Interogatoire" aria-controls="Interogatoire" role="tab" data-toggle="tab" class="btn btn-secondary btn-lg">
-	                     <i class="fa fa-commenting" aria-hidden="true"></i>
-	                     <span class="bigger-160"> Interogatoire</span></a>
-	</li>
-	<li role= "presentation"  class="col-md-4">
-	           <a href="#ExamClinique"  ria-controls="ExamClinique" role="tab" data-toggle="tab" class="btn btn-success btn-lg"> 
-	           <span class="bigger-160">Examen Clinique</span></a>
-	</li>
-	<li role= "presentation" class="col-md-4">
-	          <a href="#ExamComp" aria-controls="ExamComp" role="tab" data-toggle="tab" class="btn btn-danger btn-lg">
-	         		<span class="bigger-160">Examen Complémentaire</span>
-		</a>
-	</li>
-           </ul>
-           <div class ="tab-content"  style = "border-style: none;" >
-           	<div role="tabpanel" class = "tab-pane active " id="Interogatoire"> 
-		           <div class= "col-md-12 col-xs-12">
-		                      @include('consultations.Interogatoire')
-		           </div>  {{--  <div class= "col-md-3 col-xs-9"> </div> --}}
-		</div>
-		<div role="tabpanel" class = "tab-pane" id="ExamClinique">
-		           <div class="row">
-		                     <div class= "col-md-12 col-xs-12">
-		                              	@include('consultations.examenClinique')
+<div class="content">
+	<form  class="form-horizontal" action="{{ route('consultations.store') }}" method="POST" role="form" id ="consultForm" novalidate>
+	 	{{ csrf_field() }}
+	 	<input type="hidden" name="id" value="{{$patient->id}}">
+		<div id="prompt"></div>
+		<div class="tabpanel">
+			<ul class = "nav nav-pills nav-justified list-group" role="tablist" id="menu">
+			           <li role= "presentation" class="active col-md-4">
+			                    <a href="#Interogatoire" aria-controls="Interogatoire" role="tab" data-toggle="tab" class="btn btn-secondary btn-lg">
+			                     <i class="fa fa-commenting" aria-hidden="true"></i>
+			                      <span class="bigger-160"> Interogatoire</span></a>
+			           </li>
+			            <li role= "presentation"  class="col-md-4">
+			                    <a href="#ExamClinique"  ria-controls="ExamClinique" role="tab" data-toggle="tab" class="btn btn-success btn-lg"> 
+			                      <span class="bigger-160">Examen Clinique</span></a>
+			           </li>
+			           <li role= "presentation" class="col-md-4">
+			                      <a href="#ExamComp" aria-controls="ExamComp" role="tab" data-toggle="tab" class="btn btn-danger btn-lg" >
+			                          <span class="bigger-160">Examen Complémentaire</span>
+			                      </a>
+			           </li>
+           		</ul>
+           		<div class ="tab-content"  style = "border-style: none;" >
+		                     <div role="tabpanel" class = "tab-pane active " id="Interogatoire"> 
+		                       	<div class= "col-md-12 col-xs-12">
+		                                	@include('consultations.Interogatoire')
+		                          	</div>  {{--  <div class= "col-md-3 col-xs-9"> </div> --}}
 		                     </div>
-		           </div>  {{-- row --}}
-		</div> {{-- finexamenclinique --}}
-		<div role="tabpanel" class = "tab-pane" id="ExamComp">
-		           <div class= "col-md-12 col-xs-12">    
-		                     	@include('consultations.ExamenCompl')   
-		           </div>{{-- <div class= "col-md-3 col-xs-9"> </div> --}}
-		</div> 
-           </div>{{-- content --}}
-          	</div>{{-- tabpanel --}}
-           <div class="center" style="bottom:0px;padding-">
-	<div id="error" aria-live="polite"></div>
-		<button class="btn btn-info" type="submit" id="send">
-			<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
-		</button>
-		&nbsp; &nbsp; &nbsp;
-		<button class="btn btn-info" type="button" id="annuler">
-			<i class="ace-icon fa fa-undo-110"></i>Annuler
-		</button> 
-	</div>	{{-- center --}}
+		                     <div role="tabpanel" class = "tab-pane" id="ExamClinique">
+		                          <div class="row">
+		                                <div class= "col-md-12 col-xs-12">
+		                                	@include('consultations.examenClinique')
+		                                </div>
+		                           </div>  {{-- row --}}
+		                     </div> {{-- finexamenclinique --}}
+		                     <div role="tabpanel" class = "tab-pane" id="ExamComp">
+		                     		<div class= "col-md-12 col-xs-12">    
+		                              	@include('consultations.ExamenCompl')   
+		                          	</div>{{-- <div class= "col-md-3 col-xs-9"> </div> --}}
+		                 	</div> 
+
+  			</div>{{-- tab-content --}}
+  			<div class="space-12"></div>
+  			
+   			<div class="center">
+				<div class="space-12"></div>
+				<div class="space-12"></div>
+				<div id="error" aria-live="polite"></div>
+				<div class="space-12"></div>
+
+				<button class="btn btn-info" type="submit" id="send">
+					<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
+				</button>
+				&nbsp; &nbsp; &nbsp;
+				<button class="btn btn-info" type="button" id="annuler">
+					<i class="ace-icon fa fa-undo-110"></i>Annuler
+				</button> 
+			</div>
+		</div>{{-- tabpanel --}}
 	 </form>
-	
 </div>{{-- content --}}
+<!-- Modal -->
 <div id="Ordonnance" class="modal modalord" role="dialog" aria-hidden="true">
   	<div class="modal-dialog modal-lg" role="document">
     		<div class="modal-content">
@@ -236,4 +238,5 @@
 <div>
 	@include('consultations.DemadeHospitalisation')
 </div>
+{{-- endModal --}}
 @endsection

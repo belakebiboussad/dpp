@@ -49,15 +49,12 @@
 	</div>
 	<div class="space-12"></div>
 	<div style="text-align: right;">
-		<button type="button" class="btn btn-primary"onclick="ajaxfunc({{$patient->id}});" style="width:50%;" id="AddANTCD">
-			<div class="fa fa-plus-circle"></div>&nbsp;
+		<button type="button" class="btn btn-primary"onclick="ajaxfunc({{$patient->id}});" style="width:30%;" id="AddANTCD">
+		<i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>&nbsp;
 			<span class="bigger-120">Ajouter</span> 
 		</button>
 		<div class="space-12"></div>
-{{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#" onclick="addAntecedant()" style="width:250px;">
-<i class="ace-icon fa fa-print  bigger-120 green"></i>Ajoutet 
-		</button> --}}
-	</div>
+</div>
 </div>{{-- widget-main --}}
 
 </div>
