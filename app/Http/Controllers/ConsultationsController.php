@@ -69,9 +69,7 @@ class ConsultationsController extends Controller
            $exmclin = examen_cliniqu::where("id_consultation",$id_cons)->get()->first();
            $examsRadio = $consultation->examensradiologiques;
            $ordonnance= $consultation->ordonnances;
-           // if($ordonnance != null )
-           //      $medicaments =  $ordonnance->medicamentes;  
-           return view('consultations.resume_cons', compact('consultation', 'examensimg', 'exmclin', 'examsRadio', 'ordonnance', 'consults'));
+          return view('consultations.resume_cons', compact('consultation', 'examensimg', 'exmclin', 'examsRadio', 'ordonnance', 'consults'));
      }
      public function detailconsXHR(Request $request)
      {
@@ -148,7 +146,6 @@ class ConsultationsController extends Controller
 
             $nomlieu = Config::get('constants.lieuc');
             $lieu = Lieuconsultation::where('Nom', $nomlieu)->first();
-            dd($request);
             $consult = consultation::create([
                      "Motif_Consultation"=>$request->motif,
                      "histoire_maladie"=>$request->histoirem,

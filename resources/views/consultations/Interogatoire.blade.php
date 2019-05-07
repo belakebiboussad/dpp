@@ -90,8 +90,35 @@
 				</div>
 			</div>
 			</div>
-		</div>
-		</div>
+			<div class="space-12"></div>
+			<div class="space-12"></div>
+		</div><!-- col-md-8 col-xs-9 -->
+		<div class= "col-md-4 col-xs-4">
+			<br/><br/>
+		   	 <div class="right">
+		                     	<div class="space-12"></div>
+		                     	<div class="space-12"></div>
+		                     	<div class="space-12"></div>
+		                     	 <div class="profile-contact-links align-right">
+	                                           <a  href="#" data-target="#Ordonnance" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title="" >
+	                                                     	<div class="fa fa-plus-circle"></div>
+	                                                     <span class="bigger-110" > Ordonnance</span>
+	                                          </a>
+	                                          	<div class="space-12"></div>
+	                                           <a  href="#" data-target="#demandehosp" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title="prescrire des medicaaments" ><div class="fa fa-plus-circle"></div>
+                                                      	  	<span class="bigger-110"> Hospitalisation</span>
+                                                  	</a>
+                                                  	<div class="space-12"></div>
+                                                    	<a class="btn btn-primary btn-lg tooltip-link" data-toggle="modal"  data-toggle="tooltip" data-original-title="lettre d'orientation" data-target="#lettreorient" style="width:100%;" onclick="lettreoriet('{{ $employe->Nom_Employe }}','{{ $employe->Prenom_Employe }}',
+                                                    	      '{{ $employe->Specialite_Emploiye }}','{{ $employe->tele_mobile }}')">
+                                                      	<div class="fa fa-plus-circle"></div>
+                                                          	<span class="bigger-110" style ="text-align: right !important;">Orientation</span> 
+                                                   	</a>
+	                                 </div> {{-- profile-contact-links --}}         
+	                     	</div>
+	           </div>{{-- col-md-4 col-xs-4 --}}
+		</div><!-- MOTIF -->
+
 		<div role="tabpanel" class = "tab-pane " id="ATCD"> 
 			<div class= "col-md-6 col-xs-6">
 			        	 @include('consultations.Antecedant')

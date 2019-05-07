@@ -98,7 +98,7 @@ class OrdonnanceController extends Controller
     // _ordonnance
      public function show($id)
      {  
-        
+          
            $ordonnance = ordonnance::FindOrFail($id);
            $pdf = PDF::loadView('ordennance.imprimer', compact('ordonnance'));
            return $pdf->stream('ordonnance.pdf');

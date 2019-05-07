@@ -638,13 +638,13 @@ $('#typeexm').on('change', function() {
         </script>
         <script>
            $('document').ready(function(){
-                    $("#dexbio").on("hidden.bs.modal", function () {
-                           var selected = $("#selectedoption").val();
-                           var arrayOfSelected = selected.split(",");
-                           for(var i=0;i<arrayOfSelected.length;i++){
-                               $('input[type=checkbox][value='+arrayOfSelected[i]+']').prop('checked',true);
-                                }
-                });
+                //     $("#dexbio").on("hidden.bs.modal", function () {
+                //            var selected = $("#selectedoption").val();
+                //            var arrayOfSelected = selected.split(",");
+                //            for(var i=0;i<arrayOfSelected.length;i++){
+                //                $('input[type=checkbox][value='+arrayOfSelected[i]+']').prop('checked',true);
+                //                 }
+                // });
            });          
         function lettreoriet(nommedt,prenommedt,servmedt,telmedt,nompatient,prenompatient,agepatient)
         {
@@ -677,28 +677,30 @@ $('#typeexm').on('change', function() {
             lettre.text(200,180,'signature',null,null,'right');
             var string = lettre.output('datauristring');
             $('#lettreorientation').attr('src', string);
-        }
-        function createord(nompatient,nommedcin) {
-            var pdf = new jsPDF()
-            pdf.text(105,20, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
-            pdf.text(105,26, 'HOPITAL CENTRAL DE LA SURETE NATIONALE "LES GLYCINES"', null, null, 'center');
-            pdf.text(105,32, '12, Chemin des Glycines - ALGER', null, null, 'center');
-            pdf.text(105,38, 'Tél : 23-93-34 - 23-93-58', null, null, 'center');
-            pdf.text(200,50, 'Alger,le : '+$('#dateord').val(), null, null, 'right');
-            pdf.text(20,60, 'Docteur : '+nommedcin, null, null);
-            pdf.text(200,60, 'Patient : '+nompatient, null, null, 'right');
-            pdf.setFontType("bold");
-            pdf.text(105,70, 'ORDONNANCE', null, null, 'center');
-            var arrayLignes = document.getElementById("ordonnance").rows;
-            var longueur = arrayLignes.length;
-            for(var i=1; i<longueur; i++)
-            {
-            pdf.text(30,73+(i*(20)), arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML, null, null);
-            pdf.text(30,80+(i*(20)), arrayLignes[i].cells[4].innerHTML, null, null);
-            }
-            var string = pdf.output('datauristring');
-            $('#ordpdf').attr('src', string);
-
+          }
+           function createord(nompatient,nommedcin) {
+                     var d = new Date();
+                     moment.locale('fr');
+                     var formattedDate = moment(d).format("l");
+                    var pdf = new jsPDF()
+                    pdf.text(105,20, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
+                    pdf.text(105,26, 'HOPITAL CENTRAL DE LA SURETE NATIONALE "LES GLYCINES"', null, null, 'center');
+                    pdf.text(105,32, '12, Chemin des Glycines - ALGER', null, null, 'center');
+                    pdf.text(105,38, 'Tél : 23-93-34 - 23-93-58', null, null, 'center');
+                    pdf.text(200,50, 'Alger,le : '+formattedDate, null, null, 'right');
+                    pdf.text(20,60, 'Docteur : '+nommedcin, null, null);
+                    pdf.text(200,60, 'Patient : '+nompatient, null, null, 'right');
+                    pdf.setFontType("bold");
+                    pdf.text(105,70, 'ORDONNANCE', null, null, 'center');
+                    var arrayLignes = document.getElementById("ordonnance").rows;
+                    var longueur = arrayLignes.length;
+                    for(var i=1; i<longueur; i++)
+                    {
+                    pdf.text(30,73+(i*(20)), arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML, null, null);
+                    pdf.text(30,80+(i*(20)), arrayLignes[i].cells[4].innerHTML, null, null);
+                    }
+                    var string = pdf.output('datauristring');
+                    $('#ordpdf').attr('src', string);
             }
             function storeord()
             {   
@@ -715,43 +717,36 @@ $('#typeexm').on('change', function() {
                 $('#ordonnace_form').submit();
             }
 
-           function createexbio(nomp,prenomp){      
+           function createexbio(nomp,prenomp,age){      
                      var exbio = new jsPDF();
                      var d = new Date();
-                     var dd = d.getDate();
-                     var mm = d.getMonth()+1; 
-                     var yyyy = d.getFullYear();
-                     exbio.text(200,20, 'Date : '+dd+'/'+mm+'/'+yyyy, null, null, 'right');
+                     moment.locale('fr');
+                     var formattedDate = moment(d).format("l");
+                     exbio.text(200,20, 'Date : '+formattedDate , null, null, 'right');
                      exbio.text(20,25, 'Nom : '+nomp, null, null);
                      exbio.text(20,35, 'Prénom : '+prenomp, null, null);
-                     exbio.text(20,45, 'Age : 30 ans', null, null);
+                     exbio.text(20,45, 'Age : '+ age+' ans', null, null);
                      exbio.setFontType("bold");
-                     exbio.text(105,55, 'Priére de faire', null, null, 'center');
+                    exbio.text(105,55, 'Priére de faire', null, null, 'center');
                      exbio.setFontSize(14);
                      exbio.text(45,65,'Analyses Demandées :',null,null,'center');
                      exbio.setFontSize(13);
                      var i =0;
-                       $('input.ace:checkbox:checked').each(function() {
-                              exbio.text(25,72+i,$(this).attr('value')+", ");
-                        i=i+10;
+                     $('input.ace:checkbox:checked').each(function(index, value) {
+                                exbio.text(25,72+i,this.nextElementSibling.innerHTML+", ");
+                                //alert(value.nextElementSibling.innerHTML);
+                                i=i+10;
                     });
-                    var autresex = $("#autr").tagsinput('items');
-                    var long = autresex.length; 
-                    for (var j = 0;  j< long; j++) {
-                        exbio.text(25,72+i,autresex[j]+", ");
-                        i=i+10;
-                    }
-                    var string = exbio.output('datauristring');
+                     var string = exbio.output('datauristring');
                     $('#exbiopdf').attr('src', string);
            }
           function createeximg(nomp,prenomp){
+                      moment.locale('fr');
                      var d = new Date();
-                      var yyyy = d.getFullYear().toString();
-                      var mm = (d.getMonth()+1).toString();
-                      var dd  = d.getDate().toString();  
-                      var date=  yyyy + "/" + (mm[1]?mm:"0"+mm[0]) + "/" + (dd[1]?dd:"0"+dd[0]);
+                    //var date=  yyyy + "/" + (mm[1]?mm:"0"+mm[0]) + "/" + (dd[1]?dd:"0"+dd[0]);
+                     var formattedDate = moment(d).format("l");
                      var exbio = new jsPDF();
-                     exbio.text(200,20, 'Date :' +date , null, null, 'right');
+                     exbio.text(200,20, 'Date :' +formattedDate , null, null, 'right');
                      exbio.text(20,25, 'Nom : '+nomp, null, null);
                      exbio.text(20,35, 'Prénom : '+prenomp, null, null);
                       exbio.text(20,45, 'Age :........................................', null, null);

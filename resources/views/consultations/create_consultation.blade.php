@@ -26,6 +26,23 @@
 		  right:2px;		
   		  bottom: 0px;
 	}
+	/*deb*/
+	.modal.modal-wide .modal-dialog {
+	  width: 95%;
+	  height:1000px;
+	}
+	.modal-wide .modal-body {
+	  overflow-y: auto;
+	}
+	iframe {
+	    display: block;
+	    width: 800px;
+	    height: 700px;
+	    margin: 0 auto;
+	    border: 0;
+	}
+	/*fin*/
+
 	.dataTables_wrapper {
 	        font-family: tahoma;
 	        font-size: 10px;
@@ -61,6 +78,10 @@
 		        if(theEvent.preventDefault) theEvent.preventDefault();
 		}
 	}
+	$(".modal-wide").on("show.bs.modal", function() {
+	           var height = $(window).height() - 200;
+		$(this).find(".modal-body").css("max-height", height);
+	});
     	$('document').ready(function(){
     		$( 'ul.nav li' ).on( 'click', function() {
 		           $(this).siblings().addClass('filter');
@@ -107,11 +128,7 @@
     		$("#btnCalc").click(function(event){
           			  event.preventDefault();
      		 });
-    		// $("#ExamComp").click(function(event))
-    		// {
-    		// 	// alert("'fqsf");
-    		// }
-    	 	$('#medc_table').DataTable({
+    		 $('#medc_table').DataTable({
 		           processing: true,
 		           //serverSide: true,
 		            ordering: true,
@@ -209,20 +226,14 @@
       			<div class="modal-body">
   		    	       @include('consultations.Ordonnance')    
       			</div>
-      			<div class="space-12"></div>
-      			<br><br><br><br><br>
-      			 <div class="modal-footer">
-      			 	<div class="row">
-				<div class="col-xs-12">
-				<div class="pull-right" align="right">
-					<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="storeord1()">Enregistrer</button>
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ord" onclick="createord('{{ $patient->Nom }} {{ $patient->Prenom }}','{{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Nom_Employe}} {{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Prenom_Employe}}')">Imprimer
+   		 </div>
+   		 <div class="row">
+   		 <div class="pull-right" align="right" style="bottom:0; padding-right:13px">
+   		 	<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="storeord1()">Enregistrer</button>
+   		 	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ord" onclick="createord('{{ $patient->Nom }} {{ $patient->Prenom }}','{{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Nom_Employe}} {{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Prenom_Employe}}')">Imprimer
 								</button>
-					<button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
-				</div>
-				</div>
-				</div>
-      			 </div>
+			<button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
+   		 </div>
    		 </div>
 	</div>
 </div>
@@ -236,4 +247,5 @@
 <div>
 	@include('consultations.DemadeHospitalisation')
 </div>
+
 @endsection

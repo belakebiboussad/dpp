@@ -5,7 +5,7 @@
 				<div class="widget-main" >
 					<div class="row">
 					<div class="col-xs-12 table-responsive">
-						<table id="medc_table" class="table table-striped table-bordered table-hover" width=100%> 
+					<table id="medc_table" class="table table-striped table-bordered table-hover" width=100%> 
 						<thead>
 						<tr>
 						<th class="center"><strong>Médicament</strong></th>
@@ -16,7 +16,7 @@
 						</th>
 						</tr>
 						</thead>
-						</table>
+					</table>
 					</div>
 					</div>
 				</div>
@@ -83,9 +83,9 @@
 					<i class="ace-icon fa fa-pencil green"></i>
 				</button>
 			</div>
-		</div>	{{-- widget-header --}}
+		</div>	{{-- widget-header --}}{{-- 138px; --}}
 		<div class="widget-body">
-			<div class="widget-main" style="margin-top:-0.45%">
+	<div class="widget-main" style="margin-top:-0.40%;height:138px;overflow:scroll;">
 				<div class="row">
 					<table id="ordonnance" class="table  table-bordered table-hover">
 						<thead>
@@ -101,14 +101,12 @@
 						</thead>
 					</table>
 				</div>	{{-- row --}}
-
 			</div>{{-- widget-main
 		</div>{{-- widget-body --}}
 	</div>{{-- widget-box --}}
 	</div>{{-- widget-container-col --}}
 </div><!-- /.row -->
 {{-- ici la place --}}
-
 <div class="row">
 	<div id="ord" class="modal fade" role="dialog">
 	<div class="modal-dialog">
@@ -126,5 +124,6 @@
 			</div>
 		</div>
 	</div>
+	</div>
 </div>
-</div>
+
