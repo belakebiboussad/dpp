@@ -76,16 +76,16 @@
 		<div class="widget-header">
 			<h5 class="widget-title text-info lighter"><strong>Ordonnance:</strong></h5>
 			<div class="widget-toolbar widget-toolbar-light no-border pull-right" >
-				<button type="button" onclick="supcolonne()" class="btn btn-transparent">
+				 <button type="button" onclick="supcolonne()" class="btn btn-xs btn-transparent ">
 					<i class="ace-icon fa fa-trash-o orange"></i>
 				</button>
-				<button type="button" class="btn btn-transparent  my-right-float">
+				<button type="button" class="btn btn-xs btn-transparent  my-right-float">
 					<i class="ace-icon fa fa-pencil green"></i>
-				</button>
-			</div>
+				</button> 
+			</div> 
 		</div>	{{-- widget-header --}}{{-- 138px; --}}
 		<div class="widget-body">
-	<div class="widget-main" style="margin-top:-0.40%;height:138px;overflow:scroll;">
+	<div class="widget-main" style="margin-top:-0.50%;height:175px;overflow:scroll;">
 				<div class="row">
 					<table id="ordonnance" class="table  table-bordered table-hover">
 						<thead>

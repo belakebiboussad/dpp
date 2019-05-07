@@ -114,14 +114,14 @@
 	                     		 	<div class="space-12"></div>
 	                     		 	<div class="space-12"></div>
 	                     		 	 <div class="profile-contact-links align-right">
-	                                              		 <a  href="#" data-target="#Ordonnance" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title="" >
+	                                              	<a  href="#" data-target="#Ordonnance" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title="" >
 	                                                      	<div class="fa fa-plus-circle"></div>
 	                                                          	<span class="bigger-110" > Ordonnance</span>
-	                                                		</a>
-	                                                		<div class="space-12"></div>
-	                                                		 <a  href="#" data-target="#demandehosp" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title="prescrire des medicaaments" ><div class="fa fa-plus-circle"></div>
-                                                      	  	  	<span class="bigger-110"> Hospitalisation</span>
-                                                  			</a>
+	                                                	</a>
+	                                                	<div class="space-12"></div>
+	                                                	 <a  href="#" data-target="#demandehosp" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title="" ><div class="fa fa-plus-circle"></div>
+                                                      	  	<span class="bigger-110"> Hospitalisation</span>
+                                                  		</a>
                                                     		<div class="space-12"></div>
                                                     		<a class="btn btn-primary btn-lg tooltip-link" data-toggle="modal"  data-toggle="tooltip" data-original-title="lettre d'orientation" data-target="#lettreorient" style="width:100%;" onclick="lettreoriet('{{ $employe->Nom_Employe }}','{{ $employe->Prenom_Employe }}',
                                                     	      '{{ $employe->Specialite_Emploiye }}','{{ $employe->tele_mobile }}')">

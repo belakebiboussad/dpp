@@ -1,4 +1,4 @@
-<div id="lettreorient" class="modal modalLettre" role="dialog" aria-hidden="true">
+<div id="lettreorient" class="modal" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <!-- Modal content-->
     <div class="modal-content custom-width-modal">

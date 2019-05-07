@@ -10,15 +10,9 @@
 	        left:-2.5% !important;
 	        top:-3.1% !important;
 	}
-	.modalLettre{
-		height:205%;
-	}
 	.modal-body
 	{
 	        top: -1px !important;
-	}
-	.modal-content {
-		position: relative;
 	}
 	.modal-footer {
 		  background-color: transparent;
@@ -26,7 +20,6 @@
 		  right:2px;		
   		  bottom: 0px;
 	}
-	/*deb*/
 	.modal.modal-wide .modal-dialog {
 	  width: 95%;
 	  height:1000px;
@@ -78,10 +71,6 @@
 		        if(theEvent.preventDefault) theEvent.preventDefault();
 		}
 	}
-	$(".modal-wide").on("show.bs.modal", function() {
-	           var height = $(window).height() - 200;
-		$(this).find(".modal-body").css("max-height", height);
-	});
     	$('document').ready(function(){
     		$( 'ul.nav li' ).on( 'click', function() {
 		           $(this).siblings().addClass('filter');
@@ -203,7 +192,7 @@
            </div>{{-- content --}}
           	</div>{{-- tabpanel --}}
            <div class="center" style="bottom:0px;padding-">
-	<div id="error" aria-live="polite"></div>
+		<div id="error" aria-live="polite"></div>
 		<button class="btn btn-info" type="submit" id="send">
 			<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
 		</button>
@@ -212,8 +201,16 @@
 			<i class="ace-icon fa fa-undo-110"></i>Annuler
 		</button> 
 	</div>	{{-- center --}}
-	 </form>
-	
+</form>
+<!-- Modal -->
+<div>
+	@include('consultations.LettreOrientation')
+</div>
+{{-- endModal --}}
+<!-- Modal -->
+<div>
+	@include('consultations.DemadeHospitalisation')
+</div>
 </div>{{-- content --}}
 <div id="Ordonnance" class="modal modalord" role="dialog" aria-hidden="true">
   	<div class="modal-dialog modal-lg" role="document">
@@ -227,25 +224,15 @@
   		    	       @include('consultations.Ordonnance')    
       			</div>
    		 </div>
-   		 <div class="row">
    		 <div class="pull-right" align="right" style="bottom:0; padding-right:13px">
    		 	<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="storeord1()">Enregistrer</button>
    		 	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ord" onclick="createord('{{ $patient->Nom }} {{ $patient->Prenom }}','{{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Nom_Employe}} {{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Prenom_Employe}}')">Imprimer
-								</button>
+		           </button>
 			<button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
+			
    		 </div>
-   		 </div>
+   		
 	</div>
 </div>
 {{-- endModal --}}
-<!-- Modal -->
-<div>
-	@include('consultations.LettreOrientation')
-</div>
-{{-- endModal --}}
-<!-- Modal -->
-<div>
-	@include('consultations.DemadeHospitalisation')
-</div>
-
 @endsection

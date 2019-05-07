@@ -30,9 +30,10 @@
 			@endif
 			@if(isset($ordonnance))
 			<li class="">
-			<a data-toggle="tab" href="#ordonnance" aria-expanded="false">
-				 <i class="ace-icon fa fa-plus-circle bigger-120 green"></i>Ordonnance
-				</a>
+			<a data-toggle="tab" href="#ordonnance" aria-expanded="false">	
+				<i class="orange ace-icon fa fa-medkit bigger-120"></i>
+				Ordonnance
+			</a>
 			</li>
 			@endif
 		</ul>

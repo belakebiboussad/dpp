@@ -105,8 +105,8 @@
 	                                                     <span class="bigger-110" > Ordonnance</span>
 	                                          </a>
 	                                          	<div class="space-12"></div>
-	                                           <a  href="#" data-target="#demandehosp" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title="prescrire des medicaaments" ><div class="fa fa-plus-circle"></div>
-                                                      	  	<span class="bigger-110"> Hospitalisation</span>
+	                                           <a  href="#" data-target="#demandehosp" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title=""><div class="fa fa-plus-circle"></div>
+                                                      	<span class="bigger-110"> Hospitalisation</span>
                                                   	</a>
                                                   	<div class="space-12"></div>
                                                     	<a class="btn btn-primary btn-lg tooltip-link" data-toggle="modal"  data-toggle="tooltip" data-original-title="lettre d'orientation" data-target="#lettreorient" style="width:100%;" onclick="lettreoriet('{{ $employe->Nom_Employe }}','{{ $employe->Prenom_Employe }}',
@@ -118,7 +118,6 @@
 	                     	</div>
 	           </div>{{-- col-md-4 col-xs-4 --}}
 		</div><!-- MOTIF -->
-
 		<div role="tabpanel" class = "tab-pane " id="ATCD"> 
 			<div class= "col-md-6 col-xs-6">
 			        	 @include('consultations.Antecedant')
@@ -152,4 +151,4 @@
 			</div>	<!--  {{-- <div class= "col-md-3 col-xs-3"> --}} -->
 		</div>
 	</div>
-</div>
+</div>{{-- tabpanel --}}

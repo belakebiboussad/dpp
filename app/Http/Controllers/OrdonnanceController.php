@@ -96,7 +96,13 @@ class OrdonnanceController extends Controller
         //
     }
     // _ordonnance
+
      public function show($id)
+     {  
+           $ordonnance = ordonnance::FindOrFail($id);
+           return view('ordennance.show_ordennance', compact('ordonnance'));
+     }
+     public function show_ordonnance($id)
      {  
           
            $ordonnance = ordonnance::FindOrFail($id);
