@@ -78,9 +78,8 @@
       }
      function showModal(date)
      {
-                //var mydate = moment(date,'YYYY-MM-DD').toDate(); 
                 var a = moment.tz(date, "Africa/Algiers").format('YYYY-MM-DD HH:mm');
-               var mydate = moment(a).format("YYYY-MM-DD");
+                var mydate = moment(a).format("YYYY-MM-DD");
                alert(mydate);
                 var heur= moment(a).format('HH:mm:ss');
                 var x = moment.tz(new Date(), "Africa/Algiers").format('YYYY-MM-DD HH:mm');
@@ -119,7 +118,7 @@
                    <div class="panel panel-default">
                    &nbsp;&nbsp;&nbsp;&nbsp; <div class="panel-heading" style="margin-top:-20px">
                     <div class="left"> <strong>Liste Des Rendez-Vous</strong></div>
-                {{--     <div class="right" style ="margin-top:-25px"><a href="/choixpatient" class ="btn btn-sm btn-success" class="right"><i class="ace-icon  fa fa-plus-circle bigger-120"></i>&nbsp;Rendez-vous</a></div> --}}
+        
                    </div>
                   <div class="panel-body">
                             {!! $planning->calendar() !!}
@@ -207,9 +206,7 @@
                       <div class="space-12"></div>
                 </div>{{-- modalBody --}}
                 <div class="modal-footer">
-                      <button class="btn btn-primary" type="submit">Enregistrer
-                          {{--  <a id="EnregistrerRDV" target="" href="" onclick="EnregistrerRDV();">Enregistrer</a> --}}
-                      </button>
+                      <button class="btn btn-primary" type="submit">Enregistrer</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
                  </div>
         </div>

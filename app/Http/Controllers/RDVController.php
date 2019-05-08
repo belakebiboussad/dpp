@@ -48,11 +48,16 @@ class RDVController extends Controller
     {
        return view('patient.index_patient');
     }
-    public function index($patientID =null)
+    public function index($patientID = null)
     {
-            dd(($patientID);
-           $rdvs = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->get();
-           return view('rdv.index', compact('rdvs')); 
+          $rdvs = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->get();
+           if(isset($patientID)) 
+           {
+                $patient = patient::FindOrFail($patientID);   
+                return view('rdv.index', compact('rdvs','patient'));                  
+           }
+           else
+                return view('rdv.index', compact('rdvs')); 
     }
     public function indexorg()
     {

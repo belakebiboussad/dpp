@@ -45,6 +45,8 @@ $(document).ready(function() {
                             data:{'search':$value},
                             success:function(data,status, xhr){
                                 $('tbody').html(data);
+                                alert("fsdf");
+                                $('#findBtn').prop('disabled', false);
                                 var count = xhr.getResponseHeader("count");
                                 $(".numberUser").html(count);
                             }
@@ -80,7 +82,7 @@ $(document).ready(function() {
 					<div class="form-group has-feedback">
 						<label class="control-label" for="userName" ><strong>Nom Utilisateur:</strong></label>
 						 &nbsp;&nbsp;<input type="text" class="form-control input input-sm" id="userName" name="nomUser"  placeholder="Rechercher..."/>
-						     <button type="submit" class="btn-sm btn-success" onclick="XHRgetUser();"><i class="fa fa-search"></i></button>
+						     <button type="submit" id ="findBtn"class="btn-sm btn-success" onclick="XHRgetUser();" disabled="true"><i class="fa fa-search" ></i></button>
 					</div>
 				</div>
 				<div class="bs-example" style = "height:45px;">

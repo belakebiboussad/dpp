@@ -67,9 +67,7 @@ class UsersController extends Controller
             "lieunaissance"=> "required",
             "adresse"=> "required",
             "mobile"=> "required",
-            //"fixe"=> "required",age
-           // "mat"=> "required",
-            //"service"=> "required",
+            //"fixe"=> "required",age // "mat"=> "required", //"service"=> "required",
             "nss"=> "required",
             "username"=> "required",
             "password"=> "required",
@@ -112,14 +110,14 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-       $user = User::FindOrFail($id);
-        $employe = employ::FindOrFail($user->employee_id);
-       $service = service::FindOrFail($employe->Service_Employe);
-       $specialite= Specialite::FindOrFail($employe->Specialite_Emploiye);
-       $roles = rol::all();
-       $services=service::all();
-       $specialites=specialite::all();
-       return view('user.show_user',compact('user','employe','roles','service','specialite','services','specialites'));
+           $user = User::FindOrFail($id);
+            $employe = employ::FindOrFail($user->employee_id);
+           $service = service::FindOrFail($employe->Service_Employe);
+           $specialite= Specialite::FindOrFail($employe->Specialite_Emploiye);
+           $roles = rol::all();
+           $services=service::all();
+           $specialites=specialite::all();
+           return view('user.show_user',compact('user','employe','roles','service','specialite','services','specialites'));
     }
 
     /**
@@ -146,25 +144,29 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {  
+    {      
 
-           $user = User::FindOrFail($id);
+           $user = User::FindOrFail($id);   
            $a=  $request->validate([
                   "username"=> "required",
                     "email"=> "nullable|email",//|unique:utilisateurs
                     "role"=> "required",
-           ]); 
+           ]);     
            $activer = $user->active;
+
            if($user->active)
            {
-                     if(!isset($request->desactiveCompt))
-                             $activer= 0;
+                     if(! isset($request->desactiveCompt))
+                     {
+                             $activer= 0;      
+                     }
+
            }else
            {
                      if(isset($request->activeCompt))
-                            $activer=1;
+                             $activer=1;
            }
-           //dd($activer);
+           dd($activer);
            $userData = [
                     "name"=>$request->username,
                     "password"=>$user->password,
@@ -173,10 +175,18 @@ class UsersController extends Controller
                     "role_id"=>$request->role,
                     "active"=>$activer,
            ];
-        event(new Registered($user = RegisterController::update($user,$userData)));
-        //$this->guard()->login($user);
-         return $this->registered($request, $user)
-                        ?: redirect()->route('users.edit',$id);
+           $a = $user->update([
+                     'name'=>$request->username,
+                     "password"=>$user->password,
+                     "email"=>$request->email,
+                    "employee_id"=>$user->employee_id,
+                    "role_id"=>$request->role,
+                    "active"=>$activer,   
+           ]);
+           dd($a);   
+          //  event(new Registered($user = RegisterController::update($user,$userData)));
+          // return $this->registered($request, $user)
+          //               ?: redirect()->route('users.edit',$id);
         // return redirect(Route('users.edit',$id));
     }
 
