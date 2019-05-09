@@ -70,9 +70,9 @@ class EmployeController extends Controller
      */
     public function update(Request $request, $employid)
     {
-        
-         $employe = employ::FindOrFail($employid); 
-         $request->validate([
+           
+          $employe = employ::FindOrFail($employid); 
+          $v = $request->validate([
                 "nom"=> "required | max:120",
                 "prenom"=> "required|alpha_num",
                 "datenaissance"=> "required | date",
@@ -83,28 +83,28 @@ class EmployeController extends Controller
                  "fixe"=> "numeric | regex:/[0][0-9]{8}/",
                  //"mat"=> "required",
                 "service"=> "required",          
-                "nss"=> "required | regex:/[0-9]{12}/",
+                // "nss"=> "required | regex:/[0-9]{12}/",
                 'specialite'=>"required",
-        ]);
+           ]);
            $employe->update([
-            "Nom_Employe"=>$request->nom,
-            "Prenom_Employe"=>$request->prenom,
-            "Sexe_Employe"=>$request->sexe,
-            "Date_Naiss_Employe"=>$request->datenaissance,
-            "Lieu_Naissance_Employe"=>$request->lieunaissance,
-            "Adresse_Employe"=>$request->adresse,
-            "Tele_fixe"=>$request->fixe,
-            "tele_mobile"=>$request->mobile,
-            "Specialite_Emploiye"=>$request->specialite,
-            "Service_Employe"=>$request->service,
-            "Matricule_dgsn"=>$request->mat,
-            "NSS"=>$request->nss,
-        ]);
-           // get user id
-           // $user = User::where("employee_id",$employe->id)
-           //                 ->get(['id'])->first();
-                           
-           return redirect(Route('users.show',$user->id));
+                "Nom_Employe"=>$request->nom,
+                "Prenom_Employe"=>$request->prenom,
+                "Sexe_Employe"=>$request->sexe,
+                "Date_Naiss_Employe"=>$request->datenaissance,
+                "Lieu_Naissance_Employe"=>$request->lieunaissance,
+                "Adresse_Employe"=>$request->adresse,
+                "Tele_fixe"=>$request->fixe,
+                "tele_mobile"=>$request->mobile,
+                "Specialite_Emploiye"=>$request->specialite,
+                "Service_Employe"=>$request->service,
+                "Matricule_dgsn"=>$request->mat,
+                "NSS"=>$request->nss,
+           ]);
+           $userID = User::where("employee_id",$employe->id)->get(['id'])->first();             
+           //return redirect(Route('users.show',$userID));
+           return redirect(Route('users.edit',$userID));
+           
+
 
     }
 

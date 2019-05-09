@@ -110,7 +110,7 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-           dd("sfqds"); 
+        
            $user = User::FindOrFail($id);
             $employe = employ::FindOrFail($user->employee_id);
            $service = service::FindOrFail($employe->Service_Employe);
