@@ -68,11 +68,10 @@ class EmployeController extends Controller
      * @param  \App\modeles\employ  $employ
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, employ $employ)
+    public function update(Request $request, $employid)
     {
-           // dd($request->all());
-         $employe = employ::FindOrFail($employ->id);
-        // dd($request->datenaissance);
+        
+         $employe = employ::FindOrFail($employid); 
          $request->validate([
                 "nom"=> "required | max:120",
                 "prenom"=> "required|alpha_num",
@@ -102,8 +101,9 @@ class EmployeController extends Controller
             "NSS"=>$request->nss,
         ]);
            // get user id
-           $user = User::where("employee_id",$employe->id)
-                           ->get(['id'])->first();
+           // $user = User::where("employee_id",$employe->id)
+           //                 ->get(['id'])->first();
+                           
            return redirect(Route('users.show',$user->id));
 
     }

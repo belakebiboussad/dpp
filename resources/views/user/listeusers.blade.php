@@ -30,8 +30,9 @@ $(document).ready(function() {
 						'<div class="list-group search-results-dropdown">'
 					],
 					suggestion: function(data) {
+					$('#findBtn').prop('disabled', false);
 					return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item">' + data.name + '</div></div>'
-					}
+						}
 				}
 			});
 })
@@ -45,8 +46,6 @@ $(document).ready(function() {
                             data:{'search':$value},
                             success:function(data,status, xhr){
                                 $('tbody').html(data);
-                                alert("fsdf");
-                                $('#findBtn').prop('disabled', false);
                                 var count = xhr.getResponseHeader("count");
                                 $(".numberUser").html(count);
                             }

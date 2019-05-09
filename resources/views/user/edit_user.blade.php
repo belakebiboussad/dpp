@@ -7,9 +7,9 @@
 	<div id="edit-info" class="">
 	<form class="form-horizontal" action="{{route('employs.update', $employe->id)}}" method="POST">
 		{{ csrf_field() }}
+		<input type="hidden" name="id" value="{{ $employe->id }}">
 		{{ method_field('PUT') }}
 		<h4 class="header blue bolder smaller">Informations adminstratives</h4>
-		
 		<div class="space-12"></div>
 		
 		<div class="col-xs-6 col-sm-6">

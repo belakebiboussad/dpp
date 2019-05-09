@@ -110,6 +110,7 @@ class UsersController extends Controller
      */
     public function show($id)
     {
+           dd("sfqds"); 
            $user = User::FindOrFail($id);
             $employe = employ::FindOrFail($user->employee_id);
            $service = service::FindOrFail($employe->Service_Employe);
@@ -166,7 +167,6 @@ class UsersController extends Controller
                      if(isset($request->activeCompt))
                              $activer=1;
            }
-           dd($activer);
            $userData = [
                     "name"=>$request->username,
                     "password"=>$user->password,
@@ -183,11 +183,11 @@ class UsersController extends Controller
                     "role_id"=>$request->role,
                     "active"=>$activer,   
            ]);
-           dd($a);   
+          
           //  event(new Registered($user = RegisterController::update($user,$userData)));
           // return $this->registered($request, $user)
           //               ?: redirect()->route('users.edit',$id);
-        // return redirect(Route('users.edit',$id));
+         return redirect(Route('users.edit',$id));
     }
 
     /**
