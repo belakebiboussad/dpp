@@ -312,10 +312,10 @@ class UsersController extends Controller
         dd($request);
     }
 
-      public function searchUser(Request $request)
-        {
-              if($request->ajax())  
-             {
+    public function searchUser(Request $request)
+    {
+           if($request->ajax())  
+          {
                         $output="";
                          //$users=DB::table('utilisateurs')->where('name','LIKE','%',$request->search."%")->get();
                          $users=DB::table('utilisateurs')->where('name','LIKE','%'.$request->search."%")->get();
@@ -346,7 +346,7 @@ class UsersController extends Controller
     }
     public function AutoCompleteUsername(Request $request)
     {
-            return User::where('name', 'LIKE', '%'.trim($request->q).'%')->get();
+           return User::where('name', 'LIKE', '%'.trim($request->q).'%')->get();
     } 
     public function getUserDetails(Request $request)
     {

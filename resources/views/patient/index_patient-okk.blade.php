@@ -171,26 +171,36 @@ function setField(field,value)
 				Rechercher un Patient
 			</div>
 		    	<div class="panel-body">
-		    		<div class="col-sm-6">
-		    			<label for="field">Critére de recherche sur</label>
-					<br>
-					<select class="form-control" id="field" data-placeholder="choisissez le champ...">
-					<option value=""></option>
-						<option value="AL">Nom</option>
-						<option value="AK">Prenom</option>
-						<option value="AZ">Date Naissance</option>
-						<option value="AR">Matricule</option>
-						<option value="AR">Matricule</option>
-						<option value="AR">Code IPP</option>			
-					</select>
-		    		</div>
-		    		<div class="col-sm-6">
-		    			<label for="">&nbsp;</label>
-		    			<br>
-		    			<input type="text" id="form-field-1" placeholder="Username" class="col-xs-10 col-sm-12">
-		    		</div>	
-			  
-
+			<div class="row">
+				<div class="col-sm-2">
+					<label class="control-label pull-right" for="patientName" ><strong>&nbsp;&nbsp;&nbsp;Nom :</strong>
+					</label>
+				</div>
+				<div class="col-sm-4">
+					<input type="text" class="form-control input-sm" id="patientName" name="patientName"  placeholder="Rechercher..."/>
+				 </div>
+				 <div class="col-sm-2">
+					<label class="control-label pull-right" for="patientFirstName" ><strong>Prenom :</strong>
+					</label> 
+				</div>
+				<div class="col-sm-4">
+					<input type="text" class="form-control input-sm" id="patientFirstName" name="patientFirstName"  placeholder="Rechercher...">
+				</div>
+			</div>
+			<div class="space-12"></div>
+			<div class="row">
+				<div class="col-sm-2"><label class="control-label pull-right" for="IPP" ><strong>Code:</strong></label>
+				</div>
+				<div class="col-sm-4">
+				   <input type="text" class="form-control input-sm tt-input" id="IPP" name="IPP"  placeholder="Rechercher...">
+				 </div>
+				 <div class="col-sm-2"><label class="control-label pull-right" for="Dat_Naissance" ><strong>date Nai:</strong></label>
+				</div>
+				<div class="col-sm-4">
+				   <input type="text" class="form-control input-sm tt-input date-picker" id="Dat_Naissance" name="Dat_Naissance"  data-date-format="yyyy-mm-dd" placeholder="Rechercher...">
+				 </div>
+			</div>
+			<div class="space-12"></div>	
 		    	</div>  {{-- body --}}
 		   	<div class="panel-footer">
 		   		<button type="submit" class="btn-sm btn-primary" onclick="XHRgePatient();"><i class="fa fa-search"></i>&nbsp;Rechercher

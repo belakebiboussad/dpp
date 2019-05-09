@@ -15,11 +15,12 @@ $(document).ready(function() {
 	$('#userName').typeahead({
 				hint: true,
 				highlight: true,
-				minLength: 1
+				minLength: 2
 			}, {
 				name: 'users',
 				source: bloodhound,
 				display: function(data) {
+					$('#Controls').removeClass('hidden');
 					return data.name  //Input value to be set when you select a suggestion. 
 				},
 				templates: {
@@ -30,20 +31,20 @@ $(document).ready(function() {
 						'<div class="list-group search-results-dropdown">'
 					],
 					suggestion: function(data) {
-					$('#findBtn').prop('disabled', false);
-					return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item">' + data.name + '</div></div>'
-						}
+						return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item">' + data.name + '</div></div>'
+					}
 				}
 			});
 })
 	function XHRgetUser()
 	{
-		$value=$('#userName').val();
+		value=$('#userName').val();
+		if(value == "") value="*";				
 		$('#Controls').removeClass('hidden');
-		      $.ajax({
+		$.ajax({
                             type : 'get',
                             url : '{{URL::to('searchUser')}}',
-                            data:{'search':$value},
+                            data:{'search':value},
                             success:function(data,status, xhr){
                                 $('tbody').html(data);
                                 var count = xhr.getResponseHeader("count");
@@ -81,7 +82,8 @@ $(document).ready(function() {
 					<div class="form-group has-feedback">
 						<label class="control-label" for="userName" ><strong>Nom Utilisateur:</strong></label>
 						 &nbsp;&nbsp;<input type="text" class="form-control input input-sm" id="userName" name="nomUser"  placeholder="Rechercher..."/>
-						     <button type="submit" id ="findBtn"class="btn-sm btn-success" onclick="XHRgetUser();" disabled="true"><i class="fa fa-search" ></i></button>
+						    {{--  <button type="submit" iclass="btn-sm btn-primary" onclick="XHRgetUser();"><i class="fa fa-search" ></i></button> --}}
+						    <button type="submit" class="btn-sm btn-primary" onclick="XHRgetUser();"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
 					</div>
 				</div>
 				<div class="bs-example" style = "height:45px;">
