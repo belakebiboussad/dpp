@@ -678,7 +678,8 @@ public function search(Request $request)
     }
      public function AutoCompletePatientPrenom(Request $request)
      {
-            return patient::where('Prenom', 'LIKE', '%'.trim($request->prenom).'%')->get();     
+          return($request->all());
+           // return patient::where('Prenom', 'LIKE', '%'.trim($request->prenom).'%')->get();     
      }
     
      public function patientsToMerege(Request $request)

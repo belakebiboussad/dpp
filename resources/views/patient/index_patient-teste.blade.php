@@ -1,15 +1,11 @@
+{{-- essai test	 --}}
 @extends('app')
 @section('title','Rechercher un patient')
 @section('page-script')
 <script>
 $(document).ready(function(){
-	
-	var fieldName =$('#field').val();
-	$('select').on('change', function() {
- 		 fieldName =  this.value;
-	});
 	var bloodhoundNom = new Bloodhound({
-	        datumTokenizer: Bloodhound.tokenizers.whitespace,
+	        datumTokenizer: Bloodhound.tokenizers.whitespace('Nom'),
 	        queryTokenizer: Bloodhound.tokenizers.whitespace,
 	        remote: {
 			url: '/patients/find?q=%QUERY%',
@@ -17,25 +13,26 @@ $(document).ready(function(){
 		},
 	});
 	var bloodhoundPrenom = new Bloodhound({
-	        datumTokenizer: Bloodhound.tokenizers.whitespace,
+	        datumTokenizer: Bloodhound.tokenizers.whitespace('fsdf'),
 	        queryTokenizer: Bloodhound.tokenizers.whitespace,
 	        remote: {
-			url: '/patients/findprenom?prenom=%QUERY%',
+			url: '/patients/findprenom?code_barre=%QUERY%',
 				wildcard: '%QUERY%'
 		},
 	});  
-	$('#fieldValue').typeahead({
+	$('#patientName').typeahead({
 				hint: true,
 				highlight: true,
 				minLength: 2
 			}, {
-				name: 'patient',
-				source: bloodhoundAll,//
+				name: 'patientnom',
+				source: bloodhoundNom,
 				display: function(data) {
 					$('#btnCreate').removeClass('hidden')
                                 			$('#FusionButton').removeClass('hidden')   
 					return data.Nom  //Input value to be set when you select a suggestion. 
 				},
+				limit:4,
 				templates: {
 					empty: [
 						'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucun Patient</div></div>'
@@ -55,10 +52,10 @@ $(document).ready(function(){
 		minLength: 2
 	},{
 		name: 'patientprenom',
-		source: bloodhoundAll,
+		source: bloodhoundPrenom,
 		display: function(data) {
-		  	$('#btnCreate').removeClass('hidden')
-                                       $('#FusionButton').removeClass('hidden') 
+			$('#btnCreate').removeClass('hidden')
+                                $('#FusionButton').removeClass('hidden') 
 			return data.Prenom  //Input value to be set when you select a suggestion. 
 		},
 		templates: {
@@ -73,6 +70,7 @@ $(document).ready(function(){
 				}		
 			}
 	});
+	
 }); 
 function XHRgePatient()
 {
@@ -174,23 +172,47 @@ function setField(field,value)
 				Rechercher un Patient
 			</div>
 		    	<div class="panel-body">
-		    		<div class="col-sm-6">
-		    			<label for="field">Critére de recherche sur</label>
-					<br>
-					<select class="form-control" id="field" data-placeholder="choisissez le champ...">
+
+		    		
+		    			<div class="row">
+		    				<div class="col-sm-6">
+		    			
+		    				<label for="field">Critére de recherche sur</label>
+						<br>
+						<select class="form-control" id="field" data-placeholder="choisissez le champ...">
 						<option value="Nom" selected>Nom</option>
 						<option value="Prenom">Prenom</option>
 						<option value="Dat_Naissance">Date Naissance</option>
 						{{-- <option value="">Matricule</option> --}}
 						<option value="code_barre">NSS</option>
 						<option value="AR">Code IPP</option>			
-					</select>
-		    		</div>
-		    		<div class="col-sm-6">
-		    			<label for="">&nbsp;</label>
+						</select>
+		    				</div>
+			    		<div class="col-sm-6" id="remote">
+			    			<label for="">&nbsp;</label>
+			    			<br>
+			    			<input type="text" id="fieldValue" placeholder="..." class="col-xs-12 col-sm-12 typeahead">
+			    			<br>
+			    			
+			    		</div>	
+		    			</div>
 		    			<br>
-		    			<input type="text" id="fieldValue" placeholder="..." class="col-xs-12 col-sm-12">
-		    		</div>	
+		    			<div class="row">
+		    				<div class="col-sm-2">
+						<label class="control-label pull-right" for="patientName" ><strong>&nbsp;&nbsp;&nbsp;Nom :</strong>
+						</label>
+						</div>
+						<div class="col-sm-4">
+							<input type="text" class="form-control input-sm" id="patientName" name="patientName"  placeholder="Rechercher..."/>
+						 </div>
+						 <div class="col-sm-2">
+							<label class="control-label pull-right" for="patientFirstName" ><strong>Prenom :</strong>
+							</label> 
+						</div>
+						<div class="col-sm-4">
+							<input type="text" class="form-control input-sm" id="patientFirstName" name="patientFirstName"  placeholder="Rechercher...">
+						</div>
+		    			</div>
 			  
 
 		    	</div>  {{-- body --}}
@@ -206,45 +228,8 @@ function setField(field,value)
 				
 		   	</div>
  		 </div>
-	</div>	{{-- col-sm-7	 --}}
-{{-- 	<div class="col-sm-4 col-lg-4">
-		<div class="infobox infobox-green">
-		<div class="infobox-icon">
-		<i class="ace-icon fa fa-users"></i>
-		</div>
-		<div class="infobox-data">
-			<span class="infobox-data-number">{{ App\modeles\patient::all()->count() }}</span>
-			<div class="infobox-content"><b>Patients</b></div>
-		</div>
-		</div>
-		<div class="infobox infobox-blue">
-			<div class="infobox-icon">
-				<i class="ace-icon fa fa-user-md"></i>
-			</div>
-			<div class="infobox-data">
-				<span class="infobox-data-number">{{ App\modeles\consultation::all()->count() }}</span>
-				<div class="infobox-content"><b>Consultations</b></div>
-			</div>
-		</div>
-		<div class="infobox infobox-pink">
-			<div class="infobox-icon">
-				<i class="ace-icon fa fa-table"></i>
-			</div>
-			<div class="infobox-data">
-				<span class="infobox-data-number">{{ App\modeles\rdv::all()->count() }}</span>
-				<div class="infobox-content"><b>Rendez-vous</b></div>
-			</div>
-		</div>
-		<div class="infobox infobox-red">
-			<div class="infobox-icon">
-				<i class="ace-icon fa fa-hospital-o"></i>
-			</div>
-			<div class="infobox-data">
-				<span class="infobox-data-number">{{ App\modeles\hospitalisation::all()->count() }}</span>
-				<div class="infobox-content"><b>Hospitalisations</b></div>
-			</div>
-		</div>
 	</div>	
+		
  --}}</div>{{-- row --}}
 <div class="row">
 	<div class="col-sm-7">
