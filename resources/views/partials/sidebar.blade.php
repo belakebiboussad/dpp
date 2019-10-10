@@ -1,4 +1,4 @@
-<!-- #section:basics/sidebar -->
+#section:basics/sidebar -->
 <div id="sidebar" class="sidebar                  responsive">
     <script type="text/javascript">
         try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
@@ -80,7 +80,8 @@
                 </li>
 
                 <li class="">
-                    <a href="{{ route('users.index') }}">
+                <!-- {{ route('users') }} -->
+                    <a href="">
                         <i class="menu-icon fa fa-caret-right"></i>
                         Liste Utilisateurs
                     </a>
@@ -177,4 +178,4 @@
     </script>
 </div>
 
-<!-- /section:basics/sidebar -->
+<!-- /section:basics/sidebar

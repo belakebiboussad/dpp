@@ -39,18 +39,24 @@ $(document).ready(function() {
 	function XHRgetUser()
 	{
 		value=$('#userName').val();
-		if(value == "") value="*";				
+		
+		if(value == "") value="*";			
 		$('#Controls').removeClass('hidden');
 		$.ajax({
-                            type : 'get',
-                            url : '{{URL::to('searchUser')}}',
-                            data:{'search':value},
-                            success:function(data,status, xhr){
-                                $('tbody').html(data);
-                                var count = xhr.getResponseHeader("count");
-                                $(".numberUser").html(count);
-                            }
-                       });
+              type : 'get',
+              url : '{{URL::to('searchUser')}}',
+              data:{'search':value},
+              success:function(data,status, xhr){
+              	
+              	/*
+              	$('tbody').html(data);
+                var count = xhr.getResponseHeader("count");
+                $(".numberUser").html(count);
+                */
+                alert(xhr.getResponseHeader("count"));
+              }
+            });
+		
 	}
 	function getUserdetail($id)
 	{	
@@ -82,7 +88,6 @@ $(document).ready(function() {
 					<div class="form-group has-feedback">
 						<label class="control-label" for="userName" ><strong>Nom Utilisateur:</strong></label>
 						 &nbsp;&nbsp;<input type="text" class="form-control input input-sm" id="userName" name="nomUser"  placeholder="Rechercher..."/>
-						    {{--  <button type="submit" iclass="btn-sm btn-primary" onclick="XHRgetUser();"><i class="fa fa-search" ></i></button> --}}
 						    <button type="submit" class="btn-sm btn-primary" onclick="XHRgetUser();"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
 					</div>
 				</div>

@@ -39,9 +39,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-           $role = rol::FindOrFail(Auth::user()->role_id);
-           $employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
-           switch ($role->role) {
+          $role = rol::FindOrFail(Auth::user()->role_id);
+          $employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
+          switch ($role->role) {
                 case "Medecine":
                      return view('patient.index_patient');
                       break;
@@ -53,8 +53,8 @@ class HomeController extends Controller
                       break;
               case "administrateur": 
                       $users = User::all();
-                     return view('home.home_admin', compact('users'));
-                     break;
+                      return view('home.home_admin', compact('users'));
+                      break;
                case "Surveillant medical":
                      //demandes validé^pour programmation
                      $demandes= dem_colloque::join('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')->join('patients','consultations.Patient_ID_Patient','=','patients.id')->select('dem_colloques.*','demandehospitalisations.*','consultations.Date_Consultation','patients.Nom','patients.Prenom')->where('demandehospitalisations.service',$employe->Service_Employe )->where('demandehospitalisations.etat','valide')->get();

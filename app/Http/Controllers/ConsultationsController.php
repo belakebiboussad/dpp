@@ -90,8 +90,8 @@ class ConsultationsController extends Controller
      }
     public function listecons()
     {
-           $consultations = consultation::all();
-             return view('consultations.liste_consultations', compact('consultations'));
+          $consultations = consultation::all();
+          return view('consultations.liste_consultations', compact('consultations'));
     }
 
     public function index($id)

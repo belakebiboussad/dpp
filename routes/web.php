@@ -95,6 +95,7 @@ Route::resource('lit','LitsController');
 Route::resource('demandehosp','DemandeHospitalisationController');
 Route::resource('consultations','ConsultationsController');
 Route::post('users/changePassword', 'UsersController@changePassword');
+Route::resource('users/index1','UsersController@index1');
 Route::resource('users','UsersController');
 Route::post('/users/store/','UsersController@store');
 Route::resource('employs','EmployeController');
