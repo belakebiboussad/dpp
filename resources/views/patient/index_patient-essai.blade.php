@@ -3,9 +3,12 @@
 @section('page-script')
 <script>
 $(document).ready(function(){
-	// Defining the local datase
-	// Constructing the suggestion engine
-	var bloodhound = new Bloodhound({
+	
+	var fieldName =$('#field').val();
+	$('select').on('change', function() {
+ 		 fieldName =  this.value;
+	});
+	var bloodhoundNom = new Bloodhound({
 	        datumTokenizer: Bloodhound.tokenizers.whitespace,
 	        queryTokenizer: Bloodhound.tokenizers.whitespace,
 	        remote: {
@@ -21,13 +24,13 @@ $(document).ready(function(){
 				wildcard: '%QUERY%'
 		},
 	});  
-	$('#patientName').typeahead({
+	$('#fieldValue').typeahead({
 				hint: true,
 				highlight: true,
 				minLength: 2
 			}, {
-				name: 'patientnom',
-				source: bloodhound,
+				name: 'patient',
+				source: bloodhoundAll,//
 				display: function(data) {
 					$('#btnCreate').removeClass('hidden')
                                 			$('#FusionButton').removeClass('hidden')   
@@ -52,10 +55,10 @@ $(document).ready(function(){
 		minLength: 2
 	},{
 		name: 'patientprenom',
-		source: bloodhoundPrenom,
+		source: bloodhoundAll,
 		display: function(data) {
-			$('#btnCreate').removeClass('hidden')
-                                $('#FusionButton').removeClass('hidden') 
+		  	$('#btnCreate').removeClass('hidden')
+                                       $('#FusionButton').removeClass('hidden') 
 			return data.Prenom  //Input value to be set when you select a suggestion. 
 		},
 		templates: {
@@ -171,37 +174,25 @@ function setField(field,value)
 				Rechercher un Patient
 			</div>
 		    	<div class="panel-body">
-			<div class="row">
-				<div class="col-sm-2">
-					<label class="control-label pull-right" for="patientName" ><strong>&nbsp;&nbsp;&nbsp;Nom :</strong>
-					</label>
-				</div>
-				<div class="col-sm-4">
-					<input type="text" class="form-control input-sm" id="patientName" name="patientName"  placeholder="Rechercher..."/>
-				 </div>
-				 <div class="col-sm-2">
-					<label class="control-label pull-right" for="patientFirstName" ><strong>Prenom :</strong>
-					</label> 
-				</div>
-				<div class="col-sm-4">
-					<input type="text" class="form-control input-sm" id="patientFirstName" name="patientFirstName"  placeholder="Rechercher...">
-				</div>
-			</div>
-			<div class="space-12"></div>
-			<div class="row">
-				<div class="col-sm-2"><label class="control-label pull-right" for="IPP" ><strong>Code:</strong></label>
-				</div>
-				<div class="col-sm-4">
-				   <input type="text" class="form-control input-sm tt-input" id="IPP" name="IPP"  placeholder="Rechercher...">
-				 </div>
-				 <div class="col-sm-2"><label class="control-label pull-right" for="Dat_Naissance" ><strong>date Nai:</strong></label>
-				</div>
-				<div class="col-sm-4">
-				   <input type="text" class="form-control input-sm tt-input date-picker" id="Dat_Naissance" name="Dat_Naissance"  data-date-format="yyyy-mm-dd" placeholder="Rechercher...">
-				 </div>
-			</div>
-			<div class="space-12"></div>	
+		    		<div class="col-sm-6">
+		    			<label for="field">Critére de recherche sur</label>
+					<br>
+					<select class="form-control" id="field" data-placeholder="choisissez le champ...">
+						<option value="Nom" selected>Nom</option>
+						<option value="Prenom">Prenom</option>
+						<option value="Dat_Naissance">Date Naissance</option>
+						{{-- <option value="">Matricule</option> --}}
+						<option value="code_barre">NSS</option>
+						<option value="AR">Code IPP</option>			
+					</select>
+		    		</div>
+		    		<div class="col-sm-6">
+		    			<label for="">&nbsp;</label>
+		    			<br>
+		    			<input type="text" id="fieldValue" placeholder="..." class="col-xs-12 col-sm-12">
+		    		</div>	
 		    	</div>  {{-- body --}}
+		    	<div class="space-12"></div>
 		   	<div class="panel-footer">
 		   		<button type="submit" class="btn-sm btn-primary" onclick="XHRgePatient();"><i class="fa fa-search"></i>&nbsp;Rechercher
 				</button>
