@@ -41,6 +41,7 @@ class HomeController extends Controller
     {
           $role = rol::FindOrFail(Auth::user()->role_id);
           $employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
+          //dd($role->role);
           switch ($role->role) {
                 case "Medecine":
                      return view('patient.index_patient');
@@ -54,18 +55,25 @@ class HomeController extends Controller
               case "administrateur": 
                       $users = User::all();
                       return view('home.home_admin', compact('users'));
+                      return view('user.listeusers', compact('users'));
                       break;
                case "Surveillant medical":
-                     //demandes validé^pour programmation
-                     $demandes= dem_colloque::join('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')->join('patients','consultations.Patient_ID_Patient','=','patients.id')->select('dem_colloques.*','demandehospitalisations.*','consultations.Date_Consultation','patients.Nom','patients.Prenom')->where('demandehospitalisations.service',$employe->Service_Employe )->where('demandehospitalisations.etat','valide')->get();
+                     //demandes validé pour programmation
+                     $demandes= dem_colloque::join('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')
+                            ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
+                            ->select('dem_colloques.*','demandehospitalisations.*','consultations.Date_Consultation','patients.Nom','patients.Prenom')
+                            ->where('demandehospitalisations.service',$employe->Service_Employe )->where('demandehospitalisations.etat','valide')->get();
                      return view('home.home_surv_med', compact('demandes'));
                      break;
                 case "Delegue colloque":
-                     $demandes=  DemandeHospitalisation::join('consultations','consultations.id','=','demandehospitalisations.id_consultation')->join('patients','consultations.Patient_ID_Patient','=','patients.id')
-                             ->join('employs', 'consultations.Employe_ID_Employe','=','employs.id')
-                            ->select('demandehospitalisations.*','consultations.Employe_ID_Employe','consultations.Date_Consultation','patients.Nom','patients.Prenom','patients.Dat_Naissance','employs.Nom_Employe','employs.Prenom_Employe')->where('demandehospitalisations.etat','en attente')->get();    
-                      $colloques=colloque::join('membres','colloques.id','=','membres.id_colloque')->join('employs','membres.id_employ','=','employs.id')->leftJoin('dem_colloques','colloques.id','=','dem_colloques.id_colloque')->leftJoin('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')->leftJoin('consultations','demandehospitalisations.id_consultation','=','consultations.id')->leftJoin('patients','consultations.Patient_ID_Patient','=','patients.id')->leftJoin('type_colloques','colloques.type_colloque','=','type_colloques.id')->select('demandehospitalisations.id as id-demande','colloques.id as id_colloque','colloques.*','employs.Nom_Employe','employs.Prenom_Employe','patients.Nom','patients.Prenom','type_colloques.type','dem_colloques.id_demande','consultations.Date_Consultation')
-                      ->where('etat_colloque','<>','cloturé')->get();
+                     $demandes=  DemandeHospitalisation::join('consultations','consultations.id','=','demandehospitalisations.id_consultation')
+                                  ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
+                                  ->join('employs', 'consultations.Employe_ID_Employe','=','employs.id')
+                                  ->select('demandehospitalisations.*','consultations.Employe_ID_Employe','consultations.Date_Consultation','patients.Nom','patients.Prenom','patients.Dat_Naissance','employs.Nom_Employe','employs.Prenom_Employe')->where('demandehospitalisations.etat','en attente')->get();    
+                      $colloques=colloque::join('membres','colloques.id','=','membres.id_colloque')->join('employs','membres.id_employ','=','employs.id')
+                                  ->leftJoin('dem_colloques','colloques.id','=','dem_colloques.id_colloque')
+                                  ->leftJoin('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')->leftJoin('consultations','demandehospitalisations.id_consultation','=','consultations.id')->leftJoin('patients','consultations.Patient_ID_Patient','=','patients.id')->leftJoin('type_colloques','colloques.type_colloque','=','type_colloques.id')->select('demandehospitalisations.id as id-demande','colloques.id as id_colloque','colloques.*','employs.Nom_Employe','employs.Prenom_Employe','patients.Nom','patients.Prenom','type_colloques.type','dem_colloques.id_demande','consultations.Date_Consultation')
+                                  ->where('etat_colloque','<>','cloturé')->get();
                      $colloque= array();
                             foreach( $colloques as $col){
                               if (!array_key_exists($col->id_colloque,$colloque))
@@ -88,11 +96,12 @@ class HomeController extends Controller
                        return view('colloques.liste_colloque', compact('colloque'));
                        break;
                 case "Admission":
-                     $admissions= rdv_hospitalisation::join('admissions','rdv_hospitalisations.id_admission','=','admissions.id')->join('lits','lits.id','=','admissions.id_lit')->join('salles','salles.id','=','lits.salle_id')->join('services','services.id','=','salles.service_id')->join('demandehospitalisations','admissions.id_demande','=','demandehospitalisations.id')->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')->join('patients','consultations.Patient_ID_Patient','=','patients.id')->select('demandehospitalisations.id as id_demande','admissions.id as id_admission','admissions.id_lit','lits.num as num_lit','salles.nom as nom_salle','services.nom as nom_service','rdv_hospitalisations.*','rdv_hospitalisations.id as idRDV','patients.Nom','patients.Prenom')->where('etat_RDVh','=','en attente')->get(); 
-        
-                     //dd($admissions);
-                     return view('home.home_agent_admis', compact('admissions'));
-                     break;       
+                    $admissions = admission::join('rdv_hospitalisations','admissions.id','=','rdv_hospitalisations.id_admission')
+                                ->join('demandehospitalisations','admissions.id_demande','=','demandehospitalisations.id')
+                                ->select('admissions.id as id_admission',
+                                        'admissions.*','rdv_hospitalisations.*')->where('etat_RDVh','<>','validé')->where('date_RDVh','=',date("Y-m-d"))->get();
+                      return view('home.home_agent_admis', compact('admissions'));
+                      break;       
                 case "Chef de service":
                     $meds = medcamte::all();
                     $dispositifs = dispositif::all();
@@ -106,8 +115,8 @@ class HomeController extends Controller
                     break;
                 case "Receptioniste":
                     return view('home.home_recep');
-                    break;    
-           default:
+                    break;
+                default:
                    return view('errors.500');
                    break;
            }

@@ -223,7 +223,7 @@
 						<strong>Né(e) le :</strong>
 					</label>
 					<div class="col-sm-9">
-						<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" data-date-format="yyyy-mm-dd" placeholder="Date de naissance..." pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" value="{{ $patient->Dat_Naissance }}" required/>
+							<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" placeholder="Date de naissance..." pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" value="{{ $patient->Dat_Naissance }}" required/>
 							{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
 					</div>
 					</div>
@@ -509,7 +509,7 @@
 								<strong class="text-nowrap">Né(e) le :</strong>
 							</label>
 							<div class="col-sm-9">
-							<input class="col-xs-12 col-sm-12 date-picker" id="datenaissancef" name="datenaissancef" type="text" data-date-format="yyyy-mm-dd" value="{{ $assure->Date_Naissance }}"  />
+							<input class="col-xs-12 col-sm-12 date-picker" id="datenaissancef" name="datenaissancef" type="text" value="{{ $assure->Date_Naissance }}"  />
 							</div>
 						</div>
 					</div>
@@ -683,7 +683,7 @@
 							<b class="text-nowrap">Né(e) le :</b>
 						</label>
 						<div class="col-sm-9">
-						<input class="col-xs-12 col-sm-6 date-picker" id="datenaissance_h" name="datenaissance_h" @if(isset($homme_c)) value="{{ $homme_c->date_naiss}}" @endif type="text" data-date-format="yyyy-mm-dd" placeholder="Date de naissance..." pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" readonly />
+						<input class="col-xs-12 col-sm-6 date-picker" id="datenaissance_h" name="datenaissance_h" @if(isset($homme_c)) value="{{ $homme_c->date_naiss}}" @endif type="text" placeholder="Date de naissance..." pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" readonly />
 						</div>
 					</div>
 				</div>

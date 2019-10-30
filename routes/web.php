@@ -48,7 +48,7 @@ route::get('/home_reception',function (){
 })->name('home_rec');
 route::get('/home_reception','HomeController@index');
 route::get('/home_dele','HomeController@index');
-
+route::get('/home_admission','AdmissionController@index')->name('home_admission');
 Route::get('exbio/{filename}', function ($filename)
 {
     // im not 100% sure about the $path thingy, you need to fiddle with this one around.
@@ -81,6 +81,13 @@ Route::put('/colloque/{membres,id_demh}', 'ColloqueController@store');// a revoi
 Route::resource('colloque','ColloqueController');
 Route::get('/listecolloques/{type}','ColloqueController@index');
 Route::resource('admission','AdmissionController');
+Route::post('/getAdmissions',function(Request $request){
+    $data ="zeffdq";
+    //echo json_encode($data);
+    return $data;
+});
+
+//Route::post('/getAdmissions','AdmissionController@getAdmissions');
 Route::resource('role','RolesController');
 Route::resource('ticket','ticketController');
 Route::resource('service','ServiceController');
@@ -95,7 +102,7 @@ Route::resource('lit','LitsController');
 Route::resource('demandehosp','DemandeHospitalisationController');
 Route::resource('consultations','ConsultationsController');
 Route::post('users/changePassword', 'UsersController@changePassword');
-Route::resource('users/index1','UsersController@index1');
+//Route::get('users/create','UsersController@create');
 Route::resource('users','UsersController');
 Route::post('/users/store/','UsersController@store');
 Route::resource('employs','EmployeController');
@@ -156,10 +163,22 @@ Route::any('/profile/{userId}', [
     ]);
 });
 Route::get('/role/show/{userId}','RolesController@show');
-Route::get('/role/show/{userId}','RolesController@show');
+//Route::get('/role/show/{userId}','RolesController@show');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('AddANTCD','AntecedantsController@createATCDAjax');
-Route::get('/searchUser','UsersController@searchUser');
+/*
+Route::get('/searchUser',function(Request $request){
+     
+    $output="";
+    //$users = UsersController::search($request()->search);
+    //$users = Controller::call('UsersController@search', $request()->search)->get();    
+    //return Response(request()->search);
+    //App::call('App\Http\Controllers\PatientController@searchUser');
+    //return Response($routeName);
+    
+});
+*/
+Route::get('/searchUser','UsersController@search');
 Route::get('/searchPatient','PatientController@search');
 Route::get('/getPatients','PatientController@getPatientsArray');
 Route::get('/getlits/{id}','LitsController@getlits');

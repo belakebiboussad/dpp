@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-    <title>Gestion Des Admissions</title>
-    @include('partials.htmlheader')
-    @yield('style')
+    <title>@yield('title','Dossier patient')</title>
+     @include('partials.htmlheader')
+     @yield('style')
+     @include('partials.scripts')
 <body class="no-skin">
-
     @include('partials.navbar')
-
     <div class="main-container" id="main-container">
         <script type="text/javascript">
             try{ace.settings.check('main-container' , 'fixed')}catch(e){}
         </script>
-        
-        @if(App\modeles\rol::where("id",Illuminate\Support\Facades\Auth::user()->role_id)->first()->role == "Admission")
-            @include('partials.sidebar_agent_admis')
-        @endif
+          @yield('page-script')
+          @include('partials.sidebar')
         <div class="main-content">
             <div class="main-content-inner">
-                @include('partials.breadcrumbs_rec')
+                @include('partials.breadcrumbs')
 
                 <div class="page-content">
-            	    @yield('main-content')
+                    @include('flashy::message')
+              	    @yield('main-content')
+                    
                 </div>
                 <!-- /page-content -->
             </div>
             <!-- /main-content-inner -->
         </div>
         <!-- /main-content -->
-
-        @include('partials.footer')
-
-    </div> <!-- /main-container -->
+        <br>
+        <br>
+          <div>
+                @include('partials.footer')
+           </div>
+    </div>
+    <!-- /main-container -->
 </body>
- @include('partials.scripts')
-  @yield('page-script')
 </html>

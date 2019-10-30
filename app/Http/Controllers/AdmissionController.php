@@ -29,7 +29,11 @@ class AdmissionController extends Controller
      */
     public function index()
     {
-        //
+        $admissions = admission::join('rdv_hospitalisations','admissions.id','=','rdv_hospitalisations.id_admission')
+                               ->join('demandehospitalisations','admissions.id_demande','=','demandehospitalisations.id')
+                               ->select('admissions.id as id_admission','admissions.*','rdv_hospitalisations.*')
+                               ->where('etat_RDVh','<>','validé')->where('date_RDVh','=',date("Y-m-d"))->get();                          
+        return view('home.home_agent_admis', compact('admissions'));
     }
 
     /**
@@ -39,8 +43,8 @@ class AdmissionController extends Controller
      */
       public function create($id)
     {  
-          $demande=demandehospitalisation::join('dem_colloques','demandehospitalisations.id','=','dem_colloques.id_demande')->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')->join('patients','consultations.Patient_ID_Patient','=','patients.id')->join('services','demandehospitalisations.service','=','services.id')->select('demandehospitalisations.id as id_demande','demandehospitalisations.*','patients.Nom','patients.Prenom','dem_colloques.ordre_priorite','dem_colloques.observation','consultations.Employe_ID_Employe','consultations.Date_Consultation','services.nom as nomService')->where('demandehospitalisations.id',$id)->get();
-           $services = service::all();
+        $demande=demandehospitalisation::join('dem_colloques','demandehospitalisations.id','=','dem_colloques.id_demande')->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')->join('patients','consultations.Patient_ID_Patient','=','patients.id')->join('services','demandehospitalisations.service','=','services.id')->select('demandehospitalisations.id as id_demande','demandehospitalisations.*','patients.Nom','patients.Prenom','dem_colloques.ordre_priorite','dem_colloques.observation','consultations.Employe_ID_Employe','consultations.Date_Consultation','services.nom as nomService')->where('demandehospitalisations.id',$id)->get();
+        $services = service::all();
         return view('admission.create_admission', compact('demande','services'));
     }
     /**
@@ -133,11 +137,16 @@ class AdmissionController extends Controller
            admission::findOrFail($rdvHospi->id_admission)->delete();
           return $demande;
     }
-      public function reporterRDV ($rdv_id)
+    public function reporterRDV ($rdv_id)
     {
            $demandeHospi=  $this->annulerRDV($rdv_id);
            $services = service::all();
            $demande=demandehospitalisation::join('dem_colloques','demandehospitalisations.id','=','dem_colloques.id_demande')->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')->join('patients','consultations.Patient_ID_Patient','=','patients.id')->join('services','demandehospitalisations.service','=','services.id')->select('demandehospitalisations.id as id_demande','demandehospitalisations.*','patients.Nom','patients.Prenom','dem_colloques.ordre_priorite','dem_colloques.observation','consultations.Employe_ID_Employe','consultations.Date_Consultation','services.nom as nomService')->where('demandehospitalisations.id',$demandeHospi->id)->get(); 
            return view('admission.create_admission', compact('demande','services'));            
+    }
+    public function getAdmissions(Request $request)
+    {
+      $data = $_POST['date'];
+      echo json_encode($data);
     }
 }

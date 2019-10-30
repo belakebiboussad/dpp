@@ -227,8 +227,8 @@ class PatientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    { 
-               $grades = grade::all(); 
+    {           
+                $grades = grade::all(); 
                 $patient = patient::FindOrFail($id);
                 $homme_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get()->first();
                 if($patient->Type != "Autre")

@@ -38,22 +38,18 @@ $(document).ready(function() {
 })
 	function XHRgetUser()
 	{
-		value=$('#userName').val();
-		
-		if(value == "") value="*";			
-		$('#Controls').removeClass('hidden');
-		$.ajax({
+		  value=$('#userName').val();
+		  if(value == "") value="*";			
+		  $('#Controls').removeClass('hidden');
+		  $.ajax({
               type : 'get',
               url : '{{URL::to('searchUser')}}',
               data:{'search':value},
               success:function(data,status, xhr){
               	
-              	/*
               	$('tbody').html(data);
                 var count = xhr.getResponseHeader("count");
                 $(".numberUser").html(count);
-                */
-                alert(xhr.getResponseHeader("count"));
               }
             });
 		
@@ -69,7 +65,7 @@ $(document).ready(function() {
                             	//console.log(data1);
                                 $('#userDetail').html(data1.html);
                             }
-                       });	
+                    });	
 	}
 </script>
 @endsection
@@ -77,12 +73,12 @@ $(document).ready(function() {
 <div class="page-header">
 	{{-- <h1>Liste Des Utilisateurs :</h1> --}}
 	<div class="row">
-		<div class="col-sm-7">
+		<div class="col-sm-12">
 			<div class="space-12"></div>
 			<div class="row">
 				<div class="panel panel-default">
-				<div class="panel-heading initialism" style="height: 50px; font-size: 3.4vh;">
-					<strong>Rechercher un Utilisateur</strong>
+				<div class="panel-heading initialism" style="height: 50px; font-size: 3.2vh;">
+					<strong>Rechercher un Utilisateur:</strong>
 				</div>
 				<div class="panel-body">
 					<div class="form-group has-feedback">
@@ -100,9 +96,9 @@ $(document).ready(function() {
 				</div>
 			</div>
 		</div>{{-- col-sm-5 --}}
-		<div class="col-sm-5">
+	<!-- 	<div class="col-sm-5"> -->
 			
-		</div>{{-- col-sm-7 --}}
+		<!-- </div> -->{{-- col-sm-7 --}}
 	</div>
 	<div class="row">
 		<div class="col-sm-7">

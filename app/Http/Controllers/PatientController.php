@@ -211,7 +211,7 @@ class PatientController extends Controller
      * @param  \App\modeles\patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function editr($id)
     {
          $patient = patient::FindOrFail($id);
           if($patient->Type != "Autre")
@@ -219,7 +219,7 @@ class PatientController extends Controller
                   $assure =  assur::FindOrFail($patient->Assurs_ID_Assure); 
            else
                   $assure = new assur;
-           return view('patient.edit_patient',compact('patient','assure'));
+          return view('patient.edit_patient',compact('patient','assure'));
     }
 
 
@@ -620,6 +620,15 @@ public function getPatientsArray(Request $request)
              return ['success' => true, 'data' => $patients]; 
     }
 }
+
+  public function searchUser(Request $request)
+  {
+      $output="";
+      $output.='<tr>'.'<td>'."Bonjour".'</td>'.'</tr>';
+      return Response($output);
+  }  
+
+
 public function search(Request $request)
 {
          if($request->ajax())  

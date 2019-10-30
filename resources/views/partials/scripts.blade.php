@@ -57,7 +57,6 @@
 <script src="{{ asset('/plugins/fullcalendar/locale/fr.js') }}"></script>
 <script src="{{ asset('/js/jquery-editable-select.js') }}"></script>
 <script src="{{asset('/js/jquery-ui.js')}}"></script>
-
 {{-- <script src="{{ asset('/js/moment-timezone.js') }}"></script>
  --}}
  <script type="text/javascript">
@@ -160,18 +159,7 @@ $(document).ready(function(){
                     if(this.checked) $row.addClass(active_class);
                     else $row.removeClass(active_class);
                 });
-                //add horizontal scrollbars to a simple table
-            /*  $('#table1').css({'width':'50px', 'max-width': 'none'}).wrap('<div style="width: 50px;" />').parent().ace_scroll(
-                  {
-                    horizontal: true,
-                    styleClass: 'scroll-top scroll-dark scroll-visible',//show the scrollbars on top(default is bottom)
-                    size: 50,
-                    mouseWheelLock: true
-                  }
-                ).css('padding-top', '12px');*/
-
-                //select/deselect all rows according to table2 header checkbox
-                
+                    
                 $('#table2 > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
                     var th_checked = this.checked;//checkbox inside "TH" table2 header
                     
@@ -604,10 +592,10 @@ $('#typeexm').on('change', function() {
                      var dateATCD = $('#dateAntcd').val()
                     var description = $("#description").val(); 
                      $.ajax({
-                                 headers: {
+                                headers: {
                                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                 },
-                               type:'POST',
+                                },
+                                type:'POST',
                                 url:'/AddANTCD',
                                 data:{ antecedant:antecedant,typeAntecedant:typeAntecedant,soustype:soustype,dateATCD:dateATCD,description:description,patientid:patientid,habitudeAlim:habitudeAlim,tabac:tabac,ethylisme:ethylisme },
                                    success:function(data){
@@ -1095,13 +1083,16 @@ $('#typeexm').on('change', function() {
             
                 $('.date-picker').datepicker({
                     autoclose: true,
-                    todayHighlight: true
+                    todayHighlight: true,
+                    dateFormat: 'yy-mm-dd',
+                    language: 'fr',
+                    flat: true,
+                    calendars: 1,
                 })
                 //show datepicker when clicking on the icon
                 .next().on(ace.click_event, function(){
                     $(this).prev().focus();
                 });
-            
                 //or change it into a date range picker
                 $('.input-daterange').datepicker({autoclose:true});
             
@@ -1161,14 +1152,14 @@ $('#typeexm').on('change', function() {
                 });
             
             });       
-           $('#user-profile-3').ready(function(){
+            $('#user-profile-3').ready(function(){
                      if (window.location.hash == '#edit-password') {
                                $('.nav-tabs li.active').removeClass('active');
                                $('div#edit-basic').removeClass('active');
                                $('li.edit-password').addClass('active');
                                $('div#edit-password').addClass('in active');
                      }
-           });
+            });
             </script>
             
 
