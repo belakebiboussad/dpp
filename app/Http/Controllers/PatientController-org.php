@@ -756,12 +756,12 @@ public function getPatientDetails(Request $request)
      $patient = patient::FindOrFail($request->search);
       if($patient->Type !="Autre")
       {
-           $assure=  assur::FindOrFail($patient->Assurs_ID_Assure); 
-           $view = view("patient.ajax_patient_detail",compact('patient','assure'))->render();
+          $assure=  assur::FindOrFail($patient->Assurs_ID_Assure); 
+          $view = view("patient.ajax_patient_detail",compact('patient','assure'))->render();
       }
       else
       {
-               $view = view("patient.ajax_patient_detail",compact('patient'))->render();
+          $view = view("patient.ajax_patient_detail",compact('patient'))->render();
       }
        return response()->json(['html'=>$view]);
 }

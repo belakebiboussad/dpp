@@ -12,9 +12,9 @@ $(document).ready(function(){
 	        datumTokenizer: Bloodhound.tokenizers.whitespace,
 	        queryTokenizer: Bloodhound.tokenizers.whitespace,
 	        remote: {
-			url: '/patients/find?q=%QUERY%',
-				wildcard: '%QUERY%'
-		},
+			      url: '/patients/find?q=%QUERY%',
+			      wildcard: '%QUERY%'
+		      },
 	});
 	var bloodhoundPrenom = new Bloodhound({
 	        datumTokenizer: Bloodhound.tokenizers.whitespace,
@@ -76,21 +76,21 @@ $(document).ready(function(){
 }); 
 function XHRgePatient()
 {
-	$('#btnCreate').removeClass('hidden');
-           $('#FusionButton').removeClass('hidden');
-	nom=$('#patientName').val();
-	prenom=$('#patientFirstName').val();
-	code_barre=$('#IPP').val();
-	date_Naiss=$('#Dat_Naissance').val();
-	$.ajax({
-                     type : 'get',
-                     url : '{{URL::to('searchPatient')}}',
-                      data:{'search':nom,'prenom':prenom,'code_barre':code_barre,'Dat_Naissance':date_Naiss},
-                      success:function(data,status, xhr){
-                      	$('#liste_patients tbody').html(data);
-                          	$(".numberResult").html(xhr.getResponseHeader("count"));
-                     }
-           });
+		$('#btnCreate').removeClass('hidden');
+    $('#FusionButton').removeClass('hidden');
+		nom=$('#patientName').val();
+		prenom=$('#patientFirstName').val();
+		code_barre=$('#IPP').val();
+		date_Naiss=$('#Dat_Naissance').val();
+		$.ajax({
+              type : 'get',
+              url : '{{URL::to('searchPatient')}}',
+              data:{'search':nom,'prenom':prenom,'code_barre':code_barre,'Dat_Naissance':date_Naiss},
+              success:function(data,status, xhr){
+                	$('#liste_patients tbody').html(data);
+                 	$(".numberResult").html(xhr.getResponseHeader("count"));
+              }
+    });
 }
 function getPatientdetail(id)
 {

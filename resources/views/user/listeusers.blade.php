@@ -54,18 +54,17 @@ $(document).ready(function() {
             });
 		
 	}
-	function getUserdetail($id)
+	function getUserdetail(id)
 	{	
-	          // console.log($id);	
+	          
 	          $.ajax({
-                            type : 'get',
-                            url : '{{URL::to('userdetail')}}',
-                            data:{'search':$id},
-                            success:function(data1,status, xhr){
-                            	//console.log(data1);
-                                $('#userDetail').html(data1.html);
-                            }
-                    });	
+                      type : 'get',
+                      url : '{{URL::to('userdetail')}}',
+                      data:{'search':id},
+                      success:function(data,status, xhr){
+                           $('#userDetail').html(data.html);
+                      }
+            });	
 	}
 </script>
 @endsection

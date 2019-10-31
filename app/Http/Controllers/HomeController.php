@@ -100,7 +100,9 @@ class HomeController extends Controller
                                 ->join('demandehospitalisations','admissions.id_demande','=','demandehospitalisations.id')
                                 ->select('admissions.id as id_admission',
                                         'admissions.*','rdv_hospitalisations.*')->where('etat_RDVh','<>','validé')->where('date_RDVh','=',date("Y-m-d"))->get();
-                      return view('home.home_agent_admis', compact('admissions'));
+                     
+                    //dd($admissions);              
+                    return view('home.home_agent_admis', compact('admissions'));
                       break;       
                 case "Chef de service":
                     $meds = medcamte::all();

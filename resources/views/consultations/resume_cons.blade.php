@@ -37,7 +37,7 @@
 	  	});
 	});
 	function showConsult(consultId, thisObj)
-          {
+  {
                      $(".marked").removeClass("marked");
                      thisObj.addClass("marked");
                      $.ajax({
@@ -49,7 +49,7 @@
                                 }
                      });
                    
-          }
+  }
 
 </script>
 @stop

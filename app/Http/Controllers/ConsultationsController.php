@@ -83,8 +83,7 @@ class ConsultationsController extends Controller
            $ordonnance= $consultation->ordonnances;
            if($ordonnance != null )
                 $medicaments =  $ordonnance->medicamentes;  
-           //$view = view("consultations.ajax_consult_detail",compact('consultation','examensimg','exmclin','ordonnance','examsRadio', 'medicaments'))->render();
-           $view =  view("consultations.inc_consult",compact('consultation','exmclin','examsRadio'))->render();
+                $view =  view("consultations.inc_consult",compact('consultation','exmclin','examsRadio'))->render();
            return response()->json(['html'=>$view]);
 
      }

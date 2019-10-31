@@ -19,8 +19,6 @@ class SalleController extends Controller
     public function getsalles($id)
     {
         $salles = salle::where('service_id',$id)->where('etat','Non bloquee')->get();
-        //verifier si la salle dispose de lit libre et elle n'est pas bloquee
-         // dd($salles);
         foreach ($salles as $key => $salle) {
                     $libre=false;
                     foreach ($salle->lits as $key => $lit) {

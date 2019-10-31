@@ -81,13 +81,42 @@ Route::put('/colloque/{membres,id_demh}', 'ColloqueController@store');// a revoi
 Route::resource('colloque','ColloqueController');
 Route::get('/listecolloques/{type}','ColloqueController@index');
 Route::resource('admission','AdmissionController');
-Route::post('/getAdmissions',function(Request $request){
-    $data ="zeffdq";
-    //echo json_encode($data);
-    return $data;
-});
+//Route::get('getAdmissions','AdmissionController@getAdmissions');//->name('admissionsXHR')
 
-//Route::post('/getAdmissions','AdmissionController@getAdmissions');
+Route::get('/getAdmissions',function(Request $request){ 
+    $date = Input::get('date'); //$msg = $request->date;
+    
+    $admissions = App\modeles\admission::join('rdv_hospitalisations','admissions.id','=','rdv_hospitalisations.id_admission')
+                              ->join('demandehospitalisations','admissions.id_demande','=','demandehospitalisations.id')
+                              ->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')  
+                              ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
+                              ->join('lits','lits.id','=','admissions.id_lit')
+                              ->join('salles','salles.id','=','lits.salle_id')
+                               ->join('services','services.id','=','salles.service_id')
+                              ->select('admissions.id as id_admission','admissions.*','rdv_hospitalisations.*',
+                                'patients.Nom','patients.Prenom','services.nom as nom_service','salles.nom as nom_salle','lits.num as num_lit')
+                              ->where('etat_RDVh','<>','validé')->where('date_RDVh','=', $date)->get();  
+    
+
+    //
+    /*
+    $admissions = rdv_hospitalisation::join('admissions','rdv_hospitalisations.id_admission','=','admissions.id')
+                ->join('lits','lits.id','=','admissions.id_lit')->join('salles','salles.id','=','lits.id_salle')
+                ->join('services','services.id','=','salles.id_service')
+                ->join('demandehospitalisations','admissions.id_demande','=','demandehospitalisations.id')
+                ->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')
+                ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
+                ->select('demandehospitalisations.id as id_demande','admissions.id as id_admission',
+                    'admissions.id_lit','lits.num as num_lit','salles.nom as nom_salle','services.nom as nom_service',
+                    'rdv_hospitalisations.*','patients.Nom','patients.Prenom')->where('etat_RDVh','<>','validé')
+                ->where('date_RDVh','=', $date)->get();
+     */           
+
+    return Response::json(array(
+                   'data'   => $admissions
+    ));
+ });
+
 Route::resource('role','RolesController');
 Route::resource('ticket','ticketController');
 Route::resource('service','ServiceController');
@@ -166,18 +195,6 @@ Route::get('/role/show/{userId}','RolesController@show');
 //Route::get('/role/show/{userId}','RolesController@show');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('AddANTCD','AntecedantsController@createATCDAjax');
-/*
-Route::get('/searchUser',function(Request $request){
-     
-    $output="";
-    //$users = UsersController::search($request()->search);
-    //$users = Controller::call('UsersController@search', $request()->search)->get();    
-    //return Response(request()->search);
-    //App::call('App\Http\Controllers\PatientController@searchUser');
-    //return Response($routeName);
-    
-});
-*/
 Route::get('/searchUser','UsersController@search');
 Route::get('/searchPatient','PatientController@search');
 Route::get('/getPatients','PatientController@getPatientsArray');

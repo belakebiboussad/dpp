@@ -4,11 +4,11 @@
 <script>
 $( document ).ready(function() {
        $('#userName').on('keyup',function(){
-                          $value=$(this).val();
+                            value=$(this).val();
                             $.ajax({
                             type : 'get',
                             url : '{{URL::to('searchUser')}}',
-                            data:{'search':$value},
+                            data:{'search':value},
                             success:function(data,status, xhr){
                                 $('tbody').html(data);
                                 var count = xhr.getResponseHeader("count");
@@ -16,6 +16,7 @@ $( document ).ready(function() {
                             }
                        });
            });
+
 });
 </script>
 @endsection
