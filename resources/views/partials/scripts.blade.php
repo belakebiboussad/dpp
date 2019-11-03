@@ -476,11 +476,11 @@ $('#typeexm').on('change', function() {
                         dataType: "json",
                         success: function (result)
                             {
-                                            $("#nommedic").val(result['Nom_com']+' '+result['Dosage']);
-                                            $("#forme").val(result['Forme']);
-                                            $("#medicamentId").val(result['id']);
-                                            $("#conditionnement").val(result['Conditionnement']);
-                                            $(".disabledElem").removeClass("disabledElem").addClass("enabledElem"); //$('#Ordonnance').reset();
+                                $("#nommedic").val(result['Nom_com']+' '+result['Dosage']);
+                                $("#forme").val(result['Forme']);
+                                $("#medicamentId").val(result['id']);
+                                $("#conditionnement").val(result['Conditionnement']);
+                                $(".disabledElem").removeClass("disabledElem").addClass("enabledElem"); //$('#Ordonnance').reset();
                             }
                       });
                }

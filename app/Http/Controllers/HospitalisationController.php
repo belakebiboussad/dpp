@@ -46,18 +46,19 @@ class HospitalisationController extends Controller
     public function store(Request $request)
     {
 
-          // dd($request->all()); 
-          $rdvHospi =  rdv_hospitalisation::find($request->id_RDV);
-            $rdvHospi->etat_RDVh="valide";   $rdvHospi->save();
-           $demande= demandehospitalisation::find(admission::find($request->id_ad)->id_demande);
-           $demande->etat = "admise";$demande->save(); 
-          $a = hospitalisation::create([
-                "Date_entree"=>$rdvHospi->date_RDVh,
-                "Date_Prevu_Sortie"=>$rdvHospi->date_Prevu_Sortie,
-                "Date_Sortie"=>null,
+         
+        $rdvHospi =  rdv_hospitalisation::find($request->id_RDV);
+        $rdvHospi->etat_RDVh="valide";      
+        $rdvHospi->save();
+        $demande= demandehospitalisation::find(admission::find($request->id_ad)->id_demande);
+        $demande->etat = "admise";$demande->save(); 
+        $a = hospitalisation::create([
+            "Date_entree"=>$rdvHospi->date_RDVh,
+            "Date_Prevu_Sortie"=>$rdvHospi->date_Prevu_Sortie,
+            "Date_Sortie"=>null,
                 "id_demande"=>$demande->id,
-           ]);
-          return \Redirect::route('HomeController@index');
+        ]);
+        return \Redirect::route('HomeController@index');
     }
 
     /**

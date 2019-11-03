@@ -148,15 +148,13 @@ class AdmissionController extends Controller
     {
       //$data = $_GET['date'];
        $date="sdfds";
-      //$output="";
-      //$date = $request->date;
+      //$output=""; //$date = $request->date;
       // $admissions = admission::join('rdv_hospitalisations','admissions.id','=','rdv_hospitalisations.id_admission')
       //                          ->join('demandehospitalisations','admissions.id_demande','=','demandehospitalisations.id')
       //                          ->select('admissions.id as id_admission','admissions.*','rdv_hospitalisations.*')
       //                          ->where('etat_RDVh','<>','validé')->where('date_RDVh','=', $date)->get();  
     
-      //$date = Input::get('date');
-      //$date = $_GET['date'];
+      //$date = Input::get('date');   //$date = $_GET['date'];
     - return Response::json(array(
                     'success' => true,
                     'data'   => $date

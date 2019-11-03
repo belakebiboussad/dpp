@@ -69,39 +69,50 @@ class HomeController extends Controller
                      $demandes=  DemandeHospitalisation::join('consultations','consultations.id','=','demandehospitalisations.id_consultation')
                                   ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
                                   ->join('employs', 'consultations.Employe_ID_Employe','=','employs.id')
-                                  ->select('demandehospitalisations.*','consultations.Employe_ID_Employe','consultations.Date_Consultation','patients.Nom','patients.Prenom','patients.Dat_Naissance','employs.Nom_Employe','employs.Prenom_Employe')->where('demandehospitalisations.etat','en attente')->get();    
-                      $colloques=colloque::join('membres','colloques.id','=','membres.id_colloque')->join('employs','membres.id_employ','=','employs.id')
-                                  ->leftJoin('dem_colloques','colloques.id','=','dem_colloques.id_colloque')
-                                  ->leftJoin('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')->leftJoin('consultations','demandehospitalisations.id_consultation','=','consultations.id')->leftJoin('patients','consultations.Patient_ID_Patient','=','patients.id')->leftJoin('type_colloques','colloques.type_colloque','=','type_colloques.id')->select('demandehospitalisations.id as id-demande','colloques.id as id_colloque','colloques.*','employs.Nom_Employe','employs.Prenom_Employe','patients.Nom','patients.Prenom','type_colloques.type','dem_colloques.id_demande','consultations.Date_Consultation')
-                                  ->where('etat_colloque','<>','cloturé')->get();
-                     $colloque= array();
-                            foreach( $colloques as $col){
-                              if (!array_key_exists($col->id_colloque,$colloque))
-                                {
-                                      $colloque[$col->id_colloque]= array("dat"=> $col->date_colloque ,"creation"=>$col->date_creation,"Type"=>$col->type,"Etat"=>$col->etat_colloque,"membres"=> array ("$col->Nom_Employe $col->Prenom_Employe"),
-                                      "demandes"=>array($col->id_demande=>array(
-                                        "id_dem"=>$col->id_demande ,"date_dem"=>$col->Date_demande ,"patient"=>"$col->Nom $col->Prenom")));
-                                }
-                              else{
-                                          if (array_search("$col->Nom_Employe $col->Prenom_Employe", $colloque[$col->id_colloque]["membres"])===false)
-                                               $colloque[$col->id_colloque]["membres"][]="$col->Nom_Employe $col->Prenom_Employe";
-                                      
-                                        if (!array_key_exists($col->id_demande, $colloque[$col->id_colloque]["demandes"])) {      
-                                          $colloque[$col->id_colloque]["demandes"][$col->id_demande]=array(
+                                  ->select('demandehospitalisations.*','consultations.Employe_ID_Employe','consultations.Date_Consultation',
+                                           'patients.Nom','patients.Prenom','patients.Dat_Naissance','employs.Nom_Employe',
+                                           'employs.Prenom_Employe')->where('demandehospitalisations.etat','en attente')->get();    
+                      $colloques=colloque::join('membres','colloques.id','=','membres.id_colloque')
+                                         ->join('employs','membres.id_employ','=','employs.id')
+                                         ->leftJoin('dem_colloques','colloques.id','=','dem_colloques.id_colloque')
+                                         ->leftJoin('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')
+                                         ->leftJoin('consultations','demandehospitalisations.id_consultation','=','consultations.id')
+                                         ->leftJoin('patients','consultations.Patient_ID_Patient','=','patients.id')
+                                         ->leftJoin('type_colloques','colloques.type_colloque','=','type_colloques.id')
+                                         ->select('demandehospitalisations.id as id-demande','colloques.id as id_colloque','colloques.*',
+                                                  'employs.Nom_Employe','employs.Prenom_Employe','patients.Nom','patients.Prenom',
+                                                  'type_colloques.type','dem_colloques.id_demande','consultations.Date_Consultation')
+                                         ->where('etat_colloque','<>','cloturé')->get();
+                      
+                      
+                      $colloque= array();
+                      foreach( $colloques as $col){
+                        if (!array_key_exists($col->id_colloque,$colloque))
+                        {
+                            $colloque[$col->id_colloque]= array("dat"=> $col->date_colloque ,"creation"=>$col->date_creation,
+                                                                "Type"=>$col->type,"Etat"=>$col->etat_colloque,
+                                                                "membres"=> array ("$col->Nom_Employe $col->Prenom_Employe"),
+                                                                "demandes"=>array($col->id_demande=>array("id_dem"=>$col->id_demande ,
+                                                                "date_dem"=>$col->Date_demande ,"patient"=>"$col->Nom $col->Prenom")));
+                        }
+                        else{
+                            if (array_search("$col->Nom_Employe $col->Prenom_Employe", $colloque[$col->id_colloque]["membres"])===false)
+                                  $colloque[$col->id_colloque]["membres"][]="$col->Nom_Employe $col->Prenom_Employe";
+                                  if (!array_key_exists($col->id_demande, $colloque[$col->id_colloque]["demandes"])) {      
+                                      $colloque[$col->id_colloque]["demandes"][$col->id_demande]=array(
                                             "id_dem"=>$col->id ,"date_dem"=>$col->Date_demande ,"patient"=>"$col->Nom $col->Prenom");
-                                        }
+                                  }
                                  
                                 }
                         }
-                       return view('colloques.liste_colloque', compact('colloque'));
-                       break;
+                      
+                      return view('colloques.liste_colloque', compact('colloque'));
+                      break;
                 case "Admission":
                     $admissions = admission::join('rdv_hospitalisations','admissions.id','=','rdv_hospitalisations.id_admission')
                                 ->join('demandehospitalisations','admissions.id_demande','=','demandehospitalisations.id')
                                 ->select('admissions.id as id_admission',
-                                        'admissions.*','rdv_hospitalisations.*')->where('etat_RDVh','<>','validé')->where('date_RDVh','=',date("Y-m-d"))->get();
-                     
-                    //dd($admissions);              
+                                        'admissions.*','rdv_hospitalisations.*')->where('etat_RDVh','<>','validé')->where('date_RDVh','=',date("Y-m-d"))->get();            
                     return view('home.home_agent_admis', compact('admissions'));
                       break;       
                 case "Chef de service":

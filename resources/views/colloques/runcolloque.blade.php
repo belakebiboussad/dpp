@@ -42,7 +42,7 @@ jQuery(function() {
 		<div class="col-xs-12 page-header">
 			<div class="col-xs-12">
 				<h1>			
-					Déroulement du Colloque {{ $colloque->type }} de la semaine du  &quot;<?php 
+					Déroulement du Colloque <strong> {{ $colloque->type->type }} </strong> de la semaine du  &quot;<?php 
 					$d=$colloque->date_colloque.' monday next week';
 					echo(date('d M Y',strtotime($d)-1));
 					?>&quot;
@@ -61,54 +61,51 @@ jQuery(function() {
 	              </h3>
 		</div>
 		<div class="widget-body">
-		      <div class="widget-main no-padding">
-			<div class='table_borderWrap'>
-			<table class="table table-striped table-bordered table-hover" id="table1" aria-describedby="table1_info" role="grid">
-			<thead class="thin-border-bottom">
-		            <tr>
-		                  	<th hidden></th>
-				{{-- <th hidden></th> --}}
-				<th  class="center" width="3%" >
-				</th>
-				<th class="text-center" width="11%"><h5><strong>Patient</strong></h5></th>
-				<th class="text-center" width="10%"><h5><strong class="text-center">Spécialité</strong></h5></th>
-				<th class="text-center"  width="10%"><h5><strong>Date Demande</strong></h5></th>
-				
-				<th class="text-center" width="10%"><h5><strong>Medcin traitant</strong></h5></th>
-			              <th width="12%" class="text-center"><h5><strong>Priorité</strong></h5></th>
-				<th class="font-weight-bold text-center"><h5><strong>Observation</strong></h5></th>
-				<th class="detail-col  text-center">{{-- <h5> <strong>Actions</strong></h5> --}}</th>
-			</tr>
-			</thead>
-			<tbody id ="demandesBody" class="bodyClass">
-			<?php $j = 0; ?>
-			@foreach( $demandes as $i=>$demande)
-		             <tr>
-			            <td hidden>{{$j}}</td>	
-			           <td class="center">
-				  <label class="pos-rel">{{-- 1 --}}
-					<input type="checkbox" class="ace" name ="valider[]" value ="{{$demande->id}}" />
-					<span class="lbl"></span>   
-				   </label>
-				</td>
-				<td >{{ $demande->nomPat}} {{$demande->prenomPat }}</td>
-				<td>{{ $demande->nomSpec }}</td>
-				<td>{{$demande->Date_Consultation }}
-				</td>
-				<td>
-				<select id="MedT" name = "MedT{{$demande->id}}" data-placeholder="selectionnez le medecin traitant..."class="selectpicker show-menu-arrow place_holder "  widh="18%">
-					<option value="" selected disabled>selectionnez... </option>
-					@foreach ($medecins as $medecin)
-					<option value="{{$medecin->id}}" >{{$medecin->Nom_Employe}} {{$medecin->Prenom_Employe}}
-					</option>
-					@endforeach
-				</select>
-				</td>
-			           <td>
-			                     <div class="funkyradio btn-group" data-toggle="radio">
-					 <label for="{{$i}}p1"><input type="radio" name="prop{{$demande->id}}" id="{{$i}}p1" class="radioM" value="1"/>1</label>&nbsp;&nbsp;
-					<label for="{{$i}}p2"><input type="radio"  class="radioM" name="prop{{$demande->id}}" id="{{$i}}p2" value="2" checked/>2</label>&nbsp;&nbsp;
-                        				<label for="radio3"><input type="radio"  class="radioM" name="prop{{$demande->id}}" id="{{$i}}3" value="3" />3</label>
+		  <div class="widget-main no-padding">
+				<div class='table_borderWrap'>
+					<table class="table table-striped table-bordered table-hover" id="table1" aria-describedby="table1_info" role="grid">
+						<thead class="thin-border-bottom">
+		          <tr>
+		           	<th hidden></th>
+				 				<!-- <th hidden></th> -->
+								<th  class="center" width="3%"></th>
+								<th class="text-center" width="11%"><h5><strong>Patient</strong></h5></th>
+								<th class="text-center" width="10%"><h5><strong class="text-center">Spécialité</strong></h5></th>
+								<th class="text-center"  width="10%"><h5><strong>Date Demande</strong></h5></th>
+								<th class="text-center" width="10%"><h5><strong>Medcin traitant</strong></h5></th>
+			          <th width="12%" class="text-center"><h5><strong>Priorité</strong></h5></th>
+								<th class="font-weight-bold text-center"><h5><strong>Observation</strong></h5></th>
+								<th class="detail-col  text-center">{{-- <h5> <strong>Actions</strong></h5> --}}</th>
+					  	</tr>
+				  	</thead>
+					  <tbody id ="demandesBody" class="bodyClass">
+					  <?php $j = 0; ?>
+				  	@foreach( $demandes as $i=>$demande)
+		          <tr>
+			          <td hidden>{{$j}}</td>	
+			          <td class="center">
+				  				<label class="pos-rel">{{-- 1 --}}
+										<input type="checkbox" class="ace" name ="valider[]" value ="{{$demande->id}}" />
+										<span class="lbl"></span>   
+				  			  </label>
+								</td>
+								<td>{{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }}</td>	
+								<td>{{ $demande->Specialite->nom }}</td>
+							  <td>{{$demande->consultation->Date_Consultation }}</td>
+								<td>
+									<select id="MedT" name = "MedT{{$demande->id}}" data-placeholder="selectionnez le medecin traitant..."class="selectpicker show-menu-arrow place_holder "  widh="18%">
+											<option value="" selected disabled>selectionnez... </option>
+											@foreach ($medecins as $medecin)
+											<option value="{{$medecin->id}}" >{{$medecin->Nom_Employe}} {{$medecin->Prenom_Employe}}
+											</option>
+											@endforeach
+									</select>
+								</td>
+			          <td>
+			            <div class="funkyradio btn-group" data-toggle="radio">
+					 					<label for="{{$i}}p1"><input type="radio" name="prop{{$demande->id}}" id="{{$i}}p1" class="radioM" value="1"/>1</label>&nbsp;&nbsp;
+										<label for="{{$i}}p2"><input type="radio"  class="radioM" name="prop{{$demande->id}}" id="{{$i}}p2" value="2" checked/>2</label>&nbsp;&nbsp;
+                    <label for="{{$i}}p3"><input type="radio"  class="radioM" name="prop{{$demande->id}}" id="{{$i}}3" value="3" />3</label>
 				         </div>
 				       </td>
 				   <td>
@@ -149,13 +146,13 @@ jQuery(function() {
 					<div class="profile-info-row">
 						<div class="profile-info-name text-center"><strong>Etablie par Dr:</strong></div>
 						<div class="profile-info-value">
-						<span>{{$demande->Nom_Employe}} {{$demande->Prenom_Employe}}</span>
+						<span>{{ $demande->consultation->docteur->Nom_Employe }} {{ $demande->consultation->docteur->Prenom_Employe }}</span>
 						</div>
 					</div>
 					<div class="profile-info-row">
 						<div class="profile-info-name text-center"> <strong>Service:</strong></div>
 						<div class="profile-info-value">
-						<span>{{$demande->nomService }}</span>
+						<span>{{$demande->Service->nom }}</span>
 						</div>
 					</div>
 					</div>	{{-- profile-user-info-striped --}}

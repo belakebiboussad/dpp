@@ -108,8 +108,9 @@
 	  function fetch_data(date)
 	  {
 	  	  var today = new Date();
-	  	  var currentday = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-	  	  $.ajax({
+	  	  var currentday = today.getFullYear()+'-'+(today.getMonth() + 1).toString().padStart(2, "0")+'-'+today.getDate().toString().padStart(2, "0");
+	  		var heure = today.getHours() + ':' + today.getMinutes();
+	  		$.ajax({
                   type :'get',
                   url : '{{URL::to('getAdmissions')}}',
                   data:{'date':date},
@@ -133,11 +134,36 @@
 											    		output += '<td><span  style="color: red;">' + "1" + '</span></td></tr>';
 											    else
 											    	{
-											    		output += '<td><button type="button" class="btn btn-info btn-sm" data-toggle="modal"\
-											    		 					data-backdrop="false" data-target="#">confirmer l\'entrée</button>\
-												    		 				<div id="" class="modal fade" role="dialog" aria-hidden="true">\
-												    		 				</div>\
-												    		 				</td></tr>';
+											    		output += '<td><button type="button" class="btn btn-info btn-sm" data-toggle="modal"'+
+											    		 					'data-backdrop="false" data-target="#'+admissions[count].id_admission+'">Confirmer</button>'+
+												    		 				'<div id="'+ admissions[count].id_admission +'" class="modal fade" role="dialog" aria-hidden="true">'+
+													    		 				'<div class="modal-dialog">'+
+													    		 					'<div class="modal-content">'+
+													    		 						'<div class="modal-header">'+
+													    		 							'<button type="button" class="close" data-dismiss="modal">&times;</button>'+
+													    		 							'<h4 class="modal-title"><strong>confirmer l\'entrée du patient:</strong></h4>'+
+													    		 						'</div>'+
+													    		 						'<div class="modal-body">'+
+													    		 						  '<p><span  style="color: blue;"><strong >'+ admissions[count].Nom +' '+ admissions[count].Prenom +'</strong></span></p>'+
+													    		 						  '<p>le  &quot;<span  style="color: orange;"><strong>'+ admissions[count].date_RDVh +'</strong></span>&quot; à'+' ' +' <span  style="color: red;"><strong>'+ heure +'</strong></span></p>'+
+													    		 						'</div>'+
+													    		 						'<form id="hospitalisation" class="form-horizontal" role="form" method="POST" action="{{route("hospitalisation.store")}}">{{ csrf_field() }}'+
+													    		 							'	<input id="id_ad" type="text" name="id_ad" value="'+ admissions[count].id_admission+'" hidden>'+
+													    		 							'<input id="id_RDV" type="text" name="id_RDV" value="'+admissions[count].id+'" hidden>'+
+													    		 							'<div class="modal-footer">'+
+													    		 							  '<button type="button" class="btn btn-default" data-dismiss="modal">'+
+													    		 							  	'<i class="ace-icon fa fa-undo bigger-120"></i>'+
+													    		 							  	'Fermer'+
+													    		 							  '</button>'+
+													    		 							  '<button  type="submit" class="btn btn-success">'+
+													    		 							     'Valider'+
+													    		 							  '</button>'+
+													    		 							'</div>'+
+													    		 						'</form>'+
+													    		 					'</div>'+
+													    		 				'</div>'+
+												    		 				'</div>'+
+												    		 				'</td></tr>';
 																				
 											    	}
 

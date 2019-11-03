@@ -5,7 +5,7 @@
 		<div class="widget-header">
 			<h4 class="widget-title bigger lighter">
 				<i class="ace-icon fa fa-table"></i>
-				<strong>Liste Des Colloques</strong>
+				<strong>Liste Des Colloques {{(isset($type)) &&  ( $type == 1) ? 'Médicaux ' : 'Chirurgicaux' }}</strong>
 			</h5>
 			<div class="widget-toolbar widget-toolbar-light no-border">
 			        <div class="fa fa-plus-circle"></div>

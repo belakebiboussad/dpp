@@ -75,7 +75,7 @@
 <div class="row" style = "margin-top:-2%">
 	<div class="col-sm-7" id="consultDetail">
 	@include('consultations.inc_consult')
-	</div>{{-- col-sm-6 --}}
+	</div>
 	<div class="col-sm-5">
 		<table id="example" class="display dataTable table table-striped table-bordered table-condensed" width="100%" data-page-length="25" " role="grid">
 		<thead>
