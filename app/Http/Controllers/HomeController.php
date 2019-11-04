@@ -66,12 +66,7 @@ class HomeController extends Controller
                      return view('home.home_surv_med', compact('demandes'));
                      break;
                 case "Delegue colloque":
-                     $demandes=  DemandeHospitalisation::join('consultations','consultations.id','=','demandehospitalisations.id_consultation')
-                                  ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
-                                  ->join('employs', 'consultations.Employe_ID_Employe','=','employs.id')
-                                  ->select('demandehospitalisations.*','consultations.Employe_ID_Employe','consultations.Date_Consultation',
-                                           'patients.Nom','patients.Prenom','patients.Dat_Naissance','employs.Nom_Employe',
-                                           'employs.Prenom_Employe')->where('demandehospitalisations.etat','en attente')->get();    
+                      $colloque= array();
                       $colloques=colloque::join('membres','colloques.id','=','membres.id_colloque')
                                          ->join('employs','membres.id_employ','=','employs.id')
                                          ->leftJoin('dem_colloques','colloques.id','=','dem_colloques.id_colloque')
@@ -83,28 +78,28 @@ class HomeController extends Controller
                                                   'employs.Nom_Employe','employs.Prenom_Employe','patients.Nom','patients.Prenom',
                                                   'type_colloques.type','dem_colloques.id_demande','consultations.Date_Consultation')
                                          ->where('etat_colloque','<>','cloturé')->get();
-                      
-                      
-                      $colloque= array();
                       foreach( $colloques as $col){
                         if (!array_key_exists($col->id_colloque,$colloque))
                         {
-                            $colloque[$col->id_colloque]= array("dat"=> $col->date_colloque ,"creation"=>$col->date_creation,
-                                                                "Type"=>$col->type,"Etat"=>$col->etat_colloque,
-                                                                "membres"=> array ("$col->Nom_Employe $col->Prenom_Employe"),
-                                                                "demandes"=>array($col->id_demande=>array("id_dem"=>$col->id_demande ,
-                                                                "date_dem"=>$col->Date_demande ,"patient"=>"$col->Nom $col->Prenom")));
+                          $colloque[$col->id_colloque]= array( "dat"=> $col->date_colloque ,"creation"=>$col->date_creation,
+                                                               "Type"=>$col->type,"Etat"=>$col->etat_colloque,
+                                                               "membres"=> array ("$col->Nom_Employe $col->Prenom_Employe")
+                                                               // "demandes"=>array($col->id_demande=>array("id_dem"=>$col->id_demande ,
+                                                               //  "date_dem"=>$col->Date_demande ,
+                                                               //  "patient"=>"$col->Nom $col->Prenom")
+                                                               //   )
+                                                             );
                         }
                         else{
                             if (array_search("$col->Nom_Employe $col->Prenom_Employe", $colloque[$col->id_colloque]["membres"])===false)
                                   $colloque[$col->id_colloque]["membres"][]="$col->Nom_Employe $col->Prenom_Employe";
-                                  if (!array_key_exists($col->id_demande, $colloque[$col->id_colloque]["demandes"])) {      
-                                      $colloque[$col->id_colloque]["demandes"][$col->id_demande]=array(
-                                            "id_dem"=>$col->id ,"date_dem"=>$col->Date_demande ,"patient"=>"$col->Nom $col->Prenom");
-                                  }
+                                  // if (!array_key_exists($col->id_demande, $colloque[$col->id_colloque]["demandes"])) {      
+                                      // $colloque[$col->id_colloque]["demandes"][$col->id_demande]=array(
+                                      //       "id_dem"=>$col->id ,"date_dem"=>$col->Date_demande ,"patient"=>"$col->Nom $col->Prenom");
+                                  // }
                                  
-                                }
-                        }
+                            }
+                      }
                       
                       return view('colloques.liste_colloque', compact('colloque'));
                       break;

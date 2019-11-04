@@ -1,10 +1,8 @@
-<!-- #section:basics/sidebar -->
-<div id="sidebar" class="sidebar                  responsive">
-    <script type="text/javascript">
+<div id="sidebar" class="sidebar responsive">
+	<script type="text/javascript">
         try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
-    </script>
-
-    <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+  </script>
+	<div class="sidebar-shortcuts" id="sidebar-shortcuts">
         <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
             <button class="btn btn-success">
                 <i class="ace-icon fa fa-signal"></i>
@@ -35,42 +33,33 @@
 
             <span class="btn btn-danger"></span>
         </div>
-    </div><!-- /.sidebar-shortcuts -->
-
-    <li class="">
+  </div><!-- /.sidebar-shortcuts -->
+  <li class="">
         <a href="home">
             <i class="menu-icon fa fa-picture-o"></i>
-            <span class="menu-text">MENU Gestion Patients</span>
+            <span class="menu-text">Gestion Colloques</span>
+        </a>
+
+        <b class="arrow"></b>
+  </li>
+  <ul class="nav nav-list">
+    <li class="">
+        <a href="/home_dele">
+                <i class="menu-icon fa fa-university"></i>
+                <span class="menu-text"> Acceuil </span>
         </a>
 
         <b class="arrow"></b>
     </li>
-
-    <ul class="nav nav-list">
-        <li class="">
-            <a href="/home_dele">
-                <i class="menu-icon fa fa-university"></i>
-                <span class="menu-text"> Acceuil </span>
-            </a>
-
-            <b class="arrow"></b>
-        </li>
-
-        <li class="">
-            <a href="#" class="dropdown-toggle">
+     <li class="">
+          <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-h-square"></i>
-                            <span class="menu-text">
-                                Colloques
-                            </span>
-
+                <span class="menu-text">Colloques en Cours</span>
                 <b class="arrow fa fa-angle-down"></b>
-            </a>
-
-            <b class="arrow"></b>
-                @php $i = 1 @endphp
-              {{--   @php $j = 2 @endphp --}}
-                
-            <ul class="submenu">
+          </a>
+          <b class="arrow"></b>
+          @php $i = 1 @endphp
+          <ul class="submenu">
                 <li class="">
                     <a href="/listecolloques/{{ $i }}">
                         <i class="menu-icon fa fa-caret-right"></i>
@@ -83,25 +72,53 @@
                 </li>
                 <li class="">
                     <a href="{{ route('colloque.create')}}">
-                        <i class="menu-icon fa fa-caret-right"></i>
-                        Nouveau colloque
+                        <i class="menu-icon fa fa-plus purple"></i>
+                        Ajouter colloque
                     </a>
                     <b class="arrow"></b>
                 </li>              
             </ul>
-        </li>
-   
-    </ul><!-- /.nav-list -->
+      </li><!-- colloques en cours -->
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-user-md"></i>
+                            <span class="menu-text">
+                                Colloques Cloturé
+                            </span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
 
-    <!-- #section:basics/sidebar.layout.minimize -->
-    <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+            <b class="arrow"></b>
+
+            <ul class="submenu">
+                 @php $j = 1 @endphp
+                <li class="">
+                    <a href="/listecolloquesCloture/{{ $j }}">
+                        <i class="menu-icon fa fa-plus purple"></i>
+                        Colloques Médicaux
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+
+                <li class="">
+                    <a href="/listecolloquesCloture/{{ ++$j }}">
+                        <i class="menu-icon fa fa-eye pink"></i>
+                        Colloques Chirurgicaux
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+            </ul>
+        </li>
+  </ul> <!-- nav-list -->
+  <!-- #section:basics/sidebar.layout.minimize -->
+  <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
         <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
-    </div>
+  </div>
 
     <!-- /section:basics/sidebar.layout.minimize -->
     <script type="text/javascript">
         try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
     </script>
-</div>
-
-<!-- /section:basics/sidebar -->
+</div><!-- sidebar -->

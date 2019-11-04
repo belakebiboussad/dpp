@@ -5,8 +5,10 @@
 		<div class="widget-header">
 			<h4 class="widget-title bigger lighter">
 				<i class="ace-icon fa fa-table"></i>
-				<strong>Liste Des Colloques {{(isset($type)) &&  ( $type == 1) ? 'Médicaux ' : 'Chirurgicaux' }}</strong>
-			</h5>
+				<strong>Liste Des Colloques 
+				@if(isset($type)) {{( $type == 1) ? 'Médicaux ' : 'Chirurgicaux' }}   @endif 
+				</strong>
+			</h4>
 			<div class="widget-toolbar widget-toolbar-light no-border">
 			        <div class="fa fa-plus-circle"></div>
 			          <a href="{{ route('colloque.create')}}"><b>Ajouter Colloque</b></a>
@@ -20,7 +22,6 @@
 						<th><h4><strong>colloque de semaine du</strong></h4></th>
 						<th><h4><strong>Date du colloque</strong></h4></th>
 						<th><h4><strong>Membres</strong></h4></th>
-						<th><h4><strong>Les demandes traitées</strong></h4></th>
 						<th><h4><strong>colloque créer le</strong></h4></th>
 						<th><h4><strong>Type colloque</strong></h4></th>
 						<th><h4><strong>Etat colloque</strong></h4></th>
@@ -30,22 +31,14 @@
 			@foreach( $colloque as $cl=>$col)
 			<tr>
 				<td><?php $d=$col["dat"].' monday next week';
-				echo(date('d M Y',strtotime($d)-1));?>
+					echo(date('d M Y',strtotime($d)-1));?>
 				</td>
-				</td>
-					<td> {{$col["dat"]}}</td>
-				<td
+				<td> {{$col["dat"]}}</td>
 				<td>
 					@foreach($col["membres"] as $i=>$m)
 					<p class="text-primary">{{$col["membres"][$i]}}</p>@endforeach
 				</td>
-				<td>
-			             	 @foreach($col["demandes"] as $i=>$d)
-			              		<p class="text-primary">{{$col["demandes"][$i]["patient"]}}&nbsp;&nbsp;<a class="text-success">{{$col["demandes"][$i]["date_dem"]}}</a>
-			              	</p>
-					 @endforeach	
-				</td>
-				<td>
+		  	<td>
 					<p class="text-primary">{{$col["creation"]}}</p>
 				</td>
 				<td>

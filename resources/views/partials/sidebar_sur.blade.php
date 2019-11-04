@@ -40,7 +40,7 @@
     <li class="">
         <a href="home">
             <i class="menu-icon fa fa-picture-o"></i>
-            <span class="menu-text">MENU Gestion Patients</span>
+            <span class="menu-text">Gestion Patients</span>
         </a>
 
         <b class="arrow"></b>

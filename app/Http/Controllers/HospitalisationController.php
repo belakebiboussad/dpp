@@ -122,13 +122,26 @@ class HospitalisationController extends Controller
                     ->select('rdv_hospitalisations.*','rdv_hospitalisations.id as idRDV','lits.num','salles.nom as nomsalle','dem_colloques.observation','dem_colloques.ordre_priorite','consultations.Date_Consultation','patients.Nom','patients.Prenom','employs.Nom_Employe','employs.Prenom_Employe','demandehospitalisations.etat','demandehospitalisations.id as iddemande')
                     ->where('rdv_hospitalisations.etat_RDVh','en attente')
                     ->where('demandehospitalisations.etat','programme')->get();
-          //dd($rdvHospitalisation); 
            return view('Hospitalisations.listRDVs_hospitalisation', compact('rdvHospitalisation'));
     }
     public function ajouterRDV()
     {
-          $employe = employ::where("id",Auth::user()->employee_id)->get()->first();  
-          $demandes= dem_colloque::join('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')->join('patients','consultations.Patient_ID_Patient','=','patients.id')->select('dem_colloques.*','demandehospitalisations.*','consultations.Date_Consultation','patients.Nom','patients.Prenom')->where('demandehospitalisations.service',$employe->Service_Employe )->where('demandehospitalisations.etat','valide')->get();
-                     return view('home.home_surv_med', compact('demandes'));
+        $employe = employ::where("id",Auth::user()->employee_id)->get()->first();  
+        $demandes= dem_colloque::join('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')
+                               ->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')
+                               ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
+                               ->select('dem_colloques.*','demandehospitalisations.*','consultations.Date_Consultation',
+                                        'patients.Nom','patients.Prenom')
+                               ->where('demandehospitalisations.service',$employe->Service_Employe )
+                               ->where('demandehospitalisations.etat','valide')->get();
+        
+        
+        /*
+        $demandes= DemandeHospitalisation::where('demandehospitalisations.service',$employe->Service_Employe)
+                                         ->where('demandehospitalisations.etat','valide') ->get(["id"]); 
+        */                                 
+        //dd($demandes);
+        return view('home.home_surv_med', compact('demandes'));
+
     }
 }
