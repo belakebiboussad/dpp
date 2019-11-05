@@ -192,7 +192,7 @@ class ColloqueController extends Controller
              ]);
           return redirect()->action('ColloqueController@index');  
   }
-  public function getClosedColoques($type)
+  public function getClosedColoquesOrg($type)
   {
       $colloque= array();
       switch ($type) {
@@ -221,7 +221,7 @@ class ColloqueController extends Controller
                                       ->select('demandehospitalisations.id as id-demande','demandehospitalisations.etat as etat_demande',
                                                'consultations.Date_Consultation as Date_demande','colloques.id as id_colloque','colloques.*',
                                                'employs.Nom_Employe','employs.Prenom_Employe','patients.Nom','patients.Prenom',
-                                               'type_colloques.type','dem_colloques.id_demande','consultations.Date_Consultation')
+                                               'type_colloques.type','dem_colloques.id_demande')
                                       ->where('etat_colloque','=','cloturé')->where('type_colloques.id','=',2)->get();                 
                       break;
                 default:
@@ -255,8 +255,58 @@ class ColloqueController extends Controller
                      
               }
       }
-      return view('colloques.liste_closedcolloque', compact('colloque','type'));  
 
+      return view('colloques.liste_closedcolloque', compact('colloque','type'));  
+  }
+  public function getClosedColoques($type)
+  {
+    //$demandes = dem_colloque::all();
+    $colloque = array();
+    $demandes = array();
+    switch ($type) {
+                case 1:
+                    // $demandes = DemandeHospitalisation::where('etat','<>','en attente')
+                    //                                    ->where() 
+                    $colloques=colloque::join('membres','colloques.id','=','membres.id_colloque')
+                                      ->join('employs','membres.id_employ','=','employs.id')
+                                      ->leftJoin('dem_colloques','colloques.id','=','dem_colloques.id_colloque')
+                                      ->leftJoin('type_colloques','colloques.type_colloque','=','type_colloques.id')
+                                      ->select('colloques.id as id_colloque','colloques.*',
+                                               'employs.Nom_Employe','employs.Prenom_Employe',
+                                               'type_colloques.type','dem_colloques.id_demande')
+                                      ->where('etat_colloque','=','cloturé')->where('type_colloques.id','=',1)->get();  
+                      break;
+                case 2:
+                   $colloques=colloque::join('membres','colloques.id','=','membres.id_colloque')
+                                      ->join('employs','membres.id_employ','=','employs.id')
+                                      ->leftJoin('dem_colloques','colloques.id','=','dem_colloques.id_colloque')
+                                      ->leftJoin('type_colloques','colloques.type_colloque','=','type_colloques.id')
+                                      ->select('colloques.id as id_colloque','colloques.*',
+                                               'employs.Nom_Employe','employs.Prenom_Employe',
+                                               'type_colloques.type','dem_colloques.id_demande')
+                                      ->where('etat_colloque','=','cloturé')->where('type_colloques.id','=',2)->get();                 
+                      break;
+                default:
+                      break;
+      }
+      foreach( $colloques as $col){
+              if (!array_key_exists($col->id_colloque,$colloque))
+              {
+                  $colloque[$col->id_colloque]= array( "id"=> $col->id_colloque,
+                                                       "dat"=> $col->date_colloque ,
+                                                       "creation"=>$col->date_creation,
+                                                       "Type"=>$col->type,"Etat"=>$col->etat_colloque,
+                                                       "membres"=> array ("$col->Nom_Employe $col->Prenom_Employe"));
+              }
+              else
+              {
+                  if (array_search("$col->Nom_Employe $col->Prenom_Employe", $colloque[$col->id_colloque]["membres"])===false)
+                      $colloque[$col->id_colloque]["membres"][]="$col->Nom_Employe $col->Prenom_Employe";
+                                      
+              }
+    }
+    //dd($colloque);
+    return view('colloques.liste_closedcolloque', compact('colloque','type','demandes'));                      
   }
 
 

@@ -109,36 +109,36 @@ jQuery(function() {
 										<label for="{{$i}}p2"><input type="radio"  class="radioM" name="prop{{$demande->id}}" id="{{$i}}p2" value="2" checked/>2</label>&nbsp;&nbsp;
                     <label for="{{$i}}p3"><input type="radio"  class="radioM" name="prop{{$demande->id}}" id="{{$i}}3" value="3" />3</label>
 				         </div>
-				       </td>
-				   <td>
-				       <textarea class="width-100" resize="none" name="observation{{$demande->id}}"></textarea>
-				    </td>
-				    <td>
-					 <a href="#" class="green btn-lg show-details-btn" title="Show Details" data-toggle="collapse" id="{{$i}}" data-target=".{{$i}}collapsed"  >
-					         {{-- <i class="ace-icon fa fa-angle-double-down"></i> --}}
-					         <i class="fa fa-eye-slash" aria-hidden="true"></i>
+				        </td>
+				        <td>
+				          <textarea class="width-100" resize="none" name="observation{{$demande->id}}"></textarea>
+				        </td>
+				        <td>
+					        <a href="#" class="green btn-lg show-details-btn" title="Show Details" data-toggle="collapse"
+					        	 id="{{$i}}" data-target=".{{$i}}collapsed"  >
+					          <i class="fa fa-eye-slash" aria-hidden="true"></i>
 					          <span class="sr-only">Details</span>
-					</a>
-					 <a href="#" class="btn btn-success btn-xs aaaa"  title= "Valider demande"  onclick= "selectDemande(this,{{ $j }},{{$demande->id}});">
-						 <i class="ace-icon fa fa-check" ></i> Valider
-                              			</a>     
-				    </td>   			
-			     </tr> 
-			     <?php $j++ ?>
-			       <tr class="collapse out budgets {{$i}}collapsed">
-			              <td colspan="12">
-				    <div class="table-detail">
-				    <div class="row">
+					        </a>
+					        <a href="#" class="btn btn-success btn-xs aaaa"  title= "Valider demande" 
+					        	 onclick= "selectDemande(this,{{ $j }},{{$demande->id}});">
+						     		<i class="ace-icon fa fa-check" ></i> Valider
+                  </a>     
+				        </td>   			
+			      </tr> 
+			      <?php $j++ ?>
+			      <tr class="collapse out budgets {{$i}}collapsed">
+			        <td colspan="12">
+				    	<div class="table-detail">
+				    		<div class="row">
 				        <div class="col-xs-6 col-sm-6">
-					<div class="space visible-xs"></div>
-					<div class="profile-user-info profile-user-info-striped">
-					<div class="profile-info-row">
-					<div class="profile-info-name text-center"><strong>Age:</strong></div>
-					<div class="profile-info-value">
-					    <!--  <span>{{Jenssegers\Date\Date::parse($demande->Dat_Naissance)->age }} ans</span> -->
-					     <span>{{Jenssegers\Date\Date::parse($demande->consultation->patient->Dat_Naissance)->age }} ans</span>
-					</div>
-					</div>
+									<div class="space visible-xs"></div>
+									<div class="profile-user-info profile-user-info-striped">
+									<div class="profile-info-row">
+										<div class="profile-info-name text-center"><strong>Age:</strong></div>
+										<div class="profile-info-value">
+										  <span>{{Jenssegers\Date\Date::parse($demande->consultation->patient->Dat_Naissance)->age }} ans</span>
+										</div>
+									</div>
 					<div class="profile-info-row">
 						<div class="profile-info-name text-center"><strong>Groupe Sanguin:</strong></div>
 						<div class="profile-info-value">
@@ -152,7 +152,9 @@ jQuery(function() {
 					<div class="profile-info-row">
 						<div class="profile-info-name text-center"><strong>Etablie par Dr:</strong></div>
 						<div class="profile-info-value">
-						<span>{{ $demande->consultation->docteur->Nom_Employe }} {{ $demande->consultation->docteur->Prenom_Employe }}</span>
+						<span>{{ $demande->consultation->docteur->Nom_Employe }}
+								 {{ $demande->consultation->docteur->Prenom_Employe }}
+					  </span>
 						</div>
 					</div>
 					<div class="profile-info-row">
@@ -167,16 +169,14 @@ jQuery(function() {
 					<div class="space visible-xs"></div>
 					<div class="profile-user-info profile-user-info-striped">
 						<div class="profile-info-row">
-						<div class="profile-info-name text-center"><strong>Mode Admission:</strong></div>
+							<div class="profile-info-name text-center"><strong>Mode Admission:</strong></div>
 							<div class="profile-info-value"><h4><span class = "label label-lg label-success">{{$demande->modeAdmission }}</span></h4>
 							</div>
 						</div>
 						<div class="profile-info-row">
-							<div class="profile-info-name text-center"><strong>Description:</strong></div>
+							<div class="profile-info-name text-center"><strong>Service:</strong></div>
 							<div class="profile-info-value">
-							<fieldset>
-							<textarea class="width-100" resize="none" readonly>{{$demande->description}}</textarea>
-							</fieldset>
+								<span class="label label-sm" resize="none" readonly>{{$demande->Service->nom}}</span>
 							</div>
 						</div>
 						<div class="profile-info-row">

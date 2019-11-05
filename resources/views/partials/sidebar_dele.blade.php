@@ -62,13 +62,16 @@
           <ul class="submenu">
                 <li class="">
                     <a href="/listecolloques/{{ $i }}">
-                        <i class="menu-icon fa fa-caret-right"></i>
+                        <i class="menu-icon fa fa-eye pink"></i>
                         Colloques Médicaux
                     </a>
                     <b class="arrow"></b>
                 </li>
                 <li>
-                    <a href="/listecolloques/{{ ++$i }}">Colloques Chirurgicaux</a>
+                    <a href="/listecolloques/{{ ++$i }}">
+                        <i class="menu-icon fa fa-eye pink"></i>
+                        Colloques Chirurgicaux
+                    </a>
                 </li>
                 <li class="">
                     <a href="{{ route('colloque.create')}}">
@@ -94,7 +97,7 @@
                  @php $j = 1 @endphp
                 <li class="">
                     <a href="/listecolloquesCloture/{{ $j }}">
-                        <i class="menu-icon fa fa-plus purple"></i>
+                        <i class="menu-icon fa fa-eye pink"></i>
                         Colloques Médicaux
                     </a>
 
