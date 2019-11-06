@@ -150,16 +150,16 @@ class ColloqueController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        
-        $colloque=colloque::find($id);                                         
-        $demandes = DemandeHospitalisation::where('demandehospitalisations.specialite',$colloque->type_colloque )
-                                          ->where('demandehospitalisations.etat','en attente') ->get();
-       
-        $medecins = user::where('utilisateurs.role_id',1)->orwhere('utilisateurs.role_id',13)->get();               
-        
-        return view('colloques.runcolloque', compact('demandes','medecins','colloque'));
+      public function edit($id)
+      {  
+             $colloque=colloque::find($id);
+             $type = $colloque->type_colloque;
+             $demandes =   DemandeHospitalisation::whereHas('Specialite.type', function ($q) use ($type) {
+                          $q->where('type',$type);
+                  })->get();                            
+              $medecins = user::where('utilisateurs.role_id',1)->orwhere('utilisateurs.role_id',13)->get();               
+              //dd($medecins);;
+              return view('colloques.runcolloque', compact('demandes','medecins','colloque'));
     }
 
 
@@ -172,10 +172,10 @@ class ColloqueController extends Controller
      */
   public function update(Request $request, $id)
   {
-           $colloque=colloque::FindOrFail($id); 
-            
+           $colloque=colloque::FindOrFail($id);
            foreach ($request->valider as $key => $value) {
-                     $priorite ="prop".$value;  $obs = "observation".$value; $medecin="MedT".$value;
+                    $priorite ="prop".$value;  $obs = "observation".$value; $medecin="MedT".$value;
+                    $idmedecin = $request->$medecin; 
                      $demande = DemandeHospitalisation::FindOrFail($value); 
                      $demande->etat ="valide";
                      $demande->save();
@@ -184,8 +184,8 @@ class ColloqueController extends Controller
                             "id_demande"=>$value,        
                             "ordre_priorite"=>$request->$priorite,
                             "observation"=>$request->$obs,
-                            "id_medecin"=>$request->medt[ $value],
-                ]);         
+                            "id_medecin"=>$idmedecin,
+                ]); 
             }
              $colloque->update([
                    "etat_colloque"=>"cloturé",
@@ -260,13 +260,11 @@ class ColloqueController extends Controller
   }
   public function getClosedColoques($type)
   {
-    $demandes =   dem_colloque::whereHas('demandeHosp.Specialite.type', function ($q) use ($type) {
+       $demandes =   dem_colloque::whereHas('demandeHosp.Specialite.type', function ($q) use ($type) {
                           $q->where('id',$type);
                   })->get();
-    
-
-    $colloque = array();
-    switch ($type) {
+       $colloque = array();
+       switch ($type) {
                 case 1:
                     $colloques=colloque::join('membres','colloques.id','=','membres.id_colloque')
                                       ->join('employs','membres.id_employ','=','employs.id')
@@ -306,7 +304,6 @@ class ColloqueController extends Controller
                                       
               }
     }
-    //dd($colloque);
     return view('colloques.liste_closedcolloque', compact('colloque','type','demandes'));                      
   }
 

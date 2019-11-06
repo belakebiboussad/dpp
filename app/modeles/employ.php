@@ -11,8 +11,6 @@ class employ extends Model
     											 'Adresse_Employe','Tele_fixe','tele_mobile','Specialite_Emploiye','Service_Employe','Matricule_dgsn','NSS'];
     public function service()
     {
-				return $this->belongsTo('App\modeles\servcie','Service_Employe');
+	return $this->belongsTo('App\modeles\servcie','Service_Employe');
     }
-
-
 }

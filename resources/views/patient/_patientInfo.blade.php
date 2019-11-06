@@ -21,7 +21,7 @@
 					</label>
 					&nbsp;&nbsp;&nbsp;
 					<label class="inline">
-						<span class="blue">	<i class="fa fa-mars-stroke" aria-hidden="true"></i><strong>&nbsp;Sexe:</strong></span>
+						<span class="blue"><i class = "fa fa-transgender" aria-hidden="true"></i><strong>&nbsp;Sexe:</strong></span>
 						<span class="lbl"> {{ $patient->Sexe == "M" ? "Masculin" : "Féminin" }}</span>
 					</label>
 					&nbsp;&nbsp;&nbsp;
