@@ -51,7 +51,7 @@
 
         <b class="arrow"></b>
     </li>
-     <li class="">
+    <li class="">
           <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-h-square"></i>
                 <span class="menu-text">Colloques en Cours</span>
@@ -81,26 +81,23 @@
                     <b class="arrow"></b>
                 </li>              
             </ul>
-      </li><!-- colloques en cours -->
-        <li class="">
-            <a href="#" class="dropdown-toggle">
-                <i class="menu-icon fa fa-user-md"></i>
+    </li><!-- colloques en cours -->
+    <li class="">
+        <a href="#" class="dropdown-toggle">
+            <i class="menu-icon fa fa-user-md"></i>
                             <span class="menu-text">
                                 Colloques Cloturé
                             </span>
                 <b class="arrow fa fa-angle-down"></b>
-            </a>
-
-            <b class="arrow"></b>
-
-            <ul class="submenu">
+        </a>
+        <b class="arrow"></b>
+        <ul class="submenu">
                  @php $j = 1 @endphp
                 <li class="">
                     <a href="/listecolloquesCloture/{{ $j }}">
                         <i class="menu-icon fa fa-eye pink"></i>
                         Colloques Médicaux
                     </a>
-
                     <b class="arrow"></b>
                 </li>
 
@@ -114,7 +111,36 @@
                 </li>
             </ul>
         </li>
+         <!-- Colloques Cloturé -->
+        <li>
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-user-md"></i>
+                <span class="menu-text">
+                    Demande d'Hospitalisation en Cours
+                </span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                 <li class="" height="60px;">
+                    <a href="">
+                        <i class="menu-icon fa fa-eye pink"></i>
+                        Demande D'Hospitalisation Médicaux 
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                 <li class="">
+                    <a href="">
+                        <i class="menu-icon fa fa-eye pink"></i>
+                        Demande Chirurgicaux Médicaux 
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+            </ul> 
+        </li> 
   </ul> <!-- nav-list -->
+  <br>
+  <br>    
   <!-- #section:basics/sidebar.layout.minimize -->
   <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
         <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>

@@ -260,13 +260,14 @@ class ColloqueController extends Controller
   }
   public function getClosedColoques($type)
   {
-    //$demandes = dem_colloque::all();
+    $demandes =   dem_colloque::whereHas('demandeHosp.Specialite.type', function ($q) use ($type) {
+                          $q->where('id',$type);
+                  })->get();
+    
+
     $colloque = array();
-    $demandes = array();
     switch ($type) {
                 case 1:
-                    // $demandes = DemandeHospitalisation::where('etat','<>','en attente')
-                    //                                    ->where() 
                     $colloques=colloque::join('membres','colloques.id','=','membres.id_colloque')
                                       ->join('employs','membres.id_employ','=','employs.id')
                                       ->leftJoin('dem_colloques','colloques.id','=','dem_colloques.id_colloque')

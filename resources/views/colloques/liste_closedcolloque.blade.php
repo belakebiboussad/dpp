@@ -44,11 +44,11 @@
 					    				@endforeach
 										</td>
 									  <td>
-									  		@foreach($demandes as $j=>$demande)
-													<!-- 	@if($demande->id_colloque == $col["id"]) -->
-														 {{ $demande->specialite }}
-														<!-- @endif -->			
-									  		@endforeach
+									  	@foreach($demandes as $j=>$demande)
+									  			@if($demande->id_colloque == $col["id"])
+									  				{{ $demande->id_demande }}
+									  			@endif
+									  	@endforeach
 									  </td>
 		              </tr>
 		              @endforeach
