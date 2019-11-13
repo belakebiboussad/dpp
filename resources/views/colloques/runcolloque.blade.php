@@ -80,13 +80,13 @@ jQuery(function() {
 				 <tbody id ="demandesBody" class="bodyClass">
 				 <?php $j = 0; ?>
 				@foreach( $demandes as $i=>$demande)
-		                                        <tr>
-			          			<td hidden>{{$j}}</td>	
-			          			<td class="center">
-				  			<label class="pos-rel">{{-- 1 --}}
-							<input type="checkbox" class="ace" name ="valider[]" value ="{{$demande->id}}" />
-							<span class="lbl"></span>   
-				  			  </label>
+		    <tr>
+			  		<td hidden>{{$j}}</td>	
+			  		<td class="center">
+					  			<label class="pos-rel">{{-- 1 --}}
+								<input type="checkbox" class="ace" name ="valider[]" value ="{{$demande->id}}" />
+								<span class="lbl"></span>   
+				  		  </label>
 						</td>
 						<td>{{ $demande->consultation->patient->Nom }} 
 						        {{ $demande->consultation->patient->Prenom }}
@@ -209,16 +209,29 @@ jQuery(function() {
 <div class="space-12"></div>
 <div class="row">
 	<div class="col-xs-12">
-		<div class="col-md-offset-9 col-md-9">
-			<button class="btn btn-info" type="submit"  id="validButton">
-				<i class="ace-icon fa fa-save bigger-110"></i>
+		<!-- <div class="col-md-offset-9 col-md-9"> -->	
+		<div class="col-md-12">
+	<!-- 		<div calss ="btn-toolbar">
+					<button class="btn btn-info btn-sm pull-right" type="submit"  id="validButton">
+							<i class="ace-icon fa fa-save bigger-110"></i>
 					    Enregistrer
-			</button>
-					&nbsp; &nbsp; &nbsp; &nbsp;
-			<button class="btn" type="reset">
-				<i class="ace-icon fa fa-undo bigger-110"></i>
-				Annuler
-			</button>
+					</button>;
+					<button class="btn btn-danger btn-sm pull-right" type="reset">
+							<i class="ace-icon fa fa-undo bigger-110"></i>
+							Annuler
+					</button>
+			</div> -->
+			<div class="col-md-8"> </div>
+			<div class="col-md-4">
+				<div class="form-group row pull-right">
+					    <button type="submit" class="btn btn-primary btn-space" id="validButton">
+				       		<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
+				  		</button>
+				  		<button type="reset" class="btn btn-danger btn-space"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler
+				 			</button>
+				   
+				</div>
+			</div>
 		</div>
 	</div>	
 </div>

@@ -46,26 +46,26 @@
 											<ul class="list-unstyled spaced">
 												<li>
 													<i class="ace-icon fa fa-caret-right blue"></i><strong>Nom :</strong>
-													<b class="green">{{ $patient->Nom }}</b>
+													<b class="green">{{ $demande->consultation->patient->Nom }}</b>
 												</li>
 												<li>
 													<i class="ace-icon fa fa-caret-right blue"></i><strong>Prénom :</strong>
-													<b class="green">{{ $patient->Prenom }}</b>
+													<b class="green">{{ $demande->consultation->patient->Prenom }}</b>
 												</li>
 												<li>
 													<i class="ace-icon fa fa-caret-right blue"></i><strong>Date Naissance :</strong>
-													<b class="green">{{ $patient->Dat_Naissance }}</b>
+													<b class="green">{{ $demande->consultation->patient->Dat_Naissance }}</b>
 												</li>
 												<li>
 													<i class="ace-icon fa fa-caret-right blue"></i>
 													<strong>Sexe :</strong>
-													<b class="green">{{ $patient->Sexe == "F" ? "Femme" : "Homme" }}</b>
+													<b class="green">{{ $demande->consultation->patient->Sexe == "F" ? "Femme" : "Homme" }}</b>
 												</li>
 												<li class="divider"></li>
 												<li>
 													<i class="ace-icon fa fa-caret-right blue"></i>
 													<strong>Age :</strong>
-													<b class="green">{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }} ans</b>
+													<b class="green">{{ Jenssegers\Date\Date::parse($demande->consultation->patient->Dat_Naissance)->age }} ans</b>
 												</li>
 											</ul>
 										</div>
@@ -80,38 +80,33 @@
 											<ul class="list-unstyled  spaced">
 												<li>
 													<i class="ace-icon fa fa-caret-right green"></i><strong>Motif :</strong>
-													<b class="blue">{{ $demande->motif }}</b>
+													<b class="blue">{{ $demande->consultation->Motif_Consultation }}</b>
 												</li>
 												<li>
 													<i class="ace-icon fa fa-caret-right green"></i><strong>Date Consultation :</strong>
-													<b class="blue">{{ $consultation->Date_Consultation }}</b>
+													<b class="blue">{{ $demande->consultation->Date_Consultation }}</b>
 												</li>
 												<li>
-													<i class="ace-icon fa fa-caret-right green"></i><strong>Date Demande :</strong>
-													<b class="blue">{{ $demande->Date_demande }}</b>
-												</li>
-													<li>
 													<i class="ace-icon fa fa-caret-right green"></i><strong>Service :</strong>
-													<b class="blue">{{ $demande->service }}</b>
+													<b class="blue">{{ $demande->Service->nom }}</b>
 												</li>
 												<li>
-													<i class="ace-icon fa fa-caret-right green"></i><strong>Degrée D'urgence :</strong>
-													<b class="blue">{{ $demande->degree_urgence }}</b>
+													<i class="ace-icon fa fa-caret-right green"></i><strong>Spécialite :</strong>
+													<b class="blue">{{ $demande->Specialite->nom }}</b>
 												</li>
 												<li class="divider"></li>
 												<li>
 													<i class="ace-icon fa fa-caret-right green"></i>
 													<strong>Nom De medcin traitant :</strong>
 													<b class="blue">
-												{{ App\modeles\employ::where("id",$consultation->Employe_ID_Employe)->get()->first()->Nom_Employe }}
-												{{ App\modeles\employ::where("id",$consultation->Employe_ID_Employe)->get()->first()->Prenom_Employe }}
+														{{ $demande->consultation->docteur->Nom_Employe}} {{ $demande->consultation->docteur->Prenom_Employe}}
 													</b>
 												</li>
 											</ul>
 										</div>
 									</div><!-- /.col -->
 								</div><!-- /.row -->
-								<div class="row">
+						<!-- 		<div class="row">
 									<div class="col-sm-12 widget-container-col" id="widget-container-col-12">
 										<div class="widget-box transparent" id="widget-box-12">
 											<div class="widget-header">
@@ -126,7 +121,7 @@
 											</div>
 										</div>
 									</div>
-								</div>
+								</div> -->
 						</div>
 					</div>
 				</div>

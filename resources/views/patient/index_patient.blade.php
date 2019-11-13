@@ -170,21 +170,21 @@ function setField(field,value)
 			<div class="panel-heading" style="height: 50px; font-size: 2.6vh;">
 				Rechercher un Patient
 			</div>
-		    	<div class="panel-body">
+		   <div class="panel-body">
 			<div class="row">
 				<div class="col-sm-2">
 					<label class="control-label pull-right" for="patientName" ><strong>&nbsp;&nbsp;&nbsp;Nom :</strong>
 					</label>
 				</div>
 				<div class="col-sm-4">
-					<input type="text" class="form-control input-sm" id="patientName" name="patientName"  placeholder="Rechercher..."/>
+					<input type="text" class="form-control input-sm" id="patientName" name="patientName"  placeholder="nom du patient..."/>
 				 </div>
 				 <div class="col-sm-2">
 					<label class="control-label pull-right" for="patientFirstName" ><strong>Prenom :</strong>
 					</label> 
 				</div>
 				<div class="col-sm-4">
-					<input type="text" class="form-control input-sm" id="patientFirstName" name="patientFirstName"  placeholder="Rechercher...">
+					<input type="text" class="form-control input-sm" id="patientFirstName" name="patientFirstName"  placeholder="prenom du patient...">
 				</div>
 			</div>
 			<div class="space-12"></div>
@@ -192,18 +192,18 @@ function setField(field,value)
 				<div class="col-sm-2"><label class="control-label pull-right" for="IPP" ><strong>Code:</strong></label>
 				</div>
 				<div class="col-sm-4">
-				   <input type="text" class="form-control input-sm tt-input" id="IPP" name="IPP"  placeholder="Rechercher...">
+				   <input type="text" class="form-control input-sm tt-input" id="IPP" name="IPP"  placeholder="code du patient...">
 				 </div>
 				 <div class="col-sm-2"><label class="control-label pull-right" for="Dat_Naissance" ><strong>date Nai:</strong></label>
 				</div>
 				<div class="col-sm-4">
-				   <input type="text" class="form-control input-sm tt-input date-picker" id="Dat_Naissance" name="Dat_Naissance"  data-date-format="yyyy-mm-dd" placeholder="Rechercher...">
+				   <input type="text" class="form-control input-sm tt-input date-picker" id="Dat_Naissance" name="Dat_Naissance"
+				   		data-date-format="yyyy-mm-dd" placeholder="date de naissance...">
 				 </div>
 			</div>
-			<div class="space-12"></div>	
-		    	</div>  {{-- body --}}
-		   	<div class="panel-footer">
-		   		<button type="submit" class="btn-sm btn-primary" onclick="XHRgePatient();"><i class="fa fa-search"></i>&nbsp;Rechercher
+		 	</div>  {{-- body --}}
+		  <div class="panel-footer">
+		   	<button type="submit" class="btn-sm btn-primary" onclick="XHRgePatient();"><i class="fa fa-search"></i>&nbsp;Rechercher
 				</button>
 				<div class="pull-right">
 					<button type="button" class="btn btn-danger btn-sm hidden invisible" id="FusionButton"  onclick ="doMerge();"data-toggle="modal" data-target="#mergeModal" data-backdrop="false" hidden><i class="fa fa-angle-right fa-lg"></i><i class="fa fa-angle-left fa-lg"></i>&nbsp;Fusion
@@ -211,48 +211,9 @@ function setField(field,value)
 					<a  class="btn btn-primary btn-sm hidden" href="patient/create" id=btnCreate role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>
 				</div>
 				
-		   	</div>
+		  </div>
  		 </div>
-	</div>	{{-- col-sm-7	 --}}
-{{-- 	<div class="col-sm-4 col-lg-4">
-		<div class="infobox infobox-green">
-		<div class="infobox-icon">
-		<i class="ace-icon fa fa-users"></i>
-		</div>
-		<div class="infobox-data">
-			<span class="infobox-data-number">{{ App\modeles\patient::all()->count() }}</span>
-			<div class="infobox-content"><b>Patients</b></div>
-		</div>
-		</div>
-		<div class="infobox infobox-blue">
-			<div class="infobox-icon">
-				<i class="ace-icon fa fa-user-md"></i>
-			</div>
-			<div class="infobox-data">
-				<span class="infobox-data-number">{{ App\modeles\consultation::all()->count() }}</span>
-				<div class="infobox-content"><b>Consultations</b></div>
-			</div>
-		</div>
-		<div class="infobox infobox-pink">
-			<div class="infobox-icon">
-				<i class="ace-icon fa fa-table"></i>
-			</div>
-			<div class="infobox-data">
-				<span class="infobox-data-number">{{ App\modeles\rdv::all()->count() }}</span>
-				<div class="infobox-content"><b>Rendez-vous</b></div>
-			</div>
-		</div>
-		<div class="infobox infobox-red">
-			<div class="infobox-icon">
-				<i class="ace-icon fa fa-hospital-o"></i>
-			</div>
-			<div class="infobox-data">
-				<span class="infobox-data-number">{{ App\modeles\hospitalisation::all()->count() }}</span>
-				<div class="infobox-content"><b>Hospitalisations</b></div>
-			</div>
-		</div>
-	</div>	
- --}}</div>{{-- row --}}
+</div>{{-- row --}}
 <div class="row">
 	<div class="col-sm-7">
 		<div class="widget-box transparent">
@@ -261,8 +222,8 @@ function setField(field,value)
 						<i class="ace-icon fa fa-user"></i>
 						Resultats: </h5> <label for=""><span class="badge badge-info numberResult"></span></label>
 					</div>
-					<div>
-					<table id="liste_patients" class="table table-striped table-bordered">
+					<div class="bodycontainer scrollable">
+					<table id="liste_patients" class="table table-striped table-bordered table-condensed table-scrollable">
 						<thead>
 							<tr class="info"><th colspan="12">Selectionner dans la liste</th>
 							</tr>
@@ -281,10 +242,10 @@ function setField(field,value)
 						</thead>
 						<tbody>
 						</tbody>
-						</table>
+					</table>
 					</div>
-				</div>
-		</div>{{-- col-sm-7 --}}
+		</div>
+	</div>{{-- col-sm-7 --}}
 		<br><br>
 		<div class="col-md-5 col-sm-5"  id="patientDetail">
 			

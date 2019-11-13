@@ -13,28 +13,40 @@
 			<table id="simple-table" class="table  table-bordered table-hover">
 				<thead>
 					<tr>
-						<th>Patient</th>
-						<th>Age</th>
-						<th>Date De La Demande</th>
-						<th>Motif de l'hospitalisation</th>
-						<th>Degrée D'urgence</th>
-						<th>Service</th>
-						<th>Médecin traitant</th>
+						<th><strong>Patient</strong></th>
+						<th><strong>Age</strong></th>
+						<th><strong>Date De La Demande</strong></th>
+						<th><strong>Motif de l'hospitalisation</strong>/th>
+						<th><strong>Service</strong></th>
+						<th><strong>Etat</strong></th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody>
-					@foreach( $demandehospitalisation as $demande)
+					@foreach( $demandehospitalisations as $demande)
 						<tr>
-							<td>{{ $demande->Nom }} {{ $demande->Prenom }}</td>
-							<td>{{ Jenssegers\Date\Date::parse($demande->Dat_Naissance)->age }}</td>
-							<td>{{ $demande->Date_demande }}</td>
-							<td>{{ $demande->motif }}</td>
-							<td>{{ $demande->degree_urgence }}</td>
-							<td>{{ $demande->service }}</td>
+							<td>{{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }}</td>
+							<td>{{ Jenssegers\Date\Date::parse($demande->consultation->patient->Dat_Naissance)->age }}Ans</td>
+							<td>{{ $demande->consultation->Date_Consultation }}</td>
+							<td>{{ $demande->consultation->Motif_Consultation }}</td>
+							<td>{{ $demande->Service->nom }}</td>
 							<td>
-								{{ App\modeles\employ::where("id",$demande->Employe_ID_Employe)->get()->first()->Nom_Employe }}
-								{{ App\modeles\employ::where("id",$demande->Employe_ID_Employe)->get()->first()->Prenom_Employe }}
+							@switch($demande->etat)
+    							@case("en attente")
+        						<span class="label label-sm label-danger">
+        						@break
+         					@case("valide")
+          					<span class="label label-sm label-primary">
+         						@break	
+                  @case("programme")
+        						<span class="label label-sm label-primary">	
+        						@break
+        					@case("annule")
+        						<span class="label label-sm label-danger">	
+        						@break	
+							@endswitch	
+							{{ $demande->etat }}</span>
+							
 							</td>
 							<td>
 								<div class="hidden-sm hidden-xs btn-group">

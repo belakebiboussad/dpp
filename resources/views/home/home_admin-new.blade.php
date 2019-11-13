@@ -114,11 +114,9 @@ $( document ).ready(function() {
 									<th class="center">#</th>
 									<th hidden>id</th>
 									<th><strong style="font-size:16px;">Nom Utilisateur</strong></th>
-									<th><strong style="font-size:16px;">E-mail</strong>
-									</th>
-									<th><strong style="font-size:16px;">Rôle</strong>
-									</th>
-									<th><strong>Acive</strong></th>
+									<th><strong style="font-size:16px;">E-mail</strong></th>
+									<th><strong style="font-size:16px;">Rôle</strong></th>
+									<th><strong>Compte</strong></th>
 									<th></th>
 								</tr>
 							</thead>

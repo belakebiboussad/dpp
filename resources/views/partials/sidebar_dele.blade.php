@@ -111,34 +111,7 @@
                 </li>
             </ul>
         </li>
-         <!-- Colloques Cloturé -->
-        <li>
-            <a href="#" class="dropdown-toggle">
-                <i class="menu-icon fa fa-user-md"></i>
-                <span class="menu-text">
-                    Demande d'Hospitalisation en Cours
-                </span>
-                <b class="arrow fa fa-angle-down"></b>
-            </a>
-            <b class="arrow"></b>
-            <ul class="submenu">
-                 <li class="" height="60px;">
-                    <a href="">
-                        <i class="menu-icon fa fa-eye pink"></i>
-                        Demande D'Hospitalisation Médicaux 
-                    </a>
-                    <b class="arrow"></b>
-                </li>
-                 <li class="">
-                    <a href="">
-                        <i class="menu-icon fa fa-eye pink"></i>
-                        Demande Chirurgicaux Médicaux 
-                    </a>
-                    <b class="arrow"></b>
-                </li>
-            </ul> 
-        </li> 
-  </ul> <!-- nav-list -->
+    </ul> <!-- nav-list -->
   <br>
   <br>    
   <!-- #section:basics/sidebar.layout.minimize -->

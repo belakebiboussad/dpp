@@ -113,12 +113,12 @@ $(document).ready(function() {
 					<tr>
 						<th class="center">#</th>
 						<th hidden>id</th>
-						<th><strong style="font-size:16px;">Username</strong></th>
+						<th><strong style="font-size:16px;">Nom Utilisateur</strong></th>
 						<th><strong style="font-size:16px;">E-mail</strong>
 						</th>
 						<th><strong style="font-size:16px;">Rôle</strong>
 						</th>
-						<th><strong>Active</strong></th>
+						<th><strong>Compte</strong></th>
 						<th></th>
 					</tr>
 				</thead>

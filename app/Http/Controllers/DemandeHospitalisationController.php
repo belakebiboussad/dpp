@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\modeles\consultation;
 use App\modeles\patient;
 use App\modeles\DemandeHospitalisation;
+use App\User;
+use App\modeles\employ;
+use Auth;
 use Jenssegers\Date\Date;
 
 class DemandeHospitalisationController extends Controller
@@ -17,11 +20,14 @@ class DemandeHospitalisationController extends Controller
      */
     public function index()
     {
-        $demandehospitalisation = consultation::join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
-                                                        ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
-                                                        ->select('demandehospitalisations.*','demandehospitalisations.id as ident','consultations.Employe_ID_Employe','consultations.Date_Consultation','patients.Nom','patients.Prenom','patients.Dat_Naissance')
-                                                        ->get();
-        return view('demandehospitalisation.index_demande',compact('demandehospitalisation'));
+        $employeID= employ::where("id",Auth::user()->employee_id)->get()->first()->id ;           
+        $demandehospitalisations = DemandeHospitalisation::whereHas('consultation.docteur', function ($q) use ($employeID) {
+                        $q->where('id',$employeID);
+                    })->get();
+        // foreach ($demandehospitalisations as $key => $demande) {
+        //     dd($demande);
+        // }                    
+        return view('demandehospitalisation.index_demande',compact('demandehospitalisations'));
     }
 
     /**
@@ -78,9 +84,7 @@ class DemandeHospitalisationController extends Controller
     public function show($id)
     {
         $demande = DemandeHospitalisation::FindOrFail($id);
-        $consultation = consultation::FindOrFail($demande->id_consultation);
-        $patient = patient::FindOrFail($consultation->Patient_ID_Patient);
-        return view('demandehospitalisation.show_demande',compact('demande','consultation','patient'));
+        return view('demandehospitalisation.show_demande',compact('demande'));
     }
 
     /**
