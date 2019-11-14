@@ -43,9 +43,19 @@ class AdmissionController extends Controller
      */
     public function create($id)
     {  
-        $demande=demandehospitalisation::join('dem_colloques','demandehospitalisations.id','=','dem_colloques.id_demande')->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')->join('patients','consultations.Patient_ID_Patient','=','patients.id')->join('services','demandehospitalisations.service','=','services.id')->select('demandehospitalisations.id as id_demande','demandehospitalisations.*','patients.Nom','patients.Prenom','dem_colloques.ordre_priorite','dem_colloques.observation','consultations.Employe_ID_Employe','consultations.Date_Consultation','services.nom as nomService')->where('demandehospitalisations.id',$id)->get();
-        $services = service::all();
-        return view('admission.create_admission', compact('demande','services'));
+      
+      // $demande = demandehospitalisation::join('dem_colloques','demandehospitalisations.id','=','dem_colloques.id_demande')
+      //                                ->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')
+      //                                ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
+      //                                ->join('services','demandehospitalisations.service','=','services.id')
+      //                                ->select('demandehospitalisations.id as id_demande','demandehospitalisations.*',
+      //                                         'patients.Nom','patients.Prenom','dem_colloques.ordre_priorite',
+      //                                         'dem_colloques.observation','consultations.Employe_ID_Employe',
+      //                                         'consultations.Date_Consultation','services.nom as nomService')
+      //                                ->where('demandehospitalisations.id',$id)->get();
+      $demande = dem_colloque::where('dem_colloques.id_demande','=',$id)->get();
+      $services = service::all();
+      return view('admission.create_admission', compact('demande','services'));
     }
     /**
      * Store a newly created resource in storage.
@@ -55,6 +65,7 @@ class AdmissionController extends Controller
      */
     public function store(Request $request)
     { 
+        dd("sdfqd");
         $employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
            $adm=admission::create([     
                 "id_demande"=>$request->id_demande,       
@@ -144,21 +155,5 @@ class AdmissionController extends Controller
            $demande=demandehospitalisation::join('dem_colloques','demandehospitalisations.id','=','dem_colloques.id_demande')->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')->join('patients','consultations.Patient_ID_Patient','=','patients.id')->join('services','demandehospitalisations.service','=','services.id')->select('demandehospitalisations.id as id_demande','demandehospitalisations.*','patients.Nom','patients.Prenom','dem_colloques.ordre_priorite','dem_colloques.observation','consultations.Employe_ID_Employe','consultations.Date_Consultation','services.nom as nomService')->where('demandehospitalisations.id',$demandeHospi->id)->get(); 
            return view('admission.create_admission', compact('demande','services'));            
     }
-    public function getAdmissions()
-    {
-      //$data = $_GET['date'];
-       $date="sdfds";
-      //$output=""; //$date = $request->date;
-      // $admissions = admission::join('rdv_hospitalisations','admissions.id','=','rdv_hospitalisations.id_admission')
-      //                          ->join('demandehospitalisations','admissions.id_demande','=','demandehospitalisations.id')
-      //                          ->select('admissions.id as id_admission','admissions.*','rdv_hospitalisations.*')
-      //                          ->where('etat_RDVh','<>','validé')->where('date_RDVh','=', $date)->get();  
-    
-      //$date = Input::get('date');   //$date = $_GET['date'];
-    - return Response::json(array(
-                    'success' => true,
-                    'data'   => $date
-                )); 
-      //return  json_encode($admissions);
-    }
+
 }

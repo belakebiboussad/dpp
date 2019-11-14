@@ -94,18 +94,19 @@ jQuery(function() {
 						<td>{{ $demande->Specialite->nom }}</td>
 						 <td>{{$demande->consultation->Date_Consultation }}</td>
 						<td>
-						<select id="MedT" name = "MedT{{$demande->id}}" 
-						               data-placeholder = "selectionnez le medecin traitant..." 
-						                class = "selectpicker show-menu-arrow place_holder "  widh="18%">
-							<option value="" selected disabled>selectionnez... </option>
-							@foreach ($medecins as $medecin)
-							<option value="{{ $medecin->id }}"> {{ $medecin->employ->Nom_Employe }} 
-							                                                          {{ $medecin->employ->Prenom_Employe }}
-							</option>
-							@endforeach
-						</select>
+							<select id="MedT" name = "MedT{{$demande->id}}" 
+							               data-placeholder = "selectionnez le medecin traitant..." 
+							                class = "selectpicker show-menu-arrow place_holder "  widh="18%">
+								<option value="" selected disabled>selectionnez... </option>
+								@foreach ($medecins as $medecin)
+								<option value="{{ $medecin->employ->id }}">
+										{{ $medecin->employ->Nom_Employe }} 
+					          {{ $medecin->employ->Prenom_Employe }}
+								</option>
+								@endforeach
+							</select>
 						</td>
-			                                       <td>
+			      <td>
 			            				<div class="funkyradio btn-group" data-toggle="radio">
 					 		<label for="{{$i}}p1">
 					 		<input type="radio" name="prop{{$demande->id}}" id="{{$i}}p1" class="radioM" value="1"/>1</label>&nbsp;&nbsp;

@@ -135,7 +135,6 @@ class HospitalisationController extends Controller
                                ->where('demandehospitalisations.service',$employe->Service_Employe )
                                ->where('demandehospitalisations.etat','valide')->get();
         
-        
         /*
         $demandes= DemandeHospitalisation::where('demandehospitalisations.service',$employe->Service_Employe)
                                          ->where('demandehospitalisations.etat','valide') ->get(["id"]); 

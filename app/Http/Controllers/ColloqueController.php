@@ -97,8 +97,12 @@ class ColloqueController extends Controller
 
     public function create()
     {
-           $membre = user::join('employs', 'utilisateurs.employee_id','=','employs.id')->join('rols','utilisateurs.role_id', '=', 'rols.id')->select('employs.id','Nom_Employe','Prenom_Employe')->where('rols.id', '=','1' )->orWhere('rols.id', '=','2' )
-             ->orWhere('rols.id', '=','5' ) ->orWhere('rols.id', '=','6' )->get(); 
+           $membre = user::join('employs', 'utilisateurs.employee_id','=','employs.id')
+                         ->join('rols','utilisateurs.role_id', '=', 'rols.id')
+                         ->select('employs.id','Nom_Employe','Prenom_Employe')
+                         ->where('rols.id', '=','1' )
+                         ->orWhere('rols.id', '=','2' )
+                          ->orWhere('rols.id', '=','5' ) ->orWhere('rols.id', '=','6' )->get(); 
            $type_c=type_colloque::select('id', 'type')->get();
            return view('colloques.addcolloque',compact('membre','type_c'));
     }
@@ -117,12 +121,15 @@ class ColloqueController extends Controller
                                           ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
                                           ->join('employs', 'consultations.Employe_ID_Employe','=','employs.id')
                                           ->join('services','demandehospitalisations.service','=','services.id')
-                                          ->join('specialites','specialites.id','=','demandehospitalisations.specialite')->select('demandehospitalisations.*','specialites.nom as nomSpec','specialites.type','consultations.Date_Consultation','patients.Nom as nomPat','patients.Prenom as prenomPat','patients.Dat_Naissance','patients.group_sang','patients.rhesus','employs.Nom_Employe','employs.Prenom_Employe','services.nom as nomService')
+                                          ->join('specialites','specialites.id','=','demandehospitalisations.specialite')
+                                          ->select('demandehospitalisations.*','specialites.nom as nomSpec','specialites.type',
+                                            'consultations.Date_Consultation','patients.Nom as nomPat','patients.Prenom as prenomPat','patients.Dat_Naissance','patients.group_sang','patients.rhesus','employs.Nom_Employe','employs.Prenom_Employe','services.nom as nomService')
                                           ->where('specialites.type',$typeCol)->get(); 
         $medecins = user::join('employs', 'utilisateurs.employee_id','=','employs.id')
                         ->join('rols','utilisateurs.role_id', '=', 'rols.id')
                         ->select('employs.id','Nom_Employe','Prenom_Employe')
                         ->where('rols.role', '=','Medecine')->get(); 
+
 
         $colloque=colloque::create([
                                     "date_colloque"=>$request->date_colloque,
@@ -152,14 +159,13 @@ class ColloqueController extends Controller
      */
       public function edit($id)
       {  
-             $colloque=colloque::find($id);
-             $type = $colloque->type_colloque;
-             $demandes =   DemandeHospitalisation::whereHas('Specialite.type', function ($q) use ($type) {
+            $colloque=colloque::find($id);
+            $type = $colloque->type_colloque;
+            $demandes =   DemandeHospitalisation::whereHas('Specialite.type', function ($q) use ($type) {
                           $q->where('type',$type);
                   })->get();                            
-              $medecins = user::where('utilisateurs.role_id',1)->orwhere('utilisateurs.role_id',13)->get();               
-              //dd($medecins);;
-              return view('colloques.runcolloque', compact('demandes','medecins','colloque'));
+            $medecins = user::where('utilisateurs.role_id',1)->orwhere('utilisateurs.role_id',13)->get();               
+            return view('colloques.runcolloque', compact('demandes','medecins','colloque'));
     }
 
 

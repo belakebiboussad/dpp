@@ -15,7 +15,7 @@ class dem_colloque extends Model
      }
      public function medecin()
      {
-     	 return $this->belongsTo('App\User','id_medecin');
+     	 return $this->belongsTo('App\modeles\employ','id_medecin');
      }
 
 }
