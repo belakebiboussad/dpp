@@ -29,7 +29,6 @@
             <!-- /main-content-inner -->
         </div>
         <!-- /main-content -->
-
         @include('partials.footer')
     </div>
     <!-- /main-container -->

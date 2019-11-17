@@ -6477,3 +6477,6 @@ width:auto !important;
 .my-right-float {
      margin-right: -10px;
 }
+#ui-datepicker-div {
+  display: none;
+}

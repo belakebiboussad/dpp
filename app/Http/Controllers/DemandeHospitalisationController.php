@@ -24,9 +24,7 @@ class DemandeHospitalisationController extends Controller
         $demandehospitalisations = DemandeHospitalisation::whereHas('consultation.docteur', function ($q) use ($employeID) {
                         $q->where('id',$employeID);
                     })->get();
-        // foreach ($demandehospitalisations as $key => $demande) {
-        //     dd($demande);
-        // }                    
+                          
         return view('demandehospitalisation.index_demande',compact('demandehospitalisations'));
     }
 

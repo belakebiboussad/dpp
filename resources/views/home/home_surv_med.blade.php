@@ -29,7 +29,23 @@
 								<tr>
 									<td>{{ $demande->Nom }} {{$demande->Prenom }}</td>
 									<td>{{ $demande->modeAdmission }}</td>
-									<td>{{ $demande->ordre_priorite }}</td>
+									<td>
+											<!-- {{ $demande->ordre_priorite }} -->
+												@switch($demande->ordre_priorite)
+   										 @case(1)
+     											<span class="label label-sm label-success">{{ $demande->ordre_priorite }}</span>
+        											@break
+    										@case(2)
+       											<span class="label label-sm label-warning">{{ $demande->ordre_priorite }}</span>
+        											 @break
+        										@case(3)
+        											<span class="label label-sm label-danger">{{ $demande->ordre_priorite }}</span>
+        											@break
+        										@default
+        											<span class="label label-sm label-success">{{ $demande->ordre_priorite }}</span>
+        											@break
+									@endswitch
+									</td>
 									<td>{{ $demande->observation }}</td>
 									<td>
 										<span class="label label-sm label-{{$demande->degree_urgence == "Haut" ? "danger" : "warning"}}" style="color: black;">

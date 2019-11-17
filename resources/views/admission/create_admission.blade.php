@@ -2,17 +2,15 @@
 @section('page-script')
 <script type="text/javascript">
 	var nowDate = new Date();
-	var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
-  //var now = nowDate.getFullYear() + '-' + ('0'+ nowDate.getMonth()+1).slice(-2) + '-' + ('0'+ nowDate.getDate()).slice(-2);
-	//var a = today.getFullYear() + '-' + ('0'+ today.getMonth()+1).slice(-2)+ '-' + ('0'+ nowDate.getDate()).slice(-2);;
-	
+  var now = nowDate.getFullYear() + '-' + ('0'+ nowDate.getMonth()+1).slice(-2) + '-' + ('0'+ nowDate.getDate()).slice(-2);
+
 	$('document').ready(function(){
-  //  	$('#dateEntree').datepicker({
-		// 	 startDate: today
-		// });
-		// $('#dateSortie').datepicker({
-		// 	 startDate: today
-		// });
+    $("#dateEntree").datepicker("setDate", now);	
+    $("#dateSortie").datepicker("setDate", now);	
+	 	$( '.filelink' ).click( function( e ) {
+        e.preventDefault();  
+    });
+    $('#dateSortie').attr('readonly', true);
 		$('.timepicker').timepicker({
 	 		timeFormat: 'HH:mm',
      	interval: 15,
@@ -69,13 +67,16 @@
 		            		},
 			 });
 		});
-    $('#numberofDays').on('change keyup', function() {
-         var tt = $('#dateEntree').value;
-         alert(tt);
-
+    $('#numberDays').on('click keyup', function() {
+        var jsDate = $('#dateEntree').datepicker('getDate');
+        jsDate.setDate(jsDate.getDate() + parseInt($(this).val()));
+        var dateEnd = jsDate.getFullYear() + '-' + (jsDate.getMonth()+1) + '-' + jsDate.getDate();
+        $("#dateSortie").datepicker("setDate", dateEnd);	
     }); 
-
-	})
+    $( "#RDVForm" ).submit(function( event ) {  
+  			$("#dateSortie").prop('disabled', false);
+  	});
+	});
 	
 </script>
 @endsection
@@ -90,12 +91,13 @@
 
 <div class="row">
 	<div class="col-xs-12">
-		<form class="form-horizontal" role="form" method="POST" action="{{  route('admission.store') }}">
+		<form class="form-horizontal" id="RDVForm" role="form" method="POST" action="{{  route('admission.store') }}">
 			{{ csrf_field() }}
-			<input type="text" name="id_demande" value="{{$demande[0]->id}}" hidden>
+			<input type="text" name="id_demande" value="{{$demande[0]->id_demande}}" hidden>
 			<div class="page-header">
 				  	<h1>informations concernant l'hospitalisation</h1>
 			</div>
+				<div class="space-12"></div>
 			<div class="form-group row">
 			  <div class="col-xs-4">
 			  	<label class="col-sm-3 control-label no-padding-right" for="service">
@@ -170,6 +172,7 @@
 			<div class="page-header">
 			 	<h1>Admission</h1>
 			</div>
+			<div class="space-12"></div>
 			<div class="row form-group">
 				<div class="col-xs-4">
 					<label class="col-sm-4 control-label no-padding-right" for="dateEntree">
@@ -179,7 +182,7 @@
 					<div class="col-sm-8">
 						<input class="col-xs-5 col-sm-5 date-picker" id="dateEntree" name="dateEntree" type="text" 
 									 placeholder="Date d'entrée prévue d'hospitalisation" data-date-format="yyyy-mm-dd" required />
-						<button class="btn btn-sm" onclick="$('#dateEntree').focus()">
+						<button class="btn btn-sm filelink" onclick="$('#dateEntree').focus()">
 							<i class="fa fa-calendar"></i>
 					  </button>
 					</div>
@@ -200,7 +203,8 @@
 				 		<strong> Durée Prévue :</strong>
 				 	</label>
 				 	<div class="col-sm-9">
-						<input class="col-xs-5 col-sm-5" id="" name="" type="number" placeholder="nombre de nuit(s)" min="0" max="50" value="0" required />
+						<input class="col-xs-5 col-sm-5" id="numberDays" name="" type="number" placeholder="nombre de nuit(s)"
+									 min="0" max="50" value="0" required />
 						<label for=""><small>nuit(s)</small></label>
 					</div>	
 				</div>
@@ -213,8 +217,8 @@
 					</label>
 						<div class="col-sm-8">
 							<input class="col-xs-5 col-sm-5 date-picker" id="dateSortie" name="dateSortie" type="text" 
-								placeholder="Date sortie prévue d'hospitalisation" data-date-format="yyyy-mm-dd" required/>
-							<button class="btn btn-sm" onclick="$('#dateSortie').focus()">
+								placeholder="Date sortie prévue d'hospitalisation" data-date-format="yyyy-mm-dd" required disabled />
+							<button class="btn btn-sm filelink"  onclick="$('#dateSortie').focus()" disabled>
 								<i class="fa fa-calendar"></i>
 							 </button>
 						</div>
@@ -233,7 +237,66 @@
 					</div>
 			  </div>
 			</div>
+			<div class="row form group">
+				<div class="col-xs-4">
+			  		<label class="col-sm-4 control-label no-padding-right" for="dateSortie">
+					 		<strong> Service :</strong>
+						</label>
+						<div class="col-sm-8">
+							<select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9"
+							      	placeholder="selectionnez le service d'hospitalisation" required/>
+							  <option value="" selected disabled>selectionnez le service d'hospitalisation</option>
+							  @foreach($services as $service)
+								<option value="{{ $service->id }}">{{ $service->nom }}</option>
+								@endforeach
+							</select>
+						</div>
+			  </div>
+			  <div class="col-xs-4">
+			   		<label class="col-sm-4 control-label no-padding-right" for="salle">
+						 	<strong> Salle :</strong>
+						</label>
+						<div class="col-sm-8">
+							<select id="salle" name="salle" data-placeholder="selectionnez la salle d'hospitalisation"
+																 class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9" disabled>
+								<option value="" selected>selectionnez la salle d'hospitalisation</option>
+						  </select>
+						</div>
+			  </div>
+			  <div class="col-xs-4">
+			  	<label class="col-sm-3 control-label" for="heure_rdvh">
+					 	<strong>Lit : 
+							</strong>
+						</label>
+						<div class="col-sm-8">
+							<select id="lit" name="lit" data-placeholder="selectionnez le lit" 
+															 class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9" disabled>
+								<option value="" selected disabled>selectionnez le lit
+								</option>
+							</select>
+						</div>	
+				</div>
+			</div><!-- ROW -->
+			<div class="space-12"></div>
+			<div class="space-12"></div>
+			<div class="space-12"></div>
+			<div class="space-12"></div>
+			<div class="row">
+					<div class="col-xs-3"></div>
+					<div class="col-xs-6 center bottom">
+						<button class="btn btn-info" type="submit">
+							<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
+						</button>
+						&nbsp; &nbsp; &nbsp;
+						<button class="btn" type="reset">
+							<i class="ace-icon fa fa-undo bigger-110"></i>Annuler
+						</button>
+					</div>
+					<div class="col-xs-3"></div>
+			</div>
+					
+						
 		</form>	
 	</div>
-</div><!-- row	 -->
+</div>
 @endsection

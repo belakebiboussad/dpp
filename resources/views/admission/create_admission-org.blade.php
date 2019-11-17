@@ -171,7 +171,8 @@
 						</label>
 						<div class="col-sm-9">
 							{{-- date-picker	 --}}
-							<input class="col-xs-5 col-sm-5" id="dateSortie" name="dateSortie" type="text" placeholder="Date sortie prévue d'hospitalisation" data-date-format="yyyy-mm-dd" required />
+							<input class="col-xs-5 col-sm-5" id="dateSortie" name="dateSortie" type="text"
+										 placeholder="Date sortie prévue d'hospitalisation" data-date-format="yyyy-mm-dd" required />
 							<button class="btn btn-sm" onclick="$('#dateSortie').focus()">
 								<i class="fa fa-calendar"></i>
 							 </button>

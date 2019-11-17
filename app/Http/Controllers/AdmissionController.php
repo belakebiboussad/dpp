@@ -44,15 +44,6 @@ class AdmissionController extends Controller
     public function create($id)
     {  
       
-      // $demande = demandehospitalisation::join('dem_colloques','demandehospitalisations.id','=','dem_colloques.id_demande')
-      //                                ->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')
-      //                                ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
-      //                                ->join('services','demandehospitalisations.service','=','services.id')
-      //                                ->select('demandehospitalisations.id as id_demande','demandehospitalisations.*',
-      //                                         'patients.Nom','patients.Prenom','dem_colloques.ordre_priorite',
-      //                                         'dem_colloques.observation','consultations.Employe_ID_Employe',
-      //                                         'consultations.Date_Consultation','services.nom as nomService')
-      //                                ->where('demandehospitalisations.id',$id)->get();
       $demande = dem_colloque::where('dem_colloques.id_demande','=',$id)->get();
       $services = service::all();
       return view('admission.create_admission', compact('demande','services'));
@@ -65,31 +56,41 @@ class AdmissionController extends Controller
      */
     public function store(Request $request)
     { 
-        dd("sdfqd");
-        $employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
-           $adm=admission::create([     
-                "id_demande"=>$request->id_demande,       
+        $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
+       
+        $adm=admission::create([     
+            "id_demande"=>$request->id_demande,       
                 "id_lit"=>$request->lit,
       
-           ]);
+        ]);
 
-           rdv_hospitalisation::firstOrCreate([
-                     "date_RDVh"=>$request->date,
-                     "heure_RDVh"=>$request->heure_rdvh,   
-                    "id_admission"=>$adm->id,       
-                    "etat_RDVh"=>"en attente",
-                    "date_Prevu_Sortie"=>$request->dateSortie,
-           ]);           
-           $demande= DemandeHospitalisation::find($request->id_demande);
-           $demande->etat = 'programme';
-           $demande->save();
-           $lit = Lit::FindOrFail($request->lit);          
-           $lit-> update([
-                "affectation"=>1,
-            ]);         
-           $demandes= dem_colloque::join('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')->join('patients','consultations.Patient_ID_Patient','=','patients.id')->select('dem_colloques.*','demandehospitalisations.*','consultations.Date_Consultation','patients.Nom','patients.Prenom')->where('demandehospitalisations.service',$employe->Service_Employe )->where('demandehospitalisations.etat','valide')->get();
      
-      return view('home.home_surv_med', compact('demandes'));    
+        $rdv = rdv_hospitalisation::firstOrCreate([
+            "date_RDVh"=>$request->dateEntree,
+            "heure_RDVh"=>$request->heure_rdvh,   
+            "id_admission"=>$adm->id,       
+            "etat_RDVh"=>"en attente",
+            "date_Prevu_Sortie"=>$request->dateSortie,
+            "heure_Prevu_Sortie" =>$request->heureSortiePrevue,
+        ]);    
+        $demande= DemandeHospitalisation::find($request->id_demande);
+        $demande->etat = 'programme';
+        $demande->save();
+        if(isset($request->lit))
+        { 
+          $lit = Lit::FindOrFail($request->lit);          
+          $lit-> update([
+                "affectation"=>1,
+          ]);         
+        }
+        $demandes= dem_colloque::join('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')
+                               ->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')
+                               ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
+                               ->select('dem_colloques.*','demandehospitalisations.*','consultations.Date_Consultation',
+                                        'patients.Nom','patients.Prenom')
+                               ->where('demandehospitalisations.service',$employe->Service_Employe )
+                               ->where('demandehospitalisations.etat','valide')->get();
+        return view('home.home_surv_med', compact('demandes'));    
     }
 
     /**

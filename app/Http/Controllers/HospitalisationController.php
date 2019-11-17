@@ -127,6 +127,7 @@ class HospitalisationController extends Controller
     public function ajouterRDV()
     {
         $employe = employ::where("id",Auth::user()->employee_id)->get()->first();  
+        /*
         $demandes= dem_colloque::join('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')
                                ->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')
                                ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
@@ -135,11 +136,16 @@ class HospitalisationController extends Controller
                                ->where('demandehospitalisations.service',$employe->Service_Employe )
                                ->where('demandehospitalisations.etat','valide')->get();
         
-        /*
-        $demandes= DemandeHospitalisation::where('demandehospitalisations.service',$employe->Service_Employe)
-                                         ->where('demandehospitalisations.etat','valide') ->get(["id"]); 
-        */                                 
-        //dd($demandes);
+        */
+        //essaie
+        $ServiceID = $employe->Service_Employe;
+        $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID) {
+                                           $q->where('id',$ServiceID);                           
+                                    })
+                                ->whereHas('demandeHosp',function ($q){
+                                    $q->where('etat','valide'); 
+                                })->get();
+        
         return view('home.home_surv_med', compact('demandes'));
 
     }

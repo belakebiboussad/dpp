@@ -41,7 +41,7 @@ class HomeController extends Controller
     {
           $role = rol::FindOrFail(Auth::user()->role_id);
           $employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
-          //dd($role->role);
+          
           switch ($role->role) {
                 case "Medecine":
                      return view('patient.index_patient');
@@ -58,11 +58,13 @@ class HomeController extends Controller
                       return view('user.listeusers', compact('users'));
                       break;
                case "Surveillant medical":
-                     //demandes validé pour programmation
-                     $demandes= dem_colloque::join('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')
+                    $demandes= dem_colloque::join('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')
+                            ->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')
                             ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
-                            ->select('dem_colloques.*','demandehospitalisations.*','consultations.Date_Consultation','patients.Nom','patients.Prenom')
-                            ->where('demandehospitalisations.service',$employe->Service_Employe )->where('demandehospitalisations.etat','valide')->get();
+                            ->select('dem_colloques.*','demandehospitalisations.*','consultations.Date_Consultation',
+                                     'patients.Nom','patients.Prenom')
+                            ->where('demandehospitalisations.service',$employe->Service_Employe )
+                            ->where('demandehospitalisations.etat','valide')->get();
                      return view('home.home_surv_med', compact('demandes'));
                      break;
                 case "Delegue colloque":
@@ -84,20 +86,11 @@ class HomeController extends Controller
                           $colloque[$col->id_colloque]= array( "dat"=> $col->date_colloque ,"creation"=>$col->date_creation,
                                                                "Type"=>$col->type,"Etat"=>$col->etat_colloque,
                                                                "membres"=> array ("$col->Nom_Employe $col->Prenom_Employe")
-                                                               // "demandes"=>array($col->id_demande=>array("id_dem"=>$col->id_demande ,
-                                                               //  "date_dem"=>$col->Date_demande ,
-                                                               //  "patient"=>"$col->Nom $col->Prenom")
-                                                               //   )
                                                              );
                         }
                         else{
-                            if (array_search("$col->Nom_Employe $col->Prenom_Employe", $colloque[$col->id_colloque]["membres"])===false)
+                              if (array_search("$col->Nom_Employe $col->Prenom_Employe", $colloque[$col->id_colloque]["membres"])===false)
                                   $colloque[$col->id_colloque]["membres"][]="$col->Nom_Employe $col->Prenom_Employe";
-                                  // if (!array_key_exists($col->id_demande, $colloque[$col->id_colloque]["demandes"])) {      
-                                      // $colloque[$col->id_colloque]["demandes"][$col->id_demande]=array(
-                                      //       "id_dem"=>$col->id ,"date_dem"=>$col->Date_demande ,"patient"=>"$col->Nom $col->Prenom");
-                                  // }
-                                 
                             }
                       }
                       
