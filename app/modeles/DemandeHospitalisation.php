@@ -20,5 +20,10 @@ class DemandeHospitalisation extends Model
   public function Specialite()
   {
   	return $this->belongsTo('App\modeles\Specialite','specialite');	
-  } 
+  }
+   public function DemeandeColloque()
+   {
+      return $this->hasMany('App\modeles\dem_colloque','id_demande');
+
+   } 
 }

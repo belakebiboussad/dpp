@@ -180,8 +180,14 @@
 						</strong>
 					</label>
 					<div class="col-sm-8">
-						<input class="col-xs-5 col-sm-5 date-picker" id="dateEntree" name="dateEntree" type="text" 
-									 placeholder="Date d'entrée prévue d'hospitalisation" data-date-format="yyyy-mm-dd" required />
+						@if(!isset($rdv))
+							<input class="col-xs-5 col-sm-5 date-picker" id="dateEntree" name="dateEntree" type="text" 
+									 placeholder="Date d'entrée prévue d'hospitalisation" data-date-format="yyyy-mm-dd" required/>
+						@else
+						  	<input class="col-xs-5 col-sm-5 date-picker" id="dateEntree" name="dateEntree" type="text" value ={{ $rdv->date_RDVh}}
+									 placeholder="Date d'entrée prévue d'hospitalisation" data-date-format="yyyy-mm-dd" required/>
+						@endif			 
+
 						<button class="btn btn-sm filelink" onclick="$('#dateEntree').focus()">
 							<i class="fa fa-calendar"></i>
 					  </button>

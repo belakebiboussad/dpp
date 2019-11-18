@@ -18,6 +18,7 @@
 									<th>Priorité</th>
 									<th>Observation</th>
 									<th>date</th>
+									<th>Etat</th>
 									<th></th>
 								</tr>
 							</thead>
@@ -27,11 +28,10 @@
 							@foreach($demandes as $demande)
 								@if(date('d M Y',strtotime(($demande->date_colloque).' monday next week')-1) == date('d M Y',strtotime($d)-1))
 								<tr>
-									<td>{{ $demande->Nom }} {{$demande->Prenom }}</td>
-									<td>{{ $demande->modeAdmission }}</td>
+									<td>{{ $demande->demandeHosp->consultation->patient->Nom }} {{ $demande->demandeHosp->consultation->patient->Prenom }}</td>
+									<td>{{ $demande->demandeHosp->modeAdmission }}</td>
 									<td>
-											<!-- {{ $demande->ordre_priorite }} -->
-												@switch($demande->ordre_priorite)
+											@switch($demande->ordre_priorite)
    										 @case(1)
      											<span class="label label-sm label-success">{{ $demande->ordre_priorite }}</span>
         											@break
@@ -41,8 +41,8 @@
         										@case(3)
         											<span class="label label-sm label-danger">{{ $demande->ordre_priorite }}</span>
         											@break
-        										@default
-        											<span class="label label-sm label-success">{{ $demande->ordre_priorite }}</span>
+        								@default
+        										<span class="label label-sm label-success">{{ $demande->ordre_priorite }}</span>
         											@break
 									@endswitch
 									</td>
@@ -51,12 +51,12 @@
 										<span class="label label-sm label-{{$demande->degree_urgence == "Haut" ? "danger" : "warning"}}" style="color: black;">
 											<strong>{{ $demande->degree_urgence }}</strong>
 										</span>
-										{{ $demande->Date_Consultation }}
+										{{ $demande->demandeHosp->consultation->Date_Consultation }}
 									</td>
-									
+									<td>{{ $demande->demandeHosp->etat }}</td>
 									<td>
 										<div class="hidden-sm hidden-xs btn-group">
-											<a href="/admission/create/{{$demande->id}}" class="btn btn-xs btn-success">
+											<a href="/admission/create/{{$demande->id_demande}}" class="btn btn-xs btn-success">
 												<i class="ace-icon fa fa-bed bigger-120"></i>
 												Créer Un RDV Hospitalisaton
 											</a>

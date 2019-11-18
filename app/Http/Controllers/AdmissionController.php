@@ -57,10 +57,10 @@ class AdmissionController extends Controller
     public function store(Request $request)
     { 
         $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
-       
+        $ServiceID = $employe->Service_Employe;
         $adm=admission::create([     
             "id_demande"=>$request->id_demande,       
-                "id_lit"=>$request->lit,
+            "id_lit"=>$request->lit,
       
         ]);
 
@@ -83,13 +83,12 @@ class AdmissionController extends Controller
                 "affectation"=>1,
           ]);         
         }
-        $demandes= dem_colloque::join('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')
-                               ->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')
-                               ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
-                               ->select('dem_colloques.*','demandehospitalisations.*','consultations.Date_Consultation',
-                                        'patients.Nom','patients.Prenom')
-                               ->where('demandehospitalisations.service',$employe->Service_Employe )
-                               ->where('demandehospitalisations.etat','valide')->get();
+        $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID) {
+                                           $q->where('id',$ServiceID);                           
+                                    })
+                                ->whereHas('demandeHosp',function ($q){
+                                    $q->where('etat','valide'); 
+                                })->get();                       
         return view('home.home_surv_med', compact('demandes'));    
     }
 
@@ -140,21 +139,29 @@ class AdmissionController extends Controller
   
     public function annulerRDV($rdv_id)
     {
-           $rdvHospi =  rdv_hospitalisation::find($rdv_id);
-           $rdvHospi->etat_RDVh="Annule"; $rdvHospi->save();
-           $lit = Lit::find((admission::find($rdvHospi->id_admission))->id_lit);
-           $lit->affectation=0;   $lit->save(); 
-           $demande= demandehospitalisation::find((admission::find($rdvHospi->id_admission))->id_demande);
-           $demande->etat="valide";$demande->save();   
-           admission::findOrFail($rdvHospi->id_admission)->delete();
-          return $demande;
-    }
+      $rdvHospi =  rdv_hospitalisation::find($rdv_id);
+      $admission = admission::find( $rdvHospi->id_admission);
+      if(isset($admission->id_lit))
+      {
+        $lit = Lit::find($admission->id_lit);
+        $lit->affectation=0;
+        $lit->save(); 
+      } 
+      $rdvHospi->etat_RDVh="Annule";
+      $rdvHospi->save();
+      $demande= demandehospitalisation::find($admission->id_demande);
+      $demande->etat="valide";
+      $demande->save();   
+      admission::findOrFail($rdvHospi->id_admission)->delete();
+      return $demande;
+    } 
     public function reporterRDV ($rdv_id)
     {
-           $demandeHospi=  $this->annulerRDV($rdv_id);
-           $services = service::all();
-           $demande=demandehospitalisation::join('dem_colloques','demandehospitalisations.id','=','dem_colloques.id_demande')->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')->join('patients','consultations.Patient_ID_Patient','=','patients.id')->join('services','demandehospitalisations.service','=','services.id')->select('demandehospitalisations.id as id_demande','demandehospitalisations.*','patients.Nom','patients.Prenom','dem_colloques.ordre_priorite','dem_colloques.observation','consultations.Employe_ID_Employe','consultations.Date_Consultation','services.nom as nomService')->where('demandehospitalisations.id',$demandeHospi->id)->get(); 
-           return view('admission.create_admission', compact('demande','services'));            
+      $demandeHospi=  $this->annulerRDV($rdv_id);
+      $demande = dem_colloque::where('dem_colloques.id_demande','=',$demandeHospi->id)->get();
+      $rdvHospi =  rdv_hospitalisation::find($rdv_id);
+      $services = service::all();
+      return view('admission.create_admission', compact('demande','services'))->with('rdv', $rdvHospi);;            
     }
 
 }

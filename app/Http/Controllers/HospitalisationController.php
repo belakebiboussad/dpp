@@ -111,33 +111,20 @@ class HospitalisationController extends Controller
     }
     public function getlisteRDVs()
     {
-           $employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
-          $rdvHospitalisation=rdv_hospitalisation::join('admissions','rdv_hospitalisations.id_admission','=','admissions.id')->join('lits','admissions.id_lit','=','lits.id')
-                    ->join('salles','lits.salle_id','=','salles.id')
-                    ->join('demandehospitalisations','admissions.id_demande','=','demandehospitalisations.id')
-                    ->join('dem_colloques','demandehospitalisations.id','=','dem_colloques.id_demande')
-                    ->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')
-                    ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
-                    ->join('employs','employs.id','=','dem_colloques.id_medecin')
-                    ->select('rdv_hospitalisations.*','rdv_hospitalisations.id as idRDV','lits.num','salles.nom as nomsalle','dem_colloques.observation','dem_colloques.ordre_priorite','consultations.Date_Consultation','patients.Nom','patients.Prenom','employs.Nom_Employe','employs.Prenom_Employe','demandehospitalisations.etat','demandehospitalisations.id as iddemande')
-                    ->where('rdv_hospitalisations.etat_RDVh','en attente')
-                    ->where('demandehospitalisations.etat','programme')->get();
-           return view('Hospitalisations.listRDVs_hospitalisation', compact('rdvHospitalisation'));
+        $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
+        $ServiceID = $employe->Service_Employe; 
+        $rdvHospitalisation = rdv_hospitalisation::whereHas('admission.demandeHospitalisation', function($q){
+                                                           $q->where('etat', 'programme');
+                                                 })
+                                                 ->whereHas('admission.demandeHospitalisation.Service',function($q) use ($ServiceID){
+                                                      $q->where('id',$ServiceID);       
+                                                 })  
+                                                ->get();                                                                 
+        return view('Hospitalisations.listRDVs_hospitalisation', compact('rdvHospitalisation'));
     }
     public function ajouterRDV()
     {
         $employe = employ::where("id",Auth::user()->employee_id)->get()->first();  
-        /*
-        $demandes= dem_colloque::join('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')
-                               ->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')
-                               ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
-                               ->select('dem_colloques.*','demandehospitalisations.*','consultations.Date_Consultation',
-                                        'patients.Nom','patients.Prenom')
-                               ->where('demandehospitalisations.service',$employe->Service_Employe )
-                               ->where('demandehospitalisations.etat','valide')->get();
-        
-        */
-        //essaie
         $ServiceID = $employe->Service_Employe;
         $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID) {
                                            $q->where('id',$ServiceID);                           
@@ -145,7 +132,6 @@ class HospitalisationController extends Controller
                                 ->whereHas('demandeHosp',function ($q){
                                     $q->where('etat','valide'); 
                                 })->get();
-        
         return view('home.home_surv_med', compact('demandes'));
 
     }

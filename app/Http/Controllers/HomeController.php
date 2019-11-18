@@ -41,7 +41,7 @@ class HomeController extends Controller
     {
           $role = rol::FindOrFail(Auth::user()->role_id);
           $employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
-          
+          $ServiceID = $employe->Service_Employe;
           switch ($role->role) {
                 case "Medecine":
                      return view('patient.index_patient');
@@ -58,13 +58,12 @@ class HomeController extends Controller
                       return view('user.listeusers', compact('users'));
                       break;
                case "Surveillant medical":
-                    $demandes= dem_colloque::join('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')
-                            ->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')
-                            ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
-                            ->select('dem_colloques.*','demandehospitalisations.*','consultations.Date_Consultation',
-                                     'patients.Nom','patients.Prenom')
-                            ->where('demandehospitalisations.service',$employe->Service_Employe )
-                            ->where('demandehospitalisations.etat','valide')->get();
+                      $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID) {
+                                           $q->where('id',$ServiceID);                           
+                                    })
+                                ->whereHas('demandeHosp',function ($q){
+                                    $q->where('etat','valide'); 
+                                })->get();
                      return view('home.home_surv_med', compact('demandes'));
                      break;
                 case "Delegue colloque":
