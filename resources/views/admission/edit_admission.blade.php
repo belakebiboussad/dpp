@@ -230,10 +230,10 @@
 						<button class="btn btn-info" type="submit">
 							<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
 						</button>
-						&nbsp; &nbsp; &nbsp;
+					<!-- 	&nbsp; &nbsp; &nbsp;
 						<button class="btn" type="reset">
 							<i class="ace-icon fa fa-undo bigger-110"></i>Annuler
-						</button>
+						</button> -->
 					</div>
 					<div class="col-xs-3"></div>
 			</div>
