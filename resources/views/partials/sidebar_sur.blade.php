@@ -121,6 +121,79 @@
     <!-- /section:basics/sidebar.layout.minimize -->
     <script type="text/javascript">
         try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+        function addDays()
+        {
+            var jsDate = $('#dateEntree').datepicker('getDate');
+            jsDate.setDate(jsDate.getDate() + parseInt($('#numberDays').val()));
+            var dateEnd = jsDate.getFullYear() + '-' + (jsDate.getMonth()+1) + '-' + jsDate.getDate();
+            $("#dateSortie").datepicker("setDate", dateEnd);    
+        }
+        $('.timepicker').timepicker({
+            timeFormat: 'HH:mm',
+            interval: 15,
+            minTime: '08',
+            maxTime: '17:00pm',
+            // defaultTime: '09:00',   
+            startTime: '08:00',
+            dynamic: true,
+            dropdown: true,
+            scrollbar: true
+        });
+        $('document').ready(function(){
+            $('.filelink' ).click( function( e ) {
+                e.preventDefault();  
+            });
+            $('#dateSortie').attr('readonly', true);
+            $('#dateEntree').change(function(){
+                $('#numberDays').val(0);                
+                addDays();
+            });
+            $('#numberDays').on('click keyup', function() {
+                addDays();
+            });
+                
+            $('#serviceh').change(function(){
+                $('#salle').removeAttr("disabled");
+                $.ajax({
+                    url : '/getsalles/'+ $('#serviceh').val(),
+                    type : 'GET',
+                    dataType : 'json',
+                    success : function(data){
+                        var select = $('#salle').empty();
+                        if(data.length != 0){   
+                            $.each(data,function(){
+                                    select.append("<option value='"+this.id+"'>"+this.nom+"</option>");
+                            });
+                        }
+                        else
+                        {      
+                            select.append('<option value="" selected disabled>Pas de salle</option>');
+                        }
+                    },
+              });
+            });
+            $('#salle').change(function(){
+                $('#lit').removeAttr("disabled");
+                $.ajax({
+                        url : '/getlits/'+ $('#salle').val(),
+                        type : 'GET',
+                        dataType : 'json',
+                        success : function(data){
+                            var selectLit = $('#lit').empty();
+                            if(data.length != 0){
+                                $.each(data,function(){
+                                    selectLit.append("<option value='"+this.id+"'>"+this.nom+"</option>");
+                                });
+                            }
+                            else
+                            {
+                                selectLit.append('<option value="" selected disabled>Pas de Lit</option>');
+                            }
+                        },
+                });
+            }); 
+        })
+
     </script>
 </div>
 

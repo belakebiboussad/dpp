@@ -1,25 +1,23 @@
 @extends('app_sur')
 @section('page-script')
 <script type="text/javascript">
-	var nowDate = new Date();
-  var now = nowDate.getFullYear() + '-' + (nowDate.getMonth()+1) + '-' + ('0'+ nowDate.getDate()).slice(-2);
- 	$('document').ready(function(){
-    $("#dateEntree").datepicker("setDate", now);			
-	  $("#dateSortie").datepicker("setDate", now);	
-	  $('#dateSortie').attr('readonly', true);
-	  $('.timepicker').timepicker({
-	 		defaultTime: '09:00'
-		});
-	 	$( "#RDVForm" ).submit(function( event ) {  
-  			$("#dateSortie").prop('disabled', false);
-  	});
+	 	$('document').ready(function(){
+	    var dateRDV = $('#dateEntree').val();
+	    var datefinRDV = 	$('#dateSortie').val();
+	    var debut = new Date(dateRDV);
+	    var fin = new Date(datefinRDV);
+	    var diff = new Date(fin - debut);
+	    $('#numberDays').val(diff/1000/60/60/24);
+      $( "#RDVForm" ).submit(function( event ) {  
+  				$("#dateSortie").prop('disabled', false);
+  		});
 	});
 </script>
 @endsection
 @section('main-content')
 <div class="page-header">
 			<h1>
-				Ajouter Un RDV Hospitalisation pour   <strong>&laquo;{{$demande[0]->demandeHosp->consultation->patient->Nom}}
+				Modifier Un RDV Hospitalisation pour   <strong>&laquo;{{$demande[0]->demandeHosp->consultation->patient->Nom}}
 				 {{$demande[0]->demandeHosp->consultation->patient->Prenom}}&raquo;</strong>
 			</h1>
 </div><!-- /.page-header -->
@@ -117,7 +115,7 @@
 					</label>
 					<div class="col-sm-8">
 							<input class="col-xs-5 col-sm-5 date-picker" id="dateEntree" name="dateEntree" type="text" 
-									 placeholder="Date d'entrée prévue d'hospitalisation" data-date-format="yyyy-mm-dd" required/>
+									 value = "{{ $rdvHospi->date_RDVh }}" data-date-format="yyyy-mm-dd" required/>
 					  	<button class="btn btn-sm filelink" onclick="$('#dateEntree').focus()">
 						  	<i class="fa fa-calendar"></i>
 					    </button>
@@ -128,7 +126,8 @@
 						 	<strong> Heure entrée Prévue :</strong>
 					</label>
 					<div class="input-group col-sm-8" style ="width:35.8%;padding: 0.8%;">	
-						  <input id="heure_rdvh" name="heure_rdvh" class="form-control timepicker" type="text"  required>
+						  <input id="heure_rdvh" name="heure_rdvh" class="form-control timepicker" type="text" value = "{{ $rdvHospi->heure_RDVh }}"
+						  		required />
 							<span class="input-group-addon">
 								<i class="fa fa-clock-o bigger-110"></i>
 							</span>						
@@ -139,9 +138,9 @@
 				 		<strong> Durée Prévue :</strong>
 				 	</label>
 				 	<div class="col-sm-9">
-						<input class="col-xs-5 col-sm-5" id="numberDays" name="" type="number" placeholder="nombre de nuit(s)"
+						<input class="col-xs-5 col-sm-5" id="numberDays" name="" type="number" value="soustraction"
 									 min="0" max="50" value="0" required />
-						<label for=""><small>nuit(s)</small></label>
+						<label for=""><small><strong>&nbsp;nuit(s)</strong></small></label>
 					</div>	
 				</div>
 			</div><!-- row -->
@@ -153,8 +152,8 @@
 					</label>
 						<div class="col-sm-8">
 							<input class="col-xs-5 col-sm-5 date-picker" id="dateSortie" name="dateSortie" type="text" 
-								placeholder="Date sortie prévue d'hospitalisation" data-date-format="yyyy-mm-dd" required disabled />
-							<button class="btn btn-sm filelink"  onclick="$('#dateSortie').focus()" disabled>
+								value = "{{ $rdvHospi->date_Prevu_Sortie }}" data-date-format="yyyy-mm-dd" required disabled />
+							<button class="btn btn-sm"  onclick="$('#dateSortie').focus()" disabled>
 								<i class="fa fa-calendar"></i>
 							 </button>
 						</div>
@@ -165,7 +164,8 @@
 						 	<strong> Heure sortie Prévue :</strong>
 						</label>
 						<div class="input-group col-sm-8" style ="width:35.8%;padding: 0.8%;">	
-							<input id="heureSortiePrevue" name="heureSortiePrevue" class="form-control timepicker" type="text" required>
+							<input id="heureSortiePrevue" name="heureSortiePrevue" class="form-control timepicker" type="text"
+							       value="{{ $rdvHospi->heure_Prevu_Sortie }}" required>
 							<span class="input-group-addon">
 								<i class="fa fa-clock-o bigger-110"></i>
 							</span>						
@@ -173,6 +173,7 @@
 					</div>
 			  </div>
 			</div>
+			@if(isset($rdvHospi->admission->id_lit))
 			<div class="row form group">
 				<div class="col-xs-4">
 			  		<label class="col-sm-4 control-label no-padding-right" for="dateSortie">
@@ -181,7 +182,7 @@
 						<div class="col-sm-8">
 							<select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9"
 							      	placeholder="selectionnez le service d'hospitalisation" required/>
-							  <option value="" selected disabled>selectionnez le service d'hospitalisation</option>
+							  <option value="" selected disabled>{{ $rdvHospi->admission->lit->salle->service->nom }}</option>
 							  @foreach($services as $service)
 								<option value="{{ $service->id }}">{{ $service->nom }}</option>
 								@endforeach
@@ -194,8 +195,10 @@
 						</label>
 						<div class="col-sm-8">
 							<select id="salle" name="salle" data-placeholder="selectionnez la salle d'hospitalisation"
-																 class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9" disabled>
-								<option value="" selected>selectionnez la salle d'hospitalisation</option>
+											class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9">
+								@foreach($rdvHospi->admission->lit->salle->service->salles as $salle)
+									<option value="{{ $salle->id }}" @if($rdvHospi->admission->lit->salle->id == $salle->id) selected @endif > {{ $salle->nom }} </option>
+								@endforeach
 						  </select>
 						</div>
 			  </div>
@@ -206,13 +209,17 @@
 						</label>
 						<div class="col-sm-8">
 							<select id="lit" name="lit" data-placeholder="selectionnez le lit" 
-															 class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9" disabled>
-								<option value="" selected disabled>selectionnez le lit
-								</option>
+											class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9">
+								@foreach($rdvHospi->admission->lit->salle->lits as $lit)
+								<option value="{{ $lit->id }}" @if($rdvHospi->admission->lit->id == $lit->id) selected @endif >
+									 {{ $lit->nom }}
+								 </option>
+								@endforeach
 							</select>
 						</div>	
 				</div>
 			</div><!-- ROW -->
+			@endif
 			<div class="space-12"></div>
 			<div class="space-12"></div>
 			<div class="space-12"></div>

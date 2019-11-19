@@ -63,8 +63,6 @@ class AdmissionController extends Controller
             "id_lit"=>$request->lit,
       
         ]);
-
-     
         $rdv = rdv_hospitalisation::firstOrCreate([
             "date_RDVh"=>$request->dateEntree,
             "heure_RDVh"=>$request->heure_rdvh,   
@@ -157,11 +155,11 @@ class AdmissionController extends Controller
     } 
     public function reporterRDV ($rdv_id)
     {
-      $demandeHospi=  $this->annulerRDV($rdv_id);
-      $demande = dem_colloque::where('dem_colloques.id_demande','=',$demandeHospi->id)->get();
+      $demandeHospi=  $this->annulerRDV($rdv_id);//je doit decomonter une fois le probleme reglé
       $rdvHospi =  rdv_hospitalisation::find($rdv_id);
+      $demande  = dem_colloque::where('dem_colloques.id_demande','=',$demandeHospi->id)->get();
       $services = service::all();
-      return view('admission.create_admission', compact('demande','services'))->with('rdv', $rdvHospi);;            
+      return view('admission.edit_admission', compact('demande','services','rdvHospi'));           
     }
 
 }
