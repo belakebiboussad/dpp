@@ -50,7 +50,9 @@ class RDVController extends Controller
     }
     public function index($patientID = null)
     {
-          $rdvs = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->get();
+          $rdvs = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')
+                     ->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1',
+                              'patients.Dat_Naissance')->get();
            if(isset($patientID)) 
            {
                 $patient = patient::FindOrFail($patientID);   

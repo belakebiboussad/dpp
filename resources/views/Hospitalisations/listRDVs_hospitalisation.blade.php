@@ -118,13 +118,17 @@
 								@endif		
 								<strong>{{ $rdv->nomsalle }}</strong></td>
 						<td>
-							  <a href="/admission/reporter/{{$rdv->id}}" class="btn btn-success btn-xs aaaa"  title= "Reporer RDV" >
+							  <!-- <a href="/admission/reporter/{{$rdv->id}}" class="btn btn-success btn-xs aaaa"  title= "Reporer RDV" >
 								 <i class="menu-icon fa fa-clock-o fa-lg"></i>&nbsp;Reporter
-	                              				</a>
-	                              				 <a href="#" class="btn btn-danger btn-xs aaaa"  title= "Reporer RDV"  onclick= "annulerRDV(this,{{ $j }},{{$rdv->idRDV}});">
-								 <i class="ace-icon fa fa-close" ></i>Annuler RDV
+	              </a> -->
+	              <a href="{{ route('admission.edit',$rdv->id) }}" class="btn btn-success btn-xs aaaa"  title= "Reporer RDV" >
+								  	<i class="menu-icon fa fa-clock-o fa-lg"></i>&nbsp;Reporter
+	              </a> 
+	              <a href="#" class="btn btn-danger btn-xs aaaa" title="Reporer RDV" 
+	              						onclick= "annulerRDV(this,{{ $j }},{{$rdv->idRDV}});">
+									 <i class="ace-icon fa fa-close" ></i>Annuler RDV
 	              </a>
-	           </td>
+	          </td>
 	        </tr>			
 					@endforeach
 		    </tbody>

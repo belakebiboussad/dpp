@@ -20,11 +20,11 @@ class HospitalisationController extends Controller
      */
     public function index()
     {
-          $hospitalisations = consultation::join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
-                                                        ->join('hospitalisations','hospitalisations.id_demande','=','demandehospitalisations.id')
-                                                        ->select('demandehospitalisations.*','hospitalisations.*','consultations.Employe_ID_Employe','Patient_ID_Patient')
-                                                        ->get();
-           return view('Hospitalisations.index_hospitalisation', compact('hospitalisations'));  
+        $hospitalisations = consultation::join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
+                                        ->join('hospitalisations','hospitalisations.id_demande','=','demandehospitalisations.id')
+                                        ->select('demandehospitalisations.*','hospitalisations.*','consultations.Employe_ID_Employe',
+                                                 'Patient_ID_Patient')->get();
+        return view('Hospitalisations.index_hospitalisation', compact('hospitalisations'));  
     }
     /**
      * Show the form for creating a new resource.
@@ -44,14 +44,13 @@ class HospitalisationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-
-         
+    {       
         $rdvHospi =  rdv_hospitalisation::find($request->id_RDV);
         $rdvHospi->etat_RDVh="valide";      
         $rdvHospi->save();
         $demande= demandehospitalisation::find(admission::find($request->id_ad)->id_demande);
-        $demande->etat = "admise";$demande->save(); 
+        $demande->etat = "admise";
+        $demande->save(); 
         $a = hospitalisation::create([
             "Date_entree"=>$rdvHospi->date_RDVh,
             "Date_Prevu_Sortie"=>$rdvHospi->date_Prevu_Sortie,
@@ -119,7 +118,8 @@ class HospitalisationController extends Controller
                                                  ->whereHas('admission.demandeHospitalisation.Service',function($q) use ($ServiceID){
                                                       $q->where('id',$ServiceID);       
                                                  })  
-                                                ->get();                                                                 
+                                                ->get();  
+        dd( $rdvHospitalisation);                                                                                                       
         return view('Hospitalisations.listRDVs_hospitalisation', compact('rdvHospitalisation'));
     }
     public function ajouterRDV()

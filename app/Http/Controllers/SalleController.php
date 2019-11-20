@@ -20,18 +20,18 @@ class SalleController extends Controller
     {
         $salles = salle::where('service_id',$id)->where('etat','Non bloquee')->get();
         foreach ($salles as $key => $salle) {
-                    $libre=false;
-                    foreach ($salle->lits as $key => $lit) {
-                                # code...
-                               if(!($lit->affectation) && ($lit->etat) )
-                               {
-                                    $libre=true;
-                                     continue;
-                               }    
-                    }
-                     if(!$libre)
-                        $salles->pull($key);
-          }
+            foreach ($salle->lits as $key => $lit) {
+                if($lit->affectation || !($lit->etat) )
+                {
+                  
+                    $salle->lits->pull($key);
+                }    
+            }
+        }
+        foreach ($salles as $key => $salle) {
+            if((count($salle->lits) == 0))
+                $salles->pull($key);
+        }
         return $salles;
     }
     public function index()

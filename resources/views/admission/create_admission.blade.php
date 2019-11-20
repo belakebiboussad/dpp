@@ -7,9 +7,17 @@
     $("#dateEntree").datepicker("setDate", now);			
 	  $("#dateSortie").datepicker("setDate", now);	
 	  $('#dateSortie').attr('readonly', true);
-	  $('.timepicker').timepicker({
-	 		defaultTime: '09:00'
-		});
+		$('.timepicker').timepicker({
+            timeFormat: 'HH:mm',
+            interval: 15,
+            minTime: '08',
+            maxTime: '17:00pm',
+            defaultTime: '09:00',   
+            startTime: '08:00',
+            dynamic: true,
+            dropdown: true,
+            scrollbar: true
+    });
 	 	$( "#RDVForm" ).submit(function( event ) {  
   			$("#dateSortie").prop('disabled', false);
   	});
@@ -207,8 +215,7 @@
 						<div class="col-sm-8">
 							<select id="lit" name="lit" data-placeholder="selectionnez le lit" 
 															 class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9" disabled>
-								<option value="" selected disabled>selectionnez le lit
-								</option>
+								<option value="" selected disabled>selectionnez le lit d'hospitalisation</option>
 							</select>
 						</div>	
 				</div>

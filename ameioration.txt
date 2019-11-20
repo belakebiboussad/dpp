@@ -1,0 +1,2 @@
+ignorer les salle sans lit libre 
+ignorer les service sans salles libre

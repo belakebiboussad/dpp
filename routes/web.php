@@ -138,7 +138,7 @@ Route::get('/patient/listerdv/{id}','PatientController@listerdv');
 Route::get('/atcd/create/{id}','AntecedantsController@create');
 Route::get('/atcd/index/{id}','AntecedantsController@index');
 Route::get('/admission/create/{id}','AdmissionController@create');
-Route::get('/admission/reporter/{id}','AdmissionController@reporterRDV');
+Route::post('/admission/reporter/{id}','AdmissionController@reporterRDV');
 Route::get('/admission/create/{id}{bool}',function(){
         // 'as'    => 'id',
         // 'uses'  => 'AdmissionController@AdmissionController'

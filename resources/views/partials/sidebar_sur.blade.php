@@ -128,17 +128,6 @@
             var dateEnd = jsDate.getFullYear() + '-' + (jsDate.getMonth()+1) + '-' + jsDate.getDate();
             $("#dateSortie").datepicker("setDate", dateEnd);    
         }
-        $('.timepicker').timepicker({
-            timeFormat: 'HH:mm',
-            interval: 15,
-            minTime: '08',
-            maxTime: '17:00pm',
-            // defaultTime: '09:00',   
-            startTime: '08:00',
-            dynamic: true,
-            dropdown: true,
-            scrollbar: true
-        });
         $('document').ready(function(){
             $('.filelink' ).click( function( e ) {
                 e.preventDefault();  
@@ -160,7 +149,8 @@
                     dataType : 'json',
                     success : function(data){
                         var select = $('#salle').empty();
-                        if(data.length != 0){   
+                        if(data.length != 0){
+                            select.append("<option value=''>selectionnez la salle d'hospitalisation</option>");   
                             $.each(data,function(){
                                     select.append("<option value='"+this.id+"'>"+this.nom+"</option>");
                             });
@@ -181,6 +171,7 @@
                         success : function(data){
                             var selectLit = $('#lit').empty();
                             if(data.length != 0){
+                                selectLit.append("<option value=''>selectionnez le lit d'hospitalisation</option>");
                                 $.each(data,function(){
                                     selectLit.append("<option value='"+this.id+"'>"+this.nom+"</option>");
                                 });
