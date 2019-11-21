@@ -204,6 +204,7 @@ route::get('/demandeexbio/{id}','DemandeExbController@createexb');
 route::get('/showdemandeexb/{id}','DemandeExbController@show_demande_exb'); 
 Route::resource('demandeexr','DemandeExamenRadio'); 
 route::get('/showdemandeexr/{id}','DemandeExamenRadio@show_demande_exr');
+route::get('/affecterLit','AdmissionController@affecterLit');
 // route with optonnel parameter
 Route::get('rendezVous/create/{id?}','RDVController@index');
 /************partie viste d'hospitalisation**************/

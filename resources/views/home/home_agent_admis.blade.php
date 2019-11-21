@@ -10,7 +10,7 @@
    						 <div class="input-group-addon">
         						<span class="glyphicon glyphicon-th"></span>
    						 </div>
-</div>
+				</div>
   		</div>
       <div class="col-md-2">
           <button type="button" name="filter" id="filter" class="btn btn-info btn-sm">Rechercher</button>
@@ -41,153 +41,100 @@
 					</tr>
 				</thead>
 				<tbody>
-				
-						@foreach($admissions as $admission)
+						@foreach($rdvs as $rdv)
 						<tr>
-								<td style="display: none;">{{$admission->id_admission}}</td>
+								<td style="display: none;">	<td style="display: none;">{{$rdv->admission->id_admission}}</td></td>
 								<td>
-										{{ $admission->demandeHospitalisation->consultation->patient->Nom }}
-								    {{ $admission->demandeHospitalisation->consultation->patient->Prenom }}
+									{{ $rdv->admission->demandeHospitalisation->consultation->patient->Nom }}
+								  {{ $rdv->admission->demandeHospitalisation->consultation->patient->Prenom }}
 								</td>
-								<td>{{ $admission->lit->salle->service->nom }}</td>
-								<td>{{ $admission->lit->salle->nom }}</td>
-								<td>{{ $admission->lit->num }}</td>
+								<td>
+								  @if(isset($rdv->admission->lit_id))
+											{{ $rdv->admission->lit->salle->service->nom }}
+								  @else
+									  	<strong>/</strong>
+								  @endif
+								</td>
+								<td>
+									@if(isset($rdv->admission->lit_id))
+										 {{ $rdv->admission->lit->salle->nom }}
+									@else
+									 		<strong>/</strong>
+									@endif
+								</td>
+								<td>
+									@if(isset($rdv->admission->lit_id))
+								 			{{ $rdv->admission->lit->num }}  
+									@else
+											<strong>/</strong>
+								 	@endif
+								</td>
 								<td>
 									<span  style="color: red;">
-									<strong>{{ $admission->date_RDVh }}</strong>
+									<strong>{{ $rdv->date_RDVh }}</strong>
 									</span>
 								</td>
 								<td>
 										<span  style="color: red;">
-											<strong>{{ $admission->heure_RDVh }}</strong>
+											<strong>{{ $rdv->heure_RDVh }}</strong>
 										</span>
 								</td>
-								<td>								<!-- Trigger the modal with a button -->
-										<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{$admission->id_admission}}" data-backdrop="false">confirmer l'entrée</button>
+								<td>
+										<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $rdv->admission->id }}"
+										      	data-backdrop="false">confirmer l'entrée
+										</button>
 										<!--model pop-up -->
-										<div id="{{$admission->id_admission}}" class="modal fade" role="dialog" aria-hidden="true">
-			 							<div class="modal-dialog">
-										<div class="modal-content">
-			      							<div class="modal-header">
-			        								<button type="button" class="close" data-dismiss="modal">&times;</button>
-			        									<h4 class="modal-title">confirmer l'entrée du patient:</h4>
-			      							</div>
-			      							<div class="modal-body">
-			        							<p><span  style="color: blue;"><strong >{{ $admission->Nom }} {{$admission->Prenom }}</strong></span></p>
-			        								<p>le  &quot;<span  style="color: orange;"><strong>{{ $admission->date_RDVh }}</strong></span>&quot; à <span  style="color: red;"><strong>{{Date("H:i:s")}}</strong></span></p>			
-			        							</div>
-			      							<form id="hospitalisation" class="form-horizontal" role="form" method="POST" action="{{route('hospitalisation.store')}}">{{ csrf_field() }}
-			      							<input id="id_ad" type="text" name="id_ad" value="{{$admission->id_admission}}" hidden>
-			      							<input id="id_RDV" type="text" name="id_RDV" value="{{$admission->idRDV}}" hidden>
-			      							<div class="modal-footer">
-			        							<button type="button" class="btn btn-default" data-dismiss="modal">
-			        								 <i class="ace-icon fa fa-undo bigger-120"></i>
-			        								Fermer
-			        							</button>
-			        							<button  type="submit" class="btn btn-success" >
+										<div id="{{ $rdv->admission->id }}" class="modal fade" role="dialog" aria-hidden="true">
+				 							<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+			        							<button type="button" class="close" data-dismiss="modal">&times;</button>
+			        							<h4 class="modal-title">confirmer l'entrée du patient:</h4>
+			      						  </div>
+			      						  <div class="modal-body">
+			        							<p>
+			        								<span  style="color: blue;">
+			        										<strong >{{ $rdv->admission->demandeHospitalisation->consultation->patient->Nom }}
+			        														 {{ $rdv->admission->demandeHospitalisation->consultation->patient->Prenom }}
+			        										</strong>
+			        								</span>
+			        							</p>
+			        							<p>
+			        								le  &quot;<span  style="color: orange;"><strong>
+			        								{{ $rdv->date_RDVh }}</strong></span>&quot; à <span  style="color: red;">
+			        								<strong>{{Date("H:i:s")}}</strong></span></p>			
+			        						</div>
+													<form id="hospitalisation" class="form-horizontal" role="form" method="POST"
+													  action="{{route('hospitalisation.store')}}">{{ csrf_field() }}
+				      							<input id="id_ad" type="text" name="id_ad" value="{{ $rdv->admission->id }}" hidden>
+				      							<input id="id_RDV" type="text" name="id_RDV" value="{{$rdv->id}}" hidden>
+			      								<div class="modal-footer">
+			        								<button type="button" class="btn btn-default" data-dismiss="modal">
+			        									<i class="ace-icon fa fa-undo bigger-120"></i>	Fermer
+			        								</button>
+			        								<button  type="submit" class="btn btn-success" >
 			        								  <i class="ace-icon fa fa-check bigger-120"></i>
 			        								Valider
 			        							</button>
 			      							</div> 
 			      							</form>
-			   							 </div>
-			  							</div>
+												</div>
+											</div>
 										</div>
-								</td>	
-						</tr>
-						@endforeach
-				</tbody>	
-			</table>	
-		</div>
-	 	</div>
-	</div>
-</div>
-@endsection
-@section('page-script')
-	<script type="text/javascript">
-	  function fetch_data(date)
-	  {
-	  	  var today = new Date();
-	  	  var currentday = today.getFullYear()+'-'+(today.getMonth() + 1).toString().padStart(2, "0")+'-'+today.getDate().toString().padStart(2, "0");
-	  		var heure = today.getHours() + ':' + today.getMinutes();
-	  		$.ajax({
-                  type :'get',
-                  url : '{{URL::to('getAdmissions')}}',
-                  data:{'date':date},
-                  success:function(result,status, xhr)
-                  {
-                  	var admissions = result['data']; 
-                  	if( admissions != null)
-                    {                    	
-	                    var output = '';
-	                    $('#total_records').text(result['data'].length);
-	                    for(var count = 0; count < result['data'].length; count++)
-	    								{
-	    									  output += '<tr>';
-											    output += '<td>' + admissions[count].Nom + result['data'][count].Prenom + '</td>';
-											    output += '<td>' + admissions[count].nom_service + '</td>';
-											    output += '<td>' + admissions[count].nom_salle + '</td>';
-											    output += '<td>' + admissions[count].num_lit + '</td>';
-											    output += '<td><span  style="color: red;">' + admissions[count].date_RDVh + '</span></td>';
-											    output += '<td><span  style="color: red;">' + admissions[count].heure_RDVh + '</span></td>';
-											    if(date != currentday)
-											    		output += '<td><span  style="color: red;">' + "1" + '</span></td></tr>';
-											    else
-											    	{
-											    		output += '<td><button type="button" class="btn btn-info btn-sm" data-toggle="modal"'+
-											    		 					'data-backdrop="false" data-target="#'+admissions[count].id_admission+'">Confirmer</button>'+
-												    		 				'<div id="'+ admissions[count].id_admission +'" class="modal fade" role="dialog" aria-hidden="true">'+
-													    		 				'<div class="modal-dialog">'+
-													    		 					'<div class="modal-content">'+
-													    		 						'<div class="modal-header">'+
-													    		 							'<button type="button" class="close" data-dismiss="modal">&times;</button>'+
-													    		 							'<h4 class="modal-title"><strong>confirmer l\'entrée du patient:</strong></h4>'+
-													    		 						'</div>'+
-													    		 						'<div class="modal-body">'+
-													    		 						  '<p><span  style="color: blue;"><strong >'+ admissions[count].Nom +' '+ admissions[count].Prenom +'</strong></span></p>'+
-													    		 						  '<p>le  &quot;<span  style="color: orange;"><strong>'+ admissions[count].date_RDVh +'</strong></span>&quot; à'+' ' +' <span  style="color: red;"><strong>'+ heure +'</strong></span></p>'+
-													    		 						'</div>'+
-													    		 						'<form id="hospitalisation" class="form-horizontal" role="form" method="POST" action="{{route("hospitalisation.store")}}">{{ csrf_field() }}'+
-													    		 							'	<input id="id_ad" type="text" name="id_ad" value="'+ admissions[count].id_admission+'" hidden>'+
-													    		 							'<input id="id_RDV" type="text" name="id_RDV" value="'+admissions[count].id+'" hidden>'+
-													    		 							'<div class="modal-footer">'+
-													    		 							  '<button type="button" class="btn btn-default" data-dismiss="modal">'+
-													    		 							  	'<i class="ace-icon fa fa-undo bigger-120"></i>'+
-													    		 							  	'Fermer'+
-													    		 							  '</button>'+
-													    		 							  '<button  type="submit" class="btn btn-success">'+
-													    		 							     'Valider'+
-													    		 							  '</button>'+
-													    		 							'</div>'+
-													    		 						'</form>'+
-													    		 					'</div>'+
-													    		 				'</div>'+
-												    		 				'</div>'+
-												    		 				'</td></tr>';
-																				
-											    	}
+								</td>
 
-	    								}
-	    							  //console.log(output);
-    								  $('tbody').html(output);
-                    }
-                  },
-                  error: function(data){
-                  	console.log("dfs");
-                	}
-        });
-	  }
-	  
-	  $('#filter').click(function(){
-      var date = $('#currentday').val();
-      if(date != '')
-      {
-      	fetch_data(date);
-      }else
-      {
-      	console.log("date required");
-      }
-    });
-     
-  </script>
+						</tr>
+						@endforeach		
+
+				</tbody>
+		  </table>
+		  </div>
+		</div><!-- widget-body -->
+	</div><!-- widget-box -->
+</div>
 @endsection	
+
+
+
+
+

@@ -188,7 +188,7 @@
 						</label>
 						<div class="col-sm-8">
 							<select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9"
-							      	placeholder="selectionnez le service d'hospitalisation" required/>
+							      	placeholder="selectionnez le service d'hospitalisation"/>
 							  <option value="" selected disabled>selectionnez le service d'hospitalisation</option>
 							  @foreach($services as $service)
 								<option value="{{ $service->id }}">{{ $service->nom }}</option>

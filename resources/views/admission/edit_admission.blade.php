@@ -193,8 +193,8 @@
             </label>
             <div class="col-sm-8">
               <select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9"
-                      placeholder="selectionnez le service d'hospitalisation" required/>
-                   <option value="" selected>selectionnez le service d'hospitalisation</option>
+                      placeholder="selectionnez le service d'hospitalisation"/>
+                   <option value="0" selected>selectionnez le service d'hospitalisation</option>
                   @foreach($services as $service)
                   <option value="{{ $service->id }}" @if($rdv->admission->lit->salle->service->id == $service->id) selected @endif>
                       {{ $service->nom }}
@@ -210,7 +210,7 @@
             <div class="col-sm-8">
               <select id="salle" name="salle" data-placeholder="selectionnez la salle d'hospitalisation"
                       class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9">
-                <option value="" selected>selectionnez la salle d'hospitalisation</option>      
+                <option value="0" selected>selectionnez la salle d'hospitalisation</option>      
                 @foreach($rdv->admission->lit->salle->service->salles as $salle)
                 <option value="{{ $salle->id }}" @if($rdv->admission->lit->salle->id == $salle->id) selected @endif >
                      {{ $salle->nom }}
@@ -227,12 +227,52 @@
             <div class="col-sm-8">
               <select id="lit" name="lit" data-placeholder="selectionnez le lit" 
                       class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9">
-                <option value="" selected>selectionnez le lit d'hospitalisation</option>      
+                <option value="0" selected>selectionnez le lit d'hospitalisation</option>      
                 @foreach($rdv->admission->lit->salle->lits as $lit)
                 <option value="{{ $lit->id }}" @if($rdv->admission->lit->id == $lit->id) selected @endif >
                    {{ $lit->nom }}
                  </option>
                 @endforeach
+              </select>
+            </div>  
+        </div>
+      </div><!-- ROW -->
+      @else
+      <div class="row form group">
+        <div class="col-xs-4">
+            <label class="col-sm-4 control-label no-padding-right" for="dateSortie">
+              <strong> Service :</strong>
+            </label>
+            <div class="col-sm-8">
+              <select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9"
+                      placeholder="selectionnez le service d'hospitalisation" required/>
+                   <option value="" selected>selectionnez le service d'hospitalisation</option>
+                  @foreach($services as $service)
+                  <option value="{{ $service->id }}">{{ $service->nom }}</option>
+                  @endforeach
+              </select>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <label class="col-sm-4 control-label no-padding-right" for="salle">
+              <strong> Salle :</strong>
+            </label>
+            <div class="col-sm-8">
+              <select id="salle" name="salle" data-placeholder="selectionnez la salle d'hospitalisation"
+                      class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9">
+                <option value="" selected>selectionnez la salle d'hospitalisation</option>      
+              </select>
+            </div>
+        </div>
+        <div class="col-xs-4">
+          <label class="col-sm-3 control-label" for="heure_rdvh">
+            <strong>Lit : 
+              </strong>
+            </label>
+            <div class="col-sm-8">
+              <select id="lit" name="lit" data-placeholder="selectionnez le lit" 
+                      class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9">
+                <option value="" selected>selectionnez le lit d'hospitalisation</option>      
               </select>
             </div>  
         </div>

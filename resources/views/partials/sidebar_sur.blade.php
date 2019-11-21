@@ -76,7 +76,7 @@
                             <b class="arrow"></b>
                     </li>
                     <li class="">
-                            <a href="#">
+                            <a href="/affecterLit">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     Affectation des Lits
                              </a>
@@ -139,10 +139,18 @@
             });
             $('#numberDays').on('click keyup', function() {
                 addDays();
-            });
-                
+            });  
             $('#serviceh').change(function(){
-                $('#salle').removeAttr("disabled");
+                var attr = $('#salle').attr('disabled');
+                if (typeof attr !== typeof undefined && attr !== false) {
+                    $('#salle').removeAttr("disabled");
+                }
+                var attr = $('#lit').attr('disabled');
+                if (typeof attr == typeof undefined && attr == false) {
+                    $('#lit').attr('disabled', 'disabled');
+                }
+                $('#lit').attr('disabled', 'disabled');
+                $('#lit option[value=0]').prop('selected', true);
                 $.ajax({
                     url : '/getsalles/'+ $('#serviceh').val(),
                     type : 'GET',
@@ -160,7 +168,7 @@
                             select.append('<option value="" selected disabled>Pas de salle</option>');
                         }
                     },
-              });
+                });
             });
             $('#salle').change(function(){
                 $('#lit').removeAttr("disabled");

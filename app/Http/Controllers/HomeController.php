@@ -96,12 +96,19 @@ class HomeController extends Controller
                       return view('colloques.liste_colloque', compact('colloque'));
                       break;
                 case "Admission":
-                    $admissions = admission::join('rdv_hospitalisations','admissions.id','=','rdv_hospitalisations.id_admission')
-                                ->join('demandehospitalisations','admissions.id_demande','=','demandehospitalisations.id')
-                                ->select('admissions.id as id_admission',
-                                        'admissions.*','rdv_hospitalisations.*')->where('etat_RDVh','<>','validé')->where('date_RDVh','=',date("Y-m-d"))->get();            
-                    return view('home.home_agent_admis', compact('admissions'));
-                      break;       
+                    // $admissions = admission::join('rdv_hospitalisations','admissions.id','=','rdv_hospitalisations.id_admission')
+                    //             ->join('demandehospitalisations','admissions.id_demande','=','demandehospitalisations.id')
+                    //             ->select('admissions.id as id_admission',
+                    //                     'admissions.*','rdv_hospitalisations.*')->where('etat_RDVh','<>','validé')
+                    //             ->where('date_RDVh','=',date("Y-m-d"))->get();            
+                   
+                    $rdvs = rdv_hospitalisation::whereHas('admission.demandeHospitalisation', function($q){
+                                                           $q->where('etat', 'programme');
+                                                     })->where('etat_RDVh','=','en attente')
+                                                       ->where('date_RDVh','=',date("Y-m-d"))->get(); 
+
+                    return view('home.home_agent_admis', compact('rdvs'));
+                    break;       
                 case "Chef de service":
                     $meds = medcamte::all();
                     $dispositifs = dispositif::all();

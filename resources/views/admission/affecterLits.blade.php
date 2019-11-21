@@ -20,11 +20,10 @@
 <form id="form-rdvsHosp" class="form-horizontal" role="form" method="POST" action="#">
 	{{ csrf_field() }}
 	{{ method_field('PUT') }}
-	{{-- route('HospitalisationController.update') --}}
 	<div class="row">
 		<div class="col-xs-12 page-header">
 			<div class="col-xs-12">
-				<h1>Liste des Rendez-Vous d'Hospitalisation </h1>
+				<h1>Affectation Des Lit </h1>
 			</div>
 		</div><!-- /.page-header -->
 	</div>
@@ -34,7 +33,7 @@
      		<div class="widget-box widget-color-blue" id="widget-box-12">
 					<div class="widget-header">
 					    <h3 class="widget-title bigger lighter">
-					      <i class="ace-icon fa fa-table"></i>Liste des Rendez-Vous d'Hospitalisation :
+					      <i class="ace-icon fa fa-table"></i>Liste Admissions :
 				      </h3>
 					</div>
     		</div>
@@ -51,12 +50,8 @@
 							<th class="text-center" width="11%"><h5><strong>Patient</strong></h5></th>
 							<th class="text-center" width="15%"><h5><strong>Date RDV</strong></h5></th>
 							<th class="text-center" width="10%">Heure RDV</th>
-							<th class="font-weight-bold text-center"><h5><strong>Lit</strong></h5></th>
-							<th class="font-weight-bold text-center"><h5><strong>Salle</strong></h5></th>
-							<th class="font-weight-bold text-center"><h5><strong>Service</strong></h5></th>
-						  <th width="12%" class="text-center"><h5><strong>Date Sortie Prévue</strong></h5></th>
-						   <th width="12%" class="text-center"><h5><strong>Heure Sortie Prévue</strong></h5></th>
-							<th class="detail-col  text-center"></th>
+							<th width="12%" class="text-center"><h5><strong>Date Sortie Prévue</strong></h5></th>
+							<th class="detail-col  text-center"><h5><strong>Heure Sortie Prévue</strong></h5></th>
 		       	</tr>
 		      </thead>
         <tbody id ="rendez-VousBody" class="bodyClass">
@@ -79,40 +74,17 @@
 							<strong>{{ $rdv->date_RDVh }}</strong>
 				    </td>
 						<td><strong>  {{ $rdv->heure_RDVh }}</strong></td>
-						
-						<td class="center">
-							 	@if(isset($rdv->admission->id_lit))	
-									<strong>{{ $rdv->admission->lit->nom }}</strong>
-								@else
-									<strong>/</strong>
-								@endif		
-						</td>
-						<td>
-								@if(isset($rdv->admission->id_lit))	
-									<strong>{{ $rdv->admission->lit->salle->nom }}</strong>
-								@else
-									<strong>/</strong>
-								@endif		
-								<strong>{{ $rdv->nomsalle }}</strong>
-						</td>
-						<td>
-					  		@if(isset($rdv->admission->id_lit))	
-									<strong>{{ $rdv->admission->lit->salle->service->nom }}</strong>
-								@else
-									<strong>/</strong>
-								@endif	
-					  </td>
 					  <td class="center">
 							<strong>{{ $rdv->date_Prevu_Sortie }}</strong>
 					  </td>
+					  <td class="center">
+					  	<strong>{{ $rdv->heure_Prevu_Sortie }}</strong>
+					  </td>
 						<td class="center">
-							  <a href="{{ route('admission.edit',$rdv->id) }}" class="btn btn-success btn-xs aaaa"  title= "Reporer RDV" >
-								  	<i class="ace-icon fa fa-clock-o"></i>Reporter
+							  <a href="{{ route('admission.edit',$rdv->id) }}" class="btn btn-success btn-xs aaaa"  title= "Affecter un Lit" >
+								  		<i class="ace-icon fa fa-bed bigger-120"></i>affecter
 	              </a>
-	              <a href="#" class="btn btn-danger btn-xs aaaa" title="Reporer RDV" 
-	              						onclick= "annulerRDV(this,{{ $j }},{{ $rdv->id }});">
-									 <i class="ace-icon fa fa-close" ></i>Annuler
-	              </a>
+	             
 	          </td>
 	        </tr>			
 					@endforeach

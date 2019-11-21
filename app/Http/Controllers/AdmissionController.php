@@ -139,50 +139,48 @@ class AdmissionController extends Controller
         //
     }
   
-    public function annulerRDV($rdv_id)
+    public function annulerRDV($id)
     {
-      $rdvHospi =  rdv_hospitalisation::find($rdv_id);
-      $admission = admission::find( $rdvHospi->id_admission);
-      if(isset($admission->id_lit))
+     
+      $rdvHospi =  rdv_hospitalisation::find($id); 
+     
+      if(isset($rdvHospi->admission->id_lit))
       {
-        $lit = Lit::find($admission->id_lit);
-        $lit->affectation=0;
-        $lit->save(); 
-      } 
+        $rdvHospi->admission->lit->affectation=0;
+        $rdvHospi->admission->lit->save();  
+      }
       $rdvHospi->etat_RDVh="Annule";
       $rdvHospi->save();
-      $demande= demandehospitalisation::find($admission->id_demande);
-      $demande->etat="valide";
-      $demande->save();   
-      admission::findOrFail($rdvHospi->id_admission)->delete();
-      return $demande;
+      $rdvHospi->admission->demandeHospitalisation->setEtatAttribute("valide");
+      $rdvHospi->admission->demandeHospitalisation->save();  
+      $rdvHospi->admission->delete();
+      return true; 
     } 
     public function reporterRDV (Request $request,$rdv_id)
     {
       $rdvHospi =  rdv_hospitalisation::find($rdv_id);
-      dd($rdvHospi);
       //liberer le lit affecter
-      if((isset($rdvHospi->admission->id_lit))  && ($rdvHospi->admission->id_lit != $request->lit))
+      if(isset($rdvHospi->admission->id_lit))
       {
-        $rdvHospi->admission->lit->affectation = 0;
-        $rdvHospi->admission->lit->save();   
-      }
+      
+        $rdvHospi->admission->lit->affectation=0;
+        $rdvHospi->admission->lit->save();  
+      } 
+    
       // reserver le nouveau lit
       if(isset($request->lit))  
       {
-          if(isset($rdvHospi->admission->id_lit) && ( $request->lit != $rdvHospi->admission->id_lit))
-          {
-            $lit = Lit::find($request->lit);
-            $lit->affectation = 1;
-            $lit->save();
-          }
+          $lit = Lit::find($request->lit);
+          $lit->affectation = 1;
+          $lit->save();
       }
+      
       //annuler Rendez-Vous
       $rdvHospi->etat_RDVh="Annule";
       $rdvHospi->save();
       //créer une nouvelle admission
       $adm=admission::create([     
-              "id_demande"=>$rdvHospi->admission->id,       
+              "id_demande"=>$rdvHospi->admission->id_demande,       
               "id_lit"=>$request->lit,
       ]);
       //supprimer l'admission de l'ancien RDVH      
@@ -195,15 +193,25 @@ class AdmissionController extends Controller
             "etat_RDVh"=>"en attente",
             "date_Prevu_Sortie"=>$request->dateSortie,
             "heure_Prevu_Sortie" =>$request->heureSortiePrevue,
-      ]);  
+      ]);
       return redirect()->action('HospitalisationController@getlisteRDVs');
-      // //$demandeHospi=  $this->annulerRDV($rdv_id); //je doit decomonter une fois le probleme reglé  
-      // //$admission = admission::find( $rdvHospi->id_admission);
-      // $demande  = dem_colloque::where('dem_colloques.id_demande','=',$demandeHospi->id)->get();
-      // $services = service::all();
-     
-      // return view('admission.edit_admission', compact('demande','services','rdvHospi'));
 
+    }
+    public function affecterLit()
+    {
+      $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
+      $ServiceID = $employe->Service_Employe; 
+      $rdvHospitalisation = rdv_hospitalisation::whereHas('admission.demandeHospitalisation', function($q){
+                                                           $q->where('etat', 'programme');
+                                                 })
+                                                 ->whereHas('admission',function($q){
+                                                      $q->where('id_lit',null);       
+                                                 }) 
+                                                 ->whereHas('admission.demandeHospitalisation.Service',function($q) use ($ServiceID){
+                                                      $q->where('id',$ServiceID);       
+                                                 })->where('etat_RDVh','=','en attente')->get();  
+
+      return view('admission.affecterLits', compact('rdvHospitalisation'));
     }
 
 }
