@@ -194,6 +194,7 @@ class PatientController extends Controller
     {   
         $patient = patient::FindOrFail($id);
         $consultations = consultation::where('Patient_ID_Patient',$patient->id)->get();
+        dd($consultations);
         $hospitalisations = consultation::join('patients','consultations.Patient_ID_Patient','=','patients.id')
                                         ->where('patients.id','=',$patient->id)
                                         ->join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')

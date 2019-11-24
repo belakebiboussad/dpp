@@ -14,7 +14,11 @@ class admission extends Model
      }
      public function demandeHospitalisation()
      {
-     		return $this->belongsTo('App\modeles\DemandeHospitalisation','id_demande');
+     	return $this->belongsTo('App\modeles\DemandeHospitalisation','id_demande');
+     }
+     public function RDVs()
+     {
+          return $this->hasMany('App\modeles\rdv_hospitalisation','id_admission')->orderBy('date_RDVh');
      }
      
 }

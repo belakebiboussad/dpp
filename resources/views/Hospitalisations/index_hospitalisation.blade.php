@@ -13,44 +13,44 @@
 					Liste Des Hospitalisations :
 				</h5>
 			</div>
-			<div class="widget-body">
+				<div class="widget-body">
 				<div class="widget-main no-padding">
 					<table class="table table-striped table-bordered table-hover">
 						<thead class="thin-border-bottom">
 							<tr>
 								<th>Patient</th>
-								<th>Motif De L'hospitalisation</th>
+								<th>Mode Admission</th>
 								<th>Date Entrée</th>
-								<th>Date Prévue Pour La Sortie</th>
-								<th>Date Sortié</th>
+								<th>Date Sortie Prévue</th>
+								<th>Date Sortie</th>
 								<th>Médecin</th>
 								<th></th>
 							</tr>
 						</thead>
 						<tbody>
 							@foreach( $hospitalisations as $hosp)
-							<tr>
-								<td>
-									{{ App\modeles\patient::where("id",$hosp->Patient_ID_Patient)->get()->first()->Nom }}
-									{{ App\modeles\patient::where("id",$hosp->Patient_ID_Patient)->get()->first()->Prenom }}
-								</td>
-								<td>{{ $hosp->motif }}</td>
-								<td>{{ $hosp->Date_entree }}</td>
-								<td>{{ $hosp->Date_Prevu_Sortie }}</td>
-								<td>{{ $hosp->Date_Sortie == null ? "Pas encore" : $hosp->Date_Sortie }}</td>
-								<td>
-									{{ App\modeles\employ::where("id",$hosp->Employe_ID_Employe)->get()->first()->Nom_Employe }}
-									{{ App\modeles\employ::where("id",$hosp->Employe_ID_Employe)->get()->first()->Prenom_Employe }}
-								</td>
-								<td>
-									
-								</td>
-							</tr>
+								<tr>
+									<td>
+										{{ $hosp->admission->demandeHospitalisation->consultation->patient->Nom }}
+										{{ $hosp->admission->demandeHospitalisation->consultation->patient->Prenom }}
+									</td>
+									<td>{{ $hosp->admission->demandeHospitalisation->modeAdmission }}</td>
+									<td>{{ $hosp->Date_entree }}</td>
+								  <td>{{ $hosp->Date_Prevu_Sortie }}</td>
+							  	<td>{{ $hosp->Date_Sortie == null ? "Pas encore" : $hosp->Date_Sortie }}</td>
+							  	<td>
+							  		{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe }}
+							  		{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Prenom_Employe }}
+							  	</td>
+							  	<td>
+							  	  <button>Sortir</button>	
+							  	</td>	
+								</tr>
 							@endforeach
 						</tbody>
 					</table>
-				</div>
-			</div>
-		</div>
+				</div><!-- widget-main -->
+		  	</div>	<!-- widget-body -->
+		 </div> <!-- widget-box -->
 	</div>
 @endsection

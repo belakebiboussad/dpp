@@ -208,14 +208,20 @@ class PatientController extends Controller
     public function show($id)
     {   
           $patient = patient::FindOrFail($id);
-           $homme_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get()->first();
-          $consultations = consultation::where('Patient_ID_Patient',$patient->id)->get(); 
-          $hospitalisations = consultation::join('patients','consultations.Patient_ID_Patient','=','patients.id')
-                                          ->where('patients.id','=',$patient->id)
-                                          ->join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
-                                          ->join('hospitalisations','demandehospitalisations.id','=','hospitalisations.id_demande')
-                                          ->select('hospitalisations.id','hospitalisations.Date_entree','hospitalisations.Date_entree','hospitalisations.Date_Prevu_Sortie','hospitalisations.Date_Sortie','hospitalisations.id_demande')
-                                          ->get();
+          $homme_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get()->first();
+          $consultations = consultation::where('Patient_ID_Patient',$id)->get(); 
+       
+          // $hospitalisations = consultation::join('patients','consultations.Patient_ID_Patient','=','patients.id')
+          //                                 ->where('patients.id','=',$patient->id)
+          //                                 ->join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
+          //                                 ->join('hospitalisations','demandehospitalisations.id','=','hospitalisations.id_demande')
+          //                                 ->select('hospitalisations.id','hospitalisations.Date_entree','hospitalisations.Date_entree','hospitalisations.Date_Prevu_Sortie','hospitalisations.Date_Sortie','hospitalisations.id_demande')
+          //                                 ->get();
+         
+          $hospitalisations = hospitalisation::whereHas('admission.demandeHospitalisation.consultation.patient', function($q) use($id){
+                                                  $q->where('id', $id);
+                                              })->get(); 
+        
           $rdvs = rdv::all();
           return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations','homme_c'));
       }

@@ -11,6 +11,7 @@ use App\modeles\employ;
 use App\modeles\rdv_hospitalisation;
 use Illuminate\Support\Facades\Auth;
 use App\modeles\admission;
+use Jenssegers\Date\Date;
 class HospitalisationController extends Controller
 {
     /**
@@ -20,6 +21,8 @@ class HospitalisationController extends Controller
      */
     public function index()
     {
+         $employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
+        
         // $hospitalisations = consultation::join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
         //                                 ->join('hospitalisations','hospitalisations.id_demande','=','demandehospitalisations.id')
         //                                 ->select('demandehospitalisations.*','hospitalisations.*','consultations.Employe_ID_Employe',
@@ -28,18 +31,32 @@ class HospitalisationController extends Controller
 
         //
         //bouzidi en dessous
-         $hospitalisations = consultation::join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
-                        ->join('admissions','admissions.id_demande','=','demandehospitalisations.id')
-                        ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
-                         ->join('hospitalisations','hospitalisations.id_admission','=','admissions.id')
-                        ->join('lits','lits.id','=','admissions.id_lit')
-                        ->join('salles','salles.id','=','lits.salle_id')
-                        ->join('services','services.id','salles.id')
-                        ->select('hospitalisations.id as id_hospitalisation','admissions.id_lit','lits.num as num_lit','salles.nom as nom_salle','services.nom as nom_service','hospitalisations.*','patients.Nom','patients.Prenom')
-                            ->where("hospitalisations.etat_hosp","<>","validée")->get();
-                            //dd($hospitalisations);
+        //  $hospitalisations = consultation::join('demandehospitalisations','consultations.id','=',
+        //'demandehospitalisations.id_consultation')
+        //                 ->join('admissions','admissions.id_demande','=','demandehospitalisations.id')
+        //                 ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
+        //                  ->join('hospitalisations','hospitalisations.id_admission','=','admissions.id')
+        //                 ->join('lits','lits.id','=','admissions.id_lit')
+        //                 ->join('salles','salles.id','=','lits.salle_id')
+        //                 ->join('services','services.id','salles.id')
+        //                 ->select('hospitalisations.id as id_hospitalisation','admissions.id_lit','lits.num as num_lit',
+        //'salles.nom as nom_salle','services.nom as nom_service','hospitalisations.*','patients.Nom','patients.Prenom')
+        //                     ->where("hospitalisations.etat_hosp","<>","validée")->get();
+        //                     //dd($hospitalisations);
+        // $e=false;
+        // return view('Hospitalisations.index_hospitalisation', compact('hospitalisations','e'));  
+        // $admissions = admission::whereHas('demandeHospitalisation', function($q){
+        //                                         $q->where('etat', 'admise');
+        //
+        $ServiceID =   $ServiceID = $employe->Service_Employe;     
+        $hospitalisations = hospitalisation::whereHas('admission.demandeHospitalisation.Service',function($q) use($ServiceID){
+                                                  $q->where('id',$ServiceID);  
+                                            })->where('etat_hosp','<>','validée')->get();
+     
+        return view('Hospitalisations.index_hospitalisation', compact('hospitalisations','e'));
         $e=false;
-        return view('Hospitalisations.index_hospitalisation', compact('hospitalisations','e'));  
+
+       
     }
     /**
      * Show the form for creating a new resource.
@@ -59,19 +76,30 @@ class HospitalisationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {       
+    {   
+        $Date_entree = Date::Now(); 
         $rdvHospi =  rdv_hospitalisation::find($request->id_RDV);
-        $rdvHospi->etat_RDVh="valide";      
-        $rdvHospi->save();
-        $demande= demandehospitalisation::find(admission::find($request->id_ad)->id_demande);
-        $demande->etat = "admise";
-        $demande->save(); 
-        $a = hospitalisation::create([
-            "Date_entree"=>$rdvHospi->date_RDVh,
-            "Date_Prevu_Sortie"=>$rdvHospi->date_Prevu_Sortie,
-            "Date_Sortie"=>null,
-                "id_demande"=>$demande->id,
-        ]);
+        if( ($rdvHospi->date_RDVh == Date("Y-m-d")) && ($rdvHospi->heure_RDVh <= Date("H:i:00"))) 
+        { 
+            $rdvHospi->etat_RDVh = "valide"; 
+            $rdvHospi->save();
+            $rdvHospi->admission->demandeHospitalisation->setEtatAttribute("admise");
+            $rdvHospi->admission->demandeHospitalisation->save();  
+            $a = hospitalisation::create([
+                //"Date_entree"=>$rdvHospi->date_RDVh,
+                "Date_entree"=>$Date_entree,
+                "heure_entrée"=>Date("H:i:00"),
+                "Date_Prevu_Sortie"=>$rdvHospi->date_Prevu_Sortie,
+                "Heure_Prevu_Sortie"=>$rdvHospi->heure_Prevu_Sortie,
+                "Date_Sortie"=>null,
+                "id_admission"=>$rdvHospi->admission->id,
+                "etat_hosp"=>"en cours",
+            ]);
+        }
+    
+     
+        
+        
         return \Redirect::route('HomeController@index');
     }
 

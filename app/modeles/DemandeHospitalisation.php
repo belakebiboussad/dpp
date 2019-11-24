@@ -27,7 +27,7 @@ class DemandeHospitalisation extends Model
   }
    public function DemeandeColloque()
    {
-      return $this->hasMany('App\modeles\dem_colloque','id_demande');
+      return $this->hasOne('App\modeles\dem_colloque','id_demande');
 
    }
 

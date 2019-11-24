@@ -78,7 +78,8 @@
 						<strong>Medecin Traitant:</strong>
 					</label>
 					<div class="col-sm-9">
-						<input type="text" id="motif" name="motifhos" value="{{$demande[0]->medecin->Nom_Employe}} {{$demande[0]->medecin->Prenom_Employe}}"
+						<input type="text" id="motif" name="motifhos" value="{{$demande[0]->medecin->Nom_Employe}}
+																																 {{$demande[0]->medecin->Prenom_Employe}}"
 									 class="col-xs-10 col-sm-5" disabled/>
 					</div>	
 			  </div>

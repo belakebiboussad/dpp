@@ -2,28 +2,31 @@
 @section('title','Colloque')
 @section('page-script')
 <script type="text/javascript">
-var selectDemande =function(elm,line,id){ 
+var selectDemande =function(elm,line,id){
 	row = $(".bodyClass").find('tr').eq(line); 
 	var  select =  row.find("select");
 	if (select.val() == null) {
-	 	 select.attr('required', true);
-          		 select.after('<div class="red">Name is Required</div>');     
-            } else {
-            	checkbox = row.find("input[type=checkbox]");
+	  select.attr('required', true);
+   	select.after('<div class="red">Name is Required</div>');     
+  } else
+  {
+    checkbox = row.find("input[type=checkbox]");
 		row.find('select,textarea,input[type="radio"]:not(:checked)').each(function(){ $(this).attr('disabled', !(checkbox.is(':checked')));});
+		select.next().remove();	
 		if(!(checkbox.is(':checked')))
 		{
-		           $(elm).html('<i class="fa fa-close" style="font-size:14px"></i> Annuler');
-	 	          $(elm).removeClass("btn-success").addClass("btn-danger");
+		    $(elm).html('<i class="fa fa-close" style="font-size:14px"></i> Annuler');
+	 	    $(elm).removeClass("btn-success").addClass("btn-danger");
+
 		} 
 		else
 		{
-		           $(elm).html('<i class="ace-icon fa fa-check"></i>Valider');
-		           $(elm).removeClass("btn-danger").addClass("btn-success"); 
-	    	          row.find('textarea').val("");
+		    $(elm).html('<i class="ace-icon fa fa-check"></i>Valider');
+		    $(elm).removeClass("btn-danger").addClass("btn-success"); 
+	    	row.find('textarea').val("");
 		}
 		checkbox.prop('checked', !(checkbox.is(':checked')));	
-           }
+  }
 	
 }//endFunction
 jQuery(function() {
@@ -74,7 +77,7 @@ jQuery(function() {
 					<th class="text-center" width="10%"><h5><strong>Medcin traitant</strong></h5></th>
 			                          <th width="12%" class="text-center"><h5><strong>Priorité</strong></h5></th>
 					<th class="font-weight-bold text-center"><h5><strong>Observation</strong></h5></th>
-					<th class="detail-col  text-center">{{-- <h5> <strong>Actions</strong></h5> --}}</th>
+					<th class="detail-col  text-center"></th>
 				</tr>
 				</thead>
 				 <tbody id ="demandesBody" class="bodyClass">

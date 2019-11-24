@@ -204,9 +204,9 @@ class AdmissionController extends Controller
       $rdvHospitalisation = rdv_hospitalisation::whereHas('admission.demandeHospitalisation', function($q){
                                                            $q->where('etat', 'programme');
                                                  })
-                                                 ->whereHas('admission',function($q){
-                                                      $q->where('id_lit',null);       
-                                                 }) 
+                                                 // ->whereHas('admission',function($q){
+                                                 //      $q->where('id_lit',null);       
+                                                 // }) 
                                                  ->whereHas('admission.demandeHospitalisation.Service',function($q) use ($ServiceID){
                                                       $q->where('id',$ServiceID);       
                                                  })->where('etat_RDVh','=','en attente')->get();  

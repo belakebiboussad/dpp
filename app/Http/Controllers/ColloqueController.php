@@ -183,9 +183,9 @@ class ColloqueController extends Controller
            foreach ($request->valider as $key => $value) {
                     $priorite ="prop".$value;  $obs = "observation".$value; $medecin="MedT".$value;
                     $idmedecin = $request->$medecin; 
-                     $demande = DemandeHospitalisation::FindOrFail($value); 
-                     $demande->etat ="valide";
-                     $demande->save();
+                    $demande = DemandeHospitalisation::FindOrFail($value); 
+                    $demande->etat ="valide";
+                    $demande->save();
                     $dem = dem_colloque::create([
                             "id_colloque"=>$id,
                             "id_demande"=>$value,        

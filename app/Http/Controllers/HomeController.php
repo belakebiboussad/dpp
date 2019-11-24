@@ -44,7 +44,7 @@ class HomeController extends Controller
           $ServiceID = $employe->Service_Employe;
           switch ($role->role) {
                 case "Medecine":
-                     return view('patient.index_patient');
+                      return view('patient.index_patient');
                       break;
                 case "Receptioniste":
                       return view('home.home_recep');
@@ -96,15 +96,9 @@ class HomeController extends Controller
                       return view('colloques.liste_colloque', compact('colloque'));
                       break;
                 case "Admission":
-                    // $admissions = admission::join('rdv_hospitalisations','admissions.id','=','rdv_hospitalisations.id_admission')
-                    //             ->join('demandehospitalisations','admissions.id_demande','=','demandehospitalisations.id')
-                    //             ->select('admissions.id as id_admission',
-                    //                     'admissions.*','rdv_hospitalisations.*')->where('etat_RDVh','<>','validé')
-                    //             ->where('date_RDVh','=',date("Y-m-d"))->get();            
-                   
-                    $rdvs = rdv_hospitalisation::whereHas('admission.demandeHospitalisation', function($q){
-                                                           $q->where('etat', 'programme');
-                                                     })->where('etat_RDVh','=','en attente')
+                      $rdvs = rdv_hospitalisation::whereHas('admission.demandeHospitalisation', function($q){
+                                                  $q->where('etat', 'programme');
+                                                  })->where('etat_RDVh','=','en attente')
                                                        ->where('date_RDVh','=',date("Y-m-d"))->get(); 
 
                     return view('home.home_agent_admis', compact('rdvs'));

@@ -109,8 +109,35 @@
 
                     <b class="arrow"></b>
                 </li>
-            </ul>
-        </li>
+        </ul>
+    </li>
+    <li class="">
+        <a href="#" class="dropdown-toggle">
+            <i class="menu-icon fa fa-user-md"></i>
+            <span class="menu-text">Demanades</span>
+        </a>
+           <b class="arrow"></b>
+        <ul class="submenu">
+                 @php $x = 1 @endphp
+                <li class="">
+                    <a href="/listeDemanes/{{ $x }}">
+                        <i class="menu-icon fa fa-eye pink"></i>
+                        Demandes Médicaux
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+
+                <li class="">
+                    <a href="/listeDemanes/{{ ++$x }}">
+                        <i class="menu-icon fa fa-eye pink"></i>
+                        Demandes Chirurgicaux
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+        </ul>    
+        
+    </li>
     </ul> <!-- nav-list -->
   <br>
   <br>    

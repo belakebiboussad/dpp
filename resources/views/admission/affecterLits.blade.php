@@ -52,6 +52,7 @@
 							<th class="text-center" width="10%">Heure RDV</th>
 							<th width="12%" class="text-center"><h5><strong>Date Sortie Prévue</strong></h5></th>
 							<th class="detail-col  text-center"><h5><strong>Heure Sortie Prévue</strong></h5></th>
+							<th class="detail-col  text-center"></th>
 		       	</tr>
 		      </thead>
         <tbody id ="rendez-VousBody" class="bodyClass">
