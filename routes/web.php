@@ -68,6 +68,7 @@ Route::post('user/credentials','UsersController@credentials');
 Route::post('user/updatepro','UsersController@updatepro');
 Route::get('/atcd/store66/{message}','AntecedantsController@storeatcd');
 Route::get('/demandehosp/create/{id}','DemandeHospitalisationController@create');
+Route::get('/demandehosp/listedemandes/{type}','DemandeHospitalisationController@listedemandes');
 Route::get('/salle/create/{id}','SalleController@create');
 Route::get('/lit/create/{id}','LitsController@create');
 Route::get('/hospitalisation/create/{id}','HospitalisationController@create');
@@ -205,6 +206,8 @@ route::get('/showdemandeexb/{id}','DemandeExbController@show_demande_exb');
 Route::resource('demandeexr','DemandeExamenRadio'); 
 route::get('/showdemandeexr/{id}','DemandeExamenRadio@show_demande_exr');
 route::get('/affecterLit','AdmissionController@affecterLit');
+// ici
+
 // route with optonnel parameter
 Route::get('rendezVous/create/{id?}','RDVController@index');
 /************partie viste d'hospitalisation**************/

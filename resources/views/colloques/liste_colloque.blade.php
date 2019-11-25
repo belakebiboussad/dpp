@@ -36,7 +36,11 @@
 				<td> {{$col["dat"]}}</td>
 				<td>
 					@foreach($col["membres"] as $i=>$m)
-					<p class="text-primary">{{$col["membres"][$i]}}</p>@endforeach
+					<p class="text-primary">{{$col["membres"][$i]}}</p>
+					  @if(!($loop->last))
+							<hr>
+						@endif
+					@endforeach
 				</td>
 		  	<td>
 					<p class="text-primary">{{$col["creation"]}}</p>
@@ -45,8 +49,13 @@
 					<p class="text-primary">{{$col["Type"]}}</p>
 				</td>
 				<td>
-				      <p class="text-primary"><h4><span class="label label-sm label-success">{{$col["Etat"]}}</span></h4>
-				     @if($col["Etat"]=="en cours") <a href="{{route('colloque.edit',$cl)}}" class="btn btn-xs btn-green"><i class="ace-icon fa fa-edit bigger-120"></i>déroullement de colloque</a> @endif</p>
+				  <p class="text-primary"><h4><span class="label label-sm label-success">{{$col["Etat"]}}</span></h4>
+				     @if($col["Etat"]=="en cours")
+				     		<a href="{{route('colloque.edit',$cl)}}" class="btn btn-xs btn-green">
+				       		<i class="ace-icon fa fa-edit bigger-120"></i>edit
+				       	</a>
+				      @endif
+				     </p>
 				</td>	
 			</tr>
 			@endforeach

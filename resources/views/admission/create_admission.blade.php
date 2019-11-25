@@ -27,8 +27,8 @@
 @section('main-content')
 <div class="page-header">
 			<h1>
-				Ajouter Un RDV Hospitalisation pour   <strong>&laquo;{{$demande[0]->demandeHosp->consultation->patient->Nom}}
-				 {{$demande[0]->demandeHosp->consultation->patient->Prenom}}&raquo;</strong>
+				Ajouter Un RDV Hospitalisation pour <strong>&laquo;{{$demande->demandeHosp->consultation->patient->Nom}}
+				 {{$demande->demandeHosp->consultation->patient->Prenom}}&raquo;</strong>
 			</h1>
 </div><!-- /.page-header -->
 <div class="space-12"></div>
@@ -37,7 +37,7 @@
 	<div class="col-xs-12">
 		<form class="form-horizontal" id="RDVForm" role="form" method="POST" action="{{  route('admission.store') }}">
 			{{ csrf_field() }}
-			<input type="text" name="id_demande" value="{{$demande[0]->id_demande}}" hidden>
+			<input type="text" name="id_demande" value="{{$demande->id_demande}}" hidden>
 			<div class="page-header">
 				  	<h1>informations concernant l'hospitalisation</h1>
 			</div>
@@ -49,7 +49,7 @@
 					</label>
 					<div class="col-sm-9">
 						<input type="text" id="service" name="service" placeholder="nom du service"
-									 value="{{ $demande[0]->demandeHosp->Service->nom }}" class="col-xs-10 col-sm-5" disabled/>
+									 value="{{ $demande->demandeHosp->Service->nom }}" class="col-xs-10 col-sm-5" disabled/>
 					</div>	
    			</div>
    				<div class="col-xs-4">
@@ -57,7 +57,7 @@
 						<strong>Specialite :</strong>
 					</label>
 					<div class="col-sm-9">
-						<input type="text" id="motif" name="motifhos" value="{{$demande[0]->demandeHosp->Specialite->nom}}"
+						<input type="text" id="motif" name="motifhos" value="{{$demande->demandeHosp->Specialite->nom}}"
 									 class="col-xs-10 col-sm-5" disabled/>
 					</div>	
 				</div>
@@ -67,7 +67,7 @@
 					</label>
 					<div class="col-sm-9">
 						<input  type="text" id="motif" name="motifhos" placeholder="Mode d'admission"
-										value="{{ $demande[0]->modeAdmission }}" class="col-xs-10 col-sm-5" disabled/>
+										value="{{ $demande->modeAdmission }}" class="col-xs-10 col-sm-5" disabled/>
 					</div>	
    			</div>
    		</div><!-- row -->
@@ -78,8 +78,7 @@
 						<strong>Medecin Traitant:</strong>
 					</label>
 					<div class="col-sm-9">
-						<input type="text" id="motif" name="motifhos" value="{{$demande[0]->medecin->Nom_Employe}}
-																																 {{$demande[0]->medecin->Prenom_Employe}}"
+						<input type="text" id="motif" name="motifhos" value="{{$demande->medecin->Nom_Employe}} {{$demande->medecin->Prenom_Employe}}"
 									 class="col-xs-10 col-sm-5" disabled/>
 					</div>	
 			  </div>
@@ -91,15 +90,15 @@
 						<div class="control-group">
 							&nbsp; &nbsp;
 							<label>
-								<input name="priorite" class="ace" type="radio" value="1" disabled @if($demande[0]->ordre_priorite==1)checked="checked"@endif >
+								<input name="priorite" class="ace" type="radio" value="1" disabled @if($demande->ordre_priorite==1)checked="checked"@endif >
 										<span class="lbl"> 1 </span>
 									</label>&nbsp; &nbsp;
 							<label>
-								<input name="priorite" class="ace" type="radio" value="2" disabled @if($demande[0]->ordre_priorite==2)checked="checked"@endif>
+								<input name="priorite" class="ace" type="radio" value="2" disabled @if($demande->ordre_priorite==2)checked="checked"@endif>
 									<span class="lbl"> 2 </span>
 							</label>&nbsp; &nbsp;
 							<label>
-								<input name="priorite" class="ace" type="radio" value="3" disabled @if($demande[0]->ordre_priorite==3)checked="checked"@endif>
+								<input name="priorite" class="ace" type="radio" value="3" disabled @if($demande->ordre_priorite==3)checked="checked"@endif>
 								<span class="lbl"> 3 </span>
 							</label>
 						</div>
@@ -110,7 +109,7 @@
 						<strong>observation :</strong>
 					</label>
 					<div class="col-sm-9">
-						<input type="text" id="motif" name="motifhos" value="{{$demande[0]->observation}}" class="col-xs-10 col-sm-5" disabled/>
+						<input type="text" id="motif" name="motifhos" value="{{$demande->observation}}" class="col-xs-10 col-sm-5" disabled/>
 					</div>	
 				</div>
 			</div><!-- row -->

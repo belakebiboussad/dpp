@@ -1,2 +1,14 @@
 ignorer les salle sans lit libre 
 ignorer les service sans salles libre
+ajouter liste des damanes pour le delegués colloques
+
+
+
+   .etat_hosp","<>","validée"
+
+<i class="ace-icon fa fa-bed bigger-120"></i>
+
+Route::get('/demandehosp/listecons/{id}','PatientController@listecons');
+
+
+

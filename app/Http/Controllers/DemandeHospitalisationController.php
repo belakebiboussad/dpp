@@ -23,9 +23,8 @@ class DemandeHospitalisationController extends Controller
         $employeID= employ::where("id",Auth::user()->employee_id)->get()->first()->id ;           
         $demandehospitalisations = DemandeHospitalisation::whereHas('consultation.docteur', function ($q) use ($employeID) {
                         $q->where('id',$employeID);
-                    })->get();
-                          
-        return view('demandehospitalisation.index_demande',compact('demandehospitalisations'));
+                    })->get();                  
+        return view('demandehospitalisation.index',compact('demandehospitalisations'));
     }
 
     /**
@@ -126,4 +125,12 @@ class DemandeHospitalisationController extends Controller
     {
         //
     }
+    public function listedemandes($type)
+    {
+        $demandehospitalisations = DemandeHospitalisation::whereHas('Specialite.type', function ($q) use ($type) {
+                                           $q->where('id',$type);                           
+                                    })->where('etat','en attente')->get();                       
+        return view('demandehospitalisation.index',compact('demandehospitalisations'));
+    }
+  
 }

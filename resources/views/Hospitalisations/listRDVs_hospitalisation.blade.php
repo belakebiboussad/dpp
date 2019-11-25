@@ -55,8 +55,8 @@
 							<th class="font-weight-bold text-center"><h5><strong>Salle</strong></h5></th>
 							<th class="font-weight-bold text-center"><h5><strong>Service</strong></h5></th>
 						  <th width="12%" class="text-center"><h5><strong>Date Sortie Prévue</strong></h5></th>
-						   <th width="12%" class="text-center"><h5><strong>Heure Sortie Prévue</strong></h5></th>
-							<th class="detail-col  text-center"></th>
+						  <th width="12%" class="text-center"><h5><strong>Heure Sortie Prévue</strong></h5></th>
+							<th class="detail-col text-center"></th>
 		       	</tr>
 		      </thead>
         <tbody id ="rendez-VousBody" class="bodyClass">
@@ -64,8 +64,8 @@
 					@foreach( $rdvHospitalisation as $i=>$rdv)
 				  <tr>
 						<td hidden>{{$j}}</td>	
-				           	<td class="center">
-					  		<label class="pos-rel">{{-- 1 --}}
+				    <td class="center">
+					  		<label class="pos-rel">
 								<input type="checkbox" class="ace" name ="valider[]" value ="{{$rdv->id}}" />
 								<span class="lbl"></span>   
 					   		</label>
@@ -75,35 +75,37 @@
 					   	  {{$rdv->admission->demandeHospitalisation->consultation->patient->Nom }}
 								{{$rdv->admission->demandeHospitalisation->consultation->patient->Prenom }}	
 						</td>
-						<td>
+						<td class ="text-danger">
 							<strong>{{ $rdv->date_RDVh }}</strong>
 				    </td>
 						<td><strong>  {{ $rdv->heure_RDVh }}</strong></td>
-						
 						<td class="center">
 							 	@if(isset($rdv->admission->id_lit))	
-									<strong>{{ $rdv->admission->lit->nom }}</strong>
+									{{ $rdv->admission->lit->nom }}
 								@else
 									<strong>/</strong>
 								@endif		
 						</td>
 						<td>
 								@if(isset($rdv->admission->id_lit))	
-									<strong>{{ $rdv->admission->lit->salle->nom }}</strong>
+									{{ $rdv->admission->lit->salle->nom }}
 								@else
 									<strong>/</strong>
 								@endif		
-								<strong>{{ $rdv->nomsalle }}</strong>
+								{{ $rdv->nomsalle }}
 						</td>
 						<td>
 					  		@if(isset($rdv->admission->id_lit))	
-									<strong>{{ $rdv->admission->lit->salle->service->nom }}</strong>
+									{{ $rdv->admission->lit->salle->service->nom }}
 								@else
 									<strong>/</strong>
 								@endif	
 					  </td>
-					  <td class="center">
+					  <td class="center text-danger">
 							<strong>{{ $rdv->date_Prevu_Sortie }}</strong>
+					  </td>
+					  <td class="center text-danger">
+							<strong>{{ $rdv->heure_Prevu_Sortie }}</strong>
 					  </td>
 						<td class="center">
 							  <a href="{{ route('admission.edit',$rdv->id) }}" class="btn btn-success btn-xs aaaa"  title= "Reporer RDV" >

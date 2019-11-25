@@ -1,4 +1,4 @@
-@extends('app_recep')
+@extends('app')
 @section('main-content')
 <div class="page-header">
 	<h1>Détails De La Demande d'hospitalisation :</h1>
@@ -15,10 +15,13 @@
 								Détails :
 							</h3>
 							<div class="widget-toolbar hidden-480">
+								@if( Auth::user()->role->id == 1)
 								<a href="{{ route('demandehosp.index') }}">
 									<i class="ace-icon fa fa-hand-o-left"></i>
 									<strong>Liste Des Demandes</strong>
 								</a>
+								@endif
+								
 								&nbsp;&nbsp;&nbsp;
 								@if(Auth::User()->employee_id == $demande->Employe_ID_Employe)
 								<a href="{{ route('demandehosp.edit',$demande->id) }}">

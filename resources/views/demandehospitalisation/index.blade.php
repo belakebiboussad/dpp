@@ -1,4 +1,4 @@
-@extends('app_med')
+@extends('app')
 @section('main-content')
 <div class="page-header">
 	<h1>Liste Des Demande d'hospitalisation :</h1>
@@ -7,7 +7,7 @@
 	<div class="col-sm-12">
 		<div class="widget-box">
 			<div class="widget-header">
-				<h4 class="widget-title">Liste Des Demande d'hospitalisation :</h4>
+				<h4 class="widget-title">Liste Des Demande d'hospitalisation:</h4>
 			</div>
 			<br/>
 			<table id="simple-table" class="table  table-bordered table-hover">
@@ -33,7 +33,7 @@
 							<td>
 							@switch($demande->etat)
     							@case("en attente")
-        						<span class="label label-sm label-danger">
+        						<span class="label label-sm label-warning">
         						@break
          					@case("valide")
           					<span class="label label-sm label-primary">

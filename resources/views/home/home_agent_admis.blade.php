@@ -43,39 +43,39 @@
 				<tbody>
 						@foreach($rdvs as $rdv)
 						<tr>
-								<td style="display: none;">	<td style="display: none;">{{$rdv->admission->id_admission}}</td></td>
+								<td style="display: none;">{{$rdv->id_admission}}</td></td>
 								<td>
 									{{ $rdv->admission->demandeHospitalisation->consultation->patient->Nom }}
 								  {{ $rdv->admission->demandeHospitalisation->consultation->patient->Prenom }}
 								</td>
 								<td>
-								  @if(isset($rdv->admission->lit_id))
+								  @if(isset($rdv->admission->id_lit))
 											{{ $rdv->admission->lit->salle->service->nom }}
 								  @else
 									  	<strong>/</strong>
 								  @endif
 								</td>
 								<td>
-									@if(isset($rdv->admission->lit_id))
+									@if(isset($rdv->admission->id_lit))
 										 {{ $rdv->admission->lit->salle->nom }}
 									@else
 									 		<strong>/</strong>
 									@endif
 								</td>
 								<td>
-									@if(isset($rdv->admission->lit_id))
+									@if(isset($rdv->admission->id_lit))
 								 			{{ $rdv->admission->lit->num }}  
 									@else
 											<strong>/</strong>
 								 	@endif
 								</td>
 								<td>
-									<span  style="color: red;">
+									<span class ="text-danger">
 									<strong>{{ $rdv->date_RDVh }}</strong>
 									</span>
 								</td>
 								<td>
-										<span  style="color: red;">
+										<span class ="text-danger">
 											<strong>{{ $rdv->heure_RDVh }}</strong>
 										</span>
 								</td>
@@ -94,15 +94,21 @@
 			      						  <div class="modal-body">
 			        							<p>
 			        								<span  style="color: blue;">
-			        										<strong >{{ $rdv->admission->demandeHospitalisation->consultation->patient->Nom }}
+			        										<h3>
+			        												<strong >{{ $rdv->admission->demandeHospitalisation->consultation->patient->Nom }}
 			        														 {{ $rdv->admission->demandeHospitalisation->consultation->patient->Prenom }}
-			        										</strong>
+			        												</strong>
+			        										</h3>
 			        								</span>
 			        							</p>
+			        							<br>
 			        							<p>
-			        								le  &quot;<span  style="color: orange;"><strong>
-			        								{{ $rdv->date_RDVh }}</strong></span>&quot; à <span  style="color: red;">
-			        								<strong>{{Date("H:i:s")}}</strong></span></p>			
+			        								<h3>
+			        									le  &quot;<span  style="color: orange;"><strong>
+			        									{{ $rdv->date_RDVh }}</strong></span>&quot; &nbsp;à &nbsp;<span  style="color: red;">
+			        									<strong>{{Date("H:i:s")}}</strong></span>
+			        								</h3>
+			        							</p>			
 			        						</div>
 													<form id="hospitalisation" class="form-horizontal" role="form" method="POST"
 													  action="{{route('hospitalisation.store')}}">{{ csrf_field() }}

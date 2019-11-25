@@ -24,7 +24,7 @@
 								<th>Date Sortie Prévue</th>
 								<th>Date Sortie</th>
 								<th>Médecin</th>
-								<th></th>
+								<th><i class="ace-icon glyphicon glyphicon-signal"></i></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -35,15 +35,16 @@
 										{{ $hosp->admission->demandeHospitalisation->consultation->patient->Prenom }}
 									</td>
 									<td>{{ $hosp->admission->demandeHospitalisation->modeAdmission }}</td>
-									<td>{{ $hosp->Date_entree }}</td>
-								  <td>{{ $hosp->Date_Prevu_Sortie }}</td>
+									<td><span class ="text-danger">{{ $hosp->Date_entree }}</span></td>
+								  <td><span class ="text-danger">{{ $hosp->Date_Prevu_Sortie }}</span></td>
 							  	<td>{{ $hosp->Date_Sortie == null ? "Pas encore" : $hosp->Date_Sortie }}</td>
 							  	<td>
 							  		{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe }}
 							  		{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Prenom_Employe }}
 							  	</td>
 							  	<td>
-							  	  <button>Sortir</button>	
+							  	  <button><i class="ace-icon glyphicon glyphicon-share"> &nbsp;Sortir</i></button>
+
 							  	</td>	
 								</tr>
 							@endforeach

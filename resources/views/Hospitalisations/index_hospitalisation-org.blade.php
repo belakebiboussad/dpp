@@ -35,7 +35,7 @@
 									{{ App\modeles\patient::where("id",$hosp->Patient_ID_Patient)->get()->first()->Prenom }}
 								</td>
 								<td>{{ $hosp->motif }}</td>
-								<td>{{ $hosp->Date_entree }}</td>
+								<td><span class="text-danger">{{ $hosp->Date_entree }}</span></td>
 								<td>{{ $hosp->Date_Prevu_Sortie }}</td>
 								<td>{{ $hosp->Date_Sortie == null ? "Pas encore" : $hosp->Date_Sortie }}</td>
 								<td>

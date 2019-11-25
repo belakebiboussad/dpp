@@ -165,14 +165,14 @@
 
             <ul class="submenu">
 
-                <li class="">
+               <!--  <li class="">
                     <a href="#">
                         <i class="menu-icon fa fa-plus purple"></i>
                         Ajouter hospitalisation
                     </a>
 
                     <b class="arrow"></b>
-                </li>
+                </li> -->
 
                 <li class="">
                     <a href="{{route('demandehosp.index')}}">

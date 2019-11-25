@@ -44,7 +44,7 @@ class AdmissionController extends Controller
     public function create($id)
     {  
       
-      $demande = dem_colloque::where('dem_colloques.id_demande','=',$id)->get();
+      $demande = dem_colloque::where('dem_colloques.id_demande','=',$id)->first();
       $services = service::all();
       return view('admission.create_admission', compact('demande','services'));
     }
@@ -87,7 +87,7 @@ class AdmissionController extends Controller
                                 ->whereHas('demandeHosp',function ($q){
                                     $q->where('etat','valide'); 
                                 })->get();                       
-        return view('home.home_surv_med', compact('demandes'));    
+        return view('admission.index', compact('demandes'));    
     }
 
     /**
@@ -154,7 +154,8 @@ class AdmissionController extends Controller
       $rdvHospi->admission->demandeHospitalisation->setEtatAttribute("valide");
       $rdvHospi->admission->demandeHospitalisation->save();  
       $rdvHospi->admission->delete();
-      return true; 
+      $status = "true";
+      return $status;
     } 
     public function reporterRDV (Request $request,$rdv_id)
     {

@@ -39,25 +39,25 @@ class HomeController extends Controller
      */
     public function index()
     {
-          $role = rol::FindOrFail(Auth::user()->role_id);
+          $role =Auth::user()->role ;
           $employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
           $ServiceID = $employe->Service_Employe;
-          switch ($role->role) {
-                case "Medecine":
+          switch ($role->id) {
+                case 1:
                       return view('patient.index_patient');
                       break;
-                case "Receptioniste":
+                case 2:
                       return view('home.home_recep');
                       break;
-                case "Infermier":
+                case 3:
                       return view('home.home_infirmier');
                       break;
-              case "administrateur": 
+                case 4: 
                       $users = User::all();
                       return view('home.home_admin', compact('users'));
                       return view('user.listeusers', compact('users'));
                       break;
-               case "Surveillant medical":
+                case 5:
                       $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID) {
                                            $q->where('id',$ServiceID);                           
                                     })
@@ -66,7 +66,7 @@ class HomeController extends Controller
                                 })->get();
                      return view('home.home_surv_med', compact('demandes'));
                      break;
-                case "Delegue colloque":
+                case 6:
                       $colloque= array();
                       $colloques=colloque::join('membres','colloques.id','=','membres.id_colloque')
                                          ->join('employs','membres.id_employ','=','employs.id')
@@ -95,27 +95,23 @@ class HomeController extends Controller
                       
                       return view('colloques.liste_colloque', compact('colloque'));
                       break;
-                case "Admission":
+                case 9:
                       $rdvs = rdv_hospitalisation::whereHas('admission.demandeHospitalisation', function($q){
                                                   $q->where('etat', 'programme');
                                                   })->where('etat_RDVh','=','en attente')
-                                                       ->where('date_RDVh','=',date("Y-m-d"))->get(); 
-
-                    return view('home.home_agent_admis', compact('rdvs'));
+                                                    ->where('date_RDVh','=',date("Y-m-d"))->get(); 
+                      return view('home.home_agent_admis', compact('rdvs'));
                     break;       
-                case "Chef de service":
+                case 13:
                     $meds = medcamte::all();
                     $dispositifs = dispositif::all();
                     $reactifs = reactif::all();
                     return view('home.home_chef_ser', compact('meds','dispositifs','reactifs'));
-                case "Pharmacien":
+                case 10:
                     $meds = medcamte::all();
                     $dispositifs = dispositif::all();
                     $reactifs = reactif::all();
                     return view('home.home_pharmacien', compact('meds','dispositifs','reactifs'));
-                    break;
-                case "Receptioniste":
-                    return view('home.home_recep');
                     break;
                 default:
                    return view('errors.500');

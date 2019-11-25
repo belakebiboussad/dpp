@@ -10,23 +10,17 @@
         <script type="text/javascript">
             try{ace.settings.check('main-container' , 'fixed')}catch(e){}
         </script>
-        @yield('page-script')
-        @if( Auth::user()->role->id == 1)
-            @include('partials.sidebar_med')
-        @elseif( Auth::user()->role->id == 2)
+          @yield('page-script')
+        @if(App\modeles\rol::where("id",Illuminate\Support\Facades\Auth::user()->role_id)->first()->role == "reception")
             @include('partials.sidebar_rec')
-        @elseif(Auth::user()->role->id == 4)
+        @elseif(App\modeles\rol::where("id",Illuminate\Support\Facades\Auth::user()->role_id)->first()->role == "Medecine")
+            @include('partials.sidebar_med')
+        @elseif(App\modeles\rol::where("id",Illuminate\Support\Facades\Auth::user()->role_id)->first()->role == "administrateur")
             @include('partials.sidebar')
-        @elseif(Auth::user()->role->id == 5)
-            @include('partials.sidebar_sur')    
-        @elseif(Auth::user()->role->id == 6) 
-            @include('partials.sidebar_dele')      
-        @elseif(Auth::user()->role->id == 9)
-            @include('partials.sidebar_agent_admis')
-        @elseif(Auth::user()->role->id == 10)
-            @include('partials.sidebar_pharm')
-        @elseif(Auth::user()->role->id == 13)
-            @include('partials.sidebar_chef_ser')      
+        @elseif(App\modeles\rol::where("id",Illuminate\Support\Facades\Auth::user()->role_id)->first()->role == "surveillant médical")
+            @include('partials.sidebar_sur')
+        @elseif(App\modeles\rol::where("id",Illuminate\Support\Facades\Auth::user()->role_id)->first()->role == "Receptioniste")
+            @include('partials.sidebar_rec')    
         @endif
         <div class="main-content">
             <div class="main-content-inner">

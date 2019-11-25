@@ -85,10 +85,8 @@
     <li class="">
         <a href="#" class="dropdown-toggle">
             <i class="menu-icon fa fa-user-md"></i>
-                            <span class="menu-text">
-                                Colloques Cloturé
-                            </span>
-                <b class="arrow fa fa-angle-down"></b>
+            <span class="menu-text">Colloques Cloturé</span>
+            <b class="arrow fa fa-angle-down"></b>
         </a>
         <b class="arrow"></b>
         <ul class="submenu">
@@ -113,22 +111,23 @@
     </li>
     <li class="">
         <a href="#" class="dropdown-toggle">
-            <i class="menu-icon fa fa-user-md"></i>
-            <span class="menu-text">Demanades</span>
+            <!-- <i class="ace-icon glyphicon glyphicon-file md"></i>  -->
+            <i class="menu-icon fa fa-hospital-o"></i>
+            <span class="menu-text">Demanades Hosp</span>
         </a>
            <b class="arrow"></b>
         <ul class="submenu">
                  @php $x = 1 @endphp
                 <li class="">
-                    <a href="/listeDemanes/{{ $x }}">
-                        <i class="menu-icon fa fa-eye pink"></i>
-                        Demandes Médicaux
+                   
+                    <a href="/demandehosp/listedemandes/{{ $x }}">                 
+                         <i class="menu-icon fa fa-eye pink"></i>Demandes Médicaux
                     </a>
                     <b class="arrow"></b>
                 </li>
 
                 <li class="">
-                    <a href="/listeDemanes/{{ ++$x }}">
+                    <a href="/demandehosp/listedemandes/{{ ++$x }}">
                         <i class="menu-icon fa fa-eye pink"></i>
                         Demandes Chirurgicaux
                     </a>
