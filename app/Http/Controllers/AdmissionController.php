@@ -214,5 +214,9 @@ class AdmissionController extends Controller
 
       return view('admission.affecterLits', compact('rdvHospitalisation'));
     }
+    public function getAsmisssion($date)
+    {
+      return $date;
+    }
 
 }

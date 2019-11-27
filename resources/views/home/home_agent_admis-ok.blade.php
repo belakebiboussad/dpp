@@ -130,7 +130,8 @@
 	  function fetch_data(date)
 	  {
 	  	  var today = new Date();
-	  	  var currentday = today.getFullYear()+'-'+(today.getMonth() + 1).toString().padStart(2, "0")+'-'+today.getDate().toString().padStart(2, "0");
+	  	  var currentday = today.getFullYear()+'-'+(today.getMonth() + 1).toString().padStart(2, "0") + 
+	  	  																		 '-'+today.getDate().toString().padStart(2, "0");
 	  		var heure = today.getHours() + ':' + today.getMinutes();
 	  		$.ajax({
                   type :'get',

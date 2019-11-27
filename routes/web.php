@@ -86,7 +86,6 @@ Route::resource('admission','AdmissionController');
 //Route::get('getAdmissions','AdmissionController@getAdmissions');//->name('admissionsXHR')
 Route::get('/getAdmissions',function(Request $request){ 
     $date = Input::get('date'); //$msg = $request->date;
-    
     $admissions = App\modeles\admission::join('rdv_hospitalisations','admissions.id','=','rdv_hospitalisations.id_admission')
                               ->join('demandehospitalisations','admissions.id_demande','=','demandehospitalisations.id')
                               ->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')  
@@ -99,7 +98,7 @@ Route::get('/getAdmissions',function(Request $request){
                               ->where('etat_RDVh','<>','validé')->where('date_RDVh','=', $date)->get();            
 
     return Response::json(array(
-                   'data'   => $admissions
+        'data'   => $admissions
     ));
  });
 

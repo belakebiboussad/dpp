@@ -43,7 +43,7 @@
         						@break
         					@case("annule")
         						<span class="label label-sm label-danger">	
-        						@break	
+        					@break	
 							@endswitch	
 							{{ $demande->etat }}</span>
 							

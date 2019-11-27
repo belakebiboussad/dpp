@@ -1,4 +1,30 @@
 @extends('app_agent_admis')
+@section('page-script')
+<script type="text/javascript">
+function fetch_data(date)
+{
+	alert(date);
+  $.ajax({
+            type :'get',
+            url : '{{URL::to('getAdmissions')}}',
+            data:{'date':date},
+            success:function(result,status, xhr)
+            {
+               	var admissions = result['data']; 
+       				  $('#total_records').text(result['data'].length);
+            }
+  });
+}
+function getAdmissions()
+{
+	var date  = $("#currentday").val();
+	if(date != '')
+    fetch_data(date);
+  else
+   	console.log("date required");		
+}
+</script>
+@endsection
 @section('main-content')
 <div class="col-xs-12 widget-container-col" id="widget-container-col-2">
   <div class="panel-heading">
@@ -6,14 +32,17 @@
       <div class="col-md-5"></div>
       <div class="col-md-5">
   			<div class="input-group" data-provide="">
-   					 <input type="text" id ="currentday"class=" col-xs-12 col-sm-6 date-picker form-control" value="<?= date("Y-m-j") ?>">
-   						 <div class="input-group-addon">
-        						<span class="glyphicon glyphicon-th"></span>
-   						 </div>
+   				<input type="text" id ="currentday"class=" col-xs-12 col-sm-6 date-picker form-control" value="<?= date("Y-m-j") ?>">
+   				<div class="input-group-addon">
+        		<span class="glyphicon glyphicon-th"></span>
+   				</div>
 				</div>
   		</div>
       <div class="col-md-2">
-          <button type="button" name="filter" id="filter" class="btn btn-info btn-sm">Rechercher</button>
+        <button type="button" name="filter" id="filter" class="btn btn-info btn-sm"
+           onclick="getAdmissions();">
+          	<i class="fa fa-search"></i> &nbsp;Rechercher
+        </button>
           <!--  <button type="button" name="refresh" id="refresh" class="btn btn-warning btn-sm">Refresh</button> -->
       </div>
      </div>
@@ -81,7 +110,8 @@
 								</td>
 								<td>
 										<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $rdv->admission->id }}"
-										      	data-backdrop="false">confirmer l'entrée
+										      	data-backdrop="false">
+										      	<i class="fa fa-check"></i> &nbsp; confirmer
 										</button>
 										<!--model pop-up -->
 										<div id="{{ $rdv->admission->id }}" class="modal fade" role="dialog" aria-hidden="true">
