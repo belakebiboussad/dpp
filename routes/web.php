@@ -83,9 +83,15 @@ Route::resource('colloque','ColloqueController');
 Route::get('/listecolloques/{type}','ColloqueController@index');
 Route::get('/listecolloquesCloture/{type}','ColloqueController@getClosedColoques');
 Route::resource('admission','AdmissionController');
-//Route::get('getAdmissions','AdmissionController@getAdmissions');//->name('admissionsXHR')
-Route::get('/getAdmissions',function(Request $request){ 
-    $date = Input::get('date'); //$msg = $request->date;
+route::get('/annullerRDV/{id}','AdmissionController@annulerRDV');
+Route::get('/getAdmissions/{date}','AdmissionController@getAdmissions');//->name('admissionsXHR')
+// Route::get('/getAdmissions',function(Request $request){ 
+    
+//     $date = Input::get('date'); //$msg = $request->date;
+//     return Response::json(array(
+//         'data'   => $date
+//     ));
+    /* 
     $admissions = App\modeles\admission::join('rdv_hospitalisations','admissions.id','=','rdv_hospitalisations.id_admission')
                               ->join('demandehospitalisations','admissions.id_demande','=','demandehospitalisations.id')
                               ->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')  
@@ -100,7 +106,8 @@ Route::get('/getAdmissions',function(Request $request){
     return Response::json(array(
         'data'   => $admissions
     ));
- });
+    */
+ // });
 
 Route::resource('role','RolesController');
 Route::resource('ticket','ticketController');
@@ -129,7 +136,6 @@ Route::resource('medicaments','MedicamentsController');
 Route::resource('exclinique','ExamenCliniqueController');
 Route::resource('demandeproduit','demandeprodController');
 route::get('/getsalles/{id}','SalleController@getsalles');
-route::get('/annullerRDV/{id}','AdmissionController@annulerRDV');
 Route::post('/exclinique/store/{id}','ExamenCliniqueController@store');
 Route::get('/consultations/create/{id}','ConsultationsController@create');
 Route::get('/listcons','ConsultationsController@listecons');

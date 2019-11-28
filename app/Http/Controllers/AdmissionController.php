@@ -214,9 +214,29 @@ class AdmissionController extends Controller
 
       return view('admission.affecterLits', compact('rdvHospitalisation'));
     }
-    public function getAsmisssion($date)
+    public function getAdmissions($date)
     {
-      return $date;
-    }
+        /*
+        return Response::json(array(
+         'data'   => $date
+        ));
+        */
+        // $admissions = App\modeles\admission::join('rdv_hospitalisations','admissions.id','=','rdv_hospitalisations.id_admission')
+        //                       ->join('demandehospitalisations','admissions.id_demande','=','demandehospitalisations.id')
+        //                       ->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')  
+        //                       ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
+        //                       ->join('lits','lits.id','=','admissions.id_lit')
+        //                       ->join('salles','salles.id','=','lits.salle_id')
+        //                        ->join('services','services.id','=','salles.service_id')
+        //                       ->select('admissions.id as id_admission','admissions.*','rdv_hospitalisations.*',
+        //                         'patients.Nom','patients.Prenom','services.nom as nom_service','salles.nom as nom_salle','lits.num as num_lit')
+        //                       ->where('etat_RDVh','<>','validé')->where('date_RDVh','=', $date)->get();            
+        $admissions = rdv_hospitalisation::where('etat_RDVh','<>','validé')->where('date_RDVh','=', $date)->get(); 
+        return $admissions;
+        }
+        
+
+        
+ 
 
 }

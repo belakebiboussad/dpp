@@ -1,28 +1,28 @@
 @extends('app_agent_admis')
 @section('page-script')
 <script type="text/javascript">
-function fetch_data(date)
-{
-	alert(date);
-  $.ajax({
-            type :'get',
-            url : '{{URL::to('getAdmissions')}}',
-            data:{'date':date},
-            success:function(result,status, xhr)
-            {
-               	var admissions = result['data']; 
-       				  $('#total_records').text(result['data'].length);
-            }
-  });
-}
-function getAdmissions()
-{
-	var date  = $("#currentday").val();
-	if(date != '')
-    fetch_data(date);
-  else
-   	console.log("date required");		
-}
+	function getAdmissions(date)
+	{
+	  $.ajax({
+	           
+	            // url : '{{URL::to('getAdmissions')}}',
+	            url: '/getAdmissions/'+ $("#currentday").val(),
+	            type :'GET',
+	            // data:{'date':date},
+	            dataType: 'JSON',
+	            success:function(result,status, xhr)
+	            {
+	               if(result.length != 0){
+		             	  var admissions = $('#admis').empty();
+		             	  $.each(result,function(){
+		               					selectLit.append("<option value='"+this.id+"'>"+this.nom+"</option>");
+		             				});  	
+		             	}
+	       				  
+	            }
+	  });
+	}
+
 </script>
 @endsection
 @section('main-content')
@@ -40,7 +40,7 @@ function getAdmissions()
   		</div>
       <div class="col-md-2">
         <button type="button" name="filter" id="filter" class="btn btn-info btn-sm"
-           onclick="getAdmissions();">
+           onclick = "getAdmissions();">
           	<i class="fa fa-search"></i> &nbsp;Rechercher
         </button>
           <!--  <button type="button" name="refresh" id="refresh" class="btn btn-warning btn-sm">Refresh</button> -->
@@ -51,7 +51,7 @@ function getAdmissions()
 		<div class="widget-header">
 			<h5 class="widget-title bigger lighter">
 				<i class="ace-icon fa fa-table"></i>
-				Liste des admissions <b><span id="total_records"></span></b><!-- du jour  <strong>&quot;{{ Date('Y-m-d') }}&quot;	</strong> -->
+				Liste des admissions <b><span id="total_records" class = "badge badge-info numberResult" >{{ count($rdvs) }}</span></b><!-- du jour  <strong>&quot;{{ Date('Y-m-d') }}&quot;	</strong> -->
 			</h5>
 		</div>
 		<div class="widget-body">
@@ -69,7 +69,7 @@ function getAdmissions()
 						<th></th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id ="admis">
 						@foreach($rdvs as $rdv)
 						<tr>
 								<td style="display: none;">{{$rdv->id_admission}}</td></td>

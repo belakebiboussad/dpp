@@ -12,6 +12,7 @@ use App\modeles\consultation;
 use App\modeles\examenbiologique;
 use App\modeles\DemandeHospitalisation;
 use App\modeles\hospitalisation;
+use App\modeles\Specialite;
 use App\modeles\grade;
 use App\modeles\Commune;
 use App\Utils\ArrayClass;
@@ -221,9 +222,9 @@ class PatientController extends Controller
           $hospitalisations = hospitalisation::whereHas('admission.demandeHospitalisation.consultation.patient', function($q) use($id){
                                                   $q->where('id', $id);
                                               })->get(); 
-        
+          $specialites = Specialite::all();
           $rdvs = rdv::all();
-          return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations','homme_c'));
+          return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations','homme_c','specialites'));
       }
 
     /**

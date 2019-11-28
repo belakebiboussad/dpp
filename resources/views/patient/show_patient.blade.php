@@ -138,13 +138,13 @@
 										</div>
 									</div>
 									<div class="profile-info-row">
-										<div class="profile-info-name"> Télé mobile 1 </div>
+										<div class="profile-info-name"><i class="fa fa-phone"></i>Télé mobile 1 </div>
 										<div class="profile-info-value">
 											<span>{{ $patient->tele_mobile1 }}</span>
 										</div>
 									</div>
 									<div class="profile-info-row">
-										<div class="profile-info-name"> Télé mobile 2 </div>
+										<div class="profile-info-name"><i class="fa fa-phone"></i>Télé mobile 2 </div>
 										<div class="profile-info-value">
 											<span>{{ $patient->tele_mobile2 }}</span>
 										</div>
@@ -543,7 +543,6 @@
 			</div>
 		</div>
 	</div>
-
 	<!-- Modal ramzi-->
 	<div id="ticket" class="modal fade" role="dialog">
   		<div class="modal-dialog">
@@ -622,42 +621,10 @@
     						<div class="col-sm-12">
 								<label for="spesialite"><b>Spécialité</b></label>
 								<select class="form-control" id="spesialite" name="spesialite">
-									<option value="">--------</option>
-									<option value="Allergologie">Allergologie</option>
-									<option value="Anesthésiologie">Anesthésiologie</option>
-									<option value="Andrologie">Andrologie</option>
-									<option value="Cardiologie">Cardiologie</option>
-									<option value="Chirurgie">Chirurgie</option>
-									<option value="Dermatologie">Dermatologie</option>
-									<option value="Endocrinologie">Endocrinologie</option>
-									<option value="Gastro-entérologie">Gastro-entérologie</option>
-									<option value="Gynécologie">Gynécologie</option>
-									<option value="Hématologie">Hématologie</option>
-									<option value="Infectiologie">Infectiologie</option>
-									<option value="Médecine aiguë">Médecine aiguë</option>
-									<option value="Médecine générale">Médecine générale</option>
-									<option value="Médecine interne">Médecine interne</option>
-									<option value="Médecine nucléaire">Médecine nucléaire</option>
-									<option value="Médecine palliative">Médecine palliative</option>
-									<option value="Médecine physique">Médecine physique</option>
-									<option value="Médecine préventive">Médecine préventive</option>
-									<option value="Néonatologie">Néonatologie</option>
-									<option value="Néphrologie">Néphrologie</option>
-									<option value="Néonatologie">Néonatologie</option>
-									<option value="Neurologie">Neurologie</option>
-									<option value="Odontologie">Odontologie</option>
-									<option value="Oncologie">Oncologie</option>
-									<option value="Obstétrique">Obstétrique</option>
-									<option value="Ophtalmologie">Ophtalmologie</option>
-									<option value="Orthopédie">Orthopédie</option>
-									<option value="Oto-rhino-laryngologie">Oto-rhino-laryngologie</option>
-									<option value="Pédiatrie">Pédiatrie</option>
-									<option value="Pneumologie">Pneumologie</option>
-									<option value="Psychiatrie">Psychiatrie</option>
-									<option value="Radiologie">Radiologie</option>
-									<option value="Radiothérapie">Radiothérapie</option>
-									<option value="Rhumatologie">Rhumatologie</option>
-									<option value="Urologie">Urologie</option>
+									<option value="0">Selectionner la spécialité</option>
+									@foreach($specialites as $specialite)
+									<option value="{{ $specialite->id}}"> {{ $specialite->nom}}</option>
+									@endforeach
 								</select>
 							</div>
 							<br/><br/><br/><br/><br/><br/>
@@ -670,6 +637,7 @@
     					Générer un ticket
     				</button>
     				<button type="button" class="btn btn-default" data-dismiss="modal">
+    					<i class="ace-icon fa fa-plus bigger-110"></i>
     					Fermer
     				</button>
     			</div>

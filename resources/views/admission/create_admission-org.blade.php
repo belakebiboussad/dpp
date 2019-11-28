@@ -47,19 +47,18 @@
 			 $.ajax({
 			 		url : '/getlits/'+ $('#salle').val(),
 		       			type : 'GET',
-		            		dataType : 'json',
-		         			success : function(data){
-		         				console.log(data);
-		             	          		if(data.length != 0){
+		            dataType : 'json',
+		         		success : function(data){
+		         		   		if(data.length != 0){
 		             				var selectLit = $('#lit').empty();
-		                    				$.each(data,function(){
-		                    					selectLit.append("<option value='"+this.id+"'>"+this.nom+"</option>");
-		                    				});
-		                		     	}
-		               		     	else
-		                		     	{
-		                    			      selectLit.html('<option value="" selected disabled>Pas de Lit</option>');
-		                		     	}
+		             				$.each(data,function(){
+		               					selectLit.append("<option value='"+this.id+"'>"+this.nom+"</option>");
+		             				});
+		                 	}
+		                 	else
+		                 	{
+		            		      selectLit.html('<option value="" selected disabled>Pas de Lit</option>');
+		                 	}
 		            		},
 			 });
 		});
