@@ -119,6 +119,30 @@
                 </li>
             </ul>
         </li>
+          <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-hospital-o"></i>
+                            <span class="menu-text" data-toggle="tooltip" data-placement="top" title="hospitalisations du service">
+                                 Hospitalisations
+                            </span>
+
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+
+            <b class="arrow"></b>
+
+            <ul class="submenu">
+
+                <li class="">
+                    <a href="{{ route('hospitalisation.index') }}"  data-toggle="tooltip" data-placement="top" title=" Liste d'hospitalisation du service">
+                        <i class="menu-icon fa fa-eye pink"></i>
+                        Liste des Hospitalisations
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+            </ul>
+        </li>
         <li class="">
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-table"></i>
@@ -145,39 +169,6 @@
                     <a href="{{ route('rdv.index') }}">
                         <i class="menu-icon fa fa-eye pink"></i>
                         Liste RDV
-                    </a>
-
-                    <b class="arrow"></b>
-                </li>
-            </ul>
-        </li>
-        <li class="">
-            <a href="#" class="dropdown-toggle">
-                <i class="menu-icon fa fa-hospital-o"></i>
-                            <span class="menu-text">
-                                 Hospitalisation
-                            </span>
-
-                <b class="arrow fa fa-angle-down"></b>
-            </a>
-
-            <b class="arrow"></b>
-
-            <ul class="submenu">
-
-               <!--  <li class="">
-                    <a href="#">
-                        <i class="menu-icon fa fa-plus purple"></i>
-                        Ajouter hospitalisation
-                    </a>
-
-                    <b class="arrow"></b>
-                </li> -->
-
-                <li class="">
-                    <a href="{{route('demandehosp.index')}}">
-                        <i class="menu-icon fa fa-eye pink"></i>
-                        Liste hospitalisation
                     </a>
 
                     <b class="arrow"></b>
@@ -226,6 +217,30 @@
                     <a href="/choixpatvisite">
                         <i class="menu-icon fa fa-plus purple"></i>
                         Ajouter visite
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+            </ul>
+        </li>
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-hospital-o"></i>
+                            <span class="menu-text" data-toggle="tooltip" data-placement="top" title=" Demandes d'hospitalisation">
+                                 Demandes
+                            </span>
+
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+
+            <b class="arrow"></b>
+
+            <ul class="submenu">
+
+                <li class="">
+                    <a href="{{route('demandehosp.index')}}"  data-toggle="tooltip" data-placement="top" title=" Liste Demandes d'hospitalisation">
+                        <i class="menu-icon fa fa-eye pink"></i>
+                        Liste Demandes
                     </a>
 
                     <b class="arrow"></b>

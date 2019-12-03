@@ -20,9 +20,7 @@ class HospitalisationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-         $employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
-        
+    {       
         // $hospitalisations = consultation::join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
         //                                 ->join('hospitalisations','hospitalisations.id_demande','=','demandehospitalisations.id')
         //                                 ->select('demandehospitalisations.*','hospitalisations.*','consultations.Employe_ID_Employe',
@@ -48,12 +46,21 @@ class HospitalisationController extends Controller
         // $admissions = admission::whereHas('demandeHospitalisation', function($q){
         //                                         $q->where('etat', 'admise');
         //
-        $ServiceID =   $ServiceID = $employe->Service_Employe;     
-        $hospitalisations = hospitalisation::whereHas('admission.demandeHospitalisation.Service',function($q) use($ServiceID){
+        $role = Auth::user()->role;
+        if($role->id != 9)
+        {
+    
+            $ServiceID = Auth::user()->employ->Service_Employe;
+            $hospitalisations = hospitalisation::whereHas('admission.demandeHospitalisation.Service',function($q) use($ServiceID){
                                                   $q->where('id',$ServiceID);  
-                                            })->where('etat_hosp','<>','validée')->get();
-     
-        return view('Hospitalisations.index_hospitalisation', compact('hospitalisations','e'));
+                                               })->where('etat_hosp','=','en cours')->get();
+        }
+        else
+        {
+            $hospitalisations = hospitalisation::where('etat_hosp','=','en cours')->get();
+        }
+        
+        return view('Hospitalisations.index', compact('hospitalisations','e'));
         $e=false;
 
        
@@ -78,6 +85,7 @@ class HospitalisationController extends Controller
     public function store(Request $request)
     {   
         $Date_entree = Date::Now(); 
+        // dd($Date_entree);
         $rdvHospi =  rdv_hospitalisation::find($request->id_RDV);
         if( ($rdvHospi->date_RDVh == Date("Y-m-d")) && ($rdvHospi->heure_RDVh <= Date("H:i:00"))) 
         { 
@@ -85,7 +93,7 @@ class HospitalisationController extends Controller
             $rdvHospi->save();
             $rdvHospi->admission->demandeHospitalisation->setEtatAttribute("admise");
             $rdvHospi->admission->demandeHospitalisation->save();  
-            $a = hospitalisation::create([
+            hospitalisation::create([
                 //"Date_entree"=>$rdvHospi->date_RDVh,
                 "Date_entree"=>$Date_entree,
                 "heure_entrée"=>Date("H:i:00"),
@@ -95,11 +103,9 @@ class HospitalisationController extends Controller
                 "id_admission"=>$rdvHospi->admission->id,
                 "etat_hosp"=>"en cours",
             ]);
+
         }
-    
-     
-        
-        
+          
         return \Redirect::route('HomeController@index');
     }
 
@@ -177,4 +183,5 @@ class HospitalisationController extends Controller
         return view('home.home_surv_med', compact('demandes'));
 
     }
+
 }

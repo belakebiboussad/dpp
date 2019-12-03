@@ -204,39 +204,35 @@ class AdmissionController extends Controller
       $ServiceID = $employe->Service_Employe; 
       $rdvHospitalisation = rdv_hospitalisation::whereHas('admission.demandeHospitalisation', function($q){
                                                            $q->where('etat', 'programme');
-                                                 })
-                                                 // ->whereHas('admission',function($q){
-                                                 //      $q->where('id_lit',null);       
-                                                 // }) 
-                                                 ->whereHas('admission.demandeHospitalisation.Service',function($q) use ($ServiceID){
+                                              })->with([
+                                                'admission.demandeHospitalisation' => function($query) {
+                                                                         $query->select('modeAdmission');
+                                                }])
+                                                ->whereHas('admission.demandeHospitalisation.Service',function($q) use ($ServiceID){
                                                       $q->where('id',$ServiceID);       
-                                                 })->where('etat_RDVh','=','en attente')->get();  
-
+                                                 })->where('etat_RDVh','=','en attente')->with('admission.demandeHospitalisation')->get();  
+                   
       return view('admission.affecterLits', compact('rdvHospitalisation'));
     }
     public function getAdmissions($date)
     {
-        /*
-        return Response::json(array(
-         'data'   => $date
-        ));
-        */
-        // $admissions = App\modeles\admission::join('rdv_hospitalisations','admissions.id','=','rdv_hospitalisations.id_admission')
-        //                       ->join('demandehospitalisations','admissions.id_demande','=','demandehospitalisations.id')
-        //                       ->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')  
-        //                       ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
-        //                       ->join('lits','lits.id','=','admissions.id_lit')
-        //                       ->join('salles','salles.id','=','lits.salle_id')
-        //                        ->join('services','services.id','=','salles.service_id')
-        //                       ->select('admissions.id as id_admission','admissions.*','rdv_hospitalisations.*',
-        //                         'patients.Nom','patients.Prenom','services.nom as nom_service','salles.nom as nom_salle','lits.num as num_lit')
-        //                       ->where('etat_RDVh','<>','validé')->where('date_RDVh','=', $date)->get();            
-        $admissions = rdv_hospitalisation::where('etat_RDVh','<>','validé')->where('date_RDVh','=', $date)->get(); 
-        return $admissions;
+      $admissions = admission::join('rdv_hospitalisations','admissions.id','=','rdv_hospitalisations.id_admission')
+                            ->join('demandehospitalisations','admissions.id_demande','=','demandehospitalisations.id')
+                            ->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')  
+                            ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
+                            ->join('lits','lits.id','=','admissions.id_lit')
+                            ->join('salles','salles.id','=','lits.salle_id')
+                            ->join('services','services.id','=','salles.service_id')
+                            ->select('admissions.id as id_admission','admissions.*','demandehospitalisations.etat','rdv_hospitalisations.*','rdv_hospitalisations.id as idRDV',
+                                'patients.Nom','patients.Prenom','services.nom as nom_service','salles.nom as nom_salle','lits.num as num_lit')
+                            ->where('etat_RDVh','=','en attente')->where('date_RDVh','=', $date)->get();            
+        //$rdvs = rdv_hospitalisation::where('etat_RDVh','=','en attente')->where('date_RDVh','=', $date)->get(); 
+       
+        if (!empty($admissions)) {
+         return json_encode($admissions);
         }
-        
-
-        
+      }
+      
  
 
 }

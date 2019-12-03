@@ -77,7 +77,7 @@
                 </li>
 
                 <li class="#">
-                    <a href="{{ route('hospitalisation.index') }}">
+                    <a href="#">
                         <i class="menu-icon fa fa-minus pink"></i>
                         Sorties
                     </a>
@@ -85,7 +85,7 @@
                     <b class="arrow"></b>
                 </li>
                 <li class="">
-                    <a href="#">
+                    <a href="{{ route('hospitalisation.index') }}">
                         <i class="menu-icon fa fa-eye pink"></i>
                         Presents
                     </a>

@@ -16,14 +16,14 @@
 <script type="text/javascript">
 	  $('document').ready(function(){
 	           $('#example').DataTable({
-	  		"processing": true,
-     			"serverSide": false,
-     			"searching":false,
-	  		"scrollY":"420px",
-                    		"scrollCollapse": true,
-                    		"paging":false,
-                    		 "dom": 't',
-                    		"createdRow": function( row, data, dataIndex ) {
+	  		        "processing": true,
+     			      "serverSide": false,
+     			      "searching":false,
+	  	        	"scrollY":"420px",
+              	"scrollCollapse": true,
+              	"paging":false,
+                "dom": 't',
+              	"createdRow": function( row, data, dataIndex ) {
                         		if ( data[ 3 ] == "Inp" )
                             		$(row).css('color', 'green')
                         		else 

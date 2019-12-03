@@ -1,4 +1,4 @@
-@extends('app_sur')
+@extends('app')
 @section('main-content')
 	<div class="page-header">
 		<h1>
@@ -24,7 +24,7 @@
 								<th>Date Sortie Prévue</th>
 								<th>Date Sortie</th>
 								<th>Médecin</th>
-								<th><i class="ace-icon glyphicon glyphicon-signal"></i></th>
+								<th class="center"><em class="fa fa-cog"></em></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -43,8 +43,9 @@
 							  		{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Prenom_Employe }}
 							  	</td>
 							  	<td>
-							  	  <button><i class="ace-icon glyphicon glyphicon-share"> &nbsp;Sortir</i></button>
-
+							  	  @if(Auth::user()->role->id != 9)
+							  	  <button><i class="ace-icon glyphicon glyphicon-print">Ticket</i></button>
+							  	  @endif
 							  	</td>	
 								</tr>
 							@endforeach
