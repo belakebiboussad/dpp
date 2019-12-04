@@ -1160,6 +1160,10 @@ $('#typeexm').on('change', function() {
                                $('div#edit-password').addClass('in active');
                      }
             });
+            
+            function isEmpty(value) {
+              return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
+            }
             </script>
             
 

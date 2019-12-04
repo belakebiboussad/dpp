@@ -21,31 +21,7 @@ class HospitalisationController extends Controller
      */
     public function index()
     {       
-        // $hospitalisations = consultation::join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
-        //                                 ->join('hospitalisations','hospitalisations.id_demande','=','demandehospitalisations.id')
-        //                                 ->select('demandehospitalisations.*','hospitalisations.*','consultations.Employe_ID_Employe',
-        //                                          'Patient_ID_Patient')->get();
-        // return view('Hospitalisations.index_hospitalisation', compact('hospitalisations'));  
 
-        //
-        //bouzidi en dessous
-        //  $hospitalisations = consultation::join('demandehospitalisations','consultations.id','=',
-        //'demandehospitalisations.id_consultation')
-        //                 ->join('admissions','admissions.id_demande','=','demandehospitalisations.id')
-        //                 ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
-        //                  ->join('hospitalisations','hospitalisations.id_admission','=','admissions.id')
-        //                 ->join('lits','lits.id','=','admissions.id_lit')
-        //                 ->join('salles','salles.id','=','lits.salle_id')
-        //                 ->join('services','services.id','salles.id')
-        //                 ->select('hospitalisations.id as id_hospitalisation','admissions.id_lit','lits.num as num_lit',
-        //'salles.nom as nom_salle','services.nom as nom_service','hospitalisations.*','patients.Nom','patients.Prenom')
-        //                     ->where("hospitalisations.etat_hosp","<>","validée")->get();
-        //                     //dd($hospitalisations);
-        // $e=false;
-        // return view('Hospitalisations.index_hospitalisation', compact('hospitalisations','e'));  
-        // $admissions = admission::whereHas('demandeHospitalisation', function($q){
-        //                                         $q->where('etat', 'admise');
-        //
         $role = Auth::user()->role;
         if($role->id != 9)
         {

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class visite extends Model
 {
-    //
-	 public $timestamps = false;
-     protected $fillable  = ['id_visite','date_visite','heure_visite','id_hosp','id_employe'];
+  //
+	public $timestamps = false;
+  protected $fillable  = ['id_visite','date_visite','heure_visite','id_hosp','id_employe'];
 }

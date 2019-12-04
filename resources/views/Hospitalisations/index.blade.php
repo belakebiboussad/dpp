@@ -31,8 +31,15 @@
 							@foreach( $hospitalisations as $hosp)
 								<tr>
 									<td>
-										{{ $hosp->admission->demandeHospitalisation->consultation->patient->Nom }}
-										{{ $hosp->admission->demandeHospitalisation->consultation->patient->Prenom }}
+										@if(Auth::user()->role->id == 1)
+											<a href="/patient/{{ $hosp->admission->demandeHospitalisation->consultation->patient->id}}/edit">
+												{{ $hosp->admission->demandeHospitalisation->consultation->patient->Nom }}
+												{{ $hosp->admission->demandeHospitalisation->consultation->patient->Prenom }}
+											</a>
+											@else
+											{{ $hosp->admission->demandeHospitalisation->consultation->patient->Nom }}
+											{{ $hosp->admission->demandeHospitalisation->consultation->patient->Prenom }}
+										@endif
 									</td>
 									<td>{{ $hosp->admission->demandeHospitalisation->modeAdmission }}</td>
 									<td><span class ="text-danger">{{ $hosp->Date_entree }}</span></td>
@@ -44,7 +51,13 @@
 							  	</td>
 							  	<td>
 							  	  @if(Auth::user()->role->id != 9)
-							  	  <button><i class="ace-icon glyphicon glyphicon-print">Ticket</i></button>
+							  	  	
+							  	  	@if(Auth::user()->role->id == 1)
+							  	  		<a href="/visite/create/{{ $hosp->id }}" class ="btn btn-primary btn-xs"><i class="fa fa-plus"></i>&nbsp;Visit</a>
+							  	  	@endif
+							  	  	@if(Auth::user()->role->id == 5)
+							  	  		<a class="btn btn-secondary btn-xs"><i class="ace-icon glyphicon glyphicon-print">&nbsp;Ticket</i></a>
+							  	  	@endif			
 							  	  @endif
 							  	</td>	
 								</tr>
