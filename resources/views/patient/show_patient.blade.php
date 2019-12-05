@@ -558,7 +558,7 @@
     						<div class="col-xs-6">
     							<div class="form-group">
 									<label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-										<b> Nom </b>
+										<b> Nom: </b>
 									</label>
 									<div class="col-sm-9">
 										<label>{{ $patient->Nom }}</label>
@@ -568,7 +568,7 @@
     						<div class="col-xs-6">
     							<div class="form-group">
 									<label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-										<b> Prénom </b>
+										<b> Prénom: </b>
 									</label>
 									<div class="col-sm-9">
 										<label>{{ $patient->Prenom }}</label>
@@ -578,7 +578,7 @@
     						<div class="col-xs-6">
     							<div class="form-group">
 									<label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-										<b> Age </b>
+										<b> Age: </b>
 									</label>
 									<div class="col-sm-9">
 										<label>{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }} ans</label>
@@ -588,7 +588,7 @@
     						<div class="col-xs-6">
     							<div class="form-group">
 									<label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-										<b>Sexe</b>
+										<b>Sexe:</b>
 									</label>
 									<div class="col-sm-9">
 										<label>{{ $patient->Sexe =="M" ? "Masculin" : "Féminin" }}</label>
@@ -600,7 +600,7 @@
 							{{ csrf_field() }}
 							<input type="text" name="id_patient" value="{{ $patient->id }}" hidden>
     						<div class="col-sm-12">
-								<label for="typecons"><b>Type de consultation</b></label>
+								<label for="typecons"><b>Type de consultation:</b></label>
 								<select class="form-control" id="typecons" name="typecons">
 									<option value="">--------</option>
 									<option value="Normale">Normale</option>
@@ -609,7 +609,7 @@
 							</div>
 							<br/><br/><br/><br/>
     						<div class="col-sm-12">
-								<label for="document"><b>Document</b></label>
+								<label for="document"><b>Document:</b></label>
 								<select class="form-control" id="document" name="document">
 									<option value="">--------</option>
 									<option value="Rendez-vous">Rendez-vous</option>
@@ -619,7 +619,7 @@
 							</div>
 							<br/><br/><br/><br/>
     						<div class="col-sm-12">
-								<label for="spesialite"><b>Spécialité</b></label>
+								<label for="spesialite"><b>Spécialité:</b></label>
 								<select class="form-control" id="spesialite" name="spesialite">
 									<option value="0">Selectionner la spécialité</option>
 									@foreach($specialites as $specialite)

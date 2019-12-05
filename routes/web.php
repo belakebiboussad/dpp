@@ -156,6 +156,15 @@ Route::post('/createRDV','RDVController@AddRDV');
 Route::get('/rdv/valider/{id}','RDVController@valider');
 Route::get('/rdv/reporter/{id}','RDVController@reporter');
 Route::post('/rdv/reporte/{id}','RDVController@storereporte');
+//ici
+Route::get('/admission/imprimer/{rdv}', ['as' => 'admission.pdf', 'uses' => 'AdmissionController@print']);
+/*
+Route::get('/admission/imprimer/{id}',function(){
+    dd('dfsd');
+});
+*/
+
+
 Route::get('/choixpatient','RDVController@choixpatient');
 Route::get('/home', 'HomeController@index')->name('home');
 route::get('/getAddEditRemoveColumnData','UsersController@getAddEditRemoveColumnData');
@@ -211,7 +220,6 @@ route::get('/showdemandeexb/{id}','DemandeExbController@show_demande_exb');
 Route::resource('demandeexr','DemandeExamenRadio'); 
 route::get('/showdemandeexr/{id}','DemandeExamenRadio@show_demande_exr');
 route::get('/affecterLit','AdmissionController@affecterLit');
-// ici
 
 // route with optonnel parameter
 Route::get('rendezVous/create/{id?}','RDVController@index');

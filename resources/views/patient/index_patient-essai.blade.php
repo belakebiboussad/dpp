@@ -204,7 +204,7 @@ function setField(field,value)
 				
 		   	</div>
  		 </div>
-	</div>	{{-- col-sm-7	 --}}
+	</div>{{-- col-sm-7	 --}}
 {{-- 	<div class="col-sm-4 col-lg-4">
 		<div class="infobox infobox-green">
 		<div class="infobox-icon">
@@ -291,7 +291,7 @@ function setField(field,value)
 	      		</div>
 	      		<div class="modal-body">
 	        			<p class="center">
-					êtes-vous sûr de vouloir de vouloire merger les deux patients ?
+									êtes-vous sûr de vouloir de vouloire merger les deux patients ?
 	        			</p>
 	        			<p> <span  style="color: red;">
 	        			mergé les patient est permanent et ne  peut pas  étre refait !!

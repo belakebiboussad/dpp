@@ -14,7 +14,7 @@ use App\User;
 use App\modeles\dem_colloque;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-
+use PDF;
 class AdmissionController extends Controller
 {
     /**
@@ -176,7 +176,7 @@ class AdmissionController extends Controller
           $lit->save();
       }
       
-      //annuler Rendez-Vous
+      //annuler Rendez-Vous d'hospitalisation
       $rdvHospi->etat_RDVh="Annule";
       $rdvHospi->save();
       //créer une nouvelle admission
@@ -231,8 +231,20 @@ class AdmissionController extends Controller
         if (!empty($admissions)) {
          return json_encode($admissions);
         }
-      }
-      
+     }
+    //imprimer rdv d'hospitalisation  
+    public function print($id)
+    {
+     
+      $rdv = rdv_hospitalisation::FindOrFail($id);
+      $patient =  $rdv->admission->demandeHospitalisation->consultation->patient;
+      $t = Carbon::now();
+      $pdf = PDF::loadView('admission.rdv', compact('rdv','t'))->setPaper('a4','landscape');
+      $name = "rdv-".$rdv->admission->demandeHospitalisation->consultation->patient->Nom."-".$rdv->admission->demandeHospitalisation->consultation->patient->Prenom.".pdf";
+      return $pdf->stream($name);
+        
+ 
+    }   
  
 
 }

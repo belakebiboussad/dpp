@@ -32,9 +32,9 @@ class RDVController extends Controller
     }
     public function reporter($id)
     {
-           $rdv = rdv::FindOrFail($id);
-           $patient = patient::FindOrFail($rdv->Patient_ID_Patient);
-          return view('rdv.reporter_rdv',compact('rdv','patient'));
+      $rdv = rdv::FindOrFail($id);
+      $patient = patient::FindOrFail($rdv->Patient_ID_Patient);
+      return view('rdv.reporter_rdv',compact('rdv','patient'));
     }
     public function storereporte(Request $request,$id)
     {
@@ -321,8 +321,8 @@ class RDVController extends Controller
 
      }     
   
-      public function checkFullCalendar(Request $request)
-     {
+    public function checkFullCalendar(Request $request)
+    {
            $events = array(); 
            $today = Carbon::now()->format('Y-m-d');
            $rendezVous = rdv::all();
@@ -338,5 +338,4 @@ class RDVController extends Controller
            // return response()->json(['events' , $events]);
            return response()->json($events);
      }
-
 }

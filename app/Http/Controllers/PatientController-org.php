@@ -746,7 +746,7 @@ public function search(Request $request)
                                '<td>'.$patient->Sexe.'</td>'.
                                '<td>'.$age.'</td>'.
                                '<td>'.$patient->Type.'</td>'.
-                               '<td>'.'<a href="/patient/'.$patient->id.'" class="'.'btn btn-warning btn-sm"><i class="fa fa-hand-o-up fa-xs"></i>&nbsp;</a>'."&nbsp;&nbsp;".'<a href="/patient/'.$patient->id.'/edit" class="'.'btn btn-info btn-sm"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></a>'.'</td>'.
+                               '<td>'.'<a href="/patient/'.$patient->id.'" class="'.'btn btn-warning btn-xs"><i class="fa fa-hand-o-up fa-xs"></i>&nbsp;</a>'."&nbsp;&nbsp;".'<a href="/patient/'.$patient->id.'/edit" class="'.'btn btn-info btn-xs"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></a>'.'</td>'.
                                '</tr>'; 
                                 $i++;
                            }

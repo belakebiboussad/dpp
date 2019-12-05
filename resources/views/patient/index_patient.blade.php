@@ -105,14 +105,13 @@ var values = new Array();
 function doMerge()
 {
 	$.ajax({
-                     type : 'get',
-                      url : '{{URL::to('getPatientsToMerge')}}',
-                      data:{'search':values},
-                      success:function(data,status, xhr){
-                                $('#tablePatientToMerge').html(data.html);
-
-                     }
-           });
+            type : 'get',
+            url : '{{URL::to('getPatientsToMerge')}}',
+            data:{'search':values},
+            success:function(data,status, xhr){
+                $('#tablePatientToMerge').html(data.html);
+            }
+          });
 }
 function KeepCount() {
 	var n = $("input:checked").length;
@@ -246,10 +245,11 @@ function setField(field,value)
 					</div>
 		</div>
 	</div>{{-- col-sm-7 --}}
-		<br><br>
-		<div class="col-md-5 col-sm-5"  id="patientDetail">
-			
-		</div>
+	<div class="col-md-5 col-sm-5">
+	  <br><hr>
+		<div class="widget-box transparent" id="patientDetail">
+		</div>		
+	</div>
 </div>{{-- row --}}
 <div class="row">
 	<div  id="mergeModal" class="modal fade" role="dialog" aria-hidden="true"> 
