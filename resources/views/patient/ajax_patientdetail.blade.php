@@ -20,7 +20,8 @@
                      <tr>
                            	<td colspan="1" class ="noborders"><strong><strong>Né(e) le :</strong></strong></td>
                            	<td> {{ $patient->Dat_Naissance }}</td>
-                           	<td  colspan="1" class ="noborders"><strong>Né(e) a:</strong></td><td>{{ $patient->Lieu_Naissance }}</td>
+                           	<td  colspan="1" class ="noborders"><strong>Né(e) a:</strong></td>
+                            <td>{{ $patient->lieuNaissance->nom_commune }}</td>
                	     </tr>
          		     <tr>
                            <td colspan="1" class ="noborders"><strong>Sexe :</strong></td>

@@ -87,7 +87,7 @@
 						'<div class="list-group search-results-dropdown">'
 					],
 					suggestion: function(data) {
-						return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="show(\''+data.Id_wilaya+','+data.nom_wilaya+','+data.Id_commune+'\')">' + data.nom_commune+ '</div></div>'
+						return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="show(\''+data.Id_wilaya+','+data.nom_wilaya+','+data.id+'\')">' + data.nom_commune+ '</div></div>'
 					}
 					
 				}
@@ -343,7 +343,7 @@
 				</div>
 				<div class="col-sm-4" style="margin-top: -0.1%;">
 					<label><strong>Commune :</strong></label>
-					<input type="hidden" name="idcommune" id="idcommune" value="{{ $patient->commune->Id_commune}}"/>
+					<input type="hidden" name="idcommune" id="idcommune" value="{{ $patient->commune->id }}"/>
 					<input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}"/>					
 				</div>
 				<div class="col-sm-4">

@@ -52,7 +52,7 @@
 		         		   		if(data.length != 0){
 		             				var selectLit = $('#lit').empty();
 		             				$.each(data,function(){
-		               					selectLit.append("<option value='"+this.id+"'>"+this.nom+"</option>");
+		               				selectLit.append("<option value='"+this.id+"'>"+this.nom+"</option>");
 		             				});
 		                 	}
 		                 	else

@@ -92,16 +92,14 @@ function XHRgePatient()
 function getPatientdetail(id)
 {
 	$.ajax({
-           	      type : 'get',
-                            url : '{{ URL::to('patientdetail') }}',
-                            data:{'search':id},
-                            success:function(data1,status, xhr){
-                            	          $('#patientDetail').html(data1.html);
-                           }
-           });
+					url : '/patientdetail/'+id,
+		      type : 'GET',
+		      success:function(data1,status, xhr){
+		        $('#patientDetail').html(data1.html);
+          }	
+	});
 }
 var values = new Array();
-
 function doMerge()
 {
 	$.ajax({

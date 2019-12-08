@@ -119,7 +119,7 @@
 										<div class="profile-info-name"> Lieu Naissance </div>
 										<div class="profile-info-value">
 											<i class="fa fa-map-marker light-orange bigger-110"></i>
-											<span>{{ $patient->Lieu_Naissance }}</span>
+											<span>{{ $patient->lieuNaissance->nom_commune }}</span>
 										</div>
 									</div>
 									<div class="profile-info-row">

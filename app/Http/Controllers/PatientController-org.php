@@ -61,9 +61,10 @@ class PatientController extends Controller
      */
     public function store(Request $request)
     {
-             static $assurObj;
-             $date = Date::Now();
-             $rule = array(
+       
+        static $assurObj;
+        $date = Date::Now();
+        $rule = array(
                     "nom" => 'required',
                     "prenom" => 'required',
                     "datenaissance" => 'required|date|date_format:Y-m-d',
@@ -72,7 +73,7 @@ class PatientController extends Controller
                     "Type_p" =>'required_if:type,Ayant_droit',
                     //"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
                     "nomf" => 'required_if:type,Ayant_droit',
-                     "prenomf"=> 'required_if:type,Ayant_droit',
+                    "prenomf"=> 'required_if:type,Ayant_droit',
                      // "datenaissancef"=> 'required_if:type,Ayant_droit|date|date_format:Y-m-d',
                      "lieunaissancef"=> 'required_if:type,Ayant_droit',
                      "NMGSN"=> 'required_if:type,Ayant_droit',
@@ -87,30 +88,30 @@ class PatientController extends Controller
                      "date_piece_id"=>'required_with:nom_homme_c',
                      "mobile_homme_c"=>['required_with:nom_homme_c'],
                      "operateur_h"=>'required_with:mobileA',
-             );
-             // , 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'
-             $messages = [
-                     "required"         => "Le champ :attribute est obligatoire.",
-                      "NSSValide"    => 'le numéro du securite sociale est invalide ',
-                      "date"             => "Le champ :attribute n'est pas une date valide.",
+        );
+        // , 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'
+        $messages = [
+                    "required"     => "Le champ :attribute est obligatoire.",
+                    "NSSValide"    => 'le numéro du securite sociale est invalide ',
+                    "date"         => "Le champ :attribute n'est pas une date valide.",
              ];
-             $validator = Validator::make($request->all(),$rule,$messages);         
-             if ($validator->fails()) {
+        $validator = Validator::make($request->all(),$rule,$messages);         
+        if ($validator->fails()) {
                     $errors=$validator->errors(); 
                      return view('patient.addPatient')->withErrors($errors);
-             } 
-             if(patient::all()->isNotEmpty())
-             {
-                $nomb = patient::all()->last()->id;
-             }
-             else
-             {
-                   $nomb = 0;
-             }
-           if($request->type =="Ayant_droit")
-             {    
+        } 
+        if(patient::all()->isNotEmpty())
+        {
+          $nomb = patient::all()->last()->id;
+        }
+        else
+        {
+          $nomb = 0;
+        }
+        if($request->type =="Ayant_droit")
+        {    
                     //dd($request->all());
-                    $assurObj = assur::firstOrCreate([
+          $assurObj = assur::firstOrCreate([
                           "Nom"=>$request->nomf,
                           "Prenom"=>$request->prenomf,
                           "Date_Naissance"=>$request->datenaissancef,
@@ -142,7 +143,7 @@ class PatientController extends Controller
                                 "NMGSN"=>$request->nmgsnAss, 
                           ]);  
                     }
-      }
+        }
       $assurID= $assurObj !=null ? $assurObj->id : null;
      //  $codebarre =$request->sexe.$date->year."/".($nomb+1);
      $patient = patient::firstOrCreate([
@@ -150,7 +151,7 @@ class PatientController extends Controller
                 "Nom"=>$request->nom,
                 "Prenom"=>$request->prenom,
                 "Dat_Naissance"=>$request->datenaissance,
-                "Lieu_Naissance"=>$request->lieunaissance,
+                "Lieu_Naissance"=>$request->idlieunaissance,
                 "Sexe"=>$request->sexe,
                 "situation_familiale"=>$request->sf, 
                 "Adresse"=>$request->adresse,
@@ -192,11 +193,10 @@ class PatientController extends Controller
                     "mob"=>$request->operateur_h.$request->mobile_homme_c,
                    "created_by"=>Auth::user()->employee_id,
              ]);
-       //////////// $consultations=array();// $rdvs=array();// $hospitalisations = array();
       Flashy::success('Patient créer avec succés!');
        // return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations'));
-       return redirect(Route('patient.show',$patient->id));
-       //return redirect(Route('patient.show',$patient->id,true));
+       return redirect(Route('patient.show',$patient->id)); //return redirect(Route('patient.show',$patient->id,true));
+      
 
     }
 
@@ -211,14 +211,6 @@ class PatientController extends Controller
           $patient = patient::FindOrFail($id);
           $homme_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get()->first();
           $consultations = consultation::where('Patient_ID_Patient',$id)->get(); 
-       
-          // $hospitalisations = consultation::join('patients','consultations.Patient_ID_Patient','=','patients.id')
-          //                                 ->where('patients.id','=',$patient->id)
-          //                                 ->join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
-          //                                 ->join('hospitalisations','demandehospitalisations.id','=','hospitalisations.id_demande')
-          //                                 ->select('hospitalisations.id','hospitalisations.Date_entree','hospitalisations.Date_entree','hospitalisations.Date_Prevu_Sortie','hospitalisations.Date_Sortie','hospitalisations.id_demande')
-          //                                 ->get();
-         
           $hospitalisations = hospitalisation::whereHas('admission.demandeHospitalisation.consultation.patient', function($q) use($id){
                                                   $q->where('id', $id);
                                               })->get(); 
@@ -621,7 +613,7 @@ public function update(Request $request,$id)
                             "date_deliv"=>$request->date_piece_id,
                             "adresse"=>$request->adresse_h,
                             "mob"=>$request->mobile_h,
-                             "created_by"=>Auth::user()->employee_id,
+                            "created_by"=>Auth::user()->employee_id,
                     ]);
                 }
           }
@@ -758,32 +750,35 @@ public function search(Request $request)
     // {
     //        return patient::where('Nom', 'LIKE', '%'.$request->q.'%')->get();    
     // }
-public function getPatientDetails(Request $request)
-{
-     $patient = patient::FindOrFail($request->search);
-      if($patient->Type !="Autre")
-      {
-          $assure=  assur::FindOrFail($patient->Assurs_ID_Assure); 
-          $view = view("patient.ajax_patient_detail",compact('patient','assure'))->render();
-      }
-      else
-      {
-          $view = view("patient.ajax_patient_detail",compact('patient'))->render();
-      }
-       return response()->json(['html'=>$view]);
+public function getPatientDetails($id)
+{ 
+  $patient = patient::FindOrFail($id);
+  if($patient->Type !="Autre")
+  {
+    $assure=  assur::FindOrFail($patient->Assurs_ID_Assure); 
+    $view = view("patient.ajax_patient_detail",compact('patient','assure'))->render();
+  }
+  else
+  {
+    $view = view("patient.ajax_patient_detail",compact('patient'))->render();
+  }
+  return response()->json(['html'=>$view]);
 }
-    public function AutoCompletePatientname(Request $request)
+public function AutoCompletePatientname(Request $request)
+{
+  return patient::where('Nom', 'LIKE', '%'.trim($request->q).'%')->get();     
+}
+    public function AutoCompletePatientPrenom(Request $request)
     {
-         return patient::where('Nom', 'LIKE', '%'.trim($request->q).'%')->get();     
-    }
-     public function AutoCompletePatientPrenom(Request $request)
-     {
             return patient::where('Prenom', 'LIKE', '%'.trim($request->prenom).'%')->get();     
-     }
-       public function AutoCompleteCommune(Request $request)
+    }
+    public function AutoCompleteCommune(Request $request)
       {
-              return  Commune::select('communes.*','wilayas.*')->join('daira','communes.Id_daira','=','daira.Id_daira')->join('wilayas','daira.id_wilaya','=','wilayas.Id_wilaya')->where('nom_commune', 'LIKE', '%'.trim($request->com).'%')->get();
-              // 'communes.*','wilayas.*'  
+        return  Commune::select('communes.*','wilayas.*')
+                        ->join('daira','communes.Id_daira','=','daira.Id_daira')
+                        ->join('wilayas','daira.id_wilaya','=','wilayas.id')
+                        ->select('communes.*','wilayas.*','wilayas.id as Id_wilaya')
+                        ->where('nom_commune', 'LIKE', '%'.trim($request->com).'%')->get();
       }
      public function patientsToMerege(Request $request)
      {

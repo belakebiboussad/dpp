@@ -18,6 +18,30 @@
 			}, {
 				name: 'communenom',
 				source: bloodhound1,
+				display: function(data) {	//$("#wilaya").text(data.nom_wilaya)
+					return data.nom_commune  //Input value to be set when you select a suggestion. 
+				},
+				templates: {
+					empty: [
+						'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
+					],
+					header: [
+						'<div class="list-group search-results-dropdown">'
+					],
+					suggestion: function(data) {
+						return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="show(\''+data.Id_wilaya+','+data.nom_wilaya+','+data.id+'\')">' + data.nom_commune+ '</div></div>'
+					}
+					
+				}
+			});
+			///////////////autocomplete lieu de naissance
+			$('#lieunaissance').typeahead({
+				hint: true,
+				highlight: true,
+				minLength: 1
+			}, {
+				name: 'communenom',
+				source: bloodhound1,
 				display: function(data) {
 					//$("#wilaya").text(data.nom_wilaya)
 					return data.nom_commune  //Input value to be set when you select a suggestion. 
@@ -30,11 +54,13 @@
 						'<div class="list-group search-results-dropdown">'
 					],
 					suggestion: function(data) {
-						return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="show(\''+data.Id_wilaya+','+data.nom_wilaya+','+data.Id_commune+'\')">' + data.nom_commune+ '</div></div>'
+						return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="autocoplete(\''+data.id+'\')">' + data.nom_commune+ '</div></div>'
 					}
-					
-				}
+				}	
 			});
+
+
+			///////////////////////
 			$( ".civilite" ).change(function() {
 				 var sex =  $('input[name=sexe]:checked').val();
 				 if(sex == "F")
@@ -49,6 +75,10 @@
 			});
 
 		});
+		function autocoplete(commune)
+		{
+			 $("#idlieunaissance").val(commune);
+		}
 		function show(wilaya)
 		{
 			var res = wilaya.split(",");
@@ -168,8 +198,9 @@
 							<strong class="text-nowrap">Lieu de naissance :</strong>
 						</label>
 					<div class="col-sm-9">
-					<input type="text" id="lieunaissance" name="lieunaissance" placeholder="Lieu de naissance..."  autocomplete = "off" class="col-xs-12 col-sm-12" required/>
-					 {!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
+					  <input type="hidden" name="idlieunaissance" id="idlieunaissance">
+						<input type="text" id="lieunaissance" name="lieunaissance" placeholder="Lieu de naissance..." autocomplete = "on" class="col-xs-12 col-sm-12" required/>
+					 	{!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
 					</div>
 					</div>
 				</div>
@@ -265,7 +296,7 @@
 					<div class="col-sm-4" style="margin-top: -0.1%;">
 						<label><strong>Commune :</strong></label>
 						<input type="hidden" name="idcommune" id="idcommune">
-					         	<input type="text" value="" id="commune"  placeholder="commune..." />
+					  <input type="text" value="" id="commune"  placeholder="commune..." />
 					</div>
 					<div class="col-sm-4">
 					   <label><strong>Wilaya :</strong></label>

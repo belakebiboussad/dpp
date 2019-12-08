@@ -33,7 +33,7 @@
                                       <td colspan="1" class ="noborders"><strong><strong>Né(e) le :</strong></strong></td>
                                       <td align="left"> {{ $patient->Dat_Naissance }}</td>
                                       <td  colspan="1" class ="noborders"><strong>Né(e) a:</strong></td >
-                                      <td align="left">{{ $patient->Lieu_Naissance }}</td>
+                                      <td align="left">{{ $patient->lieuNaissance->nom_commune }}</td>
                                 </tr>
                                 <tr>
                                        <td colspan="1" class ="noborders"><strong>Sexe :</strong></td>
@@ -78,7 +78,8 @@
                                 <tr>
                                       <td colspan="1" class ="noborders"><strong><strong>Né(e) le :</strong></strong></td>
                                       <td> {{ $assure->Date_Naissance }}</td>
-                                      <td  colspan="1" class ="noborders"><strong>Né(e) a:</strong></td><td>{{ $assure->lieunaissance }}</td>
+                                      <td  colspan="1" class ="noborders"><strong>Né(e) a:</strong></td>
+                                      <td>{{ $assure->lieuNaissance->nom_commune }}</td>
                                 </tr>  
                                 <tr>
                                        <td colspan="1" class ="noborders"><strong>Sexe :</strong></td>

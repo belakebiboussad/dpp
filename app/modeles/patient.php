@@ -10,14 +10,20 @@ class patient extends Model
   	public function getAge(){	
     		return (Carbon::createFromDate(date('Y', strtotime($this->Dat_Naissance)), date('m', strtotime($this->Dat_Naissance)), date('d', strtotime($this->Dat_Naissance)))->age);
 	}
+	public function lieuNaissance()
+	{
+		if(isset($this->Lieu_Naissance))
+			return $this->belongsTo('App\modeles\Commune','Lieu_Naissance');
+	}
 	public function commune()
 	{
 		if(isset($this->commune_res))
-			return $this->belongsTo('App\modeles\Commune','commune_res','Id_commune');
+			return $this->belongsTo('App\modeles\Commune','commune_res');
 	}
 	public function wilaya()
 	{	
 		if(isset($this->wilaya_res))
-			return $this->belongsTo('App\modeles\Wilaya','wilaya_res','Id_wilaya');
+			return $this->belongsTo('App\modeles\Wilaya','wilaya_res');
 	}
+
 }

@@ -7,5 +7,5 @@ class Wilaya extends Model
 {
    public $timestamps = false;
     protected $table = 'wilayas';
-   protected $fillable = ['Id_wilaya','nom_wilaya','immatriculation_wilaya'];
+   protected $fillable = ['id','nom_wilaya','immatriculation_wilaya'];
 }

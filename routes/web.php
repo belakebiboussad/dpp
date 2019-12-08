@@ -204,7 +204,7 @@ Route::get('/userdetail', 'UsersController@getUserDetails');
 Route::get('/patients/find', 'PatientController@AutoCompletePatientname');
 Route::get('/patients/findprenom','PatientController@AutoCompletePatientPrenom');
 Route::get('/patients/findcom','PatientController@AutoCompleteCommune');
-Route::get('/patientdetail', 'PatientController@getPatientDetails');
+Route::get('/patientdetail/{id}', 'PatientController@getPatientDetails');
 Route::get('/serviceRooms', 'ServiceController@getRooms');
 Route::get('/getPatientsToMerge','PatientController@patientsToMerege');
 Route::post('/patient/merge','PatientController@merge');
