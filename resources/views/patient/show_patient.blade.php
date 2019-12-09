@@ -62,7 +62,7 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-3 center">
 								<span class="profile-picture">
-								<img class="editable img-responsive" alt="Alex's Avatar" id="avatar2" src="{{asset('/avatars/profile-pic.jpg')}}" />
+								<img class="editable img-responsive" alt="Avatar" id="avatar2" src="{{asset('/avatars/profile-pic.jpg')}}" />
 								</span>
 								<div class="space space-4"></div>
 								<a href="{{ route('patient.edit', $patient->id) }}" class="btn btn-sm btn-block btn-success">
@@ -104,9 +104,15 @@
 										</div>
 									</div>
 									<div class="profile-info-row">
-										<div class="profile-info-name">Date Naissance </div>
+										<div class="profile-info-name">né(e) le  </div>
 										<div class="profile-info-value">
 											<span>{{ $patient->Dat_Naissance }}</span>
+										</div>
+									</div>
+									<div class="profile-info-row">
+										<div class="profile-info-name">né(e) à </div>
+										<div class="profile-info-value">
+											<span>{{ $patient->lieuNaissance->nom_commune }}</span>
 										</div>
 									</div>
 									<div class="profile-info-row">

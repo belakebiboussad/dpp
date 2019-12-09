@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  Dim 08 déc. 2019 à 15:27
+-- Généré le :  lun. 09 déc. 2019 à 15:27
 -- Version du serveur :  5.7.23
 -- Version de PHP :  7.2.10
 
@@ -228,9 +228,8 @@ CREATE TABLE IF NOT EXISTS `assurs` (
   `Etat` varchar(50) NOT NULL,
   `NSS` varchar(15) DEFAULT NULL,
   `NMGSN` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_idcommune` (`lieunaissance`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `assurs`
@@ -240,7 +239,7 @@ INSERT INTO `assurs` (`id`, `Nom`, `Prenom`, `Date_Naissance`, `lieunaissance`, 
 (9, 'patient2', 'patient2', '2018-03-27', 650, 'M', 'sdfgsdf', 1, 'Agent civile', 'Retraité', 'ss', NULL),
 (12, 'malade', 'malade', '2018-03-28', 980, 'M', 'vfdvdv', 3, 'Agent civile', 'En exercice', '032564', NULL),
 (13, 'malade', 'malade', '2018-03-28', 850, 'M', 'vfdvdv', 7, 'Agent civile', 'En exercice', '032564', NULL),
-(14, 'malade1', 'malade1', '2017-11-19', 700, 'M', '013235', 3, 'Sécurité publique', 'En exercice', '03256424565', '5612488255'),
+(14, 'malade1', 'malade1', '2017-11-19', 613, 'M', '013235', 3, 'Sécurité publique', 'En exercice', '03256424565', '5612488255'),
 (15, 'mrid', 'mrid', '2018-03-16', 502, 'M', 'vfdv', 1, 'Agent civile', 'En exercice', '115', NULL),
 (16, 'malade', 'malade', '2018-03-26', 781, 'M', 'bsdfb', 3, 'Agent civile', 'En exercice', '557', NULL),
 (17, 'patient3', 'patient3', '2018-03-21', 356, 'M', ';gk;jkh', 4, 'Agent civile', 'Retraité', '554', NULL),
@@ -261,8 +260,6 @@ INSERT INTO `assurs` (`id`, `Nom`, `Prenom`, `Date_Naissance`, `lieunaissance`, 
 (34, 'x', 'd', '2018-05-23', 67, 'M', NULL, NULL, NULL, 'En exercice', NULL, NULL),
 (35, 'malade4', 'malade4', '2018-05-24', 52, 'M', '85694515', NULL, NULL, 'En exercice', '76 0330 0192 49', 'G1567256'),
 (36, 'assure', 'assure', '2018-05-18', 35, 'M', NULL, 1, NULL, 'En exercice', '58 1245 7898 49', '5ssf545'),
-(37, 'patient15', 'dghdh', '2018-12-30', 10, 'M', NULL, NULL, NULL, 'En exercice', '0136546+413', NULL),
-(38, 'hdfgh', 'dfghd', '2018-12-16', 56, 'M', NULL, NULL, NULL, 'En exercice', NULL, NULL),
 (39, 'patient5', 'patient5', '2014-05-26', 95, 'M', '85694520', NULL, NULL, 'En exercice', '14 1475 7575 60', NULL),
 (40, 'patient5', 'patient5', '2014-05-26', 9, 'M', '85694520', NULL, NULL, 'En exercice', '76 0330 0192 49', NULL),
 (41, 'patient15', 'patient15', '2011-06-21', 9, 'M', NULL, NULL, NULL, 'En exercice', '19021365412', NULL),
@@ -285,7 +282,11 @@ INSERT INTO `assurs` (`id`, `Nom`, `Prenom`, `Date_Naissance`, `lieunaissance`, 
 (58, 'patient1', 'patient2', '2015-09-06', 89, 'M', NULL, 4, NULL, 'En exercice', '14 1475 7575 12', NULL),
 (60, 'hgfhfgh', 'hfghfgh', '2016-05-22', 68, 'M', '525425422', 7, NULL, 'En exercice', NULL, '21546546313'),
 (61, 'hdfgh', 'hdfghd', '2018-11-12', 32, 'M', '545454465465464', 7, NULL, 'En exercice', NULL, '6564646466'),
-(62, 'belakebi', 'boussad', '2019-11-10', 36, 'M', NULL, 1, NULL, 'En exercice', 'qsssssssssss', NULL);
+(62, 'belakebi', 'boussad', '2019-11-10', 36, 'M', NULL, 1, NULL, 'En exercice', 'qsssssssssss', NULL),
+(64, 'hdfgh', 'hdfg', '2019-12-01', 1, 'M', NULL, 1, NULL, 'En exercice', 'gggggggggggg', NULL),
+(68, 'fqsd', 'fqds', '2019-12-01', 40, 'F', NULL, 1, NULL, 'En exercice', '465465454764', NULL),
+(69, 'assurer', 'assurer', '2017-07-10', 373, 'M', '013235', 1, NULL, 'En exercice', '032654549494', '5612488255'),
+(70, 'as', 'as', '2018-03-04', 613, 'M', '5633', 1, NULL, 'En exercice', '465465454764', '5612488255');
 
 -- --------------------------------------------------------
 
@@ -5283,7 +5284,7 @@ INSERT INTO `homme_confs` (`id`, `id_patient`, `nom`, `prénom`, `date_naiss`, `
 (12, 48, 'ami', 'ami', '1980-02-05', 'ami', 'CNI', '3546433', '1980-02-05', 'alger', '0562321254', 'actuel', '2019-02-27 06:39:24', '2019-02-27 06:39:59', 88, NULL),
 (13, 30, 'oncle1', 'oncle1', '2013-05-20', 'membre_famille', 'CNI', '3546433', '2013-05-20', 'alger16', '2561251554', 'actuel', '2019-02-27 10:00:11', '2019-02-27 10:15:04', 88, NULL),
 (14, 84, 'frere', 'frer', '2015-06-16', 'frère', 'CNI', '3215645646', '2015-06-16', 'fdgdfg', '0555555555', 'actuel', '2019-02-27 13:17:43', '2019-02-27 13:21:26', 88, NULL),
-(15, 26, 'papa', 'maman', '2017-08-15', 'père', 'CNI', '2123145646', '2019-02-26', 'alger', '0545646464', 'actuel', '2019-02-27 14:08:29', '2019-10-30 09:38:51', 88, NULL),
+(15, 26, 'papa', 'maman', '2017-08-15', 'père', 'CNI', '2123145646', '2017-08-15', 'alger', '0545646464', 'actuel', '2019-02-27 14:08:29', '2019-12-09 13:23:17', 88, NULL),
 (16, 31, 'papa', 'mama', '2016-06-14', 'mère', 'CNI', '2123145558', '2016-06-14', 'algr', '0555555555', 'actuel', '2019-02-28 07:31:26', '2019-11-04 14:52:12', 88, NULL);
 
 -- --------------------------------------------------------
@@ -10724,7 +10725,7 @@ CREATE TABLE IF NOT EXISTS `patients` (
   `Sexe` enum('M','F') DEFAULT NULL,
   `situation_familiale` varchar(255) DEFAULT NULL,
   `Adresse` varchar(100) DEFAULT NULL,
-  `commune_res` int(10) DEFAULT '1556',
+  `commune_res` int(11) DEFAULT '1556',
   `wilaya_res` int(10) NOT NULL DEFAULT '49',
   `tele_mobile1` varchar(10) NOT NULL,
   `tele_mobile2` varchar(10) DEFAULT NULL,
@@ -10741,16 +10742,16 @@ CREATE TABLE IF NOT EXISTS `patients` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `ID_Patient_UNIQUE` (`id`),
   KEY `Assurs_ID_Assure` (`Assurs_ID_Assure`) USING BTREE,
-  KEY `commune_res-FK` (`commune_res`)
-) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8;
+  KEY `commune_res` (`commune_res`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `patients`
 --
 
 INSERT INTO `patients` (`id`, `code_barre`, `Nom`, `Prenom`, `nom_jeune_fille`, `Dat_Naissance`, `Lieu_Naissance`, `Sexe`, `situation_familiale`, `Adresse`, `commune_res`, `wilaya_res`, `tele_mobile1`, `tele_mobile2`, `Profession`, `NSS`, `group_sang`, `rhesus`, `Assurs_ID_Assure`, `Type`, `Type_p`, `description`, `active`, `Date_creation`) VALUES
-(22, 'M2018/1', 'patient2', 'patient2', '', '2015-06-30', 17, 'M', 'celibataire', 'blida', 5, 1, '0554555441', '0664565656', NULL, NULL, 'A', '+', NULL, 'Autre', NULL, NULL, 1, '2019-02-27'),
-(26, 'M2018/23', 'malade5', 'malade5', '', '2017-12-03', 18, 'F', 'celibataire', 'cite 20 out bat 54 appt 02', 548, 15, '0725369514', '0568951432', 'etudiant', '760231579248', 'B', '+', 14, 'Ayant_droit', 'Ascendant', '', 1, '2019-10-30'),
+(22, 'M2018/1', 'patient2', 'patient2', '', '2015-06-30', 17, 'M', 'celibataire', 'blida', 5, 1, '0554555441', '0664565656', NULL, NULL, 'A', '+', 69, 'Ayant_droit', 'Descendant', '', 1, '2019-12-09'),
+(26, 'M2018/23', 'malade5', 'malade5', '', '2017-12-03', 496, 'F', 'celibataire', 'cite 20 out bat 54 appt 02', 548, 15, '0725369514', '0568951432', 'etudiant', '760231579248', 'B', '+', 14, 'Ayant_droit', 'Ascendant', '', 1, '2019-12-09'),
 (30, 'M2018/28', 'patient1', 'patient2', '', '2015-09-06', 13, 'M', 'celibataire', 'cite 5 juillet', 570, 16, '0566115555', '0656646464', 'macon', NULL, 'A', '-', 58, 'Assure', NULL, '', 1, '2019-03-03'),
 (31, 'F2018/31', 'malade', 'ma2', '', '2014-05-19', 456, 'M', 'celibataire', 'alger', 1556, 49, '0558596231', '0569891554', NULL, NULL, 'A', '+', NULL, 'Autre', NULL, NULL, 1, '2019-11-04'),
 (37, 'M2018/36', 'Assurer', 'Assurer', '', '2018-03-07', 897, 'M', 'celibataire', 'alger', 1556, 49, '0555555555', '66666614', NULL, NULL, 'A', '+', 26, 'Assure', NULL, '', 1, '2019-02-27'),
@@ -10765,8 +10766,8 @@ INSERT INTO `patients` (`id`, `code_barre`, `Nom`, `Prenom`, `nom_jeune_fille`, 
 (54, 'M2019/54', 'patient5', 'patient5', '', '2014-05-26', 555, 'M', 'marie', 'alger', 1556, 49, '0555555555', '0666666666', NULL, '76 0330 0192 49', 'A', '+', 40, 'Assure', 'Ascendant', 'fgdf', 1, '2019-02-06'),
 (55, 'M2019/55', 'patient15', 'patient15', '', '2011-06-21', 235, 'M', 'marie', 'alger', 1556, 49, '0555555555', '', NULL, NULL, 'B', '+', 41, 'Assure', NULL, NULL, 1, '2019-02-05'),
 (56, 'M2019/56', 'patient16', 'patient16', 'malade16', '2007-02-13', 999, 'M', 'marie', 'alge', 1556, 49, '0555555555', '0666666666', NULL, NULL, 'A', '+', NULL, 'Autre', NULL, 'derogation', 1, '2019-02-07'),
-(57, 'M2019/57', 'patient17', 'patient17', 'hfg', '2019-02-07', 254, 'M', 'celibataire', 'dhfh', 1556, 49, '0555555555', '', NULL, NULL, 'A', '+', NULL, 'Autre', NULL, 'dfhdf', 1, '2019-02-07'),
-(58, 'M2019/58', 'patient18', 'patient18', 'dfh', '2002-07-02', 265, 'M', 'marie', 'hdhdfh', 1556, 49, '0555555555', '', NULL, NULL, 'A', '-', NULL, 'Autre', NULL, 'dfhdfg', 1, '2019-02-07'),
+(57, 'M2019/57', 'patient17', 'patient17', 'hfg', '2019-02-07', 254, 'M', 'celibataire', 'dhfh', 1556, 49, '0555555555', '', NULL, NULL, 'A', '+', 70, 'Ayant_droit', NULL, 'dfhdf', 1, '2019-12-09'),
+(58, 'M2019/58', 'patient18', 'patient18', 'dfh', '2002-07-02', NULL, 'M', 'marie', 'hdhdfh', 2, 2, '0555555555', '0666666666', NULL, NULL, 'A', '-', NULL, 'Autre', NULL, 'dfhdfg', 1, '2019-12-09'),
 (59, 'M2019/59', 'patient18', 'patient18', 'sdfg', '2010-05-24', 695, 'M', 'marie', 'alger', 1556, 49, '0552555555', '', NULL, NULL, 'A', '+', NULL, 'Autre', NULL, 'sdfg', 1, '2019-02-07'),
 (60, 'M2019/60', 'patient18', 'patient18', NULL, '1990-01-15', 114, 'M', 'marie', 'blida', 1556, 49, '0556988747', '', NULL, '12 4569 1235 56', 'A', '+', NULL, 'Ayant_droit', 'Ascendant', NULL, 1, '2019-02-07'),
 (61, 'F2019/61', 'patient22', 'patient22', NULL, '2007-11-29', 1354, 'F', 'marie', 'alger', 1556, 49, '0556891452', '0685693214', NULL, NULL, 'A', '-', 42, 'Assure', NULL, NULL, 1, '2019-02-25'),
@@ -10774,7 +10775,7 @@ INSERT INTO `patients` (`id`, `code_barre`, `Nom`, `Prenom`, `nom_jeune_fille`, 
 (63, 'F2019/63', 'patient24', 'patient24', NULL, '2002-06-11', 85, 'F', 'marie', 'alge', 1556, 49, '0506563232', '0606513216', NULL, NULL, 'B', '+', 44, 'Assure', NULL, NULL, 1, '2019-02-26'),
 (64, 'F2019/64', 'patient24', 'patient24', NULL, '1944-06-20', 102, 'F', 'marie', 'alger', 1556, 49, '0665632235', '', NULL, NULL, 'B', '+', 45, 'Assure', NULL, NULL, 1, '2019-02-26'),
 (65, 'F2019/65', 'patient24', 'patient24', NULL, '1937-10-26', 1540, 'F', 'marie', 'alger', 1556, 49, '0555555555', '', NULL, NULL, 'A', '+', 46, 'Assure', NULL, NULL, 1, '2019-02-26'),
-(66, 'F2019/66', 'patient24', 'patient24', NULL, '1980-02-12', 160, 'F', 'marie', 'alger', 1556, 0, '0665633232', '', NULL, NULL, 'A', '-', 47, 'Assure', NULL, NULL, 1, '2019-02-26'),
+(66, 'F2019/66', 'patient24', 'patient24', NULL, '1980-02-12', 160, 'F', 'marie', 'alger', 1556, 17, '0665633232', '', NULL, NULL, 'A', '-', 47, 'Assure', NULL, NULL, 1, '2019-02-26'),
 (67, 'F2019/67', 'patient23', 'patient23', NULL, '1989-01-09', 150, 'F', 'marie', 'cite mohammed belouezdad bat 69 apt:56', 1556, 49, '0555555555', '', NULL, NULL, 'B', '-', 48, 'Assure', NULL, NULL, 1, '2019-02-26'),
 (68, 'F2019/68', 'patient23', 'patient23', NULL, '1989-01-09', 170, 'F', 'marie', 'cite belouazdar bat 05 apt 45', 1556, 49, '0555555555', '', NULL, NULL, 'B', '-', 48, 'Assure', NULL, NULL, 1, '2019-02-26'),
 (69, 'F2019/69', 'patient23', 'patient23', NULL, '1984-06-26', 180, 'F', 'marie', 'alger', 1556, 49, '0556532326', '', NULL, NULL, 'B', '+', 49, 'Assure', NULL, NULL, 1, '2019-02-26'),
@@ -10794,10 +10795,11 @@ INSERT INTO `patients` (`id`, `code_barre`, `Nom`, `Prenom`, `nom_jeune_fille`, 
 (83, 'M2019/83', 'pdfgd', 'gsdfg', NULL, '2019-02-14', 220, 'M', 'veuf', 'dfgdfg', 1556, 49, '0534563453', '', NULL, '654345636535', 'AB', '-', 60, 'Ayant_droit', 'Ascendant', NULL, 1, '2019-02-27'),
 (84, 'M2019/84', 'bxfg', 'hhfghdf', NULL, '2019-01-27', 230, 'M', 'marie', 'dfghdfghd', 1556, 49, '0554565444', '0556456464', NULL, '163546546466', 'B', '-', 61, 'Ayant_droit', 'Ascendant', '', 1, '2019-02-27'),
 (85, 'M2019/85', 'nfgn', 'nfgn', NULL, '2019-02-18', 240, 'M', 'marie', 'nfgn', 613, 16, '0555555555', '', NULL, NULL, 'A', '+', NULL, 'Autre', NULL, NULL, 1, '2019-02-28'),
-(86, '0201986', 'hrth', 'hrth', NULL, '2019-03-12', 250, 'F', 'marie', 'hrth', 3, 1, '0555555555', '', NULL, NULL, 'A', '-', NULL, 'Autre', NULL, 'sdfdsf', 1, '2019-03-13'),
+(86, '0201986', 'hrth', 'hrth', NULL, '2019-03-12', 250, 'F', 'marie', 'hrth', 17, 1, '0555555555', '', NULL, NULL, 'A', '-', NULL, 'Autre', NULL, 'sdfdsf', 1, '2019-03-13'),
 (87, 'M2019/87', 'sg', 'gsdfg', NULL, '2016-06-14', 260, 'M', 'marie', 'gsdfg', 423, 13, '0555555555', '', NULL, NULL, 'AB', '-', NULL, 'Autre', NULL, 'gsdfg', 1, '2019-03-13'),
 (88, '0201988', 'dfh', 'dfgh', NULL, '2019-03-11', 270, 'M', 'celibataire', 'hdfg', 1556, 49, '0555555555', '', NULL, NULL, 'B', '+', NULL, 'Autre', NULL, 'jjfghj', 1, '2019-03-13'),
-(89, '0201989', 'belakebi', 'boussad', NULL, '2019-11-10', 498, 'M', 'marie', 'bab', 591, 16, '0554123295', '', NULL, NULL, NULL, NULL, 62, 'Assure', NULL, NULL, 1, '2019-12-08');
+(89, '0201989', 'belakebi', 'boussad', NULL, '2019-11-10', 498, 'M', 'marie', 'bab', 591, 16, '0554123295', '', NULL, NULL, NULL, NULL, 62, 'Assure', NULL, NULL, 1, '2019-12-08'),
+(94, '0201994', 'fqsd', 'fqds', NULL, '2019-12-01', 40, 'F', 'celibataire', 'erf', 18, 1, '0555555555', '0666666666', NULL, NULL, 'B', NULL, 68, 'Assure', NULL, '', 1, '2019-12-09');
 
 -- --------------------------------------------------------
 
@@ -11299,6 +11301,75 @@ INSERT INTO `wilayas` (`id`, `nom_wilaya`, `immatriculation_wilaya`) VALUES
 (5, 'Batna', 5),
 (6, 'Béjaia', 6),
 (7, 'Biskra', 7),
+(8, 'Béchar', 8),
+(9, 'Blida', 9),
+(10, 'Bouira', 10),
+(11, 'Tamanrasset', 11),
+(12, 'Tébessa', 12),
+(13, 'Tlemcen', 13),
+(14, 'Tiaret', 14),
+(15, 'Tizi Ouzou', 15),
+(16, 'Alger', 16),
+(17, 'Djelfa', 17),
+(18, 'Jijel', 18),
+(19, 'Sétif', 19),
+(20, 'Saida', 20),
+(21, 'Skikda', 21),
+(22, 'Sidi Bel AbbÃ¨s', 22),
+(23, 'Annaba', 23),
+(24, 'Guelma', 24),
+(25, 'Constantine', 25),
+(26, 'Médèa', 26),
+(27, 'Mostaganem', 27),
+(28, 'M\'Sila', 28),
+(29, 'Mascara', 29),
+(30, 'Ouargla', 30),
+(31, 'Oran', 31),
+(32, 'El Bayadh', 32),
+(33, 'Illizi', 33),
+(34, 'Bordj Bou Arreridj', 34),
+(35, 'Boumerdès', 35),
+(36, 'El Tarf', 36),
+(37, 'Tindouf', 37),
+(38, 'Tissemsilt', 38),
+(39, 'El Oued', 39),
+(40, 'Khenchela', 40),
+(41, 'Souk Ahras', 41),
+(42, 'Tipaza', 42),
+(43, 'Mila', 43),
+(44, 'Ain Defla', 44),
+(45, 'Naâma', 45),
+(46, 'Ain Témouchent', 46),
+(47, 'Ghardaia', 47),
+(48, 'Relizane', 48),
+(49, 'Autre', 49);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `wilayas-old`
+--
+
+DROP TABLE IF EXISTS `wilayas-old`;
+CREATE TABLE IF NOT EXISTS `wilayas-old` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nom_wilaya` varchar(255) DEFAULT NULL,
+  `immatriculation_wilaya` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `wilayas-old`
+--
+
+INSERT INTO `wilayas-old` (`id`, `nom_wilaya`, `immatriculation_wilaya`) VALUES
+(1, 'Adrar', 1),
+(2, 'Chlef', 2),
+(3, 'Laghouat', 3),
+(4, 'Oum El Bouaghi', 4),
+(5, 'Batna', 5),
+(6, 'Béjaia', 6),
+(7, 'Biskra', 7),
 (8, 'BÃ©char', 8),
 (9, 'Blida', 9),
 (10, 'Bouira', 10),
@@ -11367,12 +11438,6 @@ ALTER TABLE `appareil_examen_cliniques`
   ADD CONSTRAINT `appareil_examen_cliniques_examen_clinique_id_foreign` FOREIGN KEY (`examen_clinique_id`) REFERENCES `examen_clinique` (`id`) ON DELETE CASCADE;
 
 --
--- Contraintes pour la table `assurs`
---
-ALTER TABLE `assurs`
-  ADD CONSTRAINT `fk_idcommune` FOREIGN KEY (`lieunaissance`) REFERENCES `communes` (`id`);
-
---
 -- Contraintes pour la table `communes-old`
 --
 ALTER TABLE `communes-old`
@@ -11389,7 +11454,7 @@ ALTER TABLE `consultations`
 -- Contraintes pour la table `daira`
 --
 ALTER TABLE `daira`
-  ADD CONSTRAINT `fk_daira_wilaya1` FOREIGN KEY (`Id_wilaya`) REFERENCES `wilayas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_daira_wilaya1` FOREIGN KEY (`Id_wilaya`) REFERENCES `wilayas-old` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `demandeexb_examenbio`
@@ -11464,7 +11529,7 @@ ALTER TABLE `ordonnance_medicaments`
 -- Contraintes pour la table `patients`
 --
 ALTER TABLE `patients`
-  ADD CONSTRAINT `commune_res-FK` FOREIGN KEY (`commune_res`) REFERENCES `communes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_patient_commune` FOREIGN KEY (`commune_res`) REFERENCES `communes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `salles`

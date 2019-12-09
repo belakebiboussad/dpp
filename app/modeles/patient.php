@@ -18,7 +18,7 @@ class patient extends Model
 	public function commune()
 	{
 		if(isset($this->commune_res))
-			return $this->belongsTo('App\modeles\Commune','commune_res');
+			return $this->belongsTo('App\modeles\Commune','commune_res','id');
 	}
 	public function wilaya()
 	{	

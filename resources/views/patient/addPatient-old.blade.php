@@ -1,7 +1,7 @@
 @extends('app_recep')
 @section('main-content')
 <div class="page-header">
-	<h1>Ajouter Un Patient :</h1>
+	<h1>Ajouter Un Patient22 :</h1>
 </div>
 <div class="well">
 <form class="form-horizontal" id = "addPAtient" action="{{ route('patient.store') }}" method="POST" role="form" autocomplete="off">
@@ -458,7 +458,7 @@
 				</label>
 				<div class="col-sm-9">
 					<div class="clearfix">
-						<input type="text" id="matf" name="matf" class="col-xs-12 col-sm-6" placeholder="Matricule..." />
+						<input type="text" id="mat" name="mat" class="col-xs-12 col-sm-6" placeholder="Matricule..." />
 					</div>
 				</div>
 			</div>

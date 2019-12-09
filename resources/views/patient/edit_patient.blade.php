@@ -4,17 +4,17 @@
 		 function showType(value,i){
 		 	switch(value){
 			              case "Assure":  	
-			              	   $("#nomf").val($("#nom").val());// $("ul#menuPatient li:not(.active.hidden_fields)").css('display', '');
+			              	$("#nomf").val($("#nom").val());// $("ul#menuPatient li:not(.active.hidden_fields)").css('display', '');
 				              $("#prenomf").val($("#prenom").val());
-				               $("#datenaissancef").val($("#datenaissance").val());
-				               $("#lieunaissancef").val($("#lieunaissance").val());
-				               $("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);  
+				              $("#datenaissancef").val($("#datenaissance").val());
+				              $("#lieunaissancef").val($("#lieunaissance").val());
+				              $("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);  
 				              $("#foncform").addClass('hide'); 
-				               $('#Type_p').attr('required', false); 
-				               $('#nsspatient').attr('required', false);    
-				               $('#nsspatient').attr('disabled', true);  
-				               addRequiredAttr();
-				               break;
+				              $('#Type_p').attr('required', false); 
+				              $('#nsspatient').attr('required', false);    
+				              $('#nsspatient').attr('disabled', true);  
+				              addRequiredAttr();
+				              break;
 			              case "Ayant_droit":
 			              	if(i !=0)
 			           	    	{
@@ -44,39 +44,52 @@
 				}			
 		}
 		$(function() {
-		           var checkbox = $("#hommeConf");
-		    	checkbox.change(function() {
+		    var checkbox = $("#hommeConf");
+		    checkbox.change(function() {
 		 		if(checkbox.is(":checked"))
 		    		 	 $("#hommelink").removeClass('invisible');
 		    		 else
 		    			  $("#hommelink").addClass('invisible');	
 			})
 		});
+		function autocopleteCNais(commune)
+		{
+			var res = commune.split(",");
+			if($('#fonc').is(':checked'))
+			{
+				$("#idlieunaissancef").val(res[0]);
+				$("#lieunaissancef").val(res[1]);		
+			}		
+			$("#idlieunaissance").val(res[0]);
+		}
+		function autocopleteCNaisAS(commune)
+		{	
+			$("#idlieunaissancef").val(commune);
+		}
 		function show(wilaya)
 		{
 			var res = wilaya.split(",");
 			$("#idwilaya").val(res[0]);
-			$("#wilaya").val(	res[1]);
+			$("#wilaya").val(res[1]);
 			$("#idcommune").val(res[2]);
 		} 
 		$(document).ready(function () {
-		          var bloodhoundcom = new Bloodhound({
+		    var bloodhoundcom = new Bloodhound({
 		          datumTokenizer: Bloodhound.tokenizers.whitespace,
 		          queryTokenizer: Bloodhound.tokenizers.whitespace,
 		        	remote: {
-					url: '/patients/findcom?com=%QUERY%',
-						wildcard: '%QUERY%'
-				},
-			});
-			$('#commune').typeahead({
-				hint: true,
-				highlight: true,
-				minLength: 1
-			},{
-				name: 'communenom',
-				source: bloodhoundcom,
-				display: function(data) {
-					//$("#wilaya").text(data.nom_wilaya)
+						    url: '/patients/findcom?com=%QUERY%',
+						  	wildcard: '%QUERY%'
+							},
+				});
+				$('#commune').typeahead({
+					hint: true,
+					highlight: true,
+					minLength: 1
+				},{
+					name: 'communenom',
+					source: bloodhoundcom,
+					display: function(data) {
 					return data.nom_commune  //Input value to be set when you select a suggestion. 
 				},
 				templates: {
@@ -92,10 +105,60 @@
 					
 				}
 			});
-	      		var value =  $("input[type=radio][name='type']:checked").val();
-	      		showType(value,0);
-	      		$( ".civilite" ).change(function() {
-				var civilite= $("select.civilite option").filter(":selected").val();
+			///////////////////
+			 ///////////////////////////////////////////
+    /////////// Autocomletecommune de l'assure
+    ////////////////
+		$('#lieunaissance').typeahead({
+				hint: true,
+				highlight: true,
+				minLength: 1
+			}, {
+				name: 'communenom',
+				source: bloodhoundcom,
+				display: function(data) {
+					return data.nom_commune  //Input value to be set when you select a suggestion. 
+				},
+				templates: {
+					empty: [
+						'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
+					],
+					header: [
+						'<div class="list-group search-results-dropdown">'
+					],
+					suggestion: function(data) {
+						return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="autocopleteCNais(\''+data.id_Commune+','+data.nom_commune+'\')">' + data.nom_commune+ '</div></div>'
+					}
+				}	
+			});
+      //////////////////////
+      $('#lieunaissancef').typeahead({
+				hint: true,
+				highlight: true,
+				minLength: 1
+			}, {
+				name: 'communenom',
+				source: bloodhoundcom,
+				display: function(data) {
+					return data.nom_commune  //Input value to be set when you select a suggestion. 
+				},
+				templates: {
+					empty: [
+						'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
+					],
+					header: [
+						'<div class="list-group search-results-dropdown">'
+					],
+					suggestion: function(data) {
+						return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="autocopleteCNaisAS(\''+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
+					}
+				}	
+			}); 
+			////////////////////////////
+	    var value =  $("input[type=radio][name='type']:checked").val();
+	    showType(value,0);
+	    $( ".civilite" ).change(function() {
+			  	var civilite= $("select.civilite option").filter(":selected").val();
 	  			if((civilite =="marie")|| (civilite =="veuf"))
 	  			{
 	  				$('#Div-nomjeuneFille').removeAttr('hidden');
@@ -105,7 +168,7 @@
 	  			
 	  			}
 			});
-		      	$("#edit_hc").click(function(e) { 
+		  $("#edit_hc").click(function(e) { 
 				$('#nom_h').prop('readonly', false);
 				$('#nom_h').focus();
 				$('#prenom_h').attr('readonly', false);
@@ -177,15 +240,15 @@
    		 <li class="active"><a data-toggle="tab" href="#Patient">
    		 	<span class="bigger-130"><strong>Patient</strong></span></a>
    		</li>
-		 <li  @if($patient->Type =="Autre")  style= "display:none" @endif><a data-toggle="tab" href="#Assure" >
+		  <li  @if($patient->Type =="Autre")  style= "display:none" @endif><a data-toggle="tab" href="#Assure" >
     			<span class="bigger-130"><strong>Assure</strong></span></a>
-    		</li>
+    	</li>
     		{{--  --}}
-	    	<li  id ="hommelink" @if(!isset($homme_c))  class="invisible" @endif><a data-toggle="tab" href="#Homme">
+	    <li  id ="hommelink" @if(!isset($homme_c))  class="invisible" @endif><a data-toggle="tab" href="#Homme">
 	    		<span class="bigger-130"><strong>Homme de Confiance</strong></span></a>
-	    	</li>
-    	</ul>
-  	<div class="tab-content">
+	    </li>
+  </ul>
+  <div class="tab-content">
   		<div id="Patient" class="tab-pane fade in active">
   				<div class="row">
 	      			<div class="col-sm-12">
@@ -233,10 +296,11 @@
 						<label class="col-sm-3 control-label" for="lieunaissance">
 							<strong class="text-nowrap">Lieu de naissance :</strong>
 						</label>
-					<div class="col-sm-9">
-					<input type="text" id="lieunaissance" name="lieunaissance" placeholder="Lieu de naissance..."  autocomplete = "off" class="col-xs-12 col-sm-12" value="{{ $patient->Lieu_Naissance }}"required/>
-					 {!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
-					</div>
+					  <div class="col-sm-9">
+					    <input type="hidden" name="idlieunaissance" id="idlieunaissance" value={{ $patient->Lieu_Naissance }}>
+				  	  <input type="text" id="lieunaissance" name="" placeholder="Lieu de naissance..." utocomplete = "off" class="col-xs-12 col-sm-12" value="{{ $patient->lieuNaissance->nom_commune }}" required/>
+					    {!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
+					  </div>
 					</div>
 				</div>
 	      		</div>  {{-- row --}}
@@ -339,17 +403,17 @@
 				
 				<div class="col-sm-4" style="padding-left:7%">
 					<label class="" for="adresse" ><strong>Adresse :&nbsp;</strong></label>
-					<input type="text" value="{{ $patient->Adresse }}"" id="adresse" name="adresse" placeholder="Adresse..."/>
+					<input type="text" value="{{ $patient->Adresse }}" id="adresse" name="adresse" placeholder="Adresse..."/>
 				</div>
 				<div class="col-sm-4" style="margin-top: -0.1%;">
 					<label><strong>Commune :</strong></label>
-					<input type="hidden" name="idcommune" id="idcommune" value="{{ $patient->commune->id }}"/>
+					<input type="hidden" name="idcommune" id="idcommune" value="{{ $patient->commune_res }}"/>
 					<input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}"/>					
 				</div>
 				<div class="col-sm-4">
 					   	<label><strong>Wilaya :</strong></label>
 				  	 	<input type="hidden" name="idwilaya" id="idwilaya" value="{{ $patient->wilaya->immatriculation_wilaya }}"/>
-				           	<input type="text" id="wilaya" placeholder="wilaya..." value="{{ $patient->wilaya->nom_wilaya }}"/>	
+				      <input type="text" id="wilaya" placeholder="wilaya..." value="{{ $patient->wilaya->nom_wilaya }}"/>	
 				</div>	
 
 			</div>{{-- row --}}
@@ -519,7 +583,8 @@
 								<span class="text-nowrap"><strong>Lieu de naiss :</strong></span>
 							</label>
 							<div class="col-sm-9">
-							<input type="text" id="lieunaissancef" name="lieunaissancef"class="col-xs-12 col-sm-12" value="{{ $assure->lieunaissance }}" autocomplete= "off" />
+							 	<input type="hidden" name="idlieunaissancef" id="idlieunaissancef" value="{{ ($patient->Type !="Autre") ? $assure->lieunaissance : '' }}  ">
+								<input type="text" id="lieunaissancef" name=""class="col-xs-12 col-sm-12" value="{{ ($patient->Type !="Autre") ? $assure->lieuNaissance->nom_commune : '' }}" autocomplete= "off" />
 							</div>
 							<br>
 						</div>
@@ -528,11 +593,11 @@
 				</div>	{{-- row --}}
 				<div class="row">
 					<div class="col-sm-6">
-		              			<div class="form-group">
-					           		<label class="col-sm-3 control-label no-padding-right" for="sexe">
-					                        		<Strong>Sexe:</Strong>
-					                         </label>
-		                  			            <div class="col-sm-9">
+		        <div class="form-group">
+					  	<label class="col-sm-3 control-label no-padding-right" for="sexe">
+					    	<Strong>Sexe:</Strong>
+					    </label>
+		          <div class="col-sm-9">
 					                         <div class="radio">
 					                         <label>
 					                          <input name="sexef" value="M" type="radio" class="ace" {{ $assure->Sexe === "M" ? "Checked" : "" }}/>
@@ -629,7 +694,8 @@
 							</label>
 							<div class="col-sm-9">
 							<div class="clearfix">
-							<input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12" placeholder="XXXXXXXXXXXX" value="{{ $assure->NSS }}"/>{{-- pattern="^\[0-9]{2}+' '+\[0-9]{4}+' '+\[0-9]{4}+' '+\[0-9]{2}$" --}}
+							<input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12" placeholder="XXXXXXXXXXXX" 
+							value="{{ $assure->NSS }}" maxlength =12 minlength =12/>{{-- pattern="^\[0-9]{2}+' '+\[0-9]{4}+' '+\[0-9]{4}+' '+\[0-9]{2}$" --}}
 							</div>
 							</div>
 						</div>
