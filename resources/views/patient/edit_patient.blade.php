@@ -68,31 +68,32 @@
 		}
 		function show(wilaya)
 		{
+
 			var res = wilaya.split(",");
 			$("#idwilaya").val(res[0]);
 			$("#wilaya").val(res[1]);
 			$("#idcommune").val(res[2]);
 		} 
 		$(document).ready(function () {
-		    var bloodhoundcom = new Bloodhound({
-		          datumTokenizer: Bloodhound.tokenizers.whitespace,
-		          queryTokenizer: Bloodhound.tokenizers.whitespace,
-		        	remote: {
-						    url: '/patients/findcom?com=%QUERY%',
-						  	wildcard: '%QUERY%'
-							},
-				});
-				$('#commune').typeahead({
+		   	 var bloodhoundcom = new Bloodhound({
+		        		  datumTokenizer: Bloodhound.tokenizers.whitespace,
+		        		  queryTokenizer: Bloodhound.tokenizers.whitespace,
+		        		remote: {
+					 url: '/patients/findcom?com=%QUERY%',
+				 	wildcard: '%QUERY%'
+				},
+			});
+			$('#commune').typeahead({
 					hint: true,
 					highlight: true,
 					minLength: 1
-				},{
-					name: 'communenom',
-					source: bloodhoundcom,
-					display: function(data) {
-					return data.nom_commune  //Input value to be set when you select a suggestion. 
-				},
-				templates: {
+			},{
+				name: 'communenom',
+				source: bloodhoundcom,
+				display: function(data) {
+				return data.nom_commune  //Input value to be set when you select a suggestion. 
+			},
+			templates: {
 					empty: [
 						'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
 					],
@@ -100,7 +101,7 @@
 						'<div class="list-group search-results-dropdown">'
 					],
 					suggestion: function(data) {
-						return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="show(\''+data.Id_wilaya+','+data.nom_wilaya+','+data.id+'\')">' + data.nom_commune+ '</div></div>'
+			return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="show(\''+data.Id_wilaya+','+data.nom_wilaya+','+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
 					}
 					
 				}

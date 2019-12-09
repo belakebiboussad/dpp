@@ -110,12 +110,6 @@
 										</div>
 									</div>
 									<div class="profile-info-row">
-										<div class="profile-info-name">né(e) à </div>
-										<div class="profile-info-value">
-											<span>{{ $patient->lieuNaissance->nom_commune }}</span>
-										</div>
-									</div>
-									<div class="profile-info-row">
 										<div class="profile-info-name"> Age </div>
 										<div class="numberCircle">{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }}
 										</div>
