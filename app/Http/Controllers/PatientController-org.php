@@ -494,9 +494,10 @@ public function update(Request $request,$id)
                                     "Date_creation"=>$date,  
                                   ]);
                       break;
-              case 'Ayant_droit':
-                         $assure = new assur;
-                         $assurObj =  $assure->firstOrCreate([
+                   case 'Ayant_droit':
+                          $assure = new assur;
+                          try {
+                                $assurObj =  $assure->firstOrCreate([
                                               "Nom"=>$request->nomf,
                                               "Prenom"=>$request->prenomf,
                                               "Date_Naissance"=>$request->datenaissancef,
@@ -507,28 +508,41 @@ public function update(Request $request,$id)
                                               "Grade"=>$request->grade,
                                               "NMGSN"=>$request->NMGSN,
                                               "NSS"=>$request->nss,
-                                 ]);
-                                $patient -> update([
-                                              "Nom"=>$request->nom,
-                                              "Prenom"=>$request->prenom,
-                                              "Dat_Naissance"=>$request->datenaissance,
-                                              "Lieu_Naissance"=>$request->idlieunaissance,
-                                              "Sexe"=>$request->sexe,
-                                              "Adresse"=>$request->adresse,
-                                              'commune_res'=>$request->idcommune,
-                                              'wilaya_res'=>$request->idwilaya,
-                                              "situation_familiale"=>$request->sf,
-                                              "tele_mobile1"=>$request->operateur1.$request->mobile1,
-                                              "tele_mobile2"=>$request->operateur2.$request->mobile2,
-                                              "group_sang"=>$request->gs,
-                                              "rhesus"=>$request->rh, 
-                                              "Assurs_ID_Assure"=>$assurObj->id,
-                                              "Type"=>$request->type,
-                                              "Type_p"=>$request->Type_p,
-                                              "description"=>"",
-                                              "NSS"=> $request->nsspatient,    
-                                              "Date_creation"=>$date,  
-                                  ]);
+                                ]);
+                                //$user->address()->save($address);
+                                // $patient->assure()->associate($assurObj);
+                                //$patient->assure()->save($assurObj);
+                                // $patient -> update([
+                                //              "Nom"=>$request->nom,
+                                //               "Prenom"=>$request->prenom,
+                                //               "Dat_Naissance"=>$request->datenaissance,
+                                //               "Lieu_Naissance"=>$request->idlieunaissance,
+                                //               "Sexe"=>$request->sexe,
+                                //               "Adresse"=>$request->adresse,
+                                //               'commune_res'=>$request->idcommune,
+                                //               'wilaya_res'=>$request->idwilaya,
+                                //               "situation_familiale"=>$request->sf,
+                                //               "tele_mobile1"=>$request->operateur1.$request->mobile1,
+                                //               "tele_mobile2"=>$request->operateur2.$request->mobile2,
+                                //               "group_sang"=>$request->gs,
+                                //               "rhesus"=>$request->rh, 
+                                //               "Assurs_ID_Assure"=>$assurObj->id,
+                                //               "Type"=>$request->type,
+                                //               "Type_p"=>$request->Type_p,
+                                //               "description"=>"",
+                                //               "NSS"=> $request->nsspatient,    
+                                //               "Date_creation"=>$date,  
+                                // ]);
+                                $patient['Assurs_ID_Assure'] = $assurObj->id; 
+                                $patient->save(); 
+                                                             
+                            
+                            } catch (Exception $e) {
+                             //return back()->withError($e->getMessage())->withInput();
+                              dd('4');
+                             return redirect(Route('patient.index'));
+                          }
+                         
               case 'Autre':
                           //dd($request->idcommune ); 
                           $patient -> update([
@@ -552,7 +566,7 @@ public function update(Request $request,$id)
                                     "description"=> $request->description, 
                                     "Date_creation"=>$date,  
                                   ]);
-                         // dd($patient);
+                          
                       break;
                 default:
                       # code...
@@ -580,9 +594,9 @@ public function update(Request $request,$id)
                             "mob"=>$request->mobile_h,
                         ]);  
                 }else{
-                           if(!is_null($request->nom_h))
-                           {
-                                $homme = homme_conf::firstOrCreate([
+                      if(!is_null($request->nom_h))
+                      {
+                          $homme = homme_conf::firstOrCreate([
                                         "id_patient"=>$patient->id,
                                         "nom"=>$request->nom_h,
                                         "prénom"=>$request->prenom_h, 
@@ -595,8 +609,8 @@ public function update(Request $request,$id)
                                         "mob"=>$request->mobile_h,
                                          "created_by"=>Auth::user()->employee_id,
                                 ]);
-                           } 
-                          $h-> update(["etat_hc"=>$request->etat_h,]);
+                      } 
+                      $h-> update(["etat_hc"=>$request->etat_h,]);
                 }
                        
           }else{      
@@ -618,9 +632,9 @@ public function update(Request $request,$id)
                 }
           }
           /******************************/    
-           // Flashy::primary('Patient modifié avec succés!');
-           //flashy('Some message', 'http://your-awesome-link.com');
-           return redirect(Route('patient.show',$patient->id));
+          // Flashy::primary('Patient modifié avec succés!');    //flashy('Some message', 'http://your-awesome-link.com');
+          //dd($patient);
+          return redirect(Route('patient.show',$patient->id));
 }
 
     /**
@@ -847,7 +861,7 @@ public function AutoCompletePatientPrenom(Request $request)
                 "Prenom"=>$request->prenom,
                 "code_barre"=>$request->code,
                 "Dat_Naissance"=>$request->datenaissance,
-                "Lieu_Naissance"=>$request->lieunaissance,
+                "Lieu_Naissance"=>$request->idlieunaissance,
                 "Sexe"=>$request->sexe,
                 "Adresse"=>$request->adresse,
                 "situation_familiale"=>$request->sf,

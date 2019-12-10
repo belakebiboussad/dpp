@@ -3,11 +3,12 @@
 	<script>
 		 function showType(value,i){
 		 	switch(value){
-			              case "Assure":  	
+			              case "Assure":  
 			              	$("#nomf").val($("#nom").val());// $("ul#menuPatient li:not(.active.hidden_fields)").css('display', '');
 				              $("#prenomf").val($("#prenom").val());
 				              $("#datenaissancef").val($("#datenaissance").val());
 				              $("#lieunaissancef").val($("#lieunaissance").val());
+				              $("#idlieunaissancef").val($("#idlieunaissance").val());
 				              $("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);  
 				              $("#foncform").addClass('hide'); 
 				              $('#Type_p').attr('required', false); 
@@ -18,24 +19,24 @@
 			              case "Ayant_droit":
 			              	if(i !=0)
 			           	    	{
-			           	             	$("#nomf").val("");
+			           	          $("#nomf").val("");
 				                   	$("#prenomf").val("");
-				                    	$("#datenaissancef").val("");
-				                    	$("#lieunaissancef").val("");		
-				                         	$("select#grade").prop('selectedIndex', 0);
-				                         	$("#matf").val("");
-				                           $("#NMGSN").val("");            	
-				           	}	
-				             $("#foncform").removeClass('hide');
-				             $('#Type_p').attr('required', true); 
-				             $('#nsspatient').attr('disabled', false); 
-			                          addRequiredAttr();
-			                          break;
+				                    $("#datenaissancef").val("");
+				                    $("#lieunaissancef").val("");		
+				                    $("select#grade").prop('selectedIndex', 0);
+				                    $("#matf").val("");
+				                    $("#NMGSN").val("");            	
+				           			}	
+						            $("#foncform").removeClass('hide');
+						            $('#Type_p').attr('required', true); 
+						            $('#nsspatient').attr('disabled', false); 
+			                  addRequiredAttr();
+			                  break;
 			           case "Autre":
-				             $(".starthidden").show(250);
-				             $("#foncform").addClass('hide');
-				             $('#Type_p').attr('required', false); 
-              				$("ul#menuPatient li:eq(1)").css('display', 'none');//$("ul#menuPatient li:not(.active) a").prop('disabled', true);
+					             $(".starthidden").show(250);
+					             $("#foncform").addClass('hide');
+					             $('#Type_p').attr('required', false); 
+              			  $("ul#menuPatient li:eq(1)").css('display', 'none');//$("ul#menuPatient li:not(.active) a").prop('disabled', true);
 				               $('#nomf').attr('required', false);
 				               $('#prenomf').attr('required', false);
 				               $('#nsspatient').attr('required', false);    
@@ -54,7 +55,7 @@
 		});
 		function autocopleteCNais(commune)
 		{
-			var res = commune.split(",");
+			var res = commune.split(",");	
 			if($('#fonc').is(':checked'))
 			{
 				$("#idlieunaissancef").val(res[0]);
@@ -68,7 +69,6 @@
 		}
 		function show(wilaya)
 		{
-
 			var res = wilaya.split(",");
 			$("#idwilaya").val(res[0]);
 			$("#wilaya").val(res[1]);

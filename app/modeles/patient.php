@@ -25,5 +25,10 @@ class patient extends Model
 		if(isset($this->wilaya_res))
 			return $this->belongsTo('App\modeles\Wilaya','wilaya_res');
 	}
+	public function assure()
+	{	
+		if(isset($this->Assurs_ID_Assure))
+			return $this->belongsTo('App\modeles\assur','Assurs_ID_Assure');
+	}
 
 }
