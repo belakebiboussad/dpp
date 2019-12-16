@@ -227,6 +227,13 @@ route::get('/homelaboexb',function(){
     $demandesexb = App\modeles\demandeexb::where('etat','E')->get();
     return view('home.home_laboanalyses', compact('demandesexb'));
 })->name('homelaboexb');
+///radiologue
+route::get('/details_exr/{id}','DemandeExamenRadio@details_exr');
+route::post('/uploadexr','DemandeExamenRadio@upload_exr');
+route::get('/homeradiologue',function(){
+    $demandesexr = App\modeles\demandeexr::where('etat','E')->get();
+    return view('home.home_radiologue', compact('demandesexr'));
+})->name('homeradiologue');
 // route with optonnel parameter
 Route::get('rendezVous/create/{id?}','RDVController@index');
 /************partie viste d'hospitalisation**************/

@@ -113,10 +113,12 @@ class DemandeExbController extends Controller
     public function uploadresultat(Request $request)
     {
         $demande = demandeexb::FindOrFail($request->id_demande);
+        
         $demande->update([
             "etat" => "V",
             "resultat" => $request->file('resultat')->getClientOriginalName(),
         ]);
+
         $filename = $request->file('resultat')->getClientOriginalName();
         $file = file_get_contents($request->file('resultat')->getRealPath());
         Storage::disk('local')->put($filename, $file);
