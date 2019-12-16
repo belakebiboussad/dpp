@@ -220,7 +220,13 @@ route::get('/showdemandeexb/{id}','DemandeExbController@show_demande_exb');
 Route::resource('demandeexr','DemandeExamenRadio'); 
 route::get('/showdemandeexr/{id}','DemandeExamenRadio@show_demande_exr');
 route::get('/affecterLit','AdmissionController@affecterLit');
-
+///laborontin
+route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');
+route::post('/uploadresultat','DemandeExbController@uploadresultat');
+route::get('/homelaboexb',function(){
+    $demandesexb = App\modeles\demandeexb::where('etat','E')->get();
+    return view('home.home_laboanalyses', compact('demandesexb'));
+})->name('homelaboexb');
 // route with optonnel parameter
 Route::get('rendezVous/create/{id?}','RDVController@index');
 /************partie viste d'hospitalisation**************/

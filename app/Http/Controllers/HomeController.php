@@ -17,6 +17,9 @@ use App\modeles\reactif;
 use App\modeles\dispositif;
 use App\modeles\dem_colloque;
 use App\modeles\demandeexb;
+
+use App\modeles\demandeexr;
+
 use App\User;
 use Auth; 
 use Date;
