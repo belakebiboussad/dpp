@@ -58,7 +58,7 @@ class ConsultationsController extends Controller
     }
     public function detailcons($id_cons)
     {  
-
+          
            $consultation = consultation::FindOrFail($id_cons);
            // liste des consultations du patient
            $consults = consultation::join('employs','employs.id','=','consultations.Employe_ID_Employe')->leftjoin('codesims', 'codesims.id', '=', 'consultations.id_code_sim')->select('consultations.*','employs.Nom_Employe','employs.Prenom_Employe','codesims.description')->where('consultations.Patient_ID_Patient', $consultation->patient->id)->get();
