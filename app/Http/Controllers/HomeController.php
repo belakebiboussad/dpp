@@ -16,6 +16,7 @@ use App\modeles\medcamte;
 use App\modeles\reactif;
 use App\modeles\dispositif;
 use App\modeles\dem_colloque;
+use App\modeles\demandeexb;
 use App\User;
 use Auth; 
 use Date;
@@ -38,8 +39,8 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-          $role =Auth::user()->role ;
+    {         
+          $role =Auth::user()->role ; //dd($role);
           $employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
           $ServiceID = $employe->Service_Employe;
 
@@ -112,12 +113,13 @@ class HomeController extends Controller
                 
                 //Laborantin
                 case 11:
-                    return view('home.home_labo');
+                    $demandesexb = demandeexb::where('etat','E')->get();
+                    return view('home.home_laboanalyses', compact('demandesexb'));
                 break;   
                 //radiologue
                 case 12:
-                    return view('home.home_radio');
-                    break; 
+                    $demandesexr = demandeexr::where('etat','E')->get();
+                    return view('home.home_radiologue', compact('demandesexr')); 
                 case 14:
                     $meds = medcamte::all();
                     $dispositifs = dispositif::all();
