@@ -114,7 +114,6 @@ class HomeController extends Controller
                 //Laborantin
                 case 11:
                     $demandesexb = demandeexb::where('etat','E')->get();
-                    dd('sdf');
                     return view('home.home_laboanalyses', compact('demandesexb'));
                 break;   
                 //radiologue
