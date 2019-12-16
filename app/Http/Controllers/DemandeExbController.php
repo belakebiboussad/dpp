@@ -49,11 +49,11 @@ class DemandeExbController extends Controller
     {
 
              $date = Date::now();
-               
              $demande = demandeexb::FirstOrCreate([
                      "DateDemande" => $date,
                      "id_consultation" => $consultId,
              ]);
+             
              foreach($request->exm as $id_exb) {
                           $demande->examensbios()->attach($id_exb);
               }

@@ -20,6 +20,7 @@ use App\modeles\examen_cliniqu;
 use App\modeles\ordonnance;
 use App\modeles\employ;
 use App\modeles\demandeExamImag;
+use App\modeles\demandeexb;
 use App\User;
 use App\modeles\Specialite;
 use App\modeles\LettreOrientation;
@@ -31,7 +32,7 @@ use Config;
 class ConsultationsController extends Controller
 {
 
-        protected $OrdonnanceCTLR,$ExamCliniqueCTLR,$ExamBioloqiqueCTLR,$ExamImagerieCTLR,$ExamAnapathCTLR,$DemandeHospCTRL,
+      protected $OrdonnanceCTLR,$ExamCliniqueCTLR,$ExamBioloqiqueCTLR,$ExamImagerieCTLR,$ExamAnapathCTLR,$DemandeHospCTRL,
                           $LettreOrientationCTRL;
       public function __construct(OrdonnanceController $OrdonnaceCtrl,
                                        ExamenCliniqueController $ExamCliniqCtrl,
@@ -59,17 +60,18 @@ class ConsultationsController extends Controller
     public function detailcons($id_cons)
     {  
           
-           $consultation = consultation::FindOrFail($id_cons);
-           // liste des consultations du patient
-           $consults = consultation::join('employs','employs.id','=','consultations.Employe_ID_Employe')->leftjoin('codesims', 'codesims.id', '=', 'consultations.id_code_sim')->select('consultations.*','employs.Nom_Employe','employs.Prenom_Employe','codesims.description')->where('consultations.Patient_ID_Patient', $consultation->patient->id)->get();
-                //$examensbios = examenbiologique::where("id_consultation",$id_cons)->get();// $examensimg = examenimagrie::where("id_consultation",$id_cons)->get(); 
-           $demande = demandeExamImag::where("id_consultation",$id_cons)->get(['examsImagerie'])->first(); 
-           if(isset($demande))
-                    $examensimg = json_decode($demande->examsImagerie); 
-           $exmclin = examen_cliniqu::where("id_consultation",$id_cons)->get()->first();
-           $examsRadio = $consultation->examensradiologiques;
-           $ordonnance= $consultation->ordonnances;
-          return view('consultations.resume_cons', compact('consultation', 'examensimg', 'exmclin', 'examsRadio', 'ordonnance', 'consults'));
+          $consultation = consultation::FindOrFail($id_cons);
+          // liste des consultations du patient
+          $consults = consultation::join('employs','employs.id','=','consultations.Employe_ID_Employe')->leftjoin('codesims', 'codesims.id', '=', 'consultations.id_code_sim')->select('consultations.*','employs.Nom_Employe','employs.Prenom_Employe','codesims.description')->where('consultations.Patient_ID_Patient', $consultation->patient->id)->get();
+          $examensbios = demandeexb::where("id_consultation",$id_cons)->get();    //$examensbios = examenbiologique::where("id_consultation",$id_cons)->get();
+          // $examensimg = examenimagrie::where("id_consultation",$id_cons)->get(); 
+          $demande = demandeExamImag::where("id_consultation",$id_cons)->get(['examsImagerie'])->first(); 
+          if(isset($id_cons))
+          //  $examensimg = json_decode($demande->examsImagerie); 
+          $exmclin = examen_cliniqu::where("id_consultation",$id_cons)->get()->first();
+          $examsRadio = $consultation->examensradiologiques;
+          $ordonnance= $consultation->ordonnances;
+          return view('consultations.resume_cons', compact('consultation','examensbios' ,'examensimg', 'exmclin', 'examsRadio', 'ordonnance', 'consults'));
      }
      public function detailconsXHR(Request $request)
      {
@@ -165,7 +167,7 @@ class ConsultationsController extends Controller
            }   
            if($request->liste != null)
                 $this->OrdonnanceCTLR->store( $request,$consult->id);    //save Ordonnance
-       
+         
           if($request->exm  != null)  //save ExamBiolo
           {  
                   $this->ExamBioloqiqueCTLR->store( $request,$consult->id); 

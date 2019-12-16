@@ -131,81 +131,82 @@
 				@endif
 				@if(isset($consultation->demandeexmbio) && $consultation->demandeexmbio->count() !=0)
 				<div id="eXamBio" class="tab-pane">
-				<div class="row">
-				<div class="col-xs-12">
-				<table class="table table-striped table-bordered">
-				<thead>
-				<tr>
-					<th class="center">#</th>
-				       	<th class="center">Date</th>
-					<th class="center">Etat</th>
-					<th class="center"></th>
-			          </tr>
-			          </thead>
-        				<tbody>
-				@foreach($consultation->demandeexmbio as $index => $demande)
-				 <tr>
-					<td class="center">{{ $index +1 }}</td>
-					<td>{{ $demande->DateDemande }}</td>
-					<td>
-					@if($demande->etat == "E")
-					          En Attente
-					@elseif($demande->etat == "V")
-					          Validé
-					@else
-					           Rejeté
-					@endif
-					</td>
-					<td class="center">
-					           <a href="{{ route('demandeexb.show', $demande->id_demandeexb) }}">
-						          <i class="fa fa-eye"></i>
-						</a>
-					</td>
-				</tr>
-				@endforeach               
-				</tbody>
-				</table>
-		                     </div>
-		                     </div> {{-- row --}}
-				</div>{{-- eXamBio --}}
+						<div class="row">
+							<div class="col-xs-12">
+								<table class="table table-striped table-bordered">
+									<thead>
+										<tr>
+											<th class="center">#</th>
+										       	<th class="center">Date</th>
+											<th class="center">Etat</th>
+											<th class="center"></th>
+									  </tr>
+								  </thead>
+					        <tbody>
+									@foreach($consultation->demandeexmbio as $index => $demande)
+									<tr>
+										<td class="center">{{ $index +1 }}</td>
+										<td>{{ $demande->DateDemande }}</td>
+										<td>
+										@if($demande->etat == "E")
+										          En Attente
+										@elseif($demande->etat == "V")
+										          Validé
+										@else
+										           Rejeté
+										@endif
+										</td>
+										<td class="center">
+										    <a href="{{ route('demandeexb.show', $demande->id_demandeexb) }}">
+											    <i class="fa fa-eye"></i>
+											</a>
+										</td>
+									</tr>
+								@endforeach               
+								</tbody>
+								</table>
+					    </div>
+		        </div><!-- row -->
+				</div> <!-- eXamBio -->
 				@endif
 				@if(isset($examsRadio)  && count($examsRadio) !=0)	
 				<div id="examImagerie" class="tab-pane">
 				<div class ="row">
-		                     <table class="table table-striped table-bordered">
-		                     <thead>
-		                      <tr>
-		                              <th class="center">#</th>
-		                              <th>Date</th>
-		                              <th>Etat</th>
-		                              <th></th>
-		                     </tr>
-                         		</thead>
-		                     <tbody>
-		                     @foreach($consultation->examensradiologiques as $index => $exr)
-		                     <tr>
-		                              <td class="center">{{ $index + 1 }}</td>
-		                              <td>{{ $exr->Date }}</td>
-		                              <td>
-		                                @if($exr->etat == "E")
-		                                  En Attente
-		                                @elseif($exr->etat == "V")
-		                                  Validé
-		                                @else
-		                                  Rejeté
-		                                @endif
-		                              </td>
-		                              <td class="center">
-		                                <a href="{{ route('demandeexr.show', $exr->id) }}">
-		                                  <i class="fa fa-eye"></i>
-		                                </a>
-		                              </td>
-		                     </tr>
-		                     @endforeach               
-		                     </tbody>
-		                     </table>
-		                     </div>{{-- col-sm-12 --}}
-                   			</div>{{-- row --}}
+				  <div class="col-xs-12">
+		      <table class="table table-striped table-bordered">
+		        <thead>
+		          <tr>
+		            <th class="center">#</th>
+		            <th>Date</th>
+		            <th>Etat</th>
+		            <th></th>
+		          </tr>
+            </thead>
+		        <tbody>
+		        @foreach($consultation->examensradiologiques as $index => $exr)
+		        <tr>
+		            <td class="center">{{ $index + 1 }}</td>
+		            <td>{{ $exr->Date }}</td>
+		            <td>
+		              @if($exr->etat == "E")
+		                En Attente
+		              @elseif($exr->etat == "V")
+		                Validé
+		              @else
+		                Rejeté
+		              @endif
+		            </td>
+		            <td class="center">
+			            <a href="{{ route('demandeexr.show', $exr->id) }}">
+			              <i class="fa fa-eye"></i>
+			            </a>
+		            </td>
+		        </tr>
+		        @endforeach               
+		        </tbody>
+		      </table>
+		      </div>{{-- col-sm-12 --}}
+          </div>{{-- row --}}
 				</div>	{{-- examImagerie --}}
 				@endif
 			{{-- 	@if(isset($ordonnance)) --}}

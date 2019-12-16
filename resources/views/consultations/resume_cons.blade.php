@@ -74,10 +74,10 @@
 </div>
 <div class="row" style = "margin-top:-2%">
 	<div class="col-sm-7" id="consultDetail">
-	@include('consultations.inc_consult')
+	 @include('consultations.inc_consult')
 	</div>
 	<div class="col-sm-5">
-		<table id="example" class="display dataTable table table-striped table-bordered table-condensed" width="100%" data-page-length="25" " role="grid">
+		<table id="example" class="display dataTable table table-striped table-bordered table-condensed" width="100%" data-page-length="25" role="grid">
 		<thead>
 		<tr role="row">
 			<th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Position: activate to sort column descending" style="width:20%">Date</th>

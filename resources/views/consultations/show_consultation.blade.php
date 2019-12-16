@@ -43,8 +43,7 @@
     </div>
   </div>
 </div>
-
-  <div role= "tabpanel">
+<div role= "tabpanel">
       <ul class = "nav nav-tabs nav-justified" role="tablist">
               <li role= "presentation" class="active"  style="padding-left: 5px; padding-right: 5px;">
                 <a href="#Interogatoire" aria-controls="Interogatoire" role="tab" data-toggle="tab" class="btn btn-primary">

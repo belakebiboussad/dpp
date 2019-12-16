@@ -70,8 +70,8 @@
 </script>
 @endsection
 @section('main-content')
-<div class="page-header" width="100%">
-   <div class="row">
+ <div class="page-header" style= "width:99%;padding-left:1%">
+  {{-- <div class="row">
     <div class="col-sm-12">
       <div class="widget-box">
         <div class="widget-body">
@@ -104,8 +104,10 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
+  </div>--}}
+     <?php $patient = $demande->consultation->patient; ?>
+    @include('patient._patientInfo', $patient)         
+</div> 
 <div class="content">
   <div class="row">
     <div class="col-sm-12">
@@ -190,8 +192,8 @@
                     <label>Résultat :</label>&nbsp;&nbsp;
                     <span><a href='/download/{{ $demande->resultat }}'>{{ $demande->resultat }}</a></span>
                     <a href="/showdemandeexr/{{ $demande->id }}" target="_blank" class="btn btn-primary pull-right">
-                      <i class="fa fa-eye"></i>&nbsp;
-                      Visualiser Demande examens radiologique
+                      <i class="fa fa-print"></i>&nbsp;
+                      Imprimer
                     </a>
                   </div>               
                 </div>
