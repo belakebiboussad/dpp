@@ -18,7 +18,7 @@
 								<div>
 									<label for="gamme"><b>Gamme</b></label>
 									<select class="form-control" id="gamme">
-										<option value="">Sélectionner...</option>
+										<option value="0">Sélectionner...</option>
 										@foreach($gammes as $gamme)
 											<option value="{{ $gamme->id }}">{{ $gamme->gamme }}</option>
 										@endforeach	
@@ -28,7 +28,7 @@
 								<div>
 									<label for="specialite"><b>Spécialité</b></label>
 									<select class="form-control" id="specialite">
-										<option value="">Sélectionner...</option>	
+										<option value="0">Sélectionner...</option>	
 									</select>
 								</div>
 								<hr/>
@@ -41,7 +41,7 @@
 								<hr/>
 								<div>
 									<label for="quantite"><b>Quantité</b></label>
-									<input type="number" class="form-control" id="quantite" name="quantite">
+									<input type="number" class="form-control" id="quantite" name="quantite" min="1">
 								</div>
 								<hr/>
 								<div class="pull right">

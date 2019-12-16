@@ -1,4 +1,7 @@
 @extends('app_phar')
+@section('page-script')
+<script src="{{asset('/js/jquery-2.2.4.js')}}"></script>
+<script src="{{ asset('/js/datatables.js') }}"></script>
 <script type="text/javascript">
 	$('#demandes_liste').dataTable({
        		ordering: true,
@@ -8,6 +11,7 @@
 	            }, 
    	 });
 </script>
+@endsection
 @section('main-content')
 <div class="row">
 	<div class="col-xs-12">

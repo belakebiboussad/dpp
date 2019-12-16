@@ -42,6 +42,7 @@ class HomeController extends Controller
           $role =Auth::user()->role ;
           $employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
           $ServiceID = $employe->Service_Employe;
+
           switch ($role->id) {
                 case 1:
                       return view('patient.index_patient');
@@ -102,17 +103,27 @@ class HomeController extends Controller
                                                     ->where('date_RDVh','=',date("Y-m-d"))->get(); 
                       return view('home.home_agent_admis', compact('rdvs'));
                     break;       
-                case 13:
-                    $meds = medcamte::all();
-                    $dispositifs = dispositif::all();
-                    $reactifs = reactif::all();
-                    return view('home.home_chef_ser', compact('meds','dispositifs','reactifs'));
                 case 10:
                     $meds = medcamte::all();
                     $dispositifs = dispositif::all();
                     $reactifs = reactif::all();
                     return view('home.home_pharmacien', compact('meds','dispositifs','reactifs'));
                     break;
+                
+                //Laborantin
+                case 11:
+                    return view('home.home_labo');
+                break;   
+                //radiologue
+                case 12:
+                    return view('home.home_radio');
+                    break; 
+                case 14:
+                    $meds = medcamte::all();
+                    $dispositifs = dispositif::all();
+                    $reactifs = reactif::all();
+                    return view('home.home_chef_ser', compact('meds','dispositifs','reactifs'));
+             
                 default:
                    return view('errors.500');
                    break;

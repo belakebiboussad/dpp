@@ -100,6 +100,7 @@ $(document).ready(function(){
     });
     $("#ajoutercmd").click(function() {
          $('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td>"+$('#produit').val()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+$('#specialite option:selected').text()+"</td><td class='center'>"+$("#quantite").val()+"</td></tr>");
+         $('#produit').val('');$("#quantite").val(1);$('#gamme').val('0');$('#specialite').val('0')
     });
     $('#gamme').change(function(){
         var id_gamme = $(this).val();

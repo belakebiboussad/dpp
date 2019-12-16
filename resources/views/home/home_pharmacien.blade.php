@@ -1,5 +1,5 @@
-@extends('app_phar')
-@section('page.script')
+ @extends('app_phar')
+ @section('page.script')
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#meds_table').dataTable({
