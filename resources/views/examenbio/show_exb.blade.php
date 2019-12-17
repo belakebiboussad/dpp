@@ -71,42 +71,18 @@
 @endsection
 @section('main-content')
 <div class="page-header" width="100%">
-   <div class="row">
-    <div class="col-sm-12">
-      <div class="widget-box">
-        <div class="widget-body">
-          <div class="widget-main">
-            <label class="inline">
-            <span class="blue"><strong>Nom :</strong></span>
-            <span class="lbl"> {{ $demande->consultation->patient->Nom }}</span>
-          </label>
-          &nbsp;&nbsp;&nbsp;
-          <label class="inline">
-            <span class="blue"><strong>Prénom :</strong></span>
-            <span class="lbl"> {{ $demande->consultation->patient->Prenom }}</span>
-          </label>
-          &nbsp;&nbsp;&nbsp;
-          <label class="inline">
-            <span class="blue"><strong>Sexe :</strong></span>
-            <span class="lbl"> {{ $demande->consultation->patient->Sexe == "M" ? "Masculin" : "Féminin" }}</span>
-          </label>
-          &nbsp;&nbsp;&nbsp;
-          <label class="inline">
-            <span class="blue"><strong>Date Naissance :</strong></span>
-            <span class="lbl"> {{ $demande->consultation->patient->Dat_Naissance }}</span>
-          </label>
-          &nbsp;&nbsp;&nbsp;
-          <label class="inline">
-            <span class="blue"><strong>Age :</strong></span>
-            <span class="lbl"> {{ Jenssegers\Date\Date::parse($demande->consultation->patient->Dat_Naissance)->age }} ans</span>
-          </label>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+   <?php $patient = $demande->consultation->patient; ?> 
+    @include('patient._patientInfo')    
 </div>
 <div class="content">
+  <div class="row">
+    <div class="col-sm-3"></div> <div class="col-sm-3"></div> <div class="col-sm-3"></div>
+    <div class="col-sm-3"><a href="/showdemandeexb/{{ $demande->id_demandeexb }}" target="_blank" class="btn btn-sm btn-primary pull-right">
+        <i class="fa fa-file-pdf-o"></i>&nbsp;
+        Imprimer
+      </a></div>
+  </div>
+  <div class="space-12"></div>
   <div class="row">
     <div class="col-sm-12">
       <div>
@@ -130,11 +106,7 @@
         </table>
       </div>
       <label>Résultat :</label>&nbsp;&nbsp;
-      <span><a href='/download/{{ $demande->resultat }}'>{{ $demande->resultat }}</a></span>
-      <a href="/showdemandeexb/{{ $demande->id_demandeexb }}" target="_blank" class="btn btn-primary pull-right">
-        <i class="fa fa-download"></i>&nbsp;
-        Télécharger
-      </a>
+      <span><a href='/download/{{ $demande->resultat }}'>{{ $demande->resultat }} &nbsp;<i class="fa fa-download"></i></a></span>
     </div>
   </div>
 </div>

@@ -158,13 +158,6 @@ Route::get('/rdv/reporter/{id}','RDVController@reporter');
 Route::post('/rdv/reporte/{id}','RDVController@storereporte');
 //ici
 Route::get('/admission/imprimer/{rdv}', ['as' => 'admission.pdf', 'uses' => 'AdmissionController@print']);
-/*
-Route::get('/admission/imprimer/{id}',function(){
-    dd('dfsd');
-});
-*/
-
-
 Route::get('/choixpatient','RDVController@choixpatient');
 Route::get('/home', 'HomeController@index')->name('home');
 route::get('/getAddEditRemoveColumnData','UsersController@getAddEditRemoveColumnData');
@@ -192,7 +185,6 @@ Route::any('/profile/{userId}', [
     ]);
 });
 Route::get('/role/show/{userId}','RolesController@show');
-//Route::get('/role/show/{userId}','RolesController@show');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('AddANTCD','AntecedantsController@createATCDAjax');
 Route::get('/searchUser','UsersController@search');
@@ -248,5 +240,9 @@ route::get('/getpatientconsigne','PatientController@getpatientconsigne');
 route::get('/choixpatvisite','VisiteController@choixpatvisite');
 route::get('/choixhospconsigne','ConsigneController@choixhospconsigne');
 route::get('/consigne','ConsigneController@choixhospconsigne');
-/**************************
-
+/**************************/
+// telechargement
+route::get('/download/{filename}', function($filename)
+{
+    return Storage::download($filename);
+});

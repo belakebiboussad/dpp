@@ -32,7 +32,8 @@
 					&nbsp;&nbsp;&nbsp;
 					<label class="inline">
 						<span class="blue"><strong>Age:</strong></span>
-						<span class="lb circle">{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }}
+						<!-- <span class="lb circle">{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }} -->
+						<span class="badge badge-info">{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }}</span>
 						</span>ans
 					</label>
 					&nbsp;&nbsp;&nbsp;
