@@ -161,7 +161,7 @@ class DemandeExamenRadio extends Controller
     public function show_demande_exr($id)
     {
         $demande = demandeexr::FindOrFail($id);
-        $pdf = PDF::loadView('demande_exr', compact('demande'));
+        $pdf = PDF::loadView('examenradio.demande_exr', compact('demande'));
         return $pdf->stream('demande_examen_radiologique.pdf');
     }
 }

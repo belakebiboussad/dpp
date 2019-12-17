@@ -190,8 +190,8 @@
                     <label>Résultat :</label>&nbsp;&nbsp;
                     <span><a href='/download/{{ $demande->resultat }}'>{{ $demande->resultat }}</a></span>
                     <a href="/showdemandeexr/{{ $demande->id }}" target="_blank" class="btn btn-primary pull-right">
-                      <i class="fa fa-eye"></i>&nbsp;
-                      Visualiser Demande examens radiologique
+                      <i class="fa fa-download"></i>&nbsp;
+                      Télécharger
                     </a>
                   </div>               
                 </div>
