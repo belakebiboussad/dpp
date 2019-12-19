@@ -213,7 +213,14 @@ class PatientController extends Controller
           $consultations = consultation::where('Patient_ID_Patient',$id)->get(); 
           $hospitalisations = hospitalisation::whereHas('admission.demandeHospitalisation.consultation.patient', function($q) use($id){
                                                   $q->where('id', $id);
-                                              })->get(); 
+                                              })->get();
+          //teste
+          foreach ($hospitalisations as $key => $hosp) {
+              # code...
+             var_dump($hosp->admission->id_lit); 
+            } 
+          //fintste
+          dd('de'); 
           $specialites = Specialite::all();
           $rdvs = rdv::all();
           return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations','homme_c','specialites'));

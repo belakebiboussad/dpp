@@ -117,7 +117,7 @@ $( document ).ready(function() {
 									<th><strong style="font-size:16px;">E-mail</strong></th>
 									<th><strong style="font-size:16px;">Rôle</strong></th>
 									<th><strong>Compte</strong></th>
-									<th></th>
+									<th><em class="fa fa-cog"></em></th>
 								</tr>
 							</thead>
 							<tbody>	

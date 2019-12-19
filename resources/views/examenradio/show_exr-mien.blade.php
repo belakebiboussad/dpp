@@ -130,22 +130,11 @@
                     <br><br>
                     <label><b>Informations supplémentaires pertinentes :</b></label>
                     <div>
-                      <table class="table table-striped table-bordered">
-                        <thead>
-                          <tr>
-                            <th class="center" width="10%">#</th>
-                            <th>Nom</th>
-                          </tr>
-                        </thead>
-                        <tbody>
+                          <ul class="list-inline"> 
                           @foreach($demande->infossuppdemande as $index => $info)
-                            <tr>
-                              <td class="center">{{ $index + 1 }}</td>
-                              <td>{{ $info->nom }}</td>
-                            </tr>
+                             <li class="active"><span class="badge badge-warning">{{ $info->nom }}</span></li>
                           @endforeach
-                        </tbody>
-                      </table>
+                      </ul>
                     </div>
                     <br>
                     <label><b>Examen(s) proposé(s) :</b></label>

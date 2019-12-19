@@ -11,6 +11,7 @@ use App\modeles\demandeexr;
 use Illuminate\Support\Facades\Storage;
 use Jenssegers\Date\Date;
 use PDF;
+use ToUtf;
 class DemandeExamenRadio extends Controller
 {
     /**
@@ -32,16 +33,18 @@ class DemandeExamenRadio extends Controller
 
     public function upload_exr(Request $request)
     {
-        $demande = demandeexr::FindOrFail($request->id_demande);
-        $demande->update([
-            "etat" => "V",
-            "resultat" => $request->file('resultat')->getClientOriginalName(),
+        $request->validate([
+            'resultat' => 'required',
         ]);
-
+        $demande = demandeexr::FindOrFail($request->id_demande);
         $filename = $request->file('resultat')->getClientOriginalName();
+        $filename =  ToUtf::cleanString($filename);
         $file = file_get_contents($request->file('resultat')->getRealPath());
         Storage::disk('local')->put($filename, $file);
-
+        $demande->update([
+            "etat" => "V",
+            "resultat" => $filename,
+        ]);
         return redirect()->route('homeradiologue');
     }
 

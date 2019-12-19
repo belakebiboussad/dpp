@@ -84,7 +84,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-12">
+
       <div class="col-xs-12 widget-container-col" id="consultation">
         <div class="widget-box" id="infopatient">
           <div class="widget-header">
@@ -161,7 +161,7 @@
             </div>
           </div>
         </div>
-    </div>
+
   </div>
 </div>
 @endsection

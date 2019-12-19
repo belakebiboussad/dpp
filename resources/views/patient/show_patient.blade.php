@@ -517,18 +517,29 @@
 										<table class="table table-striped table-bordered table-hover">
 											<thead class="thin-border-bottom">
 												<tr>
-													<th>Date d'entrée</th>				
-													<th>date prévue de sortir</th>				
-													<th>Date de sortir</th>
-													<th></th>				
+													<th><strong>Medecin Traitant</strong></th>
+													<th><strong>Date d'entrée</strong></th>				
+													<th><strong>date de sortie prévue</strong></th>				
+													<th><strong>Date de sortie</strong></th>
+													<th><strong>Service</strong></th>
+													<th><strong>Salle</strong></th>
+													<th><strong>lit</strong></th>
+													<th><strong>Etat</strong></th>
+													<th><em class="fa fa-cog"></em></th>				
 												</tr>
 											</thead>
 											<tbody>
 												@foreach($hospitalisations as $hosp)
 													<tr>
+														<td>{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe }}
+							  						{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Prenom_Employe }}</td>
 														<td>{{ $hosp->Date_entree }}</td>
 														<td>{{ $hosp->Date_Prevu_Sortie }}</td>
-														<td>{{ $hosp->Date_Sortie == null ? 'Pas Encore' : $hosp->Date_Sortie }}</td>
+														<td>{{ $hosp->Date_Sortie == null ? '/' : $hosp->Date_Sortie }}</td>
+														<td></td>
+														<td></td>
+														<td></td>
+														<td><span class="badge badge-danger">{{ $hosp->etat_hosp }}</span> </td>
 														<td></td>
 													</tr>
 												@endforeach

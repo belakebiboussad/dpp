@@ -11,7 +11,7 @@ class dem_colloque extends Model
      protected $fillable  = ['id_colloque','id_demande','id_medecin','ordre_priorite','observation'];
      public function demandeHosp()
      {
-     	 return $this->belongsTo('App\modeles\DemandeHospitalisation','id_demande');
+     	return $this->belongsTo('App\modeles\DemandeHospitalisation','id_demande');
      }
      public function medecin()
      {

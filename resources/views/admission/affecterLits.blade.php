@@ -23,7 +23,7 @@
 	<div class="row">
 		<div class="col-xs-12 page-header">
 			<div class="col-xs-12">
-				<h1>Affectation Des Lit </h1>
+				<h1>Affectation des Lits </h1>
 			</div>
 		</div><!-- /.page-header -->
 	</div>
@@ -51,8 +51,11 @@
 							<th class="text-center" width="15%"><h5><strong>Date RDV</strong></h5></th>
 							<th class="text-center" width="10%">Heure RDV</th>
 							<th width="12%" class="text-center"><h5><strong>Date Sortie Prévue</strong></h5></th>
-							<th class="detail-col  text-center"><h5><strong>Heure Sortie Prévue</strong></h5></th>
-							<th class="detail-col  text-center"></th>
+							<th class="detail-col text-center"><h5><strong>Heure Sortie Prévue</strong></h5></th>
+							<th class="detail-col text-center"><h5><strong>Service</strong></h5></th>
+							<th class="detail-col text-center"><h5><strong>Salle</strong></h5></th>
+							<th class="detail-col text-center"><h5><strong>Lit</strong></h5></th>
+							<th class="detail-col text-center"></th>
 		       	</tr>
 		      </thead>
         <tbody id ="rendez-VousBody" class="bodyClass">
@@ -81,6 +84,9 @@
 					  <td class="center">
 					  	<strong>{{ $rdv->heure_Prevu_Sortie }}</strong>
 					  </td>
+					  <td><strong>{{ $rdv->admission->lit->salle->service->nom }}</strong></td>
+					  <td><strong>{{ $rdv->admission->lit->salle->nom }}</strong></td>
+					  <td><strong>{{ $rdv->admission->lit->nom }}</strong></td>
 						<td class="center">
 							  <a href="{{ route('admission.edit',$rdv->id) }}" class="btn btn-success btn-xs aaaa"  title= "Affecter un Lit" >
 								  		<i class="ace-icon fa fa-bed bigger-120"></i>affecter

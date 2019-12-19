@@ -80,10 +80,10 @@ function XHRgePatient()
 	code_barre=$('#IPP').val();
 	date_Naiss=$('#Dat_Naissance').val();
 	$.ajax({
-                     type : 'get',
-                     url : '{{URL::to('searchPatient')}}',
-                      data:{'search':nom,'prenom':prenom,'code_barre':code_barre,'Dat_Naissance':date_Naiss},
-                      success:function(data,status, xhr){
+            type : 'get',
+            url : '{{URL::to('searchPatient')}}',
+            data:{'search':nom,'prenom':prenom,'code_barre':code_barre,'Dat_Naissance':date_Naiss},
+            success:function(data,status, xhr){
                       	$('#liste_patients tbody').html(data);
                           	$(".numberResult").html(xhr.getResponseHeader("count"));
                      }
@@ -189,13 +189,14 @@ function setField(field,value)
 				<div class="col-sm-2"><label class="control-label pull-right" for="IPP" ><strong>Code:</strong></label>
 				</div>
 				<div class="col-sm-4">
-				   <input type="text" class="form-control input-sm tt-input" id="IPP" name="IPP"  placeholder="code du patient...">
+				   <input type="text" class="form-control input-sm tt-input" id="IPP" name="IPP"  placeholder="code du patient..."
+				   	 data-toggle="tooltip" data-placement="left" title="Code IPP du patient">
 				 </div>
-				 <div class="col-sm-2"><label class="control-label pull-right" for="Dat_Naissance" ><strong>date Nai:</strong></label>
+				 <div class="col-sm-2"><label class="control-label pull-right" for="Dat_Naissance" ><strong>Né(e):</strong></label>
 				</div>
 				<div class="col-sm-4">
 				   <input type="text" class="form-control input-sm tt-input date-picker" id="Dat_Naissance" name="Dat_Naissance"
-				   		data-date-format="yyyy-mm-dd" placeholder="date de naissance...">
+				   		data-date-format="yyyy-mm-dd" placeholder="date de naissance..." data-toggle="tooltip" data-placement="left" title="Date Naissance du patient">
 				 </div>
 			</div>
 		 	</div>  {{-- body --}}

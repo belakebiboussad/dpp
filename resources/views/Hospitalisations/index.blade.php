@@ -24,6 +24,7 @@
 								<th>Date Sortie Prévue</th>
 								<th>Date Sortie</th>
 								<th>Médecin</th>
+								<th>Etat</th>
 								<th class="center"><em class="fa fa-cog"></em></th>
 							</tr>
 						</thead>
@@ -49,13 +50,15 @@
 							  		{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe }}
 							  		{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Prenom_Employe }}
 							  	</td>
+							  	<td><span class="label label-info arrowed">{{ $hosp->etat_hosp }}</span></td>
 							  	<td>
 							  	  @if(Auth::user()->role->id != 9)
 							  	  	
 							  	  	@if(Auth::user()->role->id == 1)
 							  	  		<a href="/visite/create/{{ $hosp->id }}" class ="btn btn-primary btn-xs"><i class="fa fa-plus"></i>&nbsp;Visit</a>
+							  	  		<a href="" class ="btn btn-warning btn-xs"><i class="fa fa-out"></i>&nbsp;Sortir</a>
 							  	  	@endif
-							  	  	@if(Auth::user()->role->id == 5)
+							  	  	@if((Auth::user()->role->id == 5) && ($hosp->etat_hosp == 'en cours'))
 							  	  		<a class="btn btn-secondary btn-xs"><i class="ace-icon glyphicon glyphicon-print">&nbsp;Ticket</i></a>
 							  	  	@endif			
 							  	  @endif
