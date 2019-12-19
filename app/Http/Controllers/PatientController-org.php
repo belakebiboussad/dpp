@@ -214,13 +214,6 @@ class PatientController extends Controller
           $hospitalisations = hospitalisation::whereHas('admission.demandeHospitalisation.consultation.patient', function($q) use($id){
                                                   $q->where('id', $id);
                                               })->get();
-          //teste
-          foreach ($hospitalisations as $key => $hosp) {
-              # code...
-             var_dump($hosp->admission->id_lit); 
-            } 
-          //fintste
-          dd('de'); 
           $specialites = Specialite::all();
           $rdvs = rdv::all();
           return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations','homme_c','specialites'));
@@ -238,12 +231,10 @@ class PatientController extends Controller
       $patient = patient::FindOrFail($id);
       $homme_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get()->first();
       if($patient->Type != "Autre")
-      {
-        $assure =  assur::FindOrFail($patient->Assurs_ID_Assure);
-      }  
+       $assure =  $patient->assure;  
       else
         $assure = new assur;
-        return view('patient.edit_patient',compact('patient','assure','homme_c','grades'));
+      return view('patient.edit_patient',compact('patient','assure','homme_c','grades'));
     }
 
 
@@ -751,7 +742,7 @@ public function search(Request $request)
                                $output.='<tr>'.
                                '<td hidden>'.$patient->id.'</td>'.
                                 '<td class ="center chkTrt">'.'<input type="checkbox" class="ace check" name="fusioner[]" onClick="return KeepCount()" value="'.$patient->id.'"/>'.'<span class="lbl"></span>   '.'</td>'.
-                                '<td><a href="#" id ="'.$patient->id.'" onclick ="getPatientdetail('.$patient->id.');">'.$patient->Nom.'</a></td>'.
+                                '<td><a data-toggle="tooltip" title="Résume du patient" data-placement="bottom" id ="'.$patient->id.'" onclick ="getPatientdetail('.$patient->id.');">'.$patient->Nom.'</a></td>'.
                                '<td>'.$patient->Prenom.'</td>'.
                                 '<td>'.$patient->code_barre.'</td>'.
                                '<td>'.$patient->Dat_Naissance.'</td>'.
@@ -765,8 +756,7 @@ public function search(Request $request)
                       return Response($output)->withHeaders(['count' => $i]);      
                }     
         } 
-}
-    // public function AutoCompletePatientname(Request $request)
+}// public function AutoCompletePatientname(Request $request)
     // {
     //        return patient::where('Nom', 'LIKE', '%'.$request->q.'%')->get();    
     // }

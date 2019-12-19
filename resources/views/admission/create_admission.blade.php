@@ -180,7 +180,21 @@
 						</div>
 					</div>
 			  </div>
+			  <div class="col-xs-4">
+					<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right" for="gardeMalade" style="padding: 0.9%;">
+						 		<strong>Garde Malade :</strong>
+							</label>
+							<div class="input-group col-sm-9" style ="width:35.8%;padding: 0.8%;">	
+							</div>
+					</div>
+				</div>
 			</div>
+      <div class="space-12"></div>
+			<div class="page-header">
+        <h1>Hébergement</h1>
+      </div>
+      <div class="space-12"></div>
 			<div class="row form group">
 				<div class="col-xs-4">
 			  		<label class="col-sm-4 control-label no-padding-right" for="dateSortie">

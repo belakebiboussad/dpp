@@ -18,13 +18,13 @@
 					<table class="table table-striped table-bordered table-hover">
 						<thead class="thin-border-bottom">
 							<tr>
-								<th>Patient</th>
-								<th>Mode Admission</th>
-								<th>Date Entrée</th>
-								<th>Date Sortie Prévue</th>
-								<th>Date Sortie</th>
-								<th>Médecin</th>
-								<th>Etat</th>
+								<th class="center">Patient</th>
+								<th class="center">Mode Admission</th>
+								<th class="center">Date Entrée</th>
+								<th class="center">Date Sortie Prévue</th>
+								<th class="center">Date Sortie</th>
+								<th class="center">Médecin</th>
+								<th class="center">Etat</th>
 								<th class="center"><em class="fa fa-cog"></em></th>
 							</tr>
 						</thead>
@@ -50,7 +50,7 @@
 							  		{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe }}
 							  		{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Prenom_Employe }}
 							  	</td>
-							  	<td><span class="label label-info arrowed">{{ $hosp->etat_hosp }}</span></td>
+							  	<td><span class="badge badge-pill badge-success">{{ $hosp->etat_hosp }}</span></td>
 							  	<td>
 							  	  @if(Auth::user()->role->id != 9)
 							  	  	

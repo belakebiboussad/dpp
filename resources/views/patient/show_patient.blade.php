@@ -11,10 +11,10 @@
 				<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>
 				Rechercher un Patient
 			</a>
-			<a href="{{route('patient.destroy',$patient->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-white btn-warning btn-bold"">
-        				<i class="ace-icon fa fa-trash-o bigger-120 orange"> Supprimer</i>
-        			</a>
-       		 </div>
+			<a href="{{route('patient.destroy',$patient->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-white btn-warning btn-bold">
+    			<i class="ace-icon fa fa-trash-o bigger-120 orange"> Supprimer</i>
+      </a>
+    </div>
 	</div>
 	<div>
 		<div id="user-profile-2" class="user-profile">

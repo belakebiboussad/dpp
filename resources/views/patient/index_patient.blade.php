@@ -74,7 +74,7 @@ $(document).ready(function(){
 function XHRgePatient()
 {
 	$('#btnCreate').removeClass('hidden');
-           $('#FusionButton').removeClass('hidden');
+  $('#FusionButton').removeClass('hidden');
 	nom=$('#patientName').val();
 	prenom=$('#patientFirstName').val();
 	code_barre=$('#IPP').val();
@@ -94,8 +94,8 @@ function getPatientdetail(id)
 	$.ajax({
 					url : '/patientdetail/'+id,
 		      type : 'GET',
-		      success:function(data1,status, xhr){
-		        $('#patientDetail').html(data1.html);
+		      success:function(data,status, xhr){
+		        $('#patientDetail').html(data.html);
           }	
 	});
 }
@@ -233,7 +233,7 @@ function setField(field,value)
 								<th class="blue">IPP</th>
 								<th class="blue">Né(e) le</th>
 								<th class="blue">Sexe</th>
-								<th class="blue">Age</th>
+								<th class="blue">Âge</th>
 								<th class="blue">Type</th>
 								<th class="blue"><em class="fa fa-cog"></em></th>
 							</tr>
@@ -245,8 +245,8 @@ function setField(field,value)
 		</div>
 	</div>{{-- col-sm-7 --}}
 	<div class="col-md-5 col-sm-5">
-	  <br><hr>
-		<div class="widget-box transparent" id="patientDetail">
+	  <br>
+		<div class="widget-box transparent" id="patientDetail" style ="margin-top: 14px;">
 		</div>		
 	</div>
 </div>{{-- row --}}

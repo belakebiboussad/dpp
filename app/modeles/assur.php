@@ -13,4 +13,8 @@ class assur extends Model
 	  	if(isset($this->lieunaissance))
 			return $this->belongsTo('App\modeles\Commune','lieunaissance');
 	}
+	public function grade()
+	{
+			return $this->belongsTo('App\modeles\grade','Grade');
+	}
 }

@@ -286,7 +286,7 @@
 				<div class="col-sm-6">
 					<div class="form-group">
 					<label class="col-sm-3 control-label" for="sf">
-						<strong class="text-nowrap">Cevilite :</strong>
+						<strong class="text-nowrap">Situation Familliale :</strong>
 					</label>
 					<div class="col-sm-9">
 						<select class="form-control civilite" id="sf" name="sf">

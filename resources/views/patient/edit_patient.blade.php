@@ -653,9 +653,11 @@
 							</label>
 							<div class="col-sm-9">
 							<select id="grade" name="grade" class="col-xs-12 col-sm-6"/>
+							@if(isset($assure->Grade))
 								@foreach ($grades as $key=>$grade)
 								<option value="{{ $grade->id }}" {{ $assure->Grade === $grade->id   ? "selected":"jj" }} >{{ $grade->nom }}</option>
 								@endforeach
+							@endif
 							</select>
 							</div>
 						</div>

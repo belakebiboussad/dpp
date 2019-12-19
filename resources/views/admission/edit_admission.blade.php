@@ -185,7 +185,12 @@
           </div>
         </div>
       </div><!-- row -->
-        @if(isset($rdv->admission->id_lit))
+      <div class="space-12"></div>
+      <div class="page-header">
+        <h1>Hébergement</h1>
+      </div>
+      <div class="space-12"></div>
+      @if(isset($rdv->admission->id_lit))
         <div class="row form group">
         <div class="col-xs-4">
             <label class="col-sm-4 control-label no-padding-right" for="dateSortie">
