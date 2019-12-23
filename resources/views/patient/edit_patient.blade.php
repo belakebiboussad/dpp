@@ -1,4 +1,5 @@
 @extends('app')
+@section('title','modifier  le patient')
 @section('page-script')
 	<script>
 		 function showType(value,i){
@@ -99,37 +100,39 @@
 		function addGardeMaladeFct()
 		{
 			var form = $('#addGardeMalade');
-			var formdata = form.serialize();
-			var id = $('#patientId').val();
+			//var formdata = form.serialize();
+			var patientId = $('#patientId').val();
 			var nom = $('#nom_h').val();
 			var prenom = $('#prenom_h').val();
 			var datenaiss = $('#datenaissance_h').val();
-		  var relation = $('#lien_par').val();
-		  var type = $('#type_piece').val();//problrmr
-		  var number = $('#num_piece').val();
-		  var datePiece = $('#date_piece_id').val();
+			 var relation = $('#lien_par').val();
+		  	var typePiece = $("input[name='type_piece']:checked").val();
+		  	var number = $('#num_piece').val();
+		  	var datePiece = $('#date_piece_id').val();
 			var adresse = $('#adresse_h').val();
-		  
-      
-     	// $.ajax({
-      //       type: form.attr('method'),
-      //       url: form.attr('action'),
-      //       data: {v_status:formdata},
-      //       success: function (data) {
-      //         	if(data == "") {		//True Case i.e. passed validation
-      //             alert('erreur');
-      //          	}
-      //           else {					//False Case: With error msg
-      //             $("#msg").html(data);	//$msg is the id of empty msg
-      //             alert(data);
-      //           }
-      //       },
-      //       error: function (data) {
-      //           console.log('An error occurred.');
-      //           console.log(data);
-      //       },
-      //    });
-
+		     	alert(datePiece);
+		     	$.ajax({
+			            type: form.attr('method'),
+			            url: form.attr('action'),
+			            data: {
+			            		patientId:patientId,
+			            		nom:nom,
+			            		prenom:prenom,
+			            		datenaiss:datenaiss,
+			            		relation:relation,
+			            		typePiece:typePiece,
+			            		number:number,
+			            		datePiece:datePiece,
+			            		datePiece:adresse,
+			            },
+			            success: function (data) {
+			             alert(data);
+			            },
+			            error: function (data) {
+			                console.log('An error occurred.');
+			                console.log(data);
+			            },
+			 });
 		}
 		$(document).ready(function () {
 		   	var bloodhoundcom = new Bloodhound({

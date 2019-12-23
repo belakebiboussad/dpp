@@ -114,15 +114,15 @@
 								<div class="col-sm-9">					
 									<div class="radio">
 										<label>
-										<input id="type_piece" name="type_piece" value="CNI" type="radio" class="ace" readonly @if(isset($homme_c)) {{ $homme_c->type_piece ==="CNI" ? "Checked":"" }} @else Checked  @endif />
-											<span class="lbl">carte nationale d'identité</span>
+										<input id="type_pieceCNI" name="type_piece" value="CNI" type="radio" class="ace" checked />
+											<span class="lbl">Carte Nationale d'Identité</span>
 										</label>
 										<label>
-											<input id="type_piece" name="type_piece" value="Permis" type="radio" class="ace" readonly @if(isset($homme_c)) {{ $homme_c->type_piece ==="Permis" ? "Checked":"" }} @endif />
+											<input id="type_piecePC" name="type_piece" value="Permis" type="radio" class="ace"  />
 											<span class="lbl">Permis de Conduire</span>
 										</label>
 										<label>
-											<input id="type_piece" name="type_piece" value="passeport" type="radio" class="ace" readonly @if(isset($homme_c)) {{ $homme_c->type_piece ==="passeport" ? "Checked":"" }} @endif />
+											<input id="type_pieceP" name="type_piece" value="passeport" type="radio" class="ace" />
 											<span class="lbl"> Passeport</span>
 										</label>
 									</div>
