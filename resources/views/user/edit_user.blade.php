@@ -191,7 +191,7 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label no-padding-right" for="active"><strong>Compte :&nbsp;</strong></label>
 			<div class="col-sm-9 input-group">
-				<input type="checkbox"  {{ ($user->active == '1') ?'checked':'' }} Disabled>
+				<input type="checkbox"  {{ ($user->active) ?'checked':'' }} Disabled>
 				@if( $user->active)
 				<span class="label label-info arrowed">&nbsp; Active</span>
 				@else

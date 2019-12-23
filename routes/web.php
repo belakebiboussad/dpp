@@ -85,29 +85,14 @@ Route::get('/listecolloquesCloture/{type}','ColloqueController@getClosedColoques
 Route::resource('admission','AdmissionController');
 route::get('/annullerRDV/{id}','AdmissionController@annulerRDV');
 Route::get('/getAdmissions/{date}','AdmissionController@getAdmissions');//->name('admissionsXHR')
-// Route::get('/getAdmissions',function(Request $request){ 
-    
-//     $date = Input::get('date'); //$msg = $request->date;
-//     return Response::json(array(
-//         'data'   => $date
-//     ));
-    /* 
-    $admissions = App\modeles\admission::join('rdv_hospitalisations','admissions.id','=','rdv_hospitalisations.id_admission')
-                              ->join('demandehospitalisations','admissions.id_demande','=','demandehospitalisations.id')
-                              ->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')  
-                              ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
-                              ->join('lits','lits.id','=','admissions.id_lit')
-                              ->join('salles','salles.id','=','lits.salle_id')
-                               ->join('services','services.id','=','salles.service_id')
-                              ->select('admissions.id as id_admission','admissions.*','rdv_hospitalisations.*',
-                                'patients.Nom','patients.Prenom','services.nom as nom_service','salles.nom as nom_salle','lits.num as num_lit')
-                              ->where('etat_RDVh','<>','validé')->where('date_RDVh','=', $date)->get();            
 
-    return Response::json(array(
-        'data'   => $admissions
-    ));
-    */
- // });
+//Route::post('/hommeConfiance/save','HommeConfianceController@save');
+
+Route::post('/hommeConfiance/save',function(Request $request){
+          return("ff");
+});
+Route::resource('hommeConfiance','HommeConfianceController');
+
 
 Route::resource('role','RolesController');
 Route::resource('ticket','ticketController');

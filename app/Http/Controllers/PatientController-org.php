@@ -229,12 +229,12 @@ class PatientController extends Controller
     {           
       $grades = grade::all(); 
       $patient = patient::FindOrFail($id);
-      $homme_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get()->first();
+      $hommes_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
+      // dd($hommes_c);
       if($patient->Type != "Autre")
-       $assure =  $patient->assure;  
-      else
-        $assure = new assur;
-      return view('patient.edit_patient',compact('patient','assure','homme_c','grades'));
+        $assure =  $patient->assure;  
+      // else //   $assure = new assur;
+      return view('patient.edit_patient',compact('patient','assure','hommes_c','grades'));
     }
 
 
@@ -247,6 +247,7 @@ class PatientController extends Controller
      */
 public function update(Request $request,$id)
 {
+    dd("sdf");
     $date = Date::Now();
     static $assurObj;
     $patient = patient::FindOrFail($id);
@@ -267,7 +268,6 @@ public function update(Request $request,$id)
                         "NMGSN"=>$request->NMGSN,
                         "NSS"=>$request->nss,
                     ]);
-                  
                     $patient -> update([
                           "Nom"=>$request->nom,
                           "Prenom"=>$request->prenom,
@@ -734,22 +734,36 @@ public function search(Request $request)
                 {
                           $i=0;
                           foreach ($patients as $key => $patient) {
-                               $age = Carbon::createFromDate(date('Y', strtotime($patient->Dat_Naissance)), date('m', strtotime($patient->Dat_Naissance)), date('d', strtotime($patient->Dat_Naissance)))->age;
+                                $age = Carbon::createFromDate(date('Y', strtotime($patient->Dat_Naissance)), date('m', strtotime($patient->Dat_Naissance)), date('d', strtotime($patient->Dat_Naissance)))->age;
+                                $patientType ="";
                                 if($patient->Sexe =="M")
                                     $patient->Sexe="Homme";
                                 else
                                        $patient->Sexe="Femme";
+                                switch($patient->Type)
+                                {
+                                  case  "Assure":
+                                    $patientType ='<span class="badge badge-success">'.$patient->Type.'</span>';
+                                    break;
+                                  case "Ayant_droit":
+                                    $patientType ='<span class="badge badge-Primary">'.$patient->Type.'</span>';
+                                    break;
+                                  case "Autre" :
+                                    $patientType ='<span class="badge badge-danger">'.$patient->Type.'</span>';
+                                    break;   
+                                } 
+                                       
                                $output.='<tr>'.
                                '<td hidden>'.$patient->id.'</td>'.
-                                '<td class ="center chkTrt">'.'<input type="checkbox" class="ace check" name="fusioner[]" onClick="return KeepCount()" value="'.$patient->id.'"/>'.'<span class="lbl"></span>   '.'</td>'.
-                                '<td><a data-toggle="tooltip" title="Résume du patient" data-placement="bottom" id ="'.$patient->id.'" onclick ="getPatientdetail('.$patient->id.');">'.$patient->Nom.'</a></td>'.
+                               '<td class ="center chkTrt">'.'<input type="checkbox" class="ace check" name="fusioner[]" onClick="return KeepCount()" value="'.$patient->id.'"/>'.'<span class="lbl"></span>   '.'</td>'.
+                               '<td><a style="cursor:pointer" data-toggle="tooltip" title="Résume du patient" data-placement="bottom" id ="'.$patient->id.'" onclick ="getPatientdetail('.$patient->id.');">'.$patient->Nom.'</a></td>'.
                                '<td>'.$patient->Prenom.'</td>'.
-                                '<td>'.$patient->code_barre.'</td>'.
+                               '<td>'.$patient->code_barre.'</td>'.
                                '<td>'.$patient->Dat_Naissance.'</td>'.
                                '<td>'.$patient->Sexe.'</td>'.
                                '<td>'.$age.'</td>'.
-                               '<td>'.$patient->Type.'</td>'.
-                               '<td>'.'<a href="/patient/'.$patient->id.'" class="'.'btn btn-warning btn-xs"><i class="fa fa-hand-o-up fa-xs"></i>&nbsp;</a>'."&nbsp;&nbsp;".'<a href="/patient/'.$patient->id.'/edit" class="'.'btn btn-info btn-xs"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></a>'.'</td>'.
+                               '<td>'.$patientType.'</td>'.
+                               '<td class="center">'.'<a href="/patient/'.$patient->id.'" class="'.'btn btn-warning btn-xs" data-toggle="tooltip" title="Consulter le dossier" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i>&nbsp;</a>'."&nbsp;&nbsp;".'<a href="/patient/'.$patient->id.'/edit" class="'.'btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></a>'.'</td>'.
                                '</tr>'; 
                                 $i++;
                            }

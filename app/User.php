@@ -35,4 +35,7 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\modeles\employ','employee_id');   
     }
+    protected $casts = [
+        'active' => 'boolean',
+    ];
 }

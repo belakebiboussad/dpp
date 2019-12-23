@@ -8,8 +8,8 @@
 		
 		<div class="pull-right">
 			<a href="{{ route('patient.index') }}" class="btn btn-white btn-info btn-bold">
-				<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>
-				Rechercher un Patient
+				<i class="ace-icon fa fa-search bigger-120 blue"></i>
+				Chercher un Patient
 			</a>
 			<a href="{{route('patient.destroy',$patient->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-white btn-warning btn-bold">
     			<i class="ace-icon fa fa-trash-o bigger-120 orange"> Supprimer</i>
@@ -396,7 +396,7 @@
 								<div class="widget-header">
 									<h5 class="widget-title bigger lighter">
 										<i class="ace-icon fa fa-table"></i>
-										Liste Des Consultations :
+										Consultations
 									</h5>
 									<div class="widget-toolbar widget-toolbar-light no-border">
 										{{-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> --}}

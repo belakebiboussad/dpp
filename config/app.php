@@ -245,5 +245,6 @@ return [
         'Flashy' => MercurySeries\Flashy\Flashy::class,
         'Calendar'=>MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
         'ToUtf' => App\Helpers\String\Utf8::class,
+
     ],
 ];
