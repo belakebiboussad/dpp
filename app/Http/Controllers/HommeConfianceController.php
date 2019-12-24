@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\modeles\homme_conf;
+use App\modeles\patient;
 use Auth;
 class HommeConfianceController extends Controller
 {
   public function edit($id)
   {
-  	dd($id);
+         $homme = homme_conf::FindOrFail($id);
+         $patient = patient::FindOrFail($homme->id_patient);
+         return view('patient.add_gardeMalade',compact('homme','patient'));
   }
   //
 	public function store(Request $request)
@@ -42,7 +45,10 @@ class HommeConfianceController extends Controller
   					    '<td >'.$homme->type_piece.'</td>'.
   					    '<td >'.$homme->num_piece.'</td>'.  
   					    '<td >'.$homme->date_deliv.'</td>'.
-  					    '</tr>';
+  					   '<td class="center">
+                                              <a class = "btn btn-info btn-xs" data-toggle="tooltip" title="modifier"  href="'.route('hommeConfiance.edit',$homme->id).'"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></a>&nbsp;<a class="btn btn-danger btn-xs" data-method="DELETE" data-confirm="Etes Vous Sur de supprimer?"  href="'.route('hommeConfiance.destroy',$homme->id).'"><i class="fa fa-trash-o fa-xs"></i></a></td>'.
+                                         
+                                       '</tr>';
   	return Response($output); 
   }
   public function destroy($id)

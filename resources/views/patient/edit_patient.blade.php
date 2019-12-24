@@ -269,8 +269,6 @@
 		</a>
 	</div>
 </div>
-
-<div class="msg">ss</div> 
 <form class="form-horizontal" action="{{ route('patient.update',$patient ->id) }}" method="POST">
 	{{ csrf_field() }}
   	{{ method_field('PUT') }}
@@ -812,9 +810,8 @@
 					              <td>{{ $hom->num_piece }}</td>
 					              <td>{{ $hom->date_deliv }}</td>
 					              <td class="center">
-					              	<!-- 	<a href="/hommeConfiance/{{ $hom->id }}/edit" class = "btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></a> -->
-					              		<a href="{{ route('hommeConfiance.edit',$hom->id )}}" class = "btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></a>
-													<a href="{{ route('hommeConfiance.destroy',$hom->id) }}" class="btn btn-danger btn-xs" data-method="DELETE" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></a>		
+					       		<a href="{{ route('hommeConfiance.edit',$hom->id )}}" class = "btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></a>
+							<a href="{{ route('hommeConfiance.destroy',$hom->id) }}" class="btn btn-danger btn-xs" data-method="DELETE" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></a>		
 					              </td>
 					            </tr>
 					          @endforeach
@@ -843,7 +840,7 @@
 	</div>
 	</form>
 	<div class="row">
-    @include('patient.add_garderMalade')
+    @include('patient.add_gardeMalade')
 	</div>
 
 @endsection
