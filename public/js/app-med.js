@@ -274,12 +274,12 @@
 	}
 	function demandehosp()
 	{
-		($("#motifhosp").appendTo('#consultForm')).hide();
-		($("#service").appendTo('#consultForm')).hide();
-		($("#degreurg").appendTo('#consultForm')).hide();
-		($("#specialiteDemande").appendTo('#consultForm')).hide(); //ajouter specialite
-		($("#modeAdmission").appendTo('#consultForm')).hide();
-		 $('#demandehosp').modal('hide');
+			($("#motifhosp").appendTo('#consultForm')).hide();
+			($("#service").appendTo('#consultForm')).hide();
+			($("#degreurg").appendTo('#consultForm')).hide();
+			($("#specialiteDemande").appendTo('#consultForm')).hide(); //ajouter specialite
+			($("#modeAdmission").appendTo('#consultForm')).hide();
+			$('#demandehosp').modal('hide');
 	}
 	function lettreorientation()
 	{

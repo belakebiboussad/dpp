@@ -45,7 +45,7 @@
 								<div class="col-sm-9">
 									<input type="hidden" id="id_h" name="id_h"  @if(isset($homme_c)) value="{{ $homme_c->id}}" @endif/>
 									<input type="hidden" id="etat_h" name="etat_h" @if(isset($homme_c)) value="actuel" @endif/>
-									<input type="text" id="nom_h" name="nom_h" @if(isset($homme_c)) value="{{ $homme_c->nom }}" @endif placeholder="Nom..." class="col-xs-12 col-sm-6" readonly/>
+									<input type="text" id="nom_h" name="nom_h"  placeholder="Nom..." class="col-xs-12 col-sm-6"  required/>
 								</div>
 							</div>
 						</div>
@@ -55,7 +55,7 @@
 									<b>Prénom :</b>
 								</label>
 								<div class="col-sm-9">
-								<input type="text" id="prenom_h" name="prenom_h" @if(isset($homme_c)) value="{{ $homme_c->prénom }}" @endif placeholder="Prénom..." class="col-xs-12 col-sm-6" readonly/>
+								<input type="text" id="prenom_h" name="prenom_h" placeholder="Prénom..." class="col-xs-12 col-sm-6" required/>
 								</div>
 							</div>
 						</div>
@@ -68,7 +68,7 @@
 									<b class="text-nowrap">Né(e) le :</b>
 								</label>
 								<div class="col-sm-9">
-								<input class="col-xs-12 col-sm-6 date-picker" id="datenaissance_h" name="datenaissance_h" @if(isset($homme_c)) value="{{ $homme_c->date_naiss}}" @endif type="text" placeholder="Date de naissance..." pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" readonly />
+								<input class="col-xs-12 col-sm-6 date-picker" id="datenaissance_h" name="datenaissance_h" type="text" placeholder="Date de naissance..." pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" required />
 								</div>
 							</div>
 					</div>
@@ -78,13 +78,8 @@
 									<b>Relation :</b>
 								</label>
 								<div class="col-sm-5">
-									<select class="form-control" id="lien_par" name="lien_par" placeholder="date de délivrance ..." readonly>
-										
-										@if(isset($homme_c))
-										<option  value="{{ $homme_c->lien_par }}"> {{ $homme_c->lien_par }}</option>
-										@else
+									<select class="form-control" id="lien_par" name="lien_par" placeholder="date de délivrance ..." required>
 										<option value="">Sélectionner...</option>
-										@endif
 										<option value="conjoint">Conjoint(e)</option>
 										<option value="père">Père</option>
 										<option value="mère">Mère</option>
@@ -138,7 +133,7 @@
 									<b>N° de la pièce: </b>
 								</label>
 								<div class="col-sm-9">
-								<input type="text" id="num_piece" name="num_piece" @if(isset($homme_c)) value="{{ $homme_c->num_piece }}" @endif placeholder="N° pièce..." class="col-xs-12 col-sm-6" readonly/>
+								<input type="text" id="num_piece" name="num_piece" placeholder="N° pièce..." class="col-xs-12 col-sm-6" required/>
 							</div>
 							</div>
 						</div>
@@ -148,7 +143,7 @@
 									<b class="text-nowrap">Délivré le :</b>
 								</label>
 								<div class="col-sm-9">
-								<input class="col-xs-12 col-sm-6 date-picker" id="date_piece_id" name="date_piece_id" @if(isset($homme_c)) value="{{$homme_c->date_naiss}}" @endif type="text" data-date-format="yyyy-mm-dd" placeholder="date de délivrance ..." pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" readonly/>
+								<input class="col-xs-12 col-sm-6 date-picker" id="date_piece_id" name="date_piece_id" type="text" data-date-format="yyyy-mm-dd" placeholder="date de délivrance ..." pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
 								</div>
 							</div>
 						</div>
@@ -159,7 +154,7 @@
 								<div>
 										<i class="fa fa-map-marker light-orange bigger-110"></i>
 										<label for="adresse"><b>Adresse :</b></label>
-										<textarea class="form-control" id="adresse_h" name="adresse_h" placeholder="Adresse..." readonly>@if(isset($homme_c))  {{ $homme_c->adresse }} @endif</textarea>
+										<textarea class="form-control" id="adresse_h" name="adresse_h" placeholder="Adresse..." required></textarea>
 								</div>
 							</div>
 							<div class="col-sm-1">
@@ -169,7 +164,7 @@
 									<i class="fa fa-phone"></i>
 									<label for="mobile_h"><b>Tél-mob : </b></label>
 									<br/>
-									<input type="tel" id="mobile_h" name="mobile_h" @if(isset($homme_c)) value="{{$homme_c->mob}}" @endif placeholder="XX XX XX XX XX" autocomplete="off" maxlength="10" minlength="10"  pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"  class="col-sm-12"readonly>
+									<input type="tel" id="mobile_h" name="mobile_h" placeholder="XX XX XX XX XX" autocomplete="off" maxlength="10" minlength="10"  pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"  class="col-sm-12" required>
 									<span class="tel validity"></span>
 								</div>
 							</div>			
@@ -180,7 +175,7 @@
 			 		</form>
 			</div><!-- modal-body -->	<!-- onclick="addGardeMaladeFct();" -->
 			<div class="modal-footer">
-				<button type="submit" class="btn btn-info btn-sm" id ="EnregistrerGardeMalade" onclick="addGardeMaladeFct();"  >
+				<button type="submit" class="btn btn-info btn-sm btn-submit" id ="EnregistrerGardeMalade" onclick="addGardeMaladeFct();">
           <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
         </button>
        	<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">

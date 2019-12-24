@@ -86,11 +86,8 @@ Route::resource('admission','AdmissionController');
 route::get('/annullerRDV/{id}','AdmissionController@annulerRDV');
 Route::get('/getAdmissions/{date}','AdmissionController@getAdmissions');//->name('admissionsXHR')
 
-//Route::post('/hommeConfiance/save','HommeConfianceController@save');
+Route::post('/hommeConfiance/save','HommeConfianceController@createGardejax');
 
-Route::post('/hommeConfiance/save',function(Request $request){
-          return("ff");
-});
 Route::resource('hommeConfiance','HommeConfianceController');
 
 

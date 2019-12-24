@@ -78,7 +78,7 @@
 		if ($("#addGardeMalade").length > 0) {
     		$("#addGardeMalade").validate({
       			rules: {
-  			        mobile_number: {
+  			        mobile_h: {
             			required: true,
             			digits:true,
             			minlength: 10,
@@ -86,7 +86,7 @@
         				}   
    					},
    					messages: {
-   							mobile_number: {
+   							mobile_h: {
 					        required: "Please enter contact number",
 					        minlength: "The contact number should be 10 digits",
 					        digits: "Please enter only numbers",
@@ -95,45 +95,28 @@
    					}
    		});
     }
-
-
+//////////////////
 		function addGardeMaladeFct()
 		{
-			var form = $('#addGardeMalade');
-			//var formdata = form.serialize();
-			var patientId = $('#patientId').val();
-			var nom = $('#nom_h').val();
-			var prenom = $('#prenom_h').val();
-			var datenaiss = $('#datenaissance_h').val();
-			 var relation = $('#lien_par').val();
-		  	var typePiece = $("input[name='type_piece']:checked").val();
-		  	var number = $('#num_piece').val();
-		  	var datePiece = $('#date_piece_id').val();
-			var adresse = $('#adresse_h').val();
-		     	alert(datePiece);
-		     	$.ajax({
-			            type: form.attr('method'),
-			            url: form.attr('action'),
-			            data: {
-			            		patientId:patientId,
-			            		nom:nom,
-			            		prenom:prenom,
-			            		datenaiss:datenaiss,
-			            		relation:relation,
-			            		typePiece:typePiece,
-			            		number:number,
-			            		datePiece:datePiece,
-			            		datePiece:adresse,
-			            },
-			            success: function (data) {
-			             alert(data);
-			            },
-			            error: function (data) {
+			var form = $('#addGardeMalade');	var pid = $('#patientId').val();var nom = $('#nom_h').val();var prenom = $('#prenom_h').val(); var datenaiss = $('#datenaissance_h').val(); var relation = $('#lien_par').val();				
+		  var typePiece = $("input[name='type_piece']:checked").val();var number = $('#num_piece').val();var datePiece = $('#date_piece_id').val();	var adresse = $('#adresse_h').val(); var mobile_h = $('#mobile_h').val();
+			$.ajax({
+								headers: {
+                           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+			          type: form.attr('method'),
+			          url:form.attr('action'),
+			          data:{pid:pid,nom:nom,prenom:prenom,datenaiss:datenaiss,relation:relation,typePiece:typePiece,number:number,datePiece:datePiece,adresse:adresse,mobile_h:mobile_h},
+			          success: function (data,status, xhr) {
+			             $("#listeGardes tbody").append(data);
+			             $('#gardeMalade').modal('hide');
+			          },
+			          error: function (data) {
 			                console.log('An error occurred.');
 			                console.log(data);
-			            },
-			 });
-		}
+			          },
+			});
+		}	
 		$(document).ready(function () {
 		   	var bloodhoundcom = new Bloodhound({
 		        		  datumTokenizer: Bloodhound.tokenizers.whitespace,
@@ -802,7 +785,7 @@
 									  <table id="listeGardes" class="table nowrap dataTable no-footer" style="width:100%">
 					            <thead>
 						            <tr>
-						              <th></th>
+						              <th hidden></th>
 						              <th>Nom</th>
 						              <th>Prénom</th>
 						              <th>né(e) le</th>
@@ -812,12 +795,13 @@
 						              <th>Type Pièce</th>
 						              <th>N°</th>
 						              <th>Date délevrance</th>
+						              <th></th>
 						            </tr>
 					            </thead>
 					          <tbody>
 					          @foreach($hommes_c as $hom)
 					            <tr>
-					              <td>{{ $hom->id }}</td>
+					              <td hidden>{{ $hom->id }}</td>
 					              <td>{{ $hom->nom }}</td>
 					              <td>{{ $hom->prénom }}</td>
 					              <td>{{ $hom->date_naiss }}</td>
@@ -827,6 +811,11 @@
 					              <td>{{ $hom->type_piece }}</td>
 					              <td>{{ $hom->num_piece }}</td>
 					              <td>{{ $hom->date_deliv }}</td>
+					              <td class="center">
+					              	<!-- 	<a href="/hommeConfiance/{{ $hom->id }}/edit" class = "btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></a> -->
+					              		<a href="{{ route('hommeConfiance.edit',$hom->id )}}" class = "btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></a>
+													<a href="{{ route('hommeConfiance.destroy',$hom->id) }}" class="btn btn-danger btn-xs" data-method="DELETE" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></a>		
+					              </td>
 					            </tr>
 					          @endforeach
 					          </tbody>
