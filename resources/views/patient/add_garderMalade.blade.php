@@ -4,7 +4,7 @@
 	 	<div class="modal-content custom-height-modal">
 			<div class="modal-header">
 			  <button type="button" class="close" data-dismiss="modal">&times;</button>
-			  <h4 class="modal-title">Ajouter un Correspondant</h4>
+			  <h4 class="modal-title">Ajouter Garde Malade/Homme de Confiance</h4>
 			  @include('patient._patientInfo')
 			</div>
 			<div class="modal-body">
@@ -12,20 +12,18 @@
 				<form id="addGardeMalade" method="POST" action ="/hommeConfiance/save">
 					 {!! csrf_field() !!}
 					 <input type="hidden" name="patientId" id ="patientId" value="{{ $patient->id }}">
-					 <input type="hidden" name="userId" id ="userId" value="{{ Auth::user()->employee_id}}">
-					 <hr>
 	 				<div class="row">	
 	 				<tr>
-              <span style="float: right; display: none;" id="relation_autre">
-            			<label id="labelFor_editCorrespondant_relation_autre" for="editCorrespondant_relation_autre" class="" title="Rôle autre">Rôle autre</label> :
-             			<input id="editCorrespondant_relation_autre" autocomplete="off" name="relation_autre" value="" type="text">
-         			</span>
-          		<span  class ="primary"  style="float: left;">
-            		<select id="editCorrespondant_relation" name="relation" class="enum list|prevenir|garde" onchange="toggleRelationAutre(this); toggleUrrsafParente(this); toggleConfiancePrevenir(this); toggleAssurance(this);">
-									<option value="garde">Garde Malade</option>
-									<option value="prevenir">Personne à prévenir</option>
-								</select>
-          		</span>
+                  <span style="float: right; display: none;" id="relation_autre">
+            <label id="labelFor_editCorrespondant_relation_autre" for="editCorrespondant_relation_autre" class="" title="Rôle autre">Rôle autre</label> :
+              <input id="editCorrespondant_relation_autre" autocomplete="off" name="relation_autre" value="" type="text">
+          </span>
+          <span style="float: left;">
+            <select id="editCorrespondant_relation" name="relation" class="enum list|prevenir|garde" onchange="toggleRelationAutre(this); toggleUrrsafParente(this); toggleConfiancePrevenir(this); toggleAssurance(this);">
+						<option value="garde">Garde Malade</option>
+						<option value="prevenir">Personne à prévenir</option>
+					</select>
+          </span>
         </tr>
 					</div>
 					<div class="row">
@@ -33,7 +31,6 @@
 								<h3 class="header smaller lighter blue">
 									Informations
 									&nbsp;&nbsp;&nbsp;
-								
 								</h3>
 							</div>
 				 		 </div>	{{-- row --}}
@@ -44,8 +41,7 @@
 									<b>Nom :</b> 
 								</label>
 								<div class="col-sm-9">
-								
-									<input type="text" id="nom_h" name="nom_h"  placeholder="Nom..." class="col-xs-12 col-sm-6"  required/>
+										<input type="text" id="nom_h" name="nom_h"  placeholder="Nom..." class="col-xs-12 col-sm-6"  required/>
 								</div>
 							</div>
 						</div>
@@ -80,19 +76,19 @@
 								<div class="col-sm-5">
 									<select class="form-control" id="lien_par" name="lien_par" placeholder="date de délivrance ..." required>
 										<option value="">Sélectionner...</option>
-										<option value="Conjoint">Conjoint(e)</option>
-										<option value="Père">Père</option>
-										<option value="Mère">Mère</option>
-										<option value="Frère">Frère </option>
-										<option value="Soeur">Soeur </option>
-										<option value="Ascendant">Ascendant</option>
-										<option value="Grand-parent">Grand-parent</option>
+										<option value="conjoint">Conjoint(e)</option>
+										<option value="père">Père</option>
+										<option value="mère">Mère</option>
+										<option value="frère">Frère </option>
+										<option value="soeur">Soeur </option>
+										<option value="ascendant">Ascendant</option>
+										<option value="grand_parent">Grand-parent</option>
 										<option value="membre_famille">Membre de famille </option>
-										<option value="Ami">Ami </option>
-										<option value="Collègue">Collègue</option>
-										<option value="Employeur">Employeur</option>
-										<option value="Employé">Employé</option>
-										<option value="Tuteur">Tuteur</option>
+										<option value="ami">Ami </option>
+										<option value="collegue">Collègue</option>
+										<option value="employeur">Employeur</option>
+										<option value="employe">Employé</option>
+										<option value="tuteur">Tuteur</option>
 										<option value="Autre">Autre </option>
 									</select>
 								</div>
@@ -109,15 +105,15 @@
 								<div class="col-sm-9">					
 									<div class="radio">
 										<label>
-										<input id="CNI" name="type_piece" value="CNI" type="radio" class="ace" checked />
+										<input id="type_pieceCNI" name="type_piece" value="CNI" type="radio" class="ace" checked />
 											<span class="lbl">Carte Nationale d'Identité</span>
 										</label>
 										<label>
-											<input id="Permis" name="type_piece" value="Permis" type="radio" class="ace"  />
+											<input id="type_piecePC" name="type_piece" value="Permis" type="radio" class="ace"  />
 											<span class="lbl">Permis de Conduire</span>
 										</label>
 										<label>
-											<input id="Passeport" name="type_piece" value="Passeport" type="radio" class="ace" />
+											<input id="type_pieceP" name="type_piece" value="passeport" type="radio" class="ace" />
 											<span class="lbl"> Passeport</span>
 										</label>
 									</div>
@@ -173,16 +169,11 @@
 					  <div class="space-12"></div>
 					  <div class="space-12"></div>	
 			 		</form>
-			</div>
-			<!-- modal-body -->	<!-- onclick="addGardeMaladeFct();" -->
-			<!-- onclick="addGardeMaladeFct();"  -->
-
+			</div><!-- modal-body -->	<!-- onclick="addGardeMaladeFct();" -->
 			<div class="modal-footer">
-			<!--  -->
-				<button type="submit" class="btn btn-info btn-sm btn-submit" id ="EnregistrerGardeMalade" value="add">
+				<button type="submit" class="btn btn-info btn-sm btn-submit" id ="EnregistrerGardeMalade" onclick="addGardeMaladeFct();">
           <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
         </button>
-          <input type="hidden" id="hom_id" name="hom_id" value="0">
        	<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
         	<i class="ace-icon fa fa-close bigger-110"></i>Fermer
         </button>

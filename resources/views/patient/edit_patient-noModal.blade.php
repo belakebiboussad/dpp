@@ -97,27 +97,16 @@
     }
 //////////////////
 		function addGardeMaladeFct()
-		{	
-  		var form = $('#addGardeMalade');
-			var formData = {
-				id_patient:$('#patientId').val(),
-				nom:$('#nom_h').val(),
-				prenom : $('#prenom_h').val(),
-				datenaiss : $('#datenaissance_h').val(),
-				relation : $('#lien_par').val(),
-				typePiece : $("input[name='type_piece']:checked").val(),
-				number : $('#num_piece').val(),
-				datePiece : $('#date_piece_id').val(),
-				adresse : $('#adresse_h').val(),
-				mobile_h : $('#mobile_h').val()
-			};
+		{
+			var form = $('#addGardeMalade');	var pid = $('#patientId').val();var nom = $('#nom_h').val();var prenom = $('#prenom_h').val(); var datenaiss = $('#datenaissance_h').val(); var relation = $('#lien_par').val();				
+		  var typePiece = $("input[name='type_piece']:checked").val();var number = $('#num_piece').val();var datePiece = $('#date_piece_id').val();	var adresse = $('#adresse_h').val(); var mobile_h = $('#mobile_h').val();
 			$.ajax({
 								headers: {
-                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
 			          type: form.attr('method'),
 			          url:form.attr('action'),
-			            data:formData,
+			          data:{pid:pid,nom:nom,prenom:prenom,datenaiss:datenaiss,relation:relation,typePiece:typePiece,number:number,datePiece:datePiece,adresse:adresse,mobile_h:mobile_h},
 			          success: function (data,status, xhr) {
 			             $("#listeGardes tbody").append(data);
 			             $('#gardeMalade').modal('hide');
@@ -127,7 +116,6 @@
 			                console.log(data);
 			          },
 			});
-
 		}	
 		$(document).ready(function () {
 		   	var bloodhoundcom = new Bloodhound({
@@ -259,115 +247,14 @@
 				$('#etat_h').val('archivé');
 				return false;
 			});
-			$('#listeGardes').DataTable({
+			 $('#listeGardes').DataTable({
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
             },
             colReorder: true,
             stateSave: true,
             searching:false,
-      });
-      jQuery('body').on('click', '.open-modal', function () {
-        var hom_id = $(this).val();
-
-        $.get('/hommeConfiance/'+hom_id+'/edit', function (data) {
-		        $('#patientId').val(data.id_patient);		
-		        $('#hom_id').val(data.id);		
-		        $('#nom_h').val(data.nom);
-		        $('#prenom_h').val(data.prenom); 
-		        $('#datenaissance_h').val(data.date_naiss);
-		        $('#lien_par').val(data.lien_par).change();
-		        $('#lien_par option').each(function() {
-					    if($(this).val() == data.lien_par) {
-					        $(this).prop("selected", true);
-					    }
-					  });				
-					  $('#' + data.type_piece).prop('checked',true); //	alert(data.type_piece);
-				  	$('#num_piece').val(data.num_piece);
-				  	$('#date_piece_id').val(data.date_deliv);
-				  	$('#adresse_h').val(data.adresse);
-				  	$('#mobile_h').val(data.mob);
-				  	jQuery('#EnregistrerGardeMalade').val("update");	
-		        jQuery('#gardeMalade').modal('show');
-        })
-      });
-	    $("#EnregistrerGardeMalade").click(function (e) {
-	    	$.ajaxSetup({
-	        headers: {
-	            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-	        }
-	      });
-	      e.preventDefault();
-	      var formData = {
-					id_patient:$('#patientId').val(),
-					nom:$('#nom_h').val(),
-					prenom : $('#prenom_h').val(),
-					date_naiss : $('#datenaissance_h').val(),
-					lien_par : $('#lien_par').val(),
-					type_piece : $("input[name='type_piece']:checked").val(),
-					num_piece : $('#num_piece').val(),
-					date_deliv : $('#date_piece_id').val(),
-					adresse : $('#adresse_h').val(),
-					mob : $('#mobile_h').val(),
-					created_by: $('#userId').val()
-				};
-				var state = jQuery('#EnregistrerGardeMalade').val();
-			  var type = "POST";
-	      var hom_id = jQuery('#hom_id').val();
-	      var ajaxurl = 'hommeConfiance';
-	      if (state == "update") {
-	            type = "PUT";
-	            ajaxurl = '/hommeConfiance/' + hom_id;
-	      }
-	      if (state == "add") {
-	            ajaxurl = '/hommeConfiance/save';
-	      }
-	      $.ajax({
-            type: type,
-            url: ajaxurl,
-            data: formData,
-            dataType: 'json',
-            success: function (data) {
-              var homme = '<tr id="garde' + data.id + '"><td class="hidden">' + data.id_patient + '</td><td>' + data.nom + '</td><td>' + data.prenom + '</td><td>'+ data.date_naiss +'</td><td>' +
-              						 data.adresse + '</td><td>'+ data.mob + '</td><td>' + data.lien_par + '</td><td>' + data.type_piece + '</td><td>' + data.num_piece + '</td><td>' +  data.date_deliv + '</td>';
-                  homme += '<td class ="center"><button type="button" class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
-                  homme += '<button type="button" class="btn btn-xs btn-danger delete-garde" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
-                if (state == "add") {
-                    $("#listeGardes tbody").append(homme);
-                 
-                } else {
-                  	$("#garde" + hom_id).replaceWith(homme);
-                 		
-                }
-                // jQuery('#modalFormData').trigger("reset");
-                jQuery('#gardeMalade').modal('hide')
-            },
-            error: function (data) {
-              alert('error');  
-              console.log('Error:', data);
-            }
-        });	
-	    })
-			////----- DELETE a Garde and remove from the page -----////
-    	 jQuery('body').on('click', '.delete-garde', function () {
-        var hom_id = $(this).val();
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-            }
         });
-        $.ajax({
-            type: "DELETE",
-            url: '/hommeConfiance/' + hom_id,
-            success: function (data) {
-                console.log(data);
-                $("#garde" + hom_id).remove();
-            },
-            error: function (data) {
-                console.log('Error:', data);
-            }
-        });
-      });
 
 });
 	</script>
@@ -687,7 +574,7 @@
 				<div class="col-sm-11">
 					<div class="form-group padding-left">
 						<input  type="checkbox" id="hommeConf" value="1"  class="ace input-lg"/>
-						<span class="lbl lighter blue"> <strong>Ajouter un Correspondant</strong></span>
+						<span class="lbl lighter blue"> <strong>Ajouter Garde Malade/Homme de Confiance</strong></span>
 					</div>
 				</div>				
 			</div>		
@@ -885,9 +772,10 @@
 										{{-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> --}}
 										<div class="fa fa-plus-circle"></div>
 																	<!-- {{$patient->id}} -->
-											<a href="#" data-target="#gardeMalade" class="btn-xs tooltip-link" data-toggle="modal"  data-toggle="tooltip" data-original-title="Ajouter Garde Malade ou Homme de Confiance" >
-												<strong>Ajouter un Garde Malade</strong>
-											</a>
+										<a href="#" data-target="#gardeMalade" class="btn btn-lg tooltip-link" data-toggle="modal"  data-toggle="tooltip" data-original-title="Ajouter Garde Malade ou Homme de Confiance" >
+											<b>Ajouter un Garde Malade </b>
+										</a>
+
 									</div>
 								</div>
 								<div class="widget-body">
@@ -910,10 +798,10 @@
 					            </thead>
 					          <tbody>
 					          @foreach($hommes_c as $hom)
-					            <tr id="{{ 'garde'.$hom->id }}">
-					              <td hidden>{{ $hom->id_patient }}</td>
+					            <tr>
+					              <td hidden>{{ $hom->id }}</td>
 					              <td>{{ $hom->nom }}</td>
-					              <td>{{ $hom->prenom }}</td>
+					              <td>{{ $hom->prénom }}</td>
 					              <td>{{ $hom->date_naiss }}</td>
 					              <td>{{ $hom->adresse }}</td>
 					              <td>{{ $hom->mob }}</td>
@@ -922,9 +810,9 @@
 					              <td>{{ $hom->num_piece }}</td>
 					              <td>{{ $hom->date_deliv }}</td>
 					              <td class="center">
-					       					  <button type="button" class="btn btn-xs btn-info open-modal" value="{{$hom->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
-                            <button type="button" class="btn btn-xs btn-danger delete-garde" value="{{$hom->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>
-					          		</td>
+					       		<a href="{{ route('hommeConfiance.edit',$hom->id )}}" class = "btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></a>
+							<a href="{{ route('hommeConfiance.destroy',$hom->id) }}" class="btn btn-danger btn-xs" data-method="DELETE" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></a>		
+					              </td>
 					            </tr>
 					          @endforeach
 					          </tbody>

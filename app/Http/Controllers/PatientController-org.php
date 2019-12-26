@@ -230,7 +230,6 @@ class PatientController extends Controller
       $grades = grade::all(); 
       $patient = patient::FindOrFail($id);
       $hommes_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
-      // dd($hommes_c);
       if($patient->Type != "Autre")
         $assure =  $patient->assure;  
       // else //   $assure = new assur;
@@ -247,7 +246,6 @@ class PatientController extends Controller
      */
 public function update(Request $request,$id)
 {
-    dd("sdf");
     $date = Date::Now();
     static $assurObj;
     $patient = patient::FindOrFail($id);
@@ -537,7 +535,7 @@ public function update(Request $request,$id)
                             
                             } catch (Exception $e) {
                              //return back()->withError($e->getMessage())->withInput();
-                              dd('4');
+                           
                              return redirect(Route('patient.index'));
                           }
                   case 'Autre':
