@@ -302,17 +302,14 @@
                   homme += '<button type="button" class="btn btn-xs btn-danger delete-garde" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
                 if (state == "add") {
                     $("#listeGardes tbody").append(homme);
-                 
                 } else {
                   	$("#garde" + hom_id).replaceWith(homme);	
-		//Query('#EnregistrerGardeMalade').val("update");
-                 	
+		//Query('#EnregistrerGardeMalade').val("update");     	
                 }
-                // jQuery('#modalFormData').trigger("reset");
+                // jQuery('#gardeMalade').trigger("reset");
                 jQuery('#gardeMalade').modal('hide')
             },
             error: function (data) {
-              alert('error');  
               console.log('Error:', data);
             }
         });	
@@ -853,7 +850,6 @@
 									<div class="widget-toolbar widget-toolbar-light no-border">
 										{{-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> --}}
 										<div class="fa fa-plus-circle"></div>
-																	<!-- {{$patient->id}} -->
 											<a href="#" data-target="#gardeMalade" class="btn-xs tooltip-link" data-toggle="modal"  data-toggle="tooltip" data-original-title="Ajouter Garde Malade ou Homme de Confiance" >
 												<strong>Ajouter un Garde Malade</strong>
 											</a>

@@ -140,8 +140,41 @@
     		$('#Ordonnance').on('show.bs.modal', function () {
              		  $('.modal-content').css('height',$( window ).height()*0.95);
      		 });
-    	
     	});
+    	 function ajaxfunc(patientid)
+           {        
+                     var habitudeAlim = null; var tabac=null ; var ethylisme = null;
+                     var antecedant = $('#Antecedant').val();
+                     var typeAntecedant = $('#typeAntecedant').val();
+                     var soustype = $('#sstypeatcdc').val();    
+                     var dateATCD = $('#dateAntcd').val()
+                    var description = $("#description").val();               
+                      if(typeAntecedant =="Physiologiques")
+                     {
+                            habitudeAlim= $('#habitudeAlim').val();
+                            tabac = $("#tabac").is(":checked") ? 1:0;
+                            ethylisme = $("#ethylisme").is(":checked") ? 1:0;
+                     }
+                    if (description === "")
+                    {
+
+                    }else{
+                            $.ajax({
+                                     headers: {
+                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    },
+                                     type:'POST',
+                                    url:'/AddANTCD',
+                                    data:{ antecedant:antecedant,typeAntecedant:typeAntecedant,soustype:soustype,dateATCD:dateATCD,description:description,patientid:patientid,habitudeAlim:habitudeAlim,tabac:tabac,ethylisme:ethylisme 
+                                    },
+                                   success:function(data){
+                                          $("#msg").html(data.msg);
+                                    }
+                               }); 
+                               $('#ants-tab').append("<tr><td>"+$('#Antecedant').val()+"</td><td>"+$('#dateAntcd').val()+"</td><td>"+$('#description').val()+"</td><td></td></tr>");  
+                               resetField(); 
+                    }
+             }
 </script>
 @endsection
 @section('main-content')
