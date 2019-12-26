@@ -95,40 +95,7 @@
    					}
    		});
     }
-//////////////////
-		function addGardeMaladeFct()
-		{	
-  		var form = $('#addGardeMalade');
-			var formData = {
-				id_patient:$('#patientId').val(),
-				nom:$('#nom_h').val(),
-				prenom : $('#prenom_h').val(),
-				datenaiss : $('#datenaissance_h').val(),
-				relation : $('#lien_par').val(),
-				typePiece : $("input[name='type_piece']:checked").val(),
-				number : $('#num_piece').val(),
-				datePiece : $('#date_piece_id').val(),
-				adresse : $('#adresse_h').val(),
-				mobile_h : $('#mobile_h').val()
-			};
-			$.ajax({
-								headers: {
-                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-			          type: form.attr('method'),
-			          url:form.attr('action'),
-			            data:formData,
-			          success: function (data,status, xhr) {
-			             $("#listeGardes tbody").append(data);
-			             $('#gardeMalade').modal('hide');
-			          },
-			          error: function (data) {
-			                console.log('An error occurred.');
-			                console.log(data);
-			          },
-			});
-
-		}	
+//////////////////	
 		$(document).ready(function () {
 		   	var bloodhoundcom = new Bloodhound({
 		        		  datumTokenizer: Bloodhound.tokenizers.whitespace,
@@ -322,7 +289,8 @@
 	      if (state == "add") {
 	            ajaxurl = '/hommeConfiance/save';
 	      }
-	      $.ajax({
+	      $('#hom_id').val("");$('#nom_h').val("");$('#prenom_h').val("");$('#datenaissance_h').val("");$('#num_piece').val("");	$('#date_piece_id').val("");$('#adresse_h').val("");$('#mobile_h').val("");
+	       $.ajax({
             type: type,
             url: ajaxurl,
             data: formData,
@@ -336,8 +304,9 @@
                     $("#listeGardes tbody").append(homme);
                  
                 } else {
-                  	$("#garde" + hom_id).replaceWith(homme);
-                 		
+                  	$("#garde" + hom_id).replaceWith(homme);	
+		//Query('#EnregistrerGardeMalade').val("update");
+                 	
                 }
                 // jQuery('#modalFormData').trigger("reset");
                 jQuery('#gardeMalade').modal('hide')
