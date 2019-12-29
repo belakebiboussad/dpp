@@ -189,43 +189,6 @@
 	  			
 	  			}
 			});
-		  $("#edit_hc").click(function(e) { 
-				$('#nom_h').prop('readonly', false);
-				$('#nom_h').focus();
-				$('#prenom_h').attr('readonly', false);
-				$('#datenaissance_h').attr('readonly', false);
-				$('#lien_par').attr('readonly', false);
-				$('#type_piece').attr('readonly', false);
-				$('#num_piece').attr('readonly', false);
-				$('#date_piece_id').attr('readonly', false);
-				$('#adresse_h').attr('readonly', false);
-				$('#mobile_h').attr('readonly', false);
-				return false;
-			});
-			$("#add_hc").click(function(e) { 
-			 	$('#nom_h').prop('readonly', false);
-				$('#prenom_h').attr('readonly', false);
-				$('#datenaissance_h').attr('readonly', false);
-				$('#lien_par').attr('readonly', false);
-				$('#type_piece').attr('readonly', false);
-				$('#num_piece').attr('readonly', false);
-				$('#date_piece_id').attr('readonly', false);
-				$('#adresse_h').attr('readonly', false);
-				$('#mobile_h').attr('readonly', false);
-				$('#nom_h').val('');
-				$('#nom_h').focus();
-				//$('#id_h').val('');
-				$('#prenom_h').val('');
-				$('#datenaissance_h').val('');
-				$('#lien_par').val('');
-				$('input[name="type_piece"]').prop('checked', false);
-				$('#num_piece').val('');
-				$('#date_piece_id').val('');
-				$('#adresse_h').val('');
-				$('#mobile_h').val('');
-				$('#etat_h').val('archivé');
-				return false;
-			});
 			$('#listeGardes').DataTable({
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
@@ -304,9 +267,8 @@
                     $("#listeGardes tbody").append(homme);
                 } else {
                   	$("#garde" + hom_id).replaceWith(homme);	
-		//Query('#EnregistrerGardeMalade').val("update");     	
+										//Query('#EnregistrerGardeMalade').val("update");     	
                 }
-                // jQuery('#gardeMalade').trigger("reset");
                 jQuery('#gardeMalade').modal('hide')
             },
             error: function (data) {

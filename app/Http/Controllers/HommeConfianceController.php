@@ -11,19 +11,16 @@ class HommeConfianceController extends Controller
 {
   public function edit($id)
   {
-      // $homme = homme_conf::FindOrFail($id);
-      // $patient = patient::FindOrFail($homme->id_patient);
-      // return view('patient.add_gardeMalade',compact('homme','patient'));
+    
       $homme = homme_conf::find($id);
-      // $homme = homme_conf::FindOrFail($id);
       return Response::json($homme);
   }
   //
 	public function store(Request $request)
   {
 
-  	  $link =Link::create($request->all());
-      return Response::json($link);
+  	  $homme =homme_conf::create($request->all());
+      return Response::json($homme);
   }
   public function createGardejax(Request $request)
   {

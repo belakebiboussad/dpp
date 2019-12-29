@@ -66,7 +66,7 @@ route::get('/listedemandes','demandeprodController@liste_demande');
 route::get('/traiterdemande/{id}','demandeprodController@traiter_demande');
 Route::post('user/credentials','UsersController@credentials');
 Route::post('user/updatepro','UsersController@updatepro');
-Route::get('/atcd/store66/{message}','AntecedantsController@storeatcd');
+Route::get('/atcd/store','AntecedantsController@storeatcd');
 Route::get('/demandehosp/create/{id}','DemandeHospitalisationController@create');
 Route::get('/demandehosp/listedemandes/{type}','DemandeHospitalisationController@listedemandes');
 Route::get('/salle/create/{id}','SalleController@create');

@@ -125,8 +125,8 @@ class ConsultationsController extends Controller
             $specialites = Specialite::orderBy('nom')->get();
             $specialitesExamBiolo = specialite_exb::all();
             $infossupp = infosupppertinentes::all();
-           $examens = exmnsrelatifdemande::all();
-           $examensradio = examenradiologique::all();
+            $examens = exmnsrelatifdemande::all();
+            $examensradio = examenradiologique::all();
             return view('consultations.create_consultation',compact('patient','employe','antecedants','codesim','lieus','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp', 
               'examens','examensradio'));
     }

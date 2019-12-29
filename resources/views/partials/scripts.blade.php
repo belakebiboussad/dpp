@@ -554,46 +554,10 @@ $('#typeexm').on('change', function() {
                         $('#te').css('display','block');
                     }
             }
-            function atcd()
-            {  
-                  $('#description').text(" ");
-                   resetField();
-                   if($('#Antecedant').val() == 'Personnels')
-                    {
-                          $('#sous_type').css('display','block');
-                    }
-                else
-                    {
-                        $('#sous_type').css('display','none');
-                        $('#atcdsstypehide').css('display','none');
-                        $('#PhysiologieANTC').css('display','none');
-                        $('#typeAntecedant').val(null);
-                    }
-           }
-           function resetField()
-           {
-                $("#description").val(' ');
-                $('#dateAntcd').val('');
-                   
-           }
+    
            function efface_formulaire() {
                      $('form').find("textarea, :text, select").val("").end().find(":checked").prop("checked", false);
             }
-           function atcdhide()
-             {        
-                     resetField(); 
-                     if($('#typeAntecedant').val() == "Pathologiques" )
-                     {
-                             $('#atcdsstypehide').show();$('#PhysiologieANTC').hide();
-                             $('#habitudeAlim').val(null);$('#tabac').prop('checked', false); 
-                             $('#ethylisme').prop('checked', false);   
-                     }
-                    else
-                     {
-                            $('#atcdsstypehide').hide();$('#PhysiologieANTC').show();
-                            $('#sstypeatcdc').prop("selectedIndex", 1);
-                    }
-           }
         </script>
         <script>        
         function lettreoriet(nommedt,prenommedt,servmedt,telmedt,nompatient,prenompatient,agepatient)

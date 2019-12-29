@@ -7,6 +7,7 @@ use App\modeles\patient;
 use App\modeles\antecedant;
 use Date;
 use App\Http\Controllers\Session;
+use Response;
 class AntecedantsController extends Controller
 {
     /**
@@ -14,8 +15,9 @@ class AntecedantsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function storeatcd($message)
+    public function storeatcd()
     {
+        $message ='exemple';
         return response()->json(['response' => $message]); 
     }
     public function index($id)
@@ -45,67 +47,72 @@ class AntecedantsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,$id)
-    {
+    // public function store(Request $request,$id)
+    // {
     
-           if($request->Antecedant  == "Personnels" and $request->typeAntecedant  == "Pathologiques")
-           {
+    //        if($request->Antecedant  == "Personnels" and $request->typeAntecedant  == "Pathologiques")
+    //        {
            
-               antecedant::create([
-                    "Antecedant"=>$request->Antecedant,
-                    "typeAntecedant"=>$request->typeAntecedant ,
-                    "sstypeatcdc"=>$request->sstypeatcdc,
-                    "date"=>(new Date($request->dateatcd))->format('Y-m-d'),
-                    "descrioption"=>$request->descriptionc,
-                    "Patient_ID_Patient"=>$id,
-                    "tabac"=>false,
-                    "ethylisme"=>false,
-                    "habitudeAlim" =>""
+    //            antecedant::create([
+    //                 "Antecedant"=>$request->Antecedant,
+    //                 "typeAntecedant"=>$request->typeAntecedant ,
+    //                 "sstypeatcdc"=>$request->sstypeatcdc,
+    //                 "date"=>(new Date($request->dateatcd))->format('Y-m-d'),
+    //                 "descrioption"=>$request->descriptionc,
+    //                 "Patient_ID_Patient"=>$id,
+    //                 "tabac"=>false,
+    //                 "ethylisme"=>false,
+    //                 "habitudeAlim" =>""
 
-                ]);
-           }
-           elseif($request->Antecedant == "Personnels" && $request->typeAntecedant != "Pathologiques")
-            {
-                 if(empty($request->tabac))
-                       $tabac = false;
-               else
-                       $tabac =true;
-                  if(empty($request->ethylisme))
-                         $ethylisme = false;
-                  else
-                         $ethylisme =true;
-               antecedant::create([
-                    "Antecedant"=>$request->Antecedant,
-                    "typeAntecedant"=>$request->typeAntecedant,
-                    "sstypeatcdc"=>null,
-                    "date"=>(new Date($request->dateatcd))->format('Y-m-d'),
-                    "descrioption"=>$request->description,
-                    "Patient_ID_Patient"=>$id,
-                    "tabac"=>$tabac,
-                    "ethylisme"=>$ethylisme,
-                    "habitudeAlim" =>$request->habitudeAlim
-                ]);
-            }
-            elseif ($request->Antecedant != "Personnels") {
+    //             ]);
+    //        }
+    //        elseif($request->Antecedant == "Personnels" && $request->typeAntecedant != "Pathologiques")
+    //         {
+    //             if(empty($request->tabac))
+    //                    $tabac = false;
+    //             else
+    //                    $tabac =true;
+    //               if(empty($request->ethylisme))
+    //                      $ethylisme = false;
+    //               else
+    //                      $ethylisme =true;
+    //             antecedant::create([
+    //                 "Antecedant"=>$request->Antecedant,
+    //                 "typeAntecedant"=>$request->typeAntecedant,
+    //                 "sstypeatcdc"=>null,
+    //                 "date"=>(new Date($request->dateatcd))->format('Y-m-d'),
+    //                 "descrioption"=>$request->description,
+    //                 "Patient_ID_Patient"=>$id,
+    //                 "tabac"=>$tabac,
+    //                 "ethylisme"=>$ethylisme,
+    //                 "habitudeAlim" =>$request->habitudeAlim
+    //             ]);
+    //         }
+    //         elseif ($request->Antecedant != "Personnels") {
 
-                antecedant::create([
-                    "Antecedant"=>$request->Antecedant,
-                    "typeAntecedant"=>null,
-                    "stypeatcd"=>null,
-                    "date"=>(new Date($request->dateatcd))->format('Y-m-d'),
-                    "descrioption"=>$request->description,
-                    "Patient_ID_Patient"=>$id,
-                    "habitudeAlim" =>"",
-                ]);
-        }
+    //             antecedant::create([
+    //                 "Antecedant"=>$request->Antecedant,
+    //                 "typeAntecedant"=>null,
+    //                 "stypeatcd"=>null,
+    //                 "date"=>(new Date($request->dateatcd))->format('Y-m-d'),
+    //                 "descrioption"=>$request->description,
+    //                 "Patient_ID_Patient"=>$id,
+    //                 "habitudeAlim" =>"",
+    //             ]);
+    //     }
       
-        flash('Antécédent ajouter avec succès vous pouvez ajouter des autres')->success();
+    //     flash('Antécédent ajouter avec succès vous pouvez ajouter des autres')->success();
 
-        if(empty($request->cons_id))
+    //     if(empty($request->cons_id))
           
-          return redirect()->action('AntecedantsController@choixpatatcd');
-        else
-           return redirect()->action('ConsultationsController@show',['id'=>$request->cons_id]);
+    //       return redirect()->action('AntecedantsController@choixpatatcd');
+    //     else
+    //        return redirect()->action('ConsultationsController@show',['id'=>$request->cons_id]);
+    // }
+    public function store(Request $request)
+    {
+      $atcd =antecedant::create($request->all());
+      return Response::json($atcd);
     }
 
     /**

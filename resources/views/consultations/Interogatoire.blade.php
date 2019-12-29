@@ -7,10 +7,9 @@
 			     </a>
 		</li>
 		<li role= "presentation">
-			        <a href="#ATCD" aria-controls="ATCD"  data-toggle="tab" class="jumbotron">
-			     	 <i class="fa fa-history fa-2x"></i>
-			        	<span class="bigger-130">Antecedants</span>
-			        </a>
+			<a href="#ATCD" aria-controls="ATCD"  data-toggle="tab" class="jumbotron">
+				<i class="fa fa-history fa-2x"></i><span class="bigger-130">Antecedants</span>
+			</a>
 		</li>
 	</ul>
 	<div class ="tab-content"  style = "border-style: none;" >
@@ -95,26 +94,26 @@
 		</div><!-- col-md-8 col-xs-9 -->
 		<div class= "col-md-4 col-xs-4">
 			<br/><br/>
-		   	 <div class="right">
-		                     	<div class="space-12"></div>
-		                     	<div class="space-12"></div>
-		                     	<div class="space-12"></div>
-		                     	 <div class="profile-contact-links align-right">
-	                                           <a  href="#" data-target="#Ordonnance" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title="" >
-	                                                     	<div class="fa fa-plus-circle"></div>
-	                                                     <span class="bigger-110" > Ordonnance</span>
-	                                          </a>
-	                                          	<div class="space-12"></div>
-	                                           <a  href="#" data-target="#demandehosp" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title=""><div class="fa fa-plus-circle"></div>
-                                                      	<span class="bigger-110"> Hospitalisation</span>
-                                                  	</a>
-                                                  	<div class="space-12"></div>
-                                                    	<a class="btn btn-primary btn-lg tooltip-link" data-toggle="modal"  data-toggle="tooltip" data-original-title="lettre d'orientation" data-target="#lettreorient" style="width:100%;" onclick="lettreoriet('{{ $employe->Nom_Employe }}','{{ $employe->Prenom_Employe }}',
-                                                    	      '{{ $employe->Specialite_Emploiye }}','{{ $employe->tele_mobile }}')">
-                                                      	<div class="fa fa-plus-circle"></div>
-                                                          	<span class="bigger-110" style ="text-align: right !important;">Orientation</span> 
-                                                   	</a>
-	                                 </div> {{-- profile-contact-links --}}         
+		  <div class="right">
+		   	<div class="space-12"></div>
+		   	<div class="space-12"></div>
+		   	<div class="space-12"></div>
+		    <div class="profile-contact-links align-right">
+	        <a  href="#" data-target="#Ordonnance" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title="" >
+	         	<div class="fa fa-plus-circle"></div>
+	          <span class="bigger-110" > Ordonnance</span>
+	        </a>
+	       	<div class="space-12"></div>
+	        <a  href="#" data-target="#demandehosp" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title=""><div class="fa fa-plus-circle"></div>
+          	<span class="bigger-110"> Hospitalisation</span>
+         	</a>
+         	<div class="space-12"></div>
+         	<a class="btn btn-primary btn-lg tooltip-link" data-toggle="modal"  data-toggle="tooltip" data-original-title="lettre d'orientation" data-target="#lettreorient" style="width:100%;" onclick="lettreoriet('{{ $employe->Nom_Employe }}','{{ $employe->Prenom_Employe }}',
+            '{{ $employe->Specialite_Emploiye }}','{{ $employe->tele_mobile }}')">
+           	<div class="fa fa-plus-circle"></div>
+           	<span class="bigger-110" style ="text-align: right !important;">Orientation</span> 
+         	</a>
+	      </div> {{-- profile-contact-links --}}         
 	                     	</div>
 	           </div>{{-- col-md-4 col-xs-4 --}}
 		</div><!-- MOTIF -->
@@ -123,56 +122,30 @@
 			        	 @include('consultations.Antecedant')
 			</div>
 			<div class= "col-md-4 col-xs-4">
-			<br/><br/>
-		   	 <div class="right">
-		                     	<div class="space-12"></div>
-		                     	<div class="space-12"></div>
-		                     	<div class="space-12"></div>
-		                     	 <div class="profile-contact-links align-right">
-	                                           <a  href="#" data-target="#Ordonnance" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title="" >
-	                                                     	<div class="fa fa-plus-circle"></div>
-	                                                     <span class="bigger-110" > Ordonnance</span>
-	                                          </a>
-	                                          	<div class="space-12"></div>
-	                                           <a  href="#" data-target="#demandehosp" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title=""><div class="fa fa-plus-circle"></div>
-                                                      	<span class="bigger-110"> Hospitalisation</span>
-                                                  	</a>
-                                                  	<div class="space-12"></div>
-                                                    	<a class="btn btn-primary btn-lg tooltip-link" data-toggle="modal"  data-toggle="tooltip" data-original-title="lettre d'orientation" data-target="#lettreorient" style="width:100%;" onclick="lettreoriet('{{ $employe->Nom_Employe }}','{{ $employe->Prenom_Employe }}',
-                                                    	      '{{ $employe->Specialite_Emploiye }}','{{ $employe->tele_mobile }}')">
-                                                      	<div class="fa fa-plus-circle"></div>
-                                                          	<span class="bigger-110" style ="text-align: right !important;">Orientation</span> 
-                                                   	</a>
-	                                 </div> {{-- profile-contact-links --}}         
-	                     	</div>
-	           </div>{{-- col-md-4 col-xs-4 --}}
-			{{-- <div class= "col-md-6 col-xs-6">
-        				<div class="widget-box widget-color-GhostWhite  ui-sortable-handle" id="widget-box-11" >
-        				 <div class="widget-header" >
-                   			     	<h6 class="widget-title"><font color="black"> <b>Antecedants</b></font>
-                        			</h6>
-                        			<!-- <div class="widget-toolbar">
-                            				<a href="#"><i class="ace-icon fa fa-check"></i>Valider</a>
-                   				</div> -->
-                    			</div>
-				<div class="widget-body" id ="ATCDWidget">
-		                     <div class="widget-main no-padding">
-		                            <table class="table table-striped table-bordered table-hover" id="ants-tab">
-		                              	<thead class="thin-border-bottom">
-		                               		 	<tr>
-			                                 	<th>Type</th>
-			                                  	<th><i class="fa fa-clock-o" aria-hidden="true"></i>Date</th>
-			                                  	<th class="hidden-480">Description</th>
-			                                  	<th class="hidden-480"></th>
-		                                		</tr>
-		                       	</thead>
-				          <tbody>
-				          	</tbody>
-		                            </table>
-		                     </div>
-		                    </div>
-        				</div>
-			</div> --}}	<!--  {{-- <div class= "col-md-3 col-xs-3"> --}} -->
+				<br/><br/>
+		   	<div class="right">
+		      <div class="space-12"></div>
+		     	<div class="space-12"></div>
+		     	<div class="space-12"></div>
+		      <div class="profile-contact-links align-right">
+	          <a  href="#" data-target="#Ordonnance" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title="" >
+	           	<div class="fa fa-plus-circle"></div>
+	            <span class="bigger-110" > Ordonnance</span>
+	          </a>
+	         	<div class="space-12"></div>
+	          <a  href="#" data-target="#demandehosp" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title=""><div class="fa fa-plus-circle"></div>
+             	<span class="bigger-110"> Hospitalisation</span>
+           	</a>
+            <div class="space-12"></div>
+             	<a class="btn btn-primary btn-lg tooltip-link" data-toggle="modal"  data-toggle="tooltip" data-original-title="lettre d'orientation" data-target="#lettreorient" style="width:100%;" onclick="lettreoriet('{{ $employe->Nom_Employe }}','{{ $employe->Prenom_Employe }}',
+                '{{ $employe->Specialite_Emploiye }}','{{ $employe->tele_mobile }}')">
+              	<div class="fa fa-plus-circle"></div>
+               	<span class="bigger-110" style ="text-align: right !important;">Orientation</span> 
+             	</a>
+	          </div> {{-- profile-contact-links --}}         
+	      </div>
+	    </div>{{-- col-md-4 col-xs-4 --}}
 		</div>
 	</div>
 </div>{{-- tabpanel --}}
+<br><br>

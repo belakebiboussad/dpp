@@ -33,7 +33,7 @@
 				<strong>habitude alimentaire :</strong>
 			</label>
 			<br><br>
-			<input type="text" name="habitudeAlim" class="form-control d" id="habitudeAlim"  /><br>
+			<input type="text" name="habitudeAlim" class="form-control d" id="habitudeAlim" /><br>
 			<label>
 	             			<input type="checkbox" class="ace"  id="tabac" name="tabac"/>
 	             			<span class="lbl" >&nbsp; &nbsp;tabac</span>

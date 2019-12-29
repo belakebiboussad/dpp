@@ -55,7 +55,7 @@
 				</div>
 				</div>
 				<div class="col-xs-3">
-				<button id ="btnCalc" class="btn btn-info form-control" onclick="IMC1();">Calculer IMC</button>
+					<button id ="btnCalc" class="btn btn-info form-control" onclick="IMC1();">Calculer IMC</button>
 				</div>
 {{-- 				<div class="col-xs-1">
 				</div>		 --}}
@@ -207,5 +207,5 @@
 			</div>		
 		</div>{{-- tab-content --}}
 	</div>
-
 </div>
+<br><br>
