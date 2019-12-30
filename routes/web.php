@@ -168,7 +168,7 @@ Route::any('/profile/{userId}', [
 });
 Route::get('/role/show/{userId}','RolesController@show');
 Route::get('/home', 'HomeController@index')->name('home');
-Route::post('AddANTCD','AntecedantsController@createATCDAjax');
+// Route::post('AddANTCD','AntecedantsController@createATCDAjax');
 Route::get('/searchUser','UsersController@search');
 Route::get('/searchPatient','PatientController@search');
 Route::get('/getPatients','PatientController@getPatientsArray');

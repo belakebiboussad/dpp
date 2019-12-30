@@ -35,20 +35,9 @@ class HommeConfianceController extends Controller
   }
   public function update(Request $request, $id)
   {
-        //
-       $homme = homme_conf::find($id);
-         $homme -> update([
-              "nom"        =>$request->nom,
-              "prenom"     =>$request->prenom,
-              "date_naiss" =>$request->date_naiss,
-              "lien_par"   =>$request->lien_par,
-              "type_piece" =>$request->type_piece,
-              "num_piece"  =>$request->num_piece,
-              "date_deliv" =>$request->date_deliv,
-              "adresse"    =>$request->adresse,
-              "mob"        =>$request->mob,
-              "created_by" =>Auth::user()->employee_id,
-      ]);
+      //
+      $homme = homme_conf::find($id);
+      $homme -> update($request->all());
       $homme->save();
       return Response::json($homme);
   }

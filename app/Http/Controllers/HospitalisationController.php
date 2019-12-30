@@ -12,6 +12,7 @@ use App\modeles\rdv_hospitalisation;
 use Illuminate\Support\Facades\Auth;
 use App\modeles\admission;
 use Jenssegers\Date\Date;
+use View;
 class HospitalisationController extends Controller
 {
     /**
@@ -94,6 +95,7 @@ class HospitalisationController extends Controller
     public function show($id)
     {
         //
+        dd("show");
     }
 
     /**
@@ -104,7 +106,11 @@ class HospitalisationController extends Controller
      */
     public function edit($id)
     {
-        //
+        // get the hosp
+        $hosp = hospitalisation::find($id);
+        // dd($hosp);   
+        // show the edit form and pass the nerd
+        return View::make('Hospitalisations.edit')->with('hosp', $hosp);
     }
 
     /**

@@ -13,9 +13,4 @@ class homme_conf extends Model
   	{
   		return $this->belongsTo('App\modeles\patient','id_patient');
   	}	
-  	 // protected $dates = [
-    //     'date_naiss',
-    //     'created_by'
-    // ];
-
-}
+ }

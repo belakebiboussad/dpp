@@ -15,8 +15,9 @@
 	          <thead class="thin-border-bottom">
 	            <tr class ="center">
 	              <th class ="hidden"></th>
+			          <th>Antecedant</th>
 			          <th>Type</th>
-			          <th>S/Type</th>
+			          <th>Nature</th>
 			          <th><i class="fa fa-clock-o" aria-hidden="true"></i>Date</th>
 			          <th class="hidden-480">Description</th>
 			          <th class="hidden-480 center"><em class="fa fa-cog"></em></th>
@@ -28,11 +29,12 @@
 							              <td class ="hidden" >{{ $antcd->Patient_ID_Patient }}</td>
 							              <td>{{ $antcd->Antecedant }}</td>
 							              <td>{{ $antcd->typeAntecedant }}</td>
+							         			<td> {{ $antcd->stypeatcd }}</td>	     
 							              <td>{{ $antcd->date }}</td>
 							              <td>{{ $antcd->descrioption }}</td>
 							              <td class="center"> 
 															<button type="button" class="btn btn-xs btn-info open-modal" value="{{$antcd->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
-		                          <button type="button" class="btn btn-xs btn-danger delete-garde" value="{{$antcd->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>
+		                          <button type="button" class="btn btn-xs btn-danger delete-atcd" value="{{$antcd->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>
 							              </td>
 					    </tr>
 						  @endforeach

@@ -296,8 +296,7 @@
             }
         });
       });
-
-});
+	});
 	</script>
 @endsection
 @section('main-content')

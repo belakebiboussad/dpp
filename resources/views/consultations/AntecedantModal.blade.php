@@ -1,7 +1,7 @@
 <div id="antecedantModal" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
    	<!-- Modal content-->
-	 	<div  id="antecedantModal" class="modal-content custom-height-modal">
+	 	<div  id="" class="modal-content custom-height-modal">
 			<div class="modal-header">
 			  <button type="button" class="close" data-dismiss="modal">&times;</button>
 			  <h4 class="modal-title">Ajouter un Antecedant</h4>
@@ -15,7 +15,7 @@
 					<div class="form-group">
             <label for="inputAntecedant" class="col-sm-2 control-label">Antécédant:</label>
             <div class="col-sm-10">
-                <select class="form-control" id="Antecedant" name="Antecedant" onchange="atcd();"   placeholder="Enter URL" required>
+                <select class="form-control" id="Antecedant" name="Antecedant" onchange="atcd();" placeholder="" required>
                 <option value="null" selected>Choisir...</option>
 									<option value="Personnels">Personnels</option>
 									<option value="Familiaux" selected>Familiaux</option>
@@ -42,16 +42,16 @@
 							</select>
 						</div>
 					</div>
-					<div id="PhysiologieANTC" hidden="true" class="form-group" >
+					<div id="PhysiologieANTC"  class="form-group" hidden="true">
 						<label for="habitudeAlim" class="col-sm-2 control-label">Habitude Alimentaire:</label>
 						<div class="col-sm-10">
-							<input type="text" name="habitudeAlim" class="form-control" id="habitudeAlim"/><br>
+							<input type="text" name="habitudeAlim"  id="habitudeAlim" class="form-control"/><br>
 							<label>
 	            	<input type="checkbox" class="ace"  id="tabac" name="tabac"/>
 	            	<span class="lbl" >&nbsp; &nbsp;tabac</span>
 	        		</label>&nbsp; &nbsp; &nbsp;
 	        		<label>
-	            			<input type="checkbox" class="ace" id="ethylisme" name=""/>
+	            			<input type="checkbox" class="ace" id="ethylisme" name="ethylisme"/>
 	            			<span class="lbl"> &nbsp; &nbsp;ethylisme</span>
 	        		</label>
 						</div>
@@ -77,7 +77,7 @@
 			<div class="modal-footer">
 				<button type="submit" class="btn btn-info btn-sm btn-submit" id ="EnregistrerAntecedant" value="add">
           <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
-       	<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+       	<button type="reset" class="btn btn-default btn-sm" data-dismiss="modal">
         	<i class="ace-icon fa fa-close bigger-110"></i>Fermer
         </button>
 			</div>

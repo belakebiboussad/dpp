@@ -8,12 +8,9 @@
 	<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
 		<div class="widget-box widget-color-blue" id="widget-box-2">
 			<div class="widget-header">
-				<h5 class="widget-title bigger lighter">
-					<i class="ace-icon fa fa-table"></i>
-					Liste Des Hospitalisations :
-				</h5>
+				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Hospitalisations</h5>
 			</div>
-				<div class="widget-body">
+			<div class="widget-body">
 				<div class="widget-main no-padding">
 					<table class="table table-striped table-bordered table-hover">
 						<thead class="thin-border-bottom">
@@ -51,15 +48,16 @@
 							  		{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Prenom_Employe }}
 							  	</td>
 							  	<td><span class="badge badge-pill badge-success">{{ $hosp->etat_hosp }}</span></td>
-							  	<td>
-							  	  @if(Auth::user()->role->id != 9)
-							  	  	
-							  	  	@if(Auth::user()->role->id == 1)
-							  	  		<a href="/visite/create/{{ $hosp->id }}" class ="btn btn-primary btn-xs"><i class="fa fa-plus"></i>&nbsp;Visit</a>
-							  	  		<a href="" class ="btn btn-warning btn-xs"><i class="fa fa-out"></i>&nbsp;Sortir</a>
+							  	<td class="center">
+							  		<a href="{{ route('hospitalisation.edit',$hosp->id)}}" class="btn btn-xs btn-info"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></a>
+		                @if(Auth::user()->role->id != 9)
+							  	   	@if(Auth::user()->role->id == 1)
+							  	  		<a href="/visite/create/{{ $hosp->id }}" class ="btn btn-primary btn-xs"><i class="fa fa-plus"></i>&nbsp;Visite</a>
+							  	  		<a href="" class ="btn btn-info btn-xs"><i class="fa fa-out"></i>&nbsp;Sortir</a>
 							  	  	@endif
 							  	  	@if((Auth::user()->role->id == 5) && ($hosp->etat_hosp == 'en cours'))
 							  	  		<a class="btn btn-secondary btn-xs"><i class="ace-icon glyphicon glyphicon-print">&nbsp;Ticket</i></a>
+
 							  	  	@endif			
 							  	  @endif
 							  	</td>	
