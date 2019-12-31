@@ -106,10 +106,7 @@ class HospitalisationController extends Controller
      */
     public function edit($id)
     {
-        // get the hosp
-        $hosp = hospitalisation::find($id);
-        // dd($hosp);   
-        // show the edit form and pass the nerd
+        $hosp = hospitalisation::find($id);   
         return View::make('Hospitalisations.edit')->with('hosp', $hosp);
     }
 
