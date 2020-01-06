@@ -68,7 +68,7 @@ class AdmissionController extends Controller
             "heure_RDVh"=>$request->heure_rdvh,   
             "id_admission"=>$adm->id,       
             "etat_RDVh"=>"en attente",
-            "date_Prevu_Sortie"=>$request->dateSortie,
+            "date_Prevu_Sortie"=>$request->dateSortiePre,
             "heure_Prevu_Sortie" =>$request->heureSortiePrevue,
         ]);    
         $demande= DemandeHospitalisation::find($request->id_demande);

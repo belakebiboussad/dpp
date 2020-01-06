@@ -56,7 +56,7 @@
 							<th class="font-weight-bold text-center"><h5><strong>Service</strong></h5></th>
 						  <th width="12%" class="text-center"><h5><strong>Date Sortie Prévue</strong></h5></th>
 						  <th width="12%" class="text-center"><h5><strong>Heure Sortie Prévue</strong></h5></th>
-							<th class="detail-col text-center"></th>
+							<th class="detail-col text-center"><em class="fa fa-cog"></em></th>
 		       	</tr>
 		      </thead>
         <tbody id ="rendez-VousBody" class="bodyClass">

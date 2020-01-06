@@ -21,14 +21,33 @@
 	 	$( "#RDVForm" ).submit(function( event ) {  
   			$("#dateSortie").prop('disabled', false);
   	});
+  	$('.filelink' ).click( function( e ) {
+                e.preventDefault();  
+    });
 	});
+	function updateDureePrevue()
+	{
+		if($("#dateEntree").val() != undefined) {
+ 				var dEntree = $('#dateEntree').datepicker('getDate');
+     		var dSortie = $('#dateSortiePre').datepicker('getDate');
+  			var iSecondsDelta = dSortie - dEntree;
+  			var iDaysDelta = iSecondsDelta / (24 * 60 * 60 * 1000);
+  			if(iDaysDelta < 0)
+  			{
+  				iDaysDelta = 0;
+  				$("#dateSortiePre").datepicker("setDate", dEntree); 
+  			}
+  			$('#numberDays').val(iDaysDelta );	
+		}
+			
+	}
 </script>
 @endsection
 @section('main-content')
 <div class="page-header">
 			<h1>
 				Ajouter Un RDV Hospitalisation pour <strong>&laquo;{{$demande->demandeHosp->consultation->patient->Nom}}
-				 {{$demande->demandeHosp->consultation->patient->Prenom}}&raquo;</strong>
+				 {{ $demande->demandeHosp->consultation->patient->Prenom }}&raquo;</strong>
 			</h1>
 </div><!-- /.page-header -->
 <div class="space-12"></div>
@@ -66,8 +85,7 @@
 						<strong>Mode d'admission:</strong>
 					</label>
 					<div class="col-sm-9">
-						<input  type="text" id="motif" name="motifhos" placeholder="Mode d'admission"
-										value="{{ $demande->modeAdmission }}" class="col-xs-10 col-sm-5" disabled/>
+						<input  type="text" id="motif" name="motifhos" placeholder="Mode d'admission" value="{{ $demande->modeAdmission }}" class="col-xs-10 col-sm-5" disabled/>
 					</div>	
    			</div>
    		</div><!-- row -->
@@ -160,8 +178,7 @@
 					 	<strong> Date sortie prévue :</strong>
 					</label>
 						<div class="col-sm-8">
-							<input class="col-xs-5 col-sm-5 date-picker" id="dateSortie" name="dateSortie" type="text" 
-								placeholder="Date sortie prévue d'hospitalisation" data-date-format="yyyy-mm-dd" required disabled />
+							<input class="col-xs-5 col-sm-5 date-picker" id="dateSortiePre" name="dateSortiePre" type="text" placeholder="Date sortie prévue d'hospitalisation" data-date-format="yyyy-mm-dd" required onchange="updateDureePrevue()"/>
 							<button class="btn btn-sm filelink"  onclick="$('#dateSortie').focus()" disabled>
 								<i class="fa fa-calendar"></i>
 							 </button>
@@ -180,15 +197,6 @@
 						</div>
 					</div>
 			  </div>
-			  <div class="col-xs-4">
-					<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="gardeMalade" style="padding: 0.9%;">
-						 		<strong>Garde Malade :</strong>
-							</label>
-							<div class="input-group col-sm-9" style ="width:35.8%;padding: 0.8%;">	
-							</div>
-					</div>
-				</div>
 			</div>
       <div class="space-12"></div>
 			<div class="page-header">
@@ -241,18 +249,16 @@
 			<div class="row">
 					<div class="col-xs-3"></div>
 					<div class="col-xs-6 center bottom">
-						<button class="btn btn-info" type="submit">
+						<button class="btn btn-info btn-xs" type="submit">
 							<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
 						</button>
 						&nbsp; &nbsp; &nbsp;
-						<button class="btn" type="reset">
+						<button class="btn btn-xs" type="reset">
 							<i class="ace-icon fa fa-undo bigger-110"></i>Annuler
 						</button>
 					</div>
 					<div class="col-xs-3"></div>
-			</div>
-					
-						
+			</div>			
 		</form>	
 	</div>
 </div>

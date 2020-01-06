@@ -126,7 +126,7 @@
             var jsDate = $('#dateEntree').datepicker('getDate');
             jsDate.setDate(jsDate.getDate() + parseInt($('#numberDays').val()));
             var dateEnd = jsDate.getFullYear() + '-' + (jsDate.getMonth()+1) + '-' + jsDate.getDate();
-            $("#dateSortie").datepicker("setDate", dateEnd);    
+            $("#dateSortiePre").datepicker("setDate", dateEnd);    
         }
         $('document').ready(function(){
             $('.filelink' ).click( function( e ) {

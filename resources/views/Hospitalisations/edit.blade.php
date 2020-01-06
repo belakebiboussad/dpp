@@ -3,11 +3,12 @@
 <script type="text/javascript">
 	var nowDate = new Date();
   //var now = nowDate.getFullYear() + '-' + (nowDate.getMonth()+1) + '-' + ('0'+ nowDate.getDate()).slice(-2);
-   // var tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+  //var tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+ 	//alert(tomorrow);
  	var dEntree = $('#dateEntree').datepicker('getDate'); 
- $('#dateSortie').datepicker({
-    // timepicker : false, // format : 'd.m.Y',
+  $('#dateSortie').datepicker({
     startDate:dEntree ,
+    minDate: 1, 
 	});
  	$('document').ready(function(){
     $('#dateSortie').attr('readonly', true);
@@ -15,8 +16,7 @@
             timeFormat: 'HH:mm',
             interval: 15,
             minTime: '08',
-            maxTime: '17:00pm',
-            // defaultTime: '09:00',   
+            maxTime: '17:00pm',  // defaultTime: '09:00',  
             startTime: '08:00',
             dynamic: true,
             dropdown: true,
@@ -43,6 +43,11 @@
      		var dSortie = $('#dateSortiePre').datepicker('getDate');
   			var iSecondsDelta = dSortie - dEntree;
   			var iDaysDelta = iSecondsDelta / (24 * 60 * 60 * 1000);
+  			if(iDaysDelta < 0)
+  			{
+  				iDaysDelta = 0;
+  				$("#dateSortiePre").datepicker("setDate", dEntree); 
+  			}
   			$('#numberDays').val(iDaysDelta );	
 		}
 			
@@ -166,7 +171,7 @@
            			 <strong> Durée prévue :</strong>
           		</label>
 		          <div class="col-sm-9">
-		            <input class="col-xs-5 col-sm-5" id="numberDays" name="" type="number"  min="0" max="50" value="0" required />
+		            <input class="col-xs-5 col-sm-5" id="numberDays" name="" type="number"  min="0" max="50" value="0" required/>
 		            <label for=""><small><strong>&nbsp;nuit(s)</strong></small></label>
 		          </div>  
         	</div>
@@ -184,6 +189,107 @@
 	               </button>
 	           </div>
 	        </div>
+		      <div class="col-xs-4">
+		        <label class="col-sm-3 control-label no-padding-right" for="heure_rdvh">
+		              <strong> Heure sortie Prévue :</strong>
+		          </label>
+		          <div class="col-sm-9">   
+		              <input id="heureSortiePrevue" name="heureSortiePrevue" class="col-xs-5 col-sm-5 timepicker" type="text" value = "{{ $hosp->Heure_Prevu_Sortie }}"/>
+			      			<button class="btn btn-sm filelink" onclick="$('#heureSortiePrevue').focus()">	
+			                <i class="fa fa-clock-o bigger-110"></i>
+			            </button>
+		          </div>
+        	</div>
+        	<div class="col-xs-4">
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right" for="gardeMalade" style="padding: 0.9%;">
+						 		<strong>Garde Malade :</strong>
+							</label>
+							<div class="input-group col-sm-9" style ="width:35.8%;padding: 0.8%;">	
+							<select name="" id="">
+							 		<option value="0" selected>selectionnez le Garde Malade</option>
+							 		@foreach( $hosp->admission->demandeHospitalisation->consultation->patient->hommesConf as $homme)
+							 		<option value="{{ $homme->id }}" @if($hosp->garde_id ==  $homme->id) selected @endif> {{ $homme->nom }} {{ $homme->prenom }}</option>
+								  @endforeach
+							</select>
+							</div>
+						</div>
+					</div>
+        </div>
+         <div class="space-12"></div>
+      <div class="page-header">
+        <h1>Hébergement</h1>
+      </div>
+      @if(isset($hosp->admission->id_lit))
+      <div class="row form group">
+	      <div class="col-xs-4">
+	        <label class="col-sm-3 control-label no-padding-right" for="serviceh">
+	          <strong> Service :</strong>
+	        </label>
+	        <div class="col-sm-9">
+	      		<select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-6 col-sm-6" placeholder="selectionnez le service d'hospitalisation" @if( Auth::user()->role->id != 5) disabled @endif />
+	              <option value="0" selected>selectionnez le service d'hospitalisation</option>
+	              @foreach($services as $service)
+	              <option value="{{ $service->id }}" @if($hosp->admission->lit->salle->service->id == $service->id) selected @endif>
+	                {{ $service->nom }}
+	              </option>
+	              @endforeach
+	          </select>
+	        </div>
+	      </div>
+	       <div class="col-xs-4">
+            <label class="col-sm-3 control-label no-padding-right" for="salle">
+              <strong> Salle :</strong>
+            </label>
+            <div class="col-sm-8">
+              <select id="salle" name="salle" data-placeholder="selectionnez la salle d'hospitalisation" class="selectpicker show-menu-arrow place_holder col-xs-6 col-sm-6" @if( Auth::user()->role->id != 5) disabled @endif>
+                <option value="0" selected>selectionnez la salle d'hospitalisation</option>      
+                @foreach($hosp->admission->lit->salle->service->salles as $salle)
+                <option value="{{ $salle->id }}" @if($hosp->admission->lit->salle->id == $salle->id) selected @endif >
+                     {{ $salle->nom }}
+                </option>
+                @endforeach
+              </select>
+            </div>
+        </div>
+        <div class="col-xs-4">
+          <label class="col-sm-3 control-label" for="heure_rdvh">
+            <strong>Lit : 
+              </strong>
+            </label>
+            <div class="col-sm-8">
+              <select id="lit" name="lit" data-placeholder="selectionnez le lit" class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9" @if( Auth::user()->role->id != 5) disabled @endif>
+                <option value="0" selected>selectionnez le lit d'hospitalisation</option>      
+                @foreach($hosp->admission->lit->salle->lits as $lit)
+                <option value="{{ $lit->id }}" @if($hosp->admission->lit->id == $lit->id) selected @endif >
+                   {{ $lit->nom }}
+                 </option>
+                @endforeach
+              </select>
+            </div>  
+        </div>
+      </div>
+      @endif
+        <div class="space-12"></div>
+      <div class="space-12"></div>
+      <div class="space-12"></div>
+      <div class="space-12"></div>
+      <div class="row">
+          <div class="col-xs-3"></div>
+          <div class="col-xs-6 center bottom">
+            <button class="btn btn-info btn-xs" type="submit">
+              <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
+            </button>
+          <!--  &nbsp; &nbsp; &nbsp;
+            <button class="btn" type="reset">
+              <i class="ace-icon fa fa-undo bigger-110"></i>Annuler
+            </button> -->
+            <a href="/hospitalisation/listeRDVs" class="btn btn-xs btn-warning" >
+                <i class="ace-icon fa fa-undo bigger-110"></i>Annuler
+            </a>
+          </div>
+          <div class="col-xs-3"></div>
+      </div>
     </form>
 	</div>
 	

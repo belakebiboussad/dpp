@@ -11,6 +11,8 @@ use App\modeles\employ;
 use App\modeles\rdv_hospitalisation;
 use Illuminate\Support\Facades\Auth;
 use App\modeles\admission;
+use App\modeles\service;
+
 use Jenssegers\Date\Date;
 use View;
 class HospitalisationController extends Controller
@@ -106,8 +108,10 @@ class HospitalisationController extends Controller
      */
     public function edit($id)
     {
-        $hosp = hospitalisation::find($id);   
-        return View::make('Hospitalisations.edit')->with('hosp', $hosp);
+        $hosp = hospitalisation::find($id); 
+        $services =service::all();
+        // dd($hosp->admission->demandeHospitalisation->consultation->patient->hommesConf);
+        return View::make('Hospitalisations.edit')->with('hosp', $hosp)->with('services',$services);
     }
 
     /**
