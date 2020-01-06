@@ -148,9 +148,7 @@ class RDVController extends Controller
     {
            $employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
            $patient = patient::FindOrFail($id_patient);
-           // $data = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->where("specialite", $employe->Specialite_Emploiye)->get();
            $data = rdv::all();
-      
            return view('rdv.create_rdv',compact('patient','data'));
     }
 

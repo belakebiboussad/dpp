@@ -41,14 +41,7 @@ class AdmissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
-    {  
-      
-      $demande = dem_colloque::where('dem_colloques.id_demande','=',$id)->first();
-      $services = service::all();
-      return view('admission.create_admission', compact('demande','services'));
-    }
-    /**
+      /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

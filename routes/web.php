@@ -125,7 +125,7 @@ Route::get('/consultations/index/{id}','ConsultationsController@index');
 Route::get('/patient/listerdv/{id}','PatientController@listerdv');
 Route::get('/atcd/create/{id}','AntecedantsController@create');
 Route::get('/atcd/index/{id}','AntecedantsController@index');
-Route::get('/admission/create/{id}','AdmissionController@create');
+Route::get('/admission/create/{id}','AdmissionController@create');//a commenter
 Route::post('/admission/reporter/{id}','AdmissionController@reporterRDV');
 Route::get('/admission/create/{id}{bool}',function(){
         // 'as'    => 'id',
@@ -139,6 +139,14 @@ Route::get('/rdv/valider/{id}','RDVController@valider');
 Route::get('/rdv/reporter/{id}','RDVController@reporter');
 Route::post('/rdv/reporte/{id}','RDVController@storereporte');
 //ici
+
+//rdvhospitalisation
+
+Route::resource('rdvHospi','RdvHospiController');
+Route::get('rdvHospi/create/{parameter}',
+        ['as'=> 'createRdvHosp', 'uses'=>'RdvHospiController@create']
+);
+//
 Route::get('/admission/imprimer/{rdv}', ['as' => 'admission.pdf', 'uses' => 'AdmissionController@print']);
 Route::get('/choixpatient','RDVController@choixpatient');
 Route::get('/home', 'HomeController@index')->name('home');
