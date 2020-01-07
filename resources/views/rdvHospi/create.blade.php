@@ -178,7 +178,7 @@
 					 	<strong> Date sortie prévue :</strong>
 					</label>
 						<div class="col-sm-8">
-							<input class="col-xs-5 col-sm-5 date-picker" id="dateSortiePre" name="dateSortiePre" type="text" placeholder="Date sortie prévue d'hospitalisation" data-date-format="yyyy-mm-dd" required onchange="updateDureePrevue()"/>
+							<input class="col-xs-5 col-sm-5 date-picker" id="dateSortiePre" name="dateSortiePre" type="text" placeholder="Date sortie prévue" data-date-format="yyyy-mm-dd" required onchange="updateDureePrevue()"/>
 							<button class="btn btn-sm filelink"  onclick="$('#dateSortie').focus()" disabled>
 								<i class="fa fa-calendar"></i>
 							 </button>
@@ -210,8 +210,8 @@
 						</label>
 						<div class="col-sm-8">
 							<select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9"
-							      	placeholder="selectionnez le service d'hospitalisation"/>
-							  <option value="" selected disabled>selectionnez le service d'hospitalisation</option>
+							      	placeholder="Selectionnez le service"/>
+							  <option value="" selected disabled>Selectionnez le service</option>
 							  @foreach($services as $service)
 								<option value="{{ $service->id }}">{{ $service->nom }}</option>
 								@endforeach
@@ -225,7 +225,7 @@
 						<div class="col-sm-8">
 							<select id="salle" name="salle" data-placeholder="selectionnez la salle d'hospitalisation"
 																 class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9" disabled>
-								<option value="" selected>selectionnez la salle d'hospitalisation</option>
+								<option value="" selected>Selectionnez la salle</option>
 						  </select>
 						</div>
 			  </div>
@@ -237,7 +237,7 @@
 						<div class="col-sm-8">
 							<select id="lit" name="lit" data-placeholder="selectionnez le lit" 
 															 class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9" disabled>
-								<option value="" selected disabled>selectionnez le lit d'hospitalisation</option>
+								<option value="" selected disabled>Selectionnez le lit</option>
 							</select>
 						</div>	
 				</div>

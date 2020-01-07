@@ -100,12 +100,9 @@ class ServiceController extends Controller
 
     public function getRooms(Request $request)
     {
-             $salles = salle::where('service_id',$request->search)->get();
-              // return $salles; 
-            // $service = service::FindOrFail($id);
-            //  return response()->json($service);
-            // //return response()->json($service->salles);
+            $salles = salle::where('service_id',$request->search)->get();
+            // return $salles;// $service = service::FindOrFail($id); //  return response()->json($service);// //return response()->json($service->salles);
             $view = view("services.ajax_servicerooms",compact('salles'))->render();
-           return response()->json(['html'=>$view]);
+            return response()->json(['html'=>$view]);
     }
 }

@@ -117,7 +117,7 @@ Route::resource('atcd','AntecedantsController');
 Route::resource('medicaments','MedicamentsController');
 Route::resource('exclinique','ExamenCliniqueController');
 Route::resource('demandeproduit','demandeprodController');
-route::get('/getsalles/{id}','SalleController@getsalles');
+route::get('/getsalles','SalleController@getsalles');
 Route::post('/exclinique/store/{id}','ExamenCliniqueController@store');
 Route::get('/consultations/create/{id}','ConsultationsController@create');
 Route::get('/listcons','ConsultationsController@listecons');
@@ -180,7 +180,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/searchUser','UsersController@search');
 Route::get('/searchPatient','PatientController@search');
 Route::get('/getPatients','PatientController@getPatientsArray');
-Route::get('/getlits/{id}','LitsController@getlits');
+//Route::get('/getlits/{id}','LitsController@getlits');
+
+Route::get('/getlits','LitsController@getlits');
+
 Route::get('/user/find', 'UsersController@AutoCompleteUsername');
 Route::get('/userdetail', 'UsersController@getUserDetails');
 Route::get('/patients/find', 'PatientController@AutoCompletePatientname');

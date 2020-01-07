@@ -8,6 +8,7 @@ use App\modeles\service;
 use Validator;
 use Redirect;
 use MessageBag;
+use Response;
 
 class SalleController extends Controller
 {
@@ -16,17 +17,22 @@ class SalleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getsalles($id)
+    public function getsalles()
     {
-        $salles = salle::where('service_id',$id)->where('etat','Non bloquee')->get();
-        foreach ($salles as $key => $salle) {
-            foreach ($salle->lits as $key => $lit) {
-                if($lit->affectation || !($lit->etat) )
-                {
-                  
-                    $salle->lits->pull($key);
-                }    
+        $serviceId = $_GET['ServiceID'];
+        $start  = $_GET['StartDate']; 
+        $end = $_GET['EndDate'];
+        $time_start = strtotime($start);  
+        $time_end = strtotime($end);  
+        $salles = salle::where('service_id',$serviceId)->where('etat','Non bloquee')->get();
+        foreach ($salles as $key1 => $salle) {
+          foreach ($salle->lits as $key => $lit) {
+            $free = $lit->isFree($lit->id,$time_start,$time_end); //return Response::json($free);
+            if(! $free)
+            {
+                $salle->lits->pull($key);
             }
+          }
         }
         foreach ($salles as $key => $salle) {
             if((count($salle->lits) == 0))

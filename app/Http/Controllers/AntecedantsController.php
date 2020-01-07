@@ -36,9 +36,7 @@ class AntecedantsController extends Controller
     public function create($id_patient)
     {
         $patient = patient::FindOrFail($id_patient);
-        return view('antecedents.create_antec',compact('patient'));
-         // return view('consultations.Antecedant',compact('patient'));
-
+        return view('antecedents.create_antec',compact('patient'));    // return view('consultations.Antecedant',compact('patient'));
     }
 
     /**
