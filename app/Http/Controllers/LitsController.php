@@ -133,19 +133,16 @@ class LitsController extends Controller
         $start  = $_GET['StartDate']; 
         $end = $_GET['EndDate'];
         $time_start = strtotime($start);  
-        $time_end = strtotime($end);
-        //$lits;
+        $time_end = strtotime($end); //$lits;
         $salle =salle::FindOrFail($salleId);
         foreach ($salle->lits as $key => $lit) {  
             $free = $lit->isFree($lit->id,$time_start,$time_end);
-            if( $free)
+            if( !$free)
             {
-                $salle->lits->pull($key);
-                //$lits->push($lit);
+                $salle->lits->pull($key);//$lits->push($lit);
             } 
         }
-        // $lits = lit::where('salle_id',$salleid)->where('etat',1)->where("affectation",0)->get();
-         return $salle->lits;
+        return $salle->lits; // $lits = lit::where('salle_id',$salleid)->where('etat',1)->where("affectation",0)->get();
     }
 
 }

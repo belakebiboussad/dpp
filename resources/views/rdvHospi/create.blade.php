@@ -5,8 +5,8 @@
   var now = nowDate.getFullYear() + '-' + (nowDate.getMonth()+1) + '-' + ('0'+ nowDate.getDate()).slice(-2);
  	$('document').ready(function(){
     $("#dateEntree").datepicker("setDate", now);			
-	  $("#dateSortie").datepicker("setDate", now);	
-	  $('#dateSortie').attr('readonly', true);
+	  $("#dateSortiePre").datepicker("setDate", now);	
+	  $('#dateSortiePre').attr('readonly', true);
 		$('.timepicker').timepicker({
             timeFormat: 'HH:mm',
             interval: 15,
@@ -19,7 +19,7 @@
             scrollbar: true
     });
 	 	$( "#RDVForm" ).submit(function( event ) {  
-  			$("#dateSortie").prop('disabled', false);
+  			$("#dateSortiePre").prop('disabled', false);
   	});
   	$('.filelink' ).click( function( e ) {
                 e.preventDefault();  
@@ -144,9 +144,7 @@
 					<div class="col-sm-8">
 							<input class="col-xs-5 col-sm-5 date-picker" id="dateEntree" name="dateEntree" type="text" 
 									 placeholder="Date d'entrée prévue d'hospitalisation" data-date-format="yyyy-mm-dd" required/>
-					  	<button class="btn btn-sm filelink" onclick="$('#dateEntree').focus()">
-						  	<i class="fa fa-calendar"></i>
-					    </button>
+					  	<button class="btn btn-sm filelink" onclick="$('#dateEntree').focus()"><i class="fa fa-calendar"></i></button>
 					</div>
 				</div>
 				<div class="col-xs-4">

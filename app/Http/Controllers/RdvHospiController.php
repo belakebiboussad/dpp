@@ -22,8 +22,7 @@ class RdvHospiController extends Controller
 		}
 		public function store(Request $request)
     {
-    	// dd($request);
-    	$employe = employ::where("id",Auth::user()->employee_id)->get()->first();
+     	$employe = employ::where("id",Auth::user()->employee_id)->get()->first();
       $ServiceID = $employe->Service_Employe;
      	$rdv = rdv_hospitalisation::firstOrCreate([
 	            "date_RDVh"         =>$request->dateEntree,
@@ -49,7 +48,7 @@ class RdvHospiController extends Controller
                                 ->whereHas('demandeHosp',function ($q){
                                     $q->where('etat','valide'); 
                                 })->get(); 
-      dd($demandes);
+      return view('rdvHospi.index', compact('demandes'));
      	
       
     }

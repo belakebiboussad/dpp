@@ -57,20 +57,21 @@
 <script src="{{ asset('/plugins/fullcalendar/locale/fr.js') }}"></script>
 <script src="{{ asset('/js/jquery-editable-select.js') }}"></script>
 <script src="{{asset('/js/jquery-ui.js')}}"></script>
+
 {{-- <script src="{{ asset('/js/moment-timezone.js') }}"></script>
  --}}
  <script type="text/javascript">
-$(document).ready(function(){
-    $('#avis').change(function(){
-        if($(this).val() == "R")
-        {
-            $("#motifr").show();
-        }
-        else
-        {
-            $("#motifr").hide();
-        }
-    });
+    $(document).ready(function(){
+        $('#avis').change(function(){
+            if($(this).val() == "R")
+            {
+                $("#motifr").show();
+            }
+            else
+            {
+                $("#motifr").hide();
+            }
+        });
     $("#validerdmd").click(function(){
         var arrayLignes = document.getElementById("cmd").rows;
         var longueur = arrayLignes.length;
