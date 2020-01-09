@@ -160,14 +160,16 @@ class ColloqueController extends Controller
     public function edit($id)
     {  
       $colloque=colloque::find($id);
-      $membre = user::join('employs', 'utilisateurs.employee_id','=','employs.id')
+      dd($colloque->membres);
+      $listeMeds = user::join('employs', 'utilisateurs.employee_id','=','employs.id')
                     ->join('rols','utilisateurs.role_id', '=', 'rols.id')
                     ->select('employs.id','Nom_Employe','Prenom_Employe')
                     ->where('rols.id', '=','1' )
                     ->orWhere('rols.id', '=','2' )
                     ->orWhere('rols.id', '=','5' ) ->orWhere('rols.id', '=','6' )->get(); 
+      
       $type_c=type_colloque::select('id', 'type')->get();
-      return view('colloques.edit',compact('colloque','membre','type_c'));
+      return view('colloques.edit',compact('colloque','listeMeds','type_c'));
 
     }
     /**

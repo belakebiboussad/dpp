@@ -38,8 +38,8 @@
         <div class="col-xs-5">
           <label for="liste_membre"> <h4> <strong>Liste des Medecins :</strong></h4></label>&nbsp;
           <select  id="liste_membre" class="form-control" size="7" multiple="multiple">
-            @foreach( $membre as $membres)
-            <option id="id_membre" value="{{$membres->id}}" >{{$membres->Nom_Employe}} {{$membres->Prenom_Employe}}</option>
+            @foreach( $listeMeds as $med)
+            <option id="id_membre" value="{{$med->id}}" >{{$med->Nom_Employe}} {{$med->Prenom_Employe}}</option>
             @endforeach
           </select>
         </div>
