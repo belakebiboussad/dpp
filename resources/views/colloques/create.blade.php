@@ -63,37 +63,27 @@
         <!-- ici date -->
       <div class="row">
         <div class="col-xs-7">
-             <label for="date_colloque"><strong>Date du colloque :</strong></label>
-            <!--  <input class="col-xs-6 col-sm-6 date-picker" id="date_colloque" name="date_colloque" placeholder="Date prévue du colloque" type="text" 
-                data-date-format="yyyy-mm-dd" style="width: 300px" required />
-             <button class="btn btn-sm filelink" onclick="$('#date_colloque').focus()">  <i class="ace-icon fa fa-calendar"></i></button> -->
-              <input class="date-picker" id="date_colloque" name="date_colloque" type="text" 
-                   placeholder="Date d'entrée prévue d'hospitalisation" data-date-format="yyyy-mm-dd" required/>
-              <button class="btn btn-sm filelink" onclick="$('#date_colloque').focus()"><i class="fa fa-calendar"></i></button>
+            <h4><label class= "control-label no-padding-left col-xs-4 col-sm-4" for="date_colloque"><strong>Date du colloque :</strong></label></h4>
+            <input class="col-xs-4 col-sm-4 date-picker" id="date_colloque" name="date_colloque" type="text" 
+                   placeholder="Date d'entrée prévue" data-date-format="yyyy-mm-dd" required/>
+            <button class="btn btn-sm filelink" onclick="$('#date_colloque').focus()"><i class="fa fa-calendar"></i></button> 
         </div>
-        <div class="col-xs-4">
-              <input class="col-xs-5 col-sm-5 date-picker" id="date_colloque" name="date_colloque" type="text" 
-                   placeholder="Date d'entrée prévue d'hospitalisation" data-date-format="yyyy-mm-dd" required/>
-              <button class="btn btn-sm filelink" onclick="$('#date_colloque').focus()"><i class="fa fa-calendar"></i></button>
+        <div class="col-xs-5">
+           
         </div>
        <!--  <div class="col-xs-3"></div>
         <div class="col-xs-3"></div>
  -->
-
       </div>
-      
-      
-
-
       <div class="space-12"></div>
       <div class="space-12"></div>
 
 
 
       <div class="row">
-          <div class="col-xs-6">
-            <label for="type_colloque"><h4><b>Type du colloque :</b></h4></label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-            <select id="type_colloque" name="type_colloque" data-placeholder="sélectionner le type..."  style="width: 300px " required>
+          <div class="col-xs-7">
+            <label for="type_colloque" class= "control-label no-padding-left col-xs-4 col-sm-4"><strong>Type du colloque :</strong></label>
+            <select id="type_colloque" name="type_colloque" class="col-xs-4 col-sm-4" data-placeholder="sélectionner le type..." required>
               <option value="" selected disabled>sélectionner le type...</option>
               @foreach( $type_c as $type)
               <option id="id_type" value="{{$type->id}}" >{{$type->type}}</option>
@@ -102,12 +92,12 @@
           </div>
       </div>
       <div class="space-12"></div>
-       <div class="space-12"></div>
+      <div class="space-12"></div>
       <div class="row">
           <div class="col-xs-6 center">
             <div class="col-md-offset-6 col-md-7"><br/>
               <button class="btn btn-success btn-xs" type="submit" >
-                <i class="ace-icon fa fa-check bigger-110"></i>Enregistrer
+                <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
               </button>
               &nbsp; &nbsp; &nbsp; &nbsp;
               <button class="btn btn-xs" type="reset" id="reset">

@@ -82,6 +82,7 @@ Route::put('/colloque/{membres,id_demh}', 'ColloqueController@store');// a revoi
 Route::resource('colloque','ColloqueController');
 Route::get('/listecolloques/{type}','ColloqueController@index');
 Route::get('/listecolloquesCloture/{type}','ColloqueController@getClosedColoques');
+Route::get('/runcolloque/{id}','ColloqueController@run');
 Route::resource('admission','AdmissionController');
 route::get('/annullerRDV/{id}','AdmissionController@annulerRDV');
 Route::get('/getAdmissions/{date}','AdmissionController@getAdmissions');//->name('admissionsXHR')

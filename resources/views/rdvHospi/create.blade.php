@@ -138,8 +138,7 @@
 			<div class="row form-group">
 				<div class="col-xs-4">
 					<label class="col-sm-4 control-label no-padding-right" for="dateEntree">
-					 	<strong> Date entrée prévue : 
-						</strong>
+					 	<strong> Date entrée prévue : </strong>
 					</label>
 					<div class="col-sm-8">
 							<input class="col-xs-5 col-sm-5 date-picker" id="dateEntree" name="dateEntree" type="text" 

@@ -25,6 +25,7 @@
 						<th><h5><strong>colloque créer le</strong></h5></th>
 						<th><h5><strong>Type colloque</strong></h5></th>
 						<th><h5><strong>Etat colloque</strong></h5></th>
+						<th></th>
 					</tr>
 				</thead>
 			<tbody>		
@@ -35,12 +36,15 @@
 				</td>
 				<td> {{$col["dat"]}}</td>
 				<td>
+					<ul class="list-inline">
 					@foreach($col["membres"] as $i=>$m)
-					<p class="text-primary">{{$col["membres"][$i]}}</p>
+					  <span class="badge badge-primary badge-pill"><li class="list-inline-item">{{ $col["membres"][$i] }}</li></span>
+					  <!-- <p class="text-primary">{{$col["membres"][$i]}}</p> --> <!-- <span class="badge badge-primary badge-pill"> {{ $col["membres"][$i] }}</span> --> 
 					  @if(!($loop->last))
-							<hr>
+							<br>
 						@endif
 					@endforeach
+					</ul>
 				</td>
 		  	<td>
 					<p class="text-primary">{{$col["creation"]}}</p>
@@ -49,13 +53,15 @@
 					<p class="text-primary">{{$col["Type"]}}</p>
 				</td>
 				<td>
-				  <p class="text-primary"><h4><span class="label label-sm label-success">{{$col["Etat"]}}</span></h4>
-				     @if($col["Etat"]=="en cours")
-				     		<a href="{{route('colloque.edit',$cl)}}" class="btn btn-xs btn-green">
-				       		<i class="ace-icon fa fa-edit bigger-120"></i>edit
-				       	</a>
-				      @endif
-				     </p>
+				  <p class="text-primary"><h4><span class="label label-sm label-success">{{$col["Etat"]}}</span></h4></p>
+				</td>
+				<td>
+					<a href="{{ route('colloque.edit',$cl)}} " class="btn btn-xs btn-success"><i class="ace-icon fa fa-pencil-square-o bigger-110"></i></a>
+					@if($col["Etat"]=="en cours")
+				  	<a href="/runcolloque/{{$cl}}" class="btn btn-xs btn-green" title="Déroulement">
+				   		<i  class="ace-icon fa fa-cog  bigger-110"></i>	<!-- <em class="fa fa-cog"></em> -->
+				   	</a>
+				  @endif
 				</td>	
 			</tr>
 			@endforeach
