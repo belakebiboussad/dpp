@@ -14,7 +14,7 @@ class colloque extends Model
     }
     public function membres()
     {
-    	return $this->belongsToMany ('App\modeles\employ','membres');
+    	return $this->belongsToMany ('App\modeles\employ','membres' ,'id_colloque','id_employ');
     }
 
     
