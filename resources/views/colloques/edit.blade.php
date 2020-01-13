@@ -34,6 +34,7 @@
   <div class="col-sm-12">
     <form id="creat_col" class="form-horizontal" role="form" method="POST" action="{{route('colloque.update',$colloque->id)}}" onsubmit="return myFunction()">
       {{ csrf_field() }} 
+      {{ method_field('PUT') }}
       <div class="row">
         <div class="col-xs-5">
           <label for="liste_membre"> <h4> <strong>Liste des Medecins :</strong></h4></label>&nbsp;
@@ -54,7 +55,9 @@
           <label for="liste_membre_to"> <h4> <strong>&nbsp;Liste des membres :</strong></h4></label>&nbsp;
           <br>
           <select name="membres[]" id="liste_membre_to" class="form-control" size="7" multiple="multiple">
-            
+            @foreach( $colloque->membres as $med)
+            <option id="id_membre" value="{{$med->id}}" >{{$med->Nom_Employe}} {{$med->Prenom_Employe}}</option>
+            @endforeach
           </select>
         </div>
       </div>
