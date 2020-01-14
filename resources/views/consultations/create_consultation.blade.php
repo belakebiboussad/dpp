@@ -140,7 +140,7 @@
       $('#Ordonnance').on('show.bs.modal', function () {
     	  $('.modal-content').css('height',$( window ).height()*0.95);
       });
-      //crearz update delete antecant
+      //creart update delete antecant
       jQuery('body').on('click', '.open-modal', function () {
    	    var atcd_id = $(this).val();
    	    $.get('/atcd/' + atcd_id, function (data) { 

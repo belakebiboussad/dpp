@@ -179,7 +179,6 @@ class ColloqueController extends Controller
     public function update(Request $request, $id)
     {   
       $colloque=colloque::FindOrFail($id);
-      dd($request->valider);
       foreach ($request->valider as $key => $value) {
           $priorite ="prop".$value;  $obs = "observation".$value; $medecin="MedT".$value;
           $idmedecin = $request->$medecin; 
@@ -201,7 +200,7 @@ class ColloqueController extends Controller
     }
   public function getClosedColoques($type)
   {
-      $demandes =   dem_colloque::whereHas('demandeHosp.Specialite.type', function ($q) use ($type) {
+      $demandes = dem_colloque::whereHas('demandeHosp.Specialite.type', function ($q) use ($type) {
                           $q->where('id',$type);
                   })->get();
       $colloque = array();
@@ -256,8 +255,25 @@ class ColloqueController extends Controller
                   })->where('etat','=','en attente')->get();
     $medecins = user::where('utilisateurs.role_id',1)->orwhere('utilisateurs.role_id',13)->get();               
     return view('colloques.runcolloque', compact('demandes','medecins','colloque'));
-
   }
+  public function save(Request $request ,$id)
+  {
+    $colloque=colloque::FindOrFail($id);
+    dd($request->valider);
+    foreach ($request->valider as $key => $value) {
+      $priorite ="prop".$value;  $obs = "observation".$value; $medecin="MedT".$value;
+      $dem = dem_colloque::create([
+            "id_colloque"=>$id,
+            "id_demande"=>$value,        
+            "ordre_priorite"=>$request->$priorite,
+            "observation"=>$request->$obs,
+            "id_medecin"=>$idmedecin,
+      ]); 
+      $demande = DemandeHospitalisation::FindOrFail($value); 
 
+    }
+    // foreach ($request->valider as $key => $value) {
+    // }
+  }
 }
 
