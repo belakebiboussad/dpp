@@ -55,6 +55,8 @@
 </script>
 @endsection
 @section('main-content')
+   {{--    return redirect()->action('ColloqueController@index');   --}}
+
 <form id="" class="form-horizontal" method="POST" action="/home_dele">
 	{{ csrf_field() }}
 	<div class="space-12"></div>
