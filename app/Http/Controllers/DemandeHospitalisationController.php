@@ -6,10 +6,13 @@ use Illuminate\Http\Request;
 use App\modeles\consultation;
 use App\modeles\patient;
 use App\modeles\DemandeHospitalisation;
+use App\modeles\dem_colloque;
 use App\User;
 use App\modeles\employ;
+use App\modeles\colloque;
 use Auth;
 use Jenssegers\Date\Date;
+use Response;
 
 class DemandeHospitalisationController extends Controller
 {
@@ -52,8 +55,7 @@ class DemandeHospitalisationController extends Controller
         $a =  DemandeHospitalisation::create([
             "modeAdmission"=>$request->modeAdmission,
             "service"=>$request->service,
-            "specialite"=>$request->specialiteDemande,
-           // "degree_urgence"=>$request->degreurg,
+            "specialite"=>$request->specialiteDemande, // "degree_urgence"=>$request->degreurg,
             "id_consultation"=>$consultID,
             "etat " =>"en attente",
         ]);  
@@ -132,5 +134,16 @@ class DemandeHospitalisationController extends Controller
                                     })->where('etat','en attente')->get();                       
         return view('demandehospitalisation.index',compact('demandehospitalisations'));
     }
-  
+    public function valider(Request $request)
+    {
+        $dem = dem_colloque::firstOrCreate($request->all());
+        return Response::json($dem);
+    }
+    public function invalider(Request $request)
+    {
+        // $demande  = DemandeHospitalisation::FindOrFail($request->id_demande);       //$dem = dem_colloque::destroy($request->id_demande);
+        $colloque = colloque::find($request->id_colloque);
+        $colloque->demandes()->detach($request->id_demande);
+        return Response::json($colloque);   
+    }
 }

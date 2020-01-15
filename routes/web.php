@@ -68,6 +68,10 @@ Route::post('user/credentials','UsersController@credentials');
 Route::post('user/updatepro','UsersController@updatepro');
 Route::get('/atcd/store','AntecedantsController@storeatcd');
 Route::get('/demandehosp/create/{id}','DemandeHospitalisationController@create');
+//ici
+Route::post('/demandehosp/valider','DemandeHospitalisationController@valider');
+Route::post('/demandehosp/invalider','DemandeHospitalisationController@invalider');
+
 Route::get('/demandehosp/listedemandes/{type}','DemandeHospitalisationController@listedemandes');
 Route::get('/salle/create/{id}','SalleController@create');
 Route::get('/lit/create/{id}','LitsController@create');
@@ -87,12 +91,8 @@ Route::post('/savecolloque/{id}','ColloqueController@save');
 Route::resource('admission','AdmissionController');
 route::get('/annullerRDV/{id}','AdmissionController@annulerRDV');
 Route::get('/getAdmissions/{date}','AdmissionController@getAdmissions');//->name('admissionsXHR')
-
 Route::post('/hommeConfiance/save','HommeConfianceController@createGardejax');
-
 Route::resource('hommeConfiance','HommeConfianceController');
-
-
 Route::resource('role','RolesController');
 Route::resource('ticket','ticketController');
 Route::resource('service','ServiceController');
@@ -107,7 +107,6 @@ Route::resource('lit','LitsController');
 Route::resource('demandehosp','DemandeHospitalisationController');
 Route::resource('consultations','ConsultationsController');
 Route::post('users/changePassword', 'UsersController@changePassword');
-//Route::get('users/create','UsersController@create');
 Route::resource('users','UsersController');
 Route::post('/users/store/','UsersController@store');
 Route::resource('employs','EmployeController');
@@ -140,8 +139,6 @@ Route::post('/createRDV','RDVController@AddRDV');
 Route::get('/rdv/valider/{id}','RDVController@valider');
 Route::get('/rdv/reporter/{id}','RDVController@reporter');
 Route::post('/rdv/reporte/{id}','RDVController@storereporte');
-//ici
-
 //rdvhospitalisation
 
 Route::resource('rdvHospi','RdvHospiController');
@@ -178,14 +175,12 @@ Route::any('/profile/{userId}', [
 });
 Route::get('/role/show/{userId}','RolesController@show');
 Route::get('/home', 'HomeController@index')->name('home');
-// Route::post('AddANTCD','AntecedantsController@createATCDAjax');
+
+Route::post('AddANTCD','AntecedantsController@createATCDAjax');
 Route::get('/searchUser','UsersController@search');
 Route::get('/searchPatient','PatientController@search');
 Route::get('/getPatients','PatientController@getPatientsArray');
-//Route::get('/getlits/{id}','LitsController@getlits');
-
 Route::get('/getlits','LitsController@getlits');
-
 Route::get('/user/find', 'UsersController@AutoCompleteUsername');
 Route::get('/userdetail', 'UsersController@getUserDetails');
 Route::get('/patients/find', 'PatientController@AutoCompletePatientname');

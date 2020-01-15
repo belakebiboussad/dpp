@@ -177,7 +177,30 @@ class ColloqueController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
+    {
+      $colloque = colloque::find($id);
+      foreach ($colloque->membres as $elt) {
+        $colloque->membres()->detach($elt->id_employ);
+        
+      }
+      foreach ($request->membres as $elt) {
+                   membre::create([
+                        "id_colloque"=>$colloque->id,
+                        "id_employ"=>$elt,
+                    ]);
+        }   
+      // $colloque->membres->detach();
+      $colloque->update([
+                          "date_colloque"=>$request->date_colloque,
+                          "etat_colloque"=>"en cours",
+                          "date_creation"=>Date::Now(),
+                          "type_colloque"=>$request->type_colloque,              
+                      ]);  
+      return redirect()->action('ColloqueController@index');
+    }
+    public function update1(Request $request, $id)
     {   
+
       $colloque=colloque::FindOrFail($id);
       foreach ($request->valider as $key => $value) {
           $priorite ="prop".$value;  $obs = "observation".$value; $medecin="MedT".$value;
@@ -259,7 +282,6 @@ class ColloqueController extends Controller
   public function save(Request $request ,$id)
   {
     $colloque=colloque::FindOrFail($id);
-    dd($request->valider);
     foreach ($request->valider as $key => $value) {
       $priorite ="prop".$value;  $obs = "observation".$value; $medecin="MedT".$value;
       $dem = dem_colloque::create([

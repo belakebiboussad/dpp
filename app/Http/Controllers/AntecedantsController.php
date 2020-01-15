@@ -59,8 +59,6 @@ class AntecedantsController extends Controller
      */
     public function show($id)
     {
-        // $atcd = antecedant::FindOrFail($id);   // $id_patient = $atcd->Patient_ID_Patient;      // $patient = patient::FindOrFail($id_patient);
-        // return view('antecedents.show_atcd',compact('atcd','patient'));
         $atcd = antecedant::find($id);
         return Response::json($atcd);
     }

@@ -181,7 +181,6 @@
 	      	formData.tabac = $("#tabac").is(":checked") ? 1:0;
 	      	formData.ethylisme = $("#ethylisme").is(":checked") ? 1:0;     
      		}
-  
         if(!($("#description").val() == ''))
         {		
         	$.ajaxSetup({
