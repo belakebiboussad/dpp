@@ -18,7 +18,7 @@ class colloque extends Model
     }
     public function demandes()
     {
-    	return $this->belongsToMany('App\modeles\DemandeHospitalisation','dem_colloques' ,'id_colloque','	id_demande');
+    	return $this->belongsToMany('App\modeles\DemandeHospitalisation','dem_colloques' ,'id_colloque','id_demande');
     }
 
 }

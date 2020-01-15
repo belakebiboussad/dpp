@@ -136,14 +136,19 @@ class DemandeHospitalisationController extends Controller
     }
     public function valider(Request $request)
     {
-        $dem = dem_colloque::firstOrCreate($request->all());
-        return Response::json($dem);
+         $dem = dem_colloque::firstOrCreate($request->all());
+         $demande  =  DemandeHospitalisation::FindOrFail($request->id_demande); 
+         $demande->etat ="valide";
+         $demande->save();
+         return Response::json($demande);
     }
     public function invalider(Request $request)
     {
-        // $demande  = DemandeHospitalisation::FindOrFail($request->id_demande);       //$dem = dem_colloque::destroy($request->id_demande);
+        $demande  = DemandeHospitalisation::FindOrFail($request->id_demande);       //$dem = dem_colloque::destroy($request->id_demande);  
         $colloque = colloque::find($request->id_colloque);
         $colloque->demandes()->detach($request->id_demande);
-        return Response::json($colloque);   
+         $demande->etat ="en attente";
+         $demande->save();
+         return Response::json($demande);   
     }
 }
