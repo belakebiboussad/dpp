@@ -1,4 +1,4 @@
-<!-- #section:basics/content.breadcrumbs -->
+<!--#section:basics/content.breadcrumbs -->
 <div class="breadcrumbs" id="breadcrumbs">
     <script type="text/javascript">
         try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
@@ -9,7 +9,7 @@
             <i class="ace-icon fa fa-home home-icon"></i>
             <a href="#">Acceuil</a>
         </li>
-        <li class="active">Gestion Des Utilisateurs</li>
+        {{-- <li class="active">Gestion Des Utilisateurs</li>--}}
     </ul><!-- /.breadcrumb -->
 
     <!-- #section:basics/content.searchbox -->
@@ -25,4 +25,4 @@
     <!-- /section:basics/content.searchbox -->
 </div>
 
-<!-- /section:basics/content.breadcrumbs -->
+<!-- /section:basics/content.breadcrumbs

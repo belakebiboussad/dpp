@@ -62,6 +62,10 @@
 				   		<i  class="ace-icon fa fa-cog  bigger-110"></i>	<!-- <em class="fa fa-cog"></em> -->
 				   	</a>
 				  @endif
+				  <a href="{{ route('colloque.destroy',$cl)}}"></a>
+				  	<a href="{{ route('colloque.destroy',$cl) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">
+							<i class="ace-icon fa fa-trash-o bigger-110"></i>
+						</a>
 				</td>	
 			</tr>
 			@endforeach

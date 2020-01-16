@@ -9,7 +9,7 @@
             try{ace.settings.check('main-container' , 'fixed')}catch(e){}
         </script>
         @yield('page-script')
-        @if(App\modeles\rol::where("id",Illuminate\Support\Facades\Auth::user()->role_id)->first()->role == "reception")
+        <!-- @if(App\modeles\rol::where("id",Illuminate\Support\Facades\Auth::user()->role_id)->first()->role == "reception")
             @include('partials.sidebar_rec')
         @elseif(App\modeles\rol::where("id",Illuminate\Support\Facades\Auth::user()->role_id)->first()->role == "Medecine")
             @include('partials.sidebar_med')
@@ -17,7 +17,8 @@
             @include('partials.sidebar_sur')
         @elseif(App\modeles\rol::where("id",Illuminate\Support\Facades\Auth::user()->role_id)->first()->role == "Delegue colloque")
             @include('partials.sidebar_dele')
-        @endif
+        @endif -->
+        @include('partials.sidebar_dele')
         <div class="main-content">
                  <div class="main-content-inner">
                 @include('partials.breadcrumbs_rec')

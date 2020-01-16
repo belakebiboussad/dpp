@@ -46,7 +46,6 @@ class HomeController extends Controller
           $role =Auth::user()->role ; //dd($role);
           $employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
           $ServiceID = $employe->Service_Employe;
-
           switch ($role->id) {
                 case 1:
                       return view('patient.index_patient');

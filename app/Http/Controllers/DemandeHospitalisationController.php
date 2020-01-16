@@ -147,8 +147,8 @@ class DemandeHospitalisationController extends Controller
         $demande  = DemandeHospitalisation::FindOrFail($request->id_demande);       //$dem = dem_colloque::destroy($request->id_demande);  
         $colloque = colloque::find($request->id_colloque);
         $colloque->demandes()->detach($request->id_demande);
-         $demande->etat ="en attente";
-         $demande->save();
-         return Response::json($demande);   
+        $demande->etat ="en attente";
+        $demande->save();
+        return Response::json($demande);   
     }
 }

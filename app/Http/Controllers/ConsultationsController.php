@@ -110,24 +110,25 @@ class ConsultationsController extends Controller
 
     public function create($id_patient)
     {
-            $employe= employ::where("id",Auth::user()->employee_id)->get()->first() ;
-            $modesAdmission = [
-                'Ambulatoire' => "Ambulatoire",
-                'urgence' => "urgence",
-                 'programme' => "programme",
-             ];
-            $patient = patient::FindOrFail($id_patient);
-            $codesim = codesim::all();
-            $lieus = Lieuconsultation::all(); 
-            $services = service::all();
-            $antecedants = antecedant::where('Patient_ID_Patient',$patient->id)->get();
-            $meds = User::where('role_id',1)->get()->all(); 
+      $employe= employ::where("id",Auth::user()->employee_id)->get()->first() ;
+      $modesAdmission = [
+            'Ambulatoire' => "Ambulatoire",
+            'urgence' => "urgence",
+            'programme' => "programme",
+      ];
+      $patient = patient::FindOrFail($id_patient);
+      $codesim = codesim::all();
+      $lieus = Lieuconsultation::all(); 
+      $services = service::all();
+      //$antecedants = antecedant::where('Patient_ID_Patient',$patient->id)->get();
+      //dd($patient->antecedants);
+      $meds = User::where('role_id',1)->get()->all(); 
             $specialites = Specialite::orderBy('nom')->get();
             $specialitesExamBiolo = specialite_exb::all();
             $infossupp = infosupppertinentes::all();
             $examens = exmnsrelatifdemande::all();
             $examensradio = examenradiologique::all();
-            return view('consultations.create_consultation',compact('patient','employe','antecedants','codesim','lieus','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp', 
+            return view('consultations.create_consultation',compact('patient','employe','codesim','lieus','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp', 
               'examens','examensradio'));
     }
 

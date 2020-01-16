@@ -24,7 +24,7 @@
 		          </tr>
 		        </thead>
 						<tbody>
-						  @foreach($antecedants as $antcd)
+						  @foreach($patient->antecedants as $antcd)
 						  <tr id="{{ 'atcd'.$antcd->id }}">
 							              <td class ="hidden" >{{ $antcd->Patient_ID_Patient }}</td>
 							              <td>{{ $antcd->Antecedant }}</td>

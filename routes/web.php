@@ -49,6 +49,8 @@ route::get('/home_reception',function (){
 route::get('/home_reception','HomeController@index');
 route::get('/home_dele','HomeController@index');
 route::get('/home_admission','AdmissionController@index')->name('home_admission');
+route::get('/home_infermier','HospitalisationController@index')->name('home_infermier');
+
 Route::get('exbio/{filename}', function ($filename)
 {
     // im not 100% sure about the $path thingy, you need to fiddle with this one around.
@@ -87,6 +89,8 @@ Route::resource('colloque','ColloqueController');
 Route::get('/listecolloques/{type}','ColloqueController@index');
 Route::get('/listecolloquesCloture/{type}','ColloqueController@getClosedColoques');
 Route::get('/runcolloque/{id}','ColloqueController@run');
+Route::get('/endcolloque/{id}','ColloqueController@cloture');
+
 Route::post('/savecolloque/{id}','ColloqueController@save');
 Route::resource('admission','AdmissionController');
 route::get('/annullerRDV/{id}','AdmissionController@annulerRDV');

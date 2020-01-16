@@ -57,7 +57,7 @@
 @section('main-content')
    {{--    return redirect()->action('ColloqueController@index');   --}}
 
-<form id="" class="form-horizontal" method="POST" action="/home_dele">
+<form id="detail_coll" class="form-horizontal" method="GET" action="/endcolloque/{{ $colloque->id }}">
 	{{ csrf_field() }}
 	<div class="space-12"></div>
 	<div class="space-12"></div>
@@ -111,13 +111,13 @@
 								@endforeach
 							</select>
 						</td>
-			     			 <td>
-			        				<div class="funkyradio btn-group col-sm-12" data-toggle="radio">
-						 		<label for="prop"><input type="radio"  class="radioM" name="prop" id="prop1" value="1"/>1</label>&nbsp;&nbsp;
-								<label for="prop"><input type="radio"  class="radioM" name="prop" id="prop2" value="2" checked/>2</label>&nbsp;&nbsp;
-	            					  <label for="prop"><input type="radio"  class="radioM" name="prop" id="prop3" value="3" />3</label>
-					  		</div>
-				    		</td>
+			      <td>
+			     		<div class=" btn-group btn-group-vertical col-sm-12 btn-group-lg" data-toggle="radio" role="group"> 
+					 	 		<label for="prop"><input type="radio"  class="radioM" name="prop" id="prop1" value="1"/>1</label>&nbsp;&nbsp;
+								<label for="prop"><input type="radio"  class="radioM" name="prop" id="prop2" value="2"/>2</label>&nbsp;&nbsp;
+	         		  <label for="prop"><input type="radio"  class="radioM" name="prop" id="prop3" value="3" />3</label>
+					  	</div>
+				    </td>
 				    		<td>
 				    			<textarea class="width-100" resize="none" name="observation"></textarea>
 				    		</td>
@@ -209,8 +209,8 @@
 		<div class="col-md-8"> </div>
 			<div class="col-md-4">
 				<div class="form-group row pull-right">
-					<button type="submit" class="btn btn-primary btn-space" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
-				  	<button type="reset" class="btn btn-danger btn-space"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
+					<button type="submit" class="btn btn-xs btn-primary btn-space" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
+				  <a type="reset" href="/home_dele" class="btn btn-xs btn-danger btn-space" onclick="javascript:document.getElementById('detail_coll').reset();"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>
 				</div>
 			</div>
 	</div>

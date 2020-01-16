@@ -17,6 +17,10 @@ class patient extends Model
 		if(isset($this->Lieu_Naissance))
 			return $this->belongsTo('App\modeles\Commune','Lieu_Naissance');
 	}
+	public function antecedants()
+	{
+		return $this->hasMany('App\modeles\antecedant','Patient_ID_Patient');
+	}
 	public function commune()
 	{
 		if(isset($this->commune_res))
