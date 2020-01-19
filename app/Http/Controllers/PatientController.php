@@ -211,7 +211,7 @@ class PatientController extends Controller
      * @param  \App\modeles\patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function editr($id)
+    public function edit($id)
     {
          $patient = patient::FindOrFail($id);
           if($patient->Type != "Autre")

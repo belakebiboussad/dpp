@@ -46,10 +46,6 @@
             <a href="{{ URL::route('hospitalisation.index') }}"> <i class="menu-icon fa fa-caret-right"></i>Liste Hospitalisations</a>            
             <b class="arrow"></b>
           </li>
-          <li class="">
-          	<a href="/affecterLit">Affectation des Lits<i class="menu-icon fa fa-caret-right"></i></a>
-            <b class="arrow"></b>
-          </li>
 				</ul>
     	</li>
     </ul>

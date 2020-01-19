@@ -1,4 +1,4 @@
-@extends('app_recep')
+@extends('app')
 @section('main-content')
 	<div class="page-header" width="100%">
   	@include('patient._patientInfo')
@@ -35,8 +35,8 @@
             </div>
             <br>
 						<div class="col-md-12" align="right">
-							<button type="button" id="addtolist" class="btn btn-primary btn-sm">
-             		<i class="fa fa-plus"></i>&nbsp;&nbsp;Ajouter à la liste
+							<button type="button" id="addtolist" class="btn btn-primary btn-xs">
+             		<i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>&nbsp;&nbsp;Ajouter
              	</button>
             </div>
             <hr>							        

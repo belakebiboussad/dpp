@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <title>@yield('title','Dossier patient')</title>
+      
      @include('partials.htmlheader')
      @yield('style')
      @include('partials.scripts')

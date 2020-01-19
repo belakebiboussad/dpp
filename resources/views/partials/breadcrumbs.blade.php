@@ -1,4 +1,3 @@
-<!--#section:basics/content.breadcrumbs -->
 <div class="breadcrumbs" id="breadcrumbs">
     <script type="text/javascript">
         try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
@@ -10,7 +9,7 @@
             <a href="#">Acceuil</a>
         </li>
         {{-- <li class="active">Gestion Des Utilisateurs</li>--}}
-    </ul><!-- /.breadcrumb -->
+    </ul>
 
     <!-- #section:basics/content.searchbox -->
     <div class="nav-search" id="nav-search">
@@ -24,5 +23,3 @@
 
     <!-- /section:basics/content.searchbox -->
 </div>
-
-<!-- /section:basics/content.breadcrumbs

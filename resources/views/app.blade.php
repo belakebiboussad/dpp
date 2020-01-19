@@ -26,12 +26,13 @@
         @elseif(Auth::user()->role->id == 10)
             @include('partials.sidebar_pharm')
         @elseif(Auth::user()->role->id == 13)
-            @include('partials.sidebar_chef_ser')      
+            @include('partials.sidebar_chef_ser') 
+        @elseif(Auth::user()->role->id == 3)
+            @include('partials.sidebar_inf')       
         @endif
         <div class="main-content">
             <div class="main-content-inner">
                 @include('partials.breadcrumbs')
-
                 <div class="page-content">
                    @include('flashy::message')
               	   @yield('main-content')
@@ -43,11 +44,9 @@
         <!-- /main-content -->
         <br>
         <br>
-          <div>
-                @include('partials.footer')
-           </div>
-     
-
+        <div>
+            @include('partials.footer')
+        </div>
     </div>
     <!-- /main-container -->
 </body>

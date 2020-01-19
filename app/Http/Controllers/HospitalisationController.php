@@ -26,9 +26,9 @@ class HospitalisationController extends Controller
     {       
 
         $role = Auth::user()->role;
-        if($role->id != 9)
-        {
-    
+        if($role->id != 9 )
+        {    
+
             $ServiceID = Auth::user()->employ->Service_Employe;
             $hospitalisations = hospitalisation::whereHas('admission.demandeHospitalisation.Service',function($q) use($ServiceID){
                                                   $q->where('id',$ServiceID);  
@@ -38,7 +38,6 @@ class HospitalisationController extends Controller
         {
             $hospitalisations = hospitalisation::where('etat_hosp','=','en cours')->get();
         }
-        
         return view('Hospitalisations.index', compact('hospitalisations','e'));
         $e=false;
 

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use App\modeles\patient;
 use App\modeles\visite;
@@ -27,8 +26,7 @@ class VisiteController extends Controller
     
     public function index()
     {
-   
-     
+        
     }
 
 
@@ -41,8 +39,8 @@ class VisiteController extends Controller
                      ->select('patients.Nom','patients.Prenom','patients.Sexe','patients.Dat_Naissance','hospitalisations.Date_entree','hospitalisations.Date_Prevu_Sortie','hospitalisations.id')
                      ->get();     
         
-      return view('visite.choix_patient_visite',compact('patient'));
-      //   return view('visite.choix_patient_visite');
+      return view('visite.choix_patient_visite',compact('patient')); //   return view('visite.choix_patient_visite');
+     
     }
 
     /**
@@ -63,7 +61,6 @@ class VisiteController extends Controller
      */
     public function store(Request $request,$id)
     {
-      dd("dssdf");
       $date = Date::Now();
       $v =new visite;
 	    $v->date_visite=$date;
@@ -79,24 +76,20 @@ class VisiteController extends Controller
       $c->app='Non';
       $c->duree=$request->dur[0];
       $c->save();
-       /************************************/
-               
-             //  dd($request->p[0][0]);
-                 // dd($request->p[1]);
-                        //  dd($request->p[2]);
-                 if (isset($request->p[0][0]) && !empty($request->p[0][0]))
-                  {
-                   
-                     
-                    if (($request->p[0][0])=='Matin')
-                    {
-                       
-                   $p=new periodeconsigne; 
-                     $p->id_consigne=$c->id;
-                      $p->id_periode=1;
-                      $p->save();
-                      }
-                  }
+      /************************************/
+      //  dd($request->p[0][0]);
+      // dd($request->p[1]);
+      //  dd($request->p[2]);
+      if (isset($request->p[0][0]) && !empty($request->p[0][0]))
+      {
+        if (($request->p[0][0])=='Matin')
+        {              
+          $p=new periodeconsigne; 
+          $p->id_consigne=$c->id;
+          $p->id_periode=1;
+          $p->save();
+        }
+      }
                    if (isset($request->p[1][0]) && !empty($request->p[1][0]))
                   {
 
@@ -177,9 +170,8 @@ class VisiteController extends Controller
 
                        }
        
-        return redirect('/choixpatvisite')->with('info','Visite ajoutée avec succès!'); 
+        return redirect('/choixpatvisite')->with('info','Visite ajoutée avec succès!'); //  return redirect()->action('ConsultationsController@create',['id'=>$id]);
        
- //  return redirect()->action('ConsultationsController@create',['id'=>$id]);
     }
    
 	//

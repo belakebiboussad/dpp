@@ -52,7 +52,7 @@
 							  		<a href="{{ route('hospitalisation.edit',$hosp->id)}}" class="btn btn-xs btn-info"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></a>
 		                @if(Auth::user()->role->id != 9)
 							  	   	@if(Auth::user()->role->id == 1)
-							  	  		<a href="/visite/create/{{ $hosp->id }}" class ="btn btn-primary btn-xs"><i class="fa fa-plus"></i>&nbsp;Visite</a>
+							  	  		<a href="/visite/create/{{ $hosp->id }}" class ="btn btn-primary btn-xs"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>&nbsp;Visite</a>
 							  	  		<a href="" class ="btn btn-info btn-xs"><i class="fa fa-out"></i>&nbsp;Sortir</a>
 							  	  	@endif
 							  	  	@if((Auth::user()->role->id == 5) && ($hosp->etat_hosp == 'en cours'))

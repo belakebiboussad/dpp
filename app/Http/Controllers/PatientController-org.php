@@ -39,7 +39,7 @@ class PatientController extends Controller
     }
     public function index()
     {
-           return view('patient.index_patient');
+      return view('patient.index_patient');
     }
 
     /**
@@ -49,8 +49,8 @@ class PatientController extends Controller
      */
     public function create()
     {
-            $grades = grade::all();
-            return view('patient.addPatient',compact('grades'));
+      $grades = grade::all();
+      return view('patient.addPatient',compact('grades'));
     }
 
     /**
