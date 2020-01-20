@@ -13,7 +13,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Jenssegers\Date\Date;
 use DB;
-
+use Carbon;
 
 class VisiteController extends Controller
 {
@@ -51,7 +51,15 @@ class VisiteController extends Controller
     public function create($id_hosp)
     {
       $patient = (hospitalisation::FindOrFail($id_hosp))->admission->demandeHospitalisation->consultation->patient;
-      return view('visite.create',compact('patient'))->with('id_hosp',$id_hosp);
+      $date = Carbon\Carbon::now();//$date = Date::Now();
+      $t =  $date->format("H:i");
+      $v =new visite;
+      $v->date=$date;
+      $v->heure=$date->format("H:i");
+      $v->id_hosp=$id_hosp;
+      $v->id_employe=Auth::User()->employee_id;
+      $v->save();
+      return view('visite.create',compact('patient',$v->id))->with('id_hosp',$id_hosp);
     }
  /**
      * Show the form for creating a new resource.
@@ -61,10 +69,11 @@ class VisiteController extends Controller
      */
     public function store(Request $request,$id)
     {
+      
       $date = Date::Now();
       $v =new visite;
-	    $v->date_visite=$date;
-	    $v->heure_visite=$request->heurevisite;
+	    $v->date=$date;
+	    $v->heuree=$request->heurevisite;
 	    $v->id_hosp=$id;
 	    $v->id_employe=Auth::User()->employee_id;
       $v->save();

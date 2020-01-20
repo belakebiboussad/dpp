@@ -190,12 +190,16 @@
 	  			}
 			});
 			$('#listeGardes').DataTable({
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
-            },
             colReorder: true,
             stateSave: true,
             searching:false,
+            'aoColumnDefs': [{
+      	 			'bSortable': false,
+        			'aTargets': ['nosort']
+   					}],
+   					"language": {
+		                    "url": '/localisation/fr_FR.json'
+		        },
       });
       jQuery('body').on('click', '.open-modal', function () {
         var hom_id = $(this).val();
@@ -822,16 +826,16 @@
 					            <thead>
 						            <tr>
 						              <th hidden></th>
-						              <th>Nom</th>
-						              <th>Prénom</th>
-						              <th>né(e) le</th>
-						              <th>Adresse</th>
-						              <th>Tél</th>
-						              <th>Relation</th>
-						              <th>Type Pièce</th>
-						              <th>N°</th>
-						              <th>Date délevrance</th>
-						              <th></th>
+						              <th class ="center"><strong>Nom</strong> </th>
+						              <th class ="center"><strong>Prénom</strong></th>
+						              <th class ="center"><strong>né(e) le</strong></th>
+						              <th class ="center"><strong>Adresse</strong></th>
+						              <th class ="center"><strong>Tél</strong></th>
+						              <th class ="center"><strong>Relation</strong></th>
+						              <th class ="center"><strong>Type Pièce</strong></th>
+						              <th class ="center"><strong>N°</strong></th>
+						              <th class ="center"><strong>Date délevrance</strong></th>
+						              <th class="nsort"><em class="fa fa-cog"></em></th>
 						            </tr>
 					            </thead>
 					          <tbody>
@@ -847,7 +851,7 @@
 					              <td>{{ $hom->type_piece }}</td>
 					              <td>{{ $hom->num_piece }}</td>
 					              <td>{{ $hom->date_deliv }}</td>
-					              <td class="center">
+					              <td class="center nosort">
 					       					  <button type="button" class="btn btn-xs btn-info open-modal" value="{{$hom->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
                             <button type="button" class="btn btn-xs btn-danger delete-garde" value="{{$hom->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>
 					          		</td>

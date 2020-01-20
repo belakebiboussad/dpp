@@ -118,8 +118,7 @@
       	  event.preventDefault();
      	});
     	$('#medc_table').DataTable({
-		      processing: true,
-		      //serverSide: true,
+		      processing: true, //serverSide: true,
 		      ordering: true,
 		      bInfo : false,
 		      searching: false,
@@ -137,6 +136,19 @@
 		                          {data: 'action', name: 'action', orderable: false, searchable: false}
 		                   ]
 		  });
+		 	$('#ants-tab').DataTable({
+        colReorder: true,
+        stateSave: true,
+        searching:false,
+    	  'aoColumnDefs': [{
+    	   	'bSortable': false,
+       		'aTargets': ['nosort']
+   			}],
+   			"language": {
+		                    "url": '/localisation/fr_FR.json'
+		    },
+    
+  	  });
       $('#Ordonnance').on('show.bs.modal', function () {
     	  $('.modal-content').css('height',$( window ).height()*0.95);
       });
@@ -252,16 +264,8 @@
         });
       });
   });
-		$('#ants-tab').DataTable({
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
-            },
-            colReorder: true,
-            stateSave: true,
-            searching:false,
-  	});
-  	function ajaxfunc(patientid)
-  	{        
+  function ajaxfunc(patientid)
+ 	{        
       var habitudeAlim = null; var tabac=null ; var ethylisme = null;
                      var antecedant = $('#Antecedant').val();
                      var typeAntecedant = $('#typeAntecedant').val();

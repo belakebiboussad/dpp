@@ -248,12 +248,13 @@
 				return false;
 			});
 			 $('#listeGardes').DataTable({
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
-            },
             colReorder: true,
             stateSave: true,
             searching:false,
+            "language": {
+		                    "url": '/localisation/fr_FR.json'
+		      	},
+
         });
 
 });

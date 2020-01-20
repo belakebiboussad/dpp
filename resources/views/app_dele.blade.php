@@ -18,7 +18,7 @@
         @elseif(App\modeles\rol::where("id",Illuminate\Support\Facades\Auth::user()->role_id)->first()->role == "Delegue colloque")
             @include('partials.sidebar_dele')
         @endif
-        @include('partials.sidebar_dele')
+      
         <div class="main-content">
                  <div class="main-content-inner">
                 @include('partials.breadcrumbs_rec')

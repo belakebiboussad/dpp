@@ -15,13 +15,12 @@ class CretaTableViste extends Migration
     {
         Schema::create('visites', function (Blueprint $table) {
             $table->increments('id');
-            table->date('date');
+            $table->date('date');
+            $table->time('heure');
             $table->integer('id_hosp')->unsigned();
             $table->integer('id_employe')->unsigned();
             $table->foreign('id_hosp')->references('id')->on('hospitalisations')->onDelete('cascade');
-            $table->foreign('id_hosp')->references('id')->on('hospitalisations')->onDelete('cascade');
-            $table->foreign('id_employe')->references('id')->on('employs')->onDelete('cascade');
-
+            $table->foreign('id_employe')->references('id')->on('employs');
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@
        	<div class="widget-toolbar widget-toolbar-light no-border" width="20%">
 						{{-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> --}}
 					<div class="fa fa-plus-circle"></div><!-- data-target="#antecedantModal" -->
-			 		<a href="#"  id="btn-add" name="btn-add" class="btn-xs tooltip-link" data-toggle="modal"  data-toggle="tooltip" data-original-title="Ajouter Garde Malade ou Homme de Confiance" >
+			 		<a href="#" id="btn-add" name="btn-add" class="btn-xs tooltip-link" data-toggle="modal"  data-toggle="tooltip" data-original-title="Ajouter un Antecedant" >
 	 					<h4><strong>Antecedant</strong></h4>
 	 				</a>
 	 			</div>
@@ -15,12 +15,12 @@
 	          <thead class="thin-border-bottom">
 	            <tr class ="center">
 	              <th class ="hidden"></th>
-			          <th>Antecedant</th>
-			          <th>Type</th>
-			          <th>Nature</th>
-			          <th><i class="fa fa-clock-o" aria-hidden="true"></i>Date</th>
-			          <th class="hidden-480">Description</th>
-			          <th class="hidden-480 center"><em class="fa fa-cog"></em></th>
+			          <th><strong>Antecedant</strong></th>
+			          <th><strong>Type</strong></th>
+			          <th><strong>Nature</strong></th>
+			          <th><i class="fa fa-clock-o" aria-hidden="true"></i><strong>&nbsp;Date</strong></th>
+			          <th class="hidden-480"><strong>Description</strong></th>
+			          <th class="nsort"><em class="fa fa-cog"></em></th>
 		          </tr>
 		        </thead>
 						<tbody>
