@@ -59,7 +59,7 @@ class VisiteController extends Controller
       $v->id_hosp=$id_hosp;
       $v->id_employe=Auth::User()->employee_id;
       $v->save();
-      return view('visite.create',compact('patient',$v->id))->with('id_hosp',$id_hosp);
+      return view('visite.create',compact('patient'))->with('id_hosp',$id_hosp)->with('id',$v->id);
     }
  /**
      * Show the form for creating a new resource.
@@ -184,4 +184,8 @@ class VisiteController extends Controller
     }
    
 	//
+    public function dectroy($id)
+    {
+      dd($id);
+    }
 }

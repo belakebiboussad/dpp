@@ -164,11 +164,8 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
          // Collective\Html\HtmlServiceProvider::class,
-
-
-
+       
         /*
          * Package Service Providers...
          */
@@ -246,6 +243,5 @@ return [
         'Flashy' => MercurySeries\Flashy\Flashy::class,
         'Calendar'=>MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
         'ToUtf' => App\Helpers\String\Utf8::class,
-
     ],
 ];

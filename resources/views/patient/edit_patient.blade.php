@@ -876,7 +876,7 @@
 			</button>&nbsp; &nbsp; &nbsp;
 			<button class="btn btn-default btn-sm" type="reset">
 				<i class="ace-icon fa fa-undo bigger-110"></i>
-				Réinitialiser
+				Annuler
 			</button>
 		</div>
 	</div>
