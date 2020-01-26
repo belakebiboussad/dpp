@@ -184,8 +184,22 @@ class VisiteController extends Controller
     }
    
 	//
-    public function dectroy($id)
+    public function destroy($id)
     {
-      dd($id);
+        return Response::json('bonjour');
+    }
+    public function show($id)
+    {
+      $method = Request::method();
+      dd($method);
+      // $method = $request->method();
+      // if ($request->isMethod('delete')) {
+
+      //     print('is delete method');
+      // }
+
+      // if ($request->isMethod('get')) {
+      //   print('post method');
+      // }
     }
 }

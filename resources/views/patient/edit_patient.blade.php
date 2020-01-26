@@ -225,13 +225,13 @@
 		        jQuery('#gardeMalade').modal('show');
         })
       });
-	    $("#EnregistrerGardeMalade").click(function (e) {
-	    	$.ajaxSetup({
-	        headers: {
-	            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-	        }
-	      });
-	      e.preventDefault();
+		    $("#EnregistrerGardeMalade").click(function (e) {
+		    	$.ajaxSetup({
+		        headers: {
+		            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+		        }
+		      });
+		      e.preventDefault();
 	      var formData = {
 					id_patient:$('#patientId').val(),
 					nom:$('#nom_h').val(),

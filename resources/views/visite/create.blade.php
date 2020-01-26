@@ -24,6 +24,30 @@
 	   	});
 	    e.preventDefault()
 	  });
+	  $(".deleteVisite").click(function(){
+        var id = $(this).data("id");
+        var token = $(this).data("token");
+
+        $.ajax(
+        {
+            url: "visite/delete/"+id,
+            type: 'GET',
+            dataType: "JSON",
+            data: {
+                "id": id,
+                "_method": 'DELETE',
+                "_token": token,
+            },
+            success: function (data)
+            {
+            	alert(data);
+                console.log("it Work");
+            }
+        });
+
+        console.log("It failed");
+    });
+
 	}); 
 </script>
 @endsection
@@ -37,10 +61,7 @@
 		<div class="pull-right"> </div>
 	</div>
   <div class="content">
-	  <form action="">
-	    {{ csrf_field() }}
-  	  {{ method_field('DELETE') }}
-		  <div class= "widget-box widget-color-blue" id="widget-box-2">
+	  <div class= "widget-box widget-color-blue" id="widget-box-2">
 		    <div class="widget-header" >
 		      <h5 class="widget-title bigger lighter"><font color="black"> <i class="ace-icon fa fa-table"></i>&nbsp;<b>Actes</b></font></h5>
 		       	<div class="widget-toolbar widget-toolbar-light no-border" width="20%">
@@ -69,22 +90,19 @@
 			      </table>	
 			     </div>
 			  </div>
-	  	</div>
-  		<div class="hr hr-dotted"></div>
-			<div class="row">
-				<div class="center">
-					<button class="btn btn-info btn-sm" type="submit">
-			 			<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
-					</button>&nbsp; &nbsp; &nbsp;
-					<form action="{{ url('/vistes', ['id' => $id]) }}" method="post">
-   					<input class="btn btn-default" type="submit" value="Delete" />
-  				  <input type="hidden" name="_method" value="delete" />
-    				<input type="hidden" name="_token" value="{{ csrf_token() }}">
-					</form>
-				</div>
+	  </div>
+  	<div class="hr hr-dotted"></div>
+		<div class="row">
+			<div class="center">
+				<button class="btn btn-info btn-sm" type="submit">
+					<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
+				</button>&nbsp; &nbsp; &nbsp;
+			  <button class="btn btn-default deleteVisite" data-id="{{ $id }}" data-token="{{ csrf_token() }}"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
+<a href="{{ route('visite.destroy',$id) }}" class="btn btn-sm btn-outline-danger py-0" style="font-size: 0.8em;" id="deleteViste" data-id="{{ $id }}">
+   Delete
+</a>
 			</div>
-  	</form>
-
+			</div>
    	<div id="acteModal" class="modal fade" role="dialog">
 			<div class="modal-dialog modal-lg">
 				<div  id="" class="modal-content custom-height-modal">

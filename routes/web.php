@@ -224,7 +224,7 @@ route::get('/homeradiologue',function(){
 Route::get('rendezVous/create/{id?}','RDVController@index');
 /************partie viste d'hospitalisation**************/
 Route::resource('visites','VisiteController');
-Route::delete('/visites/{id}', 'VisiteController@destroy');
+Route::delete('/addVisite/{id}', 'VisiteController@destroy')->name('visite.destroy');
 Route::resource('consigne','ConsigneController');
 Route::resource('surveillance','SurveillanceController');
 Route::get('/visite/create/{id}','VisiteController@create');
