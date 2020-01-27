@@ -186,20 +186,16 @@ class VisiteController extends Controller
 	//
     public function destroy($id)
     {
-        return Response::json('bonjour');
+      $visite = visite::find($id);
+      $e = $visite->delete();
+      $hospitalisations = hospitalisation::where('etat_hosp','=','en cours')->get();
+      //return redirect('/hospitalisation/');
+      return response()->json([
+         'message' =>$e
+      ]);   
     }
     public function show($id)
     {
-      $method = Request::method();
-      dd($method);
-      // $method = $request->method();
-      // if ($request->isMethod('delete')) {
-
-      //     print('is delete method');
-      // }
-
-      // if ($request->isMethod('get')) {
-      //   print('post method');
-      // }
+     
     }
 }

@@ -15,48 +15,62 @@
 		                "url": '/localisation/fr_FR.json'
 		  },
     });
+    var i = 1;
     $("#EnregistrerActe").click(function (e) {
-	  	alert('fsdf');
-	  	$.ajaxSetup({
+    	var visiteId= $('#visiteId').val();
+    	// var cons = $("#cons").val();
+    	// var nbj = $("#nbr_j").val();
+    	alert($("#Matin").val());
+      if(! isEmpty($("#cons").val()) )
+	    { 
+	    	var x = "<tr><td>"+i+"</td><td>"+$("#cons").val()+"</td><td>"+$("#nbr_j").val()+"</td><td><input type='checkbox' value='"+$("#Matin").val()+"' checked ='"+ $("#Matin").prop('checked')+"'>" ;
+	    	//$( "#listActes" ).append(x);
+	  	 	$( "#listActes" ).append( "<tr><td>"+i+"</td><td>"+$("#cons").val()+"</td><td>"+$("#nbr_j").val()+"</td><td><input type='checkbox' value='"+$("#Matin").val()+"' checked='false'></td><td><input type='checkbox' value='"+$("#Midi").val()+"' checked='"+$("#Midi").prop('checked')+"'></td><td><input type='checkbox' value='"+$("#Soir").val()+"' checked='"+$("#Soir").prop('checked')+"'></td><td>"+"</td></tr>" );
+	  	 	i = i + 1;
+	  	 	$('#acteModal').modal('toggle');
+	   	}
+	    $.ajaxSetup({
 	  	  headers: {
 	        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
 	    	}
-	   	});
+	 		});
 	    e.preventDefault()
 	  });
-	  $(".deleteVisite").click(function(){
-        var id = $(this).data("id");
+	 	$("#deleteViste").click(function(e){
+		   	// if(!confirm("êtes-vous sûr d'annuler la viste?")) {
+  	  	//   return false;
+  	  	// }
+  	  	e.preventDefault();
+  	    var id = $(this).data("id");
         var token = $(this).data("token");
-
+        var url = e.target;
         $.ajax(
         {
-            url: "visite/delete/"+id,
+            url: url.href,
             type: 'GET',
-            dataType: "JSON",
+            //dataType: "JSON",
             data: {
                 "id": id,
-                "_method": 'DELETE',
                 "_token": token,
             },
-            success: function (data)
+            success: function (response)
             {
-            	alert(data);
-                console.log("it Work");
+             	var loc = window.location;
+              window.location.replace('/hospitalisation');  
+              console.log("it Work");
             }
         });
-
-        console.log("It failed");
-    });
-
+        return false;
+		});
 	}); 
+
 </script>
 @endsection
 @section('main-content')
 	<div class="page-header" width="100%">
   	@include('patient._patientInfo')
 	</div>
-
-	<div class="page-header">
+  <div class="page-header">
 		<h1 style="display: inline;"><strong>viste patient</strong></h1>
 		<div class="pull-right"> </div>
 	</div>
@@ -97,10 +111,10 @@
 				<button class="btn btn-info btn-sm" type="submit">
 					<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
 				</button>&nbsp; &nbsp; &nbsp;
-			  <button class="btn btn-default deleteVisite" data-id="{{ $id }}" data-token="{{ csrf_token() }}"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
-<a href="{{ route('visite.destroy',$id) }}" class="btn btn-sm btn-outline-danger py-0" style="font-size: 0.8em;" id="deleteViste" data-id="{{ $id }}">
-   Delete
-</a>
+			 <!--  <button class="btn btn-default deleteVisite" data-id="{{ $id }}" data-token="{{ csrf_token() }}"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button> -->
+			<a href="{{ route('visite.destroy',$id) }}" class="btn btn-sm btn-outline-danger py-0" style="font-size: 0.8em;" id="deleteViste" data-id="{{ $id }}">
+			   Delete
+			</a>
 			</div>
 			</div>
    	<div id="acteModal" class="modal fade" role="dialog">

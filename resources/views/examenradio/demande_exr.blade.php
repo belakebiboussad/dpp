@@ -121,7 +121,6 @@
                           <ul class="list-inline">
                               @foreach($demande->infossuppdemande as $index => $info)
                                   <li class="active"><span class="badge badge-warning">{{ $info->nom }}</span></li>
-                               
                               @endforeach
                           </ul>    
                         </div>
