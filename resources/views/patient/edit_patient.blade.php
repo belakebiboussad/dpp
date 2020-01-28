@@ -225,13 +225,14 @@
 		        jQuery('#gardeMalade').modal('show');
         })
       });
-		    $("#EnregistrerGardeMalade").click(function (e) {
-		    	$.ajaxSetup({
-		        headers: {
-		            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-		        }
-		      });
-		      e.preventDefault();
+	    $("#EnregistrerGardeMalade").click(function (e) {
+  			
+      	$.ajaxSetup({
+	        headers: {
+	            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+	        }
+	      });
+	      e.preventDefault();
 	      var formData = {
 					id_patient:$('#patientId').val(),
 					nom:$('#nom_h').val(),
@@ -263,6 +264,10 @@
             data: formData,
             dataType: 'json',
             success: function (data) {
+            	if($('.dataTables_empty').length > 0)
+      				{
+      			  	$('.dataTables_empty').remove();
+      				}
               var homme = '<tr id="garde' + data.id + '"><td class="hidden">' + data.id_patient + '</td><td>' + data.nom + '</td><td>' + data.prenom + '</td><td>'+ data.date_naiss +'</td><td>' +
               						 data.adresse + '</td><td>'+ data.mob + '</td><td>' + data.lien_par + '</td><td>' + data.type_piece + '</td><td>' + data.num_piece + '</td><td>' +  data.date_deliv + '</td>';
                   homme += '<td class ="center"><button type="button" class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';

@@ -108,12 +108,12 @@
 			          url:form.attr('action'),
 			          data:{pid:pid,nom:nom,prenom:prenom,datenaiss:datenaiss,relation:relation,typePiece:typePiece,number:number,datePiece:datePiece,adresse:adresse,mobile_h:mobile_h},
 			          success: function (data,status, xhr) {
-			             $("#listeGardes tbody").append(data);
-			             $('#gardeMalade').modal('hide');
+			            $("#listeGardes tbody").append(data);
+			            $('#gardeMalade').modal('hide');
 			          },
 			          error: function (data) {
-			                console.log('An error occurred.');
-			                console.log(data);
+			            console.log('An error occurred.');
+			              
 			          },
 			});
 		}	

@@ -12,20 +12,23 @@
        	'aTargets': ['nosort']
    		}],
    		"language": {
-		                "url": '/localisation/fr_FR.json'
-		  },
+   							   "url": '/localisation/fr_FR.json',
+		               
+		            },
     });
     var i = 1;
-    $("#EnregistrerActe").click(function (e) {
-    	var visiteId= $('#visiteId').val();
-    	// var cons = $("#cons").val();
-    	// var nbj = $("#nbr_j").val();
-    	alert($("#Matin").val());
+    $('td.dataTables_empty').html('s');
+    $("#EnregistrerActe").click(function (e) { 
       if(! isEmpty($("#cons").val()) )
 	    { 
-	    	var x = "<tr><td>"+i+"</td><td>"+$("#cons").val()+"</td><td>"+$("#nbr_j").val()+"</td><td><input type='checkbox' value='"+$("#Matin").val()+"' checked ='"+ $("#Matin").prop('checked')+"'>" ;
-	    	//$( "#listActes" ).append(x);
-	  	 	$( "#listActes" ).append( "<tr><td>"+i+"</td><td>"+$("#cons").val()+"</td><td>"+$("#nbr_j").val()+"</td><td><input type='checkbox' value='"+$("#Matin").val()+"' checked='false'></td><td><input type='checkbox' value='"+$("#Midi").val()+"' checked='"+$("#Midi").prop('checked')+"'></td><td><input type='checkbox' value='"+$("#Soir").val()+"' checked='"+$("#Soir").prop('checked')+"'></td><td>"+"</td></tr>" );
+	    	if($('.dataTables_empty').length > 0)
+      	{
+        	$('.dataTables_empty').remove();
+      	}
+	    	var matincheck = $('#' + 'Matin').is(":checked") ?'checked':'';
+	      var midicheck = $('#' + 'Midi').is(":checked") ?'checked':'';
+	      var soircheck = $('#' + 'Soir').is(":checked") ?'checked':'';
+	     	$( "#listActes" ).append("<tr><td>"+i+"</td><td>"+$("#cons").val()+"</td><td>"+$("#nbr_j").val()+"</td><td><input type='checkbox' value='"+$("#Matin").val()+"'"+ matincheck +"></td><td><input type='checkbox' value='"+ $("#Midi").val()+"'"+midicheck+"></td><td><input type='checkbox' value='"+$("#Soir").val()+"'"+soircheck+"></td></tr>");
 	  	 	i = i + 1;
 	  	 	$('#acteModal').modal('toggle');
 	   	}
@@ -34,7 +37,16 @@
 	        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
 	    	}
 	 		});
-	    e.preventDefault()
+	 		e.preventDefault();
+	 	  // $.each($("input[name='p[]']:checked"), function(){
+     //            alert($(this).val());
+     //   });
+	 		var formData = {
+	 	  	id:$('#visiteId').val(),
+	 	  	consigne:$("#cons").val(),
+	 	  	time :$("input[name='p[]']:checked"),
+	 		};
+
 	  });
 	 	$("#deleteViste").click(function(e){
 		   	// if(!confirm("êtes-vous sûr d'annuler la viste?")) {
@@ -133,28 +145,50 @@
 					 		<div class="space-12"></div>
 					 		<div class="row">
 					 				<div class="form-group">
-										<label for=""class="col-sm-3 control-label no-padding-right"><b>Consigne :</b></label>
-										<div class="col-sm-9">
+										<label for=""class="col-sm-3 control-label no-padding-right"><b>Acte	 :</b></label>
+										<div class="col-sm-7">
 											<input name="cons" id="cons" class="form-control" required>
 										</div>
 									</div>
 					 			
 					 		</div>
 					 		<div class="space-12"></div>
+							<div class="row">
+					 		  <div class="col-sm-3">
+					 		    <label for="" class="control-label no-padding-right"><b>Periodes:</b></label>
+					 			</div>
+						 		<div class="col-sm-3">
+						 			<label class="checkbox-inline ace"><input type="checkbox" name="p[]" id="Matin" value="Matin" checked><b>Matin</b></label>
+						 		</div>	
+						 		<div class="col-sm-3">	
+									<label class="checkbox-inline ace"><input type="checkbox" name="p[]" id="Midi" value="Midi"><b>Midi</b></label>
+								</div>
+								<div class="col-sm-3">
+									<label class="checkbox-inline ace"><input type="checkbox" name="p[]" id="Soir" value="Soir"><b>Soir</b></label>
+								</div>
+							</div>
+					 		<div class="space-12"></div>
 					 		<div class="row">
-					 			<div class="form-group">
-									<label for="" class="col-sm-3 control-label no-padding-right"><b>Nombre de jours :</b></label>
-									<div class="col-sm-9">
-										<input type="number" id="nbr_j" class="form-control" min="0" value= "1" />
-									</div>
+					 			<div class="col-sm-3">
+					 		    <label for="" class="control-label no-padding-right"><b>description :</b></label>
+					 			</div>
+					 			<div class="col-sm-7">
+									<input type="text" id="decription" class="form-control col-sm-6" placeholder = "applcation de l'acte" />
 								</div>
 					 		</div>
 					 		<div class="space-12"></div>
-					 		<div class="row center">
-					 			<label class="checkbox-inline"><input type="checkbox" name="p[]" id="Matin" value="Matin" checked><b>Matin</b></label>
-								<label class="checkbox-inline"><input type="checkbox" name="p[]" id="Midi" value="Midi"><b>Midi</b></label>
-								<label class="checkbox-inline"><input type="checkbox" name="p[]" id="Soir" value="Soir"><b>Soir</b></label>
-					 		</div>
+					 		<div class="row">
+					 		  <div class="col-sm-3">
+					 		    <label for="" class="control-label no-padding-right"><b>Pendant :</b></label>
+					 			</div>
+								<div class="col-sm-7">
+									<input type="number" id="nbr_j" class="form-control col-sm-6" min="0" value= "1" />
+								</div>	
+								<div class="col-sm-2">
+									<label class="" for="col-sm-3">jour</label>
+								</div>	
+							</div>
+					 
 					 		<div class="space-12"></div>
 					 		<hr>
 					 		<div class="row" align="right">

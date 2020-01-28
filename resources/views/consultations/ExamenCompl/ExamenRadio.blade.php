@@ -79,12 +79,14 @@
 				                        </div>
 			                         @endforeach
                      				</div>
-                                   			 </div>
-                				</div> {{-- col-sm-12 --}}
-                				</div>{{-- row --}}
+                        </div>
+                			</div> {{-- col-sm-12 --}}
+                			</div>{{-- row --}}
                 			</div> {{-- widget-main --}}
                 			</div> {{-- widget-body --}}
 			</div>	{{-- widget-box --}}
 		</div>{{-- widget-container --}}
 	</div>
+
 </div>{{-- row --}}
+<div class="space-12"></div>

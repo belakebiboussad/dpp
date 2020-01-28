@@ -194,7 +194,11 @@
 	      	formData.ethylisme = $("#ethylisme").is(":checked") ? 1:0;     
      		}
         if(!($("#description").val() == ''))
-        {		
+        {	
+          if($('.dataTables_empty').length > 0)
+      		{
+        		$('.dataTables_empty').remove();
+      		}	
         	$.ajaxSetup({
         	  headers: {
                 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
@@ -432,10 +436,11 @@
       			</div>
    		 </div>
    		 <div class="pull-right" align="right" style="bottom:0; padding-right:13px">
-   		 	<button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" onclick="storeord1()">Enregistrer</button>
-   		 	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ord" onclick="createord('{{ $patient->Nom }} {{ $patient->Prenom }}','{{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Nom_Employe}} {{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Prenom_Employe}}')">Imprimer
-		           </button>
-			<button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" type="reset"> <i class="ace-icon fa fa-undo bigger-110"></i> Annuler</button>
+   		 	<button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" onclick="storeord1()"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
+   		 	<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ord" onclick="createord('{{ $patient->Nom }} {{ $patient->Prenom }}','{{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Nom_Employe}} {{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Prenom_Employe}}')">
+   		   	<i class="ace-icon fa fa-print"></i>Imprimer
+		    </button>
+			  <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" type="reset"> <i class="ace-icon fa fa-undo bigger-110"></i> Annuler</button>
 			
    		 </div>
    		

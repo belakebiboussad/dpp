@@ -19,7 +19,7 @@
               <input id="editCorrespondant_relation_autre" autocomplete="off" name="relation_autre" value="" type="text">
           </span>
           <span style="float: left;">
-            <select id="editCorrespondant_relation" name="relation" class="enum list|prevenir|garde" onchange="toggleRelationAutre(this); toggleUrrsafParente(this); toggleConfiancePrevenir(this); toggleAssurance(this);">
+            <select id="editCorrespondant_relation" name="relation" class="enum list|prevenir|garde" onchange="toggleRelationAutre(this); toggleUrrsafParente(this); toggleConfiancePrevenir(this);">
 						<option value="garde">Garde Malade</option>
 						<option value="prevenir">Personne à prévenir</option>
 					</select>

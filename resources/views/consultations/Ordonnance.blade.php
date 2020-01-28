@@ -42,29 +42,29 @@
 		</div>{{-- row --}}
 		<div class="space-12"></div>
 		<div class="row">
-			  <div class="col-xs-6">
-                     		           <label for="dosage">Dosage:</label>
-                                	<input type="text" class="form-control" id="dosage" placeholder="Dosage..." readonly>
-                            </div>
+			<div class="col-xs-6">
+        <label for="dosage">Dosage:</label>
+       	<input type="text" class="form-control" id="dosage" placeholder="Dosage..." readonly>
+      </div>
 		</div>
 		<div class="space-112"></div>
 		<div class="space-12"></div>
-                     <div class="row">
-	                     	<div class="col-xs-12">
-	                                <label for="posologie">Posologie:</label>
-	                                {{-- <input type="text" class="form-control" id="posologie" placeholder="Posologie..."> --}}
-	                                 <input type="text" class="form-control disabledElem" id="posologie_medic" placeholder="Posologie...">
-	                     </div>
-                     </div>     
-                	<div class="space-12"></div>
-                	<div class="space-12"></div>
-           	<div class="row">
-			<div class="col-xs-12">
-				<button type="button" id="addliste" class="btn btn-success pull-right disabledElem" onclick="addmidifun()">
-					Ajouter a la liste&nbsp;<i class="fa fa-mail-forward"></i>
-				</button>
+      <div class="row">
+	     	<div class="col-xs-12">
+	        <label for="posologie">Posologie:</label>
+	        {{-- <input type="text" class="form-control" id="posologie" placeholder="Posologie..."> --}}
+	        <input type="text" class="form-control disabledElem" id="posologie_medic" placeholder="Posologie...">
+	      </div>
+      </div>     
+      <div class="space-12"></div>
+      <div class="space-12"></div>
+      <div class="row">
+				<div class="col-xs-12">
+					<button type="button" id="addliste" class="btn btn-success pull-right disabledElem" onclick="addmidifun()">
+						Ajouter a la liste&nbsp;<i class="fa fa-mail-forward"></i>
+					</button>
+				</div>
 			</div>
-		</div>
 		</div>	{{-- widget-main --}}
 		</div>	{{-- widget-body --}}
 		</div>{{-- "widget-box --}}

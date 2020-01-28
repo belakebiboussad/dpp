@@ -8,5 +8,5 @@ class consigne extends Model
 {
     //
 	 public $timestamps = false;
-     protected $fillable  = ['id','consigne','id_visite','duree'];
+     protected $fillable  = ['consigne','id_visite','momments','duree'];
 }
