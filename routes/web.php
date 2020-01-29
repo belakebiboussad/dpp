@@ -225,7 +225,7 @@ Route::get('rendezVous/create/{id?}','RDVController@index');
 /************partie viste d'hospitalisation**************/
 Route::resource('visites','VisiteController');
 Route::get('/delVisite/{id}', 'VisiteController@destroy')->name('visite.destroy');
-Route::resource('consigne','ConsigneController');
+Route::resource('acte','ActeController');
 Route::resource('surveillance','SurveillanceController');
 Route::get('/visite/create/{id}','VisiteController@create');
 Route::get('/patient/listecons/{id}','PatientController@listecons');
@@ -234,8 +234,13 @@ Route::post('/surveillances/store/{id}','SurveillanceController@store');
 route::get('/getpatientvisite','PatientController@getpatientvisite');
 route::get('/getpatientconsigne','PatientController@getpatientconsigne');
 route::get('/choixpatvisite','VisiteController@choixpatvisite');
-route::get('/choixhospconsigne','ConsigneController@choixhospconsigne');
-route::get('/consigne','ConsigneController@choixhospconsigne');
+route::get('/choixhospconsigne','ActeController@choixhospconsigne');
+route::get('/consigne','ActeController@choixhospconsigne');
+//////acte
+route::post('/a',function() {
+return('ad');
+});
+
 /**************************/
 // telechargement
 route::get('/download/{filename}', function($filename)

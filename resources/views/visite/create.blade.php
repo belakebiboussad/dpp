@@ -38,16 +38,32 @@
 	    	}
 	 		});
 	 		e.preventDefault();
-	 	  // $.each($("input[name='p[]']:checked"), function(){
-     //            alert($(this).val());
-     //   });
-	 		var formData = {
+	 	  var formData = {
 	 	  	id:$('#visiteId').val(),
-	 	  	consigne:$("#cons").val(),
-	 	  	time :$("input[name='p[]']:checked"),
+	 	  	nom:$("#cons").val(),
+	 	  	periodes :$("input[name='p[]']:checked"),
+	 	  	description:$('#description').val(),
+	 	  	duree : $('#nbr_j').val(),
 	 		};
-
+	 		duree = $('#nbr_j').val();
+	 		alert("df");
+	 		$.ajax({
+          type:'POST',
+          url:'/a',
+          data: duree ,
+          dataType: 'json',
+          success: function (data) {
+          	alert(data);
+          	console.log(data);
+          },         
+          error: function (data){
+                console.log('Error:', data);
+                alert('error');
+          }
+      });
 	  });
+		//end of add acte
+		//delete viste
 	 	$("#deleteViste").click(function(e){
 		   	// if(!confirm("êtes-vous sûr d'annuler la viste?")) {
   	  	//   return false;
@@ -173,7 +189,7 @@
 					 		    <label for="" class="control-label no-padding-right"><b>description :</b></label>
 					 			</div>
 					 			<div class="col-sm-7">
-									<input type="text" id="decription" class="form-control col-sm-6" placeholder = "applcation de l'acte" />
+									<input type="text" id="decription" id="description" name="description" class="form-control col-sm-6" placeholder = "applcation de l'acte" />
 								</div>
 					 		</div>
 					 		<div class="space-12"></div>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\modeles\consigne;
 
-class ConsigneController extends Controller
+class ActeController extends Controller
 {
     //
 	  public function choixhospconsigne()
