@@ -17,7 +17,10 @@
 		            },
     });
     var i = 1;
-    $('td.dataTables_empty').html('s');
+    $('td.dataTables_empty').html('');
+    /////////////
+    //////////////////Enregistre acte
+    //////////////////////////////////
     $("#EnregistrerActe").click(function (e) { 
       if(! isEmpty($("#cons").val()) )
 	    { 
@@ -38,20 +41,24 @@
 	    	}
 	 		});
 	 		e.preventDefault();
+	 		var periodes = [];
+	 		 $("input[name='p[]']:checked").each(function() {
+   			 periodes.push($(this).attr('value'));			
+			});
 	 	  var formData = {
-	 	  	id:$('#visiteId').val(),
-	 	  	nom:$("#cons").val(),
-	 	  	periodes :$("input[name='p[]']:checked"),
+	 	  	id_visite: $('#visiteId').val(),
+	 	    nom:$("#cons").val(),
+	 	  	periodes :periodes,
 	 	  	description:$('#description').val(),
-	 	  	duree : $('#nbr_j').val(),
+	 	  	duree : $('#nbr_j').val()
 	 		};
-	 		duree = $('#nbr_j').val();
-	 		alert("df");
+	 		var url = $('#addActe').attr('action');
+	 		console.log(formData);
 	 		$.ajax({
           type:'POST',
-          url:'/a',
-          data: duree ,
-          dataType: 'json',
+          url:url,
+          data: formData,
+          //dataType:'json',
           success: function (data) {
           	alert(data);
           	console.log(data);
@@ -63,6 +70,7 @@
       });
 	  });
 		//end of add acte
+		//////////////////////////////////////
 		//delete viste
 	 	$("#deleteViste").click(function(e){
 		   	// if(!confirm("êtes-vous sûr d'annuler la viste?")) {
@@ -154,7 +162,8 @@
 			  		@include('patient._patientInfo')
 					</div>
 					<div class="modal-body">
-					  <form id="addActe" method="POST" action ="/Acte/save" name="form1" id="form1">
+					<!-- /Acte/save -->
+					  <form id="addActe" method="POST" action ="/saveActe" name="form1" id="form1">
 					 		{{ csrf_field() }}
 					 		<input type="hidden" name="visiteId" id ="visiteId" value="{{ $id }}">
 					 		<input type="hidden" value="{{$id_hosp}}" name="idhosp">
@@ -189,7 +198,7 @@
 					 		    <label for="" class="control-label no-padding-right"><b>description :</b></label>
 					 			</div>
 					 			<div class="col-sm-7">
-									<input type="text" id="decription" id="description" name="description" class="form-control col-sm-6" placeholder = "applcation de l'acte" />
+									<input type="text" id="description" name="description" class="form-control col-sm-6" placeholder = "applcation de l'acte" />
 								</div>
 					 		</div>
 					 		<div class="space-12"></div>

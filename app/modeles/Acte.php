@@ -9,7 +9,7 @@ class Acte extends Model
     //
 	public $timestamps = false;
   protected $fillable  = ['nom','id_visite','description','duree','periodes'];
-     $casts = [
-    'periodes' => 'array'
-];
+ //  public  $casts = [
+ //   'periodes' => 'array'
+	// ];
 }

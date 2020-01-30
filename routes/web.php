@@ -237,10 +237,10 @@ route::get('/choixpatvisite','VisiteController@choixpatvisite');
 route::get('/choixhospconsigne','ActeController@choixhospconsigne');
 route::get('/consigne','ActeController@choixhospconsigne');
 //////acte
-route::post('/a',function() {
-return('ad');
-});
-
+route::post('/saveActe','ActeController@store');
+// route::post('/saveActe',function(){
+//     return("sds");
+// });
 /**************************/
 // telechargement
 route::get('/download/{filename}', function($filename)
