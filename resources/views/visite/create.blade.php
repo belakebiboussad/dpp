@@ -60,7 +60,6 @@
           data: formData,
           //dataType:'json',
           success: function (data) {
-          	alert(data);
           	console.log(data);
           },         
           error: function (data){
