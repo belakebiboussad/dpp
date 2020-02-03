@@ -75,11 +75,15 @@ function XHRgePatient()
 {
 	$('#btnCreate').removeClass('hidden');
   $('#FusionButton').removeClass('hidden');
+  $('#patientDetail').html('');
 	nom=$('#patientName').val();
 	prenom=$('#patientFirstName').val();
 	code_barre=$('#IPP').val();
+	matricule = $('#matricule').val();
 	date_Naiss=$('#Dat_Naissance').val();
-	$.ajax({
+	if(matricule != null )
+	{
+		$.ajax({
             type : 'get',
             url : '{{URL::to('searchPatient')}}',
             data:{'search':nom,'prenom':prenom,'code_barre':code_barre,'Dat_Naissance':date_Naiss},
@@ -87,7 +91,13 @@ function XHRgePatient()
                       	$('#liste_patients tbody').html(data);
                           	$(".numberResult").html(xhr.getResponseHeader("count"));
                      }
-           });
+    });
+	}else
+	{
+		alert('dfds');
+
+	}
+	
 }
 function getPatientdetail(id)
 {
@@ -146,7 +156,6 @@ function setField(field,value)
 @endsection
 @section('main-content')
 <div class="page-content">
-{{-- <div class="space-12"></div> --}}
 <div class="row">
 	<div class="col-sm-12">
 		<div class="center">
@@ -155,50 +164,57 @@ function setField(field,value)
 				<q> {{ App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Nom_Employe }}
 				{{ App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Prenom_Employe}} </q>
 			</h2>
-		</div>
-		
+		</div>		
 	</div>		
 </div>	{{-- row --}}
 <div class="space-12"></div>
-<div class="space-12"></div>
 <div class="row">
-	<div class="col-sm-7 col-lg-7">
+	<div class="col-sm-12 col-lg-12">
 		<div class="panel panel-default">
 			<div class="panel-heading" style="height: 50px; font-size: 2.6vh;">
 				Rechercher un Patient
 			</div>
-		   <div class="panel-body">
-			<div class="row">
-				<div class="col-sm-2">
-					<label class="control-label pull-right" for="patientName" ><strong>&nbsp;&nbsp;&nbsp;Nom :</strong>
-					</label>
+		  <div class="panel-body">
+				<div class="row">
+						<div class="col-sm-1">
+							<label class="control-label pull-right" for="patientName" ><strong>&nbsp;&nbsp;&nbsp;Nom:</strong>
+							</label>
+						</div>
+					  <div class="col-sm-2">
+							<input type="text" class="form-control input-sm" id="patientName" name="patientName"  placeholder="nom du patient..."/>
+					  </div>
+				  	<div class="col-sm-1">
+							<label class="control-label pull-right" for="patientFirstName" ><strong>Prenom:</strong>
+							</label> 
+					  </div>
+					<div class="col-sm-2">
+						<input type="text" class="form-control input-sm" id="patientFirstName" name="patientFirstName"  placeholder="prenom du patient...">
+					</div>
+					<div class="col-sm-1"><label class="control-label pull-right" for="Dat_Naissance" >
+						<strong>Né(e):</strong></label>
+					</div>
+					<div class="col-sm-2">
+					  <input type="text" class="form-control input-sm tt-input date-picker" id="Dat_Naissance" name="Dat_Naissance"
+					   		data-date-format="yyyy-mm-dd" placeholder="date de naissance..." data-toggle="tooltip" data-placement="left" title="Date Naissance du patient">
+					</div>
 				</div>
-				<div class="col-sm-4">
-					<input type="text" class="form-control input-sm" id="patientName" name="patientName"  placeholder="nom du patient..."/>
-				 </div>
-				 <div class="col-sm-2">
-					<label class="control-label pull-right" for="patientFirstName" ><strong>Prenom :</strong>
-					</label> 
-				</div>
-				<div class="col-sm-4">
-					<input type="text" class="form-control input-sm" id="patientFirstName" name="patientFirstName"  placeholder="prenom du patient...">
-				</div>
-			</div>
-			<div class="space-12"></div>
-			<div class="row">
-				<div class="col-sm-2"><label class="control-label pull-right" for="IPP" ><strong>Code:</strong></label>
-				</div>
-				<div class="col-sm-4">
-				   <input type="text" class="form-control input-sm tt-input" id="IPP" name="IPP"  placeholder="code du patient..."
+			  <div class="space-12"></div>
+  			<div class="row">
+					<div class="col-sm-1"><label class="control-label pull-right" for="IPP" ><strong>IPP:</strong></label>
+					</div> 
+					<div class="col-sm-2">
+				   	<input type="text" class="form-control input-sm tt-input" id="IPP" name="IPP"  placeholder="code du patient..."
 				   	 data-toggle="tooltip" data-placement="left" title="Code IPP du patient">
-				 </div>
-				 <div class="col-sm-2"><label class="control-label pull-right" for="Dat_Naissance" ><strong>Né(e):</strong></label>
-				</div>
-				<div class="col-sm-4">
-				   <input type="text" class="form-control input-sm tt-input date-picker" id="Dat_Naissance" name="Dat_Naissance"
-				   		data-date-format="yyyy-mm-dd" placeholder="date de naissance..." data-toggle="tooltip" data-placement="left" title="Date Naissance du patient">
-				 </div>
-			</div>
+					</div>
+					<div class="col-sm-1">
+						<label class="control-label pull-right" for="Matricule" >
+							<strong>&nbsp;Matricule:</strong>
+						</label>
+					</div>
+					<div class="col-sm-2">
+							<input type="text" class="form-control input-sm tt-input" id="matricule" name="matricule"  placeholder="Matricule de l'assuré(e)...">
+					</div>
+			  </div>
 		 	</div>  {{-- body --}}
 		  <div class="panel-footer">
 		   	<button type="submit" class="btn-sm btn-primary" onclick="XHRgePatient();"><i class="fa fa-search"></i>&nbsp;Rechercher
