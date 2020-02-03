@@ -157,22 +157,21 @@ function setField(field,value)
 @section('main-content')
 <div class="page-content">
 <div class="row">
-	<div class="col-sm-12">
-		<div class="center">
+	<div class="col-sm-12 center">	
 			<h2 class="blue">
 				<strong>Bienvenue Docteurs:</strong>
 				<q> {{ App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Nom_Employe }}
 				{{ App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Prenom_Employe}} </q>
 			</h2>
-		</div>		
+			
 	</div>		
 </div>	{{-- row --}}
 <div class="space-12"></div>
 <div class="row">
 	<div class="col-sm-12 col-lg-12">
-		<div class="panel panel-default">
-			<div class="panel-heading" style="height: 50px; font-size: 2.6vh;">
-				Rechercher un Patient
+		<div class="panel panel-default ">
+			<div class="panel-heading center" style="height: 40px; font-size: 2.6vh;">
+				<strong>Rechercher un Patient</strong>
 			</div>
 		  <div class="panel-body">
 				<div class="row">
@@ -212,19 +211,16 @@ function setField(field,value)
 						</label>
 					</div>
 					<div class="col-sm-2">
-							<input type="text" class="form-control input-sm tt-input" id="matricule" name="matricule"  placeholder="Matricule de l'assuré(e)...">
+						<input type="text" class="form-control input-sm tt-input" id="matricule" name="matricule"  placeholder="Matricule de l'assuré(e)...">
 					</div>
 			  </div>
 		 	</div>  {{-- body --}}
-		  <div class="panel-footer">
-		   	<button type="submit" class="btn-sm btn-primary" onclick="XHRgePatient();"><i class="fa fa-search"></i>&nbsp;Rechercher
-				</button>
-				<div class="pull-right">
-					<button type="button" class="btn btn-danger btn-sm hidden invisible" id="FusionButton"  onclick ="doMerge();"data-toggle="modal" data-target="#mergeModal" data-backdrop="false" hidden><i class="fa fa-angle-right fa-lg"></i><i class="fa fa-angle-left fa-lg"></i>&nbsp;Fusion
-					</button>
+		  <div class="panel-footer" style="height: 50px;">
+		   	<button type="submit" class="btn-sm btn-primary " style="vertical-align: middle" onclick="XHRgePatient();"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+			<div class="pull-right">
+				<button type="button" class="btn btn-danger btn-sm hidden invisible" id="FusionButton"  onclick ="doMerge();"data-toggle="modal" data-target="#mergeModal" data-backdrop="false" hidden><i class="fa fa-angle-right fa-lg"></i><i class="fa fa-angle-left fa-lg"></i>&nbsp;Fusion</button>
 					<a  class="btn btn-primary btn-sm hidden" href="patient/create" id=btnCreate role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>
-				</div>
-				
+			</div>		
 		  </div>
  		 </div>
 </div>{{-- row --}}

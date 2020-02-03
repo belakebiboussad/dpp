@@ -11,6 +11,8 @@
 
    <!-- app.css is bootstrap.css (slightly modified by Ace template) compiled with less -->
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('/css/styles.css') }}" rel="stylesheet">
+    
     <link href="{{ asset('/css/font-awesome.css') }}" rel="stylesheet">
     <!-- text fonts -->
     <link rel="stylesheet" href="{{ asset('/css/ace-fonts.css') }}" />
