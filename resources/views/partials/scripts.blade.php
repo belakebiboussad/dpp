@@ -485,30 +485,38 @@ $('#typeexm').on('change', function() {
                                 $(".disabledElem").removeClass("disabledElem").addClass("enabledElem"); //$('#Ordonnance').reset();
                             }
                       });
-               }
-                function medicmV1(med)
-           {
-                    $.ajax({
-                        type: 'GET',
-                        url: '/getmed/'+med,
-                        dataType: "json",
-                        success: function (result)
-                            {
-                                            $("#nommedic").val(result['Nom_com']);
-                                            $("#forme").val(result['Forme']);
-                                             $("#dosage").val(result.Dosage);
-                                            $("#id_medicament").val(result['id']);
-                                            $(".disabledElem").removeClass("disabledElem").addClass("enabledElem"); //$('#Ordonnance').reset();
-                            }
-                      });
-               }
-               function addmidifun()
-                {
-                            //$("#posologie").val( $("#nbprise").val()+' fois par '+$("#fois").val()+' Pendant '+$("#duree").val()+' '+$("#dureefois").val()+'. ');//+$("#temps").val()+'.'
-                            //$("#ordonnance").append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td id='nom_medec'>" + $("#nommedic").val() + "</td><td id='form_medec'>" + $("#forme").val() + "</td><td  id='qte_medec'>" + $("#qte").val() +"</td><td id='posolog_medec'>"+$("#pos").val()+"</td><td style='display:none;' id='id_medec'>"+$("#medicamentId").val()+"</td></tr>");
-                             $("#ordonnance").append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td hidden>"+$("#id_medicament").val()+"</td><td>"+$("#nommedic").val()+"</td><td>"+$("#forme").val()+"</td><td>"+$("#dosage").val()+"</td><td>"+$("#posologie_medic").val()+"</td></tr>");
-                             $(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
-                             clearInput();
+            }
+            function medicmV1(med)
+            {
+                $.ajax({
+                    type: 'GET',
+                    url: '/getmed/'+med,
+                    dataType: "json",
+                    success: function (result)
+                    {
+                        $("#nommedic").val(result['Nom_com']);
+                        $("#forme").val(result['Forme']);
+                        $("#dosage").val(result.Dosage);
+                        $("#id_medicament").val(result['id']);
+                        $(".disabledElem").removeClass("disabledElem").addClass("enabledElem"); //$('#Ordonnance').reset();
+                    }
+                });
+            }
+            function clearInput() {
+                //$('#posologie').find('input[type=number]').val('1');$('#posologie').find('input[type=text]').val(' ') ;$("#divmodeprise").html('');$("#divmodeprise").html('');
+                $('#id_medicament').val('');
+                $('#nommedic').val('');
+                $("#forme").val('');
+                $("#dosage").val();
+                $("#posologie_medic").val('');
+
+            }
+            function addmidifun()
+            {
+                //$("#posologie").val( $("#nbprise").val()+' fois par '+$("#fois").val()+' Pendant '+$("#duree").val()+' '+$("#dureefois").val()+'. ');//+$("#temps").val()+'.'//$("#ordonnance").append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td id='nom_medec'>" + $("#nommedic").val() + "</td><td id='form_medec'>" + $("#forme").val() + "</td><td  id='qte_medec'>" + $("#qte").val() +"</td><td id='posolog_medec'>"+$("#pos").val()+"</td><td style='display:none;' id='id_medec'>"+$("#medicamentId").val()+"</td></tr>");
+                $("#ordonnance").append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td hidden>"+$("#id_medicament").val()+"</td><td>"+$("#nommedic").val()+"</td><td>"+$("#forme").val()+"</td><td>"+$("#dosage").val()+"</td><td>"+$("#posologie_medic").val()+"</td></tr>");
+                $(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
+                clearInput();
                      
             }
             function supcolonne()

@@ -239,12 +239,6 @@
      
      		return erreur;
        	}
-	function clearInput() {
-	      	$('#posologie').find('input[type=number]').val('1');
-	        	$('#posologie').find('input[type=text]').val(' ') ;
-	        	$("#divmodeprise").html('');
-	        	$("#divmodeprise").html('');;
-	}
 	function storeord1old()
 	{  
 	           // var arrayLignes = document.getElementById("ordonnance").rows; // $('#myformelement').append('<input type="hidden" name="myfieldname" value="myvalue" />');

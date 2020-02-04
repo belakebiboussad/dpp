@@ -71,15 +71,15 @@
 		        if(theEvent.preventDefault) theEvent.preventDefault();
 		}
 	}
-  	$('document').ready(function(){
-    		$( 'ul.nav li' ).on( 'click', function() {
+  $('document').ready(function(){
+  		$( 'ul.nav li' ).on( 'click', function() {
 		 	$(this).siblings().addClass('filter');
-		});
-		$('.wysiwyg-editor').on('input',function(e){
-		           a = $(this).parent().nextAll("div.clearfix");
-		           var i = a.find("button:button").each(function(){
-			           $(this).removeAttr('disabled');
-		            });
+	});
+	$('.wysiwyg-editor').on('input',function(e){
+	    var a = $(this).parent().nextAll("div.clearfix");
+	    var i = a.find("button:button").each(function(){
+			    $(this).removeAttr('disabled');
+		  });
 		});
 		$('.select2').css('width','400px').select2({allowClear:true})
            		$('#select2-multiple-style .btn').on('click', function(e){

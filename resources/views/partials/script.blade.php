@@ -139,7 +139,7 @@ $('#typeexm').on('change', function() {
             }
             function addmidifun()
             {
-                    $("#ordonnance").append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td>" + $("#nommedic").text() + "</td><td>" + $("#forme").text() + "</td><td>" + $("#qte").val() +"</td><td>"+$("#pos").val()+"</td></tr>");
+                $("#ordonnance").append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td>" + $("#nommedic").text() + "</td><td>" + $("#forme").text() + "</td><td>" + $("#qte").val() +"</td><td>"+$("#pos").val()+"</td></tr>");
             }
             function supcolonne()
             {
