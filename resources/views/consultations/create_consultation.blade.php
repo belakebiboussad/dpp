@@ -71,40 +71,40 @@
 		        if(theEvent.preventDefault) theEvent.preventDefault();
 		}
 	}
-  $('document').ready(function(){
-    	$( 'ul.nav li' ).on( 'click', function() {
-		      $(this).siblings().addClass('filter');
-			});
-			$('.wysiwyg-editor').on('input',function(e){
+  	$('document').ready(function(){
+    		$( 'ul.nav li' ).on( 'click', function() {
+		 	$(this).siblings().addClass('filter');
+		});
+		$('.wysiwyg-editor').on('input',function(e){
 		           a = $(this).parent().nextAll("div.clearfix");
 		           var i = a.find("button:button").each(function(){
 			           $(this).removeAttr('disabled');
 		            });
-			});
-			$('.select2').css('width','400px').select2({allowClear:true})
+		});
+		$('.select2').css('width','400px').select2({allowClear:true})
            		$('#select2-multiple-style .btn').on('click', function(e){
 	           		var target = $(this).find('input[type=radio]');
 	                	var which = parseInt(target.val());
-	             	if(which == 2) $('.select2').addClass('tag-input-style');
+	             		if(which == 2) $('.select2').addClass('tag-input-style');
 	                  	else $('.select2').removeClass('tag-input-style');
-      });
-    	$(function() {
-		      var checkbox = $("#isOriented");  // Get the form fields and hidden div
-		      var hidden = $("#hidden_fields");  // Setup an event listener for when the state of the    // checkbox changes.
-		      checkbox.change(function() {
-		        if (checkbox.is(':checked')) {
-		           // Show the hidden fields.
-		            hidden.show();
-		        } else {
-		                hidden.hide();
-		                $("#lettreorientaioncontent").val("");
-		        }
-		      })
-			}); 
-    	$(".two-decimals").change(function(){
+      		});
+    		$(function() {
+			 var checkbox = $("#isOriented");  // Get the form fields and hidden div
+		     	 var hidden = $("#hidden_fields");  // Setup an event listener for when the state of the    // checkbox changes.
+		     	 checkbox.change(function() {
+		        		if (checkbox.is(':checked')) {
+		           		// Show the hidden fields.
+		            			hidden.show();
+		        		} else {
+		                		hidden.hide();
+		                		$("#lettreorientaioncontent").val("");
+		       		 }
+		      	})
+		}); 
+    		$(".two-decimals").change(function(){
       			this.value = parseFloat(this.value).toFixed(2);
-     	});
-    	$("button").click(function (event) {
+     		});
+    		$("button").click(function (event) {
 		           which = '';
            			str ='send';
            			which = $(this).attr("id");
@@ -121,7 +121,7 @@
 		      processing: true, //serverSide: true,
 		      ordering: true,
 		      bInfo : false,
-		      searching: false,
+		      searching: true,
 		      pageLength: 5,         
 		      bLengthChange: false,
 		      nowrap:true,
@@ -420,30 +420,14 @@
 	@include('consultations.DemadeHospitalisation')
 </div>
 <div class="row">
-		@include('consultations.AntecedantModal')
+	@include('consultations.AntecedantModal')
 </div>
 </div>{{-- content --}}
-<div id="Ordonnance" class="modal modalord" role="dialog" aria-hidden="true">
-  	<div class="modal-dialog modal-lg" role="document">
-    		<div class="modal-content">
-		    	<div class="modal-header">
-		           	<button type="button" class="close" data-dismiss="modal">&times;</button>
-		         		<h4 class="modal-title">Ordonnance</h4>
-		          		@include('patient._patientInfo')
-		    	</div>
-      			<div class="modal-body">
-  		    	       @include('consultations.Ordonnance')    
-      			</div>
-   		 </div>
-   		 <div class="pull-right" align="right" style="bottom:0; padding-right:13px">
-   		 	<button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" onclick="storeord1()"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
-   		 	<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ord" onclick="createord('{{ $patient->Nom }} {{ $patient->Prenom }}','{{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Nom_Employe}} {{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Prenom_Employe}}')">
-   		   	<i class="ace-icon fa fa-print"></i>Imprimer
-		    </button>
-			  <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" type="reset"> <i class="ace-icon fa fa-undo bigger-110"></i> Annuler</button>
-			
-   		 </div>
-   		
-	</div>
-</div>{{-- endModal --}}
+<div class="row">
+	@include('consultations.ModalFoms.Ordonnance') 
+</div>
+
+<div class="row">
+@include('consultations.ModalFoms.imprimerOrdonnance') 
+</div>
 @endsection
