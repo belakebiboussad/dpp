@@ -17,4 +17,9 @@ margin-right: 0px;
 	 overflow-y: auto;
 	 width:100%;
 }
+.required:after {
+        content: '*';
+        color: red;
+        padding-left: 5px;
+}
 

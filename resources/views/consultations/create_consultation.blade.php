@@ -61,6 +61,7 @@
 @endsection
 @section('page-script')    
 <script>
+
 	function isNumeric (evt) {
 		var theEvent = evt || window.event;
 		var key = theEvent.keyCode || theEvent.which;
@@ -72,36 +73,43 @@
 		}
 	}
   $('document').ready(function(){
-  		$( 'ul.nav li' ).on( 'click', function() {
-		 	$(this).siblings().addClass('filter');
-	});
-	$('.wysiwyg-editor').on('input',function(e){
+  	$( 'ul.nav li' ).on( 'click', function() {
+			 	$(this).siblings().addClass('filter');
+		});
+		$('#examensradio').on('select2:select', function (e) { 
+ 			    $(".disabledElem").removeClass("disabledElem").addClass("enabledElem");
+		});
+		$('#examensradio').on('select2:unselecting', function(event) {
+  	 		$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
+		});
+		$('.wysiwyg-editor').on('input',function(e){
 	    var a = $(this).parent().nextAll("div.clearfix");
 	    var i = a.find("button:button").each(function(){
 			    $(this).removeAttr('disabled');
 		  });
 		});
 		$('.select2').css('width','400px').select2({allowClear:true})
-           		$('#select2-multiple-style .btn').on('click', function(e){
-	           		var target = $(this).find('input[type=radio]');
-	                	var which = parseInt(target.val());
-	             		if(which == 2) $('.select2').addClass('tag-input-style');
-	                  	else $('.select2').removeClass('tag-input-style');
-      		});
-    		$(function() {
-			 var checkbox = $("#isOriented");  // Get the form fields and hidden div
-		     	 var hidden = $("#hidden_fields");  // Setup an event listener for when the state of the    // checkbox changes.
-		     	 checkbox.change(function() {
-		        		if (checkbox.is(':checked')) {
-		           		// Show the hidden fields.
-		            			hidden.show();
-		        		} else {
-		                		hidden.hide();
-		                		$("#lettreorientaioncontent").val("");
-		       		 }
-		      	})
-		}); 
-    		$(".two-decimals").change(function(){
+      $('#select2-multiple-style .btn').on('click', function(e){
+	   		var target = $(this).find('input[type=radio]');
+	     	var which = parseInt(target.val());
+	   		if(which == 2) 
+	   			$('.select2').addClass('tag-input-style');
+	       	else
+	       	 $('.select2').removeClass('tag-input-style');
+     	});
+    	$(function() {
+			  var checkbox = $("#isOriented");  // Get the form fields and hidden div
+		    var hidden = $("#hidden_fields");  // Setup an event listener for when the state of the    // checkbox changes.
+		    checkbox.change(function() {
+		    	if (checkbox.is(':checked')) {
+		     			hidden.show();
+		    	} else {
+		       		hidden.hide();
+		      		$("#lettreorientaioncontent").val("");
+		      }
+		    })
+	   	}); 
+    	$(".two-decimals").change(function(){
       			this.value = parseFloat(this.value).toFixed(2);
      		});
     		$("button").click(function (event) {

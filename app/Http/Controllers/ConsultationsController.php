@@ -29,12 +29,11 @@ use App\modeles\infosupppertinentes;
 use App\modeles\exmnsrelatifdemande;
 use App\modeles\examenradiologique;
 use Config;
+use Validator;
 class ConsultationsController extends Controller
 {
-
-      protected $OrdonnanceCTLR,$ExamCliniqueCTLR,$ExamBioloqiqueCTLR,$ExamImagerieCTLR,$ExamAnapathCTLR,$DemandeHospCTRL,
-                          $LettreOrientationCTRL;
-      public function __construct(OrdonnanceController $OrdonnaceCtrl,
+    protected $OrdonnanceCTLR,$ExamCliniqueCTLR,$ExamBioloqiqueCTLR,$ExamImagerieCTLR,$ExamAnapathCTLR,$DemandeHospCTRL,$LettreOrientationCTRL;
+    public function __construct(OrdonnanceController $OrdonnaceCtrl,
                                        ExamenCliniqueController $ExamCliniqCtrl,
                                        DemandeExbController $ExamBiologiqCtrl,
                                        DemandeExamenRadio $ExamImagCtrl,   //ExmImgrieController $ExamImagCtrl,
@@ -140,12 +139,16 @@ class ConsultationsController extends Controller
      */
      public function store(Request $request)
      {
-
-            $request->validate([
-                  "motif" => 'required',   // "histoirem" => 'required',
-                  "resume" => 'required',
+            // $request->validate([
+            //       "motif" => 'required',   // "histoirem" => 'required',
+            //       "resume" => 'required',
+            // ]);
+           $validator = Validator::make($request->all(), [
+            'motif' => 'required|max:255',
+            'resume' => 'required',
             ]);
-
+            if($validator->fails())
+              return redirect()->back()->withErrors($validator)->withInput();
             $nomlieu = Config::get('constants.lieuc');
             $lieu = Lieuconsultation::where('Nom', $nomlieu)->first();
             $consult = consultation::create([
@@ -165,7 +168,8 @@ class ConsultationsController extends Controller
                       $this->ExamCliniqCTLR->store( $request,$consult->id); //save examen clinique
           if(isset($request->isOriented)){
                           $this->LettreOrientationCTRL->store($request,$consult->id);
-           }   
+           }
+           dd($request->liste);   
            if($request->liste != null)
                 $this->OrdonnanceCTLR->store( $request,$consult->id);    //save Ordonnance
          
@@ -173,8 +177,8 @@ class ConsultationsController extends Controller
           {  
                   $this->ExamBioloqiqueCTLR->store( $request,$consult->id); 
           }
-           
-           if(isset($request->exmns))
+          dd($request->examensradio);//examensradio
+          if(isset($request->exmns))
                $this->ExamImagerieCTLR->store( $request,$consult->id); 
 
           if(isset($request->examen_Anapath)) 

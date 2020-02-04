@@ -241,31 +241,30 @@
        	}
 	function storeord1old()
 	{  
-	           // var arrayLignes = document.getElementById("ordonnance").rows; // $('#myformelement').append('<input type="hidden" name="myfieldname" value="myvalue" />');
-	     	var tab = [];// var arrayLignes = $('#ordonnance tr');
-	     	var drugnumber=(arrayLignes.length);
-	      	for(var i=1; i<drugnumber ; i++)
-	           {	//4:forme 5:posologie
-	           	alert(arrayLignes[i].cells[1].innerHTML);
-		      	tab[i-1]=arrayLignes[i].cells[4].innerHTML+"|"+arrayLignes[i].cells[5].innerHTML;
+	  // var arrayLignes = document.getElementById("ordonnance").rows; // $('#myformelement').append('<input type="hidden" name="myfieldname" value="myvalue" />');
+	  var tab = [];// var arrayLignes = $('#ordonnance tr');
+	  var drugnumber=(arrayLignes.length);
+	  for(var i=1; i<drugnumber ; i++)
+	  {	//4:forme 5:posologie
+	   	alert(arrayLignes[i].cells[1].innerHTML);
+		 	tab[i-1]=arrayLignes[i].cells[4].innerHTML+"|"+arrayLignes[i].cells[5].innerHTML;
 		}
-		 $("<input type='text' name ='listeMedicaments' value='"+tab.toString()+"' hidden>").appendTo('#consultForm');// ($("#dateord").appendTo('#consultForm')).hide();
-	     	($("#dureeefois").appendTo('#consultForm')).hide();
-	     	($("#foisss").appendTo('#consultForm')).hide();
+		$("<input type='text' name ='listeMedicaments' value='"+tab.toString()+"' hidden>").appendTo('#consultForm');// ($("#dateord").appendTo('#consultForm')).hide();
+	  ($("#dureeefois").appendTo('#consultForm')).hide();
+	  ($("#foisss").appendTo('#consultForm')).hide();
 	}
 	function storeord1()
 	{
 		var arrayLignes = document.getElementById("ordonnance").rows;
-                     var longueur = arrayLignes.length; 
-                     var ordonnance = [];
-                     for(var i=1; i<longueur; i++)
-                     {
-                                ordonnance[i-1] = { med: arrayLignes[i].cells[1].innerHTML, posologie: arrayLignes[i].cells[5].innerHTML }
-                     }
-                     var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
-                     champ.appendTo('#consultForm');
-                     //$('#ordn').submit();
-	}
+    var longueur = arrayLignes.length; 
+    var ordonnance = [];
+    for(var i=1; i<longueur; i++)
+    {
+      ordonnance[i-1] = { med: arrayLignes[i].cells[1].innerHTML, posologie: arrayLignes[i].cells[5].innerHTML }
+    }
+    var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
+    champ.appendTo('#consultForm');
+  }
 	function demandehosp()
 	{
 			($("#motifhosp").appendTo('#consultForm')).hide();
