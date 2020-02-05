@@ -111,8 +111,8 @@
 	   	}); 
     	$(".two-decimals").change(function(){
       			this.value = parseFloat(this.value).toFixed(2);
-     		});
-    		$("button").click(function (event) {
+     	});
+    	$("button").click(function (event) {
 		           which = '';
            			str ='send';
            			which = $(this).attr("id");
@@ -251,7 +251,7 @@
 
 		});
 		jQuery('#btn-add').click(function () {
-  		jQuery('#EnregistrerAntecedant').val("add");
+      jQuery('#EnregistrerAntecedant').val("add");
     	jQuery('#modalFormData').trigger("reset");
     	jQuery('#antecedantModal').modal('show');
   	});	
@@ -274,50 +274,59 @@
                 console.log('Error:', data);
             }
         });
+    });
+    $('#btn-addImgExam').click(function(){
+    	var selected = []; 
+      // $('#imgsEx input:checked').each(function() {
+      //       array.push($(this).val()); 
+      // });   
+	    $('.exmns').prop('checked', function () {
+        selected.push($(this).val());
       });
+      alert(selected);
+      $('#ExamsImg').append("<tr><td id='idExamen' hidden>"+$('#examensradio').val()+"</td><td>"+$('#examensradio option:selected').text()+"</td><td>"+selected+"</td></tr>");
+	  });
   });
   function ajaxfunc(patientid)
  	{        
-      var habitudeAlim = null; var tabac=null ; var ethylisme = null;
-                     var antecedant = $('#Antecedant').val();
-                     var typeAntecedant = $('#typeAntecedant').val();
-                     var soustype = $('#sstypeatcdc').val();    
-                     var dateATCD = $('#dateAntcd').val()
-                    var description = $("#description").val();               
-                      if(typeAntecedant =="Physiologiques")
-                     {
-                            habitudeAlim= $('#habitudeAlim').val();
-                            tabac = $("#tabac").is(":checked") ? 1:0;
-                            ethylisme = $("#ethylisme").is(":checked") ? 1:0;
-                     }
-                    if (description === "")
-                    {
-
-                    }else{
-                            $.ajax({
-                                     headers: {
-                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                    },
-                                     type:'POST',
-                                    url:'/AddANTCD',
-                                    data:{ antecedant:antecedant,typeAntecedant:typeAntecedant,soustype:soustype,dateATCD:dateATCD,description:description,patientid:patientid,habitudeAlim:habitudeAlim,tabac:tabac,ethylisme:ethylisme 
-                                    },
-                                   success:function(data){
-                                          $("#msg").html(data.msg);
-                                    }
-                               }); 
-                               $('#ants-tab').append("<tr><td>"+$('#Antecedant').val()+"</td><td>"+$('#dateAntcd').val()+"</td><td>"+$('#description').val()+"</td><td></td></tr>");  
-                               resetField(); 
-                    }
-  	}
-  	function resetField()
-  	{
-   		 $("#description").val(' ');$('#dateAntcd').val('');       
-  	}
-	  function atcd()
-	  {  
-	 
-	    $('#description').text(" ");
+    var habitudeAlim = null; var tabac=null ; var ethylisme = null;
+    var antecedant = $('#Antecedant').val();
+    var typeAntecedant = $('#typeAntecedant').val();
+    var soustype = $('#sstypeatcdc').val();    
+    var dateATCD = $('#dateAntcd').val()
+    var description = $("#description").val();               
+    if(typeAntecedant =="Physiologiques")
+    {
+      habitudeAlim= $('#habitudeAlim').val();
+      tabac = $("#tabac").is(":checked") ? 1:0;
+      ethylisme = $("#ethylisme").is(":checked") ? 1:0;
+    }
+    if (description === "")
+    {
+    }else{
+      $.ajax({
+          headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type:'POST',
+          url:'/AddANTCD',
+          data:{ antecedant:antecedant,typeAntecedant:typeAntecedant,soustype:soustype,dateATCD:dateATCD,description:description,patientid:patientid,habitudeAlim:habitudeAlim,tabac:tabac,ethylisme:ethylisme 
+          },
+          success:function(data){
+             $("#msg").html(data.msg);
+          }
+      }); 
+      $('#ants-tab').append("<tr><td>"+$('#Antecedant').val()+"</td><td>"+$('#dateAntcd').val()+"</td><td>"+$('#description').val()+"</td><td></td></tr>");  
+      resetField(); 
+    }
+  }
+  function resetField()
+  {
+    $("#description").val(' ');$('#dateAntcd').val('');       
+  }
+	function atcd()
+	{  
+	  $('#description').text(" ");
 	    resetField();
 	    if($('#Antecedant').val() === 'Personnels')
 	    {
@@ -355,7 +364,6 @@
 	    }
 	    
 	  }
-	 
 </script>
 @endsection
 @section('main-content')
