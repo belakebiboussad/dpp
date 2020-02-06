@@ -61,7 +61,6 @@
 @endsection
 @section('page-script')    
 <script>
-
 	function isNumeric (evt) {
 		var theEvent = evt || window.event;
 		var key = theEvent.keyCode || theEvent.which;
@@ -72,34 +71,28 @@
 		        if(theEvent.preventDefault) theEvent.preventDefault();
 		}
 	}
-  $('document').ready(function(){
-  	$( 'ul.nav li' ).on( 'click', function() {
+  	$('document').ready(function(){
+  		$( 'ul.nav li' ).on( 'click', function() {
 			 	$(this).siblings().addClass('filter');
 		});
-		$('#examensradio').on('select2:select', function (e) { 
- 			    $(".disabledElem").removeClass("disabledElem").addClass("enabledElem");
-		});
-		$('#examensradio').on('select2:unselecting', function(event) {
-  	 		$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
-		});
 		$('.wysiwyg-editor').on('input',function(e){
-	    var a = $(this).parent().nextAll("div.clearfix");
-	    var i = a.find("button:button").each(function(){
+	  		 var a = $(this).parent().nextAll("div.clearfix");
+	   		 var i = a.find("button:button").each(function(){
 			    $(this).removeAttr('disabled');
 		  });
 		});
 		$('.select2').css('width','400px').select2({allowClear:true})
-      $('#select2-multiple-style .btn').on('click', function(e){
+     		 $('#select2-multiple-style .btn').on('click', function(e){
 	   		var target = $(this).find('input[type=radio]');
 	     	var which = parseInt(target.val());
 	   		if(which == 2) 
 	   			$('.select2').addClass('tag-input-style');
 	       	else
 	       	 $('.select2').removeClass('tag-input-style');
-     	});
-    	$(function() {
-			  var checkbox = $("#isOriented");  // Get the form fields and hidden div
-		    var hidden = $("#hidden_fields");  // Setup an event listener for when the state of the    // checkbox changes.
+     		});
+    		$(function() {
+			 var checkbox = $("#isOriented");  // Get the form fields and hidden div
+			var hidden = $("#hidden_fields");  // Setup an event listener for when the state of the    // checkbox changes.
 		    checkbox.change(function() {
 		    	if (checkbox.is(':checked')) {
 		     			hidden.show();
@@ -186,27 +179,27 @@
    	  });
     	$("#EnregistrerAntecedant").click(function (e) {
     		var habitudeAlim = null; var tabac=null ; var ethylisme = null;
-      	e.preventDefault();
-      	var formData = {
+      		e.preventDefault();
+      		var formData = {
       			Patient_ID_Patient :jQuery('#patientId').val(),	
-            Antecedant         : jQuery('#Antecedant').val(),
-            typeAntecedant     : jQuery('#typeAntecedant').val(),
-            stypeatcd          : jQuery('#sstypeatcdc').val(),
-            date : $('#dateAntcd').val(),
-            descrioption : $("#description").val(),
-     	  };
-     	  if(formData.typeAntecedant =="Physiologiques")
-     	  {
-	      	formData.habitudeAlim = $('#habitudeAlim').val();
-	      	formData.tabac = $("#tabac").is(":checked") ? 1:0;
-	      	formData.ethylisme = $("#ethylisme").is(":checked") ? 1:0;     
+           			 Antecedant         : jQuery('#Antecedant').val(),
+          			 typeAntecedant     : jQuery('#typeAntecedant').val(),
+          			  stypeatcd          : jQuery('#sstypeatcdc').val(),
+            			date : $('#dateAntcd').val(),
+          			  descrioption : $("#description").val(),
+     	  	};
+     	  	if(formData.typeAntecedant =="Physiologiques")
+     	  	{
+	      		formData.habitudeAlim = $('#habitudeAlim').val();
+	      		formData.tabac = $("#tabac").is(":checked") ? 1:0;
+	      		formData.ethylisme = $("#ethylisme").is(":checked") ? 1:0;     
      		}
-        if(!($("#description").val() == ''))
-        {	
-          if($('.dataTables_empty').length > 0)
-      		{
-        		$('.dataTables_empty').remove();
-      		}	
+        		if(!($("#description").val() == ''))
+      		  {	
+          			if($('.dataTables_empty').length > 0)
+      			{
+	        			$('.dataTables_empty').remove();
+	      		}	
         	$.ajaxSetup({
         	  headers: {
                 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
@@ -256,37 +249,47 @@
     	jQuery('#antecedantModal').modal('show');
   	});	
   	////----- DELETE antecedant and remove from the page -----////
-    jQuery('body').on('click', '.delete-atcd', function () {
-        var atcd_id = $(this).val();      
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            type: "DELETE",
-            url: '/atcd/' + atcd_id,
-            success: function (data) {
-                console.log(data);
-                $("#atcd" + atcd_id).remove();
-            },
-            error: function (data) {
-                console.log('Error:', data);
-            }
-        });
-    });
-    $('#btn-addImgExam').click(function(){
-    	var selected = []; 
-      // $('#imgsEx input:checked').each(function() {
-      //       array.push($(this).val()); 
-      // });   
-	    $('.exmns').prop('checked', function () {
-        selected.push($(this).val());
-      });
-      alert(selected);
-      $('#ExamsImg').append("<tr><td id='idExamen' hidden>"+$('#examensradio').val()+"</td><td>"+$('#examensradio option:selected').text()+"</td><td>"+selected+"</td></tr>");
-	  });
-  });
+	    jQuery('body').on('click', '.delete-atcd', function () {
+	        var atcd_id = $(this).val();      
+	        $.ajaxSetup({
+	            headers: {
+	                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+	            }
+	        });
+	        $.ajax({
+	            type: "DELETE",
+	            url: '/atcd/' + atcd_id,
+	            success: function (data) {
+	                console.log(data);
+	                $("#atcd" + atcd_id).remove();
+	            },
+	            error: function (data) {
+	                console.log('Error:', data);
+	            }
+	        });
+	    });
+		 $('#examensradio').on('select2:select', function (e) { 
+ 			 $(".disabledElem").removeClass("disabledElem").addClass("enabledElem");
+		});
+		$('#examensradio').on('select2:unselecting', function(event) {
+  	 		$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
+		});
+             	 $('#btn-addImgExam').click(function(){
+    			var selected = []; var array = [];	
+			$('#ExamIgtModal').modal('toggle');
+			// ($("#motifhosp").appendTo('#consultForm')).hide();
+			$.each($("input[name='exmns[]']:checked"), function(){
+              			selected.push($(this).next('label').text());
+              			array.push($(this).val());
+              			$(this). prop("checked", false);
+          	      		});
+	             	$('#ExamsImg').append("<tr><td id='idExamen' hidden>"+$('#examensradio').val()+"</td><td>"+$('#examensradio option:selected').text()+"</td><td>"+selected+"</td></tr>");
+	             	$('#examensradio').val(' ').trigger('change');
+	             	$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
+
+
+		});
+  	});
   function ajaxfunc(patientid)
  	{        
     var habitudeAlim = null; var tabac=null ; var ethylisme = null;

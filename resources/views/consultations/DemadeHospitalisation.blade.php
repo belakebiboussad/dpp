@@ -51,10 +51,10 @@
 			<div class="space-12"></div>
 			<div class="space-12"></div>
 			<div class="modal-footer">
-          				<button type="button" class="btn btn-success" onclick="demandehosp()">
+          				<button type="button" class="btn btn-success btn-sm" onclick="demandehosp()">
           				   <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
          				 </button>
-       				<button type="button" class="btn btn-default" data-dismiss="modal">
+       				<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
             				<i class="ace-icon fa fa-close bigger-110"></i>Fermer
            			</button>
       			</div>
