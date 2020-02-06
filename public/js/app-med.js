@@ -237,22 +237,8 @@
 			});
 		}
      
-     		return erreur;
-       	}
-	function storeord1old()
-	{  
-	  // var arrayLignes = document.getElementById("ordonnance").rows; // $('#myformelement').append('<input type="hidden" name="myfieldname" value="myvalue" />');
-	  var tab = [];// var arrayLignes = $('#ordonnance tr');
-	  var drugnumber=(arrayLignes.length);
-	  for(var i=1; i<drugnumber ; i++)
-	  {	//4:forme 5:posologie
-	   	alert(arrayLignes[i].cells[1].innerHTML);
-		 	tab[i-1]=arrayLignes[i].cells[4].innerHTML+"|"+arrayLignes[i].cells[5].innerHTML;
-		}
-		$("<input type='text' name ='listeMedicaments' value='"+tab.toString()+"' hidden>").appendTo('#consultForm');// ($("#dateord").appendTo('#consultForm')).hide();
-	  ($("#dureeefois").appendTo('#consultForm')).hide();
-	  ($("#foisss").appendTo('#consultForm')).hide();
-	}
+  	return erreur;
+  }
 	function storeord1()
 	{
 		var arrayLignes = document.getElementById("ordonnance").rows;
@@ -267,12 +253,12 @@
   }
 	function demandehosp()
 	{
-			($("#motifhosp").appendTo('#consultForm')).hide();
-			($("#service").appendTo('#consultForm')).hide();
-			($("#degreurg").appendTo('#consultForm')).hide();
-			($("#specialiteDemande").appendTo('#consultForm')).hide(); //ajouter specialite
-			($("#modeAdmission").appendTo('#consultForm')).hide();
-			$('#demandehosp').modal('hide');
+		($("#motifhosp").appendTo('#consultForm')).hide();
+		($("#service").appendTo('#consultForm')).hide();
+		($("#degreurg").appendTo('#consultForm')).hide();
+		($("#specialiteDemande").appendTo('#consultForm')).hide(); //ajouter specialite
+		($("#modeAdmission").appendTo('#consultForm')).hide();
+		$('#demandehosp').modal('hide');
 	}
 	function lettreorientation()
 	{

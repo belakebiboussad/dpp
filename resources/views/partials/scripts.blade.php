@@ -639,7 +639,6 @@ $('#typeexm').on('change', function() {
                 }
                 var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");
                 champ.appendTo('#ordonnace_form');
-                //console.log(JSON.stringify(tab));
                 $('#ordonnace_form').submit();
             }
 

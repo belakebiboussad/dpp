@@ -139,11 +139,11 @@ class ConsultationsController extends Controller
      */
      public function store(Request $request)
      {
-            // $request->validate([
-            //       "motif" => 'required',   // "histoirem" => 'required',
-            //       "resume" => 'required',
-            // ]);
-           $validator = Validator::make($request->all(), [
+            $request->validate([
+                  "motif" => 'required',   // "histoirem" => 'required',
+                  "resume" => 'required',
+            ]);
+            $validator = Validator::make($request->all(), [
             'motif' => 'required|max:255',
             'resume' => 'required',
             ]);
@@ -168,8 +168,7 @@ class ConsultationsController extends Controller
                       $this->ExamCliniqCTLR->store( $request,$consult->id); //save examen clinique
           if(isset($request->isOriented)){
                           $this->LettreOrientationCTRL->store($request,$consult->id);
-           }
-           dd($request->liste);   
+           } 
            if($request->liste != null)
                 $this->OrdonnanceCTLR->store( $request,$consult->id);    //save Ordonnance
          
@@ -177,10 +176,8 @@ class ConsultationsController extends Controller
           {  
                   $this->ExamBioloqiqueCTLR->store( $request,$consult->id); 
           }
-          dd($request->examensradio);//examensradio
-          if(isset($request->exmns))
+          if(isset($request->ExamsImg))
                $this->ExamImagerieCTLR->store( $request,$consult->id); 
-
           if(isset($request->examen_Anapath)) 
                            $this->ExamAnapathCTLR->store( $request,$consult->id);
            if($request->modeAdmission != null)

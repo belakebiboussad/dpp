@@ -6,8 +6,9 @@
 			<h4 class="modal-title">Ajouter un Examen d'Imagerie</h4>
 			  @include('patient._patientInfo')
 		</div>
+		<!-- id ="ExamsImg" -->
 		<div class="modal-body">
-		             <div class="space-12"></div>
+		  <div class="space-12"></div>
 			<div class="row">
 			        	<div class="col-sm12">
 			        		<label for="explication"><b>Examen(s) proposé(s)</b></label>

@@ -54,7 +54,6 @@
 <script type="text/javascript">
 function typep()
 {
-    alert("script");
     if($('#fonc').is(':checked'))
     {
         $('#foncinput').css('display', 'block');
@@ -237,23 +236,21 @@ $('#typeexm').on('change', function() {
             $('#ordpdf').attr('src', string);
 
             }
-            function storeord()
-            {   
-                var arrayLignes = document.getElementById("ordonnance").rows;
-                var longueur = arrayLignes.length;
-                var tab = [];
-                for(var i=1; i<longueur; i++)
-                {
-        tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;
-                }
-                //console.log(tab.toString());
-                var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");
-                champ.appendTo('#ordonnace_form');
-                //console.log(JSON.stringify(tab));
-                $('#ordonnace_form').submit();
-            }
+            // function storeord()
+            // {   
+            //     var arrayLignes = document.getElementById("ordonnance").rows;
+            //     var longueur = arrayLignes.length;
+            //     var tab = [];
+            //     for(var i=1; i<longueur; i++)
+            //     {
+            //          tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;
+            //     }
+               
+            //     var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");
+            //     champ.appendTo('#ordonnace_form');
+            //     $('#ordonnace_form').submit();
+            // }
             function createexbio(nomp,prenomp){
-                //console.log($("#autr").tagsinput('items'));          
                 var exbio = new jsPDF();
                 exbio.text(200,20, 'Date :.....................', null, null, 'right');
                 exbio.text(20,25, 'Nom : '+nomp, null, null);

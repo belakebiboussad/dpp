@@ -274,22 +274,35 @@
 		$('#examensradio').on('select2:unselecting', function(event) {
   	 		$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
 		});
-             	 $('#btn-addImgExam').click(function(){
-    			var selected = []; var array = [];	
-			$('#ExamIgtModal').modal('toggle');
-			// ($("#motifhosp").appendTo('#consultForm')).hide();
-			$.each($("input[name='exmns[]']:checked"), function(){
-              			selected.push($(this).next('label').text());
-              			array.push($(this).val());
-              			$(this). prop("checked", false);
-          	      		});
-	             	$('#ExamsImg').append("<tr><td id='idExamen' hidden>"+$('#examensradio').val()+"</td><td>"+$('#examensradio option:selected').text()+"</td><td>"+selected+"</td></tr>");
-	             	$('#examensradio').val(' ').trigger('change');
-	             	$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
-
-
+    $('#btn-addImgExam').click(function(){
+    		var selected = []; var array = [];	
+				$('#ExamIgtModal').modal('toggle');
+			  $.each($("input[name='exmns[]']:checked"), function(){
+      		selected.push($(this).next('label').text());
+      		array.push($(this).val());
+      		$(this). prop("checked", false);
+        });   
+	      var exam = '<tr id="acte-'+$("#examensradio").val()+'"><td id="idExamen" hidden>'+$("#examensradio").val()+'</td><td>'+$("#examensradio option:selected").text()+'</td><td id ="types" hidden>'+array+'</td><td>'+selected+'</td><td class="center" width="5%">';
+	      exam += '<button type="button" class="btn btn-xs btn-danger delete-ExamImg" value="'+$("#examensradio").val()+'" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';     
+	     	$('#ExamsImg').append(exam);
+	     	$('#examensradio').val(' ').trigger('change');
+	     	$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
 		});
-  	});
+		jQuery('body').on('click', '.delete-ExamImg', function () {
+    	$("#acte-" + $(this).val()).remove();
+    	 
+    });
+    $("#consultForm").submit(function(e){
+     	var arrayLignes = document.getElementById("ExamsImg").rows;
+    	var ExamsImg = [];
+      for(var i=0; i< arrayLignes.length; i++)
+    	{
+    		ExamsImg[i] = { acteImg: arrayLignes[i].cells[0].innerHTML, types: arrayLignes[i].cells[2].innerHTML }
+    	}
+      var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
+      champ.appendTo('#consultForm');
+    });  
+  });
   function ajaxfunc(patientid)
  	{        
     var habitudeAlim = null; var tabac=null ; var ethylisme = null;
@@ -365,8 +378,8 @@
 	      }
 
 	    }
-	    
 	  }
+
 </script>
 @endsection
 @section('main-content')
