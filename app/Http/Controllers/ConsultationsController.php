@@ -60,7 +60,7 @@ class ConsultationsController extends Controller
     {  
           
           $consultation = consultation::FindOrFail($id_cons);
-          // liste des consultations du patient
+          dd($consultation->lieu());
           $consults = consultation::join('employs','employs.id','=','consultations.Employe_ID_Employe')->leftjoin('codesims', 'codesims.id', '=', 'consultations.id_code_sim')->select('consultations.*','employs.Nom_Employe','employs.Prenom_Employe','codesims.description')->where('consultations.Patient_ID_Patient', $consultation->patient->id)->get();
           $examensbios = demandeexb::where("id_consultation",$id_cons)->get();    //$examensbios = examenbiologique::where("id_consultation",$id_cons)->get();
           // $examensimg = examenimagrie::where("id_consultation",$id_cons)->get(); 
@@ -139,7 +139,7 @@ class ConsultationsController extends Controller
      */
      public function store(Request $request)
      {
-            $request->validate([
+             $request->validate([
                   "motif" => 'required',   // "histoirem" => 'required',
                   "resume" => 'required',
             ]);
@@ -151,6 +151,7 @@ class ConsultationsController extends Controller
               return redirect()->back()->withErrors($validator)->withInput();
             $nomlieu = Config::get('constants.lieuc');
             $lieu = Lieuconsultation::where('Nom', $nomlieu)->first();
+
             $consult = consultation::create([
                      "Motif_Consultation"=>$request->motif,
                      "histoire_maladie"=>$request->histoirem,
@@ -163,29 +164,24 @@ class ConsultationsController extends Controller
                      "Patient_ID_Patient"=>$request->id,
                      "id_code_sim"=>$request->codesim,
                      "id_lieu"=> $lieu->id,
-           ]);  
-           if($request->poids != 0 || $request->temp != null || $request->taille !=0 || $request->autre)
+             ]);  
+
+             if($request->poids != 0 || $request->temp != null || $request->taille !=0 || $request->autre)
                       $this->ExamCliniqCTLR->store( $request,$consult->id); //save examen clinique
-          if(isset($request->isOriented)){
+             if(isset($request->isOriented)){
                           $this->LettreOrientationCTRL->store($request,$consult->id);
-           } 
-           if($request->liste != null)
+             } 
+
+             if($request->liste != null)
                 $this->OrdonnanceCTLR->store( $request,$consult->id);    //save Ordonnance
-         
-          if($request->exm  != null)  //save ExamBiolo
-          {  
-                  $this->ExamBioloqiqueCTLR->store( $request,$consult->id); 
-          }
-          if(isset($request->ExamsImg))
-               $this->ExamImagerieCTLR->store( $request,$consult->id); 
+             if($request->exm  != null)  //save ExamBiolo
+                    $this->ExamBioloqiqueCTLR->store( $request,$consult->id); 
+             if(isset($request->ExamsImg))
+                 $this->ExamImagerieCTLR->store( $request,$consult->id); 
           if(isset($request->examen_Anapath)) 
                            $this->ExamAnapathCTLR->store( $request,$consult->id);
            if($request->modeAdmission != null)
                 $this->DemandeHospCTRL->store($request,$consult->id);    
-
-           // if(array_key_exists('RX', $request->examRad) || ($request->examRad["AutRX"][0] != null) || (array_key_exists('ECHO', $request->examRad)) || (array_key_exists('CT', $request->examRad)) || ($request->examRad['AutCT'][0] != null) || (array_key_exists('RMN', $request->examRad))  || ($request->examRad['AutRMN'][0] != null) || ($request->examRad['AutECHO'][0] != null))
-           //            $this->ExamImagerieCTLR->store( $request,$consult->id); 
-           // return redirect()->route('consultations.show',$consult->id);    return redirect()->action('PatientController@index');
            return redirect(Route('patient.show',$request->id));
      }
     /**

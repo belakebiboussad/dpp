@@ -54,7 +54,7 @@
 						<th>Motif de consultation</th>
 						<th>Date de consultation</th>
 						<th class="hidden-480">Médecin traitant</th>
-						<th></th>
+						<th><em class="fa fa-cog"></em></th>
 					</tr>
 				</thead>
 				<tbody>

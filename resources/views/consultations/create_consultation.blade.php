@@ -289,19 +289,19 @@
 	     	$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
 		});
 		jQuery('body').on('click', '.delete-ExamImg', function () {
-    	$("#acte-" + $(this).val()).remove();
+    		$("#acte-" + $(this).val()).remove();
     	 
-    });
-    $("#consultForm").submit(function(e){
-     	var arrayLignes = document.getElementById("ExamsImg").rows;
-    	var ExamsImg = [];
-      for(var i=0; i< arrayLignes.length; i++)
-    	{
-    		ExamsImg[i] = { acteImg: arrayLignes[i].cells[0].innerHTML, types: arrayLignes[i].cells[2].innerHTML }
-    	}
-      var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
-      champ.appendTo('#consultForm');
-    });  
+   	 });
+   	 $("#consultForm").submit(function(e){
+     		var arrayLignes = document.getElementById("ExamsImg").rows;
+    		var ExamsImg = [];
+    	 	for(var i=0; i< arrayLignes.length; i++)
+    		{
+    			ExamsImg[i] = { acteImg: arrayLignes[i].cells[0].innerHTML, types: arrayLignes[i].cells[2].innerHTML }
+    		}
+     	 	var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
+      		champ.appendTo('#consultForm');
+    	});  
   });
   function ajaxfunc(patientid)
  	{        

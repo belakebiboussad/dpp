@@ -411,11 +411,11 @@
 										<table class="table table-striped table-bordered table-hover">
 											<thead class="thin-border-bottom">
 												<tr>
-													<th>Motif De Consultation</th>
-													<th>Date De Consultation</th>
+													<th>Motif de Consultation</th>
+													<th>Date de Consultation</th>
 													<th>Diagnostic</th>
 													<th>Médecin Traitant</th>
-													<th></th>
+													<th class ="center"><em class="fa fa-cog"></em></th>
 												</tr>
 											</thead>
 											<tbody>

@@ -37,8 +37,12 @@ class patient extends Model
 			return $this->belongsTo('App\modeles\assur','Assurs_ID_Assure');
 	}
 	public function hommesConf()
-  {
-    return $this->hasMany('App\modeles\homme_conf','id_patient');
-  }
+  	{
+   		 return $this->hasMany('App\modeles\homme_conf','id_patient');
+ 	}
+ 	public function Consultations()
+ 	{
+ 		 return $this->hasMany('App\modeles\consultation','Patient_ID_Patient');
+ 	}
 
 }

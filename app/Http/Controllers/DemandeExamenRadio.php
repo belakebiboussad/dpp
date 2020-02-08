@@ -80,6 +80,7 @@ class DemandeExamenRadio extends Controller
      */
     public function store(Request $request, $consultID)
     {
+
            //   $request->validate([
            //      "infosc" => "required",
            //      "explication" => "required",
@@ -93,26 +94,22 @@ class DemandeExamenRadio extends Controller
            //      "examensradio.required" => "Ce champ est obligatoire.",
            //      "exmns.required" => "Ce champ est obligatoire.",
            // ]); 
-        
-           $date = Date::now();
+              $date = Date::now();
              $demande = demandeexr::FirstOrCreate([
                 "Date" => $date,
                 "InfosCliniques" => $request->infosc,
                 "Explecations" => $request->explication,
                 "id_consultation" => $consultID,
             ]);
+             //dd($request->ExamsImg);
+             $examsImagerie = json_decode ($request->ExamsImg);
+             foreach ($examsImagerie as $key => $value) {       
+                   $demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => json_encode($value->types)]);
+              }
+    
             foreach ($request->infos as $id_info) {
                 $demande->infossuppdemande()->attach($id_info);
             }
-
-            foreach ($request->examensradio as $id_exm_radio) {
-                $demande->examensradios()->attach($id_exm_radio);
-            }
-
-            foreach ($request->exmns as $id_exmn) {
-                $demande->examensrelatifsdemande()->attach($id_exmn);
-            }
-            //return redirect()->route('consultations.show', $request->id_consultation);
     }
 
     /**
