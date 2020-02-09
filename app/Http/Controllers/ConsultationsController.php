@@ -60,8 +60,7 @@ class ConsultationsController extends Controller
     {  
           
           $consultation = consultation::FindOrFail($id_cons);
-          dd($consultation->lieu());
-          $consults = consultation::join('employs','employs.id','=','consultations.Employe_ID_Employe')->leftjoin('codesims', 'codesims.id', '=', 'consultations.id_code_sim')->select('consultations.*','employs.Nom_Employe','employs.Prenom_Employe','codesims.description')->where('consultations.Patient_ID_Patient', $consultation->patient->id)->get();
+          $consults = $consultation->patient->Consultations;    
           $examensbios = demandeexb::where("id_consultation",$id_cons)->get();    //$examensbios = examenbiologique::where("id_consultation",$id_cons)->get();
           // $examensimg = examenimagrie::where("id_consultation",$id_cons)->get(); 
           $demande = demandeExamImag::where("id_consultation",$id_cons)->get(['examsImagerie'])->first(); 
@@ -74,10 +73,9 @@ class ConsultationsController extends Controller
      }
      public function detailconsXHR(Request $request)
      {
-
-           $consultation = consultation::FindOrFail($request['id']);
-           $demande = demandeExamImag::where("id_consultation",$request['id'])->get(['examsImagerie'])->first(); 
-           if(isset($demande))
+          $consultation = consultation::FindOrFail($request['id']);
+          $demande = demandeExamImag::where("id_consultation",$request['id'])->get(['examsImagerie'])->first(); 
+          if(isset($demande))
                     $examensimg = json_decode($demande->examsImagerie); 
            $exmclin = examen_cliniqu::where("id_consultation",$request['id'])->get()->first();
            $examsRadio = $consultation->examensradiologiques;

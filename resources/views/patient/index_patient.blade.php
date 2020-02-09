@@ -79,9 +79,8 @@ function XHRgePatient()
 	nom=$('#patientName').val();
 	prenom=$('#patientFirstName').val();
 	code_barre=$('#IPP').val();
-	matricule = $('#matricule').val();
 	date_Naiss=$('#Dat_Naissance').val();
-	if(matricule != null )
+	if ($("#matricule").is('empty'))
 	{
 		$.ajax({
             type : 'get',
@@ -94,7 +93,16 @@ function XHRgePatient()
     });
 	}else
 	{
-		alert('dfds');
+		$.ajax({
+			      var matricule = $('#matricule').val();
+            type : 'get',
+            url : '{{URL::to('searchPatient')}}',
+            data:{'search':nom,'prenom':prenom,'code_barre':code_barre,'Dat_Naissance':date_Naiss},
+            success:function(data,status, xhr){
+                      	$('#liste_patients tbody').html(data);
+                          	$(".numberResult").html(xhr.getResponseHeader("count"));
+            }
+    });
 
 	}
 	
@@ -170,7 +178,7 @@ function setField(field,value)
 <div class="row">
 	<div class="col-sm-12 col-lg-12">
 		<div class="panel panel-default ">
-			<div class="panel-heading center" style="height: 40px; font-size: 2.6vh;">
+			<div class="panel-heading center" style="height: 40px; font-size: 2.3vh;">
 				<strong>Rechercher un Patient</strong>
 			</div>
 		  <div class="panel-body">
@@ -207,7 +215,7 @@ function setField(field,value)
 					</div>
 					<div class="col-sm-1">
 						<label class="control-label pull-right" for="Matricule" >
-							<strong>&nbsp;Matricule:</strong>
+							<strong>&nbsp;Mat:</strong>
 						</label>
 					</div>
 					<div class="col-sm-2">

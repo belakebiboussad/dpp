@@ -102,10 +102,12 @@ class DemandeExamenRadio extends Controller
                 "id_consultation" => $consultID,
             ]);
              //dd($request->ExamsImg);
-             $examsImagerie = json_decode ($request->ExamsImg);
-             foreach ($examsImagerie as $key => $value) {       
-                   $demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => json_encode($value->types)]);
-              }
+            $examsImagerie = json_decode ($request->ExamsImg);
+            //dd($examsImagerie);
+            foreach ($examsImagerie as $key => $value) {       
+              $demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);   //$demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => json_encode($value->types)]);
+
+            }
     
             foreach ($request->infos as $id_info) {
                 $demande->infossuppdemande()->attach($id_info);

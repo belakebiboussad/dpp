@@ -161,7 +161,22 @@ border:2px solid #3F515F;
                                             <td colspan="1" class ="noborders"><strong>Sang :</strong></td>
                                             <td align="left"><span class="badge badge-danger">{{ $patient->group_sang }}{{ $patient->rhesus }}</span></td>
                                             <td class ="noborders"><strong>Type:</strong></td>
-                                            <td align="left">{{ $patient->Type }}</td>
+                                            <td align="left">
+                                              @switch($patient->Type)
+                                                @case("Assure")
+                                                  <span class="label label-sm label-success">
+                                                  @break
+                                                @case("Ayant_droit")
+                                                  <span class="label label-sm label-primary">
+                                                  @break  
+                                                @case("Autre")
+                                                  <span class="label label-sm label-warning"> 
+                                                  @break
+                                              
+                                              @endswitch  
+                                              {{ $patient->Type}}
+                                              </span>
+                                            </td>
                                   </tr>           
                                   </tbody>
                                 </table>

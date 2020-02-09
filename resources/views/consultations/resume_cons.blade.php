@@ -82,7 +82,7 @@
 		<tr role="row">
 			<th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Position: activate to sort column descending" style="width:20%">Date</th>
 			<th tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width:45%">Medecin</th>
-			<th data-orderable="false" class="sorting_disabled" rowspan="1" colspan="1" aria-label="Start date" style="width:45%;">Lieu consultation</th>
+			<th data-orderable="false" class="sorting_disabled" rowspan="1" colspan="1" aria-label="Start date" style="width:45%;">Service</th>
 			<th style="width:5%;"></th>
 		</tr>
 		</thead>
@@ -97,14 +97,13 @@
 			<td class="center" width="30%">
 				<div class="action-buttons">
 				<span >
-				{{ $consult->Nom_Employe }} 
-				 {{ $consult->Prenom_Employe }}
+				 {{ $consult->docteur->Nom_Employe }} {{ $consult->docteur->Prenom_Employe  }}
 				</span>
 				</div>
 			</td>
 			<td class="center" width="45%">
 				<div class="action-buttons">
-				<span >{{$consult->lieu->Nom}}</span>
+				<span >{{$consult->docteur->service->nom}}</span>
 				</div>
 			</td>
 			<td class="center"  width="5%">

@@ -229,7 +229,6 @@ class PatientController extends Controller
     {           
       $grades = grade::all(); 
       $patient = patient::FindOrFail($id);
-     dd($patient->commune()->nom_commune);
       $hommes_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
       if($patient->Type != "Autre")
         $assure =  $patient->assure;  

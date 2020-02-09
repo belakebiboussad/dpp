@@ -137,7 +137,7 @@
 									<thead>
 										<tr>
 											<th class="center">#</th>
-										       	<th class="center">Date</th>
+										  <th class="center">Date</th>
 											<th class="center">Etat</th>
 											<th class="center"></th>
 									  </tr>
@@ -149,11 +149,11 @@
 										<td>{{ $demande->DateDemande }}</td>
 										<td>
 										@if($demande->etat == "E")
-										          En Attente
+										         <span class="badge badge-danger"> En Attente</span>
 										@elseif($demande->etat == "V")
-										          Validé
+										 	<span class="badge badge-success">Validé</span>       
 										@else
-										           Rejeté
+										  <span class="badge badge-success">Rejeté</span>   
 										@endif
 										</td>
 										<td class="center">
@@ -179,7 +179,7 @@
 		            <th class="center">#</th>
 		            <th>Date</th>
 		            <th>Etat</th>
-		            <th></th>
+		            <th class="center"><em class="fa fa-cog"></em></th>
 		          </tr>
             </thead>
 		        <tbody>
@@ -189,11 +189,12 @@
 		            <td>{{ $exr->Date }}</td>
 		            <td>
 		              @if($exr->etat == "E")
-		                En Attente
+		                  <span class="badge badge-warning"> En Attente</span>
 		              @elseif($exr->etat == "V")
 		                Validé
 		              @else
-		                Rejeté
+		               <span class="badge badge-danger">Rejeté</span>
+		                
 		              @endif
 		            </td>
 		            <td class="center">

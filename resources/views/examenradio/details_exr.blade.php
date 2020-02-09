@@ -30,20 +30,19 @@
                           // hidden.
                           hidden.hide();
                           // This would do the job:
-            //
-            $("#lettreorientaioncontent").val("");
+                //
+                $("#lettreorientaioncontent").val("");
             }
             })
       }); 
       $(".two-decimals").change(function(){
           this.value = parseFloat(this.value).toFixed(2);
       });
- function maxLengthCheck(object) {
-      if (object.value.length > object.maxLength)
-        object.value = object.value.slice(0, object.maxLength)
-  }
-    
-  function isNumeric (evt) {
+      function maxLengthCheck(object) {
+          if (object.value.length > object.maxLength)
+              object.value = object.value.slice(0, object.maxLength)
+      }
+      function isNumeric (evt) {
       var theEvent = evt || window.event;
       var key = theEvent.keyCode || theEvent.which;
       key = String.fromCharCode (key);
@@ -96,10 +95,11 @@
                     <br><br>
                     <label><b>Informations supplémentaires pertinentes :</b></label>
                     <div>
-                      
-                          @foreach($demande->infossuppdemande as $index => $info)
-                             <li class="active"><span class="badge badge-warning">{{ $info->nom }}</span></li>
-                          @endforeach
+                      <ul class="list-inline"> 
+                      @foreach($demande->infossuppdemande as $index => $info)
+                          <li class="active"><span class="badge badge-warning">{{ $info->nom }}</span></li>
+                       @endforeach
+                       </ul>
                       
                     </div>
                     <br>

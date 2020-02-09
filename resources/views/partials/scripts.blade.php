@@ -62,9 +62,9 @@
  --}}
  <script type="text/javascript">
     $(document).ready(function(){
-        $(".select2").select2({
-            dir: "fr"
-        });
+        // $(".select2").select2({
+        //     dir: "fr"
+        // });
         $('#avis').change(function(){
             if($(this).val() == "R")
             {
