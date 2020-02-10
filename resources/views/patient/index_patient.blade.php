@@ -80,32 +80,15 @@ function XHRgePatient()
 	prenom=$('#patientFirstName').val();
 	code_barre=$('#IPP').val();
 	date_Naiss=$('#Dat_Naissance').val();
-	if ($("#matricule").is('empty'))
-	{
-		$.ajax({
-            type : 'get',
-            url : '{{URL::to('searchPatient')}}',
-            data:{'search':nom,'prenom':prenom,'code_barre':code_barre,'Dat_Naissance':date_Naiss},
-            success:function(data,status, xhr){
-                      	$('#liste_patients tbody').html(data);
+	$.ajax({
+            		type : 'get',
+            		url : '{{URL::to('searchPatient')}}',
+            		data:{'search':nom,'prenom':prenom,'code_barre':code_barre,'Dat_Naissance':date_Naiss},
+         		success:function(data,status, xhr){
+                      		$('#liste_patients tbody').html(data);
                           	$(".numberResult").html(xhr.getResponseHeader("count"));
-                     }
-    });
-	}else
-	{
-		$.ajax({
-			      var matricule = $('#matricule').val();
-            type : 'get',
-            url : '{{URL::to('searchPatient')}}',
-            data:{'search':nom,'prenom':prenom,'code_barre':code_barre,'Dat_Naissance':date_Naiss},
-            success:function(data,status, xhr){
-                      	$('#liste_patients tbody').html(data);
-                          	$(".numberResult").html(xhr.getResponseHeader("count"));
-            }
-    });
-
-	}
-	
+      		}		
+    	});
 }
 function getPatientdetail(id)
 {
