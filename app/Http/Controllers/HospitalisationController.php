@@ -96,7 +96,9 @@ class HospitalisationController extends Controller
     public function show($id)
     {
         //
-        dd("show");
+        $hosp = hospitalisation::find($id); 
+         return View::make('Hospitalisations.show')->with('hosp', $hosp);
+       
     }
 
     /**

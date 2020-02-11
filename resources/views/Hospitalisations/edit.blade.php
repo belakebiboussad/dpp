@@ -72,7 +72,7 @@
       <div class="row form-group ">
         <div class="col-xs-4">
           <label class="col-sm-3 control-label no-padding-right" for="service">
-            <strong>Service:</strong>
+            <strong>Service :</strong>
           </label>
           <div class="col-sm-9">
             <input type="text" id="service" name="service" placeholder="nom du service"
@@ -227,7 +227,7 @@
 	          <strong> Service :</strong>
 	        </label>
 	        <div class="col-sm-9">
-	      		<select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-6 col-sm-6" placeholder="selectionnez le service d'hospitalisation" @if( Auth::user()->role->id != 5) disabled @endif />
+	      		<select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-6 col-sm-6" placeholder="selectionnez le service d'hospitalisation" @if(!in_array(Auth::user()->role->id,[5,1])) disabled @endif />
 	              <option value="0" selected>selectionnez le service d'hospitalisation</option>
 	              @foreach($services as $service)
 	              <option value="{{ $service->id }}" @if($hosp->admission->lit->salle->service->id == $service->id) selected @endif>
@@ -242,7 +242,7 @@
               <strong> Salle :</strong>
             </label>
             <div class="col-sm-8">
-              <select id="salle" name="salle" data-placeholder="selectionnez la salle d'hospitalisation" class="selectpicker show-menu-arrow place_holder col-xs-6 col-sm-6" @if( Auth::user()->role->id != 5) disabled @endif>
+              <select id="salle" name="salle" data-placeholder="selectionnez la salle d'hospitalisation" class="selectpicker show-menu-arrow place_holder col-xs-6 col-sm-6" @if(!in_array(Auth::user()->role->id,[5,1])) disabled @endif>
                 <option value="0" selected>selectionnez la salle d'hospitalisation</option>      
                 @foreach($hosp->admission->lit->salle->service->salles as $salle)
                 <option value="{{ $salle->id }}" @if($hosp->admission->lit->salle->id == $salle->id) selected @endif >
@@ -258,7 +258,7 @@
               </strong>
             </label>
             <div class="col-sm-8">
-              <select id="lit" name="lit" data-placeholder="selectionnez le lit" class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9" @if( Auth::user()->role->id != 5) disabled @endif>
+              <select id="lit" name="lit" data-placeholder="selectionnez le lit" class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9" @if(!in_array(Auth::user()->role->id,[5,1])) disabled @endif>
                 <option value="0" selected>selectionnez le lit d'hospitalisation</option>      
                 @foreach($hosp->admission->lit->salle->lits as $lit)
                 <option value="{{ $lit->id }}" @if($hosp->admission->lit->id == $lit->id) selected @endif >

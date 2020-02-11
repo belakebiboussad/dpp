@@ -22,6 +22,7 @@ use App\User;
 use Auth; 
 use Date;
 use Flashy;
+use route;
 class HomeController extends Controller
 {
     /**
@@ -52,7 +53,9 @@ class HomeController extends Controller
                       return view('home.home_recep');
                       break;
                 case 3:
-                      return view('home.home_infirmier');
+                     
+                     // return redirect()->route('HospitalisationController@index');
+                      return redirect()->action('HospitalisationController@index');
                       break;
                 case 4: 
                       $users = User::all();

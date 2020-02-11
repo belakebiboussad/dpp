@@ -79,25 +79,18 @@ function XHRgePatient()
 	nom=$('#patientName').val();
 	prenom=$('#patientFirstName').val();
 	code_barre=$('#IPP').val();
-	//var matricule = $('#matricule').val();
+	var matricule = $('#matricule').val();
 	date_Naiss=$('#Dat_Naissance').val();
-<<<<<<< HEAD
-	if ($("#matricule").is('empty'))
-	{
-		$.ajax({
-            type : 'get',
-            url : '{{URL::to('searchPatient')}}',
-            data:{'search':nom,'prenom':prenom,'code_barre':code_barre,'Dat_Naissance':date_Naiss},
-            success:function(data,status, xhr){
-                      	$('#liste_patients tbody').html(data);
+	$.ajax({
+        type : 'get',
+        url : '{{URL::to('searchPatient')}}',
+        data:{'search':nom,'prenom':prenom,'code_barre':code_barre,'Dat_Naissance':date_Naiss,'matricule':matricule},
+        success:function(data,status, xhr){
+                    	$('#liste_patients tbody').html(data);
                           	$(".numberResult").html(xhr.getResponseHeader("count"));
                      }
     });
-	}else
-	{
-		alert('2');
 
-	}
 }
 function getPatientdetail(id)
 {
