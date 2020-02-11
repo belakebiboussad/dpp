@@ -81,6 +81,7 @@ function XHRgePatient()
 	code_barre=$('#IPP').val();
 	//var matricule = $('#matricule').val();
 	date_Naiss=$('#Dat_Naissance').val();
+<<<<<<< HEAD
 	if ($("#matricule").is('empty'))
 	{
 		$.ajax({
@@ -97,7 +98,6 @@ function XHRgePatient()
 		alert('2');
 
 	}
-	
 }
 function getPatientdetail(id)
 {

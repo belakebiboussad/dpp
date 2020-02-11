@@ -108,10 +108,12 @@ class DemandeExamenRadio extends Controller
               $demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);   //$demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => json_encode($value->types)]);
 
             }
-    
-            foreach ($request->infos as $id_info) {
-                $demande->infossuppdemande()->attach($id_info);
-            }
+           if(isset($request->infos))
+           {
+                    foreach ($request->infos as $id_info) {
+                        $demande->infossuppdemande()->attach($id_info);
+                 }
+           }
     }
 
     /**

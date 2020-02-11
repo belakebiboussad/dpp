@@ -47,7 +47,6 @@ class HomeController extends Controller
           switch ($role->id) {
                 case 1:
                       return view('patient.index_patient');
-                      //return redirect()->action('PatientController@index');
                       break;
                 case 2:
                       return view('home.home_recep');
