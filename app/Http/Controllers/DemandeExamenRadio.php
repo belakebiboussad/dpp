@@ -81,19 +81,19 @@ class DemandeExamenRadio extends Controller
     public function store(Request $request, $consultID)
     {
 
-           //   $request->validate([
-           //      "infosc" => "required",
-           //      "explication" => "required",
-           //      "infos" => "required",
-           //      "examensradio" => "required",
-           //      "exmns" => "required"
-           //  ],[
-           //      "infosc.required" => "Ce champ est obligatoire.",
-           //      "explication.required" => "Ce champ est obligatoire.",
-           //      "infos.required" => "Ce champ est obligatoire.",
-           //      "examensradio.required" => "Ce champ est obligatoire.",
-           //      "exmns.required" => "Ce champ est obligatoire.",
-           // ]); 
+            $request->validate([
+                "infosc" => "required",
+                "explication" => "required",
+                "infos" => "required",
+                "examensradio" => "required",
+                "exmns" => "required"
+            ],[
+                "infosc.required" => "Ce champ est obligatoire.",
+                "explication.required" => "Ce champ est obligatoire.",
+                "infos.required" => "Ce champ est obligatoire.",
+                "examensradio.required" => "Ce champ est obligatoire.",
+                "exmns.required" => "Ce champ est obligatoire.",
+           ]); 
               $date = Date::now();
              $demande = demandeexr::FirstOrCreate([
                 "Date" => $date,
