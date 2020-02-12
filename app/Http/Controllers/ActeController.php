@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\modeles\consigne;
 use App\modeles\Acte;
+use Response;
 class ActeController extends Controller
 {
     //
@@ -38,13 +39,10 @@ class ActeController extends Controller
     public function update(Request $request,$id)
     {
         $consigne = consigne::FindOrFail($id);
-
         $consigne -> update([
             "app"=>$request->app,
-            "consigne"=>$request->consigne,
-           
+            "consigne"=>$request->consigne,          
         ]);
-        
         return redirect(Route('consigne.show',$consigne->id));
     }
     public function store(Request $request)
@@ -58,7 +56,7 @@ class ActeController extends Controller
         // ]);
 
         // $acte =Acte::create($request->all());
-        // return Response::json($acte);
+        // 
         $acte = new Acte;
         $acte->nom = $request->nom;
         $acte->id_visite = $request->id_visite;
@@ -67,6 +65,7 @@ class ActeController extends Controller
         $acte->periodes = json_encode($request->periodes);
         $acte->remember_token;
         $acte->save();
+        return Response::json($acte);
     }
 
 }

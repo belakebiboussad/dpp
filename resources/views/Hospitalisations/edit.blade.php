@@ -59,14 +59,14 @@
    <?php $patient = $hosp->admission->demandeHospitalisation->consultation->patient; ?>
    @include('patient._patientInfo', $patient)
 </div><!-- /.page-header -->
-<div class="space-12"></div>
+<!-- <div class="space-12"></div> -->
 <div class="row">
   <div class="col-xs-12">
 	  <form class="form-horizontal" id="editHosp" role="form" method="POST" action="{{ route('hospitalisation.update',$hosp->id)}}">
       {{ csrf_field() }}
       <input type="text" name="id" value="{{$hosp->id}}" hidden>
       <div class="page-header">
-            <h1>informations concernant l'hospitalisation</h1>
+            <h2>Modifier l'hospitalisation</h2>
       </div>
       <div class="space-12"></div>
       <div class="row form-group ">

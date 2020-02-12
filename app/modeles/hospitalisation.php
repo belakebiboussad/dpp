@@ -12,5 +12,13 @@ class hospitalisation extends Model
     public function admission()
     {
      	return $this->belongsTo('App\modeles\admission','id_admission');
+    }
+    public function vistes()
+    {
+        return $this->hasMany('App\modeles\visite','id_hosp');
+    }
+    public function garde()
+    {
+    	return $this->belongsTo('App\modeles\homme_conf','garde_id');
     }                       
 }

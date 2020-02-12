@@ -12,4 +12,8 @@ class Acte extends Model
  //  public  $casts = [
  //   'periodes' => 'array'
 	// ];
+	public function actes()
+	{
+		return $this->belongsTo('App\modeles\visite','id_visite');
+	}
 }

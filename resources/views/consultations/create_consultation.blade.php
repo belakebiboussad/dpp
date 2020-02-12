@@ -388,7 +388,6 @@
   	@include('patient._patientInfo')
 </div>
 <div class="content" style="height:800px;">
-{{-- style="height:800px;" --}}
 <form  class="form-horizontal" action="{{ route('consultations.store') }}" method="POST" role="form" id ="consultForm" novalidate>
 	 {{ csrf_field() }}
 	 <input type="hidden" name="id" value="{{$patient->id}}">
@@ -396,9 +395,9 @@
 	<div class="tabpanel">
 		<ul class = "nav nav-pills nav-justified list-group" role="tablist" id="menu">
 			<li role= "presentation" class="active col-md-4">
-			           <a href="#Interogatoire" aria-controls="Interogatoire" role="tab" data-toggle="tab" class="btn btn-secondary btn-lg">
-			                     <i class="fa fa-commenting" aria-hidden="true"></i>
-			                     <span class="bigger-160"> Interogatoire</span></a>
+			  <a href="#Interogatoire" aria-controls="Interogatoire" role="tab" data-toggle="tab" class="btn btn-secondary btn-lg">
+			    <i class="fa fa-commenting" aria-hidden="true"></i><span class="bigger-160"> Interogatoire</span>
+			  </a>
 			</li>
 			<li role= "presentation"  class="col-md-4">
 			           <a href="#ExamClinique"  ria-controls="ExamClinique" role="tab" data-toggle="tab" class="btn btn-success btn-lg"> 

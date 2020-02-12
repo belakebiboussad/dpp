@@ -238,9 +238,8 @@ route::get('/choixhospconsigne','ActeController@choixhospconsigne');
 route::get('/consigne','ActeController@choixhospconsigne');
 //////acte
 route::post('/saveActe','ActeController@store');
-// route::post('/saveActe',function(){
-//     return("sds");
-// });
+Route::resource('soins','SoinsController');
+
 /**************************/
 // telechargement
 route::get('/download/{filename}', function($filename)

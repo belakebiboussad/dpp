@@ -1,6 +1,5 @@
 <script type="text/Javascript" >
    function ajout(element){
-      alert("sdf");
       var formulaire = window.document.formulaireDynamique;
       // On clone le bouton d'ajout
       var ajout = element.cloneNode(true);

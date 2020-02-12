@@ -26,19 +26,17 @@ class VisiteController extends Controller
     
     public function index()
     {
-        
+        return redirect()->action('HospitalisationController@index');
     }
 
 
     public function choixpatvisite()
-    {   
-    	   
+    {    
       $patient=patient::join('consultations','patients.id','=','consultations.Patient_ID_Patient')
                      ->join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
                      ->join('hospitalisations','demandehospitalisations.id','=','hospitalisations.id_demande')
                      ->select('patients.Nom','patients.Prenom','patients.Sexe','patients.Dat_Naissance','hospitalisations.Date_entree','hospitalisations.Date_Prevu_Sortie','hospitalisations.id')
                      ->get();     
-        
       return view('visite.choix_patient_visite',compact('patient')); //   return view('visite.choix_patient_visite');
      
     }
@@ -52,14 +50,14 @@ class VisiteController extends Controller
     {
       $patient = (hospitalisation::FindOrFail($id_hosp))->admission->demandeHospitalisation->consultation->patient;
       $date = Carbon\Carbon::now();//$date = Date::Now();
-      $t =  $date->format("H:i");
-      $v =new visite;
-      $v->date=$date;
-      $v->heure=$date->format("H:i");
-      $v->id_hosp=$id_hosp;
-      $v->id_employe=Auth::User()->employee_id;
-      $v->save();
-      return view('visite.create',compact('patient'))->with('id_hosp',$id_hosp)->with('id',$v->id);
+      $visite =new visite;
+      $visite->date=$date;
+      $visite->heure=$date->format("H:i");
+      $visite->id_hosp=$id_hosp;
+      $visite->id_employe=Auth::User()->employee_id;
+      $visite->save();
+      // ->with('id_hosp',$id_hosp)
+      return view('visite.create',compact('patient'))->with('id',$visite->id);
     }
  /**
      * Show the form for creating a new resource.
@@ -67,7 +65,12 @@ class VisiteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,$id)
+    public function store(Request $request)
+    {
+      dd("2");
+      return redirect()->action('HospitalisationController@index');
+    }
+    public function storebouzidi(Request $request,$id)
     {
       
       $date = Date::Now();
@@ -86,9 +89,6 @@ class VisiteController extends Controller
       $c->duree=$request->dur[0];
       $c->save();
       /************************************/
-      //  dd($request->p[0][0]);
-      // dd($request->p[1]);
-      //  dd($request->p[2]);
       if (isset($request->p[0][0]) && !empty($request->p[0][0]))
       {
         if (($request->p[0][0])=='Matin')
@@ -99,7 +99,7 @@ class VisiteController extends Controller
           $p->save();
         }
       }
-                   if (isset($request->p[1][0]) && !empty($request->p[1][0]))
+                  if (isset($request->p[1][0]) && !empty($request->p[1][0]))
                   {
 
                   if(($request->p[1][0])=='Midi')

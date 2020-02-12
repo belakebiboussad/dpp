@@ -97,7 +97,7 @@ class HospitalisationController extends Controller
     {
         //
         $hosp = hospitalisation::find($id); 
-         return View::make('Hospitalisations.show')->with('hosp', $hosp);
+        return View::make('Hospitalisations.show')->with('hosp', $hosp);
        
     }
 
@@ -111,7 +111,6 @@ class HospitalisationController extends Controller
     {
         $hosp = hospitalisation::find($id); 
         $services =service::all();
-        // dd($hosp->admission->demandeHospitalisation->consultation->patient->hommesConf);
         return View::make('Hospitalisations.edit')->with('hosp', $hosp)->with('services',$services);
     }
 
