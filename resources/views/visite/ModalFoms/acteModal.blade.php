@@ -11,11 +11,14 @@
 					  <form id="addActe" method="POST" action ="/saveActe" name="form1" id="form1">
 					 		{{ csrf_field() }}
 					 		<input type="hidden" name="visiteId" id ="visiteId" value="{{ $id }}">
-					 		{{-- <input type="hidden" value="{{$id_hosp}}" name="idhosp"> --}}
+					 		<input type="hidden" value="" name="idhosp">
+					 		<input type="hidden" value="" name="acte_id">
+
+
 					 		<div class="space-12"></div>
 					 		<div class="row">
 					 				<div class="form-group">
-										<label for=""class="col-sm-3 control-label no-padding-right"><b>Acte	 :</b></label>
+										<label for=""class="col-sm-3 control-label no-padding-right"><b>Acte:</b></label>
 										<div class="col-sm-7">
 											<input name="cons" id="cons" class="form-control" required>
 										</div>
@@ -58,12 +61,11 @@
 									<label class="" for="col-sm-3">jour</label>
 								</div>	
 							</div>
-					 
 					 		<div class="space-12"></div>
 					 		<hr>
 					 		<div class="row" align="right">
 					 			<button type="submit" id="EnregistrerActe" class="btn btn-primary btn-xs" value ="add">
-             			<i class="ace-icon  fa fa-plus-circle fa-lg bigger-110"></i>&nbsp;&nbsp;Ajouter
+             			<i class="ace-icon fa fa-save bigger-110"></i>&nbsp;&nbsp;Enregistrer
              		</button>
              		<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
         					<i class="ace-icon fa fa-close bigger-110"></i>Fermer

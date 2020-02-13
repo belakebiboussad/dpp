@@ -67,8 +67,7 @@ class VisiteController extends Controller
      */
     public function store(Request $request)
     {
-      dd("2");
-      return redirect()->action('HospitalisationController@index');
+     return redirect()->action('HospitalisationController@index');
     }
     public function storebouzidi(Request $request,$id)
     {

@@ -22,14 +22,7 @@
     $("#EnregistrerActe").click(function (e) { 
     	if(! isEmpty($("#cons").val()) )
 	    { 
-	    	if($('.dataTables_empty').length > 0)
-      	{
-        	$('.dataTables_empty').remove();
-      	}
-	    	var matincheck = $('#' + 'Matin').is(":checked") ?'checked':'';
-	      var midicheck = $('#' + 'Midi').is(":checked") ?'checked':'';
-	      var soircheck = $('#' + 'Soir').is(":checked") ?'checked':'';
-	  	 	$('#acteModal').modal('toggle');
+	    	$('#acteModal').modal('toggle');
 	   	}
 	    $.ajaxSetup({
 	  	  headers: {
@@ -48,18 +41,37 @@
 	 	  	description:$('#description').val(),
 	 	  	duree : $('#nbr_j').val()
 	 		};
-	 		var url = $('#addActe').attr('action');
+	 		var state = jQuery('#EnregistrerActe').val();
+	 		var acte_id = jQuery('#acte_id').val();
+      var type = "POST";
+			var ajaxurl = $('#addActe').attr('action');
+	 		if (state == "update") {
+	            type = "PUT";
+	            ajaxurl = '/acte/' + acte_id;
+	    }
 	 		$.ajax({
-          type:'POST',
-          url:url,
+          type:type,
+          url:ajaxurl,
           data: formData,
           dataType:'json',
           success: function (data) {
-          	$( "#listActes" ).append("<tr><td>"+data.id+"</td><td>"+data.nom+"</td><td>"+data.duree+"</td><td>"+data.description+"</td><td><input type='checkbox' value='"+$("#Matin").val()+"'"+ matincheck +"><input type='checkbox' value='"+ $("#Midi").val()+"'"+midicheck+"><input type='checkbox' value='"+$("#Soir").val()+"'"+soircheck+"></td></tr>");
+        		if($('.dataTables_empty').length > 0)
+      			{
+        			$('.dataTables_empty').remove();
+      			}
+      			var acte = "<tr><td>"+data.id+"</td><td>"+data.nom+"</td><td>"+data.duree+"</td><td>"+data.description+"</td><td><span class='badge badge-success'>"+JSON.parse(data.periodes)+"</span></td>" 	
+           	acte    += '<td class ="center"><button type="button" class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';    
+           	acte += '<button type="button" class="btn btn-xs btn-danger delete-acte" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></btton></td></tr>';
+            if (state == "add") {
+            }else{
+            	$("#garde" + hom_id).replaceWith(homme);
+            }
+
+           	$( "#listActes" ).append(acte);
+
           },         
           error: function (data){
                 console.log('Error:', data);
-                alert('error');
           }
       });
 	  });
@@ -83,10 +95,24 @@
             {
              	var loc = window.location;
               window.location.replace('/hospitalisation');  
-              console.log("it Work");
             }
         });
         return false;
+		});
+		$('body').on('click', '.open-modal', function () {
+				var acteID = $(this).val();
+			  $.get('/acte/'+acteID+'/edit', function (data) {
+			  	$('#id_hosp').val(data.id_hosp);
+			  	$('#acte_id').val(data.id);		
+			  	$('#cons').val(data.nom);
+			  	$('#description').val(data.description);
+			   	$.each( JSON.parse(data.periodes), function( index, value ) {
+  				  $('#' + value).prop("checked",true);
+					});
+			  	$('#nbr_j').val(data.duree);
+			  	jQuery('#EnregistrerActe').val("update");		
+			  	jQuery('#acteModal').modal('show');
+			  });
 		});
   });
   </script>
@@ -138,13 +164,17 @@
 				            		<tr class ="center">
 						              <th class ="hidden"></th>
 						            	<th scope="col" class ="center"></th>
-													<th scope="col" class ="center"><strong>Acte</strong></th>
+													<th scope="col" class ="center"><strong>Nom</strong></th>
 													<th scope="col" class ="center"><strong>Nombre de jours</strong></th>
 													<th scope="col" class ="center">Decription</th>
 													<th scope="col" class ="center"><strong>Périodes</strong></th>
 																								<th scope="col" class=" center nosort"><em class="fa fa-cog"></em></th>
 				            		</tr>
 				          		</thead>
+				          		<tbody>
+				          			 @foreach($hommes_c as $hom)
+				          			 @endforeach
+				          		</tbody>
 				      			</table>	
 				     			</div>
 				  		</div>

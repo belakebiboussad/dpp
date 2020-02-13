@@ -5,7 +5,7 @@
 		 function showType(value,i){
 		 	switch(value){
 			              case "Assure":  
-			              	$("#nomf").val($("#nom").val());// $("ul#menuPatient li:not(.active.hidden_fields)").css('display', '');
+			              	$("#nomf").val($("#nom").val());
 				              $("#prenomf").val($("#prenom").val());
 				              $("#datenaissancef").val($("#datenaissance").val());
 				              $("#lieunaissancef").val($("#lieunaissance").val());
@@ -203,7 +203,6 @@
       });
       jQuery('body').on('click', '.open-modal', function () {
         var hom_id = $(this).val();
-
         $.get('/hommeConfiance/'+hom_id+'/edit', function (data) {
 		        $('#patientId').val(data.id_patient);		
 		        $('#hom_id').val(data.id);		
@@ -216,7 +215,7 @@
 					        $(this).prop("selected", true);
 					    }
 					  });				
-					  $('#' + data.type_piece).prop('checked',true); //	alert(data.type_piece);
+					  $('#' + data.type_piece).prop('checked',true); 
 				  	$('#num_piece').val(data.num_piece);
 				  	$('#date_piece_id').val(data.date_deliv);
 				  	$('#adresse_h').val(data.adresse);

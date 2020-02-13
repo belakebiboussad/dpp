@@ -26,9 +26,9 @@ class ActeController extends Controller
 
      public function edit($id)
     {
-        $consignes = consigne::FindOrFail($id);
-
-     return view('consigne.edit_consigne',compact('consignes'));
+        //  $consignes = consigne::FindOrFail($id); // return view('consigne.edit_consigne',compact('consignes'));
+        $acte = Acte::find($id);
+        return Response::json($acte);
     }
 
      public function show($id)

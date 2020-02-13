@@ -53,7 +53,6 @@
 	 	  	duree : $('#nbr_j').val()
 	 		};
 	 		var url = $('#addActe').attr('action');
-	 		console.log(formData);
 	 		$.ajax({
           type:'POST',
           url:url,
