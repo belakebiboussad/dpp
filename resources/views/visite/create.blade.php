@@ -15,9 +15,8 @@
 			               
 			            },
     	});
-    	var i = 1;
     	$('td.dataTables_empty').html('');
-    	 /////////////
+    /////////////
     //////////////////Enregistre acte
     //////////////////////////////////
     $("#EnregistrerActe").click(function (e) { 
@@ -30,8 +29,6 @@
 	    	var matincheck = $('#' + 'Matin').is(":checked") ?'checked':'';
 	      var midicheck = $('#' + 'Midi').is(":checked") ?'checked':'';
 	      var soircheck = $('#' + 'Soir').is(":checked") ?'checked':'';
-	     	$( "#listActes" ).append("<tr><td>"+i+"</td><td>"+$("#cons").val()+"</td><td>"+$("#nbr_j").val()+"</td><td><input type='checkbox' value='"+$("#Matin").val()+"'"+ matincheck +"></td><td><input type='checkbox' value='"+ $("#Midi").val()+"'"+midicheck+"></td><td><input type='checkbox' value='"+$("#Soir").val()+"'"+soircheck+"></td></tr>");
-	  	 	i = i + 1;
 	  	 	$('#acteModal').modal('toggle');
 	   	}
 	    $.ajaxSetup({
@@ -58,8 +55,7 @@
           data: formData,
           dataType:'json',
           success: function (data) {
-          	alert(data);
-          	console.log(data);
+          	$( "#listActes" ).append("<tr><td>"+data.id+"</td><td>"+data.nom+"</td><td>"+data.duree+"</td><td>"+data.description+"</td><td><input type='checkbox' value='"+$("#Matin").val()+"'"+ matincheck +"><input type='checkbox' value='"+ $("#Midi").val()+"'"+midicheck+"><input type='checkbox' value='"+$("#Soir").val()+"'"+soircheck+"></td></tr>");
           },         
           error: function (data){
                 console.log('Error:', data);
@@ -144,10 +140,9 @@
 						            	<th scope="col" class ="center"></th>
 													<th scope="col" class ="center"><strong>Acte</strong></th>
 													<th scope="col" class ="center"><strong>Nombre de jours</strong></th>
-													<th scope="col" class ="center"><strong>Matin</strong></th>
-													<th scope="col" class ="center"><strong>Midi</strong></th>
-													<th scope="col" class ="center"><strong>Soir</strong></th>
-													<th scope="col" class=" center nosort"><em class="fa fa-cog"></em></th>
+													<th scope="col" class ="center">Decription</th>
+													<th scope="col" class ="center"><strong>Périodes</strong></th>
+																								<th scope="col" class=" center nosort"><em class="fa fa-cog"></em></th>
 				            		</tr>
 				          		</thead>
 				      			</table>	
