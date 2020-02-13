@@ -3,7 +3,7 @@
 	<div class="page-header">
 		<h1 style="display: inline;"><strong>Ajouter Antécédant Pour :</strong> 
 		{{-- {{ $patient->Nom }} {{ $patient->Prenom }}</h1> --}}
-		  @include('partials._patientInfo')
+		  @include('patient._patientInfo')
 		<div class="pull-right"> </div>
 	</div>
 	 	<div class= "col-md-6 col-xs-6">

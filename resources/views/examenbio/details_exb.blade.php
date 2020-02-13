@@ -71,6 +71,7 @@
 @endsection
 @section('main-content')
 <div class="page-header" width="100%">
+<<<<<<< HEAD
    <div class="row">
     <div class="col-sm-12">
       <div class="widget-box">
@@ -105,6 +106,10 @@
       </div>
     </div>
   </div>
+=======
+   <?php $patient = $demande->consultation->patient; ?> 
+    @include('patient._patientInfo')    
+>>>>>>> dev
 </div>
 <div class="content">
   <div class="row">
@@ -115,7 +120,11 @@
             <tr>
               <th class="center">#</th>
               <th>Examen</th>
+<<<<<<< HEAD
               <th></th>
+=======
+              <th><em class="fa fa-cog"></em></th>
+>>>>>>> dev
             </tr>
           </thead>
           <tbody>
@@ -137,14 +146,24 @@
             <label><b>Upload Résultat :</b></label>
           </div>
           <div class="col-xs-8">
+<<<<<<< HEAD
             <input type="file" id="id-input-file-2" name="resultat" />
+=======
+            <input type="file" id="id-input-file-2" name="resultat" placeholder ="fichier..." class="form-control" required/>
+>>>>>>> dev
           </div>
         </div>
         <div class="clearfix form-actions">
           <div class="col-md-offset-5 col-md-7">
             <button class="btn btn-info" type="submit">
+<<<<<<< HEAD
               <i class="ace-icon fa fa-check bigger-110"></i>
               Enregistrer
+=======
+             <!--  <i class="ace-icon fa fa-upload bigger-110"></i> -->
+             <i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>
+              Démarrer l'envoie
+>>>>>>> dev
             </button>
           </div>
         </div>

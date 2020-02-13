@@ -5,7 +5,7 @@
       <div class="modal-header">
            <button type="button" class="close" data-dismiss="modal">&times;</button>
            <h4 class="modal-title">Lettre d'orientation</h4>
-           @include('partials._patientInfo')
+           @include('patient._patientInfo')
       </div>
       <div class="modal-body ">
            <div class="container-fluid">
@@ -41,10 +41,10 @@
     	<br/><br>
           </div>        
       </div> 
+      <div class="space-12"></div>
           <div class="modal-footer">
-               
-	        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="lettreorientation()">Enregistrer</button>
-	        <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#lettreorien"  onclick="lettreoriet('{{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Nom_Employe }}','{{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Prenom_Employe }}','{{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Service_Employe }}','{{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->tele_mobile }}','{{$patient->Nom}}','{{ $patient->Prenom}}',{{Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age}})">Imprimer</button>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="lettreorientation()">Enregistrer</button>
+	          <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#lettreorien"  onclick="lettreoriet('{{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Nom_Employe }}','{{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Prenom_Employe }}','{{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Service_Employe }}','{{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->tele_mobile }}','{{$patient->Nom}}','{{ $patient->Prenom}}',{{Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age}})">Imprimer</button>
 	        <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
 
      	 </div>

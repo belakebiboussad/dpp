@@ -1,5 +1,4 @@
-<!-- #section:basics/sidebar -->
-<div id="sidebar" class="sidebar                  responsive">
+<div id="sidebar" class="sidebar responsive">
     <script type="text/javascript">
         try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
     </script>
@@ -36,60 +35,39 @@
             <span class="btn btn-danger"></span>
         </div>
     </div><!-- /.sidebar-shortcuts -->
-
-    <li class="">
-        <a href="home">
-            <i class="menu-icon fa fa-picture-o"></i>
-            <span class="menu-text">MENU Gestion Utilisateurs</span>
-        </a>
-
-        <b class="arrow"></b>
-    </li>
-
     <ul class="nav nav-list">
         <li class="">
             <a href="{{ route('home_admin') }}">
                 <i class="menu-icon fa fa-university"></i>
                 <span class="menu-text"> Acceuil </span>
             </a>
-
             <b class="arrow"></b>
         </li>
-
         <li class="">
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-users"></i>
-							<span class="menu-text">
-								Gestion Utilisateurs
-							</span>
+                            <span class="menu-text">
+                                Gestion Utilisateurs
+                            </span>
 
                 <b class="arrow fa fa-angle-down"></b>
             </a>
+                <b class="arrow"></b>
+                <ul class="submenu">
+                    <li class="">
+                        <a href="{{ route('users.create') }}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Ajouter Utilisateur
+                        </a>
 
-            <b class="arrow"></b>
-
-            <ul class="submenu">
-
-                <li class="">
-                    <a href="{{ route('users.create') }}">
-                        <i class="menu-icon fa fa-caret-right"></i>
-                        Ajouter Utilisateur
-                    </a>
-
-                    <b class="arrow"></b>
-                </li>
-
-                <li class="">
-                    <a href="{{ route('users.index') }}">
-                        <i class="menu-icon fa fa-caret-right"></i>
-                        Liste Utilisateurs
-                    </a>
-
-                    <b class="arrow"></b>
-                </li>
-            </ul>
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="">
+                        <a href="{{ route('users.index') }}">Liste Utilisateurs</a>
+                    </li>
+                </ul>
         </li>
-         <li class="">
+        <li class="">
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-tags"></i>
                             <span class="menu-text">
@@ -102,7 +80,6 @@
             <b class="arrow"></b>
 
             <ul class="submenu">
-
                 <li class="">
                     <a href="{{ route('role.create') }}">
                         <i class="menu-icon fa fa-caret-right"></i>
@@ -120,6 +97,7 @@
 
                     <b class="arrow"></b>
                 </li>
+              
             </ul>
         </li>
         <li class="">
@@ -135,7 +113,6 @@
             <b class="arrow"></b>
 
             <ul class="submenu">
-
                 <li class="">
                     <a href="{{ route('service.index') }}">
                         <i class="menu-icon fa fa-caret-right"></i>
@@ -162,19 +139,9 @@
 
                     <b class="arrow"></b>
                 </li>
+              
             </ul>
         </li>
     </ul><!-- /.nav-list -->
 
-    <!-- #section:basics/sidebar.layout.minimize -->
-    <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
-        <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
-    </div>
-
-    <!-- /section:basics/sidebar.layout.minimize -->
-    <script type="text/javascript">
-        try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
-    </script>
 </div>
-
-<!-- /section:basics/sidebar -->

@@ -78,7 +78,7 @@
                 <li class="">
                     <a href="{{ route('demandeproduit.index') }}">
                         <i class="menu-icon fa fa-caret-right"></i>
-                        Liste de prosuits
+                        Liste Des Demandes
                     </a>
                     <b class="arrow"></b>
                 </li>              

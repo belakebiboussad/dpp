@@ -91,18 +91,15 @@ class MedicamentsController extends Controller
     public function getmedicaments()
     {
         $medicaments = medicament::select(['id','Nom_com','Code_DCI','Forme','Dosage','Conditionnement']);
-        // $x = Datatables::of($medicaments);
-        // dd($x);
-        return Datatables::of($medicaments)
-            ->addColumn('action', function ($medicament) {
-                return '<div class="hidden-sm hidden-xs btn-group">
-                            <button class="btn btn-xs btn-primary"  
-                            onclick="medicm('.$medicament->id.')">
-                            <i class="ace-icon  fa fa-plus-circle bigger-120"></i>
-                            </button>';
-                        //     </div><div class="hidden-sm hidden-xs btn-group">
-                        //     <a href="#" class="btn btn-xs btn-success">
-                        //         <i class="ace-icon fa fa-hand-o-up bigger-120"></i>
+        // $x = Datatables::of($medicaments);  // dd($x);
+           return Datatables::of($medicaments)
+                     ->addColumn('action', function ($medicament) {
+                                return '<div class="hidden-sm hidden-xs btn-group">
+                                         <button class="btn btn-xs btn-primary"  
+                                            onclick="medicmV1('.$medicament->id.')">
+                                             <i class="ace-icon  fa fa-plus-circle"></i>
+                                           </button>';
+                              //</div><div class="hidden-sm hidden-xs btn-group">//<a href="#" class="btn btn-xs btn-success"> //<i class="ace-icon fa fa-hand-o-up bigger-120"></i>
                         //     </a>
                         // </div>
             })

@@ -18,9 +18,15 @@
                                       <thead>
                                            <tr>
                                                 <th class="center">#</th>
+<<<<<<< HEAD
                                                 <th>Nom</th>
                                                 <th>Dosage</th>
                                                 <th>Forme</th>
+=======
+                                                <th><strong>Nom</strong></th>
+                                                <th><strong>Dosage</strong></th>
+                                                <th><strong>Forme</strong></th>
+>>>>>>> dev
                                                 <th>Posologie</th>
                                            </tr>
                                       </thead>
@@ -37,6 +43,7 @@
                                       </tbody>
                                     </table>
                                     <a href="/showordonnance/{{ $ordonnance->id }}" target="_blank" class="btn btn-primary pull-right">
+<<<<<<< HEAD
                                       <i class="fa fa-eye"></i>&nbsp;
                                       Visualiser Ordonnance
                                     </a>
@@ -47,4 +54,15 @@
                       		</div>
                       	</div>
                       </div>
+=======
+                                                        <i class="fa fa-print"></i>&nbsp;Imprimer
+                                      </a>
+                      		</div>
+                      	</div>
+                      </div>
+                </div>
+           </div>
+      </div>
+</div>
+>>>>>>> dev
 @endsection

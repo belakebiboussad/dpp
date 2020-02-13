@@ -9,7 +9,11 @@ use Jenssegers\Date\Date;
 use App\modeles\demandeexb;
 use Illuminate\Support\Facades\Storage;
 use PDF;
+<<<<<<< HEAD
 
+=======
+use ToUtf;
+>>>>>>> dev
 class DemandeExbController extends Controller
 {
     /**
@@ -45,6 +49,7 @@ class DemandeExbController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
     public function store(Request $request)
     {
         $date = Date::now();
@@ -59,6 +64,20 @@ class DemandeExbController extends Controller
         }
 
         return redirect()->route('consultations.show', $request->id_consultation);
+=======
+    public function store(Request $request,$consultId)
+    {
+
+             $date = Date::now();
+             $demande = demandeexb::FirstOrCreate([
+                     "DateDemande" => $date,
+                     "id_consultation" => $consultId,
+             ]);
+             
+             foreach($request->exm as $id_exb) {
+                          $demande->examensbios()->attach($id_exb);
+              }
+>>>>>>> dev
     }
 
     /**
@@ -106,7 +125,10 @@ class DemandeExbController extends Controller
     {
         //
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev
     public function detailsdemandeexb($id)
     {
         $demande = demandeexb::FindOrFail($id);
@@ -115,6 +137,7 @@ class DemandeExbController extends Controller
 
     public function uploadresultat(Request $request)
     {
+<<<<<<< HEAD
         $demande = demandeexb::FindOrFail($request->id_demande);
         $demande->update([
             "etat" => "V",
@@ -127,6 +150,21 @@ class DemandeExbController extends Controller
 
         return redirect()->route('homelaboexb');
 
+=======
+        $request->validate([
+            'resultat' => 'required',
+        ]);
+        $demande = demandeexb::FindOrFail($request->id_demande);
+        $filename = $request->file('resultat')->getClientOriginalName();
+        $filename =  ToUtf::cleanString($filename);
+        $file = file_get_contents($request->file('resultat')->getRealPath());
+        Storage::disk('local')->put($filename, $file);
+        $demande->update([
+            "etat" => "V",
+            "resultat" =>$filename ,
+        ]);
+        return redirect()->route('homelaboexb');
+>>>>>>> dev
     }
 
     public function listedemandesexb()
@@ -137,8 +175,14 @@ class DemandeExbController extends Controller
 
     public function show_demande_exb($id)
     {
+<<<<<<< HEAD
         $demande = demandeexb::FindOrFail($id);
         $pdf = PDF::loadView('demande_exb', compact('demande'));
+=======
+
+        $demande = demandeexb::FindOrFail($id);
+        $pdf = PDF::loadView('examenbio.demande_exb', compact('demande'));
+>>>>>>> dev
         return $pdf->stream('demande_examen_biologique.pdf');
     }
 }

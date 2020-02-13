@@ -32,9 +32,9 @@ class RDVController extends Controller
     }
     public function reporter($id)
     {
-           $rdv = rdv::FindOrFail($id);
-           $patient = patient::FindOrFail($rdv->Patient_ID_Patient);
-          return view('rdv.reporter_rdv',compact('rdv','patient'));
+      $rdv = rdv::FindOrFail($id);
+      $patient = patient::FindOrFail($rdv->Patient_ID_Patient);
+      return view('rdv.reporter_rdv',compact('rdv','patient'));
     }
     public function storereporte(Request $request,$id)
     {
@@ -48,10 +48,18 @@ class RDVController extends Controller
     {
        return view('patient.index_patient');
     }
-    public function index()
+    public function index($patientID = null)
     {
-           $rdvs = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->get();
-           return view('rdv.index', compact('rdvs')); 
+          $rdvs = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')
+                     ->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1',
+                              'patients.Dat_Naissance')->get();
+           if(isset($patientID)) 
+           {
+                $patient = patient::FindOrFail($patientID);   
+                return view('rdv.index', compact('rdvs','patient'));                  
+           }
+           else
+                return view('rdv.index', compact('rdvs')); 
     }
     public function indexorg()
     {
@@ -140,9 +148,7 @@ class RDVController extends Controller
     {
            $employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
            $patient = patient::FindOrFail($id_patient);
-           // $data = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->where("specialite", $employe->Specialite_Emploiye)->get();
            $data = rdv::all();
-      
            return view('rdv.create_rdv',compact('patient','data'));
     }
 
@@ -313,8 +319,8 @@ class RDVController extends Controller
 
      }     
   
-      public function checkFullCalendar(Request $request)
-     {
+    public function checkFullCalendar(Request $request)
+    {
            $events = array(); 
            $today = Carbon::now()->format('Y-m-d');
            $rendezVous = rdv::all();
@@ -330,5 +336,4 @@ class RDVController extends Controller
            // return response()->json(['events' , $events]);
            return response()->json($events);
      }
-
 }

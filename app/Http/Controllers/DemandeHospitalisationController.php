@@ -6,7 +6,13 @@ use Illuminate\Http\Request;
 use App\modeles\consultation;
 use App\modeles\patient;
 use App\modeles\DemandeHospitalisation;
+use App\modeles\dem_colloque;
+use App\User;
+use App\modeles\employ;
+use App\modeles\colloque;
+use Auth;
 use Jenssegers\Date\Date;
+use Response;
 
 class DemandeHospitalisationController extends Controller
 {
@@ -17,11 +23,11 @@ class DemandeHospitalisationController extends Controller
      */
     public function index()
     {
-        $demandehospitalisation = consultation::join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
-                                                        ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
-                                                        ->select('demandehospitalisations.*','demandehospitalisations.id as ident','consultations.Employe_ID_Employe','consultations.Date_Consultation','patients.Nom','patients.Prenom','patients.Dat_Naissance')
-                                                        ->get();
-        return view('demandehospitalisation.index_demande',compact('demandehospitalisation'));
+        $employeID= employ::where("id",Auth::user()->employee_id)->get()->first()->id ;           
+        $demandehospitalisations = DemandeHospitalisation::whereHas('consultation.docteur', function ($q) use ($employeID) {
+                        $q->where('id',$employeID);
+                    })->get();                  
+        return view('demandehospitalisation.index',compact('demandehospitalisations'));
     }
 
     /**
@@ -45,16 +51,15 @@ class DemandeHospitalisationController extends Controller
      */
     public function store(Request $request ,$consultID)
     { 
-         
-           $a =  DemandeHospitalisation::create([
+          
+        $a =  DemandeHospitalisation::create([
             "modeAdmission"=>$request->modeAdmission,
             "service"=>$request->service,
-            "specialite"=>$request->specialiteDemande,
-            "degree_urgence"=>$request->degreurg,
+            "specialite"=>$request->specialiteDemande, // "degree_urgence"=>$request->degreurg,
             "id_consultation"=>$consultID,
             "etat " =>"en attente",
-            ]);  
-    }
+        ]);  
+   }
     public function storeOLD(Request $request)
     {
         $date = Date::Now();
@@ -78,9 +83,7 @@ class DemandeHospitalisationController extends Controller
     public function show($id)
     {
         $demande = DemandeHospitalisation::FindOrFail($id);
-        $consultation = consultation::FindOrFail($demande->id_consultation);
-        $patient = patient::FindOrFail($consultation->Patient_ID_Patient);
-        return view('demandehospitalisation.show_demande',compact('demande','consultation','patient'));
+        return view('demandehospitalisation.show_demande',compact('demande'));
     }
 
     /**
@@ -123,5 +126,29 @@ class DemandeHospitalisationController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function listedemandes($type)
+    {
+        $demandehospitalisations = DemandeHospitalisation::whereHas('Specialite.type', function ($q) use ($type) {
+                                           $q->where('id',$type);                           
+                                    })->where('etat','en attente')->get();                       
+        return view('demandehospitalisation.index',compact('demandehospitalisations'));
+    }
+    public function valider(Request $request)
+    {
+         $dem = dem_colloque::firstOrCreate($request->all());
+         $demande  =  DemandeHospitalisation::FindOrFail($request->id_demande); 
+         $demande->etat ="valide";
+         $demande->save();
+         return Response::json($demande);
+    }
+    public function invalider(Request $request)
+    {
+        $demande  = DemandeHospitalisation::FindOrFail($request->id_demande);       //$dem = dem_colloque::destroy($request->id_demande);  
+        $colloque = colloque::find($request->id_colloque);
+        $colloque->demandes()->detach($request->id_demande);
+        $demande->etat ="en attente";
+        $demande->save();
+        return Response::json($demande);   
     }
 }

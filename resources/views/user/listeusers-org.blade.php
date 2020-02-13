@@ -19,7 +19,7 @@
 						<table id="users" class="table table-striped table-bordered table-hover">
 						<thead>
 						<tr>
-							<th>Username</th>
+							<th>Nom Utilisateur</th>
 							<th>Email</th>
 							<th>Rôle</th>
 							<th>Ajouter Un Utlisateur</th>

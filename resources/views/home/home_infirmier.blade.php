@@ -1,1 +1,4 @@
-<h1>infirmier</h1>			
+@extends('app_inf')
+@section('main-content')
+
+@endsection	

@@ -100,9 +100,7 @@
             </a>
             <b class="arrow"></b>
             <ul class="submenu">
-          {{--       <li class="">
-                    <a href="/choixpatient">
-                        <i class="menu-icon fa fa-caret-right"></i>
+          {{-- <li class=""> <a href="/choixpatient"><i class="menu-icon fa fa-caret-right"></i>
                         Ajouter RDV
                     </a>
 

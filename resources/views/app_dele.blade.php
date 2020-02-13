@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-    {{-- <title>Gestion Des Colloques</title> --}}
-     <title>@yield('title','Gestion Des Colloques')</title>
-    {{-- @include('partials.htmlheader',['html_title' => "Gestion Des Colloques"]) --}}
     @include('partials.htmlheader')
   <body class="no-skin">
          @include('partials.scripts')
@@ -21,6 +18,7 @@
         @elseif(App\modeles\rol::where("id",Illuminate\Support\Facades\Auth::user()->role_id)->first()->role == "Delegue colloque")
             @include('partials.sidebar_dele')
         @endif
+      
         <div class="main-content">
                  <div class="main-content-inner">
                 @include('partials.breadcrumbs_rec')

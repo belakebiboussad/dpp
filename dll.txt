@@ -1,0 +1,8 @@
+voir la cible de dll
+version 32 64
+faire les interface pour la dll
+
+donner la cible 3.5
+$runtime = new \NetPhp\Core\NetPhpRuntime('COM', '{2BF990C8-2680-474D-BDB4-65EEAEE0015F}')
+composer require drupalonwindows/netphp
+

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 @extends('app_med')
+=======
+@extends((( Auth::user()->role->id === 12) ? 'app_radiologue' : 'app_med' ))
+>>>>>>> dev
 @section('page-script')
 <script src="{{asset('/js/jquery.min.js')}}"></script>
 <script>
@@ -71,6 +75,7 @@
 @endsection
 @section('main-content')
 <div class="page-header" width="100%">
+<<<<<<< HEAD
    <div class="row">
     <div class="col-sm-12">
       <div class="widget-box">
@@ -156,15 +161,77 @@
                           </tr>
                         </thead>
                         <tbody>
+=======
+  <?php $patient = $demande->consultation->patient; ?> 
+    @include('patient._patientInfo')        
+</div>
+<div class="content">
+  <div class="row">
+    <div class="col-sm-3"></div> <div class="col-sm-3"></div> <div class="col-sm-3"></div>
+    <div class="col-sm-3">
+      <a href="/showdemandeexr/{{ $demande->id }}" target="_blank" class="btn btn-sm btn-primary pull-right">
+        <i class="fa fa-file-pdf-o"></i>&nbsp;Imprimer
+      </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 widget-container-col" id="consultation">
+      <div class="widget-box" id="infopatient">
+        <div class="widget-header">
+          <h5 class="widget-title"><b>Détails d'un examen radiologique :</b></h5>
+        </div>
+        <div class="widget-body">
+          <div class="widget-main">
+            <div class="row">
+              <div class="col-xs-12">
+                <label><b>Date Demande:</b></label>&nbsp;&nbsp;</b></label>&nbsp;&nbsp;<span>{{ $demande->Date }}</span>
+                <br><br>
+                <label><b>Informations cliniques pertinentes :</b></label>
+                  &nbsp;&nbsp;<span>{{ $demande->InfosCliniques }}.</span>
+                <br><br>
+                <label><b>Explication de la demande de diagnostic :</b></label>
+                 &nbsp;&nbsp;<span>{{ $demande->Explecations }}.</span>
+                <br><br>
+                <label><b>Informations supplémentaires pertinentes :</b></label>
+              <div>
+              <ul class="list-inline"> 
+                @foreach($demande->infossuppdemande as $index => $info)
+                  <li class="active"><span class="badge badge-warning">{{ $info->nom }}</span></li>
+                @endforeach
+              </ul>
+              </div>
+                <br>
+                <label><b>Examen(s) proposé(s) :</b></label>
+                <div>
+                  <table class="table table-striped table-bordered">
+                    <thead>
+                      <tr>
+                        <th class="center" width="10%">#</th>
+                        <th class="center">Nom</th>
+                        <th class="center">Type</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+>>>>>>> dev
                           @foreach($demande->examensradios as $index => $examen)
                             <tr>
                               <td class="center">{{ $index + 1 }}</td>
                               <td>{{ $examen->nom }}</td>
+<<<<<<< HEAD
+=======
+                              <td>
+                                 <?php $exams = explode (',',$examen->pivot->examsRelatif) ?>
+                                  @foreach($exams as $id)
+                                  <span class="badge badge-success">{{ App\modeles\exmnsrelatifdemande::FindOrFail($id)->nom}}</span>
+                                  @endforeach
+                              </td>
+>>>>>>> dev
                             </tr>
                           @endforeach
                         </tbody>
                       </table>
                     </div>
+<<<<<<< HEAD
                     <br>
                     <label>
                       <b>Examen(s) pertinent(s) précédent(s) relatif(s) à la demande de diagnostic :</b>
@@ -193,13 +260,46 @@
                       <i class="fa fa-eye"></i>&nbsp;
                       Visualiser Demande examens radiologique
                     </a>
+=======
+                    @if(Auth::user()->role->id == 12)
+                      <form class="form-horizontal" method="POST" action="/uploadexr" enctype="multipart/form-data">
+                      {{ csrf_field() }}
+                      <input type="text" name="id_demande" value="{{ $demande->id }}" hidden>
+                      <div class="form-group">
+                        <div class="col-xs-2">
+                          <label><b>Upload Résultat :</b></label>
+                        </div>
+                        <div class="col-xs-8">
+                          <input type="file" id="id-input-file-2" name="resultat" placeholder ="fichier..." class="form-control" required/>
+                        </div>
+                      </div>
+                      <div class="clearfix form-actions">
+                        <div class="col-md-offset-5 col-md-7">
+                          <button class="btn btn-info" type="submit">
+                          <i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>
+                          Démarrer l'envoie
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                    @endif
+                    <br>
+                    <label>Résultat :</label>&nbsp;&nbsp;
+                    @isset($demande->resultat)
+                    <span><a href='/download/{{ $demande->resultat }}'>{{ $demande->resultat }} &nbsp;<i class="fa fa-download"></i></a></span>
+                    @endisset
+>>>>>>> dev
                   </div>               
                 </div>
               </div>
             </div>
           </div>
         </div>
+<<<<<<< HEAD
     </div>
+=======
+
+>>>>>>> dev
   </div>
 </div>
 @endsection

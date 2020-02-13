@@ -1,0 +1,25 @@
+.removeButton{
+margin-bottom: 2px;
+margin-left: 0px;
+margin-right: 0px;
+  position:relatif;
+  right:0;
+  top:0;
+}
+.modaldialog{
+    overflow-y: initial !important
+}
+.contmodal {
+	height:100%;
+}
+.bodyodal{
+ 	max-height: calc(100vh - 100px);
+	 overflow-y: auto;
+	 width:100%;
+}
+.required:after {
+        content: '*';
+        color: red;
+        padding-left: 5px;
+}
+

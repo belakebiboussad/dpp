@@ -71,6 +71,7 @@
 @endsection
 @section('main-content')
 <div class="page-header" width="100%">
+<<<<<<< HEAD
    <div class="row">
     <div class="col-sm-12">
       <div class="widget-box">
@@ -108,6 +109,21 @@
 </div>
 <div class="content">
   <div class="row">
+=======
+   <?php $patient = $demande->consultation->patient; ?> 
+    @include('patient._patientInfo')    
+</div>
+<div class="content">
+  <div class="row">
+    <div class="col-sm-3"></div> <div class="col-sm-3"></div> <div class="col-sm-3"></div>
+    <div class="col-sm-3"><a href="/showdemandeexb/{{ $demande->id_demandeexb }}" target="_blank" class="btn btn-sm btn-primary pull-right">
+        <i class="fa fa-file-pdf-o"></i>&nbsp;
+        Imprimer
+      </a></div>
+  </div>
+  <div class="space-12"></div>
+  <div class="row">
+>>>>>>> dev
     <div class="col-sm-12">
       <div>
         <table class="table table-striped table-bordered">
@@ -130,11 +146,15 @@
         </table>
       </div>
       <label>Résultat :</label>&nbsp;&nbsp;
+<<<<<<< HEAD
       <span><a href='/download/{{ $demande->resultat }}'>{{ $demande->resultat }}</a></span>
       <a href="/showdemandeexb/{{ $demande->id_demandeexb }}" target="_blank" class="btn btn-primary pull-right">
         <i class="fa fa-eye"></i>&nbsp;
         Visualiser Demande examens biologiques
       </a>
+=======
+      <span><a href='/download/{{ $demande->resultat }}'>{{ $demande->resultat }} &nbsp;<i class="fa fa-download"></i></a></span>
+>>>>>>> dev
     </div>
   </div>
 </div>

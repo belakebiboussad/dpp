@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use App\modeles\patient;
 use App\modeles\visite;
@@ -14,7 +13,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Jenssegers\Date\Date;
 use DB;
-
+use Carbon;
 
 class VisiteController extends Controller
 {
@@ -27,26 +26,19 @@ class VisiteController extends Controller
     
     public function index()
     {
-   
-     
+        return redirect()->action('HospitalisationController@index');
     }
 
 
     public function choixpatvisite()
-    {
-
+    {    
+      $patient=patient::join('consultations','patients.id','=','consultations.Patient_ID_Patient')
+                     ->join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
+                     ->join('hospitalisations','demandehospitalisations.id','=','hospitalisations.id_demande')
+                     ->select('patients.Nom','patients.Prenom','patients.Sexe','patients.Dat_Naissance','hospitalisations.Date_entree','hospitalisations.Date_Prevu_Sortie','hospitalisations.id')
+                     ->get();     
+      return view('visite.choix_patient_visite',compact('patient')); //   return view('visite.choix_patient_visite');
      
-    	   
-     $patient=patient::join('consultations','patients.id','=','consultations.Patient_ID_Patient')
-     ->join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
-     ->join('hospitalisations','demandehospitalisations.id','=','hospitalisations.id_demande')->
-     select('patients.Nom','patients.Prenom','patients.Sexe','patients.Dat_Naissance','hospitalisations.Date_entree','hospitalisations.Date_Prevu_Sortie','hospitalisations.id')
-     ->get()
-     ;   
-     
-
-     return view('visite.choix_patient_visite',compact('patient'));
-     //   return view('visite.choix_patient_visite');
     }
 
     /**
@@ -56,8 +48,16 @@ class VisiteController extends Controller
      */
     public function create($id_hosp)
     {
-      
-        return view('visite.create_visite')->with('id_hosp',$id_hosp);
+      $patient = (hospitalisation::FindOrFail($id_hosp))->admission->demandeHospitalisation->consultation->patient;
+      $date = Carbon\Carbon::now();//$date = Date::Now();
+      $visite =new visite;
+      $visite->date=$date;
+      $visite->heure=$date->format("H:i");
+      $visite->id_hosp=$id_hosp;
+      $visite->id_employe=Auth::User()->employee_id;
+      $visite->save();
+      // ->with('id_hosp',$id_hosp)
+      return view('visite.create',compact('patient'))->with('id',$visite->id);
     }
  /**
      * Show the form for creating a new resource.
@@ -65,44 +65,41 @@ class VisiteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,$id)
+    public function store(Request $request)
     {
- $date = Date::Now();
-                    $v =new visite;
-	                $v->date_visite=$date;
-	             	$v->heure_visite=$request->heurevisite;
-	             	$v->id_hosp=$id;
-	             	$v->id_employe=Auth::User()->employee_id;
-                    $v->save();
-                    $cpt=$request->cpt;
-
-        /*****************************/        
-               
-               $c=new consigne;
-               $c->consigne=$request->cons[0];
-               $c->id_visite=$v->id;
-               $c->app='Non';
-               $c->duree=$request->dur[0];
-               $c->save();
-       /************************************/
-               
-             //  dd($request->p[0][0]);
-                 // dd($request->p[1]);
-                        //  dd($request->p[2]);
-                 if (isset($request->p[0][0]) && !empty($request->p[0][0]))
-                  {
-                   
-                     
-                    if (($request->p[0][0])=='Matin')
-                    {
-                       
-                   $p=new periodeconsigne; 
-                     $p->id_consigne=$c->id;
-                      $p->id_periode=1;
-                      $p->save();
-                      }
-                  }
-                   if (isset($request->p[1][0]) && !empty($request->p[1][0]))
+      dd("2");
+      return redirect()->action('HospitalisationController@index');
+    }
+    public function storebouzidi(Request $request,$id)
+    {
+      
+      $date = Date::Now();
+      $v =new visite;
+	    $v->date=$date;
+	    $v->heuree=$request->heurevisite;
+	    $v->id_hosp=$id;
+	    $v->id_employe=Auth::User()->employee_id;
+      $v->save();
+      $cpt=$request->cpt;
+      /*****************************/                  
+      $c=new consigne;
+      $c->consigne=$request->cons[0];
+      $c->id_visite=$v->id;
+      $c->app='Non';
+      $c->duree=$request->dur[0];
+      $c->save();
+      /************************************/
+      if (isset($request->p[0][0]) && !empty($request->p[0][0]))
+      {
+        if (($request->p[0][0])=='Matin')
+        {              
+          $p=new periodeconsigne; 
+          $p->id_consigne=$c->id;
+          $p->id_periode=1;
+          $p->save();
+        }
+      }
+                  if (isset($request->p[1][0]) && !empty($request->p[1][0]))
                   {
 
                   if(($request->p[1][0])=='Midi')
@@ -182,10 +179,23 @@ class VisiteController extends Controller
 
                        }
        
-        return redirect('/choixpatvisite')->with('info','Visite ajoutée avec succès!'); 
+        return redirect('/choixpatvisite')->with('info','Visite ajoutée avec succès!'); //  return redirect()->action('ConsultationsController@create',['id'=>$id]);
        
- //  return redirect()->action('ConsultationsController@create',['id'=>$id]);
     }
    
 	//
+    public function destroy($id)
+    {
+      $visite = visite::find($id);
+      $e = $visite->delete();
+      $hospitalisations = hospitalisation::where('etat_hosp','=','en cours')->get();
+      //return redirect('/hospitalisation/');
+      return response()->json([
+         'message' =>$e
+      ]);   
+    }
+    public function show($id)
+    {
+     
+    }
 }

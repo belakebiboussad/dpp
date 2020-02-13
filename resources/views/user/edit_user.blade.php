@@ -7,9 +7,9 @@
 	<div id="edit-info" class="">
 	<form class="form-horizontal" action="{{route('employs.update', $employe->id)}}" method="POST">
 		{{ csrf_field() }}
+		<input type="hidden" name="id" value="{{ $employe->id }}">
 		{{ method_field('PUT') }}
 		<h4 class="header blue bolder smaller">Informations adminstratives</h4>
-		
 		<div class="space-12"></div>
 		
 		<div class="col-xs-6 col-sm-6">
@@ -144,6 +144,7 @@
 			</div>
 		</div>
 	</div>
+	<div class="space-12"></div>
 	<div class="col-md-4 well well-lg">
 		<div class="w-120 p-3 mb-2 bg-danger text-white" style="height:45px;">
 		<h3 style="width:105%; text-align: center;">Information d'Authentification</h3>
@@ -190,7 +191,7 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label no-padding-right" for="active"><strong>Compte :&nbsp;</strong></label>
 			<div class="col-sm-9 input-group">
-				<input type="checkbox"  {{ ($user->active == '1') ?'checked':'' }} Disabled>
+				<input type="checkbox"  {{ ($user->active) ?'checked':'' }} Disabled>
 				@if( $user->active)
 				<span class="label label-info arrowed">&nbsp; Active</span>
 				@else
@@ -201,14 +202,14 @@
 		<div class="form-group">
 			<div class="col-sm-12 input-group">
 			    	@if( $user->active)
-				<label class ="pull-right">
-				<b>Désactiver le Compte:</b>&nbsp;
-				<input type="checkbox" name="desactiveCompt" class="collapse" checked data-toggle="toggle" data-on="Non" data-off="Oui" data-size="mini" data-onstyle="primary" data-offstyle="danger" data-style="slow" value="0"> 
-				</label>
-				@else
-					<label class ="pull-right">
-					<b>Activer le Compte:</b>&nbsp;
-					<input type="checkbox" name="activeCompt" class="collapse" checked data-toggle="toggle" data-on="<i class='fa fa-play'></i> Oui" data-off="<i class='fa fa-pause'></i> Non" data-size="mini" data-onstyle="primary" data-offstyle="danger" data-style="slow" value="1">
+		<label class ="pull-right">
+			<b>Désactiver le Compte:</b>&nbsp;
+			<input type="checkbox" name="desactiveCompt" class="collapse" checked data-toggle="toggle" data-on="Non" data-off="Oui" data-size="mini" data-onstyle="primary" data-offstyle="danger" data-style="slow" value="0"> 
+		</label>
+		@else
+		<label class ="pull-right">
+		<b>Activer le Compte:</b>&nbsp;
+			<input type="checkbox" name="activeCompt" class="collapse" checked data-toggle="toggle" data-on="<i class='fa fa-play'></i> Oui" data-off="<i class='fa fa-pause'></i> Non" data-size="mini" data-onstyle="primary" data-offstyle="danger" data-style="slow" value="1">
 					</label>
 				@endif
 			</div>

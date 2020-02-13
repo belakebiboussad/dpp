@@ -11,8 +11,6 @@
 </div><!-- /.page-header -->	
 <form id="creat_col" class="form-horizontal" role="form" method="POST" action="{{route('colloque.store')}}">{{ csrf_field() }} 
 <div class="col-xs-12">
-	<!--////////////////////////////////-->
-	
 	<select id="elt" multiple="multiple" name="elt[]" hidden="">
 	</select>
 	

@@ -216,12 +216,12 @@
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
                                 <h4 id="modalTitle" class="modal-title"><span class="glyphicon glyphicon-bell"></span> Ajouter Rendez-Vous</h4>
                            </div>
-                           <form id ="addRdv" role="form" action="/createRDV"method="POST">
+                           <form id ="addRdv" role="form" action="/createRDV" method="POST">
                                       {{ csrf_field() }}
                                       <input type="datetime" id="date_RDV" name="date_RDV" data-date-format='yyyy-mm-dd' value="" style="display:none;">
                                       <input type="datetime" id="date_Fin" name="date_Fin" data-date-format='yyyy-mm-dd' value="" style="display:none;">
                                       <input type="time" id="Temp_rdv" name="Temp_rdv"  value=""  min="8:00" max="18:00" style="display:none;" >
-                                     <div id="modalBody" class="modal-body" style="padding:40px 50px;">
+                                      <div id="modalBody" class="modal-body" style="padding:40px 50px;">
                                            <div class="panel panel-default">
                                                 <div class="panel-heading" style="">
                                                       <span class="glyphicon glyphicon-user"></span>Rechercher un Patient
@@ -229,23 +229,29 @@
                                                 <div class="panel-body">
                                                            <div class="row">
                                                                 <div class="col-sm-4">
-                                                                     <div class="form-group">
-                                                                          <label class="control-label col-sm-2" for=""> <strong>Filtre: </strong></label>
-                                                                           <div class="col-sm-10">          
-                                                                                <select class="form-control" placeholder="choisir le filtre" id="filtre" onchange="layout();">
-                                                                                      <option value="Nom">Nom</option>
-                                                                                      <option value="Prenom">Prenom</option>
-                                                                                      <option value="code_barre">Code</option>
-                                                                                      <option value="Dat_Naissance">Date Naisssance</option>
-                                                                                </select>
-                                                                          </div>
-                                                                        </div>
+                                                                <div class="form-group">
+                                                                <label class="control-label col-sm-2" for=""> <strong>Filtre: </strong></label>
+                                                                <div class="col-sm-10">          
+                                                                     <select class="form-control" placeholder="choisir le filtre" id="filtre" onchange="layout();">
+                                                                           <option value="Nom">Nom</option>
+                                                                           <option value="Prenom">Prenom</option>
+                                                                           <option value="code_barre">Code</option>
+                                                                           <option value="Dat_Naissance">Date Naisssance</option>
+                                                                           </select>
+                                                                </div>
+                                                                </div>
                                                                 </div>
                                                                 <div class="col-sm-4">
-                                                                      <span class="input-icon" style="margin-right: -190px;">
-                                                                           <select  placeholder="Rechercher... " class="nav-search-input" id="listePatient" name ="listePatient" autocomplete="off" style="width:300px;" data-date-format="yyyy-mm-dd"></select>
-                                                                            <i class="ace-icon fa fa-search nav-search-icon"></i>
-                                                                     </span>   
+                                                                <span class="input-icon" style="margin-right: -190px;">
+
+                                                                <select  placeholder="Rechercher... " class="nav-search-input" id="listePatient" name ="listePatient" autocomplete="off" style="width:300px;" data-date-format="yyyy-mm-dd">
+                                                                      @if(isset($patient))
+         <option value="{{$patient->id}}" selected>{{ $patient->code_barre }}-{{ $patient->Nom }}-{{ $patient->Prenom }}</option>
+                                                                 @endif
+                                                          
+                                                                </select>
+                                                                <i class="ace-icon fa fa-search nav-search-icon"></i>   
+                                                                 </span>   
                                                                  </div>                               
                                                          </div>                                                  
                                                 </div> {{-- panel-body --}}

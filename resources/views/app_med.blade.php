@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-    <title>Gestion Des Patients</title>
+    <title>Dossier Patient</title>
     @include('partials.htmlheader')
-
+      @yield('style')
+      @include('partials.scripts')
 <body class="no-skin">
     @include('partials.scripts')
     @include('partials.navbar')

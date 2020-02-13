@@ -224,7 +224,7 @@ class PatientController extends Controller
                   $assure =  assur::FindOrFail($patient->Assurs_ID_Assure); 
            else
                   $assure = new assur;
-           return view('patient.edit_patient',compact('patient','assure'));
+          return view('patient.edit_patient',compact('patient','assure'));
     }
 
 
@@ -625,6 +625,15 @@ public function getPatientsArray(Request $request)
              return ['success' => true, 'data' => $patients]; 
     }
 }
+
+  public function searchUser(Request $request)
+  {
+      $output="";
+      $output.='<tr>'.'<td>'."Bonjour".'</td>'.'</tr>';
+      return Response($output);
+  }  
+
+
 public function search(Request $request)
 {
          if($request->ajax())  
@@ -664,20 +673,18 @@ public function search(Request $request)
     // }
     public function getPatientDetails(Request $request)
     {
-        //$a= $request->all();
-       
-        $patient = patient::FindOrFail($request->search);
+      $patient = patient::FindOrFail($request->search);
       if($patient->Type !="Autre")
       {
-           $assure=  assur::FindOrFail($patient->Assurs_ID_Assure); 
-           $view = view("patient.ajax_patient_detail",compact('patient','assure'))->render();
-        }
-        else
-        {
-               $view = view("patient.ajax_patient_detail",compact('patient'))->render();
-        }
-         return response()->json(['html'=>$view]);
-    }
+        $assure=  assur::FindOrFail($patient->Assurs_ID_Assure); 
+        $view = view("patient.ajax_patient_detail",compact('patient','assure'))->render();
+      }
+      else
+      {
+        $view = view("patient.ajax_patient_detail",compact('patient'))->render();
+      }
+      return response()->json(['html'=>$view]);
+     }
 
     public function AutoCompletePatientname(Request $request)
     {
@@ -685,7 +692,8 @@ public function search(Request $request)
     }
      public function AutoCompletePatientPrenom(Request $request)
      {
-            return patient::where('Prenom', 'LIKE', '%'.trim($request->prenom).'%')->get();     
+          return($request->all());
+           // return patient::where('Prenom', 'LIKE', '%'.trim($request->prenom).'%')->get();     
      }
     
      public function patientsToMerege(Request $request)

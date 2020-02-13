@@ -18,8 +18,7 @@
 			}, {
 				name: 'communenom',
 				source: bloodhound1,
-				display: function(data) {
-					//$("#wilaya").text(data.nom_wilaya)
+				display: function(data) {	//$("#wilaya").text(data.nom_wilaya)
 					return data.nom_commune  //Input value to be set when you select a suggestion. 
 				},
 				templates: {
@@ -30,11 +29,61 @@
 						'<div class="list-group search-results-dropdown">'
 					],
 					suggestion: function(data) {
-						return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="show(\''+data.Id_wilaya+','+data.nom_wilaya+','+data.Id_commune+'\')">' + data.nom_commune+ '</div></div>'
+						return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="show(\''+data.Id_wilaya+','+data.nom_wilaya+','+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
 					}
 					
 				}
 			});
+			///////////////autocomplete lieu de naissance
+			$('#lieunaissance').typeahead({
+				hint: true,
+				highlight: true,
+				minLength: 1
+			}, {
+				name: 'communenom',
+				source: bloodhound1,
+				display: function(data) {
+					return data.nom_commune  //Input value to be set when you select a suggestion. 
+				},
+				templates: {
+					empty: [
+						'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
+					],
+					header: [
+						'<div class="list-group search-results-dropdown">'
+					],
+					suggestion: function(data) {
+						return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="autocopleteCNais(\''+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
+					}
+				}	
+			});
+    ///////////////////////////////////////////
+    /////////// Autocomletecommune de l'assure
+    ////////////////
+		$('#lieunaissancef').typeahead({
+				hint: true,
+				highlight: true,
+				minLength: 1
+			}, {
+				name: 'communenom',
+				source: bloodhound1,
+				display: function(data) {
+					return data.nom_commune  //Input value to be set when you select a suggestion. 
+				},
+				templates: {
+					empty: [
+						'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
+					],
+					header: [
+						'<div class="list-group search-results-dropdown">'
+					],
+					suggestion: function(data) {
+						return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="autocopleteCNaisAS(\''+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
+					}
+				}	
+			});
+
+		///////////////////////
 			$( ".civilite" ).change(function() {
 				 var sex =  $('input[name=sexe]:checked').val();
 				 if(sex == "F")
@@ -49,8 +98,18 @@
 			});
 
 		});
+		function autocopleteCNais(commune)
+		{
+			$("#idlieunaissance").val(commune);
+		}
+		function autocopleteCNaisAS(commune)
+		{
+			$("#idlieunaissancef").val(commune);
+		}
+		
 		function show(wilaya)
 		{
+
 			var res = wilaya.split(",");
 			$("#idwilaya").val(res[0]);
 			$("#wilaya").val(	res[1]);
@@ -74,7 +133,6 @@
 			                    $("#foncform").removeClass('hide');
 			                    $('#Type_p').attr('required', true); 
 			                    addRequiredAttr();
-			                
 			                break;
 			             case "Autre":
 			                     $(".starthidden").show(250);
@@ -168,8 +226,9 @@
 							<strong class="text-nowrap">Lieu de naissance :</strong>
 						</label>
 					<div class="col-sm-9">
-					<input type="text" id="lieunaissance" name="lieunaissance" placeholder="Lieu de naissance..."  autocomplete = "off" class="col-xs-12 col-sm-12" required/>
-					 {!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
+					  <input type="hidden" name="idlieunaissance" id="idlieunaissance">
+						<input type="text" id="lieunaissance" name="" placeholder="Lieu de naissance..." autocomplete = "on" class="col-xs-12 col-sm-12 typeahead " required/>
+					 	{!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
 					</div>
 					</div>
 				</div>
@@ -227,7 +286,7 @@
 				<div class="col-sm-6">
 					<div class="form-group">
 					<label class="col-sm-3 control-label" for="sf">
-						<strong class="text-nowrap">Cevilite :</strong>
+						<strong class="text-nowrap">Situation Familliale :</strong>
 					</label>
 					<div class="col-sm-9">
 						<select class="form-control civilite" id="sf" name="sf">
@@ -260,12 +319,12 @@
 			<div class="row">
 					<div class="col-sm-4" style="padding-left:7%">
 						<label class="" for="adresse" ><strong>Adresse :&nbsp;</strong></label>
-					             <input type="text" value="" id="adresse" name="adresse" placeholder="Adresse..."/>
+					    <input type="text" value="" id="adresse" name="adresse" placeholder="Adresse..."/>
 					</div>
 					<div class="col-sm-4" style="margin-top: -0.1%;">
 						<label><strong>Commune :</strong></label>
 						<input type="hidden" name="idcommune" id="idcommune">
-					         	<input type="text" value="" id="commune"  placeholder="commune..." />
+					  <input type="text" value="" id="commune"  placeholder="commune..." />
 					</div>
 					<div class="col-sm-4">
 					   <label><strong>Wilaya :</strong></label>
@@ -316,7 +375,7 @@
 						</div>
 						<div class="col-sm-9">
 							<label class="line-height-1 blue">
-								<input id="fonc" name="type" value="Assure" type="radio" class="ace" onclick="showType('Assure')" />
+								<input id="fonc" name="type" value="Assure" type="radio" class="ace" onclick="showType('Assure')"/>
 								<span class="lbl"> Assuré</span>
 							</label>&nbsp;&nbsp;&nbsp;
 							<label class="line-height-1 blue">
@@ -422,7 +481,9 @@
 							<span class="text-nowrap"><strong>Lieu de naiss :</strong></span>
 						</label>
 						<div class="col-sm-9">
-						<input type="text" id="lieunaissancef" name="lieunaissancef" placeholder="Lieu de naissance..." class="col-xs-12 col-sm-12" autocomplete= "off" />
+						  <input type="hidden" name="idlieunaissancef" id="idlieunaissancef">
+							<input type="text" id="lieunaissancef" name="" placeholder="Lieu de naissance..."
+								 class="col-xs-12 col-sm-12" autocomplete= "on" />
 						</div>
 						<br>
 						</div>
@@ -496,12 +557,12 @@
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
-							<label class="control-label col-xs-12 col-sm-3" for="matf">
+							<label class="control-label col-xs-12 col-sm-3" for="mat">
 								<strong>Matricule :</strong>
 							</label>
 							<div class="col-sm-9">
 							<div class="clearfix">
-								<input type="text" id="matf" name="matf" class="col-xs-12 col-sm-6" placeholder="Matricule..." />
+								<input type="text" id="mat" name="mat" class="col-xs-12 col-sm-6" placeholder="Matricule..." />
 							</div>
 							</div>
 						</div>

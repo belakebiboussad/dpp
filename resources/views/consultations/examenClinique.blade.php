@@ -35,7 +35,7 @@
  				--}}
  				<input type="text" id="taille" name="taille"  class="form-control bg"  Required/>
  				<span class="input-group-addon">
-				<strong>m</strong>
+				<small>m</small>
 				</span>
 				</div>
 				</div>
@@ -50,18 +50,17 @@
 				onchange = "IMC()" required /> --}}
 				<input type=" text" name="poids" id="poids" class="form-control" required>
 				<span class="input-group-addon">
-				<strong>Kg</strong>
+				<small>Kg</small>
 				</span>
 				</div>
 				</div>
 				<div class="col-xs-3">
-				<button id ="btnCalc" class="btn btn-info form-control" onclick="IMC1();">Calculer IMC</button>
+					<button id ="btnCalc" class="btn btn-info form-control" onclick="IMC1();">Calculer IMC</button>
 				</div>
 {{-- 				<div class="col-xs-1">
 				</div>		 --}}
 				</div> 
         				</div>{{-- end row --}}
-
         				<div class="space-12"></div>
         				<div class="space-12"></div>
         				<div class="space-12"></div>
@@ -73,9 +72,9 @@
         					<div class="col-xs-3">
         					  	<div class="input-group">
 	                                  			<input type="number" id="imc"  name="imc" placeholder="IMC du Patient..." class="form-control col-sm-4" value ="" readonly  />
-	                                     				 <span class="input-group-addon">
-	                                       			 		<strong>Kg/m2</strong>
-	                             				 	</span>
+	                                     			<span class="input-group-addon">
+	                                       				<small>Kg/m2</small>
+	                             				</span>
                             				</div>
         					</div>
         					<div class="col-xs-2">
@@ -100,7 +99,7 @@
 						<div class="input-group">
 						             <input type="number" id="temp" name="temp" placeholder="Temperateur du Patient..." class="form-control"  min ="30" step="any" required/>
 						             <span class="input-group-addon">
-						                          <strong>°C</strong>
+						                          <small>°C</small>
 						             </span>
 						</div>
 					</div>
@@ -147,7 +146,7 @@
 					<br/><br/><br/>
                                       		<div class="right">
                                          		 <div class="profile-contact-links align-right">
-                                              		 <a  href="#" data-target="#Ordonnance" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title="prescrire des medicaaments" >
+                                              		 <a  href="#" data-target="#Ordonnance" class="btn btn-primary btn-lg" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title="" >
                                                       	<div class="fa fa-plus-circle"></div>
                                                           	<span class="bigger-110" > Ordonnance</span>
                                                 		</a>
@@ -155,12 +154,12 @@
                                              	<div class="space-6"></div>
                                            	<div class="profile-contact-info">
                                                      <div class="profile-contact-links align-right">
-                                                  		 <a  href="#" data-target="#demandehosp" class="btn  btn-primary btn-lg tooltip-link" style="width:250px;" data-toggle="modal"   data-toggle="tooltip" data-original-title="prescrire des medicaaments" >
+                                                  		 <a  href="#" data-target="#demandehosp" class="btn  btn-primary btn-lg" style="width:250px;" data-toggle="modal"   data-toggle="tooltip" data-original-title="" >
                                                         	 <div class="fa fa-plus-circle"></div>
                                                           	<span class="bigger-110"> Hospitalisation</span>
                                                   		</a>
                                                     		<div class="space-12"></div>
-                                                    		<a class="btn btn-primary btn-lg tooltip-link" data-toggle="modal"  data-toggle="tooltip" data-original-title="lettre d'orientation" data-target="#lettreorient" style="width:250px;" onclick="lettreoriet('{{ $employe->Nom_Employe }}','{{ $employe->Prenom_Employe }}',
+                                                    		<a class="btn btn-primary btn-lg" data-toggle="modal"  data-toggle="tooltip" data-original-title="lettre d'orientation" data-target="#lettreorient" style="width:250px;" onclick="lettreoriet('{{ $employe->Nom_Employe }}','{{ $employe->Prenom_Employe }}',
                                                           '{{ $employe->Specialite_Emploiye }}','{{ $employe->tele_mobile }}')">
                                                           	<div class="fa fa-plus-circle"></div>
                                                           	<span class="bigger-110" style ="text-align: right !important;">Orientation</span> 
@@ -180,17 +179,17 @@
 			 		</div>	{{-- col-md-8 col-xs-9 --}}
 					<div class= "col-md-3 col-xs-9">
 					<br/><br/><br/>
-                                      		<div class="right">
-                                         		 <div class="profile-contact-links align-right">
-                                              		 <a  href="#" data-target="#Ordonnance" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title="prescrire des medicaaments" >
-                                                      	<div class="fa fa-plus-circle"></div>
-                                                          	<span class="bigger-110"> Ordonnance</span>
-                                                		</a>
+          <div class="right">
+            <div class="profile-contact-links align-right">
+              <a  href="#" data-target="#Ordonnance" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title="" >
+               	<div class="fa fa-plus-circle"></div>
+                 	<span class="bigger-110"> Ordonnance</span>
+                 		</a>
                                              	</div> {{-- profile-contact-links --}}
                                              	<div class="space-6"></div>
                                            	<div class="profile-contact-info">
                                                      <div class="profile-contact-links align-center">
-                                                  		 <a  href="#" data-target="#demandehosp" class="btn  btn-primary btn-lg tooltip-link" style="width:250px;" data-toggle="modal"   data-toggle="tooltip" data-original-title="prescrire des medicaaments" >
+                                                  		 <a  href="#" data-target="#demandehosp" class="btn  btn-primary btn-lg tooltip-link" style="width:250px;" data-toggle="modal"   data-toggle="tooltip" data-original-title="" >
                                                         	<div class="fa fa-plus-circle"></div>
                                                           	<span class="bigger-110"> Hospitalisation</span>
                                                   		</a>
@@ -208,5 +207,5 @@
 			</div>		
 		</div>{{-- tab-content --}}
 	</div>
-
 </div>
+<br><br>

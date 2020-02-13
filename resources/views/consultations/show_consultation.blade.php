@@ -1,9 +1,16 @@
 @extends('app_med')
 @section('main-content')
 <div class="page-header">
+<<<<<<< HEAD
 	<h1><strong>Détails du Consultation Pour :</strong> 
     {{ $consultation->patient->Nom }} {{ $consultation->patient->Prenom }}
   </h1>
+=======
+	<h1><strong>Résumé  du Consultation Pour :</h1>
+    <?php $patient = $consultation->patient; ?>
+     @include('patient._patientInfo', $patient)   
+</div>
+>>>>>>> dev
 </div>
 <div class="row">
   <div class="col-sm-12">
@@ -42,6 +49,7 @@
     </div>
   </div>
 </div>
+<<<<<<< HEAD
 <div class="content">
   <div class="row">
     <div class="col-sm-12">
@@ -96,6 +104,14 @@
                                 <i class="ace-icon fa fa-plus-circle bigger-120 green"></i>
                                 Demande examen biologique
                               </a>
+=======
+<div role= "tabpanel">
+      <ul class = "nav nav-tabs nav-justified" role="tablist">
+              <li role= "presentation" class="active"  style="padding-left: 5px; padding-right: 5px;">
+                <a href="#Interogatoire" aria-controls="Interogatoire" role="tab" data-toggle="tab" class="btn btn-primary">
+                      <span class="bigger-130"> Interogatoire</span></a>
+              </li>
+>>>>>>> dev
 
                               <a href="/createexr/{{ $consultation->id }}" class="btn btn-link">
                                 <i class="ace-icon fa fa-plus-circle bigger-120 green"></i>
@@ -103,6 +119,7 @@
                               </a>
                             </div>
 
+<<<<<<< HEAD
                              <div class="space-6"></div>
 
                            </div>
@@ -210,6 +227,33 @@
                           @endforeach               
                           </tbody>
                         </table>
+=======
+                    <a href="#ExamClinique"  ria-controls="ExamClinique" role="tab" data-toggle="tab" class="btn btn-primary btn-lg   {{ ! isset($consultation) ? 'disabled' : 'enabled' }} " > 
+                     <img height="20" width="30" class="thumbnail inline no-margin-bottom" alt="clinique" align="left" src="{{asset('/css/img/doctor-stethoscope.png')}}"/><span class="bigger-130">Examen Clinique</span></a>
+              </li>
+              <li role= "presentation"  style="padding-left: 5px; padding-right: 5px;">
+                    <a href="#ExamComp" aria-controls="ExamComp" role="tab" data-toggle="tab" class="btn btn-primary btn-lg   {{ ! isset($consultation) ? 'disabled' : 'enabled' }} " >
+                          <img height="20" width="30" class="thumbnail inline no-margin-bottom" alt="comp" align="left" src="{{asset('/css/img/medicine-flask.png')}}" />
+                          <span class="bigger-130">Examen Complémentaire</span>
+                    </a>
+                </li>
+              <li role= "presentation"  style="padding-left: 5px; padding-right: 5px;">
+                <a href="#Prescription" aria-controls="AttachResultat" role="tab" data-toggle="tab"  class="btn btn-primary btn-lg {{ ! isset($consultation) ? 'disabled' : 'enabled' }} " >
+                          
+                <span class="bigger-130">Prescription</span></a>
+              </li>
+      </ul>
+    <div class ="tab-content"  style = "border-style: none;" >
+            <div role="tabpanel" class = "tab-pane active" id="Interogatoire"> 
+                 <div class= "col-md-12 col-xs-12">
+                     @include('consultations.Interogatoire')
+                  </div>  {{--  <div class= "col-md-3 col-xs-9"> </div> --}}
+            </div>
+            
+              <div role="tabpanel" class = "tab-pane" id="ExamClinique">
+                      <div class= "col-md-12 col-xs-12">
+                          @include('consultations.examenClinique')
+>>>>>>> dev
                       </div>
                     </div><!-- /#friends -->
                     <div id="pictures" class="tab-pane">

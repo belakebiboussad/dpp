@@ -8,5 +8,9 @@ class Specialite extends Model
 {
     //
     public $timestamps = false;
-      protected $fillable = ['nom'];
+    protected $fillable = ['nom','type'];
+    public function type()
+    {
+      return $this->belongsTo('App\modeles\Type_specialite','type');
+    }
 }

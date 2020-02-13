@@ -4,11 +4,11 @@
 <script>
 $( document ).ready(function() {
        $('#userName').on('keyup',function(){
-                          $value=$(this).val();
+                            value=$(this).val();
                             $.ajax({
                             type : 'get',
                             url : '{{URL::to('searchUser')}}',
-                            data:{'search':$value},
+                            data:{'search':value},
                             success:function(data,status, xhr){
                                 $('tbody').html(data);
                                 var count = xhr.getResponseHeader("count");
@@ -16,6 +16,7 @@ $( document ).ready(function() {
                             }
                        });
            });
+
 });
 </script>
 @endsection
@@ -98,13 +99,11 @@ $( document ).ready(function() {
 								<tr>
 									<th class="center">#</th>
 									<th hidden>id</th>
-									<th><strong style="font-size:16px;">Nom Utilisateur</strong></th>
-									<th><strong style="font-size:16px;">E-mail</strong>
-									</th>
-									<th><strong style="font-size:16px;">Rôle</strong>
-									</th>
+									<th class="center"><strong style="font-size:16px;">Nom Utilisateur</strong></th>
+									<th class="center"><strong style="font-size:16px;">E-mail</strong></th>
+									<th class="center"><strong style="font-size:16px;">Rôle</strong></th>
 									<th><strong>Acive</strong></th>
-									<th></th>
+									<th class="center"><em class="fa fa-cog"></em></th>
 								</tr>
 							</thead>
 							<tbody>	

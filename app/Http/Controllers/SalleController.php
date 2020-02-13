@@ -8,6 +8,7 @@ use App\modeles\service;
 use Validator;
 use Redirect;
 use MessageBag;
+use Response;
 
 class SalleController extends Controller
 {
@@ -16,24 +17,27 @@ class SalleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getsalles($id)
+    public function getsalles()
     {
-        $salles = salle::where('service_id',$id)->where('etat','Non bloquee')->get();
-        //verifier si la salle dispose de lit libre et elle n'est pas bloquee
-         // dd($salles);
-        foreach ($salles as $key => $salle) {
-                    $libre=false;
-                    foreach ($salle->lits as $key => $lit) {
-                                # code...
-                               if(!($lit->affectation) && ($lit->etat) )
-                               {
-                                    $libre=true;
-                                     continue;
-                               }    
-                    }
-                     if(!$libre)
-                        $salles->pull($key);
+        $serviceId = $_GET['ServiceID'];
+        $start  = $_GET['StartDate']; 
+        $end = $_GET['EndDate'];
+        $time_start = strtotime($start);  
+        $time_end = strtotime($end);  
+        $salles = salle::where('service_id',$serviceId)->where('etat','Non bloquee')->get();
+        foreach ($salles as $key1 => $salle) {
+          foreach ($salle->lits as $key => $lit) {
+            $free = $lit->isFree($lit->id,$time_start,$time_end); //return Response::json($free);
+            if(! $free)
+            {
+                $salle->lits->pull($key);
+            }
           }
+        }
+        foreach ($salles as $key => $salle) {
+            if((count($salle->lits) == 0))
+                $salles->pull($key);
+        }
         return $salles;
     }
     public function index()

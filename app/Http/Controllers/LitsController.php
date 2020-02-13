@@ -122,14 +122,27 @@ class LitsController extends Controller
         //
     }
 
-/**
-function ajax return lits
-*/
-public function getlits($salleid)
-{
-          //on retourne pas les lits bloque ou occupé 
-          $lits = lit::where('salle_id',$salleid)->where('etat',1)->where("affectation",0)->get();
-           return $lits;
-}
+    /**
+    function ajax return lits
+    */
+    // $salleid
+    public function getlits()
+    {
+        //on retourne pas les lits bloque ou occupé 
+        $salleId = $_GET['SalleID'];
+        $start  = $_GET['StartDate']; 
+        $end = $_GET['EndDate'];
+        $time_start = strtotime($start);  
+        $time_end = strtotime($end); //$lits;
+        $salle =salle::FindOrFail($salleId);
+        foreach ($salle->lits as $key => $lit) {  
+            $free = $lit->isFree($lit->id,$time_start,$time_end);
+            if( !$free)
+            {
+                $salle->lits->pull($key);//$lits->push($lit);
+            } 
+        }
+        return $salle->lits; // $lits = lit::where('salle_id',$salleid)->where('etat',1)->where("affectation",0)->get();
+    }
 
 }
