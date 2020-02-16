@@ -10,9 +10,9 @@
 					<!-- /Acte/save -->
 					  <form id="addActe" method="POST" action ="/saveActe" name="form1" id="form1">
 					 		{{ csrf_field() }}
-					 		<input type="hidden" name="visiteId" id ="visiteId" value="{{ $id }}">
+					 		<input type="hidden" name="id_visite" id ="id_visite" value="{{ $id }}">
 					 		<input type="hidden" value="" name="idhosp">
-					 		<input type="hidden" value="" name="acte_id">
+					 		<input type="hidden" value=""  id ="acte_id" name="acte_id">
 
 
 					 		<div class="space-12"></div>
@@ -20,10 +20,32 @@
 					 				<div class="form-group">
 										<label for=""class="col-sm-3 control-label no-padding-right"><b>Acte:</b></label>
 										<div class="col-sm-7">
-											<input name="cons" id="cons" class="form-control" required>
+											<input name="nom" id="nom" class="form-control" required>
 										</div>
 									</div>
 					 			
+					 		</div>
+					 		<div class="space-12"></div>
+					 		<div class="row">
+					 			<div class="col-sm-3">
+					 		    <label for="" class="control-label no-padding-right"><b>description :</b></label>
+					 			</div>
+					 			<div class="col-sm-7">
+									<input type="text" id="description" name="description" class="form-control col-sm-6" placeholder = "applcation de l'acte" />
+								</div>
+					 		</div>
+					 		<div class="spcae-45"></div>
+					 		<div class="row">
+					 			<div class="col-sm-3">
+					 		    <label for="" class="control-label no-padding-right"><b>Type :</b></label>
+					 			</div>
+					 				<div class="col-sm-7">
+									<!-- <input type="text" id="description" name="description" class="form-control col-sm-6" placeholder = "applcation de l'acte" /> -->
+										<select name="type" id="type">
+											<option value=""></option>
+											<option value=""></option>
+										</select>	
+								</div>
 					 		</div>
 					 		<div class="space-12"></div>
 							<div class="row">
@@ -40,22 +62,14 @@
 									<label class="checkbox-inline ace"><input type="checkbox" name="p[]" id="Soir" value="Soir"><b>Soir</b></label>
 								</div>
 							</div>
-					 		<div class="space-12"></div>
-					 		<div class="row">
-					 			<div class="col-sm-3">
-					 		    <label for="" class="control-label no-padding-right"><b>description :</b></label>
-					 			</div>
-					 			<div class="col-sm-7">
-									<input type="text" id="description" name="description" class="form-control col-sm-6" placeholder = "applcation de l'acte" />
-								</div>
-					 		</div>
+					 		
 					 		<div class="space-12"></div>
 					 		<div class="row">
 					 		  <div class="col-sm-3">
 					 		    <label for="" class="control-label no-padding-right"><b>Pendant :</b></label>
 					 			</div>
 								<div class="col-sm-7">
-									<input type="number" id="nbr_j" class="form-control col-sm-6" min="0" value= "1" />
+									<input type="number" id="duree" name="duree" class="form-control col-sm-6" min="0" value= "1" />
 								</div>	
 								<div class="col-sm-2">
 									<label class="" for="col-sm-3">jour</label>

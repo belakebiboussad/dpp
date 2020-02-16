@@ -13,7 +13,7 @@ class hospitalisation extends Model
     {
      	return $this->belongsTo('App\modeles\admission','id_admission');
     }
-    public function vistes()
+    public function visites()
     {
         return $this->hasMany('App\modeles\visite','id_hosp');
     }

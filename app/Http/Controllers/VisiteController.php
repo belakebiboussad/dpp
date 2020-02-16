@@ -48,7 +48,16 @@ class VisiteController extends Controller
      */
     public function create($id_hosp)
     {
-      $patient = (hospitalisation::FindOrFail($id_hosp))->admission->demandeHospitalisation->consultation->patient;
+      //$patient = (hospitalisation::FindOrFail($id_hosp))->admission->demandeHospitalisation->consultation->patient;
+      $hosp = hospitalisation::FindOrFail($id_hosp);
+      $patient = $hosp->admission->demandeHospitalisation->consultation->patient;
+      // dd($patient); 
+      // dd($hospitalisation->visites);
+      // foreach ($hospitalisation->visites as $visite)
+      // {
+      //   //dd($visite->id);
+      //   dd($visite->actes);
+      // }
       $date = Carbon\Carbon::now();//$date = Date::Now();
       $visite =new visite;
       $visite->date=$date;
@@ -57,7 +66,7 @@ class VisiteController extends Controller
       $visite->id_employe=Auth::User()->employee_id;
       $visite->save();
       // ->with('id_hosp',$id_hosp)
-      return view('visite.create',compact('patient'))->with('id',$visite->id);
+      return view('visite.create',compact('hosp','patient'))->with('id',$visite->id);
     }
  /**
      * Show the form for creating a new resource.

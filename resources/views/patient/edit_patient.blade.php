@@ -836,7 +836,7 @@
 						              <th class ="center"><strong>Relation</strong></th>
 						              <th class ="center"><strong>Type Pièce</strong></th>
 						              <th class ="center"><strong>N°</strong></th>
-						              <th class ="center"><strong>Date délevrance</strong></th>
+						              <th class ="center"><strong>date délevrance</strong></th>
 						              <th class="nsort"><em class="fa fa-cog"></em></th>
 						            </tr>
 					            </thead>

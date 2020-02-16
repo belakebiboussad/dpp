@@ -21,8 +21,7 @@
     //////////////////Enregistre acte
     //////////////////////////////////
     $("#EnregistrerActe").click(function (e) { 
-    	alert('df');
-    	if(! isEmpty($("#cons").val()) )
+    	if(! isEmpty($("#nom").val()) )
 	    { 
 	    	if($('.dataTables_empty').length > 0)
       	{
@@ -31,7 +30,7 @@
 	    	var matincheck = $('#' + 'Matin').is(":checked") ?'checked':'';
 	      var midicheck = $('#' + 'Midi').is(":checked") ?'checked':'';
 	      var soircheck = $('#' + 'Soir').is(":checked") ?'checked':'';
-	     	$( "#listActes" ).append("<tr><td>"+i+"</td><td>"+$("#cons").val()+"</td><td>"+$("#nbr_j").val()+"</td><td><input type='checkbox' value='"+$("#Matin").val()+"'"+ matincheck +"></td><td><input type='checkbox' value='"+ $("#Midi").val()+"'"+midicheck+"></td><td><input type='checkbox' value='"+$("#Soir").val()+"'"+soircheck+"></td></tr>");
+	     	$( "#listActes" ).append("<tr><td>"+i+"</td><td>"+$("#nom").val()+"</td><td>"+$("#nbr_j").val()+"</td><td><input type='checkbox' value='"+$("#Matin").val()+"'"+ matincheck +"></td><td><input type='checkbox' value='"+ $("#Midi").val()+"'"+midicheck+"></td><td><input type='checkbox' value='"+$("#Soir").val()+"'"+soircheck+"></td></tr>");
 	  	 	i = i + 1;
 	  	 	$('#acteModal').modal('toggle');
 	   	}
@@ -46,11 +45,11 @@
    			 periodes.push($(this).attr('value'));			
 			});
 	 	  var formData = {
-	 	  	id_visite: $('#visiteId').val(),
-	 	    nom:$("#cons").val(),
+	 	  	id_visite: $('#id_visite').val(),
+	 	    nom:$("#nom").val(),
 	 	  	periodes :periodes,
 	 	  	description:$('#description').val(),
-	 	  	duree : $('#nbr_j').val()
+	 	  	duree : $('#duree').val()
 	 		};
 	 		var url = $('#addActe').attr('action');
 	 		$.ajax({

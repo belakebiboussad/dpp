@@ -3,24 +3,24 @@
   <script type="text/javascript">
 		$(document).ready(function() {
   		$('#listActes').DataTable({
-	      colReorder: true,
-	      stateSave: true,
-	      searching:false,
-	  	  'aoColumnDefs': [{
-	        'bSortable': false,
-	       	'aTargets': ['nosort']
-	   		}],
-	   		"language": {
+	         colReorder: true,
+	         stateSave: true,
+	         searching:false,
+	  	    'aoColumnDefs': [{
+	           'bSortable': false,
+	       	   'aTargets': ['nosort']
+	   		   }],
+	   		   'language': {
 	   							   "url": '/localisation/fr_FR.json',
 			               
-			            },
-    	});
-    	$('td.dataTables_empty').html('');
+			       },
+      });
+      $('td.dataTables_empty').html('');
     /////////////
     //////////////////Enregistre acte
     //////////////////////////////////
     $("#EnregistrerActe").click(function (e) { 
-    	if(! isEmpty($("#cons").val()) )
+    	if(! isEmpty($("#nom").val()) )
 	    { 
 	    	$('#acteModal').modal('toggle');
 	   	}
@@ -34,12 +34,12 @@
 	 		 $("input[name='p[]']:checked").each(function() {
    			 periodes.push($(this).attr('value'));			
 			});
-	 	  var formData = {
-	 	  	id_visite: $('#visiteId').val(),
-	 	    nom:$("#cons").val(),
+	 		var formData = {
+	 	  	id_visite: $('#id_visite').val(),
+	 	    nom:$("#nom").val(),
 	 	  	periodes :periodes,
 	 	  	description:$('#description').val(),
-	 	  	duree : $('#nbr_j').val()
+	 	  	duree : $('#duree').val()
 	 		};
 	 		var state = jQuery('#EnregistrerActe').val();
 	 		var acte_id = jQuery('#acte_id').val();
@@ -49,7 +49,7 @@
 	            type = "PUT";
 	            ajaxurl = '/acte/' + acte_id;
 	    }
-	 		$.ajax({
+	   	$.ajax({
           type:type,
           url:ajaxurl,
           data: formData,
@@ -59,16 +59,16 @@
       			{
         			$('.dataTables_empty').remove();
       			}
-      			var acte = "<tr><td>"+data.id+"</td><td>"+data.nom+"</td><td>"+data.duree+"</td><td>"+data.description+"</td><td><span class='badge badge-success'>"+JSON.parse(data.periodes)+"</span></td>" 	
+      			var acte = '<tr id="acte'+data.id+'"><td>'+data.id+'</td><td>'+data.nom+'</td><td>'+data.duree+'</td><td>'+data.description+'</td><td><span class="badge badge-success">'+JSON.parse(data.periodes)+'</span></td>' 	
            	acte    += '<td class ="center"><button type="button" class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';    
            	acte += '<button type="button" class="btn btn-xs btn-danger delete-acte" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></btton></td></tr>';
             if (state == "add") {
+            		$( "#listActes" ).append(acte);
             }else{
-            	$("#garde" + hom_id).replaceWith(homme);
+            	$("#acte" + data.id).replaceWith(acte);
             }
 
-           	$( "#listActes" ).append(acte);
-
+           
           },         
           error: function (data){
                 console.log('Error:', data);
@@ -99,12 +99,14 @@
         });
         return false;
 		});
+		//edit acte
 		$('body').on('click', '.open-modal', function () {
 				var acteID = $(this).val();
 			  $.get('/acte/'+acteID+'/edit', function (data) {
 			  	$('#id_hosp').val(data.id_hosp);
+			  	alert(data.id);
 			  	$('#acte_id').val(data.id);		
-			  	$('#cons').val(data.nom);
+			  	$('#nom').val(data.nom);
 			  	$('#description').val(data.description);
 			   	$.each( JSON.parse(data.periodes), function( index, value ) {
   				  $('#' + value).prop("checked",true);
@@ -114,12 +116,31 @@
 			  	jQuery('#acteModal').modal('show');
 			  });
 		});
+		////----- DELETE a Garde and remove from the page -----////
+    jQuery('body').on('click', '.delete-acte', function () {
+      var acte_id = $(this).val();
+       $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: "DELETE",
+            url: '/acte/' + acte_id,
+            success: function (data) {
+              $("#acte" + acte_id).remove();
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+      });
   });
   </script>
 @endsection
 @section('main-content')
 	<div class="page-header" width="100%">
-  	@include('patient._patientInfo')
+	 	@include('patient._patientInfo')
 	</div>
   <div class="page-header">
 		<h1 style="display: inline;"><strong>Ajouter un visite</strong></h1>
@@ -168,12 +189,33 @@
 													<th scope="col" class ="center"><strong>Nombre de jours</strong></th>
 													<th scope="col" class ="center">Decription</th>
 													<th scope="col" class ="center"><strong>Périodes</strong></th>
-																								<th scope="col" class=" center nosort"><em class="fa fa-cog"></em></th>
+													<th scope="col" class=" center nosort"><em class="fa fa-cog"></em></th>
 				            		</tr>
 				          		</thead>
 				          		<tbody>
-				          			 @foreach($hommes_c as $hom)
-				          			 @endforeach
+
+  			          			 @foreach($hosp->visites as $visite)
+				          			  @foreach($visite->actes as $acte )
+				          			    @if(!$acte->retire)
+					          			  <tr id="{{ 'acte'.$acte->id }}">
+					          			    <td hidden> {{ $acte->id_visite }}</td>
+					          			    <td>{{ $acte->id }}</td>
+					          			    <td> {{ $acte->nom }}</td>
+					          			    <td> {{ $acte->duree }}</td>
+					          			    <td> {{ $acte->description}}</td>
+					          			    <td>
+					          			    	@foreach(json_decode($acte->periodes) as $periode)
+					          			    		<span class="badge badge-success"> {{ $periode }}</span>
+					          			      @endforeach
+					          			    </td>
+					          		      <td class="center nosort">
+					          		      	<button type="button" class="btn btn-xs btn-info open-modal" value="{{$acte->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
+                                <button type="button" class="btn btn-xs btn-danger delete-acte" value="{{$acte->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>
+					          		      </td>
+					          		    </tr>
+					          		    @endif
+					          		    @endforeach
+				          			@endforeach
 				          		</tbody>
 				      			</table>	
 				     			</div>
