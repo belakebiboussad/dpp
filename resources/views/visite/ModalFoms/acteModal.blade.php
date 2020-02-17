@@ -28,23 +28,22 @@
 					 		<div class="space-12"></div>
 					 		<div class="row">
 					 			<div class="col-sm-3">
+					 		    <label for="" class="control-label no-padding-right"><b>Type :</b></label>
+					 			</div>
+					 			<div class="col-sm-7">
+									<select type="text" id="type" name="type" ata-placeholder="selectionnez le type de l'acte" class="selectpicker show-menu-arrow place_holde form-control col-sm-6" required />
+									 <option value="medicale">médicale</option>
+									 <option value="paramedicale">paramédicale</option>
+									</select>
+								</div>	
+					 		</div>
+					 		<div class="space-12"></div>
+					 		<div class="row">
+					 			<div class="col-sm-3">
 					 		    <label for="" class="control-label no-padding-right"><b>description :</b></label>
 					 			</div>
 					 			<div class="col-sm-7">
 									<input type="text" id="description" name="description" class="form-control col-sm-6" placeholder = "applcation de l'acte" />
-								</div>
-					 		</div>
-					 		<div class="spcae-45"></div>
-					 		<div class="row">
-					 			<div class="col-sm-3">
-					 		    <label for="" class="control-label no-padding-right"><b>Type :</b></label>
-					 			</div>
-					 				<div class="col-sm-7">
-									<!-- <input type="text" id="description" name="description" class="form-control col-sm-6" placeholder = "applcation de l'acte" /> -->
-										<select name="type" id="type">
-											<option value=""></option>
-											<option value=""></option>
-										</select>	
 								</div>
 					 		</div>
 					 		<div class="space-12"></div>

@@ -37,6 +37,7 @@
 	 		var formData = {
 	 	  	id_visite: $('#id_visite').val(),
 	 	    nom:$("#nom").val(),
+	 	    type:$('#type').val(),
 	 	  	periodes :periodes,
 	 	  	description:$('#description').val(),
 	 	  	duree : $('#duree').val()
@@ -49,6 +50,7 @@
 	            type = "PUT";
 	            ajaxurl = '/acte/' + acte_id;
 	    }
+      $('#acte_id').val("").change(); $('#nom').val("").change();$('#id_visite').val("").change();$('#description').val("").change();$('#duree').val(0).change();
 	   	$.ajax({
           type:type,
           url:ajaxurl,
@@ -58,17 +60,15 @@
         		if($('.dataTables_empty').length > 0)
       			{
         			$('.dataTables_empty').remove();
-      			}
-      			var acte = '<tr id="acte'+data.id+'"><td>'+data.id+'</td><td>'+data.nom+'</td><td>'+data.duree+'</td><td>'+data.description+'</td><td><span class="badge badge-success">'+JSON.parse(data.periodes)+'</span></td>' 	
-           	acte    += '<td class ="center"><button type="button" class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';    
-           	acte += '<button type="button" class="btn btn-xs btn-danger delete-acte" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></btton></td></tr>';
+      			}	
+      			var acte = '<tr id="acte'+data.acte.id+'"><td hidden>'+data.acte.id_visite+'</td><td>'+data.acte.nom+'</td><td>'+data.acte.description+'</td><td>'+data.acte.type+'</td><td><span class="badge badge-success">'+JSON.parse(data.acte.periodes)+'</span></td><td>'+data.acte.duree+'</td><td>'+data.medecin+'</td><td>'+data.date+'</td>' 	  			
+           	acte    += '<td class ="center"><button type="button" class="btn btn-xs btn-info open-modal" value="' + data.acte.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';    
+           	acte += '<button type="button" class="btn btn-xs btn-danger delete-acte" value="' + data.acte.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></btton></td></tr>';
             if (state == "add") {
             		$( "#listActes" ).append(acte);
             }else{
-            	$("#acte" + data.id).replaceWith(acte);
-            }
-
-           
+            	$("#acte" + data.acte.id).replaceWith(acte);
+            }           
           },         
           error: function (data){
                 console.log('Error:', data);
@@ -104,9 +104,9 @@
 				var acteID = $(this).val();
 			  $.get('/acte/'+acteID+'/edit', function (data) {
 			  	$('#id_hosp').val(data.id_hosp);
-			  	alert(data.id);
 			  	$('#acte_id').val(data.id);		
 			  	$('#nom').val(data.nom);
+			  	$('#type').val(data.type).change();
 			  	$('#description').val(data.description);
 			   	$.each( JSON.parse(data.periodes), function( index, value ) {
   				  $('#' + value).prop("checked",true);
@@ -119,7 +119,7 @@
 		////----- DELETE a Garde and remove from the page -----////
     jQuery('body').on('click', '.delete-acte', function () {
       var acte_id = $(this).val();
-       $.ajaxSetup({
+      $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
             }
@@ -168,7 +168,7 @@
 				<div class ="tab-content"  style = "border-style: none;" >
 					<div role="tabpanel" class = "tab-pane active " id="Actes"> 
 			  		<div class= "col-md-12 col-xs-12">
-			  			<div class= "widget-box widget-color-blue" id="widget-box-2">
+			  			<div class= "widget-box widget-color-green" id="widget-box-2">
 			    			<div class="widget-header" >
 			      			<h5 class="widget-title bigger lighter"><font color="black"> <i class="ace-icon fa fa-table"></i>&nbsp;<b>Actes</b></font></h5>
 			       			<div class="widget-toolbar widget-toolbar-light no-border" width="20%">
@@ -184,11 +184,13 @@
 				          		<thead class="thin-border-bottom">
 				            		<tr class ="center">
 						              <th class ="hidden"></th>
-						            	<th scope="col" class ="center"></th>
-													<th scope="col" class ="center"><strong>Nom</strong></th>
-													<th scope="col" class ="center"><strong>Nombre de jours</strong></th>
+						            	<th scope="col" class ="center"><strong>Nom</strong></th>
 													<th scope="col" class ="center">Decription</th>
+													<th scope="col" class ="center"><strong>Type</strong></th>
 													<th scope="col" class ="center"><strong>Périodes</strong></th>
+													<th scope="col" class ="center" width="3%"><strong>Nombre de jours</strong></th>
+													<th scope="col" class ="center"><strong>Médecin prescripteur</strong></th>												
+													<th scope="col" class ="center"><strong>Date Visite</strong></th>												
 													<th scope="col" class=" center nosort"><em class="fa fa-cog"></em></th>
 				            		</tr>
 				          		</thead>
@@ -199,19 +201,21 @@
 				          			    @if(!$acte->retire)
 					          			  <tr id="{{ 'acte'.$acte->id }}">
 					          			    <td hidden> {{ $acte->id_visite }}</td>
-					          			    <td>{{ $acte->id }}</td>
 					          			    <td> {{ $acte->nom }}</td>
-					          			    <td> {{ $acte->duree }}</td>
 					          			    <td> {{ $acte->description}}</td>
+					          			    <td> {{ $acte->type}}</td>
 					          			    <td>
 					          			    	@foreach(json_decode($acte->periodes) as $periode)
 					          			    		<span class="badge badge-success"> {{ $periode }}</span>
 					          			      @endforeach
 					          			    </td>
+					          			    <td> {{ $acte->duree }}</td>
+					          			    <td> {{ $acte->visite->medecin->Nom_Employe}}&nbsp; {{ $acte->visite->medecin->Prenom_Employe}}</td>
+					          			    <td>{{ $acte->visite->date }}</td>
 					          		      <td class="center nosort">
 					          		      	<button type="button" class="btn btn-xs btn-info open-modal" value="{{$acte->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
                                 <button type="button" class="btn btn-xs btn-danger delete-acte" value="{{$acte->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>
-					          		      </td>
+					          		      </td>	
 					          		    </tr>
 					          		    @endif
 					          		    @endforeach

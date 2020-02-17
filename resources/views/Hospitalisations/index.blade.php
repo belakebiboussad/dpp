@@ -65,7 +65,7 @@
 							  	  		<a class="btn btn-secondary btn-xs" data-toggle="tooltip" title="Imprimer un ticket" data-placement="bottom"><i class="ace-icon glyphicon glyphicon-print" style="font-size:16px;"></i></a>
 							  	  	@endif
 							  	  @else
-							  	  	<a href="{{ route('soins.edit', $hosp->id)}}" class ="btn btn-primary btn-xs" data-toggle="tooltip" title="voir consignes" data-placement="bottom"><i class="fa fa-folder-open fa-lg bigger-120"></i></a>
+							  	  	<a href="{{ route('visites.edit', $hosp->id)}}" class ="btn btn-primary btn-xs" data-toggle="tooltip" title="voir consignes" data-placement="bottom"><i class="fa fa-folder-open fa-lg bigger-120"></i></a>
 							  	  @endif
 							  	</td>	
 								</tr>

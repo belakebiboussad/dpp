@@ -238,7 +238,7 @@ route::get('/choixhospconsigne','ActeController@choixhospconsigne');
 route::get('/consigne','ActeController@choixhospconsigne');
 //////acte
 route::post('/saveActe','ActeController@store');
-Route::resource('soins','SoinsController');
+//Route::resource('soins','SoinsController');
 
 /**************************/
 // telechargement

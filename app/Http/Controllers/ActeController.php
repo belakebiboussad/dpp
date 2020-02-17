@@ -45,13 +45,14 @@ class ActeController extends Controller
             "nom"=>$request->nom,
             "id_visite"=>$request->id_visite,
             "description"=>$request->description,
+            "type"=>$request->type,
             "periodes"=>json_encode($request->periodes),
             "duree"=>$request->duree,         
         ]);
         $acte->remember_token;
         $acte->save();
-      
-        return Response::json($acte);
+        return Response::json(['acte'=>$acte,'medecin'=>$acte->visite->medecin->Nom_Employe,'date'=>$acte->visite->date]);
+        //return Response::json($acte);
     }
     public function store(Request $request)
     {
@@ -64,6 +65,7 @@ class ActeController extends Controller
         ]); // $acte =Acte::create($request->all());    
         $acte = new Acte;
         $acte->nom = $request->nom;
+        $acte->type = $request->type;
         $acte->id_visite = $request->id_visite;
         $acte->duree = $request->duree;
         $acte->description = $request->description;
@@ -71,6 +73,8 @@ class ActeController extends Controller
         $acte->remember_token;
         $acte->save();
         return Response::json($acte);
+
+       ;
     }
     public function destroy($id)
     {
@@ -78,9 +82,8 @@ class ActeController extends Controller
         $acte -> update([
             "retire"=>1,
         ]);
-        $acte->remember_token;
         $acte->save();
-        return Response::json($homme);
+        return Response::json($acte);
     }
 
 }

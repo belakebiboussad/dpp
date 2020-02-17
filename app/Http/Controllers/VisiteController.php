@@ -51,13 +51,6 @@ class VisiteController extends Controller
       //$patient = (hospitalisation::FindOrFail($id_hosp))->admission->demandeHospitalisation->consultation->patient;
       $hosp = hospitalisation::FindOrFail($id_hosp);
       $patient = $hosp->admission->demandeHospitalisation->consultation->patient;
-      // dd($patient); 
-      // dd($hospitalisation->visites);
-      // foreach ($hospitalisation->visites as $visite)
-      // {
-      //   //dd($visite->id);
-      //   dd($visite->actes);
-      // }
       $date = Carbon\Carbon::now();//$date = Date::Now();
       $visite =new visite;
       $visite->date=$date;
@@ -190,6 +183,11 @@ class VisiteController extends Controller
         return redirect('/choixpatvisite')->with('info','Visite ajoutée avec succès!'); //  return redirect()->action('ConsultationsController@create',['id'=>$id]);
        
     }
+    public function edit($id)
+    {
+      dd($id);
+
+    }
    
 	//
     public function destroy($id)
@@ -197,7 +195,6 @@ class VisiteController extends Controller
       $visite = visite::find($id);
       $e = $visite->delete();
       $hospitalisations = hospitalisation::where('etat_hosp','=','en cours')->get();
-      //return redirect('/hospitalisation/');
       return response()->json([
          'message' =>$e
       ]);   
