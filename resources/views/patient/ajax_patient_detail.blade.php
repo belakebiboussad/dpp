@@ -228,7 +228,7 @@ border:2px solid #3F515F;
             </div>
             </div>
             <div class="center">
-                  @if(App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role =="Medecine")
+                  @if(Auth::user()->role->id == 1)
                   <a  href="/consultations/create/{{ $patient->id }}" class="btn btn-sm btn-primary btn-create"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Consultation</a>
                   @endif
                   {{-- rdv/create/{{ $patient->id }} --}}

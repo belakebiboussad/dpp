@@ -85,6 +85,14 @@
 
                     <b class="arrow"></b>
                 </li>
+                <li class="">
+                    <a href="{{ route('assur.index') }}">
+                        <i class="menu-icon fa fa-eye pink"></i>
+                        Liste Fonctionnaires
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
             </ul>
         </li>
         <li class="">

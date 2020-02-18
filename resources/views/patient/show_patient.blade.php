@@ -34,15 +34,13 @@
 						</a>
 					</li>
 					@endif
-					@if(App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role =="Medecine")
+					 @if( Auth::user()->role->id == 1)
 					<li>
 						<a data-toggle="tab" href="#feed">
 						<i class="orange ace-icon fa fa-stethoscope bigger-120"></i>Consultations&nbsp;<span class="badge badge-warning">{{ $consultations->count() }}
 							</span>
 						</a>
 					</li>
-					@endif
-					@if(App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role =="Medecine")
 					<li>
 					<a data-toggle="tab" href="#pictures">
 						<i class="pink ace-icon fa fa-h-square bigger-120"></i>

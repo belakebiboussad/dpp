@@ -98,7 +98,7 @@
       <div class="modal-footer" style="width:100%">  
         <div style="bottom:0; padding-right:1.2%">
             <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" onclick="storeord1()"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
-            <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ord" onclick="createord('{{ $patient->Nom }} {{ $patient->Prenom }}','{{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Nom_Employe}} {{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Prenom_Employe}}')">
+            <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ord" onclick="createord('{{ $patient->Nom }} {{ $patient->Prenom }}','{{ Auth::User()->employ->Nom_Employe }} {{ Auth::User()->employ->Prenom_Employe }}')">
                     <i class="ace-icon fa fa-print"></i>Imprimer
               </button>
            <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" type="reset"> <i class="ace-icon fa fa-undo bigger-110"></i> Annuler</button>

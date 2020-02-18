@@ -118,6 +118,7 @@ Route::resource('rdv','RDVController');
 Route::resource('employe','EmployeController');
 Route::resource('patient','PatientController');
 Route::resource('assur','AssurController');
+Route::get('/searchAssure','AssurController@search');
 Route::resource('atcd','AntecedantsController');
 Route::resource('medicaments','MedicamentsController');
 Route::resource('exclinique','ExamenCliniqueController');

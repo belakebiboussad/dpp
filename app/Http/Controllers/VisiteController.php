@@ -185,18 +185,24 @@ class VisiteController extends Controller
     }
     public function edit($id)
     {
-      dd($id);
-
+      $hosp = hospitalisation::find($id);
+      return view('visite.edit',compact('hosp'));  
     }
    
 	//
     public function destroy($id)
     {
       $visite = visite::find($id);
-      $e = $visite->delete();
+      try {
+          $obj = $visite->delete();
+      } catch (Exception $e) {
+        report($e);
+        return false;
+      }
+   
       $hospitalisations = hospitalisation::where('etat_hosp','=','en cours')->get();
       return response()->json([
-         'message' =>$e
+         'message' =>$obj
       ]);   
     }
     public function show($id)

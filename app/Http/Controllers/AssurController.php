@@ -15,6 +15,7 @@ class AssurController extends Controller
     public function index()
     {
         //
+        return view('assurs.index');
     }
 
     /**
@@ -82,5 +83,12 @@ class AssurController extends Controller
     public function destroy(assur $assur)
     {
         //
+    }
+    public function search(Request $request)
+    {
+        if($request->ajax())  
+        {
+                $output="";
+        }
     }
 }

@@ -8,7 +8,7 @@ class Acte extends Model
 {
     //
 	public $timestamps = false;
-  protected $fillable  = ['nom','id_visite','description','type','duree','periodes','retire'];
+  protected $fillable  = ['nom','id_visite','description','type','periodes','duree','fait','retire'];
  //  public  $casts = [
  //   'periodes' => 'array'
 	// ];

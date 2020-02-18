@@ -71,7 +71,7 @@ $(document).ready(function(){
 			}
 	});
 }); 
-function XHRgePatient()
+function XHRgetPatient()
 {
 	$('#btnCreate').removeClass('hidden');
   $('#FusionButton').removeClass('hidden');
@@ -79,16 +79,15 @@ function XHRgePatient()
 	nom=$('#patientName').val();
 	prenom=$('#patientFirstName').val();
 	code_barre=$('#IPP').val();
-	var matricule = $('#matricule').val();
 	date_Naiss=$('#Dat_Naissance').val();
 	$.ajax({
         type : 'get',
         url : '{{URL::to('searchPatient')}}',
-        data:{'search':nom,'prenom':prenom,'code_barre':code_barre,'Dat_Naissance':date_Naiss,'matricule':matricule},
+        data:{'search':nom,'prenom':prenom,'code_barre':code_barre,'Dat_Naissance':date_Naiss},
         success:function(data,status, xhr){
-                    	$('#liste_patients tbody').html(data);
-                          	$(".numberResult").html(xhr.getResponseHeader("count"));
-                     }
+            $('#liste_patients tbody').html(data);
+            $(".numberResult").html(xhr.getResponseHeader("count"));
+        }
     });
 
 }
@@ -151,11 +150,10 @@ function setField(field,value)
 <div class="page-content">
 <div class="row">
 	<div class="col-sm-12 center">	
-			<h2 class="blue">
-				<strong>Bienvenue Docteurs:</strong>
-				<q> {{ App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Nom_Employe }}
-				{{ App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Prenom_Employe}} </q>
-			</h2>
+			<<h2>
+					<strong>Bienvenue Docteur:</strong>
+				 <q class="blue"> {{ Auth::User()->employ->Nom_Employe }} {{ Auth::User()->employ->Prenom_Employe }}  </q>
+				</h2>
 			
 	</div>		
 </div>	{{-- row --}}
@@ -163,8 +161,11 @@ function setField(field,value)
 <div class="row">
 	<div class="col-sm-12 col-lg-12">
 		<div class="panel panel-default ">
-			<div class="panel-heading center" style="height: 40px; font-size: 2.3vh;">
+			<div class="panel-heading left" style="height: 40px; font-size: 2.3vh;">
 				<strong>Rechercher un Patient</strong>
+				<div class="pull-right" style ="margin-top: -0.5%;">
+					<a href="{{route('assur.index')}}" class ="btn btn-white btn-info btn-bold btn-xs">Rechercher un Fonctionnaire&nbsp;<i class="ace-icon fa fa-arrow-circle-right bigger-120 black"></i></a>
+				</div>
 			</div>
 		  <div class="panel-body">
 				<div class="row">
@@ -189,27 +190,16 @@ function setField(field,value)
 					  <input type="text" class="form-control input-sm tt-input date-picker" id="Dat_Naissance" name="Dat_Naissance"
 					   		data-date-format="yyyy-mm-dd" placeholder="date de naissance..." data-toggle="tooltip" data-placement="left" title="Date Naissance du patient">
 					</div>
-				</div>
-			  <div class="space-12"></div>
-  			<div class="row">
 					<div class="col-sm-1"><label class="control-label pull-right" for="IPP" ><strong>IPP:</strong></label>
 					</div> 
 					<div class="col-sm-2">
 				   	<input type="text" class="form-control input-sm tt-input" id="IPP" name="IPP"  placeholder="code du patient..."
 				   	 data-toggle="tooltip" data-placement="left" title="Code IPP du patient">
 					</div>
-					<div class="col-sm-1">
-						<label class="control-label pull-right" for="Matricule" >
-							<strong>&nbsp;Mat:</strong>
-						</label>
-					</div>
-					<div class="col-sm-2">
-						<input type="text" class="form-control input-sm tt-input" id="matricule" name="matricule"  placeholder="Matricule de l'assuré(e)...">
-					</div>
-			  </div>
+				</div>
 		 	</div>  {{-- body --}}
 		  <div class="panel-footer" style="height: 50px;">
-		   	<button type="submit" class="btn-sm btn-primary " style="vertical-align: middle" onclick="XHRgePatient();"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+		   	<button type="submit" class="btn btn-xs btn-primary " style="vertical-align: middle" onclick="XHRgetPatient();"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
 			<div class="pull-right">
 				<button type="button" class="btn btn-danger btn-sm hidden invisible" id="FusionButton"  onclick ="doMerge();"data-toggle="modal" data-target="#mergeModal" data-backdrop="false" hidden><i class="fa fa-angle-right fa-lg"></i><i class="fa fa-angle-left fa-lg"></i>&nbsp;Fusion</button>
 					<a  class="btn btn-primary btn-sm hidden" href="patient/create" id=btnCreate role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>

@@ -13,4 +13,8 @@ class employ extends Model
     {
 				return $this->belongsTo('App\modeles\service','Service_Employe');
     }
+    public function specialite()
+    {
+    	return $this->belongsTo('App\modeles\Specialite','Specialite_Emploiye');
+    }
 }

@@ -31,10 +31,8 @@
 		</ul>
 		<div class="tab-content" style ="border-style:none;">
 			<div role="tabpanel" class = "tab-pane active" id="edit-basic">
-		  	<div class="row">
-		  	  <div class="col-xs-12 label label-lg label-primary arrowed-in arrowed-right">
-         		<b>Géneral</b>
-         	</div>
+		  	<div class="w3-teal">
+         	<h4 class="header blue bolder smaller">Géneral</h4>
       	</div> 
 				<div class="form-group">
                            			<label class="col-md-4 control-label">  <strong>Nom :</strong></label>

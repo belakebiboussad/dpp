@@ -151,7 +151,7 @@
                            @endforeach 
                 ],
                 eventClick: function(calEvent, jsEvent, view) {
-                     @if( App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role !="Receptioniste") 
+                     @if(Auth::user()->role->id != 2) 
                            //updateRDVModal(calEvent.id,calEvent.title,calEvent.start,calEvent.end,calEvent.idPatient,calEvent.tel,calEvent.age);
                            edit(calEvent);
                       @endif     
@@ -309,10 +309,10 @@
       </div>
       <br>
       <div class="modal-footer">
-      @if(App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role =="Medecine")
+      @if(Auth::user()->role->id == 1")
       <a type="button" id="btnConsulter" class="btn btn btn-sm btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
      <button type="button" class="btn btn-sm btn-primary" onclick="update();">
-                @if(App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role !="Receptioniste") 
+                @if(Auth::user()->role->id  != 2) 
                         <i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer</button>
                  @endif       
       <a  href=""  id="btnDelete" class="btn btn-bold btn-sm btn-danger" data-method="DELETE" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal">

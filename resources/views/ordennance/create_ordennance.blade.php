@@ -194,7 +194,7 @@
 							</table>
 							</form>
 							<div class="pull-right">
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ord" onclick="createord('{{ $patient->Nom }} {{ $patient->Prenom }}','{{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Nom_Employe}} {{App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first()->Prenom_Employe}}')">
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ord" onclick="createord('{{ $patient->Nom }} {{ $patient->Prenom }}','{{ Auth::User()->employ->Nom_Employe }} {{ Auth::User()->employ->Prenom_Employe }}')">
 									Terminer
 								</button>
 							</div>
