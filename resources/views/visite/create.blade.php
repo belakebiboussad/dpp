@@ -151,7 +151,7 @@
 			{{ csrf_field() }}
 			<input type="hidden" name="id" value="{{$id}}">
 			<div id="prompt"></div>
-			<div class="tabpanel">
+			<div class="tabpanel  mb-3">
 				<ul class = "nav nav-pills nav-justified list-group" role="tablist" id="menu">
 					<li role= "presentation" class="active col-md-6">
 						<a href="#Actes" aria-controls="Actes" role="tab" data-toggle="tab" class="btn btn-success btn-lg">

@@ -13,7 +13,8 @@
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/styles.css') }}" rel="stylesheet">
     
-    <link href="{{ asset('/css/font-awesome.css') }}" rel="stylesheet">
+    <link href="{{ asset('/css/font-awesome.css') }}" rel="stylesheet" type="text/css">
+    <link href="<?= asset('vendor/components/font-awesome/css/font-awesome.min.css') ?>" rel="stylesheet">
     <!-- text fonts -->
     <link rel="stylesheet" href="{{ asset('/css/ace-fonts.css') }}" />
 

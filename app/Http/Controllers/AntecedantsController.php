@@ -24,7 +24,6 @@ class AntecedantsController extends Controller
     {   
         $patient = patient::FindOrFail($id);
         $atcds = antecedant::where("Patient_ID_Patient",$patient->id)->get()->all();
-
         return view('antecedents.index_atcd',compact('patient','atcds'));
     }
 

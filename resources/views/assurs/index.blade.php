@@ -4,19 +4,17 @@
 <script>
 	function XHRgetAssure()
 	{
-			var matricule = $('#matricule').val();
-			var nss = $('#NSS').val();
-				$.ajax({
-        type : 'get',
-        url : '{{URL::to('searchAssure')}}',
-        data:{'matricule':matricule,'nss':nss},
-        success:function(data,status, xhr){
-        	  alert(data);
-            // $('#liste_assures tbody').html(data);
-            // $(".numberResult").html(xhr.getResponseHeader("count"));
-        }
-    });
-
+		var matricule = $('#matricule').val();
+		var nss = $('#nss').val();
+		$.ajax({
+        		type : 'get',
+        		url : '{{URL::to('searchAssure')}}',
+        		data:{'matricule':matricule,'nss':nss},
+     				  success:function(data,status, xhr){
+        	 		 alert(data);
+            			// $('#liste_assures tbody').html(data);// $(".numberResult").html(xhr.getResponseHeader("count"));	
+        		}
+    		});
 	}
 </script>
 @endsection
@@ -24,10 +22,10 @@
 <div class="page-content">
 	<div class="row">
 		<div class="col-sm-12 center">	
-				<h2>
-					<strong>Bienvenue Docteur:</strong>
+			<h2>
+				<strong>Bienvenue Docteur:</strong>
 				 <q class="blue"> {{ Auth::User()->employ->Nom_Employe }} {{ Auth::User()->employ->Prenom_Employe }}  </q>
-				</h2>
+			</h2>
 				
 		</div>		
 	</div>	{{-- row --}}
@@ -54,7 +52,7 @@
 						<strong>NSS:</strong></label>
 					</div>
 					<div class="col-sm-3">
-				   	<input type="text" class="form-control input-sm tt-input" id="NSS" name="NSS"  placeholder="Numéro du sécurité du patient..."
+				   	<input type="text" class="form-control input-sm tt-input" id="nss" name="nss"  placeholder="Numéro du sécurité du patient..."
 				   	 data-toggle="tooltip" data-placement="left" title="Code IPP du patient">
 					</div>
 				</div><!-- row -->

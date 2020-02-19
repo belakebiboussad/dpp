@@ -150,54 +150,54 @@ function setField(field,value)
 <div class="page-content">
 <div class="row">
 	<div class="col-sm-12 center">	
-			<<h2>
-					<strong>Bienvenue Docteur:</strong>
-				 <q class="blue"> {{ Auth::User()->employ->Nom_Employe }} {{ Auth::User()->employ->Prenom_Employe }}  </q>
-				</h2>
-			
+		<h2>
+			<strong>Bienvenue Docteur:</strong>
+			 <q class="blue"> {{ Auth::User()->employ->Nom_Employe }} {{ Auth::User()->employ->Prenom_Employe }}  </q>
+		</h2>
 	</div>		
 </div>	{{-- row --}}
 <div class="space-12"></div>
-<div class="row">
-	<div class="col-sm-12 col-lg-12">
-		<div class="panel panel-default ">
-			<div class="panel-heading left" style="height: 40px; font-size: 2.3vh;">
+{{-- <div class="row"> --}}
+	<div class="row panel panel-default" style ="margin-right:-35px;">
+		<div class="panel-heading left" style="height: 40px; font-size: 2.3vh;">
 				<strong>Rechercher un Patient</strong>
 				<div class="pull-right" style ="margin-top: -0.5%;">
 					<a href="{{route('assur.index')}}" class ="btn btn-white btn-info btn-bold btn-xs">Rechercher un Fonctionnaire&nbsp;<i class="ace-icon fa fa-arrow-circle-right bigger-120 black"></i></a>
 				</div>
-			</div>
-		  <div class="panel-body">
-				<div class="row">
-						<div class="col-sm-1">
-							<label class="control-label pull-right" for="patientName" ><strong>&nbsp;&nbsp;&nbsp;Nom:</strong>
-							</label>
-						</div>
-					  <div class="col-sm-2">
-							<input type="text" class="form-control input-sm" id="patientName" name="patientName"  placeholder="nom du patient..."/>
-					  </div>
-				  	<div class="col-sm-1">
-							<label class="control-label pull-right" for="patientFirstName" ><strong>Prenom:</strong>
-							</label> 
-					  </div>
-					<div class="col-sm-2">
-						<input type="text" class="form-control input-sm" id="patientFirstName" name="patientFirstName"  placeholder="prenom du patient...">
-					</div>
-					<div class="col-sm-1"><label class="control-label pull-right" for="Dat_Naissance" >
-						<strong>Né(e):</strong></label>
-					</div>
-					<div class="col-sm-2">
-					  <input type="text" class="form-control input-sm tt-input date-picker" id="Dat_Naissance" name="Dat_Naissance"
-					   		data-date-format="yyyy-mm-dd" placeholder="date de naissance..." data-toggle="tooltip" data-placement="left" title="Date Naissance du patient">
-					</div>
-					<div class="col-sm-1"><label class="control-label pull-right" for="IPP" ><strong>IPP:</strong></label>
-					</div> 
-					<div class="col-sm-2">
-				   	<input type="text" class="form-control input-sm tt-input" id="IPP" name="IPP"  placeholder="code du patient..."
-				   	 data-toggle="tooltip" data-placement="left" title="Code IPP du patient">
-					</div>
+		</div>
+		 <div class="panel-body">
+			<div class="row">
+				<div class="col-sm-1">
+					<label class="control-label pull-right" for="patientName" ><strong>&nbsp;&nbsp;&nbsp;Nom:</strong>
+					</label>
 				</div>
-		 	</div>  {{-- body --}}
+			      <div class="col-sm-2">
+					<input type="text" class="form-control input-sx" id="patientName" name="patientName"  placeholder="nom du patient..."/>
+				 </div>
+				<div class="col-sm-1">
+					<label class="control-label pull-right" for="patientFirstName" ><strong>Prenom:</strong>
+				       </label> 
+			      </div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control input-sx" id="patientFirstName" name="patientFirstName"  placeholder="prenom du patient...">
+				</div>
+				<div class="col-sm-1">
+					<label class="control-label pull-right" for="Dat_Naissance" >
+					<strong>Né(e):</strong></label>
+				</div>
+				<div class="col-sm-2">
+					  <input type="text" class="form-control input-sx tt-input date-picker" id="Dat_Naissance" name="Dat_Naissance"
+					   		data-date-format="yyyy-mm-dd" placeholder="date de naissance..." data-toggle="tooltip" data-placement="left" title="Date Naissance du patient">
+				</div>
+				<div class="col-sm-1">
+				       <label class="control-label pull-right" for="IPP" ><strong>IPP:</strong></label>
+				</div> 
+				<div class="">
+				   	<input type="text" class="form-control input-sx tt-input" id="IPP" name="IPP"  placeholder="code du patient..."
+				   	 data-toggle="tooltip" data-placement="left" title="Code IPP du patient">
+				</div>
+			</div>
+		 </div>  {{-- body --}}
 		  <div class="panel-footer" style="height: 50px;">
 		   	<button type="submit" class="btn btn-xs btn-primary " style="vertical-align: middle" onclick="XHRgetPatient();"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
 			<div class="pull-right">
@@ -206,7 +206,7 @@ function setField(field,value)
 			</div>		
 		  </div>
  		 </div>
-</div>{{-- row --}}
+{{-- </div> --}}{{-- row --}}
 <div class="row">
 	<div class="col-sm-7">
 		<div class="widget-box transparent">

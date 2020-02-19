@@ -86,9 +86,17 @@ class AssurController extends Controller
     }
     public function search(Request $request)
     {
-        if($request->ajax())  
-        {
-                $output="";
+              if($request->ajax())  
+             {
+                   $output="";
+                  // $assures = assur::where('Nom','LIKE','%'.trim($request->matricule)."%")->orwhere('NSS','LIKE','%'.trim($request->nss)."%")->get();
+                   $assures = assur::where('Nom', 'like', '%' . request('matricule') . '%')
+                                              ->orwhere('Prenom', 'like', '%' . request('nss') . '%')->paginate(5);
+                    if($assures)
+                       {
+                        return Response::json($assures); 
+                       }
+                {
         }
     }
 }
