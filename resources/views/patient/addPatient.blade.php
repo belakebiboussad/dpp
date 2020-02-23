@@ -189,7 +189,7 @@
 							<strong>Nom :</strong> 
 						</label>
 						<div class="col-sm-9">
-							<input type="text" id="nom" name="nom" placeholder="Nom..." class="col-xs-12 col-sm-12" autocomplete= "off" required alpha/>
+							<input type="text" id="nom" name="nom" placeholder="Nom..." class="col-xs-12 col-sm-12" autocomplete= "off" value="{{ old('nom') }}" required alpha/>
 								{!! $errors->first('datenaissance', '<small class="alert-danger">:message</small>') !!}
 						</div>
 					</div>
@@ -443,7 +443,7 @@
 							<label class="col-sm-3 control-label" for="nomf">
 							<strong>Nom :</strong> 
 							</label>
-						<div class="col-sm-9">
+						<div class="col-sm-6">
 							<input type="text" id="nomf" name="nomf" placeholder="Nom..." class="col-xs-12 col-sm-12" />
 						</div>
 						<br>
@@ -455,7 +455,7 @@
 							<label class="col-sm-3 control-label" for="prenomf">
 							<strong>Prénom :</strong>
 						</label>
-						<div class="col-sm-9">
+						<div class="col-sm-6">
 							<input type="text" id="prenomf" name="prenomf" placeholder="Prénom..." class="col-xs-12 col-sm-12" />
 						</div>
 						<br>
@@ -470,22 +470,21 @@
 							<label class="col-sm-3 control-label" for="datenaissancef">
 								<strong class="text-nowrap">Né(e) le :</strong>
 							</label>
-							<div class="col-sm-9">
+							<div class="col-sm-6">
 							<input class="col-xs-12 col-sm-12 date-picker" id="datenaissancef" name="datenaissancef" type="text" data-date-format="yyyy-mm-dd" placeholder="Date de naissance..." />
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
-						<label class="col-sm-3 control-label" for="lieunaissancef">
-							<span class="text-nowrap"><strong>Lieu de naiss :</strong></span>
-						</label>
-						<div class="col-sm-9">
-						  <input type="hidden" name="idlieunaissancef" id="idlieunaissancef">
-							<input type="text" id="lieunaissancef" name="" placeholder="Lieu de naissance..."
-								 class="col-xs-12 col-sm-12" autocomplete= "on" />
-						</div>
-						<br>
+							<label class="col-sm-3 control-label" for="lieunaissancef">
+								<span class="text-nowrap"><strong>Lieu de naiss :</strong></span>
+							</label>
+							<div class="col-sm-9">
+							  <input type="hidden" name="idlieunaissancef" id="idlieunaissancef">
+								<input type="text" id="lieunaissancef" name="lieunaissancef" placeholder="Lieu de naissance..." class="form-control col-xs-12 col-sm-12" autocomplete= "on" />
+							</div>
+							<br>
 						</div>
 						<br>
 					</div>

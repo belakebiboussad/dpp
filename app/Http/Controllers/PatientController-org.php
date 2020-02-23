@@ -96,8 +96,10 @@ class PatientController extends Controller
                     "date"         => "Le champ :attribute n'est pas une date valide.",
              ];
         $validator = Validator::make($request->all(),$rule,$messages);   
-
-        if ($validator->fails()) {   
+        dd($request->lieunaissance);
+        if ($validator->fails()) { 
+             // dd($validator->errors());
+              $request->lieunaissance
               $errors=$validator->errors(); 
               return view('patient.addPatient')->withErrors($errors);
         } 
@@ -144,11 +146,10 @@ class PatientController extends Controller
             ]);
           }
         }
-      $assurID= $assurObj !=null ? $assurObj->id : null;
-      //  $codebarre =$request->sexe.$date->year."/".($nomb+1);
+      $assurID= $assurObj !=null ? $assurObj->id : null; //  $codebarre =$request->sexe.$date->year."/".($nomb+1);
+      dd($assurID);
       $patient = patient::firstOrCreate([
-                // "code_barre"=>$codebarre,
-                "Nom"=>$request->nom,
+                "Nom"=>$request->nom,// "code_barre"=>$codebarre,
                 "Prenom"=>$request->prenom,
                 "Dat_Naissance"=>$request->datenaissance,
                 "Lieu_Naissance"=>$request->idlieunaissance,
@@ -167,13 +168,16 @@ class PatientController extends Controller
                 "description"=> $request->description,
                 "NSS"=>$request->nsspatient,
                 "Date_creation"=>$date,
+                "updated_at"=>$date,
       ]);
-    if ($request->sexe == "H") {
-                $sexe = 1;
-     }
-     else{
-           $sexe = 0;
-     }
+    // if ($request->sexe == "H") {
+    //             $sexe = 1;
+    //  }
+    //  else{
+    //        $sexe = 0;
+    //  }
+     $sexe = ($request->sexe == "H") ? 1:0;
+     dd($sexe);
      $codebarre =$sexe.$date->year.$patient->id;
      $patient->update([
            "code_barre" => $codebarre,
@@ -301,7 +305,6 @@ public function update(Request $request,$id)
                                        "NMGSN"=>$request->NMGSN,
                                        "NSS"=>$request->nss,
                                   ]);
-                    // dd($assurObj);
                     $patient -> update([
                                    "Nom"=>$request->nom,
                                    "Prenom"=>$request->prenom,
@@ -734,10 +737,7 @@ public function search(Request $request)
                           foreach ($patients as $key => $patient) {
                                 $age = Carbon::createFromDate(date('Y', strtotime($patient->Dat_Naissance)), date('m', strtotime($patient->Dat_Naissance)), date('d', strtotime($patient->Dat_Naissance)))->age;
                                 $patientType ="";
-                                if($patient->Sexe =="M")
-                                    $patient->Sexe="Homme";
-                                else
-                                       $patient->Sexe="Femme";
+                                $sexe =  ($patient->Sexe =="M")?"Homme":"Femme";   
                                 switch($patient->Type)
                                 {
                                   case  "Assure":
@@ -758,7 +758,7 @@ public function search(Request $request)
                                '<td>'.$patient->Prenom.'</td>'.
                                '<td>'.$patient->code_barre.'</td>'.
                                '<td>'.$patient->Dat_Naissance.'</td>'.
-                               '<td>'.$patient->Sexe.'</td>'.
+                               '<td>'.$sexe.'</td>'.
                                '<td>'.$age.'</td>'.
                                '<td>'.$patientType.'</td>'.
                                '<td class="center">'.'<a href="/patient/'.$patient->id.'" class="'.'btn btn-warning btn-xs" data-toggle="tooltip" title="Consulter le dossier" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i>&nbsp;</a>'."&nbsp;&nbsp;".'<a href="/patient/'.$patient->id.'/edit" class="'.'btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></a>'.'</td>'.

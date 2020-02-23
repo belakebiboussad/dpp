@@ -10,9 +10,10 @@
         		type : 'get',
         		url : '{{URL::to('searchAssure')}}',
         		data:{'matricule':matricule,'nss':nss},
-     				  success:function(data,status, xhr){
-        	 		 alert(data);
-            			// $('#liste_assures tbody').html(data);// $(".numberResult").html(xhr.getResponseHeader("count"));	
+     				   success:function(data,status, xhr){
+            	 $('#liste_assures').html(data);
+            	 $(".numberResult").html(xhr.getResponseHeader("count"));
+            	 $('#matricule').val('');$('#nss').val('');	
         		}
     		});
 	}
@@ -28,7 +29,7 @@
 			</h2>
 				
 		</div>		
-	</div>	{{-- row --}}
+	</div>
 	<div class="space-12"></div>
 	<div class="row">
 		<div class="panel panel-default ">
@@ -63,29 +64,34 @@
 		</div><!-- panel -->
 	</div><!-- row -->
 	<div class="row">
-		<div class="col-sm-7">
+		<div class="col-sm-12">
 			<div class="widget-box transparent">
 				<div class="widget-header widget-header-flat widget-header-small">
 					<h5 class="widget-title"><img src="img/policeman.png" class="img1 img-thumbnail">Resultats: </h5>
 					<label for=""><span class="badge badge-info numberResult"></span></label>
 				</div>
 				<div class="bodycontainer scrollable">
-					<table id="liste_assures" class="table table-striped table-bordered table-condensed table-scrollable">
+					<table class="table table-striped table-bordered table-condensed table-scrollable">
 						<tr class="info"><th colspan="12">Selectionner dans la liste</th>
 						</tr>
 						<tr class="liste">
 							<th hidden>id</th>
 							<th  class="center" width="3%" >#</th>
+							<th class="blue">Matricule</th>
+							<th class="blue">Num Séc Soc</th>
 							<th class="blue">Nom</th>
 							<th class="blue">Prénom</th>
 							<th class="blue">Né(e) le</th>
 							<th class="blue">Sexe</th>
 							<th class="blue">Position Actuel</th>
-							<th class="blue">Matricule</th>
-							<th class="blue">Num Séc Soc</th>
+							<th class="blue">Service</th>
+						
 							<th class="blue"><em class="fa fa-cog"></em></th>
 						</tr>
 						</thead>
+						<tbody id="liste_assures">
+							
+						</tbody>
 					</table>
 				</div>
 	</div>

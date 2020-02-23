@@ -87,6 +87,7 @@ function XHRgetPatient()
         success:function(data,status, xhr){
             $('#liste_patients tbody').html(data);
             $(".numberResult").html(xhr.getResponseHeader("count"));
+            $('#patientName').val('');$('#patientFirstName').val('');$('#IPP').val('');$('#Dat_Naissance').val('');
         }
     });
 
