@@ -95,9 +95,21 @@
 		  				$('#Div-nomjeuneFille').attr('hidden','');	
 				 }else{
 				 		$('#Div-nomjeuneFille').attr('hidden','');	
-				 }
-	    				
+				 }		
 			});
+			$('input[type=radio][name=sexe]').change(function()
+			{
+			 	if($(this).val() == "M")
+			 	{
+			 		$('#Div-nomjeuneFille').attr('hidden','');
+			 	}else
+			 	{
+			 		var civilite= $("select.civilite option").filter(":selected").val();
+			 		if((civilite =="marie")|| (civilite =="veuf"))
+		  				$('#Div-nomjeuneFille').removeAttr('hidden');
+			 	}
+			});
+			
 
 		});
 		function autocopleteCNais(commune)
@@ -175,6 +187,7 @@
 		</div>
 	</div>
 	<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
+   		 
    		 <li class="active"><a class="jumbotron" data-toggle="tab" href="#Patient">
    		 	<span class="bigger-130"><strong>Patient</strong></span></a>
    		 </li>

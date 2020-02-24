@@ -242,15 +242,15 @@
 	function storeord1()
 	{
 		var arrayLignes = document.getElementById("ordonnance").rows;
-            var longueur = arrayLignes.length; 
-            var ordonnance = [];
-            for(var i=1; i<longueur; i++)
-            {
-              ordonnance[i-1] = { med: arrayLignes[i].cells[1].innerHTML, posologie: arrayLignes[i].cells[5].innerHTML }
-            }
-            var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
-            champ.appendTo('#consultForm');
-      }
+    var longueur = arrayLignes.length; 
+    var ordonnance = [];
+    for(var i=1; i<longueur; i++)
+    {
+      ordonnance[i-1] = { med: arrayLignes[i].cells[1].innerHTML, posologie: arrayLignes[i].cells[5].innerHTML }
+    }
+    var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
+    champ.appendTo('#consultForm');
+  }
 	function demandehosp()
 	{
 		($("#motifhosp").appendTo('#consultForm')).hide();

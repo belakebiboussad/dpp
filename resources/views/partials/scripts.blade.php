@@ -605,18 +605,17 @@ $('#typeexm').on('change', function() {
             $('#lettreorientation').attr('src', string);
           }
            function createord(nompatient,nommedcin) {
-                     var d = new Date();
-                     moment.locale('fr');
-                     var formattedDate = moment(d).format("l");
-                    var pdf = new jsPDF()
-                    pdf.text(105,20, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
-                    pdf.text(105,26, 'HOPITAL CENTRAL DE LA SURETE NATIONALE "LES GLYCINES"', null, null, 'center');
-                    pdf.text(105,32, '12, Chemin des Glycines - ALGER', null, null, 'center');
-                    pdf.text(105,38, 'Tél : 23-93-34 - 23-93-58', null, null, 'center');
-                    pdf.text(200,50, 'Alger,le : '+formattedDate, null, null, 'right');
-                    pdf.text(20,60, 'Docteur : '+nommedcin, null, null);
-                    pdf.text(200,60, 'Patient : '+nompatient, null, null, 'right');
-                    pdf.setFontType("bold");
+                moment.locale('fr');
+                var formattedDate = moment(new Date()).format("l");
+                var pdf = new jsPDF()
+                pdf.text(105,20, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
+                pdf.text(105,26, 'HOPITAL CENTRAL DE LA SURETE NATIONALE "LES GLYCINES"', null, null, 'center');
+                pdf.text(105,32, '12, Chemin des Glycines - ALGER', null, null, 'center');
+                pdf.text(105,38, 'Tél : 23-93-34 - 23-93-58', null, null, 'center');
+                pdf.text(200,60, 'Alger,le : '+formattedDate, null, null, 'right');
+                pdf.text(20,60, 'Docteur : '+nommedcin, null, null);
+                pdf.text(200,70, 'Patient : '+nompatient, null, null, 'right');
+                pdf.setFontType("bold");
                     pdf.text(105,70, 'ORDONNANCE', null, null, 'center');
                     var arrayLignes = document.getElementById("ordonnance").rows;
                     var longueur = arrayLignes.length;
