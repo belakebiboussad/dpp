@@ -88,11 +88,13 @@
 				 var sex =  $('input[name=sexe]:checked').val();
 				 if(sex == "F")
 				 {
-				 	var civilite= $("select.civilite option").filter(":selected").val();
-				 	if((civilite =="marie")|| (civilite =="veuf"))
+				 		var civilite= $("select.civilite option").filter(":selected").val();
+				 		if((civilite =="marie")|| (civilite =="veuf"))
 		  				$('#Div-nomjeuneFille').removeAttr('hidden');
 		  			else
 		  				$('#Div-nomjeuneFille').attr('hidden','');	
+				 }else{
+				 		$('#Div-nomjeuneFille').attr('hidden','');	
 				 }
 	    				
 			});
@@ -109,38 +111,42 @@
 		
 		function show(wilaya)
 		{
-
 			var res = wilaya.split(",");
 			$("#idwilaya").val(res[0]);
 			$("#wilaya").val(	res[1]);
 			$("#idcommune").val(res[2]);
 		}
+		function copyPatient(){
+			$("#nomf").val($("#nom").val());$("#prenomf").val($("#prenom").val());
+			$("#datenaissancef").val($("#datenaissance").val());$("#lieunaissancef").val($("#lieunaissance").val());
+			$("#idlieunaissancef").val($("#idlieunaissance").val());
+			$("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);  
+			$("#foncform").addClass('hide');$('#Type_p').attr('required', false);  
+			addRequiredAttr();
+		}
+		function copyPrtientInfo()
+		{
+			if($('#fonc').is(':checked'))
+				copyPatient();
+		}
 		function showType(value){
-	    		switch(value){
-			           case "Assure":
-			                     $("#nomf").val($("#nom").val());
-			                     $("#prenomf").val($("#prenom").val());
-			                     $("#datenaissancef").val($("#datenaissance").val());
-			                     $("#lieunaissancef").val($("#lieunaissance").val());
-			                     $("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);  
-			                     $("#foncform").addClass('hide'); 
-			                     $('#Type_p').attr('required', false);  
-			                     addRequiredAttr();
-			                      break;
-			           case "Ayant_droit":
-			                    $("#nomf").val("");
-			                    $("#prenomf").val("");
-			                    $("#foncform").removeClass('hide');
-			                    $('#Type_p').attr('required', true); 
-			                    addRequiredAttr();
-			                break;
-			             case "Autre":
-			                     $(".starthidden").show(250);
-			                     $("#foncform").addClass('hide');
-			                     $('#Type_p').attr('required', false); 
-			                     //$("ul#menuPatient li:not(.active) a").prop('disabled', true);
-			                     $("ul#menuPatient li:eq(1)").css('display', 'none');
-			             break;         
+	    switch(value){
+			    case "Assure":
+			        copyPatient();          
+			        break;
+			    case "Ayant_droit":
+			        $("#nomf").val("");
+			        $("#prenomf").val("");
+			        $("#foncform").removeClass('hide');
+			        $('#Type_p').attr('required', true); 
+			        addRequiredAttr();
+			        break;
+			    case "Autre":
+			        $(".starthidden").show(250);
+			        $("#foncform").addClass('hide');
+			        $('#Type_p').attr('required', false);  //$("ul#menuPatient li:not(.active) a").prop('disabled', true);
+			        $("ul#menuPatient li:eq(1)").css('display', 'none');
+			        break;         
 			}			
 		}
 	</script>
@@ -172,7 +178,7 @@
    		 <li class="active"><a class="jumbotron" data-toggle="tab" href="#Patient">
    		 	<span class="bigger-130"><strong>Patient</strong></span></a>
    		 </li>
-    		<li><a data-toggle="tab" href="#Assure" class="jumbotron">
+    		<li><a data-toggle="tab" href="#Assure" class="jumbotron" onclick="copyPrtientInfo();">
     			<span class="bigger-130"><strong>Assure</strong></span></a>
     		</li>
     		<li><a class="jumbotron" data-toggle="tab" href="#Homme_C">
@@ -223,11 +229,11 @@
 				<div class="col-sm-6">
 					<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
 						<label class="col-sm-3 control-label" for="lieunaissance">
-							<strong class="text-nowrap">Lieu de naissance :</strong>
+							<strong class="text-nowrap">Lieu de naissances :</strong>
 						</label>
 					<div class="col-sm-9">
 					  <input type="hidden" name="idlieunaissance" id="idlieunaissance">
-						<input type="text" id="lieunaissance" name="" placeholder="Lieu de naissance..." autocomplete = "on" class="col-xs-12 col-sm-12 typeahead " required/>
+						<input type="text" id="lieunaissance" name="lieunaissance" placeholder="Lieu de naissance..." autocomplete = "on" class="col-xs-12 col-sm-12 typeahead " required/>
 					 	{!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
 					</div>
 					</div>
@@ -368,18 +374,22 @@
 						<input id="mobile2" name="mobile2"  maxlength =8 minlength =8  type="tel" autocomplete="off" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"   placeholder="XXXXXXXX"/>
 					</div>
 				</div>
+
+			</div>	
+			<div class="space-12"></div>
+			<div class="row">
 				<div class="col-sm-4">
 					<div class="form-group">
 						<div class="col-sm-3">
 							<label class="control-label no-padding-right pull-right" style=" padding-top: 0px;"><strong>Type :</strong></label>
 						</div>
-						<div class="col-sm-9">
+						<div class="col-sm-9" id="checkType">
 							<label class="line-height-1 blue">
-								<input id="fonc" name="type" value="Assure" type="radio" class="ace" onclick="showType('Assure')"/>
+								<input id="fonc" name="type" value="Assure" type="radio" class="ace" onclick="showType('Assure')" Checked/>
 								<span class="lbl"> Assuré</span>
 							</label>&nbsp;&nbsp;&nbsp;
 							<label class="line-height-1 blue">
-								<input id="ayant" name="type" value="Ayant_droit" type="radio" class="ace" onclick="showType('Ayant_droit')" Checked/>
+								<input id="ayant" name="type" value="Ayant_droit" type="radio" class="ace" onclick="showType('Ayant_droit')"/>
 								<span class="lbl"> Ayant droit</span>
 							</label>&nbsp;&nbsp;&nbsp;
 							<label class="line-height-1 blue">
@@ -389,25 +399,24 @@
 						</div>
 					</div>
 				</div>
-			</div>	
+			</div>
 			<div class="space-12"></div>
-	
-			<div class="row" id="foncform">
-				<div class="col-sm-6">
-				<div class="form-group">
-					 <label class="col-sm-3 control-label" for="Type_p">
-					<strong>Type :</strong>
-					</label>
-					<div class="col-sm-9">
-					<select class="form-control col-xs-12 col-sm-6" id="Type_p" name="Type_p" required>
-						<option value="">------</option>
-						<option value="Ascendant">Ascendant</option>
-						<option value="Descendant">Descendant</option>
-						<option value="Conjoint">Conjoint</option>
-					</select>
-					</div>
-				</div>				
-				</div>	
+				<div class="row hide" id="foncform">
+					<div class="col-sm-6">
+						<div class="form-group">
+							 <label class="col-sm-3 control-label" for="Type_p">
+							<strong>Type :</strong>
+							</label>
+							<div class="col-sm-9">
+							<select class="form-control col-xs-12 col-sm-6" id="Type_p" name="Type_p">
+								<option value="">------</option>
+								<option value="Ascendant">Ascendant</option>
+								<option value="Descendant">Descendant</option>
+								<option value="Conjoint">Conjoint</option>
+							</select>
+							</div>
+						</div>				
+					</div>	
 				<div class="col-sm-6">
 				<div class="form-group">
 					 <label class="col-sm-4 control-label" for="nsspatient">
@@ -430,13 +439,6 @@
 		</div> 	{{-- tab-pane --}}
 		<div id="Assure" class="tab-pane ">
 		   	<div id ="assurePart">
-				<div class="row">
-					<div class="col-sm-12">
-						<h3 class="header smaller lighter blue">
-							<strong>Information L'Assuré(e)</strong>
-						</h3>
-					</div>	
-				</div>{{-- row --}}
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="form-group">
@@ -498,7 +500,7 @@
 		                  			            <div class="col-sm-9">
 						                         <div class="radio">
 						                         <label>
-						                          	<input name="sexef" value="M" type="radio" class="ace"/>
+						                          	<input name="sexef" value="M" type="radio" class="ace" checked/>
 						                    		<span class="lbl"> Masculin</span>
 						                          </label>
 						                         <label>
@@ -560,9 +562,9 @@
 								<strong>Matricule :</strong>
 							</label>
 							<div class="col-sm-9">
-							<div class="clearfix">
-								<input type="text" id="mat" name="mat" class="col-xs-12 col-sm-6" placeholder="Matricule..." />
-							</div>
+								<div class="clearfix">
+									<input type="text" id="mat" name="mat" class="col-xs-12 col-sm-6" placeholder="Matricule..." maxlength =5 minlength =5 />
+								</div>
 							</div>
 						</div>
 					</div>
@@ -576,7 +578,7 @@
 							</label>
 							<div class="col-sm-9">
 								<div class="clearfix">
-									<input type="text" id="NMGSN" name="NMGSN" class="col-xs-12 col-sm-12" placeholder="numéro mutuel" />
+									<input type="text" id="NMGSN" name="NMGSN" class="col-xs-12 col-sm-12" placeholder="numéro mutuel"/>
 								</div>
 							</div>
 						</div>

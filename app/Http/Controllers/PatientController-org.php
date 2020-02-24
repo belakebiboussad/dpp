@@ -87,22 +87,19 @@ class PatientController extends Controller
                      "date_piece_id"=>'required_with:nom_homme_c',
                      "mobile_homme_c"=>['required_with:nom_homme_c'],
                      "operateur_h"=>'required_with:mobileA',
-        );
-  
-        // , 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'
+        );  // , 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'     
         $messages = [
                     "required"     => "Le champ :attribute est obligatoire.",
                     "NSSValide"    => 'le numéro du securite sociale est invalide ',
                     "date"         => "Le champ :attribute n'est pas une date valide.",
              ];
         $validator = Validator::make($request->all(),$rule,$messages);   
-        dd($request->lieunaissance);
+
         if ($validator->fails()) { 
-             // dd($validator->errors());
-              $request->lieunaissance
-              $errors=$validator->errors(); 
-              return view('patient.addPatient')->withErrors($errors);
+            $errors=$validator->errors(); 
+            return view('patient.addPatient')->withErrors($errors);
         } 
+
         if(patient::all()->isNotEmpty())
         {
           $nomb = patient::all()->last()->id;
@@ -129,13 +126,13 @@ class PatientController extends Controller
         }
         else
         {
-          if( $request->type=="Assure")
-          {
-            $assurObj = assur::firstOrCreate([
+        if( $request->type=="Assure")
+        {
+          $assurObj = assur::firstOrCreate([
                                 "Nom"=>$request->nom,
                                 "Prenom"=>$request->prenom,
                                 "Date_Naissance"=>$request->datenaissance,
-                                "lieunaissance"=>$request->idlieunaissance,
+                                "lieunaissance"=>$request->idlieunaissancef,
                                 "Sexe"=>$request->sexe,
                                 "Matricule"=>$request->mat,
                                 "Service"=>$request->service,
@@ -143,11 +140,11 @@ class PatientController extends Controller
                                 "Etat"=>$request->etatf,
                                 "NSS"=>$request->nss,
                                 "NMGSN"=>$request->NMGSN, 
-            ]);
-          }
+          ]);
+
         }
+      }
       $assurID= $assurObj !=null ? $assurObj->id : null; //  $codebarre =$request->sexe.$date->year."/".($nomb+1);
-      dd($assurID);
       $patient = patient::firstOrCreate([
                 "Nom"=>$request->nom,// "code_barre"=>$codebarre,
                 "Prenom"=>$request->prenom,
@@ -170,14 +167,7 @@ class PatientController extends Controller
                 "Date_creation"=>$date,
                 "updated_at"=>$date,
       ]);
-    // if ($request->sexe == "H") {
-    //             $sexe = 1;
-    //  }
-    //  else{
-    //        $sexe = 0;
-    //  }
-     $sexe = ($request->sexe == "H") ? 1:0;
-     dd($sexe);
+      $sexe = ($request->sexe == "H") ? 1:0;
      $codebarre =$sexe.$date->year.$patient->id;
      $patient->update([
            "code_barre" => $codebarre,
@@ -460,7 +450,6 @@ public function update(Request $request,$id)
              switch ($request->type) {
                    case 'Assure':
                       $assure = new assur;
-                      // dd($request->idlieunaissance);
                       $assurObj =  $assure->firstOrCreate([
                                         "Nom"=>$request->nom,
                                         "Prenom"=>$request->prenom,
@@ -542,7 +531,6 @@ public function update(Request $request,$id)
                              return redirect(Route('patient.index'));
                           }
                   case 'Autre':
-                          //dd($request->idcommune ); 
                           $patient -> update([
                                     "Nom"=>$request->nom,
                                     "Prenom"=>$request->prenom,
@@ -631,7 +619,7 @@ public function update(Request $request,$id)
           }
           /******************************/    
           // Flashy::primary('Patient modifié avec succés!');    //flashy('Some message', 'http://your-awesome-link.com');
-          //dd($patient);
+          
           return redirect(Route('patient.show',$patient->id));
 }
 
