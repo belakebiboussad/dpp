@@ -1,11 +1,9 @@
 <!-- basic scripts -->
-
 <!--[if !IE]> -->
 <script src="{{asset('/js/jquery-2.2.4.js')}}"></script>
 <script type="text/javascript" src="{{ asset('/js/jspdf.debug.js') }}"></script>
 <script src="{{ asset('/js/html2pdf.js') }}"></script>
         <!-- <![endif]-->
-
         <!--[if IE]>
 <script src="assets/js/jquery-1.11.3.min.js"></script>
 <![endif]-->
@@ -604,7 +602,49 @@ $('#typeexm').on('change', function() {
             var string = lettre.output('datauristring');
             $('#lettreorientation').attr('src', string);
           }
-           function createord(nompatient,nommedcin) {
+             var createPDF = function(imgData,nompatient,nommedcin) {
+                     moment.locale('fr');
+                     var formattedDate = moment(new Date()).format("l");
+                    var doc = new jsPDF('p', 'pt', 'a4'); 
+                    doc.setFontSize(12);
+                    doc.text(300,15, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
+                   doc.text(300,32, 'HOPITAL CENTRAL DE LA SURETE NATIONALE "LES GLYCINES"', null, null, 'center');
+                   doc.setFontSize(10);
+                   doc.text(300,47, '12, Chemin des Glycines - ALGER', null, null, 'center');
+                    doc.text(300,63, 'Tél : 23-93-34 - 23-93-58', null, null, 'center');
+                    var width = doc.internal.pageSize.width;    
+                    var height = doc.internal.pageSize.height;
+                    var options = {
+                         pagesplit: true
+                    };
+                    var h2=100;//30
+                    var aspectwidth2= (height-h2)*(9/16);
+                    doc.addImage(imgData, 'JPEG', 285, 70, 60, 60, 'monkey'); 
+                    doc.line(40, 132, 570, 132);
+                     doc.setFontSize(12);
+                    doc.text(574,150, 'Alger,le : '+formattedDate, null, null, 'right');  
+                     doc.text(50,150, 'Docteur : '+nommedcin, null, null);
+                     doc.text(574,180, 'Patient : '+nompatient, null, null, 'right');
+                     doc.setFontType("bold"); 
+                     doc.setFontSize(18); 
+                      doc.text(300,205, 'ORDONNANCE', null, null, 'center');  
+                       doc.setFontSize(12);
+                    doc.save('ordonnance.pdf');
+             }
+             var getImageFromUrl = function(url, callback,nompatient,nommedcin) {
+                       var img = new Image();
+                       img.onError = function() { 
+                        alert('Cannot load image: "'+url+'"');
+                    };
+                    img.onload = function() {
+                          callback(img,nompatient,nommedcin);
+                    };
+                    img.src = url;
+            }
+          function createord(nompatient,nommedcin) {
+              getImageFromUrl('http://localhost:8000/img/logo.png', createPDF,nompatient,nommedcin);
+          }
+           function createordorg(nompatient,nommedcin) {
                 moment.locale('fr');
                 var formattedDate = moment(new Date()).format("l");
                 var pdf = new jsPDF()

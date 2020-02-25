@@ -98,7 +98,10 @@
       <div class="modal-footer" style="width:100%">  
         <div style="bottom:0; padding-right:1.2%">
             <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" onclick="storeord1()"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
-            <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ord"  data-dismiss="modal" onclick="createord('{{ $patient->Nom }} {{ $patient->Prenom }}','{{ Auth::User()->employ->Nom_Employe }} {{ Auth::User()->employ->Prenom_Employe }}')">
+            {{-- <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ord"  data-dismiss="modal" onclick="createord('{{ $patient->Nom }} {{ $patient->Prenom }}','{{ Auth::User()->employ->Nom_Employe }} {{ Auth::User()->employ->Prenom_Employe }}')">
+                    <i class="ace-icon fa fa-print"></i>Imprimer
+              </button> --}}
+              <button type="button" class="btn btn-primary btn-xs"  onclick="createord('{{ $patient->Nom }} {{ $patient->Prenom }}','{{ Auth::User()->employ->Nom_Employe }} {{ Auth::User()->employ->Prenom_Employe }}')">
                     <i class="ace-icon fa fa-print"></i>Imprimer
               </button>
            <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" type="reset"> <i class="ace-icon fa fa-undo bigger-110"></i> Annuler</button>
@@ -107,3 +110,14 @@
     </div>
   </div>
 </div>
+  <div class="target" >
+      <div class="row">
+        <div class="col-xs 1"></div>
+        <div class="col-xs-10">
+          
+        </div>
+        <div class="col-xs 1"></div>
+      </div>
+  </div>
+
+
