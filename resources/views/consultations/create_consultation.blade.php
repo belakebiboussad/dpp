@@ -18,7 +18,7 @@
 		  background-color: transparent;
 		  position: absolute;
 		  right:2px;		
-  		  bottom: 0px;
+  		bottom: 0px;
 	}
 	.modal.modal-wide .modal-dialog {
 	  width: 95%;
@@ -27,15 +27,19 @@
 	.modal-wide .modal-body {
 	  overflow-y: auto;
 	}
+	.a {
+ 	  margin-top:0px !important;
+ 	  margin-bottom:2% !important;
+
+	}
 	iframe {
 	    display: block;
-	    width: 800px;
-	    height: 700px;
+	    width: 900px;
+	    height: 690px;
 	    margin: 0 auto;
 	    border: 0;
 	}
 	/*fin*/
-
 	.dataTables_wrapper {
 	        font-family: tahoma;
 	        font-size: 10px;
