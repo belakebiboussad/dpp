@@ -55,8 +55,6 @@
 <script src="{{ asset('/plugins/fullcalendar/locale/fr.js') }}"></script>
 <script src="{{ asset('/js/jquery-editable-select.js') }}"></script>
 <script src="{{asset('/js/jquery-ui.js')}}"></script>
-<script src="{{asset('/js/jspdf.plugin.autotable.min.js')}}"></script>
-
 {{-- <script src="{{ asset('/js/moment-timezone.js') }}"></script>
  --}}
  <script type="text/javascript">
@@ -259,7 +257,6 @@
                     colonne7.style.display='none';
                     id_demh.push(col[0].innerHTML); //$(lignes[i]).appendTo('#table2');
                     document.getElementById("table1").deleteRow(i);
-                    
                 }
             }
            lignes=null;
@@ -309,9 +306,10 @@
                     //afficher les colonnes cachées
                     for (var j = 1; j < col.length; j++) {
                         if (col[j].style.display === 'none') 
-                            col[j].style.display='table-cell' ;}    
-                            lignes[i].style.display='table-row';
-                            var t=col[0].innerHTML;                         
+                            col[j].style.display='table-cell' ;
+                    }    
+                    lignes[i].style.display='table-row';
+                    var t=col[0].innerHTML;                         
                     var index=id_demh.indexOf(t);                   
                     id_demh.splice(index, 1);                   
                     id_medt.splice(index, 1);                   
@@ -628,38 +626,16 @@ $('#typeexm').on('change', function() {
             var rows = [];
             for(var i=1; i<longueur; i++)
             {
-                // doc.setFontType("bold");
-                // doc.text(35,225+(i*(20)),i+ "-  " + " " +arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML+" "+arrayLignes[i].cells[3].innerHTML , null, null); //+ arrayLignes[i].cells[1].innerHTML
-                // doc.setFontType("normal");
-                // doc.text(35,240+(i*(20)),"   " + arrayLignes[i].cells[5].innerHTML, null, null);
+                doc.setFontType("bold");
+                doc.text(35,225+(i*(27)),i+ "-  " + " " +arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML+" "+arrayLignes[i].cells[3].innerHTML , null, null); //+ arrayLignes[i].cells[1].innerHTML
+                doc.setFontType("normal");doc.setFontSize(10);
+                doc.text(50,225+(i*(27)+13),"   " + arrayLignes[i].cells[5].innerHTML, null, null); //doc.text(35,240+(i*(20)),"   " + arrayLignes[i].cells[5].innerHTML, null, null);             
                 rows.push([ arrayLignes[i].cells[2].innerHTML, arrayLignes[i].cells[4].innerHTML, arrayLignes[i].cells[3].innerHTML]);
             }
-            // doc.autoTable(columns, rows);
-            doc.autoTable({
-                head: headRows(),
-                body: bodyRows(5),
-                startY: 240,
-                showHead: 'firstPage',
-            })
-            // doc.save(pdf_name);//
-        }
-        function headRows() {
-            return [
-                { id: 'ID', name: 'Name', email: 'Email', city: 'City', expenses: 'Sum' },
-            ]
-        }
-        function bodyRows(rowCount) {
-  rowCount = rowCount || 10
-  let body = []
-  for (var j = 1; j <= rowCount; j++) {
-    body.push({
-      id: j,
-      name: faker.name.findName(),
-      email: faker.internet.email(),
-      city: faker.address.city(),
-      expenses: faker.finance.amount(),
-    })
-  }
+            var string = doc.output('datauristring');  
+            $('#ordpdf').attr('src', string);
+            //doc.save(pdf_name);//
+        }       
         var getImageFromUrl = function(url, callback,nompatient,nommedcin) {
             var img = new Image();
             img.onError = function() { 
@@ -693,8 +669,8 @@ $('#typeexm').on('change', function() {
                     pdf.text(30,73+(i*(20)), arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML, null, null);
                     pdf.text(30,80+(i*(20)), arrayLignes[i].cells[4].innerHTML, null, null);
                     }
-                  //var string = pdf.output('datauristring');
-                    // $('#ordpdf').attr('src', string);
+                //var string = pdf.output('datauristring');  
+                // $('#ordpdf').attr('src', string);
                 pdf.save('ordonnance.pdf');
             }
             function storeord()
