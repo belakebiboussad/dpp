@@ -17,4 +17,9 @@ class assur extends Model
 	{
 			return $this->belongsTo('App\modeles\grade','Grade');
 	}
+	// public function service()
+	// {
+	// 		return $this->belongsTo('App\modeles\service','Grade');
+	// }
+
 }
