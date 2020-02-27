@@ -10,10 +10,10 @@
         		type : 'get',
         		url : '{{URL::to('searchAssure')}}',
         		data:{'matricule':matricule,'nss':nss},
-     				   success:function(data,status, xhr){
-            	 $('#liste_assures').html(data);
-            	 $(".numberResult").html(xhr.getResponseHeader("count"));
-            	 $('#matricule').val('');$('#nss').val('');	
+     				success:function(data,status, xhr){
+            	$('#liste_assures').html(data);
+            	$(".numberResult").html(xhr.getResponseHeader("count"));
+            	$('#matricule').val('');$('#nss').val('');	
         		}
     		});
 	}
