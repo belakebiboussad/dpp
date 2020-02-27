@@ -8,7 +8,7 @@
              </div>
         </div>
         <div class="modal-body">
-          <iframe id="ordpdf" class="preview-pane" type="application/pdf" frameborder="0" style="width:800px;position:relative;z-index:999"></iframe>
+          <iframe id="ordpdf" class="preview-pane" type="application/pdf" frameborder="0" style="width:800px;position:relative;z-index:999;"></iframe>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default btn-xs" data-dismiss="modal" onclick="storeord1()" >Terminer</button>

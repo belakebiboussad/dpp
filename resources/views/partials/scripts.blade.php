@@ -609,13 +609,14 @@ $('#typeexm').on('change', function() {
             var aspectwidth2= (height-h2)*(9/16);
             doc.addImage(imgData, 'JPEG', 285, 70, 60, 60, 'monkey'); 
             doc.line(40, 132, 570, 132);
-            doc.setFontSize(12);
-            doc.text(574,152, 'Faite le : '+formattedDate, null, null, 'right');  
-            doc.text(50,152, 'Docteur : '+nommedcin, null, null);
-            doc.text(574,182, 'Patient(e) : '+nompatient, null, null, 'right');
+            
             doc.setFontType("bold"); 
-            doc.setFontSize(20); 
-            doc.text(300,205, 'Ordonnance', null, null, 'center');  
+            doc.setFontSize(22); 
+            doc.text(300,160, 'Ordonnance', null, null, 'center');  
+            doc.setFontSize(12);doc.setFontType("normal"); 
+            doc.text(50,190, 'Docteur : '+nommedcin, null, null);
+            doc.text(574,190, 'Faite le : '+formattedDate, null, null, 'right');  
+            doc.text(574,220, 'Patient(e) : '+nompatient, null, null, 'right');
             doc.setFontSize(12);
             var arrayLignes = document.getElementById("ordonnance").rows;
             var x = 0;
@@ -627,7 +628,8 @@ $('#typeexm').on('change', function() {
                 doc.text(50,225+(i*(27)+13),"   " + arrayLignes[i].cells[5].innerHTML, null, null); //doc.text(35,240+(i*(20)),"   " + arrayLignes[i].cells[5].innerHTML, null, null);             
                 x = 238+i*(27);                   
             }
-            doc.text(80,x+15,ipp, null, null );
+            doc.setFontType("bold");doc.setFontSize(16);
+            doc.text(250,1000,ipp, null, null );
             var string = doc.output('datauristring');  
             $('#ordpdf').attr('src', string); //doc.save(pdf_name);//
            
