@@ -94,10 +94,27 @@
 	       	else
 	       	 $('.select2').removeClass('tag-input-style');
      		});
+     		         $("#pdfDownloader").click(function(){
+        			//$('#ordonnacePDF').modal();
+//$('#Ordonnance').modal('hide');
+        			
+        	//         alert("fzf");
+        //         html2canvas(document.getElementById("demo"), {
+        //                 onrendered: function(canvas) {
+        //                     var imgData = canvas.toDataURL('image/png');
+        //                     console.log('Report Image URL: '+imgData);
+        //                     var doc = new jsPDF('p', 'mm', [297, 210]); //210mm wide and 297mm high
+        //                  doc.addImage(imgData, 'PNG', 10, 10);
+        //    			doc.output('dataurlnewwindow'); 	
+        //                     doc.save('sample.pdf');
+        //                 }
+        //         });
+        });
+
     		$(function() {
 			 var checkbox = $("#isOriented");  // Get the form fields and hidden div
 			var hidden = $("#hidden_fields");  // Setup an event listener for when the state of the    // checkbox changes.
-		    checkbox.change(function() {
+		      checkbox.change(function() {
 		    	if (checkbox.is(':checked')) {
 		     			hidden.show();
 		    	} else {

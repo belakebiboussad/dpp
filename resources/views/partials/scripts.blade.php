@@ -50,14 +50,13 @@
 <script src="{{ asset('/js/bootstrap-toggle.min.js') }}"></script>
 <script src="{{ asset('/js/ace-extra.min.js') }}"></script>
 <script src="{{ asset('/js/jquery.timepicker.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
 <script src="{{ asset('/js/typeahead.bundle.min.js') }}"></script>
 <script src="{{ asset('/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
 <script src="{{ asset('/plugins/fullcalendar/locale/fr.js') }}"></script>
 <script src="{{ asset('/js/jquery-editable-select.js') }}"></script>
 <script src="{{asset('/js/jquery-ui.js')}}"></script>
-<script src="{{asset('/js/html2canvas.min.js')}}"></script>
-
-
+<script type="text/javascript" src="{{asset('/js/html2canvas.min.js')}}"></script>
  <script type="text/javascript">
     $(document).ready(function(){
         // $(".select2").select2({
@@ -140,8 +139,6 @@
     });
 });  
 </script>
-
-
 <script type="text/javascript">
     //And for the first simple table, which doesn't have TableTools or dataTables
     //select/deselect all rows according to table1 header checkbox
@@ -592,15 +589,9 @@ $('#typeexm').on('change', function() {
             var string = lettre.output('datauristring');
             $('#lettreorientation').attr('src', string);
         }
-        var centeredText = function(doc,text, y) {
-            var textWidth = doc.getStringUnitWidth(text) * doc.internal.getFontSize() / doc.internal.scaleFactor;
-            var textOffset = (doc.internal.pageSize.width - textWidth) / 2;
-            doc.text(textOffset, y, text);
-        }
         var createPDF = function(imgData,nompatient,dateNaiss,ipp,nommedcin) {
             moment.locale('fr');var formattedDate = moment(new Date()).format("l");
-            var doc = new jsPDF('p', 'pt', 'a5');//var pdf_name = 'Ordonnance-'+nompatient+'.pdf'; 
-            doc.setFontSize(12);
+            var doc = new jsPDF('p', 'pt', 'a5');//var pdf_name = 'Ordonnance-'+nompatient+'.pdf'; doc.setFontSize(12);
             doc.text(235,25, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
             doc.text(233,40, 'HOPITAL CENTRAL DE LA SÛRETE NATIONALE "LES GLYCINES"', null, null, 'center');
             doc.text(233,57, '12, Chemin des Glycines - ALGER', null, null, 'center');
@@ -643,43 +634,69 @@ $('#typeexm').on('change', function() {
         function createord(nompatient,dateNaiss,ipp,nommedcin) {
             getImageFromUrl('http://localhost:8000/img/logo.png', createPDF,nompatient,dateNaiss,ipp,nommedcin);
         }
-        function al()
+        
+        function printPDF()
         {
-            // letter
-            // var doc = new jsPDF("p", "pt", "letter"),
-            // source = $("#ord1")[0],
-            // margins = {
-            //     top: 20,
-            //     bottom: 50,
-            //     left: 40,
-            //     width: 522
-            //     };
-            //     doc.fromHTML(
-            //       source, // HTML string or DOM elem ref.
-            //       margins.left, // x coord
-            //       margins.top, {
-            //         // y coord
-            //         width: margins.width // max width of content on PDF
-            //       },
-            //       function(dispose) {
-            //         // dispose: object with X, Y of the last line add to the PDF
-            //         //          this allow the insertion of new lines after html
-            //         doc.save("Test.pdf");
-            //       },
-            //       margins
-            //     );
-            //     doc.addHTML(source, function () {
-            //          pdf.save('Test.pdf');
-            //      });
-            html2canvas($("#ord1"), {
-                onrendered: function(canvas) {         
-                    var imgData = canvas.toDataURL(
-                        'http://localhost:8000/img/logo.png');              
-                    var doc = new jsPDF('p', 'mm');
-                    doc.addImage(imgData, 'PNG', 10, 10);
-                    doc.save('sample-file.pdf');
-                }
-        });
+            /*
+              var doc = new jsPDF("p", "mm", "a4");
+              html2canvas(document.querySelector('#ordon-pdf')).then(function(canvas){
+                    var imgData  = canvas.toDataURL('image/png');
+                    var pageHeight = 295;  
+                    var imgWidth = (canvas.width * 50) / 210 ; 
+                    var imgHeight = canvas.height * imgWidth / canvas.width;
+                    var heightLeft = imgHeight;
+                    var position = 15;
+                    doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                    while (heightLeft >= 0) {
+                                position = heightLeft - imgHeight;
+                                doc.addPage();
+                                doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                                 heightLeft -= pageHeight; 
+                    }
+                    doc.output('dataurlnewwindow');  
+                    doc.save(Date.now() +'.pdf');
+              });
+              */
+            /*
+               var doc = new jsPDF("p", "mm", "a4");
+               var srcpath;
+            var element = document.querySelector('#ordon-pdf'); // global variable
+            var imgageData = new Image();   
+            imgageData.id = "pic";
+            html2canvas($("#ordon-pdf")[0], {
+                     onrendered: function (canvas) {
+                         srcpath = canvas.toDataURL("image/png");
+                        imgageData.src=srcpath;
+                        doc.addImage(imgageData , 'PNG',  20, 20,400,150);
+                    }
+            });
+            doc.save(Date.now() +'.pdf');
+            */
+          
+                var imgData;
+                var testdivElement = document.querySelector("#ordon-pdf");
+                html2canvas($("#ordon-pdf")[0], {
+                        useCORS : true,
+                        onrendered: function(canevas){
+                                imgData = canvas.toDataURL('image/png');
+                                var doc = new jsPDF("p", "pt", "a4");
+                                  doc.addImage(imgData, 'PNG', 10, 10);
+                                  doc.output('dataurlnewwindow');  
+                                  doc.save('sample.pdf');
+                                  window.open(imgData);
+                        }
+                });
+       /*
+            html2canvas($("#ordon-pdf")[0],{
+                    onrendered: function(canevas){
+                            var imgData = canvas.toDataURL("image/png");
+                            var doc = new jsPDF();
+                            doc.addImage(imgData, 'JPEG', 20, 20);
+                             doc.save('sample.pdf');
+                    }      
+            });
+            */
         }
         function storeord()
         {   
