@@ -16,3 +16,37 @@
       </div>
     </div>
   </div>
+  <div id="ord1" class="modal modal fade" role="dialog">
+        <div class="row text-center" hidden>
+           <h4><span>DIRECTION GENERAL DE LA SURETE NATIONALE</span></h4>
+           <h4><span>HOPITAL CENTRAL DE LA SÛRETE NATIONALE "LES GLYCINES"</span></h4>
+           <h5><span>12, Chemin des Glycines - ALGER</span></h5>
+           <h5><span>Tél : 23-93-34 - 23-93-58</span></h5>
+           
+        </div>
+        <div class="row-fluid">
+            <div class="span12 pagination-centered"><img src="{{ asset('/img/logo-40_x_40.png') }}" alt="header" /></div>
+        </div>
+        <div class="row" hidden>
+          <div class="col-sm-12 text-center" style="text-align: center;">
+           
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="{{ asset('/img/logo-40_x_40.png') }}" alt="Example Image" class="img-responsive" />
+            <img class="center-block" src="{{ asset('/img/logo-40_x_40.png') }}" alt="xxx">
+          </div>
+        </div>
+        <div class="container row text-center">
+          <div class="row">
+            <div class="span4"></div>
+            <div class="span4"><img class="center-block" src="{{ asset('/img/logo-40_x_40.png') }}" /></div>
+            <div class="span4"></div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="span9 centred">
+             <img class="center-block" src="{{ asset('/img/logo-40_x_40.png') }}" />
+            </div>
+          </div>
+    </div>
+ </div>
+ 

@@ -55,8 +55,9 @@
 <script src="{{ asset('/plugins/fullcalendar/locale/fr.js') }}"></script>
 <script src="{{ asset('/js/jquery-editable-select.js') }}"></script>
 <script src="{{asset('/js/jquery-ui.js')}}"></script>
-{{-- <script src="{{ asset('/js/moment-timezone.js') }}"></script>
- --}}
+<script src="{{asset('/js/html2canvas.min.js')}}"></script>
+
+
  <script type="text/javascript">
     $(document).ready(function(){
         // $(".select2").select2({
@@ -591,45 +592,40 @@ $('#typeexm').on('change', function() {
             var string = lettre.output('datauristring');
             $('#lettreorientation').attr('src', string);
         }
+        var centeredText = function(doc,text, y) {
+            var textWidth = doc.getStringUnitWidth(text) * doc.internal.getFontSize() / doc.internal.scaleFactor;
+            var textOffset = (doc.internal.pageSize.width - textWidth) / 2;
+            doc.text(textOffset, y, text);
+        }
         var createPDF = function(imgData,nompatient,dateNaiss,ipp,nommedcin) {
             moment.locale('fr');var formattedDate = moment(new Date()).format("l");
-            var doc = new jsPDF('p', 'pt', 'a4');//var pdf_name = 'Ordonnance-'+nompatient+'.pdf'; 
+            var doc = new jsPDF('p', 'pt', 'a5');//var pdf_name = 'Ordonnance-'+nompatient+'.pdf'; 
             doc.setFontSize(12);
-            doc.text(300,15, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
-            doc.text(300,32, 'HOPITAL CENTRAL DE LA SURETE NATIONALE "LES GLYCINES"', null, null, 'center');
-            doc.setFontSize(10);
-            doc.text(300,47, '12, Chemin des Glycines - ALGER', null, null, 'center');
-            doc.text(300,63, 'Tél : 23-93-34 - 23-93-58', null, null, 'center');
-            var width = doc.internal.pageSize.width;    
-            var height = doc.internal.pageSize.height;
-            var options = {
-                     pagesplit: true
-            };
-            var h2=100;//30
-            var aspectwidth2= (height-h2)*(9/16);
-            doc.addImage(imgData, 'JPEG', 285, 70, 60, 60, 'monkey'); 
-            doc.line(40, 132, 570, 132);
-            
-            doc.setFontType("bold"); 
-            doc.setFontSize(22); 
-            doc.text(300,160, 'Ordonnance', null, null, 'center');  
-            doc.setFontSize(12);doc.setFontType("normal"); 
-            doc.text(50,190, 'Docteur : '+nommedcin, null, null);
-            doc.text(574,190, 'Faite le : '+formattedDate, null, null, 'right');  
-            doc.text(574,220, 'Patient(e) : '+nompatient, null, null, 'right');
+            doc.text(235,25, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
+            doc.text(233,40, 'HOPITAL CENTRAL DE LA SÛRETE NATIONALE "LES GLYCINES"', null, null, 'center');
+            doc.text(233,57, '12, Chemin des Glycines - ALGER', null, null, 'center');
+            doc.text(234,73, 'Tél : 23-93-34 - 23-93-58', null, null, 'center');
+            doc.addImage(imgData, 'JPEG', 204, 75, 60, 60, 'monkey');            
+            doc.setDrawColor(0, 0, 255);       //doc.line(20, 25, 60, 25);
+            doc.line(20, 142, 500, 142);
+            doc.setFontType("bold");doc.setFontSize(22); 
+            doc.text(240,165, 'Ordonnance', null, null, 'center');  
+            doc.setFontSize(12);doc.setFontType("normal");
+             doc.text(420,195, 'Faite le : '+formattedDate, null, null, 'right'); 
+            doc.text(100,225, 'Patient(e) : '+nompatient, null, null, 'center');
+            doc.text(65,245, 'IPP : '+ipp, null, null, 'center');
             doc.setFontSize(12);
-            var arrayLignes = document.getElementById("ordonnance").rows;
-            var x = 0;
+            var arrayLignes = document.getElementById("ordonnance").rows;var x = 0;
             for(var i=1; i< arrayLignes.length; i++)
             {
                 doc.setFontType("bold");
-                doc.text(35,225+(i*(27)),i+ "-  " + " " +arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML+" "+arrayLignes[i].cells[3].innerHTML , null, null); //+ arrayLignes[i].cells[1].innerHTML
+                doc.text(40,260+(i*(27)),i+ "-  " + " " +arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML+" "+arrayLignes[i].cells[3].innerHTML , null, null); //+ arrayLignes[i].cells[1].innerHTML
                 doc.setFontType("normal");doc.setFontSize(10);
-                doc.text(50,225+(i*(27)+13),"   " + arrayLignes[i].cells[5].innerHTML, null, null); //doc.text(35,240+(i*(20)),"   " + arrayLignes[i].cells[5].innerHTML, null, null);             
+                doc.text(55,260+(i*(27)+13),"   " + arrayLignes[i].cells[5].innerHTML, null, null); //doc.text(35,240+(i*(20)),"   " + arrayLignes[i].cells[5].innerHTML, null, null);             
                 x = 238+i*(27);                   
             }
-            doc.setFontType("bold");doc.setFontSize(16);
-            doc.text(250,1000,ipp, null, null );
+            doc.setFontSize(12);
+            doc.text(240,560, 'Docteur : '+nommedcin, null, null);//doc.text(230,600,ipp, null, null );
             var string = doc.output('datauristring');  
             $('#ordpdf').attr('src', string); //doc.save(pdf_name);//
            
@@ -646,6 +642,44 @@ $('#typeexm').on('change', function() {
         }
         function createord(nompatient,dateNaiss,ipp,nommedcin) {
             getImageFromUrl('http://localhost:8000/img/logo.png', createPDF,nompatient,dateNaiss,ipp,nommedcin);
+        }
+        function al()
+        {
+            // letter
+            // var doc = new jsPDF("p", "pt", "letter"),
+            // source = $("#ord1")[0],
+            // margins = {
+            //     top: 20,
+            //     bottom: 50,
+            //     left: 40,
+            //     width: 522
+            //     };
+            //     doc.fromHTML(
+            //       source, // HTML string or DOM elem ref.
+            //       margins.left, // x coord
+            //       margins.top, {
+            //         // y coord
+            //         width: margins.width // max width of content on PDF
+            //       },
+            //       function(dispose) {
+            //         // dispose: object with X, Y of the last line add to the PDF
+            //         //          this allow the insertion of new lines after html
+            //         doc.save("Test.pdf");
+            //       },
+            //       margins
+            //     );
+            //     doc.addHTML(source, function () {
+            //          pdf.save('Test.pdf');
+            //      });
+            html2canvas($("#ord1"), {
+                onrendered: function(canvas) {         
+                    var imgData = canvas.toDataURL(
+                        'http://localhost:8000/img/logo.png');              
+                    var doc = new jsPDF('p', 'mm');
+                    doc.addImage(imgData, 'PNG', 10, 10);
+                    doc.save('sample-file.pdf');
+                }
+        });
         }
         function storeord()
         {   

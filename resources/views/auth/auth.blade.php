@@ -2,7 +2,7 @@
 <html lang="en">
 @include('partials.htmlheader')
 @include('partials.scripts')
-<body class="login-layout light-login" style="background-image: url({{asset('/avatars/hop.jpg')}}); background-size: cover;">
+<body class="login-layout light-login" style="background-image: url({{ asset('/avatars/hop.jpg') }}); background-size: cover;">
 <div class="main-container">
     <div class="main-content">
         <div class="row">
