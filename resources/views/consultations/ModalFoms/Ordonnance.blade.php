@@ -20,6 +20,7 @@
             </table>
           </div>
           <div class="col-sm-6">
+          <form action="">
             <div class="row">
               <div  class="col-xs-9">
                 <input type="text" id="id_medicament" name="id_medicament" hidden>
@@ -51,11 +52,12 @@
             <div class="space-12"></div>
             <div class="row">
               <div class="col-xs-12">
-                <button type="button" id="addliste" class="btn btn-success pull-right disabledElem" onclick="addmidifun()">
-                  Ajouter a la liste&nbsp;<i class="fa fa-mail-forward"></i>
-                </button>
+                    <button type="button" id="addliste" class="btn btn-primary btn-xs pull-right disabledElem" onclick="addmidifun()">
+                         Ajouter a la liste&nbsp;<i class="fa fa-arrow-down" ></i>
+                     </button>
               </div>
             </div>
+            </form>
           </div>
         </div>
         <div class="row">
@@ -64,9 +66,6 @@
               <div class="widget-header">
                 <h5 class="widget-title text-info lighter"><strong>Ordonnance:</strong></h5>
                 <div class="widget-toolbar widget-toolbar-light no-border pull-right" >
-                   <button type="button" onclick="supcolonne()" class="btn btn-xs btn-transparent ">
-                    <i class="ace-icon fa fa-trash-o orange"></i>
-                  </button>
                   <button type="button" class="btn btn-xs btn-transparent  my-right-float">
                     <i class="ace-icon fa fa-pencil green"></i>
                   </button> 
@@ -84,7 +83,7 @@
                           <th>Forme</th>
                           <th>Dosage</th>
                           <th>Posologie</th>
-                          {{-- <th style="display:none;"></th> --}}
+                          <th class="bleu center"><em class="fa fa-cog"></em></th>
                         </tr>
                       </thead>
                     </table>
@@ -98,14 +97,11 @@
       <div class="modal-footer" style="width:100%">  
         <div style="bottom:0; padding-right:1.2%">
           <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" onclick="storeord1()"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
-          <!-- <button type="button" class="btn btn-primary btn-xs"  data-toggle="modal" data-dismiss="modal" onclick="createord('{{ $patient->Nom }} {{ $patient->Prenom }}','{{ Auth::User()->employ->Nom_Employe }} {{ Auth::User()->employ->Prenom_Employe }}')"> <i class="ace-icon fa fa-print"></i>Imprimer</button> -->
-          <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ord" data-dismiss="modal" onclick="createord('{{ $patient->Nom }} {{ $patient->Prenom }}','{{ $patient->Dat_Naissance }}','{{ $patient->code_barre }}','{{ Auth::User()->employ->Nom_Employe }} {{ Auth::User()->employ->Prenom_Employe }}')">
+          <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#ord" data-dismiss="modal" onclick="createord('{{ $patient->Nom }} {{ $patient->Prenom }}','{{ $patient->Dat_Naissance }}','{{ $patient->code_barre }}',{{ $patient->getAge()}},'{{ Auth::User()->employ->Nom_Employe }} {{ Auth::User()->employ->Prenom_Employe }}')">
             <i class="ace-icon fa fa-print"></i>Imprimer
           </button>
           {{-- @include('consultations.ModalFoms.imprimerOrdonnance') --}}
-          <button type="button" id = "pdfDownloader" class="btn btn-success btn-xs" data-toggle="modal" data-target="#ordonnacePDF" >
-                    <i class="ace-icon fa fa-print"></i>print
-            </button>
+         
            <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal" type="reset"> <i class="ace-icon fa fa-undo bigger-110"></i> Annuler</button>
         </div>
       </div>

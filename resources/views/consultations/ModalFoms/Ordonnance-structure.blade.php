@@ -90,7 +90,7 @@
 		<div class="space-12"></div>
 		<div class="row">
 			<div class="col-xs-12">
-				<button type="button" id="addliste" class="btn btn-success pull-right disabledElem" onclick="addmidifun()">
+				<button type="button" id="addliste" class="btn btn-primary pull-right disabledElem" onclick="addmidifun()">
 					Ajouter a la liste&nbsp;<i class="fa fa-mail-forward"></i>
 				</button>
 			</div>

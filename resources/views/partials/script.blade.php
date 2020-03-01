@@ -4,21 +4,10 @@
 <script src="{{asset('/js/jquery-2.1.4.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('/js/jspdf.debug.js') }}"></script>
 <script src="{{ asset('/js/html2pdf.js') }}"></script>
-        <!-- <![endif]-->
-
-        <!--[if IE]>
-<script src="assets/js/jquery-1.11.3.min.js"></script>
-<![endif]-->
  <script type="text/javascript">
      if('ontouchstart' in document.documentElement) document.write("<script src='{{asset('/js/jquery.mobile.custom.min.js')}}'>"+"<"+"/script>");
 </script>
 <script src="{{asset('/js/bootstrap.min.js')}}"></script>
-
-        <!-- page specific plugin scripts -->
-
-        <!--[if lte IE 8]>
-          <script src="assets/js/excanvas.min.js"></script>
-        <![endif]-->
 <script src="{{asset('/js/jquery-ui.custom.min.js')}}"></script>
 <script src="{{asset('/js/jquery.ui.touch-punch.min.js')}}"></script>
 <script src="{{asset('/js/bootbox.js')}}"></script>
@@ -136,10 +125,10 @@ $('#typeexm').on('change', function() {
                 $("#pos").val( $("#nbprise").val()+' fois par '+$("#fois").val()+' Pendant '+$("#duree").val()+' '+$("#dureefois").val()+'. '+$("#temps").val()+'.');
                 
             }
-            function addmidifun()
-            {
-                $("#ordonnance").append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td>" + $("#nommedic").text() + "</td><td>" + $("#forme").text() + "</td><td>" + $("#qte").val() +"</td><td>"+$("#pos").val()+"</td></tr>");
-            }
+            // function addmidifun()
+            // {
+            //     $("#ordonnance").append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td>" + $("#nommedic").text() + "</td><td>" + $("#forme").text() + "</td><td>" + $("#qte").val() +"</td><td>"+$("#pos").val()+"</td></tr>");
+            // }
             function supcolonne()
             {
                 $("tr:has(input:checked)").remove(); 

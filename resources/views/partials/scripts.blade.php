@@ -2,11 +2,6 @@
 <!--[if !IE]> -->
 <script src="{{asset('/js/jquery-2.2.4.js')}}"></script>
 <script type="text/javascript" src="{{ asset('/js/jspdf.debug.js') }}"></script>
-<script src="{{ asset('/js/html2pdf.js') }}"></script>
-        <!-- <![endif]-->
-        <!--[if IE]>
-<script src="assets/js/jquery-1.11.3.min.js"></script>
-<![endif]-->
  <script type="text/javascript">
      if('ontouchstart' in document.documentElement) document.write("<script src='{{asset('/js/jquery.mobile.custom.min.js')}}'>"+"<"+"/script>");
 </script>
@@ -50,32 +45,26 @@
 <script src="{{ asset('/js/bootstrap-toggle.min.js') }}"></script>
 <script src="{{ asset('/js/ace-extra.min.js') }}"></script>
 <script src="{{ asset('/js/jquery.timepicker.min.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script> --}}
 <script src="{{ asset('/js/typeahead.bundle.min.js') }}"></script>
 <script src="{{ asset('/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
 <script src="{{ asset('/plugins/fullcalendar/locale/fr.js') }}"></script>
 <script src="{{ asset('/js/jquery-editable-select.js') }}"></script>
 <script src="{{asset('/js/jquery-ui.js')}}"></script>
-<script type="text/javascript" src="{{asset('/js/html2canvas.min.js')}}"></script>
  <script type="text/javascript">
     $(document).ready(function(){
         // $(".select2").select2({
         //     dir: "fr"
         // });
-        $('#avis').change(function(){
-            if($(this).val() == "R")
-            {
-                $("#motifr").show();
-            }
-            else
-            {
-                $("#motifr").hide();
-            }
+          $('#avis').change(function(){
+                if($(this).val() == "R")
+                     $("#motifr").show();
+                else
+                     $("#motifr").hide();
         });
         $("#validerdmd").click(function(){
             var arrayLignes = document.getElementById("cmd").rows;
-            var longueur = arrayLignes.length;
-            var produits = [];
+            var longueur = arrayLignes.length;   var produits = [];
             for(var i=1; i<longueur; i++)
             {
                 produits[i] = { produit: arrayLignes[i].cells[1].innerHTML, gamme: arrayLignes[i].cells[2].innerHTML, spec: arrayLignes[i].cells[3].innerHTML, qte: arrayLignes[i].cells[4].innerHTML}
@@ -158,7 +147,6 @@
                     if(this.checked) $row.addClass(active_class);
                     else $row.removeClass(active_class);
                 });
-                    
                 $('#table2 > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
                     var th_checked = this.checked;//checkbox inside "TH" table2 header
                     
@@ -168,7 +156,6 @@
                         else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
                     });
                 });
-                
                 //select/deselect a row when the checkbox is checked/unchecked
                 $('#table2').on('click', 'td input[type=checkbox]' , function(){
                     var $row = $(this).closest('tr');
@@ -176,17 +163,7 @@
                     if(this.checked) $row.addClass(active_class);
                     else $row.removeClass(active_class);
                 });
-                //add horizontal scrollbars to a simple table
-                /*$('#table2').css({'width':'50px', 'max-width': 'none'}).wrap('<div style="width: 50px;" />').parent().ace_scroll(
-                  {
-                    horizontal: true,
-                    styleClass: 'scroll-top scroll-dark scroll-visible',//show the scrollbars on top(default is bottom)
-                    size: 50,
-                    mouseWheelLock: true
-                  }
-                ).css('padding-top', '12px');*/
 </script>   
-
 <script type="text/javascript">
     var active_class = 'active';
     var id_demh= new Array();
@@ -494,68 +471,51 @@ $('#typeexm').on('change', function() {
                     }
                 });
             }
-            function clearInput() {
-                //$('#posologie').find('input[type=number]').val('1');$('#posologie').find('input[type=text]').val(' ') ;$("#divmodeprise").html('');$("#divmodeprise").html('');
-                $('#id_medicament').val('');
-                $('#nommedic').val('');
-                $("#forme").val('');
-                $("#dosage").val();
-                $("#posologie_medic").val('');
-
-            }
+            // function clearInput() {  //     $('#id_medicament').val('');  //     $('#nommedic').val(''); //     $("#forme").val('');
+            //     $("#dosage").val();   //     $("#posologie_medic").val('');
+            // }
             function addmidifun()
             {
-                //$("#posologie").val( $("#nbprise").val()+' fois par '+$("#fois").val()+' Pendant '+$("#duree").val()+' '+$("#dureefois").val()+'. ');//+$("#temps").val()+'.'//$("#ordonnance").append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td id='nom_medec'>" + $("#nommedic").val() + "</td><td id='form_medec'>" + $("#forme").val() + "</td><td  id='qte_medec'>" + $("#qte").val() +"</td><td id='posolog_medec'>"+$("#pos").val()+"</td><td style='display:none;' id='id_medec'>"+$("#medicamentId").val()+"</td></tr>");
-                $("#ordonnance").append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td hidden>"+$("#id_medicament").val()+"</td><td>"+$("#nommedic").val()+"</td><td>"+$("#forme").val()+"</td><td>"+$("#dosage").val()+"</td><td>"+$("#posologie_medic").val()+"</td></tr>");
+                var med = "<tr id="+$("#id_medicament").val()+"><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td hidden>"+$("#id_medicament").val()+"</td><td>"+$("#nommedic").val()+"</td><td>"+$("#forme").val()+"</td><td>"+$("#dosage").val()+"</td><td>"+$("#posologie_medic").val()+"</td>";
+                 med += '<td class ="center"><button class="btn btn-xs btn-info open-modal" value="' + $("#id_medicament").val()+ '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
+                 med += '<button class="btn btn-xs btn-danger delete-atcd" value="' + $("#nommedic").val()+ '" onclick ="supcolonne('+$("#id_medicament").val()+')" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+                $("#ordonnance").append(med);
                 $(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
-                clearInput();
+              efface_formulaire();
                      
             }
-            function supcolonne()
+             function supcolonne(id)
             {
-                $("tr:has(input:checked)").remove(); 
+              $("#"+id).remove();// $("tr:has(input:checked)").remove(); 
             }
-
+            }
             function sexefan()
             {
                 if( $('#sexef').is(':checked') )
-                    {
                         $('#civ').css('display','block');
-                    } 
                 else
-                    {
                         $('#civ').css('display','none');
-                    }
             }
             function civilitefan()
             {
                 if( $('#mdm').is(':checked') )
-                    {
-                        $('#njfid').css('display','block');
-                    } 
+                     $('#njfid').css('display','block');
                 else
-                    {
-                        $('#njfid').css('display','none');
-                    }
+                     $('#njfid').css('display','none');
             }
             function typepatientfan()
             {
                 if( $('#ass').is(':checked') )
                     {
-                        $('#matass').css('display','block');
-                        $('#te').css('display','none');
-                        $('#infoass').css('display','none');
-                        $('#prof').css('display','none');
+                        $('#matass').css('display','block'); $('#te').css('display','none');
+                        $('#infoass').css('display','none');  $('#prof').css('display','none');
                     } 
                 else
-                    {s
-                        $('#matass').css('display','none');
-                        $('#prof').css('display','block');
-                        $('#infoass').css('display','block');
-                        $('#te').css('display','block');
+                    {
+                          $('#matass').css('display','none'); $('#prof').css('display','block');$('#infoass').css('display','block');
+                          $('#te').css('display','block');
                     }
             }
-    
            function efface_formulaire() {
                      $('form').find("textarea, :text, select").val("").end().find(":checked").prop("checked", false);
             }
@@ -589,22 +549,27 @@ $('#typeexm').on('change', function() {
             var string = lettre.output('datauristring');
             $('#lettreorientation').attr('src', string);
         }
-        var createPDF = function(imgData,nompatient,dateNaiss,ipp,nommedcin) {
+        var createPDF = function(imgData,nompatient,dateNaiss,ipp,age,nommedcin) {
             moment.locale('fr');var formattedDate = moment(new Date()).format("l");
             var doc = new jsPDF('p', 'pt', 'a5');//var pdf_name = 'Ordonnance-'+nompatient+'.pdf'; doc.setFontSize(12);
-            doc.text(235,25, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
-            doc.text(233,40, 'HOPITAL CENTRAL DE LA SÛRETE NATIONALE "LES GLYCINES"', null, null, 'center');
-            doc.text(233,57, '12, Chemin des Glycines - ALGER', null, null, 'center');
-            doc.text(234,73, 'Tél : 23-93-34 - 23-93-58', null, null, 'center');
-            doc.addImage(imgData, 'JPEG', 204, 75, 60, 60, 'monkey');            
+            doc.setFontSize(14);
+           doc.text(212,25, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
+            doc.text(213,40, 'HOPITAL CENTRAL DE LA SÛRETE NATIONALE "LES GLYCINES"', null, null, 'center');
+            doc.text(213,57, '12, Chemin des Glycines - ALGER', null, null, 'center');
+            var text = 'Tél : 23-93-34 - 23-93-58',
+            xOffset = (doc.internal.pageSize.width / 2) - (doc.getStringUnitWidth(text) * doc.internal.getFontSize() / 2); 
+            doc.text(text, xOffset, 73); //doc.text(213,73, 'Tél : 23-93-34 - 23-93-58', null, null, 'center');
+            doc.addImage(imgData, 'JPEG', 190, 75, 60, 60, 'monkey');            
             doc.setDrawColor(0, 0, 255);       //doc.line(20, 25, 60, 25);
-            doc.line(20, 142, 500, 142);
+            doc.line(0, 138, 500, 138);
             doc.setFontType("bold");doc.setFontSize(22); 
-            doc.text(240,165, 'Ordonnance', null, null, 'center');  
+            var text = 'Ordonnance',
+            xOffset = (doc.internal.pageSize.width / 2) - (doc.getStringUnitWidth(text) * doc.internal.getFontSize() / 2); 
+            doc.text(text, xOffset, 165);
             doc.setFontSize(12);doc.setFontType("normal");
-             doc.text(420,195, 'Faite le : '+formattedDate, null, null, 'right'); 
-            doc.text(100,225, 'Patient(e) : '+nompatient, null, null, 'center');
-            doc.text(65,245, 'IPP : '+ipp, null, null, 'center');
+             doc.text(418,195, 'Faite le :'+formattedDate, null, null, 'right'); 
+            doc.text(123,225, 'Patient(e) : '+nompatient + ' ('+age+'ans )', null, null, 'center');
+            doc.text(60,245, 'IPP : '+ipp, null, null, 'center');
             doc.setFontSize(12);
             var arrayLignes = document.getElementById("ordonnance").rows;var x = 0;
             for(var i=1; i< arrayLignes.length; i++)
@@ -621,82 +586,18 @@ $('#typeexm').on('change', function() {
             $('#ordpdf').attr('src', string); //doc.save(pdf_name);//
            
         }       
-        var getImageFromUrl = function(url, callback,nompatient,dateNaiss,ipp,nommedcin) {
+        var getImageFromUrl = function(url, callback,nompatient,dateNaiss,ipp,age,nommedcin) {
             var img = new Image();
             img.onError = function() { 
                 alert('Cannot load image: "'+url+'"');
             };
             img.onload = function() {
-                callback(img,nompatient,dateNaiss,ipp,nommedcin);
+                callback(img,nompatient,dateNaiss,ipp,age,nommedcin);
             };
             img.src = url;
         }
-        function createord(nompatient,dateNaiss,ipp,nommedcin) {
-            getImageFromUrl('http://localhost:8000/img/logo.png', createPDF,nompatient,dateNaiss,ipp,nommedcin);
-        }
-        
-        function printPDF()
-        {
-            /*
-              var doc = new jsPDF("p", "mm", "a4");
-              html2canvas(document.querySelector('#ordon-pdf')).then(function(canvas){
-                    var imgData  = canvas.toDataURL('image/png');
-                    var pageHeight = 295;  
-                    var imgWidth = (canvas.width * 50) / 210 ; 
-                    var imgHeight = canvas.height * imgWidth / canvas.width;
-                    var heightLeft = imgHeight;
-                    var position = 15;
-                    doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                    heightLeft -= pageHeight;
-                    while (heightLeft >= 0) {
-                                position = heightLeft - imgHeight;
-                                doc.addPage();
-                                doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                                 heightLeft -= pageHeight; 
-                    }
-                    doc.output('dataurlnewwindow');  
-                    doc.save(Date.now() +'.pdf');
-              });
-              */
-            /*
-               var doc = new jsPDF("p", "mm", "a4");
-               var srcpath;
-            var element = document.querySelector('#ordon-pdf'); // global variable
-            var imgageData = new Image();   
-            imgageData.id = "pic";
-            html2canvas($("#ordon-pdf")[0], {
-                     onrendered: function (canvas) {
-                         srcpath = canvas.toDataURL("image/png");
-                        imgageData.src=srcpath;
-                        doc.addImage(imgageData , 'PNG',  20, 20,400,150);
-                    }
-            });
-            doc.save(Date.now() +'.pdf');
-            */
-          
-                var imgData;
-                var testdivElement = document.querySelector("#ordon-pdf");
-                html2canvas($("#ordon-pdf")[0], {
-                        useCORS : true,
-                        onrendered: function(canevas){
-                                imgData = canvas.toDataURL('image/png');
-                                var doc = new jsPDF("p", "pt", "a4");
-                                  doc.addImage(imgData, 'PNG', 10, 10);
-                                  doc.output('dataurlnewwindow');  
-                                  doc.save('sample.pdf');
-                                  window.open(imgData);
-                        }
-                });
-       /*
-            html2canvas($("#ordon-pdf")[0],{
-                    onrendered: function(canevas){
-                            var imgData = canvas.toDataURL("image/png");
-                            var doc = new jsPDF();
-                            doc.addImage(imgData, 'JPEG', 20, 20);
-                             doc.save('sample.pdf');
-                    }      
-            });
-            */
+        function createord(nompatient,dateNaiss,ipp,age,nommedcin) {
+            getImageFromUrl('http://localhost:8000/img/logo.png', createPDF,nompatient,dateNaiss,ipp,age,nommedcin);
         }
         function storeord()
         {   

@@ -27,15 +27,20 @@
 	.modal-wide .modal-body {
 	  overflow-y: auto;
 	}
-	.a {
+	#ord {
+		/*position: absolute;*/
+  		 top:1%;	
+  		 left:-5%%;
+	}	
+	.mycontent {
  	  margin-top:0px !important;
  	  margin-bottom:2% !important;
-
+ 	  width:140%;
 	}
 	iframe {
 	    display: block;
-	    width: 900px;
-	    height: 690px;
+	    width: 101%;
+	    height: 490px;
 	    margin: 0 auto;
 	    border: 0;
 	}
@@ -94,39 +99,22 @@
 	       	else
 	       	 $('.select2').removeClass('tag-input-style');
      		});
-     		         $("#pdfDownloader").click(function(){
-        			//$('#ordonnacePDF').modal();
-//$('#Ordonnance').modal('hide');
-        			
-        	//         alert("fzf");
-        //         html2canvas(document.getElementById("demo"), {
-        //                 onrendered: function(canvas) {
-        //                     var imgData = canvas.toDataURL('image/png');
-        //                     console.log('Report Image URL: '+imgData);
-        //                     var doc = new jsPDF('p', 'mm', [297, 210]); //210mm wide and 297mm high
-        //                  doc.addImage(imgData, 'PNG', 10, 10);
-        //    			doc.output('dataurlnewwindow'); 	
-        //                     doc.save('sample.pdf');
-        //                 }
-        //         });
-        });
-
-    		$(function() {
-			 var checkbox = $("#isOriented");  // Get the form fields and hidden div
+		$(function() {
+			var checkbox = $("#isOriented");  // Get the form fields and hidden div
 			var hidden = $("#hidden_fields");  // Setup an event listener for when the state of the    // checkbox changes.
 		      checkbox.change(function() {
 		    	if (checkbox.is(':checked')) {
 		     			hidden.show();
 		    	} else {
-		       		hidden.hide();
-		      		$("#lettreorientaioncontent").val("");
-		      }
-		    })
+		       	hidden.hide();
+		      	$("#lettreorientaioncontent").val("");
+		     }
+			})
 	   	}); 
-    	$(".two-decimals").change(function(){
-      			this.value = parseFloat(this.value).toFixed(2);
-     	});
-    	$("button").click(function (event) {
+	    	$(".two-decimals").change(function(){
+	      			this.value = parseFloat(this.value).toFixed(2);
+	     	});
+    		$("button").click(function (event) {
 		           which = '';
            			str ='send';
            			which = $(this).attr("id");
@@ -135,7 +123,7 @@
           			 if(which==str){
                    			return true;
           			}
-      });
+     		});
     	$("#btnCalc").click(function(event){
       	  event.preventDefault();
      	});
@@ -167,7 +155,7 @@
        		'aTargets': ['nosort']
    			}],
    			"language": {
-		                    "url": '/localisation/fr_FR.json'
+   			     "url": '/localisation/fr_FR.json'
 		    },
     
   	  });
@@ -397,14 +385,11 @@
 	      	$('#PhysiologieANTC').attr("hidden",false);//$('#PhysiologieANTC').show();
 	     		$('#sstypeatcdc').prop("selectedIndex", 1);
 	      }
-
 	    }
-	  }
-
+	}
 </script>
 @endsection
 @section('main-content')
-<div id="demo">	</div>
 <div class="page-header" width="100%">
   	@include('patient._patientInfo')
 </div>

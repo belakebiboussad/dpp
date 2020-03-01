@@ -228,15 +228,12 @@ class AdmissionController extends Controller
     //imprimer rdv d'hospitalisation  
     public function print($id)
     {
-     
-      $rdv = rdv_hospitalisation::FindOrFail($id);
-      $patient =  $rdv->admission->demandeHospitalisation->consultation->patient;
-      $t = Carbon::now();
-      $pdf = PDF::loadView('admission.rdv', compact('rdv','t'))->setPaper('a4','landscape');
-      $name = "rdv-".$rdv->admission->demandeHospitalisation->consultation->patient->Nom."-".$rdv->admission->demandeHospitalisation->consultation->patient->Prenom.".pdf";
-      return $pdf->stream($name);
-        
- 
+        $rdv = rdv_hospitalisation::FindOrFail($id);
+        $patient =  $rdv->admission->demandeHospitalisation->consultation->patient;
+        $t = Carbon::now();
+        $pdf = PDF::loadView('admission.rdv', compact('rdv','t'))->setPaper('a4','landscape');
+        $name = "rdv-".$rdv->admission->demandeHospitalisation->consultation->patient->Nom."-".$rdv->admission->demandeHospitalisation->consultation->patient->Prenom.".pdf";
+        return $pdf->stream($name);
     }   
  
 

@@ -53,7 +53,6 @@ route::get('/home_infermier','HospitalisationController@index')->name('home_infe
 
 Route::get('exbio/{filename}', function ($filename)
 {
-    // im not 100% sure about the $path thingy, you need to fiddle with this one around.
     $path = storage_path() . '\\app\\' . $filename;
     if(!File::exists($path)) abort(404);
     $file = File::get($path);
@@ -90,7 +89,6 @@ Route::get('/listecolloques/{type}','ColloqueController@index');
 Route::get('/listecolloquesCloture/{type}','ColloqueController@getClosedColoques');
 Route::get('/runcolloque/{id}','ColloqueController@run');
 Route::get('/endcolloque/{id}','ColloqueController@cloture');
-
 Route::post('/savecolloque/{id}','ColloqueController@save');
 Route::resource('admission','AdmissionController');
 route::get('/annullerRDV/{id}','AdmissionController@annulerRDV');
@@ -145,7 +143,6 @@ Route::get('/rdv/valider/{id}','RDVController@valider');
 Route::get('/rdv/reporter/{id}','RDVController@reporter');
 Route::post('/rdv/reporte/{id}','RDVController@storereporte');
 //rdvhospitalisation
-
 Route::resource('rdvHospi','RdvHospiController');
 Route::get('rdvHospi/create/{parameter}',
         ['as'=> 'createRdvHosp', 'uses'=>'RdvHospiController@create']

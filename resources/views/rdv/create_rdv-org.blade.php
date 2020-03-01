@@ -38,9 +38,6 @@
 	                                defaultView: 'agendaWeek',
 	                                weekNumbers: true,
 	                                firstDay: 7,
-	                                // minTime:'08:00:00',
-	                                 //maxTime:'18:00:00',
-	                                // weekends: false,
 	                                theme: true,	
 	                                events:[
 	                              		@foreach($data as $rdv)
