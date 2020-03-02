@@ -27,23 +27,34 @@
 	.modal-wide .modal-body {
 	  overflow-y: auto;
 	}
-	#ord {
-		/*position: absolute;*/
+	#ord {/*position: absolute;*/
   		 top:1%;	
   		 left:-5%%;
 	}	
 	.mycontent {
  	  margin-top:0px !important;
  	  margin-bottom:2% !important;
- 	  width:140%;
+ 	  width:150%;
 	}
+	
 	iframe {
 	    display: block;
-	    width: 101%;
-	    height: 490px;
 	    margin: 0 auto;
 	    border: 0;
+	    position:relative;
+	    z-index:999;
 	}
+	#mymainWidget div {
+		height: 250px !important;
+	}
+  .modal-footer ,.modal-header {
+    background-color: #438eb9;
+    padding:0.5% 0.5%;
+    color:#FFF;
+    border-bottom:0px dashed #438eb9;
+    width:100%;
+ 
+ }		
 	/*fin*/
 	.dataTables_wrapper {
 	        font-family: tahoma;

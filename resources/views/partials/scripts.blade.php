@@ -471,14 +471,12 @@ $('#typeexm').on('change', function() {
                     }
                 });
             }
-            // function clearInput() {  //     $('#id_medicament').val('');  //     $('#nommedic').val(''); //     $("#forme").val('');
-            //     $("#dosage").val();   //     $("#posologie_medic").val('');
-            // }
+            // function clearInput() { //$('#id_medicament').val('');//$('#nommedic').val('');//$("#forme").val('');//$("#dosage").val();//$("#posologie_medic").val('');// }
             function addmidifun()
             {
                 var med = "<tr id="+$("#id_medicament").val()+"><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td hidden>"+$("#id_medicament").val()+"</td><td>"+$("#nommedic").val()+"</td><td>"+$("#forme").val()+"</td><td>"+$("#dosage").val()+"</td><td>"+$("#posologie_medic").val()+"</td>";
-                 med += '<td class ="center"><button class="btn btn-xs btn-info open-modal" value="' + $("#id_medicament").val()+ '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
-                 med += '<button class="btn btn-xs btn-danger delete-atcd" value="' + $("#nommedic").val()+ '" onclick ="supcolonne('+$("#id_medicament").val()+')" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+                med += '<td class ="center"><button class="btn btn-xs btn-info open-modal" value="' + $("#id_medicament").val()+ '" onclick="medicmV1('+$("#id_medicament").val()+');supcolonne('+$("#id_medicament").val()+')"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
+                med += '<button class="btn btn-xs btn-danger delete-atcd" value="' + $("#nommedic").val()+ '" onclick ="supcolonne('+$("#id_medicament").val()+')" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
                 $("#ordonnance").append(med);
                 $(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
               efface_formulaire();
@@ -487,7 +485,6 @@ $('#typeexm').on('change', function() {
              function supcolonne(id)
             {
               $("#"+id).remove();// $("tr:has(input:checked)").remove(); 
-            }
             }
             function sexefan()
             {
@@ -549,11 +546,11 @@ $('#typeexm').on('change', function() {
             var string = lettre.output('datauristring');
             $('#lettreorientation').attr('src', string);
         }
-        var createPDF = function(imgData,nompatient,dateNaiss,ipp,age,nommedcin) {
+        var createPDF = function(imgData,nompatient,dateNaiss,ipp,age,sexe,nommedcin) {
             moment.locale('fr');var formattedDate = moment(new Date()).format("l");
             var doc = new jsPDF('p', 'pt', 'a5');//var pdf_name = 'Ordonnance-'+nompatient+'.pdf'; doc.setFontSize(12);
             doc.setFontSize(14);
-           doc.text(212,25, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
+            doc.text(212,25, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
             doc.text(213,40, 'HOPITAL CENTRAL DE LA SÛRETE NATIONALE "LES GLYCINES"', null, null, 'center');
             doc.text(213,57, '12, Chemin des Glycines - ALGER', null, null, 'center');
             var text = 'Tél : 23-93-34 - 23-93-58',
@@ -568,7 +565,7 @@ $('#typeexm').on('change', function() {
             doc.text(text, xOffset, 165);
             doc.setFontSize(12);doc.setFontType("normal");
              doc.text(418,195, 'Faite le :'+formattedDate, null, null, 'right'); 
-            doc.text(123,225, 'Patient(e) : '+nompatient + ' ('+age+'ans )', null, null, 'center');
+            doc.text(150,225, 'Patient(e) : '+nompatient + ', Age: '+age+'(ans )'+', Sexe: '+sexe, null, null, 'center');
             doc.text(60,245, 'IPP : '+ipp, null, null, 'center');
             doc.setFontSize(12);
             var arrayLignes = document.getElementById("ordonnance").rows;var x = 0;
@@ -586,18 +583,19 @@ $('#typeexm').on('change', function() {
             $('#ordpdf').attr('src', string); //doc.save(pdf_name);//
            
         }       
-        var getImageFromUrl = function(url, callback,nompatient,dateNaiss,ipp,age,nommedcin) {
+        var getImageFromUrl = function(url, callback,nompatient,dateNaiss,ipp,age,sexe,nommedcin) {
             var img = new Image();
             img.onError = function() { 
                 alert('Cannot load image: "'+url+'"');
             };
             img.onload = function() {
-                callback(img,nompatient,dateNaiss,ipp,age,nommedcin);
+                callback(img,nompatient,dateNaiss,ipp,age,sexe,nommedcin);
             };
             img.src = url;
         }
-        function createord(nompatient,dateNaiss,ipp,age,nommedcin) {
-            getImageFromUrl('http://localhost:8000/img/logo.png', createPDF,nompatient,dateNaiss,ipp,age,nommedcin);
+        function createord(nompatient,dateNaiss,ipp,age,sexe,nommedcin) {
+
+            getImageFromUrl('http://localhost:8000/img/logo.png', createPDF,nompatient,dateNaiss,ipp,age,sexe,nommedcin);
         }
         function storeord()
         {   
@@ -612,8 +610,7 @@ $('#typeexm').on('change', function() {
                 champ.appendTo('#ordonnace_form');
                 $('#ordonnace_form').submit();
         }
-
-           function createexbio(nomp,prenomp,age){      
+        function createexbio(nomp,prenomp,age){      
                      var exbio = new jsPDF();
                      var d = new Date();
                      moment.locale('fr');
@@ -638,8 +635,7 @@ $('#typeexm').on('change', function() {
            }
           function createeximg(nomp,prenomp){
                       moment.locale('fr');
-                     var d = new Date();
-                    //var date=  yyyy + "/" + (mm[1]?mm:"0"+mm[0]) + "/" + (dd[1]?dd:"0"+dd[0]);
+                     var d = new Date(); //var date=  yyyy + "/" + (mm[1]?mm:"0"+mm[0]) + "/" + (dd[1]?dd:"0"+dd[0]);
                      var formattedDate = moment(d).format("l");
                      var exbio = new jsPDF();
                      exbio.text(200,20, 'Date :' +formattedDate , null, null, 'right');

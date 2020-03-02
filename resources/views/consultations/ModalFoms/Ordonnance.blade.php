@@ -3,19 +3,19 @@
     <div class="modal-content contmodal">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-              <h4 class="modal-title" id="myModalLabel"><strong>Ajouter une Ordonnance</strong></h4>
+        <h4 class="modal-title" id="myModalLabel"><strong>Ajouter une Ordonnance</strong></h4>
       </div>
       <div class="modal-body bodyodal">
         <div class="row">
           <div class="col-sm-6">
             <table id="medc_table" class="table table-striped table-bordered table-hover" width=100%> 
               <thead>
-                    <tr>
-                          <th class="center"><strong>Médicament</strong></th>
-                          <th class="center"><strong>Forme</strong></th>
-                          <th class="center"><strong>Dosage</strong></th>
-                          <th class="center"><em class="fa fa-cog"></em></th>
-                    </tr>
+                <tr>
+                  <th class="center"><strong>Médicament</strong></th>
+                  <th class="center"><strong>Forme</strong></th>
+                  <th class="center"><strong>Dosage</strong></th>
+                  <th class="center"><em class="fa fa-cog"></em></th>
+                </tr>
               </thead>
             </table>
           </div>
@@ -65,14 +65,11 @@
             <div class="widget-box widget-color-warning" id="widget-box-2">
               <div class="widget-header">
                 <h5 class="widget-title text-info lighter"><strong>Ordonnance:</strong></h5>
-                <div class="widget-toolbar widget-toolbar-light no-border pull-right" >
-                  <button type="button" class="btn btn-xs btn-transparent  my-right-float">
-                    <i class="ace-icon fa fa-pencil green"></i>
-                  </button> 
-                </div> 
+                <!-- <div class="widget-toolbar widget-toolbar-light no-border pull-right" ></div>  -->
               </div>  {{-- widget-header --}}{{-- 138px; --}}
               <div class="widget-body">
-                <div class="widget-main" style="margin-top:-0.50%;height:175px;overflow:scroll;">
+              <!-- 175px --> <!-- style="margin-top:-0.50%;overflow:scroll;" -->
+                <div class="widget-main" id="mymainWidget">
                   <div class="row">
                     <table id="ordonnance" class="table  table-bordered table-hover">
                       <thead>
@@ -94,16 +91,13 @@
           </div>{{-- widget-container-col --}}
       </div><!-- /.row -->
       </div>
-      <div class="modal-footer" style="width:100%">  
-        <div style="bottom:0; padding-right:1.2%">
-          <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" onclick="storeord1()"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
-          <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#ord" data-dismiss="modal" onclick="createord('{{ $patient->Nom }} {{ $patient->Prenom }}','{{ $patient->Dat_Naissance }}','{{ $patient->code_barre }}',{{ $patient->getAge()}},'{{ Auth::User()->employ->Nom_Employe }} {{ Auth::User()->employ->Prenom_Employe }}')">
+      <div class="modal-footer m-b-0" style="">    <!-- <div style="bottom:0; padding-right:1.2%"> </div> -->
+          <button type="button" class="btn btn-info btn-xs" data-dismiss="modal" onclick="storeord1()"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
+          <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#ord" data-dismiss="modal" onclick="createord('{{ $patient->Nom }} {{ $patient->Prenom }}','{{ $patient->Dat_Naissance }}','{{ $patient->code_barre }}',{{ $patient->getAge()}},'{{ $patient->Sexe }}','{{ Auth::User()->employ->Nom_Employe }} {{ Auth::User()->employ->Prenom_Employe }}')">
             <i class="ace-icon fa fa-print"></i>Imprimer
           </button>
-          {{-- @include('consultations.ModalFoms.imprimerOrdonnance') --}}
-         
            <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal" type="reset"> <i class="ace-icon fa fa-undo bigger-110"></i> Annuler</button>
-        </div>
+       
       </div>
     </div>
   </div>
