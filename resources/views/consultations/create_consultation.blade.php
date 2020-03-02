@@ -379,24 +379,71 @@
 	      //$('#typeAntecedant').prop("selectedIndex", 1);
 	    }
 	  }
-	  function atcdhide()
-	  {  
-	    resetField(); 
-	    if($('#Antecedant').val() === 'Personnels')
-	    {
-	    	if($('#typeAntecedant').val() === "Pathologiques")
-	    	{
-		      $('#atcdsstypehide').attr("hidden",false);//$('#atcdsstypehide').show();
-		      $('#PhysiologieANTC').attr("hidden",true);//$('#PhysiologieANTC').hide();
-		      $('#habitudeAlim').val(null);$('#tabac').prop('checked', false); 
-		      $('#ethylisme').prop('checked', false);   
-	    	}else
-	    	{
-	    	  $('#atcdsstypehide').attr("hidden",true);//$('#atcdsstypehide').hide();
-	      	$('#PhysiologieANTC').attr("hidden",false);//$('#PhysiologieANTC').show();
-	     		$('#sstypeatcdc').prop("selectedIndex", 1);
-	      }
+	function atcdhide()
+	{  
+	  resetField(); 
+	  if($('#Antecedant').val() === 'Personnels')
+	  {
+	  	if($('#typeAntecedant').val() === "Pathologiques")
+	   	{
+	      $('#atcdsstypehide').attr("hidden",false);//$('#atcdsstypehide').show();
+	      $('#PhysiologieANTC').attr("hidden",true);//$('#PhysiologieANTC').hide();
+	      $('#habitudeAlim').val(null);$('#tabac').prop('checked', false); 
+	      $('#ethylisme').prop('checked', false);   
+	   	}else
+	   	{
+	   	  $('#atcdsstypehide').attr("hidden",true);//$('#atcdsstypehide').hide();
+	     	$('#PhysiologieANTC').attr("hidden",false);//$('#PhysiologieANTC').show();
+	   		$('#sstypeatcdc').prop("selectedIndex", 1);
 	    }
+	    }
+	}
+	function createordXhr(patId,userId)
+	{
+		var keys=[], meds=[];
+	  $("#ordonnance thead tr th").each(function(){
+		  	if(($(this).html() == "id") || ($(this).html() == "Posologie"))
+		  	{
+		  	  keys.push($(this).html());
+		  	}  
+		});
+		$("#ordonnance tbody tr").each(function(){
+	  	var obj={}, i=0;
+		  $(this).children("td").each(function(index){
+		    if((index == 1) || (index == 5) )
+		  	{
+		  	  obj[keys[i]]=$(this).html();
+		    	i++;
+		  	}
+		  })
+  		meds.push(obj);	
+	 	});
+	 	var myJSON = JSON.stringify(meds);
+	 	var formData = {
+       id_patient:patId,
+       id_user:userId,
+       //meds:JSON.stringify(meds),
+	 	};
+	 	/*
+	 	for (key in formData) {
+		  alert('key='+key+', value='+formData[key]);
+		}
+		*/
+		alert(formData['id_user']);
+		$.ajax({
+	    type: "POST",
+	    url: 'ordonnaces/ordPrint',
+	    data:formData,
+	    //contentType: "application/j-son;charset=UTF-8",
+	    dataType: "json",
+	    success: function (data) {
+	       alert(data);
+	    },
+	    error: function (data) {
+        console.log('Error:', data);
+      }
+  	})
+  	
 	}
 </script>
 @endsection

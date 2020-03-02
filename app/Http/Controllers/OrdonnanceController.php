@@ -7,6 +7,7 @@ use App\modeles\patient;
 use App\modeles\ordonnance;
 use Jenssegers\Date\Date;
 use PDF;
+use Response;
 class OrdonnanceController extends Controller
 {
     /**
@@ -104,10 +105,18 @@ class OrdonnanceController extends Controller
      }
      public function show_ordonnance($id)
      {  
-          
-           $ordonnance = ordonnance::FindOrFail($id);
-           $pdf = PDF::loadView('ordennance.imprimer', compact('ordonnance'));
-           return $pdf->stream('ordonnance.pdf');
+        $ordonnance = ordonnance::FindOrFail($id);
+        $pdf = PDF::loadView('ordennance.imprimer', compact('ordonnance'));
+        return $pdf->stream('ordonnance.pdf');
     }
+    public function print(Request $request)
+    {
+        // $homme =homme_conf::create($request->all());
+        // return Response::json($homme);
+        // return ($request->id_patient);
+         // return Response::json($request->id_patient);
+        //$patient = patient::FindOrFail($request->id_patient);
+        return Response::json("bonjour");
+  }
 
 }
