@@ -40,7 +40,6 @@ class OrdonnanceController extends Controller
     public function store(Request $request,$id_consultation)
     {
            $date = Date::now();
-
            $ordonnance = ordonnance::FirstOrCreate([
                 "date" => $date,
                 "id_consultation" => $id_consultation,   
@@ -96,10 +95,15 @@ class OrdonnanceController extends Controller
     }
     public function print(Request $request)
     {   
-       $patient = patient::FindOrFail($request->id_patient);
-       $employe = employ::FindOrFail($request->id_employe);
+        
+        $patient = patient::FindOrFail($request->id_patient);
+        $employe = employ::FindOrFail($request->id_employe);
         $view = view("consultations.ModalFoms.ordonnancePDF",compact('patient','employe'))->render();
-         return response()->json(['html'=>$view]);
+        return response()->json(['html'=>$view]);
+       
+        // $pdf = PDF::loadView('ordonnancePDF', compact('$patient'))->setPaper('a6','landscape');
+        // $name = "Ord.pdf";
+        // return $pdf->download($name);
     }
 
 }

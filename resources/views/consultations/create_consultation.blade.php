@@ -433,35 +433,31 @@
        		meds:JSON.stringify(meds),
 	 	};
 		$.ajaxSetup({
-	       	 headers: {
-	       	     'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-	      	}
-	      });
+	    headers: {
+	        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+	    }
+	  });
 		$.ajax({
 			beforeSend: function (xhr) {
-                    var token = $('meta[name="_token"]').attr('content');
-                    if (token) {
-                        return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-                    }
-                },
-		    type: "POST",
-		    url: "/ordonnaces/ordPrint",
-		    data:formData,   //contentType: "application/j-son;charset=UTF-8",
-		    dataType: "json",
-		    success: function (data,status, xhr) {
-		    		 $('#iframe-pdf').contents().find('html').html(data.html);
-		    		 // jQuery('#iframe-pdf').contents().find("#toolbarViewerRight").
-		    		 $("#iframe-pdf").contents().find(".toolbar").show();
-		    		$("#ordajax").modal();
-		     	},	
-	   		error: function (data) {
-       		 console.log('Error:', data);
-      		}
-  		})
+        var token = $('meta[name="_token"]').attr('content');
+        if (token) {
+          return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+        }
+      },
+		  type: "POST",
+		  url: "/ordonnaces/ordPrint",
+		  data:formData,   //contentType: "application/j-son;charset=UTF-8",
+		  dataType: "json",
+		  success: function (data,status, xhr) {
+			  $('#iframe-pdf').contents().find('html').html(data.html);// jQuery('#iframe-pdf').contents().find("#toolbarViewerRight").
+		 		$("#iframe-pdf").contents().find(".toolbar").show();
+		    $("#ordajax").modal();
+		  },	
+	   	error: function (data) {
+     	 console.log('Error:', data);
+     	}
+  	})
 	}
-	  function myFunction() {
-  window.print();
-}
 </script>
 @endsection
 @section('main-content')

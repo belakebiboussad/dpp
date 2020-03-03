@@ -191,26 +191,22 @@
 			</div>
 		</div>
 	</div>
-
-
-
-
 		<!--script-->
 <!-- page specific plugin scripts -->
-		<script src="assets/js/jquery.dataTables.min.js"></script>
-		<script src="assets/js/jquery.dataTables.bootstrap.min.js"></script>
-		<script src="assets/js/dataTables.buttons.min.js"></script>
-		<script src="assets/js/buttons.flash.min.js"></script>
-		<script src="assets/js/buttons.html5.min.js"></script>
-		<script src="assets/js/buttons.print.min.js"></script>
-		<script src="assets/js/buttons.colVis.min.js"></script>
-		<script src="assets/js/dataTables.select.min.js"></script>
+		<script src="{{asset('/js/jquery-2.2.4.js')}}"></script>
+		<script src="{{ asset('/js/jquery.dataTables.min.js') }}"></script>
+		<script src="{{ asset('/js/jquery.dataTables.bootstrap.min.js') }}"></script>
+		<script src="{{ asset('/js/dataTables.buttons.min.js') }}"></script>
+		<script src="{{ asset('/js/buttons.flash.min.js') "></script>
+		<script src="{{ asset('/js/buttons.html5.min.js') }}"></script>
+		<script src="{{ asset('/js/buttons.print.min.js') }}"></script>
+		<script src="{{ asset('/js/buttons.colVis.min.js') }}"></script>
+		<script src="{{ asset('/js/dataTables.select.min.js') }}"></script>
 
 		<!-- ace scripts -->
-		<script src="assets/js/ace-elements.min.js"></script>
-		<script src="assets/js/ace.min.js"></script>
-
-<script type="text/javascript" src="jquery/jquery.js"></script>		
+		<script src=" {{asset/js/ace-elements.min.js }}"></script>
+		<script src="{{ asset/js/ace.min.js }}"></script>
+<!-- <script type="text/javascript" src="{{ asset('jquery/jquery.js') }}"></script>	 -->	
 <script type="text/javascript">
 			
 				

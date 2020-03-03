@@ -42,5 +42,16 @@ class patient extends Model
  	{
  		 return $this->hasMany('App\modeles\consultation','Patient_ID_Patient');
  	}
+ 	public function getCivilite()
+ 	{
+ 		$civilite ="";
+ 		if($this->Sexe == "F")
+ 			if($this->situation_familiale= "celibataire")
+ 				return "Mlle. ";
+ 			else
+ 				return "Mme. ";
+ 		else
+ 		return "M. ";	
+ 	}
 
 }

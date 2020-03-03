@@ -1,6 +1,7 @@
 <!-- basic scripts -->
 <!--[if !IE]> -->
-<script src="{{asset('/js/jquery-2.2.4.js')}}"></script>
+<script src="{{asset('/js/jquery.min.js')}}"></script>
+<!-- <script src="{{asset('/js/jquery-2.2.4.js')}}"></script> -->
 <script type="text/javascript" src="{{ asset('/js/jspdf.debug.js') }}"></script>
  <script type="text/javascript">
      if('ontouchstart' in document.documentElement) document.write("<script src='{{asset('/js/jquery.mobile.custom.min.js')}}'>"+"<"+"/script>");
@@ -45,7 +46,6 @@
 <script src="{{ asset('/js/bootstrap-toggle.min.js') }}"></script>
 <script src="{{ asset('/js/ace-extra.min.js') }}"></script>
 <script src="{{ asset('/js/jquery.timepicker.min.js') }}"></script>
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script> --}}
 <script src="{{ asset('/js/typeahead.bundle.min.js') }}"></script>
 <script src="{{ asset('/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
 <script src="{{ asset('/plugins/fullcalendar/locale/fr.js') }}"></script>
@@ -53,9 +53,7 @@
 <script src="{{asset('/js/jquery-ui.js')}}"></script>
  <script type="text/javascript">
     $(document).ready(function(){
-        // $(".select2").select2({
-        //     dir: "fr"
-        // });
+        // $(".select2").select2({ //     dir: "fr"// });
           $('#avis').change(function(){
                 if($(this).val() == "R")
                      $("#motifr").show();
@@ -1007,7 +1005,6 @@ $('#typeexm').on('change', function() {
                     tag_input.tag(
                       {
                         placeholder:tag_input.attr('placeholder'),
-                        //enable typeahead by specifying the source array
                         source: ace.vars['US_STATES'],//defined in ace.js >> ace.enable_search_ahead
                       
                       }

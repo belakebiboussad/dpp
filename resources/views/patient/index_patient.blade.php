@@ -3,8 +3,6 @@
 @section('page-script')
 <script>
 $(document).ready(function(){
-	// Defining the local datase
-	// Constructing the suggestion engine
 	var bloodhound = new Bloodhound({
 	        datumTokenizer: Bloodhound.tokenizers.whitespace,
 	        queryTokenizer: Bloodhound.tokenizers.whitespace,

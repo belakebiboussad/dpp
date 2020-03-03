@@ -151,9 +151,9 @@
 										</span>
 								</td>
 								<td>
-										@if(Carbon\Carbon::today()->format('Y-m-d') ==  $rdv->date_RDVh )
-									  <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $rdv->admission->id }}"
-										      	data-backdrop="false">
+									@if(Carbon\Carbon::today()->format('Y-m-d') ==  $rdv->date_RDVh )
+									<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $rdv->admission->id }}"
+										 	data-backdrop="false">
 										      	<i class="fa fa-check"></i> &nbsp; confirmer
 										</button>
 										<!--model pop-up -->
