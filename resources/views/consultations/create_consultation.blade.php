@@ -10,6 +10,17 @@
 	        left:-2.5% !important;
 	        top:-3.1% !important;
 	}
+/*	.with-margin {
+	  margin-top: 1px !important;
+	  margin-bottom: 1px !important;
+	}*/
+	.with-margin {
+  margin-bottom: 5px;
+}
+
+.spacer5 {
+  height: 5px;
+}
 	.modal-body
 	{
 	        top: -1px !important;
@@ -30,13 +41,12 @@
 	#ord {/*position: absolute;*/
   		 top:1%;	
   		 left:-5%%;
-	}	
+	}
 	.mycontent {
  	  margin-top:0px !important;
  	  margin-bottom:2% !important;
  	  width:150%;
 	}
-	
 	iframe {
 	    display: block;
 	    margin: 0 auto;
@@ -371,12 +381,10 @@
 	    }
 	    else
 	    {
-	    	
 	      $("#sous_type").attr("hidden",true);
 	      $('#PhysiologieANTC').attr("hidden",true);
 	      $("#atcdsstypehide").attr("hidden",true);
-	      $('#typeAntecedant').val(null);
-	      //$('#typeAntecedant').prop("selectedIndex", 1);
+	      $('#typeAntecedant').val(null);      //$('#typeAntecedant').prop("selectedIndex", 1);
 	    }
 	  }
 	function atcdhide()
@@ -398,10 +406,10 @@
 	    }
 	    }
 	}
-	function createordXhr(patId,userId)
+	function createordXhr(patId,employeId)
 	{
 		var keys=[], meds=[];
-	  $("#ordonnance thead tr th").each(function(){
+	  	$("#ordonnance thead tr th").each(function(){
 		  	if(($(this).html() == "id") || ($(this).html() == "Posologie"))
 		  	{
 		  	  keys.push($(this).html());
@@ -409,42 +417,51 @@
 		});
 		$("#ordonnance tbody tr").each(function(){
 	  	var obj={}, i=0;
-		  $(this).children("td").each(function(index){
+		$(this).children("td").each(function(index){
 		    if((index == 1) || (index == 5) )
 		  	{
 		  	  obj[keys[i]]=$(this).html();
 		    	i++;
 		  	}
-		  })
+	      })
   		meds.push(obj);	
 	 	});
 	 	var myJSON = JSON.stringify(meds);
 	 	var formData = {
-       id_patient:patId,
-       id_user:userId,
-       //meds:JSON.stringify(meds),
+       		id_patient:patId,
+       		id_employe:employeId,
+       		meds:JSON.stringify(meds),
 	 	};
-	 	/*
-	 	for (key in formData) {
-		  alert('key='+key+', value='+formData[key]);
-		}
-		*/
-		alert(formData['id_user']);
+		$.ajaxSetup({
+	       	 headers: {
+	       	     'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+	      	}
+	      });
 		$.ajax({
-	    type: "POST",
-	    url: 'ordonnaces/ordPrint',
-	    data:formData,
-	    //contentType: "application/j-son;charset=UTF-8",
-	    dataType: "json",
-	    success: function (data) {
-	       alert(data);
-	    },
-	    error: function (data) {
-        console.log('Error:', data);
-      }
-  	})
-  	
+			beforeSend: function (xhr) {
+                    var token = $('meta[name="_token"]').attr('content');
+                    if (token) {
+                        return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+                    }
+                },
+		    type: "POST",
+		    url: "/ordonnaces/ordPrint",
+		    data:formData,   //contentType: "application/j-son;charset=UTF-8",
+		    dataType: "json",
+		    success: function (data,status, xhr) {
+		    		 $('#iframe-pdf').contents().find('html').html(data.html);
+		    		 // jQuery('#iframe-pdf').contents().find("#toolbarViewerRight").
+		    		 $("#iframe-pdf").contents().find(".toolbar").show();
+		    		$("#ordajax").modal();
+		     	},	
+	   		error: function (data) {
+       		 console.log('Error:', data);
+      		}
+  		})
 	}
+	  function myFunction() {
+  window.print();
+}
 </script>
 @endsection
 @section('main-content')
@@ -521,8 +538,10 @@
 <div class="row">
 	@include('consultations.ModalFoms.Ordonnance') 
 </div>
-
 <div class="row">
 @include('consultations.ModalFoms.imprimerOrdonnance') 
+</div>
+<div class="row">
+@include('consultations.ModalFoms.imprimerOrdonnanceAjax') 
 </div>
 @endsection

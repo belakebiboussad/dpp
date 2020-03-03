@@ -10,8 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Route::group(['middleware' => ['web']], function () {});
-    //
+// Route::group(['middleware' => ['web']], function () {});    //
 Route::group(['middleware' => 'revalidate'], function()
 {          
         Auth::routes();     
@@ -76,19 +75,10 @@ Route::get('/salle/create/{id}','SalleController@create');
 Route::get('/lit/create/{id}','LitsController@create');
 Route::get('/hospitalisation/create/{id}','HospitalisationController@create');
 Route::get('/ordonnace/create/{id}','OrdonnanceController@create');
-// 'OrdonnanceController@print'
-/*
-Route::post('/ordonnaces/ordPrint',function(){
-    //return Response::json("gdfg");
-    return("df");
-});
-*/
 Route::post('/ordonnaces/ordPrint','OrdonnanceController@print');
-
 Route::get('/consultations/detailcons/{id}','ConsultationsController@detailcons')->name('consultDetails');
 Route::get('/consultations/detailConsXHR','ConsultationsController@detailconsXHR')->name('consultdetailsXHR');
 Route::get('/consultations/demandeExm/{id_cons}','ConsultationsController@demandeExm');
-
 Route::resource('listeadmiscolloque','listeadmisColloqueController');
 Route::post('/colloque/store/{id}','ColloqueController@store');// a revoir
 Route::put('/colloque/{membres,id_demh}', 'ColloqueController@store');// a revoir

@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\modeles\consultation;
 use App\modeles\patient;
+use App\modeles\employ;
 use App\modeles\ordonnance;
 use Jenssegers\Date\Date;
 use PDF;
 use Response;
+use View;
 class OrdonnanceController extends Controller
 {
     /**
@@ -15,10 +17,7 @@ class OrdonnanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -58,22 +57,12 @@ class OrdonnanceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function show($id)
-    // {
-    //     //
-    // }
-
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -92,10 +81,6 @@ class OrdonnanceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
     // _ordonnance
 
      public function show($id)
@@ -110,13 +95,11 @@ class OrdonnanceController extends Controller
         return $pdf->stream('ordonnance.pdf');
     }
     public function print(Request $request)
-    {
-        // $homme =homme_conf::create($request->all());
-        // return Response::json($homme);
-        // return ($request->id_patient);
-         // return Response::json($request->id_patient);
-        //$patient = patient::FindOrFail($request->id_patient);
-        return Response::json("bonjour");
-  }
+    {   
+       $patient = patient::FindOrFail($request->id_patient);
+       $employe = employ::FindOrFail($request->id_employe);
+        $view = view("consultations.ModalFoms.ordonnancePDF",compact('patient','employe'))->render();
+         return response()->json(['html'=>$view]);
+    }
 
 }

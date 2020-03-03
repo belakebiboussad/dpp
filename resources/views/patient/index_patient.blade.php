@@ -95,7 +95,7 @@ function XHRgetPatient()
 function getPatientdetail(id)
 {
 	$.ajax({
-					url : '/patientdetail/'+id,
+			url : '/patientdetail/'+id,
 		      type : 'GET',
 		      success:function(data,status, xhr){
 		        $('#patientDetail').html(data.html);

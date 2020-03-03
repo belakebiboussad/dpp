@@ -96,11 +96,11 @@
       </div>
       <div class="modal-footer m-b-0" style="">    <!-- <div style="bottom:0; padding-right:1.2%"> </div> -->
           <button type="button" class="btn btn-info btn-xs" data-dismiss="modal" onclick="storeord1()"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
-          <!-- <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#ord" data-dismiss="modal" onclick="createord('{{ $patient->Nom }} {{ $patient->Prenom }}','{{ $patient->Dat_Naissance }}','{{ $patient->code_barre }}',{{ $patient->getAge()}},'{{ $patient->Sexe }}','{{ Auth::User()->employ->Nom_Employe }} {{ Auth::User()->employ->Prenom_Employe }}')">
+          <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#ord" data-dismiss="modal" onclick="createord('{{ $patient->Nom }} {{ $patient->Prenom }}','{{ $patient->Dat_Naissance }}','{{ $patient->code_barre }}',{{ $patient->getAge()}},'{{ $patient->Sexe }}','{{ Auth::User()->employ->Nom_Employe }} {{ Auth::User()->employ->Prenom_Employe }}')">
             <i class="ace-icon fa fa-print"></i>Imprimer
-          </button> -->
-          <button type="button" class="btn btn-success btn-xs"  data-dismiss="modal" onclick="createordXhr({{ $patient->id }},{{ Auth::User()->id }})">
-            <i class="ace-icon fa fa-print"></i>Imprimer
+          </button> 
+          <button type="button" class="btn btn-success btn-xs"  data-dismiss="modal" onclick="createordXhr({{ $patient->id }},{{ Auth::User()->employ->id }})">
+            <i class="ace-icon fa fa-print"></i>print
           </button>
            <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal" type="reset"> <i class="ace-icon fa fa-undo bigger-110"></i> Annuler</button>
       </div>
