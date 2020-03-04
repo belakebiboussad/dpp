@@ -6,7 +6,7 @@
              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
           </div>
           <div class="modal-body iframe-container" id="ordajaxBody">
-            <iframe id="iframe-pdf" class="iframe-pdf" width="100%" height="900" frameborder="1" type="application/pdf" src="MKZHR-01-002(V000)%20.pdf#toolbar=1&navpanes=0&statusbar=1&view=Fit;readonly=true; disableprint=false;" scrolling="yes" style="display:block;">
+            <iframe id="iframe-pdf" class="iframe-pdf" width="100%" height="900" frameborder="1" type="application/pdf" scrolling="yes" style="display:block;">
             </iframe>
           </div>
           <div class="modal-footer mb-0 pull-right">

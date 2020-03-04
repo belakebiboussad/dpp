@@ -5,14 +5,11 @@
        	.mt-2 {
  					 margin-top: -2px !important;
 				}
-				.mt-5 {
-					margin-top: 5px;
-				}
-				.mt-10 {
-					margin-top: -10	
+				.mt-30 {
+					margin-top: -30px;	
 				}
 	      .print {
-	         display:none
+	         display:none;
 	      }
 	      .mr-12 {
 	      	margin-right: 12px;
@@ -20,6 +17,9 @@
 	      @media print {
 	        .print {display:block}
 	        .btn-print {display:none;}
+	      }
+	      .ml-80{
+	      	margin-left:80%;
 	      }
 	      @page { size: auto;  margin: 0mm; }
     </style>
@@ -67,28 +67,30 @@
           </div>
          </div>
       </div>
-      <hr class="mt-5">
+      <hr class="mt-30">
       <div class="row text-center">
-        <h3 class="mt-10"><strong>Ordonnance</strong></h3>
+        <h3><strong>Ordonnance</strong></h3>
       </div>
       <div class="row">
-        <div class="pull-right">
-          <span><strong>Fait le :&nbsp;</strong>{{ Carbon\Carbon::today()->format('Y-m-d') }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </div>
-      </div>
+        <div class="ml-80">
+          <span><strong>Fait le :&nbsp;</strong>{{ Carbon\Carbon::today()->format('Y-m-d') }}</span>
+        </div> 
       <div class="space-12"></div>
       <div class="space-12"></div>
       <br><br><br>
       <div class="row">
 	      <div class="row">
-	      	<div class="col-sm-12">
-	      		<span><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Patient(e) :&nbsp; </strong></span>{{ $patient->getCivilite()}} {{ $patient->Nom }} {{ $patient->Prenom }}., {{ $patient->getAge()}} <span>ans</span>,{{ $patient->Sexe }} 
+	      	<div class="col-sm-12 ">
+	      		<span><strong>Patient(e) :&nbsp; </strong></span>{{ $patient->getCivilite()}} {{ $patient->Nom }} {{ $patient->Prenom }}., {{ $patient->getAge()}} <span>ans</span>,{{ $patient->Sexe }} 
 					</div>		
 	      </div>
 	      <br>
-	      <div class="row text-center">
+	      <div class="row">
 	        <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($patient->code_barre, 'C128')}}" alt="barcode" />
 	      </div>
+      </div>
+      <div class="row">
+      	Bonjour
       </div>
     </div>
     
