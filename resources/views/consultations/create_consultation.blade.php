@@ -446,7 +446,7 @@
       },
 		  type: "POST",
 		  url: "/ordonnaces/ordPrint",
-		  data:formData,   //contentType: "application/j-son;charset=UTF-8",
+		  data:formData,//contentType: "application/j-son;charset=UTF-8",
 		  dataType: "json",
 		  success: function (data,status, xhr) {
 			  $('#iframe-pdf').contents().find('html').html(data.html);// jQuery('#iframe-pdf').contents().find("#toolbarViewerRight").

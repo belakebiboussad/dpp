@@ -98,6 +98,7 @@ class OrdonnanceController extends Controller
         
         $patient = patient::FindOrFail($request->id_patient);
         $employe = employ::FindOrFail($request->id_employe);
+        var data = JSON.parse('{{data}}');
         $view = view("consultations.ModalFoms.ordonnancePDF",compact('patient','employe'))->render();
         return response()->json(['html'=>$view]);
        
