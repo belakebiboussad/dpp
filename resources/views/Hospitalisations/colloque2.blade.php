@@ -202,11 +202,10 @@
 		<script src="{{ asset('/js/buttons.print.min.js') }}"></script>
 		<script src="{{ asset('/js/buttons.colVis.min.js') }}"></script>
 		<script src="{{ asset('/js/dataTables.select.min.js') }}"></script>
-
 		<!-- ace scripts -->
 		<script src=" {{asset/js/ace-elements.min.js }}"></script>
 		<script src="{{ asset/js/ace.min.js }}"></script>
-<!-- <script type="text/javascript" src="{{ asset('jquery/jquery.js') }}"></script>	 -->	
+
 <script type="text/javascript">
 			
 				
