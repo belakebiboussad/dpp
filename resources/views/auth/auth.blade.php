@@ -57,7 +57,7 @@
 
 <!--[if IE]>-->
 <script type="text/javascript">
-    window.jQuery || document.write("<script src='{{ asset('/js/jquery-2.2.4.min.js') }}'>"+"<"+"/script>");
+    window.jQuery || document.write("<script src='{{ asset('/js/jquery.min.js') }}'>"+"<"+"/script>");
 </script>
 <!--[endif]-->
 <script type="text/javascript">

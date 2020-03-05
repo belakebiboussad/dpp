@@ -1,6 +1,6 @@
 @extends('app_chef_ser')
 @section('page.script')
-<script src="{{asset('/js/jquery-2.2.4.js')}}"></script>
+<script src="{{ asset('/js/jquery.min.js') }}"></script>
 <script src="{{ asset('/js/datatables.js') }}"></script>
 <script type="text/javascript">
 	$('#demandes_liste').dataTable({

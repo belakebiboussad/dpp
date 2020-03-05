@@ -6,6 +6,7 @@ use App\modeles\consultation;
 use App\modeles\patient;
 use App\modeles\employ;
 use App\modeles\ordonnance;
+use App\modeles\medicament;
 use Jenssegers\Date\Date;
 use PDF;
 use Response;
@@ -17,8 +18,6 @@ class OrdonnanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-
     /**
      * Show the form for creating a new resource.
      *
@@ -95,15 +94,26 @@ class OrdonnanceController extends Controller
     }
     public function print(Request $request)
     {   
-        
-        $patient = patient::FindOrFail($request->id_patient);
-        $employe = employ::FindOrFail($request->id_employe);
-        var data = JSON.parse('{{data}}');
-        $view = view("consultations.ModalFoms.ordonnancePDF",compact('patient','employe'))->render();
+           $patient = patient::FindOrFail($request->id_patient);
+           $employe = employ::FindOrFail($request->id_employe);
+           $meds = json_decode($request->meds);
+           $medicaments = array();
+           //$new = new Collection();
+          $posologies = array();
+          foreach ($meds as $key => $med) {
+               foreach ($med as $key => $value) {
+                     if($key == "id")
+                     {
+                          $m =  medicament::FindOrFail($value); 
+                           $medicaments[] = $m;                                        
+                     }
+                     else
+                          array_push($posologies, $value);
+                }
+          }
+          $view = view("consultations.ModalFoms.ordonnancePDF",compact('patient','employe','medicaments','posologies'))->render();
         return response()->json(['html'=>$view]);
-       
-        // $pdf = PDF::loadView('ordonnancePDF', compact('$patient'))->setPaper('a6','landscape');
-        // $name = "Ord.pdf";
+        // $pdf = PDF::loadView('ordonnancePDF', compact('$patient'))->setPaper('a6','landscape');// $name = "Ord.pdf";
         // return $pdf->download($name);
     }
 

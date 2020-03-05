@@ -7,13 +7,13 @@
 
           </div>
           <div class="modal-body iframe-container">
-            <iframe id="ordpdf" height="800" width ="862" class="preview-pane embed-responsive-item" type="application/pdf" frameborder="0" allowfullscreen>
+            <iframe id="ordpdf" height="900" width ="862" class="preview-pane embed-responsive-item" type="application/pdf" frameborder="0" allowfullscreen>
                
              </iframe>
      
           </div>
           <div class="modal-footer mb-0 pull-right">
-            <button type="button" class="btn btn-info btn-xs" data-dismiss="modal" onclick="close()" >
+            <button type="button" class="btn btn-info btn-xs" data-dismiss="modal">
               <i class="ace-icon fa fa-close bigger-110"></i>Fermer
             </button>
           </div>

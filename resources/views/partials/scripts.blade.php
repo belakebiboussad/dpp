@@ -1,7 +1,6 @@
 <!-- basic scripts -->
 <!--[if !IE]> -->
-<script src="{{asset('/js/jquery.min.js')}}"></script>
-<!-- <script src="{{asset('/js/jquery-2.2.4.js')}}"></script> -->
+<script src="{{ asset('/js/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/jspdf.debug.js') }}"></script>
  <script type="text/javascript">
      if('ontouchstart' in document.documentElement) document.write("<script src='{{asset('/js/jquery.mobile.custom.min.js')}}'>"+"<"+"/script>");

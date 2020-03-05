@@ -46,6 +46,7 @@
  	  margin-top:0px !important;
  	  margin-bottom:2% !important;
  	  width:150%;
+ 	  height: 150%;
 	}
 	iframe {
 	    display: block;
@@ -57,14 +58,14 @@
 	#mymainWidget div {
 		height: 250px !important;
 	}
-  .modal-footer ,.modal-header {
-    background-color: #438eb9;
-    padding:0.5% 0.5%;
-    color:#FFF;
-    border-bottom:0px dashed #438eb9;
-    width:100%;
- 
- }		
+	  .modal-footer ,.modal-header {
+	    background-color: #438eb9;
+	    padding:0.5% 0.5%;
+	    color:#FFF;
+	    border-bottom:0px dashed #438eb9;
+	    width:100%;
+	 
+	 }		
 	/*fin*/
 	.dataTables_wrapper {
 	        font-family: tahoma;
@@ -267,11 +268,10 @@
         });
        }          
       });
-		$('#antecedantModal').on('hidden.bs.modal', function () {
-    	  $("#sous_type").attr("hidden",true);
+	$('#antecedantModal').on('hidden.bs.modal', function () {
+    		$("#sous_type").attr("hidden",true);
 	      $('#PhysiologieANTC').attr("hidden",true);
 	      $("#atcdsstypehide").attr("hidden",true);
-
 		});
 		jQuery('#btn-add').click(function () {
       jQuery('#EnregistrerAntecedant').val("add");
@@ -312,7 +312,7 @@
       		array.push($(this).val());
       		$(this). prop("checked", false);
         });   
-	      var exam = '<tr id="acte-'+$("#examensradio").val()+'"><td id="idExamen" hidden>'+$("#examensradio").val()+'</td><td>'+$("#examensradio option:selected").text()+'</td><td id ="types" hidden>'+array+'</td><td>'+selected+'</td><td class="center" width="5%">';
+var exam = '<tr id="acte-'+$("#examensradio").val()+'"><td id="idExamen" hidden>'+$("#examensradio").val()+'</td><td>'+$("#examensradio option:selected").text()+'</td><td id ="types" hidden>'+array+'</td><td>'+selected+'</td><td class="center" width="5%">';
 	      exam += '<button type="button" class="btn btn-xs btn-danger delete-ExamImg" value="'+$("#examensradio").val()+'" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';     
 	     	$('#ExamsImg').append(exam);
 	     	$('#examensradio').val(' ').trigger('change');
@@ -420,43 +420,42 @@
 		$(this).children("td").each(function(index){
 		    if((index == 1) || (index == 5) )
 		  	{
-		  	  obj[keys[i]]=$(this).html();
-		    	i++;
+		  		obj[keys[i]]=$(this).html();
+		    		i++;
 		  	}
 	      })
   		meds.push(obj);	
 	 	});
-	 	var myJSON = JSON.stringify(meds);
 	 	var formData = {
        		id_patient:patId,
        		id_employe:employeId,
        		meds:JSON.stringify(meds),
 	 	};
 		$.ajaxSetup({
-	    headers: {
-	        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-	    }
-	  });
+	    		headers: {
+	        		'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+	    		}
+	  	});
 		$.ajax({
 			beforeSend: function (xhr) {
-        var token = $('meta[name="_token"]').attr('content');
-        if (token) {
-          return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-        }
-      },
-		  type: "POST",
-		  url: "/ordonnaces/ordPrint",
-		  data:formData,//contentType: "application/j-son;charset=UTF-8",
-		  dataType: "json",
-		  success: function (data,status, xhr) {
-			  $('#iframe-pdf').contents().find('html').html(data.html);// jQuery('#iframe-pdf').contents().find("#toolbarViewerRight").
-		 		$("#iframe-pdf").contents().find(".toolbar").show();
-		    $("#ordajax").modal();
-		  },	
-	   	error: function (data) {
-     	 console.log('Error:', data);
-     	}
-  	})
+        		var token = $('meta[name="_token"]').attr('content');
+        		if (token) {
+          				return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+        		}
+      	},
+		type: "POST",
+		url: "/ordonnaces/ordPrint",
+			data:formData,//contentType: "application/j-son;charset=UTF-8",
+		  	dataType: "json",
+		  	success: function (data,status, xhr) {	  	
+			  	$('#iframe-pdf').contents().find('html').html(data.html);
+			 	 // jQuery('#iframe-pdf').contents().find("#toolbarViewerRight").
+		    		$("#ordajax").modal();
+		  	},	
+	   		error: function (data) {
+     	 			console.log('Error:', data);
+     			}
+  		})
 	}
 </script>
 @endsection
