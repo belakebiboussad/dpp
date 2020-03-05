@@ -225,17 +225,9 @@ $('#typeexm').on('change', function() {
             $('#ordpdf').attr('src', string);
 
             }
-            // function storeord()
-            // {   
-            //     var arrayLignes = document.getElementById("ordonnance").rows;
-            //     var longueur = arrayLignes.length;
-            //     var tab = [];
-            //     for(var i=1; i<longueur; i++)
-            //     {
-            //          tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;
-            //     }
-               
-            //     var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");
+// function storeord() // { // var arrayLignes = document.getElementById("ordonnance").rows;//var longueur = arrayLignes.length; //var tab = [];//for(var i=1; i<longueur; i++)//{
+//tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;
+//}// var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");
             //     champ.appendTo('#ordonnace_form');
             //     $('#ordonnace_form').submit();
             // }

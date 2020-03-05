@@ -94,14 +94,13 @@ class OrdonnanceController extends Controller
     }
     public function print(Request $request)
     {   
-           $patient = patient::FindOrFail($request->id_patient);
-           $employe = employ::FindOrFail($request->id_employe);
-           $meds = json_decode($request->meds);
-           $medicaments = array();
-           //$new = new Collection();
-          $posologies = array();
-          foreach ($meds as $key => $med) {
-               foreach ($med as $key => $value) {
+        $patient = patient::FindOrFail($request->id_patient);
+        $employe = employ::FindOrFail($request->id_employe);
+        $meds = json_decode($request->meds);
+        $medicaments = array();
+        $posologies = array();
+        foreach ($meds as $key => $med) {
+            foreach ($med as $key => $value) {
                      if($key == "id")
                      {
                           $m =  medicament::FindOrFail($value); 
@@ -110,8 +109,8 @@ class OrdonnanceController extends Controller
                      else
                           array_push($posologies, $value);
                 }
-          }
-          $view = view("consultations.ModalFoms.ordonnancePDF",compact('patient','employe','medicaments','posologies'))->render();
+        }
+        $view = view("consultations.ModalFoms.ordonnancePDF",compact('patient','employe','medicaments','posologies'))->render();
         return response()->json(['html'=>$view]);
         // $pdf = PDF::loadView('ordonnancePDF', compact('$patient'))->setPaper('a6','landscape');// $name = "Ord.pdf";
         // return $pdf->download($name);

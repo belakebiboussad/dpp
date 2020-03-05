@@ -155,16 +155,15 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Demande Examens Biologique :</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+       		<h4 class="modal-title">Demande Examens Biologique :</h4>
       </div>
       <div class="modal-body">
-     	{{--   <iframe id="exbiopdf" class="preview-pane" type="application/pdf" frameborder="0" style="position:relative;z-index:999"  width="150%" height="600" align="left">
-     	  </iframe> --}}
-     	  <iframe id="exbiopdf" src="" frameborder="0" class="preview-pane" type="application/pdf"></iframe>
+        <iframe id="exbiopdf" src="" frameborder="0" class="preview-pane" type="application/pdf" width="800" height="465">
+          	  	
+          	  </iframe>
       </div>
       <div class="modal-footer">
-    {{--     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> --}}
        </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

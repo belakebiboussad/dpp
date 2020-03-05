@@ -630,21 +630,21 @@ $('#typeexm').on('change', function() {
                      var string = exbio.output('datauristring');
                     $('#exbiopdf').attr('src', string);
            }
-          function createeximg(nomp,prenomp){
-                      moment.locale('fr');
-                     var d = new Date(); //var date=  yyyy + "/" + (mm[1]?mm:"0"+mm[0]) + "/" + (dd[1]?dd:"0"+dd[0]);
-                     var formattedDate = moment(d).format("l");
-                     var exbio = new jsPDF();
-                     exbio.text(200,20, 'Date :' +formattedDate , null, null, 'right');
-                     exbio.text(20,25, 'Nom : '+nomp, null, null);
-                     exbio.text(20,35, 'Prénom : '+prenomp, null, null);
-                      exbio.text(20,45, 'Age :........................................', null, null);
-                     exbio.setFontType("bold");
-                     exbio.text(105,55, 'Priére de faire', null, null, 'center');
-                      exbio.setFontSize(14);
-                      exbio.text(45,65,'Analyses Demandées :',null,null,'center');
-                     exbio.setFontSize(13);
-                      var i =0;
+        function createeximg(nomp,prenomp){
+            moment.locale('fr');
+            var d = new Date(); //var date=  yyyy + "/" + (mm[1]?mm:"0"+mm[0]) + "/" + (dd[1]?dd:"0"+dd[0]);
+            var formattedDate = moment(d).format("l");
+            var exbio = new jsPDF();
+            exbio.text(200,20, 'Date :' +formattedDate , null, null, 'right');
+            exbio.text(20,25, 'Nom : '+nomp, null, null);
+            exbio.text(20,35, 'Prénom : '+prenomp, null, null);
+            exbio.text(20,45, 'Age :........................................', null, null);
+            exbio.setFontType("bold");
+            exbio.text(105,55, 'Priére de faire', null, null, 'center');
+            exbio.setFontSize(14);
+            exbio.text(45,65,'Analyses Demandées :',null,null,'center');
+            exbio.setFontSize(13);
+            var i =0;
                         // $(".imgExam").each(function() {
                         //     alert($(this).attr('value'));
                         // });
@@ -655,11 +655,14 @@ $('#typeexm').on('change', function() {
                             i=i+10;
                      });
                      $('#selectedoption').val(selected); 
-                     var autreexamRadio = $("#examRadAutr").tagsinput('items');  
-                     for (var j = 0;  j< autreexamRadio.length; j++) {
+                    var autreexamRadio = $("#examRadAutr").tagsinput('items');  
+                    if(autreexamRadio.length != undefined)
+                    {
+                        for (var j = 0;  j< autreexamRadio.length; j++) {
                             exbio.text(25,72+i,autreexamRadio[j]+", ");
                             i=i+10;
-                     }
+                        }
+                    }
                      // Autre Echographe
                      var examautECHO = $("#examRadAutECHO").tagsinput('items');  
                      for (var j = 0;  j< examautECHO.length; j++) {

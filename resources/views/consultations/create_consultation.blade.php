@@ -42,12 +42,12 @@
   		 top:1%;	
   		 left:-5%%;
 	}
-	.mycontent {
+	/*.mycontent {
  	  margin-top:0px !important;
  	  margin-bottom:2% !important;
  	  width:150%;
  	  height: 150%;
-	}
+	}*/
 	iframe {
 	    display: block;
 	    margin: 0 auto;
@@ -182,7 +182,7 @@
     
   	  });
       $('#Ordonnance').on('show.bs.modal', function () {
-    	  $('.modal-content').css('height',$( window ).height()*0.95);
+    	  $('.contmodal').css('height',$( window ).height()*0.95);
       });
       //creart update delete antecant
       jQuery('body').on('click', '.open-modal', function () {
@@ -448,13 +448,13 @@ var exam = '<tr id="acte-'+$("#examensradio").val()+'"><td id="idExamen" hidden>
 			data:formData,//contentType: "application/j-son;charset=UTF-8",
 		  	dataType: "json",
 		  	success: function (data,status, xhr) {	  	
-			  	$('#iframe-pdf').contents().find('html').html(data.html);
-			 	 // jQuery('#iframe-pdf').contents().find("#toolbarViewerRight").
-		    		$("#ordajax").modal();
+			   	$('#iframe-pdf').contents().find('html').html(data.html);
+			  	$("#ordajax").modal();	// $('#iframe-pdf').focus();//$("#iframe-pdf").get(0).contentWindow.print();	
+			        
 		  	},	
 	   		error: function (data) {
      	 			console.log('Error:', data);
-     			}
+     		}
   		})
 	}
 </script>
