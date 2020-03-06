@@ -36,7 +36,8 @@
 					<div class="space-6"></div>
 					<button type="button" class="btn btn-primary btn-lg"  style="width:100%;" data-toggle="modal" data-target="#dexbio" onclick="createexbio('{{$patient->Nom}}','{{$patient->Prenom}}', {{ $patient->getAge() }})">
 					<div class="fa fa-print bigger-120"></div>
-					 <span class="bigger-110"> &nbsp;&nbsp;&nbsp;Imprimer</span></button>
+					 <span class="bigger-110"> &nbsp;&nbsp;&nbsp;Imprimer</span>
+					 </button>
 					</div>
 					<div class="space-12"></div>
 					<div class="profile-contact-info">

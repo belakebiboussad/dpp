@@ -4,9 +4,10 @@
   <title>Demande examens biologiques</title>
   <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   {{--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> --}}   {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> --}} {{--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> --}}
+     <link rel="stylesheet" type="text/css" href="{{ asset('/css/bootstrap.min.css') }}"/>
+    <script src="{{ asset('/js/jquery.min.js') }}"></script>
+ <script src="{{asset('/js/bootstrap.min.js')}}"></script>
   <style type="text/css">
     table 
     {
@@ -42,7 +43,7 @@
 <body>
 <div class="container-fluid">
   <h3 class="center">Direction Générale de la Sûreté Nationale</h3>
-  <h4 class="center">HOPITAL CENTRAL DE LA SURETE NATIONAL "LES GLYCINES"</h4>
+  <h4 class="center">ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE</h4>
   <h4 class="center">Tél : 23-93-34</h4>
   <br><br>
   <div class="center">

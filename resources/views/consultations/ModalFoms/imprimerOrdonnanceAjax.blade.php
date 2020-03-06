@@ -10,10 +10,10 @@
          </iframe>
         </div>
         <div class="modal-footer">
-          <button  onclick="$('#iframe-pdf').get(0).contentWindow.print();" class="btn btn-success btn-print" data-dismiss="modal">
+          <button  onclick="print();" class="btn btn-xs btn-success btn-print" data-dismiss="modal">
              <i class="ace-icon fa fa-print"></i>Imprimer
           </button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">
+          <button type="button" class="btn btn-xs btn-default" data-dismiss="modal">
             <i class="ace-icon fa fa-close"></i>Fermer
           </button>
         </div>

@@ -1,7 +1,7 @@
 <!-- basic scripts -->
 
 <!--[if !IE]> -->
-<script src="{{asset('/js/jquery-2.1.4.min.js')}}"></script>
+<script src="{{ asset('/js/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/jspdf.debug.js') }}"></script>
 <script src="{{ asset('/js/html2pdf.js') }}"></script>
  <script type="text/javascript">
@@ -225,12 +225,7 @@ $('#typeexm').on('change', function() {
             $('#ordpdf').attr('src', string);
 
             }
-// function storeord() // { // var arrayLignes = document.getElementById("ordonnance").rows;//var longueur = arrayLignes.length; //var tab = [];//for(var i=1; i<longueur; i++)//{
-//tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;
-//}// var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");
-            //     champ.appendTo('#ordonnace_form');
-            //     $('#ordonnace_form').submit();
-            // }
+// function storeord() // { // var arrayLignes = document.getElementById("ordonnance").rows;//var longueur = arrayLignes.length; //var tab = [];//for(var i=1; i<longueur; i++)//{//tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;//}// var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");            //     champ.appendTo('#ordonnace_form');            //     $('#ordonnace_form').submit();            // }
             function createexbio(nomp,prenomp){
                 var exbio = new jsPDF();
                 exbio.text(200,20, 'Date :.....................', null, null, 'right');

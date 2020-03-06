@@ -100,7 +100,7 @@
 		if ( !regex.test(key) ) {
 		        theEvent.returnValue = false;
 		        if(theEvent.preventDefault) theEvent.preventDefault();
-		}
+		 }
 	}
   	$('document').ready(function(){
   		$( 'ul.nav li' ).on( 'click', function() {
@@ -115,23 +115,23 @@
 		$('.select2').css('width','400px').select2({allowClear:true})
      		 $('#select2-multiple-style .btn').on('click', function(e){
 	   		var target = $(this).find('input[type=radio]');
-	     	var which = parseInt(target.val());
+	    	 	var which = parseInt(target.val());
 	   		if(which == 2) 
 	   			$('.select2').addClass('tag-input-style');
 	       	else
 	       	 $('.select2').removeClass('tag-input-style');
      		});
 		$(function() {
-			var checkbox = $("#isOriented");  // Get the form fields and hidden div
-			var hidden = $("#hidden_fields");  // Setup an event listener for when the state of the    // checkbox changes.
-		      checkbox.change(function() {
-		    	if (checkbox.is(':checked')) {
-		     			hidden.show();
-		    	} else {
-		       	hidden.hide();
-		      	$("#lettreorientaioncontent").val("");
-		     }
-			})
+				var checkbox = $("#isOriented");  // Get the form fields and hidden div
+				var hidden = $("#hidden_fields");  // Setup an event listener for when the state of the    // checkbox changes.
+			      checkbox.change(function() {
+				    	if (checkbox.is(':checked')) {
+				     			hidden.show();
+				    	} else {
+				       	hidden.hide();
+				      	$("#lettreorientaioncontent").val("");
+				     }
+				})
 	   	}); 
 	    	$(".two-decimals").change(function(){
 	      			this.value = parseFloat(this.value).toFixed(2);
@@ -179,12 +179,10 @@
    			"language": {
    			     "url": '/localisation/fr_FR.json'
 		    },
-    
   	  });
       $('#Ordonnance').on('show.bs.modal', function () {
-    	  $('.contmodal').css('height',$( window ).height()*0.95);
+    	  	$('.contmodal').css('height',$( window ).height()*0.95);
       });
-      //creart update delete antecant
       jQuery('body').on('click', '.open-modal', function () {
    	    var atcd_id = $(this).val();
    	    $.get('/atcd/' + atcd_id, function (data) { 
@@ -320,7 +318,6 @@ var exam = '<tr id="acte-'+$("#examensradio").val()+'"><td id="idExamen" hidden>
 		});
 		jQuery('body').on('click', '.delete-ExamImg', function () {
     		$("#acte-" + $(this).val()).remove();
-    	 
    	 });
    	 $("#consultForm").submit(function(e){
      		var arrayLignes = document.getElementById("ExamsImg").rows;
@@ -335,36 +332,36 @@ var exam = '<tr id="acte-'+$("#examensradio").val()+'"><td id="idExamen" hidden>
   });
   function ajaxfunc(patientid)
  	{        
-    var habitudeAlim = null; var tabac=null ; var ethylisme = null;
-    var antecedant = $('#Antecedant').val();
-    var typeAntecedant = $('#typeAntecedant').val();
-    var soustype = $('#sstypeatcdc').val();    
-    var dateATCD = $('#dateAntcd').val()
-    var description = $("#description").val();               
-    if(typeAntecedant =="Physiologiques")
-    {
-      habitudeAlim= $('#habitudeAlim').val();
-      tabac = $("#tabac").is(":checked") ? 1:0;
-      ethylisme = $("#ethylisme").is(":checked") ? 1:0;
-    }
-    if (description === "")
-    {
-    }else{
-      $.ajax({
-          headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-          type:'POST',
-          url:'/AddANTCD',
-          data:{ antecedant:antecedant,typeAntecedant:typeAntecedant,soustype:soustype,dateATCD:dateATCD,description:description,patientid:patientid,habitudeAlim:habitudeAlim,tabac:tabac,ethylisme:ethylisme 
-          },
-          success:function(data){
-             $("#msg").html(data.msg);
-          }
-      }); 
-      $('#ants-tab').append("<tr><td>"+$('#Antecedant').val()+"</td><td>"+$('#dateAntcd').val()+"</td><td>"+$('#description').val()+"</td><td></td></tr>");  
-      resetField(); 
-    }
+	    var habitudeAlim = null; var tabac=null ; var ethylisme = null;
+	    var antecedant = $('#Antecedant').val();
+	    var typeAntecedant = $('#typeAntecedant').val();
+	    var soustype = $('#sstypeatcdc').val();    
+	    var dateATCD = $('#dateAntcd').val()
+	    var description = $("#description").val();               
+	    if(typeAntecedant =="Physiologiques")
+	    {
+	      habitudeAlim= $('#habitudeAlim').val();
+	      tabac = $("#tabac").is(":checked") ? 1:0;
+	      ethylisme = $("#ethylisme").is(":checked") ? 1:0;
+	    }
+	    if (description === "")
+	    {
+	    }else{
+	      $.ajax({
+	          headers: {
+	                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	          },
+	          type:'POST',
+	          url:'/AddANTCD',
+	          data:{ antecedant:antecedant,typeAntecedant:typeAntecedant,soustype:soustype,dateATCD:dateATCD,description:description,patientid:patientid,habitudeAlim:habitudeAlim,tabac:tabac,ethylisme:ethylisme 
+	          },
+	          success:function(data){
+	             $("#msg").html(data.msg);
+	          }
+	      }); 
+	      $('#ants-tab').append("<tr><td>"+$('#Antecedant').val()+"</td><td>"+$('#dateAntcd').val()+"</td><td>"+$('#description').val()+"</td><td></td></tr>");  
+	      resetField(); 
+	    }
   }
   function resetField()
   {
@@ -389,22 +386,22 @@ var exam = '<tr id="acte-'+$("#examensradio").val()+'"><td id="idExamen" hidden>
 	  }
 	function atcdhide()
 	{  
-	  resetField(); 
-	  if($('#Antecedant').val() === 'Personnels')
-	  {
-	  	if($('#typeAntecedant').val() === "Pathologiques")
-	   	{
-	      $('#atcdsstypehide').attr("hidden",false);//$('#atcdsstypehide').show();
-	      $('#PhysiologieANTC').attr("hidden",true);//$('#PhysiologieANTC').hide();
-	      $('#habitudeAlim').val(null);$('#tabac').prop('checked', false); 
-	      $('#ethylisme').prop('checked', false);   
-	   	}else
-	   	{
-	   	  $('#atcdsstypehide').attr("hidden",true);//$('#atcdsstypehide').hide();
-	     	$('#PhysiologieANTC').attr("hidden",false);//$('#PhysiologieANTC').show();
-	   		$('#sstypeatcdc').prop("selectedIndex", 1);
-	    }
-	    }
+		  resetField(); 
+		  if($('#Antecedant').val() === 'Personnels')
+		  {
+		  	if($('#typeAntecedant').val() === "Pathologiques")
+		   	{
+		      $('#atcdsstypehide').attr("hidden",false);//$('#atcdsstypehide').show();
+		      $('#PhysiologieANTC').attr("hidden",true);//$('#PhysiologieANTC').hide();
+		      $('#habitudeAlim').val(null);$('#tabac').prop('checked', false); 
+		      $('#ethylisme').prop('checked', false);   
+		   	}else
+		   	{
+		   	  $('#atcdsstypehide').attr("hidden",true);//$('#atcdsstypehide').hide();
+		     	$('#PhysiologieANTC').attr("hidden",false);//$('#PhysiologieANTC').show();
+		   		$('#sstypeatcdc').prop("selectedIndex", 1);
+		    }
+		    }
 	}
 	function createordXhr(patId,employeId)
 	{
@@ -442,20 +439,25 @@ var exam = '<tr id="acte-'+$("#examensradio").val()+'"><td id="idExamen" hidden>
         		if (token) {
           				return xhr.setRequestHeader('X-CSRF-TOKEN', token);
         		}
-      	},
+   	   	},
 		type: "POST",
 		url: "/ordonnaces/ordPrint",
 			data:formData,//contentType: "application/j-son;charset=UTF-8",
 		  	dataType: "json",
 		  	success: function (data,status, xhr) {	  	
 			   	$('#iframe-pdf').contents().find('html').html(data.html);
-			  	$("#ordajax").modal();	// $('#iframe-pdf').focus();//$("#iframe-pdf").get(0).contentWindow.print();	
-			        
+			  	$("#ordajax").modal();	// $('#iframe-pdf').focus();//$("#iframe-pdf").get(0).contentWindow.print();			        
 		  	},	
 	   		error: function (data) {
      	 			console.log('Error:', data);
-     		}
+     			}
   		})
+	}
+	function print()
+	{
+		document.title = 'ordonnance-('+$('#nom').text()+' '+$('#prenom').text()+')';
+		 $('#iframe-pdf').get(0).contentWindow.print();
+		  document.title = 'Nouvelle Consultation';
 	}
 </script>
 @endsection
@@ -466,7 +468,7 @@ var exam = '<tr id="acte-'+$("#examensradio").val()+'"><td id="idExamen" hidden>
 <div class="content" style="height:800px;">
 <form  class="form-horizontal" action="{{ route('consultations.store') }}" method="POST" role="form" id ="consultForm" novalidate>
 	 {{ csrf_field() }}
-	 <input type="hidden" name="id" value="{{$patient->id}}">
+	 <input type="hidden" name="id" value="{{ $patient->id }}">
 	<div id="prompt"></div>
 	<div class="tabpanel">
 		<ul class = "nav nav-pills nav-justified list-group" role="tablist" id="menu">
@@ -512,9 +514,10 @@ var exam = '<tr id="acte-'+$("#examensradio").val()+'"><td id="idExamen" hidden>
 				<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
 			</button>
 			&nbsp; &nbsp; &nbsp;
-			<button class="btn btn-info btn-sm" type="button" id="annuler">
+			<a href="{{ route('patient.show',$patient->id) }}" class="btn btn-info btn-sm">
 				<i class="ace-icon fa fa-undo bigger-110"></i>Annuler
-			</button> 
+			</a>
+			
 	</div>	{{-- center --}}
 </form>
 <!-- Modal -->

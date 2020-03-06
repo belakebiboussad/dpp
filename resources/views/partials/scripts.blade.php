@@ -656,7 +656,7 @@ $('#typeexm').on('change', function() {
                      });
                      $('#selectedoption').val(selected); 
                     var autreexamRadio = $("#examRadAutr").tagsinput('items');  
-                    if(autreexamRadio.length != undefined)
+                    if(autreexamRadio != undefined)
                     {
                         for (var j = 0;  j< autreexamRadio.length; j++) {
                             exbio.text(25,72+i,autreexamRadio[j]+", ");

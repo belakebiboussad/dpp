@@ -12,12 +12,12 @@
 				<div class="widget-main">
 					<label class="inline">
 						<span class="blue"><strong>Nom :</strong></span>
-						<span class="lbl"> {{ $patient->Nom }}</span>
+						<span class="lbl" id="nom"> {{ $patient->Nom }}</span>
 					</label>
 					&nbsp;&nbsp;&nbsp;
 					<label class="inline">
 						<span class="blue"><strong>Prénom :</strong></span>
-						<span class="lbl"> {{ $patient->Prenom }}</span>
+						<span class="lbl"  id="prenom"> {{ $patient->Prenom }}</span>
 					</label>
 					&nbsp;&nbsp;&nbsp;
 					<label class="inline">

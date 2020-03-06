@@ -25,12 +25,6 @@
                     Système de Gestion du Dossier Patient
                 </small>
             </a>
-
-            <!-- /section:basics/navbar.layout.brand -->
-
-            <!-- #section:basics/navbar.toggle -->
-
-            <!-- /section:basics/navbar.toggle -->
         </div>
 
         <!-- #section:basics/navbar.dropdown -->
@@ -84,5 +78,3 @@
         <!-- /section:basics/navbar.dropdown -->
     </div><!-- /.navbar-container -->
 </div>
-
-<!-- /section:basics/navbar.layout -->
