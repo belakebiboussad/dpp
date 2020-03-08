@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
     <title>@yield('title','Dossier patient')</title>
      @include('partials.htmlheader')
-     @yield('style')
      @include('partials.scripts')
+     @yield('style')
+</head>
 <body class="no-skin">
     @include('partials.navbar')
     <div class="main-container" id="main-container">

@@ -1,4 +1,4 @@
-<head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="and Validation" />
@@ -8,10 +8,7 @@
     <title>@yield('title')</title>
     <meta name="description" content="{{ $html_description or ' Dossier Patient' }}" />
     <meta name="csrf-token" content="{{csrf_token()}}">
-
    <!-- app.css is bootstrap.css (slightly modified by Ace template) compiled with less -->
-    <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('/css/styles.css') }}" rel="stylesheet">
     
     <link href="{{ asset('/css/font-awesome.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('vendor/components/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
@@ -32,4 +29,5 @@
     <link rel="stylesheet" href="{{ asset('/plugins/fullcalendar/fullcalendar.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/plugins/fullcalendar/fullcalendar.print.min.css') }}" media='print'>
     <link rel="stylesheet" href="{{ asset('/css/jquery-editable-select.css') }}" media='print'>
-</head>
+    <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet"href="{{ asset('/css/styles.css') }}">

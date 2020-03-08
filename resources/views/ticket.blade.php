@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>RDV</title>
+	<link  rel="stylesheet" href="{{ asset('/css/styles.css') }}">
 <style>
 	.numberCircle {
     width: 45px;
@@ -15,8 +16,8 @@
 </head>
 <body>
   <br><br>
-	<h5 style="text-align:center;">HOPITAL CENTRAL DE LA SURETE NATIONAL "LES GLYCINES"</h5>
-	<h5 style="text-align:center;">Tél : 23-93-34</h5>
+	<h5 style="text-align:center;">ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</h5>
+	<h6 style="text-align:center; mt-10">Tél : 23-93-34</h5>
 	<table width="100%">
 		<tr>
 			<td class="col-md-4">
@@ -44,7 +45,10 @@
 	</table>
 	<br>
 	<div style="text-align: center;">
-		<img src="data:image/png;base64,{{DNS1D::getBarcodePNG(App\modeles\patient::where("id",$ticket->id_patient)->get()->first()->code_barre, 'C128',3,33)}}" alt="barcode" />
+<!-- <img src="data:image/png;base64,{{DNS1D::getBarcodePNG(App\modeles\patient::where("id",$ticket->id_patient)->get()->first()->code_barre, 'C128',3,33)}}" alt="barcode" /> -->
+	  <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($ticket->Patient->code_barre, 'C128')}}" alt="barcode" />
+	  <br>
+	  <span> {{$ticket->Patient->code_barre }}</span> 
 	</div>
 </body>
 </html>

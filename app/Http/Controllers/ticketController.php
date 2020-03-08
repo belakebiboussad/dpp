@@ -41,9 +41,11 @@ class ticketController extends Controller
         $datea = Date::Now();
         if($request->typecons == "Normale")
         {
+
             $tickets = ticket::where("date", $date)
                             ->where("specialite",$request->spesialite)
                             ->get()->count();
+           dd($tickets);                               
             $ticket = ticket::firstOrCreate([
                 "date" => $datea,
                 "specialite" => $request->spesialite,
@@ -52,6 +54,7 @@ class ticketController extends Controller
                 "num_order" => ($tickets+1),
                 "id_patient" => $request->id_patient,
             ]);
+            dd($ticket);
             return redirect()->route("ticket.pdf",$ticket->id);
         }
         else
@@ -66,7 +69,7 @@ class ticketController extends Controller
                 "document" => $request->document,
                 "num_order" => ($tickets+1),
                 "id_patient" => $request->id_patient,
-            ]); 
+            ]);
             return redirect()->route("ticket.pdf",$ticket->id);
         }
     }

@@ -22,4 +22,24 @@ margin-right: 0px;
         color: red;
         padding-left: 5px;
 }
-
+.mt-2 {
+         margin-top: -2px !important;
+}
+.mt-10{
+        margin-top:-10px;
+}
+.ml-2{
+        margin-left: +0.5%;
+}
+.mt-3 {
+        margin-top: +6px !important;
+}
+.ml-80{
+       margin-left: +80%;
+}
+     .foo
+        {
+            position: absolute;
+            top: 87%;
+            right: 22%;
+        }

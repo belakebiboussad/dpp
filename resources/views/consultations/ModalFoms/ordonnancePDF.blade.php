@@ -1,36 +1,11 @@
 <html>
 	<head>
 	  <link rel="stylesheet" type="text/css" href="{{ asset('/css/bootstrap.min.css') }}"/>
-      <style>
-				.ml-2{
-					 margin-left: +0.5%;
-				}
-			  .mt-2 {
-			 		margin-top: -2px !important;
-			  }
-					.mt-3 {
-			 		   	margin-top: +6px !important;
-					}
-			          .mt-10{
-			              margin-top:-10px;
-			          }
-					.mt-40 {
-							margin-top: -40px;	
-					}
+    <link  rel="stylesheet" href="{{ asset('/css/styles.css') }}">
 
-          .ml-80{
-              margin-left: +80%;
-          }
-          .mr-12 {
-                 margin-right: +9px;
-           }
-          /*#fo{   position: fixed;     bottom: 50;         right: 100;      }*/
-          #foo
-          {
-              position: absolute;
-              top: 87%;
-              right: 22%;
-          }
+    <style>
+			  /*#fo{   position: fixed;     bottom: 50;         right: 100;      }*/
+   
 	      .print {
 	         display:none;
 	      }
@@ -53,7 +28,7 @@
           <div class="row m-2">
             <div class="col-sm-12">
               <div class="content text-center">
-                <h5 class="mt-2"><b>ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE</b></h5>
+                <h5 class="mt-2"><b>ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</b></h5>
               </div>
             </div>
                 </div>
@@ -104,7 +79,7 @@
                     </div>
                 </div>
               @endfor
-      <div id ="foo" class="row">
+      <div class="row foo">
                      <div class="col-sm-12">
                             <span class="medium"><strong> Docteur :</strong>{{ $employe->Nom_Employe}} {{ $employe->Prenom_Employe}}</span>
                      </div>

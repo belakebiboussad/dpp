@@ -559,52 +559,17 @@
     		<div class="modal-content">
     			<div class="modal-header">
     				<button type="button" class="close" data-dismiss="modal">&times;</button>
-    				<h4 class="modal-title">Ajouter Ticket :</h4>
+    				<h4 class="modal-title"><strong>Ajouter Ticket:</strong></h4>
     			</div>
     			<div class="modal-body">
     				<div class="row">
     					<div class="col-sm-12">
-    						<div class="col-xs-6">
-    							<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-										<b> Nom: </b>
-									</label>
-									<div class="col-sm-9">
-										<label>{{ $patient->Nom }}</label>
-									</div>
-								</div>
-    						</div>
-    						<div class="col-xs-6">
-    							<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-										<b> Prénom: </b>
-									</label>
-									<div class="col-sm-9">
-										<label>{{ $patient->Prenom }}</label>
-									</div>
-								</div>
-    						</div>
-    						<div class="col-xs-6">
-    							<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-										<b> Age: </b>
-									</label>
-									<div class="col-sm-9">
-										<label>{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }} ans</label>
-									</div>
-								</div>
-    						</div>
-    						<div class="col-xs-6">
-    							<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-										<b>Sexe:</b>
-									</label>
-									<div class="col-sm-9">
-										<label>{{ $patient->Sexe =="M" ? "Masculin" : "Féminin" }}</label>
-									</div>
-								</div>
-    						</div>
-    						<br/><br/><br/><br/>
+<!-- <div class="col-xs-6"><div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1"><b> Nom: </b>
+</label><div class="col-sm-9"><label>{{ $patient->Nom }}</label></div></div></div> --><!-- 		<div class="col-xs-6"><div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1"><b> Prénom: </b>
+</label><div class="col-sm-9"><label>{{ $patient->Prenom }}</label></div></div></div>--><!-- <div class="col-xs-6"><div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">
+<b> Age: </b></label><div class="col-sm-9"><label>{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }} ans</label></div></div></div> -->					<!-- <div class="col-xs-6"><div class="form-group">
+<label class="col-sm-3 control-label no-padding-right" for="form-field-1"><b>Sexe:</b></label><div class="col-sm-9"><label>{{ $patient->Sexe =="M" ? "Masculin" : "Féminin" }}</label></div></div> 						</div> -->
+<!-- <br/><br/><br/><br/> -->
     						<form action="{{ route('ticket.store') }}" method="POST" role="form">
 							{{ csrf_field() }}
 							<input type="text" name="id_patient" value="{{ $patient->id }}" hidden>
