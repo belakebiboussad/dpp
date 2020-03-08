@@ -37,9 +37,8 @@ margin-right: 0px;
 .ml-80{
        margin-left: +80%;
 }
-     .foo
-        {
-            position: absolute;
-            top: 87%;
-            right: 22%;
-        }
+.foo{
+      position: absolute;
+      top: 87%;
+      right: 22%;
+}

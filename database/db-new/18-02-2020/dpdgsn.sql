@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 18 fév. 2020 à 17:35
+-- Généré le :  Dim 08 mars 2020 à 15:27
 -- Version du serveur :  5.7.23
 -- Version de PHP :  7.2.10
 
@@ -329,17 +329,17 @@ CREATE TABLE IF NOT EXISTS `assurs` (
   `NSS` varchar(15) DEFAULT NULL,
   `NMGSN` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=141 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `assurs`
 --
 
 INSERT INTO `assurs` (`id`, `Nom`, `Prenom`, `Date_Naissance`, `lieunaissance`, `Sexe`, `Matricule`, `Grade`, `Service`, `Etat`, `NSS`, `NMGSN`) VALUES
-(9, 'patient2', 'patient2', '2018-03-27', 650, 'M', 'M123', 1, 'Agent civile', 'Retraité', '03256424565', NULL),
-(12, 'malade', 'malade', '2018-03-28', 980, 'M', 'H123D', 3, 'Agent civile', 'En exercice', '032564', NULL),
-(13, 'malade', 'malade', '2018-03-28', 850, 'M', 'vf125', 7, 'Agent civile', 'En exercice', '032564', NULL),
-(14, 'malade1', 'malade1', '2017-11-19', 527, 'M', '0132D', 3, 'Sécurité publique', 'En exercice', '03256424565', '5612488255'),
+(9, 'assure1', 'assure1', '2018-03-27', 650, 'M', 'M123', 1, 'Agent civile', 'Retraité', '032564245651', NULL),
+(12, 'assure2', 'assure2', '2018-03-28', 980, 'M', 'H123D', 3, 'Agent civile', 'En exercice', '032564s', NULL),
+(13, 'assure3', 'assure3', '2018-03-28', 850, 'M', 'vf125', 7, 'Agent civile', 'En exercice', '032564', NULL),
+(14, 'assure4', 'malade1', '2017-11-19', 527, 'M', '0132D', 3, 'Sécurité publique', 'En exercice', '03256424565', '5612488255'),
 (15, 'mrid', 'mrid', '2018-03-16', 502, 'M', 'vfd12', 1, 'Agent civile', 'En exercice', '115', NULL),
 (16, 'malade', 'malade', '2018-03-26', 781, 'M', 'bsdfb', 3, 'Agent civile', 'En exercice', '557', NULL),
 (17, 'patient3', 'patient3', '2018-03-21', 356, 'M', 'KL56f', 4, 'Agent civile', 'Retraité', '554', NULL),
@@ -383,7 +383,13 @@ INSERT INTO `assurs` (`id`, `Nom`, `Prenom`, `Date_Naissance`, `lieunaissance`, 
 (62, 'belakebi', 'boussad', '2019-11-10', 36, 'M', NULL, 1, NULL, 'En exercice', 'qsssssssssss', NULL),
 (64, 'hdfgh', 'hdfg', '2019-12-01', 1, 'M', NULL, 1, NULL, 'En exercice', 'gggggggggggg', NULL),
 (68, 'fqsd', 'fqds', '2019-12-01', 40, 'F', NULL, 1, NULL, 'En exercice', '465465454764', NULL),
-(70, 'as', 'as', '2018-03-04', 613, 'M', '5633', 1, NULL, 'En exercice', '465465454764', '5612488255');
+(70, 'as', 'as', '2018-03-04', 613, 'M', '5633', 1, NULL, 'En exercice', '465465454764', '5612488255'),
+(71, 'pat35', 'pat35', '2018-08-21', 613, 'M', 'fg456', 1, NULL, 'En exercice', '065469746444', 'fgf4654'),
+(72, 'pat35', 'pat35', '2019-04-07', 613, 'M', 'M125', 1, NULL, 'En exercice', '036565656565', '21324q'),
+(73, 'pat', 'pat', '2020-02-02', 613, 'M', '44sd5', 1, NULL, 'En exercice', '064646444444', 'sd455'),
+(74, 'd', 'd', '2020-02-09', 1189, 'M', 'Mf455', 1, NULL, 'En exercice', '126346499999', 'fsdf26565'),
+(75, 'a', 'a', '2020-02-02', 613, 'M', 'ml126', 3, NULL, 'En exercice', '655953213333', 'jh45422'),
+(76, 's', 's', '2020-02-03', 613, 'M', 'M4523', 1, NULL, 'En exercice', '655555555555', 's455sss');
 
 -- --------------------------------------------------------
 
@@ -5634,7 +5640,7 @@ INSERT INTO `homme_confs` (`id`, `id_patient`, `nom`, `prenom`, `date_naiss`, `l
 (43, 22, 'sq', 'dsq', '2019-12-04', 'Père', 'CNI', '04042042', '2019-12-15', 'sdsq', '0656565656', 'actuel', '2019-12-26 11:30:30', '2019-12-26 11:30:30', 88, NULL),
 (49, 30, 'lolo', 'lolo', '2019-11-03', 'Père', 'Permis', '04042042', '2014-12-15', 'alg', '0232329899', 'actuel', '2019-12-26 13:24:49', '2019-12-26 13:24:49', 88, NULL),
 (52, 30, 'mere', 'mere', '1968-05-21', 'Mère', 'CNI', '05612358', '1998-10-21', 'alger', '0565865656', 'actuel', '2019-12-29 09:48:16', '2019-12-29 09:48:16', 88, NULL),
-(53, 26, 'îo', 'io', '2017-08-15', 'Mère', 'Permis', '04042042', '2019-12-16', 'h', '8777777777', 'actuel', '2020-01-28 12:46:57', '2020-01-28 12:46:57', 88, NULL),
+(53, 26, 'îo', 'garde', '2017-08-15', 'Mère', 'Permis', '04042042', '2019-12-16', 'h', '8777777777', 'actuel', '2020-01-28 12:46:57', '2020-03-02 14:48:50', 88, NULL),
 (55, 46, 'îo', 'io', '2019-12-04', 'Père', 'Passeport', '04042042', '2019-12-16', 'alger', '0588888888', 'actuel', '2020-01-28 13:06:02', '2020-01-28 13:06:02', 88, NULL);
 
 -- --------------------------------------------------------
@@ -11153,7 +11159,7 @@ CREATE TABLE IF NOT EXISTS `patients` (
   KEY `Assurs_ID_Assure` (`Assurs_ID_Assure`) USING BTREE,
   KEY `commune_res` (`commune_res`) USING BTREE,
   KEY `fk_patient_commNaissane` (`Lieu_Naissance`)
-) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `patients`
@@ -11207,7 +11213,9 @@ INSERT INTO `patients` (`id`, `code_barre`, `Nom`, `Prenom`, `nom_jeune_fille`, 
 (87, 'M2019/87', 'sg', 'gsdfg', NULL, '2016-06-14', 260, 'M', 'marie', 'gsdfg', 423, 13, '0555555555', '', NULL, NULL, 'AB', '-', 70, 'Ayant_droit', NULL, 'gsdfg', 1, '2019-12-10', NULL, '0000-00-00 00:00:00'),
 (88, '0201988', 'patient23', 'patient23', NULL, '2019-03-11', 270, 'M', 'celibataire', 'hdfg', 1556, 49, '0555555555', '', NULL, NULL, 'B', '+', NULL, 'Autre', NULL, 'jjfghj', 1, '2020-02-12', NULL, '0000-00-00 00:00:00'),
 (89, '0201989', 'belakebi', 'boussad', NULL, '2019-11-10', 498, 'M', 'marie', 'bab', 591, 16, '0554123295', '', NULL, NULL, NULL, NULL, 62, 'Assure', NULL, NULL, 1, '2019-12-08', NULL, '0000-00-00 00:00:00'),
-(94, '0201994', 'fqsd', 'fqds', NULL, '2019-12-01', 40, 'F', 'celibataire', 'erf', 18, 1, '0555555555', '0666666666', NULL, NULL, 'B', NULL, 68, 'Assure', NULL, '', 1, '2019-12-09', NULL, '0000-00-00 00:00:00');
+(94, '0201994', 'fqsd', 'fqds', NULL, '2019-12-01', 40, 'F', 'celibataire', 'erf', 18, 1, '0555555555', '0666666666', NULL, NULL, 'B', NULL, 68, 'Assure', NULL, '', 1, '2019-12-09', NULL, '0000-00-00 00:00:00'),
+(95, '0202095', 'a', 'a', NULL, '2020-02-02', 613, 'M', 'marie', 'alger', 613, 16, '0555555555', '', NULL, NULL, 'A', '+', 75, 'Assure', NULL, NULL, 1, '2020-02-24', NULL, '2020-02-24 11:27:15'),
+(96, '0202096', 's', 's', NULL, '2020-02-03', 613, 'M', 'veuf', 'alg', 613, 16, '0555555555', '', NULL, NULL, 'A', '+', 76, 'Assure', NULL, NULL, 1, '2020-02-24', NULL, '2020-02-24 13:30:13');
 
 -- --------------------------------------------------------
 
@@ -11577,78 +11585,17 @@ DROP TABLE IF EXISTS `tickets`;
 CREATE TABLE IF NOT EXISTS `tickets` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL,
-  `specialite` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `specialite` int(11) DEFAULT NULL,
   `type_consultation` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `document` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `num_order` bigint(20) NOT NULL,
   `id_patient` bigint(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=108 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Déchargement des données de la table `tickets`
---
-
-INSERT INTO `tickets` (`id`, `date`, `specialite`, `type_consultation`, `document`, `num_order`, `id_patient`, `created_at`, `updated_at`) VALUES
-(107, '2020-02-03', '2', 'Normale', 'Rendez-vous', 2, 26, NULL, NULL),
-(106, '2020-02-03', '2', 'Normale', 'Rendez-vous', 1, 52, NULL, NULL),
-(105, '2019-11-28', '1', 'Normale', 'Rendez-vous', 6, 37, NULL, NULL),
-(104, '2019-11-28', '1', 'Normale', 'Rendez-vous', 5, 37, NULL, NULL),
-(103, '2019-11-28', '1', 'Urgente', 'Consultation généraliste', 21, 37, NULL, NULL),
-(102, '2019-11-28', '1', 'Normale', 'Rendez-vous', 3, 37, NULL, NULL),
-(101, '2019-11-28', '1', 'Normale', 'Rendez-vous', 2, 37, NULL, NULL),
-(51, '2019-11-28', 'Endocrinologie', 'Urgente', 'Consultation généraliste', 5, 31, NULL, NULL),
-(52, '2019-11-28', 'Anesthésiologie', 'Normale', 'Lettre d\'orientation', 4, 31, NULL, NULL),
-(53, '2019-11-28', 'Anesthésiologie', 'Normale', 'Lettre d\'orientation', 5, 31, NULL, NULL),
-(54, '2019-11-28', 'Anesthésiologie', 'Normale', 'Rendez-vous', 6, 31, NULL, NULL),
-(55, '2019-11-28', 'Anesthésiologie', 'Normale', 'Rendez-vous', 7, 31, NULL, NULL),
-(56, '2019-11-28', 'Anesthésiologie', 'Normale', 'Rendez-vous', 8, 31, NULL, NULL),
-(57, '2019-11-28', 'Anesthésiologie', 'Normale', 'Rendez-vous', 9, 31, NULL, NULL),
-(58, '2019-11-28', 'Anesthésiologie', 'Normale', 'Rendez-vous', 10, 31, NULL, NULL),
-(59, '2019-11-28', 'Anesthésiologie', 'Normale', 'Rendez-vous', 11, 31, NULL, NULL),
-(60, '2019-11-28', 'Anesthésiologie', 'Urgente', 'Rendez-vous', 6, 31, NULL, NULL),
-(61, '2019-11-28', 'Anesthésiologie', 'Urgente', 'Lettre d\'orientation', 7, 31, NULL, NULL),
-(62, '2019-11-28', 'Anesthésiologie', 'Urgente', 'Lettre d\'orientation', 8, 31, NULL, NULL),
-(63, '2019-11-28', 'Anesthésiologie', 'Normale', 'Rendez-vous', 15, 31, NULL, NULL),
-(64, '2019-11-28', 'Andrologie', 'Urgente', 'Lettre d\'orientation', 9, 31, NULL, NULL),
-(65, '2019-11-28', 'Anesthésiologie', 'Normale', 'Lettre d\'orientation', 16, 31, NULL, NULL),
-(66, '2019-11-28', 'Anesthésiologie', 'Normale', 'Lettre d\'orientation', 17, 31, NULL, NULL),
-(67, '2019-11-28', 'Anesthésiologie', 'Normale', 'Lettre d\'orientation', 18, 31, NULL, NULL),
-(68, '2019-11-28', 'Anesthésiologie', 'Normale', 'Lettre d\'orientation', 19, 31, NULL, NULL),
-(69, '2019-11-28', 'Anesthésiologie', 'Normale', 'Lettre d\'orientation', 20, 31, NULL, NULL),
-(70, '2019-11-28', 'Anesthésiologie', 'Normale', 'Lettre d\'orientation', 21, 31, NULL, NULL),
-(71, '2019-11-28', 'Anesthésiologie', 'Normale', 'Rendez-vous', 22, 31, NULL, NULL),
-(72, '2019-11-28', 'Anesthésiologie', 'Normale', 'Rendez-vous', 23, 31, NULL, NULL),
-(73, '2019-11-28', 'Anesthésiologie', 'Normale', 'Rendez-vous', 24, 31, NULL, NULL),
-(74, '2019-11-28', 'Anesthésiologie', 'Normale', 'Rendez-vous', 25, 31, NULL, NULL),
-(75, '2019-11-28', 'Andrologie', 'Normale', 'Consultation généraliste', 7, 31, NULL, NULL),
-(76, '2019-11-28', 'Cardiologie', 'Urgente', 'Rendez-vous', 10, 31, NULL, NULL),
-(77, '2019-11-28', 'Cardiologie', 'Urgente', 'Rendez-vous', 11, 31, NULL, NULL),
-(78, '2019-11-28', 'Andrologie', 'Urgente', 'Consultation généraliste', 12, 31, NULL, NULL),
-(79, '2019-11-28', 'Andrologie', 'Urgente', 'Consultation généraliste', 13, 31, NULL, NULL),
-(80, '2019-11-28', 'Andrologie', 'Urgente', 'Consultation généraliste', 14, 31, NULL, NULL),
-(81, '2019-11-28', 'Andrologie', 'Normale', 'Lettre d\'orientation', 11, 31, NULL, NULL),
-(82, '2019-11-28', 'Cardiologie', 'Normale', 'Lettre d\'orientation', 7, 31, NULL, NULL),
-(83, '2019-11-28', 'Anesthésiologie', 'Normale', 'Consultation généraliste', 26, 31, NULL, NULL),
-(84, '2019-11-28', 'Anesthésiologie', 'Normale', 'Rendez-vous', 27, 31, NULL, NULL),
-(85, '2019-11-28', 'Andrologie', 'Urgente', 'Lettre d\'orientation', 15, 31, NULL, NULL),
-(86, '2019-11-28', 'Andrologie', 'Urgente', 'Lettre d\'orientation', 16, 31, NULL, NULL),
-(87, '2019-11-28', 'Anesthésiologie', 'Normale', 'Rendez-vous', 28, 31, NULL, NULL),
-(88, '2019-11-28', 'Anesthésiologie', 'Normale', 'Rendez-vous', 29, 31, NULL, NULL),
-(89, '2019-11-28', 'Andrologie', 'Normale', 'Lettre d\'orientation', 14, 31, NULL, NULL),
-(90, '2019-11-28', 'Andrologie', 'Urgente', 'Lettre d\'orientation', 17, 30, NULL, NULL),
-(91, '2019-11-28', 'Andrologie', 'Urgente', 'Lettre d\'orientation', 18, 30, NULL, NULL),
-(92, '2019-11-28', 'Allergologie', 'Normale', 'Lettre d\'orientation', 1, 30, NULL, NULL),
-(93, '2019-11-28', 'Allergologie', 'Normale', 'Lettre d\'orientation', 2, 30, NULL, NULL),
-(94, '2019-11-28', 'Allergologie', 'Urgente', 'Consultation généraliste', 19, 30, NULL, NULL),
-(95, '2019-11-28', 'Allergologie', 'Urgente', 'Consultation généraliste', 20, 30, NULL, NULL),
-(96, '2019-11-28', 'Allergologie', 'Urgente', 'Consultation généraliste', 21, 30, NULL, NULL),
-(97, '2019-11-28', 'Allergologie', 'Urgente', 'Consultation généraliste', 22, 30, NULL, NULL),
-(98, '2019-11-28', 'Allergologie', 'Urgente', 'Consultation généraliste', 23, 30, NULL, NULL),
-(99, '2019-11-28', 'Allergologie', 'Urgente', 'Consultation généraliste', 24, 30, NULL, NULL),
-(100, '2019-11-28', '1', 'Normale', 'Lettre d\'orientation', 1, 37, NULL, NULL);
+  PRIMARY KEY (`id`),
+  KEY `FK_PatientTickets` (`id_patient`),
+  KEY `FK_SpecialiteTickets` (`specialite`)
+) ENGINE=MyISAM AUTO_INCREMENT=163 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -11740,7 +11687,7 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (30, 'sur', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'rlakhneche@cdta.dz', 81, 5, 'mrQNQ53wakZpzz1vE1jTTYc7eyBalV3xUqi61aeQxewqibmCyXvg0P6uYzJk', 1),
 (31, 'rec', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', NULL, 82, 2, 'PJnTiDpyOMXKqsNgfg30XORTNMFJljeMLgg97Up2ZJHr0RbCo5Ulbs7sPuMA', 1),
 (33, 'test', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'test@gmail', 79, 1, 'vOPiwaTdqixSdeIHAEvAbr9FKcLRyihyEbiPMYVrKGTCn5HMf9zUjrCBsUyc', 1),
-(34, 'med', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'med@gmail.com', 88, 1, 'QTB15j0BvoTfkYCNlK9WL1vPJaUcRBPPmDmfiohdZZOh4GkVL8I68RAUyGMw', 1),
+(34, 'med', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'med@gmail.com', 88, 1, '62doxRhD4unzJ3lGZrELldAYshIzrvsUrxvfeDv1eTYh24G19PZSeuzTyaVr', 1),
 (35, 'delCol', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'll@a.fr', 89, 6, 'PjtnNMdt6WUD5hjQZ8mgllDdF28FhLC6TscBzyaZmiQLLRcAPTELI7wMdO7N', 1),
 (38, 'user', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'jj@hot.frr', 93, 1, NULL, 1),
 (39, 'surMed', '$2y$10$zUdI0W5QV/1fmnBnhmL2TOTqN8GMNEdZZK6o4gclrJ1CKfxVq.Rca', 'bbedeebi@cdta.dz', 94, 5, 'IWxKedhtIyV6BrQViVfV1ncr3XxlAoBV9xRI8H2LGPsfhMhOMrlE46mrmUeq', 1),
@@ -11750,7 +11697,7 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (43, 'radiogue', '$2y$10$k5gKJEykSI5PNYLHyheO.eXq4ge1e6Rkz/HN/mMKUZiKZFe8qMlki', 'rad@hop.dz', 98, 12, 'benlcglfiv00sldthLpx1KXLmtI2DYvCGoRpjKunnuQE0cSzBTETHsXO9x9e', 1),
 (44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, 'KW7AYpnxspDEtMFF6aJr6xCil76EI6mnGilEYiVte98Y8KZspRZFfBCvy6CM', 1),
 (45, 'chefServ', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'GFhg9VEdTNQPeJFMdeWtfZaaeMfnopkqs4dBSsyFM5jHp2WdOWwmmGmmpBoW', 1),
-(46, 'rad', '$2y$10$PNDRMvcnhl1kZ.sxfoq8Yuhoq6ZMQePi9/q1QbLUZ.a.hd5DxvnCS', 'rad@cdta.net', 101, 12, 'ODv1A5qHfJtsZzSPlCSanJudPhw2SVi9FfrABHfmkEYQqL1s3giLV9WeTe2E', 1);
+(46, 'rad', '$2y$10$PNDRMvcnhl1kZ.sxfoq8Yuhoq6ZMQePi9/q1QbLUZ.a.hd5DxvnCS', 'rad@cdta.net', 101, 12, 'J4aACknq9TRRemLaejtomKlzcKxqJUUYdjOd5ukFvuYGKRuQokTbQTkPLnpo', 1);
 
 -- --------------------------------------------------------
 
@@ -11770,13 +11717,14 @@ CREATE TABLE IF NOT EXISTS `visites` (
   PRIMARY KEY (`id`),
   KEY `visites_id_hosp_foreign` (`id_hosp`),
   KEY `visites_id_employe_foreign` (`id_employe`)
-) ENGINE=MyISAM AUTO_INCREMENT=718 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=719 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `visites`
 --
 
 INSERT INTO `visites` (`id`, `date`, `heure`, `id_hosp`, `id_employe`, `created_at`, `updated_at`) VALUES
+(718, '2020-02-23', '11:52:00', 7, 88, NULL, NULL),
 (713, '2020-02-17', '15:57:00', 7, 88, NULL, NULL),
 (712, '2020-02-17', '15:57:00', 7, 88, NULL, NULL),
 (711, '2020-02-17', '15:56:00', 7, 88, NULL, NULL),
