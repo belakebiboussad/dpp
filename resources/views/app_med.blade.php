@@ -17,7 +17,6 @@
         <div class="main-content">
             <div class="main-content-inner">
                 @include('partials.breadcrumbs_rec')
-
                 <div class="page-content">
                 @include('flashy::message')
             	    @yield('main-content')

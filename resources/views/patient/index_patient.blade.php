@@ -165,37 +165,41 @@ function setField(field,value)
 				</div>
 		</div>
 		 <div class="panel-body">
-			<div class="row">
-				<div class="col-sm-1">
-					<label class="control-label pull-right" for="patientName" ><strong>&nbsp;&nbsp;&nbsp;Nom:</strong>
-					</label>
+				<div class="row">
+					<div class="col-sm-2">
+	          <div class="form-group">
+	          	<label class="control-label" for="patientName" ><strong>Nom:</strong></label>
+							<div class="input-group">
+								<input type="text" class="form-control input-sx" id="patientName" name="patientName"  placeholder="nom du patient..."/>
+	         		 </div>
+						</div>
+					</div>
+					<div class="col-sm-2 col-md-offset-1">
+						<div class="form-group">
+								<label class="control-label" for="patientFirstName" ><strong>Prenom:</strong></label> 
+								<div class="input-group">
+									<input type="text" class="form-control input-sx" id="patientFirstName" name="patientFirstName"  placeholder="prenom du patient...">
+								</div>		
+						</div>
+					</div>
+					<div class="col-sm-2 col-md-offset-1">
+						<div class="form-group">
+							<label class="control-label" for="Dat_Naissance" ><strong>Né(e):</strong></label>
+							<div class="input-group">
+								<input type="text" class="form-control input-sx tt-input date-picker" id="Dat_Naissance" name="Dat_Naissance"	data-date-format="yyyy-mm-dd" placeholder="date de naissance..." data-toggle="tooltip" data-placement="left" title="Date Naissance">
+							</div>		
+						</div>
+					</div>
+					<div class="col-sm-2 col-md-offset-1">
+						<div class="form-group">
+							<label class="control-label" for="IPP" ><strong>IPP:</strong></label>
+							<div class="form-input">
+									<input type="text" class="form-control input-sx tt-input" id="IPP" name="IPP"  placeholder="IPP du patient..."
+					   	 data-toggle="tooltip" data-placement="left" title="Code IPP du patient">
+							</div>		
+						</div>		
+					</div>
 				</div>
-			      <div class="col-sm-2">
-					<input type="text" class="form-control input-sx" id="patientName" name="patientName"  placeholder="nom du patient..."/>
-				 </div>
-				<div class="col-sm-1">
-					<label class="control-label pull-right" for="patientFirstName" ><strong>Prenom:</strong>
-				       </label> 
-			      </div>
-				<div class="col-sm-2">
-					<input type="text" class="form-control input-sx" id="patientFirstName" name="patientFirstName"  placeholder="prenom du patient...">
-				</div>
-				<div class="col-sm-1">
-					<label class="control-label pull-right" for="Dat_Naissance" >
-					<strong>Né(e):</strong></label>
-				</div>
-				<div class="col-sm-2">
-					  <input type="text" class="form-control input-sx tt-input date-picker" id="Dat_Naissance" name="Dat_Naissance"
-					   		data-date-format="yyyy-mm-dd" placeholder="date de naissance..." data-toggle="tooltip" data-placement="left" title="Date Naissance du patient">
-				</div>
-				<div class="col-sm-1">
-				       <label class="control-label pull-right" for="IPP" ><strong>IPP:</strong></label>
-				</div> 
-				<div class="">
-				   	<input type="text" class="form-control input-sx tt-input" id="IPP" name="IPP"  placeholder="code du patient..."
-				   	 data-toggle="tooltip" data-placement="left" title="Code IPP du patient">
-				</div>
-			</div>
 		 </div>  {{-- body --}}
 		  <div class="panel-footer" style="height: 50px;">
 		   	<button type="submit" class="btn btn-xs btn-primary " style="vertical-align: middle" onclick="XHRgetPatient();"><i class="fa fa-search"></i>&nbsp;Rechercher</button>

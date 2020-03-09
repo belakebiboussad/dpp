@@ -6230,11 +6230,10 @@ button.close {
 .error {
     color: red;
 }
-#Ordonnance .modal-dialog  {width:95%;}
 .disabledElem
 {
-   opacity: .5;
-    pointer-events: none;
+  opacity: .5;
+  pointer-events: none;
 }
 .enabledElem
 {

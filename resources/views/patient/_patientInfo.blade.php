@@ -1,12 +1,8 @@
-<div class="row">
-	<div class="col-sm-12">
-	{{-- change --}}
+<!-- <div class="row"> -->
+	<div class="col-sm-12" style="margin-top: -4.5%;">	{{-- change --}}
 		<div class="widget-box">
 			<div class="widget-header">
-				<h4 class="widget-title"> 
-					<i class="fa fa-user" aria-hidden="true"></i>
-					<strong>Patient :</strong>
-				</h4>
+				<h4 class="widget-title"><i class="fa fa-user" aria-hidden="true"></i><strong>Patient :</strong></h4>
 			</div>
 			<div class="widget-body">
 				<div class="widget-main">
@@ -64,4 +60,4 @@
 			</div>
 		</div>
 	</div>
-</div>
+<!-- </div> -->

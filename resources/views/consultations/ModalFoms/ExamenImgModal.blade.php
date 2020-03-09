@@ -4,7 +4,7 @@
      	              <div class="modal-header">
 		          <button type="button" class="close" data-dismiss="modal">&times;</button>
 			<h4 class="modal-title">Ajouter un Examen d'Imagerie</h4>
-			  @include('patient._patientInfo')
+			@include('patient._patientInfo')
 		</div>
 		<!-- id ="ExamsImg" -->
 		<div class="modal-body">

@@ -105,34 +105,34 @@
   	$('document').ready(function(){
   		$( 'ul.nav li' ).on( 'click', function() {
 			 	$(this).siblings().addClass('filter');
-		});
-		$('.wysiwyg-editor').on('input',function(e){
-	  		 var a = $(this).parent().nextAll("div.clearfix");
-	   		 var i = a.find("button:button").each(function(){
-			    $(this).removeAttr('disabled');
-		  });
-		});
-		$('.select2').css('width','400px').select2({allowClear:true})
-     		 $('#select2-multiple-style .btn').on('click', function(e){
-	   		var target = $(this).find('input[type=radio]');
-	    	 	var which = parseInt(target.val());
-	   		if(which == 2) 
-	   			$('.select2').addClass('tag-input-style');
+			});
+			$('.wysiwyg-editor').on('input',function(e){
+	  		var a = $(this).parent().nextAll("div.clearfix");
+	   		var i = a.find("button:button").each(function(){
+			   	$(this).removeAttr('disabled');
+		  	});
+			});
+			$('.select2').css('width','400px').select2({allowClear:true})
+     		$('#select2-multiple-style .btn').on('click', function(e){
+	   			var target = $(this).find('input[type=radio]');
+	    		var which = parseInt(target.val());
+	   			if(which == 2) 
+	   				$('.select2').addClass('tag-input-style');
 	       	else
 	       	 $('.select2').removeClass('tag-input-style');
      		});
-		$(function() {
-				var checkbox = $("#isOriented");  // Get the form fields and hidden div
-				var hidden = $("#hidden_fields");  // Setup an event listener for when the state of the    // checkbox changes.
-			      checkbox.change(function() {
-				    	if (checkbox.is(':checked')) {
-				     			hidden.show();
-				    	} else {
-				       	hidden.hide();
-				      	$("#lettreorientaioncontent").val("");
-				     }
-				})
-	   	}); 
+				$(function() {
+					var checkbox = $("#isOriented");  // Get the form fields and hidden div
+					var hidden = $("#hidden_fields");  // Setup an event listener for when the state of the    // checkbox changes.
+			    checkbox.change(function() {
+				   	if (checkbox.is(':checked')) {
+				  		hidden.show();
+				   	} else {
+				     	hidden.hide();
+				     	$("#lettreorientaioncontent").val("");
+				    }
+					})
+	   		}); 
 	    	$(".two-decimals").change(function(){
 	      			this.value = parseFloat(this.value).toFixed(2);
 	     	});
@@ -180,9 +180,7 @@
    			     "url": '/localisation/fr_FR.json'
 		    },
   	  });
-      $('#Ordonnance').on('show.bs.modal', function () {
-    	  	$('.contmodal').css('height',$( window ).height()*0.95);
-      });
+      // $('#Ordonnance').on('show.bs.modal', function () {// $('.contmodal').css('height',$( window ).height()*0.95);// });
       jQuery('body').on('click', '.open-modal', function () {
    	    var atcd_id = $(this).val();
    	    $.get('/atcd/' + atcd_id, function (data) { 
@@ -266,17 +264,17 @@
         });
        }          
       });
-	$('#antecedantModal').on('hidden.bs.modal', function () {
+	    $('#antecedantModal').on('hidden.bs.modal', function () {
     		$("#sous_type").attr("hidden",true);
 	      $('#PhysiologieANTC').attr("hidden",true);
 	      $("#atcdsstypehide").attr("hidden",true);
-		});
-		jQuery('#btn-add').click(function () {
-      jQuery('#EnregistrerAntecedant').val("add");
-    	jQuery('#modalFormData').trigger("reset");
-    	jQuery('#antecedantModal').modal('show');
-  	});	
-  	////----- DELETE antecedant and remove from the page -----////
+		  });
+		  jQuery('#btn-add').click(function () {
+	      jQuery('#EnregistrerAntecedant').val("add");
+	    	jQuery('#modalFormData').trigger("reset");
+	    	jQuery('#antecedantModal').modal('show');
+  		});	
+  		////----- DELETE antecedant and remove from the page -----////
 	    jQuery('body').on('click', '.delete-atcd', function () {
 	        var atcd_id = $(this).val();      
 	        $.ajaxSetup({
@@ -296,13 +294,13 @@
 	            }
 	        });
 	    });
-		 $('#examensradio').on('select2:select', function (e) { 
- 			 $(".disabledElem").removeClass("disabledElem").addClass("enabledElem");
-		});
-		$('#examensradio').on('select2:unselecting', function(event) {
-  	 		$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
-		});
-    $('#btn-addImgExam').click(function(){
+			$('#examensradio').on('select2:select', function (e) { 
+	 			 $(".disabledElem").removeClass("disabledElem").addClass("enabledElem");
+			});
+			$('#examensradio').on('select2:unselecting', function(event) {
+	  	 		$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
+			});
+      $('#btn-addImgExam').click(function(){
     		var selected = []; var array = [];	
 				$('#ExamIgtModal').modal('toggle');
 			  $.each($("input[name='exmns[]']:checked"), function(){
@@ -310,16 +308,16 @@
       		array.push($(this).val());
       		$(this). prop("checked", false);
         });   
-var exam = '<tr id="acte-'+$("#examensradio").val()+'"><td id="idExamen" hidden>'+$("#examensradio").val()+'</td><td>'+$("#examensradio option:selected").text()+'</td><td id ="types" hidden>'+array+'</td><td>'+selected+'</td><td class="center" width="5%">';
+        var exam = '<tr id="acte-'+$("#examensradio").val()+'"><td id="idExamen" hidden>'+$("#examensradio").val()+'</td><td>'+$("#examensradio option:selected").text()+'</td><td id ="types" hidden>'+array+'</td><td>'+selected+'</td><td class="center" width="5%">';
 	      exam += '<button type="button" class="btn btn-xs btn-danger delete-ExamImg" value="'+$("#examensradio").val()+'" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';     
 	     	$('#ExamsImg').append(exam);
 	     	$('#examensradio').val(' ').trigger('change');
 	     	$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
-		});
-		jQuery('body').on('click', '.delete-ExamImg', function () {
+	  	});
+		  jQuery('body').on('click', '.delete-ExamImg', function () {
     		$("#acte-" + $(this).val()).remove();
-   	 });
-   	 $("#consultForm").submit(function(e){
+   	  });
+   	  $("#consultForm").submit(function(e){
      		var arrayLignes = document.getElementById("ExamsImg").rows;
     		var ExamsImg = [];
     	 	for(var i=0; i< arrayLignes.length; i++)
@@ -328,7 +326,12 @@ var exam = '<tr id="acte-'+$("#examensradio").val()+'"><td id="idExamen" hidden>
     		}
      	 	var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
       		champ.appendTo('#consultForm');
-    	});  
+    	}); 
+    	//calendrier pour rdv
+    	var CurrentDate = (new Date()).setHours(0, 0, 0, 0); 
+    	$('.calendar1').fullCalendar({
+    		 defaultView: 'agendaWeek',
+    	}); 
   });
   function ajaxfunc(patientid)
  	{        
@@ -463,7 +466,12 @@ var exam = '<tr id="acte-'+$("#examensradio").val()+'"><td id="idExamen" hidden>
 @endsection
 @section('main-content')
 <div class="page-header" width="100%">
-  	@include('patient._patientInfo')
+<!--  style= "margin-top:-3%;" -->
+	<div class="row">
+	@include('patient._patientInfo')
+		
+	</div>
+	
 </div>
 <div class="content" style="height:800px;">
 <form  class="form-horizontal" action="{{ route('consultations.store') }}" method="POST" role="form" id ="consultForm" novalidate>
@@ -541,5 +549,8 @@ var exam = '<tr id="acte-'+$("#examensradio").val()+'"><td id="idExamen" hidden>
 </div>
 <div class="row">
 @include('consultations.ModalFoms.imprimerOrdonnanceAjax') 
+</div>
+<div class="row">
+	@include('consultations.ModalFoms.rendezVous') 
 </div>
 @endsection

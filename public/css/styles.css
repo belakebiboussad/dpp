@@ -1,12 +1,12 @@
 .removeButton{
-margin-bottom: 2px;
-margin-left: 0px;
-margin-right: 0px;
+  margin-bottom: 2px;
+  margin-left: 0px;
+  margin-right: 0px;
   position:relatif;
   right:0;
   top:0;
 }
-.modaldialog{
+/*.modaldialog{
     overflow-y: initial !important
 }
 .contmodal {
@@ -16,7 +16,7 @@ margin-right: 0px;
  	max-height: calc(100vh - 100px);
 	 overflow-y: auto;
 	 width:100%;
-}
+}*/
 .required:after {
         content: '*';
         color: red;
@@ -41,4 +41,11 @@ margin-right: 0px;
       position: absolute;
       top: 87%;
       right: 22%;
+}
+/*#Ordonnance .modal-dialog 
+{
+  width:95%;
+}*/
+.modaldialog {
+  width:95%;
 }

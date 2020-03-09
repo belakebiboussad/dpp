@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  Dim 08 mars 2020 à 15:27
+-- Généré le :  lun. 09 mars 2020 à 15:23
 -- Version du serveur :  5.7.23
 -- Version de PHP :  7.2.10
 
@@ -11263,7 +11263,7 @@ CREATE TABLE IF NOT EXISTS `rdvs` (
   PRIMARY KEY (`id`,`Patient_ID_Patient`,`Employe_ID_Employe`),
   KEY `fk_RDV_Patient1_idx` (`Patient_ID_Patient`),
   KEY `fk_RDV_Employe1_idx` (`Employe_ID_Employe`)
-) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `rdvs`
@@ -11281,7 +11281,9 @@ INSERT INTO `rdvs` (`id`, `Date_RDV`, `Fin_RDV`, `Temp_rdv`, `specialite`, `Pati
 (90, '2019-05-09 08:30:00', '2019-05-09 08:45:00', '10:00:00', 5, 51, 88, 'en attente'),
 (91, '2019-05-09 10:00:00', '2019-05-09 10:15:00', '10:00:00', 5, 30, 88, 'en attente'),
 (92, '2019-05-09 09:30:00', '2019-05-09 09:45:00', '10:00:00', 5, 46, 88, 'en attente'),
-(95, '2020-02-05 08:30:00', '2020-02-05 08:45:00', '10:00:00', 6, 54, 82, 'en attente');
+(95, '2020-02-05 08:30:00', '2020-02-05 08:45:00', '10:00:00', 6, 54, 82, 'en attente'),
+(99, '2020-03-10 08:30:00', '2020-03-10 08:45:00', '10:00:00', 5, 51, 88, 'en attente'),
+(100, '2020-03-11 08:30:00', '2020-03-11 08:45:00', '10:00:00', 5, 47, 88, 'en attente');
 
 -- --------------------------------------------------------
 
@@ -11490,18 +11492,18 @@ CREATE TABLE IF NOT EXISTS `specialites` (
 --
 
 INSERT INTO `specialites` (`id`, `nom`, `type`) VALUES
-(1, 'medecine generale', 1),
-(2, 'chirurgie', 2),
-(3, 'radiologie', 1),
-(4, 'medecine interne', 1),
-(5, 'maternite', 1),
-(6, 'pediaterie', 1),
-(7, 'ophtalmologie', 1),
-(8, 'genecologie', 1),
-(9, 'Acupuncture', 1),
-(10, 'Anatomie', 1),
-(11, 'Anesthésie Réa', 2),
-(12, 'Bactériologie', 1);
+(1, 'Cardiologie', 1),
+(2, 'Ophtalmologie', 2),
+(3, 'Pédiatrie', 1),
+(4, 'ORL', 1),
+(5, 'Génécologie', 1),
+(6, 'Chirurgie dentaire', 1),
+(7, 'L’angiographie', 1),
+(8, 'Gériatrie', 1),
+(9, 'Néphrologie', 1),
+(10, 'Gastrologie', 1),
+(11, 'Médecine interne', 2),
+(13, 'Pré-anesthésie', 1);
 
 -- --------------------------------------------------------
 
@@ -11585,17 +11587,26 @@ DROP TABLE IF EXISTS `tickets`;
 CREATE TABLE IF NOT EXISTS `tickets` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL,
-  `specialite` int(11) DEFAULT NULL,
+  `specialite` int(11) NOT NULL,
   `type_consultation` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `document` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `num_order` bigint(20) NOT NULL,
-  `id_patient` bigint(20) NOT NULL,
+  `id_patient` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_PatientTickets` (`id_patient`),
-  KEY `FK_SpecialiteTickets` (`specialite`)
-) ENGINE=MyISAM AUTO_INCREMENT=163 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `	FK_SpecialiteTickets` (`specialite`),
+  KEY `FK_PatientTickets` (`id_patient`)
+) ENGINE=InnoDB AUTO_INCREMENT=166 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `tickets`
+--
+
+INSERT INTO `tickets` (`id`, `date`, `specialite`, `type_consultation`, `document`, `num_order`, `id_patient`, `created_at`, `updated_at`) VALUES
+(163, '2020-03-09', 2, 'Normale', 'Rendez-vous', 1, 30, NULL, NULL),
+(164, '2020-03-09', 1, 'Normale', 'Rendez-vous', 1, 30, NULL, NULL),
+(165, '2020-03-09', 1, 'Normale', 'Rendez-vous', 1, 26, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -11687,7 +11698,7 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (30, 'sur', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'rlakhneche@cdta.dz', 81, 5, 'mrQNQ53wakZpzz1vE1jTTYc7eyBalV3xUqi61aeQxewqibmCyXvg0P6uYzJk', 1),
 (31, 'rec', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', NULL, 82, 2, 'PJnTiDpyOMXKqsNgfg30XORTNMFJljeMLgg97Up2ZJHr0RbCo5Ulbs7sPuMA', 1),
 (33, 'test', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'test@gmail', 79, 1, 'vOPiwaTdqixSdeIHAEvAbr9FKcLRyihyEbiPMYVrKGTCn5HMf9zUjrCBsUyc', 1),
-(34, 'med', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'med@gmail.com', 88, 1, '62doxRhD4unzJ3lGZrELldAYshIzrvsUrxvfeDv1eTYh24G19PZSeuzTyaVr', 1),
+(34, 'med', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'med@gmail.com', 88, 1, 'yNhUl14rsguHWie7stnFWiLlDT3LXH4EjFSCXfclXt1dy0dmbtfKVaOfrchi', 1),
 (35, 'delCol', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'll@a.fr', 89, 6, 'PjtnNMdt6WUD5hjQZ8mgllDdF28FhLC6TscBzyaZmiQLLRcAPTELI7wMdO7N', 1),
 (38, 'user', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'jj@hot.frr', 93, 1, NULL, 1),
 (39, 'surMed', '$2y$10$zUdI0W5QV/1fmnBnhmL2TOTqN8GMNEdZZK6o4gclrJ1CKfxVq.Rca', 'bbedeebi@cdta.dz', 94, 5, 'IWxKedhtIyV6BrQViVfV1ncr3XxlAoBV9xRI8H2LGPsfhMhOMrlE46mrmUeq', 1),
@@ -12246,6 +12257,13 @@ ALTER TABLE `specialites`
 --
 ALTER TABLE `specialite_produit`
   ADD CONSTRAINT `specialite_produit_ibfk_1` FOREIGN KEY (`id_gamme`) REFERENCES `gammes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `tickets`
+--
+ALTER TABLE `tickets`
+  ADD CONSTRAINT `	FK_SpecialiteTickets` FOREIGN KEY (`specialite`) REFERENCES `specialites` (`id`),
+  ADD CONSTRAINT `FK_PatientTickets` FOREIGN KEY (`id_patient`) REFERENCES `patients` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

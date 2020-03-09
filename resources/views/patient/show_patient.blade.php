@@ -453,8 +453,9 @@
 										Liste Des RDV :
 									</h5>
 									<div class="widget-toolbar widget-toolbar-light no-border">
-										<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-										<a href="#"><b>Ajouter Un RDV</b></a>
+										<!-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> -->
+										<div class="fa fa-plus-circle"></div>
+										<a href="#"><b>Ajouter un RDV</b></a>
 									</div>
 								</div>
 								<div class="widget-body">
@@ -569,8 +570,8 @@
 							<input type="text" name="id_patient" value="{{ $patient->id }}" hidden>
     						<div class="col-sm-12">
 								<label for="typecons"><b>Type de consultation:</b></label>
-								<select class="form-control" id="typecons" name="typecons">
-									<option value="">--------</option>
+								<select class="form-control" id="typecons" name="typecons" required>
+								<!-- 	<option value="">--------</option> -->
 									<option value="Normale">Normale</option>
 									<option value="Urgente">Urgente</option>
 								</select>
@@ -578,8 +579,8 @@
 							<br/><br/><br/><br/>
     						<div class="col-sm-12">
 								<label for="document"><b>Document:</b></label>
-								<select class="form-control" id="document" name="document">
-									<option value="">--------</option>
+								<select class="form-control" id="document" name="document" required>
+								<!-- 	<option value="">--------</option> -->
 									<option value="Rendez-vous">Rendez-vous</option>
 									<option value="Lettre d'orientation">Lettre d'orientation</option>
 									<option value="Consultation généraliste">Consultation généraliste</option>
@@ -605,7 +606,7 @@
     					Générer un ticket
     				</button>
     				<button type="button" class="btn btn-default" data-dismiss="modal">
-    					<i class="ace-icon fa fa-plus bigger-110"></i>
+    					<i class="ace-icon fa fa-close bigger-110"></i>
     					Fermer
     				</button>
     			</div>

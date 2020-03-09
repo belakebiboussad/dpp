@@ -25,28 +25,27 @@
 
 @endsection
 @section('page-script') {{-- {!! $planning->script() !!} --}}
-      <script>
-      function createRDVModal(debut,fin)
-      {        
-                var CurrentDate = (new Date()).setHours(0, 0, 0, 0);
-                var GivenDate = (new Date(debut)).setHours(0, 0, 0, 0);
-                if( CurrentDate <= GivenDate )
-                { 
-                     debut = moment(debut).format('YYYY-MM-DD HH:mm'); //debut = moment.tz(debut, "America/Los_Angeles").format('YYYY-MM-DD HH:mm');
-                     fin = moment(fin).format('YYYY-MM-DD HH:mm');     //fin = moment.tz(fin, "Europe/London").format('YYYY-MM-DD HH:mm');
-                      var heur= moment(debut).format('HH:mm:ss');
-                     $('#date_RDV').val(debut); $('#date_Fin').val(fin); $('#Temp_rdv').val(heur);
-                     $('#myModal').modal({
-                                 show: 'true'
-                      }); 
-               }
+  <script>
+    function createRDVModal(debut,fin)
+    {        
+      var CurrentDate = (new Date()).setHours(0, 0, 0, 0);
+      var GivenDate = (new Date(debut)).setHours(0, 0, 0, 0);
+      if( CurrentDate <= GivenDate )
+      { 
+        debut = moment(debut).format('YYYY-MM-DD HH:mm'); //debut = moment.tz(debut, "America/Los_Angeles").format('YYYY-MM-DD HH:mm');
+        fin = moment(fin).format('YYYY-MM-DD HH:mm');     //fin = moment.tz(fin, "Europe/London").format('YYYY-MM-DD HH:mm');
+        var heur= moment(debut).format('HH:mm:ss');
+        $('#date_RDV').val(debut); $('#date_Fin').val(fin); $('#Temp_rdv').val(heur);
+        $('#myModal').modal({
+          show: 'true'
+        }); 
       }
-      //reccherche par nom
-     function remoteSearch(field,value) {
-
-            $.ajax({
-                url : '{{URL::to('getPatients')}}',
-                data: {    
+    }
+    //reccherche par nom
+    function remoteSearch(field,value) {
+      $.ajax({
+              url : '{{URL::to('getPatients')}}',
+              data: {    
                     "field":field,
                     "value":value,
                 },
@@ -109,48 +108,48 @@
                
      }
   	$(document).ready(function() {
-           var CurrentDate = (new Date()).setHours(0, 0, 0, 0); 
-       	$('.calendar1').fullCalendar({
-                header: {
-                      left: 'prev,next today',
-                      center: 'title',
-                      right: 'month,agendaWeek,agendaDay'
-                },
-                defaultView: 'agendaWeek',  //weekends: false,
-                firstDay: 0, 
-                slotDuration: '00:15:00',
-                navLinks: true, // can click day/week names to navigate views
-                selectable: true,
-                selectHelper: true,
-                minTime:'08:00:00',
-                maxTime: '17:00:00',
-                eventColor: '#87CEFA',
-                contentHeight: 700,
-                editable: true,
-                eventLimit: true, // allow "more" link when too many events      // displayEventEnd: true,       
-                hiddenDays: [ 5, 6 ],
-               weekNumberCalculation: 'ISO',
-                views: {},
-                select: function(start, end) {
-                     if(start >= CurrentDate)
-                           createRDVModal(start,end);
-                      else
-                         $('.calendar1').fullCalendar('unselect');   
-                },
-                events: [
-                          @foreach($rdvs as $rdv)
-                           {
-                                title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
-                                start : '{{ $rdv->Date_RDV }}',
-                                end:   '{{ $rdv->Fin_RDV }}',
-                                id :'{{ $rdv->id }}',
-                                idPatient:'{{$rdv->patient->id}}',
-                                tel:'{{$rdv->patient->tele_mobile1}}',
-                                age:{{ $rdv->patient->getAge() }},   {{--url:'http://localhost:8000/patient/{{ $rdv->patient->id }}',--}}         
-                           },
-                           @endforeach 
-                ],
-                eventClick: function(calEvent, jsEvent, view) {
+      var CurrentDate = (new Date()).setHours(0, 0, 0, 0); 
+      $('.calendar1').fullCalendar({
+        header: {
+              left: 'prev,next today',
+              center: 'title',
+              right: 'month,agendaWeek,agendaDay'
+        },
+        defaultView: 'agendaWeek',  //weekends: false,
+        firstDay: 0, 
+        slotDuration: '00:15:00',
+        navLinks: true, // can click day/week names to navigate views
+        selectable: true,
+        selectHelper: true,
+        minTime:'08:00:00',
+        maxTime: '17:00:00',
+        eventColor: '#87CEFA',
+        contentHeight: 700,
+        editable: true,
+        eventLimit: true, // allow "more" link when too many events      // displayEventEnd: true,       
+        hiddenDays: [ 5, 6 ],
+        weekNumberCalculation: 'ISO',
+        views: {},
+        select: function(start, end) {
+          if(start >= CurrentDate)
+            createRDVModal(start,end);
+          else
+            $('.calendar1').fullCalendar('unselect');   
+        },
+        events: [
+              @foreach($rdvs as $rdv)
+              {
+                title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
+                start : '{{ $rdv->Date_RDV }}',
+                end:   '{{ $rdv->Fin_RDV }}',
+                id :'{{ $rdv->id }}',
+                idPatient:'{{$rdv->patient->id}}',
+                tel:'{{$rdv->patient->tele_mobile1}}',
+                age:{{ $rdv->patient->getAge() }},   {{--url:'http://localhost:8000/patient/{{ $rdv->patient->id }}',--}}         
+              },
+              @endforeach 
+        ],
+        eventClick: function(calEvent, jsEvent, view) {
                      @if(Auth::user()->role->id != 2) 
                            //updateRDVModal(calEvent.id,calEvent.title,calEvent.start,calEvent.end,calEvent.idPatient,calEvent.tel,calEvent.age);
                            edit(calEvent);
@@ -309,7 +308,7 @@
       </div>
       <br>
       <div class="modal-footer">
-      @if(Auth::user()->role->id == 1")
+      @if(Auth::user()->role->id == 1)
       <a type="button" id="btnConsulter" class="btn btn btn-sm btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
      <button type="button" class="btn btn-sm btn-primary" onclick="update();">
                 @if(Auth::user()->role->id  != 2) 
