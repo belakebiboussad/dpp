@@ -1,3 +1,4 @@
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
 .removeButton{
   margin-bottom: 2px;
   margin-left: 0px;
@@ -6,17 +7,7 @@
   right:0;
   top:0;
 }
-/*.modaldialog{
-    overflow-y: initial !important
-}
-.contmodal {
-	height:100%;
-}
-.bodyodal{
- 	max-height: calc(100vh - 100px);
-	 overflow-y: auto;
-	 width:100%;
-}*/
+
 .required:after {
         content: '*';
         color: red;
@@ -42,10 +33,28 @@
       top: 87%;
       right: 22%;
 }
-/*#Ordonnance .modal-dialog 
-{
-  width:95%;
+
+/*.modaldialog {
+  width:97%;
+  height:90% !important;
+  overflow-y: auto;
+}*/
+/*.contmodal {
+  height:780px; 
 }*/
 .modaldialog {
-  width:95%;
+  width:97%;
+  height:90% !important;
+  overflow-y: initial !important
+}
+.contmodal {
+  /*height:800px; */
+  height:101%; 
+
+}
+.bodyodal{
+  /*max-height: calc(100vh - 100px);*/
+  /*width:100%;*/
+  height: 100%;
+  overflow-y: auto;
 }

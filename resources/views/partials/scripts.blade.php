@@ -629,7 +629,7 @@ $('#typeexm').on('change', function() {
                     });
                      var string = exbio.output('datauristring');
                     $('#exbiopdf').attr('src', string);
-           }
+        }
         function createeximg(nomp,prenomp){
             moment.locale('fr');
             var d = new Date(); //var date=  yyyy + "/" + (mm[1]?mm:"0"+mm[0]) + "/" + (dd[1]?dd:"0"+dd[0]);
@@ -686,7 +686,62 @@ $('#typeexm').on('change', function() {
                         $("input[type='checkbox']:checked").each(function() {
                             $(this).attr('checked', false);
                         });
-            }
+        }
+        function createRDVModal(debut,fin,pid = 0)
+        {   
+            // var CurrentDate = (new Date()).setHours(0, 0, 0, 0);// var GivenDate = (new Date(debut)).setHours(0, 0, 0, 0);
+            var debut = moment(debut).format('YYYY-MM-DD HH:mm'); //debut = moment.tz(debut, "America/Los_Angeles").format('YYYY-MM-DD HH:mm');  
+            var fin = moment(fin).format('YYYY-MM-DD HH:mm');     //fin = moment.tz(fin, "Europe/London").format('YYYY-MM-DD HH:mm');
+            var heur= moment(debut).format('HH:mm:ss');
+            if(pid != 0)
+            {
+                var formData = {
+                    id_patient:pid,
+                    Date_RDV:debut,
+                    Fin_RDV:fin,
+                };
+                $.ajaxSetup({
+                    headers: {
+                            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                    }
+                }); 
+                $.ajax({
+                            type : 'POST',
+                            url : '/createRDV',
+                            data:formData,
+                            dataType: 'json',
+                            success:function(data){
+                                CAL = $('#calendar1').fullCalendar('getCalendar');
+                                event=[
+                                        title    : '',
+                                        start    : 'data->Date_RDV',
+                                        end      : 'data->Fin_RDV',
+                                        id       : 'data->id }}',
+                                        idPatient:'data-Patient_ID_Patient',
+                                        
+                                ];
+                                */
+                                $('#calendar1').fullCalendar('renderEvent', {
+                                    title: 'dynamic event',
+                                    start: data->Date_RDV,
+                                    allDay: true
+                                 });
+
+                                        
+                            },
+                            error: function (data) {
+                                 console.log('Error:', data);
+                            }
+                });
+               
+            }else{   
+                $('#date_RDV').val(debut); $('#date_Fin').val(fin); $('#Temp_rdv').val(heur);
+                $('#myModal').modal({
+                      show: 'true'
+                }); 
+            }   
+            
+        }
 
         </script>
 
@@ -710,12 +765,12 @@ $('#typeexm').on('change', function() {
         </script>
            <script>
             $('#patient-table-atcd').DataTable({
-                 processing: true,
+                processing: true,
                 serverSide: true,
                 ordering: true,
-                 "bInfo" : false,
-                 searching: false,
-                 "language": {
+                "bInfo" : false,
+                searching: false,
+                "language": {
                 "url": '/localisation/fr_FR.json'},
                 ajax: 'http://localhost:8000/getpatientatcd',
                 columns: [
@@ -762,11 +817,9 @@ $('#typeexm').on('change', function() {
                     }
                 });
             
-            
                 if(!ace.vars['touch']) {
                     $('.chosen-select').chosen({allow_single_deselect:true}); 
                     //resize the chosen on window resize
-            
                     $(window)
                     .off('resize.chosen')
                     .on('resize.chosen', function() {
@@ -836,9 +889,6 @@ $('#typeexm').on('change', function() {
                         $('#form-field-5').attr('class', 'col-xs-'+val).val('.col-xs-'+val);
                     }
                 });
-            
-            
-                
                 //"jQuery UI Slider"
                 //range slider tooltip example
                 $( "#slider-range" ).css('height','200px').slider({
@@ -895,9 +945,7 @@ $('#typeexm').on('change', function() {
                     //
                 });
                 //pre-show a file name, for example a previously selected file
-                //$('#id-input-file-1').ace_file_input('show_file_list', ['myfile.txt'])
-            
-            
+                //$('#id-input-file-1').ace_file_input('show_file_list', ['myfile.txt'])          
                 $('#id-input-file-3').ace_file_input({
                     style: 'well',
                     btn_choose: 'Drop files here or click to choose',
@@ -927,18 +975,7 @@ $('#typeexm').on('change', function() {
                 }).on('change', function(){
                     //console.log($(this).data('ace_input_files'));
                     //console.log($(this).data('ace_input_method'));
-                });
-                
-                
-                //$('#id-input-file-3')
-                //.ace_file_input('show_file_list', [
-                    //{type: 'image', name: 'name of image', path: 'http://path/to/image/for/preview'},
-                    //{type: 'file', name: 'hello.txt'}
-                //]);
-            
-                
-                
-            
+                });          
                 //dynamically change allowed formats by changing allowExt && allowMime function
                 $('#id-file-format').removeAttr('checked').on('change', function() {
                     var whitelist_ext, whitelist_mime;
@@ -1024,7 +1061,6 @@ $('#typeexm').on('change', function() {
                     tag_input.after('<textarea id="'+tag_input.attr('id')+'" name="'+tag_input.attr('name')+'" rows="3">'+tag_input.val()+'</textarea>').remove();
                     //autosize($('#form-field-tags'));
                 }
-                
                 
                 /////////
                 $('#modal-form input[type=file]').ace_file_input({

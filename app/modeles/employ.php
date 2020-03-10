@@ -16,4 +16,10 @@ class employ extends Model
     {
     	return $this->belongsTo('App\modeles\Specialite','Specialite_Emploiye');
     }
+    public function rdvs()
+    {
+        return $this->hasMany('App\modeles\rdv','Employe_ID_Employe')->orderBy('Date_RDV');;
+    }
+    
+
 }

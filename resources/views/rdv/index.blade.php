@@ -26,21 +26,6 @@
 @endsection
 @section('page-script') {{-- {!! $planning->script() !!} --}}
   <script>
-    function createRDVModal(debut,fin)
-    {        
-      var CurrentDate = (new Date()).setHours(0, 0, 0, 0);
-      var GivenDate = (new Date(debut)).setHours(0, 0, 0, 0);
-      if( CurrentDate <= GivenDate )
-      { 
-        debut = moment(debut).format('YYYY-MM-DD HH:mm'); //debut = moment.tz(debut, "America/Los_Angeles").format('YYYY-MM-DD HH:mm');
-        fin = moment(fin).format('YYYY-MM-DD HH:mm');     //fin = moment.tz(fin, "Europe/London").format('YYYY-MM-DD HH:mm');
-        var heur= moment(debut).format('HH:mm:ss');
-        $('#date_RDV').val(debut); $('#date_Fin').val(fin); $('#Temp_rdv').val(heur);
-        $('#myModal').modal({
-          show: 'true'
-        }); 
-      }
-    }
     //reccherche par nom
     function remoteSearch(field,value) {
       $.ajax({
@@ -108,7 +93,7 @@
                
      }
   	$(document).ready(function() {
-      var CurrentDate = (new Date()).setHours(0, 0, 0, 0); 
+      var CurrentDate = (new Date()).setHours(23, 59, 59, 0); //.setHours(0, 0, 0, 0); 
       $('.calendar1').fullCalendar({
         header: {
               left: 'prev,next today',
@@ -128,6 +113,7 @@
         editable: true,
         eventLimit: true, // allow "more" link when too many events      // displayEventEnd: true,       
         hiddenDays: [ 5, 6 ],
+        allDaySlot: false,
         weekNumberCalculation: 'ISO',
         views: {},
         select: function(start, end) {
@@ -137,25 +123,24 @@
             $('.calendar1').fullCalendar('unselect');   
         },
         events: [
-              @foreach($rdvs as $rdv)
-              {
+          @foreach($rdvs as $rdv)
+          {
                 title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
                 start : '{{ $rdv->Date_RDV }}',
                 end:   '{{ $rdv->Fin_RDV }}',
                 id :'{{ $rdv->id }}',
                 idPatient:'{{$rdv->patient->id}}',
                 tel:'{{$rdv->patient->tele_mobile1}}',
-                age:{{ $rdv->patient->getAge() }},   {{--url:'http://localhost:8000/patient/{{ $rdv->patient->id }}',--}}         
-              },
-              @endforeach 
+                age:{{ $rdv->patient->getAge() }},         
+          },
+          @endforeach 
         ],
         eventClick: function(calEvent, jsEvent, view) {
-                     @if(Auth::user()->role->id != 2) 
-                           //updateRDVModal(calEvent.id,calEvent.title,calEvent.start,calEvent.end,calEvent.idPatient,calEvent.tel,calEvent.age);
-                           edit(calEvent);
+                    @if(Auth::user()->role->id != 2)   //updateRDVModal(calEvent.id,calEvent.title,calEvent.start,calEvent.end,calEvent.idPatient,calEvent.tel,calEvent.age);
+                        edit(calEvent);
                       @endif     
-                },
-                eventRender: function (event, element, webData) {
+        },
+        eventRender: function (event, element, webData) {
                       if(event.start < CurrentDate)
                       {
                            element.css('background-color', '#D3D3D3'); 
@@ -208,60 +193,58 @@
            </div>
     </div>
     <div class="row">   
-          <div id="myModal" class="modal fade">
-                <div class="modal-dialog modal-lg">
-                     <div class="modal-content">
-                          <div class="modal-header" style="padding:35px 50px;">
-                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
-                                <h4 id="modalTitle" class="modal-title"><span class="glyphicon glyphicon-bell"></span> Ajouter Rendez-Vous</h4>
-                           </div>
-                           <form id ="addRdv" role="form" action="/createRDV" method="POST">
-                                      {{ csrf_field() }}
-                                      <input type="datetime" id="date_RDV" name="date_RDV" data-date-format='yyyy-mm-dd' value="" style="display:none;">
-                                      <input type="datetime" id="date_Fin" name="date_Fin" data-date-format='yyyy-mm-dd' value="" style="display:none;">
-                                      <input type="time" id="Temp_rdv" name="Temp_rdv"  value=""  min="8:00" max="18:00" style="display:none;" >
-                                      <div id="modalBody" class="modal-body" style="padding:40px 50px;">
-                                           <div class="panel panel-default">
-                                                <div class="panel-heading" style="">
-                                                      <span class="glyphicon glyphicon-user"></span>Rechercher un Patient
-                                                </div>
-                                                <div class="panel-body">
-                                                           <div class="row">
-                                                                <div class="col-sm-4">
-                                                                <div class="form-group">
-                                                                <label class="control-label col-sm-2" for=""> <strong>Filtre: </strong></label>
-                                                                <div class="col-sm-10">          
-                                                                     <select class="form-control" placeholder="choisir le filtre" id="filtre" onchange="layout();">
-                                                                           <option value="Nom">Nom</option>
-                                                                           <option value="Prenom">Prenom</option>
-                                                                           <option value="code_barre">Code</option>
-                                                                           <option value="Dat_Naissance">Date Naisssance</option>
-                                                                           </select>
-                                                                </div>
-                                                                </div>
-                                                                </div>
-                                                                <div class="col-sm-4">
-                                                                <span class="input-icon" style="margin-right: -190px;">
-
-                                                                <select  placeholder="Rechercher... " class="nav-search-input" id="listePatient" name ="listePatient" autocomplete="off" style="width:300px;" data-date-format="yyyy-mm-dd">
-                                                                      @if(isset($patient))
-         <option value="{{$patient->id}}" selected>{{ $patient->code_barre }}-{{ $patient->Nom }}-{{ $patient->Prenom }}</option>
-                                                                 @endif
-                                                          
-                                                                </select>
-                                                                <i class="ace-icon fa fa-search nav-search-icon"></i>   
-                                                                 </span>   
-                                                                 </div>                               
-                                                         </div>                                                  
-                                                </div> {{-- panel-body --}}
-                                           </div>{{-- panel --}}
-                                     </div>{{-- modalBody --}}
-                                     <div class="modal-footer">
-                                           <button class="btn btn-sm btn-primary" type="submit" id ="btnSave" disabled><i class="ace-icon fa fa-save bigger-110" ></i>Enregistrer  </button>                                         
-                                           <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"onclick="reset_in();"><i class="fa fa-undo" aria-hidden="true"  ></i>Fermer</button>
-                                     </div>   
-                           </form> 
+      <div id="myModal" class="modal fade">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header" style="padding:35px 50px;">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+              <h4 id="modalTitle" class="modal-title"><span class="glyphicon glyphicon-bell"></span> Ajouter Rendez-Vous</h4>
+            </div>
+            <form id ="addRdv" role="form" action="/createRDV" method="POST">
+              {{ csrf_field() }}
+              <input type="datetime" id="date_RDV" name="date_RDV" data-date-format='yyyy-mm-dd' value="" style="display:none;">
+              <input type="datetime" id="date_Fin" name="date_Fin" data-date-format='yyyy-mm-dd' value="" style="display:none;">
+              <input type="time" id="Temp_rdv" name="Temp_rdv"  value=""  min="8:00" max="18:00" style="display:none;" >
+              <div id="modalBody" class="modal-body" style="padding:40px 50px;">
+                <div class="panel panel-default">
+                  <div class="panel-heading" style="">
+                    <span class="glyphicon glyphicon-user"></span>Rechercher un Patient
+                  </div>
+                  <div class="panel-body">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label class="control-label col-sm-2" for=""> <strong>Filtre: </strong></label>
+                          <div class="col-sm-10">          
+                            <select class="form-control" placeholder="choisir le filtre" id="filtre" onchange="layout();">
+                              <option value="Nom">Nom</option>
+                              <option value="Prenom">Prenom</option>
+                              <option value="code_barre">Code</option>
+                              <option value="Dat_Naissance">Date Naisssance</option>
+                            </select>
+                          </div>
+                        </div>
                       </div>
+                      <div class="col-sm-4">
+                        <span class="input-icon" style="margin-right: -190px;">
+                          <select  placeholder="Rechercher... " class="nav-search-input" id="listePatient" name ="listePatient" autocomplete="off" style="width:300px;" data-date-format="yyyy-mm-dd">
+                            @if(isset($patient))
+                            <option value="{{$patient->id}}" selected>{{ $patient->code_barre }}-{{ $patient->Nom }}-{{ $patient->Prenom }}</option>
+                            @endif
+                          </select>
+                          <i class="ace-icon fa fa-search nav-search-icon"></i>   
+                        </span>   
+                      </div>                               
+                    </div>                                                  
+                  </div> {{-- panel-body --}}
+                </div>{{-- panel --}}
+              </div>{{-- modalBody --}}
+              <div class="modal-footer">
+                <button class="btn btn-sm btn-primary" type="submit" id ="btnSave" disabled><i class="ace-icon fa fa-save bigger-110" ></i>Enregistrer  </button>                                         
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"onclick="reset_in();"><i class="fa fa-undo" aria-hidden="true"  ></i>Fermer</button>
+              </div>   
+            </form> 
+            </div>
                 </div>
           </div>
     </div>

@@ -14,6 +14,7 @@ use Flashy;
 use Calendar;
 use Carbon\Carbon;
 use DateTime;
+use Response;
 // use Illuminate\Support\Facades\Gate;
 class RDVController extends Controller
 {
@@ -50,16 +51,16 @@ class RDVController extends Controller
     }
     public function index($patientID = null)
     {
-          $rdvs = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')
-                     ->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1',
-                              'patients.Dat_Naissance')->get();
-           if(isset($patientID)) 
-           {
-                $patient = patient::FindOrFail($patientID);   
-                return view('rdv.index', compact('rdvs','patient'));                  
-           }
-           else
-                return view('rdv.index', compact('rdvs')); 
+      dd($patientID);
+      $rdvs = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')
+                 ->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->get();
+      if(isset($patientID)) 
+      {
+        $patient = patient::FindOrFail($patientID);   
+        return view('rdv.index', compact('rdvs','patient'));                  
+      }
+      else
+        return view('rdv.index', compact('rdvs')); 
     }
     public function indexorg()
     {
@@ -294,31 +295,40 @@ class RDVController extends Controller
             ->make(true);
     }
     function AddRDV(Request $request)
-     {
-           $arr = explode("-", $request->listePatient);
-           $patient=patient::where('code_barre',$arr[0])->first();
-           $request->validate([
-                     "date_RDV"=> 'required',
-           ]);
-           $dateRdv = new DateTime($request->date_RDV);
-           $dateFinRdv = new DateTime($request->date_Fin);
-           //$time = date("H:i:s",strtotime($request->Temp_rdv));
-           $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
-           $specialite = $employe->Specialite_Emploiye;  
-           $rdv = rdv::firstOrCreate([
-                "Date_RDV"=>$dateRdv,
-                 //"Temp_rdv"=>$time,
-                 'Fin_RDV'=>$dateFinRdv, 
+     { 
+          // $request->validate([ "date_RDV"=> 'required',]);
+          $dateRdv = new DateTime($request->date_RDV);
+          $dateFinRdv = new DateTime($request->date_Fin);   //$time = date("H:i:s",strtotime($request->Temp_rdv));
+          $employe = Auth::user()->employ;
+          $specialite = $employe->Specialite_Emploiye; 
+          if($request->ajax()){
+            $rdv = rdv::firstOrCreate([
+                          "Date_RDV"=>$dateRdv,//"Temp_rdv"=>$time,
+                          "Fin_RDV"=>$dateFinRdv, 
+                          "specialite"=>$specialite,
+                          "Employe_ID_Employe"=>$employe->id,
+                          "Patient_ID_Patient"=>$request->id_patient,
+                          "Etat_RDV"=> "en attente",
+            ]);
+            return Response::json($rdv);
+          }
+          else
+          {
+            $arr = explode("-", $request->listePatient);
+            $patient=patient::where('code_barre',$arr[0])->first();
+            $rdv = rdv::firstOrCreate([
+                "Date_RDV"=>$dateRdv,//"Temp_rdv"=>$time,
+                'Fin_RDV'=>$dateFinRdv, 
                 "specialite"=>$specialite,
-                "Employe_ID_Employe"=>Auth::user()->employee_id,
-                 "Patient_ID_Patient"=>$patient->id,
-                 "Etat_RDV"=> "en attente",
-           ]);
-           Flashy::success('RDV ajouter avec succès');
-           return redirect()->route("rdv.index"); 
+                    "Employe_ID_Employe"=>$employe->id,
+                     "Patient_ID_Patient"=>$patient->id,
+                     "Etat_RDV"=> "en attente",
+            ]);
+            Flashy::success('RDV ajouter avec succès');
+            return redirect()->route("rdv.index");
+          }
 
-     }     
-  
+    }     
     public function checkFullCalendar(Request $request)
     {
            $events = array(); 

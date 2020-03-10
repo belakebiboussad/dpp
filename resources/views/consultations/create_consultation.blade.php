@@ -42,12 +42,6 @@
   		 top:1%;	
   		 left:-5%%;
 	}
-	/*.mycontent {
- 	  margin-top:0px !important;
- 	  margin-bottom:2% !important;
- 	  width:150%;
- 	  height: 150%;
-	}*/
 	iframe {
 	    display: block;
 	    margin: 0 auto;
@@ -100,7 +94,7 @@
 		if ( !regex.test(key) ) {
 		        theEvent.returnValue = false;
 		        if(theEvent.preventDefault) theEvent.preventDefault();
-		 }
+		}
 	}
   	$('document').ready(function(){
   		$( 'ul.nav li' ).on( 'click', function() {
@@ -180,7 +174,6 @@
    			     "url": '/localisation/fr_FR.json'
 		    },
   	  });
-      // $('#Ordonnance').on('show.bs.modal', function () {// $('.contmodal').css('height',$( window ).height()*0.95);// });
       jQuery('body').on('click', '.open-modal', function () {
    	    var atcd_id = $(this).val();
    	    $.get('/atcd/' + atcd_id, function (data) { 
@@ -209,11 +202,11 @@
       		e.preventDefault();
       		var formData = {
       			Patient_ID_Patient :jQuery('#patientId').val(),	
-           			 Antecedant         : jQuery('#Antecedant').val(),
-          			 typeAntecedant     : jQuery('#typeAntecedant').val(),
-          			  stypeatcd          : jQuery('#sstypeatcdc').val(),
-            			date : $('#dateAntcd').val(),
-          			  descrioption : $("#description").val(),
+           	Antecedant         : jQuery('#Antecedant').val(),
+          	typeAntecedant     : jQuery('#typeAntecedant').val(),
+          	stypeatcd          : jQuery('#sstypeatcdc').val(),
+            date : $('#dateAntcd').val(),
+          	descrioption : $("#description").val(),
      	  	};
      	  	if(formData.typeAntecedant =="Physiologiques")
      	  	{
@@ -229,7 +222,7 @@
 	      		}	
         	$.ajaxSetup({
         	  headers: {
-                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+              'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
         	  }
           });
           var state = jQuery('#EnregistrerAntecedant').val();
@@ -328,9 +321,61 @@
       		champ.appendTo('#consultForm');
     	}); 
     	//calendrier pour rdv
-    	var CurrentDate = (new Date()).setHours(0, 0, 0, 0); 
+    	var CurrentDate = (new Date()).setHours(23, 59, 59, 0); 
     	$('.calendar1').fullCalendar({
-    		 defaultView: 'agendaWeek',
+    		header: {
+              left: 'prev,next today',
+              center: 'title,dayGridMonth,timeGridWeek',
+              right: 'month,agendaWeek,agendaDay'
+        },
+    		defaultView: 'agendaWeek',
+        firstDay: 0,//dimanche
+    		slotDuration: '00:15:00',
+    		minTime:'08:00:00',
+        maxTime: '17:00:00',
+        navLinks: true,
+        selectable: true,
+        selectHelper: true,
+        editable: true,
+        hiddenDays: [ 5, 6 ],
+        contentHeight: 700,
+        eventColor: '#87CEFA',
+        weekNumberCalculation: 'ISO',
+        views: {}, 
+       	select: function(start, end) {
+       		var pid = $('#patientId').val();
+       		if(start > CurrentDate)
+       		{
+           	createRDVModal(start,end,pid);
+       		}else
+       		{
+       			$('.calendar1').fullCalendar('unselect');
+       		}
+       	},
+        events: [
+          @foreach($employe->rdvs as $rdv)
+          {
+                title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
+                start : '{{ $rdv->Date_RDV }}',
+                end:   '{{ $rdv->Fin_RDV }}',
+                id :'{{ $rdv->id }}',
+                idPatient:'{{$rdv->patient->id}}',
+                tel:'{{$rdv->patient->tele_mobile1}}',
+                age:{{ $rdv->patient->getAge() }},   {{--url:'http://localhost:8000/patient/{{ $rdv->patient->id }}',--}}         
+          },
+          @endforeach 
+    		],
+    		eventRender: function (event, element, webData) {
+            if(event.start < CurrentDate)
+            {
+              element.css('background-color', '#D3D3D3'); 
+            }
+            else
+            {
+              element.css("font-size", "1em");
+              element.css("padding", "5px");      
+            }
+        },
     	}); 
   });
   function ajaxfunc(patientid)
@@ -354,7 +399,7 @@
 	          headers: {
 	                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	          },
-	          type:'POST',
+	          type:"POST",
 	          url:'/AddANTCD',
 	          data:{ antecedant:antecedant,typeAntecedant:typeAntecedant,soustype:soustype,dateATCD:dateATCD,description:description,patientid:patientid,habitudeAlim:habitudeAlim,tabac:tabac,ethylisme:ethylisme 
 	          },
@@ -468,8 +513,9 @@
 <div class="page-header" width="100%">
 <!--  style= "margin-top:-3%;" -->
 	<div class="row">
-	@include('patient._patientInfo')
-		
+		<div class="col-sm-12" style="margin-top: -5%;">	{{-- change --}}
+			@include('patient._patientInfo')	
+		</div>
 	</div>
 	
 </div>

@@ -6,8 +6,7 @@
 		row = $(".bodyClass").find('tr').eq(line);
 		$.ajax({
 			url: '/annullerRDV/'+id,
-      type: 'GET',
-      //dataType: 'JSON',
+      type: 'GET', //dataType: 'JSON',
 		  success: function (data) { 
 		    row.remove();
 		  }	

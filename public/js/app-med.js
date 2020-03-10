@@ -1,5 +1,4 @@
 	function IMC1(){
-		
 		var poids = $("#poids").val();
 		var taille = $("#taille").val();
 		if(poids==""){
@@ -50,7 +49,6 @@
 	}
 	function IMC(){
 		try {	
-
 			if($('#poids').val() != null && $('#taille').val() != null && $('#taille').val() != 0 )
 			{
 				// var imc =  $('#poids').val() /($('#taille').val()*$('#taille').val());
@@ -135,9 +133,9 @@
 	                </select></td>`;
 
 		$.each(words, function(i, word) {
-            	html += select;
-    		});
-    		html += '</tr></table>';
+      html += select;
+    });
+    html += '</tr></table>';
 		 $("#divmodeprise").append(html);
 	}
 	function ajaxATCD(patientid){
@@ -146,16 +144,14 @@
 
 		var description = $('#description').val();
 	}
-
-
-           function checkForm(form)
-           {
-                      	$('.nav-pills li.active').removeClass('active');
-                     $('div#ExamClinique').removeClass('active');
-                     $('div#ExamComp').removeClass('active');
-                     $('div#Interogatoire').addClass('in active');
-                     $( "li[name='motif']" ).addClass('active');
-                     $('div#ATCD').removeClass('active');
+  function checkForm(form)
+  {
+   	$('.nav-pills li.active').removeClass('active');
+    $('div#ExamClinique').removeClass('active');
+    $('div#ExamComp').removeClass('active');
+    $('div#Interogatoire').addClass('in active');
+    $( "li[name='motif']" ).addClass('active');
+    $('div#ATCD').removeClass('active');
                      $('div#Motif').addClass('in active');
                 	var lieu = $('#lieuc').val();
                 	var motif = $('#motif').val();

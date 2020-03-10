@@ -14,15 +14,15 @@ class rdv extends Model implements IdentifiableEvent
 	public function getId() {
 		return $this->id;
 	}
-	 public function getTitle()
-    	{
-        		return $this->Patient_ID_Patient;
-    	}
+	public function getTitle()
+  {
+  	return $this->Patient_ID_Patient;
+  }
 	public function isAllDay()
     	{
         		return (bool)$this->all_day;
     	}
-    	public function getStart()
+  public function getStart()
 	{
 	        return $this->Date_RDV;
 	}
@@ -43,6 +43,11 @@ class rdv extends Model implements IdentifiableEvent
 	{
 		$date =date('Y-m-d h:i:s A', strtotime($this->Date_RDV. '+12 hours')); 
 		return $date;
+	}
+	public function employe()
+	{
+		if(isset($this->Employe_ID_Employe))
+			return $this->belongsTo('App\modeles\employ','Employe_ID_Employe','id');
 	}
 
 
