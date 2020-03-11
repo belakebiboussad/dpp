@@ -10,8 +10,8 @@
     <meta name="csrf-token" content="{{csrf_token()}}">
    <!-- app.css is bootstrap.css (slightly modified by Ace template) compiled with less -->
     
-    <link href="{{ asset('/css/font-awesome.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('vendor/components/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('/css/font-awesome.css') }}" rel="stylesheet">
+  {{--   <link  rel="stylesheet" href="{{ asset('vendor/components/font-awesome/css/font-awesome.min.css') }}"> --}}
     <!-- text fonts -->
     <link rel="stylesheet" href="{{ asset('/css/ace-fonts.css') }}" />
     <!-- ace styles -->

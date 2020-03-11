@@ -324,60 +324,92 @@
     	var CurrentDate = (new Date()).setHours(23, 59, 59, 0); 
     	$('.calendar1').fullCalendar({
     		header: {
-              left: 'prev,next today',
-              center: 'title,dayGridMonth,timeGridWeek',
-              right: 'month,agendaWeek,agendaDay'
-        },
+		              left: 'prev,next today',
+		              center: 'title,dayGridMonth,timeGridWeek',
+		              right: 'month,agendaWeek,agendaDay'
+       	},
     		defaultView: 'agendaWeek',
-        firstDay: 0,//dimanche
+       	firstDay: 0,//dimanche
     		slotDuration: '00:15:00',
     		minTime:'08:00:00',
-        maxTime: '17:00:00',
-        navLinks: true,
-        selectable: true,
-        selectHelper: true,
-        editable: true,
-        hiddenDays: [ 5, 6 ],
-        contentHeight: 700,
-        eventColor: '#87CEFA',
-        weekNumberCalculation: 'ISO',
-        views: {}, 
-       	select: function(start, end) {
-       		var pid = $('#patientId').val();
-       		if(start > CurrentDate)
-       		{
-           	createRDVModal(start,end,pid);
-       		}else
-       		{
-       			$('.calendar1').fullCalendar('unselect');
-       		}
-       	},
-        events: [
-          @foreach($employe->rdvs as $rdv)
-          {
-                title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
-                start : '{{ $rdv->Date_RDV }}',
-                end:   '{{ $rdv->Fin_RDV }}',
-                id :'{{ $rdv->id }}',
-                idPatient:'{{$rdv->patient->id}}',
-                tel:'{{$rdv->patient->tele_mobile1}}',
-                age:{{ $rdv->patient->getAge() }},   {{--url:'http://localhost:8000/patient/{{ $rdv->patient->id }}',--}}         
-          },
-          @endforeach 
-    		],
-    		eventRender: function (event, element, webData) {
-            if(event.start < CurrentDate)
-            {
-              element.css('background-color', '#D3D3D3'); 
-            }
-            else
-            {
-              element.css("font-size", "1em");
-              element.css("padding", "5px");      
-            }
-        },
+	   	maxTime: '17:00:00',
+	      navLinks: true,
+	      selectable: true,
+	      selectHelper: true,
+	      editable: true,
+	      hiddenDays: [ 5, 6 ],
+	      contentHeight: 700,
+	      eventColor: '#87CEFA',
+	      weekNumberCalculation: 'ISO',
+	      eventLimit: true,
+	      allDaySlot: false,
+	      views: {}, 
+		select: function(start, end) {
+		       		var pid = $('#patientId').val();
+		       		if(start > CurrentDate)
+		       			createRDVModal(start,end,pid);
+		       		else
+		       			$('.calendar1').fullCalendar('unselect');
+		      },
+		        events: [
+			          @foreach($employe->rdvs as $rdv)
+			          {
+			                title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
+			                start : '{{ $rdv->Date_RDV }}',
+			                end:   '{{ $rdv->Fin_RDV }}',
+			                id :'{{ $rdv->id }}',
+			                idPatient:'{{$rdv->patient->id}}',
+			                tel:'{{$rdv->patient->tele_mobile1}}',
+			                age:{{ $rdv->patient->getAge() }},   {{--url:'http://localhost:8000/patient/{{ $rdv->patient->id }}',--}}         
+			          },
+			          @endforeach 
+		    	],
+		    	eventRender: function (event, element, webData) {
+			            if(event.start < CurrentDate)
+			            {
+			              element.css('background-color', '#D3D3D3'); 
+			            }
+			            else
+			            {
+			              element.css("font-size", "1em");
+			              element.css("padding", "5px");      
+			            }
+		     	},
+		     	eventClick: function(calEvent, jsEvent, view) {
+                   		 @if(Auth::user()->role->id != 2)  
+                        		edit(calEvent);
+                     	 @endif     
+       		 },
+       		 dayClick: function(date, jsEvent, view) {
+				  // $('.calendar1').fullCalendar('renderEvent', { title: 'YOUR TITLE', start: date, allDay: true }, true );
+       		 },
+       		  eventAllow: function(dropLocation, draggedEvent) {
+                  		 if(draggedEvent.start < CurrentDate)
+                              	 return false;  	     
+                	},
+                	eventDrop: function(event, delta, revertFunc) { // si changement de position
+                   		  edit(event);
+                	}, 
     	}); 
+
   });
+   function edit(event)
+    {
+        	var CurrentDate = (new Date()).setHours(0, 0, 0, 0);
+          	var GivenDate = (new Date(event.start)).setHours(0, 0, 0, 0); 
+          	if( CurrentDate <= GivenDate )
+            {
+            		$('#patient_tel').text(event.tel);
+                    $('#agePatient').text(event.age);
+                    $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
+                     $('#lien').text(event.title);
+                     $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
+                     $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
+                    $('#fullCalModal').modal({
+                          show: 'true'
+                    }); 
+            }
+     }
   function ajaxfunc(patientid)
  	{        
 	    var habitudeAlim = null; var tabac=null ; var ethylisme = null;

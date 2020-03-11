@@ -301,7 +301,7 @@ class RDVController extends Controller
         $patient = patient::find($request->id_patient);
         $specialite = $employe->Specialite_Emploiye; 
         if($request->ajax()){
-          $rdv = rdv::firstOrCreate([
+            $rdv = rdv::firstOrCreate([
                           "Date_RDV"=>$dateRdv,//"Temp_rdv"=>$time,
                           "Fin_RDV"=>$dateFinRdv, 
                           "specialite"=>$specialite,
@@ -309,8 +309,7 @@ class RDVController extends Controller
                           "Patient_ID_Patient"=>$request->id_patient,
                           "Etat_RDV"=> "en attente",
             ]);
-             return Response::json($patient);
-            //return Response::json(array('patient'=>$patient,'rdv'=>$rdv));
+            return Response::json(array('patient'=>$patient, 'age'=>$patient->getAge(),'rdv'=>$rdv));
           }
           else
           {

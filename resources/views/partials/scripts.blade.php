@@ -710,41 +710,49 @@ $('#typeexm').on('change', function() {
                             url : '/createRDV',
                             data:formData,
                             //dataType: 'json',
-                            success:function(data){
-                                //alert(data); 
-                                // location.reload();
-                                // $('#RDV').modal({
-                                //     show: 'true'
-                                // }); 
-
-                                // $('#calendar1').fullCalendar('renderEvent', {
-                                //     title: 'dynamic event',
-                                //     start: data->Date_RDV,
-                                //     allDay: true
-                                //  });
-                                // $.each(data, function( index, value ) {
-                                //     alert( index + ": " + value );
-                                // });
-                                // alert('{{ $patient->Nom }}');
-                                // var event = {
-                                //     //title : '{{ $patient->Nom . ' ' . $patient->Prenom }} ' +', ('+{{ $patient->getAge() }} +' ans)',
-                                //     //title : '{{ $patient->Nom }}',
-                                //     'title' : 'Ajax';
-                                //     start : data.Date_RDV,
-                                //     end   : data.Fin_RDV,
-                                //     //id    :  data.id ,
-                                //     // idPatient:'{{$patient->id}}',
-                                //     // tel:'{{$patient->tele_mobile1}}',
-                                //     // age:'{{ $patient->getAge() }}', 
+                            success:function(data){  
+                               var Start = new Date(data['rdv']['Date_RDV']); // will be in local time                           
+                               var End = new Date(data['rdv']['Fin_RDV']);
+                                 /*
+                               alert(data['rdv']['Date_RDV']);
+                               alert(data['rdv']['Fin_RDV']);
+                               alert(data['patient']['id']);
+                                 alert(data['patient']['Nom']);
+                                  alert(data['patient']['Prenom']);  
+                                 alert(data['patient']['Dat_Naissance']);
+                                 */
+                                 // var event = {
+                                   // title : data['patient']['Nom'] + "  " + data['patient']['Prenom'],
+                                   // title='new event'
+                                   //  start : data['rdv']['Date_RDV'],
+                                   //  end   : data['rdv']['Fin_RDV'],
+                                   //  id    :  data['rdv']['id'] ,
+                                    // title: 'dynamic event',
+                                    // start: datedeb,
+                                    //  allDay: true
+                                    // idPatient:data['patient']['id'] ,
+                                    // tel:data['patient']['tele_mobile1'] ,
                                 // };
-                                // $('#calendar1').fullCalendar( 'renderEvent', event, true );
-                                alert(data.id);
-                                var event = {
-                                    title: '{{ $patient->Nom . ' ' . $patient->Prenom }}',                       
+                                //$('#calendar1').fullCalendar( 'renderEvent', event, true );
+                                  //$('#calendar1').fullCalendar('renderEvent',event);
+                                //var Start = moment($('#start_date_add_day').val()+' '+$('#start_date_add_time').val(), "DD.MM.YYYY HH:MM");
+                              //  var Start = moment(data['rdv']['Date_RDV']);   
+                                // var End = moment(data['rdv']['Fin_RDV']);
+                                var event = new Object();
+                                event = {
+                                    title: data['patient']['Nom'] + "  " + data['patient']['Prenom']+" ,("+data['age']+" ans)",
+                                    start: Start,
+                                    end: End,
+                                     id :data['rdv']['id'],
+                                     idPatient:data['patient']['id'],
+                                     tel:data['patient']['tele_mobile1'] ,
+                                    age:data['age'],         
+                                    allDay: false,
                                 };
-                                $('#calendar1').fullCalendar( 'renderEvent', event, true );    
-                                alert('{{ $patient->Nom }}');
-                                        
+                                $('.calendar1').fullCalendar( 'renderEvent', event, true );
+                               $('.calendar1').fullCalendar('prev');
+                                $('.calendar1').fullCalendar('next');
+
                             },
                             error: function (data) {
                                  console.log('Error:', data);
