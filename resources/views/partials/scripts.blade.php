@@ -697,7 +697,7 @@ $('#typeexm').on('change', function() {
             {
                 var formData = {
                     id_patient:pid,
-                    Date_RDV:debut,
+                    Debut_RDV:debut,
                     Fin_RDV:fin,
                 };
                 $.ajaxSetup({
@@ -709,24 +709,41 @@ $('#typeexm').on('change', function() {
                             type : 'POST',
                             url : '/createRDV',
                             data:formData,
-                            dataType: 'json',
+                            //dataType: 'json',
                             success:function(data){
-                                CAL = $('#calendar1').fullCalendar('getCalendar');
-                                event=[
-                                        title    : '',
-                                        start    : 'data->Date_RDV',
-                                        end      : 'data->Fin_RDV',
-                                        id       : 'data->id }}',
-                                        idPatient:'data-Patient_ID_Patient',
-                                        
-                                ];
-                                */
-                                $('#calendar1').fullCalendar('renderEvent', {
-                                    title: 'dynamic event',
-                                    start: data->Date_RDV,
-                                    allDay: true
-                                 });
+                                //alert(data); 
+                                // location.reload();
+                                // $('#RDV').modal({
+                                //     show: 'true'
+                                // }); 
 
+                                // $('#calendar1').fullCalendar('renderEvent', {
+                                //     title: 'dynamic event',
+                                //     start: data->Date_RDV,
+                                //     allDay: true
+                                //  });
+                                // $.each(data, function( index, value ) {
+                                //     alert( index + ": " + value );
+                                // });
+                                // alert('{{ $patient->Nom }}');
+                                // var event = {
+                                //     //title : '{{ $patient->Nom . ' ' . $patient->Prenom }} ' +', ('+{{ $patient->getAge() }} +' ans)',
+                                //     //title : '{{ $patient->Nom }}',
+                                //     'title' : 'Ajax';
+                                //     start : data.Date_RDV,
+                                //     end   : data.Fin_RDV,
+                                //     //id    :  data.id ,
+                                //     // idPatient:'{{$patient->id}}',
+                                //     // tel:'{{$patient->tele_mobile1}}',
+                                //     // age:'{{ $patient->getAge() }}', 
+                                // };
+                                // $('#calendar1').fullCalendar( 'renderEvent', event, true );
+                                alert(data.id);
+                                var event = {
+                                    title: '{{ $patient->Nom . ' ' . $patient->Prenom }}',                       
+                                };
+                                $('#calendar1').fullCalendar( 'renderEvent', event, true );    
+                                alert('{{ $patient->Nom }}');
                                         
                             },
                             error: function (data) {

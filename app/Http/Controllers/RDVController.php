@@ -51,7 +51,6 @@ class RDVController extends Controller
     }
     public function index($patientID = null)
     {
-      dd($patientID);
       $rdvs = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')
                  ->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->get();
       if(isset($patientID)) 
@@ -296,13 +295,13 @@ class RDVController extends Controller
     }
     function AddRDV(Request $request)
      { 
-          // $request->validate([ "date_RDV"=> 'required',]);
-          $dateRdv = new DateTime($request->date_RDV);
-          $dateFinRdv = new DateTime($request->date_Fin);   //$time = date("H:i:s",strtotime($request->Temp_rdv));
-          $employe = Auth::user()->employ;
-          $specialite = $employe->Specialite_Emploiye; 
-          if($request->ajax()){
-            $rdv = rdv::firstOrCreate([
+        $dateRdv = new DateTime($request->Debut_RDV);   // $request->validate([ "date_RDV"=> 'required',]);
+        $dateFinRdv = new DateTime($request->Fin_RDV);   //$time = date("H:i:s",strtotime($request->Temp_rdv));
+        $employe = Auth::user()->employ;
+        $patient = patient::find($request->id_patient);
+        $specialite = $employe->Specialite_Emploiye; 
+        if($request->ajax()){
+          $rdv = rdv::firstOrCreate([
                           "Date_RDV"=>$dateRdv,//"Temp_rdv"=>$time,
                           "Fin_RDV"=>$dateFinRdv, 
                           "specialite"=>$specialite,
@@ -310,7 +309,8 @@ class RDVController extends Controller
                           "Patient_ID_Patient"=>$request->id_patient,
                           "Etat_RDV"=> "en attente",
             ]);
-            return Response::json($rdv);
+             return Response::json($patient);
+            //return Response::json(array('patient'=>$patient,'rdv'=>$rdv));
           }
           else
           {
