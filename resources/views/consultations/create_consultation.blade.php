@@ -332,7 +332,7 @@
        	firstDay: 0,//dimanche
     		slotDuration: '00:15:00',
     		minTime:'08:00:00',
-	   	maxTime: '17:00:00',
+	   	  maxTime: '17:00:00',
 	      navLinks: true,
 	      selectable: true,
 	      selectHelper: true,
@@ -344,7 +344,7 @@
 	      eventLimit: true,
 	      allDaySlot: false,
 	      views: {}, 
-		select: function(start, end) {
+		    select: function(start, end) {
 		       		var pid = $('#patientId').val();
 		       		if(start > CurrentDate)
 		       			createRDVModal(start,end,pid);
@@ -381,8 +381,7 @@
                      	 @endif     
        		 },
        		 dayClick: function(date, jsEvent, view) {
-				  // $('.calendar1').fullCalendar('renderEvent', { title: 'YOUR TITLE', start: date, allDay: true }, true );
-       		 },
+				 	 },
        		  eventAllow: function(dropLocation, draggedEvent) {
                   		 if(draggedEvent.start < CurrentDate)
                               	 return false;  	     
@@ -393,23 +392,64 @@
     	}); 
 
   });
-   function edit(event)
+  function edit(event)
+  {
+    var CurrentDate = (new Date()).setHours(0, 0, 0, 0);var GivenDate = (new Date(event.start)).setHours(0, 0, 0, 0);     	
+    if( CurrentDate <= GivenDate )
     {
-        	var CurrentDate = (new Date()).setHours(0, 0, 0, 0);
-          	var GivenDate = (new Date(event.start)).setHours(0, 0, 0, 0); 
-          	if( CurrentDate <= GivenDate )
-            {
-            		$('#patient_tel').text(event.tel);
-                    $('#agePatient').text(event.age);
-                    $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
-                     $('#lien').text(event.title);
-                     $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
-                     $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
-                    $('#fullCalModal').modal({
-                          show: 'true'
-                    }); 
-            }
-     }
+    	$('#patient_tel').text(event.tel);
+      $('#agePatient').text(event.age);
+      $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
+      $('#lien').text(event.title);
+      $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
+      $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
+      $('#btnRdvDelete').attr('href','javascript:rdvDelete('+event.id+');');
+      $('#fullCalModal').modal({  show: 'true' }); 
+    }
+  }
+  function rdvDelete(rdvId)
+  {
+  	var url ="/rdv/"+rdvId;
+  	$.ajaxSetup({
+        headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+        }
+    }); 
+    var token = $("meta[name='csrf-token']").attr("content");
+    $.ajax({
+              type : 'DELETE',
+              url : url,
+              data: {
+          		  "id": rdvId,
+            		"_token": token,
+        			},
+        			//dataType: 'json',
+              success:function(data){
+                  	   	
+              	$('.calendar1').fullCalendar('removeEventSources');
+              	//$('.calendar1').fullCalendar('refetchEvents' );
+              	data.forEach(function (rdv) {
+              		var event = new Object();	
+              		event.title ='{{ $patient->Nom }}' + " " + '{{ $patient->Prenom}}' + ",("+ '{{ $patient->getAge() }}' +")";
+              		event.start = rdv['Date_RDV'];
+              		event.end   = rdv['Fin_RDV'];
+               		event.id    = rdv['id'];
+                	event.idPatient = '{{ $patient->id }}';
+                	event.tel ='{{ $patient->tele_mobile1 }}';
+                	event.age = '{{ $patient->getAge() }}';
+                	// $('.calendar1').fullCalendar('renderEvent', event); 
+                	$('.calendar1').fullCalendar( 'addEventSource', event);
+              	});
+              
+                $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next'); 
+                $('.calendar1').fullCalendar('refetchEvents' );
+              
+              },
+              error:function(data){
+              	 console.log('Error:', data);
+              }
+    });
+  }
   function ajaxfunc(patientid)
  	{        
 	    var habitudeAlim = null; var tabac=null ; var ethylisme = null;

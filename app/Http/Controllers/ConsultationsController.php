@@ -113,8 +113,7 @@ class ConsultationsController extends Controller
 
     public function create($id_patient)
     {
-      $employe= employ::where("id",Auth::user()->employee_id)->get()->first() ;
-      //dd($employe->rdvs);
+      $employe= employ::where("id",Auth::user()->employee_id)->get()->first();
       $modesAdmission = [
             'Ambulatoire' => "Ambulatoire",
             'urgence' => "urgence",

@@ -234,10 +234,21 @@ class RDVController extends Controller
      * @param  \App\modeles\rdv  $rdv
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
+    
     {
-           rdv::destroy($id);    //return redirect()->route('rdv.index');
-           return redirect()->action('RDVController@index');
+      if($request->ajax())
+      {
+        $rdv = rdv::findOrFail($id);
+        $rdvs = $rdv->employe->rdvs;
+        rdv::destroy($id);// return Auth::user()->employ->rdvs; // return Response::json($rdvs);
+        return ($rdvs);
+      }
+      else
+      {
+        rdv::destroy($id);//return redirect()->route('rdv.index');
+        return redirect()->action('RDVController@index');
+      } 
     }
     public function orderPdf($id)
      {

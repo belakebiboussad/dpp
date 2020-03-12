@@ -10,7 +10,7 @@ class rdv extends Model implements IdentifiableEvent
 {
 	public $timestamps = false;
 	protected $fillable =['Date_RDV','Fin_RDV','Temp_rdv','specialite', 'Patient_ID_Patient','Employe_ID_Employe','Etat_RDV'];
-	protected $dates = ['Date_RDV', 'Fin_RDV','Temp_rdv'];
+	protected $dates = ['Date_RDV', 'Fin_RDV'];//,'Temp_rdv'
 	public function getId() {
 		return $this->id;
 	}

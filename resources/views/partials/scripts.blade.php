@@ -645,15 +645,13 @@ $('#typeexm').on('change', function() {
             exbio.text(45,65,'Analyses Demandées :',null,null,'center');
             exbio.setFontSize(13);
             var i =0;
-                        // $(".imgExam").each(function() {
-                        //     alert($(this).attr('value'));
-                        // });
-                     var selected = "";
-                     $("input[class='imgExam']:checked").each(function() {
-                            exbio.text(25,72+i,$(this).attr('data-checkbox-text')+", ");
-                            selected = selected + $(this).val()+", ";
-                            i=i+10;
-                     });
+            // $(".imgExam").each(function() {//alert($(this).attr('value'));// });
+            var selected = "";
+            $("input[class='imgExam']:checked").each(function() {
+              exbio.text(25,72+i,$(this).attr('data-checkbox-text')+", ");
+              selected = selected + $(this).val()+", ";
+              i=i+10;
+            });
                      $('#selectedoption').val(selected); 
                     var autreexamRadio = $("#examRadAutr").tagsinput('items');  
                     if(autreexamRadio != undefined)
@@ -689,75 +687,44 @@ $('#typeexm').on('change', function() {
         }
         function createRDVModal(debut,fin,pid = 0)
         {   
-            // var CurrentDate = (new Date()).setHours(0, 0, 0, 0);// var GivenDate = (new Date(debut)).setHours(0, 0, 0, 0);
             var debut = moment(debut).format('YYYY-MM-DD HH:mm'); //debut = moment.tz(debut, "America/Los_Angeles").format('YYYY-MM-DD HH:mm');  
             var fin = moment(fin).format('YYYY-MM-DD HH:mm');     //fin = moment.tz(fin, "Europe/London").format('YYYY-MM-DD HH:mm');
             var heur= moment(debut).format('HH:mm:ss');
             if(pid != 0)
             {
-                var formData = {
-                    id_patient:pid,
-                    Debut_RDV:debut,
-                    Fin_RDV:fin,
-                };
-                $.ajaxSetup({
-                    headers: {
-                            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                    }
-                }); 
-                $.ajax({
-                            type : 'POST',
-                            url : '/createRDV',
-                            data:formData,
-                            //dataType: 'json',
-                            success:function(data){  
-                               var Start = new Date(data['rdv']['Date_RDV']); // will be in local time                           
-                               var End = new Date(data['rdv']['Fin_RDV']);
-                                 /*
-                               alert(data['rdv']['Date_RDV']);
-                               alert(data['rdv']['Fin_RDV']);
-                               alert(data['patient']['id']);
-                                 alert(data['patient']['Nom']);
-                                  alert(data['patient']['Prenom']);  
-                                 alert(data['patient']['Dat_Naissance']);
-                                 */
-                                 // var event = {
-                                   // title : data['patient']['Nom'] + "  " + data['patient']['Prenom'],
-                                   // title='new event'
-                                   //  start : data['rdv']['Date_RDV'],
-                                   //  end   : data['rdv']['Fin_RDV'],
-                                   //  id    :  data['rdv']['id'] ,
-                                    // title: 'dynamic event',
-                                    // start: datedeb,
-                                    //  allDay: true
-                                    // idPatient:data['patient']['id'] ,
-                                    // tel:data['patient']['tele_mobile1'] ,
-                                // };
-                                //$('#calendar1').fullCalendar( 'renderEvent', event, true );
-                                  //$('#calendar1').fullCalendar('renderEvent',event);
-                                //var Start = moment($('#start_date_add_day').val()+' '+$('#start_date_add_time').val(), "DD.MM.YYYY HH:MM");
-                              //  var Start = moment(data['rdv']['Date_RDV']);   
-                                // var End = moment(data['rdv']['Fin_RDV']);
-                                var event = new Object();
-                                event = {
-                                    title: data['patient']['Nom'] + "  " + data['patient']['Prenom']+" ,("+data['age']+" ans)",
-                                    start: Start,
-                                    end: End,
-                                     id :data['rdv']['id'],
-                                     idPatient:data['patient']['id'],
-                                     tel:data['patient']['tele_mobile1'] ,
-                                    age:data['age'],         
-                                    allDay: false,
-                                };
-                                $('.calendar1').fullCalendar( 'renderEvent', event, true );
-                               $('.calendar1').fullCalendar('prev');
-                                $('.calendar1').fullCalendar('next');
-
-                            },
-                            error: function (data) {
-                                 console.log('Error:', data);
-                            }
-                });
+              var formData = {
+                id_patient:pid,
+                Debut_RDV:debut,
+                Fin_RDV:fin,
+              };
+              $.ajaxSetup({
+                headers: {
+                  'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                }
+              }); 
+              $.ajax({
+                type : 'POST',
+                url : '/createRDV',
+                data:formData,  //dataType: 'json',
+                success:function(data){  // var debut = new Date(data['rdv']['Date_RDV']);// var fin = new Date(data['rdv']['Fin_RDV']);
+                  var event = new Object();
+                  event = {
+                          title: data['patient']['Nom'] + "  " + data['patient']['Prenom']+" ,("+data['age']+" ans)",
+                          start: debut,
+                          end: fin,
+                          id :data['rdv']['id'],
+                          idPatient:data['patient']['id'],
+                          tel:data['patient']['tele_mobile1'] ,
+                          age:data['age'],         
+                          allDay: false,
+                  };
+                  $('.calendar1').fullCalendar( 'renderEvent', event, true );
+                  $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next');
+                },
+                error: function (data) {
+                  console.log('Error:', data);
+                }
+              });
                
             }else{   
                 $('#date_RDV').val(debut); $('#date_Fin').val(fin); $('#Temp_rdv').val(heur);
@@ -765,11 +732,9 @@ $('#typeexm').on('change', function() {
                       show: 'true'
                 }); 
             }   
-            
         }
 
         </script>
-
         <script>
             $('#users-table').DataTable({
                  processing: true,
@@ -978,15 +943,6 @@ $('#typeexm').on('change', function() {
                     no_icon: 'ace-icon fa fa-cloud-upload',
                     droppable: true,
                     thumbnail: 'small'//large | fit
-                    //,icon_remove:null//set null, to hide remove/reset button
-                    /**,before_change:function(files, dropped) {
-                        //Check an example below
-                        //or examples/file-upload.html
-                        return true;
-                    }*/
-                    /**,before_remove : function() {
-                        return true;
-                    }*/
                     ,
                     preview_error : function(filename, error_code) {
                         //name of the file that failed
@@ -998,8 +954,7 @@ $('#typeexm').on('change', function() {
                     }
             
                 }).on('change', function(){
-                    //console.log($(this).data('ace_input_files'));
-                    //console.log($(this).data('ace_input_method'));
+                    //console.log($(this).data('ace_input_files')); //console.log($(this).data('ace_input_method'));
                 });          
                 //dynamically change allowed formats by changing allowExt && allowMime function
                 $('#id-file-format').removeAttr('checked').on('change', function() {
