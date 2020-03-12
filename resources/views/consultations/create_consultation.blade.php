@@ -429,18 +429,15 @@
               	$('.calendar1').fullCalendar('removeEventSources');
               	//$('.calendar1').fullCalendar('refetchEvents' );
               	data.forEach(function (rdv) {
-              		var event = new Object();	
-              		event.title ='{{ $patient->Nom }}' + " " + '{{ $patient->Prenom}}' + ",("+ '{{ $patient->getAge() }}' +")";
-              		event.start = rdv['Date_RDV'];
-              		event.end   = rdv['Fin_RDV'];
-               		event.id    = rdv['id'];
-                	event.idPatient = '{{ $patient->id }}';
-                	event.tel ='{{ $patient->tele_mobile1 }}';
-                	event.age = '{{ $patient->getAge() }}';
-                	// $('.calendar1').fullCalendar('renderEvent', event); 
-                	$('.calendar1').fullCalendar( 'addEventSource', event);
+              		var event = {
+              			title: '{{ $patient->Nom }}' + " " + '{{ $patient->Prenom}}' + ",("+ '{{ $patient->getAge() }}' +")",
+              			start:  rdv['Date_RDV'],
+              			end   = rdv['Fin_RDV'],
+              			
+              		};
+
+              			$('#calendar').fullCalendar( 'renderEvent', event, true);
               	});
-              
                 $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next'); 
                 $('.calendar1').fullCalendar('refetchEvents' );
               
