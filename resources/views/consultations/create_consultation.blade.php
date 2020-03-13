@@ -422,8 +422,7 @@
               data: {
           		  "id": rdvId,
             		"_token": token,
-        			},
-        			//dataType: 'json',
+        			},//dataType: 'json',
               success:function(data){
                   	   	
               	$('.calendar1').fullCalendar('removeEventSources');
@@ -432,11 +431,10 @@
               		var event = {
               			title: '{{ $patient->Nom }}' + " " + '{{ $patient->Prenom}}' + ",("+ '{{ $patient->getAge() }}' +")",
               			start:  rdv['Date_RDV'],
-              			end   = rdv['Fin_RDV'],
+              			end   : rdv['Fin_RDV'],
               			
               		};
-
-              			$('#calendar').fullCalendar( 'renderEvent', event, true);
+              		$('#calendar').fullCalendar( 'renderEvent', event, true);
               	});
                 $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next'); 
                 $('.calendar1').fullCalendar('refetchEvents' );
