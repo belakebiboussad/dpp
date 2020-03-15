@@ -601,7 +601,7 @@ $('#typeexm').on('change', function() {
                 var tab = [];
                 for(var i=1; i<longueur; i++)
                 {
-					tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;
+					         tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;
                 }
                 var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");
                 champ.appendTo('#ordonnace_form');
@@ -733,7 +733,25 @@ $('#typeexm').on('change', function() {
                 }); 
             }   
         }
-
+        //au click sur un RDV
+        function editRdv(event)
+        {
+          var CurrentDate = (new Date()).setHours(0, 0, 0, 0);var GivenDate = (new Date(event.start)).setHours(0, 0, 0, 0);       
+          if( CurrentDate <= GivenDate )
+          {
+            $('#patient_tel').text(event.tel);
+            $('#agePatient').text(event.age);
+            $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
+            $('#lien').text(event.title);
+            $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
+            $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
+            $('#btnRdvDelete').attr('href','javascript:rdvDelete('+event.id+');');
+            var url = '{{ route("rdv.update", ":slug") }}';
+            url = url.replace(':slug',event.id);
+            $('#updateRdv').attr('action',url);
+            $('#fullCalModal').modal({  show: 'true' }); 
+          }
+        }
         </script>
         <script>
             $('#users-table').DataTable({

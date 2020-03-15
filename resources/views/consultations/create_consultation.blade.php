@@ -324,9 +324,9 @@
     	var CurrentDate = (new Date()).setHours(23, 59, 59, 0); 
     	$('.calendar1').fullCalendar({
     		header: {
-		              left: 'prev,next today',
-		              center: 'title,dayGridMonth,timeGridWeek',
-		              right: 'month,agendaWeek,agendaDay'
+		            left: 'prev,next today',
+		            center: 'title,dayGridMonth,timeGridWeek',
+		            right: 'month,agendaWeek,agendaDay'
        	},
     		defaultView: 'agendaWeek',
        	firstDay: 0,//dimanche
@@ -351,9 +351,9 @@
 		       		else
 		       			$('.calendar1').fullCalendar('unselect');
 		      },
-		        events: [
-			          @foreach($employe->rdvs as $rdv)
-			          {
+		    events: [
+			    @foreach($employe->rdvs as $rdv)
+			    {
 			                title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
 			                start : '{{ $rdv->Date_RDV }}',
 			                end:   '{{ $rdv->Fin_RDV }}',
@@ -364,49 +364,48 @@
 			          },
 			          @endforeach 
 		    	],
-		    	eventRender: function (event, element, webData) {
-			            if(event.start < CurrentDate)
-			            {
-			              element.css('background-color', '#D3D3D3'); 
-			            }
-			            else
-			            {
-			              element.css("font-size", "1em");
-			              element.css("padding", "5px");      
-			            }
+		    eventRender: function (event, element, webData) {
+		    // element.resizable = false;	// element.durationEditable  = false;
+		    	if(event.start < CurrentDate)
+			    {
+			        element.css('background-color', '#D3D3D3'); 
+			    }
+			      else
+			      {
+			        element.css("font-size", "1em");
+			        element.css("padding", "5px");      
+			      }
 		     	},
 		     	eventClick: function(calEvent, jsEvent, view) {
-                   		 @if(Auth::user()->role->id != 2)  
-                        		edit(calEvent);
-                     	 @endif     
+            @if(Auth::user()->role->id != 2)  
+            	editRdv(calEvent);
+            @endif     
        		 },
        		 dayClick: function(date, jsEvent, view) {
 				 	 },
-       		  eventAllow: function(dropLocation, draggedEvent) {
-                  		 if(draggedEvent.start < CurrentDate)
-                              	 return false;  	     
-                	},
-                	eventDrop: function(event, delta, revertFunc) { // si changement de position
-                   		  edit(event);
-                	}, 
-    	}); 
-
+       		eventAllow: function(dropLocation, draggedEvent) {
+            if(draggedEvent.start < CurrentDate)
+            	 return false;  	     
+          },
+          eventDrop: function(event, delta, revertFunc) { // si changement de position
+           	editRdv(event);
+           	//$('.calendar1').fullCalendar('refetchEvents'); 
+          },
+          eventResize: function (event, delta, revertFunc) {
+          	event.isChanged = true;
+          	alert("resiez");
+          },
+          eventDragStop: function (event, jsEvent, ui, view) {
+          	//updateRdv();
+          }, 
+    	});
+			$('#updateRDV').click(function(){
+				alert('f');
+				});
+			// }
+    	
   });
-  function edit(event)
-  {
-    var CurrentDate = (new Date()).setHours(0, 0, 0, 0);var GivenDate = (new Date(event.start)).setHours(0, 0, 0, 0);     	
-    if( CurrentDate <= GivenDate )
-    {
-    	$('#patient_tel').text(event.tel);
-      $('#agePatient').text(event.age);
-      $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
-      $('#lien').text(event.title);
-      $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
-      $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
-      $('#btnRdvDelete').attr('href','javascript:rdvDelete('+event.id+');');
-      $('#fullCalModal').modal({  show: 'true' }); 
-    }
-  }
+  
   function rdvDelete(rdvId)
   {
   	var url ="/rdv/"+rdvId;
@@ -422,28 +421,21 @@
               data: {
           		  "id": rdvId,
             		"_token": token,
-        			},//dataType: 'json',
-              success:function(data){
-                  	   	
-              	$('.calendar1').fullCalendar('removeEventSources');
-              	//$('.calendar1').fullCalendar('refetchEvents' );
-              	data.forEach(function (rdv) {
-              		var event = {
-              			title: '{{ $patient->Nom }}' + " " + '{{ $patient->Prenom}}' + ",("+ '{{ $patient->getAge() }}' +")",
-              			start:  rdv['Date_RDV'],
-              			end   : rdv['Fin_RDV'],
-              			
-              		};
-              		$('#calendar').fullCalendar( 'renderEvent', event, true);
-              	});
-                $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next'); 
-                $('.calendar1').fullCalendar('refetchEvents' );
-              
+        			},
+        			//dataType: 'json',
+              success:function(data){  	   		
+               	$('.calendar1').fullCalendar('removeEvents', data.id)              	
               },
-              error:function(data){
-              	 console.log('Error:', data);
+              error:function(jqXHR, textStatus, errorThrown){
+              	  console.log(jqXHR);
+					        console.log(textStatus);
+					        console.log(errorThrown);
               }
     });
+  }
+  function refrech()
+  {  
+    $('.calendar1').fullCalendar('refetchEvents');
   }
   function ajaxfunc(patientid)
  	{        
@@ -636,7 +628,7 @@
 			</button>
 			&nbsp; &nbsp; &nbsp;
 			<a href="{{ route('patient.show',$patient->id) }}" class="btn btn-info btn-sm">
-				<i class="ace-icon fa fa-undo bigger-110"></i>Annuler
+				<i class="ace-icon fa fa-close bigger-110"></i>Annuler
 			</a>
 			
 	</div>	{{-- center --}}

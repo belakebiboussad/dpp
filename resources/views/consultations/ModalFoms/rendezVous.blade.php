@@ -21,8 +21,13 @@
           </div>
         </div>
       </div>
-      <div class="modal-footer "> 
-          <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal" type="reset"> <i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
+      <div class="modal-footer ">
+        <button type="button" class="btn btn-info btn-xs" onclick="refrech();" >
+          <i class="ace-icon fa fa-refresh bigger-110"></i>Actualiser
+        </button>
+        <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal" type="reset">
+           <i class="ace-icon fa fa-undo bigger-110"></i>Annuler
+          </button>
       </div>
     </div>
   </div>
@@ -74,18 +79,23 @@
       <br>
       <div class="modal-footer">
       @if(Auth::user()->role->id == 1)
-      <a type="button" id="btnConsulter" class="btn btn btn-sm btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
-      <button type="button" class="btn btn-sm btn-primary" onclick="update();">
+        @if( empty($patient))
+          <a type="button" id="btnConsulter" class="btn btn btn-sm btn-primary" href="" >
+            <i class="fa fa-file-text" aria-hidden="true"></i> Consulter
+          </a>
+        @endif
         @if(Auth::user()->role->id  != 2) 
+        <!-- onclick="updateRdv();"  -->
+        <button type="button"  id ="updateRDV" class="btn btn-sm btn-primary" type ="submit">
           <i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer
-      </button>
+        </button>
         @endif
       <!-- data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?"          -->
       <a href="#"  id="btnRdvDelete" class="btn btn-bold btn-sm btn-danger" data-method="DELETE" data-dismiss="modal">
         <i class="fa fa-trash" aria-hidden="true"></i> Annuler
      </a>
      <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
-           <i class="fa fa-undo" aria-hidden="true" ></i> Fermer</button>
+           <i class="fa fa-close" aria-hidden="true" ></i> Fermer</button>
      @endif
       </div>
     </div>

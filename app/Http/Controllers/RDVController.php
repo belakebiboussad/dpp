@@ -61,84 +61,6 @@ class RDVController extends Controller
       else
         return view('rdv.index', compact('rdvs')); 
     }
-    public function indexorg()
-    {
-          $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
-          $rendezvous = [];
-           if(rol::where("id",Auth::User()->role_id)->get()->first()->role =="Receptioniste")
-                $data = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->get();
-           else
-                $data = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->where("specialite", $employe->Specialite_Emploiye)->get();
-           if($data->count())
-           {
-                      $color=0;  
-                     foreach ($data as $key => $value) {  
-                               $Age=  Carbon::parse($value->Dat_Naissance)->age;
-                                if (Carbon::today()->gt(Carbon::parse($value->Date_RDV->format('Y-m-d H:i:s')))) {
-                                           $color = '#D3D3D3';
-                                           $rendezvous[] = Calendar::event(
-                                                   $value->Nom." ".$value->Prenom,
-                                                   true,
-                                                   new \DateTime($value->Date_RDV),
-                                                   new \DateTime($value->Date_RDV.' +1 day'),
-                                                   $value->id,
-                                                   // Add color and link on event
-                                                   [
-                                                                'color' =>$color,
-                                                                'url' => '/rdv/'.$value->id,
-                                                   ]
-                                          );
-                                } else {
-                                                 $color = '#00c0ef';
-                                                 $rendezvous[] = Calendar::event(
-                                                   $value->Nom." ".$value->Prenom,
-                                                   true,
-                                                   new \DateTime($value->Date_RDV),
-                                                   new \DateTime($value->Date_RDV.' +1 day'),
-                                                   $value->id,
-                                                   // Add color and link on event
-                                                   [
-                                                             'color' =>$color,
-                                                             'idPatient' =>$value->idPatient,
-                                                              'age'=> $Age,
-                                                             'tel'=>$value->tele_mobile1,                             
-                                                   ]
-                                          );
-                                }                                            
-                     }
-           }
-           $events = array();      //  $planning = Calendar::addEvents($rendezvous);   
-           $eloquentRDV= rdv::first(); //EventModel implements MaddHatter\LaravelFullcalendar\Event
-           $planning = \Calendar::addEvents($rendezvous) //add an array with addEvents
-             ->addEvent($eloquentRDV, [ //set custom color fo this event
-                     'color' => '#800',
-                 ])->setOptions([ //set fullcalendar options
-                'firstDay' => 7,
-                'timeZone'=> 'CET',
-                'themeSystem' => 'bootstrap4',
-                'timeFormat'        => 'H:mm',
-                 'axisFormat'        => 'H:mm',
-                 'selectable' => true,
-                 'minTime' => '08:00:00',
-                 'maxTime' => '20:00:00',
-                'slotDuration' => '00:30:01',
-                 'defaultView'=> 'agendaWeek',
-             //   'eventLimit'     => 4,
-           ])->setCallbacks([ //set fullcalendar callback options (will not be JSON encoded)
-                 'viewRender' => 'function() {}',
-                 'eventClick' => 'function(event) {
-                           showModal1(event.id,event.title,event.start,event.idPatient,event.tel,event.age);
-                 }',
-                 'dayClick'=>'function(calEvent, jsEvent, view){
-                          showModal(calEvent);
-                 }',
-                'select'=>'function(startDate, endDate, jsEvent, view, resource) {
-                     go(startDate, endDate, jsEvent, view, resource);
-                }',
-         ]);
-        // dd($planning);
-        return view('rdv.index_rdv', compact('planning'));
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -215,8 +137,7 @@ class RDVController extends Controller
     { 
            // dd($id);
            $rdv = rdv::FindOrFail($id);  
-           //dd($rdv);
-           //$rdv = rdv::FindOrFail($request->id_rdv);    
+           //dd($rdv); //$rdv = rdv::FindOrFail($request->id_rdv);    
            $dateRdv = new DateTime($request->daterdv);
            $dateFinRdv = new DateTime($request->datefinrdv);
            $rdv->update([
@@ -239,10 +160,9 @@ class RDVController extends Controller
     {
       if($request->ajax())
       {
-        $rdv = rdv::findOrFail($id);
-        $rdvs = $rdv->employe->rdvs;
-        rdv::destroy($id);// return Auth::user()->employ->rdvs; // return Response::json($rdvs);
-        return ($rdvs);
+        $rdv = rdv::findOrFail($id); // return Auth::user()->employ->rdvs; // return Response::json($rdvs);
+        rdv::destroy($id); // $rdvs = $rdv->employe->rdvs;//return Response::json($rdvs);
+        return ($rdv);
       }
       else
       {

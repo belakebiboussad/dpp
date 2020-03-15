@@ -88,14 +88,14 @@ class ConsultationsController extends Controller
      }
     public function listecons()
     {
-              $consultations = []; 
-              if( null != request('q') )
-              {
-                   $patient = patient::where('Nom', 'like', '%' . request('q') . '%')
-                                              ->orwhere('Prenom', 'like', '%' . request('q') . '%')->paginate(5);
-                    $consultations = $patient->first()->Consultations;
-           }
-            return view('consultations.liste_consultations', compact('consultations'));
+      $consultations = []; 
+      if( null != request('q') )
+      {
+        $patient = patient::where('Nom', 'like', '%' . request('q') . '%')
+                          ->orwhere('Prenom', 'like', '%' . request('q') . '%')->paginate(5);
+        $consultations = $patient->first()->Consultations;
+      }
+      return view('consultations.liste_consultations', compact('consultations'));
     }
 
     public function index($id)

@@ -47,29 +47,23 @@
       }
      function edit(event)
      {
-           var CurrentDate = (new Date()).setHours(0, 0, 0, 0);
-           var GivenDate = (new Date(event.start)).setHours(0, 0, 0, 0); 
-           if( CurrentDate <= GivenDate )
-           {
-                    $('#patient_tel').text(event.tel);
-                     $('#agePatient').text(event.age);
-                     $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
-                     $('#lien').text(event.title);
-                     $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
-                     $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
-                     $('#btnConsulter').attr('href','/consultations/create/'.concat(event.idPatient));
-                     $('#btnDelete').attr('href','/rdv/'.concat(event.id));   //$('#updateRdv').attr('action','/rdv/'.concat(event.idrdv));
-                     var url = '{{ route("rdv.update", ":slug") }}';
-                     url = url.replace(':slug',event.id);
-                     $('#updateRdv').attr('action',url);
-                     $('#fullCalModal').modal({
-                          show: 'true'
-                     }); 
-           }
-     }
-     function update()
-     {
-           $('form#updateRdv').submit();
+        var CurrentDate = (new Date()).setHours(0, 0, 0, 0);
+        var GivenDate = (new Date(event.start)).setHours(0, 0, 0, 0); 
+        if( CurrentDate <= GivenDate )
+        {
+          $('#patient_tel').text(event.tel);
+          $('#agePatient').text(event.age);
+          $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
+          $('#lien').text(event.title);
+          $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
+          $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
+          $('#btnConsulter').attr('href','/consultations/create/'.concat(event.idPatient));
+          $('#btnDelete').attr('href','/rdv/'.concat(event.id));   //$('#updateRdv').attr('action','/rdv/'.concat(event.idrdv));
+          var url = '{{ route("rdv.update", ":slug") }}';
+          url = url.replace(':slug',event.id);
+          $('#updateRdv').attr('action',url);
+          $('#fullCalModal').modal({ show: 'true' }); 
+        }
      }
      function reset_in()
      {
@@ -94,6 +88,7 @@
      }
   	$(document).ready(function() {
       var CurrentDate = (new Date()).setHours(23, 59, 59, 0); //.setHours(0, 0, 0, 0); 
+      var today = (new Date()).setHours(0, 0, 0, 0); //.setHours(0, 0, 0, 0); 
       $('.calendar1').fullCalendar({
         header: {
               left: 'prev,next today',
@@ -115,6 +110,8 @@
         hiddenDays: [ 5, 6 ],
         allDaySlot: false,
         weekNumberCalculation: 'ISO',
+        aspectRatio: 1.5,
+        disableDragging: false,
         views: {},
         select: function(start, end) {
           if(start >= CurrentDate)
@@ -136,32 +133,71 @@
           @endforeach 
         ],
         eventClick: function(calEvent, jsEvent, view) {
-                    @if(Auth::user()->role->id != 2)   //updateRDVModal(calEvent.id,calEvent.title,calEvent.start,calEvent.end,calEvent.idPatient,calEvent.tel,calEvent.age);
-                        edit(calEvent);
-                      @endif     
+           if(Date.parse(calEvent.start) > today )
+           {
+              @if(Auth::user()->role->id != 2)   //updateRDVModal(calEvent.id,calEvent.title,calEvent.start,calEvent.end,calEvent.idPatient,calEvent.tel,calEvent.age);
+                edit(calEvent);
+              @endif     
+           } 
         },
         eventRender: function (event, element, webData) {
-                      if(event.start < CurrentDate)
-                      {
-                           element.css('background-color', '#D3D3D3'); 
-                      }
-                      else
-                      {
-                           element.css("font-size", "1em");
-                           element.css("padding", "5px");      
-                      }
-                },
-                eventAllow: function(dropLocation, draggedEvent) {
-                     if(draggedEvent.start < CurrentDate)
-                      {
-                           return false;
-                      }      
-                },
-                eventDrop: function(event, delta, revertFunc) { // si changement de position
-                     edit(event);
-                },       
-       	}); // calendar
-           $('#listePatient').editableSelect({
+          if(event.start < CurrentDate)
+          {
+            element.css('background-color', '#D3D3D3'); 
+            event.startEditable    = false;
+            event.durationEditable = false;
+            event.editable = false;
+            resourceEditable: false
+          }else
+          {
+            element.css("font-size", "1em");
+            element.css("padding", "5px");      
+          }
+        },
+        eventAllow: function(dropLocation, draggedEvent) {
+        
+         var day = moment(draggedEvent.dueDate);
+          var eventStart = moment(draggedEvent.start);
+          // var locationtStart = moment(dropLocation.start);
+          var day = moment(draggedEvent.dueDate);
+          if (eventStart < day) {
+              return false;
+          }
+        },
+        eventDragStart:function( event, jsEvent, ui, view ) {
+        
+           if(event.start < today )
+           {
+              event.editable = false;
+              resourceEditable: false;
+
+           }
+          
+        },
+        eventDrop: function(event, delta, revertFunc)
+        { 
+          // si changement de position
+          // var dtToday = new Date();
+          // alert("auj :" +today + " eventstart :" + event.start);
+
+
+          if( event.start < today)
+          {
+            event.editable = false;
+            resourceEditable: false;
+            
+          }
+           
+          else
+          {
+             edit(event);
+
+          }
+          
+        },       
+      }); // calendar
+      /////////////////////////////////
+      $('#listePatient').editableSelect({
                effects: 'default', 
                 editable: false, 
            }).on('select.editable-select', function (e, li) {
@@ -241,7 +277,7 @@
               </div>{{-- modalBody --}}
               <div class="modal-footer">
                 <button class="btn btn-sm btn-primary" type="submit" id ="btnSave" disabled><i class="ace-icon fa fa-save bigger-110" ></i>Enregistrer  </button>                                         
-                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"onclick="reset_in();"><i class="fa fa-undo" aria-hidden="true"  ></i>Fermer</button>
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"onclick="reset_in();"><i class="fa fa-close" aria-hidden="true"  ></i>Fermer</button>
               </div>   
             </form> 
             </div>
@@ -293,15 +329,15 @@
       <div class="modal-footer">
       @if(Auth::user()->role->id == 1)
       <a type="button" id="btnConsulter" class="btn btn btn-sm btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
-     <button type="button" class="btn btn-sm btn-primary" onclick="update();">
-                @if(Auth::user()->role->id  != 2) 
-                        <i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer</button>
-                 @endif       
+     <button type="button" class="btn btn-sm btn-primary" onclick="updateRdv();">
+        @if(Auth::user()->role->id  != 2) 
+          <i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer</button>
+        @endif       
       <a  href=""  id="btnDelete" class="btn btn-bold btn-sm btn-danger" data-method="DELETE" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal">
                 <i class="fa fa-trash" aria-hidden="true"></i> Annuler
      </a>
      <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
-           <i class="fa fa-undo" aria-hidden="true" ></i> Fermer</button>
+           <i class="fa fa-close" aria-hidden="true" ></i> Fermer</button>
      @endif
       </div>
     </div>
