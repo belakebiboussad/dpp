@@ -121,9 +121,9 @@ class RDVController extends Controller
      */
     public function edit($id)
     {
-       $rdv = rdv::FindOrFail($id);
-       $patient = patient::FindOrFail($rdv->Patient_ID_Patient);
-       return view('rdv.edit_rdv',compact('rdv','patient'));
+      $rdv = rdv::FindOrFail($id);
+      $patient = patient::FindOrFail($rdv->Patient_ID_Patient);
+      return view('rdv.edit_rdv',compact('rdv','patient'));
     }
 
     /**
@@ -135,18 +135,24 @@ class RDVController extends Controller
      */
     public function update(Request $request, $id)
     { 
-           // dd($id);
-           $rdv = rdv::FindOrFail($id);  
-           //dd($rdv); //$rdv = rdv::FindOrFail($request->id_rdv);    
-           $dateRdv = new DateTime($request->daterdv);
-           $dateFinRdv = new DateTime($request->datefinrdv);
-           $rdv->update([
+      return ('fdssdf');
+      $rdv = rdv::FindOrFail($id);  //dd($rdv); //$rdv = rdv::FindOrFail($request->id_rdv);    
+      $dateRdv = new DateTime($request->daterdv);
+      $dateFinRdv = new DateTime($request->datefinrdv);
+      $rdv->update([
                 "Date_RDV"=>$dateRdv,
                 "Fin_RDV"=>$dateFinRdv,
-       ]);
-       //return redirect()->route("rdv.show",$rdv->id);
+      ]);
+      if($request->ajax())
+        return $rdv;
+      else
+       //return redirect()->route("rdv.show",$rdv->id); 
        return redirect()->route("rdv.index");
 
+    }
+    public function up(Request $request, $id)
+    {
+      return("df");
     }
 
     /**

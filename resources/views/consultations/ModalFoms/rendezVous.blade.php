@@ -60,6 +60,7 @@
         <form id ="updateRdv" role="form" action="" method="POST"> 
         {{ csrf_field() }}
         {{ method_field('PUT') }}
+        <input type="hidden" id="idRDV">
         <div class="well">
           <div class="row">
             <label for="date"><span class="glyphicon glyphicon-time fa-lg"></span><strong> Date Rendez-Vous :</strong></label>
@@ -84,10 +85,9 @@
             <i class="fa fa-file-text" aria-hidden="true"></i> Consulter
           </a>
         @endif
-        @if(Auth::user()->role->id  != 2) 
-        <!-- onclick="updateRdv();"  -->
+        @if(Auth::user()->role->id  != 2)   <!-- onclick="updateRdv();"  -->
         <button type="button"  id ="updateRDV" class="btn btn-sm btn-primary" type ="submit">
-          <i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer
+          <i class="ace-icon fa fa-save bigger-110" ></i> Enregistrerr
         </button>
         @endif
       <!-- data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?"          -->

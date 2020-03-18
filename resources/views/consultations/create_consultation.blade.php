@@ -343,6 +343,7 @@
 	      weekNumberCalculation: 'ISO',
 	      eventLimit: true,
 	      allDaySlot: false,
+	      eventDurationEditable : false,
 	      views: {}, 
 		    select: function(start, end) {
 		       		var pid = $('#patientId').val();
@@ -377,9 +378,9 @@
 			      }
 		     	},
 		     	eventClick: function(calEvent, jsEvent, view) {
-            @if(Auth::user()->role->id != 2)  
+            // @if(Auth::user()->role->id != 2) @endif  
             	editRdv(calEvent);
-            @endif     
+                
        		 },
        		 dayClick: function(date, jsEvent, view) {
 				 	 },
@@ -388,22 +389,95 @@
             	 return false;  	     
           },
           eventDrop: function(event, delta, revertFunc) { // si changement de position
-           	editRdv(event);
-           	//$('.calendar1').fullCalendar('refetchEvents'); 
+           //	editRdv(event);
+          	var url = '{{ route("rdv.update", ":slug") }}';
+				    url = url.replace(':slug',event.id);
+				    alert(url);
+				  	var dateSelect = new Date(event.start);
+            var m = dateSelect.getMonth() + 1;
+            var y = dateSelect.getFullYear();  var d = dateSelect.getDate();
+						var h =	dateSelect.getHours()-1;			var mn = dateSelect.getMinutes();		var sc = dateSelect.getSeconds();
+            var startdate = y + "-" + m + "-" + d + " " + h + ":" + mn + ":" + sc; 
+            var dateSelect = new Date(event.end);
+						var h =	dateSelect.getHours()-1;
+						var mn = dateSelect.getMinutes();		var sc = dateSelect.getSeconds();
+            var enddate = y + "-" + m + "-" + d + " " + h + ":" + mn + ":" + sc; 
+				   
+				    
+				    $.ajax({
+              type : 'POST',
+              url : '/rdvs',
+              data: {
+          		  "id": event.id,
+          		  "daterdv" :event.start.format() ,
+          		  "datefinrdv" :event.end.format(),
+        			},
+        			success:function(data){  	   		
+                alert(data);
+              },
+              error:function(jqXHR, textStatus, errorThrown){
+             	  console.log(textStatus);		      
+              }
+    			}); 
+    			 	
+          
           },
           eventResize: function (event, delta, revertFunc) {
-          	event.isChanged = true;
-          	alert("resiez");
+     
           },
           eventDragStop: function (event, jsEvent, ui, view) {
-          	//updateRdv();
-          }, 
+          	
+				    /*
+				    $.ajax({
+              type : 'PUT',
+              url : url,
+              data: {
+          		  "id": event.id,
+          		  "daterdv" : event.start,
+          		  "datefinrdv" : event.end,
+        			},
+        			success:function(data){  	   		
+                alret("fsd");
+              },
+              error:function(jqXHR, textStatus, errorThrown){
+             	  console.log(textStatus);		      
+              }
+    			}); 
+    			*/
+    			
+    			/* 
+
+    			 */
+
+        } 
     	});
+/*
 			$('#updateRDV').click(function(){
-				alert('f');
+				 	var url = '{{ route("rdv.update", ":slug") }}'
+				  url = url.replace(':slug',$('#idRDV').val());
+				  $.ajaxSetup({
+	          headers: {
+	                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+	          }
+	        });
+	       	$.ajax({
+              type : 'PUT',
+              url : url,
+              data: {
+          		  "id": $('#idRDV').val(),
+          		   "daterdv" : $('#daterdv').val(),
+          		   'datefinrdv' :$('#datefinrdv').val(),
+        			},
+        			success:function(data){  	   		
+                 $('#fullCalModal').modal('toggle');
+              },
+              error:function(jqXHR, textStatus, errorThrown){
+              	  console.log(textStatus);
+					      
+              }
+    			});
 				});
-			// }
-    	
+			*/
   });
   
   function rdvDelete(rdvId)
@@ -424,7 +498,7 @@
         			},
         			//dataType: 'json',
               success:function(data){  	   		
-               	$('.calendar1').fullCalendar('removeEvents', data.id)              	
+               	$('.calendar1').fullCalendar('removeEvents', data.id);              	
               },
               error:function(jqXHR, textStatus, errorThrown){
               	  console.log(jqXHR);

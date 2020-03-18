@@ -112,6 +112,7 @@
         weekNumberCalculation: 'ISO',
         aspectRatio: 1.5,
         disableDragging: false,
+        eventDurationEditable : false,
         views: {},
         select: function(start, end) {
           if(start >= CurrentDate)
@@ -215,20 +216,20 @@
   </script>
 @endsection
 @section('main-content')
-    <div class="row">
-           <div class="col-md-12">
-                <div class="panel panel-default">
-                     &nbsp;&nbsp;&nbsp;&nbsp; 
-                     <div class="panel-heading" style="margin-top:-20px">
-                           <div class="left"> <strong>Liste Des Rendez-Vous</strong></div>
-                     </div>
-                     <div class="panel-body">
-                   	      <div  class="calendar1"></div>
-                     </div>
-                </div>
-           </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        &nbsp;&nbsp;&nbsp;&nbsp; 
+        <div class="panel-heading" style="margin-top:-20px">
+          <div class="left"> <strong>Liste Des Rendez-Vous</strong></div>
+        </div>
+        <div class="panel-body">
+          <div  class="calendar1"></div>
+        </div>
+      </div>
     </div>
-    <div class="row">   
+  </div>
+  <div class="row">   
       <div id="myModal" class="modal fade">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
@@ -306,7 +307,7 @@
                 </div>
               </div>
      </div>
-      <div class="modal-body">
+     <div class="modal-body">
            <form id ="updateRdv" role="form" action="" method="POST">      {{-- {{route('rdv.update',5)}} /rdv/5--}}
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
@@ -323,23 +324,25 @@
                            </div>
                       </div>             
                 </div>  {{-- well --}}
-           </form>   
+           <!-- </form>   --> 
       </div>
       <br>
       <div class="modal-footer">
-      @if(Auth::user()->role->id == 1)
-      <a type="button" id="btnConsulter" class="btn btn btn-sm btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
-     <button type="button" class="btn btn-sm btn-primary" onclick="updateRdv();">
-        @if(Auth::user()->role->id  != 2) 
-          <i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer</button>
-        @endif       
-      <a  href=""  id="btnDelete" class="btn btn-bold btn-sm btn-danger" data-method="DELETE" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal">
-                <i class="fa fa-trash" aria-hidden="true"></i> Annuler
-     </a>
-     <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
-           <i class="fa fa-close" aria-hidden="true" ></i> Fermer</button>
-     @endif
+        @if(Auth::user()->role->id == 1)
+        <a type="button" id="btnConsulter" class="btn btn btn-sm btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
+        <!-- -->
+        <!-- @if(Auth::user()->role->id  != 2) @endif --><!-- onclick="updateRdv();" -->
+        <button type="submit" class="btn btn-sm btn-primary">
+          <i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer
+        </button>          
+        <a  href=""  id="btnDelete" class="btn btn-bold btn-sm btn-danger" data-method="DELETE" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal">
+          <i class="fa fa-trash" aria-hidden="true"></i> Annuler
+        </a>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
+             <i class="fa fa-close" aria-hidden="true" ></i> Fermer</button>
+        @endif
       </div>
+      </form>  
     </div>
   </div>
 </div>{{-- modal --}}
