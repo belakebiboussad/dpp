@@ -135,7 +135,6 @@ class RDVController extends Controller
      */
     public function update(Request $request, $id)
     { 
-      return ('fdssdf');
       $rdv = rdv::FindOrFail($id);  //dd($rdv); //$rdv = rdv::FindOrFail($request->id_rdv);    
       $dateRdv = new DateTime($request->daterdv);
       $dateFinRdv = new DateTime($request->datefinrdv);
@@ -146,13 +145,7 @@ class RDVController extends Controller
       if($request->ajax())
         return $rdv;
       else
-       //return redirect()->route("rdv.show",$rdv->id); 
-       return redirect()->route("rdv.index");
-
-    }
-    public function up(Request $request, $id)
-    {
-      return("df");
+       return redirect()->route("rdv.index");//return redirect()->route("rdv.show",$rdv->id);
     }
 
     /**
@@ -177,12 +170,35 @@ class RDVController extends Controller
       } 
     }
     public function orderPdf($id)
-     {
+    {
         $order = rdv::findOrFail($id);
-        $pdf = PDF::loadView('ordre_pdf', compact('order'))->setPaper('a5', 'landscape');;
+        $pdf = PDF::loadView('ordre_pdf', compact('order'))->setPaper('a5', 'landscape');
         $name = "RDV-pour:".patient::where("id",$order->Patient_ID_Patient)->get()->first()->Nom."".patient::where("id",$order->Patient_ID_Patient)->get()->first()->Prenom.".pdf";
         return $pdf->download($name);
-     }
+    }
+    public function print($id)
+    {
+      $rdv = rdv::findOrFail($id);
+      $filename = 'logo-40_x_40.png';
+      $path =  public_path();
+      $path = $path.'\\img\\' . $filename;
+      $type = pathinfo($path, PATHINFO_EXTENSION);
+      $data = file_get_contents($path);
+      $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+     
+      /*
+      $view = view("consultations.rdv_pdf",compact('rdv'))->render();
+      return response()->json(['html'=>$view]);
+      */
+      /*
+      $pdf = PDF::loadView('consultations.rdv-pdf', compact('rdv'))->setPaper('a5', 'landscape');
+      $name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";
+      return $pdf->download($name);
+      */
+      PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);         
+      $pdf = PDF::loadView('consultations.rdv-pdf', compact('rdv','base64'))->setPaper('a5', 'landscape');            
+      return $pdf->stream('pdfview.pdf');
+    }
     public function getRDV()
     {
         $rdvs = rdv::select(['id','Date_RDV','Temp_rdv','Patient_ID_Patient','Employe_ID_Employe','Etat_RDV']);

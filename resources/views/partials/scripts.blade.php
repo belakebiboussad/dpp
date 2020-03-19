@@ -746,6 +746,7 @@ $('#typeexm').on('change', function() {
             $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
             $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
             $('#btnRdvDelete').attr('href','javascript:rdvDelete('+event.id+');');
+            $('#printRdv').attr('href','javascript:rdvPrint('+event.id+');');
             var url = '{{ route("rdv.update", ":slug") }}';
             url = url.replace(':slug',event.id); // $('#updateRdv').attr('action',url);
             $('#idRDV').val(event.id);

@@ -366,92 +366,68 @@
 			          @endforeach 
 		    	],
 		    eventRender: function (event, element, webData) {
-		    // element.resizable = false;	// element.durationEditable  = false;
-		    	if(event.start < CurrentDate)
+		    	if(event.start < CurrentDate) // element.resizable = false;	// element.durationEditable  = false;
+			       element.css('background-color', '#D3D3D3'); 
+			    else
 			    {
-			        element.css('background-color', '#D3D3D3'); 
+			      element.css("font-size", "1em");
+			      element.css("padding", "5px");      
 			    }
-			      else
-			      {
-			        element.css("font-size", "1em");
-			        element.css("padding", "5px");      
-			      }
-		     	},
-		     	eventClick: function(calEvent, jsEvent, view) {
-            // @if(Auth::user()->role->id != 2) @endif  
-            	editRdv(calEvent);
-                
-       		 },
-       		 dayClick: function(date, jsEvent, view) {
-				 	 },
-       		eventAllow: function(dropLocation, draggedEvent) {
-            if(draggedEvent.start < CurrentDate)
+		    },
+		    eventClick: function(calEvent, jsEvent, view) {
+          editRdv(calEvent);// @if(Auth::user()->role->id != 2) @endif         
+       	},
+       	dayClick: function(date, jsEvent, view) {
+       	},
+       	eventAllow: function(dropLocation, draggedEvent) {
+          if(draggedEvent.start < CurrentDate)
             	 return false;  	     
           },
-          eventDrop: function(event, delta, revertFunc) { // si changement de position
-           //	editRdv(event);
-          	var url = '{{ route("rdv.update", ":slug") }}';
-				    url = url.replace(':slug',event.id);
-				    alert(url);
-				  	var dateSelect = new Date(event.start);
-            var m = dateSelect.getMonth() + 1;
-            var y = dateSelect.getFullYear();  var d = dateSelect.getDate();
-						var h =	dateSelect.getHours()-1;			var mn = dateSelect.getMinutes();		var sc = dateSelect.getSeconds();
-            var startdate = y + "-" + m + "-" + d + " " + h + ":" + mn + ":" + sc; 
-            var dateSelect = new Date(event.end);
-						var h =	dateSelect.getHours()-1;
-						var mn = dateSelect.getMinutes();		var sc = dateSelect.getSeconds();
-            var enddate = y + "-" + m + "-" + d + " " + h + ":" + mn + ":" + sc; 
-				   
-				    
-				    $.ajax({
-              type : 'POST',
-              url : '/rdvs',
-              data: {
-          		  "id": event.id,
-          		  "daterdv" :event.start.format() ,
-          		  "datefinrdv" :event.end.format(),
-        			},
-        			success:function(data){  	   		
-                alert(data);
-              },
-              error:function(jqXHR, textStatus, errorThrown){
-             	  console.log(textStatus);		      
-              }
-    			}); 
-    			 	
-          
+        eventDrop: function(event, delta, revertFunc) { // si changement de position
+	           /*
+	           //	editRdv(event);
+	          	var url = '{{ route("rdv.update", ":slug") }}';
+					    url = url.replace(':slug',event.id);
+					    alert(url);
+					  	var dateSelect = new Date(event.start);
+	            var m = dateSelect.getMonth() + 1;
+	            var y = dateSelect.getFullYear();  var d = dateSelect.getDate();
+							var h =	dateSelect.getHours()-1;			var mn = dateSelect.getMinutes();		var sc = dateSelect.getSeconds();
+	            var startdate = y + "-" + m + "-" + d + " " + h + ":" + mn + ":" + sc; 
+	            var dateSelect = new Date(event.end);
+							var h =	dateSelect.getHours()-1;
+							var mn = dateSelect.getMinutes();		var sc = dateSelect.getSeconds();
+	            var enddate = y + "-" + m + "-" + d + " " + h + ":" + mn + ":" + sc; 				    
+					    $.ajax({
+	              type : 'POST',
+	              url : '/rdvs',
+	              data: {
+	          		  "id": event.id,
+	          		  "daterdv" :event.start.format() ,
+	          		  "datefinrdv" :event.end.format(),
+	        			},
+	        			success:function(data){  	   		
+	                alert(data);
+	              },
+	              error:function(jqXHR, textStatus, errorThrown){
+	             	  console.log(textStatus);		      
+	              }
+	    			}); 
+          	*/
+          	$('#updateRDV').removeClass('invisible');
+          	editRdv(event);
           },
           eventResize: function (event, delta, revertFunc) {
      
           },
           eventDragStop: function (event, jsEvent, ui, view) {
-          	
-				    /*
-				    $.ajax({
-              type : 'PUT',
-              url : url,
-              data: {
-          		  "id": event.id,
-          		  "daterdv" : event.start,
-          		  "datefinrdv" : event.end,
-        			},
-        			success:function(data){  	   		
-                alret("fsd");
-              },
-              error:function(jqXHR, textStatus, errorThrown){
-             	  console.log(textStatus);		      
-              }
-    			}); 
+          /* $.ajax({     type : 'PUT', url : url, data: {"id": event.id,	  "daterdv" : event.start,"datefinrdv" : event.end,
+        			},success:function(data){  alret("fsd");      },    error:function(jqXHR, textStatus, errorThrown){
+             	  console.log(textStatus);  }		}); 
     			*/
-    			
-    			/* 
-
-    			 */
-
         } 
     	});
-/*
+
 			$('#updateRDV').click(function(){
 				 	var url = '{{ route("rdv.update", ":slug") }}'
 				  url = url.replace(':slug',$('#idRDV').val());
@@ -470,16 +446,33 @@
         			},
         			success:function(data){  	   		
                  $('#fullCalModal').modal('toggle');
+                 $('#updateRDV').addClass('invisible');
               },
               error:function(jqXHR, textStatus, errorThrown){
               	  console.log(textStatus);
 					      
               }
     			});
+			});
+			$('#printRdv').click(function(){
+				$.ajaxSetup({
+	    		headers: {
+	        		'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+	    	  }
+	  		});
+				$.ajax({
+				  type : 'GET',
+				  url :'/rdv/print/'+$('#idRDV').val(),
+				  success:function(data){
+				  	// alert(data);
+				  },
+				  error:function(data){
+				 		alert("error");
+				  }
 				});
-			*/
+			})
+			
   });
-  
   function rdvDelete(rdvId)
   {
   	var url ="/rdv/"+rdvId;
@@ -501,12 +494,11 @@
                	$('.calendar1').fullCalendar('removeEvents', data.id);              	
               },
               error:function(jqXHR, textStatus, errorThrown){
-              	  console.log(jqXHR);
-					        console.log(textStatus);
-					        console.log(errorThrown);
+              	console.log(errorThrown);
               }
     });
   }
+
   function refrech()
   {  
     $('.calendar1').fullCalendar('refetchEvents');
@@ -587,7 +579,7 @@
 	function createordXhr(patId,employeId)
 	{
 		var keys=[], meds=[];
-	  	$("#ordonnance thead tr th").each(function(){
+	 	$("#ordonnance thead tr th").each(function(){
 		  	if(($(this).html() == "id") || ($(this).html() == "Posologie"))
 		  	{
 		  	  keys.push($(this).html());
@@ -616,13 +608,13 @@
 	  	});
 		$.ajax({
 			beforeSend: function (xhr) {
-        		var token = $('meta[name="_token"]').attr('content');
-        		if (token) {
-          				return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-        		}
-   	   	},
-		type: "POST",
-		url: "/ordonnaces/ordPrint",
+      	var token = $('meta[name="_token"]').attr('content');
+      		if (token) {
+      			return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+       		}
+   	  },
+			type: "POST",
+			url: "/ordonnaces/ordPrint",
 			data:formData,//contentType: "application/j-son;charset=UTF-8",
 		  	dataType: "json",
 		  	success: function (data,status, xhr) {	  	

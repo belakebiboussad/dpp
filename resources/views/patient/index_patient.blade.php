@@ -96,7 +96,10 @@ function getPatientdetail(id)
 			url : '/patientdetail/'+id,
 		      type : 'GET',
 		      success:function(data,status, xhr){
-		        $('#patientDetail').html(data.html);
+		      	$('#patientDetail').html(data.html);
+          },
+          error:function(data){
+          	alert("error");
           }	
 	});
 }

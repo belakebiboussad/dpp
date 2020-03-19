@@ -140,9 +140,7 @@ Route::post('/createRDV','RDVController@AddRDV');
 Route::get('/rdv/valider/{id}','RDVController@valider');
 Route::get('/rdv/reporter/{id}','RDVController@reporter');
 Route::post('/rdv/reporte/{id}','RDVController@storereporte');
-Route::post('/rdvs',function(){
-    return("ef");
-});
+Route::get('rdv/print/{id}','rdvController@print');
 //rdvhospitalisation
 Route::resource('rdvHospi','RdvHospiController');
 Route::get('rdvHospi/create/{parameter}',
