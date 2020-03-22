@@ -46,15 +46,26 @@
   width:97%;
   height:90% !important;
   overflow-y: initial !important
+  
+
 }
 .contmodal {
   /*height:800px; */
   height:101%; 
 
 }
-.bodyodal{
-  /*max-height: calc(100vh - 100px);*/
-  /*width:100%;*/
+.bodyodal{/*max-height: calc(100vh - 100px);*//*width:100%;*/
   height: 100%;
   overflow-y: auto;
+}
+
+/*.modlg{
+  position:relative;
+  z-index:1000;
+}*/
+.modal-backdrop{
+  z-index:0;
+}
+#RDV {
+ z-index: 1040 !important;
 }

@@ -346,12 +346,14 @@
 	      eventDurationEditable : false,
 	      views: {}, 
 		    select: function(start, end) {
-		       		var pid = $('#patientId').val();
-		       		if(start > CurrentDate)
-		       			createRDVModal(start,end,pid);
-		       		else
-		       			$('.calendar1').fullCalendar('unselect');
-		      },
+		    	/////////////
+		      if(start > CurrentDate){
+		     		ConfirmDialog('Vous confimé le Rendez-Vous',start,end,$('#patientId').val());
+		      	//createRDVModal(start,end, $('#patientId').val());
+		      }
+		      else
+		      $('.calendar1').fullCalendar('unselect');
+		    },
 		    events: [
 			    @foreach($employe->rdvs as $rdv)
 			    {
@@ -384,25 +386,13 @@
             	 return false;  	     
           },
         eventDrop: function(event, delta, revertFunc) { // si changement de position
-	           /*
-	           //	editRdv(event);
-	          	var url = '{{ route("rdv.update", ":slug") }}';
-					    url = url.replace(':slug',event.id);
-					    alert(url);
-					  	var dateSelect = new Date(event.start);
-	            var m = dateSelect.getMonth() + 1;
-	            var y = dateSelect.getFullYear();  var d = dateSelect.getDate();
-							var h =	dateSelect.getHours()-1;			var mn = dateSelect.getMinutes();		var sc = dateSelect.getSeconds();
-	            var startdate = y + "-" + m + "-" + d + " " + h + ":" + mn + ":" + sc; 
-	            var dateSelect = new Date(event.end);
-							var h =	dateSelect.getHours()-1;
-							var mn = dateSelect.getMinutes();		var sc = dateSelect.getSeconds();
-	            var enddate = y + "-" + m + "-" + d + " " + h + ":" + mn + ":" + sc; 				    
-					    $.ajax({
-	              type : 'POST',
-	              url : '/rdvs',
-	              data: {
-	          		  "id": event.id,
+/*//	editRdv(event);var url = '{{ route("rdv.update", ":slug") }}';url = url.replace(':slug',event.id);alert(url);
+var dateSelect = new Date(event.start);var m = dateSelect.getMonth() + 1;var y = dateSelect.getFullYear();  var d = dateSelect.getDate();
+var h =	dateSelect.getHours()-1;var mn = dateSelect.getMinutes();		var sc = dateSelect.getSeconds();
+var startdate = y + "-" + m + "-" + d + " " + h + ":" + mn + ":" + sc;var dateSelect = new Date(event.end);
+var h =	dateSelect.getHours()-1;var mn = dateSelect.getMinutes();		var sc = dateSelect.getSeconds();
+var enddate = y + "-" + m + "-" + d + " " + h + ":" + mn + ":" + sc;$.ajax({type : 'POST', url : '/rdvs',
+	              data: {"id": event.id,
 	          		  "daterdv" :event.start.format() ,
 	          		  "datefinrdv" :event.end.format(),
 	        			},
@@ -467,7 +457,7 @@
 				  	// alert(data);
 				  },
 				  error:function(data){
-				 		alert("error");
+				 		console.log("error");
 				  }
 				});
 			})

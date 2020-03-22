@@ -1,4 +1,5 @@
-<div class="modal fade" id="RDV" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!--  tabindex="-1"  -->
+<div class="modal fade" id="RDV" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
   <div class="modal-dialog  modaldialog modal-lg" >
     <div class="modal-content">
       <div class="modal-header">
@@ -14,7 +15,7 @@
                 <div class="left"><!-- <strong>Liste Des Rendez-Vous</strong> --></div>
               </div>
               <div class="panel-body">
-                <div  class="calendar1"></div>
+                <div class="calendar1"></div>
               </div>
               
             </div>
@@ -58,27 +59,27 @@
       <div class="space-12"></div>
       <div class="row">   
         <form id ="updateRdv" role="form" action="" method="POST"> 
-        {{ csrf_field() }}
-        {{ method_field('PUT') }}
-        <input type="hidden" id="idRDV">
-        <div class="well">
-          <div class="row">
-            <label for="date"><span class="glyphicon glyphicon-time fa-lg"></span><strong> Date Rendez-Vous :</strong></label>
-            <div class="input-group">
-              <input class="form-control" id="daterdv" name="daterdv" type="text" data-date-format="yyyy-mm-dd HH:mm:ss" readonly/>
+          {{ csrf_field() }}
+          {{ method_field('PUT') }}
+          <input type="hidden" id="idRDV">
+          <div class="well">
+            <div class="row">
+              <label for="date"><span class="glyphicon glyphicon-time fa-lg"></span><strong> Date Rendez-Vous :</strong></label>
+              <div class="input-group">
+                <input class="form-control" id="daterdv" name="daterdv" type="text" data-date-format="yyyy-mm-dd HH:mm:ss" readonly/>
+              </div>
             </div>
-          </div>
-          <div class="row" class= "invisible">
-            <div class="input-group">
-              <input class="form-control" id="datefinrdv" name ="datefinrdv" type="text" data-date-format="yyyy-mm-dd HH:mm:ss" style="display:none"/>
-            </div>
-          </div>             
-        </div>  {{-- well --}}
+            <div class="row" class= "invisible">
+              <div class="input-group">
+                <input class="form-control" id="datefinrdv" name ="datefinrdv" type="text" data-date-format="yyyy-mm-dd HH:mm:ss" style="display:none"/>
+              </div>
+            </div>             
+          </div>  {{-- well --}}
         </form> 
       </div>  
-      </div>
-      <br>
-      <div class="modal-footer">
+    </div>
+    <br>
+    <div class="modal-footer">
       @if(Auth::user()->role->id == 1)
         @if( empty($patient))
           <a type="button" id="btnConsulter" class="btn btn btn-sm btn-primary" href="" >
@@ -90,15 +91,16 @@
           <i class="ace-icon fa fa-save bigger-110" ></i> Enregistrerr
         </button>
         @endif
-      <!-- data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?"          -->
-      <a href="#"  id="btnRdvDelete" class="btn btn-bold btn-sm btn-danger" data-method="DELETE" data-dismiss="modal">
-        <i class="fa fa-trash" aria-hidden="true"></i> Annuler
-     </a>
-     <a  href ="#" id="printRdv" class="btn btn-success btn-xs"  data-dismiss="modal">
+      <a  href ="#" id="printRdv" class="btn btn-success btn-xs"  data-dismiss="modal">
         <i class="ace-icon fa fa-print"></i>Imprimer
       </a>
-     <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" onclick="$('#updateRDV').addClass('invisible');">
-           <i class="fa fa-close" aria-hidden="true" ></i> Fermer</button>
+      <!--           -->
+      <a href="#"  id="btnRdvDelete" class="btn btn-bold btn-sm btn-danger" data-method="DELETE" data-dismiss="modal" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?">
+        <i class="fa fa-trash" aria-hidden="true"></i> Annuler
+      </a>
+      <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" onclick="$('#updateRDV').addClass('invisible');">
+           <i class="fa fa-close" aria-hidden="true" ></i> Fermer
+      </button>
      @endif
       </div>
     </div>

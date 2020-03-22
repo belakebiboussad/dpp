@@ -18,11 +18,9 @@
 <script src="{{asset('/js/jquery.easypiechart.min.js')}}"></script>
 <script src="{{ asset('/js/jquery.gritter.min.js') }}"></script>
 <script src="{{ asset('/js/spin.js') }}"></script>
-<script src="{{ asset('/js/moment.min.js') }}"></script>
- <!-- ace scripts -->
+<script src="{{ asset('/js/moment.min.js') }}"></script> <!-- ace scripts -->
 <script src="{{asset('/js/ace-elements.min.js')}}"></script>
-<script src="{{asset('/js/ace.min.js')}}"></script>
-<!-- ace scripts -->
+<script src="{{asset('/js/ace.min.js')}}"></script><!-- ace scripts -->
 <script src="{{ asset('/js/larails.js') }}"></script>
 <script src="{{ asset('/js/datatables.js') }}"></script>
 <script src="{{ asset('/js/wizard.min.js') }}"></script>
@@ -50,7 +48,7 @@
 <script src="{{ asset('/plugins/fullcalendar/locale/fr.js') }}"></script>
 <script src="{{ asset('/js/jquery-editable-select.js') }}"></script>
 <script src="{{asset('/js/jquery-ui.js')}}"></script>
- <script type="text/javascript">
+<script type="text/javascript">
     $(document).ready(function(){
         // $(".select2").select2({ //     dir: "fr"// });
           $('#avis').change(function(){
@@ -428,14 +426,14 @@ $('#typeexm').on('change', function() {
             {
              $("#exmclnform").submit();
             });
-    </script>
-    <script>
+</script>
+<script>
             $('#flash-overlay-modal').modal();
             $(document).ready(function(){
              //$(".tooltip-link").tooltip();//ajouter info bull
             }); 
 </script>
-        <script type="text/javascript">
+<script type="text/javascript">
            function medicm(med)
            {
                     $.ajax({
@@ -513,10 +511,10 @@ $('#typeexm').on('change', function() {
            function efface_formulaire() {
                      $('form').find("textarea, :text, select").val("").end().find(":checked").prop("checked", false);
             }
-        </script>
-        <script>        
-        function lettreoriet(nommedt,prenommedt,servmedt,telmedt,nompatient,prenompatient,agepatient)
-        {
+</script>
+<script>        
+    function lettreoriet(nommedt,prenommedt,servmedt,telmedt,nompatient,prenompatient,agepatient)
+    {
            var specialite = $( "#specialite option:selected" ).text().trim();
            var medecin =  $("#medecin option:selected").text().trim();
            $('#lettreorientation').show();
@@ -542,8 +540,8 @@ $('#typeexm').on('change', function() {
             lettre.text(200,180,'signature',null,null,'right');
             var string = lettre.output('datauristring');
             $('#lettreorientation').attr('src', string);
-        }
-        var createPDF = function(imgData,nompatient,dateNaiss,ipp,age,sexe,nommedcin) {
+    }
+    var createPDF = function(imgData,nompatient,dateNaiss,ipp,age,sexe,nommedcin) {
             moment.locale('fr');var formattedDate = moment(new Date()).format("l");
             var doc = new jsPDF('p', 'pt', 'a5');//var pdf_name = 'Ordonnance-'+nompatient+'.pdf'; doc.setFontSize(12);
             doc.setFontSize(14);
@@ -753,6 +751,38 @@ $('#typeexm').on('change', function() {
             $('#fullCalModal').modal({  show: 'true' }); 
           }
         }
+        function ConfirmDialog(message,start,end,pid) {
+          var dateSelect = new Date(start);var m = dateSelect.getMonth() + 1;var y = dateSelect.getFullYear();  var d = dateSelect.getDate();
+          $('<div></div>').html('<br><div><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><h4>' + message + '?</h4></div><br><div><h5><strong>'+ y + "-" + m + "-" + d + " " +'</strong></h5></div>')
+            .dialog({
+              modal: true,
+              title: 'Confimer Rendez-Vous',
+              zIndex: 1060,
+              dialogClass: "modlg",
+              autoOpen: true,
+              overlay: "background-color: red; opacity: 0.5",
+              height: 200,
+              width: 450,// resizable: false,
+              show: { effect: "drop", direction: "up", easing: "easeInQuad", duration: 300 },
+              hide: { effect: "drop", direction: "up", easing: "easeOutQuad", duration: 300 },
+              position: { my: "center center", at: "center center" },
+              buttons: {
+                  Oui: function() {
+                    createRDVModal(start,end,pid);
+                    $(this).dialog("close");
+                  },
+                  Non: function() {
+                    $(this).dialog("close");
+                  }
+                },
+                focus: function() {
+                  $(".ui-button").first().focus();
+                },
+                close: function(event, ui) {
+                  $(this).remove();
+                }
+            });
+        }
         </script>
         <script>
             $('#users-table').DataTable({
@@ -772,7 +802,7 @@ $('#typeexm').on('change', function() {
                 ]
             });
         </script>
-           <script>
+        <script>
             $('#patient-table-atcd').DataTable({
                 processing: true,
                 serverSide: true,
@@ -1099,9 +1129,9 @@ $('#typeexm').on('change', function() {
                      }
             });
             
-            function isEmpty(value) {
-              return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
-            }
-            </script>
+  function isEmpty(value) {
+    return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
+  }
+</script>
             
 
