@@ -683,7 +683,7 @@ $('#typeexm').on('change', function() {
                             $(this).attr('checked', false);
                         });
         }
-        function createRDVModal(debut,fin,pid = 0)
+        function createRDVModal(debut, fin, pid = 0, fixe)
         {   
             var debut = moment(debut).format('YYYY-MM-DD HH:mm'); //debut = moment.tz(debut, "America/Los_Angeles").format('YYYY-MM-DD HH:mm');  
             var fin = moment(fin).format('YYYY-MM-DD HH:mm');     //fin = moment.tz(fin, "Europe/London").format('YYYY-MM-DD HH:mm');
@@ -694,6 +694,7 @@ $('#typeexm').on('change', function() {
                 id_patient:pid,
                 Debut_RDV:debut,
                 Fin_RDV:fin,
+                fixe:fixe
               };
               $.ajaxSetup({
                 headers: {
@@ -724,8 +725,11 @@ $('#typeexm').on('change', function() {
                 }
               });
                
-            }else{   
-                $('#date_RDV').val(debut); $('#date_Fin').val(fin); $('#Temp_rdv').val(heur);
+            }else{ 
+            //     $('#date_RDV').val(debut); $('#date_Fin').val(fin);
+                $('#date_RDV').val("ds");
+                document.getElementById('date_RDV').value = "dsfdsf";    
+                $('#Temp_rdv').val(heur);
                 $('#myModal').modal({
                       show: 'true'
                 }); 
@@ -753,16 +757,21 @@ $('#typeexm').on('change', function() {
         }
         function ConfirmDialog(message,start,end,pid) {
           var dateSelect = new Date(start);var m = dateSelect.getMonth() + 1;var y = dateSelect.getFullYear();  var d = dateSelect.getDate();
-          $('<div></div>').html('<br><div><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><h4>' + message + '?</h4></div><br><div><h5><strong>'+ y + "-" + m + "-" + d + " " +'</strong></h5></div>')
+          $('<div></div>').html('<div><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><h4>' +
+              message + '</h4></div><div><h4><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+              y + "-" + m + "-" + d + " " +'</strong></h4></div>')
             .dialog({
               modal: true,
               title: 'Confimer Rendez-Vous',
               zIndex: 1060,
               dialogClass: "modlg",
               autoOpen: true,
-              overlay: "background-color: red; opacity: 0.5",
-              height: 200,
-              width: 450,// resizable: false,
+              resizable: true,
+              overlay: "background-color: red; opacity: 0.5", // height: 150, // width: 400,
+              closeOnEscape: false,
+              closeText: "Fermer",
+              fluid: true,
+              // css:'css/messageBox.css',
               show: { effect: "drop", direction: "up", easing: "easeInQuad", duration: 300 },
               hide: { effect: "drop", direction: "up", easing: "easeOutQuad", duration: 300 },
               position: { my: "center center", at: "center center" },
@@ -774,13 +783,26 @@ $('#typeexm').on('change', function() {
                   Non: function() {
                     $(this).dialog("close");
                   }
-                },
-                focus: function() {
+              },
+              focus: function() {
                   $(".ui-button").first().focus();
-                },
-                close: function(event, ui) {
+              },
+              close: function(event, ui) {
                   $(this).remove();
+              },
+              _allowInteraction: function( event ) {
+                if (!jQuery.ui.dialog.prototype._allowInteractionModifed) {
+                     jQuery.ui.dialog.prototype._allowInteraction = function(e) {
+                  if (typeof e !== "undefined") {
+                        if (jQuery(e.target).closest('.select2-drop').length) {
+                            return true;
+                        }
+                        jQuery.ui.dialog.prototype._allowInteractionModifed = true;
+                        return (typeof this._super === "function") ? this._super(e) : this;
+                     }
+                  }
                 }
+              }
             });
         }
         </script>

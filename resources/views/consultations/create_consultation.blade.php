@@ -348,8 +348,52 @@
 		    select: function(start, end) {
 		    	/////////////
 		      if(start > CurrentDate){
-		     		ConfirmDialog('Vous confimé le Rendez-Vous',start,end,$('#patientId').val());
-		      	//createRDVModal(start,end, $('#patientId').val());
+		      	 $( "#dialog" ).dialog({
+		      	 	dialogClass: "no-close",
+		      	 	closeText: "Fermer",	// title: 'Confimer Rendez-Vous',
+		      	 	closeOnEscape: false,
+		      	 	dialogClass: "alert",
+		      	 	draggable: true,
+		      	 	modal:true,
+		      	 	resizable: true,
+		      	 	classes: {
+						    "ui-dialog": "classes.ui-dialog"
+						  },
+  						buttons: [
+    						{
+						      text: "Oui",
+						      icon: "ui-icon-heart",
+						      click: function() {
+						        var fixe = $('#dialog :checkbox').is(':checked') ? 1 :0; 
+										createRDVModal(start,end,$('#patientId').val(),fixe);
+						        $( this ).dialog( "close" );
+						      }
+
+	    					},
+	    					{
+						      text: "Non",
+						      icon: "ui-icon-heart",
+						      click: function() {
+						        $( this ).dialog( "close" );
+						      }
+	    					}
+						  ],
+				      _allowInteraction: function( event ) {
+                if (!jQuery.ui.dialog.prototype._allowInteractionModifed) {
+                     jQuery.ui.dialog.prototype._allowInteraction = function(e) {
+                  if (typeof e !== "undefined") {
+                        if (jQuery(e.target).closest('.select2-drop').length) {
+                            return true;
+                        }
+                        jQuery.ui.dialog.prototype._allowInteractionModifed = true;
+                        return (typeof this._super === "function") ? this._super(e) : this;
+                     }
+                  }
+                }
+              }
+
+		      	 });
+		        //ConfirmDialog('Vous confimé le Rendez-Vous?',start,end,$('#patientId').val());//createRDVModal(start,end, $('#patientId').val());
 		      }
 		      else
 		      $('.calendar1').fullCalendar('unselect');

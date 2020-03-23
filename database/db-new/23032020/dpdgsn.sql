@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 09 mars 2020 à 15:23
+-- Généré le :  lun. 23 mars 2020 à 13:14
 -- Version du serveur :  5.7.23
 -- Version de PHP :  7.2.10
 
@@ -11168,7 +11168,7 @@ CREATE TABLE IF NOT EXISTS `patients` (
 INSERT INTO `patients` (`id`, `code_barre`, `Nom`, `Prenom`, `nom_jeune_fille`, `Dat_Naissance`, `Lieu_Naissance`, `Sexe`, `situation_familiale`, `Adresse`, `commune_res`, `wilaya_res`, `tele_mobile1`, `tele_mobile2`, `Profession`, `NSS`, `group_sang`, `rhesus`, `Assurs_ID_Assure`, `Type`, `Type_p`, `description`, `active`, `Date_creation`, `created_at`, `updated_at`) VALUES
 (22, 'M2018/1', 'patient2', 'patient2', '', '2015-06-30', 17, 'M', 'celibataire', 'blida', 5, 1, '0554555441', '0664565656', NULL, NULL, 'A', '+', 139, 'Assure', NULL, '', 1, '2019-12-23', NULL, '0000-00-00 00:00:00'),
 (26, 'M2018/23', 'malade5', 'malade5', '', '2017-12-03', 78, 'F', 'celibataire', 'cite 20 out bat 54 appt 02', 47, 2, '0725369514', '0568951432', 'etudiant', '760231579248', 'B', '+', NULL, 'Autre', NULL, 'bonjour', 1, '2019-12-15', NULL, '0000-00-00 00:00:00'),
-(30, 'M2018/28', 'patient1', 'patient2', '', '2015-09-06', 13, 'M', 'celibataire', 'cite 5 juillet', 570, 19, '0566115555', '0656646464', 'macon', NULL, 'A', '-', 137, 'Ayant_droit', 'Descendant', '', 1, '2019-12-11', NULL, '0000-00-00 00:00:00'),
+(30, 'M2018/28', 'patient1', 'patient2', '', '2015-09-06', 13, 'M', 'celibataire', 'cite 5 juillet', 570, 19, '0566115555', '0656646464', 'macon', NULL, 'A', '-', 14, 'Ayant_droit', 'Descendant', '', 1, '2019-12-11', NULL, '0000-00-00 00:00:00'),
 (31, 'F2018/31', 'malade', 'ma2', '', '2014-05-19', 31, 'M', 'celibataire', 'alger', 34, 2, '0558596231', '0569891554', NULL, NULL, 'A', '+', NULL, 'Autre', NULL, 'ss', 1, '2019-12-11', NULL, '0000-00-00 00:00:00'),
 (37, 'M2018/36', 'Assurer', 'Assurer', '', '2018-03-07', 897, 'M', 'celibataire', 'alger', 1556, 49, '0555555555', '0666666666', NULL, NULL, 'A', '+', 136, 'Ayant_droit', 'Descendant', '', 1, '2019-12-11', NULL, '0000-00-00 00:00:00'),
 (46, 'M2018/38', 'malade2', 'patient12', '', '2018-05-17', 235, 'M', 'celibataire', NULL, 1556, 49, '0556128584', '', NULL, NULL, NULL, NULL, 138, 'Ayant_droit', 'Ascendant', '', 1, '2019-12-11', NULL, '0000-00-00 00:00:00'),
@@ -11256,6 +11256,7 @@ CREATE TABLE IF NOT EXISTS `rdvs` (
   `Date_RDV` datetime DEFAULT NULL,
   `Fin_RDV` datetime DEFAULT NULL,
   `Temp_rdv` time DEFAULT '10:00:00',
+  `fixe` tinyint(1) NOT NULL DEFAULT '1',
   `specialite` int(11) DEFAULT NULL,
   `Patient_ID_Patient` int(11) NOT NULL,
   `Employe_ID_Employe` int(11) NOT NULL,
@@ -11263,27 +11264,33 @@ CREATE TABLE IF NOT EXISTS `rdvs` (
   PRIMARY KEY (`id`,`Patient_ID_Patient`,`Employe_ID_Employe`),
   KEY `fk_RDV_Patient1_idx` (`Patient_ID_Patient`),
   KEY `fk_RDV_Employe1_idx` (`Employe_ID_Employe`)
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=470 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `rdvs`
 --
 
-INSERT INTO `rdvs` (`id`, `Date_RDV`, `Fin_RDV`, `Temp_rdv`, `specialite`, `Patient_ID_Patient`, `Employe_ID_Employe`, `Etat_RDV`) VALUES
-(79, '2019-03-07 11:58:56', '2019-03-07 12:28:56', '10:00:00', 5, 22, 88, 'en attente'),
-(81, '2019-03-09 09:30:00', '2019-03-09 09:45:00', '10:00:00', 5, 50, 88, 'en attente'),
-(82, '2019-03-11 09:30:00', '2019-03-11 09:45:00', '10:00:00', 5, 46, 88, 'en attente'),
-(84, '2019-03-10 11:30:00', '2019-03-10 12:00:00', '10:00:00', 5, 61, 88, 'en attente'),
-(86, '2019-03-12 09:30:00', '2019-03-12 09:45:00', '10:00:00', 5, 50, 88, 'en attente'),
-(87, '2019-03-14 09:45:00', '2019-03-14 10:00:00', '10:00:00', 5, 51, 88, 'en attente'),
-(88, '2019-03-17 08:00:00', '2019-03-17 08:15:00', '10:00:00', 5, 53, 88, 'en attente'),
-(89, '2019-05-01 08:30:00', '2019-05-01 08:45:00', '10:00:00', 5, 51, 88, 'en attente'),
-(90, '2019-05-09 08:30:00', '2019-05-09 08:45:00', '10:00:00', 5, 51, 88, 'en attente'),
-(91, '2019-05-09 10:00:00', '2019-05-09 10:15:00', '10:00:00', 5, 30, 88, 'en attente'),
-(92, '2019-05-09 09:30:00', '2019-05-09 09:45:00', '10:00:00', 5, 46, 88, 'en attente'),
-(95, '2020-02-05 08:30:00', '2020-02-05 08:45:00', '10:00:00', 6, 54, 82, 'en attente'),
-(99, '2020-03-10 08:30:00', '2020-03-10 08:45:00', '10:00:00', 5, 51, 88, 'en attente'),
-(100, '2020-03-11 08:30:00', '2020-03-11 08:45:00', '10:00:00', 5, 47, 88, 'en attente');
+INSERT INTO `rdvs` (`id`, `Date_RDV`, `Fin_RDV`, `Temp_rdv`, `fixe`, `specialite`, `Patient_ID_Patient`, `Employe_ID_Employe`, `Etat_RDV`) VALUES
+(79, '2019-03-07 11:00:56', '2019-03-07 11:30:56', '10:00:00', 1, 5, 22, 88, 'en attente'),
+(86, '2019-03-12 09:30:00', '2019-03-12 09:45:00', '10:00:00', 1, 5, 50, 88, 'en attente'),
+(87, '2019-03-14 09:45:00', '2019-03-14 10:00:00', '10:00:00', 1, 5, 51, 88, 'en attente'),
+(88, '2019-03-17 08:00:00', '2019-03-17 08:15:00', '10:00:00', 1, 5, 53, 88, 'en attente'),
+(89, '2020-03-12 08:30:00', '2020-03-12 08:45:00', '10:00:00', 1, 5, 51, 88, 'en attente'),
+(329, '2020-03-17 13:15:00', '2020-03-17 13:30:00', '10:00:00', 1, 5, 51, 88, 'en attente'),
+(336, '2020-03-18 11:00:00', '2020-03-18 11:15:00', '10:00:00', 1, 5, 31, 88, 'en attente'),
+(346, '2020-03-19 11:45:00', '2020-03-19 12:00:00', '10:00:00', 1, 5, 31, 88, 'en attente'),
+(351, '2020-03-18 16:30:42', '2020-03-18 16:30:42', '10:00:00', 1, 5, 31, 88, 'en attente'),
+(362, '2020-03-18 16:30:01', '2020-03-18 16:30:01', '10:00:00', 1, 5, 31, 88, 'en attente'),
+(363, '2020-03-18 16:30:46', '2020-03-18 16:30:46', '10:00:00', 1, 5, 31, 88, 'en attente'),
+(365, '2020-03-19 13:30:00', '2020-03-19 13:45:00', '10:00:00', 1, 5, 31, 88, 'en attente'),
+(369, '2020-03-19 14:00:00', '2020-03-19 14:15:00', '10:00:00', 1, 5, 31, 88, 'en attente'),
+(371, '2020-03-19 09:45:00', '2020-03-19 10:00:00', '10:00:00', 1, 5, 31, 88, 'en attente'),
+(373, '2020-03-22 13:00:00', '2020-03-22 13:15:00', '10:00:00', 1, 5, 30, 88, 'en attente'),
+(385, '2020-03-22 08:15:00', '2020-03-22 08:30:00', '10:00:00', 1, 5, 30, 88, 'en attente'),
+(412, '2020-03-26 08:15:00', '2020-03-26 08:30:00', '10:00:00', 1, 5, 30, 88, 'en attente'),
+(424, '2020-03-24 15:00:00', '2020-03-24 15:15:00', '10:00:00', 1, 5, 30, 88, 'en attente'),
+(438, '2020-03-25 09:45:00', '2020-03-25 10:00:00', '10:00:00', 1, 5, 30, 88, 'en attente'),
+(468, '2020-03-24 10:45:00', '2020-03-24 11:00:00', '10:00:00', 1, 5, 30, 88, 'en attente');
 
 -- --------------------------------------------------------
 
@@ -11698,7 +11705,7 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (30, 'sur', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'rlakhneche@cdta.dz', 81, 5, 'mrQNQ53wakZpzz1vE1jTTYc7eyBalV3xUqi61aeQxewqibmCyXvg0P6uYzJk', 1),
 (31, 'rec', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', NULL, 82, 2, 'PJnTiDpyOMXKqsNgfg30XORTNMFJljeMLgg97Up2ZJHr0RbCo5Ulbs7sPuMA', 1),
 (33, 'test', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'test@gmail', 79, 1, 'vOPiwaTdqixSdeIHAEvAbr9FKcLRyihyEbiPMYVrKGTCn5HMf9zUjrCBsUyc', 1),
-(34, 'med', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'med@gmail.com', 88, 1, 'yNhUl14rsguHWie7stnFWiLlDT3LXH4EjFSCXfclXt1dy0dmbtfKVaOfrchi', 1),
+(34, 'med', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'med@gmail.com', 88, 1, 'DEGjEIDhHtHYGM8fJyJPobGK0Zglq1gmWWSQJmUsTbV5uWFat2SuVis3hhgt', 1),
 (35, 'delCol', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'll@a.fr', 89, 6, 'PjtnNMdt6WUD5hjQZ8mgllDdF28FhLC6TscBzyaZmiQLLRcAPTELI7wMdO7N', 1),
 (38, 'user', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'jj@hot.frr', 93, 1, NULL, 1),
 (39, 'surMed', '$2y$10$zUdI0W5QV/1fmnBnhmL2TOTqN8GMNEdZZK6o4gclrJ1CKfxVq.Rca', 'bbedeebi@cdta.dz', 94, 5, 'IWxKedhtIyV6BrQViVfV1ncr3XxlAoBV9xRI8H2LGPsfhMhOMrlE46mrmUeq', 1),

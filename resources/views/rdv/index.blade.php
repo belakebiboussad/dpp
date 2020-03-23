@@ -22,11 +22,9 @@
             border-bottom-right-radius: 0.25rem;
       }
      </style>
-
 @endsection
 @section('page-script') {{-- {!! $planning->script() !!} --}}
-  <script>
-    //reccherche par nom
+  <script>//reccherche par nom
     function remoteSearch(field,value) {
       $.ajax({
               url : '{{URL::to('getPatients')}}',
@@ -123,13 +121,13 @@
         events: [
           @foreach($rdvs as $rdv)
           {
-                title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
-                start : '{{ $rdv->Date_RDV }}',
-                end:   '{{ $rdv->Fin_RDV }}',
-                id :'{{ $rdv->id }}',
-                idPatient:'{{$rdv->patient->id}}',
-                tel:'{{$rdv->patient->tele_mobile1}}',
-                age:{{ $rdv->patient->getAge() }},         
+            title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
+            start : '{{ $rdv->Date_RDV }}',
+            end:   '{{ $rdv->Fin_RDV }}',
+            id :'{{ $rdv->id }}',
+            idPatient:'{{$rdv->patient->id}}',
+            tel:'{{$rdv->patient->tele_mobile1}}',
+            age:{{ $rdv->patient->getAge() }},         
           },
           @endforeach 
         ],
@@ -235,17 +233,20 @@
           <div class="modal-content">
             <div class="modal-header" style="padding:35px 50px;">
               <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
-              <h4 id="modalTitle" class="modal-title"><span class="glyphicon glyphicon-bell"></span> Ajouter Rendez-Vous</h4>
+              <h4 id="modalTitle" class="modal-title"><span class="glyphicon glyphicon-bell"></span> Selectionner un Patient</h4>
             </div>
             <form id ="addRdv" role="form" action="/createRDV" method="POST">
               {{ csrf_field() }}
-              <input type="datetime" id="date_RDV" name="date_RDV" data-date-format='yyyy-mm-dd' value="" style="display:none;">
+             <!--  <input type="datetime" id="date_RDV" name="date_RDV" data-date-format='yyyy-mm-dd' value="" style="display:none;">
+ -->         
+              <input type="hidden" id="date_RDV" name="date_RDV" value="">
+            
               <input type="datetime" id="date_Fin" name="date_Fin" data-date-format='yyyy-mm-dd' value="" style="display:none;">
               <input type="time" id="Temp_rdv" name="Temp_rdv"  value=""  min="8:00" max="18:00" style="display:none;" >
               <div id="modalBody" class="modal-body" style="padding:40px 50px;">
                 <div class="panel panel-default">
                   <div class="panel-heading" style="">
-                    <span class="glyphicon glyphicon-user"></span>Rechercher un Patient
+                    <span class="glyphicon glyphicon-search"></span>Rechercher un Patient
                   </div>
                   <div class="panel-body">
                     <div class="row">

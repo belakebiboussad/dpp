@@ -247,16 +247,14 @@ class RDVController extends Controller
     }
     function AddRDV(Request $request)
      { 
-        $dateRdv = new DateTime($request->Debut_RDV);   // $request->validate([ "date_RDV"=> 'required',]);
-        $dateFinRdv = new DateTime($request->Fin_RDV);   //$time = date("H:i:s",strtotime($request->Temp_rdv));
         $employe = Auth::user()->employ;
-        $patient = patient::find($request->id_patient);
-        $specialite = $employe->Specialite_Emploiye; 
+        $patient = patient::find($request->id_patient);  // $specialite = $employe->Specialite_Emploiye; 
         if($request->ajax()){
             $rdv = rdv::firstOrCreate([
-                          "Date_RDV"=>$dateRdv,//"Temp_rdv"=>$time,
-                          "Fin_RDV"=>$dateFinRdv, 
-                          "specialite"=>$specialite,
+                          "Date_RDV"=>new DateTime($request->Debut_RDV),//"Temp_rdv"=>$time,
+                          "Fin_RDV" =>new DateTime($request->Fin_RDV),
+                          "fixe"    => $request->fixe,
+                          "specialite"=>$employe->Specialite_Emploiye,
                           "Employe_ID_Employe"=>$employe->id,
                           "Patient_ID_Patient"=>$request->id_patient,
                           "Etat_RDV"=> "en attente",
@@ -267,13 +265,14 @@ class RDVController extends Controller
           {
             $arr = explode("-", $request->listePatient);
             $patient=patient::where('code_barre',$arr[0])->first();
+            dd($request->Debut_RDV);
             $rdv = rdv::firstOrCreate([
-                "Date_RDV"=>$dateRdv,//"Temp_rdv"=>$time,
-                'Fin_RDV'=>$dateFinRdv, 
-                "specialite"=>$specialite,
-                    "Employe_ID_Employe"=>$employe->id,
-                     "Patient_ID_Patient"=>$patient->id,
-                     "Etat_RDV"=> "en attente",
+                "Date_RDV"=>new DateTime($request->Debut_RDV),//"Temp_rdv"=>$time,
+                'Fin_RDV'=>new DateTime($request->Fin_RDV), 
+                "specialite"=>$employe->Specialite_Emploiye,
+                "Employe_ID_Employe"=>$employe->id,
+                "Patient_ID_Patient"=>$patient->id,
+                "Etat_RDV"=> "en attente",
             ]);
             Flashy::success('RDV ajouter avec succès');
             return redirect()->route("rdv.index");
