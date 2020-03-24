@@ -332,21 +332,21 @@
        	firstDay: 0,//dimanche
     		slotDuration: '00:15:00',
     		minTime:'08:00:00',
-	   	  maxTime: '17:00:00',
+	   	maxTime: '17:00:00',
 	      navLinks: true,
 	      selectable: true,
 	      selectHelper: true,
+	      eventColor: '#87CEFA',
+	      contentHeight: 700,
 	      editable: true,
 	      hiddenDays: [ 5, 6 ],
-	      contentHeight: 700,
-	      eventColor: '#87CEFA',
 	      weekNumberCalculation: 'ISO',
+	      aspectRatio: 1.5,
 	      eventLimit: true,
 	      allDaySlot: false,
 	      eventDurationEditable : false,
 	      views: {}, 
 		    select: function(start, end) {
-		    	/////////////
 		      if(start > CurrentDate){
 		      	 $( "#dialog" ).dialog({
 		      	 	dialogClass: "no-close",
@@ -356,10 +356,13 @@
 		      	 	draggable: true,
 		      	 	modal:true,
 		      	 	resizable: true,
+		      	 	overlay: "background-color: red; opacity: 0.5",
+		      	 	 // show: { effect: "drop", direction: "up", easing: "easeInQuad", duration: 300 },
+            //  		 hide: { effect: "drop", direction: "up", easing: "easeOutQuad", duration: 300 },
 		      	 	classes: {
 						    "ui-dialog": "classes.ui-dialog"
-						  },
-  						buttons: [
+			      },
+  				buttons: [
     						{
 						      text: "Oui",
 						      icon: "ui-icon-heart",
@@ -368,7 +371,6 @@
 										createRDVModal(start,end,$('#patientId').val(),fixe);
 						        $( this ).dialog( "close" );
 						      }
-
 	    					},
 	    					{
 						      text: "Non",
@@ -377,23 +379,21 @@
 						        $( this ).dialog( "close" );
 						      }
 	    					}
-						  ],
-				      _allowInteraction: function( event ) {
-                if (!jQuery.ui.dialog.prototype._allowInteractionModifed) {
-                     jQuery.ui.dialog.prototype._allowInteraction = function(e) {
-                  if (typeof e !== "undefined") {
-                        if (jQuery(e.target).closest('.select2-drop').length) {
-                            return true;
-                        }
-                        jQuery.ui.dialog.prototype._allowInteractionModifed = true;
-                        return (typeof this._super === "function") ? this._super(e) : this;
-                     }
-                  }
-                }
-              }
-
-		      	 });
-		        //ConfirmDialog('Vous confimé le Rendez-Vous?',start,end,$('#patientId').val());//createRDVModal(start,end, $('#patientId').val());
+				],
+				  _allowInteraction: function( event ) {
+		                if (!jQuery.ui.dialog.prototype._allowInteractionModifed) {
+		                     jQuery.ui.dialog.prototype._allowInteraction = function(e) {
+		                  if (typeof e !== "undefined") {
+		                        if (jQuery(e.target).closest('.select2-drop').length) {
+		                            return true;
+		                        }
+		                        jQuery.ui.dialog.prototype._allowInteractionModifed = true;
+		                        return (typeof this._super === "function") ? this._super(e) : this;
+		                     }
+		                  }
+		                }
+		              }
+		      	 }); 
 		      }
 		      else
 		      $('.calendar1').fullCalendar('unselect');
@@ -407,47 +407,31 @@
 			                id :'{{ $rdv->id }}',
 			                idPatient:'{{$rdv->patient->id}}',
 			                tel:'{{$rdv->patient->tele_mobile1}}',
-			                age:{{ $rdv->patient->getAge() }},   {{--url:'http://localhost:8000/patient/{{ $rdv->patient->id }}',--}}         
+			                age:{{ $rdv->patient->getAge() }},          
 			          },
 			          @endforeach 
 		    	],
-		    eventRender: function (event, element, webData) {
-		    	if(event.start < CurrentDate) // element.resizable = false;	// element.durationEditable  = false;
-			       element.css('background-color', '#D3D3D3'); 
-			    else
-			    {
-			      element.css("font-size", "1em");
-			      element.css("padding", "5px");      
-			    }
-		    },
-		    eventClick: function(calEvent, jsEvent, view) {
-          editRdv(calEvent);// @if(Auth::user()->role->id != 2) @endif         
-       	},
-       	dayClick: function(date, jsEvent, view) {
-       	},
-       	eventAllow: function(dropLocation, draggedEvent) {
-          if(draggedEvent.start < CurrentDate)
-            	 return false;  	     
-          },
-        eventDrop: function(event, delta, revertFunc) { // si changement de position
+		      eventRender: function (event, element, webData) {
+			    	if(event.start < CurrentDate) // element.resizable = false;	// element.durationEditable  = false;
+				       element.css('background-color', '#D3D3D3'); 
+				    else
+				    {
+				      element.css("font-size", "1em");
+				      element.css("padding", "5px");      
+				    }
+			},
+		    	eventClick: function(calEvent, jsEvent, view) {
+         			 editRdv(calEvent);// @if(Auth::user()->role->id != 2) @endif         
+       		},
+       		dayClick: function(date, jsEvent, view) {},
+       		eventAllow: function(dropLocation, draggedEvent) {
+          		if(draggedEvent.start < CurrentDate)
+            	 		return false;  	     
+          		},
+        		eventDrop: function(event, delta, revertFunc) { // si changement de position
 /*//	editRdv(event);var url = '{{ route("rdv.update", ":slug") }}';url = url.replace(':slug',event.id);alert(url);
 var dateSelect = new Date(event.start);var m = dateSelect.getMonth() + 1;var y = dateSelect.getFullYear();  var d = dateSelect.getDate();
-var h =	dateSelect.getHours()-1;var mn = dateSelect.getMinutes();		var sc = dateSelect.getSeconds();
-var startdate = y + "-" + m + "-" + d + " " + h + ":" + mn + ":" + sc;var dateSelect = new Date(event.end);
-var h =	dateSelect.getHours()-1;var mn = dateSelect.getMinutes();		var sc = dateSelect.getSeconds();
-var enddate = y + "-" + m + "-" + d + " " + h + ":" + mn + ":" + sc;$.ajax({type : 'POST', url : '/rdvs',
-	              data: {"id": event.id,
-	          		  "daterdv" :event.start.format() ,
-	          		  "datefinrdv" :event.end.format(),
-	        			},
-	        			success:function(data){  	   		
-	                alert(data);
-	              },
-	              error:function(jqXHR, textStatus, errorThrown){
-	             	  console.log(textStatus);		      
-	              }
-	    			}); 
-          	*/
+var h =	dateSelect.getHours()-1;var mn = dateSelect.getMinutes();		var sc = dateSelect.getSeconds();var startdate = y + "-" + m + "-" + d + " " + h + ":" + mn + ":" + sc;var dateSelect = new Date(event.end);var h =	dateSelect.getHours()-1;var mn = dateSelect.getMinutes();		var sc = dateSelect.getSeconds();var enddate = y + "-" + m + "-" + d + " " + h + ":" + mn + ":" + sc;$.ajax({type : 'POST', url : '/rdvs',  data: {"id": event.id,  "daterdv" :event.start.format() ,  "datefinrdv" :event.end.format },success:function(data){  }, error:function(jqXHR, textStatus, errorThrown){ console.log(textStatus); }}); 	*/
           	$('#updateRDV').removeClass('invisible');
           	editRdv(event);
           },

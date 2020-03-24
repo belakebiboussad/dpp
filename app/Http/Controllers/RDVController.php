@@ -52,28 +52,45 @@ class RDVController extends Controller
        return view('patient.index_patient');
     }
     public function index($patientID = null)
-    {
-      $rdvs = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')
-                 ->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->get();
-      if(isset($patientID)) 
-      {
-        $patient = patient::FindOrFail($patientID);   
-        return view('rdv.index', compact('rdvs','patient'));                  
-      }
-      else
-        return view('rdv.index', compact('rdvs')); 
+    {       
+             if(Auth::user()->role->id == 1)
+             {
+                   $rdvs = rdv::where('Employe_ID_Employe', Auth::user()->employee_id)->get(); //$rdvs = rdv::all();
+                    return view('rdv.index', compact('rdvs')); 
+            } else
+            {
+              $rdvs = rdv::all();
+               return view('rdv.index', compact('rdvs')); 
+            }     
+        // $rdvs = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')
+        //            ->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->get();
+        // if(isset($patientID)) 
+        // {
+        //   $patient = patient::FindOrFail($patientID);   
+        //   return view('rdv.index', compact('rdvs','patient'));                  
+        // }
+        // else
+        // {
+        //   return view('rdv.index', compact('rdvs')); 
+        // }
     }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request,$id_patient)
+    // Request $request
+    public function create($id_patient =null)
     {
-           $employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
-           $patient = patient::FindOrFail($id_patient);
-           $data = rdv::all();
-           return view('rdv.create_rdv',compact('patient','data'));
+             $rdvs = rdv::all(); //$employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
+             if(isset($id_patient) && !empty($id_patient))
+             {
+                $patient = patient::FindOrFail($id_patient);
+                return view('rdv.create_rdv',compact('patient','rdvs'));
+             }else
+             {
+                  return view('rdv.create_rdv', compact('rdvs')); 
+             }
     }
 
     /**
@@ -88,16 +105,14 @@ class RDVController extends Controller
                 "daterdv"=> 'required',
            ]);
            $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
-           $specialite = $employe->Specialite_Emploiye; 
-           // $rdv = rdv::create($request->all());
-           $rdv = rdv::firstOrCreate([
+           $specialite = $employe->Specialite_Emploiye;       // $rdv = rdv::create($request->all());
+                $rdv = rdv::firstOrCreate([
                "Date_RDV"=>$request->daterdv,
                "specialite"=>$specialite,
                "Employe_ID_Employe"=>Auth::user()->employee_id,
                "Patient_ID_Patient"=>$request->id_patient,
                "Etat_RDV"=> "en attente",
            ]);
-
            Flashy::success('RDV ajouter avec succès');
            return redirect()->route("rdv.show",$rdv->id);
     }
@@ -110,9 +125,8 @@ class RDVController extends Controller
      */
     public function show($id)
     {
-        $rdv = rdv::FindOrFail($id);
-        // dd($rdv);
-        return view('rdv.show_rdv',compact('rdv'));
+           $rdv = rdv::FindOrFail($id); // dd($rdv);
+            return view('rdv.show_rdv',compact('rdv'));
     }
 
     /**
@@ -123,9 +137,9 @@ class RDVController extends Controller
      */
     public function edit($id)
     {
-      $rdv = rdv::FindOrFail($id);
-      $patient = patient::FindOrFail($rdv->Patient_ID_Patient);
-      return view('rdv.edit_rdv',compact('rdv','patient'));
+          $rdv = rdv::FindOrFail($id);
+          $patient = patient::FindOrFail($rdv->Patient_ID_Patient);
+          return view('rdv.edit_rdv',compact('rdv','patient'));
     }
 
     /**
@@ -137,18 +151,18 @@ class RDVController extends Controller
      */
     public function update(Request $request, $id)
     { 
-      $rdv = rdv::FindOrFail($id);  //dd($rdv); //$rdv = rdv::FindOrFail($request->id_rdv);    
-      $dateRdv = new DateTime($request->daterdv);
-      $dateFinRdv = new DateTime($request->datefinrdv);
-      $rdv->update([
-                "Date_RDV"=>$dateRdv,
-                "Fin_RDV"=>$dateFinRdv,
-      ]);
-      if($request->ajax())
-        return $rdv;
-      else
-       return redirect()->route("rdv.index");//return redirect()->route("rdv.show",$rdv->id);
-    }
+        $rdv = rdv::FindOrFail($id);  //dd($rdv); //$rdv = rdv::FindOrFail($request->id_rdv);    
+        $dateRdv = new DateTime($request->daterdv);
+        $dateFinRdv = new DateTime($request->datefinrdv);
+        $rdv->update([
+                  "Date_RDV"=>$dateRdv,
+                  "Fin_RDV"=>$dateFinRdv,
+        ]);
+        if($request->ajax())
+          return $rdv;
+        else
+         return redirect()->route("rdv.index");//return redirect()->route("rdv.show",$rdv->id);
+      }
 
     /**
      * Remove the specified resource from storage.
@@ -159,17 +173,17 @@ class RDVController extends Controller
     public function destroy(Request $request, $id)
     
     {
-      if($request->ajax())
-      {
-        $rdv = rdv::findOrFail($id); // return Auth::user()->employ->rdvs; // return Response::json($rdvs);
-        rdv::destroy($id); // $rdvs = $rdv->employe->rdvs;//return Response::json($rdvs);
-        return ($rdv);
-      }
-      else
-      {
-        rdv::destroy($id);//return redirect()->route('rdv.index');
-        return redirect()->action('RDVController@index');
-      } 
+        if($request->ajax())
+        {
+          $rdv = rdv::findOrFail($id); // return Auth::user()->employ->rdvs; // return Response::json($rdvs);
+          rdv::destroy($id); // $rdvs = $rdv->employe->rdvs;//return Response::json($rdvs);
+          return ($rdv);
+        }
+        else
+        {
+          rdv::destroy($id);//return redirect()->route('rdv.index');
+          return redirect()->action('RDVController@index');
+        } 
     }
     public function orderPdf($id)
     {
@@ -263,10 +277,9 @@ class RDVController extends Controller
           }
           else
           {
-            $arr = explode("-", $request->listePatient);
+            $arr = explode("-", $request->patient);
             $patient=patient::where('code_barre',$arr[0])->first();
-            dd($request->Debut_RDV);
-            $rdv = rdv::firstOrCreate([
+             $rdv = rdv::firstOrCreate([
                 "Date_RDV"=>new DateTime($request->Debut_RDV),//"Temp_rdv"=>$time,
                 'Fin_RDV'=>new DateTime($request->Fin_RDV), 
                 "specialite"=>$employe->Specialite_Emploiye,
@@ -293,7 +306,6 @@ class RDVController extends Controller
                 $e['end'] = new DateTime($patient->Date_RDV.' +1 day');
                  array_push($events, $e);
            }
-           // return response()->json(['events' , $events]);
-           return response()->json($events);
+           return response()->json($events); // return response()->json(['events' , $events]);
      }
 }

@@ -1,9 +1,7 @@
 @extends('app_recep')
 @section('style')
         <style>
-                #listePatient {
-                      /*padding: 5px;*/
-                }
+                #patient {        /*padding: 5px;*/ }
                 .option {
                   padding: 5px;
                   display: none;
@@ -55,12 +53,12 @@
 
       <script>
       $(document).ready(function(){
-                $('#listePatient').editableSelect({
+                $('#patient').editableSelect({
                       effects: 'slide', 
                       editable: false,  
                       // warpClass: 'ui-select-wrap',
                 });
-                $("#listePatient").on("keyup", function() {
+                $("#patient").on("keyup", function() {
                       //to call ajax
                       remoteSearch();    
                 });
@@ -200,7 +198,7 @@
                       <div class="row">
                            <fieldset class="inline-fields"> 
                                 <label for="patient"><strong>Selectioner le patient :</strong></label>
-                                <select id="listePatient" name ="listePatient" style="width:300px;" required></select>                        
+                                <select id="patient" name ="patient" style="width:300px;" required></select>                        
                            </fieldset>
                       </div>
                       <div class="space-12"></div>

@@ -11,7 +11,6 @@
                   
            </head>
 <body class="no-skin">
-
     @include('partials.navbar')
     <div class="main-container" id="main-container">
         <script type="text/javascript">
@@ -26,12 +25,10 @@
            @include('partials.sidebar_med')  
         @endif
         <div class="main-content">
-            <div class="main-content-inner">
-                @include('partials.breadcrumbs_rec')
-                <div class="page-content">
-                {{-- @include('flashy::message') --}}
-            	    @yield('main-content')
-                </div>
+            <div class="main-content-inner">  {{-- @include('partials.breadcrumbs_rec') --}}
+                   <div class="page-content">{{-- @include('flashy::message') --}}
+                      @yield('main-content')
+                   </div>
                 <!-- /page-content -->
             </div>
             <!-- /main-content-inner -->

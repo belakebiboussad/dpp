@@ -8,12 +8,9 @@
             <button class="btn btn-success">
                 <i class="ace-icon fa fa-signal"></i>
             </button>
-
             <button class="btn btn-info">
                 <i class="ace-icon fa fa-pencil"></i>
-            </button>
-
-            <!-- #section:basics/sidebar.layout.shortcuts -->
+            </button> <!-- #section:basics/sidebar.layout.shortcuts -->
             <button class="btn btn-warning">
                 <i class="ace-icon fa fa-users"></i>
             </button>
@@ -26,11 +23,8 @@
 
         <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
             <span class="btn btn-success"></span>
-
             <span class="btn btn-info"></span>
-
             <span class="btn btn-warning"></span>
-
             <span class="btn btn-danger"></span>
         </div>
     </div><!-- /.sidebar-shortcuts -->
@@ -40,10 +34,8 @@
             <i class="menu-icon fa fa-picture-o"></i>
             <span class="menu-text">Gestion Patients</span>
         </a>
-
         <b class="arrow"></b>
     </li>
-
     <ul class="nav nav-list">
         <li class="">
             <a href="{{route('home_med')}}">
@@ -76,13 +68,11 @@
 
                     <b class="arrow"></b>
                 </li>
-
                 <li class="">
                     <a href="{{ route('patient.index') }}">
                         <i class="menu-icon fa fa-eye pink"></i>
                         Liste Patients
                     </a>
-
                     <b class="arrow"></b>
                 </li>
                 <li class="">
@@ -90,7 +80,6 @@
                         <i class="menu-icon fa fa-eye pink"></i>
                         Liste Fonctionnaires
                     </a>
-
                     <b class="arrow"></b>
                 </li>
             </ul>
@@ -103,20 +92,15 @@
                             </span>
                 <b class="arrow fa fa-angle-down"></b>
             </a>
-
             <b class="arrow"></b>
-
             <ul class="submenu">
-
                 <li class="">
                     <a href="/choixpat">
                         <i class="menu-icon fa fa-plus purple"></i>
                         Ajouter Consultation
                     </a>
-
                     <b class="arrow"></b>
                 </li>
-
                 <li class="">
                     <a href="/listcons">
                         <i class="menu-icon fa fa-eye pink"></i>

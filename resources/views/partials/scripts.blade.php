@@ -642,8 +642,7 @@ $('#typeexm').on('change', function() {
             exbio.setFontSize(14);
             exbio.text(45,65,'Analyses Demandées :',null,null,'center');
             exbio.setFontSize(13);
-            var i =0;
-            // $(".imgExam").each(function() {//alert($(this).attr('value'));// });
+            var i =0;   // $(".imgExam").each(function() {//alert($(this).attr('value'));// });
             var selected = "";
             $("input[class='imgExam']:checked").each(function() {
               exbio.text(25,72+i,$(this).attr('data-checkbox-text')+", ");
@@ -683,7 +682,7 @@ $('#typeexm').on('change', function() {
                             $(this).attr('checked', false);
                         });
         }
-        function createRDVModal(debut, fin, pid = 0, fixe)
+        function createRDVModal(debut, fin, pid = 0, fixe=1)
         {   
             var debut = moment(debut).format('YYYY-MM-DD HH:mm'); //debut = moment.tz(debut, "America/Los_Angeles").format('YYYY-MM-DD HH:mm');  
             var fin = moment(fin).format('YYYY-MM-DD HH:mm');     //fin = moment.tz(fin, "Europe/London").format('YYYY-MM-DD HH:mm');
@@ -724,15 +723,13 @@ $('#typeexm').on('change', function() {
                   console.log('Error:', data);
                 }
               });
-               
             }else{ 
-            //     $('#date_RDV').val(debut); $('#date_Fin').val(fin);
-                $('#date_RDV').val("ds");
-                document.getElementById('date_RDV').value = "dsfdsf";    
-                $('#Temp_rdv').val(heur);
-                $('#myModal').modal({
-                      show: 'true'
-                }); 
+                   $('#Debut_RDV').val(debut); //     $('#date_RDV').val(debut); 
+                   $('#Fin_RDV').val(fin);      // document.getElementById('date_RDV').value = "dsfdsf";    
+                   $('#Temp_rdv').val(heur);
+                   $('#myModal').modal({
+                       show: 'true'
+                   }); 
             }   
         }
         //au click sur un RDV
@@ -754,56 +751,6 @@ $('#typeexm').on('change', function() {
             $('#idRDV').val(event.id);
             $('#fullCalModal').modal({  show: 'true' }); 
           }
-        }
-        function ConfirmDialog(message,start,end,pid) {
-          var dateSelect = new Date(start);var m = dateSelect.getMonth() + 1;var y = dateSelect.getFullYear();  var d = dateSelect.getDate();
-          $('<div></div>').html('<div><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><h4>' +
-              message + '</h4></div><div><h4><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
-              y + "-" + m + "-" + d + " " +'</strong></h4></div>')
-            .dialog({
-              modal: true,
-              title: 'Confimer Rendez-Vous',
-              zIndex: 1060,
-              dialogClass: "modlg",
-              autoOpen: true,
-              resizable: true,
-              overlay: "background-color: red; opacity: 0.5", // height: 150, // width: 400,
-              closeOnEscape: false,
-              closeText: "Fermer",
-              fluid: true,
-              // css:'css/messageBox.css',
-              show: { effect: "drop", direction: "up", easing: "easeInQuad", duration: 300 },
-              hide: { effect: "drop", direction: "up", easing: "easeOutQuad", duration: 300 },
-              position: { my: "center center", at: "center center" },
-              buttons: {
-                  Oui: function() {
-                    createRDVModal(start,end,pid);
-                    $(this).dialog("close");
-                  },
-                  Non: function() {
-                    $(this).dialog("close");
-                  }
-              },
-              focus: function() {
-                  $(".ui-button").first().focus();
-              },
-              close: function(event, ui) {
-                  $(this).remove();
-              },
-              _allowInteraction: function( event ) {
-                if (!jQuery.ui.dialog.prototype._allowInteractionModifed) {
-                     jQuery.ui.dialog.prototype._allowInteraction = function(e) {
-                  if (typeof e !== "undefined") {
-                        if (jQuery(e.target).closest('.select2-drop').length) {
-                            return true;
-                        }
-                        jQuery.ui.dialog.prototype._allowInteractionModifed = true;
-                        return (typeof this._super === "function") ? this._super(e) : this;
-                     }
-                  }
-                }
-              }
-            });
         }
         </script>
         <script>

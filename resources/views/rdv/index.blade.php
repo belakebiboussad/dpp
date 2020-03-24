@@ -66,7 +66,7 @@
      function reset_in()
      {
            $('.es-list').val('');
-           $('#listePatient').val('');
+           $('#patient').val('');
      }
      function layout()
      {
@@ -74,13 +74,13 @@
            var field = $("select#filtre option").filter(":selected").val();
            if(field == "Dat_Naissance")
               {
-                $('#listePatient').datepicker().format("YYYY-MM-DD");
+                $('#patient').datepicker().format("YYYY-MM-DD");
                 $("#btnSave").attr("disabled",false);
               }
            else
            { 
                 $("#btnSave").attr("disabled", true);
-                $("#listePatient").datepicker("destroy");
+                $("#patient").datepicker("destroy");
            }
                
      }
@@ -96,11 +96,11 @@
         defaultView: 'agendaWeek',  //weekends: false,
         firstDay: 0, 
         slotDuration: '00:15:00',
+        minTime:'08:00:00',
+        maxTime: '17:00:00',
         navLinks: true, // can click day/week names to navigate views
         selectable: true,
         selectHelper: true,
-        minTime:'08:00:00',
-        maxTime: '17:00:00',
         eventColor: '#87CEFA',
         contentHeight: 700,
         editable: true,
@@ -134,19 +134,15 @@
         eventClick: function(calEvent, jsEvent, view) {
            if(Date.parse(calEvent.start) > today )
            {
-              @if(Auth::user()->role->id != 2)   //updateRDVModal(calEvent.id,calEvent.title,calEvent.start,calEvent.end,calEvent.idPatient,calEvent.tel,calEvent.age);
-                edit(calEvent);
-              @endif     
+                    //updateRDVModal(calEvent.id,calEvent.title,calEvent.start,calEvent.end,calEvent.idPatient,calEvent.tel,calEvent.age); 
+                    edit(calEvent);
            } 
         },
         eventRender: function (event, element, webData) {
           if(event.start < CurrentDate)
           {
-            element.css('background-color', '#D3D3D3'); 
-            event.startEditable    = false;
-            event.durationEditable = false;
-            event.editable = false;
-            resourceEditable: false
+              element.css('background-color', '#D3D3D3'); 
+              // event.startEditable    = false; // event.durationEditable = false; // event.editable = false; // resourceEditable: false
           }else
           {
             element.css("font-size", "1em");
@@ -156,8 +152,7 @@
         eventAllow: function(dropLocation, draggedEvent) {
         
          var day = moment(draggedEvent.dueDate);
-          var eventStart = moment(draggedEvent.start);
-          // var locationtStart = moment(dropLocation.start);
+          var eventStart = moment(draggedEvent.start); // var locationtStart = moment(dropLocation.start);
           var day = moment(draggedEvent.dueDate);
           if (eventStart < day) {
               return false;
@@ -169,34 +164,22 @@
            {
               event.editable = false;
               resourceEditable: false;
-
            }
-          
         },
         eventDrop: function(event, delta, revertFunc)
         { 
-          // si changement de position
-          // var dtToday = new Date();
-          // alert("auj :" +today + " eventstart :" + event.start);
-
-
+          // si changement de position // var dtToday = new Date(); // alert("auj :" +today + " eventstart :" + event.start);
           if( event.start < today)
           {
             event.editable = false;
             resourceEditable: false;
-            
           }
-           
           else
-          {
-             edit(event);
-
-          }
-          
+            edit(event);
         },       
       }); // calendar
       /////////////////////////////////
-      $('#listePatient').editableSelect({
+      $('#patient').editableSelect({
                effects: 'default', 
                 editable: false, 
            }).on('select.editable-select', function (e, li) {
@@ -205,10 +188,10 @@
                       );
                      $("#btnSave").removeAttr("disabled");
            });
-           $("#listePatient").on("keyup", function() {
+           $("#patient").on("keyup", function() {
                 var field = $("select#filtre option").filter(":selected").val();
                 if(field != "Dat_Naissance")
-                      remoteSearch(field,$("#listePatient").val());        //to call ajax
+                      remoteSearch(field,$("#patient").val()); //to call ajax
           });
       });
   </script>
@@ -237,11 +220,8 @@
             </div>
             <form id ="addRdv" role="form" action="/createRDV" method="POST">
               {{ csrf_field() }}
-             <!--  <input type="datetime" id="date_RDV" name="date_RDV" data-date-format='yyyy-mm-dd' value="" style="display:none;">
- -->         
-              <input type="hidden" id="date_RDV" name="date_RDV" value="">
-            
-              <input type="datetime" id="date_Fin" name="date_Fin" data-date-format='yyyy-mm-dd' value="" style="display:none;">
+              <input type="hidden" id="Debut_RDV" name="Debut_RDV" value="">
+              <input type="hidden" id="Fin_RDV" name="Fin_RDV"  value="" >
               <input type="time" id="Temp_rdv" name="Temp_rdv"  value=""  min="8:00" max="18:00" style="display:none;" >
               <div id="modalBody" class="modal-body" style="padding:40px 50px;">
                 <div class="panel panel-default">
@@ -257,7 +237,7 @@
                             <select class="form-control" placeholder="choisir le filtre" id="filtre" onchange="layout();">
                               <option value="Nom">Nom</option>
                               <option value="Prenom">Prenom</option>
-                              <option value="code_barre">Code</option>
+                              <option value="code_barre">IPP</option>
                               <option value="Dat_Naissance">Date Naisssance</option>
                             </select>
                           </div>
@@ -265,9 +245,9 @@
                       </div>
                       <div class="col-sm-4">
                         <span class="input-icon" style="margin-right: -190px;">
-                          <select  placeholder="Rechercher... " class="nav-search-input" id="listePatient" name ="listePatient" autocomplete="off" style="width:300px;" data-date-format="yyyy-mm-dd">
+                          <select  placeholder="Rechercher... " class="nav-search-input" id="patient" name ="patient" autocomplete="off" style="width:300px;" data-date-format="yyyy-mm-dd">
                             @if(isset($patient))
-                            <option value="{{$patient->id}}" selected>{{ $patient->code_barre }}-{{ $patient->Nom }}-{{ $patient->Prenom }}</option>
+                              <option value="{{$patient->id}}" selected>{{ $patient->code_barre }}-{{ $patient->Nom }}-{{ $patient->Prenom }}</option>
                             @endif
                           </select>
                           <i class="ace-icon fa fa-search nav-search-icon"></i>   
@@ -278,8 +258,8 @@
                 </div>{{-- panel --}}
               </div>{{-- modalBody --}}
               <div class="modal-footer">
-                <button class="btn btn-sm btn-primary" type="submit" id ="btnSave" disabled><i class="ace-icon fa fa-save bigger-110" ></i>Enregistrer  </button>                                         
-                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"onclick="reset_in();"><i class="fa fa-close" aria-hidden="true"  ></i>Fermer</button>
+                  <button class="btn btn-sm btn-primary" type="submit" id ="btnSave" disabled><i class="ace-icon fa fa-save bigger-110" ></i>Enregistrer  </button>                     
+                  <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"onclick="reset_in();"><i class="fa fa-close" aria-hidden="true"  ></i>Fermer</button>
               </div>   
             </form> 
             </div>
@@ -329,19 +309,20 @@
       </div>
       <br>
       <div class="modal-footer">
-        @if(Auth::user()->role->id == 1)
-        <a type="button" id="btnConsulter" class="btn btn btn-sm btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
-        <!-- -->
-        <!-- @if(Auth::user()->role->id  != 2) @endif --><!-- onclick="updateRdv();" -->
-        <button type="submit" class="btn btn-sm btn-primary">
-          <i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer
-        </button>          
-        <a  href=""  id="btnDelete" class="btn btn-bold btn-sm btn-danger" data-method="DELETE" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal">
-          <i class="fa fa-trash" aria-hidden="true"></i> Annuler
-        </a>
-        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
-             <i class="fa fa-close" aria-hidden="true" ></i> Fermer</button>
-        @endif
+             @if(Auth::user()->role->id == 1)
+                <a type="button" id="btnConsulter" class="btn btn btn-sm btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
+            @endif 
+             <button type="submit" class="btn btn-sm btn-primary">
+                <i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer
+             </button>
+              @if(Auth::user()->role->id == 1)          
+                  <a  href=""  id="btnDelete" class="btn btn-bold btn-sm btn-danger" data-method="DELETE" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal">
+                    <i class="fa fa-trash" aria-hidden="true"></i> Annuler
+                  </a>
+              @endif 
+             <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
+                 <i class="fa fa-close" aria-hidden="true" ></i> Fermer
+             </button>
       </div>
       </form>  
     </div>

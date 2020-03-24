@@ -33,10 +33,9 @@
             @include('partials.sidebar_inf')       
         @endif
         <div class="main-content">
-            <div class="main-content-inner">
-                {{-- @include('partials.breadcrumbs') --}}
+            <div class="main-content-inner"> {{-- @include('partials.breadcrumbs') --}}
                 <div class="page-content">
-                   @include('flashy::message')
+                          @include('flashy::message')
               	   @yield('main-content')
                 </div>
                 <!-- /page-content -->
