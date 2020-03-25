@@ -147,14 +147,14 @@
             <ul class="submenu">
                 <li class="">
                     <a href="{{ route('rdv.create') }}">
-                        <i class="menu-icon fa fa-plus purple"></i>Ajouter RDV
+                        <i class="menu-icon fa fa-plus purple"></i>Ajouter un RDV
                     </a>
                     <b class="arrow"></b>
                 </li>
                 <li class="">
                     <a href="{{ route('rdv.index') }}">
                         <i class="menu-icon fa fa-eye pink"></i>
-                        Liste RDV
+                        Liste des RDVs
                     </a>
                     <b class="arrow"></b>
                 </li>

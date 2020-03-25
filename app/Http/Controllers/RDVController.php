@@ -86,10 +86,10 @@ class RDVController extends Controller
              if(isset($id_patient) && !empty($id_patient))
              {
                 $patient = patient::FindOrFail($id_patient);
-                return view('rdv.create_rdv',compact('patient','rdvs'));
+                return view('rdv.create',compact('patient','rdvs'));
              }else
              {
-                  return view('rdv.create_rdv', compact('rdvs')); 
+                  return view('rdv.create', compact('rdvs')); 
              }
     }
 
@@ -264,7 +264,7 @@ class RDVController extends Controller
         $employe = Auth::user()->employ;
         $patient = patient::find($request->id_patient);  // $specialite = $employe->Specialite_Emploiye; 
         if($request->ajax()){
-            $rdv = rdv::firstOrCreate([
+          $rdv = rdv::firstOrCreate([
                           "Date_RDV"=>new DateTime($request->Debut_RDV),//"Temp_rdv"=>$time,
                           "Fin_RDV" =>new DateTime($request->Fin_RDV),
                           "fixe"    => $request->fixe,
@@ -272,24 +272,24 @@ class RDVController extends Controller
                           "Employe_ID_Employe"=>$employe->id,
                           "Patient_ID_Patient"=>$request->id_patient,
                           "Etat_RDV"=> "en attente",
-            ]);
-            return Response::json(array('patient'=>$patient, 'age'=>$patient->getAge(),'rdv'=>$rdv));
-          }
-          else
-          {
-            $arr = explode("-", $request->patient);
-            $patient=patient::where('code_barre',$arr[0])->first();
-             $rdv = rdv::firstOrCreate([
+          ]);
+          return Response::json(array('patient'=>$patient, 'age'=>$patient->getAge(),'rdv'=>$rdv));
+        }
+        else
+        {
+          $arr = explode("-", $request->patient);
+          $patient=patient::where('code_barre',$arr[0])->first();
+          $rdv = rdv::firstOrCreate([
                 "Date_RDV"=>new DateTime($request->Debut_RDV),//"Temp_rdv"=>$time,
                 'Fin_RDV'=>new DateTime($request->Fin_RDV), 
                 "specialite"=>$employe->Specialite_Emploiye,
                 "Employe_ID_Employe"=>$employe->id,
                 "Patient_ID_Patient"=>$patient->id,
                 "Etat_RDV"=> "en attente",
-            ]);
-            Flashy::success('RDV ajouter avec succès');
-            return redirect()->route("rdv.index");
-          }
+          ]);
+          Flashy::success('RDV ajouter avec succès');
+          return redirect()->route("rdv.create");
+        }
 
     }     
     public function checkFullCalendar(Request $request)

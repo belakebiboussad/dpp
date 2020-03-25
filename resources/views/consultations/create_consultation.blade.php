@@ -5,10 +5,10 @@
 @section('style')
 <style>
 	.modalord {
-	        width:104.7% !important;
-	        right:-16% !important;
-	        left:-2.5% !important;
-	        top:-3.1% !important;
+    width:104.7% !important;
+    right:-16% !important;
+    left:-2.5% !important;
+    top:-3.1% !important;
 	}
 /*	.with-margin {
 	  margin-top: 1px !important;
@@ -332,7 +332,7 @@
        	firstDay: 0,//dimanche
     		slotDuration: '00:15:00',
     		minTime:'08:00:00',
-	   	maxTime: '17:00:00',
+	    	maxTime: '17:00:00',
 	      navLinks: true,
 	      selectable: true,
 	      selectHelper: true,
@@ -357,9 +357,8 @@
 		      	 	modal:true,
 		      	 	resizable: true,
 		      	 	overlay: "background-color: red; opacity: 0.5",
-		      	 	 // show: { effect: "drop", direction: "up", easing: "easeInQuad", duration: 300 },
-            //  		 hide: { effect: "drop", direction: "up", easing: "easeOutQuad", duration: 300 },
-		      	 	classes: {
+		      	 	 // show: { effect: "drop", direction: "up", easing: "easeInQuad", duration: 300 },//  		 hide: { effect: "drop", direction: "up", easing: "easeOutQuad", duration: 300 },
+             	classes: {
 						    "ui-dialog": "classes.ui-dialog"
 			      },
   				buttons: [
@@ -412,13 +411,13 @@
 			          @endforeach 
 		    	],
 		      eventRender: function (event, element, webData) {
+		      	element.css("font-size", "1em");
+		      	element.find('.fc-title').append("," + event.tel); 
 			    	if(event.start < CurrentDate) // element.resizable = false;	// element.durationEditable  = false;
 				       element.css('background-color', '#D3D3D3'); 
-				    else
-				    {
-				      element.css("font-size", "1em");
-				      element.css("padding", "5px");      
-				    }
+				    // else
+				    //   element.css("padding", "5px");      
+				    
 			},
 		    	eventClick: function(calEvent, jsEvent, view) {
          			 editRdv(calEvent);// @if(Auth::user()->role->id != 2) @endif         
@@ -429,10 +428,12 @@
             	 		return false;  	     
           		},
         		eventDrop: function(event, delta, revertFunc) { // si changement de position
-/*//	editRdv(event);var url = '{{ route("rdv.update", ":slug") }}';url = url.replace(':slug',event.id);alert(url);
-var dateSelect = new Date(event.start);var m = dateSelect.getMonth() + 1;var y = dateSelect.getFullYear();  var d = dateSelect.getDate();
+/*//	editRdv(event);var url = '{{ route("rdv.update", ":slug") }}';url = url.replace(':slug',event.id);alert(url);var dateSelect = new Date(event.start);var m = dateSelect.getMonth() + 1;var y = dateSelect.getFullYear();  var d = dateSelect.getDate();
 var h =	dateSelect.getHours()-1;var mn = dateSelect.getMinutes();		var sc = dateSelect.getSeconds();var startdate = y + "-" + m + "-" + d + " " + h + ":" + mn + ":" + sc;var dateSelect = new Date(event.end);var h =	dateSelect.getHours()-1;var mn = dateSelect.getMinutes();		var sc = dateSelect.getSeconds();var enddate = y + "-" + m + "-" + d + " " + h + ":" + mn + ":" + sc;$.ajax({type : 'POST', url : '/rdvs',  data: {"id": event.id,  "daterdv" :event.start.format() ,  "datefinrdv" :event.end.format },success:function(data){  }, error:function(jqXHR, textStatus, errorThrown){ console.log(textStatus); }}); 	*/
           	$('#updateRDV').removeClass('invisible');
+          	jQuery('#btnclose').click(function(){
+            	revertFunc();
+          	});
           	editRdv(event);
           },
           eventResize: function (event, delta, revertFunc) {
@@ -516,11 +517,7 @@ var h =	dateSelect.getHours()-1;var mn = dateSelect.getMinutes();		var sc = date
               }
     });
   }
-
-  function refrech()
-  {  
-    $('.calendar1').fullCalendar('refetchEvents');
-  }
+ 
   function ajaxfunc(patientid)
  	{        
 	    var habitudeAlim = null; var tabac=null ; var ethylisme = null;
@@ -675,8 +672,8 @@ var h =	dateSelect.getHours()-1;var mn = dateSelect.getMinutes();		var sc = date
 			  </a>
 			</li>
 			<li role= "presentation"  class="col-md-4">
-			           <a href="#ExamClinique"  ria-controls="ExamClinique" role="tab" data-toggle="tab" class="btn btn-success btn-lg"> 
-			           <span class="bigger-160">Examen Clinique</span></a>
+         <a href="#ExamClinique"  ria-controls="ExamClinique" role="tab" data-toggle="tab" class="btn btn-success btn-lg"> 
+         <span class="bigger-160">Examen Clinique</span></a>
 			</li>
 			<li role= "presentation" class="col-md-4">
 			          <a href="#ExamComp" aria-controls="ExamComp" role="tab" data-toggle="tab" class="btn btn-danger btn-lg">

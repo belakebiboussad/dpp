@@ -24,160 +24,115 @@
      </style>
 @endsection
 @section('page-script') {{-- {!! $planning->script() !!} --}}
-  <script>//reccherche par nom
-    function remoteSearch(field,value) {
-      $.ajax({
-              url : '{{URL::to('getPatients')}}',
-              data: {    
-                    "field":field,
-                    "value":value,
-                },
-                dataType: "json", // recommended response type
-                success: function(data) {
-                    $(".es-list").html(""); //remove list
-                    $.each(data['data'], function(i, v) {
-                        $(".es-list").append($('<li></li>').attr('value', v['id']).attr('class','es-visible list-group-item option').text(v['code_barre']+"-"+v['Nom']+"-"+v['Prenom']));   });
-                },
-                error: function() {
-                  alert("can't connect to db");
-                }
-            });
-      }
-     function edit(event)
-     {
-        var CurrentDate = (new Date()).setHours(0, 0, 0, 0);
-        var GivenDate = (new Date(event.start)).setHours(0, 0, 0, 0); 
-        if( CurrentDate <= GivenDate )
+<script>//reccherche par nom
+  function reset_in()
+  {
+       $('.es-list').val('');
+       $('#patient').val('');
+  }
+  function layout()
+  {
+       reset_in(); 
+       var field = $("select#filtre option").filter(":selected").val();
+       if(field == "Dat_Naissance")
+          {
+            $('#patient').datepicker().format("YYYY-MM-DD");
+            $("#btnSave").attr("disabled",false);
+          }
+       else
+       { 
+            $("#btnSave").attr("disabled", true);
+            $("#patient").datepicker("destroy");
+       }
+           
+  }
+	$(document).ready(function() {
+    var CurrentDate = (new Date()).setHours(23, 59, 59, 0); //.setHours(0, 0, 0, 0); 
+    var today = (new Date()).setHours(0, 0, 0, 0); //.setHours(0, 0, 0, 0); 
+    $('.calendar1').fullCalendar({
+      header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+      },
+      timeZone: 'local',
+      defaultView: 'month',  //weekends: false,
+      firstDay: 0, 
+      slotDuration: '00:15:00',
+      minTime:'08:00:00',
+      maxTime: '17:00:00',
+      navLinks: true, // can click day/week names to navigate views
+      selectable: true,
+      selectHelper: true,
+      eventColor: '#87CEFA',
+      contentHeight: 700,
+      editable: true,
+      eventLimit: true, // allow "more" link when too many events      // displayEventEnd: true,       
+      hiddenDays: [ 5, 6 ],
+      allDaySlot: false,
+      weekNumberCalculation: 'ISO',
+      aspectRatio: 1.5,
+      disableDragging: false,
+      eventDurationEditable : false,
+      views: {},
+      events: [
+        @foreach($rdvs as $rdv)
         {
-          $('#patient_tel').text(event.tel);
-          $('#agePatient').text(event.age);
-          $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
-          $('#lien').text(event.title);
-          $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
-          $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
-          $('#btnConsulter').attr('href','/consultations/create/'.concat(event.idPatient));
-          $('#btnDelete').attr('href','/rdv/'.concat(event.id));   //$('#updateRdv').attr('action','/rdv/'.concat(event.idrdv));
-          var url = '{{ route("rdv.update", ":slug") }}';
-          url = url.replace(':slug',event.id);
-          $('#updateRdv').attr('action',url);
-          $('#fullCalModal').modal({ show: 'true' }); 
+          title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
+          start : '{{ $rdv->Date_RDV }}',
+          end:   '{{ $rdv->Fin_RDV }}',
+          id :'{{ $rdv->id }}',
+          idPatient:'{{$rdv->patient->id}}',
+          tel:'{{$rdv->patient->tele_mobile1}}',
+          age:{{ $rdv->patient->getAge() }},         
+        },
+        @endforeach 
+      ],
+      select: function(start, end) {
+        $('.calendar1').fullCalendar('unselect');
+      },
+      eventClick: function(calEvent, jsEvent, view) {
+        if(Date.parse(calEvent.start) > today )
+        {
+            edit(calEvent);
+        } 
+      },
+      eventRender: function (event, element, webData) {
+        element.css("font-size", "1em");
+        element.find('.fc-title').append("<br/>" + event.tel); 
+        if(event.start < CurrentDate)
+          element.css('background-color', '#D3D3D3'); 
+        else       
+          element.css("padding", "5px");      
+      },
+      eventAllow: function(dropLocation, draggedEvent) {
+        var day = moment(draggedEvent.dueDate);
+        var eventStart = moment(draggedEvent.start); // var locationtStart = moment(dropLocation.start);
+        var day = moment(draggedEvent.dueDate);
+        if (eventStart < day) {
+            return false;
         }
-     }
-     function reset_in()
-     {
-           $('.es-list').val('');
-           $('#patient').val('');
-     }
-     function layout()
-     {
-           reset_in(); 
-           var field = $("select#filtre option").filter(":selected").val();
-           if(field == "Dat_Naissance")
-              {
-                $('#patient').datepicker().format("YYYY-MM-DD");
-                $("#btnSave").attr("disabled",false);
-              }
-           else
-           { 
-                $("#btnSave").attr("disabled", true);
-                $("#patient").datepicker("destroy");
-           }
-               
-     }
-  	$(document).ready(function() {
-      var CurrentDate = (new Date()).setHours(23, 59, 59, 0); //.setHours(0, 0, 0, 0); 
-      var today = (new Date()).setHours(0, 0, 0, 0); //.setHours(0, 0, 0, 0); 
-      $('.calendar1').fullCalendar({
-        header: {
-              left: 'prev,next today',
-              center: 'title',
-              right: 'month,agendaWeek,agendaDay'
-        },
-        defaultView: 'agendaWeek',  //weekends: false,
-        firstDay: 0, 
-        slotDuration: '00:15:00',
-        minTime:'08:00:00',
-        maxTime: '17:00:00',
-        navLinks: true, // can click day/week names to navigate views
-        selectable: true,
-        selectHelper: true,
-        eventColor: '#87CEFA',
-        contentHeight: 700,
-        editable: true,
-        eventLimit: true, // allow "more" link when too many events      // displayEventEnd: true,       
-        hiddenDays: [ 5, 6 ],
-        allDaySlot: false,
-        weekNumberCalculation: 'ISO',
-        aspectRatio: 1.5,
-        disableDragging: false,
-        eventDurationEditable : false,
-        views: {},
-        select: function(start, end) {
-          if(start >= CurrentDate)
-            createRDVModal(start,end);
-          else
-            $('.calendar1').fullCalendar('unselect');   
-        },
-        events: [
-          @foreach($rdvs as $rdv)
-          {
-            title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
-            start : '{{ $rdv->Date_RDV }}',
-            end:   '{{ $rdv->Fin_RDV }}',
-            id :'{{ $rdv->id }}',
-            idPatient:'{{$rdv->patient->id}}',
-            tel:'{{$rdv->patient->tele_mobile1}}',
-            age:{{ $rdv->patient->getAge() }},         
-          },
-          @endforeach 
-        ],
-        eventClick: function(calEvent, jsEvent, view) {
-           if(Date.parse(calEvent.start) > today )
-           {
-                    //updateRDVModal(calEvent.id,calEvent.title,calEvent.start,calEvent.end,calEvent.idPatient,calEvent.tel,calEvent.age); 
-                    edit(calEvent);
-           } 
-        },
-        eventRender: function (event, element, webData) {
-          if(event.start < CurrentDate)
-          {
-              element.css('background-color', '#D3D3D3'); 
-              // event.startEditable    = false; // event.durationEditable = false; // event.editable = false; // resourceEditable: false
-          }else
-          {
-            element.css("font-size", "1em");
-            element.css("padding", "5px");      
-          }
-        },
-        eventAllow: function(dropLocation, draggedEvent) {
-        
-         var day = moment(draggedEvent.dueDate);
-          var eventStart = moment(draggedEvent.start); // var locationtStart = moment(dropLocation.start);
-          var day = moment(draggedEvent.dueDate);
-          if (eventStart < day) {
-              return false;
-          }
-        },
-        eventDragStart:function( event, jsEvent, ui, view ) {
-        
-           if(event.start < today )
-           {
-              event.editable = false;
-              resourceEditable: false;
-           }
-        },
-        eventDrop: function(event, delta, revertFunc)
-        { 
-          // si changement de position // var dtToday = new Date(); // alert("auj :" +today + " eventstart :" + event.start);
-          if( event.start < today)
-          {
-            event.editable = false;
-            resourceEditable: false;
-          }
-          else
-            edit(event);
-        },       
-      }); // calendar
+      },
+      eventDragStart:function( event, jsEvent, ui, view ) {
+        if(event.start < today )
+        {
+          event.editable = false;
+          resourceEditable: false;
+        }
+      },
+      eventDrop: function(event, delta, revertFunc)
+      { 
+        // revertFunc();
+        if( event.start >= today)
+        {
+          $('#updateRDV').removeClass('invisible');
+          jQuery('#btnclose').click(function(){
+            revertFunc();
+          });
+          edit(event);
+        }
+      },       
+    }); // calendar
       /////////////////////////////////
       $('#patient').editableSelect({
                effects: 'default', 
@@ -210,74 +165,18 @@
       </div>
     </div>
   </div>
-  <div class="row">   
-      <div id="myModal" class="modal fade">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header" style="padding:35px 50px;">
-              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
-              <h4 id="modalTitle" class="modal-title"><span class="glyphicon glyphicon-bell"></span> Selectionner un Patient</h4>
-            </div>
-            <form id ="addRdv" role="form" action="/createRDV" method="POST">
-              {{ csrf_field() }}
-              <input type="hidden" id="Debut_RDV" name="Debut_RDV" value="">
-              <input type="hidden" id="Fin_RDV" name="Fin_RDV"  value="" >
-              <input type="time" id="Temp_rdv" name="Temp_rdv"  value=""  min="8:00" max="18:00" style="display:none;" >
-              <div id="modalBody" class="modal-body" style="padding:40px 50px;">
-                <div class="panel panel-default">
-                  <div class="panel-heading" style="">
-                    <span class="glyphicon glyphicon-search"></span>Rechercher un Patient
-                  </div>
-                  <div class="panel-body">
-                    <div class="row">
-                      <div class="col-sm-4">
-                        <div class="form-group">
-                          <label class="control-label col-sm-2" for=""> <strong>Filtre: </strong></label>
-                          <div class="col-sm-10">          
-                            <select class="form-control" placeholder="choisir le filtre" id="filtre" onchange="layout();">
-                              <option value="Nom">Nom</option>
-                              <option value="Prenom">Prenom</option>
-                              <option value="code_barre">IPP</option>
-                              <option value="Dat_Naissance">Date Naisssance</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-sm-4">
-                        <span class="input-icon" style="margin-right: -190px;">
-                          <select  placeholder="Rechercher... " class="nav-search-input" id="patient" name ="patient" autocomplete="off" style="width:300px;" data-date-format="yyyy-mm-dd">
-                            @if(isset($patient))
-                              <option value="{{$patient->id}}" selected>{{ $patient->code_barre }}-{{ $patient->Nom }}-{{ $patient->Prenom }}</option>
-                            @endif
-                          </select>
-                          <i class="ace-icon fa fa-search nav-search-icon"></i>   
-                        </span>   
-                      </div>                               
-                    </div>                                                  
-                  </div> {{-- panel-body --}}
-                </div>{{-- panel --}}
-              </div>{{-- modalBody --}}
-              <div class="modal-footer">
-                  <button class="btn btn-sm btn-primary" type="submit" id ="btnSave" disabled><i class="ace-icon fa fa-save bigger-110" ></i>Enregistrer  </button>                     
-                  <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"onclick="reset_in();"><i class="fa fa-close" aria-hidden="true"  ></i>Fermer</button>
-              </div>   
-            </form> 
-            </div>
-                </div>
-          </div>
-    </div>
-    <div class="row">
-      <!-- Modal --> 
-<div class="modal fade" id="fullCalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-     <div class="modal-dialog modal-lg" role="document">
-     <div class="modal-content">
-     <div class="modal-header"  style="padding:35px 50px;">
-           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
-           <h5 class="modal-title" id="myModalLabel">
-                <span class="glyphicon glyphicon-bell"></span>
-                 Modifier Rendez-Vous du <q><a href="" id="lien"><span id="patient" class="blue"> </span></a></q>
-           </h5>
-           <hr>
+  <div class="row">
+    <!-- Modal --> 
+    <div class="modal fade" id="fullCalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+    <div class="modal-header"  style="padding:35px 50px;">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+      <h5 class="modal-title" id="myModalLabel">
+        <span class="glyphicon glyphicon-bell"></span>
+          Modifier Rendez-Vous du <q><a href="" id="lien"><span id="patient" class="blue"> </span></a></q>
+      </h5>
+      <hr>
            <div class="row">
                 <div class="col-sm-6">    
                      <i class="fa fa-phone" aria-hidden="true"></i><strong>Téléphone:&nbsp;</strong><span id="patient_tel" class="blue"></span>
@@ -289,40 +188,41 @@
               </div>
      </div>
      <div class="modal-body">
-           <form id ="updateRdv" role="form" action="" method="POST">      {{-- {{route('rdv.update',5)}} /rdv/5--}}
-                {{ csrf_field() }}
-                {{ method_field('PUT') }}
-                <div class="well">
-                     <div class="row">
-                           <label for="date"><span class="glyphicon glyphicon-time fa-lg"></span><strong> Date Rendez-Vous :</strong></label>
-                           <div class="input-group">
-                                <input class="form-control" id="daterdv" name="daterdv" type="text" data-date-format="yyyy-mm-dd HH:mm:ss" readonly/>
-                           </div>
-                     </div>
-                     <div class="row" class= "invisible">
-                           <div class="input-group">
-                                <input class="form-control" id="datefinrdv" name ="datefinrdv" type="text" data-date-format="yyyy-mm-dd HH:mm:ss" style="display:none"/>
-                           </div>
-                      </div>             
-                </div>  {{-- well --}}
+        <form id ="updateRdv" role="form" action="" method="POST">      {{-- {{route('rdv.update',5)}} /rdv/5--}}
+          {{ csrf_field() }}
+          {{ method_field('PUT') }}
+          <div class="well">
+            <div class="row">
+              <label for="date"><span class="glyphicon glyphicon-time fa-lg"></span><strong> Date Rendez-Vous :</strong></label>
+              <div class="input-group">
+                <input class="form-control" id="daterdv" name="daterdv" type="text" data-date-format="yyyy-mm-dd HH:mm:ss" readonly/>
+              </div>
+            </div>
+            <div class="row" class= "invisible">
+              <div class="input-group">
+                <input class="form-control" id="datefinrdv" name ="datefinrdv" type="text" data-date-format="yyyy-mm-dd HH:mm:ss" style="display:none"/>
+              </div>
+            </div>             
+            </div>  {{-- well --}}
            <!-- </form>   --> 
       </div>
       <br>
       <div class="modal-footer">
-             @if(Auth::user()->role->id == 1)
-                <a type="button" id="btnConsulter" class="btn btn btn-sm btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
-            @endif 
-             <button type="submit" class="btn btn-sm btn-primary">
-                <i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer
-             </button>
-              @if(Auth::user()->role->id == 1)          
-                  <a  href=""  id="btnDelete" class="btn btn-bold btn-sm btn-danger" data-method="DELETE" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal">
-                    <i class="fa fa-trash" aria-hidden="true"></i> Annuler
-                  </a>
-              @endif 
-             <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
-                 <i class="fa fa-close" aria-hidden="true" ></i> Fermer
-             </button>
+         @if(Auth::user()->role->id == 1)
+            <a type="button" id="btnConsulter" class="btn btn btn-sm btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
+        @endif 
+         <button type="submit" id ="updateRDV" class="btn btn-sm btn-primary hidden">
+            <i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer
+         </button>
+          @if(Auth::user()->role->id == 1)          
+              <a  href="" id="btnDelete" class="btn btn-bold btn-sm btn-danger" data-method="DELETE" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal">
+                <i class="fa fa-trash" aria-hidden="true"></i> Annuler
+              </a>
+          @endif 
+          <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"  id ="btnclose" onclick="$('#updateRDV').addClass('hidden');">
+         <!-- $('#updateRDV').addClass('hidden');refrechCal(); -->
+            <i class="fa fa-close" aria-hidden="true" ></i> Fermer
+         </button>
       </div>
       </form>  
     </div>
