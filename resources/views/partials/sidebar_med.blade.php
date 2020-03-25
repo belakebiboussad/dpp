@@ -20,7 +20,6 @@
 
             <!-- /section:basics/sidebar.layout.shortcuts -->
         </div>
-
         <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
             <span class="btn btn-success"></span>
             <span class="btn btn-info"></span>
@@ -147,7 +146,7 @@
             <b class="arrow"></b>
             <ul class="submenu">
                 <li class="">
-                    <a href="{{ route('rdv.index') }}">
+                    <a href="{{ route('rdv.create') }}">
                         <i class="menu-icon fa fa-plus purple"></i>Ajouter RDV
                     </a>
                     <b class="arrow"></b>

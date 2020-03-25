@@ -53,15 +53,15 @@ class RDVController extends Controller
     }
     public function index($patientID = null)
     {       
-             if(Auth::user()->role->id == 1)
-             {
-                   $rdvs = rdv::where('Employe_ID_Employe', Auth::user()->employee_id)->get(); //$rdvs = rdv::all();
-                    return view('rdv.index', compact('rdvs')); 
-            } else
-            {
-              $rdvs = rdv::all();
-               return view('rdv.index', compact('rdvs')); 
-            }     
+      if(Auth::user()->role->id == 1)
+      {
+        $rdvs = rdv::where('Employe_ID_Employe', Auth::user()->employee_id)->get(); //$rdvs = rdv::all();
+        return view('rdv.index', compact('rdvs')); 
+      } else
+      {
+        $rdvs = rdv::all();
+        return view('rdv.index', compact('rdvs')); 
+      }     
         // $rdvs = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')
         //            ->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->get();
         // if(isset($patientID)) 
