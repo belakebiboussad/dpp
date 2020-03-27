@@ -17,7 +17,6 @@
               <div class="panel-body">
                 <div class="calendar1"></div>
               </div>
-              
             </div>
           </div>
         </div>

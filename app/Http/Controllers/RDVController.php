@@ -1,11 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\modeles\rdv;
 use App\modeles\patient;
 use App\modeles\employ;
 use App\modeles\rol;
+use App\modeles\specialite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
@@ -25,43 +24,43 @@ class RDVController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function valider($id)
-    {
-        $rdv = rdv::FindOrFail($id);
-        $rdv ->update([
-            "Etat_RDV"=>"Valider"
-        ]);
-        return redirect()->route("rdv.show",$rdv->id);
-    }
-    public function reporter($id)
-    {
-      $rdv = rdv::FindOrFail($id);
-      $patient = patient::FindOrFail($rdv->Patient_ID_Patient);
-      return view('rdv.reporter_rdv',compact('rdv','patient'));
-    }
-    public function storereporte(Request $request,$id)
-    {
-           $rdv = rdv::FindOrFail($id);
-           $rdv->update([
-                "Date_RDV"=>$request->daterdv,
+      public function valider($id)
+     {
+            $rdv = rdv::FindOrFail($id);
+            $rdv ->update([
+                "Etat_RDV"=>"Valider"
             ]);
             return redirect()->route("rdv.show",$rdv->id);
-    }
-    public function choixpatient()
-    {
-       return view('patient.index_patient');
-    }
-    public function index($patientID = null)
-    {       
-      if(Auth::user()->role->id == 1)
+       }
+       public function reporter($id)
+       {
+            $rdv = rdv::FindOrFail($id);
+            $patient = patient::FindOrFail($rdv->Patient_ID_Patient);
+            return view('rdv.reporter_rdv',compact('rdv','patient'));
+       }
+      public function storereporte(Request $request,$id)
       {
-        $rdvs = rdv::where('Employe_ID_Employe', Auth::user()->employee_id)->get(); //$rdvs = rdv::all();
-        return view('rdv.index', compact('rdvs')); 
-      } else
+             $rdv = rdv::FindOrFail($id);
+             $rdv->update([
+                  "Date_RDV"=>$request->daterdv,
+              ]);
+              return redirect()->route("rdv.show",$rdv->id);
+      }
+      public function choixpatient()
       {
-        $rdvs = rdv::all();
-        return view('rdv.index', compact('rdvs')); 
-      }     
+           return view('patient.index_patient');
+      }
+      public function index($patientID = null)
+      {       
+            if(Auth::user()->role->id == 1)
+            {
+                  $rdvs = rdv::where('Employe_ID_Employe', Auth::user()->employee_id)->get(); //$rdvs = rdv::all();
+                  return view('rdv.index', compact('rdvs')); 
+            } else
+            {
+                    $rdvs = rdv::all();
+                    return view('rdv.index', compact('rdvs')); 
+            }     
         // $rdvs = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')
         //            ->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->get();
         // if(isset($patientID)) 
@@ -73,25 +72,34 @@ class RDVController extends Controller
         // {
         //   return view('rdv.index', compact('rdvs')); 
         // }
-    }
+      }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     // Request $request
-    public function create($id_patient =null)
-    {
-             $rdvs = rdv::all(); //$employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
-             if(isset($id_patient) && !empty($id_patient))
-             {
-                $patient = patient::FindOrFail($id_patient);
-                return view('rdv.create',compact('patient','rdvs'));
+      public function create($id_patient =null)
+      {
+            //$employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
+             if(Auth::user()->role->id == 1)
+            {
+                   $rdvs = rdv::where('Employe_ID_Employe', Auth::user()->employee_id)->get(); //$rdvs = rdv::all();
+                    if(isset($id_patient) && !empty($id_patient))
+                    {
+                            $patient = patient::FindOrFail($id_patient);
+                            return view('rdv.create',compact('patient','rdvs'));
+                    }else
+                   {
+                        return view('rdv.create', compact('rdvs')); 
+                   }
              }else
              {
-                  return view('rdv.create', compact('rdvs')); 
+                    $rdvs = rdv::all();
+                    $specialites = specialite::all();
+                    return view('rdv.create', compact('rdvs','specialites')); 
              }
-    }
+      }
 
     /**
      * Store a newly created resource in storage.

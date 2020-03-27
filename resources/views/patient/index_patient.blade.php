@@ -162,26 +162,28 @@ function setField(field,value)
 {{-- <div class="row"> --}}
 	<div class="row panel panel-default" style ="margin-right:-35px;">
 		<div class="panel-heading left" style="height: 40px; font-size: 2.3vh;">
-				<strong>Rechercher un Patient</strong>
-				<div class="pull-right" style ="margin-top: -0.5%;">
-					<a href="{{route('assur.index')}}" class ="btn btn-white btn-info btn-bold btn-xs">Rechercher un Fonctionnaire&nbsp;<i class="ace-icon fa fa-arrow-circle-right bigger-120 black"></i></a>
-				</div>
+			<strong>Rechercher un Patient</strong>
+			<div class="pull-right" style ="margin-top: -0.5%;">
+				<a href="{{route('assur.index')}}" class ="btn btn-white btn-info btn-bold btn-xs">Rechercher un Fonctionnaire&nbsp;<i class="ace-icon fa fa-arrow-circle-right bigger-120 black"></i></a>
+			</div>
 		</div>
 		 <div class="panel-body">
-				<div class="row">
-					<div class="col-sm-2">
-	          <div class="form-group">
-	          	<label class="control-label" for="patientName" ><strong>Nom:</strong></label>
-							<div class="input-group">
-								<input type="text" class="form-control input-sx" id="patientName" name="patientName"  placeholder="nom du patient..."/>
-	         		 </div>
-						</div>
+			<div class="row">
+				<div class="col-sm-2">
+				       <div class="form-group">
+				          	<label class="control-label" for="patientName" ><strong>Nom:</strong></label>
+						<div class="input-group">
+							<input type="text" class="form-control input-sx" id="patientName" name="patientName"  placeholder="nom du patient..."/>
+							<span class="glyphicon glyphicon-search form-control-feedback"></span>
+				         	</div>
 					</div>
-					<div class="col-sm-2 col-md-offset-1">
+				</div>
+				<div class="col-sm-2 col-md-offset-1">
 						<div class="form-group">
 								<label class="control-label" for="patientFirstName" ><strong>Prenom:</strong></label> 
 								<div class="input-group">
-									<input type="text" class="form-control input-sx" id="patientFirstName" name="patientFirstName"  placeholder="prenom du patient...">
+								  	<input type="text" class="form-control input-sx" id="patientFirstName" name="patientFirstName"  placeholder="prenom du patient..."> 
+								  	<span class="glyphicon glyphicon-search form-control-feedback"></span>
 								</div>		
 						</div>
 					</div>
@@ -190,15 +192,16 @@ function setField(field,value)
 							<label class="control-label" for="Dat_Naissance" ><strong>Né(e):</strong></label>
 							<div class="input-group">
 								<input type="text" class="form-control input-sx tt-input date-picker" id="Dat_Naissance" name="Dat_Naissance"	data-date-format="yyyy-mm-dd" placeholder="date de naissance..." data-toggle="tooltip" data-placement="left" title="Date Naissance">
+								<span class="glyphicon glyphicon-search form-control-feedback"></span>
 							</div>		
 						</div>
 					</div>
 					<div class="col-sm-2 col-md-offset-1">
 						<div class="form-group">
 							<label class="control-label" for="IPP" ><strong>IPP:</strong></label>
-							<div class="form-input">
-									<input type="text" class="form-control input-sx tt-input" id="IPP" name="IPP"  placeholder="IPP du patient..."
-					   	 data-toggle="tooltip" data-placement="left" title="Code IPP du patient">
+							<div class="input-group">
+								<input type="text" class="form-control input-sx tt-input" id="IPP" name="IPP"  placeholder="IPP du patient..." data-toggle="tooltip" data-placement="left" title="Code IPP du patient">
+					   	   		<span class="glyphicon glyphicon-search form-control-feedback"></span>
 							</div>		
 						</div>		
 					</div>

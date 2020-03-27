@@ -47,7 +47,6 @@ class UsersController extends Controller
      */
     public function create()
     {
-       
         $roles = rol::all();
         return view('user.adduser', compact('roles'));
     }
@@ -109,7 +108,6 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        
            $user = User::FindOrFail($id);
             $employe = employ::FindOrFail($user->employee_id);
            $service = service::FindOrFail($employe->Service_Employe);
@@ -265,7 +263,6 @@ class UsersController extends Controller
             return $validator;
         }  
     public function changePassword(Request $request){
-
         if(Auth::Check())
         {
              $request_data = $request->All();
@@ -309,94 +306,50 @@ class UsersController extends Controller
     public function updatepro(Request $request)
     { dd($request); }
     
-    public function search(Request $request)
-    {
-        $output="";
-        $compte='';
-        if($request->search =="*")
-        {
-             $users = User::all();
-            
-        }
-        else
-        {
-            $users = User::where('name','LIKE','%'.$request->search."%")->get();  //$users=DB::table('utilisateurs')->where('name','LIKE','%'.$request->search."%")->get();
-        }
-        
-        if($users)
-        {
-            $i=1;
-            foreach ($users as $key => $user) {
-                if($user->active)
-                    $compte .='<span class="label label-sm label-success">active</span>';
-                $compte = ($user->active)?'<span class="label label-sm label-success">active</span>':'<span class="label label-sm label-danger">desactivé</span>';
-                $role = rol::FindOrFail($user->role_id);
-                $output.=  '<tr>'.
-                              '<td >'.$i.'</td>'. 
-                              '<td hidden>'.$user->id.'</td>'.
-                              '<td><a href="#" id ="'.$user->id.'" onclick ="getUserdetail('.$user->id.');">'.$user->name.'</a></td>'.
-                              '<td>'.$user->email.'</td>'.
-                              '<td>'.$role->role.'</td>'.
-                              '<td>'.$compte.'</td>'.   
-                               '<td>'.'<a href="/users/'.$user->id.'" class="'.'btn btn-white btn-sm">
-                               <i class="ace-icon fa fa-hand-o-up bigger-80"></i></a>'."&nbsp;&nbsp;".'<a href="/users/'.$user->id.'/edit" class="'.'btn btn-white btn-sm">
-                               <i class="fa fa-edit fa-lg" aria-hidden="true" style="font-size:16px;"></i></a>'.'</td>'.        
-                            '</tr>';
-                
-            $i++;    
-            if($i == 15)
-                break;
-                           
-            }
-        }
-        return Response($output)->withHeaders(['count' => $i]);
-
-    }   
-    public function searchOrg(Request $request)
-    {
-
-           if($request->ajax())  
-           {
-                $output="";
-                if($request->search =="*")
-                    $users = User::all();
-                else 
-                    $users=DB::table('utilisateurs')->where('name','LIKE','%'.$request->search."%")->get();
-                
-                if($users)
-                {
-                    $i=0;
-                    foreach ($users as $key => $user) {
-                        $i++;
-                        $compte='<span class="label label-sm label-danger">desactivé</span>';
-                        if($user->active)
-                            $compte='<span class="label label-sm label-success">active</span>';
-                        $role = rol::FindOrFail($user->role_id);          
-                        $output.='<tr>'.
-                                    '<td >'.$i.'</td>'.
-                                    '<td hidden>'.$user->id.'</td>'. // '<td><a href="/users/'.$user->id.'">'.$user->name.'</a></td>'.
+      public function search(Request $request)
+      {
+             $output="";
+             $compte='';
+            if($request->search =="*")
+                   $users = User::all();
+             else  
+                  $users = User::where('name','LIKE','%'.$request->search."%")->get();          
+            if($users)
+            {
+                  $i=1;
+                  foreach ($users as $key => $user) {
+                         if($user->active)
+                                $compte .='<span class="label label-sm label-success">active</span>';
+                                $compte = ($user->active)?'<span class="label label-sm label-success">active</span>':'<span class="label label-sm label-danger">desactivé</span>';
+                               $role = rol::FindOrFail($user->role_id);
+                              $output.=  '<tr>'.
+                                    '<td >'.$i.'</td>'. 
+                                    '<td hidden>'.$user->id.'</td>'.
                                     '<td><a href="#" id ="'.$user->id.'" onclick ="getUserdetail('.$user->id.');">'.$user->name.'</a></td>'.
                                     '<td>'.$user->email.'</td>'.
                                     '<td>'.$role->role.'</td>'.
                                     '<td>'.$compte.'</td>'.   
-                                    '<td>'.'<a href="/users/'.$user->id.'" class="'.'btn btn-white btn-sm"><i class="ace-icon fa fa-hand-o-up bigger-80"></i></a>'."&nbsp;&nbsp;".'<a href="/users/'.$user->id.'/edit" class="'.'btn btn-white btn-sm"><i class="fa fa-edit fa-lg" aria-hidden="true" style="font-size:16px;"></i></a>'.'</td>'.   
-                                    '</tr>';
-                    }
-                }
-                
-                return Response($output)->withHeaders(['count' => $i]);
-             }    
-    }
-    public function AutoCompleteUsername(Request $request)
-    {
-           return User::where('name', 'LIKE', '%'.trim($request->q).'%')->get();
-    } 
-    public function getUserDetails(Request $request)
-    {
-           $user = User::FindOrFail($request->search);
-           $employe = employ::FindOrFail($user->employee_id);
-           $view = view("user.ajax_userdetail",compact('user','role','employe'))->render();
-           return response()->json(['html'=>$view]);
-    }
+                                     '<td>'.'<a href="/users/'.$user->id.'" class="'.'btn btn-white btn-sm">
+                                     <i class="ace-icon fa fa-hand-o-up bigger-80"></i></a>'."&nbsp;&nbsp;".'<a href="/users/'.$user->id.'/edit" class="'.'btn btn-white btn-sm">
+                                     <i class="fa fa-edit fa-lg" aria-hidden="true" style="font-size:16px;"></i></a>'.'</td>'.        
+                                  '</tr>';  
+                               $i++;    
+                                // if($i == 15)  //       break;        
+                  }
+            }
+           return Response($output)->withHeaders(['count' => $i]);
+      
+       }    
+      public function AutoCompleteUsername(Request $request)
+      {
+             return User::where('name', 'LIKE', '%'.trim($request->q).'%')->get();
+      }
+       public function getUserDetails(Request $request)
+      {
+             $user = User::FindOrFail($request->search);
+             $employe = employ::FindOrFail($user->employee_id);
+             $view = view("user.ajax_userdetail",compact('user','role','employe'))->render();
+             return response()->json(['html'=>$view]);
+      }
     
 }

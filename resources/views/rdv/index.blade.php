@@ -25,113 +25,115 @@
 @endsection
 @section('page-script') {{-- {!! $planning->script() !!} --}}
 <script>//reccherche par nom
-  function reset_in()
-  {
+function reset_in()
+{
        $('.es-list').val('');
        $('#patient').val('');
-  }
-  function layout()
-  {
+}
+function layout()
+{
        reset_in(); 
        var field = $("select#filtre option").filter(":selected").val();
        if(field == "Dat_Naissance")
-          {
+       {
             $('#patient').datepicker().format("YYYY-MM-DD");
             $("#btnSave").attr("disabled",false);
-          }
-       else
+       }
+      else
        { 
             $("#btnSave").attr("disabled", true);
             $("#patient").datepicker("destroy");
        }
            
-  }
-	$(document).ready(function() {
-    var CurrentDate = (new Date()).setHours(23, 59, 59, 0); //.setHours(0, 0, 0, 0); 
-    var today = (new Date()).setHours(0, 0, 0, 0); //.setHours(0, 0, 0, 0); 
-    $('.calendar1').fullCalendar({
-      header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,agendaWeek,agendaDay'
-      },
-      timeZone: 'local',
-      defaultView: 'month',  //weekends: false,
-      firstDay: 0, 
-      slotDuration: '00:15:00',
-      minTime:'08:00:00',
-      maxTime: '17:00:00',
-      navLinks: true, // can click day/week names to navigate views
-      selectable: true,
-      selectHelper: true,
-      eventColor: '#87CEFA',
-      contentHeight: 700,
-      editable: true,
-      eventLimit: true, // allow "more" link when too many events      // displayEventEnd: true,       
-      hiddenDays: [ 5, 6 ],
-      allDaySlot: false,
-      weekNumberCalculation: 'ISO',
-      aspectRatio: 1.5,
-      disableDragging: false,
-      eventDurationEditable : false,
-      views: {},
-      events: [
-        @foreach($rdvs as $rdv)
-        {
-          title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
-          start : '{{ $rdv->Date_RDV }}',
-          end:   '{{ $rdv->Fin_RDV }}',
-          id :'{{ $rdv->id }}',
-          idPatient:'{{$rdv->patient->id}}',
-          tel:'{{$rdv->patient->tele_mobile1}}',
-          age:{{ $rdv->patient->getAge() }},         
-        },
-        @endforeach 
-      ],
-      select: function(start, end) {
-        $('.calendar1').fullCalendar('unselect');
-      },
-      eventClick: function(calEvent, jsEvent, view) {
-        if(Date.parse(calEvent.start) > today )
-        {
-            edit(calEvent);
-        } 
-      },
-      eventRender: function (event, element, webData) {
-        element.css("font-size", "1em");
-        element.find('.fc-title').append("<br/>" + event.tel); 
-        if(event.start < CurrentDate)
-          element.css('background-color', '#D3D3D3'); 
-        else       
-          element.css("padding", "5px");      
-      },
-      eventAllow: function(dropLocation, draggedEvent) {
-        var day = moment(draggedEvent.dueDate);
-        var eventStart = moment(draggedEvent.start); // var locationtStart = moment(dropLocation.start);
-        var day = moment(draggedEvent.dueDate);
-        if (eventStart < day) {
-            return false;
-        }
-      },
-      eventDragStart:function( event, jsEvent, ui, view ) {
-        if(event.start < today )
-        {
-          event.editable = false;
-          resourceEditable: false;
-        }
-      },
-      eventDrop: function(event, delta, revertFunc)
-      { 
-        // revertFunc();
-        if( event.start >= today)
-        {
-          $('#updateRDV').removeClass('invisible');
-          jQuery('#btnclose').click(function(){
-            revertFunc();
-          });
-          edit(event);
-        }
-      },       
+}
+$(document).ready(function() {
+      var CurrentDate = (new Date()).setHours(23, 59, 59, 0); //.setHours(0, 0, 0, 0); 
+      var today = (new Date()).setHours(0, 0, 0, 0); //.setHours(0, 0, 0, 0); 
+     $('.calendar1').fullCalendar({
+             header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+             },
+              timeZone: 'local',
+              defaultView: 'month',  //weekends: false,
+              firstDay: 0, 
+              slotDuration: '00:15:00',
+              minTime:'08:00:00',
+              maxTime: '17:00:00',
+              navLinks: true, // can click day/week names to navigate views
+              selectable: true,
+              selectHelper: true,
+              eventColor: '#87CEFA',
+              contentHeight: 700,
+              editable: true,
+              eventLimit: true, // allow "more" link when too many events      // displayEventEnd: true,       
+              hiddenDays: [ 5, 6 ],
+              allDaySlot: false,
+              weekNumberCalculation: 'ISO',
+              aspectRatio: 1.5,
+              disableDragging: false,
+              eventDurationEditable : false,
+              views: {},
+              events: [
+                   @foreach($rdvs as $rdv)
+                      {
+                        title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
+                        start : '{{ $rdv->Date_RDV }}',
+                        end:   '{{ $rdv->Fin_RDV }}',
+                        id :'{{ $rdv->id }}',
+                        idPatient:'{{$rdv->patient->id}}',
+                        tel:'{{$rdv->patient->tele_mobile1}}',
+                        age:{{ $rdv->patient->getAge() }},         
+                   },
+                   @endforeach 
+              ],
+              select: function(start, end) {
+                $('.calendar1').fullCalendar('unselect');
+              },
+             eventClick: function(calEvent, jsEvent, view) {
+                    if(Date.parse(calEvent.start) > today )
+                          edit(calEvent);
+              },
+              eventRender: function (event, element, webData) {
+                   if(event.start < today)
+                            element.css('background-color', '#D3D3D3'); 
+                    else       
+                          element.css("padding", "5px");
+                    element.popover({
+                                 delay: { "show": 500, "hide": 100 },  // title: event.title,
+                                content: event.tel,
+                                 trigger: 'hover',
+                                animation:true,
+                                placement: 'bottom',
+                                container: 'body',
+                                template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
+                    });                   
+              },
+              eventAllow: function(dropLocation, draggedEvent) {
+                   if (draggedEvent.start < today)  //   var eventStart = moment(draggedEvent.start); // var locationtStart = moment(dropLocation.start);  //var day = moment(draggedEvent.dueDate);eventStart < day
+                        return false;
+              },
+             eventDragStart:function( event, jsEvent, ui, view ) {
+              },
+             eventDrop: function(event, delta, revertFunc)
+             { 
+                    if( event.start-delta >= today)
+                    { 
+                          $('#updateRDV').removeClass('hidden');
+                          jQuery('#btnclose').click(function(){
+                               revertFunc();
+                          });
+                          edit(event);
+                    }
+                    else
+                    {
+                          revertFunc();
+                    }
+              },  
+              eventMouseover: function(event, jsEvent, view) {
+              
+              },     
     }); // calendar
       /////////////////////////////////
       $('#patient').editableSelect({

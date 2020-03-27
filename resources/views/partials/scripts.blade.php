@@ -1098,7 +1098,7 @@ $('#typeexm').on('change', function() {
   function isEmpty(value) {
     return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
   }
-  function remoteSearch(field,value) {
+  function patientSearch(field,value) {
     $.ajax({
       url : '{{URL::to('getPatients')}}',
       data: {    

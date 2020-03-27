@@ -320,8 +320,8 @@
      	 	var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
       		champ.appendTo('#consultForm');
     	}); 
-    	//calendrier pour rdv
-    	var CurrentDate = (new Date()).setHours(23, 59, 59, 0); 
+    	var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
+    	var today = (new Date()).setHours(0, 0, 0, 0); 
     	$('.calendar1').fullCalendar({
     		header: {
 		            left: 'prev,next today',
@@ -345,61 +345,61 @@
 	      eventLimit: true,
 	      allDaySlot: false,
 	      eventDurationEditable : false,
+	      weekNumbers: true,
 	      views: {}, 
-		    select: function(start, end) {
+		select: function(start, end) {
 		      if(start > CurrentDate){
-		      	 $( "#dialog" ).dialog({
-		      	 	dialogClass: "no-close",
-		      	 	closeText: "Fermer",	// title: 'Confimer Rendez-Vous',
-		      	 	closeOnEscape: false,
-		      	 	dialogClass: "alert",
-		      	 	draggable: true,
-		      	 	modal:true,
-		      	 	resizable: true,
-		      	 	overlay: "background-color: red; opacity: 0.5",
-		      	 	 // show: { effect: "drop", direction: "up", easing: "easeInQuad", duration: 300 },//  		 hide: { effect: "drop", direction: "up", easing: "easeOutQuad", duration: 300 },
-             	classes: {
+			      	$( "#dialog" ).dialog({
+			      	 	dialogClass: "no-close",
+			      		closeText: "Fermer",	// title: 'Confimer Rendez-Vous',
+			      	 	closeOnEscape: false,
+			      	 	dialogClass: "alert",
+			      	 	draggable: true,
+			      	 	modal:true,
+			      	 	resizable: true,
+			      	 	overlay: "background-color: red; opacity: 0.5",
+		      	 	 	// show: { effect: "drop", direction: "up", easing: "easeInQuad", duration: 300 },//  		 hide: { effect: "drop", direction: "up", easing: "easeOutQuad", duration: 300 },
+             			classes: {
 						    "ui-dialog": "classes.ui-dialog"
-			      },
-  				buttons: [
-    						{
-						      text: "Oui",
-						      icon: "ui-icon-heart",
-						      click: function() {
-						        var fixe = $('#dialog :checkbox').is(':checked') ? 1 :0; 
-										createRDVModal(start,end,$('#patientId').val(),fixe);
-						        $( this ).dialog( "close" );
-						      }
-	    					},
-	    					{
-						      text: "Non",
-						      icon: "ui-icon-heart",
-						      click: function() {
-						        $( this ).dialog( "close" );
-						      }
-	    					}
-				],
-				  _allowInteraction: function( event ) {
-		                if (!jQuery.ui.dialog.prototype._allowInteractionModifed) {
-		                     jQuery.ui.dialog.prototype._allowInteraction = function(e) {
-		                  if (typeof e !== "undefined") {
-		                        if (jQuery(e.target).closest('.select2-drop').length) {
-		                            return true;
-		                        }
-		                        jQuery.ui.dialog.prototype._allowInteractionModifed = true;
-		                        return (typeof this._super === "function") ? this._super(e) : this;
-		                     }
-		                  }
-		                }
-		              }
-		      	 }); 
-		      }
-		      else
-		      $('.calendar1').fullCalendar('unselect');
-		    },
-		    events: [
-			    @foreach($employe->rdvs as $rdv)
-			    {
+			      		},
+	  				buttons: [
+	    						{
+							      text: "Oui",
+							      icon: "ui-icon-heart",
+							      click: function() {
+							        var fixe = $('#dialog :checkbox').is(':checked') ? 1 :0; 
+											createRDVModal(start,end,$('#patientId').val(),fixe);
+							        $( this ).dialog( "close" );
+							      }
+		    					},
+		    					{
+							      text: "Non",
+							      icon: "ui-icon-heart",
+							      click: function() {
+							        $( this ).dialog( "close" );
+							      }
+		    					}
+					],
+					 _allowInteraction: function( event ) {
+			                	if (!jQuery.ui.dialog.prototype._allowInteractionModifed) {
+			                   		 jQuery.ui.dialog.prototype._allowInteraction = function(e) {
+					                    if (typeof e !== "undefined") {
+					                          if (jQuery(e.target).closest('.select2-drop').length) {
+					                      	       return true;
+					                        	}
+					                        	jQuery.ui.dialog.prototype._allowInteractionModifed = true;
+					                        	return (typeof this._super === "function") ? this._super(e) : this;
+					                    }
+			                  		}
+			                	}
+			             }
+		     	 	 }); 
+		      }else
+		   		$('.calendar1').fullCalendar('unselect');
+		    	},
+		      events: [
+			     @foreach($employe->rdvs as $rdv)
+			      {
 			                title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
 			                start : '{{ $rdv->Date_RDV }}',
 			                end:   '{{ $rdv->Fin_RDV }}',
@@ -407,43 +407,46 @@
 			                idPatient:'{{$rdv->patient->id}}',
 			                tel:'{{$rdv->patient->tele_mobile1}}',
 			                age:{{ $rdv->patient->getAge() }},          
-			          },
-			          @endforeach 
+			       },
+			       @endforeach 
 		    	],
 		      eventRender: function (event, element, webData) {
-		      	element.css("font-size", "1em");
-		      	element.find('.fc-title').append("," + event.tel); 
-			    	if(event.start < CurrentDate) // element.resizable = false;	// element.durationEditable  = false;
-				       element.css('background-color', '#D3D3D3'); 
-				    // else
-				    //   element.css("padding", "5px");      
-				    
+			      	// element.find('.fc-title').append("," + event.tel);    	// element.css("font-size", "1em");
+				if(event.start < today) // element.resizable = false;	// element.durationEditable  = false;
+				      element.css('background-color', '#D3D3D3'); 	 // else    //   element.css("padding", "5px");
+			   	   else
+                         		element.css("padding", "5px");
+	                    element.popover({
+	                                 delay: { "show": 500, "hide": 100 },  // title: event.title,
+	                                content: event.tel,
+	                                 trigger: 'hover',
+	                                animation:true,
+	                                placement: 'bottom',
+	                                container: 'body',
+	                                template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
+	                    });		    
 			},
 		    	eventClick: function(calEvent, jsEvent, view) {
-         			 editRdv(calEvent);// @if(Auth::user()->role->id != 2) @endif         
+         			 editRdv(calEvent);
+         			  {{-- @if(Auth::user()->role->id != 2) @endif          --}}
        		},
        		dayClick: function(date, jsEvent, view) {},
        		eventAllow: function(dropLocation, draggedEvent) {
-          		if(draggedEvent.start < CurrentDate)
-            	 		return false;  	     
+	          		if(draggedEvent.start < CurrentDate)
+	            	 		return false;  	     
           		},
-        		eventDrop: function(event, delta, revertFunc) { // si changement de position
-/*//	editRdv(event);var url = '{{ route("rdv.update", ":slug") }}';url = url.replace(':slug',event.id);alert(url);var dateSelect = new Date(event.start);var m = dateSelect.getMonth() + 1;var y = dateSelect.getFullYear();  var d = dateSelect.getDate();
-var h =	dateSelect.getHours()-1;var mn = dateSelect.getMinutes();		var sc = dateSelect.getSeconds();var startdate = y + "-" + m + "-" + d + " " + h + ":" + mn + ":" + sc;var dateSelect = new Date(event.end);var h =	dateSelect.getHours()-1;var mn = dateSelect.getMinutes();		var sc = dateSelect.getSeconds();var enddate = y + "-" + m + "-" + d + " " + h + ":" + mn + ":" + sc;$.ajax({type : 'POST', url : '/rdvs',  data: {"id": event.id,  "daterdv" :event.start.format() ,  "datefinrdv" :event.end.format },success:function(data){  }, error:function(jqXHR, textStatus, errorThrown){ console.log(textStatus); }}); 	*/
-          	$('#updateRDV').removeClass('invisible');
-          	jQuery('#btnclose').click(function(){
-            	revertFunc();
-          	});
-          	editRdv(event);
-          },
-          eventResize: function (event, delta, revertFunc) {
+        		eventDrop: function(event, delta, revertFunc) { 
+          			$('#updateRDV').removeClass('invisible');
+          			jQuery('#btnclose').click(function(){
+           		 	revertFunc();
+          		});
+          		editRdv(event);
+          	},
+       	 eventResize: function (event, delta, revertFunc) {
      
           },
-          eventDragStop: function (event, jsEvent, ui, view) {
-          /* $.ajax({     type : 'PUT', url : url, data: {"id": event.id,	  "daterdv" : event.start,"datefinrdv" : event.end,
-        			},success:function(data){  alret("fsd");      },    error:function(jqXHR, textStatus, errorThrown){
-             	  console.log(textStatus);  }		}); 
-    			*/
+       eventDragStop: function (event, jsEvent, ui, view) {
+     
         } 
     	});
 
