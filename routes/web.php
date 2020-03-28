@@ -177,7 +177,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('AddANTCD','AntecedantsController@createATCDAjax');
 Route::get('/searchUser','UsersController@search');
 Route::get('/DocorsSearch','EmployeController@searchBySpececialite');
-Route::get('/searchPatient','PatientController@search');
+Route::get('/searchPatient','PatientController@search')->name('patients.search');
 Route::get('/getPatients','PatientController@getPatientsArray');
 Route::get('/getlits','LitsController@getlits');
 Route::get('/user/find', 'UsersController@AutoCompleteUsername');

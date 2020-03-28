@@ -157,42 +157,40 @@ class RDVController extends Controller
      * @param  \App\modeles\rdv  $rdv
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    { 
-        $rdv = rdv::FindOrFail($id);  //dd($rdv); //$rdv = rdv::FindOrFail($request->id_rdv);    
-        $dateRdv = new DateTime($request->daterdv);
-        $dateFinRdv = new DateTime($request->datefinrdv);
-        $rdv->update([
-                  "Date_RDV"=>$dateRdv,
-                  "Fin_RDV"=>$dateFinRdv,
-        ]);
-        if($request->ajax())
-          return $rdv;
-        else
-         return redirect()->route("rdv.index");//return redirect()->route("rdv.show",$rdv->id);
+      public function update(Request $request, $id)
+      { 
+             $rdv = rdv::FindOrFail($id); //$rdv = rdv::FindOrFail($request->id_rdv); 
+              $dateRdv = new DateTime($request->daterdv);
+              $dateFinRdv = new DateTime($request->datefinrdv);
+              $rdv->update([
+                        "Date_RDV"=>$dateRdv,
+                        "Fin_RDV"=>$dateFinRdv,
+              ]);
+              if($request->ajax())
+                    return $rdv;
+              else
+                    return redirect()->route("rdv.index");//return redirect()->route("rdv.show",$rdv->id);
       }
-
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\modeles\rdv  $rdv
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
-    
-    {
-        if($request->ajax())
-        {
-          $rdv = rdv::findOrFail($id); // return Auth::user()->employ->rdvs; // return Response::json($rdvs);
-          rdv::destroy($id); // $rdvs = $rdv->employe->rdvs;//return Response::json($rdvs);
-          return ($rdv);
-        }
-        else
-        {
-          rdv::destroy($id);//return redirect()->route('rdv.index');
-          return redirect()->action('RDVController@index');
-        } 
-    }
+      public function destroy(Request $request, $id)
+      {
+            if($request->ajax())
+            {
+              $rdv = rdv::findOrFail($id); // return Auth::user()->employ->rdvs; // return Response::json($rdvs);
+              rdv::destroy($id); // $rdvs = $rdv->employe->rdvs;//return Response::json($rdvs);
+              return ($rdv);
+            }
+            else
+            {
+              rdv::destroy($id);//return redirect()->route('rdv.index');
+              return redirect()->action('RDVController@index');
+            } 
+      }
     public function orderPdf($id)
     {
         $order = rdv::findOrFail($id);
@@ -219,7 +217,6 @@ class RDVController extends Controller
       return $dompdf->stream($name);
 
     }
-
     public function getRDV()
     {
         $rdvs = rdv::select(['id','Date_RDV','Temp_rdv','Patient_ID_Patient','Employe_ID_Employe','Etat_RDV']);
@@ -266,13 +263,13 @@ class RDVController extends Controller
                     })
             ->rawColumns(['action5','action4','action3','action1','action2','action'])
             ->make(true);
-    }
-    function AddRDV(Request $request)
-     { 
-        $employe = Auth::user()->employ;
-        $patient = patient::find($request->id_patient);  // $specialite = $employe->Specialite_Emploiye; 
-        if($request->ajax()){
-          $rdv = rdv::firstOrCreate([
+      }
+       function AddRDV(Request $request)
+      { 
+            $employe = Auth::user()->employ;
+            $patient = patient::find($request->id_patient);  // $specialite = $employe->Specialite_Emploiye; 
+            if($request->ajax()){
+                   $rdv = rdv::firstOrCreate([
                           "Date_RDV"=>new DateTime($request->Debut_RDV),//"Temp_rdv"=>$time,
                           "Fin_RDV" =>new DateTime($request->Fin_RDV),
                           "fixe"    => $request->fixe,
@@ -280,28 +277,29 @@ class RDVController extends Controller
                           "Employe_ID_Employe"=>$employe->id,
                           "Patient_ID_Patient"=>$request->id_patient,
                           "Etat_RDV"=> "en attente",
-          ]);
-          return Response::json(array('patient'=>$patient, 'age'=>$patient->getAge(),'rdv'=>$rdv));
-        }
-        else
-        {
-          $arr = explode("-", $request->patient);
-          $patient=patient::where('code_barre',$arr[0])->first();
-          $rdv = rdv::firstOrCreate([
-                "Date_RDV"=>new DateTime($request->Debut_RDV),//"Temp_rdv"=>$time,
-                'Fin_RDV'=>new DateTime($request->Fin_RDV), 
-                "specialite"=>$employe->Specialite_Emploiye,
-                "Employe_ID_Employe"=>$employe->id,
-                "Patient_ID_Patient"=>$patient->id,
-                "Etat_RDV"=> "en attente",
-          ]);
-          Flashy::success('RDV ajouter avec succès');
-          return redirect()->route("rdv.create");
-        }
-
-    }     
-    public function checkFullCalendar(Request $request)
-    {
+                    ]);
+                    return Response::json(array('patient'=>$patient, 'age'=>$patient->getAge(),'rdv'=>$rdv));
+            }else
+            {       
+                   $patient=patient::where('code_barre', explode("-", $request->patient)[0])->first();
+                    if(Auth::user()->role_id ==2)
+                   {
+                          $employe = employ::findOrFail($request->medecin);
+                   }
+                   $rdv = rdv::firstOrCreate([
+                          "Date_RDV"=>new DateTime($request->Debut_RDV),//"Temp_rdv"=>$time,
+                          'Fin_RDV'=>new DateTime($request->Fin_RDV), 
+                          "specialite"=>$employe->Specialite_Emploiye,
+                          "Employe_ID_Employe"=>$employe->id,
+                          "Patient_ID_Patient"=>$patient->id,
+                          "Etat_RDV"=> "en attente",
+                   ]);
+                Flashy::success('RDV ajouter avec succès');
+                return redirect()->route("rdv.create");
+             }
+      }     
+      public function checkFullCalendar(Request $request)
+      {
            $events = array(); 
            $today = Carbon::now()->format('Y-m-d');
            $rendezVous = rdv::all();

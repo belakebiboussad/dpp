@@ -6,33 +6,11 @@
 <script>
 function reset_in()
 {
-       $('.es-list').val('');
-       $('#patient').val('');
-}
-function getMedecinsSpecialite()
-{
-       $.ajax({
-             type : 'get',
-             url : '{{URL::to('DocorsSearch')}}',
-             data:{'specialiteId':$('#specialite').val()},
-             dataType: 'json',
-             success:function(data,status, xhr){
-                   var html ="";
-                    jQuery(data).each(function(i, med){
-                          html += '<option value="'+med.id+'" >'+med.Nom_Employe +" "+med.Prenom_Employe+'</option>';
-                    });
-                    //$('#medecin').html(html);
-                    $('#medecin').append(html);
-                    if($('#patient').val())
-                          $("#btnSave").removeAttr("disabled");
-             },
-             error:function(data){
-                    console.log(data);
-             }
-       });   
+       $('.es-list').val('');  $('#patient').val(''); $('#medecin').val(''); $('#specialite').val(''); 
+      $("#medecin").attr("disabled", true);   
 }
 $(document).ready(function() {
-      var CurrentDate = (new Date()).setHours(23, 59, 59, 0); 
+       var CurrentDate = (new Date()).setHours(23, 59, 59, 0); 
       var today = (new Date()).setHours(0, 0, 0, 0); 
    	$('#calendar').fullCalendar({
               header: {
@@ -56,25 +34,25 @@ $(document).ready(function() {
               hiddenDays: [ 5, 6 ],
               allDaySlot: false,
               weekNumberCalculation: 'ISO',
-              aspectRatio: 1.5,
-              // disableDragging: true,
+              aspectRatio: 1.5,        // disableDragging: true,
               eventStartEditable : false,
-              eventDurationEditable : false,
-             // columnHeaderFormat: 'dddd',//affichelndi/mardi 
+              eventDurationEditable : false,  // columnHeaderFormat: 'dddd',//affichelndi/mardi 
              weekNumbers: true,
              aspectRatio: 2,
               views: {},
               events : [
                		      @foreach($rdvs as $rdv)
-                                  {
-                                            title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
-                                            start : '{{ $rdv->Date_RDV }}',
-                                            end:   '{{ $rdv->Fin_RDV }}',
-                                            id :'{{ $rdv->id }}',
-                                            idPatient:'{{$rdv->patient->id}}',
-                                            tel:'{{$rdv->patient->tele_mobile1}}',
-                                            age:{{ $rdv->patient->getAge() }},
-                                  },
+                                 {
+                                       title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
+                                       start : '{{ $rdv->Date_RDV }}',
+                                       end:   '{{ $rdv->Fin_RDV }}',
+                                       id :'{{ $rdv->id }}',
+                                       idPatient:'{{$rdv->patient->id}}',
+                                       tel:'{{$rdv->patient->tele_mobile1}}',
+                                       age:{{ $rdv->patient->getAge() }},
+                                       specialite: {{ $rdv->specialite}},
+                                       employe:   {{ $rdv->Employe_ID_Employe }},
+                                 },
                                   @endforeach 	
               ],
               select: function(start, end) {
@@ -83,6 +61,15 @@ $(document).ready(function() {
                     else
                           $('#calendar').fullCalendar('unselect');   
              },
+            eventClick: function(calEvent, jsEvent, view) {
+                    if(Date.parse(calEvent.start) > today )
+                    {
+                          $('#lien').text(calEvent.title);
+                          $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
+                           $('#printRdv').attr('href','javascript:rdvPrint('+calEvent.id+');');
+                          $('#fullCalModal').modal({ show: 'true' });
+                    }
+              },
              eventRender: function (event, element, webData) {
                     if(event.start < today)  // element.css("font-size", "1em");
                             element.css('background-color', '#D3D3D3');  
@@ -107,15 +94,25 @@ $(document).ready(function() {
        }).on('select.editable-select', function (e, li) {
               $('#last-selected').html(
                     li.val() + '. ' + li.text()
-              );
-             if ($('#medecin').val())
+              ); 
+             @if(Auth::user()->role_id == 1)
+                   $("#btnSave").removeAttr("disabled");
+            @else
+            {
+                    $('#medecin').val() != '';
                     $("#btnSave").removeAttr("disabled");
+            }
+             @endif
        });
       $("#patient").on("keyup", function() {
              var field = $("select#filtre option").filter(":selected").val();
              if(field != "Dat_Naissance")
                     patientSearch(field,$("#patient").val()); //to call ajax
        });
+      $( "#medecin" ).change(function() {
+              if($('#patient').val())
+                    $("#btnSave").removeAttr("disabled"); 
+      });
 });
   // });
  </script>
@@ -180,9 +177,9 @@ $(document).ready(function() {
                                 </div>                                                  
                           </div> {{-- panel-body --}}
                           <div class="space-12"></div>
-                          @if(Auth::user()->role->id == 2)
+                          @if(Auth::user()->role_id == 2)
                                 <div class="panel-heading" style="">
-                                       <i class="ace-icon fa  fa-user-md"></i><span>Selectionner un Medecin</span>
+                                       <i class="ace-icon fa  fa-user-md bigger-110"></i><span>Selectionner un Medecin</span>
                                 </div>
                                 <div class="panel-body">
                                 <div class="row">
@@ -191,6 +188,7 @@ $(document).ready(function() {
                                                     <label class="control-label col-sm-3" for=""> <strong>Specilité: </strong></label>
                                                     <div class="col-sm-9">          
                                                           <select class="form-control" placeholder="choisir le specialite" id="specialite" onchange="getMedecinsSpecialite();">
+                                                                  <option value="">Selectionner....</option>
                                                           @foreach($specialites as $specialite)
                                                                 <option value="{{ $specialite->id}}">{{  $specialite->nom }}</option>
                                                           @endforeach
@@ -200,7 +198,7 @@ $(document).ready(function() {
                                        </div>
                                        <div class="col-sm-5">
                                              <span class="input-icon" style="margin-right: -190px;">
-                                                    <select  placeholder="Selectionner... " class="" id="medecin" name ="medecin" autocomplete="off" style="width:300px;">
+                                                    <select  placeholder="Selectionner... " class="" id="medecin" name ="medecin" autocomplete="off" style="width:300px;" disabled>
                                                     <option value="">Selectionner....</option>
                                                   </select>
                                              </span>   
@@ -218,5 +216,63 @@ $(document).ready(function() {
       </div>
     </div>
   </div>
+</div>
+ <div class="row">
+    <div class="modal fade" id="fullCalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  {{-- Modal --}}
+    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+    <div class="modal-header"  style="padding:35px 50px;">
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+             <h5 class="modal-title" id="myModalLabel">
+                    <span class="glyphicon glyphicon-bell"></span>
+                      Imprimer le Rendez-Vous du <q><a href="" id="lien"><span id="patient" class="blue"> </span></a></q>
+            </h5>
+            <hr>
+            <div class="row">
+                    <div class="col-sm-6">    
+                         <i class="fa fa-phone" aria-hidden="true"></i><strong>Téléphone:&nbsp;</strong><span id="patient_tel" class="blue"></span>
+                    </div>
+                    <div class="col-sm-6">
+                         <strong>Âge:&nbsp;</strong>
+                         <span id="agePatient" class="blue"></span> <small>Ans</small>
+                    </div>
+             </div>
+     </div>
+      <div class="modal-body">
+        <form id ="updateRdv" role="form" action="" method="POST"> 
+             <input type="hidden" id= "specialite" name="specialite"/>         
+            <div class="space-12"></div>
+            <div class="well">      
+                    <div class="row">
+                            <label for="date"><span class="glyphicon glyphicon-time fa-lg"></span><strong> Date Rendez-Vous :</strong></label>
+                            <div class="input-group">
+                              <input class="form-control" id="daterdv" name="daterdv" type="text" data-date-format="yyyy-mm-dd HH:mm:ss" readonly/>
+                            </div>
+                    </div>
+                    <div class="row" class= "invisible">
+                            <div class="input-group">
+                                <input class="form-control" id="datefinrdv" name ="datefinrdv" type="text" data-date-format="yyyy-mm-dd HH:mm:ss" style="display:none"/>
+                            </div>
+                    </div>             
+            </div>  {{-- well --}}
+       <!-- </form>   --> 
+      </div>   
+      <br>
+      <div class="modal-footer">
+         @if(Auth::user()->role->id == 1)
+            <a type="button" id="btnConsulter" class="btn btn btn-sm btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
+        @endif 
+         <a  href ="#" id="printRdv" class="btn btn-success btn-sm"  data-dismiss="modal">
+                <i class="ace-icon fa fa-print"></i>Imprimer
+      </a>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"  id ="btnclose" onclick="$('#updateRDV').addClass('hidden');">
+                  <i class="fa fa-close" aria-hidden="true" ></i> Fermer
+         </button>
+      </div>
+      </form>  
+    </div>
+  </div>
+</div>{{-- modal --}}
+</div>
 </div>
 @endsection

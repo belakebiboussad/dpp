@@ -44,12 +44,11 @@ function layout()
             $("#btnSave").attr("disabled", true);
             $("#patient").datepicker("destroy");
        }
-           
 }
 $(document).ready(function() {
-      var CurrentDate = (new Date()).setHours(23, 59, 59, 0); //.setHours(0, 0, 0, 0); 
-      var today = (new Date()).setHours(0, 0, 0, 0); //.setHours(0, 0, 0, 0); 
-     $('.calendar1').fullCalendar({
+       var CurrentDate = (new Date()).setHours(23, 59, 59, 0); //.setHours(0, 0, 0, 0); 
+       var today = (new Date()).setHours(0, 0, 0, 0); //.setHours(0, 0, 0, 0); 
+       $('.calendar1').fullCalendar({
              header: {
                     left: 'prev,next today',
                     center: 'title',
@@ -77,27 +76,33 @@ $(document).ready(function() {
               views: {},
               events: [
                    @foreach($rdvs as $rdv)
-                      {
+                   {
                         title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
                         start : '{{ $rdv->Date_RDV }}',
                         end:   '{{ $rdv->Fin_RDV }}',
                         id :'{{ $rdv->id }}',
                         idPatient:'{{$rdv->patient->id}}',
                         tel:'{{$rdv->patient->tele_mobile1}}',
-                        age:{{ $rdv->patient->getAge() }},         
+                        age:{{ $rdv->patient->getAge() }},
+                        specialite: {{ $rdv->specialite }}         
                    },
                    @endforeach 
               ],
               select: function(start, end) {
-                $('.calendar1').fullCalendar('unselect');
+                    $('.calendar1').fullCalendar('unselect');
               },
              eventClick: function(calEvent, jsEvent, view) {
                     if(Date.parse(calEvent.start) > today )
+                    {
+                          @if(Auth::user()->role_id == 2)
+                                $('#updateRDV').removeClass('hidden');
+                          @endif
                           edit(calEvent);
+                    }
               },
               eventRender: function (event, element, webData) {
                    if(event.start < today)
-                            element.css('background-color', '#D3D3D3'); 
+                          element.css('background-color', '#D3D3D3'); 
                     else       
                           element.css("padding", "5px");
                     element.popover({
@@ -111,14 +116,14 @@ $(document).ready(function() {
                     });                   
               },
               eventAllow: function(dropLocation, draggedEvent) {
-                   if (draggedEvent.start < today)  //   var eventStart = moment(draggedEvent.start); // var locationtStart = moment(dropLocation.start);  //var day = moment(draggedEvent.dueDate);eventStart < day
-                        return false;
+                   if (draggedEvent.start < today)  
+                          return false;
               },
              eventDragStart:function( event, jsEvent, ui, view ) {
               },
              eventDrop: function(event, delta, revertFunc)
              { 
-                    if( event.start-delta >= today)
+                   if( event.start-delta >= today)
                     { 
                           $('#updateRDV').removeClass('hidden');
                           jQuery('#btnclose').click(function(){
@@ -131,12 +136,10 @@ $(document).ready(function() {
                           revertFunc();
                     }
               },  
-              eventMouseover: function(event, jsEvent, view) {
-              
-              },     
-    }); // calendar
-      /////////////////////////////////
-      $('#patient').editableSelect({
+             eventMouseover: function(event, jsEvent, view){
+             },     
+       }); // calendar
+        $('#patient').editableSelect({
                effects: 'default', 
                 editable: false, 
            }).on('select.editable-select', function (e, li) {
@@ -168,53 +171,64 @@ $(document).ready(function() {
     </div>
   </div>
   <div class="row">
-    <!-- Modal --> 
-    <div class="modal fade" id="fullCalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="fullCalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  {{-- Modal --}}
     <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
     <div class="modal-header"  style="padding:35px 50px;">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
-      <h5 class="modal-title" id="myModalLabel">
-        <span class="glyphicon glyphicon-bell"></span>
-          Modifier Rendez-Vous du <q><a href="" id="lien"><span id="patient" class="blue"> </span></a></q>
-      </h5>
-      <hr>
-           <div class="row">
-                <div class="col-sm-6">    
-                     <i class="fa fa-phone" aria-hidden="true"></i><strong>Téléphone:&nbsp;</strong><span id="patient_tel" class="blue"></span>
-                </div>
-                <div class="col-sm-6">
-                     <strong>Age:&nbsp;</strong>
-                     <span id="agePatient" class="blue"></span> <small>Ans</small>
-                </div>
-              </div>
-     </div>
-     <div class="modal-body">
-        <form id ="updateRdv" role="form" action="" method="POST">      {{-- {{route('rdv.update',5)}} /rdv/5--}}
-          {{ csrf_field() }}
-          {{ method_field('PUT') }}
-          <div class="well">
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+             <h5 class="modal-title" id="myModalLabel">
+                    <span class="glyphicon glyphicon-bell"></span>
+                      Modifier le Rendez-Vous du <q><a href="" id="lien"><span id="patient" class="blue"> </span></a></q>
+            </h5>
+            <hr>
             <div class="row">
-              <label for="date"><span class="glyphicon glyphicon-time fa-lg"></span><strong> Date Rendez-Vous :</strong></label>
-              <div class="input-group">
-                <input class="form-control" id="daterdv" name="daterdv" type="text" data-date-format="yyyy-mm-dd HH:mm:ss" readonly/>
-              </div>
-            </div>
-            <div class="row" class= "invisible">
-              <div class="input-group">
-                <input class="form-control" id="datefinrdv" name ="datefinrdv" type="text" data-date-format="yyyy-mm-dd HH:mm:ss" style="display:none"/>
-              </div>
-            </div>             
+                    <div class="col-sm-6">    
+                         <i class="fa fa-phone" aria-hidden="true"></i><strong>Téléphone:&nbsp;</strong><span id="patient_tel" class="blue"></span>
+                    </div>
+                    <div class="col-sm-6">
+                         <strong>Âge:&nbsp;</strong>
+                         <span id="agePatient" class="blue"></span> <small>Ans</small>
+                    </div>
+             </div>
+     </div>
+      <div class="modal-body">
+        <form id ="updateRdv" role="form" action="" method="POST">      {{-- {{route('rdv.update',5)}} /rdv/5--}}
+            {{ csrf_field() }}
+            {{ method_field('PUT') }}
+             <input type="hidden" id= "specialite" name="specialite"/> 
+             <div class="well">
+                   <div class="row">
+                          <label for="medecin"><i class="ace-icon fa  fa-user-md bigger-130"></i><strong>&nbsp;Medecin:</strong></label>
+                          <div class="input-group">
+                                 <select  placeholder="Selectionner... " class="" id="medecin" name ="medecin" autocomplete="off" style="width:300px;">
+                                        <option value="">Selectionner....</option>
+                                </select>
+                          </div> 
+                    </div>
+             </div>
+             <div class="space-12"></div>
+            <div class="well">      
+                    <div class="row">
+                            <label for="date"><span class="glyphicon glyphicon-time fa-lg"></span><strong> Date Rendez-Vous :</strong></label>
+                            <div class="input-group">
+                              <input class="form-control" id="daterdv" name="daterdv" type="text" data-date-format="yyyy-mm-dd HH:mm:ss" readonly/>
+                            </div>
+                    </div>
+                    <div class="row" class= "invisible">
+                            <div class="input-group">
+                                <input class="form-control" id="datefinrdv" name ="datefinrdv" type="text" data-date-format="yyyy-mm-dd HH:mm:ss" style="display:none"/>
+                            </div>
+                    </div>             
             </div>  {{-- well --}}
-           <!-- </form>   --> 
-      </div>
+       <!-- </form>   --> 
+      </div>   
       <br>
       <div class="modal-footer">
          @if(Auth::user()->role->id == 1)
             <a type="button" id="btnConsulter" class="btn btn btn-sm btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
         @endif 
          <button type="submit" id ="updateRDV" class="btn btn-sm btn-primary hidden">
-            <i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer
+              <i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer
          </button>
           @if(Auth::user()->role->id == 1)          
               <a  href="" id="btnDelete" class="btn btn-bold btn-sm btn-danger" data-method="DELETE" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal">
@@ -222,15 +236,14 @@ $(document).ready(function() {
               </a>
           @endif 
           <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"  id ="btnclose" onclick="$('#updateRDV').addClass('hidden');">
-         <!-- $('#updateRDV').addClass('hidden');refrechCal(); -->
-            <i class="fa fa-close" aria-hidden="true" ></i> Fermer
+                  <i class="fa fa-close" aria-hidden="true" ></i> Fermer{{-- $('#updateRDV').addClass('hidden');refrechCal(); --}}
          </button>
       </div>
       </form>  
     </div>
   </div>
 </div>{{-- modal --}}
-    </div>
-
+</div>
+</div>
 @endsection
 

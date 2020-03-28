@@ -10,17 +10,12 @@
     left:-2.5% !important;
     top:-3.1% !important;
 	}
-/*	.with-margin {
-	  margin-top: 1px !important;
-	  margin-bottom: 1px !important;
-	}*/
 	.with-margin {
-  margin-bottom: 5px;
-}
-
-.spacer5 {
-  height: 5px;
-}
+	  margin-bottom: 5px;
+	}
+	.spacer5 {
+	  height: 5px;
+	}
 	.modal-body
 	{
 	        top: -1px !important;
@@ -58,7 +53,6 @@
 	    color:#FFF;
 	    border-bottom:0px dashed #438eb9;
 	    width:100%;
-	 
 	 }		
 	/*fin*/
 	.dataTables_wrapper {
@@ -257,18 +251,18 @@
         });
        }          
       });
-	    $('#antecedantModal').on('hidden.bs.modal', function () {
+	$('#antecedantModal').on('hidden.bs.modal', function () {
     		$("#sous_type").attr("hidden",true);
 	      $('#PhysiologieANTC').attr("hidden",true);
 	      $("#atcdsstypehide").attr("hidden",true);
-		  });
-		  jQuery('#btn-add').click(function () {
+	});
+	jQuery('#btn-add').click(function () {
 	      jQuery('#EnregistrerAntecedant').val("add");
 	    	jQuery('#modalFormData').trigger("reset");
 	    	jQuery('#antecedantModal').modal('show');
-  		});	
-  		////----- DELETE antecedant and remove from the page -----////
-	    jQuery('body').on('click', '.delete-atcd', function () {
+  	});	
+  	////----- DELETE antecedant and remove from the page -----////
+	 jQuery('body').on('click', '.delete-atcd', function () {
 	        var atcd_id = $(this).val();      
 	        $.ajaxSetup({
 	            headers: {
@@ -286,31 +280,31 @@
 	                console.log('Error:', data);
 	            }
 	        });
-	    });
-			$('#examensradio').on('select2:select', function (e) { 
-	 			 $(".disabledElem").removeClass("disabledElem").addClass("enabledElem");
-			});
-			$('#examensradio').on('select2:unselecting', function(event) {
-	  	 		$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
-			});
-      $('#btn-addImgExam').click(function(){
-    		var selected = []; var array = [];	
-				$('#ExamIgtModal').modal('toggle');
-			  $.each($("input[name='exmns[]']:checked"), function(){
-      		selected.push($(this).next('label').text());
-      		array.push($(this).val());
-      		$(this). prop("checked", false);
-        });   
-        var exam = '<tr id="acte-'+$("#examensradio").val()+'"><td id="idExamen" hidden>'+$("#examensradio").val()+'</td><td>'+$("#examensradio option:selected").text()+'</td><td id ="types" hidden>'+array+'</td><td>'+selected+'</td><td class="center" width="5%">';
-	      exam += '<button type="button" class="btn btn-xs btn-danger delete-ExamImg" value="'+$("#examensradio").val()+'" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';     
+	});
+	$('#examensradio').on('select2:select', function (e) { 
+ 		 $(".disabledElem").removeClass("disabledElem").addClass("enabledElem");
+	});
+	$('#examensradio').on('select2:unselecting', function(event) {
+ 		$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
+	});
+   	$('#btn-addImgExam').click(function(){
+  		var selected = []; var array = [];	
+		$('#ExamIgtModal').modal('toggle');
+		 $.each($("input[name='exmns[]']:checked"), function(){
+			selected.push($(this).next('label').text());
+			array.push($(this).val());
+			$(this). prop("checked", false);
+      		});   
+        	var exam = '<tr id="acte-'+$("#examensradio").val()+'"><td id="idExamen" hidden>'+$("#examensradio").val()+'</td><td>'+$("#examensradio option:selected").text()+'</td><td id ="types" hidden>'+array+'</td><td>'+selected+'</td><td class="center" width="5%">';
+	     	 exam += '<button type="button" class="btn btn-xs btn-danger delete-ExamImg" value="'+$("#examensradio").val()+'" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';     
 	     	$('#ExamsImg').append(exam);
 	     	$('#examensradio').val(' ').trigger('change');
 	     	$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
-	  	});
-		  jQuery('body').on('click', '.delete-ExamImg', function () {
+	});
+	jQuery('body').on('click', '.delete-ExamImg', function () {
     		$("#acte-" + $(this).val()).remove();
-   	  });
-   	  $("#consultForm").submit(function(e){
+   	});
+   	$("#consultForm").submit(function(e){
      		var arrayLignes = document.getElementById("ExamsImg").rows;
     		var ExamsImg = [];
     	 	for(var i=0; i< arrayLignes.length; i++)
@@ -328,10 +322,10 @@
 		            center: 'title,dayGridMonth,timeGridWeek',
 		            right: 'month,agendaWeek,agendaDay'
        	},
-    		defaultView: 'agendaWeek',
-       	firstDay: 0,//dimanche
-    		slotDuration: '00:15:00',
-    		minTime:'08:00:00',
+  		defaultView: 'agendaWeek',
+	     	firstDay: 0,//dimanche
+  		slotDuration: '00:15:00',
+  		minTime:'08:00:00',
 	    	maxTime: '17:00:00',
 	      navLinks: true,
 	      selectable: true,
@@ -427,8 +421,7 @@
 	                    });		    
 			},
 		    	eventClick: function(calEvent, jsEvent, view) {
-         			 editRdv(calEvent);
-         			  {{-- @if(Auth::user()->role->id != 2) @endif          --}}
+         			 editRdv(calEvent); {{-- @if(Auth::user()->role->id != 2) @endif          --}}
        		},
        		dayClick: function(date, jsEvent, view) {},
        		eventAllow: function(dropLocation, draggedEvent) {

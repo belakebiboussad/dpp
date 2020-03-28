@@ -654,10 +654,9 @@ $('#typeexm').on('change', function() {
                             exbio.text(25,72+i,autreexamRadio[j]+", ");
                             i=i+10;
                         }
-                    }
-                     // Autre Echographe
-                     var examautECHO = $("#examRadAutECHO").tagsinput('items');  
-                     for (var j = 0;  j< examautECHO.length; j++) {
+                    }   // Autre Echographe
+                    var examautECHO = $("#examRadAutECHO").tagsinput('items');  
+                    for (var j = 0;  j< examautECHO.length; j++) {
                             exbio.text(25,72+i,examautECHO[j]+", ");
                             i=i+10;
                      }
@@ -686,48 +685,48 @@ $('#typeexm').on('change', function() {
             var heur= moment(debut).format('HH:mm:ss');
             if(pid != 0)
             {
-              var formData = {
-                id_patient:pid,
-                Debut_RDV:debut,
-                Fin_RDV:fin,
-                fixe:fixe
-              };
-              $.ajaxSetup({
-                headers: {
-                  'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                }
-              }); 
-              $.ajax({
-                type : 'POST',
-                url : '/createRDV',
-                data:formData,  //dataType: 'json',
-                success:function(data){  // var debut = new Date(data['rdv']['Date_RDV']);// var fin = new Date(data['rdv']['Fin_RDV']);
-                  var event = new Object();
-                  event = {
-                          title: data['patient']['Nom'] + "  " + data['patient']['Prenom']+" ,("+data['age']+" ans)",
-                          start: debut,
-                          end: fin,
-                          id :data['rdv']['id'],
-                          idPatient:data['patient']['id'],
-                          tel:data['patient']['tele_mobile1'] ,
-                          age:data['age'],         
-                          allDay: false,
-                  };
-                  $('.calendar1').fullCalendar( 'renderEvent', event, true );
-                  $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next');
-                },
-                error: function (data) {
-                  console.log('Error:', data);
-                }
-              });
-            }else{ 
-                   $('#Debut_RDV').val(debut);
-                   $('#Fin_RDV').val(fin);
-                   $('#Temp_rdv').val(heur);
-                   $('#myModal').modal({
-                       show: 'true'
-                   }); 
-            }   
+                    var formData = {
+                          id_patient:pid,
+                          Debut_RDV:debut,
+                          Fin_RDV:fin,
+                          fixe:fixe
+                    };
+                    $.ajaxSetup({
+                          headers: {
+                            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                          }
+                      }); 
+                    $.ajax({
+                          type : 'POST',
+                          url : '/createRDV',
+                          data:formData,  //dataType: 'json',
+                          success:function(data){  // var debut = new Date(data['rdv']['Date_RDV']);// var fin = new Date(data['rdv']['Fin_RDV']);
+                            var event = new Object();
+                            event = {
+                                          title: data['patient']['Nom'] + "  " + data['patient']['Prenom']+" ,("+data['age']+" ans)",
+                                          start: debut,
+                                          end: fin,
+                                          id :data['rdv']['id'],
+                                          idPatient:data['patient']['id'],
+                                          tel:data['patient']['tele_mobile1'] ,
+                                          age:data['age'],         
+                                          allDay: false,
+                                  };
+                                  $('.calendar1').fullCalendar( 'renderEvent', event, true );
+                                  $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next');
+                        },
+                        error: function (data) {
+                               console.log('Error:', data);
+                        }
+                });
+              }else{ 
+                     $('#Debut_RDV').val(debut);
+                     $('#Fin_RDV').val(fin);
+                     $('#Temp_rdv').val(heur);
+                     $('#myModal').modal({
+                         show: 'true'
+                     }); 
+              }   
         }
         //au click sur un RDV
         function editRdv(event)
@@ -801,7 +800,6 @@ $('#typeexm').on('change', function() {
         </script>
         <!-- inline scripts related to this page -->
         <script type="text/javascript">
-
             $('.show-details-btn').on('click', function(e) {
                     e.preventDefault();
                     $(this).closest('tr').next().toggleClass('open');
@@ -820,8 +818,7 @@ $('#typeexm').on('change', function() {
                         inp.removeAttribute('readonly');
                         inp.value="This text field is disabled!";
                     }
-                });
-            
+                });  
                 if(!ace.vars['touch']) {
                     $('.chosen-select').chosen({allow_single_deselect:true}); 
                     //resize the chosen on window resize
@@ -841,8 +838,6 @@ $('#typeexm').on('change', function() {
                              $this.next().css({'width': $this.parent().width()});
                         })
                     });
-            
-            
                     $('#chosen-multiple-style .btn').on('click', function(e){
                         var target = $(this).find('input[type=radio]');
                         var which = parseInt(target.val());
@@ -862,15 +857,12 @@ $('#typeexm').on('change', function() {
                     limitText: 'max allowed : %n.'
                 });
             
-                $.mask.definitions['~']='[+-]';
-                $('.input-mask-date').mask('99/99/9999');
-                $('.input-mask-phone').mask('(999) 999-9999');
-                $('.input-mask-eyescript').mask('~9.99 ~9.99 999');
-                $(".input-mask-product").mask("a*-999-a999",{placeholder:" ",completed:function(){alert("You typed the following: "+this.val());}});
-            
-            
-            
-                $( "#input-size-slider" ).css('width','200px').slider({
+                  $.mask.definitions['~']='[+-]';
+                  $('.input-mask-date').mask('99/99/9999');
+                  $('.input-mask-phone').mask('(999) 999-9999');
+                  $('.input-mask-eyescript').mask('~9.99 ~9.99 999');
+                  $(".input-mask-product").mask("a*-999-a999",{placeholder:" ",completed:function(){alert("You typed the following: "+this.val());}});  
+                   $( "#input-size-slider" ).css('width','200px').slider({
                     value:1,
                     range: "min",
                     min: 1,
@@ -922,7 +914,6 @@ $('#typeexm').on('change', function() {
                     max: 10,
                     value: 2
                 });
-                
                 $( "#slider-eq > span" ).css({width:'90%', 'float':'left', margin:'15px'}).each(function() {
                     // read initial values from markup and remove that
                     var value = parseInt( $( this ).text(), 10 );
@@ -933,7 +924,6 @@ $('#typeexm').on('change', function() {
                         
                     });
                 });
-                
                 $("#slider-eq > span.ui-slider-purple").slider('disable');//disable third item
             
                 
@@ -967,7 +957,6 @@ $('#typeexm').on('change', function() {
                         //3 = 'THUMBNAIL_FAILED'
                         //alert(error_code);
                     }
-            
                 }).on('change', function(){
                     //console.log($(this).data('ace_input_files')); //console.log($(this).data('ace_input_method'));
                 });          
@@ -1066,7 +1055,6 @@ $('#typeexm').on('change', function() {
                     droppable:true,
                     thumbnail:'large'
                 })
-                
                 //chosen plugin inside a modal will have a zero width because the select element is originally hidden
                 //and its width cannot be determined.
                 //so we set the width after modal is show
@@ -1094,64 +1082,82 @@ $('#typeexm').on('change', function() {
                                $('div#edit-password').addClass('in active');
                      }
             });
-            
-  function isEmpty(value) {
-    return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
-  }
-  function patientSearch(field,value) {
-    $.ajax({
-      url : '{{URL::to('getPatients')}}',
-      data: {    
-            "field":field,
-            "value":value,
-        },
-        dataType: "json", // recommended response type
-        success: function(data) {
-            $(".es-list").html(""); //remove list
-            $.each(data['data'], function(i, v) {
-                $(".es-list").append($('<li></li>').attr('value', v['id']).attr('class','es-visible list-group-item option').text(v['code_barre']+"-"+v['Nom']+"-"+v['Prenom']));   });
-        },
-        error: function() {
-          alert("can't connect to db");
-        }
-    });
-  }
+       function getMedecinsSpecialite()
+      {
+             $('#medecin').empty();
+             $.ajax({
+                     type : 'get',
+                     url : '{{URL::to('DocorsSearch')}}',
+                     data:{'specialiteId':$('#specialite').val()},
+                     dataType: 'json',
+                     success:function(data,status, xhr){
+                          var html ="";
+                          jQuery(data).each(function(i, med){
+                                 html += '<option value="'+med.id+'" >'+med.Nom_Employe +" "+med.Prenom_Employe+'</option>';
+                          });
+                          $('#medecin').removeAttr("disabled");  
+                          $('#medecin').append(html);    //$('#medecin').html(html);
+                     },
+                     error:function(data){
+                            console.log(data);
+                     }
+             });   
+      }      
+      function patientSearch(field,value) {
+             $.ajax({
+                    url : '{{URL::to('getPatients')}}',
+                    data: {    
+                          "field":field,
+                          "value":value,
+                      },
+                      dataType: "json", // recommended response type
+                      success: function(data) {
+                          $(".es-list").html(""); //remove list
+                          $.each(data['data'], function(i, v) {
+                              $(".es-list").append($('<li></li>').attr('value', v['id']).attr('class','es-visible list-group-item option').text(v['code_barre']+"-"+v['Nom']+"-"+v['Prenom']));   });
+                      },
+                      error: function() {
+                        alert("can't connect to db");
+                      }
+            });
+      }
   function edit(event)
   {
-    var CurrentDate = (new Date()).setHours(0, 0, 0, 0);
-    var GivenDate = (new Date(event.start)).setHours(0, 0, 0, 0); 
-    if( CurrentDate <= GivenDate )
-    {
-        $('#patient_tel').text(event.tel);
-        $('#agePatient').text(event.age);
-        $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
-        $('#lien').text(event.title);
-        $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
-        $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
-        $('#btnConsulter').attr('href','/consultations/create/'.concat(event.idPatient));
-        $('#btnDelete').attr('href','/rdv/'.concat(event.id));
-        $('#updateRdv').attr('action','/rdv/'.concat(event.idrdv));
-        var url = '{{ route("rdv.update", ":slug") }}'; 
-        url = url.replace(':slug',event.id);
-        $('#updateRdv').attr('action',url);
-        $('#fullCalModal').modal({ show: 'true' }); 
-    }
-  }
+       var CurrentDate = (new Date()).setHours(0, 0, 0, 0);
+       var GivenDate = (new Date(event.start)).setHours(0, 0, 0, 0); 
+       if( CurrentDate <= GivenDate )
+       {      
+             @if(Auth::user()->role_id = 2)
+                    $("#specialite").val(event.specialite);
+                    getMedecinsSpecialite();
+              @endif
+              
+             $('#patient_tel').text(event.tel);
+             $('#agePatient').text(event.age);
+             $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
+             $('#lien').text(event.title);
+             $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
+             $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
+             $('#btnConsulter').attr('href','/consultations/create/'.concat(event.idPatient));
+             $('#btnDelete').attr('href','/rdv/'.concat(event.id));
+             $('#updateRdv').attr('action','/rdv/'.concat(event.idrdv));
+             var url = '{{ route("rdv.update", ":slug") }}'; 
+             url = url.replace(':slug',event.id);
+             $('#updateRdv').attr('action',url);
+             $('#fullCalModal').modal({ show: 'true' }); 
+        }
+      }
+      function refrechCal()
+      {  
+             $('.calendar1').fullCalendar('refetchEvents');
+             $('.calendar1').fullCalendar( 'refetchResources' );
+             $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next');
+             //Getting new event json data   //$(".calendar1").fullCalendar('addEventSource', response);     //Updating new events        
+              $('.calendar1').fullCalendar('rerenderEvents');
+              $('.calendar1').fullCalendar( 'refetchEvents' );//getting latest Events
+      } 
+      function isEmpty(value) {
+             return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
+      }
 
-  function refrechCal()
-  {  
-     $('.calendar1').fullCalendar('refetchEvents');
-     $('.calendar1').fullCalendar( 'refetchResources' );
-     $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next');
-     
-    //Getting new event json data
-    //$(".calendar1").fullCalendar('addEventSource', response);
-    //Updating new events
-    $('.calendar1').fullCalendar('rerenderEvents');
-    //getting latest Events
-    $('.calendar1').fullCalendar( 'refetchEvents' );
-    
-  }  
 </script>
-            
-

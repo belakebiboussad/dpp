@@ -68,27 +68,52 @@ $(document).ready(function(){
 				}		
 			}
 	});
-}); 
+	$(document).on('click','.findptient',function(event){
+		event.preventDefault();
+		$('#btnCreate').removeClass('hidden');
+		$('#FusionButton').removeClass('hidden');
+		$('#patientDetail').html('');
+		nom=$('#patientName').val();
+		prenom=$('#patientFirstName').val();
+		code_barre=$('#IPP').val();
+		date_Naiss=$('#Dat_Naissance').val();
+		$.ajax({
+		       type : 'get',
+		       url : '{{URL::to('searchPatient')}}',
+		       data:{'search':nom,'prenom':prenom,'code_barre':code_barre,'Dat_Naissance':date_Naiss},
+		       success:function(data,status, xhr){
+		             $('#liste_patients tbody').html(data);
+		             $(".numberResult").html(xhr.getResponseHeader("count"));
+		             $('#patientName').val('');$('#patientFirstName').val('');$('#IPP').val('');$('#Dat_Naissance').val('');
+     			},
+     			error:function(){
+     				console.log("error");
+     			},
+    		});
+	});
+});
+function fetch_data(page){
+}
+
 function XHRgetPatient()
 {
 	$('#btnCreate').removeClass('hidden');
-  $('#FusionButton').removeClass('hidden');
-  $('#patientDetail').html('');
+	$('#FusionButton').removeClass('hidden');
+	$('#patientDetail').html('');
 	nom=$('#patientName').val();
 	prenom=$('#patientFirstName').val();
 	code_barre=$('#IPP').val();
 	date_Naiss=$('#Dat_Naissance').val();
 	$.ajax({
-        type : 'get',
-        url : '{{URL::to('searchPatient')}}',
-        data:{'search':nom,'prenom':prenom,'code_barre':code_barre,'Dat_Naissance':date_Naiss},
-        success:function(data,status, xhr){
-            $('#liste_patients tbody').html(data);
-            $(".numberResult").html(xhr.getResponseHeader("count"));
-            $('#patientName').val('');$('#patientFirstName').val('');$('#IPP').val('');$('#Dat_Naissance').val('');
-        }
-    });
-
+		       type : 'get',
+		       url : '{{URL::to('searchPatient')}}',
+		       data:{'search':nom,'prenom':prenom,'code_barre':code_barre,'Dat_Naissance':date_Naiss},
+		       success:function(data,status, xhr){
+	             $('#liste_patients tbody').html(data);
+	             $(".numberResult").html(xhr.getResponseHeader("count"));
+	             $('#patientName').val('');$('#patientFirstName').val('');$('#IPP').val('');$('#Dat_Naissance').val('');
+     		}
+    	});
 }
 function getPatientdetail(id)
 {
@@ -207,11 +232,12 @@ function setField(field,value)
 					</div>
 				</div>
 		 </div>  {{-- body --}}
-		  <div class="panel-footer" style="height: 50px;">
-		   	<button type="submit" class="btn btn-xs btn-primary " style="vertical-align: middle" onclick="XHRgetPatient();"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+		  	<div class="panel-footer" style="height: 50px;">
+		  	{{-- onclick="XHRgetPatient();" --}}
+		   	<button type="submit" class="btn btn-xs btn-primary findptient " style="vertical-align: middle"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
 			<div class="pull-right">
-				<button type="button" class="btn btn-danger btn-sm hidden invisible" id="FusionButton"  onclick ="doMerge();"data-toggle="modal" data-target="#mergeModal" data-backdrop="false" hidden><i class="fa fa-angle-right fa-lg"></i><i class="fa fa-angle-left fa-lg"></i>&nbsp;Fusion</button>
-					<a  class="btn btn-primary btn-sm hidden" href="patient/create" id=btnCreate role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>
+			<button type="button" class="btn btn-danger btn-sm hidden invisible" id="FusionButton"  onclick ="doMerge();"data-toggle="modal" data-target="#mergeModal" data-backdrop="false" hidden><i class="fa fa-angle-right fa-lg"></i><i class="fa fa-angle-left fa-lg"></i>&nbsp;Fusion</button>
+			<a  class="btn btn-primary btn-sm hidden" href="patient/create" id=btnCreate role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>
 			</div>		
 		  </div>
  		 </div>
@@ -224,27 +250,28 @@ function setField(field,value)
 						<i class="ace-icon fa fa-user"></i>
 						Resultats: </h5> <label for=""><span class="badge badge-info numberResult"></span></label>
 					</div>
-					<div class="bodycontainer scrollable">
-					<table id="liste_patients" class="table table-striped table-bordered table-condensed table-scrollable">
-						<thead>
-							<tr class="info"><th colspan="12">Selectionner dans la liste</th>
-							</tr>
-							<tr class="liste">
-								<th hidden>id</th>
-								<th  class="center" width="3%" >#</th>
-								<th class="blue">Nom</th>
-								<th class="blue">Prénom</th>
-								<th class="blue">IPP</th>
-								<th class="blue">Né(e) le</th>
-								<th class="blue">Sexe</th>
-								<th class="blue">Âge</th>
-								<th class="blue">Type</th>
-								<th class="blue"><em class="fa fa-cog"></em></th>
-							</tr>
-						</thead>
-						<tbody>
-						</tbody>
-					</table>
+					<div class="bodycontainer scrollable" >
+						{{-- table-condensed --}}
+						<table id="liste_patients" class="table table-striped table-bordered table-scrollable table-responsive">
+							<thead>
+								<tr class="info"><th colspan="12">Selectionner dans la liste</th>
+								</tr>
+								<tr class="liste">
+									<th hidden>id</th>
+									<th  class="center" width="3%" >#</th>
+									<th class="blue">Nom</th>
+									<th class="blue">Prénom</th>
+									<th class="blue">IPP</th>
+									<th class="blue">Né(e) le</th>
+									<th class="blue">Sexe</th>
+									<th class="blue">Âge</th>
+									<th class="blue">Type</th>
+									<th class="blue"><em class="fa fa-cog"></em></th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
 					</div>
 		</div>
 	</div>{{-- col-sm-7 --}}
