@@ -400,7 +400,8 @@
 			                id :'{{ $rdv->id }}',
 			                idPatient:'{{$rdv->patient->id}}',
 			                tel:'{{$rdv->patient->tele_mobile1}}',
-			                age:{{ $rdv->patient->getAge() }},          
+			                age:{{ $rdv->patient->getAge() }},
+			                 specialite: {{ $rdv->specialite}},          
 			       },
 			       @endforeach 
 		    	],
@@ -435,46 +436,42 @@
           		});
           		editRdv(event);
           	},
-       	 eventResize: function (event, delta, revertFunc) {
-     
-          },
-       eventDragStop: function (event, jsEvent, ui, view) {
-     
-        } 
+       	eventResize: function (event, delta, revertFunc) {
+    	      },
+      		 eventDragStop: function (event, jsEvent, ui, view) {
+        	} 
     	});
-
-			$('#updateRDV').click(function(){
-				 	var url = '{{ route("rdv.update", ":slug") }}'
-				  url = url.replace(':slug',$('#idRDV').val());
-				  $.ajaxSetup({
-	          headers: {
-	                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-	          }
-	        });
+	$('#updateRDV').click(function(){
+		var url = '{{ route("rdv.update", ":slug") }}'
+		 url = url.replace(':slug',$('#idRDV').val());
+			$.ajaxSetup({
+	          		headers: {
+	                		'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+	          		}
+	        	});
 	       	$.ajax({
-              type : 'PUT',
-              url : url,
-              data: {
-          		  "id": $('#idRDV').val(),
-          		   "daterdv" : $('#daterdv').val(),
-          		   'datefinrdv' :$('#datefinrdv').val(),
-        			},
-        			success:function(data){  	   		
-                 $('#fullCalModal').modal('toggle');
-                 $('#updateRDV').addClass('invisible');
-              },
-              error:function(jqXHR, textStatus, errorThrown){
-              	  console.log(textStatus);
-					      
-              }
-    			});
+		              type : 'PUT',
+		              url : url,
+		              data: {
+		          		  "id": $('#idRDV').val(),
+		          		   "daterdv" : $('#daterdv').val(),
+		          		   'datefinrdv' :$('#datefinrdv').val(),
+		        			},
+		        			success:function(data){  	   		
+		                 $('#fullCalModal').modal('toggle');
+		                 $('#updateRDV').addClass('invisible');
+		              },
+		              error:function(jqXHR, textStatus, errorThrown){
+		              	  console.log(textStatus);		      
+		              }
+    	});
 			});
 			$('#printRdv').click(function(){
 				$.ajaxSetup({
-	    		headers: {
-	        		'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-	    	  }
-	  		});
+			    		headers: {
+			        		'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+			    	 	 }
+		  		});
 				$.ajax({
 				  type : 'GET',
 				  url :'/rdv/print/'+$('#idRDV').val(),
@@ -485,8 +482,7 @@
 				 		console.log("error");
 				  }
 				});
-			})
-			
+			})	
   });
   function rdvDelete(rdvId)
   {

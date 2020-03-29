@@ -51,11 +51,11 @@ class RDVController extends Controller
            return view('patient.index_patient');
       }
       public function index($patientID = null)
-      {       
-            if(Auth::user()->role->id == 1)
+      {      
+            if(Auth::user()->role_id == 1)
             {
-                  $rdvs = rdv::where('Employe_ID_Employe', Auth::user()->employee_id)->get(); //$rdvs = rdv::all();
-                  return view('rdv.index', compact('rdvs')); 
+                    $rdvs = rdv::where('Employe_ID_Employe', Auth::user()->employee_id)->get(); //$rdvs = rdv::all();
+                    return view('rdv.index', compact('rdvs')); 
             } else
             {
                     $rdvs = rdv::all();
@@ -143,11 +143,17 @@ class RDVController extends Controller
      * @param  \App\modeles\rdv  $rdv
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-          $rdv = rdv::FindOrFail($id);
-          $patient = patient::FindOrFail($rdv->Patient_ID_Patient);
-          return view('rdv.edit_rdv',compact('rdv','patient'));
+    public function edit(Request $request,$id)
+    {       
+             $rdv = rdv::FindOrFail($id);
+             if($request->ajax())
+                   return Response::json(['rdv'=>$rdv,'medecin'=>$rdv->employe,'patient'=>$rdv->patient]);  
+             else
+              {
+                    $patient = patient::FindOrFail($rdv->Patient_ID_Patient)->patient;
+                    return view('rdv.edit_rdv',compact('rdv','patient'));
+             }
+            
     }
 
     /**
@@ -160,12 +166,14 @@ class RDVController extends Controller
       public function update(Request $request, $id)
       { 
              $rdv = rdv::FindOrFail($id); //$rdv = rdv::FindOrFail($request->id_rdv); 
+             $medecinId = (Auth::user()->role_id == 1)?$rdv->Employe_ID_Employe:$request->medecin;
               $dateRdv = new DateTime($request->daterdv);
-              $dateFinRdv = new DateTime($request->datefinrdv);
-              $rdv->update([
+             $dateFinRdv = new DateTime($request->datefinrdv);
+             $rdv->update([
                         "Date_RDV"=>$dateRdv,
                         "Fin_RDV"=>$dateFinRdv,
-              ]);
+                        "Employe_ID_Employe"=>$medecinId,
+             ]);
               if($request->ajax())
                     return $rdv;
               else
@@ -179,16 +187,17 @@ class RDVController extends Controller
      */
       public function destroy(Request $request, $id)
       {
-            if($request->ajax())
-            {
-              $rdv = rdv::findOrFail($id); // return Auth::user()->employ->rdvs; // return Response::json($rdvs);
-              rdv::destroy($id); // $rdvs = $rdv->employe->rdvs;//return Response::json($rdvs);
-              return ($rdv);
+             if($request->ajax())
+             {
+                   $rdv = rdv::findOrFail($id); // return Auth::user()->employ->rdvs; // return Response::json($rdvs);
+                    rdv::destroy($id); // $rdvs = $rdv->employe->rdvs;//return Response::json($rdvs);
+                    return ($rdv);
             }
             else
             {
-              rdv::destroy($id);//return redirect()->route('rdv.index');
-              return redirect()->action('RDVController@index');
+                    rdv::destroy($id);
+                    return redirect()->route('rdv.index');
+                    //return redirect()->action('RDVController@index');
             } 
       }
     public function orderPdf($id)
@@ -198,25 +207,26 @@ class RDVController extends Controller
         $name = "RDV-pour:".patient::where("id",$order->Patient_ID_Patient)->get()->first()->Nom."".patient::where("id",$order->Patient_ID_Patient)->get()->first()->Prenom.".pdf";
         return $pdf->download($name);
     }
-    public function print($id)
-    {
-      $rdv = rdv::findOrFail($id);
-      // $filename = 'logo-40_x_40.png'; $path =  public_path(); $path = $path.'\\img\\' . $filename;  $type = pathinfo($path, PATHINFO_EXTENSION);
-      // $data = file_get_contents($path);    $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
-      /* $view = view("consultations.rdv_pdf",compact('rdv'))->render();    return response()->json(['html'=>$view]);*/
-      /* $pdf = PDF::loadView('consultations.rdv-pdf', compact('rdv'))->setPaper('a5', 'landscape');$name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";
-      return $pdf->download($name);*/
-      /*PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);$pdf = PDF::loadView('consultations.rdv-pdf', compact('rdv','base64'))->setPaper('a5', 'landscape');            
-      $name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";return $pdf->stream('pdfview.pdf');*/
-      $viewhtml = View::make('consultations.rdv-pdf', $rdv)->render();
-      $dompdf = new Dompdf();
-      $dompdf->loadHtml($viewhtml);
-      $dompdf->setPaper('a5', 'landscape');
-      $dompdf->render();
-      $name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";
-      return $dompdf->stream($name);
+      public function print(Request $request,$id)
+      {
+              dd("df");
+             $rdv = rdv::findOrFail($id);
+             // $filename = 'logo-40_x_40.png'; $path =  public_path(); $path = $path.'\\img\\' . $filename;  $type = pathinfo($path, PATHINFO_EXTENSION);
+            // $data = file_get_contents($path);    $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+            /* $view = view("consultations.rdv_pdf",compact('rdv'))->render();    return response()->json(['html'=>$view]);*/
+            /* $pdf = PDF::loadView('consultations.rdv-pdf', compact('rdv'))->setPaper('a5', 'landscape');$name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";
+            return $pdf->download($name);*/
+            /*PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);$pdf = PDF::loadView('consultations.rdv-pdf', compact('rdv','base64'))->setPaper('a5', 'landscape');            
+            $name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";return $pdf->stream('pdfview.pdf');*/
+            $viewhtml = View::make('consultations.rdv-pdf', $rdv)->render();
+            $dompdf = new Dompdf();
+            $dompdf->loadHtml($viewhtml);
+            $dompdf->setPaper('a5', 'landscape');
+            $dompdf->render();
+            $name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";
+            return $dompdf->stream($name);
 
-    }
+      }
     public function getRDV()
     {
         $rdvs = rdv::select(['id','Date_RDV','Temp_rdv','Patient_ID_Patient','Employe_ID_Employe','Etat_RDV']);

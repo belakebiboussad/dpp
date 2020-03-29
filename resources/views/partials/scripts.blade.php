@@ -720,35 +720,33 @@ $('#typeexm').on('change', function() {
                         }
                 });
               }else{ 
-                     $('#Debut_RDV').val(debut);
-                     $('#Fin_RDV').val(fin);
-                     $('#Temp_rdv').val(heur);
-                     $('#myModal').modal({
-                         show: 'true'
+                    $('#Debut_RDV').val(debut);
+                    $('#Fin_RDV').val(fin);
+                    $('#Temp_rdv').val(heur);
+                    $('#addRDVModal').modal({
+                           show: 'true'
                      }); 
               }   
         }
-        //au click sur un RDV
-        function editRdv(event)
+       function editRdv(event)
         {
-          var CurrentDate = (new Date()).setHours(0, 0, 0, 0);var GivenDate = (new Date(event.start)).setHours(0, 0, 0, 0);       
-          if( CurrentDate <= GivenDate )
-          {
-            $('#patient_tel').text(event.tel);
-            $('#agePatient').text(event.age);
-            $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
-            $('#lien').text(event.title);
-            $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
-            $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
-            $('#btnRdvDelete').attr('href','javascript:rdvDelete('+event.id+');');
-            $('#printRdv').attr('href','javascript:rdvPrint('+event.id+');');
-            var url = '{{ route("rdv.update", ":slug") }}';
-            url = url.replace(':slug',event.id); // $('#updateRdv').attr('action',url);
-            $('#idRDV').val(event.id);
-            $('#fullCalModal').modal({  show: 'true' }); 
-          }
-        }
-        </script>
+             var CurrentDate = (new Date()).setHours(0, 0, 0, 0);var GivenDate = (new Date(event.start)).setHours(0, 0, 0, 0);       
+             if( CurrentDate <= GivenDate )
+             {
+                    $('#patient_tel').text(event.tel);
+                    $('#agePatient').text(event.age);
+                    $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
+                    $('#lien').text(event.title);
+                    $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
+                    $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
+                    $('#btnRdvDelete').attr('href','javascript:rdvDelete('+event.id+');'); // $('#printRdv').attr('href','javascript:rdvPrint('+event.id+');');
+                      var url = '{{ route("rdv.update", ":slug") }}';
+                    url = url.replace(':slug',event.id); // $('#updateRdv').attr('action',url);
+                    $('#idRDV').val(event.id);
+                    $('#fullCalModal').modal({  show: 'true' }); 
+             }
+       }
+       </script>
         <script>
             $('#users-table').DataTable({
                  processing: true,
@@ -1032,7 +1030,6 @@ $('#typeexm').on('change', function() {
                       
                       }
                     )
-            
                     //programmatically add/remove a tag
                     var $tag_obj = $('#form-field-tags').data('tag');
                     $tag_obj.add('Programmatically Added');
@@ -1055,10 +1052,7 @@ $('#typeexm').on('change', function() {
                     droppable:true,
                     thumbnail:'large'
                 })
-                //chosen plugin inside a modal will have a zero width because the select element is originally hidden
-                //and its width cannot be determined.
-                //so we set the width after modal is show
-                $('#modal-form').on('shown.bs.modal', function () {
+                   $('#modal-form').on('shown.bs.modal', function () {
                     if(!ace.vars['touch']) {
                         $(this).find('.chosen-container').each(function(){
                             $(this).find('a:first-child').css('width' , '210px');
@@ -1082,21 +1076,23 @@ $('#typeexm').on('change', function() {
                                $('div#edit-password').addClass('in active');
                      }
             });
-       function getMedecinsSpecialite()
+       function getMedecinsSpecialite(specialiteId = 0,medId='')
       {
              $('#medecin').empty();
+             var specialiteId = 0 ?$('#specialite').val() : specialiteId;
              $.ajax({
                      type : 'get',
                      url : '{{URL::to('DocorsSearch')}}',
-                     data:{'specialiteId':$('#specialite').val()},
+                     data:{'specialiteId': specialiteId },
                      dataType: 'json',
                      success:function(data,status, xhr){
-                          var html ="";
+                          var html ='<option value="">Selectionner...</option>';
                           jQuery(data).each(function(i, med){
                                  html += '<option value="'+med.id+'" >'+med.Nom_Employe +" "+med.Prenom_Employe+'</option>';
                           });
                           $('#medecin').removeAttr("disabled");  
-                          $('#medecin').append(html);    //$('#medecin').html(html);
+                          $('#medecin').append(html);
+                          $("#medecin").val(medId);
                      },
                      error:function(data){
                             console.log(data);
@@ -1121,17 +1117,14 @@ $('#typeexm').on('change', function() {
                       }
             });
       }
-  function edit(event)
-  {
-       var CurrentDate = (new Date()).setHours(0, 0, 0, 0);
-       var GivenDate = (new Date(event.start)).setHours(0, 0, 0, 0); 
-       if( CurrentDate <= GivenDate )
-       {      
-             @if(Auth::user()->role_id = 2)
+      function edit(event)
+      {       
+            {{--     
+             @if(Auth::user()->role_id == 2)
                     $("#specialite").val(event.specialite);
                     getMedecinsSpecialite();
               @endif
-              
+              --}}
              $('#patient_tel').text(event.tel);
              $('#agePatient').text(event.age);
              $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
@@ -1145,8 +1138,52 @@ $('#typeexm').on('change', function() {
              url = url.replace(':slug',event.id);
              $('#updateRdv').attr('action',url);
              $('#fullCalModal').modal({ show: 'true' }); 
-        }
+      
       }
+       function ajaxEditEvent(event,bool)
+       {
+             $.ajaxSetup({
+                    headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+              });
+             url = "rdv" + '/' + event.id + '/edit';
+             $.ajax({
+                   type: 'GET',
+                   url:  url,
+                   data: {
+                         '_token': $('input[name=_token]').val(),
+                        'id': event.id,
+                    },
+                    success: function(data) {
+                          if($('#medecin').length){
+
+                                getMedecinsSpecialite(data['medecin'].Specialite_Emploiye,data['medecin'].id);  
+                          }
+                          $('#patient_tel').text(data['patient'].tele_mobile1);
+                          $('#agePatient').text(event.age);
+                          $('#lien').attr('href','/patient/'.concat(data['patient'].id)); 
+                          $('#lien').text(event.title);
+                         if(bool)
+                         {
+                                $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
+                                 $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
+                         }else{
+                               $("#daterdv").val(data['rdv'].Date_RDV);
+                               $("#datefinrdv").val(data['rdv'].Fin_RDV); 
+                         }
+                          $('#btnConsulter').attr('href','/consultations/create/'.concat(data['patient'].id));
+                         $('#btnDelete').attr('href','/rdv/'.concat(data['rdv'].id));
+                          var url = '{{ route("rdv.update", ":slug") }}'; 
+                          url = url.replace(':slug',data['rdv'].id);
+                         $('#updateRdv').attr('action',url);
+                         $('#fullCalModal').modal({ show: 'true' });
+                    },
+                    error:function(data){
+                        alert('error');
+                    }
+              });
+       }
       function refrechCal()
       {  
              $('.calendar1').fullCalendar('refetchEvents');

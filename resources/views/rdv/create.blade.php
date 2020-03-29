@@ -18,8 +18,8 @@ $(document).ready(function() {
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
               },
-             	timeZone: 'local',
-             	defaultView: 'agendaWeek',
+             timeZone: 'local',
+             defaultView: 'agendaWeek',
               firstDay: 0, 
               slotDuration: '00:15:00',
               minTime:'08:00:00',
@@ -51,12 +51,11 @@ $(document).ready(function() {
                                        tel:'{{$rdv->patient->tele_mobile1}}',
                                        age:{{ $rdv->patient->getAge() }},
                                        specialite: {{ $rdv->specialite}},
-                                       employe:   {{ $rdv->Employe_ID_Employe }},
                                  },
                                   @endforeach 	
               ],
               select: function(start, end) {
-                     if(start >= CurrentDate)
+                    if(start >= CurrentDate)
                           createRDVModal(start,end);
                     else
                           $('#calendar').fullCalendar('unselect');   
@@ -66,7 +65,7 @@ $(document).ready(function() {
                     {
                           $('#lien').text(calEvent.title);
                           $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
-                           $('#printRdv').attr('href','javascript:rdvPrint('+calEvent.id+');');
+                          $('#idRDV').val(calEvent.id);
                           $('#fullCalModal').modal({ show: 'true' });
                     }
               },
@@ -113,6 +112,22 @@ $(document).ready(function() {
               if($('#patient').val())
                     $("#btnSave").removeAttr("disabled"); 
       });
+      $('#printRdv').click(function(){
+              $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                   }
+             });
+             $.ajax({
+                    type : 'GET',
+                    url :'/rdv/print/'+$('#idRDV').val(),
+                    success:function(data){
+                    },
+                    error:function(data){
+                      console.log("error");
+                    }
+             });
+       })  
 });
   // });
  </script>
@@ -132,7 +147,7 @@ $(document).ready(function() {
       </div>
 </div>
 <div class="row">   
-<div id="myModal" class="modal fade">
+<div id="addRDVModal" class="modal fade">
       <div class="modal-dialog modal-lg">
       <div class="modal-content">
              <div class="modal-header" style="padding:35px 50px;">
@@ -187,7 +202,7 @@ $(document).ready(function() {
                                              <div class="form-group">
                                                     <label class="control-label col-sm-3" for=""> <strong>Specilité: </strong></label>
                                                     <div class="col-sm-9">          
-                                                          <select class="form-control" placeholder="choisir le specialite" id="specialite" onchange="getMedecinsSpecialite();">
+                                                           <select class="form-control" placeholder="choisir le specialite" id="specialite" onchange="getMedecinsSpecialite($(this).val());">
                                                                   <option value="">Selectionner....</option>
                                                           @foreach($specialites as $specialite)
                                                                 <option value="{{ $specialite->id}}">{{  $specialite->nom }}</option>
@@ -240,9 +255,9 @@ $(document).ready(function() {
      </div>
       <div class="modal-body">
         <form id ="updateRdv" role="form" action="" method="POST"> 
-             <input type="hidden" id= "specialite" name="specialite"/>         
-            <div class="space-12"></div>
-            <div class="well">      
+             <input type="hidden" id="idRDV">         
+             <div class="space-12"></div>
+             <div class="well">      
                     <div class="row">
                             <label for="date"><span class="glyphicon glyphicon-time fa-lg"></span><strong> Date Rendez-Vous :</strong></label>
                             <div class="input-group">
@@ -259,15 +274,15 @@ $(document).ready(function() {
       </div>   
       <br>
       <div class="modal-footer">
-         @if(Auth::user()->role->id == 1)
-            <a type="button" id="btnConsulter" class="btn btn btn-sm btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
-        @endif 
-         <a  href ="#" id="printRdv" class="btn btn-success btn-sm"  data-dismiss="modal">
-                <i class="ace-icon fa fa-print"></i>Imprimer
-      </a>
-        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"  id ="btnclose" onclick="$('#updateRDV').addClass('hidden');">
+            @if(Auth::user()->role->id == 1)
+             <a type="button" id="btnConsulter" class="btn btn btn-sm btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
+            @endif 
+             <a  href ="#" id="printRdv" class="btn btn-success btn-sm"  data-dismiss="modal">
+                    <i class="ace-icon fa fa-print"></i>Imprimer
+             </a>
+             <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"  id ="btnclose" onclick="$('#updateRDV').addClass('hidden');">
                   <i class="fa fa-close" aria-hidden="true" ></i> Fermer
-         </button>
+             </button>
       </div>
       </form>  
     </div>

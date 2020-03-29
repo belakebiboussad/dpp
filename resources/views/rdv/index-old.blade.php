@@ -98,8 +98,7 @@ $(document).ready(function() {
                           @if(Auth::user()->role_id == 2)
                                 $('#updateRDV').removeClass('hidden');
                           @endif
-                          $('#idRDV').val(calEvent.id);
-                          ajaxEditEvent(calEvent,false);
+                          edit(calEvent);
                     }
               },
               eventRender: function (event, element, webData) {
@@ -107,7 +106,7 @@ $(document).ready(function() {
                           element.css('background-color', '#D3D3D3'); 
                     else       
                           element.css("padding", "5px");
-                          element.popover({
+                    element.popover({
                                  delay: { "show": 500, "hide": 100 },  // title: event.title,
                                 content: event.tel,
                                  trigger: 'hover',
@@ -125,14 +124,13 @@ $(document).ready(function() {
               },
              eventDrop: function(event, delta, revertFunc)
              { 
-
                    if( event.start-delta >= today)
                     { 
-                         jQuery('#btnclose').click(function(){
+                          $('#updateRDV').removeClass('hidden');
+                          jQuery('#btnclose').click(function(){
                                revertFunc();
                           });
-                          ajaxEditEvent(event,true); //edit(event);
-                          $('#updateRDV').removeClass('hidden');
+                          edit(event);
                     }
                     else
                     {
@@ -142,37 +140,20 @@ $(document).ready(function() {
              eventMouseover: function(event, jsEvent, view){
              },     
        }); // calendar
-       $('#patient').editableSelect({
+        $('#patient').editableSelect({
                effects: 'default', 
                 editable: false, 
-       }).on('select.editable-select', function (e, li) {
+           }).on('select.editable-select', function (e, li) {
                      $('#last-selected').html(
                              li.val() + '. ' + li.text()
                       );
                      $("#btnSave").removeAttr("disabled");
-       });
-       $("#patient").on("keyup", function() {
+           });
+           $("#patient").on("keyup", function() {
                 var field = $("select#filtre option").filter(":selected").val();
                 if(field != "Dat_Naissance")
                       remoteSearch(field,$("#patient").val()); //to call ajax
-       });
-       $('#printRdv').click(function(){
-             $.ajaxSetup({
-                   headers: {
-                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                   }
-             });
-             $.ajax({
-                    type : 'GET',
-                    url :'/rdv/print/'+$('#idRDV').val(),
-                    data:{id:$('#idRDV').val()},
-                    success:function(data){
-                    },
-                    error:function(data){
-                      console.log("error");
-                    }
-             });
-       })  
+          });
       });
   </script>
 @endsection
@@ -215,19 +196,17 @@ $(document).ready(function() {
         <form id ="updateRdv" role="form" action="" method="POST">      {{-- {{route('rdv.update',5)}} /rdv/5--}}
             {{ csrf_field() }}
             {{ method_field('PUT') }}
-             <input type="hidden" id="idRDV">
-             @if(Auth::user()->role->id == 2)
+             <input type="hidden" id= "specialite" name="specialite"/> 
              <div class="well">
                    <div class="row">
                           <label for="medecin"><i class="ace-icon fa  fa-user-md bigger-130"></i><strong>&nbsp;Medecin:</strong></label>
                           <div class="input-group">
                                  <select  placeholder="Selectionner... " class="" id="medecin" name ="medecin" autocomplete="off" style="width:300px;">
-                                       <option value="">Selectionner....</option>
-                                </select> 
+                                        <option value="">Selectionner....</option>
+                                </select>
                           </div> 
                     </div>
              </div>
-             @endif
              <div class="space-12"></div>
             <div class="well">      
                     <div class="row">
@@ -256,13 +235,10 @@ $(document).ready(function() {
               <a  href="" id="btnDelete" class="btn btn-bold btn-sm btn-danger" data-method="DELETE" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal">
                 <i class="fa fa-trash" aria-hidden="true"></i> Annuler
               </a>
-          @endif
-             <a  href ="#" id="printRdv" class="btn btn-success btn-sm"  data-dismiss="modal">
-                    <i class="ace-icon fa fa-print"></i>Imprimer
-             </a> 
-             <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"  id ="btnclose" onclick="$('#updateRDV').addClass('hidden');">
-                  <i class="fa fa-close" aria-hidden="true" ></i> Fermer
-             </button>
+          @endif 
+          <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"  id ="btnclose" onclick="$('#updateRDV').addClass('hidden');">
+                  <i class="fa fa-close" aria-hidden="true" ></i> Fermer{{-- $('#updateRDV').addClass('hidden');refrechCal(); --}}
+         </button>
       </div>
       </form>  
     </div>
