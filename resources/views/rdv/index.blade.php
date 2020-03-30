@@ -157,6 +157,7 @@ $(document).ready(function() {
                       remoteSearch(field,$("#patient").val()); //to call ajax
        });
        $('#printRdv').click(function(){
+             alert( $('#idRDV').val());
              $.ajaxSetup({
                    headers: {
                         'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')

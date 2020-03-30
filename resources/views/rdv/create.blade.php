@@ -1,6 +1,8 @@
 @extends('app')
 @section('style')
-	<style></style>
+	<style>
+          #dialog { display: none; }
+      </style>
 @endsection
 @section('page-script')
 <script>
@@ -55,14 +57,65 @@ $(document).ready(function() {
                                   @endforeach 	
               ],
               select: function(start, end) {
-                    if(start >= CurrentDate)
-                          createRDVModal(start,end);
-                    else
+                    if(start >= CurrentDate){
+                         @if(Auth::user()->role_id == 1)
+                         {
+                                $( "#dialog" ).dialog({
+                                       dialogClass: "no-close",
+                                       closeText: "Fermer",  // title: 'Confimer Rendez-Vous',
+                                       closeOnEscape: false,
+                                       dialogClass: "alert",
+                                       draggable: true,
+                                       modal:true,
+                                       resizable: true,
+                                       overlay: "background-color: red; opacity: 0.5",
+                                      classes: {
+                                             "ui-dialog": "classes.ui-dialog"
+                                        },
+                                       buttons: [
+                                          {
+                                                 text: "Oui",
+                                                 icon: "ui-icon-heart",
+                                                 click: function() {
+                                                        var fixe = $('#dialog :checkbox').is(':checked') ? 1 :0; 
+                                                        createRDVModal(start,end,0,fixe);
+                                                        $( this ).dialog( "close" );
+                                                 }
+                                          },
+                                          {
+                                                  text: "Non",
+                                                  icon: "ui-icon-heart",
+                                                  click: function() {
+                                                      $( this ).dialog( "close" );
+                                                 }
+                                          }
+                                    ],
+                                     _allowInteraction: function( event ) {
+                                           if (!jQuery.ui.dialog.prototype._allowInteractionModifed) {
+                                                   jQuery.ui.dialog.prototype._allowInteraction = function(e) {
+                                                    if (typeof e !== "undefined") {
+                                                          if (jQuery(e.target).closest('.select2-drop').length) {
+                                                               return true;
+                                                          }
+                                                          jQuery.ui.dialog.prototype._allowInteractionModifed = true;
+                                                          return (typeof this._super === "function") ? this._super(e) : this;
+                                                    }
+                                                  }
+                                              }
+                                    }
+                               });
+                           }@else
+                          {
+                                createRDVModal(start,end);
+                           }
+                           @endif 
+                    }else
                           $('#calendar').fullCalendar('unselect');   
              },
             eventClick: function(calEvent, jsEvent, view) {
                     if(Date.parse(calEvent.start) > today )
                     {
+                         $('#btnConsulter').attr('href','/consultations/create/'.concat(calEvent.idPatient)); 
                           $('#lien').text(calEvent.title);
                           $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
                           $('#idRDV').val(calEvent.id);
@@ -158,6 +211,7 @@ $(document).ready(function() {
                     {{ csrf_field() }}
                     <input type="hidden" id="Debut_RDV" name="Debut_RDV" value="">
                     <input type="hidden" id="Fin_RDV" name="Fin_RDV"  value="" >
+                     <input type="hidden" id="fixe" name="fixe"  value="" >
                     <input type="time" id="Temp_rdv" name="Temp_rdv"  value=""  min="8:00" max="18:00" style="display:none;" >
                     <div id="modalBody" class="modal-body" style="padding:40px 50px;">
                     <div class="panel panel-default">
@@ -270,12 +324,11 @@ $(document).ready(function() {
                             </div>
                     </div>             
             </div>  {{-- well --}}
-       <!-- </form>   --> 
       </div>   
       <br>
       <div class="modal-footer">
             @if(Auth::user()->role->id == 1)
-             <a type="button" id="btnConsulter" class="btn btn btn-sm btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
+             <a  id="btnConsulter" class="btn btn btn-sm btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
             @endif 
              <a  href ="#" id="printRdv" class="btn btn-success btn-sm"  data-dismiss="modal">
                     <i class="ace-icon fa fa-print"></i>Imprimer
@@ -290,4 +343,7 @@ $(document).ready(function() {
 </div>{{-- modal --}}
 </div>
 </div>
+@include('rdv.Dialogs.rdvDlg')
+{{-- @include('consultations.ModalFoms.rendezVous')  --}}
+
 @endsection

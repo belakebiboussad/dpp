@@ -719,10 +719,11 @@ $('#typeexm').on('change', function() {
                                console.log('Error:', data);
                         }
                 });
-              }else{ 
+              }else{
                     $('#Debut_RDV').val(debut);
                     $('#Fin_RDV').val(fin);
                     $('#Temp_rdv').val(heur);
+                    $('#fixe').val(fixe);
                     $('#addRDVModal').modal({
                            show: 'true'
                      }); 
@@ -1157,7 +1158,6 @@ $('#typeexm').on('change', function() {
                     },
                     success: function(data) {
                           if($('#medecin').length){
-
                                 getMedecinsSpecialite(data['medecin'].Specialite_Emploiye,data['medecin'].id);  
                           }
                           $('#patient_tel').text(data['patient'].tele_mobile1);
@@ -1173,11 +1173,11 @@ $('#typeexm').on('change', function() {
                                $("#datefinrdv").val(data['rdv'].Fin_RDV); 
                          }
                           $('#btnConsulter').attr('href','/consultations/create/'.concat(data['patient'].id));
-                         $('#btnDelete').attr('href','/rdv/'.concat(data['rdv'].id));
+                          $('#btnDelete').attr('href','/rdv/'.concat(data['rdv'].id));
                           var url = '{{ route("rdv.update", ":slug") }}'; 
                           url = url.replace(':slug',data['rdv'].id);
-                         $('#updateRdv').attr('action',url);
-                         $('#fullCalModal').modal({ show: 'true' });
+                          $('#updateRdv').attr('action',url);
+                          $('#fullCalModal').modal({ show: 'true' });
                     },
                     error:function(data){
                         alert('error');

@@ -209,8 +209,7 @@ class RDVController extends Controller
     }
       public function print(Request $request,$id)
       {
-              dd("df");
-             $rdv = rdv::findOrFail($id);
+            $rdv = rdv::findOrFail($id);
              // $filename = 'logo-40_x_40.png'; $path =  public_path(); $path = $path.'\\img\\' . $filename;  $type = pathinfo($path, PATHINFO_EXTENSION);
             // $data = file_get_contents($path);    $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
             /* $view = view("consultations.rdv_pdf",compact('rdv'))->render();    return response()->json(['html'=>$view]);*/
@@ -276,37 +275,27 @@ class RDVController extends Controller
       }
        function AddRDV(Request $request)
       { 
-            $employe = Auth::user()->employ;
-            $patient = patient::find($request->id_patient);  // $specialite = $employe->Specialite_Emploiye; 
-            if($request->ajax()){
-                   $rdv = rdv::firstOrCreate([
-                          "Date_RDV"=>new DateTime($request->Debut_RDV),//"Temp_rdv"=>$time,
-                          "Fin_RDV" =>new DateTime($request->Fin_RDV),
-                          "fixe"    => $request->fixe,
-                          "specialite"=>$employe->Specialite_Emploiye,
-                          "Employe_ID_Employe"=>$employe->id,
-                          "Patient_ID_Patient"=>$request->id_patient,
-                          "Etat_RDV"=> "en attente",
-                    ]);
+             if(Auth::user()->role_id ==2)
+                    $employe = employ::findOrFail($request->medecin);
+              else
+                    $employe = Auth::user()->employ;
+             if($request->ajax())
+                   $patient = patient::find($request->id_patient);
+             else
+                    $patient=patient::where('code_barre', explode("-", $request->patient)[0])->first();
+             $rdv = rdv::firstOrCreate([
+                    "Date_RDV"=>new DateTime($request->Debut_RDV),//"Temp_rdv"=>$time,
+                    "Fin_RDV" =>new DateTime($request->Fin_RDV),
+                    "fixe"    => $request->fixe,
+                    "specialite"=>$employe->Specialite_Emploiye,
+                    "Employe_ID_Employe"=>$employe->id,
+                    "Patient_ID_Patient"=> $patient->id,
+                    "Etat_RDV"=> "en attente",
+             ]);       
+             if($request->ajax())
                     return Response::json(array('patient'=>$patient, 'age'=>$patient->getAge(),'rdv'=>$rdv));
-            }else
-            {       
-                   $patient=patient::where('code_barre', explode("-", $request->patient)[0])->first();
-                    if(Auth::user()->role_id ==2)
-                   {
-                          $employe = employ::findOrFail($request->medecin);
-                   }
-                   $rdv = rdv::firstOrCreate([
-                          "Date_RDV"=>new DateTime($request->Debut_RDV),//"Temp_rdv"=>$time,
-                          'Fin_RDV'=>new DateTime($request->Fin_RDV), 
-                          "specialite"=>$employe->Specialite_Emploiye,
-                          "Employe_ID_Employe"=>$employe->id,
-                          "Patient_ID_Patient"=>$patient->id,
-                          "Etat_RDV"=> "en attente",
-                   ]);
-                Flashy::success('RDV ajouter avec succès');
-                return redirect()->route("rdv.create");
-             }
+            else     
+                return redirect()->route("rdv.create");     
       }     
       public function checkFullCalendar(Request $request)
       {
