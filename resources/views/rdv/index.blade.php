@@ -157,7 +157,6 @@ $(document).ready(function() {
                       remoteSearch(field,$("#patient").val()); //to call ajax
        });
        $('#printRdv').click(function(){
-             //alert( $('#idRDV').val());
              $.ajaxSetup({
                    headers: {
                         'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
@@ -168,9 +167,11 @@ $(document).ready(function() {
                     url :'/rdv/print/'+$('#idRDV').val(),
                     data:{id:$('#idRDV').val()},
                     success:function(data){
+                          
                     },
                     error:function(data){
                       console.log("error");
+                      alert("error");
                     }
              });
        })  

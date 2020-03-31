@@ -153,7 +153,6 @@ class RDVController extends Controller
                     $patient = patient::FindOrFail($rdv->Patient_ID_Patient)->patient;
                     return view('rdv.edit_rdv',compact('rdv','patient'));
              }
-            
     }
 
     /**
@@ -196,8 +195,7 @@ class RDVController extends Controller
             else
             {
                     rdv::destroy($id);
-                    return redirect()->route('rdv.index');
-                    //return redirect()->action('RDVController@index');
+                    return redirect()->route('rdv.index');    //return redirect()->action('RDVController@index');
             } 
       }
     public function orderPdf($id)
@@ -209,15 +207,15 @@ class RDVController extends Controller
     }
       public function print(Request $request,$id)
       {
-            $rdv = rdv::findOrFail($id);
+             $rdv = rdv::findOrFail($id);
+            // return Response::json($rdv); 
             // $filename = 'logo-40_x_40.png'; $path =  public_path(); $path = $path.'\\img\\' . $filename;  $type = pathinfo($path, PATHINFO_EXTENSION);
             // $data = file_get_contents($path);    $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
             /* $view = view("consultations.rdv_pdf",compact('rdv'))->render();    return response()->json(['html'=>$view]);*/
             /* $pdf = PDF::loadView('consultations.rdv-pdf', compact('rdv'))->setPaper('a5', 'landscape');$name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";
             return $pdf->download($name);*/
-            /*PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);$pdf = PDF::loadView('consultations.rdv-pdf', compact('rdv','base64'))->setPaper('a5', 'landscape');            
-            $name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";return $pdf->stream('pdfview.pdf');*/
-            $viewhtml = View::make('consultations.rdvPDF', array('rdv' =>$rdv))->render();
+            /*PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);$pdf = PDF::loadView('consultations.rdv-pdf', compact('rdv','base64'))->setPaper('a5', 'landscape');             $name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";return $pdf->stream('pdfview.pdf');*/
+            $viewhtml = View::make('rdv.rdvTicketPDF', array('rdv' =>$rdv))->render();
             $dompdf = new Dompdf();
             $dompdf->loadHtml($viewhtml);
             $dompdf->setPaper('a5', 'landscape');
