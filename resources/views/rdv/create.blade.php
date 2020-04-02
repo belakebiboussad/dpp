@@ -60,19 +60,25 @@ $(document).ready(function() {
                     if(start >= CurrentDate){
                          @if(Auth::user()->role_id == 1)
                          {
-                                $( "#dialog" ).dialog({
-                                       dialogClass: "no-close",
-                                       closeText: "Fermer",  // title: 'Confimer Rendez-Vous',
-                                       closeOnEscape: false,
-                                       dialogClass: "alert",
-                                       draggable: true,
-                                       modal:true,
-                                       resizable: true,
-                                       overlay: "background-color: red; opacity: 0.5",
-                                      classes: {
-                                             "ui-dialog": "classes.ui-dialog"
-                                        },
-                                       buttons: [
+                            var myDialog = $('#dialog');
+                            myDialog.data('btnValue', start.format('dddd DD-MM-YYYY'));
+                            $(myDialog).dialog({
+                                dialogClass: "no-close",
+                                closeText: "Fermer",  // title: 'Confimer Rendez-Vous',
+                                closeOnEscape: false,
+                                dialogClass: "alert",
+                                draggable: true,
+                                modal:true,
+                                resizable: true,
+                                overlay: "background-color: red; opacity: 0.5",
+                                classes: {
+                                          "ui-dialog": "classes.ui-dialog"
+                                },
+                                open: function() {
+                                  // $("#dialog").dialog("option", "title", start);
+                                  $('#dateRendezVous').text($(this).data('btnValue')); 
+                                },
+                                buttons: [
                                           {
                                                  text: "Oui",
                                                  icon: "ui-icon-heart",

@@ -208,20 +208,35 @@ class RDVController extends Controller
       public function print(Request $request,$id)
       {
              $rdv = rdv::findOrFail($id);
-            // return Response::json($rdv); 
-            // $filename = 'logo-40_x_40.png'; $path =  public_path(); $path = $path.'\\img\\' . $filename;  $type = pathinfo($path, PATHINFO_EXTENSION);
+            // return Response::json($rdv);// $filename = 'logo-40_x_40.png'; $path =  public_path(); $path = $path.'\\img\\' . $filename;  $type = pathinfo($path, PATHINFO_EXTENSION);
             // $data = file_get_contents($path);    $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
             /* $view = view("consultations.rdv_pdf",compact('rdv'))->render();    return response()->json(['html'=>$view]);*/
             /* $pdf = PDF::loadView('consultations.rdv-pdf', compact('rdv'))->setPaper('a5', 'landscape');$name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";
             return $pdf->download($name);*/
             /*PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);$pdf = PDF::loadView('consultations.rdv-pdf', compact('rdv','base64'))->setPaper('a5', 'landscape');             $name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";return $pdf->stream('pdfview.pdf');*/
+            ///////////////////////////
+            /////////Vrai code
+            ////////////////////////////////
+            /*
             $viewhtml = View::make('rdv.rdvTicketPDF', array('rdv' =>$rdv))->render();
             $dompdf = new Dompdf();
             $dompdf->loadHtml($viewhtml);
             $dompdf->setPaper('a5', 'landscape');
             $dompdf->render();
-            $name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";
+            $name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom."-".microtime(TRUE).".pdf";
             return $dompdf->stream($name);
+            */
+            /////////////////////////////////
+            //// Teste
+            ////////////////
+            //$defaults = array('output_type' => 'stream', 'filename' => microtime(TRUE) . '.pdf', 'upload_dir' => FCPATH . 'upload_directory/pdfs/', 'load_html' => TRUE, 'html_encoding' => '', 'load_html_file' => FALSE, 'output_compression' => 1, 'set_base_path' => FALSE, 'set_paper' => FALSE, 'paper_size' => 'letter', 'paper_orientation' => 'portrait', 'stream_compression' => 1, 'stream_attachment' => 1);
+   
+            $dompdf = new Dompdf();
+            $dompdf->set_base_path(__DIR__);
+            $dompdf->load_html('bonjour Boussad');
+            $dompdf->set_paper('letter','lanscape');
+            $dompdf->render();
+            $dompdf->stream(microtime(TRUE) . '.pdf');
 
       }
     public function getRDV()

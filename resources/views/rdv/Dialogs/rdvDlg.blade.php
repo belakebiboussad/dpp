@@ -1,8 +1,13 @@
 <div id="dialog" title="Confimer">
     <hr>
       <div class="row center">
-             <h4>Vous confimé le Rendez-Vous?</h4>
+        <h4>Confirmez-vous le Rendez-Vous?</h4>
       </div>
+      <div class="space-12"></div>
+      <div class="row center">
+             <h4><strong id="dateRendezVous"></strong></h4>
+      </div>
+
       <div class="row center">
              <div class="col-xs-12">
                    <div class="checkbox">
