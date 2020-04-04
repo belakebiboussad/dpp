@@ -67,7 +67,12 @@
 		      </div>
 		      <div class="row">
 		      	<div class="col-sm-12">
-		      		<strong> {{ ( $rdv->fixe) ? "Le" : "A partir du" }}</strong>&nbsp;<span>{{ $rdv->Date_RDV->format('d-m-Y')}}</span>
+		      	{{-- {{ $rdv->Date_RDV->format('L  d-m-Y')}} --}}
+					@php
+			    Carbon\Carbon::setlocale(config('app.locale'));
+			@endphp
+		    
+		      		<strong> {{ ( $rdv->fixe) ? "Le" : "A partir du" }}</strong>&nbsp;<span> &nbsp;{{ Carbon\Carbon::parse($rdv->Date_RDV)->format('l d-m-Y') }}</span>
 		      	</div>
 		      </div>
 		      <div class="row">
@@ -75,16 +80,25 @@
 		      		<strong>Nom:</strong><span>{{ $rdv->patient->Nom}}</span>
 		      	</div>
 		      </div>
-		      <div class="row">
+		      <div class="row" >
 		      	<div class="col-sm-12">
 		      		<strong>Prenom:</strong><span>{{ $rdv->patient->Prenom}}</span>
 		      	</div>
 		      </div>
-		      <br>
-		      <div class="row">
+		      <div class="row" style ="padding-top:8px;">
 		      	<div class="col-sm-12">
-		      		<strong>IPP:</strong><span><img src="data:image/png;base64,{{DNS2D::getBarcodePNG($rdv->patient->code_barre, 'QRCODE')}}" alt="barcode"/></span>
-		      	</div>
+			      	{{-- //////////////////////////////////// VRAI--}}
+			      		
+			      		{{-- <strong>IPP:</strong> --}}<span><img src="data:image/png;base64,{{DNS2D::getBarcodePNG($rdv->patient->code_barre, 'QRCODE')}}" alt="barcode"/></span><br>	
+			      		     <span style="font-size:xx-small;">{{ $rdv->patient->code_barre }}</span> 
+			      		
+			    	
+			      	   {{-- //////////////////////////////////// VRAI--}} 
+			{{--       	<img src="data:image/png;base64,{{DNS2D::getBarcodePNG($rdv->patient->code_barre, 'PDF417',true)}}" width = 100 height = 70 alt="barcode"/> --}}
+		{{-- 	<span><img src="data:image/png;base64,{{DNS2D::getBarcodePNG($rdv->patient->code_barre, 'QRCODE',2,2)}}" alt="barcode"/></span> --}}
+		{{-- <span><img src="data:image/png;base64,{{DNS2D::getBarcodePNG($rdv->patient->code_barre, 'QRCODE',1.5,1.5)}}" alt="
+			<br>{{$rdv->patient->code_barre}} --}}
+	      	     	</div>
 		      </div>
    		</div>
    		 <script src="{{ public_path('js/bootstrap.min.js') }}"></script>

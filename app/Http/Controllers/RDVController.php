@@ -16,6 +16,8 @@ use DateTime;
 use Response;
 use View;
 use Dompdf\Dompdf;
+use Storage;
+use DNS2D;
 // use Illuminate\Support\Facades\Gate;
 class RDVController extends Controller
 {
@@ -51,7 +53,8 @@ class RDVController extends Controller
            return view('patient.index_patient');
       }
       public function index($patientID = null)
-      {      
+      {    
+         // return view('rdv.barcode');
             if(Auth::user()->role_id == 1)
             {
                     $rdvs = rdv::where('Employe_ID_Employe', Auth::user()->employee_id)->get(); //$rdvs = rdv::all();
@@ -217,27 +220,20 @@ class RDVController extends Controller
             ///////////////////////////
             /////////Vrai code
             ////////////////////////////////
-            /*
+
             $viewhtml = View::make('rdv.rdvTicketPDF', array('rdv' =>$rdv))->render();
             $dompdf = new Dompdf();
             $dompdf->loadHtml($viewhtml);
-            $dompdf->setPaper('a5', 'landscape');
+            $dompdf->setPaper('a6', 'landscape');
             $dompdf->render();
             $name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom."-".microtime(TRUE).".pdf";
             return $dompdf->stream($name);
-            */
+ 
             /////////////////////////////////
             //// Teste
             ////////////////
-            //$defaults = array('output_type' => 'stream', 'filename' => microtime(TRUE) . '.pdf', 'upload_dir' => FCPATH . 'upload_directory/pdfs/', 'load_html' => TRUE, 'html_encoding' => '', 'load_html_file' => FALSE, 'output_compression' => 1, 'set_base_path' => FALSE, 'set_paper' => FALSE, 'paper_size' => 'letter', 'paper_orientation' => 'portrait', 'stream_compression' => 1, 'stream_attachment' => 1);
-   
-            $dompdf = new Dompdf();
-            $dompdf->set_base_path(__DIR__);
-            $dompdf->load_html('bonjour Boussad');
-            $dompdf->set_paper('letter','lanscape');
-            $dompdf->render();
-            $dompdf->stream(microtime(TRUE) . '.pdf');
-
+         
+        
       }
     public function getRDV()
     {
