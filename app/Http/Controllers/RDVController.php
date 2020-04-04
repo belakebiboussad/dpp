@@ -54,8 +54,7 @@ class RDVController extends Controller
       }
       public function index($patientID = null)
       {    
-         // return view('rdv.barcode');
-            if(Auth::user()->role_id == 1)
+             if(Auth::user()->role_id == 1)
             {
                     $rdvs = rdv::where('Employe_ID_Employe', Auth::user()->employee_id)->get(); //$rdvs = rdv::all();
                     return view('rdv.index', compact('rdvs')); 
