@@ -33,27 +33,7 @@
   					width:13%;/*	margin-top: -10px !important;*/
   					height:13%;
 				}
-				#container {
-		    display: table;
-		    }
-			  #row  {
-		    display: table-row;
-		    }
-
-		  #left, #right, #middle {
-		    display: table-cell;
-		    font-size:xx-small;
-		  }			
-		  p {
-		  	border: 0.5px solid black !important;
-  			border-radius: 5px !important;
-  			height:35px !important;
-  			margin-left:14px !important;
-  			font-weight:thicker !important;
-  			border-bottom:thin solid rgb(65,31,30) !important;
-  		}
 		</style>
-		<script src="{{ public_path('js/bootstrap.min.js') }}"></script><script src="{{ public_path('js/jquery.min.js') }}"></script>
 	</head>
 	<body>
 		<div class="container-fluid">
@@ -63,6 +43,7 @@
 			      <h5><strong>DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</strong></h5>
 			      <h6 class="mt-6" style =" margin-left: -7px;margin-right:-7px;"><strong>ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</strong></h6>
 			      <h6 class="mt-6"><strong> Chemin des Glycines - ALGER</strong><span> - Tél : 023-93-34</span></h6>
+			      {{-- <h6 class="mt-6"><strong>Tél : 023-93-34</strong></h6> --}} {{-- <span class="border border-0" align="center"> </span> --}}{{--  <br> --}}	 
 			   	</div>
 			  </div>
 		  </div>
@@ -85,7 +66,7 @@
 		  <br>	
 		  <div class="row mt-8">
 			  <div class="col-sm-12">
-			  	 Rendez-vous avec le <strong>Docteur</strong> {{ $rdv->employe->Nom_Employe}}&nbsp;{{ $rdv->employe->Prenom_Employe}}
+			  	 Rendez-vous avec le <strong>Docteur</strong> {{ $rdv->employe->Nom_Employe}}&nbsp;{{ $rdv->employe->Prenom_Employe}}.
 						</div> 
 		  </div>
 		  <div class="row">
@@ -103,16 +84,11 @@
 		   		<strong>Prenom : </strong><span>{{ $rdv->patient->Prenom}}</span>
 		    </div>
 		  </div>
-		  <div id="container" style ="padding-top:8px;">
-		 		<div id="row">
-		 			<div id="left">
-			 			<img src="data:image/png;base64,{{DNS2D::getBarcodePNG($rdv->patient->code_barre, 'QRCODE')}}" alt="barcode"/><br>
-			 			<span>{{ $rdv->patient->code_barre }}</span>
-					</div>
-		 			<div id="middle">
-		 				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor adipisci tenetur odit itaque quaerat.</p>
-		 			</div>
-				</div>
+			<div class="row" style ="padding-top:5px;">
+		    <div class="col-sm-12">
+			    <img src="data:image/png;base64,{{DNS2D::getBarcodePNG($rdv->patient->code_barre, 'QRCODE')}}" alt="barcode"/><br>
+			   	<span style="font-size:xx-small;">{{ $rdv->patient->code_barre }}</span>   
+			  </div>
 		  </div>
    	</div>
 		<script src="{{ public_path('js/bootstrap.min.js') }}"></script><script src="{{ public_path('js/jquery.min.js') }}"></script>
