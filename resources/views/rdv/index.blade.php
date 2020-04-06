@@ -164,13 +164,11 @@ $(document).ready(function() {
              });
              $.ajax({
                     type : 'GET',
-                    url :'/rdv/print/'+$('#idRDV').val(),
+                    url :'/rdvprint/'+$('#idRDV').val(),
                     data:{id:$('#idRDV').val()},
                     success:function(data){
-                          
                     },
                     error:function(data){
-                      console.log("error");
                       alert("error");
                     }
              });
@@ -184,7 +182,7 @@ $(document).ready(function() {
       <div class="panel panel-default">
         &nbsp;&nbsp;&nbsp;&nbsp; 
         <div class="panel-heading" style="margin-top:-20px">
-          <div class="left"> <strong>Liste Des Rendez-Vous</strong></div>
+          <div class="left"> <strong>Liste des Rendez-Vous</strong></div>
         </div>
         <div class="panel-body">
           <div  class="calendar1"></div>

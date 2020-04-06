@@ -343,7 +343,7 @@
 	      views: {}, 
 		select: function(start, end) {
 		      if(start > CurrentDate){
-			      	$( "#dialog" ).dialog({
+			     	$( "#dialog" ).dialog({
 			      	 	dialogClass: "no-close",
 			      		closeText: "Fermer",	// title: 'Confimer Rendez-Vous',
 			      	 	closeOnEscape: false,
@@ -353,7 +353,7 @@
 			      	 	resizable: true,
 			      	 	overlay: "background-color: red; opacity: 0.5",
 		      	 	 	// show: { effect: "drop", direction: "up", easing: "easeInQuad", duration: 300 },//  		 hide: { effect: "drop", direction: "up", easing: "easeOutQuad", duration: 300 },
-             			classes: {
+             				classes: {
 						    "ui-dialog": "classes.ui-dialog"
 			      		},
 	  				buttons: [
@@ -398,10 +398,10 @@
 			                start : '{{ $rdv->Date_RDV }}',
 			                end:   '{{ $rdv->Fin_RDV }}',
 			                id :'{{ $rdv->id }}',
-			                idPatient:'{{$rdv->patient->id}}',
-			                tel:'{{$rdv->patient->tele_mobile1}}',
-			                age:{{ $rdv->patient->getAge() }},
-			                 specialite: {{ $rdv->specialite}},          
+			                idPatient:{{$rdv->patient->id}},
+			               tel:'{{$rdv->patient->tele_mobile1}}',
+			               age:{{ $rdv->patient->getAge() }},
+			               specialite: {{ $rdv->specialite}},          
 			       },
 			       @endforeach 
 		    	],
@@ -474,7 +474,7 @@
 		  		});
 				$.ajax({
 				  type : 'GET',
-				  url :'/rdv/print/'+$('#idRDV').val(),
+				  url :'/rdvprint/'+$('#idRDV').val(),
 				  success:function(data){
 				  	// alert(data);
 				  },

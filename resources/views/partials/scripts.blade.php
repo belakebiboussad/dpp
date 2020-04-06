@@ -680,11 +680,10 @@ $('#typeexm').on('change', function() {
         }
         function createRDVModal(debut, fin, pid = 0, fixe=1)
         {   
-            var debut = moment(debut).format('YYYY-MM-DD HH:mm'); //debut = moment.tz(debut, "America/Los_Angeles").format('YYYY-MM-DD HH:mm');  
-            var fin = moment(fin).format('YYYY-MM-DD HH:mm');     //fin = moment.tz(fin, "Europe/London").format('YYYY-MM-DD HH:mm');
-            var heur= moment(debut).format('HH:mm:ss');
-            if(pid != 0)
-            {
+              var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
+              var fin = moment(fin).format('YYYY-MM-DD HH:mm');  
+               if(pid != 0)
+              {
                     var formData = {
                           id_patient:pid,
                           Debut_RDV:debut,
@@ -721,8 +720,8 @@ $('#typeexm').on('change', function() {
                 });
               }else{
                     $('#Debut_RDV').val(debut);
-                    $('#Fin_RDV').val(fin);
-                    $('#Temp_rdv').val(heur);
+                    $('#Fin_RDV').val(fin); //$('#Temp_rdv').val(heur);
+                   
                     $('#fixe').val(fixe);
                     $('#addRDVModal').modal({
                            show: 'true'

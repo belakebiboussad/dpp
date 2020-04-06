@@ -48,7 +48,9 @@ class UsersController extends Controller
     public function create()
     {
         $roles = rol::all();
-        return view('user.adduser', compact('roles'));
+        $services = service::all();
+        $specialites = Specialite::all();
+         return view('user.adduser', compact('roles','services','specialites'));
     }
 
     /**
@@ -143,7 +145,7 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {      
-
+            dd('user');
            $user = User::FindOrFail($id);   
            $a=  $request->validate([
                   "username"=> "required",

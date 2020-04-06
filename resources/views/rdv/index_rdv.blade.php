@@ -84,7 +84,7 @@
                 var CurrentDate = moment(x).format("YYYY-MM-DD");            
                 if (mydate >= CurrentDate  ) { 
                      $('#date_RDV').datepicker("setDate",mydate);//new Date(yyyy,mm,dd)
-                     $('#Temp_rdv').val(heur);//new Date(yyyy,mm,dd)
+                    // $('#Temp_rdv').val(heur);//new Date(yyyy,mm,dd)
                      $("#fullCalModal").modal();
                 }
      }
@@ -192,8 +192,7 @@
            <form id ="addRdv" role="form" action="/createRDV"method="POST">
                 {{ csrf_field() }}
                 <input type="datetime" id="date_RDV" name="date_RDV" data-date-format='yyyy-mm-dd' value="">{{-- style="display:none;" --}}
-                <input type="time" id="Temp_rdv" name="Temp_rdv"  value=""  min="8:00" max="18:00" >              {{-- style="display:none" --}}
-                
+                {{-- <input type="time" id="Temp_rdv" name="Temp_rdv"  value=""  min="8:00" max="18:00" >   --}}
                 <div id="modalBody" class="modal-body">
                       <div class="row">
                            <fieldset class="inline-fields"> 

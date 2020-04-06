@@ -55,25 +55,14 @@ class RDVController extends Controller
       public function index($patientID = null)
       {    
              if(Auth::user()->role_id == 1)
-            {
-                    $rdvs = rdv::where('Employe_ID_Employe', Auth::user()->employee_id)->get(); //$rdvs = rdv::all();
-                    return view('rdv.index', compact('rdvs')); 
+              {
+                     $rdvs = rdv::where('specialite', Auth::user()->employ->Specialite_Emploiye)->get(); // $rdvs = rdv::where('Employe_ID_Employe', Auth::user()->employee_id)->get(); 
+                      return view('rdv.index', compact('rdvs')); 
             } else
             {
                     $rdvs = rdv::all();
                     return view('rdv.index', compact('rdvs')); 
             }     
-        // $rdvs = rdv::join('patients','rdvs.Patient_ID_Patient','=', 'patients.id')
-        //            ->select('rdvs.*','patients.Nom','patients.Prenom','patients.id as idPatient','patients.tele_mobile1','patients.Dat_Naissance')->get();
-        // if(isset($patientID)) 
-        // {
-        //   $patient = patient::FindOrFail($patientID);   
-        //   return view('rdv.index', compact('rdvs','patient'));                  
-        // }
-        // else
-        // {
-        //   return view('rdv.index', compact('rdvs')); 
-        // }
       }
     /**
      * Show the form for creating a new resource.
@@ -83,9 +72,8 @@ class RDVController extends Controller
     // Request $request
       public function create($id_patient =null)
       {
-            //$employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
-             if(Auth::user()->role->id == 1)
-            {
+               if(Auth::user()->role->id == 1)       //$employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
+              {
                    $rdvs = rdv::where('Employe_ID_Employe', Auth::user()->employee_id)->get(); //$rdvs = rdv::all();
                     if(isset($id_patient) && !empty($id_patient))
                     {
@@ -208,9 +196,10 @@ class RDVController extends Controller
         return $pdf->download($name);
     }
       public function print(Request $request,$id)
-      {
-             $rdv = rdv::findOrFail($id);
-            // return Response::json($rdv);// $filename = 'logo-40_x_40.png'; $path =  public_path(); $path = $path.'\\img\\' . $filename;  $type = pathinfo($path, PATHINFO_EXTENSION);
+      {   
+             
+               $rdv = rdv::findOrFail($id);
+               // return Response::json($rdv);// $filename = 'logo-40_x_40.png'; $path =  public_path(); $path = $path.'\\img\\' . $filename;  $type = pathinfo($path, PATHINFO_EXTENSION);
             // $data = file_get_contents($path);    $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
             /* $view = view("consultations.rdv_pdf",compact('rdv'))->render();    return response()->json(['html'=>$view]);*/
             /* $pdf = PDF::loadView('consultations.rdv-pdf', compact('rdv'))->setPaper('a5', 'landscape');$name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";
@@ -219,7 +208,6 @@ class RDVController extends Controller
             ///////////////////////////
             /////////Vrai code
             ////////////////////////////////
-
             $viewhtml = View::make('rdv.rdvTicketPDF', array('rdv' =>$rdv))->render();
             $dompdf = new Dompdf();
             $dompdf->loadHtml($viewhtml);
@@ -227,8 +215,7 @@ class RDVController extends Controller
             $dompdf->render();
             $name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom."-".microtime(TRUE).".pdf";
             return $dompdf->stream($name);
- 
-            /////////////////////////////////
+             /////////////////////////////////
             //// Teste
             ////////////////
          
@@ -236,29 +223,26 @@ class RDVController extends Controller
       }
     public function getRDV()
     {
-        $rdvs = rdv::select(['id','Date_RDV','Temp_rdv','Patient_ID_Patient','Employe_ID_Employe','Etat_RDV']);
+        $rdvs = rdv::select(['id','Date_RDV','Patient_ID_Patient','Employe_ID_Employe','Etat_RDV']);//'Temp_rdv',
         return Datatables::of($rdvs)
-            ->addColumn('action5',function($rdv){
-                return'<span class="label label-xlg label-purple arrowed"><strong>'.$rdv->Date_RDV.'</strong></span>';
-            })
-            ->addColumn('action4',function($rdv){
-                return'<span class="label label-xlg label-purple arrowed"><strong>'.$rdv->Temp_rdv.'</strong></span>';
-            })
-            ->addColumn('action3',function($rdv){
-                if($rdv->Etat_RDV == "en attente")
-                    {
-                        return'<span class="label label-xlg label-yellow arrowed-in arrowed-in-right"><strong>'.$rdv->Etat_RDV.'</strong></span>';
-                    }
-                elseif($rdv->Etat_RDV == "Valider")
-                    {
-                        return'<span class="label label-xlg label-purple arrowed"><strong>'.$rdv->Etat_RDV.'</strong></span>';
-                    }
-            })
-            ->addColumn('action1',function($rdv){
-                $patient = patient::where("id",$rdv->Patient_ID_Patient)->get()->first();
-                return'<a href="/patient/'.$patient->id.'" class="label label-xlg label-primary arrowed arrowed-right">'.$patient->Nom.' '.$patient->Prenom.'</a>';
-            })
-            ->addColumn('action2',function($rdv){
+              ->addColumn('action5',function($rdv){
+                      return'<span class="label label-xlg label-purple arrowed"><strong>'.$rdv->Date_RDV.'</strong></span>';
+              })
+               ->addColumn('action3',function($rdv){
+                      if($rdv->Etat_RDV == "en attente")
+                      {
+                              return'<span class="label label-xlg label-yellow arrowed-in arrowed-in-right"><strong>'.$rdv->Etat_RDV.'</strong></span>';
+                      }
+                      elseif($rdv->Etat_RDV == "Valider")
+                      {
+                              return'<span class="label label-xlg label-purple arrowed"><strong>'.$rdv->Etat_RDV.'</strong></span>';
+                      }
+              })
+              ->addColumn('action1',function($rdv){
+                      $patient = patient::where("id",$rdv->Patient_ID_Patient)->get()->first();
+                     return'<a href="/patient/'.$patient->id.'" class="label label-xlg label-primary arrowed arrowed-right">'.$patient->Nom.' '.$patient->Prenom.'</a>';
+               })
+               ->addColumn('action2',function($rdv){
                  $medcine = employ::where("id",$rdv->Employe_ID_Employe)->get()->first();
                  return'<a href="/employe/'.$medcine->id.'" class="label label-xlg label-pink arrowed-right">'.$medcine->Nom_Employe .' '.$medcine->Prenom_Employe .'</a>';
             })
@@ -283,7 +267,7 @@ class RDVController extends Controller
       }
        function AddRDV(Request $request)
       { 
-             if(Auth::user()->role_id ==2)
+               if(Auth::user()->role_id ==2)
                     $employe = employ::findOrFail($request->medecin);
               else
                     $employe = Auth::user()->employ;
@@ -291,7 +275,7 @@ class RDVController extends Controller
                    $patient = patient::find($request->id_patient);
              else
                     $patient=patient::where('code_barre', explode("-", $request->patient)[0])->first();
-             $rdv = rdv::firstOrCreate([
+              $rdv = rdv::firstOrCreate([
                     "Date_RDV"=>new DateTime($request->Debut_RDV),//"Temp_rdv"=>$time,
                     "Fin_RDV" =>new DateTime($request->Fin_RDV),
                     "fixe"    => $request->fixe,

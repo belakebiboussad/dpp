@@ -16,7 +16,6 @@ class EmployeController extends Controller
     {
         //
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -26,7 +25,6 @@ class EmployeController extends Controller
     {
         //
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -37,7 +35,6 @@ class EmployeController extends Controller
     {
         //
     }
-
     /**
      * Display the specified resource.
      *
@@ -71,22 +68,19 @@ class EmployeController extends Controller
      */
     public function update(Request $request, $employid)
     {
-             $employe = employ::FindOrFail($employid); 
-             $v = $request->validate([
+               $employe = employ::FindOrFail($employid); 
+               $v = $request->validate([
                     "nom"=> "required | max:120",
-                    "prenom"=> "required|alpha_num",
-                    "datenaissance"=> "required | date",
+                    "prenom"=> "required|max:120",
+                    "datenaissance"=> "required",// | date
                     "lieunaissance"=> "required",
                     "sexe"=> "required",
                     "adresse"=> "required",
-                     "mobile"=> "required | regex:/[0][567][0-9]{8}/",
-                     "fixe"=> "numeric | regex:/[0][0-9]{8}/",
-                     //"mat"=> "required",
-                    "service"=> "required",          
-                    // "nss"=> "required | regex:/[0-9]{12}/",
-                    'specialite'=>"required",
+                    "mobile"=> "required | regex:/[0][567][0-9]{8}/",
+                    // "fixe"=> "numeric | regex:/[0][0-9]{8}/",       //"mat"=> "required",
+                      //"service"=> "required",          // "nss"=> "required | regex:/[0-9]{12}/",       //"specialite"=>"required",
              ]);
-            $employe->update([
+              $employe->update([
                   "Nom_Employe"=>$request->nom,
                   "Prenom_Employe"=>$request->prenom,
                   "Sexe_Employe"=>$request->sexe,
@@ -122,7 +116,6 @@ class EmployeController extends Controller
                   $query->where('specialite', '=', $specialiteId);
               })->get();
              */
-              
               return Response::json($doctors);
              // return($request->specialiteId);
        }

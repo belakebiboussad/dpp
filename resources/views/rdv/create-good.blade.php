@@ -58,63 +58,63 @@ $(document).ready(function() {
               ],
               select: function(start, end) {
                     if(start >= CurrentDate){
-                          var myDialog = $('#dialog');
-                          myDialog.data('btnValue', start.format('dddd DD-MM-YYYY'));
-                          $(myDialog).dialog({
-                                 dialogClass: "no-close",
-                                 closeText: "Fermer",  // title: 'Confimer Rendez-Vous',
-                                 closeOnEscape: false,
-                                 dialogClass: "alert",
-                                 draggable: true,
-                                 modal:true,
-                                 resizable: true,
-                                 overlay: "background-color: red; opacity: 0.5",
-                                 classes: {
-                                       "ui-dialog": "classes.ui-dialog"
+                         @if(Auth::user()->role_id == 1)
+                         {
+                            var myDialog = $('#dialog');
+                            myDialog.data('btnValue', start.format('dddd DD-MM-YYYY'));
+                            $(myDialog).dialog({
+                                dialogClass: "no-close",
+                                closeText: "Fermer",  // title: 'Confimer Rendez-Vous',
+                                closeOnEscape: false,
+                                dialogClass: "alert",
+                                draggable: true,
+                                modal:true,
+                                resizable: true,
+                                overlay: "background-color: red; opacity: 0.5",
+                                classes: {
+                                          "ui-dialog": "classes.ui-dialog"
                                 },
                                 open: function() {
-                                       $('#dateRendezVous').text($(this).data('btnValue')); 
+                                  // $("#dialog").dialog("option", "title", start);
+                                  $('#dateRendezVous').text($(this).data('btnValue')); 
                                 },
                                 buttons: [
-                                       {
-                                              text: "Oui",
-                                              icon: "ui-icon-heart",
-                                              click: function() {
-                                                
-                                                     @if(Auth::user()->role_id == 1)
-                                                     {    
-                                                          var fixe = $('#dialog :checkbox').is(':checked') ? 1 :0; 
-                                                           createRDVModal(start,end,0,fixe);
-                                                      }@else
-                                                     {
-                                                           createRDVModal(start,end);
-                                                      }
-                                                      @endif
-                                                     $( this ).dialog( "close" );
-                                             }
-                                       },
-                                       {
-                                              text: "Non",
-                                              icon: "ui-icon-heart",
-                                              click: function() {
-                                                    $( this ).dialog( "close" );
-                                              }
-                                       }
-                                 ],
-                                 _allowInteraction: function( event ) {
-                                       if (!jQuery.ui.dialog.prototype._allowInteractionModifed) {
-                                              jQuery.ui.dialog.prototype._allowInteraction = function(e) {
+                                          {
+                                                 text: "Oui",
+                                                 icon: "ui-icon-heart",
+                                                 click: function() {
+                                                        var fixe = $('#dialog :checkbox').is(':checked') ? 1 :0; 
+                                                        createRDVModal(start,end,0,fixe);
+                                                        $( this ).dialog( "close" );
+                                                 }
+                                          },
+                                          {
+                                                  text: "Non",
+                                                  icon: "ui-icon-heart",
+                                                  click: function() {
+                                                      $( this ).dialog( "close" );
+                                                 }
+                                          }
+                                    ],
+                                     _allowInteraction: function( event ) {
+                                           if (!jQuery.ui.dialog.prototype._allowInteractionModifed) {
+                                                   jQuery.ui.dialog.prototype._allowInteraction = function(e) {
                                                     if (typeof e !== "undefined") {
                                                           if (jQuery(e.target).closest('.select2-drop').length) {
-                                                                 return true;
+                                                               return true;
                                                           }
                                                           jQuery.ui.dialog.prototype._allowInteractionModifed = true;
                                                           return (typeof this._super === "function") ? this._super(e) : this;
                                                     }
+                                                  }
                                               }
-                                       }
-                                }
-                           });
+                                    }
+                               });
+                           }@else
+                          {
+                                createRDVModal(start,end);
+                           }
+                           @endif 
                     }else
                           $('#calendar').fullCalendar('unselect');   
              },
@@ -192,7 +192,7 @@ $(document).ready(function() {
  </script>
 @endsection
 @section('main-content')
-<div class="row">
+<div class="row">{{-- <div class="panel-body">    {!! $planning->calendar() !!}</div >     --}}
       <div class="col-md-12">
             <div class="panel panel-default">
                   &nbsp;&nbsp;&nbsp;&nbsp; 
@@ -211,6 +211,7 @@ $(document).ready(function() {
       <div class="modal-content">
              <div class="modal-header" style="padding:35px 50px;">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+                    {{-- <h4 id="modalTitle" class="modal-title"><span class="glyphicon glyphicon-bell"></span> Selectionner un Patient</h4> --}}
              </div>
              <form id ="addRdv" role="form" action="/createRDV" method="POST">
                     {{ csrf_field() }}
@@ -349,4 +350,6 @@ $(document).ready(function() {
 </div>
 </div>
 @include('rdv.Dialogs.rdvDlg')
+{{-- @include('consultations.ModalFoms.rendezVous')  --}}
+
 @endsection

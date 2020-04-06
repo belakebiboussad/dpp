@@ -4,54 +4,56 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link href="{{ public_path('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" /> 
 		<style>
-				.mt-6 {
-         		margin-top: -6px !important;
-				}
-				.mt-3 {
-         					margin-top: -10px !important;
-         					padding-top:-10px  !important ;
-				}
-				.mt-10{
-				    margin-top:-50px;
-				}
-				.mt-8{
-					margin-top: -8px !important;
-         	padding-top:-8px  !important ;
-				}
-				.ml-2{
+			.mt-6 {
+         			margin-top: -6px !important;
+			}
+			.mt-3 {
+         			margin-top: -10px !important;
+         			padding-top:-10px  !important ;
+			}
+			.mt-10{
+			       margin-top:-50px;
+			}
+			.mt-8{
+				margin-top: -8px !important;
+         			padding-top:-8px  !important ;
+			}
+			.ml-2{
 				    margin-left: +0.5%;
-				}
-				.mt-15 {
+			}
+			.mt-15 {
 				    margin-top: -25px !important;
 				    padding-top:-25px !important;
-				}
-				.ml-80{
+			}
+			.ml-80{
 				    margin-left: +80%;
-				}
-				.imgCenter{
-					  text-align: center;/*border: 1px solid black;*/
+			}
+			.imgCenter{
+					text-align: center;/*border: 1px solid black;*/
   					width:13%;/*	margin-top: -10px !important;*/
   					height:13%;
-				}
-				#container {
-		    display: table;
-		    }
-			  #row  {
-		    display: table-row;
-		    }
-
-		  #left, #right, #middle {
-		    display: table-cell;
-		    font-size:xx-small;
-		  }			
-		  p {
-		  	border: 0.5px solid black !important;
-  			border-radius: 5px !important;
-  			height:35px !important;
-  			margin-left:14px !important;
-  			font-weight:thicker !important;
-  			border-bottom:thin solid rgb(65,31,30) !important;
-  		}
+			}
+			#container {
+		    		display: table;
+		    	}
+			 #row  {
+		    		display: table-row;
+		    	}
+			 #left, #right, #middle {
+			      display: table-cell;
+			       font-size:xx-small;
+			      /* padding: 5px;*/
+		      }			
+		  	#parent {
+		  		width:100%;
+  				height:70px;
+  				border: 0.5px solid black !important;
+  				border-radius: 5px !important;
+  			}
+  			#child {
+  				height: 30px;
+  				 border: 1px solid red;  
+  			}
 		</style>
 		<script src="{{ public_path('js/bootstrap.min.js') }}"></script><script src="{{ public_path('js/jquery.min.js') }}"></script>
 	</head>
@@ -106,11 +108,18 @@
 		  <div id="container" style ="padding-top:8px;">
 		 		<div id="row">
 		 			<div id="left">
-			 			<img src="data:image/png;base64,{{DNS2D::getBarcodePNG($rdv->patient->code_barre, 'QRCODE')}}" alt="barcode"/><br>
+			 			<img src="data:image/png;base64,{{DNS2D::getBarcodePNG($rdv->patient->getCivilite().'|'.$rdv->patient->Nom.'|'.$rdv->patient->Prenom.'|'.$rdv->patient->code_barre, 'QRCODE')}}" alt="barcode"/><br>
 			 			<span>{{ $rdv->patient->code_barre }}</span>
 					</div>
 		 			<div id="middle">
-		 				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor adipisci tenetur odit itaque quaerat.</p>
+		 				<div id = "parent">	 				
+		 					<span style="font-size: xx-small;">Le jour de votre consultation</span>
+			 				<ul style="font-size: xx-small;">	
+			 					<li>Rapportez ce Ticket	</li>
+			 					<li>	Raportez tous les documents Médicaux en votre possession (résultats d'analyses, radiographies,etc.)</li>
+			 					<li>En arrivant à l'hôpital recupéré votre ticket d'ordre depuis la borne.</li>
+			 				</ul> 
+		 				</div>
 		 			</div>
 				</div>
 		  </div>

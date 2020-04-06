@@ -7,15 +7,16 @@
       <div class="row center">
              <h4><strong id="dateRendezVous"></strong></h4>
       </div>
-
-      <div class="row center">
-             <div class="col-xs-12">
-                   <div class="checkbox">
-                           <label><input name="fixe" type="checkbox" class="ace" value="1" />
-                                 <span class="lbl">&nbsp; Fixe</span>
-                          </label>
-                  </div>
-             </div>
-       </div>
+       @if( Auth::user()->role_id ==1)
+              <div class="row center">
+                     <div class="col-xs-12">
+                           <div class="checkbox">
+                                   <label><input name="fixe" type="checkbox" class="ace" value="1" />
+                                         <span class="lbl">&nbsp; Fixe</span>
+                                  </label>
+                          </div>
+                     </div>
+               </div> 
+       @endif
     <br>
 </div>
