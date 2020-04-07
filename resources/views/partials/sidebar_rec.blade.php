@@ -68,28 +68,21 @@
             </ul>
         </li>
         <li class="">
-            <a href="#" class="dropdown-toggle">
-                <i class="menu-icon fa fa-calendar-o"></i>
-                            <span class="menu-text">
-                                Gestion RDV
-                            </span>
-                <b class="arrow fa fa-angle-down"></b>
-            </a>
-            <b class="arrow"></b>
-            <ul class="submenu">
+          <a href="#" class="dropdown-toggle">
+            <i class="menu-icon fa fa-calendar-o"></i>
+            <span class="menu-text">Gestion RDV</span>
+            <b class="arrow fa fa-angle-down"></b>
+          </a>
+          <b class="arrow"></b>
+          <ul class="submenu">
             <li class="">
-                    <a href="/rdv/create"><i class="menu-icon fa fa-caret-right"></i>  {{-- /choixpatient --}}
-                        Ajouter RDV
-                    </a>
-                    <b class="arrow"></b>
-                </li>
-             <li class="">
-                    <a href="{{ route('rdv.index') }}">
-                        <i class="menu-icon fa fa-caret-right"></i>
-                        Liste RDVs
-                    </a>
-                    <b class="arrow"></b>
-                </li>
+              <a href="/rdv/create"><i class="menu-icon fa fa-plus purple"></i>Ajouter RDV</a>
+              <b class="arrow"></b>
+            </li>
+            <li class="">
+              <a href="{{ route('rdv.index') }}"><i class="menu-icon fa fa-eye pink"></i>Liste RDVs</a>
+              <b class="arrow"></b>
+            </li>
             </ul>
         </li>
     </ul><!-- /.nav-list -->

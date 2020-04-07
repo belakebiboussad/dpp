@@ -265,29 +265,39 @@ class RDVController extends Controller
             ->rawColumns(['action5','action4','action3','action1','action2','action'])
             ->make(true);
       }
-       function AddRDV(Request $request)
+      function AddRDV(Request $request)
       { 
-               if(Auth::user()->role_id ==2)
-                    $employe = employ::findOrFail($request->medecin);
-              else
-                    $employe = Auth::user()->employ;
-             if($request->ajax())
-                   $patient = patient::find($request->id_patient);
-             else
-                    $patient=patient::where('code_barre', explode("-", $request->patient)[0])->first();
-              $rdv = rdv::firstOrCreate([
+        $specialite ="";
+        $employeId  ="";
+        if(Auth::user()->role_id ==2)
+        {
+          $specialite = $request->specialite;
+          $employeId = (isset($request->medecin)?$request->medecin: null);
+          //$employe = employ::findOrFail($request->medecin);
+        }  
+        else
+        {
+          $specialite = Auth::user()->employ->Specialite_Emploiye;
+          $employeId = Auth::user()->employ->id;
+        }
+        //dd($employeId);
+        if($request->ajax())
+          $patient = patient::find($request->id_patient);
+        else
+          $patient=patient::where('code_barre', explode("-", $request->patient)[0])->first();
+        $rdv = rdv::firstOrCreate([
                     "Date_RDV"=>new DateTime($request->Debut_RDV),//"Temp_rdv"=>$time,
                     "Fin_RDV" =>new DateTime($request->Fin_RDV),
                     "fixe"    => $request->fixe,
-                    "specialite"=>$employe->Specialite_Emploiye,
-                    "Employe_ID_Employe"=>$employe->id,
+                    "specialite"=>$specialite,
+                    "Employe_ID_Employe"=>$employeId,//$employe->id,
                     "Patient_ID_Patient"=> $patient->id,
                     "Etat_RDV"=> "en attente",
-             ]);       
-             if($request->ajax())
-                    return Response::json(array('patient'=>$patient, 'age'=>$patient->getAge(),'rdv'=>$rdv));
-            else     
-                return redirect()->route("rdv.create");     
+        ]);       
+        if($request->ajax())
+          return Response::json(array('patient'=>$patient, 'age'=>$patient->getAge(),'rdv'=>$rdv));
+        else     
+        return redirect()->route("rdv.create");     
       }     
       public function checkFullCalendar(Request $request)
       {

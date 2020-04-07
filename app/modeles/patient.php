@@ -1,5 +1,4 @@
 <?php
-
 namespace App\modeles;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
@@ -54,7 +53,7 @@ class patient extends Model
  				else
  					return "M. ";	
  		}else
- 			return 'Enf'.
+ 			return 'Enf';
  	}
 
 }
