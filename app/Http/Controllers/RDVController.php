@@ -155,13 +155,14 @@ class RDVController extends Controller
       public function update(Request $request, $id)
       { 
              $rdv = rdv::FindOrFail($id); //$rdv = rdv::FindOrFail($request->id_rdv); 
-             $medecinId = (Auth::user()->role_id == 1)?$rdv->Employe_ID_Employe:$request->medecin;
-              $dateRdv = new DateTime($request->daterdv);
+               //$medecinId = (Auth::user()->role_id == 1)?$rdv->Employe_ID_Employe:$request->medecin;//$fixe = (Auth::user()->role_id == 1)?$rdv->fixe:1;
+               $dateRdv = new DateTime($request->daterdv);
              $dateFinRdv = new DateTime($request->datefinrdv);
              $rdv->update([
-                        "Date_RDV"=>$dateRdv,
-                        "Fin_RDV"=>$dateFinRdv,
-                        "Employe_ID_Employe"=>$medecinId,
+                      "Date_RDV"=>$dateRdv,
+                      "Fin_RDV"=>$dateFinRdv,
+                      "Employe_ID_Employe"=>(Auth::user()->role_id == 1)?$rdv->Employe_ID_Employe:$request->medecin,
+                      "fixe"=>(Auth::user()->role_id == 1)?$rdv->fixe:1,
              ]);
               if($request->ajax())
                     return $rdv;

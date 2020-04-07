@@ -28,7 +28,7 @@ $(document).ready(function() {
               maxTime: '17:00:00',
               navLinks: true,
               selectable: true,
-              selectHelper: true,
+              selectHelper: true, 
               eventColor: '#87CEFA',
               contentHeight: 700,
               editable: true,
@@ -44,15 +44,15 @@ $(document).ready(function() {
               views: {},
               events : [
                		      @foreach($rdvs as $rdv)
-                                 {
-                                       title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
-                                       start : '{{ $rdv->Date_RDV }}',
-                                       end:   '{{ $rdv->Fin_RDV }}',
-                                       id :'{{ $rdv->id }}',
-                                       idPatient:'{{$rdv->patient->id}}',
-                                       tel:'{{$rdv->patient->tele_mobile1}}',
-                                       age:{{ $rdv->patient->getAge() }},
-                                       specialite: {{ $rdv->specialite}},
+                                    {
+                                            title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
+                                            start : '{{ $rdv->Date_RDV }}',
+                                            end:   '{{ $rdv->Fin_RDV }}',
+                                            id :'{{ $rdv->id }}',
+                                            idPatient:'{{$rdv->patient->id}}',
+                                            tel:'{{$rdv->patient->tele_mobile1}}',
+                                            age:{{ $rdv->patient->getAge() }},
+                                            specialite: {{ $rdv->specialite}},
                                  },
                                   @endforeach 	
               ],
@@ -80,16 +80,15 @@ $(document).ready(function() {
                                               text: "Oui",
                                               icon: "ui-icon-heart",
                                               click: function() {
-                                                
-                                                     @if(Auth::user()->role_id == 1)
-                                                     {    
-                                                          var fixe = $('#dialog :checkbox').is(':checked') ? 1 :0; 
+                                                   @if(Auth::user()->role_id == 1)
+                                                   {    
+                                                           var fixe = $('#dialog :checkbox').is(':checked') ? 1 :0; 
                                                            createRDVModal(start,end,0,fixe);
-                                                      }@else
-                                                     {
+                                                   }@else
+                                                   {
                                                            createRDVModal(start,end);
-                                                      }
-                                                      @endif
+                                                    }
+                                                   @endif
                                                      $( this ).dialog( "close" );
                                              }
                                        },
@@ -129,10 +128,12 @@ $(document).ready(function() {
                     }
               },
              eventRender: function (event, element, webData) {
-                    if(event.start < today)  // element.css("font-size", "1em");
+                      if(event.start < today)  // element.css("font-size", "1em");
                             element.css('background-color', '#D3D3D3');  
-                     else
-                           element.css("padding", "5px");
+                      else
+                      {
+                             element.css("padding", "5px");
+                      }
                     element.popover({
                                  delay: { "show": 500, "hide": 100 },  // title: event.title,
                                 content: event.tel,

@@ -2,10 +2,10 @@
 @section('style')
 <style>
      .fc-agendaWeek-view tr {
-          height: 40px;
+          height: 20px;
       }
      .fc-agendaDay-view tr {
-          height: 40px;
+          height: 20px;
      }
      .es-list { 
             max-height: 160px !important;
@@ -21,15 +21,24 @@
             border-top-right-radius: 0.25rem;
             border-bottom-right-radius: 0.25rem;
       }
-     </style>
+        fieldset.scheduler-border {
+                  border: 1px groove #ddd !important;
+                  padding: 0 1.4em 1.4em 1.4em !important;
+                  margin: 0 0 1.5em 0 !important;
+                  -webkit-box-shadow:  0px 0px 0px 0px #000;
+                          box-shadow:  0px 0px 0px 0px #000;
+      }
+ </style>
 @endsection
 @section('page-script') {{-- {!! $planning->script() !!} --}}
 <script>//reccherche par nom
 function reset_in()
 {
-       $('.es-list').val('');
-       $('#patient').val('');
-       $('#medecin').val('');
+       $('.es-list').val(''); $('#patient').val(''); $('#medecin').val('');
+}
+function hideButton()
+{
+        $('#updateRDV').addClass('hidden');$('#printRdv').addClass('hidden');
 }
 function layout()
 {
@@ -47,8 +56,7 @@ function layout()
        }
 }
 $(document).ready(function() {
-       var CurrentDate = (new Date()).setHours(23, 59, 59, 0); //.setHours(0, 0, 0, 0); 
-       var today = (new Date()).setHours(0, 0, 0, 0); //.setHours(0, 0, 0, 0); 
+        var today = (new Date()).setHours(0, 0, 0, 0);      // var CurrentDate = (new Date()).setHours(23, 59, 59, 0); //.setHours(0, 0, 0, 0); 
        $('.calendar1').fullCalendar({
              header: {
                     left: 'prev,next today',
@@ -63,9 +71,8 @@ $(document).ready(function() {
               maxTime: '17:00:00',
               navLinks: true, // can click day/week names to navigate views
               selectable: true,
-              selectHelper: true,
-              eventColor: '#87CEFA',
-              contentHeight: 700,
+              selectHelper: true,     // eventColor: '#87CEFA',
+              contentHeight: 700,//700
               editable: true,
               eventLimit: true, // allow "more" link when too many events      // displayEventEnd: true,       
               hiddenDays: [ 5, 6 ],
@@ -76,37 +83,46 @@ $(document).ready(function() {
               eventDurationEditable : false,
               views: {},
               events: [
-                   @foreach($rdvs as $rdv)
-                   {
-                        title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
-                        start : '{{ $rdv->Date_RDV }}',
-                        end:   '{{ $rdv->Fin_RDV }}',
-                        id :'{{ $rdv->id }}',
-                        idPatient:'{{$rdv->patient->id}}',
-                        tel:'{{$rdv->patient->tele_mobile1}}',
-                        age:{{ $rdv->patient->getAge() }},
-                        specialite: {{ $rdv->specialite }}         
-                   },
+                     @foreach($rdvs as $rdv)
+                     {
+                             title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
+                             start : '{{ $rdv->Date_RDV }}',
+                             end:   '{{ $rdv->Fin_RDV }}',
+                             id :'{{ $rdv->id }}',
+                             idPatient:'{{$rdv->patient->id}}',
+                              tel:'{{$rdv->patient->tele_mobile1}}',
+                             age:{{ $rdv->patient->getAge() }},
+                             specialite: {{ $rdv->specialite }},
+                             fixe:  {{ $rdv->fixe }},
+                      },
                    @endforeach 
               ],
               select: function(start, end) {
                     $('.calendar1').fullCalendar('unselect');
               },
              eventClick: function(calEvent, jsEvent, view) {
-                    if(Date.parse(calEvent.start) > today )
+                    if(Date.parse(calEvent.start) > today ) 
                     {
-                          @if(Auth::user()->role_id == 2)
-                                $('#updateRDV').removeClass('hidden');
-                          @endif
-                          $('#idRDV').val(calEvent.id);
-                          ajaxEditEvent(calEvent,false);
+                             @if(Auth::user()->role_id == 2)
+                                     $('#updateRDV').removeClass('hidden');
+                             @endif
+                             if(calEvent.fixe)
+                                     $('#printRdv').removeClass('hidden');
+                              $('#idRDV').val(calEvent.id);
+                              ajaxEditEvent(calEvent,false);
                     }
               },
               eventRender: function (event, element, webData) {
-                   if(event.start < today)
-                          element.css('background-color', '#D3D3D3'); 
-                    else       
-                          element.css("padding", "5px");
+                      if(event.start < today)
+                              element.css('background-color', '#D3D3D3'); 
+                      else 
+                      {
+                              if(event.fixe)
+                                     element.css('background-color', '#87CEFA'); 
+                              else
+                                      element.css('background-color', '#378006');   
+                              element.css("padding", "5px");
+                      }  
                           element.popover({
                                  delay: { "show": 500, "hide": 100 },  // title: event.title,
                                 content: event.tel,
@@ -125,14 +141,13 @@ $(document).ready(function() {
               },
              eventDrop: function(event, delta, revertFunc)
              { 
-
-                   if( event.start-delta >= today)
-                    { 
-                         jQuery('#btnclose').click(function(){
-                               revertFunc();
-                          });
-                          ajaxEditEvent(event,true); //edit(event);
-                          $('#updateRDV').removeClass('hidden');
+                      if( event.start-delta >= today)
+                      { 
+                             jQuery('#btnclose').click(function(){
+                                     revertFunc();
+                              });
+                              ajaxEditEvent(event,true); //edit(event);
+                              $('#updateRDV').removeClass('hidden');
                     }
                     else
                     {
@@ -177,17 +192,20 @@ $(document).ready(function() {
   </script>
 @endsection
 @section('main-content')
-  <div class="row">
-    <div class="col-md-12">
-      <div class="panel panel-default">
-        &nbsp;&nbsp;&nbsp;&nbsp; 
-        <div class="panel-heading" style="margin-top:-20px">
-          <div class="left"> <strong>Liste des Rendez-Vous</strong></div>
-        </div>
-        <div class="panel-body">
-          <div  class="calendar1"></div>
-        </div>
-      </div>
+      <div class="row"  style="margin-top:-2%; margin-left:-2%;">
+       <div class="col-md-12">
+              <div class="panel panel-default">
+                      <div class="panel-heading">
+                             <div class="left"> <strong>Liste des Rendez-Vous</strong></div>
+                      </div>
+                      <div class="panel-body">
+                              <div  class="calendar1"></div>
+                      </div>
+                      <div class="panel-footer">
+                               <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px">&nbsp;RDV fixe</span>
+                                 <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px">&nbsp;RDV à fixer</span> 
+                      </div>
+                </div>
     </div>
   </div>
   <div class="row">
@@ -206,8 +224,8 @@ $(document).ready(function() {
                          <i class="fa fa-phone" aria-hidden="true"></i><strong>Téléphone:&nbsp;</strong><span id="patient_tel" class="blue"></span>
                     </div>
                     <div class="col-sm-6">
-                         <strong>Âge:&nbsp;</strong>
-                         <span id="agePatient" class="blue"></span> <small>Ans</small>
+                             <strong>Âge:&nbsp;</strong>     {{-- <span id="agePatient" class="blue"></span><small>Ans</small> --}}
+                              <span id="agePatient" class="badge badge-info" ></span><small>Ans</small>
                     </div>
              </div>
      </div>
@@ -229,27 +247,33 @@ $(document).ready(function() {
              </div>
              @endif
              <div class="space-12"></div>
-            <div class="well">      
-                    <div class="row">
-                            <label for="date"><span class="glyphicon glyphicon-time fa-lg"></span><strong> Date Rendez-Vous :</strong></label>
-                            <div class="input-group">
-                              <input class="form-control" id="daterdv" name="daterdv" type="text" data-date-format="yyyy-mm-dd HH:mm:ss" readonly/>
-                            </div>
-                    </div>
-                    <div class="row" class= "invisible">
-                            <div class="input-group">
-                                <input class="form-control" id="datefinrdv" name ="datefinrdv" type="text" data-date-format="yyyy-mm-dd HH:mm:ss" style="display:none"/>
-                            </div>
-                    </div>             
-            </div>  {{-- well --}}
-       <!-- </form>   --> 
+              <div class="row">
+                      <div class="col-sm-12">
+                              <fieldset class="scheduler-border">
+                                   <legend class="scheduler-border">Rendez-Vous</legend>
+                                    <div class="control-group">
+                                           <label class="control-label input-label" for="startTime">Date :</label>
+                                           <div class="controls bootstrap-timepicker">
+                                                   <input type="text" class="datetime" id="daterdv" name="daterdv" data-date-format="yyyy-mm-dd HH:mm " readonly   />
+                                                   <span class="glyphicon glyphicon-time fa-lg"></span> 
+                                          </div>
+                                      </div>
+                              </fieldset>
+                      </div>
+               </div>
+               <div class="row" class= "invisible">
+                      <div class="input-group">
+                             <input class="form-control" id="datefinrdv" name ="datefinrdv" type="text" data-date-format="yyyy-mm-dd HH:mm:ss" style="display:none"/>
+                      </div>
+              </div> 
+               <!-- </form>   --> 
       </div>   
       <br>
       <div class="modal-footer">
          @if(Auth::user()->role->id == 1)
             <a type="button" id="btnConsulter" class="btn btn btn-sm btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
         @endif 
-         <button type="submit" id ="updateRDV" class="btn btn-sm btn-primary hidden">
+         <button type="submit" id ="updateRDV" class="btn btn-primary btn-sm  hidden">
               <i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer
          </button>
           @if(Auth::user()->role->id == 1)          
@@ -257,10 +281,10 @@ $(document).ready(function() {
                 <i class="fa fa-trash" aria-hidden="true"></i> Annuler
               </a>
           @endif
-             <a  href ="#" id="printRdv" class="btn btn-success btn-sm"  data-dismiss="modal">
+             <a  href ="#" id="printRdv" class="btn btn-success btn-sm hidden"  data-dismiss="modal">
                     <i class="ace-icon fa fa-print"></i>Imprimer
              </a> 
-             <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"  id ="btnclose" onclick="$('#updateRDV').addClass('hidden');">
+             <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"  id ="btnclose" onclick="hideButton();">
                   <i class="fa fa-close" aria-hidden="true" ></i> Fermer
              </button>
       </div>

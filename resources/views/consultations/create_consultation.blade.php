@@ -5,16 +5,16 @@
 @section('style')
 <style>
 	.modalord {
-    width:104.7% !important;
-    right:-16% !important;
-    left:-2.5% !important;
-    top:-3.1% !important;
+		width:104.7% !important;
+		right:-16% !important;
+		left:-2.5% !important;
+		top:-3.1% !important;
 	}
 	.with-margin {
-	  margin-bottom: 5px;
+	 	margin-bottom: 5px;
 	}
 	.spacer5 {
-	  height: 5px;
+	  	height: 5px;
 	}
 	.modal-body
 	{

@@ -43,8 +43,7 @@
             <!-- /main-content-inner -->
         </div>
         <!-- /main-content -->
-        <br>
-        <br>
+       {{--  <br> <br> --}}
         <div>
             @include('partials.footer')
         </div>
