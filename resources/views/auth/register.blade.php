@@ -56,7 +56,6 @@
                             <i class="ace-icon fa fa-retweet"></i>
                         </span>
                     </label>
-
                     <!--<label class="block">
                         <input type="checkbox" class="ace"/>
                             <span class="lbl">
@@ -64,9 +63,7 @@
                                 <a href="#">User Agreement</a>
                             </span>
                     </label>-->
-
                     <div class="space-24"></div>
-
                     <div class="clearfix">
                         <button type="reset" class="width-30 pull-left btn btn-sm">
                             <i class="ace-icon fa fa-refresh"></i>

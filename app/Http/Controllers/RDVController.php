@@ -137,7 +137,10 @@ class RDVController extends Controller
     {       
              $rdv = rdv::FindOrFail($id);
              if($request->ajax())
-                   return Response::json(['rdv'=>$rdv,'medecin'=>$rdv->employe,'patient'=>$rdv->patient]);  
+                      if(isset($rdv->Employe_ID_Employe))
+                             return Response::json(['rdv'=>$rdv,'medecin'=>$rdv->employe,'patient'=>$rdv->patient]);  
+                       else
+                              return Response::json(['rdv'=>$rdv,'patient'=>$rdv->patient]);  
              else
               {
                     $patient = patient::FindOrFail($rdv->Patient_ID_Patient)->patient;
@@ -153,16 +156,19 @@ class RDVController extends Controller
      * @return \Illuminate\Http\Response
      */
       public function update(Request $request, $id)
-      { 
-             $rdv = rdv::FindOrFail($id); //$rdv = rdv::FindOrFail($request->id_rdv); 
-               //$medecinId = (Auth::user()->role_id == 1)?$rdv->Employe_ID_Employe:$request->medecin;//$fixe = (Auth::user()->role_id == 1)?$rdv->fixe:1;
+      {  
+               $fixe=1;
+              $rdv = rdv::FindOrFail($id);
+              $medecinId = (Auth::user()->role_id == 1)?$rdv->Employe_ID_Employe:$request->medecin;
+               if(Auth::user()->role_id == 1)
+                     $fixe =  (isset($request->fixe)) ?1:0;
                $dateRdv = new DateTime($request->daterdv);
-             $dateFinRdv = new DateTime($request->datefinrdv);
-             $rdv->update([
+              $dateFinRdv = new DateTime($request->datefinrdv);
+              $rdv->update([
                       "Date_RDV"=>$dateRdv,
                       "Fin_RDV"=>$dateFinRdv,
                       "Employe_ID_Employe"=>(Auth::user()->role_id == 1)?$rdv->Employe_ID_Employe:$request->medecin,
-                      "fixe"=>(Auth::user()->role_id == 1)?$rdv->fixe:1,
+                      "fixe"=>$fixe,
              ]);
               if($request->ajax())
                     return $rdv;

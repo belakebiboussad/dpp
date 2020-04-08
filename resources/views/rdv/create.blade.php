@@ -41,6 +41,7 @@ $(document).ready(function() {
               eventDurationEditable : false,  // columnHeaderFormat: 'dddd',//affichelndi/mardi 
              weekNumbers: true,
              aspectRatio: 2,
+             displayEventTime : false,
               views: {},
               events : [
                		      @foreach($rdvs as $rdv)

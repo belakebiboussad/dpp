@@ -30,7 +30,6 @@
         @endif
     </div>
 </div>
-
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
         <div class="checkbox">
@@ -40,7 +39,6 @@
         </div>
     </div>
 </div>
-
 <div class="form-groupl">
     <div class="col-md-6 col-md-offset-4">
         <button type="submit" class="btn btn-primary">

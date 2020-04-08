@@ -1119,14 +1119,8 @@ $('#typeexm').on('change', function() {
       }
       function edit(event)
       {       
-            {{--     
-             @if(Auth::user()->role_id == 2)
-                    $("#specialite").val(event.specialite);
-                    getMedecinsSpecialite();
-              @endif
-              --}}
-             $('#patient_tel').text(event.tel);
-             $('#agePatient').text(event.age);
+              $('#patient_tel').text(event.tel);
+              $('#agePatient').text(event.age);
              $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
              $('#lien').text(event.title);
              $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
@@ -1149,18 +1143,21 @@ $('#typeexm').on('change', function() {
               });
              url = "rdv" + '/' + event.id + '/edit';
              $.ajax({
-                   type: 'GET',
-                   url:  url,
-                   data: {
-                         '_token': $('input[name=_token]').val(),
-                        'id': event.id,
-                    },
-                    success: function(data) {
-                          if($('#medecin').length){
-                                getMedecinsSpecialite(data['medecin'].Specialite_Emploiye,data['medecin'].id);  
-                          }
-                          $('#patient_tel').text(data['patient'].tele_mobile1);
-                          $('#agePatient').text(event.age);
+                      type: 'GET',
+                      url:  url,
+                      data: {
+                             '_token': $('input[name=_token]').val(),
+                              'id': event.id,
+                      },
+                      success: function(data) {
+                             if($('#medecin').length){
+                                    if(isEmpty(data['medecin']))
+                                              getMedecinsSpecialite(data['rdv'].specialite);  
+                                     else
+                                             getMedecinsSpecialite(data['rdv'].specialite,data['medecin'].id);  
+                              }
+                              $('#patient_tel').text(data['patient'].tele_mobile1);
+                              $('#agePatient').text(event.age);
                           $('#lien').attr('href','/patient/'.concat(data['patient'].id)); 
                           $('#lien').text(event.title);
                          if(bool)
