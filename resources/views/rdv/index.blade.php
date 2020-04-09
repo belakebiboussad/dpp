@@ -2,10 +2,10 @@
 @section('style')
 <style>
      .fc-agendaWeek-view tr {
-          height: 20px;
+          height: 25px;
       }
      .fc-agendaDay-view tr {
-          height: 20px;
+          height: 25px;
      }
      .es-list { 
             max-height: 160px !important;
@@ -34,9 +34,9 @@
 <script>//reccherche par nom
 function reset_in()
 {
-        $('.es-list').val(''); $('#patient').val(''); $('#medecin').val('');
-        $('#updateRDV').addClass('hidden');$('#printRdv').addClass('hidden');
-         $("#fixe"). prop("checked", false);
+  $('.es-list').val(''); $('#patient').val(''); $('#medecin').val('');
+  $('#updateRDV').addClass('hidden');$('#printRdv').addClass('hidden');
+  $("#fixe"). prop("checked", false);
 }
 // function layout()
 // {
@@ -70,8 +70,7 @@ $(document).ready(function() {
               maxTime: '17:00:00',
               navLinks: true, // can click day/week names to navigate views
               selectable: true,
-              selectHelper: true,     // eventColor: '#87CEFA',
-              contentHeight: 700,//700
+              selectHelper: true,// eventColor: '#87CEFA',//contentHeight: 700,//700
               editable: true,
               eventLimit: true, // allow "more" link when too many events      // displayEventEnd: true,       
               hiddenDays: [ 5, 6 ],
@@ -85,31 +84,32 @@ $(document).ready(function() {
               events: [
                      @foreach($rdvs as $rdv)
                      {
-                             title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
-                             start : '{{ $rdv->Date_RDV }}',
-                             end:   '{{ $rdv->Fin_RDV }}',
-                             id :'{{ $rdv->id }}',
-                             idPatient:'{{$rdv->patient->id}}',
-                              tel:'{{$rdv->patient->tele_mobile1}}',
-                             age:{{ $rdv->patient->getAge() }},
-                             specialite: {{ $rdv->specialite }},
-                             fixe:  {{ $rdv->fixe }},
+                            title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
+                            start : '{{ $rdv->Date_RDV }}',
+                            end:   '{{ $rdv->Fin_RDV }}',
+                            id :'{{ $rdv->id }}',
+                            idPatient:'{{$rdv->patient->id}}',
+                            tel:'{{$rdv->patient->tele_mobile1}}',
+                            age:{{ $rdv->patient->getAge() }},
+                            specialite: {{ $rdv->specialite }},
+                            // medecin : {{ $rdv->Employe_ID_Employe}},
+                            fixe:  {{ $rdv->fixe }},
                       },
                    @endforeach 
               ],
               select: function(start, end) {
                     $('.calendar1').fullCalendar('unselect');
               },
-             eventClick: function(calEvent, jsEvent, view) {
-                    if(Date.parse(calEvent.start) > today ) 
-                     {
-                             reset_in(); 
-                             if(calEvent.fixe)     {{--    @if(Auth::user()->role_id == 2) $('#updateRDV').removeClass('hidden');@endif--}}
-                                     $('#printRdv').removeClass('hidden');
-                             $('#idRDV').val(calEvent.id);
-                             if($('#fixe').length &&(calEvent.fixe))
-                                     $("#fixe"). prop("checked", true);
-                              ajaxEditEvent(calEvent,false);
+              eventClick: function(calEvent, jsEvent, view) {
+                      if(Date.parse(calEvent.start) > today ) 
+                      {
+                            reset_in(); 
+                            if(calEvent.fixe && (!(isEmpty(calEvent.medecin))))     {{--    @if(Auth::user()->role_id == 2) $('#updateRDV').removeClass('hidden');@endif--}}
+                              $('#printRdv').removeClass('hidden');
+                            $('#idRDV').val(calEvent.id);
+                            if($('#fixe').length &&(calEvent.fixe))
+                              $("#fixe"). prop("checked", true);
+                            ajaxEditEvent(calEvent,false);
                     }
               },
               eventRender: function (event, element, webData) {
