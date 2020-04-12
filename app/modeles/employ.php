@@ -18,7 +18,7 @@ class employ extends Model
     }
     public function rdvs()
     {
-        return $this->hasMany('App\modeles\rdv','Employe_ID_Employe')->orderBy('Date_RDV');
+        return $this->hasMany('App\modeles\rdv','Employe_ID_Employe');
         // ->orderBy('Date_RDV')
     }
     

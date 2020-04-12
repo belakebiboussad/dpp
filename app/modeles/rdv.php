@@ -43,9 +43,16 @@ class rdv extends Model implements IdentifiableEvent
 	}
 	public function employe()
 	{
-		// if(isset($this->Employe_ID_Employe))
+	//	 if(isset($this->Employe_ID_Employe))
 			return $this->belongsTo('App\modeles\employ','Employe_ID_Employe','id');
 	}
+        public function getEmploye()
+   	{
+       		if ( ! $this->getAttribute('Employe_ID_Employe')) {
+       		     return new  employ;
+        	}
+        	return $this->getAttribute('employe');
+   }
 	public function Specilite()
 	{
 		return $this->belongsTo('App\modeles\Specialite','specialite','id');

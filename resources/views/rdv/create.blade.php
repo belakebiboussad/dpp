@@ -13,7 +13,9 @@ function reset_in()
 }
 $(document).ready(function() {
        var CurrentDate = (new Date()).setHours(23, 59, 59, 0); 
-      var today = (new Date()).setHours(0, 0, 0, 0); 
+       var today = (new Date()).setHours(0, 0, 0, 0); 
+       var rdvs = @json($rdvs);
+       alert(rdvs);
    	$('#calendar').fullCalendar({
               header: {
                 left: 'prev,next today',
@@ -44,20 +46,11 @@ $(document).ready(function() {
              displayEventTime : false,
               views: {},
               events : [
-               		      @foreach($rdvs as $rdv)
+                      $.each(rdvs, function (index, rdv) {
                         {
-                          title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
-                          start : '{{ $rdv->Date_RDV }}',
-                          end:   '{{ $rdv->Fin_RDV }}',
-                          id :'{{ $rdv->id }}',
-                          idPatient:'{{$rdv->patient->id}}',
-                          tel:'{{$rdv->patient->tele_mobile1}}',
-                          age:{{ $rdv->patient->getAge() }},
-                          specialite: {{ $rdv->specialite}},
-                          medecin : (isEmpty({{ $rdv->Employe_ID_Employe}}))? "": '{{ $rdv->employe->Nom_Employe}} {{ $rdv->employe->Prenom_Employe}}',
-                          fixe:  {{ $rdv->fixe }},
+                                title :rdv[patient].Nom . ' ' . rdv[patient].Prenom ,
                         },
-                        @endforeach 	
+                      });
               ],
               select: function(start, end) {
                     if(start >= CurrentDate){
