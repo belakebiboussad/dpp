@@ -1136,44 +1136,44 @@ $('#typeexm').on('change', function() {
       }
        function ajaxEditEvent(event,bool)
        {
-             $.ajaxSetup({
-                    headers: {
-                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-              });
-             url = "rdv" + '/' + event.id + '/edit';
-             $.ajax({
-                      type: 'GET',
-                      url:  url,
-                      data: {
-                             '_token': $('input[name=_token]').val(),
-                              'id': event.id,
-                      },
-                      success: function(data) {
-                             if($('#medecin').length){
-                                    if(isEmpty(data['medecin']))
-                                              getMedecinsSpecialite(data['rdv'].specialite);  
-                                     else
-                                             getMedecinsSpecialite(data['rdv'].specialite,data['medecin'].id);  
+          $.ajaxSetup({
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+          });
+          url = "rdv" + '/' + event.id + '/edit';
+          $.ajax({
+                  type: 'GET',
+                  url:  url,
+                  data: {
+                        '_token': $('input[name=_token]').val(),
+                        'id': event.id,
+                  },
+                  success: function(data) {
+                              if($('#medecin').length){
+                                if(isEmpty(data['medecin']))
+                                  getMedecinsSpecialite(data['rdv'].specialite);  
+                                 else
+                                  getMedecinsSpecialite(data['rdv'].specialite,data['medecin'].id);  
                               }
                               $('#patient_tel').text(data['patient'].tele_mobile1);
                               $('#agePatient').text(event.age);
-                          $('#lien').attr('href','/patient/'.concat(data['patient'].id)); 
-                          $('#lien').text(event.title);
-                         if(bool)
-                         {
+                              $('#lien').attr('href','/patient/'.concat(data['patient'].id)); 
+                              $('#lien').text(event.title);
+                              if(bool)
+                              {
                                 $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
-                                 $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
-                         }else{
-                               $("#daterdv").val(data['rdv'].Date_RDV);
-                               $("#datefinrdv").val(data['rdv'].Fin_RDV); 
-                         }
-                          $('#btnConsulter').attr('href','/consultations/create/'.concat(data['patient'].id));
-                          $('#btnDelete').attr('href','/rdv/'.concat(data['rdv'].id));
-                          var url = '{{ route("rdv.update", ":slug") }}'; 
-                          url = url.replace(':slug',data['rdv'].id);
-                          $('#updateRdv').attr('action',url);
-                          $('#fullCalModal').modal({ show: 'true' });
+                                $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
+                              }else{
+                                $("#daterdv").val(data['rdv'].Date_RDV);
+                                $("#datefinrdv").val(data['rdv'].Fin_RDV); 
+                              }
+                              $('#btnConsulter').attr('href','/consultations/create/'.concat(data['patient'].id));
+                              $('#btnDelete').attr('href','/rdv/'.concat(data['rdv'].id));
+                              var url = '{{ route("rdv.update", ":slug") }}'; 
+                              url = url.replace(':slug',data['rdv'].id);
+                              $('#updateRdv').attr('action',url);
+                              $('#fullCalModal').modal({ show: 'true' });
                     },
                     error:function(data){
                         alert('error');
