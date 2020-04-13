@@ -51,7 +51,7 @@ $(document).ready(function() {
               displayEventTime : false,
               views: {},
               events :[
-                        @foreach($rdvs as $rdv)
+                        @foreach($rdvs as $key =>   $rdv)
                         {
                           title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
                           start : '{{ $rdv->Date_RDV }}',
@@ -61,7 +61,7 @@ $(document).ready(function() {
                           tel:'{{$rdv->patient->tele_mobile1}}',
                           age:{{ $rdv->patient->getAge() }},
                           specialite: {{ $rdv->specialite}},
-                          medecin :(isEmpty({{ $rdv->Employe_ID_Employe }}))? "":'{{ $rdv->Employe_ID_Employe }}',
+                          medecin :(isEmpty({{ $rdv->Employe_ID_Employe }}))? "":'{{ $key }}',
                           fixe:  {{ $rdv->fixe }},
                         },
                         @endforeach   
@@ -134,8 +134,8 @@ $(document).ready(function() {
                         $('#printRdv').removeClass('hidden');
                       if(!(isEmpty(calEvent.medecin)))
                       {
-                        getMedecinsSpecialite(calEvent.specialite,calEvent.medecin);
-                        setMedecin(calEvent.id);
+                        // getMedecinsSpecialite(calEvent.specialite,calEvent.medecin);
+                        setMedecin(calEvent.medecin);
                       }
                       $('#btnConsulter').attr('href','/consultations/create/'.concat(calEvent.idPatient)); 
                       $('#lien').text(calEvent.title);
