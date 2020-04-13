@@ -16,3 +16,11 @@
                           fixe:  {{ $rdv->fixe }},
                        },
                         @endforeach 	
+
+
+
+
+
+
+
+alert( {{ App\modeles\employ::where("id",'calEvent.medecin')->get()->first()->id }} );

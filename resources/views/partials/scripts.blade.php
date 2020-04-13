@@ -1076,27 +1076,28 @@ $('#typeexm').on('change', function() {
                                $('div#edit-password').addClass('in active');
                      }
             });
-       function getMedecinsSpecialite(specialiteId = 0,medId='')
+      function getMedecinsSpecialite(specialiteId = 0,medId='')
       {
-             $('#medecin').empty();
-             var specialiteId = 0 ?$('#specialite').val() : specialiteId;
-             $.ajax({
-                     type : 'get',
-                     url : '{{URL::to('DocorsSearch')}}',
-                     data:{'specialiteId': specialiteId },
-                     dataType: 'json',
-                     success:function(data,status, xhr){
-                          var html ='<option value="">Selectionner...</option>';
-                          jQuery(data).each(function(i, med){
-                                 html += '<option value="'+med.id+'" >'+med.Nom_Employe +" "+med.Prenom_Employe+'</option>';
-                          });
-                          $('#medecin').removeAttr("disabled");  
-                          $('#medecin').append(html);
-                          $("#medecin").val(medId);
-                     },
-                     error:function(data){
-                            console.log(data);
-                     }
+        $('#medecin').empty();
+        var specialiteId = 0 ?$('#specialite').val() : specialiteId;
+        $.ajax({
+                  type : 'get',
+                  url : '{{URL::to('DocorsSearch')}}',
+                  data:{'specialiteId': specialiteId },
+                  dataType: 'json',
+                  success:function(data,status, xhr){
+                        var html ='<option value="">Selectionner...</option>';
+                        jQuery(data).each(function(i, med){
+                          
+                          html += '<option value="'+med.id+'" >'+med.Nom_Employe +" "+med.Prenom_Employe+'</option>';
+                        });
+                        $('#medecin').removeAttr("disabled");  
+                        $('#medecin').append(html);
+                        $("#medecin").val(medId);
+                  },
+                  error:function(data){
+                      console.log(data);
+                  }
              });   
       }      
       function patientSearch(field,value) {

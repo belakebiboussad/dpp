@@ -84,8 +84,9 @@ class RDVController extends Controller
             return view('rdv.create', compact('rdvs')); 
        }else
        { 
-          $rdvs =  rdv::all();
-          $rdvs = rdv::with('employe')->get();
+          //$rdvs =  rdv::all();
+          $rdvs = rdv::with(['patient','employe'])->get();
+          //dd($rdvs);
           $specialites = specialite::all();
           return view('rdv.create', compact('rdvs','specialites')); 
        }

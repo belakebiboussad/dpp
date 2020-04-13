@@ -11,11 +11,16 @@ function reset_in()
        $('.es-list').val('');  $('#patient').val(''); $('#medecin').val(''); $('#specialite').val(''); 
       $("#medecin").attr("disabled", true);   
 }
+function setMedecin(idRdv)
+{
+  var rdvs = @json($rdvs);
+  alert(rdvs[idRdv]);
+}
 $(document).ready(function() {
-       var CurrentDate = (new Date()).setHours(23, 59, 59, 0); 
-       var today = (new Date()).setHours(0, 0, 0, 0); 
-       var rdvs = @json($rdvs);
-       alert(rdvs);
+    var CurrentDate = (new Date()).setHours(23, 59, 59, 0); 
+    var today = (new Date()).setHours(0, 0, 0, 0); 
+    // 
+    // alert(rdvs);
    	$('#calendar').fullCalendar({
               header: {
                 left: 'prev,next today',
@@ -41,17 +46,26 @@ $(document).ready(function() {
               aspectRatio: 1.5,        // disableDragging: true,
               eventStartEditable : false,
               eventDurationEditable : false,  // columnHeaderFormat: 'dddd',//affichelndi/mardi 
-             weekNumbers: true,
-             aspectRatio: 2,
-             displayEventTime : false,
+              weekNumbers: true,
+              aspectRatio: 2,
+              displayEventTime : false,
               views: {},
-              events : [
-                      $.each(rdvs, function (index, rdv) {
+              events :[
+                        @foreach($rdvs as $rdv)
                         {
-                                title :rdv[patient].Nom . ' ' . rdv[patient].Prenom ,
+                          title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
+                          start : '{{ $rdv->Date_RDV }}',
+                          end:   '{{ $rdv->Fin_RDV }}',
+                          id :'{{ $rdv->id }}',
+                          idPatient:'{{$rdv->patient->id}}',
+                          tel:'{{$rdv->patient->tele_mobile1}}',
+                          age:{{ $rdv->patient->getAge() }},
+                          specialite: {{ $rdv->specialite}},
+                          medecin :(isEmpty({{ $rdv->Employe_ID_Employe }}))? "":'{{ $rdv->Employe_ID_Employe }}',
+                          fixe:  {{ $rdv->fixe }},
                         },
-                      });
-              ],
+                        @endforeach   
+              ], 
               select: function(start, end) {
                     if(start >= CurrentDate){
                           var myDialog = $('#dialog');
@@ -116,15 +130,13 @@ $(document).ready(function() {
               eventClick: function(calEvent, jsEvent, view) {
                     if(Date.parse(calEvent.start) > today )
                     {
-                   
                       if(calEvent.fixe &&(!(isEmpty(calEvent.medecin))))
                         $('#printRdv').removeClass('hidden');
                       if(!(isEmpty(calEvent.medecin)))
                       {
-                        alert(calEvent.medecin);
-                        
-                      
-                      }  
+                        getMedecinsSpecialite(calEvent.specialite,calEvent.medecin);
+                        setMedecin(calEvent.id);
+                      }
                       $('#btnConsulter').attr('href','/consultations/create/'.concat(calEvent.idPatient)); 
                       $('#lien').text(calEvent.title);
                       $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));

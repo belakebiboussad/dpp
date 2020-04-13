@@ -16,24 +16,24 @@ class rdv extends Model implements IdentifiableEvent
 	}
 	public function getTitle()
  	{
-  		return $this->Patient_ID_Patient;
-  	}
+  	return $this->Patient_ID_Patient;
+  }
 	public function isAllDay()
-    	{
-      		return (bool)$this->all_day;
-    	}
-  	public function getStart()
+  {
+  	return (bool)$this->all_day;
+  }
+  public function getStart()
 	{
-	        return $this->Date_RDV;
+	  return $this->Date_RDV;
 	}
 	public function getEnd()
 	{
-	        return $this->Date_RDV;
+	  return $this->Date_RDV;
 	}
 	/*public function getTime(){      return $this->Temp_rdv;}*/
 	public function patient()
 	{
-		if(isset($this->Patient_ID_Patient))
+		// if(isset($this->Patient_ID_Patient))
 			return $this->belongsTo('App\modeles\Patient','Patient_ID_Patient','id');
 	}
 	public function getAsDate()
@@ -41,18 +41,26 @@ class rdv extends Model implements IdentifiableEvent
 		$date =date('Y-m-d h:i:s A', strtotime($this->Date_RDV. '+12 hours')); 
 		return $date;
 	}
+	/*
+	public function employe(): BelongsTo
+	{
+	  if (!$this->Employe_ID_Employe) {
+      return null;
+    }
+		return $this->belongsTo('App\modeles\employ','Employe_ID_Employe','id');
+	}
+	*/
+	// public function employe()
+	// {
+	// 	if (!is_null($this->Employe_ID_Employe)) {
+ //      return $this->belongsTo(employ::class, 'Employe_ID_Employe');
+ //    }else
+ //    return null;
+	// }
 	public function employe()
 	{
-	//	 if(isset($this->Employe_ID_Employe))
 			return $this->belongsTo('App\modeles\employ','Employe_ID_Employe','id');
 	}
-        public function getEmploye()
-   	{
-       		if ( ! $this->getAttribute('Employe_ID_Employe')) {
-       		     return new  employ;
-        	}
-        	return $this->getAttribute('employe');
-   }
 	public function Specilite()
 	{
 		return $this->belongsTo('App\modeles\Specialite','specialite','id');
