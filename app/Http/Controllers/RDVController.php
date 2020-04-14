@@ -277,20 +277,18 @@ class RDVController extends Controller
         $employeId  ="";
         if(Auth::user()->role_id ==2)
         {
-          $specialite = $request->specialite;
-          $employeId = (isset($request->medecin)?$request->medecin: null);
-          //$employe = employ::findOrFail($request->medecin);
+               $specialite = $request->specialite;
+               $employeId = (isset($request->medecin)?$request->medecin: null);   //$employe = employ::findOrFail($request->medecin); 
         }  
         else
         {
           $specialite = Auth::user()->employ->Specialite_Emploiye;
           $employeId = Auth::user()->employ->id;
         }
-        //dd($employeId);
         if($request->ajax())
-          $patient = patient::find($request->id_patient);
+               $patient = patient::find($request->id_patient);
         else
-          $patient=patient::where('code_barre', explode("-", $request->patient)[0])->first();
+               $patient=patient::where('code_barre', explode("-", $request->patient)[0])->first();
         $rdv = rdv::firstOrCreate([
                     "Date_RDV"=>new DateTime($request->Debut_RDV),//"Temp_rdv"=>$time,
                     "Fin_RDV" =>new DateTime($request->Fin_RDV),

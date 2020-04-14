@@ -5,8 +5,7 @@
  <script type="text/javascript">
      if('ontouchstart' in document.documentElement) document.write("<script src='{{asset('/js/jquery.mobile.custom.min.js')}}'>"+"<"+"/script>");
 </script>
-<script src="{{asset('/js/bootstrap.min.js')}}"></script>
-{{-- <script src="{{asset('/js/angular.min.js')}}"></script> --}}
+<script src="{{asset('/js/bootstrap.min.js')}}"></script>{{-- <script src="{{asset('/js/angular.min.js')}}"></script> --}}
 <script src="{{asset('/js/jquery-ui.custom.min.js')}}"></script>
 <script src="{{asset('/js/jquery.ui.touch-punch.min.js')}}"></script>
 <script src="{{asset('/js/jquery.easypiechart.min.js')}}"></script>
@@ -684,40 +683,54 @@ $('#typeexm').on('change', function() {
               var fin = moment(fin).format('YYYY-MM-DD HH:mm');  
                if(pid != 0)
               {
-                    var formData = {
-                          id_patient:pid,
-                          Debut_RDV:debut,
-                          Fin_RDV:fin,
-                          fixe:fixe
-                    };
-                    $.ajaxSetup({
-                          headers: {
-                            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                          }
+                      var formData = {
+                            id_patient:pid,
+                            Debut_RDV:debut,
+                            Fin_RDV:fin,
+                            fixe:fixe
+                      };
+                      $.ajaxSetup({
+                              headers: {
+                                  'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                              }
                       }); 
-                    $.ajax({
-                          type : 'POST',
-                          url : '/createRDV',
-                          data:formData,  //dataType: 'json',
-                          success:function(data){  // var debut = new Date(data['rdv']['Date_RDV']);// var fin = new Date(data['rdv']['Fin_RDV']);
-                            var event = new Object();
-                            event = {
-                                          title: data['patient']['Nom'] + "  " + data['patient']['Prenom']+" ,("+data['age']+" ans)",
-                                          start: debut,
-                                          end: fin,
-                                          id :data['rdv']['id'],
-                                          idPatient:data['patient']['id'],
-                                          tel:data['patient']['tele_mobile1'] ,
-                                          age:data['age'],         
-                                          allDay: false,
-                                  };
-                                  $('.calendar1').fullCalendar( 'renderEvent', event, true );
-                                  $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next');
-                        },
-                        error: function (data) {
-                               console.log('Error:', data);
-                        }
-                });
+                     $.ajax({
+                              type : 'POST',
+                              url : '/createRDV',
+                              data:formData,  //dataType: 'json',
+                              success:function(data){  // var debut = new Date(data['rdv']['Date_RDV']);// var fin = new Date(data['rdv']['Fin_RDV']);
+                                     var event = new Object();
+                                     var color="";
+                                     //var color = (data['rdv']['fixe'])? '#87CEFA':'#378006';
+                                     alert(data['rdv']['fixe']);
+                                     if(data['rdv']['fixe'])
+                                     {
+                                         color="#87CEFA";
+                                         alert("fixe");
+                                      }
+                                     else
+                                        {
+                                          alert('non    ---------------  Fixe');
+                                          color="#378006";
+                                        }
+                                     event = {
+                                                    title: data['patient']['Nom'] + "  " + data['patient']['Prenom']+" ,("+data['age']+" ans)",
+                                                    start: debut,
+                                                    end: fin,
+                                                    id :data['rdv']['id'],
+                                                    idPatient:data['patient']['id'],
+                                                    tel:data['patient']['tele_mobile1'] ,
+                                                    age:data['age'],         
+                                                    allDay: false,
+                                                    color:color,
+                                            };
+                                            $('.calendar1').fullCalendar( 'renderEvent', event, true );
+                                            $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next');
+                             },
+                              error: function (data) {
+                                     console.log('Error:', data);
+                              }
+                      });
               }else{
                     $('#Debut_RDV').val(debut);
                     $('#Fin_RDV').val(fin); //$('#Temp_rdv').val(heur);

@@ -32,7 +32,6 @@
     </div>
   </div>
 </div>
-@include('rdv.Dialogs.rdvDlg')
 <div class="modal fade" id="fullCalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
      <div class="modal-dialog modal-lg" role="document">
      <div class="modal-content">
@@ -105,6 +104,13 @@
     </div>
   </div>
 </div>{{-- modal --}}
+<div class="modal fade" id="dlg" tabindex="-1" role="dialog" >
+     <div class="modal-dialog modal-lg" role="document">
+               <div class="modal-content">  
+                @include('rdv.Dialogs.rdvDlg')
+               </div>
+        </div>
+</div>
 
 
 

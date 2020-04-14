@@ -432,16 +432,14 @@
         		eventDrop: function(event, delta, revertFunc) { 
           			$('#updateRDV').removeClass('invisible');
           			jQuery('#btnclose').click(function(){
-           		 	revertFunc();
-          		});
-          		editRdv(event);
-          	},
-       	eventResize: function (event, delta, revertFunc) {
-    	      },
-      		 eventDragStop: function (event, jsEvent, ui, view) {
-        	} 
-    	});
-	$('#updateRDV').click(function(){
+           		 		revertFunc();
+          			});
+          			editRdv(event);
+          		},
+       			eventResize: function (event, delta, revertFunc) { },
+      			eventDragStop: function (event, jsEvent, ui, view) {} 
+    		});
+		$('#updateRDV').click(function(){
 		var url = '{{ route("rdv.update", ":slug") }}'
 		 url = url.replace(':slug',$('#idRDV').val());
 			$.ajaxSetup({
@@ -509,8 +507,7 @@
               }
     });
   }
- 
-  function ajaxfunc(patientid)
+       function ajaxfunc(patientid)
  	{        
 	    var habitudeAlim = null; var tabac=null ; var ethylisme = null;
 	    var antecedant = $('#Antecedant').val();
