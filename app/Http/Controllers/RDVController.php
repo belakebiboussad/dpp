@@ -73,9 +73,9 @@ class RDVController extends Controller
       public function create($id_patient =null)
       {
 
-        if(Auth::user()->role->id == 1)       //$employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
-        {
-          $rdvs = rdv::where('Employe_ID_Employe', Auth::user()->employee_id)->get(); //$rdvs = rdv::all();
+        if(Auth::user()->role_id == 1)   
+        {         
+          $rdvs = rdv::with(['patient','employe'])->where('specialite',Auth::user()->employ->Specialite_Emploiye)->get();
           if(isset($id_patient) && !empty($id_patient))
           {
             $patient = patient::FindOrFail($id_patient);
@@ -84,9 +84,7 @@ class RDVController extends Controller
             return view('rdv.create', compact('rdvs')); 
        }else
        { 
-          //$rdvs =  rdv::all();
           $rdvs = rdv::with(['patient','employe'])->get();
-          //dd($rdvs);
           $specialites = specialite::all();
           return view('rdv.create', compact('rdvs','specialites')); 
        }

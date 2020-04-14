@@ -36,7 +36,7 @@ function reset_in()
 {
   $('.es-list').val(''); $('#patient').val(''); $('#medecin').val('');
   $('#updateRDV').addClass('hidden');$('#printRdv').addClass('hidden');
-  $("#fixe"). prop("checked", false);
+  $("#fixe").prop("checked", false);
 }
 // function layout()
 // {
@@ -199,20 +199,20 @@ $(document).ready(function() {
 @endsection
 @section('main-content')
 <div class="row"  style="margin-top:-2%; margin-left:-2%;">
-       <div class="col-md-12">
-              <div class="panel panel-default">
-                      <div class="panel-heading">
-                             <div class="left"> <strong>Liste des Rendez-Vous</strong></div>
-                      </div>
-                      <div class="panel-body">
-                              <div  class="calendar1"></div>
-                      </div>
-                      <div class="panel-footer">
-                               <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px">&nbsp;RDV fixe</span>
-                                 <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px">&nbsp;RDV à fixer</span> 
-                      </div>
-                </div>
-       </div>
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="left"> <strong>Liste des Rendez-Vous</strong></div>
+      </div>
+      <div class="panel-body">
+        <div  class="calendar1"></div>
+      </div>
+      <div class="panel-footer">
+        <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px">&nbsp;RDV fixe</span>
+        <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px">&nbsp;RDV à fixer</span> 
+      </div>
+    </div>
+  </div>
 </div>
 <div class="row">
   <div class="modal fade" id="fullCalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  {{-- Modal --}}

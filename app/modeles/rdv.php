@@ -33,30 +33,14 @@ class rdv extends Model implements IdentifiableEvent
 	/*public function getTime(){      return $this->Temp_rdv;}*/
 	public function patient()
 	{
-		// if(isset($this->Patient_ID_Patient))
-			return $this->belongsTo('App\modeles\Patient','Patient_ID_Patient','id');
+		return $this->belongsTo('App\modeles\Patient','Patient_ID_Patient','id');
 	}
 	public function getAsDate()
 	{
 		$date =date('Y-m-d h:i:s A', strtotime($this->Date_RDV. '+12 hours')); 
 		return $date;
 	}
-	/*
-	public function employe(): BelongsTo
-	{
-	  if (!$this->Employe_ID_Employe) {
-      return null;
-    }
-		return $this->belongsTo('App\modeles\employ','Employe_ID_Employe','id');
-	}
-	*/
-	// public function employe()
-	// {
-	// 	if (!is_null($this->Employe_ID_Employe)) {
- //      return $this->belongsTo(employ::class, 'Employe_ID_Employe');
- //    }else
- //    return null;
-	// }
+
 	public function employe()
 	{
 			return $this->belongsTo('App\modeles\employ','Employe_ID_Employe','id');

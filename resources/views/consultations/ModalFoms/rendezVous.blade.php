@@ -4,7 +4,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h5 class="modal-title" id="myModalLabel"><strong>Ajouter une Rendez-Vous</strong></h5>
+        <h5 class="modal-title" id="myModalLabel"><strong>Ajouter un Rendez-Vous</strong></h5>
       </div>
       <div class="modal-body bodyodal">
         <div class="row">

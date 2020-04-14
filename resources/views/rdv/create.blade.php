@@ -6,15 +6,14 @@
 @endsection
 @section('page-script')
 <script>
-function reset_in()
+var rdvs = @json($rdvs);
+function resetaddModIn()
 {
-       $('.es-list').val('');  $('#patient').val(''); $('#medecin').val(''); $('#specialite').val(''); 
-      $("#medecin").attr("disabled", true);   
+  $('.es-list').val(''); $('#patient').val(''); $('#medecin').val(''); $('#specialite').val('');  $("#medecin").attr("disabled", true);   
 }
-function setMedecin(idRdv)
+function resetPrintModIn()
 {
-  var rdvs = @json($rdvs);
-  alert(rdvs[idRdv]);
+  $('#doctor').val('');$('#printRdv').addClass('hidden')
 }
 $(document).ready(function() {
     var CurrentDate = (new Date()).setHours(23, 59, 59, 0); 
@@ -61,7 +60,7 @@ $(document).ready(function() {
                           tel:'{{$rdv->patient->tele_mobile1}}',
                           age:{{ $rdv->patient->getAge() }},
                           specialite: {{ $rdv->specialite}},
-                          medecin :(isEmpty({{ $rdv->Employe_ID_Employe }}))? "":'{{ $key }}',
+                          key :(isEmpty({{ $rdv->Employe_ID_Employe }}))? "":'{{ $key }}',
                           fixe:  {{ $rdv->fixe }},
                         },
                         @endforeach   
@@ -130,13 +129,10 @@ $(document).ready(function() {
               eventClick: function(calEvent, jsEvent, view) {
                     if(Date.parse(calEvent.start) > today )
                     {
-                      if(calEvent.fixe &&(!(isEmpty(calEvent.medecin))))
+                      if(calEvent.fixe &&(!(isEmpty(calEvent.key))))
                         $('#printRdv').removeClass('hidden');
-                      if(!(isEmpty(calEvent.medecin)))
-                      {
-                        // getMedecinsSpecialite(calEvent.specialite,calEvent.medecin);
-                        setMedecin(calEvent.medecin);
-                      }
+                      if($('#doctor').length && !(isEmpty(calEvent.key)))
+                        $('#doctor').val(rdvs[calEvent.key]['employe'].Nom_Employe+" "+rdvs[calEvent.key]['employe'].Prenom_Employe); 
                       $('#btnConsulter').attr('href','/consultations/create/'.concat(calEvent.idPatient)); 
                       $('#lien').text(calEvent.title);
                       $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
@@ -217,17 +213,21 @@ $(document).ready(function() {
 @endsection
 @section('main-content')
 <div class="row">
-      <div class="col-md-12">
-            <div class="panel panel-default">
-                  &nbsp;&nbsp;&nbsp;&nbsp; 
-                   <div class="panel-heading" style="margin-top:-20px">
-                          <div class="left"> <strong>Ajouter un Rendez-Vous</strong></div>
-                   </div>
-                   <div class="panel-body">
-                         <div id='calendar'></div>
-                    </div>
-            </div>
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      &nbsp;&nbsp;&nbsp;&nbsp; 
+      <div class="panel-heading" style="margin-top:-20px">
+        <div class="left"> <strong>Ajouter un Rendez-Vous</strong></div>
       </div>
+      <div class="panel-body">
+        <div id='calendar'></div>
+      </div>
+      <div class="panel-footer">
+        <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px">&nbsp;RDV fixe</span>
+        <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px">&nbsp;RDV à fixer</span> 
+      </div>
+    </div>
+  </div>
 </div>
 <div class="row">   
   <div id="addRDVModal" class="modal fade">
@@ -308,7 +308,7 @@ $(document).ready(function() {
           </div>{{-- modalBody --}}
           <div class="modal-footer">
             <button class="btn btn-sm btn-primary" type="submit" id ="btnSave" disabled><i class="ace-icon fa fa-save bigger-110" ></i>Enregistrer  </button>                     
-            <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" onclick="reset_in();"><i class="fa fa-close" aria-hidden="true"  ></i>Fermer</button>
+            <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" onclick="resetaddModIn();"><i class="fa fa-close" aria-hidden="true"  ></i>Fermer</button>
           </div>   
         </form> 
       </div>
@@ -337,34 +337,30 @@ $(document).ready(function() {
         <form id ="updateRdv" role="form" action="" method="POST"> 
           <div class="modal-body">
             <input type="hidden" id="idRDV">         
-            @if(Auth::user()->role->id == 2)
-            <div class="well">      
-              <div class="row">
-                <label for="medecin"><i class="ace-icon fa  fa-user-md bigger-130"></i><strong>&nbsp;Medecin:</strong></label>
-                 <div class="input-group">
-                    <select  placeholder="Selectionner... " class="" id="medecin" name ="medecin" autocomplete="off" style="width:300px;" readonly>
-                      <option value="">Selectionner....</option>
-                    </select> 
-                  </div>
-              </div>
-            </div>  {{-- well --}}
-            @endif
-            <div class="well">
-              <div class="row">
-                <div class="col-sm-6">
-                  <fieldset class="scheduler-border">
-                    <legend class="scheduler-border">Rendez-Vous</legend>
-                    <div class="control-group">
-                      <label class="control-label input-label" for="startTime">Date :</label>
-                      <div class="controls bootstrap-timepicker">
-                        <input type="text" class="datetime" id="daterdv" name="daterdv" data-date-format="yyyy-mm-dd HH:mm" readonly   />
-                        <span class="glyphicon glyphicon-time fa-lg"></span> 
-                      </div>
+              <div class="well">      
+                <div class="row">
+                  <label for="doctor"><i class="ace-icon fa  fa-user-md bigger-130"></i><strong>&nbsp;Medecin:</strong></label>
+                   <div class="input-group">
+                      <input type="text" id="doctor" name ="doctor" style="width:300px;" disabled/>
                     </div>
-                  </fieldset>
                 </div>
               </div>
-            </div>  
+              <div class="well">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <fieldset class="scheduler-border">
+                      <legend class="scheduler-border">Rendez-Vous</legend>
+                      <div class="control-group">
+                        <label class="control-label input-label" for="startTime">Date :</label>
+                        <div class="controls bootstrap-timepicker">
+                          <input type="text" class="datetime" id="daterdv" name="daterdv" data-date-format="yyyy-mm-dd HH:mm" readonly   />
+                          <span class="glyphicon glyphicon-time fa-lg"></span> 
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                </div>
+              </div>  
           </div>  
         <!--   </div>  -->  
           <br>
@@ -373,10 +369,10 @@ $(document).ready(function() {
              <a  id="btnConsulter" class="btn btn btn-sm btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
             @endif 
              <a  href ="#" id="printRdv" class="btn btn-success btn-sm hidden"  data-dismiss="modal">
-                    <i class="ace-icon fa fa-print"></i>Imprimer
+                <i class="ace-icon fa fa-print"></i>Imprimer
              </a>
-             <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"  id ="btnclose" onclick="$('#updateRDV').addClass('hidden');">
-                  <i class="fa fa-close" aria-hidden="true" ></i> Fermer
+             <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"  id ="btnclose" onclick="resetPrintModIn();">
+                <i class="fa fa-close" aria-hidden="true" ></i> Fermer
              </button>
           </div>
         </form>  
