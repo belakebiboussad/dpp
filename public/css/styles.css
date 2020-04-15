@@ -33,15 +33,6 @@
       top: 87%;
       right: 22%;
 }
-
-/*.modaldialog {
-  width:97%;
-  height:90% !important;
-  overflow-y: auto;
-}*/
-/*.contmodal {
-  height:780px; 
-}*/
 .modaldialog {
   width:97%;
   height:90% !important;
@@ -61,6 +52,6 @@
 .modal-backdrop{
   z-index:0;
 }
-#RDV {
+/*#RDV {
  z-index: 1040 !important;
-}
+}*/

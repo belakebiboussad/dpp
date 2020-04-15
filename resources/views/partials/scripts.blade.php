@@ -47,6 +47,7 @@
 <script src="{{ asset('/plugins/fullcalendar/locale/fr.js') }}"></script>
 <script src="{{ asset('/js/jquery-editable-select.js') }}"></script>
 <script src="{{asset('/js/jquery-ui.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script type="text/javascript">
   $(document).ready(function(){
     // $(".select2").select2({ //     dir: "fr"// });
@@ -713,20 +714,16 @@ $('#typeexm').on('change', function() {
                                               age:data['age'],         
                                               allDay: false,
                                               color: '#87CEFA'
-                                             
-                                              
-
-
                                     };
                                     if(data['rdv']['fixe']==1)
                                     {
                                       alert("1");
-                                      rendering: 'background',
+                                      rendering: 'background';
                                       color="#87CEFA";
                                     }
                                     else
                                     {
-                                      rendering: 'background',
+                                      rendering: 'background';
                                       background="#378006";
                                       alert("2");
                                         
@@ -1205,12 +1202,12 @@ $('#typeexm').on('change', function() {
                     }
               });
        }
+       //todelete
       function refrechCal()
       {  
              $('.calendar1').fullCalendar('refetchEvents');
              $('.calendar1').fullCalendar( 'refetchResources' );
-             $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next');
-             //Getting new event json data   //$(".calendar1").fullCalendar('addEventSource', response);     //Updating new events        
+             $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next');    
               $('.calendar1').fullCalendar('rerenderEvents');
               $('.calendar1').fullCalendar( 'refetchEvents' );//getting latest Events
       } 

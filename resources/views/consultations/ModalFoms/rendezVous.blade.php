@@ -15,18 +15,14 @@
                 <div class="left"><!-- <strong>Liste Des Rendez-Vous</strong> --></div>
               </div>
               <div class="panel-body">
-                <div class="calendar1"></div>
+                <div class="calendar1" id="calendar1"></div>
               </div>
-
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer ">
-        <button type="button" class="btn btn-info btn-xs" onclick="refrechCal();" >
-          <i class="ace-icon fa fa-refresh bigger-110"></i>Actualiser
-        </button>
-        <button type="button" class="btn btn-default btn-xs" data-dismiss="modal" type="reset">
+           <button type="button" class="btn btn-default btn-xs" data-dismiss="modal" type="reset">
            <i class="ace-icon fa fa-close bigger-110"></i>Fermer
           </button>
       </div>

@@ -242,7 +242,38 @@
 			              	console.log(errorThrown);
 		              }
 		});
-	}		
+	}
+	///////////////////////////////sol3///////////////
+	// document.addEventListener('DOMContentLoaded', function() {
+ //    		 var calendarEl = $('#calendar1');
+	// 	 var calendar = new FullCalendar.Calendar(calendarEl, {
+ //      		plugins: [ 'dayGrid' ],
+ //      		defaultView: 'agendaWeek',
+	//       header: {
+	//         center: 'addEventButton'
+	//       },
+	//       events = [],
+	//       customButtons: {
+	// 	       addEventButton: {
+	// 	       text: 'add event...',
+	// 	        click: function() {
+	// 	       var dateStr = prompt('Enter a date in YYYY-MM-DD format');
+	// 	       var date = new Date(dateStr + 'T00:00:00'); // will be in local time
+	//             if (!isNaN(date.valueOf())) { // valid?
+ //                          alert("fdf");
+		              
+	// 	              alert('Great. Now, update your database...');
+	// 	            } else {
+	// 	              alert('Invalid date.');
+	// 	            }
+	// 	          }
+	// 	        }
+	// 	      }
+	// 	    });
+
+	// 	    calendar.render();
+	// 	  });
+	////////////////cdc///////////////////		
 	$('document').ready(function(){
 		$( 'ul.nav li' ).on( 'click', function() {
 			$(this).siblings().addClass('filter');
@@ -467,10 +498,12 @@
 	   	 	var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
 	    		champ.appendTo('#consultForm');
 	 	});
+	   	
     		//calendrier
 	      var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
 	      var today = (new Date()).setHours(0, 0, 0, 0); 
-	      $('.calendar1').fullCalendar({
+	     /* 
+	     $('.calendar1').fullCalendar({
 	      	plugins: [ 'dayGrid', 'timeGrid' ],
 		    	header: {
 				            left: 'prev,next today',
@@ -496,6 +529,7 @@
      			weekNumbers: true,
       		views: {},
 		      events: [
+		      {{--
 			       @foreach($employe->rdvs as $rdv)
 			       {
 				       title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
@@ -509,6 +543,7 @@
 				       fixe:  {{ $rdv->fixe }},          
 			      	},
 			       @endforeach 
+			       --}}
 		    	],
       		eventRender: function (event, element, webData) {	// element.find('.fc-title').append("," + event.tel);// element.css("font-size", "1em");
 					if(event.start < today) 
@@ -532,19 +567,7 @@
 			              template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
 			    });		    
 			}, 
-			 // dayClick: function(date, jsEvent, view) {
-	   //  		alert('Clicked on: ' + date.format());
-		  // 	  alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-	   // 		   alert('Current view: ' + view.name);
-
-    // 		// change the day's background color just for fun
-  		//   $(this).css('background-color', 'red');
-
- 		 //  },
- 		  dayRender: function (date, cell) {
-        cell.css("background-color", "red");
-    	},
-			select: function(start, end,jsEvent,resourceId) {
+		       select: function(start, end,jsEvent,resourceId) {
 				jsEvent.eventBackgroundColor = "#87CEFA";
 			    if(start > CurrentDate){
 				 	$( "#dialog" ).dialog({
@@ -567,7 +590,6 @@
 								       		var fixe = $('#dialog :checkbox').is(':checked') ? 1 :0; 
 								       		createRDVModal(start,end,$('#patientId').val(),fixe);
 								       		$( this ).dialog( "close" );
-								       		
 								      }
 			    					},
 			    					{
@@ -612,6 +634,92 @@
 		     	eventResize: function (event, delta, revertFunc) {},
 		    	eventDragStop: function (event, jsEvent, ui, view) {} 
 		}); // calendar
+		*/
+		//////////////////////////////////V2
+	/*
+	var calendarEl = $('.calendar1');
+	 var calendar = new FullCalendar.Calendar(calendarEl, {
+		   	plugins: [ 'dayGrid', 'timeGrid' ],
+		    	header: {
+				            left: 'prev,next today',
+				            center: 'title,dayGridMonth,timeGridWeek',
+				            right: 'month,agendaWeek,agendaDay'
+		      },
+		      defaultView: 'agendaWeek',
+		      firstDay: 0,
+	  		slotDuration: '00:15:00',
+	  		minTime:'08:00:00',
+	    		maxTime: '17:00:00',
+	      	      navLinks: true,
+	      	    
+	      	     	eventColor  : '#87CEFA',
+	           	editable: true,
+	     	  	hiddenDays: [ 5, 6 ],
+	     	   	 weekNumberCalculation: 'ISO',
+	     		aspectRatio: 1.5,
+	     		eventLimit: true,
+      					weekNumbers: true,
+      		      views: {},
+		      events: [
+	
+		      ]
+		  });
+		  calendar.render();
+		 */ 	
+		//////////////////////////////fin V2
+		//////////////////////////////v4
+		$('#calendar1').fullCalendar({
+			  header: {
+			    left: 'prev,next today',
+			    center: 'addEventButton',
+			    right: 'month,agendaWeek,agendaDay,listWeek'
+			  },
+			  defaultDate: '2020-04-16',
+			  navLinks: true,
+			  editable: true,
+			  eventLimit: true,
+			  events: [{
+			      title: 'Simple static event',
+			      start: '2020-04-16',
+			      description: 'Super cool event'
+			    },
+	 		 ],
+			  customButtons: {
+			    addEventButton: {
+			      text: 'Add new event',
+			      click: function () {
+			        var dateStr = prompt('Enter date in YYYY-MM-DD format');
+			        var date = moment(dateStr);
+
+			        if (date.isValid()) {
+			          $('#calendar1').fullCalendar('renderEvent', {
+			            title: 'Dynamic event',
+			            start: date,
+			            allDay: true,
+			            color:'red'
+			          });
+			        } else {
+			          alert('Invalid Date');
+			        }
+
+			      }
+			    }
+			  },
+			  dayClick: function (date, jsEvent, view) {
+			    var date = moment(date);
+
+			    if (date.isValid()) {
+			      $('#calendar').fullCalendar('renderEvent', {
+			        title: 'Dynamic event from date click',
+			        start: date,
+			        allDay: true
+			      });
+			    } else {
+			      alert('Invalid');
+			    }
+			  },
+			});
+		//////////////////////////////////////fin 4
 		$('#updateRDV').click(function(){
 			var url = '{{ route("rdv.update", ":slug") }}'
 			 url = url.replace(':slug',$('#idRDV').val());
