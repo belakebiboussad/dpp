@@ -330,7 +330,7 @@
 	      navLinks: true,
 	      selectable: true,
 	      selectHelper: true,
-	      eventColor: '#87CEFA',
+	      eventColor  : '#87CEFA',
 	      contentHeight: 700,
 	      editable: true,
 	      hiddenDays: [ 5, 6 ],

@@ -699,34 +699,45 @@ $('#typeexm').on('change', function() {
                               url : '/createRDV',
                               data:formData,  //dataType: 'json',
                               success:function(data){  // var debut = new Date(data['rdv']['Date_RDV']);// var fin = new Date(data['rdv']['Fin_RDV']);
-                                     var event = new Object();
-                                     var color="";
-                                     //var color = (data['rdv']['fixe'])? '#87CEFA':'#378006';
-                                     alert(data['rdv']['fixe']);
-                                     if(data['rdv']['fixe'])
-                                     {
-                                         color="#87CEFA";
-                                         alert("fixe");
-                                      }
-                                     else
-                                        {
-                                          alert('non    ---------------  Fixe');
-                                          color="#378006";
-                                        }
-                                     event = {
-                                                    title: data['patient']['Nom'] + "  " + data['patient']['Prenom']+" ,("+data['age']+" ans)",
-                                                    start: debut,
-                                                    end: fin,
-                                                    id :data['rdv']['id'],
-                                                    idPatient:data['patient']['id'],
-                                                    tel:data['patient']['tele_mobile1'] ,
-                                                    age:data['age'],         
-                                                    allDay: false,
-                                                    color:color,
-                                            };
-                                            $('.calendar1').fullCalendar( 'renderEvent', event, true );
-                                            $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next');
-                             },
+                                    
+                                    var color="";
+                                    var color = (data['rdv']['fixe'] == 1)? '#87CEFA':'#378006';
+                                    var event = new Object();
+                                    event = {
+                                              title: data['patient']['Nom'] + "  " + data['patient']['Prenom']+" ,("+data['age']+" ans)",
+                                              start: debut,
+                                              end: fin,
+                                              id :data['rdv']['id'],
+                                              idPatient:data['patient']['id'],
+                                              tel:data['patient']['tele_mobile1'] ,
+                                              age:data['age'],         
+                                              allDay: false,
+                                              color: '#87CEFA'
+                                             
+                                              
+
+
+                                    };
+                                    if(data['rdv']['fixe']==1)
+                                    {
+                                      alert("1");
+                                      rendering: 'background',
+                                      color="#87CEFA";
+                                    }
+                                    else
+                                    {
+                                      rendering: 'background',
+                                      background="#378006";
+                                      alert("2");
+                                        
+                                       
+                                    }
+                                    event.eventBackgroundColor=color;
+                                    $(event.target).css('background-color',color);
+                                    $('.calendar1').fullCalendar( 'renderEvent', event, true );
+                                    $('.calendar1').fullCalendar( 'refresh' );
+                                    // $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next');
+                              },
                               error: function (data) {
                                      console.log('Error:', data);
                               }

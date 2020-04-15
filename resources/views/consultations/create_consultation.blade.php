@@ -468,33 +468,33 @@
 	    		champ.appendTo('#consultForm');
 	 	});
     		//calendrier
-	       var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
-	       var today = (new Date()).setHours(0, 0, 0, 0); 
-	       $('.calendar1').fullCalendar({
+	      var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
+	      var today = (new Date()).setHours(0, 0, 0, 0); 
+	      $('.calendar1').fullCalendar({
+	      	plugins: [ 'dayGrid', 'timeGrid' ],
 		    	header: {
 				            left: 'prev,next today',
 				            center: 'title,dayGridMonth,timeGridWeek',
 				            right: 'month,agendaWeek,agendaDay'
 		      },
-	      		defaultView: 'agendaWeek',
+	      	defaultView: 'agendaWeek',
 		    	firstDay: 0,
-	  		slotDuration: '00:15:00',
-	  		minTime:'08:00:00',
+	  		  slotDuration: '00:15:00',
+	  		  minTime:'08:00:00',
 	    		maxTime: '17:00:00',
-	      		navLinks: true,
-	      		selectable: true,
-	      		selectHelper: true,
-	      		eventColor: '#87CEFA',
-	      		contentHeight: 700,
-	      		editable: true,
+	      	navLinks: true,
+	      	selectable: true,
+	      	selectHelper: true,
+	      	eventColor  : '#87CEFA',
+	       	editable: true,
 	     		hiddenDays: [ 5, 6 ],
 	     		weekNumberCalculation: 'ISO',
 	     		aspectRatio: 1.5,
 	     		eventLimit: true,
-      			allDaySlot: false,
+      		allDaySlot: false,
      			eventDurationEditable : false,
      			weekNumbers: true,
-      			views: {},
+      		views: {},
 		      events: [
 			       @foreach($employe->rdvs as $rdv)
 			       {
@@ -510,30 +510,44 @@
 			      	},
 			       @endforeach 
 		    	],
-      			eventRender: function (event, element, webData) {	// element.find('.fc-title').append("," + event.tel);// element.css("font-size", "1em");
-				if(event.start < today) // element.resizable = false;	// element.durationEditable  = false;
-					 element.css('background-color', '#D3D3D3'); 	 // else    //   element.css("padding", "5px");
-				else
-				{
-       					element.css("padding", "5px");
-					if(event.fixe)
-                          			element.css('background-color', '#87CEFA'); 
-                        		else
-                          			element.css('background-color', '#378006');   
-				}
-				element.popover({
-				       delay: { "show": 500, "hide": 100 },  // title: event.title,
-				        content: event.tel,
-				        trigger: 'hover',
+      		eventRender: function (event, element, webData) {	// element.find('.fc-title').append("," + event.tel);// element.css("font-size", "1em");
+					if(event.start < today) 
+						 element.css('background-color', '#D3D3D3');
+					else
+					{	
+       			element.css("padding", "5px");
+       			// alert(event.fixe);
+						if(event.fixe == 1)
+         			element.css('background-color', '#87CEFA'); 
+         		else
+         			element.css('background-color', '#378006');   
+					}
+					element.popover({
+				  		    	 delay: { "show": 500, "hide": 100 },  // title: event.title,
+				      		  content: event.tel,
+				        		trigger: 'hover',
 			              animation:true,
 			              placement: 'bottom',
 			              container: 'body',
 			              template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
-			        });		    
+			    });		    
 			}, 
-			select: function(start, end) {
-			      if(start > CurrentDate){
-				     	$( "#dialog" ).dialog({
+			 // dayClick: function(date, jsEvent, view) {
+	   //  		alert('Clicked on: ' + date.format());
+		  // 	  alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+	   // 		   alert('Current view: ' + view.name);
+
+    // 		// change the day's background color just for fun
+  		//   $(this).css('background-color', 'red');
+
+ 		 //  },
+ 		  dayRender: function (date, cell) {
+        cell.css("background-color", "red");
+    	},
+			select: function(start, end,jsEvent,resourceId) {
+				jsEvent.eventBackgroundColor = "#87CEFA";
+			    if(start > CurrentDate){
+				 	$( "#dialog" ).dialog({
 				      	 	dialogClass: "no-close",
 				      		closeText: "Fermer",	// title: 'Confimer Rendez-Vous',
 				      	 	closeOnEscape: false,
@@ -542,18 +556,18 @@
 				      	 	modal:true,
 				      	 	resizable: true,
 				      	 	overlay: "background-color: red; opacity: 0.5",
-// show: { effect: "drop", direction: "up", easing: "easeInQuad", duration: 300 },//  hide: { effect: "drop", direction: "up", easing: "easeOutQuad", duration: 300 },
 			         		classes: {
 						      "ui-dialog": "classes.ui-dialog"
 				      		},
-						buttons: [
+									buttons: [
 			  					{
 								       text: "Oui",
 								        icon: "ui-icon-heart",
 								        click: function() {
-								       		 var fixe = $('#dialog :checkbox').is(':checked') ? 1 :0; 
+								       		var fixe = $('#dialog :checkbox').is(':checked') ? 1 :0; 
 								       		createRDVModal(start,end,$('#patientId').val(),fixe);
-								        	$( this ).dialog( "close" );
+								       		$( this ).dialog( "close" );
+								       		
 								      }
 			    					},
 			    					{

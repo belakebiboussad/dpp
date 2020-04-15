@@ -36,7 +36,6 @@ $(document).ready(function() {
               selectable: true,
               selectHelper: true, 
               eventColor: '#87CEFA',
-              contentHeight: 700,
               editable: true,
               eventLimit: true,     
               hiddenDays: [ 5, 6 ],
