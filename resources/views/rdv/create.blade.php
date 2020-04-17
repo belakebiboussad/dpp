@@ -16,10 +16,8 @@ function resetPrintModIn()
   $('#doctor').val('');$('#printRdv').addClass('hidden')
 }
 $(document).ready(function() {
-    var CurrentDate = (new Date()).setHours(23, 59, 59, 0); 
-    var today = (new Date()).setHours(0, 0, 0, 0); 
-    // 
-    // alert(rdvs);
+       var CurrentDate = (new Date()).setHours(23, 59, 59, 0); 
+      var today = (new Date()).setHours(0, 0, 0, 0); 
    	$('#calendar').fullCalendar({
               header: {
                 left: 'prev,next today',
@@ -66,6 +64,44 @@ $(document).ready(function() {
               ], 
               select: function(start, end) {
                     if(start >= CurrentDate){
+                           Swal.fire({
+                                title: 'Confimer vous  le Rendez-Vous ?',
+                                html: ' <h4><strong id="dateRendezVous"></strong></h4>.',
+                                 // icon: 'question',
+                                input: 'checkbox',
+                                inputPlaceholder: 'Redez-Vous Fixe',
+                                inputAttributes: {
+                                  autocapitalize: 'off'
+                                },
+                                showCancelButton: true,
+                                showCloseButton: true,
+                                confirmButtonText: 'Oui',
+                                cancelButtonText: "Non",
+                                showLoaderOnConfirm: false,
+                                 preConfirm: (login) => {
+                                        return fetch(`//api.github.com/users/${login}`)
+                                          .then(response => {
+                                            if (!response.ok) {
+                                              throw new Error(response.statusText)
+                                            }
+                                            return response.json()
+                                          })
+                                          .catch(error => {
+                                            Swal.showValidationMessage(
+                                              `Request failed: ${error}`
+                                            )
+                                          })
+                              },
+                              allowOutsideClick: () => !Swal.isLoading()
+                            }).then((result) => {
+                              if (result.value) {
+                                Swal.fire({
+                                  title: `${result.value.login}'s avatar`,
+                                  imageUrl: result.value.avatar_url
+                                })
+                              }
+                            })   
+                          /*
                           var myDialog = $('#dialog');
                           myDialog.data('btnValue', start.format('dddd DD-MM-YYYY'));
                           $(myDialog).dialog({
@@ -93,17 +129,17 @@ $(document).ready(function() {
                                                            var fixe = $('#dialog :checkbox').is(':checked') ? 1 :0; 
                                                            createRDVModal(start,end,0,fixe);
                                                    }@else
-                                                   {
                                                            createRDVModal(start,end);
-                                                    }
-                                                   @endif
-                                                     $( this ).dialog( "close" );
+                                                    @endif
+                                                    $('#dialog :checkbox').prop('checked', false);
+                                                    $( this ).dialog( "close" );
                                              }
                                        },
                                        {
                                               text: "Non",
                                               icon: "ui-icon-heart",
                                               click: function() {
+                                                    $('#dialog :checkbox').prop('checked', false);
                                                     $( this ).dialog( "close" );
                                               }
                                        }
@@ -122,23 +158,25 @@ $(document).ready(function() {
                                        }
                                 }
                            });
+                    */      
                     }else
                           $('#calendar').fullCalendar('unselect');   
               },
               eventClick: function(calEvent, jsEvent, view) {
                     if(Date.parse(calEvent.start) > today )
                     {
-                      if(calEvent.fixe &&(!(isEmpty(calEvent.key))))
-                        $('#printRdv').removeClass('hidden');
-                      if($('#doctor').length && !(isEmpty(calEvent.key)))
-                        $('#doctor').val(rdvs[calEvent.key]['employe'].Nom_Employe+" "+rdvs[calEvent.key]['employe'].Prenom_Employe); 
-                      $('#btnConsulter').attr('href','/consultations/create/'.concat(calEvent.idPatient)); 
-                      $('#lien').text(calEvent.title);
-                      $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
-                      $('#idRDV').val(calEvent.id);
-                      $('#patient_tel').text(calEvent.tel);
-                      $('#agePatient').text(calEvent.age);
-                      $('#fullCalModal').modal({ show: 'true' });
+                          $('#lien').text(calEvent.title); 
+                          $('#patient_tel').text(calEvent.tel);
+                          $('#agePatient').text(calEvent.age); 
+                          $('#idRDV').val(calEvent.id);
+                          if($('#doctor').length && !(isEmpty(calEvent.key)))
+                                 $('#doctor').val(rdvs[calEvent.key]['employe'].Nom_Employe+" "+rdvs[calEvent.key]['employe'].Prenom_Employe);
+                          $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
+                          (calEvent.fixe==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
+                          $('#btnConsulter').attr('href','/consultations/create/'.concat(calEvent.idPatient)); 
+                           if(calEvent.fixe &&(!(isEmpty(calEvent.key))))
+                                $('#printRdv').removeClass('hidden');
+                          $('#fullCalModal').modal({ show: 'true' });
                     }
               },
              eventRender: function (event, element, webData) {
@@ -306,8 +344,8 @@ $(document).ready(function() {
             </div>{{-- panel --}}
           </div>{{-- modalBody --}}
           <div class="modal-footer">
-            <button class="btn btn-sm btn-primary" type="submit" id ="btnSave" disabled><i class="ace-icon fa fa-save bigger-110" ></i>Enregistrer  </button>                     
-            <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" onclick="resetaddModIn();"><i class="fa fa-close" aria-hidden="true"  ></i>Fermer</button>
+            <button class="btn btn-xs btn-primary" type="submit" id ="btnSave" disabled><i class="ace-icon fa fa-save bigger-110" ></i>Enregistrer  </button>                     
+            <button type="button" class="btn btn-xs btn-default" data-dismiss="modal" onclick="resetaddModIn();"><i class="fa fa-close" aria-hidden="true"  ></i>Fermer</button>
           </div>   
         </form> 
       </div>
@@ -318,65 +356,78 @@ $(document).ready(function() {
   <div class="modal fade" id="fullCalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  {{-- Modal --}}
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
-        <div class="modal-header"  style="padding:35px 50px;">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
-          <h5 class="modal-title" id="myModalLabel">
-            <span class="glyphicon glyphicon-bell"></span>Imprimer le Rendez-Vous du <q><a href="" id="lien"><span id="patient" class="blue"> </span></a></q>
-          </h5>
-          <hr>
-          <div class="row">
-            <div class="col-sm-6">    
-              <i class="fa fa-phone" aria-hidden="true"></i><strong>Téléphone:&nbsp;</strong><span id="patient_tel" class="blue"></span>
-            </div>
-            <div class="col-sm-6">
-              <strong>Âge:&nbsp;</strong><span id="agePatient" class="blue"></span> <small>Ans</small>
+          <div class="modal-header"  style="padding:35px 50px;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+            <h5 class="modal-title" id="myModalLabel">
+              <span class="glyphicon glyphicon-bell"></span>Imprimer le Rendez-Vous du <q><a href="" id="lien"><span id="patient" class="blue"> </span></a></q>
+            </h5>
+            <hr>
+            <div class="row">
+              <div class="col-sm-6">    
+                <i class="fa fa-phone" aria-hidden="true"></i><strong>Téléphone:&nbsp;</strong><span id="patient_tel" class="blue"></span>
+              </div>
+              <div class="col-sm-6">
+                <strong>Âge:&nbsp;</strong><span id="agePatient" class="blue"></span> <small>Ans</small>
+              </div>
             </div>
           </div>
-        </div>
         <form id ="updateRdv" role="form" action="" method="POST"> 
-          <div class="modal-body">
-            <input type="hidden" id="idRDV">         
-              <div class="well">      
-                <div class="row">
-                  <label for="doctor"><i class="ace-icon fa  fa-user-md bigger-130"></i><strong>&nbsp;Medecin:</strong></label>
-                   <div class="input-group">
-                      <input type="text" id="doctor" name ="doctor" style="width:300px;" disabled/>
+             <div class="modal-body">
+                    <input type="hidden" id="idRDV">         
+                    <div class="well">      
+                          <div class="row">
+                                <label for="doctor"><i class="ace-icon fa  fa-user-md bigger-130"></i><strong>&nbsp;Medecin:</strong></label>
+                                 <div class="input-group">
+                                     <input type="text" id="doctor" name ="doctor" style="width:300px;" disabled/>
+                                 </div>
                     </div>
-                </div>
-              </div>
-              <div class="well">
-                <div class="row">
-                  <div class="col-sm-6">
-                    <fieldset class="scheduler-border">
-                      <legend class="scheduler-border">Rendez-Vous</legend>
-                      <div class="control-group">
-                        <label class="control-label input-label" for="startTime">Date :</label>
-                        <div class="controls bootstrap-timepicker">
-                          <input type="text" class="datetime" id="daterdv" name="daterdv" data-date-format="yyyy-mm-dd HH:mm" readonly   />
-                          <span class="glyphicon glyphicon-time fa-lg"></span> 
-                        </div>
-                      </div>
-                    </fieldset>
-                  </div>
-                </div>
+                    </div>
+                   <div class="well">
+                         <div class="row">
+                                <div class="col-sm-6">
+                                       <fieldset class="scheduler-border">
+                                             <legend class="scheduler-border">Rendez-Vous</legend>
+                                              <div class="control-group">
+                                                <label class="control-label input-label" for="startTime">Date :</label>
+                                                <div class="controls bootstrap-timepicker">
+                                                  <input type="text" class="datetime" id="daterdv" name="daterdv" data-date-format="yyyy-mm-dd HH:mm" readonly   />
+                                                  <span class="glyphicon glyphicon-time fa-lg"></span> 
+                                                </div>
+                                              </div>
+                                       </fieldset>
+                                </div>
+                                <div class="col-sm-6">
+                                       <fieldset class="scheduler-border"   style="height:126px;">
+                                             <legend class="scheduler-border">Type Rendez-Vous</legend>
+                                             <div class="form-group">
+                                                   <div class="form-check">
+                                                    <br>
+                                                    <label class="block">
+                                                      <input type="checkbox" class="ace" id="fixecbx" name="fixecbx" disabled/>
+                                                      <span class="lbl">Fixe </span>
+                                                    </label>
+                                                    </div>
+                                             </div>
+                                      </fieldset>      
+                                       <br>
+                                </div> 
+                          </div>
+                    </div>
               </div>  
-          </div>  
-        <!--   </div>  -->  
-          <br>
-          <div class="modal-footer">
+            <div class="modal-footer">
             @if(Auth::user()->role->id == 1)
-             <a  id="btnConsulter" class="btn btn btn-sm btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
+             <a  id="btnConsulter" class="btn btn btn-xs btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
             @endif 
-             <a  href ="#" id="printRdv" class="btn btn-success btn-sm hidden"  data-dismiss="modal">
+             <a  href ="#" id="printRdv" class="btn btn-success btn-xs hidden"  data-dismiss="modal">
                 <i class="ace-icon fa fa-print"></i>Imprimer
              </a>
-             <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"  id ="btnclose" onclick="resetPrintModIn();">
+             <button type="button" class="btn btn-xs btn-default" data-dismiss="modal"  id ="btnclose" onclick="resetPrintModIn();">
                 <i class="fa fa-close" aria-hidden="true" ></i> Fermer
              </button>
           </div>
         </form>  
-    </div>
-  </div>
+    </div>  {{-- modal-content --}}
+  </div> {{-- modal-dialog --}}
 </div>{{-- modal --}}
 </div>
 @include('rdv.Dialogs.rdvDlg')

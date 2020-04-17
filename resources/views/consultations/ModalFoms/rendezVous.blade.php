@@ -30,19 +30,19 @@
   </div>
 </div>
 <div class="modal fade" id="fullCalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-     <div class="modal-dialog modal-lg" role="document">
-     <div class="modal-content">
-     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
-        <h5 class="modal-title" id="myModalLabel">
-          <span class="glyphicon glyphicon-bell"></span>
-          Modifier Rendez-Vous du <q><a href="" id="lien" style=" color: inherit;"><span id="patient"> </span></a></q>
-        </h5>
-        <hr>
-    </div>
-    <div class="modal-body">
-      <div class="space-12"></div>
-      <div class="row">
+      <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+       <div class="modal-header">
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+             <h5 class="modal-title" id="myModalLabel">
+                    <span class="glyphicon glyphicon-bell"></span>
+                    Impremer le Rendez-Vous du <q><a href="" id="lien" style=" color: inherit;"><span id="patient"> </span></a></q>
+             </h5>
+            <hr>
+       </div>
+       <div class="modal-body">
+              <div class="space-12"></div>
+             <div class="row">
         <div class="col-sm-6">    
           <i class="fa fa-phone" aria-hidden="true"></i><strong>Téléphone:&nbsp;</strong><span id="patient_tel" class="blue"></span>
         </div>

@@ -684,27 +684,25 @@ $('#typeexm').on('change', function() {
               var fin = moment(fin).format('YYYY-MM-DD HH:mm');  
                if(pid != 0)
               {
-                      var formData = {
+                    var formData = {
                             id_patient:pid,
                             Debut_RDV:debut,
                             Fin_RDV:fin,
                             fixe:fixe
-                      };
-                      $.ajaxSetup({
+                   };
+                   $.ajaxSetup({
                               headers: {
                                   'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
                               }
-                      }); 
-                     $.ajax({
-                              type : 'POST',
-                              url : '/createRDV',
-                              data:formData,  //dataType: 'json',
-                              success:function(data){  // var debut = new Date(data['rdv']['Date_RDV']);// var fin = new Date(data['rdv']['Fin_RDV']);
-                                    
-                                    var color="";
-                                    var color = (data['rdv']['fixe'] == 1)? '#87CEFA':'#378006';
-                                    var event = new Object();
-                                    event = {
+                    }); 
+                   $.ajax({
+                                type : 'POST',
+                                url : '/createRDV',
+                                data:formData,  //dataType: 'json',
+                                success:function(data){                                 
+                                       var color = (data['rdv']['fixe'] == 1)? '#87CEFA':'#378006';
+                                       var event = new Object();
+                                       event = {
                                               title: data['patient']['Nom'] + "  " + data['patient']['Prenom']+" ,("+data['age']+" ans)",
                                               start: debut,
                                               end: fin,
@@ -714,26 +712,11 @@ $('#typeexm').on('change', function() {
                                               age:data['age'],         
                                               allDay: false,
                                               color: '#87CEFA'
-                                    };
-                                    if(data['rdv']['fixe']==1)
-                                    {
-                                      alert("1");
-                                      rendering: 'background';
-                                      color="#87CEFA";
-                                    }
-                                    else
-                                    {
-                                      rendering: 'background';
-                                      background="#378006";
-                                      alert("2");
-                                        
-                                       
-                                    }
-                                    event.eventBackgroundColor=color;
-                                    $(event.target).css('background-color',color);
-                                    $('.calendar1').fullCalendar( 'renderEvent', event, true );
-                                    $('.calendar1').fullCalendar( 'refresh' );
-                                    // $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next');
+                                 };
+                                $('.calendar1').fullCalendar( 'renderEvent', event, true );
+                                $('.calendar1').fullCalendar( 'refresh' );
+                                 // $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next');
+                                
                               },
                               error: function (data) {
                                      console.log('Error:', data);

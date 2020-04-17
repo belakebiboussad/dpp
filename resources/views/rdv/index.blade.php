@@ -21,22 +21,15 @@
             border-top-right-radius: 0.25rem;
             border-bottom-right-radius: 0.25rem;
       }
-        fieldset.scheduler-border {
-                  border: 1px groove #ddd !important;
-                  padding: 0 1.4em 1.4em 1.4em !important;
-                  margin: 0 0 1.5em 0 !important;
-                  -webkit-box-shadow:  0px 0px 0px 0px #000;
-                          box-shadow:  0px 0px 0px 0px #000;
-       }
  </style>
 @endsection
 @section('page-script') {{-- {!! $planning->script() !!} --}}
 <script>//reccherche par nom
 function reset_in()
 {
-  $('.es-list').val(''); $('#patient').val(''); $('#medecin').val('');
-  $('#updateRDV').addClass('hidden');$('#printRdv').addClass('hidden');
-  $("#fixe").prop("checked", false);
+      $('.es-list').val(''); $('#patient').val(''); $('#medecin').val('');
+      $('#printRdv').addClass('hidden');
+      $("#fixe").prop("checked", false);
 }
 // function layout()
 // {
@@ -103,14 +96,14 @@ $(document).ready(function() {
               eventClick: function(calEvent, jsEvent, view) {
                       if(Date.parse(calEvent.start) > today ) 
                       {
-                        reset_in(); 
-                        {{--    @if(Auth::user()->role_id == 2) $('#updateRDV').removeClass('hidden');@endif--}}
-                        if(calEvent.fixe &&(!(isEmpty(calEvent.medecin))))
-                          $('#printRdv').removeClass('hidden'); 
-                        $('#idRDV').val(calEvent.id);
-                        if($('#fixe').length &&(calEvent.fixe))
-                        $("#fixe"). prop("checked", true);
-                        ajaxEditEvent(calEvent,false);
+                          reset_in(); 
+                          if(calEvent.fixe &&(!(isEmpty(calEvent.medecin))))
+                                $('#printRdv').removeClass('hidden'); 
+                         
+                          if($('#fixe').length &&(calEvent.fixe))
+                                $("#fixe"). prop("checked", true);
+                          $('#idRDV').val(calEvent.id);
+                          ajaxEditEvent(calEvent,false);
                     }
               },
               eventRender: function (event, element, webData) {
@@ -149,8 +142,8 @@ $(document).ready(function() {
                               });
                              if($('#fixe').length &&(event.fixe))
                                      $("#fixe"). prop("checked", true);
-                              ajaxEditEvent(event,true); //edit(event);
-                              $('#updateRDV').removeClass('hidden');
+                              ajaxEditEvent(event,true);
+                             
                     }
                     else
                     {
@@ -191,10 +184,7 @@ $(document).ready(function() {
                     }
              });
        }) ;
-       $('#medecin').change(function(){
-              $('#updateRDV').removeClass('hidden');
-       }); 
-      });
+       });
   </script>
 @endsection
 @section('main-content')
@@ -257,18 +247,17 @@ $(document).ready(function() {
               <div class="well">
                 <div class="row">
                   <div class="col-sm-6">
-                    <fieldset class="scheduler-border">
-                      <legend class="scheduler-border">Rendez-Vous</legend>
-                      <div class="control-group">
-                        <label class="control-label input-label" for="startTime">Date :</label>
-                        <div class="controls bootstrap-timepicker">
-                          <input type="text" class="datetime" id="daterdv" name="daterdv" data-date-format="yyyy-mm-dd HH:mm" readonly   />
-                          <span class="glyphicon glyphicon-time fa-lg"></span> 
-                        </div>
-                      </div>
-                    </fieldset>
+                          <fieldset class="scheduler-border">
+                                 <legend class="scheduler-border">Rendez-Vous</legend>
+                                 <div class="control-group">
+                                      <label class="control-label input-label" for="startTime">Date :</label>
+                                      <div class="controls bootstrap-timepicker">
+                                            <input type="text" class="datetime" id="daterdv" name="daterdv" data-date-format="yyyy-mm-dd HH:mm" readonly   />
+                                            <span class="glyphicon glyphicon-time fa-lg"></span> 
+                                        </div>
+                                 </div>
+                          </fieldset>
                   </div>
-                  @if(Auth::user()->role_id == 1)
                   <div class="col-sm-6">
                     <fieldset class="scheduler-border"   style="height:126px;">
                       <legend class="scheduler-border">Type Rendez-Vous</legend>
@@ -276,34 +265,33 @@ $(document).ready(function() {
                           <div class="form-check">
                             <br>
                             <label class="block">
-                              <input type="checkbox" class="ace" id="fixe" name="fixe"/>
-                              <span class="lbl"> Fixe </span>
+                              <input type="checkbox" class="ace" id="fixe" name="fixe" @if(Auth::user()->role_id == 2) disabled @endif />
+                              <span class="lbl">Fixe </span>
                             </label>
                           </div>
                         </div>
                     </fieldset>      
                   <br>
                   </div> 
-                @endif       
               </div>
             </div>  
             </div> {{-- modal-body --}} 
             <div class="modal-footer">
               @if(Auth::user()->role->id == 1)
-              <a type="button" id="btnConsulter" class="btn btn btn-sm btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
+              <a type="button" id="btnConsulter" class="btn btn btn-xs btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
               @endif 
-              <button type="submit" id ="updateRDV" class="btn btn-primary btn-sm  hidden">
+              <button type="submit" id ="updateRDV" class="btn btn-primary btn-xs">
                 <i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer
               </button>
               @if(Auth::user()->role->id == 1)          
-              <a  href="" id="btnDelete" class="btn btn-bold btn-sm btn-danger" data-method="DELETE" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal">
+              <a  href="" id="btnDelete" class="btn btn-bold btn-xs btn-danger" data-method="DELETE" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal">
                 <i class="fa fa-trash" aria-hidden="true"></i> Annuler
               </a>
               @endif
-              <a  href ="#" id="printRdv" class="btn btn-success btn-sm hidden"  data-dismiss="modal">
+              <a  href ="#" id="printRdv" class="btn btn-success btn-xs hidden"  data-dismiss="modal">
                 <i class="ace-icon fa fa-print"></i>Imprimer
               </a> 
-              <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"  id ="btnclose" onclick="reset_in();">
+              <button type="button" class="btn btn-xs btn-default" data-dismiss="modal"  id ="btnclose" onclick="reset_in();">
                 <i class="fa fa-close" aria-hidden="true" ></i> Fermer
               </button>
             </div> {{-- modal-header --}}

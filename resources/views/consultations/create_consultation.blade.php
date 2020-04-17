@@ -497,39 +497,36 @@
 	  		}
 	   	 	var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
 	    		champ.appendTo('#consultForm');
-	 	});
-	   	
+	 	});   	
     		//calendrier
 	      var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
-	      var today = (new Date()).setHours(0, 0, 0, 0); 
-	     /* 
+	      var today = (new Date()).setHours(0, 0, 0, 0);
 	     $('.calendar1').fullCalendar({
-	      	plugins: [ 'dayGrid', 'timeGrid' ],
+	      		plugins: [ 'dayGrid', 'timeGrid' ],
 		    	header: {
 				            left: 'prev,next today',
 				            center: 'title,dayGridMonth,timeGridWeek',
 				            right: 'month,agendaWeek,agendaDay'
 		      },
-	      	defaultView: 'agendaWeek',
+	      		defaultView: 'agendaWeek',
 		    	firstDay: 0,
-	  		  slotDuration: '00:15:00',
-	  		  minTime:'08:00:00',
+	  		slotDuration: '00:15:00',
+	  		minTime:'08:00:00',
 	    		maxTime: '17:00:00',
-	      	navLinks: true,
-	      	selectable: true,
-	      	selectHelper: true,
-	      	eventColor  : '#87CEFA',
+	      		navLinks: true,
+	      		selectable: true,
+	      		selectHelper: true,
+	      		eventColor  : '#87CEFA',
 	       	editable: true,
 	     		hiddenDays: [ 5, 6 ],
 	     		weekNumberCalculation: 'ISO',
 	     		aspectRatio: 1.5,
 	     		eventLimit: true,
-      		allDaySlot: false,
+      			allDaySlot: false,
      			eventDurationEditable : false,
      			weekNumbers: true,
-      		views: {},
+      			views: {},
 		      events: [
-		      {{--
 			       @foreach($employe->rdvs as $rdv)
 			       {
 				       title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
@@ -543,52 +540,56 @@
 				       fixe:  {{ $rdv->fixe }},          
 			      	},
 			       @endforeach 
-			       --}}
 		    	],
-      		eventRender: function (event, element, webData) {	// element.find('.fc-title').append("," + event.tel);// element.css("font-size", "1em");
-					if(event.start < today) 
-						 element.css('background-color', '#D3D3D3');
-					else
-					{	
-       			element.css("padding", "5px");
-       			// alert(event.fixe);
-						if(event.fixe == 1)
-         			element.css('background-color', '#87CEFA'); 
-         		else
-         			element.css('background-color', '#378006');   
-					}
-					element.popover({
-				  		    	 delay: { "show": 500, "hide": 100 },  // title: event.title,
-				      		  content: event.tel,
-				        		trigger: 'hover',
-			              animation:true,
-			              placement: 'bottom',
-			              container: 'body',
-			              template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
-			    });		    
+      			eventRender: function (event, element, webData) {
+      				// element.find('.fc-title').append("," + event.tel);// element.css("font-size", "1em");
+				if(event.start < today) 
+					 element.css('background-color', '#D3D3D3');
+				else
+				{	
+       				element.css("padding", "5px");
+					if(event.fixe == 1)
+         					element.css('background-color', '#87CEFA'); 
+         				else
+         					element.css('background-color', '#378006');   
+				}
+				element.popover({
+			  		delay: { "show": 500, "hide": 100 },  // title: event.title,
+			      		content: event.tel,
+			        	trigger: 'hover',
+			             animation:true,
+			             placement: 'bottom',
+			             container: 'body',
+			             template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
+			 	});		    
 			}, 
-		       select: function(start, end,jsEvent,resourceId) {
-				jsEvent.eventBackgroundColor = "#87CEFA";
-			    if(start > CurrentDate){
-				 	$( "#dialog" ).dialog({
-				      	 	dialogClass: "no-close",
-				      		closeText: "Fermer",	// title: 'Confimer Rendez-Vous',
-				      	 	closeOnEscape: false,
-				      	 	dialogClass: "alert",
-				      	 	draggable: true,
-				      	 	modal:true,
-				      	 	resizable: true,
-				      	 	overlay: "background-color: red; opacity: 0.5",
-			         		classes: {
-						      "ui-dialog": "classes.ui-dialog"
-				      		},
-									buttons: [
-			  					{
-								       text: "Oui",
-								        icon: "ui-icon-heart",
-								        click: function() {
+		       select: function(start, end) {
+				if(start > CurrentDate){
+				 	var myDialog = $('#dialog');
+                         		myDialog.data('btnValue', start.format('dddd DD-MM-YYYY'));
+                         		  $(myDialog).dialog({
+                                 dialogClass: "no-close",
+                                 closeText: "Fermer",  // title: 'Confimer Rendez-Vous',
+                                 closeOnEscape: false,
+                                 dialogClass: "alert",
+                                 draggable: true,
+                                 modal:true,
+                                 resizable: true,
+                                 overlay: "background-color: red; opacity: 0.5",
+                                 classes: {
+                                       "ui-dialog": "classes.ui-dialog"
+                                },
+                                open: function() {
+                                       $('#dateRendezVous').text($(this).data('btnValue')); 
+                                },
+                                buttons: [
+                                      			{
+								      text: "Oui",
+								      icon: "ui-icon-heart",
+								      click: function() {
 								       		var fixe = $('#dialog :checkbox').is(':checked') ? 1 :0; 
 								       		createRDVModal(start,end,$('#patientId').val(),fixe);
+								       		$('#dialog :checkbox').prop('checked', false);
 								       		$( this ).dialog( "close" );
 								      }
 			    					},
@@ -596,24 +597,25 @@
 								      text: "Non",
 								      icon: "ui-icon-heart",
 								      click: function() {
-								        $( this ).dialog( "close" );
+								      		$('#dialog :checkbox').prop('checked', false);
+								      		$( this ).dialog( "close" );
 								      }
 			    					}
-						],
-						_allowInteraction: function( event ) {
-					          	if (!jQuery.ui.dialog.prototype._allowInteractionModifed) {
-					         		jQuery.ui.dialog.prototype._allowInteraction = function(e) {
-						              		if (typeof e !== "undefined") {
-						                  		if (jQuery(e.target).closest('.select2-drop').length) {
-						              	      			 return true;
-						                		}
-						                		jQuery.ui.dialog.prototype._allowInteractionModifed = true;
-						                		return (typeof this._super === "function") ? this._super(e) : this;
-							              	}
-					        		}
-					          	}
-					      }
-				    	}); 
+                                 ],
+                                 _allowInteraction: function( event ) {
+                                       if (!jQuery.ui.dialog.prototype._allowInteractionModifed) {
+                                              jQuery.ui.dialog.prototype._allowInteraction = function(e) {
+                                                    if (typeof e !== "undefined") {
+                                                          if (jQuery(e.target).closest('.select2-drop').length) {
+                                                                 return true;
+                                                          }
+                                                          jQuery.ui.dialog.prototype._allowInteractionModifed = true;
+                                                          return (typeof this._super === "function") ? this._super(e) : this;
+                                                    }
+                                              }
+                                       }
+                                }
+                           });
 				}else
 					$('.calendar1').fullCalendar('unselect');
 			},
@@ -634,7 +636,7 @@
 		     	eventResize: function (event, delta, revertFunc) {},
 		    	eventDragStop: function (event, jsEvent, ui, view) {} 
 		}); // calendar
-		*/
+		
 		//////////////////////////////////V2
 	/*
 	var calendarEl = $('.calendar1');
@@ -668,6 +670,7 @@
 		 */ 	
 		//////////////////////////////fin V2
 		//////////////////////////////v4
+		/*
 		$('#calendar1').fullCalendar({
 			  header: {
 			    left: 'prev,next today',
@@ -719,6 +722,7 @@
 			    }
 			  },
 			});
+		*/
 		//////////////////////////////////////fin 4
 		$('#updateRDV').click(function(){
 			var url = '{{ route("rdv.update", ":slug") }}'
