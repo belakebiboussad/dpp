@@ -11,12 +11,16 @@
           <div class="col-md-12">
             <div class="panel panel-default">
               &nbsp;&nbsp;&nbsp;&nbsp; 
-              <div class="panel-heading" style="margin-top:-20px">
+             <div class="panel-heading" style="margin-top:-20px">
                 <div class="left"><!-- <strong>Liste Des Rendez-Vous</strong> --></div>
+             </div>
+             <div class="panel-body">
+             <div class="calendar1" id="calendar1"></div>
               </div>
-              <div class="panel-body">
-                <div class="calendar1" id="calendar1"></div>
-              </div>
+                   <div class="panel-footer">
+                          <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px">&nbsp;RDV fixe</span>
+                          <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px">&nbsp;RDV à fixer</span> 
+                    </div>
             </div>
           </div>
         </div>

@@ -31,24 +31,8 @@ function reset_in()
       $('#printRdv').addClass('hidden');
       $("#fixe").prop("checked", false);
 }
-// function layout()
-// {
-//        reset_in(); 
-//        var field = $("select#filtre option").filter(":selected").val();
-//        if(field == "Dat_Naissance")
-//        {
-//             $('#patient').datepicker().format("YYYY-MM-DD");
-//             $("#btnSave").attr("disabled",false);
-//        }
-//       else
-//        { 
-//             $("#btnSave").attr("disabled", true);
-//             $("#patient").datepicker("destroy");
-//        }
-// }
-
 $(document).ready(function() {
-        var today = (new Date()).setHours(0, 0, 0, 0);      // var CurrentDate = (new Date()).setHours(23, 59, 59, 0); //.setHours(0, 0, 0, 0); 
+        var today = (new Date()).setHours(0, 0, 0, 0);
        $('.calendar1').fullCalendar({
              header: {
                     left: 'prev,next today',

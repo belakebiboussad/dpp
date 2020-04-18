@@ -46,16 +46,16 @@
 <script src="{{ asset('/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
 <script src="{{ asset('/plugins/fullcalendar/locale/fr.js') }}"></script>
 <script src="{{ asset('/js/jquery-editable-select.js') }}"></script>
-<script src="{{asset('/js/jquery-ui.js')}}"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+{{-- <script src="{{asset('/js/jquery-ui.js')}}"></script>
+ --}}<script src="{{asset('/js/sweetalert2.all.min.js')}}"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> --}}
 <script type="text/javascript">
-  $(document).ready(function(){
-    // $(".select2").select2({ //     dir: "fr"// });
-    $('#avis').change(function(){
-      if($(this).val() == "R")
-        $("#motifr").show();
-      else
-         $("#motifr").hide();
+      $(document).ready(function(){   // $(".select2").select2({ //     dir: "fr"// });
+      $('#avis').change(function(){
+          if($(this).val() == "R")
+            $("#motifr").show();
+          else
+             $("#motifr").hide();
     });
     $("#validerdmd").click(function(){
       var arrayLignes = document.getElementById("cmd").rows;

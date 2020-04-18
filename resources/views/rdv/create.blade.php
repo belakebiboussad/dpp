@@ -63,102 +63,31 @@ $(document).ready(function() {
                         @endforeach   
               ], 
               select: function(start, end) {
-                    if(start >= CurrentDate){
-                           Swal.fire({
-                                title: 'Confimer vous  le Rendez-Vous ?',
-                                html: ' <h4><strong id="dateRendezVous"></strong></h4>.',
-                                 // icon: 'question',
-                                input: 'checkbox',
-                                inputPlaceholder: 'Redez-Vous Fixe',
-                                inputAttributes: {
-                                  autocapitalize: 'off'
-                                },
-                                showCancelButton: true,
-                                showCloseButton: true,
-                                confirmButtonText: 'Oui',
-                                cancelButtonText: "Non",
-                                showLoaderOnConfirm: false,
-                                 preConfirm: (login) => {
-                                        return fetch(`//api.github.com/users/${login}`)
-                                          .then(response => {
-                                            if (!response.ok) {
-                                              throw new Error(response.statusText)
-                                            }
-                                            return response.json()
-                                          })
-                                          .catch(error => {
-                                            Swal.showValidationMessage(
-                                              `Request failed: ${error}`
-                                            )
-                                          })
-                              },
-                              allowOutsideClick: () => !Swal.isLoading()
-                            }).then((result) => {
-                              if (result.value) {
-                                Swal.fire({
-                                  title: `${result.value.login}'s avatar`,
-                                  imageUrl: result.value.avatar_url
-                                })
-                              }
-                            })   
-                          /*
-                          var myDialog = $('#dialog');
-                          myDialog.data('btnValue', start.format('dddd DD-MM-YYYY'));
-                          $(myDialog).dialog({
-                                 dialogClass: "no-close",
-                                 closeText: "Fermer",  // title: 'Confimer Rendez-Vous',
-                                 closeOnEscape: false,
-                                 dialogClass: "alert",
-                                 draggable: true,
-                                 modal:true,
-                                 resizable: true,
-                                 overlay: "background-color: red; opacity: 0.5",
-                                 classes: {
-                                       "ui-dialog": "classes.ui-dialog"
-                                },
-                                open: function() {
-                                       $('#dateRendezVous').text($(this).data('btnValue')); 
-                                },
-                                buttons: [
-                                       {
-                                              text: "Oui",
-                                              icon: "ui-icon-heart",
-                                              click: function() {
-                                                   @if(Auth::user()->role_id == 1)
-                                                   {    
-                                                           var fixe = $('#dialog :checkbox').is(':checked') ? 1 :0; 
-                                                           createRDVModal(start,end,0,fixe);
-                                                   }@else
-                                                           createRDVModal(start,end);
-                                                    @endif
-                                                    $('#dialog :checkbox').prop('checked', false);
-                                                    $( this ).dialog( "close" );
-                                             }
-                                       },
-                                       {
-                                              text: "Non",
-                                              icon: "ui-icon-heart",
-                                              click: function() {
-                                                    $('#dialog :checkbox').prop('checked', false);
-                                                    $( this ).dialog( "close" );
-                                              }
-                                       }
-                                 ],
-                                 _allowInteraction: function( event ) {
-                                       if (!jQuery.ui.dialog.prototype._allowInteractionModifed) {
-                                              jQuery.ui.dialog.prototype._allowInteraction = function(e) {
-                                                    if (typeof e !== "undefined") {
-                                                          if (jQuery(e.target).closest('.select2-drop').length) {
-                                                                 return true;
-                                                          }
-                                                          jQuery.ui.dialog.prototype._allowInteractionModifed = true;
-                                                          return (typeof this._super === "function") ? this._super(e) : this;
-                                                    }
-                                              }
-                                       }
+
+                    if(start >= CurrentDate){                                           
+                          Swal.fire({
+                                 title: 'Confimer vous  le Rendez-Vous ?',
+                                 html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',
+                                 input: 'checkbox',
+                                 inputPlaceholder: 'Redez-Vous Fixe',
+                                 showCancelButton: true,
+                                 confirmButtonColor: '#3085d6',
+                                 cancelButtonColor: '#d33',
+                                 confirmButtonText: 'Oui',
+                                 cancelButtonText: "Non",
+                          }).then((result) => {
+                               if(!isEmpty(result.value))
+                                {                                
+                                       @if(Auth::user()->role_id == 1)
+                                            createRDVModal(start,end,0,result.value);
+                                       @else
+                                             createRDVModal(start,end);
+                                       @endif          
                                 }
-                           });
-                    */      
+                          })
+/*var myDialog = $('#dialog');myDialog.data('btnValue', start.format('dddd DD-MM-YYYY'));$(myDialog).dialog({dialogClass: "no-close",closeText: "Fermer",closeOnEscape: false,dialogClass: "alert",draggable: true,modal:true,                          resizable: true,overlay: "background-color: red; opacity: 0.5",classes: {"ui-dialog": "classes.ui-dialog"},open: function() {
+$('#dateRendezVous').text($(this).data('btnValue')); },buttons: [{text: "Oui",icon: "ui-icon-heart",click: function() {   {{-- @if(Auth::user()->role_id == 1)--}}{var fixe = $('#dialog :checkbox').is(':checked') ? 1 :0; createRDVModal(start,end,0,fixe);{{--   }@else--}}createRDVModal(start,end);{{--    @endif --}}$('#dialog :checkbox').prop('checked', false);$( this ).dialog( "close" );
+} },{text: "Non",icon: "ui-icon-heart",click: function(){$('#dialog :checkbox').prop('checked', false);$( this ).dialog( "close" );}}], _allowInteraction: function( event ) {if (!jQuery.ui.dialog.prototype._allowInteractionModifed) {                       jQuery.ui.dialog.prototype._allowInteraction = function(e) {if (typeof e !== "undefined") {if (jQuery(e.target).closest('.select2-drop').length) {return true;}jQuery.ui.dialog.prototype._allowInteractionModifed = true;return (typeof this._super === "function") ? this._super(e) : this;} }}}});*/
                     }else
                           $('#calendar').fullCalendar('unselect');   
               },
@@ -280,35 +209,33 @@ $(document).ready(function() {
           <input type="hidden" id="fixe" name="fixe"  value="" >
           <!-- <input type="time" id="Temp_rdv" name="Temp_rdv"  value=""  min="8:00" max="18:00" style="display:none;" > -->
           <div id="modalBody" class="modal-body" style="padding:40px 50px;">
-            <div class="panel panel-default">
-              <div class="panel-heading" style="">
-                <i class="ace-icon fa fa-user"></i><span>Selectionner un Patient</span>
-              </div>
-              <div class="panel-body">
-                <div class="row">
-                  <div class="col-sm-5">
-                    <div class="form-group">
-                      <label class="control-label col-sm-3" for=""> <strong>Filtre: </strong></label>
-                      <div class="col-sm-9">          
-                        <select class="form-control" placeholder="choisir le filtre" id="filtre" onchange="layout();">
-                          <option value="Nom">Nom</option>
-                          <option value="Prenom">Prenom</option>
-                          <option value="code_barre">IPP</option>
-                          <option value="Dat_Naissance">Date Naisssance</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-5">
-                    <span class="input-icon" style="margin-right: -190px;">
-                    <select  placeholder="Rechercher... " class="nav-search-input" id="patient" name ="patient" autocomplete="off" style="width:300px;" data-date-format="yyyy-mm-dd" required>
-                      @if(isset($patient))
-                        <option value="{{$patient->id}}" selected>{{ $patient->code_barre }}-{{ $patient->Nom }}-{{ $patient->Prenom }}</option>
-                      @endif
-                    </select>
-                    <i class="ace-icon fa fa-search nav-search-icon"></i>   
-                    </span>   
-                  </div>                               
+             <div class="panel panel-default">
+                    <div class="panel-heading"> <i class="ace-icon fa fa-user"></i><span>Selectionner un Patient</span></div>
+                    <div class="panel-body">
+                          <div class="row">
+                                <div class="col-sm-5">
+                                       <div class="form-group">
+                                          <label class="control-label col-sm-3" for=""> <strong>Filtre: </strong></label>
+                                          <div class="col-sm-9">          
+                                             <select class="form-control" placeholder="choisir le filtre" id="filtre" onchange="layout();">
+                                                    <option value="Nom">Nom</option>
+                                                    <option value="Prenom">Prenom</option>
+                                                    <option value="code_barre">IPP</option>
+                                                    <option value="Dat_Naissance">Date Naisssance</option>
+                                             </select>
+                                          </div>
+                                       </div>
+                                </div>
+                                <div class="col-sm-5">
+                                        <span class="input-icon" style="margin-right: -190px;">
+                                        <select  placeholder="Rechercher... " class="nav-search-input" id="patient" name ="patient" autocomplete="off" style="width:300px;" data-date-format="yyyy-mm-dd" required>
+                                          @if(isset($patient))
+                                            <option value="{{$patient->id}}" selected>{{ $patient->code_barre }}-{{ $patient->Nom }}-{{ $patient->Prenom }}</option>
+                                          @endif
+                                        </select>
+                                        <i class="ace-icon fa fa-search nav-search-icon"></i>   
+                                        </span>   
+                                </div>                               
                 </div>                                                  
               </div> {{-- panel-body --}}
               <div class="space-12"></div>

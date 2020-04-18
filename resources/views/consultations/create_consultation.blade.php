@@ -565,57 +565,32 @@
 			}, 
 		       select: function(start, end) {
 				if(start > CurrentDate){
-				 	var myDialog = $('#dialog');
-                         		myDialog.data('btnValue', start.format('dddd DD-MM-YYYY'));
-                         		  $(myDialog).dialog({
-                                 dialogClass: "no-close",
-                                 closeText: "Fermer",  // title: 'Confimer Rendez-Vous',
-                                 closeOnEscape: false,
-                                 dialogClass: "alert",
-                                 draggable: true,
-                                 modal:true,
-                                 resizable: true,
-                                 overlay: "background-color: red; opacity: 0.5",
-                                 classes: {
-                                       "ui-dialog": "classes.ui-dialog"
-                                },
-                                open: function() {
-                                       $('#dateRendezVous').text($(this).data('btnValue')); 
-                                },
-                                buttons: [
-                                      			{
-								      text: "Oui",
-								      icon: "ui-icon-heart",
-								      click: function() {
-								       		var fixe = $('#dialog :checkbox').is(':checked') ? 1 :0; 
-								       		createRDVModal(start,end,$('#patientId').val(),fixe);
-								       		$('#dialog :checkbox').prop('checked', false);
-								       		$( this ).dialog( "close" );
-								      }
-			    					},
-			    					{
-								      text: "Non",
-								      icon: "ui-icon-heart",
-								      click: function() {
-								      		$('#dialog :checkbox').prop('checked', false);
-								      		$( this ).dialog( "close" );
-								      }
-			    					}
-                                 ],
-                                 _allowInteraction: function( event ) {
-                                       if (!jQuery.ui.dialog.prototype._allowInteractionModifed) {
-                                              jQuery.ui.dialog.prototype._allowInteraction = function(e) {
-                                                    if (typeof e !== "undefined") {
-                                                          if (jQuery(e.target).closest('.select2-drop').length) {
-                                                                 return true;
-                                                          }
-                                                          jQuery.ui.dialog.prototype._allowInteractionModifed = true;
-                                                          return (typeof this._super === "function") ? this._super(e) : this;
-                                                    }
-                                              }
-                                       }
+/*var myDialog = $('#dialog');myDialog.data('btnValue', start.format('dddd DD-MM-YYYY'));$(myDialog).dialog({
+ dialogClass: "no-close",closeText: "Fermer",  // title: 'Confimer Rendez-Vous',closeOnEscape: false,
+dialogClass: "alert",draggable: true,modal:true,resizable: true,overlay: "background-color: red; opacity: 0.5",
+classes: {"ui-dialog": "classes.ui-dialog"},open: function() {$('#dateRendezVous').text($(this).data('btnValue')); },
+buttons: [{text: "Oui",icon: "ui-icon-heart",click: function() {var fixe = $('#dialog :checkbox').is(':checked') ? 1 :0; 
+createRDVModal(start,end,$('#patientId').val(),fixe);$('#dialog :checkbox').prop('checked', false);$( this ).dialog( "close" );}
+},{text: "Non",icon: "ui-icon-heart",click: function() {$('#dialog :checkbox').prop('checked', false);$( this ).dialog( "close" );
+}}],_allowInteraction: function( event ) {if (!jQuery.ui.dialog.prototype._allowInteractionModifed) {
+jQuery.ui.dialog.prototype._allowInteraction = function(e) {if (typeof e !== "undefined"){if (jQuery(e.target).closest('.select2-drop').length) {return true;}jQuery.ui.dialog.prototype._allowInteractionModifed = true;
+return (typeof this._super === "function") ? this._super(e) : this;}}}}});*/
+                            Swal.fire({
+                                 title: 'Confimer vous  le Rendez-Vous ?',
+                                 html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',
+                                 input: 'checkbox',
+                                 inputPlaceholder: 'Redez-Vous Fixe',
+                                 showCancelButton: true,
+                                 confirmButtonColor: '#3085d6',
+                                 cancelButtonColor: '#d33',
+                                 confirmButtonText: 'Oui',
+                                 cancelButtonText: "Non",
+                          }).then((result) => {
+                               if(!isEmpty(result.value))
+                                {                                
+                                      	createRDVModal(start,end,$('#patientId').val(),result.value);	
                                 }
-                           });
+                          })
 				}else
 					$('.calendar1').fullCalendar('unselect');
 			},
