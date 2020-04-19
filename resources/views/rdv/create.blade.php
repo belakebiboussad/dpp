@@ -1,8 +1,17 @@
 @extends('app')
 @section('style')
 	<style>
-          #dialog { display: none; }
-      </style>
+    /*#dialog { display: none; }*/
+  .make-scrolling {
+   overflow-y: scroll;
+    height: 100px;
+  }
+  .wrapper{
+    width:200px;
+    padding:20px;
+    height: 150px;
+  }
+  </style>
 @endsection
 @section('page-script')
 <script>
@@ -63,8 +72,8 @@ $(document).ready(function() {
                         @endforeach   
               ], 
               select: function(start, end) {
-
-                    if(start >= CurrentDate){                                           
+                        if(start >= CurrentDate){                                           
+                          @if(Auth::user()->role_id == 1)
                           Swal.fire({
                                  title: 'Confimer vous  le Rendez-Vous ?',
                                  html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',
@@ -84,10 +93,13 @@ $(document).ready(function() {
                                              createRDVModal(start,end);
                                        @endif          
                                 }
-                          })
-/*var myDialog = $('#dialog');myDialog.data('btnValue', start.format('dddd DD-MM-YYYY'));$(myDialog).dialog({dialogClass: "no-close",closeText: "Fermer",closeOnEscape: false,dialogClass: "alert",draggable: true,modal:true,                          resizable: true,overlay: "background-color: red; opacity: 0.5",classes: {"ui-dialog": "classes.ui-dialog"},open: function() {
-$('#dateRendezVous').text($(this).data('btnValue')); },buttons: [{text: "Oui",icon: "ui-icon-heart",click: function() {   {{-- @if(Auth::user()->role_id == 1)--}}{var fixe = $('#dialog :checkbox').is(':checked') ? 1 :0; createRDVModal(start,end,0,fixe);{{--   }@else--}}createRDVModal(start,end);{{--    @endif --}}$('#dialog :checkbox').prop('checked', false);$( this ).dialog( "close" );
-} },{text: "Non",icon: "ui-icon-heart",click: function(){$('#dialog :checkbox').prop('checked', false);$( this ).dialog( "close" );}}], _allowInteraction: function( event ) {if (!jQuery.ui.dialog.prototype._allowInteractionModifed) {                       jQuery.ui.dialog.prototype._allowInteraction = function(e) {if (typeof e !== "undefined") {if (jQuery(e.target).closest('.select2-drop').length) {return true;}jQuery.ui.dialog.prototype._allowInteractionModifed = true;return (typeof this._super === "function") ? this._super(e) : this;} }}}});*/
+                        })
+                        @else
+                          createRDVModal(start,end);
+                        @endif  
+/*var myDialog = $('#dialog');myDialog.data('btnValue', start.format('dddd DD-MM-YYYY'));$(myDialog).dialog({dialogClass: "no-close",closeText: "Fermer",closeOnEscape: false,dialogClass: "alert",draggable: true,modal:true,resizable: true,overlay: "background-color: red; opacity: 0.5",classes: {"ui-dialog": "classes.ui-dialog"},open: function() {
+$('#dateRendezVous').text($(this).data('btnValue')); },buttons: [{text: "Oui",icon: "ui-icon-heart",click: function() {   {{-- @if(Auth::user()->role_id == 1)--}}{var fixe = $('#dialog :checkbox').is(':checked') ? 1 :0; createRDVModal(start,end,0,fixe);{{-- }@else--}}createRDVModal(start,end);{{--    @endif --}}$('#dialog :checkbox').prop('checked', false);$( this ).dialog( "close" );
+} },{text: "Non",icon: "ui-icon-heart",click: function(){$('#dialog :checkbox').prop('checked', false);$( this ).dialog( "close" );}}], _allowInteraction: function( event ) {if (!jQuery.ui.dialog.prototype._allowInteractionModifed){jQuery.ui.dialog.prototype._allowInteraction = function(e) {if (typeof e !== "undefined") {if (jQuery(e.target).closest('.select2-drop').length) {return true;}jQuery.ui.dialog.prototype._allowInteractionModifed = true;return (typeof this._super === "function") ? this._super(e) : this;} }}}});*/
                     }else
                           $('#calendar').fullCalendar('unselect');   
               },
@@ -149,9 +161,34 @@ $('#dateRendezVous').text($(this).data('btnValue')); },buttons: [{text: "Oui",ic
              @endif
        });
       $("#patient").on("keyup", function() {
-             var field = $("select#filtre option").filter(":selected").val();
-             if(field != "Dat_Naissance")
-                    patientSearch(field,$("#patient").val()); //to call ajax
+        var field = $("select#filtre option").filter(":selected").val();
+        if(field != "Dat_Naissance")
+          //patientSearch(field,$("#patient").val()); //to call ajax
+          ////////////////////////////
+          $.ajax({
+                  url : '{{URL::to('getPatients')}}',
+                  data: {    
+                        "field":field,
+                        "value":$("#patient").val(),
+                  },
+                  dataType: "json",// recommended response type
+                  success: function(data) {
+                    $(".es-list").html("");//remove list
+                    $(".es-list").addClass("make-scrolling");
+                    $.each(data['data'], function(i, v) {
+                      $(".es-list").append($('<li></li>').attr('value', v['id']).attr('class','es-visible list-group-item option').text(v['code_barre']+"-"+v['Nom']+"-"+v['Prenom']));
+                    })
+                    //
+                     
+                    //
+                    
+                  },
+                  error: function() {
+                    alert("can't connect to db");
+                  }
+            });
+          ////////////////////////
+
        });
       $( "#medecin" ).change(function() {
               if($('#patient').val())
@@ -189,8 +226,8 @@ $('#dateRendezVous').text($(this).data('btnValue')); },buttons: [{text: "Oui",ic
         <div id='calendar'></div>
       </div>
       <div class="panel-footer">
-        <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px">&nbsp;RDV fixe</span>
-        <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px">&nbsp;RDV à fixer</span> 
+        <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><strong>&nbsp;RDV fixe</strong></span>
+        <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px">&nbsp;RDV à fixer<strong></strong></span> 
       </div>
     </div>
   </div>
@@ -210,37 +247,37 @@ $('#dateRendezVous').text($(this).data('btnValue')); },buttons: [{text: "Oui",ic
           <!-- <input type="time" id="Temp_rdv" name="Temp_rdv"  value=""  min="8:00" max="18:00" style="display:none;" > -->
           <div id="modalBody" class="modal-body" style="padding:40px 50px;">
              <div class="panel panel-default">
-                    <div class="panel-heading"> <i class="ace-icon fa fa-user"></i><span>Selectionner un Patient</span></div>
-                    <div class="panel-body">
-                          <div class="row">
-                                <div class="col-sm-5">
-                                       <div class="form-group">
-                                          <label class="control-label col-sm-3" for=""> <strong>Filtre: </strong></label>
-                                          <div class="col-sm-9">          
-                                             <select class="form-control" placeholder="choisir le filtre" id="filtre" onchange="layout();">
-                                                    <option value="Nom">Nom</option>
-                                                    <option value="Prenom">Prenom</option>
-                                                    <option value="code_barre">IPP</option>
-                                                    <option value="Dat_Naissance">Date Naisssance</option>
-                                             </select>
-                                          </div>
-                                       </div>
-                                </div>
-                                <div class="col-sm-5">
-                                        <span class="input-icon" style="margin-right: -190px;">
-                                        <select  placeholder="Rechercher... " class="nav-search-input" id="patient" name ="patient" autocomplete="off" style="width:300px;" data-date-format="yyyy-mm-dd" required>
-                                          @if(isset($patient))
-                                            <option value="{{$patient->id}}" selected>{{ $patient->code_barre }}-{{ $patient->Nom }}-{{ $patient->Prenom }}</option>
-                                          @endif
-                                        </select>
-                                        <i class="ace-icon fa fa-search nav-search-icon"></i>   
-                                        </span>   
-                                </div>                               
+                <div class="panel-heading"> <i class="ace-icon fa fa-user"></i><span>Selectionner un Patient</span></div>
+                  <div class="panel-body">
+                    <div class="row">
+                      <div class="col-sm-5">
+                        <div class="form-group">
+                          <label class="control-label col-sm-3" for=""> <strong>Filtre: </strong></label>
+                          <div class="col-sm-9">          
+                            <select class="form-control" placeholder="choisir le filtre" id="filtre" onchange="layout();">
+                              <option value="Nom">Nom</option>
+                              <option value="Prenom">Prenom</option>
+                              <option value="code_barre">IPP</option>
+                              <option value="Dat_Naissance">Date Naisssance</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-5">
+                        <span class="input-icon" style="margin-right: -190px;">
+                        <select placeholder="Rechercher... " class="nav-search-input" id="patient" name ="patient" autocomplete="off" style="width:300px;" data-date-format="yyyy-mm-dd" required>
+                          @if(isset($patient))
+                            <option value="{{$patient->id}}" selected>{{ $patient->code_barre }}-{{ $patient->Nom }}-{{ $patient->Prenom }}</option>
+                          @endif
+                        </select>
+                        <i class="ace-icon fa fa-search nav-search-icon"></i>   
+                        </span>   
+                      </div>                               
                 </div>                                                  
               </div> {{-- panel-body --}}
               <div class="space-12"></div>
               @if(Auth::user()->role_id == 2)
-              <div class="panel-heading" style="">
+              <div class="panel-heading">
                 <i class="ace-icon fa  fa-user-md bigger-110"></i><span>Selectionner un Medecin</span>
               </div>
               <div class="panel-body">
@@ -248,8 +285,8 @@ $('#dateRendezVous').text($(this).data('btnValue')); },buttons: [{text: "Oui",ic
                   <div class="col-sm-5">
                     <div class="form-group">
                       <label class="control-label col-sm-3" for=""> <strong>Specilité: </strong></label>
-                      <div class="col-sm-9">          
-                        <select class="form-control" placeholder="choisir le specialite" id="specialite" name="specialite" onchange="getMedecinsSpecialite($(this).val());">
+                      <div class="col-sm-9 overflow-auto">
+                        <select class="form-control" placeholder="choisir la specialite" id="specialite" name="specialite" onchange="getMedecinsSpecialite($(this).val());">
                           <option value="" disabled selected>Selectionner....</option>
                           @foreach($specialites as $specialite)
                           <option value="{{ $specialite->id}}">{{  $specialite->nom }}</option>

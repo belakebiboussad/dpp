@@ -244,35 +244,10 @@
 		});
 	}
 	///////////////////////////////sol3///////////////
-	// document.addEventListener('DOMContentLoaded', function() {
- //    		 var calendarEl = $('#calendar1');
-	// 	 var calendar = new FullCalendar.Calendar(calendarEl, {
- //      		plugins: [ 'dayGrid' ],
- //      		defaultView: 'agendaWeek',
-	//       header: {
-	//         center: 'addEventButton'
-	//       },
-	//       events = [],
-	//       customButtons: {
-	// 	       addEventButton: {
-	// 	       text: 'add event...',
-	// 	        click: function() {
-	// 	       var dateStr = prompt('Enter a date in YYYY-MM-DD format');
-	// 	       var date = new Date(dateStr + 'T00:00:00'); // will be in local time
-	//             if (!isNaN(date.valueOf())) { // valid?
- //                          alert("fdf");
-		              
-	// 	              alert('Great. Now, update your database...');
-	// 	            } else {
-	// 	              alert('Invalid date.');
-	// 	            }
-	// 	          }
-	// 	        }
-	// 	      }
-	// 	    });
-
-	// 	    calendar.render();
-	// 	  });
+	// document.addEventListener('DOMContentLoaded', function() {//var calendarEl= $('#calendar1');//var calendar= new FullCalendar.Calendar(calendarEl, {
+ //plugins: [ 'dayGrid' ],//defaultView: 'agendaWeek',//header:{//center: 'addEventButton'// },//events = [],//customButtons:{//addEventButton: {//text: 'add event...',//click: function() {
+//var dateStr = prompt('Enter a date in YYYY-MM-DD format');//var date = new Date(dateStr + 'T00:00:00'); // will be in local time//if (!isNaN(date.valueOf())) { // valid?////alert('Great. Now, update your database...');
+//} else {//alert('Invalid date.');//}//}//}//}//});//calendar.render();//});
 	////////////////cdc///////////////////		
 	$('document').ready(function(){
 		$( 'ul.nav li' ).on( 'click', function() {

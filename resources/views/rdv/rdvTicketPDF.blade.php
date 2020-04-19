@@ -91,8 +91,8 @@
 						</div> 
 		  </div>
 		  <div class="row">
-		   	<div class="col-sm-12">
-		   		<strong> {{ ( $rdv->fixe) ? "Le" : "A partir du" }}</strong>&nbsp;<span> &nbsp;{{ Carbon\Carbon::parse($rdv->Date_RDV)->format('l d-m-Y') }}</span>
+		   	<div class="col-sm-12">{{-- l d-m-Y --}}
+			 	  <strong> {{ ( $rdv->fixe) ? "Le" : "A partir du" }}</strong>&nbsp;<span> &nbsp;{{ Carbon\Carbon::parse($rdv->Date_RDV)->format('d-m-Y') }}</span>
 		   	</div>
 		  </div>
 		  <div class="row">

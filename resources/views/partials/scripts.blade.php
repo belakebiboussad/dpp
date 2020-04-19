@@ -1104,24 +1104,10 @@ $('#typeexm').on('change', function() {
                   }
              });   
       }      
-      function patientSearch(field,value) {
-             $.ajax({
-                    url : '{{URL::to('getPatients')}}',
-                    data: {    
-                          "field":field,
-                          "value":value,
-                      },
-                      dataType: "json", // recommended response type
-                      success: function(data) {
-                          $(".es-list").html(""); //remove list
-                          $.each(data['data'], function(i, v) {
-                              $(".es-list").append($('<li></li>').attr('value', v['id']).attr('class','es-visible list-group-item option').text(v['code_barre']+"-"+v['Nom']+"-"+v['Prenom']));   });
-                      },
-                      error: function() {
-                        alert("can't connect to db");
-                      }
-            });
-      }
+//function patientSearch(field,value) {//$.ajax({//url : '{{URL::to('getPatients')}}',//data:{//"field":field,//"value":value,//},
+//dataType: "json",// recommended response type//success: function(data){//$(".es-list").html("");//remove list//$.each(data['data'], function(i, v) {
+//$(".es-list").append($('<li></li>').attr('value', v['id']).attr('class','es-visible list-group-item option').text(v['code_barre']+"-"+v['Nom']+"-"+v['Prenom']));   });
+//},//error: function(){//alert("can't connect to db");/}//});//}
       function edit(event)
       {       
               $('#patient_tel').text(event.tel);
