@@ -6,10 +6,11 @@
    overflow-y: scroll;
     height: 100px;
   }
-  .wrapper{
-    width:200px;
-    padding:20px;
-    height: 150px;
+  .es-list option{
+    padding:5px 0;
+   }
+  .es-list li{
+    padding:5px 0;
   }
   </style>
 @endsection
@@ -162,9 +163,7 @@ $('#dateRendezVous').text($(this).data('btnValue')); },buttons: [{text: "Oui",ic
        });
       $("#patient").on("keyup", function() {
         var field = $("select#filtre option").filter(":selected").val();
-        if(field != "Dat_Naissance")
-          //patientSearch(field,$("#patient").val()); //to call ajax
-          ////////////////////////////
+        if(field != "Dat_Naissance")    //patientSearch(field,$("#patient").val()); //to call ajax
           $.ajax({
                   url : '{{URL::to('getPatients')}}',
                   data: {    
