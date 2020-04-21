@@ -243,7 +243,7 @@ $(document).ready(function() {
                                        <span class="input-icon" style="margin-right: -190px;">
                                               <select  placeholder="Rechercher... " class="nav-search-input" id="patient" name ="patient" autocomplete="off" style="width:300px;" data-date-format="yyyy-mm-dd" required>
                                               @if(isset($patient))
-                                                   <option value="{{$patient->id}}" selected>{{ $patient->code_barre }}-{{ $patient->Nom }}-{{ $patient->Prenom }}</option>
+                                                   <option value="{{$patient->id}}" selected>{{ $patient->IPP }}-{{ $patient->Nom }}-{{ $patient->Prenom }}</option>
                                               @endif
                                               </select>
                                           <i class="ace-icon fa fa-search nav-search-icon"></i>   

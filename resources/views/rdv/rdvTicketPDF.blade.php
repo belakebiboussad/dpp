@@ -108,8 +108,8 @@
 		  <div id="container" style ="padding-top:8px;">
 		 		<div id="row">
 		 			<div id="left">
-			 			<img src="data:image/png;base64,{{DNS2D::getBarcodePNG($rdv->patient->getCivilite().'|'.$rdv->patient->Nom.'|'.$rdv->patient->Prenom.'|'.$rdv->patient->code_barre, 'QRCODE')}}" alt="barcode"/><br>
-			 			<span>{{ $rdv->patient->code_barre }}</span>
+			 			<img src="data:image/png;base64,{{DNS2D::getBarcodePNG($rdv->patient->getCivilite().'|'.$rdv->patient->Nom.'|'.$rdv->patient->Prenom.'|'.$rdv->patient->IPP, 'QRCODE')}}" alt="barcode"/><br>
+			 			<span>{{ $rdv->patient->IPP }}</span>
 					</div>
 		 			<div id="middle">
 		 				<div id = "parent">	 				

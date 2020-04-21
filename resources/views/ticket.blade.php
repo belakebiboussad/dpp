@@ -47,10 +47,9 @@
 	</table>
 	<br>
 	<div style="text-align: center;">
-<img src="data:image/png;base64,{{DNS1D::getBarcodePNG($ticket->Patient->code_barre, 'C128',3,33)}}" alt="barcode" />
-	  <!-- <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($ticket->Patient->code_barre, 'C128')}}" alt="barcode" /> -->
-	  <br>
-	  <span> {{$ticket->Patient->code_barre }}</span> 
+		<img src="data:image/png;base64,{{DNS1D::getBarcodePNG($ticket->Patient->code_barre, 'C128',3,33)}}" alt="barcode" />
+		<br> <!-- <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($ticket->Patient->code_barre, 'C128')}}" alt="barcode" /> -->
+		<span> {{$ticket->Patient->IPP }}</span> 
 	</div>
 </body>
 </html>

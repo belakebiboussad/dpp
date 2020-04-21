@@ -287,7 +287,7 @@ class RDVController extends Controller
         if($request->ajax())
                $patient = patient::find($request->id_patient);
         else
-               $patient=patient::where('code_barre', explode("-", $request->patient)[0])->first();
+               $patient=patient::where('IPP', explode("-", $request->patient)[0])->first();
         $rdv = rdv::firstOrCreate([
                     "Date_RDV"=>new DateTime($request->Debut_RDV),//"Temp_rdv"=>$time,
                     "Fin_RDV" =>new DateTime($request->Fin_RDV),

@@ -74,7 +74,7 @@
       <div class="row">
       	<div class="col-sm-12">
 	        <div class="col-sm-3">
-						<img src="data:image/png;base64,{{DNS2D::getBarcodePNG($rdv->patient->code_barre, 'QRCODE')}}" alt="barcode"/>	
+						<img src="data:image/png;base64,{{DNS2D::getBarcodePNG($rdv->patient->IPP, 'QRCODE')}}" alt="barcode"/>	
 	        </div>
 		      <div class="sm-3"></div><div class="sm-3"></div>
 		      <div class="sm-3"></div>

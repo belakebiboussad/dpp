@@ -31,9 +31,9 @@
 		</tr>	
 		<tr class="{{ $statuses['code_barre'] }}">
 			<td align="center"><strong>code</strong></td>
-		           <td><input type="text" id ="code_barre" name="code" value=" {{ $patientResult->code_barre }}"/></td>
-		           <td><input  type="radio" name="choixcode_barre" onclick="setField('code_barre', '{{ $patient1->code_barre }}');" checked>{{ $patient1->code_barre }}</td>
-		           <td><input type="radio" name="choixcode_barre" onclick="setField('code_barre','{{ $patient2->code_barre }}');">{{ $patient2->code_barre }}</td>
+		           <td><input type="text" id ="code_barre" name="code" value=" {{ $patientResult->IPP }}"/></td>
+		           <td><input  type="radio" name="choixcode_barre" onclick="setField('code_barre', '{{ $patient1->IPP }}');" checked>{{ $patient1->IPP }}</td>
+		           <td><input type="radio" name="choixcode_barre" onclick="setField('code_barre','{{ $patient2->IPP }}');">{{ $patient2->IPP }}</td>
 		</tr>
 		<tr class="{{ $statuses['Dat_Naissance'] }}">
 			<td align="center"><strong>Né(e) le</strong></td>

@@ -544,7 +544,7 @@ class PatientController extends Controller
     }
     public function getpatient()
     {
-        $patients = patient::select(['id','code_barre','Nom', 'Prenom', 'Dat_Naissance','Sexe','Date_creation']);
+        $patients = patient::select(['id','IPP','Nom', 'Prenom', 'Dat_Naissance','Sexe','Date_creation']);
         return Datatables::of($patients)
             ->addColumn('action', function ($patient) {
                 return '<div class="hidden-sm hidden-xs btn-group">
@@ -560,7 +560,7 @@ class PatientController extends Controller
     }
     public function getpatientconsult()
     {
-        $patientes = patient::select(['id','code_barre','Nom', 'Prenom', 'Dat_Naissance','Sexe','Adresse','Type','Date_creation']);
+        $patientes = patient::select(['id','IPP','Nom', 'Prenom', 'Dat_Naissance','Sexe','Adresse','Type','Date_creation']);
         return Datatables::of($patientes)
             ->addColumn('action', function ($patient) {
                 return '<div class="hidden-sm hidden-xs btn-group">
@@ -577,7 +577,7 @@ class PatientController extends Controller
     public function getpatientrdv()
     {
         
-        $patientes = patient::select(['id','code_barre','Nom','Prenom', 'Dat_Naissance','Sexe','Adresse','Type','Date_creation']);
+        $patientes = patient::select(['id','IPP','Nom','Prenom', 'Dat_Naissance','Sexe','Adresse','Type','Date_creation']);
         return Datatables::of($patientes)
             ->addColumn('action', function ($patient) {
                 return '<div class="hidden-sm hidden-xs btn-group">
@@ -593,7 +593,7 @@ class PatientController extends Controller
     }
     public function getpatientatcd()
     {
-        $patientes = patient::select(['id','code_barre','Nom','Prenom', 'Dat_Naissance','Sexe','Adresse','Type','Date_creation']);
+        $patientes = patient::select(['id','IPP','Nom','Prenom', 'Dat_Naissance','Sexe','Adresse','Type','Date_creation']);
         return Datatables::of($patientes)
             ->addColumn('action', function ($patient) {
                 return '<div class="hidden-sm hidden-xs btn-group">
@@ -616,7 +616,7 @@ public function getPatientsArray(Request $request)
      if($request->ajax())  
      {
          
-            $patients = patient::where('Nom','LIKE','%'.trim($request->nom)."%")->select('patients.id','patients.Nom','patients.code_barre','patients.Prenom')->get();
+            $patients = patient::where('Nom','LIKE','%'.trim($request->nom)."%")->select('patients.id','patients.Nom','patients.IPP','patients.Prenom')->get();
              return ['success' => true, 'data' => $patients]; 
     }
 }
@@ -634,7 +634,7 @@ public function search(Request $request)
          if($request->ajax())  
          {
                 $output="";
-                $patients = patient::where('Nom','LIKE','%'.trim($request->search)."%")->where('Prenom','LIKE','%'.trim($request->prenom)."%")->where('code_barre','LIKE','%'.trim($request->code_barre)."%")->where('Dat_Naissance','LIKE','%'.trim($request->Dat_Naissance)."%")->get();
+                $patients = patient::where('Nom','LIKE','%'.trim($request->search)."%")->where('Prenom','LIKE','%'.trim($request->prenom)."%")->where('IPP','LIKE','%'.trim($request->code_barre)."%")->where('Dat_Naissance','LIKE','%'.trim($request->Dat_Naissance)."%")->get();
                 if($patients)
                 {
                           $i=0;
@@ -649,7 +649,7 @@ public function search(Request $request)
                                 '<td class ="center chkTrt">'.'<input type="checkbox" class="ace check" name="fusioner[]" onClick="return KeepCount()" value="'.$patient->id.'"/>'.'<span class="lbl"></span>   '.'</td>'.
                                 '<td><a href="#" id ="'.$patient->id.'" onclick ="getPatientdetail('.$patient->id.');">'.$patient->Nom.'</a></td>'.
                                '<td>'.$patient->Prenom.'</td>'.
-                                '<td>'.$patient->code_barre.'</td>'.
+                                '<td>'.$patient->IPP.'</td>'.
                                '<td>'.$patient->Dat_Naissance.'</td>'.
                                '<td>'.$patient->Sexe.'</td>'.
                                '<td>'.$age.'</td>'.
@@ -759,7 +759,7 @@ public function search(Request $request)
            $patient1 -> update([
                 "Nom"=>$request->nom,
                 "Prenom"=>$request->prenom,
-                "code_barre"=>$request->code,
+                "IPP"=>$request->code,
                 "Dat_Naissance"=>$request->datenaissance,
                 "Lieu_Naissance"=>$request->lieunaissance,
                 "Sexe"=>$request->sexe,

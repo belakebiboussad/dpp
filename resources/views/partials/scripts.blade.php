@@ -1110,19 +1110,19 @@ $('#typeexm').on('change', function() {
 //},//error: function(){//alert("can't connect to db");/}//});//}
       function edit(event)
       {       
-              $('#patient_tel').text(event.tel);
-              $('#agePatient').text(event.age);
-             $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
-             $('#lien').text(event.title);
-             $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
-             $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
-             $('#btnConsulter').attr('href','/consultations/create/'.concat(event.idPatient));
-             $('#btnDelete').attr('href','/rdv/'.concat(event.id));
-             $('#updateRdv').attr('action','/rdv/'.concat(event.idrdv));
-             var url = '{{ route("rdv.update", ":slug") }}'; 
-             url = url.replace(':slug',event.id);
-             $('#updateRdv').attr('action',url);
-             $('#fullCalModal').modal({ show: 'true' }); 
+        $('#patient_tel').text(event.tel);
+        $('#agePatient').text(event.age);
+        $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
+        $('#lien').text(event.title);
+       $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
+       $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
+       $('#btnConsulter').attr('href','/consultations/create/'.concat(event.idPatient));
+       $('#btnDelete').attr('href','/rdv/'.concat(event.id));
+       $('#updateRdv').attr('action','/rdv/'.concat(event.idrdv));
+       var url = '{{ route("rdv.update", ":slug") }}'; 
+       url = url.replace(':slug',event.id);
+       $('#updateRdv').attr('action',url);
+       $('#fullCalModal').modal({ show: 'true' }); 
       
       }
        function ajaxEditEvent(event,bool)

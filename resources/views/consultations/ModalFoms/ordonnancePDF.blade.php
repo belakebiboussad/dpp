@@ -62,9 +62,9 @@
 	              <br>
             	  <div class="row ml-2">
             	   	<div class="col-sm-12 ">
-            	      <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($patient->code_barre, 'C128')}}" alt="barcode" />
+            	      <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($patient->IPP, 'C128')}}" alt="barcode" />
                     <br>
-                     {{ $patient->code_barre }}
+                     {{ $patient->IPP }}
             	    	</div>	
             	 </div>
                <br><br><br>    

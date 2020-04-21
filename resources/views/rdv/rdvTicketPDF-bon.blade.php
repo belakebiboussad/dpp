@@ -86,8 +86,8 @@
 		  </div>
 			<div class="row" style ="padding-top:5px;">
 		    <div class="col-sm-12">
-			    <img src="data:image/png;base64,{{DNS2D::getBarcodePNG($rdv->patient->code_barre, 'QRCODE')}}" alt="barcode"/><br>
-			   	<span style="font-size:xx-small;">{{ $rdv->patient->code_barre }}</span>   
+			    <img src="data:image/png;base64,{{DNS2D::getBarcodePNG($rdv->patient->IPP, 'QRCODE')}}" alt="barcode"/><br>
+			   	<span style="font-size:xx-small;">{{ $rdv->patient->IPP }}</span>   
 			  </div>
 		  </div>
    	</div>
