@@ -49,8 +49,8 @@ class PatientController extends Controller
      */
     public function create()
     {
-          $grades = grade::all();
-          return view('patient.addPatient',compact('grades'));
+      $grades = grade::all();
+      return view('patient.addPatient',compact('grades'));
     }
 
     /**
@@ -74,43 +74,32 @@ class PatientController extends Controller
                     "nomf" => 'required_if:type,Ayant_droit',
                     "prenomf"=> 'required_if:type,Ayant_droit',  // "datenaissancef"=> 'required_if:type,Ayant_droit|date|date_format:Y-m-d',
                     "lieunaissancef"=> 'required_if:type,Ayant_droit',
-                     "NMGSN"=> 'required_if:type,Ayant_droit',
-                     //  homme de confrnace
-                     /**********************************************/
-                     "prenom_homme_c"=>'required_with:nom_homme_c',
-                     "datenaissance_h_c"=>'required_with:nom_homme_c',
-                     "adresseA"=>'required_with:nom_homme_c',
-                     "type_piece_id"=>'required_with:nom_homme_c', 
-                     "npiece_id"=>'required_with:nom_homme_c', 
-                     "lien"=>'required_with:nom_homme_c',
-                     "date_piece_id"=>'required_with:nom_homme_c',
-                     "mobile_homme_c"=>['required_with:nom_homme_c'],
-                     "operateur_h"=>'required_with:mobileA',
-        );  // , 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'     
-        $messages = [
+                    "NMGSN"=> 'required_if:type,Ayant_droit',
+                    "prenom_homme_c"=>'required_with:nom_homme_c',
+                    "datenaissance_h_c"=>'required_with:nom_homme_c',
+                    "adresseA"=>'required_with:nom_homme_c',
+                    "type_piece_id"=>'required_with:nom_homme_c', 
+                    "npiece_id"=>'required_with:nom_homme_c', 
+                    "lien"=>'required_with:nom_homme_c',
+                    "date_piece_id"=>'required_with:nom_homme_c',
+                    "mobile_homme_c"=>['required_with:nom_homme_c'],
+                    "operateur_h"=>'required_with:mobileA',
+      );  // , 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'     
+      $messages = [
                     "required"     => "Le champ :attribute est obligatoire.",
                     "NSSValide"    => 'le numéro du securite sociale est invalide ',
                     "date"         => "Le champ :attribute n'est pas une date valide.",
-             ];
-        $validator = Validator::make($request->all(),$rule,$messages);   
-
-        if ($validator->fails()) { 
-            $errors=$validator->errors(); 
-            return view('patient.addPatient')->withErrors($errors);
-        } 
-
-        if(patient::all()->isNotEmpty())
-        {
-          $nomb = patient::all()->last()->id;
-        }
-        else
-        {
-          $nomb = 0;
-        }
-        if($request->type =="Ayant_droit")
-        {    
-          $assurObj = assur::firstOrCreate([
-                          "Nom"=>$request->nomf,
+      ];
+      $validator = Validator::make($request->all(),$rule,$messages);   
+      if ($validator->fails()) {
+        $errors=$validator->errors(); 
+        return view('patient.addPatient')->withErrors($errors);
+      } 
+      // if(patient::all()->isNotEmpty()){ $nomb = patient::all()->last()->id;}else{$nomb = 0;}
+      if($request->type =="Ayant_droit")
+      {    
+        $assurObj = assur::firstOrCreate([
+                         "Nom"=>$request->nomf,
                           "Prenom"=>$request->prenomf,
                           "Date_Naissance"=>$request->datenaissancef,
                           "lieunaissance"=>$request->idlieunaissancef,
@@ -122,9 +111,9 @@ class PatientController extends Controller
                           "NSS"=>$request->nss,
                           "NMGSN"=>$request->NMGSN, 
                     ]);            
-        }
-        else
-        {
+      }
+      else
+      {
         if( $request->type=="Assure")
         {
           $assurObj = assur::firstOrCreate([
@@ -143,7 +132,7 @@ class PatientController extends Controller
 
         }
       }
-      $assurID= $assurObj !=null ? $assurObj->id : null; //  $codebarre =$request->sexe.$date->year."/".($nomb+1);
+      $assurID= $assurObj !=null ? $assurObj->id : null;//$codebarre =$request->sexe.$date->year."/".($nomb+1);
       $patient = patient::firstOrCreate([
                 "Nom"=>$request->nom,// "code_barre"=>$codebarre,
                 "Prenom"=>$request->prenom,
@@ -170,27 +159,24 @@ class PatientController extends Controller
     $ipp =$sexe.$date->year.$patient->id;
     $patient->update([
            "IPP" => $ipp,
-     ]);
-       /*insert homme_c*/
-       if( $request->nom_homme_c!="") 
-             $homme = homme_conf::firstOrCreate([
-                   "id_patient"=>$patient->id,
-                   "nom"=>$request->nom_homme_c,
-                    "prénom"=>$request->prenom_homme_c, 
-                    "date_naiss"=>$request->datenaissance_h_c,
-                    "lien_par"=>$request->lien,
-                    "type_piece"=>$request->type_piece_id,
-                    "num_piece"=>$request->npiece_id,
-                    "date_deliv"=>$request->date_piece_id,
-                    "adresse"=>$request->adresseA,
-                    "mob"=>$request->operateur_h.$request->mobile_homme_c,
-                   "created_by"=>Auth::user()->employee_id,
-             ]);
-      Flashy::success('Patient créer avec succés!');
-       // return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations'));
-       return redirect(Route('patient.show',$patient->id)); //return redirect(Route('patient.show',$patient->id,true));
-      
-
+    ]);
+    /*insert homme_c*/
+    if( $request->nom_homme_c!="") 
+           $homme = homme_conf::firstOrCreate([
+                 "id_patient"=>$patient->id,
+                 "nom"=>$request->nom_homme_c,
+                  "prénom"=>$request->prenom_homme_c, 
+                  "date_naiss"=>$request->datenaissance_h_c,
+                  "lien_par"=>$request->lien,
+                  "type_piece"=>$request->type_piece_id,
+                  "num_piece"=>$request->npiece_id,
+                  "date_deliv"=>$request->date_piece_id,
+                  "adresse"=>$request->adresseA,
+                  "mob"=>$request->operateur_h.$request->mobile_homme_c,
+                 "created_by"=>Auth::user()->employee_id,
+           ]);
+      Flashy::success('Patient créer avec succés!');// return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations'));
+      return redirect(Route('patient.show',$patient->id)); //return redirect(Route('patient.show',$patient->id,true));
     }
 
     /**
@@ -200,17 +186,18 @@ class PatientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {   
-          $patient = patient::FindOrFail($id);
-          $homme_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get()->first();
-          $consultations = consultation::where('Patient_ID_Patient',$id)->get(); 
-          $hospitalisations = hospitalisation::whereHas('admission.demandeHospitalisation.consultation.patient', function($q) use($id){
-                                                  $q->where('id', $id);
-                                              })->get();
-          $specialites = Specialite::all();
-          $rdvs = rdv::all();
-          return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations','homme_c','specialites'));
-      }
+    {  
+      $patient = patient::FindOrFail($id);
+      $homme_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get()->first();
+      $consultations = consultation::where('Patient_ID_Patient',$id)->get(); 
+      $hospitalisations = hospitalisation::whereHas('admission.demandeHospitalisation.consultation.patient', function($q) use($id){
+                                              $q->where('id', $id);
+                                          })->get();
+      $specialites = Specialite::all();
+      $grades = grade::all();
+      $rdvs = rdv::where('Patient_ID_Patient' ,'=','$id')->get();
+      return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations','homme_c','specialites','grades'));
+    }
 
     /**
      * Show the form for editing the specified resource.

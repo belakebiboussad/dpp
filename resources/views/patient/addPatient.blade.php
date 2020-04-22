@@ -1,20 +1,123 @@
 @extends('app')
 @section('title','Ajouter un patient')
+@section('style')
+<style>
+/*span.twitter-typeahead .tt-menu,
+span.twitter-typeahead .tt-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  font-size: 14px;
+  text-align: left;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  background-clip: padding-box;
+}
+span.twitter-typeahead .tt-suggestion {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857143;
+  color: #333333;
+  white-space: nowrap;
+}
+span.twitter-typeahead .tt-suggestion.tt-cursor,
+span.twitter-typeahead .tt-suggestion:hover,
+span.twitter-typeahead .tt-suggestion:focus {
+  color: #ffffff;
+  text-decoration: none;
+  outline: 0;
+  background-color: #337ab7;
+}
+.input-group.input-group-lg span.twitter-typeahead .form-control {
+  height: 46px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.3333333;
+  border-radius: 6px;
+}
+.input-group.input-group-sm span.twitter-typeahead .form-control {
+  height: 30px;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+span.twitter-typeahead {
+  width: 100%;
+}
+.input-group span.twitter-typeahead {
+  display: block !important;
+  height: 34px;
+}
+.input-group span.twitter-typeahead .tt-menu,
+.input-group span.twitter-typeahead .tt-dropdown-menu {
+  top: 32px !important;
+}
+.input-group span.twitter-typeahead:not(:first-child):not(:last-child) .form-control {
+  border-radius: 0;
+}
+.input-group span.twitter-typeahead:first-child .form-control {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.input-group span.twitter-typeahead:last-child .form-control {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.input-group.input-group-sm span.twitter-typeahead {
+  height: 30px;
+}
+.input-group.input-group-sm span.twitter-typeahead .tt-menu,
+.input-group.input-group-sm span.twitter-typeahead .tt-dropdown-menu {
+  top: 30px !important;
+}
+.input-group.input-group-lg span.twitter-typeahead {
+  height: 46px;
+}
+.input-group.input-group-lg span.twitter-typeahead .tt-menu,
+.input-group.input-group-lg span.twitter-typeahead .tt-dropdown-menu {
+  top: 46px !important;
+}*/
+	.tt-menu { width:100%; }
+	span.twitter-typeahead .tt-suggestion {padding: 10px 20px;	border-bottom:#CCC 1px solid;cursor:pointer;}
+	span.twitter-typeahead .tt-suggestion:last-child { border-bottom:0px; }
+	.bgColor {max-width: 440px;height: 60px;background-color: #c3e8cb;padding: 40px 70px;border-radius:4px;margin:20px auto;}
+	.demo-label {font-size:1.5em;color: #686868;font-weight: 300;}
+</style>
+@endsection
 @section('page-script')
 	<script>
 		$( document ).ready(function() {
 			var bloodhound1 = new Bloodhound({
-			        datumTokenizer: Bloodhound.tokenizers.whitespace,
-			        queryTokenizer: Bloodhound.tokenizers.whitespace,
-			        remote: {
-					url: '/patients/findcom?com=%QUERY%',
-						wildcard: '%QUERY%'
-				},
+	        datumTokenizer: Bloodhound.tokenizers.whitespace,
+	        queryTokenizer: Bloodhound.tokenizers.whitespace,
+	        remote: {
+						url: '/patients/findcom?com=%QUERY%',
+							wildcard: '%QUERY%'
+					},
 			});
 			$('#commune').typeahead({
 				hint: true,
 				highlight: true,
 				minLength: 1
+			
 			}, {
 				name: 'communenom',
 				source: bloodhound1,
@@ -57,10 +160,8 @@
 					}
 				}	
 			});
-    ///////////////////////////////////////////
-    /////////// Autocomletecommune de l'assure
-    ////////////////
-		$('#lieunaissancef').typeahead({
+			/////////// Autocomletecommune de l'assure
+    $('#lieunaissancef').typeahead({
 				hint: true,
 				highlight: true,
 				minLength: 1
@@ -165,11 +266,9 @@
 @endsection
 @section('main-content')
 <div class="container-fluid">
-<div class="row">
-<div class="page-header">
-	<h1>Ajouter Un Patient</h1>
-</div>
-<form class="form-horizontal" id = "addPAtient" action="{{ route('patient.store') }}" method="POST" role="form" autocomplete="off" onsubmit="return checkFormAddPAtient(this);">
+  <div><h4>Ajouter un nouveau Patient</h4></div
+  <div class="row">
+	<form class="form-horizontal" id = "addPAtient" action="{{ route('patient.store') }}" method="POST" role="form" autocomplete="off" onsubmit="return checkFormAddPAtient(this);">
 	  {{ csrf_field() }}
 	<div class="row">
 		<div class="col-sm-12">
@@ -219,16 +318,15 @@
 							<strong>Prénom :</strong>
 						</label>
 						<div class="col-sm-9">
-							<input type="text" id="prenom" name="prenom" placeholder="Prénom..." class="form-control form-control-lg col-xs-12 col-sm-12" autocomplete="off" required/>
+							<input type="text" id="prenom" name="prenom" placeholder="Prénom..." class="col-xs-18 col-sm-12" autocomplete="off" required/>
 							{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
 						</div>
 					</div>
 				</div>
-		      	</div> {{-- row --}}
-		      	<div class="spce-12"></div>
-		      	<br>
-		      	<div class="row">
-		      		<div class="col-sm-6">
+		    </div> {{-- row --}}
+		    <div class="spce-12"></div>
+		    <div class="row">
+		    	<div class="col-sm-6">
 					<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
 						<label class="col-sm-3 control-label" for="datenaissance">
 							<strong>Né(e) le :</strong>
@@ -242,18 +340,17 @@
 				<div class="col-sm-6">
 					<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
 						<label class="col-sm-3 control-label" for="lieunaissance">
-							<strong class="text-nowrap">Lieu de naissances :</strong>
+							<strong class="text-nowrap">Né(e) à :</strong>
 						</label>
-					<div class="col-sm-9">
-					  <input type="hidden" name="idlieunaissance" id="idlieunaissance">
-						<input type="text" id="lieunaissance" name="lieunaissance" placeholder="Lieu de naissance..." autocomplete = "on" class="col-xs-12 col-sm-12 typeahead " required/>
-					 	{!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
-					</div>
+						<div class="col-sm-9">
+					  	<input type="hidden" name="idlieunaissance" id="idlieunaissance">
+							<input type="text" id="lieunaissance" name="lieunaissance" class="typeahead col-sm-12" placeholder="Lieu de naissance..." autocomplete = "on" required/>		
+					 		{!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
+						</div>
 					</div>
 				</div>
-		      	</div>{{-- row --}}
-		      	<br>
-		      	<div class="row">
+		    </div>{{-- row --}}
+		    <div class="row">
 				<div class="col-sm-6">
 					<div class="form-group {{ $errors->has('sexe') ? "has-error" : "" }}">
 						<label class="col-sm-3 control-label" for="sexe">
@@ -305,7 +402,7 @@
 				<div class="col-sm-6">
 					<div class="form-group">
 					<label class="col-sm-3 control-label" for="sf">
-						<strong class="text-nowrap">Situation Familliale :</strong>
+						<strong class="text-nowrap">Civilité :</strong>
 					</label>
 					<div class="col-sm-9">
 						<select class="form-control civilite" id="sf" name="sf">
@@ -352,10 +449,11 @@
 					</div>
 			</div>
 			<div class="space-12"></div>
-			<div class="row">
-				<div class="col-sm-4">
-					<div class="form-group" style="padding-left:10%;">
-						<label class="col-sm-3 control-label" for="mobile1">
+	
+			 <div class="row">
+				<div class="col-sm-5">
+					<!-- <div class="form-group" style="padding-left:10%;"> -->
+						<label class="col-sm-5 control-label" for="mobile1">
 							<i class="fa fa-phone"></i>
 							<strong class="text-nowrap">Mob1 :</strong>
 						</label>
@@ -368,30 +466,30 @@
                        						</select>	
 						</div>
 						<input id="mobile1" name="mobile1"  maxlength =8 minlength =8 type="tel" autocomplete="off" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX" required />	
-					</div>
+					<!-- </div> -->
 				</div>
-				<div class="col-sm-4">
-					<div class="form-group">
-						<label class="col-sm-3 control-label" for="mobile2">
+				<div class="col-sm-5">
+					<!-- <div class="form-group"> -->
+						<label class="col-sm-5 control-label" for="mobile2">
 							<i class="fa fa-phone"></i>
 							<strong class="text-nowrap">Mob2 :</strong>
 						</label>
 						<div class="col-sm-3">
-				        			<select name="operateur2" id="operateur2" class="form-control">
-						           		<option value="">XX</option>
-						         		<option value="05">05</option>         
-						   		<option value="06">06</option>
-						          		 <option value="07">07</option>
-                       						</select>
-          						</div>
+				    	<select name="operateur2" id="operateur2" class="form-control">
+						 		<option value="">XX</option>
+								<option value="05">05</option>         
+						 		<option value="06">06</option>
+						  	<option value="07">07</option>
+             	</select>
+          	</div>
 						<input id="mobile2" name="mobile2"  maxlength =8 minlength =8  type="tel" autocomplete="off" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"   placeholder="XXXXXXXX"/>
-					</div>
+					<!-- </div> -->
 				</div>
+			</div> 
 
-			</div>	
 			<div class="space-12"></div>
 			<div class="row">
-				<div class="col-sm-4">
+				<div class="col-sm-6">
 					<div class="form-group">
 						<div class="col-sm-3">
 							<label class="control-label no-padding-right pull-right" style=" padding-top: 0px;"><strong>Type :</strong></label>
@@ -553,7 +651,6 @@
 					</div>		
 				</div>{{-- row --}}	
 				<div class="space-12"></div>
-				{{-- ////////////////////////////////////// --}}
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="form-group">
