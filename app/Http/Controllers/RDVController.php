@@ -50,7 +50,7 @@ class RDVController extends Controller
       }
       public function choixpatient()
       {
-           return view('patient.index_patient');
+           return view('patient.index');
       }
       public function index($patientID = null)
       {    

@@ -109,8 +109,8 @@ function XHRgetPatient()
 		       url : '{{URL::to('searchPatient')}}',
 		       data:{'search':nom,'prenom':prenom,'code_barre':code_barre,'Dat_Naissance':date_Naiss},
 		       success:function(data,status, xhr){
-	             $('#liste_patients tbody').html(data);
-	             $(".numberResult").html(xhr.getResponseHeader("count"));
+              $('#liste_patients tbody').html(data);
+              $(".numberResult").html(xhr.getResponseHeader("count"));
 	             $('#patientName').val('');$('#patientFirstName').val('');$('#IPP').val('');$('#Dat_Naissance').val('');
      		}
     	});

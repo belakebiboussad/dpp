@@ -224,12 +224,12 @@ class PatientController extends Controller
      * @param  \App\modeles\patient  $patient
      * @return \Illuminate\Http\Response
      */
-public function update(Request $request,$id)
-{
-    $date = Date::Now();
-    static $assurObj;
-    $patient = patient::FindOrFail($id);
-    switch ($patient->Type) {
+    public function update(Request $request,$id)
+    {
+      $date = Date::Now();
+      static $assurObj;
+      $patient = patient::FindOrFail($id);
+      switch ($patient->Type) {
         case 'Assure':
             switch ($request->type) {
                 case 'Assure':
@@ -685,92 +685,97 @@ public function update(Request $request,$id)
             })
             ->rawColumns(['action2','action'])
             ->make(true);
-}
-public function getPatientsArray(Request $request)
-{
-     if($request->ajax())  
-     {           
-           if($request->field =="Dat_Naissance")
-           {
-                $patient = patient::FindOrFail($request->value);
-           } 
-            else
-                $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->select('patients.id','patients.Nom','patients.IPP','patients.Prenom')->get(); 
-           return ['success' => true, 'data' => $patients]; 
-    }
-}
-public function search(Request $request)
-{
-         if($request->ajax())  
-         {
-                $output="";
-                $patients = patient::where('Nom','LIKE','%'.trim($request->search)."%")->where('Prenom','LIKE','%'.trim($request->prenom)."%")->where('IPP','LIKE','%'.trim($request->ipp)."%")->where('Dat_Naissance','LIKE','%'.trim($request->Dat_Naissance)."%")->get();
-                if($patients)
-                {
-                          $i=0;
-                          foreach ($patients as $key => $patient) {
-                                $age = Carbon::createFromDate(date('Y', strtotime($patient->Dat_Naissance)), date('m', strtotime($patient->Dat_Naissance)), date('d', strtotime($patient->Dat_Naissance)))->age;
-                                $patientType ="";
-                                $sexe =  ($patient->Sexe =="M")?"Homme":"Femme";   
-                                switch($patient->Type)
-                                {
-                                  case  "Assure":
-                                    $patientType ='<span class="badge badge-success">'.$patient->Type.'</span>';
-                                    break;
-                                  case "Ayant_droit":
-                                    $patientType ='<span class="badge badge-Primary">'.$patient->Type.'</span>';
-                                    break;
-                                  case "Autre" :
-                                    $patientType ='<span class="badge badge-danger">'.$patient->Type.'</span>';
-                                    break;   
-                                } 
-                                       
-                               $output.='<tr>'.
-                               '<td hidden>'.$patient->id.'</td>'.
-                               '<td class ="center chkTrt">'.'<input type="checkbox" class="ace check" name="fusioner[]" onClick="return KeepCount()" value="'.$patient->id.'"/>'.'<span class="lbl"></span>   '.'</td>'.
-                               '<td><a style="cursor:pointer" data-toggle="tooltip" title="Résume du patient" data-placement="bottom" id ="'.$patient->id.'" onclick ="getPatientdetail('.$patient->id.');">'.$patient->Nom.'</a></td>'.
-                               '<td>'.$patient->Prenom.'</td>'.
-                               '<td>'.$patient->IPP.'</td>'.
-                               '<td>'.$patient->Dat_Naissance.'</td>'.
-                               '<td>'.$sexe.'</td>'.
-                               '<td>'.$age.'</td>'.
-                               '<td>'.$patientType.'</td>'.
-                               '<td class="center">'.'<a href="/patient/'.$patient->id.'" class="'.'btn btn-warning btn-xs" data-toggle="tooltip" title="Consulter le dossier" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i>&nbsp;</a>'."&nbsp;&nbsp;".'<a href="/patient/'.$patient->id.'/edit" class="'.'btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></a>'.'</td>'.
-                               '</tr>'; 
-                                $i++;
-                           }
-                      return Response($output)->withHeaders(['count' => $i]);      
-               }     
-        } 
-}// public function AutoCompletePatientname(Request $request)
-    // {
-    //        return patient::where('Nom', 'LIKE', '%'.$request->q.'%')->get();    
-    // }
-public function getPatientDetails($id)
-{ 
-  $patient = patient::FindOrFail($id);
-  if($patient->Type !="Autre")
-  {
-    $assure=  assur::FindOrFail($patient->Assurs_ID_Assure); 
-    $view = view("patient.ajax_patient_detail",compact('patient','assure'))->render();
   }
-  else
-  {
-    $view = view("patient.ajax_patient_detail",compact('patient'))->render();
-  }
-  return response()->json(['html'=>$view]);
-}
-public function AutoCompletePatientname(Request $request)
-{
-  return patient::where('Nom', 'LIKE', '%'.trim($request->q).'%')->get();     
-}
-public function AutoCompletePatientPrenom(Request $request)
+    public function getPatientsArray(Request $request)
     {
-            return patient::where('Prenom', 'LIKE', '%'.trim($request->prenom).'%')->get();     
-}
-    public function AutoCompleteCommune(Request $request)
+      if($request->ajax())  
+      {           
+        if($request->field =="Dat_Naissance")
+        {
+          $patient = patient::FindOrFail($request->value);
+        }else
+          $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->select('patients.id','patients.Nom','patients.IPP','patients.Prenom')->get(); 
+          return ['success' => true, 'data' => $patients]; 
+      }
+    }
+  public function searchgood(Request $request)
+  {
+    if($request->ajax())  
+    {
+      $output="";
+      $patients = patient::where('Nom','LIKE','%'.trim($request->search)."%")->where('Prenom','LIKE','%'.trim($request->prenom)."%")->where('IPP','LIKE','%'.trim($request->ipp)."%")->where('Dat_Naissance','LIKE','%'.trim($request->Dat_Naissance)."%")->paginate(20);//->get();
+      if($patients)
       {
-        return  Commune::select('communes.*','wilayas.*')
+        $i=0;
+        foreach ($patients as $key => $patient) {
+          $age = Carbon::createFromDate(date('Y', strtotime($patient->Dat_Naissance)), date('m', strtotime($patient->Dat_Naissance)), date('d', strtotime($patient->Dat_Naissance)))->age;
+          $patientType ="";
+          $sexe =  ($patient->Sexe =="M")?"Homme":"Femme";   
+          switch($patient->Type)
+          {
+            case  "Assure":
+              $patientType ='<span class="badge badge-success">'.$patient->Type.'</span>';
+              break;
+            case "Ayant_droit":
+              $patientType ='<span class="badge badge-Primary">'.$patient->Type.'</span>';
+              break;
+            case "Autre" :
+              $patientType ='<span class="badge badge-danger">'.$patient->Type.'</span>';
+              break;   
+          } 
+                 
+         $output.='<tr>'.
+         '<td hidden>'.$patient->id.'</td>'.
+         '<td class ="center chkTrt">'.'<input type="checkbox" class="ace check" name="fusioner[]" onClick="return KeepCount()" value="'.$patient->id.'"/>'.'<span class="lbl"></span>   '.'</td>'.
+         '<td><a style="cursor:pointer" data-toggle="tooltip" title="Résume du patient" data-placement="bottom" id ="'.$patient->id.'" onclick ="getPatientdetail('.$patient->id.');">'.$patient->Nom.'</a></td>'.
+         '<td>'.$patient->Prenom.'</td>'.
+         '<td>'.$patient->IPP.'</td>'.
+         '<td>'.$patient->Dat_Naissance.'</td>'.
+         '<td>'.$sexe.'</td>'.
+         '<td>'.$age.'</td>'.
+         '<td>'.$patientType.'</td>'.
+         '<td class="center">'.'<a href="/patient/'.$patient->id.'" class="'.'btn btn-warning btn-xs" data-toggle="tooltip" title="Consulter le dossier" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i>&nbsp;</a>'."&nbsp;&nbsp;".'<a href="/patient/'.$patient->id.'/edit" class="'.'btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></a>'.'</td>'.
+         '</tr>'; 
+          $i++;
+        }
+        return Response($output)->withHeaders(['count' => $i]);      
+      }     
+    } 
+  }
+  public function search(Request $request)
+  {
+    if($request->ajax())  
+    {
+      $patients = patient::where('Nom','LIKE','%'.trim($request->search)."%")->where('Prenom','LIKE','%'.trim($request->prenom)."%")->where('IPP','LIKE','%'.trim($request->ipp)."%")->where('Dat_Naissance','LIKE','%'.trim($request->Dat_Naissance)."%")->paginate(20);//->get();
+      return Response::json($homme);
+    }
+  }
+  // public function AutoCompletePatientname(Request $request)// {//return patient::where('Nom', 'LIKE', '%'.$request->q.'%')->get();//}
+  public function getPatientDetails($id)
+  { 
+    $patient = patient::FindOrFail($id);
+    if($patient->Type !="Autre")
+    {
+      $assure=  assur::FindOrFail($patient->Assurs_ID_Assure); 
+      $view = view("patient.ajax_patient_detail",compact('patient','assure'))->render();
+    }
+    else
+    {
+      $view = view("patient.ajax_patient_detail",compact('patient'))->render();
+    }
+    return response()->json(['html'=>$view]);
+  }
+  public function AutoCompletePatientname(Request $request)
+  {
+    return patient::where('Nom', 'LIKE', '%'.trim($request->q).'%')->get();     
+  }
+  public function AutoCompletePatientPrenom(Request $request)
+      {
+              return patient::where('Prenom', 'LIKE', '%'.trim($request->prenom).'%')->get();     
+  }
+  public function AutoCompleteCommune(Request $request)
+  {
+    return  Commune::select('communes.*','wilayas.*')
                         ->join('daira','communes.Id_daira','=','daira.Id_daira')
                         ->join('wilayas','daira.id_wilaya','=','wilayas.id')
                         ->select('communes.*','communes.id as id_Commune' ,'wilayas.*','wilayas.id as Id_wilaya')
@@ -863,6 +868,6 @@ public function AutoCompletePatientPrenom(Request $request)
            // return redirect()->route('patient.index')->with('success','Item created successfully!');      
            //Flashy::info('le merge est fait', 'http://your-awesome-link.com');
            Flashy::success('merge est fait avec succè');
-           Return View::make('patient.index_patient');
+           Return View::make('patient.index');
      }
 }

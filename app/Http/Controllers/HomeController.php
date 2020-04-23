@@ -47,7 +47,7 @@ class HomeController extends Controller
           $ServiceID = $employe->Service_Employe;
           switch ($role->id) {
                 case 1:
-                      return view('patient.index_patient');
+                      return view('patient.index');
                       break;
                 case 2:
                       return view('home.home_recep');

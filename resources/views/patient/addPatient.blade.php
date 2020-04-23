@@ -2,104 +2,7 @@
 @section('title','Ajouter un patient')
 @section('style')
 <style>
-/*span.twitter-typeahead .tt-menu,
-span.twitter-typeahead .tt-dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: 1000;
-  display: none;
-  float: left;
-  min-width: 160px;
-  padding: 5px 0;
-  margin: 2px 0 0;
-  list-style: none;
-  font-size: 14px;
-  text-align: left;
-  background-color: #ffffff;
-  border: 1px solid #cccccc;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
-  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-  background-clip: padding-box;
-}
-span.twitter-typeahead .tt-suggestion {
-  display: block;
-  padding: 3px 20px;
-  clear: both;
-  font-weight: normal;
-  line-height: 1.42857143;
-  color: #333333;
-  white-space: nowrap;
-}
-span.twitter-typeahead .tt-suggestion.tt-cursor,
-span.twitter-typeahead .tt-suggestion:hover,
-span.twitter-typeahead .tt-suggestion:focus {
-  color: #ffffff;
-  text-decoration: none;
-  outline: 0;
-  background-color: #337ab7;
-}
-.input-group.input-group-lg span.twitter-typeahead .form-control {
-  height: 46px;
-  padding: 10px 16px;
-  font-size: 18px;
-  line-height: 1.3333333;
-  border-radius: 6px;
-}
-.input-group.input-group-sm span.twitter-typeahead .form-control {
-  height: 30px;
-  padding: 5px 10px;
-  font-size: 12px;
-  line-height: 1.5;
-  border-radius: 3px;
-}
-span.twitter-typeahead {
-  width: 100%;
-}
-.input-group span.twitter-typeahead {
-  display: block !important;
-  height: 34px;
-}
-.input-group span.twitter-typeahead .tt-menu,
-.input-group span.twitter-typeahead .tt-dropdown-menu {
-  top: 32px !important;
-}
-.input-group span.twitter-typeahead:not(:first-child):not(:last-child) .form-control {
-  border-radius: 0;
-}
-.input-group span.twitter-typeahead:first-child .form-control {
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-.input-group span.twitter-typeahead:last-child .form-control {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
-}
-.input-group.input-group-sm span.twitter-typeahead {
-  height: 30px;
-}
-.input-group.input-group-sm span.twitter-typeahead .tt-menu,
-.input-group.input-group-sm span.twitter-typeahead .tt-dropdown-menu {
-  top: 30px !important;
-}
-.input-group.input-group-lg span.twitter-typeahead {
-  height: 46px;
-}
-.input-group.input-group-lg span.twitter-typeahead .tt-menu,
-.input-group.input-group-lg span.twitter-typeahead .tt-dropdown-menu {
-  top: 46px !important;
-}*/
-	.tt-menu { width:100%; }
-	span.twitter-typeahead .tt-suggestion {padding: 10px 20px;	border-bottom:#CCC 1px solid;cursor:pointer;}
-	span.twitter-typeahead .tt-suggestion:last-child { border-bottom:0px; }
-	.bgColor {max-width: 440px;height: 60px;background-color: #c3e8cb;padding: 40px 70px;border-radius:4px;margin:20px auto;}
-	.demo-label {font-size:1.5em;color: #686868;font-weight: 300;}
+	
 </style>
 @endsection
 @section('page-script')
@@ -114,6 +17,7 @@ span.twitter-typeahead {
 					},
 			});
 			$('#commune').typeahead({
+				autoselect: true,
 				hint: true,
 				highlight: true,
 				minLength: 1
@@ -156,7 +60,7 @@ span.twitter-typeahead {
 						'<div class="list-group search-results-dropdown">'
 					],
 					suggestion: function(data) {
-						return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="autocopleteCNais(\''+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
+						return '<div style="font-weight:normal; margin-top:-10px ! important;width:300px !important" class="list-group-item" onclick="autocopleteCNais(\''+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
 					}
 				}	
 			});
@@ -343,9 +247,11 @@ span.twitter-typeahead {
 							<strong class="text-nowrap">Né(e) à :</strong>
 						</label>
 						<div class="col-sm-9">
-					  	<input type="hidden" name="idlieunaissance" id="idlieunaissance">
-							<input type="text" id="lieunaissance" name="lieunaissance" class="typeahead col-sm-12" placeholder="Lieu de naissance..." autocomplete = "on" required/>		
-					 		{!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
+							
+						  	<input type="hidden" name="idlieunaissance" id="idlieunaissance">
+								<input type="text" id="lieunaissance" name="lieunaissance" class="typeahead col-sm-12" placeholder="Lieu de naissance..." autocomplete ="on" required/>		
+						 		{!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
+					 		
 						</div>
 					</div>
 				</div>
