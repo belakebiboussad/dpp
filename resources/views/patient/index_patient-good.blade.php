@@ -158,7 +158,6 @@ function KeepCount() {
 		});
 	}
 }
-
 function setField(field,value)
 {
 	if($('#'+field).is("input"))

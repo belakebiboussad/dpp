@@ -7,8 +7,43 @@
 @endsection
 @section('page-script')
 <script>
+	function getPatientdetail(id)
+	{
+		$.ajax({
+			url : '/patientdetail/'+id,
+		      type : 'GET',
+		      success:function(data,status, xhr){
+			      	$('#patientDetail').html(data.html);
+          		},
+          		error:function(data){
+	          		alert("error");
+	          	}	
+		});
+	}
+	function reset_in() 
+	{
+		$('#patientName').val('');$('#patientFirstName').val('');$('#IPP').val('');$('#Dat_Naissance').val('');
+	}
+	var values = new Array();
+	function KeepCount() {
+	var n = $("input:checked").length;
+	if(n >= 2){
+		$('.check:not(:checked)').attr('disabled','disabled');
+		 $('#FusionButton').removeClass('invisible');
+		$.each( $("input:checked"), function( key, value ) {
+  			values.push($(this).val());
+  			$(this).parent().parent().css('background-color','#dd9900');
+		});
+	}else
+	{
+		$( "input:not(:checked)").removeAttr("disabled");
+		 $('#FusionButton').addClass('invisible');
+		$.each( $("input:unchecked"), function( key, value ) {
+			$(this).parent().parent().css('background-color','#ffffff');
+		});
+	}
+}
 	$(document).ready(function(){
-
 		var Namebloodhound = new Bloodhound({
 		      datumTokenizer: Bloodhound.tokenizers.whitespace,
 		      queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -51,7 +86,6 @@
 						
 					}
 		});
-
 		$('#patientFirstName').typeahead({
 			hint: true,
 			highlight: true,
@@ -90,71 +124,64 @@
 		       type : 'get',
 		       url : '{{URL::to('searchPatient')}}',
 		       data:{'search':nom,'prenom':prenom,'code_barre':code_barre,'Dat_Naissance':date_Naiss},
-		       success:function(data,status, xhr){
-  	        // $('#liste_patients tbody').html(data);// $(".numberResult").html(xhr.getResponseHeader("count"));// $('#patientName').val('');$('#patientFirstName').val('');$('#IPP').val('');$('#Dat_Naissance').val('');
+		       success:function(data,status, xhr){// $('#liste_patients tbody').html(data);
      				//////// deb v2
-     				$(".numberResult").html(Object.keys(data).length);
-     				var patientList = $("#liste_patients")
+     			 	$(".numberResult").html(Object.keys(data).length);
+     				reset_in();
+     				var patientList = $("#liste_patients");
      				patientList.DataTable ({
      					"processing": true,
-  						"paging":   true,
-  						"destroy": true,
-  					  "ordering": true,
+  					"paging":   true,
+  					"destroy": true,
+  					 "ordering": true,
     					"searching":false,
     					"info" : false,
     					"language":{"url": '/localisation/fr_FR.json'},
-    				  fixedHeader: {
-          			  header: true,
-              },
-   	       		"data" : data,
-	        		"columns": [
+   	       			"data" : data,
+	        			"columns": [
 								{ data:null,title:'#', orderable: false,searchable: false,
-    							render: function ( data, type, row ) {
-                    if ( type === 'display' ) {
-                        return '<input type="checkbox" class="editor-active" name="fusioner[]" value="'+data.id+'">';
-                    }
-                    return data;
-                	},
-                	className: "dt-body-center",
+						    			render: function ( data, type, row ) {
+						                   		 if ( type === 'display' ) {
+						                        		return '<input type="checkbox" class="editor-active" name="fusioner[]" value="'+data.id+'" onClick="return KeepCount()" /><span class="lbl"></span> ';
+						                  		}
+						                   		 return data;
+						                	},
+						                	className: "dt-body-center",
 								},
 								{ data:'id',title:'ID', "visible": false},
-								{	data: 'Nom',title:'Nom'	},
-       					{ data: 'Prenom', title:'Prenom' },
-       					{ data: 'IPP', title:'IPP'},
-       			  	{ data: 'Dat_Naissance', title:'Né(e) le' },
-				        { data: 'Sexe', title:'Sexe'},
-				        { data: 'Type',title:'Type'},
-				        { data: 'Date_creation', title:'Créer le'},
-				        { data:null,title:'<em class="fa fa-cog"></em>',
-					        searchable: false
-	  			      }
-  		   			],
+								{ data: null,title:'Nom',
+								   "render":function(data,type,full,meta){
+									if(type ==='display'){
+										return '<a onclick ="getPatientdetail('+data.id+')" style="cursor:pointer" data-toggle="tooltip" title="Résume du patient">'+data.Nom+'</a>';
+								      }
+								      return data;	
+							         } 
+								},
+       							{ data: 'Prenom', title:'Prenom' },
+       							{ data: 'IPP', title:'IPP'},
+       			  				{ data: 'Dat_Naissance', title:'Né(e) le' },
+							       { data: 'Sexe', title:'Sexe'},
+							       { data: 'Type',title:'Type'},
+							       { data: 'Date_creation', title:'Créer le'},
+							       { data:null,title:'<em class="fa fa-cog"></em>', searchable: false }
+  		   				],
 			   			"columnDefs": [
 			   				{ "targets": 0 , "orderable": false }, 
-					   		{	"targets": 6 ,	"orderable": false },
-								{	"targets": 7 ,	"orderable": false },
-								{ "targets":2,
-									"render":function(data,type,full,meta){
-															if(type ==='display'){
-																return '<a style="cursor:pointer" data-toggle="tooltip" title="Résume du patient">'+data.Nom+'</a>'
-															}
-															return data;	
-														} 
-								}, 
-								{	"targets":9  ,	"orderable":false,
-									"render": function(data,type,full,meta){
-									  if ( type === 'display' ) {
-											return '<a href = "/patient/'+data.id+'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter le dossier"><i class="fa fa-hand-o-up fa-xs"></i></a>&nbsp;<a href ="/patient/'+data.id+'/edit" class="btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs"></a>';
-										}
-										return data;	
-									},
-									className: "dt-body-center",
-								} 
+					   		{ "targets": 6 ,	"orderable": false },
+							{ "targets": 7 ,	"orderable": false },
+							{ "targets":9  ,	"orderable":false,
+							  "render": function(data,type,full,meta){
+							  if ( type === 'display' ) {
+								return '<a href = "/patient/'+data.id+'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter le dossier"><i class="fa fa-hand-o-up fa-xs"></i></a>&nbsp;<a href ="/patient/'+data.id+'/edit" class="btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs"></a>';
+							  }
+							  return data;	
+							   },
+							   className: "dt-body-center",
+						      } 
 					   	],
 
     			});
-     				
-   				//////////fin v2
+   			//////////fin v2
      			},
      			error:function(){
      				console.log("error");
