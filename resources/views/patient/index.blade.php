@@ -81,6 +81,7 @@
 			$('#btnCreate').removeClass('hidden');
 			$('#FusionButton').removeClass('hidden');
 			$('#patientDetail').html('');
+			$(".numberResult").html('');
 			nom=$('#patientName').val();
 			prenom=$('#patientFirstName').val();
 			code_barre=$('#IPP').val();
@@ -90,85 +91,76 @@
 		       url : '{{URL::to('searchPatient')}}',
 		       data:{'search':nom,'prenom':prenom,'code_barre':code_barre,'Dat_Naissance':date_Naiss},
 		       success:function(data,status, xhr){
-  	          $('#liste_patients tbody').html(data);
-	            $(".numberResult").html(xhr.getResponseHeader("count"));
-	            $('#patientName').val('');$('#patientFirstName').val('');$('#IPP').val('');$('#Dat_Naissance').val('');
+  	        // $('#liste_patients tbody').html(data);// $(".numberResult").html(xhr.getResponseHeader("count"));// $('#patientName').val('');$('#patientFirstName').val('');$('#IPP').val('');$('#Dat_Naissance').val('');
+     				//////// deb v2
+     				$(".numberResult").html(Object.keys(data).length);
+     				var patientList = $("#liste_patients")
+     				patientList.DataTable ({
+     					"processing": true,
+  						"paging":   true,
+  						"destroy": true,
+  					  "ordering": true,
+    					"searching":false,
+    					"info" : false,
+    					"language":{"url": '/localisation/fr_FR.json'},
+    				  fixedHeader: {
+          			  header: true,
+              },
+   	       		"data" : data,
+	        		"columns": [
+								{ data:null,title:'#', orderable: false,searchable: false,
+    							render: function ( data, type, row ) {
+                    if ( type === 'display' ) {
+                        return '<input type="checkbox" class="editor-active" name="fusioner[]" value="'+data.id+'">';
+                    }
+                    return data;
+                	},
+                	className: "dt-body-center",
+								},
+								{ data:'id',title:'ID', "visible": false},
+								{	data: 'Nom',title:'Nom'	},
+       					{ data: 'Prenom', title:'Prenom' },
+       					{ data: 'IPP', title:'IPP'},
+       			  	{ data: 'Dat_Naissance', title:'Né(e) le' },
+				        { data: 'Sexe', title:'Sexe'},
+				        { data: 'Type',title:'Type'},
+				        { data: 'Date_creation', title:'Créer le'},
+				        { data:null,title:'<em class="fa fa-cog"></em>',
+					        searchable: false
+	  			      }
+  		   			],
+			   			"columnDefs": [
+			   				{ "targets": 0 , "orderable": false }, 
+					   		{	"targets": 6 ,	"orderable": false },
+								{	"targets": 7 ,	"orderable": false },
+								{ "targets":2,
+									"render":function(data,type,full,meta){
+															if(type ==='display'){
+																return '<a style="cursor:pointer" data-toggle="tooltip" title="Résume du patient">'+data.Nom+'</a>'
+															}
+															return data;	
+														} 
+								}, 
+								{	"targets":9  ,	"orderable":false,
+									"render": function(data,type,full,meta){
+									  if ( type === 'display' ) {
+											return '<a href = "/patient/'+data.id+'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter le dossier"><i class="fa fa-hand-o-up fa-xs"></i></a>&nbsp;<a href ="/patient/'+data.id+'/edit" class="btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs"></a>';
+										}
+										return data;	
+									},
+									className: "dt-body-center",
+								} 
+					   	],
+
+    			});
+     				
+   				//////////fin v2
      			},
      			error:function(){
      				console.log("error");
      			},
     		});
-		});
-
-	///pagination
-  $('#liste_patients').DataTable({
-  	"processing": true,
-  	"paging":   true,
-    "ordering": true,
-    "searching":false,
-    "info" : false,
-    "language":{"url": '/localisation/fr_FR.json'},
-   	
-    "columns": [
-        {data: 'code_barre'},
-        {data: 'Nom'},
-        {data: 'Prenom'},
-        {data: 'Dat_Naissance'},
-        {data: 'Sexe'},
-        {data: 'Type'},
-        {data: 'Adresse'},
-        {data: 'Date_creation'},
-        {data: 'action2', name: 'action2', orderable: false, searchable: false},
-        {data: 'action', name: 'action', orderable: false, searchable: false}
-    ],
-    "columnDefs": [
-   		{
-				"targets": 6,
-				"orderable": false
-			},
-			{
-				"targets": 7,
-				"orderable": false
-			},  
-   		{
-				"targets": 8,
-				"orderable": false
-			},
-			{
-				"targets": 9,
-				"orderable": false
-			}
-		],
-		"serverSide": true,
-    "ajax": {
-        "url": '{{URL::to('searchPatient')}}',
-        "type": "POST"
-    },
-    "columnDefs": [
-   		{
-				"targets": 6,
-				"orderable": false
-			},
-			{
-				"targets": 7,
-				"orderable": false
-			},  
-   		{
-				"targets": 8,
-				"orderable": false
-			},
-			{
-				"targets": 9,
-				"orderable": false
-			}
-		],
-		"serverSide": true,
-    "ajax": {
-        "url": '{{URL::to('searchPatient')}}',
-        "type": "POST"
-    },	
-    
-  });
+	});
 });	
 </script>
 @endsection
@@ -179,7 +171,7 @@
 		<div class="col-sm-12 center">	
 			<h2>
 				<strong>Bienvenue Docteur:</strong>
-				 <q class="blue"> {{ Auth::User()->employ->Nom_Employe }} {{ Auth::User()->employ->Prenom_Employe }}  </q>
+				 <q class="blue"> {{ Auth::User()->employ->Nom_Employe }}{{ Auth::User()->employ->Prenom_Employe }}  </q>
 			</h2>
 		</div>		
 	</div>	{{-- row --}}
@@ -247,7 +239,7 @@
 				<i class="ace-icon fa fa-user"></i>
 				Resultats: </h5> <label for=""><span class="badge badge-info numberResult"></span></label>
 			</div>
-			<table id="liste_patients" class="table table-striped table-bordered table-scrollable table-responsive">
+			<!-- <table id="liste_patients" class="table table-striped table-bordered table-scrollable table-responsive">
 				<thead>					
 					<tr class="liste">
 									<th hidden>id</th>
@@ -263,8 +255,9 @@
 					</tr>
 				</thead>
 				<tbody>
-				</tbody>
-			</table>
+				</tbody> 
+			</table>-->
+			<table id="liste_patients" class="display  table-responsive" width="100%"></table>
 		</div>
 	</div>{{-- col-sm-7 --}}
 	<div class="col-md-5 col-sm-5">

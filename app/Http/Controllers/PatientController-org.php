@@ -24,6 +24,7 @@ use Carbon\Carbon;
 use Session;
 use View;
 use Flashy;
+use Response;
 class PatientController extends Controller
 {
     /**
@@ -746,8 +747,8 @@ class PatientController extends Controller
   {
     if($request->ajax())  
     {
-      $patients = patient::where('Nom','LIKE','%'.trim($request->search)."%")->where('Prenom','LIKE','%'.trim($request->prenom)."%")->where('IPP','LIKE','%'.trim($request->ipp)."%")->where('Dat_Naissance','LIKE','%'.trim($request->Dat_Naissance)."%")->paginate(20);//->get();
-      return Response::json($homme);
+      $patients = patient::where('Nom','LIKE','%'.trim($request->search)."%")->where('Prenom','LIKE','%'.trim($request->prenom)."%")->where('IPP','LIKE','%'.trim($request->ipp)."%")->where('Dat_Naissance','LIKE','%'.trim($request->Dat_Naissance)."%")->get();//->paginate(20);
+      return Response::json($patients);
     }
   }
   // public function AutoCompletePatientname(Request $request)// {//return patient::where('Nom', 'LIKE', '%'.$request->q.'%')->get();//}
