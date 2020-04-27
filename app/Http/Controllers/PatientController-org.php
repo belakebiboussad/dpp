@@ -835,13 +835,13 @@ class PatientController extends Controller
     }
     // tickets
     $tickets = ticket::where('id_patient',$request->patient2_id)->get();
-     foreach ($tickets as $key => $ticket) {
-          $ticket->update(["id_patient"=>$patient1->id]);  
-     }
-     $rdvs = rdv::where('Patient_ID_Patient',$request->patient2_id)->get();
-     foreach ($rdvs as $key => $rdv) {
-          $rdv->update(["Patient_ID_Patient"=>$patient1->id]);  
-     }
+    foreach ($tickets as $key => $ticket) {
+      $ticket->update(["id_patient"=>$patient1->id]);  
+    }
+    $rdvs = rdv::where('Patient_ID_Patient',$request->patient2_id)->get();
+    foreach ($rdvs as $key => $rdv) {
+      $rdv->update(["Patient_ID_Patient"=>$patient1->id]);  
+    }
     $patient1 -> update([
           "Nom"=>$request->nom,
           "Prenom"=>$request->prenom,
@@ -864,9 +864,8 @@ class PatientController extends Controller
      ]);   
      //desactiver patient 2
      $patient2->active=0;$patient2->save();  
-     // return redirect()->route('patient.index')->with('success','Item created successfully!');      
-     //Flashy::info('le merge est fait', 'http://your-awesome-link.com');
-     Flashy::success('merge est fait avec succè');
+     // return redirect()->route('patient.index')->with('success','Item created successfully!');   //Flashy::info('le merge est fait', 'http://your-awesome-link.com');      
+      Flashy::success('merge est fait avec succè');
      Return View::make('patient.index');
   }
 }
