@@ -29,23 +29,23 @@
 		           <td><input  type="radio" name="choixPrenom" onclick="setField('Prenom', '{{ $patient1->Prenom }}');" checked>{{ $patient1->Prenom }}</td>
 		           <td><input type="radio" name="choixPrenom" onclick="setField('Prenom','{{ $patient2->Prenom }}');">{{ $patient2->Prenom }}</td>
 		</tr>	
-		<tr class="{{ $statuses['code_barre'] }}">
-			<td align="center"><strong>code</strong></td>
-		           <td><input type="text" id ="code_barre" name="code" value=" {{ $patientResult->IPP }}"/></td>
-		           <td><input  type="radio" name="choixcode_barre" onclick="setField('code_barre', '{{ $patient1->IPP }}');" checked>{{ $patient1->IPP }}</td>
-		           <td><input type="radio" name="choixcode_barre" onclick="setField('code_barre','{{ $patient2->IPP }}');">{{ $patient2->IPP }}</td>
+		<tr class="{{ $statuses['IPP'] }}">
+			<td align="center"><strong>IPP</strong></td>
+		      <td><input type="text" id ="code_barre" name="code" value=" {{ $patientResult->IPP }}"/></td>
+		       <td><input  type="radio" name="choixcode_barre" onclick="setField('code_barre', '{{ $patient1->IPP }}');" checked>{{ $patient1->IPP }}</td>
+		      <td><input type="radio" name="choixcode_barre" onclick="setField('code_barre','{{ $patient2->IPP }}');">{{ $patient2->IPP }}</td>
 		</tr>
 		<tr class="{{ $statuses['Dat_Naissance'] }}">
 			<td align="center"><strong>Né(e) le</strong></td>
-		           <td><input type="text" id ="Dat_Naissance" name="datenaissance" value=" {{ $patientResult->Dat_Naissance }}"/></td>
-		           <td><input  type="radio" name="choixDat_Naissance" onclick="setField('Dat_Naissance', '{{ $patient1->Dat_Naissance }}');" checked>{{ $patient1->Dat_Naissance }}</td>
-		           <td><input type="radio" name="choixDat_Naissance" onclick="setField('Dat_Naissance','{{ $patient2->Dat_Naissance }}');">{{ $patient2->Dat_Naissance }}</td>
+		      <td><input type="text" id ="Dat_Naissance" name="datenaissance" value=" {{ $patientResult->Dat_Naissance }}"/></td>
+		       <td><input  type="radio" name="choixDat_Naissance" onclick="setField('Dat_Naissance', '{{ $patient1->Dat_Naissance }}');" checked>{{ $patient1->Dat_Naissance }}</td>
+		      <td><input type="radio" name="choixDat_Naissance" onclick="setField('Dat_Naissance','{{ $patient2->Dat_Naissance }}');">{{ $patient2->Dat_Naissance }}</td>
 		</tr>
 		<tr class="{{ $statuses['Lieu_Naissance'] }}">
 			<td align="center"><strong>à</strong></td>
 		           <td><input type="text" id ="Lieu_Naissance" name="lieunaissance" value=" {{ $patientResult->Lieu_Naissance }}"/></td>
-		           <td><input  type="radio" name="choixLieu_Naissance" onclick="setField('Lieu_Naissance', '{{ $patient1->Lieu_Naissance }}');" checked>{{ $patient1->Lieu_Naissance }}</td>
-		           <td><input type="radio" name="choixLieu_Naissance" onclick="setField('Lieu_Naissance','{{ $patient2->Lieu_Naissance }}');">{{ $patient2->Lieu_Naissance }}</td>
+		           <td><input  type="radio" name="choixLieu_Naissance" onclick="setField('Lieu_Naissance', '{{ $patient1->Lieu_Naissance }}');" checked>{{ $patient1->lieuNaissance->nom_commune }}</td>
+		           <td><input type="radio" name="choixLieu_Naissance" onclick="setField('Lieu_Naissance','{{ $patient2->Lieu_Naissance }}');">{{ $patient2->lieuNaissance->nom_commune }}</td>
 		</tr>
 		<tr class="{{ $statuses['Sexe'] }}">
 			<td align="center"><strong>Sexe</strong></td>
@@ -88,8 +88,15 @@
 		<tr class="{{ $statuses['tele_mobile2'] }}">
 			<td align="center"><strong>Mobile2</strong></td>
 			<td><input type="text" id ="tele_mobile2" name="" value=" {{ $patientResult->tele_mobile2 }}"/>	</td>
-		           <td><input  type="radio" name="choixtele_mobile2" onclick="setField('tele_mobile2', '{{ $patient1->tele_mobile2 }}');" checked>{{ $patient1->tele_mobile2 }}</td>
-		           <td><input type="radio" name="choixtele_mobile2" onclick="setField('tele_mobile2','{{ $patient2->tele_mobile2 }}');">{{ $patient2->tele_mobile2 }}</td>
+		       <td>
+		     		@if($patient1->tele_mobile2  != "" )
+		           	<input  type="radio" name="choixtele_mobile2" onclick="setField('tele_mobile2', '{{ $patient1->tele_mobile2 }}');" checked>{{ $patient1->tele_mobile2 }}
+		           	@endif
+		       </td>
+		       <td>
+		           	   	@if($patient2->tele_mobile2  != "" )
+		           		<input type="radio" name="choixtele_mobile2" onclick="setField('tele_mobile2','{{ $patient2->tele_mobile2 }}');">{{ $patient2->tele_mobile2 }}</td>
+		           		@endif
 		</tr>
 		<tr class="{{ $statuses['NSS'] }}">
 			<td align="center"><strong>N° Sec Soc</strong></td>
@@ -115,12 +122,22 @@
 		           <td><input  type="radio" name="choixType" onclick="setField('Type', '{{ $patient1->Type }}');" checked>{{ $patient1->Type }}</td>
 		           <td><input type="radio" name="choixType" onclick="setField('Type','{{ $patient2->Type }}');">{{ $patient2->Type }}</td>
 		</tr>
+		@if(($patient1->Type == "Ayant_droit") || ($patient2->Type == "Ayant_droit")  )
 		<tr class="{{ $statuses['Type_p'] }}">
 			<td align="center"><strong>Relation</strong></td>
 			<td><input type="text" id ="Type_p" name="Type_p" value=" {{ $patientResult->Type_p }}"/>	</td>
-		             <td><input  type="radio" name="choixType_p" onclick="setField('Type_p', '{{ $patient1->Type_p }}');" checked>{{ $patient1->Type_p }}</td>
-		           <td><input type="radio" name="choixType_p" onclick="setField('Type_p','{{ $patient2->Type_p }}');">{{ $patient2->Type_p }}</td>
+		       <td>
+		       @if($patient1->Type == "Ayant_droit" )
+		       	<input  type="radio" name="choixType_p" onclick="setField('Type_p', '{{ $patient1->Type_p }}');" checked>{{ $patient1->Type_p }}
+		       @endif
+		       </td>
+		       <td>
+		       @if($patient2->Type == "Ayant_droit" )
+		       <input type="radio" name="choixType_p" onclick="setField('Type_p','{{ $patient2->Type_p }}');">{{ $patient2->Type_p }}
+		       @endif
+		       </td>
 		</tr>
+		@endif
 		<tr class="{{ $statuses['description'] }}">
 			<td align="center"><strong>Description</strong></td>
 			<td><input type="text" id ="description" name="description" value=" {{ $patientResult->description }}"/>	</td>

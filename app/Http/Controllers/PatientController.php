@@ -754,8 +754,7 @@ public function search(Request $request)
            $rdvs = rdv::where('Patient_ID_Patient',$request->patient2_id)->get();
            foreach ($rdvs as $key => $rdv) {
                 $rdv->update(["Patient_ID_Patient"=>$patient1->id]);  
-           }
-           //dd($request->all());
+           }           
            $patient1 -> update([
                 "Nom"=>$request->nom,
                 "Prenom"=>$request->prenom,
@@ -781,7 +780,7 @@ public function search(Request $request)
           // return redirect()->route('patient.index')->with('success','Item created successfully!');
            //Flashy::info('le merge est fait', 'http://your-awesome-link.com');
            Flashy::success('merge est fait avec succè');
-           Return View::make('patient.index_patient');
+           Return View::make('patient.index');
            //return redirect()->route('patient.index');
      }
 

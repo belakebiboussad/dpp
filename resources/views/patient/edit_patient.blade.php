@@ -340,7 +340,6 @@
 		  <li  @if($patient->Type =="Autre")  style= "display:none" @endif><a data-toggle="tab" href="#Assure" >
     			<span class="bigger-130"><strong>Assure</strong></span></a>
     	</li>
-    		{{--  --}}
 	    <li  id ="hommelink" @if(count($hommes_c) == 0)  class="invisible" @endif><a data-toggle="tab" href="#Homme">
 	    		<span class="bigger-130"><strong>Garde Malde/Homme de Confiance</strong></span></a>
 	    </li>
@@ -371,7 +370,7 @@
 								</label>
 								<div class="col-sm-9">
 									<input type="text" id="prenom" name="prenom" placeholder="Prénom..."value="{{ $patient->Prenom }}"class="form-control form-control-lg col-xs-12 col-sm-12" autocomplete="off" required/>
-									{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
+									{!! $errors->first('prenom', '<p class="alert-danger">:message</p>') !!}
 								</div>
 							</div>
 						</div>{{-- col-sm-6	 --}}
@@ -669,7 +668,7 @@
 								<strong class="text-nowrap">Né(e) le :</strong>
 							</label>
 							<div class="col-sm-9">
-							<input class="col-xs-12 col-sm-12 date-picker" id="datenaissancef" name="datenaissancef" type="text" value="{{ $assure->Date_Naissance }}"  />
+								<input class="col-xs-12 col-sm-12 date-picker" id="datenaissancef" name="datenaissancef" type="text" placeholder="Date de naissance..."  value="{{ $assure->Date_Naissance }}" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
 							</div>
 						</div>
 					</div>
@@ -764,7 +763,7 @@
 							</label>
 							<div class="col-sm-9">
 							<div class="clearfix">
-								<input type="text" id="matf" name="matf" class="col-xs-12 col-sm-6" value="{{ $assure->Matricule }}"  placeholder="XXXXXXXX" />
+								<input type="text" id="matf" name="matf" class="col-xs-12 col-sm-6" value="{{ $assure->Matricule }}"  placeholder="saisir le matricule..." maxlength="5" />
 							</div>
 							</div>
 						</div>

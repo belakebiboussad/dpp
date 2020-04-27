@@ -17,6 +17,8 @@ use App\modeles\grade;
 use App\modeles\Commune;
 use App\Utils\ArrayClass;
 use App\modeles\homme_conf;
+use App\modeles\antecedant;
+use App\modeles\ticket;
 use Validator;
 use Redirect;
 use MessageBag;
@@ -40,7 +42,7 @@ class PatientController extends Controller
   }
   public function index()
   {
-    return view('patient.index_patient');
+    return view('patient.index');
   }
 
   /**
@@ -95,8 +97,7 @@ class PatientController extends Controller
     if ($validator->fails()) {
       $errors=$validator->errors(); 
       return view('patient.addPatient')->withErrors($errors);
-    } 
-    // if(patient::all()->isNotEmpty()){ $nomb = patient::all()->last()->id;}else{$nomb = 0;}
+    }  // if(patient::all()->isNotEmpty()){ $nomb = patient::all()->last()->id;}else{$nomb = 0;}
     if($request->type =="Ayant_droit")
     {    
       $assurObj = assur::firstOrCreate([
@@ -699,55 +700,13 @@ class PatientController extends Controller
           return ['success' => true, 'data' => $patients]; 
       }
     }
-  public function searchgood(Request $request)
-  {
-    if($request->ajax())  
-    {
-      $output="";
-      $patients = patient::where('Nom','LIKE','%'.trim($request->search)."%")->where('Prenom','LIKE','%'.trim($request->prenom)."%")->where('IPP','LIKE','%'.trim($request->ipp)."%")->where('Dat_Naissance','LIKE','%'.trim($request->Dat_Naissance)."%")->paginate(20);//->get();
-      if($patients)
-      {
-        $i=0;
-        foreach ($patients as $key => $patient) {
-          $age = Carbon::createFromDate(date('Y', strtotime($patient->Dat_Naissance)), date('m', strtotime($patient->Dat_Naissance)), date('d', strtotime($patient->Dat_Naissance)))->age;
-          $patientType ="";
-          $sexe =  ($patient->Sexe =="M")?"Homme":"Femme";   
-          switch($patient->Type)
-          {
-            case  "Assure":
-              $patientType ='<span class="badge badge-success">'.$patient->Type.'</span>';
-              break;
-            case "Ayant_droit":
-              $patientType ='<span class="badge badge-Primary">'.$patient->Type.'</span>';
-              break;
-            case "Autre" :
-              $patientType ='<span class="badge badge-danger">'.$patient->Type.'</span>';
-              break;   
-          } 
-                 
-         $output.='<tr>'.
-         '<td hidden>'.$patient->id.'</td>'.
-         '<td class ="center chkTrt">'.'<input type="checkbox" class="ace check" name="fusioner[]" onClick="return KeepCount()" value="'.$patient->id.'"/>'.'<span class="lbl"></span>   '.'</td>'.
-         '<td><a style="cursor:pointer" data-toggle="tooltip" title="Résume du patient" data-placement="bottom" id ="'.$patient->id.'" onclick ="getPatientdetail('.$patient->id.');">'.$patient->Nom.'</a></td>'.
-         '<td>'.$patient->Prenom.'</td>'.
-         '<td>'.$patient->IPP.'</td>'.
-         '<td>'.$patient->Dat_Naissance.'</td>'.
-         '<td>'.$sexe.'</td>'.
-         '<td>'.$age.'</td>'.
-         '<td>'.$patientType.'</td>'.
-         '<td class="center">'.'<a href="/patient/'.$patient->id.'" class="'.'btn btn-warning btn-xs" data-toggle="tooltip" title="Consulter le dossier" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i>&nbsp;</a>'."&nbsp;&nbsp;".'<a href="/patient/'.$patient->id.'/edit" class="'.'btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></a>'.'</td>'.
-         '</tr>'; 
-          $i++;
-        }
-        return Response($output)->withHeaders(['count' => $i]);      
-      }     
-    } 
-  }
+  /*public function search(Request $request){if($request->ajax()) {$output="";$patients = patient::where('Nom','LIKE','%'.trim($request->search)."%")->where('Prenom','LIKE','%'.trim($request->prenom)."%")->where('IPP','LIKE','%'.trim($request->ipp)."%")->where('Dat_Naissance','LIKE','%'.trim($request->Dat_Naissance)."%")->paginate(20);//->get();if($patients){$i=0; foreach ($patients as $key => $patient) {$age = Carbon::createFromDate(date('Y', strtotime($patient->Dat_Naissance)),date('m', strtotime($patient->Dat_Naissance)), date('d', strtotime($patient->Dat_Naissance)))->age; $patientType ="";$sexe=($patient->Sexe =="M")?"Homme":"Femme";switch($patient->Type){case  "Assure":$patientType ='<span class="badge badge-success">'.$patient->Type.'</span>';break;case "Ayant_droit":$patientType ='<span class="badge badge-Primary">'.$patient->Type.'</span>';           break;case "Autre" :$patientType ='<span class="badge badge-danger">'.$patient->Type.'</span>';break;}$output.='<tr>'.'<td hidden>'.$patient->id.'</td>'.'<td class ="center chkTrt">'.'<input type="checkbox" class="ace check" name="fusioner[]" onClick="return KeepCount()" value="'.$patient->id.'"/>'.'<span class="lbl"></span>   '.'</td>'.'<td><a style="cursor:pointer" data-toggle="tooltip" title="Résume du patient" data-placement="bottom" id ="'.$patient->id.'" onclick ="getPatientdetail('.$patient->id.');">'.$patient->Nom.'</a></td>'.'<td>'.$patient->Prenom.'</td>'.'<td>'.$patient->IPP.'</td>'.'<td>'.$patient->Dat_Naissance.'</td>'.
+  '<td>'.$sexe.'</td>'.'<td>'.$age.'</td>'.'<td>'.$patientType.'</td>'.'<td class="center">'.'<a href="/patient/'.$patient->id.'" class="'.'btn btn-warning btn-xs" data-toggle="tooltip" title="Consulter le dossier" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i>&nbsp;</a>'."&nbsp;&nbsp;".'<a href="/patient/'.$patient->id.'/edit" class="'.'btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></a>'.'</td>'.'</tr>'; $i++;}return Response($output)->withHeaders(['count' => $i]); }} }*/
   public function search(Request $request)
   {
     if($request->ajax())  
     {
-      $patients = patient::where('Nom','LIKE','%'.trim($request->search)."%")->where('Prenom','LIKE','%'.trim($request->prenom)."%")->where('IPP','LIKE','%'.trim($request->ipp)."%")->where('Dat_Naissance','LIKE','%'.trim($request->Dat_Naissance)."%")->get();//->paginate(20);
+      $patients = patient::where('Nom','LIKE','%'.trim($request->search)."%")->where('Prenom','LIKE','%'.trim($request->prenom)."%")->where('IPP','LIKE','%'.trim($request->ipp)."%")->where('Dat_Naissance','LIKE','%'.trim($request->Dat_Naissance)."%")->where('active','=',1)->get();//->paginate(20);
       return Response::json($patients);
     }
   }
@@ -782,90 +741,84 @@ class PatientController extends Controller
                         ->select('communes.*','communes.id as id_Commune' ,'wilayas.*','wilayas.id as Id_wilaya')
                         ->where('nom_commune', 'LIKE', '%'.trim($request->com).'%')->get();
       }
-  public function patientsToMerege(Request $request)
-  {
-    $statuses = array();
-    $values;
-    $patientResult = new patient;
-    $patient1 = patient::FindOrFail($request->search[0]);
-    $patient2 = patient::FindOrFail($request->search[1]);    
-    $patients=[$patient1->getAttributes(),$patient2->getAttributes()];
-    foreach ($patientResult->getFillable() as $field) {
-      $values = ArrayClass::pluck($patients, $field);      
-      // var_dump($values);echo("<br>");
-      ArrayClass::removeValue("", $values);
-      if (!count($values)) {
-              $statuses[$field] = "none";
-              continue;
-      }
-     $patientResult->$field = reset($values);
-      // One unique value
-      if (count($values) == 1) {
-           $statuses[$field] = "unique";
-           continue;
-      }
-      // Multiple values
-        $statuses[$field] = count(array_unique($values)) == 1 ? "duplicate" : "multiple";
-     }
-     // Count statuses
-     $counts = array(
-            "none"      => 0,
-            "unique"    => 0,
-            "duplicate" => 0,
-            "multiple"  => 0,
-     );
-     foreach ($statuses as $status) {
-           $counts[$status]++;
-     }
-     //ArrayClass
-    $view = view("patient.ajax_patient_merge",compact('patientResult','patient1','patient2','statuses','counts'))->render();
-    return response()->json(['html'=>$view]);
+      public function patientsToMerege(Request $request)
+      {
+             $statuses = array();
+             $values;
+             $patientResult = new patient;
+             $patient1 = patient::FindOrFail($request->search[0]);
+             $patient2 = patient::FindOrFail($request->search[1]);    
+             $patients=[$patient1->getAttributes(),$patient2->getAttributes()];
+             foreach ($patientResult->getFillable() as $field) {
+                    $values = ArrayClass::pluck($patients, $field);   // var_dump($values);echo("<br>");     
+                    ArrayClass::removeValue("", $values);
+                    if (!count($values)) {
+                          $statuses[$field] = "none";
+                          continue;
+                   }
+                  $patientResult->$field = reset($values);  // One unique value
+                   if (count($values) == 1) {
+                       $statuses[$field] = "unique";
+                       continue;
+                  }// Multiple values
+                   $statuses[$field] = count(array_unique($values)) == 1 ? "duplicate" : "multiple";
+           }
+           // Count statuses
+           $counts = array(
+                  "none"      => 0,
+                  "unique"    => 0,
+                  "duplicate" => 0,
+                  "multiple"  => 0,
+           );
+           foreach ($statuses as $status) {
+                 $counts[$status]++;
+           }    //ArrayClass
+             $view = view("patient.ajax_patient_merge",compact('patientResult','patient1','patient2','statuses','counts'))->render();
+          return response()->json(['html'=>$view]);
   }
   public function merge(Request $request)
   {
-    $patient1=patient::FindOrFail($request->patient1_id);
-    $patient2=patient::FindOrFail($request->patient2_id); //chargement des consultation du patient2 
-    $consuls = consultation::where('Patient_ID_Patient',$request->patient2_id)->get();
-    $antecedants=antecedant::where('Patient_ID_Patient',$request->patient2_id)->get();
-    foreach ($antecedants as $key => $antecedant) {
-       $antecedant->update(["Patient_ID_Patient"=>$patient1->id]);  
-    }
-    foreach ($consuls as $key => $consult) {
-          $consult->update(["Patient_ID_Patient"=>$patient1->id]);  
-    }
-    // tickets
-    $tickets = ticket::where('id_patient',$request->patient2_id)->get();
-    foreach ($tickets as $key => $ticket) {
-      $ticket->update(["id_patient"=>$patient1->id]);  
-    }
-    $rdvs = rdv::where('Patient_ID_Patient',$request->patient2_id)->get();
-    foreach ($rdvs as $key => $rdv) {
-      $rdv->update(["Patient_ID_Patient"=>$patient1->id]);  
-    }
-    $patient1 -> update([
-          "Nom"=>$request->nom,
-          "Prenom"=>$request->prenom,
-          "IPP"=>$request->code,
-          "Dat_Naissance"=>$request->datenaissance,
-          "Lieu_Naissance"=>$request->idlieunaissance,
-          "Sexe"=>$request->sexe,
-          "Adresse"=>$request->adresse,
-          "situation_familiale"=>$request->sf,
-          "tele_mobile1"=>$request->mobile1,
-          "tele_mobile2"=>$request->mobile2,
-          "group_sang"=>$request->gs,
-          "rhesus"=>$request->rh, 
-          "Assurs_ID_Assure"=>$patient1->Assurs_ID_Assure,
-          "Type"=>$request->type,
-          "Type_p"=>$request->Type_p,
-          "description"=>$request->description,
-          "NSS"=> $request->nss,    
-          "Date_creation"=>$request->date,  
-     ]);   
-     //desactiver patient 2
-     $patient2->active=0;$patient2->save();  
-     // return redirect()->route('patient.index')->with('success','Item created successfully!');   //Flashy::info('le merge est fait', 'http://your-awesome-link.com');      
-      Flashy::success('merge est fait avec succè');
-     Return View::make('patient.index');
+      $patient1=patient::FindOrFail($request->patient1_id);
+      $patient2=patient::FindOrFail($request->patient2_id); //chargement des consultation du patient2 
+      $consuls = consultation::where('Patient_ID_Patient',$request->patient2_id)->get();
+      $antecedants=antecedant::where('Patient_ID_Patient',$request->patient2_id)->get();
+      foreach ($antecedants as $key => $antecedant) {
+         $antecedant->update(["Patient_ID_Patient"=>$patient1->id]);  
+      }
+      foreach ($consuls as $key => $consult) {
+            $consult->update(["Patient_ID_Patient"=>$patient1->id]);  
+      }
+      $tickets = ticket::where('id_patient',$request->patient2_id)->get(); // tickets
+      foreach ($tickets as $key => $ticket) {
+        $ticket->update(["id_patient"=>$patient1->id]);  
+      }
+      $rdvs = rdv::where('Patient_ID_Patient',$request->patient2_id)->get();
+      foreach ($rdvs as $key => $rdv) {
+        $rdv->update(["Patient_ID_Patient"=>$patient1->id]);  
+      }
+      $patient1 -> update([
+            "Nom"=>$request->nom,
+            "Prenom"=>$request->prenom,
+            "IPP"=>$request->code,
+            "Dat_Naissance"=>$request->datenaissance,
+            "Lieu_Naissance"=>$request->idlieunaissance,
+            "Sexe"=>$request->sexe,
+            "Adresse"=>$request->adresse,
+            "situation_familiale"=>$request->sf,
+            "tele_mobile1"=>$request->mobile1,
+            "tele_mobile2"=>$request->mobile2,
+            "group_sang"=>$request->gs,
+            "rhesus"=>$request->rh, 
+            "Assurs_ID_Assure"=>$patient1->Assurs_ID_Assure,
+            "Type"=>$request->type,
+            "Type_p"=>$request->Type_p,
+            "description"=>$request->description,
+            "NSS"=> $request->nss,    
+            "Date_creation"=>$request->date,  
+       ]);   
+       $patient2->active=0;$patient2->save();  //desactiver patient 2
+       // return redirect()->route('patient.index')->with('success','Item created successfully!');   //Flashy::info('le merge est fait', 'http://your-awesome-link.com');      
+        Flashy::success('merge est fait avec succè');
+       Return View::make('patient.index');
   }
 }

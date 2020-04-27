@@ -126,8 +126,7 @@ $(document).ready(function() {
                               });
                              if($('#fixe').length &&(event.fixe))
                                      $("#fixe"). prop("checked", true);
-                              ajaxEditEvent(event,true);
-                             
+                              ajaxEditEvent(event,true);          
                     }
                     else
                     {

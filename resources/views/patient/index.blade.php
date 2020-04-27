@@ -2,7 +2,6 @@
 @section('title','Rechercher un patient')
 @section('style')
 <style>
-
 </style>
 @endsection
 @section('page-script')
@@ -14,10 +13,10 @@
 		      type : 'GET',
 		      success:function(data,status, xhr){
 			      	$('#patientDetail').html(data.html);
-          },
-          error:function(data){
+        		},
+          		error:function(data){
 	         		alert("error");
-	        }	
+	        	}	
 		});
 	}
 	function reset_in() 
@@ -27,14 +26,14 @@
 	var values = new Array();
 	function doMerge()
 	{
-		$.ajax({
-            type : 'get',
-            url : '{{URL::to('patientsToMerge')}}',
-            data:{'search':values},
-            success:function(data,status, xhr){
-                $('#tablePatientToMerge').html(data.html);
-            }
-    });
+            $.ajax({
+	            type : 'get',
+	            url : '{{URL::to('patientsToMerge')}}',
+	            data:{'search':values},
+	            success:function(data,status, xhr){
+	            		$('#tablePatientToMerge').html(data.html);
+	            }
+  	      });
 	}
 	function KeepCount() {
 		if($("input:checked").length >= 2){
@@ -53,6 +52,18 @@
 			});
 		}
 	}
+	function setField(field,value)
+	{
+		if($('#'+field).is("input"))
+			$('#'+field).val(value);
+		else
+		{
+			var select = $('#'+field);
+			$("select option").filter(function() {
+			     return $(this).val() == value; 
+			}).prop('selected', true);
+		}	
+	}
 	$(document).ready(function(){
 		var Namebloodhound = new Bloodhound({
 		      datumTokenizer: Bloodhound.tokenizers.whitespace,
@@ -68,7 +79,7 @@
 	        remote: {
 						url: '/patients/findprenom?prenom=%QUERY%',
 						wildcard: '%QUERY%'
-					},
+				},
 		}); 
 
 		$('#patientName').typeahead({
@@ -267,23 +278,59 @@
 		</div>
  	</div><!-- panel -->
  	<div class="row">
-	<div class="col-sm-7">
-		<div class="widget-box transparent">
-			<div class="widget-header widget-header-flat widget-header-small">
-				<h5 class="widget-title">
-				<i class="ace-icon fa fa-user"></i>
-				Resultats: </h5> <label for=""><span class="badge badge-info numberResult"></span></label>
+		<div class="col-sm-7">
+			<div class="widget-box transparent">
+				<div class="widget-header widget-header-flat widget-header-small">
+					<h5 class="widget-title">
+					<i class="ace-icon fa fa-user"></i>
+					Resultats: </h5> <label for=""><span class="badge badge-info numberResult"></span></label>
+				</div>
+				<table id="liste_patients" class="display  table-responsive" width="100%"></table>
 			</div>
-			<table id="liste_patients" class="display  table-responsive" width="100%"></table>
+		</div>{{-- col-sm-7 --}}
+		<div class="col-md-5 col-sm-5">
+		  <br>
+			<div class="widget-box transparent" id="patientDetail" style ="margin-top: 14px;">
+			</div>		
 		</div>
-	</div>{{-- col-sm-7 --}}
-	<div class="col-md-5 col-sm-5">
-	  <br>
-		<div class="widget-box transparent" id="patientDetail" style ="margin-top: 14px;">
-		</div>		
-	</div>
-</div>{{-- row --}}
-
+	</div>{{-- row --}}
+	<div class="row">
+		<div  id="mergeModal" class="modal fade" role="dialog" aria-hidden="true"> 
+		<div class="modal-dialog modal-ku">
+			<div class="modal-content">
+		      		<div class="modal-header">
+		        			<button type="button" class="close" data-dismiss="modal">&times;</button>
+		        			<h4 class="modal-title">Merger les données des Patients :</h4>
+		      		</div>
+		      		<div class="modal-body">
+		        			<p class="center">
+						êtes-vous sûr de vouloir de vouloire merger les deux patients ?
+		        			</p>
+		        			<p> <span  style="color: red;">
+		        			mergé les patient est permanent et ne  peut pas  étre refait !!
+		        			</span>
+					</p>
+					<form id="form-merge" class="form-horizontal" role="form" method="POST" action="{{ url('/patient/merge') }}">	
+		      				{{ csrf_field() }}
+			      			<div id="tablePatientToMerge"></div>
+			        			<div class="modal-footer">
+			        				<button type="button" class="btn btn-default" data-dismiss="modal">
+			        					 <i class="ace-icon fa fa-undo bigger-120"></i>
+			        						Fermer
+			        				</button>
+			        				<button  type="submit" class="btn btn-success" >
+			        					  <i class="ace-icon fa fa-check bigger-120"></i>
+			        					Valider
+			        				</button>
+			      			</div> 
+			      			
+		      			</form>
+		        		</div>
+		        		
+		      	</div>  	{{-- modal-content --}}
+		</div>
+		</div>
+	</div>{{-- row --}}
 
 </div>
 @endsection
