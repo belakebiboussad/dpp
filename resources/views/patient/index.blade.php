@@ -14,10 +14,10 @@
 		      type : 'GET',
 		      success:function(data,status, xhr){
 			      	$('#patientDetail').html(data.html);
-          		},
-          		error:function(data){
-	          		alert("error");
-	          	}	
+          },
+          error:function(data){
+	         		alert("error");
+	        }	
 		});
 	}
 	function reset_in() 
@@ -25,24 +25,34 @@
 		$('#patientName').val('');$('#patientFirstName').val('');$('#IPP').val('');$('#Dat_Naissance').val('');
 	}
 	var values = new Array();
-	function KeepCount() {
-	var n = $("input:checked").length;
-	if(n >= 2){
-		$('.check:not(:checked)').attr('disabled','disabled');
-		 $('#FusionButton').removeClass('invisible');
-		$.each( $("input:checked"), function( key, value ) {
-  			values.push($(this).val());
-  			$(this).parent().parent().css('background-color','#dd9900');
-		});
-	}else
+	function doMerge()
 	{
-		$( "input:not(:checked)").removeAttr("disabled");
-		 $('#FusionButton').addClass('invisible');
-		$.each( $("input:unchecked"), function( key, value ) {
-			$(this).parent().parent().css('background-color','#ffffff');
-		});
+		$.ajax({
+            type : 'get',
+            url : '{{URL::to('patientsToMerge')}}',
+            data:{'search':values},
+            success:function(data,status, xhr){
+                $('#tablePatientToMerge').html(data.html);
+            }
+    });
 	}
-}
+	function KeepCount() {
+		if($("input:checked").length >= 2){
+			$('.check:not(:checked)').attr('disabled','disabled');
+			$('#FusionButton').removeClass('invisible');
+			$.each( $("input:checked"), function( key, value ) {
+				values.push($(this).val());
+	  		$(this).parent().parent().css('background-color','#dd9900');
+			});
+		}else
+		{
+			$( "input:not(:checked)").removeAttr("disabled");
+			$('#FusionButton').addClass('invisible');
+			$.each( $("input:unchecked"), function( key, value ) {
+				$(this).parent().parent().css('background-color','#ffffff');
+			});
+		}
+	}
 	$(document).ready(function(){
 		var Namebloodhound = new Bloodhound({
 		      datumTokenizer: Bloodhound.tokenizers.whitespace,
@@ -133,16 +143,16 @@
      					"processing": true,
   					"paging":   true,
   					"destroy": true,
-  					 "ordering": true,
-    					"searching":false,
-    					"info" : false,
-    					"language":{"url": '/localisation/fr_FR.json'},
-   	       			"data" : data,
-	        			"columns": [
+  					"ordering": true,
+    				"searching":false,
+    				"info" : false,
+    				"language":{"url": '/localisation/fr_FR.json'},
+   	       	"data" : data,
+	        	"columns": [
 								{ data:null,title:'#', orderable: false,searchable: false,
 						    			render: function ( data, type, row ) {
 						                   		 if ( type === 'display' ) {
-						                        		return '<input type="checkbox" class="editor-active" name="fusioner[]" value="'+data.id+'" onClick="return KeepCount()" /><span class="lbl"></span> ';
+						                        		return '<input type="checkbox" class="editor-active check" name="fusioner[]" value="'+data.id+'" onClick="return KeepCount()" /><span class="lbl"></span> ';
 						                  		}
 						                   		 return data;
 						                	},
@@ -157,29 +167,27 @@
 								      return data;	
 							         } 
 								},
-       							{ data: 'Prenom', title:'Prenom' },
-       							{ data: 'IPP', title:'IPP'},
-       			  				{ data: 'Dat_Naissance', title:'Né(e) le' },
-							       { data: 'Sexe', title:'Sexe'},
-							       { data: 'Type',title:'Type'},
-							       { data: 'Date_creation', title:'Créer le'},
-							       { data:null,title:'<em class="fa fa-cog"></em>', searchable: false }
-  		   				],
+       					{ data: 'Prenom', title:'Prenom' },
+       					{ data: 'IPP', title:'IPP'},
+       			  	{ data: 'Dat_Naissance', title:'Né(e) le' },
+							  { data: 'Sexe', title:'Sexe'}, // { data: 'Type',title:'Type'},
+							  { data: 'Date_creation', title:'Créer le'},
+							  { data:null,title:'<em class="fa fa-cog"></em>', searchable: false }
+  		   			],
 			   			"columnDefs": [
 			   				{ "targets": 0 , "orderable": false }, 
 					   		{ "targets": 6 ,	"orderable": false },
-							{ "targets": 7 ,	"orderable": false },
-							{ "targets":9  ,	"orderable":false,
-							  "render": function(data,type,full,meta){
-							  if ( type === 'display' ) {
-								return '<a href = "/patient/'+data.id+'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter le dossier"><i class="fa fa-hand-o-up fa-xs"></i></a>&nbsp;<a href ="/patient/'+data.id+'/edit" class="btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs"></a>';
-							  }
-							  return data;	
-							   },
-							   className: "dt-body-center",
-						      } 
+							  { "targets": 7 ,	"orderable": false },
+							  { "targets": 8  ,	"orderable":false,
+							    "render": function(data,type,full,meta){
+							      if ( type === 'display' ) {
+								      return '<a href = "/patient/'+data.id+'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter le dossier"><i class="fa fa-hand-o-up fa-xs"></i></a>&nbsp;<a href ="/patient/'+data.id+'/edit" class="btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs"></a>';
+							      }
+							      return data;	
+							    },
+							    className: "dt-body-center",
+						    } 
 					   	],
-
     			});
    			//////////fin v2
      			},
@@ -266,24 +274,6 @@
 				<i class="ace-icon fa fa-user"></i>
 				Resultats: </h5> <label for=""><span class="badge badge-info numberResult"></span></label>
 			</div>
-			<!-- <table id="liste_patients" class="table table-striped table-bordered table-scrollable table-responsive">
-				<thead>					
-					<tr class="liste">
-									<th hidden>id</th>
-									<th  class="center" width="3%" >#</th>
-									<th class="blue">Nom</th>
-									<th class="blue">Prénom</th>
-									<th class="blue">IPP</th>
-									<th class="blue">Né(e) le</th>
-									<th class="blue">Sexe</th>
-									<th class="blue">Âge</th>
-									<th class="blue">Type</th>
-									<th class="blue"><em class="fa fa-cog"></em></th>
-					</tr>
-				</thead>
-				<tbody>
-				</tbody> 
-			</table>-->
 			<table id="liste_patients" class="display  table-responsive" width="100%"></table>
 		</div>
 	</div>{{-- col-sm-7 --}}

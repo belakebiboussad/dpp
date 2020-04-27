@@ -27,158 +27,158 @@ use Flashy;
 use Response;
 class PatientController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function listerdv($id_patient)
-    {
-       $patient = patient::FindOrFail($id_patient);
-       $rdvs = rdv::where("Patient_ID_Patient",$id_patient)->get()->all(); 
-       return view('patient.liste_rdv_pat',compact('patient','rdvs'));
-    }
-    public function index()
-    {
-      return view('patient.index_patient');
-    }
+  /**
+   * Display a listing of the resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function listerdv($id_patient)
+  {
+     $patient = patient::FindOrFail($id_patient);
+     $rdvs = rdv::where("Patient_ID_Patient",$id_patient)->get()->all(); 
+     return view('patient.liste_rdv_pat',compact('patient','rdvs'));
+  }
+  public function index()
+  {
+    return view('patient.index_patient');
+  }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-      $grades = grade::all();
-      return view('patient.addPatient',compact('grades'));
-    }
+  /**
+   * Show the form for creating a new resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function create()
+  {
+    $grades = grade::all();
+    return view('patient.addPatient',compact('grades'));
+  }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+  /**
+   * Store a newly created resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @return \Illuminate\Http\Response
+   */
+  public function store(Request $request)
+  {
+    static $assurObj;
+    $date = Date::Now();
+    $rule = array(
+                  "nom" => 'required',
+                  "prenom" => 'required',
+                  "datenaissance" => 'required|date|date_format:Y-m-d',
+                  "idlieunaissance" => 'required',
+                  "mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],
+                  "Type_p" =>'required_if:type,Ayant_droit', //"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
+                 
+                  "nomf" => 'required_if:type,Ayant_droit',
+                  "prenomf"=> 'required_if:type,Ayant_droit',  // "datenaissancef"=> 'required_if:type,Ayant_droit|date|date_format:Y-m-d',
+                  "lieunaissancef"=> 'required_if:type,Ayant_droit',
+                  "NMGSN"=> 'required_if:type,Ayant_droit',
+                  "prenom_homme_c"=>'required_with:nom_homme_c',
+                  "datenaissance_h_c"=>'required_with:nom_homme_c',
+                  "adresseA"=>'required_with:nom_homme_c',
+                  "type_piece_id"=>'required_with:nom_homme_c', 
+                  "npiece_id"=>'required_with:nom_homme_c', 
+                  "lien"=>'required_with:nom_homme_c',
+                  "date_piece_id"=>'required_with:nom_homme_c',
+                  "mobile_homme_c"=>['required_with:nom_homme_c'],
+                  "operateur_h"=>'required_with:mobileA',
+    );  // , 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'     
+    $messages = [
+                  "required"     => "Le champ :attribute est obligatoire.",
+                  "NSSValide"    => 'le numéro du securite sociale est invalide ',
+                  "date"         => "Le champ :attribute n'est pas une date valide.",
+    ];
+    $validator = Validator::make($request->all(),$rule,$messages);   
+    if ($validator->fails()) {
+      $errors=$validator->errors(); 
+      return view('patient.addPatient')->withErrors($errors);
+    } 
+    // if(patient::all()->isNotEmpty()){ $nomb = patient::all()->last()->id;}else{$nomb = 0;}
+    if($request->type =="Ayant_droit")
+    {    
+      $assurObj = assur::firstOrCreate([
+                       "Nom"=>$request->nomf,
+                        "Prenom"=>$request->prenomf,
+                        "Date_Naissance"=>$request->datenaissancef,
+                        "lieunaissance"=>$request->idlieunaissancef,
+                        "Sexe"=>$request->sexef,
+                        "Matricule"=>$request->mat,
+                        "service"=>$request->servicef,
+                        "Grade"=>$request->grade,
+                        "Etat"=>$request->etatf,
+                        "NSS"=>$request->nss,
+                        "NMGSN"=>$request->NMGSN, 
+                  ]);            
+    }
+    else
     {
-      static $assurObj;
-      $date = Date::Now();
-      $rule = array(
-                    "nom" => 'required',
-                    "prenom" => 'required',
-                    "datenaissance" => 'required|date|date_format:Y-m-d',
-                    "idlieunaissance" => 'required',
-                    "mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],
-                    "Type_p" =>'required_if:type,Ayant_droit', //"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
-                   
-                    "nomf" => 'required_if:type,Ayant_droit',
-                    "prenomf"=> 'required_if:type,Ayant_droit',  // "datenaissancef"=> 'required_if:type,Ayant_droit|date|date_format:Y-m-d',
-                    "lieunaissancef"=> 'required_if:type,Ayant_droit',
-                    "NMGSN"=> 'required_if:type,Ayant_droit',
-                    "prenom_homme_c"=>'required_with:nom_homme_c',
-                    "datenaissance_h_c"=>'required_with:nom_homme_c',
-                    "adresseA"=>'required_with:nom_homme_c',
-                    "type_piece_id"=>'required_with:nom_homme_c', 
-                    "npiece_id"=>'required_with:nom_homme_c', 
-                    "lien"=>'required_with:nom_homme_c',
-                    "date_piece_id"=>'required_with:nom_homme_c',
-                    "mobile_homme_c"=>['required_with:nom_homme_c'],
-                    "operateur_h"=>'required_with:mobileA',
-      );  // , 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'     
-      $messages = [
-                    "required"     => "Le champ :attribute est obligatoire.",
-                    "NSSValide"    => 'le numéro du securite sociale est invalide ',
-                    "date"         => "Le champ :attribute n'est pas une date valide.",
-      ];
-      $validator = Validator::make($request->all(),$rule,$messages);   
-      if ($validator->fails()) {
-        $errors=$validator->errors(); 
-        return view('patient.addPatient')->withErrors($errors);
-      } 
-      // if(patient::all()->isNotEmpty()){ $nomb = patient::all()->last()->id;}else{$nomb = 0;}
-      if($request->type =="Ayant_droit")
-      {    
-        $assurObj = assur::firstOrCreate([
-                         "Nom"=>$request->nomf,
-                          "Prenom"=>$request->prenomf,
-                          "Date_Naissance"=>$request->datenaissancef,
-                          "lieunaissance"=>$request->idlieunaissancef,
-                          "Sexe"=>$request->sexef,
-                          "Matricule"=>$request->mat,
-                          "service"=>$request->servicef,
-                          "Grade"=>$request->grade,
-                          "Etat"=>$request->etatf,
-                          "NSS"=>$request->nss,
-                          "NMGSN"=>$request->NMGSN, 
-                    ]);            
-      }
-      else
+      if( $request->type=="Assure")
       {
-        if( $request->type=="Assure")
-        {
-          $assurObj = assur::firstOrCreate([
-                                "Nom"=>$request->nom,
-                                "Prenom"=>$request->prenom,
-                                "Date_Naissance"=>$request->datenaissance,
-                                "lieunaissance"=>$request->idlieunaissancef,
-                                "Sexe"=>$request->sexe,
-                                "Matricule"=>$request->mat,
-                                "Service"=>$request->service,
-                                "Grade"=>$request->grade,
-                                "Etat"=>$request->etatf,
-                                "NSS"=>$request->nss,
-                                "NMGSN"=>$request->NMGSN, 
-          ]);
+        $assurObj = assur::firstOrCreate([
+                              "Nom"=>$request->nom,
+                              "Prenom"=>$request->prenom,
+                              "Date_Naissance"=>$request->datenaissance,
+                              "lieunaissance"=>$request->idlieunaissancef,
+                              "Sexe"=>$request->sexe,
+                              "Matricule"=>$request->mat,
+                              "Service"=>$request->service,
+                              "Grade"=>$request->grade,
+                              "Etat"=>$request->etatf,
+                              "NSS"=>$request->nss,
+                              "NMGSN"=>$request->NMGSN, 
+        ]);
 
-        }
       }
-      $assurID= $assurObj !=null ? $assurObj->id : null;//$codebarre =$request->sexe.$date->year."/".($nomb+1);
-      $patient = patient::firstOrCreate([
-                "Nom"=>$request->nom,// "code_barre"=>$codebarre,
-                "Prenom"=>$request->prenom,
-                "Dat_Naissance"=>$request->datenaissance,
-                "Lieu_Naissance"=>$request->idlieunaissance,
-                "Sexe"=>$request->sexe,
-                "situation_familiale"=>$request->sf, 
-                "Adresse"=>$request->adresse,
-                'commune_res'=>$request->idcommune,
-                'wilaya_res'=>$request->idwilaya,
-                "tele_mobile1"=>$request->operateur1 . $request->mobile1,
-                "tele_mobile2"=>$request->operateur2 . $request->mobile2,
-                "group_sang"=>$request->gs,
-                "rhesus"=>$request->rh,
-                "Assurs_ID_Assure"=>$assurID,
-                "Type"=>$request->type,
-                "Type_p"=> $request->Type_p,
-                "description"=> $request->description,
-                "NSS"=>$request->nsspatient,
-                "Date_creation"=>$date,
-                "updated_at"=>$date,
-      ]);
-    $sexe = ($request->sexe == "H") ? 1:0;
-    $ipp =$sexe.$date->year.$patient->id;
-    $patient->update([
-           "IPP" => $ipp,
-    ]);
-    /*insert homme_c*/
-    if( $request->nom_homme_c!="") 
-           $homme = homme_conf::firstOrCreate([
-                 "id_patient"=>$patient->id,
-                 "nom"=>$request->nom_homme_c,
-                  "prénom"=>$request->prenom_homme_c, 
-                  "date_naiss"=>$request->datenaissance_h_c,
-                  "lien_par"=>$request->lien,
-                  "type_piece"=>$request->type_piece_id,
-                  "num_piece"=>$request->npiece_id,
-                  "date_deliv"=>$request->date_piece_id,
-                  "adresse"=>$request->adresseA,
-                  "mob"=>$request->operateur_h.$request->mobile_homme_c,
-                 "created_by"=>Auth::user()->employee_id,
-           ]);
-      Flashy::success('Patient créer avec succés!');// return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations'));
-      return redirect(Route('patient.show',$patient->id)); //return redirect(Route('patient.show',$patient->id,true));
     }
+    $assurID= $assurObj !=null ? $assurObj->id : null;//$codebarre =$request->sexe.$date->year."/".($nomb+1);
+    $patient = patient::firstOrCreate([
+              "Nom"=>$request->nom,// "code_barre"=>$codebarre,
+              "Prenom"=>$request->prenom,
+              "Dat_Naissance"=>$request->datenaissance,
+              "Lieu_Naissance"=>$request->idlieunaissance,
+              "Sexe"=>$request->sexe,
+              "situation_familiale"=>$request->sf, 
+              "Adresse"=>$request->adresse,
+              'commune_res'=>$request->idcommune,
+              'wilaya_res'=>$request->idwilaya,
+              "tele_mobile1"=>$request->operateur1 . $request->mobile1,
+              "tele_mobile2"=>$request->operateur2 . $request->mobile2,
+              "group_sang"=>$request->gs,
+              "rhesus"=>$request->rh,
+              "Assurs_ID_Assure"=>$assurID,
+              "Type"=>$request->type,
+              "Type_p"=> $request->Type_p,
+              "description"=> $request->description,
+              "NSS"=>$request->nsspatient,
+              "Date_creation"=>$date,
+              "updated_at"=>$date,
+    ]);
+  $sexe = ($request->sexe == "H") ? 1:0;
+  $ipp =$sexe.$date->year.$patient->id;
+  $patient->update([
+         "IPP" => $ipp,
+  ]);
+  /*insert homme_c*/
+  if( $request->nom_homme_c!="") 
+         $homme = homme_conf::firstOrCreate([
+               "id_patient"=>$patient->id,
+               "nom"=>$request->nom_homme_c,
+                "prénom"=>$request->prenom_homme_c, 
+                "date_naiss"=>$request->datenaissance_h_c,
+                "lien_par"=>$request->lien,
+                "type_piece"=>$request->type_piece_id,
+                "num_piece"=>$request->npiece_id,
+                "date_deliv"=>$request->date_piece_id,
+                "adresse"=>$request->adresseA,
+                "mob"=>$request->operateur_h.$request->mobile_homme_c,
+               "created_by"=>Auth::user()->employee_id,
+         ]);
+    Flashy::success('Patient créer avec succés!');// return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations'));
+    return redirect(Route('patient.show',$patient->id)); //return redirect(Route('patient.show',$patient->id,true));
+  }
 
     /**
      * Display the specified resource.
@@ -782,93 +782,91 @@ class PatientController extends Controller
                         ->select('communes.*','communes.id as id_Commune' ,'wilayas.*','wilayas.id as Id_wilaya')
                         ->where('nom_commune', 'LIKE', '%'.trim($request->com).'%')->get();
       }
-     public function patientsToMerege(Request $request)
-     {
-            $statuses = array();
-           $values;
-           $patientResult = new patient;
-           $patient1 = patient::FindOrFail($request->search[0]);
-           $patient2 = patient::FindOrFail($request->search[1]);    
-           $patients=[$patient1->getAttributes(),$patient2->getAttributes()];
-          foreach ($patientResult->getFillable() as $field) {
-              
-                $values = ArrayClass::pluck($patients, $field);      
-                // var_dump($values);echo("<br>");
-                ArrayClass::removeValue("", $values);
-                if (!count($values)) {
-                        $statuses[$field] = "none";
-                        continue;
-                }
-               $patientResult->$field = reset($values);
-                // One unique value
-                if (count($values) == 1) {
-                     $statuses[$field] = "unique";
-                     continue;
-                }
-                // Multiple values
-              $statuses[$field] = count(array_unique($values)) == 1 ? "duplicate" : "multiple";
-           }
-           // Count statuses
-           $counts = array(
-                  "none"      => 0,
-                  "unique"    => 0,
-                  "duplicate" => 0,
-                  "multiple"  => 0,
-           );
-           foreach ($statuses as $status) {
-                 $counts[$status]++;
-           }
-           //ArrayClass
-          $view = view("patient.ajax_patient_merge",compact('patientResult','patient1','patient2','statuses','counts'))->render();
-          return response()->json(['html'=>$view]);
+  public function patientsToMerege(Request $request)
+  {
+    $statuses = array();
+    $values;
+    $patientResult = new patient;
+    $patient1 = patient::FindOrFail($request->search[0]);
+    $patient2 = patient::FindOrFail($request->search[1]);    
+    $patients=[$patient1->getAttributes(),$patient2->getAttributes()];
+    foreach ($patientResult->getFillable() as $field) {
+      $values = ArrayClass::pluck($patients, $field);      
+      // var_dump($values);echo("<br>");
+      ArrayClass::removeValue("", $values);
+      if (!count($values)) {
+              $statuses[$field] = "none";
+              continue;
+      }
+     $patientResult->$field = reset($values);
+      // One unique value
+      if (count($values) == 1) {
+           $statuses[$field] = "unique";
+           continue;
+      }
+      // Multiple values
+        $statuses[$field] = count(array_unique($values)) == 1 ? "duplicate" : "multiple";
      }
-     public function merge(Request $request)
-     {
-          $patient1=patient::FindOrFail($request->patient1_id);
-          $patient2=patient::FindOrFail($request->patient2_id);
-           //chargement des consultation du patient2 
-          $consuls = consultation::where('Patient_ID_Patient',$request->patient2_id)->get();
-          $antecedants=antecedant::where('Patient_ID_Patient',$request->patient2_id)->get();
-           foreach ($antecedants as $key => $antecedant) {
-                     $antecedant->update(["Patient_ID_Patient"=>$patient1->id]);  
-          }
-          foreach ($consuls as $key => $consult) {
-                $consult->update(["Patient_ID_Patient"=>$patient1->id]);  
-          }
-          // tickets
-          $tickets = ticket::where('id_patient',$request->patient2_id)->get();
-           foreach ($tickets as $key => $ticket) {
-                $ticket->update(["id_patient"=>$patient1->id]);  
-           }
-           $rdvs = rdv::where('Patient_ID_Patient',$request->patient2_id)->get();
-           foreach ($rdvs as $key => $rdv) {
-                $rdv->update(["Patient_ID_Patient"=>$patient1->id]);  
-           }
-          $patient1 -> update([
-                "Nom"=>$request->nom,
-                "Prenom"=>$request->prenom,
-                "IPP"=>$request->code,
-                "Dat_Naissance"=>$request->datenaissance,
-                "Lieu_Naissance"=>$request->idlieunaissance,
-                "Sexe"=>$request->sexe,
-                "Adresse"=>$request->adresse,
-                "situation_familiale"=>$request->sf,
-                "tele_mobile1"=>$request->mobile1,
-                "tele_mobile2"=>$request->mobile2,
-                "group_sang"=>$request->gs,
-                "rhesus"=>$request->rh, 
-                "Assurs_ID_Assure"=>$patient1->Assurs_ID_Assure,
-                "Type"=>$request->type,
-                "Type_p"=>$request->Type_p,
-                "description"=>$request->description,
-                "NSS"=> $request->nss,    
-                "Date_creation"=>$request->date,  
-           ]);   
-           //desactiver patient 2
-           $patient2->active=0;$patient2->save();  
-           // return redirect()->route('patient.index')->with('success','Item created successfully!');      
-           //Flashy::info('le merge est fait', 'http://your-awesome-link.com');
-           Flashy::success('merge est fait avec succè');
-           Return View::make('patient.index');
+     // Count statuses
+     $counts = array(
+            "none"      => 0,
+            "unique"    => 0,
+            "duplicate" => 0,
+            "multiple"  => 0,
+     );
+     foreach ($statuses as $status) {
+           $counts[$status]++;
      }
+     //ArrayClass
+    $view = view("patient.ajax_patient_merge",compact('patientResult','patient1','patient2','statuses','counts'))->render();
+    return response()->json(['html'=>$view]);
+  }
+  public function merge(Request $request)
+  {
+    $patient1=patient::FindOrFail($request->patient1_id);
+    $patient2=patient::FindOrFail($request->patient2_id); //chargement des consultation du patient2 
+    $consuls = consultation::where('Patient_ID_Patient',$request->patient2_id)->get();
+    $antecedants=antecedant::where('Patient_ID_Patient',$request->patient2_id)->get();
+     foreach ($antecedants as $key => $antecedant) {
+               $antecedant->update(["Patient_ID_Patient"=>$patient1->id]);  
+    }
+    foreach ($consuls as $key => $consult) {
+          $consult->update(["Patient_ID_Patient"=>$patient1->id]);  
+    }
+    // tickets
+    $tickets = ticket::where('id_patient',$request->patient2_id)->get();
+     foreach ($tickets as $key => $ticket) {
+          $ticket->update(["id_patient"=>$patient1->id]);  
+     }
+     $rdvs = rdv::where('Patient_ID_Patient',$request->patient2_id)->get();
+     foreach ($rdvs as $key => $rdv) {
+          $rdv->update(["Patient_ID_Patient"=>$patient1->id]);  
+     }
+    $patient1 -> update([
+          "Nom"=>$request->nom,
+          "Prenom"=>$request->prenom,
+          "IPP"=>$request->code,
+          "Dat_Naissance"=>$request->datenaissance,
+          "Lieu_Naissance"=>$request->idlieunaissance,
+          "Sexe"=>$request->sexe,
+          "Adresse"=>$request->adresse,
+          "situation_familiale"=>$request->sf,
+          "tele_mobile1"=>$request->mobile1,
+          "tele_mobile2"=>$request->mobile2,
+          "group_sang"=>$request->gs,
+          "rhesus"=>$request->rh, 
+          "Assurs_ID_Assure"=>$patient1->Assurs_ID_Assure,
+          "Type"=>$request->type,
+          "Type_p"=>$request->Type_p,
+          "description"=>$request->description,
+          "NSS"=> $request->nss,    
+          "Date_creation"=>$request->date,  
+     ]);   
+     //desactiver patient 2
+     $patient2->active=0;$patient2->save();  
+     // return redirect()->route('patient.index')->with('success','Item created successfully!');      
+     //Flashy::info('le merge est fait', 'http://your-awesome-link.com');
+     Flashy::success('merge est fait avec succè');
+     Return View::make('patient.index');
+  }
 }

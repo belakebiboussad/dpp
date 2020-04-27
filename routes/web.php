@@ -187,7 +187,7 @@ Route::get('/patients/findprenom','PatientController@AutoCompletePatientPrenom')
 Route::get('/patients/findcom','PatientController@AutoCompleteCommune');
 Route::get('/patientdetail/{id}', 'PatientController@getPatientDetails');
 Route::get('/serviceRooms', 'ServiceController@getRooms');
-Route::get('/getPatientsToMerge','PatientController@patientsToMerege');
+Route::get('/patientsToMerge','PatientController@patientsToMerege');
 Route::post('/patient/merge','PatientController@merge');
 Route::get("flash","HomeController@flash");
 route::get('/home_reception',function (){
