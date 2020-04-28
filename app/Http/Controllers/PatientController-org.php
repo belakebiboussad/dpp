@@ -817,8 +817,8 @@ class PatientController extends Controller
             "Date_creation"=>$request->date,  
        ]);   
        $patient2->active=0;$patient2->save();  //desactiver patient 2
-       // return redirect()->route('patient.index')->with('success','Item created successfully!');   //Flashy::info('le merge est fait', 'http://your-awesome-link.com');      
-        Flashy::success('merge est fait avec succè');
+       // return redirect()->route('patient.index')->with('success','Item created successfully!');
+       Flashy::success('merge est fait avec succè');
        Return View::make('patient.index');
   }
 }

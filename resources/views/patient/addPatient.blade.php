@@ -355,21 +355,19 @@
 					</div>
 			</div>
 			<div class="space-12"></div>
-	
-			 <div class="row">
-				<div class="col-sm-5">
-					<!-- <div class="form-group" style="padding-left:10%;"> -->
-						<label class="col-sm-5 control-label" for="mobile1">
+	  	<div class="row">
+				<div class="col-sm-5">	<!-- <div class="form-group" style="padding-left:10%;"> -->
+					<label class="col-sm-5 control-label" for="mobile1">
 							<i class="fa fa-phone"></i>
 							<strong class="text-nowrap">Mob1 :</strong>
-						</label>
-						<div class="col-sm-3">
-							<select name="operateur1" id="operateur1" class="form-control" required="">
-							           <option value="">XX</option>
-							         	<option value="05">05</option>         
-							   	<option value="06">06</option>
-							           <option value="07">07</option>
-                       						</select>	
+					</label>
+					<div class="col-sm-3">
+						<select name="operateur1" id="operateur1" class="form-control" required="">
+					    <option value="">XX</option>
+					   	<option value="05">05</option>         
+					   	<option value="06">06</option>
+					    <option value="07">07</option>
+            </select>	
 						</div>
 						<input id="mobile1" name="mobile1"  maxlength =8 minlength =8 type="tel" autocomplete="off" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX" required />	
 					<!-- </div> -->

@@ -26,14 +26,14 @@
 	var values = new Array();
 	function doMerge()
 	{
-            $.ajax({
-	            type : 'get',
-	            url : '{{URL::to('patientsToMerge')}}',
-	            data:{'search':values},
-	            success:function(data,status, xhr){
-	            		$('#tablePatientToMerge').html(data.html);
-	            }
-  	      });
+    $.ajax({
+      type : 'get',
+      url : '{{URL::to('patientsToMerge')}}',
+      data:{'search':values},
+      success:function(data,status, xhr){
+      		$('#tablePatientToMerge').html(data.html);
+      }
+  });
 	}
 	function KeepCount() {
 		if($("input:checked").length >= 2){
