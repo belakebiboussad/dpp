@@ -101,35 +101,35 @@ class PatientController extends Controller
     if($request->type =="Ayant_droit")
     {    
       $assurObj = assur::firstOrCreate([
-                       "Nom"=>$request->nomf,
-                        "Prenom"=>$request->prenomf,
-                        "Date_Naissance"=>$request->datenaissancef,
-                        "lieunaissance"=>$request->idlieunaissancef,
-                        "Sexe"=>$request->sexef,
-                        "Matricule"=>$request->mat,
-                        "service"=>$request->servicef,
-                        "Grade"=>$request->grade,
-                        "Etat"=>$request->etatf,
-                        "NSS"=>$request->nss,
-                        "NMGSN"=>$request->NMGSN, 
-                  ]);            
+             "Nom"=>$request->nomf,
+              "Prenom"=>$request->prenomf,
+              "Date_Naissance"=>$request->datenaissancef,
+              "lieunaissance"=>$request->idlieunaissancef,
+              "Sexe"=>$request->sexef,
+              "Matricule"=>$request->mat,
+              "service"=>$request->servicef,
+              "Grade"=>$request->grade,
+              "Etat"=>$request->etatf,
+              "NSS"=>$request->nss,
+              "NMGSN"=>$request->NMGSN, 
+        ]);            
     }
     else
     {
       if( $request->type=="Assure")
       {
         $assurObj = assur::firstOrCreate([
-                              "Nom"=>$request->nom,
-                              "Prenom"=>$request->prenom,
-                              "Date_Naissance"=>$request->datenaissance,
-                              "lieunaissance"=>$request->idlieunaissancef,
-                              "Sexe"=>$request->sexe,
-                              "Matricule"=>$request->mat,
-                              "Service"=>$request->service,
-                              "Grade"=>$request->grade,
-                              "Etat"=>$request->etatf,
-                              "NSS"=>$request->nss,
-                              "NMGSN"=>$request->NMGSN, 
+              "Nom"=>$request->nom,
+              "Prenom"=>$request->prenom,
+              "Date_Naissance"=>$request->datenaissance,
+              "lieunaissance"=>$request->idlieunaissancef,
+              "Sexe"=>$request->sexe,
+              "Matricule"=>$request->mat,
+              "Service"=>$request->service,
+              "Grade"=>$request->grade,
+              "Etat"=>$request->etatf,
+              "NSS"=>$request->nss,
+              "NMGSN"=>$request->NMGSN, 
         ]);
 
       }

@@ -231,7 +231,6 @@ route::get('/getpatientconsigne','PatientController@getpatientconsigne');
 route::get('/choixpatvisite','VisiteController@choixpatvisite');
 route::get('/choixhospconsigne','ActeController@choixhospconsigne');
 route::get('/consigne','ActeController@choixhospconsigne');
-//////acte
 route::post('/saveActe','ActeController@store');
 //Route::resource('soins','SoinsController');
 /**************************/

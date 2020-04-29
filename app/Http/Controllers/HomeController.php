@@ -52,10 +52,8 @@ class HomeController extends Controller
                 case 2:
                       return view('home.home_recep');
                       break;
-                case 3:
-                     
-                     // return redirect()->route('HospitalisationController@index');
-                      return redirect()->action('HospitalisationController@index');
+                case 3:                    
+                      return redirect()->action('HospitalisationController@index');// return redirect()->route('HospitalisationController@index');
                       break;
                 case 4: 
                       $users = User::all();
@@ -97,30 +95,25 @@ class HomeController extends Controller
                                   $colloque[$col->id_colloque]["membres"][]="$col->Nom_Employe $col->Prenom_Employe";
                             }
                       }
-                      
                       return view('colloques.liste_colloque', compact('colloque'));
                       break;
-                case 9:
-                      $rdvs = rdv_hospitalisation::whereHas('admission.demandeHospitalisation', function($q){
-                                                  $q->where('etat', 'programme');
-                                                  })->where('etat_RDVh','=','en attente')
-                                                    ->where('date_RDVh','=',date("Y-m-d"))->get(); 
+                case 9:// $rdvs = rdv_hospitalisation::whereHas('admission.demandeHospitalisation', function($q){//$q->where('etat', 'programme');//})->where('etat_RDVh','=','en attente')//->where('date_RDVh','=',date("Y-m-d"))->get(); 
+                      $rdvs = rdv_hospitalisation::with('bedReservation')->whereHas('demandeHospitalisation', function($q){
+                                                   $q->where('etat', 'programme');
+                                                   })->where('etat_RDVh','=','en attente')->where('date_RDVh','=',date("Y-m-d"))->get(); 
                       return view('home.home_agent_admis', compact('rdvs'));
-                    break;       
+                      break;       
                 case 10:
                     $meds = medcamte::all();
                     $dispositifs = dispositif::all();
                     $reactifs = reactif::all();
                     return view('home.home_pharmacien', compact('meds','dispositifs','reactifs'));
-                    break;
-                
-                //Laborantin
-                case 11:
+                    break;   
+                case 11://Laborantin
                     $demandesexb = demandeexb::where('etat','E')->get();
                     return view('home.home_laboanalyses', compact('demandesexb'));
-                break;   
-                //radiologue
-                case 12:
+                    break;   
+                case 12://radiologue
                     $demandesexr = demandeexr::where('etat','E')->get();
                     return view('home.home_radiologue', compact('demandesexr')); 
                 case 14:
@@ -128,7 +121,6 @@ class HomeController extends Controller
                     $dispositifs = dispositif::all();
                     $reactifs = reactif::all();
                     return view('home.home_chef_ser', compact('meds','dispositifs','reactifs'));
-             
                 default:
                    return view('errors.500');
                    break;

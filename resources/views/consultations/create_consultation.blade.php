@@ -768,22 +768,22 @@ return (typeof this._super === "function") ? this._super(e) : this;}}}}});*/
 				</div> 
 		  </div>{{-- content --}}
   	</div>{{-- tabpanel --}}
+		</div><!-- row -->
+		<div class="row">
+			<div class="col-sm12">
+				<div class="center bottom" style="bottom:0px;">
+					<div id="error" aria-live="polite"></div>
+					<button class="btn btn-info btn-sm" type="submit" id="send">
+						<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
+					</button>
+					&nbsp; &nbsp; &nbsp;
+					<a href="{{ route('patient.show',$patient->id) }}" class="btn btn-info btn-sm">
+						<i class="ace-icon fa fa-close bigger-110"></i>Annuler
+					</a>
+				</div>	{{-- center --}}
+			</div>
+		</div><!-- row -->
 	</form>
-	</div><!-- row -->
-	<div class="row">
-		<div class="col-sm12">
-			<div class="center bottom" style="bottom:0px;">
-				<div id="error" aria-live="polite"></div>
-				<button class="btn btn-info btn-sm" type="submit" id="send">
-					<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
-				</button>
-				&nbsp; &nbsp; &nbsp;
-				<a href="{{ route('patient.show',$patient->id) }}" class="btn btn-info btn-sm">
-					<i class="ace-icon fa fa-close bigger-110"></i>Annuler
-				</a>
-			</div>	{{-- center --}}
-		</div>
-	</div><!-- row -->
 </div><!-- content     -->
 <div class="row">	@include('consultations.LettreOrientation')</div>
 <div class="row">	@include('consultations.DemadeHospitalisation')</div>

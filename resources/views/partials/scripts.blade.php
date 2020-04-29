@@ -350,17 +350,17 @@
           $(".starthidden").hide();  
       }else
       {
-               $('#NSSInput').addClass("hidden").hide().fadeIn();
-               $('#AssureInputs').addClass("hidden").hide().fadeIn();
-               $('#foncform').css('display', 'none');
-               $('#typepp').css('display', 'none');
-               $('#foncinput').css('display', 'none');
-               $('#nssinput').css('display', 'none');
-               $('#gradeinput').css('display', 'none');
-               $('#nssAssinput').addClass("hidden").hide().fadeIn();
-               $('#matinput').css('display', 'none');
-               $('#etatinput').css('display', 'none');
-               $(".starthidden").show();
+         $('#NSSInput').addClass("hidden").hide().fadeIn();
+         $('#AssureInputs').addClass("hidden").hide().fadeIn();
+         $('#foncform').css('display', 'none');
+         $('#typepp').css('display', 'none');
+         $('#foncinput').css('display', 'none');
+         $('#nssinput').css('display', 'none');
+         $('#gradeinput').css('display', 'none');
+         $('#nssAssinput').addClass("hidden").hide().fadeIn();
+         $('#matinput').css('display', 'none');
+         $('#etatinput').css('display', 'none');
+         $(".starthidden").show();
       }
 }
 }

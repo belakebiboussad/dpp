@@ -64,8 +64,7 @@
 					}
 				}	
 			});
-			/////////// Autocomletecommune de l'assure
-    $('#lieunaissancef').typeahead({
+		  $('#lieunaissancef').typeahead({	/////////// Autocomletecommune de l'assure
 				hint: true,
 				highlight: true,
 				minLength: 1
@@ -340,18 +339,17 @@
 			<div class="space-12"></div>		
 			<div class="row">
 					<div class="col-sm-4" style="padding-left:7%">
-						<label class="" for="adresse" ><strong>Adresse :&nbsp;</strong></label>
-					    <input type="text" value="" id="adresse" name="adresse" placeholder="Adresse..."/>
+						<label class="col-sm-3" for="adresse" ><strong>Adresse :&nbsp;</strong></label>
+					  <input type="text" value="" id="adresse" name="adresse" placeholder="Adresse..." class="col-sm-9"/>
 					</div>
 					<div class="col-sm-4" style="margin-top: -0.1%;">
-						<label><strong>Commune :</strong></label>
+						<label class="col-sm-3" for="commune"><strong>Commune :</strong></label>
 						<input type="hidden" name="idcommune" id="idcommune">
-					  <input type="text" value="" id="commune"  placeholder="commune..." />
+					  <input type="text" value="" id="commune"  placeholder="commune..." class="col-sm-9"/>
 					</div>
 					<div class="col-sm-4">
-					   <label><strong>Wilaya :</strong></label>
-					  	 <input type="hidden" name="idwilaya" id="idwilaya">
-					              <input type="text" value=""  id="wilaya" placeholder="wilaya..." />
+					  <label class="col-sm-3" for="wilaya"><strong>Wilaya :</strong></label>
+					  <input type="hidden" name="idwilaya" id="idwilaya"><input type="text" value=""  id="wilaya" placeholder="wilaya..." class="col-sm-9"/>
 					</div>
 			</div>
 			<div class="space-12"></div>

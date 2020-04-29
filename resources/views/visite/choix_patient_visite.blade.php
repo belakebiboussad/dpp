@@ -1,10 +1,9 @@
 @extends('app_recep')
 @section('main-content')
-    <div class="page-header">
-        <h1 style="display: inline;"><strong>Choix Du Patient :</strong></h1>
-    </div>
-   <!---->
-    <table id="patient-table-visite" class="table  table-bordered table-hover">
+  <div class="page-header">
+      <h1 style="display: inline;"><strong>Choix Du Patient :</strong></h1>
+  </div>
+  <table id="patient-table-visite" class="table  table-bordered table-hover">
     <thead>
         <tr>
 
@@ -19,7 +18,7 @@
 
     </thead>
     <tbody>
-     @foreach($patient as $p)
+     @foreach($patients as $p)
      <tr>
         <td> {{ $p->Nom }}</td>
         <td>{{ $p->Prenom }}</td>
@@ -27,14 +26,13 @@
         <td>{{ $p->Dat_Naissance }}</td>
         <td>{{ $p->Date_entree }}</td>
         <td>{{ $p->Date_Prevu_Sortie }}</td>
-        <td>    <a href="/visite/create/{{$p->id}}" class="btn btn-xs btn-success">
-                                        <i class="ace-icon fa fa-sign-in bigger-120"></i>
-                                        Ajouter une visite
-                                    </a>
-                      </td>
-        </tr>
+        <td>
+          <a href="/visite/create/{{$p->id}}" class="btn btn-xs btn-success">
+            <i class="ace-icon fa fa-sign-in bigger-120"></i>Ajouter une visite
+          </a>
+        </td>
+      </tr>
       @endforeach 
     </tbody>
-</table>
-
+  </table>
 @endsection
