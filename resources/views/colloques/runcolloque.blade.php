@@ -47,7 +47,7 @@
      	}
 	      },
         error:function(data){
-          alert('Error:', data);//console.log('Error:', data);
+          console.log('Error:', data);
         }
 			}); 
 	  }

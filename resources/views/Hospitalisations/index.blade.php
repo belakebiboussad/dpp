@@ -2,7 +2,7 @@
 @section('main-content')
 	<div class="page-header">
 		<h1>
-			<strong>Liste Des Hospitalisations :</strong>
+			<strong>Liste des Hospitalisations :</strong>
 		</h1>
 	</div><!-- /.page-header -->
 	<div class="col-xs-12 widget-container-col" id="widget-container-col-2">

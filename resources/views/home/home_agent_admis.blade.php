@@ -98,7 +98,7 @@
 		<div class="widget-body">
 			<div class="widget-main no-padding">
 				<table class="table table-striped table-bordered table-hover" id="liste_admissions">
-					<thead class="thin-border-bottom">
+					<thead class="thin-border-bottom thead-light">
 						<tr>
 							<th hidden></th>
 							<th>Patient</th>
@@ -147,19 +147,38 @@
 										<div class="modal-content">
 											<div class="modal-header">
 			        					<button type="button" class="close" data-dismiss="modal">&times;</button>
-			        					<h4 class="modal-title">confirmer l'entrée du patient:</h4>
+			        					<h4 class="modal-title">confirmer l'entrée du patient: </h4>
 			      					</div>
 			      					<div class="modal-body">
-			      						<p>
-			        						<h3>
-			        							<span  style="color: blue;">
-			        								<strong>
-			        							
-			        								</strong>
-			        							</span>
-			        						</h3>
-			        					 </p>
-			      					</div>
+			      						<div class="row">
+			      							<div class="col-sm-12">
+			      								<h3>
+			        								<span style="color: blue;"><strong>{{$rdv->demandeHospitalisation->consultation->patient->Nom}} &nbsp;{{$rdv->demandeHospitalisation->consultation->patient->Prenom}}</strong></span>
+			        							</h3>
+			      							</div>
+			        					</div>
+			        					<div class="row">
+			        					 	<div class="col-sm-12">
+				        					 	<h3>
+				        							le  &quot;<span  style="color: orange;"><strong>{{ $rdv->date_RDVh }}</strong></span>&quot; &nbsp;à &nbsp;<span style="color: red;">
+				        							<strong>{{Date("H:i")}}</strong></span>
+				        					  </h3>
+			        					 </div>	
+			        					</div>
+			      					</div><!-- modalbody -->
+			      					<form id="hospitalisation" class="form-horizontal" role="form" method="POST" action="{{route('hospitalisation.store')}}">
+			      					{{ csrf_field() }}
+				      					{{-- <input id="id_ad" type="text" name="id_ad" value="{{ $rdv->admission->id }}" hidden> --}}
+				      					<input id="id_RDV" type="text" name="id_RDV" value="{{$rdv->id}}" hidden>
+			      						<div class="modal-footer">
+			        						<button type="button" class="btn btn-default" data-dismiss="modal">
+			        									<i class="ace-icon fa fa-undo bigger-120"></i>Fermer
+			        						</button>
+			        						<button  type="submit" class="btn btn-success" >
+			        						  <i class="ace-icon fa fa-check bigger-120"></i>Valider
+			        						</button>
+			      						</div> 
+			      					</form>
 			      				</div>
 			      			</div>
 			      		</div>

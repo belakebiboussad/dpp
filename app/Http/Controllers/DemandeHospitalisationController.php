@@ -72,7 +72,6 @@ class DemandeHospitalisationController extends Controller
         ]);
         return redirect()->action('ConsultationsController@show',['id'=>$request->id_consultation]);
     }
-
     /**
      * Display the specified resource.
      *

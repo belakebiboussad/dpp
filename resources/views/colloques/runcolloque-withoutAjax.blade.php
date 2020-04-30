@@ -131,7 +131,7 @@ $('document').ready(function(){
 					          			<i class="fa fa-eye-slash" aria-hidden="true"></i>
 					          			<span class="sr-only">Details</span>
 					        		</a>
-					        		<a href="#" class="btn btn-success btn-xs aaaa"  title= "Valider demande"	onclick= "selectDemande(this,{{ $j }},{{$demande->id}});"><i class="ace-icon fa fa-check" ></i> Valider</a>     
+					        		<a href="#" class="btn btn-success btn-xs aaaa" title= "Valider demande"	onclick= "selectDemande(this,{{ $j }},{{$demande->id}});"><i class="ace-icon fa fa-check" ></i> Valider</a>     
 				        		</td>   			
 			      		</tr> 
 			      		<?php $j++ ?>

@@ -5,7 +5,7 @@
 				<div class="widget-header">
 					<h5 class="widget-title bigger lighter">
 						<i class="ace-icon fa fa-table"></i>
-						Liste des admission de la semaine
+						Liste des demandes de la semaine
 					</h5>
 				</div>
 				<div class="widget-body">

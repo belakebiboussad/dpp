@@ -22,13 +22,13 @@ class RdvHospiController extends Controller
   {
    	$employe = employ::where("id",Auth::user()->employee_id)->get()->first();
     $ServiceID = $employe->Service_Employe;
-   	$rdv = rdv_hospitalisation::firstOrCreate([
-            "date_RDVh"         =>$request->dateEntree,
-            "heure_RDVh"        =>$request->heure_rdvh,   
-            "id_admission"      =>$request->id_demande,       
-            "etat_RDVh"         =>"en attente",
-            "date_Prevu_Sortie" =>$request->dateSortiePre,
-            "heure_Prevu_Sortie" =>$request->heureSortiePrevue,
+    $rdv = rdv_hospitalisation::firstOrCreate([
+        "date_RDVh"         =>$request->dateEntree,
+        "heure_RDVh"        =>$request->heure_rdvh,   
+        "id_demande"        =>$request->id_demande,       
+        "etat_RDVh"         =>"en attente",
+        "date_Prevu_Sortie" =>$request->dateSortiePre,
+        "heure_Prevu_Sortie" =>$request->heureSortiePrevue,
     ]);
     if(isset($request->lit))
     { 
@@ -44,10 +44,29 @@ class RdvHospiController extends Controller
                                          $q->where('id',$ServiceID);                           
                                   })
                               ->whereHas('demandeHosp',function ($q){
-                                  $q->where('etat','valide'); 
+                                  $q->where('etat','valide'); //valier par le colloque
                               })->get(); 
     return view('rdvHospi.index', compact('demandes'));
-   	
     
+  }
+  public function getlisteRDVs()
+  {
+    $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
+    $ServiceID = $employe->Service_Employe; 
+    $rdvHospitalisation = rdv_hospitalisation::whereHas('demandeHospitalisation', function($q){
+                                                       $q->where('etat', 'programme');
+                                             })
+                                             ->whereHas('demandeHospitalisation.Service',function($q) use ($ServiceID){
+                                                  $q->where('id',$ServiceID);       
+                                             })->where('etat_RDVh','=','en attente')->get();                                        
+    return view('rdvHospi.listRDVs_hospitalisation', compact('rdvHospitalisation'));
+  }
+  public function edit($id)
+  {
+    $rdv =  rdv_hospitalisation::find($id);
+    $demande  = dem_colloque::where('dem_colloques.id_demande','=',$rdv->demandeHospitalisation->id)->first();
+    dd($demande);
+    $services = service::all();
+    return view('admission.edit_admission', compact('demande','services','rdv'));           
   }
 }

@@ -98,7 +98,7 @@ Route::resource('ticket','ticketController');
 Route::resource('service','ServiceController');
 Route::resource('exmbio','ExamenbioController');
 Route::resource('exmimg','ExmImgrieController');
-Route::get('hospitalisation/listeRDVs', 'HospitalisationController@getlisteRDVs');
+Route::get('hospitalisation/listeRDVs', 'RdvHospiController@getlisteRDVs');
 Route::get('hospitalisation/addRDV', 'HospitalisationController@ajouterRDV');
 Route::resource('hospitalisation','HospitalisationController');
 Route::resource('salle','SalleController');

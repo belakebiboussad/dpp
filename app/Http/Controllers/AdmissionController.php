@@ -100,15 +100,6 @@ class AdmissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-      $rdv =  rdv_hospitalisation::find($id);
-      $demande  = dem_colloque::where('dem_colloques.id_demande','=',$rdv->admission->demandeHospitalisation->id)->first();
-      $services = service::all();
-      return view('admission.edit_admission', compact('demande','services','rdv'));           
-    }
-
     /**
      * Update the specified resource in storage.
      *
