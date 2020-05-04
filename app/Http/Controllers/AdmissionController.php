@@ -159,7 +159,6 @@ class AdmissionController extends Controller
           $lit->affectation = 1;
           $lit->save();
       }
-      
       //annuler Rendez-Vous d'hospitalisation
       $rdvHospi->etat_RDVh="Annule";
       $rdvHospi->save();

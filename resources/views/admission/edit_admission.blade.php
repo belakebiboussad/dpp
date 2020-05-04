@@ -2,10 +2,9 @@
 @section('page-script')
 <script type="text/javascript">
 	 	$('document').ready(function(){
-	    var dateRDV = $('#dateEntree').val();
-	    var datefinRDV = 	$('#dateSortie').val();
-	    var debut = new Date(dateRDV);
-	    var fin = new Date(datefinRDV);
+	    // var dateRDV = $('#dateEntree').val();  //var datefinRDV =   $('#dateSortie').val();
+      var debut = new Date($('#dateEntree').val());
+	    var fin = new Date($('#dateSortie').val());
 	    var diff = new Date(fin - debut);
 	    $('#numberDays').val(diff/1000/60/60/24);
       $( "#RDVForm" ).submit(function( event ) {  
@@ -22,24 +21,28 @@
             dropdown: true,
             scrollbar: true
       });
+      $("input[type=number]").bind('keyup input', function(){
+        var datefin = new Date($('#dateEntree').val());//var a = parseInt($( this).val(), 10);
+        datefin.setDate(debut.getDate() + parseInt($( this).val(), 10));
+        $('#dateSortie').val(datefin)
+      
+      });
 	  });
 </script>
 @endsection
-@section('main-content')
-<div class="page-header">
-			<h1>
-				Modifier Un RDV Hospitalisation pour <strong>&laquo;{{$demande->demandeHosp->consultation->patient->Nom}}
-				 {{$demande->demandeHosp->consultation->patient->Prenom}}&raquo;</strong>
-			</h1>
-</div><!-- /.page-header -->
-<div class="space-12"></div>
+@section('main-content')<!-- <div class="page-header"></div> --><!-- /.page-header -->
+<div class="row">
+  <h1>
+    Modifier Un RDV Hospitalisation pour <strong>&laquo;{{$demande->demandeHosp->consultation->patient->Nom}}
+    {{$demande->demandeHosp->consultation->patient->Prenom}}&raquo;</strong>
+  </h1>
+</div>	
 <div class="row">
   <div class="col-xs-12">
     <!-- {{ route('admission.update', $rdv->id) }} -->
     <form class="form-horizontal" id="RDVForm" role="form" method="POST" action="/admission/reporter/{{$rdv->id}}">
       {{ csrf_field() }}
-      <!-- <input type="text" name="id_demande" value="{{$demande->id_demande}}" hidden> -->
-      <input type="text" name="id" value="{{$rdv->id}}" hidden>
+      <input type="text" name="id" value="{{$rdv->id}}" hidden>  <!-- <input type="text" name="id_demande" value="{{$demande->id_demande}}" hidden> -->
       <div class="page-header">
             <h1>informations concernant l'hospitalisation</h1>
       </div>
@@ -69,7 +72,7 @@
           </label>
           <div class="col-sm-9">
             <input  type="text" id="motif" name="motifhos" placeholder="Mode d'admission"
-                    value="{{ $demande->modeAdmission }}" class="col-xs-10 col-sm-5" disabled/>
+            value="{{ $demande->modeAdmission }}" class="col-xs-10 col-sm-5" disabled/>
           </div>  
         </div>
       </div><!-- row -->
@@ -150,8 +153,7 @@
             <strong> Durée Prévue :</strong>
           </label>
           <div class="col-sm-9">
-            <input class="col-xs-5 col-sm-5" id="numberDays" name="" type="number" value="soustraction"
-                   min="0" max="50" value="0" required />
+            <input class="col-xs-5 col-sm-5" id="numberDays" name="numberDays" type="number" value="soustraction" min="0" max="50" value="0" required/>
             <label for=""><small><strong>&nbsp;nuit(s)</strong></small></label>
           </div>  
         </div>

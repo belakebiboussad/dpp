@@ -65,8 +65,8 @@ class RdvHospiController extends Controller
   {
     $rdv =  rdv_hospitalisation::find($id);
     $demande  = dem_colloque::where('dem_colloques.id_demande','=',$rdv->demandeHospitalisation->id)->first();
-    dd($demande);
     $services = service::all();
+    // return view('rdvHospi.edit', compact('demande','services','rdv'));
     return view('admission.edit_admission', compact('demande','services','rdv'));           
   }
 }
