@@ -63,7 +63,7 @@ class RdvHospiController extends Controller
   }
   public function edit($id)
   {
-    $rdv =  rdv_hospitalisation::find($id);
+    $rdv =  rdv_hospitalisation::with('bedReservation')->find($id);
     $demande  = dem_colloque::where('dem_colloques.id_demande','=',$rdv->demandeHospitalisation->id)->first();
     $services = service::all();
     // return view('rdvHospi.edit', compact('demande','services','rdv'));

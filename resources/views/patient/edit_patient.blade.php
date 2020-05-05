@@ -302,7 +302,7 @@
 @endsection
 @section('main-content')
 <div class="page-header">
-	<h1 style="display: inline;"><strong>modification Du Patient :</strong> {{ $patient->Nom }} {{ $patient->Prenom }}</h1>
+	<h1 style="display: inline;"><strong>modification du Patient :</strong> {{ $patient->Nom }} {{ $patient->Prenom }}</h1>
 	<div class="pull-right">
 		<a href="{{route('patient.index')}}" class="btn btn-white btn-info btn-bold">
 			<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>
