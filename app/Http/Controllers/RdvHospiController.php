@@ -52,14 +52,16 @@ class RdvHospiController extends Controller
   public function getlisteRDVs()
   {
     $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
-    $ServiceID = $employe->Service_Employe; 
-    $rdvHospitalisation = rdv_hospitalisation::whereHas('demandeHospitalisation', function($q){
+    $ServiceID = $employe->Service_Employe;
+    $rdvHospis = rdv_hospitalisation::whereHas('demandeHospitalisation', function($q){
                                                        $q->where('etat', 'programme');
                                              })
                                              ->whereHas('demandeHospitalisation.Service',function($q) use ($ServiceID){
                                                   $q->where('id',$ServiceID);       
-                                             })->where('etat_RDVh','=','en attente')->get();                                        
-    return view('rdvHospi.listRDVs_hospitalisation', compact('rdvHospitalisation'));
+                                             })->where('etat_RDVh','=','en attente')->get();
+
+                     
+    return view('rdvHospi.listRDVs_hospitalisation', compact('rdvHospis'));
   }
   public function edit($id)
   {
@@ -68,5 +70,9 @@ class RdvHospiController extends Controller
     $services = service::all();
     // return view('rdvHospi.edit', compact('demande','services','rdv'));
     return view('admission.edit_admission', compact('demande','services','rdv'));           
+  }
+  public function update(Request $request,$id)
+  {
+    dd($id);
   }
 }

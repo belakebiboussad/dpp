@@ -95,10 +95,17 @@
         try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
         function addDays()
         {
+          /*
             var jsDate = $('#dateEntree').datepicker('getDate');
             jsDate.setDate(jsDate.getDate() + parseInt($('#numberDays').val()));
             var dateEnd = jsDate.getFullYear() + '-' + (jsDate.getMonth()+1) + '-' + jsDate.getDate();
-            $("#dateSortiePre").datepicker("setDate", dateEnd);    
+            $("#dateSortiePre").datepicker("setDate", dateEnd);
+           */
+
+            var datefin = new Date($('#dateEntree').val());
+            datefin.setDate(datefin.getDate() + parseInt($('#numberDays').val(), 10));
+            $("#dateSortiePre").val(moment(datefin).format("YYYY-MM-DD"));
+            
         }
         $('document').ready(function(){
             $('.filelink' ).click( function( e ) {

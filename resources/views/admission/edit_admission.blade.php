@@ -4,11 +4,11 @@
 	 	$('document').ready(function(){
 	    // var dateRDV = $('#dateEntree').val();  //var datefinRDV =   $('#dateSortie').val();
       var debut = new Date($('#dateEntree').val());
-	    var fin = new Date($('#dateSortie').val());
+	    var fin = new Date($('#dateSortiePre').val());
 	    var diff = new Date(fin - debut);
 	    $('#numberDays').val(diff/1000/60/60/24);
       $( "#RDVForm" ).submit(function( event ) {  
-  				$("#dateSortie").prop('disabled', false);
+  				$("#dateSortiePre").prop('disabled', false);
   	  });
   	  $('.timepicker').timepicker({
             timeFormat: 'HH:mm',
@@ -21,11 +21,8 @@
             dropdown: true,
             scrollbar: true
       });
-      $("input[type=number]").bind('keyup input', function(){
-        var datefin = new Date($('#dateEntree').val());
-        datefin.setDate(debut.getDate() + parseInt($( this).val(), 10));
-        $("#dateSortie").val(moment(datefin).format("YYYY-MM-DD"));
-      });
+      // $("input[type=number]").bind('keyup input', function(){//   var datefin = new Date($('#dateEntree').val());
+      //   datefin.setDate(debut.getDate() + parseInt($( this).val(), 10));//$("#dateSortiePre").val(moment(datefin).format("YYYY-MM-DD"));// });
 	  });
 </script>
 @endsection
@@ -41,7 +38,8 @@
 </div>
 <div class="row">
   <div class="col-xs-12">
-    <form class="form-horizontal" id="RDVForm" role="form" method="POST" action="/admission/reporter/{{$rdv->id}}"><!-- {{ route('admission.update', $rdv->id) }} -->
+  {{-- /admission/reporter/{{$rdv->id}} --}}
+    <form class="form-horizontal" id="RDVForm" role="form" method="POST" action="route('rdvHospi.update',$rdv->id) }}"><!-- {{ route('admission.update', $rdv->id) }} -->
       {{ csrf_field() }}
       <input type="text" name="id" value="{{$rdv->id}}" hidden>  <!-- <input type="text" name="id_demande" value="{{$demande->id_demande}}" hidden> -->
       <div class="row">
@@ -61,19 +59,19 @@
            </div>
           </div>
           <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-4 control-label no-padding-right" for="motif">
+            <label class="col-sm-4 control-label no-padding-right" for="specialite">
               <strong>Specialite :</strong>
             </label>
             <div class="col-sm-8 col-xs-8">
-              <input type="text" id="motif" name="motifhos" value="{{ $demande->demandeHosp->Specialite->nom }}" class="col-xs-12 col-sm-12" disabled/>
+              <input type="text" id="specialite" name="specialite" value="{{ $demande->demandeHosp->Specialite->nom }}" class="col-xs-12 col-sm-12" disabled/>
             </div>  
           </div>
           <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-4 control-label no-padding-right no-wrap" for="motif">
+            <label class="col-sm-4 control-label no-padding-right no-wrap" for="mode">
               <strong>Mode admis.:</strong>
             </label>
             <div class="col-sm-8 col-xs-8">
-               <input  type="text" id="motif" name="motifhos" value="{{ $demande->demandeHosp->modeAdmission }}" class="col-xs-12 col-sm-12" disabled/>
+               <input  type="text" id="mode" name="mode" value="{{ $demande->demandeHosp->modeAdmission }}" class="col-xs-12 col-sm-12" disabled/>
             </div>
           </div>
         </div>
@@ -82,11 +80,11 @@
       <div class="row">
         <div class="col-sm-12">
           <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-4 col-xs-4 control-label no-padding-right no-wrap" for="motif">
+            <label class="col-sm-4 col-xs-4 control-label no-padding-right no-wrap" for="medecin">
                <strong>Medecin Trait.:</strong>
             </label>
             <div class="col-sm-8 col-xs-8">
-              <input type="text" id="motif" name="motifhos" value="{{$demande->medecin->Nom_Employe}} {{$demande->medecin->Prenom_Employe}}" class="col-xs-12 col-sm-12" disabled/>
+              <input type="text" id="medecin" name="medecin" value="{{$demande->medecin->Nom_Employe}} {{$demande->medecin->Prenom_Employe}}" class="col-xs-12 col-sm-12" disabled/>
             </div>  
           </div>
           <div class="col-sm-4 col-xs-4">
@@ -134,7 +132,7 @@
             </label>
             <div class="input-group col-sm-6 col-xs-6">
               <div class="input-group col-sm-12">  
-                <input id="dateEntree" name="dateEntree" class="form-control date-picker" type="text" value = "{{ $rdv->date_RDVh }}" required />
+                <input id="dateEntree" name="dateEntree" class="form-control date-picker" type="text" value = "{{ $rdv->date_RDVh }}" data-date-format="yyyy-mm-dd" required />
                 <span class="input-group-addon">
                   <i class="fa fa-calendar bigger-110"></i>
                 </span>           
@@ -167,11 +165,11 @@
       <div class="row">
         <div class="col-sm-12"> 
           <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-6 control-label no-padding-right" for="dateSortie">
+            <label class="col-sm-6 control-label no-padding-right" for="dateSortiePre">
               <strong> Date sortie prévue :</strong>
             </label>
             <div class="input-group col-sm-6 col-xs-6">
-              <input class="form-control date-picker" id="dateSortie" name="dateSortie" type="text" value = "{{ $rdv->date_Prevu_Sortie }}" data-date-format="yyyy-mm-dd" required disabled />
+              <input class="form-control date-picker" id="dateSortiePre" name="dateSortiePre" type="text" value = "{{ $rdv->date_Prevu_Sortie }}" data-date-format="yyyy-mm-dd" required disabled />
               <span class="input-group-addon">
                 <i class="fa fa-calendar bigger-110"></i>
               </span>           
@@ -196,7 +194,7 @@
         </div>
       </div>
       <div class="space-12"></div>
-      {{-- @if(isset($rdv->bedReservation->id_lit))--}}
+      @if(isset($rdv->bedReservation->id_lit))
       <div class="row">
         <div class="col-sm-12">
           <div class="col-sm-4 col-xs-4">
@@ -221,13 +219,13 @@
             <div class="col-sm-8">
               <select id="salle" name="salle" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12">
                 <option value="0" selected>selectionnez la salle d'hospitalisation</option>      
-                @if(isset($rdv->bedReservation->id_lit))
+              
                 @foreach($rdv->bedReservation->lit->salle->service->salles as $salle)
                 <option value="{{ $salle->id }}" @if($rdv->bedReservation->lit->salle->id == $salle->id) selected @endif >
                   {{ $salle->nom }}
                 </option>
                 @endforeach
-                @endif
+               
               </select>
             </div>
           </div>
@@ -239,7 +237,7 @@
               <select id="lit" name="lit" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12">
                 <option value="0" selected>selectionnez le lit d'hospitalisation</option>      
                 @foreach($rdv->bedReservation->lit->salle->lits as $lit)
-                <option value="{{ $lit->id }}" @if((isset($rdv->bedReservation->id_lit)) && ($rdv->bedReservation->lit->id == $lit->id)) selected @endif >
+                <option value="{{ $lit->id }}" @if($rdv->bedReservation->lit->id == $lit->id) selected @endif >
                    {{ $lit->nom }}
                  </option>
                 @endforeach
@@ -248,15 +246,14 @@
           </div>
         </div>
       </div> 
-    {{--
-    @else
-       <div class="row form group">
+      @else
+      <div class="row form group">
         <div class="col-xs-4">
             <label class="col-sm-4 control-label no-padding-right" for="dateSortie">
               <strong> Service :</strong>
             </label>
             <div class="col-sm-8">
-              <select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9"
+              <select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12"
                       placeholder="selectionnez le service d'hospitalisation" required/>
                    <option value="" selected>selectionnez le service d'hospitalisation</option>
                   @foreach($services as $service)
@@ -271,7 +268,7 @@
             </label>
             <div class="col-sm-8">
               <select id="salle" name="salle" data-placeholder="selectionnez la salle d'hospitalisation"
-                      class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9">
+                      class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" disabled>
                 <option value="" selected>selectionnez la salle d'hospitalisation</option>      
               </select>
             </div>
@@ -283,15 +280,13 @@
             </label>
             <div class="col-sm-8">
               <select id="lit" name="lit" data-placeholder="selectionnez le lit" 
-                      class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9">
+                      class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12">
                 <option value="" selected>selectionnez le lit d'hospitalisation</option>      
               </select>
             </div>  
         </div>
       </div><!-- ROW -->
-
       @endif
-       --}}
       <div class="space-12"></div>
       <div class="space-12"></div>
       <div class="space-12"></div>
@@ -301,10 +296,6 @@
             <button class="btn btn-info" type="submit">
               <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
             </button>
-          <!--  &nbsp; &nbsp; &nbsp;
-            <button class="btn" type="reset">
-              <i class="ace-icon fa fa-undo bigger-110"></i>Annuler
-            </button> -->
             <a href="/hospitalisation/listeRDVs" class="btn btn-warning" >
                 <i class="ace-icon fa fa-undo bigger-110"></i>Annuler
             </a>

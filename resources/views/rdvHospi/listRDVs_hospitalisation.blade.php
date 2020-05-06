@@ -46,7 +46,7 @@
 						</thead>
 						<tbody id ="rendez-VousBody" class="bodyClass">
 							<?php $j = 0; ?>
-							@foreach( $rdvHospitalisation as $i=>$rdv)
+							@foreach( $rdvHospis as $i=>$rdv)
 						  <tr>
 								<td hidden>{{$j}}</td>	
 						    <td class="center">

@@ -124,10 +124,8 @@ class AdmissionController extends Controller
     }
   
     public function annulerRDV($id)
-    {
-     
+    {     
       $rdvHospi =  rdv_hospitalisation::find($id); 
-     
       if(isset($rdvHospi->admission->id_lit))
       {
         $rdvHospi->admission->lit->affectation=0;
@@ -145,41 +143,28 @@ class AdmissionController extends Controller
     {
       $rdvHospi =  rdv_hospitalisation::find($rdv_id);
       //liberer le lit affecter
-      if(isset($rdvHospi->admission->id_lit))
+      if(isset($rdvHospi->bedReservation->id_lit))
       {
-      
-        $rdvHospi->admission->lit->affectation=0;
-        $rdvHospi->admission->lit->save();  
+        $rdvHospi->bedReservation->lit->affectation=0;
+        $rdvHospi->bedReservation->lit->save();  
       } 
-    
       // reserver le nouveau lit
       if(isset($request->lit))  
       {
-          $lit = Lit::find($request->lit);
-          $lit->affectation = 1;
-          $lit->save();
+        $lit = Lit::find($request->lit);
+        $lit->affectation = 1;
+        $lit->save();
       }
-      //annuler Rendez-Vous d'hospitalisation
-      $rdvHospi->etat_RDVh="Annule";
-      $rdvHospi->save();
-      //créer une nouvelle admission
-      $adm=admission::create([     
-              "id_demande"=>$rdvHospi->admission->id_demande,       
-              "id_lit"=>$request->lit,
-      ]);
-      //supprimer l'admission de l'ancien RDVH      
-      $rdvHospi->admission->delete();
-      //crée un nouveu Rendez-Vous
-      $rdv = rdv_hospitalisation::firstOrCreate([
+      //update un nouveu Rendez-Vous
+      $rdvHospi->update([
             "date_RDVh"=>$request->dateEntree,
             "heure_RDVh"=>$request->heure_rdvh,   
-            "id_admission"=>$adm->id,       
+            "id_demande"=>$rdvHospi->demandeHospitalisation->id,       
             "etat_RDVh"=>"en attente",
-            "date_Prevu_Sortie"=>$request->dateSortie,
+            "date_Prevu_Sortie"=>$request->dateSortiePre,
             "heure_Prevu_Sortie" =>$request->heureSortiePrevue,
       ]);
-      return redirect()->action('HospitalisationController@getlisteRDVs');
-
+      return redirect()->action('RdvHospiController@getlisteRDVs');
     }
     public function affecterLit()
     {
