@@ -196,7 +196,7 @@
         </div>
       </div>
       <div class="space-12"></div>
-      @if(isset($rdv->bedReservation->id_lit))
+      {{-- @if(isset($rdv->bedReservation->id_lit))--}}
       <div class="row">
         <div class="col-sm-12">
           <div class="col-sm-4 col-xs-4">
@@ -221,11 +221,13 @@
             <div class="col-sm-8">
               <select id="salle" name="salle" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12">
                 <option value="0" selected>selectionnez la salle d'hospitalisation</option>      
+                @if(isset($rdv->bedReservation->id_lit))
                 @foreach($rdv->bedReservation->lit->salle->service->salles as $salle)
-                <option value="{{ $salle->id }}" @if((isset($rdv->bedReservation->id_lit)) && ($rdv->bedReservation->lit->salle->id == $salle->id)) selected @endif >
+                <option value="{{ $salle->id }}" @if($rdv->bedReservation->lit->salle->id == $salle->id) selected @endif >
                   {{ $salle->nom }}
                 </option>
                 @endforeach
+                @endif
               </select>
             </div>
           </div>
@@ -246,8 +248,9 @@
           </div>
         </div>
       </div> 
+    {{--
     @else
-      <div class="row form group">
+       <div class="row form group">
         <div class="col-xs-4">
             <label class="col-sm-4 control-label no-padding-right" for="dateSortie">
               <strong> Service :</strong>
@@ -286,7 +289,9 @@
             </div>  
         </div>
       </div><!-- ROW -->
+
       @endif
+       --}}
       <div class="space-12"></div>
       <div class="space-12"></div>
       <div class="space-12"></div>
