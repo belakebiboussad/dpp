@@ -13,21 +13,27 @@ class Lit extends Model
     public function salle() {
     	return $this->belongsTo('App\modeles\salle','salle_id');
     }
-      public function isFree($idlit, $start , $end)
+      public function isFree($start , $end)
       {
-             /* 
-        	$reservations  =  bedReservation::whereHas('lit',function($q) use($idlit){$q->where('id',$idlit)->where('etat',1);})->whereHas('rdvHosp',function ($q)use($start,$end){  $q->where('date_RDVh','<=',$end)->where('date_Prevu_Sortie','>',$start); })->get(); 	
-        	if($reservations->count() >0 )  return false;  else  return true; 
-            */
-              $free =true;
-             $reservations    =     bedReservation::whereHas('lit',function($q) use($idlit){
-                                                    $q->where('id',$idlit);
-                                              })->get();  
-             
-             foreach ($reservations as $key => $reservation) {
-                    if((strtotime($reservation->rdvHosp->date_RDVh) <= $end) || (strtotime($reservation->rdvHosp->date_Prevu_Sortie) > $start))
-                          $free = false;  
-             }
-             return $free;
+        /* 
+      	$reservations  =  bedReservation::whereHas('lit',function($q) use($idlit){$q->where('id',$idlit)->where('etat',1);})->whereHas('rdvHosp',function ($q)use($start,$end){  $q->where('date_RDVh','<=',$end)->where('date_Prevu_Sortie','>',$start); })->get(); 	
+      	if($reservations->count() >0 )  return false;  else  return true; 
+        */
+        $free =true;
+        $idlit = $this->id;// $lit =Lit::FindOrFail($idlit);
+        if($this->etat == 0)
+          $free = false;
+        else
+        {
+          $reservations =  bedReservation::whereHas('lit',function($q) use($idlit){
+                                                  $q->where('id',$idlit);
+                                            })->get();   
+          foreach ($reservations as $key => $reservation) {
+            if((strtotime($reservation->rdvHosp->date_RDVh) <= $end) || (strtotime($reservation->rdvHosp->date_Prevu_Sortie) > $start))
+              $free = false;
+          }    
+        }
+        
+        return $free;
       }
 }

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\modeles\lit;
 use App\modeles\salle;
 use App\modeles\service;
-
+use Response;
 class LitsController extends Controller
 {
     /**
@@ -127,16 +127,31 @@ class LitsController extends Controller
     // $salleid
     public function getlits(Request $request)
     {
-             //on retourne pas les lits bloque ou occupé 
-             $salle =salle::FindOrFail($request->SalleID);
-             foreach ($salle->lits as $key => $lit) {  
-                    $free = $lit->isFree($lit->id,strtotime($request->StartDate),strtotime($request->EndDate));
-                    if( !$free)
-                    {
-                          $salle->lits->pull($key);//$lits->push($lit);
-                    } 
-             }
-            return $salle->lits; // $lits = lit::where('salle_id',$salleid)->where('etat',1)->where("affectation",0)->get();
+        
+        //on retourne pas les lits bloque ou occupé 
+        $salle =salle::FindOrFail($request->SalleID);
+        
+        foreach ($salle->lits as $key => $lit) {  
+            $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate));
+            if( !$free)
+            {
+                  $salle->lits->pull($key);//$lits->push($lit);
+            } 
+        }
+        return $salle->lits; //vrai
+        //return($salle->lits->count());
+        // $lits = lit::where('salle_id',$salleid)->where('etat',1)->where("affectation",0)->get();
+        
+        // $lit =Lit::FindOrFail(5);
+        // $libre = $lit->isFree(5,1588204800,1588291200);
+        // if(! $libre)    
+        //     return ("reserve");    
+        // else
+        //     return("libre");
+
+        // return (Response::json());
+
+        
     }
 
 }

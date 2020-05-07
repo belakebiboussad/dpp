@@ -79,7 +79,10 @@ class RdvHospiController extends Controller
              //liberer le lit affecter
              if(isset($rdvHospi->bedReservation->id_lit))
              {
-                    $rdvHospi->bedReservation()->delete();
+
+                $rdvHospi->bedReservation->lit->affectation=0;
+                $rdvHospi->bedReservation->lit->save();
+                $rdvHospi->bedReservation()->delete();
              } 
             // reserver le nouveau lit
              if(isset($request->lit))

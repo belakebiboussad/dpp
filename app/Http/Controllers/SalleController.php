@@ -11,29 +11,11 @@ use MessageBag;
 use Response;
 class SalleController extends Controller
 {
-      /**
-       * Display a listing of the resource.
-       *
-       * @return \Illuminate\Http\Response
-       */
-      public function getsalles(Request $request)
-      {
-             $salles = salle::where('service_id',$request->ServiceID)->where('etat','Non bloquee')->get();
-             foreach ($salles as $key1 => $salle) {
-                   foreach ($salle->lits as $key => $lit) {
-                          $free = $lit->isFree($lit->id,strtotime($request->StartDate),strtotime($request->EndDate)); 
-                          if(! $free)
-                          {
-                              $salle->lits->pull($key);
-                          }
-                    }
-             }
-             foreach ($salles as $key => $salle) {
-                    if((count($salle->lits) == 0))
-                      $salles->pull($key);
-              }
-             return $salles;
-    }
+  /**
+   * Display a listing of the resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
     public function index()
     {
         $salles = salle::all();
@@ -137,5 +119,23 @@ class SalleController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function getsalles(Request $request)
+    {
+         $salles = salle::where('service_id',$request->ServiceID)->where('etat','Non bloquee')->get();
+         foreach ($salles as $key1 => $salle) {
+               foreach ($salle->lits as $key => $lit) {
+                      $free = $lit->isFree($lit->id,strtotime($request->StartDate),strtotime($request->EndDate)); 
+                      if(! $free)
+                      {
+                          $salle->lits->pull($key);
+                      }
+                }
+         }
+         foreach ($salles as $key => $salle) {
+                if((count($salle->lits) == 0))
+                  $salles->pull($key);
+          }
+         return $salles;
     }
 }

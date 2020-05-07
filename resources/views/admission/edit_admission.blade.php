@@ -220,7 +220,6 @@
             <div class="col-sm-8">
               <select id="salle" name="salle" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12">
                 <option value="0" selected>selectionnez la salle d'hospitalisation</option>      
-              
                 @foreach($rdv->bedReservation->lit->salle->service->salles as $salle)
                 <option value="{{ $salle->id }}" @if($rdv->bedReservation->lit->salle->id == $salle->id) selected @endif >
                   {{ $salle->nom }}
@@ -236,11 +235,12 @@
             </label>
             <div class="col-sm-8">
               <select id="lit" name="lit" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12">
-                <option value="0" selected>selectionnez le lit d'hospitalisation</option>      
+                <option value="{{ $rdv->bedReservation->id_rdvHosp }}">{{ $rdv->bedReservation->lit->nom }} </option>
                 @foreach($rdv->bedReservation->lit->salle->lits as $lit)
-                <option value="{{ $lit->id }}" @if($rdv->bedReservation->lit->id == $lit->id) selected @endif >
-                   {{ $lit->nom }}
-                 </option>
+                  
+                  @if($lit->isFree(strtotime($rdv->bedReservation->rdvHosp->date_RDVh),strtotime($rdv->bedReservation->rdvHosp->date_Prevu_Sortie))) 
+                  <option value="{{ $lit->id }}">{{ $lit->nom }}</option>
+                  @endif
                 @endforeach
               </select>
             </div> 

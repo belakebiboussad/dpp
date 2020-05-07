@@ -95,31 +95,26 @@
         try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
         function addDays()
         {
-          /*
-            var jsDate = $('#dateEntree').datepicker('getDate');
-            jsDate.setDate(jsDate.getDate() + parseInt($('#numberDays').val()));
-            var dateEnd = jsDate.getFullYear() + '-' + (jsDate.getMonth()+1) + '-' + jsDate.getDate();
-            $("#dateSortiePre").datepicker("setDate", dateEnd);
-           */
-
-            var datefin = new Date($('#dateEntree').val());
-            datefin.setDate(datefin.getDate() + parseInt($('#numberDays').val(), 10));
-            $("#dateSortiePre").val(moment(datefin).format("YYYY-MM-DD"));
+/*var jsDate = $('#dateEntree').datepicker('getDate');jsDate.setDate(jsDate.getDate() + parseInt($('#numberDays').val()));
+var dateEnd = jsDate.getFullYear() + '-' + (jsDate.getMonth()+1) + '-' + jsDate.getDate(); $("#dateSortiePre").datepicker("setDate", dateEnd);*/
+          var datefin = new Date($('#dateEntree').val());
+          datefin.setDate(datefin.getDate() + parseInt($('#numberDays').val(), 10));
+          $("#dateSortiePre").val(moment(datefin).format("YYYY-MM-DD"));
             
         }
-        $('document').ready(function(){
-            $('.filelink' ).click( function( e ) {
+        $("document").ready(function(){
+            $(".filelink" ).click( function( e ) {
                 e.preventDefault();  
             });
-            $('#dateSortie').attr('readonly', true);
-            $('#dateEntree').change(function(){
+            $("#dateSortie").attr('readonly', true);
+            $("#dateEntree").change(function(){
                 $('#numberDays').val(0);                
                 addDays();
             });
-            $('#numberDays').on('click keyup', function() {
+            $("#numberDays").on('click keyup', function() {
                 addDays();
             });
-            $('#serviceh').change(function(){
+            $("#serviceh").change(function(){
                 var attr = $('#salle').attr('disabled');
                 if (typeof attr !== typeof undefined && attr !== false) {
                     $('#salle').removeAttr("disabled");
@@ -161,7 +156,7 @@
                     });   
                 }                 
              });
-             $('#salle').change(function(){
+             $("#salle").change(function(){
                     $('#lit').removeAttr("disabled");
                     var start = $('#dateEntree').val();
                     var end = $("#dateSortiePre").val();
@@ -175,24 +170,25 @@
                                 EndDate: end,
                           }, //dataType : 'json', 
                           success: function(data, textStatus, jqXHR){
-                                var selectLit = $('#lit').empty();
-                                if(data.length != 0){
-                                    selectLit.append("<option value=''>Selectionnez le lit</option>");
-                                    $.each(data,function(){
-                                        selectLit.append("<option value='"+this.id+"'>"+this.nom+"</option>");
-                                    });
-                                }
-                                else
-                                {
-                                    selectLit.append('<option value="" selected disabled>Pas de Lit libre</option>');
-                                }  
+                            var selectLit = $('#lit').empty();                          
+                            if(data.length != 0){
+                                selectLit.append("<option value=''>Selectionnez le lit</option>");
+                                $.each(data,function(){
+                                    selectLit.append("<option value='"+this.id+"'>"+this.nom+"</option>");
+                                });
+                            }
+                            else
+                            {
+                                selectLit.append('<option value="" selected disabled>Pas de Lit libre</option>');
+                            }
+                           
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                         },
                     });
-            }); 
+            });
+            // $("#salle").trigger("change"); 
         })
-
     </script>
 </div>
 
