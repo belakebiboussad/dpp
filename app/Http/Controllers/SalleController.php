@@ -9,36 +9,30 @@ use Validator;
 use Redirect;
 use MessageBag;
 use Response;
-
 class SalleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getsalles()
-    {
-        $serviceId = $_GET['ServiceID'];
-        $start  = $_GET['StartDate']; 
-        $end = $_GET['EndDate'];
-        $time_start = strtotime($start);  
-        $time_end = strtotime($end);  
-        $salles = salle::where('service_id',$serviceId)->where('etat','Non bloquee')->get();
-        foreach ($salles as $key1 => $salle) {
-          foreach ($salle->lits as $key => $lit) {
-            $free = $lit->isFree($lit->id,$time_start,$time_end); //return Response::json($free);
-            if(! $free)
-            {
-                $salle->lits->pull($key);
-            }
-          }
-        }
-        foreach ($salles as $key => $salle) {
-            if((count($salle->lits) == 0))
-                $salles->pull($key);
-        }
-        return $salles;
+      /**
+       * Display a listing of the resource.
+       *
+       * @return \Illuminate\Http\Response
+       */
+      public function getsalles(Request $request)
+      {
+             $salles = salle::where('service_id',$request->ServiceID)->where('etat','Non bloquee')->get();
+             foreach ($salles as $key1 => $salle) {
+                   foreach ($salle->lits as $key => $lit) {
+                          $free = $lit->isFree($lit->id,strtotime($request->StartDate),strtotime($request->EndDate)); 
+                          if(! $free)
+                          {
+                              $salle->lits->pull($key);
+                          }
+                    }
+             }
+             foreach ($salles as $key => $salle) {
+                    if((count($salle->lits) == 0))
+                      $salles->pull($key);
+              }
+             return $salles;
     }
     public function index()
     {

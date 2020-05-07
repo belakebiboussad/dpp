@@ -118,54 +118,28 @@ class AdmissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+      public function destroy($id)
+      {
+          //
+      }
   
-    public function annulerRDV($id)
-    {     
-      $rdvHospi =  rdv_hospitalisation::find($id); 
-      if(isset($rdvHospi->admission->id_lit))
-      {
-        $rdvHospi->admission->lit->affectation=0;
-        $rdvHospi->admission->lit->save();  
-      }
-      $rdvHospi->etat_RDVh="Annule";
-      $rdvHospi->save();
-      $rdvHospi->admission->demandeHospitalisation->setEtatAttribute("valide");
-      $rdvHospi->admission->demandeHospitalisation->save();  
-      $rdvHospi->admission->delete();
-      $status = "true";
-      return $status;
-    } 
-    public function reporterRDV (Request $request,$rdv_id)
-    {
-      $rdvHospi =  rdv_hospitalisation::find($rdv_id);
-      //liberer le lit affecter
-      if(isset($rdvHospi->bedReservation->id_lit))
-      {
-        $rdvHospi->bedReservation->lit->affectation=0;
-        $rdvHospi->bedReservation->lit->save();  
-      } 
-      // reserver le nouveau lit
-      if(isset($request->lit))  
-      {
-        $lit = Lit::find($request->lit);
-        $lit->affectation = 1;
-        $lit->save();
-      }
-      //update un nouveu Rendez-Vous
-      $rdvHospi->update([
-            "date_RDVh"=>$request->dateEntree,
-            "heure_RDVh"=>$request->heure_rdvh,   
-            "id_demande"=>$rdvHospi->demandeHospitalisation->id,       
-            "etat_RDVh"=>"en attente",
-            "date_Prevu_Sortie"=>$request->dateSortiePre,
-            "heure_Prevu_Sortie" =>$request->heureSortiePrevue,
-      ]);
-      return redirect()->action('RdvHospiController@getlisteRDVs');
-    }
+      public function annulerRDV($id)
+      {     
+              $rdvHospi =  rdv_hospitalisation::find($id); 
+              if(isset($rdvHospi->admission->id_lit))
+              {
+                $rdvHospi->admission->lit->affectation=0;
+                $rdvHospi->admission->lit->save();  
+              }
+              $rdvHospi->etat_RDVh="Annule";
+              $rdvHospi->save();
+              $rdvHospi->admission->demandeHospitalisation->setEtatAttribute("valide");
+              $rdvHospi->admission->demandeHospitalisation->save();  
+              $rdvHospi->admission->delete();
+              $status = "true";
+              return $status;
+       } 
+    
     public function affecterLit()
     {
       $employe = employ::where("id",Auth::user()->employee_id)->get()->first();

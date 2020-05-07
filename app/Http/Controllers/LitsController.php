@@ -94,22 +94,21 @@ class LitsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-
-           $lit = lit::FindOrFail($id);
-              $etat =1 ;
-          if(isset($_POST['etat']) )
+      public function update(Request $request, $id)
+      {
+             $lit = lit::FindOrFail($id);
+             $etat =1 ;
+             if(isset($_POST['etat']) )
                      $etat = 0;   
-           $lit->update([
-                "num"=>$request->numlit,
-                "nom"=>$request->nom,
-                "etat"=>$etat,
-                "affectation"=>$request->affectation,
-                "salle_id"=>$request->salle,
-            ]);
-           return redirect()->action('LitsController@index');
-    }
+             $lit->update([
+                  "num"=>$request->numlit,
+                  "nom"=>$request->nom,
+                  "etat"=>$etat,
+                  "affectation"=>$request->affectation,
+                  "salle_id"=>$request->salle,
+             ]);
+             return redirect()->action('LitsController@index');
+      }
 
     /**
      * Remove the specified resource from storage.
@@ -126,23 +125,18 @@ class LitsController extends Controller
     function ajax return lits
     */
     // $salleid
-    public function getlits()
+    public function getlits(Request $request)
     {
-        //on retourne pas les lits bloque ou occupé 
-        $salleId = $_GET['SalleID'];
-        $start  = $_GET['StartDate']; 
-        $end = $_GET['EndDate'];
-        $time_start = strtotime($start);  
-        $time_end = strtotime($end); //$lits;
-        $salle =salle::FindOrFail($salleId);
-        foreach ($salle->lits as $key => $lit) {  
-            $free = $lit->isFree($lit->id,$time_start,$time_end);
-            if( !$free)
-            {
-                $salle->lits->pull($key);//$lits->push($lit);
-            } 
-        }
-        return $salle->lits; // $lits = lit::where('salle_id',$salleid)->where('etat',1)->where("affectation",0)->get();
+             //on retourne pas les lits bloque ou occupé 
+             $salle =salle::FindOrFail($request->SalleID);
+             foreach ($salle->lits as $key => $lit) {  
+                    $free = $lit->isFree($lit->id,strtotime($request->StartDate),strtotime($request->EndDate));
+                    if( !$free)
+                    {
+                          $salle->lits->pull($key);//$lits->push($lit);
+                    } 
+             }
+            return $salle->lits; // $lits = lit::where('salle_id',$salleid)->where('etat',1)->where("affectation",0)->get();
     }
 
 }

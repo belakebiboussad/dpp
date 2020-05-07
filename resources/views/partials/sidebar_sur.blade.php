@@ -136,61 +136,60 @@
                 if(end !== null  && end !== '')
                 {
                     $.ajax({
-                        url : '/getsalles',
-                        type:'GET',
-                        data: { 
-                            ServiceID: serviceID , 
-                            StartDate: start, 
-                            EndDate: end,
-                        }, //dataType : 'json',
-                        success: function(data, textStatus, jqXHR){
-                            var select = $('#salle').empty();
-                            if(data.length != 0){
-                                select.append("<option value=''>Selectionnez la salle</option>");   
-                                $.each(data,function(){
-                                        select.append("<option value='"+this.id+"'>"+this.nom+"</option>");
-                                });
-                            }
-                            else
-                            {      
-                                select.append('<option value="" selected disabled>Pas de salle</option>');
-                            }
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            alert("error")
-                        }
+                          url : '/getsalles',
+                          type:'GET',
+                          data: { 
+                                ServiceID: serviceID , 
+                                StartDate: start, 
+                                EndDate: end,
+                          }, //dataType : 'json',
+                          success: function(data, textStatus, jqXHR){
+                                var select = $('#salle').empty();
+                                if(data.length != 0){
+                                       select.append("<option value=''>Selectionnez la salle</option>");   
+                                       $.each(data,function(){
+                                              select.append("<option value='"+this.id+"'>"+this.nom+"</option>");
+                                       });
+                                }else
+                                {      
+                                      select.append('<option value="" selected disabled>Pas de salle</option>');
+                                }
+                          },
+                          error: function (jqXHR, textStatus, errorThrown) {
+                                alert("error")
+                          }
                     });   
                 }                 
-            });
-            $('#salle').change(function(){
-                $('#lit').removeAttr("disabled");
-                var start = $('#dateEntree').val();
-                var end = $("#dateSortiePre").val();
-                var salleID =  $('#salle').val();
-                $.ajax({
-                    url : '/getlits',
-                    type : 'GET',
-                    data: { 
-                        SalleID: salleID , 
-                        StartDate: start, 
-                        EndDate: end,
-                    }, //dataType : 'json', 
-                    success: function(data, textStatus, jqXHR){
-                        var selectLit = $('#lit').empty();
-                        if(data.length != 0){
-                            selectLit.append("<option value=''>Selectionnez le lit</option>");
-                            $.each(data,function(){
-                                selectLit.append("<option value='"+this.id+"'>"+this.nom+"</option>");
-                            });
-                        }
-                        else
-                        {
-                            selectLit.append('<option value="" selected disabled>Pas de Lit libre</option>');
-                        }  
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                    },
-                });
+             });
+             $('#salle').change(function(){
+                    $('#lit').removeAttr("disabled");
+                    var start = $('#dateEntree').val();
+                    var end = $("#dateSortiePre").val();
+                    var salleID =  $('#salle').val();
+                    $.ajax({
+                          url : '/getlits',
+                          type : 'GET',
+                          data: { 
+                                SalleID: salleID , 
+                                StartDate: start, 
+                                EndDate: end,
+                          }, //dataType : 'json', 
+                          success: function(data, textStatus, jqXHR){
+                                var selectLit = $('#lit').empty();
+                                if(data.length != 0){
+                                    selectLit.append("<option value=''>Selectionnez le lit</option>");
+                                    $.each(data,function(){
+                                        selectLit.append("<option value='"+this.id+"'>"+this.nom+"</option>");
+                                    });
+                                }
+                                else
+                                {
+                                    selectLit.append('<option value="" selected disabled>Pas de Lit libre</option>');
+                                }  
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                        },
+                    });
             }); 
         })
 

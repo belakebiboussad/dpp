@@ -39,8 +39,9 @@
 <div class="row">
   <div class="col-xs-12">
   {{-- /admission/reporter/{{$rdv->id}} --}}
-    <form class="form-horizontal" id="RDVForm" role="form" method="POST" action="route('rdvHospi.update',$rdv->id) }}"><!-- {{ route('admission.update', $rdv->id) }} -->
+    <form class="form-horizontal" id="RDVForm" role="form" method="POST" action="{{ route('rdvHospi.update',$rdv->id) }}">
       {{ csrf_field() }}
+      {{ method_field('PUT') }}
       <input type="text" name="id" value="{{$rdv->id}}" hidden>  <!-- <input type="text" name="id_demande" value="{{$demande->id_demande}}" hidden> -->
       <div class="row">
         <div class="col-sm-12">
@@ -249,12 +250,12 @@
       @else
       <div class="row form group">
         <div class="col-xs-4">
-            <label class="col-sm-4 control-label no-padding-right" for="dateSortie">
+            <label class="col-sm-4 control-label no-padding-right" for="serviceh">
               <strong> Service :</strong>
             </label>
             <div class="col-sm-8">
               <select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12"
-                      placeholder="selectionnez le service d'hospitalisation" required/>
+                      placeholder="selectionnez le service d'hospitalisation" />
                    <option value="" selected>selectionnez le service d'hospitalisation</option>
                   @foreach($services as $service)
                   <option value="{{ $service->id }}">{{ $service->nom }}</option>
