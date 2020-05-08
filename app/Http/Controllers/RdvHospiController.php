@@ -13,12 +13,12 @@ use App\modeles\Lit;
 use Auth;
 class RdvHospiController extends Controller
 {
-  public function create($id)
-  {
-   	$demande = dem_colloque::where('dem_colloques.id_demande','=',$id)->first();
-    $services = service::all();
-      return view('rdvHospi.create', compact('demande','services'));
-	}
+      public function create($id)
+      {
+       	$demande = dem_colloque::where('dem_colloques.id_demande','=',$id)->first();
+             $services = service::all();
+              return view('rdvHospi.create', compact('demande','services'));
+    	}
 	public function store(Request $request)
       {
        	$employe = employ::where("id",Auth::user()->employee_id)->get()->first();
@@ -66,12 +66,14 @@ class RdvHospiController extends Controller
      public function edit($id)
      {
              $rdv =  rdv_hospitalisation::with('bedReservation')->find($id);
-             $rdv->bedReservation->lit->affectation=0;
-             $rdv->bedReservation->lit->save();
-            $demande  = dem_colloque::where('dem_colloques.id_demande','=',$rdv->demandeHospitalisation->id)->first();
+             /* if ( isset $rdv->bedReservation) )
+             {
+                    $rdv->bedReservation->lit->affectation=0;
+                    $rdv->bedReservation->lit->save();
+             }*/
+              $demande  = dem_colloque::where('dem_colloques.id_demande','=',$rdv->demandeHospitalisation->id)->first();
             $services = service::all();
-            // return view('rdvHospi.edit', compact('demande','services','rdv'));
-            return view('admission.edit_admission', compact('demande','services','rdv'));           
+             return view('admission.edit_admission', compact('demande','services','rdv'));   // return view('rdvHospi.edit', compact('demande','services','rdv'));         
       }
       public function update(Request $request,$id)
       {
@@ -79,10 +81,9 @@ class RdvHospiController extends Controller
              //liberer le lit affecter
              if(isset($rdvHospi->bedReservation->id_lit))
              {
-
-                $rdvHospi->bedReservation->lit->affectation=0;
-                $rdvHospi->bedReservation->lit->save();
-                $rdvHospi->bedReservation()->delete();
+                    $rdvHospi->bedReservation->lit->affectation=0;
+                    $rdvHospi->bedReservation->lit->save();
+                    $rdvHospi->bedReservation()->delete();
              } 
             // reserver le nouveau lit
              if(isset($request->lit))

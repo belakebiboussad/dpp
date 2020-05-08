@@ -140,12 +140,8 @@ class LitsController extends Controller
         }
         return $salle->lits; //vrai
         //return($salle->lits->count());
-        // $lits = lit::where('salle_id',$salleid)->where('etat',1)->where("affectation",0)->get();
-        
-        // $lit =Lit::FindOrFail(5);
-        // $libre = $lit->isFree(5,1588204800,1588291200);
-        // if(! $libre)    
-        //     return ("reserve");    
+        // $lits = lit::where('salle_id',$salleid)->where('etat',1)->where("affectation",0)->get(); // $lit =Lit::FindOrFail(5); // $libre = $lit->isFree(5,1588204800,1588291200);
+        // if(! $libre)  //  return ("reserve");    
         // else
         //     return("libre");
 

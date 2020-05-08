@@ -115,22 +115,18 @@ var dateEnd = jsDate.getFullYear() + '-' + (jsDate.getMonth()+1) + '-' + jsDate.
                 addDays();
             });
             $("#serviceh").change(function(){
-                var attr = $('#salle').attr('disabled');
-                if (typeof attr !== typeof undefined && attr !== false) {
-                    $('#salle').removeAttr("disabled");
-                }
-                var attr = $('#lit').attr('disabled');
-                if (typeof attr == typeof undefined && attr == false) {
+                    var attr = $('#salle').attr('disabled');
+                    if (typeof attr !== typeof undefined && attr !== false) {
+                          $('#salle').removeAttr("disabled");
+                    }
+                    $('#lit option[value=0]').prop('selected', true);
                     $('#lit').attr('disabled', 'disabled');
-                }
-                $('#lit').attr('disabled', 'disabled');
-                $('#lit option[value=0]').prop('selected', true);
-                var serviceID = $('#serviceh').val();
-                var start = $('#dateEntree').val(); //var start =$('#dateEntree').datepicker('getDate');
-                var end = $("#dateSortiePre").val(); //var end = $('#dateSortiePre').datepicker('getDate');
-                if(end !== null  && end !== '')
-                {
-                    $.ajax({
+                    var serviceID = $('#serviceh').val();
+                    var start = $('#dateEntree').val(); //var start =$('#dateEntree').datepicker('getDate');
+                    var end = $("#dateSortiePre").val(); //var end = $('#dateSortiePre').datepicker('getDate');
+                    if(end !== null  && end !== '')
+                    {
+                           $.ajax({
                           url : '/getsalles',
                           type:'GET',
                           data: { 
@@ -157,6 +153,10 @@ var dateEnd = jsDate.getFullYear() + '-' + (jsDate.getMonth()+1) + '-' + jsDate.
                 }                 
              });
              $("#salle").change(function(){
+                    var attr = $('#lit').attr('disabled');
+                    if (typeof attr == typeof undefined && attr == false) {
+                          $('#lit').attr('disabled', 'disabled');
+                   }
                     $('#lit').removeAttr("disabled");
                     var start = $('#dateEntree').val();
                     var end = $("#dateSortiePre").val();

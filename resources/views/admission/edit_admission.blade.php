@@ -38,8 +38,7 @@
 </div>
 <div class="row">
   <div class="col-xs-12">
-  {{-- /admission/reporter/{{$rdv->id}} --}}
-    <form class="form-horizontal" id="RDVForm" role="form" method="POST" action="{{ route('rdvHospi.update',$rdv->id) }}">
+      <form class="form-horizontal" id="RDVForm" role="form" method="POST" action="{{ route('rdvHospi.update',$rdv->id) }}">
       {{ csrf_field() }}
       {{ method_field('PUT') }}
       <input type="text" name="id" value="{{$rdv->id}}" hidden>  <!-- <input type="text" name="id_demande" value="{{$demande->id_demande}}" hidden> -->
@@ -132,12 +131,10 @@
               <strong> Date entrée prévue :</strong>
             </label>
             <div class="input-group col-sm-6 col-xs-6">
-              <div class="input-group col-sm-12">  
-                <input id="dateEntree" name="dateEntree" class="form-control date-picker" type="text" value = "{{ $rdv->date_RDVh }}" data-date-format="yyyy-mm-dd" required />
-                <span class="input-group-addon">
-                  <i class="fa fa-calendar bigger-110"></i>
-                </span>           
-              </div>         
+                   <input id="dateEntree" name="dateEntree" class="form-control date-picker" type="text" value = "{{ $rdv->date_RDVh }}" data-date-format="yyyy-mm-dd" required />
+                   <span class="input-group-addon">
+                        <i class="fa fa-calendar bigger-110"></i>
+                     </span>           
             </div>
           </div>
           <div class="col-sm-4 col-xs-4">
