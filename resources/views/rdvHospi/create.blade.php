@@ -217,7 +217,7 @@
 						<div class="col-sm-8">
 							<select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12"
 							      	placeholder="Selectionnez le service"/>
-							  <option value="" selected disabled>Selectionnez le service</option>
+							  <option value="" selected disabled>Selectionnez un service</option>
 							  @foreach($services as $service)
 								<option value="{{ $service->id }}">{{ $service->nom }}</option>
 								@endforeach
@@ -231,7 +231,7 @@
 						<div class="col-sm-8">
 							<select id="salle" name="salle" data-placeholder="selectionnez la salle d'hospitalisation"
 																	 class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" disabled>
-								<option value="0" selected>Selectionnez la salle</option>
+								<option value="0" selected>Selectionnez une salle</option>
 						      </select>
 						</div>
 				  	</div>
@@ -242,7 +242,7 @@
 						<div class="col-sm-8">
 							<select id="lit" name="lit" data-placeholder="selectionnez le lit" 
 																 class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" disabled>
-								<option value="0" selected disabled>Selectionnez le lit</option>
+								<option value="0" selected disabled>Selectionnez un lit</option>
 							</select>
 						</div>	
 					</div>

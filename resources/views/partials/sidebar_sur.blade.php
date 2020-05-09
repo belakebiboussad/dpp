@@ -137,7 +137,7 @@ var dateEnd = jsDate.getFullYear() + '-' + (jsDate.getMonth()+1) + '-' + jsDate.
                           success: function(data, textStatus, jqXHR){
                                 var select = $('#salle').empty();
                                 if(data.length != 0){
-                                       select.append("<option value=''>Selectionnez la salle</option>");   
+                                       select.append("<option value='0'>Selectionnez une salle</option>");   
                                        $.each(data,function(){
                                               select.append("<option value='"+this.id+"'>"+this.nom+"</option>");
                                        });
@@ -172,7 +172,7 @@ var dateEnd = jsDate.getFullYear() + '-' + (jsDate.getMonth()+1) + '-' + jsDate.
                           success: function(data, textStatus, jqXHR){
                             var selectLit = $('#lit').empty();                          
                             if(data.length != 0){
-                                selectLit.append("<option value=''>Selectionnez le lit</option>");
+                                selectLit.append("<option value='0'>Selectionnez un lit</option>");
                                 $.each(data,function(){
                                     selectLit.append("<option value='"+this.id+"'>"+this.nom+"</option>");
                                 });

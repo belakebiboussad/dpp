@@ -31,19 +31,19 @@ class RdvHospiController extends Controller
                     "date_Prevu_Sortie" =>$request->dateSortiePre,
                     "heure_Prevu_Sortie" =>$request->heureSortiePrevue,
              ]);
-             if(isset($request->lit))
-              { 
-                    $lit = Lit::find($request->lit);
+             if(isset($request->lit) && ($request->lit !=0))
+              {   
+                   $lit = Lit::find($request->lit);
                     $lit->affectation = 1;
                     $lit->save();  
                    BedReservation::firstOrCreate([
             	  		"id_rdvHosp"=>$rdv->id,
             	  		"id_lit" =>$request->lit,
            	  	]);           
-              }
-            $demande= DemandeHospitalisation::find($request->id_demande);
-            $demande->etat = 'programme';
-            $demande->save();
+             }
+             $demande= DemandeHospitalisation::find($request->id_demande);
+             $demande->etat = 'programme';
+             $demande->save();
             $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID) {
                                        $q->where('id',$ServiceID);                           
                                  })->whereHas('demandeHosp',function ($q){
