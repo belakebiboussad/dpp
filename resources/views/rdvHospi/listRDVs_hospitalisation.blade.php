@@ -35,75 +35,74 @@
 								<th class="text-center" width="11%"><h5><strong>Patient</strong></h5></th>
 								<th class="text-center" width="15%"><h5><strong>Date RDV</strong></h5></th>
 								<th class="text-center" width="10%">Heure RDV</th>
+								<th width="12%" class="text-center"><strong>Date Sortie Prévue</strong></th>
+							  	<th width="12%" class="text-center"><strong>Heure Sortie Prévue</strong></th>
 								<th class="font-weight-bold text-center"><strong>Medecin Traitant</strong></th>
 								<th class="font-weight-bold text-center"><strong>Lit</strong></th>
 								<th class="font-weight-bold text-center"><strong>Salle</strong></th>
 								<th class="font-weight-bold text-center"><strong>Service</strong></th>
-							  <th width="12%" class="text-center"><strong>Date Sortie Prévue</strong></th>
-							  <th width="12%" class="text-center"><strong>Heure Sortie Prévue</strong></th>
-								<th class="detail-col text-center"><em class="fa fa-cog"></em></th>
+							 	<th class="detail-col text-center"><em class="fa fa-cog"></em></th>
 							</tr>
 						</thead>
 						<tbody id ="rendez-VousBody" class="bodyClass">
 							<?php $j = 0; ?>
 							@foreach( $rdvHospis as $i=>$rdv)
-						  <tr>
+						  	<tr>
 								<td hidden>{{$j}}</td>	
-						    <td class="center">
+						   		 <td class="center">
 							  		<label class="pos-rel">
 											<input type="checkbox" class="ace" name ="valider[]" value ="{{$rdv->id}}" /><span class="lbl"></span>   
 							   		</label>
 								</td>
 								<td>
-							   	  {{$rdv->demandeHospitalisation->consultation->patient->Nom }}&nbsp;{{$rdv->demandeHospitalisation->consultation->patient->Prenom }}	
+							   	 	 {{$rdv->demandeHospitalisation->consultation->patient->Nom }}&nbsp;{{$rdv->demandeHospitalisation->consultation->patient->Prenom }}	
 								</td>
 								<td class ="text-danger">
 									<strong>{{ $rdv->date_RDVh }}</strong>
-						    </td>
-						    <td><strong>{{ $rdv->heure_RDVh }}</strong></td>
-						    <td><strong>{{ $rdv->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe }}&nbsp;{{ $rdv->demandeHospitalisation->DemeandeColloque->medecin->Prenom_Employe }}</strong></td>
-								
-								<td class="center">
-									 	@if(isset($rdv->bedReservation->id_lit))	
-											{{ $rdv->bedReservation->lit->nom }}
-										@else
-											<strong>/</strong>
-										@endif		
+						    		</td>
+							    	<td><strong>{{ $rdv->heure_RDVh }}</strong></td>
+							    	<td class="center text-danger">
+										<strong>{{ $rdv->date_Prevu_Sortie }}</strong>
 								</td>
-								<td>
-										@if(isset($rdv->bedReservation->id_lit))	
-											{{ $rdv->bedReservation->lit->salle->nom }}
-										@else
-											<strong>/</strong>
-										@endif		
-										{{ $rdv->nomsalle }}
-								</td>
-								<td>
-							  		@if(isset($rdv->bedReservation->id_lit))	
-											{{ $rdv->bedReservation->lit->salle->service->nom }}
-										@else
-											<strong>/</strong>
-										@endif	
-							  </td>
-							  <td class="center text-danger">
-									<strong>{{ $rdv->date_Prevu_Sortie }}</strong>
-							  </td>
-							  <td class="center text-danger">
+								<td class="center text-danger">
 									<strong>{{ $rdv->heure_Prevu_Sortie }}</strong>
-							  </td>
+								</td>
+							    	<td><strong>{{ $rdv->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe }}&nbsp;{{ $rdv->demandeHospitalisation->DemeandeColloque->medecin->Prenom_Employe }}</strong>
+							    	</td>
 								<td class="center">
-									  <a href="{{ route('rdvHospi.edit',$rdv->id) }}" class="btn btn-success btn-xs aaaa"  title= "Reporer RDV" >
-										  	<i class="ace-icon fa fa-clock-o"></i>
-				            </a>
-				            <a href="#" class="btn btn-danger btn-xs aaaa" title="Annuler RDV" 
-				            						onclick= "annulerRDV(this,{{ $j }},{{ $rdv->id }});">
-											 <i class="ace-icon fa fa-close" ></i>
-				            </a>    <!-- onclick= "printRDV();" -->
-				            <a href="/admission/imprimer/{{ $rdv->id }}" class="btn btn-info btn-xs aaaa" title="Imprimer RDV">
-											 <i class="ace-icon fa fa-print" ></i>
-				            </a>
-				        </td>
-				      </tr>			
+								 	@if(isset($rdv->bedReservation->id_lit))	
+										{{ $rdv->bedReservation->lit->nom }}
+									@else
+										<strong>/</strong>
+									@endif		
+								</td>
+								<td>
+									@if(isset($rdv->bedReservation->id_lit))	
+										{{ $rdv->bedReservation->lit->salle->nom }}
+									@else
+										<strong>/</strong>
+									@endif		
+									{{ $rdv->nomsalle }}
+								</td>
+								<td>
+									@if(isset($rdv->bedReservation->id_lit))	
+										{{ $rdv->bedReservation->lit->salle->service->nom }}
+									@else
+										<strong>/</strong>
+									@endif	
+								 </td>
+								<td class="center">
+									<a href="{{ route('rdvHospi.edit',$rdv->id) }}" class="btn btn-success btn-xs aaaa"  title= "Reporer RDV" >
+											  	<i class="ace-icon fa fa-clock-o"></i>
+					            			</a>
+								       <a href="#" class="btn btn-danger btn-xs aaaa" title="Annuler RDV" onclick= "annulerRDV(this,{{ $j }},{{ $rdv->id }});">
+										<i class="ace-icon fa fa-close" ></i>
+								       </a>    <!-- onclick= "printRDV();" -->
+						            		<a href="/admission/imprimer/{{ $rdv->id }}" class="btn btn-info btn-xs aaaa" title="Imprimer RDV">
+										 <i class="ace-icon fa fa-print" ></i>
+						            		</a>
+				        			</td>
+				    			 </tr>			
 							@endforeach
 						</tbody>
 					</table>

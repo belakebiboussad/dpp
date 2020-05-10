@@ -1,26 +1,25 @@
 @extends('app_sur')
 @section('page-script')
 <script type="text/javascript">
-	 	$('document').ready(function(){
-	    // var dateRDV = $('#dateEntree').val();  //var datefinRDV =   $('#dateSortie').val();
-      var debut = new Date($('#dateEntree').val());
-	    var fin = new Date($('#dateSortiePre').val());
-	    var diff = new Date(fin - debut);
-	    $('#numberDays').val(diff/1000/60/60/24);
-      $( "#RDVForm" ).submit(function( event ) {  
-  				$("#dateSortiePre").prop('disabled', false);
-  	  });
-  	  $('.timepicker').timepicker({
-            timeFormat: 'HH:mm',
-            interval: 15,
-            minTime: '08',
-            maxTime: '17:00pm',
-            defaultTime: '09:00',   
-            startTime: '08:00',
-            dynamic: true,
-            dropdown: true,
-            scrollbar: true
-      });
+	$('document').ready(function(){
+	       var debut = new Date($('#dateEntree').val()); // var dateRDV = $('#dateEntree').val();  //var datefinRDV =   $('#dateSortie').val();
+	       var fin = new Date($('#dateSortiePre').val());
+	       var diff = new Date(fin - debut);
+	       $('#numberDays').val(diff/1000/60/60/24);
+             $( "#RDVForm" ).submit(function( event ) {  
+          	       $("#dateSortiePre").prop('disabled', false);
+          	});
+  	      $('.timepicker').timepicker({
+                    timeFormat: 'HH:mm',
+                    interval: 15,
+                    minTime: '08',
+                    maxTime: '17:00pm',
+                    defaultTime: '09:00',   
+                    startTime: '08:00',
+                    dynamic: true,
+                    dropdown: true,
+                    scrollbar: true
+             });
       // $("input[type=number]").bind('keyup input', function(){//   var datefin = new Date($('#dateEntree').val());
       //   datefin.setDate(debut.getDate() + parseInt($( this).val(), 10));//$("#dateSortiePre").val(moment(datefin).format("YYYY-MM-DD"));// });
 	  });
@@ -232,13 +231,13 @@
             </label>
             <div class="col-sm-8">
               <select id="lit" name="lit" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12">
-                <option value="{{ $rdv->bedReservation->id_rdvHosp }}">{{ $rdv->bedReservation->lit->nom }} </option>
-                @foreach($rdv->bedReservation->lit->salle->lits as $lit)
-                  
-                  @if($lit->isFree(strtotime($rdv->bedReservation->rdvHosp->date_RDVh),strtotime($rdv->bedReservation->rdvHosp->date_Prevu_Sortie))) 
-                  <option value="{{ $lit->id }}">{{ $lit->nom }}</option>
-                  @endif
-                @endforeach
+                    <option value="0" >selectionnez le lit d'hospitalisation</option>
+                    <option value="{{ $rdv->bedReservation->id_lit }}" selected>{{ $rdv->bedReservation->lit->nom }} </option>
+                    @foreach($rdv->bedReservation->lit->salle->lits as $lit)
+                          @if($lit->isFree(strtotime($rdv->date_RDVh),strtotime($rdv->date_Prevu_Sortie))) 
+                          <option value="{{ $lit->id }}">{{ $lit->nom }}</option>
+                           @endif
+                    @endforeach
               </select>
             </div> 
           </div>
@@ -253,7 +252,7 @@
             <div class="col-sm-8">
               <select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12"
                       placeholder="selectionnez le service d'hospitalisation" />
-                   <option value="" selected>selectionnez le service d'hospitalisation</option>
+                   <option value="0" selected>selectionnez le service d'hospitalisation</option>
                   @foreach($services as $service)
                   <option value="{{ $service->id }}">{{ $service->nom }}</option>
                   @endforeach
@@ -265,9 +264,8 @@
               <strong> Salle :</strong>
             </label>
             <div class="col-sm-8">
-              <select id="salle" name="salle" data-placeholder="selectionnez la salle d'hospitalisation"
-                      class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" disabled>
-                <option value="" selected>selectionnez la salle d'hospitalisation</option>      
+              <select id="salle" name="salle" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" disabled>
+                <option value="0" selected>selectionnez la salle d'hospitalisation</option>      
               </select>
             </div>
         </div>
@@ -277,10 +275,9 @@
               </strong>
             </label>
             <div class="col-sm-8">
-              <select id="lit" name="lit" data-placeholder="selectionnez le lit" 
-                      class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12">
-                <option value="" selected>selectionnez le lit d'hospitalisation</option>      
-              </select>
+                    <select id="lit" name="lit" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12">
+                          <option value="0" selected>selectionnez le lit d'hospitalisation</option>      
+                    </select>
             </div>  
         </div>
       </div><!-- ROW -->

@@ -33,9 +33,9 @@ class RdvHospiController extends Controller
              ]);
              if(isset($request->lit) && ($request->lit !=0))
               {   
-                   $lit = Lit::find($request->lit);
-                    $lit->affectation = 1;
-                    $lit->save();  
+                   // $lit = Lit::find($request->lit);
+                   //  $lit->affectation = 1;
+                   //  $lit->save();  
                    BedReservation::firstOrCreate([
             	  		"id_rdvHosp"=>$rdv->id,
             	  		"id_lit" =>$request->lit,
@@ -66,12 +66,8 @@ class RdvHospiController extends Controller
      public function edit($id)
      {
              $rdv =  rdv_hospitalisation::with('bedReservation')->find($id);
-             /* if ( isset $rdv->bedReservation) )
-             {
-                    $rdv->bedReservation->lit->affectation=0;
-                    $rdv->bedReservation->lit->save();
-             }*/
-              $demande  = dem_colloque::where('dem_colloques.id_demande','=',$rdv->demandeHospitalisation->id)->first();
+             /* if ( isset $rdv->bedReservation) ){$rdv->bedReservation->lit->affectation=0;$rdv->bedReservation->lit->save();}*/
+             $demande  = dem_colloque::where('dem_colloques.id_demande','=',$rdv->demandeHospitalisation->id)->first();
             $services = service::all();
              return view('admission.edit_admission', compact('demande','services','rdv'));   // return view('rdvHospi.edit', compact('demande','services','rdv'));         
       }
@@ -80,24 +76,17 @@ class RdvHospiController extends Controller
             $rdvHospi =  rdv_hospitalisation::find($id);
              //liberer le lit affecter
              if(isset($rdvHospi->bedReservation->id_lit))
-             {
-                    $rdvHospi->bedReservation->lit->affectation=0;
-                    $rdvHospi->bedReservation->lit->save();
-                    $rdvHospi->bedReservation()->delete();
-             } 
+                   $rdvHospi->bedReservation()->delete(); //$rdvHospi->bedReservation->lit->affectation=0;    $rdvHospi->bedReservation->lit->save();
             // reserver le nouveau lit
-             if(isset($request->lit))
-            { 
-                 $lit = Lit::find($request->lit);
-                 $lit->affectation = 1;
-                 $lit->save();  
-                 BedReservation::firstOrCreate([
+             if(isset($request->lit) && ($request->lit !=0))
+            {   // $lit = Lit::find($request->lit); // $lit->affectation = 1; // $lit->save();  
+                   BedReservation::firstOrCreate([
                         "id_rdvHosp"=>$rdvHospi->id,
                         "id_lit" =>$request->lit,
                   ]);           
-          }
+             }
            //update un nouveu Rendez-Vous
-          $rdvHospi->update([
+            $rdvHospi->update([
                 "date_RDVh"=>$request->dateEntree,
                 "heure_RDVh"=>$request->heure_rdvh,   
                 "id_demande"=>$rdvHospi->demandeHospitalisation->id,       
