@@ -118,16 +118,7 @@ Route::resource('atcd','AntecedantsController');
 Route::resource('medicaments','MedicamentsController');
 Route::resource('exclinique','ExamenCliniqueController');
 Route::resource('demandeproduit','demandeprodController');
-<<<<<<< HEAD
-Route::resource('demandeexb','DemandeExbController');
-Route::resource('demandeexr','DemandeExamenRadio');
-route::get('/demandeexbio/{id}','DemandeExbController@createexb');
-route::get('/getsalles/{id}','SalleController@getsalles');
-route::get('/annullerRDV/{id}','AdmissionController@annulerRDV');
-Route::post('/consultations/store/{id}','ConsultationsController@store');
-=======
 route::get('/getsalles','SalleController@getsalles');
->>>>>>> Bous
 Route::post('/exclinique/store/{id}','ExamenCliniqueController@store');
 Route::get('/consultations/create/{id}','ConsultationsController@create');
 Route::get('/listcons','ConsultationsController@listecons');
@@ -178,14 +169,9 @@ Route::any('/profile/{userId}', [
 Route::get('/role/show/{userId}','RolesController@show');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('AddANTCD','AntecedantsController@createATCDAjax');
-<<<<<<< HEAD
-Route::get('/searchUser','UsersController@searchUser');
-Route::get('/searchPatient','PatientController@search');
-=======
 Route::get('/searchUser','UsersController@search');
 Route::get('/DocorsSearch','EmployeController@searchBySpececialite');
 Route::get('/searchPatient','PatientController@search')->name('patients.search');
->>>>>>> Bous
 Route::get('/getPatients','PatientController@getPatientsArray');
 Route::get('/getlits','LitsController@getlits');
 Route::get('/user/find', 'UsersController@AutoCompleteUsername');
@@ -202,18 +188,6 @@ route::get('/home_reception',function (){
     return view('home.home_recep');
 })->name('home_rec');
 Route::post('/get-all-events','RDVController@checkFullCalendar');
-<<<<<<< HEAD
-
-route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');
-route::post('/uploadresultat','DemandeExbController@uploadresultat');
-route::post('/uploadexr','DemandeExamenRadio@upload_exr');
-route::get('/download/{filename}', function($filename)
-{
-    return Storage::download($filename);
-});
-route::get('/listedemandesexb','DemandeExbController@listedemandesexb');
-route::get('/createexr/{id}','DemandeExamenRadio@createexr');
-=======
 route::get('/showordonnance/{id}','OrdonnanceController@show_ordonnance');
 Route::resource('demandeexb','DemandeExbController');
 route::get('/demandeexbio/{id}','DemandeExbController@createexb');
@@ -224,31 +198,19 @@ route::get('/affecterLit','AdmissionController@affecterLit');
 ///laborontin
 route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');
 route::post('/uploadresultat','DemandeExbController@uploadresultat');
->>>>>>> Bous
 route::get('/homelaboexb',function(){
     $demandesexb = App\modeles\demandeexb::where('etat','E')->get();
     return view('home.home_laboanalyses', compact('demandesexb'));
 })->name('homelaboexb');
-<<<<<<< HEAD
-=======
 ///radiologue
 route::get('/details_exr/{id}','DemandeExamenRadio@details_exr');
 route::post('/uploadexr','DemandeExamenRadio@upload_exr');
->>>>>>> Bous
 route::get('/homeradiologue',function(){
     $demandesexr = App\modeles\demandeexr::where('etat','E')->get();
     return view('home.home_radiologue', compact('demandesexr'));
 })->name('homeradiologue');
-<<<<<<< HEAD
-route::get('/details_exr/{id}','DemandeExamenRadio@details_exr');
-route::get('/listeexrs','DemandeExamenRadio@liste_exr');
-route::get('/showordonnance/{id}','OrdonnanceController@show_ordonnance');
-route::get('/showdemandeexb/{id}','DemandeExbController@show_demande_exb');
-route::get('/showdemandeexr/{id}','DemandeExamenRadio@show_demande_exr');
-=======
 // route with optonnel parameter
 Route::get('rendezVous/create/{id?}','RDVController@index');
->>>>>>> Bous
 /************partie viste d'hospitalisation**************/
 Route::resource('visites','VisiteController');
 Route::get('/delVisite/{id}', 'VisiteController@destroy')->name('visite.destroy');

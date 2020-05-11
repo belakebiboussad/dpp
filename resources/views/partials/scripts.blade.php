@@ -156,25 +156,6 @@
                     if(this.checked) $row.addClass(active_class);
                     else $row.removeClass(active_class);
                 });
-<<<<<<< HEAD
-                $('.select2').css('width','400px').select2({allowClear:true})
-                $('#select2-multiple-style .btn').on('click', function(e){
-                    var target = $(this).find('input[type=radio]');
-                    var which = parseInt(target.val());
-                    if(which == 2) $('.select2').addClass('tag-input-style');
-                     else $('.select2').removeClass('tag-input-style');
-                });
-                //add horizontal scrollbars to a simple table
-                /*$('#table2').css({'width':'50px', 'max-width': 'none'}).wrap('<div style="width: 50px;" />').parent().ace_scroll(
-                  {
-                    horizontal: true,
-                    styleClass: 'scroll-top scroll-dark scroll-visible',//show the scrollbars on top(default is bottom)
-                    size: 50,
-                    mouseWheelLock: true
-                  }
-                ).css('padding-top', '12px');*/
-=======
->>>>>>> Bous
 </script>   
 <script type="text/javascript">
     var active_class = 'active';
@@ -327,80 +308,6 @@
 });
 </script>
 <script type="text/javascript">
-<<<<<<< HEAD
-$(document).ready(function() {
-    // $('#dispo_table').dataTable({
-    //     ordering: true,
-    //     "language": 
-    //         {
-    //             "url": '/localisation/fr_FR.json'
-    //         }, 
-    // });
-    // $('#reactif_table').dataTable({
-    //     ordering: true,
-    //     "language": 
-    //         {
-    //             "url": '/localisation/fr_FR.json'
-    //         }, 
-    // });
-    // $('#demandes_liste').dataTable({
-    //     ordering: true,
-    //     "language": 
-    //         {
-    //             "url": '/localisation/fr_FR.json'
-    //         }, 
-    // });
-    // $('#patients_liste').dataTable();
-    // $('#choixp').dataTable({
-    //     ordering: true,
-    //     "language": 
-    //         {
-    //             "url": '/localisation/fr_FR.json'
-    //         },
-    // });
-    // $('#choixpatientrdv').dataTable();
-    // $('#rdvs_liste').dataTable();
-    // $('#patients').dataTable();
-    // $('#choix-patient-atcd').dataTable();
-    // $('#users').dataTable();
-    $( "#liste_membre" )
-  .change(function () {
-    var select = document.getElementById("liste_membre");
-    var sel=document.getElementById("elt");
-    var choice = select.selectedIndex;
-    var valeur = select.options[choice].value;
-    var texte = select.options[choice].text;
-
-    if (document.getElementById("choix_membre").value.search(texte)==-1 ) {
-       
-    sel.options[sel.options.length] = new Option (valeur, valeur,false,true);   
-    document.getElementById("choix_membre").value +=texte+"\n"; 
-    }
-
-    else{
-        texte=texte+"\n"
-        document.getElementById("choix_membre").value=document.getElementById("choix_membre").value.replace(texte,"");
-        
-        for (var i=0; i<sel.length; i++){
-             if (sel.options[i].value == valeur )
-                sel.remove(i);
-        }
-
-    }
- });
-
-});
-function addRequiredAttr()
-{
-             $(".starthidden").hide(250);   // $("ul#menuPatient li:not(.active) a").prop('disabled', false); 
-             jQuery('input:radio[name="sexef"]').filter('[value="M"]').attr('checked', true);
-              jQuery('input:radio[name="etat"]').filter('[value="En exercice"]').attr('checked', true);
-              $("ul#menuPatient li:eq(1)").css('display', '');
-}
-function typepCreation()
-{
-    
-=======
   $(document).ready(function() {
     // $('#patients_liste').dataTable();    // $('#choixpatientrdv').dataTable();  // $('#rdvs_liste').dataTable();    // $('#patients').dataTable();    // $('#choix-patient-atcd').dataTable();//$('#users').dataTable();
   });
@@ -413,7 +320,6 @@ function typepCreation()
   }
   function typepCreation()
   {
->>>>>>> Bous
     if($('#fonc').is(':checked'))
     {
       $('#NSSInput').addClass("hidden").hide().fadeIn();
@@ -500,216 +406,6 @@ $('#typeexm').on('change', function() {
     }
 });
 </script>
-<<<<<<< HEAD
-    <script type="text/javascript">
-        $("#submitatcd").on('click', function() 
-            {
-             $("#addatcd").submit();
-            });
-        $("#submitexbio").on('click', function() 
-            {
-             $("#exbioform").submit();
-            });
-        $("#submiteximg").on('click', function() 
-            {
-             $("#exmimgform").submit();
-            });
-         $("#submitexmcln").on('click', function() 
-            {
-             $("#exmclnform").submit();
-            });
-    </script>
-    <script>
-            $('#flash-overlay-modal').modal();
-            $(document).ready(function(){
-             // $(".tooltip-link").tooltip();//ajouter info bull
-            }); 
-</script>
-        <script type="text/javascript">
-           function medicm(med)
-           {
-                $.ajax({
-                    type: 'GET',
-                    url: '/getmed/'+med,
-                    dataType: "json",
-                    success: function (result)
-                    {
-                        $("#id_medicament").val(result.id);
-                        $("#nommed").val(result.Nom_com);
-                        $("#form").val(result.Forme);
-                        $("#dosage").val(result.Dosage);
-                    }
-                });
-            }
-           
-           
-            function supcolonne()
-            {
-                $("tr:has(input:checked)").remove(); 
-            }
-
-            function sexefan()
-            {
-                if( $('#sexef').is(':checked') )
-                    {
-                        $('#civ').css('display','block');
-                    } 
-                else
-                    {
-                        $('#civ').css('display','none');
-                    }
-            }
-            function civilitefan()
-            {
-                if( $('#mdm').is(':checked') )
-                    {
-                        $('#njfid').css('display','block');
-                    } 
-                else
-                    {
-                        $('#njfid').css('display','none');
-                    }
-            }
-            function typepatientfan()
-            {
-                if( $('#ass').is(':checked') )
-                    {
-                        $('#matass').css('display','block');
-                        $('#te').css('display','none');
-                        $('#infoass').css('display','none');
-                        $('#prof').css('display','none');
-                    } 
-                else
-                    {s
-                        $('#matass').css('display','none');
-                        $('#prof').css('display','block');
-                        $('#infoass').css('display','block');
-                        $('#te').css('display','block');
-                    }
-            }
-            function atcd()
-            {  
-                  $('#description').text(" ");
-                   resetField();
-                   if($('#Antecedant').val() == 'Personnels')
-                    {
-                          $('#sous_type').css('display','block');
-                    }
-                else
-                    {
-                        $('#sous_type').css('display','none');
-                        $('#atcdsstypehide').css('display','none');
-                        $('#PhysiologieANTC').css('display','none');
-                        $('#typeAntecedant').val(null);
-                    }
-           }
-           function resetField()
-           {
-                $("#description").val(' ');
-                $('#dateAntcd').val('');
-                   
-           }
-
-           function ajaxfunc(patientid)
-           {        
-                     var habitudeAlim = null; var tabac=null ; var ethylisme = null;
-                     var soustype=null;
-                     var antecedant = $('#Antecedant').val();
-                     var typeAntecedant = $('#typeAntecedant').val();
-                     soustype = $('#sstypeatcdc').val();                  
-                      if(typeAntecedant =="Physiologiques")
-                     {
-                            habitudeAlim= $('#habitudeAlim').val();
-                            tabac = $("#tabac").is(":checked") ? 1:0;
-                            ethylisme = $("#ethylisme").is(":checked") ? 1:0;
-                     }
-                     var dateATCD = $('#dateAntcd').val()
-                    var description = $("#description").val(); 
-                     $.ajax({
-                                 headers: {
-                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                 },
-                               type:'POST',
-                                url:'/AddANTCD',
-                                data:{ antecedant:antecedant,typeAntecedant:typeAntecedant,soustype:soustype,dateATCD:dateATCD,description:description,patientid:patientid,habitudeAlim:habitudeAlim,tabac:tabac,ethylisme:ethylisme },
-                                   success:function(data){
-                                      $("#msg").html(data.msg);
-                                   }
-                                });
-                       $('#ants-tab').append("<tr><td>"+$('#Antecedant').val()+"</td><td>"
-                         +$('#dateAntcd').val()+"</td><td>"+$('#description').val()+
-                         "</td><td></td></tr>"); 
-          }
-          function atcdhide()
-
-           {        
-                     // $('#description').text(" ");
-                     resetField(); 
-                     if($('#typeAntecedant').val() == "Pathologiques" )
-                     {
-                             $('#atcdsstypehide').show();$('#PhysiologieANTC').hide();
-                             $('#habitudeAlim').val(null);$('#tabac').prop('checked', false); 
-                             $('#ethylisme').prop('checked', false);   
-                     }
-                    else
-                     {
-                            $('#atcdsstypehide').hide();$('#PhysiologieANTC').show();
-                            $('#sstypeatcdc').prop("selectedIndex", 1);
-                    }
-           }
-        </script>
-        <script>
-           $('document').ready(function(){
-                    $("#dexbio").on("hidden.bs.modal", function () {
-                           var selected = $("#selectedoption").val();
-                           var arrayOfSelected = selected.split(",");
-                           for(var i=0;i<arrayOfSelected.length;i++){
-                               $('input[type=checkbox][value='+arrayOfSelected[i]+']').prop('checked',true);
-                                }
-                });
-           });  
-           $("#addliste").click(function() {
-                 $("#ordonnance").append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td hidden>"+$("#id_medicament").val()+"</td><td>"+$("#nommed").val()+"</td><td>"+$("#form").val()+"</td><td>"+$("#dosage").val()+"</td><td>"+$("#posologie").val()+"</td></tr>");
-            });        
-           // $("#terminer").click(function() {
-           //           var arrayLignes = document.getElementById("ordonnance").rows; 
-           //          var longueur = arrayLignes.length;
-           //          var ordonnance = [];
-           //          for(var i=0; i<longueur; i++)
-           //          {
-           //              ordonnance[i] = { med: arrayLignes[i].cells[1].innerHTML, posologie: arrayLignes[i].cells[5].innerHTML }
-           //          }
-           //          var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
-           //          champ.appendTo('#ordn');
-           //          $('#ordn').submit();
-           // });
-           function createeximg(nomp,prenomp){
-                     var d = new Date();
-                      var yyyy = d.getFullYear().toString();
-                      var mm = (d.getMonth()+1).toString();
-                      var dd  = d.getDate().toString();  
-                      var date=  yyyy + "/" + (mm[1]?mm:"0"+mm[0]) + "/" + (dd[1]?dd:"0"+dd[0]);
-                     var exbio = new jsPDF();
-                     exbio.text(200,20, 'Date :' +date , null, null, 'right');
-                     exbio.text(20,25, 'Nom : '+nomp, null, null);
-                     exbio.text(20,35, 'Prénom : '+prenomp, null, null);
-                      exbio.text(20,45, 'Age :........................................', null, null);
-                     exbio.setFontType("bold");
-                     exbio.text(105,55, 'Priére de faire', null, null, 'center');
-                      exbio.setFontSize(14);
-                      exbio.text(45,65,'Analyses Demandées :',null,null,'center');
-                     exbio.setFontSize(13);
-                      var i =0;
-                        // $(".imgExam").each(function() {
-                        //     alert($(this).attr('value'));
-                        // });
-                     var selected = "";
-                     $("input[class='imgExam']:checked").each(function() {
-                            exbio.text(25,72+i,$(this).attr('data-checkbox-text')+", ");
-                            selected = selected + $(this).val()+", ";
-                            i=i+10;
-                     });
-=======
 <script type="text/javascript">
   $("#submitatcd").on('click', function() 
   {
@@ -900,7 +596,7 @@ $('#typeexm').on('change', function() {
                 var tab = [];
                 for(var i=1; i<longueur; i++)
                 {
-					         tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;
+                   tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;
                 }
                 var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");
                 champ.appendTo('#ordonnace_form');
@@ -950,7 +646,6 @@ $('#typeexm').on('change', function() {
               selected = selected + $(this).val()+", ";
               i=i+10;
             });
->>>>>>> Bous
                      $('#selectedoption').val(selected); 
                     var autreexamRadio = $("#examRadAutr").tagsinput('items');  
                     if(autreexamRadio != undefined)
@@ -982,10 +677,6 @@ $('#typeexm').on('change', function() {
                         $("input[type='checkbox']:checked").each(function() {
                             $(this).attr('checked', false);
                         });
-<<<<<<< HEAD
-            }
-        </script>
-=======
         }
         function createRDVModal(debut, fin, pid = 0, fixe=1)
         {   
@@ -1060,7 +751,6 @@ $('#typeexm').on('change', function() {
              }
        }
        </script>
->>>>>>> Bous
         <script>
             $('#users-table').DataTable({
                  processing: true,
@@ -1240,9 +930,9 @@ $('#typeexm').on('change', function() {
             
                 
                 $('#id-input-file-1 , #id-input-file-2').ace_file_input({
-                    no_file:'Pas de fichier ...',
-                    btn_choose:'Sélectionner',
-                    btn_change:'Changement',
+                    no_file:'No File ...',
+                    btn_choose:'Choose',
+                    btn_change:'Change',
                     droppable:false,
                     onchange:null,
                     thumbnail:false //| true | large
