@@ -16,7 +16,7 @@
 						<th><strong>Patient</strong></th>
 						<th><strong>Age</strong></th>
 						<th><strong>Date De La Demande</strong></th>
-						<th><strong>Motif de l'hospitalisation</strong>/th>
+						<th><strong>Motif de l'hospitalisation</strong></th>
 						<th><strong>Service</strong></th>
 						<th><strong>Etat</strong></th>
 						<th></th>
@@ -42,8 +42,11 @@
         						<span class="label label-sm label-primary">	
         						@break
         					@case("annule")
-        						<span class="label label-sm label-danger">	
-        					@break	
+        						<span class="label label-sm label-danger">
+        						@break
+        					@case("admise")		
+        						<span class="label label-sm label-success">
+        						@break	
 							@endswitch	
 							{{ $demande->etat }}</span>
 							

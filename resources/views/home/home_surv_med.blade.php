@@ -13,13 +13,14 @@
 						<table class="table table-striped table-bordered table-hover">
 							<thead class="thin-border-bottom">
 								<tr>
-									<th>Patient</th>
-									<th>Mode Admission</th>
-									<th>Priorité</th>
-									<th>Observation</th>
-									<th>date</th>
-									<th>Etat</th>
-									<th></th>
+									<th class="text-center"><h5><strong>Patient</strong></h5></th>
+									<th class="text-center"><h5><strong>Mode Admission</strong></h5></th>
+									<th class="text-center" width="3%"><h5><strong>Priorité</strong></h5></th>
+									<th class="text-center"><h5><strong>Medecin Trait.</strong></h5></th>
+									<th class="text-center"><h5><strong>Observation</strong></h5></th>
+									<th class="text-center"><h5><strong>date</strong></h5></th>
+									<th class="text-center"><h5><strong>spécialité</strong></h5></th>
+									<th class="text-center"><em class="fa fa-cog"></em></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -46,6 +47,7 @@
         											@break
 									@endswitch
 									</td>
+									<th>{{ $demande->medecin->Nom_Employe }} &nbsp; {{ $demande->medecin->Prenom_Employe }}</th>
 									<td>{{ $demande->observation }}</td>
 									<td>
 										<span class="label label-sm label-{{$demande->degree_urgence == "Haut" ? "danger" : "warning"}}" style="color: black;">
@@ -53,13 +55,11 @@
 										</span>
 										{{ $demande->demandeHosp->consultation->Date_Consultation }}
 									</td>
-									<td>{{ $demande->demandeHosp->etat }}</td>
+									<td>{{ $demande->demandeHosp->Specialite->nom }}</td>
 									<td>
-										<div class="hidden-sm hidden-xs btn-group">
-										<!-- /admission/create/{{$demande->id_demande}} -->
-											<a href="{{ route('createRdvHosp',['id' =>$demande->id_demande ]) }}" class="btn btn-xs btn-success">
-												<i class="ace-icon fa fa-bed bigger-120"></i>
-												Créer Un RDV Hospitalisaton
+										<div class="hidden-sm hidden-xs btn-group">						
+											<a href="{!! action('RdvHospiController@create', $demande->id_demande ) !!}" class="btn btn-xs btn-success">
+												<i class="fa fa-plus fa-xs"></i> &nbsp;RDV Hospitalisaton
 											</a>
 										</div>
 									</td>

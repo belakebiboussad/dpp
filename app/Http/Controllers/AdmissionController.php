@@ -49,40 +49,39 @@ class AdmissionController extends Controller
      */
     public function store(Request $request)
     { 
-        $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
-        $ServiceID = $employe->Service_Employe;
-        $adm=admission::create([     
-            "id_demande"=>$request->id_demande,       
-            "id_lit"=>$request->lit,
-      
-        ]);
-        $rdv = rdv_hospitalisation::firstOrCreate([
-            "date_RDVh"=>$request->dateEntree,
-            "heure_RDVh"=>$request->heure_rdvh,   
-            "id_admission"=>$adm->id,       
-            "etat_RDVh"=>"en attente",
-            "date_Prevu_Sortie"=>$request->dateSortiePre,
-            "heure_Prevu_Sortie" =>$request->heureSortiePrevue,
-        ]);    
-        $demande= DemandeHospitalisation::find($request->id_demande);
-        $demande->etat = 'programme';
-        $demande->save();
-        if(isset($request->lit))
-        { 
-          $lit = Lit::FindOrFail($request->lit);          
-          $lit-> update([
-                "affectation"=>1,
-          ]);         
-        }
-        $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID) {
-                                           $q->where('id',$ServiceID);                           
-                                    })
-                                ->whereHas('demandeHosp',function ($q){
-                                    $q->where('etat','valide'); 
-                                })->get();                       
-        return view('admission.index', compact('demandes'));    
+      $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
+      $ServiceID = $employe->Service_Employe;
+      $adm=admission::create([     
+          "id_demande"=>$request->id_demande,       
+          "id_lit"=>$request->lit,
+    
+      ]);
+      $rdv = rdv_hospitalisation::firstOrCreate([
+          "date_RDVh"=>$request->dateEntree,
+          "heure_RDVh"=>$request->heure_rdvh,   
+          "id_admission"=>$adm->id,       
+          "etat_RDVh"=>"en attente",
+          "date_Prevu_Sortie"=>$request->dateSortiePre,
+          "heure_Prevu_Sortie" =>$request->heureSortiePrevue,
+      ]);    
+      $demande= DemandeHospitalisation::find($request->id_demande);
+      $demande->etat = 'programme';
+      $demande->save();
+      if(isset($request->lit))
+      { 
+        $lit = Lit::FindOrFail($request->lit);          
+        $lit-> update([
+              "affectation"=>1,
+        ]);         
+      }
+      $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID) {
+                                         $q->where('id',$ServiceID);                           
+                                  })
+                              ->whereHas('demandeHosp',function ($q){
+                                  $q->where('etat','valide'); 
+                              })->get();                       
+      return view('admission.index', compact('demandes'));    
     }
-
     /**
      * Display the specified resource.
      *
@@ -121,25 +120,7 @@ class AdmissionController extends Controller
       public function destroy($id)
       {
           //
-      }
-  
-      public function annulerRDV($id)
-      {     
-              $rdvHospi =  rdv_hospitalisation::find($id); 
-              if(isset($rdvHospi->admission->id_lit))
-              {
-                $rdvHospi->admission->lit->affectation=0;
-                $rdvHospi->admission->lit->save();  
-              }
-              $rdvHospi->etat_RDVh="Annule";
-              $rdvHospi->save();
-              $rdvHospi->admission->demandeHospitalisation->setEtatAttribute("valide");
-              $rdvHospi->admission->demandeHospitalisation->save();  
-              $rdvHospi->admission->delete();
-              $status = "true";
-              return $status;
-       } 
-    
+      } 
     public function affecterLit()
     {
       $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
@@ -184,6 +165,4 @@ class AdmissionController extends Controller
         $name = "rdv-".$rdv->admission->demandeHospitalisation->consultation->patient->Nom."-".$rdv->admission->demandeHospitalisation->consultation->patient->Prenom.".pdf";
         return $pdf->stream($name);
     }   
- 
-
 }

@@ -89,7 +89,6 @@ Route::get('/runcolloque/{id}','ColloqueController@run');
 Route::get('/endcolloque/{id}','ColloqueController@cloture');
 Route::post('/savecolloque/{id}','ColloqueController@save');
 Route::resource('admission','AdmissionController');
-route::get('/annullerRDV/{id}','AdmissionController@annulerRDV');
 Route::get('/getAdmissions/{date}','AdmissionController@getAdmissions');//->name('admissionsXHR')
 Route::post('/hommeConfiance/save','HommeConfianceController@createGardejax');
 Route::resource('hommeConfiance','HommeConfianceController');
@@ -99,7 +98,7 @@ Route::resource('service','ServiceController');
 Route::resource('exmbio','ExamenbioController');
 Route::resource('exmimg','ExmImgrieController');
 Route::get('hospitalisation/listeRDVs', 'RdvHospiController@getlisteRDVs');
-Route::get('hospitalisation/addRDV', 'HospitalisationController@ajouterRDV');
+Route::get('hospitalisation/addRDV', 'RdvHospiController@ajouterRDV');
 Route::resource('hospitalisation','HospitalisationController');
 Route::resource('salle','SalleController');
 Route::resource('ordonnace','OrdonnanceController');
@@ -140,10 +139,6 @@ Route::get('/rdv/reporter/{id}','RDVController@reporter');
 Route::post('/rdv/reporte/{id}','RDVController@storereporte');
 Route::get('rdvprint/{id}','rdvController@print');
 Route::resource('rdvHospi','RdvHospiController');
-Route::get('rdvHospi/create/{parameter}',
-        ['as'=> 'createRdvHosp', 'uses'=>'RdvHospiController@create']
-);
-//
 Route::get('/admission/imprimer/{rdv}', ['as' => 'admission.pdf', 'uses' => 'AdmissionController@print']);
 Route::get('/choixpatient','RDVController@choixpatient');
 Route::get('/home', 'HomeController@index')->name('home');

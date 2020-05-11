@@ -1,19 +1,4 @@
 @extends('app_sur')
-@section('page-script')
-<script type="text/javascript">
-	function annulerRDV(elm,line,id)
-	{
-		row = $(".bodyClass").find('tr').eq(line);
-		$.ajax({
-			url: '/annullerRDV/'+id,
-      type: 'GET', //dataType: 'JSON',
-      success: function (data) { 
-		    row.remove();
-		  }	
-		});		
-	}
-</script>
-@endsection
 @section('main-content')
 	<div class="page-header">
 		<h2>
@@ -36,7 +21,7 @@
 								<th class="text-center" width="15%"><h5><strong>Date RDV</strong></h5></th>
 								<th class="text-center" width="10%">Heure RDV</th>
 								<th width="12%" class="text-center"><strong>Date Sortie Prévue</strong></th>
-							  	<th width="12%" class="text-center"><strong>Heure Sortie Prévue</strong></th>
+							  <th width="12%" class="text-center"><strong>Heure Sortie Prévue</strong></th>
 								<th class="font-weight-bold text-center"><strong>Medecin Traitant</strong></th>
 								<th class="font-weight-bold text-center"><strong>Lit</strong></th>
 								<th class="font-weight-bold text-center"><strong>Salle</strong></th>
@@ -92,17 +77,20 @@
 									@endif	
 								 </td>
 								<td class="center">
-									<a href="{{ route('rdvHospi.edit',$rdv->id) }}" class="btn btn-success btn-xs aaaa"  title= "Reporer RDV" >
-											  	<i class="ace-icon fa fa-clock-o"></i>
-					            			</a>
-								       <a href="#" class="btn btn-danger btn-xs aaaa" title="Annuler RDV" onclick= "annulerRDV(this,{{ $j }},{{ $rdv->id }});">
+									<a href="{{ route('rdvHospi.edit',$rdv->id) }}" class="btn btn-success btn-xs"  title= "Reporer RDV" >
+									 	<i class="ace-icon fa fa-clock-o"></i>
+					        </a>
+					        <a href="{{ route('rdvHospi.destroy',$rdv->id) }}" class="btn btn-danger btn-xs" title="Annuler RDV" data-method="DELETE" data-confirm="Etes Vous Sur d'annuller le RDV?"><i class="fa fa-trash-o fa-xs"></i></a>		
+<!-- 
+								  <a href="#" class="btn btn-danger btn-xs aaaa" title="Annuler RDV" onclick= "annulerRDV(this,{{ $j }},{{ $rdv->id }});">
 										<i class="ace-icon fa fa-close" ></i>
-								       </a>    <!-- onclick= "printRDV();" -->
-						            		<a href="/admission/imprimer/{{ $rdv->id }}" class="btn btn-info btn-xs aaaa" title="Imprimer RDV">
-										 <i class="ace-icon fa fa-print" ></i>
-						            		</a>
-				        			</td>
-				    			 </tr>			
+								  </a> -->
+								      <!-- onclick= "printRDV();" -->
+						      <a href="/admission/imprimer/{{ $rdv->id }}" class="btn btn-info btn-xs" title="Imprimer RDV">
+									  <i class="ace-icon fa fa-print" ></i>
+						      </a>
+				        </td>
+				    	</tr>			
 							@endforeach
 						</tbody>
 					</table>

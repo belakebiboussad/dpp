@@ -134,18 +134,5 @@ class HospitalisationController extends Controller
     {
         //
     }
-    public function ajouterRDV()
-    {
-        $employe = employ::where("id",Auth::user()->employee_id)->get()->first();  
-        $ServiceID = $employe->Service_Employe;
-        $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID) {
-                                           $q->where('id',$ServiceID);                           
-                                    })
-                                ->whereHas('demandeHosp',function ($q){
-                                    $q->where('etat','valide'); 
-                                })->get();
-        return view('home.home_surv_med', compact('demandes'));
-
-    }
 
 }

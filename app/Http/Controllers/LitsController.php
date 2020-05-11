@@ -7,6 +7,7 @@ use App\modeles\lit;
 use App\modeles\salle;
 use App\modeles\service;
 use App\modeles\bedReservation;
+use App\modeles\rdv_hospitalisation;
 use Response;
 class LitsController extends Controller
 {
@@ -125,39 +126,54 @@ class LitsController extends Controller
     /**
     function ajax return lits ,on retourne pas les lits bloque ou reservé  
     */
-      public function getlits(Request $request)
-      {  
-              $lits =array();
-             $salle =salle::FindOrFail($request->SalleID);
-             foreach ($salle->lits as $key => $lit) {  
+    public function getlits(Request $request)
+    {  
+        $lits =array();
+        $salle =salle::FindOrFail($request->SalleId);
+        if(isset($request->rdvId))
+            $rdvHosp =  rdv_hospitalisation::FindOrFail($request->rdvId);
+        if(isset($rdvHosp) && isset($rdvHosp->bedReservation) && ($rdvHosp->bedReservation->lit->salle_id == $request->SalleId ))
+        {
+            foreach ($salle->lits as $key => $lit) {  
+                if($rdvHosp->bedReservation->id_lit !=$lit->id )
+                {
                     $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate));
-                    if( $free == "false")
-                    {
-                          $salle->lits->pull($key);
-                          //$lits->push($lit);
-                    } 
-             }
-              return $salle->lits;
-              //return($lits); 
-             //return($salle->lits->count());
-            // $lits = lit::where('salle_id',$salleid)->where('etat',1)->where("affectation",0)->get();
-             //$lit =Lit::FindOrFail(4); // $libre = $lit->isFree(5,1588204800,1588291200);
-             /*
-              $idlit = 11;
-                $free ="true";
-             $reservations =  bedReservation::whereHas('lit',function($q) use($idlit){
-                                                      $q->where('id',$idlit);
-                                                })->get();
-            foreach ($reservations as $key => $reservation) {
-                    if(( strtotime($request->StartDate) >= strtotime($reservation->rdvHosp->date_Prevu_Sortie)) || (strtotime($request->EndDate) <= strtotime($reservation->rdvHosp->date_RDVh)))
-                          $free = " true";
-                     else
-                          $free = " false";   
-            }  
-
-           // return (Response::json(strtotime($reservations[0]->rdvHosp->date_RDVh)));
-            return $free;
-           */
+                    if(!($free))
+                    $salle->lits->pull($key); //$lits->push($lit);    
+                 }
+            }
+        }
+        else
+        {  
+            foreach ($salle->lits as $key => $lit) {  
+                $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate));
+                if(!($free))
+                    $salle->lits->pull($key); //$lits->push($lit);    
+            } 
+              
+        }
+  
+       
+        return $salle->lits;
+        //return($lits); 
+        //return($salle->lits->count());
+        // $lits = lit::where('salle_id',$salleid)->where('etat',1)->where("affectation",0)->get();
+        //$lit =Lit::FindOrFail(4); // $libre = $lit->isFree(5,1588204800,1588291200);
+        /*
+        $idlit = 11;
+        $free ="true";
+        $reservations =  bedReservation::whereHas('lit',function($q) use($idlit){
+                                              $q->where('id',$idlit);
+                                        })->get();
+        foreach ($reservations as $key => $reservation) {
+            if(( strtotime($request->StartDate) >= strtotime($reservation->rdvHosp->date_Prevu_Sortie)) || (strtotime($request->EndDate) <= strtotime($reservation->rdvHosp->date_RDVh)))
+                  $free = " true";
+             else
+                  $free = " false";   
+        }  
+       // return (Response::json(strtotime($reservations[0]->rdvHosp->date_RDVh)));
+        return $free;
+        */
     }
 
 }

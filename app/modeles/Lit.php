@@ -16,21 +16,19 @@ class Lit extends Model
        public function isFree($start , $end)
        {
         /*$reservations  =  bedReservation::whereHas('lit',function($q) use($idlit){$q->where('id',$idlit)->where('etat',1);})->whereHas('rdvHosp',function ($q)use($start,$end){  $q->where('date_RDVh','<=',$end)->where('date_Prevu_Sortie','>',$start); })->get();if($reservations->count() >0 )  return false;  else  return true;  */
-             $free ="true";
-             $idlit = $this->id;
-             $lit =Lit::FindOrFail($idlit);
-             if($lit->etat == 0)
-                   return "false"; 
-             $reservations =  bedReservation::whereHas('lit',function($q) use($idlit){
+            $free = true;
+            $idlit = $this->id;
+            $lit =Lit::FindOrFail($idlit);
+            if($lit->etat == 0)
+              return false; 
+            $reservations =  bedReservation::whereHas('lit',function($q) use($idlit){
                                                       $q->where('id',$idlit);
                                                 })->get();   
-              foreach ($reservations as $key => $reservation) {
-                  /*if((strtotime($reservation->rdvHosp->date_RDVh) <= $end) || (strtotime($reservation->rdvHosp->date_Prevu_Sortie) > $start))$free = false; */
-                    if(( $start >= strtotime($reservation->rdvHosp->date_Prevu_Sortie)) || ($end <= strtotime($reservation->rdvHosp->date_RDVh)))
-                          $free = " true";
-                    else
-                        $free = " false";
-             }   
-             return $free;
+            foreach ($reservations as $key => $reservation) {
+              /*if((strtotime($reservation->rdvHosp->date_RDVh) <= $end) || (strtotime($reservation->rdvHosp->date_Prevu_Sortie) > $start))$free = false; */
+              if(( $start < strtotime($reservation->rdvHosp->date_Prevu_Sortie)) && ($end > strtotime($reservation->rdvHosp->date_RDVh)))
+                $free = false;
+            }   
+            return $free;
       }   
 }

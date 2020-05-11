@@ -35,14 +35,12 @@ class DemandeHospitalisationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function create($id)
     {
         $consultation = consultation::FindOrFail($id);
         $patient = patient::FindOrFail($consultation->Patient_ID_Patient); 
         return view('demandehospitalisation.create_demande', compact('patient','consultation'));
     }
-
     /**
      * Store a newly created resource in storage.
      *

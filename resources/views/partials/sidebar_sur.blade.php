@@ -73,6 +73,7 @@
         <ul class="submenu">
           <li class="">
             <a href="/hospitalisation/addRDV">
+            <!-- <a href="/Dem/" title="ajouter un Rendez-Vous"> -->
               <i class="menu-icon fa fa-plus"></i>Ajouter Rendez-Vous
             </a>
             <b class="arrow"></b>
@@ -161,26 +162,26 @@ var dateEnd = jsDate.getFullYear() + '-' + (jsDate.getMonth()+1) + '-' + jsDate.
              $("#salle").change(function(){
                    if($(this ).val() != 0)
                    {  
-                            var attr = $('#lit').attr('disabled');
-                            if (typeof attr == typeof undefined && attr == false) {
-                                  $('#lit').attr('disabled', 'disabled');
-                           }
-                        $('#lit').removeAttr("disabled");
-                        var start = $('#dateEntree').val();
-                        var end = $("#dateSortiePre").val();
-                        var salleID =  $('#salle').val();
-                        $.ajax({
+                      var attr = $('#lit').attr('disabled');
+                      if (typeof attr == typeof undefined && attr == false) {
+                        $('#lit').attr('disabled', 'disabled');
+                      }
+                      $('#lit').removeAttr("disabled");
+                      var start = $('#dateEntree').val();
+                      var end = $("#dateSortiePre").val();
+                      var salleId =  $('#salle').val();
+                      var rdvId = typeof($('#id').val())  !== "undefined" ? $('#id').val(): null;  
+                      $.ajax({
                               url : '/getlits',
                               type : 'GET',
                               data: { 
-                                    SalleID: salleID , 
+                                    SalleId: salleId , 
                                     StartDate: start, 
                                     EndDate: end,
+                                    rdvId : rdvId
                               }, //dataType : 'json', 
                               success: function(data, textStatus, jqXHR){
-                                      //$.each( data, function( key, value ) {//alert( key + ": " + value );// });      
-                                                     
-                                   
+                                    //$.each( data, function( key, value ) {//alert( key + ": " + value );// });                      
                                     var selectLit = $('#lit').empty();                          
                                     if(data.length != 0){
                                             selectLit.append("<option value='0'>Selectionnez un lit</option>");
@@ -189,9 +190,8 @@ var dateEnd = jsDate.getFullYear() + '-' + (jsDate.getMonth()+1) + '-' + jsDate.
                                             });
                                     }else
                                     {
-                                           selectLit.append('<option value="" selected disabled>Pas de Lit libre</option>');
-                                    }  
-                              
+                                      selectLit.append('<option value="" selected disabled>Pas de Lit libre</option>');
+                                    }
                               },
                             error: function (jqXHR, textStatus, errorThrown) {
                             },
