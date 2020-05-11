@@ -44,7 +44,7 @@
 											<li>
 												<i class="ace-icon fa fa-caret-right blue"></i>
 												<strong>Age :</strong>
-												<b class="blue">{{ $dt = Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }} ans</b>
+							<b class="blue">{{ $dt = Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }} ans</b>
 											</li>
 										</ul>
 									</div>

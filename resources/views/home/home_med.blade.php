@@ -1,24 +1,24 @@
 
 @extends('app')
 @section('page-script')
- <script type="text/javascript" src="{{ asset('js/app-med.js') }}"></script>
- <script type="text/javascript">
-           //ajax pour chercher les patients
-            $( document ).ready(function() {
-                $('#nomPatient').on('keyup',function(){
-                         $value=$(this).val();
-                         $.ajax({
-                                type : 'get',
-                                url : '{{URL::to('searchPatient')}}',
-                                data:{'search':$value},
-                                success:function(data,status, xhr){
-                                    $('tbody').html(data);
-                                    var count = xhr.getResponseHeader("count");
-                                    $(".numberResult").html(count);
-                                }
-                           });
-                }); 
+  <script type="text/javascript" src="{{ asset('js/app-med.js') }}"></script>
+  <script type="text/javascript">
+   //ajax pour chercher les patients
+    $( document ).ready(function() {
+      $('#nomPatient').on('keyup',function(){
+        $value=$(this).val();
+        $.ajax({
+          type : 'get',
+          url : '{{URL::to('searchPatient')}}',
+          data:{'search':$value},
+          success:function(data,status, xhr){
+              $('tbody').html(data);
+              var count = xhr.getResponseHeader("count");
+              $(".numberResult").html(count);
+          }
         });
+      }); 
+    });
 </script>
 @endsection
 @section('main-content')

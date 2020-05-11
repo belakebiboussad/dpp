@@ -52,6 +52,8 @@ class ticketController extends Controller
                 "num_order" => ($tickets+1),
                 "id_patient" => $request->id_patient,
             ]);
+            // dd($ticket);
+           
             return redirect()->route("ticket.pdf",$ticket->id);
         }
         else
@@ -66,7 +68,7 @@ class ticketController extends Controller
                 "document" => $request->document,
                 "num_order" => ($tickets+1),
                 "id_patient" => $request->id_patient,
-            ]); 
+            ]);
             return redirect()->route("ticket.pdf",$ticket->id);
         }
     }
@@ -118,7 +120,7 @@ class ticketController extends Controller
     public function ticketPdf($id)
     {
         $ticket = ticket::FindOrFail($id);
-        $pdf = PDF::loadView('ticket', compact('ticket'))->setPaper('a4','landscape');
+        $pdf = PDF::loadView('ticket', compact('ticket'))->setPaper('a6','landscape');
         $name = "Ticket.pdf";
         return $pdf->download($name);
     }

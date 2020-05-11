@@ -71,40 +71,8 @@
 @endsection
 @section('main-content')
 <div class="page-header" width="100%">
-   <div class="row">
-    <div class="col-sm-12">
-      <div class="widget-box">
-        <div class="widget-body">
-          <div class="widget-main">
-            <label class="inline">
-            <span class="blue"><strong>Nom :</strong></span>
-            <span class="lbl"> {{ $demande->consultation->patient->Nom }}</span>
-          </label>
-          &nbsp;&nbsp;&nbsp;
-          <label class="inline">
-            <span class="blue"><strong>Prénom :</strong></span>
-            <span class="lbl"> {{ $demande->consultation->patient->Prenom }}</span>
-          </label>
-          &nbsp;&nbsp;&nbsp;
-          <label class="inline">
-            <span class="blue"><strong>Sexe :</strong></span>
-            <span class="lbl"> {{ $demande->consultation->patient->Sexe == "M" ? "Masculin" : "Féminin" }}</span>
-          </label>
-          &nbsp;&nbsp;&nbsp;
-          <label class="inline">
-            <span class="blue"><strong>Date Naissance :</strong></span>
-            <span class="lbl"> {{ $demande->consultation->patient->Dat_Naissance }}</span>
-          </label>
-          &nbsp;&nbsp;&nbsp;
-          <label class="inline">
-            <span class="blue"><strong>Age :</strong></span>
-            <span class="lbl"> {{ Jenssegers\Date\Date::parse($demande->consultation->patient->Dat_Naissance)->age }} ans</span>
-          </label>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+   <?php $patient = $demande->consultation->patient; ?> 
+    @include('patient._patientInfo')    
 </div>
 <div class="content">
   <div class="row">
@@ -115,7 +83,7 @@
             <tr>
               <th class="center">#</th>
               <th>Examen</th>
-              <th></th>
+              <th><em class="fa fa-cog"></em></th>
             </tr>
           </thead>
           <tbody>
@@ -137,14 +105,15 @@
             <label><b>Upload Résultat :</b></label>
           </div>
           <div class="col-xs-8">
-            <input type="file" id="id-input-file-2" name="resultat" />
+            <input type="file" id="id-input-file-2" name="resultat" placeholder ="fichier..." class="form-control" required/>
           </div>
         </div>
         <div class="clearfix form-actions">
           <div class="col-md-offset-5 col-md-7">
             <button class="btn btn-info" type="submit">
-              <i class="ace-icon fa fa-check bigger-110"></i>
-              Enregistrer
+             <!--  <i class="ace-icon fa fa-upload bigger-110"></i> -->
+             <i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>
+              Démarrer l'envoie
             </button>
           </div>
         </div>

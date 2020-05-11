@@ -40,11 +40,11 @@ class SurveillanceController extends Controller
               
                  $consigne->update([
                      "app"=>'Oui'
-                 ]);*/
+                 ]);
 
 
               }
-                                
+                  */              
      
     return back()->with('message','Surveillance ajoutée avec succès!');
       //return redirect('/patient/listecons/'$request->idvis)->with('info','Visite ajoutée avec succès!'); 

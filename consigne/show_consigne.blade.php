@@ -11,20 +11,18 @@
 			<div class="col-sm-10 col-sm-offset-1">
 				<div class="widget-box transparent">
 					<div class="widget-header widget-header-large">
-						
-						
-											<li class="divider"></li>
-											<li>
-												<i class="ace-icon fa fa-caret-right blue"></i>
-													<strong>consigne</strong>
-													<b class="red">{{$consigne->consigne }}</b>
-											</li>
-											<li>
-												<i class="ace-icon fa fa-caret-right blue"></i>
-													<strong>Apliquée:</strong>
-													<b class="red">{{$consigne->app}}</b>
-											</li>
-										</ul>
+					<li class="divider"></li>
+					<li>
+					<i class="ace-icon fa fa-caret-right blue"></i>
+						<strong>consigne</strong>
+						<b class="red">{{$consigne->consigne }}</b>
+					</li>
+					<li>
+						<i class="ace-icon fa fa-caret-right blue"></i>
+							<strong>Apliquée:</strong>
+							<b class="red">{{$consigne->app}}</b>
+					</li>
+				</ul>
 									</div>
 								</div><!-- /.col -->		
 							</div><!-- /.row -->

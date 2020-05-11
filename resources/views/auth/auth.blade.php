@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 @include('partials.htmlheader')
-<body class="login-layout light-login" style="background-image: url({{asset('/avatars/hop.jpg')}}); background-size: cover;">
+@include('partials.scripts')
+<body class="login-layout light-login" style="background-image: url({{ asset('/avatars/hop.jpg') }}); background-size: cover;">
 <div class="main-container">
     <div class="main-content">
         <div class="row">
@@ -48,15 +49,11 @@
 <!-- basic scripts -->
 
 <!--[if !IE]> -->
-{{-- <script type="text/javascript">
-    window.jQuery || document.write("<script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'>"+"<"+"/script>");
-</script> --}}
-
 <!-- <![endif]-->
 
 <!--[if IE]>-->
 <script type="text/javascript">
-    window.jQuery || document.write("<script src='{{ asset('/js/jquery-2.2.4.min.js') }}'>"+"<"+"/script>");
+    window.jQuery || document.write("<script src='{{ asset('/js/jquery.min.js') }}'>"+"<"+"/script>");
 </script>
 <!--[endif]-->
 <script type="text/javascript">

@@ -3,7 +3,7 @@
 <div id="login-box" class="login-box visible widget-box no-border">
     <div class="widget-body">
         <div class="widget-main">
-             <div class="center" class = "hidden">
+             <div class ="center hidden">
                   <img src="img/logo.png" class="center thumb img-icons" alt="a picture">
             </div>  
             <h3><a href="#"><img src = "img/policeman.png" class ="img1"></a>&nbsp; Entrez Vos Informations </h3>

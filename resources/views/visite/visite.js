@@ -8,7 +8,6 @@
       // Les valeurs encodée dans le formulaire seront stockées dans un tableau
       champ.name = "champs[]";
       champ.type = "text";
- 
       var sup = document.createElement("input");
       sup.value = "supprimer un champ";
       sup.type = "button";
@@ -26,7 +25,6 @@
  
 function suppression(element){
    var formulaire = window.document.formulaireDynamique;
- 
    // Supprime le bouton d'ajout
    formulaire.removeChild(element.previousSibling);
    // Supprime le champ

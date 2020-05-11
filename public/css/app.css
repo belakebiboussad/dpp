@@ -6230,11 +6230,10 @@ button.close {
 .error {
     color: red;
 }
-#Ordonnance .modal-dialog  {width:95%;}
 .disabledElem
 {
-   opacity: .5;
-    pointer-events: none;
+  opacity: .5;
+  pointer-events: none;
 }
 .enabledElem
 {
@@ -6261,7 +6260,7 @@ button.close {
    width: 20px;
   height: 20px;
 }
-.bodycontainer { max-height: 450px; width: 100%; margin: 0; overflow-y: auto; }
+.bodycontainer { max-height: 500px; width: 100%; margin: 0; overflow-y: auto; }
 .table-scrollable { margin: 0; padding: 0; }
 
 .right {
@@ -6440,7 +6439,7 @@ width:auto !important;
     line-height: 45px;
     border-radius: 50%;
     text-align: center;
-    font-size: 26px;
+    font-size: 27px;
     border: 2px solid #666;
 }
 .numberCircle20{
@@ -6474,3 +6473,9 @@ width:auto !important;
        line-height: 20px;
     }
 .liste th {text-align:center}
+.my-right-float {
+     margin-right: -10px;
+}
+#ui-datepicker-div {
+  display: none;
+}

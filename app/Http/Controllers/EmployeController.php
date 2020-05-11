@@ -1,9 +1,10 @@
 <?php
 namespace App\Http\Controllers;
-
-use App\modeles\employ;
 use Illuminate\Http\Request;
+use Response;
 use App\User;
+use App\modeles\employ;
+use App\modeles\specialite;
 class EmployeController extends Controller
 {
     /**
@@ -15,7 +16,6 @@ class EmployeController extends Controller
     {
         //
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -25,7 +25,6 @@ class EmployeController extends Controller
     {
         //
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -36,7 +35,6 @@ class EmployeController extends Controller
     {
         //
     }
-
     /**
      * Display the specified resource.
      *
@@ -68,54 +66,57 @@ class EmployeController extends Controller
      * @param  \App\modeles\employ  $employ
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, employ $employ)
+    public function update(Request $request, $employid)
     {
-           // dd($request->all());
-         $employe = employ::FindOrFail($employ->id);
-        // dd($request->datenaissance);
-         $request->validate([
-                "nom"=> "required | max:120",
-                "prenom"=> "required|alpha_num",
-                "datenaissance"=> "required | date",
-                "lieunaissance"=> "required",
-                "sexe"=> "required",
-                "adresse"=> "required",
-                 "mobile"=> "required | regex:/[0][567][0-9]{8}/",
-                 "fixe"=> "numeric | regex:/[0][0-9]{8}/",
-                 //"mat"=> "required",
-                "service"=> "required",          
-                "nss"=> "required | regex:/[0-9]{12}/",
-                'specialite'=>"required",
-        ]);
-           $employe->update([
-            "Nom_Employe"=>$request->nom,
-            "Prenom_Employe"=>$request->prenom,
-            "Sexe_Employe"=>$request->sexe,
-            "Date_Naiss_Employe"=>$request->datenaissance,
-            "Lieu_Naissance_Employe"=>$request->lieunaissance,
-            "Adresse_Employe"=>$request->adresse,
-            "Tele_fixe"=>$request->fixe,
-            "tele_mobile"=>$request->mobile,
-            "Specialite_Emploiye"=>$request->specialite,
-            "Service_Employe"=>$request->service,
-            "Matricule_dgsn"=>$request->mat,
-            "NSS"=>$request->nss,
-        ]);
-           // get user id
-           $user = User::where("employee_id",$employe->id)
-                           ->get(['id'])->first();
-           return redirect(Route('users.show',$user->id));
-
+               $employe = employ::FindOrFail($employid); 
+               $v = $request->validate([
+                    "nom"=> "required | max:120",
+                    "prenom"=> "required|max:120",
+                    "datenaissance"=> "required",// | date
+                    "lieunaissance"=> "required",
+                    "sexe"=> "required",
+                    "adresse"=> "required",
+                    "mobile"=> "required | regex:/[0][567][0-9]{8}/",
+                    // "fixe"=> "numeric | regex:/[0][0-9]{8}/",       //"mat"=> "required",
+                      //"service"=> "required",          // "nss"=> "required | regex:/[0-9]{12}/",       //"specialite"=>"required",
+             ]);
+              $employe->update([
+                  "Nom_Employe"=>$request->nom,
+                  "Prenom_Employe"=>$request->prenom,
+                  "Sexe_Employe"=>$request->sexe,
+                  "Date_Naiss_Employe"=>$request->datenaissance,
+                  "Lieu_Naissance_Employe"=>$request->lieunaissance,
+                  "Adresse_Employe"=>$request->adresse,
+                  "Tele_fixe"=>$request->fixe,
+                  "tele_mobile"=>$request->mobile,
+                  "Specialite_Emploiye"=>$request->specialite,
+                  "Service_Employe"=>$request->service,
+                  "Matricule_dgsn"=>$request->mat,
+                  "NSS"=>$request->nss,
+           ]);
+           $userID = User::where("employee_id",$employe->id)->get(['id'])->first();             
+           return redirect(Route('users.edit',$userID));//return redirect(Route('users.show',$userID));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\modeles\employ  $employ
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(employ $employ)
-    {
-        //
-    }
+      /**
+       * Remove the specified resource from storage.
+       *
+       * @param  \App\modeles\employ  $employ
+       * @return \Illuminate\Http\Response
+       */
+      public function destroy(employ $employ)
+      {
+          //
+      }
+       public function searchBySpececialite(Request $request) 
+       {
+             $doctors =  (specialite::FindOrFail($request->specialiteId))->employes;
+             /*
+             $doctors = employ::whereHas('specialite', function ($query)use($specialiteId) {
+                  $query->where('specialite', '=', $specialiteId);
+              })->get();
+             */
+              return Response::json($doctors);
+             // return($request->specialiteId);
+       }
 }

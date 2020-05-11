@@ -14,13 +14,6 @@
 				<input class="col-sm-3 date-picker" id="daterdv" type="text" name="daterdv" value="{{ \Carbon\Carbon::parse($rdv->Date_RDV)->format('Y-m-d') }}" data-date-format="yyyy-mm-dd" required/>
 			</div>
 		</div>
-		{{-- <div class="form-group">
-			<label class="col-sm-3 control-label no-padding-right" for="type"><strong> Heure RDV : </strong></label>
-
-			<div class="col-sm-9 bootstrap-timepicker">
-				<input id="timepicker1" type="text" name="heurrdv" value="{{ $rdv->Temp_rdv }}" class="col-sm-3" required/>
-			</div>
-		</div> --}}
 		<div class="clearfix form-actions">
 			<div class="col-md-offset-3 col-md-9">
 				<button class="btn btn-info" type="submit">

@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-    {{-- <title>Gestion Des Colloques</title> --}}
-     <title>@yield('title','Gestion Des Colloques')</title>
-    {{-- @include('partials.htmlheader',['html_title' => "Gestion Des Colloques"]) --}}
     @include('partials.htmlheader')
   <body class="no-skin">
          @include('partials.scripts')
@@ -12,14 +9,14 @@
             try{ace.settings.check('main-container' , 'fixed')}catch(e){}
         </script>
         @yield('page-script')
-        @if(App\modeles\rol::where("id",Illuminate\Support\Facades\Auth::user()->role_id)->first()->role == "reception")
-            @include('partials.sidebar_rec')
-        @elseif(App\modeles\rol::where("id",Illuminate\Support\Facades\Auth::user()->role_id)->first()->role == "Medecine")
+        @if( Auth::user()->role->id == 1)
             @include('partials.sidebar_med')
-        @elseif(App\modeles\rol::where("id",Illuminate\Support\Facades\Auth::user()->role_id)->first()->role == "surveillant médical")
-            @include('partials.sidebar_sur')
-        @elseif(App\modeles\rol::where("id",Illuminate\Support\Facades\Auth::user()->role_id)->first()->role == "Delegue colloque")
-            @include('partials.sidebar_dele')
+        @elseif( Auth::user()->role->id == 2)
+            @include('partials.sidebar_rec')
+        @elseif(Auth::user()->role->id == 5)
+            @include('partials.sidebar_sur')    
+        @elseif(Auth::user()->role->id == 6) 
+            @include('partials.sidebar_dele')            
         @endif
         <div class="main-content">
                  <div class="main-content-inner">

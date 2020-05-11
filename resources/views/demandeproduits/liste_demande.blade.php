@@ -1,5 +1,7 @@
 @extends('app_phar')
-@section('page.script')
+@section('page-script')
+<script src="{{ asset('/js/jquery.min.js') }}"></script>
+<script src="{{ asset('/js/datatables.js') }}"></script>
 <script type="text/javascript">
 	$('#demandes_liste').dataTable({
        		ordering: true,

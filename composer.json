@@ -1,13 +1,14 @@
 {
     "name": "laravel/laravel",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": ["DGSN", "Dossier Patient"],
     "license": "MIT",
     "type": "project",
     "require": {
         "php": ">=7.0.0",
         "acacha/ace-template-laravel": "0.1.4.1",
         "barryvdh/laravel-dompdf": "^0.8.1",
+        "components/font-awesome": "^5.12",
         "doctrine/dbal": "^2.5",
         "fideloper/proxy": "~3.3",
         "jenssegers/date": "^3.2",

@@ -1,20 +1,20 @@
 @extends('app_recep')
 @section('main-content')
 	<div >
-		@include('partials._patientInfo')
+		@include('patient._patientInfo')
 	</div>
 	<div class="page-header">
 	{{-- 	<h1 style="display: inline;"><strong>Détails Du Patient :</strong> {{ $patient->Nom }} {{ $patient->Prenom }}</h1> --}}
 		
 		<div class="pull-right">
 			<a href="{{ route('patient.index') }}" class="btn btn-white btn-info btn-bold">
-				<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>
-				Rechercher un Patient
+				<i class="ace-icon fa fa-search bigger-120 blue"></i>
+				Chercher un Patient
 			</a>
-			<a href="{{route('patient.destroy',$patient->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-white btn-warning btn-bold"">
-        				<i class="ace-icon fa fa-trash-o bigger-120 orange"> Supprimer</i>
-        			</a>
-       		 </div>
+			<a href="{{route('patient.destroy',$patient->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-white btn-warning btn-bold">
+    			<i class="ace-icon fa fa-trash-o bigger-120 orange"> Supprimer</i>
+      </a>
+    </div>
 	</div>
 	<div>
 		<div id="user-profile-2" class="user-profile">
@@ -34,15 +34,13 @@
 						</a>
 					</li>
 					@endif
-					@if(App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role =="Medecine")
+					 @if( Auth::user()->role->id == 1)
 					<li>
 						<a data-toggle="tab" href="#feed">
 						<i class="orange ace-icon fa fa-stethoscope bigger-120"></i>Consultations&nbsp;<span class="badge badge-warning">{{ $consultations->count() }}
 							</span>
 						</a>
 					</li>
-					@endif
-					@if(App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role =="Medecine")
 					<li>
 					<a data-toggle="tab" href="#pictures">
 						<i class="pink ace-icon fa fa-h-square bigger-120"></i>
@@ -62,7 +60,7 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-3 center">
 								<span class="profile-picture">
-								<img class="editable img-responsive" alt="Alex's Avatar" id="avatar2" src="{{asset('/avatars/profile-pic.jpg')}}" />
+								<img class="editable img-responsive" alt="Avatar" id="avatar2" src="{{asset('/avatars/profile-pic.jpg')}}" />
 								</span>
 								<div class="space space-4"></div>
 								<a href="{{ route('patient.edit', $patient->id) }}" class="btn btn-sm btn-block btn-success">
@@ -104,7 +102,7 @@
 										</div>
 									</div>
 									<div class="profile-info-row">
-										<div class="profile-info-name">Date Naissance </div>
+										<div class="profile-info-name">né(e) le  </div>
 										<div class="profile-info-value">
 											<span>{{ $patient->Dat_Naissance }}</span>
 										</div>
@@ -119,7 +117,7 @@
 										<div class="profile-info-name"> Lieu Naissance </div>
 										<div class="profile-info-value">
 											<i class="fa fa-map-marker light-orange bigger-110"></i>
-											<span>{{ $patient->Lieu_Naissance }}</span>
+											<span>{{ $patient->lieuNaissance->nom_commune }}</span>
 										</div>
 									</div>
 									<div class="profile-info-row">
@@ -138,13 +136,13 @@
 										</div>
 									</div>
 									<div class="profile-info-row">
-										<div class="profile-info-name"> Télé mobile 1 </div>
+										<div class="profile-info-name"><i class="fa fa-phone"></i>Télé mobile 1 </div>
 										<div class="profile-info-value">
 											<span>{{ $patient->tele_mobile1 }}</span>
 										</div>
 									</div>
 									<div class="profile-info-row">
-										<div class="profile-info-name"> Télé mobile 2 </div>
+										<div class="profile-info-name"><i class="fa fa-phone"></i>Télé mobile 2 </div>
 										<div class="profile-info-value">
 											<span>{{ $patient->tele_mobile2 }}</span>
 										</div>
@@ -396,7 +394,7 @@
 								<div class="widget-header">
 									<h5 class="widget-title bigger lighter">
 										<i class="ace-icon fa fa-table"></i>
-										Liste Des Consultations :
+										Consultations
 									</h5>
 									<div class="widget-toolbar widget-toolbar-light no-border">
 										{{-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> --}}
@@ -411,11 +409,11 @@
 										<table class="table table-striped table-bordered table-hover">
 											<thead class="thin-border-bottom">
 												<tr>
-													<th>Motif De Consultation</th>
-													<th>Date De Consultation</th>
+													<th>Motif de Consultation</th>
+													<th>Date de Consultation</th>
 													<th>Diagnostic</th>
-													<th>Nom Du Médecin Traitant</th>
-													<th></th>
+													<th>Médecin Traitant</th>
+													<th class ="center"><em class="fa fa-cog"></em></th>
 												</tr>
 											</thead>
 											<tbody>
@@ -431,11 +429,10 @@
 														</td>
 														<td>
 															<div class="hidden-sm hidden-xs btn-group">
-                            									<a class="btn btn-xs btn-success" href="/consultations/detailcons/{{$consultation->id}}">
-                                									<i class="ace-icon fa fa-hand-o-up bigger-120"></i>
-                                									Détails
-                           										</a>
-                           									</div>
+                            														<a class="btn btn-xs btn-success" href="/consultations/detailcons/{{$consultation->id}}">	
+                            															<i class="ace-icon fa fa-hand-o-up bigger-120"></i>Détails
+                           														</a>
+                           													</div>
 														</td>
 													</tr>
 													@endif
@@ -456,8 +453,9 @@
 										Liste Des RDV :
 									</h5>
 									<div class="widget-toolbar widget-toolbar-light no-border">
-										<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-										<a href="#"><b>Ajouter Un RDV</b></a>
+										<!-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> -->
+										<div class="fa fa-plus-circle"></div>
+										<a href="#"><b>Ajouter un RDV</b></a>
 									</div>
 								</div>
 								<div class="widget-body">
@@ -518,18 +516,29 @@
 										<table class="table table-striped table-bordered table-hover">
 											<thead class="thin-border-bottom">
 												<tr>
-													<th>Date d'entrée</th>				
-													<th>date prévue de sortir</th>				
-													<th>Date de sortir</th>
-													<th></th>				
+													<th><strong>Medecin Traitant</strong></th>
+													<th><strong>Date d'entrée</strong></th>				
+													<th><strong>date de sortie prévue</strong></th>				
+													<th><strong>Date de sortie</strong></th>
+													<th><strong>Service</strong></th>
+													<th><strong>Salle</strong></th>
+													<th><strong>lit</strong></th>
+													<th><strong>Etat</strong></th>
+													<th><em class="fa fa-cog"></em></th>				
 												</tr>
 											</thead>
 											<tbody>
 												@foreach($hospitalisations as $hosp)
 													<tr>
+														<td>{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe }}
+							  						{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Prenom_Employe }}</td>
 														<td>{{ $hosp->Date_entree }}</td>
 														<td>{{ $hosp->Date_Prevu_Sortie }}</td>
-														<td>{{ $hosp->Date_Sortie == null ? 'Pas Encore' : $hosp->Date_Sortie }}</td>
+														<td>{{ $hosp->Date_Sortie == null ? '/' : $hosp->Date_Sortie }}</td>
+														<td></td>
+														<td></td>
+														<td></td>
+														<td><span class="badge badge-danger">{{ $hosp->etat_hosp }}</span> </td>
 														<td></td>
 													</tr>
 												@endforeach
@@ -544,7 +553,6 @@
 			</div>
 		</div>
 	</div>
-
 	<!-- Modal ramzi-->
 	<div id="ticket" class="modal fade" role="dialog">
   		<div class="modal-dialog">
@@ -552,68 +560,27 @@
     		<div class="modal-content">
     			<div class="modal-header">
     				<button type="button" class="close" data-dismiss="modal">&times;</button>
-    				<h4 class="modal-title">Ajouter Ticket :</h4>
+    				<h4 class="modal-title"><strong>Ajouter Ticket:</strong></h4>
     			</div>
     			<div class="modal-body">
     				<div class="row">
     					<div class="col-sm-12">
-    						<div class="col-xs-6">
-    							<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-										<b> Nom </b>
-									</label>
-									<div class="col-sm-9">
-										<label>{{ $patient->Nom }}</label>
-									</div>
-								</div>
-    						</div>
-    						<div class="col-xs-6">
-    							<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-										<b> Prénom </b>
-									</label>
-									<div class="col-sm-9">
-										<label>{{ $patient->Prenom }}</label>
-									</div>
-								</div>
-    						</div>
-    						<div class="col-xs-6">
-    							<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-										<b> Age </b>
-									</label>
-									<div class="col-sm-9">
-										<label>{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }} ans</label>
-									</div>
-								</div>
-    						</div>
-    						<div class="col-xs-6">
-    							<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-										<b>Sexe</b>
-									</label>
-									<div class="col-sm-9">
-										<label>{{ $patient->Sexe =="M" ? "Masculin" : "Féminin" }}</label>
-									</div>
-								</div>
-    						</div>
-    						<br/><br/><br/><br/>
     						<form action="{{ route('ticket.store') }}" method="POST" role="form">
 							{{ csrf_field() }}
 							<input type="text" name="id_patient" value="{{ $patient->id }}" hidden>
     						<div class="col-sm-12">
-								<label for="typecons"><b>Type de consultation</b></label>
-								<select class="form-control" id="typecons" name="typecons">
-									<option value="">--------</option>
+								<label for="typecons"><b>Type de consultation:</b></label>
+								<select class="form-control" id="typecons" name="typecons" required>
+								<!-- 	<option value="">--------</option> -->
 									<option value="Normale">Normale</option>
 									<option value="Urgente">Urgente</option>
 								</select>
 							</div>
 							<br/><br/><br/><br/>
     						<div class="col-sm-12">
-								<label for="document"><b>Document</b></label>
-								<select class="form-control" id="document" name="document">
-									<option value="">--------</option>
+								<label for="document"><b>Document:</b></label>
+								<select class="form-control" id="document" name="document" required>
+								<!-- 	<option value="">--------</option> -->
 									<option value="Rendez-vous">Rendez-vous</option>
 									<option value="Lettre d'orientation">Lettre d'orientation</option>
 									<option value="Consultation généraliste">Consultation généraliste</option>
@@ -621,44 +588,12 @@
 							</div>
 							<br/><br/><br/><br/>
     						<div class="col-sm-12">
-								<label for="spesialite"><b>Spécialité</b></label>
+								<label for="spesialite"><b>Spécialité:</b></label>
 								<select class="form-control" id="spesialite" name="spesialite">
-									<option value="">--------</option>
-									<option value="Allergologie">Allergologie</option>
-									<option value="Anesthésiologie">Anesthésiologie</option>
-									<option value="Andrologie">Andrologie</option>
-									<option value="Cardiologie">Cardiologie</option>
-									<option value="Chirurgie">Chirurgie</option>
-									<option value="Dermatologie">Dermatologie</option>
-									<option value="Endocrinologie">Endocrinologie</option>
-									<option value="Gastro-entérologie">Gastro-entérologie</option>
-									<option value="Gynécologie">Gynécologie</option>
-									<option value="Hématologie">Hématologie</option>
-									<option value="Infectiologie">Infectiologie</option>
-									<option value="Médecine aiguë">Médecine aiguë</option>
-									<option value="Médecine générale">Médecine générale</option>
-									<option value="Médecine interne">Médecine interne</option>
-									<option value="Médecine nucléaire">Médecine nucléaire</option>
-									<option value="Médecine palliative">Médecine palliative</option>
-									<option value="Médecine physique">Médecine physique</option>
-									<option value="Médecine préventive">Médecine préventive</option>
-									<option value="Néonatologie">Néonatologie</option>
-									<option value="Néphrologie">Néphrologie</option>
-									<option value="Néonatologie">Néonatologie</option>
-									<option value="Neurologie">Neurologie</option>
-									<option value="Odontologie">Odontologie</option>
-									<option value="Oncologie">Oncologie</option>
-									<option value="Obstétrique">Obstétrique</option>
-									<option value="Ophtalmologie">Ophtalmologie</option>
-									<option value="Orthopédie">Orthopédie</option>
-									<option value="Oto-rhino-laryngologie">Oto-rhino-laryngologie</option>
-									<option value="Pédiatrie">Pédiatrie</option>
-									<option value="Pneumologie">Pneumologie</option>
-									<option value="Psychiatrie">Psychiatrie</option>
-									<option value="Radiologie">Radiologie</option>
-									<option value="Radiothérapie">Radiothérapie</option>
-									<option value="Rhumatologie">Rhumatologie</option>
-									<option value="Urologie">Urologie</option>
+									<option value="0">Selectionner la spécialité</option>
+									@foreach($specialites as $specialite)
+									<option value="{{ $specialite->id}}"> {{ $specialite->nom}}</option>
+									@endforeach
 								</select>
 							</div>
 							<br/><br/><br/><br/><br/><br/>
@@ -671,6 +606,7 @@
     					Générer un ticket
     				</button>
     				<button type="button" class="btn btn-default" data-dismiss="modal">
+    					<i class="ace-icon fa fa-close bigger-110"></i>
     					Fermer
     				</button>
     			</div>

@@ -50,9 +50,12 @@
 														@endif
 													</td>
 													<td class="center">
-														<a href="/details_exr/{{ $exr->id }}">
+														<!-- <a href="/details_exr/{{ $exr->id }}">
 															<i class="fa fa-eye"></i>
-														</a>
+														</a> -->
+														<a href="{{ route('demandeexr.show', $exr->id) }}">
+			              					<i class="fa fa-eye"></i>
+			            					</a>
 													</td>
 												</tr>
 											@endforeach

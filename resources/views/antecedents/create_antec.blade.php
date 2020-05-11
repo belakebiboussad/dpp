@@ -3,7 +3,7 @@
 	<div class="page-header">
 		<h1 style="display: inline;"><strong>Ajouter Antécédant Pour :</strong> 
 		{{-- {{ $patient->Nom }} {{ $patient->Prenom }}</h1> --}}
-		  @include('partials._patientInfo')
+		  @include('patient._patientInfo')
 		<div class="pull-right"> </div>
 	</div>
 	 	<div class= "col-md-6 col-xs-6">
@@ -25,21 +25,21 @@
                    	</div>
                      </div>
 		<div class="widget-body" id ="ATCDWidget">
-	                      <div class="widget-main no-padding">
-	                            <table class="table table-striped table-bordered table-hover" id="ants-tab">
-	                              	<thead class="thin-border-bottom">
-	                                	<tr>
-		                                 	<th>Type</th>
-		                                  	<th><i class="fa fa-clock-o" aria-hidden="true"></i>Date</th>
-		                                  	<th class="hidden-480">Description</th>
-		                                  	<th class="hidden-480"></th>
-	                                	</tr>
-	                       			</thead>
-			                        <tbody>
-			                        </tbody>
-	                            </table>
-	                     	</div>
-                      </div>
+      <div class="widget-main no-padding">
+            <table class="table table-striped table-bordered table-hover" id="ants-tab">
+              	<thead class="thin-border-bottom">
+                	<tr>
+                   	<th>Type</th>
+                    	<th><i class="fa fa-clock-o" aria-hidden="true"></i>Date</th>
+                    	<th class="hidden-480">Description</th>
+                    	<th class="hidden-480"></th>
+                	</tr>
+       			</thead>
+            <tbody>
+            </tbody>
+            </table>
+     	</div>
+    </div>
         		</div>
 			</div>
 					</div>

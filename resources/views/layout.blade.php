@@ -5,19 +5,15 @@
 {{--     @include('partials.headSup')  --}}
     @include('partials.htmlheader')
 </head>
-
 <body class="page-header-fixed">
     <div class="page-header navbar navbar-fixed-top">
         {{-- @include('partials.headerSup') --}}
     </div>
-
     <div class="clearfix"></div>
-
     <div class="page-container">
         <div class="page-sidebar-wrapper">
             @include('partials.sidebarSup')
         </div>
-
         <div class="page-content-wrapper">
             <div class="page-content">
 
@@ -44,20 +40,16 @@
                                 </ul>
                             </div>
                         @endif
-
                         @yield('content')
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="scroll-to-top"
          style="display: none;">
         <i class="fa fa-arrow-up"></i>
     </div>
-
 {{--     <! {!! Form::open(['route' => 'auth.logout', 'style' => 'display:none;', 'id' => 'logout']) !!}
         <button type="submit">Logout</button>
     {!! Form::close() !!}  --}}

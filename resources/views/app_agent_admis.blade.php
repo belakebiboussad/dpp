@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-    <title>Gestion Des Patients</title>
+    <title>Gestion Des Admissions</title>
     @include('partials.htmlheader')
+    @yield('style')
 <body class="no-skin">
 
     @include('partials.navbar')
@@ -10,13 +11,8 @@
         <script type="text/javascript">
             try{ace.settings.check('main-container' , 'fixed')}catch(e){}
         </script>
-        @if(App\modeles\rol::where("id",Illuminate\Support\Facades\Auth::user()->role_id)->first()->role == "reception")
-            @include('partials.sidebar_rec')
-        @elseif(App\modeles\rol::where("id",Illuminate\Support\Facades\Auth::user()->role_id)->first()->role == "Medecine")
-            @include('partials.sidebar_med')
-        @elseif(App\modeles\rol::where("id",Illuminate\Support\Facades\Auth::user()->role_id)->first()->role == "Surveillant medical")
-            @include('partials.sidebar_sur')
-        @elseif(App\modeles\rol::where("id",Illuminate\Support\Facades\Auth::user()->role_id)->first()->role == "agent d'admission")
+        
+         @if(Auth::user()->role->id == 9)
             @include('partials.sidebar_agent_admis')
         @endif
         <div class="main-content">
@@ -34,10 +30,8 @@
 
         @include('partials.footer')
 
-    </div>
-    <!-- /main-container -->
-
-    @include('partials.scripts')
-
+    </div> <!-- /main-container -->
 </body>
+ @include('partials.scripts')
+  @yield('page-script')
 </html>

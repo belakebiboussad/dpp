@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-    <title>Gestion Des Patients</title>
+    <title>Dossier Patient</title>
     @include('partials.htmlheader')
-
+      @yield('style')
+      @include('partials.scripts')
 <body class="no-skin">
     @include('partials.scripts')
     @include('partials.navbar')
@@ -16,7 +17,6 @@
         <div class="main-content">
             <div class="main-content-inner">
                 @include('partials.breadcrumbs_rec')
-
                 <div class="page-content">
                 @include('flashy::message')
             	    @yield('main-content')

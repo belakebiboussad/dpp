@@ -1,5 +1,4 @@
 	function IMC1(){
-		
 		var poids = $("#poids").val();
 		var taille = $("#taille").val();
 		if(poids==""){
@@ -50,7 +49,6 @@
 	}
 	function IMC(){
 		try {	
-
 			if($('#poids').val() != null && $('#taille').val() != null && $('#taille').val() != 0 )
 			{
 				// var imc =  $('#poids').val() /($('#taille').val()*$('#taille').val());
@@ -88,12 +86,9 @@
 			           break;
 		}		
 
-	}	
-
-	
+	}
 	function Shows(id)
 	{
-
 		$('#multiselect').addClass("hidden").hide().fadeIn();
 		$('#multiselectRMN').addClass("hidden").hide().fadeIn();
 		$('#multiselectRX').addClass("hidden").hide().fadeIn();
@@ -138,9 +133,9 @@
 	                </select></td>`;
 
 		$.each(words, function(i, word) {
-            	html += select;
-    		});
-    		html += '</tr></table>';
+      html += select;
+    });
+    html += '</tr></table>';
 		 $("#divmodeprise").append(html);
 	}
 	function ajaxATCD(patientid){
@@ -149,16 +144,14 @@
 
 		var description = $('#description').val();
 	}
-
-
-           function checkForm(form)
-           {
-            	$('.nav-pills li.active').removeClass('active');
-                     $('div#ExamClinique').removeClass('active');
-                     $('div#ExamComp').removeClass('active');
-                     $('div#Interogatoire').addClass('in active');
-                     $( "li[name='motif']" ).addClass('active');
-                     $('div#ATCD').removeClass('active');
+  function checkForm(form)
+  {
+   	$('.nav-pills li.active').removeClass('active');
+    $('div#ExamClinique').removeClass('active');
+    $('div#ExamComp').removeClass('active');
+    $('div#Interogatoire').addClass('in active');
+    $( "li[name='motif']" ).addClass('active');
+    $('div#ATCD').removeClass('active');
                      $('div#Motif').addClass('in active');
                 	var lieu = $('#lieuc').val();
                 	var motif = $('#motif').val();
@@ -188,7 +181,6 @@
           		}
 				
         		return true; 
-
        	}
        	function InverserUl()
        	{
@@ -241,31 +233,20 @@
 			});
 		}
      
-     		return erreur;
-       	}
-	function clearInput() {
-	      	$('#posologie').find('input[type=number]').val('1');
-	        	$('#posologie').find('input[type=text]').val(' ') ;
-	        	$("#divmodeprise").html('');
-	        	$("#divmodeprise").html('');;
-	}
+  	return erreur;
+  }
 	function storeord1()
-	{  
-	     // $('#myformelement').append('<input type="hidden" name="myfieldname" value="myvalue" />');
-	            var arrayLignes = document.getElementById("ordonnance").rows;
-	 	// var arrayLignes = $('#ordonnance tr');
-	 	var tab = [];
-	           for(var i=1; i< arrayLignes.length; i++)
-	           {
-		          //  	tab[i]=arrayLignes[i].cells[1].innerHTML +"|"+arrayLignes[i].cells[2].innerHTML+
-	        		// "|"+arrayLignes[i].cells[4].innerHTML+"|"+arrayLignes[i].cells[5].innerHTML;
-	        		tab[i]=arrayLignes[i].cells[4].innerHTML+"|"+arrayLignes[i].cells[5].innerHTML;
-	           }
-	           $("<input type='text' name ='listeMedicaments' value='"+tab.toString()+"' hidden>").appendTo('#consultForm');
-	     	// ($("#dateord").appendTo('#consultForm')).hide();
-	     	($("#dureeefois").appendTo('#consultForm')).hide();
-	     	($("#foisss").appendTo('#consultForm')).hide();
-	}
+	{
+		var arrayLignes = document.getElementById("ordonnance").rows;
+    var longueur = arrayLignes.length; 
+    var ordonnance = [];
+    for(var i=1; i<longueur; i++)
+    {
+      ordonnance[i-1] = { med: arrayLignes[i].cells[1].innerHTML, posologie: arrayLignes[i].cells[5].innerHTML }
+    }
+    var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
+    champ.appendTo('#consultForm');
+  }
 	function demandehosp()
 	{
 		($("#motifhosp").appendTo('#consultForm')).hide();
@@ -273,7 +254,7 @@
 		($("#degreurg").appendTo('#consultForm')).hide();
 		($("#specialiteDemande").appendTo('#consultForm')).hide(); //ajouter specialite
 		($("#modeAdmission").appendTo('#consultForm')).hide();
-		 $('#demandehosp').modal('hide');
+		$('#demandehosp').modal('hide');
 	}
 	function lettreorientation()
 	{

@@ -31,4 +31,11 @@ class User extends Authenticatable
     {
         return rol::where('id',$this->role_id)->first()->role;
     }
+    public function employ()
+    {
+        return $this->belongsTo('App\modeles\employ','employee_id');   
+    }
+    protected $casts = [
+        'active' => 'boolean',
+    ];
 }

@@ -35,12 +35,12 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            "rolename" => 'required|min:3',
-        ]);
-        rol::FirstOrCreate([
-            "role"=>$request->rolename,
-        ]);
+          $request->validate([
+               "rolename" => 'required|min:3',
+          ]);
+           rol::FirstOrCreate([
+              "role"=>$request->rolename,
+           ]);
          $roles = rol::all();
         return view('role.index_role',compact('roles'));
     }
@@ -53,8 +53,8 @@ class RolesController extends Controller
      */
     public function show($id)
     {
-        $role = rol::FindOrFail($id);
-        return view('role.show_role', compact('role'));
+          $role = rol::FindOrFail($id);
+           return view('role.show_role', compact('role'));
     }
 
     /**
@@ -78,12 +78,14 @@ class RolesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            "rolename" => 'required|min:3',
-        ]);
-        $role->update([
-            "role"=>$request->rolename,
-        ]);
+           $role = rol::FindOrFail($id);  
+           $request->validate([
+              "rolename" => 'required|min:3',
+           ]);
+           $role->update([
+             "role"=>$request->rolename,
+           ]);
+           return view('role.edit_role', compact('role'));
     }
 
     /**

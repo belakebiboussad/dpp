@@ -11,6 +11,7 @@ use App\modeles\demandeexr;
 use Illuminate\Support\Facades\Storage;
 use Jenssegers\Date\Date;
 use PDF;
+use ToUtf;
 class DemandeExamenRadio extends Controller
 {
     /**
@@ -32,16 +33,18 @@ class DemandeExamenRadio extends Controller
 
     public function upload_exr(Request $request)
     {
-        $demande = demandeexr::FindOrFail($request->id_demande);
-        $demande->update([
-            "etat" => "V",
-            "resultat" => $request->file('resultat')->getClientOriginalName(),
+        $request->validate([
+            'resultat' => 'required',
         ]);
-
+        $demande = demandeexr::FindOrFail($request->id_demande);
         $filename = $request->file('resultat')->getClientOriginalName();
+        $filename =  ToUtf::cleanString($filename);
         $file = file_get_contents($request->file('resultat')->getRealPath());
         Storage::disk('local')->put($filename, $file);
-
+        $demande->update([
+            "etat" => "V",
+            "resultat" => $filename,
+        ]);
         return redirect()->route('homeradiologue');
     }
 
@@ -75,9 +78,10 @@ class DemandeExamenRadio extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $consultID)
     {
-           $request->validate([
+
+            $request->validate([
                 "infosc" => "required",
                 "explication" => "required",
                 "infos" => "required",
@@ -90,28 +94,26 @@ class DemandeExamenRadio extends Controller
                 "examensradio.required" => "Ce champ est obligatoire.",
                 "exmns.required" => "Ce champ est obligatoire.",
            ]); 
-          
-           $date = Date::now();
-          $demande = demandeexr::FirstOrCreate([
+              $date = Date::now();
+             $demande = demandeexr::FirstOrCreate([
                 "Date" => $date,
                 "InfosCliniques" => $request->infosc,
                 "Explecations" => $request->explication,
-                "id_consultation" => $request->id_consultation,
+                "id_consultation" => $consultID,
             ]);
+             //dd($request->ExamsImg);
+            $examsImagerie = json_decode ($request->ExamsImg);
+            //dd($examsImagerie);
+            foreach ($examsImagerie as $key => $value) {       
+              $demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);   //$demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => json_encode($value->types)]);
 
-            foreach ($request->infos as $id_info) {
-                $demande->infossuppdemande()->attach($id_info);
             }
-
-            foreach ($request->examensradio as $id_exm_radio) {
-                $demande->examensradios()->attach($id_exm_radio);
-            }
-
-            foreach ($request->exmns as $id_exmn) {
-                $demande->examensrelatifsdemande()->attach($id_exmn);
-            }
-
-            return redirect()->route('consultations.show', $request->id_consultation);
+           if(isset($request->infos))
+           {
+                    foreach ($request->infos as $id_info) {
+                        $demande->infossuppdemande()->attach($id_info);
+                 }
+           }
     }
 
     /**
@@ -162,8 +164,8 @@ class DemandeExamenRadio extends Controller
 
     public function show_demande_exr($id)
     {
-        $demande = demandeexr::FindOrFail($id);
-        $pdf = PDF::loadView('demande_exr', compact('demande'));
+        $demande = demandeexr::FindOrFail($id); 
+        $pdf = PDF::loadView('examenradio.demande_exr', compact('demande'));
         return $pdf->stream('demande_examen_radiologique.pdf');
     }
 }

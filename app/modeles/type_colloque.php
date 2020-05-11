@@ -14,3 +14,4 @@ class type_colloque extends Model
         return $this->hasMany('App\modeles\colloque');
     }
 }
+

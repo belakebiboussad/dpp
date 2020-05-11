@@ -38,9 +38,8 @@ class ExmImgrieController extends Controller
      */
       public function store(Request $request,$consultID)
       {
-           
-           $examsImagerie = json_encode($request->examRad);
-           $a =   demandeExamImag::create([
+             $examsImagerie = json_encode($request->examRad);
+            $a =   demandeExamImag::create([
                      "infclinpert"=>$request->infclinpert,
                      "expdemdiag"=>$request->expdemdiag,
                      "allergie"=> (isset($request->Allergie)) ? true : false,
