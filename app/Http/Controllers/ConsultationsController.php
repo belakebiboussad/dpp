@@ -145,23 +145,20 @@ class ConsultationsController extends Controller
       'resume' => 'required',
       ]);
       if($validator->fails())
-        return redirect()->back()->withErrors($validator)->withInput();
-      $nomlieu = Config::get('constants.lieuc');
-      $lieu = Lieuconsultation::where('Nom', $nomlieu)->first();
-     
-      dd( $_SERVER['REMOTE_HOST']); 
+      return redirect()->back()->withErrors($validator)->withInput();
+      //$nomlieu = Config::get('constants.lieuc'); $lieu = Lieuconsultation::where('nom', $nomlieu)->first(); 
       $consult = consultation::create([
-        "Motif_Consultation"=>$request->motif,
-        "histoire_maladie"=>$request->histoirem,
-        "Date_Consultation"=>Date::Now(),
-        "Diagnostic"=>$request->diagnostic,
-        "Resume_OBS"=>$request->resume,
-        "isOriented"=> (!empty($request->isOriented) ? 1 : 0),
-        "lettreorientaioncontent"=>(!empty($request->isOriented) ? $request->lettreorientaioncontent  : null),
-        "Employe_ID_Employe"=>Auth::User()->employee_id,
-        "Patient_ID_Patient"=>$request->id,
-        "id_code_sim"=>$request->codesim,
-        "id_lieu"=> $lieu->id,
+             "Motif_Consultation"=>$request->motif,
+              "histoire_maladie"=>$request->histoirem,
+              "Date_Consultation"=>Date::Now(),
+              "Diagnostic"=>$request->diagnostic,
+              "Resume_OBS"=>$request->resume,
+              "isOriented"=> (!empty($request->isOriented) ? 1 : 0),
+              "lettreorientaioncontent"=>(!empty($request->isOriented) ? $request->lettreorientaioncontent  : null),
+              "Employe_ID_Employe"=>Auth::User()->employee_id,
+              "Patient_ID_Patient"=>$request->id,
+              "id_code_sim"=>$request->codesim,
+              "id_lieu"=>session('lieu_id'),//$lieu->id,
       ]);
       if($request->poids != 0 || $request->temp != null || $request->taille !=0 || $request->autre)
         $this->ExamCliniqCTLR->store( $request,$consult->id); //save examen clinique
