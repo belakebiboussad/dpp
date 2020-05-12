@@ -1,45 +1,95 @@
-@extends('app_recep')
+@extends('app')
+@section('title',"Modifier Demande d'hospitalisation")
 @section('main-content')
+<div >
+	@include('patient._patientInfo')
+</div>
 <div class="page-header">
-	<h1>Détails De La Demande d'hospitalisation :</h1>
+	<h1 style="display: inline;">modification la demande d'hospitalisation</h1>
+	<div class="pull-right">
+    <a href="{{route('demandehosp.index')}}" class="btn btn-white btn-info btn-bold">
+      <i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>liste des Demandes 'hospitalisation'
+    </a>
+  </div>
+</div>
+<div class="row">
+	<div class="col-sm-12">
+		<h3 class="header smaller lighter blue">informations concernant Consultation</h3>
+	</div>	
 </div>
 <div class="row">
 	<div class="col-sm-12">
 		<div class="widget-box">
-			<div class="widget-header">
-				<h4 class="widget-title">Les Informations Du Patient :</h4>
+		  <div class="widget-header">
+				<h4 class="widget-title">Consultation :</h4>
 			</div>
 			<div class="widget-body">
 				<div class="widget-main">
-					<label class="inline">
-						<span class="blue"><strong>Nom Du Patient :</strong></span>
-						<span class="lbl"> {{ $patient->Nom }}</span>
-					</label>
-					&nbsp;&nbsp;&nbsp;
-					<label class="inline">
-						<span class="blue"><strong>Prénom Du Patient :</strong></span>
-						<span class="lbl"> {{ $patient->Prenom }}</span>
-					</label>
-					&nbsp;&nbsp;&nbsp;
-					<label class="inline">
-						<span class="blue"><strong>Sexe Du Patient :</strong></span>
-						<span class="lbl"> {{ $patient->Sexe == "M" ? "Homme" : "Femme" }}</span>
-					</label>
-					&nbsp;&nbsp;&nbsp;
-					<label class="inline">
-						<span class="blue"><strong>Date Naissance Du Patient :</strong></span>
-						<span class="lbl"> {{ $patient->Dat_Naissance }}</span>
-					</label>
-					&nbsp;&nbsp;&nbsp;
-					<label class="inline">
-						<span class="blue"><strong>Age Du Patient :</strong></span>
-						<span class="lbl"> {{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }} ans</span>
-					</label>
+					<div class="row">
+						<div class="col-sm-6 col-xs-6">
+	            <label class="col-sm-4 col-xs-4 control-label no-padding-right" for="lieu">
+	              <strong>Lieu:</strong>
+	            </label>
+	            <div class="col-sm-8 col-xs-8">
+	               <input type="text" id="service" name="service" value=" {{ $demande->consultation->lieu->nom }}" class="col-xs-12 col-sm-12" disabled/>
+	           </div>
+	          </div>
+	          <div class="col-sm-6 col-xs-6">
+	            <label class="col-sm-4 col-xs-4 control-label no-padding-right" for="lieu">
+	              <strong>Date:</strong>
+	            </label>
+	            <div class="col-sm-8 col-xs-8">
+	               <input type="text" id="service" name="service" value="lieu" class="col-xs-12 col-sm-12" disabled/>
+	           </div>
+	          </div>
+					</div>
+					<div class="space-12"></div>
+					<div class="row">
+						<div class="col-sm-6 col-xs-6">
+	            <label class="col-sm-4 col-xs-4 control-label no-padding-right" for="lieu">
+	              <strong>Medecin:</strong>
+	            </label>
+	            <div class="col-sm-8 col-xs-8">
+	               <input type="text" id="service" name="service" value="" class="col-xs-12 col-sm-12" disabled/>
+	           </div>
+	          </div>
+	          <div class="col-sm-6 col-xs-6">
+	            <label class="col-sm-4 col-xs-4 control-label no-padding-right" for="lieu">
+	              <strong>Motif:</strong>
+	            </label>
+	            <div class="col-sm-8 col-xs-8">
+	               <input type="text" id="service" name="service" value="" class="col-xs-12 col-sm-12" disabled/>
+	           </div>
+	          </div>
+					</div>
+					<div class="space-12"></div>
+					<div class="row">
+						<div class="col-sm-6 col-xs-6">
+	            <label class="col-sm-4 col-xs-4 control-label no-padding-right" for="lieu">
+	              <strong>reumé:</strong>
+	            </label>
+	            <div class="col-sm-8 col-xs-8">
+	               <input type="text" id="service" name="service" value="" class="col-xs-12 col-sm-12" disabled/>
+	           </div>
+	          </div>
+	          <div class="col-sm-6 col-xs-6">
+	            <label class="col-sm-4 col-xs-4 control-label no-padding-right" for="lieu">
+	              <strong>Description:</strong>
+	            </label>
+	            <div class="col-sm-8 col-xs-8">
+	               <input type="text" id="service" name="service" value="" class="col-xs-12 col-sm-12" disabled/>
+	           </div>
+	          </div>
+					</div>
 				</div>
 			</div>
 		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-12">
 		<div class="widget-box">
-			<div class="widget-header">
+		  <div class="widget-header">
 				<h4 class="widget-title">Demande Hospitalisation :</h4>
 			</div>
 			<div class="widget-body">

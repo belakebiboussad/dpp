@@ -47,25 +47,24 @@ class ConsultationsController extends Controller
     }
     public function demandeExm($id_cons)
     {
-        $consultation = consultation::FindOrFail($id_cons);
-        $id_patient = $consultation->Patient_ID_Patient;
-        $patient = patient::FindOrFail($id_patient);
-        return view('consultations.demande_examen',compact('id_cons','patient'));
+      $consultation = consultation::FindOrFail($id_cons);
+      $id_patient = $consultation->Patient_ID_Patient;
+      $patient = patient::FindOrFail($id_patient);
+      return view('consultations.demande_examen',compact('id_cons','patient'));
     }
     public function detailcons($id_cons)
     {  
-          
-          $consultation = consultation::FindOrFail($id_cons);
-          $consults = $consultation->patient->Consultations;    
-          $examensbios = demandeexb::where("id_consultation",$id_cons)->get();    //$examensbios = examenbiologique::where("id_consultation",$id_cons)->get();
-          // $examensimg = examenimagrie::where("id_consultation",$id_cons)->get(); 
-          $demande = demandeExamImag::where("id_consultation",$id_cons)->get(['examsImagerie'])->first(); 
-          if(isset($id_cons))
-          //  $examensimg = json_decode($demande->examsImagerie); 
-          $exmclin = examen_cliniqu::where("id_consultation",$id_cons)->get()->first();
-          $examsRadio = $consultation->examensradiologiques;
-          $ordonnance= $consultation->ordonnances;
-          return view('consultations.resume_cons', compact('consultation','examensbios' ,'examensimg', 'exmclin', 'examsRadio', 'ordonnance', 'consults'));
+      $consultation = consultation::FindOrFail($id_cons);
+      $consults = $consultation->patient->Consultations;    
+      $examensbios = demandeexb::where("id_consultation",$id_cons)->get();    //$examensbios = examenbiologique::where("id_consultation",$id_cons)->get();
+      // $examensimg = examenimagrie::where("id_consultation",$id_cons)->get(); 
+      $demande = demandeExamImag::where("id_consultation",$id_cons)->get(['examsImagerie'])->first(); 
+      if(isset($id_cons))
+      //  $examensimg = json_decode($demande->examsImagerie); 
+      $exmclin = examen_cliniqu::where("id_consultation",$id_cons)->get()->first();
+      $examsRadio = $consultation->examensradiologiques;
+      $ordonnance= $consultation->ordonnances;
+      return view('consultations.resume_cons', compact('consultation','examensbios' ,'examensimg', 'exmclin', 'examsRadio', 'ordonnance', 'consults'));
      }
      public function detailconsXHR(Request $request)
      {
@@ -107,7 +106,7 @@ class ConsultationsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function create($id_patient)
+    public function create(Request $request,$id_patient)
     {
 
       $employe=Auth::user()->employ;
@@ -149,6 +148,8 @@ class ConsultationsController extends Controller
         return redirect()->back()->withErrors($validator)->withInput();
       $nomlieu = Config::get('constants.lieuc');
       $lieu = Lieuconsultation::where('Nom', $nomlieu)->first();
+     
+      dd( $_SERVER['REMOTE_HOST']); 
       $consult = consultation::create([
         "Motif_Consultation"=>$request->motif,
         "histoire_maladie"=>$request->histoirem,

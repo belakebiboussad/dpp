@@ -189,7 +189,7 @@
             </ul>
         </li>
         <li class="">
-            <a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-hospital-o"></i><span class="menu-text" data-toggle="tooltip" data-placement="top" title=" Demandes d'hospitalisation">Demandes</span>
+            <a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-file-o"></i><span class="menu-text" data-toggle="tooltip" data-placement="top" title=" Demandes d'hospitalisation">Demandes</span>
                 <b class="arrow fa fa-angle-down"></b>
             </a>
             <b class="arrow"></b>

@@ -146,59 +146,64 @@
 		       url : '{{URL::to('searchPatient')}}',
 		       data:{'search':nom,'prenom':prenom,'code_barre':code_barre,'Dat_Naissance':date_Naiss},
 		       success:function(data,status, xhr){// $('#liste_patients tbody').html(data);
-     				//////// deb v2
      			 	$(".numberResult").html(Object.keys(data).length);
      				reset_in();
      				var patientList = $("#liste_patients");
      				patientList.DataTable ({
      					"processing": true,
-  					"paging":   true,
-  					"destroy": true,
-  					"ordering": true,
-    				"searching":false,
-    				"info" : false,
-    				"language":{"url": '/localisation/fr_FR.json'},
-   	       	"data" : data,
-	        	"columns": [
-								{ data:null,title:'#', orderable: false,searchable: false,
-						    			render: function ( data, type, row ) {
-						                   		 if ( type === 'display' ) {
-						                        		return '<input type="checkbox" class="editor-active check" name="fusioner[]" value="'+data.id+'" onClick="return KeepCount()" /><span class="lbl"></span> ';
-						                  		}
-						                   		 return data;
-						                	},
-						                	className: "dt-body-center",
-								},
-								{ data:'id',title:'ID', "visible": false},
-								{ data: null,title:'Nom',
-								   "render":function(data,type,full,meta){
-									if(type ==='display'){
-										return '<a onclick ="getPatientdetail('+data.id+')" style="cursor:pointer" data-toggle="tooltip" title="Résume du patient">'+data.Nom+'</a>';
+	  					"paging":   true,
+	  					"destroy": true,
+	  					"ordering": true,
+	    				"searching":false,
+	    				"info" : false,
+	    				"language":{"url": '/localisation/fr_FR.json'},
+	   	       	"data" : data,
+		        	"columns": [
+									{ data:null,title:'#', "orderable": false,searchable: false,
+							    			render: function ( data, type, row ) {
+							                   		 if ( type === 'display' ) {
+							                        		return '<input type="checkbox" class="editor-active check" name="fusioner[]" value="'+data.id+'" onClick="return KeepCount()" /><span class="lbl"></span> ';
+							                  		}
+							                   		 return data;
+							                	},
+							                	className: "dt-body-center",
+									},
+									{ data:'id',title:'ID', "visible": false},
+									// { data: null,title:'Nom',
+									//    "render":function(data,type,full,meta){
+									// 	if(type ==='display'){
+									// 		return '<a onclick ="getPatientdetail('+data.id+')" style="cursor:pointer" data-toggle="tooltip" title="Résume du patient">'+data.Nom+'</a>';
+									//       }
+									//       return data;	
+								 //         } 
+									// },
+									{ data: 'Nom', title:'Nom' },
+	       					{ data: 'Prenom', title:'Prenom' },
+	       					{ data: 'IPP', title:'IPP'},
+	       			  	{ data: 'Dat_Naissance', title:'Né(e) le' },
+								  { data: 'Sexe', title:'Sexe'}, // { data: 'Type',title:'Type'},
+								  { data: 'Date_creation', title:'Créer le'},
+								  { data:null,title:'<em class="fa fa-cog"></em>', searchable: false }
+	  		   			],
+				   			"columnDefs": [
+				   				{"targets": 2 ,  className: "dt-head-center" },//nom
+				   				{"targets": 3 ,  className: "dt-head-center" },
+				   				{"targets": 4 ,  className: "dt-head-center" },
+				   				{"targets": 5 ,  className: "dt-head-center" },
+				   				{"targets": 6 ,	"orderable": false, className: "dt-head-center" },
+								  {"targets": 7 ,	"orderable": false, className: "dt-head-center" },
+								  {"targets": 8 ,	"orderable":false,className: "dt-head-right dt-body-center",
+								    "render": function(data,type,full,meta){
+								      if ( type === 'display' ) {
+												return  '<a href = "/patient/'+data.id+'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter le dossier"><i class="fa fa-hand-o-up fa-xs"></i></a>'+
+																'&nbsp;<a href ="/patient/'+data.id+'/edit" class="btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs"></i></a>'+
+																 '&nbsp;<a onclick ="getPatientdetail('+data.id+')" style="cursor:pointer" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Résume du patient"><i class="fa fa-eye fa-xs"></i></a>'	;
 								      }
 								      return data;	
-							         } 
-								},
-       					{ data: 'Prenom', title:'Prenom' },
-       					{ data: 'IPP', title:'IPP'},
-       			  	{ data: 'Dat_Naissance', title:'Né(e) le' },
-							  { data: 'Sexe', title:'Sexe'}, // { data: 'Type',title:'Type'},
-							  { data: 'Date_creation', title:'Créer le'},
-							  { data:null,title:'<em class="fa fa-cog"></em>', searchable: false }
-  		   			],
-			   			"columnDefs": [
-			   				{ "targets": 0 , "orderable": false }, 
-					   		{ "targets": 6 ,	"orderable": false },
-							  { "targets": 7 ,	"orderable": false },
-							  { "targets": 8  ,	"orderable":false,
-							    "render": function(data,type,full,meta){
-							      if ( type === 'display' ) {
-								      return '<a href = "/patient/'+data.id+'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter le dossier"><i class="fa fa-hand-o-up fa-xs"></i></a>&nbsp;<a href ="/patient/'+data.id+'/edit" class="btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs"></a>';
-							      }
-							      return data;	
-							    },
-							    className: "dt-body-center",
-						    } 
-					   	],
+								    },
+								    className: "dt-body-center",
+							    } 
+						   	],
     			});
    			//////////fin v2
      			},
@@ -285,10 +290,10 @@
 					<i class="ace-icon fa fa-user"></i>
 					Resultats: </h5> <label for=""><span class="badge badge-info numberResult"></span></label>
 				</div>
-				<table id="liste_patients" class="display  table-responsive" width="100%"></table>
+				<table id="liste_patients" class="display table-responsive" width="100%"></table>
 			</div>
 		</div>{{-- col-sm-7 --}}
-		<div class="col-md-5 col-sm-5">
+		<div class="hidden-xs hidden-sm col-md-5 col-sm-5">
 		  <br>
 			<div class="widget-box transparent" id="patientDetail" style ="margin-top: 14px;">
 			</div>		
@@ -322,15 +327,12 @@
 			        					  <i class="ace-icon fa fa-check bigger-120"></i>
 			        					Valider
 			        				</button>
-			      			</div> 
-			      			
-		      			</form>
+			      			</div> 	
+		      </form>
 		        		</div>
-		        		
 		      	</div>  	{{-- modal-content --}}
 		</div>
 		</div>
 	</div>{{-- row --}}
-
 </div>
 @endsection

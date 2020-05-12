@@ -4,8 +4,6 @@
 		@include('patient._patientInfo')
 	</div>
 	<div class="page-header">
-	{{-- 	<h1 style="display: inline;"><strong>Détails Du Patient :</strong> {{ $patient->Nom }} {{ $patient->Prenom }}</h1> --}}
-		
 		<div class="pull-right">
 			<a href="{{ route('patient.index') }}" class="btn btn-white btn-info btn-bold">
 				<i class="ace-icon fa fa-search bigger-120 blue"></i>
