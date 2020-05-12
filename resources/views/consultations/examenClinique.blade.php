@@ -189,7 +189,7 @@
             </div> {{-- profile-contact-links --}}
             <div class="space-12"></div>
             <div class="profile-contact-info">
-              <div class="profile-contact-links align-center">
+              <div class="profile-contact-links center">
                 <a href="#" data-target="#demandehosp" class="btn  btn-primary btn-lg tooltip-link" style="width:250px;" data-toggle="modal"   data-toggle="tooltip" data-original-title="" >
                  	<div class="fa fa-plus-circle"></div>
                   <span class="bigger-110"> Hospitalisation</span>

@@ -135,7 +135,9 @@ border:2px solid #3F515F;
                 </tr>
                 <tr>
                                       <td colspan="1" class ="noborders"><strong><strong>Âge :</strong></strong></td>
-                                      <td align="left">{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }} ans</td>
+                                      <td align="left">
+                                        <span class="badge badge-{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age < 18 ? 'danger':'success' }}">{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }}</span>Ans
+                                      </td>
                                       <td  colspan="1" class ="noborders"><strong>Né(e) a:</strong></td >
                                       <td align="left">{{ $patient->lieuNaissance->nom_commune }}</td>
                                 </tr>
