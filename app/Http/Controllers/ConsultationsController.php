@@ -108,7 +108,7 @@ class ConsultationsController extends Controller
 
     public function create(Request $request,$id_patient)
     {
-
+      dd(session('lieu_id'));
       $employe=Auth::user()->employ;
       $modesAdmission = [
             'Ambulatoire' => "Ambulatoire",
@@ -147,8 +147,6 @@ class ConsultationsController extends Controller
       if($validator->fails())
         return redirect()->back()->withErrors($validator)->withInput();
       //$nomlieu = Config::get('constants.lieuc');$lieu = Lieuconsultation::where('Nom', $nomlieu)->first();
-     
-  
       $consult = consultation::create([
         "Motif_Consultation"=>$request->motif,
         "histoire_maladie"=>$request->histoirem,
@@ -160,7 +158,7 @@ class ConsultationsController extends Controller
         "Employe_ID_Employe"=>Auth::User()->employee_id,
         "Patient_ID_Patient"=>$request->id,
         "id_code_sim"=>$request->codesim,
-        "id_lieu"=>session('lieu_id'),//$lieu->id,
+        "id_lieu"=>session('lieu_id'),
       ]);
       if($request->poids != 0 || $request->temp != null || $request->taille !=0 || $request->autre)
         $this->ExamCliniqCTLR->store( $request,$consult->id); //save examen clinique

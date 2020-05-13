@@ -27,3 +27,6 @@ solution 3
 ///////////////
 solution 4 donne le nom PC avec domaine
  dd(gethostbyaddr($_SERVER['REMOTE_ADDR']));
+///
+  $clientIP = $request->getClientIp(true);
+      dd($clientIP);

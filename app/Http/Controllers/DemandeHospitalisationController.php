@@ -59,19 +59,6 @@ class DemandeHospitalisationController extends Controller
             "etat " =>"en attente",
       ]);  
    }
-    public function storeOLD(Request $request)
-    {
-        $date = Date::Now();
-        DemandeHospitalisation::create([
-            "motif"=>$request->motif,
-            "service"=>$request->service,
-            "description"=>$request->description,
-            "degree_urgence"=>$request->degreeurg,
-            "id_consultation"=>$request->id_consultation,
-            "Date_demande"=>$date,
-        ]);
-        return redirect()->action('ConsultationsController@show',['id'=>$request->id_consultation]);
-    }
     /**
      * Display the specified resource.
      *
@@ -109,12 +96,12 @@ class DemandeHospitalisationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $demande = DemandeHospitalisation::FindOrFail($id);
-        $demande->update([
-            "degree_urgence"=>$request->degreeurg,
-            "service"=>$request->service,
-        ]);
-        return redirect()->action('DemandeHospitalisationController@show',['id'=>$demande->id]);
+      dd("fsdf");
+      $demande = DemandeHospitalisation::FindOrFail($id);
+      $demande->update([
+        "service"=>$request->service,// "degree_urgence"=>$request->degreeurg,
+      ]);
+      return redirect()->action('DemandeHospitalisationController@show',['id'=>$demande->id]);
     }
 
     /**
