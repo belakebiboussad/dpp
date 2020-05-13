@@ -10,6 +10,8 @@ use App\modeles\dem_colloque;
 use App\User;
 use App\modeles\employ;
 use App\modeles\colloque;
+use App\modeles\service;
+use App\modeles\Specialite;
 use Auth;
 use Jenssegers\Date\Date;
 use Response;
@@ -91,9 +93,11 @@ class DemandeHospitalisationController extends Controller
     public function edit($id)
     {
         $demande = DemandeHospitalisation::FindOrFail($id);
-        $consultation = consultation::FindOrFail($demande->id_consultation);
-        $patient = patient::FindOrFail($consultation->Patient_ID_Patient);
-        return view('demandehospitalisation.edit_demande', compact('demande','patient','consultation'));
+        $services = service::all();
+        $specialites = Specialite::all();
+         //$consultation = consultation::FindOrFail($demande->id_consultation);
+        //$patient = patient::FindOrFail($consultation->Patient_ID_Patient);
+        return view('demandehospitalisation.edit_demande', compact('demande','services','specialites'));
     }
 
     /**

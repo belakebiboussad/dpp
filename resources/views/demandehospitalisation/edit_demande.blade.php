@@ -20,67 +20,120 @@
 <div class="row">
 	<div class="col-sm-12">
 		<div class="widget-box">
-		  <div class="widget-header">
+		  	<div class="widget-header">
 				<h4 class="widget-title">Consultation :</h4>
 			</div>
 			<div class="widget-body">
 				<div class="widget-main">
 					<div class="row">
-						<div class="col-sm-6 col-xs-6">
-	            <label class="col-sm-4 col-xs-4 control-label no-padding-right" for="lieu">
-	              <strong>Lieu:</strong>
-	            </label>
-	            <div class="col-sm-8 col-xs-8">
-	               <input type="text" id="service" name="service" value=" {{ $demande->consultation->lieu->nom }}" class="col-xs-12 col-sm-12" disabled/>
-	           </div>
-	          </div>
-	          <div class="col-sm-6 col-xs-6">
-	            <label class="col-sm-4 col-xs-4 control-label no-padding-right" for="lieu">
-	              <strong>Date:</strong>
-	            </label>
-	            <div class="col-sm-8 col-xs-8">
-	               <input type="text" id="service" name="service" value="lieu" class="col-xs-12 col-sm-12" disabled/>
-	           </div>
-	          </div>
+						<div class="col-sm-6 col-xs-6 float-right ">
+					            <label class="col-sm-4 col-xs-4 control-label no-padding-right text-right" for="lieu">
+					              <strong>Lieu:</strong>
+					            </label>
+					            <div class="col-sm-8 col-xs-8">
+					               <input type="text" id="lieu" name="lieu" value= "{{ $demande->consultation->lieu->nom }}" class="col-xs-12 col-sm-12" disabled/>
+					           </div>
+	          				</div>
+					       <div class="col-sm-6 col-xs-6">
+					            <label class="col-sm-4 col-xs-4 control-label no-padding-right text-right" for="date">
+					              <strong>Date:</strong>
+					            </label>
+					            <div class="col-sm-8 col-xs-8">
+					       	        <input type="text" id="date" name="date" value="{{ $demande->consultation->Date_Consultation }}" class="col-xs-12 col-sm-12" disabled/>
+					           </div>
+					       </div>
 					</div>
 					<div class="space-12"></div>
 					<div class="row">
 						<div class="col-sm-6 col-xs-6">
-	            <label class="col-sm-4 col-xs-4 control-label no-padding-right" for="lieu">
-	              <strong>Medecin:</strong>
-	            </label>
-	            <div class="col-sm-8 col-xs-8">
-	               <input type="text" id="service" name="service" value="" class="col-xs-12 col-sm-12" disabled/>
-	           </div>
-	          </div>
-	          <div class="col-sm-6 col-xs-6">
-	            <label class="col-sm-4 col-xs-4 control-label no-padding-right" for="lieu">
-	              <strong>Motif:</strong>
-	            </label>
-	            <div class="col-sm-8 col-xs-8">
-	               <input type="text" id="service" name="service" value="" class="col-xs-12 col-sm-12" disabled/>
-	           </div>
-	          </div>
+					            <label class="col-sm-4 col-xs-4 control-label no-padding-right text-right" for="medein">
+					              	<strong>Medecin:</strong>
+					            </label>
+					             <div class="col-sm-8 col-xs-8">
+					             	  <input type="text" id="medein" name="medein" value="{{ $demande->consultation->docteur->Nom_Employe }}&nbsp; {{ $demande->consultation->docteur->Prenom_Employe }}" class="col-xs-12 col-sm-12" disabled/>
+					             </div>
+	         			      </div>
+				            <div class="col-sm-6 col-xs-6">
+					             <label class="col-sm-4 col-xs-4 control-label no-padding-right text-right" for="motif">
+					              	<strong>Motif:</strong>
+					             </label>
+					             <div class="col-sm-8 col-xs-8">
+					            		 <input type="text" id="motif" name="motif" value="{{ $demande->consultation->Motif_Consultation }}" class="col-xs-12 col-sm-12" disabled/>
+					             </div>
+				          </div>
 					</div>
 					<div class="space-12"></div>
 					<div class="row">
-						<div class="col-sm-6 col-xs-6">
-	            <label class="col-sm-4 col-xs-4 control-label no-padding-right" for="lieu">
-	              <strong>reumé:</strong>
-	            </label>
-	            <div class="col-sm-8 col-xs-8">
-	               <input type="text" id="service" name="service" value="" class="col-xs-12 col-sm-12" disabled/>
-	           </div>
-	          </div>
-	          <div class="col-sm-6 col-xs-6">
-	            <label class="col-sm-4 col-xs-4 control-label no-padding-right" for="lieu">
-	              <strong>Description:</strong>
-	            </label>
-	            <div class="col-sm-8 col-xs-8">
-	               <input type="text" id="service" name="service" value="" class="col-xs-12 col-sm-12" disabled/>
-	           </div>
-	          </div>
+						<div class="col-sm-12 col-xs-12">
+							<label class = "col-sm-2 col-xs-2 control-label no-padding-right text-right" for="resume">
+					           	   	<strong>reumé:</strong>
+					            	</label>			           
+					            <div class="col-sm-10 col-xs-10">
+					               <input type="text" id="resume" name="resume" value="{{ $demande->consultation->Resume_OBS }}" class="col-xs-12 col-sm-12" disabled/>
+					           </div>
+				          </div>
+	      				</div>
+	      				<div class="row">
+						<div class="col-sm-12">
+							<h3 class="header smaller lighter blue">informations concernant la Demade</h3>
+						</div>	
 					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="widget-box">
+							  	<div class="widget-header">
+									<h4 class="widget-title">Demande d'hospitalisation :</h4>
+								</div>
+								<div class="widget-body">
+									<div class="widget-main">
+										<div class="row">
+											<div class="col-sm-6 col-xs-6">
+										            <label class="col-sm-4 col-xs-4 control-label no-padding-right text-right" for="mode">
+										              	<strong>Mode Admission :</strong>
+										            </label>
+										             <div class="col-sm-8 col-xs-8">
+										             	  <input type="text" id="mode" name="mode" value="{{ $demande->modeAdmission }}" class="col-xs-12 col-sm-12" />
+										             </div>
+						         			      </div>
+						         			      	<div class="col-sm-6 col-xs-6">
+										           <label class="col-sm-4 col-xs-4 control-label no-padding-right text-right" for="specialiteDemande">
+										              	<strong>Specialite :</strong>
+										            </label>
+										             <div class="col-sm-8 col-xs-8"> 	 
+						   							<select class="form-control" id="specialiteDemande" name="specialiteDemande" class="col-xs-12 col-sm-12">
+														    <option value="">Sélectionner...</option>
+														    @foreach($specialites as $specialite)
+														   	<option value="{{ $specialite->id}}">{{$specialite->nom}}</option>
+														    @endforeach 
+													</select>
+							  			             </div>
+						         			      </div>
+										</div>
+										<div class="space-12"></div>
+										<div class="row">
+											<div class="col-sm-6 col-xs-6">
+										            <label class="col-sm-4 col-xs-4 control-label no-padding-right text-right" for="service">
+										              	<strong>Service :</strong>
+										            </label>
+										             <div class="col-sm-8 col-xs-8">
+										             	  <input type="text" id="service" name="service" value="{{ $demande->Service->nom }}" class="col-xs-12 col-sm-12" />
+										             </div>
+						         			      </div>
+						         			      <div class="col-sm-6 col-xs-6">
+										            <label class="col-sm-4 col-xs-4 control-label no-padding-right text-right" for="etat">
+										              	<strong>Etat :</strong>
+										            </label>
+										             <div class="col-sm-8 col-xs-8">
+										             	  <input type="text" id="etat" name="etat" value="{{ $demande->etat }}" class="col-xs-12 col-sm-12" />
+										             </div>
+						         			      </div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</div>
@@ -153,13 +206,11 @@
 			<br/>
 			<div class="center">
 				<button class="btn btn-info" type="submit">
-					<i class="ace-icon fa fa-check bigger-110"></i>
-					Submit
+					<i class="ace-icon fa fa-check bigger-110"></i>	Enregistrer
 				</button>
 				&nbsp; &nbsp; &nbsp;
 				<button class="btn" type="reset">
-					<i class="ace-icon fa fa-undo bigger-110"></i>
-					Reset
+					<i class="ace-icon fa fa-undo bigger-110"></i>Annuler
 				</button>
 			</div>
 		</form>

@@ -146,10 +146,9 @@ class ConsultationsController extends Controller
       ]);
       if($validator->fails())
         return redirect()->back()->withErrors($validator)->withInput();
-      $nomlieu = Config::get('constants.lieuc');
-      $lieu = Lieuconsultation::where('Nom', $nomlieu)->first();
+      //$nomlieu = Config::get('constants.lieuc');$lieu = Lieuconsultation::where('Nom', $nomlieu)->first();
      
-      dd( $_SERVER['REMOTE_HOST']); 
+  
       $consult = consultation::create([
         "Motif_Consultation"=>$request->motif,
         "histoire_maladie"=>$request->histoirem,
@@ -161,7 +160,7 @@ class ConsultationsController extends Controller
         "Employe_ID_Employe"=>Auth::User()->employee_id,
         "Patient_ID_Patient"=>$request->id,
         "id_code_sim"=>$request->codesim,
-        "id_lieu"=> $lieu->id,
+        "id_lieu"=>session('lieu_id'),//$lieu->id,
       ]);
       if($request->poids != 0 || $request->temp != null || $request->taille !=0 || $request->autre)
         $this->ExamCliniqCTLR->store( $request,$consult->id); //save examen clinique
