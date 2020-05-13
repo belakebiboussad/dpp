@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use config;
 class LoginController extends Controller
 {
     /*
@@ -76,5 +76,15 @@ class LoginController extends Controller
             ->withInput($request->only($this->username(), 'remember'))
             ->withErrors($errors);
     }
+    //abm
+    protected function authenticated(Request $request, $user)
+    {   
+        // $a = conf('settings');
+        $a = config('settings'); 
+        //ajouter lieu a la session
+        dd($a);
+
+    }
+
     //fabm
 }
