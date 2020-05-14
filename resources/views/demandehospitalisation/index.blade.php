@@ -74,9 +74,12 @@
 									<i class="ace-icon fa fa-hand-o-up bigger-120" aria-hidden="true"></i>
 								</a>
 								@if(Auth::User()->employee_id == $demande->consultation->Employe_ID_Employe || (Auth::User()->role_id == 6))	 
-								<a href="{{route('demandehosp.edit', $demande->id)}}" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier la demande" data-placement="bottom">
+								<a href="{{ route('demandehosp.edit', $demande->id) }}" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier la demande" data-placement="bottom">
 									<i class="ace-icon fa fa-pencil bigger-120" aria-hidden="true"></i>
-								</a>	  	
+								</a>
+								<a href="{{ route('demandehosp.destroy',$demande->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger"><i class="ace-icon fa fa-trash-o bigger-110"></i>
+								</a>
+	  	
 								@endif
 								
 							</td>

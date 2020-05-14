@@ -18,30 +18,10 @@ Route::group(['middleware' => 'revalidate'], function()
               return view('auth/login');
         });
 });
-route::get('/home_chef', function(){
-    $meds = App\modeles\medcamte::all();
-    $dispositifs = App\modeles\dispositif::all();
-    $reactifs = App\modeles\reactif::all();
-    return view('home.home_chef_ser', compact('meds','dispositifs','reactifs'));
-});
-route::get('/home_phar', function(){
-    $meds = App\modeles\medcamte::all();
-    $dispositifs = App\modeles\dispositif::all();
-    $reactifs = App\modeles\reactif::all();
-    return view('home.home_pharmacien', compact('meds','dispositifs','reactifs'));
-});
 route::get('/home_admin',function (){
     $users = App\User::all();
     return view('home.home_admin',compact('users'));
 })->name('home_admin');
-route::get('/home_medcine',function (){
-    $patients = App\modeles\patient::all();
-    $employ = App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first();
-    $date = Date::Now()->toDateString();
-    $rdvs = App\modeles\ticket::where("specialite",$employ->Specialite_Emploiye)
-                    ->where("date",$date)->get();
-    return view('home.home_med', compact('patients','rdvs'));
-})->name('home_med');
 route::get('/home_reception',function (){
     return view('home.home_recep');
 })->name('home_rec');
@@ -52,13 +32,13 @@ route::get('/home_infermier','HospitalisationController@index')->name('home_infe
 
 Route::get('exbio/{filename}', function ($filename)
 {
-    $path = storage_path() . '\\app\\' . $filename;
-    if(!File::exists($path)) abort(404);
-    $file = File::get($path);
-    $type = File::mimeType($path);
-    $response = Response::make($file, 200);
-    $response->header("Content-Type", $type);
-    return $response;
+        $path = storage_path() . '\\app\\' . $filename;
+        if(!File::exists($path)) abort(404);
+        $file = File::get($path);
+        $type = File::mimeType($path);
+        $response = Response::make($file, 200);
+        $response->header("Content-Type", $type);
+        return $response;
 });
 // Auth::routes();
 route::get('/detailsdemande/{id}','demandeprodController@details_demande');
@@ -226,9 +206,7 @@ route::get('/choixpatvisite','VisiteController@choixpatvisite');
 route::get('/choixhospconsigne','ActeController@choixhospconsigne');
 route::get('/consigne','ActeController@choixhospconsigne');
 route::post('/saveActe','ActeController@store');
-//Route::resource('soins','SoinsController');
-/**************************/
-// telechargement
+/**************************/// telechargement
 route::get('/download/{filename}', function($filename)
 {
     return Storage::download($filename);

@@ -97,7 +97,7 @@ class HomeController extends Controller
                       }
                       return view('colloques.liste_colloque', compact('colloque'));
                       break;
-                case 9:// $rdvs = rdv_hospitalisation::whereHas('admission.demandeHospitalisation', function($q){//$q->where('etat', 'programme');//})->where('etat_RDVh','=','en attente')//->where('date_RDVh','=',date("Y-m-d"))->get(); 
+                case 9: 
                       $rdvs = rdv_hospitalisation::with('bedReservation')->whereHas('demandeHospitalisation', function($q){
                                                    $q->where('etat', 'programme');
                                                    })->where('etat_RDVh','=','en attente')->where('date_RDVh','=',date("Y-m-d"))->get(); 
