@@ -12,7 +12,6 @@ use App\modeles\rdv_hospitalisation;
 use Illuminate\Support\Facades\Auth;
 use App\modeles\admission;
 use App\modeles\service;
-
 use Jenssegers\Date\Date;
 use View;
 class HospitalisationController extends Controller
@@ -22,6 +21,10 @@ class HospitalisationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {       
         $role = Auth::user()->role;

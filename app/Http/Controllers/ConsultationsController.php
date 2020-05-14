@@ -28,7 +28,6 @@ use App\modeles\specialite_exb;
 use App\modeles\infosupppertinentes;
 use App\modeles\exmnsrelatifdemande;
 use App\modeles\examenradiologique;
-use Config;
 use Validator;
 class ConsultationsController extends Controller
 {
@@ -37,6 +36,7 @@ class ConsultationsController extends Controller
                                       DemandeHospitalisationController $DemandeHospCtrl,
                                       LettreOrientationController $LettreOrientationCtrl)
     {
+      $this->middleware('auth');
       $this->OrdonnanceCTLR = $OrdonnaceCtrl;
       $this->ExamCliniqCTLR = $ExamCliniqCtrl;
       $this->ExamBioloqiqueCTLR = $ExamBiologiqCtrl;

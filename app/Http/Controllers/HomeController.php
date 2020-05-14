@@ -21,7 +21,6 @@ use App\modeles\demandeexr;
 use App\User;
 use Auth; 
 use Date;
-use Flashy;
 use route;
 class HomeController extends Controller
 {
@@ -41,7 +40,8 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {         
+    { 
+
           $role =Auth::user()->role ; //dd($role);
           $employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
           $ServiceID = $employe->Service_Employe;
@@ -126,7 +126,7 @@ class HomeController extends Controller
                    break;
            }
     }
-     public function flash()
+    public function flash()
     {
         flashy()->success('You get success notification.', 'hdtuto.com');
          return view('flash');

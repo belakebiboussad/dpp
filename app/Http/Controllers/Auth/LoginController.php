@@ -3,7 +3,8 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use Auth;
+use Redirect;
 class LoginController extends Controller
 {
     /*
@@ -59,7 +60,6 @@ class LoginController extends Controller
 
      protected function sendFailedLoginResponse(Request $request)
     {
-
         $errors = [$this->username() => trans('auth.failed')];
         // Load user from database
         $user = \App\User::where($this->username(), $request->{$this->username()})->first();
@@ -78,7 +78,20 @@ class LoginController extends Controller
     }
     //fabm
     public function logout() {
-            Auth::logout(); // logout user  // Session::flush(); // Redirect::back();
-           return Redirect::to('/login'); //redirect back to login
+        Auth::logout(); // logout user  // Session::flush(); // Redirect::back();
+        return Redirect::to('/login'); //redirect back to login
     }
+      //abm
+    protected function authenticated(Request $request, $user)
+    {   
+        // $a = conf('settings');
+        // $a = config('settings'); 
+        //ajouter lieu a la session
+         // dd($a);
+    }
+	 public function username()
+    {
+		return 'name';
+    }
+    //fabm
 }

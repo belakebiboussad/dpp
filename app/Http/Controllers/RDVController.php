@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 use PDF;
-use Flashy;
 use Calendar;
 use Carbon\Carbon;
 use DateTime;
@@ -110,8 +109,7 @@ class RDVController extends Controller
                "Patient_ID_Patient"=>$request->id_patient,
                "Etat_RDV"=> "en attente",
            ]);
-           Flashy::success('RDV ajouter avec succès');
-           return redirect()->route("rdv.show",$rdv->id);
+          return redirect()->route("rdv.show",$rdv->id);
     }
 
     /**
