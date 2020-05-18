@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
 use Redirect;
 //use config;
+use Config;
 class LoginController extends Controller
 {
     /*
@@ -78,16 +79,16 @@ class LoginController extends Controller
             Auth::logout(); // logout user  // Session::flush(); // Redirect::back();
             return Redirect::to('/login'); //redirect back to login
         }
-      //abm
-      protected function authenticated(Request $request, $user)
-      {   
-             $IPs = config('settings.IPs');
-             session(['lieu_id' => $IPs[$_SERVER['REMOTE_ADDR']]]);
-              /*premier solutions $IPs = Config::get('settings'); session(['lieu_id' => $IPs[$_SERVER['REMOTE_ADDR']]]); */
-      }
-	public function username()
+        //abm
+        protected function authenticated(Request $request, $user)
+        {   
+            /*premier solutions $IPs = Config::get('settings');session(['lieu_id' => $IPs[$_SERVER['REMOTE_ADDR']]]); */
+            $IPs = config('settings.IPs');// $IPs = config('constants.IPs');
+            session(['lieu_id' => $IPs[$_SERVER['REMOTE_ADDR']]]); 
+        }
+	    public function username()
       {
-  		return 'name';
+  		    return 'name';
       }
     //fabm
 }

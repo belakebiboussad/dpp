@@ -15,6 +15,7 @@ class RdvHospiController extends Controller
 {
   public function create($id)
   {
+    dd("sdf")
   	$demande = dem_colloque::where('dem_colloques.id_demande','=',$id)->first();
     $services = service::all();
     return view('rdvHospi.create', compact('demande','services'));
@@ -103,9 +104,9 @@ class RdvHospiController extends Controller
                               })->get();
       return view('home.home_surv_med', compact('demandes'));
   }
-  public function sow($id)
+  public function show($id)
   {
-      dd("gdfg");
+    
   }
   public function destroy($id)
   {     

@@ -222,7 +222,7 @@
 		<div class="col-sm-12 center">	
 			<h2>
 				<strong>Bienvenue Docteur:</strong>
-				 <q class="blue"> {{ Auth::User()->employ->Nom_Employe }}{{ Auth::User()->employ->Prenom_Employe }}  </q>
+				 <q class="blue"> {{ Auth::User()->employ->Nom_Employe }} &nbsp;{{ Auth::User()->employ->Prenom_Employe }}  </q>
 			</h2>
 		</div>		
 	</div>	{{-- row --}}
@@ -240,7 +240,7 @@
 		      <div class="form-group">
 		       	<label class="control-label" for="patientName" ><strong>Nom:</strong></label>
 						<div class="input-group">
-							<input type="text" class="form-control input-sx" id="patientName" name="patientName"  placeholder="nom du patient..."/>
+							<input type="text" class="form-control input-sx" id="patientName" name="patientName" placeholder="nom du patient..." autofocus/>
 							<span class="glyphicon glyphicon-search form-control-feedback"></span>
 				    </div>
 					</div>
