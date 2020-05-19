@@ -23,7 +23,6 @@ class LitsController extends Controller
          ->select('lits.*','salles.nom as nomSalle','services.nom as nomService')->get();
         return view('lits.index_lit', compact('lits'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -40,7 +39,6 @@ class LitsController extends Controller
            $services = service::all();
            return view('lits.create_lit', compact('services','id_salle'));
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -49,17 +47,17 @@ class LitsController extends Controller
      */
     public function store(Request $request)
     {
-           $etat = 1;
-           if(isset($_POST['etat']) )
-                 $etat = 0;  
-           $l=  lit::create([
-                    "num"=>$request->numlit,
-                    "nom"=>$request->nom,
-                    "etat"=>$etat,
-                    "affectation"=>0,
-                    "salle_id"=>$request->chambre,
-           ]);
-           return redirect()->action('LitsController@index');
+       $etat = 1;
+       if(isset($_POST['etat']) )
+             $etat = 0;  
+       $l=  lit::create([
+                "num"=>$request->numlit,
+                "nom"=>$request->nom,
+                "etat"=>$etat,
+                "affectation"=>0,
+                "salle_id"=>$request->chambre,
+       ]);
+       return redirect()->action('LitsController@index');
     }
 
     /**
@@ -126,22 +124,28 @@ class LitsController extends Controller
     /**
     function ajax return lits ,on retourne pas les lits bloque ou reservé  
     */
-    public function getlits(Request $request)
+    public function getlits_old(Request $request)
     {  
         $lits =array();
         $salle =salle::FindOrFail($request->SalleId);
         if(isset($request->rdvId))
-            $rdvHosp =  rdv_hospitalisation::FindOrFail($request->rdvId);
+        {
+          $rdvHosp =  rdv_hospitalisation::FindOrFail($request->rdvId);
+          if(isset($rdvHosp->bedReservation))
+          {
+            $rdvHosp->bedReservation->delete();
+            
+          }  
+        }
         if(isset($rdvHosp) && isset($rdvHosp->bedReservation) && ($rdvHosp->bedReservation->lit->salle_id == $request->SalleId ))
         {
-            foreach ($salle->lits as $key => $lit) {  
-                if($rdvHosp->bedReservation->id_lit !=$lit->id )
-                {
-                    $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate));
-                    if(!($free))
-                    $salle->lits->pull($key); //$lits->push($lit);    
-                 }
+          foreach ($salle->lits as $key => $lit) {  
+            if($rdvHosp->bedReservation->id_lit !=$lit->id ){
+              $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate));
+              if(!($free))
+                $salle->lits->pull($key); //$lits->push($lit);    
             }
+          }
         }
         else
         {  
@@ -151,9 +155,7 @@ class LitsController extends Controller
                     $salle->lits->pull($key); //$lits->push($lit);    
             } 
               
-        }
-  
-       
+        }    
         return $salle->lits;
         //return($lits); 
         //return($salle->lits->count());
@@ -174,6 +176,23 @@ class LitsController extends Controller
        // return (Response::json(strtotime($reservations[0]->rdvHosp->date_RDVh)));
         return $free;
         */
+    }
+    public function getlits(Request $request)
+    {
+        $lits =array();
+        $salle =salle::FindOrFail($request->SalleId);
+        if(isset($request->rdvId))
+        {
+          $rdvHosp =  rdv_hospitalisation::FindOrFail($request->rdvId)->with('bedReservation');
+          if(isset($rdvHosp->bedReservation))
+            $rdvHosp->bedReservation->delete();           
+        }
+        foreach ($salle->lits as $key => $lit) {  
+          $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate));
+          if(!($free))
+            $salle->lits->pull($key); //$lits->push($lit);    
+        } 
+        return $salle->lits;
     }
 
 }

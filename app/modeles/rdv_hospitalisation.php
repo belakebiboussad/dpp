@@ -14,6 +14,6 @@ class rdv_hospitalisation extends Model
     }
     public function bedReservation()
     {
-    	return $this->hasOne('App\modeles\BedReservation','id_rdvHosp');
+    	return $this->hasOne('App\modeles\BedReservation','id_rdvHosp');//hasOne
     }
 }

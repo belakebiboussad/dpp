@@ -119,12 +119,8 @@ Route::get('/rdv/reporter/{id}','RDVController@reporter');
 Route::post('/rdv/reporte/{id}','RDVController@storereporte');
 Route::get('rdvprint/{id}','rdvController@print');
 Route::resource('rdvHospi','RdvHospiController');
-Route::get('rdvHospi/{id}', [
-        'middleware' => 'auth',
-        'as' => 'rdvHospi.create',
-        'uses' => 'RdvHospiController@create'
-]);
-Route::get('/admission/imprimer/{rdv}', ['as' => 'admission.pdf', 'uses' => 'AdmissionController@print']);
+Route::get('rdvHospi/create/{id}','RdvHospiController@create')->name('rdvHospi.create');
+Route::get('/rdvHospi/imprimer/{rdv}', ['as' => 'admission.pdf', 'uses' => 'RdvHospiController@print']);
 Route::get('/choixpatient','RDVController@choixpatient');
 Route::get('/home', 'HomeController@index')->name('home');
 route::get('/getAddEditRemoveColumnData','UsersController@getAddEditRemoveColumnData');

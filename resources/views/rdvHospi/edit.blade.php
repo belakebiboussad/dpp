@@ -2,26 +2,27 @@
 @section('page-script')
 <script type="text/javascript">
 	$('document').ready(function(){
-	       var debut = new Date($('#dateEntree').val()); // var dateRDV = $('#dateEntree').val();  //var datefinRDV =   $('#dateSortie').val();
-	       var fin = new Date($('#dateSortiePre').val());
-	       var diff = new Date(fin - debut);
-	       $('#numberDays').val(diff/1000/60/60/24);
-             $( "#RDVForm" ).submit(function( event ) {  
-          	       $("#dateSortiePre").prop('disabled', false);
-          	});
-  	      $('.timepicker').timepicker({
-                    timeFormat: 'HH:mm',
-                    interval: 15,
-                    minTime: '08',
-                    maxTime: '17:00pm',
-                    defaultTime: '09:00',   
-                    startTime: '08:00',
-                    dynamic: true,
-                    dropdown: true,
-                    scrollbar: true
-             });
-      // $("input[type=number]").bind('keyup input', function(){//   var datefin = new Date($('#dateEntree').val());
-      //   datefin.setDate(debut.getDate() + parseInt($( this).val(), 10));//$("#dateSortiePre").val(moment(datefin).format("YYYY-MM-DD"));// });
+    var debut = new Date($('#dateEntree').val()); // var dateRDV = $('#dateEntree').val();  //var datefinRDV =   $('#dateSortie').val();
+    var fin = new Date($('#dateSortiePre').val());
+    var diff = new Date(fin - debut);
+    $('#numberDays').val(diff/1000/60/60/24);
+    $( "#RDVForm" ).submit(function( event ) {  
+      $("#dateSortiePre").prop('disabled', false);
+    });
+    $('.timepicker').timepicker({
+      timeFormat: 'HH:mm',
+      interval: 15,
+      minTime: '08',
+      maxTime: '17:00pm',
+      defaultTime: '09:00',   
+      startTime: '08:00',
+      dynamic: true,
+      dropdown: true,
+          scrollbar: true
+    });
+    
+// $("input[type=number]").bind('keyup input', function(){//   var datefin = new Date($('#dateEntree').val());
+//   datefin.setDate(debut.getDate() + parseInt($( this).val(), 10));//$("#dateSortiePre").val(moment(datefin).format("YYYY-MM-DD"));// });
 	  });
 </script>
 @endsection
@@ -196,7 +197,7 @@
         <div class="col-sm-12">
           <div class="col-sm-4 col-xs-4">
             <label class="col-sm-4 control-label no-padding-right" for="dateSortie">
-              <strong> Service :</strong>
+              <strong> Service:</strong>
             </label>
             <div class="col-sm-8">
               <select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12"/>

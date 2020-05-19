@@ -7,7 +7,7 @@
     $("#dateEntree").datepicker("setDate", now);			
 	  $("#dateSortiePre").datepicker("setDate", now);	
 	  $('#dateSortiePre').attr('readonly', true);
-		$('.timepicker').timepicker({
+ 		$('.timepicker').timepicker({
             timeFormat: 'HH:mm',
             interval: 15,
             minTime: '08',
@@ -22,7 +22,7 @@
   			$("#dateSortiePre").prop('disabled', false);
   	});
   	$('.filelink' ).click( function( e ) {
-                e.preventDefault();  
+      e.preventDefault();  
     });
 	});
 	function updateDureePrevue()
@@ -46,7 +46,7 @@
 @section('main-content')
 <div class="page-header">
 	<h1>
-		Ajouter Un RDV Hospitalisation pour <strong>&laquo;{{$demande->demandeHosp->consultation->patient->Nom}}
+		Ajouter un RDV Hospitalisation pour <strong>&laquo;{{$demande->demandeHosp->consultation->patient->Nom}}
 		 {{ $demande->demandeHosp->consultation->patient->Prenom }}&raquo;</strong>
 	</h1>
 </div><!-- /.page-header -->
@@ -180,7 +180,7 @@
 				              	<strong> Date sortie prévue :</strong>
 				            </label>
 						<div class="input-group col-sm-6 col-xs-6">
-							<input class="col-xs-12 col-sm-12 date-picker" id="dateSortiePre" name="dateSortiePre" type="text" placeholder="Date sortie prévue" data-date-format="yyyy-mm-dd" required onchange="updateDureePrevue()"/>
+							<input class="col-xs-12 col-sm-12 date-picker" id="dateSortiePre" name="dateSortiePre" type="text" data-date-format="yyyy-mm-dd" onchange="updateDureePrevue()" required/>
 							 <span class="input-group-addon" onclick="$('#dateSortie').focus()">
                 						<i class="fa fa-calendar bigger-110"></i>
               					</span>        
@@ -217,7 +217,7 @@
 						<div class="col-sm-8">
 							<select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12"
 							      	placeholder="Selectionnez le service"/>
-							  <option value="" selected disabled>Selectionnez un service</option>
+							  <option value="0" selected >Selectionnez un service</option>
 							  @foreach($services as $service)
 								<option value="{{ $service->id }}">{{ $service->nom }}</option>
 								@endforeach

@@ -59,7 +59,7 @@
 									<td>
 										<div class="hidden-sm hidden-xs btn-group">						
 											{{-- {{ action('RdvHospiController@create', ['id' =>$demande->id_demande]) }} --}}
-											<a href="{{ route('RdvHospiController@create', ['id' =>$demande->id_demande]) }}" class="btn btn-xs btn-success">
+	<a href="{!! route('rdvHospi.create', [$demande->id_demande]) !!}" class="btn btn-xs btn-success">
 												<i class="fa fa-plus fa-xs"></i> &nbsp;RDV Hospitalisaton
 											</a>
 										</div>

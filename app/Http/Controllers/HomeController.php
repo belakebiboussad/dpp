@@ -41,10 +41,10 @@ class HomeController extends Controller
      */
     public function index()
     { 
-      $role =Auth::user()->role ; //dd($role);
-      $employe = employ::where("id",Auth::user()->employee_id)->get()->first(); 
-      $ServiceID = $employe->Service_Employe;
-      switch ($role->id) {
+      //$role =Auth::user()->role ; //dd($role);
+      //$employe = Auth::user()->employ; // employ::where("id",Auth::user()->employee_id)->get()->first(); 
+      $ServiceID = Auth::user()->employ->Service_Employe;
+      switch (Auth::user()->role_id) {
             case 1:
                   return view('patient.index');
                   break;
