@@ -82,9 +82,9 @@ class LoginController extends Controller
         //abm
         protected function authenticated(Request $request, $user)
         {   
-            /*premier solutions $IPs = Config::get('settings');session(['lieu_id' => $IPs[$_SERVER['REMOTE_ADDR']]]); */
-            $IPs = config('settings.IPs');// $IPs = config('constants.IPs');
-            session(['lieu_id' => $IPs[$_SERVER['REMOTE_ADDR']]]); 
+          /*premier solutions $IPs = Config::get('settings');session(['lieu_id' => $IPs[$_SERVER['REMOTE_ADDR']]]); */
+          $IPs = config('settings.IPs');// $IPs = config('constants.IPs');
+          session(['lieu_id' => $IPs[$_SERVER['REMOTE_ADDR']]]); 
         }
 	    public function username()
       {

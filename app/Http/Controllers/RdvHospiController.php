@@ -15,16 +15,27 @@ use Carbon\Carbon;
 use PDF;
 class RdvHospiController extends Controller
 {
+  public function index()
+  {
+    $ServiceID = Auth::user()->employ->Service_Employe;
+    $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID) {
+                                       $q->where('id',$ServiceID);                           
+                                })
+                            ->whereHas('demandeHosp',function ($q){
+                                $q->where('etat','valide'); 
+                            })->get();
+    return view('rdvHospi.index', compact('demandes'));
+  }
   public function create($id)
   {
     $demande = dem_colloque::where('dem_colloques.id_demande','=',$id)->first();
     $services = service::all();
     return view('rdvHospi.create', compact('demande','services'));
   }
-  
 	public function store(Request $request)
   {
-   	$employe = employ::where("id",Auth::user()->employee_id)->get()->first();
+
+    $employe = Auth::user()->employ;
     $ServiceID = $employe->Service_Employe;
     $rdv = rdv_hospitalisation::firstOrCreate([
             "date_RDVh"         =>$request->dateEntree,
@@ -41,15 +52,15 @@ class RdvHospiController extends Controller
 	  		"id_lit" =>$request->lit,
 	  	]);           
      }
-      $demande= DemandeHospitalisation::find($request->id_demande);
-      $demande->etat = 'programme';
-      $demande->save();
-      $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID) {
-                               $q->where('id',$ServiceID);                           
-                         })->whereHas('demandeHosp',function ($q){
-                               $q->where('etat','valide'); //valier par le colloque
-                         })->get(); 
-      return view('rdvHospi.index', compact('demandes'));
+    $demande= DemandeHospitalisation::find($request->id_demande);
+    $demande->etat = 'programme';
+    $demande->save();
+    $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID) {
+                             $q->where('id',$ServiceID);                           
+                       })->whereHas('demandeHosp',function ($q){
+                             $q->where('etat','valide'); //valier par le colloque
+                       })->get();                 
+    return view('rdvHospi.index', compact('demandes'));
   }
   public function getlisteRDVs()
   {
@@ -62,15 +73,12 @@ class RdvHospiController extends Controller
                                                   $q->where('id',$ServiceID);       
                                              })->where('etat_RDVh','=','en attente')->get();
 
-    return view('rdvHospi.index', compact('rdvHospis'));
+    return view('rdvHospi.listRDVs_hospitalisation', compact('rdvHospis'));
   }
   public function edit($id)
   {
     $rdv =  rdv_hospitalisation::with('bedReservation')->find($id);
-    /*
-    if(isset($rdv->bedReservation))    //liberer le lit affecter
-        $rdv->bedReservation()->delete(); 
-    */    
+    /*if(isset($rdv->bedReservation))  $rdv->bedReservation()->delete();  */  
     $demande  = dem_colloque::where('dem_colloques.id_demande','=',$rdv->demandeHospitalisation->id)->first();
     $services = service::all();
     return view('rdvHospi.edit', compact('demande','services','rdv'));   // return view('rdvHospi.edit', compact('demande','services','rdv'));         
@@ -98,15 +106,16 @@ class RdvHospiController extends Controller
   }
   public function ajouterRDV()
   {
-      $employe = employ::where("id",Auth::user()->employee_id)->get()->first();  
-      $ServiceID = $employe->Service_Employe;
-      $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID) {
-                                         $q->where('id',$ServiceID);                           
-                                  })
-                              ->whereHas('demandeHosp',function ($q){
-                                  $q->where('etat','valide'); 
-                              })->get();
-      return view('home.home_surv_med', compact('demandes'));
+    //$employe = employ::where("id",Auth::user()->employee_id)->get()->first(); //$employe = Auth::user()->employ; //$ServiceID = $employe->Service_Employe;   
+    $ServiceID = Auth::user()->employ->Service_Employe;
+    $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID) {
+                                       $q->where('id',$ServiceID);                           
+                                })
+                            ->whereHas('demandeHosp',function ($q){
+                                $q->where('etat','valide'); 
+                            })->get();
+    //return view('home.home_surv_med', compact('demandes'));
+    return view('rdvHospi.index', compact('demandes'));
   }
   public function show($id){  }
   public function destroy($id)
@@ -125,7 +134,6 @@ class RdvHospiController extends Controller
   { 
     $t = Carbon::now();
     $rdv = rdv_hospitalisation::with('demandeHospitalisation')->FindOrFail($id);
-    // dd($rdv->demandeHospitalisation);
     $patient =  $rdv->demandeHospitalisation->consultation->patient;
     $pdf = PDF::loadView('rdvHospi.rdv', compact('rdv','t'))->setPaper('a4','landscape');
     $name = "rdv-".$patient->Nom."-".$patient->Prenom.".pdf";

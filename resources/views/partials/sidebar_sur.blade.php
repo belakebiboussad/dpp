@@ -1,4 +1,3 @@
-<!-- #section:basics/sidebar -->
 <div id="sidebar" class="sidebar responsive">
   <script type="text/javascript">
     try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
@@ -72,8 +71,7 @@
         <b class="arrow"></b>
         <ul class="submenu">
           <li class="">
-            <a href="/hospitalisation/addRDV">
-            <!-- <a href="/Dem/" title="ajouter un Rendez-Vous"> -->
+            <a href="{{ route('rdvHospi.index') }}" title="ajouter un Rendez-Vous">
               <i class="menu-icon fa fa-plus"></i>Ajouter Rendez-Vous
             </a>
             <b class="arrow"></b>
@@ -196,15 +194,15 @@ var dateEnd = jsDate.getFullYear() + '-' + (jsDate.getMonth()+1) + '-' + jsDate.
                           //   alert( index + ": " + value );
                           // });
 
-                          if(data.length != 0){
-                                  selectLit.append("<option value='0'>Selectionnez un lit</option>");
-                                  $.each(data,function(){
-                                      selectLit.append("<option value='"+this.id+"'>"+this.nom+"</option>");
-                                  });
-                          }else
-                          {
-                            selectLit.append('<option value="" selected disabled>Pas de Lit libre</option>');
-                          }
+                        if(data.length != 0){
+                                selectLit.append("<option value='0'>Selectionnez un lit</option>");
+                                $.each(data,function(){
+                                    selectLit.append("<option value='"+this.id+"'>"+this.nom+"</option>");
+                                });
+                        }else
+                        {
+                          selectLit.append('<option value="" selected disabled>Pas de Lit libre</option>');
+                        }
                           
                     },
                   error: function (jqXHR, textStatus, errorThrown) {
