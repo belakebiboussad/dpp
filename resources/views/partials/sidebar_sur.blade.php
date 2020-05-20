@@ -50,14 +50,15 @@
         <b class="arrow"></b>
         <ul class="submenu">
           <li class="">     
-            <a href="{{ URL::route('hospitalisation.index') }}">{{-- <a href="{{ route('hospitalisation.index') }}"> --}}
+            {{-- <a href="{{ URL::route('hospitalisation.index') }}"> --}}
+            <a href="{{ route('hospitalisation.index') }}">
               <i class="menu-icon fa fa-caret-right"></i>Liste des Hospitalisations
             </a>
             <b class="arrow"></b>
           </li>
           <li class="">
             <a href="/affecterLit">
-              <i class="menu-icon fa fa-caret-right"></i>Affectation des Lits
+              <i class="menu-icon fa fa-caret-right"></i>Affectater un Lit
             </a>
             <b class="arrow"></b>
           </li>

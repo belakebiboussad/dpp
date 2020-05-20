@@ -34,11 +34,10 @@
 							@foreach( $rdvHospis as $i=>$rdv)
 						  	<tr>
 								<td hidden>{{ $j }}</td>	
-						   		 <td class="center">
-							  		<label class="pos-rel">
-											<input type="checkbox" class="ace" name ="valider[]" value ="{{$rdv->id}}" /><span class="lbl"></span>   
-							   		{{ $rdv->id }}
-							   		</label>
+						   	<td class="center">
+						  		<label class="pos-rel">
+										<input type="checkbox" class="ace" name ="valider[]" value ="{{$rdv->id}}" /><span class="lbl"></span>   
+						   		</label>
 								</td>
 								<td>
 							   	 	 {{$rdv->demandeHospitalisation->consultation->patient->Nom }}&nbsp;{{$rdv->demandeHospitalisation->consultation->patient->Prenom }}	

@@ -116,25 +116,7 @@ class AdmissionController extends Controller
      * @return \Illuminate\Http\Response
      */
       public function destroy($id)
-      {
-          //
-      } 
-      public function affecterLit()
-      {
-        $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
-        $ServiceID = $employe->Service_Employe; 
-        $rdvHospitalisation = rdv_hospitalisation::whereHas('admission.demandeHospitalisation', function($q){
-                                                             $q->where('etat', 'programme');
-                                                })->with([
-                                                  'admission.demandeHospitalisation' => function($query) {
-                                                                           $query->select('modeAdmission');
-                                                  }])
-                                                  ->whereHas('admission.demandeHospitalisation.Service',function($q) use ($ServiceID){
-                                                        $q->where('id',$ServiceID);       
-                                                   })->where('etat_RDVh','=','en attente')->with('admission.demandeHospitalisation')->get();  
-                     
-        return view('admission.affecterLits', compact('rdvHospitalisation'));
-      }
+      {} 
       public function getAdmissions($date)
       {
         $admissions = admission::join('rdv_hospitalisations','admissions.id','=','rdv_hospitalisations.id_admission')
