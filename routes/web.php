@@ -10,13 +10,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Route::group(['middleware' => ['web']], function () {});    //
 Route::group(['middleware' => 'revalidate'], function()
 {          
-        Auth::routes();     
-         Route::get('/', function () {
-              return view('auth/login');
-        });
+    Auth::routes();     
+     Route::get('/', function () {
+          return view('auth/login');
+    });
 });
 route::get('/home_admin',function (){
     $users = App\User::all();

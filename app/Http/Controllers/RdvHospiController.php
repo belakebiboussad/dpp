@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\modeles\dem_colloque;
 use App\modeles\service;
@@ -106,7 +105,6 @@ class RdvHospiController extends Controller
   }
   public function ajouterRDV()
   {
-    //$employe = employ::where("id",Auth::user()->employee_id)->get()->first(); //$employe = Auth::user()->employ; //$ServiceID = $employe->Service_Employe;   
     $ServiceID = Auth::user()->employ->Service_Employe;
     $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID) {
                                        $q->where('id',$ServiceID);                           
