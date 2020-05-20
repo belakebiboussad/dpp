@@ -24,11 +24,7 @@
 												<th>Médecin traitant</th>
 												<th>Patient</th>
 												<th>Etat</th>
-<<<<<<< HEAD
-												<th></th>
-=======
 												<th><em class="fa fa-cog"></em></th>
->>>>>>> dev
 											</tr>
 										</thead>
 										<tbody>
@@ -55,11 +51,7 @@
 													</td>
 													<td class="center">
 														<a href="/detailsdemandeexb/{{ $demande->id_demandeexb }}">
-<<<<<<< HEAD
-															<i class="fa fa-eye"></i>
-=======
 															<i class="fa fa-file"></i>
->>>>>>> dev
 														</a>
 													</td>
 												</tr>

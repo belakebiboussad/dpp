@@ -1,13 +1,7 @@
 <?php
 
 namespace App\modeles;
-<<<<<<< HEAD
-
 use Illuminate\Database\Eloquent\Model;
-
-=======
-use Illuminate\Database\Eloquent\Model;
->>>>>>> dev
 class demandeexb extends Model
 {
     public $timestamps = false;

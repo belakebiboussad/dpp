@@ -156,8 +156,6 @@
             </ul>
         </li>
         @if(Auth::user()->role_id == "10")
-<<<<<<< HEAD
-=======
         <li class="">
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-stethoscope"></i><span class="menu-text">Produits pharmacie</span><b class="arrow fa fa-angle-down"></b>
@@ -173,7 +171,6 @@
             </ul>
         </li>
         @endif
->>>>>>> dev
         <li class="">
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-stethoscope"></i><span class="menu-text">Gestion des visites</span>

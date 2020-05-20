@@ -20,10 +20,6 @@ class AntecedantsController extends Controller
         $message ='exemple';
         return response()->json(['response' => $message]); 
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> dev
     public function index($id)
     {   
         $patient = patient::FindOrFail($id);

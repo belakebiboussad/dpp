@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-@extends('app_med')
-=======
 @extends((( Auth::user()->role->id === 12) ? 'app_radiologue' : 'app_med' ))
->>>>>>> dev
 @section('page-script')
     <script src="{{asset('/js/jquery.min.js')}}"></script>
 <script>
@@ -75,93 +71,6 @@
 @endsection
 @section('main-content')
 <div class="page-header" width="100%">
-<<<<<<< HEAD
-   <div class="row">
-    <div class="col-sm-12">
-      <div class="widget-box">
-        <div class="widget-body">
-          <div class="widget-main">
-            <label class="inline">
-            <span class="blue"><strong>Nom :</strong></span>
-            <span class="lbl"> {{ $demande->consultation->patient->Nom }}</span>
-          </label>
-          &nbsp;&nbsp;&nbsp;
-          <label class="inline">
-            <span class="blue"><strong>Prénom :</strong></span>
-            <span class="lbl"> {{ $demande->consultation->patient->Prenom }}</span>
-          </label>
-          &nbsp;&nbsp;&nbsp;
-          <label class="inline">
-            <span class="blue"><strong>Sexe :</strong></span>
-            <span class="lbl"> {{ $demande->consultation->patient->Sexe == "M" ? "Masculin" : "Féminin" }}</span>
-          </label>
-          &nbsp;&nbsp;&nbsp;
-          <label class="inline">
-            <span class="blue"><strong>Date Naissance :</strong></span>
-            <span class="lbl"> {{ $demande->consultation->patient->Dat_Naissance }}</span>
-          </label>
-          &nbsp;&nbsp;&nbsp;
-          <label class="inline">
-            <span class="blue"><strong>Age :</strong></span>
-            <span class="lbl"> {{ Jenssegers\Date\Date::parse($demande->consultation->patient->Dat_Naissance)->age }} ans</span>
-          </label>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="content">
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="col-xs-12 widget-container-col" id="consultation">
-        <div class="widget-box" id="infopatient">
-          <div class="widget-header">
-            <h5 class="widget-title"><b>Détails d'un examen radiologique :</b></h5>
-          </div>
-          <div class="widget-body">
-            <div class="widget-main">
-              <div class="row">
-                <div class="col-xs-12">
-                    <label><b>Date :</b></label>&nbsp;&nbsp;<span>{{ $demande->Date }}</span>
-                    <br><br>
-                    <label><b>Informations cliniques pertinentes :</b></label>
-                    &nbsp;&nbsp;<span>{{ $demande->InfosCliniques }}.</span>
-                    <br><br>
-                    <label><b>Explication de la demande de diagnostic :</b></label>
-                    &nbsp;&nbsp;<span>{{ $demande->Explecations }}.</span>
-                    <br><br>
-                    <label><b>Informations supplémentaires pertinentes :</b></label>
-                    <div>
-                      <table class="table table-striped table-bordered">
-                        <thead>
-                          <tr>
-                            <th class="center" width="10%">#</th>
-                            <th>Nom</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          @foreach($demande->infossuppdemande as $index => $info)
-                            <tr>
-                              <td class="center">{{ $index + 1 }}</td>
-                              <td>{{ $info->nom }}</td>
-                            </tr>
-                          @endforeach
-                        </tbody>
-                      </table>
-                    </div>
-                    <br>
-                    <label><b>Examen(s) proposé(s) :</b></label>
-                    <div>
-                      <table class="table table-striped table-bordered">
-                        <thead>
-                          <tr>
-                            <th class="center" width="10%">#</th>
-                            <th>Nom</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-=======
   <?php $patient = $demande->consultation->patient; ?> 
     @include('patient._patientInfo')        
 </div>
@@ -212,55 +121,21 @@
                       </tr>
                     </thead>
                     <tbody>
->>>>>>> dev
                           @foreach($demande->examensradios as $index => $examen)
                             <tr>
                               <td class="center">{{ $index + 1 }}</td>
                               <td>{{ $examen->nom }}</td>
-<<<<<<< HEAD
-=======
                               <td>
                                  <?php $exams = explode (',',$examen->pivot->examsRelatif) ?>
                                   @foreach($exams as $id)
                                   <span class="badge badge-success">{{ App\modeles\exmnsrelatifdemande::FindOrFail($id)->nom}}</span>
                                   @endforeach
                               </td>
->>>>>>> dev
                             </tr>
                           @endforeach
                         </tbody>
                       </table>
                     </div>
-<<<<<<< HEAD
-                    <br>
-                    <label>
-                      <b>Examen(s) pertinent(s) précédent(s) relatif(s) à la demande de diagnostic :</b>
-                    </label>
-                    <div>
-                      <table class="table table-striped table-bordered">
-                        <thead>
-                          <tr>
-                            <th class="center" width="10%">#</th>
-                            <th>Nom</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          @foreach($demande->examensrelatifsdemande as $index => $exm)
-                            <tr>
-                              <td class="center">{{ $index + 1 }}</td>
-                              <td>{{ $exm->nom }}</td>
-                            </tr>
-                          @endforeach
-                        </tbody>
-                      </table>
-                    </div>
-                    <label>Résultat :</label>&nbsp;&nbsp;
-                    <span><a href='/download/{{ $demande->resultat }}'>{{ $demande->resultat }}</a></span>
-                    <a href="/showdemandeexr/{{ $demande->id }}" target="_blank" class="btn btn-primary pull-right">
-                      <i class="fa fa-eye"></i>&nbsp;
-                      Visualiser Demande examens radiologique
-                    </a>
-=======
                     @if(Auth::user()->role->id == 12)
                       <form class="form-horizontal" method="POST" action="/uploadexr" enctype="multipart/form-data">
                       {{ csrf_field() }}
@@ -288,18 +163,13 @@
                     @isset($demande->resultat)
                     <span><a href='/download/{{ $demande->resultat }}'>{{ $demande->resultat }} &nbsp;<i class="fa fa-download"></i></a></span>
                     @endisset
->>>>>>> dev
                   </div>               
                 </div>
               </div>
             </div>
           </div>
         </div>
-<<<<<<< HEAD
-    </div>
-=======
 
->>>>>>> dev
   </div>
 </div>
 @endsection
