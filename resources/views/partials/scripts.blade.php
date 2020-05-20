@@ -586,8 +586,7 @@ $('#typeexm').on('change', function() {
             img.src = url;
         }
         function createord(nompatient,dateNaiss,ipp,age,sexe,nommedcin) {
-
-            getImageFromUrl('http://localhost:8000/img/logo.png', createPDF,nompatient,dateNaiss,ipp,age,sexe,nommedcin);
+          getImageFromUrl('http://localhost:8000/img/logo.png', createPDF,nompatient,dateNaiss,ipp,age,sexe,nommedcin);
         }
         function storeord()
         {   

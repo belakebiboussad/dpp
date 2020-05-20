@@ -54,7 +54,7 @@ Route::get('/salle/create/{id}','SalleController@create');
 Route::get('/lit/create/{id}','LitsController@create');
 Route::get('/hospitalisation/create/{id}','HospitalisationController@create');
 Route::get('/ordonnace/create/{id}','OrdonnanceController@create');
-Route::post('/ordonnaces/ordPrint','OrdonnanceController@print');
+Route::post('/ordonnaces/print','OrdonnanceController@print');
 Route::get('/consultations/detailcons/{id}','ConsultationsController@detailcons')->name('consultDetails');
 Route::get('/consultations/detailConsXHR','ConsultationsController@detailconsXHR')->name('consultdetailsXHR');
 Route::get('/consultations/demandeExm/{id_cons}','ConsultationsController@demandeExm');
