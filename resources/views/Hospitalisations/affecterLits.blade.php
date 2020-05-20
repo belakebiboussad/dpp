@@ -70,8 +70,8 @@
 						</td>
 					
 						<td>
-					   	  {{$rdv->admission->demandeHospitalisation->consultation->patient->Nom }}
-								{{$rdv->admission->demandeHospitalisation->consultation->patient->Prenom }}	
+					   	  {{$rdv->demandeHospitalisation->consultation->patient->Nom }}
+								{{$rdv->demandeHospitalisation->consultation->patient->Prenom }}	
 						</td>
 						<td>
 							<strong>{{ $rdv->date_RDVh }}</strong>
@@ -83,11 +83,11 @@
 					  <td class="center">
 					  	<strong>{{ $rdv->heure_Prevu_Sortie }}</strong>
 					  </td>
-					  <td><strong>{{ $rdv->admission->lit->salle->service->nom }}</strong></td>
-					  <td><strong>{{ $rdv->admission->lit->salle->nom }}</strong></td>
-					  <td><strong>{{ $rdv->admission->lit->nom }}</strong></td>
+					  <td><strong>{{ $rdv->bedReservation->lit->salle->service->nom }}</strong></td>
+					  <td><strong>{{ $rdv->bedReservation->lit->salle->nom }}</strong></td>
+					  <td><strong>{{ $rdv->bedReservation->lit->nom }}</strong></td>
 						<td class="center">
-							  <a href="{{ route('admission.edit',$rdv->id) }}" class="btn btn-success btn-xs aaaa"  title= "Affecter un Lit" >
+							  <a href="{{ route('hospitalisation.edit',$rdv->id) }}" class="btn btn-success btn-xs aaaa"  title= "Affecter un Lit" >
 								  		<i class="ace-icon fa fa-bed bigger-120"></i>affecter
 	              </a>
 	             

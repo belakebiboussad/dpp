@@ -35,8 +35,7 @@ class RdvHospiController extends Controller
   }
 	public function store(Request $request)
   {
-    $employe = Auth::user()->employ;
-    $ServiceID = $employe->Service_Employe;
+    $ServiceID = Auth::user()->employ->Service_Employe;
     $rdv = rdv_hospitalisation::firstOrCreate([
             "date_RDVh"         =>$request->dateEntree,
             "heure_RDVh"        =>$request->heure_rdvh,   
@@ -126,5 +125,6 @@ class RdvHospiController extends Controller
     $name = "rdv-".$patient->Nom."-".$patient->Prenom.".pdf";
     return $pdf->stream($name);
   } 
+  
     
 }
