@@ -4,8 +4,6 @@
 		@include('patient._patientInfo')
 	</div>
 	<div class="page-header">
-	{{-- 	<h1 style="display: inline;"><strong>Détails Du Patient :</strong> {{ $patient->Nom }} {{ $patient->Prenom }}</h1> --}}
-		
 		<div class="pull-right">
 			<a href="{{ route('patient.index') }}" class="btn btn-white btn-info btn-bold">
 				<i class="ace-icon fa fa-search bigger-120 blue"></i>
@@ -34,15 +32,13 @@
 						</a>
 					</li>
 					@endif
-					@if(App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role =="Medecine")
+					 @if( Auth::user()->role->id == 1)
 					<li>
 						<a data-toggle="tab" href="#feed">
 						<i class="orange ace-icon fa fa-stethoscope bigger-120"></i>Consultations&nbsp;<span class="badge badge-warning">{{ $consultations->count() }}
 							</span>
 						</a>
 					</li>
-					@endif
-					@if(App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role =="Medecine")
 					<li>
 					<a data-toggle="tab" href="#pictures">
 						<i class="pink ace-icon fa fa-h-square bigger-120"></i>
@@ -455,8 +451,9 @@
 										Liste Des RDV :
 									</h5>
 									<div class="widget-toolbar widget-toolbar-light no-border">
-										<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-										<a href="#"><b>Ajouter Un RDV</b></a>
+										<!-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> -->
+										<div class="fa fa-plus-circle"></div>
+										<a href="#"><b>Ajouter un RDV</b></a>
 									</div>
 								</div>
 								<div class="widget-body">
@@ -561,59 +558,18 @@
     		<div class="modal-content">
     			<div class="modal-header">
     				<button type="button" class="close" data-dismiss="modal">&times;</button>
-    				<h4 class="modal-title">Ajouter Ticket :</h4>
+    				<h4 class="modal-title"><strong>Ajouter Ticket:</strong></h4>
     			</div>
     			<div class="modal-body">
     				<div class="row">
     					<div class="col-sm-12">
-    						<div class="col-xs-6">
-    							<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-										<b> Nom: </b>
-									</label>
-									<div class="col-sm-9">
-										<label>{{ $patient->Nom }}</label>
-									</div>
-								</div>
-    						</div>
-    						<div class="col-xs-6">
-    							<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-										<b> Prénom: </b>
-									</label>
-									<div class="col-sm-9">
-										<label>{{ $patient->Prenom }}</label>
-									</div>
-								</div>
-    						</div>
-    						<div class="col-xs-6">
-    							<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-										<b> Age: </b>
-									</label>
-									<div class="col-sm-9">
-										<label>{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }} ans</label>
-									</div>
-								</div>
-    						</div>
-    						<div class="col-xs-6">
-    							<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-										<b>Sexe:</b>
-									</label>
-									<div class="col-sm-9">
-										<label>{{ $patient->Sexe =="M" ? "Masculin" : "Féminin" }}</label>
-									</div>
-								</div>
-    						</div>
-    						<br/><br/><br/><br/>
     						<form action="{{ route('ticket.store') }}" method="POST" role="form">
 							{{ csrf_field() }}
 							<input type="text" name="id_patient" value="{{ $patient->id }}" hidden>
     						<div class="col-sm-12">
 								<label for="typecons"><b>Type de consultation:</b></label>
-								<select class="form-control" id="typecons" name="typecons">
-									<option value="">--------</option>
+								<select class="form-control" id="typecons" name="typecons" required>
+								<!-- 	<option value="">--------</option> -->
 									<option value="Normale">Normale</option>
 									<option value="Urgente">Urgente</option>
 								</select>
@@ -621,8 +577,8 @@
 							<br/><br/><br/><br/>
     						<div class="col-sm-12">
 								<label for="document"><b>Document:</b></label>
-								<select class="form-control" id="document" name="document">
-									<option value="">--------</option>
+								<select class="form-control" id="document" name="document" required>
+								<!-- 	<option value="">--------</option> -->
 									<option value="Rendez-vous">Rendez-vous</option>
 									<option value="Lettre d'orientation">Lettre d'orientation</option>
 									<option value="Consultation généraliste">Consultation généraliste</option>
@@ -648,7 +604,7 @@
     					Générer un ticket
     				</button>
     				<button type="button" class="btn btn-default" data-dismiss="modal">
-    					<i class="ace-icon fa fa-plus bigger-110"></i>
+    					<i class="ace-icon fa fa-close bigger-110"></i>
     					Fermer
     				</button>
     			</div>

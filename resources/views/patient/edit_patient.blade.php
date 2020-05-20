@@ -2,56 +2,56 @@
 @section('title','modifier  le patient')
 @section('page-script')
 	<script>
-		 function showType(value,i){
+		function showType(value,i){
 		 	switch(value){
-			              case "Assure":  
-			              	$("#nomf").val($("#nom").val());// $("ul#menuPatient li:not(.active.hidden_fields)").css('display', '');
-				              $("#prenomf").val($("#prenom").val());
-				              $("#datenaissancef").val($("#datenaissance").val());
-				              $("#lieunaissancef").val($("#lieunaissance").val());
-				              $("#idlieunaissancef").val($("#idlieunaissance").val());
-				              $("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);  
-				              $("#foncform").addClass('hide'); 
-				              $('#Type_p').attr('required', false); 
-				              $('#nsspatient').attr('required', false);    
-				              $('#nsspatient').attr('disabled', true);  
-				              addRequiredAttr();
-				              break;
-			              case "Ayant_droit":
-			              	if(i !=0)
-			           	    	{
-			           	          $("#nomf").val("");
-				                   	$("#prenomf").val("");
-				                    $("#datenaissancef").val("");
-				                    $("#lieunaissancef").val("");		
-				                    $("select#grade").prop('selectedIndex', 0);
-				                    $("#matf").val("");
-				                    $("#NMGSN").val("");            	
-				           			}	
-						            $("#foncform").removeClass('hide');
-						            $('#Type_p').attr('required', true); 
-						            $('#nsspatient').attr('disabled', false); 
-			                  addRequiredAttr();
-			                  break;
-			              case "Autre":
-					             $(".starthidden").show(250);
-					             $("#foncform").addClass('hide');
-					             $('#Type_p').attr('required', false); 
-              			   $("ul#menuPatient li:eq(1)").css('display', 'none');//$("ul#menuPatient li:not(.active) a").prop('disabled', true);
-				               $('#nomf').attr('required', false);
-				               $('#prenomf').attr('required', false);
-				               $('#nsspatient').attr('required', false);    
-				               $('#nsspatient').attr('disabled', true); 
-				                break;         
-				}			
+          case "Assure":  
+          	$("#nomf").val($("#nom").val());
+            $("#prenomf").val($("#prenom").val());
+            $("#datenaissancef").val($("#datenaissance").val());
+            $("#lieunaissancef").val($("#lieunaissance").val());
+            $("#idlieunaissancef").val($("#idlieunaissance").val());
+            $("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);  
+            $("#foncform").addClass('hide'); 
+            $('#Type_p').attr('required', false); 
+            $('#nsspatient').attr('required', false);    
+            $('#nsspatient').attr('disabled', true);  
+            addRequiredAttr();
+            break;
+          case "Ayant_droit":
+          	if(i !=0)
+       	    	{
+       	          $("#nomf").val("");
+                 	$("#prenomf").val("");
+                  $("#datenaissancef").val("");
+                  $("#lieunaissancef").val("");		
+                  $("select#grade").prop('selectedIndex', 0);
+                  $("#matf").val("");
+                  $("#NMGSN").val("");            	
+         			}	
+	            $("#foncform").removeClass('hide');
+	            $('#Type_p').attr('required', true); 
+	            $('#nsspatient').attr('disabled', false); 
+              addRequiredAttr();
+              break;
+          case "Autre":
+             $(".starthidden").show(250);
+             $("#foncform").addClass('hide');
+             $('#Type_p').attr('required', false); 
+    			   $("ul#menuPatient li:eq(1)").css('display', 'none');//$("ul#menuPatient li:not(.active) a").prop('disabled', true);
+             $('#nomf').attr('required', false);
+             $('#prenomf').attr('required', false);
+             $('#nsspatient').attr('required', false);    
+             $('#nsspatient').attr('disabled', true); 
+              break;         
+			}			
 		}
 		$(function() {
-		    var checkbox = $("#hommeConf");
-		    checkbox.change(function() {
-		 		if(checkbox.is(":checked"))
-		    		 	 $("#hommelink").removeClass('invisible');
-		    		 else
-		    			  $("#hommelink").addClass('invisible');	
+	    var checkbox = $("#hommeConf");
+	    checkbox.change(function() {
+	 		if(checkbox.is(":checked"))
+  		 	$("#hommelink").removeClass('invisible');
+  		 else
+  			$("#hommelink").addClass('invisible');	
 			})
 		});
 		function autocopleteCNais(commune)
@@ -75,6 +75,7 @@
 			$("#wilaya").val(res[1]);
 			$("#idcommune").val(res[2]);
 		}
+		//averifier
 		if ($("#addGardeMalade").length > 0) {
     		$("#addGardeMalade").validate({
       			rules: {
@@ -95,7 +96,6 @@
    					}
    		});
     }
-//////////////////	
 		$(document).ready(function () {
 		   	var bloodhoundcom = new Bloodhound({
 		        		  datumTokenizer: Bloodhound.tokenizers.whitespace,
@@ -175,19 +175,14 @@
 					}
 				}	
 			}); 
-			////////////////////////////
 	    var value =  $("input[type=radio][name='type']:checked").val();
 	    showType(value,0);
 	    $( ".civilite" ).change(function() {
 			  	var civilite= $("select.civilite option").filter(":selected").val();
 	  			if((civilite =="marie")|| (civilite =="veuf"))
-	  			{
 	  				$('#Div-nomjeuneFille').removeAttr('hidden');
-	  			}else
-	  			{		
+	  			else			
 	  				$('#Div-nomjeuneFille').attr('hidden','');	
-	  			
-	  			}
 			});
 			$('#listeGardes').DataTable({
             colReorder: true,
@@ -203,7 +198,6 @@
       });
       jQuery('body').on('click', '.open-modal', function () {
         var hom_id = $(this).val();
-
         $.get('/hommeConfiance/'+hom_id+'/edit', function (data) {
 		        $('#patientId').val(data.id_patient);		
 		        $('#hom_id').val(data.id);		
@@ -216,7 +210,7 @@
 					        $(this).prop("selected", true);
 					    }
 					  });				
-					  $('#' + data.type_piece).prop('checked',true); //	alert(data.type_piece);
+					  $('#' + data.type_piece).prop('checked',true); 
 				  	$('#num_piece').val(data.num_piece);
 				  	$('#date_piece_id').val(data.date_deliv);
 				  	$('#adresse_h').val(data.adresse);
@@ -308,7 +302,7 @@
 @endsection
 @section('main-content')
 <div class="page-header">
-	<h1 style="display: inline;"><strong>modification Du Patient :</strong> {{ $patient->Nom }} {{ $patient->Prenom }}</h1>
+	<h1 style="display: inline;"><strong>modification du Patient :</strong> {{ $patient->Nom }} {{ $patient->Prenom }}</h1>
 	<div class="pull-right">
 		<a href="{{route('patient.index')}}" class="btn btn-white btn-info btn-bold">
 			<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>
@@ -318,7 +312,7 @@
 </div>
 <form class="form-horizontal" action="{{ route('patient.update',$patient ->id) }}" method="POST">
 	{{ csrf_field() }}
-  	{{ method_field('PUT') }}
+  {{ method_field('PUT') }}
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="form-group" id="error" aria-live="polite">
@@ -341,67 +335,66 @@
 		  <li  @if($patient->Type =="Autre")  style= "display:none" @endif><a data-toggle="tab" href="#Assure" >
     			<span class="bigger-130"><strong>Assure</strong></span></a>
     	</li>
-    		{{--  --}}
 	    <li  id ="hommelink" @if(count($hommes_c) == 0)  class="invisible" @endif><a data-toggle="tab" href="#Homme">
 	    		<span class="bigger-130"><strong>Garde Malde/Homme de Confiance</strong></span></a>
 	    </li>
   </ul>
   <div class="tab-content">
-  		<div id="Patient" class="tab-pane fade in active">
-  				<div class="row">
-	      		<div class="col-sm-12">
-								<h3 class="header smaller lighter blue">Informations administratives</h3>
+		<div id="Patient" class="tab-pane fade in active">
+			<div class="row">
+    		<div class="col-sm-12">
+						<h3 class="header smaller lighter blue">Informations administratives</h3>
+				</div>
+    	</div>
+    	<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
+						<label class="col-sm-3 control-label" for="nom">
+							<strong>Nom :</strong> 
+						</label>
+						<div class="col-sm-9">
+							<input type="text" id="nom" name="nom" placeholder="Nom..." value="{{ $patient->Nom }}" class="col-xs-12 col-sm-12" autocomplete= "off" required alpha/>
+								{!! $errors->first('datenaissance', '<small class="alert-danger">:message</small>') !!}
 						</div>
-	      	</div>
-	      	<div class="row">
-						<div class="col-sm-6">
-							<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
-								<label class="col-sm-3 control-label" for="nom">
-									<strong>Nom :</strong> 
-								</label>
-								<div class="col-sm-9">
-									<input type="text" id="nom" name="nom" placeholder="Nom..." value="{{ $patient->Nom }}" class="col-xs-12 col-sm-12" autocomplete= "off" required alpha/>
-										{!! $errors->first('datenaissance', '<small class="alert-danger">:message</small>') !!}
-								</div>
-							</div>
-						</div>{{-- col-sm-6	 --}}
-						<div class="col-sm-6">
-							<div class="form-group {{ $errors->has('prenom') ? "has-error" : "" }}">
-								<label class="col-sm-3 control-label" for="prenom">
-									<strong>Prénom :</strong>
-								</label>
-								<div class="col-sm-9">
-									<input type="text" id="prenom" name="prenom" placeholder="Prénom..."value="{{ $patient->Prenom }}"class="form-control form-control-lg col-xs-12 col-sm-12" autocomplete="off" required/>
-									{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
-								</div>
-							</div>
-						</div>{{-- col-sm-6	 --}}
-	      	</div>  {{-- row --}}
-	      	<div class="row">
-	      		<div class="col-sm-6">
-							<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
-								<label class="col-sm-3 control-label" for="datenaissance">
-									<strong>Né(e) le :</strong>
-								</label>
-								<div class="col-sm-9">
-									<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" placeholder="Date de naissance..." pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" value="{{ $patient->Dat_Naissance }}" required/>
-									{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
-								</div>
+					</div>
+				</div>{{-- col-sm-6	 --}}
+				<div class="col-sm-6">
+					<div class="form-group {{ $errors->has('prenom') ? "has-error" : "" }}">
+						<label class="col-sm-3 control-label" for="prenom">
+							<strong>Prénom :</strong>
+						</label>
+						<div class="col-sm-9">
+							<input type="text" id="prenom" name="prenom" placeholder="Prénom..."value="{{ $patient->Prenom }}"class="form-control form-control-lg col-xs-12 col-sm-12" autocomplete="off" required/>
+							{!! $errors->first('prenom', '<p class="alert-danger">:message</p>') !!}
+						</div>
+					</div>
+				</div>{{-- col-sm-6	 --}}
+      	</div>  {{-- row --}}
+      	<div class="row">
+      		<div class="col-sm-6">
+						<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
+							<label class="col-sm-3 control-label" for="datenaissance">
+								<strong>Né(e) le :</strong>
+							</label>
+							<div class="col-sm-9">
+								<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" placeholder="Date de naissance..." data-date-format="yyyy-mm-dd" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" value="{{ $patient->Dat_Naissance }}" required/>
+								{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
 							</div>
 						</div>
-						<div class="col-sm-6">
-							<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
-								<label class="col-sm-3 control-label" for="lieunaissance">
-									<strong class="text-nowrap">Lieu de naissance :</strong>
-								</label>
-							  <div class="col-sm-9">
-							    <input type="hidden" name="idlieunaissance" id="idlieunaissance" value={{ $patient->Lieu_Naissance }}>
-						  	  <input type="text" id="lieunaissance" name="" placeholder="Lieu de naissance..." utocomplete = "off" class="col-xs-12 col-sm-12" value="{{ $patient->lieuNaissance->nom_commune }}" required/>
-							    {!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
-							  </div>
-							</div>
-	   			  </div>
-	      	</div>  {{-- row --}}
+					</div>
+					<div class="col-sm-6">
+						<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
+							<label class="col-sm-3 control-label" for="lieunaissance">
+								<strong class="text-nowrap">Lieu de naissance :</strong>
+							</label>
+						  <div class="col-sm-9">
+						    <input type="hidden" name="idlieunaissance" id="idlieunaissance" value={{ $patient->Lieu_Naissance }}>
+					  	  <input type="text" id="lieunaissance" name="" placeholder="Lieu de naissance..." utocomplete = "off" class="col-xs-12 col-sm-12" value="{{ $patient->lieuNaissance->nom_commune }}" required/>
+						    {!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
+						  </div>
+						</div>
+   			  </div>
+      	</div>  {{-- row --}}
 	      	<div class="row">
 	      		<div class="col-sm-6">
 							<div class="form-group {{ $errors->has('sexe') ? "has-error" : "" }}">
@@ -469,7 +462,6 @@
 							<label class="col-sm-3 control-label" for="sf">
 								<strong class="text-nowrap">Civilité :</strong>
 							</label>
-						
 							<div class="col-sm-9">
 								<select class="form-control civilite" id="sf" name="sf">
 									<option value="celibataire" @if( $patient->situation_familiale =='celibataire') selected @endif >Célibataire</option>
@@ -499,25 +491,25 @@
 			  	<div class="space-12"></div>	
 			  	<div class="row">
 						<div class="col-sm-4" style="padding-left:7%">
-							<label class="" for="adresse" ><strong>Adresse :&nbsp;</strong></label>
-							<input type="text" value="{{ $patient->Adresse }}" id="adresse" name="adresse" placeholder="Adresse..."/>
+							<label class="col-sm-3" for="adresse" ><strong>Adresse :&nbsp;</strong></label>
+							<input type="text" value="{{ $patient->Adresse }}" id="adresse" name="adresse" placeholder="Adresse..." class="col-sm-9"/>
 						</div>
 						<div class="col-sm-4" style="margin-top: -0.1%;">
-							<label><strong>Commune :</strong></label>
+							<label class="col-sm-3" for="commune"><strong>Commune :</strong></label>
 							<input type="hidden" name="idcommune" id="idcommune" value="{{ $patient->commune_res }}"/>
-							<input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}"/>					
+							<input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}" class="col-sm-9"/>					
 						</div>
 						<div class="col-sm-4">
-							   	<label><strong>Wilaya :</strong></label>
-						  	 	<input type="hidden" name="idwilaya" id="idwilaya" value="{{ $patient->wilaya->immatriculation_wilaya }}"/>
-						      <input type="text" id="wilaya" placeholder="wilaya..." value="{{ $patient->wilaya->nom_wilaya }}"/>	
+							<label class="col-sm-3"><strong>Wilaya :</strong></label>
+						  <input type="hidden" name="idwilaya" id="idwilaya" value="{{ $patient->wilaya->immatriculation_wilaya }}"/>
+						  <input type="text" id="wilaya" placeholder="wilaya..." value="{{ $patient->wilaya->nom_wilaya }}" class="col-sm-9"/>	
 						</div>	
 				</div>{{-- row --}}
 				<div class="space-12"></div>
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="form-group" style="padding-left:13%;">
-							<label class="control-label text-nowrap col-sm-3 for="mobile1"><i class="fa fa-phone"></i><strong>Mob1:</strong></label>
+							<label class="control-label" text-nowrap col-sm-3 for="mobile1"><i class="fa fa-phone"></i><strong>Mob1:</strong></label>
 							<div class="col-sm-3" >
 								<select name="operateur1" id="operateur1" class="form-control" required="">
 						                                     @php	$operator = substr($patient->tele_mobile1,0,2) @endphp
@@ -526,7 +518,7 @@
 								           <option value="07" @if($operator == '07') selected @endif>07</option>
 	                       						</select>	
 							</div>
-							<input id="mobile1" name="mobile1"  maxlength =8 minlength =8  name="mobile1" type="tel" autocomplete="off" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX"  value= "{{  substr($patient->tele_mobile1,2,10) }}" required />	
+							<input id="mobile1" name="mobile1"  maxlength =8 minlength =8 type="tel" autocomplete="off" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX" value= "{{  substr($patient->tele_mobile1,2,10) }}" required />	
 						 </div>		
 					</div>	 
 					<div class="col-sm-4">
@@ -572,7 +564,7 @@
 							</label>	
 						</div>
 						</div>		
-					</div>{{-- col-sm-6 --}}
+					</div>{{-- col-sm-4 --}}
 				</div>	{{-- row --}}
 				<div class="space-12"></div>
 				<div class="row" id="foncform">
@@ -670,7 +662,7 @@
 								<strong class="text-nowrap">Né(e) le :</strong>
 							</label>
 							<div class="col-sm-9">
-							<input class="col-xs-12 col-sm-12 date-picker" id="datenaissancef" name="datenaissancef" type="text" value="{{ $assure->Date_Naissance }}"  />
+								<input class="col-xs-12 col-sm-12 date-picker" id="datenaissancef" name="datenaissancef" type="text" placeholder="Date de naissance..." data-date-format="yyyy-mm-dd" value="{{ $assure->Date_Naissance }}" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
 							</div>
 						</div>
 					</div>
@@ -765,7 +757,7 @@
 							</label>
 							<div class="col-sm-9">
 							<div class="clearfix">
-								<input type="text" id="matf" name="matf" class="col-xs-12 col-sm-6" value="{{ $assure->Matricule }}"  placeholder="XXXXXXXX" />
+								<input type="text" id="matf" name="matf" class="col-xs-12 col-sm-6" value="{{ $assure->Matricule }}"  placeholder="saisir le matricule..." maxlength="5" />
 							</div>
 							</div>
 						</div>
@@ -837,7 +829,7 @@
 						              <th class ="center"><strong>Relation</strong></th>
 						              <th class ="center"><strong>Type Pièce</strong></th>
 						              <th class ="center"><strong>N°</strong></th>
-						              <th class ="center"><strong>Date délevrance</strong></th>
+						              <th class ="center"><strong>date délevrance</strong></th>
 						              <th class="nsort"><em class="fa fa-cog"></em></th>
 						            </tr>
 					            </thead>

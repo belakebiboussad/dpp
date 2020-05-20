@@ -1,17 +1,22 @@
-  <div id="ord" class="modal fade" role="dialog">
+<div id="ord" class="modal modal fade"  role="dialog">
   <div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"><b>Ordonnance :</b></h4>
+      <div class="modal-content mycontent">
+          <div class="modal-header">
+            <span class="modal-title" id="myModalLabel"><strong>Imprimer l'Ordonnance</strong></span>
+             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+
+          </div>
+          <div class="modal-body iframe-container">
+            <iframe id="ordpdf" height="900" width ="862" class="preview-pane embed-responsive-item" type="application/pdf" frameborder="0" allowfullscreen>
+               
+             </iframe>
+     
+          </div>
+          <div class="modal-footer mb-0 pull-right">
+            <button type="button" class="btn btn-info btn-xs" data-dismiss="modal">
+              <i class="ace-icon fa fa-close bigger-110"></i>Fermer
+            </button>
+          </div>
       </div>
-      <div class="modal-body">
-        <iframe id="ordpdf" class="preview-pane" type="application/pdf" width="100%" height="500" frameborder="0" style="position:relative;z-index:999"></iframe>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="storeord1()" >Terminer</button>
-      </div>
-    </div>
   </div>
-  </div>
+</div> 

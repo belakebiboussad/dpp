@@ -3,7 +3,7 @@
 @section('page.script')
 =======
 @section('page-script')
-<script src="{{asset('/js/jquery-2.2.4.js')}}"></script>
+<script src="{{ asset('/js/jquery.min.js') }}"></script>
 <script src="{{ asset('/js/datatables.js') }}"></script>
 >>>>>>> dev
 <script type="text/javascript">

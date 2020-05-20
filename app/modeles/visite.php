@@ -8,7 +8,6 @@ class visite extends Model
 {
   //
 	public $timestamps = false;
-  //protected $fillable  = ['id_visite','date_visite','heure_visite','id_hosp','id_employe'];
   protected $fillable  = ['date','heure','id_hosp','id_employe'];
   public function hospitalisation()
   {
@@ -16,6 +15,10 @@ class visite extends Model
   }
   public function actes()
   {
-  	return $this->hasMany('App\modeles\Acte','id_visite');
+  	return $this->hasMany('App\modeles\Acte','id_visite')->where('retire','=', 0);;
+  }
+  public function medecin(){
+    return $this->belongsTo('App\modeles\employ','id_employe');
+
   }
 }

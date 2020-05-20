@@ -1,24 +1,13 @@
 <!-- basic scripts -->
 
 <!--[if !IE]> -->
-<script src="{{asset('/js/jquery-2.1.4.min.js')}}"></script>
+<script src="{{ asset('/js/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/jspdf.debug.js') }}"></script>
 <script src="{{ asset('/js/html2pdf.js') }}"></script>
-        <!-- <![endif]-->
-
-        <!--[if IE]>
-<script src="assets/js/jquery-1.11.3.min.js"></script>
-<![endif]-->
  <script type="text/javascript">
      if('ontouchstart' in document.documentElement) document.write("<script src='{{asset('/js/jquery.mobile.custom.min.js')}}'>"+"<"+"/script>");
 </script>
 <script src="{{asset('/js/bootstrap.min.js')}}"></script>
-
-        <!-- page specific plugin scripts -->
-
-        <!--[if lte IE 8]>
-          <script src="assets/js/excanvas.min.js"></script>
-        <![endif]-->
 <script src="{{asset('/js/jquery-ui.custom.min.js')}}"></script>
 <script src="{{asset('/js/jquery.ui.touch-punch.min.js')}}"></script>
 <script src="{{asset('/js/bootbox.js')}}"></script>
@@ -136,10 +125,10 @@ $('#typeexm').on('change', function() {
                 $("#pos").val( $("#nbprise").val()+' fois par '+$("#fois").val()+' Pendant '+$("#duree").val()+' '+$("#dureefois").val()+'. '+$("#temps").val()+'.');
                 
             }
-            function addmidifun()
-            {
-                $("#ordonnance").append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td>" + $("#nommedic").text() + "</td><td>" + $("#forme").text() + "</td><td>" + $("#qte").val() +"</td><td>"+$("#pos").val()+"</td></tr>");
-            }
+            // function addmidifun()
+            // {
+            //     $("#ordonnance").append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td>" + $("#nommedic").text() + "</td><td>" + $("#forme").text() + "</td><td>" + $("#qte").val() +"</td><td>"+$("#pos").val()+"</td></tr>");
+            // }
             function supcolonne()
             {
                 $("tr:has(input:checked)").remove(); 
@@ -236,20 +225,7 @@ $('#typeexm').on('change', function() {
             $('#ordpdf').attr('src', string);
 
             }
-            // function storeord()
-            // {   
-            //     var arrayLignes = document.getElementById("ordonnance").rows;
-            //     var longueur = arrayLignes.length;
-            //     var tab = [];
-            //     for(var i=1; i<longueur; i++)
-            //     {
-            //          tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;
-            //     }
-               
-            //     var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");
-            //     champ.appendTo('#ordonnace_form');
-            //     $('#ordonnace_form').submit();
-            // }
+// function storeord() // { // var arrayLignes = document.getElementById("ordonnance").rows;//var longueur = arrayLignes.length; //var tab = [];//for(var i=1; i<longueur; i++)//{//tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;//}// var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");            //     champ.appendTo('#ordonnace_form');            //     $('#ordonnace_form').submit();            // }
             function createexbio(nomp,prenomp){
                 var exbio = new jsPDF();
                 exbio.text(200,20, 'Date :.....................', null, null, 'right');
@@ -743,8 +719,7 @@ $('#typeexm').on('change', function() {
                 try{
                     tag_input.tag(
                       {
-                        placeholder:tag_input.attr('placeholder'),
-                        //enable typeahead by specifying the source array
+                        placeholder:tag_input.attr('placeholder'),//enable typeahead by specifying the source array
                         source: ace.vars['US_STATES'],//defined in ace.js >> ace.enable_search_ahead
                         /**
                         //or fetch data from database, fetch those that match "query"

@@ -18,14 +18,14 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-6">
-					<ul class="list-unstyled spaced">
-						<li>
-						  <i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>{{ $hosp->admission->demandeHospitalisation->Service->nom }}
-						</li>
-						<li>
-		 					<i class="ace-icon fa fa-caret-right blue"></i><strong>Specialite :</strong> {{ $hosp->admission->demandeHospitalisation->Specialite->nom }}
-						</li>
-						<li>
+				<ul class="list-unstyled spaced">
+					<li>
+				       	  <i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>{{ $hosp->admission->demandeHospitalisation->Service->nom }}
+					</li>
+					<li>
+		 				<i class="ace-icon fa fa-caret-right blue"></i><strong>Specialite :</strong> {{ $hosp->admission->demandeHospitalisation->Specialite->nom }}
+					</li>
+					<li>
 							<i class="ace-icon fa fa-caret-right blue"></i><strong>Mode d'admission:</strong>{{ $hosp->admission->demandeHospitalisation->modeAdmission }}
 						</li>
 						<li>

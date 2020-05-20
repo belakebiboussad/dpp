@@ -12,7 +12,7 @@
             try{ace.settings.check('main-container' , 'fixed')}catch(e){}
         </script>
         
-        @if(App\modeles\rol::where("id",Illuminate\Support\Facades\Auth::user()->role_id)->first()->role == "Admission")
+         @if(Auth::user()->role->id == 9)
             @include('partials.sidebar_agent_admis')
         @endif
         <div class="main-content">

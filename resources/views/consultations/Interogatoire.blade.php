@@ -14,7 +14,7 @@
 	</ul>
 	<div class ="tab-content"  style = "border-style: none;" >
 		<div role="tabpanel" class = "tab-pane active" id="Motif">
-		<div class= "col-md-8 col-xs-9"> 
+		<div class= "col-md-8 col-xs-8"> 
 			<div class="row">		
 			<div class="form-group padding-left">
 				<input  type="checkbox" id="isOriented" name="isOriented"   value="1"  class="ace input-lg"/>
@@ -104,6 +104,11 @@
 	         	<div class="fa fa-plus-circle"></div>
 	          <span class="bigger-110" > Ordonnance</span>
 	        </a>
+	        <div class="space-12"></div>
+	        <a  href="#" data-target="#RDV" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title="" >
+	         	<div class="fa fa-plus-circle"></div>
+	          <span class="bigger-110">&nbsp;Rendez-vous</span>
+	        </a>
 	       	<div class="space-12"></div>
 	        <a  href="#" data-target="#demandehosp" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title=""><div class="fa fa-plus-circle"></div>
           	<span class="bigger-110"> Hospitalisation</span>
@@ -131,7 +136,13 @@
 		      <div class="profile-contact-links align-right">
 	          <a  href="#" data-target="#Ordonnance" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title="" >
 	           	<div class="fa fa-plus-circle"></div>
-	            <span class="bigger-110" > Ordonnance</span>
+	            <span class="bigger-110" >Ordonnance</span>
+	          </a>
+	          <div class="space-12"></div>
+	          <!-- {{ route('rdv.index')}} -->
+	          <a  href="#" data-target="#RDV" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title="" >
+	           	<div class="fa fa-plus-circle"></div>
+	            <span class="bigger-110">Rendez-vous</span>
 	          </a>
 	         	<div class="space-12"></div>
 	          <a  href="#" data-target="#demandehosp" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title=""><div class="fa fa-plus-circle"></div>

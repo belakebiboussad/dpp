@@ -38,7 +38,7 @@
     </div><!-- /.sidebar-shortcuts -->
 
     <li class="">
-        <a href="home">
+        <a href="#">
             <i class="menu-icon fa fa-picture-o"></i>
             <span class="menu-text">MENU Gestion Patients</span>
         </a>
@@ -48,7 +48,7 @@
 
     <ul class="nav nav-list">
         <li class="">
-            <a href="/home_phar">
+            <a href="/home">
                 <i class="menu-icon fa fa-university"></i>
                 <span class="menu-text"> Acceuil </span>
             </a>

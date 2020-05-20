@@ -2,7 +2,7 @@
 @section('main-content')
 	<div class="page-header">
 		<h1>
-			<strong>Liste Des Hospitalisations :</strong>
+			<strong>Liste des Hospitalisations :</strong>
 		</h1>
 	</div><!-- /.page-header -->
 	<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
@@ -50,22 +50,21 @@
 							  	<td><span class="badge badge-pill badge-success">{{ $hosp->etat_hosp }}</span></td>
 							  	<td class="center">
 							  		<a href="{{ route('hospitalisation.show',$hosp->id)}}" class="btn btn-xs btn-warning" data-toggle="tooltip" title="Voir détails..." data-placement="bottom">
-							  				<i class="fa fa-hand-o-up fa-xs" aria-hidden="true" style="font-size:16px;"></i>&nbsp;</a>
+							  				<i class="fa fa-hand-o-up fa-xs bigger-120" aria-hidden="true"></i>&nbsp;</a>
 							  		</a>
 										@if(Auth::user()->role->id != 3)
 							  	  	<a href="{{ route('hospitalisation.edit',$hosp->id)}}" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier l'Hospitalisation" data-placement="bottom">
-							  				<i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i>
+							  				<i class="fa fa-edit fa-xs bigger-120" aria-hidden="true"></i>
 							  			</a>
 							  	   	@if(Auth::user()->role->id == 1)
 							  	  		<a href="/visite/create/{{ $hosp->id }}" class ="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter une Visite" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i></a>
 							  	  		<a href="" class ="btn btn-info btn-xs" data-toggle="tooltip" title="Sortir le Patient" data-placement="bottom"><i class="fa fa-sign-out" aria-hidden="true" style="font-size:16px;"></i></a>
 							  	  	@endif
-							  	  	 <!-- && ($hosp->etat_hosp == 'en cours') -->
 							  	  	@if(Auth::user()->role->id == 5)
-							  	  		<a class="btn btn-secondary btn-xs" data-toggle="tooltip" title="Imprimer un ticket" data-placement="bottom"><i class="ace-icon glyphicon glyphicon-print" style="font-size:16px;"></i></a>
+							  	  		<a class="btn btn-secondary btn-xs" data-toggle="tooltip" title="Imprimer un ticket" data-placement="bottom"><i class="ace-icon glyphicon glyphicon-print bigger-120"></i></a>
 							  	  	@endif
 							  	  @else
-							  	  	<a href="{{ route('soins.edit', $hosp->id)}}" class ="btn btn-primary btn-xs" data-toggle="tooltip" title="voir consignes" data-placement="bottom"><i class="fa fa-folder-open fa-lg bigger-120"></i></a>
+							  	  	<a href="{{ route('visites.edit', $hosp->id)}}" class ="btn btn-primary btn-xs" data-toggle="tooltip" title="voir Actes" data-placement="bottom"><i class="fa fa-folder-open fa-lg bigger-120"></i></a>
 							  	  @endif
 							  	</td>	
 								</tr>

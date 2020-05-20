@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
     <title>@yield('title','Dossier patient')</title>
      @include('partials.htmlheader')
-     @yield('style')
      @include('partials.scripts')
+     @yield('style')
+</head>
 <body class="no-skin">
     @include('partials.navbar')
     <div class="main-container" id="main-container">
@@ -31,10 +33,9 @@
             @include('partials.sidebar_inf')       
         @endif
         <div class="main-content">
-            <div class="main-content-inner">
-                @include('partials.breadcrumbs')
+            <div class="main-content-inner"> {{-- @include('partials.breadcrumbs') --}}
                 <div class="page-content">
-                   @include('flashy::message')
+                          @include('flashy::message')
               	   @yield('main-content')
                 </div>
                 <!-- /page-content -->
@@ -42,8 +43,7 @@
             <!-- /main-content-inner -->
         </div>
         <!-- /main-content -->
-        <br>
-        <br>
+       {{--  <br> <br> --}}
         <div>
             @include('partials.footer')
         </div>

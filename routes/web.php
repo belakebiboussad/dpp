@@ -10,8 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Route::group(['middleware' => ['web']], function () {});
-    //
+// Route::group(['middleware' => ['web']], function () {});    //
 Route::group(['middleware' => 'revalidate'], function()
 {          
         Auth::routes();     
@@ -19,30 +18,10 @@ Route::group(['middleware' => 'revalidate'], function()
               return view('auth/login');
         });
 });
-route::get('/home_chef', function(){
-    $meds = App\modeles\medcamte::all();
-    $dispositifs = App\modeles\dispositif::all();
-    $reactifs = App\modeles\reactif::all();
-    return view('home.home_chef_ser', compact('meds','dispositifs','reactifs'));
-});
-route::get('/home_phar', function(){
-    $meds = App\modeles\medcamte::all();
-    $dispositifs = App\modeles\dispositif::all();
-    $reactifs = App\modeles\reactif::all();
-    return view('home.home_pharmacien', compact('meds','dispositifs','reactifs'));
-});
 route::get('/home_admin',function (){
     $users = App\User::all();
     return view('home.home_admin',compact('users'));
 })->name('home_admin');
-route::get('/home_medcine',function (){
-    $patients = App\modeles\patient::all();
-    $employ = App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first();
-    $date = Date::Now()->toDateString();
-    $rdvs = App\modeles\ticket::where("specialite",$employ->Specialite_Emploiye)
-                    ->where("date",$date)->get();
-    return view('home.home_med', compact('patients','rdvs'));
-})->name('home_med');
 route::get('/home_reception',function (){
     return view('home.home_recep');
 })->name('home_rec');
@@ -53,14 +32,13 @@ route::get('/home_infermier','HospitalisationController@index')->name('home_infe
 
 Route::get('exbio/{filename}', function ($filename)
 {
-    // im not 100% sure about the $path thingy, you need to fiddle with this one around.
-    $path = storage_path() . '\\app\\' . $filename;
-    if(!File::exists($path)) abort(404);
-    $file = File::get($path);
-    $type = File::mimeType($path);
-    $response = Response::make($file, 200);
-    $response->header("Content-Type", $type);
-    return $response;
+        $path = storage_path() . '\\app\\' . $filename;
+        if(!File::exists($path)) abort(404);
+        $file = File::get($path);
+        $type = File::mimeType($path);
+        $response = Response::make($file, 200);
+        $response->header("Content-Type", $type);
+        return $response;
 });
 // Auth::routes();
 route::get('/detailsdemande/{id}','demandeprodController@details_demande');
@@ -70,15 +48,14 @@ Route::post('user/credentials','UsersController@credentials');
 Route::post('user/updatepro','UsersController@updatepro');
 Route::get('/atcd/store','AntecedantsController@storeatcd');
 Route::get('/demandehosp/create/{id}','DemandeHospitalisationController@create');
-//ici
 Route::post('/demandehosp/valider','DemandeHospitalisationController@valider');
 Route::post('/demandehosp/invalider','DemandeHospitalisationController@invalider');
-
 Route::get('/demandehosp/listedemandes/{type}','DemandeHospitalisationController@listedemandes');
 Route::get('/salle/create/{id}','SalleController@create');
 Route::get('/lit/create/{id}','LitsController@create');
 Route::get('/hospitalisation/create/{id}','HospitalisationController@create');
 Route::get('/ordonnace/create/{id}','OrdonnanceController@create');
+Route::post('/ordonnaces/ordPrint','OrdonnanceController@print');
 Route::get('/consultations/detailcons/{id}','ConsultationsController@detailcons')->name('consultDetails');
 Route::get('/consultations/detailConsXHR','ConsultationsController@detailconsXHR')->name('consultdetailsXHR');
 Route::get('/consultations/demandeExm/{id_cons}','ConsultationsController@demandeExm');
@@ -90,10 +67,8 @@ Route::get('/listecolloques/{type}','ColloqueController@index');
 Route::get('/listecolloquesCloture/{type}','ColloqueController@getClosedColoques');
 Route::get('/runcolloque/{id}','ColloqueController@run');
 Route::get('/endcolloque/{id}','ColloqueController@cloture');
-
 Route::post('/savecolloque/{id}','ColloqueController@save');
 Route::resource('admission','AdmissionController');
-route::get('/annullerRDV/{id}','AdmissionController@annulerRDV');
 Route::get('/getAdmissions/{date}','AdmissionController@getAdmissions');//->name('admissionsXHR')
 Route::post('/hommeConfiance/save','HommeConfianceController@createGardejax');
 Route::resource('hommeConfiance','HommeConfianceController');
@@ -102,8 +77,8 @@ Route::resource('ticket','ticketController');
 Route::resource('service','ServiceController');
 Route::resource('exmbio','ExamenbioController');
 Route::resource('exmimg','ExmImgrieController');
-Route::get('hospitalisation/listeRDVs', 'HospitalisationController@getlisteRDVs');
-Route::get('hospitalisation/addRDV', 'HospitalisationController@ajouterRDV');
+Route::get('hospitalisation/listeRDVs', 'RdvHospiController@getlisteRDVs');
+Route::get('hospitalisation/addRDV', 'RdvHospiController@ajouterRDV');//sup
 Route::resource('hospitalisation','HospitalisationController');
 Route::resource('salle','SalleController');
 Route::resource('ordonnace','OrdonnanceController');
@@ -118,6 +93,7 @@ Route::resource('rdv','RDVController');
 Route::resource('employe','EmployeController');
 Route::resource('patient','PatientController');
 Route::resource('assur','AssurController');
+Route::get('/searchAssure','AssurController@search');
 Route::resource('atcd','AntecedantsController');
 Route::resource('medicaments','MedicamentsController');
 Route::resource('exclinique','ExamenCliniqueController');
@@ -140,11 +116,9 @@ Route::get('/patient/listerdv/{id}','PatientController@listerdv');
 Route::get('/atcd/create/{id}','AntecedantsController@create');
 Route::get('/atcd/index/{id}','AntecedantsController@index');
 Route::get('/admission/create/{id}','AdmissionController@create');//a commenter
-Route::post('/admission/reporter/{id}','AdmissionController@reporterRDV');
 Route::get('/admission/create/{id}{bool}',function(){
         // 'as'    => 'id',
         // 'uses'  => 'AdmissionController@AdmissionController'
-   
 });
 Route::post('/atcd/store/{id}','AntecedantsController@store');
 Route::get('/rdv/create/{id}','RDVController@create');
@@ -152,14 +126,10 @@ Route::post('/createRDV','RDVController@AddRDV');
 Route::get('/rdv/valider/{id}','RDVController@valider');
 Route::get('/rdv/reporter/{id}','RDVController@reporter');
 Route::post('/rdv/reporte/{id}','RDVController@storereporte');
-//rdvhospitalisation
-
+Route::get('rdvprint/{id}','rdvController@print');
 Route::resource('rdvHospi','RdvHospiController');
-Route::get('rdvHospi/create/{parameter}',
-        ['as'=> 'createRdvHosp', 'uses'=>'RdvHospiController@create']
-);
-//
-Route::get('/admission/imprimer/{rdv}', ['as' => 'admission.pdf', 'uses' => 'AdmissionController@print']);
+Route::get('rdvHospi/create/{id}','RdvHospiController@create')->name('rdvHospi.create');
+Route::get('/rdvHospi/imprimer/{rdv}', ['as' => 'admission.pdf', 'uses' => 'RdvHospiController@print']);
 Route::get('/choixpatient','RDVController@choixpatient');
 Route::get('/home', 'HomeController@index')->name('home');
 route::get('/getAddEditRemoveColumnData','UsersController@getAddEditRemoveColumnData');
@@ -189,6 +159,7 @@ Route::any('/profile/{userId}', [
 Route::get('/role/show/{userId}','RolesController@show');
 Route::get('/home', 'HomeController@index')->name('home');
 <<<<<<< HEAD
+<<<<<<< HEAD
 Route::post('AddANTCD','AntecedantsController@createATCDAjax');
 Route::get('/searchUser','UsersController@searchUser');
 =======
@@ -197,6 +168,12 @@ Route::post('AddANTCD','AntecedantsController@createATCDAjax');
 Route::get('/searchUser','UsersController@search');
 >>>>>>> dev
 Route::get('/searchPatient','PatientController@search');
+=======
+Route::post('AddANTCD','AntecedantsController@createATCDAjax');
+Route::get('/searchUser','UsersController@search');
+Route::get('/DocorsSearch','EmployeController@searchBySpececialite');
+Route::get('/searchPatient','PatientController@search')->name('patients.search');
+>>>>>>> Bous
 Route::get('/getPatients','PatientController@getPatientsArray');
 Route::get('/getlits','LitsController@getlits');
 Route::get('/user/find', 'UsersController@AutoCompleteUsername');
@@ -206,7 +183,7 @@ Route::get('/patients/findprenom','PatientController@AutoCompletePatientPrenom')
 Route::get('/patients/findcom','PatientController@AutoCompleteCommune');
 Route::get('/patientdetail/{id}', 'PatientController@getPatientDetails');
 Route::get('/serviceRooms', 'ServiceController@getRooms');
-Route::get('/getPatientsToMerge','PatientController@patientsToMerege');
+Route::get('/patientsToMerge','PatientController@patientsToMerege');
 Route::post('/patient/merge','PatientController@merge');
 Route::get("flash","HomeController@flash");
 route::get('/home_reception',function (){
@@ -274,12 +251,8 @@ route::get('/getpatientconsigne','PatientController@getpatientconsigne');
 route::get('/choixpatvisite','VisiteController@choixpatvisite');
 route::get('/choixhospconsigne','ActeController@choixhospconsigne');
 route::get('/consigne','ActeController@choixhospconsigne');
-//////acte
 route::post('/saveActe','ActeController@store');
-Route::resource('soins','SoinsController');
-
-/**************************/
-// telechargement
+/**************************/// telechargement
 route::get('/download/{filename}', function($filename)
 {
     return Storage::download($filename);

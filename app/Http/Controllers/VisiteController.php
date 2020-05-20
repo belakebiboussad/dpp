@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Auth;
 use Jenssegers\Date\Date;
 use DB;
 use Carbon;
-
 class VisiteController extends Controller
 {
     //
@@ -29,15 +28,13 @@ class VisiteController extends Controller
         return redirect()->action('HospitalisationController@index');
     }
 
-
-    public function choixpatvisite()
-    {    
-      $patient=patient::join('consultations','patients.id','=','consultations.Patient_ID_Patient')
-                     ->join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
-                     ->join('hospitalisations','demandehospitalisations.id','=','hospitalisations.id_demande')
-                     ->select('patients.Nom','patients.Prenom','patients.Sexe','patients.Dat_Naissance','hospitalisations.Date_entree','hospitalisations.Date_Prevu_Sortie','hospitalisations.id')
-                     ->get();     
-      return view('visite.choix_patient_visite',compact('patient')); //   return view('visite.choix_patient_visite');
+        public function choixpatvisite()
+        {    
+               $patients=patient::join('consultations','patients.id','=','consultations.Patient_ID_Patient')
+                           ->join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
+                           ->join('hospitalisations','demandehospitalisations.id','=','hospitalisations.id_demande')
+                           ->select('patients.Nom','patients.Prenom','patients.Sexe','patients.Dat_Naissance','hospitalisations.Date_entree','hospitalisations.Date_Prevu_Sortie','hospitalisations.id')->get();
+               return view('visite.choix_patient_visite',compact('patients')); //   return view('visite.choix_patient_visite');
      
     }
 
@@ -48,7 +45,9 @@ class VisiteController extends Controller
      */
     public function create($id_hosp)
     {
-      $patient = (hospitalisation::FindOrFail($id_hosp))->admission->demandeHospitalisation->consultation->patient;
+      //$patient = (hospitalisation::FindOrFail($id_hosp))->admission->demandeHospitalisation->consultation->patient;
+      $hosp = hospitalisation::FindOrFail($id_hosp);
+      $patient = $hosp->admission->demandeHospitalisation->consultation->patient;
       $date = Carbon\Carbon::now();//$date = Date::Now();
       $visite =new visite;
       $visite->date=$date;
@@ -57,7 +56,7 @@ class VisiteController extends Controller
       $visite->id_employe=Auth::User()->employee_id;
       $visite->save();
       // ->with('id_hosp',$id_hosp)
-      return view('visite.create',compact('patient'))->with('id',$visite->id);
+      return view('visite.create',compact('hosp','patient'))->with('id',$visite->id);
     }
  /**
      * Show the form for creating a new resource.
@@ -67,8 +66,7 @@ class VisiteController extends Controller
      */
     public function store(Request $request)
     {
-      dd("2");
-      return redirect()->action('HospitalisationController@index');
+     return redirect()->action('HospitalisationController@index');
     }
     public function storebouzidi(Request $request,$id)
     {
@@ -182,16 +180,26 @@ class VisiteController extends Controller
         return redirect('/choixpatvisite')->with('info','Visite ajoutée avec succès!'); //  return redirect()->action('ConsultationsController@create',['id'=>$id]);
        
     }
+    public function edit($id)
+    {
+      $hosp = hospitalisation::find($id);
+      return view('visite.edit',compact('hosp'));  
+    }
    
 	//
     public function destroy($id)
     {
       $visite = visite::find($id);
-      $e = $visite->delete();
+      try {
+          $obj = $visite->delete();
+      } catch (Exception $e) {
+        report($e);
+        return false;
+      }
+   
       $hospitalisations = hospitalisation::where('etat_hosp','=','en cours')->get();
-      //return redirect('/hospitalisation/');
       return response()->json([
-         'message' =>$e
+         'message' =>$obj
       ]);   
     }
     public function show($id)

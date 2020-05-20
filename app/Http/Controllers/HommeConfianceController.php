@@ -9,41 +9,37 @@ use Auth;
 use Response;
 class HommeConfianceController extends Controller
 {
-  public function edit($id)
-  {
-    
-      $homme = homme_conf::find($id);
-      return Response::json($homme);
-  }
+      public function edit($id)
+      {
+             $homme = homme_conf::find($id);
+              return Response::json($homme);
+      }
   //
 	public function store(Request $request)
-  {
-
-  	  $homme =homme_conf::create($request->all());
-      return Response::json($homme);
-  }
-  public function createGardejax(Request $request)
-  {
-    $homme =homme_conf::create($request->all());
-    return Response::json($homme);
-  }
-  public function show($id)
-  {
-      $homme = homme_conf::find($id);
-      // $homme = homme_conf::FindOrFail($id);
-      return Response::json($homme);
-  }
-  public function update(Request $request, $id)
-  {
-      //
-      $homme = homme_conf::find($id);
-      $homme -> update($request->all());
-      $homme->save();
-      return Response::json($homme);
-  }
-  public function destroy($id)
-  {
-  	$homme = homme_conf::destroy($id);
-    return Response::json($homme);
-  } 
+       {
+        	$homme =homme_conf::create($request->all());
+             return Response::json($homme);
+      }
+      public function createGardejax(Request $request)
+      {
+            $homme =homme_conf::create($request->all());
+            return Response::json($homme);
+      }
+      public function show($id)
+      {
+            $homme = homme_conf::find($id);  // $homme = homme_conf::FindOrFail($id);
+            return Response::json($homme);
+      }
+      public function update(Request $request, $id)
+      {
+              $homme = homme_conf::find($id);
+              $homme -> update($request->all());
+              $homme->save();
+              return Response::json($homme);
+      }
+      public function destroy($id)
+      {
+        	$homme = homme_conf::destroy($id);
+             return Response::json($homme);
+      } 
 }

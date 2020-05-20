@@ -135,7 +135,9 @@ border:2px solid #3F515F;
                 </tr>
                 <tr>
                                       <td colspan="1" class ="noborders"><strong><strong>Âge :</strong></strong></td>
-                                      <td align="left">{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }} ans</td>
+                                      <td align="left">
+                                        <span class="badge badge-{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age < 18 ? 'danger':'success' }}">{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }}</span>Ans
+                                      </td>
                                       <td  colspan="1" class ="noborders"><strong>Né(e) a:</strong></td >
                                       <td align="left">{{ $patient->lieuNaissance->nom_commune }}</td>
                                 </tr>
@@ -228,7 +230,7 @@ border:2px solid #3F515F;
             </div>
             </div>
             <div class="center">
-                  @if(App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role =="Medecine")
+                  @if(Auth::user()->role->id == 1)
                   <a  href="/consultations/create/{{ $patient->id }}" class="btn btn-sm btn-primary btn-create"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Consultation</a>
                   @endif
                   {{-- rdv/create/{{ $patient->id }} --}}

@@ -4,10 +4,7 @@
 	<title>Ordonnance</title>
 	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
-  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<style type="text/css">
+  	<style type="text/css">
 		table 
 		{
     		border-collapse: collapse;
@@ -46,7 +43,7 @@
 	<h4 class="center">Tél : 23-93-34</h4>
 	<br><br>
 	<div class="center">
-		<img src="data:image/png;base64,{{DNS1D::getBarcodePNG($ordonnance->consultation->patient->code_barre, 'C128')}}" alt="barcode" />
+		<img src="data:image/png;base64,{{DNS1D::getBarcodePNG($ordonnance->consultation->patient->IPP, 'C128')}}" alt="barcode" />
 	</div>
 	<br><br>
 	<h4 class="center"><b>Ordonnance</b></h4>

@@ -1,4 +1,8 @@
 @extends('app_recep')
+@section('page-script')
+<script type="text/javascript">
+</script>
+@endsection
 @section('main-content')
 <div class="page-content">
 	<div class="space-12"></div>
@@ -22,7 +26,6 @@
 			</div>
 		</div>
 		<div class="space-12"></div>
-                    {{-- @include('flash::message') --}}
 	</div>
 </div>
 @endsection

@@ -1,9 +1,7 @@
 @extends('app_recep')
 @section('style')
         <style>
-                #listePatient {
-                      /*padding: 5px;*/
-                }
+                #patient {        /*padding: 5px;*/ }
                 .option {
                   padding: 5px;
                   display: none;
@@ -55,12 +53,12 @@
 
       <script>
       $(document).ready(function(){
-                $('#listePatient').editableSelect({
+                $('#patient').editableSelect({
                       effects: 'slide', 
                       editable: false,  
                       // warpClass: 'ui-select-wrap',
                 });
-                $("#listePatient").on("keyup", function() {
+                $("#patient").on("keyup", function() {
                       //to call ajax
                       remoteSearch();    
                 });
@@ -86,7 +84,7 @@
                 var CurrentDate = moment(x).format("YYYY-MM-DD");            
                 if (mydate >= CurrentDate  ) { 
                      $('#date_RDV').datepicker("setDate",mydate);//new Date(yyyy,mm,dd)
-                     $('#Temp_rdv').val(heur);//new Date(yyyy,mm,dd)
+                    // $('#Temp_rdv').val(heur);//new Date(yyyy,mm,dd)
                      $("#fullCalModal").modal();
                 }
      }
@@ -156,7 +154,7 @@
                 <div class="row">
                       <label for="date"><b>Date Rendez-Vous :</b></label>
                       <div class="input-group">
-                          @if(App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role =="Receptioniste") 
+                          @if(Auth::user()->role->id == 2) 
                                   <input class="form-control" id="daterdv" type="text" data-date-format="yyyy-mm-dd" desable readonly />
                            @else
                                <input class="form-control date-picker" id="daterdv" name="daterdv" type="text" data-date-format="yyyy-mm-dd" required 
@@ -168,7 +166,7 @@
       </div>
  
       <div class="modal-footer center">
-      @if(App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role =="Medecine")
+      @if(Auth::user()->role->id == 1)
       <a type="button" id="btnConsulter" class="btn btn btn-sm btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
      <button type="button" class="btn btn btn-sm btn-info" onclick="envoie();">
           <i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer</button>
@@ -186,7 +184,7 @@
 <div id="fullCalModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            @if(App\modeles\rol::where("id",Auth::User()->role_id)->get()->first()->role !="Receptioniste")  
+            @if(Auth::user()->role->id !=2)  
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
                 <h4 id="modalTitle" class="modal-title">Ajouter Rendez-Vous</h4>
@@ -194,13 +192,12 @@
            <form id ="addRdv" role="form" action="/createRDV"method="POST">
                 {{ csrf_field() }}
                 <input type="datetime" id="date_RDV" name="date_RDV" data-date-format='yyyy-mm-dd' value="">{{-- style="display:none;" --}}
-                <input type="time" id="Temp_rdv" name="Temp_rdv"  value=""  min="8:00" max="18:00" >              {{-- style="display:none" --}}
-                
+                {{-- <input type="time" id="Temp_rdv" name="Temp_rdv"  value=""  min="8:00" max="18:00" >   --}}
                 <div id="modalBody" class="modal-body">
                       <div class="row">
                            <fieldset class="inline-fields"> 
                                 <label for="patient"><strong>Selectioner le patient :</strong></label>
-                                <select id="listePatient" name ="listePatient" style="width:300px;" required></select>                        
+                                <select id="patient" name ="patient" style="width:300px;" required></select>                        
                            </fieldset>
                       </div>
                       <div class="space-12"></div>

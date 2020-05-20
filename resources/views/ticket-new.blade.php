@@ -37,7 +37,7 @@
 	</table>
 	 <!-- style="text-align: center;" -->
 	<div>
-		<img src="data:image/png;base64,{{DNS1D::getBarcodePNG(App\modeles\patient::where("id",$ticket->id_patient)->get()->first()->code_barre, 'C128')}}" alt="barcode" />
+		<img src="data:image/png;base64,{{DNS1D::getBarcodePNG(App\modeles\patient::where("id",$ticket->id_patient)->get()->first()->IPP, 'C128')}}" alt="barcode" />
 	</div>
 </body>
 </html>

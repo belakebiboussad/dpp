@@ -46,19 +46,11 @@
 	<h4 class="center">Tél : 23-93-34</h4>
 	<br><br>
 	<div class="center">
-<<<<<<< HEAD
-		<img src="data:image/png;base64,{{DNS1D::getBarcodePNG($ordonnance->consultation->patient->code_barre, 'C128')}}" alt="barcode" />
-	</div>
-	<br><br>
-	<h4 class="center"><b>Ordonnance</b></h4>
-	<br><br>
-=======
-		{{-- <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($ordonnance->consultation->patient->code_barre, 'C128')}}" alt="barcode" /> --}}
+		{{-- <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($ordonnance->consultation->patient->IPP, 'C128')}}" alt="barcode" /> --}}
 	</div>
 	<br><br>
 	<h4 class="center"><b>Ordonnance</b></h4>
 	 <br><br><br>
->>>>>>> dev
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="section">
@@ -74,16 +66,11 @@
 				</div>
 			</div>
 		</div>
-<<<<<<< HEAD
-		<br><br>
-		<div class="col-sm-12">
-=======
 	</div>
 	<div class="space-12"></div>
 	<div class="space-12"></div> 				
 	<div class="row">		 
 	 	<div class="col-sm-12">
->>>>>>> dev
 			<br>
 			<ol>
 				@foreach($ordonnance->medicamentes as $index => $med)
@@ -95,11 +82,7 @@
 				@endforeach
 			</ol>
 		</div>
-<<<<<<< HEAD
-	</div>
-=======
 	</div> 
->>>>>>> dev
 </div>
 </body>
 </html>

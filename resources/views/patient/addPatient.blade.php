@@ -1,20 +1,27 @@
 @extends('app')
 @section('title','Ajouter un patient')
+@section('style')
+<style>
+	
+</style>
+@endsection
 @section('page-script')
 	<script>
 		$( document ).ready(function() {
 			var bloodhound1 = new Bloodhound({
-			        datumTokenizer: Bloodhound.tokenizers.whitespace,
-			        queryTokenizer: Bloodhound.tokenizers.whitespace,
-			        remote: {
-					url: '/patients/findcom?com=%QUERY%',
-						wildcard: '%QUERY%'
-				},
+	        datumTokenizer: Bloodhound.tokenizers.whitespace,
+	        queryTokenizer: Bloodhound.tokenizers.whitespace,
+	        remote: {
+						url: '/patients/findcom?com=%QUERY%',
+							wildcard: '%QUERY%'
+					},
 			});
 			$('#commune').typeahead({
+				autoselect: true,
 				hint: true,
 				highlight: true,
 				minLength: 1
+			
 			}, {
 				name: 'communenom',
 				source: bloodhound1,
@@ -53,14 +60,11 @@
 						'<div class="list-group search-results-dropdown">'
 					],
 					suggestion: function(data) {
-						return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="autocopleteCNais(\''+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
+						return '<div style="font-weight:normal; margin-top:-10px ! important;width:300px !important" class="list-group-item" onclick="autocopleteCNais(\''+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
 					}
 				}	
 			});
-    ///////////////////////////////////////////
-    /////////// Autocomletecommune de l'assure
-    ////////////////
-		$('#lieunaissancef').typeahead({
+		  $('#lieunaissancef').typeahead({	/////////// Autocomletecommune de l'assure
 				hint: true,
 				highlight: true,
 				minLength: 1
@@ -88,14 +92,28 @@
 				 var sex =  $('input[name=sexe]:checked').val();
 				 if(sex == "F")
 				 {
-				 	var civilite= $("select.civilite option").filter(":selected").val();
-				 	if((civilite =="marie")|| (civilite =="veuf"))
+				 		var civilite= $("select.civilite option").filter(":selected").val();
+				 		if((civilite =="marie")|| (civilite =="veuf"))
 		  				$('#Div-nomjeuneFille').removeAttr('hidden');
 		  			else
 		  				$('#Div-nomjeuneFille').attr('hidden','');	
-				 }
-	    				
+				 }else{
+				 		$('#Div-nomjeuneFille').attr('hidden','');	
+				 }		
 			});
+			$('input[type=radio][name=sexe]').change(function()
+			{
+			 	if($(this).val() == "M")
+			 	{
+			 		$('#Div-nomjeuneFille').attr('hidden','');
+			 	}else
+			 	{
+			 		var civilite= $("select.civilite option").filter(":selected").val();
+			 		if((civilite =="marie")|| (civilite =="veuf"))
+		  				$('#Div-nomjeuneFille').removeAttr('hidden');
+			 	}
+			});
+			
 
 		});
 		function autocopleteCNais(commune)
@@ -109,49 +127,51 @@
 		
 		function show(wilaya)
 		{
-
 			var res = wilaya.split(",");
 			$("#idwilaya").val(res[0]);
 			$("#wilaya").val(	res[1]);
 			$("#idcommune").val(res[2]);
 		}
+		function copyPatient(){
+			$("#nomf").val($("#nom").val());$("#prenomf").val($("#prenom").val());
+			$("#datenaissancef").val($("#datenaissance").val());$("#lieunaissancef").val($("#lieunaissance").val());
+			$("#idlieunaissancef").val($("#idlieunaissance").val());
+			$("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);  
+			$("#foncform").addClass('hide');$('#Type_p').attr('required', false);  
+			addRequiredAttr();
+		}
+		function copyPrtientInfo()
+		{
+			if($('#fonc').is(':checked'))
+				copyPatient();
+		}
 		function showType(value){
-	    		switch(value){
-			           case "Assure":
-			                     $("#nomf").val($("#nom").val());
-			                     $("#prenomf").val($("#prenom").val());
-			                     $("#datenaissancef").val($("#datenaissance").val());
-			                     $("#lieunaissancef").val($("#lieunaissance").val());
-			                     $("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);  
-			                     $("#foncform").addClass('hide'); 
-			                     $('#Type_p').attr('required', false);  
-			                     addRequiredAttr();
-			                      break;
-			           case "Ayant_droit":
-			                    $("#nomf").val("");
-			                    $("#prenomf").val("");
-			                    $("#foncform").removeClass('hide');
-			                    $('#Type_p').attr('required', true); 
-			                    addRequiredAttr();
-			                break;
-			             case "Autre":
-			                     $(".starthidden").show(250);
-			                     $("#foncform").addClass('hide');
-			                     $('#Type_p').attr('required', false); 
-			                     //$("ul#menuPatient li:not(.active) a").prop('disabled', true);
-			                     $("ul#menuPatient li:eq(1)").css('display', 'none');
-			             break;         
+	    switch(value){
+			    case "Assure":
+			        copyPatient();          
+			        break;
+			    case "Ayant_droit":
+			        $("#nomf").val("");
+			        $("#prenomf").val("");
+			        $("#foncform").removeClass('hide');
+			        $('#Type_p').attr('required', true); 
+			        addRequiredAttr();
+			        break;
+			    case "Autre":
+			        $(".starthidden").show(250);
+			        $("#foncform").addClass('hide');
+			        $('#Type_p').attr('required', false);  //$("ul#menuPatient li:not(.active) a").prop('disabled', true);
+			        $("ul#menuPatient li:eq(1)").css('display', 'none');
+			        break;         
 			}			
 		}
 	</script>
 @endsection
 @section('main-content')
 <div class="container-fluid">
-<div class="row">
-<div class="page-header">
-	<h1>Ajouter Un Patient</h1>
-</div>
-<form class="form-horizontal" id = "addPAtient" action="{{ route('patient.store') }}" method="POST" role="form" autocomplete="off" onsubmit="return checkFormAddPAtient(this);">
+  <div><h4>Ajouter un nouveau Patient</h4></div
+  <div class="row">
+	<form class="form-horizontal" id = "addPAtient" action="{{ route('patient.store') }}" method="POST" role="form" autocomplete="off" onsubmit="return checkFormAddPAtient(this);">
 	  {{ csrf_field() }}
 	<div class="row">
 		<div class="col-sm-12">
@@ -169,10 +189,11 @@
 		</div>
 	</div>
 	<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
+   		 
    		 <li class="active"><a class="jumbotron" data-toggle="tab" href="#Patient">
    		 	<span class="bigger-130"><strong>Patient</strong></span></a>
    		 </li>
-    		<li><a data-toggle="tab" href="#Assure" class="jumbotron">
+    		<li><a data-toggle="tab" href="#Assure" class="jumbotron" onclick="copyPrtientInfo();">
     			<span class="bigger-130"><strong>Assure</strong></span></a>
     		</li>
     		<li><a class="jumbotron" data-toggle="tab" href="#Homme_C">
@@ -189,7 +210,7 @@
 							<strong>Nom :</strong> 
 						</label>
 						<div class="col-sm-9">
-							<input type="text" id="nom" name="nom" placeholder="Nom..." class="col-xs-12 col-sm-12" autocomplete= "off" required alpha/>
+							<input type="text" id="nom" name="nom" placeholder="Nom..." class="col-xs-12 col-sm-12" autocomplete= "off" value="{{ old('nom') }}" required alpha/>
 								{!! $errors->first('datenaissance', '<small class="alert-danger">:message</small>') !!}
 						</div>
 					</div>
@@ -200,16 +221,15 @@
 							<strong>Prénom :</strong>
 						</label>
 						<div class="col-sm-9">
-							<input type="text" id="prenom" name="prenom" placeholder="Prénom..." class="form-control form-control-lg col-xs-12 col-sm-12" autocomplete="off" required/>
+							<input type="text" id="prenom" name="prenom" placeholder="Prénom..." class="col-xs-18 col-sm-12" autocomplete="off" required/>
 							{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
 						</div>
 					</div>
 				</div>
-		      	</div> {{-- row --}}
-		      	<div class="spce-12"></div>
-		      	<br>
-		      	<div class="row">
-		      		<div class="col-sm-6">
+		    </div> {{-- row --}}
+		    <div class="spce-12"></div>
+		    <div class="row">
+		    	<div class="col-sm-6">
 					<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
 						<label class="col-sm-3 control-label" for="datenaissance">
 							<strong>Né(e) le :</strong>
@@ -223,18 +243,19 @@
 				<div class="col-sm-6">
 					<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
 						<label class="col-sm-3 control-label" for="lieunaissance">
-							<strong class="text-nowrap">Lieu de naissance :</strong>
+							<strong class="text-nowrap">Né(e) à :</strong>
 						</label>
-					<div class="col-sm-9">
-					  <input type="hidden" name="idlieunaissance" id="idlieunaissance">
-						<input type="text" id="lieunaissance" name="" placeholder="Lieu de naissance..." autocomplete = "on" class="col-xs-12 col-sm-12 typeahead " required/>
-					 	{!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
-					</div>
+						<div class="col-sm-9">
+							
+						  	<input type="hidden" name="idlieunaissance" id="idlieunaissance">
+								<input type="text" id="lieunaissance" name="lieunaissance" class="typeahead col-sm-12" placeholder="Lieu de naissance..." autocomplete ="on" required/>		
+						 		{!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
+					 		
+						</div>
 					</div>
 				</div>
-		      	</div>{{-- row --}}
-		      	<br>
-		      	<div class="row">
+		    </div>{{-- row --}}
+		    <div class="row">
 				<div class="col-sm-6">
 					<div class="form-group {{ $errors->has('sexe') ? "has-error" : "" }}">
 						<label class="col-sm-3 control-label" for="sexe">
@@ -286,7 +307,7 @@
 				<div class="col-sm-6">
 					<div class="form-group">
 					<label class="col-sm-3 control-label" for="sf">
-						<strong class="text-nowrap">Situation Familliale :</strong>
+						<strong class="text-nowrap">Civilité :</strong>
 					</label>
 					<div class="col-sm-9">
 						<select class="form-control civilite" id="sf" name="sf">
@@ -318,68 +339,70 @@
 			<div class="space-12"></div>		
 			<div class="row">
 					<div class="col-sm-4" style="padding-left:7%">
-						<label class="" for="adresse" ><strong>Adresse :&nbsp;</strong></label>
-					    <input type="text" value="" id="adresse" name="adresse" placeholder="Adresse..."/>
+						<label class="col-sm-3" for="adresse" ><strong>Adresse :&nbsp;</strong></label>
+					  <input type="text" value="" id="adresse" name="adresse" placeholder="Adresse..." class="col-sm-9"/>
 					</div>
 					<div class="col-sm-4" style="margin-top: -0.1%;">
-						<label><strong>Commune :</strong></label>
+						<label class="col-sm-3" for="commune"><strong>Commune :</strong></label>
 						<input type="hidden" name="idcommune" id="idcommune">
-					  <input type="text" value="" id="commune"  placeholder="commune..." />
+					  <input type="text" value="" id="commune"  placeholder="commune..." class="col-sm-9"/>
 					</div>
 					<div class="col-sm-4">
-					   <label><strong>Wilaya :</strong></label>
-					  	 <input type="hidden" name="idwilaya" id="idwilaya">
-					              <input type="text" value=""  id="wilaya" placeholder="wilaya..." />
+					  <label class="col-sm-3" for="wilaya"><strong>Wilaya :</strong></label>
+					  <input type="hidden" name="idwilaya" id="idwilaya"><input type="text" value=""  id="wilaya" placeholder="wilaya..." class="col-sm-9"/>
 					</div>
 			</div>
 			<div class="space-12"></div>
-			<div class="row">
-				<div class="col-sm-4">
-					<div class="form-group" style="padding-left:10%;">
-						<label class="col-sm-3 control-label" for="mobile1">
+	  	<div class="row">
+				<div class="col-sm-5">	<!-- <div class="form-group" style="padding-left:10%;"> -->
+					<label class="col-sm-5 control-label" for="mobile1">
 							<i class="fa fa-phone"></i>
 							<strong class="text-nowrap">Mob1 :</strong>
-						</label>
-						<div class="col-sm-3">
-							<select name="operateur1" id="operateur1" class="form-control" required="">
-							           <option value="">XX</option>
-							         	<option value="05">05</option>         
-							   	<option value="06">06</option>
-							           <option value="07">07</option>
-                       						</select>	
+					</label>
+					<div class="col-sm-3">
+						<select name="operateur1" id="operateur1" class="form-control" required="">
+					    <option value="">XX</option>
+					   	<option value="05">05</option>         
+					   	<option value="06">06</option>
+					    <option value="07">07</option>
+            </select>	
 						</div>
 						<input id="mobile1" name="mobile1"  maxlength =8 minlength =8 type="tel" autocomplete="off" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX" required />	
-					</div>
+					<!-- </div> -->
 				</div>
-				<div class="col-sm-4">
-					<div class="form-group">
-						<label class="col-sm-3 control-label" for="mobile2">
+				<div class="col-sm-5">
+					<!-- <div class="form-group"> -->
+						<label class="col-sm-5 control-label" for="mobile2">
 							<i class="fa fa-phone"></i>
 							<strong class="text-nowrap">Mob2 :</strong>
 						</label>
 						<div class="col-sm-3">
-				        			<select name="operateur2" id="operateur2" class="form-control">
-						           		<option value="">XX</option>
-						         		<option value="05">05</option>         
-						   		<option value="06">06</option>
-						          		 <option value="07">07</option>
-                       						</select>
-          						</div>
+				    	<select name="operateur2" id="operateur2" class="form-control">
+						 		<option value="">XX</option>
+								<option value="05">05</option>         
+						 		<option value="06">06</option>
+						  	<option value="07">07</option>
+             	</select>
+          	</div>
 						<input id="mobile2" name="mobile2"  maxlength =8 minlength =8  type="tel" autocomplete="off" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"   placeholder="XXXXXXXX"/>
-					</div>
+					<!-- </div> -->
 				</div>
-				<div class="col-sm-4">
+			</div> 
+
+			<div class="space-12"></div>
+			<div class="row">
+				<div class="col-sm-6">
 					<div class="form-group">
 						<div class="col-sm-3">
 							<label class="control-label no-padding-right pull-right" style=" padding-top: 0px;"><strong>Type :</strong></label>
 						</div>
-						<div class="col-sm-9">
+						<div class="col-sm-9" id="checkType">
 							<label class="line-height-1 blue">
-								<input id="fonc" name="type" value="Assure" type="radio" class="ace" onclick="showType('Assure')"/>
+								<input id="fonc" name="type" value="Assure" type="radio" class="ace" onclick="showType('Assure')" Checked/>
 								<span class="lbl"> Assuré</span>
 							</label>&nbsp;&nbsp;&nbsp;
 							<label class="line-height-1 blue">
-								<input id="ayant" name="type" value="Ayant_droit" type="radio" class="ace" onclick="showType('Ayant_droit')" Checked/>
+								<input id="ayant" name="type" value="Ayant_droit" type="radio" class="ace" onclick="showType('Ayant_droit')"/>
 								<span class="lbl"> Ayant droit</span>
 							</label>&nbsp;&nbsp;&nbsp;
 							<label class="line-height-1 blue">
@@ -389,25 +412,24 @@
 						</div>
 					</div>
 				</div>
-			</div>	
+			</div>
 			<div class="space-12"></div>
-	
-			<div class="row" id="foncform">
-				<div class="col-sm-6">
-				<div class="form-group">
-					 <label class="col-sm-3 control-label" for="Type_p">
-					<strong>Type :</strong>
-					</label>
-					<div class="col-sm-9">
-					<select class="form-control col-xs-12 col-sm-6" id="Type_p" name="Type_p" required>
-						<option value="">------</option>
-						<option value="Ascendant">Ascendant</option>
-						<option value="Descendant">Descendant</option>
-						<option value="Conjoint">Conjoint</option>
-					</select>
-					</div>
-				</div>				
-				</div>	
+				<div class="row hide" id="foncform">
+					<div class="col-sm-6">
+						<div class="form-group">
+							 <label class="col-sm-3 control-label" for="Type_p">
+							<strong>Type :</strong>
+							</label>
+							<div class="col-sm-9">
+							<select class="form-control col-xs-12 col-sm-6" id="Type_p" name="Type_p">
+								<option value="">------</option>
+								<option value="Ascendant">Ascendant</option>
+								<option value="Descendant">Descendant</option>
+								<option value="Conjoint">Conjoint</option>
+							</select>
+							</div>
+						</div>				
+					</div>	
 				<div class="col-sm-6">
 				<div class="form-group">
 					 <label class="col-sm-4 control-label" for="nsspatient">
@@ -431,19 +453,12 @@
 		<div id="Assure" class="tab-pane ">
 		   	<div id ="assurePart">
 				<div class="row">
-					<div class="col-sm-12">
-						<h3 class="header smaller lighter blue">
-							<strong>Information L'Assuré(e)</strong>
-						</h3>
-					</div>	
-				</div>{{-- row --}}
-				<div class="row">
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="nomf">
 							<strong>Nom :</strong> 
 							</label>
-						<div class="col-sm-9">
+						<div class="col-sm-6">
 							<input type="text" id="nomf" name="nomf" placeholder="Nom..." class="col-xs-12 col-sm-12" />
 						</div>
 						<br>
@@ -455,7 +470,7 @@
 							<label class="col-sm-3 control-label" for="prenomf">
 							<strong>Prénom :</strong>
 						</label>
-						<div class="col-sm-9">
+						<div class="col-sm-6">
 							<input type="text" id="prenomf" name="prenomf" placeholder="Prénom..." class="col-xs-12 col-sm-12" />
 						</div>
 						<br>
@@ -470,22 +485,21 @@
 							<label class="col-sm-3 control-label" for="datenaissancef">
 								<strong class="text-nowrap">Né(e) le :</strong>
 							</label>
-							<div class="col-sm-9">
+							<div class="col-sm-6">
 							<input class="col-xs-12 col-sm-12 date-picker" id="datenaissancef" name="datenaissancef" type="text" data-date-format="yyyy-mm-dd" placeholder="Date de naissance..." />
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
-						<label class="col-sm-3 control-label" for="lieunaissancef">
-							<span class="text-nowrap"><strong>Lieu de naiss :</strong></span>
-						</label>
-						<div class="col-sm-9">
-						  <input type="hidden" name="idlieunaissancef" id="idlieunaissancef">
-							<input type="text" id="lieunaissancef" name="" placeholder="Lieu de naissance..."
-								 class="col-xs-12 col-sm-12" autocomplete= "on" />
-						</div>
-						<br>
+							<label class="col-sm-3 control-label" for="lieunaissancef">
+								<span class="text-nowrap"><strong>Lieu de naiss :</strong></span>
+							</label>
+							<div class="col-sm-9">
+							  <input type="hidden" name="idlieunaissancef" id="idlieunaissancef">
+								<input type="text" id="lieunaissancef" name="lieunaissancef" placeholder="Lieu de naissance..." class="form-control col-xs-12 col-sm-12" autocomplete= "on" />
+							</div>
+							<br>
 						</div>
 						<br>
 					</div>
@@ -499,7 +513,7 @@
 		                  			            <div class="col-sm-9">
 						                         <div class="radio">
 						                         <label>
-						                          	<input name="sexef" value="M" type="radio" class="ace"/>
+						                          	<input name="sexef" value="M" type="radio" class="ace" checked/>
 						                    		<span class="lbl"> Masculin</span>
 						                          </label>
 						                         <label>
@@ -539,7 +553,6 @@
 					</div>		
 				</div>{{-- row --}}	
 				<div class="space-12"></div>
-				{{-- ////////////////////////////////////// --}}
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="form-group">
@@ -561,9 +574,9 @@
 								<strong>Matricule :</strong>
 							</label>
 							<div class="col-sm-9">
-							<div class="clearfix">
-								<input type="text" id="mat" name="mat" class="col-xs-12 col-sm-6" placeholder="Matricule..." />
-							</div>
+								<div class="clearfix">
+									<input type="text" id="mat" name="mat" class="col-xs-12 col-sm-6" placeholder="Matricule..." maxlength =5 minlength =5 />
+								</div>
 							</div>
 						</div>
 					</div>
@@ -577,7 +590,7 @@
 							</label>
 							<div class="col-sm-9">
 								<div class="clearfix">
-									<input type="text" id="NMGSN" name="NMGSN" class="col-xs-12 col-sm-12" placeholder="numéro mutuel" />
+									<input type="text" id="NMGSN" name="NMGSN" class="col-xs-12 col-sm-12" placeholder="numéro mutuel"/>
 								</div>
 							</div>
 						</div>

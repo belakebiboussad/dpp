@@ -12,7 +12,6 @@ use App\modeles\rdv_hospitalisation;
 use Illuminate\Support\Facades\Auth;
 use App\modeles\admission;
 use App\modeles\service;
-
 use Jenssegers\Date\Date;
 use View;
 class HospitalisationController extends Controller
@@ -22,13 +21,15 @@ class HospitalisationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {       
-
         $role = Auth::user()->role;
         if($role->id != 9 )
         {    
-
             $ServiceID = Auth::user()->employ->Service_Employe;
             $hospitalisations = hospitalisation::whereHas('admission.demandeHospitalisation.Service',function($q) use($ServiceID){
                                                   $q->where('id',$ServiceID);  
@@ -39,9 +40,7 @@ class HospitalisationController extends Controller
             $hospitalisations = hospitalisation::where('etat_hosp','=','en cours')->get();
         }
         return view('Hospitalisations.index', compact('hospitalisations','e'));
-        $e=false;
-
-       
+        $e=false;     
     }
     /**
      * Show the form for creating a new resource.
@@ -63,17 +62,15 @@ class HospitalisationController extends Controller
     public function store(Request $request)
     {   
         $Date_entree = Date::Now(); 
-        // dd($Date_entree);
         $rdvHospi =  rdv_hospitalisation::find($request->id_RDV);
-        if( ($rdvHospi->date_RDVh == Date("Y-m-d")) && ($rdvHospi->heure_RDVh <= Date("H:i:00"))) 
+        if($rdvHospi->date_RDVh == Date("Y-m-d")) //&& ($rdvHospi->heure_RDVh <= Date("H:i:00"))  
         { 
             $rdvHospi->etat_RDVh = "valide"; 
             $rdvHospi->save();
-            $rdvHospi->admission->demandeHospitalisation->setEtatAttribute("admise");
-            $rdvHospi->admission->demandeHospitalisation->save();  
+            $rdvHospi->demandeHospitalisation->setEtatAttribute("admise");
+            $rdvHospi->demandeHospitalisation->save();  
             hospitalisation::create([
-                //"Date_entree"=>$rdvHospi->date_RDVh,
-                "Date_entree"=>$Date_entree,
+                "Date_entree"=>$Date_entree, //"Date_entree"=>$rdvHospi->date_RDVh,
                 "heure_entrée"=>Date("H:i:00"),
                 "Date_Prevu_Sortie"=>$rdvHospi->date_Prevu_Sortie,
                 "Heure_Prevu_Sortie"=>$rdvHospi->heure_Prevu_Sortie,
@@ -139,32 +136,6 @@ class HospitalisationController extends Controller
     public function destroy($id)
     {
         //
-    }
-    public function getlisteRDVs()
-    {
-        $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
-        $ServiceID = $employe->Service_Employe; 
-        $rdvHospitalisation = rdv_hospitalisation::whereHas('admission.demandeHospitalisation', function($q){
-                                                           $q->where('etat', 'programme');
-                                                 })
-                                                 ->whereHas('admission.demandeHospitalisation.Service',function($q) use ($ServiceID){
-                                                      $q->where('id',$ServiceID);       
-                                                 })->where('etat_RDVh','=','en attente')->get();  
-
-        return view('Hospitalisations.listRDVs_hospitalisation', compact('rdvHospitalisation'));
-    }
-    public function ajouterRDV()
-    {
-        $employe = employ::where("id",Auth::user()->employee_id)->get()->first();  
-        $ServiceID = $employe->Service_Employe;
-        $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID) {
-                                           $q->where('id',$ServiceID);                           
-                                    })
-                                ->whereHas('demandeHosp',function ($q){
-                                    $q->where('etat','valide'); 
-                                })->get();
-        return view('home.home_surv_med', compact('demandes'));
-
     }
 
 }

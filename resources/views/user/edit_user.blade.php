@@ -82,7 +82,7 @@
 						<div class="{{ $errors->has('mobile') ? "has-error" : "" }}">
 						<i class="fa fa-phone"></i>
 						<label for="mobile"><b>Tél mobile:</b></label>
-						<input type="tel" class="form-control" id="mobile" name="mobile" value="{{ $employe->tele_mobile }}" placeholder="Tél mobile..." pattern="[0-9]{10}">
+						<input type="tel" class="form-control" id="mobile" name="mobile"  value="{{ $employe->tele_mobile }}"  placeholder="Tél mobile..."  pattern="[0-9]{10}" maxlength =10 minlength =10 >
 					</div>
 					</div>
 					<div class="col-xs-12 col-sm-3">
@@ -107,6 +107,7 @@
 						<div class="{{ $errors->has('service') ? "has-error" : "" }}">
 							<label for="service"><b>Service:</b></label>
 							<select class="form-control" id="service" name="service">
+								<option value="">Aucun</option>		
 								@foreach($services as $key=>$value)
 								<option value="{{ $key }}" {{ ($employe->Service_Employe == $key)? 'Selected' :'' }}>{{ $value->nom }}</option>
 								@endforeach
@@ -117,6 +118,7 @@
 						<div>
 							<label for="specialite"><b>Spécialité:</b></label>
 							<select class="form-control" id="specialite" name="specialite">
+								<option value="">Aucun</option>
 								@foreach($specialites as $key=>$value)
 								<option value="{{ $key }}" {{ ($employe->Specialite_Emploiye == $key) ? 'Selected':'' }}>{{ $value->nom}}</option>	
 								@endforeach

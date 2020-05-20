@@ -4,7 +4,7 @@
 @extends((( Auth::user()->role->id === 12) ? 'app_radiologue' : 'app_med' ))
 >>>>>>> dev
 @section('page-script')
-<script src="{{asset('/js/jquery.min.js')}}"></script>
+    <script src="{{asset('/js/jquery.min.js')}}"></script>
 <script>
       $('document').ready(function(){
            $( 'ul.nav li' ).on( 'click', function() {
@@ -170,7 +170,7 @@
     <div class="col-sm-3"></div> <div class="col-sm-3"></div> <div class="col-sm-3"></div>
     <div class="col-sm-3">
       <a href="/showdemandeexr/{{ $demande->id }}" target="_blank" class="btn btn-sm btn-primary pull-right">
-        <i class="fa fa-file-pdf-o"></i>&nbsp;Imprimer
+         <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
       </a>
     </div>
   </div>
