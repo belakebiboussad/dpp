@@ -23,6 +23,7 @@ class RdvHospiController extends Controller
                             ->whereHas('demandeHosp',function ($q){
                                 $q->where('etat','valide'); 
                             })->get();
+
     return view('rdvHospi.index', compact('demandes'));
   }
   public function create($id)
@@ -33,7 +34,6 @@ class RdvHospiController extends Controller
   }
 	public function store(Request $request)
   {
-
     $employe = Auth::user()->employ;
     $ServiceID = $employe->Service_Employe;
     $rdv = rdv_hospitalisation::firstOrCreate([
@@ -103,6 +103,7 @@ class RdvHospiController extends Controller
      ]);
      return redirect()->action('RdvHospiController@getlisteRDVs');
   }
+<<<<<<< HEAD
   public function ajouterRDV()
   {
     $ServiceID = Auth::user()->employ->Service_Employe;
@@ -115,6 +116,8 @@ class RdvHospiController extends Controller
     //return view('home.home_surv_med', compact('demandes'));
     return view('rdvHospi.index', compact('demandes'));
   }
+=======
+>>>>>>> Bous
   public function show($id){  }
   public function destroy($id)
   {     
