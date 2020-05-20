@@ -78,7 +78,7 @@ Route::resource('service','ServiceController');
 Route::resource('exmbio','ExamenbioController');
 Route::resource('exmimg','ExmImgrieController');
 Route::get('hospitalisation/listeRDVs', 'RdvHospiController@getlisteRDVs');
-Route::get('hospitalisation/addRDV', 'RdvHospiController@ajouterRDV');//sup
+//Route::get('hospitalisation/addRDV', 'RdvHospiController@ajouterRDV');//sup
 Route::resource('hospitalisation','HospitalisationController');
 Route::resource('salle','SalleController');
 Route::resource('ordonnace','OrdonnanceController');

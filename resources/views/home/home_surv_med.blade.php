@@ -50,16 +50,15 @@
 									<th>{{ $demande->medecin->Nom_Employe }} &nbsp; {{ $demande->medecin->Prenom_Employe }}</th>
 									<td>{{ $demande->observation }}</td>
 									<td>
-										<span class="label label-sm label-{{$demande->degree_urgence == "Haut" ? "danger" : "warning"}}" style="color: black;">
+										{{-- <span class="label label-sm label-{{$demande->degree_urgence == "Haut" ? "danger" : "warning"}}" style="color: black;">
 											<strong>{{ $demande->degree_urgence }}</strong>
-										</span>
+										</span> --}}
 										{{ $demande->demandeHosp->consultation->Date_Consultation }}
 									</td>
 									<td>{{ $demande->demandeHosp->Specialite->nom }}</td>
 									<td>
 										<div class="hidden-sm hidden-xs btn-group">						
-											{{-- {{ action('RdvHospiController@create', ['id' =>$demande->id_demande]) }} --}}
-	<a href="{!! route('rdvHospi.create', [$demande->id_demande]) !!}" class="btn btn-xs btn-success">
+											<a href="{!! route('rdvHospi.create', [$demande->id_demande]) !!}" class="btn btn-xs btn-success">
 												<i class="fa fa-plus fa-xs"></i> &nbsp;RDV Hospitalisaton
 											</a>
 										</div>
