@@ -3,9 +3,7 @@
     <title>Gestion Des Patients</title>
     @include('partials.htmlheader')
 <body class="no-skin">
-
     @include('partials.navbar')
-
     <div class="main-container" id="main-container">
      {{--    <script type="text/javascript">
            try{ace.settings.check('main-container' , 'fixed')}catch(e){}
@@ -15,6 +13,7 @@
 
         <div class="main-content">
             <div class="main-content-inner">
+             <?php $lien = "Exmens Biologiques" ?> 
                 @include('partials.breadcrumbs_rec')
 
                 <div class="page-content">
@@ -30,7 +29,6 @@
 
     </div>
     <!-- /main-container -->
-
     @include('partials.scripts')
 
 </body>

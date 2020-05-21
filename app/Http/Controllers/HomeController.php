@@ -60,13 +60,8 @@ class HomeController extends Controller
                   return view('user.listeusers', compact('users'));
                   break;
             case 5:
-                  //  $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID) {
-                  //                       $q->where('id',$ServiceID);                           
-                  //                })
-                  //            ->whereHas('demandeHosp',function ($q){
-                  //                $q->where('etat','valide'); 
-                  //            })->get();
-                  // return view('home.home_surv_med', compact('demandes'));
+// $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID){//$q->where('id',$ServiceID);                           
+//})//->whereHas('demandeHosp',function ($q){//$q->where('etat','valide');//})->get();// return view('home.home_surv_med', compact('demandes'));
                   return redirect()->action('RdvHospiController@index');
                  break;
             case 6:
@@ -101,6 +96,7 @@ class HomeController extends Controller
                   $rdvs = rdv_hospitalisation::with('bedReservation')->whereHas('demandeHospitalisation', function($q){
                                                $q->where('etat', 'programme');
                                                })->where('etat_RDVh','=','en attente')->where('date_RDVh','=',date("Y-m-d"))->get(); 
+                  dd($rdvs);
                   return view('home.home_agent_admis', compact('rdvs'));
                   break;       
             case 10:

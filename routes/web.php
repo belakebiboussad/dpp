@@ -175,7 +175,11 @@ route::get('/demandeexbio/{id}','DemandeExbController@createexb');
 route::get('/showdemandeexb/{id}','DemandeExbController@show_demande_exb'); 
 Route::resource('demandeexr','DemandeExamenRadio'); 
 route::get('/showdemandeexr/{id}','DemandeExamenRadio@show_demande_exr');
-route::get('/affecterLit','HospitalisationController@affecterLit');
+//a faire dans l'hospitalisation
+//route::get('/affecterLit','HospitalisationController@affecterLit');
+Route::get('/affecterLit', function () {
+    return view('errors.404');
+});
 ///laborontin
 route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');
 route::post('/uploadresultat','DemandeExbController@uploadresultat');
@@ -207,6 +211,9 @@ route::get('/choixpatvisite','VisiteController@choixpatvisite');
 route::get('/choixhospconsigne','ActeController@choixhospconsigne');
 route::get('/consigne','ActeController@choixhospconsigne');
 route::post('/saveActe','ActeController@store');
+Route::get('/404', function () {
+    return view('errors.404');
+});
 /**************************/// telechargement
 route::get('/download/{filename}', function($filename)
 {
