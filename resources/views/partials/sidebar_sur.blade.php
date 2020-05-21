@@ -85,6 +85,26 @@
           </li>
         </ul>
       </li>
+      <li class="">
+        <a href="#" class="dropdown-toggle">
+          <i class="menu-icon fa fa-calendar"></i><span class="menu-text">Gestion des Lits</span>
+          <b class="arrow fa fa-angle-down"></b>
+        </a>
+        <ul class="submenu">
+          <li class="">
+            <a href="/404" title="ajouter un Rendez-Vous">
+              <i class="menu-icon fa fa-plus"></i>Affecter un Lit
+            </a>
+            <b class="arrow"></b>
+          </li>
+          <li class="">
+            <a href="/404">
+              <i class="menu-icon fa fa-clock-o"></i>Liste Lits     
+            </a>
+              <b class="arrow"></b>
+          </li>
+        </ul>
+      </li>
     </ul><!-- /.nav-list -->
     <!-- #section:basics/sidebar.layout.minimize -->
     <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">

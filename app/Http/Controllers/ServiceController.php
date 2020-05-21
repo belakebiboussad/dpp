@@ -15,7 +15,7 @@ class ServiceController extends Controller
     public function index()
     {
         $services = service::all();
-        return view('services.index_service', compact('services'));
+        return view('services.index', compact('services'));
     }
 
     /**
@@ -95,9 +95,9 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $service = service::destroy($id);
+        return redirect()->route('service.index');    
     }
-
     public function getRooms(Request $request)
     {
             $salles = salle::where('service_id',$request->search)->get();

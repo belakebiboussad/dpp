@@ -60,7 +60,7 @@ class HomeController extends Controller
                   return view('user.listeusers', compact('users'));
                   break;
             case 5:
-                  return redirect()->action('RdvHospiController@index');
+                 return redirect()->action('RdvHospiController@index');
                  break;
             case 6:
                   $colloque= array();
@@ -94,6 +94,7 @@ class HomeController extends Controller
                   $rdvs = rdv_hospitalisation::with('bedReservation')->whereHas('demandeHospitalisation', function($q){
                                                $q->where('etat', 'programme');
                                                })->where('etat_RDVh','=','en attente')->where('date_RDVh','=',date("Y-m-d"))->get(); 
+                  dd($rdvs);
                   return view('home.home_agent_admis', compact('rdvs'));
                   break;       
             case 10:

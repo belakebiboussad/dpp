@@ -16,12 +16,12 @@
 						<thead class="thin-border-bottom">
 							<tr>
 								<th hidden></th>
-								<th class="center" width="3%" ></th>
+								<th class="text-center" width="3%" hidden ></th>
 								<th class="text-center" width="11%"><h5><strong>Patient</strong></h5></th>
-								<th class="text-center" width="15%"><h5><strong>Date RDV</strong></h5></th>
-								<th class="text-center" width="10%">Heure RDV</th>
+								<th class="text-center" width="10%"><h5><strong>Date</strong></h5></th>
+								<th class="text-center" width="5%">Heure </th>
 								<th width="12%" class="text-center"><strong>Date Sortie Prévue</strong></th>
-							  <th width="12%" class="text-center"><strong>Heure Sortie Prévue</strong></th>
+							  <th width="12%" class="text-center" width="5%"><strong>Heure Sort Prév</strong></th>
 								<th class="font-weight-bold text-center"><strong>Medecin Traitant</strong></th>
 								<th class="font-weight-bold text-center"><strong>Lit</strong></th>
 								<th class="font-weight-bold text-center"><strong>Salle</strong></th>
@@ -34,7 +34,7 @@
 							@foreach( $rdvHospis as $i=>$rdv)
 						  	<tr>
 								<td hidden>{{ $j }}</td>	
-						   	<td class="center">
+						   	<td class="center" hidden>
 						  		<label class="pos-rel">
 										<input type="checkbox" class="ace" name ="valider[]" value ="{{$rdv->id}}" /><span class="lbl"></span>   
 						   		</label>

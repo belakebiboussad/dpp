@@ -290,7 +290,11 @@
 					<i class="ace-icon fa fa-user"></i>
 					Resultats: </h5> <label for=""><span class="badge badge-info numberResult"></span></label>
 				</div>
-				<table id="liste_patients" class="display table-responsive" width="100%"></table>
+				<div class="widget-body">
+					<div class="widget-main no-padding">
+						<table id="liste_patients" class="display table-responsive" width="100%"></table>
+					</div>
+				</div>	
 			</div>
 		</div>{{-- col-sm-7 --}}
 		<div class="hidden-xs hidden-sm col-md-5 col-sm-5">

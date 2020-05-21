@@ -68,127 +68,43 @@
 </script>
 @endsection
 @section('main-content')
-<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
-  <div class="panel-heading">
-     <div class="row">
-      <div class="col-md-5"></div>
-      <div class="col-md-5">
-  			<div class="input-group" data-provide="">
-   				<input type="text" id ="currentday"class=" col-xs-12 col-sm-6 date-picker form-control"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
-   				<div class="input-group-addon">
-        		<span class="glyphicon glyphicon-th"></span>
-   				</div>
-				</div>
-  		</div>
-      <div class="col-md-2">
-        <button type="button" name="filter" id="filter" class="btn btn-info btn-sm"
-           onclick = "getAdmissions();">
-          	<i class="fa fa-search"></i> &nbsp;Rechercher
-        </button> <!--  <button type="button" name="refresh" id="refresh" class="btn btn-warning btn-sm">Refresh</button> -->     
-      </div>
-     </div>
-  </div>
-	<div class="widget-box widget-color-blue" id="widget-box-2">
-		<div class="widget-header">
-			<h5 class="widget-title bigger lighter">
-				<i class="ace-icon fa fa-table"></i>
-				Liste des admissions <b><span id="total_records" class = "badge badge-info numberResult" >{{ count($rdvs) }}</span></b><!-- du jour  <strong>&quot;{{ Date('Y-m-d') }}&quot;	</strong> -->
-			</h5>
-		</div>
-		<div class="widget-body">
-			<div class="widget-main no-padding">
-				<table class="table table-striped table-bordered table-hover" id="liste_admissions">
-					<thead class="thin-border-bottom thead-light">
-						<tr>
-							<th hidden></th>
-							<th>Patient</th>
-							<th>Service</th>
-							<th>Salle</th>
-							<th>Lit</th>
-							<th>Date prévue d'entrée</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						@foreach($rdvs as $rdv)
-						<tr>
-							<td hidden>{{$rdv->id_demande}}</td>
-							<td>{{ $rdv->demandeHospitalisation->consultation->patient->Nom }}&nbsp;{{ $rdv->demandeHospitalisation->consultation->patient->Prenom }}</td>
-							<td>
-								@if($rdv->bedReservation)
-									{{ $rdv->bedReservation->lit->salle->service->nom}}
-								@else
-									<strong>/</strong>
-								@endif
-							</td>
-							<td>
-								@if($rdv->bedReservation)
-									{{ $rdv->bedReservation->lit->salle->nom}}
-								@else
-									<strong>/</strong>
-								@endif
-							</td>
-							<td>
-								@if($rdv->bedReservation)
-									{{ $rdv->bedReservation->lit->nom}}
-								@else
-									<strong>/</strong>
-								@endif
-							</td>
-							<td>
-								<span class ="text-danger">
-									<strong>{{ $rdv->date_RDVh }}</strong>
-								</span>
-							</td>
-							<td>
-								<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $rdv->id }}"data-backdrop="false"><i class="fa fa-check"></i> &nbsp;confirmer</button>
-								<div id="{{ $rdv->id }}" class="modal fade" role="dialog" aria-hidden="true">
-				 					<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-			        					<button type="button" class="close" data-dismiss="modal">&times;</button>
-			        					<h4 class="modal-title">confirmer l'entrée du patient: </h4>
-			      					</div>
-			      					<div class="modal-body">
-			      						<div class="row">
-			      							<div class="col-sm-12">
-			      								<h3>
-			        								<span style="color: blue;"><strong>{{$rdv->demandeHospitalisation->consultation->patient->Nom}} &nbsp;{{$rdv->demandeHospitalisation->consultation->patient->Prenom}}</strong></span>
-			        							</h3>
-			      							</div>
-			        					</div>
-			        					<div class="row">
-			        					 	<div class="col-sm-12">
-				        					 	<h3>
-				        							le  &quot;<span  style="color: orange;"><strong>{{ $rdv->date_RDVh }}</strong></span>&quot; &nbsp;à &nbsp;<span style="color: red;">
-				        							<strong>{{Date("H:i")}}</strong></span>
-				        					  </h3>
-			        					 </div>	
-			        					</div>
-			      					</div><!-- modalbody -->
-			      					<form id="hospitalisation" class="form-horizontal" role="form" method="POST" action="{{route('hospitalisation.store')}}">
-			      					{{ csrf_field() }}
-				      					{{-- <input id="id_ad" type="text" name="id_ad" value="{{ $rdv->admission->id }}" hidden> --}}
-				      					<input id="id_RDV" type="text" name="id_RDV" value="{{$rdv->id}}" hidden>
-			      						<div class="modal-footer">
-			        						<button type="button" class="btn btn-default" data-dismiss="modal">
-			        									<i class="ace-icon fa fa-undo bigger-120"></i>Fermer
-			        						</button>
-			        						<button  type="submit" class="btn btn-success" >
-			        						  <i class="ace-icon fa fa-check bigger-120"></i>Valider
-			        						</button>
-			      						</div> 
-			      					</form>
-			      				</div>
-			      			</div>
-			      		</div>
-							</td>
-						<tr>
-						@endforeach
-					</tbody>
-				</table>
+<div class="page-content">
+	<div class="row panel panel-default">
+		<div class="panel-heading left" style="height: 40px; font-size: 2.3vh;">
+			<strong>Rechercher une Admission</strong>
+			<div class="pull-right" style ="margin-top: -0.5%;">
 			</div>
-		</div><!-- widget-body	 -->
-	</div><!-- widget-box -->
-</div>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-8 col-sm-8 col-xs-8">
+  			  <div class="col-sm-3 col-xs-3 ">
+	        	<label class="control-label center" for="" ><strong>Date :</strong></label>
+	        </div>
+					<div class="input-group col-sm-5 col-xs-5">
+						<input type="text" id ="currentday"class="col-xs-12 col-sm-12 date-picker form-control"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
+						<div class="input-group-addon">
+    					<span class="glyphicon glyphicon-th"></span>
+    				</div>
+					</div>
+  			</div>
+  			<div class="col-md-2 col-sm-2 col-xs-2">
+  			</div>
+			</div>
+		</div>
+		<div class="panel-footer" style="height: 50px;">
+	   	<button type="submit"name="filter" id="filter" class="btn btn-xs btn-primary findptient" style="vertical-align: middle" onclick = "getAdmissions();"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+		</div>
+	</div><!-- panel -->
+	<div class="row"><!-- <div class="col-sm-12"> --><!-- 	</div> -->
+		<div class="widget-box widget-color-blue" id="widget-box-2">
+			<div class="widget-header">
+				<h5 class="widget-title bigger lighter">
+					<i class="ace-icon fa fa-table"></i>
+					Liste des admissions <b><span id="total_records" class = "badge badge-info numberResult" >{{ count($rdvs) }}</span></b><!-- du jour  <strong>&quot;{{ Date('Y-m-d') }}&quot;	</strong> -->
+				</h5>
+			</div>
+		</div>
+	</div>
+</div><!-- page-content -->
 @endsection

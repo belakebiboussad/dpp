@@ -70,8 +70,7 @@ class RdvHospiController extends Controller
                                              ->whereHas('demandeHospitalisation.Service',function($q) use ($ServiceID){
                                                   $q->where('id',$ServiceID);       
                                              })->where('etat_RDVh','=','en attente')->get();
-
-    return view('rdvHospi.listRDVs_hospitalisation', compact('rdvHospis'));
+    return view('rdvHospi.liste',compact('rdvHospis'));
   }
   public function edit($id)
   {

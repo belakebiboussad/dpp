@@ -3,16 +3,14 @@
 <script type="text/javascript">
 function getServiceRoom($id)
 {
-// console.log($id);	
 	$.ajax({
-                         type : 'get',
-                          url : '{{URL::to('serviceRooms')}}',
-                            data:{'search':$id},
-                            success:function(data1,status, xhr){
-                            	//console.log(data1.html);
-                        	        	$('#serviceRooms').html(data1.html);
-                           }
-           });
+           type : 'get',
+            url : '{{URL::to('serviceRooms')}}',
+              data:{'search':$id},
+              success:function(data1,status, xhr){
+          	     $('#serviceRooms').html(data1.html);
+             	}
+         });
 }	
 </script>
 
@@ -54,15 +52,18 @@ function getServiceRoom($id)
 						<td class="">
 							<div class="pull-right">
 							<div class="hidden-sm hidden-xs btn-group">
-							<a href="/salle/create/{{ $service->id }}" class="btn btn-xs btn-grey smalltext">
-								<i class="ace-icon fa fa-plus bigger-90"></i>Chambre
-							</a>
-							<a href="{{ route('service.show',$service->id) }}" class="btn btn-xs btn-success smalltext">
-								<i class="ace-icon fa fa-sign-in bigger-90"></i>Afficher
-							</a>
-							<a href="{{ route('service.edit', $service->id) }}" class="btn btn-xs btn-info smalltext">
-								<i class="ace-icon fa fa-pencil bigger-90"></i>Modifier
-							</a>
+								<a href="{{ route('service.show',$service->id) }}" class="btn btn-xs btn-success smalltext">
+									<i class="ace-icon fa fa-sign-in bigger-90"></i>
+								</a>
+								<a href="{{ route('service.edit', $service->id) }}" class="btn btn-xs btn-info smalltext">
+									<i class="ace-icon fa fa-pencil bigger-90"></i>
+								</a>
+								<a href="/salle/create/{{ $service->id }}" class="btn btn-xs btn-grey smalltext" title="Ajouter une chambre">
+										<i class="ace-icon fa fa-plus bigger-90"></i>
+								</a>
+								<a href="{{ route('service.destroy', $service->id) }}"  data-method="DELETE" data-confirm="Etes Vous Sur ?"class="btn btn-xs btn-danger smalltext" >
+									<i class="ace-icon fa fa-pencil bigger-90"></i>
+								</a>
 							</div>
 							</div>
 						</td>
