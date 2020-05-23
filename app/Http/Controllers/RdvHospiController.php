@@ -105,24 +105,31 @@ class RdvHospiController extends Controller
   public function show($id){  }
   public function destroy($id)
   {     
-    $rdvHospi =  rdv_hospitalisation::find($id); 
-    if(isset($rdvHospi->bedReservation))  
-      $rdvHospi->bedReservation()->delete();
-    $rdvHospi->demandeHospitalisation->etat ="valide";
-    $rdvHospi->demandeHospitalisation->save();
-    $rdvHospi->etat_RDVh="Annule";
-    $rdvHospi->save(); 
-    return redirect()->action('RdvHospiController@getlisteRDVs');
+      $rdvHospi =  rdv_hospitalisation::find($id); 
+      if(isset($rdvHospi->bedReservation))  
+        $rdvHospi->bedReservation()->delete();
+      $rdvHospi->demandeHospitalisation->etat ="valide";
+      $rdvHospi->demandeHospitalisation->save();
+      $rdvHospi->etat_RDVh="Annule";
+      $rdvHospi->save(); 
+      return redirect()->action('RdvHospiController@getlisteRDVs');
   }
+       public function getRdvs($date)
+      {
+              $rdvs = rdv_hospitalisation::with('bedReservation.lit.salle.service','demandeHospitalisation.consultation.patient')->where('etat_RDVh','=','en attente')->where('date_RDVh','=', $date)->get(); 
+               if (!empty($rdvs)) {
+                   return json_encode($rdvs);
+               }
+      }  
   //imprimer rdv d'hospitalisation  
   public function print($id)
   { 
-    $t = Carbon::now();
-    $rdv = rdv_hospitalisation::with('demandeHospitalisation')->FindOrFail($id);
-    $patient =  $rdv->demandeHospitalisation->consultation->patient;
-    $pdf = PDF::loadView('rdvHospi.rdv', compact('rdv','t'))->setPaper('a4','landscape');
-    $name = "rdv-".$patient->Nom."-".$patient->Prenom.".pdf";
-    return $pdf->stream($name);
+        $t = Carbon::now();
+        $rdv = rdv_hospitalisation::with('demandeHospitalisation')->FindOrFail($id);
+        $patient =  $rdv->demandeHospitalisation->consultation->patient;
+        $pdf = PDF::loadView('rdvHospi.rdv', compact('rdv','t'))->setPaper('a4','landscape');
+        $name = "rdv-".$patient->Nom."-".$patient->Prenom.".pdf";
+        return $pdf->stream($name);
   } 
   
     

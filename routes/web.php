@@ -69,7 +69,9 @@ Route::get('/runcolloque/{id}','ColloqueController@run');
 Route::get('/endcolloque/{id}','ColloqueController@cloture');
 Route::post('/savecolloque/{id}','ColloqueController@save');
 Route::resource('admission','AdmissionController');
-Route::get('/getAdmissions/{date}','AdmissionController@getAdmissions');//->name('admissionsXHR')
+
+Route::get('/getRdvs/{date}','RdvHospiController@getRdvs');//->name('admissionsXHR')
+
 Route::post('/hommeConfiance/save','HommeConfianceController@createGardejax');
 Route::resource('hommeConfiance','HommeConfianceController');
 Route::resource('role','RolesController');

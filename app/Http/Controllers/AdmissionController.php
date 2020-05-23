@@ -25,13 +25,13 @@ class AdmissionController extends Controller
      * @return \App\modeles\admission
      * @return \App\modeles\rdv_hospitalisation
      */
-    public function index()
-    {
-      $admissions = admission::join('rdv_hospitalisations','admissions.id','=','rdv_hospitalisations.id_admission')
-                             ->join('demandehospitalisations','admissions.id_demande','=','demandehospitalisations.id')
-                             ->select('admissions.id as id_admission','admissions.*','rdv_hospitalisations.*')
-                             ->where('etat_RDVh','<>','validé')->where('date_RDVh','=',date("Y-m-d"))->get();                          
-      return view('home.home_agent_admis', compact('admissions'));
+      public function index()
+      {
+              $admissions = admission::join('rdv_hospitalisations','admissions.id','=','rdv_hospitalisations.id_admission')
+                                             ->join('demandehospitalisations','admissions.id_demande','=','demandehospitalisations.id')
+                                              ->select('admissions.id as id_admission','admissions.*','rdv_hospitalisations.*')
+                                             ->where('etat_RDVh','<>','validé')->where('date_RDVh','=',date("Y-m-d"))->get();                          
+               return view('home.home_agent_admis', compact('admissions'));
     }
 
     /**
@@ -115,11 +115,11 @@ class AdmissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-      public function destroy($id)
-      {} 
+      public function destroy($id) {} 
       public function getAdmissions($date)
       {
-        $admissions = admission::join('rdv_hospitalisations','admissions.id','=','rdv_hospitalisations.id_admission')
+        /*
+        $rdvs = admission::join('rdv_hospitalisations','admissions.id','=','rdv_hospitalisations.id_admission')
                               ->join('demandehospitalisations','admissions.id_demande','=','demandehospitalisations.id')
                               ->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')  
                               ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
@@ -129,10 +129,6 @@ class AdmissionController extends Controller
                               ->select('admissions.id as id_admission','admissions.*','demandehospitalisations.etat','rdv_hospitalisations.*','rdv_hospitalisations.id as idRDV',
                                   'patients.Nom','patients.Prenom','services.nom as nom_service','salles.nom as nom_salle','lits.num as num_lit')
                               ->where('etat_RDVh','=','en attente')->where('date_RDVh','=', $date)->get();            
-          //$rdvs = rdv_hospitalisation::where('etat_RDVh','=','en attente')->where('date_RDVh','=', $date)->get(); 
-         
-          if (!empty($admissions)) {
-           return json_encode($admissions);
-          }
+        */  
       }  
 }
