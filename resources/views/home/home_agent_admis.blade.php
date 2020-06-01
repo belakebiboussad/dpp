@@ -23,7 +23,7 @@
 		   					frag = result[i]['bed_reservation']['lit']['salle']['service'].nom+'</td><td>'+result[i]['bed_reservation']['lit']['salle'].nom+'</td><td>'+result[i]['bed_reservation']['lit'].nom+'</td><td><span class ="text-danger"><strong>'; 
 		   			       else
 		   				        frag = '</td><td><strong>/</strong></td><td<strong>/</strong></td><td><strong>/</strong></td><td><span class ="text-danger"><strong>'; 
-		   			       forms ='<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-backdrop="false"data-target="#'+result[i].id+'"><i class="fa fa-check"></i> &nbsp; confirmer</button>';
+		   			   		forms ='<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-backdrop="false"data-target="#'+result[i].id+'"><i class="fa fa-check"></i> &nbsp; confirmer</button>'
 		      		  			+'<div class="modal fade" role="dialog" aria-hidden="true" id="'+result[i].id+'">'
 		                    			+'<div class="modal-dialog"><div class="modal-content"><div class="modal-header">'
 		                   			 +'<button type="button" class="close" data-dismiss="modal">&times;</button>'
@@ -31,21 +31,18 @@
 					               +'<div class="modal-body"><p><span  style="color: blue;"><h3><strong>'+result[i]['demande_hospitalisation']['consultation']['patient'].Nom + result[i]['demande_hospitalisation']['consultation']['patient'].Prenom
 					               +'</strong></h3></span></p><br><p><h3>le &quot;<span  style="color: orange;"><strong>'+result[i].date_RDVh
 					               +'</strong></span>&quot; &nbsp;à &nbsp;<span style="color: red;"><strong>'+time+'</strong></span></h3></p></div>'
-					        	+'<form id="hospitalisation" class="form-horizontal" role="form" method="POST"action="/hospitalisation">'
-		        				+'{{ csrf_field() }}<input id="id_ad" type="text" name="id_ad" value="'+result[i].id+'" hidden>'
-        				 		+'<input id="id_RDV" type="text" name="id_RDV" value="'+result[i].id+'" hidden>'
+					        	+'<form id="hospitalisation" class="form-horizontal" role="form" method="POST" action="/admission">'
+		        				+'{{ csrf_field() }} <input id="id_RDV" type="text" name="id_RDV" value="'+result[i].id+'" hidden>'
         						+'<div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">'
-        						+'<i class="ace-icon fa fa-undo bigger-120"></i>	Fermer</button><button  type="submit" class="btn btn-success">'
+        						+'<i class="ace-icon fa fa-undo bigger-120"></i>	Annuler</button><button  type="submit" class="btn btn-success">'
 			        			+'<i class="ace-icon fa fa-check bigger-120"></i>Valider</button></div>'
         						+'</form>'
         						+'</div></div></div>'; 		
-  // if(result[i].etat == "programme")// 	forms = '<span class="label label-sm label-danger">'+result[i].etat_RDVh+'</span>';// else
-// forms = '<span class="label label-sm label-success">'+result[i].etat_RDVh+'</span>';
-			      		  	 op +='<tr><td style="display: none;">'+result[i].id+'</td><td>'+result[i]['demande_hospitalisation']['consultation']['patient'].Nom + ' ' +result[i]['demande_hospitalisation']['consultation']['patient'].Prenom+'</td><td>'
+  // if(result[i].etat == "programme")forms = '<span class="label label-sm label-danger">'+result[i].etat_RDVh+'</span>';elseforms = '<span class="label label-sm label-success">'+result[i].etat_RDVh+'</span>';
+  						       op +='<tr><td style="display: none;">'+result[i].id+'</td><td>'+result[i]['demande_hospitalisation']['consultation']['patient'].Nom + ' ' +result[i]['demande_hospitalisation']['consultation']['patient'].Prenom+'</td><td>'
 	      						+frag+result[i].date_RDVh+'</strong></span></td><td><span class ="text-danger"><strong>'+result[i].heure_RDVh+'</strong></span></td><td>'
 	      							+forms
-	      				  		+'</td></tr>';	
-		      		  		    
+	      				  		+'</td></tr>';	 
 		      		  	 }
 		      		  	$('#rdvs').html(op); 
 	        		}		 
@@ -87,7 +84,8 @@
 			<div class="widget-header">
 				<h5 class="widget-title bigger lighter">
 					<i class="ace-icon fa fa-table"></i>
-					Liste des admissions <b><span id="total_records" class = "badge badge-info numberResult" >{{ count($rdvs) }}</span></b><!-- du jour  <strong>&quot;{{ Date('Y-m-d') }}&quot;	</strong> -->
+					Liste des admissions <b><span id="total_records" class = "badge badge-info numberResult" >{{ count($rdvs) }}</span></b>
+					{{-- du jour  <strong>&quot;{{ Date('Y-m-d') }}&quot;</strong> --}}
 				</h5>
 			</div>
 			<div class="widget-body">
@@ -118,26 +116,17 @@
 									@endif
 								</td>
 								<td>
-								@if($rdv->bedReservation)
-									{{ $rdv->bedReservation->lit->salle->nom}}
-								@else
-									<strong>/</strong>
+								@if($rdv->bedReservation) {{ $rdv->bedReservation->lit->salle->nom}} @else <strong>/</strong>
 								@endif
 								</td>
 								<td>
-								@if($rdv->bedReservation)
-									{{ $rdv->bedReservation->lit->nom}}
-								@else
-									<strong>/</strong>
-								@endif
+								@if($rdv->bedReservation) {{ $rdv->bedReservation->lit->nom}} @else<strong>/</strong>@endif
 								</td>
 								<td>
-									<span class ="text-danger">
-										<strong>{{ $rdv->date_Prevu_Sortie }}</strong>
-									</span>
+									<span class ="text-danger"><strong>{{ $rdv->date_Prevu_Sortie }}</strong></span>
 								</td>
 								<td>
-								<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $rdv->id }}"data-backdrop="false"><i class="fa fa-check"></i> &nbsp;confirmer</button>
+								<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $rdv->id }}" data-backdrop="false"><i class="fa fa-check"></i> &nbsp;confirmer</button>
 								<div id="{{ $rdv->id }}" class="modal fade" role="dialog" aria-hidden="true">
 				 					<div class="modal-dialog">
 										<div class="modal-content">
@@ -161,13 +150,13 @@
 			        					 	</div>	
 			        					</div>
 			      					</div><!-- modalbody -->
-			      					<form id="hospitalisation" class="form-horizontal" role="form" method="POST" action="{{route('hospitalisation.store')}}">
+			      					<form id="hospitalisation" class="form-horizontal" role="form" method="POST" action="{{route('admission.store')}}">
 			      					{{ csrf_field() }}
 				      					{{-- <input id="id_ad" type="text" name="id_ad" value="{{ $rdv->admission->id }}" hidden> --}}
 				      					<input id="id_RDV" type="text" name="id_RDV" value="{{$rdv->id}}" hidden>
 			      						<div class="modal-footer">
 			        						<button type="button" class="btn btn-default" data-dismiss="modal">
-			        									<i class="ace-icon fa fa-undo bigger-120"></i>Fermer
+			        									<i class="ace-icon fa fa-undo bigger-120"></i>Annuler
 			        						</button>
 			        						<button  type="submit" class="btn btn-success" >
 			        						  <i class="ace-icon fa fa-check bigger-120"></i>Valider

@@ -29,7 +29,6 @@ route::get('/home_reception','HomeController@index');
 route::get('/home_dele','HomeController@index');
 route::get('/home_admission','AdmissionController@index')->name('home_admission');
 route::get('/home_infermier','HospitalisationController@index')->name('home_infermier');
-
 Route::get('exbio/{filename}', function ($filename)
 {
         $path = storage_path() . '\\app\\' . $filename;
@@ -53,7 +52,7 @@ Route::post('/demandehosp/invalider','DemandeHospitalisationController@invalider
 Route::get('/demandehosp/listedemandes/{type}','DemandeHospitalisationController@listedemandes');
 Route::get('/salle/create/{id}','SalleController@create');
 Route::get('/lit/create/{id}','LitsController@create');
-Route::get('/hospitalisation/create/{id}','HospitalisationController@create');
+//Route::get('/hospitalisation/create/{id}','HospitalisationController@create');
 Route::get('/ordonnace/create/{id}','OrdonnanceController@create');
 Route::post('/ordonnaces/print','OrdonnanceController@print');
 Route::get('/consultations/detailcons/{id}','ConsultationsController@detailcons')->name('consultDetails');
@@ -69,9 +68,7 @@ Route::get('/runcolloque/{id}','ColloqueController@run');
 Route::get('/endcolloque/{id}','ColloqueController@cloture');
 Route::post('/savecolloque/{id}','ColloqueController@save');
 Route::resource('admission','AdmissionController');
-
 Route::get('/getRdvs/{date}','RdvHospiController@getRdvs');//->name('admissionsXHR')
-
 Route::post('/hommeConfiance/save','HommeConfianceController@createGardejax');
 Route::resource('hommeConfiance','HommeConfianceController');
 Route::resource('role','RolesController');
@@ -79,8 +76,8 @@ Route::resource('ticket','ticketController');
 Route::resource('service','ServiceController');
 Route::resource('exmbio','ExamenbioController');
 Route::resource('exmimg','ExmImgrieController');
-Route::get('hospitalisation/listeRDVs', 'RdvHospiController@getlisteRDVs');
 //Route::get('hospitalisation/addRDV', 'RdvHospiController@ajouterRDV');//sup
+Route::get('hospitalisation/listeRDVs', 'RdvHospiController@getlisteRDVs');
 Route::resource('hospitalisation','HospitalisationController');
 Route::resource('salle','SalleController');
 Route::resource('ordonnace','OrdonnanceController');

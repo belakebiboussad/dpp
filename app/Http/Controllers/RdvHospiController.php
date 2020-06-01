@@ -17,15 +17,13 @@ class RdvHospiController extends Controller
 {
   public function index()
   {
-    $ServiceID = Auth::user()->employ->Service_Employe;
-    $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID) {
-                                       $q->where('id',$ServiceID);                           
-                                })
-                            ->whereHas('demandeHosp',function ($q){
-                                $q->where('etat','valide'); 
-                            })->get();
-
-    return view('rdvHospi.index', compact('demandes'));
+        $ServiceID = Auth::user()->employ->Service_Employe;
+        $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID) {
+                                           $q->where('id',$ServiceID);                           
+                                    })->whereHas('demandeHosp',function ($q){
+                                    $q->where('etat','valide'); 
+                                })->get();
+        return view('rdvHospi.index', compact('demandes'));
   }
   public function create($id)
   {
@@ -33,7 +31,7 @@ class RdvHospiController extends Controller
     $services = service::all();
     return view('rdvHospi.create', compact('demande','services'));
   }
-	public function store(Request $request)
+public function store(Request $request)
   {
     $ServiceID = Auth::user()->employ->Service_Employe;
     $rdv = rdv_hospitalisation::firstOrCreate([
@@ -83,14 +81,14 @@ class RdvHospiController extends Controller
   }
   public function update(Request $request,$id)
   {
-    $rdvHospi =  rdv_hospitalisation::find($id);
-    // reserver le nouveau lit
-    if(isset($request->lit) && ($request->lit !=0))
-    {    
-      BedReservation::firstOrCreate([
-          "id_rdvHosp"=>$rdvHospi->id,
-          "id_lit" =>$request->lit,
-      ]);           
+        $rdvHospi =  rdv_hospitalisation::find($id);
+        // reserver le nouveau lit
+        if(isset($request->lit) && ($request->lit !=0))
+        {    
+          BedReservation::firstOrCreate([
+              "id_rdvHosp"=>$rdvHospi->id,
+              "id_lit" =>$request->lit,
+          ]);           
     }
     $rdvHospi->update([//update un nouveu Rendez-Vous
             "date_RDVh"=>$request->dateEntree,

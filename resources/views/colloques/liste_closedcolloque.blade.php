@@ -2,7 +2,6 @@
 @section('title','Colloque')
 @section('page-script')
 @endsection
-
 @section('main-content')
 <div id="" class="col-xs-12"></div>
 <div class="row">
@@ -11,11 +10,10 @@
     	<div class="widget-box widget-color-blue" id="widget-box-12">
     		<div class="widget-header">
 		    	<h5 class="widget-title bigger lighter">
-		      	<i class="ace-icon fa fa-table"></i>
-						<strong>Liste Des Colloques {{ ($type == 1) ? 'Médicaux ' : 'Chirurgicaux' }} Cloturé</strong>
-	        </h5>
-				</div>
-			  <div class="widget-body">
+		      		<i class="ace-icon fa fa-table"></i><strong>Liste Des Colloques {{ ($type == 1) ? 'Médicaux ' : 'Chirurgicaux' }} Cloturé</strong>
+	       		</h5>
+		</div>
+		<div class="widget-body">
 			  <div class="widget-main no-padding">
 				<div class='table_borderWrap'>
 		    <table class="table table-striped table-bordered table-hover" id="table1" aria-describedby="table1_info" role="grid">
@@ -83,7 +81,7 @@
 									<div class="profile-info-name"><strong>Medecin:</strong></div>
 									<div class="profile-info-value">
 									<span>
-										{{ $demande->medecin->employ->Nom_Employe }} {{ $demande->medecin->employ->Prenom_Employe }} 
+										{{ $demande->medecin->Nom_Employe }} {{ $demande->medecin->Prenom_Employe }} 
 									</span>
 									</div>
 									</div>
