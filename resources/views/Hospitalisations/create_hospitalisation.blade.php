@@ -2,7 +2,7 @@
 @section('main-content')
 	<div class="page-header">
 		<h1> {{dd($demande)}}
-			Ajouter Un RDV Hospitalisation :{{ $demande->id }}
+			Ajouter un RDV Hospitalisation :{{ $demande->id }}
 		</h1>
 	</div><!-- /.page-header -->
 	<div class="row">
