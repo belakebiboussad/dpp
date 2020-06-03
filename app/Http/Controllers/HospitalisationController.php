@@ -27,19 +27,19 @@ class HospitalisationController extends Controller
     }
     public function index()
     {   
-            if(Auth::user()->role_id != 9 )
-            {    
-              $ServiceID = Auth::user()->employ->Service_Employe;
-              $hospitalisations = hospitalisation::whereHas('admission.demandeHospitalisation.Service',function($q) use($ServiceID){
-                                                    $q->where('id',$ServiceID);  
-                                                 })->where('etat_hosp','=','en cours')->get();
-            }
-            else
-            {
-                $hospitalisations = hospitalisation::where('etat_hosp','=','en cours')->get();
-            }
-            return view('Hospitalisations.index', compact('hospitalisations','e'));
-            $e=false;     
+        if(Auth::user()->role_id != 9 )
+        {    
+          $ServiceID = Auth::user()->employ->Service_Employe;
+          $hospitalisations = hospitalisation::whereHas('admission.demandeHospitalisation.Service',function($q) use($ServiceID){
+                                                $q->where('id',$ServiceID);  
+                                             })->where('etat_hosp','=','en cours')->get();
+        }
+        else
+        {
+            $hospitalisations = hospitalisation::where('etat_hosp','=','en cours')->get();
+        }
+        return view('Hospitalisations.index', compact('hospitalisations','e'));
+        $e=false;     
     }
     /**
      * Show the form for creating a new resource.
@@ -48,13 +48,13 @@ class HospitalisationController extends Controller
      */
       public function create()
       {
-               $serviceID = Auth::user()->employ->Service_Employe;
-               $adms = admission::with('lit')->whereHas('rdvHosp', function($q){
-                                                    $q->where('date_RDVh','=',date("Y-m-d"));
-                                            })->whereHas('rdvHosp.demandeHospitalisation',function($q) use ($serviceID) {
-                                                  $q->where('service', $serviceID);
-                                            })->get();
-               return view('Hospitalisations.create', compact('adms'));
+         $serviceID = Auth::user()->employ->Service_Employe;
+         $adms = admission::with('lit')->whereHas('rdvHosp', function($q){
+                                              $q->where('date_RDVh','=',date("Y-m-d"));
+                                      })->whereHas('rdvHosp.demandeHospitalisation',function($q) use ($serviceID) {
+                                            $q->where('service', $serviceID);
+                                      })->get();
+         return view('Hospitalisations.create', compact('adms'));
     }
     public function createold($id)
     {
