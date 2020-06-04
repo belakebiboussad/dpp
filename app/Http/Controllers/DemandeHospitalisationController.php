@@ -51,13 +51,13 @@ class DemandeHospitalisationController extends Controller
      */
     public function store(Request $request ,$consultID)
     { 
-      DemandeHospitalisation::create([
+        DemandeHospitalisation::create([
             "modeAdmission"=>$request->modeAdmission,
             "service"=>$request->service,
             "specialite"=>$request->specialiteDemande, // "degree_urgence"=>$request->degreurg,
             "id_consultation"=>$consultID,
             "etat " =>"en attente",
-      ]);  
+        ]);  
    }
     /**
      * Display the specified resource.

@@ -19,5 +19,6 @@ class admission extends Model
           return $this->belongsTo('App\modeles\rdv_hospitalisation','id_rdvHosp');
      }
      public function RDVs() { return $this->hasMany('App\modeles\rdv_hospitalisation','id_admission')->orderBy('date_RDVh'); }
+     public function hospitalisation(){ return $this->hasOne('App\modeles\hospitalisation');}
      
 }

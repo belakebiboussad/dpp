@@ -129,7 +129,6 @@ class ConsultationsController extends Controller
      */
       public function store(Request $request)
        {
-          dd($request->modeAdmission);
           $request->validate([
                 "motif" => 'required',
                 "resume" => 'required',
@@ -178,10 +177,10 @@ class ConsultationsController extends Controller
      */
     public function show($id)
     {
-        $consultation = consultation::FindOrFail($id);
-        $patient = patient::FindOrFail($consultation->Patient_ID_Patient);
-        $antecedants = antecedant::where('Patient_ID_Patient',$patient->id)->get();
-        return view('consultations.show_consultation', compact('consultation','patient','antecedants'));
+      $consultation = consultation::FindOrFail($id);
+      $patient = patient::FindOrFail($consultation->Patient_ID_Patient);
+      $antecedants = antecedant::where('Patient_ID_Patient',$patient->id)->get();
+      return view('consultations.show_consultation', compact('consultation','patient','antecedants'));
     }
 
     /**

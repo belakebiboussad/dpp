@@ -2,8 +2,7 @@
 @section('main-content')
 	<div class="page-header">
 		<h1 style="display: inline;"><strong>Ajouter Antécédant Pour :</strong> {{ $patient->Nom }} {{ $patient->Prenom }}</h1>
-		<div class="pull-right">
-        </div>
+		<div class="pull-right"></div>
 	</div>
 	<form class="form-horizontal" action="/atcd/store/{{$patient->id}}" method="POST">
 		{{ csrf_field() }}

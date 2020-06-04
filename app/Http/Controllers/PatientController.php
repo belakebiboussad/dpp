@@ -189,10 +189,8 @@ class PatientController extends Controller
     {  
       $patient = patient::FindOrFail($id);
       $homme_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get()->first();
-      $consultations = consultation::where('Patient_ID_Patient',$id)->get(); 
-      $hospitalisations = hospitalisation::whereHas('admission.demandeHospitalisation.consultation.patient', function($q) use($id){
-                                              $q->where('id', $id);
-                                          })->get();
+      $consultations =$patient->Consultations; //consultation::where('Patient_ID_Patient',$id)->get(); 
+      $hospitalisations = $patient->hospitalisations;//hospitalisation::whereHas('admission.demandeHospitalisation.consultation.patient', function($q) use($id){$q->where('id', $id);})->get();
       $specialites = Specialite::all();
       $grades = grade::all();
       $rdvs = rdv::where('Patient_ID_Patient' ,'=','$id')->get();

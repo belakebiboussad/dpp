@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-      
-     @include('partials.htmlheader')
-     @yield('style')
-     @include('partials.scripts')
+  @include('partials.htmlheader')
+  @yield('style')
+  @include('partials.scripts')
 <body class="no-skin">
     @include('partials.navbar')
     <div class="main-container" id="main-container">

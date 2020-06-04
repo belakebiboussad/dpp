@@ -48,13 +48,13 @@ class HospitalisationController extends Controller
      */
       public function create()
       {
-         $serviceID = Auth::user()->employ->Service_Employe;
-         $adms = admission::with('lit')->whereHas('rdvHosp', function($q){
+        $serviceID = Auth::user()->employ->Service_Employe;
+        $adms = admission::with('lit')->whereHas('rdvHosp', function($q){
                                               $q->where('date_RDVh','=',date("Y-m-d"));
                                       })->whereHas('rdvHosp.demandeHospitalisation',function($q) use ($serviceID) {
                                             $q->where('service', $serviceID);
                                       })->get();
-         return view('Hospitalisations.create', compact('adms'));
+        return view('Hospitalisations.create', compact('adms'));
     }
     public function createold($id)
     {

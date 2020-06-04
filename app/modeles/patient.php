@@ -41,6 +41,11 @@ class patient extends Model
  	{
  		 return $this->hasMany('App\modeles\consultation','Patient_ID_Patient');
  	}
+ 	public function hospitalisations()
+ 	{
+ 		 return $this->hasMany('App\modeles\hospitalisation','patient_id');
+ 	}
+
  	public function getCivilite()
  	{
  		if($this->getAge()>16)
