@@ -12,8 +12,7 @@ class admission extends Model
      public function lit()
      {
       	return $this->belongsTo('App\modeles\Lit','id_lit');
-     }
-     /*public function demandeHospitalisation(){return $this->belongsTo('App\modeles\DemandeHospitalisation','id_demande');}*/
+     } /*public function demandeHospitalisation(){return $this->belongsTo('App\modeles\DemandeHospitalisation','id_demande');}*/
      public function rdvHosp()
      {
           return $this->belongsTo('App\modeles\rdv_hospitalisation','id_rdvHosp');

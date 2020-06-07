@@ -38,8 +38,7 @@
   				$("#dateSortiePre").datepicker("setDate", dEntree); 
   			}
   			$('#numberDays').val(iDaysDelta );	
-		}
-			
+		}		
 	}
 </script>
 @endsection
@@ -141,20 +140,20 @@
 			<div class="row">
 				<div class="col-sm-12">		
 					<div class="col-sm-4 col-xs-4">
-						<label class="col-sm-6 control-label no-padding-right" for="dateEntree">
+						<label class="col-sm-7 col-xs-7 control-label no-padding-right" for="dateEntree">
 						 	<strong> Date entrée prévue : </strong>
 						</label>
-						<div class=" input-group col-sm-6 col-xs-6">
+						<div class=" input-group col-sm-5 col-xs-5">
 							<input class="form-control date-picker" id="dateEntree" name="dateEntree" type="text" data-date-format="yyyy-mm-dd" required/>
 						  	<span class="input-group-addon" onclick="$('#dateEntree').focus()"><i class="fa fa-calendar bigger-110"></i></span> 
 						 </div>
 					</div>
 					<div class="col-sm-4 col-xs-4">
-						<label class="col-sm-7 control-label no-padding-right no-wrap" for="heure_rdvh">
-             					 <strong> Heure entrée Prévue :</strong>
-            					</label>
+						<label class="col-sm-7 col-xs-7 control-label no-padding-right no-wrap" for="heure_rdvh">
+             	<strong> Heure entrée Prévue :</strong>
+            </label>
 						<div class="input-group col-sm-5 col-xs-5">	
-							  <input id="heure_rdvh" name="heure_rdvh" class="form-control timepicker" type="text"  required>
+							  <input id="heure_rdvh" name="heure_rdvh" class="form-control timepicker" type="text" required>
 								<span class="input-group-addon">
 									<i class="fa fa-clock-o bigger-110"></i>
 								</span>						
@@ -175,11 +174,11 @@
 			<div class="space-12"></div>
 			<div class="row">
 				<div class="col-sm-12">		
-					<div class="col-xs-4">
-					  	<label class="col-sm-6 control-label no-padding-right" for="dateSortiePre">
+					<div class="col-sm-4 col-xs-4">
+					  	<label class="col-sm-7 col-xs-7 control-label no-padding-right" for="dateSortiePre">
 				              	<strong> Date sortie prévue :</strong>
 				            </label>
-						<div class="input-group col-sm-6 col-xs-6">
+						<div class="input-group col-sm-5 col-xs-5">
 							<input class="col-xs-12 col-sm-12 date-picker" id="dateSortiePre" name="dateSortiePre" type="text" data-date-format="yyyy-mm-dd" onchange="updateDureePrevue()" required/>
 							 <span class="input-group-addon" onclick="$('#dateSortie').focus()">
                 						<i class="fa fa-calendar bigger-110"></i>
@@ -188,9 +187,9 @@
 					</div>
 					 <div class="col-sm-4 col-xs-4">
 							<div class="form-group">
-								<label class="col-sm-7 control-label no-padding-right no-wrap" for="heureSortiePrevue">
-						              	<strong> Heure sortie Prévue :</strong>
-						            </label>
+								<label class="col-sm-7 col-xs-7 control-label no-padding-right no-wrap" for="heureSortiePrevue">
+						      <strong> Heure sortie Prévue :</strong>
+						    </label>
 								<div class="input-group col-sm-5 col-xs-5">
 									<input id="heureSortiePrevue" name="heureSortiePrevue" class="form-control timepicker" type="text" required>
 									<span class="input-group-addon">

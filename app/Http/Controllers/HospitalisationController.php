@@ -12,6 +12,7 @@ use App\modeles\rdv_hospitalisation;
 use Illuminate\Support\Facades\Auth;
 use App\modeles\admission;
 use App\modeles\service;
+use App\modeles\ModeHospitalisation;
 use Jenssegers\Date\Date;
 use View;
 class HospitalisationController extends Controller
@@ -49,18 +50,17 @@ class HospitalisationController extends Controller
       public function create()
       {
         $serviceID = Auth::user()->employ->Service_Employe;
-        $adms = admission::with('lit')->whereHas('rdvHosp', function($q){
+        $adms = admission::with('lit','rdvHosp.demandeHospitalisation.DemeandeColloque','rdvHosp.demandeHospitalisation.consultation.patient.hommesConf')
+                          ->whereHas('rdvHosp', function($q){
                                               $q->where('date_RDVh','=',date("Y-m-d"));
                                       })->whereHas('rdvHosp.demandeHospitalisation',function($q) use ($serviceID) {
                                             $q->where('service', $serviceID);
                                       })->get();
-        return view('Hospitalisations.create', compact('adms'));
+        $medecins = employ::where('Service_Employe',Auth::user()->employ->Service_Employe)->get();
+        $modesHosp = ModeHospitalisation::all();
+        return view('Hospitalisations.create', compact('adms','medecins','modesHosp'));
     }
-    public function createold($id)
-    {
-            $demande = DemandeHospitalisation::FindOrFail($id);
-            return view('Hospitalisations.create_hospitalisation', compact('demande'));
-    }
+    public function createold($id){$demande = DemandeHospitalisation::FindOrFail($id);return view('Hospitalisations.create_hospitalisation', compact('demande'));}
 
     /**
      * Store a newly created resource in storage.
