@@ -16,33 +16,35 @@
 			$('#numberDays').val(iDaysDelta );	
 		}		
 	}
-  function formFill(adm)
-  {
+	 function formFill(adm)
+	{
 		//consultation,	//demeande_colloque	// patient//demande_hospitalisation//hommes_conf:
 		$('#patient option:selected').remove();
-	  if($('#widget-box2').hasClass('invisible'))
-	    $('#widget-box2').removeClass('invisible');
-	  $('#patient').append($('<option>', { 
-	        value: adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['id'],
-	        text : adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['Nom']+" " + adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['Prenom'], 
-	        selected : true
-	  }));
-	  $('[name=medecin]').val( adm['rdv_hosp']['demande_hospitalisation']['demeande_colloque']['id_medecin'] );
+		if($('#widget-box2').hasClass('invisible'))
+	    		$('#widget-box2').removeClass('invisible');
+	  	$('#patient').append($('<option>', { 
+	       		 value: adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['id'],
+	        	text : adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['Nom']+" " + adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['Prenom'], 
+	        	selected : true
+	  	}));
+	  	$('[name=medecin]').val( adm['rdv_hosp']['demande_hospitalisation']['demeande_colloque']['id_medecin'] );
 	 	if(adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['hommes_conf'].length == 0)
 	 		$("#garde").addClass('invisible');
 	 	else
 	 	{
 	 		if($('#garde').hasClass('invisible'))
-	    	$('#garde').removeClass('invisible');
-		  $.each(adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['hommes_conf'], function( index, garde ) {
-		    $('#garde_id').append($('<option>', { 
-	  	    value: garde['id'],
-	    	  text : garde['nom']+" " + garde['prenom'], 
-	    	}));
-	  	});
+	    			$('#garde').removeClass('invisible');
+		  	$.each(adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['hommes_conf'], function( index, garde ) {
+		    		$('#garde_id').append($('<option>', { 
+	  	    			value: garde['id'],
+	    	  			text : garde['nom']+" " + garde['prenom'], 
+	    			}));
+	  		});
 	 	}
+	 	$('#id_admission').val(adm['id']);
+	 	$('#patient_id').val(adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['id']);
 		$("#Date_entree").datepicker("setDate", adm['rdv_hosp']['date_RDVh']);
-	  $("#Date_Prevu_Sortie").datepicker("setDate", adm['rdv_hosp']['date_Prevu_Sortie']);  
+	  	$("#Date_Prevu_Sortie").datepicker("setDate", adm['rdv_hosp']['date_Prevu_Sortie']);  
 	  updateDureePrevue();
 	}
 	function addDays()
@@ -120,7 +122,8 @@
 					<!-- id = "hospCreateForm" -->
 					<form class="form-horizontal" role="form" method="POST" action="{{ route('hospitalisation.store') }}">
 						{{ csrf_field() }}
-						<input type="text" name="id_admission" value="" hidden>
+						<input type="hidden" name="id_admission" id="id_admission" value="" >
+						<input type="hidden" name="patient_id" id="patient_id" value="">
 						<div class="row">
 							<div class="form-group">		
 									<label class="col-sm-4 control-label no-padding-right" for="patient">
@@ -199,7 +202,7 @@
 								</label>
 								<div class="col-sm-8 col-xs-8">
 									<select id="garde_id" name="garde_id" placeholder="Ajouter garde malade" value="" class="col-xs-11 col-sm-11">
-									<option value="0">Selectionner un Garde malade</option>
+									<option value="">Selectionner un Garde malade</option>
 									</select>
 								</div>
 							</div>

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  Dim 07 juin 2020 à 14:58
--- Version du serveur :  5.7.23
--- Version de PHP :  7.2.10
+-- Généré le :  Dim 07 juin 2020 à 21:54
+-- Version du serveur :  5.7.21
+-- Version de PHP :  7.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -4860,7 +4860,7 @@ CREATE TABLE IF NOT EXISTS `demandehospitalisations` (
   `specialite` int(11) NOT NULL,
   `modeAdmission` enum('Ambulatoire','urgence','programme') DEFAULT NULL,
   `degree_urgence` enum('F','M','H') DEFAULT NULL,
-  `etat` enum('en attente','valide','programme','annule','admise') DEFAULT 'en attente',
+  `etat` enum('en attente','valide','programme','annule','admise','hospitalisation') DEFAULT 'en attente',
   `id_consultation` int(11) NOT NULL,
   PRIMARY KEY (`id`,`id_consultation`),
   KEY `fk_DemandeHospitalisation_Consultation1_idx` (`id_consultation`),
@@ -4880,13 +4880,13 @@ INSERT INTO `demandehospitalisations` (`id`, `service`, `specialite`, `modeAdmis
 (13, 1, 4, 'Ambulatoire', NULL, 'admise', 158),
 (14, 1, 4, 'programme', NULL, 'admise', 159),
 (17, 1, 11, 'programme', NULL, 'programme', 200),
-(18, 2, 11, 'urgence', NULL, 'admise', 212),
+(18, 2, 11, 'urgence', NULL, 'hospitalisation', 212),
 (19, 2, 11, 'programme', NULL, 'admise', 213),
 (20, 1, 11, 'Ambulatoire', NULL, 'valide', 214),
 (21, 5, 3, 'programme', NULL, 'valide', 215),
 (22, 20, 8, 'programme', NULL, 'valide', 216),
 (23, 2, 6, 'Ambulatoire', NULL, 'valide', 219),
-(24, 2, 6, 'Ambulatoire', NULL, 'admise', 220),
+(24, 2, 6, 'Ambulatoire', NULL, 'hospitalisation', 220),
 (25, 2, 6, 'Ambulatoire', NULL, 'en attente', 221),
 (26, 3, 6, 'Ambulatoire', NULL, 'valide', 222),
 (27, 3, 10, 'programme', NULL, 'en attente', 223),
@@ -5752,15 +5752,15 @@ CREATE TABLE IF NOT EXISTS `hospitalisations` (
   `patient_id` int(11) NOT NULL,
   `modeHosp_id` int(11) NOT NULL,
   `garde_id` int(11) DEFAULT NULL,
-  `heure_entrée` time NOT NULL,
-  `Heure_Prevu_Sortie` time DEFAULT NULL,
-  `Heure_sortie` time DEFAULT NULL,
+  `heure_entrée` time NOT NULL DEFAULT '14:00:00',
+  `Heure_Prevu_Sortie` time DEFAULT '10:00:00',
+  `Heure_sortie` time DEFAULT '10:00:00',
   `etat_hosp` enum('en cours','validée') NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_hospitalisation_admission` (`id_admission`),
   KEY `fk_hospitalisation_garde` (`garde_id`) USING BTREE,
   KEY `fk_hospitalisation_mode` (`modeHosp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `hospitalisations`
@@ -5768,7 +5768,12 @@ CREATE TABLE IF NOT EXISTS `hospitalisations` (
 
 INSERT INTO `hospitalisations` (`id`, `Date_entree`, `Date_Prevu_Sortie`, `Date_Sortie`, `id_admission`, `patient_id`, `modeHosp_id`, `garde_id`, `heure_entrée`, `Heure_Prevu_Sortie`, `Heure_sortie`, `etat_hosp`) VALUES
 (6, '2019-11-24', '2019-11-27', NULL, 189, 37, 1, NULL, '15:12:00', '09:00:00', NULL, 'en cours'),
-(7, '2019-11-25', '2019-11-27', NULL, 194, 37, 2, 22, '09:42:00', '09:00:00', NULL, 'en cours');
+(7, '2019-11-25', '2019-11-27', NULL, 194, 37, 2, 22, '09:42:00', '09:00:00', NULL, 'en cours'),
+(8, '2020-06-07', '2020-06-08', NULL, 211, 67, 2, NULL, '14:00:00', '10:00:00', '10:00:00', 'en cours'),
+(9, '2020-06-07', '2020-06-08', NULL, 211, 67, 2, NULL, '14:00:00', '10:00:00', '10:00:00', 'en cours'),
+(10, '2020-06-07', '2020-06-09', NULL, 210, 31, 1, NULL, '14:00:00', '10:00:00', '10:00:00', 'en cours'),
+(11, '2020-06-07', '2020-06-09', NULL, 211, 67, 2, NULL, '14:00:00', '10:00:00', '10:00:00', 'en cours'),
+(12, '2020-06-07', '2020-06-09', NULL, 211, 67, 1, NULL, '14:00:00', '10:00:00', '10:00:00', 'en cours');
 
 -- --------------------------------------------------------
 

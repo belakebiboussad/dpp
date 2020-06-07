@@ -51,11 +51,8 @@ class AdmissionController extends Controller
                     "id_rdvHosp"=>$request->id_RDV,       
                     "id_lit"=>$rdvHospi->bedReservation->id_lit,
               ]);
-               // valide
-               $rdvHospi->update([
-                    "etat_RDVh" => "valide",
-               ]);
-                $adm->rdvHosp->demandeHospitalisation->update([
+              
+               $adm->rdvHosp->demandeHospitalisation->update([
                     "etat" => "admise",
                ]);
                return redirect()->action('AdmissionController@index');

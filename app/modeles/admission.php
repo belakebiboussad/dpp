@@ -19,5 +19,4 @@ class admission extends Model
      }
      public function RDVs() { return $this->hasMany('App\modeles\rdv_hospitalisation','id_admission')->orderBy('date_RDVh'); }
      public function hospitalisation(){ return $this->hasOne('App\modeles\hospitalisation');}
-     
 }
