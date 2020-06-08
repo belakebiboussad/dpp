@@ -127,7 +127,7 @@
 												<div class="profile-info-row">
 													<div class="profile-info-name text-center"><strong>Age:</strong></div>
 													<div class="profile-info-value">
-														  <span>{{Jenssegers\Date\Date::parse($demande->consultation->patient->Dat_Naissance)->age }} ans</span>
+														  <span>{{ $demande->consultation->patient->getAge( )}} ans</span>
 													</div>
 												</div>
 											<div class="profile-info-row">

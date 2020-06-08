@@ -679,57 +679,56 @@ $('#typeexm').on('change', function() {
         }
         function createRDVModal(debut, fin, pid = 0, fixe=1)
         {   
-              var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
-              var fin = moment(fin).format('YYYY-MM-DD HH:mm');  
-               if(pid != 0)
-              {
-                    var formData = {
-                            id_patient:pid,
-                            Debut_RDV:debut,
-                            Fin_RDV:fin,
-                            fixe:fixe
-                   };
-                   $.ajaxSetup({
-                              headers: {
-                                  'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                              }
-                    }); 
-                   $.ajax({
-                                type : 'POST',
-                                url : '/createRDV',
-                                data:formData,  //dataType: 'json',
-                                success:function(data){                                 
-                                       var color = (data['rdv']['fixe'] == 1)? '#87CEFA':'#378006';
-                                       var event = new Object();
-                                       event = {
-                                              title: data['patient']['Nom'] + "  " + data['patient']['Prenom']+" ,("+data['age']+" ans)",
-                                              start: debut,
-                                              end: fin,
-                                              id :data['rdv']['id'],
-                                              idPatient:data['patient']['id'],
-                                              tel:data['patient']['tele_mobile1'] ,
-                                              age:data['age'],         
-                                              allDay: false,
-                                              color: '#87CEFA'
-                                 };
-                                $('.calendar1').fullCalendar( 'renderEvent', event, true );
-                                $('.calendar1').fullCalendar( 'refresh' );
-                                 // $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next');
-                                
-                              },
-                              error: function (data) {
-                                     console.log('Error:', data);
-                              }
-                      });
-              }else{
-                    $('#Debut_RDV').val(debut);
-                    $('#Fin_RDV').val(fin); //$('#Temp_rdv').val(heur);
-                   
-                    $('#fixe').val(fixe);
-                    $('#addRDVModal').modal({
-                           show: 'true'
-                     }); 
-              }   
+          var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
+          var fin = moment(fin).format('YYYY-MM-DD HH:mm');  
+          if(pid != 0)
+          {
+            var formData = {
+              id_patient:pid,
+              Debut_RDV:debut,
+              Fin_RDV:fin,
+              fixe:fixe
+           };
+           $.ajaxSetup({
+                      headers: {
+                          'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                      }
+            }); 
+           $.ajax({
+              type : 'POST',
+              url : '/createRDV',
+              data:formData,  //dataType: 'json',
+              success:function(data){                                 
+                     var color = (data['rdv']['fixe'] == 1)? '#87CEFA':'#378006';
+                     var event = new Object();
+                     event = {
+                            title: data['patient']['Nom'] + "  " + data['patient']['Prenom']+" ,("+data['age']+" ans)",
+                            start: debut,
+                            end: fin,
+                            id :data['rdv']['id'],
+                            idPatient:data['patient']['id'],
+                            tel:data['patient']['tele_mobile1'] ,
+                            age:data['age'],         
+                            allDay: false,
+                            color: '#87CEFA'
+               };
+              $('.calendar1').fullCalendar( 'renderEvent', event, true );
+              $('.calendar1').fullCalendar( 'refresh' );// $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next');
+               
+            },
+            error: function (data) {
+                   console.log('Error:', data);
+            }
+              });
+          }else{
+                $('#Debut_RDV').val(debut);
+                $('#Fin_RDV').val(fin); //$('#Temp_rdv').val(heur);
+               
+                $('#fixe').val(fixe);
+                $('#addRDVModal').modal({
+                       show: 'true'
+                 }); 
+          }   
         }
        function editRdv(event)
         {
@@ -1101,12 +1100,8 @@ $('#typeexm').on('change', function() {
                   error:function(data){
                       console.log(data);
                   }
-             });   
+        });   
       }      
-//function patientSearch(field,value) {//$.ajax({//url : '{{URL::to('getPatients')}}',//data:{//"field":field,//"value":value,//},
-//dataType: "json",// recommended response type//success: function(data){//$(".es-list").html("");//remove list//$.each(data['data'], function(i, v) {
-//$(".es-list").append($('<li></li>').attr('value', v['id']).attr('class','es-visible list-group-item option').text(v['code_barre']+"-"+v['Nom']+"-"+v['Prenom']));   });
-//},//error: function(){//alert("can't connect to db");/}//});//}
       function edit(event)
       {       
         $('#patient_tel').text(event.tel);

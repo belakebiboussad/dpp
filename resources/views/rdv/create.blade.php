@@ -3,8 +3,10 @@
 	<style>
     /*#dialog { display: none; }*/
   .make-scrolling {
-   overflow-y: scroll;
-    height: 100px;
+   /* overflow-y: scroll; height: 100px;*/
+    overflow-y: scroll; /*overflow: hidden;*/
+    max-height: 100px;
+    margin-left:-0.7%;
   }
   .es-list option{
     padding:5px 0;
@@ -25,9 +27,60 @@ function resetPrintModIn()
 {
   $('#doctor').val('');$('#printRdv').addClass('hidden')
 }
+function reset_in()
+{
+  $('.es-list').val('');
+  $('#patient').val('');
+  $('#medecin').val('');
+}
+function layout()
+{
+  reset_in(); 
+  resetaddModIn();
+  var field = $("select#filtre option").filter(":selected").val();
+  if(field == "Dat_Naissance")
+  {
+    //$('#patient').datepicker().format("YYYY-MM-DD");
+    $("#patient").datepicker({
+      dateFormat: 'YYYY-MM-DD',
+      autoclose: true,
+    }).on('changeDate', function(ev){
+        getPatient();
+    });
+    $("#btnSave").attr("disabled",false);
+  }
+  else
+  { 
+    $("#btnSave").attr("disabled", true);
+    $("#patient").datepicker("destroy");
+  }
+}
+function getPatient()
+{
+  var field = $("select#filtre option").filter(":selected").val();
+  //patientSearch(field,$("#patient").val()); //to call ajax
+  $.ajax({
+         url : '{{URL::to('getPatients')}}',
+         data: {    
+               "field":field,
+               "value":$("#patient").val(),
+         },
+         dataType: "json",// recommended response type
+         success: function(data) {
+           $(".es-list").html("");//remove list
+           $(".es-list").addClass("make-scrolling");
+           $.each(data['data'], function(i, v) {
+             $(".es-list").append($('<li></li>').attr('value', v['id']).attr('class','es-visible list-group-item option').text(v['IPP']+"-"+v['Nom']+"-"+v['Prenom']));
+           })
+         },
+        error: function() {
+           alert("can't connect to db");
+        }
+  });
+}
 $(document).ready(function() {
-       var CurrentDate = (new Date()).setHours(23, 59, 59, 0); 
-      var today = (new Date()).setHours(0, 0, 0, 0); 
+    var CurrentDate = (new Date()).setHours(23, 59, 59, 0); 
+    var today = (new Date()).setHours(0, 0, 0, 0); 
    	$('#calendar').fullCalendar({
               header: {
                 left: 'prev,next today',
@@ -87,20 +140,17 @@ $(document).ready(function() {
                                  cancelButtonText: "Non",
                           }).then((result) => {
                                if(!isEmpty(result.value))
-                                {                                
-                                       @if(Auth::user()->role_id == 1)
-                                            createRDVModal(start,end,0,result.value);
-                                       @else
-                                             createRDVModal(start,end);
-                                       @endif          
+                                { 
+                                  @if(Auth::user()->role_id == 1)
+                                    createRDVModal(start,end,0,result.value);
+                                  @else
+                                    createRDVModal(start,end);
+                                  @endif          
                                 }
                         })
                         @else
                           createRDVModal(start,end);
                         @endif  
-/*var myDialog = $('#dialog');myDialog.data('btnValue', start.format('dddd DD-MM-YYYY'));$(myDialog).dialog({dialogClass: "no-close",closeText: "Fermer",closeOnEscape: false,dialogClass: "alert",draggable: true,modal:true,resizable: true,overlay: "background-color: red; opacity: 0.5",classes: {"ui-dialog": "classes.ui-dialog"},open: function() {
-$('#dateRendezVous').text($(this).data('btnValue')); },buttons: [{text: "Oui",icon: "ui-icon-heart",click: function() {   {{-- @if(Auth::user()->role_id == 1)--}}{var fixe = $('#dialog :checkbox').is(':checked') ? 1 :0; createRDVModal(start,end,0,fixe);{{-- }@else--}}createRDVModal(start,end);{{--    @endif --}}$('#dialog :checkbox').prop('checked', false);$( this ).dialog( "close" );
-} },{text: "Non",icon: "ui-icon-heart",click: function(){$('#dialog :checkbox').prop('checked', false);$( this ).dialog( "close" );}}], _allowInteraction: function( event ) {if (!jQuery.ui.dialog.prototype._allowInteractionModifed){jQuery.ui.dialog.prototype._allowInteraction = function(e) {if (typeof e !== "undefined") {if (jQuery(e.target).closest('.select2-drop').length) {return true;}jQuery.ui.dialog.prototype._allowInteractionModifed = true;return (typeof this._super === "function") ? this._super(e) : this;} }}}});*/
                     }else
                           $('#calendar').fullCalendar('unselect');   
               },
@@ -146,52 +196,28 @@ $('#dateRendezVous').text($(this).data('btnValue')); },buttons: [{text: "Oui",ic
              }
        });//calendar
       $('#patient').editableSelect({
-             effects: 'default', 
-             editable: false, 
-       }).on('select.editable-select', function (e, li) {
-              $('#last-selected').html(
-                    li.val() + '. ' + li.text()
-              ); 
-             @if(Auth::user()->role_id == 1)
-                   $("#btnSave").removeAttr("disabled");
-            @else
-            {
-                    $('#medecin').val() != '';
-                    $("#btnSave").removeAttr("disabled");
-            }
-             @endif
+         effects: 'slide', 
+         editable: false, 
+      }).on('select.editable-select', function (e, li) {
+        $('#last-selected').html(
+              li.val() + '. ' + li.text()
+        ); 
+        @if(Auth::user()->role_id == 1)
+          $("#btnSave").removeAttr("disabled");
+        @else
+        {
+          $('#medecin').val() != '';
+          $("#btnSave").removeAttr("disabled");
+        }
+        @endif
        });
+       // keyup
       $("#patient").on("keyup", function() {
-        var field = $("select#filtre option").filter(":selected").val();
-        if(field != "Dat_Naissance")    //patientSearch(field,$("#patient").val()); //to call ajax
-          $.ajax({
-                  url : '{{URL::to('getPatients')}}',
-                  data: {    
-                        "field":field,
-                        "value":$("#patient").val(),
-                  },
-                  dataType: "json",// recommended response type
-                  success: function(data) {
-                    $(".es-list").html("");//remove list
-                    $(".es-list").addClass("make-scrolling");
-                    $.each(data['data'], function(i, v) {
-                      $(".es-list").append($('<li></li>').attr('value', v['id']).attr('class','es-visible list-group-item option').text(v['code_barre']+"-"+v['Nom']+"-"+v['Prenom']));
-                    })
-                    //
-                     
-                    //
-                    
-                  },
-                  error: function() {
-                    alert("can't connect to db");
-                  }
-            });
-          ////////////////////////
-
-       });
+         getPatient(); 
+      });
       $( "#medecin" ).change(function() {
-              if($('#patient').val())
-                    $("#btnSave").removeAttr("disabled"); 
+        if($('#patient').val())
+              $("#btnSave").removeAttr("disabled"); 
       });
       $('#printRdv').click(function(){
               $.ajaxSetup({
@@ -208,8 +234,8 @@ $('#dateRendezVous').text($(this).data('btnValue')); },buttons: [{text: "Oui",ic
                       console.log("error");
                     }
              });
-       })  
-});
+       }); 
+  });
   // });
  </script>
 @endsection
@@ -253,11 +279,11 @@ $('#dateRendezVous').text($(this).data('btnValue')); },buttons: [{text: "Oui",ic
                         <div class="form-group">
                           <label class="control-label col-sm-3" for=""> <strong>Filtre: </strong></label>
                           <div class="col-sm-9">          
-                            <select class="form-control" placeholder="choisir le filtre" id="filtre" onchange="layout();">
+                            <select class="form-control" id="filtre" onchange="layout();">
                               <option value="Nom">Nom</option>
                               <option value="Prenom">Prenom</option>
-                              <option value="code_barre">IPP</option>
-                              <option value="Dat_Naissance">Date Naisssance</option>
+                              <option value="IPP">IPP</option>
+                              <!-- <option value="Dat_Naissance">Date Naisssance</option> -->
                             </select>
                           </div>
                         </div>
@@ -308,7 +334,7 @@ $('#dateRendezVous').text($(this).data('btnValue')); },buttons: [{text: "Oui",ic
           </div>{{-- modalBody --}}
           <div class="modal-footer">
             <button class="btn btn-xs btn-primary" type="submit" id ="btnSave" disabled><i class="ace-icon fa fa-save bigger-110" ></i>Enregistrer  </button>                     
-            <button type="button" class="btn btn-xs btn-default" data-dismiss="modal" onclick="resetaddModIn();"><i class="fa fa-close" aria-hidden="true"  ></i>Fermer</button>
+            <button type="button" class="btn btn-xs btn-default" data-dismiss="modal" onclick="resetaddModIn();reset_in();"><i class="fa fa-close" aria-hidden="true"  ></i>Fermer</button>
           </div>   
         </form> 
       </div>
@@ -393,5 +419,5 @@ $('#dateRendezVous').text($(this).data('btnValue')); },buttons: [{text: "Oui",ic
   </div> {{-- modal-dialog --}}
 </div>{{-- modal --}}
 </div>
-@include('rdv.Dialogs.rdvDlg')
+{{-- @include('rdv.Dialogs.rdvDlg') --}}
 @endsection

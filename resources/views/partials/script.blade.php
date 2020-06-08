@@ -301,28 +301,11 @@ $('#typeexm').on('change', function() {
                 ]
             });
         </script>
+
         <script>
-            $('#listepatient-table').DataTable({
-                 processing: true,
-                serverSide: true,
-                ajax: '/getpatient',
-                columns: [
-                    {data: 'code_barre'},
-                    {data: 'Nom'},
-                    {data: 'Prenom'},
-                    {data: 'Dat_Naissance'},
-                    {data: 'Sexe'},
-                    {data: 'Date_creation'},
-                    {data: 'action', name: 'action', orderable: false, searchable: false}
-                ],
-                "columnDefs": 
-                    [
-                        {
-                            "targets": [ 0 ],
-                            "visible": false,
-                        }
-                    ]
-            });
+/*$('#listepatient-table').DataTable({ processing: true,serverSide: true,ajax: '/getpatient',columns: [{data: 'code_barre'},{data: 'Nom'},
+{data: 'Prenom'},{data: 'Dat_Naissance'},{data: 'Sexe'},{data: 'Date_creation'},{data: 'action', name: 'action', orderable: false, searchable: false}
+],"columnDefs":[{"targets": [ 0 ],"visible": false,}]});*/
         </script>
         <script>
             $('#patient-table').DataTable({
