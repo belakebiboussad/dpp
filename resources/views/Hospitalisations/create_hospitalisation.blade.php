@@ -2,7 +2,7 @@
 @section('main-content')
 	<div class="page-header">
 		<h1> {{dd($demande)}}
-			Ajouter Un RDV Hospitalisation :{{ $demande->id }}
+			Ajouter un RDV Hospitalisation :{{ $demande->id }}
 		</h1>
 	</div><!-- /.page-header -->
 	<div class="row">
@@ -44,12 +44,12 @@
 					<div class="col-md-offset-3 col-md-9">
 						<button class="btn btn-info" type="submit">
 							<i class="ace-icon fa fa-check bigger-110"></i>
-							Submit
+							Enregistrer
 						</button>
 						&nbsp; &nbsp; &nbsp;
 						<button class="btn" type="reset">
 							<i class="ace-icon fa fa-undo bigger-110"></i>
-							Reset
+							Annuler
 						</button>
 					</div>
 			</form>

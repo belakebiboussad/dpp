@@ -41,8 +41,7 @@ class HomeController extends Controller
      */
     public function index()
     { 
-      //$role =Auth::user()->role ; //dd($role);
-      //$employe = Auth::user()->employ; // employ::where("id",Auth::user()->employee_id)->get()->first(); 
+      //$role =Auth::user()->role ; //dd($role);  //$employe = Auth::user()->employ; // employ::where("id",Auth::user()->employee_id)->get()->first();
       $ServiceID = Auth::user()->employ->Service_Employe;
       switch (Auth::user()->role_id) {
             case 1:
@@ -56,11 +55,15 @@ class HomeController extends Controller
                   break;
             case 4: 
                   $users = User::all();
-                  return view('home.home_admin', compact('users'));
-                  return view('user.listeusers', compact('users'));
+                  return view('home.home_admin', compact('users'));        // return view('user.listeusers', compact('users'));
                   break;
             case 5:
+<<<<<<< HEAD
                  return redirect()->action('RdvHospiController@index');
+=======
+// $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID){$q->where('id',$ServiceID); })->whereHas('demandeHosp',function ($q){$q->where('etat','valide');})->get();return view('home.home_surv_med', compact('demandes'));                          
+                  return redirect()->action('RdvHospiController@index');
+>>>>>>> Bous
                  break;
             case 6:
                   $colloque= array();
@@ -91,12 +94,9 @@ class HomeController extends Controller
                   return view('colloques.liste_colloque', compact('colloque'));
                   break;
             case 9: 
-                  $rdvs = rdv_hospitalisation::with('bedReservation')->whereHas('demandeHospitalisation', function($q){
-                                               $q->where('etat', 'programme');
-                                               })->where('etat_RDVh','=','en attente')->where('date_RDVh','=',date("Y-m-d"))->get(); 
-                  dd($rdvs);
-                  return view('home.home_agent_admis', compact('rdvs'));
-                  break;       
+/*$rdvs = rdv_hospitalisation::with('bedReservation')->whereHas('demandeHospitalisation', function($q){$q->where('etat', 'programme');})->where('etat_RDVh','=','en attente')->where('date_RDVh','=',date("Y-m-d"))->get();return view('home.home_agent_admis', compact('rdvs'));*/
+                       return redirect()->action('AdmissionController@index');
+                      break;       
             case 10:
                 $meds = medcamte::all();
                 $dispositifs = dispositif::all();

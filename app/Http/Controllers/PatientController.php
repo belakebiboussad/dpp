@@ -189,10 +189,8 @@ class PatientController extends Controller
     {  
       $patient = patient::FindOrFail($id);
       $homme_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get()->first();
-      $consultations = consultation::where('Patient_ID_Patient',$id)->get(); 
-      $hospitalisations = hospitalisation::whereHas('admission.demandeHospitalisation.consultation.patient', function($q) use($id){
-                                              $q->where('id', $id);
-                                          })->get();
+      $consultations =$patient->Consultations; //consultation::where('Patient_ID_Patient',$id)->get(); 
+      $hospitalisations = $patient->hospitalisations;//hospitalisation::whereHas('admission.demandeHospitalisation.consultation.patient', function($q) use($id){$q->where('id', $id);})->get();
       $specialites = Specialite::all();
       $grades = grade::all();
       $rdvs = rdv::where('Patient_ID_Patient' ,'=','$id')->get();
@@ -688,12 +686,8 @@ class PatientController extends Controller
     {
       if($request->ajax())  
       {           
-        if($request->field =="Dat_Naissance")
-        {
-          $patient = patient::FindOrFail($request->value);
-        }else
-          $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->select('patients.id','patients.Nom','patients.IPP','patients.Prenom')->get(); 
-          return ['success' => true, 'data' => $patients]; 
+        $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->select('patients.id','patients.Nom','patients.IPP','patients.Prenom')->get(); 
+        return ['success' => true, 'data' => $patients]; 
       }
     }
   /*public function search(Request $request){if($request->ajax()) {$output="";$patients = patient::where('Nom','LIKE','%'.trim($request->search)."%")->where('Prenom','LIKE','%'.trim($request->prenom)."%")->where('IPP','LIKE','%'.trim($request->ipp)."%")->where('Dat_Naissance','LIKE','%'.trim($request->Dat_Naissance)."%")->paginate(20);//->get();if($patients){$i=0; foreach ($patients as $key => $patient) {$age = Carbon::createFromDate(date('Y', strtotime($patient->Dat_Naissance)),date('m', strtotime($patient->Dat_Naissance)), date('d', strtotime($patient->Dat_Naissance)))->age; $patientType ="";$sexe=($patient->Sexe =="M")?"Homme":"Femme";switch($patient->Type){case  "Assure":$patientType ='<span class="badge badge-success">'.$patient->Type.'</span>';break;case "Ayant_droit":$patientType ='<span class="badge badge-Primary">'.$patient->Type.'</span>';           break;case "Autre" :$patientType ='<span class="badge badge-danger">'.$patient->Type.'</span>';break;}$output.='<tr>'.'<td hidden>'.$patient->id.'</td>'.'<td class ="center chkTrt">'.'<input type="checkbox" class="ace check" name="fusioner[]" onClick="return KeepCount()" value="'.$patient->id.'"/>'.'<span class="lbl"></span>   '.'</td>'.'<td><a style="cursor:pointer" data-toggle="tooltip" title="Résume du patient" data-placement="bottom" id ="'.$patient->id.'" onclick ="getPatientdetail('.$patient->id.');">'.$patient->Nom.'</a></td>'.'<td>'.$patient->Prenom.'</td>'.'<td>'.$patient->IPP.'</td>'.'<td>'.$patient->Dat_Naissance.'</td>'.
