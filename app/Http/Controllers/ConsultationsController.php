@@ -127,51 +127,6 @@ class ConsultationsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-<<<<<<< HEAD
-    public function store(Request $request)
-    {
-      $request->validate([
-            "motif" => 'required',
-            "resume" => 'required',
-      ]);
-      $validator = Validator::make($request->all(), [
-      'motif' => 'required|max:255',
-      'resume' => 'required',
-      ]);
-      if($validator->fails())
-      return redirect()->back()->withErrors($validator)->withInput();
-      //$nomlieu = Config::get('constants.lieuc'); $lieu = Lieuconsultation::where('nom', $nomlieu)->first(); 
-      $consult = consultation::create([
-             "Motif_Consultation"=>$request->motif,
-              "histoire_maladie"=>$request->histoirem,
-              "Date_Consultation"=>Date::Now(),
-              "Diagnostic"=>$request->diagnostic,
-              "Resume_OBS"=>$request->resume,
-              "isOriented"=> (!empty($request->isOriented) ? 1 : 0),
-              "lettreorientaioncontent"=>(!empty($request->isOriented) ? $request->lettreorientaioncontent  : null),
-              "Employe_ID_Employe"=>Auth::User()->employee_id,
-              "Patient_ID_Patient"=>$request->id,
-              "id_code_sim"=>$request->codesim,
-              "id_lieu"=>session('lieu_id'),//$lieu->id,
-      ]);
-      if($request->poids != 0 || $request->temp != null || $request->taille !=0 || $request->autre)
-        $this->ExamCliniqCTLR->store( $request,$consult->id); //save examen clinique
-      if(isset($request->isOriented)){
-        $this->LettreOrientationCTRL->store($request,$consult->id);
-      }
-      if($request->liste != null)
-        $this->OrdonnanceCTLR->store( $request,$consult->id);    //save Ordonnance
-      if($request->exm  != null)  //save ExamBiolo
-        $this->ExamBioloqiqueCTLR->store( $request,$consult->id); 
-      if(empty($request->ExamsImg))
-        $this->ExamImagerieCTLR->store( $request,$consult->id); 
-      if(isset($request->examen_Anapath)) 
-        $this->ExamAnapathCTLR->store( $request,$consult->id);
-      if($request->modeAdmission != null)
-        $this->DemandeHospCTRL->store($request,$consult->id);    
-      return redirect(Route('patient.show',$request->id));
-     }
-=======
       public function store(Request $request)
        {
           $request->validate([
@@ -214,7 +169,6 @@ class ConsultationsController extends Controller
             $this->DemandeHospCTRL->store($request,$consult->id);    
           return redirect(Route('patient.show',$request->id));
        }
->>>>>>> 848cb73f089709c25fd74d99eafe9560c0b1577f
     /**
      * Display the specified resource.
      *
@@ -247,11 +201,7 @@ class ConsultationsController extends Controller
      * @param  \App\modeles\consultation  $consultation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, consultation $consultation)
-    {
-        //
-    }
-
+    public function update(Request $request, consultation $consultation) { //   }
     /**
      * Remove the specified resource from storage.
      *

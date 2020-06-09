@@ -77,14 +77,14 @@
 						<tr class="liste">
 							<th hidden>id</th>
 							<th  class="center" width="3%" >#</th>
-							<th class="blue">Matricule</th>
-							<th class="blue">Num Séc Soc</th>
+							<th class="blue"  width="3%">Matricule</th>
+							<th class="blue" width="8%">Num Séc Soc</th>
 							<th class="blue">Nom</th>
 							<th class="blue">Prénom</th>
-							<th class="blue">Né(e) le</th>
-							<th class="blue">Sexe</th>
-							<th class="blue">Position Actuel</th>
-							<th class="blue">Service</th>
+							<th class="blue" width="7%">Né(e) le</th>
+							<th class="blue" width="5%">Sexe</th>
+							<th class="blue" width="10%">Position Actuel</th>
+							<th class="blue" width="7%">Service</th>
 							<th class="blue"><em class="fa fa-cog"></em></th>
 						</tr>
 						</thead>

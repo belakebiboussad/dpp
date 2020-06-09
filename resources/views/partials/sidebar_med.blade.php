@@ -50,7 +50,6 @@
                 </span>
                 <b class="arrow fa fa-angle-down"></b>
             </a>
-
             <b class="arrow"></b>
 
             <ul class="submenu">

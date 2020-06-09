@@ -66,38 +66,37 @@ class PatientController extends Controller
     static $assurObj;
     $date = Date::Now();
     $rule = array(
-                  "nom" => 'required',
-                  "prenom" => 'required',
-                  "datenaissance" => 'required|date|date_format:Y-m-d',
-                  "idlieunaissance" => 'required',
-                  "mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],
-                  "Type_p" =>'required_if:type,Ayant_droit', //"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
-                 
-                  "nomf" => 'required_if:type,Ayant_droit',
-                  "prenomf"=> 'required_if:type,Ayant_droit',  // "datenaissancef"=> 'required_if:type,Ayant_droit|date|date_format:Y-m-d',
-                  "lieunaissancef"=> 'required_if:type,Ayant_droit',
-                  "NMGSN"=> 'required_if:type,Ayant_droit',
-                  "prenom_homme_c"=>'required_with:nom_homme_c',
-                  "datenaissance_h_c"=>'required_with:nom_homme_c',
-                  "adresseA"=>'required_with:nom_homme_c',
-                  "type_piece_id"=>'required_with:nom_homme_c', 
-                  "npiece_id"=>'required_with:nom_homme_c', 
-                  "lien"=>'required_with:nom_homme_c',
-                  "date_piece_id"=>'required_with:nom_homme_c',
-                  "mobile_homme_c"=>['required_with:nom_homme_c'],
-                  "operateur_h"=>'required_with:mobileA',
+        "nom" => 'required',
+        "prenom" => 'required',
+        "datenaissance" => 'required|date|date_format:Y-m-d',
+        "idlieunaissance" => 'required',
+        "mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],
+        "Type_p" =>'required_if:type,Ayant_droit', //"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
+        "nomf" => 'required_if:type,Ayant_droit',
+        "prenomf"=> 'required_if:type,Ayant_droit',  // "datenaissancef"=> 'required_if:type,Ayant_droit|date|date_format:Y-m-d',
+        "lieunaissancef"=> 'required_if:type,Ayant_droit',
+        "NMGSN"=> 'required_if:type,Ayant_droit',
+        "prenom_homme_c"=>'required_with:nom_homme_c',
+        "datenaissance_h_c"=>'required_with:nom_homme_c',
+        "adresseA"=>'required_with:nom_homme_c',
+        "type_piece_id"=>'required_with:nom_homme_c', 
+        "npiece_id"=>'required_with:nom_homme_c', 
+        "lien"=>'required_with:nom_homme_c',
+        "date_piece_id"=>'required_with:nom_homme_c',
+        "mobile_homme_c"=>['required_with:nom_homme_c'],
+        "operateur_h"=>'required_with:mobileA',
     );  // , 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'     
     $messages = [
-                  "required"     => "Le champ :attribute est obligatoire.",
-                  "NSSValide"    => 'le numéro du securite sociale est invalide ',
-                  "date"         => "Le champ :attribute n'est pas une date valide.",
+        "required"     => "Le champ :attribute est obligatoire.",
+        "NSSValide"    => 'le numéro du securite sociale est invalide ',
+        "date"         => "Le champ :attribute n'est pas une date valide.",
     ];
     $validator = Validator::make($request->all(),$rule,$messages);   
     if ($validator->fails()) {
       $errors=$validator->errors(); 
       return view('patient.addPatient')->withErrors($errors);
     }  // if(patient::all()->isNotEmpty()){ $nomb = patient::all()->last()->id;}else{$nomb = 0;}
-    if($request->type =="Ayant_droit")
+    if(($request->type =="Ayant_droit") || ( $request->type=="Assure"))
     {    
       $assurObj = assur::firstOrCreate([
              "Nom"=>$request->nomf,
@@ -105,34 +104,18 @@ class PatientController extends Controller
               "Date_Naissance"=>$request->datenaissancef,
               "lieunaissance"=>$request->idlieunaissancef,
               "Sexe"=>$request->sexef,
-              "Matricule"=>$request->mat,
-              "service"=>$request->servicef,
-              "Grade"=>$request->grade,
-              "Etat"=>$request->etatf,
-              "NSS"=>$request->nss,
-              "NMGSN"=>$request->NMGSN, 
-        ]);            
-    }
-    else
-    {
-      if( $request->type=="Assure")
-      {
-        $assurObj = assur::firstOrCreate([
-              "Nom"=>$request->nom,
-              "Prenom"=>$request->prenom,
-              "Date_Naissance"=>$request->datenaissance,
-              "lieunaissance"=>$request->idlieunaissancef,
-              "Sexe"=>$request->sexe,
+              "adresse"=>$request->adressef,
+              "grp_sang"=>$request->gsf.$request->rhf,
               "Matricule"=>$request->mat,
               "Service"=>$request->service,
               "Grade"=>$request->grade,
               "Etat"=>$request->etatf,
               "NSS"=>$request->nss,
               "NMGSN"=>$request->NMGSN, 
-        ]);
-
-      }
+        ]);            
     }
+   /*else {if( $request->type=="Assure") { $assurObj = assur::firstOrCreate(["Nom"=>$request->nomf, "Prenom"=>$request->prenomf,           "Date_Naissance"=>$request->datenaissancef,"lieunaissance"=>$request->idlieunaissancef,"Sexe"=>$request->sexef,"adresse"=>$request->adressef,          "grp_sang"=>$request->gsf.$request->rhf,"Matricule"=>$request->mat,"Service"=>$request->service,"Grade"=>$request->grade,"Etat"=>$request->etatf,
+  "NSS"=>$request->nss,"NMGSN"=>$request->NMGSN, ]); } }*/
     $assurID= $assurObj !=null ? $assurObj->id : null;//$codebarre =$request->sexe.$date->year."/".($nomb+1);
     $patient = patient::firstOrCreate([
               "Nom"=>$request->nom,// "code_barre"=>$codebarre,
