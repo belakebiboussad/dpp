@@ -122,11 +122,11 @@ public function store(Request $request)
   //imprimer rdv d'hospitalisation  
   public function print($id)
   { 
-        $t = Carbon::now();
-        $rdv = rdv_hospitalisation::with('demandeHospitalisation')->FindOrFail($id);
-        $patient =  $rdv->demandeHospitalisation->consultation->patient;
-        $pdf = PDF::loadView('rdvHospi.rdv', compact('rdv','t'))->setPaper('a4','landscape');
-        $name = "rdv-".$patient->Nom."-".$patient->Prenom.".pdf";
-        return $pdf->stream($name);
-  } 
+    $t = Carbon::now();
+    $rdv = rdv_hospitalisation::with('demandeHospitalisation')->FindOrFail($id);
+    $patient =  $rdv->demandeHospitalisation->consultation->patient;
+    $pdf = PDF::loadView('rdvHospi.rdv', compact('rdv','t'))->setPaper('a4','landscape');
+    $name = "rdv-".$patient->Nom."-".$patient->Prenom.".pdf";
+    return $pdf->stream($name);
+} 
 }
