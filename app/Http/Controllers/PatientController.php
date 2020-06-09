@@ -72,7 +72,6 @@ class PatientController extends Controller
         "idlieunaissance" => 'required',
         "mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],
         "Type_p" =>'required_if:type,Ayant_droit', //"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
-       
         "nomf" => 'required_if:type,Ayant_droit',
         "prenomf"=> 'required_if:type,Ayant_droit',  // "datenaissancef"=> 'required_if:type,Ayant_droit|date|date_format:Y-m-d',
         "lieunaissancef"=> 'required_if:type,Ayant_droit',
@@ -97,7 +96,7 @@ class PatientController extends Controller
       $errors=$validator->errors(); 
       return view('patient.addPatient')->withErrors($errors);
     }  // if(patient::all()->isNotEmpty()){ $nomb = patient::all()->last()->id;}else{$nomb = 0;}
-    if($request->type =="Ayant_droit")
+    if(($request->type =="Ayant_droit") || ( $request->type=="Assure"))
     {    
       $assurObj = assur::firstOrCreate([
              "Nom"=>$request->nomf,
@@ -115,28 +114,8 @@ class PatientController extends Controller
               "NMGSN"=>$request->NMGSN, 
         ]);            
     }
-    else
-    {
-      if( $request->type=="Assure")
-      {
-        $assurObj = assur::firstOrCreate([
-              "Nom"=>$request->nom,
-              "Prenom"=>$request->prenom,
-              "Date_Naissance"=>$request->datenaissance,
-              "lieunaissance"=>$request->idlieunaissancef,
-              "Sexe"=>$request->sexe,
-              "adresse"=>$request->adressef,
-              "grp_sang"=>$request->gsf.$request->rhf,
-              "Matricule"=>$request->mat,
-              "Service"=>$request->service,
-              "Grade"=>$request->grade,
-              "Etat"=>$request->etatf,
-              "NSS"=>$request->nss,
-              "NMGSN"=>$request->NMGSN, 
-        ]);
-
-      }
-    }
+   /*else {if( $request->type=="Assure") { $assurObj = assur::firstOrCreate(["Nom"=>$request->nomf, "Prenom"=>$request->prenomf,           "Date_Naissance"=>$request->datenaissancef,"lieunaissance"=>$request->idlieunaissancef,"Sexe"=>$request->sexef,"adresse"=>$request->adressef,          "grp_sang"=>$request->gsf.$request->rhf,"Matricule"=>$request->mat,"Service"=>$request->service,"Grade"=>$request->grade,"Etat"=>$request->etatf,
+  "NSS"=>$request->nss,"NMGSN"=>$request->NMGSN, ]); } }*/
     $assurID= $assurObj !=null ? $assurObj->id : null;//$codebarre =$request->sexe.$date->year."/".($nomb+1);
     $patient = patient::firstOrCreate([
               "Nom"=>$request->nom,// "code_barre"=>$codebarre,

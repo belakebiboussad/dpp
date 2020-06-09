@@ -8,9 +8,9 @@
 	<script>
 		$( document ).ready(function() {
 			var bloodhound1 = new Bloodhound({
-	        datumTokenizer: Bloodhound.tokenizers.whitespace,
-	        queryTokenizer: Bloodhound.tokenizers.whitespace,
-	        remote: {
+		        datumTokenizer: Bloodhound.tokenizers.whitespace,
+		        queryTokenizer: Bloodhound.tokenizers.whitespace,
+		        remote: {
 						url: '/patients/findcom?com=%QUERY%',
 							wildcard: '%QUERY%'
 					},
@@ -20,7 +20,6 @@
 				hint: true,
 				highlight: true,
 				minLength: 1
-			
 			}, {
 				name: 'communenom',
 				source: bloodhound1,
@@ -39,8 +38,7 @@
 					}	
 				}
 			});
-			///////////////autocomplete lieu de naissance
-			$('#lieunaissance').typeahead({
+			$('#lieunaissance').typeahead({///////////////autocomplete lieu de naissance
 				hint: true,
 				highlight: true,
 				minLength: 1
@@ -84,8 +82,6 @@
 					}
 				}	
 			});
-
-		///////////////////////
 			$( ".civilite" ).change(function() {
 				 var sex =  $('input[name=sexe]:checked').val();
 				 if(sex == "F")
@@ -99,8 +95,7 @@
 				 		$('#Div-nomjeuneFille').attr('hidden','');	
 				 }		
 			});
-			$('input[type=radio][name=sexe]').change(function()
-			{
+			$('input[type=radio][name=sexe]').change(function(){
 			 	if($(this).val() == "M")
 			 		$('#Div-nomjeuneFille').attr('hidden','');
 			 	else
@@ -110,8 +105,12 @@
 		  			$('#Div-nomjeuneFille').removeAttr('hidden');
 			 	}
 			});
-			
-
+			$('input[type=radio][name=etatf]').change(function(){
+				if($(this).val() != "En exercice")
+					$('#serviceFonc').addClass('invisible'); 
+				else
+					$('#serviceFonc').removeClass('invisible'); 	
+			});
 		});
 		function autocopleteCNais(commune)
 		{
@@ -121,7 +120,6 @@
 		{
 			$("#idlieunaissancef").val(commune);
 		}
-		
 		function show(wilaya)
 		{
 			var res = wilaya.split(",");
@@ -189,12 +187,12 @@
 		</div>
 	</div>
 	<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
-   	<li class="active"><a data-toggle="tab" href="#Assure" class="jumbotron" onclick="copyPrtientInfo();">
-    	<span class="bigger-130"><strong>Assure</strong></span></a>
-    </li>
-   	<li ><a class="jumbotron" data-toggle="tab" href="#Patient">
-   	 	<span class="bigger-130"><strong>Patient</strong></span></a>
-   	</li>
+	   	<li class="active"><a data-toggle="tab" href="#Assure" class="jumbotron" onclick="copyPrtientInfo();">
+	    		<span class="bigger-130"><strong>Assure</strong></span></a>
+  		</li>
+		<li ><a class="jumbotron" data-toggle="tab" href="#Patient">
+			<span class="bigger-130"><strong>Patient</strong></span></a>
+	 	</li>
     <li><a class="jumbotron" data-toggle="tab" href="#Homme_C">
     	<span class="bigger-130"><b>Homme de confiance</b></span></a>
     </li>
@@ -202,7 +200,7 @@
 	<div class="tab-content">
 		<div id="Assure" class="tab-pane in active">
 		  <div id ="assurePart">
-				@include("assurs.addAssure")
+				@include("assurs.addAssure",$grades)
 		  </div>{{-- assurePart	 --}}
 		</div>	{{-- tab-pane --}}
 		<div id="Patient" class="tab-pane fade">

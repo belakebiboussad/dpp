@@ -1,4 +1,4 @@
-@extends('app_recep')
+@extends('app')
 @section('main-content')
 	<div >
 		@include('patient._patientInfo')

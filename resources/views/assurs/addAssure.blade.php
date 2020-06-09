@@ -129,7 +129,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-sm-6">
+	<div class="col-sm-6" id = "serviceFonc">
 		<div class="form-group">
 			<label class="col-sm-3 control-label no-padding-right" for="service">
 				<strong>Service :</strong>
