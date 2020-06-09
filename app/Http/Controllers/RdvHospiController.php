@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\modeles\dem_colloque;
 use App\modeles\service;
@@ -44,9 +45,9 @@ public function store(Request $request)
     if(isset($request->lit) && ($request->lit !=0))
     {   
             BedReservation::firstOrCreate([
-	  		"id_rdvHosp"=>$rdv->id,
-	  		"id_lit" =>$request->lit,
-	  	]);           
+        "id_rdvHosp"=>$rdv->id,
+        "id_lit" =>$request->lit,
+      ]);           
      }
     $demande= DemandeHospitalisation::find($request->id_demande);
     $demande->etat = 'programme';
@@ -99,21 +100,6 @@ public function store(Request $request)
      ]);
      return redirect()->action('RdvHospiController@getlisteRDVs');
   }
-<<<<<<< HEAD
-  public function ajouterRDV()
-  {
-    $ServiceID = Auth::user()->employ->Service_Employe;
-    $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID) {
-                                       $q->where('id',$ServiceID);                           
-                                })
-                            ->whereHas('demandeHosp',function ($q){
-                                $q->where('etat','valide'); 
-                            })->get();
-    //return view('home.home_surv_med', compact('demandes'));
-    return view('rdvHospi.index', compact('demandes'));
-  }
-=======
->>>>>>> Bous
   public function show($id){  }
   public function destroy($id)
   {     
@@ -143,6 +129,4 @@ public function store(Request $request)
         $name = "rdv-".$patient->Nom."-".$patient->Prenom.".pdf";
         return $pdf->stream($name);
   } 
-  
-    
 }

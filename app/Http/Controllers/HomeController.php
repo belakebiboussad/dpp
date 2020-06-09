@@ -58,12 +58,8 @@ class HomeController extends Controller
                   return view('home.home_admin', compact('users'));        // return view('user.listeusers', compact('users'));
                   break;
             case 5:
-<<<<<<< HEAD
-                 return redirect()->action('RdvHospiController@index');
-=======
 // $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID){$q->where('id',$ServiceID); })->whereHas('demandeHosp',function ($q){$q->where('etat','valide');})->get();return view('home.home_surv_med', compact('demandes'));                          
                   return redirect()->action('RdvHospiController@index');
->>>>>>> Bous
                  break;
             case 6:
                   $colloque= array();
