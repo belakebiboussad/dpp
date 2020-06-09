@@ -52,7 +52,7 @@ class AssurController extends Controller
     public function show($id)
     {
         $assur = assur::FindOrFail($id);
-        return view('assurs.show_assur',compact('assur'));
+        return view('assurs.show',compact('assur'));
     }
 
     /**
@@ -61,9 +61,11 @@ class AssurController extends Controller
      * @param  \App\modeles\assur  $assur
      * @return \Illuminate\Http\Response
      */
-    public function edit(assur $assur)
+    public function edit($id)
     {
         //
+          $assure = assur::FindOrFail($id);
+          dd($assure);
     }
 
     /**
@@ -116,7 +118,7 @@ class AssurController extends Controller
                               '<td>'.$sexe.'</td>'.
                               '<td><span class="badge badge-success">'.$assure->Etat.'</span></td>'.
                               // '<td>'.$assure->service->nom.'</td>'.
-                              '<td class="center">'.'<a href="/assur/'.$assure->id.'" class="'.'btn btn-warning btn-xs" data-toggle="tooltip" title="Consulter le dossier" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i>&nbsp;</a>'."&nbsp;&nbsp;".'<a href="/patient/'.$assure->id.'/edit" class="'.'btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></a>'.'</td>'.
+                              '<td class="center">'.'<a href="/assur/'.$assure->id.'" class="'.'btn btn-warning btn-xs" data-toggle="tooltip" title="Consulter le dossier" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i>&nbsp;</a>'."&nbsp;&nbsp;".'<a href="/assur/'.$assure->id.'/edit" class="'.'btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></a>'.'</td>'.
                                '</tr>';
                              
                 }
