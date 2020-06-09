@@ -10,38 +10,17 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Route::group(['middleware' => ['web']], function () {});    //
 Route::group(['middleware' => 'revalidate'], function()
 {          
-        Auth::routes();     
-         Route::get('/', function () {
-              return view('auth/login');
-        });
-});
-route::get('/home_chef', function(){
-    $meds = App\modeles\medcamte::all();
-    $dispositifs = App\modeles\dispositif::all();
-    $reactifs = App\modeles\reactif::all();
-    return view('home.home_chef_ser', compact('meds','dispositifs','reactifs'));
-});
-route::get('/home_phar', function(){
-    $meds = App\modeles\medcamte::all();
-    $dispositifs = App\modeles\dispositif::all();
-    $reactifs = App\modeles\reactif::all();
-    return view('home.home_pharmacien', compact('meds','dispositifs','reactifs'));
+    Auth::routes();     
+     Route::get('/', function () {
+          return view('auth/login');
+    });
 });
 route::get('/home_admin',function (){
     $users = App\User::all();
     return view('home.home_admin',compact('users'));
 })->name('home_admin');
-route::get('/home_medcine',function (){
-    $patients = App\modeles\patient::all();
-    $employ = App\modeles\employ::where("id",Auth::user()->employee_id)->get()->first();
-    $date = Date::Now()->toDateString();
-    $rdvs = App\modeles\ticket::where("specialite",$employ->Specialite_Emploiye)
-                    ->where("date",$date)->get();
-    return view('home.home_med', compact('patients','rdvs'));
-})->name('home_med');
 route::get('/home_reception',function (){
     return view('home.home_recep');
 })->name('home_rec');
@@ -49,16 +28,15 @@ route::get('/home_reception','HomeController@index');
 route::get('/home_dele','HomeController@index');
 route::get('/home_admission','AdmissionController@index')->name('home_admission');
 route::get('/home_infermier','HospitalisationController@index')->name('home_infermier');
-
 Route::get('exbio/{filename}', function ($filename)
 {
-    $path = storage_path() . '\\app\\' . $filename;
-    if(!File::exists($path)) abort(404);
-    $file = File::get($path);
-    $type = File::mimeType($path);
-    $response = Response::make($file, 200);
-    $response->header("Content-Type", $type);
-    return $response;
+        $path = storage_path() . '\\app\\' . $filename;
+        if(!File::exists($path)) abort(404);
+        $file = File::get($path);
+        $type = File::mimeType($path);
+        $response = Response::make($file, 200);
+        $response->header("Content-Type", $type);
+        return $response;
 });
 // Auth::routes();
 route::get('/detailsdemande/{id}','demandeprodController@details_demande');
@@ -73,9 +51,9 @@ Route::post('/demandehosp/invalider','DemandeHospitalisationController@invalider
 Route::get('/demandehosp/listedemandes/{type}','DemandeHospitalisationController@listedemandes');
 Route::get('/salle/create/{id}','SalleController@create');
 Route::get('/lit/create/{id}','LitsController@create');
-Route::get('/hospitalisation/create/{id}','HospitalisationController@create');
+//Route::get('/hospitalisation/create/{id}','HospitalisationController@create');
 Route::get('/ordonnace/create/{id}','OrdonnanceController@create');
-Route::post('/ordonnaces/ordPrint','OrdonnanceController@print');
+Route::post('/ordonnaces/print','OrdonnanceController@print');
 Route::get('/consultations/detailcons/{id}','ConsultationsController@detailcons')->name('consultDetails');
 Route::get('/consultations/detailConsXHR','ConsultationsController@detailconsXHR')->name('consultdetailsXHR');
 Route::get('/consultations/demandeExm/{id_cons}','ConsultationsController@demandeExm');
@@ -89,16 +67,15 @@ Route::get('/runcolloque/{id}','ColloqueController@run');
 Route::get('/endcolloque/{id}','ColloqueController@cloture');
 Route::post('/savecolloque/{id}','ColloqueController@save');
 Route::resource('admission','AdmissionController');
-Route::get('/getAdmissions/{date}','AdmissionController@getAdmissions');//->name('admissionsXHR')
+Route::get('/getRdvs/{date}','RdvHospiController@getRdvs');//->name('admissionsXHR')
 Route::post('/hommeConfiance/save','HommeConfianceController@createGardejax');
 Route::resource('hommeConfiance','HommeConfianceController');
 Route::resource('role','RolesController');
 Route::resource('ticket','ticketController');
 Route::resource('service','ServiceController');
 Route::resource('exmbio','ExamenbioController');
-Route::resource('exmimg','ExmImgrieController');
+Route::resource('exmimg','ExmImgrieController');//Route::get('hospitalisation/addRDV', 'RdvHospiController@ajouterRDV');//sup
 Route::get('hospitalisation/listeRDVs', 'RdvHospiController@getlisteRDVs');
-Route::get('hospitalisation/addRDV', 'RdvHospiController@ajouterRDV');
 Route::resource('hospitalisation','HospitalisationController');
 Route::resource('salle','SalleController');
 Route::resource('ordonnace','OrdonnanceController');
@@ -139,7 +116,8 @@ Route::get('/rdv/reporter/{id}','RDVController@reporter');
 Route::post('/rdv/reporte/{id}','RDVController@storereporte');
 Route::get('rdvprint/{id}','rdvController@print');
 Route::resource('rdvHospi','RdvHospiController');
-Route::get('/admission/imprimer/{rdv}', ['as' => 'admission.pdf', 'uses' => 'AdmissionController@print']);
+Route::get('rdvHospi/create/{id}','RdvHospiController@create')->name('rdvHospi.create');
+Route::get('/rdvHospi/imprimer/{rdv}', ['as' => 'admission.pdf', 'uses' => 'RdvHospiController@print']);
 Route::get('/choixpatient','RDVController@choixpatient');
 Route::get('/home', 'HomeController@index')->name('home');
 route::get('/getAddEditRemoveColumnData','UsersController@getAddEditRemoveColumnData');
@@ -194,7 +172,11 @@ route::get('/demandeexbio/{id}','DemandeExbController@createexb');
 route::get('/showdemandeexb/{id}','DemandeExbController@show_demande_exb'); 
 Route::resource('demandeexr','DemandeExamenRadio'); 
 route::get('/showdemandeexr/{id}','DemandeExamenRadio@show_demande_exr');
-route::get('/affecterLit','AdmissionController@affecterLit');
+//a faire dans l'hospitalisation
+//route::get('/affecterLit','HospitalisationController@affecterLit');
+Route::get('/affecterLit', function () {
+    return view('errors.404');
+});
 ///laborontin
 route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');
 route::post('/uploadresultat','DemandeExbController@uploadresultat');
@@ -226,9 +208,10 @@ route::get('/choixpatvisite','VisiteController@choixpatvisite');
 route::get('/choixhospconsigne','ActeController@choixhospconsigne');
 route::get('/consigne','ActeController@choixhospconsigne');
 route::post('/saveActe','ActeController@store');
-//Route::resource('soins','SoinsController');
-/**************************/
-// telechargement
+Route::get('/404', function () {
+    return view('errors.404');
+});
+/**************************/// telechargement
 route::get('/download/{filename}', function($filename)
 {
     return Storage::download($filename);

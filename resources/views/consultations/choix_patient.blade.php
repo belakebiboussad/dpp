@@ -17,16 +17,16 @@
 <table id="choixp" class="table  table-bordered table-hover">
 	<thead>
 		<tr>
-			<th hidden>CODE_BARRE</th>
-			<th>Nom</th>
-			<th>Prénom</th>
-			<th>Date Naissance</th>
-			<th>Sexe</th>
-			<th>Type</th>
-			<th>Adresse</th>
-			<th>Date Création</th>
-			<th>Age</th>
-			<th></th>
+			<th hidden>IPP</th>
+			<th class="center"><strong>Nom</strong>	</th>
+			<th class="center"><strong>Prénom</strong></th>
+			<th class="center"><strong>Date Naissance</strong></th>
+			<th class="center"><strong>Sexe</strong></th>
+			<th class="center"><strong>Type</strong></th>
+			<th class="center"><strong>Adresse</strong></th>
+			<th class="center"><strong>Date Création</strong></th>
+			<th class="center"><strong>Age(ans)</strong></th>
+			<th class="center"><em class="fa fa-cog"></em></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -40,8 +40,9 @@
 			<td>{{ $patient->Type }}</td>
 			<td>{{ $patient->Adresse }}</td>
 			<td>{{ $patient->Date_creation }}</td>
-			<td>{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }} ans</td>
-			<td class="center">
+			{{-- <td>{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }} </td> --}}
+			<td>{{ $patient->getAge( )}}</td>
+			<td>
 			{{-- style="width:100%;" --}}
 				<a  href="/consultations/create/{{$patient->id}}" class="btn btn-xs btn-default">
 				 	<i class="fa fa-stethoscope"></i>

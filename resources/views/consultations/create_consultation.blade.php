@@ -201,7 +201,7 @@
 	       			}
    	 		 },
 			type: "POST",
-			url: "/ordonnaces/ordPrint",
+			url: "/ordonnaces/print",
 			data:formData,//contentType: "application/j-son;charset=UTF-8",
 		  	dataType: "json",
 		  	success: function (data,status, xhr) {	  	
@@ -243,12 +243,6 @@
 		              }
 		});
 	}
-	///////////////////////////////sol3///////////////
-	// document.addEventListener('DOMContentLoaded', function() {//var calendarEl= $('#calendar1');//var calendar= new FullCalendar.Calendar(calendarEl, {
- //plugins: [ 'dayGrid' ],//defaultView: 'agendaWeek',//header:{//center: 'addEventButton'// },//events = [],//customButtons:{//addEventButton: {//text: 'add event...',//click: function() {
-//var dateStr = prompt('Enter a date in YYYY-MM-DD format');//var date = new Date(dateStr + 'T00:00:00'); // will be in local time//if (!isNaN(date.valueOf())) { // valid?////alert('Great. Now, update your database...');
-//} else {//alert('Invalid date.');//}//}//}//}//});//calendar.render();//});
-	////////////////cdc///////////////////		
 	$('document').ready(function(){
 		$( 'ul.nav li' ).on( 'click', function() {
 			$(this).siblings().addClass('filter');
@@ -722,7 +716,7 @@ return (typeof this._super === "function") ? this._super(e) : this;}}}}});*/
 @section('main-content')
 <div class="page-header" width="100%"><!--  style= "margin-top:-3%;" -->
 	<div class="row">
-		<div class="col-sm-12" style="margin-top: -5%;">	{{-- change --}}
+		<div class="col-sm-12" style="margin-top: -3%;">	{{-- change --}}
 			@include('patient._patientInfo')	
 		</div>
 	</div>

@@ -25,7 +25,6 @@ use MessageBag;
 use Carbon\Carbon;
 use Session;
 use View;
-use Flashy;
 use Response;
 class PatientController extends Controller
 {
@@ -164,21 +163,20 @@ class PatientController extends Controller
   ]);
   /*insert homme_c*/
   if( $request->nom_homme_c!="") 
-         $homme = homme_conf::firstOrCreate([
-               "id_patient"=>$patient->id,
-               "nom"=>$request->nom_homme_c,
-                "prénom"=>$request->prenom_homme_c, 
-                "date_naiss"=>$request->datenaissance_h_c,
-                "lien_par"=>$request->lien,
-                "type_piece"=>$request->type_piece_id,
-                "num_piece"=>$request->npiece_id,
-                "date_deliv"=>$request->date_piece_id,
-                "adresse"=>$request->adresseA,
-                "mob"=>$request->operateur_h.$request->mobile_homme_c,
-               "created_by"=>Auth::user()->employee_id,
-         ]);
-    Flashy::success('Patient créer avec succés!');// return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations'));
-    return redirect(Route('patient.show',$patient->id)); //return redirect(Route('patient.show',$patient->id,true));
+     $homme = homme_conf::firstOrCreate([
+           "id_patient"=>$patient->id,
+           "nom"=>$request->nom_homme_c,
+            "prénom"=>$request->prenom_homme_c, 
+            "date_naiss"=>$request->datenaissance_h_c,
+            "lien_par"=>$request->lien,
+            "type_piece"=>$request->type_piece_id,
+            "num_piece"=>$request->npiece_id,
+            "date_deliv"=>$request->date_piece_id,
+            "adresse"=>$request->adresseA,
+            "mob"=>$request->operateur_h.$request->mobile_homme_c,
+           "created_by"=>Auth::user()->employee_id,
+     ]);
+     return redirect(Route('patient.show',$patient->id)); //return redirect(Route('patient.show',$patient->id,true));
   }
 
     /**
@@ -550,66 +548,64 @@ class PatientController extends Controller
           # code...
           break;
   }
-           /******************************/
-           //(!is_null($h))            
-           if ((isset($request->id_h))) {
-                $h=homme_conf::FindOrFail($request->id_h); 
-                if(($request->etat_h=="actuel")) {
-                      $h-> update([
-                            "id_patient"=>$patient->id,
-                            "nom"=>$request->nom_h,
-                            "prénom"=>$request->prenom_h, 
-                            "date_naiss"=>$request->datenaissance_h,
-                            "lien_par"=>$request->lien_par,
-                            "type_piece"=>$request->type_piece,
-                            "num_piece"=>$request->num_piece,
-                            "date_deliv"=>$request->date_piece_id,
-                            "adresse"=>$request->adresse_h,
-                            "mob"=>$request->mobile_h,
-                        ]);  
-                }else{
-                      if(!is_null($request->nom_h))
-                      {
-                          $homme = homme_conf::firstOrCreate([
-                                        "id_patient"=>$patient->id,
-                                        "nom"=>$request->nom_h,
-                                        "prénom"=>$request->prenom_h, 
-                                        "date_naiss"=>$request->datenaissance_h,
-                                        "lien_par"=>$request->lien_par,
-                                        "type_piece"=>$request->type_piece,
-                                        "num_piece"=>$request->num_piece,
-                                        "date_deliv"=>$request->date_piece_id,
-                                        "adresse"=>$request->adresse_h,
-                                        "mob"=>$request->mobile_h,
-                                         "created_by"=>Auth::user()->employee_id,
-                                ]);
-                      } 
-                      $h-> update(["etat_hc"=>$request->etat_h,]);
-                }
-                       
-          }else{      
-              if(!is_null($request->nom_h))
+     /******************************/
+     //(!is_null($h))            
+     if ((isset($request->id_h))) {
+          $h=homme_conf::FindOrFail($request->id_h); 
+          if(($request->etat_h=="actuel")) {
+                $h-> update([
+                      "id_patient"=>$patient->id,
+                      "nom"=>$request->nom_h,
+                      "prénom"=>$request->prenom_h, 
+                      "date_naiss"=>$request->datenaissance_h,
+                      "lien_par"=>$request->lien_par,
+                      "type_piece"=>$request->type_piece,
+                      "num_piece"=>$request->num_piece,
+                      "date_deliv"=>$request->date_piece_id,
+                      "adresse"=>$request->adresse_h,
+                      "mob"=>$request->mobile_h,
+                  ]);  
+          }else{
+                if(!is_null($request->nom_h))
                 {
-                     $homme = homme_conf::firstOrCreate([
-                            "id_patient"=>$patient->id,
-                            "nom"=>$request->nom_h,
-                            "prénom"=>$request->prenom_h, 
-                            "date_naiss"=>$request->datenaissance_h,
-                            "lien_par"=>$request->lien_par,
-                            "type_piece"=>$request->type_piece,
-                            "num_piece"=>$request->num_piece,
-                            "date_deliv"=>$request->date_piece_id,
-                            "adresse"=>$request->adresse_h,
-                            "mob"=>$request->mobile_h,
-                            "created_by"=>Auth::user()->employee_id,
-                    ]);
-                }
+                    $homme = homme_conf::firstOrCreate([
+                                  "id_patient"=>$patient->id,
+                                  "nom"=>$request->nom_h,
+                                  "prénom"=>$request->prenom_h, 
+                                  "date_naiss"=>$request->datenaissance_h,
+                                  "lien_par"=>$request->lien_par,
+                                  "type_piece"=>$request->type_piece,
+                                  "num_piece"=>$request->num_piece,
+                                  "date_deliv"=>$request->date_piece_id,
+                                  "adresse"=>$request->adresse_h,
+                                  "mob"=>$request->mobile_h,
+                                   "created_by"=>Auth::user()->employee_id,
+                          ]);
+                } 
+                $h-> update(["etat_hc"=>$request->etat_h,]);
           }
-          /******************************/    
-          // Flashy::primary('Patient modifié avec succés!');    //flashy('Some message', 'http://your-awesome-link.com');
-          
-          return redirect(Route('patient.show',$patient->id));
-}
+                 
+    }else{      
+        if(!is_null($request->nom_h))
+          {
+               $homme = homme_conf::firstOrCreate([
+                      "id_patient"=>$patient->id,
+                      "nom"=>$request->nom_h,
+                      "prénom"=>$request->prenom_h, 
+                      "date_naiss"=>$request->datenaissance_h,
+                      "lien_par"=>$request->lien_par,
+                      "type_piece"=>$request->type_piece,
+                      "num_piece"=>$request->num_piece,
+                      "date_deliv"=>$request->date_piece_id,
+                      "adresse"=>$request->adresse_h,
+                      "mob"=>$request->mobile_h,
+                      "created_by"=>Auth::user()->employee_id,
+              ]);
+          }
+    }
+    /******************************/    
+    return redirect(Route('patient.show',$patient->id));
+  }
 
     /**
      * Remove the specified resource from storage.
@@ -818,7 +814,6 @@ class PatientController extends Controller
        ]);   
        $patient2->active=0;$patient2->save();  //desactiver patient 2
        // return redirect()->route('patient.index')->with('success','Item created successfully!');
-       Flashy::success('merge est fait avec succè');
        Return View::make('patient.index');
   }
 }

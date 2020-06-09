@@ -94,7 +94,7 @@
   <div @if( !isset($hosp->garde_id)) class="col-sm-12"	@else class="col-sm-6" @endif>
 		<div class="row">
 			<div class="col-xs-11 label label-lg label-black arrowed-in arrowed-right">
-				<b>Admission</b>
+				<b>Rendez-Vous</b>
 			</div>
 		</div>
 		<div class="row">
@@ -120,7 +120,7 @@
 	@if(isset($hosp->garde_id))
 	<div class="col-sm-6">
 			<div class="row">
-			<div class="col-xs-11 label label-lg label-light arrowed-in arrowed-right">
+			<div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right">
 				<b>Garde Malade</b>
 			</div>
 		</div>

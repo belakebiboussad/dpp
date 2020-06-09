@@ -34,7 +34,10 @@ class ColloqueController extends Controller
      * @return \App\type_colloque
      * @return \App\modeles\medecin_traitant
      */ 
-
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index($type = 1)
     { 
           $colloque= array();

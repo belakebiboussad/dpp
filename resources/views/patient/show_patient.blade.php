@@ -527,18 +527,19 @@
 											</thead>
 											<tbody>
 												@foreach($hospitalisations as $hosp)
-													<tr>
-														<td>{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe }}
-							  						{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Prenom_Employe }}</td>
-														<td>{{ $hosp->Date_entree }}</td>
-														<td>{{ $hosp->Date_Prevu_Sortie }}</td>
-														<td>{{ $hosp->Date_Sortie == null ? '/' : $hosp->Date_Sortie }}</td>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td><span class="badge badge-danger">{{ $hosp->etat_hosp }}</span> </td>
-														<td></td>
-													</tr>
+												<tr>
+												{{--$hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe  --}}
+													<td>{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe }}
+						  						</td>
+													<td>{{ $hosp->Date_entree }}</td>
+													<td>{{ $hosp->Date_Prevu_Sortie }}</td>
+													<td>{{ $hosp->Date_Sortie == null ? '/' : $hosp->Date_Sortie }}</td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td><span class="badge badge-danger">{{ $hosp->etat_hosp }}</span> </td>
+													<td></td>
+												</tr>
 												@endforeach
 											</tbody>
 										</table>

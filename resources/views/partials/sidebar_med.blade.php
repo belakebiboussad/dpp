@@ -17,7 +17,6 @@
             <button class="btn btn-danger">
                 <i class="ace-icon fa fa-cogs"></i>
             </button>
-
             <!-- /section:basics/sidebar.layout.shortcuts -->
         </div>
         <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
@@ -37,19 +36,16 @@
     </li>
     <ul class="nav nav-list">
         <li class="">
-            <a href="{{route('home_med')}}">
-                <i class="menu-icon fa fa-tachometer"></i>
-                <span class="menu-text"> Acceuil </span>
+               <a href="{{ route('patient.index') }}">
+                         <i class="menu-icon fa fa-tachometer"></i>
+                          <span class="menu-text"> Acceuil </span>
             </a>
-
             <b class="arrow"></b>
         </li>
-
         <li class="">
-            <a href="#" class="dropdown-toggle">
+               <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-users"></i>
-                {{-- <img src = "img/patient.png" class ="img1"> --}}
-                 <span class="menu-text">
+               <span class="menu-text">
                     Gestion Patient
                 </span>
                 <b class="arrow fa fa-angle-down"></b>
@@ -105,31 +101,31 @@
                         <i class="menu-icon fa fa-eye pink"></i>
                         Liste Consultations
                     </a>
-
                     <b class="arrow"></b>
                 </li>
             </ul>
         </li>
-          <li class="">
-            <a href="#" class="dropdown-toggle">
-                <i class="menu-icon fa fa-hospital-o"></i>
+        <li class="">
+              <a href="#" class="dropdown-toggle">
+                     <i class="menu-icon fa fa-hospital-o"></i>
                             <span class="menu-text" data-toggle="tooltip" data-placement="top" title="hospitalisations du service">
                                  Hospitalisations
                             </span>
-
-                <b class="arrow fa fa-angle-down"></b>
-            </a>
-
+                              <b class="arrow fa fa-angle-down"></b>
+              </a>
             <b class="arrow"></b>
-
             <ul class="submenu">
-
+                <li class="">
+                        <a href="{{ route('hospitalisation.create') }}">
+                            <i class="menu-icon fa fa-plus purple"></i>Ajouter   Hospitalisation
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
                 <li class="">
                     <a href="{{ route('hospitalisation.index') }}"  data-toggle="tooltip" data-placement="top" title=" Liste d'hospitalisation du service">
                         <i class="menu-icon fa fa-eye pink"></i>
                         Liste des Hospitalisations
                     </a>
-
                     <b class="arrow"></b>
                 </li>
             </ul>

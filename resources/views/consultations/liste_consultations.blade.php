@@ -3,7 +3,6 @@
 @section('main-content')
 <div class="page-header">
 	<h2><strong>Choix du patient :</strong></h2>
-	
 </div>
 <div class="row">
 	<div style="overflow-x:auto;">

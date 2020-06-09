@@ -43,18 +43,18 @@
 				<td class="col-md-4">
 					<strong>Patient :</strong>
 					<span>
-						{{$rdv->admission->demandeHospitalisation->consultation->patient->Nom}}
-						{{ $rdv->admission->demandeHospitalisation->consultation->patient->Prenom}}
+						{{ $rdv->demandeHospitalisation->consultation->patient->Nom }}
+						{{ $rdv->demandeHospitalisation->consultation->patient->Prenom }}
 					</span>
 					</td>
 					<td class="col-md-8" rowspan="4" >
 						<h5 class="float-right" style ="padding-right:1px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Hôpital Glycine, le {{ $t->day }} {{ $t->subMonth(0)->format('F')}} {{ $t->year}}</h5>
             <div style="line-height:4px">
-	            <h5>M. {{$rdv->admission->demandeHospitalisation->consultation->patient->Nom}}</h5>
+	            <h5>M. {{$rdv->demandeHospitalisation->consultation->patient->Nom}}</h5>
 	            <h6>
-	           		{{ $rdv->admission->demandeHospitalisation->consultation->patient->Adresse }}
-	           		{{ $rdv->admission->demandeHospitalisation->consultation->patient->commune->nom_commune }}
-	            	{{ $rdv->admission->demandeHospitalisation->consultation->patient->wilaya->nom_wilaya }}
+	           		{{ $rdv->demandeHospitalisation->consultation->patient->Adresse }}
+	           		{{ $rdv->demandeHospitalisation->consultation->patient->commune->nom_commune }}
+	            	{{ $rdv->demandeHospitalisation->consultation->patient->wilaya->nom_wilaya }}
 	            </h6>
 	          </div>
             	
@@ -75,7 +75,7 @@
 			<tr>
 				<td class="col-md-4">
 					<strong>Service :</strong>
-					<span>{{ $rdv->admission->demandeHospitalisation->Service->nom }}</span>
+					<span>{{ $rdv->demandeHospitalisation->Service->nom }}</span>
 				</td>
 			</tr>
 		</table>
@@ -83,13 +83,13 @@
 		<strong>Object :</strong> Attribution d'un Rendez-Vous D'hospitalisation
 		<br><br>
 		<p>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nous vous informons que votre rendez-vous d'hospitalisation dans notre service <strong>&quot;{{ $rdv->admission->demandeHospitalisation->Service->nom }}&quot;</strong>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nous vous informons que votre rendez-vous d'hospitalisation dans notre service <strong>&quot;{{ $rdv->demandeHospitalisation->Service->nom }}&quot;</strong>
 		 	est pour le: <strong>&quot;{{ $rdv->date_RDVh }}&quot;</strong>.
 		</p>
 		<p style="line-height: 30px">
 			Veuillez <strong>IMPERATIVEMENT</strong> vous présenter <strong>1 heure </strong>avant l'heure prévue de votre rendez-vous 
 			
-			d'hospitalisation au service <strong>{{ $rdv->admission->demandeHospitalisation->Service->nom }}</strong>muni(e) de votre 
+			d'hospitalisation au service <strong>{{ $rdv->demandeHospitalisation->Service->nom }}</strong>muni(e) de votre 
 			
 			pièce d'identité, votre carte chiffa ou attestation de droits.
 			
@@ -117,7 +117,7 @@
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				Le Service {{ $rdv->admission->demandeHospitalisation->Service->nom }}</strong></span></td>
+				Le Service {{ $rdv->demandeHospitalisation->Service->nom }}</strong></span></td>
 				<td class="col-md-3"></td>
 			</tr>
 		</table>

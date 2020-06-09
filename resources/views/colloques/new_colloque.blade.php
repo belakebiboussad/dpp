@@ -1,6 +1,5 @@
 @extends('app_dele')
 @section('main-content')
-
 <?php  $id=$colloques[0]->id; ?>
 <form id="detail_coll" class="form-horizontal" role="form" method="POST" action="{{route('colloque.update',$id)}}">
 	{{ csrf_field() }}{{ method_field('PUT') }}
@@ -8,14 +7,12 @@
 	<div class="col-xs-12">
 		<h1>			
 			Déroulement du Colloque de la semaine du <?php 
-			
 				$d=$colloques[0]->date_colloque.' monday next week';
 			 
 							echo(date('d M Y',strtotime($d)-1));
 								?>
 		</h1>
 	</div>
-
 </div><!-- /.page-header -->
 <div class="col-xs-12">
 	<select id="demh" multiple="multiple" name="demh[]" hidden="">

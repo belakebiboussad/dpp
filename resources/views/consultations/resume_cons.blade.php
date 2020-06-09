@@ -38,16 +38,16 @@
 	});
 	function showConsult(consultId, thisObj)
   {
-                     $(".marked").removeClass("marked");
-                     thisObj.addClass("marked");
-                     $.ajax({
-                               type : 'get',
-                                url: '{{ route("consultdetailsXHR") }}',
-                                data:{ 'id':consultId },
-                                success:function(data,status, xhr){
-                                          $('#consultDetail').html(data.html);  //alert(data.html);     
-                                }
-                     });
+     $(".marked").removeClass("marked");
+     thisObj.addClass("marked");
+     $.ajax({
+               type : 'get',
+                url: '{{ route("consultdetailsXHR") }}',
+                data:{ 'id':consultId },
+                success:function(data,status, xhr){
+                          $('#consultDetail').html(data.html);  //alert(data.html);     
+                }
+     });
                    
   }
 
@@ -118,3 +118,4 @@
 		</table>	
 	</div>
 </div>
+@endsection

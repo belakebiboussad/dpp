@@ -189,15 +189,16 @@
 		</div>
 	</div>
 	<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
-   	<li class="active"><a data-toggle="tab" href="#Assure" class="jumbotron" onclick="copyPrtientInfo();">
-    	<span class="bigger-130"><strong>Assure</strong></span></a>
-    </li>
-   	<li ><a class="jumbotron" data-toggle="tab" href="#Patient">
-   	 	<span class="bigger-130"><strong>Patient</strong></span></a>
-   	</li>
-    <li><a class="jumbotron" data-toggle="tab" href="#Homme_C">
-    	<span class="bigger-130"><b>Homme de confiance</b></span></a>
-    </li>
+   		 
+   		 <li class="active"><a class="jumbotron" data-toggle="tab" href="#Patient">
+   		 	<span class="bigger-130"><strong>Patient</strong></span></a>
+   		 </li>
+    		<li><a data-toggle="tab" href="#Assure" class="jumbotron" onclick="copyPrtientInfo();">
+    			<span class="bigger-130"><strong>Assure</strong></span></a>
+    		</li>
+    		<li><a class="jumbotron" data-toggle="tab" href="#Homme_C">
+    			<span class="bigger-130"><b>Homme de confiance</b></span></a>
+    		</li>
 
   	</ul>
 	<div class="tab-content">

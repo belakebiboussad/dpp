@@ -2,7 +2,6 @@
 @section('main-content')
 	<div class="page-header">
 		<h1 style="display: inline;"><strong>Ajouter Antécédant Pour :</strong> 
-		{{-- {{ $patient->Nom }} {{ $patient->Prenom }}</h1> --}}
 		  @include('patient._patientInfo')
 		<div class="pull-right"> </div>
 	</div>

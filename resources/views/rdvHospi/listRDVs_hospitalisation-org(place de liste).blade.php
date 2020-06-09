@@ -16,12 +16,12 @@
 						<thead class="thin-border-bottom">
 							<tr>
 								<th hidden></th>
-								<th class="center" width="3%" ></th>
+								<th class="text-center" width="3%" hidden ></th>
 								<th class="text-center" width="11%"><h5><strong>Patient</strong></h5></th>
-								<th class="text-center" width="15%"><h5><strong>Date RDV</strong></h5></th>
-								<th class="text-center" width="10%">Heure RDV</th>
+								<th class="text-center" width="10%"><h5><strong>Date</strong></h5></th>
+								<th class="text-center" width="5%">Heure </th>
 								<th width="12%" class="text-center"><strong>Date Sortie Prévue</strong></th>
-							  <th width="12%" class="text-center"><strong>Heure Sortie Prévue</strong></th>
+							  <th width="12%" class="text-center" width="5%"><strong>Heure Sort Prév</strong></th>
 								<th class="font-weight-bold text-center"><strong>Medecin Traitant</strong></th>
 								<th class="font-weight-bold text-center"><strong>Lit</strong></th>
 								<th class="font-weight-bold text-center"><strong>Salle</strong></th>
@@ -33,11 +33,11 @@
 							<?php $j = 0; ?>
 							@foreach( $rdvHospis as $i=>$rdv)
 						  	<tr>
-								<td hidden>{{$j}}</td>	
-						   		 <td class="center">
-							  		<label class="pos-rel">
-											<input type="checkbox" class="ace" name ="valider[]" value ="{{$rdv->id}}" /><span class="lbl"></span>   
-							   		</label>
+								<td hidden>{{ $j }}</td>	
+						   	<td class="center" hidden>
+						  		<label class="pos-rel">
+										<input type="checkbox" class="ace" name ="valider[]" value ="{{$rdv->id}}" /><span class="lbl"></span>   
+						   		</label>
 								</td>
 								<td>
 							   	 	 {{$rdv->demandeHospitalisation->consultation->patient->Nom }}&nbsp;{{$rdv->demandeHospitalisation->consultation->patient->Prenom }}	
@@ -79,17 +79,12 @@
 								<td class="center">
 									<a href="{{ route('rdvHospi.edit',$rdv->id) }}" class="btn btn-success btn-xs"  title= "Reporer RDV" >
 									 	<i class="ace-icon fa fa-clock-o"></i>
-					        </a>
-					        <a href="{{ route('rdvHospi.destroy',$rdv->id) }}" class="btn btn-danger btn-xs" title="Annuler RDV" data-method="DELETE" data-confirm="Etes Vous Sur d'annuller le RDV?"><i class="fa fa-trash-o fa-xs"></i></a>		
-<!-- 
-								  <a href="#" class="btn btn-danger btn-xs aaaa" title="Annuler RDV" onclick= "annulerRDV(this,{{ $j }},{{ $rdv->id }});">
-										<i class="ace-icon fa fa-close" ></i>
-								  </a> -->
-								      <!-- onclick= "printRDV();" -->
-						      <a href="/admission/imprimer/{{ $rdv->id }}" class="btn btn-info btn-xs" title="Imprimer RDV">
-									  <i class="ace-icon fa fa-print" ></i>
-						      </a>
-				        </td>
+								  </a>
+								  <a href="{{ route('rdvHospi.destroy',$rdv->id) }}" class="btn btn-danger btn-xs" title="Annuler RDV" data-method="DELETE" data-confirm="Etes Vous Sur d'annuller le RDV?"><i class="fa fa-trash-o fa-xs"></i></a><!-- onclick= "printRDV();" -->
+								  <a href="/rdvHospi/imprimer/{{ $rdv->id }}" class="btn btn-info btn-xs" title="Imprimer RDV">
+								   	<i class="ace-icon fa fa-print" ></i>
+							    </a>
+							  </td>
 				    	</tr>			
 							@endforeach
 						</tbody>

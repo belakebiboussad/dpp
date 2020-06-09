@@ -85,7 +85,6 @@
 							<th class="blue">Sexe</th>
 							<th class="blue">Position Actuel</th>
 							<th class="blue">Service</th>
-						
 							<th class="blue"><em class="fa fa-cog"></em></th>
 						</tr>
 						</thead>
