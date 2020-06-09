@@ -60,6 +60,9 @@
   });
 </script>
 @endsection
+@section('title') Nouvelle Hospitalisation
+@endsection
+
 @section('main-content')
 <div class="page-header">
 	<h1> Ajouter une Hospitalisation </h1>
@@ -98,7 +101,7 @@
 									<a href="javascript:formFill({{ $adm }} );" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter une Hospitalisation"> 
 											<i class="menu-icon fa fa-plus"></i>
 									</a>
-									<a href="#" class="btn btn-danger btn-xs" data-toggle="tooltip" title="supprimer l'admission" data-method="DELETE" data-confirm="Etes Vous Sur de supprimer l'admission?"> 
+									<a href="{{ route('admission.destroy') }}" class="btn btn-danger btn-xs" data-toggle="tooltip" title="supprimer l'admission" data-method="DELETE" data-confirm="Etes Vous Sur de supprimer l'admission?"> 
 											<i class="ace-icon fa fa-trash-o"></i>
 									</a>
 								</td>		

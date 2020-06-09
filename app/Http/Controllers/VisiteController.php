@@ -34,7 +34,6 @@ class VisiteController extends Controller
                  ->select('patients.Nom','patients.Prenom','patients.Sexe','patients.Dat_Naissance','hospitalisations.Date_entree','hospitalisations.Date_Prevu_Sortie','hospitalisations.id')->get();
       return view('visite.choix_patient_visite',compact('patients')); //   return view('visite.choix_patient_visite');
     }
-
     /**
      * Show the form for creating a new resource.
      *

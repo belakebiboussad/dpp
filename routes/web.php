@@ -75,8 +75,7 @@ Route::resource('role','RolesController');
 Route::resource('ticket','ticketController');
 Route::resource('service','ServiceController');
 Route::resource('exmbio','ExamenbioController');
-Route::resource('exmimg','ExmImgrieController');
-//Route::get('hospitalisation/addRDV', 'RdvHospiController@ajouterRDV');//sup
+Route::resource('exmimg','ExmImgrieController');//Route::get('hospitalisation/addRDV', 'RdvHospiController@ajouterRDV');//sup
 Route::get('hospitalisation/listeRDVs', 'RdvHospiController@getlisteRDVs');
 Route::resource('hospitalisation','HospitalisationController');
 Route::resource('salle','SalleController');
