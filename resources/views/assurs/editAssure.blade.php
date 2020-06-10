@@ -67,7 +67,6 @@
 					<input type="text" id="lieunaissancef" name=""class="col-xs-12 col-sm-12" value="{{ ($patient->Type !="Autre") ? $assure->lieuNaissance->nom_commune : '' }}" autocomplete= "off" />
 					@else	
 					<input type="text" id="lieunaissancef" name=""class="col-xs-12 col-sm-12" value="" autocomplete= "off" />
-
 					@endif
 				</div>
 				<br>
@@ -77,52 +76,177 @@
 	</div>	{{-- row --}}
 	<div class="row">
 		<div class="col-sm-6">
-      <div class="form-group">
-			  <label class="col-sm-3 control-label no-padding-right" for="sexe"><Strong>Sexe:</Strong></label>
-          <div class="col-sm-9">
-           <div class="radio">
-           <label>
-            <input name="sexef" value="M" type="radio" class="ace" {{ $assure->Sexe === "M" ? "Checked" : "" }}/>
-      		<span class="lbl"> Masculin</span>
-            </label>
-           <label>
-           <input name="sexef" value="F" type="radio" class="ace" {{  $assure->Sexe=== "F" ? "checked" : "" }} />
-           <span class="lbl"> Féminin</span>
-           </label>
-           </div>
-  				</div>
-       			</div>
-   				</div>
-   				<div class="col-sm-6" id="statut">
-				<div class="form-group">
-					<label class="col-sm-3 control-label" for="etatf">
-					<strong>Etat :</strong>
-					</label>
-					<div class="col-sm-9">
-					<div class="radio">
-					<label hidden>
-					<input name="etat" value="" type="radio" class="ace" @if(!isset($assure->Etat)  && empty($assure->Etat)) Checked @endif />
-						<span class="lbl"> Autre</span>
-					</label>
-					<label>
-						<input name="etat" value="En exercice" type="radio" class="ace" {{ $assure->Etat ==="En exercice" ? "Checked":"" }} />
-						<span class="lbl"> En exercice</span>
-					</label>
-					<label>
-						<input name="etat" value="Retraite" type="radio" class="ace" {{ $assure->Etat ==="Retraite" ? "Checked":"" }} />
-						<span class="lbl"> Retraité</span>
-					</label>
-					<label>
-						<input name="etat" value="Invalide" type="radio" class="ace" {{ $assure->Etat ==="Invalide" ? "Checked":"" }} />
-							<span class="lbl"> Invalide</span>
-					</label>
-					<label>
-						<input name="etat" value="Mise en disponibilite" type="radio" class="ace"  {{ $assure->Etat ==="Mise en disponibilite" ? "Checked":"" }} />
-							<span class="lbl"> Mise en disponibilité</span>
-					</label>
-					</div>
+       			 <div class="form-group">
+			  	<label class="col-sm-3 control-label no-padding-right" for="sexe"><Strong>Sexe: </Strong></label>
+          			<div class="col-sm-9">
+			               <div class="radio">
+			               @if(isset($assure) && !empty($assure))
+			                <label><input name="sexef" value="M" type="radio" class="ace" checked=  {{ $assure->Sexe == "M" ? "Checked" : ""}}/>
+			                    	<span class="lbl"> Masculin</span>
+			                </label>
+			               <label><input name="sexef" value="F" type="radio" class="ace" checked= {{  $assure->Sexe == "F" ? "checked" : "" }} />
+			                      <span class="lbl"> Féminin</span>
+			              </label>
+			               @else   
+			                <label><input name="sexef" value="M" type="radio" class="ace" /><span class="lbl" Checked> Masculin</span></label>
+			                <label><input name="sexef" value="F" type="radio" class="ace" /> <span class="lbl"> Féminin</span></label>      
+			               @endif
+			                </div>
+                    		</div>
+             		</div>
+         	</div>
+         	<div class="col-sm-6">
+       			 <div class="form-group">
+			  	<label class="col-sm-3 control-label no-padding-right" for="adressef"><Strong>Adresse: </Strong></label>
+          			<div class="col-sm-9">
+          			@if(isset($assure) && !empty($assure))
+          				<input type="text" id="adressef" name="adressef"  class="col-xs-12 col-sm-12" value= "{{ $assure->adresse }}" />
+          			  @else 
+          			  <input type="text" id="adressef" name="adressef"  placeholder="Adresse..."  class="col-xs-12 col-sm-12" />  
+          			  @endif
+          			</div>
+          		</div>
+          	</div>
+         </div>
+         <div class="row">
+		<div class="col-sm-6">
+	       		<div class="form-group">
+	   			<label class="col-sm-3 control-label text-nowrap" for="gsf"><strong>Groupe sanguin :</strong></label>
+				<div class="col-sm-2">
+				@if(isset($assure) && !empty($assure))
+					<select class="form-control" id="grp_sang" name="gsf">
+						<option value="" {{ ($assure->grp_sang=="")? "selected" : "" }} >------</option>
+						<option value="A-"  {{ ($assure->grp_sang=="A-")? "selected" : "" }} >A-</option>
+						<option value="A+"  {{ ($assure->grp_sang=="A+")? "selected" : "" }} >A+</option>
+						<option value="B-" {{ ($assure->grp_sang=="B-")? "selected" : "" }} >B-</option>
+						<option value="B+" {{ ($assure->grp_sang=="B+")? "selected" : "" }} >B+</option>
+						<option value="O-" {{ ($assure->grp_sang=="O-")? "selected" : "" }} >O-</option>
+						<option value="O+" {{ ($assure->grp_sang=="O+")? "selected" : "" }} >O+</option>
+						<option value="AB-" {{ ($assure->grp_sang=="AB-")? "selected" : "" }} >AB-</option>
+						<option value="AB+" {{ ($assure->grp_sang=="AB+")? "selected" : "" }} >AB+</option>
+					</select>
+				@else 
+					<select class="form-control" id="gsf" name="gsf">
+						<option value="" >------</option>
+						<option value="A-" >A-</option>
+						<option value="A+">A+</option>
+						<option value="B-" >B-</option>
+						<option value="B+" >B+</option>
+						<option value="O-">O-</option>
+						<option value="O+">O+</option>
+						<option value="AB-">AB-</option>
+						<option value="AB+"  >AB+</option>
+					</select>
+				@endif
+				</div>
+	   	 	 </div>
+		</div>
+	</div>
+         <div class="row">
+       		<div class="col-sm-6" id="statut">
+			<div class="form-group">
+				<label class="col-sm-3 control-label" for="etatf"><strong>Etat :</strong></label>
+				<div class="col-sm-9">
+				<div class="radio">
+				 @if(isset($assure) && !empty($assure))
+				<label><input name ="etat" value="En_exercice"  type="radio"  class="ace"  {{ $assure->Etat  === 'En_exercice'  ?  'Checked' : ''  }}  />
+					<span class="lbl"> En exercice</span>
+				</label>
+				<label><input name ="etat" value="Retraite"  type="radio"  class="ace"  {{ $assure->Etat  === 'Retraite'  ?  'Checked'  :  ''  }}  />
+					<span class="lbl"> Retraité</span>
+				</label>
+				<label><input  name="etat"  value="Invalide"  type="radio"  class="ace"  {{ $assure->Etat  ===  'Invalide' ? 'Checked' : ''  }} />
+						<span class="lbl"> Invalide</span>
+				</label>
+				<label><input name="etat" value="Mise_en_disponibilite"  type="radio" class="ace"  {{ $assure->Etat  === 'Mise_en_disponibilite' ? 'Checked' : '' }} />
+						<span class="lbl"> Mise en disponibilité</span>
+				</label>
+				@else
+				<label hidden><input name="etat" value="" type="radio" class="ace"/><span class="lbl"> Autre</span></label>
+				<label><input name="etat" value="En exercice" type="radio" class="ace" /><span class="lbl" Checked> En exercice</span></label>
+				<label><input name="etat" value="Retraite" type="radio" class="ace" /><span class="lbl"> Retraité</span></label>
+				<label><input name="etat" value="Invalide" type="radio" class="ace" /><span class="lbl"> Invalide</span></label>
+				<label><input name="etat" value="Mise en disponibilite" type="radio" class="ace" /><span class="lbl"> Mise en disponibilité</span>
+				</label>
+				 @endif
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="space-12"></div>		
+	<div class="space-12"></div>	
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label class="col-sm-3 control-label " for="grade"><strong>Grade :</strong></label>
+				<div class="col-sm-9">
+				@if(isset($assure) && !empty($assure))
+					<select id="grade" name="grade" class="col-xs-12 col-sm-6"/>
+					@if ( isset($assure->Grade))
+						@foreach ($grades as $key=>$grade)
+						<option value="{{ $grade->id }}" {{ $assure->Grade === $grade->id   ? "selected":"" }} >{{ $grade->nom }}</option>
+						@endforeach
+					@endif
+					</select>
+				@else
+					<select id="grade" name="grade" class="col-xs-12 col-sm-6"/>
+					@foreach ($grades as $key=>$grade)
+						<option value="{{ $grade->id }}" >{{ $grade->nom }}</option>
+					@endforeach
+					</select>
+				@endif	
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3" for="matf">
+					<strong>Matricule :</strong>
+				</label>
+				<div class="col-sm-9">
+				<div class="clearfix">
+				@if(isset($assure) && !empty($assure))
+					<input type="text" id="matf" name="matf" class="col-xs-12 col-sm-6" value="{{ $assure->matricule }}" maxlength="5" />
+				@else
+					<input type="text" id="matf" name="matf" class="col-xs-12 col-sm-6"  placeholder="saisir le matricule..." maxlength="5" />
+				@endif	
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="space-12"></div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3" for="NMGSN"><strong>NMGSN :</strong>	</label>
+				<div class="col-sm-9">
+					<div class="clearfix">
+					@if(isset($assure) && !empty($assure))
+						<input type="text" id="NMGSN" name="NMGSN" class="col-xs-12 col-sm-12" value="{{ $assure->NMGSN }}" />
+					@else
+						<input type="text" id="NMGSN" name="NMGSN" class="col-xs-12 col-sm-12"  placeholder="saisir le numéro mutuelle..." />
+					@endif	
 					</div>
 				</div>
-			</div>	
-		</div>{{-- row --}}
+			</div>
+			<br>
+		</div>
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3" for="nss2"><strong>NSS :</strong>	</label>
+				<div class="col-sm-9">
+				<div class="clearfix">
+				@if(isset($assure) && !empty($assure))
+				<input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12"  value="{{ $assure->NSS }}" maxlength =12 minlength =12/>{{-- pattern="^\[0-9]{2}+' '+\[0-9]{4}+' '+\[0-9]{4}+' '+\[0-9]{2}$" --}}
+				@else
+				<input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12" placeholder="XXXXXXXXXXXX"  maxlength =12 minlength =12/>
+				@endif	
+				</div>
+				</div>
+			</div>
+			<br><br>
+		</div>	
+	</div>
 </div><!-- assurePart -->

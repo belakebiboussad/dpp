@@ -5,20 +5,18 @@
 		function showType(value,i){
 			switch(value){
           case "Assure":
-         		
-         		// $("#nomf").val($("#nom").val());
-           //  $("#prenomf").val($("#prenom").val());
-           //  $("#datenaissancef").val($("#datenaissance").val());
-           //  $("#lieunaissancef").val($("#lieunaissance").val());
-           //  $("#idlieunaissancef").val($("#idlieunaissance").val());
-           //  $("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);  
-           //  $("#foncform").addClass('hide'); 
-           //  $('#Type_p').attr('required', false); 
-           //  $('#nsspatient').attr('required', false);    
-           //  $('#nsspatient').attr('disabled', true);  
-            addRequiredAttr();
-            
-            break;
+         	$("#nomf").val($("#nom").val());
+           	 $("#prenomf").val($("#prenom").val());
+           	 $("#datenaissancef").val($("#datenaissance").val());
+            	$("#lieunaissancef").val($("#lieunaissance").val());
+            	$("#idlieunaissancef").val($("#idlieunaissance").val());
+            	$("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);  
+            	$("#foncform").addClass('hide'); 
+          	 $('#Type_p').attr('required', false); 
+            	$('#nsspatient').attr('required', false);    
+            	$('#nsspatient').attr('disabled', true);  
+            	addRequiredAttr();
+               break;
           case "Ayant_droit":
           	if(i !=0)
        	    	{
@@ -329,132 +327,118 @@
 		</div>
 	</div>
 	<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
-   	<li class="active"><a data-toggle="tab" href="#Patient">
-   	 	<span class="bigger-130"><strong>Patient</strong></span></a>
-   	</li>
-		<li  @if($patient->Type =="Autre")  style= "display:none" @endif><a data-toggle="tab" href="#Assure" >
-    	<span class="bigger-130"><strong>Assure</strong></span></a>
-    </li>
-	  <li  id ="hommelink" @if(count($hommes_c) == 0)  class="invisible" @endif><a data-toggle="tab" href="#Homme">
-	  	<span class="bigger-130"><strong>Garde Malde/Homme de Confiance</strong></span></a>
-	  </li>
+		<li  class=" @if($patient->Type !="Autre") active  @endif" @if($patient->Type =="Autre")  style= "display:none" @endif><a data-toggle="tab" href="#Assure" >
+	    		<span class="bigger-130"><strong>Assure</strong></span></a>
+	      </li>
+	   	<li class=" @if($patient->Type =="Autre") active  @endif" ><a data-toggle="tab" href="#Patient">
+	   	 	<span class="bigger-130"><strong>Patient</strong></span></a>
+	   	</li>
+		 <li  id ="hommelink" @if(count($hommes_c) == 0)  class="invisible" @endif><a data-toggle="tab" href="#Homme">
+		  	<span class="bigger-130"><strong>Garde Malde/Homme de Confiance</strong></span></a>
+		  </li>
   </ul>
   <div class="tab-content">
-		<div id="Patient" class="tab-pane fade in active">
-			<div class="row">
-    		<div class="col-sm-12">
-						<h3 class="header smaller lighter blue">Informations administratives</h3>
+	<div id="Patient" class="tab-pane fade @if($patient->Type =="Autre")   in active  @endif">
+		<div class="row">
+    			<div class="col-sm-12">
+				<h3 class="header smaller lighter blue">Informations administratives</h3>
+			</div>
+    		</div>
+    		<div class="row">
+			<div class="col-sm-6">
+				<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
+					<label class="col-sm-3 control-label" for="nom"><strong>Nom :</strong></label>
+					<div class="col-sm-9">
+						<input type="text" id="nom" name="nom" placeholder="Nom..." value="{{ $patient->Nom }}" class="col-xs-12 col-sm-12" autocomplete= "off" required alpha />
+					{!! $errors->first('datenaissance', '<small class="alert-danger">:message</small>') !!}
+					</div>
 				</div>
-    	</div>
-    	<div class="row">
-				<div class="col-sm-6">
-					<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
-						<label class="col-sm-3 control-label" for="nom">
-							<strong>Nom :</strong> 
-						</label>
-						<div class="col-sm-9">
-							<input type="text" id="nom" name="nom" placeholder="Nom..." value="{{ $patient->Nom }}" class="col-xs-12 col-sm-12" autocomplete= "off" required alpha/>
-								{!! $errors->first('datenaissance', '<small class="alert-danger">:message</small>') !!}
-						</div>
+			</div>{{-- col-sm-6	 --}}
+			<div class="col-sm-6">
+				<div class="form-group {{ $errors->has('prenom') ? "has-error" : "" }}">
+					<label class="col-sm-3 control-label" for="prenom"><strong>Prénom :</strong></label>
+					<div class="col-sm-9">
+						<input type="text" id="prenom" name="prenom" placeholder="Prénom..." value="{{ $patient->Prenom }}" class="form-control form-control-lg col-xs-12 col-sm-12" autocomplete="off" required/>
+						{!! $errors->first('prenom', '<p class="alert-danger">:message</p>') !!}
 					</div>
-				</div>{{-- col-sm-6	 --}}
-				<div class="col-sm-6">
-					<div class="form-group {{ $errors->has('prenom') ? "has-error" : "" }}">
-						<label class="col-sm-3 control-label" for="prenom">
-							<strong>Prénom :</strong>
-						</label>
-						<div class="col-sm-9">
-							<input type="text" id="prenom" name="prenom" placeholder="Prénom..."value="{{ $patient->Prenom }}"class="form-control form-control-lg col-xs-12 col-sm-12" autocomplete="off" required/>
-							{!! $errors->first('prenom', '<p class="alert-danger">:message</p>') !!}
-						</div>
+				</div>
+			</div>{{-- col-sm-6	 --}}
+      		</div>  {{-- row --}}
+      		<div class="row">
+      			<div class="col-sm-6">
+				<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
+					<label class="col-sm-3 control-label" for="datenaissance"><strong>Né(e) le :</strong></label>
+					<div class="col-sm-9">
+						<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" placeholder="Date de naissance..." data-date-format="yyyy-mm-dd" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" value="{{ $patient->Dat_Naissance }}" required/>
+						{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
 					</div>
-				</div>{{-- col-sm-6	 --}}
-      	</div>  {{-- row --}}
-      	<div class="row">
-      		<div class="col-sm-6">
-						<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
-							<label class="col-sm-3 control-label" for="datenaissance">
-								<strong>Né(e) le :</strong>
-							</label>
-							<div class="col-sm-9">
-								<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" placeholder="Date de naissance..." data-date-format="yyyy-mm-dd" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" value="{{ $patient->Dat_Naissance }}" required/>
-								{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-6">
-						<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
-							<label class="col-sm-3 control-label" for="lieunaissance">
-								<strong class="text-nowrap">Lieu de naissance :</strong>
-							</label>
-						  <div class="col-sm-9">
-						    <input type="hidden" name="idlieunaissance" id="idlieunaissance" value={{ $patient->Lieu_Naissance }}>
-					  	  <input type="text" id="lieunaissance" name="" placeholder="Lieu de naissance..." utocomplete = "off" class="col-xs-12 col-sm-12" value="{{ $patient->lieuNaissance->nom_commune }}" required/>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
+					<label class="col-sm-3 control-label" for="lieunaissance"><strong class="text-nowrap">Lieu de naissance :</strong></label>
+				      <div class="col-sm-9">
+					       <input type="hidden" name="idlieunaissance" id="idlieunaissance" value={{ $patient->Lieu_Naissance }}>
+					      <input type="text" id="lieunaissance" name="" placeholder="Lieu de naissance..." utocomplete = "off" class="col-xs-12 col-sm-12" value="{{ $patient->lieuNaissance->nom_commune }}" required/>
 						    {!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
-						  </div>
-						</div>
+				       </div>
+				</div>
    			  </div>
-      	</div>  {{-- row --}}
+      		</div>  {{-- row --}}
 	      	<div class="row">
 	      		<div class="col-sm-6">
-							<div class="form-group {{ $errors->has('sexe') ? "has-error" : "" }}">
-								<label class="col-sm-3 control-label" for="sexe">
-									<strong>Sexe :</strong>
-								</label>
-								<div class="col-sm-9">
-									<div class="radio">
-										<label>
-										<input name="sexe" value="M" type="radio" class="ace" {{ $patient->Sexe == "M" ? "checked" : ""}}/>
-											<span class="lbl"> Masculin</span>
-										</label>
-										<label>
-										<input name="sexe" value="F" type="radio" class="ace" {{ $patient->Sexe == "F" ? "checked" : ""}}/>
-											<span class="lbl"> Féminin</span>
-										</label>
-									</div>
-								</div>
-							</div>
-					  </div>	{{-- col-sm-6 --}}
-						<div class="col-sm-6">
-							<div class="form-group">
-								<label class="col-sm-3 control-label text-nowrap" for="gs">
-									<strong>Groupe sanguin :</strong>
-								</label>
-								<div class="col-sm-2">
-									<select class="form-control" id="gs" name="gs">
-									@if(!isset($patient->group_sang)  && empty($patient->group_sang)) 
-										<option value="" selected >------</option>
-										<option value="A" >A</option>
-										<option value="B">B</option>
-										<option value="AB" >AB</option>
-										<option value="O" >O</option>
-									@else 		
-										<option value="" selected >------</option>
-										<option value="A" @if( $patient->group_sang =="A") selected @endif>A</option>
-										<option value="B" @if( $patient->group_sang =="B") selected @endif>B</option>
-										<option value="AB" @if( $patient->group_sang =="AB") selected @endif>AB</option>
-										<option value="O" @if( $patient->group_sang =="O") selected @endif>O</option>
-									@endif
-									</select>
-								</div>
-								<label class="col-sm-3 control-label no-padding-right" for="rh">
-									<strong>Rhésus :</strong>
-								</label>
-								<div class="col-sm-2">
-								<select id="rh" name="rh">
-								@if(!isset($patient->rhesus)  && empty($patient->rhesus)) 
-									<option value="" selected >------</option>
-									<option value="+">+</option>
-									<option value="-">-</option>
-								@else
-									<option value="" >------</option>
-									<option value="+" @if( $patient->rhesus =="+") selected @endif>+</option>
-									<option value="-" @if( $patient->rhesus =="-") selected @endif>-</option>
-								@endif
-								</select>
-								</div>
-							</div>
-						</div>{{-- col-sm-6 --}}
+				<div class="form-group {{ $errors->has('sexe') ? "has-error" : "" }}">
+					<label class="col-sm-3 control-label" for="sexe"><strong>Sexe :</strong></label>
+					<div class="col-sm-9">
+						<div class="radio">
+							<label>
+							<input name="sexe" value="M" type="radio" class="ace" {{ $patient->Sexe == "M" ? "checked" : ""}}/>
+								<span class="lbl"> Masculin</span>
+							</label>
+							<label>
+							<input name="sexe" value="F" type="radio" class="ace" {{ $patient->Sexe == "F" ? "checked" : ""}}/>
+								<span class="lbl"> Féminin</span>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>	{{-- col-sm-6 --}}
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label class="col-sm-3 control-label text-nowrap" for="gs"><strong>Groupe sanguin :</strong></label>
+					<div class="col-sm-2">
+						<select class="form-control" id="gs" name="gs">
+						@if(!isset($patient->group_sang)  && empty($patient->group_sang)) 
+							<option value="" selected >------</option>
+							<option value="A" >A</option>
+							<option value="B">B</option>
+							<option value="AB" >AB</option>
+							<option value="O" >O</option>
+						@else 		
+							<option value="" selected >------</option>
+							<option value="A" @if( $patient->group_sang =="A") selected @endif>A</option>
+							<option value="B" @if( $patient->group_sang =="B") selected @endif>B</option>
+							<option value="AB" @if( $patient->group_sang =="AB") selected @endif>AB</option>
+							<option value="O" @if( $patient->group_sang =="O") selected @endif>O</option>
+						@endif
+						</select>
+					</div>
+					<label class="col-sm-3 control-label no-padding-right" for="rh"><strong>Rhésus :</strong></label>
+					<div class="col-sm-2">
+					<select id="rh" name="rh">
+					@if(!isset($patient->rhesus)  && empty($patient->rhesus)) 
+						<option value="" selected >------</option>
+						<option value="+">+</option>
+						<option value="-">-</option>
+					@else
+						<option value="" >------</option>
+						<option value="+" @if( $patient->rhesus =="+") selected @endif>+</option>
+						<option value="-" @if( $patient->rhesus =="-") selected @endif>-</option>
+					@endif
+					</select>
+					</div>
+				</div>
+			</div>{{-- col-sm-6 --}}
 	      	</div> {{-- row --}}
 		    	<div class="row">
 						<div class="col-sm-6">
@@ -602,30 +586,27 @@
 					<textarea class="form-control" id="description" name="description" placeholder="Description" >{{ $patient->description }}</textarea>
 				</div>
 			</div>
-			@if(count($hommes_c) == 0) 	
-			<div class="row">
-	      <div class="col-sm-12">
-					<h3 class="header smaller lighter blue">Homme de Confiance</h3>
-				</div>
+		@if(count($hommes_c) == 0) 	
+		<div class="row">
+	      		<div class="col-sm-12">
+				<h3 class="header smaller lighter blue">Homme de Confiance</h3>
+			</div>
 	    </div>
 	    <div class="row">
-	     	<div class="col-sm-1"></div>		
-				<div class="col-sm-11">
-					<div class="form-group padding-left">
-						<input  type="checkbox" id="hommeConf" value="1"  class="ace input-lg"/>
-						<span class="lbl lighter blue"> <strong>Ajouter un Correspondant</strong></span>
-					</div>
-				</div>				
-			</div>		
-			@endif	
+	     		<div class="col-sm-1"></div>		
+			<div class="col-sm-11">
+				<div class="form-group padding-left">
+					<input  type="checkbox" id="hommeConf" value="1"  class="ace input-lg"/>
+					<span class="lbl lighter blue"> <strong>Ajouter un Correspondant</strong></span>
+				</div>
+			</div>				
+		</div>		
+		@endif	
   		</div> {{-- tab-pane Patient --}}
-  		<div id="Assure" class='tab-pane fade @if($patient->Type =="Autre")  invisible @endif'>
-     		{{-- @if(isset($assure) && !empty($assure))@endif	--}}
-					@include('assurs.editAssure')
-     		 
-  		</div>{{-- tab-pane Assure --}} 
-  	 
-  		{{-- @if(!isset($hommes_c)) style= "display:none" @endif --}}
+  		<div id="Assure" class='tab-pane fade @if($patient->Type =="Autre")  invisible @else in active  @endif '>
+     			@include('assurs.editAssure')
+     		</div>{{-- tab-pane Assure --}} 
+  	 	{{-- @if(!isset($hommes_c)) style= "display:none" @endif --}}
   		<div id="Homme" class="tab-pane fade hidden_fields">
 					<div class="row">
 					</div>

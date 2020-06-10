@@ -169,7 +169,6 @@ class PatientController extends Controller
     public function show($id)
     {  
       $patient = patient::FindOrFail($id);
-
       $homme_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get()->first();
       $consultations =$patient->Consultations; //consultation::where('Patient_ID_Patient',$id)->get(); 
       $hospitalisations = $patient->hospitalisations;//hospitalisation::whereHas('admission.demandeHospitalisation.consultation.patient', function($q) use($id){$q->where('id', $id);})->get();
@@ -204,9 +203,8 @@ class PatientController extends Controller
      */
     public function update(Request $request,$id)
     {
-      $date = Date::Now();
-      static $assurObj;
-      $patient = patient::FindOrFail($id);
+       $date = Date::Now();  static $assurObj;
+       $patient = patient::FindOrFail($id);
       switch ($patient->Type) {
         case 'Assure':
             switch ($request->type) {

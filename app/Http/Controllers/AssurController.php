@@ -18,7 +18,6 @@ class AssurController extends Controller
     }
     public function index()
     {
-        //
         return view('assurs.index');
     }
 
