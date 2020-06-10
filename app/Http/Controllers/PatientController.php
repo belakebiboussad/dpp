@@ -112,10 +112,8 @@ class PatientController extends Controller
               "Etat"=>$request->etatf,
               "NSS"=>$request->nss,
               "NMGSN"=>$request->NMGSN, 
-        ]);            
+      ]);            
     }
-   /*else {if( $request->type=="Assure") { $assurObj = assur::firstOrCreate(["Nom"=>$request->nomf, "Prenom"=>$request->prenomf,           "Date_Naissance"=>$request->datenaissancef,"lieunaissance"=>$request->idlieunaissancef,"Sexe"=>$request->sexef,"adresse"=>$request->adressef,          "grp_sang"=>$request->gsf.$request->rhf,"Matricule"=>$request->mat,"Service"=>$request->service,"Grade"=>$request->grade,"Etat"=>$request->etatf,
-  "NSS"=>$request->nss,"NMGSN"=>$request->NMGSN, ]); } }*/
     $assurID= $assurObj !=null ? $assurObj->id : null;//$codebarre =$request->sexe.$date->year."/".($nomb+1);
     $patient = patient::firstOrCreate([
               "Nom"=>$request->nom,// "code_barre"=>$codebarre,
@@ -123,7 +121,8 @@ class PatientController extends Controller
               "Dat_Naissance"=>$request->datenaissance,
               "Lieu_Naissance"=>$request->idlieunaissance,
               "Sexe"=>$request->sexe,
-              "situation_familiale"=>$request->sf, 
+              "situation_familiale"=>$request->sf,
+              "nom_jeune_fille"=>$request->nom_jeune_fille, 
               "Adresse"=>$request->adresse,
               'commune_res'=>$request->idcommune,
               'wilaya_res'=>$request->idwilaya,
@@ -161,7 +160,6 @@ class PatientController extends Controller
      ]);
      return redirect(Route('patient.show',$patient->id)); //return redirect(Route('patient.show',$patient->id,true));
   }
-
     /**
      * Display the specified resource.
      *
@@ -171,6 +169,7 @@ class PatientController extends Controller
     public function show($id)
     {  
       $patient = patient::FindOrFail($id);
+
       $homme_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get()->first();
       $consultations =$patient->Consultations; //consultation::where('Patient_ID_Patient',$id)->get(); 
       $hospitalisations = $patient->hospitalisations;//hospitalisation::whereHas('admission.demandeHospitalisation.consultation.patient', function($q) use($id){$q->where('id', $id);})->get();
@@ -188,16 +187,14 @@ class PatientController extends Controller
      */
     public function edit($id)
     {           
+      $assure ;
       $grades = grade::all(); 
       $patient = patient::FindOrFail($id);
       $hommes_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
       if($patient->Type != "Autre")
-        $assure =  $patient->assure;  
-      // else //   $assure = new assur;
+        $assure =  $patient->assure;   // else  //   $assure = new assur;
       return view('patient.edit_patient',compact('patient','assure','hommes_c','grades'));
     }
-
-
     /**
      * Update the specified resource in storage.
      *
@@ -237,6 +234,7 @@ class PatientController extends Controller
                           "commune_res"=>$request->idcommune,
                           "wilaya_res"=>$request->idwilaya,
                           "situation_familiale"=>$request->sf,
+                           "nom_jeune_fille"=>$request->nom_jeune_fille, 
                           "tele_mobile1"=>$request->operateur1.$request->mobile1,
                           "tele_mobile2"=>$request->operateur2.$request->mobile2,
                           "group_sang"=>$request->gs,
@@ -272,6 +270,7 @@ class PatientController extends Controller
                                    "commune_res"=>$request->idcommune,
                                    'wilaya_res'=>$request->idwilaya,
                                    "situation_familiale"=>$request->sf,
+                                   "nom_jeune_fille"=>$request->nom_jeune_fille, 
                                    "tele_mobile1"=>$request->operateur1.$request->mobile1,
                                    "tele_mobile2"=>$request->operateur2.$request->mobile2,
                                    "group_sang"=>$request->gs,
@@ -295,6 +294,7 @@ class PatientController extends Controller
                                   'commune_res'=>$request->idcommune,
                                   'wilaya_res'=>$request->idwilaya,
                                   "situation_familiale"=>$request->sf,
+                                  "nom_jeune_fille"=>$request->nom_jeune_fille, 
                                   "tele_mobile1"=>$request->operateur1.$request->mobile1,
                                   "tele_mobile2"=>$request->operateur2.$request->mobile2,
                                   "group_sang"=>$request->gs,
@@ -337,6 +337,7 @@ class PatientController extends Controller
                                               'commune_res'=>$request->idcommune,
                                               'wilaya_res'=>$request->idwilaya,
                                               "situation_familiale"=>$request->sf,
+                                              "nom_jeune_fille"=>$request->nom_jeune_fille,
                                               "tele_mobile1"=>$request->operateur1.$request->mobile1,
                                               "tele_mobile2"=>$request->operateur2.$request->mobile2,
                                               "group_sang"=>$request->gs,
@@ -375,6 +376,7 @@ class PatientController extends Controller
                                         'commune_res'=>$request->idcommune,
                                         'wilaya_res'=>$request->idwilaya,
                                         "situation_familiale"=>$request->sf,
+                                        "nom_jeune_fille"=>$request->nom_jeune_fille,
                                         "tele_mobile1"=>$request->operateur1.$request->mobile1,
                                         "tele_mobile2"=>$request->operateur2.$request->mobile2,
                                         "group_sang"=>$request->gs,
@@ -397,6 +399,7 @@ class PatientController extends Controller
                                         'commune_res'=>$request->idcommune,
                                         'wilaya_res'=>$request->idwilaya,
                                         "situation_familiale"=>$request->sf,
+                                        "nom_jeune_fille"=>$request->nom_jeune_fille,
                                         "tele_mobile1"=>$request->operateur1.$request->mobile1,
                                         "tele_mobile2"=>$request->operateur2.$request->mobile2,
                                         "group_sang"=>$request->gs,
@@ -440,6 +443,7 @@ class PatientController extends Controller
                                     'commune_res'=>$request->idcommune,
                                     'wilaya_res'=>$request->idwilaya,
                                     "situation_familiale"=>$request->sf,
+                                    "nom_jeune_fille"=>$request->nom_jeune_fille,
                                     "tele_mobile1"=>$request->operateur1.$request->mobile1,
                                     "tele_mobile2"=>$request->operateur2.$request->mobile2,
                                     "group_sang"=>$request->gs,
@@ -477,6 +481,7 @@ class PatientController extends Controller
                                               'commune_res'=>$request->idcommune,
                                               'wilaya_res'=>$request->idwilaya,
                                               "situation_familiale"=>$request->sf,
+                                              "nom_jeune_fille"=>$request->nom_jeune_fille,
                                               "tele_mobile1"=>$request->operateur1.$request->mobile1,
                                               "tele_mobile2"=>$request->operateur2.$request->mobile2,
                                               "group_sang"=>$request->gs,
@@ -498,7 +503,7 @@ class PatientController extends Controller
                              return redirect(Route('patient.index'));
                           }
                   case 'Autre':
-                          $patient -> update([
+                      $patient -> update([
                                     "Nom"=>$request->nom,
                                     "Prenom"=>$request->prenom,
                                     "Dat_Naissance"=>$request->datenaissance,
@@ -508,6 +513,7 @@ class PatientController extends Controller
                                     'commune_res'=>$request->idcommune,
                                     'wilaya_res'=>$request->idwilaya,
                                     "situation_familiale"=>$request->sf,
+                                    "nom_jeune_fille"=>$request->nom_jeune_fille,
                                     "tele_mobile1"=>$request->operateur1.$request->mobile1,
                                     "tele_mobile2"=>$request->operateur2.$request->mobile2,
                                     "group_sang"=>$request->gs,
@@ -519,7 +525,6 @@ class PatientController extends Controller
                                     "description"=> $request->description, 
                                     "Date_creation"=>$date,  
                                   ]);
-                          
                       break;
                 default:
                       # code...
@@ -584,6 +589,7 @@ class PatientController extends Controller
               ]);
           }
     }
+    dd($patient);
     /******************************/    
     return redirect(Route('patient.show',$patient->id));
   }

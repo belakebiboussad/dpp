@@ -51,8 +51,8 @@ class AssurController extends Controller
      */
     public function show($id)
     {
-        $assur = assur::FindOrFail($id);
-        return view('assurs.show',compact('assur'));
+        $assure = assur::FindOrFail($id);
+        return view('assurs.show',compact('assure'));
     }
 
     /**

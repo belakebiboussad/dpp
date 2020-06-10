@@ -50,14 +50,14 @@ class patient extends Model
  		if($this->getAge()>16)
  		{
 	 		if($this->Sexe == "F")
- 				if($this->situation_familiale= "celibataire")
+ 				if($this->situation_familiale== "celibataire")
  					return "Mlle. ";
  				else
  					return "Mme. ";
  				else
  					return "M. ";	
  		}else
- 			return 'Enf';
+ 			return 'Enf.';
  	}
 
 }

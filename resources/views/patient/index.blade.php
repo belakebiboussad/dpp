@@ -169,14 +169,6 @@
 							                	className: "dt-body-center",
 									},
 									{ data:'id',title:'ID', "visible": false},
-									// { data: null,title:'Nom',
-									//    "render":function(data,type,full,meta){
-									// 	if(type ==='display'){
-									// 		return '<a onclick ="getPatientdetail('+data.id+')" style="cursor:pointer" data-toggle="tooltip" title="Résume du patient">'+data.Nom+'</a>';
-									//       }
-									//       return data;	
-								 //         } 
-									// },
 									{ data: 'Nom', title:'Nom' },
 	       					{ data: 'Prenom', title:'Prenom' },
 	       					{ data: 'IPP', title:'IPP'},

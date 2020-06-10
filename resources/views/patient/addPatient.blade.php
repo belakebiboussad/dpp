@@ -425,7 +425,7 @@
 								<option value="">------</option>
 								<option value="Ascendant">Ascendant</option>
 								<option value="Descendant">Descendant</option>
-								<option value="Conjoint">Conjoint</option>
+								<option value="Conjoint(e)">Conjoint(e)</option>
 							</select>
 							</div>
 						</div>				

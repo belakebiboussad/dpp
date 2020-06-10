@@ -74,7 +74,7 @@
 							</div><!-- /.col -->
 							<div class="col-xs-12 col-sm-9">
 								<h4 class="blue">
-									<span class="middle">{{ $patient->Nom }} {{ $patient->Prenom }}</span>
+									<span class="middle">{{ $patient->getCivilite()}} {{ $patient->Nom }} {{ $patient->Prenom }}</span>
 									<span class="label label-purple arrowed-in-right">
 										<i class="ace-icon fa fa-circle smaller-80 align-middle"></i>
 										{{ $patient->Type }}
@@ -119,11 +119,19 @@
 										</div>
 									</div>
 									<div class="profile-info-row">
-										<div class="profile-info-name"> Situ familiale </div>
+										<div class="profile-info-name"> Civilité </div>
 										<div class="profile-info-value">
 											<span>{{ $patient->situation_familiale }}</span>
 										</div>
 									</div>
+									@if(($patient->Sexe =="F") && ($patient->situation_familiale == "marie"))
+									<div class="profile-info-row">
+										<div class="profile-info-name"> Nom Fille </div>
+										<div class="profile-info-value">
+											<span>{{ $patient->nom_jeune_fille }}</span>
+										</div>
+									</div>
+									@endif
 									<div class="profile-info-row">
 										<div class="profile-info-name"> Adresse </div>
 										<div class="profile-info-value">
