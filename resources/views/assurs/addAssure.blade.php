@@ -132,28 +132,14 @@
 					<option value="Agent civile">Agent civile</option>
 					<option value="Sécurité publique">Sécurité publique</option>
 					<option value="Police judiciaire (PJ)">Police judiciaire (PJ)</option>
-					<option value=" Brigade mobile de la police judiciaire (BMPJ)">
-					Brigade mobile de la police judiciaire (BMPJ)
-					</option>
-					<option value="Service protection et sécurité des personnalités (SPS)">
-					Service protection et sécurité des personnalités (SPS)
-					</option>
-					<option value="L'Unité aérienne de la sûreté nationale">
-					L'Unité aérienne de la sûreté nationale
-					</option>
-					<option value="Unités républicaines de sécurité (URS)">
-						Unités républicaines de sécurité (URS)
-					</option>
-					<option value="Police scientifique et technique">
-						Police scientifique et technique
-					</option>
-					<option value="Police aux frontières et de l'immigration (PAF)">
-					Police aux frontières et de l'immigration (PAF)
-					</option>
-					<option value="La Brigade de recherche et d'intervention (BRI)">La Brigade de recherche et d'intervention (BRI)
-					</option>
-					<option value="Le Groupe des opérations spéciales de la police (GOSP)">
-					Le Groupe des opérations spéciales de la police (GOSP)
+					<option value=" Brigade mobile de la police judiciaire (BMPJ)">Brigade mobile de la police judiciaire (BMPJ)</option>
+					<option value="Service protection et sécurité des personnalités (SPS)">Service protection et sécurité des personnalités (SPS)</option>
+					<option value="Unité aérienne de la sûreté nationale">Unité aérienne de la sûreté nationale</option>
+					<option value="Unités républicaines de sécurité (URS)">Unités républicaines de sécurité (URS)</option>
+					<option value="Police scientifique et technique">Police scientifique et technique</option>
+					<option value="Police aux frontières et de l'immigration (PAF)">	Police aux frontières et de l'immigration (PAF)</option>
+					<option value="La Brigade de recherche et d'intervention (BRI)">La Brigade de recherche et d'intervention (BRI)</option>
+					<option value="Le Groupe des opérations spéciales de la police (GOSP)">Le Groupe des opérations spéciales de la police (GOSP)
 					</option>
 				</select>
 			</div>

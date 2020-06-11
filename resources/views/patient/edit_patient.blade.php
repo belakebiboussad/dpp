@@ -1,231 +1,206 @@
 @extends('app')
 @section('title','modifier  le patient')
 @section('page-script')
-	<script>
-		function showType(value,i){
-			switch(value){
-          case "Assure":
-         	$("#nomf").val($("#nom").val());
-           	 $("#prenomf").val($("#prenom").val());
-           	 $("#datenaissancef").val($("#datenaissance").val());
-            	$("#lieunaissancef").val($("#lieunaissance").val());
-            	$("#idlieunaissancef").val($("#idlieunaissance").val());
-            	$("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);  
-            	$("#foncform").addClass('hide'); 
-          	 $('#Type_p').attr('required', false); 
-            	$('#nsspatient').attr('required', false);    
-            	$('#nsspatient').attr('disabled', true);  
-            	addRequiredAttr();
-               break;
-          case "Ayant_droit":
-          	if(i !=0)
-       	    	{
-       	          $("#nomf").val("");
-                 	$("#prenomf").val("");
-                  $("#datenaissancef").val("");
-                  $("#lieunaissancef").val("");		
-                  $("select#grade").prop('selectedIndex', 0);
-                  $("#matf").val("");
-                  $("#NMGSN").val("");            	
-         			}	
-	            $("#foncform").removeClass('hide');
-	            $('#Type_p').attr('required', true); 
-	            $('#nsspatient').attr('disabled', false); 
-              addRequiredAttr();
-              break;
-          case "Autre":
-             $(".starthidden").show(250);
-             $("#foncform").addClass('hide');
-             $('#Type_p').attr('required', false); 
-    			   $("ul#menuPatient li:eq(1)").css('display', 'none');//$("ul#menuPatient li:not(.active) a").prop('disabled', true);
-             $('#nomf').attr('required', false);
-             $('#prenomf').attr('required', false);
-             $('#nsspatient').attr('required', false);    
-             $('#nsspatient').attr('disabled', true); 
-              break;         
-			}			
-		}
-		$(function() {
-	    var checkbox = $("#hommeConf");
-	    checkbox.change(function() {
+<script>
+	function showType(value,i){
+		switch(value){
+		       case "Assure":
+		         	$("#nomf").val($("#nom").val());	 $("#prenomf").val($("#prenom").val());
+		           	 $("#datenaissancef").val($("#datenaissance").val());$("#lieunaissancef").val($("#lieunaissance").val());
+		            	$("#idlieunaissancef").val($("#idlieunaissance").val());
+		            	$("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);  
+		            	$("#foncform").addClass('hide');  $('#Type_p').attr('required', false);$('#nsspatient').attr('required', false); $('#nsspatient').attr('disabled', true);      	
+		            	addRequiredAttr();
+		               break;
+		       case "Ayant_droit":
+		          	if(i !=0)
+		       	    	{
+		       	          	$("#nomf").val("");$("#prenomf").val(""); $("#datenaissancef").val("");  $("#lieunaissancef").val("");  $("select#grade").prop('selectedIndex', 0);
+		                	$("#matf").val(""); $("#NMGSN").val("");$('#nsspatient').val("");$('#adressef').val("");$('#gsf option:eq(0)').prop('selected', true);
+		                	$('#grade option:eq(0)').prop('selected', true);$('#service option:eq(0)').prop('selected', true);$("#nss").val("");
+		               }	
+			        $("#foncform").removeClass('hide');  $('#Type_p').attr('required', true);  $('#nsspatient').attr('disabled', false); 
+			       addRequiredAttr();
+		              break;
+          		case "Autre": //$("ul#menuPatient li:not(.active) a").prop('disabled', true);
+              			$(".starthidden").show(250);     $("#foncform").addClass('hide'); $('#Type_p').attr('required', false); $("ul#menuPatient li:eq(0)").css('display', 'none');
+                 		$('#nomf').attr('required', false); $('#prenomf').attr('required', false); $('#nsspatient').attr('required', false);$('#nsspatient').attr('disabled', true);   
+            		        break;         
+		}			
+	}
+	$(function() {
+	    	var checkbox = $("#hommeConf");
+	  	 checkbox.change(function() {
 	 		if(checkbox.is(":checked"))
-  		 	$("#hommelink").removeClass('invisible');
-  		 else
+  		 		$("#hommelink").removeClass('invisible');
+  		 	else
   			$("#hommelink").addClass('invisible');	
-			})
-		});
-		function autocopleteCNais(commune)
+		})
+	});
+	function autocopleteCNais(commune)
+	{
+		var res = commune.split(",");	
+		if($('#fonc').is(':checked'))
 		{
-			var res = commune.split(",");	
-			if($('#fonc').is(':checked'))
-			{
-				$("#idlieunaissancef").val(res[0]);
-				$("#lieunaissancef").val(res[1]);		
-			}		
-			$("#idlieunaissance").val(res[0]);
-		}
-		function autocopleteCNaisAS(commune)
-		{	
-			$("#idlieunaissancef").val(commune);
-		}
-		function show(wilaya)
-		{
-			var res = wilaya.split(",");
-			$("#idwilaya").val(res[0]);
-			$("#wilaya").val(res[1]);
-			$("#idcommune").val(res[2]);
-		}
-		//averifier
-		if ($("#addGardeMalade").length > 0) {
+			$("#idlieunaissancef").val(res[0]);$("#lieunaissancef").val(res[1]);	
+		}		
+		$("#idlieunaissance").val(res[0]);
+	}
+	function autocopleteCNaisAS(commune)
+	{	
+		$("#idlieunaissancef").val(commune);
+	}
+	function show(wilaya)
+	{
+		var res = wilaya.split(",");$("#idwilaya").val(res[0]);$("#wilaya").val(res[1]);$("#idcommune").val(res[2]);
+	}
+	//averifier
+	if ($("#addGardeMalade").length > 0) {
     		$("#addGardeMalade").validate({
       			rules: {
   			        mobile_h: {
-            			required: true,
-            			digits:true,
-            			minlength: 10,
-            			maxlength:10,
-        				}   
-   					},
-   					messages: {
-   							mobile_h: {
-					        required: "Please enter contact number",
-					        minlength: "The contact number should be 10 digits",
-					        digits: "Please enter only numbers",
-					        maxlength: "The contact number should be 12 digits",
-   							}
-   					}
+	            			required: true,
+	            			digits:true,
+	            			minlength: 10,
+	            			maxlength:10,
+        			}   
+   			},
+   			messages: {
+   				mobile_h: {
+				        required: "Please enter contact number",
+				        minlength: "The contact number should be 10 digits",
+				        digits: "Please enter only numbers",
+				        maxlength: "The contact number should be 12 digits",
+   				}
+   			}
    		});
-    }
-		$(document).ready(function () {
-		   	var bloodhoundcom = new Bloodhound({
-		        		  datumTokenizer: Bloodhound.tokenizers.whitespace,
-		        		  queryTokenizer: Bloodhound.tokenizers.whitespace,
-		     		remote: {
-							 url: '/patients/findcom?com=%QUERY%',
-				 			wildcard: '%QUERY%'
-						},
-				});
-				$('#commune').typeahead({
-					hint: true,
-					highlight: true,
-					minLength: 1
-				},{
-						name: 'communenom',
-						source: bloodhoundcom,
-						display: function(data) {
-								return data.nom_commune  //Input value to be set when you select a suggestion. 
-						},
-						templates: {
-							empty: [
-								'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
-							],
-							header: [
-								'<div class="list-group search-results-dropdown">'
-							],
-							suggestion: function(data) {
-								return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="show(\''+data.Id_wilaya+','+data.nom_wilaya+','+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
-							}
-						}
-				});
-		////////////////////////////////////////////////////// Autocomletecommune de l'assure ////////////////
+    	}
+	$(document).ready(function () {
+		 $('input[type=radio][name=etatf]').change(function(){
+		 	if($(this).val() != "En_exercice")
+				$('#serviceFonc').addClass('invisible'); 
+			else
+				$('#serviceFonc').removeClass('invisible'); 	
+		});
+		if($("input[type=radio][name='etatf']:checked").val()!= "En_exercice" )
+			$('#serviceFonc').addClass('invisible'); 
+		 var bloodhoundcom = new Bloodhound({
+        		datumTokenizer: Bloodhound.tokenizers.whitespace,
+        		queryTokenizer: Bloodhound.tokenizers.whitespace,
+     			remote: {
+				 url: '/patients/findcom?com=%QUERY%',
+		 		wildcard: '%QUERY%'
+			},
+		});
+		$('#commune').typeahead({
+			hint: true,
+			highlight: true,
+			minLength: 1
+		},{
+			name: 'communenom',
+			source: bloodhoundcom,
+			display: function(data) {
+					return data.nom_commune  //Input value to be set when you select a suggestion. 
+			},
+			templates: {
+				empty: [
+					'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
+				],
+				header: [
+					'<div class="list-group search-results-dropdown">'
+				],
+				suggestion: function(data) {
+					return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="show(\''+data.Id_wilaya+','+data.nom_wilaya+','+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
+				}
+			}
+		});////////////////////////////////////////////////////// Autocomletecommune de l'assure ////////////////
 		$('#lieunaissance').typeahead({
-				hint: true,
-				highlight: true,
-				minLength: 1
-			}, {
-				name: 'communenom',
-				source: bloodhoundcom,
-				display: function(data) {
-					return data.nom_commune  //Input value to be set when you select a suggestion. 
-				},
-				templates: {
-					empty: [
-						'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
-					],
-					header: [
-						'<div class="list-group search-results-dropdown">'
-					],
-					suggestion: function(data) {
-						return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="autocopleteCNais(\''+data.id_Commune+','+data.nom_commune+'\')">' + data.nom_commune+ '</div></div>'
-					}
-				}	
-			});
-      //////////////////////
-      $('#lieunaissancef').typeahead({
-				hint: true,
-				highlight: true,
-				minLength: 1
-			}, {
-				name: 'communenom',
-				source: bloodhoundcom,
-				display: function(data) {
-					return data.nom_commune  //Input value to be set when you select a suggestion. 
-				},
-				templates: {
-					empty: [
-						'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
-					],
-					header: [
-						'<div class="list-group search-results-dropdown">'
-					],
-					suggestion: function(data) {
-						return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="autocopleteCNaisAS(\''+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
-					}
-				}	
-			}); 
-	    var value =  $("input[type=radio][name='type']:checked").val();
-	    showType(value,0);
-	    $( ".civilite" ).change(function() {
-			  	var civilite= $("select.civilite option").filter(":selected").val();
-	  			if((civilite =="marie")|| (civilite =="veuf"))
-	  				$('#Div-nomjeuneFille').removeAttr('hidden');
-	  			else			
-	  				$('#Div-nomjeuneFille').attr('hidden','');	
-			});
-			$('#listeGardes').DataTable({
-            colReorder: true,
-            stateSave: true,
-            searching:false,
-            'aoColumnDefs': [{
-      	 			'bSortable': false,
-        			'aTargets': ['nosort']
-   					}],
-   					"language": {
-		                    "url": '/localisation/fr_FR.json'
-		        },
-      });
-      jQuery('body').on('click', '.open-modal', function () {
-        var hom_id = $(this).val();
-        $.get('/hommeConfiance/'+hom_id+'/edit', function (data) {
-		        $('#patientId').val(data.id_patient);		
-		        $('#hom_id').val(data.id);		
-		        $('#nom_h').val(data.nom);
-		        $('#prenom_h').val(data.prenom); 
-		        $('#datenaissance_h').val(data.date_naiss);
-		        $('#lien_par').val(data.lien_par).change();
-		        $('#lien_par option').each(function() {
-					    if($(this).val() == data.lien_par) {
-					        $(this).prop("selected", true);
-					    }
-					  });				
-					  $('#' + data.type_piece).prop('checked',true); 
-				  	$('#num_piece').val(data.num_piece);
-				  	$('#date_piece_id').val(data.date_deliv);
-				  	$('#adresse_h').val(data.adresse);
-				  	$('#mobile_h').val(data.mob);
-				  	jQuery('#EnregistrerGardeMalade').val("update");	
+			hint: true,
+			highlight: true,
+			minLength: 1
+		}, {
+			name: 'communenom',
+			source: bloodhoundcom,
+			display: function(data) {
+				return data.nom_commune  //Input value to be set when you select a suggestion. 
+			},
+			templates: {
+				empty: [
+					'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
+				],
+				header: [
+					'<div class="list-group search-results-dropdown">'
+				],
+				suggestion: function(data) {
+					return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="autocopleteCNais(\''+data.id_Commune+','+data.nom_commune+'\')">' + data.nom_commune+ '</div></div>'
+				}
+			}	
+		});
+       		$('#lieunaissancef').typeahead({
+			hint: true,
+			highlight: true,
+			minLength: 1
+		}, {
+			name: 'communenom',
+			source: bloodhoundcom,
+			display: function(data) {
+				return data.nom_commune  //Input value to be set when you select a suggestion. 
+			},
+			templates: {
+				empty: [
+					'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
+				],
+				header: [
+					'<div class="list-group search-results-dropdown">'
+				],
+				suggestion: function(data) {
+					return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="autocopleteCNaisAS(\''+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
+				}
+			}	
+		}); 
+	       var value =  $("input[type=radio][name='type']:checked").val();
+	       showType(value,0);
+	       $( ".civilite" ).change(function() {
+		  	var civilite= $("select.civilite option").filter(":selected").val();
+  			if((civilite =="marie")|| (civilite =="veuf"))
+  				$('#Div-nomjeuneFille').removeAttr('hidden');
+  			else			
+  				$('#Div-nomjeuneFille').attr('hidden','');	
+		});
+		$('#listeGardes').DataTable({
+	            colReorder: true,
+	            stateSave: true,
+	            searching:false,
+	            'aoColumnDefs': [{
+	      	 			'bSortable': false,
+	        			'aTargets': ['nosort']
+	   					}],
+	   					"language": {
+			                    "url": '/localisation/fr_FR.json'
+			        },
+      		});
+       jQuery('body').on('click', '.open-modal', function () {
+	        var hom_id = $(this).val();
+	        $.get('/hommeConfiance/'+hom_id+'/edit', function (data) {
+		        $('#patientId').val(data.id_patient); $('#hom_id').val(data.id);	$('#nom_h').val(data.nom);$('#prenom_h').val(data.prenom);
+		        $('#datenaissance_h').val(data.date_naiss);  $('#lien_par').val(data.lien_par).change();		
+			$('#lien_par option').each(function() {
+			    	if($(this).val() == data.lien_par) 
+			      		 $(this).prop("selected", true);
+			});				
+			$('#' + data.type_piece).prop('checked',true); $('#num_piece').val(data.num_piece);$('#date_piece_id').val(data.date_deliv);
+			$('#adresse_h').val(data.adresse);$('#mobile_h').val(data.mob);jQuery('#EnregistrerGardeMalade').val("update");
 		        jQuery('#gardeMalade').modal('show');
-        })
-      });
-	    $("#EnregistrerGardeMalade").click(function (e) {
-  			
-      	$.ajaxSetup({
-	        headers: {
-	            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-	        }
-	      });
-	      e.preventDefault();
-	      var formData = {
+	        })
+       });
+	 $("#EnregistrerGardeMalade").click(function (e) {
+	  	$.ajaxSetup({
+		        headers: {
+		            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+		        }
+		});
+		e.preventDefault();
+		var formData = {
 					id_patient:$('#patientId').val(),
 					nom:$('#nom_h').val(),
 					prenom : $('#prenom_h').val(),
@@ -237,66 +212,61 @@
 					adresse : $('#adresse_h').val(),
 					mob : $('#mobile_h').val(),
 					created_by: $('#userId').val()
-				};
-				var state = jQuery('#EnregistrerGardeMalade').val();
-			  var type = "POST";
-	      var hom_id = jQuery('#hom_id').val();
-	      var ajaxurl = 'hommeConfiance';
-	      if (state == "update") {
-	            type = "PUT";
-	            ajaxurl = '/hommeConfiance/' + hom_id;
-	      }
+		};
+		var state = jQuery('#EnregistrerGardeMalade').val(); var type = "POST";var hom_id = jQuery('#hom_id').val();var ajaxurl = 'hommeConfiance';
+		if (state == "update") {
+	            type = "PUT"; ajaxurl = '/hommeConfiance/' + hom_id;
+	        }
 	      if (state == "add") {
 	            ajaxurl = '/hommeConfiance/save';
 	      }
-	      $('#hom_id').val("");$('#nom_h').val("");$('#prenom_h').val("");$('#datenaissance_h').val("");$('#num_piece').val("");	$('#date_piece_id').val("");$('#adresse_h').val("");$('#mobile_h').val("");
+	      $('#hom_id').val("");$('#nom_h').val("");$('#prenom_h').val("");$('#datenaissance_h').val("");$('#num_piece').val("");	$('#date_piece_id').val("");
+	      $('#adresse_h').val("");$('#mobile_h').val("");
 	       $.ajax({
-            type: type,
-            url: ajaxurl,
-            data: formData,
-            dataType: 'json',
-            success: function (data) {
-            	if($('.dataTables_empty').length > 0)
+		       type: type,
+		       url: ajaxurl,
+		       data: formData,
+		       dataType: 'json',
+           		success: function (data) {
+            			if($('.dataTables_empty').length > 0)
       				{
-      			  	$('.dataTables_empty').remove();
+      			  		$('.dataTables_empty').remove();
       				}
-              var homme = '<tr id="garde' + data.id + '"><td class="hidden">' + data.id_patient + '</td><td>' + data.nom + '</td><td>' + data.prenom + '</td><td>'+ data.date_naiss +'</td><td>' +
-              						 data.adresse + '</td><td>'+ data.mob + '</td><td>' + data.lien_par + '</td><td>' + data.type_piece + '</td><td>' + data.num_piece + '</td><td>' +  data.date_deliv + '</td>';
-              homme += '<td class ="center"><button type="button" class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
-              homme += '<button type="button" class="btn btn-xs btn-danger delete-garde" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
-              if (state == "add") {
-                 $("#listeGardes tbody").append(homme);
-              } else {
-                  	$("#garde" + hom_id).replaceWith(homme);	   	
-                }
-                jQuery('#gardeMalade').modal('hide')
-            },
-            error: function (data) {
-              console.log('Error:', data);
-            }
-        });	
-	    })
-			////----- DELETE a Garde and remove from the page -----////
+              			var homme = '<tr id="garde' + data.id + '"><td class="hidden">' + data.id_patient + '</td><td>' + data.nom + '</td><td>' + data.prenom + '</td><td>'+ data.date_naiss +'</td><td>' + data.adresse + '</td><td>'+ data.mob + '</td><td>' + data.lien_par + '</td><td>' + data.type_piece + '</td><td>' + data.num_piece + '</td><td>' +  data.date_deliv + '</td>';
+         		      homme += '<td class ="center"><button type="button" class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
+             			homme += '<button type="button" class="btn btn-xs btn-danger delete-garde" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+		              if (state == "add") {
+		                 $("#listeGardes tbody").append(homme);
+		              } else {
+		                  	$("#garde" + hom_id).replaceWith(homme);	   	
+		                }
+	                jQuery('#gardeMalade').modal('hide')
+	            },
+	            error: function (data) {
+	              console.log('Error:', data);
+	            }
+       		 });	
+	 })	////----- DELETE a Garde and remove from the page -----////
     	 jQuery('body').on('click', '.delete-garde', function () {
-        var hom_id = $(this).val();
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            type: "DELETE",
-            url: '/hommeConfiance/' + hom_id,
-            success: function (data) {
-              $("#garde" + hom_id).remove();
-            },
-            error: function (data) {
-                console.log('Error:', data);
-            }
-        });
+	        var hom_id = $(this).val();
+	        $.ajaxSetup({
+	         	headers: {
+	              		  'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+	            	}
+	        });
+	        $.ajax({
+	              type: "DELETE",
+	              url: '/hommeConfiance/' + hom_id,
+	              success: function (data) {
+	    		          $("#garde" + hom_id).remove();
+	              },
+	              error: function (data) {
+	                     console.log('Error:', data);
+	              }
+	        });
       });
-	});
-	</script>
+});
+</script>
 @endsection
 @section('main-content')
 <div class="page-header">
@@ -562,7 +532,7 @@
 								<option value="">------</option>
 								<option value="Ascendant" @if($patient->Type_p == 'Ascendant')  selected @endif>Ascendant</option>
 								<option value="Descendant" @if($patient->Type_p == 'Descendant')  selected @endif>Descendant</option>
-								<option value="Conjoint" @if($patient->Type_p == 'Conjoint')  selected @endif>Conjoint</option>
+								<option value="Conjoint(e)" @if($patient->Type_p == 'Conjoint(e)')  selected @endif>Conjoint(e)</option>
 							</select>
 						</div>	
 						</div>					
@@ -574,7 +544,7 @@
 							</label>
 							<div class="col-sm-8">
 								<input type="text" class="form-control col-xs-12 col-sm-6" id="nsspatient" name="nsspatient" value="{{ $patient->NSS }}"
-								pattern="[0-9]{2}[0-9]{4}[0-9]{4}[0-9]{2}"  placeholder="XXXXXXXXXXXX" />
+								pattern="[0-9]{2}[0-9]{4}[0-9]{4}[0-9]{2}"  placeholder="XXXXXXXXXXXX" maxlength =12 minlength =12 />
 							</div>
 						</div>			
 					 </div>	

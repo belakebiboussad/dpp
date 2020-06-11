@@ -114,8 +114,8 @@
 	   			<label class="col-sm-3 control-label text-nowrap" for="gsf"><strong>Groupe sanguin :</strong></label>
 				<div class="col-sm-2">
 				@if(isset($assure) && !empty($assure))
-					<select class="form-control" id="grp_sang" name="gsf">
-						<option value="" {{ ($assure->grp_sang=="")? "selected" : "" }} >------</option>
+					<select class="form-control" id="gsf" name="gsf">
+						<option value=""  {{ ($assure->grp_sang=="")? "selected" : "" }} >------</option>
 						<option value="A-"  {{ ($assure->grp_sang=="A-")? "selected" : "" }} >A-</option>
 						<option value="A+"  {{ ($assure->grp_sang=="A+")? "selected" : "" }} >A+</option>
 						<option value="B-" {{ ($assure->grp_sang=="B-")? "selected" : "" }} >B-</option>
@@ -149,32 +149,69 @@
 				<div class="col-sm-9">
 				<div class="radio">
 				 @if(isset($assure) && !empty($assure))
-				<label><input name ="etat" value="En_exercice"  type="radio"  class="ace"  {{ $assure->Etat  === 'En_exercice'  ?  'Checked' : ''  }}  />
+				<label><input name ="etatf" value="En_exercice"  type="radio"  class="ace"  {{ $assure->Etat  === 'En_exercice'  ?  'Checked' : ''  }}  />
 					<span class="lbl"> En exercice</span>
 				</label>
-				<label><input name ="etat" value="Retraite"  type="radio"  class="ace"  {{ $assure->Etat  === 'Retraite'  ?  'Checked'  :  ''  }}  />
+				<label><input name ="etatf" value="Retraite"  type="radio"  class="ace"  {{ $assure->Etat  === 'Retraite'  ?  'Checked'  :  ''  }}  />
 					<span class="lbl"> Retraité</span>
 				</label>
-				<label><input  name="etat"  value="Invalide"  type="radio"  class="ace"  {{ $assure->Etat  ===  'Invalide' ? 'Checked' : ''  }} />
+				<label><input  name="etatf"  value="Invalide"  type="radio"  class="ace"  {{ $assure->Etat  ===  'Invalide' ? 'Checked' : ''  }} />
 						<span class="lbl"> Invalide</span>
 				</label>
-				<label><input name="etat" value="Mise_en_disponibilite"  type="radio" class="ace"  {{ $assure->Etat  === 'Mise_en_disponibilite' ? 'Checked' : '' }} />
+				<label><input name="etatf" value="Mise_en_disponibilite"  type="radio" class="ace"  {{ $assure->Etat  === 'Mise_en_disponibilite' ? 'Checked' : '' }} />
 						<span class="lbl"> Mise en disponibilité</span>
 				</label>
 				@else
-				<label hidden><input name="etat" value="" type="radio" class="ace"/><span class="lbl"> Autre</span></label>
-				<label><input name="etat" value="En exercice" type="radio" class="ace" /><span class="lbl" Checked> En exercice</span></label>
-				<label><input name="etat" value="Retraite" type="radio" class="ace" /><span class="lbl"> Retraité</span></label>
-				<label><input name="etat" value="Invalide" type="radio" class="ace" /><span class="lbl"> Invalide</span></label>
-				<label><input name="etat" value="Mise en disponibilite" type="radio" class="ace" /><span class="lbl"> Mise en disponibilité</span>
+				<label hidden><input name="etatf" value="" type="radio" class="ace"/><span class="lbl"> Autre</span></label>
+				<label><input name="etatf" value="En exercice" type="radio" class="ace" /><span class="lbl" Checked> En exercice</span></label>
+				<label><input name="etatf" value="Retraite" type="radio" class="ace" /><span class="lbl"> Retraité</span></label>
+				<label><input name="etatf" value="Invalide" type="radio" class="ace" /><span class="lbl"> Invalide</span></label>
+				<label><input name="etatf" value="Mise en disponibilite" type="radio" class="ace" /><span class="lbl"> Mise en disponibilité</span>
 				</label>
 				 @endif
 				</div>
 				</div>
 			</div>
 		</div>
+		<div class="col-sm-6" id = "serviceFonc">
+		<div class="form-group">
+			<label class="col-sm-3 control-label no-padding-right" for="service"><strong>Service :</strong></label>
+			<div class="col-sm-9">
+				@if(isset($assure) && !empty($assure))
+				<select name="service" id="service" class="col-xs-12 col-sm-12">
+					<option value="">Sélectionner...</option>
+					<option value="Agent civile" {{ ($assure->Service=="Agent civile") ? "selected" : "" }} >Agent civile</option>
+					<option value="Sécurité publique"  {{ ($assure->Service=="Sécurité publique") ? "selected" : "" }}>Sécurité publique</option>
+					<option value="Police judiciaire (PJ)"  {{ ($assure->Service=="Police judiciaire (PJ)") ? "selected" : "" }}>Police judiciaire (PJ)</option>
+					<option value="Brigade mobile de la police judiciaire (BMPJ)"  {{ ($assure->Service=="Brigade mobile de la police judiciaire (BMPJ)") ? "selected" : "" }}>Brigade mobile de la police judiciaire (BMPJ)</option>
+					<option value="Service protection et sécurité des personnalités (SPS)"  {{ ($assure->Service=="Service protection et sécurité des personnalités (SPS)")? "selected" : "" }}>Service protection et sécurité des personnalités (SPS)</option>
+					<option value="Unité aérienne de la sûreté nationale"  {{ ($assure->Service=="Unité aérienne de la sûreté nationale") ? "selected" : "" }}>Unité aérienne de la sûreté nationale</option>
+					<option value="Unités républicaines de sécurité (URS)"  {{ ($assure->Service=="Unités républicaines de sécurité (URS)") ? "selected" : "" }}>Unités républicaines de sécurité (URS)</option>
+					<option value="Police scientifique et technique"  {{ ($assure->Service=="Police scientifique et technique") ? "selected" : "" }}>Police scientifique et technique</option>
+					<option value="Police aux frontières et de l'immigration (PAF)"  {{ ($assure->Service=="Police aux frontières et de l'immigration (PAF)")? "selected" : "" }}>	Police aux frontières et de l'immigration (PAF)</option>
+					<option value="Brigade de recherche et d'intervention (BRI)"  {{ ($assure->Service=="Brigade de recherche et d'intervention (BRI)")? "selected" : "" }}>Brigade de recherche et d'intervention (BRI)	</option>
+					<option value="Groupe des opérations spéciales de la police (GOSP)"  {{ ($assure->Service=="Groupe des opérations spéciales de la police (GOSP)")? "selected" : "" }}>Groupe des opérations spéciales de la police (GOSP)</option>
+				</select>
+				@else
+				<select name="service" id="service" class="col-xs-12 col-sm-12">
+					<option value="0">Sélectionner...</option>
+					<option value="Agent civile">Agent civile</option>
+					<option value="Sécurité publique">Sécurité publique</option>
+					<option value="Police judiciaire (PJ)">Police judiciaire (PJ)</option>
+					<option value=" Brigade mobile de la police judiciaire (BMPJ)">Brigade mobile de la police judiciaire (BMPJ)</option>
+					<option value="Service protection et sécurité des personnalités (SPS)">Service protection et sécurité des personnalités (SPS)</option>
+					<option value="L'Unité aérienne de la sûreté nationale">L'Unité aérienne de la sûreté nationale</option>
+					<option value="Unités républicaines de sécurité (URS)">Unités républicaines de sécurité (URS)</option>
+					<option value="Police scientifique et technique">Police scientifique et technique</option>
+					<option value="Police aux frontières et de l'immigration (PAF)">	Police aux frontières et de l'immigration (PAF)</option>
+					<option value="La Brigade de recherche et d'intervention (BRI)">La Brigade de recherche et d'intervention (BRI)	</option>
+					<option value="Le Groupe des opérations spéciales de la police (GOSP)">Le Groupe des opérations spéciales de la police (GOSP)</option>
+				</select>
+				@endif 
+			</div>
+		</div>
 	</div>
-	<div class="space-12"></div>		
+	</div>	
 	<div class="space-12"></div>	
 	<div class="row">
 		<div class="col-sm-6">
@@ -182,7 +219,8 @@
 				<label class="col-sm-3 control-label " for="grade"><strong>Grade :</strong></label>
 				<div class="col-sm-9">
 				@if(isset($assure) && !empty($assure))
-					<select id="grade" name="grade" class="col-xs-12 col-sm-6"/>
+					<select id="grade" name="grade" class=" col-xs-12 col-sm-6"/>
+					<option value="">Sélectionner...</option>
 					@if ( isset($assure->Grade))
 						@foreach ($grades as $key=>$grade)
 						<option value="{{ $grade->id }}" {{ $assure->Grade === $grade->id   ? "selected":"" }} >{{ $grade->nom }}</option>
