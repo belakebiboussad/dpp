@@ -81,15 +81,16 @@
           			<div class="col-sm-9">
 			               <div class="radio">
 			               @if(isset($assure) && !empty($assure))
-			                <label><input name="sexef" value="M" type="radio" class="ace" checked=  {{ $assure->Sexe == "M" ? "Checked" : ""}}/>
-			                    	<span class="lbl"> Masculin</span>
-			                </label>
-			               <label><input name="sexef" value="F" type="radio" class="ace" checked= {{  $assure->Sexe == "F" ? "checked" : "" }} />
-			                      <span class="lbl"> Féminin</span>
-			              </label>
+			              	  @if($assure->Sexe == "M")
+			                	<label><input name="sexef" value="M" type="radio" class="ace" checked/><span class="lbl"> Masculin</span> </label>
+												<label><input name="sexef" value="F" type="radio" class="ace"/><span class="lbl"> Féminin</span></label>	
+												@else
+												<label><input name="sexef" value="M" type="radio" class="ace" checked ='' /><span class="lbl"> Masculin</span> </label>
+ 				               	<label><input name="sexef" value="F" type="radio" class="ace" checked  = 'checked'/><span class="lbl"> Féminin</span></label>
+ 				               	@endif
 			               @else   
-			                <label><input name="sexef" value="M" type="radio" class="ace" /><span class="lbl" Checked> Masculin</span></label>
-			                <label><input name="sexef" value="F" type="radio" class="ace" /> <span class="lbl"> Féminin</span></label>      
+			                <label><input name="sexef" value="M" type="radio" class="ace" /><span class="lbl" > Masculin</span></label>
+			                <label><input name="sexef" value="F" type="radio" class="ace" /> <span class="lbl" > Féminin</span></label>      
 			               @endif
 			                </div>
                     		</div>
@@ -149,19 +150,21 @@
 				<div class="col-sm-9">
 				<div class="radio">
 				 @if(isset($assure) && !empty($assure))
-				<label><input name ="etatf" value="En_exercice"  type="radio"  class="ace"  {{ $assure->Etat  === 'En_exercice'  ?  'Checked' : ''  }}  />
+			
+				<label><input name ="etatf" value="En_exercice"  type="radio"  class="ace" @if($assure->Etat =='En_exercice') Checked @endif />
 					<span class="lbl"> En exercice</span>
 				</label>
-				<label><input name ="etatf" value="Retraite"  type="radio"  class="ace"  {{ $assure->Etat  === 'Retraite'  ?  'Checked'  :  ''  }}  />
+				<label><input name ="etatf" value="Retraite"  type="radio"  class="ace" @if($assure->Etat =='Retraite') Checked @endif />
 					<span class="lbl"> Retraité</span>
 				</label>
-				<label><input  name="etatf"  value="Invalide"  type="radio"  class="ace"  {{ $assure->Etat  ===  'Invalide' ? 'Checked' : ''  }} />
+				<label><input  name="etatf"  value="Invalide"  type="radio"  class="ace" @if($assure->Etat =='Invalide') Checked @endif />
 						<span class="lbl"> Invalide</span>
 				</label>
-				<label><input name="etatf" value="Mise_en_disponibilite"  type="radio" class="ace"  {{ $assure->Etat  === 'Mise_en_disponibilite' ? 'Checked' : '' }} />
+				<label><input name="etatf" value="Mise_en_disponibilite"  type="radio" class="ace" @if($assure->Etat =='Mise_en_disponibilite') Checked @endif />
 						<span class="lbl"> Mise en disponibilité</span>
 				</label>
 				@else
+				
 				<label hidden><input name="etatf" value="" type="radio" class="ace"/><span class="lbl"> Autre</span></label>
 				<label><input name="etatf" value="En exercice" type="radio" class="ace" /><span class="lbl" Checked> En exercice</span></label>
 				<label><input name="etatf" value="Retraite" type="radio" class="ace" /><span class="lbl"> Retraité</span></label>
@@ -181,10 +184,10 @@
 				<select name="service" id="service" class="col-xs-12 col-sm-12">
 					<option value="">Sélectionner...</option>
 					<option value="Agent civile" {{ ($assure->Service=="Agent civile") ? "selected" : "" }} >Agent civile</option>
-					<option value="Sécurité publique"  {{ ($assure->Service=="Sécurité publique") ? "selected" : "" }}>Sécurité publique</option>
-					<option value="Police judiciaire (PJ)"  {{ ($assure->Service=="Police judiciaire (PJ)") ? "selected" : "" }}>Police judiciaire (PJ)</option>
-					<option value="Brigade mobile de la police judiciaire (BMPJ)"  {{ ($assure->Service=="Brigade mobile de la police judiciaire (BMPJ)") ? "selected" : "" }}>Brigade mobile de la police judiciaire (BMPJ)</option>
-					<option value="Service protection et sécurité des personnalités (SPS)"  {{ ($assure->Service=="Service protection et sécurité des personnalités (SPS)")? "selected" : "" }}>Service protection et sécurité des personnalités (SPS)</option>
+					<option value="Sécurité publique" selected = {{ ($assure->Service=="Sécurité publique") ? "selected" : "" }}>Sécurité publique</option>
+					<option value="Police judiciaire (PJ)" selected = {{ ($assure->Service=="Police judiciaire (PJ)") ? "selected" : "" }}>Police judiciaire (PJ)</option>
+					<option value="Brigade mobile de la police judiciaire (BMPJ)"  selected = {{ ($assure->Service=="Brigade mobile de la police judiciaire (BMPJ)") ? "selected" : "" }}>Brigade mobile de la police judiciaire (BMPJ)</option>
+					<option value="Service protection et sécurité des personnalités (SPS)" selected =  {{ ($assure->Service=="Service protection et sécurité des personnalités (SPS)")? "selected" : "" }}>Service protection et sécurité des personnalités (SPS)</option>
 					<option value="Unité aérienne de la sûreté nationale"  {{ ($assure->Service=="Unité aérienne de la sûreté nationale") ? "selected" : "" }}>Unité aérienne de la sûreté nationale</option>
 					<option value="Unités républicaines de sécurité (URS)"  {{ ($assure->Service=="Unités républicaines de sécurité (URS)") ? "selected" : "" }}>Unités républicaines de sécurité (URS)</option>
 					<option value="Police scientifique et technique"  {{ ($assure->Service=="Police scientifique et technique") ? "selected" : "" }}>Police scientifique et technique</option>
