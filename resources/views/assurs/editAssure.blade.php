@@ -1,12 +1,5 @@
 <div id ="assurePart">
 	<div class="row">
-		<div class="col-sm-12">
-			<h3 class="header smaller lighter blue">
-				<strong>Information L'Assuré(e)</strong>
-			</h3>
-		</div>	
-	</div>{{-- row --}}
-	<div class="row">
 		<div class="col-sm-6">
 			<div class="form-group">
 				<label class="col-sm-3 control-label" for="nomf">
@@ -62,11 +55,15 @@
 					<span class="text-nowrap"><strong>Lieu de naiss :</strong></span>
 				</label>
 				<div class="col-sm-9">
-				 	<input type="hidden" name="idlieunaissancef" id="idlieunaissancef" value="{{ ($patient->Type !="Autre") ? $assure->lieunaissance : '' }}  ">
+{{-- 	<input type="hidden" name="idlieunaissancef" id="idlieunaissancef" value="{{ ($patient->Type !="Autre") ? $assure->lieunaissance : '' }}  ">
+@if(isset($assure) && !empty($assure))<input type="text" id="lieunaissancef" name=""class="col-xs-12 col-sm-12" value="{{ ($patient->Type !="Autre") ? $assure->lieuNaissance->nom_commune : '' }}" autocomplete= "off" />@else	
+<input type="text" id="lieunaissancef" name=""class="col-xs-12 col-sm-12" value="" autocomplete= "off" />@endif--}}
 					@if(isset($assure) && !empty($assure))
-					<input type="text" id="lieunaissancef" name=""class="col-xs-12 col-sm-12" value="{{ ($patient->Type !="Autre") ? $assure->lieuNaissance->nom_commune : '' }}" autocomplete= "off" />
+					<input type="hidden" name="idlieunaissancef" id="idlieunaissancef" value="{{  $assure->lieunaissance  }} ">
+					<input type="text" id="lieunaissancef" name="" class="col-xs-12 col-sm-12" value="{{ $assure->lieuNaissance->nom_commune }}" autocomplete= "off" />
 					@else	
-					<input type="text" id="lieunaissancef" name=""class="col-xs-12 col-sm-12" value="" autocomplete= "off" />
+					<input type="hidden" name="idlieunaissancef" id="idlieunaissancef" value="">
+					<input type="text" id="lieunaissancef" name="" class="col-xs-12 col-sm-12" value="" autocomplete= "off" />
 					@endif
 				</div>
 				<br>
@@ -167,7 +164,7 @@
 				
 				<label hidden><input name="etatf" value="" type="radio" class="ace"/><span class="lbl"> Autre</span></label>
 				<label><input name="etatf" value="En exercice" type="radio" class="ace" /><span class="lbl" Checked> En exercice</span></label>
-				<label><input name="etatf" value="Retraite" type="radio" class="ace" /><span class="lbl"> Retraité</span></label>
+				<label><input name="etatf" value="Retraite" type="radio" class="ace" Checked /><span class="lbl"> Retraité</span></label>
 				<label><input name="etatf" value="Invalide" type="radio" class="ace" /><span class="lbl"> Invalide</span></label>
 				<label><input name="etatf" value="Mise en disponibilite" type="radio" class="ace" /><span class="lbl"> Mise en disponibilité</span>
 				</label>
@@ -224,11 +221,11 @@
 				@if(isset($assure) && !empty($assure))
 					<select id="grade" name="grade" class=" col-xs-12 col-sm-6"/>
 					<option value="">Sélectionner...</option>
-					@if ( isset($assure->Grade))
+					{{-- @if ( isset($assure->Grade)) --}}
 						@foreach ($grades as $key=>$grade)
 						<option value="{{ $grade->id }}" {{ $assure->Grade === $grade->id   ? "selected":"" }} >{{ $grade->nom }}</option>
 						@endforeach
-					@endif
+					{{-- @endif --}}
 					</select>
 				@else
 					<select id="grade" name="grade" class="col-xs-12 col-sm-6"/>

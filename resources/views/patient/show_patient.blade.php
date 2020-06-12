@@ -6,13 +6,12 @@
 	<div class="page-header">
 		<div class="pull-right">
 			<a href="{{ route('patient.index') }}" class="btn btn-white btn-info btn-bold">
-				<i class="ace-icon fa fa-search bigger-120 blue"></i>
-				Chercher un Patient
+				<i class="ace-icon fa fa-search bigger-120 blue"></i>Chercher un Patient
 			</a>
 			<a href="{{route('patient.destroy',$patient->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-white btn-warning btn-bold">
-    			<i class="ace-icon fa fa-trash-o bigger-120 orange"> Supprimer</i>
-      </a>
-    </div>
+	    			<i class="ace-icon fa fa-trash-o bigger-120 orange"> Supprimer</i>
+	      </a>
+	    </div>
 	</div>
 	<div>
 		<div id="user-profile-2" class="user-profile">
@@ -58,7 +57,7 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-3 center">
 								<span class="profile-picture">
-								<img class="editable img-responsive" alt="Avatar" id="avatar2" src="{{asset('/avatars/profile-pic.jpg')}}" />
+									<img class="editable img-responsive" alt="Avatar" id="avatar2" src="{{asset('/avatars/profile-pic.jpg')}}" />
 								</span>
 								<div class="space space-4"></div>
 								<a href="{{ route('patient.edit', $patient->id) }}" class="btn btn-sm btn-block btn-success">
@@ -398,15 +397,11 @@
 						<div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2">
 							<div class="widget-box widget-color-blue" id="widget-box-2">
 								<div class="widget-header">
-									<h5 class="widget-title bigger lighter">
-										<i class="ace-icon fa fa-table"></i>
-										Consultations
-									</h5>
-									<div class="widget-toolbar widget-toolbar-light no-border">
-										{{-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> --}}
+									<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Consultations</h5>
+									<div class="widget-toolbar widget-toolbar-light no-border">{{-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> --}}
 										<div class="fa fa-plus-circle"></div>
 										<a href="/consultations/create/{{$patient->id}}">
-											<b>Ajouter Une Consultation </b>
+											<b>Consultation </b>
 										</a>
 									</div>
 								</div>
@@ -433,7 +428,7 @@
 														{{ App\modeles\employ::where("id",$consultation->Employe_ID_Employe)->get()->first()->Nom_Employe }}
 														{{ App\modeles\employ::where("id",$consultation->Employe_ID_Employe)->get()->first()->Prenom_Employe }}
 														</td>
-														<td>
+														<td class ="center">
 															<div class="hidden-sm hidden-xs btn-group">
                             														<a class="btn btn-xs btn-success" href="/consultations/detailcons/{{$consultation->id}}">	
                             															<i class="ace-icon fa fa-hand-o-up bigger-120"></i>Détails

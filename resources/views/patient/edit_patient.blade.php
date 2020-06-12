@@ -5,47 +5,44 @@
 	function showType(value,i){
 		switch(value){
 		       case "Assure":
-		       				if(i !=0)
-		       				{
-		       					$("input[name=etatf][value=Retraite]").prop('checked', true);
-		       					$('#service option:eq(0)').prop('selected', true);
-		       					$('#grade option:eq(0)').prop('selected', true);//	$("input[name=etatf][value=Retraite]").prop('checked', true);
-		       					$("#matf").val("");$("#nss").val("");$("#NMGSN").val("");
-		       				}
-
-		         	    $("#nomf").val($("#nom").val());	 $("#prenomf").val($("#prenom").val());
-		           	  $("#datenaissancef").val($("#datenaissance").val());
-		           	  $("#lieunaissancef").val($("#lieunaissance").val());
-		           	  $("#idlieunaissancef").val($("#idlieunaissance").val());
-		            	$("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);
-		            	$('[name=gsf]').val( $('[name = gs]').val() + $('[name= rh]').val() );
-		            	$('#adressef').val($('#adresse').val() + " "+ $('#commune').val() + " "+ $('#wilaya').val());
-		            
-		            	
-		            	$("#foncform").addClass('hide');
-		            	$('#Type_p').attr('required', false);
-		            	$('#nsspatient').attr('required', false);
-		            	$('#nsspatient').attr('disabled', true);      	
-		            	addRequiredAttr();
+       				if(i !=0)
+       				{//	$("input[name=etatf][value=Retraite]").prop('checked', true);// $("ul#menuPatient li:eq(0)").css('display', 'block');
+       					$("input[name=etatf][value=Retraite]").prop('checked', true);$('#service option:eq(0)').prop('selected', true);
+       					$('#grade option:eq(0)').prop('selected', true);$("#matf").val("");$("#nss").val("");$("#NMGSN").val("");
+      				}
+      				var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
+				$.each(classList, function(index, item) {
+    					if (item === 'hidden') {   						
+    						$( "ul#menuPatient li:eq(0)" ).removeClass( item );
+    					}
+				});
+      				$("#nomf").val($("#nom").val());	 $("#prenomf").val($("#prenom").val());$("#datenaissancef").val($("#datenaissance").val());
+		           	$("#lieunaissancef").val($("#lieunaissance").val()); $("#idlieunaissancef").val($("#idlieunaissance").val());
+       	          	       $("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);
+		            	$('[name=gsf]').val( $('[name = gs]').val() + $('[name= rh]').val() );$('#adressef').val($('#adresse').val() + " "+ $('#commune').val() + " "+ $('#wilaya').val());            	
+		             	$("#foncform").addClass('hide');$('#Type_p').attr('required', false);$('#nsspatient').attr('required', false);$('#nsspatient').attr('disabled', true);addRequiredAttr();
 		               break;
 		       case "Ayant_droit":
 		          	if(i !=0)
 		       	    	{
-		       	          $("#nomf").val("");$("#prenomf").val(""); $("#datenaissancef").val("");
-		       	            $("#lieunaissancef").val("");  $("select#grade").prop('selectedIndex', 0);
-		                	$("#matf").val(""); $("#NMGSN").val("");
-		                	$('#nsspatient').val("");$('#adressef').val("");
-		                	$('#gsf option:eq(0)').prop('selected', true);
-		                	$('#grade option:eq(0)').prop('selected', true);
-		                	$('#service option:eq(0)').prop('selected', true);
-		                	$("#nss").val("");
-		               }	
+		        	        $("#nomf").val("");$("#prenomf").val(""); $("#datenaissancef").val("");     $("#lieunaissancef").val("");  $("select#grade").prop('selectedIndex', 0);
+		               	$("#matf").val(""); $("#NMGSN").val("");	$('#nsspatient').val("");$('#adressef').val("");$('#gsf option:eq(0)').prop('selected', true);
+		                	$('#grade option:eq(0)').prop('selected', true);$('#service option:eq(0)').prop('selected', true);	$("#nss").val("");
+		               }
+		               var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
+				$.each(classList, function(index, item) {
+    					if (item === 'hidden') {   						
+    						$( "ul#menuPatient li:eq(0)" ).removeClass( item );
+    					}
+				});	
 			        $("#foncform").removeClass('hide');  $('#Type_p').attr('required', true);  $('#nsspatient').attr('disabled', false); 
 			       addRequiredAttr();
 		              break;
-          		case "Autre": //$("ul#menuPatient li:not(.active) a").prop('disabled', true);
-              			$(".starthidden").show(250);     $("#foncform").addClass('hide'); $('#Type_p').attr('required', false); $("ul#menuPatient li:eq(0)").css('display', 'none');
-                 		$('#nomf').attr('required', false); $('#prenomf').attr('required', false); $('#nsspatient').attr('required', false);$('#nsspatient').attr('disabled', true);   
+          		case "Autre": //$("ul#menuPatient li:not(.active) a").prop('disabled', true);// $("ul#menuPatient li:eq(0)").css('display', 'none');
+          			$(".starthidden").show(250);$("#foncform").addClass('hide'); $('#Type_p').attr('required', false);
+              			if(! ($( "ul#menuPatient li:eq(0)" ).hasClass( "hidden" )))
+          				$( "ul#menuPatient li:eq(0)" ).addClass( "hidden" );
+          			$('#nomf').attr('required', false); $('#prenomf').attr('required', false); $('#nsspatient').attr('required', false);$('#nsspatient').attr('disabled', true);   
             		        break;         
 		}			
 	}
@@ -96,16 +93,29 @@
    		});
     	}
 	$(document).ready(function () {
-		  $('input[type=radio][name=etatf]').change(function(){
-		 	if($(this).val() != "En_exercice")
+		$('input[type=radio][name=etatf]').change(function(){
+		  	if($(this).val() != "En exercice" && ($(this).val() != "En_exercice"))
 		 	{
 				$('#serviceFonc').addClass('invisible');$('#service option:eq(0)').prop('selected', true); 
 		 	}
 			else
 				$('#serviceFonc').removeClass('invisible'); 	
 		});
-		if($("input[type=radio][name='etatf']:checked").val()!= "En_exercice" )
-			$('#serviceFonc').addClass('invisible'); 
+		if($("input[type=radio][name='etatf']:checked").val() != "En_exercice" )
+			$('#serviceFonc').addClass('invisible');
+		 $('input[type=radio][name=sexe]').change(function(){
+		 	if($(this).val() == "M")
+		 	{
+		 		$('#Div-nomjeuneFille').attr('hidden','');
+		 		$('#nom_jeune_fille').val();
+		 	}
+		 	else
+		 	{
+		 		var civilite= $("select.civilite option").filter(":selected").val();
+		 		if((civilite =="marie") || (civilite =="veuf"))
+	  			$('#Div-nomjeuneFille').removeAttr('hidden');
+		 	}
+		});
 		 var bloodhoundcom = new Bloodhound({
         		datumTokenizer: Bloodhound.tokenizers.whitespace,
         		queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -183,11 +193,16 @@
 	       var value =  $("input[type=radio][name='type']:checked").val();
 	       showType(value,0);
 	       $( ".civilite" ).change(function() {
-		  	var civilite= $("select.civilite option").filter(":selected").val();
-  			if((civilite =="marie")|| (civilite =="veuf"))
-  				$('#Div-nomjeuneFille').removeAttr('hidden');
-  			else			
-  				$('#Div-nomjeuneFille').attr('hidden','');	
+		  	var sex =  $('input[name=sexe]:checked').val();
+			 if(sex == "F")
+			 {
+		 		var civilite= $("select.civilite option").filter(":selected").val();
+		 		if((civilite =="marie")|| (civilite =="veuf"))
+  					$('#Div-nomjeuneFille').removeAttr('hidden');
+  				else
+  					$('#Div-nomjeuneFille').attr('hidden','');	
+			 }else
+			 	$('#Div-nomjeuneFille').attr('hidden','');	
 		});
 		$('#listeGardes').DataTable({
 	            colReorder: true,
@@ -319,16 +334,16 @@
 		</div>
 	</div>
 	<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
-		<li  class=" @if($patient->Type !="Autre") active  @endif" @if($patient->Type =="Autre")  style= "display:none" @endif><a data-toggle="tab" href="#Assure" >
+		  <li  class=" @if($patient->Type !="Autre") active @else hidden  @endif"><a data-toggle="tab" href="#Assure" >
 	    		<span class="bigger-130"><strong>Assure</strong></span></a>
-	      </li>
-	   	<li class=" @if($patient->Type =="Autre") active  @endif" ><a data-toggle="tab" href="#Patient">
+ 		</li>
+	 	<li class=" @if($patient->Type =="Autre") active  @endif" ><a data-toggle="tab" href="#Patient">
 	   	 	<span class="bigger-130"><strong>Patient</strong></span></a>
 	   	</li>
 		 <li  id ="hommelink" @if(count($hommes_c) == 0)  class="invisible" @endif><a data-toggle="tab" href="#Homme">
 		  	<span class="bigger-130"><strong>Garde Malde/Homme de Confiance</strong></span></a>
 		  </li>
-  </ul>
+	</ul>	
   <div class="tab-content">
 	<div id="Patient" class="tab-pane fade @if($patient->Type =="Autre")   in active  @endif">
 		<div class="row">
@@ -377,7 +392,7 @@
 				</div>
    			  </div>
       		</div>  {{-- row --}}
-	      	<div class="row">
+      	  	<div class="row">
 	      		<div class="col-sm-6">
 				<div class="form-group {{ $errors->has('sexe') ? "has-error" : "" }}">
 					<label class="col-sm-3 control-label" for="sexe"><strong>Sexe :</strong></label>
@@ -448,7 +463,7 @@
 							</div>
 							</div>
 						</div>
-						<div class="col-sm-6" id="Div-nomjeuneFille" @if($patient->nom_jeune_fille == "") hidden @endif>	
+						<div class="col-sm-6 " id="Div-nomjeuneFille"  @if($patient->Sexe == "M") hidden @endif>	
 							<label class="col-sm-3 control-label" for="nom_jeune_fille">
 								<strong class="text-nowrap">Nom jeune fille:</strong>
 							</label>
@@ -488,11 +503,11 @@
 							<label class="control-label" text-nowrap col-sm-3 for="mobile1"><i class="fa fa-phone"></i><strong>Mob1:</strong></label>
 							<div class="col-sm-3" >
 								<select name="operateur1" id="operateur1" class="form-control" required="">
-						                                     @php	$operator = substr($patient->tele_mobile1,0,2) @endphp
+						                      @php	$operator = substr($patient->tele_mobile1,0,2) @endphp
 			 						<option value="05" @if($operator == '05') selected @endif >05</option>         
 								   	<option value="06" @if($operator == '06') selected @endif >06</option>
-								           <option value="07" @if($operator == '07') selected @endif>07</option>
-	                       						</select>	
+								       <option value="07" @if($operator == '07') selected @endif>07</option>
+	                       				</select>	
 							</div>
 							<input id="mobile1" name="mobile1"  maxlength =8 minlength =8 type="tel" autocomplete="off" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX" value= "{{  substr($patient->tele_mobile1,2,10) }}" required />	
 						 </div>		
@@ -515,7 +530,7 @@
 									 <option value="06" @if($operator2 == '06') selected @endif>06</option>
 									 <option value="07" @if($operator2 == '07') selected @endif>07</option>
 								@endif				
-		                       					</select>
+		                       			</select>
 							</div>
 							<input id="mobile2" name="mobile2"  maxlength =8 minlength =8  type="tel" autocomplete="off" class="col-sm-4" value="{{  substr($patient->tele_mobile2,2,10) }}" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"   placeholder="XX XX XX XX">
 						</div>

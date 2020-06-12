@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\modeles\assur;
 use Illuminate\Http\Request;
-
+use App\modeles\grade;
 class AssurController extends Controller
 {
     /**
@@ -51,7 +51,7 @@ class AssurController extends Controller
     public function show($id)
     {
         $assure = assur::FindOrFail($id);
-        return view('assurs.show',compact('assure'));
+         return view('assurs.show',compact('assure'));
     }
 
     /**
@@ -62,9 +62,9 @@ class AssurController extends Controller
      */
     public function edit($id)
     {
-        //
-          $assure = assur::FindOrFail($id);
-          dd($assure);
+           $assure = assur::FindOrFail($id);
+            $grades = grade::all(); 
+            return view('assurs.edit',compact('assure','grades'));
     }
 
     /**
@@ -74,9 +74,26 @@ class AssurController extends Controller
      * @param  \App\modeles\assur  $assur
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, assur $assur)
+    public function update(Request $request, $id)
     {
-        //
+            $assure = assur::find($id);
+             $assure -> update([
+                                          "Nom"=>$request->nomf,
+                                          "Prenom"=>$request->prenomf,
+                                          "Date_Naissance"=>$request->datenaissancef,
+                                          "lieunaissance"=>$request->idlieunaissancef,
+                                          "Sexe"=>$request->sexef,
+                                          "adresse"=>$request->adressef,
+                                          "grp_sang"=>$request->gsf,
+                                          "Matricule"=>$request->matf, 
+                                          "Service"=>$request->service,
+                                          "Etat"=>$request->etatf,
+                                          "Grade"=>$request->grade,
+                                          "NMGSN"=>$request->NMGSN,
+                                          "NSS"=>$request->nss,
+              ] );
+            //$assure->save(); 
+             return redirect(Route('assur.show',$assure->id));
     }
 
     /**
@@ -103,7 +120,8 @@ class AssurController extends Controller
                 foreach ($assures as $key => $assure)
                 {
                     $i++;   
-                    $sexe =  ($assure->Sexe =="M")?"Homme":"Femme";   
+                    $sexe =  ($assure->Sexe =="M") ? "Homme":"Femme";   
+                    $grade = (isset($assure->grade) )? $assure->grade->nom :"";
                     $output.='<tr>'.
                               '<td>'.$i.'</td>'.
                               '<td hidden>'.$assure->id.'</td>'. 
@@ -113,13 +131,12 @@ class AssurController extends Controller
                               '<td>'.$assure->Prenom.'</td>'.
                               '<td>'.$assure->Date_Naissance.'</td>'.
                               '<td>'.$sexe.'</td>'.// ["nom"]
-                             '<td><span class="badge badge-success">'.$assure->grade->nom.'</span></td>'.
+                             '<td><span class="badge badge-success">'.$grade.'</span></td>'.
                              '<td>'.$assure->Service.'</td>'.
-                              '<td class="center">'.'<a href="/assur/'.$assure->id.'" class="'.'btn btn-warning btn-xs" data-toggle="tooltip" title="Consulter le dossier" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i>&nbsp;</a>'."&nbsp;&nbsp;".'<a href="/assur/'.$assure->id.'/edit" class="'.'btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></a>'.'</td></tr>';
-                             
+                              '<td class="center">'.'<a href="/assur/'.$assure->id.'" class="'.'btn btn-warning btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i>&nbsp;</a>'."&nbsp;&nbsp;".'<a href="/assur/'.$assure->id.'/edit" class="'.'btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></a>'.'</td></tr>';  
                 }
-                return Response($output)->withHeaders(['count' => $i]);
-               //return Response::json($assures); 
+                return Response($output)->withHeaders(['count' => $i]);//return Response::json($assures);
+                
             }else
             {
 

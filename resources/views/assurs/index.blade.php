@@ -7,15 +7,15 @@
 		var matricule = $('#matricule').val();
 		var nss = $('#nss').val();
 		$.ajax({
-        		type : 'get',
-        		url : '{{URL::to('searchAssure')}}',
-        		data:{'matricule':matricule,'nss':nss},
-     				success:function(data,status, xhr){
-            	$('#liste_assures').html(data);
-            	$(".numberResult").html(xhr.getResponseHeader("count"));
-            	$('#matricule').val('');$('#nss').val('');	
-        		}
-    		});
+				type : 'get',
+				url : '{{URL::to('searchAssure')}}',
+				data:{'matricule':matricule,'nss':nss},
+					success:function(data,status, xhr){
+				$('#liste_assures').html(data);
+				$(".numberResult").html(xhr.getResponseHeader("count"));
+				$('#matricule').val('');$('#nss').val('');	
+				}
+			});
 	}
 </script>
 @endsection
@@ -53,8 +53,8 @@
 						<strong>NSS:</strong></label>
 					</div>
 					<div class="col-sm-3">
-				   	<input type="text" class="form-control input-sm tt-input" id="nss" name="nss"  placeholder="Numéro du sécurité du patient..."
-				   	 data-toggle="tooltip" data-placement="left" title="Code IPP du patient">
+					<input type="text" class="form-control input-sm tt-input" id="nss" name="nss"  placeholder="Numéro du sécurité du patient..."
+					 data-toggle="tooltip" data-placement="left" title="Code IPP du patient">
 					</div>
 				</div><!-- row -->
 			</div><!-- body -->

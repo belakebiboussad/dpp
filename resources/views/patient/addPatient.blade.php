@@ -86,14 +86,14 @@
 				 var sex =  $('input[name=sexe]:checked').val();
 				 if(sex == "F")
 				 {
-				 		var civilite= $("select.civilite option").filter(":selected").val();
-				 		if((civilite =="marie")|| (civilite =="veuf"))
-		  				$('#Div-nomjeuneFille').removeAttr('hidden');
+			 		var civilite= $("select.civilite option").filter(":selected").val();
+			 		if((civilite =="marie")|| (civilite =="veuf"))
+	  					$('#Div-nomjeuneFille').removeAttr('hidden');
 		  			else
 		  				$('#Div-nomjeuneFille').attr('hidden','');	
-				 }else{
-				 		$('#Div-nomjeuneFille').attr('hidden','');	
-				 }		
+				 }else
+				 	$('#Div-nomjeuneFille').attr('hidden','');	
+						
 			});
 			$('input[type=radio][name=sexe]').change(function(){
 			 	if($(this).val() == "M")
