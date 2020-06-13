@@ -44,7 +44,6 @@
 						<input class="col-xs-12 col-sm-12 date-picker" id="datenaissancef" name="datenaissancef" type="text" placeholder="Date de naissance..." data-date-format="yyyy-mm-dd" value="{{ $assure->Date_Naissance }}" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
 					@else	
 						<input class="col-xs-12 col-sm-12 date-picker" id="datenaissancef" name="datenaissancef" type="text" placeholder="Date de naissance..." data-date-format="yyyy-mm-dd" value="" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
-
 					@endif
 				</div>
 			</div>
@@ -56,8 +55,7 @@
 				</label>
 				<div class="col-sm-9">
 {{-- 	<input type="hidden" name="idlieunaissancef" id="idlieunaissancef" value="{{ ($patient->Type !="Autre") ? $assure->lieunaissance : '' }}  ">
-@if(isset($assure) && !empty($assure))<input type="text" id="lieunaissancef" name=""class="col-xs-12 col-sm-12" value="{{ ($patient->Type !="Autre") ? $assure->lieuNaissance->nom_commune : '' }}" autocomplete= "off" />@else	
-<input type="text" id="lieunaissancef" name=""class="col-xs-12 col-sm-12" value="" autocomplete= "off" />@endif--}}
+@if(isset($assure) && !empty($assure))<input type="text" id="lieunaissancef" name=""class="col-xs-12 col-sm-12" value="{{ ($patient->Type !="Autre") ? $assure->lieuNaissance->nom_commune : '' }}" autocomplete= "off" />@else<input type="text" id="lieunaissancef" name=""class="col-xs-12 col-sm-12" value="" autocomplete= "off" />@endif--}}
 					@if(isset($assure) && !empty($assure))
 					<input type="hidden" name="idlieunaissancef" id="idlieunaissancef" value="{{  $assure->lieunaissance  }} ">
 					<input type="text" id="lieunaissancef" name="" class="col-xs-12 col-sm-12" value="{{ $assure->lieuNaissance->nom_commune }}" autocomplete= "off" />

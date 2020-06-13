@@ -138,8 +138,8 @@
 				<div class="widget-header">
 					<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Ayants droits</h5>
 						<div class="widget-toolbar widget-toolbar-light no-border">{{-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> --}}
-							<div class="fa fa-plus-circle"></div>
-								<a href="">
+							<div class="fa fa-plus-circle"></div>{{-- {{ route('patient.create',$assure->id) }}--}}
+								<a href="patientAssuree/{{$assure->id  }} ">
 									<strong>Patient</strong>
 								</a>
 						</div>

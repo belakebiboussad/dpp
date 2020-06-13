@@ -52,7 +52,7 @@ class PatientController extends Controller
   public function create()
   {
     $grades = grade::all();
-    return view('patient.addPatient',compact('grades'));
+    return view('patient.add',compact('grades'));
   }
 
   /**
@@ -95,7 +95,7 @@ class PatientController extends Controller
     $validator = Validator::make($request->all(),$rule,$messages);   
     if ($validator->fails()) {
       $errors=$validator->errors(); 
-      return view('patient.addPatient')->withErrors($errors);
+      return view('patient.add')->withErrors($errors);
     }  // if(patient::all()->isNotEmpty()){ $nomb = patient::all()->last()->id;}else{$nomb = 0;}
     if($request->type =="Ayant_droit")
     {    

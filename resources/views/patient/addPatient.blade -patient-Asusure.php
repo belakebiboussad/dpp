@@ -2,7 +2,6 @@
 @section('title','Ajouter un patient')
 @section('style')
 <style>
-	
 </style>
 @endsection
 @section('page-script')

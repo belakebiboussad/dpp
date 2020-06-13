@@ -201,7 +201,10 @@ class ConsultationsController extends Controller
      * @param  \App\modeles\consultation  $consultation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, consultation $consultation) { //   }
+    public function update(Request $request, consultation $consultation)
+     {
+     //
+       }
     /**
      * Remove the specified resource from storage.
      *

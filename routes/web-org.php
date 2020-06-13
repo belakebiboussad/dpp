@@ -1,4 +1,5 @@
 <?php
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,41 +12,11 @@
 */
 Route::group(['middleware' => 'revalidate'], function()
 {          
-    Auth::routes();   
-    Route::get('/', 'Auth\LoginController@showLoginForm');  /* Route::get('/', function () { return view('auth/login');  });*/
+    Auth::routes();     
+     Route::get('/', function () {
+          return view('auth/login');
+    });
 });
-//ressources
-Route::resource('listeadmiscolloque','listeadmisColloqueController');
-Route::resource('colloque','ColloqueController');
-Route::resource('admission','AdmissionController');
-Route::resource('hommeConfiance','HommeConfianceController');
-Route::resource('role','RolesController');
-Route::resource('ticket','ticketController');
-Route::resource('service','ServiceController');
-Route::resource('exmbio','ExamenbioController');
-Route::resource('exmimg','ExmImgrieController');
-Route::resource('hospitalisation','HospitalisationController');
-Route::resource('salle','SalleController');
-Route::resource('ordonnace','OrdonnanceController');
-Route::resource('lit','LitsController');
-Route::resource('demandehosp','DemandeHospitalisationController');
-Route::resource('consultations','ConsultationsController');
-Route::resource('users','UsersController');
-Route::resource('employs','EmployeController');
-Route::resource('rdv','RDVController');
-Route::resource('employe','EmployeController');
-Route::resource('patient','PatientController');
-Route::resource('assur','AssurController');
-Route::resource('atcd','AntecedantsController');
-Route::resource('medicaments','MedicamentsController');
-Route::resource('exclinique','ExamenCliniqueController');
-Route::resource('demandeproduit','demandeprodController');
-Route::resource('rdvHospi','RdvHospiController');
-Route::resource('demandeexb','DemandeExbController');
-Route::resource('demandeexr','DemandeExamenRadio');
-Route::resource('visites','VisiteController'); 
-Route::resource('acte','ActeController');
-Route::resource('surveillance','SurveillanceController');
 route::get('/home_admin',function (){
     $users = App\User::all();
     return view('home.home_admin',compact('users'));
@@ -66,7 +37,8 @@ Route::get('exbio/{filename}', function ($filename)
         $response = Response::make($file, 200);
         $response->header("Content-Type", $type);
         return $response;
-});// Auth::routes();
+});
+// Auth::routes();
 route::get('/detailsdemande/{id}','demandeprodController@details_demande');
 route::get('/listedemandes','demandeprodController@liste_demande');
 route::get('/traiterdemande/{id}','demandeprodController@traiter_demande');
@@ -78,26 +50,51 @@ Route::post('/demandehosp/valider','DemandeHospitalisationController@valider');
 Route::post('/demandehosp/invalider','DemandeHospitalisationController@invalider');
 Route::get('/demandehosp/listedemandes/{type}','DemandeHospitalisationController@listedemandes');
 Route::get('/salle/create/{id}','SalleController@create');
-Route::get('/lit/create/{id}','LitsController@create');//Route::get('/hospitalisation/create/{id}','HospitalisationController@create');
+Route::get('/lit/create/{id}','LitsController@create');
+//Route::get('/hospitalisation/create/{id}','HospitalisationController@create');
 Route::get('/ordonnace/create/{id}','OrdonnanceController@create');
 Route::post('/ordonnaces/print','OrdonnanceController@print');
 Route::get('/consultations/detailcons/{id}','ConsultationsController@detailcons')->name('consultDetails');
 Route::get('/consultations/detailConsXHR','ConsultationsController@detailconsXHR')->name('consultdetailsXHR');
 Route::get('/consultations/demandeExm/{id_cons}','ConsultationsController@demandeExm');
+Route::resource('listeadmiscolloque','listeadmisColloqueController');
 Route::post('/colloque/store/{id}','ColloqueController@store');// a revoir
 Route::put('/colloque/{membres,id_demh}', 'ColloqueController@store');// a revoir
+Route::resource('colloque','ColloqueController');
 Route::get('/listecolloques/{type}','ColloqueController@index');
 Route::get('/listecolloquesCloture/{type}','ColloqueController@getClosedColoques');
 Route::get('/runcolloque/{id}','ColloqueController@run');
 Route::get('/endcolloque/{id}','ColloqueController@cloture');
 Route::post('/savecolloque/{id}','ColloqueController@save');
+Route::resource('admission','AdmissionController');
 Route::get('/getRdvs/{date}','RdvHospiController@getRdvs');//->name('admissionsXHR')
 Route::post('/hommeConfiance/save','HommeConfianceController@createGardejax');
-//Route::get('hospitalisation/addRDV', 'RdvHospiController@ajouterRDV');//sup
+Route::resource('hommeConfiance','HommeConfianceController');
+Route::resource('role','RolesController');
+Route::resource('ticket','ticketController');
+Route::resource('service','ServiceController');
+Route::resource('exmbio','ExamenbioController');
+Route::resource('exmimg','ExmImgrieController');//Route::get('hospitalisation/addRDV', 'RdvHospiController@ajouterRDV');//sup
 Route::get('hospitalisation/listeRDVs', 'RdvHospiController@getlisteRDVs');
+Route::resource('hospitalisation','HospitalisationController');
+Route::resource('salle','SalleController');
+Route::resource('ordonnace','OrdonnanceController');
+Route::resource('lit','LitsController');
+Route::resource('demandehosp','DemandeHospitalisationController');
+Route::resource('consultations','ConsultationsController');
 Route::post('users/changePassword', 'UsersController@changePassword');
+Route::resource('users','UsersController');
 Route::post('/users/store/','UsersController@store');
+Route::resource('employs','EmployeController');
+Route::resource('rdv','RDVController');
+Route::resource('employe','EmployeController');
+Route::resource('patient','PatientController');
+Route::resource('assur','AssurController');
 Route::get('/searchAssure','AssurController@search');
+Route::resource('atcd','AntecedantsController');
+Route::resource('medicaments','MedicamentsController');
+Route::resource('exclinique','ExamenCliniqueController');
+Route::resource('demandeproduit','demandeprodController');
 route::get('/getsalles','SalleController@getsalles');
 Route::post('/exclinique/store/{id}','ExamenCliniqueController@store');
 Route::get('/consultations/create/{id}','ConsultationsController@create');
@@ -118,6 +115,7 @@ Route::get('/rdv/valider/{id}','RDVController@valider');
 Route::get('/rdv/reporter/{id}','RDVController@reporter');
 Route::post('/rdv/reporte/{id}','RDVController@storereporte');
 Route::get('rdvprint/{id}','rdvController@print');
+Route::resource('rdvHospi','RdvHospiController');
 Route::get('rdvHospi/create/{id}','RdvHospiController@create')->name('rdvHospi.create');
 Route::get('/rdvHospi/imprimer/{rdv}', ['as' => 'admission.pdf', 'uses' => 'RdvHospiController@print']);
 Route::get('/choixpatient','RDVController@choixpatient');
@@ -169,8 +167,10 @@ route::get('/home_reception',function (){
 })->name('home_rec');
 Route::post('/get-all-events','RDVController@checkFullCalendar');
 route::get('/showordonnance/{id}','OrdonnanceController@show_ordonnance');
+Route::resource('demandeexb','DemandeExbController');
 route::get('/demandeexbio/{id}','DemandeExbController@createexb');
 route::get('/showdemandeexb/{id}','DemandeExbController@show_demande_exb'); 
+Route::resource('demandeexr','DemandeExamenRadio'); 
 route::get('/showdemandeexr/{id}','DemandeExamenRadio@show_demande_exr');
 //route::get('/affecterLit','HospitalisationController@affecterLit');//a faire dans l'hospitalisation
 Route::get('/affecterLit', function () {
@@ -192,9 +192,11 @@ route::get('/homeradiologue',function(){
 })->name('homeradiologue');
 // route with optonnel parameter
 Route::get('rendezVous/create/{id?}','RDVController@index');
-Route::get('assur/patientAssuree/{id}','PatientController@create');
 /************partie viste d'hospitalisation**************/
+Route::resource('visites','VisiteController');
 Route::get('/delVisite/{id}', 'VisiteController@destroy')->name('visite.destroy');
+Route::resource('acte','ActeController');
+Route::resource('surveillance','SurveillanceController');
 Route::get('/visite/create/{id}','VisiteController@create');
 Route::get('/patient/listecons/{id}','PatientController@listecons');
 Route::post('/visite/store/{id}','VisiteController@store');
