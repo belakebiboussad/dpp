@@ -47,7 +47,7 @@
 			<div class="col-sm-9">
 				<div class="radio">
 					<label><input name="sexe" value="M" type="radio" class="ace" checked /><span class="lbl"> Homme</span></label>
-					<label><input name="sexe" value="F" type="radio" class="ace" /><span class="lbl"> Famme</span></label>
+					<label><input name="sexe" value="F" type="radio" class="ace" /><span class="lbl"> Femme</span></label>
 				</div>
 			</div>	
 		</div>
@@ -122,12 +122,12 @@
 </div>
 <div class="space-12"></div>
 <div class="row">
-	<div class="col-sm-5">	<!-- <div class="form-group" style="padding-left:10%;"> -->
+	<div class="col-sm-5" {{ $errors->has('mobile1') ? 'has-error' : '' }}">	<!-- <div class="form-group" style="padding-left:10%;"> -->
 		<label class="col-sm-5 control-label" for="mobile1">
 			<i class="fa fa-phone"></i><strong class="text-nowrap">Mob1 :</strong>
 		</label>
-		<div class="col-sm-3">
-			<select name="operateur1" id="operateur1" class="form-control" required="">
+		<div class="col-sm-3" {{ $errors->has('operateur1') ? 'has-error' : '' }}">
+			<select name="operateur1" id="operateur1" class="form-control" required>
 				<option value="">XX</option>
 			   	<option value="05">05</option>         
 			   	<option value="06">06</option>
@@ -207,3 +207,17 @@
 		<textarea class="form-control" id="description" name="description" placeholder="Description du la dérogation" ></textarea>
 	</div>
 </div>
+<div class="row">
+	<div class="col-sm-12">
+		<h3 class="header smaller lighter blue">Homme de Confiance</h3>
+	</div>
+</div>
+<div class="row">
+ 	<div class="col-sm-1"></div>		
+	<div class="col-sm-11">
+		<div class="form-group padding-left">
+			<input  type="checkbox" id="hommeConf" value="1"  class="ace input-lg"/>
+			<span class="lbl lighter blue"> <strong>Ajouter un Correspondant</strong></span>
+		</div>
+	</div>				
+</div>		

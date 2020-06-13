@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 11 juin 2020 à 14:58
--- Version du serveur :  5.7.23
--- Version de PHP :  7.2.10
+-- Généré le :  sam. 13 juin 2020 à 21:25
+-- Version du serveur :  5.7.21
+-- Version de PHP :  7.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -333,27 +333,27 @@ CREATE TABLE IF NOT EXISTS `assurs` (
   `Grade` int(11) DEFAULT NULL,
   `Service` varchar(250) DEFAULT NULL,
   `adresse` varchar(250) DEFAULT NULL,
-  `grp_sang` varchar(3) NOT NULL,
+  `grp_sang` varchar(3) DEFAULT NULL,
   `Etat` varchar(50) NOT NULL DEFAULT 'En_exercice',
   `NSS` varchar(15) DEFAULT NULL,
   `NMGSN` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_assure_grade` (`Grade`)
-) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `assurs`
 --
 
 INSERT INTO `assurs` (`id`, `Nom`, `Prenom`, `Date_Naissance`, `lieunaissance`, `Sexe`, `matricule`, `Grade`, `Service`, `adresse`, `grp_sang`, `Etat`, `NSS`, `NMGSN`) VALUES
-(9, 'assure1', 'assure1', '2018-03-27', 650, 'M', 'M123', 1, 'Agent civile', '', '', 'Retraité', '032564245651', NULL),
-(12, 'assure2', 'assure2', '2018-03-28', 980, 'M', 'H123D', 3, 'Agent civile', '', '', 'En_exercice', '032564s', NULL),
-(13, 'assure3', 'assure3', '2018-03-28', 850, 'M', 'vf125', 7, 'Agent civile', '', '', 'En_exercice', '032564', NULL),
+(9, 'assure1', 'assure1', '2018-03-27', 650, 'M', 'M123', 1, 'Agent civile', '', '', 'Retraite', '032564245651', 'b154sd6'),
+(12, 'assure2', 'assure2', '2018-03-28', 980, 'M', 'H123D', 3, 'Service protection et sécurité des personnalités (SPS)', 'rue bab ali', 'A+', 'En_exercice', '032564s', 'b15458'),
+(13, 'assure3', 'assure3', '2018-03-28', 850, 'M', 'vf125', 7, 'Service protection et sécurité des personnalités (SPS)', 'rue bab ali', 'A+', 'En_exercice', '032564', 'b154'),
 (14, 'assure4', 'malade1', '2003-01-13', 527, 'M', '0132D', 3, 'Service protection et sécurité des personnalités (SPS)', 'ain el hammam', 'AB+', 'En_exercice', '03256424565', '5612488255'),
 (15, 'mrid', 'mrid', '2018-03-16', 502, 'M', 'vfd12', 1, 'Agent civile', '', '', 'En_exercice', '115', NULL),
-(16, 'malade', 'malade', '2018-03-26', 781, 'M', 'bsdfb', 3, 'Agent civile', '', '', 'En_exercice', '557', NULL),
-(17, 'patient3', 'patient3', '2018-03-21', 356, 'M', 'KL56f', 4, 'Agent civile', '', '', 'Retraite', '554', NULL),
-(18, 'mrid', 'mrid', '2018-03-27', 160, 'M', 'hu456', 5, 'Brigade mobile de la police judiciaire (BMPJ)', '', '', 'Retraite', '444', NULL),
+(16, 'malade', 'malade', '2018-03-26', 781, 'M', 'bsdfb', 3, 'Agent civile', '', '', 'En_exercice', '557', 'b154ff'),
+(17, 'mrid', 'bezef', '1943-06-22', 289, 'M', 'KL56f', 4, 'Service protection et sécurité des personnalités (SPS)', 'rue 02 alger gare El Mezeraa Tébessa', 'A+', 'Retraite', '554', 'b15s4qsd'),
+(18, 'mrid', 'mrid', '2018-03-27', 160, 'M', 'hu456', 5, 'Service protection et sécurité des personnalités (SPS)', 'cite 5 juillet Bir Mourad Rais Sétif', NULL, 'En_exercice', '444466555555', 'MP4755jkgj'),
 (19, 'malade', 'ma2', '2018-03-05', 1098, 'M', 'xbvf', 4, 'Police judiciaire (PJ)', '', '', 'Retraite', '77', NULL),
 (20, 'malade', 'ma2', '2018-03-28', 1230, 'F', 'xbvf', 1, 'Sécurité publique', '', '', 'Retraite', NULL, NULL),
 (21, 'alher', 'bg', '2018-03-15', 650, 'M', '002', 2, NULL, '', '', 'Retraite', 'qdfgd', NULL),
@@ -393,15 +393,31 @@ INSERT INTO `assurs` (`id`, `Nom`, `Prenom`, `Date_Naissance`, `lieunaissance`, 
 (71, 'pat35', 'pat35', '2018-08-21', 613, 'M', 'fg456', 1, NULL, '', '', 'En_exercice', '065469746444', 'fgf4654'),
 (72, 'pat35', 'pat35', '2019-04-07', 613, 'M', 'M125', 1, NULL, '', '', 'En_exercice', '036565656565', '21324q'),
 (74, 'd', 'd', '2020-02-09', 1189, 'M', 'Mf455', 1, NULL, '', '', 'En_exercice', '126346499999', 'fsdf26565'),
-(75, 'a', 'a', '2020-02-02', 613, 'M', 'ml126', 3, NULL, '', '', 'En_exercice', '655953213333', 'jh45422'),
-(76, 's', 's', '2020-02-03', 613, 'M', 'M4523', 1, NULL, '', '', 'En_exercice', '655555555555', 's455sss'),
+(75, 'securite', 'fonctionnaire', '1953-05-18', 613, 'M', 'ml126', 3, NULL, 'alg Alger-Centre Alger', 'A+', 'Retraite', '655953213333', 'jh45422'),
+(77, 'mrid', 'bezef', '1943-06-22', 289, 'M', 'M4523', 1, 'Service protection et sécurité des personnalités (SPS)', 'rue 02 alger gare El Mezeraa Tébessa', 'A+', 'En_exercice', '655555555555', 's455sss'),
 (80, 'pat', 'pat', '2020-02-02', 613, 'M', '44sd5', 1, NULL, '', '', 'En_exercice', '064646444444', 'sd455'),
 (82, 'moh', 'larbi', '1944-06-13', 17, 'M', '013de', 3, NULL, 'ain el hammam', 'B+', 'Retraite', '032564245655', '5ssf545'),
 (86, 'patient3', 'patient3', '2018-12-30', 17, 'F', '013ui', 6, 'Unité aérienne de la sûreté nationale', 'gsdfgdsfg Beni Tamou Blida', 'A+', 'En_exercice', '053256424489', 'scdf36er'),
 (88, 'beni blif', 'bali', '1963-05-20', 17, 'M', '0fs23', 9, NULL, 'ain el hammam', 'AB-', 'Mise_en_disponibilite', '111111111111', 'scdf58'),
-(89, 'patient3', 'patient3', '2018-12-30', 17, 'F', '0132p', 5, 'Police judiciaire (PJ)', 'gsdfgdsfg Beni Tamou Blida', 'A+', 'En_exercice', '114444444489', '4545sd'),
+(89, 'patient3', 'patient3', '2018-12-30', 17, 'F', '0132p', 5, 'Service protection et sécurité des personnalités (SPS)', 'gsdfgdsfg Beni Tamou Blida', 'A+', 'En_exercice', '114555554489', '4545sd'),
 (90, 'belk', 'fd', '1954-06-22', 154, 'M', 'cs565', 4, NULL, 'rue bab ali tiare', 'O-', 'Retraite', '064646444999', 'cs5454989'),
-(91, 'patient2', 'patient2', '1979-06-23', 17, 'M', '0132o', 2, 'Sécurité publique', 'blida Aoulef Adrar', 'A+', 'Retraite', '064646455555', 'scdf365');
+(91, 'patient2', 'patient2', '1979-06-23', 17, 'M', '0132o', 2, 'Sécurité publique', 'blida Aoulef Adrar', 'A+', 'Retraite', '064646455555', 'scdf365'),
+(92, 'assure', 'malade', '1979-06-23', 17, 'M', 'f1254', 1, 'Service protection et sécurité des personnalités (SPS)', 'blida Aoulef Adrar', 'A+', 'En_exercice', '055555555555', 'rgerg15'),
+(93, 'malade5', 'malade5', '1983-05-09', 78, 'M', '47512', 1, NULL, 'cite 20 out bat 54 appt 02 Moussadek Chlef', 'B+', 'Retraite', '655953213333', 'b154'),
+(94, 'malade5', 'prenom', NULL, 78, 'M', '47512', 1, 'Brigade mobile de la police judiciaire (BMPJ)', 'cite 20 out bat 54 appt 02 Oued El Berdi Bouira', 'B+', 'En exercice', '055555555599', '2124649'),
+(95, 'assure', 'assure', NULL, 1268, 'F', '47512', 1, NULL, 'rue bab djair', 'A+', 'Invalide', '0136546+413', '5ssf545'),
+(96, 'asssure', 'prenom', NULL, 1033, 'F', '47512', 5, 'Unités républicaines de sécurité (URS)', 'cite 20 out bat 54 appt 02 Moussadek Chlef', 'O-', 'En_exercice', '088888888888', 'dfs58585'),
+(98, 'fonctionnaire1', 'dfhdfgh', '1989-06-19', 493, 'M', '47512', 7, 'Service protection et sécurité des personnalités (SPS)', 'rue bab ali', 'A+', 'En_exercice', '0136546+413', 'dfs785'),
+(100, 'mohand', 'reda', '1979-01-22', 58, 'M', '47512', 9, 'Brigade de recherche et d\'intervention (BRI)', 'rue bab ali', 'AB-', 'En_exercice', '055555777788', '5ssf799'),
+(101, 'ami', 'ali', NULL, 6, 'M', '475de', 1, 'Brigade mobile de la police judiciaire (BMPJ)', 'cite 5 juillet Bir Mourad Rais Sétif', 'O-', 'En exercice', '655953213333', 'dfs785'),
+(102, 'malade5', 'prenom', '1983-05-01', 78, 'M', 'fer12', 4, 'Sécurité publique', 'cite 20 out bat 54 appt 02 Oued El Berdi Bouira', 'B+', 'En_exercice', '55858546+413', 'b1544y'),
+(104, 'ami', 'smail', '1994-02-15', 78, 'F', '475de', 3, 'Brigade de recherche et d\'intervention (BRI)', 'bel djilli', 'A+', 'En_exercice', '999999555555', 'dfs645667'),
+(106, 'boha', 'moha', '1987-11-02', 451, 'M', '5633y', 10, 'Brigade mobile de la police judiciaire (BMPJ)', 'rue bab ali', 'B+', 'En_exercice', '254555585465', 'b1fr54'),
+(108, 'gfd', 'gdfg', '1983-05-10', 348, 'M', '5633', 9, 'Service protection et sécurité des personnalités (SPS)', 'rue bab ali el hadj', 'O-', 'En_exercice', '888555555555', 'dfs'),
+(109, 'assure', 'assure', '1969-05-12', 2, 'F', 'MP7h5', 6, 'Unités républicaines de sécurité (URS)', 'beni yezgene Ain Taghrout Bordj Bou Arreridj', 'A+', 'En_exercice', '956125447887', 'fd448d'),
+(110, 'ayant', 'ayant', '2018-05-14', 1122, 'M', 'gf454', 4, 'Brigade mobile de la police judiciaire (BMPJ)', 'grfg Touggourt Ouargla', 'B+', 'En_exercice', '985655444444', 'gf44dfgdg'),
+(111, 'blima', 'blira', '1837-08-28', 39, 'F', 'tyu98', 4, 'Police judiciaire (PJ)', 'rue 01 Ain Yagout Batna', 'AB-', 'En_exercice', '222222222222', 'tertr656595'),
+(112, 'assurAt', 'assur', '1990-06-19', 596, 'F', 'gf461', 3, 'Sécurité publique', 'mohammadia', 'B+', 'En_exercice', '853365582255', 'fd5464d');
 
 -- --------------------------------------------------------
 
@@ -5736,9 +5752,7 @@ INSERT INTO `homme_confs` (`id`, `id_patient`, `nom`, `prenom`, `date_naiss`, `l
 (41, 22, 'boussad', 'dsqd', '2017-08-15', 'Père', 'Passeport', '04042042', '2019-12-16', 'sdqsd', '0566666666', 'actuel', '2019-12-26 11:11:44', '2019-12-26 11:11:56', 88, NULL),
 (42, 22, 'alpo', 'capo', '2019-12-22', 'Père', 'CNI', '04042042', '2019-12-16', 'dv', '0656555555', 'actuel', '2019-12-26 11:29:00', '2019-12-26 11:29:00', 88, NULL),
 (43, 22, 'sq', 'dsq', '2019-12-04', 'Père', 'CNI', '04042042', '2019-12-15', 'sdsq', '0656565656', 'actuel', '2019-12-26 11:30:30', '2019-12-26 11:30:30', 88, NULL),
-(49, 30, 'lolo', 'lolo', '2019-11-03', 'Père', 'Permis', '04042042', '2014-12-15', 'alg', '0232329899', 'actuel', '2019-12-26 13:24:49', '2019-12-26 13:24:49', 88, NULL),
 (52, 30, 'mere', 'mere', '1968-05-21', 'Mère', 'CNI', '05612358', '1998-10-21', 'alger', '0565865656', 'actuel', '2019-12-29 09:48:16', '2019-12-29 09:48:16', 88, NULL),
-(53, 26, 'îo', 'garde', '2017-08-15', 'Mère', 'Permis', '04042042', '2019-12-16', 'h', '8777777777', 'actuel', '2020-01-28 12:46:57', '2020-03-02 14:48:50', 88, NULL),
 (55, 46, 'îo', 'io', '2019-12-04', 'Père', 'Passeport', '04042042', '2019-12-16', 'alger', '0588888888', 'actuel', '2020-01-28 13:06:02', '2020-01-28 13:06:02', 88, NULL);
 
 -- --------------------------------------------------------
@@ -11321,19 +11335,19 @@ CREATE TABLE IF NOT EXISTS `patients` (
   KEY `Assurs_ID_Assure` (`Assurs_ID_Assure`) USING BTREE,
   KEY `commune_res` (`commune_res`) USING BTREE,
   KEY `fk_patient_commNaissane` (`Lieu_Naissance`)
-) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `patients`
 --
 
 INSERT INTO `patients` (`id`, `IPP`, `Nom`, `Prenom`, `nom_jeune_fille`, `Dat_Naissance`, `Lieu_Naissance`, `Sexe`, `situation_familiale`, `Adresse`, `commune_res`, `wilaya_res`, `tele_mobile1`, `tele_mobile2`, `Profession`, `NSS`, `group_sang`, `rhesus`, `Assurs_ID_Assure`, `Type`, `Type_p`, `description`, `active`, `Date_creation`, `created_at`, `updated_at`) VALUES
-(22, 'M2018/1', 'patient2', 'patient2', NULL, '1979-06-23', 17, 'M', 'celibataire', 'blida', 5, 1, '0554555441', '0664565656', NULL, '064646455555', 'A', '+', 91, 'Assure', 'Conjoint(e)', NULL, 1, '2020-06-11', '2019-10-12 23:00:00', '2020-04-21 11:55:24'),
-(26, 'M2018/23', 'malade5', 'malade5', 'boumila', '1983-05-09', 78, 'M', 'marie', 'cite 20 out bat 54 appt 02', 47, 2, '0725369514', '0568951432', 'etudiant', NULL, 'B', '+', NULL, 'Autre', NULL, 'bonjour', 1, '2020-06-11', NULL, '2020-04-21 11:55:24'),
-(30, 'M2018/28', 'patient1', 'patient2', NULL, '2011-05-15', 13, 'M', 'celibataire', 'cite 5 juillet', 570, 19, '0566115555', '0656646464', 'macon', NULL, 'A', '+', 14, 'Autre', 'Conjoint(e)', '', 1, '2020-06-11', NULL, '2020-04-21 11:55:24'),
-(31, 'F2018/31', 'malade', 'ma2', '', '2014-05-19', 31, 'M', 'celibataire', 'alger', 34, 2, '0558596231', '0569891554', NULL, NULL, 'A', '+', NULL, 'Autre', NULL, 'ss', 1, '2019-12-11', NULL, '2020-04-21 11:55:24'),
-(37, 'M2018/36', 'Assurer', 'Assurer', '', '2018-03-07', 897, 'M', 'celibataire', 'alger', 1556, 49, '0555555555', '0666666666', NULL, NULL, 'A', '+', 136, 'Ayant_droit', 'Descendant', '', 1, '2019-12-11', NULL, '2020-04-21 11:55:24'),
-(46, 'M2018/38', 'malade2', 'patient12', '', '2018-05-17', 235, 'M', 'celibataire', NULL, 1556, 49, '0556128584', '', NULL, NULL, NULL, NULL, 138, 'Ayant_droit', 'Ascendant', '', 1, '2019-12-11', NULL, '2020-04-21 11:55:24'),
+(22, 'M2018/1', 'patient', 'malade', 'mopor', '1979-06-23', 17, 'M', 'celibataire', 'blida', 5, 1, '0554555441', '0664565656', NULL, '055555555555', 'A', '+', 92, 'Assure', NULL, NULL, 1, '2020-06-12', '2019-10-12 23:00:00', '2020-04-21 11:55:24'),
+(26, 'M2018/23', 'malade5', 'prenom', 'foudard', '1983-05-01', 78, 'F', 'marie', 'cite 20 out bat 54 appt 02', 346, 10, '0725369514', '0668951432', 'etudiant', '149021365414', 'B', '+', 108, 'Ayant_droit', 'Ascendant', 'f', 1, '2020-06-13', NULL, '2020-04-21 11:55:24'),
+(30, 'M2018/28', 'patient1', 'patient2', NULL, '2011-05-15', 13, 'M', 'celibataire', 'cite 5 juillet', 570, 19, '0566115555', '0656646464', 'macon', '149021365412', 'A', '+', 98, 'Ayant_droit', 'Descendant', NULL, 1, '2020-06-12', NULL, '2020-04-21 11:55:24'),
+(31, 'F2018/31', 'malade', 'mhend', 'boumal', '2014-05-19', 31, 'F', 'marie', 'alger', 34, 2, '0558596231', '0669891554', NULL, NULL, 'B', '-', NULL, 'Autre', NULL, 'engagement', 1, '2020-06-12', NULL, '2020-04-21 11:55:24'),
+(37, 'M2018/36', 'Assurer', 'Assurer', NULL, '2018-03-07', 897, 'M', 'celibataire', 'alger', 1556, 49, '0555555555', '0666666666', NULL, NULL, 'AB', '+', NULL, 'Autre', 'Descendant', 'autre', 1, '2020-06-12', NULL, '2020-04-21 11:55:24'),
+(46, 'M2018/38', 'malade2', 'patient12', '', '2018-05-17', 235, 'M', 'celibataire', NULL, 1556, 49, '0556128584', '', NULL, NULL, NULL, NULL, 89, 'Ayant_droit', 'Ascendant', '', 1, '2019-12-11', NULL, '2020-04-21 11:55:24'),
 (47, 'M2018/47', 'malade1', 'malade1', '', '2018-05-23', 1124, 'M', 'celibataire', 'alger', 1556, 49, '0622110011', '', NULL, NULL, 'A', '+', 36, 'Ayant_droit', 'Ascendant', '', 1, '2019-02-14', NULL, '2020-04-21 11:55:24'),
 (48, 'M2018/48', 'malade3', 'malade3', '', '1960-02-09', 457, 'M', 'marie', 'dz', 1556, 49, '0555555555', '', NULL, NULL, 'O', '+', 36, 'Ayant_droit', 'Descendant', '', 1, '2019-11-04', NULL, '2020-04-21 11:55:24'),
 (49, 'M2018/49', 'malade4', 'malade4', '', '2018-05-24', 110, 'M', 'marie', 'trh', 613, 16, '0555555555', '0665154247', NULL, NULL, 'A', '+', NULL, 'Autre', NULL, 'dd', 1, '2019-12-11', NULL, '2020-04-21 11:55:24'),
@@ -11361,7 +11375,7 @@ INSERT INTO `patients` (`id`, `IPP`, `Nom`, `Prenom`, `nom_jeune_fille`, `Dat_Na
 (73, 'F2019/73', 'patient26', 'patient26', NULL, '1990-02-14', 130, 'F', 'celibataire', 'alger', 1556, 49, '0669164646', '', NULL, NULL, 'A', '-', 53, 'Assure', NULL, '', 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
 (74, 'F2019/74', 'patient26', 'patient26', NULL, '1990-02-14', 120, 'F', 'celibataire', 'alger', 1556, 49, '0669164646', '', NULL, NULL, 'A', '-', 53, 'Assure', NULL, NULL, 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
 (75, 'M2019/75', 'patient26', 'patient26', NULL, '1984-10-29', 110, 'M', 'marie', 'alger', 1556, 49, '0646654654', '', NULL, NULL, 'A', '+', 54, 'Assure', NULL, '', 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
-(76, 'F2019/76', 'pat', 'pat', NULL, '2014-05-26', 100, 'F', 'marie', 'alger', 1556, 49, '0555555555', '', NULL, NULL, 'A', '+', 77, 'Ayant_droit', 'Ascendant', '', 1, '2019-12-10', NULL, '2020-04-21 11:55:24'),
+(76, 'F2019/76', 'pat', 'pat', NULL, '2014-05-26', 100, 'F', 'marie', 'alger', 1556, 49, '0555555555', '', NULL, '149021365414', 'A', '+', 77, 'Ayant_droit', 'Conjoint(e)', NULL, 1, '2020-06-12', NULL, '2020-04-21 11:55:24'),
 (77, 'F2019/77', 'patient29', 'patient29', NULL, '1974-10-31', 90, 'F', 'marie', 'alger', 613, 16, '0655555555', '', NULL, NULL, 'B', '+', 80, 'Ayant_droit', 'Ascendant', '', 1, '2019-12-10', NULL, '2020-04-21 11:55:24'),
 (78, 'F2019/78', 'patient30', 'patient30', NULL, '1973-10-01', 80, 'F', 'marie', 'alger', 1556, 49, '0555555555', '', NULL, NULL, 'B', '+', 81, 'Ayant_droit', 'Descendant', '', 1, '2019-12-10', NULL, '2020-04-21 11:55:24'),
 (79, 'F2019/79', 'patient31', 'patient31', NULL, '1973-10-01', 70, 'F', 'marie', 'alger', 613, 16, '0554546464', '', NULL, NULL, 'B', '+', NULL, 'Ayant_droit', NULL, NULL, 1, '2019-12-11', NULL, '2020-04-21 11:55:24'),
@@ -11377,10 +11391,14 @@ INSERT INTO `patients` (`id`, `IPP`, `Nom`, `Prenom`, `nom_jeune_fille`, `Dat_Na
 (89, '0201989', 'belakebi', 'boussad', NULL, '2019-11-10', 498, 'M', 'marie', 'bab', 591, 16, '0554123295', '', NULL, NULL, NULL, NULL, 62, 'Assure', NULL, NULL, 1, '2019-12-08', NULL, '2020-04-21 11:55:24'),
 (94, '0201994', 'fqsd', 'fqds', NULL, '2019-12-01', 40, 'F', 'celibataire', 'erf', 18, 1, '0555555555', '0666666666', NULL, NULL, 'B', NULL, 68, 'Assure', NULL, '', 1, '2019-12-09', NULL, '2020-04-21 11:55:24'),
 (95, '0202095', 'a', 'a', NULL, '2020-02-02', 613, 'M', 'marie', 'alger', 613, 16, '0555555555', '', NULL, NULL, 'A', '+', 75, 'Assure', NULL, NULL, 1, '2020-02-24', NULL, '2020-04-21 11:55:24'),
-(96, '0202096', 's', 's', NULL, '2020-02-03', 613, 'M', 'veuf', 'alg', 613, 16, '0555555555', '', NULL, NULL, 'A', '+', 76, 'Assure', NULL, NULL, 1, '2020-02-24', NULL, '2020-04-21 11:55:24'),
-(97, '0202097', 'mrid', 'bezef', NULL, '1943-06-22', 289, 'M', 'marie', 'rue 02 alger gare', 387, 12, '0525656569', '', NULL, NULL, 'A', '+', 77, 'Assure', NULL, NULL, 1, '2020-04-22', NULL, '2020-04-22 10:10:32'),
-(98, '0202098', 'mrid', 'bezef', NULL, '1943-06-22', 289, 'M', 'marie', 'rue 02 alger gare', 387, 12, '0525656569', '', NULL, NULL, 'A', '+', 77, 'Assure', NULL, NULL, 1, '2020-04-22', NULL, '2020-04-22 10:12:31'),
-(99, '0202099', 'mahfoud', 'mahfoud', NULL, '1966-08-08', 463, 'F', 'marie', 'rue ben mokhtar', 505, 15, '0565895556', '', NULL, NULL, 'AB', '+', NULL, 'Autre', NULL, 'niece', 1, '2020-04-29', NULL, '2020-04-29 08:44:49');
+(96, '0202096', 'securite', 'fonctionnaire', NULL, '1953-05-18', 613, 'M', 'veuf', 'alg', 613, 16, '0555555555', '', NULL, '655953213333', 'A', '+', 75, 'Assure', NULL, NULL, 1, '2020-06-12', NULL, '2020-04-21 11:55:24'),
+(97, '0202097', 'mrid', 'bezef', NULL, '1943-06-22', 289, 'M', 'marie', 'rue 02 alger gare', 387, 12, '0525656569', '0566666666', NULL, '655555555555', 'A', '+', 77, 'Assure', NULL, NULL, 1, '2020-06-12', NULL, '2020-04-22 10:10:32'),
+(98, '0202098', 'mrid', 'bezef', NULL, '1943-06-22', 289, 'M', 'marie', 'rue 02 alger gare', 387, 12, '0525656569', '', NULL, '554', 'A', '+', 17, 'Assure', NULL, NULL, 1, '2020-06-12', NULL, '2020-04-22 10:12:31'),
+(99, '0202099', 'mahfoud', 'mahfoud', NULL, '1966-08-08', 463, 'F', 'marie', 'rue ben mokhtar', 505, 15, '0565895556', '', NULL, NULL, 'AB', '+', 108, 'Ayant_droit', 'Conjoint(e)', 'niece', 1, '2020-06-12', NULL, '2020-04-29 08:44:49'),
+(100, '02020100', 'Autre', 'Autre', 'maried', '1959-06-09', 39, 'F', 'marie', 'beni', 40, 2, '0655555555', '', NULL, NULL, 'O', '+', NULL, 'Autre', NULL, 'autre', 1, '2020-06-13', NULL, '2020-06-13 17:35:51'),
+(101, '02020101', 'assure', 'assure', 'polika', '1969-05-12', 2, 'F', 'marie', 'beni yezgene', 1179, 34, '0544444444', '0666666666', NULL, NULL, 'A', '+', 109, 'Assure', NULL, NULL, 1, '2020-06-13', NULL, '2020-06-13 17:39:47'),
+(104, '02020104', 'blima', 'blira', 'groua', '1837-08-28', 39, 'F', 'marie', 'rue 01', 141, 5, '0555555555', '', NULL, NULL, 'AB', '-', 111, 'Assure', NULL, NULL, 1, '2020-06-13', NULL, '2020-06-13 18:15:44'),
+(105, '02020105', 'ayant', 'aynt', NULL, '2011-09-05', 573, 'M', 'marie', 'bouira', 312, 10, '0555555555', '', NULL, NULL, 'B', '+', 112, 'Ayant_droit', 'Descendant', NULL, 1, '2020-06-13', NULL, '2020-06-13 18:19:12');
 
 -- --------------------------------------------------------
 
@@ -11925,17 +11943,17 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (3, 'inf', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'ee@g.sz', 1, 3, 'sNqwEkejgIEyg70AFJJDfundyagS0PPJogQgMNQTw6JICeL5Ydo4qe0JKDYB', 1),
 (25, 'admin', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'mail@live.fr', 65, 4, '5LXsY4nyDR6lgm1bZMlcKCBDEJ7aXbjSzw4RGKZOxiPwRbPkxfhKNMkb0dvL', 1),
 (26, 'reception', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'ikesskess@gmail.com', 68, 2, 'JgPaOcCOA17jVkAP8cojWkgyN0MDnkxPNFFF9y5OWBuGJoZaBkbz2GrKnERk', 0),
-(28, 'medc', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'az@e.fr', 87, 1, 'EIP8EyciQtZlSqlukw8vFgJNxu5GpDngd7R8eDueudXTjJhGDeqBYTuHCRZh', 1),
+(28, 'medc', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'az@e.fr', 87, 1, 'jkDday7ivlbTheG5gd0EImZtlCKMfmOCyMszUtRRnYn6nM9pYayhwRKXKJ5m', 1),
 (29, 'colloque', '$2y$10$Ve5h8oMwfAmfzHgTLrfJTOmGUiBpZLdxrfEfYC/7g2a1G62ZkM2QO', 'gdcedgg@yah.fr', 80, 5, 'gpZZ7n5wZzyDItBNWBgOWJBuHVN9zPFAVCnhFigz3AQFygICRp4ENyCc2B8W', 1),
 (30, 'sur', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'rlakhneche@cdta.dz', 81, 5, 'q4Pr6RefWFMxw4EG7ePnnnd4AP9Hx9vW343plYqyOh04vzD4vVPi1DC3xOjZ', 1),
 (31, 'rec', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', NULL, 82, 2, 'lLdVM8GabgwBxSKaZTGyICw1bwMAXKCxme4ijPA2mLO2DNRB49gQrGowgmQy', 1),
 (33, 'test', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'test@gmail', 79, 1, 'vOPiwaTdqixSdeIHAEvAbr9FKcLRyihyEbiPMYVrKGTCn5HMf9zUjrCBsUyc', 1),
-(34, 'med', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'med@gmail.com', 88, 1, 'q5DIb85caZijn6O03LWOL7QwTKe2BnB65iTy23XLWXrzxFfvXJZt6wQtqEfd', 1),
+(34, 'med', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'med@gmail.com', 88, 1, 'fb3Fq2xQgFWyTBO5v1lRHwwIkqlMoObVnU9zTeylFhh5tAzWkHzNg5l2N6ig', 1),
 (35, 'delCol', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'll@a.fr', 89, 6, 'ULSuCIpDCZES3BH8ilgUtg19d8z6muzXgY0TuZ19pBsDczSNmM4AEAxXq8w9', 1),
 (38, 'user', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'jj@hot.frr', 93, 1, NULL, 1),
 (39, 'surMed', '$2y$10$zUdI0W5QV/1fmnBnhmL2TOTqN8GMNEdZZK6o4gclrJ1CKfxVq.Rca', 'bbedeebi@cdta.dz', 94, 5, 'dWptpNaJm0XW6jt0WxYIL8YP1cdFURrr8oiubgmikSm5mxGYkeLYAcCxultG', 1),
 (40, 'agentAdm', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'agentAdm@hop.dz', 95, 9, 'hcEiyOu6lVtRBS0HwhkUkIf2CrZunWTA0omOlazCn1GaTHxQPKkyUnaWSueG', 1),
-(41, 'agent', '$2y$10$RsD.pKjSIV73uBbaLJNE.uXhzCmCixdBf71lcxBq2wmQu0dsRzdmy', 'agent@hop.dz', 96, 9, 'SuShBm84gKbx0tsHKfLKyJqoioCuiXqwFPKdWzgwicAqRUUjEfOtAsXLrCa3', 1),
+(41, 'agent', '$2y$10$RsD.pKjSIV73uBbaLJNE.uXhzCmCixdBf71lcxBq2wmQu0dsRzdmy', 'agent@hop.dz', 96, 9, 'jjdGub0TntRVfQzxzh0dYmTz17bMZG8X3aJaRri7N8LzyqNKQiBKmDm1uZZn', 1),
 (42, 'laborantin', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'lab@hop.dz', 97, 11, '67UVN9XfS5Bk4ZJYY7SJF60UtIGkSsc3vtPRWaIyQMbDjp8BIgSwoYG7DeGU', 1),
 (43, 'radiogue', '$2y$10$k5gKJEykSI5PNYLHyheO.eXq4ge1e6Rkz/HN/mMKUZiKZFe8qMlki', 'rad@hop.dz', 98, 12, 'benlcglfiv00sldthLpx1KXLmtI2DYvCGoRpjKunnuQE0cSzBTETHsXO9x9e', 1),
 (44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, 'G7Kmmn3w81h8KyPg33uCrmqHW2Fm4seTOQN1NpxvO8U0wPgB12PzxzTf6yHQ', 1),

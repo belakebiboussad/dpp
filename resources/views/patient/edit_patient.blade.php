@@ -46,15 +46,7 @@
             		        break;         
 		}			
 	}
-	$(function() {
-	    	var checkbox = $("#hommeConf");
-	  	 checkbox.change(function() {
-	 		if(checkbox.is(":checked"))
-  		 		$("#hommelink").removeClass('invisible');
-  		 	else
-  			$("#hommelink").addClass('invisible');	
-		})
-	});
+	// $(function() {//     	var checkbox = $("#hommeConf");// checkbox.change(function() {//if(checkbox.is(":checked")) // 		$("#hommelink").removeClass('invisible');//else//$("#hommelink").addClass('invisible');// 	})// });
 	function autocopleteCNais(commune)
 	{
 		var res = commune.split(",");	
@@ -345,6 +337,9 @@
 		  </li>
 	</ul>	
   <div class="tab-content">
+  		<div id="Assure" class='tab-pane fade @if($patient->Type =="Autre")  invisible @else in active  @endif '>
+     			@include('assurs.editAssure')
+     		</div>{{-- tab-pane Assure --}} 
 	<div id="Patient" class="tab-pane fade @if($patient->Type =="Autre")   in active  @endif">
 		<div class="row">
     			<div class="col-sm-12">
@@ -593,26 +588,23 @@
 					<textarea class="form-control" id="description" name="description" placeholder="Description" >{{ $patient->description }}</textarea>
 				</div>
 			</div>
-		@if(count($hommes_c) == 0) 	
-		<div class="row">
-	      		<div class="col-sm-12">
-				<h3 class="header smaller lighter blue">Homme de Confiance</h3>
-			</div>
-	    </div>
-	    <div class="row">
-	     		<div class="col-sm-1"></div>		
-			<div class="col-sm-11">
-				<div class="form-group padding-left">
-					<input  type="checkbox" id="hommeConf" value="1"  class="ace input-lg"/>
-					<span class="lbl lighter blue"> <strong>Ajouter un Correspondant</strong></span>
+			@if(count($hommes_c) == 0) 	
+			<div class="row">
+		      		<div class="col-sm-12">
+					<h3 class="header smaller lighter blue">Homme de Confiance</h3>
 				</div>
-			</div>				
-		</div>		
+		    </div>
+		    <div class="row">
+		     		<div class="col-sm-1"></div>		
+				<div class="col-sm-11">
+					<div class="form-group padding-left">
+						<input  type="checkbox" id="hommeConf" value="1"  class="ace input-lg"/>
+						<span class="lbl lighter blue"> <strong>Ajouter un Correspondant</strong></span>
+					</div>
+				</div>				
+			</div>		
 		@endif	
   		</div> {{-- tab-pane Patient --}}
-  		<div id="Assure" class='tab-pane fade @if($patient->Type =="Autre")  invisible @else in active  @endif '>
-     			@include('assurs.editAssure')
-     		</div>{{-- tab-pane Assure --}} 
   	 	{{-- @if(!isset($hommes_c)) style= "display:none" @endif --}}
   		<div id="Homme" class="tab-pane fade hidden_fields">
 					<div class="row">
@@ -625,8 +617,7 @@
 										<i class="ace-icon fa fa-table"></i>Gardes Malades/Hommes de Confiance
 									</h5>
 									<div class="widget-toolbar widget-toolbar-light no-border">
-										{{-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> --}}
-										<div class="fa fa-plus-circle"></div>
+										<div class="fa fa-plus-circle"></div>{{-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> --}}
 											<a href="#" data-target="#gardeMalade" class="btn-xs tooltip-link" data-toggle="modal"  data-toggle="tooltip" data-original-title="Ajouter Garde Malade ou Homme de Confiance" >
 												<strong>Ajouter un Garde Malade</strong>
 											</a>

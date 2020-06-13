@@ -60,28 +60,6 @@
 					}
 				}	
 			});
-		  $('#lieunaissancef').typeahead({	/////////// Autocomletecommune de l'assure
-				hint: true,
-				highlight: true,
-				minLength: 1
-			}, {
-				name: 'communenom',
-				source: bloodhound1,
-				display: function(data) {
-					return data.nom_commune  //Input value to be set when you select a suggestion. 
-				},
-				templates: {
-					empty: [
-						'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
-					],
-					header: [
-						'<div class="list-group search-results-dropdown">'
-					],
-					suggestion: function(data) {
-						return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="autocopleteCNaisAS(\''+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
-					}
-				}	
-			});
 			$( ".civilite" ).change(function() {
 				 var sex =  $('input[name=sexe]:checked').val();
 				 if(sex == "F")
@@ -116,10 +94,6 @@
 		{
 			$("#idlieunaissance").val(commune);
 		}
-		function autocopleteCNaisAS(commune)
-		{
-			$("#idlieunaissancef").val(commune);
-		}
 		function show(wilaya)
 		{
 			var res = wilaya.split(",");
@@ -127,53 +101,20 @@
 			$("#wilaya").val(	res[1]);
 			$("#idcommune").val(res[2]);
 		}
-		function copyPatient(){
-			$("#nomf").val($("#nom").val());$("#prenomf").val($("#prenom").val());
-			$("#datenaissancef").val($("#datenaissance").val());$("#lieunaissancef").val($("#lieunaissance").val());
-			$("#idlieunaissancef").val($("#idlieunaissance").val());
-			$("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true); 
-		 	$("#adressef").val($('#adresse').val() + " "+ $('#commune').val() + " "+ $('#wilaya').val() )
-			  $( "#gsf" ).val($( "#gs" ).val());
-		 	 $( "#rhf" ).val($( "#rh" ).val());
-			$("#foncform").addClass('hide');$('#Type_p').attr('required', false);  
-			addRequiredAttr();
-		}
-		function copyPatientInfo()
-		{
-			if($('#fonc').is(':checked'))
-				copyPatient();
-		}
 		function showType(value){ 
-	    switch(value){
-			    case "Assure":
-			        copyPatient();  
-			      var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
-				$.each(classList, function(index, item) {
-    					if (item === 'hidden') {   						
-    						$( "ul#menuPatient li:eq(0)" ).removeClass( item );
-    					}
-				});
-			        break;
-			    case "Ayant_droit":
-			        $("#nomf").val("");
-			        $("#prenomf").val("");
-			        $("#foncform").removeClass('hide');
-			        $('#Type_p').attr('required', true); 
-			        addRequiredAttr();
-			        var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
-				$.each(classList, function(index, item) {
-    					if (item === 'hidden') {   						
-    						$( "ul#menuPatient li:eq(0)" ).removeClass( item );
-    					}
-				});
-			        break;
-			    case "Autre":
-			        $(".starthidden").show(250);
-			        $("#foncform").addClass('hide');
-			        $('#Type_p').attr('required', false);  //$("ul#menuPatient li:not(.active) a").prop('disabled', true); $("ul#menuPatient li:eq(0)").css('display', 'none');
-			       	if(! ($( "ul#menuPatient li:eq(0)" ).hasClass( "hidden" )))
-          				$( "ul#menuPatient li:eq(0)" ).addClass( "hidden" );
-			        break;         
+	    		switch(value){
+				    case "Assure":
+				       $("#foncform").addClass('hide');$('#Type_p').attr('required', false);  // addRequiredAttr(); 
+				        break;
+				    case "Ayant_droit":
+				       $("#foncform").removeClass('hide');
+				        $('#Type_p').attr('required', true);    // addRequiredAttr();
+				         break;
+				    case "Autre":
+				        $(".starthidden").show(250);
+				        $("#foncform").addClass('hide');
+				        $('#Type_p').attr('required', false); 
+				        break;         
 			 }			
 		}
 	</script>
@@ -200,27 +141,19 @@
 		</div>
 	</div>
 	<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
-	   	<li class="active"><a data-toggle="tab" href="#Assure" class="jumbotron" onclick="copyPatientInfo();">
-	    		<span class="bigger-130"><strong>Assure</strong></span></a>
-  		</li>
-		<li ><a class="jumbotron" data-toggle="tab" href="#Patient">
+		<li  class="active"><a class="jumbotron" data-toggle="tab" href="#Patient">
 			<span class="bigger-130"><strong>Patient</strong></span></a>
 	 	</li>
-   		 <li><a class="jumbotron" data-toggle="tab" href="#Homme_C">
-    			<span class="bigger-130"><b>Homme de confiance</b></span></a>
- 		  </li>
+   		  <li  id ="hommelink" class="invisible" ><a data-toggle="tab" href="#Homme">
+		  	<span class="bigger-130"><strong>Garde Malde/Homme de Confiance</strong></span></a>
+		  </li>
   </ul>
 	<div class="tab-content">
-		<div id="Assure" class="tab-pane in active">
-			 <div id ="assurePart">
-					@include("assurs.addAssure")
-			 </div>{{-- assurePart	 --}}
-		</div>	{{-- tab-pane --}}
-		<div id="Patient" class="tab-pane fade">
+		<div id="Patient" class="tab-pane fade in active">
 	   		@include('patient.addPatient')
 		</div> 	{{-- tab-pane --}}
 		{{-- homme C	 --}}
-		<div id="Homme_C" class="tab-pane">
+		<div id="Homme" class="tab-pane">
 		   	<div id ="homme_cPart">
 				<div class="row">
 					<div class="col-sm-12">
@@ -351,7 +284,7 @@
 					</div>
 				</div>
 			</div>	{{-- row --}}	
-			</div>{{-- homme_cPart	 --}}
+		</div>{{-- homme_cPart	 --}}
 		</div>	{{-- tab-pane --}}
 		{{--fin homme--}}
 		</div>{{-- tab_content --}}

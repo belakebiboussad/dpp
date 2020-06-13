@@ -28,21 +28,21 @@ use View;
 use Response;
 class PatientController extends Controller
 {
-  /**
-   * Display a listing of the resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function listerdv($id_patient)
-  {
-     $patient = patient::FindOrFail($id_patient);
-     $rdvs = rdv::where("Patient_ID_Patient",$id_patient)->get()->all(); 
-     return view('patient.liste_rdv_pat',compact('patient','rdvs'));
-  }
-  public function index()
-  {
-    return view('patient.index');
-  }
+        /**
+         * Display a listing of the resource.
+         *
+         * @return \Illuminate\Http\Response
+         */
+        public function listerdv($id_patient)
+        {
+           $patient = patient::FindOrFail($id_patient);
+           $rdvs = rdv::where("Patient_ID_Patient",$id_patient)->get()->all(); 
+           return view('patient.liste_rdv_pat',compact('patient','rdvs'));
+        }
+        public function index()
+        {
+          return view('patient.index');
+        }
   /**
    * Show the form for creating a new resource.
    *
@@ -53,7 +53,7 @@ class PatientController extends Controller
         public function create( $asure_id =null)
       {
               if(isset($asure_id))
-                       return view('patient.addPatient',compact('grades'));
+                       return view('patient.addP',compact('grades'));
               else
               {
                       $grades = grade::all();
@@ -190,15 +190,15 @@ class PatientController extends Controller
      */
     public function edit($id)
     {           
-      $assure ;
-      $grades = grade::all(); 
-      $patient = patient::FindOrFail($id);
-      //dd($patient);
-       $hommes_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
-        if($patient->Type != "Autre")
-            $assure =  $patient->assure;   // else  //   $assure = new assur;
-        //dd($patient->assure);  
-      return view('patient.edit_patient',compact('patient','assure','hommes_c','grades'));
+          $assure ;
+          $grades = grade::all(); 
+          $patient = patient::FindOrFail($id);
+          //dd($patient);
+           $hommes_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
+            if($patient->Type != "Autre")
+                $assure =  $patient->assure;   // else  //   $assure = new assur;
+            //dd($patient->assure);  
+          return view('patient.edit_patient',compact('patient','assure','hommes_c','grades'));
     }
     /**
      * Update the specified resource in storage.

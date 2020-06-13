@@ -30,10 +30,10 @@
 					<i class="ace-icon fa fa-pencil bigger-120"></i>
 					<span class="bigger-110">Modifier  Informations</span>
 				</a>
-				{{-- <a class="btn btn-sm btn-block btn-primary" data-toggle="modal" data-target="#ticket">
+				<a  href="patientAssuree/{{$assure->id  }}" class="btn btn-sm btn-block btn-primary" >
 					<i class="ace-icon fa fa-plus bigger-120"></i>
-					<span class="bigger-110">Ajouter Ticket</span>
-				</a> --}}
+					<span class="bigger-110">Ajouter Patient</span>
+				</a>
 		</div><!-- /.col -->	
 		<div class="col-xs-8 col-sm-8">							
 			<div class="profile-user-info profile-user-info-striped">

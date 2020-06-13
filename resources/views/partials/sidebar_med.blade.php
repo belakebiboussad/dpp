@@ -184,5 +184,14 @@
     <!-- /section:basics/sidebar.layout.minimize -->
     <script type="text/javascript">
         try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+       $(function() {
+              var checkbox = $("#hommeConf");
+              checkbox.change(function() {
+                      if(checkbox.is(":checked"))
+                              $("#hommelink").removeClass('invisible');
+                      else
+                             $("#hommelink").addClass('invisible');  
+            })
+        });
     </script>
 </div><!-- /section:basics/sidebar -->

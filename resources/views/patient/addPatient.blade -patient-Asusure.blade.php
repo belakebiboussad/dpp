@@ -245,12 +245,10 @@
 							<strong class="text-nowrap">Né(e) à :</strong>
 						</label>
 						<div class="col-sm-9">
-							
 						  	<input type="hidden" name="idlieunaissance" id="idlieunaissance">
 								<input type="text" id="lieunaissance" name="lieunaissance" class="typeahead col-sm-12" placeholder="Lieu de naissance..." autocomplete ="on" required/>		
 						 		{!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
-					 		
-						</div>
+							</div>
 					</div>
 				</div>
 		    </div>{{-- row --}}
