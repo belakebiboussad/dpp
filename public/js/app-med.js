@@ -182,59 +182,7 @@
 				
         		return true; 
        	}
-       	function InverserUl()
-       	{
-       		var section = $("ul#menuPatient li:not(.active) a").prop('href').split("#")[1];
-       		if(section == "Assure")
-       		{
-       			var liNonActive =$("ul#menuPatient li:not(.active)");
-       			var section = $("ul#menuPatient li:not(.active) a").prop('href').split("#")[1];
-  			var sectionActive = $("ul#menuPatient li.active a").prop('href').split("#")[1];
-  			$('ul#menuPatient li.active').removeClass('active');
-  			liNonActive.addClass('in active');
-  			$('div#' + section).addClass('in active');
-  			$('div#' + sectionActive).removeClass('active');
-       		}
-       		/*******/
-       		if(section == "Homme_C")
-       		{
-       			var liNonActive =$("ul#menuPatient li:not(.active)");
-       			var section = $("ul#menuPatient li:not(.active) a").prop('href').split("#")[2];
-  			var sectionActive = $("ul#menuPatient li.active a").prop('href').split("#")[2];
-  			$('ul#menuPatient li.active').removeClass('active');
-  			liNonActive.addClass('in active');
-  			$('div#' + section).addClass('in active');
-  			$('div#' + sectionActive).removeClass('active');
-       		}
-  		
-       	}	
-       	function checkFormAddPAtient()
-       	{
-       	           InverserUl();	
-       	           var nomf = $('#nomf').val();
-       		var prenomf = $('#prenomf').val();
-       		var NMGSN = $('#NMGSN').val();
-       		var nss = $('#nss').val();
-       		var inputVal = new Array(nomf,prenomf,NMGSN,nss);
-     		var inputMessage = new Array("nom","prenom","Matricule(NMGSN)","numèro secruté");
-     		$('.error').each(function(i, obj) {
-                		$(obj).next().remove();
-   			$(obj).detach();
-		});
-     		var erreur =true;
-     		if(!($('#autre').is(':checked'))){ 
-		  	jQuery.each( inputVal, function( i, val ) {
-	  			if(val =="" )
-	  			{
-	  				erreur =false;
-	  				InverserUl();
-	  				$('#error').after('<span class="error"> STP, saisir le ' + inputMessage[i]+' du l\'ssure '  + '</span>'+'<br/>');
-	     			}
-			});
-		}
-     
-  	return erreur;
-  }
+  
 	function storeord1()
 	{
 		var arrayLignes = document.getElementById("ordonnance").rows;

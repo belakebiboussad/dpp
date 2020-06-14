@@ -11,11 +11,11 @@
        					$('#grade option:eq(0)').prop('selected', true);$("#matf").val("");$("#nss").val("");$("#NMGSN").val("");
       				}
       				var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
-				$.each(classList, function(index, item) {
-    					if (item === 'hidden') {   						
-    						$( "ul#menuPatient li:eq(0)" ).removeClass( item );
-    					}
-				});
+							$.each(classList, function(index, item) {
+			    					if (item === 'hidden') {   						
+			    						$( "ul#menuPatient li:eq(0)" ).removeClass( item );
+			    					}
+							});
       				$("#nomf").val($("#nom").val());	 $("#prenomf").val($("#prenom").val());$("#datenaissancef").val($("#datenaissance").val());
 		           	$("#lieunaissancef").val($("#lieunaissance").val()); $("#idlieunaissancef").val($("#idlieunaissance").val());
        	          	       $("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);
@@ -46,7 +46,6 @@
             		        break;         
 		}			
 	}
-	// $(function() {//     	var checkbox = $("#hommeConf");// checkbox.change(function() {//if(checkbox.is(":checked")) // 		$("#hommelink").removeClass('invisible');//else//$("#hommelink").addClass('invisible');// 	})// });
 	function autocopleteCNais(commune)
 	{
 		var res = commune.split(",");	
@@ -314,7 +313,7 @@
 		<div class="col-sm-12">
 			<div class="form-group" id="error" aria-live="polite">
 			@if (count($errors) > 0)
-			          	<div class="alert alert-danger">
+			      <div class="alert alert-danger">
 				<ul>
 				 @foreach ($errors->all() as $error)
 			 	           <li>{{ $error }}</li>
@@ -604,9 +603,9 @@
 				</div>				
 			</div>		
 		@endif	
-  		</div> {{-- tab-pane Patient --}}
-  	 	{{-- @if(!isset($hommes_c)) style= "display:none" @endif --}}
-  		<div id="Homme" class="tab-pane fade hidden_fields">
+  	</div> {{-- tab-pane Patient --}}
+  		{{-- @if(!isset($hommes_c)) style= "display:none" @endif --}}
+  	<div id="Homme" class="tab-pane fade hidden_fields">
 					<div class="row">
 					</div>
 					<div class="row">

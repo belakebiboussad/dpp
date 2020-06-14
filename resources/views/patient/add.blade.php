@@ -133,8 +133,8 @@
 			$("#idlieunaissancef").val($("#idlieunaissance").val());
 			$("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true); 
 		 	$("#adressef").val($('#adresse').val() + " "+ $('#commune').val() + " "+ $('#wilaya').val() )
-			  $( "#gsf" ).val($( "#gs" ).val());
-		 	 $( "#rhf" ).val($( "#rh" ).val());
+			$( "#gsf" ).val($( "#gs" ).val());
+		 	$( "#rhf" ).val($( "#rh" ).val());
 			$("#foncform").addClass('hide');$('#Type_p').attr('required', false);  
 			addRequiredAttr();
 		}
@@ -145,27 +145,29 @@
 		}
 		function showType(value){ 
 	    switch(value){
-			    case "Assure":
-			        copyPatient();  
+					case "Assure":
+			      copyPatient();  
 			      var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
-				$.each(classList, function(index, item) {
+						$.each(classList, function(index, item) {
     					if (item === 'hidden') {   						
     						$( "ul#menuPatient li:eq(0)" ).removeClass( item );
-    					}
-				});
-			        break;
+    				}
+						});
+						$(".starthidden").hide(250);
+			      break;
 			    case "Ayant_droit":
 			        $("#nomf").val("");
 			        $("#prenomf").val("");
 			        $("#foncform").removeClass('hide');
 			        $('#Type_p').attr('required', true); 
+			        $(".starthidden").hide(250);
 			        addRequiredAttr();
 			        var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
-				$.each(classList, function(index, item) {
-    					if (item === 'hidden') {   						
-    						$( "ul#menuPatient li:eq(0)" ).removeClass( item );
-    					}
-				});
+							$.each(classList, function(index, item) {
+			    					if (item === 'hidden') {   						
+			    						$( "ul#menuPatient li:eq(0)" ).removeClass( item );
+			    					}
+							});
 			        break;
 			    case "Autre":
 			        $(".starthidden").show(250);
@@ -182,33 +184,34 @@
 <div class="container-fluid">
   <div><h4>Ajouter un nouveau Patient</h4></div
   <div class="row">
-	<form class="form-horizontal" id = "addPAtient" action="{{ route('patient.store') }}" method="POST" role="form" autocomplete="off" onsubmit="return checkFormAddPAtient(this);">
+	{{-- action="{{ route('patient.store') }}" --}}
+	<form class="form-horizontal" id = "addPAtient" action="" method="POST" role="form" autocomplete="off" onsubmit="return checkFormAddPAtient(this);">
 	  {{ csrf_field() }}
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="form-group" id="error" aria-live="polite">
 			@if (count($errors) > 0)
-			          	<div class="alert alert-danger">
-				<ul>
-				 @foreach ($errors->all() as $error)
-			 	           <li>{{ $error }}</li>
-				@endforeach
-				</ul>
+			  <div class="alert alert-danger">
+					<ul>
+					 @foreach ($errors->all() as $error)
+				 	           <li>{{ $error }}</li>
+					@endforeach
+					</ul>
 				</div>
 			@endif
 			</div>
 		</div>
 	</div>
 	<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
-	   	<li class="active"><a data-toggle="tab" href="#Assure" class="jumbotron" onclick="copyPatientInfo();">
-	    		<span class="bigger-130"><strong>Assure</strong></span></a>
-  		</li>
+   	<li class="active"><a data-toggle="tab" href="#Assure" class="jumbotron" onclick="copyPatientInfo();">
+    		<span class="bigger-130"><strong>Assure</strong></span></a>
+		</li>
 		<li ><a class="jumbotron" data-toggle="tab" href="#Patient">
 			<span class="bigger-130"><strong>Patient</strong></span></a>
 	 	</li>
-   		 <li><a class="jumbotron" data-toggle="tab" href="#Homme_C">
-    			<span class="bigger-130"><b>Homme de confiance</b></span></a>
- 		  </li>
+ 	  <li id ="hommelink" class="invisible"><a class="jumbotron" data-toggle="tab" href="#Homme_C">
+  		<span class="bigger-130"><b>Garde Malde/Homme de Confiance</b></span></a>
+	  </li>
   </ul>
 	<div class="tab-content">
 		<div id="Assure" class="tab-pane in active">
@@ -219,9 +222,8 @@
 		<div id="Patient" class="tab-pane fade">
 	   		@include('patient.addPatient')
 		</div> 	{{-- tab-pane --}}
-		{{-- homme C	 --}}
-		<div id="Homme_C" class="tab-pane">
-		   	<div id ="homme_cPart">
+		<div id="Homme_C" class="tab-pane fade hidden_fields">
+			<div id ="homme_cPart">
 				<div class="row">
 					<div class="col-sm-12">
 						<h3 class="header smaller lighter blue"><b>Information de l'Homme de confiance</b></h3>
@@ -236,7 +238,7 @@
 							</div>
 							<br>
 						</div>
-						<br>
+							<br>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
@@ -248,8 +250,7 @@
 						</div>
 						<br>
 					</div>
-				</div>
-				{{-- row --}}
+				</div>{{-- row --}}
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="form-group">
@@ -263,7 +264,7 @@
 						<div class="form-group">
 							<label class="col-sm-3 control-label " for="lien"><strong>Lien de parenté :</strong></label>
 							<div class="col-sm-9">
-								<select id="lien" name="lien" class="col-xs-12 col-sm-12"/>
+								<select id="lien" name="lien" class="col-xs-12 col-sm-12">
 									<option value="">Sélectionner...</option>
 									<option value="conjoint">Conjoint(e)</option>
 									<option value="père">Père</option>
@@ -276,84 +277,86 @@
 								</select>
 							</div>
 						</div>
-					</div>					
-				</div>	{{-- row --}}
-			<div class="space-12"></div>
-			<div class="row">
-				<div class="col-sm-6">
-					<div class="form-group">
-						<label class="col-sm-3 control-label " for="type_piece_id"><strong>Type  pièce d'identité:</strong>			</label>
-						<div class="col-sm-9">
-							<select id="type_piece_id" name="type_piece_id" class="col-xs-12 col-sm-12"/>
-								<option value="">Sélectionner...</option>
-								<option value="CNI">Carte d'identité nationale</option>
-								<option value="Permis">Permis de Conduire</option>
-								<option value="Passeport">Passeport </option>
-							</select>
-						</div>
 					</div>
-				</div>
-				<div class="col-sm-6">
-					<div class="form-group">
-						<label class="control-label col-xs-12 col-sm-3" for="npiece_id"><strong>N° de la pièce :</strong></label>
-						<div class="col-sm-9">
-							<div class="clearfix">
-								<input type="text" id="npiece_id" name="npiece_id" class="col-xs-12 col-sm-12" placeholder="N° de la pièce d'identité..." />
+				</div>{{-- row --}}
+				<div class="space-12"></div>
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label class="col-sm-3 control-label " for="type_piece_id"><strong>Type  pièce d'identité:</strong>			</label>
+							<div class="col-sm-9">
+								<select name="type_piece_id" id="type_piece_id" class="col-xs-12 col-sm-12">
+									<option value="">Sélectionner...</option>
+									<option value="CNI">Carte d'identité nationale</option>
+									<option value="Permis">Permis de Conduire</option>
+									<option value="Passeport">Passeport </option>
+								</select>
 							</div>
 						</div>
 					</div>
-					<br>
-				</div>					
-			</div>	
-			<div class="row">
-				<div class="col-sm-6">
-					<div class="form-group">
-						<label class="control-label col-xs-12 col-sm-3" for="date_piece_id"><strong>Délivré le :</strong></label>
-				               <div class="col-sm-9">
-							<input class="col-xs-12 col-sm-12 date-picker" id="date_piece_id" name="date_piece_id" type="text" data-date-format="yyyy-mm-dd" placeholder="Délivré le..." pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-6">
-					<br><br>
-				</div>
-			</div>	{{-- row --}}
-			<div class="space-12"></div>
-			<div class="row">
-				<div class="col-sm-12">
-					<h3 class="header smaller lighter blue"><b>Contact</b></h3>
-				</div>
-			</div>	{{-- row --}}
-			<div class="space-12"></div>
-			<div class="row">
-				<div class="col-sm-5">
-					<div class="form-group">
-						<label class="control-label col-sm-3" for="adresseA"><b>Adresse :</b></label>
-						<div class="col-sm-9">
-							<textarea class="form-control" id="adresseA" name="adresseA" placeholder="Adresse..."></textarea>	
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-6">
-					<div class="form-group">
+					<div class="col-sm-6">
 						<div class="form-group">
-						<label class="control-label text-nowrap col-sm-2 for="mobileA"><i class="fa fa-phone"></i><b>Mob :</b></label>
-						<div class="col-sm-2">
-							<select name="operateur_h" id="operateur_h" class="form-control" >
-							           <option value="">XX</option>
-							         	<option value="05">05</option>         
-							   	<option value="06">06</option>
-							           <option value="07">07</option>
-                       					</select>	
+							<label class="control-label col-xs-12 col-sm-3" for="npiece_id"><strong>N° de la pièce :</strong></label>
+							<div class="col-sm-9">
+								<div class="clearfix">
+									<input type="text" id="npiece_id" name="npiece_id" class="col-xs-12 col-sm-12" placeholder="N° de la pièce d'identité..."/>
+								</div>
+							</div>
 						</div>
-						<input id="mobileA" name="mobile_homme_c"  maxlength =8 minlength =8  name="mobileA" type="tel" autocomplete="off" class="col-sm-2" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX"  />
+						<br>
+					</div>
+				</div><!-- row -->
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-12 col-sm-3" for="date_piece_id"><strong>Délivré le :</strong></label>
+					    <div class="col-sm-9">
+								<input class="col-xs-12 col-sm-12 date-picker" id="date_piece_id" name="date_piece_id" type="text" data-date-format="yyyy-mm-dd" placeholder="Délivré le..." pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>	{{-- row --}}	
-			</div>{{-- homme_cPart	 --}}
-		</div>	{{-- tab-pane --}}
-		{{--fin homme--}}
+					<div class="col-sm-6">
+						<br><br>
+					</div>
+				</div>	{{-- row --}}
+				<div class="space-12"></div>
+				<div class="row">
+					<div class="col-sm-12">
+						<h3 class="header smaller lighter blue"><b>Contact</b></h3>
+					</div>
+				</div>	{{-- row --}}
+				<div class="space-12"></div>
+				<div class="row">
+					<div class="col-sm-5">
+						<div class="form-group">
+							<label class="control-label col-sm-3" for="adresseA"><b>Adresse :</b></label>
+							<div class="col-sm-9">
+								<textarea class="form-control" id="adresseA" name="adresseA" placeholder="Adresse..."></textarea>	
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="form-group">
+							<div class="form-group">
+								<label class="control-label text-nowrap col-sm-2" for="mobileA"><i class="fa fa-phone"></i><b>Mob :</b></label>
+								<div class="col-sm-2">
+									<select name="operateur_h" id="operateur_h" class="form-control" >
+								    <option value="">XX</option>
+								    <option value="05">05</option>         
+								   	<option value="06">06</option>
+								    <option value="07">07</option>
+	                </select>	
+								</div>
+							<input id="mobileA" name="mobile_homme_c"  maxlength =8 minlength =8  name="mobileA" type="tel" autocomplete="off" class="col-sm-2" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX"/>
+							</div>
+						</div>
+					</div>
+				</div>	{{-- row --}}	
+			</div><!-- homme_cPart -->
+			</div>	
+		</div>
+		{{--fin homme--}}	{{-- tab-pane --}}
+
 		</div>{{-- tab_content --}}
 		<div class="hr hr-dotted"></div>
 		<div class="row">

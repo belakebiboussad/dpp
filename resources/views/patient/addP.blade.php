@@ -7,6 +7,8 @@
 @section('page-script')
 	<script>
 		$( document ).ready(function() {
+			$('#productbutton').click(function(){
+			copyPatient();
 			var bloodhound1 = new Bloodhound({
 		        datumTokenizer: Bloodhound.tokenizers.whitespace,
 		        queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -101,21 +103,37 @@
 			$("#wilaya").val(	res[1]);
 			$("#idcommune").val(res[2]);
 		}
+		function copyPatient(){
+			$("#nom").val('{{ $assure->Nom }}');
+			$("#prenom").val('{{ $assure->Prenom }}');
+			$("#datenaissance").val('{{ $assure->Date_Naissance}}');
+			$("#lieunaissance").val('{{ $assure->lieuNaissance->nom_commune }}');
+			$("#idlieunaissance").val({{ $assure->lieunaissance }});
+			$("input[name=sexe][value=" + '{{ $assure->Sexe }}' + "]").prop('checked', true); 
+		 	$("#adresse").val('{{ $assure->adresse }}');//a amelore
+		  $( "#gs" ).val('{{ $assure->grp_sang }}'.substr(0,'{{ $assure->grp_sang }}'.length - 1));
+		  $( "#rh" ).val('{{ $assure->grp_sang }}'.substr('{{ $assure->grp_sang }}'.length - 1));
+		}
 		function showType(value){ 
-	    		switch(value){
-				    case "Assure":
-				       $("#foncform").addClass('hide');$('#Type_p').attr('required', false);  // addRequiredAttr(); 
-				        break;
-				    case "Ayant_droit":
-				       $("#foncform").removeClass('hide');
-				        $('#Type_p').attr('required', true);    // addRequiredAttr();
-				         break;
-				    case "Autre":
-				        $(".starthidden").show(250);
-				        $("#foncform").addClass('hide');
-				        $('#Type_p').attr('required', false); 
-				        break;         
-			 }			
+			switch(value){
+		    case "Assure":
+		    	$("#foncform").addClass('hide');$('#Type_p').attr('required', false);
+		      $(".starthidden").hide(250);
+		    	copyPatient();
+		    	break;
+		    case "Ayant_droit":
+		    		$(':input','#addPAtient').not(':button, :submit, :reset, :hidden,:input[name=type]').val('').removeAttr('checked').removeAttr('selected');
+		    	  $("#foncform").removeClass('hide');
+		        $('#Type_p').attr('required', true);
+		        $(".starthidden").hide(250);
+		        break;
+		    case "Autre":
+		    		$(':input','#addPAtient').not(':button, :submit, :reset, :hidden,:input[name=type]').val('').removeAttr('checked').removeAttr('selected');
+		        $(".starthidden").show(250);
+		        $("#foncform").addClass('hide');
+		        $('#Type_p').attr('required', false); 
+		        break;         
+	 		}			
 		}
 	</script>
 @endsection
@@ -242,7 +260,7 @@
 				<div class="col-sm-6">
 					<div class="form-group">
 						<label class="control-label col-xs-12 col-sm-3" for="date_piece_id"><strong>Délivré le :</strong></label>
-				               <div class="col-sm-9">
+				    <div class="col-sm-9">
 							<input class="col-xs-12 col-sm-12 date-picker" id="date_piece_id" name="date_piece_id" type="text" data-date-format="yyyy-mm-dd" placeholder="Délivré le..." pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
 						</div>
 					</div>
@@ -270,16 +288,16 @@
 				<div class="col-sm-6">
 					<div class="form-group">
 						<div class="form-group">
-						<label class="control-label text-nowrap col-sm-2 for="mobileA"><i class="fa fa-phone"></i><b>Mob :</b></label>
-						<div class="col-sm-2">
-							<select name="operateur_h" id="operateur_h" class="form-control" >
-							           <option value="">XX</option>
-							         	<option value="05">05</option>         
-							   	<option value="06">06</option>
-							           <option value="07">07</option>
-                       					</select>	
-						</div>
-						<input id="mobileA" name="mobile_homme_c"  maxlength =8 minlength =8  name="mobileA" type="tel" autocomplete="off" class="col-sm-2" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX"  />
+							<label class="control-label text-nowrap col-sm-2" for="mobileA"><i class="fa fa-phone"></i><b>Mob :</b></label>
+							<div class="col-sm-2">
+									<select name="operateur_h" id="operateur_h" class="form-control" >
+								           <option value="">XX</option>
+								         	<option value="05">05</option>         
+								   	<option value="06">06</option>
+								           <option value="07">07</option>
+	                </select>	
+							</div>
+							<input id="mobileA" name="mobile_homme_c"  maxlength =8 minlength =8  name="mobileA" type="tel" autocomplete="off" class="col-sm-2" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX"  />
 						</div>
 					</div>
 				</div>

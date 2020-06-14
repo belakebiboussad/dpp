@@ -26,7 +26,7 @@
 					&nbsp;&nbsp;&nbsp;
 					<label class="inline">
 						<span class="blue"><span class="glyphicon glyphicon-map-marker"></span><strong> Né(e) à :</strong></span>
-						<span class="lbl"> {{ $patient->lieuNaissance->nom_commune }}</span>
+						<span class="lbl">{{ $patient->lieuNaissance->nom_commune }}</span>
 					</label>
 				
 					&nbsp;&nbsp;&nbsp;
