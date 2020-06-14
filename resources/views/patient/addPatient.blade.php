@@ -216,7 +216,7 @@
  	<div class="col-sm-1"></div>		
 	<div class="col-sm-11">
 		<div class="form-group padding-left">
-			<input  type="checkbox" id="hommeConf" value="1"  class="ace input-lg"/>
+			<input  type="checkbox" name = "hommeConf" id="hommeConf" value="1"  class="ace input-lg"/>
 			<span class="lbl lighter blue"><strong>Ajouter un Correspondant</strong></span>
 		</div>
 	</div>				

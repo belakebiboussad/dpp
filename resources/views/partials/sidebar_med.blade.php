@@ -183,84 +183,72 @@
     </div>
     <!-- /section:basics/sidebar.layout.minimize -->
     <script type="text/javascript">
-      try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
-      $(function() {
-        var checkbox = $("#hommeConf");
-        checkbox.change(function() {
-          if(checkbox.is(":checked"))
-            $("#hommelink").removeClass('invisible');
-          else
-            $("#hommelink").addClass('invisible');  
-        })
-      });
-        function InverserUl()
-        {
-          // http://localhost:8000/patient/create#section
-          var section = $("ul#menuPatient li:not(.active) a").prop('href').split("#")[1];
-          if(section == "Assure")
-          {
-            var liNonActive =$("ul#menuPatient li:not(.active)"); //var section = $("ul#menuPatient li:not(.active) a").prop('href').split("#")[i]; 
-           
-            var sectionActive = $("ul#menuPatient li.active a").prop('href').split("#")[1];
-            $('ul#menuPatient li.active').removeClass('active');
-            liNonActive.addClass('in active');
-            $('div#' + section).addClass('in active');
-            $('div#' + sectionActive).removeClass('active');
-          }
-        }
-      // function checkFormAddPAtient()
-      // {
-      //   InverserUl(); 
-      //   var nomf = $('#nomf').val(); var prenomf = $('#prenomf').val();var NMGSN = $('#NMGSN').val();
-      //   var nss = $('#nss').val();     
-      //   var inputAssVal = new Array(nomf,prenomf,gsf,NMGSN,nss);
-      //   var inputMessage = new Array("nom","prenom","Groupe Sanguin","Matricule(NMGSN)","numèro secruté");
-      //   $('.error').each(function(i, obj) {
-      //     $(obj).next().remove();
-      //     $(obj).detach();
-      //   });
-      //   var erreur =true;
-      //   if(!($('#autre').is(':checked'))){ 
-      //     jQuery.each( inputAssVal, function( i, val ) {
-      //       if(val =="" )
-      //       {
-      //         erreur =false;
-      //         InverserUl();
-      //         $('#error').after('<span class="error"> STP, saisir le ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
-      //       }
-      //     });   
-      //   }else{
-      //      if($('#hommeConf').is(':checked')) {
-      //       var nomA = $('#nomA').val();var prenomA = $('#prenomA').val();var type_piece_id = $('#type_piece_id').val();
-      //       var npiece_id = $('#npiece_id').val();mobileA = $('#mobileA').val();
-      //       var inputHomVal = new Array(nomA,nomA,type_piece_id,npiece_id,mobileA);
-      //       var inputHomMessage = new Array("nom","prenom","type_piece_id","numero de lapiece",'telephone mobile');
-      //       var erreur =true;
-      //       jQuery.each( inputHomVal, function( i, val ) {
-      //         if(val =="" )
-      //         {
-      //           erreur =false;
-      //           InverserUl();
-      //           $('#error').after('<span class="error"> STP, saisir le ' + inputHomMessage[i]+' du Correspondant</span>'+'<br/>');
-      //         }
-      //       });   
-      //     }
-      //   }
-      //   return erreur;
-      // }
-      function checkFormAddPAtient()
-      {
-        if(!($('#autre').is(':checked'))){ 
-          //je valide l'aasure puis je valide  
-          
-          if($('#hommeConf').is(':checked')){
-            
-          // je valide l'homme de confianance
-         }
-
-        }
-        
-      }
-
+            try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+            $(function() {
+              var checkbox = $("#hommeConf");
+              checkbox.change(function() {
+                    if(checkbox.is(":checked"))
+                            $("#hommelink").removeClass('invisible');
+                     else
+                           $("#hommelink").addClass('invisible');  
+              })
+            });
+              function InverserUl()
+              {
+                      // http://localhost:8000/patient/create#section
+                      var section = $("ul#menuPatient li:not(.active) a").prop('href').split("#")[1];
+                     if(section == "Assure")
+                     {
+                          var liNonActive =$("ul#menuPatient li:not(.active)"); //var section = $("ul#menuPatient li:not(.active) a").prop('href').split("#")[i]; 
+                         
+                          var sectionActive = $("ul#menuPatient li.active a").prop('href').split("#")[1];
+                          $('ul#menuPatient li.active').removeClass('active');
+                          liNonActive.addClass('in active');
+                          $('div#' + section).addClass('in active');
+                          $('div#' + sectionActive).removeClass('active');
+                        }
+                }
+                function checkAssure()
+                {
+                      var erreur =true;
+                      var nomf = $('#nomf').val(); var prenomf = $('#prenomf').val();var NMGSN = $('#NMGSN').val();var nss = $('#nss').val(); var idlieunaissancef = $('#idlieunaissancef').val();    
+                      var inputAssVal = new Array(nomf,prenomf,idlieunaissancef,gsf,NMGSN,nss);
+                      var inputMessage = new Array("nom","prenom","lieu de naissance","Groupe Sanguin","Matricule(NMGSN)","numèro secruté");
+                      $('.error').each(function(i, obj) {
+                            $(obj).next().remove();
+                            $(obj).detach();
+                     });
+                      jQuery.each( inputAssVal, function( i, val ) {
+                            if(val =="" )
+                            {
+                                   erreur =false;
+                                   $('#error').after('<span class="error"> STP, saisir le ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
+                            }
+                     });
+                     return erreur;
+                }
+                function  checkHomme(){
+                      var erreur =true;
+                     var nomA = $('#nomA').val();var prenomA = $('#prenomA').val();var type_piece_id = $('#type_piece_id').val();
+                     var npiece_id = $('#npiece_id').val();mobileA = $('#mobileA').val();
+                     var inputHomVal = new Array(nomA,nomA,type_piece_id,npiece_id,mobileA);
+                     var inputHomMessage = new Array("nom","prenom","type de la piece","numero de lapiece","telephone mobile");
+                      $('.error').each(function(i, obj) {
+                            $(obj).next().remove();
+                            $(obj).detach();
+                     });
+                      jQuery.each( inputHomVal, function( i, val ) {
+                           if(val =="" )
+                          {
+                                 erreur =false;
+                                $('#error').after('<span class="error"> STP, saisir le ' + inputHomMessage[i]+' du Correspondant</span>'+'<br/>');
+                           }
+                      });   
+                     return erreur;
+                    }
+                    function activaTab(tab){
+                         $('.nav-pills a[href="#' + tab + '"]').tab('show');
+                   }
+              
     </script>
 </div><!-- /section:basics/sidebar -->

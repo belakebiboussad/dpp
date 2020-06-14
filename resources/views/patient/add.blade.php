@@ -178,6 +178,39 @@
 			        break;         
 			 }			
 		}
+		function checkFormAddPAtient()
+           	{         
+              		 if(!($('#autre').is(':checked'))){ 
+	                    	if( ! checkAssure() )
+	                   	{
+		                      activaTab("Assure");
+		                      return false;
+	                    	}else{
+	                      	if($('#hommeConf').is(':checked')){
+	                                   if( ! checkHomme() )
+	                                   {
+	                                      activaTab("Homme_C");
+	                                      return false;
+	                                  }else
+	                                        return true;  
+	                           }else{
+	                                 return true;   
+	                           }
+	                           return true;
+	                    }
+	               }else
+	               {
+	                     if($('#hommeConf').is(':checked')){
+	                          if( ! checkHomme() )
+	                          {
+	                                 activaTab("Homme_C");
+	                               return false;
+	                           }else
+	                                return true;  
+	                      }else
+	                           return true; 
+	                }
+	           }
 	</script>
 @endsection
 @section('main-content')
@@ -185,7 +218,7 @@
   <div><h4>Ajouter un nouveau Patient</h4></div
   <div class="row">
 	{{-- action="{{ route('patient.store') }}" --}}
-	<form class="form-horizontal" id = "addPAtient" action="" method="POST" role="form" autocomplete="off" onsubmit="return checkFormAddPAtient(this);">
+	<form class="form-horizontal" id = "addPAtient" action="{{ route('patient.store') }}" method="POST" role="form" autocomplete="off" onsubmit="return checkFormAddPAtient(this);">
 	  {{ csrf_field() }}
 	<div class="row">
 		<div class="col-sm-12">
@@ -210,7 +243,7 @@
 			<span class="bigger-130"><strong>Patient</strong></span></a>
 	 	</li>
  	  <li id ="hommelink" class="invisible"><a class="jumbotron" data-toggle="tab" href="#Homme_C">
-  		<span class="bigger-130"><b>Garde Malde/Homme de Confiance</b></span></a>
+  		<span class="bigger-130"><b>Garde Malde</b></span></a>
 	  </li>
   </ul>
 	<div class="tab-content">

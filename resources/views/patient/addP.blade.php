@@ -7,7 +7,6 @@
 @section('page-script')
 	<script>
 		$( document ).ready(function() {
-			$('#productbutton').click(function(){
 			copyPatient();
 			var bloodhound1 = new Bloodhound({
 		        datumTokenizer: Bloodhound.tokenizers.whitespace,
@@ -116,25 +115,38 @@
 		}
 		function showType(value){ 
 			switch(value){
-		    case "Assure":
-		    	$("#foncform").addClass('hide');$('#Type_p').attr('required', false);
-		      $(".starthidden").hide(250);
-		    	copyPatient();
-		    	break;
-		    case "Ayant_droit":
-		    		$(':input','#addPAtient').not(':button, :submit, :reset, :hidden,:input[name=type]').val('').removeAttr('checked').removeAttr('selected');
-		    	  $("#foncform").removeClass('hide');
-		        $('#Type_p').attr('required', true);
-		        $(".starthidden").hide(250);
-		        break;
-		    case "Autre":
-		    		$(':input','#addPAtient').not(':button, :submit, :reset, :hidden,:input[name=type]').val('').removeAttr('checked').removeAttr('selected');
-		        $(".starthidden").show(250);
-		        $("#foncform").addClass('hide');
-		        $('#Type_p').attr('required', false); 
-		        break;         
+				case "Assure":
+				     	$("#foncform").addClass('hide');$('#Type_p').attr('required', false);
+				       $(".starthidden").hide(250);
+				    	copyPatient();
+				    	break;
+		    		case "Ayant_droit":
+		    			$(':input','#addPAtient').not(':button, :submit, :reset, :hidden, :input[name=type], :input[name=hommeConf]' ).val('').removeAttr('checked').removeAttr('selected');
+		    	  		$("#foncform").removeClass('hide');
+		        		$('#Type_p').attr('required', true);
+		        		$(".starthidden").hide(250);
+		        		break;
+		    		case "Autre":
+		    			$(':input','#addPAtient').not(':button, :submit, :reset, :hidden, :input[name=type], :input[name=hommeConf]').val('').removeAttr('checked').removeAttr('selected');
+		        		$(".starthidden").show(250);
+		        		$("#foncform").addClass('hide');
+		        		$('#Type_p').attr('required', false); 
+		        		break;         
 	 		}			
 		}
+		 function checkFormAddPAtient()
+           	{         
+           		if($('#hommeConf').is(':checked')){
+	              		if( ! checkHomme() )
+	                      {	
+	                             activaTab("Homme_C");
+	                             return false;
+	                      }else
+	                             return true; 
+	               }
+	               return true;
+
+           	}
 	</script>
 @endsection
 @section('main-content')
@@ -142,36 +154,37 @@
   <div><h4>Ajouter un nouveau Patient</h4></div
   <div class="row">
 	<form class="form-horizontal" id = "addPAtient" action="{{ route('patient.store') }}" method="POST" role="form" autocomplete="off" onsubmit="return checkFormAddPAtient(this);">
-	  {{ csrf_field() }}
-	<div class="row">
-		<div class="col-sm-12">
-			<div class="form-group" id="error" aria-live="polite">
-			@if (count($errors) > 0)
-			          	<div class="alert alert-danger">
-				<ul>
-				 @foreach ($errors->all() as $error)
-			 	           <li>{{ $error }}</li>
-				@endforeach
-				</ul>
+	  	{{ csrf_field() }}
+	  	<input type="hidden" name="assure_id" value="{{ $assure->id }}">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="form-group" id="error" aria-live="polite">
+				@if (count($errors) > 0)
+				          	<div class="alert alert-danger">
+					<ul>
+					 @foreach ($errors->all() as $error)
+				 	           <li>{{ $error }}</li>
+					@endforeach
+					</ul>
+					</div>
+				@endif
 				</div>
-			@endif
 			</div>
 		</div>
-	</div>
-	<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
-		<li  class="active"><a class="jumbotron" data-toggle="tab" href="#Patient">
-			<span class="bigger-130"><strong>Patient</strong></span></a>
-	 	</li>
-   		  <li  id ="hommelink" class="invisible" ><a data-toggle="tab" href="#Homme">
-		  	<span class="bigger-130"><strong>Garde Malde/Homme de Confiance</strong></span></a>
-		  </li>
-  </ul>
-	<div class="tab-content">
-		<div id="Patient" class="tab-pane fade in active">
-	   		@include('patient.addPatient')
-		</div> 	{{-- tab-pane --}}
+		<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
+			<li  class="active"><a class="jumbotron" data-toggle="tab" href="#Patient">
+				<span class="bigger-130"><strong>Patient</strong></span></a>
+		 	</li>
+	   		  <li  id ="hommelink" class="invisible" ><a data-toggle="tab" href="#Homme_C">
+			  	<span class="bigger-130"><strong>Garde Malde</strong></span></a>
+			  </li>
+ 		 </ul>
+		<div class="tab-content">
+			<div id="Patient" class="tab-pane fade in active">
+		   		@include('patient.addPatient')
+			</div> 	{{-- tab-pane --}}
 		{{-- homme C	 --}}
-		<div id="Homme" class="tab-pane">
+		<div id="Homme_C" class="tab-pane">
 		   	<div id ="homme_cPart">
 				<div class="row">
 					<div class="col-sm-12">
