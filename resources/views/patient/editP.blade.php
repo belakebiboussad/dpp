@@ -291,24 +291,24 @@
 				</div>
     	</div>
     	<div class="row">
-				<div class="col-sm-6">
-					<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
-						<label class="col-sm-3 control-label" for="nom"><strong>Nom :</strong></label>
-						<div class="col-sm-9">
-							<input type="text" id="nom" name="nom" placeholder="Nom..." value="{{ $patient->Nom }}" class="col-xs-12 col-sm-12" autocomplete= "off" required alpha />
-							{!! $errors->first('datenaissance', '<small class="alert-danger">:message</small>') !!}
-						</div>
-					</div>
-				</div>{{-- col-sm-6	 --}}
-				<div class="col-sm-6">
-					<div class="form-group {{ $errors->has('prenom') ? "has-error" : "" }}">
-						<label class="col-sm-3 control-label" for="prenom"><strong>Prénom :</strong></label>
-						<div class="col-sm-9">
-							<input type="text" id="prenom" name="prenom" placeholder="Prénom..." value="{{ $patient->Prenom }}" class="form-control form-control-lg col-xs-12 col-sm-12" autocomplete="off" required/>
-							{!! $errors->first('prenom', '<p class="alert-danger">:message</p>') !!}
-						</div>
-					</div>
-				</div>{{-- col-sm-6	 --}}
+		<div class="col-sm-6">
+			<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
+				<label class="col-sm-3 control-label" for="nom"><strong>Nom :</strong></label>
+				<div class="col-sm-9">
+					<input type="text" id="nom" name="nom" placeholder="Nom..." value="{{ $patient->Nom }}" class="col-xs-12 col-sm-12" autocomplete= "off" required alpha />
+					{!! $errors->first('datenaissance', '<small class="alert-danger">:message</small>') !!}
+				</div>
+			</div>
+		</div>{{-- col-sm-6	 --}}
+		<div class="col-sm-6">
+			<div class="form-group {{ $errors->has('prenom') ? "has-error" : "" }}">
+				<label class="col-sm-3 control-label" for="prenom"><strong>Prénom :</strong></label>
+				<div class="col-sm-9">
+					<input type="text" id="prenom" name="prenom" placeholder="Prénom..." value="{{ $patient->Prenom }}" class="form-control form-control-lg col-xs-12 col-sm-12" autocomplete="off" required/>
+					{!! $errors->first('prenom', '<p class="alert-danger">:message</p>') !!}
+				</div>
+			</div>
+		</div>{{-- col-sm-6	 --}}
       </div>  {{-- row --}}
       <div class="row">
       	<div class="col-sm-6">

@@ -194,6 +194,7 @@ route::get('/homeradiologue',function(){
 Route::get('rendezVous/create/{id?}','RDVController@index');
 Route::get('assur/patientAssuree/{id}','PatientController@create');
 Route::get('assur/patientAedit/{id}/{idA}','PatientController@edit');
+Route::post('/patientstore','PatientController@storePatient');
 
 /************partie viste d'hospitalisation**************/
 Route::get('/delVisite/{id}', 'VisiteController@destroy')->name('visite.destroy');

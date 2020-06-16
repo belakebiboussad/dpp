@@ -41,7 +41,7 @@
 						<div class="col-sm-6">
 							<div class="form-group ">
 								<label class="col-sm-3 control-label no-padding-right" for="nom_h">
-									<b>Nom :</b> 
+									<b>Nom:</b> 
 								</label>
 								<div class="col-sm-9">
 								
@@ -63,14 +63,14 @@
 						<div class="space-12"></div>
 			  		<div class="row">
 					<div class="col-sm-6">
-							<div class="form-group ">
-								<label class="col-sm-3 control-label no-padding-right" for="datenaissance_h">
-									<b class="text-nowrap">Né(e) le :</b>
-								</label>
-								<div class="col-sm-9">
-								<input class="col-xs-12 col-sm-6 date-picker" id="datenaissance_h" name="datenaissance_h" type="text" placeholder="Date de naissance..." pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" required />
-								</div>
+						<div class="form-group ">
+							<label class="col-sm-3 control-label no-padding-right" for="datenaissance_h">
+								<b class="text-nowrap">Né(e) le :</b>
+							</label>
+							<div class="col-sm-9">
+							<input class="col-xs-6 col-sm-6 date-picker" id="datenaissance_h" name="datenaissance_h" type="text" placeholder="Date de naissance..." data-date-format="yyyy-mm-dd" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" required />
 							</div>
+						</div>
 					</div>
 					<div class="col-sm-6">
 							<div class="form-group ">

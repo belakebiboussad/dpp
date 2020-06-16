@@ -39,7 +39,7 @@
 					}	
 				}
 			});
-			$('#lieunaissance').typeahead({///////////////autocomplete lieu de naissance
+			$('#lieunaissance').typeahead({
 				hint: true,
 				highlight: true,
 				minLength: 1
@@ -72,7 +72,6 @@
 		  				$('#Div-nomjeuneFille').attr('hidden','');	
 				 }else
 				 	$('#Div-nomjeuneFille').attr('hidden','');	
-						
 			});
 			$('input[type=radio][name=sexe]').change(function(){
 			 	if($(this).val() == "M")
@@ -156,8 +155,8 @@
 @section('main-content')
 <div class="container-fluid">
   <div><h4>Ajouter un nouveau Patient</h4></div
-  <div class="row">
-	<form class="form-horizontal" id = "addPAtient" action="{{ route('patient.store') }}" method="POST" role="form" autocomplete="off" onsubmit="return checkFormAddPAtient(this);">
+  <div class="row">{{-- {{ route('patient.store') }} --}}
+	<form class="form-horizontal" id = "addPAtient" action="{{ url('/patientstore') }}" method="POST" role="form" autocomplete="off" onsubmit="return checkFormAddPAtient(this);">
 	  	{{ csrf_field() }}
 	  	<input type="hidden" name="assure_id" value="{{ $assure->id }}">
 		<div class="row">

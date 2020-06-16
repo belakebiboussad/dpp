@@ -5,14 +5,14 @@
 				<label class="col-sm-3 control-label" for="nomf">
 				<strong>Nom :</strong> 
 				</label>
-			<div class="col-sm-9">
-				@if(isset($assure) && !empty($assure))
-					<input type="text" id="nomf" name="nomf"  value="{{ $assure->Nom }}" class="col-xs-12 col-sm-12" autocomplete= "off" required alpha/>
-				@else
-					<input type="text" id="nomf" name="nomf"  value="" class="col-xs-12 col-sm-12" autocomplete= "off" required alpha/>
-				@endif	
-			</div>
-			<br>
+				<div class="col-sm-9">
+					@if(isset($assure) && !empty($assure))
+						<input type="text" id="nomf" name="nomf"  value="{{ $assure->Nom }}" class="col-xs-12 col-sm-12" autocomplete= "off" required alpha/>
+					@else
+						<input type="text" id="nomf" name="nomf"  value="" class="col-xs-12 col-sm-12" autocomplete= "off" required alpha/>
+					@endif	
+				</div>
+				<br>
 			</div>
 			<br>
 		</div>
@@ -145,23 +145,21 @@
 				<div class="col-sm-9">
 				<div class="radio">
 				 @if(isset($assure) && !empty($assure))
-			
-				<label><input name ="etatf" value="En_exercice"  type="radio"  class="ace" @if($assure->Etat =='En_exercice') Checked @endif />
-					<span class="lbl"> En exercice</span>
-				</label>
-				<label><input name ="etatf" value="Retraite"  type="radio"  class="ace" @if($assure->Etat =='Retraite') Checked @endif />
-					<span class="lbl"> Retraité</span>
-				</label>
-				<label><input  name="etatf"  value="Invalide"  type="radio"  class="ace" @if($assure->Etat =='Invalide') Checked @endif />
-						<span class="lbl"> Invalide</span>
-				</label>
-				<label><input name="etatf" value="Mise_en_disponibilite"  type="radio" class="ace" @if($assure->Etat =='Mise_en_disponibilite') Checked @endif />
-						<span class="lbl"> Mise en disponibilité</span>
-				</label>
+					<label><input name ="etatf" value="En_exercice"  type="radio"  class="ace" @if($assure->Etat =='En_exercice') Checked @endif />
+						<span class="lbl"> En exercice</span>
+					</label>
+					<label><input name ="etatf" value="Retraite"  type="radio"  class="ace" @if($assure->Etat =='Retraite') Checked @endif />
+						<span class="lbl"> Retraité</span>
+					</label>
+					<label><input  name="etatf"  value="Invalide"  type="radio"  class="ace" @if($assure->Etat =='Invalide') Checked @endif />
+							<span class="lbl"> Invalide</span>
+					</label>
+					<label><input name="etatf" value="Mise_en_disponibilite"  type="radio" class="ace" @if($assure->Etat =='Mise_en_disponibilite') Checked @endif />
+							<span class="lbl"> Mise en disponibilité</span>
+					</label>
 				@else
-				
 				<label hidden><input name="etatf" value="" type="radio" class="ace"/><span class="lbl"> Autre</span></label>
-				<label><input name="etatf" value="En exercice" type="radio" class="ace" /><span class="lbl" Checked> En exercice</span></label>
+				<label><input name="etatf" value="En_exercice" type="radio" class="ace" /><span class="lbl" Checked> En exercice</span></label>
 				<label><input name="etatf" value="Retraite" type="radio" class="ace" Checked /><span class="lbl"> Retraité</span></label>
 				<label><input name="etatf" value="Invalide" type="radio" class="ace" /><span class="lbl"> Invalide</span></label>
 				<label><input name="etatf" value="Mise en disponibilite" type="radio" class="ace" /><span class="lbl"> Mise en disponibilité</span>

@@ -301,8 +301,7 @@
 	<h1 style="display: inline;"><strong>modification du Patient :&nbsp;</strong>{{ $patient->getCivilite() }} {{ $patient->Nom }} {{ $patient->Prenom }}</h1>
 	<div class="pull-right">
 		<a href="{{route('patient.index')}}" class="btn btn-white btn-info btn-bold">
-			<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>
-				 Chercher un Patient
+			<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i> Chercher un Patient
 		</a>
 	</div>
 </div>
@@ -476,11 +475,11 @@
 			  	<div class="space-12"></div>	
 			  	<div class="row">
 						<div class="col-sm-4" style="padding-left:7%">
-							<label class="col-sm-3" for="adresse" ><strong>Adresse :&nbsp;</strong></label>
+							<label class="col-sm-3" for="adresse" ><strong>Adr.. :&nbsp;</strong></label>
 							<input type="text" value="{{ $patient->Adresse }}" id="adresse" name="adresse" placeholder="Adresse..." class="col-sm-9"/>
 						</div>
 						<div class="col-sm-4" style="margin-top: -0.1%;">
-							<label class="col-sm-3" for="commune"><strong>Commune :</strong></label>
+							<label class="col-sm-3" for="commune"><strong>Com.. :</strong></label>
 							<input type="hidden" name="idcommune" id="idcommune" value="{{ $patient->commune_res }}"/>
 							<input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}" class="col-sm-9"/>					
 						</div>
@@ -654,7 +653,7 @@
 					              <td>{{ $hom->num_piece }}</td>
 					              <td>{{ $hom->date_deliv }}</td>
 					              <td class="center nosort">
-					       					  <button type="button" class="btn btn-xs btn-info open-modal" value="{{$hom->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
+					  <button type="button" class="btn btn-xs btn-info open-modal" value="{{$hom->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
                             <button type="button" class="btn btn-xs btn-danger delete-garde" value="{{$hom->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>
 					          		</td>
 					            </tr>
