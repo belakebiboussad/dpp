@@ -136,7 +136,7 @@ class PatientController extends Controller
               "Type_p"=> $request->Type_p,
               "description"=> $request->description,
               "NSS"=>$request->nsspatient,
-              "Date_creation"=>$date,
+              "Date_creation"=>Date::Now(),
               "updated_at"=>Date::Now(),
          ]);
         $sexe = ($request->sexe == "H") ? 1:0;
@@ -165,7 +165,7 @@ class PatientController extends Controller
     ///store ptient from assure
      public function storePatient(Request $request)
       {
-            $rule = array(
+               $rule = array(
                         "nom" => 'required',
                         "prenom" => 'required',
                         "datenaissance" => 'required|date|date_format:Y-m-d',
@@ -187,6 +187,7 @@ class PatientController extends Controller
                       $errors=$validator->errors(); 
                        return view('patient.add')->withErrors($errors);
                 }
+                //dd($request->all());
                 $patient = patient::firstOrCreate([
                       "Nom"=>$request->nom,// "code_barre"=>$codebarre,
                       "Prenom"=>$request->prenom,
@@ -207,11 +208,12 @@ class PatientController extends Controller
                       "Type_p"=> $request->Type_p,
                       "description"=> $request->description,
                       "NSS"=>$request->nsspatient,
-                      "Date_creation"=>$date,
+                      "Date_creation"=>Date::Now(),
                       "updated_at"=>Date::Now(),
                ]);
+             
                 $sexe = ($request->sexe == "H") ? 1:0;
-                $ipp =$sexe.$date->year.$patient->id;
+                $ipp =$sexe.Date::Now()->year.$patient->id;
                 $patient->update([
                        "IPP" => $ipp,
                 ]);

@@ -156,7 +156,7 @@
 <div class="container-fluid">
   <div><h4>Ajouter un nouveau Patient</h4></div
   <div class="row">{{-- {{ route('patient.store') }} --}}
-	<form class="form-horizontal" id = "addPAtient" action="{{ url('/patientstore') }}" method="POST" role="form" autocomplete="off" onsubmit="return checkFormAddPAtient(this);">
+	<form class="form-horizontal" id = "addPAtient" action="/a" method="POST" role="form" autocomplete="off" onsubmit="return checkFormAddPAtient(this);">
 	  	{{ csrf_field() }}
 	  	<input type="hidden" name="assure_id" value="{{ $assure->id }}">
 		<div class="row">
