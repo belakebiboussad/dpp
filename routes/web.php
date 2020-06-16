@@ -193,6 +193,8 @@ route::get('/homeradiologue',function(){
 // route with optonnel parameter
 Route::get('rendezVous/create/{id?}','RDVController@index');
 Route::get('assur/patientAssuree/{id}','PatientController@create');
+Route::get('assur/patientAedit/{id}/{idA}','PatientController@edit');
+
 /************partie viste d'hospitalisation**************/
 Route::get('/delVisite/{id}', 'VisiteController@destroy')->name('visite.destroy');
 Route::get('/visite/create/{id}','VisiteController@create');

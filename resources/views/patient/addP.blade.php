@@ -103,50 +103,54 @@
 			$("#idcommune").val(res[2]);
 		}
 		function copyPatient(){
-			$("#nom").val('{{ $assure->Nom }}');
-			$("#prenom").val('{{ $assure->Prenom }}');
-			$("#datenaissance").val('{{ $assure->Date_Naissance}}');
-			$("#lieunaissance").val('{{ $assure->lieuNaissance->nom_commune }}');
-			$("#idlieunaissance").val({{ $assure->lieunaissance }});
+			$("#nom").val('{{ $assure->Nom }}');$("#prenom").val('{{ $assure->Prenom }}');$("#datenaissance").val('{{ $assure->Date_Naissance}}');
+			$("#lieunaissance").val('{{ $assure->lieuNaissance->nom_commune }}');	$("#idlieunaissance").val({{ $assure->lieunaissance }});
 			$("input[name=sexe][value=" + '{{ $assure->Sexe }}' + "]").prop('checked', true); 
 		 	$("#adresse").val('{{ $assure->adresse }}');//a amelore
 		  $( "#gs" ).val('{{ $assure->grp_sang }}'.substr(0,'{{ $assure->grp_sang }}'.length - 1));
 		  $( "#rh" ).val('{{ $assure->grp_sang }}'.substr('{{ $assure->grp_sang }}'.length - 1));
+		  $('.demograph').find('*').each(function () { $(this).attr("disabled", true); });
 		}
 		function showType(value){ 
 			switch(value){
 				case "Assure":
 				     	$("#foncform").addClass('hide');$('#Type_p').attr('required', false);
-				       $(".starthidden").hide(250);
-				    	copyPatient();
+				      $(".starthidden").hide(250);
+				     	copyPatient();
 				    	break;
 		    		case "Ayant_droit":
-		    			$(':input','#addPAtient').not(':button, :submit, :reset, :hidden, :input[name=type], :input[name=hommeConf]' ).val('').removeAttr('checked').removeAttr('selected');
+		    			  $(':input','#addPAtient').not(':button, :submit, :reset, :hidden, :input[name=type],:input[name=sexe], :input[name=hommeConf]' ).val('').removeAttr('checked').removeAttr('selected');
 		    	  		$("#foncform").removeClass('hide');
 		        		$('#Type_p').attr('required', true);
 		        		$(".starthidden").hide(250);
+		        		$('.demograph').find('*').each(function () { $(this).attr("disabled", false); });
 		        		break;
 		    		case "Autre":
-		    			$(':input','#addPAtient').not(':button, :submit, :reset, :hidden, :input[name=type], :input[name=hommeConf]').val('').removeAttr('checked').removeAttr('selected');
+		    			$(':input','#addPAtient').not(':button, :submit, :reset, :hidden, :input[name=type], :input[name=sexe], :input[name=hommeConf]').val('').removeAttr('checked').removeAttr('selected');
 		        		$(".starthidden").show(250);
+		        		$('.demograph').find('*').each(function () { $(this).attr("disabled", false); });
 		        		$("#foncform").addClass('hide');
 		        		$('#Type_p').attr('required', false); 
 		        		break;         
 	 		}			
 		}
-		 function checkFormAddPAtient()
-           	{         
-           		if($('#hommeConf').is(':checked')){
-	              		if( ! checkHomme() )
-	                      {	
-	                             activaTab("Homme_C");
-	                             return false;
-	                      }else
-	                             return true; 
-	               }
-	               return true;
+		function checkFormAddPAtient()
+    {        
+     		if($('#hommeConf').is(':checked')){
+      		if( ! checkHomme() )
+          {	
+                 activaTab("Homme_C");
+                 return false;
+          }else
+          {
+          	$('input:disabled').removeAttr('disabled');    
+            return true; 
+          }
+        }
+        $('input:disabled').removeAttr('disabled');    
+        return true;
 
-           	}
+     	}
 	</script>
 @endsection
 @section('main-content')

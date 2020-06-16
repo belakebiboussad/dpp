@@ -229,10 +229,12 @@
                 }
                 function  checkHomme(){
                       var erreur =true;
-                     var nomA = $('#nomA').val();var prenomA = $('#prenomA').val();var type_piece_id = $('#type_piece_id').val();
-                     var npiece_id = $('#npiece_id').val();mobileA = $('#mobileA').val();
-                     var inputHomVal = new Array(nomA,nomA,type_piece_id,npiece_id,mobileA);
-                     var inputHomMessage = new Array("nom","prenom","type de la piece","numero de lapiece","telephone mobile");
+                      var nomA = $('#nomA').val();
+                      var prenomA = $('#prenomA').val();
+                      var type_piece_id = $('#type_piece_id').val();
+                      var npiece_id = $('#npiece_id').val();mobileA = $('#mobileA').val();
+                      var inputHomVal = new Array(nomA,prenomA,type_piece_id,npiece_id,mobileA);
+                      var inputHomMessage = new Array("nom","prenom","type de la piece","numero de lapiece","telephone mobile");
                       $('.error').each(function(i, obj) {
                             $(obj).next().remove();
                             $(obj).detach();

@@ -1,4 +1,4 @@
- <div class="row">
+ <div class="row demograph">
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('nom') ? 'has-error' : '' }}">
 			<label class="col-sm-3 control-label" for="nom"><strong>Nom :</strong></label>
@@ -19,7 +19,7 @@
 	</div>
 </div> {{-- row --}}
 <div class="spce-12"></div>
-<div class="row">
+<div class="row demograph">
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('datenaissance') ? 'has-error' : '' }}">
 			<label class="col-sm-3 control-label" for="datenaissance"><strong>Né(e) le :</strong></label>
@@ -40,7 +40,7 @@
 		</div>
 	</div>
 </div>{{-- row --}}
-<div class="row">
+<div class="row demograph">
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('sexe') ? 'has-error' : '' }}">
 			<label class="col-sm-3 control-label" for="sexe"><strong>Sexe :</strong></label>

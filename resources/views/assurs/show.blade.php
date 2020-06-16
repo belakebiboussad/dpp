@@ -73,7 +73,7 @@
 				<div class="profile-info-row">
 					<div class="profile-info-name"> Sexe </div>
 						<div class="profile-info-value">
-							<span class="editable" id="nom">{{ $assure->Sexe =="H" ? "Homme" : "Femme" }}</span>
+							<span class="editable" id="nom">{{ $assure->Sexe =="M" ? "Homme" : "Femme" }}</span>
 						</div>
 				</div>
 			</div>
@@ -178,7 +178,8 @@
 									<a href="/patient/{{ $patient->id }}" class="btn btn-warning btn-xs" data-toggle="tooltip" title="Consulter le dossier">
 										<i class="fa fa-hand-o-up fa-xs"></i>
 									</a>
-									<a href="/patient/{{ $patient->id }}/edit" class="btn btn-info btn-xs" data-toggle="tooltip" title="modifier">
+									<!-- /patient/{{ $patient->id }}/edit -->
+									<a href="patientAedit/{{ $patient->id  }}/{{ $assure->id  }}" class="btn btn-info btn-xs" data-toggle="tooltip" title="modifier">
 										<i class="fa fa-edit fa-xs" aria-hidden="true" ></i>
 									</a>
 								</td>

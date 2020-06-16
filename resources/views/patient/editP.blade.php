@@ -4,61 +4,43 @@
 <script>
 	function showType(value,i){
 		switch(value){
-		       case "Assure":
-       				if(i !=0)
-       				{//	$("input[name=etatf][value=Retraite]").prop('checked', true);// $("ul#menuPatient li:eq(0)").css('display', 'block');
-       					$("input[name=etatf][value=Retraite]").prop('checked', true);$('#service option:eq(0)').prop('selected', true);
-       					$('#grade option:eq(0)').prop('selected', true);$("#matf").val("");$("#nss").val("");$("#NMGSN").val("");
-      				}
-      				var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
-							$.each(classList, function(index, item) {
-			    					if (item === 'hidden') {   						
-			    						$( "ul#menuPatient li:eq(0)" ).removeClass( item );
-			    					}
-							});
-      				$("#nomf").val($("#nom").val());	 $("#prenomf").val($("#prenom").val());$("#datenaissancef").val($("#datenaissance").val());
-		           	$("#lieunaissancef").val($("#lieunaissance").val()); $("#idlieunaissancef").val($("#idlieunaissance").val());
-       	          	       $("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);
-		            	$('[name=gsf]').val( $('[name = gs]').val() + $('[name= rh]').val() );$('#adressef').val($('#adresse').val() + " "+ $('#commune').val() + " "+ $('#wilaya').val());            	
-		             	$("#foncform").addClass('hide');$('#Type_p').attr('required', false);$('#nsspatient').attr('required', false);$('#nsspatient').attr('disabled', true);addRequiredAttr();
-		               break;
-		       case "Ayant_droit":
-		          	if(i !=0)
-		       	    	{
-		        	        $("#nomf").val("");$("#prenomf").val(""); $("#datenaissancef").val("");     $("#lieunaissancef").val("");  $("select#grade").prop('selectedIndex', 0);
-		               	$("#matf").val(""); $("#NMGSN").val("");	$('#nsspatient').val("");$('#adressef').val("");$('#gsf option:eq(0)').prop('selected', true);
-		                	$('#grade option:eq(0)').prop('selected', true);$('#service option:eq(0)').prop('selected', true);	$("#nss").val("");
-		               }
-		               var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
-				$.each(classList, function(index, item) {
-    					if (item === 'hidden') {   						
-    						$( "ul#menuPatient li:eq(0)" ).removeClass( item );
-    					}
-				});	
-			        $("#foncform").removeClass('hide');  $('#Type_p').attr('required', true);  $('#nsspatient').attr('disabled', false); 
-			       addRequiredAttr();
-		              break;
-          		case "Autre": //$("ul#menuPatient li:not(.active) a").prop('disabled', true);// $("ul#menuPatient li:eq(0)").css('display', 'none');
-          			$(".starthidden").show(250);$("#foncform").addClass('hide'); $('#Type_p').attr('required', false);
-              			if(! ($( "ul#menuPatient li:eq(0)" ).hasClass( "hidden" )))
-          				$( "ul#menuPatient li:eq(0)" ).addClass( "hidden" );
-          			$('#nomf').attr('required', false); $('#prenomf').attr('required', false); $('#nsspatient').attr('required', false);$('#nsspatient').attr('disabled', true);   
-            		        break;         
-		}			
+      case "Assure":
+ 				if(i !=0)
+ 				{
+ 				 					
+				}
+				$("#foncform").addClass('hide');
+        $('#Type_p').attr('required', false);
+        $('#nsspatient').attr('required', false);
+        $('#nsspatient').attr('disabled', true);
+        addRequiredAttr();
+        break;
+      case "Ayant_droit":
+        if(i !=0)
+     	  {
+          $('#nsspatient').val("");
+        }
+        $("#foncform").removeClass('hide');
+          $('#Type_p').attr('required', true);
+        $('#nsspatient').attr('disabled', false); 
+        addRequiredAttr();
+        break;
+    	case "Autre": 
+  			$(".starthidden").show(250);
+  			$("#foncform").addClass('hide');
+  			$('#Type_p').attr('required', false);
+        		
+    		$('#nsspatient').attr('required', false);
+    		$('#nsspatient').attr('disabled', true);   
+      	break;         
+}			
 	}
 	function autocopleteCNais(commune)
 	{
 		var res = commune.split(",");	
-		if($('#fonc').is(':checked'))
-		{
-			$("#idlieunaissancef").val(res[0]);$("#lieunaissancef").val(res[1]);	
-		}		
 		$("#idlieunaissance").val(res[0]);
 	}
-	function autocopleteCNaisAS(commune)
-	{	
-		$("#idlieunaissancef").val(commune);
-	}
+	
 	function show(wilaya)
 	{
 		var res = wilaya.split(",");$("#idwilaya").val(res[0]);$("#wilaya").val(res[1]);$("#idcommune").val(res[2]);
@@ -84,17 +66,7 @@
    		});
     	}
 	$(document).ready(function () {
-		$('input[type=radio][name=etatf]').change(function(){
-		  	if($(this).val() != "En exercice" && ($(this).val() != "En_exercice"))
-		 	{
-				$('#serviceFonc').addClass('invisible');$('#service option:eq(0)').prop('selected', true); 
-		 	}
-			else
-				$('#serviceFonc').removeClass('invisible'); 	
-		});
-		if($("input[type=radio][name='etatf']:checked").val() != "En_exercice" )
-			$('#serviceFonc').addClass('invisible');
-		 $('input[type=radio][name=sexe]').change(function(){
+    	$('input[type=radio][name=sexe]').change(function(){
 		 	if($(this).val() == "M")
 		 	{
 		 		$('#Div-nomjeuneFille').attr('hidden','');
@@ -159,34 +131,12 @@
 				}
 			}	
 		});
-       		$('#lieunaissancef').typeahead({
-			hint: true,
-			highlight: true,
-			minLength: 1
-		}, {
-			name: 'communenom',
-			source: bloodhoundcom,
-			display: function(data) {
-				return data.nom_commune  //Input value to be set when you select a suggestion. 
-			},
-			templates: {
-				empty: [
-					'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
-				],
-				header: [
-					'<div class="list-group search-results-dropdown">'
-				],
-				suggestion: function(data) {
-					return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="autocopleteCNaisAS(\''+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
-				}
-			}	
-		}); 
-	       var value =  $("input[type=radio][name='type']:checked").val();
-	       showType(value,0);
-	       $( ".civilite" ).change(function() {
-		  	var sex =  $('input[name=sexe]:checked').val();
-			 if(sex == "F")
-			 {
+    var value =  $("input[type=radio][name='type']:checked").val();
+	  showType(value,0);
+	  $( ".civilite" ).change(function() {
+	  	var sex =  $('input[name=sexe]:checked').val();
+	  	if(sex == "F")
+	 	  {
 		 		var civilite= $("select.civilite option").filter(":selected").val();
 		 		if((civilite =="marie")|| (civilite =="veuf"))
   					$('#Div-nomjeuneFille').removeAttr('hidden');
@@ -256,10 +206,10 @@
 		       data: formData,
 		       dataType: 'json',
            		success: function (data) {
-            			if($('.dataTables_empty').length > 0)
-      				{
+            		if($('.dataTables_empty').length > 0)
+      					{
       			  		$('.dataTables_empty').remove();
-      				}
+      					}
               			var homme = '<tr id="garde' + data.id + '"><td class="hidden">' + data.id_patient + '</td><td>' + data.nom + '</td><td>' + data.prenom + '</td><td>'+ data.date_naiss +'</td><td>' + data.adresse + '</td><td>'+ data.mob + '</td><td>' + data.lien_par + '</td><td>' + data.type_piece + '</td><td>' + data.num_piece + '</td><td>' +  data.date_deliv + '</td>';
          		      homme += '<td class ="center"><button type="button" class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
              			homme += '<button type="button" class="btn btn-xs btn-danger delete-garde" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
@@ -309,6 +259,7 @@
 <form class="form-horizontal" action="{{ route('patient.update',$patient ->id) }}" method="POST">
 	{{ csrf_field() }}
   {{ method_field('PUT') }}
+  <input type="hidden" name="assure_id" value="{{ $patient->assure->id }}">
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="form-group" id="error" aria-live="polite">
@@ -325,69 +276,63 @@
 		</div>
 	</div>
 	<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
-		  <li  class=" @if($patient->Type !="Autre") active @else hidden  @endif"><a data-toggle="tab" href="#Assure" >
-	    		<span class="bigger-130"><strong>Assure</strong></span></a>
- 		</li>
-	 	<li class=" @if($patient->Type =="Autre") active  @endif" ><a data-toggle="tab" href="#Patient">
+		<li class="active"><a data-toggle="tab" href="#Patient">
 	   	 	<span class="bigger-130"><strong>Patient</strong></span></a>
-	   	</li>
-		 <li  id ="hommelink" @if(count($hommes_c) == 0)  class="invisible" @endif><a data-toggle="tab" href="#Homme">
-		  	<span class="bigger-130"><strong>Garde Malde/Homme de Confiance</strong></span></a>
-		  </li>
+	  </li>
+		<li  id ="hommelink" @if(count($hommes_c) == 0)  class="invisible" @endif><a data-toggle="tab" href="#Homme">
+		 	<span class="bigger-130"><strong>Garde Malde/Homme de Confiance</strong></span></a>
+		 </li>
 	</ul>	
   <div class="tab-content">
-  		<div id="Assure" class='tab-pane fade @if($patient->Type =="Autre")  invisible @else in active  @endif '>
-     			@include('assurs.editAssure')
-     		</div>{{-- tab-pane Assure --}} 
-	<div id="Patient" class="tab-pane fade @if($patient->Type =="Autre")   in active  @endif">
-		<div class="row">
-    			<div class="col-sm-12">
-				<h3 class="header smaller lighter blue">Informations administratives</h3>
-			</div>
-    		</div>
-    		<div class="row">
-			<div class="col-sm-6">
-				<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
-					<label class="col-sm-3 control-label" for="nom"><strong>Nom :</strong></label>
-					<div class="col-sm-9">
-						<input type="text" id="nom" name="nom" placeholder="Nom..." value="{{ $patient->Nom }}" class="col-xs-12 col-sm-12" autocomplete= "off" required alpha />
-					{!! $errors->first('datenaissance', '<small class="alert-danger">:message</small>') !!}
+  	<div id="Patient" class="tab-pane fade in active">
+			<div class="row">
+    		<div class="col-sm-12">
+					<h3 class="header smaller lighter blue">Informations administratives</h3>
+				</div>
+    	</div>
+    	<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
+						<label class="col-sm-3 control-label" for="nom"><strong>Nom :</strong></label>
+						<div class="col-sm-9">
+							<input type="text" id="nom" name="nom" placeholder="Nom..." value="{{ $patient->Nom }}" class="col-xs-12 col-sm-12" autocomplete= "off" required alpha />
+							{!! $errors->first('datenaissance', '<small class="alert-danger">:message</small>') !!}
+						</div>
+					</div>
+				</div>{{-- col-sm-6	 --}}
+				<div class="col-sm-6">
+					<div class="form-group {{ $errors->has('prenom') ? "has-error" : "" }}">
+						<label class="col-sm-3 control-label" for="prenom"><strong>Prénom :</strong></label>
+						<div class="col-sm-9">
+							<input type="text" id="prenom" name="prenom" placeholder="Prénom..." value="{{ $patient->Prenom }}" class="form-control form-control-lg col-xs-12 col-sm-12" autocomplete="off" required/>
+							{!! $errors->first('prenom', '<p class="alert-danger">:message</p>') !!}
+						</div>
+					</div>
+				</div>{{-- col-sm-6	 --}}
+      </div>  {{-- row --}}
+      <div class="row">
+      	<div class="col-sm-6">
+					<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
+						<label class="col-sm-3 control-label" for="datenaissance"><strong>Né(e) le :</strong></label>
+						<div class="col-sm-9">
+							<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" placeholder="Date de naissance..." data-date-format="yyyy-mm-dd" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" value="{{ $patient->Dat_Naissance }}" required/>
+							{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
+						</div>
 					</div>
 				</div>
-			</div>{{-- col-sm-6	 --}}
-			<div class="col-sm-6">
-				<div class="form-group {{ $errors->has('prenom') ? "has-error" : "" }}">
-					<label class="col-sm-3 control-label" for="prenom"><strong>Prénom :</strong></label>
-					<div class="col-sm-9">
-						<input type="text" id="prenom" name="prenom" placeholder="Prénom..." value="{{ $patient->Prenom }}" class="form-control form-control-lg col-xs-12 col-sm-12" autocomplete="off" required/>
-						{!! $errors->first('prenom', '<p class="alert-danger">:message</p>') !!}
-					</div>
-				</div>
-			</div>{{-- col-sm-6	 --}}
-      		</div>  {{-- row --}}
-      		<div class="row">
-      			<div class="col-sm-6">
-				<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
-					<label class="col-sm-3 control-label" for="datenaissance"><strong>Né(e) le :</strong></label>
-					<div class="col-sm-9">
-						<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" placeholder="Date de naissance..." data-date-format="yyyy-mm-dd" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" value="{{ $patient->Dat_Naissance }}" required/>
-						{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-6">
-				<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
-					<label class="col-sm-3 control-label" for="lieunaissance"><strong class="text-nowrap">Lieu de naissance :</strong></label>
-				      <div class="col-sm-9">
-					       <input type="hidden" name="idlieunaissance" id="idlieunaissance" value={{ $patient->Lieu_Naissance }}>
-					      <input type="text" id="lieunaissance" name="" placeholder="Lieu de naissance..." utocomplete = "off" class="col-xs-12 col-sm-12" value="{{ $patient->lieuNaissance->nom_commune }}" required/>
+				<div class="col-sm-6">
+					<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
+						<label class="col-sm-3 control-label" for="lieunaissance"><strong class="text-nowrap">Lieu de naissance :</strong></label>
+				    <div class="col-sm-9">
+					    <input type="hidden" name="idlieunaissance" id="idlieunaissance" value={{ $patient->Lieu_Naissance }}>
+					    <input type="text" id="lieunaissance" name="" placeholder="Lieu de naissance..." utocomplete = "off" class="col-xs-12 col-sm-12" value="{{ $patient->lieuNaissance->nom_commune }}" required/>
 						    {!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
-				       </div>
-				</div>
-   			  </div>
-      		</div>  {{-- row --}}
-      	  	<div class="row">
-	      		<div class="col-sm-6">
+				      </div>
+					</div>
+   			</div>
+     	</div>  {{-- row --}}
+     	<div class="row">
+	   		<div class="col-sm-6">
 				<div class="form-group {{ $errors->has('sexe') ? "has-error" : "" }}">
 					<label class="col-sm-3 control-label" for="sexe"><strong>Sexe :</strong></label>
 					<div class="col-sm-9">
@@ -498,13 +443,14 @@
 							<div class="col-sm-3" >
 								<select name="operateur1" id="operateur1" class="form-control" required="">
 						      @php	$operator = substr($patient->tele_mobile1,0,2) @endphp
-			 						<option value="05" @if($operator == '05') selected @endif >05</option>         
-								  <option value="06" @if($operator == '06') selected @endif >06</option>
+			 						<option value="05" @if($operator == '05') selected @endif>05</option>         
+								 	<option value="06" @if($operator == '06') selected @endif>06</option>
 								  <option value="07" @if($operator == '07') selected @endif>07</option>
-	              </select>	
+	               </select>	
 							</div>
 							<input id="mobile1" name="mobile1"  maxlength =8 minlength =8 type="tel" autocomplete="off" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX" value= "{{  substr($patient->tele_mobile1,2,10) }}" required />	
-						 </div>		
+						</div>
+							
 					</div>	 
 					<div class="col-sm-4">
 						<div class="form-group">
@@ -513,18 +459,18 @@
 							<div class="col-sm-4">
 								<select name="operateur2" id="operateur2" class="form-control">
 								@if(!isset($patient->tele_mobile2)  && empty($patient->tele_mobile2))		
-							              	 <option value="" selected >XX</option>
-							              	  <option value="05" >05</option>
-									 <option value="06">06</option>
-									 <option value="07">07</option>
-								@else
+								  <option value="" selected >XX</option>
+								  <option value="05" >05</option>
+									<option value="06">06</option>
+									<option value="07">07</option>
+									@else
 									@php  $operator2 = substr($patient->tele_mobile2,0,2) @endphp
 									<option value="" >XX</option>
 									 <option value="05" @if($operator2 == '05') selected @endif>05</option>
 									 <option value="06" @if($operator2 == '06') selected @endif>06</option>
 									 <option value="07" @if($operator2 == '07') selected @endif>07</option>
 								@endif				
-		                       			</select>
+		            </select>
 							</div>
 							<input id="mobile2" name="mobile2"  maxlength =8 minlength =8  type="tel" autocomplete="off" class="col-sm-4" value="{{  substr($patient->tele_mobile2,2,10) }}" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"   placeholder="XX XX XX XX">
 						</div>
