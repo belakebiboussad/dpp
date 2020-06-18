@@ -165,7 +165,8 @@ class PatientController extends Controller
     ///store ptient from assure
   public function storePatient(Request $request)
   {
-     $rule = array(
+    $date = Date::Now();
+    $rule = array(
             "nom" => 'required',
             "prenom" => 'required',
             "datenaissance" => 'required|date|date_format:Y-m-d',
@@ -187,29 +188,28 @@ class PatientController extends Controller
       $errors=$validator->errors(); 
       return view('patient.add')->withErrors($errors);
     }
-    //dd($request->all());
     $patient = patient::firstOrCreate([
-                      "Nom"=>$request->nom,// "code_barre"=>$codebarre,
-                      "Prenom"=>$request->prenom,
-                      "Dat_Naissance"=>$request->datenaissance,
-                      "Lieu_Naissance"=>$request->idlieunaissance,
-                      "Sexe"=>$request->sexe,
-                      "situation_familiale"=>$request->sf,
-                      "nom_jeune_fille"=>$request->nom_jeune_fille, 
-                      "Adresse"=>$request->adresse,
-                      'commune_res'=>isset($request->idcommune) ?$request->idcommune:'1556',
-                      'wilaya_res'=>isset($request->idwilaya) ?$$request->idwilaya:'49',
-                      "tele_mobile1"=>$request->operateur1 . $request->mobile1,
-                      "tele_mobile2"=>$request->operateur2 . $request->mobile2,
-                      "group_sang"=>$request->gs,
-                      "rhesus"=>$request->rh,
-                      "Assurs_ID_Assure"=>$request-> assure_id ,
-                      "Type"=>$request->type,
-                      "Type_p"=> $request->Type_p,
-                      "description"=> $request->description,
-                      "NSS"=>$request->nsspatient,
-                      "Date_creation"=>Date::Now(),
-                      "updated_at"=>Date::Now(),
+        "Nom"=>$request->nom,// "code_barre"=>$codebarre,
+        "Prenom"=>$request->prenom,
+        "Dat_Naissance"=>$request->datenaissance,
+        "Lieu_Naissance"=>$request->idlieunaissance,
+        "Sexe"=>$request->sexe,
+        "situation_familiale"=>$request->sf,
+        "nom_jeune_fille"=>$request->nom_jeune_fille, 
+        "Adresse"=>$request->adresse,
+        'commune_res'=>isset($request->idcommune) ?$request->idcommune:'1556',
+        'wilaya_res'=>isset($request->idwilaya) ?$$request->idwilaya:'49',
+        "tele_mobile1"=>$request->operateur1 . $request->mobile1,
+        "tele_mobile2"=>$request->operateur2 . $request->mobile2,
+        "group_sang"=>$request->gs,
+        "rhesus"=>$request->rh,
+        "Assurs_ID_Assure"=>$request->assure_id ,
+        "Type"=>$request->type,
+        "Type_p"=> $request->Type_p,
+        "description"=> $request->description,
+        "NSS"=>$request->nsspatient,
+        "Date_creation"=>$date,
+        "updated_at"=>$date,
     ]); 
     $sexe = ($request->sexe == "H") ? 1:0;
     $ipp =$sexe.Date::Now()->year.$patient->id;

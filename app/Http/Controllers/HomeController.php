@@ -90,9 +90,8 @@ class HomeController extends Controller
                   return view('colloques.liste_colloque', compact('colloque'));
                   break;
             case 9: 
-/*$rdvs = rdv_hospitalisation::with('bedReservation')->whereHas('demandeHospitalisation', function($q){$q->where('etat', 'programme');})->where('etat_RDVh','=','en attente')->where('date_RDVh','=',date("Y-m-d"))->get();return view('home.home_agent_admis', compact('rdvs'));*/
-                       return redirect()->action('AdmissionController@index');
-                      break;       
+                    return redirect()->action('AdmissionController@index');
+                    break;       
             case 10:
                 $meds = medcamte::all();
                 $dispositifs = dispositif::all();
