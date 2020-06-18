@@ -117,7 +117,7 @@
 	</div>
 	<div class="col-sm-4">
 		  <label class="col-sm-3" for="wilaya"><strong>Wilaya :</strong></label>
-		  <input type="hidden" name="idwilaya" id="idwilaya"><input type="text" value=""  id="wilaya" placeholder="wilaya résidance" class="col-sm-9"/>
+		  <input type="hidden" name="idwilaya" id="idwilaya"><input type="text" value=""  id="wilaya" placeholder="wilaya résidance" class="col-sm-9" readonly />
 	</div>
 </div>
 <div class="space-12"></div>

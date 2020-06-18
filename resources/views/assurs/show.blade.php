@@ -182,6 +182,9 @@
 									<a href="patientAedit/{{ $patient->id  }}/{{ $assure->id  }}" class="btn btn-info btn-xs" data-toggle="tooltip" title="modifier">
 										<i class="fa fa-edit fa-xs" aria-hidden="true" ></i>
 									</a>
+									<a href="{{ route('patient.destroy',$patient->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-white btn-warning btn-bold btn-xs">
+    									<i class="ace-icon fa fa-trash-o bigger-120 orange"></i>
+    		 					</a>
 								</td>
 							</tr>
 							@endforeach

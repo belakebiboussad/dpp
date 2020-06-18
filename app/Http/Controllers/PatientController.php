@@ -163,32 +163,32 @@ class PatientController extends Controller
          return redirect(Route('patient.show',$patient->id));
   }
     ///store ptient from assure
-     public function storePatient(Request $request)
-      {
-               $rule = array(
-                        "nom" => 'required',
-                        "prenom" => 'required',
-                        "datenaissance" => 'required|date|date_format:Y-m-d',
-                        "idlieunaissance" => 'required',
-                        "mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],
-                        "Type_p" =>'required_if:type,Ayant_droit', //"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
-                        "prenom_homme_c"=>'required_with:nom_homme_c', 
-                        "type_piece_id"=>'required_with:nom_homme_c', 
-                        "npiece_id"=>'required_with:nom_homme_c', //"lien"=>'required_with:nom_homme_c', //"date_piece_id"=>'required_with:nom_homme_c',    
-                        "mobile_homme_c"=>['required_with:nom_homme_c'],
-                        "operateur_h"=>'required_with:mobileA',
-               ); 
-             $messages = [
+  public function storePatient(Request $request)
+  {
+     $rule = array(
+            "nom" => 'required',
+            "prenom" => 'required',
+            "datenaissance" => 'required|date|date_format:Y-m-d',
+            "idlieunaissance" => 'required',
+            "mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],
+            "Type_p" =>'required_if:type,Ayant_droit', //"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
+            "prenom_homme_c"=>'required_with:nom_homme_c', 
+            "type_piece_id"=>'required_with:nom_homme_c', 
+            "npiece_id"=>'required_with:nom_homme_c', //"lien"=>'required_with:nom_homme_c', //"date_piece_id"=>'required_with:nom_homme_c',    
+            "mobile_homme_c"=>['required_with:nom_homme_c'],
+            "operateur_h"=>'required_with:mobileA',
+    ); 
+    $messages = [
                       "required"     => "Le champ :attribute est obligatoire.", // "NSSValide"    => 'le numéro du securite sociale est invalide ',
                     "date"         => "Le champ :attribute n'est pas une date valide.",
-             ];
-              $validator = Validator::make($request->all(),$rule,$messages);   
-              if ($validator->fails()) {
-                      $errors=$validator->errors(); 
-                       return view('patient.add')->withErrors($errors);
-                }
-                //dd($request->all());
-                $patient = patient::firstOrCreate([
+    ];
+    $validator = Validator::make($request->all(),$rule,$messages);   
+    if ($validator->fails()) {
+      $errors=$validator->errors(); 
+      return view('patient.add')->withErrors($errors);
+    }
+    //dd($request->all());
+    $patient = patient::firstOrCreate([
                       "Nom"=>$request->nom,// "code_barre"=>$codebarre,
                       "Prenom"=>$request->prenom,
                       "Dat_Naissance"=>$request->datenaissance,
@@ -210,15 +210,14 @@ class PatientController extends Controller
                       "NSS"=>$request->nsspatient,
                       "Date_creation"=>Date::Now(),
                       "updated_at"=>Date::Now(),
-               ]);
-             
-                $sexe = ($request->sexe == "H") ? 1:0;
-                $ipp =$sexe.Date::Now()->year.$patient->id;
-                $patient->update([
-                       "IPP" => $ipp,
-                ]);
-                if(isset($request->nom_homme_c) &&($request->nom_homme_c!="")) 
-               {  
+    ]); 
+    $sexe = ($request->sexe == "H") ? 1:0;
+    $ipp =$sexe.Date::Now()->year.$patient->id;
+    $patient->update([
+       "IPP" => $ipp,
+    ]);
+    if(isset($request->nom_homme_c) &&($request->nom_homme_c!="")) 
+    {  
                     $homme = homme_conf::firstOrCreate([
                               "id_patient"=>$patient->id,
                               "nom"=>$request->nom_homme_c,
@@ -461,8 +460,8 @@ class PatientController extends Controller
      */
     public function destroy($id)
     {
-        patient::destroy($id);
-        return redirect() -> route('patient.index');
+      patient::destroy($id);
+      return redirect() -> route('patient.index');
     }
     public function getpatient()
     {
