@@ -216,9 +216,3 @@ route::get('/download/{filename}', function($filename)
 {
     return Storage::download($filename);
 });
-<<<<<<< HEAD
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-=======
->>>>>>> Teste
