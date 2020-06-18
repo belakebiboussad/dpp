@@ -1,9 +1,7 @@
 @extends('app_recep')
 @section('style')
         <style>
-                #listePatient {
-                      /*padding: 5px;*/
-                }
+                #patient {        /*padding: 5px;*/ }
                 .option {
                   padding: 5px;
                   display: none;
@@ -55,12 +53,12 @@
 
       <script>
       $(document).ready(function(){
-                $('#listePatient').editableSelect({
+                $('#patient').editableSelect({
                       effects: 'slide', 
                       editable: false,  
                       // warpClass: 'ui-select-wrap',
                 });
-                $("#listePatient").on("keyup", function() {
+                $("#patient").on("keyup", function() {
                       //to call ajax
                       remoteSearch();    
                 });
@@ -86,7 +84,7 @@
                 var CurrentDate = moment(x).format("YYYY-MM-DD");            
                 if (mydate >= CurrentDate  ) { 
                      $('#date_RDV').datepicker("setDate",mydate);//new Date(yyyy,mm,dd)
-                     $('#Temp_rdv').val(heur);//new Date(yyyy,mm,dd)
+                    // $('#Temp_rdv').val(heur);//new Date(yyyy,mm,dd)
                      $("#fullCalModal").modal();
                 }
      }
@@ -194,13 +192,12 @@
            <form id ="addRdv" role="form" action="/createRDV"method="POST">
                 {{ csrf_field() }}
                 <input type="datetime" id="date_RDV" name="date_RDV" data-date-format='yyyy-mm-dd' value="">{{-- style="display:none;" --}}
-                <input type="time" id="Temp_rdv" name="Temp_rdv"  value=""  min="8:00" max="18:00" >              {{-- style="display:none" --}}
-                
+                {{-- <input type="time" id="Temp_rdv" name="Temp_rdv"  value=""  min="8:00" max="18:00" >   --}}
                 <div id="modalBody" class="modal-body">
                       <div class="row">
                            <fieldset class="inline-fields"> 
                                 <label for="patient"><strong>Selectioner le patient :</strong></label>
-                                <select id="listePatient" name ="listePatient" style="width:300px;" required></select>                        
+                                <select id="patient" name ="patient" style="width:300px;" required></select>                        
                            </fieldset>
                       </div>
                       <div class="space-12"></div>

@@ -5,180 +5,132 @@
     <script type="text/javascript" src="{{ asset('js/app-med.js') }}"></script>
     <div class="sidebar-shortcuts" id="sidebar-shortcuts">
         <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-            <button class="btn btn-success">
-                <i class="ace-icon fa fa-signal"></i>
-            </button>
-
-            <button class="btn btn-info">
-                <i class="ace-icon fa fa-pencil"></i>
-            </button>
-
-            <!-- #section:basics/sidebar.layout.shortcuts -->
-            <button class="btn btn-warning">
-                <i class="ace-icon fa fa-users"></i>
-            </button>
-            <button class="btn btn-danger">
-                <i class="ace-icon fa fa-cogs"></i>
-            </button>
-
-            <!-- /section:basics/sidebar.layout.shortcuts -->
+            <button class="btn btn-success">  <i class="ace-icon fa fa-signal"></i>   </button>
+            <button class="btn btn-info"> <i class="ace-icon fa fa-pencil"></i>  </button> <!-- #section:basics/sidebar.layout.shortcuts --> 
+            <button class="btn btn-warning"> <i class="ace-icon fa fa-users"></i>   </button>
+            <button class="btn btn-danger">        <i class="ace-icon fa fa-cogs"></i>  </button>   <!-- /section:basics/sidebar.layout.shortcuts -->
         </div>
-
         <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
-            <span class="btn btn-success"></span>
-
-            <span class="btn btn-info"></span>
-
-            <span class="btn btn-warning"></span>
-
+            <span class="btn btn-success"></span><span class="btn btn-info"></span><span class="btn btn-warning"></span>
             <span class="btn btn-danger"></span>
         </div>
     </div><!-- /.sidebar-shortcuts -->
-
     <li class="">
         <a href="home">
-            <i class="menu-icon fa fa-picture-o"></i>
-            <span class="menu-text">Gestion Patients</span>
+            <i class="menu-icon fa fa-picture-o"></i> <span class="menu-text">Gestion Patients</span>
         </a>
-
         <b class="arrow"></b>
     </li>
-
     <ul class="nav nav-list">
         <li class="">
-            <a href="{{route('home_med')}}">
-                <i class="menu-icon fa fa-tachometer"></i>
-                <span class="menu-text"> Acceuil </span>
+               <a href="{{ route('patient.index') }}">
+                         <i class="menu-icon fa fa-tachometer"></i>    <span class="menu-text"> Acceuil </span>  
             </a>
-
             <b class="arrow"></b>
         </li>
-
         <li class="">
             <a href="#" class="dropdown-toggle">
-                <i class="menu-icon fa fa-users"></i>
-                {{-- <img src = "img/patient.png" class ="img1"> --}}
-                 <span class="menu-text">
-                    Gestion Patient
+                <i class="menu-icon fa fa-users"></i> <span class="menu-text"> Patients
                 </span>
                 <b class="arrow fa fa-angle-down"></b>
             </a>
-
             <b class="arrow"></b>
-
             <ul class="submenu">
-
                 <li class="">
                     <a href="{{ route('patient.create') }}">
-                        <i class="menu-icon fa fa-plus purple"></i>
-                        Ajouter Patient
+                        <i class="menu-icon fa fa-plus purple"></i>  Ajouter Patient
                     </a>
-
                     <b class="arrow"></b>
                 </li>
-
                 <li class="">
                     <a href="{{ route('patient.index') }}">
-                        <i class="menu-icon fa fa-eye pink"></i>
-                        Liste Patients
+                        <i class="menu-icon fa fa-eye pink"></i>  Liste Patients
                     </a>
-
+                    <b class="arrow"></b>
+                </li>
+            </ul>
+        </li>
+        <li  class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-users"></i>  <span class="menu-text"> Fonctionnaires </span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="">
+                    <a href="{{ route('patient.create') }}">
+                        <i class="menu-icon fa fa-plus purple"></i>  Ajouter Fonctinnaire
+                    </a>
                     <b class="arrow"></b>
                 </li>
                 <li class="">
                     <a href="{{ route('assur.index') }}">
-                        <i class="menu-icon fa fa-eye pink"></i>
-                        Liste Fonctionnaires
+                        <i class="menu-icon fa fa-eye pink"></i> Liste Fonctionnaires
                     </a>
-
                     <b class="arrow"></b>
                 </li>
             </ul>
         </li>
         <li class="">
             <a href="#" class="dropdown-toggle">
-                <i class="menu-icon fa fa-user-md"></i>
-                            <span class="menu-text">
-                                Consultation
-                            </span>
-                <b class="arrow fa fa-angle-down"></b>
+               <i class="menu-icon fa fa-user-md"></i> <span class="menu-text"> Consultations </span>
+               <b class="arrow fa fa-angle-down"></b>
             </a>
-
             <b class="arrow"></b>
-
             <ul class="submenu">
-
                 <li class="">
                     <a href="/choixpat">
-                        <i class="menu-icon fa fa-plus purple"></i>
-                        Ajouter Consultation
+                        <i class="menu-icon fa fa-plus purple"></i>Ajouter Consultation   
                     </a>
-
                     <b class="arrow"></b>
                 </li>
-
                 <li class="">
                     <a href="/listcons">
-                        <i class="menu-icon fa fa-eye pink"></i>
-                        Liste Consultations
+                        <i class="menu-icon fa fa-eye pink"></i> Liste Consultations
                     </a>
-
                     <b class="arrow"></b>
                 </li>
             </ul>
         </li>
-          <li class="">
-            <a href="#" class="dropdown-toggle">
-                <i class="menu-icon fa fa-hospital-o"></i>
-                            <span class="menu-text" data-toggle="tooltip" data-placement="top" title="hospitalisations du service">
-                                 Hospitalisations
-                            </span>
-
-                <b class="arrow fa fa-angle-down"></b>
-            </a>
-
+        <li class="">
+              <a href="#" class="dropdown-toggle">
+                     <i class="menu-icon fa fa-hospital-o"></i>
+                      <span class="menu-text" data-toggle="tooltip" data-placement="top" title="hospitalisations du service">Hospitalisations </span>
+                      <b class="arrow fa fa-angle-down"></b>
+              </a>
             <b class="arrow"></b>
-
             <ul class="submenu">
-
+                <li class="">
+                        <a href="{{ route('hospitalisation.create') }}">
+                            <i class="menu-icon fa fa-plus purple"></i>Ajouter   Hospitalisation
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
                 <li class="">
                     <a href="{{ route('hospitalisation.index') }}"  data-toggle="tooltip" data-placement="top" title=" Liste d'hospitalisation du service">
-                        <i class="menu-icon fa fa-eye pink"></i>
-                        Liste des Hospitalisations
+                        <i class="menu-icon fa fa-eye pink"></i> Liste des Hospitalisations
                     </a>
-
                     <b class="arrow"></b>
                 </li>
             </ul>
         </li>
         <li class="">
             <a href="#" class="dropdown-toggle">
-                <i class="menu-icon fa fa-table"></i>
-                <span class="menu-text">
-                     Rendez-Vous
-                 </span>
-                <b class="arrow fa fa-angle-down"></b>
+                <i class="menu-icon fa fa-table"></i><span class="menu-text">Rendez-Vous</span>
+               <b class="arrow fa fa-angle-down"></b>
             </a>
-
             <b class="arrow"></b>
-
             <ul class="submenu">
-
                 <li class="">
-                    <a href="{{ route('rdv.index') }}">
-                        <i class="menu-icon fa fa-plus purple"></i>
-                        Ajouter RDV
+                    <a href="{{ route('rdv.create') }}">
+                        <i class="menu-icon fa fa-plus purple"></i>Ajouter un RDV
                     </a>
-
                     <b class="arrow"></b>
                 </li>
-
                 <li class="">
                     <a href="{{ route('rdv.index') }}">
-                        <i class="menu-icon fa fa-eye pink"></i>
-                        Liste RDV
+                        <i class="menu-icon fa fa-eye pink"></i>Liste des RDVs
                     </a>
-
                     <b class="arrow"></b>
                 </li>
             </ul>
@@ -186,21 +138,13 @@
         @if(Auth::user()->role_id == "10")
         <li class="">
             <a href="#" class="dropdown-toggle">
-                <i class="menu-icon fa fa-stethoscope"></i>
-                            <span class="menu-text">
-                                Produits pharmacie
-                            </span>
-
-                <b class="arrow fa fa-angle-down"></b>
+                <i class="menu-icon fa fa-stethoscope"></i><span class="menu-text">Produits pharmacie</span><b class="arrow fa fa-angle-down"></b>
             </a>
-
             <b class="arrow"></b>
-
             <ul class="submenu">
                 <li class="">
                     <a href="{{ route('demandeproduit.create') }}">
-                        <i class="menu-icon fa fa-plus purple"></i>
-                        Demande Produit
+                        <i class="menu-icon fa fa-plus purple"></i>Demande Produit
                     </a>
                     <b class="arrow"></b>
                 </li>
@@ -209,63 +153,104 @@
         @endif
         <li class="">
             <a href="#" class="dropdown-toggle">
-                <i class="menu-icon fa fa-stethoscope"></i>
-                            <span class="menu-text">
-                                Gestion des visites
-                            </span>
-
+                <i class="menu-icon fa fa-stethoscope"></i><span class="menu-text">Gestion des visites</span>
                 <b class="arrow fa fa-angle-down"></b>
             </a>
-
             <b class="arrow"></b>
-
             <ul class="submenu">
-
                 <li class="">
-                    <a href="/choixpatvisite">
-                        <i class="menu-icon fa fa-plus purple"></i>
-                        Ajouter visite
-                    </a>
-
+                    <a href="/choixpatvisite"><i class="menu-icon fa fa-plus purple"></i>Ajouter visite</a>
                     <b class="arrow"></b>
                 </li>
             </ul>
         </li>
         <li class="">
-            <a href="#" class="dropdown-toggle">
-                <i class="menu-icon fa fa-hospital-o"></i>
-                            <span class="menu-text" data-toggle="tooltip" data-placement="top" title=" Demandes d'hospitalisation">
-                                 Demandes
-                            </span>
-
+            <a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-file-o"></i><span class="menu-text" data-toggle="tooltip" data-placement="top" title=" Demandes d'hospitalisation">Demandes</span>
                 <b class="arrow fa fa-angle-down"></b>
             </a>
-
             <b class="arrow"></b>
-
             <ul class="submenu">
-
                 <li class="">
-                    <a href="{{route('demandehosp.index')}}"  data-toggle="tooltip" data-placement="top" title=" Liste Demandes d'hospitalisation">
-                        <i class="menu-icon fa fa-eye pink"></i>
-                        Liste Demandes
-                    </a>
-
+                    <a href="{{route('demandehosp.index')}}"  data-toggle="tooltip" data-placement="top" title=" Liste Demandes d'hospitalisation"><i class="menu-icon fa fa-eye pink"></i>Liste Demandes</a>
                     <b class="arrow"></b>
                 </li>
             </ul>
         </li>
     </ul><!-- /.nav-list -->
-
     <!-- #section:basics/sidebar.layout.minimize -->
     <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
         <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
     </div>
-
     <!-- /section:basics/sidebar.layout.minimize -->
     <script type="text/javascript">
-        try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+            try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+            $(function() {
+              var checkbox = $("#hommeConf");
+              checkbox.change(function() {
+                    if(checkbox.is(":checked"))
+                            $("#hommelink").removeClass('invisible');
+                     else
+                           $("#hommelink").addClass('invisible');  
+              })
+            });
+              function InverserUl()
+              {
+                      // http://localhost:8000/patient/create#section
+                      var section = $("ul#menuPatient li:not(.active) a").prop('href').split("#")[1];
+                     if(section == "Assure")
+                     {
+                          var liNonActive =$("ul#menuPatient li:not(.active)"); //var section = $("ul#menuPatient li:not(.active) a").prop('href').split("#")[i]; 
+                         
+                          var sectionActive = $("ul#menuPatient li.active a").prop('href').split("#")[1];
+                          $('ul#menuPatient li.active').removeClass('active');
+                          liNonActive.addClass('in active');
+                          $('div#' + section).addClass('in active');
+                          $('div#' + sectionActive).removeClass('active');
+                        }
+                }
+                function checkAssure()
+                {
+                      var erreur =true;
+                      var nomf = $('#nomf').val(); var prenomf = $('#prenomf').val();var NMGSN = $('#NMGSN').val();var nss = $('#nss').val(); var idlieunaissancef = $('#idlieunaissancef').val();    
+                      var inputAssVal = new Array(nomf,prenomf,idlieunaissancef,gsf,NMGSN,nss);
+                      var inputMessage = new Array("nom","prenom","lieu de naissance","Groupe Sanguin","Matricule(NMGSN)","numèro secruté");
+                      $('.error').each(function(i, obj) {
+                            $(obj).next().remove();
+                            $(obj).detach();
+                     });
+                      jQuery.each( inputAssVal, function( i, val ) {
+                            if(val =="" )
+                            {
+                                   erreur =false;
+                                   $('#error').after('<span class="error"> STP, saisir le ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
+                            }
+                     });
+                     return erreur;
+                }
+                function  checkHomme(){
+                      var erreur =true;
+                      var nomA = $('#nomA').val();
+                      var prenomA = $('#prenomA').val();
+                      var type_piece_id = $('#type_piece_id').val();
+                      var npiece_id = $('#npiece_id').val();mobileA = $('#mobileA').val();
+                      var inputHomVal = new Array(nomA,prenomA,type_piece_id,npiece_id,mobileA);
+                      var inputHomMessage = new Array("nom","prenom","type de la piece","numero de lapiece","telephone mobile");
+                      $('.error').each(function(i, obj) {
+                            $(obj).next().remove();
+                            $(obj).detach();
+                     });
+                      jQuery.each( inputHomVal, function( i, val ) {
+                           if(val =="" )
+                          {
+                                 erreur =false;
+                                $('#error').after('<span class="error"> STP, saisir le ' + inputHomMessage[i]+' du Correspondant</span>'+'<br/>');
+                           }
+                      });   
+                     return erreur;
+                    }
+                    function activaTab(tab){
+                         $('.nav-pills a[href="#' + tab + '"]').tab('show');
+                   }
+              
     </script>
-</div>
-
-<!-- /section:basics/sidebar -->
+</div><!-- /section:basics/sidebar -->

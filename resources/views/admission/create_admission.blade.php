@@ -2,92 +2,92 @@
 @section('page-script')
 <script type="text/javascript">
 	var nowDate = new Date();
-  var now = nowDate.getFullYear() + '-' + (nowDate.getMonth()+1) + '-' + ('0'+ nowDate.getDate()).slice(-2);
+ 	 var now = nowDate.getFullYear() + '-' + (nowDate.getMonth()+1) + '-' + ('0'+ nowDate.getDate()).slice(-2);
  	$('document').ready(function(){
-    $("#dateEntree").datepicker("setDate", now);			
-	  $("#dateSortie").datepicker("setDate", now);	
-	  $('#dateSortie').attr('readonly', true);
+	    	$("#dateEntree").datepicker("setDate", now);			
+		$("#dateSortie").datepicker("setDate", now);	
+		$('#dateSortie').attr('readonly', true);
 		$('.timepicker').timepicker({
-            timeFormat: 'HH:mm',
-            interval: 15,
-            minTime: '08',
-            maxTime: '17:00pm',
-            defaultTime: '09:00',   
-            startTime: '08:00',
-            dynamic: true,
-            dropdown: true,
-            scrollbar: true
-    });
-	 	$( "#RDVForm" ).submit(function( event ) {  
-  			$("#dateSortie").prop('disabled', false);
-  	});
-  	$('.filelink' ).click( function( e ) {
-                e.preventDefault();  
-    });
-	});
-	function updateDureePrevue()
-	{
-		if($("#dateEntree").val() != undefined) {
- 				var dEntree = $('#dateEntree').datepicker('getDate');
-     		var dSortie = $('#dateSortiePre').datepicker('getDate');
-  			var iSecondsDelta = dSortie - dEntree;
-  			var iDaysDelta = iSecondsDelta / (24 * 60 * 60 * 1000);
-  			if(iDaysDelta < 0)
-  			{
-  				iDaysDelta = 0;
-  				$("#dateSortiePre").datepicker("setDate", dEntree); 
-  			}
-  			$('#numberDays').val(iDaysDelta );	
+	      		timeFormat: 'HH:mm',
+	            	interval: 15,
+	            	minTime: '08',
+	            	maxTime: '17:00pm',
+	            	defaultTime: '09:00',   
+	            	startTime: '08:00',
+	            	dynamic: true,
+	            	dropdown: true,
+	            	scrollbar: true
+	    	});
+		$( "#RDVForm" ).submit(function( event ) {  
+	  		$("#dateSortie").prop('disabled', false);
+	  	});
+	  	$('.filelink' ).click( function( e ) {
+	             e.preventDefault();  
+	    	});
+		});
+		function updateDureePrevue()
+		{
+			if($("#dateEntree").val() != undefined) {
+	 			var dEntree = $('#dateEntree').datepicker('getDate');
+	     			var dSortie = $('#dateSortiePre').datepicker('getDate');
+	  			var iSecondsDelta = dSortie - dEntree;
+	  			var iDaysDelta = iSecondsDelta / (24 * 60 * 60 * 1000);
+	  			if(iDaysDelta < 0)
+	  			{
+	  				iDaysDelta = 0;
+	  				$("#dateSortiePre").datepicker("setDate", dEntree); 
+	  			}
+	  			$('#numberDays').val(iDaysDelta );	
+			}
+				
 		}
-			
-	}
 </script>
 @endsection
 @section('main-content')
 <div class="page-header">
-			<h1>
-				Ajouter Un RDV Hospitalisation pour <strong>&laquo;{{$demande->demandeHosp->consultation->patient->Nom}}
-				 {{ $demande->demandeHosp->consultation->patient->Prenom }}&raquo;</strong>
-			</h1>
+	<h1>
+		Ajouter Un RDV Hospitalisation pour <strong>&laquo;{{$demande->demandeHosp->consultation->patient->Nom}}
+		 {{ $demande->demandeHosp->consultation->patient->Prenom }}&raquo;</strong>
+	</h1>
 </div><!-- /.page-header -->
-<div class="space-12"></div>
-
 <div class="row">
 	<div class="col-xs-12">
 		<form class="form-horizontal" id="RDVForm" role="form" method="POST" action="{{  route('admission.store') }}">
 			{{ csrf_field() }}
 			<input type="text" name="id_demande" value="{{$demande->id_demande}}" hidden>
-			<div class="page-header">
-				  	<h1>informations concernant l'hospitalisation</h1>
-			</div>
-				<div class="space-12"></div>
-			<div class="form-group row">
-			  <div class="col-xs-4">
-			  	<label class="col-sm-3 control-label no-padding-right" for="service">
-						<strong>Service:</strong>
-					</label>
-					<div class="col-sm-9">
-						<input type="text" id="service" name="service" placeholder="nom du service"
-									 value="{{ $demande->demandeHosp->Service->nom }}" class="col-xs-10 col-sm-5" disabled/>
-					</div>	
-   			</div>
-   				<div class="col-xs-4">
-					<label class="col-sm-3 control-label no-padding-right" for="motif">
-						<strong>Specialite :</strong>
-					</label>
-					<div class="col-sm-9">
-						<input type="text" id="motif" name="motifhos" value="{{$demande->demandeHosp->Specialite->nom}}"
-									 class="col-xs-10 col-sm-5" disabled/>
-					</div>	
+			<div class="row">
+				<div class="col-sm12">
+					 <h3 class="header smaller lighter blue">informations concernant la demande d'hospitalisation</h3>
 				</div>
-   			<div class="col-xs-4">
-   				<label class="col-sm-3 control-label no-padding-right" for="motif">
-						<strong>Mode d'admission:</strong>
-					</label>
-					<div class="col-sm-9">
-						<input  type="text" id="motif" name="motifhos" placeholder="Mode d'admission" value="{{ $demande->modeAdmission }}" class="col-xs-10 col-sm-5" disabled/>
-					</div>	
-   			</div>
+			</div>
+			<div class="space-12"></div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="col-sm-4 col-xs-4">
+				            <label class="col-sm-4 col-xs-4 control-label no-padding-right" for="service">
+				              <strong>Service:</strong>
+				            </label>
+			            <div class="col-sm-8 col-xs-8">
+			               <input type="text" id="service" name="service" value="{{ $demande->demandeHosp->Service->nom }}" class="col-xs-12 col-sm-12" disabled/>
+			           </div>
+			          </div>
+		   			<div class="col-xs-4">
+						<label class="col-sm-3 control-label no-padding-right" for="motif">
+							<strong>Specialite :</strong>
+						</label>
+						<div class="col-sm-9">
+							<input type="text" id="motif" name="motifhos" value="{{$demande->demandeHosp->Specialite->nom}}" class="col-xs-12 col-sm-12" disabled/>
+						</div>	
+					</div>
+		 			<div class="col-xs-4">
+		 				<label class="col-sm-3 control-label no-padding-right" for="motif">
+							<strong>Mode d'admission:</strong>
+						</label>
+						<div class="col-sm-9">
+							<input  type="text" id="motif" name="motifhos" placeholder="Mode d'admission" value="{{ $demande->modeAdmission }}" class="col-xs-10 col-sm-5" disabled/>
+						</div>	
+		 			</div>
+   		</div>	
    		</div><!-- row -->
    		<div class="space-12"></div>
 			<div class="row form-group">
@@ -100,24 +100,24 @@
 									 class="col-xs-10 col-sm-5" disabled/>
 					</div>	
 			  </div>
-				<div class="col-xs-4">
+			<div class="col-xs-4">
    				<div class="form-group">
-						<label class="col-sm-3 control-label no-padding-right" for="priorite">
-							<strong> Priorité :</strong>
-						</label>
-						<div class="control-group">
-							&nbsp; &nbsp;
-							<label>
-								<input name="priorite" class="ace" type="radio" value="1" disabled @if($demande->ordre_priorite==1)checked="checked"@endif >
-										<span class="lbl"> 1 </span>
-									</label>&nbsp; &nbsp;
-							<label>
-								<input name="priorite" class="ace" type="radio" value="2" disabled @if($demande->ordre_priorite==2)checked="checked"@endif>
-									<span class="lbl"> 2 </span>
-							</label>&nbsp; &nbsp;
-							<label>
-								<input name="priorite" class="ace" type="radio" value="3" disabled @if($demande->ordre_priorite==3)checked="checked"@endif>
-								<span class="lbl"> 3 </span>
+					<label class="col-sm-3 control-label no-padding-right" for="priorite">
+						<strong> Priorité :</strong>
+					</label>
+					<div class="control-group">
+						&nbsp; &nbsp;
+						<label>
+							<input name="priorite" class="ace" type="radio" value="1" disabled @if($demande->ordre_priorite==1)checked="checked"@endif >
+							<span class="lbl"> 1 </span>
+						</label>&nbsp; &nbsp;
+						<label>
+							<input name="priorite" class="ace" type="radio" value="2" disabled @if($demande->ordre_priorite==2)checked="checked"@endif>
+								<span class="lbl"> 2 </span>
+						</label>&nbsp; &nbsp;
+						<label>
+							<input name="priorite" class="ace" type="radio" value="3" disabled @if($demande->ordre_priorite==3)checked="checked"@endif>
+							<span class="lbl"> 3 </span>
 							</label>
 						</div>
 				  </div>

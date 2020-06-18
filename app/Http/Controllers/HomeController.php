@@ -90,8 +90,8 @@ class HomeController extends Controller
                   return view('colloques.liste_colloque', compact('colloque'));
                   break;
             case 9: 
-                    return redirect()->action('AdmissionController@index');
-                      break;       
+                  return redirect()->action('AdmissionController@index');
+                   break;       
             case 10:
                 $meds = medcamte::all();
                 $dispositifs = dispositif::all();

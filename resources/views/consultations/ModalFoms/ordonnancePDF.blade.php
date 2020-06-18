@@ -2,7 +2,6 @@
 	<head>
 	  <link rel="stylesheet" type="text/css" href="{{ asset('/css/bootstrap.min.css') }}"/>
     <link  rel="stylesheet" href="{{ asset('/css/styles.css') }}">
-
     <style>
 			  /*#fo{   position: fixed;     bottom: 50;         right: 100;      }*/
    
@@ -23,32 +22,32 @@
             <div class="content text-center">
               <h4><strong>DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</strong></h4>
             </div>
+        </div>
+      </div>
+      <div class="row m-2">
+        <div class="col-sm-12">
+          <div class="content text-center">
+            <h5 class="mt-2"><b>ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</b></h5>
           </div>
-          </div>
-          <div class="row m-2">
-            <div class="col-sm-12">
-              <div class="content text-center">
-                <h5 class="mt-2"><b>ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</b></h5>
-              </div>
-            </div>
-                </div>
-               <div class="row mt-2">
-                  <div class="col-sm-12 text-center"> 
-                    <h5 class="mt-2"><strong> Chemin des Glycines - ALGER</strong></h5>
-                  </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-sm-12 text-center">
-                        <h5 class="mt-2"><strong>Tél : 023-93-34</strong></h5>
-                    </div>
-                </div>
-                <div class="row mt-10">
-                    <div class="col-sm-12 text-center">
-                      <span class="border border-0"><img  src="{{asset('/img/logo-60_x_60.png')}}" alt=""></span>
-                      <br>
-                      <span style="font-size: xx-large;"><strong>Ordonnance</strong></span>
-                    </div>
-                </div>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-sm-12 text-center"> 
+          <h5 class="mt-2"><strong> Chemin des Glycines - ALGER</strong></h5>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-sm-12 text-center">
+          <h5 class="mt-2"><strong>Tél : 023-93-34</strong></h5>
+        </div>
+      </div>
+      <div class="row mt-10">
+        <div class="col-sm-12 text-center">
+          <span class="border border-0"><img  src="{{asset('/img/logo-60_x_60.png')}}" alt=""></span>
+          <br>
+          <span style="font-size: xx-large;"><strong>Ordonnance</strong></span>
+        </div>
+      </div>
                 <div class="row">
                   <div class="ml-80">
                     <span class="large"><strong>Fait le :&nbsp;</strong>{{ Carbon\Carbon::today()->format('Y-m-d') }}</span>
@@ -63,9 +62,9 @@
 	              <br>
             	  <div class="row ml-2">
             	   	<div class="col-sm-12 ">
-            	      <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($patient->code_barre, 'C128')}}" alt="barcode" />
+            	      <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($patient->IPP, 'C128')}}" alt="barcode" />
                     <br>
-                     {{ $patient->code_barre }}
+                     {{ $patient->IPP }}
             	    	</div>	
             	 </div>
                <br><br><br>    

@@ -15,6 +15,7 @@
 
         <div class="main-content">
             <div class="main-content-inner">
+                 <?php $lien = "Patients" ?> 
                 @include('partials.breadcrumbs_rec')
 
                 <div class="page-content">
@@ -27,7 +28,6 @@
         <!-- /main-content -->
 
         @include('partials.footer')
-
     </div>
     <!-- /main-container -->
 </body>

@@ -1,9 +1,6 @@
 <?php
-
 namespace App\modeles;
-
 use Illuminate\Database\Eloquent\Model;
-
 class DemandeHospitalisation extends Model
 {
 	protected $table = "demandehospitalisations";
@@ -11,11 +8,11 @@ class DemandeHospitalisation extends Model
  	protected $fillable = ['etat','service','specialite','modeAdmission','degree_urgence','id_consultation'];
   public function setEtatAttribute($value)
   {
-        $this->attributes['etat'] = strtolower($value);
-    }
+    $this->attributes['etat'] = strtolower($value);
+  }
   public function consultation()
   {
-   		return $this->belongsTo('App\modeles\consultation','id_consultation');
+   	return $this->belongsTo('App\modeles\consultation','id_consultation');
   }
   public function Service()
   {
@@ -25,10 +22,12 @@ class DemandeHospitalisation extends Model
   {
   	return $this->belongsTo('App\modeles\Specialite','specialite');	
   }
-   public function DemeandeColloque()
-   {
-      return $this->hasOne('App\modeles\dem_colloque','id_demande');
-
-   }
-
+ public function DemeandeColloque()
+ {
+    return $this->hasOne('App\modeles\dem_colloque','id_demande');
+ }
+  public function RDVs() 
+  { 
+      return $this->hasMany('App\modeles\rdv_hospitalisation','id_demande')->orderBy('date_RDVh');
+  }
 }

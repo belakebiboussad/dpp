@@ -9,7 +9,7 @@
 	<h5 style="text-align: center; text-decoration: underline;">SERVICE DES CONSULTATIONS</h5>
 	<h6 style="text-align: center; text-decoration: underline;">CARTE DE RENDEZ-VOUS</h6>
 	<div style="text-align: center;">
-		<img src="data:image/png;base64,{{DNS2D::getBarcodePNG(App\modeles\patient::where("id",$order->Patient_ID_Patient)->get()->first()->code_barre, 'QRCODE')}}" alt="barcode" />
+		<img src="data:image/png;base64,{{DNS2D::getBarcodePNG(App\modeles\patient::where("id",$order->Patient_ID_Patient)->get()->first()->IPP, 'QRCODE')}}" alt="barcode" />
 	</div>
 	<div style="text-align: center;">
 		<br><br>

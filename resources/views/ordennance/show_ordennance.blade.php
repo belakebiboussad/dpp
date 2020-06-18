@@ -1,20 +1,20 @@
 @extends('app')
 @section('main-content')
 <div class="page-header">
-	<h1><strong>Détails du Consultation Pour :</strong> 
-		{{ $ordonnance->consultation->patient->Nom }} {{ $ordonnance->consultation->patient->Prenom }}
-	</h1>
+  <h1><strong>Détails du Consultation Pour :</strong> 
+    {{ $ordonnance->consultation->patient->Nom }} {{ $ordonnance->consultation->patient->Prenom }}
+  </h1>
 </div>
 <div class="row">
-	<div class="col-sm-12">
-		<div class="widget-box">
-			<div class="widget-body">
-				<div class="widget-main">
-					<div class="row">
-						<div class="col-xs-12">
-							<label><b>Date :</b></label>&nbsp;&nbsp;<span>{{ $ordonnance->date }}</span>
-							<br><br>
-							<table class="table table-striped table-bordered">
+  <div class="col-sm-12">
+    <div class="widget-box">
+      <div class="widget-body">
+        <div class="widget-main">
+          <div class="row">
+            <div class="col-xs-12">
+              <label><b>Date :</b></label>&nbsp;&nbsp;<span>{{ $ordonnance->date }}</span>
+              <br><br>
+              <table class="table table-striped table-bordered">
                                       <thead>
                                            <tr>
                                                 <th class="center">#</th>
@@ -39,8 +39,8 @@
                                     <a href="/showordonnance/{{ $ordonnance->id }}" target="_blank" class="btn btn-primary pull-right">
                                                         <i class="fa fa-print"></i>&nbsp;Imprimer
                                       </a>
-                      		</div>
-                      	</div>
+                          </div>
+                        </div>
                       </div>
                 </div>
            </div>

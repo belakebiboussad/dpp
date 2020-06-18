@@ -161,7 +161,6 @@ class DemandeExamenRadio extends Controller
     {
         //
     }
-
     public function show_demande_exr($id)
     {
         $demande = demandeexr::FindOrFail($id); 

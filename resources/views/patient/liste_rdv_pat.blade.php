@@ -17,10 +17,10 @@
 						<thead>
 							<tr>
 								<th class="hidden-480">Date</th>
-								<th>
+							{{-- 	<th>
 									<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
 									Heure
-								</th>
+								</th> --}}
 								<th class="hidden-480">Etat</th>
 								<th>Médecin traitant</th>
 							</tr>
@@ -29,7 +29,7 @@
 							@foreach($rdvs as $rdv)
 							<tr>
 								<td>{{$rdv->Date_RDV}}</td>
-								<td>{{$rdv->Temp_rdv}}</td>
+								{{-- <td>{{$rdv->Temp_rdv}}</td> --}}
 								<td>{{$rdv->Etat_RDV}}</td>
 								<td>
 									{{ App\modeles\employ::where("id",$rdv->Employe_ID_Employe)->get()->first()->Nom_Employe }}

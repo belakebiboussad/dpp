@@ -1,7 +1,7 @@
 @extends('app_med')
 @section('main-content')
 <div class="page-header">
-	<h1><strong>Résumé  du Consultation Pour :</h1>
+  <h1><strong>Résumé  du Consultation Pour :</h1>
     <?php $patient = $consultation->patient; ?>
      @include('patient._patientInfo', $patient)   
 </div>

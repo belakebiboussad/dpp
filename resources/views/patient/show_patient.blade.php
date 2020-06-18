@@ -1,20 +1,17 @@
-@extends('app_recep')
+@extends('app')
 @section('main-content')
 	<div >
 		@include('patient._patientInfo')
 	</div>
 	<div class="page-header">
-	{{-- 	<h1 style="display: inline;"><strong>Détails Du Patient :</strong> {{ $patient->Nom }} {{ $patient->Prenom }}</h1> --}}
-		
 		<div class="pull-right">
 			<a href="{{ route('patient.index') }}" class="btn btn-white btn-info btn-bold">
-				<i class="ace-icon fa fa-search bigger-120 blue"></i>
-				Chercher un Patient
+				<i class="ace-icon fa fa-search bigger-120 blue"></i>Chercher un Patient
 			</a>
 			<a href="{{route('patient.destroy',$patient->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-white btn-warning btn-bold">
-    			<i class="ace-icon fa fa-trash-o bigger-120 orange"> Supprimer</i>
-      </a>
-    </div>
+	    			<i class="ace-icon fa fa-trash-o bigger-120 orange"> Supprimer</i>
+	      </a>
+	    </div>
 	</div>
 	<div>
 		<div id="user-profile-2" class="user-profile">
@@ -60,7 +57,7 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-3 center">
 								<span class="profile-picture">
-								<img class="editable img-responsive" alt="Avatar" id="avatar2" src="{{asset('/avatars/profile-pic.jpg')}}" />
+									<img class="editable img-responsive" alt="Avatar" id="avatar2" src="{{asset('/avatars/profile-pic.jpg')}}" />
 								</span>
 								<div class="space space-4"></div>
 								<a href="{{ route('patient.edit', $patient->id) }}" class="btn btn-sm btn-block btn-success">
@@ -76,7 +73,7 @@
 							</div><!-- /.col -->
 							<div class="col-xs-12 col-sm-9">
 								<h4 class="blue">
-									<span class="middle">{{ $patient->Nom }} {{ $patient->Prenom }}</span>
+									<span class="middle">{{ $patient->getCivilite()}} {{ $patient->Nom }} {{ $patient->Prenom }}</span>
 									<span class="label label-purple arrowed-in-right">
 										<i class="ace-icon fa fa-circle smaller-80 align-middle"></i>
 										{{ $patient->Type }}
@@ -121,11 +118,19 @@
 										</div>
 									</div>
 									<div class="profile-info-row">
-										<div class="profile-info-name"> Situ familiale </div>
+										<div class="profile-info-name"> Civilité </div>
 										<div class="profile-info-value">
 											<span>{{ $patient->situation_familiale }}</span>
 										</div>
 									</div>
+									@if(($patient->Sexe =="F") && ($patient->situation_familiale == "marie"))
+									<div class="profile-info-row">
+										<div class="profile-info-name"> Nom Fille </div>
+										<div class="profile-info-value">
+											<span>{{ $patient->nom_jeune_fille }}</span>
+										</div>
+									</div>
+									@endif
 									<div class="profile-info-row">
 										<div class="profile-info-name"> Adresse </div>
 										<div class="profile-info-value">
@@ -392,15 +397,11 @@
 						<div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2">
 							<div class="widget-box widget-color-blue" id="widget-box-2">
 								<div class="widget-header">
-									<h5 class="widget-title bigger lighter">
-										<i class="ace-icon fa fa-table"></i>
-										Consultations
-									</h5>
-									<div class="widget-toolbar widget-toolbar-light no-border">
-										{{-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> --}}
+									<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Consultations</h5>
+									<div class="widget-toolbar widget-toolbar-light no-border">{{-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> --}}
 										<div class="fa fa-plus-circle"></div>
 										<a href="/consultations/create/{{$patient->id}}">
-											<b>Ajouter Une Consultation </b>
+											<b>Consultation </b>
 										</a>
 									</div>
 								</div>
@@ -427,7 +428,7 @@
 														{{ App\modeles\employ::where("id",$consultation->Employe_ID_Employe)->get()->first()->Nom_Employe }}
 														{{ App\modeles\employ::where("id",$consultation->Employe_ID_Employe)->get()->first()->Prenom_Employe }}
 														</td>
-														<td>
+														<td class ="center">
 															<div class="hidden-sm hidden-xs btn-group">
                             														<a class="btn btn-xs btn-success" href="/consultations/detailcons/{{$consultation->id}}">	
                             															<i class="ace-icon fa fa-hand-o-up bigger-120"></i>Détails
@@ -453,8 +454,9 @@
 										Liste Des RDV :
 									</h5>
 									<div class="widget-toolbar widget-toolbar-light no-border">
-										<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-										<a href="#"><b>Ajouter Un RDV</b></a>
+										<!-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> -->
+										<div class="fa fa-plus-circle"></div>
+										<a href="#"><b>Ajouter un RDV</b></a>
 									</div>
 								</div>
 								<div class="widget-body">
@@ -528,18 +530,19 @@
 											</thead>
 											<tbody>
 												@foreach($hospitalisations as $hosp)
-													<tr>
-														<td>{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe }}
-							  						{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Prenom_Employe }}</td>
-														<td>{{ $hosp->Date_entree }}</td>
-														<td>{{ $hosp->Date_Prevu_Sortie }}</td>
-														<td>{{ $hosp->Date_Sortie == null ? '/' : $hosp->Date_Sortie }}</td>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td><span class="badge badge-danger">{{ $hosp->etat_hosp }}</span> </td>
-														<td></td>
-													</tr>
+												<tr>
+												{{--$hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe  --}}
+													<td>{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe }}
+						  						</td>
+													<td>{{ $hosp->Date_entree }}</td>
+													<td>{{ $hosp->Date_Prevu_Sortie }}</td>
+													<td>{{ $hosp->Date_Sortie == null ? '/' : $hosp->Date_Sortie }}</td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td><span class="badge badge-danger">{{ $hosp->etat_hosp }}</span> </td>
+													<td></td>
+												</tr>
 												@endforeach
 											</tbody>
 										</table>
@@ -564,19 +567,13 @@
     			<div class="modal-body">
     				<div class="row">
     					<div class="col-sm-12">
-<!-- <div class="col-xs-6"><div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1"><b> Nom: </b>
-</label><div class="col-sm-9"><label>{{ $patient->Nom }}</label></div></div></div> --><!-- 		<div class="col-xs-6"><div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1"><b> Prénom: </b>
-</label><div class="col-sm-9"><label>{{ $patient->Prenom }}</label></div></div></div>--><!-- <div class="col-xs-6"><div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-<b> Age: </b></label><div class="col-sm-9"><label>{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }} ans</label></div></div></div> -->					<!-- <div class="col-xs-6"><div class="form-group">
-<label class="col-sm-3 control-label no-padding-right" for="form-field-1"><b>Sexe:</b></label><div class="col-sm-9"><label>{{ $patient->Sexe =="M" ? "Masculin" : "Féminin" }}</label></div></div> 						</div> -->
-<!-- <br/><br/><br/><br/> -->
     						<form action="{{ route('ticket.store') }}" method="POST" role="form">
 							{{ csrf_field() }}
 							<input type="text" name="id_patient" value="{{ $patient->id }}" hidden>
     						<div class="col-sm-12">
 								<label for="typecons"><b>Type de consultation:</b></label>
-								<select class="form-control" id="typecons" name="typecons">
-									<option value="">--------</option>
+								<select class="form-control" id="typecons" name="typecons" required>
+								<!-- 	<option value="">--------</option> -->
 									<option value="Normale">Normale</option>
 									<option value="Urgente">Urgente</option>
 								</select>
@@ -584,8 +581,8 @@
 							<br/><br/><br/><br/>
     						<div class="col-sm-12">
 								<label for="document"><b>Document:</b></label>
-								<select class="form-control" id="document" name="document">
-									<option value="">--------</option>
+								<select class="form-control" id="document" name="document" required>
+								<!-- 	<option value="">--------</option> -->
 									<option value="Rendez-vous">Rendez-vous</option>
 									<option value="Lettre d'orientation">Lettre d'orientation</option>
 									<option value="Consultation généraliste">Consultation généraliste</option>
@@ -611,7 +608,7 @@
     					Générer un ticket
     				</button>
     				<button type="button" class="btn btn-default" data-dismiss="modal">
-    					<i class="ace-icon fa fa-plus bigger-110"></i>
+    					<i class="ace-icon fa fa-close bigger-110"></i>
     					Fermer
     				</button>
     			</div>

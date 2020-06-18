@@ -1,2 +1,0 @@
-<div class="modal fade" role="dialog" aria-hidden="true" id="195"><div class="modal-dialog">
-<div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">confirmer l'entrée du patient:</h4></div><div class="modal-body"><p><span  style="color: blue;"><h3><strong>patient5patient5</strong></h3></span></p><br><p><h3>le &quot;<span  style="color: orange;"><strong>2019-11-27</strong></span>&quot; &nbsp;à &nbsp;<span style="color: red;"><strong></strong></span></h3></p></div></div></div></div>

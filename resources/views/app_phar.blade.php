@@ -8,11 +8,10 @@
     <div class="main-container" id="main-container">
         @yield('page-script')
         @include('partials.sidebar_pharm')
-
         <div class="main-content">
             <div class="main-content-inner">
+                <?php $lien = "Médicaments" ?> 
                 @include('partials.breadcrumbs_rec')
-
                 <div class="page-content">
             	    @yield('main-content')
                 </div>

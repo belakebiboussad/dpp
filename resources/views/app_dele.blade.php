@@ -19,12 +19,12 @@
             @include('partials.sidebar_dele')            
         @endif
         <div class="main-content">
-                 <div class="main-content-inner">
-                @include('partials.breadcrumbs_rec')
-
-                <div class="page-content">
-                    @yield('main-content')
-                </div>
+          <div class="main-content-inner">
+            <?php $lien = "Colloques" ?> 
+            @include('partials.breadcrumbs_rec')
+            <div class="page-content">
+              @yield('main-content')
+            </div>
                 <!-- /page-content -->
             </div>
             <!-- /main-content-inner -->
@@ -34,6 +34,5 @@
 
     </div>
     <!-- /main-container -->
-        {{-- @include('partials.scripts') --}}
 </body>
 </html>

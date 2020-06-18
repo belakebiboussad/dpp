@@ -301,28 +301,11 @@ $('#typeexm').on('change', function() {
                 ]
             });
         </script>
+
         <script>
-            $('#listepatient-table').DataTable({
-                 processing: true,
-                serverSide: true,
-                ajax: '/getpatient',
-                columns: [
-                    {data: 'code_barre'},
-                    {data: 'Nom'},
-                    {data: 'Prenom'},
-                    {data: 'Dat_Naissance'},
-                    {data: 'Sexe'},
-                    {data: 'Date_creation'},
-                    {data: 'action', name: 'action', orderable: false, searchable: false}
-                ],
-                "columnDefs": 
-                    [
-                        {
-                            "targets": [ 0 ],
-                            "visible": false,
-                        }
-                    ]
-            });
+/*$('#listepatient-table').DataTable({ processing: true,serverSide: true,ajax: '/getpatient',columns: [{data: 'code_barre'},{data: 'Nom'},
+{data: 'Prenom'},{data: 'Dat_Naissance'},{data: 'Sexe'},{data: 'Date_creation'},{data: 'action', name: 'action', orderable: false, searchable: false}
+],"columnDefs":[{"targets": [ 0 ],"visible": false,}]});*/
         </script>
         <script>
             $('#patient-table').DataTable({
@@ -719,8 +702,7 @@ $('#typeexm').on('change', function() {
                 try{
                     tag_input.tag(
                       {
-                        placeholder:tag_input.attr('placeholder'),
-                        //enable typeahead by specifying the source array
+                        placeholder:tag_input.attr('placeholder'),//enable typeahead by specifying the source array
                         source: ace.vars['US_STATES'],//defined in ace.js >> ace.enable_search_ahead
                         /**
                         //or fetch data from database, fetch those that match "query"

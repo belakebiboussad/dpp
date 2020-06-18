@@ -1,19 +1,13 @@
-<div class="row">
-	<div class="col-sm-12">
-	{{-- change --}}
-		<div class="widget-box">
-			<div class="widget-header">
-				<h4 class="widget-title"> 
-					<i class="fa fa-user" aria-hidden="true"></i>
-					<strong>Patient :</strong>
-				</h4>
-			</div>
-			<div class="widget-body">
-				<div class="widget-main">
-					<label class="inline">
-						<span class="blue"><strong>Nom :</strong></span>
-						<span class="lbl" id="nom"> {{ $patient->Nom }}</span>
-					</label>
+<div class="widget-box">
+	<div class="widget-header">
+		<h4 class="widget-title"><i class="fa fa-user" aria-hidden="true"></i><strong>Patient :</strong></h4>
+	</div>
+	<div class="widget-body">
+		<div class="widget-main">
+			<label class="inline">
+					<span class="blue"><strong>Nom :</strong></span>
+					<span class="lbl" id="nom"> {{ $patient->Nom }}</span>
+			</label>
 					&nbsp;&nbsp;&nbsp;
 					<label class="inline">
 						<span class="blue"><strong>Prénom :</strong></span>
@@ -27,14 +21,12 @@
 						&nbsp;&nbsp;&nbsp;
 					<label class="inline">
 						<span class="blue"><strong>Âge:</strong></span>
-						<!-- <span class="lb circle">{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }} -->
-						<span class="badge badge-info">{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }}</span>
-						</span>ans
+						<span class="badge badge-{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age < 18 ? 'danger':'success' }}">{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }}</span>
 					</label>
 					&nbsp;&nbsp;&nbsp;
 					<label class="inline">
 						<span class="blue"><span class="glyphicon glyphicon-map-marker"></span><strong> Né(e) à :</strong></span>
-						<span class="lbl"> {{ $patient->lieuNaissance->nom_commune }}</span>
+						<span class="lbl">{{ $patient->lieuNaissance->nom_commune }}</span>
 					</label>
 				
 					&nbsp;&nbsp;&nbsp;
@@ -63,5 +55,3 @@
 				</div>
 			</div>
 		</div>
-	</div>
-</div>

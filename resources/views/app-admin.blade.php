@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-      
-     @include('partials.htmlheader')
-     @yield('style')
-     @include('partials.scripts')
+  @include('partials.htmlheader')
+  @yield('style')
+  @include('partials.scripts')
 <body class="no-skin">
     @include('partials.navbar')
     <div class="main-container" id="main-container">
@@ -14,8 +13,7 @@
           @include('partials.sidebar')
         <div class="main-content">
             <div class="main-content-inner">
-                @include('partials.breadcrumbs')
-
+                {{-- @include('partials.breadcrumbs') --}}
                 <div class="page-content">
                     @include('flashy::message')
               	    @yield('main-content')

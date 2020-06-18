@@ -37,7 +37,6 @@ class AntecedantsController extends Controller
         $patient = patient::FindOrFail($id_patient);
         return view('antecedents.create_antec',compact('patient'));    // return view('consultations.Antecedant',compact('patient'));
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -73,7 +72,6 @@ class AntecedantsController extends Controller
         $atcd = antecedant::FindOrFail($id);
         $patient = patient::FindOrFail($atcd->Patient_ID_Patient);
         return view('antecedents.edit_atcd',compact('atcd','patient'));
-     
     }
 
     /**
@@ -90,7 +88,6 @@ class AntecedantsController extends Controller
         $atcd->save();
         return Response::json($atcd);  
     }
-
     /**
      * Remove the specified resource from storage.
      *

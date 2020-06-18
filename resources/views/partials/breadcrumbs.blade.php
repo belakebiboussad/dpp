@@ -10,7 +10,6 @@
         </li>
         {{-- <li class="active">Gestion Des Utilisateurs</li>--}}
     </ul>
-
     <!-- #section:basics/content.searchbox -->
     <div class="nav-search" id="nav-search">
         <form class="form-search">

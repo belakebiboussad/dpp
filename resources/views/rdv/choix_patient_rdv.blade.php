@@ -2,7 +2,6 @@
 @section('page-script')
 	<script>
 		 $('#choixpatientrdv').dataTable();
-	
 	</script>
 @endsection
 
@@ -31,7 +30,7 @@
 	<tbody>
 		@foreach($patients as $patient)
 			<tr>
-				<td hidden>{{ $patient->code_barre }}</td>
+				<td hidden>{{ $patient->IPP }}</td>
 				<td>{{ $patient->Nom }}</td>
 				<td>{{ $patient->Prenom }}</td>
 				<td>{{ $patient->Dat_Naissance }}</td>
