@@ -56,7 +56,7 @@
 @endsection
 @section('main-content')
 <div class="page-header">
-   <?php $patient = $hosp->admission->demandeHospitalisation->consultation->patient; ?>
+   <?php $patient = $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient; ?>
    @include('patient._patientInfo', $patient)
 </div><!-- /.page-header -->
 <!-- <div class="space-12"></div> -->
@@ -64,6 +64,7 @@
   <div class="col-xs-12">
 	  <form class="form-horizontal" id="editHosp" role="form" method="POST" action="{{ route('hospitalisation.update',$hosp->id)}}">
       {{ csrf_field() }}
+      {{ method_field('PUT') }}
       <input type="text" name="id" value="{{$hosp->id}}" hidden>
       <div class="page-header">
             <h2>Modifier l'hospitalisation</h2>
@@ -76,7 +77,7 @@
           </label>
           <div class="col-sm-9">
             <input type="text" id="service" name="service" placeholder="nom du service"
-              value="{{ $hosp->admission->demandeHospitalisation->Service->nom }}" class="col-xs-10 col-sm-5" readonly/>
+              value="{{ $hosp->admission->rdvHosp->demandeHospitalisation->Service->nom }}" class="col-xs-10 col-sm-5" readonly/>
           </div>  
         </div>
         <div class="col-xs-4">
@@ -84,7 +85,7 @@
             <strong>Specialite :</strong>
           </label>
           <div class="col-sm-9">
-            <input type="text" id="motif" name="motifhos" value="{{ $hosp->admission->demandeHospitalisation->Specialite->nom }}"
+            <input type="text" id="motif" name="motifhos" value="{{ $hosp->admission->rdvHosp->demandeHospitalisation->Specialite->nom }}"
                    class="col-xs-10 col-sm-5" readonly/>
           </div>  
         </div>
@@ -94,7 +95,7 @@
           </label>
           <div class="col-sm-9">
             <input  type="text" id="motif" name="motifhos" placeholder="Mode d'admission"
-                    value="{{ $hosp->admission->demandeHospitalisation->modeAdmission }}" class="col-xs-10 col-sm-5" readonly/>
+                    value="{{ $hosp->admission->rdvHosp->demandeHospitalisation->modeAdmission }}" class="col-xs-10 col-sm-5" readonly/>
           </div>  
         </div>
       </div>
@@ -105,7 +106,7 @@
             <strong>Medecin Traitant:</strong>
           </label>
           <div class="col-sm-9">
-            <input type="text" id="motif" name="motifhos" value="{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe }} {{$hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Prenom_Employe}}" class="col-xs-10 col-sm-5" readonly/>
+            <input type="text" id="motif" name="motifhos" value="{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe }} {{$hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->Prenom_Employe}}" class="col-xs-10 col-sm-5" readonly/>
           </div>  
         </div>
         <div class="col-xs-4">
@@ -116,15 +117,15 @@
             <div class="control-group col-sm-9">
               &nbsp; &nbsp;
               <label>
-                <input name="priorite" class="ace" type="radio" value="1" disabled @if( $hosp->admission->demandeHospitalisation->DemeandeColloque->ordre_priorite==1)checked="checked"@endif >
+                <input name="priorite" class="ace" type="radio" value="1" disabled @if( $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->ordre_priorite==1)checked="checked"@endif >
                     <span class="lbl"> 1 </span>
                   </label>&nbsp; &nbsp;
               <label>
-                <input name="priorite" class="ace" type="radio" value="2" disabled @if( $hosp->admission->demandeHospitalisation->DemeandeColloque->ordre_priorite==2)checked="checked"@endif>
+                <input name="priorite" class="ace" type="radio" value="2" disabled @if( $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->ordre_priorite==2)checked="checked"@endif>
                   <span class="lbl"> 2 </span>
               </label>&nbsp; &nbsp;
               <label>
-                <input name="priorite" class="ace" type="radio" value="3" disabled @if( $hosp->admission->demandeHospitalisation->DemeandeColloque->ordre_priorite==3 )checked="checked"@endif>
+                <input name="priorite" class="ace" type="radio" value="3" disabled @if( $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->ordre_priorite==3 )checked="checked"@endif>
                 <span class="lbl"> 3 </span>
               </label>
             </div>
@@ -135,7 +136,7 @@
             <strong>observation :</strong>
           </label>
           <div class="col-sm-9">
-            <input type="text" id="motif" name="motifhos" value="{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->observation}}" class="col-xs-10 col-sm-5" disabled/>
+            <input type="text" id="motif" name="motifhos" value="{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->observation}}" class="col-xs-10 col-sm-5" disabled/>
           </div>  
         </div>	
       </div><!-- row -->
@@ -208,7 +209,7 @@
 							<div class="input-group col-sm-9" style ="width:35.8%;padding: 0.8%;">	
 							<select name="" id="">
 							 		<option value="0" selected>selectionnez le Garde Malade</option>
-							 		@foreach( $hosp->admission->demandeHospitalisation->consultation->patient->hommesConf as $homme)
+							 		@foreach( $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient->hommesConf as $homme)
 							 		<option value="{{ $homme->id }}" @if($hosp->garde_id ==  $homme->id) selected @endif> {{ $homme->nom }} {{ $homme->prenom }}</option>
 								  @endforeach
 							</select>
@@ -280,9 +281,7 @@
             <button class="btn btn-info btn-xs" type="submit">
               <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
             </button>
-          <!--  &nbsp; &nbsp; &nbsp;
-            <button class="btn" type="reset">
-              <i class="ace-icon fa fa-undo bigger-110"></i>Annuler
+          <!--  &nbsp; &nbsp; &nbsp;<button class="btn" type="reset"> <i class="ace-icon fa fa-undo bigger-110"></i>Annuler
             </button> -->
             <a href="/hospitalisation/listeRDVs" class="btn btn-xs btn-warning" >
                 <i class="ace-icon fa fa-undo bigger-110"></i>Annuler

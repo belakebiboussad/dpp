@@ -2,7 +2,7 @@
 @section('main-content')
 <div class="page-header">
   <div class="row">
-  	<?php $patient = $hosp->admission->demandeHospitalisation->consultation->patient; ?>
+  	<?php $patient = $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient; ?>
    	@include('patient._patientInfo', $patient)
   </div>
   <div class="row">
@@ -20,18 +20,18 @@
 			<div class="col-sm-6">
 				<ul class="list-unstyled spaced">
 					<li>
-				       	  <i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>{{ $hosp->admission->demandeHospitalisation->Service->nom }}
+				       	  <i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>{{ $hosp->admission->rdvHosp->demandeHospitalisation->Service->nom }}
 					</li>
 					<li>
-		 				<i class="ace-icon fa fa-caret-right blue"></i><strong>Specialite :</strong> {{ $hosp->admission->demandeHospitalisation->Specialite->nom }}
+		 				<i class="ace-icon fa fa-caret-right blue"></i><strong>Specialite :</strong> {{ $hosp->admission->rdvHosp->demandeHospitalisation->Specialite->nom }}
 					</li>
 					<li>
-							<i class="ace-icon fa fa-caret-right blue"></i><strong>Mode d'admission:</strong>{{ $hosp->admission->demandeHospitalisation->modeAdmission }}
+							<i class="ace-icon fa fa-caret-right blue"></i><strong>Mode d'admission:</strong>{{ $hosp->admission->rdvHosp->demandeHospitalisation->modeAdmission }}
 						</li>
 						<li>
 							<i class="ace-icon fa fa-caret-right blue"></i><strong>Medecin Traitant:</strong>
-							 	{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe }}
-								{{$hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Prenom_Employe}}													
+							 	{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe }}
+								{{$hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->Prenom_Employe}}													
 						</li>
 						</ul>
 			</div>
@@ -40,21 +40,21 @@
 					<li>
 						<i class="ace-icon fa fa-caret-right blue"></i><strong> Priorité :</strong>
 						  <label>
-				        <input name="priorite" class="ace" type="radio" value="1" disabled @if( $hosp->admission->demandeHospitalisation->DemeandeColloque->ordre_priorite==1)checked="checked"@endif >
+				        <input name="priorite" class="ace" type="radio" value="1" disabled @if( $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->ordre_priorite==1)checked="checked"@endif >
 				        <span class="lbl"> 1 </span>
 				      </label>&nbsp; &nbsp;
 				      <label>
-				      <input name="priorite" class="ace" type="radio" value="2" disabled @if( $hosp->admission->demandeHospitalisation->DemeandeColloque->ordre_priorite==2)checked="checked"@endif>
+				      <input name="priorite" class="ace" type="radio" value="2" disabled @if( $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->ordre_priorite==2)checked="checked"@endif>
 				        <span class="lbl"> 2 </span>
 				        </label>&nbsp; &nbsp;
 				        <label>
-				   		    <input name="priorite" class="ace" type="radio" value="3" disabled @if( $hosp->admission->demandeHospitalisation->DemeandeColloque->ordre_priorite==3 )checked="checked"@endif>
+				   		    <input name="priorite" class="ace" type="radio" value="3" disabled @if( $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->ordre_priorite==3 )checked="checked"@endif>
 				        	<span class="lbl"> 3 </span>
 				        </label>	
 					</li>
 					<li>
 					  <i class="ace-icon fa fa-caret-right blue"></i><strong>observation :</strong>
-							{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->observation}}
+							{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->observation}}
 					</li>
 					<li>
 							<i class="ace-icon fa fa-caret-right blue"></i> <strong>Etat :</strong> {{ $hosp->etat_hosp }}

@@ -127,12 +127,12 @@ class AdmissionController extends Controller
      * @return \Illuminate\Http\Response
      */
       public function destroy($id) {
-        
+        $adm = admission::destroy($id);
+        return Response::json($adm);   
       } 
       public function getAdmissions($date)
       {
-        /*
-        $rdvs = admission::join('rdv_hospitalisations','admissions.id','=','rdv_hospitalisations.id_admission')
+        /*$rdvs = admission::join('rdv_hospitalisations','admissions.id','=','rdv_hospitalisations.id_admission')
                               ->join('demandehospitalisations','admissions.id_demande','=','demandehospitalisations.id')
                               ->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')  
                               ->join('patients','consultations.Patient_ID_Patient','=','patients.id')

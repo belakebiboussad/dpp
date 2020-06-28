@@ -18,16 +18,19 @@
 	}
 	 function formFill(adm)
 	{
-		//consultation,	//demeande_colloque	// patient//demande_hospitalisation//hommes_conf:
-		$('#patient option:selected').remove();
+		$('#patient option:selected').remove();//consultation,	//demeande_colloque	// patient//demande_hospitalisation//hommes_conf:
+		$('#garde').find('option').remove();
+		//$('#Date_entree').datepicker('disable');
+		//$("#Date_entree").attr('readonly', 'readonly');
+
 		if($('#widget-box2').hasClass('invisible'))
-	    		$('#widget-box2').removeClass('invisible');
-	  	$('#patient').append($('<option>', { 
-	       		 value: adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['id'],
-	        	text : adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['Nom']+" " + adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['Prenom'], 
-	        	selected : true
-	  	}));
-	  	$('[name=medecin]').val( adm['rdv_hosp']['demande_hospitalisation']['demeande_colloque']['id_medecin'] );
+	    $('#widget-box2').removeClass('invisible');
+	  $('#patient').append($('<option>', { 
+	      value: adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['id'],
+	      text : adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['Nom']+" " + adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['Prenom'], 
+	      selected : true
+	  }));
+	  $('[name=medecin]').val( adm['rdv_hosp']['demande_hospitalisation']['demeande_colloque']['id_medecin']);
 	 	if(adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['hommes_conf'].length == 0)
 	 		$("#garde").addClass('invisible');
 	 	else
@@ -44,7 +47,7 @@
 	 	$('#id_admission').val(adm['id']);
 	 	$('#patient_id').val(adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['id']);
 		$("#Date_entree").datepicker("setDate", adm['rdv_hosp']['date_RDVh']);
-	  	$("#Date_Prevu_Sortie").datepicker("setDate", adm['rdv_hosp']['date_Prevu_Sortie']);  
+	  $("#Date_Prevu_Sortie").datepicker("setDate", adm['rdv_hosp']['date_Prevu_Sortie']);  
 	  updateDureePrevue();
 	}
 	function addDays()
@@ -56,7 +59,10 @@
   $('document').ready(function(){
   	$("#numberDays").on('click keyup', function() {
       addDays();
-    });	
+    });
+    $( "#sendBtn" ).click(function() {
+    	$("#Date_entree").prop("disabled", false);
+		});	
   });
 </script>
 @endsection
@@ -101,7 +107,7 @@
 									<a href="javascript:formFill({{ $adm }} );" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter une Hospitalisation"> 
 											<i class="menu-icon fa fa-plus"></i>
 									</a>
-									<a href="{{ route('admission.destroy') }}" class="btn btn-danger btn-xs" data-toggle="tooltip" title="supprimer l'admission" data-method="DELETE" data-confirm="Etes Vous Sur de supprimer l'admission?"> 
+									<a href="{{ route('admission.destroy',$adm->id) }}" class="btn btn-danger btn-xs" data-toggle="tooltip" title="supprimer l'admission" data-method="DELETE" data-confirm="Etes Vous Sur de supprimer l'admission?"> 
 											<i class="ace-icon fa fa-trash-o"></i>
 									</a>
 								</td>		
@@ -159,7 +165,7 @@
 							 		<strong> Date Hospitalisation :</strong>
 								</label>
 								<div class="col-sm-8 col-xs-8">
-									<input class="col-xs-11 col-sm-11 date-picker" id="Date_entree" name="Date_entree" type="text" placeholder="Date Hospitalisation" data-date-format="yyyy-mm-dd" readonly/>
+									<input class="col-xs-11 col-sm-11 date-picker" id="Date_entree" name="Date_entree" type="text" placeholder="Date Hospitalisation" data-date-format="yyyy-mm-dd" disabled/>
 								</div>				
 							</div>
 						</div>
@@ -212,7 +218,7 @@
 						</div>
 						<div class="row">
 							<div class="col-md-offset-3 col-md-9">
-								<button class="btn btn-info btn-sm" type="submit">
+								<button class="btn btn-info btn-sm" type="submit" id ="sendBtn">
 									<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
 								</button>&nbsp; &nbsp; &nbsp;
 								<button class="btn btn-danger btn-sm" type="reset">

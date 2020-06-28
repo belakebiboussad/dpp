@@ -27,20 +27,20 @@ class HospitalisationController extends Controller
         $this->middleware('auth');
     }
     public function index()
-    {   
-        if(Auth::user()->role_id != 9 )
-        {    
-          $ServiceID = Auth::user()->employ->Service_Employe;
-          $hospitalisations = hospitalisation::whereHas('admission.demandeHospitalisation.Service',function($q) use($ServiceID){
-                                                $q->where('id',$ServiceID);  
-                                             })->where('etat_hosp','=','en cours')->get();
-        }
-        else
-        {
-            $hospitalisations = hospitalisation::where('etat_hosp','=','en cours')->get();
-        }
-        return view('Hospitalisations.index', compact('hospitalisations','e'));
-        $e=false;     
+    {  
+      if(Auth::user()->role_id != 9 )
+      {    
+        $ServiceID = Auth::user()->employ->Service_Employe;
+        $hospitalisations = hospitalisation::whereHas('admission.rdvHosp.demandeHospitalisation.Service',function($q) use($ServiceID){
+                                              $q->where('id',$ServiceID);  
+                                           })->where('etat_hosp','=','en cours')->get();
+      }
+      else
+      {
+          $hospitalisations = hospitalisation::where('etat_hosp','=','en cours')->get();
+      }
+      return view('Hospitalisations.index', compact('hospitalisations','e'));
+      $e=false;     
     }
     /**
      * Show the form for creating a new resource.
@@ -50,17 +50,15 @@ class HospitalisationController extends Controller
       public function create()
       {
         $serviceID = Auth::user()->employ->Service_Employe;
-        $adms = admission::with('lit','rdvHosp.demandeHospitalisation.DemeandeColloque','rdvHosp.demandeHospitalisation.consultation.patient.hommesConf')
-                          ->whereHas('rdvHosp', function($q){
+        $adms = admission::with('lit','rdvHosp.demandeHospitalisation.DemeandeColloque','rdvHosp.demandeHospitalisation.consultation.patient.hommesConf')->whereHas('rdvHosp', function($q){
                                               $q->where('date_RDVh','=',date("Y-m-d"));
-                                      })->whereHas('rdvHosp.demandeHospitalisation',function($q) use ($serviceID) {
+                            })->whereHas('rdvHosp.demandeHospitalisation',function($q) use ($serviceID) {
                                             $q->where('service', $serviceID)->where('etat','admise');//->where('etat','admise')
-                                      })->get();                           
-                       
+                                      })->get();
         $medecins = employ::where('Service_Employe',Auth::user()->employ->Service_Employe)->get();
         $modesHosp = ModeHospitalisation::all();
         return view('Hospitalisations.create', compact('adms','medecins','modesHosp'));
-       }
+      }
        public function createold($id){$demande = DemandeHospitalisation::FindOrFail($id);return view('Hospitalisations.create_hospitalisation', compact('demande'));}
 
     /**
@@ -70,16 +68,9 @@ class HospitalisationController extends Controller
      * @return \Illuminate\Http\Response
      */
       public function store(Request $request)
-      {
+      {        
         $dmission =  admission::find($request->id_admission);  //$dmission =  admission::with('rdvHosp')->find($request->id_admission);
-        $dmission->rdvHosp->update([
-              "etat_RDVh" => "valide",
-         ]);
-        
-        $dmission->rdvHosp->demandeHospitalisation->update([
-              "etat" => "hospitalisation",
-         ]);
-         hospitalisation::create([
+        $hosp = hospitalisation::create([
               "Date_entree"=>$request->Date_entree, //"Date_entree"=>$rdvHospi->date_RDVh,  // "heure_entrée"=>Date("H:i:00"),
                "Date_Prevu_Sortie"=>$request->Date_Prevu_Sortie, //"Heure_Prevu_Sortie"=>$rdvHospi->heure_Prevu_Sortie,
                 "Date_Sortie"=>null,
@@ -88,7 +79,9 @@ class HospitalisationController extends Controller
               "garde_id" => (isset($request->garde_id)) ? $request->garde_id : null,
               "modeHosp_id"=>$request->mode,
               "etat_hosp"=>"en cours",
-         ]);      
+        ]);
+        $dmission->rdvHosp->demandeHospitalisation->update(["etat" => "hospitalisation"]);
+        $dmission->rdvHosp->update([ "etat_RDVh" => "valide" ]);
          return redirect()->action('HospitalisationController@create'); //return \Redirect::route('HospitalisationController@create');
       }
     /**
@@ -123,12 +116,13 @@ class HospitalisationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updatep(Request $request, $id)
+    public function update(Request $request, $id)
     {
-       dd("update");
-    }
-     public function update(Request $request)
-    {
+      $hosp = hospitalisation::find($id);
+      dd($request->all());
+      $hosp -> update($request->all());
+      $hosp->save();
+      return redirect()->action('HospitalisationController@index');
     }
 
     /**

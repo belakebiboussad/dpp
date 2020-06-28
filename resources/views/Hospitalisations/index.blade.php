@@ -30,22 +30,22 @@
 								<tr>
 									<td>
 										@if(Auth::user()->role->id == 1)
-											<a href="/patient/{{ $hosp->admission->demandeHospitalisation->consultation->patient->id}}/edit">
-												{{ $hosp->admission->demandeHospitalisation->consultation->patient->Nom }}
-												{{ $hosp->admission->demandeHospitalisation->consultation->patient->Prenom }}
+											<a href="/patient/{{ $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient->id}}/edit">
+												{{ $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient->Nom }}
+												{{ $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient->Prenom }}
 											</a>
 											@else
-											{{ $hosp->admission->demandeHospitalisation->consultation->patient->Nom }}
-											{{ $hosp->admission->demandeHospitalisation->consultation->patient->Prenom }}
+											{{ $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient->Nom }}
+											{{ $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient->Prenom }}
 										@endif
 									</td>
-									<td>{{ $hosp->admission->demandeHospitalisation->modeAdmission }}</td>
+									<td>{{ $hosp->admission->rdvHosp->demandeHospitalisation->modeAdmission }}</td>
 									<td><span class ="text-danger">{{ $hosp->Date_entree }}</span></td>
 								  <td><span class ="text-danger">{{ $hosp->Date_Prevu_Sortie }}</span></td>
 							  	<td>{{ $hosp->Date_Sortie == null ? "Pas encore" : $hosp->Date_Sortie }}</td>
 							  	<td>
-							  		{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe }}
-							  		{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Prenom_Employe }}
+							  		{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe }}
+							  		{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->Prenom_Employe }}
 							  	</td>
 							  	<td><span class="badge badge-pill badge-success">{{ $hosp->etat_hosp }}</span></td>
 							  	<td class="center">
