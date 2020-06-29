@@ -13,30 +13,30 @@
             try{ace.settings.check('main-container' , 'fixed')}catch(e){}
         </script>
         @yield('page-script')
-        @if( Auth::user()->role->id == 1)
+        @if( Auth::user()->role_id == 1)
             @include('partials.sidebar_med')
-        @elseif( Auth::user()->role->id == 2)
+        @elseif( Auth::user()->role_id == 2)
             @include('partials.sidebar_rec')
-        @elseif(Auth::user()->role->id == 4)
+        @elseif(Auth::user()->role_id == 4)
             @include('partials.sidebar')
-        @elseif(Auth::user()->role->id == 5)
+        @elseif(Auth::user()->role_id == 5)
             @include('partials.sidebar_sur')    
-        @elseif(Auth::user()->role->id == 6) 
+        @elseif(Auth::user()->role_id == 6) 
             @include('partials.sidebar_dele')      
-        @elseif(Auth::user()->role->id == 9)
+        @elseif(Auth::user()->role_id == 9)
             @include('partials.sidebar_agent_admis')
-        @elseif(Auth::user()->role->id == 10)
+        @elseif(Auth::user()->role_id == 10)
             @include('partials.sidebar_pharm')
-        @elseif(Auth::user()->role->id == 13)
+        @elseif(Auth::user()->role_id == 13)
             @include('partials.sidebar_chef_ser') 
-        @elseif(Auth::user()->role->id == 3)
+        @elseif(Auth::user()->role_id == 3)
             @include('partials.sidebar_inf')       
         @endif
         <div class="main-content">
             <div class="main-content-inner"> {{-- @include('partials.breadcrumbs') --}}
                 <div class="page-content">
-                          @include('flashy::message')
-              	   @yield('main-content')
+                  @include('flashy::message')
+              	  @yield('main-content')
                 </div>
                 <!-- /page-content -->
             </div>

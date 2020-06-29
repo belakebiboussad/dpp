@@ -102,13 +102,13 @@
             <ul class="submenu">
                 <li class="">
                         <a href="{{ route('hospitalisation.create') }}">
-                            <i class="menu-icon fa fa-plus purple"></i>Ajouter   Hospitalisation
+                            <i class="menu-icon fa fa-plus purple"></i>Ajouter Hospitalisation
                         </a>
                         <b class="arrow"></b>
                     </li>
                 <li class="">
                     <a href="{{ route('hospitalisation.index') }}"  data-toggle="tooltip" data-placement="top" title=" Liste d'hospitalisation du service">
-                        <i class="menu-icon fa fa-eye pink"></i> Liste des Hospitalisations
+                        <i class="menu-icon fa fa-eye pink"></i> Liste Hospitalisations
                     </a>
                     <b class="arrow"></b>
                 </li>

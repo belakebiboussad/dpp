@@ -39,8 +39,8 @@ class HospitalisationController extends Controller
       {
           $hospitalisations = hospitalisation::where('etat_hosp','=','en cours')->get();
       }
-      return view('Hospitalisations.index', compact('hospitalisations','e'));
-      $e=false;     
+      return view('Hospitalisations.index', compact('hospitalisations'));
+      //$e=false;     
     }
     /**
      * Show the form for creating a new resource.
@@ -119,9 +119,7 @@ class HospitalisationController extends Controller
     public function update(Request $request, $id)
     {
       $hosp = hospitalisation::find($id);
-      dd($request->all());
-      $hosp -> update($request->all());
-      $hosp->save();
+      $hosp -> update($request->all()); //$hosp->save();
       return redirect()->action('HospitalisationController@index');
     }
 
