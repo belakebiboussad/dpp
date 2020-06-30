@@ -1,4 +1,4 @@
-@extends('app_sur')
+@extends('app')
 @section('main-content')
 <div class="page-header">
   <div class="row">
@@ -74,17 +74,14 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-12">
-				<ul class="list-unstyled spaced">
-					<li>
-		 				<i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong> {{ $hosp->admission->lit->salle->service->nom }}
-					</li>
-					<li>
-		 				<i class="ace-icon fa fa-caret-right blue"></i><strong>Salle :</strong> {{ $hosp->admission->lit->salle->nom }}
-					</li>
-					<li>
-		 				<i class="ace-icon fa fa-caret-right blue"></i><strong>Lit :</strong> {{ $hosp->admission->lit->nom }}
-					</li>
-				</ul>
+			  <ul class="list-inline" style="flex-grow: 1;">
+            <li style="width: 300px;" >
+            	<i class="ace-icon fa fa-caret-right blue"></i>
+            	<strong>Service :</strong> {{ $hosp->admission->lit->salle->service->nom }}
+            </li>
+            <li style="width: 300px;"><a href = "#"><i class="ace-icon fa fa-caret-right blue"></i><strong>Salle :</strong> {{ $hosp->admission->lit->salle->nom }}</a></li>
+            <li style="width: 200px;"><a href = "#"><i class="ace-icon fa fa-caret-right blue"></i><strong>Lit :</strong> {{ $hosp->admission->lit->nom }}</a></li>            
+         </ul>
 			</div>
 		</div>
 	</div>

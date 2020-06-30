@@ -46,16 +46,16 @@ class AdmissionController extends Controller
      */
       public function store(Request $request)
       {
-              $rdvHospi =  rdv_hospitalisation::find($request->id_RDV);
-               $adm=admission::create([     
-                    "id_rdvHosp"=>$request->id_RDV,       
-                    "id_lit"=>$rdvHospi->bedReservation->id_lit,
-              ]);
-              
-               $adm->rdvHosp->demandeHospitalisation->update([
-                    "etat" => "admise",
-               ]);
-               return redirect()->action('AdmissionController@index');
+        $rdvHospi =  rdv_hospitalisation::find($request->id_RDV);
+         $adm=admission::create([     
+              "id_rdvHosp"=>$request->id_RDV,       
+              "id_lit"=>$rdvHospi->bedReservation->id_lit,
+        ]);
+        
+         $adm->rdvHosp->demandeHospitalisation->update([
+              "etat" => "admise",
+         ]);
+         return redirect()->action('AdmissionController@index');
       }  
       public function storeold(Request $request)
       { 
@@ -130,18 +130,5 @@ class AdmissionController extends Controller
         $adm = admission::destroy($id);
         return Response::json($adm);   
       } 
-      public function getAdmissions($date)
-      {
-        /*$rdvs = admission::join('rdv_hospitalisations','admissions.id','=','rdv_hospitalisations.id_admission')
-                              ->join('demandehospitalisations','admissions.id_demande','=','demandehospitalisations.id')
-                              ->join('consultations','demandehospitalisations.id_consultation','=','consultations.id')  
-                              ->join('patients','consultations.Patient_ID_Patient','=','patients.id')
-                              ->join('lits','lits.id','=','admissions.id_lit')
-                              ->join('salles','salles.id','=','lits.salle_id')
-                              ->join('services','services.id','=','salles.service_id')
-                              ->select('admissions.id as id_admission','admissions.*','demandehospitalisations.etat','rdv_hospitalisations.*','rdv_hospitalisations.id as idRDV',
-                                  'patients.Nom','patients.Prenom','services.nom as nom_service','salles.nom as nom_salle','lits.num as num_lit')
-                              ->where('etat_RDVh','=','en attente')->where('date_RDVh','=', $date)->get();            
-        */  
-      }  
+    /* public function getAdmissions($date){}  */  
 }

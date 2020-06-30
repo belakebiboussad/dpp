@@ -4,7 +4,7 @@
 			<label class="col-sm-3 control-label" for="nom"><strong>Nom :</strong></label>
 			<div class="col-sm-9">
 				<input type="text" id="nom" name="nom" placeholder="Nom..." class="col-xs-12 col-sm-12" autocomplete= "off" value="{{ old('nom') }}" required alpha/>
-					{!! $errors->first('datenaissance', '<small class="alert-danger">:message</small>') !!}
+					{!! $errors->first('nom', '<small class="alert-danger">:message</small>') !!}
 			</div>
 		</div>
 	</div>	
@@ -13,7 +13,7 @@
 			<label class="col-sm-3 control-label" for="prenom"><strong>Prénom :</strong></label>
 			<div class="col-sm-9">
 				<input type="text" id="prenom" name="prenom" placeholder="Prénom..." class="col-xs-18 col-sm-12" autocomplete="off" required/>
-				{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
+				{!! $errors->first('prenom', '<p class="alert-danger">:message</p>') !!}
 			</div>
 		</div>
 	</div>
@@ -34,7 +34,7 @@
 			<label class="col-sm-3 control-label" for="lieunaissance"><strong class="text-nowrap">Né(e) à :</strong></label>
 			<div class="col-sm-9">
 			  	<input type="hidden" name="idlieunaissance" id="idlieunaissance">
-					<input type="text" id="lieunaissance" name="lieunaissance" class="typeahead col-sm-12" placeholder="Lieu de naissance..." autocomplete ="on" required/>		
+					<input type="text" id="lieunaissance" name="lieunaissance" class="typeahead w_typeahead col-sm-12" placeholder="Lieu de naissance..." autocomplete ="on" required/>		
 			 		{!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
 			</div>
 		</div>
@@ -64,7 +64,7 @@
 					<option value="AB">AB</option>
 				</select>
 			</div>
-			<label class="col-sm-3 control-label no-padding-right" for="rh"><strong>Rhésus :</strong></label>
+			<label class="col-sm-3 control-label no-padding-right" for="rh"><strong>Rhésus:</strong></label>
 			<div class="col-sm-2">
 				<select id="rh" name="rh">
 					<option value="">------</option>
@@ -107,13 +107,13 @@
 <div class="space-12"></div>		
 <div class="row">
 	<div class="col-sm-4" style="padding-left:7%">
-		<label class="col-sm-3" for="adresse" ><strong>Adr.. :&nbsp;</strong></label>
+		<label class="col-sm-3" for="adresse" ><strong>Adresse:&nbsp;</strong></label>
 		  <input type="text" value="" id="adresse" name="adresse" placeholder="Adresse..." class="col-sm-9"/>
 	</div>
 	<div class="col-sm-4" style="margin-top: -0.1%;">
-		<label class="col-sm-3" for="commune"><strong>Com.. :</strong></label>
+		<label class="col-sm-3 no-wrap" for="commune"><strong>Commune :</strong></label>
 		<input type="hidden" name="idcommune" id="idcommune">
-	 	 <input type="text" value="" id="commune"  placeholder="commune résidance" class="col-sm-9"/>
+	 	 <input type="text" value="" id="commune"  class="com_typeahead" placeholder="commune résidance" class="col-sm-9"/>
 	</div>
 	<div class="col-sm-4">
 		  <label class="col-sm-3" for="wilaya"><strong>Wilaya :</strong></label>

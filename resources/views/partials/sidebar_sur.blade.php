@@ -52,7 +52,7 @@
           <li class="">     
             {{-- <a href="{{ URL::route('hospitalisation.index') }}"> --}}
             <a href="{{ route('hospitalisation.index') }}">
-              <i class="menu-icon fa fa-caret-right"></i>Liste des Hospitalisations
+              <i class="menu-icon fa fa-caret-right"></i>Liste Hospitalisations
             </a>
             <b class="arrow"></b>
           </li>
@@ -79,7 +79,7 @@
           </li>
           <li class="">
             <a href="/hospitalisation/listeRDVs">
-              <i class="menu-icon fa fa-clock-o"></i>Liste des Rendez-Vous     
+              <i class="menu-icon fa fa-clock-o"></i>Liste Rendez-Vous     
             </a>
               <b class="arrow"></b>
           </li>

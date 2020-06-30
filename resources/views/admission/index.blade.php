@@ -13,13 +13,13 @@
 						<table class="table table-striped table-bordered table-hover">
 							<thead class="thin-border-bottom">
 								<tr>
-									<th>Patient</th>
-									<th>Mode Admission</th>
-									<th>Priorité</th>
-									<th>Observation</th>
-									<th>date</th>
-									<th>Etat</th>
-									<th></th>
+									<th class="text-center"><h5><strong>Patient</strong></h5></th>
+									<th class="text-center"><h5><strong>Mode Admission</strong></h5></th>
+									<th class="text-center"><h5><strong>Priorité</strong></h5></th>
+									<th class="text-center"><h5><strong>Observation</strong></h5></th>
+									<th class="text-center"><h5><strong>date</strong></h5></th>
+									<th class="text-center"><h5><strong>Etat</strong></h5></th>
+									<th class="text-center"><em class="fa fa-cog"></em></th>
 								</tr>
 							</thead>
 							<tbody>

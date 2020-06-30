@@ -121,6 +121,7 @@ class HospitalisationController extends Controller
       $hosp = hospitalisation::find($id);
       $hosp -> update($request->all()); //$hosp->save();
       return redirect()->action('HospitalisationController@index');
+      
     }
 
     /**

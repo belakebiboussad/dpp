@@ -113,7 +113,7 @@
 		function showType(value){ 
 			switch(value){
 				case "Assure":
-				     	$("#foncform").addClass('hide');$('#Type_p').attr('required', false);
+							$("#foncform").addClass('hide');$('#Type_p').attr('required', false);
 				      $(".starthidden").hide(250);
 				     	copyPatient();
 				    	break;
@@ -156,7 +156,8 @@
 <div class="container-fluid">
   <div><h4>Ajouter un nouveau Patient</h4></div
   <div class="row">{{-- {{ route('patient.store') }} --}}
-	<form class="form-horizontal" id = "addPAtient" action="/a" method="POST" role="form" autocomplete="off" onsubmit="return checkFormAddPAtient(this);">
+  <!-- onsubmit="return checkFormAddPAtient(this);" -->
+  <form class="form-horizontal" id = "addPAtient" action="/addpatientAssure" method="POST" role="form" autocomplete="off">
 	  	{{ csrf_field() }}
 	  	<input type="hidden" name="assure_id" value="{{ $assure->id }}">
 		<div class="row">
@@ -184,7 +185,7 @@
  		 </ul>
 		<div class="tab-content">
 			<div id="Patient" class="tab-pane fade in active">
-		   		@include('patient.addPatient')
+		     @include('patient.addPatient')
 			</div> 	{{-- tab-pane --}}
 		{{-- homme C	 --}}
 		<div id="Homme_C" class="tab-pane">

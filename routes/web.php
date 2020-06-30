@@ -14,8 +14,6 @@ Route::group(['middleware' => 'revalidate'], function()
     Auth::routes();   
     Route::get('/', 'Auth\LoginController@showLoginForm');  /* Route::get('/', function () { return view('auth/login');  });*/
 });
-Route::post('/a','PatientController@storePatient');
-
 //ressources
 Route::resource('listeadmiscolloque','listeadmisColloqueController');
 Route::resource('colloque','ColloqueController');
@@ -195,6 +193,12 @@ route::get('/homeradiologue',function(){
 // route with optonnel parameter
 Route::get('rendezVous/create/{id?}','RDVController@index');
 Route::get('assur/patientAssuree/{id}','PatientController@create');
+
+//Route::post('/addpatientAssure','PatientController@storePatient');
+
+Route::post('/addpatientAssure',function(){
+dd("dfsd");
+});
 Route::get('assur/patientAedit/{id}/{idA}','PatientController@edit');
 /************partie viste d'hospitalisation**************/
 Route::get('/delVisite/{id}', 'VisiteController@destroy')->name('visite.destroy');

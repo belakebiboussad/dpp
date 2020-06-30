@@ -112,13 +112,13 @@ public function store(Request $request)
       $rdvHospi->save(); 
       return redirect()->action('RdvHospiController@getlisteRDVs');
   }
-       public function getRdvs($date)
-      {
-              $rdvs = rdv_hospitalisation::with('bedReservation.lit.salle.service','demandeHospitalisation.consultation.patient')->where('etat_RDVh','=','en attente')->where('date_RDVh','=', $date)->get(); 
-               if (!empty($rdvs)) {
-                   return json_encode($rdvs);
-               }
-      }  
+  public function getRdvs($date)
+  {
+    $rdvs = rdv_hospitalisation::with('bedReservation.lit.salle.service','demandeHospitalisation.consultation.patient','demandeHospitalisation.Service')->where('etat_RDVh','=','en attente')->where('date_RDVh','=', $date)->get(); 
+    if (!empty($rdvs)) {
+      return json_encode($rdvs);
+    }
+  }  
   //imprimer rdv d'hospitalisation  
   public function print($id)
   { 

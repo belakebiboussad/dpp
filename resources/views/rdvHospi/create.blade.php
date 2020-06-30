@@ -5,11 +5,10 @@
   var now = nowDate.getFullYear() + '-' + (nowDate.getMonth()+1) + '-' + ('0'+ nowDate.getDate()).slice(-2);
  	$('document').ready(function(){
     $("#dateEntree").datepicker("setDate", now);			
-	  $("#dateSortiePre").datepicker("setDate", now);	
-	  $('#dateSortiePre').attr('readonly', true);
+	  $("#dateSortiePre").datepicker("setDate", now);	//$('#dateSortiePre').attr('readonly', true);
  		$('.timepicker').timepicker({
             timeFormat: 'HH:mm',
-            interval: 15,
+            interval: 60,
             minTime: '08',
             maxTime: '17:00pm',
             defaultTime: '09:00',   
@@ -28,16 +27,16 @@
 	function updateDureePrevue()
 	{
 		if($("#dateEntree").val() != undefined) {
- 				var dEntree = $('#dateEntree').datepicker('getDate');
-     		var dSortie = $('#dateSortiePre').datepicker('getDate');
-  			var iSecondsDelta = dSortie - dEntree;
-  			var iDaysDelta = iSecondsDelta / (24 * 60 * 60 * 1000);
-  			if(iDaysDelta < 0)
-  			{
-  				iDaysDelta = 0;
-  				$("#dateSortiePre").datepicker("setDate", dEntree); 
-  			}
-  			$('#numberDays').val(iDaysDelta );	
+			var dEntree = $('#dateEntree').datepicker('getDate');
+   		var dSortie = $('#dateSortiePre').datepicker('getDate');
+			var iSecondsDelta = dSortie - dEntree;
+			var iDaysDelta = iSecondsDelta / (24 * 60 * 60 * 1000);
+			if(iDaysDelta < 0)
+			{
+				iDaysDelta = 0;
+				$("#dateSortiePre").datepicker("setDate", dEntree); 
+			}
+			$('#numberDays').val(iDaysDelta );	
 		}		
 	}
 </script>
@@ -247,7 +246,6 @@
 					</div>
 				</div>
 			</div><!-- ROW -->
-			<div class="space-12"></div>
 			<div class="space-12"></div>
 			<div class="space-12"></div>
 			<div class="space-12"></div>

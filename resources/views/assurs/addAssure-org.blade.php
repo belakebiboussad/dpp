@@ -1,60 +1,73 @@
- <div class="row">
+<div class="row ">
 	<div class="col-sm-6">
-		<div class="form-group {{ $errors->has('nomf') ? 'has-error' : '' }}">
-			<label class="col-sm-3 control-label" for="nomf"><strong>Nom :</strong></label>
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="nomf"><strong>Nom :</strong> 	</label>
 			<div class="col-sm-9">
-				<input type="text" id="nomf" name="nomf" placeholder="Nom..." class="col-xs-12 col-sm-12" autocomplete= "off" value="{{ old('nomf') }}"/>
-					{!! $errors->first('nomf', '<small class="alert-danger">:message</small>') !!}
+				<input type="text" id="nomf" name="nomf" placeholder="Nom..." class="col-xs-12 col-sm-12"/>
 			</div>
 		</div>
-	</div>	
+		<br>
+	</div>
 	<div class="col-sm-6">
-		<div class="form-group {{ $errors->has('prenomf') ? 'has-error' : '' }}">
+		<div class="form-group">
 			<label class="col-sm-3 control-label" for="prenomf"><strong>Prénom :</strong></label>
 			<div class="col-sm-9">
-				<input type="text" id="prenomf" name="prenomf" placeholder="Prénom..." class="col-xs-12 col-sm-12" autocomplete="off" value="{{ old('prenomf') }}"/>
-				{!! $errors->first('prenomf', '<p class="alert-danger">:message</p>') !!}
+				<input type="text" id="prenomf" name="prenomf" placeholder="Prénom..." class="col-xs-12 col-sm-12" />
 			</div>
 		</div>
+		<br>
 	</div>
-</div> {{-- row --}}
-<div class="spce-12"></div>
-<div class="row">
+</div>
+{{-- row --}}
+<div class="row ">
 	<div class="col-sm-6">
-		<div class="form-group {{ $errors->has('datenaissancef') ? 'has-error' : '' }}">
-			<label class="col-sm-3 control-label" for="datenaissancef"><strong class="text-nowrap">Né(e) le :</strong></label>
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="datenaissancef">
+				<strong class="text-nowrap">Né(e) le :</strong>
+			</label>
 			<div class="col-sm-9">
-				<input class="col-xs-12 col-sm-12 date-picker" id="datenaissancef" name="datenaissancef" type="text" data-date-format="yyyy-mm-dd" placeholder="Date de naissance..." pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" required/>
-				{!! $errors->first('datenaissancef', '<p class="alert-danger">:message</p>') !!}
+			<input class="col-xs-12 col-sm-12 date-picker" id="datenaissancef" name="datenaissancef" type="text" data-date-format="yyyy-mm-dd" placeholder="Date de naissance..." />
 			</div>
-		</div>
-	</div>
-	<div class="col-sm-6">
-		<div class="form-group {{ $errors->has('lieunaissancef') ? 'has-error' : '' }}">
-			<label class="col-sm-3 control-label" for="lieunaissance"><strong class="text-nowrap">Né(e) à :</strong></label>
-			<div class="col-sm-9">
-			  	<input type="hidden" name="idlieunaissancef" id="idlieunaissancef">
-					<input type="text" id="lieunaissancef" name="lieunaissancef" class="typeahead col-xs-12 col-sm-12" placeholder="Lieu de naissance..." autocomplete ="on"/>		
-			 		{!! $errors->first('lieunaissancef', '<small class="alert-danger">:message</small>') !!}
-			</div>
-		</div>
-	</div>
-</div>{{-- row --}}
-<div class="row">
-	<div class="col-sm-6">
-		<div class="form-group {{ $errors->has('sexef') ? 'has-error' : '' }}">
-			<label class="col-sm-3 control-label no-padding-right" for="sexef"><strong>Sexe :</strong></label>
-			<div class="col-sm-9">
-				<div class="radio">
-					<label><input name="sexef" value="M" type="radio" class="ace" checked /><span class="lbl"> Homme</span></label>
-					<label><input name="sexef" value="F" type="radio" class="ace" /><span class="lbl"> Femme</span></label>
-				</div>
-			</div>	
 		</div>
 	</div>
 	<div class="col-sm-6">
 		<div class="form-group">
-			<label class="col-sm-3 control-label text-nowrap" for="gsf"><strong>Groupe sanguin :</strong></label>
+			<label class="col-sm-3 control-label" for="lieunaissancef">
+				<span class="text-nowrap"><strong>Né(e) à :</strong></span>
+			</label>
+			<div class="col-sm-9">
+			  <input type="hidden" name="idlieunaissancef" id="idlieunaissancef">
+				<input type="text" id="lieunaissancef" name="lieunaissancef" placeholder="Lieu de naissance..." class="form-control col-xs-12 col-sm-12" autocomplete= "on" />
+			</div>
+		</div>
+		<br>
+	</div>
+</div>	{{-- row --}}
+<div class="row">
+	<div class="col-sm-6">
+    <div class="form-group">
+   		<label class="col-sm-3 control-label no-padding-right" for="sexe"><Strong>Sexe:</Strong></label>
+      <div class="col-sm-9">
+   			<div class="radio">
+   				<label><input name="sexef" value="M" type="radio" class="ace" checked/><span class="lbl"> Masculin</span></label>
+  				<label><input name="sexef" value="F" type="radio" class="ace"/><span class="lbl"> Féminin</span></label>
+   			</div>
+			</div>
+		</div>
+  </div>
+  <div class="col-sm-6">
+    <div class="form-group">
+   		<label class="col-sm-3 control-label" for="adressef"><strong>Adresse :</strong></label>
+   		<div class="col-sm-9">
+			<input type="text" id="adressef" name="adressef" placeholder="Adresse..." class="col-xs-12 col-sm-12" />
+		</div>
+    </div>
+   </div>
+</div>{{-- row --}}
+<div class="row">
+	<div class="col-sm-6">
+       <div class="form-group">
+   		<label class="col-sm-3 control-label text-nowrap" for="gsf"><strong>Groupe sanguin :</strong></label>
 			<div class="col-sm-2">
 				<select class="form-control" id="gsf" name="gsf">
 					<option value="">------</option>
@@ -64,7 +77,7 @@
 					<option value="AB">AB</option>
 				</select>
 			</div>
-			<label class="col-sm-3 control-label no-padding-right" for="rh"><strong>Rhésus:</strong></label>
+			<label class="col-sm-3 control-label no-padding-right" for="rhf"><strong>Rhésus :</strong></label>
 			<div class="col-sm-2">
 				<select id="rhf" name="rhf">
 					<option value="">------</option>
@@ -72,29 +85,8 @@
 					<option value="-">-</option>
 				</select>
 			</div>
-		</div>	
-	</div>
-</div>{{-- row --}}
-<div class="row">
-	<div class="col-sm-12">
-		<h3 class="header smaller lighter blue">Contact</h3>
-	</div>
-</div>	{{-- row --}}
-<div class="row">
-	<div class="col-sm-4" style="padding-left:7%">
-		<label class="col-sm-3" for="adressef" ><strong>Adresse:&nbsp;</strong></label>
-		  <input type="text" value="" id="adressef" name="adressef" placeholder="Adresse..." class="col-sm-9"/>
-	</div>
-	<div class="col-sm-4" style="margin-top: -0.1%;">
-		<label class="col-sm-3 no-wrap" for="communef"><strong>Commune :</strong></label>
-		<input type="hidden" name="idcommunef" id="idcommunef">
-	 	<input type="text" value="" id="communef" class="com_typeahead"  placeholder="commune résidance" class="col-sm-9"/>
-	</div>
-	<div class="col-sm-4">
-		  <label class="col-sm-3" for="wilayaf"><strong>Wilaya :</strong></label>
-		  <input type="hidden" name="idwilayaf" id="idwilayaf">
-		  <input type="text" value="" id="wilayaf" name="wilayaf" placeholder="wilaya résidance" class="col-sm-9" readonly />
-	</div>
+     </div>
+  </div>
 </div>
 <div class="space-12"></div>
 <div class="row">
@@ -211,7 +203,6 @@
 </div>	{{-- row --}}
 <div class="space-12"></div>
 {{-- <div class="row">
-	
 	<div class="col-sm-6">
 		<br><br>
 	</div>

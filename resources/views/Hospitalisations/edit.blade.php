@@ -4,13 +4,8 @@
 	var nowDate = new Date();
   //var now = nowDate.getFullYear() + '-' + (nowDate.getMonth()+1) + '-' + ('0'+ nowDate.getDate()).slice(-2);//var tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
   var dEntree = $('#dateEntree').datepicker('getDate'); 
- //  $('#dateSortie').datepicker({
- //    startDate:dEntree ,
- //    minDate: 1, 
-	// });
  	$('document').ready(function(){
-    // $('#dateSortie').attr('readonly', true);
-		$('.timepicker').timepicker({
+    $('.timepicker').timepicker({
             timeFormat: 'HH:mm',
             interval: 60,
             minTime: '08',
@@ -20,13 +15,9 @@
             dropdown: true,
             scrollbar: true
     });
-	 	// $( "#RDVForm" ).submit(function( event ) {  
-  	// 		$("#dateSortie").prop('disabled', false);
-  	// });
-
-  	// $('.filelink' ).click( function( e ) {
-   //              e.preventDefault();  
-   //  });
+  	$('.filelink' ).click( function( e ) {
+       e.preventDefault(); 
+     });
   	updateDureePrevue();
   	$('#numberDays').on('click keyup', function() {
       var jsDate = $('#dateEntree').datepicker('getDate');
@@ -195,7 +186,7 @@
         	</div>
         	<div class="col-xs-4">
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="garde_id" style="padding: 0.9%;">
+							<label class="col-sm-3 control-label no-padding-right no-wrap" for="garde_id" style="padding: 0.9%;">
 						 		<strong>Garde Malade :</strong>
 							</label>
 							<div class="input-group col-sm-9" style ="width:35.8%;padding: 0.8%;">	

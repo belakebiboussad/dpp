@@ -15,7 +15,7 @@
 							wildcard: '%QUERY%'
 					},
 			});
-			$('#commune').typeahead({
+			$('.com_typeahead').typeahead({
 				autoselect: true,
 				hint: true,
 				highlight: true,
