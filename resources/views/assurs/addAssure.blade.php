@@ -34,7 +34,7 @@
 			<label class="col-sm-3 control-label" for="lieunaissance"><strong class="text-nowrap">Né(e) à :</strong></label>
 			<div class="col-sm-9">
 			  	<input type="hidden" name="idlieunaissancef" id="idlieunaissancef">
-					<input type="text" id="lieunaissancef" name ="lieunaissancef" class="typeahead com_typeahead col-xs-12 col-sm-12" placeholder="Lieu de naissance..." autocomplete ="on"/>		
+					<input type="text" id="lieunaissancef" class="typeahead com_typeahead col-xs-12 col-sm-12" placeholder="Lieu de naissance..." autocomplete ="on"/>		
 			 		{!! $errors->first('lieunaissancef', '<small class="alert-danger">:message</small>') !!}
 			</div>
 		</div>
@@ -88,12 +88,12 @@
 	<div class="col-sm-4" style="margin-top: -0.1%;">
 		<label class="col-sm-3 no-wrap" for="communef"><strong>Commune :</strong></label>
 		<input type="hidden" name="idcommunef" id="idcommunef">
-	 	<input type="text" value="" id="communef" placeholder="commune résidance" class="col-sm-9"/>
+	 	<input type="text" value="" id="communef" placeholder="commune résidance" class="com_typeahead col-sm-9"/>
 	</div>
 	<div class="col-sm-4">
 		  <label class="col-sm-3" for="wilayaf"><strong>Wilaya :</strong></label>
 		  <input type="hidden" name="idwilayaf" id="idwilayaf">
-		  <input type="text" value="" id="wilayaf" name="wilayaf" placeholder="wilaya résidance" class="col-sm-9" readonly />
+		  <input type="text" value="" id="wilayaf" placeholder="wilaya résidance" class="col-sm-9" readonly />
 	</div>
 </div>
 <div class="space-12"></div>
@@ -159,9 +159,8 @@
 			</label>
 			<div class="col-sm-9">
 			<select id="grade" name="grade" class="col-xs-12 col-sm-12"/>
-				<option value="">Sélectionner...</option>
-				@foreach ($grades as $key=>$grade)
-			 	      <option value="{{ $grade->id }}">{{ $grade->nom }}</option>
+				@foreach($grades as $key=>$grade)
+			    <option value="{{ $grade->id }}">{{ $grade->nom }}</option>
 				@endforeach
 			</select>
 			</div>

@@ -212,7 +212,6 @@
                 {
                   var erreur =true;
                   var nomf = $('#nomf').val(); var prenomf = $('#prenomf').val();var NMGSN = $('#NMGSN').val();var nss = $('#nss').val(); var idlieunaissancef = $('#idlieunaissancef').val();    
-                  alert(idlieunaissancef);
                   var inputAssVal = new Array(nomf,prenomf,idlieunaissancef,gsf,NMGSN,nss);
                   var inputMessage = new Array("nom","prenom","lieu de naissance","Groupe Sanguin","Matricule(NMGSN)","numèro secruté");
                   $('.error').each(function(i, obj) {

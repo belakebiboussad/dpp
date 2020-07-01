@@ -34,7 +34,7 @@
 			<label class="col-sm-3 control-label" for="lieunaissance"><strong class="text-nowrap">Né(e) à :</strong></label>
 			<div class="col-sm-9">
 			  	<input type="hidden" name="idlieunaissance" id="idlieunaissance">
-					<input type="text" id = "lieunaissance" name = "lieunaissance" class="typeahead com_typeahead typeaheadcol-sm-12" placeholder="Lieu de naissance..." autocomplete ="on" required/>		
+					<input type="text" id = "lieunaissance" class="typeahead com_typeahead typeaheadcol-sm-12" placeholder="Lieu de naissance..." autocomplete ="on" required/>		
 			 		{!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
 			</div>
 		</div>
@@ -113,7 +113,7 @@
 	<div class="col-sm-4" style="margin-top: -0.1%;">
 		<label class="col-sm-3 no-wrap" for="commune"><strong>Commune :</strong></label>
 		<input type="hidden" name="idcommune" id="idcommune">
-	 	 <input type="text" value="" id="commune" placeholder="commune résidance" class="col-sm-9"/>
+	 	 <input type="text" value="" id="commune" placeholder="commune résidance" class="com_typeahead col-sm-9"/>
 	</div>
 	<div class="col-sm-4">
 		  <label class="col-sm-3" for="wilaya"><strong>Wilaya :</strong></label>
