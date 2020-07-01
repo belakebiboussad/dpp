@@ -34,7 +34,7 @@
 			<label class="col-sm-3 control-label" for="lieunaissance"><strong class="text-nowrap">Né(e) à :</strong></label>
 			<div class="col-sm-9">
 			  	<input type="hidden" name="idlieunaissancef" id="idlieunaissancef">
-					<input type="text" id="lieunaissancef" name="lieunaissancef" class="typeahead col-xs-12 col-sm-12" placeholder="Lieu de naissance..." autocomplete ="on"/>		
+					<input type="text" id="lieunaissancef" name ="lieunaissancef" class="typeahead com_typeahead col-xs-12 col-sm-12" placeholder="Lieu de naissance..." autocomplete ="on"/>		
 			 		{!! $errors->first('lieunaissancef', '<small class="alert-danger">:message</small>') !!}
 			</div>
 		</div>
@@ -88,7 +88,7 @@
 	<div class="col-sm-4" style="margin-top: -0.1%;">
 		<label class="col-sm-3 no-wrap" for="communef"><strong>Commune :</strong></label>
 		<input type="hidden" name="idcommunef" id="idcommunef">
-	 	<input type="text" value="" id="communef" class="com_typeahead"  placeholder="commune résidance" class="col-sm-9"/>
+	 	<input type="text" value="" id="communef" placeholder="commune résidance" class="col-sm-9"/>
 	</div>
 	<div class="col-sm-4">
 		  <label class="col-sm-3" for="wilayaf"><strong>Wilaya :</strong></label>
@@ -189,7 +189,7 @@
 			</label>
 			<div class="col-sm-9">
 				<div class="clearfix">
-					<input type="text" id="NMGSN" name="NMGSN" class="col-xs-12 col-sm-12" placeholder="numéro mutuel"/>
+					<input type="text" id="NMGSN" name="NMGSN" class="col-xs-12 col-sm-12" placeholder="numéro mutuel" placeholder="XXXXXXXXXXXX" maxlength =12 minlength =12/>
 				</div>
 			</div>
 		</div>
@@ -202,7 +202,7 @@
 			</label>
 			<div class="col-sm-9">
 			<div class="clearfix">
-			<input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12" placeholder="XXXXXXXXXXXX" maxlength =12 minlength =12/>{{-- pattern="^\[0-9]{2}+' '+\[0-9]{4}+' '+\[0-9]{4}+' '+\[0-9]{2}$" --}}
+			<input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12" placeholder="XXXXXXXXXXXX" maxlength =12 minlength =12 />{{-- pattern="^\[0-9]{2}+' '+\[0-9]{4}+' '+\[0-9]{4}+' '+\[0-9]{2}$" --}}
 			</div>
 			</div>
 		</div>

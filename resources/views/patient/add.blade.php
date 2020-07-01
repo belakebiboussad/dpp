@@ -15,38 +15,16 @@
 							wildcard: '%QUERY%'
 					},
 			});
-			$('.com_typeahead').typeahead({
-				autoselect: true,
-				hint: true,
-				highlight: true,
-				minLength: 1
-			}, {
-				name: 'communenom',
-				source: bloodhound1,
-				display: function(data) {	//$("#wilaya").text(data.nom_wilaya)
-					return data.nom_commune  //Input value to be set when you select a suggestion. 
-				},
-				templates: {
-					empty: [
-						'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
-					],
-					header: [
-						'<div class="list-group search-results-dropdown">'
-					],
-					suggestion: function(data) {
-						return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="show(\''+data.Id_wilaya+','+data.nom_wilaya+','+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
-					}	
-				}
-			});
-			$('#lieunaissance').typeahead({///////////////autocomplete lieu de naissance
-				hint: true,
-				highlight: true,
-				minLength: 1
-			}, {
+			$('#lieunaissance').typeahead({
+					autoselect: true,
+					hint: true,
+					highlight: true,
+					minLength: 1,		
+			},{
 				name: 'communenom',
 				source: bloodhound1,
 				display: function(data) {
-					return data.nom_commune  //Input value to be set when you select a suggestion. 
+					return data.nom_commune;  //Input value to be set when you select a suggestion. 
 				},
 				templates: {
 					empty: [
@@ -57,10 +35,59 @@
 					],
 					suggestion: function(data) {
 						return '<div style="font-weight:normal; margin-top:-10px ! important;width:300px !important" class="list-group-item" onclick="autocopleteCNais(\''+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
+						//return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="show(\''+data.Id_wilaya+','+data.nom_wilaya+','+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
+					}	
+				}
+			});
+			$('#lieunaissancef').typeahead({
+					autoselect: true,
+					hint: true,
+					highlight: true,
+					minLength: 1,		
+			},{
+				name: 'communenom',
+				source: bloodhound1,
+				display: function(data) {
+					return data.nom_commune;  //Input value to be set when you select a suggestion. 
+				},
+				templates: {
+					empty: [
+						'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
+					],
+					header: [
+						'<div class="list-group search-results-dropdown">'
+					],
+					suggestion: function(data) {
+						return '<div style="font-weight:normal; margin-top:-10px ! important;width:300px !important" class="list-group-item" onclick="autocopleteCNaisAS(\''+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
+						//return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="show(\''+data.Id_wilaya+','+data.nom_wilaya+','+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
+					}	
+				}
+			});
+			$('#commune').typeahead({///////////////autocomplete lieu de naissance
+				hint: true,
+				highlight: true,
+				minLength: 1
+			}, {
+				name: 'communenom',
+				source: bloodhound1,
+				display: function(data) {
+					return data.nom_commune  //Input value to be set when you select a suggestion. 
+				},
+				templates: {
+					empty: [
+						'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
+					],
+					header: [
+						'<div class="list-group search-results-dropdown">'
+					],
+					suggestion: function(data) {//return '<div style="font-weight:normal; margin-top:-10px ! important;width:300px !important" class="list-group-item" onclick="autocopleteCNais(\''+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
+						//return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="show(\''+data.Id_wilaya+','+data.nom_wilaya+','+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
+							return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="show(\''+data.Id_wilaya+','+data.nom_wilaya+','+data.id_Commune+','+'wilaya'+'\')">' + data.nom_commune+ '</div></div>'
 					}
 				}	
 			});
-		  $('#lieunaissancef').typeahead({	/////////// Autocomletecommune de l'assure
+			
+		  $('#communef').typeahead({	/////////// Autocomletecommune de l'assure
 				hint: true,
 				highlight: true,
 				minLength: 1
@@ -78,7 +105,8 @@
 						'<div class="list-group search-results-dropdown">'
 					],
 					suggestion: function(data) {
-						return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="autocopleteCNaisAS(\''+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
+							return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="show(\''+data.Id_wilaya+','+data.nom_wilaya+','+data.id_Commune+','+'wilayaf'+'\')">' + data.nom_commune+ '</div></div>'
+
 					}
 				}	
 			});
@@ -112,6 +140,7 @@
 					$('#serviceFonc').removeClass('invisible'); 	
 			});
 		});
+		
 		function autocopleteCNais(commune)
 		{
 			$("#idlieunaissance").val(commune);
@@ -124,8 +153,8 @@
 		{
 			var res = wilaya.split(",");
 			$("#idwilaya").val(res[0]);
-			$("#wilaya").val(	res[1]);
 			$("#idcommune").val(res[2]);
+			$("#"+res[3]).val(res[1]);
 		}
 		function copyPatient(){
 			$("#nomf").val($("#nom").val());$("#prenomf").val($("#prenom").val());
@@ -179,38 +208,38 @@
 			 }			
 		}
 		function checkFormAddPAtient()
-           	{         
-              		 if(!($('#autre').is(':checked'))){ 
-	                    	if( ! checkAssure() )
-	                   	{
-		                      activaTab("Assure");
-		                      return false;
-	                    	}else{
-	                      	if($('#hommeConf').is(':checked')){
-	                                   if( ! checkHomme() )
-	                                   {
-	                                      activaTab("Homme_C");
-	                                      return false;
-	                                  }else
-	                                        return true;  
-	                           }else{
-	                                 return true;   
-	                           }
-	                           return true;
-	                    }
-	               }else
-	               {
-	                     if($('#hommeConf').is(':checked')){
-	                          if( ! checkHomme() )
-	                          {
-	                                 activaTab("Homme_C");
-	                               return false;
-	                           }else
-	                                return true;  
-	                      }else
-	                           return true; 
-	                }
-	           }
+  	{         
+  		if(!($('#autre').is(':checked'))){ 
+      	if( ! checkAssure() )
+      	{
+        	activaTab("Assure");
+        	return false;
+      	}else{
+      		if($('#hommeConf').is(':checked')){
+            if( ! checkHomme() )
+            {
+              activaTab("Homme_C");
+              return false;
+            }else
+            return true;  
+          }else{
+            return true;   
+          }
+          return true;
+      	}
+      }else
+      {
+               if($('#hommeConf').is(':checked')){
+                    if( ! checkHomme() )
+                    {
+                           activaTab("Homme_C");
+                         return false;
+                     }else
+                          return true;  
+                }else
+                     return true; 
+          }
+     }
 	</script>
 @endsection
 @section('main-content')

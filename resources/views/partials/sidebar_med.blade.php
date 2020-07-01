@@ -210,22 +210,23 @@
                 }
                 function checkAssure()
                 {
-                      var erreur =true;
-                      var nomf = $('#nomf').val(); var prenomf = $('#prenomf').val();var NMGSN = $('#NMGSN').val();var nss = $('#nss').val(); var idlieunaissancef = $('#idlieunaissancef').val();    
-                      var inputAssVal = new Array(nomf,prenomf,idlieunaissancef,gsf,NMGSN,nss);
-                      var inputMessage = new Array("nom","prenom","lieu de naissance","Groupe Sanguin","Matricule(NMGSN)","numèro secruté");
-                      $('.error').each(function(i, obj) {
-                            $(obj).next().remove();
-                            $(obj).detach();
-                     });
-                      jQuery.each( inputAssVal, function( i, val ) {
-                            if(val =="" )
-                            {
-                                   erreur =false;
-                                   $('#error').after('<span class="error"> STP, saisir le ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
-                            }
-                     });
-                     return erreur;
+                  var erreur =true;
+                  var nomf = $('#nomf').val(); var prenomf = $('#prenomf').val();var NMGSN = $('#NMGSN').val();var nss = $('#nss').val(); var idlieunaissancef = $('#idlieunaissancef').val();    
+                  alert(idlieunaissancef);
+                  var inputAssVal = new Array(nomf,prenomf,idlieunaissancef,gsf,NMGSN,nss);
+                  var inputMessage = new Array("nom","prenom","lieu de naissance","Groupe Sanguin","Matricule(NMGSN)","numèro secruté");
+                  $('.error').each(function(i, obj) {
+                        $(obj).next().remove();
+                        $(obj).detach();
+                 });
+                  jQuery.each( inputAssVal, function( i, val ) {
+                        if(val =="" )
+                        {
+                               erreur =false;
+                               $('#error').after('<span class="error"> STP, saisir le ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
+                        }
+                 });
+                 return erreur;
                 }
                 function  checkHomme(){
                       var erreur =true;
