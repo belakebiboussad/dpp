@@ -1,13 +1,5 @@
 @extends('app')
 @section('main-content')
-{{--
-<div class="page-header">
-	<h3>Détails du Fonctionnaire : {{ $assure->Nom }} {{ $assure->Prenom }}</h3>
-	<div class="pull-right" style ="margin-top: -0.5%;">
-		<a href="{{route('assur.index')}}" class ="btn btn-white btn-info btn-bold btn-xs">Rechercher un Fonctionnaire&nbsp;<i class="ace-icon fa fa-arrow-circle-right bigger-120 black"></i></a>
-	</div>
-</div>
---}}
 <div class="page-header">
 	<h3>Détails du Fonctionnaire : {{ $assure->Nom }} {{ $assure->Prenom }}</h3>
 	<div class="pull-right">

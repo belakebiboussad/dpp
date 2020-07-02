@@ -8,59 +8,6 @@
 	<script>
 		$( document ).ready(function() {
 			copyPatient();
-			var bloodhound1 = new Bloodhound({
-		        datumTokenizer: Bloodhound.tokenizers.whitespace,
-		        queryTokenizer: Bloodhound.tokenizers.whitespace,
-		        remote: {
-						url: '/patients/findcom?com=%QUERY%',
-							wildcard: '%QUERY%'
-					},
-			});
-			$('#commune').typeahead({
-				autoselect: true,
-				hint: true,
-				highlight: true,
-				minLength: 1
-			}, {
-				name: 'communenom',
-				source: bloodhound1,
-				display: function(data) {	//$("#wilaya").text(data.nom_wilaya)
-					return data.nom_commune  //Input value to be set when you select a suggestion. 
-				},
-				templates: {
-					empty: [
-						'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
-					],
-					header: [
-						'<div class="list-group search-results-dropdown">'
-					],
-					suggestion: function(data) {
-						return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="show(\''+data.Id_wilaya+','+data.nom_wilaya+','+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
-					}	
-				}
-			});
-			$('#lieunaissance').typeahead({
-				hint: true,
-				highlight: true,
-				minLength: 1
-			}, {
-				name: 'communenom',
-				source: bloodhound1,
-				display: function(data) {
-					return data.nom_commune  //Input value to be set when you select a suggestion. 
-				},
-				templates: {
-					empty: [
-						'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
-					],
-					header: [
-						'<div class="list-group search-results-dropdown">'
-					],
-					suggestion: function(data) {
-						return '<div style="font-weight:normal; margin-top:-10px ! important;width:300px !important" class="list-group-item" onclick="autocopleteCNais(\''+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
-					}
-				}	
-			});
 			$( ".civilite" ).change(function() {
 				 var sex =  $('input[name=sexe]:checked').val();
 				 if(sex == "F")
@@ -90,24 +37,14 @@
 					$('#serviceFonc').removeClass('invisible'); 	
 			});
 		});
-		function autocopleteCNais(commune)
-		{
-			$("#idlieunaissance").val(commune);
-		}
-		function show(wilaya)
-		{
-			var res = wilaya.split(",");
-			$("#idwilaya").val(res[0]);
-			$("#wilaya").val(	res[1]);
-			$("#idcommune").val(res[2]);
-		}
 		function copyPatient(){
 			$("#nom").val('{{ $assure->Nom }}');$("#prenom").val('{{ $assure->Prenom }}');$("#datenaissance").val('{{ $assure->Date_Naissance}}');
 			$("#lieunaissance").val('{{ $assure->lieuNaissance->nom_commune }}');	$("#idlieunaissance").val({{ $assure->lieunaissance }});
-			$("input[name=sexe][value=" + '{{ $assure->Sexe }}' + "]").prop('checked', true); 
-		 	$("#adresse").val('{{ $assure->adresse }}');//a amelore
-		  $( "#gs" ).val('{{ $assure->grp_sang }}'.substr(0,'{{ $assure->grp_sang }}'.length - 1));
-		  $( "#rh" ).val('{{ $assure->grp_sang }}'.substr('{{ $assure->grp_sang }}'.length - 1));
+			$("input[name=sexe][value=" + '{{ $assure->Sexe }}' + "]").prop('checked', true); $("#adresse").val('{{ $assure->adresse }}');
+		 	$("#commune").val('{{ $assure->commune->nom_commune }}');$("#idcommune").val('{{ $assure->commune_res }}');
+		 	$("#wilaya").val('{{ $assure->wilaya->nom_wilaya }}');$("#idwilaya").val('{{ $assure->wilaya_res}}');
+		  	$( "#gs" ).val('{{ $assure->grp_sang }}'.substr(0,'{{ $assure->grp_sang }}'.length - 1));
+		  	$( "#rh" ).val('{{ $assure->grp_sang }}'.substr('{{ $assure->grp_sang }}'.length - 1));
 		  $('.demograph').find('*').each(function () { $(this).attr("disabled", true); });
 		}
 		function showType(value){ 
