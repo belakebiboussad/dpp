@@ -183,74 +183,126 @@
     </div>
     <!-- /section:basics/sidebar.layout.minimize -->
     <script type="text/javascript">
-            try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
-            $(function() {
-              var checkbox = $("#hommeConf");
-              checkbox.change(function() {
-                    if(checkbox.is(":checked"))
-                            $("#hommelink").removeClass('invisible');
-                     else
-                           $("#hommelink").addClass('invisible');  
-              })
-            });
-              function InverserUl()
+      try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+      $(function() {
+        var checkbox = $("#hommeConf");
+        checkbox.change(function() {
+              if(checkbox.is(":checked"))
+                      $("#hommelink").removeClass('invisible');
+               else
+                     $("#hommelink").addClass('invisible');  
+        })
+      });
+      function InverserUl()
+      {
+        // http://localhost:8000/patient/create#section
+        var section = $("ul#menuPatient li:not(.active) a").prop('href').split("#")[1];
+        if(section == "Assure")
+        {
+            var liNonActive =$("ul#menuPatient li:not(.active)"); //var section = $("ul#menuPatient li:not(.active) a").prop('href').split("#")[i]; 
+           
+            var sectionActive = $("ul#menuPatient li.active a").prop('href').split("#")[1];
+            $('ul#menuPatient li.active').removeClass('active');
+            liNonActive.addClass('in active');
+            $('div#' + section).addClass('in active');
+            $('div#' + sectionActive).removeClass('active');
+         }
+      }
+      function checkAssure()
+      {
+        var erreur =true;
+        var nomf = $('#nomf').val(); var prenomf = $('#prenomf').val();var NMGSN = $('#NMGSN').val();var nss = $('#nss').val(); var idlieunaissancef = $('#idlieunaissancef').val();    
+        var inputAssVal = new Array(nomf,prenomf,idlieunaissancef,gsf,NMGSN,nss);
+        var inputMessage = new Array("nom","prenom","lieu de naissance","Groupe Sanguin","Matricule(NMGSN)","numèro secruté");
+        $('.error').each(function(i, obj) {
+              $(obj).next().remove();
+              $(obj).detach();
+       });
+        jQuery.each( inputAssVal, function( i, val ) {
+              if(val =="" )
               {
-                      // http://localhost:8000/patient/create#section
-                      var section = $("ul#menuPatient li:not(.active) a").prop('href').split("#")[1];
-                     if(section == "Assure")
-                     {
-                          var liNonActive =$("ul#menuPatient li:not(.active)"); //var section = $("ul#menuPatient li:not(.active) a").prop('href').split("#")[i]; 
-                         
-                          var sectionActive = $("ul#menuPatient li.active a").prop('href').split("#")[1];
-                          $('ul#menuPatient li.active').removeClass('active');
-                          liNonActive.addClass('in active');
-                          $('div#' + section).addClass('in active');
-                          $('div#' + sectionActive).removeClass('active');
-                        }
-                }
-                function checkAssure()
-                {
-                  var erreur =true;
-                  var nomf = $('#nomf').val(); var prenomf = $('#prenomf').val();var NMGSN = $('#NMGSN').val();var nss = $('#nss').val(); var idlieunaissancef = $('#idlieunaissancef').val();    
-                  var inputAssVal = new Array(nomf,prenomf,idlieunaissancef,gsf,NMGSN,nss);
-                  var inputMessage = new Array("nom","prenom","lieu de naissance","Groupe Sanguin","Matricule(NMGSN)","numèro secruté");
-                  $('.error').each(function(i, obj) {
-                        $(obj).next().remove();
-                        $(obj).detach();
-                 });
-                  jQuery.each( inputAssVal, function( i, val ) {
-                        if(val =="" )
-                        {
-                               erreur =false;
-                               $('#error').after('<span class="error"> STP, saisir le ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
-                        }
-                 });
-                 return erreur;
-                }
-                function  checkHomme(){
-                      var erreur =true;
-                      var nomA = $('#nomA').val();
-                      var prenomA = $('#prenomA').val();
-                      var type_piece_id = $('#type_piece_id').val();
-                      var npiece_id = $('#npiece_id').val();mobileA = $('#mobileA').val();
-                      var inputHomVal = new Array(nomA,prenomA,type_piece_id,npiece_id,mobileA);
-                      var inputHomMessage = new Array("nom","prenom","type de la piece","numero de lapiece","telephone mobile");
-                      $('.error').each(function(i, obj) {
-                            $(obj).next().remove();
-                            $(obj).detach();
-                     });
-                      jQuery.each( inputHomVal, function( i, val ) {
-                           if(val =="" )
-                          {
-                                 erreur =false;
-                                $('#error').after('<span class="error"> STP, saisir le ' + inputHomMessage[i]+' du Correspondant</span>'+'<br/>');
-                           }
-                      });   
-                     return erreur;
-                    }
-                    function activaTab(tab){
-                         $('.nav-pills a[href="#' + tab + '"]').tab('show');
-                   }
-              
+                     erreur =false;
+                     $('#error').after('<span class="error"> STP, saisir le ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
+              }
+       });
+       return erreur;
+      }
+      function  checkHomme(){
+        var erreur =true;
+        var nomA = $('#nomA').val();
+        var prenomA = $('#prenomA').val();
+        var type_piece_id = $('#type_piece_id').val();
+        var npiece_id = $('#npiece_id').val();mobileA = $('#mobileA').val();
+        var inputHomVal = new Array(nomA,prenomA,type_piece_id,npiece_id,mobileA);
+        var inputHomMessage = new Array("nom","prenom","type de la piece","numero de lapiece","telephone mobile");
+        $('.error').each(function(i, obj) {
+              $(obj).next().remove();
+              $(obj).detach();
+       });
+        jQuery.each( inputHomVal, function( i, val ) {
+             if(val =="" )
+            {
+                   erreur =false;
+                  $('#error').after('<span class="error"> STP, saisir le ' + inputHomMessage[i]+' du Correspondant</span>'+'<br/>');
+             }
+        });   
+       return erreur;
+      }
+      function activaTab(tab){
+           $('.nav-pills a[href="#' + tab + '"]').tab('show');
+      }
+      $(document).ready(function () {
+        var bloodhoundcom = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.whitespace,
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            remote: {
+              url: '/patients/findcom?com=%QUERY%',
+              wildcard: '%QUERY%'
+            },
+        });
+        $('.com_typeahead').typeahead({//#lieunaissance
+          autoselect: true,
+          hint: true,
+          highlight: true,
+          minLength: 1,   
+        },{
+          name: 'communenom',
+          source: bloodhoundcom,
+          display: function(data) {
+            return data.nom_commune;  //Input value to be set when you select a suggestion. 
+          },
+          templates: {
+            empty: [
+              '<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
+            ],
+            header: [
+              '<div class="list-group search-results-dropdown">'
+            ],
+            suggestion: function(data) {//return '<div style="font-weight:normal; margin-top:-10px ! important;width:300px !important" class="list-group-item" onclick="autocopleteCNais(\''+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
+              return '<div style="font-weight:normal; margin-top:-10px ! important;width:300px !important" class="list-group-item">' + data.nom_commune+ '</div></div>'
+            } 
+          }
+        }).bind("typeahead:selected", function(obj, datum, name){
+          switch(obj['target']['id'])
+          {
+            case "lieunaissance":
+                $("#idlieunaissance").val(datum.id_Commune);
+                break;
+            case "lieunaissancef":
+                $("#idlieunaissancef").val(datum.id_Commune);
+                break;
+            case "commune":
+                $("#idcommune").val(datum.id_Commune);
+                $("#idwilaya").val(datum.Id_wilaya);
+                $("#wilaya").val(datum.nom_wilaya);
+                break;
+            case "communef":    
+                $("#idcommunef").val(datum.id_Commune);
+                $("#idwilayaf").val(datum.Id_wilaya);
+                $("#wilayaf").val(datum.nom_wilaya);
+                break;
+          } 
+      }); 
+      }) 
     </script>
 </div><!-- /section:basics/sidebar -->

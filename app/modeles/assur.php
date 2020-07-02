@@ -17,6 +17,16 @@ class assur extends Model
 	{
 		return $this->belongsTo('App\modeles\grade','Grade');
 	}
+	public function commune()
+	{
+		if(isset($this->commune_res))
+			return $this->belongsTo('App\modeles\Commune','commune_res');
+	}
+	public function wilaya()
+	{	
+		if(isset($this->wilaya_res))
+			return $this->belongsTo('App\modeles\Wilaya','wilaya_res');
+	}
 	public function patients()
 	{
 		return $this->hasMany('App\modeles\patient','Assurs_ID_Assure');

@@ -4,65 +4,56 @@
 <script>
 	function showType(value,i){
 		switch(value){
-		       case "Assure":
-       				if(i !=0)
-       				{//	$("input[name=etatf][value=Retraite]").prop('checked', true);// $("ul#menuPatient li:eq(0)").css('display', 'block');
-       					$("input[name=etatf][value=Retraite]").prop('checked', true);$('#service option:eq(0)').prop('selected', true);
-       					$('#grade option:eq(0)').prop('selected', true);$("#matf").val("");$("#nss").val("");$("#NMGSN").val("");
-      				}
-      				var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
-							$.each(classList, function(index, item) {
-			    					if (item === 'hidden') {   						
-			    						$( "ul#menuPatient li:eq(0)" ).removeClass( item );
-			    					}
-							});
-      				$("#nomf").val($("#nom").val());	 $("#prenomf").val($("#prenom").val());$("#datenaissancef").val($("#datenaissance").val());
-		           	$("#lieunaissancef").val($("#lieunaissance").val()); $("#idlieunaissancef").val($("#idlieunaissance").val());
-       	          	       $("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);
-		            	$('[name=gsf]').val( $('[name = gs]').val() + $('[name= rh]').val() );$('#adressef').val($('#adresse').val() + " "+ $('#commune').val() + " "+ $('#wilaya').val());            	
-		             	$("#foncform").addClass('hide');$('#Type_p').attr('required', false);$('#nsspatient').attr('required', false);$('#nsspatient').attr('disabled', true);addRequiredAttr();
-		               break;
-		       case "Ayant_droit":
-		          	if(i !=0)
-		       	    	{
-		        	        $("#nomf").val("");$("#prenomf").val(""); $("#datenaissancef").val("");     $("#lieunaissancef").val("");  $("select#grade").prop('selectedIndex', 0);
-		               	$("#matf").val(""); $("#NMGSN").val("");	$('#nsspatient').val("");$('#adressef').val("");$('#gsf option:eq(0)').prop('selected', true);
-		                	$('#grade option:eq(0)').prop('selected', true);$('#service option:eq(0)').prop('selected', true);	$("#nss").val("");
-		               }
-		               var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
+      case "Assure":
+       	if(i !=0)
+ 				{
+ 					$("input[name=etatf][value=Retraite]").prop('checked', true);$('#service option:eq(0)').prop('selected', true);
+ 					$('#grade option:eq(0)').prop('selected', true);$("#matf").val("");$("#nss").val("");$("#NMGSN").val("");
+
+				}
+				var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
 				$.each(classList, function(index, item) {
+    			if (item === 'hidden') {   						
+    				$( "ul#menuPatient li:eq(0)" ).removeClass( item );
+    			}
+				});
+				$("#nomf").val($("#nom").val());	 $("#prenomf").val($("#prenom").val());$("#datenaissancef").val($("#datenaissance").val());
+        $("#lieunaissancef").val($("#lieunaissance").val()); $("#idlieunaissancef").val($("#idlieunaissance").val());
+ 	      $("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);
+        $('[name=gsf]').val( $('[name = gs]').val() + $('[name= rh]').val() );
+        $('#adressef').val($('#adresse').val());
+        $('#communef').val($('#commune').val());$('#idcommunef').val($('#idcommune').val());
+        $('#idwilayaf').val( $('#idwilaya').val());
+        $('#wilayaf').val($('#wilaya').val());
+        $("#foncform").addClass('hide');$('#Type_p').attr('required', false);$('#nsspatient').attr('required', false);$('#nsspatient').attr('disabled', true);addRequiredAttr();
+      	$(".starthidden").hide(250);
+        break;
+      case "Ayant_droit":
+        	if(i !=0)
+     	    {
+      	      $("#nomf").val("");$("#prenomf").val(""); $("#datenaissancef").val("");     $("#lieunaissancef").val("");  $("select#grade").prop('selectedIndex', 0);
+             	$("#matf").val(""); $("#NMGSN").val("");	$('#nsspatient').val("");$('#adressef').val("");$('#gsf option:eq(0)').prop('selected', true);
+             	$('#grade option:eq(0)').prop('selected', true);$('#service option:eq(0)').prop('selected', true);	$("#nss").val("");
+          }
+            var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
+					$.each(classList, function(index, item) {
     					if (item === 'hidden') {   						
     						$( "ul#menuPatient li:eq(0)" ).removeClass( item );
     					}
-				});	
-			        $("#foncform").removeClass('hide');  $('#Type_p').attr('required', true);  $('#nsspatient').attr('disabled', false); 
-			       addRequiredAttr();
-		              break;
-          		case "Autre": //$("ul#menuPatient li:not(.active) a").prop('disabled', true);// $("ul#menuPatient li:eq(0)").css('display', 'none');
-          			$(".starthidden").show(250);$("#foncform").addClass('hide'); $('#Type_p').attr('required', false);
-              			if(! ($( "ul#menuPatient li:eq(0)" ).hasClass( "hidden" )))
-          				$( "ul#menuPatient li:eq(0)" ).addClass( "hidden" );
-          			$('#nomf').attr('required', false); $('#prenomf').attr('required', false); $('#nsspatient').attr('required', false);$('#nsspatient').attr('disabled', true);   
-            		        break;         
+					});	
+			  	$("#foncform").removeClass('hide');  $('#Type_p').attr('required', true);  $('#nsspatient').attr('disabled', false); 
+			  	$(".starthidden").hide(250);
+			  	addRequiredAttr();
+		    break;
+  		case "Autre":
+  			$(".starthidden").show(250);$("#foncform").addClass('hide'); $('#Type_p').attr('required', false);
+      			if(! ($( "ul#menuPatient li:eq(0)" ).hasClass( "hidden" )))
+  				$( "ul#menuPatient li:eq(0)" ).addClass( "hidden" );
+  			$('#nomf').attr('required', false); $('#prenomf').attr('required', false); $('#nsspatient').attr('required', false);$('#nsspatient').attr('disabled', true);   
+    		        break;         
 		}			
 	}
-	function autocopleteCNais(commune)
-	{
-		var res = commune.split(",");	
-		if($('#fonc').is(':checked'))
-		{
-			$("#idlieunaissancef").val(res[0]);$("#lieunaissancef").val(res[1]);	
-		}		
-		$("#idlieunaissance").val(res[0]);
-	}
-	function autocopleteCNaisAS(commune)
-	{	
-		$("#idlieunaissancef").val(commune);
-	}
-	function show(wilaya)
-	{
-		var res = wilaya.split(",");$("#idwilaya").val(res[0]);$("#wilaya").val(res[1]);$("#idcommune").val(res[2]);
-	}//averifier
+	//averifier
 	if ($("#addGardeMalade").length > 0) {
     		$("#addGardeMalade").validate({
       			rules: {
@@ -107,82 +98,8 @@
 	  			$('#Div-nomjeuneFille').removeAttr('hidden');
 		 	}
 		});
-		 var bloodhoundcom = new Bloodhound({
-        		datumTokenizer: Bloodhound.tokenizers.whitespace,
-        		queryTokenizer: Bloodhound.tokenizers.whitespace,
-     			remote: {
-				 url: '/patients/findcom?com=%QUERY%',
-		 		wildcard: '%QUERY%'
-			},
-		});
-		$('#commune').typeahead({
-			hint: true,
-			highlight: true,
-			minLength: 1
-		},{
-			name: 'communenom',
-			source: bloodhoundcom,
-			display: function(data) {
-					return data.nom_commune  //Input value to be set when you select a suggestion. 
-			},
-			templates: {
-				empty: [
-					'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
-				],
-				header: [
-					'<div class="list-group search-results-dropdown">'
-				],
-				suggestion: function(data) {
-					return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="show(\''+data.Id_wilaya+','+data.nom_wilaya+','+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
-				}
-			}
-		});////////////////////////////////////////////////////// Autocomletecommune de l'assure ////////////////
-		$('#lieunaissance').typeahead({
-			hint: true,
-			highlight: true,
-			minLength: 1
-		}, {
-			name: 'communenom',
-			source: bloodhoundcom,
-			display: function(data) {
-				return data.nom_commune  //Input value to be set when you select a suggestion. 
-			},
-			templates: {
-				empty: [
-					'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
-				],
-				header: [
-					'<div class="list-group search-results-dropdown">'
-				],
-				suggestion: function(data) {
-					return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="autocopleteCNais(\''+data.id_Commune+','+data.nom_commune+'\')">' + data.nom_commune+ '</div></div>'
-				}
-			}	
-		});
-       		$('#lieunaissancef').typeahead({
-			hint: true,
-			highlight: true,
-			minLength: 1
-		}, {
-			name: 'communenom',
-			source: bloodhoundcom,
-			display: function(data) {
-				return data.nom_commune  //Input value to be set when you select a suggestion. 
-			},
-			templates: {
-				empty: [
-					'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
-				],
-				header: [
-					'<div class="list-group search-results-dropdown">'
-				],
-				suggestion: function(data) {
-					return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="autocopleteCNaisAS(\''+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
-				}
-			}	
-		}); 
-	       var value =  $("input[type=radio][name='type']:checked").val();
-	       showType(value,0);
+	  var value =  $("input[type=radio][name='type']:checked").val();
+	      showType(value,0);
 	       $( ".civilite" ).change(function() {
 		  	var sex =  $('input[name=sexe]:checked').val();
 			 if(sex == "F")
@@ -196,32 +113,32 @@
 			 	$('#Div-nomjeuneFille').attr('hidden','');	
 		});
 		$('#listeGardes').DataTable({
-	            colReorder: true,
-	            stateSave: true,
-	            searching:false,
-	            'aoColumnDefs': [{
-	      	 			'bSortable': false,
-	        			'aTargets': ['nosort']
-	   					}],
-	   					"language": {
-			                    "url": '/localisation/fr_FR.json'
-			        },
-      		});
-       jQuery('body').on('click', '.open-modal', function () {
-	        var hom_id = $(this).val();
-	        $.get('/hommeConfiance/'+hom_id+'/edit', function (data) {
-		        $('#patientId').val(data.id_patient); $('#hom_id').val(data.id);	$('#nom_h').val(data.nom);$('#prenom_h').val(data.prenom);
-		        $('#datenaissance_h').val(data.date_naiss);  $('#lien_par').val(data.lien_par).change();		
-			$('#lien_par option').each(function() {
-			    	if($(this).val() == data.lien_par) 
-			      		 $(this).prop("selected", true);
-			});				
-			$('#' + data.type_piece).prop('checked',true); $('#num_piece').val(data.num_piece);$('#date_piece_id').val(data.date_deliv);
-			$('#adresse_h').val(data.adresse);$('#mobile_h').val(data.mob);jQuery('#EnregistrerGardeMalade').val("update");
-		        jQuery('#gardeMalade').modal('show');
-	        })
-       });
-	 $("#EnregistrerGardeMalade").click(function (e) {
+      colReorder: true,
+      stateSave: true,
+      searching:false,
+      'aoColumnDefs': [{
+	 			'bSortable': false,
+  			'aTargets': ['nosort']
+				}],
+				"language": {
+                  "url": '/localisation/fr_FR.json'
+      },
+		});
+    jQuery('body').on('click', '.open-modal', function () {
+      var hom_id = $(this).val();
+      $.get('/hommeConfiance/'+hom_id+'/edit', function (data) {
+        $('#patientId').val(data.id_patient); $('#hom_id').val(data.id);	$('#nom_h').val(data.nom);$('#prenom_h').val(data.prenom);
+        $('#datenaissance_h').val(data.date_naiss);  $('#lien_par').val(data.lien_par).change();		
+	  $('#lien_par option').each(function() {
+	    	if($(this).val() == data.lien_par) 
+	      		 $(this).prop("selected", true);
+	  });				
+	  $('#' + data.type_piece).prop('checked',true); $('#num_piece').val(data.num_piece);$('#date_piece_id').val(data.date_deliv);
+	  $('#adresse_h').val(data.adresse);$('#mobile_h').val(data.mob);jQuery('#EnregistrerGardeMalade').val("update");
+        jQuery('#gardeMalade').modal('show');
+      })
+    });
+	  $("#EnregistrerGardeMalade").click(function (e) {
 	  	$.ajaxSetup({
 		        headers: {
 		            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
@@ -379,7 +296,7 @@
 					<label class="col-sm-3 control-label" for="lieunaissance"><strong class="text-nowrap">Lieu de naissance :</strong></label>
 				      <div class="col-sm-9">
 					       <input type="hidden" name="idlieunaissance" id="idlieunaissance" value={{ $patient->Lieu_Naissance }}>
-					      <input type="text" id="lieunaissance" name="" placeholder="Lieu de naissance..." utocomplete = "off" class="col-xs-12 col-sm-12" value="{{ $patient->lieuNaissance->nom_commune }}" required/>
+					      <input type="text" id="lieunaissance" class="com_typeahead col-xs-12 col-sm-12" value="{{ $patient->lieuNaissance->nom_commune }}" required/>
 						    {!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
 				       </div>
 				</div>
@@ -481,12 +398,12 @@
 						<div class="col-sm-4" style="margin-top: -0.1%;">
 							<label class="col-sm-3" for="commune"><strong>Com.. :</strong></label>
 							<input type="hidden" name="idcommune" id="idcommune" value="{{ $patient->commune_res }}"/>
-							<input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}" class="col-sm-9"/>					
+							<input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}" class="com_typeahead col-sm-9 col-xs-9"/>					
 						</div>
 						<div class="col-sm-4">
 							<label class="col-sm-3"><strong>Wilaya :</strong></label>
 						  <input type="hidden" name="idwilaya" id="idwilaya" value="{{ $patient->wilaya->immatriculation_wilaya }}"/>
-						  <input type="text" id="wilaya" placeholder="wilaya..." value="{{ $patient->wilaya->nom_wilaya }}" class="col-sm-9"/>	
+						  <input type="text" id="wilaya" value="{{ $patient->wilaya->nom_wilaya }}" class="com_typeahead col-sm-9 col-xs-9"/>	
 						</div>	
 				</div>{{-- row --}}
 				<div class="space-12"></div>

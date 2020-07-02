@@ -65,7 +65,7 @@
 					<div class="profile-info-name"> Adress </div>
 						<div class="profile-info-value">
 							<i class="fa fa-map-marker light-orange bigger-110"></i>
-							<span class="editable" id="nom">{{ $assure->adresse }}</span>
+							<span class="editable" id="adress">{{ $assure->adresse }}, {{$assure->commune->nom_commune}} {{$assure->wilaya->nom_wilaya}}</span>
 						</div>
 				</div>
 			</div>

@@ -313,7 +313,6 @@
   });
   function addRequiredAttr()
   {
-    // $("ul#menuPatient li:not(.active) a").prop('disabled', false); 
     jQuery('input:radio[name="sexef"]').filter('[value="M"]').attr('checked', true);
     jQuery('input:radio[name="etat"]').filter('[value="En exercice"]').attr('checked', true);// $("ul#menuPatient li:eq(1)").css('display', '');
         
@@ -368,29 +367,29 @@ function typep()
 {
     if($('#fonc').is(':checked'))
     {
-           $('#foncform').addClass("hidden").hide().fadeIn();
-           $('#NSSInput').addClass("hidden").hide().fadeIn();
-            $('#descriptionDerog').addClass("hidden").hide().fadeIn();
-           $('#AssureInputs').removeClass("hidden").show();   
+      $('#foncform').addClass("hidden").hide().fadeIn();
+      $('#NSSInput').addClass("hidden").hide().fadeIn();
+      $('#descriptionDerog').addClass("hidden").hide().fadeIn();
+      $('#AssureInputs').removeClass("hidden").show();   
            
     }
     else
     {
-           if($('#ayant').is(':checked'))
-           { 
-                     $('#AssureInputs').addClass("hidden").hide().fadeIn();
-                     $('#descriptionDerog').addClass("hidden").hide().fadeIn();
-                     $('#foncform').removeClass("hidden").show();  
-                     $('#NSSInput').removeClass("hidden").show();    
-           }
-           else
-           {
-                    $('#foncform').addClass("hidden").hide().fadeIn();
-                    $('#NSSInput').addClass("hidden").hide().fadeIn();                  
-                    $('#AssureInputs').addClass("hidden").hide().fadeIn();
-                    $('#descriptionDerog').removeClass("hidden").show();
-                  
-           }
+       if($('#ayant').is(':checked'))
+       { 
+                 $('#AssureInputs').addClass("hidden").hide().fadeIn();
+                 $('#descriptionDerog').addClass("hidden").hide().fadeIn();
+                 $('#foncform').removeClass("hidden").show();  
+                 $('#NSSInput').removeClass("hidden").show();    
+       }
+       else
+       {
+                $('#foncform').addClass("hidden").hide().fadeIn();
+                $('#NSSInput').addClass("hidden").hide().fadeIn();                  
+                $('#AssureInputs').addClass("hidden").hide().fadeIn();
+                $('#descriptionDerog').removeClass("hidden").show();
+              
+       }
 }
 }
 //end

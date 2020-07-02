@@ -76,9 +76,7 @@
 	</div>
 </div>{{-- row --}}
 <div class="row">
-	<div class="col-sm-12">
-		<h3 class="header smaller lighter blue">Contact</h3>
-	</div>
+	<div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div>
 </div>	{{-- row --}}
 <div class="row">
 	<div class="col-sm-4" style="padding-left:7%">

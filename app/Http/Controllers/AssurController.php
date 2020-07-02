@@ -50,8 +50,8 @@ class AssurController extends Controller
      */
     public function show($id)
     {
-        $assure = assur::FindOrFail($id);
-         return view('assurs.show',compact('assure'));
+      $assure = assur::FindOrFail($id);
+      return view('assurs.show',compact('assure'));
     }
 
     /**
@@ -62,9 +62,9 @@ class AssurController extends Controller
      */
     public function edit($id)
     {
-           $assure = assur::FindOrFail($id);
-            $grades = grade::all(); 
-            return view('assurs.edit',compact('assure','grades'));
+      $assure = assur::FindOrFail($id);
+      $grades = grade::all(); 
+      return view('assurs.edit',compact('assure','grades'));
     }
 
     /**
@@ -76,24 +76,26 @@ class AssurController extends Controller
      */
     public function update(Request $request, $id)
     {
-            $assure = assur::find($id);
-             $assure -> update([
-                                          "Nom"=>$request->nomf,
-                                          "Prenom"=>$request->prenomf,
-                                          "Date_Naissance"=>$request->datenaissancef,
-                                          "lieunaissance"=>$request->idlieunaissancef,
-                                          "Sexe"=>$request->sexef,
-                                          "adresse"=>$request->adressef,
-                                          "grp_sang"=>$request->gsf,
-                                          "Matricule"=>$request->matf, 
-                                          "Service"=>$request->service,
-                                          "Etat"=>$request->etatf,
-                                          "Grade"=>$request->grade,
-                                          "NMGSN"=>$request->NMGSN,
-                                          "NSS"=>$request->nss,
-              ] );
-            //$assure->save(); 
-             return redirect(Route('assur.show',$assure->id));
+      $assure = assur::find($id);
+      $assure -> update([
+                          "Nom"=>$request->nomf,
+                          "Prenom"=>$request->prenomf,
+                          "Date_Naissance"=>$request->datenaissancef,
+                          "lieunaissance"=>$request->idlieunaissancef,
+                          "Sexe"=>$request->sexef,
+                          "adresse"=>$request->adressef,
+                          "commune_res"=>$request->idcommunef,
+                          "wilaya_res"=>$request->idwilayaf,
+                          "grp_sang"=>$request->gsf,
+                          "Matricule"=>$request->matf, 
+                          "Service"=>$request->service,
+                          "Etat"=>$request->etatf,
+                          "Grade"=>$request->grade,
+                          "NMGSN"=>$request->NMGSN,
+                          "NSS"=>$request->nss,
+      ] );
+      //$assure->save(); 
+       return redirect(Route('assur.show',$assure->id));
     }
 
     /**
