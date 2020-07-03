@@ -54,13 +54,13 @@ class PatientController extends Controller
  {
           if(isset($asure_id))
           {
-            $assure = assur::FindOrFail($asure_id);
-           return view('patient.addP',compact('assure'));
+                $assure = assur::FindOrFail($asure_id);
+               return view('patient.addP',compact('assure'));
           }
           else
           {
-            $grades = grade::all();
-            return view('patient.add',compact('grades'));
+                $grades = grade::all();
+                return view('patient.add',compact('grades'));
           }  
  }
   /**
@@ -169,7 +169,6 @@ public function store(Request $request)
   public function storePatient(Request  $request)
   {
           $date = Date::Now();
-          dd($request->all());
           $rule = array(
               "nom" => 'required',
               "prenom" => 'required',
@@ -189,8 +188,9 @@ public function store(Request $request)
             ];
     $validator = Validator::make($request->all(),$rule,$messages);   
     if ($validator->fails()) {
-      $errors=$validator->errors(); 
-      return view('patient.add')->withErrors($errors);
+       
+        $errors=$validator->errors(); 
+        return view('patient.add')->withErrors($errors);
     }
     $patient = patient::firstOrCreate([
         "Nom"=>$request->nom,// "code_barre"=>$codebarre,
@@ -263,21 +263,22 @@ public function store(Request $request)
      */
     public function edit($id,$asure_id =null)
     {     
-      if(!(isset($asure_id)))
-      {    
-        $assure ;
-        $grades = grade::all(); 
-        $patient = patient::FindOrFail($id);
-        $hommes_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
-        if($patient->Type != "Autre")
-          $assure =  $patient->assure;//else $assure = new assur;
-        return view('patient.edit_patient',compact('patient','assure','hommes_c','grades'));
-      }else
-      {
-        $patient = patient::FindOrFail($id);
-        $hommes_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
-        return view('patient.editP',compact('patient','hommes_c'));
-      }
+               if(!(isset($asure_id)))
+               {    
+                        $assure ;
+                        $grades = grade::all(); 
+                        $patient = patient::FindOrFail($id);
+                        $hommes_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
+                        if($patient->Type != "Autre")
+                          $assure =  $patient->assure;//else $assure = new assur;
+                       //dd($assure);   
+                  return view('patient.edit_patient',compact('patient','assure','hommes_c','grades'));
+                }else
+                {
+                        $patient = patient::FindOrFail($id);
+                        $hommes_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
+                        return view('patient.editP',compact('patient','hommes_c'));
+                }
     }
     /**
      * Update the specified resource in storage.
@@ -473,11 +474,17 @@ public function store(Request $request)
      * @param  \App\modeles\patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-      patient::destroy($id);
-      return redirect() -> route('patient.index');
-    }
+      public function destroy(Request $request , $id)
+      {
+              if($request->ajax())  
+              {
+                      $patient = patient::destroy($id);
+                      return Response::json($patient);   
+              }else{
+                      patient::destroy($id);
+                      return redirect() -> route('patient.index');
+              }
+      }
     public function getpatient()
     {
         $patients = patient::select(['id','IPP','Nom', 'Prenom', 'Dat_Naissance','Sexe','Date_creation']);

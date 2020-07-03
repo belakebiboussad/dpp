@@ -1,82 +1,10 @@
 <style>
-/*.panel-heading{
-  height:45px;
-}
-.tab{
-    margin-top: 10px;
-}
-.tab .nav-tabs{
-    border:none;
-    border-bottom: 1px solid #e4e4e4;
-}
-.nav-tabs li a{
-    padding: 15px 30px;
-    border:1px solid #ededed;
-    border-top: 2px solid #ededed;
-    border-right: 0px none;
-    background: #7a81f4;
-    color:#fff;
-    border-radius: 0px;
-    margin-right: 0px;
-    font-weight: bold;
-    transition: all 0.3s ease-in 0s;
-}
-.nav-tabs li a:hover{
-    border-bottom-color: #ededed;
-    border-right: 0px none;
-    background: #00b0ad;
-    color: #fff;
-}
-.nav-tabs li a i{
-    display: inline-block;
-    text-align: center;
-    margin-right:10px;
-}
-.nav-tabs li:last-child{
-    border-right:1px solid #ededed;
-}
-.nav-tabs li.active a,
-.nav-tabs li.active a:focus,
-.nav-tabs li.active a:hover{
-    border-top: 2px solid #00b0ad;
-    border-right: 1px solid #d3d3d3;
-    margin-top: -13px;
-    color: #444;
-    padding: 20px 40px;
-}
-.tab .tab-content{
-    padding: 18px;
-    line-height: 15px;
-    box-shadow:0px 1px 0px #808080;
-}
-.tab .tab-content h3{
-    margin-top: 0;
-}
-@media only screen and (max-width: 767px){
-    .nav-tabs li{
-        width:100%;
-        margin-bottom: 5px;
-    }
-    .nav-tabs li a{
-        padding: 10px;
-    }
-    .nav-tabs li.active a,
-    .nav-tabs li.active a:focus,
-    .nav-tabs li.active a:hover{
-        padding: 10px;
-        margin-top: 0;
-    }
-}*/
-
 .nav-tabs{
  
 /*background-color:#C8D3DB;*/
  
 }
- 
- 
- 
-.nav-tabs > li > a{
+ .nav-tabs > li > a{
  
 border-radius: 5px;
  
@@ -144,7 +72,7 @@ border:2px solid #3F515F;
                                 <tr>
                                        <td colspan="1" class ="noborders"><strong>Sexe :</strong></td>
                                        <td align="left">@if ( $patient->Sexe == 'F' ) Femme   @else  Homme @endif </td>
-                                       <td colspan="1" class ="noborders"><strong>Situation Familliale:</strong></td>
+                                       <td colspan="1" class ="noborders"><strong>Civilité:</strong></td>
                                       <td align="left">{{ $patient->situation_familiale }}</td>
                                 </tr>
                                 <tr>
@@ -197,7 +125,7 @@ border:2px solid #3F515F;
                                     <td colspan="1">{{ $assure->Prenom }}</td>
                                 </tr>
                                 <tr>
-                                      <td colspan="1" class ="noborders"><strong><strong>Né(e) le :</strong></strong></td>
+                                      <td colspan="1" class ="noborders"><strong>Né(e) le :</strong></td>
                                       <td> {{ $assure->Date_Naissance }}</td>
                                       <td  colspan="1" class ="noborders"><strong>Né(e) a:</strong></td>
                                       <td>{{ $assure->lieuNaissance->nom_commune }}</td>

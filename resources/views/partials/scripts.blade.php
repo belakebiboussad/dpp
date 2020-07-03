@@ -314,7 +314,7 @@
   function addRequiredAttr()
   {
     jQuery('input:radio[name="sexef"]').filter('[value="M"]').attr('checked', true);
-    jQuery('input:radio[name="etat"]').filter('[value="En exercice"]').attr('checked', true);// $("ul#menuPatient li:eq(1)").css('display', '');
+    jQuery('input:radio[name="etat"]').filter('[value="En exercice"]').attr('checked', true);
         
   }
   function typepCreation()

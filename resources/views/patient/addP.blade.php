@@ -45,17 +45,17 @@
 		 	$("#wilaya").val('{{ $assure->wilaya->nom_wilaya }}');$("#idwilaya").val('{{ $assure->wilaya_res}}');
 		  	$( "#gs" ).val('{{ $assure->grp_sang }}'.substr(0,'{{ $assure->grp_sang }}'.length - 1));
 		  	$( "#rh" ).val('{{ $assure->grp_sang }}'.substr('{{ $assure->grp_sang }}'.length - 1));
-		  $('.demograph').find('*').each(function () { $(this).attr("disabled", true); });
+		       $('.demograph').find('*').each(function () { $(this).attr("disabled", true); });
 		}
 		function showType(value){ 
 			switch(value){
 				case "Assure":
-							$("#foncform").addClass('hide');$('#Type_p').attr('required', false);
+					$("#foncform").addClass('hide');$('#Type_p').attr('required', false);
 				      $(".starthidden").hide(250);
 				     	copyPatient();
 				    	break;
 		    		case "Ayant_droit":
-		    			  $(':input','#addPAtient').not(':button, :submit, :reset, :hidden, :input[name=type],:input[name=sexe], :input[name=hommeConf]' ).val('').removeAttr('checked').removeAttr('selected');
+		    			$(':input','#addPAtient').not(':button, :submit, :reset, :hidden, :input[name=type],:input[name=sexe], :input[name=hommeConf]' ).val('').removeAttr('checked').removeAttr('selected');
 		    	  		$("#foncform").removeClass('hide');
 		        		$('#Type_p').attr('required', true);
 		        		$(".starthidden").hide(250);
@@ -71,30 +71,29 @@
 	 		}			
 		}
 		function checkFormAddPAtient()
-    {        
-     		if($('#hommeConf').is(':checked')){
-      		if( ! checkHomme() )
-          {	
-                 activaTab("Homme_C");
-                 return false;
-          }else
-          {
-          	$('input:disabled').removeAttr('disabled');    
-            return true; 
-          }
-        }
-        $('input:disabled').removeAttr('disabled');    
-        return true;
-
-     	}
+	      {        
+	       		if($('#hommeConf').is(':checked')){
+	      			if( ! checkHomme() )
+	            		{	
+	              			 activaTab("Homme_C");
+	                 		return false;
+	          		}else
+	          		{
+	          			$('input:disabled').removeAttr('disabled');    
+	            			return true; 
+	          		}
+	        	}
+	        	$('input:disabled').removeAttr('disabled');    
+	        	return true;
+	     	}
 	</script>
 @endsection
 @section('main-content')
 <div class="container-fluid">
   <div><h4>Ajouter un nouveau Patient</h4></div
   <div class="row">{{-- {{ route('patient.store') }} --}}
-  <!-- onsubmit="return checkFormAddPAtient(this);" -->
-  <form class="form-horizontal" id = "addPAtient" action="/addpatientAssure" method="POST" role="form" autocomplete="off">
+  <!--  -->
+  <form class="form-horizontal" id = "addPAtient" action="/addpatientAssure" method="POST" role="form" onsubmit="return checkFormAddPAtient(this);">
 	  	{{ csrf_field() }}
 	  	<input type="hidden" name="assure_id" value="{{ $assure->id }}">
 		<div class="row">

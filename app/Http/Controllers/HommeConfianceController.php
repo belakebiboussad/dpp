@@ -32,10 +32,10 @@ class HommeConfianceController extends Controller
       }
       public function update(Request $request, $id)
       {
-        $homme = homme_conf::find($id);
-        $homme -> update($request->all());
-        $homme->save();
-        return Response::json($homme);
+              $homme = homme_conf::find($id);
+              $homme -> update($request->all());
+              $homme->save();
+              return Response::json($homme);
       }
       public function destroy($id)
       {

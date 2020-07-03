@@ -1,4 +1,4 @@
- <div class="row">
+ <div class="row Asdemograph">
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('nomf') ? 'has-error' : '' }}">
 			<label class="col-sm-3 control-label" for="nomf"><strong>Nom :</strong></label>
@@ -12,19 +12,19 @@
 		<div class="form-group {{ $errors->has('prenomf') ? 'has-error' : '' }}">
 			<label class="col-sm-3 control-label" for="prenomf"><strong>Prénom :</strong></label>
 			<div class="col-sm-9">
-				<input type="text" id="prenomf" name="prenomf" placeholder="Prénom..." class="col-xs-12 col-sm-12" autocomplete="off" value="{{ old('prenomf') }}"/>
+				<input type="text" id="prenomf" name="prenomf" placeholder="Prénom..." class="col-xs-12 col-sm-12"  value="{{ old('prenomf') }}" />
 				{!! $errors->first('prenomf', '<p class="alert-danger">:message</p>') !!}
 			</div>
 		</div>
 	</div>
 </div> {{-- row --}}
 <div class="spce-12"></div>
-<div class="row">
+<div class="row Asdemograph">
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('datenaissancef') ? 'has-error' : '' }}">
 			<label class="col-sm-3 control-label" for="datenaissancef"><strong class="text-nowrap">Né(e) le :</strong></label>
 			<div class="col-sm-9">
-				<input class="col-xs-12 col-sm-12 date-picker" id="datenaissancef" name="datenaissancef" type="text" data-date-format="yyyy-mm-dd" placeholder="Date de naissance..." pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" required/>
+				<input class="col-xs-12 col-sm-12 date-picker" id="datenaissancef" name="datenaissancef" type="text" data-date-format="yyyy-mm-dd" placeholder="Date de naissance..." pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
 				{!! $errors->first('datenaissancef', '<p class="alert-danger">:message</p>') !!}
 			</div>
 		</div>
@@ -40,7 +40,7 @@
 		</div>
 	</div>
 </div>{{-- row --}}
-<div class="row">
+<div class="row Asdemograph">
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('sexef') ? 'has-error' : '' }}">
 			<label class="col-sm-3 control-label no-padding-right" for="sexef"><strong>Sexe :</strong></label>
@@ -78,13 +78,13 @@
 <div class="row">
 	<div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div>
 </div>	{{-- row --}}
-<div class="row">
+<div class="row Asdemograph">
 	<div class="col-sm-4" style="padding-left:7%">
 		<label class="col-sm-3" for="adressef" ><strong>Adresse:&nbsp;</strong></label>
 		  <input type="text" value="" id="adressef" name="adressef" placeholder="Adresse..." class="col-sm-9"/>
 	</div>
 	<div class="col-sm-4" style="margin-top: -0.1%;">
-		<label class="col-sm-3 no-wrap" for="communef"><strong>Commune :</strong></label>
+		<label class="col-sm-3 text-nowrap" for="communef"><strong>Commune :</strong></label>
 		<input type="hidden" name="idcommunef" id="idcommunef">
 	 	<input type="text" value="" id="communef" placeholder="commune résidance" class="com_typeahead col-sm-9"/>
 	</div>

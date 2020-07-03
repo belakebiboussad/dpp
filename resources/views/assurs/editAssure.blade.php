@@ -80,33 +80,44 @@
     <div class="col-sm-6">
       <div class="form-group">
 	   		<label class="col-sm-3 col-xs-3 control-label text-nowrap" for="gsf"><strong>Groupe sanguin :</strong></label>
-				<div class="col-sm-2">
+			<div class="col-sm-2">
 				@if(isset($assure) && !empty($assure))
 					<select class="form-control" id="gsf" name="gsf">
+{{--<option value=""  {{ ($assure->grp_sang=="")? "selected" : "" }} >------</option>	<option value="A-"  {{ ($assure->grp_sang=="A-")? "selected" : "" }} >A-</option>
+<option value="A+"  {{ ($assure->grp_sang=="A+")? "selected" : "" }} >A+</option>	<option value="B-" {{ ($assure->grp_sang=="B-")? "selected" : "" }} >B-</option><option value="B+" {{ ($assure->grp_sang=="B+")? "selected" : "" }} >B+</option><option value="O-" {{ ($assure->grp_sang=="O-")? "selected" : "" }} >O-</option><option value="O+" {{ ($assure->grp_sang=="O+")? "selected" : "" }} >O+</option><option value="AB-" {{ ($assure->grp_sang=="AB-")? "selected" : "" }} >AB-</option>	<option value="AB+" {{ ($assure->grp_sang=="AB+")? "selected" : "" }} >AB+</option>--}}
 						<option value=""  {{ ($assure->grp_sang=="")? "selected" : "" }} >------</option>
-						<option value="A-"  {{ ($assure->grp_sang=="A-")? "selected" : "" }} >A-</option>
-						<option value="A+"  {{ ($assure->grp_sang=="A+")? "selected" : "" }} >A+</option>
-						<option value="B-" {{ ($assure->grp_sang=="B-")? "selected" : "" }} >B-</option>
-						<option value="B+" {{ ($assure->grp_sang=="B+")? "selected" : "" }} >B+</option>
-						<option value="O-" {{ ($assure->grp_sang=="O-")? "selected" : "" }} >O-</option>
-						<option value="O+" {{ ($assure->grp_sang=="O+")? "selected" : "" }} >O+</option>
-						<option value="AB-" {{ ($assure->grp_sang=="AB-")? "selected" : "" }} >AB-</option>
-						<option value="AB+" {{ ($assure->grp_sang=="AB+")? "selected" : "" }} >AB+</option>
+						<option value="A"  {{  (substr($assure->grp_sang,0,strlen($assure->grp_sang)-1) == "A" )? "selected" : ""  }}>A</option>
+						<option value="B"  {{  (substr($assure->grp_sang,0,strlen($assure->grp_sang)-1) == "B" )? "selected" : ""  }}>B</option>
+						<option value="O"  {{  (substr($assure->grp_sang,0,strlen($assure->grp_sang)-1) == "O" )? "selected" : ""  }}>O</option>
+						<option value="AB"  {{  (substr($assure->grp_sang,0,strlen($assure->grp_sang)-1) == "AB" )? "selected" : ""  }}>AB</option>	
 					</select>
 				@else 
 					<select class="form-control" id="gsf" name="gsf">
-						<option value="" >------</option>
-						<option value="A-" >A-</option>
-						<option value="A+">A+</option>
-						<option value="B-" >B-</option>
-						<option value="B+" >B+</option>
-						<option value="O-">O-</option>
-						<option value="O+">O+</option>
-						<option value="AB-">AB-</option>
-						<option value="AB+"  >AB+</option>
+					<option value="">------</option>
+					<option value="A">A</option>
+					<option value="B">B</option>
+					<option value="O">O</option>
+					<option value="AB">AB</option>
+{{--<option value="" >------</option><option value="A-" >A-</option><option value="A+">A+</option><option value="B-" >B-</option><option value="B+" >B+</option><option value="O-">O-</option><option value="O+">O+</option><option value="AB-">AB-</option><option value="AB+"  >AB+</option>--}}
 					</select>
 				@endif
-				</div>
+			</div>
+			<label class="col-sm-3 control-label no-padding-right" for="rh"><strong>Rhésus:</strong></label>
+			<div class="col-sm-2">
+			@if(isset($assure) && !empty($assure))
+				<select id="rhf" name="rhf">
+					<option value=""  {{ ($assure->grp_sang=="")? "selected" : "" }} >------</option>
+					<option value="+">+</option>
+					<option value="-">-</option>
+				</select>
+			@else
+				<select id="rhf" name="rhf">
+					<option value="">------</option>
+					<option value="+">+</option>
+					<option value="-">-</option>
+				</select> 
+			@endif
+			</div>
 	   	</div>
     </div>
   </div>
@@ -127,7 +138,7 @@
 	  	</div>
 	  </div>
 	  <div class="col-sm-4">
-	  	<label class="col-sm-3 col-xs-3 control-label no-wrap" for="communef"><strong>Commune :</strong></label>
+	  	<label class="col-sm-3 col-xs-3 control-label text-nowrap" for="communef"><strong>Commune :</strong></label>
 	  	@if(isset($assure->commune) && !empty($assure->commune))
 	  	<input type="hidden" name="idcommunef" id="idcommunef" value="{{  $assure->commune_res  }}">
 			<input type="text" id="communef" name="" class="com_typeahead col-xs-9 col-sm-9" value="{{ $assure->commune->nom_commune }}"/>

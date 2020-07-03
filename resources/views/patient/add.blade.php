@@ -54,73 +54,74 @@
 				copyPatient();
 		}
 		function showType(value){ 
-	    switch(value){
-					case "Assure":
-			      copyPatient();  
-			      var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
-						$.each(classList, function(index, item) {
-    					if (item === 'hidden') {   						
-    						$( "ul#menuPatient li:eq(0)" ).removeClass( item );
-    					}
-						});
-						$(".starthidden").hide(250);
-			      break;
-			    case "Ayant_droit":
-			        $("#nomf").val("");
-			        $("#prenomf").val("");
-			        $("#foncform").removeClass('hide');
-			        $('#Type_p').attr('required', true); 
-			        $(".starthidden").hide(250);
-			        addRequiredAttr();
-			        var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
-							$.each(classList, function(index, item) {
-			    					if (item === 'hidden') {   						
-			    						$( "ul#menuPatient li:eq(0)" ).removeClass( item );
-			    					}
-							});
-			        break;
-			    case "Autre":
-			        $(".starthidden").show(250);
-			        $("#foncform").addClass('hide');
-			        $('#Type_p').attr('required', false);  //$("ul#menuPatient li:not(.active) a").prop('disabled', true); $("ul#menuPatient li:eq(0)").css('display', 'none');
-			       	if(! ($( "ul#menuPatient li:eq(0)" ).hasClass( "hidden" )))
-          				$( "ul#menuPatient li:eq(0)" ).addClass( "hidden" );
-			        break;         
+	  		  switch(value){
+				case "Assure":
+			      		copyPatient();  
+			      		var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
+					$.each(classList, function(index, item) {
+    						if (item === 'hidden') {   						
+    							$( "ul#menuPatient li:eq(0)" ).removeClass( item );
+    						}
+					});
+					$(".starthidden").hide(250);
+			   		break;
+				case "Ayant_droit":
+				        $("#nomf").val("");
+				        $("#prenomf").val("");
+				        $("#foncform").removeClass('hide');
+				        $('#Type_p').attr('required', true); 
+				        $(".starthidden").hide(250);
+				        addRequiredAttr();
+				        var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
+								$.each(classList, function(index, item) {
+				    					if (item === 'hidden') {   						
+				    						$( "ul#menuPatient li:eq(0)" ).removeClass( item );
+				    					}
+								});
+				        break;
+			      case "Autre":
+			      		 $(".starthidden").show(250);
+				        $("#foncform").addClass('hide');
+				        $('#Type_p').attr('required', false); 
+				      //  $("#datenaissancef").removeAttr("required");
+
+				       	if(! ($( "ul#menuPatient li:eq(0)" ).hasClass( "hidden" )))
+	          				$( "ul#menuPatient li:eq(0)" ).addClass( "hidden" );
+				        break;         
 			 }			
 		}
-		function checkFormAddPAtient()
-  	{         
+	function checkFormAddPAtient()
+  	{      
   		if(!($('#autre').is(':checked'))){ 
-      	if( ! checkAssure() )
-      	{
-        	activaTab("Assure");
-        	return false;
-      	}else{
-      		if($('#hommeConf').is(':checked')){
-            if( ! checkHomme() )
-            {
-              activaTab("Homme_C");
-              return false;
-            }else
-            return true;  
-          }else{
-            return true;   
-          }
-          return true;
-      	}
-      }else
-      {
-               if($('#hommeConf').is(':checked')){
-                    if( ! checkHomme() )
-                    {
-                           activaTab("Homme_C");
-                         return false;
-                     }else
-                          return true;  
-                }else
-                     return true; 
-          }
-     }
+       			if( ! checkAssure() )
+      			{
+        			activaTab("Assure");
+        			return false;
+      			}else{
+      				if($('#hommeConf').is(':checked')){
+            				if( ! checkHomme() )
+            				{
+          					activaTab("Homme_C");
+              					return false;
+            				}else
+            					return true;  
+          			}else{
+            				return true;   
+          			}
+       		   		return true;
+      			}
+      		}else {
+	               if($('#hommeConf').is(':checked')){
+	                    if( ! checkHomme() )
+	                    {
+	                           activaTab("Homme_C");
+	                         return false;
+	                     }else
+	                          return true;  
+	                }else
+	                     return true; 
+          	}
+       }
 	</script>
 @endsection
 @section('main-content')
@@ -128,7 +129,8 @@
   <div><h4>Ajouter un nouveau Patient</h4></div
   <div class="row">
 	{{-- action="{{ route('patient.store') }}" --}}
-	<form class="form-horizontal" id = "addPAtient" action="{{ route('patient.store') }}" method="POST" role="form" autocomplete="off" onsubmit="return checkFormAddPAtient(this);">
+	{{-- --}}
+	<form class="form-horizontal" id = "addPAtient" action="{{ route('patient.store') }}" method="POST" role="form"  onsubmit="return checkFormAddPAtient(this);"  >
 	  {{ csrf_field() }}
 	<div class="row">
 		<div class="col-sm-12">

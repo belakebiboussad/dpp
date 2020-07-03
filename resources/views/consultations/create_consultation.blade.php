@@ -426,8 +426,7 @@
 			       type: "DELETE",
 			        url: '/atcd/' + atcd_id,
 			       success: function (data) {
-			              console.log(data);
-			 	       $("#atcd" + atcd_id).remove();
+			               $("#atcd" + atcd_id).remove();
 			          },
 			        error: function (data) {
 			              	console.log('Error:', data);
@@ -534,16 +533,6 @@
 			}, 
 		       select: function(start, end) {
 				if(start > CurrentDate){
-/*var myDialog = $('#dialog');myDialog.data('btnValue', start.format('dddd DD-MM-YYYY'));$(myDialog).dialog({
- dialogClass: "no-close",closeText: "Fermer",  // title: 'Confimer Rendez-Vous',closeOnEscape: false,
-dialogClass: "alert",draggable: true,modal:true,resizable: true,overlay: "background-color: red; opacity: 0.5",
-classes: {"ui-dialog": "classes.ui-dialog"},open: function() {$('#dateRendezVous').text($(this).data('btnValue')); },
-buttons: [{text: "Oui",icon: "ui-icon-heart",click: function() {var fixe = $('#dialog :checkbox').is(':checked') ? 1 :0; 
-createRDVModal(start,end,$('#patientId').val(),fixe);$('#dialog :checkbox').prop('checked', false);$( this ).dialog( "close" );}
-},{text: "Non",icon: "ui-icon-heart",click: function() {$('#dialog :checkbox').prop('checked', false);$( this ).dialog( "close" );
-}}],_allowInteraction: function( event ) {if (!jQuery.ui.dialog.prototype._allowInteractionModifed) {
-jQuery.ui.dialog.prototype._allowInteraction = function(e) {if (typeof e !== "undefined"){if (jQuery(e.target).closest('.select2-drop').length) {return true;}jQuery.ui.dialog.prototype._allowInteractionModifed = true;
-return (typeof this._super === "function") ? this._super(e) : this;}}}}});*/
                             Swal.fire({
                                  title: 'Confimer vous  le Rendez-Vous ?',
                                  html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',
@@ -580,94 +569,6 @@ return (typeof this._super === "function") ? this._super(e) : this;}}}}});*/
 		     	eventResize: function (event, delta, revertFunc) {},
 		    	eventDragStop: function (event, jsEvent, ui, view) {} 
 		}); // calendar
-		
-		//////////////////////////////////V2
-	/*
-	var calendarEl = $('.calendar1');
-	 var calendar = new FullCalendar.Calendar(calendarEl, {
-		   	plugins: [ 'dayGrid', 'timeGrid' ],
-		    	header: {
-				            left: 'prev,next today',
-				            center: 'title,dayGridMonth,timeGridWeek',
-				            right: 'month,agendaWeek,agendaDay'
-		      },
-		      defaultView: 'agendaWeek',
-		      firstDay: 0,
-	  		slotDuration: '00:15:00',
-	  		minTime:'08:00:00',
-	    		maxTime: '17:00:00',
-	      	      navLinks: true,
-	      	    
-	      	     	eventColor  : '#87CEFA',
-	           	editable: true,
-	     	  	hiddenDays: [ 5, 6 ],
-	     	   	 weekNumberCalculation: 'ISO',
-	     		aspectRatio: 1.5,
-	     		eventLimit: true,
-      					weekNumbers: true,
-      		      views: {},
-		      events: [
-	
-		      ]
-		  });
-		  calendar.render();
-		 */ 	
-		//////////////////////////////fin V2
-		//////////////////////////////v4
-		/*
-		$('#calendar1').fullCalendar({
-			  header: {
-			    left: 'prev,next today',
-			    center: 'addEventButton',
-			    right: 'month,agendaWeek,agendaDay,listWeek'
-			  },
-			  defaultDate: '2020-04-16',
-			  navLinks: true,
-			  editable: true,
-			  eventLimit: true,
-			  events: [{
-			      title: 'Simple static event',
-			      start: '2020-04-16',
-			      description: 'Super cool event'
-			    },
-	 		 ],
-			  customButtons: {
-			    addEventButton: {
-			      text: 'Add new event',
-			      click: function () {
-			        var dateStr = prompt('Enter date in YYYY-MM-DD format');
-			        var date = moment(dateStr);
-
-			        if (date.isValid()) {
-			          $('#calendar1').fullCalendar('renderEvent', {
-			            title: 'Dynamic event',
-			            start: date,
-			            allDay: true,
-			            color:'red'
-			          });
-			        } else {
-			          alert('Invalid Date');
-			        }
-
-			      }
-			    }
-			  },
-			  dayClick: function (date, jsEvent, view) {
-			    var date = moment(date);
-
-			    if (date.isValid()) {
-			      $('#calendar').fullCalendar('renderEvent', {
-			        title: 'Dynamic event from date click',
-			        start: date,
-			        allDay: true
-			      });
-			    } else {
-			      alert('Invalid');
-			    }
-			  },
-			});
-		*/
-		//////////////////////////////////////fin 4
 		$('#updateRDV').click(function(){
 			var url = '{{ route("rdv.update", ":slug") }}'
 			 url = url.replace(':slug',$('#idRDV').val());

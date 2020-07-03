@@ -4,8 +4,8 @@
 <script>
 	function showType(value,i){
 		switch(value){
-      case "Assure":
-       	if(i !=0)
+     			 case "Assure":
+       				if(i !=0)
  				{
  					$("input[name=etatf][value=Retraite]").prop('checked', true);$('#service option:eq(0)').prop('selected', true);
  					$('#grade option:eq(0)').prop('selected', true);$("#matf").val("");$("#nss").val("");$("#NMGSN").val("");
@@ -13,37 +13,38 @@
 				}
 				var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
 				$.each(classList, function(index, item) {
-    			if (item === 'hidden') {   						
-    				$( "ul#menuPatient li:eq(0)" ).removeClass( item );
-    			}
-				});
-				$("#nomf").val($("#nom").val());	 $("#prenomf").val($("#prenom").val());$("#datenaissancef").val($("#datenaissance").val());
-        $("#lieunaissancef").val($("#lieunaissance").val()); $("#idlieunaissancef").val($("#idlieunaissance").val());
- 	      $("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);
-        $('[name=gsf]').val( $('[name = gs]').val() + $('[name= rh]').val() );
-        $('#adressef').val($('#adresse').val());
-        $('#communef').val($('#commune').val());$('#idcommunef').val($('#idcommune').val());
-        $('#idwilayaf').val( $('#idwilaya').val());
-        $('#wilayaf').val($('#wilaya').val());
-        $("#foncform").addClass('hide');$('#Type_p').attr('required', false);$('#nsspatient').attr('required', false);$('#nsspatient').attr('disabled', true);addRequiredAttr();
-      	$(".starthidden").hide(250);
-        break;
-      case "Ayant_droit":
-        	if(i !=0)
-     	    {
-      	      $("#nomf").val("");$("#prenomf").val(""); $("#datenaissancef").val("");     $("#lieunaissancef").val("");  $("select#grade").prop('selectedIndex', 0);
-             	$("#matf").val(""); $("#NMGSN").val("");	$('#nsspatient').val("");$('#adressef').val("");$('#gsf option:eq(0)').prop('selected', true);
-             	$('#grade option:eq(0)').prop('selected', true);$('#service option:eq(0)').prop('selected', true);	$("#nss").val("");
-          }
-            var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
-					$.each(classList, function(index, item) {
     					if (item === 'hidden') {   						
     						$( "ul#menuPatient li:eq(0)" ).removeClass( item );
     					}
-					});	
-			  	$("#foncform").removeClass('hide');  $('#Type_p').attr('required', true);  $('#nsspatient').attr('disabled', false); 
-			  	$(".starthidden").hide(250);
-			  	addRequiredAttr();
+				});
+				$("#nomf").val($("#nom").val());$("#prenomf").val($("#prenom").val());$("#datenaissancef").val($("#datenaissance").val());
+      				$("#lieunaissancef").val($("#lieunaissance").val()); $("#idlieunaissancef").val($("#idlieunaissance").val());
+ 	 			 $("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);
+			        $('[name=gsf]').val( $('[name = gs]').val() + $('[name= rh]').val() );  $('#adressef').val($('#adresse').val());
+			        $('#communef').val($('#commune').val());$('#idcommunef').val($('#idcommune').val());
+			        $('#idwilayaf').val( $('#idwilaya').val()); $('#wilayaf').val($('#wilaya').val());
+			        $("#foncform").addClass('hide');$('#Type_p').attr('required', false);
+			        $('#nsspatient').attr('required', false);
+			        $('#nsspatient').attr('disabled', true);
+			        addRequiredAttr();
+			      	$(".starthidden").hide(250);
+			        break;
+		       case "Ayant_droit":
+			       if(i !=0)
+			     	 {
+			      	      $("#nomf").val("");$("#prenomf").val(""); $("#datenaissancef").val("");     $("#lieunaissancef").val("");  $("select#grade").prop('selectedIndex', 0);
+			             	$("#matf").val(""); $("#NMGSN").val("");	$('#nsspatient').val("");$('#adressef').val("");$('#gsf option:eq(0)').prop('selected', true);
+			             	$('#grade option:eq(0)').prop('selected', true);$('#service option:eq(0)').prop('selected', true);	$("#nss").val("");
+			          }
+			            var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
+								$.each(classList, function(index, item) {
+			    					if (item === 'hidden') {   						
+			    						$( "ul#menuPatient li:eq(0)" ).removeClass( item );
+			    					}
+								});	
+						  	$("#foncform").removeClass('hide');  $('#Type_p').attr('required', true);  $('#nsspatient').attr('disabled', false); 
+						  	$(".starthidden").hide(250);
+						  	addRequiredAttr();
 		    break;
   		case "Autre":
   			$(".starthidden").show(250);$("#foncform").addClass('hide'); $('#Type_p').attr('required', false);

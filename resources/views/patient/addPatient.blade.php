@@ -105,19 +105,20 @@
 	</div>
 </div>	{{-- row --}}
 <div class="space-12"></div>		
-<div class="row">
+<div  class="row demograph">
 	<div class="col-sm-4" style="padding-left:7%">
 		<label class="col-sm-3  text-nowrap" for="adresse" ><strong>Adresse :</strong></label>
 		  <input type="text" value="" id="adresse" name="adresse" placeholder="Adresse..." class="col-sm-9"/>
 	</div>
 	<div class="col-sm-4" style="margin-top: -0.1%;">
-		<label class="col-sm-3 text-nowrap" for="commune"><strong>Commune :</strong></label>
+		<label class="col-sm-3 text-nowrap" for="commune"><strong>Commune:</strong></label>
 		<input type="hidden" name="idcommune" id="idcommune">
 	 	 <input type="text" value="" id="commune" placeholder="commune résidance" class="com_typeahead col-sm-9"/>
 	</div>
 	<div class="col-sm-4">
 		  <label class="col-sm-3" for="wilaya"><strong>Wilaya :</strong></label>
-		  <input type="hidden" name="idwilaya" id="idwilaya"><input type="text" value=""  id="wilaya" placeholder="wilaya résidance" class="col-sm-9" readonly />
+		  <input type="hidden" name="idwilaya" id="idwilaya">
+		  <input type="text" value=""  id="wilaya" placeholder="wilaya résidance" class=" text-nowrap col-sm-9" readonly />
 	</div>
 </div>
 <div class="space-12"></div>
@@ -134,7 +135,7 @@
 			    	<option value="07">07</option>
 	 		</select>	
 		</div>
-		<input id="mobile1" name="mobile1"  maxlength =8 minlength =8 type="tel" autocomplete="off" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX" required />	
+		<input id="mobile1" name="mobile1"  maxlength =8 minlength =8 type="tel" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX"  required />	
 	</div>
 	<div class="col-sm-5"><!-- <div class="form-group"> -->
 		<label class="col-sm-5 control-label" for="mobile2">
@@ -167,10 +168,12 @@
 					<input id="ayant" name="type" value="Ayant_droit" type="radio" class="ace" onclick="showType('Ayant_droit')"/>
 					<span class="lbl"> Ayant droit</span>
 				</label>&nbsp;&nbsp;&nbsp;
+				@if(! isset(	$assure) )
 				<label class="line-height-1 blue">
 					<input id="autre" name="type" value="Autre" type="radio" class="ace" onclick="showType('Autre')"/>
 					<span class="lbl"> Autre</span>
 				</label>	
+				@endif
 			</div>
 		</div>
 	</div>
