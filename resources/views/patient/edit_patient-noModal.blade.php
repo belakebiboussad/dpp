@@ -39,8 +39,7 @@
 					             $('#Type_p').attr('required', false); 
               			  $("ul#menuPatient li:eq(1)").css('display', 'none');//$("ul#menuPatient li:not(.active) a").prop('disabled', true);
 				               $('#nomf').attr('required', false);
-				               $('#prenomf').attr('required', false);
-				               $('#nsspatient').attr('required', false);    
+				               $('#prenomf').attr('required', false);  // $('#nsspatient').attr('required', false);   
 				               $('#nsspatient').attr('disabled', true); 
 				                break;         
 				}			

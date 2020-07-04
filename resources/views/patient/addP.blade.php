@@ -7,7 +7,7 @@
 @section('page-script')
 	<script>
 		$( document ).ready(function() {
-			copyPatient();
+			copyAssure();
 			$( ".civilite" ).change(function() {
 				 var sex =  $('input[name=sexe]:checked').val();
 				 if(sex == "F")
@@ -37,7 +37,7 @@
 					$('#serviceFonc').removeClass('invisible'); 	
 			});
 		});
-		function copyPatient(){
+		function copyAssure(){
 			$("#nom").val('{{ $assure->Nom }}');$("#prenom").val('{{ $assure->Prenom }}');$("#datenaissance").val('{{ $assure->Date_Naissance}}');
 			$("#lieunaissance").val('{{ $assure->lieuNaissance->nom_commune }}');	$("#idlieunaissance").val({{ $assure->lieunaissance }});
 			$("input[name=sexe][value=" + '{{ $assure->Sexe }}' + "]").prop('checked', true); $("#adresse").val('{{ $assure->adresse }}');
@@ -50,12 +50,13 @@
 		function showType(value){ 
 			switch(value){
 				case "Assure":
-					$("#foncform").addClass('hide');$('#Type_p').attr('required', false);
+					$("#foncform").addClass('hide');
+					$('#Type_p').attr('required', false);
 				      $(".starthidden").hide(250);
-				     	copyPatient();
+				     	copyAssure();
 				    	break;
 		    		case "Ayant_droit":
-		    			$(':input','#addPAtient').not(':button, :submit, :reset, :hidden, :input[name=type],:input[name=sexe], :input[name=hommeConf]' ).val('').removeAttr('checked').removeAttr('selected');
+		     			$(':input','#addPAtient').not(':button, :submit, :reset, :hidden, :input[name=type],:input[name=sexe], :input[name=hommeConf]' ).val('').removeAttr('checked').removeAttr('selected');
 		    	  		$("#foncform").removeClass('hide');
 		        		$('#Type_p').attr('required', true);
 		        		$(".starthidden").hide(250);

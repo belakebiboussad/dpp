@@ -4,19 +4,26 @@
 <script>
 	function XHRgetAssure()
 	{
-		var matricule = $('#matricule').val();
-		var nss = $('#nss').val();
-		$.ajax({
-				type : 'get',
-				url : '{{URL::to('searchAssure')}}',
-				data:{'matricule':matricule,'nss':nss},
-					success:function(data,status, xhr){
-				$('#liste_assures').html(data);
-				$(".numberResult").html(xhr.getResponseHeader("count"));
-				$('#matricule').val('');$('#nss').val('');	
-				}
-			});
+	
 	}
+	$(document).ready(function(){
+		$(document).on('click','.findAssure',function(event){
+			event.preventDefault();
+			$('#btnCreate').removeClass('hidden');
+			var matricule = $('#matricule').val();
+		       var nss = $('#nss').val();
+			$.ajax({
+					type : 'get',
+					url : '{{URL::to('searchAssure')}}',
+					data:{'matricule':matricule,'nss':nss},
+					success:function(data,status, xhr){
+						$('#liste_assures').html(data);
+						$(".numberResult").html(xhr.getResponseHeader("count"));
+						$('#matricule').val('');$('#nss').val('');	
+					}
+			});
+		});
+	});
 </script>
 @endsection
 @section('main-content')
@@ -53,13 +60,17 @@
 						<strong>NSS:</strong></label>
 					</div>
 					<div class="col-sm-3">
-					<input type="text" class="form-control input-sm tt-input" id="nss" name="nss"  placeholder="Numéro du sécurité du patient..."
+					<input type="text" class="form-control input-sm tt-input" id="nss" name="nss"  placeholder="Numéro du sécurité..."
 					 data-toggle="tooltip" data-placement="left" title="Code IPP du patient">
 					</div>
 				</div><!-- row -->
 			</div><!-- body -->
 			<div class="panel-footer" style="height:40px;">
-					<button type="submit" class="btn btn-xs btn-primary" style ="margin-top:-0.5%;" onclick="XHRgetAssure();"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+				<button type="submit" class="btn btn-xs btn-primary findAssure" style ="margin-top:-0.5%;" ><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+				<div class="pull-right">
+					<a  class="btn btn-primary btn-xs hidden" href="{{ route('assur.create') }}" id=btnCreate role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>
+				</div>
+
 			</div>
 		</div><!-- panel -->
 	</div><!-- row -->

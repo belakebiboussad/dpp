@@ -1,5 +1,5 @@
 <div id ="assurePart">
-	<div class="row">
+	<div class="row  Asdemograph">
 		<div class="col-sm-6">
 			<div class="form-group">
 				<label class="col-sm-3 col-xs-3 control-label" for="nomf">	<strong>Nom :</strong></label>
@@ -25,8 +25,8 @@
 			</div>
 		</div>
   </div>
-  <div class="row">
-		<div class="col-sm-6">
+  <div class="row Asdemograph">
+		<div class="col-sm-6 " >
 			<div class="form-group">
 				<label class="col-sm-3 col-xs-3 control-label" for="datenaissancef"><strong class="text-nowrap">Né(e) le :</strong></label>
 				<div class="col-sm-9">
@@ -55,7 +55,7 @@
 				</div>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row Asdemograph">
 		<div class="col-sm-6">
 			<div class="form-group">
 				<label class="col-sm-3 col-xs-3 control-label no-padding-right" for="sexe"><Strong>Sexe: </Strong></label>
@@ -83,8 +83,6 @@
 			<div class="col-sm-2">
 				@if(isset($assure) && !empty($assure))
 					<select class="form-control" id="gsf" name="gsf">
-{{--<option value=""  {{ ($assure->grp_sang=="")? "selected" : "" }} >------</option>	<option value="A-"  {{ ($assure->grp_sang=="A-")? "selected" : "" }} >A-</option>
-<option value="A+"  {{ ($assure->grp_sang=="A+")? "selected" : "" }} >A+</option>	<option value="B-" {{ ($assure->grp_sang=="B-")? "selected" : "" }} >B-</option><option value="B+" {{ ($assure->grp_sang=="B+")? "selected" : "" }} >B+</option><option value="O-" {{ ($assure->grp_sang=="O-")? "selected" : "" }} >O-</option><option value="O+" {{ ($assure->grp_sang=="O+")? "selected" : "" }} >O+</option><option value="AB-" {{ ($assure->grp_sang=="AB-")? "selected" : "" }} >AB-</option>	<option value="AB+" {{ ($assure->grp_sang=="AB+")? "selected" : "" }} >AB+</option>--}}
 						<option value=""  {{ ($assure->grp_sang=="")? "selected" : "" }} >------</option>
 						<option value="A"  {{  (substr($assure->grp_sang,0,strlen($assure->grp_sang)-1) == "A" )? "selected" : ""  }}>A</option>
 						<option value="B"  {{  (substr($assure->grp_sang,0,strlen($assure->grp_sang)-1) == "B" )? "selected" : ""  }}>B</option>
@@ -93,27 +91,26 @@
 					</select>
 				@else 
 					<select class="form-control" id="gsf" name="gsf">
-					<option value="">------</option>
-					<option value="A">A</option>
-					<option value="B">B</option>
-					<option value="O">O</option>
-					<option value="AB">AB</option>
-{{--<option value="" >------</option><option value="A-" >A-</option><option value="A+">A+</option><option value="B-" >B-</option><option value="B+" >B+</option><option value="O-">O-</option><option value="O+">O+</option><option value="AB-">AB-</option><option value="AB+"  >AB+</option>--}}
+						<option value="">------</option>
+						<option value="A">A</option>
+						<option value="B">B</option>
+						<option value="O">O</option>
+						<option value="AB">AB</option>
 					</select>
 				@endif
 			</div>
-			<label class="col-sm-3 control-label no-padding-right" for="rh"><strong>Rhésus:</strong></label>
+			<label class="col-sm-3 control-label no-padding-right" for="rhf"><strong>Rhésus:</strong></label>
 			<div class="col-sm-2">
 			@if(isset($assure) && !empty($assure))
 				<select id="rhf" name="rhf">
 					<option value=""  {{ ($assure->grp_sang=="")? "selected" : "" }} >------</option>
-					<option value="+">+</option>
-					<option value="-">-</option>
+					<option value="+" {{  (substr($assure->grp_sang,strlen($assure->grp_sang)-1,strlen($assure->grp_sang)) == "+" )? "selected" : ""  }}>+</option>
+					<option value="-" {{  (substr($assure->grp_sang,strlen($assure->grp_sang)-1,strlen($assure->grp_sang)) == "-" )? "selected" : ""  }}>-</option>
 				</select>
 			@else
 				<select id="rhf" name="rhf">
 					<option value="">------</option>
-					<option value="+">+</option>
+					<option value="+"  >+</option>
 					<option value="-">-</option>
 				</select> 
 			@endif
@@ -124,7 +121,7 @@
   <div class="row">
 		<div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3>	</div>
 	</div>
-	<div class="row">
+	<div class="row Asdemograph">
 		<div class="col-sm-4">
 			<div class="form-group">
 			 	<label class="col-sm-3 col-xs-3 control-label no-padding-right" for="adressef"><Strong>Adresse: </Strong></label>

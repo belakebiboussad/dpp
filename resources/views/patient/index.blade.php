@@ -81,7 +81,6 @@
 						wildcard: '%QUERY%'
 				},
 		}); 
-
 		$('#patientName').typeahead({
 					hint: true,
 					highlight: true,

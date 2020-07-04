@@ -1,14 +1,12 @@
 <div id="gardeMalade" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
-   	<!-- Modal content-->
-	 	<div class="modal-content custom-height-modal">
-			<div class="modal-header">
+	 <div class="modal-content custom-height-modal">
+		<div class="modal-header">
 			  <button type="button" class="close" data-dismiss="modal">&times;</button>
-			  <h4 class="modal-title">Ajouter un Correspondant</h4>
-			  @include('patient._patientInfo')
-			</div>
-			<div class="modal-body">
-			<!-- {{  route('hommeConfiance.store') }} -->
+			  <h4 class="modal-title">Ajouter un Correspondant</h4> {{--  @include('patient._patientInfo') --}}
+		</div>
+		<div class="modal-body">
+			{{-- {{  route('hommeConfiance.store') }} --}}
 				<form id="addGardeMalade" method="POST" action ="/hommeConfiance/save">
 					 {!! csrf_field() !!}
 					 <input type="hidden" name="patientId" id ="patientId" value="{{ $patient->id }}">

@@ -313,6 +313,8 @@
   });
   function addRequiredAttr()
   {
+    $(".starthidden").hide(250);
+     $('#description').attr('disabled', true); 
     jQuery('input:radio[name="sexef"]').filter('[value="M"]').attr('checked', true);
     jQuery('input:radio[name="etat"]').filter('[value="En exercice"]').attr('checked', true);
         

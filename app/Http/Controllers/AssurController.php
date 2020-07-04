@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\modeles\assur;
 use Illuminate\Http\Request;
 use App\modeles\grade;
@@ -26,10 +24,11 @@ class AssurController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+      public function create()
+      {
+                $grades = grade::all();
+                return view('assurs.add',compact('grades')); 
+        }
 
     /**
      * Store a newly created resource in storage.
@@ -40,6 +39,7 @@ class AssurController extends Controller
     public function store(Request $request)
     {
         //
+      dd("store");
     }
 
     /**
@@ -60,12 +60,12 @@ class AssurController extends Controller
      * @param  \App\modeles\assur  $assur
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-      $assure = assur::FindOrFail($id);
-      $grades = grade::all(); 
-      return view('assurs.edit',compact('assure','grades'));
-    }
+      public function edit($id)
+      {
+            $assure = assur::FindOrFail($id);
+            $grades = grade::all(); 
+            return view('assurs.edit',compact('assure','grades'));
+      }
 
     /**
      * Update the specified resource in storage.
@@ -77,6 +77,7 @@ class AssurController extends Controller
     public function update(Request $request, $id)
     {
       $assure = assur::find($id);
+      //dd($request->all());
       $assure -> update([
                           "Nom"=>$request->nomf,
                           "Prenom"=>$request->prenomf,
@@ -86,18 +87,16 @@ class AssurController extends Controller
                           "adresse"=>$request->adressef,
                           "commune_res"=>$request->idcommunef,
                           "wilaya_res"=>$request->idwilayaf,
-                          "grp_sang"=>$request->gsf,
+                          "grp_sang"=>$request->gsf.$request->rhf,
                           "Matricule"=>$request->matf, 
                           "Service"=>$request->service,
                           "Etat"=>$request->etatf,
                           "Grade"=>$request->grade,
                           "NMGSN"=>$request->NMGSN,
                           "NSS"=>$request->nss,
-      ] );
-      //$assure->save(); 
+      ] );//$assure->save(); 
        return redirect(Route('assur.show',$assure->id));
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -140,7 +139,6 @@ class AssurController extends Controller
                 
             }else
             {
-
                 return"no";       
             }
         }

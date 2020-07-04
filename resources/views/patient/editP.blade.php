@@ -11,7 +11,6 @@
 				}
 				$("#foncform").addClass('hide');
         $('#Type_p').attr('required', false);
-        $('#nsspatient').attr('required', false);
         $('#nsspatient').attr('disabled', true);
         addRequiredAttr();
         break;
@@ -29,9 +28,7 @@
   			$(".starthidden").show(250);
   			$("#foncform").addClass('hide');
   			$('#Type_p').attr('required', false);
-        		
-    		$('#nsspatient').attr('required', false);
-    		$('#nsspatient').attr('disabled', true);   
+    			$('#nsspatient').attr('disabled', true);   
       	break;         
 }			
 	}

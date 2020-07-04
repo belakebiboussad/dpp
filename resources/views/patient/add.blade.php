@@ -1,9 +1,5 @@
 @extends('app')
 @section('title','Ajouter un patient')
-@section('style')
-<style>
-</style>
-@endsection
 @section('page-script')
 	<script>
 		$( document ).ready(function() {
@@ -30,24 +26,7 @@
 		  			$('#Div-nomjeuneFille').removeAttr('hidden');
 			 	}
 			});
-			$('input[type=radio][name=etatf]').change(function(){
-				if($(this).val() != "En_exercice")
-					$('#serviceFonc').addClass('invisible'); 
-				else
-					$('#serviceFonc').removeClass('invisible'); 	
-			});
 		});
-		function copyPatient(){
-			$("#nomf").val($("#nom").val());$("#prenomf").val($("#prenom").val());
-			$("#datenaissancef").val($("#datenaissance").val());$("#lieunaissancef").val($("#lieunaissance").val());
-			$("#idlieunaissancef").val($("#idlieunaissance").val());
-			$("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true); 
-		 	$("#adressef").val($('#adresse').val());$("#communef").val($('#commune').val());$("#idcommunef").val($('#idcommune').val());
-		 	$("#wilayaf").val($('#wilaya').val());$("#idwilayaf").val($('#idwilaya').val());
-		 	$( "#gsf" ).val($( "#gs" ).val());$( "#rhf" ).val($( "#rh" ).val());
-			$("#foncform").addClass('hide');$('#Type_p').attr('required', false);  
-			addRequiredAttr();
-		}
 		function copyPatientInfo()
 		{
 			if($('#fonc').is(':checked'))
@@ -59,9 +38,8 @@
 			      		copyPatient();  
 			      		var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
 					$.each(classList, function(index, item) {
-    						if (item === 'hidden') {   						
+    						if (item === 'hidden')   						
     							$( "ul#menuPatient li:eq(0)" ).removeClass( item );
-    						}
 					});
 					$(".starthidden").hide(250);
 			   		break;
@@ -83,15 +61,26 @@
 			      		 $(".starthidden").show(250);
 				        $("#foncform").addClass('hide');
 				        $('#Type_p').attr('required', false); 
-				      //  $("#datenaissancef").removeAttr("required");
-
-				       	if(! ($( "ul#menuPatient li:eq(0)" ).hasClass( "hidden" )))
+				      	if(! ($( "ul#menuPatient li:eq(0)" ).hasClass( "hidden" )))
 	          				$( "ul#menuPatient li:eq(0)" ).addClass( "hidden" );
 				        break;         
 			 }			
 		}
 	function checkFormAddPAtient()
-  	{      
+  	{     
+  		alert("r");
+  	       $('input:invalid').each(function () {
+		        // Find the tab-pane that this element is inside, and get the id
+		        var $closest = $(this).closest('.tab-pane');
+		        var id = $closest.attr('id');
+
+		        // Find the link that corresponds to the pane and have it show
+		        $('.nav a[href="#' + id + '"]').tab('show');
+
+		        // Only want to do it once
+       			 return false;
+  		 });
+  		/*
   		if(!($('#autre').is(':checked'))){ 
        			if( ! checkAssure() )
       			{
@@ -121,15 +110,14 @@
 	                }else
 	                     return true; 
           	}
+          	*/
        }
 	</script>
 @endsection
 @section('main-content')
 <div class="container-fluid">
-  <div><h4>Ajouter un nouveau Patient</h4></div
+  <div><h4>Ajouter un nouveau Patient</h4></div>
   <div class="row">
-	{{-- action="{{ route('patient.store') }}" --}}
-	{{-- --}}
 	<form class="form-horizontal" id = "addPAtient" action="{{ route('patient.store') }}" method="POST" role="form"  onsubmit="return checkFormAddPAtient(this);"  >
 	  {{ csrf_field() }}
 	<div class="row">
@@ -308,7 +296,7 @@
 			<div class="center">
 				<br>
 				<button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
-				<button class="btn" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Réinitialiser</button>
+				<button class="btn" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 			</div>
 		</div>	
 	</form>
