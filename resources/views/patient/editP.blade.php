@@ -30,7 +30,7 @@
   			$('#Type_p').attr('required', false);
     			$('#nsspatient').attr('disabled', true);   
       	break;         
-}			
+		}			
 	}
 	function autocopleteCNais(commune)
 	{

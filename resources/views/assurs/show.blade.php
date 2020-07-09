@@ -42,11 +42,11 @@
 			<div class="space space-4"></div>
 				<a href="{{ route('assur.edit', $assure->id) }}" class="btn btn-sm btn-block btn-success">
 					<i class="ace-icon fa fa-pencil bigger-120"></i>
-					<span class="bigger-110">Modifier  Informations</span>
+					<span class="bigger-110">Modifier</span>
 				</a>
 				<a  href="patientAssuree/{{$assure->id  }}" class="btn btn-sm btn-block btn-primary" >
 					<i class="ace-icon fa fa-plus bigger-120"></i>
-					<span class="bigger-110">Ajouter Patient</span>
+					<span class="bigger-110">Patient</span>
 				</a>
 		</div><!-- /.col -->	
 		<div class="col-xs-8 col-sm-8">							

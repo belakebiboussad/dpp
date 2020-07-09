@@ -46,20 +46,57 @@
 	}
 	//averifier
 	if ($("#addGardeMalade").length > 0) {
-    		$("#addGardeMalade").validate({
-      			rules: {
-  			        mobile_h: { required: true,  digits:true,  minlength: 10,  maxlength:10 }   
-   			},
-   			messages: {
-   				mobile_h: {
-				        required: "Please enter contact number",
-				        minlength: "The contact number should be 10 digits",
-				        digits: "Please enter only numbers",
-				        maxlength: "The contact number should be 12 digits",
-   				}
-   			}
-   		});
-    	}
+		$("#addGardeMalade").validate({
+  			rules: {
+		        mobile_h: { required: true,  digits:true,  minlength: 10,  maxlength:10 }   
+			},
+			messages: {
+				mobile_h: {
+		        required: "Please enter contact number",
+		        minlength: "The contact number should be 10 digits",
+		        digits: "Please enter only numbers",
+		        maxlength: "The contact number should be 12 digits",
+				}
+			}
+		});
+  }
+  function checkFormAddPAtient()
+      {  
+        alert("1");
+        if(!($('#autre').is(':checked'))){ 
+          $('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });
+          if( ! checkAssure() )
+          {
+            alert("ici");
+            activaTab("Assure");
+            return false;
+          }else{
+            alert("La");
+            if($('#hommeConf').is(':checked')){
+                  if( ! checkHomme() )
+                  {
+                    activaTab("Homme_C");
+                    return false;
+                  }else
+                    return true;  
+              }else{
+                  return true;   
+              }
+              return true;
+          }
+        }else{
+                alert("2");
+                if($('#hommeConf').is(':checked')){
+                    if( ! checkHomme() )
+                    {
+                           activaTab("Homme_C");
+                         return false;
+                     }else
+                          return true;  
+                }else
+                     return true; 
+        }  
+      }
 	$(document).ready(function () {
 		 $('input[type=radio][name=sexe]').change(function(){
 		 	if($(this).val() == "M")
@@ -187,6 +224,7 @@
 		        });
 	      });
 	});
+
 </script>
 @endsection
 @section('main-content')
@@ -198,7 +236,7 @@
 		</a>
 	</div>
 </div>
-<form class="form-horizontal" action="{{ route('patient.update',$patient ->id) }}" method="POST">
+<form class="form-horizontal" action="{{ route('patient.update',$patient ->id) }}" method="POST" role="form" onsubmit="return checkFormAddPAtient(this);">
 	{{ csrf_field() }}
   {{ method_field('PUT') }}
 	<div class="row">
@@ -269,7 +307,7 @@
 			</div>
 			<div class="col-sm-6">
 				<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
-					<label class="col-sm-3 control-label" for="lieunaissance"><strong class="text-nowrap">Lieu de naissance :</strong></label>
+					<label class="col-sm-3 control-label" for="lieunaissance"><strong class="text-nowrap">Né(e) à :</strong></label>
 				      <div class="col-sm-9">
 					       <input type="hidden" name="idlieunaissance" id="idlieunaissance" value={{ $patient->Lieu_Naissance }}>
 					      <input type="text" id="lieunaissance" class="com_typeahead col-xs-12 col-sm-12" value="{{ $patient->lieuNaissance->nom_commune }}" required/>
@@ -281,7 +319,7 @@
       	  	<div class="row">
 	      		<div class="col-sm-6">
 				<div class="form-group {{ $errors->has('sexe') ? "has-error" : "" }}">
-					<label class="col-sm-3 control-label" for="sexe"><strong>Sexe :</strong></label>
+					<label class="col-sm-3 control-label" for="sexe"><strong>Genre :</strong></label>
 					<div class="col-sm-9">
 						<div class="radio">
 							<label>
@@ -367,24 +405,24 @@
 			  	</div>	{{-- row --}}
 			  	<div class="space-12"></div>	
 			  	<div class="row">
-						<div class="col-sm-4" style="padding-left:7%">
-							<label class="text-nowrap col-sm-3" for="adresse" ><strong>Adresse :&nbsp;</strong></label>
-							<input type="text" value="{{ $patient->Adresse }}" id="adresse" name="adresse" placeholder="Adresse..." class="col-sm-9"/>
+			  		<div class="col-sm-4"> <!-- style="padding-left:7%" -->
+							<label class="text-nowrap col-sm-4 col-xs-4" for="adresse" ><strong>Adresse:</strong></label>
+							<input type="text" value="{{ $patient->Adresse }}" id="adresse" name="adresse" placeholder="Adresse..." class="col-sm-8 col-xs-8"/>
 						</div>
-						<div class="col-sm-4" style="margin-top: -0.1%;">
-							<label class="text-nowrap col-sm-3" for="commune"><strong>Commune :</strong></label>
+						<div class="col-sm-4"> <!-- style="margin-top: -0.1%;" -->
+							<label class="text-nowrap col-sm-4 col-xs-4" for="commune"><strong>Commune:</strong></label>
 							<input type="hidden" name="idcommune" id="idcommune" value="{{ $patient->commune_res }}"/>
-							<input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}" class="com_typeahead col-sm-9 col-xs-9"/>					
+							<input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}" class="com_typeahead col-sm-8 col-xs-8"/>					
 						</div>
 						<div class="col-sm-4">
-							<label class="col-sm-3"><strong>Wilaya :</strong></label>
+							<label class="col-sm-4 col-xs-4"><strong>Wilaya :</strong></label>
 						  <input type="hidden" name="idwilaya" id="idwilaya" value="{{ $patient->wilaya->immatriculation_wilaya }}"/>
-						  <input type="text" id="wilaya" value="{{ $patient->wilaya->nom_wilaya }}" class="com_typeahead col-sm-9 col-xs-9"/>	
+						  <input type="text" id="wilaya" value="{{ $patient->wilaya->nom_wilaya }}" class="com_typeahead col-sm-8 col-xs-8"/>	
 						</div>	
 				</div>{{-- row --}}
 				<div class="space-12"></div>
 				<div class="row">
-					<div class="col-sm-4">
+					<div class="col-sm-4 col-xs-4">
 						<div class="form-group" style="padding-left:13%;">
 							<label class="control-label text-nowrap col-sm-3" for="mobile1"><i class="fa fa-phone"></i><strong>Mob1:</strong></label>
 							<div class="col-sm-3" >
@@ -398,7 +436,7 @@
 							<input id="mobile1" name="mobile1"  maxlength =8 minlength =8 type="tel" autocomplete="off" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX" value= "{{  substr($patient->tele_mobile1,2,10) }}" required />	
 						 </div>		
 					</div>	 
-					<div class="col-sm-4">
+					<div class="col-sm-4 col-xs-4">
 						<div class="form-group">
 							<label class="col-sm-4 control-label" for="mobile2"><i class="fa fa-phone"></i><strong class="text-nowrap">Mob2 :</strong>
 							</label>
@@ -421,10 +459,10 @@
 							<input id="mobile2" name="mobile2"  maxlength =8 minlength =8  type="tel" autocomplete="off" class="col-sm-4" value="{{  substr($patient->tele_mobile2,2,10) }}" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"   placeholder="XX XX XX XX">
 						</div>
 					</div>		
-					<div class="col-sm-4">
+					<div class="col-sm-4 col-xs-4">
 						<div class="form-group">
 						<div class="col-sm-2">
-							<label class="control-label no-padding-right pull-right no-wrap" style=" padding-top: 0px;"><strong>Type :</strong></label>
+							<label class="control-label no-padding-right pull-right text-nowrap" style=" padding-top: 0px;"><strong>Type:</strong></label>
 						</div>
 						<div class="col-sm-10">
 							<label class="line-height-1 blue">

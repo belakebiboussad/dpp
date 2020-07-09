@@ -26,6 +26,19 @@
 		  			$('#Div-nomjeuneFille').removeAttr('hidden');
 			 	}
 			});
+			$('#addPatientForm').on('submit', function(e){
+        e.preventDefault();
+        ////
+        if(checkPatient())
+    		{
+    			this.submit();
+    		}else
+    		{
+ 					activaTab("Patient");//return false;
+	     		alert("Remplir les informations du Patient");
+    		}
+    	});
+    	//fin
 		});
 		function copyPatientInfo()
 		{
@@ -33,22 +46,25 @@
 				copyPatient();
 		}
 		function showType(value){ 
-	  		  switch(value){
+	  	switch(value){
 				case "Assure":
-			      		copyPatient();  
-			      		var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
-					$.each(classList, function(index, item) {
-    						if (item === 'hidden')   						
-    							$( "ul#menuPatient li:eq(0)" ).removeClass( item );
-					});
-					$(".starthidden").hide(250);
-			   		break;
+			   				copyPatient();  
+			  			 	var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
+								$.each(classList, function(index, item) {
+		  						if (item === 'hidden')   						
+		  							$( "ul#menuPatient li:eq(0)" ).removeClass( item );
+								});
+								$(".starthidden").hide(250);
+					   		break;
 				case "Ayant_droit":
-				        $("#nomf").val("");
-				        $("#prenomf").val("");
+								$("#nomf").val("");$("#prenomf").val("");$("#datenaissancef").val('');
+				        $("#lieunaissancef").val('');$( "#gsf" ).val('');$( "#rhf" ).val('');
+				        $('#adressef').val(''); $('#communef').val('');$('#wilayaf').val('');
 				        $("#foncform").removeClass('hide');
 				        $('#Type_p').attr('required', true); 
-				        $(".starthidden").hide(250);
+			        	if ($("#nsspatient").is(":disabled")){$("#nsspatient").attr("disabled", false);
+			        	}
+				        $('.Asdemograph').find('*').each(function () {$(this).attr("disabled", false);});
 				        addRequiredAttr();
 				        var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
 								$.each(classList, function(index, item) {
@@ -57,68 +73,70 @@
 				    					}
 								});
 				        break;
-			      case "Autre":
-			      		 $(".starthidden").show(250);
+			  case "Autre":
+			      		$(".starthidden").show(250);
+			      		if ($("#description").is(":disabled")){
+ 								   $('#description').attr('disabled', false); 
+								}
+								$('.Asdemograph').find('*').each(function () {$(this).attr("disabled", true);});
 				        $("#foncform").addClass('hide');
 				        $('#Type_p').attr('required', false); 
 				      	if(! ($( "ul#menuPatient li:eq(0)" ).hasClass( "hidden" )))
 	          				$( "ul#menuPatient li:eq(0)" ).addClass( "hidden" );
 				        break;         
-			 }			
+			}			
 		}
-	function checkFormAddPAtient()
-  	{     
-  		alert("r");
-  	       $('input:invalid').each(function () {
-		        // Find the tab-pane that this element is inside, and get the id
-		        var $closest = $(this).closest('.tab-pane');
-		        var id = $closest.attr('id');
-
-		        // Find the link that corresponds to the pane and have it show
-		        $('.nav a[href="#' + id + '"]').tab('show');
-
-		        // Only want to do it once
-       			 return false;
-  		 });
-  		/*
-  		if(!($('#autre').is(':checked'))){ 
-       			if( ! checkAssure() )
-      			{
-        			activaTab("Assure");
-        			return false;
-      			}else{
-      				if($('#hommeConf').is(':checked')){
-            				if( ! checkHomme() )
-            				{
-          					activaTab("Homme_C");
-              					return false;
-            				}else
-            					return true;  
-          			}else{
-            				return true;   
-          			}
-       		   		return true;
-      			}
-      		}else {
-	               if($('#hommeConf').is(':checked')){
-	                    if( ! checkHomme() )
-	                    {
-	                           activaTab("Homme_C");
-	                         return false;
-	                     }else
-	                          return true;  
-	                }else
-	                     return true; 
-          	}
-          	*/
-       }
+		/*
+		function checkFormAddPatient()
+    {  
+    	if(checkPatient())
+    	{
+    		if(!($('#autre').is(':checked'))){ 
+	        $('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });
+	        if( ! checkAssure() )
+	        {
+	          activaTab("Assure");//return false;
+	          alert("Remplir les informations du Fonctionnaire");
+	          
+	        }else{
+	          if($('#hommeConf').is(':checked')){
+              if( ! checkHomme() )
+              {
+                activaTab("Homme_C");//return false;
+                alert("Remplir les informations du Garde Malade");
+              }else
+              {
+                document.addPatientForm.submit();//return true;  
+              }
+        		}else{
+	                document.addPatientForm.submit();//return true;   
+	         	}
+	          //document.addPatientForm.submit();//return true;
+	        }
+	      }else{
+	            if($('#hommeConf').is(':checked')){
+	              if( ! checkHomme() )
+	              {
+	                activaTab("Homme_C");
+	                //return false;
+	              }else
+	                document.addPatientForm.submit();//return true;  
+	            }else
+	              document.addPatientForm.submit();//return true; 
+	      }
+	    }else{
+	    	activaTab("Patient");//return false;
+	      //alert("Remplir les informations du Patient");
+	    }  
+    }
+    */
 	</script>
 @endsection
 @section('main-content')
 <div class="container-fluid">
   <div><h4>Ajouter un nouveau Patient</h4></div>
   <div class="row">
-	<form class="form-horizontal" id = "addPAtient" action="{{ route('patient.store') }}" method="POST" role="form"  onsubmit="return checkFormAddPAtient(this);"  >
+	<form class="form-horizontal" id = "addPatientForm" action="{{ route('patient.store') }}" method="POST" role="form">
 	  {{ csrf_field() }}
 	<div class="row">
 		<div class="col-sm-12">
@@ -195,7 +213,7 @@
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
-							<label class="col-sm-3 control-label " for="lien"><strong>Lien de parenté :</strong></label>
+							<label class="col-sm-3 control-label text-nowrap" for="lien"><strong>Lien de parenté :</strong></label>
 							<div class="col-sm-9">
 								<select id="lien" name="lien" class="col-xs-12 col-sm-12">
 									<option value="">Sélectionner...</option>
@@ -216,7 +234,7 @@
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="form-group">
-							<label class="col-sm-3 control-label " for="type_piece_id"><strong>Type  pièce d'identité:</strong>			</label>
+							<label class="col-sm-3 control-label" for="type_piece_id"><strong>Type pièce d'identité:</strong>			</label>
 							<div class="col-sm-9">
 								<select name="type_piece_id" id="type_piece_id" class="col-xs-12 col-sm-12">
 									<option value="">Sélectionner...</option>
@@ -229,7 +247,7 @@
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
-							<label class="control-label col-xs-12 col-sm-3" for="npiece_id"><strong>N° de la pièce :</strong></label>
+							<label class="control-label col-xs-12 col-sm-3 text-nowrap" for="npiece_id"><strong>N° Pièce :</strong></label>
 							<div class="col-sm-9">
 								<div class="clearfix">
 									<input type="text" id="npiece_id" name="npiece_id" class="col-xs-12 col-sm-12" placeholder="N° de la pièce d'identité..."/>

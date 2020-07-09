@@ -207,6 +207,28 @@
             $('div#' + sectionActive).removeClass('active');
          }
       }
+      function checkPatient()
+      {
+        var erreur =true;
+        var nom = $('#nom').val(); var prenom = $('#prenom').val();
+        var idlieunaissance = $('#idlieunaissance').val();
+        var datenaissance = $('#datenaissance').val();  
+        var mobile1 = $('#mobile1').val();
+        var inputAssVal = new Array(nom,prenom,lieunaissance,datenaissance,mobile1);
+        var inputMessage = new Array("nom","prenom","lieu de naissance","lieu de naissance","téléphone");
+        $('.error').each(function(i, obj) {
+              $(obj).next().remove();
+              $(obj).detach();
+       });
+        jQuery.each( inputAssVal, function( i, val ) {
+              if(val =="" )
+              {
+                erreur =false;
+                $('#error').after('<span class="error"> STP, saisir le ' + inputMessage[i]+' du Patient </span>'+'<br/>');
+              }
+       });
+       return erreur;
+      }
       function checkAssure()
       {
         var erreur =true;
@@ -248,29 +270,31 @@
          return erreur;
       }
       function activaTab(tab){
-           $('.nav-pills a[href="#' + tab + '"]').tab('show');
+        alert('dffd');
+        $('.nav-pills a[href="#' + tab + '"]').tab('show');
       }
       function copyPatient(){ 
-              $("#nomf").val($("#nom").val()); $("#prenomf").val($("#prenom").val());
-             $("#datenaissancef").val($("#datenaissance").val());$("#lieunaissancef").val($("#lieunaissance").val()); 
-              $("#idlieunaissancef").val($("#idlieunaissance").val());$("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);
-              $( "#gsf" ).val($( "#gs" ).val());$( "#rhf" ).val($( "#rh" ).val());$('#adressef').val($('#adresse').val());
-              $('#communef').val($('#commune').val());$('#idcommunef').val($('#idcommune').val());$('#idwilayaf').val( $('#idwilaya').val()); $('#wilayaf').val($('#wilaya').val());
-              $("#foncform").addClass('hide');$('#Type_p').attr('required', false);$('#nsspatient').attr('disabled', true);
-                 $('.Asdemograph').find('*').each(function () { $(this).attr("disabled", true); });
-               addRequiredAttr();
+        $("#nomf").val($("#nom").val()); $("#prenomf").val($("#prenom").val());
+        $("#datenaissancef").val($("#datenaissance").val());$("#lieunaissancef").val($("#lieunaissance").val()); 
+        $("#idlieunaissancef").val($("#idlieunaissance").val());$("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);
+        $( "#gsf" ).val($( "#gs" ).val());$( "#rhf" ).val($( "#rh" ).val());$('#adressef').val($('#adresse').val());
+        $('#communef').val($('#commune').val());$('#idcommunef').val($('#idcommune').val());$('#idwilayaf').val( $('#idwilaya').val()); $('#wilayaf').val($('#wilaya').val());
+        $("#foncform").addClass('hide');$('#Type_p').attr('required', false);$('#nsspatient').attr('disabled', true);
+        $('.Asdemograph').find('*').each(function () { $(this).attr("disabled", true); });
+         addRequiredAttr();
        }
+      
       $(document).ready(function () {
-                $('input[type=radio][name=etatf]').change(function(){
-               if($(this).val() != "En exercice" && ($(this).val() != "En_exercice"))
-               {
-                          $('#serviceFonc').addClass('invisible');$('#service option:eq(0)').prop('selected', true); 
-                }
-                else
-                      $('#serviceFonc').removeClass('invisible');   
-              });
-              if($("input[type=radio][name='etatf']:checked").val() != "En_exercice" )
-                       $('#serviceFonc').addClass('invisible');
+        $('input[type=radio][name=etatf]').change(function(){
+          if($(this).val() != "Activite" && ($(this).val() != "Activite"))
+          {
+            $('#serviceFonc').addClass('invisible');$('#service option:eq(0)').prop('selected', true); 
+          }
+          else
+            $('#serviceFonc').removeClass('invisible');   
+        });
+        if($("input[type=radio][name='etatf']:checked").val() != "Activite" )
+          $('#serviceFonc').addClass('invisible');
         var bloodhoundcom = new Bloodhound({
             datumTokenizer: Bloodhound.tokenizers.whitespace,
             queryTokenizer: Bloodhound.tokenizers.whitespace,

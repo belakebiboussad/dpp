@@ -124,8 +124,8 @@
 	<div class="row Asdemograph">
 		<div class="col-sm-4">
 			<div class="form-group">
-			 	<label class="col-sm-3 col-xs-3 control-label no-padding-right" for="adressef"><Strong>Adresse: </Strong></label>
-	  			<div class="col-sm-9">
+			 	<label class="col-sm-4 col-xs-4 control-label no-padding-right" for="adressef"><Strong>Adresse: </Strong></label>
+	  			<div class="col-sm-8">
 	  			@if(isset($assure) && !empty($assure))
 	  				<input type="text" id="adressef" name="adressef"  class="col-xs-12 col-sm-12" value= "{{ $assure->adresse }}" />
 	  			  @else 
@@ -135,23 +135,23 @@
 	  	</div>
 	  </div>
 	  <div class="col-sm-4">
-	  	<label class="col-sm-3 col-xs-3 control-label text-nowrap" for="communef"><strong>Commune :</strong></label>
+	  	<label class="col-sm-4 col-xs-4 control-label text-nowrap" for="communef"><strong>Commune:</strong></label>
 	  	@if(isset($assure->commune) && !empty($assure->commune))
 	  	<input type="hidden" name="idcommunef" id="idcommunef" value="{{  $assure->commune_res  }}">
 			<input type="text" id="communef" name="" class="com_typeahead col-xs-9 col-sm-9" value="{{ $assure->commune->nom_commune }}"/>
 	  	@else	
 			<input type="hidden" name="idcommunef" id="idcommunef">
-	 		<input type="text" value="" id="communef" placeholder="commune résidance" class="com_typeahead col-xs-9 col-sm-9"/>
+	 		<input type="text" value="" id="communef" placeholder="commune résidance" class="com_typeahead col-xs-8 col-sm-8"/>
 	 		@endif
 	  </div>
 	  <div class="col-sm-4">
-	  	<label class="col-sm-3 col-xs-3" for="wilayaf"><strong>Wilaya :</strong></label>
+	  	<label class="col-sm-4 col-xs-4" for="wilayaf"><strong>Wilaya:</strong></label>
 	  	@if(isset($assure->wilaya) && !empty($assure->wilaya))
 	  	<input type="hidden" name="idwilayaf" id="idwilayaf" value="{{  $assure->wilaya_res  }}">
-		  <input type="text" value="{{ $assure->wilaya->nom_wilaya }}" id="wilayaf" class="col-sm-9" readonly />	
+		  <input type="text" value="{{ $assure->wilaya->nom_wilaya }}" id="wilayaf" class="col-sm-8 col-xs-8" readonly />	
 	  	@else	
 	  	<input type="hidden" name="idwilayaf" id="idwilayaf">
-		  <input type="text" value="" id="wilayaf" placeholder="wilaya résidance" class="col-sm-9" readonly />
+		  <input type="text" value="" id="wilayaf" placeholder="wilaya résidance" class="col-sm-8 col-xs-8" readonly />
 		  @endif
 	  </div>
   </div>
@@ -165,24 +165,20 @@
 				<div class="col-sm-9">
 				<div class="radio">
 				 @if(isset($assure) && !empty($assure))
-					<label><input name ="etatf" value="En_exercice"  type="radio"  class="ace" @if($assure->Etat =='En_exercice') Checked @endif />
-						<span class="lbl"> En exercice</span>
+					<label><input name ="etatf" value="Activite"  type="radio"  class="ace" @if($assure->Etat =='Activite') Checked @endif />
+						<span class="lbl">Activité</span>
 					</label>
 					<label><input name ="etatf" value="Retraite"  type="radio"  class="ace" @if($assure->Etat =='Retraite') Checked @endif />
-						<span class="lbl"> Retraité</span>
+						<span class="lbl"> Retraite</span>
 					</label>
-					<label><input  name="etatf"  value="Invalide"  type="radio"  class="ace" @if($assure->Etat =='Invalide') Checked @endif />
-							<span class="lbl"> Invalide</span>
-					</label>
-					<label><input name="etatf" value="Mise_en_disponibilite"  type="radio" class="ace" @if($assure->Etat =='Mise_en_disponibilite') Checked @endif />
-							<span class="lbl"> Mise en disponibilité</span>
+					<label><input name="etatf" value="conge_maladie"  type="radio" class="ace" @if($assure->Etat =='conge_maladie') Checked @endif />
+							<span class="lbl"> Congé Maladie</span>
 					</label>
 				@else
-				<label hidden><input name="etatf" value="" type="radio" class="ace"/><span class="lbl"> Autre</span></label>
-				<label><input name="etatf" value="En_exercice" type="radio" class="ace" /><span class="lbl" Checked> En exercice</span></label>
-				<label><input name="etatf" value="Retraite" type="radio" class="ace" Checked /><span class="lbl"> Retraité</span></label>
-				<label><input name="etatf" value="Invalide" type="radio" class="ace" /><span class="lbl"> Invalide</span></label>
-				<label><input name="etatf" value="Mise en disponibilite" type="radio" class="ace" /><span class="lbl"> Mise en disponibilité</span>
+				<!-- <label hidden><input name="etatf" value="" type="radio" class="ace"/><span class="lbl"> Autre</span></label> -->
+				<label><input name="etatf" value="Activite" type="radio" class="ace" /><span class="lbl" Checked> Activité</span></label>
+				<label><input name="etatf" value="Retraite" type="radio" class="ace" Checked /><span class="lbl"> Retraite</span></label>
+				<label><input name="etatf" value="Mise en disponibilite" type="radio" class="ace" /><span class="lbl"> Congé Maladie</span>
 				</label>
 				 @endif
 				</div>

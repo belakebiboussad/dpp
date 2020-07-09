@@ -43,7 +43,8 @@
 <div class="row Asdemograph">
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('sexef') ? 'has-error' : '' }}">
-			<label class="col-sm-3 control-label no-padding-right" for="sexef"><strong>Sexe :</strong></label>
+		<!-- no-padding-right -->
+			<label class="col-sm-3 control-label" for="sexef"><strong>Genre :</strong></label>
 			<div class="col-sm-9">
 				<div class="radio">
 					<label><input name="sexef" value="M" type="radio" class="ace" checked /><span class="lbl"> Homme</span></label>
@@ -78,23 +79,27 @@
 <div class="row">
 	<div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div>
 </div>	{{-- row --}}
-<div class="row Asdemograph">
-	<div class="col-sm-4" style="padding-left:7%">
-		<label class="col-sm-3" for="adressef" ><strong>Adresse:&nbsp;</strong></label>
-		  <input type="text" value="" id="adressef" name="adressef" placeholder="Adresse..." class="col-sm-9"/>
+<div class="row Asdemograph"><!-- style="padding-left:7%" -->
+	<div class="col-sm-4">
+		<label class="col-sm-4" for="adressef" ><strong>Adresse:</strong></label>
+		  <input type="text" value="" id="adressef" name="adressef" placeholder="Adresse..." class="col-sm-8"/>
 	</div>
-	<div class="col-sm-4" style="margin-top: -0.1%;">
-		<label class="col-sm-3 text-nowrap" for="communef"><strong>Commune :</strong></label>
+	 <!-- style="margin-top: -0.1%;" -->
+	<div class="col-sm-4">
+		<label class="col-sm-4 text-nowrap" for="communef"><strong>Commune:</strong></label>
 		<input type="hidden" name="idcommunef" id="idcommunef">
-	 	<input type="text" value="" id="communef" placeholder="commune résidance" class="com_typeahead col-sm-9"/>
+	 	<input type="text" value="" id="communef" placeholder="commune résidance" class="com_typeahead col-sm-8"/>
 	</div>
 	<div class="col-sm-4">
-		  <label class="col-sm-3" for="wilayaf"><strong>Wilaya :</strong></label>
+		  <label class="col-sm-4" for="wilayaf"><strong>Wilaya:</strong></label>
 		  <input type="hidden" name="idwilayaf" id="idwilayaf">
-		  <input type="text" value="" id="wilayaf" placeholder="wilaya résidance" class="col-sm-9" readonly />
+		  <input type="text" value="" id="wilayaf" placeholder="wilaya résidance" class="col-sm-8" readonly />
 	</div>
 </div>
 <div class="space-12"></div>
+<div class="row">
+	<div class="col-sm-12"><h3 class="header smaller lighter blue">Fonction</h3></div>
+</div>	{{-- row --}}
 <div class="row">
   <div class="col-sm-6" id="statut">
 		<div class="form-group">
@@ -104,20 +109,16 @@
 			<div class="col-sm-9">
 			<div class="radio">
 				<label>
-					<input name="etatf" value="En_exercice" type="radio" class="ace" checked/>
-					<span class="lbl"> En exercice</span>
+					<input name="etatf" value="Activite" type="radio" class="ace" checked/>
+					<span class="lbl">Activité</span>
 				</label>
 				<label>
-					<input name="etatf" value="Retraité" type="radio" class="ace" />
-					<span class="lbl"> Retraité</span>
+					<input name="etatf" value="Retraite" type="radio" class="ace" />
+					<span class="lbl"> Retraite</span>
 				</label>
 				<label>
-					<input name="etatf" value="Invalide" type="radio" class="ace" />
-					<span class="lbl"> Invalide</span>
-				</label>
-				<label>
-					<input name="etatf" value="Mise_en_disponibilite" type="radio" class="ace" />
-					<span class="lbl"> Mise en disponibilité</span>
+					<input name="etatf" value="conge_maladie" type="radio" class="ace" />
+					<span class="lbl"> Congé Maladie</span>
 				</label>
 			</div>
 			</div>
@@ -131,8 +132,7 @@
 			<div class="col-sm-9">
 				<select name="service" id="service" class="col-xs-12 col-sm-12">
 					<option value="">Sélectionner...</option>
-					<option value="Agent civile">Agent civile</option>
-					<option value="Sécurité publique">Sécurité publique</option>
+					<option value="Sécurité publique">Sécurité publique</option>	<!-- <option value="Agent civile">Agent civile</option> -->
 					<option value="Police judiciaire (PJ)">Police judiciaire (PJ)</option>
 					<option value=" Brigade mobile de la police judiciaire (BMPJ)">Brigade mobile de la police judiciaire (BMPJ)</option>
 					<option value="Service protection et sécurité des personnalités (SPS)">Service protection et sécurité des personnalités (SPS)</option>

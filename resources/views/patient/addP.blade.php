@@ -72,21 +72,21 @@
 	 		}			
 		}
 		function checkFormAddPAtient()
-	      {        
-	       		if($('#hommeConf').is(':checked')){
-	      			if( ! checkHomme() )
-	            		{	
-	              			 activaTab("Homme_C");
-	                 		return false;
-	          		}else
-	          		{
-	          			$('input:disabled').removeAttr('disabled');    
-	            			return true; 
-	          		}
-	        	}
-	        	$('input:disabled').removeAttr('disabled');    
-	        	return true;
-	     	}
+    {        
+   		if($('#hommeConf').is(':checked')){
+  			if( ! checkHomme() )
+        		{	
+          			 activaTab("Homme_C");
+             		return false;
+      		}else
+      		{
+      			$('input:disabled').removeAttr('disabled');    
+        			return true; 
+      		}
+    	}
+    	$('input:disabled').removeAttr('disabled');    
+    	return true;
+   	}
 	</script>
 @endsection
 @section('main-content')
@@ -200,7 +200,7 @@
 				</div>
 				<div class="col-sm-6">
 					<div class="form-group">
-						<label class="control-label col-xs-12 col-sm-3" for="npiece_id"><strong>N° de la pièce :</strong></label>
+						<label class="control-label col-xs-12 col-sm-3 text-nowrap" for="npiece_id"><strong>N° Pièce :</strong></label>
 						<div class="col-sm-9">
 							<div class="clearfix">
 								<input type="text" id="npiece_id" name="npiece_id" class="col-xs-12 col-sm-12" placeholder="N° de la pièce d'identité..." />
@@ -265,7 +265,7 @@
 			<div class="center">
 				<br>
 				<button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
-				<button class="btn" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Réinitialiser</button>
+				<button class="btn" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 			</div>
 		</div>	
 	</form>
