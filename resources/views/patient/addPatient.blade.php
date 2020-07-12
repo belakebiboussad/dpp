@@ -3,7 +3,7 @@
 		<div class="form-group {{ $errors->has('nom') ? 'has-error' : '' }}">
 			<label class="col-sm-3 control-label" for="nom"><strong>Nom :</strong></label>
 			<div class="col-sm-9">
-				<input type="text" id="nom" name="nom" placeholder="Nom..." class="col-xs-12 col-sm-12" autocomplete= "off" value="{{ old('nom') }}" required alpha/>
+				<input type="text" id="nom" name="nom" placeholder="Nom..." class="col-xs-12 col-sm-12" autocomplete= "off" value="{{ old('nom') }}" alpha/>
 					{!! $errors->first('nom', '<small class="alert-danger">:message</small>') !!}
 			</div>
 		</div>
@@ -12,7 +12,7 @@
 		<div class="form-group {{ $errors->has('prenom') ? 'has-error' : '' }}">
 			<label class="col-sm-3 control-label" for="prenom"><strong>Prénom :</strong></label>
 			<div class="col-sm-9">
-				<input type="text" id="prenom" name="prenom" placeholder="Prénom..." class="col-xs-18 col-sm-12" autocomplete="off" required/>
+				<input type="text" id="prenom" name="prenom" placeholder="Prénom..." class="col-xs-18 col-sm-12" autocomplete="off"/>
 				{!! $errors->first('prenom', '<p class="alert-danger">:message</p>') !!}
 			</div>
 		</div>
@@ -24,7 +24,7 @@
 		<div class="form-group {{ $errors->has('datenaissance') ? 'has-error' : '' }}">
 			<label class="col-sm-3 control-label" for="datenaissance"><strong>Né(e) le :</strong></label>
 			<div class="col-sm-9">
-				<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" data-date-format="yyyy-mm-dd" placeholder="Date de naissance..." pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" required/>
+				<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" data-date-format="yyyy-mm-dd" placeholder="Date de naissance..." pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])"/>
 				{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
 			</div>
 		</div>
@@ -34,7 +34,7 @@
 			<label class="col-sm-3 control-label" for="lieunaissance"><strong class="text-nowrap">Né(e) à :</strong></label>
 			<div class="col-sm-9">
 			  	<input type="hidden" name="idlieunaissance" id="idlieunaissance">
-					<input type="text" id = "lieunaissance" class="typeahead com_typeahead typeaheadcol-sm-12" placeholder="Lieu de naissance..." autocomplete ="on" required/>		
+					<input type="text" id = "lieunaissance" class="typeahead com_typeahead typeaheadcol-sm-12" placeholder="Lieu de naissance..." autocomplete ="on"/>		
 			 		{!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
 			</div>
 		</div>
@@ -125,9 +125,9 @@
 <div class="row">
 {{--<div class="col-sm-5" {{ $errors->has('mobile1') ? 'has-error' : '' }}">	<!-- <div class="form-group" style="padding-left:10%;"> -->
 <label class="col-sm-5 control-label" for="mobile1"><i class="fa fa-phone"></i><strong class="text-nowrap">Mob1 :</strong>	</label>
-<div class="col-sm-3" {{ $errors->has('operateur1') ? 'has-error' : '' }}">	<select name="operateur1" id="operateur1" class="form-control" required>
+<div class="col-sm-3" {{ $errors->has('operateur1') ? 'has-error' : '' }}">	<select name="operateur1" id="operateur1" class="form-control">
 <option value="">XX</option><option value="05">05</option><option value="06">06</option><option value="07">07</option></select>	
-</div><input id="mobile1" name="mobile1"  maxlength =8 minlength =8 type="tel" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX"  required />	
+</div><input id="mobile1" name="mobile1"  maxlength =8 minlength =8 type="tel" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX"/>	
 </div><div class="col-sm-5">
 		<label class="col-sm-5 control-label" for="mobile2">
 			<i class="fa fa-phone"></i><strong class="text-nowrap">Mob2 :</strong>
@@ -145,13 +145,14 @@
 		<div class="form-group" style="padding-left:15%;">
 			<label class="control-label text-nowrap col-sm-4" for="mobile1"><i class="fa fa-phone"></i><strong>Mob1:</strong></label>
 			<div class="col-sm-4" >
-				<select name="operateur1" id="operateur1" class="form-control" required="">
+				<select name="operateur1" id="operateur1" class="form-control">
+					<option value="" selected >XX</option>
 					<option value="05">05</option>         
 				  <option value="06">06</option>
 				  <option value="07">07</option>
 	      </select>	
 			</div>
-			<input id="mobile1" name="mobile1"  maxlength =8 minlength =8 type="tel" autocomplete="off" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX" required />	
+			<input id="mobile1" name="mobile1"  maxlength =8 minlength =8 type="tel" autocomplete="off" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX"/>	
 		</div>		
 		</div>	 
 		<div class="col-sm-4 col-xs-4">
@@ -175,11 +176,11 @@
 				</div>
 				<div class="col-sm-10">
 					<label class="line-height-1 blue">
-						<input id="fonc" name="type" value="Assure" type="radio" class="ace" onclick="showType('Assure',1)" Checked/>
+						<input id="fonc" name="type" value="Assure" type="radio" class="ace" onclick="showType('Assure',1)"/>
 						<span class="lbl">Assuré</span>
 					</label>
 					<label class="line-height-1 blue">
-						<input id="ayant" name="type" value="Ayant_droit" type="radio" class="ace" onclick="showType('Ayant_droit',1)"/>
+						<input id="ayant" name="type" value="Ayant_droit" type="radio" class="ace" onclick="showType('Ayant_droit',1)" Checked/>
 						<span class="lbl">Ayant droit</span>
 					</label>
 					<label class="line-height-1 blue">
@@ -191,15 +192,8 @@
 		</div>{{-- col-sm-4 --}}
 </div> 
 <div class="space-12"></div>
-
-{{--<div class="row"><div class="col-sm-6"><div class="form-group"><div class="col-sm-3"><label class="control-label no-padding-right pull-right" style=" padding-top: 0px;"><strong>Type :</strong></label>
-</div><div class="col-sm-9" id="checkType"><label class="line-height-1 blue"><input id="fonc" name="type" value="Assure" type="radio" class="ace" onclick="showType('Assure')" Checked/>
-<span class="lbl"> Assuré</span></label>&nbsp;&nbsp;&nbsp;
-<label class="line-height-1 blue"><input id="ayant" name="type" value="Ayant_droit" type="radio" class="ace" onclick="showType('Ayant_droit')"/>
-<span class="lbl"> Ayant droit</span></label>&nbsp;&nbsp;&nbsp;@if(! isset(	$assure) )<label class="line-height-1 blue"><input id="autre" name="type" value="Autre" type="radio" class="ace" onclick="showType('Autre')"/>
-<span class="lbl"> Autre</span></label>@endif</div></div></div></div>--}}
 <div class="space-12"></div>
-	<div class="row hide" id="foncform">
+	<div class="row" id="foncform">
 		<div class="col-sm-6">
 			<div class="form-group">
 				 <label class="col-sm-3 control-label" for="Type_p">	<strong>Type :</strong></label>

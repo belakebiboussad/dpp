@@ -214,48 +214,46 @@
         var idlieunaissance = $('#idlieunaissance').val();
         var datenaissance = $('#datenaissance').val();  
         var mobile1 = $('#mobile1').val();
-        var inputAssVal = new Array(nom,prenom,lieunaissance,datenaissance,mobile1);
-        var inputMessage = new Array("nom","prenom","lieu de naissance","lieu de naissance","téléphone");
+        var inputAssVal = new Array(mobile1,idlieunaissance,datenaissance,prenom,nom);
+        var inputMessage = new Array("Téléphone mobile 1","Lieu de Naissance","Date de Naissance","Prenom","Nom");
+
         $('.error').each(function(i, obj) {
               $(obj).next().remove();
               $(obj).detach();
        });
         jQuery.each( inputAssVal, function( i, val ) {
-              if(val =="" )
-              {
-                erreur =false;
-                $('#error').after('<span class="error"> STP, saisir le ' + inputMessage[i]+' du Patient </span>'+'<br/>');
-              }
+          if(val =="" )
+          {
+            erreur =false;
+            $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du Patient </span>'+'<br/>');
+          }
        });
        return erreur;
       }
       function checkAssure()
       {
         var erreur =true;
-        var nomf = $('#nomf').val(); var prenomf = $('#prenomf').val();var NMGSN = $('#NMGSN').val();var nss = $('#nss').val(); var idlieunaissancef = $('#idlieunaissancef').val();    
-        var inputAssVal = new Array(nomf,prenomf,idlieunaissancef,gsf,NMGSN,nss);
-        var inputMessage = new Array("nom","prenom","lieu de naissance","Groupe Sanguin","Matricule(NMGSN)","numèro secruté");
-        $('.error').each(function(i, obj) {
-              $(obj).next().remove();
-              $(obj).detach();
-       });
+        var nomf = $('#nomf').val(); var prenomf = $('#prenomf').val();  var datenaissance = $('#datenaissancef').val(); 
+        var idlieunaissancef = $('#idlieunaissancef').val();var NMGSN = $('#NMGSN').val();var nss = $('#nss').val(); 
+        
+        var inputAssVal = new Array(nss,NMGSN,gsf,idlieunaissancef,datenaissance,prenomf,nomf);
+        var inputMessage = new Array("Numèro de Secruté Social","Matricule(NMGSN)","Groupe Sanguin","Lieu de Naissance","Date de Naissance","Prenom","Nom");
+        $('.error').each(function(i, obj) {$(obj).next().remove(); $(obj).detach();  });
         jQuery.each( inputAssVal, function( i, val ) {
-              if(val =="" )
-              {
-                     erreur =false;
-                     $('#error').after('<span class="error"> STP, saisir le ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
-              }
+          if(val =="" )
+          {
+                 erreur =false;
+                 $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
+          }
        });
        return erreur;
       }
       function  checkHomme(){
           var erreur =true;
-          var nomA = $('#nomA').val();
-          var prenomA = $('#prenomA').val();
-          var type_piece_id = $('#type_piece_id').val();
-          var npiece_id = $('#npiece_id').val();mobileA = $('#mobileA').val();
-          var inputHomVal = new Array(nomA,prenomA,type_piece_id,npiece_id,mobileA);
-          var inputHomMessage = new Array("nom","prenom","type de la piece","numero de lapiece","telephone mobile");
+          var nomA = $('#nomA').val();var prenomA = $('#prenomA').val();
+          var type_piece_id = $('#type_piece_id').val();var npiece_id = $('#npiece_id').val();mobileA = $('#mobileA').val();
+          var inputHomVal = new Array(npiece_id,mobileA,type_piece_id,prenomA,nomA);
+          var inputHomMessage = new Array("Numero de la Pièce","Type de la Pièce","Telephone mobile","Prenom","Nom");
           $('.error').each(function(i, obj) {
                 $(obj).next().remove();
                 $(obj).detach();
@@ -264,13 +262,12 @@
                if(val =="" )
               {
                      erreur =false;
-                    $('#error').after('<span class="error"> STP, saisir le ' + inputHomMessage[i]+' du Correspondant</span>'+'<br/>');
+                    $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputHomMessage[i]+' du Correspondant</span>'+'<br/>');
                }
           });   
          return erreur;
       }
       function activaTab(tab){
-        alert('dffd');
         $('.nav-pills a[href="#' + tab + '"]').tab('show');
       }
       function copyPatient(){ 
@@ -281,10 +278,36 @@
         $('#communef').val($('#commune').val());$('#idcommunef').val($('#idcommune').val());$('#idwilayaf').val( $('#idwilaya').val()); $('#wilayaf').val($('#wilaya').val());
         $("#foncform").addClass('hide');$('#Type_p').attr('required', false);$('#nsspatient').attr('disabled', true);
         $('.Asdemograph').find('*').each(function () { $(this).attr("disabled", true); });
-         addRequiredAttr();
+        addRequiredAttr();
        }
       
       $(document).ready(function () {
+        $( ".civilite" ).change(function() {
+          var sex =  $('input[name=sexe]:checked').val();
+          if(sex == "F")
+          {
+            var civilite= $("select.civilite option").filter(":selected").val();
+            if((civilite =="marie")|| (civilite =="veuf"))
+                $('#Div-nomjeuneFille').removeAttr('hidden');
+              else
+                $('#Div-nomjeuneFille').attr('hidden','');  
+          }else
+            $('#Div-nomjeuneFille').attr('hidden','');      
+        });
+        $('input[type=radio][name=sexe]').change(function(){
+          if($(this).val() == "M")
+          {
+
+            $('#Div-nomjeuneFille').attr('hidden','');
+            $('#nom_jeune_fille').val('');
+          }
+          else
+          {
+            var civilite= $("select.civilite option").filter(":selected").val();
+            if((civilite =="marie")|| (civilite =="veuf"))
+              $('#Div-nomjeuneFille').removeAttr('hidden');
+          }
+        });
         $('input[type=radio][name=etatf]').change(function(){
           if($(this).val() != "Activite" && ($(this).val() != "Activite"))
           {

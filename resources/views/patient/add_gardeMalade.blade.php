@@ -3,38 +3,35 @@
 	 <div class="modal-content custom-height-modal">
 		<div class="modal-header">
 			  <button type="button" class="close" data-dismiss="modal">&times;</button>
-			  <h4 class="modal-title">Ajouter un Correspondant</h4> {{--  @include('patient._patientInfo') --}}
+			  <h4 class="modal-title">Ajouter un Correspondant</h4>
 		</div>
 		<div class="modal-body">
 			{{-- {{  route('hommeConfiance.store') }} --}}
-				<form id="addGardeMalade" method="POST" action ="/hommeConfiance/save">
-					 {!! csrf_field() !!}
-					 <input type="hidden" name="patientId" id ="patientId" value="{{ $patient->id }}">
-					 <input type="hidden" name="userId" id ="userId" value="{{ Auth::user()->employee_id}}">
-					 <hr>
-	 				<div class="row">	
-	 				<tr>
-              <span style="float: right; display: none;" id="relation_autre">
-            			<label id="labelFor_editCorrespondant_relation_autre" for="editCorrespondant_relation_autre" class="" title="Rôle autre">Rôle autre</label> :
-             			<input id="editCorrespondant_relation_autre" autocomplete="off" name="relation_autre" value="" type="text">
-         			</span>
-          		<span  class ="primary"  style="float: left;">
-            		<select id="editCorrespondant_relation" name="relation" class="enum list|prevenir|garde" onchange="">
-									<option value="garde">Garde Malade</option>
-									<option value="prevenir">Personne à prévenir</option>
-								</select>
-          		</span>
-        </tr>
+			<!-- /hommeConfiance/save -->
+			<form id="addGardeMalade" method="POST" action ="">
+				{!! csrf_field() !!}
+				<input type="hidden" name="patientId" id ="patientId" value="{{ $patient->id }}">
+				<input type="hidden" name="userId" id ="userId" value="{{ Auth::user()->employee_id}}">
+				<hr>
+	 			<div class="row">	
+		 			<div class="col-sm-12">				
+	              <span style="float: right; display: none;" id="relation_autre">
+	            			<label id="labelFor_editCorrespondant_relation_autre" for="editCorrespondant_relation_autre" class="" title="Rôle autre">Rôle autre</label> :
+	             			<input id="editCorrespondant_relation_autre" autocomplete="off" name="relation_autre" value="" type="text">
+	         			</span>
+	          		<span  class ="primary"  style="float: left;">
+	            		<select name="relation" id="relation" class="enum list|prevenir|garde">
+										<option value="garde">Garde Malade</option>
+										<option value="prevenir">Personne à prévenir</option>
+									</select>
+	          		</span>
+	          </div>
 					</div>
 					<div class="row">
-							<div class="col-sm-12">				
-								<h3 class="header smaller lighter blue">
-									Informations
-									&nbsp;&nbsp;&nbsp;
-								
-								</h3>
+						<div class="col-sm-12">				
+							<h3 class="header smaller lighter blue">Informations&nbsp;&nbsp;&nbsp;</h3>
 							</div>
-				 		 </div>	{{-- row --}}
+				 		</div>	{{-- row --}}
 				 		<div class="row">
 						<div class="col-sm-6">
 							<div class="form-group ">
@@ -42,7 +39,6 @@
 									<b>Nom:</b> 
 								</label>
 								<div class="col-sm-9">
-								
 									<input type="text" id="nom_h" name="nom_h"  placeholder="Nom..." class="col-xs-12 col-sm-6"  required/>
 								</div>
 							</div>
@@ -184,6 +180,7 @@
        	<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
         	<i class="ace-icon fa fa-close bigger-110"></i>Fermer
         </button>
+
 			</div>	
 		</div>
 	</div>

@@ -2,43 +2,33 @@
 @section('title','modifier  le patient')
 @section('page-script')
 <script>
-	function showType(value,i){
+	function showTypeEdit(value,i){
 		switch(value){
-     			 case "Assure":
-       				if(i !=0)
+     	case "Assure":
+       	if(i !=0)
  				{
- 					$("input[name=etatf][value=Retraite]").prop('checked', true);$('#service option:eq(0)').prop('selected', true);
- 					$('#grade option:eq(0)').prop('selected', true);$("#matf").val("");$("#nss").val("");$("#NMGSN").val("");
+ 					$("input[name=etatf][value=Activite]").prop('checked', true);
+ 					$('#service option:eq(0)').prop('selected', true);
+ 					$('#grade option:eq(0)').prop('selected', true);
+ 					$("#matf").val("");$("#nss").val("");$("#NMGSN").val("");
 				}
-				var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
-				$.each(classList, function(index, item) {
-    					if (item === 'hidden') {   						
-    						$( "ul#menuPatient li:eq(0)" ).removeClass( item );
-    					}
-				});
 				copyPatient();
-			        break;
-		       case "Ayant_droit":
-			       if(i !=0)
-			     	 {
-			      	      $("#nomf").val("");$("#prenomf").val(""); $("#datenaissancef").val("");     $("#lieunaissancef").val("");  $("select#grade").prop('selectedIndex', 0);
-			             	$("#matf").val(""); $("#NMGSN").val("");	$('#nsspatient').val("");$('#adressef').val("");$('#gsf option:eq(0)').prop('selected', true);
-			             	$('#grade option:eq(0)').prop('selected', true);$('#service option:eq(0)').prop('selected', true);	$("#nss").val("");
-			          }
-			          $('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });
-			        var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
-				$.each(classList, function(index, item) {
-					if (item === 'hidden') {   						
-						$( "ul#menuPatient li:eq(0)" ).removeClass( item );
-		 			}
-				});	
+			  break;
+		  case "Ayant_droit":
+			  if(i !=0)
+			  {
+  	      $("#nomf").val("");$("#prenomf").val(""); $("#datenaissancef").val("");     $("#lieunaissancef").val("");  $("select#grade").prop('selectedIndex', 0);
+         	$("#matf").val(""); $("#NMGSN").val("");	$('#nsspatient').val("");$('#adressef').val("");$('#gsf option:eq(0)').prop('selected', true);
+         	$('#grade option:eq(0)').prop('selected', true);$('#service option:eq(0)').prop('selected', true);	$("#nss").val("");
+			  }
+			  $('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });
 				$("#foncform").removeClass('hide');  $('#Type_p').attr('required', true);  $('#nsspatient').attr('disabled', false); 
 				addRequiredAttr();
 		               break;
   		case "Autre":
   			$(".starthidden").show(250);$('#description').attr('disabled', false); 
   			$("#foncform").addClass('hide'); 
-      			if(! ($( "ul#menuPatient li:eq(0)" ).hasClass( "hidden" )))
+      	if(! ($( "ul#menuPatient li:eq(0)" ).hasClass( "hidden" )))
   				$( "ul#menuPatient li:eq(0)" ).addClass( "hidden" );
   			$('#nomf').attr('required', false); $('#prenomf').attr('required', false);$('#nsspatient').attr('disabled', true); $('#Type_p').attr('required', false);  
     		        break;         
@@ -61,70 +51,41 @@
 		});
   }
   function checkFormAddPAtient()
-      {  
-        alert("1");
-        if(!($('#autre').is(':checked'))){ 
-          $('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });
-          if( ! checkAssure() )
-          {
-            alert("ici");
-            activaTab("Assure");
-            return false;
+  {  
+    if(!($('#autre').is(':checked'))){ 
+      $('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });
+      if( ! checkAssure() )
+      {
+        activaTab("Assure");
+        return false;
+      }else{
+        if($('#hommeConf').is(':checked')){
+              if( ! checkHomme() )
+              {
+                activaTab("Homme_C");
+                return false;
+              }else
+                return true;  
           }else{
-            alert("La");
-            if($('#hommeConf').is(':checked')){
-                  if( ! checkHomme() )
-                  {
-                    activaTab("Homme_C");
-                    return false;
-                  }else
-                    return true;  
-              }else{
-                  return true;   
-              }
-              return true;
+              return true;   
           }
-        }else{
-                alert("2");
-                if($('#hommeConf').is(':checked')){
-                    if( ! checkHomme() )
-                    {
-                           activaTab("Homme_C");
-                         return false;
-                     }else
-                          return true;  
-                }else
-                     return true; 
-        }  
+          return true;
       }
+    }else{
+            if($('#hommeConf').is(':checked')){
+                if( ! checkHomme() )
+                {
+                       activaTab("Homme_C");
+                     return false;
+                 }else
+                      return true;  
+            }else
+                 return true; 
+    }  
+  }
 	$(document).ready(function () {
-		 $('input[type=radio][name=sexe]').change(function(){
-		 	if($(this).val() == "M")
-		 	{
-		 		$('#Div-nomjeuneFille').attr('hidden','');
-		 		$('#nom_jeune_fille').val();
-		 	}
-		 	else
-		 	{
-		 		var civilite= $("select.civilite option").filter(":selected").val();
-		 		if((civilite =="marie") || (civilite =="veuf"))
-	  			$('#Div-nomjeuneFille').removeAttr('hidden');
-		 	}
-		});
-	        var value =  $("input[type=radio][name='type']:checked").val();
-	       showType(value,0);
-	       $( ".civilite" ).change(function() {
-		  	var sex =  $('input[name=sexe]:checked').val();
-			 if(sex == "F")
-			 {
-		 		var civilite= $("select.civilite option").filter(":selected").val();
-		 		if((civilite =="marie")|| (civilite =="veuf"))
-  					$('#Div-nomjeuneFille').removeAttr('hidden');
-  				else
-  					$('#Div-nomjeuneFille').attr('hidden','');	
-			 }else
-			 	$('#Div-nomjeuneFille').attr('hidden','');	
-		});
+		var value =  $("input[type=radio][name='type']:checked").val();
+	  showTypeEdit(value,0);     
 		$('#listeGardes').DataTable({
 		      colReorder: true,
 		      stateSave: true,
@@ -137,21 +98,21 @@
 		                  "url": '/localisation/fr_FR.json'
 		      },
 		});
-    		jQuery('body').on('click', '.open-modal', function () {
-		       var hom_id = $(this).val();
-		       $.get('/hommeConfiance/'+hom_id+'/edit', function (data) {
-			        $('#patientId').val(data.id_patient); $('#hom_id').val(data.id);	$('#nom_h').val(data.nom);$('#prenom_h').val(data.prenom);
-			        $('#datenaissance_h').val(data.date_naiss);  $('#lien_par').val(data.lien_par).change();		
-				  $('#lien_par option').each(function() {
-				    	if($(this).val() == data.lien_par) 
-				      		 $(this).prop("selected", true);
-				  });				
-				  $('#' + data.type_piece).prop('checked',true); $('#num_piece').val(data.num_piece);$('#date_piece_id').val(data.date_deliv);
-				  $('#adresse_h').val(data.adresse);$('#mobile_h').val(data.mob);jQuery('#EnregistrerGardeMalade').val("update");
-			        jQuery('#gardeMalade').modal('show');
-		      })
-    		});
-	 	 $("#EnregistrerGardeMalade").click(function (e) {
+		jQuery('body').on('click', '.open-modal', function () {
+       var hom_id = $(this).val();
+       $.get('/hommeConfiance/'+hom_id+'/edit', function (data) {
+	        $('#patientId').val(data.id_patient); $('#hom_id').val(data.id);	$('#nom_h').val(data.nom);$('#prenom_h').val(data.prenom);
+	        $('#datenaissance_h').val(data.date_naiss);  $('#lien_par').val(data.lien_par).change();		
+		  $('#lien_par option').each(function() {
+		    	if($(this).val() == data.lien_par) 
+		      		 $(this).prop("selected", true);
+		  });				
+		  $('#' + data.type_piece).prop('checked',true); $('#num_piece').val(data.num_piece);$('#date_piece_id').val(data.date_deliv);
+		  $('#adresse_h').val(data.adresse);$('#mobile_h').val(data.mob);jQuery('#EnregistrerGardeMalade').val("update");
+	        jQuery('#gardeMalade').modal('show');
+      })
+		});
+	 	$("#EnregistrerGardeMalade").click(function (e) {
 		  	$.ajaxSetup({
 			        headers: {
 			            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
@@ -163,6 +124,7 @@
 				nom:$('#nom_h').val(),
 				prenom : $('#prenom_h').val(),
 				date_naiss : $('#datenaissance_h').val(),
+				relation:$('#relation').val(),
 				lien_par : $('#lien_par').val(),
 				type_piece : $("input[name='type_piece']:checked").val(),
 				num_piece : $('#num_piece').val(),
@@ -173,39 +135,39 @@
 	        	};
 			var state = jQuery('#EnregistrerGardeMalade').val(); var type = "POST";var hom_id = jQuery('#hom_id').val();var ajaxurl = 'hommeConfiance';
 			if (state == "update") {
-		            type = "PUT"; ajaxurl = '/hommeConfiance/' + hom_id;
-		        }
-		      if (state == "add") {
-		            ajaxurl = '/hommeConfiance/save';
-		      }
-	     		 $('#hom_id').val("");$('#nom_h').val("");$('#prenom_h').val("");$('#datenaissance_h').val("");$('#num_piece').val("");	$('#date_piece_id').val("");
-	      		$('#adresse_h').val("");$('#mobile_h').val("");
-		       $.ajax({
+		    type = "PUT"; ajaxurl = '/hommeConfiance/' + hom_id;
+		  }
+		  if (state == "add") {
+		    //ajaxurl = '/hommeConfiance/save';
+		    ajaxurl ="{{ route('hommeConfiance.store') }}";
+		  }
+	    $('#addGardeMalade')[0].reset();
+		  $.ajax({
 			       type: type,
 			       url: ajaxurl,
 			       data: formData,
 			       dataType: 'json',
 	           		success: function (data) {
-	            			if($('.dataTables_empty').length > 0)
-	      				{
+	            		if($('.dataTables_empty').length > 0)
+	      					{
 	      			  		$('.dataTables_empty').remove();
-	      				}
-	              			var homme = '<tr id="garde' + data.id + '"><td class="hidden">' + data.id_patient + '</td><td>' + data.nom + '</td><td>' + data.prenom + '</td><td>'+ data.date_naiss +'</td><td>' + data.adresse + '</td><td>'+ data.mob + '</td><td>' + data.lien_par + '</td><td>' + data.type_piece + '</td><td>' + data.num_piece + '</td><td>' +  data.date_deliv + '</td>';
-	         		      homme += '<td class ="center"><button type="button" class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
-	             			homme += '<button type="button" class="btn btn-xs btn-danger delete-garde" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
-			              if (state == "add") {
-			                 $("#listeGardes tbody").append(homme);
-			              } else {
-			                  	$("#garde" + hom_id).replaceWith(homme);	   	
-			                }
-		                jQuery('#gardeMalade').modal('hide')
+	      					}
+	              	var homme = '<tr id="garde' + data.id + '"><td class="hidden">' + data.id_patient + '</td><td>' + data.nom + '</td><td>' + data.prenom + '</td><td>'+ data.date_naiss +'</td><td>' + data.adresse + '</td><td>'+ data.mob + '</td><td>' + data.lien_par + '</td><td>' + data.type_piece + '</td><td>' + data.num_piece + '</td><td>' +  data.date_deliv + '</td>';
+	         		    homme += '<td class ="center"><button type="button" class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
+	             		homme += '<button type="button" class="btn btn-xs btn-danger delete-garde" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+			            if (state == "add") {
+			              $("#listeGardes tbody").append(homme);
+			            } else {
+			             	$("#garde" + hom_id).replaceWith(homme);	   	
+			            }
+		              jQuery('#gardeMalade').modal('hide')
 		            },
 		            error: function (data) {
 		              console.log('Error:', data);
 		            }
-	       		 });	
-		 })
-	    	 jQuery('body').on('click', '.delete-garde', function () {
+	    });	
+		})
+	  jQuery('body').on('click', '.delete-garde', function () {
 		        var hom_id = $(this).val();
 		        $.ajaxSetup({
 		         	headers: {
@@ -222,7 +184,10 @@
 		                     console.log('Error:', data);
 		              }
 		        });
-	      });
+	  });
+	  $('#gardeMalade').on('hidden.bs.modal', function () {
+    $('#gardeMalade form')[0].reset();
+    });
 	});
 
 </script>
@@ -466,15 +431,15 @@
 						</div>
 						<div class="col-sm-10">
 							<label class="line-height-1 blue">
-								<input id="fonc" name="type" value="Assure" type="radio" class="ace" onclick="showType('Assure',1)"  @if($patient->Type =='Assure') Checked @endif />
+								<input id="fonc" name="type" value="Assure" type="radio" class="ace" onclick="showTypeEdit('Assure',1)"  @if($patient->Type =='Assure') Checked @endif />
 								<span class="lbl">Assuré</span>
 							</label>
 							<label class="line-height-1 blue">
-								<input id="ayant" name="type" value="Ayant_droit" type="radio" class="ace" onclick="showType('Ayant_droit',1)" @if($patient->Type =='Ayant_droit') Checked @endif />
+								<input id="ayant" name="type" value="Ayant_droit" type="radio" class="ace" onclick="showTypeEdit('Ayant_droit',1)" @if($patient->Type =='Ayant_droit') Checked @endif />
 								<span class="lbl">Ayant droit</span>
 							</label>
 							<label class="line-height-1 blue">
-								<input id="autre" name="type" value="Autre" type="radio" class="ace" onclick="showType('Autre',1)" @if($patient->Type =='Autre') Checked @endif />
+								<input id="autre" name="type" value="Autre" type="radio" class="ace" onclick="showTypeEdit('Autre',1)" @if($patient->Type =='Autre') Checked @endif />
 								<span class="lbl">Autre</span>
 							</label>	
 						</div>
@@ -547,8 +512,8 @@
 									</h5>
 									<div class="widget-toolbar widget-toolbar-light no-border">
 										<div class="fa fa-plus-circle"></div>{{-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> --}}
-											<a href="#" data-target="#gardeMalade" class="btn-xs tooltip-link" data-toggle="modal"  data-toggle="tooltip" data-original-title="Ajouter Garde Malade ou Homme de Confiance" >
-												<strong>Ajouter un Garde Malade</strong>
+											<a href="#" data-target="#gardeMalade" class="btn-xs tooltip-link" data-toggle="modal"  data-toggle="tooltip" data-original-title="Ajouter un Correspondant" >
+												<strong>Ajouter un Correspondant</strong>
 											</a>
 									</div>
 								</div>

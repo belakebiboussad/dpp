@@ -3,7 +3,7 @@
 		<div class="form-group {{ $errors->has('nomf') ? 'has-error' : '' }}">
 			<label class="col-sm-3 control-label" for="nomf"><strong>Nom :</strong></label>
 			<div class="col-sm-9">
-				<input type="text" id="nomf" name="nomf" placeholder="Nom..." class="col-xs-12 col-sm-12" autocomplete= "off" value="{{ old('nomf') }}" required/>
+				<input type="text" id="nomf" name="nomf" placeholder="Nom..." class="col-xs-12 col-sm-12" autocomplete= "off" value="{{ old('nomf') }}"/>
 					{!! $errors->first('nomf', '<small class="alert-danger">:message</small>') !!}
 			</div>
 		</div>
@@ -12,7 +12,7 @@
 		<div class="form-group {{ $errors->has('prenomf') ? 'has-error' : '' }}">
 			<label class="col-sm-3 control-label" for="prenomf"><strong>Prénom :</strong></label>
 			<div class="col-sm-9">
-				<input type="text" id="prenomf" name="prenomf" placeholder="Prénom..." class="col-xs-12 col-sm-12"  value="{{ old('prenomf') }}" required />
+				<input type="text" id="prenomf" name="prenomf" placeholder="Prénom..." class="col-xs-12 col-sm-12"  value="{{ old('prenomf') }}"/>
 				{!! $errors->first('prenomf', '<p class="alert-danger">:message</p>') !!}
 			</div>
 		</div>

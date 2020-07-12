@@ -2,7 +2,7 @@
 @section('title','modifier  le patient')
 @section('page-script')
 <script>
-	function showType(value,i){
+	function showTypeEdit(value,i){
 		switch(value){
       case "Assure":
  				if(i !=0)
@@ -32,16 +32,7 @@
       	break;         
 		}			
 	}
-	function autocopleteCNais(commune)
-	{
-		var res = commune.split(",");	
-		$("#idlieunaissance").val(res[0]);
-	}
-	
-	function show(wilaya)
-	{
-		var res = wilaya.split(",");$("#idwilaya").val(res[0]);$("#wilaya").val(res[1]);$("#idcommune").val(res[2]);
-	}//averifier
+	//averifier
 	if ($("#addGardeMalade").length > 0) {
     		$("#addGardeMalade").validate({
       			rules: {
@@ -76,60 +67,8 @@
 	  			$('#Div-nomjeuneFille').removeAttr('hidden');
 		 	}
 		});
-		 var bloodhoundcom = new Bloodhound({
-        		datumTokenizer: Bloodhound.tokenizers.whitespace,
-        		queryTokenizer: Bloodhound.tokenizers.whitespace,
-     			remote: {
-				 url: '/patients/findcom?com=%QUERY%',
-		 		wildcard: '%QUERY%'
-			},
-		});
-		$('#commune').typeahead({
-			hint: true,
-			highlight: true,
-			minLength: 1
-		},{
-			name: 'communenom',
-			source: bloodhoundcom,
-			display: function(data) {
-					return data.nom_commune  //Input value to be set when you select a suggestion. 
-			},
-			templates: {
-				empty: [
-					'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
-				],
-				header: [
-					'<div class="list-group search-results-dropdown">'
-				],
-				suggestion: function(data) {
-					return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="show(\''+data.Id_wilaya+','+data.nom_wilaya+','+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
-				}
-			}
-		});////////////////////////////////////////////////////// Autocomletecommune de l'assure ////////////////
-		$('#lieunaissance').typeahead({
-			hint: true,
-			highlight: true,
-			minLength: 1
-		}, {
-			name: 'communenom',
-			source: bloodhoundcom,
-			display: function(data) {
-				return data.nom_commune  //Input value to be set when you select a suggestion. 
-			},
-			templates: {
-				empty: [
-					'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
-				],
-				header: [
-					'<div class="list-group search-results-dropdown">'
-				],
-				suggestion: function(data) {
-					return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="autocopleteCNais(\''+data.id_Commune+','+data.nom_commune+'\')">' + data.nom_commune+ '</div></div>'
-				}
-			}	
-		});
-    var value =  $("input[type=radio][name='type']:checked").val();
-	  showType(value,0);
+	  var value =  $("input[type=radio][name='type']:checked").val();
+	  showTypeEdit(value,0);
 	  $( ".civilite" ).change(function() {
 	  	var sex =  $('input[name=sexe]:checked').val();
 	  	if(sex == "F")
@@ -180,6 +119,7 @@
 					nom:$('#nom_h').val(),
 					prenom : $('#prenom_h').val(),
 					date_naiss : $('#datenaissance_h').val(),
+					relation:$('#relation').val(),
 					lien_par : $('#lien_par').val(),
 					type_piece : $("input[name='type_piece']:checked").val(),
 					num_piece : $('#num_piece').val(),
@@ -190,39 +130,39 @@
 		};
 		var state = jQuery('#EnregistrerGardeMalade').val(); var type = "POST";var hom_id = jQuery('#hom_id').val();var ajaxurl = 'hommeConfiance';
 		if (state == "update") {
-	            type = "PUT"; ajaxurl = '/hommeConfiance/' + hom_id;
-	        }
-	      if (state == "add") {
-	            ajaxurl = '/hommeConfiance/save';
-	      }
-	      $('#hom_id').val("");$('#nom_h').val("");$('#prenom_h').val("");$('#datenaissance_h').val("");$('#num_piece').val("");	$('#date_piece_id').val("");
-	      $('#adresse_h').val("");$('#mobile_h').val("");
-	       $.ajax({
-		       type: type,
-		       url: ajaxurl,
-		       data: formData,
-		       dataType: 'json',
-           		success: function (data) {
-            		if($('.dataTables_empty').length > 0)
-      					{
-      			  		$('.dataTables_empty').remove();
-      					}
-              			var homme = '<tr id="garde' + data.id + '"><td class="hidden">' + data.id_patient + '</td><td>' + data.nom + '</td><td>' + data.prenom + '</td><td>'+ data.date_naiss +'</td><td>' + data.adresse + '</td><td>'+ data.mob + '</td><td>' + data.lien_par + '</td><td>' + data.type_piece + '</td><td>' + data.num_piece + '</td><td>' +  data.date_deliv + '</td>';
-         		      homme += '<td class ="center"><button type="button" class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
-             			homme += '<button type="button" class="btn btn-xs btn-danger delete-garde" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
-		              if (state == "add") {
-		                 $("#listeGardes tbody").append(homme);
-		              } else {
-		                  	$("#garde" + hom_id).replaceWith(homme);	   	
-		                }
-	                jQuery('#gardeMalade').modal('hide')
-	            },
-	            error: function (data) {
-	              console.log('Error:', data);
-	            }
-       		 });	
+	    type = "PUT"; ajaxurl = '/hommeConfiance/' + hom_id;
+	  }
+	  if (state == "add") {
+	    ajaxurl ="{{ route('hommeConfiance.store') }}";
+	  }
+    $('#hom_id').val("");$('#nom_h').val("");$('#prenom_h').val("");$('#datenaissance_h').val("");$('#num_piece').val("");	$('#date_piece_id').val("");
+    $('#adresse_h').val("");$('#mobile_h').val("");
+    $.ajax({
+       type: type,
+       url: ajaxurl,
+       data: formData,
+       dataType: 'json',
+       		success: function (data) {
+        		if($('.dataTables_empty').length > 0)
+  					{
+  			  		$('.dataTables_empty').remove();
+  					}
+          			var homme = '<tr id="garde' + data.id + '"><td class="hidden">' + data.id_patient + '</td><td>' + data.nom + '</td><td>' + data.prenom + '</td><td>'+ data.date_naiss +'</td><td>' + data.adresse + '</td><td>'+ data.mob + '</td><td>' + data.lien_par + '</td><td>' + data.type_piece + '</td><td>' + data.num_piece + '</td><td>' +  data.date_deliv + '</td>';
+     		      homme += '<td class ="center"><button type="button" class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
+         			homme += '<button type="button" class="btn btn-xs btn-danger delete-garde" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+              if (state == "add") {
+                 $("#listeGardes tbody").append(homme);
+              } else {
+                  	$("#garde" + hom_id).replaceWith(homme);	   	
+                }
+              jQuery('#gardeMalade').modal('hide')
+          },
+          error: function (data) {
+            console.log('Error:', data);
+          }
+   	});	
 	 })	////----- DELETE a Garde and remove from the page -----////
-    	 jQuery('body').on('click', '.delete-garde', function () {
+    jQuery('body').on('click', '.delete-garde', function () {
 	        var hom_id = $(this).val();
 	        $.ajaxSetup({
 	         	headers: {
@@ -239,7 +179,11 @@
 	                     console.log('Error:', data);
 	              }
 	        });
-      });
+    });
+  $('#gardeMalade').on('hidden.bs.modal', function () {
+    $('#gardeMalade form')[0].reset();
+  });
+
 });
 </script>
 @endsection
@@ -319,10 +263,10 @@
 				</div>
 				<div class="col-sm-6">
 					<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
-						<label class="col-sm-3 control-label" for="lieunaissance"><strong class="text-nowrap">Lieu de naissance :</strong></label>
+						<label class="col-sm-3 control-label" for="lieunaissance"><strong class="text-nowrap">Né(e) à :</strong></label>
 				    <div class="col-sm-9">
 					    <input type="hidden" name="idlieunaissance" id="idlieunaissance" value={{ $patient->Lieu_Naissance }}>
-					    <input type="text" id="lieunaissance" name="" placeholder="Lieu de naissance..." utocomplete = "off" class="col-xs-12 col-sm-12" value="{{ $patient->lieuNaissance->nom_commune }}" required/>
+					    <input type="text" id="lieunaissance" class="com_typeahead col-xs-12 col-sm-12" value="{{ $patient->lieuNaissance->nom_commune }}" required/>
 						    {!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
 				      </div>
 					</div>
@@ -424,7 +368,7 @@
 						<div class="col-sm-4" style="margin-top: -0.1%;">
 							<label class="col-sm-3" for="commune"><strong>Commune :</strong></label>
 							<input type="hidden" name="idcommune" id="idcommune" value="{{ $patient->commune_res }}"/>
-							<input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}" class="col-sm-9"/>					
+							<input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}" class="com_typeahead col-sm-9"/>					
 						</div>
 						<div class="col-sm-4">
 							<label class="col-sm-3"><strong>Wilaya :</strong></label>
@@ -479,15 +423,15 @@
 						</div>
 						<div class="col-sm-10">
 							<label class="line-height-1 blue">
-								<input id="fonc" name="type" value="Assure" type="radio" class="ace" onclick="showType('Assure',1)"  @if($patient->Type =='Assure') Checked @endif />
+								<input id="fonc" name="type" value="Assure" type="radio" class="ace" onclick="showTypeEdit('Assure',1)"  @if($patient->Type =='Assure') Checked @endif />
 								<span class="lbl">Assuré</span>
 							</label>
 							<label class="line-height-1 blue">
-								<input id="ayant" name="type" value="Ayant_droit" type="radio" class="ace" onclick="showType('Ayant_droit',1)" @if($patient->Type =='Ayant_droit') Checked @endif />
+								<input id="ayant" name="type" value="Ayant_droit" type="radio" class="ace" onclick="showTypeEdit('Ayant_droit',1)" @if($patient->Type =='Ayant_droit') Checked @endif />
 								<span class="lbl">Ayant droit</span>
 							</label>
 							<label class="line-height-1 blue">
-								<input id="autre" name="type" value="Autre" type="radio" class="ace" onclick="showType('Autre',1)" @if($patient->Type =='Autre') Checked @endif />
+								<input id="autre" name="type" value="Autre" type="radio" class="ace" onclick="showTypeEdit('Autre',1)" @if($patient->Type =='Autre') Checked @endif />
 								<span class="lbl">Autre</span>
 							</label>	
 						</div>

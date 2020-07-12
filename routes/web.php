@@ -92,7 +92,6 @@ Route::get('/runcolloque/{id}','ColloqueController@run');
 Route::get('/endcolloque/{id}','ColloqueController@cloture');
 Route::post('/savecolloque/{id}','ColloqueController@save');
 Route::get('/getRdvs/{date}','RdvHospiController@getRdvs');//->name('admissionsXHR')
-Route::post('/hommeConfiance/save','HommeConfianceController@createGardejax');
 //Route::get('hospitalisation/addRDV', 'RdvHospiController@ajouterRDV');//sup
 Route::get('hospitalisation/listeRDVs', 'RdvHospiController@getlisteRDVs');
 Route::post('users/changePassword', 'UsersController@changePassword');

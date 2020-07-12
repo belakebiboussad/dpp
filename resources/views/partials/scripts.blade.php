@@ -46,8 +46,9 @@
 <script src="{{ asset('/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
 <script src="{{ asset('/plugins/fullcalendar/locale/fr.js') }}"></script>
 <script src="{{ asset('/js/jquery-editable-select.js') }}"></script>
-{{-- <script src="{{asset('/js/jquery-ui.js')}}"></script>
- --}}<script src="{{asset('/js/sweetalert2.all.min.js')}}"></script>
+<script src="{{asset('/js/jquery-ui.js')}}"></script>
+
+ <script src="{{asset('/js/sweetalert2.all.min.js')}}"></script>
 {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> --}}
 <script type="text/javascript">
       $(document).ready(function(){   // $(".select2").select2({ //     dir: "fr"// });
@@ -313,6 +314,12 @@
   });
   function addRequiredAttr()
   {
+    var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
+    $.each(classList, function(index, item) {
+          if (item === 'hidden') {              
+            $( "ul#menuPatient li:eq(0)" ).removeClass( item );
+          }
+    });
     $(".starthidden").hide(250);
     $('#description').attr('disabled', true); 
     jQuery('input:radio[name="sexef"]').filter('[value="M"]').attr('checked', true);

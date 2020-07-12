@@ -7,7 +7,7 @@
 @section('page-script')
 	<script>
 		$( document ).ready(function() {
-			copyAssure();
+			//copyAssure();
 			$( ".civilite" ).change(function() {
 				 var sex =  $('input[name=sexe]:checked').val();
 				 if(sex == "F")
@@ -73,7 +73,11 @@
 		}
 		function checkFormAddPAtient()
     {        
-   		if($('#hommeConf').is(':checked')){
+    	if( ! checkPatient() )
+      { 
+				return false;
+      }else{
+      	if($('#hommeConf').is(':checked')){
   			if( ! checkHomme() )
         		{	
           			 activaTab("Homme_C");
@@ -86,6 +90,9 @@
     	}
     	$('input:disabled').removeAttr('disabled');    
     	return true;
+      }
+
+   		
    	}
 	</script>
 @endsection
