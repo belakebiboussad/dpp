@@ -20,7 +20,7 @@
 	             			<input id="editCorrespondant_relation_autre" autocomplete="off" name="relation_autre" value="" type="text">
 	         			</span>
 	          		<span  class ="primary"  style="float: left;">
-	            		<select name="relation" id="relation" class="enum list|prevenir|garde">
+	            		<select name="type" id="type" class="enum list|prevenir|garde">
 										<option value="garde">Garde Malade</option>
 										<option value="prevenir">Personne à prévenir</option>
 									</select>
@@ -168,9 +168,6 @@
 					  <div class="space-12"></div>	
 			 		</form>
 			</div>
-			<!-- modal-body -->	<!-- onclick="addGardeMaladeFct();" -->
-			<!-- onclick="addGardeMaladeFct();"  -->
-
 			<div class="modal-footer">
 			<!--  -->
 				<button type="submit" class="btn btn-info btn-sm btn-submit" id ="EnregistrerGardeMalade" value="add">

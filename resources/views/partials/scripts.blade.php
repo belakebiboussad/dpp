@@ -46,17 +46,24 @@
 <script src="{{ asset('/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
 <script src="{{ asset('/plugins/fullcalendar/locale/fr.js') }}"></script>
 <script src="{{ asset('/js/jquery-editable-select.js') }}"></script>
-<script src="{{asset('/js/jquery-ui.js')}}"></script>
-
+<!-- <script src="{{asset('/js/jquery-ui.js')}}"></script> -->
  <script src="{{asset('/js/sweetalert2.all.min.js')}}"></script>
 {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> --}}
 <script type="text/javascript">
-      $(document).ready(function(){   // $(".select2").select2({ //     dir: "fr"// });
-      $('#avis').change(function(){
-          if($(this).val() == "R")
-            $("#motifr").show();
-          else
-             $("#motifr").hide();
+  var bloodhoundcom = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.whitespace,
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: {
+      url: '/patients/findcom?com=%QUERY%',
+      wildcard: '%QUERY%'
+    },
+  });
+  $(document).ready(function(){   // $(".select2").select2({ //     dir: "fr"// });
+    $('#avis').change(function(){
+      if($(this).val() == "R")
+        $("#motifr").show();
+      else
+         $("#motifr").hide();
     });
     $("#validerdmd").click(function(){
       var arrayLignes = document.getElementById("cmd").rows;
@@ -122,6 +129,49 @@
           }
       });
     });
+    $('.com_typeahead').typeahead({//#lieunaissance
+          autoselect: true,
+          hint: true,
+          highlight: true,
+          minLength: 1,   
+        },{
+          name: 'communenom',
+          source: bloodhoundcom,
+          display: function(data) {
+            return data.nom_commune;  //Input value to be set when you select a suggestion. 
+          },
+          templates: {
+            empty: [
+              '<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
+            ],
+            header: [
+              '<div class="list-group search-results-dropdown">'
+            ],
+            suggestion: function(data) {//return '<div style="font-weight:normal; margin-top:-10px ! important;width:300px !important" class="list-group-item" onclick="autocopleteCNais(\''+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
+              return '<div style="font-weight:normal; margin-top:-10px ! important;width:300px !important" class="list-group-item">' + data.nom_commune+ '</div></div>'
+            } 
+          }
+        }).bind("typeahead:selected", function(obj, datum, name){
+          switch(obj['target']['id'])
+          {
+            case "lieunaissance":
+                $("#idlieunaissance").val(datum.id_Commune);
+                break;
+            case "lieunaissancef":
+                $("#idlieunaissancef").val(datum.id_Commune);
+                break;
+            case "commune":
+                $("#idcommune").val(datum.id_Commune);
+                $("#idwilaya").val(datum.Id_wilaya);
+                $("#wilaya").val(datum.nom_wilaya);
+                break;
+            case "communef":    
+                $("#idcommunef").val(datum.id_Commune);
+                $("#idwilayaf").val(datum.Id_wilaya);
+                $("#wilayaf").val(datum.nom_wilaya);
+                break;
+          } 
+      });
   });  
 </script>
 <script type="text/javascript">
@@ -134,7 +184,7 @@
         if(th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
         else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
         });
-    });//select/deselect a row table1 when the checkbox is checked/unchecked
+    });
      $('#table1').on('click', 'td input[type=checkbox]' , function(){
                     var $row = $(this).closest('tr');
                     if($row.is('.detail-row ')) return;
@@ -164,131 +214,111 @@
     var id_medt= new Array();
     var id_prio= new Array();
     var obs= new Array();
-    
     function ajouterligne(){
-        var lignes= new Array();
-        nligne= new Array();//la nouvelle ligne
-        lignes=document.getElementById("table1").getElementsByTagName("tr");
-        //seling=ling.getElementsByClassName("active");
-        tableau = document.getElementById("table2");
-        for(var i=0;i<lignes.length;i++){
-            if (lignes[i].className=='active')
-                {
-                    lignes[i].classList.remove(active_class);
-                    var col=lignes[i].getElementsByTagName("td");
-                    nligne = tableau.insertRow(-1);//on a ajouté une ligne
-
-                    var colonne0 = nligne.insertCell(0);
-                    colonne0.innerHTML += col[0].innerHTML;
-                    colonne0.style.display='none';
-
-                    var colonne1 = nligne.insertCell(1);
-                    colonne1.innerHTML += col[1].innerHTML;
-
-                    var colonne2 = nligne.insertCell(2);
-                    colonne2.innerHTML += col[2].innerHTML; 
-
-                    var colonne3 = nligne.insertCell(3);
-                    colonne3.innerHTML += col[3].innerHTML;
-                    colonne3.style.display='none';      
-
-                    var colonne4 = nligne.insertCell(4);
-                    colonne4.innerHTML += col[4].innerHTML;
-                    colonne4.style.display='none';      
-
-                    var colonne5 = nligne.insertCell(5);
-                    var chm =col[5].getElementsByTagName("select");
-                    var s = chm[0].selectedIndex;
-                    colonne5.innerHTML += col[5].innerHTML;
-                    chm=colonne5.getElementsByTagName("select");
-                    chm[0].options[s].selected='selected';
-                    chm[0].disabled=true;
-                    id_medt.push(chm[0].options[s].value);
-                    //colonne5.innerHTML += chm[0].options[s].text;
-
-                    var colonne6 = nligne.insertCell(6);
-                    colonne6.innerHTML += col[6].innerHTML;
-                    chm=col[6].getElementsByTagName('input');
-                    for(var j = 0;j < chm.length; j++){
-                        if(chm[j].checked)s=j;}
-                    chm=colonne6.getElementsByTagName('input');
-                    chm[s].checked=true;
-                    id_prio.push(chm[s].value);
-                    colonne6.style.display='none';
-
-                    var colonne7 = nligne.insertCell(7);
-                    colonne7.innerHTML += col[7].innerHTML;
-                    chm= col[7].getElementsByTagName('textarea');
-                    s=chm[0].value;
-                    chm=colonne7.getElementsByTagName('textarea');
-                    chm[0].value=s;                 
-                    obs.push(s);                        
-                    colonne7.style.display='none';
-                    id_demh.push(col[0].innerHTML); //$(lignes[i]).appendTo('#table2');
-                    document.getElementById("table1").deleteRow(i);
-                }
-            }
-           lignes=null;
-
+      var lignes= new Array();
+      nligne= new Array();//la nouvelle ligne
+      lignes=document.getElementById("table1").getElementsByTagName("tr");//seling=ling.getElementsByClassName("active");
+      tableau = document.getElementById("table2");
+      for(var i=0;i<lignes.length;i++){
+          if (lignes[i].className=='active')
+          {
+            lignes[i].classList.remove(active_class);
+            var col=lignes[i].getElementsByTagName("td");
+            nligne = tableau.insertRow(-1);//on a ajouté une ligne
+            var colonne0 = nligne.insertCell(0);
+            colonne0.innerHTML += col[0].innerHTML;
+            colonne0.style.display='none';
+            var colonne1 = nligne.insertCell(1);
+            colonne1.innerHTML += col[1].innerHTML;
+            var colonne2 = nligne.insertCell(2);
+            colonne2.innerHTML += col[2].innerHTML; 
+            var colonne3 = nligne.insertCell(3);
+            colonne3.innerHTML += col[3].innerHTML;
+            colonne3.style.display='none';      
+            var colonne4 = nligne.insertCell(4);
+            colonne4.innerHTML += col[4].innerHTML;
+            colonne4.style.display='none';      
+            var colonne5 = nligne.insertCell(5);
+            var chm =col[5].getElementsByTagName("select");
+            var s = chm[0].selectedIndex;
+            colonne5.innerHTML += col[5].innerHTML;
+            chm=colonne5.getElementsByTagName("select");
+            chm[0].options[s].selected='selected';
+            chm[0].disabled=true;
+            id_medt.push(chm[0].options[s].value);//colonne5.innerHTML += chm[0].options[s].text;
+            var colonne6 = nligne.insertCell(6);
+            colonne6.innerHTML += col[6].innerHTML;
+            chm=col[6].getElementsByTagName('input');
+            for(var j = 0;j < chm.length; j++){
+                if(chm[j].checked)s=j;}
+            chm=colonne6.getElementsByTagName('input');
+            chm[s].checked=true;
+            id_prio.push(chm[s].value);
+            colonne6.style.display='none';
+            var colonne7 = nligne.insertCell(7);
+            colonne7.innerHTML += col[7].innerHTML;
+            chm= col[7].getElementsByTagName('textarea');
+            s=chm[0].value;
+            chm=colonne7.getElementsByTagName('textarea');
+            chm[0].value=s;                 
+            obs.push(s);                        
+            colonne7.style.display='none';
+            id_demh.push(col[0].innerHTML); //$(lignes[i]).appendTo('#table2');
+            document.getElementById("table1").deleteRow(i);
+          }
+      }
+      lignes=null;
     }
-      $('#table2 > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
-                    var th_checked = this.checked;//checkbox inside "TH" table2 header
-                    
-                    $(this).closest('table').find('tbody > tr').each(function(){
-                        var row = this;
-                        if(th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
-                        else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
-                    });
-                });
-                
-                //select/deselect a row when the checkbox is checked/unchecked
-                $('#table2').on('click', 'td input[type=checkbox]' , function(){
-                    var $row = $(this).closest('tr');
-                    if($row.is('.detail-row ')) return;
-                    if(this.checked) $row.addClass(active_class);
-                    else $row.removeClass(active_class);
-                });
-  
-  
+    $('#table2 > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
+        var th_checked = this.checked;//checkbox inside "TH" table2 header
+        
+        $(this).closest('table').find('tbody > tr').each(function(){
+            var row = this;
+            if(th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
+            else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
+        });
+    });
+    //select/deselect a row when the checkbox is checked/unchecked
+    $('#table2').on('click', 'td input[type=checkbox]' , function(){
+        var $row = $(this).closest('tr');
+        if($row.is('.detail-row ')) return;
+        if(this.checked) $row.addClass(active_class);
+        else $row.removeClass(active_class);
+    });
     function suppligne(){
         var lignes= new Array();
-        
-        lignes=document.getElementById("table2").getElementsByTagName("tr");
-        //seling=ling.getElementsByClassName("active");
-
+        lignes=document.getElementById("table2").getElementsByTagName("tr"); //seling=ling.getElementsByClassName("active");
         for(var i=0;i<lignes.length;i++){
-            if (lignes[i].className=='active')
-                {   //désactivé la ligne
-                    lignes[i].classList.remove(active_class);
-                    
-                                        
-                    var col=lignes[i].getElementsByTagName("td");
+          if (lignes[i].className=='active')
+          {   //désactivé la ligne
+            lignes[i].classList.remove(active_class);
+            var col=lignes[i].getElementsByTagName("td");
 
-                    //activer la selection du medecin traitant
-                    var chm =col[5].getElementsByTagName("select");
-                    chm[0].disabled=false;
-                    
-                    //décocher le checkbox
-                    var chm =col[1].getElementsByTagName("input");
-                    chm[0].checked=false;
+            //activer la selection du medecin traitant
+            var chm =col[5].getElementsByTagName("select");
+            chm[0].disabled=false;
+            
+            //décocher le checkbox
+            var chm =col[1].getElementsByTagName("input");
+            chm[0].checked=false;
 
-                    //afficher les colonnes cachées
-                    for (var j = 1; j < col.length; j++) {
-                        if (col[j].style.display === 'none') 
-                            col[j].style.display='table-cell' ;
-                    }    
-                    lignes[i].style.display='table-row';
-                    var t=col[0].innerHTML;                         
-                    var index=id_demh.indexOf(t);                   
-                    id_demh.splice(index, 1);                   
-                    id_medt.splice(index, 1);                   
-                    id_prio.splice(index, 1);                           
-                    obs.splice(index, 1);
-                    console.log(id_medt);
-      $(lignes[i]).appendTo('#table1');      
-  }
-           
-        }lignes=null;
+            //afficher les colonnes cachées
+            for (var j = 1; j < col.length; j++) {
+                if (col[j].style.display === 'none') 
+                    col[j].style.display='table-cell' ;
+            }    
+            lignes[i].style.display='table-row';
+            var t=col[0].innerHTML;                         
+            var index=id_demh.indexOf(t);                   
+            id_demh.splice(index, 1);                   
+            id_medt.splice(index, 1);                   
+            id_prio.splice(index, 1);                           
+            obs.splice(index, 1);
+            console.log(id_medt);
+            $(lignes[i]).appendTo('#table1');      
+          }
+        }
+        lignes=null;
     }
     $('#detail_coll').submit(function(ev) {
     ev.preventDefault(); // to stop the form from submitting
@@ -309,9 +339,9 @@
 });
 </script>
 <script type="text/javascript">
-  $(document).ready(function() {
-    // $('#patients_liste').dataTable();    // $('#choixpatientrdv').dataTable();  // $('#rdvs_liste').dataTable();    // $('#patients').dataTable();    // $('#choix-patient-atcd').dataTable();//$('#users').dataTable();
-  });
+  // $(document).ready(function() {
+    
+  // });
   function addRequiredAttr()
   {
     var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
@@ -326,52 +356,6 @@
     jQuery('input:radio[name="etat"]').filter('[value="Activite"]').attr('checked', true);
         
   }
-  function typepCreation()
-  {
-    if($('#fonc').is(':checked'))
-    {
-      $('#NSSInput').addClass("hidden").hide().fadeIn();
-      $('#AssureInputs').addClass("hidden").hide().fadeIn();
-      $('#foncinput').css('display', 'block');
-      $('#nssinput').css('display', 'block');
-      $('#nssAssinput').removeClass("hidden").show();
-      $('#matinput').css('display', 'block');
-      $('#etatinput').css('display', 'block');
-      $('#gradeinput').css('display', 'block');
-      $('#foncform').css('display', 'none');
-      $('#typepp').css('display', 'none');
-      $(".starthidden").hide();
-    }
-    else
-    {
-      if($('#ayant').is(':checked'))  
-      {
-          $('#NSSInput').removeClass("hidden").show();    
-          $('#foncinput').css('display', 'none');
-          $('#nssinput').css('display', 'none');
-          $('#gradeinput').css('display', 'none');
-          $('#nssAssinput').addClass("hidden").hide().fadeIn();
-          $('#matinput').css('display', 'none');
-          $('#etatinput').css('display', 'none');
-          $('#foncform').css('display', 'block');  
-          $('#typepp').css('display', 'block');
-          $(".starthidden").hide();  
-      }else
-      {
-         $('#NSSInput').addClass("hidden").hide().fadeIn();
-         $('#AssureInputs').addClass("hidden").hide().fadeIn();
-         $('#foncform').css('display', 'none');
-         $('#typepp').css('display', 'none');
-         $('#foncinput').css('display', 'none');
-         $('#nssinput').css('display', 'none');
-         $('#gradeinput').css('display', 'none');
-         $('#nssAssinput').addClass("hidden").hide().fadeIn();
-         $('#matinput').css('display', 'none');
-         $('#etatinput').css('display', 'none');
-         $(".starthidden").show();
-      }
-}
-}
 function typep()
 {
     if($('#fonc').is(':checked'))
@@ -434,9 +418,7 @@ $('#typeexm').on('change', function() {
 </script>
 <script>
   $('#flash-overlay-modal').modal();
-  $(document).ready(function(){
-   //$(".tooltip-link").tooltip();//ajouter info bull
-  }); 
+  // $(document).ready(function(){}); 
 </script>
 <script type="text/javascript">
  function medicm(med)
@@ -1176,11 +1158,11 @@ $('#typeexm').on('change', function() {
        //todelete
       function refrechCal()
       {  
-             $('.calendar1').fullCalendar('refetchEvents');
-             $('.calendar1').fullCalendar( 'refetchResources' );
-             $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next');    
-              $('.calendar1').fullCalendar('rerenderEvents');
-              $('.calendar1').fullCalendar( 'refetchEvents' );//getting latest Events
+        $('.calendar1').fullCalendar('refetchEvents');
+        $('.calendar1').fullCalendar( 'refetchResources' );
+        $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next');    
+        $('.calendar1').fullCalendar('rerenderEvents');
+        $('.calendar1').fullCalendar( 'refetchEvents' );//getting latest Events
       } 
       function isEmpty(value) {
              return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;

@@ -169,7 +169,7 @@
 					  <div class="space-12"></div>
 					  <div class="space-12"></div>	
 			 		</form>
-			</div><!-- modal-body -->	<!-- onclick="addGardeMaladeFct();" -->
+			</div>
 			<div class="modal-footer">
 				<button type="submit" class="btn btn-info btn-sm btn-submit" id ="EnregistrerGardeMalade" onclick="addGardeMaladeFct();">
           <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer

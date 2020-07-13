@@ -4,14 +4,14 @@
  <script>
  	$( document ).ready(function() {
 		$( "#addPatientForm" ).submit(function( event ) {
-		  $('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });
-     	if( ! checkPatient() )
+		  if( ! checkPatient() )
       {
         activaTab("Patient");
         event.preventDefault();
         
       }else{
       	if(!($('#autre').is(':checked'))){ 
+					$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });	
 					if( ! checkAssure() )
 					{
 					  activaTab("Assure");

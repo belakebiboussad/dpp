@@ -6,37 +6,6 @@
 @endsection
 @section('page-script')
 	<script>
-		$( document ).ready(function() {
-			//copyAssure();
-			$( ".civilite" ).change(function() {
-				 var sex =  $('input[name=sexe]:checked').val();
-				 if(sex == "F")
-				 {
-			 		var civilite= $("select.civilite option").filter(":selected").val();
-			 		if((civilite =="marie")|| (civilite =="veuf"))
-	  					$('#Div-nomjeuneFille').removeAttr('hidden');
-		  			else
-		  				$('#Div-nomjeuneFille').attr('hidden','');	
-				 }else
-				 	$('#Div-nomjeuneFille').attr('hidden','');	
-			});
-			$('input[type=radio][name=sexe]').change(function(){
-			 	if($(this).val() == "M")
-			 		$('#Div-nomjeuneFille').attr('hidden','');
-			 	else
-			 	{
-			 		var civilite= $("select.civilite option").filter(":selected").val();
-			 		if((civilite =="marie")|| (civilite =="veuf"))
-		  			$('#Div-nomjeuneFille').removeAttr('hidden');
-			 	}
-			});
-			$('input[type=radio][name=etatf]').change(function(){
-				if($(this).val() != "En_exercice")
-					$('#serviceFonc').addClass('invisible'); 
-				else
-					$('#serviceFonc').removeClass('invisible'); 	
-			});
-		});
 		function copyAssure(){
 			$("#nom").val('{{ $assure->Nom }}');$("#prenom").val('{{ $assure->Prenom }}');$("#datenaissance").val('{{ $assure->Date_Naissance}}');
 			$("#lieunaissance").val('{{ $assure->lieuNaissance->nom_commune }}');	$("#idlieunaissance").val({{ $assure->lieunaissance }});
@@ -91,8 +60,6 @@
     	$('input:disabled').removeAttr('disabled');    
     	return true;
       }
-
-   		
    	}
 	</script>
 @endsection

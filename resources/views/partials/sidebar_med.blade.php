@@ -216,10 +216,14 @@
         var mobile1 = $('#mobile1').val();
         var inputAssVal = new Array(mobile1,idlieunaissance,datenaissance,prenom,nom);
         var inputMessage = new Array("Téléphone mobile 1","Lieu de Naissance","Date de Naissance","Prenom","Nom");
-
+        if($("input[type=radio][name='type']:checked").val() == "Ayant_droit")
+        {
+          inputAssVal.unshift($("#Type_p").val());
+          inputMessage.unshift("Type");
+        }
         $('.error').each(function(i, obj) {
-              $(obj).next().remove();
-              $(obj).detach();
+          $(obj).next().remove();
+          $(obj).detach();
        });
         jQuery.each( inputAssVal, function( i, val ) {
           if(val =="" )
@@ -280,8 +284,36 @@
         $('.Asdemograph').find('*').each(function () { $(this).attr("disabled", true); });
         addRequiredAttr();
        }
-      
+      //averifier
+      if ($("#addGardeMalade").length > 0) {
+        $("#addGardeMalade").validate({
+            rules: {
+                mobile_h: { required: true,  digits:true,  minlength: 10,  maxlength:10 }   
+          },
+          messages: {
+            mobile_h: {
+                required: "Please enter contact number",
+                minlength: "The contact number should be 10 digits",
+                digits: "Please enter only numbers",
+                maxlength: "The contact number should be 12 digits",
+            }
+          }
+        });
+      }
       $(document).ready(function () {
+        $('input[type=radio][name=sexe]').change(function(){
+          if($(this).val() == "M")
+          {
+            $('#Div-nomjeuneFille').attr('hidden','');
+            $('#nom_jeune_fille').val('');
+          }
+          else
+          {
+            var civilite= $("select.civilite option").filter(":selected").val();
+            if((civilite =="marie")|| (civilite =="veuf"))
+              $('#Div-nomjeuneFille').removeAttr('hidden');
+          }
+        });
         $( ".civilite" ).change(function() {
           var sex =  $('input[name=sexe]:checked').val();
           if(sex == "F")
@@ -294,20 +326,6 @@
           }else
             $('#Div-nomjeuneFille').attr('hidden','');      
         });
-        $('input[type=radio][name=sexe]').change(function(){
-          if($(this).val() == "M")
-          {
-
-            $('#Div-nomjeuneFille').attr('hidden','');
-            $('#nom_jeune_fille').val('');
-          }
-          else
-          {
-            var civilite= $("select.civilite option").filter(":selected").val();
-            if((civilite =="marie")|| (civilite =="veuf"))
-              $('#Div-nomjeuneFille').removeAttr('hidden');
-          }
-        });
         $('input[type=radio][name=etatf]').change(function(){
           if($(this).val() != "Activite" && ($(this).val() != "Activite"))
           {
@@ -318,57 +336,110 @@
         });
         if($("input[type=radio][name='etatf']:checked").val() != "Activite" )
           $('#serviceFonc').addClass('invisible');
-        var bloodhoundcom = new Bloodhound({
-            datumTokenizer: Bloodhound.tokenizers.whitespace,
-            queryTokenizer: Bloodhound.tokenizers.whitespace,
-            remote: {
-              url: '/patients/findcom?com=%QUERY%',
-              wildcard: '%QUERY%'
-            },
-        });
-        $('.com_typeahead').typeahead({//#lieunaissance
-          autoselect: true,
-          hint: true,
-          highlight: true,
-          minLength: 1,   
-        },{
-          name: 'communenom',
-          source: bloodhoundcom,
-          display: function(data) {
-            return data.nom_commune;  //Input value to be set when you select a suggestion. 
+      //homme/garde  
+      $('#listeGardes').DataTable({
+              colReorder: true,
+              stateSave: true,
+              searching:false,
+              'aoColumnDefs': [{
+                'bSortable': false,
+                'aTargets': ['nosort']
+              }],
+              "language": {
+                          "url": '/localisation/fr_FR.json'
+              },
+      });
+      jQuery('body').on('click', '.open-modal', function () {
+        var hom_id = $(this).val();
+        $.get('/hommeConfiance/'+hom_id+'/edit', function (data) {
+          $('#patientId').val(data.id_patient); $('#hom_id').val(data.id);  $('#nom_h').val(data.nom);$('#prenom_h').val(data.prenom);
+          $('#datenaissance_h').val(data.date_naiss);  $('#lien_par').val(data.lien_par).change();    
+          $('#lien_par option').each(function() {
+            if($(this).val() == data.lien_par) 
+              $(this).prop("selected", true);
+          });       
+          $('#' + data.type_piece).prop('checked',true); $('#num_piece').val(data.num_piece);$('#date_piece_id').val(data.date_deliv);
+          $('#adresse_h').val(data.adresse);$('#mobile_h').val(data.mob);jQuery('#EnregistrerGardeMalade').val("update");
+            jQuery('#gardeMalade').modal('show');
+          })
+      });
+      $("#EnregistrerGardeMalade").click(function (e) {
+        $.ajaxSetup({
+              headers: {
+                  'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+              }
+      });
+      e.preventDefault();
+      var formData = {
+            id_patient:$('#patientId').val(),
+            nom:$('#nom_h').val(),
+            prenom : $('#prenom_h').val(),
+            date_naiss : $('#datenaissance_h').val(),
+            type:$('#type').val(),
+            lien_par : $('#lien_par').val(),
+            type_piece : $("input[name='type_piece']:checked").val(),
+            num_piece : $('#num_piece').val(),
+            date_deliv : $('#date_piece_id').val(),
+            adresse : $('#adresse_h').val(),
+            mob : $('#mobile_h').val(),
+            created_by: $('#userId').val()
+      };
+      var state = jQuery('#EnregistrerGardeMalade').val(); var type = "POST";var hom_id = jQuery('#hom_id').val();var ajaxurl = 'hommeConfiance';
+      if (state == "update") {
+        type = "PUT"; ajaxurl = '/hommeConfiance/' + hom_id;
+      }
+      if (state == "add") {
+        ajaxurl ="{{ route('hommeConfiance.store') }}";
+      }
+      $('#hom_id').val("");$('#nom_h').val("");$('#prenom_h').val("");$('#datenaissance_h').val("");$('#num_piece').val("");  $('#date_piece_id').val("");
+      $('#adresse_h').val("");$('#mobile_h').val("");
+      $.ajax({
+          type: type,
+          url: ajaxurl,
+          data: formData,
+          dataType: 'json',
+          success: function (data) {
+              jQuery('#gardeMalade').modal('hide');
+              if($('.dataTables_empty').length > 0)
+              {
+                $('.dataTables_empty').remove();
+              }
+              var homme = '<tr id="garde' + data.id + '"><td class="hidden">' + data.id_patient + '</td><td>' + data.nom + '</td><td>' + data.prenom + '</td><td>'+ data.date_naiss +'</td><td>' + data.adresse + '</td><td>'+ data.mob + '</td><td>' + data.lien_par + '</td><td>' + data.type_piece + '</td><td>' + data.num_piece + '</td><td>' +  data.date_deliv + '</td>';
+              homme += '<td class ="center"><button type="button" class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
+              homme += '<button type="button" class="btn btn-xs btn-danger delete-garde" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+              if (state == "add") {
+                $("#listeGardes tbody").append(homme);
+              } else {
+                $("#garde" + hom_id).replaceWith(homme);      
+              }
           },
-          templates: {
-            empty: [
-              '<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
-            ],
-            header: [
-              '<div class="list-group search-results-dropdown">'
-            ],
-            suggestion: function(data) {//return '<div style="font-weight:normal; margin-top:-10px ! important;width:300px !important" class="list-group-item" onclick="autocopleteCNais(\''+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
-              return '<div style="font-weight:normal; margin-top:-10px ! important;width:300px !important" class="list-group-item">' + data.nom_commune+ '</div></div>'
-            } 
+          error: function (data) {
+            console.log('Error:', data);
           }
-        }).bind("typeahead:selected", function(obj, datum, name){
-          switch(obj['target']['id'])
-          {
-            case "lieunaissance":
-                $("#idlieunaissance").val(datum.id_Commune);
-                break;
-            case "lieunaissancef":
-                $("#idlieunaissancef").val(datum.id_Commune);
-                break;
-            case "commune":
-                $("#idcommune").val(datum.id_Commune);
-                $("#idwilaya").val(datum.Id_wilaya);
-                $("#wilaya").val(datum.nom_wilaya);
-                break;
-            case "communef":    
-                $("#idcommunef").val(datum.id_Commune);
-                $("#idwilayaf").val(datum.Id_wilaya);
-                $("#wilayaf").val(datum.nom_wilaya);
-                break;
-          } 
       }); 
-      }) 
+     }) ////----- DELETE a Garde and remove from the page -----////
+      jQuery('body').on('click', '.delete-garde', function () {
+            var hom_id = $(this).val();
+            $.ajaxSetup({
+              headers: {
+                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                  }
+            });
+            $.ajax({
+                  type: "DELETE",
+                  url: '/hommeConfiance/' + hom_id,
+                  success: function (data) {
+                      $("#garde" + hom_id).remove();
+                  },
+                  error: function (data) {
+                         console.log('Error:', data);
+                  }
+            });
+      });
+    $('#gardeMalade').on('hidden.bs.modal', function () {
+      $('#gardeMalade form')[0].reset();
+    });
+
+    }) 
     </script>
 </div><!-- /section:basics/sidebar -->

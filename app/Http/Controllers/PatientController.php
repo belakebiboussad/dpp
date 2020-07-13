@@ -96,9 +96,8 @@ class PatientController extends Controller
     ];
     $validator = Validator::make($request->all(),$rule,$messages);   
     if ($validator->fails()) {
-        $errors = $validator->errors(); 
-         $grades = grade::all();
-        return view('patient.add')->withErrors($errors);
+      $grades = grade::all();//$errors = $validator->errors(); 
+      return view('patient.add',compact('grades'))->withErrors($validator->errors());
     }
     if( $request->type !="Autre")  
     {    
@@ -248,13 +247,13 @@ class PatientController extends Controller
     public function show($id)
     {  
       $patient = patient::FindOrFail($id);
-      $homme_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get()->first();
-      $consultations =$patient->Consultations; //consultation::where('Patient_ID_Patient',$id)->get(); 
+      $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();//->first();
+      $consultations =$patient->Consultations; 
       $hospitalisations = $patient->hospitalisations;//hospitalisation::whereHas('admission.demandeHospitalisation.consultation.patient', function($q) use($id){$q->where('id', $id);})->get();
       $specialites = Specialite::all();
       $grades = grade::all();
       $rdvs = rdv::where('Patient_ID_Patient' ,'=','$id')->get();
-      return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations','homme_c','specialites','grades'));
+      return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations','correspondants','specialites','grades'));
     }
     /**
      * Show the form for editing the specified resource.
