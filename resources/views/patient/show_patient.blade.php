@@ -25,21 +25,27 @@
 					</li>
 				
 					 @if( Auth::user()->role->id == 1)
+					 <li>
+					 	<a data-toggle="tab" href="#Ants">
+					 		<i class="fa fa-history fa-1x"></i>&nbsp;<span>Antecedants</span>&nbsp;<span class="badge badge-primary">{{$patient->antecedants->count() }}
+							</span>
+					 	</a>
+					 </li>
 					<li>
-						<a data-toggle="tab" href="#feed">
-						<i class="orange ace-icon fa fa-stethoscope bigger-120"></i>Consultations&nbsp;<span class="badge badge-warning">{{ $consultations->count() }}
+						<a data-toggle="tab" href="#Cons">
+						<i class="orange ace-icon fa fa-stethoscope bigger-120"></i>Consultations&nbsp;<span class="badge badge-warning">{{ $patient->consultations->count() }}
 							</span>
 						</a>
 					</li>
 					<li>
-					<a data-toggle="tab" href="#pictures">
+					<a data-toggle="tab" href="#Hosp">
 						<i class="pink ace-icon fa fa-h-square bigger-120"></i>
 						Hospitalisations&nbsp;<span class="badge badge-pink">{{ $hospitalisations->count() }}</span>
 						</a>
 					</li>
 					@endif
 					<li>
-						<a data-toggle="tab" href="#friends">
+						<a data-toggle="tab" href="#rdvs">
 							<i class="blue ace-icon fa fa-calendar-o bigger-120"></i>
 							RDV&nbsp;<span class="badge badge-info">{{ $rdvs->count() }}</span>
 						</a>
@@ -107,8 +113,8 @@
 										</div>
 									</div>
 									<div class="profile-info-row">
-										<div class="profile-info-name"> Age </div>
-										<div class="numberCircle">{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }}
+										<div class="profile-info-name"> Âge </div>
+										<div class="numberCircle">{{ $patient->getAge() }}
 										</div>
 										 <span class="blue">Ans</span>
 									</div>
@@ -283,74 +289,12 @@
 						</div><!-- /.row -->
 						<div class="space-20"></div>
 					</div><!-- /#home -->
-					<!--homme_conf -->
-					{{-- @if (!is_null ($homme_c)) --}}
-          <div id="homme_conf" class="tab-pane">
-          <div class="row">
-					</div>
-					<div class="row">
-						<div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2">
-							<div class="widget-box widget-color-blue" id="widget-box-2">
-								<div class="widget-header">
-									<h5 class="widget-title bigger lighter">
-										<i class="ace-icon fa fa-table"></i>Gardes Malades/Hommes de Confiance
-									</h5>
-									<div class="widget-toolbar widget-toolbar-light no-border">
-										<div class="fa fa-plus-circle"></div>{{-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> --}}
-											<a href="#" data-target="#gardeMalade" class="btn-xs tooltip-link" data-toggle="modal"  data-toggle="tooltip" data-original-title="Ajouter un Correspondant" >
-												<strong>Ajouter un Correspondant</strong>
-											</a>
-									</div>
-								</div>
-								<div class="widget-body">
-									<div class="widget-main no-padding">
-									  <table id="listeGardes" class="table nowrap dataTable no-footer" style="width:100%">
-					            <thead>
-						            <tr>
-						              <th hidden></th>
-						              <th class ="center"><strong>Nom</strong> </th>
-						              <th class ="center"><strong>Prénom</strong></th>
-						              <th class ="center"><strong>né(e) le</strong></th>
-						              <th class ="center"><strong>Adresse</strong></th>
-						              <th class ="center"><strong>Tél</strong></th>
-						              <th class ="center"><strong>Relation</strong></th>
-						              <th class ="center"><strong>Type Pièce</strong></th>
-						              <th class ="center"><strong>N°</strong></th>
-						              <th class ="center"><strong>date délevrance</strong></th>
-						              <th class="nsort"><em class="fa fa-cog"></em></th>
-						            </tr>
-					            </thead>
-					          <tbody>
-					          @foreach($correspondants as $hom)
-					            <tr id="{{ 'garde'.$hom->id }}">
-					              <td hidden>{{ $hom->id_patient }}</td>
-					              <td>{{ $hom->nom }}</td>
-					              <td>{{ $hom->prenom }}</td>
-					              <td>{{ $hom->date_naiss }}</td>
-					              <td>{{ $hom->adresse }}</td>
-					              <td>{{ $hom->mob }}</td>
-					              <td>{{ $hom->lien_par }}</td>
-					              <td>{{ $hom->type_piece }}</td>
-					              <td>{{ $hom->num_piece }}</td>
-					              <td>{{ $hom->date_deliv }}</td>
-					              <td class="center nosort">
-					  							<!-- <button type="button" class="btn btn-xs btn-info open-modal" value="{{$hom->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
-                          <button type="button" class="btn btn-xs btn-danger delete-garde" value="{{$hom->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> -->
-                          
-					          		</td>
-					            </tr>
-					          @endforeach
-					          </tbody>
-					         </table>
-					        </div>  <!-- widget-main --> 
-			         </div> <!-- widget-body -->
-		        </div>     <!-- widget-box	 -->
-		       </div> <!-- widget-container  -->
-					</div>
-						
-					</div><!-- /#homme_conf -->
-					{{-- @endif --}}
-					<div id="feed" class="tab-pane">
+					<!-- Ants -->
+					<div id="Ants" class="tab-pane">
+						@include('antecedents.ants_Widget')
+					</div><!-- finAnts -->
+
+					<div id="Cons" class="tab-pane">
 						<div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2">
 							<div class="widget-box widget-color-blue" id="widget-box-2">
 								<div class="widget-header">
@@ -375,7 +319,7 @@
 												</tr>
 											</thead>
 											<tbody>
-												@foreach($consultations as $consultation)
+												@foreach($patient->consultations as $consultation)
 													@if($consultation->Patient_ID_Patient == $patient->id)
 													<tr>
 														<td>{{ $consultation->Motif_Consultation }}</td>
@@ -387,10 +331,10 @@
 														</td>
 														<td class ="center">
 															<div class="hidden-sm hidden-xs btn-group">
-                            														<a class="btn btn-xs btn-success" href="/consultations/detailcons/{{$consultation->id}}">	
-                            															<i class="ace-icon fa fa-hand-o-up bigger-120"></i>Détails
-                           														</a>
-                           													</div>
+      														<a class="btn btn-xs btn-success show-modal" href="/consultations/detailcons/{{$consultation->id}}">	
+      															<i class="ace-icon fa fa-hand-o-up bigger-120"></i>Détails
+     														</a>
+     													</div>
 														</td>
 													</tr>
 													@endif
@@ -401,8 +345,8 @@
 								</div>
 							</div>
 						</div>	
-					</div><!-- /#feed -->
-					<div id="friends" class="tab-pane">
+					</div><!-- /#Cons -->
+					<div id="rdvs" class="tab-pane">
 						<div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2">
 							<div class="widget-box widget-color-blue" id="widget-box-2">
 								<div class="widget-header">
@@ -458,8 +402,8 @@
 								</div>
 							</div>
 						</div>
-					</div><!-- /#friends -->
-					<div id="pictures" class="tab-pane">
+					</div><!-- /#rdvs -->
+					<div id="Hosp" class="tab-pane">
 						<div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2">
 							<div class="widget-box widget-color-blue" id="widget-box-2">
 								<div class="widget-header">
@@ -507,7 +451,73 @@
 								</div>
 							</div>
 						</div>
-					</div><!-- /#pictures -->
+					</div><!-- /#Hos^p -->
+					<!--homme_conf -->
+					<div id="homme_conf" class="tab-pane">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2">
+							<div class="widget-box widget-color-blue" id="widget-box-2">
+								<div class="widget-header">
+									<h5 class="widget-title bigger lighter">
+										<i class="ace-icon fa fa-table"></i>Gardes Malades/Hommes de Confiance
+									</h5>
+									<div class="widget-toolbar widget-toolbar-light no-border">
+										<div class="fa fa-plus-circle"></div>{{-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> --}}
+											<a href="#" data-target="#gardeMalade" class="btn-xs tooltip-link" data-toggle="modal"  data-toggle="tooltip" data-original-title="Ajouter un Correspondant" >
+												<strong>Ajouter un Correspondant</strong>
+											</a>
+									</div>
+								</div>
+								<div class="widget-body">
+									<div class="widget-main no-padding">
+									  <table id="listeGardes" class="table nowrap dataTable no-footer" style="width:100%">
+					            <thead>
+						            <tr>
+						              <th hidden></th>
+						              <th class ="center"><strong>Nom</strong> </th>
+						              <th class ="center"><strong>Prénom</strong></th>
+						              <th class ="center"><strong>né(e) le</strong></th>
+						              <th class ="center"><strong>Adresse</strong></th>
+						              <th class ="center"><strong>Tél</strong></th>
+						              <th class ="center"><strong>Relation</strong></th>
+						              <th class ="center"><strong>Type Pièce</strong></th>
+						              <th class ="center"><strong>N°</strong></th>
+						              <th class ="center"><strong>date délevrance</strong></th>
+						              <th class="nsort"><em class="fa fa-cog"></em></th>
+						            </tr>
+					            </thead>
+					          <tbody>
+					          @foreach($correspondants as $hom)
+					            <tr id="{{ 'garde'.$hom->id }}">
+					              <td hidden>{{ $hom->id_patient }}</td>
+					              <td>{{ $hom->nom }}</td>
+					              <td>{{ $hom->prenom }}</td>
+					              <td>{{ $hom->date_naiss }}</td>
+					              <td>{{ $hom->adresse }}</td>
+					              <td>{{ $hom->mob }}</td>
+					              <td>{{ $hom->lien_par }}</td>
+					              <td>{{ $hom->type_piece }}</td>
+					              <td>{{ $hom->num_piece }}</td>
+					              <td>{{ $hom->date_deliv }}</td>
+					              <td class="center nosort">
+					  						  <button type="button" class="btn btn-xs btn-success open-modal" value="{{$hom->id}}" data-cmd="show">
+                           		<i class="ace-icon fa fa-hand-o-up bigger-120"></i>Détails
+                           </button> 
+                    		</td>
+					            </tr>
+					          @endforeach
+					          </tbody>
+					         </table>
+					        </div>  <!-- widget-main --> 
+			         </div> <!-- widget-body -->
+		        </div>     <!-- widget-box	 -->
+		       </div> <!-- widget-container  -->
+					</div>
+					<div class="row">
+						@include('corespondants.add')
+					</div>
+					</div><!-- /#homme_conf -->
+					
 				</div>
 			</div>
 		</div>

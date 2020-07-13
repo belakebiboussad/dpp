@@ -40,7 +40,7 @@
 @endsection
 @section('main-content')
 <div class="page-header">
-	<h1 style="display: inline;"><strong>modification du Patient :&nbsp;</strong>{{ $patient->getCivilite() }} {{ $patient->Nom }} {{ $patient->Prenom }}</h1>
+	<h1 style="display: inline;"><strong>Modification du Patient :&nbsp;</strong>{{ $patient->getCivilite() }} {{ $patient->Nom }} {{ $patient->Prenom }}</h1>
 	<div class="pull-right">
 		<a href="{{route('patient.index')}}" class="btn btn-white btn-info btn-bold">
 			<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>
@@ -392,7 +392,7 @@
 					              <td>{{ $hom->num_piece }}</td>
 					              <td>{{ $hom->date_deliv }}</td>
 					              <td class="center nosort">
-					       					  <button type="button" class="btn btn-xs btn-info open-modal" value="{{$hom->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
+					       					  <button type="button" class="btn btn-xs btn-info open-modal" value="{{$hom->id}}" data-cmd="edit"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
                             <button type="button" class="btn btn-xs btn-danger delete-garde" value="{{$hom->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>
 					          		</td>
 					            </tr>
@@ -422,7 +422,7 @@
 	</div>
 	</form>
 	<div class="row">
-    @include('patient.add_gardeMalade')
+    @include('corespondants.add')
 	</div>
 
 @endsection

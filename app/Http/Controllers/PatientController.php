@@ -248,12 +248,11 @@ class PatientController extends Controller
     {  
       $patient = patient::FindOrFail($id);
       $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();//->first();
-      $consultations =$patient->Consultations; 
       $hospitalisations = $patient->hospitalisations;//hospitalisation::whereHas('admission.demandeHospitalisation.consultation.patient', function($q) use($id){$q->where('id', $id);})->get();
       $specialites = Specialite::all();
       $grades = grade::all();
-      $rdvs = rdv::where('Patient_ID_Patient' ,'=','$id')->get();
-      return view('patient.show_patient',compact('patient','consultations','rdvs','hospitalisations','correspondants','specialites','grades'));
+      $rdvs =rdv::firstOrFail()->where('Patient_ID_Patient', $id)->get();// $rdvs = rdv::where('Patient_ID_Patient' ,$id)->get();
+      return view('patient.show_patient',compact('patient','rdvs','hospitalisations','correspondants','specialites','grades'));
     }
     /**
      * Show the form for editing the specified resource.

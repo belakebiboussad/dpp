@@ -338,16 +338,16 @@
           $('#serviceFonc').addClass('invisible');
       //homme/garde  
       $('#listeGardes').DataTable({
-              colReorder: true,
-              stateSave: true,
-              searching:false,
-              'aoColumnDefs': [{
-                'bSortable': false,
-                'aTargets': ['nosort']
-              }],
-              "language": {
-                          "url": '/localisation/fr_FR.json'
-              },
+          colReorder: true,
+          stateSave: true,
+          searching:false,
+          'aoColumnDefs': [{
+            'bSortable': false,
+            'aTargets': ['nosort']
+          }],
+          "language": {
+                      "url": '/localisation/fr_FR.json'
+          },
       });
       jQuery('body').on('click', '.open-modal', function () {
         var hom_id = $(this).val();
@@ -359,15 +359,21 @@
               $(this).prop("selected", true);
           });       
           $('#' + data.type_piece).prop('checked',true); $('#num_piece').val(data.num_piece);$('#date_piece_id').val(data.date_deliv);
-          $('#adresse_h').val(data.adresse);$('#mobile_h').val(data.mob);jQuery('#EnregistrerGardeMalade').val("update");
-            jQuery('#gardeMalade').modal('show');
+          $('#adresse_h').val(data.adresse);$('#mobile_h').val(data.mob);
+          if($(".open-modal").attr('data-cmd') == "show")
+          {
+            jQuery('#EnregistrerGardeMalade').hide();
+           $('#addGardeMalade *').prop('disabled', true);
+          }else
+            jQuery('#EnregistrerGardeMalade').val("update");
           })
+          jQuery('#gardeMalade').modal('show');
       });
       $("#EnregistrerGardeMalade").click(function (e) {
         $.ajaxSetup({
-              headers: {
+          headers: {
                   'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-              }
+          }
       });
       e.preventDefault();
       var formData = {
@@ -384,7 +390,8 @@
             mob : $('#mobile_h').val(),
             created_by: $('#userId').val()
       };
-      var state = jQuery('#EnregistrerGardeMalade').val(); var type = "POST";var hom_id = jQuery('#hom_id').val();var ajaxurl = 'hommeConfiance';
+      var state = jQuery('#EnregistrerGardeMalade').val();
+      var type = "POST";var hom_id = jQuery('#hom_id').val();var ajaxurl = 'hommeConfiance';
       if (state == "update") {
         type = "PUT"; ajaxurl = '/hommeConfiance/' + hom_id;
       }
@@ -399,6 +406,7 @@
           data: formData,
           dataType: 'json',
           success: function (data) {
+              $('#gardeMalade').hide();
               jQuery('#gardeMalade').modal('hide');
               if($('.dataTables_empty').length > 0)
               {
@@ -412,12 +420,13 @@
               } else {
                 $("#garde" + hom_id).replaceWith(homme);      
               }
+              
           },
           error: function (data) {
             console.log('Error:', data);
           }
       }); 
-     }) ////----- DELETE a Garde and remove from the page -----////
+      }) ////----- DELETE a Garde and remove from the page -----////
       jQuery('body').on('click', '.delete-garde', function () {
             var hom_id = $(this).val();
             $.ajaxSetup({
@@ -438,6 +447,7 @@
       });
     $('#gardeMalade').on('hidden.bs.modal', function () {
       $('#gardeMalade form')[0].reset();
+      $('#addGardeMalade *').prop('disabled', false);
     });
 
     }) 

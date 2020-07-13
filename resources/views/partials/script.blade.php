@@ -175,32 +175,16 @@ $('#typeexm').on('change', function() {
             }
             function atcd()
             {
-           
-                if($('#type_atcd').val() == 'Personnels')
-                    {
-                        $('#sous_type').css('display','block');
-                    }
-                else
-                    {
-                        $('#sous_type').css('display','none');
-                        $('#sous_type_atcd').val() = null;
-                    }
+              if($('#type_atcd').val() == 'Personnels')
+                $('#sous_type').css('display','block');
+              
+              else
+              {
+                $('#sous_type').css('display','none');
+                $('#sous_type_atcd').val() = null;
+              }
             }
-           function atcdhide()
-           {
-                   
-                    if($('#typeAntecedant').val() == "Pathologiques" )
-                     {
-                             $('#atcdsstypehide').show();
-                             $('#PhysiologieANTC').hide();
-                     }
-                    else
-                     {
-                            $('#atcdsstypehide').hide();
-                            $('#atcdsstypehide').val(null);
-                            $('#PhysiologieANTC').show();
-                    }
-           }
+        
         </script>
         <script>
         function createord(nompatient,nommedcin) {

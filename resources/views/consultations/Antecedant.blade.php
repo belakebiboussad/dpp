@@ -1,26 +1,29 @@
- <div class= "widget-box widget-color-blue" id="widget-box-2">
-    <div class="widget-header" >
-      <h5 class="widget-title bigger lighter"><font color="black"> <i class="ace-icon fa fa-table"></i>&nbsp;<b>Antecedants</b></font></h5>
-       	<div class="widget-toolbar widget-toolbar-light no-border" width="20%">
-						{{-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> --}}
-					<div class="fa fa-plus-circle"></div><!-- data-target="#antecedantModal" -->
-			 		<a href="#" id="btn-add" name="btn-add" class="btn-xs tooltip-link" data-toggle="modal"  data-toggle="tooltip" data-original-title="Ajouter un Antecedant" >
-	 					<h4><strong>Antecedant</strong></h4>
-	 				</a>
-	 			</div>
+<div class= "widget-box widget-color-blue" id="widget-box-2">
+  <div class="widget-header" >
+    <h5 class="widget-title bigger lighter"><font color="black">
+      <i class="ace-icon fa fa-table"></i>&nbsp;<b>Antecedants</b></font>
+    </h5>
+    <div class="widget-toolbar widget-toolbar-light no-border" width="20%">
+			<div class="fa fa-plus-circle"></div><!-- data-target="#antecedantModal" -->
+		 		<a href="#" id="btn-add" name="btn-add" class="btn-xs tooltip-link" data-toggle="modal"  data-toggle="tooltip" data-original-title="Ajouter un Antecedant" >
+	 				<h4><strong>Antecedant</strong></h4>
+	 			</a>
+	 		</div>
     </div>
 		<div class="widget-body" id ="ATCDWidget">
 	     <div class="widget-main no-padding">
-	        <table class="table nowrap dataTable table-bordered no-footer table-condensed table-scrollable" id="ants-tab">
+	        <table class="table nowrap dataTable table-bordered no-footer table-condensed table-scrollable" id="antsTab">
 	          <thead class="thin-border-bottom">
 	            <tr class ="center">
 	              <th class ="hidden"></th>
-			          <th><strong>Antecedant</strong></th>
-			          <th><strong>Type</strong></th>
-			          <th><strong>Nature</strong></th>
-			          <th><i class="fa fa-clock-o" aria-hidden="true"></i><strong>&nbsp;Date</strong></th>
-			          <th class="hidden-480"><strong>Description</strong></th>
-			          <th class="nsort"><em class="fa fa-cog"></em></th>
+			          <th class="center"><strong><span style="font-size:14px;"> Antecedant</span></strong></th>
+			          <th class="center"><strong><span style="font-size:14px;">Type</span></strong></th>
+			          <th class="center"><strong><span style="font-size:14px;">Nature</span></strong></th>
+			          <th class="center" ><i class="fa fa-clock-o bigger-110" aria-hidden="true"></i>
+			          	<strong>&nbsp;<span style="font-size:14px;">Date</span></strong>
+			          </th>
+			          <th class="hidden-480"><strong><span style="font-size:14px;">Description</strong></th>
+			          <th class="center"><em class="fa fa-cog"></em></th>
 		          </tr>
 		        </thead>
 						<tbody>

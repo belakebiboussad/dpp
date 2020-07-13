@@ -1,11 +1,10 @@
 <div id="antecedantModal" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
-   	<!-- Modal content-->
-	 	<div  id="" class="modal-content custom-height-modal">
+   	<div  id="" class="modal-content custom-height-modal">
 			<div class="modal-header">
 			  <button type="button" class="close" data-dismiss="modal">&times;</button>
 			  <h4 class="modal-title">Ajouter un Antecedant</h4>
-			  @include('patient._patientInfo')
+			  <!-- @include('patient._patientInfo') -->
 			</div>
 			<div class="modal-body">
 				<form id="modalFormData" name="modalFormData" method="POST" action ="" class="form-horizontal" novalidate="">
@@ -23,7 +22,7 @@
             </div>
           </div>
           <div id="sous_type" class="form-group" hidden="true">
-          	<div class="col-sm-2"></div>
+          	<label class="col-sm-2 control-label" for="typeAntecedant">Type :</label>
           	<div class="col-sm-10">
           		<select class="form-control" id="typeAntecedant" name="typeAntecedant" onchange="atcdhide()">
 								<option value="null" selected>Choisir...</option>
@@ -36,7 +35,7 @@
 						<label for="sstypeatcd" class="col-sm-2 control-label">Type:</label>
 						<div class="col-sm-10">
 							<select class="form-control" id="sstypeatcdc" name="sstypeatcdc" onchange="resetField();">
-								<option value="null">Choisir...</option>
+								<option value="">Choisir...</option>
 								<option value="Medicaux" >Médicaux</option>
 								<option value="Chirurigicaux">Chirurigicaux</option>
 							</select>
@@ -69,7 +68,6 @@
 						</div>
 					</div>
 					<div class="space-12"></div>
-				
 				</form>
 			</div><!-- modal-body -->
 			<br>

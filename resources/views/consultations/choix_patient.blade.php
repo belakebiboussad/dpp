@@ -40,7 +40,6 @@
 			<td>{{ $patient->Type }}</td>
 			<td>{{ $patient->Adresse }}</td>
 			<td>{{ $patient->Date_creation }}</td>
-			{{-- <td>{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }} </td> --}}
 			<td>{{ $patient->getAge( )}}</td>
 			<td>
 			{{-- style="width:100%;" --}}

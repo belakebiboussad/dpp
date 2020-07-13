@@ -8,7 +8,6 @@
 		<h1>			
 			Déroulement du Colloque de la semaine du <?php 
 				$d=$colloques[0]->date_colloque.' monday next week';
-			 
 							echo(date('d M Y',strtotime($d)-1));
 								?>
 		</h1>
@@ -56,9 +55,8 @@
 											<input type="checkbox" class="ace" />
 											<span class="lbl"></span>
 										</label>
-									</th>
-									<!--<th class="detail-col">Details</th>-->
-									<th class="detail-col">Patient</th>
+									</th><!--<th class="detail-col">Details</th>-->
+									<th class="detail-col">Patients</th>
 									<th>Motif De La Demande</th>
 									<th>Degré/date</th>
 									<th>Medcin traitant</th>
@@ -103,7 +101,6 @@
 										<label class="btn btn-default">
 											<input type="radio" id="{{$i}}p1" name="prop{{$i}}" value="1" />1</label><label class="btn btn-default"><input type="radio" id="{{$i}}p2" name="prop{{$i}}" value="2" />2</label><label class="btn btn-default"><input type="radio" id="{{$i}}p3" name="prop{{$i}}" value="3" />3</label></div></td>
 									<td><textarea class="width-100" resize="none"></textarea></td>
-
 								</tr>
 								<tr class="detail-row">
 									<td colspan="8">
@@ -119,7 +116,7 @@
 															</div>
 														</div>
 														<div class="profile-info-row">
-															<div class="profile-info-name"> Age</div>
+															<div class="profile-info-name"> Âge</div>
 															<div class="profile-info-value">
 																<span>{{Jenssegers\Date\Date::parse($demande->Dat_Naissance)->age }} ans</span>
 															</div>
@@ -131,7 +128,7 @@
 															</div>
 														</div>
 														<div class="profile-info-row">
-															<div class="profile-info-name">  	Specialité </div>
+															<div class="profile-info-name"> Specialité </div>
 															<div class="profile-info-value">
 																<span>{{$demande-> 	specialite}}</span>
 															</div>

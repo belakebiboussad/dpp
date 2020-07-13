@@ -150,9 +150,9 @@
      				var patientList = $("#liste_patients");
      				patientList.DataTable ({
      					"processing": true,
-	  				"paging":   true,
-	  				"destroy": true,
-	  				"ordering": true,
+	  				  "paging":   true,
+	  				  "destroy": true,
+	  					"ordering": true,
 	    				"searching":false,
 	    				"info" : false,
 	    				"language":{"url": '/localisation/fr_FR.json'},

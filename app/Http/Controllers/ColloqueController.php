@@ -133,7 +133,7 @@ class ColloqueController extends Controller
                         "id_employ"=>$elt,
                     ]);
         }   
-        return redirect()->action('ColloqueController@index',$colloque->type_colloque);// return view('colloques.runcolloque', compact('demandes','medecins','colloque'));
+        return redirect()->action('ColloqueController@index',$colloque->type_colloque);
 
     }
 

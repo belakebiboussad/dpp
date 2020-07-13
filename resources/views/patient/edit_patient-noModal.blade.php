@@ -840,7 +840,7 @@
 	</div>
 	</form>
 	<div class="row">
-    @include('patient.add_gardeMalade')
+    @include('corespondants.add')
 	</div>
 
 @endsection
