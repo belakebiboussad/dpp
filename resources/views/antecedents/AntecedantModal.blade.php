@@ -10,25 +10,15 @@
 					{!! csrf_field() !!}
 					<input type="hidden" name="patientId" id ="patientId" value="{{ $patient->id }}">
 					 <input type="hidden" id="atcd_id" name="atcd_id" value="0">
-				<!-- 	<div class="form-group">
-            <label for="inputAntecedant" class="col-sm-2 control-label">Antécédant:</label>
-            <div class="col-sm-10">
-                <select class="form-control" id="Antecedant" name="Antecedant" onchange="atcd();" placeholder="" required>
-                <option value="null" selected>Choisir...</option>
-									<option value="Personnels">Personnels</option>
-									<option value="Familiaux" selected>Familiaux</option>
-								</select>
-            </div>
-          </div> -->
-          <div id="sous_type" class="form-group">
-          	<label class="col-sm-2 control-label" for="typeAntecedant">Type :</label>
-          	<div class="col-sm-10">
-          		<select class="form-control" id="typeAntecedant" name="typeAntecedant" onchange="atcdhide()">
-								<option value="" selected>Choisir...</option>
-								<option value="Physiologiques">Physiologiques</option>
-								<option value="Pathologiques">Pathologiques</option>
-							</select>
-          	</div>		
+        				  <div id="sous_type" class="form-group">
+			          	<label class="col-sm-2 control-label" for="typeAntecedant">Type :</label>
+			          	<div class="col-sm-10">
+			          		<select class="form-control" id="typeAntecedant" name="typeAntecedant" onchange="atcdhide()">
+							<option value="" selected>Choisir...</option>
+							<option value="Physiologiques">Physiologiques</option>
+							<option value="Pathologiques">Pathologiques</option>
+						</select>
+			          	</div>		
 					</div>
 					<div id="atcdsstypehide" class="form-group" hidden="true">
 						<label for="sstypeatcd" class="col-sm-2 control-label">Type:</label>
@@ -72,11 +62,12 @@
 			<br>
 			<br>
 			<div class="modal-footer">
-				<button type="submit" class="btn btn-info btn-sm btn-submit" id ="EnregistrerAntecedant" value="add">
-          <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
-       	<button type="reset" class="btn btn-default btn-sm" data-dismiss="modal">
-        	<i class="ace-icon fa fa-close bigger-110"></i>Fermer
-        </button>
+				<button type="submit" class="btn btn-info btn-sm btn-submit" id ="EnregistrerAntecedant" value="add" data-atcd="Perso">
+			          <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
+			        </button>
+			       	<button type="reset" class="btn btn-default btn-sm" data-dismiss="modal">
+			        	<i class="ace-icon fa fa-close bigger-110"></i>Fermer
+			        </button>
 			</div>
 		</div>
 	</div>

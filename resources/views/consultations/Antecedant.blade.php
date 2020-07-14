@@ -17,7 +17,7 @@
 	 		</a>
 	 	</div>
   </div>
-	<div class="widget-body" id ="ATCDWidget">
+<div class="widget-body" id ="ATCDWidget">
 	  <div class="widget-main no-padding">
 	    <table class="table nowrap dataTable table-bordered no-footer table-condensed table-scrollable" id="antsTab">
         <thead class="thin-border-bottom">
@@ -28,7 +28,7 @@
 	          <th class="center" ><i class="fa fa-clock-o bigger-110" aria-hidden="true"></i>
 	          	<strong>&nbsp;<span style="font-size:14px;">Date</span></strong>
 	          </th>
-	          <th class="hidden-480"><strong><span style="font-size:14px;">Description</strong></th>
+	          <th class="center hidden-480"><strong><span style="font-size:14px;">Description</strong></th>
 	          <th class="center"><em class="fa fa-cog"></em></th>
           </tr>
         </thead>
@@ -43,7 +43,7 @@
 	            <td>{{ $antcd->date }}</td>
 	            <td>{{ $antcd->descrioption }}</td>
 	            <td class="center"> 
-								<button type="button" class="btn btn-xs btn-info open-modal" value="{{$antcd->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
+				<button type="button" class="btn btn-xs btn-info open-modal" value="{{$antcd->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
 	              <button type="button" class="btn btn-xs btn-danger delete-atcd" value="{{$antcd->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>
 	            </td>
 				    </tr>
@@ -76,16 +76,16 @@
 	  </div>
 	  <div class="widget-body" id ="ATCDWidget">
 	    <div class="widget-main no-padding">
-		    <table class="table nowrap dataTable table-bordered no-footer table-condensed table-scrollable" id="antsTab">
+		    <table class="table nowrap dataTable table-bordered no-footer table-condensed table-scrollable" id="antsFamTab">
 	        <thead class="thin-border-bottom">
-	          <tr class ="center">
-	            <th class ="hidden"></th>
-		          <th class="center" ><i class="fa fa-clock-o bigger-110" aria-hidden="true"></i>
-		          	<strong>&nbsp;<span style="font-size:14px;">Date</span></strong>
-		          </th>
-		          <th class="hidden-480"><strong><span style="font-size:14px;">Description</strong></th>
-		          <th class="center"><em class="fa fa-cog"></em></th>
-	          </tr>
+		          <tr class ="center">
+		            <th class ="hidden"></th>
+			          <th class="center" ><i class="fa fa-clock-o bigger-110" aria-hidden="true"></i>
+			          	<strong>&nbsp;<span style="font-size:14px;">Date</span></strong>
+			          </th>
+			          <th class="center hidden-480"><strong><span style="font-size:14px;">Description</strong></th>
+			          <th class="center"><em class="fa fa-cog"></em></th>
+		          </tr>
 	        </thead>
 					<tbody>
 					  @foreach($patient->antecedants as $antcd)

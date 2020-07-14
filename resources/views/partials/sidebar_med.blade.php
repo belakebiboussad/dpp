@@ -350,24 +350,24 @@
           },
       });
       jQuery('body').on('click', '.open-modal', function () {
-        var hom_id = $(this).val();
-        $.get('/hommeConfiance/'+hom_id+'/edit', function (data) {
-          $('#patientId').val(data.id_patient); $('#hom_id').val(data.id);  $('#nom_h').val(data.nom);$('#prenom_h').val(data.prenom);
-          $('#datenaissance_h').val(data.date_naiss);  $('#lien_par').val(data.lien_par).change();    
-          $('#lien_par option').each(function() {
-            if($(this).val() == data.lien_par) 
-              $(this).prop("selected", true);
-          });       
-          $('#' + data.type_piece).prop('checked',true); $('#num_piece').val(data.num_piece);$('#date_piece_id').val(data.date_deliv);
-          $('#adresse_h').val(data.adresse);$('#mobile_h').val(data.mob);
-          if($(".open-modal").attr('data-cmd') == "show")
-          {
-            jQuery('#EnregistrerGardeMalade').hide();
-           $('#addGardeMalade *').prop('disabled', true);
-          }else
-            jQuery('#EnregistrerGardeMalade').val("update");
-          })
-          jQuery('#gardeMalade').modal('show');
+              var hom_id = $(this).val();
+              $.get('/hommeConfiance/'+hom_id+'/edit', function (data) {
+                     $('#patientId').val(data.id_patient); $('#hom_id').val(data.id);  $('#nom_h').val(data.nom);$('#prenom_h').val(data.prenom);
+                      $('#datenaissance_h').val(data.date_naiss);  $('#lien_par').val(data.lien_par).change();    
+                      $('#lien_par option').each(function() {
+                              if($(this).val() == data.lien_par) 
+                                    $(this).prop("selected", true);
+                       });       
+                      $('#' + data.type_piece).prop('checked',true); $('#num_piece').val(data.num_piece);$('#date_piece_id').val(data.date_deliv);
+                      $('#adresse_h').val(data.adresse);$('#mobile_h').val(data.mob);
+                      if($(".open-modal").attr('data-cmd') == "show")
+                      {
+                            jQuery('#EnregistrerGardeMalade').hide();
+                            $('#addGardeMalade *').prop('disabled', true);
+                       }else
+                             jQuery('#EnregistrerGardeMalade').val("update");
+                })
+                jQuery('#gardeMalade').modal('show');
       });
       $("#EnregistrerGardeMalade").click(function (e) {
         $.ajaxSetup({
