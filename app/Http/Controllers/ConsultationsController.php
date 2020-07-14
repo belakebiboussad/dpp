@@ -110,8 +110,9 @@ class ConsultationsController extends Controller
     {
        $employe=Auth::user()->employ;
        $modesAdmission = config('settings.ModeAdmissions') ;
-        $patient = patient::FindOrFail($id_patient);
-       $codesim = codesim::all();     // $lieus = Lieuconsultation::all(); 
+       $patient = patient::FindOrFail($id_patient);
+       //dd($patient->antecedants);
+       $codesim = codesim::all();// $lieus = Lieuconsultation::all(); 
        $services = service::all();
        $meds = User::where('role_id',1)->get()->all(); 
        $specialites = Specialite::orderBy('nom')->get();

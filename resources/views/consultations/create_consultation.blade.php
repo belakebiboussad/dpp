@@ -125,43 +125,21 @@
   	}
 	function resetField()
 	 {
-		$("#description").val(' ');$('#dateAntcd').val('');       
-	}
-	function atcd()
-	{  
-		$('#description').text(" ");
-		resetField();
-		if($('#Antecedant').val() === 'Personnels')
-		{
-		      $("#sous_type").attr("hidden",false);
-		      $("#atcdsstypehide").attr("hidden",true);
-		}
-		else
-		{
-		      $("#sous_type").attr("hidden",true);
-		      $('#PhysiologieANTC').attr("hidden",true);
-		      $("#atcdsstypehide").attr("hidden",true);
-		      $('#typeAntecedant').val(null);      //$('#typeAntecedant').prop("selectedIndex", 1);
-		}
+		$("#description").val(' ');$('#dateAntcd').val('');
+		$('#sstypeatcdc option:eq(0)').prop('selected', true);       
 	}
 	function atcdhide()
 	{  
-		resetField(); 
-		if($('#Antecedant').val() === 'Personnels')
+		resetField();
+		if($('#typeAntecedant').val() === "Pathologiques")
 		{
-		 	if($('#typeAntecedant').val() === "Pathologiques")
-		 	{
-		    $('#atcdsstypehide').attr("hidden",false);//$('#atcdsstypehide').show();
-		    $('#PhysiologieANTC').attr("hidden",true);//$('#PhysiologieANTC').hide();
-		    $('#habitudeAlim').val(null);$('#tabac').prop('checked', false); 
-		    $('#ethylisme').prop('checked', false);   
-		 	}else{
-			  $('#atcdsstypehide').attr("hidden",true);//$('#atcdsstypehide').hide();
-				alert($("#sstypeatcdc").val());
-				$('#sstypeatcdc option:eq(0)').prop('selected', true);
-				$('#PhysiologieANTC').attr("hidden",false);//$('#PhysiologieANTC').show();
-				$('#sstypeatcdc').prop("selectedIndex", 1);
-			}
+	    $('#atcdsstypehide').attr("hidden",false);//$('#atcdsstypehide').show();
+	    $('#PhysiologieANTC').attr("hidden",true);//$('#PhysiologieANTC').hide();
+	    $('#habitudeAlim').val(null);$('#tabac').prop('checked', false); 
+	    $('#ethylisme').prop('checked', false);   
+		}else{
+		  $('#atcdsstypehide').attr("hidden",true);//$('#atcdsstypehide').hide();
+			$('#PhysiologieANTC').attr("hidden",false);//$('#PhysiologieANTC').show();
 		}
 	}
 	function createordXhr(patId,employeId)
@@ -288,29 +266,29 @@
 	    			return true;
 			}
  		});
-	  	$("#btnCalc").click(function(event){
-	    	  event.preventDefault();
-	   	});
-	  	$('#medc_table').DataTable({
-		      processing: true, //serverSide: true,
-		      ordering: true,
-		      bInfo : false,
-		      searching: true,
-		      pageLength: 5,         
-		      bLengthChange: false,
-		      nowrap:true,
-		      "language": {
-		                    "url": '/localisation/fr_FR.json'
-		      },
-		      ajax: '/getmedicaments',
-		          columns: [
-		                    {data: 'Nom_com'},
-		                    {data: 'Forme'},
-		                    {data: 'Dosage'},
-		                          {data: 'action', name: 'action', orderable: false, searchable: false}
-		                   ]
+	  $("#btnCalc").click(function(event){
+	    event.preventDefault();
+	  });
+	  $('#medc_table').DataTable({
+	      processing: true, //serverSide: true,
+	      ordering: true,
+	      bInfo : false,
+	      searching: true,
+	      pageLength: 5,         
+	      bLengthChange: false,
+	      nowrap:true,
+	      "language": {
+	                    "url": '/localisation/fr_FR.json'
+	      },
+	      ajax: '/getmedicaments',
+	          columns: [
+	                    {data: 'Nom_com'},
+	                    {data: 'Forme'},
+	                    {data: 'Dosage'},
+	                          {data: 'action', name: 'action', orderable: false, searchable: false}
+	                   ]
 		  });
-	   // 	$('#ants-tab').DataTable({
+	  	// 	$('#ants-tab').DataTable({
 	 		// 	"processing": true,
 	   //    colReorder: true,
 	   //    stateSave: true,
@@ -323,8 +301,7 @@
 	 	 //    	"url": '/localisation/fr_FR.json'
 		 	// 	},
 	  	// });
-	
-	  	jQuery('body').on('click', '.open-modal', function () {
+			jQuery('body').on('click', '.open-modal', function () {
 			 	var atcd_id = $(this).val();
 			 	$.get('/atcd/' + atcd_id, function (data) { 
 			 	  $('#patientId').val(data.Patient_ID_Patient);
@@ -351,8 +328,8 @@
   			var habitudeAlim = null; var tabac=null ; var ethylisme = null;
     			e.preventDefault();
     			var formData = {
-	    			Patient_ID_Patient   :jQuery('#patientId').val(),	
-		        Antecedant           : jQuery('#Antecedant').val(),
+	    			Patient_ID_Patient   : jQuery('#patientId').val(),	
+		        Antecedant           : 'Personnels',//jQuery('#Antecedant').val()
 		        typeAntecedant       : jQuery('#typeAntecedant').val(),
 		        stypeatcd            : jQuery('#sstypeatcdc').val(),
 		     		date                 : $('#dateAntcd').val(),
@@ -364,57 +341,57 @@
 		      		formData.tabac = $("#tabac").is(":checked") ? 1:0;
 		      		formData.ethylisme = $("#ethylisme").is(":checked") ? 1:0;     
 	   		  }
-	   		  $.each(formData, function( index, value ) {
-            alert( index + ": " + value );
-   				});
+	   		 //  $.each(formData, function( index, value ) {
+       //      alert( index + ": " + value );
+   				// });
 
-      	// 	if(!($("#description").val() == ''))
-    	  //   {	
-	      //   	if($('.dataTables_empty').length > 0)
-	    		// 	{
-	      //   		$('.dataTables_empty').remove();
-	      // 		}	
-			    //   $.ajaxSetup({
-				   //    	 headers: {
-				   //          'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-				   //    	 }
-			    //   });
-			    //   var state = jQuery('#EnregistrerAntecedant').val();
-			    //   var type = "POST";
-			    //   var atcd_id = jQuery('#atcd_id').val();
-			    //   var ajaxurl = '/atcd/';
-			    //   if (state == "update") {
-				   //    type = "PUT";
-				   //    ajaxurl = '/atcd/' + atcd_id;
-		     //   	}   
-			    //   $.ajax({
-					  //      type: type,
-					  //      url: ajaxurl,
-					  //      data: formData,
-					  //      dataType: 'json',
-					  //      success: function (data) {
-					  //      		var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>' + data.Antecedant + '</td><td>' + data.typeAntecedant +'</td><td>'+data.stypeatcd+
-					  //         		'</td><td>'+ data.date + '</td><td>' + data.descrioption + '</td>';
-					  //             atcd += '<td class ="center"><button class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
-					  //             atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
-				   //            if (state == "add") {
-				   //                jQuery('#ants-tab tbody').append(atcd);
-				   //            } else {
-				   //                $("#atcd" + atcd_id).replaceWith(atcd);
-				   //            }
-				   //            jQuery('#modalFormData').trigger("reset");
-				   //            jQuery('#antecedantModal').modal('hide')
-				   //      },
-				   //      error: function (data) {
-				   //            console.log('Error:', data);
-				   //      }
-			    //   });
-		    	// }          
+      		if(!($("#description").val() == ''))
+    	    {	
+	        	if($('.dataTables_empty').length > 0)
+	    			{
+	        		$('.dataTables_empty').remove();
+	      		}	
+			      $.ajaxSetup({
+				      	 headers: {
+				            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+				      	 }
+			      });
+			      var state = jQuery('#EnregistrerAntecedant').val();
+			      var type = "POST";
+			      var atcd_id = jQuery('#atcd_id').val();
+			      var ajaxurl = '/atcd/';
+			      if (state == "update") {
+				      type = "PUT";
+				      ajaxurl = '/atcd/' + atcd_id;
+		       	}   
+			      $.ajax({
+					       type: type,
+					       url: ajaxurl,
+					       data: formData,
+					       dataType: 'json',
+					       success: function (data) {
+					       		var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>' + data.Antecedant + '</td><td>' + data.typeAntecedant +'</td><td>'+data.stypeatcd+
+					          		'</td><td>'+ data.date + '</td><td>' + data.descrioption + '</td>';
+					              atcd += '<td class ="center"><button class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
+					              atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+				              if (state == "add") {
+				                  jQuery('#ants-tab tbody').append(atcd);
+				              } else {
+				                  $("#atcd" + atcd_id).replaceWith(atcd);
+				              }
+				              jQuery('#modalFormData').trigger("reset");
+				              jQuery('#antecedantModal').modal('hide')
+				        },
+				        error: function (data) {
+				              console.log('Error:', data);
+				        }
+			      });
+		    	}          
 		 });
 		$('#antecedantModal').on('hidden.bs.modal', function () {
-	    		$("#sous_type").attr("hidden",true);
-		        $('#PhysiologieANTC').attr("hidden",true);
-		        $("#atcdsstypehide").attr("hidden",true);
+	    //$("#sous_type").attr("hidden",true);
+		  $('#PhysiologieANTC').attr("hidden",true);
+		  $("#atcdsstypehide").attr("hidden",true);
 		});
 		jQuery('#btn-add').click(function () {
 	      jQuery('#EnregistrerAntecedant').val("add");
