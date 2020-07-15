@@ -124,9 +124,9 @@
 		}
   	}
 	function resetField()
-	 {
+	{
 		$("#description").val(' ');$('#dateAntcd').val('');
-		//$('#sstypeatcdc option:eq(0)').prop('selected', true);       
+	 
 	}
 	function atcdhide()
 	{  
@@ -138,8 +138,8 @@
 			    $('#habitudeAlim').val(null);$('#tabac').prop('checked', false); 
 			    $('#ethylisme').prop('checked', false);   
 		}else{
-		  $('#atcdsstypehide').attr("hidden",true);//$('#atcdsstypehide').hide();
-			$('#PhysiologieANTC').attr("hidden",false);//$('#PhysiologieANTC').show();
+		  $('#atcdsstypehide').attr("hidden",true);
+			$('#PhysiologieANTC').attr("hidden",false);
 		}
 	}
 	function createordXhr(patId,employeId)
@@ -301,46 +301,47 @@
 	 	 //    	"url": '/localisation/fr_FR.json'
 		 	// 	},
 	  	// });
-	  		jQuery('#btn-add, #AntFamil-add').click(function () {
-			      	jQuery('#EnregistrerAntecedant').val("add");
-			    	jQuery('#modalFormData').trigger("reset");
-			    	 if(this.id == "AntFamil-add")
-			    	 {
-			    	 	$("#EnregistrerAntecedant").attr('data-atcd','Famille'); 
-			    	 	if(! ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
-			 	   		jQuery('#modalFormData > #sous_type').addClass('hidden'); 
-			    	  }
-			    	 else
-			    		{	
-			    			$("#EnregistrerAntecedant").attr('data-atcd','Perso'); 
-			    			if( ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
-			    				jQuery('#modalFormData > #sous_type').removeClass('hidden'); 
-			    		}
-			    	jQuery('#antecedantModal').modal('show');
+	  	jQuery('#btn-add, #AntFamil-add').click(function () {
+			 	jQuery('#EnregistrerAntecedant').val("add");
+			 	jQuery('#modalFormData').trigger("reset");
+			  if(this.id == "AntFamil-add")
+    	  {
+	    	 	$("#EnregistrerAntecedant").attr('data-atcd','Famille'); 
+	    	 	if(! ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
+	 	   		jQuery('#modalFormData > #sous_type').addClass('hidden'); 
+    	  }
+    	 else
+    		{	
+    			$("#EnregistrerAntecedant").attr('data-atcd','Perso'); 
+    			if( ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
+    				jQuery('#modalFormData > #sous_type').removeClass('hidden'); 
+    		}
+    	  jQuery('#antecedantModal').modal('show');
 	 		 });	
 			jQuery('body').on('click', '.open-modal', function () {
-			 	var atcd_id = $(this).val();
+				var atcd_id = $(this).val();
 			 	$.get('/atcd/' + atcd_id, function (data) { 
 				 	  $('#patientId').val(data.Patient_ID_Patient);
 				 	  $('#atcd_id').val(data.id);
 				 	  $('#Antecedant').val(data.Antecedant).change();
+				 	  alert(data.typeAntecedant);
 				 	  $('#typeAntecedant').val(data.typeAntecedant).change();
-				 	 if(data.typeAntecedant   === 'Pathologiques')
-					{
+				 	 	if(data.typeAntecedant   === 'Pathologiques')
+						{
 				 	  	$('#sstypeatcdc').val(data.stypeatcd).change();
 				 	  }
 				 	  if(data.typeAntecedant   === 'Physiologiques')
-					{
+						{
 							$('#habitudeAlim').val(data.habitudeAlim);
 							(data.tabac) ? $('#tabac').prop('checked',true) : '';
 							(data.ethylisme) ? $('#ethylisme').prop('checked',true) : '';
-					}
-					$('#dateAntcd').val(data.date);
-					$('#description').val(data.descrioption);
-				 	  jQuery('#EnregistrerAntecedant').val("update");	
-					  jQuery('#antecedantModal').modal('show');
-	   	 		});
-			});
+						}
+						$('#dateAntcd').val(data.date);
+						$('#description').val(data.descrioption);
+				 	  	jQuery('#EnregistrerAntecedant').val("update");	
+					  	jQuery('#antecedantModal').modal('show');
+	   	 			});
+				});
   		$("#EnregistrerAntecedant").click(function (e) {
   			var habitudeAlim = null; var tabac=null ; var ethylisme = null;
     			 e.preventDefault();
