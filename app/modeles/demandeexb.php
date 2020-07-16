@@ -13,7 +13,6 @@ class demandeexb extends Model
     {
         return $this->belongsToMany('App\modeles\examenbiologique', 'demandeexb_examenbio', 'id_demandeexb', 'id_examenbio');       
     }
-
     public function consultation()
     {
         return $this->belongsTo('App\modeles\consultation','id_consultation');

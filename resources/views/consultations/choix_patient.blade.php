@@ -5,7 +5,7 @@
 		ordering: true,
 		"language": 
 		{
-		             "url": '/localisation/fr_FR.json'
+		   "url": '/localisation/fr_FR.json'
 		},
 	});
 </script>

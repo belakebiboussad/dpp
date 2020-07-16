@@ -5,10 +5,10 @@
 <script type="text/javascript">
 	$('#demandes_liste').dataTable({
        		ordering: true,
-	        	"language": 
-	            {
-	            		"url": '/localisation/fr_FR.json'
-	            }, 
+	        "language": 
+	        {
+        		"url": '/localisation/fr_FR.json'
+	        }, 
    	 });
 </script>
 @endsection

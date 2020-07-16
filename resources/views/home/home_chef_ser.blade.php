@@ -11,7 +11,7 @@
 		 });
 		$('#dispo_table').dataTable({
        		 	ordering: true,
-        			"language": 
+        		"language": 
       			{
                			 "url": '/localisation/fr_FR.json'
             			}, 

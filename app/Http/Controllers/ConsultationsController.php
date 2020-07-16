@@ -45,40 +45,36 @@ class ConsultationsController extends Controller
       $this->DemandeHospCTRL = $DemandeHospCtrl;
       $this->LettreOrientationCTRL = $LettreOrientationCtrl;
     }
-    public function demandeExm($id_cons)
+    // public function demandeExm($id_cons)// {//   $consultation = consultation::FindOrFail($id_cons);
+    //   $id_patient = $consultation->Patient_ID_Patient;//   $patient = patient::FindOrFail($id_patient);
+    //   return view('consultations.demande_examen',compact('id_cons','patient'));// }
+    public function index($id)
     {
-      $consultation = consultation::FindOrFail($id_cons);
-      $id_patient = $consultation->Patient_ID_Patient;
-      $patient = patient::FindOrFail($id_patient);
-      return view('consultations.demande_examen',compact('id_cons','patient'));
+      $patient = patient::FindOrFail($id);
+      $consultations = consultation::where("Patient_ID_Patient",$patient->id)->get()->all();
+      return view('consultations.index_consultation', compact('patient','consultations'));
     }
+
     public function detailcons($id_cons)
     {  
       $consultation = consultation::FindOrFail($id_cons);
       $consults = $consultation->patient->Consultations;    
-      $examensbios = demandeexb::where("id_consultation",$id_cons)->get();    //$examensbios = examenbiologique::where("id_consultation",$id_cons)->get();
-      // $examensimg = examenimagrie::where("id_consultation",$id_cons)->get(); 
-      $demande = demandeExamImag::where("id_consultation",$id_cons)->get(['examsImagerie'])->first(); 
-      if(isset($id_cons))
-      //  $examensimg = json_decode($demande->examsImagerie); 
-      $exmclin = examen_cliniqu::where("id_consultation",$id_cons)->get()->first();
+      $examensbios = demandeexb::where("id_consultation",$id_cons)->get();
+      $demande = $consultation->demandeExamImagegerie;
+      if(isset($id_cons))//  $examensimg = json_decode($demande->examsImagerie); 
+        $exmclin = examen_cliniqu::where("id_consultation",$id_cons)->get()->first();
       $examsRadio = $consultation->examensradiologiques;
       $ordonnance= $consultation->ordonnances;
       return view('consultations.resume_cons', compact('consultation','examensbios' ,'examensimg', 'exmclin', 'examsRadio', 'ordonnance', 'consults'));
-     }
-     public function detailconsXHR(Request $request)
+    }
+    public function detailconsXHR(Request $request)
      {
-          $consultation = consultation::FindOrFail($request['id']);
-          $demande = demandeExamImag::where("id_consultation",$request['id'])->get(['examsImagerie'])->first(); 
-          if(isset($demande))
-                    $examensimg = json_decode($demande->examsImagerie); 
-           $exmclin = examen_cliniqu::where("id_consultation",$request['id'])->get()->first();
-           $examsRadio = $consultation->examensradiologiques;
-           $ordonnance= $consultation->ordonnances;
-           if($ordonnance != null )
-                $medicaments =  $ordonnance->medicamentes;  
-                $view =  view("consultations.inc_consult",compact('consultation','exmclin','examsRadio'))->render();
-           return response()->json(['html'=>$view]);
+        $consultation = consultation::FindOrFail($request->id);
+        $ordonnance= $consultation->ordonnances;
+        if($ordonnance != null )
+          $medicaments =  $ordonnance->medicamentes;  
+        $view =  view("consultations.inc_consult",compact('consultation'))->render();
+        return response()->json(['html'=>$view]);
 
      }
     public function listecons()
@@ -92,14 +88,6 @@ class ConsultationsController extends Controller
       }
       return view('consultations.liste_consultations', compact('consultations'));
     }
-
-    public function index($id)
-    {
-        $patient = patient::FindOrFail($id);
-        $consultations = consultation::where("Patient_ID_Patient",$patient->id)->get()->all();
-        return view('consultations.index_consultation', compact('patient','consultations'));
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -111,7 +99,6 @@ class ConsultationsController extends Controller
        $employe=Auth::user()->employ;
        $modesAdmission = config('settings.ModeAdmissions') ;
        $patient = patient::FindOrFail($id_patient);
-       //dd($patient->antecedants);
        $codesim = codesim::all();// $lieus = Lieuconsultation::all(); 
        $services = service::all();
        $meds = User::where('role_id',1)->get()->all(); 

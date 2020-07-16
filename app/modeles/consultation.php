@@ -20,21 +20,27 @@ class consultation extends Model
     }
     public function demandeexmbio()
     {
-        return $this->hasMany('App\modeles\demandeexb','id_consultation');
+        return $this->hasOne('App\modeles\demandeexb','id_consultation');
     }
-
+    public function demandeExamImagegerie()
+    {
+        return $this->hasOne('App\modeles\demandeExamImag','id_consultation');
+    }
+    public function examensCliniques()
+    {
+        return $this->hasOne('App\modeles\examen_cliniqu','id_consultation');
+    }
     public function examensradiologiques()
     {
         return $this->hasMany('App\modeles\demandeexr','id_consultation');
     }
-
     public function ordonnances()
     {
-           return $this->hasOne('App\modeles\ordonnance','id_consultation');
+        return $this->hasOne('App\modeles\ordonnance','id_consultation');
     }
     public function lieu()
     {
-           return $this->belongsTo('App\modeles\Lieuconsultation','id_lieu');
+        return $this->belongsTo('App\modeles\Lieuconsultation','id_lieu');
     }
     public function demandeHospitalisation()
     {

@@ -25,9 +25,7 @@ class DemandeExbController extends Controller
         return view('examenbio.demande_exb', compact('specialites','consultation')); 
     }
     public function index()
-    {
-        //
-    }
+    {}
     /**
      * Show the form for creating a new resource.
      *
@@ -128,6 +126,7 @@ class DemandeExbController extends Controller
     public function show_demande_exb($id)
     {
         $demande = demandeexb::FindOrFail($id);
+        dd($demande);
         $pdf = PDF::loadView('examenbio.demande_exb', compact('demande'));
         return $pdf->stream('demande_examen_biologique.pdf');
     }

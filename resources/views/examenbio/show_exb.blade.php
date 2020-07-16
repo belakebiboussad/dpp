@@ -77,10 +77,10 @@
 <div class="content">
   <div class="row">
     <div class="col-sm-3"></div> <div class="col-sm-3"></div> <div class="col-sm-3"></div>
-    <div class="col-sm-3"><a href="/showdemandeexb/{{ $demande->id_demandeexb }}" target="_blank" class="btn btn-sm btn-primary pull-right">
-        <i class="fa fa-file-pdf-o"></i>&nbsp;
-        Imprimer
-      </a></div>
+    <div class="col-sm-3"><a href="/showdemandeexb/{{ $demande->id_demandeexb }}" title = "Imprimer"  target="_blank" class="btn btn-sm btn-primary pull-right">
+        <i class="ace-icon fa fa-print"></i>&nbsp;
+      </a>
+    </div>
   </div>
   <div class="space-12"></div>
   <div class="row">
@@ -89,9 +89,9 @@
         <table class="table table-striped table-bordered">
           <thead>
             <tr>
-              <th class="center">#</th>
-              <th>Examen</th>
-              <th></th>
+              <th class="center"><strong>#</strong></th>
+              <th class="center"><strong>Nom Examen</strong></th>
+              <th class="center"><em class="fa fa-cog"></em></th>
             </tr>
           </thead>
           <tbody>

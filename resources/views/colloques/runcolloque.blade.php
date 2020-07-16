@@ -130,9 +130,9 @@
 														  <span>{{ $demande->consultation->patient->getAge( )}} ans</span>
 													</div>
 												</div>
-											<div class="profile-info-row">
-												<div class="profile-info-name text-center"><strong>Groupe Sanguin:</strong></div>
-												<div class="profile-info-value">
+												<div class="profile-info-row">
+													<div class="profile-info-name text-center"><strong>Groupe Sanguin:</strong></div>
+													<div class="profile-info-value">
 			         	 					<h4>
 			         	 						<span class="label label-lg label-inverse arrowed-in">{{ $demande->consultation->patient->group_sang }}{{ $demande->consultation->patient->rhesus }}</span>
 			         	 					</h4>
