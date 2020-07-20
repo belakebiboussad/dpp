@@ -80,40 +80,31 @@ class DemandeExamenRadio extends Controller
      */
     public function store(Request $request, $consultID)
     {
+      $request->validate([ //     "infosc" => "required", //     "explication" => "required",
+      //     "infos" => "required",   //     "examensradio" => "required",
+      //     "exmns" => "required"   // ],[   //     "infosc.required" => "Ce champ est obligatoire.",
+      //     "explication.required" => "Ce champ est obligatoire.",    //     "infos.required" => "Ce champ est obligatoire.",
+      //     "examensradio.required" => "Ce champ est obligatoire.",   //     "exmns.required" => "Ce champ est obligatoire.",// ]); 
 
-            $request->validate([
-                "infosc" => "required",
-                "explication" => "required",
-                "infos" => "required",
-                "examensradio" => "required",
-                "exmns" => "required"
-            ],[
-                "infosc.required" => "Ce champ est obligatoire.",
-                "explication.required" => "Ce champ est obligatoire.",
-                "infos.required" => "Ce champ est obligatoire.",
-                "examensradio.required" => "Ce champ est obligatoire.",
-                "exmns.required" => "Ce champ est obligatoire.",
-           ]); 
-              $date = Date::now();
-             $demande = demandeexr::FirstOrCreate([
-                "Date" => $date,
-                "InfosCliniques" => $request->infosc,
-                "Explecations" => $request->explication,
-                "id_consultation" => $consultID,
-            ]);
-             //dd($request->ExamsImg);
-            $examsImagerie = json_decode ($request->ExamsImg);
-            //dd($examsImagerie);
-            foreach ($examsImagerie as $key => $value) {       
-              $demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);   //$demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => json_encode($value->types)]);
+      $date = Date::now();
+      $demande = demandeexr::FirstOrCreate([
+          "Date" => $date,
+          "InfosCliniques" => $request->infosc,
+          "Explecations" => $request->explication,
+          "id_consultation" => $consultID,
+      ]);
+      
+      $examsImagerie = json_decode ($request->ExamsImg);
+      foreach ($examsImagerie as $key => $value) {       
+        $demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);   //$demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => json_encode($value->types)]);
 
-            }
-           if(isset($request->infos))
-           {
-                    foreach ($request->infos as $id_info) {
-                        $demande->infossuppdemande()->attach($id_info);
-                 }
+      }
+     if(isset($request->infos))
+     {
+              foreach ($request->infos as $id_info) {
+                  $demande->infossuppdemande()->attach($id_info);
            }
+     }
     }
 
     /**

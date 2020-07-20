@@ -61,15 +61,15 @@ class ConsultationsController extends Controller
       return view('consultations.resume_cons', compact('consultation'));
     }
     public function detailconsXHR(Request $request)
-     {
-        $consultation = consultation::FindOrFail($request->id);
-        $ordonnance= $consultation->ordonnances;
-        if($ordonnance != null )
-          $medicaments =  $ordonnance->medicamentes;  
-        $view =  view("consultations.inc_consult",compact('consultation'))->render();
-        return response()->json(['html'=>$view]);
+   {
+      $consultation = consultation::FindOrFail($request->id);
+      $ordonnance= $consultation->ordonnances;
+      if($ordonnance != null )
+        $medicaments =  $ordonnance->medicamentes;  
+      $view =  view("consultations.inc_consult",compact('consultation'))->render();
+      return response()->json(['html'=>$view]);
 
-     }
+   }
     public function listecons()
     {
       $consultations = []; 
@@ -115,12 +115,11 @@ class ConsultationsController extends Controller
             "resume" => 'required',
       ]);
       $validator = Validator::make($request->all(), [
-      'motif' => 'required|max:255',
-      'resume' => 'required',
+        'motif' => 'required|max:255',
+        'resume' => 'required',
       ]);
       if($validator->fails())
         return redirect()->back()->withErrors($validator)->withInput();
-      dd($request->ExamsImg);
       $consult = consultation::create([
             "Motif_Consultation"=>$request->motif,
             "histoire_maladie"=>$request->histoirem,
@@ -134,8 +133,23 @@ class ConsultationsController extends Controller
             "id_code_sim"=>$request->codesim,
             "id_lieu"=>session('lieu_id'),
       ]);
+  
       if($request->poids != 0 || $request->temp != null || $request->taille !=0 || $request->autre)
-        $this->ExamCliniqCTLR->store( $request,$consult->id); //save examen clinique
+      {
+        //$this->ExamCliniqCTLR->store( $request,$consult->id); //save examen clinique
+        $exam = new examen_cliniqu;
+        $exam->taille = $request->taille;
+        $exam->poids =>$request->poids;
+        $exam->temp =>$request->temp;
+        $exam->autre =>$request->autre;
+        $exam->IMC=>$request->imc;
+        $exam->Etat=>$request->etatgen,
+        $exam->peaupha =>$request->peaupha,
+       // $exam->id_consultation=>$consultID,
+        $consult->examensCliniques()->save($exam);
+      }
+    
+
       if(isset($request->isOriented)){
         $this->LettreOrientationCTRL->store($request,$consult->id);
       }
@@ -143,14 +157,14 @@ class ConsultationsController extends Controller
         $this->OrdonnanceCTLR->store( $request,$consult->id);    //save Ordonnance
       if($request->exm  != null)  //save ExamBiolo
         $this->ExamBioloqiqueCTLR->store( $request,$consult->id); 
-      if(empty($request->ExamsImg))
-        $this->ExamImagerieCTLR->store( $request,$consult->id); 
+      // if(empty($request->ExamsImg))
+      //   $this->ExamImagerieCTLR->store( $request,$consult->id); 
       if(isset($request->examen_Anapath)) 
         $this->ExamAnapathCTLR->store( $request,$consult->id);
       if($request->modeAdmission != null)
         $this->DemandeHospCTRL->store($request,$consult->id);    
       return redirect(Route('patient.show',$request->id));
-       }
+    }
     /**
      * Display the specified resource.
      *

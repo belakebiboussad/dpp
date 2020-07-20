@@ -19,13 +19,13 @@
         		 </div><!-- row -->
         		 <div class="spcae-12"></div>
           		<div class="row">
-         		 	<div class="col-xs-12">
-          			<label for="explication">
-				 				<strong>	Explication de la demande de diagnostic</strong>
-				      </label>
-				      <textarea class="form-control" id="explication" name="explication"></textarea>
-				      {!! $errors->first('explication', '<small class="alert-danger"><b>:message</b></small>')!!}
-          			</div>
+	         		 	<div class="col-xs-12">
+	          			<label for="explication">
+					 					<strong>	Explication de la demande de diagnostic</strong>
+					      	</label>
+					      	<textarea class="form-control" id="explication" name="explication"></textarea>
+					     	 {!! $errors->first('explication', '<small class="alert-danger"><b>:message</b></small>')!!}
+	          		</div>
           		</div>
           		<div class="space-12"></div>
           		<div class="row">
