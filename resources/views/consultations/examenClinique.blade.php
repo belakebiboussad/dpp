@@ -30,13 +30,8 @@
 							</div>
 							<div class="col-xs-2">
 								<div class="input-group">
-									{{-- <input type="number" id="taille" name="taille"  class="form-control two-decimals"  max="2.5"  maxlength = "3" onKeyUp="if(this.value>3.00){this.value='3.00';}else if(this.value<0.0){this.value='0.2';}"
-									step="0.01" onchange = "IMC()"  required/>
-					 				--}}
- 									<input type="text" id="taille" name="taille"  class="form-control bg"  Required/>
-					 				<span class="input-group-addon">
-									<small>m</small>
-									</span>
+ 									<input type="text" id="taille" name="taille" class="form-control bg"/>
+					 				<span class="input-group-addon"><small>m</small></span>							
 								</div>
 							</div>
 							<div class="col-xs-2">
@@ -45,13 +40,8 @@
 							</div>
 							<div class="col-xs-2">
 								<div class="input-group">
-								{{-- <input type="number" id="poids" name="poids"  class="form-control  two-decimals" min ="1"  max="200" step="0.01"
-								 onKeyUp="if(this.value>300){this.value='300';}else if(this.value<0){this.value='1';}"
-								onchange = "IMC()" required /> --}}
-									<input type=" text" name="poids" id="poids" class="form-control" required>
-									<span class="input-group-addon">
-										<small>Kg</small>
-									</span>
+									<input type=" text" name="poids" id="poids" class="form-control">
+									<span class="input-group-addon"><small>Kg</small></span>
 								</div>
 							</div>
 							<div class="col-xs-3">
@@ -92,18 +82,16 @@
 	       		</div>
         		<div class="col-xs-3">
 							<div class="input-group">
-							  <input type="number" id="temp" name="temp" placeholder="Temperateur du Patient..." class="form-control"  min ="30" step="any" required/>
-							    <span class="input-group-addon">
-							      <small>°C</small>
-							    </span>
-							</div>
+							  <input type="number" id="temp" name="temp" placeholder="Temperateur du Patient..." class="form-control"  min ="30" step="any"/>
+							    <span class="input-group-addon"> <small>°C</small> </span>
+								</div>
 						</div>
 						<div class="col-xs-2">
         			<label class="col-sm-12 control-label no-padding-right right" for="autre"><strong>Autre :</strong></label>
         		</div>
         		<div class="col-xs-5">
 							<div class="input-group">
-						    <textarea id="autre" name="autre" placeholder="..." class="form-control"  min ="30" step="any" required></textarea>
+						    <textarea id="autre" name="autre" placeholder="..." class="form-control" min ="30" step="any"></textarea>
 							</div>
 						</div>
 					</div>	

@@ -1,13 +1,8 @@
-<!DOCTYPE html>
 <html>
 <head>
   <title>Demande examens biologiques</title>
   <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="{{ asset('/css/bootstrap.min.css') }}"/>
-    <script src="{{ asset('/js/jquery.min.js') }}"></script>
- <script src="{{asset('/js/bootstrap.min.js')}}"></script>
-  <style type="text/css">
+    <style type="text/css">
     table 
     {
         border-collapse: collapse;
@@ -40,18 +35,18 @@
   </style>
 </head>
 <body>
-<div class="container-fluid">
-  <h3 class="center">Direction Générale de la Sûreté Nationale</h3>
-  <h4 class="center">ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE</h4>
-  <h4 class="center">Tél : 23-93-34</h4>
-  <br><br>
-  <div class="center">
-    <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($demande->consultation->patient->IPP, 'C128')}}" alt="barcode" />
-  </div>
-  <br><br>
-  <h4 class="center"><b>Demande examens biologiques</b></h4>
-  <br><br>
-  <div class="row">
+	<div class="container-fluid">
+	  <h3 class="center">Direction Générale de la Sûreté Nationale</h3>
+	  <h4 class="center">ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE</h4>
+	  <h4 class="center">Tél : 23-93-34</h4>
+	  <br><br>
+	  <div class="center">
+	    <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($demande->consultation->patient->IPP, 'C128')}}" alt="barcode" />
+	  </div>
+	  <br><br>
+	  <h4 class="center"><b>Demande examens biologiques</b></h4>
+	  <br><br>
+	    <div class="row">
     <div class="col-sm-12">
       <div class="section">
         <div class="sec-gauche">
@@ -77,6 +72,6 @@
       </ul>
     </div>
   </div>
-</div>
+  </div>
 </body>
 </html>

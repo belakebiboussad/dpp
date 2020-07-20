@@ -80,7 +80,7 @@
 @endsection
 @section('page-script')
 <script>
-	function isNumeric (evt) {
+ 	function isNumeric (evt) {
 		var theEvent = evt || window.event;
 		var key = theEvent.keyCode || theEvent.which;
 		key = String.fromCharCode (key);
@@ -438,47 +438,52 @@
 		});
   		////----- DELETE antecedant and remove from the page -----////
 		jQuery('body').on('click', '.delete-atcd', function () {
- 		        var atcd_id = $(this).val();      
-		       $.ajaxSetup({
-		       		headers: {
-		        		 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-		          	}
-		      });
-		       $.ajax({
-			       type: "DELETE",
-			        url: '/atcd/' + atcd_id,
-			       success: function (data) {
-			               $("#atcd" + atcd_id).remove();
-			          },
-			        error: function (data) {
-			              	console.log('Error:', data);
-			        }
-		      	});
-		});
+	    var atcd_id = $(this).val();      
+      $.ajaxSetup({
+       		headers: {
+        		 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+          	}
+      });
+       $.ajax({
+	       type: "DELETE",
+	        url: '/atcd/' + atcd_id,
+	       success: function (data) {
+	               $("#atcd" + atcd_id).remove();
+	          },
+	        error: function (data) {
+	              	console.log('Error:', data);
+	        }
+      	});
+});
 		$('#examensradio').on('select2:select', function (e) { 
 	 		 $(".disabledElem").removeClass("disabledElem").addClass("enabledElem");
 		});
 		$('#examensradio').on('select2:unselecting', function(event) {
 	 		$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
 		});
-   		$('#btn-addImgExam').click(function(){
+   	$('#btn-addImgExam').click(function(){
 	  		var selected = []; var array = [];	
-			$('#ExamIgtModal').modal('toggle');
-			$.each($("input[name='exmns[]']:checked"), function(){
-				selected.push($(this).next('label').text());
-				array.push($(this).val());
-				$(this). prop("checked", false);
-	    		});   
-	    		var exam = '<tr id="acte-'+$("#examensradio").val()+'"><td id="idExamen" hidden>'+$("#examensradio").val()+'</td><td>'+$("#examensradio option:selected").text()+'</td><td id ="types" hidden>'+array+'</td><td>'+selected+'</td><td class="center" width="5%">';
-	    		exam += '<button type="button" class="btn btn-xs btn-danger delete-ExamImg" value="'+$("#examensradio").val()+'" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';     
-	     		$('#ExamsImg').append(exam);
-		     	$('#examensradio').val(' ').trigger('change');
-		     	$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
+		$('#ExamIgtModal').modal('toggle');
+		$.each($("input[name='exmns[]']:checked"), function(){
+			selected.push($(this).next('label').text());
+			array.push($(this).val());
+			$(this). prop("checked", false);
+	  });   
+	  var exam = '<tr id="acte-'+$("#examensradio").val()+'"><td id="idExamen" hidden>'+$("#examensradio").val()+'</td><td>'+$("#examensradio option:selected").text()+'</td><td id ="types" hidden>'+array+'</td><td>'+selected+'</td><td class="center" width="5%">';
+	  exam += '<button type="button" class="btn btn-xs btn-danger delete-ExamImg" value="'+$("#examensradio").val()+'" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';     
+	  	$('#ExamsImg').append(exam);
+		 	$('#examensradio').val(' ').trigger('change');
+		 	$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
 		});
 		jQuery('body').on('click', '.delete-ExamImg', function () {
 	    		$("#acte-" + $(this).val()).remove();
 	   	});
 	   	$("#consultForm").submit(function(e){
+	   		if(!checkConsult())
+	   		{
+	   			activaTab("Interogatoire");
+	   			return false;
+	   		}
 	   		var ExamsImg = [];
 	   		var arrayLignes = document.getElementById("ExamsImg").rows;
 	  		for(var i=0; i< arrayLignes.length; i++)
@@ -487,11 +492,11 @@
 	  		}
 	   	 	var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
 	    		champ.appendTo('#consultForm');
-	 	});   	
-    		//calendrier
-	      var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
-	      var today = (new Date()).setHours(0, 0, 0, 0);
-	     $('.calendar1').fullCalendar({
+	   	});   	
+    	//calendrier
+	    var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
+	    var today = (new Date()).setHours(0, 0, 0, 0);
+	    $('.calendar1').fullCalendar({
 	      		plugins: [ 'dayGrid', 'timeGrid' ],
 		    	header: {
 				            left: 'prev,next today',
@@ -637,7 +642,7 @@
 </script>	
 @endsection
 @section('main-content')
-<div class="page-header" width="100%"><!--  style= "margin-top:-3%;" -->
+<div class="page-header" width="100%">
 	<div class="row">
 		<div class="col-sm-12" style="margin-top: -3%;">	{{-- change --}}
 			@include('patient._patientInfo')	
@@ -646,9 +651,21 @@
 </div>
 <div class="content"><!-- style="height:800px;" -->
 	<div class="row">
-		<form  class="form-horizontal" action="{{ route('consultations.store') }}" method="POST" role="form" id ="consultForm" novalidate>
+		<form  class="form-horizontal" action="{{ route('consultations.store') }}" method="POST" role="form" id ="consultForm">
 	  {{ csrf_field() }}
+
 	  <input type="hidden" name="id" value="{{ $patient->id }}">
+	  <div class="form-group" id="error" aria-live="polite">
+		@if (count($errors) > 0)
+		  <div class="alert alert-danger">
+				<ul>
+				 @foreach ($errors->all() as $error)
+			 	  <li>{{ $error }}</li>
+				@endforeach
+				</ul>
+			</div>
+		@endif
+		</div>
 		<div id="prompt"></div>
 		<div class="tabpanel">
 			<ul class = "nav nav-pills nav-justified list-group" role="tablist" id="menu">
@@ -689,7 +706,6 @@
 		<div class="row">
 			<div class="col-sm12">
 				<div class="center bottom" style="bottom:0px;">
-					<div id="error" aria-live="polite"></div>
 					<button class="btn btn-info btn-sm" type="submit" id="send">
 						<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
 					</button>

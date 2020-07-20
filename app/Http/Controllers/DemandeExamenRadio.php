@@ -124,8 +124,8 @@ class DemandeExamenRadio extends Controller
      */
     public function show($id)
     {
-        $demande = demandeexr::FindOrFail($id);
-        return view('examenradio.show_exr', compact('demande'));
+      $demande = demandeexr::FindOrFail($id);
+      return view('examenradio.show_exr', compact('demande'));
     }
 
     /**

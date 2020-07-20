@@ -12,48 +12,42 @@
                $(this).removeAttr('disabled');
             });
       });
-
+      let textFile = document.getElementsByClassName('resultat');   
+      textFile[0].innerHTML = "Archivo PDF";
+      let btnFile = document.getElementsByClassName('action btn bg-blue');
+      btnFile[0].innerHTML = "Seleccionar";
+//
       $(function() {
-           // Get the form fields and hidden div
-           var checkbox = $("#isOriented");
-           var hidden = $("#hidden_fields");
-           // Setup an event listener for when the state of the 
-           // checkbox changes.
-           checkbox.change(function() {
-                if (checkbox.is(':checked')) {
-                     // Show the hidden fields.
-                     hidden.show();
-                     // Populate the input.
-                     // populate.val("Dude, this input got populated!");
-                    } else {
-                          // Make sure that the hidden fields are indeed
-                          // hidden.
-                          hidden.hide();
-                          // This would do the job:
-            //
-            $("#lettreorientaioncontent").val("");
-            }
-            })
+          var checkbox = $("#isOriented");// Get the form fields and hidden div
+          var hidden = $("#hidden_fields");
+          checkbox.change(function() {
+              if (checkbox.is(':checked')) {
+                hidden.show();  
+              } else {
+                    hidden.hide();
+                    $("#lettreorientaioncontent").val("");
+              }
+          })
       }); 
       $(".two-decimals").change(function(){
           this.value = parseFloat(this.value).toFixed(2);
       });
- function maxLengthCheck(object) {
-      if (object.value.length > object.maxLength)
-        object.value = object.value.slice(0, object.maxLength)
-  }
-    
-  function isNumeric (evt) {
-      var theEvent = evt || window.event;
-      var key = theEvent.keyCode || theEvent.which;
-      key = String.fromCharCode (key);
-      var regex = /[0-9]|\./;
-      if ( !regex.test(key) ) {
-        theEvent.returnValue = false;
-        if(theEvent.preventDefault) theEvent.preventDefault();
+      function maxLengthCheck(object) {
+          if (object.value.length > object.maxLength)
+            object.value = object.value.slice(0, object.maxLength)
       }
-  }
-     $("button").click(function (event) {
+    
+      function isNumeric (evt) {
+          var theEvent = evt || window.event;
+          var key = theEvent.keyCode || theEvent.which;
+          key = String.fromCharCode (key);
+          var regex = /[0-9]|\./;
+          if ( !regex.test(key) ) {
+            theEvent.returnValue = false;
+            if(theEvent.preventDefault) theEvent.preventDefault();
+          }
+      }
+      $("button").click(function (event) {
            which = '';
            str ='send';
            which = $(this).attr("id");
@@ -63,7 +57,7 @@
                    return true;
           }
       });
-     $("#btnCalc").click(function(event){
+      $("#btnCalc").click(function(event){
             event.preventDefault();
       });
 });
@@ -82,8 +76,8 @@
           <thead>
             <tr>
               <th class="center">#</th>
-              <th>Examen</th>
-              <th><em class="fa fa-cog"></em></th>
+              <th class="center">Nom Examen</th>
+              <th class="center"><em class="fa fa-cog"></em></th>
             </tr>
           </thead>
           <tbody>
@@ -99,20 +93,21 @@
       </div>
       <form class="form-horizontal" method="POST" action="/uploadresultat" enctype="multipart/form-data">
         {{ csrf_field() }}
-        <input type="text" name="id_demande" value="{{ $demande->id_demandeexb }}" hidden>
+        <input type="text" name="id_demande" value="{{ $demande->id }}" hidden>
         <div class="form-group">
           <div class="col-xs-2">
-            <label><b>Upload Résultat :</b></label>
+            <!-- <label><b>Uploader le Résultat :</b></label> -->
+            <label for="resultat">Sélectionner le fichier Résultat </label>
           </div>
           <div class="col-xs-8">
-            <input type="file" id="id-input-file-2" name="resultat" placeholder ="fichier..." class="form-control" required/>
+          <!--   <input type="file" id="id-input-file-2" name="resultat" placeholder ="fichier..." class="form-control" accept="image/*,.pdf" required/> -->
+        <input type="file" id="resultat" name="resultat" placeholder ="fichier..." class="form-control" accept="image/*,.pdf" required/>
           </div>
         </div>
         <div class="clearfix form-actions">
           <div class="col-md-offset-5 col-md-7">
-            <button class="btn btn-info" type="submit">
-             <!--  <i class="ace-icon fa fa-upload bigger-110"></i> -->
-             <i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>
+            <button class="btn btn-info" type="submit"> <!--  <i class="ace-icon fa fa-upload bigger-110"></i> -->
+              <i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>
               Démarrer l'envoie
             </button>
           </div>

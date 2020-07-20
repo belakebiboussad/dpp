@@ -40,14 +40,14 @@
 					<li>
 					<a data-toggle="tab" href="#Hosp">
 						<i class="pink ace-icon fa fa-h-square bigger-120"></i>
-						Hospitalisations&nbsp;<span class="badge badge-pink">{{ $hospitalisations->count() }}</span>
+						Hospitalisations&nbsp;<span class="badge badge-pink">{{ $patient->hospitalisations->count() }}</span>
 						</a>
 					</li>
 					@endif
 					<li>
 						<a data-toggle="tab" href="#rdvs">
 							<i class="blue ace-icon fa fa-calendar-o bigger-120"></i>
-							RDV&nbsp;<span class="badge badge-info">{{ $rdvs->count() }}</span>
+							RDV&nbsp;<span class="badge badge-info">{{ $patient->rdvs->count() }}</span>
 						</a>
 					</li>
 					<!-- $hommes_c -->
@@ -212,7 +212,7 @@
 									</div>
 								</div>
 								<div class="hr hr-8 dotted"></div>
-								@if($patient->Type == "Ayant droit")
+								@if($patient->Type == "Ayant_droit")
 									<div class="col-sm-12 widget-container-col" id="widget-container-col-12">
 										<div class="widget-box transparent" id="widget-box-12">
 											<div class="widget-header">
@@ -223,61 +223,59 @@
 													<div class="col-sm-3">
 														<label class="inline">
 															<span><b>Nom :</b></span>
-															<span class="lbl blue"> {{ App\modeles\assur::where("id",$patient->Assurs_ID_Assure)->get()->first()->Nom }}</span>
+															<span class="lbl blue"> {{ $patient->assure->Nom}} </span>
 														</label>
 													</div>
 													<div class="col-sm-3">
 														<label class="inline">
 															<span><b>Prénom :</b></span>
-															<span class="lbl blue"> {{ App\modeles\assur::where("id",$patient->Assurs_ID_Assure)->get()->first()->Prenom }}</span>
+															<span class="lbl blue"> {{ $patient->assure->Prenom}} </span>
 														</label>
 													</div>
 													<div class="col-sm-3">
 														<label class="inline">
 															<span><b>Date de naissance :</b></span>
-															<span class="lbl blue"> {{ App\modeles\assur::where("id",$patient->Assurs_ID_Assure)->get()->first()->Date_Naissance }}</span>
+															<span class="lbl blue"> {{ $patient->assure->Date_Naissance }}</span>
 														</label>
 													</div>
 													<div class="col-sm-3">
 														<label class="inline">
 															<span><b>Lieu de naissance :</b></span>
-															<span class="lbl blue"> {{ App\modeles\assur::where("id",$patient->Assurs_ID_Assure)->get()->first()->lieunaissance }}</span>
+															<span class="lbl blue">{{ $patient->assure->commune->nom_commune}} </span>
 														</label>
 													</div>
 													<div class="col-sm-3">
 														<label class="inline">
 															<span><b>Sexe :</b></span>
-															<span class="lbl blue"> {{ App\modeles\assur::where("id",$patient->Assurs_ID_Assure)->get()->first()->Sexe == "H" ? "Masculin" : "Féminin" }}</span>
+															<span class="lbl blue"> {{ $patient->assure->Sexe == "H" ? "Masculin" : "Féminin" }}</span>
 														</label>
 													</div>
 													<div class="col-sm-3">
 														<label class="inline">
 															<span><b>Matricule :</b></span>
-															<span class="lbl blue"> {{ App\modeles\assur::where("id",$patient->Assurs_ID_Assure)->get()->first()->Matricule }}</span>
+															<span class="lbl blue"> {{ $patient->assure->Matricule }}</span>
 														</label>
 													</div>
 													<div class="col-sm-6">
 														<label class="inline">
-															<span><b>Service :</b></span>
-															<span class="lbl blue"> {{ App\modeles\assur::where("id",$patient->Assurs_ID_Assure)->get()->first()->Fonction }}</span>
+															<span><b>Service :</b></span><span class="lbl blue"> {{ $patient->assure->Service }}</span>
 														</label>
 													</div>
 													<div class="col-sm-3">
 														<label class="inline">
-															<span><b>Grade :</b></span>
-															<span class="lbl blue"> {{ App\modeles\assur::where("id",$patient->Assurs_ID_Assure)->get()->first()->Grade }}</span>
+															<span><b>Grade :</b></span>	<span class="lbl blue"> {{ $patient->assure->grade->nom }}</span>
 														</label>
 													</div>
 													<div class="col-sm-3">
 														<label class="inline">
 															<span><b>Etat :</b></span>
-															<span class="lbl blue"> {{ App\modeles\assur::where("id",$patient->Assurs_ID_Assure)->get()->first()->Etat }}</span>
+															<span class="lbl blue"> {{ $patient->assure->Etat }}</span>
 														</label>
 													</div>
 													<div class="col-sm-6">
 														<label class="inline">
 															<span><b>N° sécurité sociale :</b></span>
-															<span class="lbl blue"> {{ App\modeles\assur::where("id",$patient->Assurs_ID_Assure)->get()->first()->NSS }}</span>
+															<span class="lbl blue"> {{ $patient->assure->NSS }}</span>
 														</label>
 													</div>
 												</div>
@@ -326,13 +324,13 @@
 														<td>{{ $consultation->Date_Consultation }}</td>
 														<td>{{ $consultation->Diagnostic }}</td>
 														<td>
-														{{ App\modeles\employ::where("id",$consultation->Employe_ID_Employe)->get()->first()->Nom_Employe }}
-														{{ App\modeles\employ::where("id",$consultation->Employe_ID_Employe)->get()->first()->Prenom_Employe }}
+														{{ $consultation->docteur->Nom_Employe  }}{{ $consultation->docteur->Prenom_Employe }}
+														
 														</td>
 														<td class ="center">
 															<div class="hidden-sm hidden-xs btn-group">
-      														<a class="btn btn-xs btn-success show-modal" href="/consultations/detailcons/{{$consultation->id}}">	
-      															<i class="ace-icon fa fa-hand-o-up bigger-120"></i>Détails
+      														<a class="btn btn-xs btn-success show-modal" href="/consultations/detailcons/{{$consultation->id}}" title="Détails">	
+      															<i class="ace-icon fa fa-hand-o-up bigger-120"></i>
      														</a>
      													</div>
 														</td>
@@ -372,30 +370,28 @@
 												</tr>
 											</thead>
 											<tbody>
-												@foreach($rdvs as $rdv)
-												@if($rdv->Patient_ID_Patient == $patient->id)
-												<tr>
-													<td>{{ $rdv->Date_RDV }}</td>
-													<td>
-														{{ App\modeles\employ::where("id",$rdv->Employe_ID_Employe)->get()->first()->Nom_Employe }}
-														{{ App\modeles\employ::where("id",$rdv->Employe_ID_Employe)->get()->first()->Prenom_Employe }}
-													</td>
-													<td class="center">
-														<span class="label label-{{$rdv->Etat_RDV == "en attente" ? "warning" : "success"}}" style="color: black;">
-															<b>{{ $rdv->Etat_RDV }}</b>
-														</span>
-													</td>
-													<td class="center">
-														<div class="hidden-sm hidden-xs btn-group">
-                            								<a class="btn btn-xs btn-success" href="{{ route('rdv.show', $rdv->id) }}">
-                                								<i class="ace-icon fa fa-hand-o-up bigger-120"></i>
-                                								Détails
-                           									</a>
-                           								</div>
-                           							</td>
-												</tr>
+												@if($patient->rdvs->count() > 0)
+													@foreach($patient->rdvs as $rdv)
+														<tr>
+															<td>{{ $rdv->Date_RDV }}</td>
+															<td>
+																{{ $rdv->employe->Nom_Employe }} {{ $rdv->employe->Prenom_Employe }}
+															</td>
+															<td class="center">
+																<span class="label label-{{$rdv->Etat_RDV == "en attente" ? "warning" : "success"}}" style="color: black;">
+																	<b>{{ $rdv->Etat_RDV }}</b>
+																</span>
+															</td>
+															<td class="center">
+																<div class="hidden-sm hidden-xs btn-group">
+		                            	<a class="btn btn-xs btn-success" href="{{ route('rdv.show', $rdv->id) }}">
+		                              	<i class="ace-icon fa fa-hand-o-up bigger-120"></i>Détails
+																	</a>
+		                           	</div>
+		                           </td>
+														</tr>
+													@endforeach
 												@endif
-												@endforeach
 											</tbody>
 										</table>
 									</div>
@@ -430,9 +426,8 @@
 												</tr>
 											</thead>
 											<tbody>
-												@foreach($hospitalisations as $hosp)
+												@foreach($patient->hospitalisations as $hosp)
 												<tr>
-												{{--$hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe  --}}
 													<td>{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe }}
 						  						</td>
 													<td>{{ $hosp->Date_entree }}</td>

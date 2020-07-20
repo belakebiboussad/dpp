@@ -57,15 +57,8 @@ class ConsultationsController extends Controller
 
     public function detailcons($id_cons)
     {  
-      $consultation = consultation::FindOrFail($id_cons);
-      $consults = $consultation->patient->Consultations;    
-      $examensbios = demandeexb::where("id_consultation",$id_cons)->get();
-      $demande = $consultation->demandeExamImagegerie;
-      if(isset($id_cons))//  $examensimg = json_decode($demande->examsImagerie); 
-        $exmclin = examen_cliniqu::where("id_consultation",$id_cons)->get()->first();
-      $examsRadio = $consultation->examensradiologiques;
-      $ordonnance= $consultation->ordonnances;
-      return view('consultations.resume_cons', compact('consultation','examensbios' ,'examensimg', 'exmclin', 'examsRadio', 'ordonnance', 'consults'));
+      $consultation = consultation::FindOrFail($id_cons); //dd($consultation->demandeExamImagegerie);
+      return view('consultations.resume_cons', compact('consultation'));
     }
     public function detailconsXHR(Request $request)
      {
@@ -115,47 +108,48 @@ class ConsultationsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-      public function store(Request $request)
-       {
-          $request->validate([
-                "motif" => 'required',
-                "resume" => 'required',
-          ]);
-          $validator = Validator::make($request->all(), [
-          'motif' => 'required|max:255',
-          'resume' => 'required',
-          ]);
-         if($validator->fails())
-            return redirect()->back()->withErrors($validator)->withInput();
-         $consult = consultation::create([
-                "Motif_Consultation"=>$request->motif,
-                "histoire_maladie"=>$request->histoirem,
-                "Date_Consultation"=>Date::Now(),
-                "Diagnostic"=>$request->diagnostic,
-                "Resume_OBS"=>$request->resume,
-                "isOriented"=> (!empty($request->isOriented) ? 1 : 0),
-                "lettreorientaioncontent"=>(!empty($request->isOriented) ? $request->lettreorientaioncontent  : null),
-                "Employe_ID_Employe"=>Auth::User()->employee_id,
-                "Patient_ID_Patient"=>$request->id,
-                "id_code_sim"=>$request->codesim,
-                "id_lieu"=>session('lieu_id'),
-          ]);
-          if($request->poids != 0 || $request->temp != null || $request->taille !=0 || $request->autre)
-            $this->ExamCliniqCTLR->store( $request,$consult->id); //save examen clinique
-          if(isset($request->isOriented)){
-            $this->LettreOrientationCTRL->store($request,$consult->id);
-          }
-          if($request->liste != null)
-            $this->OrdonnanceCTLR->store( $request,$consult->id);    //save Ordonnance
-          if($request->exm  != null)  //save ExamBiolo
-            $this->ExamBioloqiqueCTLR->store( $request,$consult->id); 
-          if(empty($request->ExamsImg))
-            $this->ExamImagerieCTLR->store( $request,$consult->id); 
-          if(isset($request->examen_Anapath)) 
-            $this->ExamAnapathCTLR->store( $request,$consult->id);
-          if($request->modeAdmission != null)
-            $this->DemandeHospCTRL->store($request,$consult->id);    
-          return redirect(Route('patient.show',$request->id));
+    public function store(Request $request)
+    {
+      $request->validate([
+            "motif" => 'required',
+            "resume" => 'required',
+      ]);
+      $validator = Validator::make($request->all(), [
+      'motif' => 'required|max:255',
+      'resume' => 'required',
+      ]);
+      if($validator->fails())
+        return redirect()->back()->withErrors($validator)->withInput();
+      dd($request->ExamsImg);
+      $consult = consultation::create([
+            "Motif_Consultation"=>$request->motif,
+            "histoire_maladie"=>$request->histoirem,
+            "Date_Consultation"=>Date::Now(),
+            "Diagnostic"=>$request->diagnostic,
+            "Resume_OBS"=>$request->resume,
+            "isOriented"=> (!empty($request->isOriented) ? 1 : 0),
+            "lettreorientaioncontent"=>(!empty($request->isOriented) ? $request->lettreorientaioncontent  : null),
+            "Employe_ID_Employe"=>Auth::User()->employee_id,
+            "Patient_ID_Patient"=>$request->id,
+            "id_code_sim"=>$request->codesim,
+            "id_lieu"=>session('lieu_id'),
+      ]);
+      if($request->poids != 0 || $request->temp != null || $request->taille !=0 || $request->autre)
+        $this->ExamCliniqCTLR->store( $request,$consult->id); //save examen clinique
+      if(isset($request->isOriented)){
+        $this->LettreOrientationCTRL->store($request,$consult->id);
+      }
+      if($request->liste != null)
+        $this->OrdonnanceCTLR->store( $request,$consult->id);    //save Ordonnance
+      if($request->exm  != null)  //save ExamBiolo
+        $this->ExamBioloqiqueCTLR->store( $request,$consult->id); 
+      if(empty($request->ExamsImg))
+        $this->ExamImagerieCTLR->store( $request,$consult->id); 
+      if(isset($request->examen_Anapath)) 
+        $this->ExamAnapathCTLR->store( $request,$consult->id);
+      if($request->modeAdmission != null)
+        $this->DemandeHospCTRL->store($request,$consult->id);    
+      return redirect(Route('patient.show',$request->id));
        }
     /**
      * Display the specified resource.

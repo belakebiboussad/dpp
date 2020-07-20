@@ -8,7 +8,6 @@
       {
         activaTab("Patient");
         event.preventDefault();
-        
       }else{
       	if(!($('#autre').is(':checked'))){ 
 					$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });	
@@ -105,7 +104,6 @@
 				@endif
 				</div>
 			</div>
-	
 	    <ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
 			   	<li class="active"><a data-toggle="tab" href="#Assure" class="jumbotron" onclick="copyPatientInfo();">
 			    		<span class="bigger-130"><strong>Assure</strong></span></a>

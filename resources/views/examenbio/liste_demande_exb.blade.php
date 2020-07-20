@@ -50,7 +50,7 @@
 														@endif
 													</td>
 													<td class="center">
-														<a href="/detailsdemandeexb/{{ $demande->id_demandeexb }}">
+														<a href="/detailsdemandeexb/{{ $demande->id }}">
 															<i class="fa fa-file"></i>
 														</a>
 													</td>

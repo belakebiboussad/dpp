@@ -14,24 +14,14 @@
       });
 
       $(function() {
-           // Get the form fields and hidden div
            var checkbox = $("#isOriented");
            var hidden = $("#hidden_fields");
-           // Setup an event listener for when the state of the 
-           // checkbox changes.
            checkbox.change(function() {
                 if (checkbox.is(':checked')) {
-                     // Show the hidden fields.
-                     hidden.show();
-                     // Populate the input.
-                     // populate.val("Dude, this input got populated!");
-                    } else {
-                          // Make sure that the hidden fields are indeed
-                          // hidden.
-                          hidden.hide();
-                          // This would do the job:
-            //
-            $("#lettreorientaioncontent").val("");
+                  hidden.show();
+                } else {
+                  hidden.hide();
+                  $("#lettreorientaioncontent").val("");
             }
             })
       }); 
@@ -145,7 +135,7 @@
                           <label><b>Upload Résultat :</b></label>
                         </div>
                         <div class="col-xs-8">
-                          <input type="file" id="id-input-file-2" name="resultat" placeholder ="fichier..." class="form-control" required/>
+                          <input type="file" id="id-input-file-2" name="resultat" placeholder ="fichier..." class="form-control" accept="image/*,.pdf" required/>
                         </div>
                       </div>
                       <div class="clearfix form-actions">

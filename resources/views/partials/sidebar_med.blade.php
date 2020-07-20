@@ -271,6 +271,31 @@
           });   
          return erreur;
       }
+      function checkConsult()
+      {
+        var erreur =true;
+        var motif = $('#motif').val();  var resume = $('#resume').val();
+        var inputAssVal = new Array(resume,motif);
+        var inputMessage = new Array("Résume","Motif");
+        if($('#' + 'isOriented').is(":checked"))
+        {
+          inputAssVal.unshift($("#lettreorientaioncontent").val());
+          inputMessage.unshift("Résume de la lettre d'orientation");
+          
+        }
+        $('.error').each(function(i, obj) {
+          $(obj).next().remove();
+          $(obj).detach();
+       });
+        jQuery.each( inputAssVal, function( i, val ) {
+          if(val =="" )
+          {
+            erreur =false;
+            $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' de la Consultation </span>'+'<br/>');
+          }
+       });
+       return erreur;
+      }
       function activaTab(tab){
         $('.nav-pills a[href="#' + tab + '"]').tab('show');
       }

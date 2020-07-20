@@ -70,7 +70,7 @@
 		</tr>
 		</thead>
 		<tbody>
-		@foreach($consults as $consult)
+		@foreach($consultation->patient->Consultations as $consult)
 		<tr  role="row" class="even">
 			<td class="center" width="20%">
 				{{$consult->Date_Consultation}}

@@ -152,7 +152,7 @@
                           <label><b>Upload Résultat :</b></label>
                         </div>
                         <div class="col-xs-8">
-                          <input type="file" id="id-input-file-2" name="resultat" placeholder ="fichier..." class="form-control" required/>
+                          <input type="file" id="id-input-file-2" name="resultat" placeholder ="fichier..." class="form-control" accept="image/*,.pdf" required/>
                         </div>
                       </div>
                       <div class="clearfix form-actions">

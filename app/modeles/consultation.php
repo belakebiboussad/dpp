@@ -22,10 +22,7 @@ class consultation extends Model
     {
         return $this->hasOne('App\modeles\demandeexb','id_consultation');
     }
-    public function demandeExamImagegerie()
-    {
-        return $this->hasOne('App\modeles\demandeExamImag','id_consultation');
-    }
+   
     public function examensCliniques()
     {
         return $this->hasOne('App\modeles\examen_cliniqu','id_consultation');
@@ -33,6 +30,10 @@ class consultation extends Model
     public function examensradiologiques()
     {
         return $this->hasMany('App\modeles\demandeexr','id_consultation');
+    }
+    public function demandeExamImagegerie() //used
+    {
+        return $this->hasOne('App\modeles\demandeExamImag','id_consultation');
     }
     public function ordonnances()
     {
