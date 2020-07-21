@@ -28,26 +28,17 @@ use App\modeles\specialite_exb;
 use App\modeles\infosupppertinentes;
 use App\modeles\exmnsrelatifdemande;
 use App\modeles\examenradiologique;
+use App\modeles\demandeexr;
 use Validator;
 class ConsultationsController extends Controller
 {
-    protected $OrdonnanceCTLR,$ExamCliniqueCTLR,$ExamBioloqiqueCTLR,$ExamImagerieCTLR,$ExamAnapathCTLR,$DemandeHospCTRL,$LettreOrientationCTRL;
-    public function __construct(OrdonnanceController $OrdonnaceCtrl,ExamenCliniqueController $ExamCliniqCtrl,  DemandeExbController $ExamBiologiqCtrl, DemandeExamenRadio $ExamImagCtrl,ExmAnapathController $ExamAnapathCtrl,
-                                      DemandeHospitalisationController $DemandeHospCtrl,
-                                      LettreOrientationController $LettreOrientationCtrl)
+    protected $DemandeHospCTRL;
+    public function __construct(LettreOrientationController $LettreOrientationCtrl)
     {
       $this->middleware('auth');
-      $this->OrdonnanceCTLR = $OrdonnaceCtrl;
-      $this->ExamCliniqCTLR = $ExamCliniqCtrl;
-      $this->ExamBioloqiqueCTLR = $ExamBiologiqCtrl;
-      $this->ExamImagerieCTLR = $ExamImagCtrl;
-      $this->ExamAnapathCTLR = $ExamAnapathCtrl;
-      $this->DemandeHospCTRL = $DemandeHospCtrl;
       $this->LettreOrientationCTRL = $LettreOrientationCtrl;
     }
-    // public function demandeExm($id_cons)// {//   $consultation = consultation::FindOrFail($id_cons);
-    //   $id_patient = $consultation->Patient_ID_Patient;//   $patient = patient::FindOrFail($id_patient);
-    //   return view('consultations.demande_examen',compact('id_cons','patient'));// }
+//public function demandeExm($id_cons){ $consultation = consultation::FindOrFail($id_cons);$id_patient = $consultation->Patient_ID_Patient;$patient = patient::FindOrFail($id_patient);return view('consultations.demande_examen',compact('id_cons','patient'));}
     public function index($id)
     {
       $patient = patient::FindOrFail($id);
@@ -136,33 +127,68 @@ class ConsultationsController extends Controller
   
       if($request->poids != 0 || $request->temp != null || $request->taille !=0 || $request->autre)
       {
-        //$this->ExamCliniqCTLR->store( $request,$consult->id); //save examen clinique
-        $exam = new examen_cliniqu;
+        $exam = new examen_cliniqu; //$this->ExamCliniqCTLR->store( $request,$consult->id); //save examen clinique
         $exam->taille = $request->taille;
-        $exam->poids =>$request->poids;
-        $exam->temp =>$request->temp;
-        $exam->autre =>$request->autre;
-        $exam->IMC=>$request->imc;
-        $exam->Etat=>$request->etatgen,
-        $exam->peaupha =>$request->peaupha,
-       // $exam->id_consultation=>$consultID,
+        $exam->poids  = $request->poids;
+        $exam->temp   = $request->temp;
+        $exam->autre  = $request->autre;
+        $exam->IMC    = $request->imc;
+        $exam->Etat   = $request->etatgen;
+        $exam->peaupha =$request->peaupha; // $exam->id_consultation=$consultID;
         $consult->examensCliniques()->save($exam);
       }
-    
-
-      if(isset($request->isOriented)){
+      if(($request->motifOr != "") ||(isset($request->specialite))){
         $this->LettreOrientationCTRL->store($request,$consult->id);
       }
-      if($request->liste != null)
-        $this->OrdonnanceCTLR->store( $request,$consult->id);    //save Ordonnance
+      if($request->liste != null) //save Ordonnance
+      {
+        $ord = new ordonnance;
+        $ord->date = Date::Now();
+        $consult->ordonnances()->save($ord);
+        foreach (json_decode($request->liste) as $key => $trait) {
+           $ord->medicamentes()->attach($trait->med,['posologie' => $trait->posologie]);     
+        }
+      }
       if($request->exm  != null)  //save ExamBiolo
-        $this->ExamBioloqiqueCTLR->store( $request,$consult->id); 
-      // if(empty($request->ExamsImg))
-      //   $this->ExamImagerieCTLR->store( $request,$consult->id); 
+      {
+        $demandeExamBio = new demandeexb;
+        $demandeExamBio->DateDemande = Date::Now();
+        $consult->demandeexmbio()->save($demandeExamBio);
+        foreach($request->exm as $id_exb) {
+          $demandeExamBio->examensbios()->attach($id_exb);
+        }
+      }
+      if(!empty($request->ExamsImg) && count(json_decode($request->ExamsImg)) > 0)
+      {
+        $demandeExImg = new demandeexr;
+        $demandeExImg->Date = Date::Now();
+        $demandeExImg->InfosCliniques = $request->infosc;
+        $demandeExImg->Explecations = $request->explication;
+        $consult->examensradiologiques()->save($demandeExImg);
+        foreach (json_decode ($request->ExamsImg) as $key => $value) {       
+          $demandeExImg ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);
+        }
+        if(isset($request->infos))
+        {
+          foreach ($request->infos as $id_info) {
+            $demandeExImg->infossuppdemande()->attach($id_info);
+          }
+        }
+      }
       if(isset($request->examen_Anapath)) 
-        $this->ExamAnapathCTLR->store( $request,$consult->id);
+      {
+        $examAnapath = new examenanapath;
+        $examAnapath->nom = $request->examen_Anapath;
+        $consult->examenAnapath()->save($examAnapath);
+      }
       if($request->modeAdmission != null)
-        $this->DemandeHospCTRL->store($request,$consult->id);    
+      {
+        $demande = new DemandeHospitalisation;  
+        $demande->modeAdmission = $request->modeAdmission;
+        $demande->service =  $request->service;
+        $demande->specialite =  $request->specialiteDemande;
+        $consult->demandeHospitalisation()->save($demande);  
+      }
       return redirect(Route('patient.show',$request->id));
     }
     /**
@@ -185,11 +211,7 @@ class ConsultationsController extends Controller
      * @param  \App\modeles\consultation  $consultation
      * @return \Illuminate\Http\Response
      */
-    public function edit(consultation $consultation)
-    {
-        //
-    }
-
+    public function edit(consultation $consultation){}
     /**
      * Update the specified resource in storage.
      *
@@ -197,21 +219,14 @@ class ConsultationsController extends Controller
      * @param  \App\modeles\consultation  $consultation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, consultation $consultation)
-     {
-     //
-       }
+    public function update(Request $request, consultation $consultation){}
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\modeles\consultation  $consultation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(consultation $consultation)
-    {
-        //
-    }
-    
+    public function destroy(consultation $consultation){}
     public function choix()
     {
         $patients = patient::all();

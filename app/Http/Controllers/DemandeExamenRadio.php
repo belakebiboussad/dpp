@@ -80,20 +80,13 @@ class DemandeExamenRadio extends Controller
      */
     public function store(Request $request, $consultID)
     {
-      $request->validate([ //     "infosc" => "required", //     "explication" => "required",
-      //     "infos" => "required",   //     "examensradio" => "required",
-      //     "exmns" => "required"   // ],[   //     "infosc.required" => "Ce champ est obligatoire.",
-      //     "explication.required" => "Ce champ est obligatoire.",    //     "infos.required" => "Ce champ est obligatoire.",
-      //     "examensradio.required" => "Ce champ est obligatoire.",   //     "exmns.required" => "Ce champ est obligatoire.",// ]); 
-
-      $date = Date::now();
+//$request->validate(["infosc" => "required","explication" => "required","infos" => "required","examensradio" => "required","exmns" => "required"],["infosc.required" => "Ce champ est obligatoire.","explication.required" => "Ce champ est obligatoire.","infos.required" => "Ce champ est obligatoire.","examensradio.required" => "Ce champ est obligatoire.","exmns.required" => "Ce champ est obligatoire.",// ]); 
       $demande = demandeexr::FirstOrCreate([
-          "Date" => $date,
+          "Date" => Date::now(),
           "InfosCliniques" => $request->infosc,
           "Explecations" => $request->explication,
           "id_consultation" => $consultID,
       ]);
-      
       $examsImagerie = json_decode ($request->ExamsImg);
       foreach ($examsImagerie as $key => $value) {       
         $demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);   //$demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => json_encode($value->types)]);

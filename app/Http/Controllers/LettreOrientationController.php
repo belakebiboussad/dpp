@@ -6,15 +6,13 @@ use Illuminate\Http\Request;
 use App\modeles\LettreOrientation;
 class LettreOrientationController extends Controller
 {
-    //
-      public function store(Request $request ,$consultID)
+    public function store(Request $request ,$consultID)
     { 
-       
-    	 LettreOrientation::create([
-            "motif"=>$request->lettreorientaioncontent,
-            "specialite"=>$request->specialite,
-            "medecin"=>$request->medecin,
-            "Consultation_ID_Consultation"=>$consultID,
-            ]);
+        LettreOrientation::create([
+        "motif"=>$request->motifOr,
+        "specialite"=>$request->specialite,
+        "medecin"=>$request->medecin,
+        "Consultation_ID_Consultation"=>$consultID,
+        ]);
     }
 }

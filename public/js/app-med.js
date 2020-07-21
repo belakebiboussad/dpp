@@ -185,6 +185,7 @@
   
 	function storeord1()
 	{
+		alert("fsdf");
 		var arrayLignes = document.getElementById("ordonnance").rows;
     var longueur = arrayLignes.length; 
     var ordonnance = [];
@@ -195,21 +196,6 @@
     var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
     champ.appendTo('#consultForm');
   }
-	function demandehosp()
-	{
-		($("#motifhosp").appendTo('#consultForm')).hide();
-		($("#service").appendTo('#consultForm')).hide();
-		($("#degreurg").appendTo('#consultForm')).hide();
-		($("#specialiteDemande").appendTo('#consultForm')).hide(); //ajouter specialite
-		($("#modeAdmission").appendTo('#consultForm')).hide();
-		$('#demandehosp').modal('hide');
-	}
-	function lettreorientation()
-	{
-		($('#specialite').appendTo('#consultForm')).hide();
-		($('#medecin').appendTo('#consultForm')).hide();
-		($('#motifOrient').appendTo('#consultForm')).hide();
-	}
 	function addAppareils(appareil)
 	{
 		$("#"+appareil).each(function(i){

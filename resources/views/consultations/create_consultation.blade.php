@@ -90,6 +90,18 @@
 		        if(theEvent.preventDefault) theEvent.preventDefault();
 		}
 	}
+	function lettreorientation()
+	{
+		$('#specialite').val($('#specialiteOrient').val());
+		$('#medecin').val($('#medecinOrient').val());
+		$('#motifOr').val($('#motifOrient').val());
+	}
+	function demandehosp()
+	{
+		$('#modeAdmission').val($('#modeAdmissionHospi').val());// $("#degreurg").appendTo('#consultForm');
+		$('#specialiteDemande').val($('#specialiteHospi').val());	
+		$('#service').val($('#serviceHospi').val());
+	}
 	function ajaxfunc(patientid)
  	{        
 		var habitudeAlim = null; var tabac=null ; var ethylisme = null;
@@ -126,7 +138,6 @@
 	function resetField()
 	{
 		$("#description").val(' ');$('#dateAntcd').val('');
-	 
 	}
 	function atcdhide()
 	{  
@@ -288,8 +299,6 @@
 	                          {data: 'action', name: 'action', orderable: false, searchable: false}
 	                   ]
 		  });
-//$('#ants-tab').DataTable({"processing": true,colReorder: true,stateSave: true,searching:false,
-//'aoColumnDefs': [{'bSortable': false,'aTargets': ['nosort']}],"language":{"url": '/localisation/fr_FR.json'},});
 	  	jQuery('#btn-add, #AntFamil-add').click(function () {
 			 	jQuery('#EnregistrerAntecedant').val("add");
 			 	jQuery('#modalFormData').trigger("reset");
@@ -715,12 +724,25 @@
 		</div><!-- row -->
 		<div class="row">
 			<div class="col-sm12">
+			<!-- les input de modal form(Demande Hospitalisation)  -->
+				<input type="hidden" name="service" id="service">
+				<input type="hidden" name="specialiteDemande" id="specialiteDemande">
+				<input type="hidden" name="modeAdmission" id="modeAdmission">
+					<!-- les input de modal form(Lettre Orientation)  -->
+				<input type="hidden" name="specialite" id="specialite">
+				<input type="hidden" name="medecin" id="medecin">
+				<input type="hidden" name="motifOr" id="motifOr">
+
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm12">
 				<div class="center bottom" style="bottom:0px;">
 					<button class="btn btn-info btn-sm" type="submit" id="send">
 						<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
 					</button>
 					&nbsp; &nbsp; &nbsp;
-					<a href="{{ route('patient.show',$patient->id) }}" class="btn btn-info btn-sm">
+					<a href="{{ route('patient.show',$patient->id) }}" class="btn btn-warning btn-sm">
 						<i class="ace-icon fa fa-close bigger-110"></i>Annuler
 					</a>
 				</div>	{{-- center --}}

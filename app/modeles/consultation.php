@@ -35,6 +35,10 @@ class consultation extends Model
     {
         return $this->hasOne('App\modeles\demandeExamImag','id_consultation');
     }
+    public function examenAnapath()
+    {
+        return $this->hasOne('App\modeles\examenanapath','id_consultation');
+    }
     public function ordonnances()
     {
         return $this->hasOne('App\modeles\ordonnance','id_consultation');
