@@ -140,8 +140,13 @@
                 </div>
               </div>
             </div><!-- row -->
-            @if(Auth::user()->role->id == 12)
-            <div class="row">
+        </div><!-- widget-main -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
               <div class="space-12">
                 <form class="form-horizontal" method="POST" action="/uploadexr" enctype="multipart/form-data">
                 {{ csrf_field() }}
@@ -165,7 +170,6 @@
                 </form>
               </div>
             </div>
-             @endif
             <div class="row">
               <div class="space-12">
                 <label>Résultat :</label>&nbsp;&nbsp;
@@ -173,10 +177,6 @@
                   <span><a href='/download/{{ $demande->resultat }}'>{{ $demande->resultat }} &nbsp;<i class="fa fa-download"></i></a></span>
                 @endisset
               </div>
-            </div> 
-        </div><!-- widget-main -->
-      </div>
-    </div>
-  </div>
-</div>
+            </div>
+
 @endsection

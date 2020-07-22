@@ -41,6 +41,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+  
       $ServiceID = Auth::user()->employ->Service_Employe;
       switch (Auth::user()->role_id) {
             case 1:
@@ -102,8 +103,7 @@ class HomeController extends Controller
                 break;   
             case 12://radiologue
                 $demandesexr = demandeexr::with('consultation')->where('etat','E')->get();
-                dd($demandesexr);
-                return view('errors.500');
+                //dd($demandesexr);
                 return view('home.home_radiologue', compact('demandesexr')); 
                 break;
             case 14:
