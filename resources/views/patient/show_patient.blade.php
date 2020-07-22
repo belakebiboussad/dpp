@@ -1,4 +1,29 @@
 @extends('app')
+@section('page-script')
+<script type="text/javascript">
+	$('document').ready(function(){
+		var table = $('#consultList').DataTable({
+       "searching":false,
+       "processing": true,
+        "scrollY":"450px",
+        "scrollCollapse": true,
+        "paging":false,
+        "language": {
+            "url": '/localisation/fr_FR.json'
+        },      
+      });
+      $('#consultList tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        }
+        else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+      });
+	});
+</script>
+@endsection
 @section('main-content')
 	<div >
 		@include('patient._patientInfo')
@@ -23,8 +48,7 @@
 							Informations Administratives
 						</a>
 					</li>
-				
-					 @if( Auth::user()->role->id == 1)
+					@if( Auth::user()->role->id == 1)
 					 <li>
 					 	<a data-toggle="tab" href="#Ants">
 					 		<i class="fa fa-history fa-1x"></i>&nbsp;<span>Antecedants</span>&nbsp;<span class="badge badge-primary">{{$patient->antecedants->count() }}
@@ -73,10 +97,8 @@
 									<span class="bigger-110">Modifier Les Informations</span>
 								</a>
 								<a class="btn btn-sm btn-block btn-primary" data-toggle="modal" data-target="#ticket">
-
 									<i class="ace-icon fa fa-plus bigger-120"></i>
 									<span class="bigger-110">Ajouter Ticket</span>
-
 								</a>
 							</div><!-- /.col -->
 							<div class="col-xs-12 col-sm-9">
@@ -291,58 +313,8 @@
 					<div id="Ants" class="tab-pane">
 						@include('antecedents.ants_Widget')
 					</div><!-- finAnts -->
-
 					<div id="Cons" class="tab-pane">
-						<div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2">
-							<div class="widget-box widget-color-blue" id="widget-box-2">
-								<div class="widget-header">
-									<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Consultations</h5>
-									<div class="widget-toolbar widget-toolbar-light no-border">{{-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> --}}
-										<div class="fa fa-plus-circle"></div>
-										<a href="/consultations/create/{{$patient->id}}">
-											<b>Consultation </b>
-										</a>
-									</div>
-								</div>
-								<div class="widget-body">
-									<div class="widget-main no-padding">
-										<table class="table table-striped table-bordered table-hover">
-											<thead class="thin-border-bottom">
-												<tr>
-													<th>Motif de Consultation</th>
-													<th>Date de Consultation</th>
-													<th>Diagnostic</th>
-													<th>Médecin Traitant</th>
-													<th class ="center"><em class="fa fa-cog"></em></th>
-												</tr>
-											</thead>
-											<tbody>
-												@foreach($patient->consultations as $consultation)
-													@if($consultation->Patient_ID_Patient == $patient->id)
-													<tr>
-														<td>{{ $consultation->Motif_Consultation }}</td>
-														<td>{{ $consultation->Date_Consultation }}</td>
-														<td>{{ $consultation->Diagnostic }}</td>
-														<td>
-														{{ $consultation->docteur->Nom_Employe  }}{{ $consultation->docteur->Prenom_Employe }}
-														
-														</td>
-														<td class ="center">
-															<div class="hidden-sm hidden-xs btn-group">
-      														<a class="btn btn-xs btn-success show-modal" href="/consultations/detailcons/{{$consultation->id}}" title="Détails">	
-      															<i class="ace-icon fa fa-hand-o-up bigger-120"></i>
-     														</a>
-     													</div>
-														</td>
-													</tr>
-													@endif
-												@endforeach
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-						</div>	
+						@include('consultations.liste')
 					</div><!-- /#Cons -->
 					<div id="rdvs" class="tab-pane">
 						<div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2">
@@ -578,6 +550,5 @@
  	</div>
  	</form>
  	</div>
-
 </div>
 @endsection

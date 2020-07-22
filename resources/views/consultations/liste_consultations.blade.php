@@ -1,5 +1,4 @@
 @extends('app_med')
-
 @section('main-content')
 <div class="page-header">
 	<h2><strong>Choix du patient :</strong></h2>
@@ -12,9 +11,7 @@
 					<input type="text" class="form-control" name="q" value = "{{ request('q') }} ">
 					<button class="btn btn-xs btn-primary "><i class="fa fa-search"></i>&nbsp;Rechercher</button>
 				</form>
-		     </div>
-		   	
-		     
+		  </div>
 		</div>
 		<div class="space-12"></div>
 		<div class="row">

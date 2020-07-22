@@ -309,7 +309,6 @@
         $('.Asdemograph').find('*').each(function () { $(this).attr("disabled", true); });
         addRequiredAttr();
        }
-      //averifier
       if ($("#addGardeMalade").length > 0) {
         $("#addGardeMalade").validate({
             rules: {
@@ -325,6 +324,21 @@
           }
         });
       }
+      function showConsult(consultId, consult)
+      {
+        url= '{{ route ("consultdetailsXHR", ":slug") }}',
+        url = url.replace(':slug',consultId);
+         $.ajax({
+                type : 'GET',
+                url:url,
+                success:function(data,status, xhr){
+                  $('#consultDetail').html(data.html);
+                },
+                error:function (data){
+                  console.log('Error:', data);
+                }
+         });             
+       }
       $(document).ready(function () {
         $('input[type=radio][name=sexe]').change(function(){
           if($(this).val() == "M")
@@ -361,8 +375,8 @@
         });
         if($("input[type=radio][name='etatf']:checked").val() != "Activite" )
           $('#serviceFonc').addClass('invisible');
-      //homme/garde  
-      $('#listeGardes').DataTable({
+        //homme/garde  
+        $('#listeGardes').DataTable({
           colReorder: true,
           stateSave: true,
           searching:false,
@@ -470,11 +484,10 @@
                   }
             });
       });
-    $('#gardeMalade').on('hidden.bs.modal', function () {
-      $('#gardeMalade form')[0].reset();
-      $('#addGardeMalade *').prop('disabled', false);
-    });
-
+      $('#gardeMalade').on('hidden.bs.modal', function () {
+        $('#gardeMalade form')[0].reset();
+        $('#addGardeMalade *').prop('disabled', false);
+      });
     }) 
     </script>
 </div><!-- /section:basics/sidebar -->

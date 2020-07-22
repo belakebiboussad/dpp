@@ -54,10 +54,9 @@ class HomeController extends Controller
                   break;
             case 4: 
                   $users = User::all();
-                  return view('home.home_admin', compact('users'));        // return view('user.listeusers', compact('users'));
+                  return view('home.home_admin', compact('users'));
                   break;
             case 5:
-// $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID){$q->where('id',$ServiceID); })->whereHas('demandeHosp',function ($q){$q->where('etat','valide');})->get();return view('home.home_surv_med', compact('demandes'));                          
                   return redirect()->action('RdvHospiController@index');
                  break;
             case 6:
@@ -102,8 +101,11 @@ class HomeController extends Controller
                 return view('home.home_laboanalyses', compact('demandesexb'));
                 break;   
             case 12://radiologue
-                $demandesexr = demandeexr::where('etat','E')->get();
+                $demandesexr = demandeexr::with('consultation')->where('etat','E')->get();
+                dd($demandesexr);
+                return view('errors.500');
                 return view('home.home_radiologue', compact('demandesexr')); 
+                break;
             case 14:
                 $meds = medcamte::all();
                 $dispositifs = dispositif::all();

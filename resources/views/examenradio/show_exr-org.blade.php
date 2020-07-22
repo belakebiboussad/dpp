@@ -69,7 +69,7 @@
     <div class="col-sm-3"></div> <div class="col-sm-3"></div> <div class="col-sm-3"></div>
     <div class="col-sm-3">
       <a href="/showdemandeexr/{{ $demande->id }}" target="_blank" class="btn btn-sm btn-primary pull-right" title="Imprimer">
-         <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
+         <i class="ace-icon fa fa-print"></i>&nbsp;
       </a>
     </div>
   </div>
@@ -83,35 +83,23 @@
           <div class="widget-main">
             <div class="row">
               <div class="col-xs-12">
-                  <label><b>Date Demande:</b></label>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{ $demande->Date }}</span>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12">
+                <label><b>Date Demande:</b></label>&nbsp;&nbsp;</b></label>&nbsp;&nbsp;<span>{{ $demande->Date }}</span>
+                <br><br>
                 <label><b>Informations cliniques pertinentes :</b></label>
-                &nbsp;&nbsp;<span>{{ $demande->InfosCliniques }}.</span>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12">
+                  &nbsp;&nbsp;<span>{{ $demande->InfosCliniques }}.</span>
+                <br><br>
                 <label><b>Explication de la demande de diagnostic :</b></label>
                  &nbsp;&nbsp;<span>{{ $demande->Explecations }}.</span>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12">
+                <br><br>
                 <label><b>Informations supplémentaires pertinentes :</b></label>
-                <div>
-                  <ul class="list-inline"> 
-                    @foreach($demande->infossuppdemande as $index => $info)
-                      <li class="active"><span class="badge badge-warning">{{ $info->nom }}</span></li>
-                    @endforeach
-                  </ul>
-                </div>
+              <div>
+              <ul class="list-inline"> 
+                @foreach($demande->infossuppdemande as $index => $info)
+                  <li class="active"><span class="badge badge-warning">{{ $info->nom }}</span></li>
+                @endforeach
+              </ul>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12">
+                <br>
                 <label><b>Examen(s) proposé(s) :</b></label>
                 <div>
                   <table class="table table-striped table-bordered">
@@ -123,60 +111,56 @@
                       </tr>
                     </thead>
                     <tbody>
-                    @foreach ($demande->examensradios as $index => $examen)
-                    <tr>
-                      <td class="center">{{ $index + 1 }}</td>
-                      <td>{{ $examen->nom }}</td>
-                      <td>
-                        <?php $exams = explode (',',$examen->pivot->examsRelatif) ?>
-                        @foreach($exams as $id)
-                        <span class="badge badge-success">{{ App\modeles\exmnsrelatifdemande::FindOrFail($id)->nom}}</span>
+                      @foreach($demande->examensrelatifsdemande as $index => $examen)
+                          <tr>
+                            <td class="center">{{ $index + 1 }}</td>
+                            <td>{{ $examen->nom }}</td>
+                           
+                            <td>
+                               <?php $exams = explode (',',$examen->pivot->examsRelatif) ?>
+                                @foreach($exams as $id)
+                                <span class="badge badge-success">{{ App\modeles\exmnsrelatifdemande::FindOrFail($id)->nom}}</span>
+                                @endforeach
+                            </td>
+                          </tr>
                         @endforeach
-                      </td>
-                    </tr>
-                    @endforeach
-                    </tbody>
-                  </table>
+                     </tbody>
+                      </table>
+                    </div>
+                    @if(Auth::user()->role->id == 12)
+                      <form class="form-horizontal" method="POST" action="/uploadexr" enctype="multipart/form-data">
+                      {{ csrf_field() }}
+                      <input type="text" name="id_demande" value="{{ $demande->id }}" hidden>
+                      <div class="form-group">
+                        <div class="col-xs-2">
+                          <label><b>Upload Résultat :</b></label>
+                        </div>
+                        <div class="col-xs-8">
+                          <input type="file" id="id-input-file-2" name="resultat" placeholder ="fichier..." class="form-control" accept="image/*,.pdf" required/>
+                        </div>
+                      </div>
+                      <div class="clearfix form-actions">
+                        <div class="col-md-offset-5 col-md-7">
+                          <button class="btn btn-info" type="submit">
+                          <i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>
+                          Démarrer l'envoie
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                    @endif
+                    <br>
+                    <label>Résultat :</label>&nbsp;&nbsp;
+                    @isset($demande->resultat)
+                    <span><a href='/download/{{ $demande->resultat }}'>{{ $demande->resultat }} &nbsp;<i class="fa fa-download"></i></a></span>
+                    @endisset
+                  </div>               
                 </div>
-              </div>
-            </div><!-- row -->
-            @if(Auth::user()->role->id == 12)
-            <div class="row">
-              <div class="space-12">
-                <form class="form-horizontal" method="POST" action="/uploadexr" enctype="multipart/form-data">
-                {{ csrf_field() }}
-                <input type="text" name="id_demande" value="{{ $demande->id }}" hidden>
-                <div class="form-group">
-                  <div class="col-xs-2">
-                    <label><b>Upload Résultat :</b></label>
-                  </div>
-                  <div class="col-xs-8">
-                    <input type="file" id="id-input-file-2" name="resultat" placeholder ="fichier..." class="form-control" accept="image/*,.pdf" required/>
-                  </div>
-                </div>
-                <div class="clearfix form-actions">
-                  <div class="col-md-offset-5 col-md-7">
-                    <button class="btn btn-info" type="submit">
-                    <i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>
-                    Démarrer l'envoie
-                    </button>
-                  </div>
-                </div>
-                </form>
               </div>
             </div>
-             @endif
-            <div class="row">
-              <div class="space-12">
-                <label>Résultat :</label>&nbsp;&nbsp;
-                @isset($demande->resultat)
-                  <span><a href='/download/{{ $demande->resultat }}'>{{ $demande->resultat }} &nbsp;<i class="fa fa-download"></i></a></span>
-                @endisset
-              </div>
-            </div> 
-        </div><!-- widget-main -->
-      </div>
-    </div>
+          </div>
+        </div>
+
   </div>
 </div>
 @endsection

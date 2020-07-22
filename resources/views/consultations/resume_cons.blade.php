@@ -3,32 +3,6 @@
 {{-- <script type="text/javascript" src="{{asset('/js/jquery-2.1.4.min.js')}}"></script>
 <script src="{{ asset('/js/datatables.js') }}"></script> --}}
 <script type="text/javascript">
-	  $('document').ready(function(){
-		var table = $('#consultList').DataTable({
-			 "searching":false,
-			 "processing": true,
-			 	"scrollY":"400px",
-			 	"scrollCollapse": true,
-			 	"paging":false,
-			 	"language": {
-        		"url": '/localisation/fr_FR.json'
-        },	    
-		});
- 
-    $('#consultList tbody').on( 'click', 'tr', function () {
-        if ( $(this).hasClass('selected') ) {
-            $(this).removeClass('selected');
-        }
-        else {
-            table.$('tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-        }
-    } );
- 
-    $('#button').click( function () {
-        table.row('.selected').remove().draw( false );
-    } );
-	});
 	function showConsult(consultId, consult)
   {
   	 url= '{{ route ("consultdetailsXHR", ":slug") }}',
@@ -37,7 +11,7 @@
             type : 'GET',
             url:url,
             success:function(data,status, xhr){
-              $('#consultDetail').html(data.html);     
+              $('#consultDetail').html(data.html);
             },
             error:function (data){
 			        console.log('Error:', data);

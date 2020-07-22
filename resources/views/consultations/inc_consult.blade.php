@@ -1,5 +1,5 @@
-<div class="page-header" style="margin-top:5px;">
-  <h4>Détails de la Consulation :</h4>
+<div class="page-header" style="margin-top:-5px;">
+  <h5><strong>Détails de la Consulation :</strong></h5>
 </div>
 <div class="row">
 	<div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right">
@@ -87,7 +87,7 @@
 	</div>
 </div>
 @endif
-@if(isset($consultation->demandeExamImagegerie))
+@if(isset($consultation->examensradiologiques))
 <div class="space-12"></div>	
 <div class="row">
 	<div class="col-xs-11 label label-lg label-danger arrowed-in arrowed-right">
@@ -116,9 +116,9 @@
 		            <td class="center"></td>
 		            <td>{{ $consultation->Date_Consultation }}</td>
 		            <td>
-		              @if($consultation->demandeExamImagegerie->etat == "E")
+		              @if($consultation->examensradiologiques->etat == "E")
 		                  <span class="badge badge-warning"> En Attente</span>
-		              @elseif($consultation->demandeExamImagegerie->etat == "V")
+		              @elseif($consultation->examensradiologiques->etat == "V")
 		                Validé
 		              @else
 		               <span class="badge badge-danger">Rejeté</span>
@@ -126,7 +126,7 @@
 		              @endif
 		            </td>
 		            <td class="center">
-			            <a href="{{ route('demandeexr.show', $consultation->demandeExamImagegerie->id) }}">
+			            <a href="{{ route('demandeexr.show', $consultation->examensradiologiques->id) }}">
 			              <i class="fa fa-eye"></i>
 			            </a>
 			          	<a href="#" target="_blank" class="btn btn-xs">

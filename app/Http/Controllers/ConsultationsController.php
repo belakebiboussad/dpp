@@ -47,19 +47,15 @@ class ConsultationsController extends Controller
     }
 
     public function detailcons($id_cons)
-    {  
-      $consultation = consultation::FindOrFail($id_cons); //dd($consultation->demandeExamImagegerie);
+    { 
+      $consultation = consultation::FindOrFail($id_cons);
       return view('consultations.resume_cons', compact('consultation'));
     }
     public function detailconsXHR(Request $request)
    {
       $consultation = consultation::FindOrFail($request->id);
-      $ordonnance= $consultation->ordonnances;
-      if($ordonnance != null )
-        $medicaments =  $ordonnance->medicamentes;  
       $view =  view("consultations.inc_consult",compact('consultation'))->render();
       return response()->json(['html'=>$view]);
-
    }
     public function listecons()
     {
@@ -77,7 +73,6 @@ class ConsultationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function create(Request $request,$id_patient)
     {
        $employe=Auth::user()->employ;
@@ -89,8 +84,8 @@ class ConsultationsController extends Controller
        $specialites = Specialite::orderBy('nom')->get();
        $specialitesExamBiolo = specialite_exb::all();
        $infossupp = infosupppertinentes::all();
-       $examens = exmnsrelatifdemande::all();
-       $examensradio = examenradiologique::all();
+       $examens = exmnsrelatifdemande::all();//CT,RMN
+       $examensradio = examenradiologique::all();//pied,poignet
        return view('consultations.create_consultation',compact('patient','employe','codesim','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp','examens','examensradio'));
     }
     /**
@@ -158,6 +153,7 @@ class ConsultationsController extends Controller
           $demandeExamBio->examensbios()->attach($id_exb);
         }
       }
+      
       if(!empty($request->ExamsImg) && count(json_decode($request->ExamsImg)) > 0)
       {
         $demandeExImg = new demandeexr;
@@ -175,6 +171,7 @@ class ConsultationsController extends Controller
           }
         }
       }
+
       if(isset($request->examen_Anapath)) 
       {
         $examAnapath = new examenanapath;

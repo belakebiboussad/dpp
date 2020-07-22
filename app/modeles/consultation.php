@@ -27,13 +27,9 @@ class consultation extends Model
     {
         return $this->hasOne('App\modeles\examen_cliniqu','id_consultation');
     }
-    public function examensradiologiques()
+    public function examensradiologiques()//used
     {
-        return $this->hasMany('App\modeles\demandeexr','id_consultation');
-    }
-    public function demandeExamImagegerie() //used
-    {
-        return $this->hasOne('App\modeles\demandeExamImag','id_consultation');
+        return $this->hasOne('App\modeles\demandeexr','id_consultation');
     }
     public function examenAnapath()
     {

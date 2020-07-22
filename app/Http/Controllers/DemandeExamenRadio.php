@@ -109,6 +109,7 @@ class DemandeExamenRadio extends Controller
     public function show($id)
     {
       $demande = demandeexr::FindOrFail($id);
+      //dd($demande->examensradios);
       return view('examenradio.show_exr', compact('demande'));
     }
 
