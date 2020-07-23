@@ -5,7 +5,7 @@
  <script type="text/javascript">
      if('ontouchstart' in document.documentElement) document.write("<script src='{{asset('/js/jquery.mobile.custom.min.js')}}'>"+"<"+"/script>");
 </script>
-<script src="{{asset('/js/bootstrap.min.js')}}"></script>{{-- <script src="{{asset('/js/angular.min.js')}}"></script> --}}
+<script src="{{asset('/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('/js/jquery-ui.custom.min.js')}}"></script>
 <script src="{{asset('/js/jquery.ui.touch-punch.min.js')}}"></script>
 <script src="{{asset('/js/jquery.easypiechart.min.js')}}"></script>
@@ -327,21 +327,26 @@
     med=document.getElementById("medt");
     pio=document.getElementById("prio");
     bs=document.getElementById("observation");
-    console.log(sel.length);
     for (var i =0; i <id_demh.length ; i++) {
         sel.options[sel.options.length] = new Option (id_demh[i], id_demh[i],false,true);
         med.options[med.options.length] = new Option (id_demh[i], id_medt[i],false,true);
         pio.options[pio.options.length] = new Option (id_demh[i], id_prio[i],false,true);
         bs.options[bs.options.length] = new Option (id_demh[i], obs[i],false,true);
     }
-
     this.submit(); // If all the validations succeeded
 });
 </script>
 <script type="text/javascript">
-  // $(document).ready(function() {
-    
-  // });
+  function isNumeric (evt) {
+      var theEvent = evt || window.event;
+      var key = theEvent.keyCode || theEvent.which;
+      key = String.fromCharCode (key);
+      var regex = /[0-9]|\./;
+      if ( !regex.test(key) ) {
+        theEvent.returnValue = false;
+        if(theEvent.preventDefault) theEvent.preventDefault();
+      }
+  }
   function addRequiredAttr()
   {
     var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
@@ -370,17 +375,17 @@ function typep()
     {
        if($('#ayant').is(':checked'))
        { 
-                 $('#AssureInputs').addClass("hidden").hide().fadeIn();
-                 $('#descriptionDerog').addClass("hidden").hide().fadeIn();
-                 $('#foncform').removeClass("hidden").show();  
-                 $('#NSSInput').removeClass("hidden").show();    
+         $('#AssureInputs').addClass("hidden").hide().fadeIn();
+         $('#descriptionDerog').addClass("hidden").hide().fadeIn();
+         $('#foncform').removeClass("hidden").show();  
+         $('#NSSInput').removeClass("hidden").show();    
        }
        else
        {
-                $('#foncform').addClass("hidden").hide().fadeIn();
-                $('#NSSInput').addClass("hidden").hide().fadeIn();                  
-                $('#AssureInputs').addClass("hidden").hide().fadeIn();
-                $('#descriptionDerog').removeClass("hidden").show();
+          $('#foncform').addClass("hidden").hide().fadeIn();
+          $('#NSSInput').addClass("hidden").hide().fadeIn();                  
+          $('#AssureInputs').addClass("hidden").hide().fadeIn();
+          $('#descriptionDerog').removeClass("hidden").show();
               
        }
 }
@@ -418,7 +423,6 @@ $('#typeexm').on('change', function() {
 </script>
 <script>
   $('#flash-overlay-modal').modal();
-  // $(document).ready(function(){}); 
 </script>
 <script type="text/javascript">
  function medicm(med)

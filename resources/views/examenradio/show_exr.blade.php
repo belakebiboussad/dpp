@@ -1,64 +1,4 @@
-@extends((( Auth::user()->role->id === 12) ? 'app_radiologue' : 'app_med' ))
-@section('page-script')
-    <script src="{{asset('/js/jquery.min.js')}}"></script>
-<script>
-      $('document').ready(function(){
-           $( 'ul.nav li' ).on( 'click', function() {
-           $(this).siblings().addClass('filter');
-      });
-      $('.wysiwyg-editor').on('input',function(e){
-            a = $(this).parent().nextAll("div.clearfix");
-            var i = a.find("button:button").each(function(){
-               $(this).removeAttr('disabled');
-            });
-      });
-
-      $(function() {
-           var checkbox = $("#isOriented");
-           var hidden = $("#hidden_fields");
-           checkbox.change(function() {
-                if (checkbox.is(':checked')) {
-                  hidden.show();
-                } else {
-                  hidden.hide();
-                  $("#lettreorientaioncontent").val("");
-            }
-            })
-      }); 
-      $(".two-decimals").change(function(){
-          this.value = parseFloat(this.value).toFixed(2);
-      });
- function maxLengthCheck(object) {
-      if (object.value.length > object.maxLength)
-        object.value = object.value.slice(0, object.maxLength)
-  }
-    
-  function isNumeric (evt) {
-      var theEvent = evt || window.event;
-      var key = theEvent.keyCode || theEvent.which;
-      key = String.fromCharCode (key);
-      var regex = /[0-9]|\./;
-      if ( !regex.test(key) ) {
-        theEvent.returnValue = false;
-        if(theEvent.preventDefault) theEvent.preventDefault();
-      }
-  }
-     $("button").click(function (event) {
-           which = '';
-           str ='send';
-           which = $(this).attr("id");
-           var which = $.trim(which);
-           var str = $.trim(str);
-           if(which==str){
-                   return true;
-          }
-      });
-     $("#btnCalc").click(function(event){
-            event.preventDefault();
-      });
-});
-</script>
-@endsection
+@extends('app')
 @section('main-content')
 <div class="page-header" width="100%">
   <?php $patient = $demande->consultation->patient; ?> 
@@ -70,6 +10,9 @@
     <div class="col-sm-3">
       <a href="/showdemandeexr/{{ $demande->id }}" target="_blank" class="btn btn-sm btn-primary pull-right" title="Imprimer">
          <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
+      </a>
+      <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right">
+        <i class="ace-icon fa fa-backward"></i>&nbsp; precedant
       </a>
     </div>
   </div>
@@ -118,8 +61,8 @@
                     <thead>
                       <tr>
                         <th class="center" width="10%">#</th>
-                        <th class="center">Nom</th>
-                        <th class="center">Type</th>
+                        <th class="center"><strong>Nom</strong></th>
+                        <th class="center"><strong>Type</strong></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -140,43 +83,18 @@
                 </div>
               </div>
             </div><!-- row -->
-        </div><!-- widget-main -->
+          </div><!-- widget-main -->
+        </div>
       </div>
+     </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <label>Résultat :</label>&nbsp;&nbsp;
+      @isset($demande->resultat)
+        <span><a href='/download/{{ $demande->resultat }}'>{{ $demande->resultat }} &nbsp;<i class="fa fa-download"></i></a></span>
+      @endisset
     </div>
   </div>
 </div>
-
-<div class="row">
-              <div class="space-12">
-                <form class="form-horizontal" method="POST" action="/uploadexr" enctype="multipart/form-data">
-                {{ csrf_field() }}
-                <input type="text" name="id_demande" value="{{ $demande->id }}" hidden>
-                <div class="form-group">
-                  <div class="col-xs-2">
-                    <label><b>Upload Résultat :</b></label>
-                  </div>
-                  <div class="col-xs-8">
-                    <input type="file" id="id-input-file-2" name="resultat" placeholder ="fichier..." class="form-control" accept="image/*,.pdf" required/>
-                  </div>
-                </div>
-                <div class="clearfix form-actions">
-                  <div class="col-md-offset-5 col-md-7">
-                    <button class="btn btn-info" type="submit">
-                    <i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>
-                    Démarrer l'envoie
-                    </button>
-                  </div>
-                </div>
-                </form>
-              </div>
-            </div>
-            <div class="row">
-              <div class="space-12">
-                <label>Résultat :</label>&nbsp;&nbsp;
-                @isset($demande->resultat)
-                  <span><a href='/download/{{ $demande->resultat }}'>{{ $demande->resultat }} &nbsp;<i class="fa fa-download"></i></a></span>
-                @endisset
-              </div>
-            </div>
-
 @endsection

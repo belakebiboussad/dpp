@@ -80,17 +80,59 @@
 @endsection
 @section('page-script')
 <script>
- 	function isNumeric (evt) {
-		var theEvent = evt || window.event;
-		var key = theEvent.keyCode || theEvent.which;
-		key = String.fromCharCode (key);
-		var regex = /[0-9]|\./;
-		if ( !regex.test(key) ) {
-		        theEvent.returnValue = false;
-		        if(theEvent.preventDefault) theEvent.preventDefault();
-		}
+	function IMC1(){
+		var poids = $("#poids").val();
+		var taille = $("#taille").val();
+		if(poids==""){
+      alert("STP, saisir le poids");
+     	$("#poids").focus();
+      	return 0;
+    }else if (isNaN(poids)) {
+     	alert("poids doit être un nombre!");  
+     	$("#poids").select();
+     	return 0;
+   	}
+ 		if(taille==""){
+			alert("STP, Saisir la taille");
+ 			$("#taille").focus();
+ 			return 0;
+ 		}else if (isNaN(taille)) {
+     	alert("taille doit être un nombre!");  
+     	$("#txtaltura").select();
+     	return 0;
+    }
+    var imc = poids / Math.pow(taille,2);
+    var imc = Math.round(imc).toFixed(2);
+		$("#imc").attr("value", imc);
+    if(imc<17){
+      $("#interpretation").attr("value", "Anorexie");
+    }else if(imc>=17.1 && imc<=18.49){
+      $("#interpretation").attr("value", "Migreur");
+    }else if(imc>=18.5 && imc<=24.99){
+      $("#interpretation").attr("value", "Poids Normale");
+    }else if(imc>=25 && imc<=29.99){
+      $("#interpretation").attr("value", "surpois");
+    }else if(imc>=30 && imc<=34.99){
+			$("#interpretation").attr("value", "Obésité I");
+	  }else if(imc>=35 && imc<=39.99){
+	   	$("#interpretation").attr("value", "Obésité II (sévère)");	
+	  }else if(imc>=40){
+	   	$("#interpretation").attr("value", "Obésité III (morbide)");	
+    }
 	}
-	function lettreorientation()
+	function storeord1()
+	{
+		var arrayLignes = document.getElementById("ordonnance").rows;
+    var longueur = arrayLignes.length; 
+    var ordonnance = [];
+    for(var i=1; i<longueur; i++)
+    {
+      ordonnance[i-1] = { med: arrayLignes[i].cells[1].innerHTML, posologie: arrayLignes[i].cells[5].innerHTML }
+    }
+    var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
+    champ.appendTo('#consultForm');
+  }
+ 	function lettreorientation()
 	{
 		$('#specialite').val($('#specialiteOrient').val());
 		$('#medecin').val($('#medecinOrient').val());

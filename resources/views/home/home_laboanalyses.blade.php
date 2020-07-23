@@ -20,11 +20,11 @@
 										<thead>
 											<tr>
 												<th class="center">#</th>
-												<th class="hidden-480">Date</th>
-												<th>Médecin traitant</th>
-												<th>Patient</th>
-												<th>Etat</th>
-												<th></th>
+												<th class="hidden-480"><strong>Date</strong></th>
+												<th class="center"><strong>Médecin traitant</strong></th>
+												<th class="center"><strong>Patient</strong></th>
+												<th class="center"><strong>Etat</strong></th>
+												<th class="center"><em class="fa fa-cog"></em></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -50,8 +50,11 @@
 														@endif
 													</td>
 													<td class="center">
-														<a href="/detailsdemandeexb/{{ $demande->id }}">
-															<i class="fa fa-eye"></i>
+														 <a href="{{ route('demandeexb.show', $demande->id) }}">
+									    					<i class="fa fa-eye"></i>
+														</a>
+														<a href="/detailsdemandeexb/{{ $demande->id }}" title="attacher résultat">
+															<i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>
 														</a>
 													</td>
 												</tr>

@@ -2,33 +2,34 @@
 <html lang="en">
     <title>Gestion Des Patients</title>
     @include('partials.htmlheader')
-<body class="no-skin">
-    @include('partials.navbar')
-    <div class="main-container" id="main-container">
-     {{--    <script type="text/javascript">
-           try{ace.settings.check('main-container' , 'fixed')}catch(e){}
-        </script> --}}
-        @yield('page-script')
-        @include('partials.sidebar_laboanalyses')
+     @include('partials.scripts')
+    <body class="no-skin">
+        @include('partials.navbar')
+        <div class="main-container" id="main-container">
+         {{--    <script type="text/javascript">
+               try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+            </script> --}}
+            @yield('page-script')
+            @include('partials.sidebar_laboanalyses')
 
-        <div class="main-content">
-            <div class="main-content-inner">
-             <?php $lien = "Exmens Biologiques" ?> 
-                @include('partials.breadcrumbs_rec')
+            <div class="main-content">
+                <div class="main-content-inner">
+                 <?php $lien = "Exmens Biologiques" ?> 
+                    @include('partials.breadcrumbs_rec')
 
-                <div class="page-content">
-            	    @yield('main-content')
+                    <div class="page-content">
+                	    @yield('main-content')
+                    </div>
+                    <!-- /page-content -->
                 </div>
-                <!-- /page-content -->
+                <!-- /main-content-inner -->
             </div>
-            <!-- /main-content-inner -->
+            <!-- /main-content -->
+
+            @include('partials.footer')
+
         </div>
-        <!-- /main-content -->
-
-        @include('partials.footer')
-
-    </div>
-    <!-- /main-container -->
-    @include('partials.scripts')
-
-</body>
+        <!-- /main-container -->
+       
+    </body>
+</html>

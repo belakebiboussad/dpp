@@ -4,8 +4,6 @@
   <title>Demande examens biologiques</title>
   <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('/css/bootstrap.min.css') }}"/> <script src="{{ asset('/js/jquery.min.js') }}"></script>  <script src="{{asset('/js/bootstrap.min.js')}}"></script>
- --}}
   <style type="text/css">
     table 
     {
@@ -77,7 +75,7 @@
           &nbsp;&nbsp;&nbsp;
           <label class="inline">
             <span class="blue"><strong>Age :</strong></span>
-            <span class="lbl"> {{ Jenssegers\Date\Date::parse($demande->consultation->patient->Dat_Naissance)->age }} ans</span>
+            <span class="lbl"> {{ $demande->consultation->patient->getAge() }} ans</span>
           </label>
           </div>
         </div>
@@ -86,78 +84,65 @@
   </div>
   </div> <!-- page-header -->
   <div class="content">
-      <div class="col-sm-12">
-        <div class="col-xs-12 widget-container-col" id="consultation">
-          <div class="widget-box" id="infopatient">
-            <div class="widget-header">
-              <h4 class="widget-title center "><b>Demande d'un examen radiologique</b></h4>
-            </div>
-            <div class="widget-body">
-              <div class="widget-main">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <br>
-                    <div>
-                      <label for="infosc">
-                        <b>Informations cliniques pertinentes</b>
-                      </label>
-                      <textarea class="form-control" id="infosc" name="infosc" >{{ $demande->InfosCliniques }}</textarea>
-                    </div>                    
-                    <br>                  
-                    <div>
-                              <label for="infos">
-                                <b>Informations supplémentaires pertinentes</b>
-                              </label>
-                              <textarea class="form-control" id="infosc" name="infosc" >{{ $demande->Explecations }}</textarea> 
-                    </div>              
-                     
-                  
-                    <br>
-                    <div>
-                        <label><b>Informations supplémentaires pertinentes</b></label>
-                        <div>
-                          <ul class="list-inline">
-                              @foreach($demande->infossuppdemande as $index => $info)
-                                  <li class="active"><span class="badge badge-warning">{{ $info->nom }}</span></li>
-                              @endforeach
-                          </ul>    
-                        </div>
-                    </div>
-                    
-                    <div>
-                         <label><b>Examen(s) proposé(s)</b></label>
-                        <div>
-                          <table class="table table-borderless">
-                         
-                            
-                              @foreach($demande->examensradios as $index => $examen)
-                                <tr>
-                                  <td class="center">{{ $index + 1 }}</td>
-                                  <td>{{ $examen->nom }}</td>
-                                </tr>
-                              @endforeach
-                          
-                          </table>
-                        </div>
+    <div class="col-sm-12">
+      <div class="col-xs-12 widget-container-col" id="consultation">
+        <div class="widget-box" id="infopatient">
+          <div class="widget-header">
+            <h4 class="widget-title center "><b>Demande d'examens radiologiques</b></h4>
+          </div>
+          <div class="widget-body">
+            <div class="widget-main">
+              <div class="row">
+                <div class="col-xs-12">
+                  <br>
+                  <div>
+                    <label for="infosc"><b>Informations cliniques pertinentes</b> </label>
+                    <textarea class="form-control" id="infosc" name="infosc" >{{ $demande->InfosCliniques }}</textarea>
+                  </div>                    
+                  <br>                  
+                  <div>
+                    <label for="infos"><b>Informations supplémentaires pertinentes</b></label>
+                    <textarea class="form-control" id="infosc" name="infosc" >{{ $demande->Explecations }}</textarea> 
+                  </div>              
+                  <br>
+                  <div>
+                      <label><b>Informations supplémentaires pertinentes</b></label>
+                      <div>
+                        <ul class="list-inline">
+                            @foreach($demande->infossuppdemande as $index => $info)
+                                <li class="active"><span class="badge badge-warning">{{ $info->nom }}</span></li>
+                            @endforeach
+                        </ul>    
+                      </div>
                   </div>
                   <div>
-                    <label>
-                      <b>Examen(s) pertinent(s) précédent(s) relatif(s) à la demande de diagnostic</b>
-                    </label>
+                    <label><b>Examen(s) proposé(s)</b></label>
                     <div>
                       <table class="table table-borderless">
-                        
-                          @foreach($demande->examensrelatifsdemande as $index => $exm)
-                            <tr>
-                              <td class="center">{{ $index + 1 }}</td>
-                              <td>{{ $exm->nom }}</td>
-                            </tr>
-                          @endforeach
-                        
+                        <thead>
+                          <tr>
+                            <th class="center" width="10%">#</th>
+                            <th class="center"><strong>Nom</strong></th>
+                            <th class="center"><strong>Type</strong></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @foreach($demande->examensradios as $index => $examen)
+                          <tr>
+                            <td class="center">{{ $index + 1 }}</td>
+                            <td>{{ $examen->nom }}</td>
+                            <td>
+                              <?php $exams = explode (',',$examen->pivot->examsRelatif) ?>
+                              @foreach($exams as $id)
+                              <span class="badge badge-success">{{ App\modeles\exmnsrelatifdemande::FindOrFail($id)->nom}}</span>
+                              @endforeach
+                            </td>
+                          </tr>
+                         @endforeach
+                        </tbody>
                       </table>
                     </div>
-                  </div>  
-                   
+                  </div>
               </div>
             </div><!-- .row -->
           </div>  

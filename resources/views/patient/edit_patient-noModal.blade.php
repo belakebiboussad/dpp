@@ -246,17 +246,7 @@
 				$('#etat_h').val('archivé');
 				return false;
 			});
-			 $('#listeGardes').DataTable({
-            colReorder: true,
-            stateSave: true,
-            searching:false,
-            "language": {
-		                    "url": '/localisation/fr_FR.json'
-		      	},
-
-        });
-
-});
+	});
 	</script>
 @endsection
 @section('main-content')

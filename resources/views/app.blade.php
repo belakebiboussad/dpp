@@ -30,7 +30,9 @@
         @elseif(Auth::user()->role_id == 13)
             @include('partials.sidebar_chef_ser') 
         @elseif(Auth::user()->role_id == 3)
-            @include('partials.sidebar_inf')       
+            @include('partials.sidebar_inf')
+        @elseif(Auth::user()->role_id == 12)
+            @include('partials.sidebar_radiologue')          
         @endif
         <div class="main-content">
             <div class="main-content-inner"> {{-- @include('partials.breadcrumbs') --}}
@@ -43,7 +45,6 @@
             <!-- /main-content-inner -->
         </div>
         <!-- /main-content -->
-       {{--  <br> <br> --}}
         <div>
             @include('partials.footer')
         </div>

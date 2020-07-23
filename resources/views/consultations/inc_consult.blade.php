@@ -74,7 +74,6 @@
 								  <a href="{{ route('demandeexb.show', $consultation->demandeexmbio->id) }}">
 									    <i class="fa fa-eye"></i>
 									</a>
-									<!-- id_demandeexb -->
 									<a href="/showdemandeexb/{{ $consultation->demandeexmbio->id }}" target="_blank" class="btn btn-xs">
 					       			 <i class="ace-icon fa fa-print"></i>&nbsp;
      							 	</a>
@@ -129,9 +128,10 @@
 			            <a href="{{ route('demandeexr.show', $consultation->examensradiologiques->id) }}">
 			              <i class="fa fa-eye"></i>
 			            </a>
-			          	<a href="#" target="_blank" class="btn btn-xs">
+			          	<a href="/showdemandeexr/{{ $consultation->examensradiologiques->id }}" target="_blank" class="btn btn-xs">
 					       			 <i class="ace-icon fa fa-print"></i>&nbsp;
-     							 	</a>
+     							</a>
+
 		            </td>
 		          </tr>
 						</tbody>
