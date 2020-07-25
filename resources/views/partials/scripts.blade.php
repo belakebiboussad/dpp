@@ -47,69 +47,68 @@
 <script src="{{ asset('/plugins/fullcalendar/locale/fr.js') }}"></script>
 <script src="{{ asset('/js/jquery-editable-select.js') }}"></script>
 <!-- <script src="{{asset('/js/jquery-ui.js')}}"></script> -->
- <script src="{{asset('/js/sweetalert2.all.min.js')}}"></script>
-{{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> --}}
+ <script src="{{asset('/js/sweetalert2.all.min.js')}}"></script>{{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> --}}
 <script type="text/javascript">
   var bloodhoundcom = new Bloodhound({
-    datumTokenizer: Bloodhound.tokenizers.whitespace,
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    remote: {
-      url: '/patients/findcom?com=%QUERY%',
-      wildcard: '%QUERY%'
-    },
+        datumTokenizer: Bloodhound.tokenizers.whitespace,
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: {
+          url: '/patients/findcom?com=%QUERY%',
+          wildcard: '%QUERY%'
+      },
   });
   $(document).ready(function(){   // $(".select2").select2({ //     dir: "fr"// });
-    $('#avis').change(function(){
-      if($(this).val() == "R")
-        $("#motifr").show();
-      else
-         $("#motifr").hide();
-    });
-    $("#validerdmd").click(function(){
-      var arrayLignes = document.getElementById("cmd").rows;
-      var longueur = arrayLignes.length;   var produits = [];
-      for(var i=1; i<longueur; i++)
-      {
-        produits[i] = { produit: arrayLignes[i].cells[1].innerHTML, gamme: arrayLignes[i].cells[2].innerHTML, spec: arrayLignes[i].cells[3].innerHTML, qte: arrayLignes[i].cells[4].innerHTML}
-      }
-      var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(produits)+"' hidden>");
-      champ.appendTo('#demandform');
-      $('#demandform').submit();
-    });
-    $("#deletepod").click(function(){
-      $("tr:has(input:checked)").remove();
-    });
-    $("#validerdmd").click(function(){
-      var arrayLignes = document.getElementById("cmd").rows;
-      var longueur = arrayLignes.length;
-      var tab = [];
-      for(var i=1; i<longueur; i++)
-      {
-        tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;
-      }
-      var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");
-      champ.appendTo('#dmdprod');
-      $('#dmdprod').submit();
-    });
-    $("#ajoutercmd").click(function() {
-      $('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td>"+$('#produit').val()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+$('#specialite option:selected').text()+"</td><td class='center'>"+$("#quantite").val()+"</td></tr>");
-      $('#produit').val('');$("#quantite").val(1);$('#gamme').val('0');$('#specialite').val('0')
-    });
+       $('#avis').change(function(){
+          if($(this).val() == "R")
+            $("#motifr").show();
+          else
+             $("#motifr").hide();
+        });
+       $("#validerdmd").click(function(){
+                var arrayLignes = document.getElementById("cmd").rows;
+                var longueur = arrayLignes.length;   var produits = [];
+                for(var i=1; i<longueur; i++)
+                {
+                  produits[i] = { produit: arrayLignes[i].cells[1].innerHTML, gamme: arrayLignes[i].cells[2].innerHTML, spec: arrayLignes[i].cells[3].innerHTML, qte: arrayLignes[i].cells[4].innerHTML}
+                }
+                var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(produits)+"' hidden>");
+                champ.appendTo('#demandform');
+                $('#demandform').submit();
+       });
+       $("#deletepod").click(function(){
+               $("tr:has(input:checked)").remove();
+       });
+       $("#validerdmd").click(function(){
+              var arrayLignes = document.getElementById("cmd").rows;
+              var longueur = arrayLignes.length;
+              var tab = [];
+              for(var i=1; i<longueur; i++)
+              {
+                tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;
+              }
+              var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");
+              champ.appendTo('#dmdprod');
+              $('#dmdprod').submit();
+       });
+        $("#ajoutercmd").click(function() {
+               $('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td>"+$('#produit').val()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+$('#specialite option:selected').text()+"</td><td class='center'>"+$("#quantite").val()+"</td></tr>");
+              $('#produit').val('');$("#quantite").val(1);$('#gamme').val('0');$('#specialite').val('0')
+        });
     $('#gamme').change(function(){
-      var id_gamme = $(this).val();
-      var html_code = '<option value="">Sélectionner</option>';
-       $.ajax({
-        url : '/getspecialite/'+id_gamme,
-        type : 'GET',
-        dataType : 'json',
-        success : function(data){
-            $.each(data, function(){
-              html_code += "<option value='"+this.id+"'>"+this.specialite_produit+"</option>";
+            var id_gamme = $(this).val();
+            var html_code = '<option value="">Sélectionner</option>';
+             $.ajax({
+              url : '/getspecialite/'+id_gamme,
+              type : 'GET',
+              dataType : 'json',
+              success : function(data){
+                      $.each(data, function(){
+                               html_code += "<option value='"+this.id+"'>"+this.specialite_produit+"</option>";
+                      });
+                       $('#specialite').html(html_code);
+              },
             });
-            $('#specialite').html(html_code);
-        },
-      });
-    });
+       });
     $('#specialite').change(function(){
       var id_gamme = $('#gamme').val();
       var id_spec = $(this).val();
@@ -147,8 +146,8 @@
             header: [
               '<div class="list-group search-results-dropdown">'
             ],
-            suggestion: function(data) {//return '<div style="font-weight:normal; margin-top:-10px ! important;width:300px !important" class="list-group-item" onclick="autocopleteCNais(\''+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
-              return '<div style="font-weight:normal; margin-top:-10px ! important;width:300px !important" class="list-group-item">' + data.nom_commune+ '</div></div>'
+              suggestion: function(data) {
+                   return '<div style="font-weight:normal; margin-top:-10px ! important;width:300px !important" class="list-group-item">' + data.nom_commune+ '</div></div>'
             } 
           }
         }).bind("typeahead:selected", function(obj, datum, name){
@@ -175,9 +174,8 @@
   });  
 </script>
 <script type="text/javascript">
-    //And for the first simple table, which doesn't have TableTools or dataTables   //select/deselect all rows according to table1 header checkbox
-    var active_class = 'active';
-    $('#table1 > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
+       var active_class = 'active';
+       $('#table1 > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
         var th_checked = this.checked;//checkbox inside "TH" table header
         $(this).closest('table').find('tbody > tr').each(function(){
         var row = this;
@@ -199,8 +197,7 @@
                         if(th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
                         else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
                     });
-                });
-                //select/deselect a row when the checkbox is checked/unchecked
+                });  //select/deselect a row when the checkbox is checked/unchecked
                 $('#table2').on('click', 'td input[type=checkbox]' , function(){
                     var $row = $(this).closest('tr');
                     if($row.is('.detail-row ')) return;
@@ -271,8 +268,7 @@
     }
     $('#table2 > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
         var th_checked = this.checked;//checkbox inside "TH" table2 header
-        
-        $(this).closest('table').find('tbody > tr').each(function(){
+          $(this).closest('table').find('tbody > tr').each(function(){
             var row = this;
             if(th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
             else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
@@ -619,26 +615,26 @@ $('#typeexm').on('change', function() {
                     $('#exbiopdf').attr('src', string);
         }
         function createeximg(nomp,prenomp){
-            moment.locale('fr');
-            var d = new Date(); //var date=  yyyy + "/" + (mm[1]?mm:"0"+mm[0]) + "/" + (dd[1]?dd:"0"+dd[0]);
-            var formattedDate = moment(d).format("l");
-            var exbio = new jsPDF();
-            exbio.text(200,20, 'Date :' +formattedDate , null, null, 'right');
-            exbio.text(20,25, 'Nom : '+nomp, null, null);
-            exbio.text(20,35, 'Prénom : '+prenomp, null, null);
-            exbio.text(20,45, 'Age :........................................', null, null);
-            exbio.setFontType("bold");
-            exbio.text(105,55, 'Priére de faire', null, null, 'center');
-            exbio.setFontSize(14);
-            exbio.text(45,65,'Analyses Demandées :',null,null,'center');
-            exbio.setFontSize(13);
-            var i =0;   // $(".imgExam").each(function() {//alert($(this).attr('value'));// });
-            var selected = "";
-            $("input[class='imgExam']:checked").each(function() {
-              exbio.text(25,72+i,$(this).attr('data-checkbox-text')+", ");
-              selected = selected + $(this).val()+", ";
-              i=i+10;
-            });
+                  moment.locale('fr');
+                  var d = new Date(); 
+                  var formattedDate = moment(d).format("l");
+                  var exbio = new jsPDF();
+                  exbio.text(200,20, 'Date :' +formattedDate , null, null, 'right');
+                  exbio.text(20,25, 'Nom : '+nomp, null, null);
+                  exbio.text(20,35, 'Prénom : '+prenomp, null, null);
+                  exbio.text(20,45, 'Age :........................................', null, null);
+                  exbio.setFontType("bold");
+                  exbio.text(105,55, 'Priére de faire', null, null, 'center');
+                  exbio.setFontSize(14);
+                  exbio.text(45,65,'Analyses Demandées :',null,null,'center');
+                  exbio.setFontSize(13);
+                  var i =0;   // $(".imgExam").each(function() {//alert($(this).attr('value'));// });
+                  var selected = "";
+                  $("input[class='imgExam']:checked").each(function() {
+                    exbio.text(25,72+i,$(this).attr('data-checkbox-text')+", ");
+                    selected = selected + $(this).val()+", ";
+                    i=i+10;
+                  });
                      $('#selectedoption').val(selected); 
                     var autreexamRadio = $("#examRadAutr").tagsinput('items');  
                     if(autreexamRadio != undefined)
@@ -652,15 +648,13 @@ $('#typeexm').on('change', function() {
                     for (var j = 0;  j< examautECHO.length; j++) {
                             exbio.text(25,72+i,examautECHO[j]+", ");
                             i=i+10;
-                     }
-                     //autre scanner
-                     var examautCT = $("#examRadAutCT").tagsinput('items');  
+                     }      //autre scanner
+                      var examautCT = $("#examRadAutCT").tagsinput('items');  
                      for (var j = 0;  j< examautCT.length; j++) {
                             exbio.text(25,72+i,examautCT[j]+", ");
                             i=i+10;
                      }
-                      //autre IRM
-                     var examautIRM = $("#examRadAutRMN").tagsinput('items');  
+                     var examautIRM = $("#examRadAutRMN").tagsinput('items');    //autre IRM
                      for (var j = 0;  j< examautIRM.length; j++) {
                             exbio.text(25,72+i,examautIRM[j]+", ");
                             i=i+10;
@@ -673,46 +667,40 @@ $('#typeexm').on('change', function() {
         }
         function createRDVModal(debut, fin, pid = 0, fixe=1)
         {   
-          var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
-          var fin = moment(fin).format('YYYY-MM-DD HH:mm');  
-          if(pid != 0)
-          {
-            var formData = {
-              id_patient:pid,
-              Debut_RDV:debut,
-              Fin_RDV:fin,
-              fixe:fixe
-           };
-           $.ajaxSetup({
-                      headers: {
-                          'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                      }
-            }); 
-           $.ajax({
-              type : 'POST',
-              url : '/createRDV',
-              data:formData,  //dataType: 'json',
-              success:function(data){                                 
-                     var color = (data['rdv']['fixe'] == 1)? '#87CEFA':'#378006';
-                     var event = new Object();
-                     event = {
-                            title: data['patient']['Nom'] + "  " + data['patient']['Prenom']+" ,("+data['age']+" ans)",
-                            start: debut,
-                            end: fin,
-                            id :data['rdv']['id'],
-                            idPatient:data['patient']['id'],
-                            tel:data['patient']['tele_mobile1'] ,
-                            age:data['age'],         
-                            allDay: false,
-                            color: '#87CEFA'
-               };
-              $('.calendar1').fullCalendar( 'renderEvent', event, true );
-              $('.calendar1').fullCalendar( 'refresh' );// $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next');
-               
-            },
-            error: function (data) {
-                   console.log('Error:', data);
-            }
+                var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
+               var fin = moment(fin).format('YYYY-MM-DD HH:mm');  
+               if(pid != 0)
+              {
+                      var formData = { id_patient:pid,Debut_RDV:debut, Fin_RDV:fin, fixe:fixe  };
+                     $.ajaxSetup({
+                              headers: {
+                                     'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                              }
+                       }); 
+                        $.ajax({
+                              type : 'POST',
+                              url : '/createRDV',
+                              data:formData,  //dataType: 'json',
+                              success:function(data){         
+                                     var color = (data['rdv']['fixe'] == 1)? '#87CEFA':'#378006';
+                                     var event = new Object();
+                                     event = {
+                                                  title: data['patient']['Nom'] + "  " + data['patient']['Prenom']+" ,("+data['age']+" ans)",
+                                                  start: debut,
+                                                  end: fin,
+                                                  id :data['rdv']['id'],
+                                                  idPatient:data['patient']['id'],
+                                                  tel:data['patient']['tele_mobile1'] ,
+                                                  age:data['age'],         
+                                                  allDay: false,
+                                                  color: '#87CEFA'
+                                     };
+                                    $('.calendar1').fullCalendar( 'renderEvent', event, true );
+                                   $('.calendar1').fullCalendar( 'refresh' );// $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next');
+                              },
+                            error: function (data) {
+                                   console.log('Error:', data);
+                            }
               });
           }else{
                 $('#Debut_RDV').val(debut);
@@ -850,8 +838,7 @@ $('#typeexm').on('change', function() {
                     remText: '%n character%s remaining...',
                     limitText: 'max allowed : %n.'
                 });
-            
-                  $.mask.definitions['~']='[+-]';
+                $.mask.definitions['~']='[+-]';
                   $('.input-mask-date').mask('99/99/9999');
                   $('.input-mask-phone').mask('(999) 999-9999');
                   $('.input-mask-eyescript').mask('~9.99 ~9.99 999');
@@ -941,20 +928,12 @@ $('#typeexm').on('change', function() {
                     btn_change: null,
                     no_icon: 'ace-icon fa fa-cloud-upload',
                     droppable: true,
-                    thumbnail: 'small'//large | fit
-                    ,
-                    preview_error : function(filename, error_code) {
-                        //name of the file that failed
-                        //error_code values
-                        //1 = 'FILE_LOAD_FAILED',
-                        //2 = 'IMAGE_LOAD_FAILED',
-                        //3 = 'THUMBNAIL_FAILED'
-                        //alert(error_code);
-                    }
-                }).on('change', function(){
-                    //console.log($(this).data('ace_input_files')); //console.log($(this).data('ace_input_method'));
-                });          
-                //dynamically change allowed formats by changing allowExt && allowMime function
+                    thumbnail: 'small' ,//large | fit
+                     preview_error : function(filename, error_code) {
+   //name of the file that failed  //error_code values //1 = 'FILE_LOAD_FAILED',//2 = 'IMAGE_LOAD_FAILED',    //3 = 'THUMBNAIL_FAILED'   //alert(error_code);
+                         }
+                }).on('change', function(){ //console.log($(this).data('ace_input_files')); //console.log($(this).data('ace_input_method'));
+                });     //dynamically change allowed formats by changing allowExt && allowMime function          
                 $('#id-file-format').removeAttr('checked').on('change', function() {
                     var whitelist_ext, whitelist_mime;
                     var btn_choose
@@ -969,7 +948,6 @@ $('#typeexm').on('change', function() {
                     else {
                         btn_choose = "Drop files here or click to choose";
                         no_icon = "ace-icon fa fa-cloud-upload";
-                        
                         whitelist_ext = null;//all extensions are acceptable
                         whitelist_mime = null;//all mimes are acceptable
                     }
@@ -986,16 +964,14 @@ $('#typeexm').on('change', function() {
                     
                     file_input
                     .off('file.error.ace')
-                    .on('file.error.ace', function(e, info) {
-                                
+                    .on('file.error.ace', function(e, info) {          
                     });
              });
             
                 $('#spinner1').ace_spinner({value:0,min:0,max:200,step:10, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
                 .closest('.ace-spinner')
-                .on('changed.fu.spinbox', function(){
-                    //console.log($('#spinner1').val())
-                }); 
+                .on('changed.fu.spinbox', function(){  //console.log($('#spinner1').val())
+               }); 
                 $('#spinner2').ace_spinner({value:0,min:0,max:10000,step:100, touch_spinner: true, icon_up:'ace-icon fa fa-caret-up bigger-110', icon_down:'ace-icon fa fa-caret-down bigger-110'});
                 $('#spinner3').ace_spinner({value:0,min:-100,max:100,step:10, on_sides: true, icon_up:'ace-icon fa fa-plus bigger-110', icon_down:'ace-icon fa fa-minus bigger-110', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
                 $('#spinner4').ace_spinner({value:0,min:-100,max:100,step:10, on_sides: true, icon_up:'ace-icon fa fa-plus', icon_down:'ace-icon fa fa-minus', btn_up_class:'btn-purple' , btn_down_class:'btn-purple'});
@@ -1008,28 +984,22 @@ $('#typeexm').on('change', function() {
                     flat: true,
                     calendars: 1,
                 })
-                //show datepicker when clicking on the icon
-                .next().on(ace.click_event, function(){
+                 .next().on(ace.click_event, function(){    //show datepicker when clicking on the icon
                     $(this).prev().focus();
-                });
-                //or change it into a date range picker
-                $('.input-daterange').datepicker({autoclose:true});
-            
-                $('#simple-colorpicker-1').ace_colorpicker();
-                
-                var tag_input = $('#form-field-tags');
-                try{
-                    tag_input.tag(
-                      {
+                });      //or change it into a date range picker
+              $('.input-daterange').datepicker({autoclose:true});
+               $('#simple-colorpicker-1').ace_colorpicker();
+               var tag_input = $('#form-field-tags');
+              try{
+                      tag_input.tag(
+                         {
                         placeholder:tag_input.attr('placeholder'),
                         source: ace.vars['US_STATES'],//defined in ace.js >> ace.enable_search_ahead
-                      
-                      }
+                       }
                     )
                     //programmatically add/remove a tag
                     var $tag_obj = $('#form-field-tags').data('tag');
                     $tag_obj.add('Programmatically Added');
-                    
                     var index = $tag_obj.inValues('some tag');
                     $tag_obj.remove(index);
                 }

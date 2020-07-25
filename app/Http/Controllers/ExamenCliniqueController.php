@@ -47,31 +47,14 @@ class ExamenCliniqueController extends Controller
                     "id_consultation"=>$consultID,
              ]);
     }
-    public function storeOlD(Request $request, $id)
-    {
-  
-        examen_cliniqu::firstOrCreate([
-            "taille"=>$request->taille,
-            "poids"=>$request->poids,
-            "IMC"=>$request->imc,
-            "Etat"=>$request->etatgen,
-            "id_consultation"=>$request->cons_id,
-        ]);
-        return redirect()->action('ConsultationsController@show',['id'=>$request->cons_id]);
-    }
-
-    /**
+   /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
+    public function show($id){}
+/**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id

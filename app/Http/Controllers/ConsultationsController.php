@@ -38,14 +38,12 @@ class ConsultationsController extends Controller
       $this->middleware('auth');
       $this->LettreOrientationCTRL = $LettreOrientationCtrl;
     }
-//public function demandeExm($id_cons){ $consultation = consultation::FindOrFail($id_cons);$id_patient = $consultation->Patient_ID_Patient;$patient = patient::FindOrFail($id_patient);return view('consultations.demande_examen',compact('id_cons','patient'));}
     public function index($id)
     {
-      $patient = patient::FindOrFail($id);
-      $consultations = consultation::where("Patient_ID_Patient",$patient->id)->get()->all();
-      return view('consultations.index_consultation', compact('patient','consultations'));
+        $patient = patient::FindOrFail($id);
+        $consultations = consultation::where("Patient_ID_Patient",$patient->id)->get()->all();
+        return view('consultations.index_consultation', compact('patient','consultations'));
     }
-
     public function detailcons($id_cons)
     { 
       $consultation = consultation::FindOrFail($id_cons);
@@ -94,12 +92,12 @@ class ConsultationsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-      $request->validate([
+      public function store(Request $request)
+      {
+              $request->validate([
             "motif" => 'required',
             "resume" => 'required',
-      ]);
+               ]);
       $validator = Validator::make($request->all(), [
         'motif' => 'required|max:255',
         'resume' => 'required',
@@ -196,10 +194,10 @@ class ConsultationsController extends Controller
      */
     public function show($id)
     {
-      $consultation = consultation::FindOrFail($id);
-      $patient = patient::FindOrFail($consultation->Patient_ID_Patient);
-      $antecedants = antecedant::where('Patient_ID_Patient',$patient->id)->get();
-      return view('consultations.show_consultation', compact('consultation','patient','antecedants'));
+            $consultation = consultation::FindOrFail($id);
+            $patient = patient::FindOrFail($consultation->Patient_ID_Patient);
+            $antecedants = antecedant::where('Patient_ID_Patient',$patient->id)->get();
+            return view('consultations.show_consultation', compact('consultation','patient','antecedants'));
     }
 
     /**

@@ -1,4 +1,3 @@
-<!--  tabindex="-1"  -->
 <div class="modal fade" id="RDV" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
   <div class="modal-dialog  modaldialog modal-lg" >
     <div class="modal-content">

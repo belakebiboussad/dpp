@@ -25,18 +25,16 @@
 </script>
 @endsection
 @section('main-content')
-	<div >
-		@include('patient._patientInfo')
-	</div>
+	<div >@include('patient._patientInfo')</div>
 	<div class="page-header">
 		<div class="pull-right">
 			<a href="{{ route('patient.index') }}" class="btn btn-white btn-info btn-bold">
-				<i class="ace-icon fa fa-search bigger-120 blue"></i>Chercher un Patient
+				<i class="ace-icon fa fa-search bigger-120 blue"></i>Chercher
 			</a>
 			<a href="{{route('patient.destroy',$patient->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-white btn-warning btn-bold">
 	    			<i class="ace-icon fa fa-trash-o bigger-120 orange"> Supprimer</i>
-	      </a>
-	    </div>
+	    		  </a>
+	       </div>
 	</div>
 	<div>
 		<div id="user-profile-2" class="user-profile">
@@ -44,8 +42,7 @@
 				<ul class="nav nav-tabs padding-18">
 					<li class="active">
 						<a data-toggle="tab" href="#home">
-							<i class="green ace-icon fa fa-user bigger-120"></i>
-							Informations Administratives
+							<i class="green ace-icon fa fa-user bigger-120"></i>	Informations Administratives
 						</a>
 					</li>
 					@if( Auth::user()->role->id == 1)
@@ -57,8 +54,8 @@
 					 </li>
 					<li>
 						<a data-toggle="tab" href="#Cons">
-						<i class="orange ace-icon fa fa-stethoscope bigger-120"></i>Consultations&nbsp;<span class="badge badge-warning">{{ $patient->consultations->count() }}
-							</span>
+							<i class="orange ace-icon fa fa-stethoscope bigger-120"></i>Consultations&nbsp;
+							<span class="badge badge-warning">{{ $patient->consultations->count() }}</span>
 						</a>
 					</li>
 					<li>
@@ -74,13 +71,9 @@
 							RDV&nbsp;<span class="badge badge-info">{{ $patient->rdvs->count() }}</span>
 						</a>
 					</li>
-					<!-- $hommes_c -->
 					@if (!is_null($correspondants))
 					<li >
-						<a data-toggle="tab" href="#homme_conf">
-							<i class="green ace-icon fa fa-user bigger-120"></i>
-							Homme de confiance
-						</a>
+						<a data-toggle="tab" href="#homme_conf"><i class="green ace-icon fa fa-user bigger-120"></i>Homme de confiance</a>
 					</li>
 					@endif
 				</ul>
@@ -93,72 +86,54 @@
 								</span>
 								<div class="space space-4"></div>
 								<a href="{{ route('patient.edit', $patient->id) }}" class="btn btn-sm btn-block btn-success">
-									<i class="ace-icon fa fa-pencil bigger-120"></i>
-									<span class="bigger-110">Modifier Les Informations</span>
+									<i class="ace-icon fa fa-pencil bigger-120"></i><span class="bigger-110">Modifier Les Informations</span>
 								</a>
 								<a class="btn btn-sm btn-block btn-primary" data-toggle="modal" data-target="#ticket">
-									<i class="ace-icon fa fa-plus bigger-120"></i>
-									<span class="bigger-110">Ajouter Ticket</span>
+									<i class="ace-icon fa fa-plus bigger-120"></i><span class="bigger-110">Ajouter Ticket</span>
 								</a>
 							</div><!-- /.col -->
 							<div class="col-xs-12 col-sm-9">
 								<h4 class="blue">
 									<span class="middle">{{ $patient->getCivilite()}} {{ $patient->Nom }} {{ $patient->Prenom }}</span>
 									<span class="label label-purple arrowed-in-right">
-										<i class="ace-icon fa fa-circle smaller-80 align-middle"></i>
-										{{ $patient->Type }}
+										<i class="ace-icon fa fa-circle smaller-80 align-middle"></i>	{{ $patient->Type }}
 									</span>
 								</h4>
 								<div class="profile-user-info">
 									<div class="profile-info-row">
 										<div class="profile-info-name">Nom</div>
-										<div class="profile-info-value">
-											<span>{{ $patient->Nom }}</span>
-										</div>
+										<div class="profile-info-value"><span>{{ $patient->Nom }}</span></div>
 									</div>
 									<div class="profile-info-row">
 										<div class="profile-info-name">Prénom</div>
-										<div class="profile-info-value">
-											<span>{{ $patient->Prenom }}</span>
-										</div>
+										<div class="profile-info-value"><span>{{ $patient->Prenom }}</span></div>
 									</div>
 									<div class="profile-info-row">
 										<div class="profile-info-name">Sexe </div>
-										<div class="profile-info-value">
-											<span>{{ $patient->Sexe =="M" ? "Homme" : "Femme" }}</span>
-										</div>
+										<div class="profile-info-value">	<span>{{ $patient->Sexe =="M" ? "Homme" : "Femme" }}</span></div>
 									</div>
 									<div class="profile-info-row">
 										<div class="profile-info-name">né(e) le  </div>
-										<div class="profile-info-value">
-											<span>{{ $patient->Dat_Naissance }}</span>
-										</div>
+										<div class="profile-info-value"><span>{{ $patient->Dat_Naissance }}</span></div>
 									</div>
 									<div class="profile-info-row">
 										<div class="profile-info-name"> Âge </div>
-										<div class="numberCircle">{{ $patient->getAge() }}
-										</div>
-										 <span class="blue">Ans</span>
+										<div class="numberCircle">{{ $patient->getAge() }}</div> <span class="blue">Ans</span>
 									</div>
 									<div class="profile-info-row">
 										<div class="profile-info-name"> Lieu Naissance </div>
 										<div class="profile-info-value">
-											<i class="fa fa-map-marker light-orange bigger-110"></i>
-											<span>{{ $patient->lieuNaissance->nom_commune }}</span>
+											<i class="fa fa-map-marker light-orange bigger-110"></i><span>{{ $patient->lieuNaissance->nom_commune }}</span>
 										</div>
 									</div>
 									<div class="profile-info-row">
 										<div class="profile-info-name"> Civilité </div>
-										<div class="profile-info-value">
-											<span>{{ $patient->situation_familiale }}</span>
-										</div>
+										<div class="profile-info-value"><span>{{ $patient->situation_familiale }}</span></div>
 									</div>
 									@if(($patient->Sexe =="F") && ($patient->situation_familiale == "marie"))
 									<div class="profile-info-row">
 										<div class="profile-info-name"> Nom Fille </div>
-										<div class="profile-info-value">
-											<span>{{ $patient->nom_jeune_fille }}</span>
-										</div>
+										<div class="profile-info-value"><span>{{ $patient->nom_jeune_fille }}</span></div>
 									</div>
 									@endif
 									<div class="profile-info-row">
@@ -172,65 +147,47 @@
 									</div>
 									<div class="profile-info-row">
 										<div class="profile-info-name"><i class="fa fa-phone"></i>Télé mobile 1 </div>
-										<div class="profile-info-value">
-											<span>{{ $patient->tele_mobile1 }}</span>
-										</div>
+										<div class="profile-info-value"><span>{{ $patient->tele_mobile1 }}</span></div>
 									</div>
 									<div class="profile-info-row">
 										<div class="profile-info-name"><i class="fa fa-phone"></i>Télé mobile 2 </div>
-										<div class="profile-info-value">
-											<span>{{ $patient->tele_mobile2 }}</span>
-										</div>
+										<div class="profile-info-value"><span>{{ $patient->tele_mobile2 }}</span></div>
 									</div>
 									@if($patient->Fonction != null)
 									<div class="profile-info-row">
 										<div class="profile-info-name"> Service </div>
-										<div class="profile-info-value">
-											<span>{{ $patient->Fonction }}</span>
-										</div>
+										<div class="profile-info-value"><span>{{ $patient->Fonction }}</span></div>
 									</div>
 									@endif
 									@if($patient->Grade != null)
 									<div class="profile-info-row">
 										<div class="profile-info-name"> Grade </div>
-										<div class="profile-info-value">
-											<span>{{ $patient->Grade }}</span>
-										</div>
+										<div class="profile-info-value"><span>{{ $patient->Grade }}</span></div>
 									</div>
 									@endif
 									@if($patient->etat != null)
 									<div class="profile-info-row">
 										<div class="profile-info-name"> Etat </div>
-										<div class="profile-info-value">
-											<span>{{ $patient->etat }}</span>
-										</div>
+										<div class="profile-info-value"><span>{{ $patient->etat }}</span></div>
 									</div>
 									@endif
 									<div class="profile-info-row">
 										<div class="profile-info-name"> Groupe Sang</div>
-										<div class="profile-info-value">
-											<span>{{ $patient->group_sang }}</span>
-										</div>
+										<div class="profile-info-value"><span>{{ $patient->group_sang }}</span></div>
 									</div>
 									<div class="profile-info-row">
 										<div class="profile-info-name"> Rhésus </div>
-										<div class="profile-info-value">
-											<span>{{ $patient->Rihesus == "+" ? "Positif" : "Négatif" }}</span>
-										</div>
+										<div class="profile-info-value"><span>{{ $patient->Rihesus == "+" ? "Positif" : "Négatif" }}</span></div>
 									</div>
 									@if($patient->matricule != null)
 									<div class="profile-info-row">
 										<div class="profile-info-name">Matricule</div>
-										<div class="profile-info-value">
-											<span>{{ $patient->matricule }}</span>
-										</div>
+										<div class="profile-info-value"><span>{{ $patient->matricule }}</span></div>
 									</div>
 									@endif
 									<div class="profile-info-row">
 										<div class="profile-info-name">Date Création</div>
-										<div class="profile-info-value">
-											<span>{{ $patient->Date_creation }}</span>
-										</div>
+										<div class="profile-info-value"><span>{{ $patient->Date_creation }}</span></div>
 									</div>
 								</div>
 								<div class="hr hr-8 dotted"></div>
@@ -309,25 +266,15 @@
 						</div><!-- /.row -->
 						<div class="space-20"></div>
 					</div><!-- /#home -->
-					<!-- Ants -->
-					<div id="Ants" class="tab-pane">
-						@include('antecedents.ants_Widget')
-					</div><!-- finAnts -->
-					<div id="Cons" class="tab-pane">
-						@include('consultations.liste')
-					</div><!-- /#Cons -->
+					<div id="Ants" class="tab-pane">@include('antecedents.ants_Widget')</div><!-- Ants -->
+					<div id="Cons" class="tab-pane">@include('consultations.liste')</div><!-- /#Cons -->
 					<div id="rdvs" class="tab-pane">
 						<div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2">
 							<div class="widget-box widget-color-blue" id="widget-box-2">
 								<div class="widget-header">
-									<h5 class="widget-title bigger lighter">
-										<i class="ace-icon fa fa-table"></i>
-										Liste Des RDV :
-									</h5>
+									<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste Des RDV :</h5>
 									<div class="widget-toolbar widget-toolbar-light no-border">
-										<!-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> -->
-										<div class="fa fa-plus-circle"></div>
-										<a href="#"><b>Ajouter un RDV</b></a>
+										<div class="fa fa-plus-circle"></div><a href="#"><b>Ajouter un RDV</b></a>
 									</div>
 								</div>
 								<div class="widget-body">
@@ -350,17 +297,14 @@
 																{{ $rdv->employe->Nom_Employe }} {{ $rdv->employe->Prenom_Employe }}
 															</td>
 															<td class="center">
-																<span class="label label-{{$rdv->Etat_RDV == "en attente" ? "warning" : "success"}}" style="color: black;">
-																	<b>{{ $rdv->Etat_RDV }}</b>
-																</span>
+																<span class="label label-{{$rdv->Etat_RDV == "en attente" ? "warning" : "success"}}" style="color: black;">	<b>{{ $rdv->Etat_RDV }}</b></span>
 															</td>
 															<td class="center">
 																<div class="hidden-sm hidden-xs btn-group">
-		                            	<a class="btn btn-xs btn-success" href="{{ route('rdv.show', $rdv->id) }}">
-		                              	<i class="ace-icon fa fa-hand-o-up bigger-120"></i>Détails
-																	</a>
-		                           	</div>
-		                           </td>
+												                            		<a class="btn btn-xs btn-success" href="{{ route('rdv.show', $rdv->id) }}">
+												                              	<i class="ace-icon fa fa-hand-o-up bigger-120"></i>Détails</a>
+																</div>
+											                           </td>
 														</tr>
 													@endforeach
 												@endif
@@ -375,11 +319,7 @@
 						<div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2">
 							<div class="widget-box widget-color-blue" id="widget-box-2">
 								<div class="widget-header">
-									<h5 class="widget-title bigger lighter">
-										<i class="ace-icon fa fa-table"></i>
-										Listes Des Hospitalisations :
-									</h5>
-								
+									<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Listes Des Hospitalisations :</h5>
 								</div>
 								<div class="widget-body">
 									<div class="widget-main no-padding">
@@ -419,72 +359,10 @@
 							</div>
 						</div>
 					</div><!-- /#Hos^p -->
-					<!--homme_conf -->
-					<div id="homme_conf" class="tab-pane">
-					<div class="row">
-						<div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2">
-							<div class="widget-box widget-color-blue" id="widget-box-2">
-								<div class="widget-header">
-									<h5 class="widget-title bigger lighter">
-										<i class="ace-icon fa fa-table"></i>Gardes Malades/Hommes de Confiance
-									</h5>
-									<div class="widget-toolbar widget-toolbar-light no-border">
-										<div class="fa fa-plus-circle"></div>{{-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> --}}
-											<a href="#" data-target="#gardeMalade" class="btn-xs tooltip-link" data-toggle="modal"  data-toggle="tooltip" data-original-title="Ajouter un Correspondant" >
-												<strong>Ajouter un Correspondant</strong>
-											</a>
-									</div>
-								</div>
-								<div class="widget-body">
-									<div class="widget-main no-padding">
-									  <table id="listeGardes" class="table nowrap dataTable no-footer" style="width:100%">
-					            <thead>
-						            <tr>
-						              <th hidden></th>
-						              <th class ="center"><strong>Nom</strong> </th>
-						              <th class ="center"><strong>Prénom</strong></th>
-						              <th class ="center"><strong>né(e) le</strong></th>
-						              <th class ="center"><strong>Adresse</strong></th>
-						              <th class ="center"><strong>Tél</strong></th>
-						              <th class ="center"><strong>Relation</strong></th>
-						              <th class ="center"><strong>Type Pièce</strong></th>
-						              <th class ="center"><strong>N°</strong></th>
-						              <th class ="center"><strong>date délevrance</strong></th>
-						              <th class="nsort"><em class="fa fa-cog"></em></th>
-						            </tr>
-					            </thead>
-					          <tbody>
-					          @foreach($correspondants as $hom)
-					            <tr id="{{ 'garde'.$hom->id }}">
-					              <td hidden>{{ $hom->id_patient }}</td>
-					              <td>{{ $hom->nom }}</td>
-					              <td>{{ $hom->prenom }}</td>
-					              <td>{{ $hom->date_naiss }}</td>
-					              <td>{{ $hom->adresse }}</td>
-					              <td>{{ $hom->mob }}</td>
-					              <td>{{ $hom->lien_par }}</td>
-					              <td>{{ $hom->type_piece }}</td>
-					              <td>{{ $hom->num_piece }}</td>
-					              <td>{{ $hom->date_deliv }}</td>
-					              <td class="center nosort">
-					  						  <button type="button" class="btn btn-xs btn-success open-modal" value="{{$hom->id}}" data-cmd="show">
-                           		<i class="ace-icon fa fa-hand-o-up bigger-120"></i>Détails
-                           </button> 
-                    		</td>
-					            </tr>
-					          @endforeach
-					          </tbody>
-					         </table>
-					        </div>  <!-- widget-main --> 
-			         </div> <!-- widget-body -->
-		        </div>     <!-- widget-box	 -->
-		       </div> <!-- widget-container  -->
-					</div>
-					<div class="row">
-						@include('corespondants.add')
-					</div>
-					</div><!-- /#homme_conf -->
-					
+					<div id="homme_conf" class="tab-pane"><!--homme_conf -->
+						<div class="row">@include('corespondants.widget')</div>
+						<div class="row">@include('corespondants.add')</div>
+					</div><!-- /#homme_conf -->	
 				</div>
 			</div>
 		</div>
@@ -514,36 +392,30 @@
 							</div>
 							<br/><br/><br/><br/>
     						<div class="col-sm-12">
-								<label for="document"><b>Document:</b></label>
-								<select class="form-control" id="document" name="document" required>
-								<!-- 	<option value="">--------</option> -->
-									<option value="Rendez-vous">Rendez-vous</option>
-									<option value="Lettre d'orientation">Lettre d'orientation</option>
-									<option value="Consultation généraliste">Consultation généraliste</option>
-								</select>
-							</div>
-							<br/><br/><br/><br/>
-    						<div class="col-sm-12">
-								<label for="spesialite"><b>Spécialité:</b></label>
-								<select class="form-control" id="spesialite" name="spesialite">
-									<option value="0">Selectionner la spécialité</option>
-									@foreach($specialites as $specialite)
-									<option value="{{ $specialite->id}}"> {{ $specialite->nom}}</option>
-									@endforeach
-								</select>
-							</div>
-							<br/><br/><br/><br/><br/><br/>
+							<label for="document"><b>Document:</b></label>
+							<select class="form-control" id="document" name="document" required>
+								<option value="Rendez-vous">Rendez-vous</option><!-- 	<option value="">--------</option> -->
+								<option value="Lettre d'orientation">Lettre d'orientation</option>
+								<option value="Consultation généraliste">Consultation généraliste</option>
+							</select>
+						</div><br/><br/><br/><br/>
+						<div class="col-sm-12">
+							<label for="spesialite"><b>Spécialité:</b></label>
+							<select class="form-control" id="spesialite" name="spesialite">
+								<option value="0">Selectionner la spécialité</option>
+								@foreach($specialites as $specialite)
+								<option value="{{ $specialite->id}}"> {{ $specialite->nom}}</option>
+								@endforeach
+							</select>
+						</div><br/><br/><br/><br/><br/><br/>	
     					</div>
     				</div>
     			<div class="modal-footer">
-
     				<button type="submit" class="btn btn-primary">
-    					<i class="ace-icon fa fa-copy"></i>
-    					Générer un ticket
+    					<i class="ace-icon fa fa-copy"></i>Générer un ticket	
     				</button>
     				<button type="button" class="btn btn-default" data-dismiss="modal">
-    					<i class="ace-icon fa fa-close bigger-110"></i>
-    					Fermer
+    					<i class="ace-icon fa fa-close bigger-110"></i>Fermer
     				</button>
     			</div>
     		</div>

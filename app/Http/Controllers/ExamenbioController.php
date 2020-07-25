@@ -42,8 +42,7 @@ class ExamenbioController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request,$consultID){
-             //save examen biologique autre 
-            if($request->AutreBiol != null)
+             if($request->AutreBiol != null)  //save examen biologique autre 
              {
                 $tags = explode(",", $request->AutreBiol);
                 foreach($tags as $k=>$v){    
@@ -68,89 +67,21 @@ class ExamenbioController extends Controller
                  }
               }
     }
-    public function storeOLD1(Request $request){
-           $input = $request->all();
-           unset($input['_token']);
-           unset($input['cons_id']); 
-           unset($input['tags']);         
-           if($request->tags != null)
-           {
-                $tags = explode(",", $request->tags);
-                foreach($tags as $k=>$v){     
-                     examenbiologique::create([
-                                "id_consultation"=>$request->cons_id,
-                                "classe"=>"Autre",
-                                "nom"=>$v
-                            ]);
-                    }
-           }
-            
-            foreach($input as $key=>$val){ 
-                        foreach($val as $k=>$v){     
-                           examenbiologique::create([
-                                "id_consultation"=>$request->cons_id,
-                                "classe"=>$key ,
-                                "nom"=>$v,
-                            ]);
-                         }
-          }
-        
-          $exambiols = examenbiologique::where('id_consultation', '=',$request->cons_id)->get();
-           $consultation = consultation::FindOrFail($request->cons_id); 
-           $patient = patient::FindOrFail($consultation->Patient_ID_Patient); 
-           $lieu = Lieuconsultation::FindOrFail($consultation->id_lieu)->Nom;
-           $antecedants = antecedant::where('Patient_ID_Patient',$patient->id)->get();
-           $examsbiostr =array();
-           $exambioAutre  = array();
-           
-           foreach($exambiols as $key =>$exambio)
-           {
-                if( $exambio->classe != 'Autre')
-                       array_push($examsbiostr,$exambio['nom']);
-                else
-                    array_push($exambioAutre,$exambio['nom']);
-           } 
-           return view('Consultations.create_consultation',compact('patient','lieus','codesim','antecedants','lieu','consultation','examsbiostr','exambioAutre'));
-
-    }
-    public function storeold(Request $request)
-    {
-        $date = Date::Now();
-        $fileName = $request->file('examan')->getClientOriginalName();
-        Storage::disk('local')->put($fileName,file_get_contents($request->file('examan')->getRealPath()));
-        examenbiologique::create([
-            "type"=>$request->type,
-            "description"=>$request->description,
-            "lien"=>$fileName,
-            "Date"=>$date,
-            "id_consultation"=>$request->cons_id,
-        ]);
-        return redirect()->action('ConsultationsController@show',['id'=>$request->cons_id]);
-    }
-
-    /**
+     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
+    public function show($id) {}
+/**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
+    public function edit($id)   { }
+      /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

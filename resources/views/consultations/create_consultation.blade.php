@@ -123,15 +123,15 @@
 	function storeord1()
 	{
 		var arrayLignes = document.getElementById("ordonnance").rows;
-    var longueur = arrayLignes.length; 
-    var ordonnance = [];
-    for(var i=1; i<longueur; i++)
-    {
-      ordonnance[i-1] = { med: arrayLignes[i].cells[1].innerHTML, posologie: arrayLignes[i].cells[5].innerHTML }
-    }
-    var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
-    champ.appendTo('#consultForm');
-  }
+    		var longueur = arrayLignes.length; 
+   		 var ordonnance = [];
+	       for(var i=1; i<longueur; i++)
+		{
+		      ordonnance[i-1] = { med: arrayLignes[i].cells[1].innerHTML, posologie: arrayLignes[i].cells[5].innerHTML }
+		    }
+	    var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
+	    champ.appendTo('#consultForm');
+  	}
  	function lettreorientation()
 	{
 		$('#specialite').val($('#specialiteOrient').val());
@@ -258,7 +258,7 @@
 		        headers: {
 		                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
 		        }
-				 }); 
+		 }); 
 		var token = $("meta[name='csrf-token']").attr("content");
 		 $.ajax({
 		              type : 'DELETE',
@@ -342,75 +342,71 @@
 	                   ]
 		  });
 	  	jQuery('#btn-add, #AntFamil-add').click(function () {
-			 	jQuery('#EnregistrerAntecedant').val("add");
-			 	jQuery('#modalFormData').trigger("reset");
-			  if(this.id == "AntFamil-add")
-    	  {
-	    	 	$("#EnregistrerAntecedant").attr('data-atcd','Famille'); 
-	    	 	if(! ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
-	 	   			jQuery('#modalFormData > #sous_type').addClass('hidden'); 
-    	  }
-    	 else
-    		{	
-    			$("#EnregistrerAntecedant").attr('data-atcd','Perso'); 
-    			if( ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
-    				jQuery('#modalFormData > #sous_type').removeClass('hidden'); 
-    		}
-    	  jQuery('#antecedantModal').modal('show');
-	 		 });	
-			jQuery('body').on('click', '.open-modal', function (event) {
-				var atcd_id = $(this).val();
-			 	$.get('/atcd/' + atcd_id, function (data) { 
-			 		  $('#atcd_id').val(data.id);
-					  if( ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
+			 jQuery('#EnregistrerAntecedant').val("add");
+			 jQuery('#modalFormData').trigger("reset");
+			if(this.id == "AntFamil-add")
+    	  		{
+    	 			$("#EnregistrerAntecedant").attr('data-atcd','Famille'); 
+    	 			if(! ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
+ 	   				jQuery('#modalFormData > #sous_type').addClass('hidden'); 
+    	  		}else{	
+    				$("#EnregistrerAntecedant").attr('data-atcd','Perso'); 
+    				if( ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
+    					jQuery('#modalFormData > #sous_type').removeClass('hidden'); 
+    			}
+    	  		jQuery('#antecedantModal').modal('show');
+	 	});	
+		jQuery('body').on('click', '.open-modal', function (event) {
+			var atcd_id = $(this).val();
+		 	$.get('/atcd/' + atcd_id, function (data) { 
+				 $('#atcd_id').val(data.id);
+				 if( ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
     					jQuery('#modalFormData > #sous_type').removeClass('hidden');
-					 	$('#typeAntecedant').val(data.typeAntecedant).change();
-				 	 	if(data.typeAntecedant   === 'Pathologiques')
-						{
-				 	  	$('#sstypeatcdc').val(data.stypeatcd).change();
-				 	  }
-				 	  if(data.typeAntecedant   === 'Physiologiques')
-						{
-							$('#habitudeAlim').val(data.habitudeAlim);
-							(data.tabac) ? $('#tabac').prop('checked',true) : '';
-							(data.ethylisme) ? $('#ethylisme').prop('checked',true) : '';
-						}
-						$('#dateAntcd').val(data.date);
-						$('#description').val(data.descrioption);
-						$("#EnregistrerAntecedant").attr('data-atcd',"Perso");	
-				 	  jQuery('#EnregistrerAntecedant').val("update");	
-					  	jQuery('#antecedantModal').modal('show');
-	   	 			});
-			});
+				 	$('#typeAntecedant').val(data.typeAntecedant).change();
+				 	if(data.typeAntecedant   === 'Pathologiques')
+					{
+					  	$('#sstypeatcdc').val(data.stypeatcd).change();
+					}
+				 	if(data.typeAntecedant   === 'Physiologiques')
+					{
+						$('#habitudeAlim').val(data.habitudeAlim);
+						(data.tabac) ? $('#tabac').prop('checked',true) : '';
+						(data.ethylisme) ? $('#ethylisme').prop('checked',true) : '';
+					}
+					$('#dateAntcd').val(data.date);
+					$('#description').val(data.descrioption);
+					$("#EnregistrerAntecedant").attr('data-atcd',"Perso");	
+				 	 jQuery('#EnregistrerAntecedant').val("update");	
+					jQuery('#antecedantModal').modal('show');
+	   	 	});
+		});
 			jQuery('body').on('click', '.open-modalFamil', function (event) {
 				var atcd_id = $(this).val();
 			 	$.get('/atcd/' + atcd_id, function (data) { 
 				 	$('#atcd_id').val(data.id);
 					$('#dateAntcd').val(data.date);
-				  $('#description').val(data.descrioption);
+				       $('#description').val(data.descrioption);
 				 	jQuery('#EnregistrerAntecedant').val("update");
 				 	$("#EnregistrerAntecedant").attr('data-atcd',"Famille")	
 					if(! ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
 	 	   			jQuery('#modalFormData > #sous_type').addClass("hidden");
-  	 	   	jQuery('#antecedantModal').modal('show');
-	   	 	
+  	 			   	jQuery('#antecedantModal').modal('show');
 				});
 			});
-  		$("#EnregistrerAntecedant").click(function (e) {
-  			  var habitudeAlim = null; var tabac=null ; var ethylisme = null;
-    			e.preventDefault();
-          alert($("#EnregistrerAntecedant").attr('data-atcd'));   
-    			if($("#EnregistrerAntecedant").attr('data-atcd') == "Perso")
-    			{
-    			 	var tabName = "antsTab";
-    			 	var formData = {
-		    			Patient_ID_Patient      : '{{ $patient->id }}',
-			       	Antecedant           : 'Personnels',//jQuery('#Antecedant').val()
-			       	typeAntecedant       : jQuery('#typeAntecedant').val(),
-			       	stypeatcd            : jQuery('#sstypeatcdc').val(),
-			     		date                    : $('#dateAntcd').val(),
-			       	descrioption         : $("#description").val(),
-   	  			};
+  			$("#EnregistrerAntecedant").click(function (e) {
+	  			  var habitudeAlim = null; var tabac=null ; var ethylisme = null;
+	    			e.preventDefault();
+	        		if($("#EnregistrerAntecedant").attr('data-atcd') == "Perso")
+	    			{
+	    			 	var tabName = "antsTab";
+	    			 	var formData = {
+			    			Patient_ID_Patient      : '{{ $patient->id }}',
+				      	 	Antecedant           : 'Personnels',//jQuery('#Antecedant').val()
+				       		typeAntecedant       : jQuery('#typeAntecedant').val(),
+				       		stypeatcd            : jQuery('#sstypeatcdc').val(),
+				     		date                    : $('#dateAntcd').val(),
+				       		descrioption         : $("#description").val(),
+	   	  			};
    	  			if(formData.typeAntecedant =="Physiologiques")
 		   	  	{
 			      		formData.habitudeAlim = $('#habitudeAlim').val();
@@ -419,21 +415,18 @@
 		   		  }
     			}else
     			{
-	    		 	   var tabName = "antsFamTab";
-	    			 	var formData = {
-			    			Patient_ID_Patient   : '{{ $patient->id }}',
+	    		 	 var tabName = "antsFamTab";
+	    			 var formData = {
+			    		Patient_ID_Patient   : '{{ $patient->id }}',
 				       	Antecedant           : 'Familiaux',
 				       	date                 : $('#dateAntcd').val(),
 				       	descrioption         : $("#description").val(),
 	   	  			};
     			}
-    			$.each(formData, function( index, value ) {
-    			  alert( index + ": " + value );   
-    			});   
     	  	if(!($("#description").val() == ''))
-    	    {	
+    		{	
   	    		if($('.dataTables_empty').length > 0)
-    				{
+    			{
         			$('.dataTables_empty').remove();
       			}	
 		      	$.ajaxSetup({
@@ -487,18 +480,17 @@
 		   	  $('#PhysiologieANTC').attr("hidden",true); //$("#sous_type").attr("hidden",true);
 			  $("#atcdsstypehide").attr("hidden",true);
 		});
-  		////----- DELETE antecedant and remove from the page -----////
-		jQuery('body').on('click', '.delete-atcd', function () {
-	    var atcd_id = $(this).val();      
-      $.ajaxSetup({
-       		headers: {
+  		jQuery('body').on('click', '.delete-atcd', function () {////----- DELETE antecedant and remove from the page -----////
+	    	var atcd_id = $(this).val();      
+      		$.ajaxSetup({
+       			headers: {
         		 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-          	}
-      });
-       $.ajax({
-	       type: "DELETE",
-	        url: '/atcd/' + atcd_id,
-	       success: function (data) {
+          		}
+      		});
+       		$.ajax({
+	       		type: "DELETE",
+	        	url: '/atcd/' + atcd_id,
+	       		success: function (data) {
 	               $("#atcd" + atcd_id).remove();
 	          },
 	        error: function (data) {
@@ -573,7 +565,7 @@
 	      		selectable: true,
 	      		selectHelper: true,
 	      		eventColor  : '#87CEFA',
-	       	editable: true,
+	         	editable: true,
 	     		hiddenDays: [ 5, 6 ],
 	     		weekNumberCalculation: 'ISO',
 	     		aspectRatio: 1.5,
@@ -598,12 +590,11 @@
 			       @endforeach 
 		    	],
       			eventRender: function (event, element, webData) {
-      				// element.find('.fc-title').append("," + event.tel);// element.css("font-size", "1em");
-				if(event.start < today) 
+      				if(event.start < today) // element.find('.fc-title').append("," + event.tel);// element.css("font-size", "1em");
 					 element.css('background-color', '#D3D3D3');
 				else
 				{	
-       				element.css("padding", "5px");
+       					element.css("padding", "5px");
 					if(event.fixe == 1)
          					element.css('background-color', '#87CEFA'); 
          				else
@@ -621,22 +612,20 @@
 			}, 
 		       select: function(start, end) {
 				if(start > CurrentDate){
-                            Swal.fire({
-                                 title: 'Confimer vous  le Rendez-Vous ?',
-                                 html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',
-                                 input: 'checkbox',
-                                 inputPlaceholder: 'Redez-Vous Fixe',
-                                 showCancelButton: true,
-                                 confirmButtonColor: '#3085d6',
-                                 cancelButtonColor: '#d33',
-                                 confirmButtonText: 'Oui',
-                                 cancelButtonText: "Non",
-                          }).then((result) => {
-                               if(!isEmpty(result.value))
-                                {                                
-                                      	createRDVModal(start,end,$('#patientId').val(),result.value);	
-                                }
-                          })
+	                             Swal.fire({
+		                                 title: 'Confimer vous  le Rendez-Vous ?',
+		                                 html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',
+		                                 input: 'checkbox',
+		                                 inputPlaceholder: 'Redez-Vous Fixe',
+		                                 showCancelButton: true,
+		                                 confirmButtonColor: '#3085d6',
+		                                 cancelButtonColor: '#d33',
+		                                 confirmButtonText: 'Oui',
+		                                 cancelButtonText: "Non",
+	                        	 }).then((result) => {
+                             			 if(!isEmpty(result.value))
+                               			createRDVModal(start,end,$('#id').val(),result.value);	
+                        		  })
 				}else
 					$('.calendar1').fullCalendar('unselect');
 			},
@@ -672,7 +661,7 @@
 			          		  "id": $('#idRDV').val(),
 			          		   "daterdv" : $('#daterdv').val(),
 			          		   'datefinrdv' :$('#datefinrdv').val(),
-			        			},
+			        	},
 			        	success:function(data){  	   		
 			              		 $('#fullCalModal').modal('toggle');
 			                	 $('#updateRDV').addClass('invisible');
@@ -712,10 +701,9 @@
 </div>
 <div class="content"><!-- style="height:800px;" -->
 	<div class="row">
-		<form  class="form-horizontal" action="{{ route('consultations.store') }}" method="POST" role="form" id ="consultForm">
+	<form  class="form-horizontal" action="{{ route('consultations.store') }}" method="POST" role="form" id ="consultForm">
 	  {{ csrf_field() }}
-
-	  <input type="hidden" name="id" value="{{ $patient->id }}">
+	    <input type="hidden" name="id" id="id" value="{{ $patient->id }}">
 	  <div class="form-group" id="error" aria-live="polite">
 		@if (count($errors) > 0)
 		  <div class="alert alert-danger">

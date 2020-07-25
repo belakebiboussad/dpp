@@ -82,7 +82,6 @@ Route::get('/ordonnace/create/{id}','OrdonnanceController@create');
 Route::post('/ordonnaces/print','OrdonnanceController@print');
 Route::get('/consultations/detailcons/{id}','ConsultationsController@detailcons')->name('consultDetails');
 Route::get('detailConsXHR/{id}','ConsultationsController@detailconsXHR')->name('consultdetailsXHR');
-// Route::get('/consultations/demandeExm/{id_cons}','ConsultationsController@demandeExm');
 Route::post('/colloque/store/{id}','ColloqueController@store');// a revoir
 Route::put('/colloque/{membres,id_demh}', 'ColloqueController@store');// a revoir
 Route::get('/listecolloques/{type}','ColloqueController@index');
@@ -99,8 +98,7 @@ Route::get('/searchAssure','AssurController@search');
 route::get('/getsalles','SalleController@getsalles');
 Route::post('/exclinique/store/{id}','ExamenCliniqueController@store');
 Route::get('/consultations/create/{id}','ConsultationsController@create');
-Route::get('/listcons','ConsultationsController@listecons');
-Route::get('/consultations/index/{id}','ConsultationsController@index');
+Route::get('/listcons','ConsultationsController@listecons');//Route::get('/consultations/index/{id}','ConsultationsController@index');
 Route::get('/patient/listerdv/{id}','PatientController@listerdv');
 Route::get('/atcd/create/{id}','AntecedantsController@create');
 Route::get('/atcd/index/{id}','AntecedantsController@index');

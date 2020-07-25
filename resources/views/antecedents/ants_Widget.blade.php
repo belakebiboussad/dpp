@@ -2,9 +2,7 @@
 	<div class="widget-box widget-color-blue" id="widget-box-2">
 		<div class="widget-header">
 			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Antecedants</h5>
-			<div class="widget-toolbar widget-toolbar-light no-border">
-				<!-- <div class="fa fa-plus-circle"></div>
-				<a href=""><b>Antecedant </b></a> -->
+			<div class="widget-toolbar widget-toolbar-light no-border"><!-- <div class="fa fa-plus-circle"></div><a href=""><b>Antecedant </b></a> -->
 			</div>
 		</div>
 		<div class="widget-body">
@@ -28,8 +26,8 @@
 							<td>{{ $atcd->date }}</td>
 							<td class="center">
 								 <textarea class="width-100" resize="none"disabled="">{{$atcd->descrioption}} </textarea>
-						  </td>
-						  <td class="center">
+						  	</td>
+						 	 <td class="center">
 						  	@if($atcd->Antecedant == "Personnels")
 						  	<a href="#" class="green bigger-140 show-details-btn" title="Afficher Details" data-toggle="collapse" id="{{$i}}" data-target=".{{$i}}collapsed">
 									<i class="ace-icon fa fa-eye-slash"></i><span class="sr-only">Details</span>&nbsp;
@@ -37,11 +35,10 @@
 								@endif
 								<div class="action-buttons hidden-sm hidden-xs btn-group">
 									<a href="{{route('atcd.show',$atcd->id)}}" class="btn btn-xs btn-success">
-										<i class="ace-icon fa fa-sign-in bigger-120"></i>&nbsp;<!-- fa fa-angle-double-down -->
+										<i class="ace-icon fa fa-sign-in bigger-120"></i>&nbsp;
 									</a>&nbsp;&nbsp;
 		 							<a href="{{route('atcd.edit',$atcd->id)}}" class="btn btn-xs btn-info"><i class="ace-icon fa fa-pencil bigger-120"></i></a>
-									<a href="{{route('atcd.destroy',$atcd->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">
-										<i class="ace-icon fa fa-trash-o bigger-120"></i>
+									<a href="{{route('atcd.destroy',$atcd->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger"><i class="ace-icon fa fa-trash-o bigger-120"></i>
 									</a>
 								</div>
 							</td>
@@ -64,11 +61,9 @@
 												<div class="profile-info-row">
 													<div class="profile-info-name text-center"><strong>Tabac:</strong></div>
 													<div class="profile-info-value">
-														 <!--  <span class="label label-lg label-inverse arrowed-in">{{ $atcd->tabac }}</span> -->
 														 <label>
-	            								<input type="checkbox" class="ace"  id="tabac" name="tabac" {{ ($atcd->tabac) ? "checked" :"" }} disabled />
-	            										<span class="lbl" >&nbsp; &nbsp;tabac</span>
-	        									</label>&nbsp; &nbsp; &nbsp;
+	            												<input type="checkbox" class="ace"  id="tabac" name="tabac" {{ ($atcd->tabac) ? "checked" :"" }} disabled /><span class="lbl" >&nbsp; &nbsp;tabac</span>
+	            												</label>&nbsp; &nbsp; &nbsp;
 													</div>
 												</div>
 											</div>
