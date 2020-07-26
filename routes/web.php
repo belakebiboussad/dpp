@@ -98,7 +98,7 @@ Route::get('/searchAssure','AssurController@search');
 route::get('/getsalles','SalleController@getsalles');
 Route::post('/exclinique/store/{id}','ExamenCliniqueController@store');
 Route::get('/consultations/create/{id}','ConsultationsController@create');
-Route::get('/listcons','ConsultationsController@listecons');//Route::get('/consultations/index/{id}','ConsultationsController@index');
+Route::get('/listcons/{id}','ConsultationsController@listecons');//Route::get('/consultations/index/{id}','ConsultationsController@index');
 Route::get('/patient/listerdv/{id}','PatientController@listerdv');
 Route::get('/atcd/create/{id}','AntecedantsController@create');
 Route::get('/atcd/index/{id}','AntecedantsController@index');
@@ -191,16 +191,12 @@ Route::get('rendezVous/create/{id?}','RDVController@index');
 Route::get('assur/patientAssuree/{id}','PatientController@create');
 
 Route::post('/addpatientAssure','PatientController@storePatient');
-/*
-Route::post('/addpatientAssure',function(){
-dd("dfsd");
-});
-*/
 Route::get('assur/patientAedit/{id}/{idA}','PatientController@edit');
 /************partie viste d'hospitalisation**************/
 Route::get('/delVisite/{id}', 'VisiteController@destroy')->name('visite.destroy');
 Route::get('/visite/create/{id}','VisiteController@create');
-Route::get('/patient/listecons/{id}','PatientController@listecons');
+//Route::get('/patient/listecons/{id}','PatientController@listecons');
+
 Route::post('/visite/store/{id}','VisiteController@store');
 Route::post('/surveillances/store/{id}','SurveillanceController@store');
 route::get('/getpatientvisite','PatientController@getpatientvisite');

@@ -49,11 +49,11 @@ $(document).on('click','.findptient',function(event){
 			   						{"targets": 4 ,  className: "dt-head-center" },
 			   						{"targets": 5 ,  className: "dt-head-center" },
 			   						{"targets": 6 ,	"orderable": false, className: "dt-head-center" },
-							 		  {"targets": 7 ,	"orderable": false, className: "dt-head-center" },
+							 		 {"targets": 7 ,	"orderable": false, className: "dt-head-center" },
 							 		  {"targets": 8 ,	"orderable":false,className: "dt-head-right dt-body-center",
 							  			"render": function(data,type,full,meta){
 									       if ( type === 'display' ) {
-											return  '<a href = "/patient/'+data.id+'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Selectionner le patieent"><i class="fa fa-hand-o-up fa-xs"></i></a>';
+											return  '<button value = "'+data.id+'" class="btn btn-success btn-xs " id="getConsults" data-toggle="tooltip" title="Selectionner le patieent"><i class="fa fa-hand-o-up fa-xs"></i></button>';
 							      }
 							      return data;	
 							    },
@@ -67,6 +67,12 @@ $(document).on('click','.findptient',function(event){
      			},
     		});	
 })
+$(document).on('click','#getConsults',function(event){
+	event.preventDefault();
+	var Patient_id = $(this).val();
+
+	alert(Patient_id);
+})
 </script>
 @endsection
 @section('main-content')
@@ -78,16 +84,16 @@ $(document).on('click','.findptient',function(event){
 			</div>
 			<div class="panel-body">
 				<div class="row">
-					<div class="col-sm-4">
-			      <div class="form-group">
-			       	<label class="control-label" for="patientName" ><strong>Nom:</strong></label>
+					<div class="col-sm-4 col-xs-4">
+			    			  <div class="form-group">
+			      				<label class="control-label" for="patientName" ><strong>Nom:</strong></label>
 							<div class="input-group">
 								<input type="text" class="form-control input-sx" id="patientName" name="patientName" placeholder="nom du patient..." autofocus/>
 								<span class="glyphicon glyphicon-search form-control-feedback"></span>
 					    </div>
 						</div>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-sm-4 col-xs-4">
 						<div class="form-group">
 							<label class="control-label" for="patientFirstName" ><strong>Prenom:</strong></label> 
 							<div class="input-group">
@@ -96,7 +102,7 @@ $(document).on('click','.findptient',function(event){
 			   			</div>		
 						</div>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-sm-4 col-xs-4">
 						<div class="form-group">
 							<label class="control-label" for="IPP" ><strong>IPP:</strong></label>
 							<div class="input-group">
@@ -112,8 +118,24 @@ $(document).on('click','.findptient',function(event){
 			</div>
 		</div>
 	</div>
-	<div class="col-sm-6">
+	<div class="col-sm-6 col-xs-6">
 		<table id="liste_patients" class="display table-responsive" width="100%"></table>
 	</div>
+</div>
+<div class="row">
+	<div class="ccol-sm-6 col-xs-6">
+		<table  id="example" class="table  table-bordered table-hover table-striped table-condensed table-responsive">
+				<thead>
+					<tr>
+						<th class="text-center" width="45%"><strong>Motif Consultation</strong></th>
+						<th class="text-center" width="15%">Date Consultation</th>
+						<th class="text-center" width="15%"><strong>Patient</strong></th>
+						<th class="text-center" width="15%">Médecine Traitant</th>
+						<th width="10%"></th>
+					</tr>
+				</thead>
+			</table>
+	</div>
+	<div class="ccol-sm-6">	</div>
 </div>
 @endsection
