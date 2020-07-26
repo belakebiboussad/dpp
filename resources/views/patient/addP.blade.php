@@ -24,14 +24,14 @@
 				      $(".starthidden").hide(250);
 				     	copyAssure();
 				    	break;
-		    		case "Ayant_droit":
+		    case "Ayant_droit":
 		     			$(':input','#addPAtient').not(':button, :submit, :reset, :hidden, :input[name=type],:input[name=sexe], :input[name=hommeConf]' ).val('').removeAttr('checked').removeAttr('selected');
 		    	  		$("#foncform").removeClass('hide');
 		        		$('#Type_p').attr('required', true);
 		        		$(".starthidden").hide(250);
 		        		$('.demograph').find('*').each(function () { $(this).attr("disabled", false); });
 		        		break;
-		    		case "Autre":
+		    case "Autre":
 		    			$(':input','#addPAtient').not(':button, :submit, :reset, :hidden, :input[name=type], :input[name=sexe], :input[name=hommeConf]').val('').removeAttr('checked').removeAttr('selected');
 		        		$(".starthidden").show(250);
 		        		$('.demograph').find('*').each(function () { $(this).attr("disabled", false); });
@@ -66,8 +66,7 @@
 @section('main-content')
 <div class="container-fluid">
   <div><h4>Ajouter un nouveau Patient</h4></div
-  <div class="row">{{-- {{ route('patient.store') }} --}}
-  <!--  -->
+  <div class="row">
   <form class="form-horizontal" id = "addPAtient" action="/addpatientAssure" method="POST" role="form" onsubmit="return checkFormAddPAtient(this);">
 	  	{{ csrf_field() }}
 	  	<input type="hidden" name="assure_id" value="{{ $assure->id }}">

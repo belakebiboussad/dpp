@@ -430,7 +430,8 @@
 					              <td>{{ $hom->num_piece }}</td>
 					              <td>{{ $hom->date_deliv }}</td>
 					              <td class="center nosort">
-					  							<button type="button" class="btn btn-xs btn-info open-modal" value="{{$hom->id}}" data-cmd="edit"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
+					             		<button type="button" class="btn btn-xs btn-success show-modal" value="{{ $hom->id }}" data-cmd="show"><i class="ace-icon fa fa-hand-o-up bigger-120"></i></button>
+					       					<button type="button" class="btn btn-xs btn-info open-modal" value="{{$hom->id}}" data-cmd="edit"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
                           <button type="button" class="btn btn-xs btn-danger delete-garde" value="{{$hom->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>
 					          		</td>
 					            </tr>

@@ -19,10 +19,6 @@
 	        	}	
 		});
 	}
-	function reset_in() 
-	{
-		$('#patientName').val('');$('#patientFirstName').val('');$('#IPP').val('');$('#Dat_Naissance').val('');
-	}
 	var values = new Array();
 	function doMerge()
 	{
@@ -114,9 +110,9 @@
 			name: 'patientprenom',
 			source: Firstnamebloodhound,
 			display: function(data) {
-				$('#btnCreate').removeClass('hidden')
-	                                $('#FusionButton').removeClass('hidden') 
-				return data.Prenom  //Input value to be set when you select a suggestion. 
+				$('#btnCreate').removeClass('hidden');
+	      $('#FusionButton').removeClass('hidden'); 
+				return data.Prenom;
 			},
 			templates: {
 					empty: [
@@ -172,10 +168,9 @@
 	       								{ data: 'Prenom', title:'Prenom' },
 	       								{ data: 'IPP', title:'IPP'},
 	       			  					{ data: 'Dat_Naissance', title:'Né(e) le' },
-									{ data: 'Sexe', title:'Sexe'}, 
-								  	//{ data: 'Type',title:'Type'},
-								       { data: 'Date_creation', title:'Créer le'},
-								       { data:null,title:'<em class="fa fa-cog"></em>', searchable: false }
+									{ data: 'Sexe', title:'Sexe'},//{ data: 'Type',title:'Type'}, 
+								  { data: 'Date_creation', title:'Créer le'},
+								  { data:null,title:'<em class="fa fa-cog"></em>', searchable: false }
 	  		   			],
 			   			"columnDefs": [
 			   						{"targets": 2 ,  className: "dt-head-center" },//nom
@@ -183,8 +178,7 @@
 			   						{"targets": 4 ,  className: "dt-head-center" },
 			   						{"targets": 5 ,  className: "dt-head-center" },
 			   						{"targets": 6 ,	"orderable": false, className: "dt-head-center" },
-							 		 {"targets": 7 ,	"orderable": false, className: "dt-head-center" },
-							 		// {"targets": 8 ,	"orderable": false, className: "dt-head-center" },
+							 		 {"targets": 7 ,	"orderable": false, className: "dt-head-center" },	// {"targets": 8 ,	"orderable": false, className: "dt-head-center" },
 							 		 {"targets": 8 ,	"orderable":false,className: "dt-head-right dt-body-center",
 							  			"render": function(data,type,full,meta){
 									       if ( type === 'display' ) {
@@ -266,7 +260,7 @@
 				</div>
 			</div>
 		</div>  {{-- body --}}
-		<div class="panel-footer" style="height: 50px;">{{-- onclick="XHRgetPatient();" --}}
+		<div class="panel-footer" style="height: 50px;">
 	   	<button type="submit" class="btn btn-xs btn-primary findptient " style="vertical-align: middle"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
 			<div class="pull-right">
 				<button type="button" class="btn btn-danger btn-sm hidden invisible" id="FusionButton"  onclick ="doMerge();"data-toggle="modal" data-target="#mergeModal" data-backdrop="false" hidden><i class="fa fa-angle-right fa-lg"></i><i class="fa fa-angle-left fa-lg"></i>&nbsp;Fusion</button>

@@ -374,7 +374,7 @@
 						              <th class ="center"><strong>Relation</strong></th>
 						              <th class ="center"><strong>Type Pièce</strong></th>
 						              <th class ="center"><strong>N°</strong></th>
-						              <th class ="center"><strong>date délevrance</strong></th>
+						              <th class ="center"><strong>Date délevrance</strong></th>
 						              <th class="nsort"><em class="fa fa-cog"></em></th>
 						            </tr>
 					            </thead>
@@ -392,6 +392,7 @@
 					              <td>{{ $hom->num_piece }}</td>
 					              <td>{{ $hom->date_deliv }}</td>
 					              <td class="center nosort">
+					             		<button type="button" class="btn btn-xs btn-success show-modal" value="{{ $hom->id }}" data-cmd="show"><i class="ace-icon fa fa-hand-o-up bigger-120"></i></button>
 					       					  <button type="button" class="btn btn-xs btn-info open-modal" value="{{$hom->id}}" data-cmd="edit"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
                             <button type="button" class="btn btn-xs btn-danger delete-garde" value="{{$hom->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>
 					          		</td>

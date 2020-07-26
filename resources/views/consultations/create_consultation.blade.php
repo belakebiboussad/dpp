@@ -342,30 +342,30 @@
 	                   ]
 		  });
 	  	jQuery('#btn-add, #AntFamil-add').click(function () {
-			 jQuery('#EnregistrerAntecedant').val("add");
-			 jQuery('#modalFormData').trigger("reset");
-			if(this.id == "AntFamil-add")
-    	  		{
-    	 			$("#EnregistrerAntecedant").attr('data-atcd','Famille'); 
-    	 			if(! ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
- 	   				jQuery('#modalFormData > #sous_type').addClass('hidden'); 
-    	  		}else{	
-    				$("#EnregistrerAntecedant").attr('data-atcd','Perso'); 
-    				if( ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
-    					jQuery('#modalFormData > #sous_type').removeClass('hidden'); 
-    			}
-    	  		jQuery('#antecedantModal').modal('show');
-	 	});	
-		jQuery('body').on('click', '.open-modal', function (event) {
-			var atcd_id = $(this).val();
-		 	$.get('/atcd/' + atcd_id, function (data) { 
-				 $('#atcd_id').val(data.id);
-				 if( ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
-    					jQuery('#modalFormData > #sous_type').removeClass('hidden');
+			  jQuery('#EnregistrerAntecedant').val("add");
+			  jQuery('#modalFormData').trigger("reset");
+				if(this.id == "AntFamil-add")
+    	  {
+		 			$("#EnregistrerAntecedant").attr('data-atcd','Famille'); 
+		 			if(! ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
+	   				jQuery('#modalFormData > #sous_type').addClass('hidden'); 
+		  	}else{	
+					$("#EnregistrerAntecedant").attr('data-atcd','Perso'); 
+						if( ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
+							jQuery('#modalFormData > #sous_type').removeClass('hidden'); 
+				}
+		  		jQuery('#antecedantModal').modal('show');
+		 	});	
+		  jQuery('body').on('click', '.open-modal', function (event) {
+				var atcd_id = $(this).val();
+				$.get('/atcd/' + atcd_id, function (data) { 
+				  $('#atcd_id').val(data.id);
+				  if( ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
+    				jQuery('#modalFormData > #sous_type').removeClass('hidden');
 				 	$('#typeAntecedant').val(data.typeAntecedant).change();
 				 	if(data.typeAntecedant   === 'Pathologiques')
 					{
-					  	$('#sstypeatcdc').val(data.stypeatcd).change();
+					  $('#sstypeatcdc').val(data.stypeatcd).change();
 					}
 				 	if(data.typeAntecedant   === 'Physiologiques')
 					{
