@@ -30,6 +30,7 @@ use App\modeles\exmnsrelatifdemande;
 use App\modeles\examenradiologique;
 use App\modeles\demandeexr;
 use Validator;
+use Response;
 class ConsultationsController extends Controller
 {
     protected $DemandeHospCTRL;
@@ -38,11 +39,10 @@ class ConsultationsController extends Controller
       $this->middleware('auth');
       $this->LettreOrientationCTRL = $LettreOrientationCtrl;
     }
-    public function index($id)
-    {
-        $patient = patient::FindOrFail($id);
-        $consultations = consultation::where("Patient_ID_Patient",$patient->id)->get()->all();
-        return view('consultations.index_consultation', compact('patient','consultations'));
+    public function index()
+    {  /*$patient = patient::FindOrFail($id); $consultations = consultation::where("Patient_ID_Patient",$patient->id)->get()->all(); return 
+       view('consultations.index_consultation', compact('patient','consultations'));*/
+                return view('consultations.index');
     }
     public function detailcons($id_cons)
     { 
@@ -51,20 +51,20 @@ class ConsultationsController extends Controller
     }
     public function detailconsXHR(Request $request)
    {
-      $consultation = consultation::FindOrFail($request->id);
-      $view =  view("consultations.inc_consult",compact('consultation'))->render();
-      return response()->json(['html'=>$view]);
+        $consultation = consultation::FindOrFail($request->id);
+        $view =  view("consultations.inc_consult",compact('consultation'))->render();
+        return response()->json(['html'=>$view]);
    }
-    public function listecons()
+    public function listecons($id)
     {
-      $consultations = []; 
-      if( null != request('q') )
-      {
-        $patient = patient::where('Nom', 'like', '%' . request('q') . '%')
-                          ->orwhere('Prenom', 'like', '%' . request('q') . '%')->paginate(5);
-        $consultations = $patient->first()->Consultations;
-      }
-      return view('consultations.liste_consultations', compact('consultations'));
+              $patient = patient::with('Consultations.docteur')->FindOrFail($id);
+              return Response::json($patient ->Consultations);
+         
+            /*
+            $consultations = []; 
+if( null != request('q') ) { $patient = patient::where('Nom', 'like', '%' . request('q') . '%') ->orwhere('Prenom', 'like', '%' . request('q') . '%')->paginate(5); $consultations = $patient->first()->Consultations;
+            }*/
+            return view('consultations.liste_consultations', compact('consultations'));
     }
     /**
      * Show the form for creating a new resource.

@@ -85,7 +85,7 @@
                     <b class="arrow"></b>
                 </li>
                 <li class="">
-                    <a href="/listcons">
+                    <a href="{{ route('consultations.index')}}">
                         <i class="menu-icon fa fa-eye pink"></i> Liste Consultations
                     </a>
                     <b class="arrow"></b>

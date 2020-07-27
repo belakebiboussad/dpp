@@ -99,7 +99,6 @@
         });
         return false;
 		});
-		//edit acte
 		$('body').on('click', '.open-modal', function () {
 				var acteID = $(this).val();
 			  $.get('/acte/'+acteID+'/edit', function (data) {

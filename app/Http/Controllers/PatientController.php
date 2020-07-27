@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use Jenssegers\Date\Date;
 use Yajra\DataTables\Facades\DataTables;
 use App\Utils\ArrayClass;
-/*
 use App\modeles\assur;
 use App\modeles\rdv;
 use App\modeles\consultation;
@@ -20,9 +19,7 @@ use App\modeles\Commune;
 use App\modeles\homme_conf;
 use App\modeles\antecedant;
 use App\modeles\ticket;
-*/
-use App\\modeles { assur, rdv, consultation,examenbiologique,DemandeHospitalisation,hospitalisation,Specialite,grade,Commune,homme_conf,antecedant,ticket };
-
+//use App\\modeles { assur, rdv, consultation,examenbiologique,DemandeHospitalisation,hospitalisation,Specialite,grade,Commune,homme_conf,antecedant,ticket };
 use Validator;
 use Redirect;
 use MessageBag;
@@ -568,7 +565,6 @@ class PatientController extends Controller
       return Response::json($patients);
     }
   }
-  // public function AutoCompletePatientname(Request $request)// {//return patient::where('Nom', 'LIKE', '%'.$request->q.'%')->get();//}
   public function getPatientDetails($id)
   { 
     $patient = patient::FindOrFail($id);
