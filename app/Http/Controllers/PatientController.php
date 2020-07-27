@@ -5,9 +5,11 @@ use App\modeles\patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Jenssegers\Date\Date;
+use Yajra\DataTables\Facades\DataTables;
+use App\Utils\ArrayClass;
+/*
 use App\modeles\assur;
 use App\modeles\rdv;
-use Yajra\DataTables\Facades\DataTables;
 use App\modeles\consultation;
 use App\modeles\examenbiologique;
 use App\modeles\DemandeHospitalisation;
@@ -15,10 +17,12 @@ use App\modeles\hospitalisation;
 use App\modeles\Specialite;
 use App\modeles\grade;
 use App\modeles\Commune;
-use App\Utils\ArrayClass;
 use App\modeles\homme_conf;
 use App\modeles\antecedant;
 use App\modeles\ticket;
+*/
+use App\\modeles { assur, rdv, consultation,examenbiologique,DemandeHospitalisation,hospitalisation,Specialite,grade,Commune,homme_conf,antecedant,ticket };
+
 use Validator;
 use Redirect;
 use MessageBag;
