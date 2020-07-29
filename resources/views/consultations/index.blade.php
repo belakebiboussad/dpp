@@ -71,16 +71,11 @@ $(document).on('click','#getConsults',function(event){
 	event.preventDefault();
 	var patient_id = $(this).val();
 	 $.get('/getConsultations/'+patient_id, function (data) {
-		// $.each(data,function(index, value){
-		// 	$.each(value,function(index, value){
-		// 		alert(index +':'+value);
-		// 	});
-		//  });
-    		 var consults = $("#consultList");
-  		consults.DataTable ({
+	 	  $("#patient").html(data[0].patient.Nom +" " + data[0].patient.Prenom);
+	   	$("#consultList").DataTable ({
 				"processing": true,
-			       "paging":   true,
-			       "destroy": true,
+			  "paging":   true,
+			  "destroy": true,
 				"ordering": true,
 				"searching":false,
 				"info" : false,
@@ -88,29 +83,41 @@ $(document).on('click','#getConsults',function(event){
 			 	"data" : data,
 			 	"columns": [
 			 					{ data:null,title:'#', "orderable": false,searchable: false,
-						    			render: function ( data, type, row ) {
-						                   		 if ( type === 'display' ) {
-						                        		return '<input type="checkbox" class="editor-active check"  value="'+data.id+'" onClick="" /><span class="lbl"></span> ';
-						                  		}
-						                   		 return data;
-						                	},
-						                	className: "dt-body-center",
+						    		render: function ( data, type, row ) {
+			                if ( type === 'display' ) {
+			                 		return '<input type="checkbox" class="editor-active check"  value="'+data.id+'" onClick=""/><span class="lbl"></span>';
+			                }
+			                return data;
+			              }
 								},
-			 					{ data:'id',title:'ID', "visible": false},
-			 					{ data: 'Motif_Consultation', title:'Motif' },
-			 					{ data: 'Date_Consultation', title:'Date' },
-			 					{ data:['docteur'] 'Nom_Employe', title:'Médecine Traitant' },
+								{ data: 'Date_Consultation', title:'Date' },
+			 					{ data: 'Motif_Consultation', title:'Motif',"orderable": false},
+			 					{ data: "docteur.Nom_Employe",
+            			render: function ( data, type, row ) {
+               			 return row.docteur.Nom_Employe + ' ' + row.docteur.Prenom_Employe;
+            			},
+            			title:'Médecine Traitant',"orderable": false
+        				},
+        				{ data:null,
+        					"render": function(data,type,full,meta){
+									  if ( type === 'display' ) {
+											return  '<a onclick ="showConsult('+data.id+');" style="cursor:pointer" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Résume du patient"><i class="fa fa-eye fa-xs"></i></a>'	;
+							      }
+							      return data;	
+							    },
+							    title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false }
 			 	],
 			 	"columnDefs": [
-			 		{"targets": 0,  className: "dt-head-center" },
-			 		{"targets": 2,  className: "dt-head-center" },
-			 		{"targets": 3,  className: "dt-head-center" },
-			 		{"targets": 4,  className: "dt-head-center" },
+						 		{"targets": 0,  className: "dt-head-center" },
+						 		{"targets": 1,  className: "dt-head-center" },
+						 		{"targets": 1,  className: "dt-head-center" },
+						 		{"targets": 3,  className: "dt-head-center" },
+						 		{"targets": 4 , className: "dt-head-center dt-body-center" } 
 			 	],
 	   });
-    	});
+		
+   });
 	})
-
 </script>
 @endsection
 @section('main-content')
@@ -161,19 +168,18 @@ $(document).on('click','#getConsults',function(event){
 	</div>
 </div>
 <div class="row">
-	<div class="ccol-sm-6 col-xs-6">
-		<table  id="consultList" class="table  table-bordered table-hover table-striped table-condensed table-responsive"  width="100%">
-				{{-- <thead>
-					<tr>
-						<th class="text-center" width="45%"><strong>Motif Consultation</strong></th>
-						<th class="text-center" width="15%">Date Consultation</th>
-						<th class="text-center" width="15%"><strong>Patient</strong></th>
-						<th class="text-center" width="15%">Médecine Traitant</th>
-						<th width="10%"></th>
-					</tr>
-				</thead> --}}
-			</table>
+	<div class="col-sm-6 col-xs-6">
+		<div class="widget-box transparent">
+			<div class="widget-header widget-header-flat widget-header-small">
+				<h5 class="widget-title">	<i class="ace-icon fa fa-user"> Lise des Consultations du <strong><span id="patient"></strong></span></i></h5>
+			</div>
+			<div class="widget-body">
+				<div class="widget-main no-padding">
+					<table  id="consultList" class="table  table-bordered table-hover table-striped table-condensed table-responsive"  width="100%"></table>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div class="ccol-sm-6">	</div>
+	<div class="col-sm-6"  id="consultDetail">	</div>
 </div>
 @endsection

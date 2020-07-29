@@ -323,7 +323,7 @@
           }
         });
       }
-      function showConsult(consultId, consult)
+      function showConsult(consultId)
       {
         url= '{{ route ("consultdetailsXHR", ":slug") }}',
         url = url.replace(':slug',consultId);

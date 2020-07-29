@@ -143,8 +143,7 @@
 		       success:function(data,status, xhr){
      			 	$(".numberResult").html(Object.keys(data).length);
      				reset_in();
-     				var patientList = $("#liste_patients");
-     				patientList.DataTable ({
+     				$("#liste_patients").DataTable ({
      					"processing": true,
 	  				  "paging":   true,
 	  				  "destroy": true,
@@ -165,12 +164,21 @@
 									},
 									{ data:'id',title:'ID', "visible": false},
 									{ data: 'Nom', title:'Nom' },
-	       								{ data: 'Prenom', title:'Prenom' },
-	       								{ data: 'IPP', title:'IPP'},
-	       			  					{ data: 'Dat_Naissance', title:'Né(e) le' },
+	       					{ data: 'Prenom', title:'Prenom' },
+	       					{ data: 'IPP', title:'IPP'},
+	       			  	{ data: 'Dat_Naissance', title:'Né(e) le' },
 									{ data: 'Sexe', title:'Sexe'},//{ data: 'Type',title:'Type'}, 
 								  { data: 'Date_creation', title:'Créer le'},
-								  { data:null,title:'<em class="fa fa-cog"></em>', searchable: false }
+								  { data:null,title:'<em class="fa fa-cog"></em>', searchable: false,
+								  	"render": function(data,type,full,meta){
+									    if ( type === 'display' ) {
+													return  '<a href = "/patient/'+data.id+'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter le dossier"><i class="fa fa-hand-o-up fa-xs"></i></a>'+
+															'&nbsp;<a href ="/patient/'+data.id+'/edit" class="btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs"></i></a>'+
+															 '&nbsp;<a onclick ="getPatientdetail('+data.id+')" style="cursor:pointer" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Résume du patient"><i class="fa fa-eye fa-xs"></i></a>'	;
+							      	}
+							      	return data;		
+								  	}
+								  }
 	  		   			],
 			   			"columnDefs": [
 			   						{"targets": 2 ,  className: "dt-head-center" },//nom
@@ -178,20 +186,10 @@
 			   						{"targets": 4 ,  className: "dt-head-center" },
 			   						{"targets": 5 ,  className: "dt-head-center" },
 			   						{"targets": 6 ,	"orderable": false, className: "dt-head-center" },
-							 		 {"targets": 7 ,	"orderable": false, className: "dt-head-center" },	// {"targets": 8 ,	"orderable": false, className: "dt-head-center" },
-							 		 {"targets": 8 ,	"orderable":false,className: "dt-head-right dt-body-center",
-							  			"render": function(data,type,full,meta){
-									       if ( type === 'display' ) {
-											return  '<a href = "/patient/'+data.id+'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter le dossier"><i class="fa fa-hand-o-up fa-xs"></i></a>'+
-															'&nbsp;<a href ="/patient/'+data.id+'/edit" class="btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs"></i></a>'+
-															 '&nbsp;<a onclick ="getPatientdetail('+data.id+')" style="cursor:pointer" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Résume du patient"><i class="fa fa-eye fa-xs"></i></a>'	;
-							      }
-							      return data;	
-							    },
-							    className: "dt-body-center",
-						    } 
+							 		  {"targets": 7 ,	"orderable": false, className: "dt-head-center" },
+							 		  {"targets": 8 ,	"orderable":false,  className: "dt-head-center dt-body-center"	},
 					   	],
-    					});
+    				});
      			},
      			error:function(){
      				console.log("error");

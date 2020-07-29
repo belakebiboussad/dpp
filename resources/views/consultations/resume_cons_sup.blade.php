@@ -1,25 +1,4 @@
 @extends('app')
-@section('page-script')
-{{-- <script type="text/javascript" src="{{asset('/js/jquery-2.1.4.min.js')}}"></script>
-<script src="{{ asset('/js/datatables.js') }}"></script> --}}
-<script type="text/javascript">
-	function showConsult(consultId, consult)
-  {
-  	 url= '{{ route ("consultdetailsXHR", ":slug") }}',
-     url = url.replace(':slug',consultId);
-     $.ajax({
-            type : 'GET',
-            url:url,
-            success:function(data,status, xhr){
-              $('#consultDetail').html(data.html);
-            },
-            error:function (data){
-			        console.log('Error:', data);
-			      }
-     });             
-  }
-</script>
-@stop
 @section('main-content')
 <div class="page-header">
 <h1><strong>Résumé  du Consultation Pour :</h1>
@@ -56,7 +35,7 @@
 				<span >{{$consult->docteur->service->nom}}</span>
 			</td>
 			<td class="center sorting_disabled"  width="8%">
-				<button class="btn btn-primary btn-xs" onclick="showConsult({{ $consult->id }},$(this));"> 
+				<button class="btn btn-primary btn-xs" onclick="showConsult({{ $consult->id }});"> 
 						  <i class="fa fa-hand-o-up"></i>
 			  </button>		 
 			</td>	

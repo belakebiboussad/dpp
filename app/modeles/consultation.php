@@ -8,7 +8,7 @@ class consultation extends Model
 {
     public $timestamps = false;
     protected $fillable =['isOriented','lettreorientaioncontent','Motif_Consultation','histoire_maladie','Date_Consultation','Diagnostic',
-                          'id_code_sim','Resume_OBS','Employe_ID_Employe','Patient_ID_Patient','id_lieu','modeAdmission'];
+                          'id_code_sim','Resume_OBS','Employe_ID_Employe','Patient_ID_Patient','id_lieu'];//modeAdmission
     public function docteur()
     {
         return $this->belongsTo('App\modeles\employ','Employe_ID_Employe');

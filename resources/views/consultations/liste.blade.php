@@ -32,7 +32,7 @@
 						<td class="center sorting_disabled">
 							<span >{{$consult->docteur->service->nom}}</span>
 						</td>
-						<td class="sorting_disabled">
+						<td class="center sorting_disabled">
 							<button class="btn btn-primary btn-xs" onclick="showConsult({{ $consult->id }},$(this));"> 
 									  <i class="fa fa-hand-o-up"></i>
 						  </button>		 

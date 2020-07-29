@@ -57,14 +57,8 @@ class ConsultationsController extends Controller
    }
     public function listecons($id)
     {
-              $patient = patient::with('Consultations.docteur')->FindOrFail($id);
-              return Response::json($patient ->Consultations);
-         
-            /*
-            $consultations = []; 
-if( null != request('q') ) { $patient = patient::where('Nom', 'like', '%' . request('q') . '%') ->orwhere('Prenom', 'like', '%' . request('q') . '%')->paginate(5); $consultations = $patient->first()->Consultations;
-            }*/
-            return view('consultations.liste_consultations', compact('consultations'));
+      $patient = patient::with('Consultations.docteur','Consultations.patient')->FindOrFail($id);
+      return Response::json($patient ->Consultations);
     }
     /**
      * Show the form for creating a new resource.
