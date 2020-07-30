@@ -15,24 +15,24 @@ $(document).on('click','.findptient',function(event){
      				var patientList = $("#liste_patients");
      				patientList.DataTable ({
      					"processing": true,
-	  				"paging":   true,
-	  				"destroy": true,
-	  				 "bLengthChange": false,
-	  				"pageLength": 4,
-	  				"ordering": true,
+	  					"paging":   true,
+	  					"destroy": true,
+	  				 	"bLengthChange": false,
+	  					"pageLength": 4,
+	  					"ordering": true,
 	    				"searching":false,
 	    				"info" : false,
 	    				"language":{"url": '/localisation/fr_FR.json'},
-	   	 		    	"data" : data,
-		        			"columns": [
-							{ data:null,title:'#', "orderable": false,searchable: false,
+	   	 		    "data" : data,
+		        	"columns": [
+								{ data:null,title:'#', "orderable": false,searchable: false,
 					    			render: function ( data, type, row ) {
-						                   		 if ( type === 'display' ) {
-							                        	return '<input type="checkbox" class="editor-active check" name="fusioner[]" value="'+data.id+'" onClick="return KeepCount()" /><span class="lbl"></span> ';
-						                  		}
-						                   		 return data;
-						                	},
-						                	className: "dt-body-center",
+						      		if ( type === 'display' ) {
+                       	return '<input type="checkbox" class="editor-active check" name="" value="'+data.id+'" onClick="" /><span class="lbl"></span> ';
+              	 			}
+                   	  return data;
+			              },
+			              className: "dt-body-center",
 									},
 									{ data:'id',title:'ID', "visible": false},
 									{ data: 'Nom', title:'Nom' },
@@ -81,7 +81,7 @@ $(document).on('click','#getConsults',function(event){
 				"info" : false,
 				"language":{"url": '/localisation/fr_FR.json'},
 			 	"data" : data,
-			 	"columns": [
+			  "columns": [
 			 					{ data:null,title:'#', "orderable": false,searchable: false,
 						    		render: function ( data, type, row ) {
 			                if ( type === 'display' ) {
@@ -98,6 +98,7 @@ $(document).on('click','#getConsults',function(event){
             			},
             			title:'Médecine Traitant',"orderable": false
         				},
+        				{ data: 'docteur.service.nom', title:'Service',"orderable": false},
         				{ data:null,
         					"render": function(data,type,full,meta){
 									  if ( type === 'display' ) {
@@ -109,10 +110,11 @@ $(document).on('click','#getConsults',function(event){
 			 	],
 			 	"columnDefs": [
 						 		{"targets": 0,  className: "dt-head-center" },
-						 		{"targets": 1,  className: "dt-head-center" },
+						 		{"targets": 1,  className: "dt-head-center"},
 						 		{"targets": 1,  className: "dt-head-center" },
 						 		{"targets": 3,  className: "dt-head-center" },
-						 		{"targets": 4 , className: "dt-head-center dt-body-center" } 
+						 		{"targets": 4,  className: "dt-head-center" },
+						 		{"targets": 5 , className: "dt-head-center dt-body-center" } 
 			 	],
 	   });
 		
@@ -122,64 +124,24 @@ $(document).on('click','#getConsults',function(event){
 @endsection
 @section('main-content')
 <div class="row">
-	<div class="col-sm-6">
-		<div class="panel panel-default">
-			<div class="panel-heading left" style="height: 40px;">
-				<strong>Rechercher un Patient</strong>
-			</div>
-			<div class="panel-body">
-				<div class="row">
-					<div class="col-sm-4 col-xs-4">
-			    			  <div class="form-group">
-			      				<label class="control-label" for="patientName" ><strong>Nom:</strong></label>
-							<div class="input-group">
-								<input type="text" class="form-control input-sx" id="patientName" name="patientName" placeholder="nom du patient..." autofocus/>
-								<span class="glyphicon glyphicon-search form-control-feedback"></span>
-					    </div>
-						</div>
-					</div>
-					<div class="col-sm-4 col-xs-4">
-						<div class="form-group">
-							<label class="control-label" for="patientFirstName" ><strong>Prenom:</strong></label> 
-							<div class="input-group">
-						  	<input type="text" class="form-control input-sx" id="patientFirstName" name="patientFirstName"  placeholder="prenom du patient..."> 
-						  	<span class="glyphicon glyphicon-search form-control-feedback"></span>
-			   			</div>		
-						</div>
-					</div>
-					<div class="col-sm-4 col-xs-4">
-						<div class="form-group">
-							<label class="control-label" for="IPP" ><strong>IPP:</strong></label>
-							<div class="input-group">
-								<input type="text" class="form-control input-sx tt-input" id="IPP" name="IPP"  placeholder="IPP du patient..." data-toggle="tooltip" data-placement="left" title="Code IPP du patient">
-					   	  <span class="glyphicon glyphicon-search form-control-feedback"></span>
-							</div>		
-						</div>		
-					</div>
-				</div>
-			</div>
-			<div class="panel-footer" style="height: 50px;">
-		   	<button type="submit" class="btn btn-xs btn-primary findptient " style="vertical-align: middle"><i class="fa fa-search"></i>&nbsp;Rechercher</button>		
-			</div>
-		</div>
+	@include('consultations.findPatient')
 	</div>
-	<div class="col-sm-6 col-xs-6">
-		<table id="liste_patients" class="display table-responsive" width="100%"></table>
-	</div>
-</div>
 <div class="row">
-	<div class="col-sm-6 col-xs-6">
-		<div class="widget-box transparent">
-			<div class="widget-header widget-header-flat widget-header-small">
-				<h5 class="widget-title">	<i class="ace-icon fa fa-user"> Lise des Consultations du <strong><span id="patient"></strong></span></i></h5>
-			</div>
-			<div class="widget-body">
-				<div class="widget-main no-padding">
-					<table  id="consultList" class="table  table-bordered table-hover table-striped table-condensed table-responsive"  width="100%"></table>
+	<div class="col-sm-12">	
+		<div class="col-sm-6 col-xs-6">
+			<div class="widget-box transparent">
+				<div class="widget-header widget-header-flat widget-header-small">
+					<h5 class="widget-title">	<i class="ace-icon fa fa-user"></i> Lise des Consultations du <cite><strong><span id="patient"></strong></span></cite></h5>
+				</div>
+				<div class="widget-body">
+					<div class="widget-main no-padding">
+						<table id="consultList" class="table table-bordered table-hover table-striped table-condensed table-responsive"  width="100%"></table>
+					</div>
 				</div>
 			</div>
 		</div>
+		<div class="col-sm-6"  id="consultDetail"></div>
 	</div>
-	<div class="col-sm-6"  id="consultDetail">	</div>
+	</div><!-- / -->
 </div>
 @endsection

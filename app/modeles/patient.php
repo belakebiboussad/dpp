@@ -40,6 +40,7 @@ class patient extends Model
  	public function Consultations()
  	{
  		 return $this->hasMany('App\modeles\consultation','Patient_ID_Patient');
+
  	}
  	public function rdvs()
  	{

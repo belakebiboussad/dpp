@@ -129,7 +129,13 @@
                 </li>
                 <li class="">
                     <a href="{{ route('rdv.index') }}">
-                        <i class="menu-icon fa fa-eye pink"></i>Liste des RDVs
+                        <i class="menu-icon fa fa-eye pink"></i>Liste RDVs
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                 <li class="">
+                    <a href="">
+                        <i class="menu-icon fa fa-eye pink"></i>Planning
                     </a>
                     <b class="arrow"></b>
                 </li>

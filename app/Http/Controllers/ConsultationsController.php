@@ -40,9 +40,8 @@ class ConsultationsController extends Controller
       $this->LettreOrientationCTRL = $LettreOrientationCtrl;
     }
     public function index()
-    {  /*$patient = patient::FindOrFail($id); $consultations = consultation::where("Patient_ID_Patient",$patient->id)->get()->all(); return 
-       view('consultations.index_consultation', compact('patient','consultations'));*/
-                return view('consultations.index');
+    { 
+      return view('consultations.index');
     }
     public function detailcons($id_cons)
     { 
@@ -57,8 +56,10 @@ class ConsultationsController extends Controller
    }
     public function listecons($id)
     {
-      $patient = patient::with('Consultations.docteur','Consultations.patient')->FindOrFail($id);
+      $patient = patient::with('Consultations.patient','Consultations.docteur','Consultations.docteur.service')->FindOrFail($id);
+      
       return Response::json($patient ->Consultations);
+      
     }
     /**
      * Show the form for creating a new resource.
@@ -67,18 +68,18 @@ class ConsultationsController extends Controller
      */
     public function create(Request $request,$id_patient)
     {
-       $employe=Auth::user()->employ;
-       $modesAdmission = config('settings.ModeAdmissions') ;
-       $patient = patient::FindOrFail($id_patient);
-       $codesim = codesim::all();// $lieus = Lieuconsultation::all(); 
-       $services = service::all();
-       $meds = User::where('role_id',1)->get()->all(); 
-       $specialites = Specialite::orderBy('nom')->get();
-       $specialitesExamBiolo = specialite_exb::all();
-       $infossupp = infosupppertinentes::all();
-       $examens = exmnsrelatifdemande::all();//CT,RMN
-       $examensradio = examenradiologique::all();//pied,poignet
-       return view('consultations.create_consultation',compact('patient','employe','codesim','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp','examens','examensradio'));
+      $employe=Auth::user()->employ;
+      $modesAdmission = config('settings.ModeAdmissions') ;
+      $patient = patient::FindOrFail($id_patient);
+      $codesim = codesim::all();// $lieus = Lieuconsultation::all(); 
+      $services = service::all();
+      $meds = User::where('role_id',1)->get()->all(); 
+      $specialites = Specialite::orderBy('nom')->get();
+      $specialitesExamBiolo = specialite_exb::all();
+      $infossupp = infosupppertinentes::all();
+      $examens = exmnsrelatifdemande::all();//CT,RMN
+      $examensradio = examenradiologique::all();//pied,poignet
+      return view('consultations.create_consultation',compact('patient','employe','codesim','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp','examens','examensradio'));
     }
     /**
      * Store a newly created resource in storage.
@@ -188,10 +189,10 @@ class ConsultationsController extends Controller
      */
     public function show($id)
     {
-            $consultation = consultation::FindOrFail($id);
-            $patient = patient::FindOrFail($consultation->Patient_ID_Patient);
-            $antecedants = antecedant::where('Patient_ID_Patient',$patient->id)->get();
-            return view('consultations.show_consultation', compact('consultation','patient','antecedants'));
+      $consultation = consultation::FindOrFail($id);
+      $patient = patient::FindOrFail($consultation->Patient_ID_Patient);
+      $antecedants = antecedant::where('Patient_ID_Patient',$patient->id)->get();
+      return view('consultations.show_consultation', compact('consultation','patient','antecedants'));
     }
 
     /**
@@ -218,7 +219,6 @@ class ConsultationsController extends Controller
     public function destroy(consultation $consultation){}
     public function choix()
     {
-        $patients = patient::all();
-        return view('consultations.choix_patient',compact('patients'));
+       return view('consultations.add');
     } 
 }
