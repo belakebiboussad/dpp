@@ -34,62 +34,70 @@
     {
       margin-bottom: 10px;
     }
+      .mt-15{
+        margin-top:-15px;
+    }
+    .mt-20{
+      margin-top:-20px;
+    }
+    .foo{
+      position: absolute;
+      top: 90%;
+      right: 22%;
+    }
   </style>
 </head>
 <body>
 <div class="container-fluid">
-  <h3 class="center">DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</h3>
-  <h4 class="center">ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE</h4>
+  <h2 class="mt-20 center">DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</h2>
+  <h4 class="center">ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</h4>
   <h4 class="center">Chemin des Glycines - ALGER</h4>
   <h4 class="center">Tél : 23-93-34</h4>
+  <h5 class="mt-15 center" ><img src="{{ storage_path('app/public/logo.png') }}" style="width: 60px; height: 60px" alt="logo"/></h5>
+  <h5 class="mt-20 center">
+    <span style="font-size: xx-large;"><strong>Demande d'examens radiologiques</strong></span>
+  </h5> 
   <br><br>
-  <div class="center">
-    <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($demande->consultation->patient->IPP, 'C128')}}" alt="barcode" />
-  </div>
-  <br><br>
-  <div class="page-header" width="100%">
-   <div class="row">
+  <div class="row">
     <div class="col-sm-12">
-      <div class="widget-box">
-        <div class="widget-body">
-          <div class="widget-main">
-            <label class="inline">
-            <span class="blue"><strong>Nom :</strong></span>
-            <span class="lbl"> {{ $demande->consultation->patient->Nom }}</span>
-          </label>
-          &nbsp;&nbsp;&nbsp;
-          <label class="inline">
-            <span class="blue"><strong>Prénom :</strong></span>
-            <span class="lbl"> {{ $demande->consultation->patient->Prenom }}</span>
-          </label>
-          &nbsp;&nbsp;&nbsp;
-          <label class="inline">
-            <span class="blue"><strong>Sexe :</strong></span>
-            <span class="lbl"> {{ $demande->consultation->patient->Sexe == "M" ? "Masculin" : "Féminin" }}</span>
-          </label>
-          &nbsp;&nbsp;&nbsp;
-          <label class="inline">
-            <span class="blue"><strong>Date Naissance :</strong></span>
-            <span class="lbl"> {{ $demande->consultation->patient->Dat_Naissance }}</span>
-          </label>
-          &nbsp;&nbsp;&nbsp;
-          <label class="inline">
-            <span class="blue"><strong>Age :</strong></span>
-            <span class="lbl"> {{ $demande->consultation->patient->getAge() }} ans</span>
-          </label>
-          </div>
+      <div class="section">
+        <div class="sec-droite">
+          <b><u>Fait le:</u></b> {{ $demande->Date  }}.
         </div>
       </div>
     </div>
   </div>
-  </div> <!-- page-header -->
+  <br><br>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="section">
+        <div class="sec-gauche">
+          <b><u>Patient(e) :</u></b> 
+          <b> {{ $demande->consultation->patient->getCivilite() }} </b> 
+          {{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }},
+          &nbsp;
+          {{ $demande->consultation->patient->getAge() }} ans,{{ $demande->consultation->patient->Sexe }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <br><br>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="section">
+        <div class="sec-gauche">
+            <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($demande->consultation->patient->IPP, 'C128')}}" alt="barcode" />
+            <br>
+            {{ $demande->consultation->patient->IPP }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <br><br><br>
   <div class="content">
     <div class="col-sm-12">
       <div class="col-xs-12 widget-container-col" id="consultation">
         <div class="widget-box" id="infopatient">
-          <div class="widget-header">
-            <h4 class="widget-title center "><b>Demande d'examens radiologiques</b></h4>
-          </div>
           <div class="widget-body">
             <div class="widget-main">
               <div class="row">
@@ -149,6 +157,16 @@
         </div>
       </div>
   </div>
+  </div>
+  </div>
+  <div class="row foo">
+    <div class="col-sm-12">
+      <div class="section">
+        <div class="sec-droite">
+          <span><strong> Docteur :</strong> {{ Auth::user()->employ->Nom_Employe }} {{ Auth::user()->employ->Prenom_Employe }}</span>
+        </div>
+      </div>
+    </div>
   </div>
 </div><!-- container-fluid -->
 </body>

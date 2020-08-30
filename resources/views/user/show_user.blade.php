@@ -63,7 +63,7 @@
 				</div>
 				<div class="col-xs-12 col-sm-4">
 					<div class="form-group">
-						<label class="col-sm-4 control-label no-padding-right" for="nom"><b>Sexe</b></label>
+						<label class="col-sm-4 control-label no-padding-right" for="nom"><b>Genre</b></label>
 						<div class="col-sm-8">
 							<label class="blue">{{ $employe->Sexe_Employe == "M" ? "Masculin" : "Féminin" }}</label>
 						</div>

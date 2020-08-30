@@ -165,7 +165,7 @@
 								<th>Nom</th>
 								<th>Prénom</th>
 								<th>Date Naissance</th>
-								<th>Sexe</th>
+								<th>Genre</th>
 								<th>Age</th>
 								<th>Civilité</th>
 								<th>Type</th>

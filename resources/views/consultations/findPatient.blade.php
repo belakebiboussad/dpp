@@ -28,7 +28,7 @@
 						<div class="form-group">
 							<label class="control-label" for="IPP" ><strong>IPP:</strong></label>
 							<div class="input-group">
-								<input type="text" class="form-control input-sx tt-input" id="IPP" name="IPP"  placeholder="IPP du patient..." data-toggle="tooltip" data-placement="left" title="Code IPP du patient">
+								<input type="text" class="form-control input-sx" id="IPP" name="IPP"  placeholder="IPP du patient..." data-toggle="tooltip" data-placement="left">
 					   	  <span class="glyphicon glyphicon-search form-control-feedback"></span>
 							</div>		
 						</div>		

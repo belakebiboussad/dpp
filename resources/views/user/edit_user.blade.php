@@ -52,7 +52,7 @@
 			<div class="form-group {{ $errors->has('sexe') ? "has-error" : "" }}">
 			<br>
 				<div class="col-sm-3 ml-auto align-top">
-				<label class="inline control-label pull-right" style="padding-top: 0px;"><b>Sexe:</b></label>
+				<label class="inline control-label pull-right" style="padding-top: 0px;"><b>Genre:</b></label>
 				</div>		  
 				<div class="col-sm-9">
 					<label class="inline">

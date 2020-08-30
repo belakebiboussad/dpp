@@ -56,9 +56,9 @@
 								</b>
 							</li>
 							<li>
-							<i class="ace-icon fa fa-caret-right blue">	       </i><strong>Sexe :</strong>
+							<i class="ace-icon fa fa-caret-right blue"></i><strong>Genre :</strong>
 								<b class="blue">
-								{{App\modeles\patient::where("id",$rdv->Patient_ID_Patient)->get()->first()->Sexe =="M" ? "Homme" : "Femme"}}
+								{{App\modeles\patient::where("id",$rdv->Patient_ID_Patient)->get()->first()->Sexe =="M" ? "Masculin" : "Féminin"}}
 												</b>
 							</li>
 							<li>

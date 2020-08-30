@@ -122,7 +122,7 @@ class DemandeExbController extends Controller
         $demandesexb = demandeexb::where('etat','E')->get();
         return view('examenbio.liste_demande_exb', compact('demandesexb'));
     }
-    public function show_demande_exb($id)
+    public function print($id)
     {
         $demande = demandeexb::FindOrFail($id);
         $pdf = PDF::loadView('examenbio.demande_exb', compact('demande'));

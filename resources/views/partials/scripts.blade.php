@@ -528,69 +528,19 @@ $('#typeexm').on('change', function() {
       var string = lettre.output('datauristring');
       $('#lettreorientation').attr('src', string);
   }
-    var createPDF = function(imgData,nompatient,dateNaiss,ipp,age,sexe,nommedcin) {
-      moment.locale('fr');var formattedDate = moment(new Date()).format("l");
-      var doc = new jsPDF('p', 'pt', 'a5');//var pdf_name = 'Ordonnance-'+nompatient+'.pdf'; doc.setFontSize(12);
-      doc.setFontSize(14);
-      doc.text(212,25, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
-      doc.text(213,40, 'HOPITAL CENTRAL DE LA SÛRETE NATIONALE "LES GLYCINES"', null, null, 'center');
-      doc.text(213,57, '12, Chemin des Glycines - ALGER', null, null, 'center');
-      var text = 'Tél : 23-93-34 - 23-93-58',
-      xOffset = (doc.internal.pageSize.width / 2) - (doc.getStringUnitWidth(text) * doc.internal.getFontSize() / 2); 
-      doc.text(text, xOffset, 73); //doc.text(213,73, 'Tél : 23-93-34 - 23-93-58', null, null, 'center');
-      doc.addImage(imgData, 'JPEG', 190, 75, 60, 60, 'monkey');            
-      doc.setDrawColor(0, 0, 255);       //doc.line(20, 25, 60, 25);
-      doc.line(0, 138, 500, 138);
-      doc.setFontType("bold");doc.setFontSize(22); 
-      var text = 'Ordonnance',
-      xOffset = (doc.internal.pageSize.width / 2) - (doc.getStringUnitWidth(text) * doc.internal.getFontSize() / 2); 
-      doc.text(text, xOffset, 165);
-      doc.setFontSize(12);doc.setFontType("normal");
-       doc.text(418,195, 'Faite le :'+formattedDate, null, null, 'right'); 
-      doc.text(150,225, 'Patient(e) : '+nompatient + ', Age: '+age+'(ans )'+', Sexe: '+sexe, null, null, 'center');
-      doc.text(60,245, 'IPP : '+ipp, null, null, 'center');
-      doc.setFontSize(12);
-      var arrayLignes = document.getElementById("ordonnance").rows;var x = 0;
-      for(var i=1; i< arrayLignes.length; i++)
-      {
-          doc.setFontType("bold");
-          doc.text(40,260+(i*(27)),i+ "-  " + " " +arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML+" "+arrayLignes[i].cells[3].innerHTML , null, null); //+ arrayLignes[i].cells[1].innerHTML
-          doc.setFontType("normal");doc.setFontSize(10);
-          doc.text(55,260+(i*(27)+13),"   " + arrayLignes[i].cells[5].innerHTML, null, null); //doc.text(35,240+(i*(20)),"   " + arrayLignes[i].cells[5].innerHTML, null, null);             
-          x = 238+i*(27);                   
-      }
-      doc.setFontSize(12);
-      doc.text(240,560, 'Docteur : '+nommedcin, null, null);//doc.text(230,600,ipp, null, null );
-      var string = doc.output('datauristring');  
-      $('#ordpdf').attr('src', string); //doc.save(pdf_name);//
-           
-        }       
-        var getImageFromUrl = function(url, callback,nompatient,dateNaiss,ipp,age,sexe,nommedcin) {
-            var img = new Image();
-            img.onError = function() { 
-                alert('Cannot load image: "'+url+'"');
-            };
-            img.onload = function() {
-                callback(img,nompatient,dateNaiss,ipp,age,sexe,nommedcin);
-            };
-            img.src = url;
-        }
-        function createord(nompatient,dateNaiss,ipp,age,sexe,nommedcin) {
-          getImageFromUrl('http://localhost:8000/img/logo.png', createPDF,nompatient,dateNaiss,ipp,age,sexe,nommedcin);
-        }
-        function storeord()
-        {   
-                var arrayLignes = document.getElementById("ordonnance").rows;
-                var longueur = arrayLignes.length;
-                var tab = [];
-                for(var i=1; i<longueur; i++)
-                {
-                   tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;
-                }
-                var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");
-                champ.appendTo('#ordonnace_form');
-                $('#ordonnace_form').submit();
-        }
+  function storeord()
+  {   
+    var arrayLignes = document.getElementById("ordonnance").rows;
+    var longueur = arrayLignes.length;
+    var tab = [];
+    for(var i=1; i<longueur; i++)
+    {
+       tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;
+    }
+    var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");
+    champ.appendTo('#ordonnace_form');
+    $('#ordonnace_form').submit();
+  }
         function createexbio(nomp,prenomp,age){      
                      var exbio = new jsPDF();
                      var d = new Date();

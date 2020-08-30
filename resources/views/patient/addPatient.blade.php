@@ -46,8 +46,8 @@
 			<label class="col-sm-3 control-label" for="sexe"><strong>Genre :</strong></label>
 			<div class="col-sm-9">
 				<div class="radio">
-					<label><input name="sexe" value="M" type="radio" class="ace" checked /><span class="lbl"> Homme</span></label>
-					<label><input name="sexe" value="F" type="radio" class="ace" /><span class="lbl"> Femme</span></label>
+					<label><input name="sexe" value="M" type="radio" class="ace" checked /><span class="lbl"> Masculin</span></label>
+					<label><input name="sexe" value="F" type="radio" class="ace" /><span class="lbl"> Féminin</span></label>
 				</div>
 			</div>	
 		</div>

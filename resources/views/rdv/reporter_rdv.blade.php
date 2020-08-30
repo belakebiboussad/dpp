@@ -30,7 +30,7 @@
 										<span class="blue">{{ $patient->Lieu_Naissance }}</span>
 									</label>
 									&nbsp;&nbsp;&nbsp;&nbsp;
-									<label><b>Sexe : </b>
+									<label><b>Genre : </b>
 										<span class="blue">{{ $patient->Sexe == "M" ? "Masculin" : "Féminin" }}</span>
 									</label>
 									&nbsp;&nbsp;&nbsp;&nbsp;

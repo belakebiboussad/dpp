@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Ordonnance</title>
-	<meta charset="utf-8">
+		<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
   	<style type="text/css">
 		table 
@@ -49,7 +49,7 @@
 </head>
 <body>
 <div class="container-fluid">
-	<h3 class="mt-20 center">DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</h3>
+	<h2 class="mt-20 center">DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</h2>
 	<h4 class="center">ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</h4>
 	<h4 class="center">Chemin des Glycines - ALGER</h4>
 	<h4 class="center">Tél : 23-93-34</h4>
@@ -94,13 +94,13 @@
 		</div>
 	</div>
 	<br><br>
-	.<div class="row">
+	<div class="row">
 		<div class="col-sm-12">
 			<br>
 			<ol>
 				@foreach($ordonnance->medicamentes as $index => $med)
 					<li>
-						{{ $med->Nom_com }} {{ $med->Dosage }} {{ $med->Forme }}&nbsp;&nbsp; 
+						{{ $med->Nom_com }} {{ $med->Dosage }} {{ $med->Forme }}<br>
 						{{ $med->pivot->posologie }}.
 					</li>
 					<br><br>

@@ -54,9 +54,9 @@
 							</li>
 							<li>
 				       			<i class="ace-icon fa fa-caret-right blue"></i>
-				       			<strong>Sexe  :</strong> 
+				       			<strong>Genre  :</strong> 
 				       			<label class="blue">
-				       			{{ $employe->Sexe_Employe == "M" ? 'Homme ' : 'Femme' }} <i class="fas fa-address-book"></i>
+				       			{{ $employe->Sexe_Employe == "M" ? 'Masculin' : 'Féminin' }} <i class="fas fa-address-book"></i>
 								</label>
 							</li>
 							@if( $employe->Service_Employe  != null)

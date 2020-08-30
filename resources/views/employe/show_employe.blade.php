@@ -17,9 +17,9 @@
 				</div>
 		</div>
 		<div class="profile-info-row">
-			<div class="profile-info-name"> Sexe </div>
+			<div class="profile-info-name"> Genre </div>
 				<div class="profile-info-value">
-					<span class="editable" id="username">{{ $employe->Sexe_Employe == "M" ? 'Homme' : 'Femme' }}</span>
+					<span class="editable" id="username">{{ $employe->Sexe_Employe == "M" ? 'Masculin' : 'Féminin' }}</span>
 				</div>
 		</div>
 		<div class="profile-info-row">

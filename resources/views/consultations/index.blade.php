@@ -39,7 +39,7 @@ $(document).on('click','.findptient',function(event){
 	       					{ data: 'Prenom', title:'Prenom' },
 	       					{ data: 'IPP', title:'IPP', "orderable": false},
 	       			  	{ data: 'Dat_Naissance', title:'Né(e) le' },
-									{ data: 'Sexe', title:'Sexe'},
+									{ data: 'Sexe', title:'Genre'},
 								  { data: 'Date_creation', title:'Créer le'},
 								  { data:null,title:'<em class="fa fa-cog"></em>', searchable: false }
 	  		   			],
@@ -71,54 +71,65 @@ $(document).on('click','#getConsults',function(event){
 	event.preventDefault();
 	var patient_id = $(this).val();
 	 $.get('/getConsultations/'+patient_id, function (data) {
-	 	  $("#patient").html(data[0].patient.Nom +" " + data[0].patient.Prenom);
-	   	$("#consultList").DataTable ({
-				"processing": true,
-			  "paging":   true,
-			  "destroy": true,
-				"ordering": true,
-				"searching":false,
-				"info" : false,
-				"language":{"url": '/localisation/fr_FR.json'},
-			 	"data" : data,
-			  "columns": [
-			 					{ data:null,
-			 						render: function ( data, type, row ) {
-			              if ( type === 'display' ) {
-			             		return '<input type="checkbox" class="editor-active check"  value="'+data.id+'" onClick=""/><span class="lbl"></span>';
-			              }
-			              return data;
-			            },
-			            title:'#', "orderable":false,searchable: false
-								},
-								{ data: 'Date_Consultation', title:'Date' },
-			 					{ data: 'Motif_Consultation', title:'Motif',"orderable": false},
-			 					{ data: "docteur.Nom_Employe",
-            			render: function ( data, type, row ) {
-               			 return row.docteur.Nom_Employe + ' ' + row.docteur.Prenom_Employe;
-            			},
-            			title:'Médecine Traitant',"orderable": false
-        				},
-        				{ data: 'docteur.service.nom', title:'Service',"orderable": false},
-        				{ data:null,
-        					"render": function(data,type,full,meta){
-									  if ( type === 'display' ) {
-											return  '<a onclick ="showConsult('+data.id+');" style="cursor:pointer" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Résume du patient"><i class="fa fa-eye fa-xs"></i></a>'	;
-							      }
-							      return data;	
-							    },
-							    title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false }
-			 	],
-			 	"columnDefs": [
-						 		{"targets": 0,  className: "dt-head-center"},
-						 		{"targets": 1,  className: "dt-head-center"},
-						 		{"targets": 1,  className: "dt-head-center" },
-						 		{"targets": 3,  className: "dt-head-center" },
-						 		{"targets": 4,  className: "dt-head-center" },
-						 		{"targets": 5 , className: "dt-head-center dt-body-center" } 
-			 	],
-	   });
-		
+	 	  if(data.length != 0)
+	 	  {
+	 	  	$("#patient").html(data[0].patient.Nom +" " + data[0].patient.Prenom);
+		   	$("#consultList").DataTable ({
+					"processing": true,
+				  "paging":   true,
+				  "destroy": true,
+					"ordering": true,
+					"searching":false,
+					"info" : false,
+					"language":{"url": '/localisation/fr_FR.json'},
+				 	"data" : data,
+				  "columns": [
+				 					{ data:null,
+				 						render: function ( data, type, row ) {
+				              if ( type === 'display' ) {
+				             		return '<input type="checkbox" class="editor-active check"  value="'+data.id+'" onClick=""/><span class="lbl"></span>';
+				              }
+				              return data;
+				            },
+				            title:'#', "orderable":false,searchable: false
+									},
+									{ data: 'Date_Consultation', title:'Date' },
+				 					{ data: 'Motif_Consultation', title:'Motif',"orderable": false},
+				 					{ data: "docteur.Nom_Employe",
+	            			render: function ( data, type, row ) {
+	               			 return row.docteur.Nom_Employe + ' ' + row.docteur.Prenom_Employe;
+	            			},
+	            			title:'Médecine Traitant',"orderable": false
+	        				},
+	        				{ data: 'docteur.service.nom', title:'Service',"orderable": false},
+	        				{ data:null,
+	        					"render": function(data,type,full,meta){
+										  if ( type === 'display' ) {
+												return  '<a onclick ="showConsult('+data.id+');" style="cursor:pointer" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Résume du patient"><i class="fa fa-eye fa-xs"></i></a>'	;
+								      }
+								      return data;	
+								    },
+								    title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false }
+				 	],
+				 	"columnDefs": [
+							 		{"targets": 0,  className: "dt-head-center"},
+							 		{"targets": 1,  className: "dt-head-center"},
+							 		{"targets": 1,  className: "dt-head-center" },
+							 		{"targets": 3,  className: "dt-head-center" },
+							 		{"targets": 4,  className: "dt-head-center" },
+							 		{"targets": 5 , className: "dt-head-center dt-body-center" } 
+				 	],
+		   });
+			}else
+			{
+				// empty table
+				$('#consultList').dataTable( {
+		      "language": {
+       			"infoEmpty": "No records available - Got it?",
+    			}
+		  
+				}); 
+			}
    });
 	})
 </script>

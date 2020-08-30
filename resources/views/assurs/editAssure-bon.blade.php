@@ -68,7 +68,7 @@
 	<div class="row">
 		<div class="col-sm-6">
        			 <div class="form-group">
-			  	<label class="col-sm-3 control-label no-padding-right" for="sexe"><Strong>Sexe: </Strong></label>
+			  	<label class="col-sm-3 control-label no-padding-right" for="sexe"><Strong>Genre: </Strong></label>
           			<div class="col-sm-9">
 			               <div class="radio">
 			               @if(isset($assure) && !empty($assure))

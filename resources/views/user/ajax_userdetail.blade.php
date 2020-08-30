@@ -25,8 +25,8 @@
          		     <tr>
                            <td colspan="1" class ="noborders"><strong>Role :</strong></td>
                      	     <td> {{ $user->role->role }}</td>
-                           <td colspan="1" class ="noborders"><strong>sexe:</strong></td>
-                        	<td>@if ( $employe->Sexe_Employe == 'F' ) Femme   @else  Homme @endif </td>
+                           <td colspan="1" class ="noborders"><strong>Genre:</strong></td>
+                        	<td>@if ( $employe->Sexe_Employe == 'F' ) Féminin   @else  Masculin @endif </td>
                	</tr>
                	<tr>
                            <td colspan="1" class ="noborders"><strong>Compte :</strong></td>

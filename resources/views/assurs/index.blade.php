@@ -93,7 +93,7 @@
 							<th class="blue">Nom</th>
 							<th class="blue">Prénom</th>
 							<th class="blue" width="7%">Né(e) le</th>
-							<th class="blue" width="5%">Sexe</th>
+							<th class="blue" width="5%">Genre</th>
 							<th class="blue" width="10%">Position Actuel</th>
 							<th class="blue" width="7%">Service</th>
 							<th class="blue"><em class="fa fa-cog"></em></th>

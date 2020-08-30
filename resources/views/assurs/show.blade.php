@@ -85,9 +85,9 @@
 			</div>
 			<div class="profile-user-info profile-user-info-striped">
 				<div class="profile-info-row">
-					<div class="profile-info-name"> Sexe </div>
+					<div class="profile-info-name"> Genre </div>
 						<div class="profile-info-value">
-							<span class="editable" id="nom">{{ $assure->Sexe =="M" ? "Homme" : "Femme" }}</span>
+							<span class="editable" id="nom">{{ $assure->Sexe =="M" ? "Masculin" : "Féminin" }}</span>
 						</div>
 				</div>
 			</div>

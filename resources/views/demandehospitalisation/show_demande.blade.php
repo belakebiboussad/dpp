@@ -61,8 +61,8 @@
 												</li>
 												<li>
 													<i class="ace-icon fa fa-caret-right blue"></i>
-													<strong>Sexe :</strong>
-													<b class="green">{{ $demande->consultation->patient->Sexe == "F" ? "Femme" : "Homme" }}</b>
+													<strong>Genre :</strong>
+													<b class="green">{{ $demande->consultation->patient->Sexe == "F" ? "Féminin" : "Masculin" }}</b>
 												</li>
 												<li class="divider"></li>
 												<li>

@@ -70,8 +70,8 @@ border:2px solid #3F515F;
                                       <td align="left">{{ $patient->lieuNaissance->nom_commune }}</td>
                                 </tr>
                                 <tr>
-                                       <td colspan="1" class ="noborders"><strong>Sexe :</strong></td>
-                                       <td align="left">@if ( $patient->Sexe == 'F' ) Femme   @else  Homme @endif </td>
+                                       <td colspan="1" class ="noborders"><strong>Genre :</strong></td>
+                                       <td align="left">@if ( $patient->Sexe == 'F' ) Féminin   @else  Masculin @endif </td>
                                        <td colspan="1" class ="noborders"><strong>Civilité:</strong></td>
                                       <td align="left">{{ $patient->situation_familiale }}</td>
                                 </tr>
@@ -131,8 +131,8 @@ border:2px solid #3F515F;
                                       <td>{{ $assure->lieuNaissance->nom_commune }}</td>
                                 </tr>  
                                 <tr>
-                                       <td colspan="1" class ="noborders"><strong>Sexe :</strong></td>
-                                       <td>@if ( $assure->Sexe == 'F' ) Femme   @else  Homme @endif </td>
+                                       <td colspan="1" class ="noborders"><strong>Genre :</strong></td>
+                                       <td>@if ( $assure->Sexe == 'F' ) Féminin @else  Masculin @endif </td>
                                        <td colspan="1" class ="noborders"><strong>Matricule:</strong></td>
                                       <td>{{ $assure->Matricule }}</td>
                                 </tr>

@@ -71,9 +71,7 @@
 								@endif
 								</td>
 								<td class="center">
-								  <a href="{{ route('demandeexb.show', $consultation->demandeexmbio->id) }}">
-									    <i class="fa fa-eye"></i>
-									</a>
+								  <a href="{{ route('demandeexb.show', $consultation->demandeexmbio->id) }}"><i class="fa fa-eye"></i></a>
 									<a href="/showdemandeexb/{{ $consultation->demandeexmbio->id }}" target="_blank" class="btn btn-xs">
 					       			 <i class="ace-icon fa fa-print"></i>&nbsp;
      							 	</a>

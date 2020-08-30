@@ -49,7 +49,7 @@
 				</div>
 				<div class="space-8"></div>
 				<div class="form-group {{ $errors->has('sexe') ? "has-error" : "" }}">
-					<label class="col-sm-3 control-label no-padding-right"><b>Sexe:</b></label>
+					<label class="col-sm-3 control-label no-padding-right"><b>Genre:</b></label>
 					<div class="col-sm-9">
 						<label class="inline">
 							<input name="sexe" value="M" type="radio" class="ace" checked />

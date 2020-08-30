@@ -24,8 +24,8 @@
 					<div class="profile-info-value"><span>{{$homme_c->prénom }}</span></div>
 				</div>
 				<div class="profile-info-row">
-					<div class="profile-info-name">Sexe </div>
-					<div class="profile-info-value"><span>{{ $patient->Sexe =="M" ? "Homme" : "Femme" }}</span>
+					<div class="profile-info-name">Genre </div>
+					<div class="profile-info-value"><span>{{ $patient->Sexe =="M" ? "Masculin" : "Féminin" }}</span>
 					</div>
 				</div>
 				<div class="profile-info-row">

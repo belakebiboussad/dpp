@@ -28,6 +28,12 @@
 .ml-80{
        margin-left: +80%;
 }
+.mt-15{
+        margin-top:-15px;
+}
+.mt-20{
+    margin-top:-20px;
+}
 .foo{
       position: absolute;
       top: 90%;

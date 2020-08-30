@@ -125,7 +125,7 @@ class DemandeExamenRadio extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){ }
-    public function show_demande_exr($id)//imprimze
+    public function print($id)//imprime
     {
         $demande = demandeexr::FindOrFail($id); 
         $pdf = PDF::loadView('examenradio.demande_exr', compact('demande'));
