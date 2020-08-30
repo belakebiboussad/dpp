@@ -36,9 +36,9 @@ $(document).on('click','.findptient',function(event){
 									},
 									{ data:'id',title:'ID', "visible": false},
 									{ data: 'Nom', title:'Nom' },
-	       								{ data: 'Prenom', title:'Prenom' },
-	       								{ data: 'IPP', title:'IPP'},
-	       			  					{ data: 'Dat_Naissance', title:'Né(e) le' },
+	       					{ data: 'Prenom', title:'Prenom' },
+	       					{ data: 'IPP', title:'IPP', "orderable": false},
+	       			  	{ data: 'Dat_Naissance', title:'Né(e) le' },
 									{ data: 'Sexe', title:'Sexe'},
 								  { data: 'Date_creation', title:'Créer le'},
 								  { data:null,title:'<em class="fa fa-cog"></em>', searchable: false }
@@ -48,8 +48,8 @@ $(document).on('click','.findptient',function(event){
 			   						{"targets": 3 ,  className: "dt-head-center" },
 			   						{"targets": 4 ,  className: "dt-head-center" },
 			   						{"targets": 5 ,  className: "dt-head-center" },
-			   						{"targets": 6 ,	"orderable": false, className: "dt-head-center" },
-							 		 {"targets": 7 ,	"orderable": false, className: "dt-head-center" },
+			   						{"targets": 6 ,	"orderable": false, className: "dt-head-center dt-body-center" },
+							 		  {"targets": 7 ,	"orderable": false, className: "dt-head-center" },
 							 		  {"targets": 8 ,	"orderable":false,className: "dt-head-right dt-body-center",
 							  			"render": function(data,type,full,meta){
 									       if ( type === 'display' ) {
@@ -82,13 +82,14 @@ $(document).on('click','#getConsults',function(event){
 				"language":{"url": '/localisation/fr_FR.json'},
 			 	"data" : data,
 			  "columns": [
-			 					{ data:null,title:'#', "orderable": false,searchable: false,
-						    		render: function ( data, type, row ) {
-			                if ( type === 'display' ) {
-			                 		return '<input type="checkbox" class="editor-active check"  value="'+data.id+'" onClick=""/><span class="lbl"></span>';
-			                }
-			                return data;
+			 					{ data:null,
+			 						render: function ( data, type, row ) {
+			              if ( type === 'display' ) {
+			             		return '<input type="checkbox" class="editor-active check"  value="'+data.id+'" onClick=""/><span class="lbl"></span>';
 			              }
+			              return data;
+			            },
+			            title:'#', "orderable":false,searchable: false
 								},
 								{ data: 'Date_Consultation', title:'Date' },
 			 					{ data: 'Motif_Consultation', title:'Motif',"orderable": false},
@@ -109,7 +110,7 @@ $(document).on('click','#getConsults',function(event){
 							    title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false }
 			 	],
 			 	"columnDefs": [
-						 		{"targets": 0,  className: "dt-head-center" },
+						 		{"targets": 0,  className: "dt-head-center"},
 						 		{"targets": 1,  className: "dt-head-center"},
 						 		{"targets": 1,  className: "dt-head-center" },
 						 		{"targets": 3,  className: "dt-head-center" },

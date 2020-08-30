@@ -247,9 +247,9 @@
 	}
 	function print()
 	{
-		document.title = 'ordonnance-('+$('#nom').text()+' '+$('#prenom').text()+')';
-		 $('#iframe-pdf').get(0).contentWindow.print();
-		  document.title = 'Nouvelle Consultation';
+		document.title = 'ordonnance-'+$.trim($('#nom').text())+'-'+$.trim($('#prenom').text());
+		$('#iframe-pdf').get(0).contentWindow.print();
+		document.title = 'Nouvelle Consultation';
 	}
 	function rdvDelete(rdvId)
 	{

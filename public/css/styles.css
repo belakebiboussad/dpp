@@ -30,15 +30,13 @@
 }
 .foo{
       position: absolute;
-      top: 87%;
+      top: 90%;
       right: 22%;
 }
 .modaldialog {
   width:97%;
   height:90% !important;
   overflow-y: initial !important
-  
-
 }
 .contmodal {
   /*height:800px; */
