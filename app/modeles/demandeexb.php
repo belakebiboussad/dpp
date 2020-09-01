@@ -7,7 +7,7 @@ class demandeexb extends Model
     public $timestamps = false;
     //protected $primaryKey = 'id_demandeexb';
     protected $table = "demandeexb";
-    protected $fillable = ['DateDemande', 'etat', 'resultat', 'id_consultation'];
+    protected $fillable = ['etat', 'resultat', 'id_consultation'];
 
     public function examensbios()
     {

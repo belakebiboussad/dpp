@@ -62,7 +62,7 @@
     <div class="col-sm-12">
       <div class="section">
         <div class="sec-droite">
-          <b><u>Fait le:</u></b> {{ $demande->Date  }}.
+          <b><u>Fait le:</u></b> {{ $demande->consultation->Date_Consultation  }}.
         </div>
       </div>
     </div>

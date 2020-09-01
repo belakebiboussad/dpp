@@ -42,9 +42,7 @@ class DemandeExbController extends Controller
      */
     public function store(Request $request,$consultId)
     {
-       $date = Date::now();
-       $demande = demandeexb::FirstOrCreate([
-               "DateDemande" => $date,
+        $demande = demandeexb::FirstOrCreate([  
                "id_consultation" => $consultId,
        ]);
        foreach($request->exm as $id_exb) {

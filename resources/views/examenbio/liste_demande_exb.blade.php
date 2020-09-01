@@ -31,7 +31,7 @@
 											@foreach($demandesexb as $index => $demande)
 												<tr>
 													<td class="center">{{ $index + 1 }}</td>
-													<td>{{ $demande->DateDemande }}</td>
+													<td>{{ $demande->consultation->Date_Consultation }}</td>
 													<td>
 														{{ $demande->consultation->docteur->Nom_Employe }}
 														{{ $demande->consultation->docteur->Prenom_Employe }}

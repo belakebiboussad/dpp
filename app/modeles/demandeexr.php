@@ -8,7 +8,7 @@ class demandeexr extends Model
 {
     public $timestamps = false;
     protected $table = "demandeexr";
-    protected $fillable = ['Date', 'InfosCliniques', 'Explecations', 'etat', 'resultat', 'id_consultation'];
+    protected $fillable = ['InfosCliniques', 'Explecations', 'etat', 'resultat', 'id_consultation'];
 
     public function examensradios()
     {

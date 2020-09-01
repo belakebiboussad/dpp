@@ -29,6 +29,8 @@ use App\modeles\infosupppertinentes;
 use App\modeles\exmnsrelatifdemande;
 use App\modeles\examenradiologique;
 use App\modeles\demandeexr;
+use App\modeles\CIM\chapter;
+
 use Validator;
 use Response;
 class ConsultationsController extends Controller
@@ -71,7 +73,9 @@ class ConsultationsController extends Controller
       $employe=Auth::user()->employ;
       $modesAdmission = config('settings.ModeAdmissions') ;
       $patient = patient::FindOrFail($id_patient);
-      $codesim = codesim::all();// $lieus = Lieuconsultation::all(); 
+      $codesim = codesim::all(); 
+      $chapters = chapter::all();
+      dd($chapters);
       $services = service::all();
       $meds = User::where('role_id',1)->get()->all(); 
       $specialites = Specialite::orderBy('nom')->get();
@@ -89,17 +93,18 @@ class ConsultationsController extends Controller
      */
       public function store(Request $request)
       {
-              $request->validate([
-            "motif" => 'required',
-            "resume" => 'required',
-               ]);
-      $validator = Validator::make($request->all(), [
-        'motif' => 'required|max:255',
-        'resume' => 'required',
-      ]);
-      if($validator->fails())
-        return redirect()->back()->withErrors($validator)->withInput();
-      $consult = consultation::create([
+        $request->validate([
+          "motif" => 'required',
+          "resume" => 'required',
+        ]);
+        $validator = Validator::make($request->all(), [
+          'motif' => 'required|max:255',
+          'resume' => 'required',
+        ]);
+        if($validator->fails())
+          return redirect()->back()->withErrors($validator)->withInput();
+
+        $consult = consultation::create([
             "Motif_Consultation"=>$request->motif,
             "histoire_maladie"=>$request->histoirem,
             "Date_Consultation"=>Date::Now(),
@@ -111,75 +116,58 @@ class ConsultationsController extends Controller
             "Patient_ID_Patient"=>$request->id,
             "id_code_sim"=>$request->codesim,
             "id_lieu"=>session('lieu_id'),
-      ]);
-  
-      if($request->poids != 0 || $request->temp != null || $request->taille !=0 || $request->autre)
-      {
-        $exam = new examen_cliniqu; //$this->ExamCliniqCTLR->store( $request,$consult->id); //save examen clinique
-        $exam->taille = $request->taille;
-        $exam->poids  = $request->poids;
-        $exam->temp   = $request->temp;
-        $exam->autre  = $request->autre;
-        $exam->IMC    = $request->imc;
-        $exam->Etat   = $request->etatgen;
-        $exam->peaupha =$request->peaupha; // $exam->id_consultation=$consultID;
-        $consult->examensCliniques()->save($exam);
-      }
-      if(($request->motifOr != "") ||(isset($request->specialite))){
-        $this->LettreOrientationCTRL->store($request,$consult->id);
-      }
-      if($request->liste != null) //save Ordonnance
-      {
-        $ord = new ordonnance;
-        $ord->date = Date::Now();
-        $consult->ordonnances()->save($ord);
-        foreach (json_decode($request->liste) as $key => $trait) {
-           $ord->medicamentes()->attach($trait->med,['posologie' => $trait->posologie]);     
-        }
-      }
-      if($request->exm  != null)  //save ExamBiolo
-      {
-        $demandeExamBio = new demandeexb;
-        $demandeExamBio->DateDemande = Date::Now();
-        $consult->demandeexmbio()->save($demandeExamBio);
-        foreach($request->exm as $id_exb) {
-          $demandeExamBio->examensbios()->attach($id_exb);
-        }
-      }
-      
-      if(!empty($request->ExamsImg) && count(json_decode($request->ExamsImg)) > 0)
-      {
-        $demandeExImg = new demandeexr;
-        $demandeExImg->Date = Date::Now();
-        $demandeExImg->InfosCliniques = $request->infosc;
-        $demandeExImg->Explecations = $request->explication;
-        $consult->examensradiologiques()->save($demandeExImg);
-        foreach (json_decode ($request->ExamsImg) as $key => $value) {       
-          $demandeExImg ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);
-        }
-        if(isset($request->infos))
+        ]);
+        if($request->poids != 0 || $request->temp != null || $request->taille !=0 || $request->autre)
         {
-          foreach ($request->infos as $id_info) {
-            $demandeExImg->infossuppdemande()->attach($id_info);
+          $exam = new examen_cliniqu; //$this->ExamCliniqCTLR->store( $request,$consult->id); //save examen clinique
+          $exam->taille = $request->taille;
+          $exam->poids  = $request->poids;
+          $exam->temp   = $request->temp;
+          $exam->autre  = $request->autre;
+          $exam->IMC    = $request->imc;
+          $exam->Etat   = $request->etatgen;
+          $exam->peaupha =$request->peaupha; // $exam->id_consultation=$consultID;
+          $consult->examensCliniques()->save($exam);
+        }
+        if(($request->motifOr != "") ||(isset($request->specialite))){
+          $this->LettreOrientationCTRL->store($request,$consult->id);
+        }
+        if($request->liste != null) //save Ordonnance
+        {
+          $ord = new ordonnance;
+          $ord->date = Date::Now();
+          $consult->ordonnances()->save($ord);
+          foreach (json_decode($request->liste) as $key => $trait) {
+             $ord->medicamentes()->attach($trait->med,['posologie' => $trait->posologie]);     
           }
         }
-      }
+        if($request->exm  != null)  //save ExamBiolo
+        {
+          $demandeExamBio = new demandeexb;
+          $consult->demandeexmbio()->save($demandeExamBio);
+          foreach($request->exm as $id_exb) {
+            $demandeExamBio->examensbios()->attach($id_exb);
+          }
+        }
+        if(!empty($request->ExamsImg) && count(json_decode($request->ExamsImg)) > 0)
+        {
+          $demandeExImg = new demandeexr;
+          $demandeExImg->InfosCliniques = $request->infosc;
+          $demandeExImg->Explecations = $request->explication;
+          $demandeExImg->id_consultation = $consult->id;
+          $consult->examensradiologiques()->save($demandeExImg);
+          if(isset($request->infos))
+          {
+            foreach ($request->infos as $id_info) {
+              $demandeExImg->infossuppdemande()->attach($id_info);
+            }
+          }
+          foreach (json_decode ($request->ExamsImg) as $key => $value) {       
+             $demandeExImg ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);
+          }
+        }
 
-      if(isset($request->examen_Anapath)) 
-      {
-        $examAnapath = new examenanapath;
-        $examAnapath->nom = $request->examen_Anapath;
-        $consult->examenAnapath()->save($examAnapath);
-      }
-      if($request->modeAdmission != null)
-      {
-        $demande = new DemandeHospitalisation;  
-        $demande->modeAdmission = $request->modeAdmission;
-        $demande->service =  $request->service;
-        $demande->specialite =  $request->specialiteDemande;
-        $consult->demandeHospitalisation()->save($demande);  
-      }
-      return redirect(Route('patient.show',$request->id));
+        return redirect(Route('patient.show',$request->id));
     }
     /**
      * Display the specified resource.

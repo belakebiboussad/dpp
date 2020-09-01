@@ -122,13 +122,9 @@ $(document).on('click','#getConsults',function(event){
 		   });
 			}else
 			{
-				// empty table
-				$('#consultList').dataTable( {
-		      "language": {
-       			"infoEmpty": "No records available - Got it?",
-    			}
-		  
-				}); 
+				$('#consultList tbody').addClass('no-record');//$('#consultList tbody').empty();
+    		$("#patient").html("&quot; Pas de consultations &quot;");
+
 			}
    });
 	})
