@@ -57,10 +57,10 @@
 			</div>
 			</div>
 			<div class="space-12"></div>
-<!-- <div class="row"><div class="form-group"><label class="col-sm-4 control-label no-padding-right" for="codecim"><strong>Code Cim10 :</strong></label>
+{{-- <div class="row"><div class="form-group"><label class="col-sm-4 control-label no-padding-right" for="codecim"><strong>Code Cim10 :</strong></label>
 <div class="col-sm-8">	<select class="form-control" id="codesim" name="codesim"><option value="">Choisir...</option>			@foreach($codesim as $code)
 <option value="{{$code->id}}">{{ $code->code }} : {{ $code->description }} ></option>	@endforeach
-</select></div></div></div> -->
+</select></div></div></div> --}}
 		 	<div class="row">
     	 	<div class="form-group">
     			<label class="col-sm-4 control-label no-padding-right" for="codecim"><strong>Code Cim10 :</strong></label>
@@ -134,27 +134,3 @@
 	</div>
 </div>{{-- tabpanel --}}
 <br><br>
-<div id="cim10Modal" class="modal fade" role="dialog">
-	<div class="modal-dialog modal-lg">
-  	<div  id="" class="modal-content custom-height-modal">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	   		<h4 class="modal-title">Aide au codage CIM10</h4>
-      </div>
-      <div class="modal-body">
-		 		<div class="space-12"></div>
-				<div class="row">
-					<div class="col-sm-12">
-	      		<label for="chapitre"><strong>Chapitre :</strong></label>
-	      		<select class="form-control" id="codesim" name="codesim">
-	      			<option value="">Selectionner un Chapitre</option>
-	      			@foreach($codesim as $code)
-							<option value="{{$code->id}}">{{ $code->code }} : {{ $code->description }} ></option>
-								@endforeach
-</select>
-	      	</div>
-				</div>
-			</div>
-     </div>
-  </div>
-</div>

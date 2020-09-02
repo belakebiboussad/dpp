@@ -340,23 +340,23 @@
 	                    {data: 'Dosage'},
 	                          {data: 'action', name: 'action', orderable: false, searchable: false}
 	                   ]
-		  });
-	  	jQuery('#btn-add, #AntFamil-add').click(function () {
-			  jQuery('#EnregistrerAntecedant').val("add");
-			  jQuery('#modalFormData').trigger("reset");
-				if(this.id == "AntFamil-add")
-    	  {
+		});
+	  jQuery('#btn-add, #AntFamil-add').click(function () {
+			jQuery('#EnregistrerAntecedant').val("add");
+			jQuery('#modalFormData').trigger("reset");
+			if(this.id == "AntFamil-add")
+    	{
 		 			$("#EnregistrerAntecedant").attr('data-atcd','Famille'); 
 		 			if(! ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
 	   				jQuery('#modalFormData > #sous_type').addClass('hidden'); 
-		  	}else{	
+		  }else{	
 					$("#EnregistrerAntecedant").attr('data-atcd','Perso'); 
 						if( ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
 							jQuery('#modalFormData > #sous_type').removeClass('hidden'); 
-				}
-		  		jQuery('#antecedantModal').modal('show');
-		 	});	
-		  jQuery('body').on('click', '.open-modal', function (event) {
+			}
+		  	jQuery('#antecedantModal').modal('show');
+		});	
+		jQuery('body').on('click', '.open-modal', function (event) {
 				var atcd_id = $(this).val();
 				$.get('/atcd/' + atcd_id, function (data) { 
 				  $('#atcd_id').val(data.id);
@@ -688,6 +688,12 @@
 				 }
 			});
 		});
+    $('#chapitre').click(function(){
+    	if(! isEmpty($("#chapitre").val()))
+    	{
+    		$("schapitre");
+    	}
+    });
 	});// ready
 </script>	
 @endsection
@@ -787,4 +793,5 @@
 <div class="row">@include('consultations.ModalFoms.imprimerOrdonnance')</div>
 <div class="row">@include('consultations.ModalFoms.imprimerOrdonnanceAjax')</div>
 <div class="row">@include('consultations.ModalFoms.rendezVous')</div>
+<div class="row">@include('cim10.cimModalForm')</div>
 @endsection

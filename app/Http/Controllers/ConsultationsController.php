@@ -29,7 +29,7 @@ use App\modeles\infosupppertinentes;
 use App\modeles\exmnsrelatifdemande;
 use App\modeles\examenradiologique;
 use App\modeles\demandeexr;
-use App\modeles\CIM\chapter;
+use App\modeles\CIM\chapitre;
 
 use Validator;
 use Response;
@@ -72,10 +72,8 @@ class ConsultationsController extends Controller
     {
       $employe=Auth::user()->employ;
       $modesAdmission = config('settings.ModeAdmissions') ;
-      $patient = patient::FindOrFail($id_patient);
-      $codesim = codesim::all(); 
-      $chapters = chapter::all();
-      dd($chapters);
+      $patient = patient::FindOrFail($id_patient);//$codesim = codesim::all();
+      $chapitres = chapitre::all();
       $services = service::all();
       $meds = User::where('role_id',1)->get()->all(); 
       $specialites = Specialite::orderBy('nom')->get();
@@ -83,7 +81,7 @@ class ConsultationsController extends Controller
       $infossupp = infosupppertinentes::all();
       $examens = exmnsrelatifdemande::all();//CT,RMN
       $examensradio = examenradiologique::all();//pied,poignet
-      return view('consultations.create_consultation',compact('patient','employe','codesim','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp','examens','examensradio'));
+      return view('consultations.create_consultation',compact('patient','employe','chapitres','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp','examens','examensradio'));
     }
     /**
      * Store a newly created resource in storage.
