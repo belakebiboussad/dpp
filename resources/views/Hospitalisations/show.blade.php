@@ -77,7 +77,7 @@
 			  <ul class="list-inline" style="flex-grow: 1;">
             <li style="width: 300px;" >
             	<i class="ace-icon fa fa-caret-right blue"></i>
-            	<strong>Service :</strong> {{ $hosp->admission->lit->salle->service->nom }}
+            	<strong>Service 77:</strong> {{ $hosp->admission->lit->salle->service->nom }}
             </li>
             <li style="width: 300px;"><a href = "#"><i class="ace-icon fa fa-caret-right blue"></i><strong>Salle :</strong> {{ $hosp->admission->lit->salle->nom }}</a></li>
             <li style="width: 200px;"><a href = "#"><i class="ace-icon fa fa-caret-right blue"></i><strong>Lit :</strong> {{ $hosp->admission->lit->nom }}</a></li>            

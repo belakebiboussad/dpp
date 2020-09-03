@@ -59,9 +59,7 @@ class ConsultationsController extends Controller
     public function listecons($id)
     {
       $patient = patient::with('Consultations.patient','Consultations.docteur','Consultations.docteur.service')->FindOrFail($id);
-      
-      return Response::json($patient ->Consultations);
-      
+      return Response::json($patient->Consultations)->withHeaders(['patient' => $patient->Nom . " " . $patient->Prenom]);
     }
     /**
      * Show the form for creating a new resource.

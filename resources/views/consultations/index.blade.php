@@ -70,11 +70,12 @@ $(document).on('click','.findptient',function(event){
 $(document).on('click','#getConsults',function(event){
 	event.preventDefault();
 	var patient_id = $(this).val();
-	 $.get('/getConsultations/'+patient_id, function (data) {
-	 	  if(data.length != 0)
+	 $.get('/getConsultations/'+patient_id, function (data, status, xhr) {
+	 		$("#patient").html(xhr.getResponseHeader("patient"));
+	 		$('#consultList tbody').empty();
+	 		if(data.length != 0)
 	 	  {
-	 	  	$("#patient").html(data[0].patient.Nom +" " + data[0].patient.Prenom);
-		   	$("#consultList").DataTable ({
+	 	  	$("#consultList").DataTable ({
 					"processing": true,
 				  "paging":   true,
 				  "destroy": true,
@@ -120,13 +121,8 @@ $(document).on('click','#getConsults',function(event){
 							 		{"targets": 5 , className: "dt-head-center dt-body-center" } 
 				 	],
 		   });
-			}else
-			{
-				$('#consultList tbody').addClass('no-record');//$('#consultList tbody').empty();
-    		$("#patient").html("&quot; Pas de consultations &quot;");
-
 			}
-   });
+   	});
 	})
 </script>
 @endsection

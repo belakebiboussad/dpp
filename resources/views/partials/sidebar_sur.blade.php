@@ -152,8 +152,8 @@
             $('#lit option[value=0]').prop('selected', true);
             $('#lit').attr('disabled', 'disabled');
             var serviceID = $('#serviceh').val();
-            var start = $('#dateEntree').val(); //var start =$('#dateEntree').datepicker('getDate');
-            var end = $("#dateSortiePre").val(); //var end = $('#dateSortiePre').datepicker('getDate');
+            var start = $('#dateEntree').val(); 
+            var end = $("#dateSortiePre").val();
             if(end !== null  && end !== '')
             {
               $.ajax({

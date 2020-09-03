@@ -103,10 +103,6 @@ Route::get('/patient/listerdv/{id}','PatientController@listerdv');
 Route::get('/atcd/create/{id}','AntecedantsController@create');
 Route::get('/atcd/index/{id}','AntecedantsController@index');
 Route::get('/admission/create/{id}','AdmissionController@create');//a commenter
-Route::get('/admission/create/{id}{bool}',function(){
-        // 'as'    => 'id',
-        // 'uses'  => 'AdmissionController@AdmissionController'
-});
 Route::post('/atcd/store/{id}','AntecedantsController@store');
 Route::get('/rdv/create/{id}','RDVController@create');
 Route::post('/createRDV','RDVController@AddRDV');
@@ -187,14 +183,11 @@ route::get('/homeradiologue',function(){
 // route with optonnel parameter
 Route::get('rendezVous/create/{id?}','RDVController@index');
 Route::get('assur/patientAssuree/{id}','PatientController@create');
-
 Route::post('/addpatientAssure','PatientController@storePatient');
 Route::get('assur/patientAedit/{id}/{idA}','PatientController@edit');
 /************partie viste d'hospitalisation**************/
 Route::get('/delVisite/{id}', 'VisiteController@destroy')->name('visite.destroy');
 Route::get('/visite/create/{id}','VisiteController@create');
-//Route::get('/patient/listecons/{id}','PatientController@listecons');
-
 Route::post('/visite/store/{id}','VisiteController@store');
 Route::post('/surveillances/store/{id}','SurveillanceController@store');
 route::get('/getpatientvisite','PatientController@getpatientvisite');
@@ -203,6 +196,9 @@ route::get('/choixpatvisite','VisiteController@choixpatvisite');
 route::get('/choixhospconsigne','ActeController@choixhospconsigne');
 route::get('/consigne','ActeController@choixhospconsigne');
 route::post('/saveActe','ActeController@store');
+route::get('/schapitres','CimController@getChapters');
+route::get('/maladies','CimController@getdiseases');
+
 Route::get('/404', function () {
     return view('errors.404');
 });

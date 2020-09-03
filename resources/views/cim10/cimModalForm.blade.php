@@ -22,10 +22,18 @@
 				<div class="row">
 					<div class="col-sm-12">
 	      		<label for="chapitre"><strong>S/Chapitre :</strong></label>
-	      		<select class="form-control disabledElem" id="schapitre" name="schapitre">
+	      		<select class="form-control" id="schapitre" name="schapitre" disabled>
 	      			<option value="">Selectionner un Sous Chapitre</option>
 	      		</select>
 	      	</div>
+				</div>
+				<div class="space-12"></div>
+				<div class="row">
+					<div class="col-sm-12">
+					<div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right">
+						<b><span class="badge badge-info numberResult"></span>&nbsp;maladies </b>
+					</div>
+					</div>
 				</div>
 			</div>
      </div>

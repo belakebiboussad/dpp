@@ -13,7 +13,6 @@ class consultation extends Model
     {
         return $this->belongsTo('App\modeles\employ','Employe_ID_Employe');
     }
-
     public function patient()
     {
         return $this->belongsTo('App\modeles\patient','Patient_ID_Patient');

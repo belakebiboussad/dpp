@@ -691,10 +691,50 @@
     $('#chapitre').click(function(){
     	if(! isEmpty($("#chapitre").val()))
     	{
-    		$("schapitre");
+    	  $( "#schapitre" ).prop( "disabled", false );
+    	 	$.ajax({
+           type : 'get',
+            url : '{{URL::to('schapitres')}}',
+              data:{'search':$("#chapitre").val()},
+              success:function(data,status, xhr){
+          	    var select = $('#schapitre').empty();
+                select.append("<option value='0'>Selectionnez une Sous Chapitre</option>");   
+                  $.each(data,function(){
+                    select.append("<option value='"+this.	C_S_CHAPITRE+"'>"+this.TITRE_S_CHAPITRE+"</option>");
+                  });
+                
+             	}
+         });
     	}
+    	else
+				$( "#schapitre" ).prop( "disabled", true );
     });
-	});// ready
+    //sous chapitre
+    $('#schapitre').click(function(){
+    	if(! isEmpty($("#schapitre").val()))
+    	{
+    	  $.ajax({
+           type : 'get',
+            url : '{{URL::to('maladies')}}',
+              data:{'search':$("#schapitre").val()},
+              success:function(data,status, xhr){
+							 $(".numberResult").html(data.length);
+              	// nmbr
+          	    // var select = $('#schapitre').empty();
+               //  select.append("<option value='0'>Selectionnez une Sous Chapitre</option>");   
+               //    $.each(data,function(){
+               //      select.append("<option value='"+this.	C_S_CHAPITRE+"'>"+this.TITRE_S_CHAPITRE+"</option>");
+               //    });
+                
+             	}
+         });
+    	}
+    	else
+				$( "#schapitre" ).prop( "disabled", true );
+    });
+    
+	});
+// ready
 </script>	
 @endsection
 @section('main-content')

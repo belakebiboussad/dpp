@@ -19,7 +19,7 @@ class SalleController extends Controller
     public function index()
     {
         $salles = salle::all();
-        return view('Salles.index_salle', compact('salles'));
+        return view('Salles.index', compact('salles'));
     }
 
     /**
@@ -118,24 +118,25 @@ class SalleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $salle = salle::destroy($id);
+        return redirect()->route('salle.index');
     }
     public function getsalles(Request $request)
     {
-         $salles = salle::where('service_id',$request->ServiceID)->where('etat','Non bloquee')->get();
-         foreach ($salles as $key1 => $salle) {
-               foreach ($salle->lits as $key => $lit) {
-                      $free = $lit->isFree($lit->id,strtotime($request->StartDate),strtotime($request->EndDate)); 
-                      if(! $free)
-                      {
-                          $salle->lits->pull($key);
-                      }
-                }
-         }
-         foreach ($salles as $key => $salle) {
-                if((count($salle->lits) == 0))
-                  $salles->pull($key);
+      $salles = salle::where('service_id',$request->ServiceID)->where('etat','Non bloquee')->get();
+      foreach ($salles as $key1 => $salle) {
+        foreach ($salle->lits as $key => $lit) {
+          $free = $lit->isFree($lit->id,strtotime($request->StartDate),strtotime($request->EndDate)); 
+          if(! $free)
+          {
+              $salle->lits->pull($key);
           }
-         return $salles;
+        }
+     }
+     foreach ($salles as $key => $salle) {
+            if((count($salle->lits) == 0))
+              $salles->pull($key);
+      }
+     return $salles;
     }
 }
