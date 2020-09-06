@@ -30,11 +30,29 @@
 				<div class="space-12"></div>
 				<div class="row">
 					<div class="col-sm-12">
-					<div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right">
-						<b><span class="badge badge-info numberResult"></span>&nbsp;maladies </b>
-					</div>
+						<div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right">
+							<b><span class="badge badge-info numberResult"></span>&nbsp;maladies </b>
+						</div>
 					</div>
 				</div>
+				<div class="space-12"></div>
+				<div class="col-sm-12">
+						<div class="widget-body">
+							<div class="widget-main no-padding">
+								<table  class="display table-responsive" width="100%">
+									 <thead>
+									 	<tr>
+									 		<td>Nom</td>
+									 		<td>Nom</td>
+									 		<td></td>
+									 	</tr>
+									 </thead>
+									 <tbody id="liste_codesCIM" >
+									 </tbody>
+								 </table>
+							</div>
+						</div>
+					</div>
 			</div>
      </div>
   </div>

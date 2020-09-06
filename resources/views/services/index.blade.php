@@ -48,7 +48,7 @@ function getServiceRoom($id)
 					@foreach($services as $service)
 					<tr>
 						<td><a href="#" id ={{  $service->id }} onclick="getServiceRoom({{ $service->id }});">{{ $service->nom }}</a></td>
-						<td>{{ $service->Type }}</td>
+						<td>{{ $service->Type->nom }}</td>
 						<td> {{ $service->responsable->Nom_Employe }} {{ $service->responsable->Prenom_Employe }}</td>
 						<td class ="center">
 							<a href="{{ route('service.show',$service->id) }}" class="btn btn-xs btn-success smalltext">

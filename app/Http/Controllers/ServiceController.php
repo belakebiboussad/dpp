@@ -73,6 +73,7 @@ class ServiceController extends Controller
     public function edit($id)
     {
       $service = service::FindOrFail($id);
+     //dd($service);
       $services = service::all();
       $types = typeService::all();
       $users = User::whereHas(
@@ -80,8 +81,7 @@ class ServiceController extends Controller
             $q->where('id', 1)->orWhere('id', 5)->orWhere('id', 6);
         }
       )->get();
-      return view('services.create',compact('service','users','services','types'));
-        //return view('services.edit_service', compact('service'));
+      return view('services.edit', compact('service','types','users'));
     }
 
     /**

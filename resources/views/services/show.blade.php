@@ -7,17 +7,53 @@
 		<div class="col-xs-12">
 			<div class="widget-box" id="widget-box-1">
 				<div class="widget-header">
-					<h5 class="widget-title">Détails De Service :</h5>
+					<h5 class="widget-title">Détails du Service :</h5>
+					<div class="pull-right">
+						<a href="{{ route('service.index') }}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-search bigger-120 blue"></i>Liste des Services</a>
+						<a href="{{route('service.destroy',$service->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-white btn-warning btn-bold"><i class="ace-icon fa fa-trash-o bigger-120 orange"> Supprimer</i></a>
+   	
+					</div>
 				</div>
 				<div class="widget-body">
 					<div class="widget-main">
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right blue" for="nom"><strong> Nom Du Service : </strong></label>
+							<label class="col-sm-3 control-label no-padding-right blue" for="nom"><strong> Nom : </strong></label>
 							<div class="col-sm-9">
 								<strong>{{ $service->nom }}</strong>
 							</div>
 						</div>
+						<div class="space-12"></div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right blue" for="type"><strong>Type:</strong></label>
+							<div class="col-sm-9">
+								<strong>{{ $service->Type->nom }}</strong>
+							</div>
+						</div>
+						<div class="space-12"></div>
+						<div class="space-12"></div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right blue" for="type"><strong>Chef de Service:</strong></label>
+							<div class="col-sm-9">
+							<strong>{{ $service->responsable->Nom_Employe }} {{ $service->responsable->Prenom_Employe }}</strong>
+							</div>
+						</div>
+						<div class="space-12"></div>
+						<div class="space-12"></div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right blue" for="type"><strong>Urgence:</strong></label>
+							<div class="col-sm-9">
+							<label>
+								<input name="urgence" value="0" type="radio" class="ace" @if(!($service->urgence)) checked @endif disabled/>
+									<span class="lbl">Non</span>
+								</label>&nbsp;&nbsp;
+								<label>
+									<input name="urgence" value="1" type="radio" class="ace" @if($service->urgence) checked @endif disabled/>
+									<span class="lbl">Oui</span>
+									</label>&nbsp;&nbsp;&nbsp;
+								</div>
+						</div>
 					</div>
+				</div>
 				</div>
 			</div>
 		</div>

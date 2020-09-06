@@ -44,7 +44,7 @@ class HomeController extends Controller
   
       $ServiceID = Auth::user()->employ->Service_Employe;
       switch (Auth::user()->role_id) {
-            case 1:
+            case 1://medecin
                   return view('patient.index');
                   break;
             case 2:
@@ -88,7 +88,7 @@ class HomeController extends Controller
                   }
                   return view('colloques.liste_colloque', compact('colloque'));
                   break;
-            case 9: 
+            case 9: //agent Admission
                     return redirect()->action('AdmissionController@index');
                     break;       
             case 10:

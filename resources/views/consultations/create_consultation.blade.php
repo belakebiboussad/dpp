@@ -711,28 +711,48 @@
     });
     //sous chapitre
     $('#schapitre').click(function(){
-    	if(! isEmpty($("#schapitre").val()))
+    	if(!($("#schapitre").val() == 0 ))
     	{
     	  $.ajax({
-           type : 'get',
+            type : 'get',
             url : '{{URL::to('maladies')}}',
-              data:{'search':$("#schapitre").val()},
-              success:function(data,status, xhr){
-							 $(".numberResult").html(data.length);
-              	// nmbr
-          	    // var select = $('#schapitre').empty();
-               //  select.append("<option value='0'>Selectionnez une Sous Chapitre</option>");   
-               //    $.each(data,function(){
-               //      select.append("<option value='"+this.	C_S_CHAPITRE+"'>"+this.TITRE_S_CHAPITRE+"</option>");
-               //    });
-                
-             	}
-         });
+            data:{'search':$("#schapitre").val()},
+            success:function(data,status, xhr){
+            	$(".numberResult").html(Object.keys(data).length);//$("#liste_codesCIM tbody").html(data);
+					   	$('#liste_codesCIM').html(data);
+						
+					   	/*
+					   	$("#liste_codesCIM").DataTable ({
+     						processing: true, //serverSide: true,
+	      				ordering: true,
+	      				bInfo : false,
+					      searching: true,
+					      pageLength: 5,         
+					      bLengthChange: false,
+					      nowrap:true,
+					      "language": {
+					                    "url": '/localisation/fr_FR.json'
+					      },
+					      columns: [
+					              {data: 'CODE_DIAG', title:'Code'},
+					              {data: 'NOM_MALADIE',title:'Nom'},
+					              // {data: 'action', name: 'action', orderable: false, searchable: false}
+					      ],
+			   			"columnDefs": [
+			   								{"targets": 1 ,  className: "dt-head-center" },//nom
+			   								{"targets": 2 ,  className: "dt-head-center" },
+			   			]
+				    });
+              */        
+          },
+          error:function(){
+     				console.log("error");
+     			},
+        });
     	}
     	else
 				$( "#schapitre" ).prop( "disabled", true );
     });
-    
 	});
 // ready
 </script>	
@@ -821,6 +841,7 @@
 					<a href="{{ route('patient.show',$patient->id) }}" class="btn btn-warning btn-sm">
 						<i class="ace-icon fa fa-close bigger-110"></i>Annuler
 					</a>
+					<a href="/cim" title="" class="btn">cim10</a>
 				</div>	{{-- center --}}
 			</div>
 		</div><!-- row -->

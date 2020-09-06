@@ -1,23 +1,18 @@
 @extends('app')
 @section('main-content')
 	<div class="page-header">
-		<h1>@if(isset($service)) Modifier @else Ajouter @endif un service :</h1>
+		<h1>Ajouter un service :</h1>
 	</div>
 	<div class="space-12"></div>
 	<div class="row">
 		<div class="col-xs-6">
 			<div class="widget-box widget-primary" id="widget-box-1">
 				<div class="widget-header" bg="blue">
-					<h5 class="widget-title"><strong>Service :</strong></h5>
+					<h5 class="widget-title"><strong>Ajouter Un Service :</strong></h5>
 				</div>
 				<div class="widget-body">
 				<div class="widget-main">
-					@if(isset($service))
-					<form class="form-horizontal" role="form" method="POST" action="{{ route('service.update',$service->id) }}">
-					 {{ method_field('PUT') }}
-					@else
 					<form class="form-horizontal" role="form" method="POST" action="{{ route('service.store') }}">
-					@endif
 						{{ csrf_field() }}
 						<div class="space-12"></div>
 						<div class="form-group">
@@ -40,8 +35,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label no-padding-right" for="type"><strong>Chef de Service:</strong></label>
 								<div class="col-sm-9">
-{{-- <input type="text" id="responsable_id" name="responsable_id" placeholder="Selectionner le chef de service" class="col-xs-10 col-sm-5" required/>&nbsp;&nbsp;<button type="button" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-search"></span> Search</button> --}}	
-									<select id="responsable" name="responsable" placeholder="Chef de service" class="selectpicker show-menu-arrow place_holde col-xs-10 col-sm-5" required >
+								<select id="responsable" name="responsable" placeholder="Chef de service" class="selectpicker show-menu-arrow place_holde col-xs-10 col-sm-5" required >
 										<option value="" selected disabled>Selectionner le chef de service</option>
 										@foreach ($users as $user)
 										<option value="{{ $user->employ->id}}"> {{ $user->employ->Nom_Employe }} {{ $user->employ->Prenom_Employe }}</option>
@@ -85,18 +79,17 @@
 			<div class="widget-header">
 				<h5 class="widget-title bigger lighter">
 					<i class="ace-icon fa fa-table"></i>
-					<span><b>Liste Des Services</b></span>
+					<span><b>Liste des Services</b></span>
 				</h5>
 			</div>
 			<div class="widget-body">
 			<ol id="" class="">
 				@foreach ($services as $service)	
-				<li><a href="/service/{{$service->id}}" title="detail du service">{{ $service->nom }}</a></li>
+				<li><a href="/service/{{$service->id}}/edit" title="detail du service">{{ $service->nom }}</a></li>
 				@endforeach
 			</ol><!-- / -->
 			</div>{{-- widget-body --}}
 			</div>	
 		</div>{{-- col-xs-6 --}}
-
 	</div>
 @endsection

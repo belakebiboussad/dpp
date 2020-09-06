@@ -207,3 +207,4 @@ route::get('/download/{filename}', function($filename)
 {
     return Storage::download($filename);
 });
+route::get('/cim','CimController@diseases');
