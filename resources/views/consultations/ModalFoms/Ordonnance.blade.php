@@ -64,12 +64,10 @@
           <div class="col-xs-12 widget-container-col" id="widget-container-col-2">
             <div class="widget-box widget-color-warning" id="widget-box-2">
               <div class="widget-header">
-                <h5 class="widget-title text-info lighter"><strong>Ordonnance:</strong></h5>
-                <!-- <div class="widget-toolbar widget-toolbar-light no-border pull-right" ></div>  -->
-              </div>  {{-- widget-header --}}{{-- 138px; --}}
-              <div class="widget-body">
-              <!-- 175px --> <!-- style="margin-top:-0.50%;overflow:scroll;" -->
-                <div class="widget-main" id="mymainWidget">
+                <h5 class="widget-title text-info lighter"><strong>Ordonnance:</strong></h5><!-- <div class="widget-toolbar widget-toolbar-light no-border pull-right" ></div>  -->
+                </div>  {{-- widget-header --}}{{-- 138px; --}}
+              <div class="widget-body"> <!-- 175px --> <!-- style="margin-top:-0.50%;overflow:scroll;" -->
+              <div class="widget-main" id="mymainWidget">
                   <div class="row">
                     <table id="ordonnance" class="table  table-bordered table-hover">
                       <thead>

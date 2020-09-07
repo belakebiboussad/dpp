@@ -275,6 +275,13 @@
 		              }
 		});
 	}
+	function addCIMCode(code)
+	{
+		$("#codesim").val(code);
+		$('#liste_codesCIM').empty();
+		$("#chapitre").val($("#chapitre option:first").val());
+		$("#schapitre").val($("#schapitre option:first").val());
+	}
 	$('document').ready(function(){
 		$( 'ul.nav li' ).on( 'click', function() {
 			$(this).siblings().addClass('filter');
@@ -338,7 +345,7 @@
 	                    {data: 'Nom_com'},
 	                    {data: 'Forme'},
 	                    {data: 'Dosage'},
-	                          {data: 'action', name: 'action', orderable: false, searchable: false}
+	                    {data: 'action', name: 'action', orderable: false, searchable: false}
 	                   ]
 		});
 	  jQuery('#btn-add, #AntFamil-add').click(function () {
@@ -529,9 +536,9 @@
 		 	$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
 		});
 		jQuery('body').on('click', '.delete-ExamImg', function () {
-	    		$("#acte-" + $(this).val()).remove();
-	   	});
-	   	$("#consultForm").submit(function(e){
+	  	$("#acte-" + $(this).val()).remove();
+	  });
+	  $("#consultForm").submit(function(e){
 	   		if(!checkConsult())
 	   		{
 	   			activaTab("Interogatoire");
@@ -545,27 +552,26 @@
 	  		}
 	   	 	var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
 	    		champ.appendTo('#consultForm');
-	   	});   	
-    	//calendrier
-	    var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
-	    var today = (new Date()).setHours(0, 0, 0, 0);
-	    $('.calendar1').fullCalendar({
-	      		plugins: [ 'dayGrid', 'timeGrid' ],
-		    	header: {
-				            left: 'prev,next today',
-				            center: 'title,dayGridMonth,timeGridWeek',
-				            right: 'month,agendaWeek,agendaDay'
-		      },
-	      		defaultView: 'agendaWeek',
-		    	firstDay: 0,
+	  }); //calendrier  	
+    var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
+	  var today = (new Date()).setHours(0, 0, 0, 0);
+	  $('.calendar1').fullCalendar({
+	    	plugins: [ 'dayGrid', 'timeGrid' ],
+		   	header: {
+		          left: 'prev,next today',
+		          center: 'title,dayGridMonth,timeGridWeek',
+		          right: 'month,agendaWeek,agendaDay'
+		    },
+	      defaultView: 'agendaWeek',
+		    firstDay: 0,
 	  		slotDuration: '00:15:00',
 	  		minTime:'08:00:00',
-	    		maxTime: '17:00:00',
-	      		navLinks: true,
-	      		selectable: true,
-	      		selectHelper: true,
-	      		eventColor  : '#87CEFA',
-	         	editable: true,
+	    	maxTime: '17:00:00',
+	      navLinks: true,
+	      selectable: true,
+	      selectHelper: true,
+	      eventColor  : '#87CEFA',
+	      editable: true,
 	     		hiddenDays: [ 5, 6 ],
 	     		weekNumberCalculation: 'ISO',
 	     		aspectRatio: 1.5,
@@ -702,16 +708,14 @@
                   $.each(data,function(){
                     select.append("<option value='"+this.	C_S_CHAPITRE+"'>"+this.TITRE_S_CHAPITRE+"</option>");
                   });
-                
-             	}
+              }
          });
     	}
     	else
 				$( "#schapitre" ).prop( "disabled", true );
     });
-    //sous chapitre
-    $('#schapitre').click(function(){
-    	if(!($("#schapitre").val() == 0 ))
+    $('#schapitre').click(function(){//sous chapitre
+     	if(!($("#schapitre").val() == 0 ))
     	{
     	  $.ajax({
             type : 'get',
@@ -719,31 +723,30 @@
             data:{'search':$("#schapitre").val()},
             success:function(data,status, xhr){
             	$(".numberResult").html(Object.keys(data).length);//$("#liste_codesCIM tbody").html(data);
-					   	$('#liste_codesCIM').html(data);
-						
-					   	/*
-					   	$("#liste_codesCIM").DataTable ({
-     						processing: true, //serverSide: true,
-	      				ordering: true,
-	      				bInfo : false,
-					      searching: true,
-					      pageLength: 5,         
-					      bLengthChange: false,
-					      nowrap:true,
-					      "language": {
-					                    "url": '/localisation/fr_FR.json'
-					      },
-					      columns: [
-					              {data: 'CODE_DIAG', title:'Code'},
-					              {data: 'NOM_MALADIE',title:'Nom'},
-					              // {data: 'action', name: 'action', orderable: false, searchable: false}
-					      ],
-			   			"columnDefs": [
-			   								{"targets": 1 ,  className: "dt-head-center" },//nom
-			   								{"targets": 2 ,  className: "dt-head-center" },
-			   			]
-				    });
-              */        
+					   	 	$('#liste_codesCIM' ).DataTable( {
+           			 	processing: true,
+           			 	bInfo : false,
+           			 	pageLength: 5,
+           			 	pageLength: 5,
+           			 	"language": { "url": '/localisation/fr_FR.json' },
+           			 	"data" : data,
+           			 	columns: [ 
+           			 			{data: 'CODE_DIAG'},
+           			 			{data: 'NOM_MALADIE'},
+					            {data: null, title :'<em class="fa fa-cog"></em>', orderable: false, searchable: false,
+					            	"render": function(data,type,full,meta){
+					            		if( type === 'display' ) {
+					            			return '<button class="btn btn-xs btn-primary" data-dismiss="modal" onclick="addCIMCode(\''+ data.CODE_DIAG+'\')"><i class="ace-icon fa fa-plus-circle"></i></button>';
+					            		}
+					            		return data;
+					            	}      	
+					          	}
+					      	],
+					      	"columnDefs": [
+			   								{"targets": 1 ,  className: "dt-head-center" },
+			   								{"targets": 2 ,  className: "dt-head-center dt-body-center","orderable": false },
+			   					]
+        			});    
           },
           error:function(){
      				console.log("error");

@@ -11,7 +11,7 @@
 					<div class="col-sm-12">
 	      		<label for="chapitre"><strong>Chapitre :</strong></label>
 	      		<select class="form-control" id="chapitre" name="chapitre">
-	      			<option value="">Selectionner un Chapitre</option>
+	      			<option value="0">Selectionner un Chapitre</option>
 	      			@foreach($chapitres as $chapitre)
 							<option value="{{$chapitre->C_CHAPI}}">{{ $chapitre->C_CHAPI }} : {{ $chapitre->TITRE_CHAPITRE }}</option>
 							@endforeach
@@ -23,7 +23,7 @@
 					<div class="col-sm-12">
 	      		<label for="chapitre"><strong>S/Chapitre :</strong></label>
 	      		<select class="form-control" id="schapitre" name="schapitre" disabled>
-	      			<option value="">Selectionner un Sous Chapitre</option>
+	      			<option value="0">Selectionner un Sous Chapitre</option>
 	      		</select>
 	      	</div>
 				</div>
@@ -36,23 +36,23 @@
 					</div>
 				</div>
 				<div class="space-12"></div>
-				<div class="col-sm-12">
+				<div class="row">
+					<div class="col-sm-12">
 						<div class="widget-body">
 							<div class="widget-main no-padding">
-								<table  class="display table-responsive" width="100%">
-									 <thead>
-									 	<tr>
-									 		<td>Nom</td>
-									 		<td>Nom</td>
-									 		<td></td>
-									 	</tr>
-									 </thead>
-									 <tbody id="liste_codesCIM" >
-									 </tbody>
-								 </table>
-							</div>
+								<table class="display table-responsive" width="100%" id="liste_codesCIM">
+    						<thead>
+        					<tr>
+				            <th>Code</th>
+				            <th>Nom</th>
+				            <th><em class="fa fa-cog"></em></th>
+				          </tr>
+    						</thead>
+							</table>    
+						</div>
 						</div>
 					</div>
+				</div>	
 			</div>
      </div>
   </div>

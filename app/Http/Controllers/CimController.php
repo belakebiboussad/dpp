@@ -18,13 +18,8 @@ class CimController extends Controller
     {
       $output="";
       $schapitre = sChapitre::FindOrFail($request->search);
-      foreach ($schapitre->maladies as $key => $maladie) {
-         $output.='<tr>'.'<td>'.$maladie->CODE_DIAG.'</td>'.'</tr>'; 
-      }
-      return Response($output);
-      //return Response::json($schapitre->maladies);
-     // return count($schapitre->maladies);
-    }
+      return Response::json($schapitre->maladies);
+     }
     public function diseases(Request $request)
     {
       $schapitre = sChapitre::FindOrFail(910);
