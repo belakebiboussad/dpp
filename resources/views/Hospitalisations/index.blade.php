@@ -58,7 +58,10 @@
 							  			</a>
 							  	   	@if(Auth::user()->role_id == 1)
 							  	  		<a href="/visite/create/{{ $hosp->id }}" class ="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter une Visite" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i></a>
-							  	  		<a href="" class ="btn btn-info btn-xs" data-toggle="tooltip" title="Sortir le Patient" data-placement="bottom"><i class="fa fa-sign-out" aria-hidden="true" style="font-size:16px;"></i></a>
+							  	  		<!-- <a href="" class ="btn btn-info btn-xs" data-toggle="tooltip" title="Clôturer Hospitalisation " data-placement="bottom" data-toggle="modal" data-target="#sortieHosp"><i class="fa fa-sign-out" aria-hidden="true" style="font-size:16px;"></i></a>
+							  	  	 -->
+							  	  	<!--  	<button class ="btn btn-info btn-xs" data-toggle="tooltip" title="Clôturer Hospitalisation " data-placement="bottom" title="Clôturer Hospitalisation" data-toggle="modal" data-target="#sortieHosp"><i class="fa fa-sign-out" aria-hidden="true" style="font-size:16px;"></i></button>
+							  	  	 --> 	<button class="btn btn-info btn-xs" type="button" data-toggle="modal" data-target="#sortieHosp" data-original-title="Clôturer Hospitalisation"><i class="fa fa-sign-out" aria-hidden="true" style="font-size:16px;"></i></button>
 							  	  	@endif
 							  	  	@if(Auth::user()->role_id == 5)
 							  	  		<a class="btn btn-secondary btn-xs" data-toggle="tooltip" title="Imprimer un ticket" data-placement="bottom"><i class="ace-icon glyphicon glyphicon-print bigger-120"></i></a>
@@ -77,4 +80,5 @@
 		  	</div>	<!-- widget-body -->
 		 </div> <!-- widget-box -->
 	</div>
+	<div class="row">@include('Hospitalisations.sortieModal')</div>
 @endsection
