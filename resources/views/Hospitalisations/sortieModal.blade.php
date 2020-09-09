@@ -18,8 +18,17 @@
 	 		<div class="row">
 				<div class="col-sm-12">
       		<label for="Date_Sortie"><strong>Heure de Sortie :</strong></label>
-     			<input type="text" name="Heure_sortie" id="Heure_sortie" class="form-control timepicker" />
+     			<input type="text" name="Heure_sortie" id="Heure_sortie" class="form-control timepicker"/>
 			 	</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12 col-xs-12">
+						<label class="control-label no-padding-right no-wrap" for="Heure_sortie"><strong> Heure de Sortie :</strong> </label>
+            <div class="input-group col-sm-5 col-xs-5">	
+						  <input id="Heure_sortie1" name="Heure_sortie1" class="form-control timepicker" type="text" required>
+							<span class="input-group-addon"><i class="fa fa-clock-o bigger-110"></i></span>					
+						</div>
+					</div>	
 			</div>
 			<div class="space-12"></div>
 			<div class="row">

@@ -20,9 +20,7 @@
 	{
 		$('#patient option:selected').remove();//consultation,	//demeande_colloque	// patient//demande_hospitalisation//hommes_conf:
 		$('#garde').find('option').remove();
-		//$('#Date_entree').datepicker('disable');
-		//$("#Date_entree").attr('readonly', 'readonly');
-
+		//$('#Date_entree').datepicker('disable');//$("#Date_entree").attr('readonly', 'readonly');
 		if($('#widget-box2').hasClass('invisible'))
 	    $('#widget-box2').removeClass('invisible');
 	  $('#patient').append($('<option>', { 

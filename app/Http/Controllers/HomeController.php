@@ -59,7 +59,7 @@ class HomeController extends Controller
                   break;
             case 5:
                   return redirect()->action('RdvHospiController@index');
-                 break;
+                  break;
             case 6:
                   $colloque= array();
                   $colloques=colloque::join('membres','colloques.id','=','membres.id_colloque')

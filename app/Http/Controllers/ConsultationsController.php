@@ -162,7 +162,14 @@ class ConsultationsController extends Controller
              $demandeExImg ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);
           }
         }
-
+        if($request->modeAdmission != null)
+        {
+          $dh =new DemandeHospitalisation;
+          $dh->modeAdmission = $request->modeAdmission;
+          $dh->service = $request->service;
+          $dh->specialite = $request->specialiteDemande; // $dh->id_consultation = $consult->id;  // $dh->etat = "en attente";
+          $consult->demandeHospitalisation()->save($dh);
+        }
         return redirect(Route('patient.show',$request->id));
     }
     /**

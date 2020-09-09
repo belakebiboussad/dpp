@@ -17,13 +17,13 @@ class RdvHospiController extends Controller
 {
   public function index()
   {
-        $ServiceID = Auth::user()->employ->Service_Employe;
-        $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID) {
-                                           $q->where('id',$ServiceID);                           
-                                    })->whereHas('demandeHosp',function ($q){
-                                    $q->where('etat','valide'); 
-                                })->get();
-        return view('rdvHospi.index', compact('demandes'));
+    $ServiceID = Auth::user()->employ->Service_Employe;
+    $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID) {
+                                       $q->where('id',$ServiceID);                           
+                                })->whereHas('demandeHosp',function ($q){
+                                $q->where('etat','valide'); 
+                            })->get();
+    return view('rdvHospi.index', compact('demandes'));
   }
   public function create($id)
   {

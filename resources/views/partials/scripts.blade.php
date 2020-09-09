@@ -45,9 +45,8 @@
 <script src="{{ asset('/js/typeahead.bundle.min.js') }}"></script>
 <script src="{{ asset('/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
 <script src="{{ asset('/plugins/fullcalendar/locale/fr.js') }}"></script>
-<script src="{{ asset('/js/jquery-editable-select.js') }}"></script>
-<!-- <script src="{{asset('/js/jquery-ui.js')}}"></script> -->
- <script src="{{asset('/js/sweetalert2.all.min.js')}}"></script>{{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> --}}
+<script src="{{ asset('/js/jquery-editable-select.js') }}"></script><!-- <script src="{{asset('/js/jquery-ui.js')}}"></script> -->
+<script src="{{asset('/js/sweetalert2.all.min.js')}}"></script>{{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> --}}
 <script type="text/javascript">
   var bloodhoundcom = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.whitespace,
@@ -58,6 +57,17 @@
       },
   });
   $(document).ready(function(){
+    $('.timepicker').timepicker({
+      timeFormat: 'HH:mm',
+      interval: 60,
+      minTime: '08',
+      maxTime: '17:00pm',
+      defaultTime: '08:00',   
+      startTime: '08:00',
+      dynamic: true,
+      dropdown: true,
+      scrollbar: true
+    });
     $('#avis').change(function(){
           if($(this).val() == "R")
             $("#motifr").show();
@@ -845,9 +855,8 @@ $('#typeexm').on('change', function() {
                     max: 10,
                     value: 2
                 });
-                $( "#slider-eq > span" ).css({width:'90%', 'float':'left', margin:'15px'}).each(function() {
-                    // read initial values from markup and remove that
-                    var value = parseInt( $( this ).text(), 10 );
+                $( "#slider-eq > span" ).css({width:'90%', 'float':'left', margin:'15px'}).each(function() {  // read initial values from markup and remove that
+                   var value = parseInt( $( this ).text(), 10 );
                     $( this ).empty().slider({
                         value: value,
                         range: "min",
@@ -856,8 +865,6 @@ $('#typeexm').on('change', function() {
                     });
                 });
                 $("#slider-eq > span.ui-slider-purple").slider('disable');//disable third item
-            
-                
                 $('#id-input-file-1 , #id-input-file-2').ace_file_input({
                     no_file:'No File ...',
                     btn_choose:'Choose',

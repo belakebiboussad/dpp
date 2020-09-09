@@ -3,11 +3,11 @@
 <head>
     <title>@yield('title','Dossier patient')</title>
      @include('partials.htmlheader')
-     @include('partials.scripts')
      @yield('style')
 </head>
 <body class="no-skin">
     @include('partials.navbar')
+    @include('partials.scripts')
     <div class="main-container" id="main-container">
         <script type="text/javascript">
             try{ace.settings.check('main-container' , 'fixed')}catch(e){}

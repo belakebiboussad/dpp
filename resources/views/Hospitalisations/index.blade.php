@@ -1,28 +1,33 @@
 @extends('app')
+@section('style')
+<style>
+
+</style>
+@endsection
 @section('page-script')
 <script>
 $('document').ready(function(){
-	  $('.timepicker').timepicker({
-            timeFormat: 'HH:mm',
-                interval: 15,
-                minTime: '08',
-                maxTime: '17:00pm',
-                defaultTime: '09:00',   
-                startTime: '08:00',
-                dynamic: true,
-                dropdown: true,
-                scrollbar: true
-    });
+
 	jQuery('.cloturerHosp').click(function () {
 	  var hospID = $(this).data('id');
 	  $("#hospID").val( hospID );
+	  $('#Heure_sortie').timepicker({
+      timeFormat: 'HH:mm',
+      interval: 60,
+      minTime: '08',
+      maxTime: '17:00pm',
+      defaultTime: '09:00',   
+      startTime: '08:00',
+      dynamic: true,
+      dropdown: true,
+      scrollbar: true,
+      //template: 'modal'
+    });
 	});
 	jQuery('#saveCloturerHop').click(function () {
 	  var hospID =$("#hospID").val();
-	  alert(hospID);
 	});
 });
-
 </script>
 @endsection
 @section('main-content')
