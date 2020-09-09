@@ -57,11 +57,7 @@
 			</div>
 			</div>
 			<div class="space-12"></div>
-{{-- <div class="row"><div class="form-group"><label class="col-sm-4 control-label no-padding-right" for="codecim"><strong>Code Cim10 :</strong></label>
-<div class="col-sm-8">	<select class="form-control" id="codesim" name="codesim"><option value="">Choisir...</option>			@foreach($codesim as $code)
-<option value="{{$code->id}}">{{ $code->code }} : {{ $code->description }} ></option>	@endforeach
-</select></div></div></div> --}}
-		 	<div class="row">
+			 	<div class="row">
     	 	<div class="form-group">
     			<label class="col-sm-4 control-label no-padding-right" for="codecim"><strong>Code Cim10 :</strong></label>
 					<div class="col-sm-8 input-group" style="padding-left:15px;">

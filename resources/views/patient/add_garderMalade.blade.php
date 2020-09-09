@@ -139,7 +139,7 @@
 									<b class="text-nowrap">Délivré le :</b>
 								</label>
 								<div class="col-sm-9">
-								<input class="col-xs-12 col-sm-6 date-picker" id="date_piece_id" name="date_piece_id" type="text" data-date-format="yyyy-mm-dd" placeholder="date de délivrance ..." pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
+								<input class="col-xs-12 col-sm-6 date-picker" id="date_piece_id" name="date_piece_id" type="text" data-date-format="yyyy-mm-dd" placeholder="date de délivrance ..." />
 								</div>
 							</div>
 						</div>

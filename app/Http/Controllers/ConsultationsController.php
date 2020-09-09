@@ -89,6 +89,7 @@ class ConsultationsController extends Controller
      */
       public function store(Request $request)
       {
+       
         $request->validate([
           "motif" => 'required',
           "resume" => 'required',
@@ -99,7 +100,6 @@ class ConsultationsController extends Controller
         ]);
         if($validator->fails())
           return redirect()->back()->withErrors($validator)->withInput();
-
         $consult = consultation::create([
             "Motif_Consultation"=>$request->motif,
             "histoire_maladie"=>$request->histoirem,

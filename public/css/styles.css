@@ -69,3 +69,10 @@
 .main-content{
   margin-top: -1%;
 }
+.modal-footer ,.modal-header {
+  background-color: #438eb9;
+  padding:0.5% 0.5%;
+  color:#FFF;
+  border-bottom:0px dashed #438eb9;
+  width:100%;
+}  

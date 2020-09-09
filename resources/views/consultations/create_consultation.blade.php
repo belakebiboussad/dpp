@@ -18,7 +18,7 @@
 	}
 	.modal-body
 	{
-	        top: -1px !important;
+	  top: -1px !important;
 	}
 	.modal-footer {
 		  background-color: transparent;
@@ -47,13 +47,6 @@
 	#mymainWidget div {
 		height: 250px !important;
 	}
-	  .modal-footer ,.modal-header {
-	    background-color: #438eb9;
-	    padding:0.5% 0.5%;
-	    color:#FFF;
-	    border-bottom:0px dashed #438eb9;
-	    width:100%;
-	 }		
 	/*fin*/
 	.dataTables_wrapper {
 	        font-family: tahoma;
@@ -403,7 +396,7 @@
   			$("#EnregistrerAntecedant").click(function (e) {
 	  			  var habitudeAlim = null; var tabac=null ; var ethylisme = null;
 	    			e.preventDefault();
-	        		if($("#EnregistrerAntecedant").attr('data-atcd') == "Perso")
+	        	if($("#EnregistrerAntecedant").attr('data-atcd') == "Perso")
 	    			{
 	    			 	var tabName = "antsTab";
 	    			 	var formData = {
@@ -431,9 +424,9 @@
 	   	  			};
     			}
     	  	if(!($("#description").val() == ''))
-    		{	
+    		  {	
   	    		if($('.dataTables_empty').length > 0)
-    			{
+    			  {
         			$('.dataTables_empty').remove();
       			}	
 		      	$.ajaxSetup({
@@ -469,8 +462,8 @@
 				            		  atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
 
 			              		}
-			              		 if (state == "add") { 
-			       				jQuery('#' + tabName+' tbody').append(atcd);
+			              		if (state == "add") { 
+			       							jQuery('#' + tabName+' tbody').append(atcd);
 			              		} else {
 			                  		$("#atcd" + atcd_id).replaceWith(atcd);
 			              		}

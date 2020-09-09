@@ -1,4 +1,30 @@
 @extends('app')
+@section('page-script')
+<script>
+$('document').ready(function(){
+	  $('.timepicker').timepicker({
+            timeFormat: 'HH:mm',
+                interval: 15,
+                minTime: '08',
+                maxTime: '17:00pm',
+                defaultTime: '09:00',   
+                startTime: '08:00',
+                dynamic: true,
+                dropdown: true,
+                scrollbar: true
+    });
+	jQuery('.cloturerHosp').click(function () {
+	  var hospID = $(this).data('id');
+	  $("#hospID").val( hospID );
+	});
+	jQuery('#saveCloturerHop').click(function () {
+	  var hospID =$("#hospID").val();
+	  alert(hospID);
+	});
+});
+
+</script>
+@endsection
 @section('main-content')
 	<div class="page-header">
 		<h1>
@@ -27,7 +53,7 @@
 						</thead>
 						<tbody>
 							@foreach( $hospitalisations as $hosp)
-								<tr>
+								<tr id={{{$hosp->id}}}>
 									<td>
 										@if(Auth::user()->role->id == 1)
 											<a href="/patient/{{ $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient->id}}/edit">
@@ -58,10 +84,8 @@
 							  			</a>
 							  	   	@if(Auth::user()->role_id == 1)
 							  	  		<a href="/visite/create/{{ $hosp->id }}" class ="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter une Visite" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i></a>
-							  	  		<!-- <a href="" class ="btn btn-info btn-xs" data-toggle="tooltip" title="Clôturer Hospitalisation " data-placement="bottom" data-toggle="modal" data-target="#sortieHosp"><i class="fa fa-sign-out" aria-hidden="true" style="font-size:16px;"></i></a>
-							  	  	 -->
-							  	  	<!--  	<button class ="btn btn-info btn-xs" data-toggle="tooltip" title="Clôturer Hospitalisation " data-placement="bottom" title="Clôturer Hospitalisation" data-toggle="modal" data-target="#sortieHosp"><i class="fa fa-sign-out" aria-hidden="true" style="font-size:16px;"></i></button>
-							  	  	 --> 	<button class="btn btn-info btn-xs" type="button" data-toggle="modal" data-target="#sortieHosp" data-original-title="Clôturer Hospitalisation"><i class="fa fa-sign-out" aria-hidden="true" style="font-size:16px;"></i></button>
+							  	  	 	<!-- <button class="btn btn-info btn-xs" type="button" data-toggle="modal" data-target="#sortieHosp" title="Clôturer Hospitalisation" value=" {{$hosp->id }}"><i class="fa fa-sign-out" aria-hidden="true" style="font-size:16px;"></i></button> -->
+							  	  	 	<a data-toggle="modal" data-id="{{ $hosp->id}}" title="Clôturer Hospitalisation" class="cloturerHosp btn btn-primary btn-xs" href="#sortieHosp"><i class="fa fa-sign-out" aria-hidden="true" style="font-size:16px;"></i></a>
 							  	  	@endif
 							  	  	@if(Auth::user()->role_id == 5)
 							  	  		<a class="btn btn-secondary btn-xs" data-toggle="tooltip" title="Imprimer un ticket" data-placement="bottom"><i class="ace-icon glyphicon glyphicon-print bigger-120"></i></a>

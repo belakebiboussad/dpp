@@ -57,59 +57,59 @@
           wildcard: '%QUERY%'
       },
   });
-  $(document).ready(function(){   // $(".select2").select2({ //     dir: "fr"// });
-       $('#avis').change(function(){
+  $(document).ready(function(){
+    $('#avis').change(function(){
           if($(this).val() == "R")
             $("#motifr").show();
           else
              $("#motifr").hide();
+    });
+    $("#validerdmd").click(function(){
+      var arrayLignes = document.getElementById("cmd").rows;
+      var longueur = arrayLignes.length;   var produits = [];
+      for(var i=1; i<longueur; i++)
+      {
+        produits[i] = { produit: arrayLignes[i].cells[1].innerHTML, gamme: arrayLignes[i].cells[2].innerHTML, spec: arrayLignes[i].cells[3].innerHTML, qte: arrayLignes[i].cells[4].innerHTML}
+      }
+      var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(produits)+"' hidden>");
+      champ.appendTo('#demandform');
+            $('#demandform').submit();
+    });
+    $("#deletepod").click(function(){
+      $("tr:has(input:checked)").remove();
+    });
+    $("#validerdmd").click(function(){
+      var arrayLignes = document.getElementById("cmd").rows;
+      var longueur = arrayLignes.length;
+      var tab = [];
+      for(var i=1; i<longueur; i++)
+      {
+        tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;
+      }
+      var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");
+      champ.appendTo('#dmdprod');
+      $('#dmdprod').submit();
+      });
+      $("#ajoutercmd").click(function() {
+        $('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td>"+$('#produit').val()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+$('#specialite option:selected').text()+"</td><td class='center'>"+$("#quantite").val()+"</td></tr>");
+        $('#produit').val('');$("#quantite").val(1);$('#gamme').val('0');$('#specialite').val('0')
+      });
+     $('#gamme').change(function(){
+        var id_gamme = $(this).val();
+        var html_code = '<option value="">Sélectionner</option>';
+         $.ajax({
+          url : '/getspecialite/'+id_gamme,
+          type : 'GET',
+          dataType : 'json',
+          success : function(data){
+                  $.each(data, function(){
+                           html_code += "<option value='"+this.id+"'>"+this.specialite_produit+"</option>";
+                  });
+                   $('#specialite').html(html_code);
+          },
         });
-       $("#validerdmd").click(function(){
-                var arrayLignes = document.getElementById("cmd").rows;
-                var longueur = arrayLignes.length;   var produits = [];
-                for(var i=1; i<longueur; i++)
-                {
-                  produits[i] = { produit: arrayLignes[i].cells[1].innerHTML, gamme: arrayLignes[i].cells[2].innerHTML, spec: arrayLignes[i].cells[3].innerHTML, qte: arrayLignes[i].cells[4].innerHTML}
-                }
-                var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(produits)+"' hidden>");
-                champ.appendTo('#demandform');
-                $('#demandform').submit();
-       });
-       $("#deletepod").click(function(){
-               $("tr:has(input:checked)").remove();
-       });
-       $("#validerdmd").click(function(){
-              var arrayLignes = document.getElementById("cmd").rows;
-              var longueur = arrayLignes.length;
-              var tab = [];
-              for(var i=1; i<longueur; i++)
-              {
-                tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;
-              }
-              var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");
-              champ.appendTo('#dmdprod');
-              $('#dmdprod').submit();
-       });
-        $("#ajoutercmd").click(function() {
-               $('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td>"+$('#produit').val()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+$('#specialite option:selected').text()+"</td><td class='center'>"+$("#quantite").val()+"</td></tr>");
-              $('#produit').val('');$("#quantite").val(1);$('#gamme').val('0');$('#specialite').val('0')
-        });
-    $('#gamme').change(function(){
-            var id_gamme = $(this).val();
-            var html_code = '<option value="">Sélectionner</option>';
-             $.ajax({
-              url : '/getspecialite/'+id_gamme,
-              type : 'GET',
-              dataType : 'json',
-              success : function(data){
-                      $.each(data, function(){
-                               html_code += "<option value='"+this.id+"'>"+this.specialite_produit+"</option>";
-                      });
-                       $('#specialite').html(html_code);
-              },
-            });
-       });
-    $('#specialite').change(function(){
+      });
+     $('#specialite').change(function(){
       var id_gamme = $('#gamme').val();
       var id_spec = $(this).val();
       var html = '';
@@ -128,7 +128,7 @@
           }
       });
     });
-    $('.com_typeahead').typeahead({//#lieunaissance
+    $('.com_typeahead').typeahead({
           autoselect: true,
           hint: true,
           highlight: true,
@@ -170,7 +170,7 @@
                 $("#wilayaf").val(datum.nom_wilaya);
                 break;
           } 
-      });
+    });
   });  
 </script>
 <script type="text/javascript">

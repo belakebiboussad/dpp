@@ -46,7 +46,7 @@
 					<div class="form-group">
 							<label for="dateatcd" class="col-sm-2 control-label" >Date :</label>
 							<div class="col-sm-10">
-								<input type="text" name="dateAntcd" id="dateAntcd" class="form-control date-picker"   data-date-format="yyyy-mm-dd" data-provide="datepicker" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" required="" />
+								<input type="text" name="dateAntcd" id="dateAntcd" class="form-control date-picker" data-date-format="yyyy-mm-dd" data-provide="datepicker" required />
 							</div>
 					</div>
 					<div class="form-group">

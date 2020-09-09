@@ -17,7 +17,7 @@
 	            	dynamic: true,
 	            	dropdown: true,
 	            	scrollbar: true
-	    	});
+	  });
 		$( "#RDVForm" ).submit(function( event ) {  
 	  		$("#dateSortie").prop('disabled', false);
 	  	});
