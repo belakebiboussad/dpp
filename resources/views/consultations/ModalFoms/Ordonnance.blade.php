@@ -8,7 +8,7 @@
       <div class="modal-body bodyodal">
         <div class="row">
           <div class="col-sm-6">
-            <table id="medc_table" class="table table-striped table-bordered table-hover" width=100%> 
+            <table id="medc_table" class="table table-bordered table-hover" width=100%> 
               <thead>
                 <tr>
                   <th class="center"><strong>Médicament</strong></th>

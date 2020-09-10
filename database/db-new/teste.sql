@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 09 sep. 2020 à 16:15
+-- Généré le :  jeu. 10 sep. 2020 à 16:24
 -- Version du serveur :  5.7.23
 -- Version de PHP :  7.2.10
 
@@ -4327,6 +4327,9 @@ CREATE TABLE IF NOT EXISTS `hospitalisations` (
   `heure_entrée` time NOT NULL DEFAULT '14:00:00',
   `Heure_Prevu_Sortie` time DEFAULT '10:00:00',
   `Heure_sortie` time DEFAULT '10:00:00',
+  `modeSortie` enum('Domicile','Transfert','CAV','Décès','Reporter') DEFAULT NULL,
+  `codeSortie` varchar(50) NOT NULL,
+  `diagSortie` varchar(100) NOT NULL,
   `etat_hosp` enum('en cours','validée') NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_hospitalisation_admission` (`id_admission`),
@@ -4338,17 +4341,17 @@ CREATE TABLE IF NOT EXISTS `hospitalisations` (
 -- Déchargement des données de la table `hospitalisations`
 --
 
-INSERT INTO `hospitalisations` (`id`, `Date_entree`, `Date_Prevu_Sortie`, `Date_Sortie`, `id_admission`, `patient_id`, `modeHosp_id`, `garde_id`, `heure_entrée`, `Heure_Prevu_Sortie`, `Heure_sortie`, `etat_hosp`) VALUES
-(6, '2019-11-24', '2019-11-27', NULL, 189, 37, 1, NULL, '15:12:00', '09:00:00', NULL, 'en cours'),
-(7, '2019-11-25', '2019-11-27', NULL, 194, 37, 2, 22, '09:42:00', '09:00:00', NULL, 'en cours'),
-(14, '2020-06-09', '2020-06-11', NULL, 211, 67, 2, NULL, '14:00:00', '10:00:00', '10:00:00', 'en cours'),
-(16, '2020-06-28', '2020-07-01', NULL, 215, 31, 1, 3, '14:00:00', '10:00:00', '10:00:00', 'en cours'),
-(17, '2020-06-28', '2020-07-01', NULL, 215, 31, 1, 3, '14:00:00', '10:00:00', '10:00:00', 'en cours'),
-(18, '2020-06-28', '2020-07-15', NULL, 215, 31, 1, 3, '14:00:00', '10:00:00', '10:00:00', 'en cours'),
-(19, '2020-06-28', '2020-07-01', NULL, 215, 31, 1, 16, '14:00:00', '11:00:00', '10:00:00', 'en cours'),
-(20, '2020-06-28', '2020-07-01', NULL, 215, 31, 1, 3, '14:00:00', '10:00:00', '10:00:00', 'en cours'),
-(21, '2020-06-28', '2020-07-02', NULL, 215, 31, 1, 16, '14:00:00', '10:00:00', '10:00:00', 'en cours'),
-(22, '2020-06-28', '2020-07-01', NULL, 214, 30, 1, 13, '14:00:00', '10:00:00', '10:00:00', 'en cours');
+INSERT INTO `hospitalisations` (`id`, `Date_entree`, `Date_Prevu_Sortie`, `Date_Sortie`, `id_admission`, `patient_id`, `modeHosp_id`, `garde_id`, `heure_entrée`, `Heure_Prevu_Sortie`, `Heure_sortie`, `modeSortie`, `codeSortie`, `diagSortie`, `etat_hosp`) VALUES
+(6, '2019-11-24', '2019-11-27', NULL, 189, 37, 1, NULL, '15:12:00', '09:00:00', NULL, NULL, '', '', 'en cours'),
+(7, '2019-11-25', '2019-11-27', NULL, 194, 37, 2, 22, '09:42:00', '09:00:00', NULL, NULL, '', '', 'en cours'),
+(14, '2020-06-09', '2020-06-11', NULL, 211, 67, 2, NULL, '14:00:00', '10:00:00', '10:00:00', NULL, '', '', 'en cours'),
+(16, '2020-06-28', '2020-09-11', NULL, 215, 31, 1, 3, '14:00:00', '10:00:00', NULL, NULL, '', '', 'en cours'),
+(17, '2020-06-28', '2020-07-01', '2020-09-13', 215, 31, 1, 3, '14:00:00', '10:00:00', '03:00:00', 'Domicile', 'gfd', 'dfdf', 'validée'),
+(18, '2020-06-28', '2020-09-19', '2020-09-11', 215, 31, 1, 3, '14:00:00', '10:00:00', '11:00:00', 'Reporter', 'gfd', ';hj;jh;', 'validée'),
+(19, '2020-06-28', '2020-07-01', NULL, 215, 31, 1, 16, '14:00:00', '11:00:00', NULL, NULL, '', '', 'en cours'),
+(20, '2020-06-28', '2020-07-01', NULL, 215, 31, 1, 3, '14:00:00', '10:00:00', NULL, NULL, '', '', 'en cours'),
+(21, '2020-06-28', '2020-07-02', '2020-09-11', 215, 31, 1, 16, '14:00:00', '10:00:00', '13:00:00', 'Transfert', 'fsdsfg', '<c<wc<wc', 'validée'),
+(22, '2020-06-28', '2020-07-01', '2020-09-12', 214, 30, 1, 13, '14:00:00', '10:00:00', '13:00:00', 'Domicile', 'fsdsfg', 'diagnostic', 'validée');
 
 -- --------------------------------------------------------
 
@@ -10629,7 +10632,7 @@ CREATE TABLE IF NOT EXISTS `visites` (
   PRIMARY KEY (`id`),
   KEY `visites_id_hosp_foreign` (`id_hosp`),
   KEY `visites_id_employe_foreign` (`id_employe`)
-) ENGINE=MyISAM AUTO_INCREMENT=736 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=737 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `visites`
@@ -10851,7 +10854,8 @@ INSERT INTO `visites` (`id`, `date`, `heure`, `id_hosp`, `id_employe`, `created_
 (732, '2020-09-07', '10:35:00', 6, 102, NULL, NULL),
 (733, '2020-09-07', '10:39:00', 7, 102, NULL, NULL),
 (734, '2020-09-08', '14:59:00', 19, 102, NULL, NULL),
-(735, '2020-09-09', '14:41:00', 18, 102, NULL, NULL);
+(735, '2020-09-09', '14:41:00', 18, 102, NULL, NULL),
+(736, '2020-09-10', '14:41:00', 22, 102, NULL, NULL);
 
 -- --------------------------------------------------------
 

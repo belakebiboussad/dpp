@@ -15,6 +15,7 @@ use App\modeles\service;
 use App\modeles\ModeHospitalisation;
 use Jenssegers\Date\Date;
 use View;
+use Response;
 class HospitalisationController extends Controller
 {
     /**
@@ -104,9 +105,9 @@ class HospitalisationController extends Controller
      */
     public function edit($id)
     {
-        $hosp = hospitalisation::find($id); 
-        $services =service::all();
-        return View::make('Hospitalisations.edit')->with('hosp', $hosp)->with('services',$services);
+      $hosp = hospitalisation::find($id); 
+      $services =service::all();
+      return View::make('Hospitalisations.edit')->with('hosp', $hosp)->with('services',$services);
     }
 
     /**
@@ -119,9 +120,22 @@ class HospitalisationController extends Controller
     public function update(Request $request, $id)
     {
       $hosp = hospitalisation::find($id);
-      $hosp -> update($request->all()); //$hosp->save();
-      return redirect()->action('HospitalisationController@index');
-      
+      if($request->ajax())  
+      {
+        $heureSortie = date("H:i:s", strtotime(request('Heure_sortie')));
+        $hosp->update([
+            "Date_Sortie" =>$request->Date_Sortie,
+            "Heure_sortie" => $heureSortie,
+            "modeSortie" =>$request->modeSortie,
+            "codeSortie" =>$request->codeSortie,
+            "diagSortie" =>$request->diagSortie,
+            "etat_hosp" =>$request->etat_hosp,
+        ]);  //$hosp -> update($request->all());
+        return Response::json($hosp );
+      }else{
+        $hosp -> update($request->all()); //$hosp->save();
+        return redirect()->action('HospitalisationController@index');
+      }
     }
 
     /**

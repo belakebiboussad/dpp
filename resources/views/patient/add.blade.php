@@ -41,9 +41,7 @@
               }else
                 $( "#addPatientForm" ).submit();
 						}else
-						{
 							$( "#addPatientForm" ).submit();
-						}
 				}
 	    }    
 		});
@@ -116,20 +114,16 @@
 				  </li>
 		  </ul>
 		  <div class="tab-content">
-				<div id="Assure" class="tab-pane in active">
-						@include("assurs.addAssure")
-				</div>
-				<div id="Patient" class="tab-pane fade">
-						@include('patient.addPatient')
-				</div>
+				<div id="Assure" class="tab-pane in active">@include("assurs.addAssure")</div>
+				<div id="Patient" class="tab-pane fade">@include('patient.addPatient')</div>
 				<div id="Homme_C" class="tab-pane fade hidden_fields">
-			<div id ="homme_cPart">
-				<div class="row">
-					<div class="col-sm-12">
-						<h3 class="header smaller lighter blue"><b>Information de l'Homme de confiance</b></h3>
-					</div>	
-				</div>{{-- row --}}
-				<div class="row">
+				<div id ="homme_cPart">
+					<div class="row">
+						<div class="col-sm-12">
+							<h3 class="header smaller lighter blue"><b>Information de l'Homme de confiance</b></h3>
+						</div>	
+					</div>{{-- row --}}
+					<div class="row">
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="nomA"><strong>Nom :</strong></label>

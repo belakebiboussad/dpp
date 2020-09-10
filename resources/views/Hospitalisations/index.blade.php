@@ -1,49 +1,81 @@
 @extends('app')
-@section('style')
+@section('title') 	Hospitalisations @endsection
+@section('style') 
 <style>
+ .bootstrap-timepicker-meridian, .meridian-column
+ {
+        display: none;
+ }	
+ .bootstrap-timepicker-widget table tr:nth-child(3)>td:last-child a {
+  display: none;
+}
 
+.bootstrap-timepicker-widget table tr:nth-child(1)>td:last-child a {
+  display: none;
+}
 </style>
-@endsection
+ @endsection
 @section('page-script')
 <script>
-$('document').ready(function(){
-
+ $('document').ready(function(){
 	jQuery('.cloturerHosp').click(function () {
 	  var hospID = $(this).data('id');
 	  $("#hospID").val( hospID );
-	  $('#Heure_sortie').timepicker({
-      timeFormat: 'HH:mm',
-      interval: 60,
-      minTime: '08',
-      maxTime: '17:00pm',
-      defaultTime: '09:00',   
-      startTime: '08:00',
-      dynamic: true,
-      dropdown: true,
-      scrollbar: true,
-      //template: 'modal'
-    });
-	});
+	  $('#sortieHosp').modal('show');
+  	$('#Heure_sortie').timepicker({
+		//format: 'LT',//timeFormat:'%g:%i',
+		showMeridian : false,
+		  use24hours: true,
+         format: 'hh:mm A',
+	}).on('dp.show', function(event) {
+              $(".bootstrap-datetimepicker-widget").find('.btn[data-action="togglePeriod"]').hide();
+})
+   	$('.timepicker').timepicker('setTime', '10:00');
+  });
 	jQuery('#saveCloturerHop').click(function () {
-	  var hospID =$("#hospID").val();
+		  var formData = {
+			  	id                      : $("#hospID").val(),
+				  Date_Sortie             : jQuery('#Date_Sortie').val(),
+				  Heure_sortie            : jQuery('#Heure_sortie').val(),
+				  modeSortie              :jQuery('#modeSortie').val(),
+				  codeSortie              : $('#codeSortie').val(),
+				  diagSortie              : $("#diagSortie").val(),
+				  etat_hosp								:'validée',
+	  };
+	  if(!($("#Date_Sortie").val() == ''))
+    {
+  		if($('.dataTables_empty').length > 0)
+        $('.dataTables_empty').remove();
+      	$.ajax({
+    		headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+    		type: "POST",
+			  url: '/hospitalisation/'+$("#hospID").val(),//'hospitalisation/'+ $("#hospID").val(),
+			  data: formData,
+			  dataType: 'json',
+			  success: function (data) {
+			  $("#hospi" + data.id).remove();
+			  },
+			  error: function (data){
+						console.log('Error:', data);
+			  },
+    	})
+    }	
 	});
 });
 </script>
 @endsection
 @section('main-content')
-	<div class="page-header">
-		<h1>
-			<strong>Liste des Hospitalisations :</strong>
-		</h1>
-	</div><!-- /.page-header -->
-	<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
+	<div class="page-header"><h1><strong>Liste des Hospitalisations :</strong></h1></div>
+		<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
 		<div class="widget-box widget-color-blue" id="widget-box-2">
 			<div class="widget-header">
 				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Hospitalisations</h5>
 			</div>
 			<div class="widget-body">
 				<div class="widget-main no-padding">
-					<table class="table table-striped table-bordered table-hover">
+					<table class="table nowrap dataTable table-bordered no-footer table-scrollable">
 						<thead class="thin-border-bottom">
 							<tr>
 								<th class="center">Patient</th>
@@ -58,7 +90,7 @@ $('document').ready(function(){
 						</thead>
 						<tbody>
 							@foreach( $hospitalisations as $hosp)
-								<tr id={{{$hosp->id}}}>
+								<tr id = {{ 'hospi'.$hosp->id }}>
 									<td>
 										@if(Auth::user()->role->id == 1)
 											<a href="/patient/{{ $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient->id}}/edit">
@@ -89,8 +121,7 @@ $('document').ready(function(){
 							  			</a>
 							  	   	@if(Auth::user()->role_id == 1)
 							  	  		<a href="/visite/create/{{ $hosp->id }}" class ="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter une Visite" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i></a>
-							  	  	 	<!-- <button class="btn btn-info btn-xs" type="button" data-toggle="modal" data-target="#sortieHosp" title="Clôturer Hospitalisation" value=" {{$hosp->id }}"><i class="fa fa-sign-out" aria-hidden="true" style="font-size:16px;"></i></button> -->
-							  	  	 	<a data-toggle="modal" data-id="{{ $hosp->id}}" title="Clôturer Hospitalisation" class="cloturerHosp btn btn-primary btn-xs" href="#sortieHosp"><i class="fa fa-sign-out" aria-hidden="true" style="font-size:16px;"></i></a>
+							  	  	 	<a data-toggle="modal" data-id="{{ $hosp->id}}" title="Clôturer Hospitalisation" class="cloturerHosp btn btn-primary btn-xs" href="#" id="sortieEvent"><i class="fa fa-sign-out" aria-hidden="true" style="font-size:16px;"></i></a>
 							  	  	@endif
 							  	  	@if(Auth::user()->role_id == 5)
 							  	  		<a class="btn btn-secondary btn-xs" data-toggle="tooltip" title="Imprimer un ticket" data-placement="bottom"><i class="ace-icon glyphicon glyphicon-print bigger-120"></i></a>
@@ -108,6 +139,7 @@ $('document').ready(function(){
 				</div><!-- widget-main -->
 		  	</div>	<!-- widget-body -->
 		 </div> <!-- widget-box -->
-	</div>
+<!-- debut -->
+	<!-- end -->
 	<div class="row">@include('Hospitalisations.sortieModal')</div>
 @endsection

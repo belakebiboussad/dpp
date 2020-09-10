@@ -475,14 +475,14 @@ class PatientController extends Controller
      */
       public function destroy(Request $request , $id)
       {
-              if($request->ajax())  
-              {
-                      $patient = patient::destroy($id);
-                      return Response::json($patient);   
-              }else{
-                      patient::destroy($id);
-                      return redirect() -> route('patient.index');
-              }
+        if($request->ajax())  
+        {
+                $patient = patient::destroy($id);
+                return Response::json($patient);   
+        }else{
+                patient::destroy($id);
+                return redirect() -> route('patient.index');
+        }
       }
     public function getpatient()
     {

@@ -1,9 +1,8 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Ordonnance</title><!-- <link rel="stylesheet" type="text/css" href="{{ asset('/css/bootstrap.min.css') }}"/> -->
-		
-  	<style>
+		<title>Ordonnance</title>
+		<style>
   		@media print {
 	      .print {display:block}
 	      .btn-print {display:none;}

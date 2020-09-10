@@ -426,9 +426,8 @@
     	  	if(!($("#description").val() == ''))
     		  {	
   	    		if($('.dataTables_empty').length > 0)
-    			  {
-        			$('.dataTables_empty').remove();
-      			}	
+  	    			$('.dataTables_empty').remove();
+    
 		      	$.ajaxSetup({
 			      	 headers: {
 			            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')

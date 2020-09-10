@@ -89,9 +89,9 @@ Route::get('/listecolloquesCloture/{type}','ColloqueController@getClosedColoques
 Route::get('/runcolloque/{id}','ColloqueController@run');
 Route::get('/endcolloque/{id}','ColloqueController@cloture');
 Route::post('/savecolloque/{id}','ColloqueController@save');
-Route::get('/getRdvs/{date}','RdvHospiController@getRdvs');//->name('admissionsXHR')
-//Route::get('hospitalisation/addRDV', 'RdvHospiController@ajouterRDV');//sup
+Route::get('/getRdvs/{date}','RdvHospiController@getRdvs');//->name('admissionsXHR')//Route::get('hospitalisation/addRDV', 'RdvHospiController@ajouterRDV');//sup
 Route::get('hospitalisation/listeRDVs', 'RdvHospiController@getlisteRDVs');
+Route::post('/hospitalisation/{id}','HospitalisationController@update');
 Route::post('users/changePassword', 'UsersController@changePassword');
 Route::post('/users/store/','UsersController@store');
 Route::get('/searchAssure','AssurController@search');
@@ -162,7 +162,7 @@ Route::post('/get-all-events','RDVController@checkFullCalendar');
 route::get('/showordonnance/{id}','OrdonnanceController@show_ordonnance');
 route::get('/demandeexbio/{id}','DemandeExbController@createexb');
 route::get('/showdemandeexb/{id}','DemandeExbController@print');
-route::get('/showdemandeexr/{id}','DemandeExamenRadio@print');//route::get('/affecterLit','HospitalisationController@affecterLit');//a faire dans l'hospitalisation
+route::get('/showdemandeexr/{id}','DemandeExamenRadio@print');
 Route::get('/affecterLit', function () {
     return view('errors.404');
 });

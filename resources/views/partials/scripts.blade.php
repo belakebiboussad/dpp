@@ -2,8 +2,8 @@
 <!--[if !IE]> -->
 <script src="{{ asset('/js/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/jspdf.debug.js') }}"></script>
- <script type="text/javascript">
-     if('ontouchstart' in document.documentElement) document.write("<script src='{{asset('/js/jquery.mobile.custom.min.js')}}'>"+"<"+"/script>");
+<script type="text/javascript">
+  if('ontouchstart' in document.documentElement) document.write("<script src='{{asset('/js/jquery.mobile.custom.min.js')}}'>"+"<"+"/script>");
 </script>
 <script src="{{asset('/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('/js/jquery-ui.custom.min.js')}}"></script>
@@ -42,7 +42,9 @@
 <script src="{{ asset('/js/bootstrap-toggle.min.js') }}"></script>
 <script src="{{ asset('/js/ace-extra.min.js') }}"></script>
 <script src="{{ asset('/js/jquery.timepicker.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/js/bootstrap-timepicker.min.js') }}"></script>
 <script src="{{ asset('/js/typeahead.bundle.min.js') }}"></script>
+<script src="{{ asset('/js/typeahead.jquery.js') }}"></script>
 <script src="{{ asset('/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
 <script src="{{ asset('/plugins/fullcalendar/locale/fr.js') }}"></script>
 <script src="{{ asset('/js/jquery-editable-select.js') }}"></script><!-- <script src="{{asset('/js/jquery-ui.js')}}"></script> -->
@@ -143,7 +145,7 @@
           hint: true,
           highlight: true,
           minLength: 1,   
-        },{
+    },{
           name: 'communenom',
           source: bloodhoundcom,
           display: function(data) {
@@ -160,7 +162,7 @@
                    return '<div style="font-weight:normal; margin-top:-10px ! important;width:300px !important" class="list-group-item">' + data.nom_commune+ '</div></div>'
             } 
           }
-        }).bind("typeahead:selected", function(obj, datum, name){
+    }).bind("typeahead:selected", function(obj, datum, name){
           switch(obj['target']['id'])
           {
             case "lieunaissance":
