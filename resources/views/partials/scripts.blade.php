@@ -50,14 +50,14 @@
 <script src="{{ asset('/js/jquery-editable-select.js') }}"></script><!-- <script src="{{asset('/js/jquery-ui.js')}}"></script> -->
 <script src="{{asset('/js/sweetalert2.all.min.js')}}"></script>{{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> --}}
 <script type="text/javascript">
-  var bloodhoundcom = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.whitespace,
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        remote: {
-          url: '/patients/findcom?com=%QUERY%',
-          wildcard: '%QUERY%'
-      },
-  });
+  // var bloodhoundcom = new Bloodhound({
+  //       datumTokenizer: Bloodhound.tokenizers.whitespace,
+  //       queryTokenizer: Bloodhound.tokenizers.whitespace,
+  //       remote: {
+  //         url: '/patients/findcom?com=%QUERY%',
+  //         wildcard: '%QUERY%'
+  //     },
+  // });
   $(document).ready(function(){
     $('.timepicker').timepicker({
       timeFormat: 'HH:mm',
@@ -140,49 +140,49 @@
           }
       });
     });
-    $('.com_typeahead').typeahead({
-          autoselect: true,
-          hint: true,
-          highlight: true,
-          minLength: 1,   
-    },{
-          name: 'communenom',
-          source: bloodhoundcom,
-          display: function(data) {
-            return data.nom_commune;  //Input value to be set when you select a suggestion. 
-          },
-          templates: {
-            empty: [
-              '<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
-            ],
-            header: [
-              '<div class="list-group search-results-dropdown">'
-            ],
-              suggestion: function(data) {
-                   return '<div style="font-weight:normal; margin-top:-10px ! important;width:300px !important" class="list-group-item">' + data.nom_commune+ '</div></div>'
-            } 
-          }
-    }).bind("typeahead:selected", function(obj, datum, name){
-          switch(obj['target']['id'])
-          {
-            case "lieunaissance":
-                $("#idlieunaissance").val(datum.id_Commune);
-                break;
-            case "lieunaissancef":
-                $("#idlieunaissancef").val(datum.id_Commune);
-                break;
-            case "commune":
-                $("#idcommune").val(datum.id_Commune);
-                $("#idwilaya").val(datum.Id_wilaya);
-                $("#wilaya").val(datum.nom_wilaya);
-                break;
-            case "communef":    
-                $("#idcommunef").val(datum.id_Commune);
-                $("#idwilayaf").val(datum.Id_wilaya);
-                $("#wilayaf").val(datum.nom_wilaya);
-                break;
-          } 
-    });
+    // $('.com_typeahead').typeahead({
+    //       autoselect: true,
+    //       hint: true,
+    //       highlight: true,
+    //       minLength: 1,   
+    // },{
+    //       name: 'communenom',
+    //       source: bloodhoundcom,
+    //       display: function(data) {
+    //         return data.nom_commune;  //Input value to be set when you select a suggestion. 
+    //       },
+    //       templates: {
+    //         empty: [
+    //           '<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
+    //         ],
+    //         header: [
+    //           '<div class="list-group search-results-dropdown">'
+    //         ],
+    //           suggestion: function(data) {
+    //                return '<div style="font-weight:normal; margin-top:-10px ! important;width:300px !important" class="list-group-item">' + data.nom_commune+ '</div></div>'
+    //         } 
+    //       }
+    // }).bind("typeahead:selected", function(obj, datum, name){
+    //       switch(obj['target']['id'])
+    //       {
+    //         case "lieunaissance":
+    //             $("#idlieunaissance").val(datum.id_Commune);
+    //             break;
+    //         case "lieunaissancef":
+    //             $("#idlieunaissancef").val(datum.id_Commune);
+    //             break;
+    //         case "commune":
+    //             $("#idcommune").val(datum.id_Commune);
+    //             $("#idwilaya").val(datum.Id_wilaya);
+    //             $("#wilaya").val(datum.nom_wilaya);
+    //             break;
+    //         case "communef":    
+    //             $("#idcommunef").val(datum.id_Commune);
+    //             $("#idwilayaf").val(datum.Id_wilaya);
+    //             $("#wilayaf").val(datum.nom_wilaya);
+    //             break;
+    //       } 
+    // });
   });  
 </script>
 <script type="text/javascript">
