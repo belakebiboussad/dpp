@@ -2,10 +2,8 @@
 @section('title','Ajouter un patient')
 @section('page-script')
  <script>
-
-//$("#omschrijving").autocomplete(fakedata);
- 	$( document ).ready(function() {
-		$( "#addPatientForm" ).submit(function( event ) {
+  	$( document ).ready(function() {
+ 			$( "#addPatientForm" ).submit(function( event ) {
 		  if( ! checkPatient() )
       {
         activaTab("Patient");
@@ -47,12 +45,6 @@
 				}
 	    }    
 		});
-	// debut
-
-		var bloodhoundcom = ['test1','test2','test3','test4','ietsanders'];
-		$('#lieunaissance').typeahead({bloodhoundcom});
-		
-		// fin
 	});
 	function copyPatientInfo()
 	{

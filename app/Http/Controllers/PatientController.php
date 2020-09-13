@@ -15,7 +15,6 @@ use App\modeles\DemandeHospitalisation;
 use App\modeles\hospitalisation;
 use App\modeles\Specialite;
 use App\modeles\grade;
-use App\modeles\Commune;
 use App\modeles\homme_conf;
 use App\modeles\antecedant;
 use App\modeles\ticket;
@@ -587,14 +586,7 @@ class PatientController extends Controller
       {
               return patient::where('Prenom', 'LIKE', '%'.trim($request->prenom).'%')->get();     
   }
-  public function AutoCompleteCommune(Request $request)
-  {
-    return  Commune::select('communes.*','wilayas.*')
-                        ->join('daira','communes.Id_daira','=','daira.Id_daira')
-                        ->join('wilayas','daira.id_wilaya','=','wilayas.id')
-                        ->select('communes.*','communes.id as id_Commune' ,'wilayas.*','wilayas.id as Id_wilaya')
-                        ->where('nom_commune', 'LIKE', '%'.trim($request->com).'%')->get();
-  }
+
   public function patientsToMerege(Request $request)
   {
      $statuses = array();

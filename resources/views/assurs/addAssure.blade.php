@@ -34,7 +34,7 @@
 			<label class="col-sm-3 control-label" for="lieunaissance"><strong class="text-nowrap">Né(e) à :</strong></label>
 			<div class="col-sm-9">
 			  	<input type="hidden" name="idlieunaissancef" id="idlieunaissancef">
-					<input type="text" id="lieunaissancef" class="typeahead com_typeahead col-xs-12 col-sm-12" placeholder="Lieu de naissance..." autocomplete ="on"/>		
+					<input type="text" id="lieunaissancef" class="autoCommune col-xs-12 col-sm-12" placeholder="Lieu de naissance..." autocomplete ="on"/>		
 			 		{!! $errors->first('lieunaissancef', '<small class="alert-danger">:message</small>') !!}
 			</div>
 		</div>

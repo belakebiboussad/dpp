@@ -149,7 +149,7 @@ Route::get('/user/find', 'UsersController@AutoCompleteUsername');
 Route::get('/userdetail', 'UsersController@getUserDetails');
 Route::get('/patients/find', 'PatientController@AutoCompletePatientname');
 Route::get('/patients/findprenom','PatientController@AutoCompletePatientPrenom');
-Route::get('/patients/findcom','PatientController@AutoCompleteCommune');
+Route::post('/findCom','CommuneController@AutoCompleteCommune')->name('commune.getCommunes');
 Route::get('/patientdetail/{id}', 'PatientController@getPatientDetails');
 Route::get('/serviceRooms', 'ServiceController@getRooms');
 Route::get('/patientsToMerge','PatientController@patientsToMerege');
