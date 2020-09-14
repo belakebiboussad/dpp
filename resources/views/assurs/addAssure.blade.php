@@ -88,7 +88,7 @@
 	<div class="col-sm-4">
 		<label class="col-sm-4 text-nowrap" for="communef"><strong>Commune:</strong></label>
 		<input type="hidden" name="idcommunef" id="idcommunef">
-	 	<input type="text" value="" id="communef" placeholder="commune résidance" class="com_typeahead col-sm-8"/>
+	 	<input type="text" value="" id="communef" placeholder="commune résidance" class="autoCommune col-sm-8"/>
 	</div>
 	<div class="col-sm-4">
 		  <label class="col-sm-4" for="wilayaf"><strong>Wilaya:</strong></label>
@@ -207,9 +207,5 @@
 	</div>
 </div>	{{-- row --}}
 <div class="space-12"></div>
-{{-- <div class="row">
-	
-	<div class="col-sm-6">
-		<br><br>
-	</div>
-</div>--}}{{-- row --}} 
+<a href="/b/1" title="commune" class= "btn">Bonjour</a>
+{{-- <div class="row"><div class="col-sm-6"><br><br></div></div>--}}{{-- row --}} 

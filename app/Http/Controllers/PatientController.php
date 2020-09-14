@@ -168,24 +168,24 @@ class PatientController extends Controller
     ///store ptient from assure
   public function storePatient(Request  $request)
   {
-          $date = Date::Now();
-          $rule = array(
-              "nom" => 'required',
-              "prenom" => 'required',
-              "datenaissance" => 'required|date|date_format:Y-m-d',
-              "idlieunaissance" => 'required',
-              "mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],
-              "Type_p" =>'required_if:type,Ayant_droit', //"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
-              "prenom_homme_c"=>'required_with:nom_homme_c', 
-              "type_piece_id"=>'required_with:nom_homme_c', 
-              "npiece_id"=>'required_with:nom_homme_c', //"lien"=>'required_with:nom_homme_c', //"date_piece_id"=>'required_with:nom_homme_c',    
-              "mobile_homme_c"=>['required_with:nom_homme_c'],
-              "operateur_h"=>'required_with:mobileA',
-          ); 
-            $messages = [
-                          "required"     => "Le champ :attribute est obligatoire.", // "NSSValide"    => 'le numéro du securite sociale est invalide ',
-                          "date"         => "Le champ :attribute n'est pas une date valide.",
-            ];
+    $date = Date::Now();
+    $rule = array(
+        "nom" => 'required',
+        "prenom" => 'required',
+        "datenaissance" => 'required|date|date_format:Y-m-d',
+        "idlieunaissance" => 'required',
+        "mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],
+        "Type_p" =>'required_if:type,Ayant_droit', //"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
+        "prenom_homme_c"=>'required_with:nom_homme_c', 
+        "type_piece_id"=>'required_with:nom_homme_c', 
+        "npiece_id"=>'required_with:nom_homme_c', //"lien"=>'required_with:nom_homme_c', //"date_piece_id"=>'required_with:nom_homme_c',    
+        "mobile_homme_c"=>['required_with:nom_homme_c'],
+        "operateur_h"=>'required_with:mobileA',
+    ); 
+      $messages = [
+                    "required"     => "Le champ :attribute est obligatoire.", // "NSSValide"    => 'le numéro du securite sociale est invalide ',
+                    "date"         => "Le champ :attribute n'est pas une date valide.",
+      ];
     $validator = Validator::make($request->all(),$rule,$messages);   
     if ($validator->fails()) {
        
@@ -560,7 +560,7 @@ class PatientController extends Controller
   {
     if($request->ajax())  
     {
-      $patients = patient::where('Nom','LIKE','%'.trim($request->search)."%")->where('Prenom','LIKE','%'.trim($request->prenom)."%")->where('IPP','LIKE','%'.trim($request->ipp)."%")->where('Dat_Naissance','LIKE','%'.trim($request->Dat_Naissance)."%")->where('active','=',1)->get();//->paginate(20);
+      $patients = patient::where($request->field,'LIKE','%'.trim($request->value)."%")->where('active','=',1)->get();
       return Response::json($patients);
     }
   }
@@ -578,14 +578,18 @@ class PatientController extends Controller
     }
     return response()->json(['html'=>$view]);
   }
-  public function AutoCompletePatientname(Request $request)
+
+  public function AutoCompletePatientField(Request $request)
   {
-    return patient::where('Nom', 'LIKE', '%'.trim($request->q).'%')->get();     
-  }
-  public function AutoCompletePatientPrenom(Request $request)
-      {
-              return patient::where('Prenom', 'LIKE', '%'.trim($request->prenom).'%')->get();     
-  }
+    $field = trim($request->field);
+    $patients = patient::where($field, 'LIKE', '%'.trim($request->q).'%')->limit(15)->get();
+    $response = array();
+    foreach($patients as $patient){
+      $response[] = array("label"=>$patient->$field);
+    }
+    return response()->json($response);     
+  } 
+
 
   public function patientsToMerege(Request $request)
   {

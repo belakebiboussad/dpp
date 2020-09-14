@@ -31,24 +31,24 @@
 				<label class="col-sm-3 col-xs-3 control-label" for="datenaissancef"><strong class="text-nowrap">Né(e) le :</strong></label>
 				<div class="col-sm-9">
 					@if(isset($assure) && !empty($assure))
-						<input class="com_typeahead col-xs-12 col-sm-12 date-picker" id="datenaissancef" name="datenaissancef" type="text" placeholder="Date de naissance..." data-date-format="yyyy-mm-dd" value="{{ $assure->Date_Naissance }}" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
+						<input class="autoCommune col-xs-12 col-sm-12 date-picker" id="datenaissancef" name="datenaissancef" type="text" placeholder="Date de naissance..." data-date-format="yyyy-mm-dd" value="{{ $assure->Date_Naissance }}" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
 					@else	
-						<input class="com_typeahead col-xs-12 col-sm-12 date-picker" id="datenaissancef" name="datenaissancef" type="text" placeholder="Date de naissance..." data-date-format="yyyy-mm-dd" value="" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
+						<input class="autoCommune col-xs-12 col-sm-12 date-picker" id="datenaissancef" name="datenaissancef" type="text" placeholder="Date de naissance..." data-date-format="yyyy-mm-dd" value="" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
 					@endif
 				</div>
 			</div>
 		</div>
 		<div class="col-sm-6">
 			<div class="form-group">
-				<label class="col-sm-3 col-xs-3 control-label" for="lieunaissancef"><span class="text-nowrap"><strong>Né(e) à:</strong></span></label>
+				<label class="col-sm-3 col-xs-3 control-label" for="lieunaissancef"><span class="text-nowrap"><strong>Né(e)à:</strong></span></label>
 				<div class="col-sm-9">
 					<div class="col-sm-9">
 					@if(isset($assure) && !empty($assure))
 						<input type="hidden" name="idlieunaissancef" id="idlieunaissancef" value="{{  $assure->lieunaissance  }} ">
-						<input type="text" id="lieunaissancef" name="" class="com_typeahead col-xs-12 col-sm-12" value="{{ $assure->lieuNaissance->nom_commune }}" autocomplete= "off" />
+						<input type="text" id="lieunaissancef" name="" class="autoCommune col-xs-12 col-sm-12" value="{{ $assure->lieuNaissance->nom_commune }}" autocomplete= "off" />
 					@else	
 						<input type="hidden" name="idlieunaissancef" id="idlieunaissancef" value="">
-						<input type="text" id="lieunaissancef" name="" class="com_typeahead col-xs-12 col-sm-12" value="" autocomplete= "off" />
+						<input type="text" id="lieunaissancef" name="" class="autoCommune col-xs-12 col-sm-12" value="" autocomplete= "off" />
 					@endif
 				</div>
 					</div>
@@ -124,7 +124,7 @@
 	<div class="row Asdemograph">
 		<div class="col-sm-4">
 			<div class="form-group">
-			 	<label class="col-sm-4 col-xs-4 control-label no-padding-right" for="adressef"><Strong>Adresse: </Strong></label>
+			 	<label class="col-sm-4 col-xs-4" for="adressef"><Strong>Adresse: </Strong></label>
 	  			<div class="col-sm-8">
 	  			@if(isset($assure) && !empty($assure))
 	  				<input type="text" id="adressef" name="adressef"  class="col-xs-12 col-sm-12" value= "{{ $assure->adresse }}" />
@@ -135,13 +135,13 @@
 	  	</div>
 	  </div>
 	  <div class="col-sm-4">
-	  	<label class="col-sm-4 col-xs-4 control-label text-nowrap" for="communef"><strong>Commune:</strong></label>
+	  	<label class="col-sm-4 col-xs-4 text-nowrap" for="communef"><strong>Commune:</strong></label>
 	  	@if(isset($assure->commune) && !empty($assure->commune))
 	  	<input type="hidden" name="idcommunef" id="idcommunef" value="{{  $assure->commune_res  }}">
-			<input type="text" id="communef" name="" class="com_typeahead col-xs-9 col-sm-9" value="{{ $assure->commune->nom_commune }}"/>
+			<input type="text" id="communef" name="" class="autoCommune col-xs-8 col-sm-8" value="{{ $assure->commune->nom_commune }}"/>
 	  	@else	
 			<input type="hidden" name="idcommunef" id="idcommunef">
-	 		<input type="text" value="" id="communef" placeholder="commune résidance" class="com_typeahead col-xs-8 col-sm-8"/>
+	 		<input type="text" value="" id="communef" placeholder="commune résidance" class="autoCommune col-xs-8 col-sm-8"/>
 	 		@endif
 	  </div>
 	  <div class="col-sm-4">

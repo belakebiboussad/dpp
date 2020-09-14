@@ -364,10 +364,6 @@
           jQuery('#gardeMalade').modal('show');
         });
       }
-      function reset_in() 
-      {
-        $('#patientName').val('');$('#patientFirstName').val('');$('#IPP').val('');$('#Dat_Naissance').val('');
-      }
       $(document).ready(function () {
         $('input[type=radio][name=sexe]').change(function(){
           if($(this).val() == "M")

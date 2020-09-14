@@ -156,7 +156,7 @@
 					<label class="col-sm-3 control-label" for="lieunaissance"><strong class="text-nowrap">Né(e) à :</strong></label>
 				      <div class="col-sm-9">
 					       <input type="hidden" name="idlieunaissance" id="idlieunaissance" value={{ $patient->Lieu_Naissance }}>
-					      <input type="text" id="lieunaissance" class="com_typeahead col-xs-12 col-sm-12" value="{{ $patient->lieuNaissance->nom_commune }}" required/>
+					      <input type="text" id="lieunaissance" class="autoCommune col-xs-12 col-sm-12" value="{{ $patient->lieuNaissance->nom_commune }}" required/>
 						    {!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
 				       </div>
 				</div>
@@ -258,12 +258,12 @@
 						<div class="col-sm-4"> <!-- style="margin-top: -0.1%;" -->
 							<label class="text-nowrap col-sm-4 col-xs-4" for="commune"><strong>Commune:</strong></label>
 							<input type="hidden" name="idcommune" id="idcommune" value="{{ $patient->commune_res }}"/>
-							<input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}" class="com_typeahead col-sm-8 col-xs-8"/>					
+							<input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}" class="autoCommune col-sm-8 col-xs-8"/>					
 						</div>
 						<div class="col-sm-4">
 							<label class="col-sm-4 col-xs-4"><strong>Wilaya :</strong></label>
 						  <input type="hidden" name="idwilaya" id="idwilaya" value="{{ $patient->wilaya->immatriculation_wilaya }}"/>
-						  <input type="text" id="wilaya" value="{{ $patient->wilaya->nom_wilaya }}" class="com_typeahead col-sm-8 col-xs-8"readonly/>	
+						  <input type="text" id="wilaya" value="{{ $patient->wilaya->nom_wilaya }}" class="col-sm-8 col-xs-8"readonly/>	
 						</div>	
 				</div>{{-- row --}}
 				<div class="space-12"></div>

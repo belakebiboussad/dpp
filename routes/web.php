@@ -147,8 +147,14 @@ Route::get('/getPatients','PatientController@getPatientsArray');
 Route::get('/getlits','LitsController@getlits');
 Route::get('/user/find', 'UsersController@AutoCompleteUsername');
 Route::get('/userdetail', 'UsersController@getUserDetails');
-Route::get('/patients/find', 'PatientController@AutoCompletePatientname');
-Route::get('/patients/findprenom','PatientController@AutoCompletePatientPrenom');
+
+Route::post('/patients/find', 'PatientController@AutoCompletePatientname')->name('patients.autoNom');
+Route::post('/patients/findprenom','PatientController@AutoCompletePatientPrenom')->name('patients.autoPrenom');
+Route::post('/patients/findipp','PatientController@AutoCompletePatientIPP')->name('patients.autoIPP');
+
+Route::post('/patients/autoField', 'PatientController@AutoCompletePatientField')->name('patients.autoField');
+
+
 Route::post('/findCom','CommuneController@AutoCompleteCommune')->name('commune.getCommunes');
 Route::get('/patientdetail/{id}', 'PatientController@getPatientDetails');
 Route::get('/serviceRooms', 'ServiceController@getRooms');
@@ -208,3 +214,4 @@ route::get('/download/{filename}', function($filename)
     return Storage::download($filename);
 });
 route::get('/cim','CimController@diseases');
+route::get('/b/{id}','CommuneController@show');

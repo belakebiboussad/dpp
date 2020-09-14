@@ -90,20 +90,21 @@
                 break;
             case "commune":
                 $("#idcommune").val(ui.item.value);
-                $("#idwilaya").val(datum.Id_wilaya);
-                $("#wilaya").val(datum.nom_wilaya);
+                $("#idwilaya").val(ui.item.wvalue);
+                $("#wilaya").val(ui.item.wlabel);
                 break;
             case "communef":    
-                $("#idcommunef").val(datum.id_Commune);
-                $("#idwilayaf").val(datum.Id_wilaya);
-                $("#wilayaf").val(datum.nom_wilaya);
+                $("#idcommunef").val(ui.item.value);
+                $("#idwilayaf").val(ui.item.wvalue);
+                $("#wilayaf").val(ui.item.wlabel);
                 break;
+            default:
+                break;   
+
           } 
-           $('#idlieunaissance').val(ui.item.value); 
-           return false;
+          return false;
         }
-    })
-    
+    });
     $('#avis').change(function(){
           if($(this).val() == "R")
             $("#motifr").show();

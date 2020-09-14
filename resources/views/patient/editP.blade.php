@@ -114,10 +114,10 @@
 				</div>
 				<div class="col-sm-6">
 					<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
-						<label class="col-sm-3 control-label" for="lieunaissance"><strong class="text-nowrap">Né(e) à :</strong></label>
+						<label class="col-sm-3 control-label" for="lieunaissance"><strong class="text-nowrap">Né(e) à:</strong></label>
 				    <div class="col-sm-9">
 					    <input type="hidden" name="idlieunaissance" id="idlieunaissance" value={{ $patient->Lieu_Naissance }}>
-					    <input type="text" id="lieunaissance" class="com_typeahead col-xs-12 col-sm-12" value="{{ $patient->lieuNaissance->nom_commune }}" required/>
+					    <input type="text" id="lieunaissance" class="autoCommune col-xs-12 col-sm-12" value="{{ $patient->lieuNaissance->nom_commune }}" required/>
 						    {!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
 				      </div>
 					</div>
@@ -219,7 +219,7 @@
 						<div class="col-sm-4" style="margin-top: -0.1%;">
 							<label class="col-sm-3" for="commune"><strong>Commune :</strong></label>
 							<input type="hidden" name="idcommune" id="idcommune" value="{{ $patient->commune_res }}"/>
-							<input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}" class="com_typeahead col-sm-9"/>					
+							<input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}" class="autoCommune col-sm-9"/>					
 						</div>
 						<div class="col-sm-4">
 							<label class="col-sm-3"><strong>Wilaya :</strong></label>

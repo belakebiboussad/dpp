@@ -60,136 +60,89 @@
 			}).prop('selected', true);
 		}	
 	}
+	var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+	var field ="Dat_Naissance";
 	$(document).ready(function(){
-		var Namebloodhound = new Bloodhound({
-		      datumTokenizer: Bloodhound.tokenizers.whitespace,
-		      queryTokenizer: Bloodhound.tokenizers.whitespace,
-		      remote: {
-						url: '/patients/find?q=%QUERY%',
-						wildcard: '%QUERY%'
-					},
-		});
-		var Firstnamebloodhound = new Bloodhound({
-	    	  datumTokenizer: Bloodhound.tokenizers.whitespace,
-	        queryTokenizer: Bloodhound.tokenizers.whitespace,
-	        remote: {
-						url: '/patients/findprenom?prenom=%QUERY%',
-						wildcard: '%QUERY%'
-				},
-		}); 
-		$('#patientName').typeahead({
-					hint: true,
-					highlight: true,
-					minLength: 2
-				}, {
-					name: 'patientnom',
-					source: Namebloodhound,
-					display: function(data) {
-						$('#btnCreate').removeClass('hidden');
-	         	$('#FusionButton').removeClass('hidden');   
-						return data.Nom;  
-					},
-					templates: {
-						empty: [
-							'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucun Patient</div></div>'
-						],
-						header: [
-							'<div class="list-group search-results-dropdown">'
-						],
-						suggestion: function(data) {
-						return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item">' + data.Nom + '</div></div>'
-						}
-						
-					}
-		});
-		$('#patientFirstName').typeahead({
-			hint: true,
-			highlight: true,
-			minLength: 2
-		},{
-			name: 'patientprenom',
-			source: Firstnamebloodhound,
-			display: function(data) {
-				$('#btnCreate').removeClass('hidden');
-	      $('#FusionButton').removeClass('hidden'); 
-				return data.Prenom;
-			},
-			templates: {
-					empty: [
-						'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucun Patient</div></div>'
-					],
-					header: [
-						'<div class="list-group search-results-dropdown">'
-					],
-					suggestion: function(data) {
-						return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item">' + data.Prenom + '</div></div>'
-					}		
-				}
-		});
+    $( ".autofield" ).autocomplete({
+    	 	source: function( request, response ) {
+			  	  $.ajax({
+				  	  	url:"{{route('patients.autoField')}}",
+			          type: 'post',
+			          dataType: "json",
+			          data: {
+			             _token: CSRF_TOKEN,
+			              q: request.term,
+			              field:$(this.element).prop("id"),
+			          },
+			          success: function( data ) {
+			          	response( data );
+			          }
+			  	  });
+			  },
+        minLength: 3,
+      	select: function (event, ui) {
+       		$(this).val(ui.item.label);
+       		field =event['target']['id'];
+      	}
+    });
 		$(document).on('click','.findptient',function(event){
 			event.preventDefault();
-			$('#btnCreate').removeClass('hidden');
-			$('#FusionButton').removeClass('hidden');
-			$('#patientDetail').html('');
-			$(".numberResult").html('');
-			nom=$('#patientName').val();
-			prenom=$('#patientFirstName').val();
-			code_barre=$('#IPP').val();
-			date_Naiss=$('#Dat_Naissance').val();
+			$('#btnCreate').removeClass('hidden');$('#FusionButton').removeClass('hidden');
+			$('#patientDetail').html('');$(".numberResult").html('');
 			$.ajax({
-		       type : 'get',
-		       url : '{{URL::to('searchPatient')}}',
-		       data:{'search':nom,'prenom':prenom,'code_barre':code_barre,'Dat_Naissance':date_Naiss},
-		       success:function(data,status, xhr){
-     			 	$(".numberResult").html(Object.keys(data).length);
-     				reset_in();
-     				$("#liste_patients").DataTable ({
-     					"processing": true,
-	  				  "paging":   true,
-	  				  "destroy": true,
-	  					"ordering": true,
-	    				"searching":false,
-	    				"info" : false,
-	    				"language":{"url": '/localisation/fr_FR.json'},
-	   	 		      	"data" : data,
-		        		"columns": [
-									{ data:null,title:'#', "orderable": false,searchable: false,
-							    			render: function ( data, type, row ) {
-							                   		 if ( type === 'display' ) {
-							                        		return '<input type="checkbox" class="editor-active check" name="fusioner[]" value="'+data.id+'" onClick="return KeepCount()" /><span class="lbl"></span> ';
-							                  		}
-							                   		 return data;
-							                	},
-							                	className: "dt-body-center",
-									},
-									{ data:'id',title:'ID', "visible": false},
-									{ data: 'Nom', title:'Nom' },
-	       					{ data: 'Prenom', title:'Prenom' },
-	       					{ data: 'IPP', title:'IPP'},
-	       			  	{ data: 'Dat_Naissance', title:'Né(e) le' },
-									{ data: 'Sexe', title:'Sexe'},//{ data: 'Type',title:'Type'}, 
-								  { data: 'Date_creation', title:'Créer le'},
-								  { data:null,title:'<em class="fa fa-cog"></em>', searchable: false,
-								  	"render": function(data,type,full,meta){
-									    if ( type === 'display' ) {
-													return  '<a href = "/patient/'+data.id+'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter le dossier"><i class="fa fa-hand-o-up fa-xs"></i></a>'+
-															'&nbsp;<a href ="/patient/'+data.id+'/edit" class="btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs"></i></a>'+
-															 '&nbsp;<a onclick ="getPatientdetail('+data.id+')" style="cursor:pointer" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Résume du patient"><i class="fa fa-eye fa-xs"></i></a>';
-							      	}
-							      	return data;		
-								  	}
-								  }
-	  		   			],
-			   			"columnDefs": [
-			   						{"targets": 2 ,  className: "dt-head-center" },//nom
-			   						{"targets": 3 ,  className: "dt-head-center" },
-			   						{"targets": 4 ,  className: "dt-head-center" },
-			   						{"targets": 5 ,  className: "dt-head-center" },
-			   						{"targets": 6 ,	"orderable": false, className: "dt-head-center" },
-							 		  {"targets": 7 ,	"orderable": false, className: "dt-head-center" },
-							 		  {"targets": 8 ,	"orderable":false,  className: "dt-head-center dt-body-center"	},
-					   	],
-    				});
+		        type : 'get',
+		        url : '{{URL::to('searchPatient')}}',
+		        data:{'field':field,'value':($('#'+field).val())},
+		        success:function(data,status, xhr){
+			     		$('#'+field).val('');	 field= "Dat_Naissance"; 
+     			 	  $(".numberResult").html(Object.keys(data).length);
+     			    $("#liste_patients").DataTable ({
+	     					"processing": true,
+		  				  "paging":   true,
+		  				  "destroy": true,
+		  					"ordering": true,
+		    				"searching":false,
+		    				"info" : false,
+		    				"language":{"url": '/localisation/fr_FR.json'},
+		   	 		      	"data" : data,
+			        		"columns": [
+										{ data:null,title:'#', "orderable": false,searchable: false,
+								    			render: function ( data, type, row ) {
+								                   		 if ( type === 'display' ) {
+								                        		return '<input type="checkbox" class="editor-active check" name="fusioner[]" value="'+data.id+'" onClick="return KeepCount()" /><span class="lbl"></span> ';
+								                  		}
+								                   		 return data;
+								                	},
+								                	className: "dt-body-center",
+										},
+										{ data:'id',title:'ID', "visible": false},
+										{ data: 'Nom', title:'Nom' },
+		       					{ data: 'Prenom', title:'Prenom' },
+		       					{ data: 'IPP', title:'IPP'},
+		       			  	{ data: 'Dat_Naissance', title:'Né(e) le' },
+										{ data: 'Sexe', title:'Sexe'},//{ data: 'Type',title:'Type'}, 
+									  { data: 'Date_creation', title:'Créer le'},
+									  { data:null,title:'<em class="fa fa-cog"></em>', searchable: false,
+									  	"render": function(data,type,full,meta){
+										    if ( type === 'display' ) {
+														return  '<a href = "/patient/'+data.id+'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter le dossier"><i class="fa fa-hand-o-up fa-xs"></i></a>'+
+																'&nbsp;<a href ="/patient/'+data.id+'/edit" class="btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs"></i></a>'+
+																 '&nbsp;<a onclick ="getPatientdetail('+data.id+')" style="cursor:pointer" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Résume du patient"><i class="fa fa-eye fa-xs"></i></a>';
+								      	}
+								      	return data;		
+									  	}
+									  }
+		  		   			],
+				   			"columnDefs": [
+				   						{"targets": 2 ,  className: "dt-head-center" },//nom
+				   						{"targets": 3 ,  className: "dt-head-center" },
+				   						{"targets": 4 ,  className: "dt-head-center" },
+				   						{"targets": 5 ,  className: "dt-head-center" },
+				   						{"targets": 6 ,	"orderable": false, className: "dt-head-center" },
+								 		  {"targets": 7 ,	"orderable": false, className: "dt-head-center" },
+								 		  {"targets": 8 ,	"orderable":false,  className: "dt-head-center dt-body-center"	},
+						   	],
+	    				});
      			},
      			error:function(){
      				console.log("error");
@@ -222,18 +175,18 @@
 			<div class="row">
 				<div class="col-sm-2">
 		      <div class="form-group">
-		       	<label class="control-label" for="patientName" ><strong>Nom:</strong></label>
+		       	<label class="control-label" for="Nom" ><strong>Nom:</strong></label>
 						<div class="input-group">
-							<input type="text" class="form-control input-sx" id="patientName" name="patientName" placeholder="nom du patient..." autofocus/>
+							<input type="text" class="form-control input-sx autofield" id="Nom" name="Nom" placeholder="nom du patient..." autofocus/>
 							<span class="glyphicon glyphicon-search form-control-feedback"></span>
 				    </div>
 					</div>
 				</div>
 				<div class="col-sm-2 col-md-offset-1">
 					<div class="form-group">
-						<label class="control-label" for="patientFirstName" ><strong>Prenom:</strong></label> 
+						<label class="control-label" for="Prenom" ><strong>Prenom:</strong></label> 
 						<div class="input-group">
-					  	<input type="text" class="form-control input-sx" id="patientFirstName" name="patientFirstName"  placeholder="prenom du patient..."> 
+					  	<input type="text" class="form-control input-sx autofield" id="Prenom" name="Prenom"  placeholder="prenom du patient..."> 
 					  	<span class="glyphicon glyphicon-search form-control-feedback"></span>
 		   			</div>		
 					</div>
@@ -251,7 +204,7 @@
 					<div class="form-group">
 						<label class="control-label" for="IPP" ><strong>IPP:</strong></label>
 						<div class="input-group">
-							<input type="text" class="form-control input-sx tt-input" id="IPP" name="IPP"  placeholder="IPP du patient..." data-toggle="tooltip" data-placement="left" title="Code IPP du patient">
+							<input type="text" class="form-control input-sx tt-input autofield" id="IPP" name="IPP"  placeholder="IPP du patient..." data-toggle="tooltip" data-placement="left" title="Code IPP du patient">
 				   	  <span class="glyphicon glyphicon-search form-control-feedback"></span>
 						</div>		
 					</div>		
