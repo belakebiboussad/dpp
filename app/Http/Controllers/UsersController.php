@@ -20,6 +20,7 @@ use App\modeles\Specialite;
 use App\modeles\patient;
 use Hash;
 use View;
+use Response;
 class UsersController extends Controller
 {
    
@@ -38,7 +39,7 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('user.listeusers',compact('users'));
+        return view('user.index',compact('users'));
     }
     /**
      * Show the form for creating a new resource.
@@ -95,11 +96,9 @@ class UsersController extends Controller
             "employee_id"=>$employe->id,
             "role_id"=>$request->role,
         ];
-         event(new Registered($user = RegisterController::create($usere)));
-        //$this->guard()->login($user);
-         return $this->registered($request, $user)
+        event(new Registered($user = RegisterController::create($usere)));//$this->guard()->login($user);
+        return $this->registered($request, $user)
                         ?: redirect()->route('users.index');
-
     }
 
     /**
@@ -110,14 +109,14 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-           $user = User::FindOrFail($id);
-            $employe = employ::FindOrFail($user->employee_id);
-           $service = service::FindOrFail($employe->Service_Employe);
-           $specialite= Specialite::FindOrFail($employe->Specialite_Emploiye);
-           $roles = rol::all();
-           $services=service::all();
-           $specialites=specialite::all();
-           return view('user.show_user',compact('user','employe','roles','service','specialite','services','specialites'));
+       $user = User::FindOrFail($id);
+        $employe = employ::FindOrFail($user->employee_id);
+       $service = service::FindOrFail($employe->Service_Employe);
+       $specialite= Specialite::FindOrFail($employe->Specialite_Emploiye);
+       $roles = rol::all();
+       $services=service::all();
+       $specialites=specialite::all();
+       return view('user.show_user',compact('user','employe','roles','service','specialite','services','specialites'));
     }
 
     /**
@@ -128,12 +127,12 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-          $user = User::FindOrFail($id);
-          $employe = employ::FindOrFail($user->employee_id);
-          $roles = rol::all()->keyBy('id');
-           $services=service::all()->keyBy('id');
-          $specialites = Specialite::all()->keyBy('id');
-           return view('user.edit_user',compact('user','employe','roles','services','specialites'));
+       $user = User::FindOrFail($id);
+       $employe = employ::FindOrFail($user->employee_id);
+       $roles = rol::all()->keyBy('id');
+       $services=service::all()->keyBy('id');
+      $specialites = Specialite::all()->keyBy('id');
+       return view('user.edit_user',compact('user','employe','roles','services','specialites'));
     }
 
     /**
@@ -145,48 +144,47 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {      
-            dd('user');
-           $user = User::FindOrFail($id);   
-           $a=  $request->validate([
-                  "username"=> "required",
-                    "email"=> "nullable|email",//|unique:utilisateurs
-                    "role"=> "required",
-           ]);     
-           $activer = $user->active;
+          $user = User::FindOrFail($id);   
+         $a=  $request->validate([
+                "username"=> "required",
+                  "email"=> "nullable|email",//|unique:utilisateurs
+                  "role"=> "required",
+         ]);     
+         $activer = $user->active;
 
-           if($user->active)
-           {
-                     if(! isset($request->desactiveCompt))
-                     {
-                             $activer= 0;      
-                     }
+         if($user->active)
+         {
+                   if(! isset($request->desactiveCompt))
+                   {
+                           $activer= 0;      
+                   }
 
-           }else
-           {
-                     if(isset($request->activeCompt))
-                             $activer=1;
-           }
-           $userData = [
-                    "name"=>$request->username,
-                    "password"=>$user->password,
-                    "email"=>$request->email,
-                    "employee_id"=>$user->employee_id,
-                    "role_id"=>$request->role,
-                    "active"=>$activer,
-           ];
-           $a = $user->update([
-                     'name'=>$request->username,
-                     "password"=>$user->password,
-                     "email"=>$request->email,
-                    "employee_id"=>$user->employee_id,
-                    "role_id"=>$request->role,
-                    "active"=>$activer,   
-           ]);
-          
-          //  event(new Registered($user = RegisterController::update($user,$userData)));
-          // return $this->registered($request, $user)
-          //               ?: redirect()->route('users.edit',$id);
-         return redirect(Route('users.edit',$id));
+         }else
+         {
+                   if(isset($request->activeCompt))
+                           $activer=1;
+         }
+         $userData = [
+                  "name"=>$request->username,
+                  "password"=>$user->password,
+                  "email"=>$request->email,
+                  "employee_id"=>$user->employee_id,
+                  "role_id"=>$request->role,
+                  "active"=>$activer,
+         ];
+         $a = $user->update([
+                   'name'=>$request->username,
+                   "password"=>$user->password,
+                   "email"=>$request->email,
+                  "employee_id"=>$user->employee_id,
+                  "role_id"=>$request->role,
+                  "active"=>$activer,   
+         ]);
+        
+        //  event(new Registered($user = RegisterController::update($user,$userData)));
+        // return $this->registered($request, $user)
+        //               ?: redirect()->route('users.edit',$id);
+       return redirect(Route('users.edit',$id));
     }
 
     /**
@@ -246,14 +244,13 @@ class UsersController extends Controller
         ]);
     }
     public function admin_credential_rules(array $data)
-        {
-           
-            $messages = [
-                'current-password.required' => 'Entrer le mot de passe actuel correct',
-                'newPassword.required' => 'entrer le nouveau mot de passe SVP', 
-                  'password_confirmation.required' => 'Entrer le  mot de passe de confiration SVP',
-                'password_confirmation.same'=>'le mot de passe du confirmation doit correspondre au  nouveau mot de passe',
-            ];
+    {
+      $messages = [
+        'current-password.required' => 'Entrer le mot de passe actuel correct',
+        'newPassword.required' => 'entrer le nouveau mot de passe SVP', 
+          'password_confirmation.required' => 'Entrer le  mot de passe de confiration SVP',
+        'password_confirmation.same'=>'le mot de passe du confirmation doit correspondre au  nouveau mot de passe',
+      ];
 // |same:newPassword
             $validator = Validator::make($data, [
                 'curPassword' => 'required',
@@ -310,36 +307,37 @@ class UsersController extends Controller
     
       public function search(Request $request)
       {
-             $output="";
-             $compte='';
-            if($request->search =="*")
-                   $users = User::all();
-             else  
-                  $users = User::where('name','LIKE','%'.$request->search."%")->get();          
-            if($users)
-            {
-                  $i=1;
-                  foreach ($users as $key => $user) {
-                         if($user->active)
-                                $compte .='<span class="label label-sm label-success">active</span>';
-                                $compte = ($user->active)?'<span class="label label-sm label-success">active</span>':'<span class="label label-sm label-danger">desactivé</span>';
-                               $role = rol::FindOrFail($user->role_id);
-                              $output.=  '<tr>'.
-                                    '<td >'.$i.'</td>'. 
-                                    '<td hidden>'.$user->id.'</td>'.
-                                    '<td><a href="#" id ="'.$user->id.'" onclick ="getUserdetail('.$user->id.');">'.$user->name.'</a></td>'.
-                                    '<td>'.$user->email.'</td>'.
-                                    '<td>'.$role->role.'</td>'.
-                                    '<td>'.$compte.'</td>'.   
-                                     '<td>'.'<a href="/users/'.$user->id.'" class="'.'btn btn-white btn-sm">
-                                     <i class="ace-icon fa fa-hand-o-up bigger-80"></i></a>'."&nbsp;&nbsp;".'<a href="/users/'.$user->id.'/edit" class="'.'btn btn-white btn-sm">
-                                     <i class="fa fa-edit fa-lg" aria-hidden="true" style="font-size:16px;"></i></a>'.'</td>'.        
-                                  '</tr>';  
-                               $i++;    
-                                // if($i == 15)  //       break;        
-                  }
-            }
-           return Response($output)->withHeaders(['count' => $i]);
+         $output="";
+         $compte='';
+        if($request->search =="*")
+               $users = User::all();
+         else  
+              $users = User::where('name','LIKE','%'.$request->search."%")->get();          
+       //  if($users)
+       //  {
+       //     $i=1;
+       //     foreach ($users as $key => $user) {
+       //          if($user->active)
+       //              $compte .='<span class="label label-sm label-success">active</span>';
+       //              $compte = ($user->active)?'<span class="label label-sm label-success">active</span>':'<span class="label label-sm label-danger">desactivé</span>';
+       //              $role = rol::FindOrFail($user->role_id);
+       //              $output.=  '<tr>'.
+       //                  '<td >'.$i.'</td>'. 
+       //                  '<td hidden>'.$user->id.'</td>'.
+       //                  '<td><a href="#" id ="'.$user->id.'" onclick ="getUserdetail('.$user->id.');">'.$user->name.'</a></td>'.
+       //                  '<td>'.$user->email.'</td>'.
+       //                  '<td>'.$role->role.'</td>'.
+       //                  '<td>'.$compte.'</td>'.   
+       //                   '<td>'.'<a href="/users/'.$user->id.'" class="'.'btn btn-white btn-sm">
+       //                   <i class="ace-icon fa fa-hand-o-up bigger-80"></i></a>'."&nbsp;&nbsp;".'<a href="/users/'.$user->id.'/edit" class="'.'btn btn-white btn-sm">
+       //                   <i class="fa fa-edit fa-lg" aria-hidden="true" style="font-size:16px;"></i></a>'.'</td>'.        
+       //                '</tr>';  
+       //             $i++;    
+       //                      // if($i == 15)  //       break;        
+       //        }
+       //  }
+       // return Response($output)->withHeaders(['count' => $i]);
+        return Response::json($users);
       
        }    
       public function AutoCompleteUsername(Request $request)

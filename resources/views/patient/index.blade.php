@@ -60,31 +60,9 @@
 			}).prop('selected', true);
 		}	
 	}
-	var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+	// var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 	var field ="Dat_Naissance";
 	$(document).ready(function(){
-    $( ".autofield" ).autocomplete({
-    	 	source: function( request, response ) {
-			  	  $.ajax({
-				  	  	url:"{{route('patients.autoField')}}",
-			          type: 'post',
-			          dataType: "json",
-			          data: {
-			             _token: CSRF_TOKEN,
-			              q: request.term,
-			              field:$(this.element).prop("id"),
-			          },
-			          success: function( data ) {
-			          	response( data );
-			          }
-			  	  });
-			  },
-        minLength: 3,
-      	select: function (event, ui) {
-       		$(this).val(ui.item.label);
-       		field =event['target']['id'];
-      	}
-    });
 		$(document).on('click','.findptient',function(event){
 			event.preventDefault();
 			$('#btnCreate').removeClass('hidden');$('#FusionButton').removeClass('hidden');
@@ -153,7 +131,6 @@
 </script>
 @endsection
 @section('main-content')
-@section('main-content')
 <div class="page-content">
 	<div class="row">
 		<div class="col-sm-12 center">	
@@ -212,7 +189,7 @@
 			</div>
 		</div>  {{-- body --}}
 		<div class="panel-footer" style="height: 50px;">
-	   	<button type="submit" class="btn btn-xs btn-primary findptient " style="vertical-align: middle"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+	   	<button type="submit" class="btn btn-sm btn-primary findptient " style="vertical-align: middle"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
 			<div class="pull-right">
 				<button type="button" class="btn btn-danger btn-sm hidden invisible" id="FusionButton"  onclick ="doMerge();"data-toggle="modal" data-target="#mergeModal" data-backdrop="false" hidden><i class="fa fa-angle-right fa-lg"></i><i class="fa fa-angle-left fa-lg"></i>&nbsp;Fusion</button>
 				<a class="btn btn-primary btn-sm hidden" href="patient/create" id=btnCreate role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>

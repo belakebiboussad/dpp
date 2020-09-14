@@ -1,19 +1,16 @@
 @extends('app')
 @section('page-script')
 <script>
+var field ="Dat_Naissance";
 $(document).on('click','.findptient',function(event){
 	event.preventDefault();
-	nom=$('#patientName').val();
-	prenom=$('#patientFirstName').val();
-	code_barre=$('#IPP').val();
 	$.ajax({
 		      type : 'get',
 		      url : '{{URL::to('searchPatient')}}',
-		      data:{'search':nom,'prenom':prenom,'code_barre':code_barre},
+		      data:{'field':field,'value':($('#'+field).val())},
 		      success:function(data,status, xhr){
-     			 	reset_in();
-     				var patientList = $("#liste_patients");
-     				patientList.DataTable ({
+		      	$('#'+field).val('');field= "Dat_Naissance"; 
+     			  $("#liste_patients").DataTable ({
      					"processing": true,
 	  					"paging":   true,
 	  					"destroy": true,
@@ -128,7 +125,15 @@ $(document).on('click','#getConsults',function(event){
 @endsection
 @section('main-content')
 <div class="row">
-	@include('consultations.findPatient')
+	<div class="col-sm-12">	
+		<div class="col-sm-6 col-xs-6">
+			@include('consultations.findPatient')
+		</div>
+		<div class="col-sm-6 col-xs-6">
+			<table id="liste_patients" class="display table-responsive" width="100%"></table>
+		</div>
+</div>
+	</div>
 	</div>
 <div class="row">
 	<div class="col-sm-12">	

@@ -54,8 +54,9 @@ class HomeController extends Controller
                   return redirect()->action('HospitalisationController@index');// return redirect()->route('HospitalisationController@index');
                   break;
             case 4: 
-                  $users = User::all();
-                  return view('home.home_admin', compact('users'));
+                  // $users = User::all();
+                  // return view('home.home_admin', compact('users'));
+                  return redirect()->action('UsersController@index');
                   break;
             case 5:
                   return redirect()->action('RdvHospiController@index');

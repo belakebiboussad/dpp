@@ -105,6 +105,28 @@
           return false;
         }
     });
+    $( ".autofield" ).autocomplete({
+        source: function( request, response ) {
+            $.ajax({
+                url:"{{route('patients.autoField')}}",
+                type: 'post',
+                dataType: "json",
+                data: {
+                   _token: CSRF_TOKEN,
+                    q: request.term,
+                    field:$(this.element).prop("id"),
+                },
+                success: function( data ) {
+                  response( data );
+                }
+            });
+        },
+        minLength: 3,
+        select: function (event, ui) {
+          $(this).val(ui.item.label);
+          field =event['target']['id'];
+        }
+    });
     $('#avis').change(function(){
           if($(this).val() == "R")
             $("#motifr").show();
