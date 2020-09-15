@@ -260,41 +260,36 @@ class UsersController extends Controller
             ], $messages);
            // dd($validator->getMessageBag()); 
             return $validator;
-        }  
-    public function changePassword(Request $request){
-        if(Auth::Check())
+    }  
+    public function changePassword(Request $request)
+    {
+      if(Auth::Check())
+      {
+        $request_data = $request->All();
+        $validator = $this->admin_credential_rules($request_data);
+        if($validator->fails())
+          return   redirect(url()->previous() . '#edit-password')->with("error",$validator->getMessageBag());
+        else
         {
-             $request_data = $request->All();
-             $validator = $this->admin_credential_rules($request_data);
-             if($validator->fails())
-            {
-              return   redirect(url()->previous() . '#edit-password')->with("error",$validator->getMessageBag());
-            }else
-            {
-                    $password = Auth::User()->password;         
-                     if(Hash::check($request_data['curPassword'], $password))
-                    {       
-                         if(strcmp($request->get('curPassword'), $request->get('newPassword')) == 0)
-                        {
-                             return   redirect(url()->previous() . '#edit-password')->with("error","Nouveau mot de passe ne peut pas être le même que votre mot de passe actuel. essaie encore!");
-                         }else{
-                                        $user_id = Auth::User()->id;       
-                                        $obj_user = User::find($user_id);
-                                        $obj_user->password = Hash::make($request_data['newPassword']);
-                                        $obj_user->save(); 
-                                         return   redirect(url()->previous() . '#edit-password')->with("error","mot de passe change savec success !");
-                         }                            
-                    } 
-                    else
-                    {      
-                          return   redirect(url()->previous() . '#edit-password')->with("error","Entrer le mot de passe actuel correct. essaie encore.!!!");
-           
-                    }
-            }
-        }else
-        {
-            return redirect()->to('/home');
+          $password = Auth::User()->password;         
+           if(Hash::check($request_data['curPassword'], $password))
+          {       
+               if(strcmp($request->get('curPassword'), $request->get('newPassword')) == 0)
+              {
+                   return   redirect(url()->previous() . '#edit-password')->with("error","Nouveau mot de passe ne peut pas être le même que votre mot de passe actuel. essaie encore!");
+               }else{
+                              $user_id = Auth::User()->id;       
+                              $obj_user = User::find($user_id);
+                              $obj_user->password = Hash::make($request_data['newPassword']);
+                              $obj_user->save(); 
+                               return   redirect(url()->previous() . '#edit-password')->with("error","mot de passe change savec success !");
+               }                            
+          } 
+          else
+            return   redirect(url()->previous() . '#edit-password')->with("error","Entrer le mot de passe actuel correct. essaie encore.!!!");
         }
+      }else
+        return redirect()->to('/home');
     }
     public function setting($id_user)
     {
@@ -316,12 +311,19 @@ class UsersController extends Controller
       return Response::json($users);
       
     }    
-    public function AutoCompleteUsername(Request $request)
-    { $response = array();
+    public function AutoCompleteField(Request $request)
+    { 
+      $response = array();
       $field = trim($request->field);
-      $users = User::where($field, 'LIKE', '%'.trim($request->q).'%')->limit(15)->get(); // return User::where('name', 'LIKE', '%'.trim($request->q).'%')->get();
+       $value = trim($request->q);
+      if($field != "role_id")
+        $users = User::where($field, 'LIKE', '%'.$value.'%')->limit(15)->get();
+      else
+        $users = User::whereHas('role', function ($q) use ($value){
+            $q->where('role','LIKE','%'.$value.'%');
+         })->limit(2)->get(); 
       foreach($users as $user){
-        $response[] = array("label"=>$user->$field);
+        $response[] = array("label"=>$user->role->role);
       }
     return response()->json($response);  
     }

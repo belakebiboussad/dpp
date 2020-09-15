@@ -101,7 +101,7 @@ function getUserdetail(id)
 	  	    <div class="form-group">
 		  	    <label class="control-label" for="userRole"><strong>Rôle:</strong></label>
 		  	    <div class="input-group col-sm-10">
-							<input type="text" class="form-control input input-xs" id="userRole" name="userRole"  placeholder="Rôle du l'utilisateur"/>
+							<input type="text" class="form-control input input-xs col-sm-12 autoUserfield" id="role_id" name="role_id"  placeholder="Rôle du l'utilisateur"/>
 						</div>
 	  	    </div>
 	  	  </div>
