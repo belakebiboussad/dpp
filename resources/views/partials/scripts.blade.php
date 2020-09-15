@@ -128,7 +128,7 @@
     });
     $( ".autoUserfield" ).autocomplete({
         source: function( request, response ) {
-            $.ajax({
+          $.ajax({
                 url:"{{route('users.autoField')}}",
                 type: 'post',
                 dataType: "json",

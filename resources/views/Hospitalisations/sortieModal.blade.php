@@ -38,17 +38,17 @@
 				<div class="space-12"></div>
 				<div class="row">
 					<div class="col-sm-12">
-		      	<label for="codeSortie"><strong>Code de Sortie :</strong></label>
-		      	<input class="form-control" id="codeSortie" name="codeSortie" type="text" onchange="" />
-		       </div>
-				</div>
-				<div class="space-12"></div>
-				<div class="row">
-					<div class="col-sm-12">
 		      	<label for="diagSortie"><strong>Diagnostic de Sortie :</strong></label>
 		      	<textarea class="form-control"  id="diagSortie" name="diagSortie"></textarea>
 	        </div>
 			  </div>
+			  	<div class="space-12"></div>
+				<div class="row">
+					<div class="col-sm-12">
+		      	<label for="codeSortie"><strong>Informations Complementaire :</strong></label>
+		      	<textarea class="form-control"  id="autre" name="autre"></textarea>
+		       </div>
+				</div>
 			  <div class="space-12"></div>
 	 				<div class="modal-footer">
 						<button type="submit" class="btn btn-info btn-sm btn-submit" id ="saveCloturerHop" data-dismiss="modal">  <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>

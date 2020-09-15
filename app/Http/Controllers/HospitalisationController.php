@@ -127,7 +127,7 @@ class HospitalisationController extends Controller
             "Date_Sortie" =>$request->Date_Sortie,
             "Heure_sortie" => $heureSortie,
             "modeSortie" =>$request->modeSortie,
-            "codeSortie" =>$request->codeSortie,
+            "autre" =>$request->autre,
             "diagSortie" =>$request->diagSortie,
             "etat_hosp" =>$request->etat_hosp,
         ]);  //$hosp -> update($request->all());

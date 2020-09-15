@@ -2,17 +2,17 @@
 @section('title','Gestion des Utilisateures')
 @section('page-script')
 <script>
-function XHRgetUser()
-{
-	value=$('#name').val();
-	if(value == "") 
-	 	value="*";			
-	$('#Controls').removeClass('hidden');
-	$.ajax({
+var field = 'name';
+$(document).ready(function(){
+	$(document).on('click','.findUser',function(event){
+		event.preventDefault();
+		$('#Controls').removeClass('hidden');
+	  $.ajax({
      		type : 'get',
       	url : '{{URL::to('searchUser')}}',
-     		data:{'search':value},
-     		success:function(data,status, xhr){//$('tbody').html(data);
+     		data:{'field':field,'value':($('#'+field).val())},
+     		success:function(data,status, xhr){
+     			$('#'+field).val('');
       	  $(".numberUser").html(Object.keys(data).length);
       		$("#users").DataTable ({
       			"processing": true,
@@ -35,8 +35,17 @@ function XHRgetUser()
 	   	 		  	{ data:'id',title:'ID', "visible": false},
 	   	 		  	{ data: 'name', title:'Nom' },
 	   	 		  	{ data: 'email', title:'E-Mail' },
-	   	 		  	{ data: 'role_id', title:'Rôle' },
-	   	 		  	{ data: 'active', title:'Compte' },
+	   	 		  	{ data: 'role.role', title:'Rôle' },
+	   	 		   	{data: null, title:'Compte',
+	   	 		  		render : function(data, type, row){
+	   	 		  			if ( type === 'display' )
+	   	 		  			{
+	   	 		  				var html = (data.active) ? '<span class="label label-sm label-success">active</span>':'<span class="label label-sm label-danger">desactivé</span>';
+	   	 		  				return html;
+	   	 		  			}
+	   	 		  			return data
+	   	 		  		} 
+	   	 		  	},
 	   	 		  	{ data:null,title:'<em class="fa fa-cog"></em>',"orderable": false, searchable: false,
 	   	 		  		"render": function(data,type,full,meta){
 									    		if ( type === 'display' ) {
@@ -58,7 +67,12 @@ function XHRgetUser()
 
       		});
       	}
-      });
+      });			
+	});
+});
+function XHRgetUser()
+{
+
 }
 function getUserdetail(id)
 {	  
@@ -108,7 +122,7 @@ function getUserdetail(id)
 	  	</div>			   
 		</div>
 		<div class="panel-footer" style="height: 50px;">
-			<button type="submit" class="btn-sm btn-primary" onclick="XHRgetUser();"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+			<button type="submit" class="btn-sm btn-primary findUser"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
 			<div class="pull-right">
 				<a class="btn btn-primary btn-sm hidden" href="users/create" role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>	
 			</div>

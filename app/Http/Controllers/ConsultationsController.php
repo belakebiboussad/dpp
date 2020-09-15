@@ -89,7 +89,6 @@ class ConsultationsController extends Controller
      */
       public function store(Request $request)
       {
-       
         $request->validate([
           "motif" => 'required',
           "resume" => 'required',
@@ -134,7 +133,7 @@ class ConsultationsController extends Controller
           $ord->date = Date::Now();
           $consult->ordonnances()->save($ord);
           foreach (json_decode($request->liste) as $key => $trait) {
-             $ord->medicamentes()->attach($trait->med,['posologie' => $trait->posologie]);     
+            $ord->medicamentes()->attach($trait->med,['posologie' => $trait->posologie]);     
           }
         }
         if($request->exm  != null)  //save ExamBiolo

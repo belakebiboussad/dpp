@@ -38,7 +38,7 @@
 				  Date_Sortie             : jQuery('#Date_Sortie').val(),
 				  Heure_sortie            : jQuery('#Heure_sortie').val(),
 				  modeSortie              :jQuery('#modeSortie').val(),
-				  codeSortie              : $('#codeSortie').val(),
+				  autre                   : $('#autre').val(),
 				  diagSortie              : $("#diagSortie").val(),
 				  etat_hosp								:'validée',
 	  };
@@ -55,7 +55,7 @@
 			  data: formData,
 			  dataType: 'json',
 			  success: function (data) {
-			  $("#hospi" + data.id).remove();
+			 	 $("#hospi" + data.id).remove();
 			  },
 			  error: function (data){
 						console.log('Error:', data);

@@ -293,8 +293,8 @@ class UsersController extends Controller
     }
     public function setting($id_user)
     {
-        $user = User::FindOrFail($id_user);
-        return view('user.settings', compact('user'));
+      $user = User::FindOrFail($id_user);
+      return view('user.settings', compact('user'));
     }
     public function updatepro(Request $request)
     {
@@ -302,12 +302,14 @@ class UsersController extends Controller
     }
     public function search(Request $request)
     {
-      $output="";
-      $compte='';
-      if($request->search =="*")
-        $users = User::all();
-       else  
-        $users = User::where('name','LIKE','%'.$request->search."%")->get();          
+      $value = trim($request->value);
+      if($request->field == "role_id")
+          $users = User::with('role')->whereHas('role', function ($q) use ($value){
+                    $q->where('role','LIKE','%'.$value.'%');
+                 })->get();
+      else 
+       $users = User::with('role')->where($request->field,'LIKE','%'.$value."%")->get();          
+      
       return Response::json($users);
       
     }    
@@ -315,24 +317,32 @@ class UsersController extends Controller
     { 
       $response = array();
       $field = trim($request->field);
-       $value = trim($request->q);
-      if($field != "role_id")
-        $users = User::where($field, 'LIKE', '%'.$value.'%')->limit(15)->get();
-      else
+      $value = trim($request->q);
+      if($field == "role_id")
         $users = User::whereHas('role', function ($q) use ($value){
-            $q->where('role','LIKE','%'.$value.'%');
-         })->limit(2)->get(); 
-      foreach($users as $user){
-        $response[] = array("label"=>$user->role->role);
-      }
-    return response()->json($response);  
-    }
-       public function getUserDetails(Request $request)
+                   $q->where('role','LIKE','%'.$value.'%');
+                })->limit(2)->get();
+      else
+        $users = User::where($field, 'LIKE', '%'.$value.'%')->limit(15)->get();
+      if($field == "role_id")
       {
-             $user = User::FindOrFail($request->search);
-             $employe = employ::FindOrFail($user->employee_id);
-             $view = view("user.ajax_userdetail",compact('user','role','employe'))->render();
-             return response()->json(['html'=>$view]);
+        foreach($users as $user){
+          $response[] = array("label"=>$user->role->role);
+        }
+      }else
+      {
+        foreach($users as $user){
+          $response[] = array("label"=>$user->$field);
+        }
       }
+      return response()->json($response);  
+    }
+    public function getUserDetails(Request $request)
+    {
+     $user = User::FindOrFail($request->search);
+     $employe = employ::FindOrFail($user->employee_id);
+     $view = view("user.ajax_userdetail",compact('user','role','employe'))->render();
+     return response()->json(['html'=>$view]);
+    }
     
 }

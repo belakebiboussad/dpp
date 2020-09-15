@@ -26,13 +26,11 @@ class AdmissionController extends Controller
      */
       public function index()
       {
-/* $admissions = admission::join('rdv_hospitalisations','admissions.id','=','rdv_hospitalisations.id_admission') ->join('demandehospitalisations','admissions.id_demande','=','demandehospitalisations.id') ->select('admissions.id as id_admission','admissions.*','rdv_hospitalisations.*') ->where('etat_RDVh','<>','validé')->where('date_RDVh','=',date("Y-m-d"))->get();  */         
-                $rdvs = rdv_hospitalisation::with('bedReservation')->whereHas('demandeHospitalisation', function($q){
-                                               $q->where('etat', 'programme');
-                                               })->where('etat_RDVh','=','en attente')->where('date_RDVh','=',date("Y-m-d"))->get(); 
-               return view('home.home_agent_admis', compact('rdvs'));
+        $rdvs = rdv_hospitalisation::with('bedReservation')->whereHas('demandeHospitalisation', function($q){
+                                           $q->where('etat', 'programme');
+                                        })->where('etat_RDVh','=','en attente')->where('date_RDVh','=',date("Y-m-d"))->get(); 
+        return view('home.home_agent_admis', compact('rdvs'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
