@@ -140,21 +140,13 @@ Route::any('/profile/{userId}', [
 Route::get('/role/show/{userId}','RolesController@show');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('AddANTCD','AntecedantsController@createATCDAjax');
-Route::get('/searchUser','UsersController@search');
 Route::get('/DocorsSearch','EmployeController@searchBySpececialite');
 Route::get('/searchPatient','PatientController@search')->name('patients.search');
 Route::get('/getPatients','PatientController@getPatientsArray');
 Route::get('/getlits','LitsController@getlits');
-Route::get('/user/find', 'UsersController@AutoCompleteUsername');
+Route::post('/user/find', 'UsersController@AutoCompleteUsername')->name('users.autoField');
 Route::get('/userdetail', 'UsersController@getUserDetails');
-
-Route::post('/patients/find', 'PatientController@AutoCompletePatientname')->name('patients.autoNom');
-Route::post('/patients/findprenom','PatientController@AutoCompletePatientPrenom')->name('patients.autoPrenom');
-Route::post('/patients/findipp','PatientController@AutoCompletePatientIPP')->name('patients.autoIPP');
-
 Route::post('/patients/autoField', 'PatientController@AutoCompletePatientField')->name('patients.autoField');
-
-
 Route::post('/findCom','CommuneController@AutoCompleteCommune')->name('commune.getCommunes');
 Route::get('/patientdetail/{id}', 'PatientController@getPatientDetails');
 Route::get('/serviceRooms', 'ServiceController@getRooms');

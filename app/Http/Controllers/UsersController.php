@@ -48,10 +48,10 @@ class UsersController extends Controller
      */
     public function create()
     {
-        $roles = rol::all();
-        $services = service::all();
-        $specialites = Specialite::all();
-         return view('user.adduser', compact('roles','services','specialites'));
+      $roles = rol::all();
+      $services = service::all();
+      $specialites = Specialite::all();
+      return view('user.adduser', compact('roles','services','specialites'));
     }
 
     /**
@@ -268,8 +268,7 @@ class UsersController extends Controller
              $validator = $this->admin_credential_rules($request_data);
              if($validator->fails())
             {
-
-                  return   redirect(url()->previous() . '#edit-password')->with("error",$validator->getMessageBag());
+              return   redirect(url()->previous() . '#edit-password')->with("error",$validator->getMessageBag());
             }else
             {
                     $password = Auth::User()->password;         
@@ -303,47 +302,29 @@ class UsersController extends Controller
         return view('user.settings', compact('user'));
     }
     public function updatepro(Request $request)
-    { dd($request); }
-    
-      public function search(Request $request)
-      {
-         $output="";
-         $compte='';
-        if($request->search =="*")
-               $users = User::all();
-         else  
-              $users = User::where('name','LIKE','%'.$request->search."%")->get();          
-       //  if($users)
-       //  {
-       //     $i=1;
-       //     foreach ($users as $key => $user) {
-       //          if($user->active)
-       //              $compte .='<span class="label label-sm label-success">active</span>';
-       //              $compte = ($user->active)?'<span class="label label-sm label-success">active</span>':'<span class="label label-sm label-danger">desactivé</span>';
-       //              $role = rol::FindOrFail($user->role_id);
-       //              $output.=  '<tr>'.
-       //                  '<td >'.$i.'</td>'. 
-       //                  '<td hidden>'.$user->id.'</td>'.
-       //                  '<td><a href="#" id ="'.$user->id.'" onclick ="getUserdetail('.$user->id.');">'.$user->name.'</a></td>'.
-       //                  '<td>'.$user->email.'</td>'.
-       //                  '<td>'.$role->role.'</td>'.
-       //                  '<td>'.$compte.'</td>'.   
-       //                   '<td>'.'<a href="/users/'.$user->id.'" class="'.'btn btn-white btn-sm">
-       //                   <i class="ace-icon fa fa-hand-o-up bigger-80"></i></a>'."&nbsp;&nbsp;".'<a href="/users/'.$user->id.'/edit" class="'.'btn btn-white btn-sm">
-       //                   <i class="fa fa-edit fa-lg" aria-hidden="true" style="font-size:16px;"></i></a>'.'</td>'.        
-       //                '</tr>';  
-       //             $i++;    
-       //                      // if($i == 15)  //       break;        
-       //        }
-       //  }
-       // return Response($output)->withHeaders(['count' => $i]);
-        return Response::json($users);
+    {
+      dd($request); 
+    }
+    public function search(Request $request)
+    {
+      $output="";
+      $compte='';
+      if($request->search =="*")
+        $users = User::all();
+       else  
+        $users = User::where('name','LIKE','%'.$request->search."%")->get();          
+      return Response::json($users);
       
-       }    
-      public function AutoCompleteUsername(Request $request)
-      {
-             return User::where('name', 'LIKE', '%'.trim($request->q).'%')->get();
+    }    
+    public function AutoCompleteUsername(Request $request)
+    { $response = array();
+      $field = trim($request->field);
+      $users = User::where($field, 'LIKE', '%'.trim($request->q).'%')->limit(15)->get(); // return User::where('name', 'LIKE', '%'.trim($request->q).'%')->get();
+      foreach($users as $user){
+        $response[] = array("label"=>$user->$field);
       }
+    return response()->json($response);  
+    }
        public function getUserDetails(Request $request)
       {
              $user = User::FindOrFail($request->search);

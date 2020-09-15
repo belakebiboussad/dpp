@@ -77,8 +77,7 @@
           });
         },
         minLength: 3,
-        select: function (event, ui) {
-          // Set selection
+        select: function (event, ui) { // Set selection
           $(this).val(ui.item.label); // display the selected text
           switch(event['target']['id'])
           {
@@ -109,6 +108,28 @@
         source: function( request, response ) {
             $.ajax({
                 url:"{{route('patients.autoField')}}",
+                type: 'post',
+                dataType: "json",
+                data: {
+                   _token: CSRF_TOKEN,
+                    q: request.term,
+                    field:$(this.element).prop("id"),
+                },
+                success: function( data ) {
+                  response( data );
+                }
+            });
+        },
+        minLength: 3,
+        select: function (event, ui) {
+          $(this).val(ui.item.label);
+          field =event['target']['id'];
+        }
+    });
+    $( ".autoUserfield" ).autocomplete({
+        source: function( request, response ) {
+            $.ajax({
+                url:"{{route('users.autoField')}}",
                 type: 'post',
                 dataType: "json",
                 data: {

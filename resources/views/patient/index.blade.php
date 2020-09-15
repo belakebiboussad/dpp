@@ -59,8 +59,7 @@
 			     return $(this).val() == value; 
 			}).prop('selected', true);
 		}	
-	}
-	// var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+	}// var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 	var field ="Dat_Naissance";
 	$(document).ready(function(){
 		$(document).on('click','.findptient',function(event){
@@ -87,7 +86,7 @@
 										{ data:null,title:'#', "orderable": false,searchable: false,
 								    			render: function ( data, type, row ) {
 								                   		 if ( type === 'display' ) {
-								                        		return '<input type="checkbox" class="editor-active check" name="fusioner[]" value="'+data.id+'" onClick="return KeepCount()" /><span class="lbl"></span> ';
+								                        		return '<input type="checkbox" class="editor-active check" name="fusioner[]" value="'+data.id+'" onClick="return KeepCount()" /><span class="lbl"></span>';
 								                  		}
 								                   		 return data;
 								                	},
