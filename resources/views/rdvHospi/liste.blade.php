@@ -52,29 +52,16 @@
                 <td class="center text-danger">
                   <strong>{{ \Carbon\Carbon::parse($rdv->heure_Prevu_Sortie)->format('H:i') }}</strong>
                 </td>
-                    <td><strong>{{ $rdv->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe }}&nbsp;{{ $rdv->demandeHospitalisation->DemeandeColloque->medecin->Prenom_Employe }}</strong>
-                    </td>
+                <td><strong>{{ $rdv->demandeHospitalisation->DemeandeColloque->medecin->nom }}&nbsp;{{ $rdv->demandeHospitalisation->DemeandeColloque->medecin->prenom }}</strong></td>
                 <td class="center">
-                @if(isset($rdv->bedReservation->id_lit))  
-                  {{ $rdv->bedReservation->lit->nom }}
-                @else
-                  <strong>/</strong>
-                @endif    
+                  @if(isset($rdv->bedReservation->id_lit)) {{ $rdv->bedReservation->lit->nom }} @else <strong>/</strong>  @endif    
                 </td>
                 <td>
-                  @if(isset($rdv->bedReservation->id_lit))  
-                    {{ $rdv->bedReservation->lit->salle->nom }}
-                  @else
-                    <strong>/</strong>
-                  @endif    
+                  @if(isset($rdv->bedReservation->id_lit)) {{ $rdv->bedReservation->lit->salle->nom }} @else <strong>/</strong> @endif    
                   {{ $rdv->nomsalle }}
                 </td>
                 <td>
-                  @if(isset($rdv->bedReservation->id_lit))  
-                    {{ $rdv->bedReservation->lit->salle->service->nom }}
-                  @else
-                    <strong>/</strong>
-                  @endif  
+                  @if(isset($rdv->bedReservation->id_lit)) {{ $rdv->bedReservation->lit->salle->service->nom }}  @else <strong>/</strong> @endif  
                 </td>
                 <td class="center">
                   <a href="{{ route('rdvHospi.edit',$rdv->id) }}" class="btn btn-success btn-xs"  title= "Reporer RDV" >

@@ -41,10 +41,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-  
-      $ServiceID = Auth::user()->employ->Service_Employe;
+      $ServiceID = Auth::user()->employ->service;
       switch (Auth::user()->role_id) {
-            case 1://medecin
+            case 1://medecin & meecinChef
                   return view('patient.index');
                   break;
             case 2:
@@ -53,7 +52,7 @@ class HomeController extends Controller
             case 3:                    
                   return redirect()->action('HospitalisationController@index');// return redirect()->route('HospitalisationController@index');
                   break;
-            case 4: 
+            case 4: //admin  
                   // $users = User::all();
                   // return view('home.home_admin', compact('users'));
                   return redirect()->action('UsersController@index');
@@ -71,7 +70,7 @@ class HomeController extends Controller
                                      ->leftJoin('patients','consultations.Patient_ID_Patient','=','patients.id')
                                      ->leftJoin('type_colloques','colloques.type_colloque','=','type_colloques.id')
                                      ->select('demandehospitalisations.id as id-demande','colloques.id as id_colloque','colloques.*',
-                                              'employs.Nom_Employe','employs.Prenom_Employe','patients.Nom','patients.Prenom',
+                                              'employs.nom','employs.prenom','patients.Nom','patients.Prenom',
                                               'type_colloques.type','dem_colloques.id_demande','consultations.Date_Consultation')
                                      ->where('etat_colloque','<>','cloturé')->get();
                   foreach( $colloques as $col){
@@ -79,12 +78,12 @@ class HomeController extends Controller
                     {
                       $colloque[$col->id_colloque]= array( "dat"=> $col->date_colloque ,"creation"=>$col->date_creation,
                                                            "Type"=>$col->type,"Etat"=>$col->etat_colloque,
-                                                           "membres"=> array ("$col->Nom_Employe $col->Prenom_Employe")
+                                                           "membres"=> array ("$col->nom $col->prenom")
                                                          );
                     }
                     else{
-                          if (array_search("$col->Nom_Employe $col->Prenom_Employe", $colloque[$col->id_colloque]["membres"])===false)
-                              $colloque[$col->id_colloque]["membres"][]="$col->Nom_Employe $col->Prenom_Employe";
+                          if (array_search("$col->nom $col->prenom", $colloque[$col->id_colloque]["membres"])===false)
+                              $colloque[$col->id_colloque]["membres"][]="$col->nom $col->prenom";
                         }
                   }
                   return view('colloques.liste_colloque', compact('colloque'));

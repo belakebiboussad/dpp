@@ -55,8 +55,8 @@ class RDVController extends Controller
       {    
              if(Auth::user()->role_id == 1)
               {
-                     $rdvs = rdv::where('specialite', Auth::user()->employ->Specialite_Emploiye)->get(); // $rdvs = rdv::where('Employe_ID_Employe', Auth::user()->employee_id)->get(); 
-                      return view('rdv.index', compact('rdvs')); 
+                $rdvs = rdv::where('specialite', Auth::user()->employ->specialite)->get();
+                return view('rdv.index', compact('rdvs')); 
             } else
             {
                     $rdvs = rdv::all();
@@ -73,7 +73,7 @@ class RDVController extends Controller
       {
                if(Auth::user()->role_id == 1)   
                 {         
-                  $rdvs = rdv::with(['patient','employe'])->where('specialite',Auth::user()->employ->Specialite_Emploiye)->get();
+                  $rdvs = rdv::with(['patient','employe'])->where('specialite',Auth::user()->employ->specialite)->get();
                   if(isset($id_patient) && !empty($id_patient))
                   {
                     $patient = patient::FindOrFail($id_patient);
@@ -100,7 +100,7 @@ class RDVController extends Controller
                 "daterdv"=> 'required',
            ]);
            $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
-           $specialite = $employe->Specialite_Emploiye;       // $rdv = rdv::create($request->all());
+           $specialite = $employe->specialite;       // $rdv = rdv::create($request->all());
                 $rdv = rdv::firstOrCreate([
                "Date_RDV"=>$request->daterdv,
                "specialite"=>$specialite,
@@ -246,7 +246,7 @@ class RDVController extends Controller
                })
                ->addColumn('action2',function($rdv){
                  $medcine = employ::where("id",$rdv->Employe_ID_Employe)->get()->first();
-                 return'<a href="/employe/'.$medcine->id.'" class="label label-xlg label-pink arrowed-right">'.$medcine->Nom_Employe .' '.$medcine->Prenom_Employe .'</a>';
+                 return'<a href="/employe/'.$medcine->id.'" class="label label-xlg label-pink arrowed-right">'.$medcine->nom.' '.$medcine->prenom .'</a>';
             })
             ->addColumn('action', function ($rdv) {
                 return '<div class="hidden-sm hidden-xs btn-group">
@@ -278,7 +278,7 @@ class RDVController extends Controller
         }  
         else
         {
-          $specialite = Auth::user()->employ->Specialite_Emploiye;
+          $specialite = Auth::user()->employ->specialite;
           $employeId = Auth::user()->employ->id;
         }
         if($request->ajax())

@@ -1,14 +1,10 @@
 @extends('app')
 @section('main-content')
-	<div class="page-header">
-		<h1>Modifier un service :</h1>
-	</div>
+	<div class="page-header"><h1>Modifier un service :</h1></div>
 	<div class="row">
 		<div class="col-xs-6">
 			<div class="widget-box" id="widget-box-1">
-				<div class="widget-header">
-					<h5 class="widget-title">Modifier un Service :</h5>
-				</div>
+				<div class="widget-header">	<h5 class="widget-title">Modifier un Service :</h5></div>
 				<div class="widget-body">
 					<div class="widget-main">
 						<form class="form-horizontal" role="form" method="POST" action="{{ route('service.update', $service->id) }}">
@@ -38,7 +34,7 @@
 									<select id="responsable" name="responsable" placeholder="Chef de service" class="selectpicker show-menu-arrow place_holde col-xs-10 col-sm-5" required >
 										<option value="" selected disabled>Selectionner le chef</option>
 										@foreach ($users as $user)
-											<option value="{{ $user->employ->id}}" @if($service->responsable_id == $user->employ->id) selected @endif> {{ $user->employ->Nom_Employe }} {{ $user->employ->Prenom_Employe }}</option>
+											<option value="{{ $user->employ->id}}" @if($service->responsable_id == $user->employ->id) selected @endif> {{ $user->employ->nom }} {{ $user->employ->prenom }}</option>
 										@endforeach
 									</select>	
 								</div>
@@ -58,12 +54,8 @@
 								</div>
 							</div>
 							<div class="row center">
-								<button class="btn btn-sm btn-info" type="submit">
-									<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
-								</button>&nbsp; &nbsp; &nbsp;
-								<button class="btn btn-sm" type="reset">
-									<i class="ace-icon fa fa-undo bigger-110"></i>Annuler
-								</button>
+								<button class="btn btn-sm btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
+								<button class="btn btn-sm" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 							</div>
 						</form>
 					</div>
@@ -71,23 +63,16 @@
 			</div>
 		</div>
 		<div class="col-xs-6">
-					<div class="widget-box" id="widget-box-2">
-			<div class="widget-header">
-				<h5 class="widget-title bigger lighter">
-					<i class="ace-icon fa fa-table"></i>
-					<span><b>Liste des Chambres</b></span>
-				</h5>
-			</div>
+			<div class="widget-box" id="widget-box-2">
+				<div class="widget-header">
+					<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i><span><b>Liste des Chambres</b></span></h5>
+				</div>
 			<div class="widget-body">
 			<ol id="" class="">
 				@foreach ($service->salles as $salle)	
 				<tr>
-					<td>
-						<li><a href="/salle/{{$salle->id}}" title="detail de la salle">{{ $salle->nom }}</a>
-					</td>
-					<td class="pull-right">
-						-<span class="badge badge-info">{{ count($salle->lits) }}</span> &nbsp;Lits </li>
-					</td>
+					<td><li><a href="/salle/{{$salle->id}}" title="detail de la salle">{{ $salle->nom }}</a>	</td>
+					<td class="pull-right">-<span class="badge badge-info">{{ count($salle->lits) }}</span> &nbsp;Lits </li></td>
 				</tr>
 				@endforeach
 			</ol><!-- / -->

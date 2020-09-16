@@ -39,6 +39,7 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::all();
+        dd("dfdg");
         return view('user.index',compact('users'));
     }
     /**
@@ -62,45 +63,44 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-           $request->validate([
-            "nom"=> "required",
-            "prenom"=> "required",
-            "datenaissance"=> "required",
-            "lieunaissance"=> "required",
-            "adresse"=> "required",
-            "mobile"=> "required",   //"fixe"=> "required",age // "mat"=> "required", //"service"=> "required",
-            "nss"=> "required",
-            "username"=> "required",
-            "password"=> "required",
-            "mail"=> "required",
-            "role"=> "required",
-        ]);
-        $employe = employ::firstOrCreate([
-            "Nom_Employe"=>$request->nom,
-            "Prenom_Employe"=>$request->prenom,
-            "Sexe_Employe"=>$request->sexe,
-            "Date_Naiss_Employe"=>$request->datenaissance,
-            "Lieu_Naissance_Employe"=>$request->lieunaissance,
-            "Adresse_Employe"=>$request->adresse,
+      $request->validate([
+        "nom"=> "required",
+        "prenom"=> "required",
+        "datenaissance"=> "required",
+        "lieunaissance"=> "required",
+        "adresse"=> "required",
+        "mobile"=> "required",   //"fixe"=> "required",age // "mat"=> "required", //"service"=> "required",
+        "nss"=> "required",
+        "username"=> "required",
+        "password"=> "required",
+        "mail"=> "required",
+        "role"=> "required",
+      ]);
+      $employe = employ::firstOrCreate([
+            "nom"=>$request->nom,
+            "prenom"=>$request->prenom,
+            "sexe"=>$request->sexe,
+            "Date_Naiss"=>$request->datenaissance,
+            "Lieu_Naissance"=>$request->lieunaissance,
+            "Adresse"=>$request->adresse,
             "Tele_fixe"=>$request->fixe,
             "tele_mobile"=>$request->mobile,
-            "Specialite_Emploiye"=>$request->specialite,
-            "Service_Employe"=>$request->service,
+            "specialite"=>$request->specialite,
+            "service"=>$request->service,
             "Matricule_dgsn"=>$request->mat,
             "NSS"=>$request->nss,
-        ]);
-        $usere = [
-            "name"=>$request->username,
-            "password"=>$request->password,
-            "email"=>$request->mail,
-            "employee_id"=>$employe->id,
-            "role_id"=>$request->role,
-        ];
-        event(new Registered($user = RegisterController::create($usere)));//$this->guard()->login($user);
+      ]);
+      usere = [
+        "name"=>$request->username,
+        "password"=>$request->password,
+        "email"=>$request->mail,
+        "employee_id"=>$employe->id,
+        "role_id"=>$request->role,
+      ];
+      event(new Registered($user = RegisterController::create($usere)));//$this->guard()->login($user);
         return $this->registered($request, $user)
                         ?: redirect()->route('users.index');
     }
-
     /**
      * Display the specified resource.
      *
@@ -111,8 +111,8 @@ class UsersController extends Controller
     {
        $user = User::FindOrFail($id);
         $employe = employ::FindOrFail($user->employee_id);
-       $service = service::FindOrFail($employe->Service_Employe);
-       $specialite= Specialite::FindOrFail($employe->Specialite_Emploiye);
+       $service = service::FindOrFail($employe->service);
+       $specialite= Specialite::FindOrFail($employe->specialite);
        $roles = rol::all();
        $services=service::all();
        $specialites=specialite::all();

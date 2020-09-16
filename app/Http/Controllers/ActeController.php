@@ -51,8 +51,7 @@ class ActeController extends Controller
         ]);
         $acte->remember_token;
         $acte->save();
-        return Response::json(['acte'=>$acte,'medecin'=>$acte->visite->medecin->Nom_Employe,'date'=>$acte->visite->date]);
-        //return Response::json($acte);
+        return Response::json(['acte'=>$acte,'medecin'=>$acte->visite->medecin->nom,'date'=>$acte->visite->date]); //return Response::json($acte);
     }
     public function store(Request $request)
     {

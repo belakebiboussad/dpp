@@ -95,15 +95,15 @@
 									<select id="medecin" name = "medecin" class ="med" class ="selectpicker show-menu-arrow place_holder col-sm-12">
 										<option value="0" selected disabled>selectionnez... </option>
 										@foreach ($medecins as $medecin)
-										<option value="{{ $medecin->employ->id }}">{{ $medecin->employ->Nom_Employe }} {{ $medecin->employ->Prenom_Employe }}</option>
+										<option value="{{ $medecin->employ->id }}">{{ $medecin->employ->nom }} {{ $medecin->employ->prenom }}</option>
 										@endforeach
 									</select>
 								</td>
 					      <td>
 					     		<div class=" btn-group btn-group-vertical col-sm-12 btn-group-lg" data-toggle="radio" role="group"> 
-							 	 		<label for="prop"><input type="radio"  class="radioM" name="prop{{$j}}"  value="1" checked/>1</label>&nbsp;&nbsp;
-										<label for="prop"><input type="radio"  class="radioM" name="prop{{$j}}"  value="2"/>2</label>&nbsp;&nbsp;
-			         		  <label for="prop"><input type="radio"  class="radioM" name="prop{{$j}}"  value="3" />3</label>
+							 	 		<label for="prop"><input type="radio"  class="radioM" name="prop{{$j}}" value="1" checked/>1</label>&nbsp;&nbsp;
+										<label for="prop"><input type="radio"  class="radioM" name="prop{{$j}}" value="2"/>2</label>&nbsp;&nbsp;
+			         		  <label for="prop"><input type="radio"  class="radioM" name="prop{{$j}}" value="3" />3</label>
 							  	</div>
 						    </td>
 				    		<td>
@@ -126,9 +126,7 @@
 											<div class="profile-user-info profile-user-info-striped">
 												<div class="profile-info-row">
 													<div class="profile-info-name text-center"><strong>Age:</strong></div>
-													<div class="profile-info-value">
-														  <span>{{ $demande->consultation->patient->getAge( )}} ans</span>
-													</div>
+													<div class="profile-info-value"> <span>{{ $demande->consultation->patient->getAge( )}} ans</span></div>
 												</div>
 												<div class="profile-info-row">
 													<div class="profile-info-name text-center"><strong>Groupe Sanguin:</strong></div>
@@ -141,14 +139,12 @@
 											<div class="profile-info-row">
 												<div class="profile-info-name text-center"><strong>Etablie par Dr:</strong></div>
 												<div class="profile-info-value">
-													<span>{{ $demande->consultation->docteur->Nom_Employe }} {{ $demande->consultation->docteur->Prenom_Employe }}</span>
+													<span>{{ $demande->consultation->docteur->nom }} {{ $demande->consultation->docteur->prenom }}</span>
 												</div>
 											</div>
 											<div class="profile-info-row">
 												<div class="profile-info-name text-center"> <strong>Service:</strong></div>
-												<div class="profile-info-value">
-													<span>{{$demande->Service->nom }}</span>
-												</div>
+												<div class="profile-info-value"><span>{{$demande->Service->nom }}</span></div>
 											</div>
 										</div>	{{-- profile-user-info-striped --}}
 				        	</div>{{-- col-xs-6 col-sm-6 --}}

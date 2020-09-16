@@ -76,7 +76,7 @@
 				  <div class="col-sm-4 col-xs-4">
 				    <label class="col-sm-4 col-xs-4 control-label no-padding-right no-wrap" for="medecin"><strong>Medecin Trait.:</strong></label>
 				    <div class="col-sm-8 col-xs-8">
-				      <input type="text" id="medecin" name="medecin" value="{{$demande->medecin->Nom_Employe}} {{$demande->medecin->Prenom_Employe}}" class="col-xs-12 col-sm-12" disabled/>
+				      <input type="text" id="medecin" name="medecin" value="{{$demande->medecin->nom}} {{$demande->medecin->prenom}}" class="col-xs-12 col-sm-12" disabled/>
 				    </div>  
 				  </div>
 			    <div class="col-sm-4 col-xs-4">

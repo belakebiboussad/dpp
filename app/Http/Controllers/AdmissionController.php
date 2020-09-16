@@ -58,7 +58,7 @@ class AdmissionController extends Controller
       public function storeold(Request $request)
       { 
               $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
-              $ServiceID = $employe->Service_Employe;
+              $ServiceID = $employe->service;
               $adm=admission::create([     
                   "id_demande"=>$request->id_demande,       
                   "id_lit"=>$request->lit,

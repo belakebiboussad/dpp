@@ -403,7 +403,6 @@
     $('#description').attr('disabled', true); 
     jQuery('input:radio[name="sexef"]').filter('[value="M"]').attr('checked', true);
     jQuery('input:radio[name="etat"]').filter('[value="Activite"]').attr('checked', true);
-        
   }
 function typep()
 {
@@ -412,8 +411,7 @@ function typep()
       $('#foncform').addClass("hidden").hide().fadeIn();
       $('#NSSInput').addClass("hidden").hide().fadeIn();
       $('#descriptionDerog').addClass("hidden").hide().fadeIn();
-      $('#AssureInputs').removeClass("hidden").show();   
-           
+      $('#AssureInputs').removeClass("hidden").show();       
     }
     else
     {
@@ -1046,7 +1044,7 @@ $('#typeexm').on('change', function() {
                         var html ='<option value="">Selectionner...</option>';
                         jQuery(data).each(function(i, med){
                           
-                          html += '<option value="'+med.id+'" >'+med.Nom_Employe +" "+med.Prenom_Employe+'</option>';
+                          html += '<option value="'+med.id+'" >'+med.nom +" "+med.prenom+'</option>';
                         });
                         $('#medecin').removeAttr("disabled");  
                         $('#medecin').append(html);
@@ -1072,7 +1070,6 @@ $('#typeexm').on('change', function() {
         url = url.replace(':slug',event.id);
         $('#updateRdv').attr('action',url);
        $('#fullCalModal').modal({ show: 'true' }); 
-      
       }
        function ajaxEditEvent(event,bool)
        {
@@ -1119,9 +1116,8 @@ $('#typeexm').on('change', function() {
                         alert('error');
                     }
               });
-       }
-       //todelete
-      function refrechCal()
+       }//todelete
+       function refrechCal()
       {  
         $('.calendar1').fullCalendar('refetchEvents');
         $('.calendar1').fullCalendar( 'refetchResources' );

@@ -60,9 +60,7 @@
   		<div class="row">
 				<div class="col-sm-12">
 					<div class="section">
-						<div class="ml-80">
-							<b><u>Fait le:</u></b> {{ Carbon\Carbon::today()->format('Y-m-d') }}.
-						</div>
+						<div class="ml-80"><b><u>Fait le:</u></b> {{ Carbon\Carbon::today()->format('Y-m-d') }}.</div>
 					</div>
 				</div>
 			</div>
@@ -70,10 +68,7 @@
 				<div class="col-sm-12">
 					<div class="section">
 						<div class="sec-gauche">
-							<b><u>Patient(e) :</u></b> 
-							<b>	{{ $patient->getCivilite() }} </b> 
-							{{ $patient->Nom }}	{{ $patient->Prenom }},
-							&nbsp;
+							<b><u>Patient(e) :</u></b><b>	{{ $patient->getCivilite() }}</b>{{ $patient->Nom }}	{{ $patient->Prenom }},	&nbsp;  
 							{{ $patient->getAge() }} ans,{{ $patient->Sexe }}
 						</div>
 					</div>
@@ -84,24 +79,19 @@
 				<div class="col-sm-12">
 					<div class="section">
 						<div class="sec-gauche">
-								<img src="data:image/png;base64,{{DNS1D::getBarcodePNG($patient->IPP, 'C128')}}" alt="barcode" />
-		            <br>
-		            {{ $patient->IPP }}
+								<img src="data:image/png;base64,{{DNS1D::getBarcodePNG($patient->IPP, 'C128')}}" alt="barcode"/><br> {{ $patient->IPP }}   
 						</div>
 					</div>
 				</div>
 			</div>
 			<br><br>
 			<div class="row">
-				<div class="col-sm-12">
-					<br>
+				<div class="col-sm-12"><br>
 					<ol>
 						@for ($i = 0; $i < count($medicaments); $i++)
 						<li>
-								{{ $medicaments[$i]->Nom_com }} {{ $medicaments[$i]->Forme }} {{ $medicaments[$i]->Dosage }} <br> 
-								{{ $posologies[$i] }}.
-							</li>
-							<br><br>
+							{{ $medicaments[$i]->Nom_com }} {{ $medicaments[$i]->Forme }} {{ $medicaments[$i]->Dosage }} <br>{{ $posologies[$i] }}.		
+						</li><br><br>
 						@endfor
 					</ol>
 				</div>
@@ -109,18 +99,14 @@
 			<div class="row foo">
 		    <div class="col-sm-12">
 					<div class="section">
-						<div class="sec-droite">
-		      		<span><strong> Docteur :</strong> {{ $employe->Nom_Employe}} {{ $employe->Prenom_Employe}}</span>
-			    	</div>
+						<div class="sec-droite"><span><strong> Docteur :</strong> {{ $employe->nom}} {{ $employe->prenom}}</span></div>
 		    	</div>
 		    </div>
   		</div>
   		<div class="row foo">
 		    <div class="col-sm-12">
 					<div class="section">
-						<div class="sec-droite">
-		      		<span><strong> Docteur :</strong> {{ $employe->Nom_Employe}} {{ $employe->Prenom_Employe}}</span>
-			    	</div>
+						<div class="sec-droite"><span><strong> Docteur :</strong> {{ $employe->nom}} {{ $employe->prenom}}</span></div>    	
 		    	</div>
 		    </div>
  		 </div>				

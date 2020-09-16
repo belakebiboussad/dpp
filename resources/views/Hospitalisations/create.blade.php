@@ -66,11 +66,8 @@
 @endsection
 @section('title') Nouvelle Hospitalisation
 @endsection
-
 @section('main-content')
-<div class="page-header">
-	<h1> Ajouter une Hospitalisation </h1>
-</div><!-- /.page-header -->
+<div class="page-header"><h1> Ajouter une Hospitalisation </h1></div><!-- /.page-header -->
 <div class="space-12"></div>
 <div class="row">
 	<div class="col-sm-8 col-xs-8">
@@ -96,7 +93,7 @@
 							<tr>
 								<td>{{ $adm->rdvHosp->demandeHospitalisation->consultation->patient->Nom }} {{$adm->rdvHosp->demandeHospitalisation->consultation->patient->Prenom }}</td>
 								<td>{{ $adm->rdvHosp->demandeHospitalisation->modeAdmission }}</td>
-								<td>{{ $adm->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe }} {{ $adm->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->Prenom_Employe }}</td>
+								<td>{{ $adm->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->nom }} {{ $adm->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->prenom }}</td>
 								<td>{{ $adm->rdvHosp->demandeHospitalisation->DemeandeColloque->ordre_priorite }}</td>
 								<td>{{ $adm->rdvHosp->demandeHospitalisation->DemeandeColloque->observation }}	</td>
 								<td>{{ $adm->rdvHosp->date_RDVh	}}</td>
@@ -111,7 +108,6 @@
 								</td>		
 							</tr>
 							@endforeach
-
 						</tbody>
 					</table>
 				</div>
@@ -125,43 +121,34 @@
 			</div>
 			<div class="widget-body">
 				<div class="widget-main no-padding">
-					<div class="space-12"></div>
-					<!-- id = "hospCreateForm" -->
+					<div class="space-12"></div><!-- id = "hospCreateForm" -->
 					<form class="form-horizontal" role="form" method="POST" action="{{ route('hospitalisation.store') }}">
 						{{ csrf_field() }}
 						<input type="hidden" name="id_admission" id="id_admission" value="" >
 						<input type="hidden" name="patient_id" id="patient_id" value="">
 						<div class="row">
 							<div class="form-group">		
-									<label class="col-sm-4 control-label no-padding-right" for="patient">
-										<strong>Patient :</strong>
-									</label>
-									<div class="col-sm-8 col-xs-8">
-										<select name="patient" id="patient" class="col-xs-11 col-sm-11" disabled>
-										</select>
-									</div>
+								<label class="col-sm-4 control-label no-padding-right" for="patient"><strong>Patient :</strong></label>
+								<div class="col-sm-8 col-xs-8">
+									<select name="patient" id="patient" class="col-xs-11 col-sm-11" disabled></select>
+								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="form-group">		
-									<label class="col-sm-4 col-xs-4 control-label no-padding-right" for="medecin">
-										<strong>Medecin Trait.. :</strong>
-									</label>
-									<div class="col-sm-8 col-xs-8">
-										<select name="medecin" id="medecin" class="col-xs-11 col-sm-11">
-										@foreach($medecins as $medecin)
-										<option value="{{ $medecin->id }}">{{$medecin->Nom_Employe }} {{$medecin->Prenom_Employe }} </option> 
-										@endforeach
-										</select>
-									</div>
+								<label class="col-sm-4 col-xs-4 control-label no-padding-right" for="medecin"><strong>Medecin Trait.. :</strong></label>
+								<div class="col-sm-8 col-xs-8">
+									<select name="medecin" id="medecin" class="col-xs-11 col-sm-11">
+									@foreach($medecins as $medecin)
+										<option value="{{ $medecin->id }}">{{$medecin->nom }} {{$medecin->prenom }} </option> 
+									@endforeach
+									</select>
+								</div>
 							</div>
 						</div>
-
 						<div class="row">	
 							<div class="form-group">
-								<label class="col-sm-4 col-xs-4 control-label no-padding-right" for="Date_entree">
-							 		<strong> Date Hospitalisation :</strong>
-								</label>
+								<label class="col-sm-4 col-xs-4 control-label no-padding-right" for="Date_entree"><strong> Date Hospitalisation :</strong></label>
 								<div class="col-sm-8 col-xs-8">
 									<input class="col-xs-11 col-sm-11 date-picker" id="Date_entree" name="Date_entree" type="text" placeholder="Date Hospitalisation" data-date-format="yyyy-mm-dd" disabled/>
 								</div>				
@@ -169,10 +156,8 @@
 						</div>
 						<div class="row">
 							<div class="form-group">
-								<label class="col-sm-4 col-xs-4 control-label no-padding-right" for="numberDays">
-							 		<strong> Durée Prévue :</strong>
-								</label>
-								<div class="col-sm-8 col-xs-8">
+								<label class="col-sm-4 col-xs-4 control-label no-padding-right" for="numberDays"><strong> Durée Prévue :</strong></label>
+							  <div class="col-sm-8 col-xs-8">
 									<input class="col-xs-10 col-sm-10" id="numberDays" type="number" placeholder="nombre de nuit(s)" min="0" max="50" value="0" />
 									<label for=""><small>&nbsp; nuit(s)</small></label>
 								</div>
@@ -180,9 +165,7 @@
 						</div>
 						<div class="row">
 							<div class="form-group">
-							<label class="col-sm-4 col-xs-4 control-label no-padding-right" for="Date_Prevu_Sortie">
-							 	<strong>Date Sortie Prévue :</strong>
-						  </label>
+							<label class="col-sm-4 col-xs-4 control-label no-padding-right" for="Date_Prevu_Sortie"><strong>Date Sortie Prévue :</strong></label>
 							<div class="col-sm-8 col-xs-8">
 								<input class="col-xs-11 col-sm-11 date-picker" id="Date_Prevu_Sortie" name="Date_Prevu_Sortie" type="text" placeholder="Date Sortie Prévue" data-date-format="yyyy-mm-dd" onchange="updateDureePrevue()" />
 							</div>
@@ -190,9 +173,7 @@
 						</div>			
 						<div class="row">
 							<div class="form-group">
-								<label class="col-sm-4 control-label no-padding-right" for="mode">
-									<strong>Mode Hospitalisation :</strong>
-								</label>
+								<label class="col-sm-4 control-label no-padding-right" for="mode"><strong>Mode Hospitalisation :</strong></label>
 								<div class="col-sm-8 col-xs-8">
 									<select id="mode" name="mode" placeholder="Mode de L'hospitalisation" value="" class="col-xs-11 col-sm-11">
 									@foreach($modesHosp as $mode)
@@ -204,9 +185,7 @@
 						</div>
 						<div class="row" id ="garde">
 							<div class="form-group">
-								<label class="col-sm-4 control-label no-padding-right" for="garde">
-									<strong>Garde Malade :</strong>
-								</label>
+								<label class="col-sm-4 control-label no-padding-right" for="garde"><strong>Garde Malade :</strong></label>
 								<div class="col-sm-8 col-xs-8">
 									<select id="garde_id" name="garde_id" placeholder="Ajouter garde malade" value="" class="col-xs-11 col-sm-11">
 									<option value="">Selectionner un Garde malade</option>
@@ -216,12 +195,8 @@
 						</div>
 						<div class="row">
 							<div class="col-md-offset-3 col-md-9">
-								<button class="btn btn-info btn-sm" type="submit" id ="sendBtn">
-									<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
-								</button>&nbsp; &nbsp; &nbsp;
-								<button class="btn btn-danger btn-sm" type="reset">
-									<i class="ace-icon fa fa-close bigger-110"></i>Annuler
-								</button>
+								<button class="btn btn-info btn-sm" type="submit" id ="sendBtn"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
+								<button class="btn btn-danger btn-sm" type="reset">	<i class="ace-icon fa fa-close bigger-110"></i>Annuler</button>
 							</div>
 						</div>
 						<div class="space-12"></div>

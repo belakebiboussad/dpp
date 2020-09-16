@@ -69,7 +69,7 @@
 				<div class="profile-info-row">
 					<div class="profile-info-name"> Créer par </div>
 					<div class="profile-info-value">
-						<span>{{ App\modeles\employ::where("id",$homme_c->created_by)->get()->first()->Nom_Employe }}  {{ App\modeles\employ::where("id",$homme_c->created_by)->get()->first()->Prenom_Employe }}</span>
+						<span>{{ App\modeles\employ::where("id",$homme_c->created_by)->get()->first()->nom }}  {{ App\modeles\employ::where("id",$homme_c->created_by)->get()->first()->prenom }}</span>
 					</div>
 				</div>
 			</div>

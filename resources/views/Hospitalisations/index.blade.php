@@ -55,7 +55,7 @@
 			  data: formData,
 			  dataType: 'json',
 			  success: function (data) {
-			 	 $("#hospi" + data.id).remove();
+			    $("#hospi" + data.id).remove();
 			  },
 			  error: function (data){
 						console.log('Error:', data);
@@ -70,9 +70,7 @@
 	<div class="page-header"><h1><strong>Liste des Hospitalisations :</strong></h1></div>
 		<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
 		<div class="widget-box widget-color-blue" id="widget-box-2">
-			<div class="widget-header">
-				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Hospitalisations</h5>
-			</div>
+			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Hospitalisations</h5></div>
 			<div class="widget-body">
 				<div class="widget-main no-padding">
 					<table class="table nowrap dataTable table-bordered no-footer table-scrollable">
@@ -107,8 +105,8 @@
 								  <td><span class ="text-danger">{{ $hosp->Date_Prevu_Sortie }}</span></td>
 							  	<td>{{ $hosp->Date_Sortie == null ? "Pas encore" : $hosp->Date_Sortie }}</td>
 							  	<td>
-							  		{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe }}
-							  		{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->Prenom_Employe }}
+							  		{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->nom }}
+							  		{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->prenom }}
 							  	</td>
 							  	<td><span class="badge badge-pill badge-success">{{ $hosp->etat_hosp }}</span></td>
 							  	<td class="center">

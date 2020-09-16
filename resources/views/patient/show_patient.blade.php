@@ -32,18 +32,16 @@
 				<i class="ace-icon fa fa-search bigger-120 blue"></i>Chercher
 			</a>
 			<a href="{{route('patient.destroy',$patient->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-white btn-warning btn-bold">
-	    			<i class="ace-icon fa fa-trash-o bigger-120 orange"> Supprimer</i>
-	    		  </a>
-	       </div>
+	    	<i class="ace-icon fa fa-trash-o bigger-120 orange"> Supprimer</i>
+	    </a>
+	  </div>
 	</div>
 	<div>
 		<div id="user-profile-2" class="user-profile">
 			<div class="tabbable">
 				<ul class="nav nav-tabs padding-18">
 					<li class="active">
-						<a data-toggle="tab" href="#home">
-							<i class="green ace-icon fa fa-user bigger-120"></i>	Informations Administratives
-						</a>
+						<a data-toggle="tab" href="#home"><i class="green ace-icon fa fa-user bigger-120"></i>	Informations Administratives</a>
 					</li>
 					@if( Auth::user()->role->id == 1)
 					 <li>
@@ -59,9 +57,9 @@
 						</a>
 					</li>
 					<li>
-					<a data-toggle="tab" href="#Hosp">
-						<i class="pink ace-icon fa fa-h-square bigger-120"></i>
-						Hospitalisations&nbsp;<span class="badge badge-pink">{{ $patient->hospitalisations->count() }}</span>
+						<a data-toggle="tab" href="#Hosp">
+							<i class="pink ace-icon fa fa-h-square bigger-120"></i>
+							Hospitalisations&nbsp;<span class="badge badge-pink">{{ $patient->hospitalisations->count() }}</span>
 						</a>
 					</li>
 					@endif
@@ -140,9 +138,7 @@
 										<div class="profile-info-name"> Adresse </div>
 										<div class="profile-info-value">
 											<i class="fa fa-map-marker light-orange bigger-110"></i>
-											<span>
-												{{ $patient->Adresse }} ,{{ $patient->commune->nom_commune}} , {{ $patient->wilaya->nom_wilaya }}
-											</span>
+											<span>{{ $patient->Adresse }} ,{{ $patient->commune->nom_commune}} , {{ $patient->wilaya->nom_wilaya }}</span>
 										</div>
 									</div>
 									<div class="profile-info-row">
@@ -201,38 +197,32 @@
 												<div class="widget-main padding-6 no-padding-left no-padding-right">
 													<div class="col-sm-3">
 														<label class="inline">
-															<span><b>Nom :</b></span>
-															<span class="lbl blue"> {{ $patient->assure->Nom}} </span>
+															<span><b>Nom :</b></span><span class="lbl blue"> {{ $patient->assure->Nom}} </span>
 														</label>
 													</div>
 													<div class="col-sm-3">
 														<label class="inline">
-															<span><b>Prénom :</b></span>
-															<span class="lbl blue"> {{ $patient->assure->Prenom}} </span>
+															<span><b>Prénom :</b></span><span class="lbl blue"> {{ $patient->assure->Prenom}} </span>
 														</label>
 													</div>
 													<div class="col-sm-3">
 														<label class="inline">
-															<span><b>Date de naissance :</b></span>
-															<span class="lbl blue"> {{ $patient->assure->Date_Naissance }}</span>
+															<span><b>Date de naissance :</b></span><span class="lbl blue"> {{ $patient->assure->Date_Naissance }}</span>
 														</label>
 													</div>
 													<div class="col-sm-3">
 														<label class="inline">
-															<span><b>Lieu de naissance :</b></span>
-															<span class="lbl blue">{{ $patient->assure->commune->nom_commune}} </span>
+															<span><b>Lieu de naissance :</b></span><span class="lbl blue">{{ $patient->assure->commune->nom_commune}} </span>
 														</label>
 													</div>
 													<div class="col-sm-3">
 														<label class="inline">
-															<span><b>Sexe :</b></span>
-															<span class="lbl blue"> {{ $patient->assure->Sexe == "H" ? "Masculin" : "Féminin" }}</span>
+															<span><b>Sexe :</b></span><span class="lbl blue"> {{ $patient->assure->Sexe == "H" ? "Masculin" : "Féminin" }}</span>
 														</label>
 													</div>
 													<div class="col-sm-3">
 														<label class="inline">
-															<span><b>Matricule :</b></span>
-															<span class="lbl blue"> {{ $patient->assure->Matricule }}</span>
+															<span><b>Matricule :</b></span><span class="lbl blue"> {{ $patient->assure->Matricule }}</span>
 														</label>
 													</div>
 													<div class="col-sm-6">
@@ -247,14 +237,12 @@
 													</div>
 													<div class="col-sm-3">
 														<label class="inline">
-															<span><b>Etat :</b></span>
-															<span class="lbl blue"> {{ $patient->assure->Etat }}</span>
+															<span><b>Etat :</b></span><span class="lbl blue"> {{ $patient->assure->Etat }}</span>
 														</label>
 													</div>
 													<div class="col-sm-6">
 														<label class="inline">
-															<span><b>N° sécurité sociale :</b></span>
-															<span class="lbl blue"> {{ $patient->assure->NSS }}</span>
+															<span><b>N° sécurité sociale :</b></span><span class="lbl blue"> {{ $patient->assure->NSS }}</span>
 														</label>
 													</div>
 												</div>
@@ -293,18 +281,16 @@
 													@foreach($patient->rdvs as $rdv)
 														<tr>
 															<td>{{ $rdv->Date_RDV }}</td>
-															<td>
-																{{ $rdv->employe->Nom_Employe }} {{ $rdv->employe->Prenom_Employe }}
-															</td>
+															<td>{{ $rdv->employe->nom }} {{ $rdv->employe->prenom }}	</td>
 															<td class="center">
 																<span class="label label-{{$rdv->Etat_RDV == "en attente" ? "warning" : "success"}}" style="color: black;">	<b>{{ $rdv->Etat_RDV }}</b></span>
 															</td>
 															<td class="center">
 																<div class="hidden-sm hidden-xs btn-group">
-												                            		<a class="btn btn-xs btn-success" href="{{ route('rdv.show', $rdv->id) }}">
-												                              	<i class="ace-icon fa fa-hand-o-up bigger-120"></i>Détails</a>
+												          <a class="btn btn-xs btn-success" href="{{ route('rdv.show', $rdv->id) }}">
+												           	<i class="ace-icon fa fa-hand-o-up bigger-120"></i>Détails</a>
 																</div>
-											                           </td>
+											        </td>
 														</tr>
 													@endforeach
 												@endif
@@ -340,7 +326,7 @@
 											<tbody>
 												@foreach($patient->hospitalisations as $hosp)
 												<tr>
-													<td>{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe }}
+													<td>{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->nom}}
 						  						</td>
 													<td>{{ $hosp->Date_entree }}</td>
 													<td>{{ $hosp->Date_Prevu_Sortie }}</td>
@@ -367,38 +353,34 @@
 			</div>
 		</div>
 	</div>
-	<!-- Modal ramzi-->
 	<div id="ticket" class="modal fade" role="dialog">
-  		<div class="modal-dialog">
-   			<!-- Modal content-->
-    		<div class="modal-content">
-    			<div class="modal-header">
-    				<button type="button" class="close" data-dismiss="modal">&times;</button>
-    				<h4 class="modal-title"><strong>Ajouter Ticket:</strong></h4>
-    			</div>
+  	<div class="modal-dialog"><!-- Modal content-->
+   		<div class="modal-content">
+    		<div class="modal-header">
+    			<button type="button" class="close" data-dismiss="modal">&times;</button>
+    			<h4 class="modal-title"><strong>Ajouter Ticket:</strong></h4>
+    		</div>
     			<div class="modal-body">
     				<div class="row">
     					<div class="col-sm-12">
     						<form action="{{ route('ticket.store') }}" method="POST" role="form">
-							{{ csrf_field() }}
-							<input type="text" name="id_patient" value="{{ $patient->id }}" hidden>
+								{{ csrf_field() }}
+								<input type="text" name="id_patient" value="{{ $patient->id }}" hidden>
     						<div class="col-sm-12">
-								<label for="typecons"><b>Type de consultation:</b></label>
-								<select class="form-control" id="typecons" name="typecons" required>
-								<!-- 	<option value="">--------</option> -->
-									<option value="Normale">Normale</option>
-									<option value="Urgente">Urgente</option>
-								</select>
-							</div>
-							<br/><br/><br/><br/>
-    						<div class="col-sm-12">
-							<label for="document"><b>Document:</b></label>
-							<select class="form-control" id="document" name="document" required>
-								<option value="Rendez-vous">Rendez-vous</option><!-- 	<option value="">--------</option> -->
-								<option value="Lettre d'orientation">Lettre d'orientation</option>
-								<option value="Consultation généraliste">Consultation généraliste</option>
-							</select>
-						</div><br/><br/><br/><br/>
+									<label for="typecons"><b>Type de consultation:</b></label>
+									<select class="form-control" id="typecons" name="typecons" required><!-- 	<option value="">--------</option> -->
+										<option value="Normale">Normale</option>
+										<option value="Urgente">Urgente</option>
+									</select>
+								</div>	<br/><br/><br/><br/>
+								<div class="col-sm-12">
+									<label for="document"><b>Document:</b></label>
+									<select class="form-control" id="document" name="document" required>
+										<option value="Rendez-vous">Rendez-vous</option><!-- 	<option value="">--------</option> -->
+										<option value="Lettre d'orientation">Lettre d'orientation</option>
+										<option value="Consultation généraliste">Consultation généraliste</option>
+									</select>
+								</div><br/><br/><br/><br/>
 						<div class="col-sm-12">
 							<label for="spesialite"><b>Spécialité:</b></label>
 							<select class="form-control" id="spesialite" name="spesialite">
@@ -411,12 +393,8 @@
     					</div>
     				</div>
     			<div class="modal-footer">
-    				<button type="submit" class="btn btn-primary">
-    					<i class="ace-icon fa fa-copy"></i>Générer un ticket	
-    				</button>
-    				<button type="button" class="btn btn-default" data-dismiss="modal">
-    					<i class="ace-icon fa fa-close bigger-110"></i>Fermer
-    				</button>
+    				<button type="submit" class="btn btn-primary"><i class="ace-icon fa fa-copy"></i>Générer un ticket</button>	
+    				<button type="button" class="btn btn-default" data-dismiss="modal"><i class="ace-icon fa fa-close bigger-110"></i>Fermer</button>
     			</div>
     		</div>
  	</div>

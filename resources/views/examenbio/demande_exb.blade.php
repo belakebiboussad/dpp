@@ -59,21 +59,16 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="section">
-          <div class="sec-droite">
-            <b><u>Fait le:</u></b> {{ $demande->consultation->Date_Consultation  }}.
-          </div>
+          <div class="sec-droite"><b><u>Fait le:</u></b> {{ $demande->consultation->Date_Consultation  }}.</div>
         </div>
       </div>
-    </div>
-    <br><br>
+    </div><br><br>
     <div class="row">
     <div class="col-sm-12">
       <div class="section">
         <div class="sec-gauche">
-          <b><u>Patient(e) :</u></b> 
-          <b> {{ $demande->consultation->patient->getCivilite() }} </b> 
-          {{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }},
-          &nbsp;
+          <b><u>Patient(e) :</u></b> <b> {{ $demande->consultation->patient->getCivilite() }} </b>  
+          {{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }},&nbsp;
           {{ $demande->consultation->patient->getAge() }} ans,{{ $demande->consultation->patient->Sexe }}
         </div>
       </div>
@@ -85,8 +80,7 @@
       <div class="section">
         <div class="sec-gauche">
           <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($demande->consultation->patient->IPP, 'C128')}}" alt="barcode" />
-          <br>
-          {{ $demande->consultation->patient->IPP }}
+          <br> {{ $demande->consultation->patient->IPP }}
         </div>
       </div>
     </div>
@@ -94,8 +88,7 @@
 	<br><br><br><br>
 	<div class="row">
     <div class="col-sm-12">
-      <label><b> Liste Des examens :</b></label>
-      <br>
+      <label><b> Liste Des examens :</b></label><br>
       <ol>
         @foreach($demande->examensbios as $exb)
         <li>{{ $exb->nom_examen }}</li>
@@ -106,9 +99,7 @@
     <div class="row foo">
     <div class="col-sm-12">
       <div class="section">
-        <div class="sec-droite">
-          <span><strong> Docteur :</strong> {{ Auth::user()->employ->Nom_Employe }} {{ Auth::user()->employ->Prenom_Employe }}</span>
-        </div>
+        <div class="sec-droite"><span><strong> Docteur :</strong> {{ Auth::user()->employ->nom }} {{ Auth::user()->employ->prenom }}</span></div>
       </div>
     </div>
   </div>

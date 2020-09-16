@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>RDV</title>
-</head>
+<head><title>RDV</title></head>
 <body>
 	<h3 style="text-align: center;">HOPITAL CENTRAL DE LA SURETE NATIONAL "LES GLYCINES"</h3>
 	<h3 style="text-align: center;">Tél : 23-93-34</h3>
@@ -21,22 +19,18 @@
 					{{ App\modeles\patient::where("id",$order->Patient_ID_Patient)->get()->first()->Nom }}
 					{{ App\modeles\patient::where("id",$order->Patient_ID_Patient)->get()->first()->Prenom }}
 				</td>
-				<td>
-					<b>Date rdv :</b> 
-					{{ $order->Date_RDV }}
-				</td>
+				<td><b>Date rdv :</b>{{ $order->Date_RDV }}</td>
 			</tr>
 			<tr>
 				<td>
 					<b>Nom Médecine Traitant :</b>
-					{{ App\modeles\employ::where("id",$order->Employe_ID_Employe)->get()->first()->Nom_Employe }}
-					{{ App\modeles\employ::where("id",$order->Employe_ID_Employe)->get()->first()->Prenom_Employe }}
+					{{ App\modeles\employ::where("id",$order->Employe_ID_Employe)->get()->first()->nom }}
+					{{ App\modeles\employ::where("id",$order->Employe_ID_Employe)->get()->first()->prenom }}
 				</td>
 			</tr>
 		</table>
 		</div>
-	</div>
-	<br/>
+	</div><br/>
 	<span style="float: right; text-align: right;"> Signature</span>
 </body>
 </html>

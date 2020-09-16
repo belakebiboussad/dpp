@@ -88,7 +88,7 @@
 			  <div class="col-xs-4">
 			  	<label class="col-sm-3 control-label no-padding-right" for="motif"><strong>Medecin Traitant:</strong></label>
 					<div class="col-sm-9">
-						<input type="text" id="motif" name="motifhos" value="{{$demande->medecin->Nom_Employe}} {{$demande->medecin->Prenom_Employe}}" class="col-xs-10 col-sm-5" disabled/>
+						<input type="text" id="motif" name="motifhos" value="{{$demande->medecin->nom}} {{$demande->medecin->prenom}}" class="col-xs-10 col-sm-5" disabled/>
 					</div>	
 			  </div>
 			<div class="col-xs-4">

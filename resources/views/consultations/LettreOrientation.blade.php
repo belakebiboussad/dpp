@@ -25,7 +25,7 @@
 					      	<option value="">Sélectionner...</option> 
 						      @foreach($meds as $med)
 						      <option value="{{ App\modeles\employ::where("id", $med->employee_id)->get()->first()->id }}">
-						        {{ App\modeles\employ::where("id", $med->employee_id)->get()->first()->Nom_Employe }} {{ App\modeles\employ::where("id", $med->employee_id)->get()->first()->Prenom_Employe }}
+						        {{ App\modeles\employ::where("id", $med->employee_id)->get()->first()->nom }} {{ App\modeles\employ::where("id", $med->employee_id)->get()->first()->prenom }}
 						      </option>
 						      @endforeach 
 					      </select>
@@ -41,7 +41,7 @@
 	     		 <div class="modal-footer">
 			        <div class="col-sm-12">
 			        	<button type="button" class="btn btn-xs btn-primary" data-dismiss="modal" onclick="lettreorientation()">Enregistrer</button>
-				      	<button type="button" class="btn btn-xs btn-success"  data-toggle="modal" data-target="#lettreorien"  onclick="lettreoriet('{{ Auth::User()->employ->Nom_Employe }}','{{Auth::User()->employ->Prenom_Employe }}','{{Auth::User()->employ->Service_Employe }}','{{Auth::User()->employ->tele_mobile }}','{{$patient->Nom}}','{{ $patient->Prenom}}',{{$patient->getAge() }})">Imprimer</button>
+				      	<button type="button" class="btn btn-xs btn-success"  data-toggle="modal" data-target="#lettreorien"  onclick="lettreoriet('{{ Auth::User()->employ->nom }}','{{Auth::User()->employ->prenom }}','{{Auth::User()->employ->service }}','{{Auth::User()->employ->tele_mobile }}','{{$patient->Nom}}','{{ $patient->Prenom}}',{{$patient->getAge() }})">Imprimer</button>
 				      	<button type="button" class="btn btn-xs btn-danger" data-dismiss="modal">Annuler</button>
 			        </div>
 			 </div>

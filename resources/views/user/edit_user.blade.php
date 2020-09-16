@@ -16,7 +16,7 @@
 			<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
 				<label class="col-sm-5 control-label no-padding-right" for="nom"><b>Nom:</b></label>
 				<div class="col-sm-7">
-				<input class="col-xs-12 col-sm-10" type="text" id="nom" name="nom" value="{{ $employe->Nom_Employe }}" placeholder="Nom..."/>
+				<input class="col-xs-12 col-sm-10" type="text" id="nom" name="nom" value="{{ $employe->nom }}" placeholder="Nom..."/>
 				</div>
 			</div>
 		</div>
@@ -24,7 +24,7 @@
 			<div class="form-group {{ $errors->has('prenom') ? "has-error" : "" }}" >
 				<label class="col-sm-5 control-label no-padding-right" for="prenom"><b>Prénom:</b></label>
 				<div class="col-sm-7">
-					<input class="col-xs-12 col-sm-10" type="text" id="prenom" name="prenom" value="{{ $employe->Prenom_Employe }}" placeholder="Prénom..."/>
+					<input class="col-xs-12 col-sm-10" type="text" id="prenom" name="prenom" value="{{ $employe->prenom }}" placeholder="Prénom..."/>
 				</div>
 			</div>
 		</div>
@@ -34,7 +34,7 @@
 			<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
 				<label class="col-sm-5 control-label no-padding-right" for="datenaissance"><b class="text-nowrap">Date Naissance:</b></label>
 				<div class="col-sm-7">
-					<input class="col-xs-12 col-sm-10 date-picker" type="text" id="datenaissance" name="datenaissance" value="{{ $employe->Date_Naiss_Employe }}" placeholder="Date Naissance..." data-date-format="yyyy-mm-dd"/>
+					<input class="col-xs-12 col-sm-10 date-picker" type="text" id="datenaissance" name="datenaissance" value="{{ $employe->Date_Naiss }}" placeholder="Date Naissance..." data-date-format="yyyy-mm-dd"/>
 				</div>	
 			</div>
 		</div>
@@ -42,7 +42,7 @@
 			<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
 				<label class="col-sm-5 control-label no-padding-right" for="lieunaissance"><b>Lieu Naissance:</b></label>
 					<div class="col-sm-7">
-						<input class="col-xs-12 col-sm-10" type="text" id="lieunaissance" name="lieunaissance" value="{{ $employe->Lieu_Naissance_Employe }}" placeholder="Lieu Naissance..."/>
+						<input class="col-xs-12 col-sm-10" type="text" id="lieunaissance" name="lieunaissance" value="{{ $employe->Lieu_Naissance }}" placeholder="Lieu Naissance..."/>
 				</div>
 			
 			</div>
@@ -56,11 +56,11 @@
 				</div>		  
 				<div class="col-sm-9">
 					<label class="inline">
-					<input name="sexe" value="M" type="radio" class="ace" {{ $employe->Sexe_Employe == "M" ? "checked" : "" }}/>
+					<input name="sexe" value="M" type="radio" class="ace" {{ $employe->sexe == "M" ? "checked" : "" }}/>
 					<span class="lbl middle"> Masculin</span>
 					</label>&nbsp; &nbsp; &nbsp;
 					<label class="inline">
-					<input name="sexe" value="F" type="radio" class="ace" {{ $employe->Sexe_Employe == "F" ? "checked" : "" }}/>
+					<input name="sexe" value="F" type="radio" class="ace" {{ $employe->sexe == "F" ? "checked" : "" }}/>
 					<span class="lbl middle"> Féminin</span>
 					</label>
 				</div>
@@ -75,7 +75,7 @@
 						<div class="{{ $errors->has('adresse') ? "has-error" : "" }}">
 							<i class="fa fa-map-marker light-orange bigger-110"></i>
 							<label for="adresse"><b>Adresse:</b></label>
-							<textarea class="form-control" id="adresse" name="adresse" placeholder="Adresse...">{{ $employe->Adresse_Employe }}</textarea>
+							<textarea class="form-control" id="adresse" name="adresse" placeholder="Adresse...">{{ $employe->Adresse }}</textarea>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-3">
@@ -109,7 +109,7 @@
 							<select class="form-control" id="service" name="service">
 								<option value="">Aucun</option>		
 								@foreach($services as $key=>$value)
-								<option value="{{ $key }}" {{ ($employe->Service_Employe == $key)? 'Selected' :'' }}>{{ $value->nom }}</option>
+								<option value="{{ $key }}" {{ ($employe->service == $key)? 'Selected' :'' }}>{{ $value->nom }}</option>
 								@endforeach
 							</select>
 						</div>
@@ -120,7 +120,7 @@
 							<select class="form-control" id="specialite" name="specialite">
 								<option value="">Aucun</option>
 								@foreach($specialites as $key=>$value)
-								<option value="{{ $key }}" {{ ($employe->Specialite_Emploiye == $key) ? 'Selected':'' }}>{{ $value->nom}}</option>	
+								<option value="{{ $key }}" {{ ($employe->specialite == $key) ? 'Selected':'' }}>{{ $value->nom}}</option>	
 								@endforeach
 							</select>
 						</div>

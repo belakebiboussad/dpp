@@ -17,9 +17,7 @@
 	<div class="col-xs-12">
 		<div class="col-xs-12">
 			<div class="widget-box">
-				<div class="widget-header">
-					<h4 class="widget-title">Liste Des Demandes :</h4>
-				</div>
+				<div class="widget-header"><h4 class="widget-title">Liste Des Demandes :</h4></div>
 				<div class="widget-body">
 					<div class="widget-main">
 						<div class="row">
@@ -47,13 +45,10 @@
 															Rejeté
 														@endif
 													</td>
-													<td>
-														{{ $demande->demandeur->Nom_Employe }} {{ $demande->demandeur->Prenom_Employe }}
-													</td>
+													<td>{{ $demande->demandeur->nom }} {{ $demande->demandeur->prenom }}</td>
 													<td class="center">
 														<a href="/traiterdemande/{{ $demande->id }}" class="btn btn-white btn-xs">
-															<i class="ace-icon fa fa-info-circle"></i>
-															Détails
+															<i class="ace-icon fa fa-info-circle"></i>Détails
 														</a>
 													</td>
 												</tr>

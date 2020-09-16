@@ -56,14 +56,11 @@
 	<h5 class="mt-15 center" ><img src="{{ storage_path('app/public/logo.png') }}" style="width: 60px; height: 60px" alt="logo"/></h5>
   <h5 class="mt-20 center">
   	<span style="font-size: xx-large;"><strong>Ordonnance</strong></span>
-  </h5>				
-  <br><br>
+  </h5><br><br>			
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="section">
-				<div class="sec-droite">
-					<b><u>Fait le:</u></b> {{ $ordonnance->date }}.
-				</div>
+				<div class="sec-droite"><b><u>Fait le:</u></b> {{ $ordonnance->date }}.</div>
 			</div>
 		</div>
 	</div>
@@ -86,24 +83,18 @@
 		<div class="col-sm-12">
 			<div class="section">
 				<div class="sec-gauche">
-						<img src="data:image/png;base64,{{DNS1D::getBarcodePNG($ordonnance->consultation->patient->IPP, 'C128')}}" alt="barcode" />
-            <br>
-            {{ $ordonnance->consultation->patient->IPP }}
-				</div>
+					<img src="data:image/png;base64,{{DNS1D::getBarcodePNG($ordonnance->consultation->patient->IPP, 'C128')}}" alt="barcode" />
+          <br>{{ $ordonnance->consultation->patient->IPP }}
+        </div>
 			</div>
 		</div>
 	</div>
 	<br><br>
 	<div class="row">
-		<div class="col-sm-12">
-			<br>
+		<div class="col-sm-12"><br>
 			<ol>
 				@foreach($ordonnance->medicamentes as $index => $med)
-					<li>
-						{{ $med->Nom_com }} {{ $med->Dosage }} {{ $med->Forme }}<br>
-						{{ $med->pivot->posologie }}.
-					</li>
-					<br><br>
+				<li>{{ $med->Nom_com }} {{ $med->Dosage }} {{ $med->Forme }}<br>{{ $med->pivot->posologie }}.</li><br><br>
 				@endforeach
 			</ol>
 		</div>
@@ -111,9 +102,7 @@
 	<div class="row foo">
     <div class="col-sm-12">
 			<div class="section">
-				<div class="sec-droite">
-      		<span><strong> Docteur :</strong> {{ Auth::user()->employ->Nom_Employe }} {{ Auth::user()->employ->Prenom_Employe }}</span>
-	    	</div>
+				<div class="sec-droite"><span><strong> Docteur :</strong> {{ Auth::user()->employ->nom }} {{ Auth::user()->employ->prenom }}</span></div>
     	</div>
     </div>
   </div>

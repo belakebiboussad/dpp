@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class employ extends Model
 {
     public $timestamps = false;
-    protected $fillable = ['Nom_Employe','Prenom_Employe','Sexe_Employe','Date_Naiss_Employe','Lieu_Naissance_Employe', 'Adresse_Employe','Tele_fixe','tele_mobile','Specialite_Emploiye','Service_Employe','Matricule_dgsn','NSS'];
-    public function service()
+    protected $fillable = ['nom','prenom','sexe','Date_Naiss','Lieu_Naissance', 'Adresse','Tele_fixe','tele_mobile','specialite','service','Matricule_dgsn','NSS'];
+    public function Service()
     {
-             return $this->belongsTo('App\modeles\service','Service_Employe');
+             return $this->belongsTo('App\modeles\service','service');
     }
     public function specialite()
     {
-    	return $this->belongsTo('App\modeles\Specialite','Specialite_Emploiye');
+    	return $this->belongsTo('App\modeles\Specialite','specialite');
     }
     public function rdvs()
     {

@@ -7,10 +7,7 @@
 			<div class="col-sm-10 col-sm-offset-1">
 				<div class="widget-box transparent">
 					<div class="widget-header widget-header-large">
-						<h3 class="widget-title grey lighter">
-							<i class="ace-icon fa fa-leaf green"></i>
-							Liste des Demandes
-						</h3>
+						<h3 class="widget-title grey lighter"><i class="ace-icon fa fa-leaf green"></i>Liste des Demandes</h3>
 					</div>
 					<div class="widget-body">
 						<div class="widget-main padding-24">
@@ -32,14 +29,8 @@
 												<tr>
 													<td class="center">{{ $index + 1 }}</td>
 													<td>{{ $demande->DateDemande }}</td>
-													<td>
-														{{ $demande->consultation->docteur->Nom_Employe }}
-														{{ $demande->consultation->docteur->Prenom_Employe }}
-													</td>
-													<td>
-														{{ $demande->consultation->patient->Nom }}
-														{{ $demande->consultation->patient->Prenom }}
-													</td>
+													<td>{{ $demande->consultation->docteur->nom }}{{ $demande->consultation->docteur->prenom }}</td>
+													<td>{{ $demande->consultation->patient->Nom }}{{ $demande->consultation->patient->Prenom }}</td>
 													<td>
 														@if($demande->etat == "E")
 															En Attente
@@ -50,10 +41,8 @@
 														@endif
 													</td>
 													<td class="center">
-														 <a href="{{ route('demandeexb.show', $demande->id) }}">
-									    					<i class="fa fa-eye"></i>
-														</a>
-														<a href="/detailsdemandeexb/{{ $demande->id }}" title="attacher résultat">
+													  <a href="{{ route('demandeexb.show', $demande->id) }}"><i class="fa fa-eye"></i></a>
+									    			<a href="/detailsdemandeexb/{{ $demande->id }}" title="attacher résultat">
 															<i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>
 														</a>
 													</td>

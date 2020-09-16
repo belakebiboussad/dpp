@@ -93,9 +93,9 @@ $(document).on('click','#getConsults',function(event){
 									},
 									{ data: 'Date_Consultation', title:'Date' },
 				 					{ data: 'Motif_Consultation', title:'Motif',"orderable": false},
-				 					{ data: "docteur.Nom_Employe",
+				 					{ data: "docteur.nom",
 	            			render: function ( data, type, row ) {
-	               			 return row.docteur.Nom_Employe + ' ' + row.docteur.Prenom_Employe;
+	               			 return row.docteur.nom + ' ' + row.docteur.prenom;
 	            			},
 	            			title:'Médecine Traitant',"orderable": false
 	        				},

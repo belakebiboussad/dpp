@@ -1,31 +1,31 @@
 @extends('app')
 @section('main-content')
 	<div class="page-header">
-		<h1>Détails de : {{ $employe->Nom_Employe }} {{ $employe->Prenom_Employe }}</h1>
+		<h1>Détails de : {{ $employe->nom }} {{ $employe->prenom }}</h1>
 	</div>
 	<div class="profile-user-info profile-user-info-striped">
 		<div class="profile-info-row">
 			<div class="profile-info-name"> Nom</div>
 				<div class="profile-info-value">
-					<span class="editable" id="username">{{ $employe->Nom_Employe }}</span>
+					<span class="editable" id="username">{{ $employe->nom }}</span>
 				</div>
 		</div>
 		<div class="profile-info-row">
 			<div class="profile-info-name"> Prénom</div>
 				<div class="profile-info-value">
-					<span class="editable" id="username">{{ $employe->Prenom_Employe }}</span>
+					<span class="editable" id="username">{{ $employe->prenom }}</span>
 				</div>
 		</div>
 		<div class="profile-info-row">
 			<div class="profile-info-name"> Genre </div>
 				<div class="profile-info-value">
-					<span class="editable" id="username">{{ $employe->Sexe_Employe == "M" ? 'Masculin' : 'Féminin' }}</span>
+					<span class="editable" id="username">{{ $employe->Sse == "M" ? 'Masculin' : 'Féminin' }}</span>
 				</div>
 		</div>
 		<div class="profile-info-row">
 			<div class="profile-info-name">Date naissance</div>
 			<div class="profile-info-value">
-				<span class="editable" id="signup">{{ $employe->Date_Naiss_Employe }}</span>
+				<span class="editable" id="signup">{{ $employe->Date_Naiss }}</span>
 			</div>
 		</div>
 		<div class="profile-info-row">
@@ -38,14 +38,14 @@
 			<div class="profile-info-name"> Lieu Naissance </div>
 			<div class="profile-info-value">
 				<i class="fa fa-map-marker light-orange bigger-110"></i>
-				<span class="editable" id="country">{{ $employe->Lieu_Naissance_Employe }}</span>
+				<span class="editable" id="country">{{ $employe->Lieu_Naissance }}</span>
 			</div>
 		</div>
 		<div class="profile-info-row">
 			<div class="profile-info-name"> Adresse </div>
 			<div class="profile-info-value">
 				<i class="fa fa-map-marker light-orange bigger-110"></i>
-				<span class="editable" id="country">{{ $employe->Adresse_Employe }}</span>
+				<span class="editable" id="country">{{ $employe->Adresse }}</span>
 			</div>
 		</div>
 		<div class="profile-info-row">
@@ -63,13 +63,13 @@
 		<div class="profile-info-row">
 			<div class="profile-info-name"> Spécialité </div>
 			<div class="profile-info-value">
-				<span class="editable" id="age">{{ $employe->Specialite_Emploiye }}</span>
+				<span class="editable" id="age">{{ $employe->specialite }}</span>
 			</div>
 		</div>
 		<div class="profile-info-row">
 			<div class="profile-info-name"> Service </div>
 			<div class="profile-info-value">
-				<span class="editable" id="age">{{ $employe->Service_Employe }}</span>
+				<span class="editable" id="age">{{ $employe->service }}</span>
 			</div>
 		</div>
 		<div class="profile-info-row">

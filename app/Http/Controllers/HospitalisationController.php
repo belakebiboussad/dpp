@@ -31,7 +31,7 @@ class HospitalisationController extends Controller
     {  
       if(Auth::user()->role_id != 9 )
       {    
-        $ServiceID = Auth::user()->employ->Service_Employe;
+        $ServiceID = Auth::user()->employ->service;
         $hospitalisations = hospitalisation::whereHas('admission.rdvHosp.demandeHospitalisation.Service',function($q) use($ServiceID){
                                               $q->where('id',$ServiceID);  
                                            })->where('etat_hosp','=','en cours')->get();
@@ -50,13 +50,13 @@ class HospitalisationController extends Controller
      */
       public function create()
       {
-        $serviceID = Auth::user()->employ->Service_Employe;
+        $serviceID = Auth::user()->employ->service;
         $adms = admission::with('lit','rdvHosp.demandeHospitalisation.DemeandeColloque','rdvHosp.demandeHospitalisation.consultation.patient.hommesConf')->whereHas('rdvHosp', function($q){
                                               $q->where('date_RDVh','=',date("Y-m-d"));
                             })->whereHas('rdvHosp.demandeHospitalisation',function($q) use ($serviceID) {
                                             $q->where('service', $serviceID)->where('etat','admise');//->where('etat','admise')
                                       })->get();
-        $medecins = employ::where('Service_Employe',Auth::user()->employ->Service_Employe)->get();
+        $medecins = employ::where('service',Auth::user()->employ->service)->get();
         $modesHosp = ModeHospitalisation::all();
         return view('Hospitalisations.create', compact('adms','medecins','modesHosp'));
       }
@@ -150,7 +150,7 @@ class HospitalisationController extends Controller
     }
     public function affecterLit()
     {
-      $ServiceID = Auth::user()->employ->Service_Employe;
+      $ServiceID = Auth::user()->employ->service;
       // $rdvHospitalisation = rdv_hospitalisation::whereHas('demandeHospitalisation', function($q){ $q->where('etat', 'programme'); })->with([   'demandeHospitalisation' => function($query) { $query->select('modeAdmission'); }]) ->whereHas('demandeHospitalisation.Service',function($q) use ($ServiceID){$q->where('id',$ServiceID);})->where('etat_RDVh','=','en attente')->with('demandeHospitalisation')->get();  
        return view('Hospitalisations.affecterLits', compact('rdvHospitalisation'));
   }

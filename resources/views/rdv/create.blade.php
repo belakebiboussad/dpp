@@ -162,7 +162,7 @@ $(document).ready(function() {
                           $('#agePatient').text(calEvent.age); 
                           $('#idRDV').val(calEvent.id);
                           if($('#doctor').length && !(isEmpty(calEvent.key)))
-                                 $('#doctor').val(rdvs[calEvent.key]['employe'].Nom_Employe+" "+rdvs[calEvent.key]['employe'].Prenom_Employe);
+                                 $('#doctor').val(rdvs[calEvent.key]['employe'].nom+" "+rdvs[calEvent.key]['employe'].prenom);
                           $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
                           (calEvent.fixe==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
                           $('#btnConsulter').attr('href','/consultations/create/'.concat(calEvent.idPatient)); 
@@ -242,11 +242,8 @@ $(document).ready(function() {
 @section('main-content')
 <div class="row">
   <div class="col-md-12">
-    <div class="panel panel-default">
-      &nbsp;&nbsp;&nbsp;&nbsp; 
-      <div class="panel-heading" style="margin-top:-20px">
-        <div class="left"> <strong>Ajouter un Rendez-Vous</strong></div>
-      </div>
+    <div class="panel panel-default"> &nbsp;&nbsp;&nbsp;&nbsp; 
+      <div class="panel-heading" style="margin-top:-20px"> <div class="left"> <strong>Ajouter un Rendez-Vous</strong></div></div>
       <div class="panel-body">
         <div id='calendar'></div>
       </div>
@@ -282,8 +279,7 @@ $(document).ready(function() {
                             <select class="form-control" id="filtre" onchange="layout();">
                               <option value="Nom">Nom</option>
                               <option value="Prenom">Prenom</option>
-                              <option value="IPP">IPP</option>
-                              <!-- <option value="Dat_Naissance">Date Naisssance</option> -->
+                              <option value="IPP">IPP</option>  <!-- <option value="Dat_Naissance">Date Naisssance</option> -->
                             </select>
                           </div>
                         </div>
@@ -302,10 +298,8 @@ $(document).ready(function() {
               </div> {{-- panel-body --}}
               <div class="space-12"></div>
               @if(Auth::user()->role_id == 2)
-              <div class="panel-heading">
-                <i class="ace-icon fa  fa-user-md bigger-110"></i><span>Selectionner un Medecin</span>
-              </div>
-              <div class="panel-body">
+              <div class="panel-heading"><i class="ace-icon fa  fa-user-md bigger-110"></i><span>Selectionner un Medecin</span></div>
+               <div class="panel-body">
                 <div class="row">
                   <div class="col-sm-5">
                     <div class="form-group">

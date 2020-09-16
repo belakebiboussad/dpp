@@ -91,9 +91,7 @@ function getUserdetail(id)
 <div class="page-content">
 	<div class="row">
 	  <div class="col-sm-12 center">	
-			<h2><strong>Bienvenue :</strong>
-				<q class="blue"> {{ Auth::User()->employ->Nom_Employe }} &nbsp;{{ Auth::User()->employ->Prenom_Employe }}  </q>
-			</h2>
+			<h2><strong>Bienvenue :</strong><q class="blue"> {{ Auth::User()->employ->nom }} &nbsp;{{ Auth::User()->employ->prenom }}</q></h2>
 		</div>		
 	</div>	{{-- row --}}
 	<div class="space-12"></div>

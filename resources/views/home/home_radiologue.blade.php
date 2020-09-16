@@ -7,10 +7,7 @@
 			<div class="col-sm-10 col-sm-offset-1">
 				<div class="widget-box transparent">
 					<div class="widget-header widget-header-large">
-						<h3 class="widget-title grey lighter">
-							<i class="ace-icon fa fa-leaf green"></i>
-							Liste des Demandes
-						</h3>
+						<h3 class="widget-title grey lighter"><i class="ace-icon fa fa-leaf green"></i>Liste des Demandes</h3>
 					</div>
 					<div class="widget-body">
 						<div class="widget-main padding-24">
@@ -32,13 +29,8 @@
 												<tr>
 													<td class="center">{{ $index + 1 }}</td>
 													<td>{{ $exr->Date }}</td>
-													<td>
-														{{ $exr->consultation->docteur->Nom_Employe }}
-														{{ $exr->consultation->docteur->Prenom_Employe }}
-													</td>
-													<td>
-														{{ $exr->consultation->patient->Nom }}
-														{{ $exr->consultation->patient->Prenom }}
+													<td>{{ $exr->consultation->docteur->nom }}{{ $exr->consultation->docteur->prenom }}</td>
+													<td>{{ $exr->consultation->patient->Nom }}{{ $exr->consultation->patient->Prenom }}
 													</td>
 													<td>
 														@if($exr->etat == "E")
@@ -50,12 +42,8 @@
 														@endif
 													</td>
 													<td class="center">
-													 	<a href="{{ route('demandeexr.show', $exr->id) }}">
-			              						<i class="fa fa-eye"></i>
-			            					</a>
-			            					<a href="/details_exr/{{ $exr->id}}">
-			              					<i class="glyphicon glyphicon-upload glyphicon glyphicon-white" title="attacher résultat"></i>
-			            					</a>
+													 	<a href="{{ route('demandeexr.show', $exr->id) }}"><i class="fa fa-eye"></i></a>
+			              				<a href="/details_exr/{{ $exr->id}}">	<i class="glyphicon glyphicon-upload glyphicon glyphicon-white" title="attacher résultat"></i></a>
 													</td>
 												</tr>
 											@endforeach

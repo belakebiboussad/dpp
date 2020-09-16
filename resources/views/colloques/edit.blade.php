@@ -40,7 +40,7 @@
           <label for="liste_membre"> <h4> <strong>Liste des Medecins :</strong></h4></label>&nbsp;
           <select  id="liste_membre" class="form-control" size="7" multiple="multiple">
             @foreach( $listeMeds as $med)
-            <option id="id_membre" value="{{$med->id}}" >{{$med->Nom_Employe}} {{$med->Prenom_Employe}}</option>
+            <option id="id_membre" value="{{$med->id}}" >{{$med->nom}} {{$med->prenom}}</option>
             @endforeach
           </select>
         </div>
@@ -56,58 +56,39 @@
           <br>
           <select name="membres[]" id="liste_membre_to" class="form-control" size="7" multiple="multiple">
             @foreach( $colloque->membres as $med)
-            <option id="id_membre" value="{{$med->id}}" >{{$med->Nom_Employe}} {{$med->Prenom_Employe}}</option>
+            <option id="id_membre" value="{{$med->id}}" >{{$med->nom}} {{$med->prenom}}</option>
             @endforeach
           </select>
         </div>
       </div>
-      <div class="space-12"></div>
-      <div class="space-12"></div>
-      <div class="space-12"></div>
-      
-        <!-- ici date -->
+      <div class="space-12"></div> <div class="space-12"></div>  <div class="space-12"></div><!-- ici date -->
       <div class="row">
         <div class="col-xs-7">
-            <h4><label class= "control-label no-padding-left col-xs-4 col-sm-4" for="date_colloque"><strong>Date du colloque :</strong></label></h4>
-            <input class="col-xs-4 col-sm-4 date-picker" id="date_colloque" name="date_colloque" type="text" value="{{ $colloque->date_colloque }}"
+          <h4><label class= "control-label no-padding-left col-xs-4 col-sm-4" for="date_colloque"><strong>Date du colloque :</strong></label></h4>
+          <input class="col-xs-4 col-sm-4 date-picker" id="date_colloque" name="date_colloque" type="text" value="{{ $colloque->date_colloque }}"
                     data-date-format="yyyy-mm-dd" required/>
-            <button class="btn btn-sm filelink" onclick="$('#date_colloque').focus()"><i class="fa fa-calendar"></i></button> 
+          <button class="btn btn-sm filelink" onclick="$('#date_colloque').focus()"><i class="fa fa-calendar"></i></button> 
         </div>
-        <div class="col-xs-5">
-           
-        </div>
-       <!--  <div class="col-xs-3"></div>
-        <div class="col-xs-3"></div>
- -->
+        <div class="col-xs-5"></div>
       </div>
-      <div class="space-12"></div>
-      <div class="space-12"></div>
-
-
-
+      <div class="space-12"></div> <div class="space-12"></div>
       <div class="row">
-          <div class="col-xs-7">
-            <label for="type_colloque" class= "control-label no-padding-left col-xs-4 col-sm-4"><strong>Type du colloque :</strong></label>
-            <select id="type_colloque" name="type_colloque" class="col-xs-4 col-sm-4" data-placeholder="sélectionner le type..." required>
-              <option value="" selected disabled>sélectionner le type...</option>
-              @foreach( $type_c as $type)
-              <option id="id_type" value="{{$type->id}}" @if($type->id == $colloque->type_colloque ) selected @endif>{{$type->type}}</option>
-              @endforeach
-            </select>
+        <div class="col-xs-7">
+          <label for="type_colloque" class= "control-label no-padding-left col-xs-4 col-sm-4"><strong>Type du colloque :</strong></label>
+          <select id="type_colloque" name="type_colloque" class="col-xs-4 col-sm-4" data-placeholder="sélectionner le type..." required>
+            <option value="" selected disabled>sélectionner le type...</option>
+            @foreach( $type_c as $type)
+            <option id="id_type" value="{{$type->id}}" @if($type->id == $colloque->type_colloque ) selected @endif>{{$type->type}}</option>
+            @endforeach
+          </select>
           </div>
       </div>
-      <div class="space-12"></div>
-      <div class="space-12"></div>
+      <div class="space-12"></div><div class="space-12"></div>
       <div class="row">
           <div class="col-xs-6 center">
             <div class="col-md-offset-6 col-md-7"><br/>
-              <button class="btn btn-success btn-xs" type="submit" >
-                <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
-              </button>
-              &nbsp; &nbsp; &nbsp; &nbsp;
-              <button class="btn btn-xs" type="reset" id="reset">
-                <i class="ace-icon fa fa-undo bigger-110"></i>Réinitialiser
-              </button>
+              <button class="btn btn-success btn-xs" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer </button>&nbsp; &nbsp; &nbsp; &nbsp;
+              <button class="btn btn-xs" type="reset" id="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Réinitialiser</button>
             </div>
           </div>
         </div>

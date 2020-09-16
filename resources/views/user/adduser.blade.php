@@ -42,7 +42,7 @@
 						<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
 						<label class="col-sm-4 control-label no-padding-right" for="lieunaissance"><b>Lieu Naissance:</b></label>
 						<div class="col-sm-8">
-						<input class="col-xs-12 col-sm-10" type="text" id="lieunaissance" name="lieunaissance" placeholder="Lieu Naissance..." Autocomplete=false/>
+						<input class="col-xs-12 col-sm-10 autoCommune" type="text" id="lieunaissance" name="lieunaissance" placeholder="Lieu Naissance..." Autocomplete=false/>
 						</div>
 						</div>
 					</div>

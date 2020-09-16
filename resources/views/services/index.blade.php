@@ -4,37 +4,30 @@
 function getServiceRoom($id)
 {
 	$.ajax({
-          type : 'get',
-          url : '{{URL::to('serviceRooms')}}',
-          data:{'search':$id},
-          success:function(data,status, xhr){
-          	 $('#serviceRooms').html(data.html);
-          }
+        type : 'get',
+        url : '{{URL::to('serviceRooms')}}',
+        data:{'search':$id},
+        success:function(data,status, xhr){
+        	 $('#serviceRooms').html(data.html);
+        }
   });
 }	
 </script>
 
 @endsection
 @section('main-content')
-<div class="page-header">
-	<h1>Services du l'Hôpital</h1>
-</div>
+<div class="page-header"><h1>Services du l'Hôpital</h1></div>
 <div class="row">
 	<div class="col-xs-7">
 		<div class="widget-box widget-color-blue" id="widget-box-2">
 		<div class="widget-header">
-			<h5 class="widget-title bigger lighter">
-				<i class="ace-icon fa fa-table"></i>
-				<span><b>Liste des Services</b></span>
-			</h5>
+			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i><span><b>Liste des Services</b></span></h5>
 			<div class="widget-toolbar widget-toolbar-light no-border">
-				<a href="{{ route('service.create') }}">
-					<i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>&nbsp;<b>Service</b>
-				</a>
+				<a href="{{ route('service.create') }}"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>&nbsp;<b>Service</b></a>
 			</div>
-			</div>
-			<div class="widget-body">
-				<div class="widget-main no-padding">
+		</div>
+		<div class="widget-body">
+			<div class="widget-main no-padding">
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
@@ -49,7 +42,7 @@ function getServiceRoom($id)
 					<tr>
 						<td><a href="#" id ={{  $service->id }} onclick="getServiceRoom({{ $service->id }});">{{ $service->nom }}</a></td>
 						<td>{{ $service->Type->nom }}</td>
-						<td> {{ $service->responsable->Nom_Employe }} {{ $service->responsable->Prenom_Employe }}</td>
+						<td> {{ $service->responsable->nom }} {{ $service->responsable->prenom }}</td>
 						<td class ="center">
 							<a href="{{ route('service.show',$service->id) }}" class="btn btn-xs btn-success smalltext">
 									<i class="fa fa-hand-o-up fa-xs"></i>	
@@ -72,8 +65,6 @@ function getServiceRoom($id)
 			</div>	{{-- widget-body --}}
 		</div>
 	</div>{{-- col-xs-12 --}}
-	<div class ="col-xs-5" id="serviceRooms"> 
-	</div>	
-</div>
-{{-- row --}}
+	<div class ="col-xs-5" id="serviceRooms"></div> 
+</div>{{-- row --}}
 @endsection

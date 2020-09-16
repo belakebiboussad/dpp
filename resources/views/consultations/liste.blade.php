@@ -4,9 +4,7 @@
 			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Consultations</h5>
 			<div class="widget-toolbar widget-toolbar-light no-border">
 				<div class="fa fa-plus-circle"></div>
-				<a href="/consultations/create/{{$patient->id}}">
-					<b>Consultation </b>
-				</a>
+				<a href="/consultations/create/{{$patient->id}}"><b>Consultation </b></a>
 			</div>
 		</div><!-- widget-header -->
 		<div class="widget-body">
@@ -26,16 +24,10 @@
 					<tr  role="row" class="even">
 					  <td>{{$consult->Date_Consultation}}</td>
 						<td>{{ $consult->Motif_Consultation }}</td>
-						<td class ="center sorting_disabled">
-							<span>{{ $consult->docteur->Nom_Employe }}{{ $consult->docteur->Prenom_Employe }}</span>
-						</td>
+						<td class ="center sorting_disabled"><span>{{ $consult->docteur->nom }}{{ $consult->docteur->prenom }}</span></td>
+						<td class="center sorting_disabled"><span >{{$consult->docteur->service->nom}}</span></td>
 						<td class="center sorting_disabled">
-							<span >{{$consult->docteur->service->nom}}</span>
-						</td>
-						<td class="center sorting_disabled">
-							<button class="btn btn-primary btn-xs" onclick="showConsult({{ $consult->id }},$(this));"> 
-									  <i class="fa fa-hand-o-up"></i>
-						  </button>		 
+							<button class="btn btn-primary btn-xs" onclick="showConsult({{ $consult->id }},$(this));"><i class="fa fa-hand-o-up"></i></button>		 
 						</td>	
 					</tr>
 					@endforeach

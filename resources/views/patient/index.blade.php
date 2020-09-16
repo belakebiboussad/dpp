@@ -134,8 +134,7 @@
 	<div class="row">
 		<div class="col-sm-12 center">	
 			<h2>
-				<strong>Bienvenue Docteur:</strong>
-				 <q class="blue"> {{ Auth::User()->employ->Nom_Employe }} &nbsp;{{ Auth::User()->employ->Prenom_Employe }}  </q>
+				<strong>Bienvenue Docteur:</strong><q class="blue"> {{ Auth::User()->employ->nom }} &nbsp;{{ Auth::User()->employ->prenom }}</q>	 
 			</h2>
 		</div>		
 	</div>	{{-- row --}}
@@ -199,8 +198,7 @@
 		<div class="col-md-7 col-sm-7">
 			<div class="widget-box transparent">
 				<div class="widget-header widget-header-flat widget-header-small">
-					<h5 class="widget-title">
-					<i class="ace-icon fa fa-user"></i>
+					<h5 class="widget-title"><i class="ace-icon fa fa-user"></i>
 					Resultats: </h5> <label for=""><span class="badge badge-info numberResult"></span></label>
 				</div>
 				<div class="widget-body">
@@ -210,45 +208,32 @@
 				</div>	
 			</div>
 		</div>{{-- col-sm-7 --}}
-		<div class="hidden-xs hidden-sm col-md-5 col-sm-5">
-		  <br>
-			<div class="widget-box transparent" id="patientDetail" style ="margin-top: 14px;">
-			</div>		
+		<div class="hidden-xs hidden-sm col-md-5 col-sm-5"> <br>
+		  <div class="widget-box transparent" id="patientDetail" style ="margin-top: 14px;"></div>		
 		</div>
 	</div>{{-- row --}}
 	<div class="row">
 		<div  id="mergeModal" class="modal fade" role="dialog" aria-hidden="true"> 
-		<div class="modal-dialog modal-ku">
-			<div class="modal-content">
-		      		<div class="modal-header">
-		        			<button type="button" class="close" data-dismiss="modal">&times;</button>
-		        			<h4 class="modal-title">Merger les données des Patients :</h4>
-		      		</div>
-		      		<div class="modal-body">
-		        			<p class="center">
-						êtes-vous sûr de vouloir de vouloire merger les deux patients ?
-		        			</p>
-		        			<p> <span  style="color: red;">
-		        			mergé les patient est permanent et ne  peut pas  étre refait !!
-		        			</span>
-					</p>
-					<form id="form-merge" class="form-horizontal" role="form" method="POST" action="{{ url('/patient/merge') }}">	
-		      				{{ csrf_field() }}
-			      			<div id="tablePatientToMerge"></div>
-			        			<div class="modal-footer">
-			        				<button type="button" class="btn btn-default" data-dismiss="modal">
-			        					 <i class="ace-icon fa fa-undo bigger-120"></i>
-			        						Fermer
-			        				</button>
-			        				<button  type="submit" class="btn btn-success" >
-			        					  <i class="ace-icon fa fa-check bigger-120"></i>
-			        					Valider
-			        				</button>
-			      			</div> 	
-		      </form>
-		        		</div>
-		      	</div>  	{{-- modal-content --}}
-		</div>
+		  <div class="modal-dialog modal-ku">
+			  <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        <h4 class="modal-title">Merger les données des Patients :</h4>
+		      </div>
+		      <div class="modal-body">
+		      	<p class="center">êtes-vous sûr de vouloir de vouloire merger les deux patients ?</p>
+						<p> <span  style="color: red;">mergé les patient est permanent et ne  peut pas  étre refait !!</span></p>
+		   			<form id="form-merge" class="form-horizontal" role="form" method="POST" action="{{ url('/patient/merge') }}">	
+		      	  {{ csrf_field() }}
+			      	<div id="tablePatientToMerge"></div>
+			        <div class="modal-footer">
+			        	<button type="button" class="btn btn-default" data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-120"></i>Fermer</button>
+			        	<button  type="submit" class="btn btn-success"><i class="ace-icon fa fa-check bigger-120"></i>Valider</button>
+			      	</div> 	
+		        </form>
+		       </div>
+		    </div>  	{{-- modal-content --}}
+		  </div>
 		</div>
 	</div>{{-- row --}}
 </div>
