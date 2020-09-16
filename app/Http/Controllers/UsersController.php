@@ -38,9 +38,8 @@ class UsersController extends Controller
 
     public function index()
     {
-        $users = User::all();
-        dd("dfdg");
-        return view('user.index',compact('users'));
+      $users = User::all();
+      return view('user.index',compact('users'));
     }
     /**
      * Show the form for creating a new resource.
@@ -90,7 +89,7 @@ class UsersController extends Controller
             "Matricule_dgsn"=>$request->mat,
             "NSS"=>$request->nss,
       ]);
-      usere = [
+      $usere = [
         "name"=>$request->username,
         "password"=>$request->password,
         "email"=>$request->mail,

@@ -9,17 +9,12 @@
 			  <form action="#" method="POST">
 			    <div class="row">
 			      <div class="col-xs-12">
-			     	 {{ Session::get('service') }}<br>
-			        <label for="modeAdmissionHospi"><strong>Mode Admission  :</strong></label>
+			     	  <br><label for="modeAdmissionHospi"><strong>Mode Admission  :</strong></label>
 				      <select class="form-control" id="modeAdmissionHospi" name="modeAdmissionHospi">
 				       	<option value="">Sélectionner...</option>
-				        @if(Session::get('service') == 1)
-				       		<option value="urgence">Urgence</option>
-				        @else
-				         	@foreach($modesAdmission as $mode =>$value)
-				       		<option value="{{ $mode}}">{{ $value }}</option>
-				       	  @endforeach
-				        @endif 
+				        @foreach($modesAdmission as $mode =>$value)
+				       	<option value="{{ $mode}}">{{ $value }}</option>
+				       	@endforeach
 				      </select>
 				    </div>
 			    </div>{{-- row --}}

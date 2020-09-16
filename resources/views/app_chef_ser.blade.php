@@ -7,12 +7,9 @@
     @include('partials.navbar')
 
     <div class="main-container" id="main-container">
-     {{--    <script type="text/javascript">
-           try{ace.settings.check('main-container' , 'fixed')}catch(e){}
-        </script> --}}
-        @yield('page-script')
+     {{--    <script type="text/javascript">try{ace.settings.check('main-container' , 'fixed')}catch(e){} </script> --}}
+       @yield('page-script')
         @include('partials.sidebar_chef_ser')
-
         <div class="main-content">
             <div class="main-content-inner">
                  <?php $lien = "Patients" ?> 
