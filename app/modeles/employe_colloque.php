@@ -10,13 +10,13 @@ class employe_colloque extends Model
   public $timestamps = false;
   protected $table="membres";
   protected $fillable  = ['id_colloque','id_employ'];
-  public function Colloques()
+  public function Colloque()
   {
-		return $this->belongsToMany('App\modeles\colloque','id_colloque');
+		return $this->hasOne('App\modeles\colloque','id_colloque');
   }
-  public function Employes()
+  public function Employe()
   {
-  	return $this->belongsToMany('App\modeles\employ','id_employ');
+  	return $this->hasOne('App\modeles\employ','id_employ');
   }
 
 }
