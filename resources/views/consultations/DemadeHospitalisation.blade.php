@@ -21,11 +21,11 @@
 			    <div class="space-12"></div>
         	<div class="row">
 			     	<div class="col-xs-12">
-			     		<label for="specialiteHospi"><strong>Specialite:</strong></label>
+			     		<label for="specialiteHospi"><strong>Specialite :</strong></label>
 					   	<select class="form-control" id="specialiteHospi" name="specialiteHospi">
 						    <option value="0">Sélectionner la spécialité...</option>
 						    @foreach($specialites as $specialite)
-						   	<option value="{{ $specialite->id}}">{{$specialite->nom}}</option>
+						   	<option value="{{ $specialite->id}}" @if( $employe->specialite == $specialite->id) selected @endif > {{$specialite->nom}} </option>
 						    @endforeach 
 						  </select>
 						  <br>
@@ -38,7 +38,7 @@
 					    <select class="form-control" id="serviceHospi" name="serviceHospi">
 							  <option value="">Sélectionner le service...</option>
 							  @foreach($services as $service)
-							  <option value="{{ $service->id }}">{{ $service->nom }}</option>
+							  <option value="{{ $service->id }}" @if( $employe->service == $service->id) selected @endif>{{ $service->nom }}</option>
 							  @endforeach     
 							</select>
 			      </div>	

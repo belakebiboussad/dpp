@@ -42,6 +42,7 @@ class HomeController extends Controller
     public function index()
     {
       $ServiceID = Auth::user()->employ->service;
+      // dd(Auth::user()->employ->Service->Type);
       switch (Auth::user()->role_id) {
             case 1://medecin & meecinChef
                   return view('patient.index');
@@ -53,41 +54,42 @@ class HomeController extends Controller
                   return redirect()->action('HospitalisationController@index');// return redirect()->route('HospitalisationController@index');
                   break;
             case 4: //admin  
-                  // $users = User::all();
-                  // return view('home.home_admin', compact('users'));
+                  // $users = User::all(); // return view('home.home_admin', compact('users'));
                   return redirect()->action('UsersController@index');
                   break;
             case 5:
                   return redirect()->action('RdvHospiController@index');
                   break;
             case 6:
-                  $colloque= array();
-                  $colloques=colloque::join('membres','colloques.id','=','membres.id_colloque')
-                                     ->join('employs','membres.id_employ','=','employs.id')
-                                     ->leftJoin('dem_colloques','colloques.id','=','dem_colloques.id_colloque')
-                                     ->leftJoin('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')
-                                     ->leftJoin('consultations','demandehospitalisations.id_consultation','=','consultations.id')
-                                     ->leftJoin('patients','consultations.Patient_ID_Patient','=','patients.id')
-                                     ->leftJoin('type_colloques','colloques.type_colloque','=','type_colloques.id')
-                                     ->select('demandehospitalisations.id as id-demande','colloques.id as id_colloque','colloques.*',
-                                              'employs.nom','employs.prenom','patients.Nom','patients.Prenom',
-                                              'type_colloques.type','dem_colloques.id_demande','consultations.Date_Consultation')
-                                     ->where('etat_colloque','<>','cloturé')->get();
-                  foreach( $colloques as $col){
-                    if (!array_key_exists($col->id_colloque,$colloque))
-                    {
-                      $colloque[$col->id_colloque]= array( "dat"=> $col->date_colloque ,"creation"=>$col->date_creation,
-                                                           "Type"=>$col->type,"Etat"=>$col->etat_colloque,
-                                                           "membres"=> array ("$col->nom $col->prenom")
-                                                         );
-                    }
-                    else{
-                          if (array_search("$col->nom $col->prenom", $colloque[$col->id_colloque]["membres"])===false)
-                              $colloque[$col->id_colloque]["membres"][]="$col->nom $col->prenom";
-                        }
-                  }
-                  return view('colloques.liste_colloque', compact('colloque'));
-                  break;
+                  // $colloque= array();
+                  // $colloques=colloque::join('membres','colloques.id','=','membres.id_colloque')
+                  //                    ->join('employs','membres.id_employ','=','employs.id')
+                  //                    ->leftJoin('dem_colloques','colloques.id','=','dem_colloques.id_colloque')
+                  //                    ->leftJoin('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')
+                  //                    ->leftJoin('consultations','demandehospitalisations.id_consultation','=','consultations.id')
+                  //                    ->leftJoin('patients','consultations.Patient_ID_Patient','=','patients.id')
+                  //                    ->leftJoin('type_colloques','colloques.type_colloque','=','type_colloques.id')
+                  //                    ->select('demandehospitalisations.id as id-demande','colloques.id as id_colloque','colloques.*',
+                  //                             'employs.nom','employs.prenom','patients.Nom','patients.Prenom',
+                  //                             'type_colloques.type','dem_colloques.id_demande','consultations.Date_Consultation')
+                  //                    ->where('etat_colloque','<>','cloturé')->get();
+                  // foreach( $colloques as $col){
+                  //   if (!array_key_exists($col->id_colloque,$colloque))
+                  //   {
+                  //     $colloque[$col->id_colloque]= array( "dat"=> $col->date_colloque ,"creation"=>$col->date_creation,
+                  //                                          "Type"=>$col->type,"Etat"=>$col->etat_colloque,
+                  //                                          "membres"=> array ("$col->nom $col->prenom")
+                  //                                        );
+                  //   }
+                  //   else{
+                  //         if (array_search("$col->nom $col->prenom", $colloque[$col->id_colloque]["membres"])===false)
+                  //             $colloque[$col->id_colloque]["membres"][]="$col->nom $col->prenom";
+                  //       }
+                  // }
+                  // return view('colloques.liste_colloque', compact('colloque'));
+                  return redirect()->action('ColloqueController@index',Auth::user()->employ->Service->Type->id);
+                  
+                   break;
             case 9: //agent Admission
                     return redirect()->action('AdmissionController@index');
                     break;       

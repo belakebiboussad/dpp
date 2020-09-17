@@ -30,12 +30,10 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     protected $redirectTo = '/users/create'; 
-
     public function __construct()
     {
        $user = Auth::user();
     }
-
     public function index()
     {
       $users = User::all();
@@ -126,10 +124,10 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-       $user = User::FindOrFail($id);
-       $employe = employ::FindOrFail($user->employee_id);
-       $roles = rol::all()->keyBy('id');
-       $services=service::all()->keyBy('id');
+      $user = User::FindOrFail($id);
+      $employe = employ::FindOrFail($user->employee_id);
+      $roles = rol::all()->keyBy('id');
+      $services=service::all()->keyBy('id');
       $specialites = Specialite::all()->keyBy('id');
        return view('user.edit_user',compact('user','employe','roles','services','specialites'));
     }
@@ -206,26 +204,24 @@ class UsersController extends Controller
     }
     public function getAddEditRemoveColumnData()
     {
-        $users = User::select(['id', 'name', 'email', 'employee_id','role_id']);
-        return Datatables::of($users)
-            ->addColumn('action2', function ($user) {
-                return '<span class="label label-sm label-success">'.rol::FindOrFail($user->role_id)->role.'</span>';
-            })
-            ->addColumn('action', function ($user) {
-                return '<div class="hidden-sm hidden-xs action-buttons">
-                    <a class="blue" href="/users/'.$user->id.'">
-                        <i class="ace-icon fa fa-search-plus bigger-130"></i>
-                    </a>
-                    <a class="green" href="'.route('users.edit',$user->id).'">
-                        <i class="ace-icon fa fa-pencil bigger-130"></i>
-                    </a>
-                    <a class="red" href="">
-                        <i class="ace-icon fa fa-trash-o bigger-130"></i>
-                    </a>
-                </div>';
-            })
-            ->rawColumns(['action1', 'action2','action'])
-            ->make(true);
+      $users = User::select(['id', 'name', 'email', 'employee_id','role_id']);
+      return Datatables::of($users)
+          ->addColumn('action2', function ($user) {
+              return '<span class="label label-sm label-success">'.rol::FindOrFail($user->role_id)->role.'</span>';
+          })
+          ->addColumn('action', function ($user) {
+              return '<div class="hidden-sm hidden-xs action-buttons">
+                  <a class="blue" href="/users/'.$user->id.'">
+                      <i class="ace-icon fa fa-search-plus bigger-130"></i>
+                  </a>
+                  <a class="green" href="'.route('users.edit',$user->id).'">
+                      <i class="ace-icon fa fa-pencil bigger-130"></i>
+                  </a>
+                  <a class="red" href="">
+                      <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                  </a>
+              </div>';
+          })->rawColumns(['action1', 'action2','action'])->make(true);
     }
     public function viewProfile($userId = null) {
         $user = null;      
@@ -236,7 +232,6 @@ class UsersController extends Controller
             $user = User::find(Auth::user()->id);
             $employe = employ::FindOrFail($user->employee_id);
         }
-
         return view('user/profile', [
             'user' => $user,
             'employe' => $employe
@@ -256,9 +251,8 @@ class UsersController extends Controller
                 'newPassword' => 'required',
                 'password_confirmation' => 'required|same:newPassword', 
                 // |confirmed 
-            ], $messages);
-           // dd($validator->getMessageBag()); 
-            return $validator;
+            ], $messages); // dd($validator->getMessageBag()); 
+          return $validator;
     }  
     public function changePassword(Request $request)
     {
@@ -271,21 +265,21 @@ class UsersController extends Controller
         else
         {
           $password = Auth::User()->password;         
-           if(Hash::check($request_data['curPassword'], $password))
+          if(Hash::check($request_data['curPassword'], $password))
           {       
-               if(strcmp($request->get('curPassword'), $request->get('newPassword')) == 0)
-              {
-                   return   redirect(url()->previous() . '#edit-password')->with("error","Nouveau mot de passe ne peut pas être le même que votre mot de passe actuel. essaie encore!");
-               }else{
-                              $user_id = Auth::User()->id;       
-                              $obj_user = User::find($user_id);
-                              $obj_user->password = Hash::make($request_data['newPassword']);
-                              $obj_user->save(); 
-                               return   redirect(url()->previous() . '#edit-password')->with("error","mot de passe change savec success !");
-               }                            
+            if(strcmp($request->get('curPassword'), $request->get('newPassword')) == 0)
+            {
+              return   redirect(url()->previous() . '#edit-password')->with("error","Nouveau mot de passe ne peut pas être le même que votre mot de passe actuel. essaie encore!");
+            }else{
+                $user_id = Auth::User()->id;       
+                $obj_user = User::find($user_id);
+                $obj_user->password = Hash::make($request_data['newPassword']);
+                $obj_user->save(); 
+                  return   redirect(url()->previous() . '#edit-password')->with("error","mot de passe change savec success !");
+            }                            
           } 
           else
-            return   redirect(url()->previous() . '#edit-password')->with("error","Entrer le mot de passe actuel correct. essaie encore.!!!");
+            return redirect(url()->previous() . '#edit-password')->with("error","Entrer le mot de passe actuel correct. essaie encore.!!!");
         }
       }else
         return redirect()->to('/home');
@@ -310,7 +304,6 @@ class UsersController extends Controller
        $users = User::with('role')->where($request->field,'LIKE','%'.$value."%")->get();          
       
       return Response::json($users);
-      
     }    
     public function AutoCompleteField(Request $request)
     { 

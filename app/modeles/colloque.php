@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class colloque extends Model
 {
     public $timestamps = false;
-    protected $fillable  = ['id','date_colloque','etat_colloque','date_creation','type_colloque'];
+    protected $fillable  = ['id','date_colloque','etat_colloque','type_colloque','date_creation'];
     public function Type()
     {
      	return $this->belongsTo('App\modeles\type_colloque','type_colloque');
     }
     public function membres()
     {
-    	return $this->belongsToMany ('App\modeles\employ','membres' ,'id_colloque','id_employ');
+    	return $this->belongsToMany('App\modeles\employe_colloque','membres','id_employ','');
     }
     public function demandes()
     {
