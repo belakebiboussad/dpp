@@ -25,7 +25,7 @@
 					  <td>{{$consult->Date_Consultation}}</td>
 						<td>{{ $consult->Motif_Consultation }}</td>
 						<td class ="center sorting_disabled"><span>{{ $consult->docteur->nom }}{{ $consult->docteur->prenom }}</span></td>
-						<td class="center sorting_disabled"><span >{{$consult->docteur->service->nom}}</span></td>
+						<td class="center sorting_disabled"><span >{{$consult->docteur->Service->nom}}</span></td>
 						<td class="center sorting_disabled">
 							<button class="btn btn-primary btn-xs" onclick="showConsult({{ $consult->id }},$(this));"><i class="fa fa-hand-o-up"></i></button>		 
 						</td>	

@@ -72,7 +72,7 @@ foreach ($lits as $lit) {
 						<?php $d=Date::Now().' monday next week'
 								?>							
 						@foreach( $demandes as $i=>$demande)
-						@if(date('d M Y',strtotime(($demande->date_colloque).' monday next week')-1) == date('d M Y',strtotime($d)-1))
+						@if(date('d M Y',strtotime(($demande->date).' monday next week')-1) == date('d M Y',strtotime($d)-1))
 						<tr>
 							<td style="display: none;">{{$demande->id}}</td>
 							<td class="center">{{$demande->Nom}} {{$demande->Prenom}} </td>

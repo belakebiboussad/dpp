@@ -21,7 +21,7 @@
 				foreach( $colloques as $col){
 					if (!array_key_exists($col->id_colloque,$colloque))
 					{
-						$colloque[$col->id_colloque]= array("dat"=> $col->date_colloque ,"membres"=> array ("$col->nom $col->prenom"),
+						$colloque[$col->id_colloque]= array("dat"=> $col->date ,"membres"=> array ("$col->nom $col->prenom"),
 								"demandes"=>array($col->id=>array(
 									"id_dem"=>$col->id ,"date_dem"=>$col->Date_demande ,"patient"=>"$col->Nom $col->Prenom")));
   				}else{

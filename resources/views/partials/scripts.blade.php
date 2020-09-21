@@ -2,6 +2,7 @@
 <!--[if !IE]> -->
 <script src="{{ asset('/js/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/jspdf.debug.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/js/jspdf.plugin.autotable.min.js') }}"></script>
 <script type="text/javascript">
   if('ontouchstart' in document.documentElement) document.write("<script src='{{asset('/js/jquery.mobile.custom.min.js')}}'>"+"<"+"/script>");
 </script>
@@ -587,81 +588,7 @@ $('#typeexm').on('change', function() {
     champ.appendTo('#ordonnace_form');
     $('#ordonnace_form').submit();
   }
-        function createexbio(nomp,prenomp,age){      
-                     var exbio = new jsPDF();
-                     var d = new Date();
-                     moment.locale('fr');
-                     var formattedDate = moment(d).format("l");
-                     exbio.text(200,20, 'Date : '+formattedDate , null, null, 'right');
-                     exbio.text(20,25, 'Nom : '+nomp, null, null);
-                     exbio.text(20,35, 'Prénom : '+prenomp, null, null);
-                     exbio.text(20,45, 'Age : '+ age+' ans', null, null);
-                     exbio.setFontType("bold");
-                    exbio.text(105,55, 'Priére de faire', null, null, 'center');
-                     exbio.setFontSize(14);
-                     exbio.text(45,65,'Analyses Demandées :',null,null,'center');
-                     exbio.setFontSize(13);
-                     var i =0;
-                     $('input.ace:checkbox:checked').each(function(index, value) {
-                                exbio.text(25,72+i,this.nextElementSibling.innerHTML+", ");
-                                //alert(value.nextElementSibling.innerHTML);
-                                i=i+10;
-                    });
-                     var string = exbio.output('datauristring');
-                    $('#exbiopdf').attr('src', string);
-        }
-        function createeximg(nomp,prenomp){
-                  moment.locale('fr');
-                  var d = new Date(); 
-                  var formattedDate = moment(d).format("l");
-                  var exbio = new jsPDF();
-                  exbio.text(200,20, 'Date :' +formattedDate , null, null, 'right');
-                  exbio.text(20,25, 'Nom : '+nomp, null, null);
-                  exbio.text(20,35, 'Prénom : '+prenomp, null, null);
-                  exbio.text(20,45, 'Age :........................................', null, null);
-                  exbio.setFontType("bold");
-                  exbio.text(105,55, 'Priére de faire', null, null, 'center');
-                  exbio.setFontSize(14);
-                  exbio.text(45,65,'Analyses Demandées :',null,null,'center');
-                  exbio.setFontSize(13);
-                  var i =0;   // $(".imgExam").each(function() {//alert($(this).attr('value'));// });
-                  var selected = "";
-                  $("input[class='imgExam']:checked").each(function() {
-                    exbio.text(25,72+i,$(this).attr('data-checkbox-text')+", ");
-                    selected = selected + $(this).val()+", ";
-                    i=i+10;
-                  });
-                     $('#selectedoption').val(selected); 
-                    var autreexamRadio = $("#examRadAutr").tagsinput('items');  
-                    if(autreexamRadio != undefined)
-                    {
-                        for (var j = 0;  j< autreexamRadio.length; j++) {
-                            exbio.text(25,72+i,autreexamRadio[j]+", ");
-                            i=i+10;
-                        }
-                    }   // Autre Echographe
-                    var examautECHO = $("#examRadAutECHO").tagsinput('items');  
-                    for (var j = 0;  j< examautECHO.length; j++) {
-                            exbio.text(25,72+i,examautECHO[j]+", ");
-                            i=i+10;
-                     }      //autre scanner
-                      var examautCT = $("#examRadAutCT").tagsinput('items');  
-                     for (var j = 0;  j< examautCT.length; j++) {
-                            exbio.text(25,72+i,examautCT[j]+", ");
-                            i=i+10;
-                     }
-                     var examautIRM = $("#examRadAutRMN").tagsinput('items');    //autre IRM
-                     for (var j = 0;  j< examautIRM.length; j++) {
-                            exbio.text(25,72+i,examautIRM[j]+", ");
-                            i=i+10;
-                     }
-                      var string = exbio.output('datauristring');
-                        $('#exbiopdf').attr('src', string);
-                        $("input[type='checkbox']:checked").each(function() {
-                            $(this).attr('checked', false);
-                        });
-        }
-        function createRDVModal(debut, fin, pid = 0, fixe=1)
+  function createRDVModal(debut, fin, pid = 0, fixe=1)
         {   
                 var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
                var fin = moment(fin).format('YYYY-MM-DD HH:mm');  

@@ -36,75 +36,12 @@ class ColloqueController extends Controller
      */ 
     public function __construct()
     {
-        $this->middleware('auth');
+      $this->middleware('auth');
     }
     public function index($type = 1)
     {
-     
-      $colloques=colloque::with('Type','membres','demandes.consultation.patient')->where('etat_colloque','cloturé')
-                          ->where('type_colloque','=',1)->get();
-      
-      //dd( $colloques);
+      $colloques=colloque::with('Type','membres')->where('etat','<>','cloturé')->where('type','=',$type)->get();
       return view('colloques.index', compact('colloques','type'));
-    }
-    public function indexORG($type = 1)
-    { 
-          $colloque= array();
-          switch ($type) {
-                 case 1:
-                      /*
-                      $colloques=colloque::join('membres','colloques.id','=','membres.id_colloque')
-                                         ->join('employs','membres.id_employ','=','employs.id')
-                                         ->leftJoin('dem_colloques','colloques.id','=','dem_colloques.id_colloque')
-                                         ->leftJoin('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')
-                                         ->leftJoin('consultations','demandehospitalisations.id_consultation','=','consultations.id')
-                                         ->leftJoin('patients','consultations.Patient_ID_Patient','=','patients.id')
-                                         ->leftJoin('type_colloques','colloques.type_colloque','=','type_colloques.id')
-                                         ->select('demandehospitalisations.id as id-demande','colloques.id as id_colloque','colloques.*',
-                                                   'employs.nom','employs.prenom','patients.Nom','patients.Prenom',
-                                                   'type_colloques.type','dem_colloques.id_demande','consultations.Date_Consultation')
-                                          ->where('etat_colloque','<>','cloturé')->where('type_colloques.id','=',1)->get();*/  
-                       $colloques=colloque::with('Type','membres','demandes.consultation.patient')
-                                          ->where('etat_colloque','cloturé')->where('type_colloque','=',1)->get();
-                    
-                      //dd($colloques);
-                      break;
-                case 2:
-                      $colloques=colloque::join('membres','colloques.id','=','membres.id_colloque')
-                                          ->join('employs','membres.id_employ','=','employs.id')
-                                          ->leftJoin('dem_colloques','colloques.id','=','dem_colloques.id_colloque')
-                                          ->leftJoin('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')
-                                          ->leftJoin('consultations','demandehospitalisations.id_consultation','=','consultations.id')
-                                          ->leftJoin('patients','consultations.Patient_ID_Patient','=','patients.id')
-                                          ->leftJoin('type_colloques','colloques.type_colloque','=','type_colloques.id')
-                                          ->select('demandehospitalisations.id as id-demande','colloques.id as id_colloque','colloques.*',
-                                                   'employs.nom','employs.prenom','patients.Nom','patients.Prenom',
-                                                   'type_colloques.type','dem_colloques.id_demande','consultations.Date_Consultation')
-                                          ->where('etat_colloque','<>','cloturé')->where('type_colloques.id','=',2)->get();                 
-                      break;
-                default:
-                      break;
-          } 
-          // dd($colloques);         
-          foreach( $colloques as $col){
-              if (!array_key_exists($col->id_colloque,$colloque))
-              {
-                  $colloque[$col->id_colloque]= array("dat"=> $col->date_colloque ,"creation"=>$col->date_creation,"Type"=>$col->type,"Etat"=>$col->etat_colloque,"membres"=> array ("$col->nom $col->prenom"),
-                  "demandes"=>array($col->id_demande=>array(
-                            "id_dem"=>$col->id_demande ,"date_dem"=>$col->Date_demande ,"patient"=>"$col->Nom $col->Prenom")));
-              }
-              else{
-                  if (array_search("$col->nom $col->prenom", $colloque[$col->id_colloque]["membres"])===false)
-                      $colloque[$col->id_colloque]["membres"][]="$col->nom $col->prenom";
-                      if (!array_key_exists($col->id_demande, $colloque[$col->id_colloque]["demandes"])) {      
-                          $colloque[$col->id_colloque]["demandes"][$col->id_demande]=array(
-                                "id_dem"=>$col->id ,"date_dem"=>$col->Date_demande ,"patient"=>"$col->Nom $col->Prenom");
-                      }
-                     
-                  }
-            }
-
-            return view('colloques.liste_colloque', compact('colloque','type'));// return view('home.home_dele_coll', compact('demandes','colloques'));
     }
     /**
      * Show the form for creating a new resource.
@@ -123,8 +60,6 @@ class ColloqueController extends Controller
       $type_c=type_colloque::select('id', 'type')->get();
       return view('colloques.create',compact('membre','type_c'));
     }
-
-
  /**
      * Store a newly created resource in storage.
      *
@@ -133,23 +68,21 @@ class ColloqueController extends Controller
      */
     public function store(Request $request)
     { 
-        $typeCol=$request->type_colloque;
-        $colloque=colloque::create([
-                                    "date_colloque"=>$request->date_colloque,
-                                    "etat_colloque"=>"en cours",
-                                    "date_creation"=>Date::Now(),
-                                    "type_colloque"=>$request->type_colloque,              
-                                  ]);    
-
-        $medmemebres =$request->membres;
-        foreach ($medmemebres as $elt) {
-                   membre::create([
-                        "id_colloque"=>$colloque->id,
-                        "id_employ"=>$elt,
-                    ]);
-        }   
-        return redirect()->action('ColloqueController@index',$colloque->type_colloque);
-
+      $typeCol=$request->type_colloque;
+      $colloque=colloque::create([
+                                  "date"=>$request->date_colloque,
+                                  "etat"=>"en cours",
+                                  "date_creation"=>Date::Now(),
+                                  "type"=>$request->type_colloque,              
+                                ]);    
+      $medmemebres =$request->membres;
+      foreach ($medmemebres as $elt) {
+                 membre::create([
+                      "id_colloque"=>$colloque->id,
+                      "id_employ"=>$elt,
+                  ]);
+      }   
+      return redirect()->action('ColloqueController@index',$colloque->type);
     }
 
     public function show($id_colloque)
@@ -164,15 +97,13 @@ class ColloqueController extends Controller
     public function edit($id)
     {  
       $colloque=colloque::find($id);
-      $listeMeds = user::join('employs', 'utilisateurs.employee_id','=','employs.id')
-                    ->join('rols','utilisateurs.role_id', '=', 'rols.id')
-                    ->select('employs.id','employs.nom','employs.prenom')
-                    ->where('rols.id', '=','1' )
-                    ->orWhere('rols.id', '=','2' )
-                    ->orWhere('rols.id', '=','5' ) ->orWhere('rols.id', '=','6' )->get(); 
-      $listeMeds =  $listeMeds->diff($colloque->membres);
-      $type_c=type_colloque::select('id', 'type')->get();
-      return view('colloques.edit',compact('colloque','listeMeds','type_c'));
+      $rols =  array(1,2,2,5,6,13,14);
+      $listeMeds = employ::whereHas('User', function ($q) use ($rols) {
+                                            $q->whereIn('role_id',$rols);                           
+                                        })->get();
+      $listeMeds = $listeMeds->diff($colloque->membres);
+      $type_c = type_colloque::all();
+       return view('colloques.edit',compact('colloque','listeMeds','type_c'));
     }
     /**
      * Update the specified resource in storage.
@@ -186,19 +117,18 @@ class ColloqueController extends Controller
       $colloque = colloque::find($id);
       foreach ($colloque->membres as $elt) {
         $colloque->membres()->detach($elt->id_employ);
-        
       }
       foreach ($request->membres as $elt) {
-                   membre::create([
-                        "id_colloque"=>$colloque->id,
-                        "id_employ"=>$elt,
-                    ]);
+        membre::create([
+              "id_colloque"=>$colloque->id,
+              "id_employ"=>$elt,
+        ]);
       }   
       $colloque->update([
-                          "date_colloque"=>$request->date_colloque,
-                          "etat_colloque"=>"en cours",
+                          "date"=>$request->date_colloque,
+                          "etat"=>"en cours",
                           "date_creation"=>Date::Now(),
-                          "type_colloque"=>$request->type_colloque,              
+                          "type"=>$request->type_colloque,              
                       ]);  
       return redirect()->action('ColloqueController@index');
     }
@@ -213,21 +143,21 @@ class ColloqueController extends Controller
                       $colloques=colloque::join('membres','colloques.id','=','membres.id_colloque')
                                         ->join('employs','membres.id_employ','=','employs.id')
                                         ->leftJoin('dem_colloques','colloques.id','=','dem_colloques.id_colloque')
-                                        ->leftJoin('type_colloques','colloques.type_colloque','=','type_colloques.id')
+                                        ->leftJoin('type_colloques','colloques.type','=','type_colloques.id')
                                         ->select('colloques.id as id_colloque','colloques.*',
                                                  'employs.nom','employs.prenom',
                                                  'type_colloques.type','dem_colloques.id_demande')
-                                        ->where('etat_colloque','=','cloturé')->where('type_colloques.id','=',1)->get();  
+                                        ->where('etat','=','cloturé')->where('type_colloques.id','=',1)->get();  
                         break;
                   case 2:
                      $colloques=colloque::join('membres','colloques.id','=','membres.id_colloque')
                                         ->join('employs','membres.id_employ','=','employs.id')
                                         ->leftJoin('dem_colloques','colloques.id','=','dem_colloques.id_colloque')
-                                        ->leftJoin('type_colloques','colloques.type_colloque','=','type_colloques.id')
+                                        ->leftJoin('type_colloques','colloques.type','=','type_colloques.id')
                                         ->select('colloques.id as id_colloque','colloques.*',
                                                  'employs.nom','employs.prenom',
                                                  'type_colloques.type','dem_colloques.id_demande')
-                                        ->where('etat_colloque','=','cloturé')->where('type_colloques.id','=',2)->get();                 
+                                        ->where('etat','=','cloturé')->where('type_colloques.id','=',2)->get();                 
                         break;
                   default:
                         break;
@@ -236,9 +166,9 @@ class ColloqueController extends Controller
                 if (!array_key_exists($col->id_colloque,$colloque))
                 {
                     $colloque[$col->id_colloque]= array( "id"=> $col->id_colloque,
-                                                         "dat"=> $col->date_colloque ,
+                                                         "dat"=> $col->date,
                                                          "creation"=>$col->date_creation,
-                                                         "Type"=>$col->type,"Etat"=>$col->etat_colloque,
+                                                         "Type"=>$col->type,"Etat"=>$col->etat,
                                                          "membres"=> array ("$col->nom $col->prenom"));
                 }
                 else
@@ -253,7 +183,7 @@ class ColloqueController extends Controller
     public function run($id)
     {  
       $colloque=colloque::find($id);
-      $type = $colloque->type_colloque;
+      $type = $colloque->type;
       $demandes =   DemandeHospitalisation::whereHas('Specialite.type', function ($q) use ($type) {
                             $q->where('type',$type);
                     })->where('etat','=','en attente')->get();
@@ -281,14 +211,14 @@ class ColloqueController extends Controller
   {
     $colloque=colloque::FindOrFail($id);
     $colloque->update([
-                "etat_colloque"=>"cloturé",
+                "etat"=>"cloturé",
     ]);
     return redirect()->action('ColloqueController@index');  
   }
   public function destroy($id){
-    $col = colloque::find($id, ['type_colloque']);
+    $col = colloque::find($id, ['type']);
     $colloque = colloque::destroy($id);
-    return redirect()->action('ColloqueController@index',$col->type_colloque);
+    return redirect()->action('ColloqueController@index',$col->type);
   }
 }
 

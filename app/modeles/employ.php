@@ -20,5 +20,9 @@ class employ extends Model
     {
        return $this->hasMany('App\modeles\rdv','Employe_ID_Employe');// ->orderBy('Date_RDV')     
     }
+    public function User()
+    {
+        return $this->hasOne('App\User','employee_id');
+    }
 } 
 

@@ -268,6 +268,129 @@
 		              }
 		});
 	}
+	function createexbio(nomp,prenomp,age){      
+    var exbio = new jsPDF();//var d = new Date();
+    moment.locale('fr');
+    var formattedDate = moment(new Date()).format("l");
+    exbio.text(200,20, 'Date : '+formattedDate , null, null, 'right');
+    exbio.text(20,25, 'Nom : '+nomp, null, null);
+    exbio.text(20,35, 'Prénom : '+prenomp, null, null);
+    exbio.text(20,45, 'Age : '+ age+' ans', null, null);
+    exbio.setFontType("bold");
+    exbio.text(105,55, 'Priére de faire', null, null, 'center');
+    exbio.setFontSize(14);
+    exbio.text(45,65,'Analyses Demandées :',null,null,'center');
+    exbio.setFontSize(13);
+    var i =0;
+    $('input.ace:checkbox:checked').each(function(index, value) {
+      exbio.text(25,72+i,this.nextElementSibling.innerHTML+", "); //alert(value.nextElementSibling.innerHTML);
+      i=i+10;
+    });
+    var string = exbio.output('datauristring');
+    $('#exbiopdf').attr('src', string);
+  }
+  function createeximg(nomp,prenomp,age){
+  	
+		// var exmRadio = new jsPDF('p', 'pt');
+		// var res = exmRadio.autoTableHtmlToJson(document.getElementById('ExamsImgtab'));
+		// var height = exmRadio.internal.pageSize.height;
+		// exmRadio.text("Generated PDF", 50, 50);
+		// exmRadio.autoTable(res.columns, res.data, {
+		//     startY: 200
+		//   });
+		//   exmRadio.autoTable(res.columns, res.data, {
+		//     startY: exmRadio.autoTableEndPosY() + 50
+		//   });
+		//   exmRadio.autoTable(res.columns, res.data, {
+		//     startY: height,
+		//     afterPageContent: function(data) {
+		//       exmRadio.setFontSize(20)
+		//       exmRadio.text("After page content", 50, height - data.settings.margin.bottom - 20);
+		//     }
+		//   });
+		//   exmRadio.save('Examens Radiologique.pdf');
+   /*
+    moment.locale('fr');//var d = new Date(); 
+    var formattedDate = moment(new Date()).format("l");
+    var exmRadio = new jsPDF();
+    exmRadio.text(200,20, 'Date :' +formattedDate , null, null, 'right');
+    exmRadio.text(20,25, 'Nom : '+nomp, null, null);
+    exmRadio.text(20,35, 'Prénom : '+prenomp, null, null);
+    exmRadio.text(20,45, 'Age : '+ age+' ans', null, null);
+    exmRadio.setFontType("bold");
+    exmRadio.text(105,65, 'Priére de faire', null, null, 'center');
+    exmRadio.setFontSize(14);
+    exmRadio.text(45,80,'Examens Demandées :',null,null,'center');
+    exmRadio.setFontSize(13);
+    var selected = "";
+  	var keys=[], exams=[];
+    $("#ExamsImgtab thead tr th strong").each(function(){
+		  keys.push($(this).html());
+		});
+		$("#ExamsImgtab tbody tr").each(function(){
+			var i=0,obj={};
+			$(this).children("td").each(function(index){
+			  if((index == 1) || (index == 3) )
+			  {
+			  	obj[keys[i]]=jQuery.trim($(this).html());
+			   	i++;
+			  }
+		  })
+		  exams.push(obj);	
+		});
+		var i=0;
+		$.each(exams, function( index, exam ) {
+			var width=0
+			$.each(exam, function( index, value ) {
+      	if(index == 0)
+      	{
+      		width = exmRadio.getTextWidth(value)+20;
+      		exmRadio.text(45,95+i,value,null,null,'right');
+        }
+      	exmRadio.text(45+width,95+i,value,null,null,'center');
+    	});
+    	i=i+10;
+    });
+    */
+    /*
+    $("input[class='imgExam']:checked").each(function() {
+      exbio.text(25,72+i,$(this).attr('data-checkbox-text')+", ");
+      selected = selected + $(this).val()+", ";
+      i=i+10;
+    });
+    $('#selectedoption').val(selected); 
+    var autreexamRadio = $("#examRadAutr").tagsinput('items');  
+    if(autreexamRadio != undefined)
+    {
+      for (var j = 0;  j< autreexamRadio.length; j++) {
+        exbio.text(25,72+i,autreexamRadio[j]+", ");
+        i=i+10;
+      }
+    }   // Autre Echographe
+    var examautECHO = $("#examRadAutECHO").tagsinput('items');  
+    for (var j = 0;  j< examautECHO.length; j++){
+      exbio.text(25,72+i,examautECHO[j]+", ");
+      i=i+10;
+    }      //autre scanner
+    var examautCT = $("#examRadAutCT").tagsinput('items');  
+    for (var j = 0;  j< examautCT.length; j++) {
+      exbio.text(25,72+i,examautCT[j]+", ");
+      i=i+10;
+    }
+    var examautIRM = $("#examRadAutRMN").tagsinput('items');    //autre IRM
+    for (var j = 0;  j< examautIRM.length; j++) {
+      exbio.text(25,72+i,examautIRM[j]+", ");
+      i=i+10;
+    }
+    */
+   
+    // var string = exmRadio.output('datauristring');
+    // $('#exradiopdf').attr('src', string);
+   
+    // $("input[type='checkbox']:checked").each(function() {
+    //     $(this).attr('checked', false);
+    // });
+  }
 	function addCIMCode(code)
 	{
 		$("#codesim").val(code);
@@ -306,9 +429,9 @@
 			   	 }
 			})
  		}); 
-	  	$(".two-decimals").change(function(){
+	  $(".two-decimals").change(function(){
 	    			this.value = parseFloat(this.value).toFixed(2);
-	   	});
+	  });
 		$("button").click(function (event) {
 	 		which = '';
 	 		str ='send';
@@ -748,8 +871,7 @@
     	else
 				$( "#schapitre" ).prop( "disabled", true );
     });
-	});
-// ready
+	});// ready
 </script>	
 @endsection
 @section('main-content')
@@ -836,8 +958,7 @@
 					<a href="{{ route('patient.show',$patient->id) }}" class="btn btn-warning btn-sm">
 						<i class="ace-icon fa fa-close bigger-110"></i>Annuler
 					</a>
-					<a href="/cim" title="" class="btn">cim10</a>
-				</div>	{{-- center --}}
+				</div>
 			</div>
 		</div><!-- row -->
 	</form>

@@ -29,8 +29,8 @@
 												<tr>
 													<td class="center">{{ $index + 1 }}</td>
 													<td>{{ $demande->DateDemande }}</td>
-													<td>{{ $demande->consultation->docteur->nom }}{{ $demande->consultation->docteur->prenom }}</td>
-													<td>{{ $demande->consultation->patient->Nom }}{{ $demande->consultation->patient->Prenom }}</td>
+													<td>{{ $demande->consultation->docteur->nom }} {{ $demande->consultation->docteur->prenom }}</td>
+													<td>{{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }}</td>
 													<td>
 														@if($demande->etat == "E")
 															En Attente

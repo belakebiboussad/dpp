@@ -61,35 +61,8 @@ class HomeController extends Controller
                   return redirect()->action('RdvHospiController@index');
                   break;
             case 6:
-                  // $colloque= array();
-                  // $colloques=colloque::join('membres','colloques.id','=','membres.id_colloque')
-                  //                    ->join('employs','membres.id_employ','=','employs.id')
-                  //                    ->leftJoin('dem_colloques','colloques.id','=','dem_colloques.id_colloque')
-                  //                    ->leftJoin('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')
-                  //                    ->leftJoin('consultations','demandehospitalisations.id_consultation','=','consultations.id')
-                  //                    ->leftJoin('patients','consultations.Patient_ID_Patient','=','patients.id')
-                  //                    ->leftJoin('type_colloques','colloques.type_colloque','=','type_colloques.id')
-                  //                    ->select('demandehospitalisations.id as id-demande','colloques.id as id_colloque','colloques.*',
-                  //                             'employs.nom','employs.prenom','patients.Nom','patients.Prenom',
-                  //                             'type_colloques.type','dem_colloques.id_demande','consultations.Date_Consultation')
-                  //                    ->where('etat_colloque','<>','cloturé')->get();
-                  // foreach( $colloques as $col){
-                  //   if (!array_key_exists($col->id_colloque,$colloque))
-                  //   {
-                  //     $colloque[$col->id_colloque]= array( "dat"=> $col->date_colloque ,"creation"=>$col->date_creation,
-                  //                                          "Type"=>$col->type,"Etat"=>$col->etat_colloque,
-                  //                                          "membres"=> array ("$col->nom $col->prenom")
-                  //                                        );
-                  //   }
-                  //   else{
-                  //         if (array_search("$col->nom $col->prenom", $colloque[$col->id_colloque]["membres"])===false)
-                  //             $colloque[$col->id_colloque]["membres"][]="$col->nom $col->prenom";
-                  //       }
-                  // }
-                  // return view('colloques.liste_colloque', compact('colloque'));
                   return redirect()->action('ColloqueController@index',Auth::user()->employ->Service->Type->id);
-                  
-                   break;
+                  break;
             case 9: //agent Admission
                     return redirect()->action('AdmissionController@index');
                     break;       
@@ -100,7 +73,13 @@ class HomeController extends Controller
                 return view('home.home_pharmacien', compact('meds','dispositifs','reactifs'));
                 break;   
             case 11://Laborantin
-                $demandesexb = demandeexb::where('etat','E')->get();
+                $demandesexb = demandeexb::with('consultation.patient')->where('etat','E')->get();
+                //dd($demandesexb);
+                // foreach ($demandesexb as $key => $dem) {
+                //   echo($dem->consultation->patient);
+                //   echo("<br/>");
+                // }
+                // dd("df");
                 return view('home.home_laboanalyses', compact('demandesexb'));
                 break;   
             case 12://radiologue
