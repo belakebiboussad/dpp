@@ -47,7 +47,8 @@
 <script src="{{ asset('/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
 <script src="{{ asset('/plugins/fullcalendar/locale/fr.js') }}"></script>
 <script src="{{ asset('/js/jquery-editable-select.js') }}"></script><!--  -->
-<script src="{{asset('/js/sweetalert2.all.min.js')}}"></script>{{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> --}}
+<script src="{{asset('/js/sweetalert2.all.min.js')}}"></script>
+<script src="{{asset('/js/JsBarcode.all.min.js')}}"></script>s
 <script type="text/javascript">
   var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
   $(document).ready(function(){

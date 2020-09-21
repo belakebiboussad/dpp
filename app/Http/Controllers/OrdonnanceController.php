@@ -94,30 +94,27 @@ class OrdonnanceController extends Controller
     }
     public function print(Request $request)
     {   
-        $patient = patient::FindOrFail($request->id_patient);
-        $employe = employ::FindOrFail($request->id_employe);
-        $meds = json_decode($request->meds);
-        $medicaments = array();
-        $posologies = array();
-        foreach ($meds as $key => $med) {
-            foreach ($med as $key => $value) {
-                     if($key == "id")
-                     {
-                          $m =  medicament::FindOrFail($value); 
-                           $medicaments[] = $m;                                        
-                     }
-                     else
-                          array_push($posologies, $value);
-                }
-        }
-        
-        $view = view("consultations.ModalFoms.ordonnancePDF",compact('patient','employe','medicaments','posologies'))->render();
-        return response()->json(['html'=>$view]);
-        
-        /*
-        $pdf = PDF::loadView('ordennance.ordonnancePDF', compact('patient','employe','medicaments','posologies'));
-        return $pdf->stream('ordonnance.pdf');*/
-        
+            $patient = patient::FindOrFail($request->id_patient);
+            $employe = employ::FindOrFail($request->id_employe);
+            $meds = json_decode($request->meds);
+            $medicaments = array();
+            $posologies = array();
+            foreach ($meds as $key => $med) {
+                foreach ($med as $key => $value) {
+                         if($key == "id")
+                         {
+                              $m =  medicament::FindOrFail($value); 
+                               $medicaments[] = $m;                                        
+                         }
+                         else
+                              array_push($posologies, $value);
+                    }
+            }
+            $view = view("consultations.ModalFoms.ordonnancePDF",compact('patient','employe','medicaments','posologies'))->render();
+            return response()->json(['html'=>$view]);
+            /*
+            $pdf = PDF::loadView('ordennance.ordonnancePDF', compact('patient','employe','medicaments','posologies'));
+            return $pdf->stream('ordonnance.pdf');*/
     }
 
 }
