@@ -289,157 +289,62 @@
 	    var string = exbio.output('datauristring');
 	    $('#exbiopdf').attr('src', string);
   }
- function createeximg(nomp,prenomp,age,ipp)
- {  
- 	html2canvas($("#dos"), {
-            onrendered: function(canvas) {         
-            	moment.locale('fr');
-            	var IPP = ipp.toString();
-            	  var formattedDate = moment(new Date()).format("l");
-                var imgData = canvas.toDataURL('image/png');              
-                var doc = new jsPDF('p', 'mm');
-                doc.addImage(imgData, 'PNG', 10, 10);
-               JsBarcode("#itf", IPP, {format: "itf"});
-               const img = document.querySelector('img#itf');
-               doc.text(105,10, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
-               doc.text(105,20, 'HOPITAL CENTRAL DE LA SURETE NATIONALE "LES GLYCINES"', null, null, 'center');
-              doc.text(105,29, '12, Chemin des Glycines - ALGER', null, null, 'center');
-               doc.text(105,37, 'Tél : 23-93-34 - 23-93-58', null, null, 'center');
-               doc.setFontSize(14);
-                doc.text(200,55, 'Date :' +formattedDate , null, null, 'right'); 
-               doc.text(20,65, 'Nom : '+nomp, null, null);
-               doc.text(20,75, 'Prénom : '+prenomp, null, null);
-               doc.text(20,85, 'Age : '+ age+' ans', null, null);
-               doc.addImage(img.src, 'JPEG', 20, 90, 50, 15);
-               doc.text(20,120, 'Prière de faire', null, null);
-		doc.setFontSize(16);
-		doc.text(50,140,'Examens Demandées :',null,null)
-                var res = doc.autoTableHtmlToJson(document.getElementById('ExamsImgtab'));
-               var height = doc.internal.pageSize.height;
-               doc.autoTable(res.columns, res.data, {
-		     startY: 155
-      		});
-      		/*
-		 doc.autoTable(res.columns, res.data, {
-			startY: height,
-			
-			afterPageContent: function(data) {
-		   	 	  doc.setFontSize(20)
-		     		  doc.text("After page content", 50, height - data.settings.margin.bottom - 20);
-			 }
-		 });*/
-                doc.save('sample-file.pdf');
-            }
-        });
- 	/*
- 	moment.locale('fr');//var d = new Date(); 
-        var formattedDate = moment(new Date()).format("l");
- 	var exmRadio = new jsPDF('p', 'pt');
-	var res = exmRadio.autoTableHtmlToJson(document.getElementById('ExamsImgtab'));
-      var height = exmRadio.internal.pageSize.height;
-    	exmRadio.text(570,25, 'Date :' +formattedDate , null, null, 'right'); 
-    	 exmRadio.text(20,45, 'Nom : '+nomp, null, null);
-	exmRadio.text(20,65, 'Prénom : '+prenomp, null, null);
-	exmRadio.text(20,85, 'Age : '+ age+' ans', null, null);
-	exmRadio.text(20,105, 'IPP : '+ ipp, null, null);//exmRadio.setFontType("bold");
-	exmRadio.text(20,140, 'Priére de faire', null, null);
-	exmRadio.setFontSize(14);
-	exmRadio.text(50,170,'Examens Demandées :',null,null)
-	exmRadio.autoTable(res.columns, res.data, {
-		     startY: 200
-         });
-	 exmRadio.autoTable(res.columns, res.data, {
-		startY: height,
-		afterPageContent: function(data) {
-		      exmRadio.setFontSize(20)
-		       exmRadio.text("After page content", 50, height - data.settings.margin.bottom - 20);
-		 }
-	 });
-	 exmRadio.save('Examens Radiologique.pdf');
-	 */
+  function createeximg(nomp,prenomp,age,ipp)
+  {  
+ 	  html2canvas($("#dos"), {
+        onrendered: function(canvas) {         
+        	moment.locale('fr');//var IPP = ipp.toString();
+        	var formattedDate = moment(new Date()).format("l");
+          var imgData = canvas.toDataURL('image/png');              
+          var doc = new jsPDF('p', 'mm');
+          doc.addImage(imgData, 'PNG', 10, 10); //JsBarcode("#itf",IPP); //bonne
+          JsBarcode("#itf", ipp.toString(), {
+				  	lineColor: "#000",
+				  	width:4,
+				  	height:40,
+				 	  displayValue: true,
+				 	  fontSize : 28,
+				 	  textAlign: "left"
+					});
+				  const img = document.querySelector('img#itf');
+          doc.text(105,10, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
+          doc.text(105,20, 'HOPITAL CENTRAL DE LA SURETE NATIONALE "LES GLYCINES"', null, null, 'center');
+          doc.setFontSize(12);
+          doc.text(105,28, '12, Chemin des Glycines - ALGER', null, null, 'center');
+          doc.text(105,35, 'Tél : 23-93-34 - 23-93-58', null, null, 'center');
+          doc.setFontSize(14);
+          doc.text(200,55, 'Date :' +formattedDate , null, null, 'right'); 
+          doc.text(20,65, 'Nom : '+nomp, null, null);
+          doc.text(20,75, 'Prénom : '+prenomp, null, null);
+          doc.text(20,85, 'Age : '+ age+' ans', null, null);
+          doc.addImage(img.src, 'JPEG', 20, 90, 50, 15);
+          doc.text(20,120, 'Prière de faire', null, null);
+					doc.setFontSize(16);
+					doc.text(50,140,'Examens Demandées :',null,null)
+          var res = doc.autoTableHtmlToJson(document.getElementById('ExamsImgtab'));
+          var height = doc.internal.pageSize.height;
+          doc.autoTable(res.columns, res.data, {
+     				startY: 155
+  				});//    var string = doc.output('datauristring');// $('#exradiopdf').attr('src', string);
+          doc.save('ExamRadio-'+nomp+'-'+prenomp+'.pdf');
+        }
+    });
 }
   function createeximgorg(nomp,prenomp,age){
-  		  /*
-    moment.locale('fr');//var d = new Date(); 
-    var formattedDate = moment(new Date()).format("l");
-    var exmRadio = new jsPDF();
-    exmRadio.text(200,20, 'Date :' +formattedDate , null, null, 'right');
-    exmRadio.text(20,25, 'Nom : '+nomp, null, null);
-    exmRadio.text(20,35, 'Prénom : '+prenomp, null, null);
-    exmRadio.text(20,45, 'Age : '+ age+' ans', null, null);
-    exmRadio.setFontType("bold");
-    exmRadio.text(105,65, 'Priére de faire', null, null, 'center');
-    exmRadio.setFontSize(14);
-    exmRadio.text(45,80,'Examens Demandées :',null,null,'center');
-    exmRadio.setFontSize(13);
-    var selected = "";
-  	var keys=[], exams=[];
-    $("#ExamsImgtab thead tr th strong").each(function(){
-		  keys.push($(this).html());
-		});
-		$("#ExamsImgtab tbody tr").each(function(){
-			var i=0,obj={};
-			$(this).children("td").each(function(index){
-			  if((index == 1) || (index == 3) )
-			  {
-			  	obj[keys[i]]=jQuery.trim($(this).html());
-			   	i++;
-			  }
-		  })
-		  exams.push(obj);	
-		});
-		var i=0;
-		$.each(exams, function( index, exam ) {
-			var width=0
-			$.each(exam, function( index, value ) {
-      	if(index == 0)
-      	{
-      		width = exmRadio.getTextWidth(value)+20;
-      		exmRadio.text(45,95+i,value,null,null,'right');
-        }
-      	exmRadio.text(45+width,95+i,value,null,null,'center');
-    	});
-    	i=i+10;
-    });
-    */
-    /*
-    $("input[class='imgExam']:checked").each(function() {
-      exbio.text(25,72+i,$(this).attr('data-checkbox-text')+", ");
-      selected = selected + $(this).val()+", ";
-      i=i+10;
-    });
-    $('#selectedoption').val(selected); 
-    var autreexamRadio = $("#examRadAutr").tagsinput('items');  
-    if(autreexamRadio != undefined)
-    {
-      for (var j = 0;  j< autreexamRadio.length; j++) {
-        exbio.text(25,72+i,autreexamRadio[j]+", ");
-        i=i+10;
-      }
-    }   // Autre Echographe
-    var examautECHO = $("#examRadAutECHO").tagsinput('items');  
-    for (var j = 0;  j< examautECHO.length; j++){
-      exbio.text(25,72+i,examautECHO[j]+", ");
-      i=i+10;
-    }      //autre scanner
-    var examautCT = $("#examRadAutCT").tagsinput('items');  
-    for (var j = 0;  j< examautCT.length; j++) {
-      exbio.text(25,72+i,examautCT[j]+", ");
-      i=i+10;
-    }
-    var examautIRM = $("#examRadAutRMN").tagsinput('items');    //autre IRM
-    for (var j = 0;  j< examautIRM.length; j++) {
-      exbio.text(25,72+i,examautIRM[j]+", ");
-      i=i+10;
-    }
-    */
-   
-    // var string = exmRadio.output('datauristring');
-    // $('#exradiopdf').attr('src', string);
-   
-    // $("input[type='checkbox']:checked").each(function() {
-    //     $(this).attr('checked', false);
-    // });
+/*moment.locale('fr');//var d = new Date();    var formattedDate = moment(new Date()).format("l");var exmRadio = new jsPDF();
+exmRadio.text(200,20, 'Date :' +formattedDate , null, null, 'right');exmRadio.text(20,25, 'Nom : '+nomp, null, null); exmRadio.text(20,35, 'Prénom : '+prenomp, null, null);
+exmRadio.text(20,45, 'Age : '+ age+' ans', null, null);exmRadio.setFontType("bold");exmRadio.text(105,65, 'Priére de faire', null, null, 'center');
+exmRadio.setFontSize(14);exmRadio.text(45,80,'Examens Demandées :',null,null,'center');exmRadio.setFontSize(13);
+var selected = "";var keys=[], exams=[];  $("#ExamsImgtab thead tr th strong").each(function(){ keys.push($(this).html());
+});$("#ExamsImgtab tbody tr").each(function(){	var i=0,obj={};$(this).children("td").each(function(index){  if((index == 1) || (index == 3) )
+{	obj[keys[i]]=jQuery.trim($(this).html());	i++;}})exams.push(obj);});	var i=0;	$.each(exams, function( index, exam ) {
+var width=0$.each(exam, function( index, value ) {	if(index == 0){width = exmRadio.getTextWidth(value)+20;exmRadio.text(45,95+i,value,null,null,'right');}
+exmRadio.text(45+width,95+i,value,null,null,'center');});i=i+10;}); *//* $("input[class='imgExam']:checked").each(function() {
+exbio.text(25,72+i,$(this).attr('data-checkbox-text')+", ");selected = selected + $(this).val()+", "; i=i+10;}); $('#selectedoption').val(selected); 
+var autreexamRadio = $("#examRadAutr").tagsinput('items');  if(autreexamRadio != undefined){ for (var j = 0;  j< autreexamRadio.length; j++) {
+ exbio.text(25,72+i,autreexamRadio[j]+", ");i=i+10;}
+ */// var string = exmRadio.output('datauristring');// $('#exradiopdf').attr('src', string);//$("input[type='checkbox']:checked").each(function() {//$(this).attr('checked', false);//});
+    
   }
 	function addCIMCode(code)
 	{

@@ -129,11 +129,13 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
- {{-- fin --}}{{--   <div id="dexRadio" class="modal modal-wide fade" role="dialog">	<div class="modal-dialog"><!-- Modal content-->
+ {{-- fin --}}
+ {{--   <div id="dexRadio" class="modal modal-wide fade" role="dialog">	<div class="modal-dialog"><!-- Modal content-->
 <div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button>
 <h4 class="modal-title">Demande Examens d'Imagerie :</h4></div><div class="modal-body"><!-- style="position:relative;z-index:999" -->
 <iframe id="exradiopdf" src="" frameborder="0" class="preview-pane" type="application/pdf" width="800" height="465"></iframe></div>
-<div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div> --}}
+<div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div></div>
+</div></div> --}}
 				
 			
 		
