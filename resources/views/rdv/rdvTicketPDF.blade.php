@@ -62,7 +62,7 @@
 		  <div class="row">
 			  <div class="col-sm-12">
 			   	<div class="content text-center mt-10">
-			      <h5><strong>DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</strong></h5>
+			      <h5><strong>DIRECTION GENERAL DE LA SÛRETÉ NATIONALEE</strong></h5>
 			      <h6 class="mt-6" style =" margin-left: -7px;margin-right:-7px;"><strong>ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</strong></h6>
 			      <h6 class="mt-6"><strong> Chemin des Glycines - ALGER</strong><span> - Tél : 023-93-34</span></h6>
 			   	</div>
@@ -70,8 +70,10 @@
 		  </div>
 		  <div class="row mt-6">
 			  <div class="col-sm-12 content text-center">
-				      <div class="col-sm-4"></div>
-				      <div class="col-sm-4"><img class = "imgCenter" src="<?php echo $_SERVER["DOCUMENT_ROOT"].'./img/logo.png';?>"/></div>
+				  <div class="col-sm-4"></div>
+				     <div class="col-sm-4">
+				     <img class = "imgCenter" src="<?php echo $_SERVER["DOCUMENT_ROOT"].'./img/logo.png';?>"/></div>
+				      	<img class = "imgCenter" src="{{ asset('/img/logo.png')" }}/></div>
 				    	<div class="col-sm-4"></div>       
 						</div>
       </div>

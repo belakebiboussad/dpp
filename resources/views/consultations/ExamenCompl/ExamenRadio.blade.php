@@ -62,9 +62,3 @@
     </div><!-- widget-body -->
  	</div>	<!-- widget-container-col -->
 </div><!-- row -->
-<div class="row ">
-	<canvas id="dos">
-	  <img id='itf' />
-	  <img src="img/logo.png" class="center thumb img-icons" alt="a picture">
-	</canvas>  
-</div>

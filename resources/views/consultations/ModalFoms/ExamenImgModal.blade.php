@@ -27,7 +27,8 @@
 				    <div class="imgsEx">
 	        		@foreach($examens as $examen)
 						  <div class="col-xs-2">
-						  	<input type="checkbox" value="{{ $examen->id }}" name="exmns[]" class="exmns"><label>{{ $examen->nom }} </label>
+						  	{{-- <input type="checkbox" value="{{ $examen->id }}" name="exmns[]" class="exmns"><label>{{ $examen->nom }} </label>--}}
+						  	<input type="radio" name="exmns[]" value="{{ $examen->id }}"><label for="male">{{ $examen->nom }}</label>
 						  </div>
 			        @endforeach
 				    </div>
