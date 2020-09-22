@@ -218,12 +218,11 @@ $('#typeexm').on('change', function() {
             var longueur = arrayLignes.length;
             for(var i=1; i<longueur; i++)
             {
-            pdf.text(30,73+(i*(20)), arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML, null, null);
-            pdf.text(30,80+(i*(20)), arrayLignes[i].cells[4].innerHTML, null, null);
+                pdf.text(30,73+(i*(20)), arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML, null, null);
+                pdf.text(30,80+(i*(20)), arrayLignes[i].cells[4].innerHTML, null, null);
             }
             var string = pdf.output('datauristring');
             $('#ordpdf').attr('src', string);
-
             }
 // function storeord() // { // var arrayLignes = document.getElementById("ordonnance").rows;//var longueur = arrayLignes.length; //var tab = [];//for(var i=1; i<longueur; i++)//{//tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;//}// var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");            //     champ.appendTo('#ordonnace_form');            //     $('#ordonnace_form').submit();            // }
             function createexbio(nomp,prenomp){

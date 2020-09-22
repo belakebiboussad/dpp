@@ -573,8 +573,7 @@ $('#typeexm').on('change', function() {
       doc.text(240,560, 'Docteur : '+nommedcin, null, null);//doc.text(230,600,ipp, null, null );
       var string = doc.output('datauristring');  
       $('#ordpdf').attr('src', string); //doc.save(pdf_name);//
-           
-        }       
+    }       
         var getImageFromUrl = function(url, callback,nompatient,dateNaiss,ipp,age,sexe,nommedcin) {
             var img = new Image();
             img.onError = function() { 
