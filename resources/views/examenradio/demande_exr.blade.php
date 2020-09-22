@@ -52,8 +52,8 @@
   <h2 class="mt-20 center">DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</h2>
   <h4 class="center">ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</h4>
   <h4 class="center">Chemin des Glycines - ALGER</h4>
-  <h4 class="center">Tél : 23-93-34</h4>
-  <h5 class="mt-15 center" ><img src="{{ storage_path('app/public/logo.png') }}" style="width: 60px; height: 60px" alt="logo"/></h5>
+  <h4 class="center">Tél : 23-93-34</h4> {{-- {{ storage_path('app/public/logo.png') }} --}}
+ <h5 class="mt-15 center" ><img src="img/logo.png" style="width: 60px; height: 60px" alt="logo"/></h5>
   <h5 class="mt-20 center">
     <span style="font-size: xx-large;"><strong>Demande d'examens radiologiques</strong></span>
   </h5> 

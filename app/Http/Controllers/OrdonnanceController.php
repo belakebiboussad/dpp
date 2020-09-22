@@ -112,9 +112,7 @@ class OrdonnanceController extends Controller
             }
             $view = view("consultations.ModalFoms.ordonnancePDF",compact('patient','employe','medicaments','posologies'))->render();
             return response()->json(['html'=>$view]);
-            /*
-            $pdf = PDF::loadView('ordennance.ordonnancePDF', compact('patient','employe','medicaments','posologies'));
-            return $pdf->stream('ordonnance.pdf');*/
-    }
+  /* $pdf = PDF::loadView('ordennance.ordonnancePDF', compact('patient','employe','medicaments','posologies'));   return $pdf->stream('ordonnance.pdf');*/
+   }
 
 }

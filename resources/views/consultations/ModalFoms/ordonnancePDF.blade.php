@@ -58,17 +58,15 @@
 			<h5 class="mt-15 center" ><img src="{{ asset('/img/logo.png') }}" style="width: 60px; height: 60px" alt="logo"/></h5>
   		<h5 class="mt-20 center"><span style="font-size: xx-large;"><strong>Ordonnance</strong></span></h5>
   		<div class="row">
-				<div class="col-sm-12">
-					<div class="section">
-						<div class="ml-80"><b><u>Fait le:</u></b> {{ Carbon\Carbon::today()->format('Y-m-d') }}.</div>
-					</div>
-				</div>
+			<div class="col-sm-12">
+				<div class="section"><div class="ml-80"><b><u>Fait le:</u></b> {{ Carbon\Carbon::today()->format('Y-m-d') }}.</div></div>
+			</div>
 			</div>
 			<div class="row ml-4">
 				<div class="col-sm-12">
 					<div class="section">
 						<div class="sec-gauche">
-							<b><u>Patient(e) :</u></b><b>	{{ $patient->getCivilite() }}</b>{{ $patient->Nom }}	{{ $patient->Prenom }},	&nbsp;  
+							<b><u>Patient(e) :</u></b><b>	{{ $patient->getCivilite() }}</b>{{ $patient->Nom }}	{{ $patient->Prenom }},&nbsp;  
 							{{ $patient->getAge() }} ans,{{ $patient->Sexe }}
 						</div>
 					</div>
@@ -97,17 +95,13 @@
 				</div>
 			</div>
 			<div class="row foo">
+		       <div class="col-sm-12">
+			<div class="section"><div class="sec-droite"><span><strong> Docteur :</strong> {{ $employe->nom}} {{ $employe->prenom}}</span></div></div>
+		      </div>
+  		      </div>
+  		      <div class="row foo">
 		    <div class="col-sm-12">
-					<div class="section">
-						<div class="sec-droite"><span><strong> Docteur :</strong> {{ $employe->nom}} {{ $employe->prenom}}</span></div>
-		    	</div>
-		    </div>
-  		</div>
-  		<div class="row foo">
-		    <div class="col-sm-12">
-					<div class="section">
-						<div class="sec-droite"><span><strong> Docteur :</strong> {{ $employe->nom}} {{ $employe->prenom}}</span></div>    	
-		    	</div>
+			<div class="section"><div class="sec-droite"><span><strong> Docteur :</strong> {{ $employe->nom}} {{ $employe->prenom}}</span></div> </div>
 		    </div>
  		 </div>				
     </div>

@@ -6,9 +6,7 @@
 @endsection
 
 @section('main-content')
-<div class="page-header">
-	<h1 style="display: inline;">Selectionner un  Patient</h1>
-</div>
+<div class="page-header"><h1 style="display: inline;">Selectionner un  Patient</h1></div>
 <hr>
 <div class="space-12"></div>
 <div class="row">
@@ -39,16 +37,11 @@
 				<td>{{ $patient->Adresse }}</td>
 				<td>{{ $patient->Date_creation }}</td>
 				<td>{{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }} ans</td>
-				<td class="center">
-					<a href="/rdv/create/{{ $patient->id }}" class="btn btn-white btn-sm">
-						<i class="ace-icon fa fa-calendar-o"></i>
-						Ajouter RDV
-					</a>
+				<td class="center"><a href="/rdv/create/{{ $patient->id }}" class="btn btn-white btn-sm"><i class="ace-icon fa fa-calendar-o"></i>Ajouter RDV</a>
 				</td>
 			</tr>
 		@endforeach
 	</tbody>
 </table>
 </div>
-
 @endsection

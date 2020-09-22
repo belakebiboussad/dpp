@@ -74,12 +74,6 @@ class HomeController extends Controller
                 break;   
             case 11://Laborantin
                 $demandesexb = demandeexb::with('consultation.patient')->where('etat','E')->get();
-                //dd($demandesexb);
-                // foreach ($demandesexb as $key => $dem) {
-                //   echo($dem->consultation->patient);
-                //   echo("<br/>");
-                // }
-                // dd("df");
                 return view('home.home_laboanalyses', compact('demandesexb'));
                 break;   
             case 12://radiologue
