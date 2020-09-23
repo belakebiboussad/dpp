@@ -56,11 +56,11 @@
 									<table class="table table-striped table-bordered">
 										<thead>
 											<tr>
-												<th>Code Produit</th>
-												<th>Produit</th>
-												<th>Spécialité</th>
-												<th>Gamme</th>
-												<th>Qte</th>
+												<th class="center"><strong>Code Produit</strong></th>
+												<th class="center" ><strong>Produit</strong></th>
+												<th class="center"><strong>Spécialité</strong></th>
+												<th class="center"><strong>Gamme </strong></th>
+												<th class="center"><strong>Qte</strong></th>
 											</tr>
 										</thead>
 										<tbody>

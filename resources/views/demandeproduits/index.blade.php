@@ -24,10 +24,10 @@
 									<table id="demandes_liste" class="table table-striped table-bordered">
 										<thead>
 											<tr>
-												<th class=="center"><strong>Date</strong></th>
-												<th class=="center"><strong>Etat</strong></th>
-												<th class=="center"><strong>Demandeur</strong></th>
-												<th class=="center"><strong><em class="fa fa-cog"></em></strong></th>
+												<th class="center"><strong>Date</strong></th>
+												<th class="center"><strong>Etat</strong></th>
+												<th class="center"><strong>Demandeur</strong></th>
+												<th class="center"><strong><em class="fa fa-cog"></em></strong></th>
 											</tr>
 										</thead>
 										<tbody>	

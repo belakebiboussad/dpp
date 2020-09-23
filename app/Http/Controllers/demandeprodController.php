@@ -93,7 +93,6 @@ class demandeprodController extends Controller
         }
         return redirect()->route('demandeproduit.show',$demande->id); 
     }
-
     /**
      * Display the specified resource.
      *
@@ -102,8 +101,8 @@ class demandeprodController extends Controller
      */
     public function show($id)
     {
-      $demande = demand_produits::FindOrFail($id);
-      return view('demandeproduits.show', compact('demande'));
+            $demande = demand_produits::FindOrFail($id);
+            return view('demandeproduits.show', compact('demande'));
     }
 
     /**
@@ -114,7 +113,7 @@ class demandeprodController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -133,7 +132,6 @@ class demandeprodController extends Controller
         ]);
         return redirect()->action('demandeprodController@details_demande', [ 'id' => $demande->id ]);
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -149,8 +147,7 @@ class demandeprodController extends Controller
         $demande = demand_produits::FindOrFail($id);
         return view('demandeproduits.traiter_demande', compact('demande'));
     }
-
-    public function details_demande($id)
+     public function details_demande($id)
     {
         $demande = demand_produits::FindOrFail($id);
         return view('demandeproduits.details_demande', compact('demande'));
