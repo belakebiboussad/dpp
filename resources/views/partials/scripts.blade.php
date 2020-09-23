@@ -48,7 +48,7 @@
 <script src="{{ asset('/plugins/fullcalendar/locale/fr.js') }}"></script>
 <script src="{{ asset('/js/jquery-editable-select.js') }}"></script><!--  -->
 <script src="{{asset('/js/sweetalert2.all.min.js')}}"></script>
-<script src="{{asset('/js/JsBarcode.all.min.js')}}"></script>s
+<script src="{{asset('/js/JsBarcode.all.min.js')}}"></script>
 <script type="text/javascript">
   var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
   $(document).ready(function(){

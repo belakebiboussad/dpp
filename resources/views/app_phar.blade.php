@@ -7,7 +7,7 @@
     @include('partials.navbar')
     <div class="main-container" id="main-container">
         @yield('page-script')
-       {{-- @include('partials.sidebar_pharm')--}}
+        @include('partials.sidebar_pharm')
         <div class="main-content">
             <div class="main-content-inner">
                 <?php $lien = "Médicaments" ?> 
