@@ -4,8 +4,7 @@
 	 	<div class="modal-content custom-height-modal">
 			<div class="modal-header">
 			  <button type="button" class="close" data-dismiss="modal">&times;</button>
-			  <h4 class="modal-title">Ajouter Garde Malade/Homme de Confiance</h4>
-			  @include('patient._patientInfo')
+			  <h4 class="modal-title">Ajouter Garde Malade/Homme de Confiance</h4>@include('patient._patientInfo')
 			</div>
 			<div class="modal-body">
 			<!-- {{  route('hommeConfiance.store') }} -->
@@ -70,9 +69,7 @@
 					</div>
 					<div class="col-sm-6">
 							<div class="form-group ">
-								<label class="col-sm-3 control-label no-padding-right" for="lien_par">
-									<b>Relation :</b>
-								</label>
+								<label class="col-sm-3 control-label no-padding-right" for="lien_par"><b>Relation :</b></label>
 								<div class="col-sm-5">
 									<select class="form-control" id="lien_par" name="lien_par" placeholder="date de délivrance ..." required>
 										<option value="">Sélectionner...</option>

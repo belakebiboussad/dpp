@@ -134,7 +134,10 @@
 	<div class="row">
 		<div class="col-sm-12 center">	
 			<h2>
-				<strong>Bienvenue Docteur:</strong><q class="blue"> {{ Auth::User()->employ->nom }} &nbsp;{{ Auth::User()->employ->prenom }}</q>	 
+				<strong>Bienvenue Docteur:</strong>
+			  <i class="ace-icon fa fa-angle-double-left" style="font-size:20px;"></i>
+				 {{ Auth::User()->employ->nom }} &nbsp;{{ Auth::User()->employ->prenom }}
+				<i class="ace-icon fa fa-angle-double-right" style="font-size:20px;"></i>
 			</h2>
 		</div>		
 	</div>	{{-- row --}}

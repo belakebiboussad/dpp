@@ -63,7 +63,7 @@
 					</div>
 				</div>
 				<hr>
-				<h4 class="header blue bolder smaller">Contacts</h4>
+				<h4 class="header blue bolder smaller">Contact</h4>
 				<div class="row">
 					<div class="vspace-12-sm"></div>
 					<div class="col-xs-12 col-sm-6">
@@ -124,7 +124,7 @@
 					<div class="col-xs-12 col-sm-4">
 						<div class="{{ $errors->has('nss') ? "has-error" : "" }}">
 							<label for="nss"><b>N° Sécurité Sociale:</b></label>
-							<input type="text" class="form-control" id="nss" name="nss" ppattern="^\[0-9]{2}+' '+\[0-9]{4}+' '+\[0-9]{4}+' '+\[0-9]{2} $"
+							<input type="text" class="form-control" id="nss" name="nss" pattern="^\[0-9]{2}+' '+\[0-9]{4}+' '+\[0-9]{4}+' '+\[0-9]{2} $"
       							 placeholder="XX XXXX XXXX XX"
 							>
 						</div>

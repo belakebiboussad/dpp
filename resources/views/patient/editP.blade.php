@@ -43,8 +43,7 @@
 	<h1 style="display: inline;"><strong>Modification du Patient :&nbsp;</strong>{{ $patient->getCivilite() }} {{ $patient->Nom }} {{ $patient->Prenom }}</h1>
 	<div class="pull-right">
 		<a href="{{route('patient.index')}}" class="btn btn-white btn-info btn-bold">
-			<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>
-				 Chercher un Patient
+			<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>Chercher un Patient		 
 		</a>
 	</div>
 </div>
@@ -78,9 +77,7 @@
   <div class="tab-content">
   	<div id="Patient" class="tab-pane fade in active">
 			<div class="row">
-    		<div class="col-sm-12">
-					<h3 class="header smaller lighter blue">Informations administratives</h3>
-				</div>
+    		<div class="col-sm-12"><h3 class="header smaller lighter blue">Informations administratives</h3></div>
     	</div>
     	<div class="row">
 		<div class="col-sm-6">
@@ -107,7 +104,7 @@
 					<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
 						<label class="col-sm-3 control-label" for="datenaissance"><strong>Né(e) le :</strong></label>
 						<div class="col-sm-9">
-							<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" placeholder="Date de naissance..." data-date-format="yyyy-mm-dd" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" value="{{ $patient->Dat_Naissance }}" required/>
+							<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" placeholder="Date de naissance..." data-date-format="yyyy-mm-dd" required/>
 							{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
 						</div>
 					</div>
@@ -181,10 +178,8 @@
 		    	<div class="row">
 						<div class="col-sm-6">
 							<div class="form-group">
-							<label class="col-sm-3 control-label" for="sf">
-								<strong class="text-nowrap">Civilité :</strong>
-							</label>
-							<div class="col-sm-9">
+								<label class="col-sm-3 control-label" for="sf"><strong class="text-nowrap">Civilité :</strong></label>
+								<div class="col-sm-9">
 								<select class="form-control civilite" id="sf" name="sf">
 									<option value="celibataire" @if( $patient->situation_familiale =='celibataire') selected @endif >Célibataire</option>
 									<option value="marie" @if( $patient->situation_familiale =='marie') selected @endif>Marié</option>
@@ -206,10 +201,8 @@
 						{{-- /nom de jeune fille --}}
 			  	</div>	{{-- row --}}
 				  <div class="row">
-						<div class="col-sm-12">
-						<h3 class="header smaller lighter blue">Contact</h3>
-						</div>
-			  	</div>	{{-- row --}}
+						<div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div>
+					</div>	{{-- row --}}
 			  	<div class="space-12"></div>	
 			  	<div class="row">
 						<div class="col-sm-4" style="padding-left:7%">
@@ -326,14 +319,11 @@
 				</div>
 			</div>
 			@if(count($hommes_c) == 0) 	
-			<div class="row">
-		      		<div class="col-sm-12">
-					<h3 class="header smaller lighter blue">Homme de Confiance</h3>
-				</div>
-		    </div>
+			<div class="row">	<div class="col-sm-12">	<h3 class="header smaller lighter blue">Homme de Confiance</h3></div>
+		  </div>
 		    <div class="row">
-		     		<div class="col-sm-1"></div>		
-				<div class="col-sm-11">
+		     	<div class="col-sm-1"></div>		
+				  <div class="col-sm-11">
 					<div class="form-group padding-left">
 						<input  type="checkbox" id="hommeConf" value="1"  class="ace input-lg"/>
 						<span class="lbl lighter blue"> <strong>Ajouter un Correspondant</strong></span>
@@ -409,22 +399,11 @@
   	</div> {{-- tab-content --}}
 	<div class="hr hr-dotted"></div>
 	<div class="row">
-		<div class="center">
-			<br>
-			<button class="btn btn-info btn-sm" type="submit">
-				<i class="ace-icon fa fa-save bigger-110"></i>
-				Enregistrer
-			</button>&nbsp; &nbsp; &nbsp;
-			<button class="btn btn-default btn-sm" type="reset">
-				<i class="ace-icon fa fa-undo bigger-110"></i>
-				Annuler
-			</button>
+		<div class="center"><br>
+			<button class="btn btn-info btn-sm" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
+			<button class="btn btn-default btn-sm" type="reset">	<i class="ace-icon fa fa-undo bigger-110"></i>	Annuler</button>
 		</div>
 	</div>
 	</form>
-	<div class="row">
-    @include('corespondants.add')
-	</div>
-
+	<div class="row"> @include('corespondants.add')</div>
 @endsection
-

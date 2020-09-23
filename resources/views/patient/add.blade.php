@@ -205,7 +205,7 @@
 						<div class="form-group">
 							<label class="control-label col-xs-12 col-sm-3" for="date_piece_id"><strong>Délivré le :</strong></label>
 					    <div class="col-sm-9">
-								<input class="col-xs-12 col-sm-12 date-picker" id="date_piece_id" name="date_piece_id" type="text" data-date-format="yyyy-mm-dd" placeholder="Délivré le..." pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
+								<input class="col-xs-12 col-sm-12 date-picker" id="date_piece_id" name="date_piece_id" type="text" data-date-format="yyyy-mm-dd" placeholder="Délivré le..."/>
 							</div>
 						</div>
 					</div>
@@ -214,11 +214,7 @@
 					</div>
 				</div>	{{-- row --}}
 				<div class="space-12"></div>
-				<div class="row">
-					<div class="col-sm-12">
-						<h3 class="header smaller lighter blue"><b>Contact</b></h3>
-					</div>
-				</div>	{{-- row --}}
+				<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue"><b>Contact</b></h3></div></div>{{-- row --}}
 				<div class="space-12"></div>
 				<div class="row">
 					<div class="col-sm-5">
@@ -250,15 +246,13 @@
 			</div>	
 		</div>
 		{{--fin homme--}}	{{-- tab-pane --}}
-	  
-	  	<div class="hr hr-dotted"></div>
-			<div class="row">
-				<div class="center">
-				<br>
+	  <div class="hr hr-dotted"></div>
+		<div class="row">
+			<div class="center"><br>
 				<button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
 				<button class="btn" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
-				</div>
 			</div>
+		</div>
 	  </form>
 	 </div>
 @endsection

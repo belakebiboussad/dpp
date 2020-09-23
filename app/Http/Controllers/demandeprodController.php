@@ -46,7 +46,7 @@ class demandeprodController extends Controller
     public function index()
     {
         $demandes = demand_produits::all();
-        return view('demandeproduits.index_demande', compact('demandes'));
+        return view('demandeproduits.index', compact('demandes'));
     }
 
     /**
@@ -57,7 +57,7 @@ class demandeprodController extends Controller
     public function create()
     {
        $gammes = gamme::all();
-        return view('demandeproduits.demande_produit', compact('gammes'));
+        return view('demandeproduits.create', compact('gammes'));
     }
 
     /**
@@ -102,8 +102,8 @@ class demandeprodController extends Controller
      */
     public function show($id)
     {
-        $demande = demand_produits::FindOrFail($id);
-        return view('demandeproduits.show_demande', compact('demande'));
+      $demande = demand_produits::FindOrFail($id);
+      return view('demandeproduits.show', compact('demande'));
     }
 
     /**
@@ -144,13 +144,6 @@ class demandeprodController extends Controller
     {
         //
     }
-
-    public function liste_demande()
-    {
-        $demandes = demand_produits::all();
-        return view('demandeproduits.liste_demande', compact('demandes'));  
-    }
-
     public function traiter_demande($id)
     {
         $demande = demand_produits::FindOrFail($id);

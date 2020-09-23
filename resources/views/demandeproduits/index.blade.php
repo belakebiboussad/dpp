@@ -1,15 +1,13 @@
-@extends('app_chef_ser')
+@extends('app')
 @section('page.script')
-<script src="{{ asset('/js/jquery.min.js') }}"></script>
-<script src="{{ asset('/js/datatables.js') }}"></script>
 <script type="text/javascript">
 	$('#demandes_liste').dataTable({
-       		ordering: true,
-	        "language": 
-	        {
-        		"url": '/localisation/fr_FR.json'
-	        }, 
-   	 });
+ 		ordering: true,
+    "language": 
+    {
+  		"url": '/localisation/fr_FR.json'
+    }, 
+  });
 </script>
 @endsection
 @section('main-content')
@@ -26,10 +24,10 @@
 									<table id="demandes_liste" class="table table-striped table-bordered">
 										<thead>
 											<tr>
-												<th>Date</th>
-												<th>Etat</th>
-												<th>Demandeur</th>
-												<th></th>
+												<th class=="center"><strong>Date</strong></th>
+												<th class=="center"><strong>Etat</strong></th>
+												<th class=="center"><strong>Demandeur</strong></th>
+												<th class=="center"><strong><em class="fa fa-cog"></em></strong></th>
 											</tr>
 										</thead>
 										<tbody>	
@@ -47,8 +45,8 @@
 													</td>
 													<td>{{ $demande->demandeur->nom }} {{ $demande->demandeur->prenom }}</td>
 													<td class="center">
-														<a href="{{ route('demandeproduit.show', $demande->id) }}" class="btn btn-white btn-xs">
-															<i class="ace-icon fa fa-info-circle"></i>Détails
+														<a href="{{ route('demandeproduit.show', $demande->id) }}" class="btn btn-success btn-xs">
+															<i class="ace-icon fa fa-hand-o-up bigger-120"></i>Détails
 														</a>
 													</td>
 												</tr>

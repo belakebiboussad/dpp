@@ -126,8 +126,7 @@
 						</div>
 						<br>
 					</div>
-				</div>
-				{{-- row --}}
+				</div>	{{-- row --}}
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="form-group">
@@ -188,7 +187,7 @@
 					<div class="form-group">
 						<label class="control-label col-xs-12 col-sm-3" for="date_piece_id"><strong>Délivré le :</strong></label>
 				    <div class="col-sm-9">
-							<input class="col-xs-12 col-sm-12 date-picker" id="date_piece_id" name="date_piece_id" type="text" data-date-format="yyyy-mm-dd" placeholder="Délivré le..." pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
+							<input class="col-xs-12 col-sm-12 date-picker" id="date_piece_id" name="date_piece_id" type="text" data-date-format="yyyy-mm-dd" placeholder="Délivré le..."/>
 						</div>
 					</div>
 				</div>

@@ -1,4 +1,4 @@
-@extends('app_chef_ser')
+@extends('app')
 @section('main-content')
 <div class="row">
 	<div class="col-xs-12">

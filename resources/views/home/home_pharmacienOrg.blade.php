@@ -1,4 +1,4 @@
-@extends('app'){{--@extends('app_chef_ser') --}}
+@extends('app_phar')
 @section('page.script')
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -11,7 +11,7 @@
 		 });
 		$('#dispo_table').dataTable({
        		 	ordering: true,
-        		"language": 
+        			"language": 
       			{
                			 "url": '/localisation/fr_FR.json'
             			}, 
@@ -22,8 +22,8 @@
             			{
                 			"url": '/localisation/fr_FR.json'
             			}, 
-    		});	
-    });
+    		});
+	});
 </script>
 @endsection
 @section('main-content')
@@ -34,9 +34,12 @@
 			<div class="col-sm-10 col-sm-offset-1">
 				<div class="widget-box transparent">
 					<div class="widget-header widget-header-large">
-						<h3 class="widget-title grey lighter"><i class="ace-icon fa fa-leaf green"></i>	Liste des produits	</h3>
+						<h3 class="widget-title grey lighter">
+							<i class="ace-icon fa fa-leaf green"></i>
+							Liste des produits
+						</h3>
 						<div class="widget-toolbar hidden-480">
-							<a href="{{ route('demandeproduit.create') }}"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120" style="font-size:18px;"></i>	Demander un produit	</a>
+							<a href="{{ route('demandeproduit.create') }}"><i class="ace-icon fa fa-plus"></i>	Demander un produit	</a>
 						</div>
 					</div>
 					<div class="widget-body">
@@ -46,9 +49,15 @@
 									<div class="widget-header">
 										<div class="widget-toolbar no-border">
 											<ul class="nav nav-tabs" id="myTab2">
-												<li class="active"><a data-toggle="tab" href="#home2">Médicaments</a></li>
-												<li><a data-toggle="tab" href="#profile2">Dispositifs médicaux</a></li>
-											  <li><a data-toggle="tab" href="#info2">Réactifs chimiques et dentaires</a></li>
+												<li class="active">
+													<a data-toggle="tab" href="#home2">Médicaments</a>
+												</li>
+												<li>
+													<a data-toggle="tab" href="#profile2">Dispositifs médicaux</a>
+												</li>
+												<li>
+													<a data-toggle="tab" href="#info2">Réactifs chimiques et dentaires</a>
+												</li>
 											</ul>
 										</div>
 									</div>

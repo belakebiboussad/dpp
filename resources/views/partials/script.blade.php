@@ -646,13 +646,6 @@ $('#typeexm').on('change', function() {
                 //$('#spinner1').closest('.ace-spinner').spinner('disable').spinner('enable').spinner('value', 11);//disable, enable or change value
                 //$('#spinner1').closest('.ace-spinner').spinner('value', 0);//reset to 0
             
-            
-                //datepicker plugin
-                //link
-                // $('.date-picker').datepicker({
-                //     autoclose: true,
-                //     todayHighlight: true
-                // })
                 //show datepicker when clicking on the icon
                 .next().on(ace.click_event, function(){
                     $(this).prev().focus();
