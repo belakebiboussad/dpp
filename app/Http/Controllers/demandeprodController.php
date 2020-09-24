@@ -142,12 +142,6 @@ class demandeprodController extends Controller
     {
         //
     }
-    //remove
-    public function traiter_demande($id)
-    {
-        $demande = demand_produits::FindOrFail($id);
-        return view('demandeproduits.edit', compact('demande'));
-    }
     public function details_demande($id)
     {
         $demande = demand_produits::FindOrFail($id);

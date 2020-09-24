@@ -50,7 +50,7 @@
 														</a>
 														@if(Auth::user()->role_id == 10)
 														{{-- /traiterdemande/{{ $demande->id }}--}}
-														<a href="{{ route('demandeproduit.edit') }}" class="btn btn-white btn-xs" title="Traiter Demande" >
+														<a href="{{ route('demandeproduit.edit',$demande->id) }}" class="btn btn-white btn-xs" title="Traiter Demande" >
 															<i class="ace-icon fa fa-cog  bigger-110"></i>
 														</a>
 														@endif
