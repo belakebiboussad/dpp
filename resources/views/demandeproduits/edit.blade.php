@@ -1,4 +1,8 @@
 @extends('app_phar')
+@section('page.script')
+<script type="text/javascript">
+</script
+@endsection
 @section('main-content')
 <div class="row">
 	<div class="col-xs-12">
@@ -109,7 +113,7 @@
 										</div>
 									</div>
 									<div class="form-actions center">
-										<button type="submit" class="btn btn-sm btn-primary">&nbsp;Enregistrer<i class="ace-icon fa fa-save icon-on-left bigger-110"></i></button>
+										<button type="submit" class="btn btn-sm btn-primary disabled"><i class="ace-icon fa fa-save icon-on-left bigger-110"></i>&nbsp;Enregistrer</button>
 									</div>
 								</form>
 							</div>

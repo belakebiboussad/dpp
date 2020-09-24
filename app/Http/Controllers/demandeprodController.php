@@ -104,7 +104,6 @@ class demandeprodController extends Controller
             $demande = demand_produits::FindOrFail($id);
             return view('demandeproduits.show', compact('demande'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -113,7 +112,8 @@ class demandeprodController extends Controller
      */
     public function edit($id)
     {
-
+      $demande = demand_produits::FindOrFail($id);
+      return view('demandeproduits.edit', compact('demande')); 
     }
 
     /**
@@ -125,12 +125,12 @@ class demandeprodController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $demande = demand_produits::FindOrFail($id);
-        $demande->update([
-            "Etat" => $request->avis,
-            "motif" => $request->motif
-        ]);
-        return redirect()->action('demandeprodController@details_demande', [ 'id' => $demande->id ]);
+      $demande = demand_produits::FindOrFail($id);
+      $demande->update([
+          "Etat" => $request->avis,
+          "motif" => $request->motif
+      ]);
+      return redirect()->action('demandeprodController@details_demande', [ 'id' => $demande->id ]);
     }
     /**
      * Remove the specified resource from storage.
@@ -142,12 +142,13 @@ class demandeprodController extends Controller
     {
         //
     }
+    //remove
     public function traiter_demande($id)
     {
         $demande = demand_produits::FindOrFail($id);
-        return view('demandeproduits.traiter_demande', compact('demande'));
+        return view('demandeproduits.edit', compact('demande'));
     }
-     public function details_demande($id)
+    public function details_demande($id)
     {
         $demande = demand_produits::FindOrFail($id);
         return view('demandeproduits.details_demande', compact('demande'));
