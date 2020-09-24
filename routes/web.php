@@ -204,10 +204,6 @@ Route::get('/404', function () {
 route::get('/download/{filename}', function($filename)
 {
     return Storage::download($filename);
-<<<<<<< HEAD
-});
-=======
 });
 // route::get('/cim','CimController@diseases');
 route::get('/b/{id}','CommuneController@show');
->>>>>>> Teste
