@@ -63,15 +63,9 @@ class HomeController extends Controller
             case 6:
                   return redirect()->action('ColloqueController@index',Auth::user()->employ->Service->Type->id);
                   break;
-<<<<<<< HEAD
-            case 9: 
-                  return redirect()->action('AdmissionController@index');
-                   break;       
-=======
             case 9: //agent Admission
                     return redirect()->action('AdmissionController@index');
                     break;       
->>>>>>> Teste
             case 10:
                 $meds = medcamte::all();
                 $dispositifs = dispositif::all();
