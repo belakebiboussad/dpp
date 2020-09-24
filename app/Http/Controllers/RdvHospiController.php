@@ -17,13 +17,13 @@ class RdvHospiController extends Controller
 {
   public function index()
   {
-        $ServiceID = Auth::user()->employ->Service_Employe;
-        $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID) {
-                                           $q->where('id',$ServiceID);                           
-                                    })->whereHas('demandeHosp',function ($q){
-                                    $q->where('etat','valide'); 
-                                })->get();
-        return view('rdvHospi.index', compact('demandes'));
+    $ServiceID = Auth::user()->employ->service;
+    $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID) {
+                                       $q->where('id',$ServiceID);                           
+                                })->whereHas('demandeHosp',function ($q){
+                                $q->where('etat','valide'); 
+                            })->get();
+    return view('rdvHospi.index', compact('demandes'));
   }
   public function create($id)
   {
@@ -33,7 +33,7 @@ class RdvHospiController extends Controller
   }
 public function store(Request $request)
   {
-    $ServiceID = Auth::user()->employ->Service_Employe;
+    $ServiceID = Auth::user()->employ->service;
     $rdv = rdv_hospitalisation::firstOrCreate([
             "date_RDVh"         =>$request->dateEntree,
             "heure_RDVh"        =>$request->heure_rdvh,   
@@ -62,7 +62,7 @@ public function store(Request $request)
   public function getlisteRDVs()
   {
     $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
-    $ServiceID = $employe->Service_Employe;
+    $ServiceID = $employe->service;
     $rdvHospis = rdv_hospitalisation::whereHas('demandeHospitalisation', function($q){
                                                        $q->where('etat', 'programme');
                                              })
@@ -112,13 +112,13 @@ public function store(Request $request)
       $rdvHospi->save(); 
       return redirect()->action('RdvHospiController@getlisteRDVs');
   }
-       public function getRdvs($date)
-      {
-              $rdvs = rdv_hospitalisation::with('bedReservation.lit.salle.service','demandeHospitalisation.consultation.patient')->where('etat_RDVh','=','en attente')->where('date_RDVh','=', $date)->get(); 
-               if (!empty($rdvs)) {
-                   return json_encode($rdvs);
-               }
-      }  
+  public function getRdvs($date)
+  {
+    $rdvs = rdv_hospitalisation::with('bedReservation.lit.salle.service','demandeHospitalisation.consultation.patient','demandeHospitalisation.Service')->where('etat_RDVh','=','en attente')->where('date_RDVh','=', $date)->get(); 
+    if (!empty($rdvs)) {
+      return json_encode($rdvs);
+    }
+  }  
   //imprimer rdv d'hospitalisation  
   public function print($id)
   { 

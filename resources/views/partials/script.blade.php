@@ -172,35 +172,7 @@ $('#typeexm').on('change', function() {
                         $('#infoass').css('display','block');
                         $('#te').css('display','block');
                     }
-            }
-            function atcd()
-            {
-           
-                if($('#type_atcd').val() == 'Personnels')
-                    {
-                        $('#sous_type').css('display','block');
-                    }
-                else
-                    {
-                        $('#sous_type').css('display','none');
-                        $('#sous_type_atcd').val() = null;
-                    }
-            }
-           function atcdhide()
-           {
-                   
-                    if($('#typeAntecedant').val() == "Pathologiques" )
-                     {
-                             $('#atcdsstypehide').show();
-                             $('#PhysiologieANTC').hide();
-                     }
-                    else
-                     {
-                            $('#atcdsstypehide').hide();
-                            $('#atcdsstypehide').val(null);
-                            $('#PhysiologieANTC').show();
-                    }
-           }
+//function atcd(){if($('#type_atcd').val() == 'Personnels')$('#sous_type').css('display','block');else{$('#sous_type').css('display','none');$('#sous_type_atcd').val() = null;}} 
         </script>
         <script>
         function createord(nompatient,nommedcin) {
@@ -674,13 +646,6 @@ $('#typeexm').on('change', function() {
                 //$('#spinner1').closest('.ace-spinner').spinner('disable').spinner('enable').spinner('value', 11);//disable, enable or change value
                 //$('#spinner1').closest('.ace-spinner').spinner('value', 0);//reset to 0
             
-            
-                //datepicker plugin
-                //link
-                // $('.date-picker').datepicker({
-                //     autoclose: true,
-                //     todayHighlight: true
-                // })
                 //show datepicker when clicking on the icon
                 .next().on(ace.click_event, function(){
                     $(this).prev().focus();

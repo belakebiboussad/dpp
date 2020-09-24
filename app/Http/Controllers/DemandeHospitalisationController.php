@@ -49,16 +49,8 @@ class DemandeHospitalisationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request ,$consultID)
-    { 
-        DemandeHospitalisation::create([
-            "modeAdmission"=>$request->modeAdmission,
-            "service"=>$request->service,
-            "specialite"=>$request->specialiteDemande, // "degree_urgence"=>$request->degreurg,
-            "id_consultation"=>$consultID,
-            "etat " =>"en attente",
-        ]);  
-   }
+    // public function store(Request $request ,$consultID)
+    // { DemandeHospitalisation::create([  "modeAdmission"=>$request->modeAdmission,  "service"=>$request->service, "specialite"=>$request->specialiteDemande, // "degree_urgence"=>$request->degreurg,"id_consultation"=>$consultID,"etat " =>"en attente",]); }
     /**
      * Display the specified resource.
      *
@@ -111,8 +103,7 @@ class DemandeHospitalisationController extends Controller
         public function destroy($id)
         {
              $demande = DemandeHospitalisation::destroy($id);
-             return redirect()->action('DemandeHospitalisationController@index');
-            // return Response::json($demande);
+             return redirect()->action('DemandeHospitalisationController@index');// return Response::json($demande);
         }
         public function listedemandes($type)
         {

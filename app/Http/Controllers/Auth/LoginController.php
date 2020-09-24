@@ -56,41 +56,42 @@ class LoginController extends Controller
           $credentials['active'] = 1;
           return $credentials;
       }
-         protected function sendFailedLoginResponse(Request $request)
-        {
-            $errors = [$this->username() => trans('auth.failed')];
-            // Load user from database
-            $user = \App\User::where($this->username(), $request->{$this->username()})->first();
-            // Check if user was successfully loaded, that the password matches
-            // and active is not 1. If so, override the default error message.
-            if ($user && \Hash::check($request->password, $user->password) && $user->active != 1) {
-                $errors = [$this->username() => 'Your account is not active.'];
-            }
-            if ($request->expectsJson()) {
-                return response()->json($errors, 422);
-            }
-            return redirect()->back()
+      protected function sendFailedLoginResponse(Request $request)
+      {
+        $errors = [$this->username() => trans('auth.failed')];
+        // Load user from database
+        $user = \App\User::where($this->username(), $request->{$this->username()})->first();
+        // Check if user was successfully loaded, that the password matches
+        // and active is not 1. If so, override the default error message.
+        if ($user && \Hash::check($request->password, $user->password) && $user->active != 1) {
+          $errors = [$this->username() => 'Your account is not active.'];
+        }
+        if ($request->expectsJson()) {
+          return response()->json($errors, 422);
+        }
+        return redirect()->back()
                 ->withInput($request->only($this->username(), 'remember'))
                 ->withErrors($errors);
-        }
-        //fabm
-        public function logout() {
-            Auth::logout(); // logout user  // Session::flush(); // Redirect::back();
-            return Redirect::to('/login'); //redirect back to login
-        }
-        //abm
-        protected function authenticated(Request $request, $user)
-        {     /*premier solutions $IPs = Config::get('settings');session(['lieu_id' => $IPs[$_SERVER['REMOTE_ADDR']]]); */
-               $IPs = config('settings.IPs');// $IPs = config('constants.IPs');
-               session(['lieu_id' => $IPs[$_SERVER['REMOTE_ADDR']]]); 
-        }
-	public function username()
-       {
+      }
+      //fabm
+      public function logout() {
+        Auth::logout(); // logout user  // Session::flush(); // Redirect::back();
+        return Redirect::to('/login'); //redirect back to login
+      }//abm
+      protected function authenticated(Request $request, $user)
+      { /*premier solutions $IPs = Config::get('settings');session(['lieu_id' => $IPs[$_SERVER['REMOTE_ADDR']]]); */
+        $IPs = config('settings.IPs');// $IPs = config('constants.IPs');
+        session(['lieu_id' => $IPs[$_SERVER['REMOTE_ADDR']]]);
+       if(isset($user->employ->service))
+          session(['service' => (in_array($user->role_id,[1,3,5,6,10,11,12,13,14])) ? $user->employ->Service->id :0]);
+      }
+	    public function username()
+      {
   		    return 'name';
       }
       public function showLoginForm()
       {
-           return view('auth/login');
+        return view('auth/login');
       }
     //fabm
 }

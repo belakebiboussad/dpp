@@ -40,11 +40,11 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    { 
-      //$role =Auth::user()->role ; //dd($role);  //$employe = Auth::user()->employ; // employ::where("id",Auth::user()->employee_id)->get()->first();
-      $ServiceID = Auth::user()->employ->Service_Employe;
+    {
+      $ServiceID = Auth::user()->employ->service;
+      // dd(Auth::user()->employ->Service->Type);
       switch (Auth::user()->role_id) {
-            case 1:
+            case 1://medecin & meecinChef
                   return view('patient.index');
                   break;
             case 2:
@@ -53,45 +53,25 @@ class HomeController extends Controller
             case 3:                    
                   return redirect()->action('HospitalisationController@index');// return redirect()->route('HospitalisationController@index');
                   break;
-            case 4: 
-                  $users = User::all();
-                  return view('home.home_admin', compact('users'));        // return view('user.listeusers', compact('users'));
+            case 4: //admin  
+                  // $users = User::all(); // return view('home.home_admin', compact('users'));
+                  return redirect()->action('UsersController@index');
                   break;
             case 5:
-// $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID){$q->where('id',$ServiceID); })->whereHas('demandeHosp',function ($q){$q->where('etat','valide');})->get();return view('home.home_surv_med', compact('demandes'));                          
                   return redirect()->action('RdvHospiController@index');
-                 break;
-            case 6:
-                  $colloque= array();
-                  $colloques=colloque::join('membres','colloques.id','=','membres.id_colloque')
-                                     ->join('employs','membres.id_employ','=','employs.id')
-                                     ->leftJoin('dem_colloques','colloques.id','=','dem_colloques.id_colloque')
-                                     ->leftJoin('demandehospitalisations','dem_colloques.id_demande','=','demandehospitalisations.id')
-                                     ->leftJoin('consultations','demandehospitalisations.id_consultation','=','consultations.id')
-                                     ->leftJoin('patients','consultations.Patient_ID_Patient','=','patients.id')
-                                     ->leftJoin('type_colloques','colloques.type_colloque','=','type_colloques.id')
-                                     ->select('demandehospitalisations.id as id-demande','colloques.id as id_colloque','colloques.*',
-                                              'employs.Nom_Employe','employs.Prenom_Employe','patients.Nom','patients.Prenom',
-                                              'type_colloques.type','dem_colloques.id_demande','consultations.Date_Consultation')
-                                     ->where('etat_colloque','<>','cloturé')->get();
-                  foreach( $colloques as $col){
-                    if (!array_key_exists($col->id_colloque,$colloque))
-                    {
-                      $colloque[$col->id_colloque]= array( "dat"=> $col->date_colloque ,"creation"=>$col->date_creation,
-                                                           "Type"=>$col->type,"Etat"=>$col->etat_colloque,
-                                                           "membres"=> array ("$col->Nom_Employe $col->Prenom_Employe")
-                                                         );
-                    }
-                    else{
-                          if (array_search("$col->Nom_Employe $col->Prenom_Employe", $colloque[$col->id_colloque]["membres"])===false)
-                              $colloque[$col->id_colloque]["membres"][]="$col->Nom_Employe $col->Prenom_Employe";
-                        }
-                  }
-                  return view('colloques.liste_colloque', compact('colloque'));
                   break;
+            case 6:
+                  return redirect()->action('ColloqueController@index',Auth::user()->employ->Service->Type->id);
+                  break;
+<<<<<<< HEAD
             case 9: 
                   return redirect()->action('AdmissionController@index');
                    break;       
+=======
+            case 9: //agent Admission
+                    return redirect()->action('AdmissionController@index');
+                    break;       
+>>>>>>> Teste
             case 10:
                 $meds = medcamte::all();
                 $dispositifs = dispositif::all();
@@ -99,13 +79,15 @@ class HomeController extends Controller
                 return view('home.home_pharmacien', compact('meds','dispositifs','reactifs'));
                 break;   
             case 11://Laborantin
-                $demandesexb = demandeexb::where('etat','E')->get();
+                $demandesexb = demandeexb::with('consultation.patient')->where('etat','E')->get();
                 return view('home.home_laboanalyses', compact('demandesexb'));
                 break;   
             case 12://radiologue
-                $demandesexr = demandeexr::where('etat','E')->get();
+                $demandesexr = demandeexr::with('consultation')->where('etat','E')->get();
                 return view('home.home_radiologue', compact('demandesexr')); 
-            case 14:
+                break;
+            case 14://chef de service
+                //return view('patient.index');
                 $meds = medcamte::all();
                 $dispositifs = dispositif::all();
                 $reactifs = reactif::all();

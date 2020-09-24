@@ -3,9 +3,7 @@
 	<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
 		<div class="widget-box widget-color-blue" id="widget-box-2">
 			<div class="widget-header">
-				<h5 class="widget-title bigger lighter">
-						<i class="ace-icon fa fa-table"></i>Liste des demandes de la semaine
-				</h5>
+				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des demandes de la semaine</h5>
 			</div>
 			<div class="widget-body">
 				<div class="widget-main no-padding">
@@ -25,7 +23,7 @@
 						<tbody>
 						<?php $d=Date::Now().' monday next week' ?>
 						@foreach($demandes as $demande)
-							@if(date('d M Y',strtotime(($demande->date_colloque).' monday next week')-1) == date('d M Y',strtotime($d)-1))
+							@if(date('d M Y',strtotime(($demande->date).' monday next week')-1) == date('d M Y',strtotime($d)-1))
 							<tr>
 								<td>{{ $demande->demandeHosp->consultation->patient->Nom }} {{ $demande->demandeHosp->consultation->patient->Prenom }}</td>
 								<td>{{ $demande->demandeHosp->modeAdmission }}</td>
@@ -45,22 +43,18 @@
   										@break
 									@endswitch
 								</td>
-									<th>{{ $demande->medecin->Nom_Employe }} &nbsp; {{ $demande->medecin->Prenom_Employe }}</th>
+								<th>{{ $demande->medecin->nom }} &nbsp; {{ $demande->medecin->prenom }}</th>
 								<td>{{ $demande->observation }}</td>
 								<td>
-									{{-- <span class="label label-sm label-{{$demande->degree_urgence == "Haut" ? "danger" : "warning"}}" style="color: black;">
-										<strong>{{ $demande->degree_urgence }}</strong>
-									</span> --}}
 									{{ $demande->demandeHosp->consultation->Date_Consultation }}
-									</td>
-										<td>{{ $demande->demandeHosp->Specialite->nom }}</td>
-								
-									<td>
-										<div class="hidden-sm hidden-xs btn-group">
-											<a href="{{ route('rdvHospi.create',['id' =>$demande->id_demande ]) }}" class="btn btn-xs btn-success">
-												<i class="fa fa-plus fa-xs"></i> &nbsp;RDV Hospitalisaton
-											</a>
-										</div>
+								</td>
+								<td>{{ $demande->demandeHosp->Specialite->nom }}</td>
+								<td>
+									<div class="hidden-sm hidden-xs btn-group">
+										<a href="{{ route('rdvHospi.create',['id' =>$demande->id_demande ]) }}" class="btn btn-xs btn-success">
+											<i class="fa fa-plus fa-xs"></i> &nbsp;RDV Hospitalisaton
+										</a>
+									</div>
 									</td>
 								</tr>
 								@endif

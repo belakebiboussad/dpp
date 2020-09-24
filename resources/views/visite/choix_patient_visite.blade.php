@@ -9,7 +9,7 @@
 
             <th>Nom</th>
             <th>Prénom</th>
-            <th>Sexe</th>
+            <th>Genre</th>
             <th>Age</th>
              <th>Date hospitalisation</th>
              <th>Date prévue sortie </th>

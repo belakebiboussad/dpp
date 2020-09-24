@@ -1,15 +1,10 @@
 @extends('app')
 @section('main-content')
-<div class="page-header">
-	<h1>Liste Des Demande d'hospitalisation :</h1>
-</div>
+<div class="page-header"><h1>Liste Des Demande d'hospitalisation :</h1></div>
 <div class="row">
 	<div class="col-sm-12">
 		<div class="widget-box">
-			<div class="widget-header">
-				<h4 class="widget-title">Liste Des Demande d'hospitalisation:</h4>
-			</div>
-			<br/>
+			<div class="widget-header"><h4 class="widget-title">Liste Des Demande d'hospitalisation:</h4></div>	<br/>
 			<table id="simple-table" class="table  table-bordered table-hover">
 				<thead>
 					<tr>
@@ -29,7 +24,7 @@
 						<tr>
 							<td>{{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }}</td>
 							<td>
-								<span class="badge badge-{{ Jenssegers\Date\Date::parse($demande->consultation->patient->Dat_Naissance)->age < 18 ? 'danger':'success' }}">{{ Jenssegers\Date\Date::parse($demande->consultation->patient->Dat_Naissance)->age }}</span>
+								<span class="badge badge-{{ $demande->consultation->patient->getAge() < 18 ? 'danger':'success' }}">{{ $demande->consultation->patient->getAge() }}</span>
 							</td>
 							<td>{{ $demande->consultation->Date_Consultation }}</td>
 							<td>
@@ -79,9 +74,7 @@
 								</a>
 								<a href="{{ route('demandehosp.destroy',$demande->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger"><i class="ace-icon fa fa-trash-o bigger-110"></i>
 								</a>
-	  	
 								@endif
-								
 							</td>
 						</tr>
 					@endforeach

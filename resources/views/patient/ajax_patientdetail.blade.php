@@ -24,8 +24,8 @@
                             <td>{{ $patient->lieuNaissance->nom_commune }}</td>
                	     </tr>
          		     <tr>
-                           <td colspan="1" class ="noborders"><strong>Sexe :</strong></td>
-                     	     <td>@if ( $patient->Sexe == 'F' ) Femme   @else  Homme @endif </td>
+                           <td colspan="1" class ="noborders"><strong>Genre :</strong></td>
+                     	     <td>@if ( $patient->Sexe == 'F' ) Féminin   @else  Masculin @endif </td>
                            <td colspan="1" class ="noborders"><strong>Civilité:</strong></td>
                         	<td>{{ $patient->situation_familiale }}</td>
                	</tr>

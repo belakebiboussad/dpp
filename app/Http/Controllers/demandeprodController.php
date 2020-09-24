@@ -46,7 +46,7 @@ class demandeprodController extends Controller
     public function index()
     {
         $demandes = demand_produits::all();
-        return view('demandeproduits.index_demande', compact('demandes'));
+        return view('demandeproduits.index', compact('demandes'));
     }
 
     /**
@@ -57,7 +57,7 @@ class demandeprodController extends Controller
     public function create()
     {
        $gammes = gamme::all();
-        return view('demandeproduits.demande_produit', compact('gammes'));
+        return view('demandeproduits.create', compact('gammes'));
     }
 
     /**
@@ -93,7 +93,6 @@ class demandeprodController extends Controller
         }
         return redirect()->route('demandeproduit.show',$demande->id); 
     }
-
     /**
      * Display the specified resource.
      *
@@ -102,10 +101,9 @@ class demandeprodController extends Controller
      */
     public function show($id)
     {
-        $demande = demand_produits::FindOrFail($id);
-        return view('demandeproduits.show_demande', compact('demande'));
+            $demande = demand_produits::FindOrFail($id);
+            return view('demandeproduits.show', compact('demande'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -114,7 +112,8 @@ class demandeprodController extends Controller
      */
     public function edit($id)
     {
-        //
+      $demande = demand_produits::FindOrFail($id);
+      return view('demandeproduits.edit', compact('demande')); 
     }
 
     /**
@@ -126,14 +125,13 @@ class demandeprodController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $demande = demand_produits::FindOrFail($id);
-        $demande->update([
-            "Etat" => $request->avis,
-            "motif" => $request->motif
-        ]);
-        return redirect()->action('demandeprodController@details_demande', [ 'id' => $demande->id ]);
+      $demande = demand_produits::FindOrFail($id);
+      $demande->update([
+          "Etat" => $request->avis,
+          "motif" => $request->motif
+      ]);
+      return redirect()->action('demandeprodController@details_demande', [ 'id' => $demande->id ]);
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -144,19 +142,12 @@ class demandeprodController extends Controller
     {
         //
     }
-
-    public function liste_demande()
-    {
-        $demandes = demand_produits::all();
-        return view('demandeproduits.liste_demande', compact('demandes'));  
-    }
-
+    //remove
     public function traiter_demande($id)
     {
         $demande = demand_produits::FindOrFail($id);
-        return view('demandeproduits.traiter_demande', compact('demande'));
+        return view('demandeproduits.edit', compact('demande'));
     }
-
     public function details_demande($id)
     {
         $demande = demand_produits::FindOrFail($id);

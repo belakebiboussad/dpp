@@ -25,9 +25,7 @@ class DemandeExbController extends Controller
         return view('examenbio.demande_exb', compact('specialites','consultation')); 
     }
     public function index()
-    {
-        //
-    }
+    {}
     /**
      * Show the form for creating a new resource.
      *
@@ -44,15 +42,12 @@ class DemandeExbController extends Controller
      */
     public function store(Request $request,$consultId)
     {
-             $date = Date::now();
-             $demande = demandeexb::FirstOrCreate([
-                     "DateDemande" => $date,
-                     "id_consultation" => $consultId,
-             ]);
-             
-             foreach($request->exm as $id_exb) {
-                          $demande->examensbios()->attach($id_exb);
-              }
+        $demande = demandeexb::FirstOrCreate([  
+               "id_consultation" => $consultId,
+       ]);
+       foreach($request->exm as $id_exb) {
+                    $demande->examensbios()->attach($id_exb);
+        }
     }
 
     /**
@@ -125,7 +120,7 @@ class DemandeExbController extends Controller
         $demandesexb = demandeexb::where('etat','E')->get();
         return view('examenbio.liste_demande_exb', compact('demandesexb'));
     }
-    public function show_demande_exb($id)
+    public function print($id)
     {
         $demande = demandeexb::FindOrFail($id);
         $pdf = PDF::loadView('examenbio.demande_exb', compact('demande'));

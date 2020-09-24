@@ -55,14 +55,13 @@
   				 border: 1px solid red;  
   			}
 		</style>
-		<script src="{{ public_path('js/bootstrap.min.js') }}"></script><script src="{{ public_path('js/jquery.min.js') }}"></script>
 	</head>
 	<body>
 		<div class="container-fluid">
 		  <div class="row">
 			  <div class="col-sm-12">
 			   	<div class="content text-center mt-10">
-			      <h5><strong>DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</strong></h5>
+			      <h5><strong>DIRECTION GENERAL DE LA SÛRETÉ NATIONALEE</strong></h5>
 			      <h6 class="mt-6" style =" margin-left: -7px;margin-right:-7px;"><strong>ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</strong></h6>
 			      <h6 class="mt-6"><strong> Chemin des Glycines - ALGER</strong><span> - Tél : 023-93-34</span></h6>
 			   	</div>
@@ -70,41 +69,25 @@
 		  </div>
 		  <div class="row mt-6">
 			  <div class="col-sm-12 content text-center">
-				      <div class="col-sm-4"></div>
-				      <div class="col-sm-4"><img class = "imgCenter" src="<?php echo $_SERVER["DOCUMENT_ROOT"].'./img/logo.png';?>"/></div>
-				    	<div class="col-sm-4"></div>       
-						</div>
+				 <div class="col-sm-4"></div>
+				 <div class="col-sm-4"><img class = "imgCenter" src="img/logo.png"/></div><div class="col-sm-4"></div>    
+				</div>
       </div>
-		  <div class="row">
-		    <hr class ="mt-3" >
-		  </div>
+		  <div class="row"><hr class ="mt-3"> </div>
 		  <div class="row">
 		   	<div class="col-md-4  col-sm-4 float-left" style="font-size:x-small;"></div>
-		   	<div class="col-md-4 col-sm-4 content text-center mt-15">	
-		  		<h3><strong>Rendez-Vous de Consultation</strong></h3>
-		    </div>	
-			</div>
-		  <br>	
+		   	<div class="col-md-4 col-sm-4 content text-center mt-15"><h3><strong>Rendez-Vous de Consultation</strong></h3></div>		
+		  </div><br>	
 		  <div class="row mt-8">
-			  <div class="col-sm-12">
-			  	 Rendez-vous avec le <strong>Docteur</strong> {{ $rdv->employe->Nom_Employe}}&nbsp;{{ $rdv->employe->Prenom_Employe}}
-						</div> 
-		  </div>
+			  <div class="col-sm-12">Rendez-vous avec le <strong>Docteur</strong> {{ $rdv->employe->nom}}&nbsp;{{ $rdv->employe->prenom}}</div>
+			</div>
 		  <div class="row">
 		   	<div class="col-sm-12">{{-- l d-m-Y --}}
 			 	  <strong> {{ ( $rdv->fixe) ? "Le" : "A partir du" }}</strong>&nbsp;<span> &nbsp;{{ Carbon\Carbon::parse($rdv->Date_RDV)->format('d-m-Y') }}</span>
 		   	</div>
 		  </div>
-		  <div class="row">
-		   	<div class="col-sm-12">
-		   		<strong>Nom : </strong><span>{{ $rdv->patient->Nom}}</span>
-		   	</div>
-		  </div>
-		  <div class="row" >
-		   	<div class="col-sm-12">
-		   		<strong>Prenom : </strong><span>{{ $rdv->patient->Prenom}}</span>
-		    </div>
-		  </div>
+		  <div class="row">	<div class="col-sm-12"><strong>Nom : </strong><span>{{ $rdv->patient->Nom}}</span></div></div>
+		  <div class="row" ><div class="col-sm-12"><strong>Prenom : </strong><span>{{ $rdv->patient->Prenom}}</span> </div></div>
 		  <div id="container" style ="padding-top:8px;">
 		 		<div id="row">
 		 			<div id="left">
@@ -124,6 +107,5 @@
 				</div>
 		  </div>
    	</div>
-		<script src="{{ public_path('js/bootstrap.min.js') }}"></script><script src="{{ public_path('js/jquery.min.js') }}"></script>
 	</body>
 </html>

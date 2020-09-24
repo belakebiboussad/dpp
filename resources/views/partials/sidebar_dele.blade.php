@@ -58,17 +58,17 @@
                 <b class="arrow fa fa-angle-down"></b>
           </a>
           <b class="arrow"></b>
-          @php $i = 1 @endphp
+         <!--  @php $i = 1 @endphp -->
           <ul class="submenu">
                 <li class="">
-                    <a href="/listecolloques/{{ $i }}">
+                    <a href="/listecolloques/1">
                         <i class="menu-icon fa fa-eye pink"></i>
                         Colloques Médicaux
                     </a>
                     <b class="arrow"></b>
                 </li>
                 <li>
-                    <a href="/listecolloques/{{ ++$i }}">
+                    <a href="/listecolloques/2">
                         <i class="menu-icon fa fa-eye pink"></i>
                         Colloques Chirurgicaux
                     </a>

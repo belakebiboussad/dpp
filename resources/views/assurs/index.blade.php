@@ -4,30 +4,33 @@
 <script>
 	function XHRgetAssure()
 	{
-		var matricule = $('#matricule').val();
-		var nss = $('#nss').val();
-		$.ajax({
-				type : 'get',
-				url : '{{URL::to('searchAssure')}}',
-				data:{'matricule':matricule,'nss':nss},
-					success:function(data,status, xhr){
-				$('#liste_assures').html(data);
-				$(".numberResult").html(xhr.getResponseHeader("count"));
-				$('#matricule').val('');$('#nss').val('');	
-				}
-			});
+	
 	}
+	$(document).ready(function(){
+		$(document).on('click','.findAssure',function(event){
+			event.preventDefault();
+			$('#btnCreate').removeClass('hidden');
+			var matricule = $('#matricule').val();
+		       var nss = $('#nss').val();
+			$.ajax({
+					type : 'get',
+					url : '{{URL::to('searchAssure')}}',
+					data:{'matricule':matricule,'nss':nss},
+					success:function(data,status, xhr){
+						$('#liste_assures').html(data);
+						$(".numberResult").html(xhr.getResponseHeader("count"));
+						$('#matricule').val('');$('#nss').val('');	
+					}
+			});
+		});
+	});
 </script>
 @endsection
 @section('main-content')
 <div class="page-content">
 	<div class="row">
 		<div class="col-sm-12 center">	
-			<h2>
-				<strong>Bienvenue Docteur:</strong>
-				 <q class="blue"> {{ Auth::User()->employ->Nom_Employe }} {{ Auth::User()->employ->Prenom_Employe }}  </q>
-			</h2>
-				
+			<h2><strong>Bienvenue Docteur:</strong><q class="blue">{{ Auth::User()->employ->nom }} {{ Auth::User()->employ->prenom }}</q></h2>
 		</div>		
 	</div>
 	<div class="space-12"></div>
@@ -53,13 +56,17 @@
 						<strong>NSS:</strong></label>
 					</div>
 					<div class="col-sm-3">
-					<input type="text" class="form-control input-sm tt-input" id="nss" name="nss"  placeholder="Numéro du sécurité du patient..."
+					<input type="text" class="form-control input-sm tt-input" id="nss" name="nss"  placeholder="Numéro du sécurité..."
 					 data-toggle="tooltip" data-placement="left" title="Code IPP du patient">
 					</div>
 				</div><!-- row -->
 			</div><!-- body -->
 			<div class="panel-footer" style="height:40px;">
-					<button type="submit" class="btn btn-xs btn-primary" style ="margin-top:-0.5%;" onclick="XHRgetAssure();"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+				<button type="submit" class="btn btn-xs btn-primary findAssure" style ="margin-top:-0.5%;" ><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+				<div class="pull-right">
+					<a  class="btn btn-primary btn-xs hidden" href="{{ route('assur.create') }}" id=btnCreate role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>
+				</div>
+
 			</div>
 		</div><!-- panel -->
 	</div><!-- row -->
@@ -82,7 +89,7 @@
 							<th class="blue">Nom</th>
 							<th class="blue">Prénom</th>
 							<th class="blue" width="7%">Né(e) le</th>
-							<th class="blue" width="5%">Sexe</th>
+							<th class="blue" width="5%">Genre</th>
 							<th class="blue" width="10%">Position Actuel</th>
 							<th class="blue" width="7%">Service</th>
 							<th class="blue"><em class="fa fa-cog"></em></th>

@@ -1,63 +1,59 @@
-@extends('app_sur')
+@extends('app')
 @section('main-content')
 <div class="page-header">
   <div class="row">
-  	<?php $patient = $hosp->admission->demandeHospitalisation->consultation->patient; ?>
+  	<?php $patient = $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient; ?>
    	@include('patient._patientInfo', $patient)
   </div>
-  <div class="row">
-		<h2>Détails de l'hospitalisation :</h2>
-	</div>
+  <div class="row"><h2>Détails de l'hospitalisation :</h2></div>
 </div>
 <div class="row">
 	<div class="col-sm-12">
 		<div class="row">
-			<div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right">
-				<b>Hospitalisation</b>
-			</div>
+			<div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right"><b>Hospitalisation</b></div>
 		</div>
 		<div class="row">
 			<div class="col-sm-6">
 				<ul class="list-unstyled spaced">
 					<li>
-				       	  <i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>{{ $hosp->admission->demandeHospitalisation->Service->nom }}
+				    <i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>{{ $hosp->admission->rdvHosp->demandeHospitalisation->Service->nom }}
 					</li>
 					<li>
-		 				<i class="ace-icon fa fa-caret-right blue"></i><strong>Specialite :</strong> {{ $hosp->admission->demandeHospitalisation->Specialite->nom }}
+		 				<i class="ace-icon fa fa-caret-right blue"></i><strong>Specialite :</strong> {{ $hosp->admission->rdvHosp->demandeHospitalisation->Specialite->nom }}
 					</li>
 					<li>
-							<i class="ace-icon fa fa-caret-right blue"></i><strong>Mode d'admission:</strong>{{ $hosp->admission->demandeHospitalisation->modeAdmission }}
-						</li>
-						<li>
-							<i class="ace-icon fa fa-caret-right blue"></i><strong>Medecin Traitant:</strong>
-							 	{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe }}
-								{{$hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Prenom_Employe}}													
-						</li>
-						</ul>
+							<i class="ace-icon fa fa-caret-right blue"></i><strong>Mode d'admission:</strong>{{ $hosp->admission->rdvHosp->demandeHospitalisation->modeAdmission }}
+					</li>
+					<li>
+						<i class="ace-icon fa fa-caret-right blue"></i><strong>Medecin Traitant:</strong>
+							 	{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->nom }}
+								{{$hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->prenom}}													
+					</li>
+				</ul>
 			</div>
 			<div class="col-sm-6">
 				<ul class="list-unstyled spaced">
 					<li>
 						<i class="ace-icon fa fa-caret-right blue"></i><strong> Priorité :</strong>
 						  <label>
-				        <input name="priorite" class="ace" type="radio" value="1" disabled @if( $hosp->admission->demandeHospitalisation->DemeandeColloque->ordre_priorite==1)checked="checked"@endif >
+				        <input name="priorite" class="ace" type="radio" value="1" disabled @if( $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->ordre_priorite==1)checked="checked"@endif >
 				        <span class="lbl"> 1 </span>
 				      </label>&nbsp; &nbsp;
 				      <label>
-				      <input name="priorite" class="ace" type="radio" value="2" disabled @if( $hosp->admission->demandeHospitalisation->DemeandeColloque->ordre_priorite==2)checked="checked"@endif>
+				      <input name="priorite" class="ace" type="radio" value="2" disabled @if( $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->ordre_priorite==2)checked="checked"@endif>
 				        <span class="lbl"> 2 </span>
 				        </label>&nbsp; &nbsp;
 				        <label>
-				   		    <input name="priorite" class="ace" type="radio" value="3" disabled @if( $hosp->admission->demandeHospitalisation->DemeandeColloque->ordre_priorite==3 )checked="checked"@endif>
+				   		    <input name="priorite" class="ace" type="radio" value="3" disabled @if( $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->ordre_priorite==3 )checked="checked"@endif>
 				        	<span class="lbl"> 3 </span>
 				        </label>	
 					</li>
 					<li>
 					  <i class="ace-icon fa fa-caret-right blue"></i><strong>observation :</strong>
-							{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->observation}}
+							{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->observation}}
 					</li>
 					<li>
-							<i class="ace-icon fa fa-caret-right blue"></i> <strong>Etat :</strong> {{ $hosp->etat_hosp }}
+						<i class="ace-icon fa fa-caret-right blue"></i> <strong>Etat :</strong> {{ $hosp->etat_hosp }}
 					</li>
 				</ul>
 			</div>
@@ -68,23 +64,17 @@
 <div class="row">
 	<div class="col-sm-12">
 		<div class="row">
-			<div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right">
-				<b>Hébergement</b>
-			</div>
+			<div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><b>Hébergement</b></div>
 		</div>
 		<div class="row">
 			<div class="col-sm-12">
-				<ul class="list-unstyled spaced">
-					<li>
-		 				<i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong> {{ $hosp->admission->lit->salle->service->nom }}
-					</li>
-					<li>
-		 				<i class="ace-icon fa fa-caret-right blue"></i><strong>Salle :</strong> {{ $hosp->admission->lit->salle->nom }}
-					</li>
-					<li>
-		 				<i class="ace-icon fa fa-caret-right blue"></i><strong>Lit :</strong> {{ $hosp->admission->lit->nom }}
-					</li>
-				</ul>
+			  <ul class="list-inline" style="flex-grow: 1;">
+          <li style="width: 300px;" >
+           	<i class="ace-icon fa fa-caret-right blue"></i><strong>Service 77:</strong> {{ $hosp->admission->lit->salle->service->nom }}
+          </li>
+          <li style="width: 300px;"><a href = "#"><i class="ace-icon fa fa-caret-right blue"></i><strong>Salle :</strong> {{ $hosp->admission->lit->salle->nom }}</a></li>
+          <li style="width: 200px;"><a href = "#"><i class="ace-icon fa fa-caret-right blue"></i><strong>Lit :</strong> {{ $hosp->admission->lit->nom }}</a></li>            
+         </ul>
 			</div>
 		</div>
 	</div>
@@ -93,9 +83,7 @@
 <div class="row">
   <div @if( !isset($hosp->garde_id)) class="col-sm-12"	@else class="col-sm-6" @endif>
 		<div class="row">
-			<div class="col-xs-11 label label-lg label-black arrowed-in arrowed-right">
-				<b>Rendez-Vous</b>
-			</div>
+			<div class="col-xs-11 label label-lg label-black arrowed-in arrowed-right"><b>Rendez-Vous</b></div>
 		</div>
 		<div class="row">
 			<ul class="list-unstyled spaced">
@@ -120,10 +108,8 @@
 	@if(isset($hosp->garde_id))
 	<div class="col-sm-6">
 			<div class="row">
-			<div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right">
-				<b>Garde Malade</b>
+				<div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><b>Garde Malade</b></div>
 			</div>
-		</div>
 		<div class="row">
 			<ul class="list-unstyled spaced">
 			  <li>

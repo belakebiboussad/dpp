@@ -8,7 +8,7 @@
       <div class="modal-body bodyodal">
         <div class="row">
           <div class="col-sm-6">
-            <table id="medc_table" class="table table-striped table-bordered table-hover" width=100%> 
+            <table id="medc_table" class="table table-bordered table-hover" width=100%> 
               <thead>
                 <tr>
                   <th class="center"><strong>Médicament</strong></th>
@@ -64,12 +64,10 @@
           <div class="col-xs-12 widget-container-col" id="widget-container-col-2">
             <div class="widget-box widget-color-warning" id="widget-box-2">
               <div class="widget-header">
-                <h5 class="widget-title text-info lighter"><strong>Ordonnance:</strong></h5>
-                <!-- <div class="widget-toolbar widget-toolbar-light no-border pull-right" ></div>  -->
-              </div>  {{-- widget-header --}}{{-- 138px; --}}
-              <div class="widget-body">
-              <!-- 175px --> <!-- style="margin-top:-0.50%;overflow:scroll;" -->
-                <div class="widget-main" id="mymainWidget">
+                <h5 class="widget-title text-info lighter"><strong>Ordonnance:</strong></h5><!-- <div class="widget-toolbar widget-toolbar-light no-border pull-right" ></div>  -->
+                </div>  {{-- widget-header --}}{{-- 138px; --}}
+              <div class="widget-body"> <!-- 175px --> <!-- style="margin-top:-0.50%;overflow:scroll;" -->
+              <div class="widget-main" id="mymainWidget">
                   <div class="row">
                     <table id="ordonnance" class="table  table-bordered table-hover">
                       <thead>
@@ -95,10 +93,10 @@
       </div><!-- /.row -->
       </div>
       <div class="modal-footer m-b-0"> 
-          <button type="button" class="btn btn-info btn-xs" data-dismiss="modal" onclick="storeord1()"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
-          <button type="button" class="btn btn-success btn-xs"  data-dismiss="modal" onclick="createordXhr({{ $patient->id }},{{ Auth::User()->employ->id }})">
+        <button type="button" class="btn btn-info btn-xs" data-dismiss="modal" onclick="storeord1()"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
+        <button type="button" class="btn btn-success btn-xs"  data-dismiss="modal" onclick="createordXhr({{ $patient->id }},{{ Auth::User()->employ->id }})">
             <i class="ace-icon fa fa-print"></i>Imprimer
-          </button>
+        </button>
            <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal" type="reset"> <i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
       </div>
     </div>

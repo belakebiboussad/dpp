@@ -28,17 +28,21 @@
 .ml-80{
        margin-left: +80%;
 }
+.mt-15{
+        margin-top:-15px;
+}
+.mt-20{
+    margin-top:-20px;
+}
 .foo{
       position: absolute;
-      top: 87%;
+      top: 90%;
       right: 22%;
 }
 .modaldialog {
   width:97%;
   height:90% !important;
   overflow-y: initial !important
-  
-
 }
 .contmodal {
   /*height:800px; */
@@ -65,3 +69,11 @@
 .main-content{
   margin-top: -1%;
 }
+.modal-footer ,.modal-header {
+  background-color: #438eb9;
+  padding:0.5% 0.5%;
+  color:#FFF;
+  border-bottom:0px dashed #438eb9;
+  width:100%;
+}
+/**/

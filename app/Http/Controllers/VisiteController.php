@@ -41,9 +41,8 @@ class VisiteController extends Controller
      */
     public function create($id_hosp)
     {
-      //$patient = (hospitalisation::FindOrFail($id_hosp))->admission->demandeHospitalisation->consultation->patient;
-      $hosp = hospitalisation::FindOrFail($id_hosp);
-      $patient = $hosp->admission->demandeHospitalisation->consultation->patient;
+      $hosp = hospitalisation::FindOrFail($id_hosp);//$patient = (hospitalisation::FindOrFail($id_hosp))->admission->demandeHospitalisation->consultation->patient;
+      $patient = $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient;
       $date = Carbon\Carbon::now();//$date = Date::Now();
       $visite =new visite;
       $visite->date=$date;
@@ -51,7 +50,6 @@ class VisiteController extends Controller
       $visite->id_hosp=$id_hosp;
       $visite->id_employe=Auth::User()->employee_id;
       $visite->save();
-      // ->with('id_hosp',$id_hosp)
       return view('visite.create',compact('hosp','patient'))->with('id',$visite->id);
     }
  /**

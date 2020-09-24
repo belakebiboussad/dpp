@@ -1,13 +1,8 @@
-<!DOCTYPE html>
 <html>
 <head>
   <title>Demande examens biologiques</title>
   <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="{{ asset('/css/bootstrap.min.css') }}"/>
-    <script src="{{ asset('/js/jquery.min.js') }}"></script>
- <script src="{{asset('/js/bootstrap.min.js')}}"></script>
-  <style type="text/css">
+    <style type="text/css">
     table 
     {
         border-collapse: collapse;
@@ -37,44 +32,76 @@
     {
       margin-bottom: 10px;
     }
+    .mt-15{
+        margin-top:-15px;
+    }
+    .mt-20{
+      margin-top:-20px;
+    }
+    .foo{
+      position: absolute;
+      top: 90%;
+      right: 22%;
+    }
   </style>
 </head>
 <body>
-<div class="container-fluid">
-  <h3 class="center">Direction Générale de la Sûreté Nationale</h3>
-  <h4 class="center">ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE</h4>
-  <h4 class="center">Tél : 23-93-34</h4>
-  <br><br>
-  <div class="center">
-    <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($demande->consultation->patient->IPP, 'C128')}}" alt="barcode" />
-  </div>
-  <br><br>
-  <h4 class="center"><b>Demande examens biologiques</b></h4>
+	<div class="container-fluid">
+	  <h3 class="mt-20 center">DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</h3>
+	  <h4 class="center">ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</h4>
+    <h4 class="center">Chemin des Glycines - ALGER</h4>
+	  <h4 class="center">Tél : 23-93-34</h4>   {{-- storage_path('app/public/logo.png') --}}
+    <h5 class="mt-15 center" ><img src="img/logo.png" style="width: 60px; height: 60px" alt="logo"/></h5>
+   
+    <h5 class="mt-20 center">
+      <span style="font-size: xx-large;"><strong>Demande examens biologiques</strong></span>
+    </h5> 
+    <br><br>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="section">
+          <div class="sec-droite"><b><u>Fait le:</u></b> {{ $demande->consultation->Date_Consultation  }}.</div>
+        </div>
+      </div>
+    </div><br><br>
+    <div class="row">
+    <div class="col-sm-12">
+      <div class="section">
+        <div class="sec-gauche">
+          <b><u>Patient(e) :</u></b> <b> {{ $demande->consultation->patient->getCivilite() }} </b>  
+          {{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }},&nbsp;
+          {{ $demande->consultation->patient->getAge() }} ans,{{ $demande->consultation->patient->Sexe }}
+        </div>
+      </div>
+    </div>
+  </div> 
   <br><br>
   <div class="row">
     <div class="col-sm-12">
       <div class="section">
         <div class="sec-gauche">
-          <b><u>Patient :</u></b> 
-          {{ $demande->consultation->patient->Nom }} 
-          {{ $demande->consultation->patient->Prenom }}
-          &nbsp;
-          {{ Jenssegers\Date\Date::parse($demande->consultation->patient->Dat_Naissance)->age }} ans
-        </div>
-        <div class="sec-droite">
-          <b><u>Alger le :</u></b> {{ $demande->DateDemande }}.
+          <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($demande->consultation->patient->IPP, 'C128')}}" alt="barcode" />
+          <br> {{ $demande->consultation->patient->IPP }}
         </div>
       </div>
     </div>
-    <br><br>
+  </div><!-- <br><br><h4 class="center"><b>Demande examens biologiques</b></h4> -->
+	<br><br><br><br>
+	<div class="row">
     <div class="col-sm-12">
-      <label>Liste Des examens :</label>
-      <br><br>
-      <ul>
+      <label><b> Liste Des examens :</b></label><br>
+      <ol>
         @foreach($demande->examensbios as $exb)
         <li>{{ $exb->nom_examen }}</li>
         @endforeach
-      </ul>
+      </ol>
+    </div>
+  </div>
+    <div class="row foo">
+    <div class="col-sm-12">
+      <div class="section">
+        <div class="sec-droite"><span><strong> Docteur :</strong> {{ Auth::user()->employ->nom }} {{ Auth::user()->employ->prenom }}</span></div>
+      </div>
     </div>
   </div>
 </div>

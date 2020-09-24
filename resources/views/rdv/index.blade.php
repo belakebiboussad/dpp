@@ -27,9 +27,9 @@
 <script>//reccherche par nom
 function reset_in()
 {
-      $('.es-list').val(''); $('#patient').val(''); $('#medecin').val('');
-      $('#printRdv').addClass('hidden');
-      $("#fixe").prop("checked", false);
+  $('.es-list').val(''); $('#patient').val(''); $('#medecin').val('');
+  $('#printRdv').addClass('hidden');
+  $("#fixe").prop("checked", false);
 }
 $(document).ready(function() {
         var today = (new Date()).setHours(0, 0, 0, 0);

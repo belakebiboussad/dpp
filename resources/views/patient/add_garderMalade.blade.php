@@ -4,8 +4,7 @@
 	 	<div class="modal-content custom-height-modal">
 			<div class="modal-header">
 			  <button type="button" class="close" data-dismiss="modal">&times;</button>
-			  <h4 class="modal-title">Ajouter Garde Malade/Homme de Confiance</h4>
-			  @include('patient._patientInfo')
+			  <h4 class="modal-title">Ajouter Garde Malade/Homme de Confiance</h4>@include('patient._patientInfo')
 			</div>
 			<div class="modal-body">
 			<!-- {{  route('hommeConfiance.store') }} -->
@@ -70,9 +69,7 @@
 					</div>
 					<div class="col-sm-6">
 							<div class="form-group ">
-								<label class="col-sm-3 control-label no-padding-right" for="lien_par">
-									<b>Relation :</b>
-								</label>
+								<label class="col-sm-3 control-label no-padding-right" for="lien_par"><b>Relation :</b></label>
 								<div class="col-sm-5">
 									<select class="form-control" id="lien_par" name="lien_par" placeholder="date de délivrance ..." required>
 										<option value="">Sélectionner...</option>
@@ -139,7 +136,7 @@
 									<b class="text-nowrap">Délivré le :</b>
 								</label>
 								<div class="col-sm-9">
-								<input class="col-xs-12 col-sm-6 date-picker" id="date_piece_id" name="date_piece_id" type="text" data-date-format="yyyy-mm-dd" placeholder="date de délivrance ..." pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
+								<input class="col-xs-12 col-sm-6 date-picker" id="date_piece_id" name="date_piece_id" type="text" data-date-format="yyyy-mm-dd" placeholder="date de délivrance ..." />
 								</div>
 							</div>
 						</div>
@@ -169,7 +166,7 @@
 					  <div class="space-12"></div>
 					  <div class="space-12"></div>	
 			 		</form>
-			</div><!-- modal-body -->	<!-- onclick="addGardeMaladeFct();" -->
+			</div>
 			<div class="modal-footer">
 				<button type="submit" class="btn btn-info btn-sm btn-submit" id ="EnregistrerGardeMalade" onclick="addGardeMaladeFct();">
           <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer

@@ -1,27 +1,27 @@
- @extends('app_phar')
- @section('page.script')
+@extends('app_phar')
+@section('page.script')
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#meds_table').dataTable({
-        			ordering: true,
-		        	"language": 
-		            	{
-		             	   "url": '/localisation/fr_FR.json'
-		            }, 
+        		ordering: true,
+		       	"language": 
+		      	{
+		        	 "url": '/localisation/fr_FR.json'
+		        }, 
 		 });
 		$('#dispo_table').dataTable({
        		 	ordering: true,
-        			"language": 
+        		"language": 
       			{
-               			 "url": '/localisation/fr_FR.json'
-            			}, 
+              			 "url": '/localisation/fr_FR.json'
+            		}, 
     		});
 		$('#reactif_table').dataTable({
-        			ordering: true,
-        			"language": 
-            			{
-                			"url": '/localisation/fr_FR.json'
-            			}, 
+        		ordering: true,
+        		"language": 
+            		{
+              			"url": '/localisation/fr_FR.json'
+            		}, 
     		});
 	});
 </script>
@@ -30,68 +30,55 @@
 <div class="row">
 	<div class="col-xs-12">
 		<div class="space-6"></div>
-		<div class="row">
-			<div class="col-sm-10 col-sm-offset-1">
-				<div class="widget-box transparent">
-					<div class="widget-header widget-header-large">
-						<h3 class="widget-title grey lighter">
-							<i class="ace-icon fa fa-leaf green"></i>
-							Liste des produits
-						</h3>
-						<div class="widget-toolbar hidden-480">
-							<a href="{{ route('demandeproduit.create') }}">
-								<i class="ace-icon fa fa-plus"></i>
-								Demander un produit
-							</a>
-						</div>
+		<div class="col-sm-10 col-sm-offset-1">
+			<div class="widget-box transparent">
+				<div class="widget-header widget-header-large">
+					<h3 class="widget-title grey lighter"><i class="ace-icon fa fa-leaf green"></i>Liste des produits</h3>
+					<div class="widget-toolbar hidden-480">
+						<a href="{{ route('demandeproduit.create') }}"><i class="ace-icon fa fa-plus"></i>Demander un produit</a>
 					</div>
-					<div class="widget-body">
-						<div class="widget-main padding-24">
-							<div class="col-sm-12 widget-container-col" id="widget-container-col-13">
-								<div class="widget-box transparent" id="widget-box-13">
-									<div class="widget-header">
-										<div class="widget-toolbar no-border">
-											<ul class="nav nav-tabs" id="myTab2">
-												<li class="active">
-													<a data-toggle="tab" href="#home2">Médicaments</a>
-												</li>
-												<li>
-													<a data-toggle="tab" href="#profile2">Dispositifs médicaux</a>
-												</li>
-												<li>
-													<a data-toggle="tab" href="#info2">Réactifs chimiques et dentaires</a>
-												</li>
-											</ul>
-										</div>
+				</div>
+				<div class="widget-body">
+					<div class="widget-main padding-24">
+						<div class="col-sm-12 widget-container-col" id="widget-container-col-13">
+							<div class="widget-box transparent" id="widget-box-13">
+								<div class="widget-header">
+									<div class="widget-toolbar no-border">
+										<ul class="nav nav-tabs" id="myTab2">
+											<li class="active"><a data-toggle="tab" href="#home2">Médicaments</a></li>
+											<li><a data-toggle="tab" href="#profile2">Dispositifs médicaux</a></li>
+											<li><a data-toggle="tab" href="#info2">Réactifs chimiques et dentaires</a></li>
+										</ul>
 									</div>
-									<div class="widget-body">
-										<div class="widget-main padding-12 no-padding-left no-padding-right">
-											<div class="tab-content padding-4">
-												<div id="home2" class="tab-pane in active">
-													<div class="scrollable-horizontal" data-size="800">
-														<div>
-															<table id="meds_table" class="table table-striped table-bordered">
-																<thead>
-																	<tr>
-																		<th>Gamme</th>
-																		<th>Spécialité</th>
-																		<th>Code Produit</th>
-																		<th>D.C.I (Dénomination Comune Internationale)</th>
-																	</tr>
-																</thead>
-																<tbody>
-																	@foreach($meds as $med)
-																		<tr>
-																			<td>
-																			{{App\modeles\gamme::where("id",$med->id_gamme)->get()->first()->gamme}}
-																			</td>
-																			<td>
-																				{{App\modeles\specialite_produit::where("id",$med->id_specialite)->get()->first()->specialite_produit}}
-																			</td>
-																			<td  class="center">{{ $med->code_produit }}</td>
-																			<td>{{ $med->dci }}</td>
-																		</tr>
-																	@endforeach
+								</div>
+								<div class="widget-body">
+									<div class="widget-main padding-12 no-padding-left no-padding-right">
+										<div class="tab-content padding-4">
+											<div id="home2" class="tab-pane in active">
+												<div class="scrollable-horizontal" data-size="800">
+													<div>
+														<table id="meds_table" class="table table-striped table-bordered">
+															<thead>
+															<tr>
+																<th class="center"><strong>Gamme</strong></th>
+																<th class="center"><strong>Spécialité</strong></th>
+																<th class="center"><strong>Code Produit</strong></th>
+																<th class="center"><strong>D.C.I (Dénomination Comune Internationale)</strong></th>
+															</tr>
+															</thead>
+															<tbody>
+																@foreach($meds as $med)
+																<tr>
+																	<td>
+																		{{App\modeles\gamme::where("id",$med->id_gamme)->get()->first()->gamme}}
+																	</td>
+																	<td>
+																		{{App\modeles\specialite_produit::where("id",$med->id_specialite)->get()->first()->specialite_produit}}
+																	</td>
+																	<td  class="center">{{ $med->code_produit }}</td>
+																	<td>{{ $med->dci }}</td>
+																</tr>
+																@endforeach
 																</tbody>
 															</table>
 														</div>
@@ -103,10 +90,10 @@
 															<table id="dispo_table" class="table table-striped table-bordered">
 																<thead>
 																	<tr>
-																		<th>Gamme</th>
-																		<th>Spécialité</th>
-																		<th>Code Produit</th>
-																		<th>D.C.I (Dénomination Comune Internationale)</th>
+																		<th class="center"><strong>Gamme</strong></th>
+																		<th class="center"><strong>Spécialité</strong></th>
+																		<th class="center"><strong>Code Produit</strong></th>
+																		<th class="center"><strong>D.C.I (Dénomination Comune Internationale)</strong></th>
 																	</tr>
 																</thead>
 																<tbody>
@@ -164,9 +151,8 @@
 							</div>
 						</div>
 					</div>
-				</div>
 			</div>
-		</div>
-	</div><!-- /.col -->
-</div><!-- /.row -->
+		  </div>
+</div>
+</div>
 @endsection

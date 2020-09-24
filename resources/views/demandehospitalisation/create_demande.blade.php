@@ -22,8 +22,8 @@
 					</label>
 					&nbsp;&nbsp;&nbsp;
 					<label class="inline">
-						<span class="blue"><strong>Sexe Du Patient :</strong></span>
-						<span class="lbl"> {{ $patient->Sexe == "M" ? "Homme" : "Femme" }}</span>
+						<span class="blue"><strong>Genre Du Patient :</strong></span>
+						<span class="lbl"> {{ $patient->Sexe == "M" ? "Masculin" : "Féminin" }}</span>
 					</label>
 					&nbsp;&nbsp;&nbsp;
 					<label class="inline">
@@ -32,8 +32,8 @@
 					</label>
 					&nbsp;&nbsp;&nbsp;
 					<label class="inline">
-						<span class="blue"><strong>Age Du Patient :</strong></span>
-						<span class="lbl"> {{ Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age }} ans</span>
+						<span class="blue"><strong>Age Du Patient :</strong></span>{{-- Jenssegers\Date\Date::parse($patient->Dat_Naissance)->age --}}
+						<span class="lbl"> {{ $patient->getAge( ) }} ans</span>
 					</label>
 				</div>
 			</div>

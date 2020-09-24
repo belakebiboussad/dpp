@@ -2,19 +2,10 @@
 @section('title','modifier  foncctionnaire')
 @section('page-script')
 <script>
-$(document).ready(function () {
-	$('input[type=radio][name=etatf]').change(function(){
-	  	if($(this).val() != "En exercice" && ($(this).val() != "En_exercice"))
-	 	{
-			$('#serviceFonc').addClass('invisible');$('#service option:eq(0)').prop('selected', true); 
-	 	}
-		else
-			$('#serviceFonc').removeClass('invisible'); 	
-	});
-	if($("input[type=radio][name='etatf']:checked").val() != "En_exercice" )
-		$('#serviceFonc').addClass('invisible');
-})
-// document
+/*$(document).ready(function () {$('input[type=radio][name=etatf]').change(function(){ if($(this).val() != "Activite" && ($(this).val() != "Activite")){
+$('#serviceFonc').addClass('invisible');$('#service option:eq(0)').prop('selected', true);}else$('#serviceFonc').removeClass('invisible');});
+if($("input[type=radio][name='etatf']:checked").val() != "Activite" )$('#serviceFonc').addClass('invisible');
+})*/
 </script>
 @endsection
 @section('main-content')

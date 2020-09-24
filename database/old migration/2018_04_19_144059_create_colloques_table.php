@@ -16,7 +16,7 @@ class CreateColloquesTable extends Migration
         Schema::create('colloques', function (Blueprint $table) {
             $table->increments('id');
             $table->date('date_colloque');
-            $table->string('etat_colloque', 500);
+            $table->string('etat', 500);
             $table->dateTime('date_creation');
             $table->integer('type_colloque');
             $table->foreign('type_colloque')->references('id')->on('type_colloques');

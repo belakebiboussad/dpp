@@ -15,7 +15,7 @@ class Specialite extends Model
 	}
 	public function employes ()
 	{
-		return $this->hasMany('App\modeles\employ','Specialite_Emploiye');
+		return $this->hasMany('App\modeles\employ','specialite');
 	}
 
 }

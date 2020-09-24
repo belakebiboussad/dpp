@@ -3,8 +3,7 @@
     <title>Dossier Patient</title>
     @include('partials.htmlheader')
       @yield('style')
-      {{-- @include('partials.scripts') --}}
-    <body class="no-skin">
+     <body class="no-skin">
       @include('partials.scripts')
       @include('partials.navbar')
       {{--  @include('partials.scripts') --}}

@@ -18,7 +18,7 @@
 	}
 	.modal-body
 	{
-	        top: -1px !important;
+	  top: -1px !important;
 	}
 	.modal-footer {
 		  background-color: transparent;
@@ -27,11 +27,15 @@
   		bottom: 0px;
 	}
 	.modal.modal-wide .modal-dialog {
-	  width: 95%;
-	  height:1000px;
+	  width: 60%;
+	  height:900px !important;
+	  overflow: scroll; 
 	}
 	.modal-wide .modal-body {
 	  overflow-y: auto;
+	}
+	.modal-content {
+	  height: 100%; /* = 100% of the .modal-dialog block */
 	}
 	#ord {/*position: absolute;*/
   		 top:1%;	
@@ -46,22 +50,14 @@
 	}
 	#mymainWidget div {
 		height: 250px !important;
-	}
-	  .modal-footer ,.modal-header {
-	    background-color: #438eb9;
-	    padding:0.5% 0.5%;
-	    color:#FFF;
-	    border-bottom:0px dashed #438eb9;
-	    width:100%;
-	 }		
-	/*fin*/
+	}/*fin*/
 	.dataTables_wrapper {
-	        font-family: tahoma;
-	        font-size: 10px;
-	        position: relative;
-	        clear: both;
-	        zoom: 1;
-	        zoom: 1;
+      font-family: tahoma;
+      font-size: 10px;
+      position: relative;
+      clear: both;
+      zoom: 1;
+      zoom: 1;
 	}
 	.btn-transparent {
 	      background: transparent;
@@ -73,22 +69,76 @@
 	      border: 2px solid #4992B7;
 	}
 	.btn-transparent:hover {
-	        color: white;
-	        background-color: rgba(255,255,255,0.2);
+      color: white;
+      background-color: rgba(255,255,255,0.2);
 	}
 </style>
 @endsection
 @section('page-script')
 <script>
-	function isNumeric (evt) {
-		var theEvent = evt || window.event;
-		var key = theEvent.keyCode || theEvent.which;
-		key = String.fromCharCode (key);
-		var regex = /[0-9]|\./;
-		if ( !regex.test(key) ) {
-		        theEvent.returnValue = false;
-		        if(theEvent.preventDefault) theEvent.preventDefault();
-		}
+	function IMC1(){
+		var poids = $("#poids").val();
+		var taille = $("#taille").val();
+		if(poids==""){
+      alert("STP, saisir le poids");
+     	$("#poids").focus();
+      	return 0;
+    }else if (isNaN(poids)) {
+     	alert("poids doit être un nombre!");  
+     	$("#poids").select();
+     	return 0;
+   	}
+ 		if(taille==""){
+			alert("STP, Saisir la taille");
+ 			$("#taille").focus();
+ 			return 0;
+ 		}else if (isNaN(taille)) {
+     	alert("taille doit être un nombre!");  
+     	$("#txtaltura").select();
+     	return 0;
+    }
+    var imc = poids / Math.pow(taille,2);
+    var imc = Math.round(imc).toFixed(2);
+		$("#imc").attr("value", imc);
+    if(imc<17){
+      $("#interpretation").attr("value", "Anorexie");
+    }else if(imc>=17.1 && imc<=18.49){
+      $("#interpretation").attr("value", "Migreur");
+    }else if(imc>=18.5 && imc<=24.99){
+      $("#interpretation").attr("value", "Poids Normale");
+    }else if(imc>=25 && imc<=29.99){
+      $("#interpretation").attr("value", "surpois");
+    }else if(imc>=30 && imc<=34.99){
+			$("#interpretation").attr("value", "Obésité I");
+	  }else if(imc>=35 && imc<=39.99){
+	   	$("#interpretation").attr("value", "Obésité II (sévère)");	
+	  }else if(imc>=40){
+	   	$("#interpretation").attr("value", "Obésité III (morbide)");	
+    }
+	}
+	function storeord1()
+	{
+		var arrayLignes = document.getElementById("ordonnance").rows;
+    		var longueur = arrayLignes.length; 
+   		 var ordonnance = [];
+	       for(var i=1; i<longueur; i++)
+		{
+		      ordonnance[i-1] = { med: arrayLignes[i].cells[1].innerHTML, posologie: arrayLignes[i].cells[5].innerHTML }
+		    }
+	    var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
+	    champ.appendTo('#consultForm');
+  	}
+ 	function lettreorientation()
+	{
+		$('#specialite').val($('#specialiteOrient').val());
+		$('#medecin').val($('#medecinOrient').val());
+		$('#motifOr').val($('#motifOrient').val());
+	}
+	function demandehosp()
+	{
+		$('#modeAdmission').val($('#modeAdmissionHospi').val());// $("#degreurg").appendTo('#consultForm');
+		$('#specialiteDemande').val($('#specialiteHospi').val());	
+		$('#service').val($('#serviceHospi').val());
 	}
 	function ajaxfunc(patientid)
  	{        
@@ -124,43 +174,21 @@
 		}
   	}
 	function resetField()
-	 {
-		$("#description").val(' ');$('#dateAntcd').val('');       
-	}
-	function atcd()
-	{  
-		$('#description').text(" ");
-		resetField();
-		if($('#Antecedant').val() === 'Personnels')
-		{
-		      $("#sous_type").attr("hidden",false);
-		      $("#atcdsstypehide").attr("hidden",true);
-		}
-		else
-		{
-		      $("#sous_type").attr("hidden",true);
-		      $('#PhysiologieANTC').attr("hidden",true);
-		      $("#atcdsstypehide").attr("hidden",true);
-		      $('#typeAntecedant').val(null);      //$('#typeAntecedant').prop("selectedIndex", 1);
-		}
+	{
+		$("#description").val(' ');$('#dateAntcd').val('');
 	}
 	function atcdhide()
 	{  
-		 resetField(); 
-		if($('#Antecedant').val() === 'Personnels')
+		resetField();
+		if($('#typeAntecedant').val() === "Pathologiques")
 		{
-		  	if($('#typeAntecedant').val() === "Pathologiques")
-		   	{
-		      $('#atcdsstypehide').attr("hidden",false);//$('#atcdsstypehide').show();
-		      $('#PhysiologieANTC').attr("hidden",true);//$('#PhysiologieANTC').hide();
-		      $('#habitudeAlim').val(null);$('#tabac').prop('checked', false); 
-		      $('#ethylisme').prop('checked', false);   
-		   	}else
-		   	{
-			   	$('#atcdsstypehide').attr("hidden",true);//$('#atcdsstypehide').hide();
-			     	$('#PhysiologieANTC').attr("hidden",false);//$('#PhysiologieANTC').show();
-			   	$('#sstypeatcdc').prop("selectedIndex", 1);
-		    	}
+	    $('#atcdsstypehide').attr("hidden",false);
+	    $('#PhysiologieANTC').attr("hidden",true);
+	    $('#habitudeAlim').val(null);$('#tabac').prop('checked', false); 
+	    $('#ethylisme').prop('checked', false);   
+		}else{
+		  $('#atcdsstypehide').attr("hidden",true);
+			$('#PhysiologieANTC').attr("hidden",false);
 		}
 	}
 	function createordXhr(patId,employeId)
@@ -215,9 +243,9 @@
 	}
 	function print()
 	{
-		document.title = 'ordonnance-('+$('#nom').text()+' '+$('#prenom').text()+')';
-		 $('#iframe-pdf').get(0).contentWindow.print();
-		  document.title = 'Nouvelle Consultation';
+		document.title = 'ordonnance-'+$.trim($('#nom').text())+'-'+$.trim($('#prenom').text());
+		$('#iframe-pdf').get(0).contentWindow.print();
+		document.title = 'Nouvelle Consultation';
 	}
 	function rdvDelete(rdvId)
 	{
@@ -226,7 +254,7 @@
 		        headers: {
 		                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
 		        }
-				 }); 
+		 }); 
 		var token = $("meta[name='csrf-token']").attr("content");
 		 $.ajax({
 		              type : 'DELETE',
@@ -242,6 +270,158 @@
 			              	console.log(errorThrown);
 		              }
 		});
+	}
+	function createexbio(nomp,prenomp,age,ipp){  
+		 var img = new Image();
+    img.src = '{{ asset("/img/logo.png") }}';
+    img.onload = function () {
+      createexbioF(img,nomp,prenomp,age,ipp);
+    };
+	}
+	function createexbioF(imge,nomp,prenomp,age,ipp){  
+		html2canvas($("#dos"), {
+        onrendered: function(canvas) {
+          moment.locale('fr');//var IPP = ipp.toString();
+        	var formattedDate = moment(new Date()).format("l");         
+          var imgData = canvas.toDataURL('image/png');              
+          var doc = new jsPDF('p', 'mm');
+         	doc.text(105,9, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
+         	doc.setFontSize(13);
+          doc.text(105,16, 'HOPITAL CENTRAL DE LA SURETE NATIONALE "LES GLYCINES"', null, null, 'center');
+          doc.setFontSize(12);
+          doc.text(105,21, '12, Chemin des Glycines - ALGER', null, null, 'center');
+          doc.text(105,26, 'Tél : 23-93-34 - 23-93-58', null, null, 'center');
+          doc.addImage(imge, 'JPEG', 95, 27, 17, 17);
+          doc.setFontSize(14);
+          doc.addImage(imgData, 'JPEG', 10, 10);
+           JsBarcode("#itf", ipp.toString(), {
+				  	lineColor: "#000",
+				  	width:4,
+				  	height:40,
+				 	  displayValue: true,
+				 	  fontSize : 28,
+				 	  textAlign: "left"
+					});
+          doc.text(200,60, 'Alger :' +formattedDate , null, null, 'right'); 
+          doc.text(20,63, 'Nom : '+nomp, null, null);
+          doc.text(20,68, 'Prénom : '+prenomp, null, null);
+          doc.text(20,73, 'Age : '+ age+' ans', null, null); 
+          const img = document.querySelector('img#itf');
+          doc.addImage(img.src, 'JPEG', 20, 75, 50, 15);
+          doc.text(20,110, 'Prière de faire', null, null);
+					doc.setFontSize(16);
+          doc.text(50,125,'Analyses Demandées :',null,null) 
+					var i =0;
+	    		$('input.ace:checkbox:checked').each(function(index, value) {
+	      		doc.text(20,135+i, ++index + ' : '+this.nextElementSibling.innerHTML+" . "); //alert(value.nextElementSibling.innerHTML);
+	      		i=i+10;
+	    		});
+	    		doc.setFontSize(12);
+	    	   doc.text(100,270, 'Docteur : ' +'{{$employe->nom}}'+ ' '+ '{{$employe->prenom}}', null, null); 
+          doc.save('ExamBiolo-'+nomp+'-'+prenomp+'.pdf');
+        }
+    });    
+	}
+	function createexbioOrg(nomp,prenomp,age){      
+	    var exbio = new jsPDF();//var d = new Date();
+	    moment.locale('fr');
+	    var formattedDate = moment(new Date()).format("l");
+	    exbio.text(200,20, 'Date : '+formattedDate , null, null, 'right');
+	    exbio.text(20,25, 'Nom : '+nomp, null, null);
+	    exbio.text(20,35, 'Prénom : '+prenomp, null, null);
+	    exbio.text(20,45, 'Age : '+ age+' ans', null, null);
+	    exbio.setFontType("bold");
+	    exbio.text(105,55, 'Priére de faire', null, null, 'center');
+	    exbio.setFontSize(14);
+	    exbio.text(45,65,'Analyses Demandées :',null,null,'center');
+	    exbio.setFontSize(13);
+	    var i =0;
+	    $('input.ace:checkbox:checked').each(function(index, value) {
+	      exbio.text(25,72+i,this.nextElementSibling.innerHTML+", "); //alert(value.nextElementSibling.innerHTML);
+	      i=i+10;
+	    });
+	    /*
+	    var string = exbio.output('datauristring');
+	    $('#exbiopdf').attr('src', string);
+	    */
+	    exbio.save('ExamBio-'+nomp+'-'+prenomp+'.pdf');
+  }
+  function createeximg(nomp,prenomp,age,ipp) {
+    var img = new Image();
+    img.src = '{{ asset("/img/logo.png") }}';
+    img.onload = function () {
+      createeximgF(img,nomp,prenomp,age,ipp);
+    };
+  } 
+  function createeximgF(imge,nomp,prenomp,age,ipp)
+  {  
+  	html2canvas($("#dos"), {
+        onrendered: function(canvas) {         
+        	moment.locale('fr');//var IPP = ipp.toString();
+        	var formattedDate = moment(new Date()).format("l");
+          var imgData = canvas.toDataURL('image/png');              
+          var doc = new jsPDF('p', 'mm');
+          doc.addImage(imgData, 'PNG', 10, 10); //JsBarcode("#itf",IPP); //bonne
+          JsBarcode("#itf", ipp.toString(), {
+				  	lineColor: "#000",
+				  	width:4,
+				  	height:40,
+				 	  displayValue: true,
+				 	  fontSize : 28,
+				 	  textAlign: "left"
+					});
+				  const img = document.querySelector('img#itf');
+          doc.text(105,9, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
+          doc.setFontSize(13);
+          doc.text(105,16, 'HOPITAL CENTRAL DE LA SURETE NATIONALE "LES GLYCINES"', null, null, 'center');
+          doc.setFontSize(12);
+          doc.text(105,21, '12, Chemin des Glycines - ALGER', null, null, 'center');
+          doc.text(105,26, 'Tél : 23-93-34 - 23-93-58', null, null, 'center');
+          doc.addImage(imge, 'JPEG', 95, 27, 17, 17);
+          doc.setFontSize(14);
+          doc.text(200,60, 'Alger :' +formattedDate , null, null, 'right'); 
+          doc.text(20,63, 'Nom : '+nomp, null, null);
+          doc.text(20,68, 'Prénom : '+prenomp, null, null);
+          doc.text(20,73, 'Age : '+ age+' ans', null, null);
+          doc.addImage(img.src, 'JPEG', 20, 75, 50, 15);
+          doc.text(20,110, 'Prière de faire', null, null);
+					doc.setFontSize(16);
+					doc.text(50,125,'Examens Demandées :',null,null)
+          var res = doc.autoTableHtmlToJson(document.getElementById('ExamsImgtab'));
+          var height = doc.internal.pageSize.height;
+          doc.autoTable(res.columns, res.data, {
+     				startY: 135,
+  				});
+  				doc.setFontSize(12);
+  				doc.text(100,270, 'Docteur : ' +'{{$employe->nom}}'+ ' '+ '{{$employe->prenom}}', null, null); 
+  				 // var string = doc.output('datauristring');// $('#exradiopdf').attr('src', string);
+  				 
+          doc.save('ExamRadio-'+nomp+'-'+prenomp+'.pdf');
+        }
+    });
+}
+  function createeximgorg(nomp,prenomp,age){
+/*moment.locale('fr');//var d = new Date();    var formattedDate = moment(new Date()).format("l");var exmRadio = new jsPDF();
+exmRadio.text(200,20, 'Date :' +formattedDate , null, null, 'right');exmRadio.text(20,25, 'Nom : '+nomp, null, null); exmRadio.text(20,35, 'Prénom : '+prenomp, null, null);
+exmRadio.text(20,45, 'Age : '+ age+' ans', null, null);exmRadio.setFontType("bold");exmRadio.text(105,65, 'Priére de faire', null, null, 'center');
+exmRadio.setFontSize(14);exmRadio.text(45,80,'Examens Demandées :',null,null,'center');exmRadio.setFontSize(13);
+var selected = "";var keys=[], exams=[];  $("#ExamsImgtab thead tr th strong").each(function(){ keys.push($(this).html());
+});$("#ExamsImgtab tbody tr").each(function(){	var i=0,obj={};$(this).children("td").each(function(index){  if((index == 1) || (index == 3) )
+{	obj[keys[i]]=jQuery.trim($(this).html());	i++;}})exams.push(obj);});	var i=0;	$.each(exams, function( index, exam ) {
+var width=0$.each(exam, function( index, value ) {	if(index == 0){width = exmRadio.getTextWidth(value)+20;exmRadio.text(45,95+i,value,null,null,'right');}
+exmRadio.text(45+width,95+i,value,null,null,'center');});i=i+10;}); *//* $("input[class='imgExam']:checked").each(function() {
+exbio.text(25,72+i,$(this).attr('data-checkbox-text')+", ");selected = selected + $(this).val()+", "; i=i+10;}); $('#selectedoption').val(selected); 
+var autreexamRadio = $("#examRadAutr").tagsinput('items');  if(autreexamRadio != undefined){ for (var j = 0;  j< autreexamRadio.length; j++) {
+ exbio.text(25,72+i,autreexamRadio[j]+", ");i=i+10;}
+ */// var string = exmRadio.output('datauristring');// $('#exradiopdf').attr('src', string);//$("input[type='checkbox']:checked").each(function() {//$(this).attr('checked', false);//});
+    
+  }
+	function addCIMCode(code)
+	{
+		$("#codesim").val(code);
+		$('#liste_codesCIM').empty();
+		$("#chapitre").val($("#chapitre option:first").val());
+		$("#schapitre").val($("#schapitre option:first").val());
 	}
 	$('document').ready(function(){
 		$( 'ul.nav li' ).on( 'click', function() {
@@ -274,9 +454,9 @@
 			   	 }
 			})
  		}); 
-	  	$(".two-decimals").change(function(){
+	  $(".two-decimals").change(function(){
 	    			this.value = parseFloat(this.value).toFixed(2);
-	   	});
+	  });
 		$("button").click(function (event) {
 	 		which = '';
 	 		str ='send';
@@ -287,177 +467,223 @@
 	    			return true;
 			}
  		});
-	  	$("#btnCalc").click(function(event){
-	    	  event.preventDefault();
-	   	});
-	  	$('#medc_table').DataTable({
-		      processing: true, //serverSide: true,
-		      ordering: true,
-		      bInfo : false,
-		      searching: true,
-		      pageLength: 5,         
-		      bLengthChange: false,
-		      nowrap:true,
-		      "language": {
-		                    "url": '/localisation/fr_FR.json'
-		      },
-		      ajax: '/getmedicaments',
-		          columns: [
-		                    {data: 'Nom_com'},
-		                    {data: 'Forme'},
-		                    {data: 'Dosage'},
-		                          {data: 'action', name: 'action', orderable: false, searchable: false}
-		                   ]
-		  });
-	 	$('#ants-tab').DataTable({
-		      colReorder: true,
-		      stateSave: true,
-		      searching:false,
-		  	'aoColumnDefs': [{
-		  	   	'bSortable': false,
-		     		'aTargets': ['nosort']
-		 	}],
-		 	"language": {
-		 	     "url": '/localisation/fr_FR.json'
-			 },
-	  	});
-	  	jQuery('body').on('click', '.open-modal', function () {
-	 		var atcd_id = $(this).val();
-	 	       $.get('/atcd/' + atcd_id, function (data) { 
-	 	    		$('#patientId').val(data.Patient_ID_Patient);
-	 	    		$('#atcd_id').val(data.id);
-	 	    		$('#Antecedant').val(data.Antecedant).change();
-	 	    		$('#typeAntecedant').val(data.typeAntecedant).change();
-	 	    		if(data.typeAntecedant   === 'Pathologiques')
-				{
-	 	    			$('#sstypeatcdc').val(data.stypeatcd).change();
-	 	    		}
-	 	    		if(data.typeAntecedant   === 'Physiologiques')
-				{
-					$('#habitudeAlim').val(data.habitudeAlim);
-		         		(data.tabac) ? $('#tabac').prop('checked',true) : '';
-		  	               (data.ethylisme) ? $('#ethylisme').prop('checked',true) : '';
-			  	}
-				$('#dateAntcd').val(data.date);
-				$('#description').val(data.descrioption);
-	 	    		jQuery('#EnregistrerAntecedant').val("update");	
-		       		 jQuery('#antecedantModal').modal('show');
+	  $("#btnCalc").click(function(event){
+	    event.preventDefault();
+	  });
+	  $('#medc_table').DataTable({
+	      processing: true, //serverSide: true,
+	      ordering: true,
+	      bInfo : false,
+	      searching: true,
+	      pageLength: 5,         
+	      bLengthChange: false,
+	      nowrap:true,
+	      "language": {
+	                    "url": '/localisation/fr_FR.json'
+	      },
+	      ajax: '/getmedicaments',
+	          columns: [
+	                    {data: 'Nom_com'},
+	                    {data: 'Forme'},
+	                    {data: 'Dosage'},
+	                    {data: 'action', name: 'action', orderable: false, searchable: false}
+	                   ]
+		});
+	  jQuery('#btn-add, #AntFamil-add').click(function () {
+			jQuery('#EnregistrerAntecedant').val("add");
+			jQuery('#modalFormData').trigger("reset");
+			if(this.id == "AntFamil-add")
+    	{
+		 			$("#EnregistrerAntecedant").attr('data-atcd','Famille'); 
+		 			if(! ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
+	   				jQuery('#modalFormData > #sous_type').addClass('hidden'); 
+		  }else{	
+					$("#EnregistrerAntecedant").attr('data-atcd','Perso'); 
+						if( ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
+							jQuery('#modalFormData > #sous_type').removeClass('hidden'); 
+			}
+		  	jQuery('#antecedantModal').modal('show');
+		});	
+		jQuery('body').on('click', '.open-modal', function (event) {
+				var atcd_id = $(this).val();
+				$.get('/atcd/' + atcd_id, function (data) { 
+				  $('#atcd_id').val(data.id);
+				  if( ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
+    				jQuery('#modalFormData > #sous_type').removeClass('hidden');
+				 	$('#typeAntecedant').val(data.typeAntecedant).change();
+				 	if(data.typeAntecedant   === 'Pathologiques')
+					{
+					  $('#sstypeatcdc').val(data.stypeatcd).change();
+					}
+				 	if(data.typeAntecedant   === 'Physiologiques')
+					{
+						$('#habitudeAlim').val(data.habitudeAlim);
+						(data.tabac) ? $('#tabac').prop('checked',true) : '';
+						(data.ethylisme) ? $('#ethylisme').prop('checked',true) : '';
+					}
+					$('#dateAntcd').val(data.date);
+					$('#description').val(data.descrioption);
+					$("#EnregistrerAntecedant").attr('data-atcd',"Perso");	
+				 	 jQuery('#EnregistrerAntecedant').val("update");	
+					jQuery('#antecedantModal').modal('show');
 	   	 	});
 		});
-  		$("#EnregistrerAntecedant").click(function (e) {
-  			var habitudeAlim = null; var tabac=null ; var ethylisme = null;
-    			e.preventDefault();
-    			var formData = {
-	    			Patient_ID_Patient :jQuery('#patientId').val(),	
-		         	Antecedant         : jQuery('#Antecedant').val(),
-		        	typeAntecedant     : jQuery('#typeAntecedant').val(),
-		        	stypeatcd          : jQuery('#sstypeatcdc').val(),
-		     		date : $('#dateAntcd').val(),
-		        	descrioption : $("#description").val(),
-   	  		};
-	   	  	if(formData.typeAntecedant =="Physiologiques")
-	   	  	{
-		      		formData.habitudeAlim = $('#habitudeAlim').val();
-		      		formData.tabac = $("#tabac").is(":checked") ? 1:0;
-		      		formData.ethylisme = $("#ethylisme").is(":checked") ? 1:0;     
-	   		}
-      			if(!($("#description").val() == ''))
-    	      		{	
-	        		if($('.dataTables_empty').length > 0)
+			jQuery('body').on('click', '.open-modalFamil', function (event) {
+				var atcd_id = $(this).val();
+			 	$.get('/atcd/' + atcd_id, function (data) { 
+				 	$('#atcd_id').val(data.id);
+					$('#dateAntcd').val(data.date);
+				       $('#description').val(data.descrioption);
+				 	jQuery('#EnregistrerAntecedant').val("update");
+				 	$("#EnregistrerAntecedant").attr('data-atcd',"Famille")	
+					if(! ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
+	 	   			jQuery('#modalFormData > #sous_type').addClass("hidden");
+  	 			   	jQuery('#antecedantModal').modal('show');
+				});
+			});
+  			$("#EnregistrerAntecedant").click(function (e) {
+	  			  var habitudeAlim = null; var tabac=null ; var ethylisme = null;
+	    			e.preventDefault();
+	        	if($("#EnregistrerAntecedant").attr('data-atcd') == "Perso")
 	    			{
-	        			$('.dataTables_empty').remove();
-	      			}	
-			      	$.ajaxSetup({
-				      	 headers: {
-				            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-				      	 }
-			        });
-			        var state = jQuery('#EnregistrerAntecedant').val();
-			        var type = "POST";
-			        var atcd_id = jQuery('#atcd_id').val();
-			        var ajaxurl = '/atcd/';
-			        if (state == "update") {
-				       type = "PUT";
-				       ajaxurl = '/atcd/' + atcd_id;
-		       		 }   
-			       $.ajax({
-					       type: type,
-					       url: ajaxurl,
-					       data: formData,
-					       dataType: 'json',
-					       success: function (data) {
-					       		var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>' + data.Antecedant + '</td><td>' + data.typeAntecedant +'</td><td>'+data.stypeatcd+
-					          		'</td><td>'+ data.date + '</td><td>' + data.descrioption + '</td>';
-					              atcd += '<td class ="center"><button class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
-					              atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
-				              if (state == "add") {
-				                  jQuery('#ants-tab tbody').append(atcd);
-				              } else {
-				                  $("#atcd" + atcd_id).replaceWith(atcd);
-				              }
-				              jQuery('#modalFormData').trigger("reset");
-				              jQuery('#antecedantModal').modal('hide')
-				        },
-				        error: function (data) {
-				              console.log('Error:', data);
-				        }
-			      	});
+	    			 	var tabName = "antsTab";
+	    			 	var formData = {
+			    			Patient_ID_Patient      : '{{ $patient->id }}',
+				      	 	Antecedant           : 'Personnels',//jQuery('#Antecedant').val()
+				       		typeAntecedant       : jQuery('#typeAntecedant').val(),
+				       		stypeatcd            : jQuery('#sstypeatcdc').val(),
+				     		date                    : $('#dateAntcd').val(),
+				       		descrioption         : $("#description").val(),
+	   	  			};
+   	  			if(formData.typeAntecedant =="Physiologiques")
+		   	  	{
+			      		formData.habitudeAlim = $('#habitudeAlim').val();
+			      		formData.tabac = $("#tabac").is(":checked") ? 1:0;
+			      		formData.ethylisme = $("#ethylisme").is(":checked") ? 1:0;     
+		   		  }
+    			}else
+    			{
+	    		 	 var tabName = "antsFamTab";
+	    			 var formData = {
+			    		Patient_ID_Patient   : '{{ $patient->id }}',
+				       	Antecedant           : 'Familiaux',
+				       	date                 : $('#dateAntcd').val(),
+				       	descrioption         : $("#description").val(),
+	   	  			};
+    			}
+    	  	if(!($("#description").val() == ''))
+    		  {	
+  	    		if($('.dataTables_empty').length > 0)
+  	    			$('.dataTables_empty').remove();
+    
+		      	$.ajaxSetup({
+			      	 headers: {
+			            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+			      	 }
+		      	});
+		      	var state = jQuery('#EnregistrerAntecedant').val();
+		       	var type = "POST";
+		      	var atcd_id = jQuery('#atcd_id').val();
+		      	var ajaxurl = '/atcd/';
+		      	if (state == "update") {
+			      	type = "PUT";
+			      	ajaxurl = '/atcd/' + atcd_id;
+	       		}   
+	       	  $.ajax({
+				       type: type,
+				       url: ajaxurl,
+				       data: formData,
+				       dataType: 'json',
+				       success: function (data) {
+				    	   	if(data.Antecedant == "Personnels")
+				    	   	{
+										var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>' + data.typeAntecedant +'</td><td>'+data.stypeatcd+
+			          		'</td><td>'+ data.date + '</td><td>' + data.descrioption + '</td>';
+			              		atcd += '<td class ="center"><button class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
+			            		  atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+			           		
+			              		}else
+			              		{
+			              			var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>' + data.date + '</td><td>' + data.descrioption + '</td>';
+				              		atcd += '<td class ="center"><button class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
+				            		  atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+
+			              		}
+			              		if (state == "add") { 
+			       							jQuery('#' + tabName+' tbody').append(atcd);
+			              		} else {
+			                  		$("#atcd" + atcd_id).replaceWith(atcd);
+			              		}
+			            		 jQuery('#modalFormData').trigger("reset");
+			             		 jQuery('#antecedantModal').modal('hide')
+			        },
+			        error: function (data) {
+			              console.log('Error:', data);
+			        }
+			      });
 		    	}          
 		 });
 		$('#antecedantModal').on('hidden.bs.modal', function () {
-	    		$("#sous_type").attr("hidden",true);
-		        $('#PhysiologieANTC').attr("hidden",true);
-		        $("#atcdsstypehide").attr("hidden",true);
+		   	  $('#PhysiologieANTC').attr("hidden",true); //$("#sous_type").attr("hidden",true);
+			  $("#atcdsstypehide").attr("hidden",true);
 		});
-		jQuery('#btn-add').click(function () {
-		      jQuery('#EnregistrerAntecedant').val("add");
-		    	jQuery('#modalFormData').trigger("reset");
-		    	jQuery('#antecedantModal').modal('show');
-	 	 });	
-  		////----- DELETE antecedant and remove from the page -----////
-		jQuery('body').on('click', '.delete-atcd', function () {
- 		        var atcd_id = $(this).val();      
-		       $.ajaxSetup({
-		       		headers: {
-		        		 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-		          	}
-		      });
-		       $.ajax({
-			       type: "DELETE",
-			        url: '/atcd/' + atcd_id,
-			       success: function (data) {
-			              console.log(data);
-			 	       $("#atcd" + atcd_id).remove();
-			          },
-			        error: function (data) {
-			              	console.log('Error:', data);
-			        }
-		      	});
-		});
+  		jQuery('body').on('click', '.delete-atcd', function () {////----- DELETE antecedant and remove from the page -----////
+	    	var atcd_id = $(this).val();      
+      		$.ajaxSetup({
+       			headers: {
+        		 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+          		}
+      		});
+       		$.ajax({
+	       		type: "DELETE",
+	        	url: '/atcd/' + atcd_id,
+	       		success: function (data) {
+	               $("#atcd" + atcd_id).remove();
+	          },
+	        error: function (data) {
+	              	console.log('Error:', data);
+	        }
+      	});
+});
 		$('#examensradio').on('select2:select', function (e) { 
-	 		 $(".disabledElem").removeClass("disabledElem").addClass("enabledElem");
+			if($("input[name='exmns[]']").is(":checked"))
+	 			$(".disabledElem").removeClass("disabledElem").addClass("enabledElem");
 		});
 		$('#examensradio').on('select2:unselecting', function(event) {
 	 		$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
 		});
-   		$('#btn-addImgExam').click(function(){
-	  		var selected = []; var array = [];	
-			$('#ExamIgtModal').modal('toggle');
+		$('.exmns').on('change', function(){ // on change of state
+		  if(this.checked) 
+		  {
+		  	if(! isEmpty($('#examensradio').val()))
+		  		$(".disabledElem").removeClass("disabledElem").addClass("enabledElem");
+		  }else{
+		  		$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
+		  }
+		});
+   	$('#btn-addImgExam').click(function(){
+	  	var selected = []; var array = [];
+	  	$('#ExamIgtModal').modal('toggle');
 			$.each($("input[name='exmns[]']:checked"), function(){
 				selected.push($(this).next('label').text());
 				array.push($(this).val());
 				$(this). prop("checked", false);
-	    		});   
-	    		var exam = '<tr id="acte-'+$("#examensradio").val()+'"><td id="idExamen" hidden>'+$("#examensradio").val()+'</td><td>'+$("#examensradio option:selected").text()+'</td><td id ="types" hidden>'+array+'</td><td>'+selected+'</td><td class="center" width="5%">';
-	    		exam += '<button type="button" class="btn btn-xs btn-danger delete-ExamImg" value="'+$("#examensradio").val()+'" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';     
-	     		$('#ExamsImg').append(exam);
-		     	$('#examensradio').val(' ').trigger('change');
-		     	$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
+	  	});   
+	 	  var exam = '<tr id="acte-'+$("#examensradio").val()+'"><td id="idExamen" hidden>'+$("#examensradio").val()+'</td><td>'+$("#examensradio option:selected").text()+'</td><td id ="types" hidden>'+array+'</td><td>'+selected+'</td><td class="center" width="5%">';
+	 	  exam += '<button type="button" class="btn btn-xs btn-danger delete-ExamImg" value="'+$("#examensradio").val()+'" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';     
+	  	$('#ExamsImg').append(exam);
+		 	$('#examensradio').val(' ').trigger('change');
+		 	$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
 		});
 		jQuery('body').on('click', '.delete-ExamImg', function () {
-	    		$("#acte-" + $(this).val()).remove();
-	   	});
-	   	$("#consultForm").submit(function(e){
+	  	$("#acte-" + $(this).val()).remove();
+	  });
+	  $("#consultForm").submit(function(e){
+	   		if(!checkConsult())
+	   		{
+	   			activaTab("Interogatoire");
+	   			return false;
+	   		}
 	   		var ExamsImg = [];
 	   		var arrayLignes = document.getElementById("ExamsImg").rows;
 	  		for(var i=0; i< arrayLignes.length; i++)
@@ -466,27 +692,26 @@
 	  		}
 	   	 	var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
 	    		champ.appendTo('#consultForm');
-	 	});   	
-    		//calendrier
-	      var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
-	      var today = (new Date()).setHours(0, 0, 0, 0);
-	     $('.calendar1').fullCalendar({
-	      		plugins: [ 'dayGrid', 'timeGrid' ],
-		    	header: {
-				            left: 'prev,next today',
-				            center: 'title,dayGridMonth,timeGridWeek',
-				            right: 'month,agendaWeek,agendaDay'
-		      },
-	      		defaultView: 'agendaWeek',
-		    	firstDay: 0,
+	  }); //calendrier  	
+    var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
+	  var today = (new Date()).setHours(0, 0, 0, 0);
+	  $('.calendar1').fullCalendar({
+	    	plugins: [ 'dayGrid', 'timeGrid' ],
+		   	header: {
+		          left: 'prev,next today',
+		          center: 'title,dayGridMonth,timeGridWeek',
+		          right: 'month,agendaWeek,agendaDay'
+		    },
+	      defaultView: 'agendaWeek',
+		    firstDay: 0,
 	  		slotDuration: '00:15:00',
 	  		minTime:'08:00:00',
-	    		maxTime: '17:00:00',
-	      		navLinks: true,
-	      		selectable: true,
-	      		selectHelper: true,
-	      		eventColor  : '#87CEFA',
-	       	editable: true,
+	    	maxTime: '17:00:00',
+	      navLinks: true,
+	      selectable: true,
+	      selectHelper: true,
+	      eventColor  : '#87CEFA',
+	      editable: true,
 	     		hiddenDays: [ 5, 6 ],
 	     		weekNumberCalculation: 'ISO',
 	     		aspectRatio: 1.5,
@@ -511,12 +736,11 @@
 			       @endforeach 
 		    	],
       			eventRender: function (event, element, webData) {
-      				// element.find('.fc-title').append("," + event.tel);// element.css("font-size", "1em");
-				if(event.start < today) 
+      				if(event.start < today) // element.find('.fc-title').append("," + event.tel);// element.css("font-size", "1em");
 					 element.css('background-color', '#D3D3D3');
 				else
 				{	
-       				element.css("padding", "5px");
+       					element.css("padding", "5px");
 					if(event.fixe == 1)
          					element.css('background-color', '#87CEFA'); 
          				else
@@ -534,32 +758,20 @@
 			}, 
 		       select: function(start, end) {
 				if(start > CurrentDate){
-/*var myDialog = $('#dialog');myDialog.data('btnValue', start.format('dddd DD-MM-YYYY'));$(myDialog).dialog({
- dialogClass: "no-close",closeText: "Fermer",  // title: 'Confimer Rendez-Vous',closeOnEscape: false,
-dialogClass: "alert",draggable: true,modal:true,resizable: true,overlay: "background-color: red; opacity: 0.5",
-classes: {"ui-dialog": "classes.ui-dialog"},open: function() {$('#dateRendezVous').text($(this).data('btnValue')); },
-buttons: [{text: "Oui",icon: "ui-icon-heart",click: function() {var fixe = $('#dialog :checkbox').is(':checked') ? 1 :0; 
-createRDVModal(start,end,$('#patientId').val(),fixe);$('#dialog :checkbox').prop('checked', false);$( this ).dialog( "close" );}
-},{text: "Non",icon: "ui-icon-heart",click: function() {$('#dialog :checkbox').prop('checked', false);$( this ).dialog( "close" );
-}}],_allowInteraction: function( event ) {if (!jQuery.ui.dialog.prototype._allowInteractionModifed) {
-jQuery.ui.dialog.prototype._allowInteraction = function(e) {if (typeof e !== "undefined"){if (jQuery(e.target).closest('.select2-drop').length) {return true;}jQuery.ui.dialog.prototype._allowInteractionModifed = true;
-return (typeof this._super === "function") ? this._super(e) : this;}}}}});*/
-                            Swal.fire({
-                                 title: 'Confimer vous  le Rendez-Vous ?',
-                                 html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',
-                                 input: 'checkbox',
-                                 inputPlaceholder: 'Redez-Vous Fixe',
-                                 showCancelButton: true,
-                                 confirmButtonColor: '#3085d6',
-                                 cancelButtonColor: '#d33',
-                                 confirmButtonText: 'Oui',
-                                 cancelButtonText: "Non",
-                          }).then((result) => {
-                               if(!isEmpty(result.value))
-                                {                                
-                                      	createRDVModal(start,end,$('#patientId').val(),result.value);	
-                                }
-                          })
+	                             Swal.fire({
+		                                 title: 'Confimer vous  le Rendez-Vous ?',
+		                                 html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',
+		                                 input: 'checkbox',
+		                                 inputPlaceholder: 'Redez-Vous Fixe',
+		                                 showCancelButton: true,
+		                                 confirmButtonColor: '#3085d6',
+		                                 cancelButtonColor: '#d33',
+		                                 confirmButtonText: 'Oui',
+		                                 cancelButtonText: "Non",
+	                        	 }).then((result) => {
+                             			 if(!isEmpty(result.value))
+                               			createRDVModal(start,end,$('#id').val(),result.value);	
+                        		  })
 				}else
 					$('.calendar1').fullCalendar('unselect');
 			},
@@ -580,94 +792,6 @@ return (typeof this._super === "function") ? this._super(e) : this;}}}}});*/
 		     	eventResize: function (event, delta, revertFunc) {},
 		    	eventDragStop: function (event, jsEvent, ui, view) {} 
 		}); // calendar
-		
-		//////////////////////////////////V2
-	/*
-	var calendarEl = $('.calendar1');
-	 var calendar = new FullCalendar.Calendar(calendarEl, {
-		   	plugins: [ 'dayGrid', 'timeGrid' ],
-		    	header: {
-				            left: 'prev,next today',
-				            center: 'title,dayGridMonth,timeGridWeek',
-				            right: 'month,agendaWeek,agendaDay'
-		      },
-		      defaultView: 'agendaWeek',
-		      firstDay: 0,
-	  		slotDuration: '00:15:00',
-	  		minTime:'08:00:00',
-	    		maxTime: '17:00:00',
-	      	      navLinks: true,
-	      	    
-	      	     	eventColor  : '#87CEFA',
-	           	editable: true,
-	     	  	hiddenDays: [ 5, 6 ],
-	     	   	 weekNumberCalculation: 'ISO',
-	     		aspectRatio: 1.5,
-	     		eventLimit: true,
-      					weekNumbers: true,
-      		      views: {},
-		      events: [
-	
-		      ]
-		  });
-		  calendar.render();
-		 */ 	
-		//////////////////////////////fin V2
-		//////////////////////////////v4
-		/*
-		$('#calendar1').fullCalendar({
-			  header: {
-			    left: 'prev,next today',
-			    center: 'addEventButton',
-			    right: 'month,agendaWeek,agendaDay,listWeek'
-			  },
-			  defaultDate: '2020-04-16',
-			  navLinks: true,
-			  editable: true,
-			  eventLimit: true,
-			  events: [{
-			      title: 'Simple static event',
-			      start: '2020-04-16',
-			      description: 'Super cool event'
-			    },
-	 		 ],
-			  customButtons: {
-			    addEventButton: {
-			      text: 'Add new event',
-			      click: function () {
-			        var dateStr = prompt('Enter date in YYYY-MM-DD format');
-			        var date = moment(dateStr);
-
-			        if (date.isValid()) {
-			          $('#calendar1').fullCalendar('renderEvent', {
-			            title: 'Dynamic event',
-			            start: date,
-			            allDay: true,
-			            color:'red'
-			          });
-			        } else {
-			          alert('Invalid Date');
-			        }
-
-			      }
-			    }
-			  },
-			  dayClick: function (date, jsEvent, view) {
-			    var date = moment(date);
-
-			    if (date.isValid()) {
-			      $('#calendar').fullCalendar('renderEvent', {
-			        title: 'Dynamic event from date click',
-			        start: date,
-			        allDay: true
-			      });
-			    } else {
-			      alert('Invalid');
-			    }
-			  },
-			});
-		*/
-		//////////////////////////////////////fin 4
 		$('#updateRDV').click(function(){
 			var url = '{{ route("rdv.update", ":slug") }}'
 			 url = url.replace(':slug',$('#idRDV').val());
@@ -683,7 +807,7 @@ return (typeof this._super === "function") ? this._super(e) : this;}}}}});*/
 			          		  "id": $('#idRDV').val(),
 			          		   "daterdv" : $('#daterdv').val(),
 			          		   'datefinrdv' :$('#datefinrdv').val(),
-			        			},
+			        	},
 			        	success:function(data){  	   		
 			              		 $('#fullCalModal').modal('toggle');
 			                	 $('#updateRDV').addClass('invisible');
@@ -710,11 +834,73 @@ return (typeof this._super === "function") ? this._super(e) : this;}}}}});*/
 				 }
 			});
 		});
+    $('#chapitre').click(function(){
+    	if(! isEmpty($("#chapitre").val()))
+    	{
+    	  $( "#schapitre" ).prop( "disabled", false );
+    	 	$.ajax({
+           type : 'get',
+            url : '{{URL::to('schapitres')}}',
+              data:{'search':$("#chapitre").val()},
+              success:function(data,status, xhr){
+          	    var select = $('#schapitre').empty();
+                select.append("<option value='0'>Selectionnez une Sous Chapitre</option>");   
+                  $.each(data,function(){
+                    select.append("<option value='"+this.	C_S_CHAPITRE+"'>"+this.TITRE_S_CHAPITRE+"</option>");
+                  });
+              }
+         });
+    	}
+    	else
+				$( "#schapitre" ).prop( "disabled", true );
+    });
+    $('#schapitre').click(function(){//sous chapitre
+     	if(!($("#schapitre").val() == 0 ))
+    	{
+    	  $.ajax({
+            type : 'get',
+            url : '{{URL::to('maladies')}}',
+            data:{'search':$("#schapitre").val()},
+            success:function(data,status, xhr){
+            	$(".numberResult").html(Object.keys(data).length);//$("#liste_codesCIM tbody").html(data);
+					   	 	$('#liste_codesCIM' ).DataTable( {
+           			 	processing: true,
+           			 	bInfo : false,
+           			 	pageLength: 5,
+           			 	pageLength: 5,
+           			 	"language": { "url": '/localisation/fr_FR.json' },
+           			 	"data" : data,
+           			 	columns: [ 
+           			 			{data: 'CODE_DIAG'},
+           			 			{data: 'NOM_MALADIE'},
+					            {data: null, title :'<em class="fa fa-cog"></em>', orderable: false, searchable: false,
+					            	"render": function(data,type,full,meta){
+					            		if( type === 'display' ) {
+					            			return '<button class="btn btn-xs btn-primary" data-dismiss="modal" onclick="addCIMCode(\''+ data.CODE_DIAG+'\')"><i class="ace-icon fa fa-plus-circle"></i></button>';
+					            		}
+					            		return data;
+					            	}      	
+					          	}
+					      	],
+					      	"columnDefs": [
+			   								{"targets": 1 ,  className: "dt-head-center" },
+			   								{"targets": 2 ,  className: "dt-head-center dt-body-center","orderable": false },
+			   					]
+        			});    
+          },
+          error:function(){
+     				console.log("error");
+     			},
+        });
+    	}
+    	else
+				$( "#schapitre" ).prop( "disabled", true );
+    });
 	});// ready
 </script>	
 @endsection
 @section('main-content')
-<div class="page-header" width="100%"><!--  style= "margin-top:-3%;" -->
+<div class="page-header" width="100%">
 	<div class="row">
 		<div class="col-sm-12" style="margin-top: -3%;">	{{-- change --}}
 			@include('patient._patientInfo')	
@@ -723,9 +909,20 @@ return (typeof this._super === "function") ? this._super(e) : this;}}}}});*/
 </div>
 <div class="content"><!-- style="height:800px;" -->
 	<div class="row">
-		<form  class="form-horizontal" action="{{ route('consultations.store') }}" method="POST" role="form" id ="consultForm" novalidate>
+	<form  class="form-horizontal" action="{{ route('consultations.store') }}" method="POST" role="form" id ="consultForm">
 	  {{ csrf_field() }}
-	  <input type="hidden" name="id" value="{{ $patient->id }}">
+	    <input type="hidden" name="id" id="id" value="{{ $patient->id }}">
+	  <div class="form-group" id="error" aria-live="polite">
+		@if (count($errors) > 0)
+		  <div class="alert alert-danger">
+				<ul>
+				 @foreach ($errors->all() as $error)
+			 	  <li>{{ $error }}</li>
+				@endforeach
+				</ul>
+			</div>
+		@endif
+		</div>
 		<div id="prompt"></div>
 		<div class="tabpanel">
 			<ul class = "nav nav-pills nav-justified list-group" role="tablist" id="menu">
@@ -765,25 +962,38 @@ return (typeof this._super === "function") ? this._super(e) : this;}}}}});*/
 		</div><!-- row -->
 		<div class="row">
 			<div class="col-sm12">
+			<!-- les input de modal form(Demande Hospitalisation)  -->
+				<input type="hidden" name="service" id="service">
+				<input type="hidden" name="specialiteDemande" id="specialiteDemande">
+				<input type="hidden" name="modeAdmission" id="modeAdmission">
+					<!-- les input de modal form(Lettre Orientation)  -->
+				<input type="hidden" name="specialite" id="specialite">
+				<input type="hidden" name="medecin" id="medecin">
+				<input type="hidden" name="motifOr" id="motifOr">
+
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm12">
 				<div class="center bottom" style="bottom:0px;">
-					<div id="error" aria-live="polite"></div>
 					<button class="btn btn-info btn-sm" type="submit" id="send">
 						<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
 					</button>
 					&nbsp; &nbsp; &nbsp;
-					<a href="{{ route('patient.show',$patient->id) }}" class="btn btn-info btn-sm">
+					<a href="{{ route('patient.show',$patient->id) }}" class="btn btn-warning btn-sm">
 						<i class="ace-icon fa fa-close bigger-110"></i>Annuler
 					</a>
-				</div>	{{-- center --}}
+				</div>
 			</div>
 		</div><!-- row -->
 	</form>
 </div><!-- content     -->
 <div class="row">	@include('consultations.LettreOrientation')</div>
 <div class="row">	@include('consultations.DemadeHospitalisation')</div>
-<div class="row">	@include('consultations.AntecedantModal')</div>
+<div class="row">	@include('antecedents.AntecedantModal')</div>
 <div class="row">@include('consultations.ModalFoms.Ordonnance')</div>
 <div class="row">@include('consultations.ModalFoms.imprimerOrdonnance')</div>
 <div class="row">@include('consultations.ModalFoms.imprimerOrdonnanceAjax')</div>
 <div class="row">@include('consultations.ModalFoms.rendezVous')</div>
+<div class="row">@include('cim10.cimModalForm')</div>
 @endsection

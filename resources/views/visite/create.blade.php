@@ -99,7 +99,6 @@
         });
         return false;
 		});
-		//edit acte
 		$('body').on('click', '.open-modal', function () {
 				var acteID = $(this).val();
 			  $.get('/acte/'+acteID+'/edit', function (data) {
@@ -139,13 +138,10 @@
   </script>
 @endsection
 @section('main-content')
-	<div class="page-header" width="100%">
-	 	@include('patient._patientInfo')
-	</div>
-  <div class="page-header">
-		<h1 style="display: inline;"><strong>Ajouter un visite</strong></h1>
-		<div class="pull-right"> </div>
-	</div>
+<div class="page-header" width="100%">@include('patient._patientInfo')	</div>
+<div class="page-header">
+ <h1 style="display: inline;"><strong>Ajouter un visite</strong></h1><div class="pull-right"></div>
+</div>
   <div class="content">
   	<form  class="form-horizontal" action="{{ route('visites.store') }}" method="POST" role="form">
 			{{ csrf_field() }}
@@ -163,7 +159,6 @@
 			   			 <i class="fa fa-commenting" aria-hidden="true"></i><span class="bigger-160">Traitements</span>
 			  		</a>
 					</li>
-					
 				</ul>
 				<div class ="tab-content"  style = "border-style: none;" >
 					<div role="tabpanel" class = "tab-pane active " id="Actes"> 
@@ -195,7 +190,6 @@
 				            		</tr>
 				          		</thead>
 				          		<tbody>
-
   			          			 @foreach($hosp->visites as $visite)
 				          			  @foreach($visite->actes as $acte )
 				          			    @if(!$acte->retire)
@@ -210,7 +204,7 @@
 					          			      @endforeach
 					          			    </td>
 					          			    <td> {{ $acte->duree }}</td>
-					          			    <td> {{ $acte->visite->medecin->Nom_Employe}}&nbsp; {{ $acte->visite->medecin->Prenom_Employe}}</td>
+					          			    <td> {{ $acte->visite->medecin->nom}}&nbsp; {{ $acte->visite->medecin->prenom}}</td>
 					          			    <td>{{ $acte->visite->date }}</td>
 					          		      <td class="center nosort">
 					          		      	<button type="button" class="btn btn-xs btn-info open-modal" value="{{$acte->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
@@ -227,11 +221,7 @@
 			  		  </div><!-- widget-box -->
 			  		</div>
 			  	</div><!-- Actes -->
-			  	<div role="tabpanel" class = "tab-pane" id="Trait">
-			  		<div class= "col-md-12 col-xs-12">
-			  		traitement
-			  		</div>
-					</div>	
+			  	<div role="tabpanel" class = "tab-pane" id="Trait"><div class= "col-md-12 col-xs-12">traitement</div></div>	
 				</div><!-- tab-content -->
 			</div><!-- tabpanel -->
 			<div class="hr hr-dotted"></div>
@@ -239,17 +229,13 @@
 			<br>	
 			<div class="row">
 				<div class="center">
-					<button type="submit" class="btn btn-info btn-sm" >
-						<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
-					</button>&nbsp; &nbsp; &nbsp;
+					<button type="submit" class="btn btn-info btn-sm" ><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
 					<a href="{{ route('visite.destroy',$id) }}" class="btn btn-sm btn-danger" id="deleteViste" data-id="{{ $id }}">
 				  	<i class="ace-icon fa fa-undo bigger-110"></i>Annuler
 					</a>
 				</div>
 			</div>	
   	</form>
-  	<div class="row">
-  		@include('visite.ModalFoms.acteModal') 
-  	</div>
+  	<div class="row">@include('visite.ModalFoms.acteModal')</div>
   </div>
   @endsection

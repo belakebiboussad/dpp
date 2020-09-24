@@ -52,7 +52,7 @@
           <li class="">     
             {{-- <a href="{{ URL::route('hospitalisation.index') }}"> --}}
             <a href="{{ route('hospitalisation.index') }}">
-              <i class="menu-icon fa fa-caret-right"></i>Liste des Hospitalisations
+              <i class="menu-icon fa fa-caret-right"></i>Liste Hospitalisations
             </a>
             <b class="arrow"></b>
           </li>
@@ -79,7 +79,7 @@
           </li>
           <li class="">
             <a href="/hospitalisation/listeRDVs">
-              <i class="menu-icon fa fa-clock-o"></i>Liste des Rendez-Vous     
+              <i class="menu-icon fa fa-clock-o"></i>Liste Rendez-Vous     
             </a>
               <b class="arrow"></b>
           </li>
@@ -152,8 +152,8 @@
             $('#lit option[value=0]').prop('selected', true);
             $('#lit').attr('disabled', 'disabled');
             var serviceID = $('#serviceh').val();
-            var start = $('#dateEntree').val(); //var start =$('#dateEntree').datepicker('getDate');
-            var end = $("#dateSortiePre").val(); //var end = $('#dateSortiePre').datepicker('getDate');
+            var start = $('#dateEntree').val(); 
+            var end = $("#dateSortiePre").val();
             if(end !== null  && end !== '')
             {
               $.ajax({

@@ -6,125 +6,32 @@
 @endsection
 @section('page-script')
 	<script>
-		$( document ).ready(function() {
-			copyPatient();
-			var bloodhound1 = new Bloodhound({
-		        datumTokenizer: Bloodhound.tokenizers.whitespace,
-		        queryTokenizer: Bloodhound.tokenizers.whitespace,
-		        remote: {
-						url: '/patients/findcom?com=%QUERY%',
-							wildcard: '%QUERY%'
-					},
-			});
-			$('#commune').typeahead({
-				autoselect: true,
-				hint: true,
-				highlight: true,
-				minLength: 1
-			}, {
-				name: 'communenom',
-				source: bloodhound1,
-				display: function(data) {	//$("#wilaya").text(data.nom_wilaya)
-					return data.nom_commune  //Input value to be set when you select a suggestion. 
-				},
-				templates: {
-					empty: [
-						'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
-					],
-					header: [
-						'<div class="list-group search-results-dropdown">'
-					],
-					suggestion: function(data) {
-						return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="show(\''+data.Id_wilaya+','+data.nom_wilaya+','+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
-					}	
-				}
-			});
-			$('#lieunaissance').typeahead({
-				hint: true,
-				highlight: true,
-				minLength: 1
-			}, {
-				name: 'communenom',
-				source: bloodhound1,
-				display: function(data) {
-					return data.nom_commune  //Input value to be set when you select a suggestion. 
-				},
-				templates: {
-					empty: [
-						'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
-					],
-					header: [
-						'<div class="list-group search-results-dropdown">'
-					],
-					suggestion: function(data) {
-						return '<div style="font-weight:normal; margin-top:-10px ! important;width:300px !important" class="list-group-item" onclick="autocopleteCNais(\''+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
-					}
-				}	
-			});
-			$( ".civilite" ).change(function() {
-				 var sex =  $('input[name=sexe]:checked').val();
-				 if(sex == "F")
-				 {
-			 		var civilite= $("select.civilite option").filter(":selected").val();
-			 		if((civilite =="marie")|| (civilite =="veuf"))
-	  					$('#Div-nomjeuneFille').removeAttr('hidden');
-		  			else
-		  				$('#Div-nomjeuneFille').attr('hidden','');	
-				 }else
-				 	$('#Div-nomjeuneFille').attr('hidden','');	
-			});
-			$('input[type=radio][name=sexe]').change(function(){
-			 	if($(this).val() == "M")
-			 		$('#Div-nomjeuneFille').attr('hidden','');
-			 	else
-			 	{
-			 		var civilite= $("select.civilite option").filter(":selected").val();
-			 		if((civilite =="marie")|| (civilite =="veuf"))
-		  			$('#Div-nomjeuneFille').removeAttr('hidden');
-			 	}
-			});
-			$('input[type=radio][name=etatf]').change(function(){
-				if($(this).val() != "En_exercice")
-					$('#serviceFonc').addClass('invisible'); 
-				else
-					$('#serviceFonc').removeClass('invisible'); 	
-			});
-		});
-		function autocopleteCNais(commune)
-		{
-			$("#idlieunaissance").val(commune);
-		}
-		function show(wilaya)
-		{
-			var res = wilaya.split(",");
-			$("#idwilaya").val(res[0]);
-			$("#wilaya").val(	res[1]);
-			$("#idcommune").val(res[2]);
-		}
-		function copyPatient(){
+		function copyAssure(){
 			$("#nom").val('{{ $assure->Nom }}');$("#prenom").val('{{ $assure->Prenom }}');$("#datenaissance").val('{{ $assure->Date_Naissance}}');
 			$("#lieunaissance").val('{{ $assure->lieuNaissance->nom_commune }}');	$("#idlieunaissance").val({{ $assure->lieunaissance }});
-			$("input[name=sexe][value=" + '{{ $assure->Sexe }}' + "]").prop('checked', true); 
-		 	$("#adresse").val('{{ $assure->adresse }}');//a amelore
-		  $( "#gs" ).val('{{ $assure->grp_sang }}'.substr(0,'{{ $assure->grp_sang }}'.length - 1));
-		  $( "#rh" ).val('{{ $assure->grp_sang }}'.substr('{{ $assure->grp_sang }}'.length - 1));
-		  $('.demograph').find('*').each(function () { $(this).attr("disabled", true); });
+			$("input[name=sexe][value=" + '{{ $assure->Sexe }}' + "]").prop('checked', true); $("#adresse").val('{{ $assure->adresse }}');
+		 	$("#commune").val('{{ $assure->commune->nom_commune }}');$("#idcommune").val('{{ $assure->commune_res }}');
+		 	$("#wilaya").val('{{ $assure->wilaya->nom_wilaya }}');$("#idwilaya").val('{{ $assure->wilaya_res}}');
+		  	$( "#gs" ).val('{{ $assure->grp_sang }}'.substr(0,'{{ $assure->grp_sang }}'.length - 1));
+		  	$( "#rh" ).val('{{ $assure->grp_sang }}'.substr('{{ $assure->grp_sang }}'.length - 1));
+		       $('.demograph').find('*').each(function () { $(this).attr("disabled", true); });
 		}
 		function showType(value){ 
 			switch(value){
 				case "Assure":
-				     	$("#foncform").addClass('hide');$('#Type_p').attr('required', false);
+					$("#foncform").addClass('hide');
+					$('#Type_p').attr('required', false);
 				      $(".starthidden").hide(250);
-				     	copyPatient();
+				     	copyAssure();
 				    	break;
-		    		case "Ayant_droit":
-		    			  $(':input','#addPAtient').not(':button, :submit, :reset, :hidden, :input[name=type],:input[name=sexe], :input[name=hommeConf]' ).val('').removeAttr('checked').removeAttr('selected');
+		    case "Ayant_droit":
+		     			$(':input','#addPAtient').not(':button, :submit, :reset, :hidden, :input[name=type],:input[name=sexe], :input[name=hommeConf]' ).val('').removeAttr('checked').removeAttr('selected');
 		    	  		$("#foncform").removeClass('hide');
 		        		$('#Type_p').attr('required', true);
 		        		$(".starthidden").hide(250);
 		        		$('.demograph').find('*').each(function () { $(this).attr("disabled", false); });
 		        		break;
-		    		case "Autre":
+		    case "Autre":
 		    			$(':input','#addPAtient').not(':button, :submit, :reset, :hidden, :input[name=type], :input[name=sexe], :input[name=hommeConf]').val('').removeAttr('checked').removeAttr('selected');
 		        		$(".starthidden").show(250);
 		        		$('.demograph').find('*').each(function () { $(this).attr("disabled", false); });
@@ -135,28 +42,32 @@
 		}
 		function checkFormAddPAtient()
     {        
-     		if($('#hommeConf').is(':checked')){
-      		if( ! checkHomme() )
-          {	
-                 activaTab("Homme_C");
-                 return false;
-          }else
-          {
-          	$('input:disabled').removeAttr('disabled');    
-            return true; 
-          }
-        }
-        $('input:disabled').removeAttr('disabled');    
-        return true;
-
-     	}
+    	if( ! checkPatient() )
+      { 
+				return false;
+      }else{
+      	if($('#hommeConf').is(':checked')){
+  			if( ! checkHomme() )
+        		{	
+          			 activaTab("Homme_C");
+             		return false;
+      		}else
+      		{
+      			$('input:disabled').removeAttr('disabled');    
+        			return true; 
+      		}
+    	}
+    	$('input:disabled').removeAttr('disabled');    
+    	return true;
+      }
+   	}
 	</script>
 @endsection
 @section('main-content')
 <div class="container-fluid">
   <div><h4>Ajouter un nouveau Patient</h4></div
-  <div class="row">{{-- {{ route('patient.store') }} --}}
-	<form class="form-horizontal" id = "addPAtient" action="/a" method="POST" role="form" autocomplete="off" onsubmit="return checkFormAddPAtient(this);">
+  <div class="row">
+  <form class="form-horizontal" id = "addPAtient" action="/addpatientAssure" method="POST" role="form" onsubmit="return checkFormAddPAtient(this);">
 	  	{{ csrf_field() }}
 	  	<input type="hidden" name="assure_id" value="{{ $assure->id }}">
 		<div class="row">
@@ -184,7 +95,7 @@
  		 </ul>
 		<div class="tab-content">
 			<div id="Patient" class="tab-pane fade in active">
-		   		@include('patient.addPatient')
+		     @include('patient.addPatient')
 			</div> 	{{-- tab-pane --}}
 		{{-- homme C	 --}}
 		<div id="Homme_C" class="tab-pane">
@@ -215,8 +126,7 @@
 						</div>
 						<br>
 					</div>
-				</div>
-				{{-- row --}}
+				</div>	{{-- row --}}
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="form-group">
@@ -262,7 +172,7 @@
 				</div>
 				<div class="col-sm-6">
 					<div class="form-group">
-						<label class="control-label col-xs-12 col-sm-3" for="npiece_id"><strong>N° de la pièce :</strong></label>
+						<label class="control-label col-xs-12 col-sm-3 text-nowrap" for="npiece_id"><strong>N° Pièce :</strong></label>
 						<div class="col-sm-9">
 							<div class="clearfix">
 								<input type="text" id="npiece_id" name="npiece_id" class="col-xs-12 col-sm-12" placeholder="N° de la pièce d'identité..." />
@@ -277,7 +187,7 @@
 					<div class="form-group">
 						<label class="control-label col-xs-12 col-sm-3" for="date_piece_id"><strong>Délivré le :</strong></label>
 				    <div class="col-sm-9">
-							<input class="col-xs-12 col-sm-12 date-picker" id="date_piece_id" name="date_piece_id" type="text" data-date-format="yyyy-mm-dd" placeholder="Délivré le..." pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
+							<input class="col-xs-12 col-sm-12 date-picker" id="date_piece_id" name="date_piece_id" type="text" data-date-format="yyyy-mm-dd" placeholder="Délivré le..."/>
 						</div>
 					</div>
 				</div>
@@ -327,7 +237,7 @@
 			<div class="center">
 				<br>
 				<button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
-				<button class="btn" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Réinitialiser</button>
+				<button class="btn" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 			</div>
 		</div>	
 	</form>

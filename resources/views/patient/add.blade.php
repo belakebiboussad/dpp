@@ -1,268 +1,129 @@
 @extends('app')
 @section('title','Ajouter un patient')
-@section('style')
-<style>
-</style>
-@endsection
 @section('page-script')
-	<script>
-		$( document ).ready(function() {
-			var bloodhound1 = new Bloodhound({
-		        datumTokenizer: Bloodhound.tokenizers.whitespace,
-		        queryTokenizer: Bloodhound.tokenizers.whitespace,
-		        remote: {
-						url: '/patients/findcom?com=%QUERY%',
-							wildcard: '%QUERY%'
-					},
-			});
-			$('#commune').typeahead({
-				autoselect: true,
-				hint: true,
-				highlight: true,
-				minLength: 1
-			}, {
-				name: 'communenom',
-				source: bloodhound1,
-				display: function(data) {	//$("#wilaya").text(data.nom_wilaya)
-					return data.nom_commune  //Input value to be set when you select a suggestion. 
-				},
-				templates: {
-					empty: [
-						'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
-					],
-					header: [
-						'<div class="list-group search-results-dropdown">'
-					],
-					suggestion: function(data) {
-						return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="show(\''+data.Id_wilaya+','+data.nom_wilaya+','+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
-					}	
+ <script>
+  	$( document ).ready(function() {
+ 			$( "#addPatientForm" ).submit(function( event ) {
+		  if( ! checkPatient() )
+      {
+        activaTab("Patient");
+        event.preventDefault();
+      }else{
+      	if(!($('#autre').is(':checked'))){ 
+					$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });	
+					if( ! checkAssure() )
+					{
+					  activaTab("Assure");
+					  event.preventDefault();
+					}
+					else
+					{
+						if($('#hommeConf').is(':checked')){
+							if( ! checkHomme() )
+              {
+                activaTab("Homme_C");
+              	event.preventDefault();
+              }else
+                $( "#addPatientForm" ).submit();
+						}else
+						{
+							$( "#addPatientForm" ).submit();
+						}
+					}
 				}
-			});
-			$('#lieunaissance').typeahead({///////////////autocomplete lieu de naissance
-				hint: true,
-				highlight: true,
-				minLength: 1
-			}, {
-				name: 'communenom',
-				source: bloodhound1,
-				display: function(data) {
-					return data.nom_commune  //Input value to be set when you select a suggestion. 
-				},
-				templates: {
-					empty: [
-						'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
-					],
-					header: [
-						'<div class="list-group search-results-dropdown">'
-					],
-					suggestion: function(data) {
-						return '<div style="font-weight:normal; margin-top:-10px ! important;width:300px !important" class="list-group-item" onclick="autocopleteCNais(\''+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
-					}
-				}	
-			});
-		  $('#lieunaissancef').typeahead({	/////////// Autocomletecommune de l'assure
-				hint: true,
-				highlight: true,
-				minLength: 1
-			}, {
-				name: 'communenom',
-				source: bloodhound1,
-				display: function(data) {
-					return data.nom_commune  //Input value to be set when you select a suggestion. 
-				},
-				templates: {
-					empty: [
-						'<div class="list-group search-results-dropdown"><div class="list-group-item">Aucune Commune</div></div>'
-					],
-					header: [
-						'<div class="list-group search-results-dropdown">'
-					],
-					suggestion: function(data) {
-						return '<div style="font-weight:normal; margin-top:-10px ! important;" class="list-group-item" onclick="autocopleteCNaisAS(\''+data.id_Commune+'\')">' + data.nom_commune+ '</div></div>'
-					}
-				}	
-			});
-			$( ".civilite" ).change(function() {
-				 var sex =  $('input[name=sexe]:checked').val();
-				 if(sex == "F")
-				 {
-			 		var civilite= $("select.civilite option").filter(":selected").val();
-			 		if((civilite =="marie")|| (civilite =="veuf"))
-	  					$('#Div-nomjeuneFille').removeAttr('hidden');
-		  			else
-		  				$('#Div-nomjeuneFille').attr('hidden','');	
-				 }else
-				 	$('#Div-nomjeuneFille').attr('hidden','');	
-						
-			});
-			$('input[type=radio][name=sexe]').change(function(){
-			 	if($(this).val() == "M")
-			 		$('#Div-nomjeuneFille').attr('hidden','');
-			 	else
-			 	{
-			 		var civilite= $("select.civilite option").filter(":selected").val();
-			 		if((civilite =="marie")|| (civilite =="veuf"))
-		  			$('#Div-nomjeuneFille').removeAttr('hidden');
-			 	}
-			});
-			$('input[type=radio][name=etatf]').change(function(){
-				if($(this).val() != "En_exercice")
-					$('#serviceFonc').addClass('invisible'); 
 				else
-					$('#serviceFonc').removeClass('invisible'); 	
-			});
+				{
+					if($('#hommeConf').is(':checked')){
+							if( ! checkHomme() )
+              {
+                activaTab("Homme_C");
+              	event.preventDefault();
+              }else
+                $( "#addPatientForm" ).submit();
+						}else
+							$( "#addPatientForm" ).submit();
+				}
+	    }    
 		});
-		function autocopleteCNais(commune)
-		{
-			$("#idlieunaissance").val(commune);
-		}
-		function autocopleteCNaisAS(commune)
-		{
-			$("#idlieunaissancef").val(commune);
-		}
-		function show(wilaya)
-		{
-			var res = wilaya.split(",");
-			$("#idwilaya").val(res[0]);
-			$("#wilaya").val(	res[1]);
-			$("#idcommune").val(res[2]);
-		}
-		function copyPatient(){
-			$("#nomf").val($("#nom").val());$("#prenomf").val($("#prenom").val());
-			$("#datenaissancef").val($("#datenaissance").val());$("#lieunaissancef").val($("#lieunaissance").val());
-			$("#idlieunaissancef").val($("#idlieunaissance").val());
-			$("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true); 
-		 	$("#adressef").val($('#adresse').val() + " "+ $('#commune').val() + " "+ $('#wilaya').val() )
-			$( "#gsf" ).val($( "#gs" ).val());
-		 	$( "#rhf" ).val($( "#rh" ).val());
-			$("#foncform").addClass('hide');$('#Type_p').attr('required', false);  
-			addRequiredAttr();
-		}
-		function copyPatientInfo()
-		{
-			if($('#fonc').is(':checked'))
-				copyPatient();
-		}
-		function showType(value){ 
-	    switch(value){
-					case "Assure":
-			      copyPatient();  
-			      var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
-						$.each(classList, function(index, item) {
-    					if (item === 'hidden') {   						
-    						$( "ul#menuPatient li:eq(0)" ).removeClass( item );
-    				}
-						});
-						$(".starthidden").hide(250);
-			      break;
-			    case "Ayant_droit":
-			        $("#nomf").val("");
-			        $("#prenomf").val("");
+	});
+	function copyPatientInfo()
+	{
+		if($('#fonc').is(':checked'))
+			copyPatient();
+	}
+	function showType(value,i){ 
+	  switch(value){
+			case "Assure":
+		   				copyPatient();  
+		  				$(".starthidden").hide(250);
+				   		break;
+			case "Ayant_droit":
+							$("#nomf").val("");$("#prenomf").val("");$("#datenaissancef").val('');
+			        $("#lieunaissancef").val('');$( "#gsf" ).val('');$( "#rhf" ).val('');
+			        $('#adressef').val(''); $('#communef').val('');$('#wilayaf').val('');
 			        $("#foncform").removeClass('hide');
 			        $('#Type_p').attr('required', true); 
-			        $(".starthidden").hide(250);
+		        	if ($("#nsspatient").is(":disabled")){$("#nsspatient").attr("disabled", false);
+		        	}
+			        $('.Asdemograph').find('*').each(function () {$(this).attr("disabled", false);});
 			        addRequiredAttr();
-			        var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
-							$.each(classList, function(index, item) {
-			    					if (item === 'hidden') {   						
-			    						$( "ul#menuPatient li:eq(0)" ).removeClass( item );
-			    					}
-							});
 			        break;
-			    case "Autre":
-			        $(".starthidden").show(250);
+		  case "Autre":
+		      		$(".starthidden").show(250);
+		      	  $('#description').attr('disabled', false); 
+							$('.Asdemograph').find('*').each(function () {$(this).attr("disabled", true);});
 			        $("#foncform").addClass('hide');
-			        $('#Type_p').attr('required', false);  //$("ul#menuPatient li:not(.active) a").prop('disabled', true); $("ul#menuPatient li:eq(0)").css('display', 'none');
-			       	if(! ($( "ul#menuPatient li:eq(0)" ).hasClass( "hidden" )))
+			        $('#Type_p').attr('required', false); 
+			      	if(! ($( "ul#menuPatient li:eq(0)" ).hasClass( "hidden" )))
           				$( "ul#menuPatient li:eq(0)" ).addClass( "hidden" );
 			        break;         
-			 }			
-		}
-		function checkFormAddPAtient()
-           	{         
-              		 if(!($('#autre').is(':checked'))){ 
-	                    	if( ! checkAssure() )
-	                   	{
-		                      activaTab("Assure");
-		                      return false;
-	                    	}else{
-	                      	if($('#hommeConf').is(':checked')){
-	                                   if( ! checkHomme() )
-	                                   {
-	                                      activaTab("Homme_C");
-	                                      return false;
-	                                  }else
-	                                        return true;  
-	                           }else{
-	                                 return true;   
-	                           }
-	                           return true;
-	                    }
-	               }else
-	               {
-	                     if($('#hommeConf').is(':checked')){
-	                          if( ! checkHomme() )
-	                          {
-	                                 activaTab("Homme_C");
-	                               return false;
-	                           }else
-	                                return true;  
-	                      }else
-	                           return true; 
-	                }
-	           }
-	</script>
+			}			
+	}
+</script>
 @endsection
 @section('main-content')
 <div class="container-fluid">
-  <div><h4>Ajouter un nouveau Patient</h4></div
-  <div class="row">
-	{{-- action="{{ route('patient.store') }}" --}}
-	<form class="form-horizontal" id = "addPAtient" action="{{ route('patient.store') }}" method="POST" role="form" autocomplete="off" onsubmit="return checkFormAddPAtient(this);">
-	  {{ csrf_field() }}
-	<div class="row">
-		<div class="col-sm-12">
-			<div class="form-group" id="error" aria-live="polite">
-			@if (count($errors) > 0)
-			  <div class="alert alert-danger">
-					<ul>
-					 @foreach ($errors->all() as $error)
-				 	           <li>{{ $error }}</li>
-					@endforeach
-					</ul>
+  <div><h4>Ajouter un nouveau Patient</h4></div>
+  <div class="row tabs">
+  <!-- onsubmit="return checkFormAddPatient()" -->
+		<form class="form-horizontal" id = "addPatientForm" action="{{ route('patient.store') }}" method="POST" role="form">
+	    {{ csrf_field() }}
+	    <div class="row">
+			<div class="col-sm-12">
+				<div class="form-group" id="error" aria-live="polite">
+				@if (count($errors) > 0)
+				  <div class="alert alert-danger">
+						<ul>
+						 @foreach ($errors->all() as $error)
+					 	           <li>{{ $error }}</li>
+						@endforeach
+						</ul>
+					</div>
+				@endif
 				</div>
-			@endif
 			</div>
-		</div>
-	</div>
-	<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
-   	<li class="active"><a data-toggle="tab" href="#Assure" class="jumbotron" onclick="copyPatientInfo();">
-    		<span class="bigger-130"><strong>Assure</strong></span></a>
-		</li>
-		<li ><a class="jumbotron" data-toggle="tab" href="#Patient">
-			<span class="bigger-130"><strong>Patient</strong></span></a>
-	 	</li>
- 	  <li id ="hommelink" class="invisible"><a class="jumbotron" data-toggle="tab" href="#Homme_C">
-  		<span class="bigger-130"><b>Garde Malde</b></span></a>
-	  </li>
-  </ul>
-	<div class="tab-content">
-		<div id="Assure" class="tab-pane in active">
-			 <div id ="assurePart">
-					@include("assurs.addAssure")
-			 </div>{{-- assurePart	 --}}
-		</div>	{{-- tab-pane --}}
-		<div id="Patient" class="tab-pane fade">
-	   		@include('patient.addPatient')
-		</div> 	{{-- tab-pane --}}
-		<div id="Homme_C" class="tab-pane fade hidden_fields">
-			<div id ="homme_cPart">
-				<div class="row">
-					<div class="col-sm-12">
-						<h3 class="header smaller lighter blue"><b>Information de l'Homme de confiance</b></h3>
-					</div>	
-				</div>{{-- row --}}
-				<div class="row">
+	    <ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
+			   	<li class="active"><a data-toggle="tab" href="#Assure" class="jumbotron" onclick="copyPatientInfo();">
+			    		<span class="bigger-130"><strong>Assure</strong></span></a>
+					</li>
+					<li ><a class="jumbotron" data-toggle="tab" href="#Patient">
+						<span class="bigger-130"><strong>Patient</strong></span></a>
+				 	</li>
+			 	  <li id ="hommelink" class="invisible"><a class="jumbotron" data-toggle="tab" href="#Homme_C">
+			  		<span class="bigger-130"><b>Garde Malde</b></span></a>
+				  </li>
+		  </ul>
+		  <div class="tab-content">
+				<div id="Assure" class="tab-pane in active">@include("assurs.addAssure")</div>
+				<div id="Patient" class="tab-pane fade">@include('patient.addPatient')</div>
+				<div id="Homme_C" class="tab-pane fade hidden_fields">
+				<div id ="homme_cPart">
+					<div class="row">
+						<div class="col-sm-12">
+							<h3 class="header smaller lighter blue"><b>Information de l'Homme de confiance</b></h3>
+						</div>	
+					</div>{{-- row --}}
+					<div class="row">
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="nomA"><strong>Nom :</strong></label>
@@ -295,7 +156,7 @@
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
-							<label class="col-sm-3 control-label " for="lien"><strong>Lien de parenté :</strong></label>
+							<label class="col-sm-3 control-label text-nowrap" for="lien"><strong>Lien de parenté :</strong></label>
 							<div class="col-sm-9">
 								<select id="lien" name="lien" class="col-xs-12 col-sm-12">
 									<option value="">Sélectionner...</option>
@@ -316,7 +177,7 @@
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="form-group">
-							<label class="col-sm-3 control-label " for="type_piece_id"><strong>Type  pièce d'identité:</strong>			</label>
+							<label class="col-sm-3 control-label" for="type_piece_id"><strong>Type pièce d'identité:</strong>			</label>
 							<div class="col-sm-9">
 								<select name="type_piece_id" id="type_piece_id" class="col-xs-12 col-sm-12">
 									<option value="">Sélectionner...</option>
@@ -329,7 +190,7 @@
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
-							<label class="control-label col-xs-12 col-sm-3" for="npiece_id"><strong>N° de la pièce :</strong></label>
+							<label class="control-label col-xs-12 col-sm-3 text-nowrap" for="npiece_id"><strong>N° Pièce :</strong></label>
 							<div class="col-sm-9">
 								<div class="clearfix">
 									<input type="text" id="npiece_id" name="npiece_id" class="col-xs-12 col-sm-12" placeholder="N° de la pièce d'identité..."/>
@@ -344,7 +205,7 @@
 						<div class="form-group">
 							<label class="control-label col-xs-12 col-sm-3" for="date_piece_id"><strong>Délivré le :</strong></label>
 					    <div class="col-sm-9">
-								<input class="col-xs-12 col-sm-12 date-picker" id="date_piece_id" name="date_piece_id" type="text" data-date-format="yyyy-mm-dd" placeholder="Délivré le..." pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
+								<input class="col-xs-12 col-sm-12 date-picker" id="date_piece_id" name="date_piece_id" type="text" data-date-format="yyyy-mm-dd" placeholder="Délivré le..."/>
 							</div>
 						</div>
 					</div>
@@ -353,11 +214,7 @@
 					</div>
 				</div>	{{-- row --}}
 				<div class="space-12"></div>
-				<div class="row">
-					<div class="col-sm-12">
-						<h3 class="header smaller lighter blue"><b>Contact</b></h3>
-					</div>
-				</div>	{{-- row --}}
+				<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue"><b>Contact</b></h3></div></div>{{-- row --}}
 				<div class="space-12"></div>
 				<div class="row">
 					<div class="col-sm-5">
@@ -389,17 +246,13 @@
 			</div>	
 		</div>
 		{{--fin homme--}}	{{-- tab-pane --}}
-
-		</div>{{-- tab_content --}}
-		<div class="hr hr-dotted"></div>
+	  <div class="hr hr-dotted"></div>
 		<div class="row">
-			<div class="center">
-				<br>
+			<div class="center"><br>
 				<button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
-				<button class="btn" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Réinitialiser</button>
+				<button class="btn" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 			</div>
-		</div>	
-	</form>
-</div>{{-- row --}}
-</div>{{-- container-fluid --}}
+		</div>
+	  </form>
+	 </div>
 @endsection

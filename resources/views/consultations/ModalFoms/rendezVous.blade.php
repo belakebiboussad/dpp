@@ -1,4 +1,3 @@
-<!--  tabindex="-1"  -->
 <div class="modal fade" id="RDV" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
   <div class="modal-dialog  modaldialog modal-lg" >
     <div class="modal-content">
@@ -26,10 +25,7 @@
         </div>
       </div>
       <div class="modal-footer ">
-           <button type="button" class="btn btn-default btn-xs" data-dismiss="modal" type="reset">
-           <i class="ace-icon fa fa-close bigger-110"></i>Fermer
-          </button>
-      </div>
+{{--  <button type="button" class="btn btn-default btn-xs" data-dismiss="modal" type="reset">  <i class="ace-icon fa fa-close bigger-110"></i>Fermer </button> --}}      </div>
     </div>
   </div>
 </div>
@@ -51,8 +47,7 @@
           <i class="fa fa-phone" aria-hidden="true"></i><strong>Téléphone:&nbsp;</strong><span id="patient_tel" class="blue"></span>
         </div>
         <div class="col-sm-6">
-          <strong>Age:&nbsp;</strong>
-          <span id="agePatient" class="blue"></span> <small>Ans</small>
+          <strong>Age:&nbsp;</strong>   <span id="agePatient" class="blue"></span> <small>Ans</small>
         </div>
       </div>
       <div class="space-12"></div>
@@ -81,21 +76,14 @@
     <div class="modal-footer">
       @if(Auth::user()->role->id == 1)
         @if( empty($patient))
-          <a type="button" id="btnConsulter" class="btn btn btn-sm btn-primary" href="" >
-            <i class="fa fa-file-text" aria-hidden="true"></i> Consulter
-          </a>
-        @endif
+          <a type="button" id="btnConsulter" class="btn btn btn-sm btn-primary" href="" > <i class="fa fa-file-text" aria-hidden="true"></i> Consulter </a>
+         @endif
         @if(Auth::user()->role->id  != 2)   <!-- onclick="updateRdv();"  -->
-        <button type="button" id ="updateRDV" class="btn btn-sm btn-primary invisible" type ="submit">
-          <i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer
+        <button type="button" id ="updateRDV" class="btn btn-sm btn-primary invisible" type ="submit"><i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer
         </button>
         @endif
-      <a  href ="#" id="printRdv" class="btn btn-success btn-sm"  data-dismiss="modal">
-        <i class="ace-icon fa fa-print"></i>Imprimer
-      </a>
-      <!--           -->
-      <a href="#"  id="btnRdvDelete" class="btn btn-bold btn-sm btn-danger" data-method="DELETE" data-dismiss="modal" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?">
-        <i class="fa fa-trash" aria-hidden="true"></i> Annuler
+      <a  href ="#" id="printRdv" class="btn btn-success btn-sm"  data-dismiss="modal"> <i class="ace-icon fa fa-print"></i>Imprimer </a>
+       <a href="#"  id="btnRdvDelete" class="btn btn-bold btn-sm btn-danger" data-method="DELETE" data-dismiss="modal" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?">  <i class="fa fa-trash" aria-hidden="true"></i> Annuler
       </a>
       <button type="button" class="btn btn-sm btn-default" id ="btnclose" data-dismiss="modal" onclick="$('#updateRDV').addClass('invisible');">
            <i class="fa fa-close" aria-hidden="true" ></i> Fermer
@@ -107,9 +95,7 @@
 </div>{{-- modal --}}
 <div class="modal fade" id="dlg" tabindex="-1" role="dialog" >
      <div class="modal-dialog modal-lg" role="document">
-               <div class="modal-content">  
-                @include('rdv.Dialogs.rdvDlg')
-               </div>
+               <div class="modal-content">  @include('rdv.Dialogs.rdvDlg') </div>
         </div>
 </div>
 

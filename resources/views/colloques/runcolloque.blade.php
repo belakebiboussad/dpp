@@ -56,8 +56,8 @@
 @endsection
 @section('main-content')
 <div class="page-header col-xs-12">
-	<h1>Déroulement du Colloque <strong> {{ $colloque->type->type }} </strong> de la semaine du  <strong>&quot;
-		<?php $d=$colloque->date_colloque.' monday next week'; echo(date('d M Y',strtotime($d)-1));?>&quot;</strong>
+	<h1>Déroulement du Colloque <strong> {{ $colloque->Type->type }} </strong> de la semaine du  <strong>&quot;
+		<?php $d=$colloque->date.' monday next week'; echo(date('d M Y',strtotime($d)-1));?>&quot;</strong>
 	</h1>
 </div>
 <form id="detail_coll" class="form-horizontal" method="GET" action="/endcolloque/{{ $colloque->id }}"> {{--return redirect()->action('ColloqueController@index');--}}
@@ -95,15 +95,15 @@
 									<select id="medecin" name = "medecin" class ="med" class ="selectpicker show-menu-arrow place_holder col-sm-12">
 										<option value="0" selected disabled>selectionnez... </option>
 										@foreach ($medecins as $medecin)
-										<option value="{{ $medecin->employ->id }}">{{ $medecin->employ->Nom_Employe }} {{ $medecin->employ->Prenom_Employe }}</option>
+										<option value="{{ $medecin->employ->id }}">{{ $medecin->employ->nom }} {{ $medecin->employ->prenom }}</option>
 										@endforeach
 									</select>
 								</td>
 					      <td>
 					     		<div class=" btn-group btn-group-vertical col-sm-12 btn-group-lg" data-toggle="radio" role="group"> 
-							 	 		<label for="prop"><input type="radio"  class="radioM" name="prop{{$j}}"  value="1" checked/>1</label>&nbsp;&nbsp;
-										<label for="prop"><input type="radio"  class="radioM" name="prop{{$j}}"  value="2"/>2</label>&nbsp;&nbsp;
-			         		  <label for="prop"><input type="radio"  class="radioM" name="prop{{$j}}"  value="3" />3</label>
+							 	 		<label for="prop"><input type="radio"  class="radioM" name="prop{{$j}}" value="1" checked/>1</label>&nbsp;&nbsp;
+										<label for="prop"><input type="radio"  class="radioM" name="prop{{$j}}" value="2"/>2</label>&nbsp;&nbsp;
+			         		  <label for="prop"><input type="radio"  class="radioM" name="prop{{$j}}" value="3" />3</label>
 							  	</div>
 						    </td>
 				    		<td>
@@ -126,13 +126,11 @@
 											<div class="profile-user-info profile-user-info-striped">
 												<div class="profile-info-row">
 													<div class="profile-info-name text-center"><strong>Age:</strong></div>
-													<div class="profile-info-value">
-														  <span>{{ $demande->consultation->patient->getAge( )}} ans</span>
-													</div>
+													<div class="profile-info-value"> <span>{{ $demande->consultation->patient->getAge( )}} ans</span></div>
 												</div>
-											<div class="profile-info-row">
-												<div class="profile-info-name text-center"><strong>Groupe Sanguin:</strong></div>
-												<div class="profile-info-value">
+												<div class="profile-info-row">
+													<div class="profile-info-name text-center"><strong>Groupe Sanguin:</strong></div>
+													<div class="profile-info-value">
 			         	 					<h4>
 			         	 						<span class="label label-lg label-inverse arrowed-in">{{ $demande->consultation->patient->group_sang }}{{ $demande->consultation->patient->rhesus }}</span>
 			         	 					</h4>
@@ -141,14 +139,12 @@
 											<div class="profile-info-row">
 												<div class="profile-info-name text-center"><strong>Etablie par Dr:</strong></div>
 												<div class="profile-info-value">
-													<span>{{ $demande->consultation->docteur->Nom_Employe }} {{ $demande->consultation->docteur->Prenom_Employe }}</span>
+													<span>{{ $demande->consultation->docteur->nom }} {{ $demande->consultation->docteur->prenom }}</span>
 												</div>
 											</div>
 											<div class="profile-info-row">
 												<div class="profile-info-name text-center"> <strong>Service:</strong></div>
-												<div class="profile-info-value">
-													<span>{{$demande->Service->nom }}</span>
-												</div>
+												<div class="profile-info-value"><span>{{$demande->Service->nom }}</span></div>
 											</div>
 										</div>	{{-- profile-user-info-striped --}}
 				        	</div>{{-- col-xs-6 col-sm-6 --}}

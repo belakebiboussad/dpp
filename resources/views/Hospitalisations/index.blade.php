@@ -1,18 +1,79 @@
 @extends('app')
+@section('title') 	Hospitalisations @endsection
+@section('style') 
+<style>
+ .bootstrap-timepicker-meridian, .meridian-column
+ {
+        display: none;
+ }	
+ .bootstrap-timepicker-widget table tr:nth-child(3)>td:last-child a {
+  display: none;
+}
+
+.bootstrap-timepicker-widget table tr:nth-child(1)>td:last-child a {
+  display: none;
+}
+</style>
+ @endsection
+@section('page-script')
+<script>
+ $('document').ready(function(){
+	jQuery('.cloturerHosp').click(function () {
+	  var hospID = $(this).data('id');
+	  $("#hospID").val( hospID );
+	  $('#sortieHosp').modal('show');
+  	$('#Heure_sortie').timepicker({
+		//format: 'LT',//timeFormat:'%g:%i',
+		showMeridian : false,
+		  use24hours: true,
+         format: 'hh:mm A',
+	}).on('dp.show', function(event) {
+              $(".bootstrap-datetimepicker-widget").find('.btn[data-action="togglePeriod"]').hide();
+})
+   	$('.timepicker').timepicker('setTime', '10:00');
+  });
+	jQuery('#saveCloturerHop').click(function () {
+		  var formData = {
+			  	id                      : $("#hospID").val(),
+				  Date_Sortie             : jQuery('#Date_Sortie').val(),
+				  Heure_sortie            : jQuery('#Heure_sortie').val(),
+				  modeSortie              :jQuery('#modeSortie').val(),
+				  autre                   : $('#autre').val(),
+				  diagSortie              : $("#diagSortie").val(),
+				  etat_hosp								:'validée',
+	  };
+	  if(!($("#Date_Sortie").val() == ''))
+    {
+  		if($('.dataTables_empty').length > 0)
+        $('.dataTables_empty').remove();
+      	$.ajax({
+    		headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+    		type: "POST",
+			  url: '/hospitalisation/'+$("#hospID").val(),//'hospitalisation/'+ $("#hospID").val(),
+			  data: formData,
+			  dataType: 'json',
+			  success: function (data) {
+			    $("#hospi" + data.id).remove();
+			  },
+			  error: function (data){
+						console.log('Error:', data);
+			  },
+    	})
+    }	
+	});
+});
+</script>
+@endsection
 @section('main-content')
-	<div class="page-header">
-		<h1>
-			<strong>Liste des Hospitalisations :</strong>
-		</h1>
-	</div><!-- /.page-header -->
-	<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
+	<div class="page-header"><h1><strong>Liste des Hospitalisations :</strong></h1></div>
+		<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
 		<div class="widget-box widget-color-blue" id="widget-box-2">
-			<div class="widget-header">
-				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Hospitalisations</h5>
-			</div>
+			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Hospitalisations</h5></div>
 			<div class="widget-body">
 				<div class="widget-main no-padding">
-					<table class="table table-striped table-bordered table-hover">
+					<table class="table nowrap dataTable table-bordered no-footer table-scrollable">
 						<thead class="thin-border-bottom">
 							<tr>
 								<th class="center">Patient</th>
@@ -27,44 +88,46 @@
 						</thead>
 						<tbody>
 							@foreach( $hospitalisations as $hosp)
-								<tr>
+								<tr id = {{ 'hospi'.$hosp->id }}>
 									<td>
 										@if(Auth::user()->role->id == 1)
-											<a href="/patient/{{ $hosp->admission->demandeHospitalisation->consultation->patient->id}}/edit">
-												{{ $hosp->admission->demandeHospitalisation->consultation->patient->Nom }}
-												{{ $hosp->admission->demandeHospitalisation->consultation->patient->Prenom }}
+											<a href="/patient/{{ $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient->id}}/edit">
+												{{ $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient->Nom }}
+												{{ $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient->Prenom }}
 											</a>
 											@else
-											{{ $hosp->admission->demandeHospitalisation->consultation->patient->Nom }}
-											{{ $hosp->admission->demandeHospitalisation->consultation->patient->Prenom }}
+											{{ $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient->Nom }}
+											{{ $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient->Prenom }}
 										@endif
 									</td>
-									<td>{{ $hosp->admission->demandeHospitalisation->modeAdmission }}</td>
+									<td>{{ $hosp->admission->rdvHosp->demandeHospitalisation->modeAdmission }}</td>
 									<td><span class ="text-danger">{{ $hosp->Date_entree }}</span></td>
 								  <td><span class ="text-danger">{{ $hosp->Date_Prevu_Sortie }}</span></td>
 							  	<td>{{ $hosp->Date_Sortie == null ? "Pas encore" : $hosp->Date_Sortie }}</td>
 							  	<td>
-							  		{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe }}
-							  		{{ $hosp->admission->demandeHospitalisation->DemeandeColloque->medecin->Prenom_Employe }}
+							  		{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->nom }}
+							  		{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->prenom }}
 							  	</td>
 							  	<td><span class="badge badge-pill badge-success">{{ $hosp->etat_hosp }}</span></td>
 							  	<td class="center">
 							  		<a href="{{ route('hospitalisation.show',$hosp->id)}}" class="btn btn-xs btn-warning" data-toggle="tooltip" title="Voir détails..." data-placement="bottom">
 							  				<i class="fa fa-hand-o-up fa-xs bigger-120" aria-hidden="true"></i>&nbsp;</a>
 							  		</a>
-										@if(Auth::user()->role->id != 3)
+							  		@if(! in_array(Auth::user()->role_id,[3,9]))
 							  	  	<a href="{{ route('hospitalisation.edit',$hosp->id)}}" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier l'Hospitalisation" data-placement="bottom">
 							  				<i class="fa fa-edit fa-xs bigger-120" aria-hidden="true"></i>
 							  			</a>
-							  	   	@if(Auth::user()->role->id == 1)
+							  	   	@if(Auth::user()->role_id == 1)
 							  	  		<a href="/visite/create/{{ $hosp->id }}" class ="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter une Visite" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i></a>
-							  	  		<a href="" class ="btn btn-info btn-xs" data-toggle="tooltip" title="Sortir le Patient" data-placement="bottom"><i class="fa fa-sign-out" aria-hidden="true" style="font-size:16px;"></i></a>
+							  	  	 	<a data-toggle="modal" data-id="{{ $hosp->id}}" title="Clôturer Hospitalisation" class="cloturerHosp btn btn-primary btn-xs" href="#" id="sortieEvent"><i class="fa fa-sign-out" aria-hidden="true" style="font-size:16px;"></i></a>
 							  	  	@endif
-							  	  	@if(Auth::user()->role->id == 5)
+							  	  	@if(Auth::user()->role_id == 5)
 							  	  		<a class="btn btn-secondary btn-xs" data-toggle="tooltip" title="Imprimer un ticket" data-placement="bottom"><i class="ace-icon glyphicon glyphicon-print bigger-120"></i></a>
 							  	  	@endif
 							  	  @else
+							  	  	@if(Auth::user()->role_id != 9)
 							  	  	<a href="{{ route('visites.edit', $hosp->id)}}" class ="btn btn-primary btn-xs" data-toggle="tooltip" title="voir Actes" data-placement="bottom"><i class="fa fa-folder-open fa-lg bigger-120"></i></a>
+							  	  	@endif
 							  	  @endif
 							  	</td>	
 								</tr>
@@ -74,5 +137,7 @@
 				</div><!-- widget-main -->
 		  	</div>	<!-- widget-body -->
 		 </div> <!-- widget-box -->
-	</div>
+<!-- debut -->
+	<!-- end -->
+	<div class="row">@include('Hospitalisations.sortieModal')</div>
 @endsection
