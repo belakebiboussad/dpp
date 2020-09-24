@@ -207,5 +207,4 @@
 	</div>
 </div>	{{-- row --}}
 <div class="space-12"></div>
-<a href="/b/1" title="commune" class= "btn">Bonjour</a>
 {{-- <div class="row"><div class="col-sm-6"><br><br></div></div>--}}{{-- row --}} 

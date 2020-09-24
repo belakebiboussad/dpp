@@ -33,21 +33,22 @@
       <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
        <div class="modal-header">
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
-             <h5 class="modal-title" id="myModalLabel">
-                    <span class="glyphicon glyphicon-bell"></span>
-                    Impremer le Rendez-Vous du <q><a href="" id="lien" style=" color: inherit;"><span id="patient"> </span></a></q>
-             </h5>
-            <hr>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+          <h5 class="modal-title" id="myModalLabel">
+            <span class="glyphicon glyphicon-bell"></span>&nbsp;Modifier le Rendez-Vous du
+            <i class="ace-icon fa fa-angle-double-left" style="font-size:20px;"></i>
+            <a href="" id="lien" style="color: inherit;"><span id="patient"></span></a>
+            <i class="ace-icon fa fa-angle-double-right" style="font-size:20px;"></i>
+          </h5><hr>
        </div>
        <div class="modal-body">
               <div class="space-12"></div>
              <div class="row">
         <div class="col-sm-6">    
-          <i class="fa fa-phone" aria-hidden="true"></i><strong>Téléphone:&nbsp;</strong><span id="patient_tel" class="blue"></span>
+          <i class="fa fa-phone" aria-hidden="true"></i><strong>Téléphone:&nbsp;</strong><span id="patient_tel" class="green"></span>
         </div>
         <div class="col-sm-6">
-          <strong>Age:&nbsp;</strong>   <span id="agePatient" class="blue"></span> <small>Ans</small>
+          <strong>Age:&nbsp;</strong>  <span id="agePatient" class="blue"></span><small>Ans</small>
         </div>
       </div>
       <div class="space-12"></div>

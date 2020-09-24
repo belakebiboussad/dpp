@@ -195,7 +195,6 @@ route::get('/consigne','ActeController@choixhospconsigne');
 route::post('/saveActe','ActeController@store');
 route::get('/schapitres','CimController@getChapters');
 route::get('/maladies','CimController@getdiseases');
-
 Route::get('/404', function () {
     return view('errors.404');
 });
@@ -204,5 +203,3 @@ route::get('/download/{filename}', function($filename)
 {
     return Storage::download($filename);
 });
-// route::get('/cim','CimController@diseases');
-route::get('/b/{id}','CommuneController@show');

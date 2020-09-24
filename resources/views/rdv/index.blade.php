@@ -102,9 +102,9 @@ $(document).ready(function() {
                               element.css("padding", "5px");
                       }  
                           element.popover({
-                                 delay: { "show": 500, "hide": 100 },  // title: event.title,
+                                delay: { "show": 500, "hide": 100 },  // title: event.title,
                                 content: event.tel,
-                                 trigger: 'hover',
+                                trigger: 'hover',
                                 animation:true,
                                 placement: 'bottom',
                                 container: 'body',
@@ -194,12 +194,16 @@ $(document).ready(function() {
         <div class="modal-header"  style="padding:35px 50px;">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
           <h5 class="modal-title" id="myModalLabel">
-            <span class="glyphicon glyphicon-bell"></span> Modifier le Rendez-Vous du <q><a href="" id="lien"><span id="patient" class="blue"></span></a></q>
+            <span class="glyphicon glyphicon-bell"></span> Modifier le Rendez-Vous du
+              <i class="ace-icon fa fa-angle-double-left" style="font-size:20px;"></i>
+              <a href="" id="lien" style="color:#FFFFFF"> <p id="patient"></p></a>
+              <i class="ace-icon fa fa-angle-double-right" style="font-size:20px;"></i>
           </h5>
           <hr>
           <div class="row">
             <div class="col-sm-6">    
-              <i class="fa fa-phone" aria-hidden="true"></i><strong>Téléphone:&nbsp;</strong><span id="patient_tel" class="blue"></span>
+              <i class="fa fa-phone" aria-hidden="true"></i><strong>Téléphone:&nbsp;</strong>
+              <span id="patient_tel" style="color:#FFFFFF"></span>
             </div>
             <div class="col-sm-6">
               <strong>Âge:&nbsp;</strong><span id="agePatient" class="badge badge-info" ></span><small>Ans</small>
