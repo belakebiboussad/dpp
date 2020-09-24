@@ -45,9 +45,14 @@
 													</td>
 													<td>{{ $demande->demandeur->nom }} {{ $demande->demandeur->prenom }}</td>
 													<td class="center">
-														<a href="{{ route('demandeproduit.show', $demande->id) }}" class="btn btn-success btn-xs">
-															<i class="ace-icon fa fa-hand-o-up bigger-120"></i>Détails
+														<a href="{{ route('demandeproduit.show', $demande->id) }}" class="btn btn-xs btn-success" title="voir détails">
+															<i class="ace-icon fa fa-hand-o-up bigger-120"></i>
 														</a>
+														@if(Auth::user()->role_id == 10)
+														<a href="/traiterdemande/{{ $demande->id }}" class="btn btn-white btn-xs" title="Traiter Demande" >
+															<i class="ace-icon fa fa-cog  bigger-110"></i>
+														</a>
+														@endif
 													</td>
 												</tr>
 											@endforeach	

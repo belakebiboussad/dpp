@@ -141,46 +141,42 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {      
-          $user = User::FindOrFail($id);   
-         $a=  $request->validate([
-                "username"=> "required",
-                  "email"=> "nullable|email",//|unique:utilisateurs
-                  "role"=> "required",
-         ]);     
-         $activer = $user->active;
-
-         if($user->active)
+      $user = User::FindOrFail($id);   
+      $a=  $request->validate([
+            "username"=> "required",
+              "email"=> "nullable|email",//|unique:utilisateurs
+              "role"=> "required",
+     ]);     
+     $activer = $user->active;
+     if($user->active)
+     {
+         if(! isset($request->desactiveCompt))
          {
-                   if(! isset($request->desactiveCompt))
-                   {
-                           $activer= 0;      
-                   }
-
-         }else
-         {
-                   if(isset($request->activeCompt))
-                           $activer=1;
+                 $activer= 0;      
          }
-         $userData = [
-                  "name"=>$request->username,
-                  "password"=>$user->password,
-                  "email"=>$request->email,
-                  "employee_id"=>$user->employee_id,
-                  "role_id"=>$request->role,
-                  "active"=>$activer,
-         ];
-         $a = $user->update([
-                   'name'=>$request->username,
-                   "password"=>$user->password,
-                   "email"=>$request->email,
-                  "employee_id"=>$user->employee_id,
-                  "role_id"=>$request->role,
-                  "active"=>$activer,   
-         ]);
-        
-        //  event(new Registered($user = RegisterController::update($user,$userData)));
-        // return $this->registered($request, $user)
-        //               ?: redirect()->route('users.edit',$id);
+
+     }else
+     {
+       if(isset($request->activeCompt))
+               $activer=1;
+     }
+     $userData = [
+              "name"=>$request->username,
+              "password"=>$user->password,
+              "email"=>$request->email,
+              "employee_id"=>$user->employee_id,
+              "role_id"=>$request->role,
+              "active"=>$activer,
+     ];
+     $a = $user->update([
+               'name'=>$request->username,
+               "password"=>$user->password,
+               "email"=>$request->email,
+              "employee_id"=>$user->employee_id,
+              "role_id"=>$request->role,
+              "active"=>$activer,   
+     ]);
+//event(new Registered($user = RegisterController::update($user,$userData)));// return $this->registered($request, $user)//?: redirect()->route('users.edit',$id);
        return redirect(Route('users.edit',$id));
     }
 

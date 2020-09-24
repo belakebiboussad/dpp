@@ -59,7 +59,7 @@
 					<a href="{{ route('colloque.edit',$cl)}} " class="btn btn-xs btn-success"><i class="ace-icon fa fa-pencil-square-o bigger-110"></i></a>
 					@if($col["Etat"]=="en cours")
 				  	<a href="/runcolloque/{{$cl}}" class="btn btn-xs btn-green" title="Déroulement">
-				   		<i  class="ace-icon fa fa-cog  bigger-110"></i>	<!-- <em class="fa fa-cog"></em> -->
+				   		<i class="ace-icon fa fa-cog  bigger-110"></i>	<!-- <em class="fa fa-cog"></em> -->
 				   	</a>
 				  	@endif
 				  	<a href="{{ route('colloque.destroy',$cl) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger"><i class="ace-icon fa fa-trash-o bigger-110"></i>

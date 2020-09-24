@@ -180,13 +180,11 @@
 										{{-- @if($patient->Type_p == "Conjoint(e)")<span class="badge badge-success">{{ $patient->Type_p}}</span>@else --}}
 										 <span class="badge badge-info">{{ $patient->Type_p}}</span>
 									@endif
-
 								</td>
 								<td class= "center">
 									<a href="/patient/{{ $patient->id }}" class="btn btn-warning btn-xs" data-toggle="tooltip" title="Consulter le dossier">
 										<i class="fa fa-hand-o-up fa-xs"></i>
-									</a>
-									<!-- /patient/{{ $patient->id }}/edit -->
+									</a>	<!-- /patient/{{ $patient->id }}/edit -->
 									<a href="patientAedit/{{ $patient->id  }}/{{ $assure->id  }}" class="btn btn-info btn-xs" data-toggle="tooltip" title="modifier">
 										<i class="fa fa-edit fa-xs" aria-hidden="true" ></i>
 									</a>
