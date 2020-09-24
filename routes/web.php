@@ -67,7 +67,6 @@ Route::get('exbio/{filename}', function ($filename)
         return $response;
 });// Auth::routes();
 route::get('/detailsdemande/{id}','demandeprodController@details_demande');
-route::get('/traiterdemande/{id}','demandeprodController@traiter_demande');
 Route::post('user/credentials','UsersController@credentials');
 Route::post('user/updatepro','UsersController@updatepro');
 Route::get('/atcd/store','AntecedantsController@storeatcd');
