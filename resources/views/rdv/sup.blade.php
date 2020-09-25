@@ -1,9 +1,7 @@
 <!doctype html>
 <html >
 	<head>
-		
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<title></title>
 		<style>
 			.mt-6 {
