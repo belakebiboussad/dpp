@@ -2,7 +2,9 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="{{ public_path('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" /> 
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<style>
 			.mt-6 {
          			margin-top: -6px !important;
@@ -18,19 +20,13 @@
 				margin-top: -8px !important;
          			padding-top:-8px  !important ;
 			}
-			.ml-2{
-				    margin-left: +0.5%;
-			}
-			.mt-15 {
+			.mt-25 {
 				    margin-top: -25px !important;
 				    padding-top:-25px !important;
 			}
-			.ml-80{
-				    margin-left: +80%;
-			}
 			.imgCenter{
 					text-align: center;/*border: 1px solid black;*/
-  					width:13%;/*	margin-top: -10px !important;*/
+  					width:13%;/*margin-top: -10px !important;*/
   					height:13%;
 			}
 			#container {
@@ -76,7 +72,7 @@
 		  <div class="row"><hr class ="mt-3"> </div>
 		  <div class="row">
 		   	<div class="col-md-4  col-sm-4 float-left" style="font-size:x-small;"></div>
-		   	<div class="col-md-4 col-sm-4 content text-center mt-15"><h3><strong>Rendez-Vous de Consultation</strong></h3></div>		
+		   	<div class="col-md-4 col-sm-4 content text-center mt-25"><h3><strong>Rendez-Vous de Consultation</strong></h3></div>		
 		  </div><br>	
 		  <div class="row mt-8">
 			  <div class="col-sm-12">Rendez-vous avec le <strong>Docteur</strong> {{ $rdv->employe->nom}}&nbsp;{{ $rdv->employe->prenom}}</div>
@@ -89,8 +85,8 @@
 		  <div class="row">	<div class="col-sm-12"><strong>Nom : </strong><span>{{ $rdv->patient->Nom}}</span></div></div>
 		  <div class="row" ><div class="col-sm-12"><strong>Prenom : </strong><span>{{ $rdv->patient->Prenom}}</span> </div></div>
 		  <div id="container" style ="padding-top:8px;">
-		 		<div id="row">
-		 			<div id="left">
+		 	<div id="row">
+		 		<div id="left">
 			 			<img src="data:image/png;base64,{{DNS2D::getBarcodePNG($rdv->patient->getCivilite().'|'.$rdv->patient->Nom.'|'.$rdv->patient->Prenom.'|'.$rdv->patient->IPP, 'QRCODE')}}" alt="barcode"/><br>
 			 			<span>{{ $rdv->patient->IPP }}</span>
 					</div>
