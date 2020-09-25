@@ -827,7 +827,6 @@ var autreexamRadio = $("#examRadAutr").tagsinput('items');  if(autreexamRadio !=
 				type : 'GET',
 				url :'/rdvprint/'+$('#idRDV').val(),
 			       success:function(data){
-				  	// alert(data);
 				},
 				error:function(data){
 					console.log("error");

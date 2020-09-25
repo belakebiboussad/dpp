@@ -17,7 +17,6 @@ use View;
 use Dompdf\Dompdf;
 use Storage;
 use DNS2D;
-// use Illuminate\Support\Facades\Gate;
 class RDVController extends Controller
 {
     /**
@@ -87,7 +86,6 @@ class RDVController extends Controller
                   return view('rdv.create', compact('rdvs','specialites')); 
                }
       }
-
     /**
      * Store a newly created resource in storage.
      *
