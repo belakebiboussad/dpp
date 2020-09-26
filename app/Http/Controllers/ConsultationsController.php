@@ -98,7 +98,7 @@ class ConsultationsController extends Controller
           'resume' => 'required',
         ]);
         if($validator->fails())
-          return redirect()->back()->withErrors($validator)->withInput();
+          return redirect()->back()->withErrors($validator)->withInput(); 
         $consult = consultation::create([
             "Motif_Consultation"=>$request->motif,
             "histoire_maladie"=>$request->histoirem,
@@ -112,6 +112,11 @@ class ConsultationsController extends Controller
             "id_code_sim"=>$request->codesim,
             "id_lieu"=>session('lieu_id'),
         ]);
+        foreach($consult->patient->rdvs as $rdv)
+        {
+             if( $rdv->Date_RDV->setTime(0, 0)  == $consult->Date_Consultation->setTime(0, 0) )
+                  $rdv->update(['Etat_RDV'=>'valide']);
+        }
         if($request->poids != 0 || $request->temp != null || $request->taille !=0 || $request->autre)
         {
           $exam = new examen_cliniqu; //$this->ExamCliniqCTLR->store( $request,$consult->id); //save examen clinique

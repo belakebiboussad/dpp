@@ -1,8 +1,8 @@
 @extends('app')
 @section('page-script')
 <script type="text/javascript">
-	$('document').ready(function(){
-		var table = $('#consultList').DataTable({
+$('document').ready(function(){
+	var table = $('#consultList').DataTable({
        "searching":false,
        "processing": true,
         "scrollY":"450px",
@@ -21,7 +21,70 @@
             $(this).addClass('selected');
         }
       });
-	});
+      //calendar
+      var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
+	 var today = (new Date()).setHours(0, 0, 0, 0);
+	 $('.calendar1').fullCalendar({
+	    	plugins: [ 'dayGrid', 'timeGrid' ],
+		 header: {
+		          left: 'prev,next today',
+		          center: 'title,dayGridMonth,timeGridWeek',
+		          right: 'month,agendaWeek,agendaDay'
+		 },
+	      defaultView: 'agendaWeek',
+		 firstDay: 0,
+	       slotDuration: '00:15:00',
+	  	minTime:'08:00:00',
+	    	maxTime: '17:00:00',
+	      navLinks: true,
+	      selectable: true,
+	      selectHelper: true,
+	      eventColor  : '#87CEFA',
+	      editable: true,
+	     	hiddenDays: [ 5, 6 ],
+	     	weekNumberCalculation: 'ISO',
+	     	aspectRatio: 1.5,
+	     	eventLimit: true,
+      		allDaySlot: false,
+     		eventDurationEditable : false,
+     		weekNumbers: true,
+      		views: {},
+		events: [
+		       @foreach($patient->rdvs as $rdv)
+		       {
+			       title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
+			       start : '{{ $rdv->Date_RDV }}',
+			       end:   '{{ $rdv->Fin_RDV }}',
+			       id :'{{ $rdv->id }}',
+			       idPatient:{{$rdv->patient->id}},
+			       tel:'{{$rdv->patient->tele_mobile1}}',
+			       age:{{ $rdv->patient->getAge() }},
+			       specialite: {{ $rdv->specialite}},
+			       fixe:  {{ $rdv->fixe }},          
+			},
+			 @endforeach 
+		 ],
+		select: function(start, end) { 
+			if(start > CurrentDate){
+	                    Swal.fire({
+		                                 title: 'Confimer vous  le Rendez-Vous ?',
+		                                 html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',
+		                                 input: 'checkbox',
+		                                 inputPlaceholder: 'Redez-Vous Fixe',
+		                                 showCancelButton: true,
+		                                 confirmButtonColor: '#3085d6',
+		                                 cancelButtonColor: '#d33',
+		                                 confirmButtonText: 'Oui',
+		                                 cancelButtonText: "Non",
+	                    }).then((result) => {
+                                if(!isEmpty(result.value))
+                                  	createRDVModal(start,end,'{{ $patient->id }}',result.value);	
+                         })
+			}else
+				$('.calendar1').fullCalendar('unselect');
+		},
+	});  //fincalendar  
+});
 </script>
 @endsection
 @section('main-content')
@@ -41,7 +104,7 @@
 			<div class="tabbable">
 				<ul class="nav nav-tabs padding-18">
 					<li class="active">
-						<a data-toggle="tab" href="#home"><i class="green ace-icon fa fa-user bigger-120"></i>	Informations Administratives</a>
+						<a data-toggle="tab" href="#home"><i class="green ace-icon fa fa-user bigger-120"></i>Informations Administratives</a>
 					</li>
 					@if( Auth::user()->role->id == 1)
 					 <li>
@@ -256,51 +319,7 @@
 					</div><!-- /#home -->
 					<div id="Ants" class="tab-pane">@include('antecedents.ants_Widget')</div><!-- Ants -->
 					<div id="Cons" class="tab-pane">@include('consultations.liste')</div><!-- /#Cons -->
-					<div id="rdvs" class="tab-pane">
-						<div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2">
-							<div class="widget-box widget-color-blue" id="widget-box-2">
-								<div class="widget-header">
-									<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste Des RDV :</h5>
-									<div class="widget-toolbar widget-toolbar-light no-border">
-										<div class="fa fa-plus-circle"></div><a href="#"><b>Ajouter un RDV</b></a>
-									</div>
-								</div>
-								<div class="widget-body">
-									<div class="widget-main no-padding">
-										<table class="table table-striped table-bordered table-hover">
-											<thead class="thin-border-bottom">
-												<tr>
-													<th>Date RDV</th>
-													<th>Nom Médcine Traitant</th>
-													<th>Etat RDV</th>
-													<th></th>
-												</tr>
-											</thead>
-											<tbody>
-												@if($patient->rdvs->count() > 0)
-													@foreach($patient->rdvs as $rdv)
-														<tr>
-															<td>{{ $rdv->Date_RDV }}</td>
-															<td>{{ $rdv->employe->nom }} {{ $rdv->employe->prenom }}	</td>
-															<td class="center">
-																<span class="label label-{{$rdv->Etat_RDV == "en attente" ? "warning" : "success"}}" style="color: black;">	<b>{{ $rdv->Etat_RDV }}</b></span>
-															</td>
-															<td class="center">
-																<div class="hidden-sm hidden-xs btn-group">
-												          <a class="btn btn-xs btn-success" href="{{ route('rdv.show', $rdv->id) }}">
-												           	<i class="ace-icon fa fa-hand-o-up bigger-120"></i>Détails</a>
-																</div>
-											        </td>
-														</tr>
-													@endforeach
-												@endif
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div><!-- /#rdvs -->
+					<div id="rdvs" class="tab-pane">@include('rdv.liste')</div><!-- /#rdvs -->
 					<div id="Hosp" class="tab-pane">
 						<div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2">
 							<div class="widget-box widget-color-blue" id="widget-box-2">
@@ -366,7 +385,7 @@
     						<form action="{{ route('ticket.store') }}" method="POST" role="form">
 								{{ csrf_field() }}
 								<input type="text" name="id_patient" value="{{ $patient->id }}" hidden>
-    						<div class="col-sm-12">
+    						              <div class="col-sm-12">
 									<label for="typecons"><b>Type de consultation:</b></label>
 									<select class="form-control" id="typecons" name="typecons" required><!-- 	<option value="">--------</option> -->
 										<option value="Normale">Normale</option>

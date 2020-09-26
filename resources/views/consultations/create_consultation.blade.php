@@ -693,29 +693,29 @@ var autreexamRadio = $("#examRadAutr").tagsinput('items');  if(autreexamRadio !=
 	   	 	var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
 	    		champ.appendTo('#consultForm');
 	  }); //calendrier  	
-    var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
-	  var today = (new Date()).setHours(0, 0, 0, 0);
-	  $('.calendar1').fullCalendar({
+       var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
+	 var today = (new Date()).setHours(0, 0, 0, 0);
+	 $('.calendar1').fullCalendar({
 	    	plugins: [ 'dayGrid', 'timeGrid' ],
-		   	header: {
+		 header: {
 		          left: 'prev,next today',
 		          center: 'title,dayGridMonth,timeGridWeek',
 		          right: 'month,agendaWeek,agendaDay'
-		    },
+		 },
 	      defaultView: 'agendaWeek',
-		    firstDay: 0,
-	  		slotDuration: '00:15:00',
-	  		minTime:'08:00:00',
+		 firstDay: 0,
+	       slotDuration: '00:15:00',
+	  	minTime:'08:00:00',
 	    	maxTime: '17:00:00',
 	      navLinks: true,
 	      selectable: true,
 	      selectHelper: true,
 	      eventColor  : '#87CEFA',
 	      editable: true,
-	     		hiddenDays: [ 5, 6 ],
-	     		weekNumberCalculation: 'ISO',
-	     		aspectRatio: 1.5,
-	     		eventLimit: true,
+	     	hiddenDays: [ 5, 6 ],
+	     	weekNumberCalculation: 'ISO',
+	     	aspectRatio: 1.5,
+	     	eventLimit: true,
       			allDaySlot: false,
      			eventDurationEditable : false,
      			weekNumbers: true,
@@ -769,8 +769,8 @@ var autreexamRadio = $("#examRadAutr").tagsinput('items');  if(autreexamRadio !=
 		                                 confirmButtonText: 'Oui',
 		                                 cancelButtonText: "Non",
 	                        	 }).then((result) => {
-                             			 if(!isEmpty(result.value))
-                               			createRDVModal(start,end,$('#id').val(),result.value);	
+                             		 if(!isEmpty(result.value))
+                               			createRDVModal(start,end,'{{ $patient->id }}',result.value);//createRDVModal(start,end,$('#id').val(),result.value);	
                         		  })
 				}else
 					$('.calendar1').fullCalendar('unselect');
@@ -835,7 +835,7 @@ var autreexamRadio = $("#examRadAutr").tagsinput('items');  if(autreexamRadio !=
          });
     	}
     	else
-				$( "#schapitre" ).prop( "disabled", true );
+		$( "#schapitre" ).prop( "disabled", true );
     });
     $('#schapitre').click(function(){//sous chapitre
      	if(!($("#schapitre").val() == 0 ))
@@ -885,9 +885,7 @@ var autreexamRadio = $("#examRadAutr").tagsinput('items');  if(autreexamRadio !=
 @section('main-content')
 <div class="page-header" width="100%">
 	<div class="row">
-		<div class="col-sm-12" style="margin-top: -3%;">	{{-- change --}}
-			@include('patient._patientInfo')	
-		</div>
+		<div class="col-sm-12" style="margin-top: -3%;">@include('patient._patientInfo')	</div>
 	</div>
 </div>
 <div class="content"><!-- style="height:800px;" -->
@@ -948,12 +946,10 @@ var autreexamRadio = $("#examRadAutr").tagsinput('items');  if(autreexamRadio !=
 			<!-- les input de modal form(Demande Hospitalisation)  -->
 				<input type="hidden" name="service" id="service">
 				<input type="hidden" name="specialiteDemande" id="specialiteDemande">
-				<input type="hidden" name="modeAdmission" id="modeAdmission">
-					<!-- les input de modal form(Lettre Orientation)  -->
+				<input type="hidden" name="modeAdmission" id="modeAdmission"><!-- les input de modal form(Lettre Orientation)  -->
 				<input type="hidden" name="specialite" id="specialite">
 				<input type="hidden" name="medecin" id="medecin">
 				<input type="hidden" name="motifOr" id="motifOr">
-
 			</div>
 		</div>
 		<div class="row">

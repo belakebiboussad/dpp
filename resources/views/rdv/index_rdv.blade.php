@@ -13,9 +13,7 @@
                   color: orange;
                   background: white;
                 }
-        
                 .es-list {
-               
                     max-height: 50px !important;
                     width:250px;
                      overflow:scroll;
@@ -69,10 +67,6 @@
      });
       function go(startDate, endDate, jsEvent, view, resource)
       {
-              //var a= moment.tz(startDate, "Europe/London").format();
-              //alert(startDate.time());
-              // alert(calEvent.start.);
-              //alert(endDate);
       }
      function showModal(date)
      {
@@ -84,8 +78,7 @@
                 var CurrentDate = moment(x).format("YYYY-MM-DD");            
                 if (mydate >= CurrentDate  ) { 
                      $('#date_RDV').datepicker("setDate",mydate);//new Date(yyyy,mm,dd)
-                    // $('#Temp_rdv').val(heur);//new Date(yyyy,mm,dd)
-                     $("#fullCalModal").modal();
+                    $("#fullCalModal").modal();
                 }
      }
      function remoteSearch() {

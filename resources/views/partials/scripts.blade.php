@@ -605,13 +605,13 @@ $('#typeexm').on('change', function() {
     champ.appendTo('#ordonnace_form');
     $('#ordonnace_form').submit();
   }
-  function createRDVModal(debut, fin, pid = 0, fixe=1)
-        {   
-              var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
-              var fin = moment(fin).format('YYYY-MM-DD HH:mm');  
-               if(pid != 0)
+function createRDVModal(debut, fin, pid = 0, fixe=1)
+{ 
+       var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
+       var fin = moment(fin).format('YYYY-MM-DD HH:mm');  
+       if(pid != 0)
               {
-                      var formData = { id_patient:pid,Debut_RDV:debut, Fin_RDV:fin, fixe:fixe  };
+                     var formData = { id_patient:pid,Debut_RDV:debut, Fin_RDV:fin, fixe:fixe  };
                      $.ajaxSetup({
                               headers: {
                                      'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')

@@ -137,8 +137,7 @@ class RDVController extends Controller
                               return Response::json(['rdv'=>$rdv,'patient'=>$rdv->patient]);  
              else
               {
-                    $patient = patient::FindOrFail($rdv->Patient_ID_Patient)->patient;
-                    return view('rdv.edit_rdv',compact('rdv','patient'));
+                    return view('rdv.edit',compact('rdv','patient'));
              }
     }
 
@@ -196,34 +195,8 @@ class RDVController extends Controller
         $name = "RDV-pour:".patient::where("id",$order->Patient_ID_Patient)->get()->first()->Nom."".patient::where("id",$order->Patient_ID_Patient)->get()->first()->Prenom.".pdf";
         return $pdf->download($name);
     }
-    public function print(Request $request,$id)
-    {    
-           //$paper_size = array(0,0,297.64,419.53);
-           /*
-            $rdv = rdv::findOrFail($id);
-             PDF::setOptions([
-                                            'dpi' => 150, 
-                                            'defaultFont' => 'sans-serif',
-                                            'defaultPaperSize'=>'a6'
-              ]);
-           $pdf = PDF::loadView('rdv.sup', compact('rdv'));
-           $name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";
-            return $pdf->save($name);
-          $data = [
-                'title' => 'First PDF for Medium',
-                'heading' => 'Hello from 99Points.info',
-                'content' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry.'        
-              ];
-              PDF::setOptions([
-                "defaultFont" => "Courier",
-                "defaultPaperSize" => "a6",
-                "dpi" => 130
-            ]);
-              /*
-              $pdf = PDF::loadView('rdv.sup', compact('rdv'));
-        //$pdf = PDF::loadView('rdv.a', $data);  
-        return $pdf->download('medium.pdf');
-            */
+      public function print(Request $request,$id)
+      {    
           $rdv = rdv::findOrFail($id);
           $viewhtml = View::make('rdv.rdvTicketPDF', array('rdv' =>$rdv))->render();
           $dompdf = new Dompdf();
@@ -231,8 +204,8 @@ class RDVController extends Controller
           $dompdf->setPaper('a6', 'landscape');
           $dompdf->render();
           $name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";//"-".microtime(TRUE).
-          return $dompdf->stream($name);
-    }
+          return $dompdf->stream($name); 
+      }
     public function getRDV()
     {
       $rdvs = rdv::select(['id','Date_RDV','Patient_ID_Patient','Employe_ID_Employe','Etat_RDV']);//'Temp_rdv',
