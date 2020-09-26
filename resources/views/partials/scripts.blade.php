@@ -53,33 +53,33 @@
 <script type="text/javascript">
   var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
   $(document).ready(function(){
-    $('.timepicker').timepicker({
-      timeFormat: 'HH:mm',
-      interval: 60,
-      minTime: '08',
-      maxTime: '17:00pm',
-      defaultTime: '08:00',   
-      startTime: '08:00',
-      dynamic: true,
-      dropdown: true,
-      scrollbar: true
-    });
-    $( ".autoCommune" ).autocomplete({
-      source: function( request, response ) {
-          $.ajax({
-            url:"{{route('commune.getCommunes')}}",
-            type: 'post',
-            dataType: "json",
-            data: {
-               _token: CSRF_TOKEN,
-               search: request.term
-            },
-            success: function( data ) {
-               response( data );
-            }
-          });
-        },
-        minLength: 3,
+      $('.timepicker').timepicker({
+            timeFormat: 'HH:mm',
+            interval: 60,
+            minTime: '08',
+            maxTime: '17:00pm',
+            defaultTime: '08:00',   
+            startTime: '08:00',
+            dynamic: true,
+            dropdown: true,
+            scrollbar: true
+        });
+        $( ".autoCommune" ).autocomplete({
+            source: function( request, response ) {
+                $.ajax({
+                  url:"{{route('commune.getCommunes')}}",
+                  type: 'post',
+                  dataType: "json",
+                  data: {
+                     _token: CSRF_TOKEN,
+                     search: request.term
+                  },
+                  success: function( data ) {
+                     response( data );
+                  }
+                });
+              },
+              minLength: 3,
         select: function (event, ui) { // Set selection
           $(this).val(ui.item.label); // display the selected text
           switch(event['target']['id'])
@@ -187,42 +187,57 @@
         $('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td>"+$('#produit').val()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+$('#specialite option:selected').text()+"</td><td class='center'>"+$("#quantite").val()+"</td></tr>");
         $('#produit').val('');$("#quantite").val(1);$('#gamme').val('0');$('#specialite').val('0')
       });
-     $('#gamme').change(function(){
-        var id_gamme = $(this).val();
-        var html_code = '<option value="">Sélectionner</option>';
-         $.ajax({
-          url : '/getspecialite/'+id_gamme,
-          type : 'GET',
-          dataType : 'json',
-          success : function(data){
-                  $.each(data, function(){
-                           html_code += "<option value='"+this.id+"'>"+this.specialite_produit+"</option>";
+       $('#gamme').change(function(){
+            var id_gamme = $(this).val();
+            var html_code = '<option value="">Sélectionner</option>';
+             $.ajax({
+              url : '/getspecialite/'+id_gamme,
+              type : 'GET',
+              dataType : 'json',
+              success : function(data){
+                      $.each(data, function(){
+                               html_code += "<option value='"+this.id+"'>"+this.specialite_produit+"</option>";
+                      });
+                       $('#specialite').html(html_code);
+              },
+            });
+       });
+             $('#specialite').change(function(){
+                  var id_gamme = $('#gamme').val();
+                  var id_spec = $(this).val();
+                  var html = '';
+                  $.ajax({
+                      url : '/getproduits/'+id_gamme+'/'+id_spec,
+                      type : 'GET',
+                      dataType : 'json',
+                      success : function(data){
+                          $.each(data, function(){
+                            html += "<option value='"+this.dci+"'>"+this.dci+"</option>";
+                          });
+                          $('#produit').html(html);
+                      },
+                      error : function(){
+                          console.log('error');
+                      }
                   });
-                   $('#specialite').html(html_code);
-          },
-        });
-      });
-     $('#specialite').change(function(){
-      var id_gamme = $('#gamme').val();
-      var id_spec = $(this).val();
-      var html = '';
-      $.ajax({
-          url : '/getproduits/'+id_gamme+'/'+id_spec,
-          type : 'GET',
-          dataType : 'json',
-          success : function(data){
-              $.each(data, function(){
-                html += "<option value='"+this.dci+"'>"+this.dci+"</option>";
-              });
-              $('#produit').html(html);
-          },
-          error : function(){
-              console.log('error');
-          }
-      });
-    });
-
-  });  
+             });
+           $('#printRdv').click(function(){
+                $.ajaxSetup({
+                      headers: {
+                          'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                       }
+                 });
+                  $.ajax({
+                          type : 'GET',
+                          url :'/rdvprint/'+$('#idRDV').val(),
+                               success:function(data){
+                          },
+                          error:function(data){
+                            console.log("error");
+                           }
+                 });
+          });
+      });  
 </script>
 <script type="text/javascript">
        var active_class = 'active';
@@ -592,8 +607,8 @@ $('#typeexm').on('change', function() {
   }
   function createRDVModal(debut, fin, pid = 0, fixe=1)
         {   
-                var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
-               var fin = moment(fin).format('YYYY-MM-DD HH:mm');  
+              var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
+              var fin = moment(fin).format('YYYY-MM-DD HH:mm');  
                if(pid != 0)
               {
                       var formData = { id_patient:pid,Debut_RDV:debut, Fin_RDV:fin, fixe:fixe  };
@@ -621,7 +636,7 @@ $('#typeexm').on('change', function() {
                                                   color: '#87CEFA'
                                      };
                                     $('.calendar1').fullCalendar( 'renderEvent', event, true );
-                                   $('.calendar1').fullCalendar( 'refresh' );// $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next');
+                                   $('.calendar1').fullCalendar( 'refresh' );
                               },
                             error: function (data) {
                                    console.log('Error:', data);
@@ -630,7 +645,6 @@ $('#typeexm').on('change', function() {
           }else{
                 $('#Debut_RDV').val(debut);
                 $('#Fin_RDV').val(fin); //$('#Temp_rdv').val(heur);
-               
                 $('#fixe').val(fixe);
                 $('#addRDVModal').modal({
                        show: 'true'
@@ -648,7 +662,7 @@ $('#typeexm').on('change', function() {
                     $('#lien').text(event.title);
                     $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
                     $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
-                    $('#btnRdvDelete').attr('href','javascript:rdvDelete('+event.id+');'); // $('#printRdv').attr('href','javascript:rdvPrint('+event.id+');');
+                    $('#btnRdvDelete').attr('href','javascript:rdvDelete('+event.id+');');
                       var url = '{{ route("rdv.update", ":slug") }}';
                     url = url.replace(':slug',event.id); // $('#updateRdv').attr('action',url);
                     $('#idRDV').val(event.id);

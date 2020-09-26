@@ -115,8 +115,7 @@
         <div class="col-md-12">
                    <div class="panel panel-default">
                    &nbsp;&nbsp;&nbsp;&nbsp; <div class="panel-heading" style="margin-top:-20px">
-                    <div class="left"> <strong>Liste Des Rendez-Vous</strong></div>
-        
+                    <div class="left"> <strong>Liste Des Rendez-Vousss</strong></div>
                    </div>
                   <div class="panel-body">
                             {!! $planning->calendar() !!}

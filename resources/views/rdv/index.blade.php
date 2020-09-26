@@ -24,12 +24,12 @@
  </style>
 @endsection
 @section('page-script') {{-- {!! $planning->script() !!} --}}
-<script>//reccherche par nom
+<script>
 function reset_in()
 {
-  $('.es-list').val(''); $('#patient').val(''); $('#medecin').val('');
-  $('#printRdv').addClass('hidden');
-  $("#fixe").prop("checked", false);
+      $('.es-list').val(''); $('#patient').val(''); $('#medecin').val('');
+      $('#printRdv').addClass('hidden');
+      $("#fixe").prop("checked", false);
 }
 $(document).ready(function() {
         var today = (new Date()).setHours(0, 0, 0, 0);
@@ -146,50 +146,31 @@ $(document).ready(function() {
                      $("#btnSave").removeAttr("disabled");
        });
        $("#patient").on("keyup", function() {
-                var field = $("select#filtre option").filter(":selected").val();
-                if(field != "Dat_Naissance")
-                      remoteSearch(field,$("#patient").val()); //to call ajax
+             var field = $("select#filtre option").filter(":selected").val();
+             if(field != "Dat_Naissance")
+                    remoteSearch(field,$("#patient").val()); //to call ajax
        });
-       $('#printRdv').click(function(){
-             $.ajaxSetup({
-                   headers: {
-                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                   }
-             });
-             $.ajax({
-                    type : 'GET',
-                    url :'/rdvprint/'+$('#idRDV').val(),
-                    data:{id:$('#idRDV').val()},
-                    success:function(data){
-                    },
-                    error:function(data){
-                      alert("error");
-                    }
-             });
-       }) ;
        });
   </script>
 @endsection
 @section('main-content')
-<div class="row"  style="margin-top:-2%; margin-left:-2%;">
-  <div class="col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <div class="left"> <strong>Liste des Rendez-Vous</strong></div>
-      </div>
-      <div class="panel-body">
-        <div  class="calendar1"></div>
-      </div>
-      <div class="panel-footer">
-        <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><strong>&nbsp;RDV fixe</strong></span>
-        <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><strong>&nbsp;RDV à fixer</strong></span> 
-      </div>
-    </div>
-  </div>
+<div class="row"  style="margin-left:-2%;">{{-- margin-top:-2%; --}}
+      <div class="col-md-12">
+              <div class="panel panel-default">
+                    <div class="panel-heading"><div class="left"> <strong>Liste des Rendez-Vous</strong></div></div>
+                    <div class="panel-body">
+                          <div  class="calendar1"></div>
+                    </div>
+                  <div class="panel-footer">
+                    <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><strong>&nbsp;RDV fixe</strong></span>
+                    <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><strong>&nbsp;RDV à fixer</strong></span> 
+                  </div>
+              </div>
+        </div>
 </div>
 <div class="row">
-  <div class="modal fade" id="fullCalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  {{-- Modal --}}
-    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal fade" id="fullCalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  {{-- Modal --}}
+       <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header"  style="padding:35px 50px;">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
@@ -198,9 +179,8 @@ $(document).ready(function() {
               <i class="ace-icon fa fa-angle-double-left" style="font-size:20px;"></i>
               <a href="" id="lien" style="color:#FFFFFF"> <p id="patient"></p></a>
               <i class="ace-icon fa fa-angle-double-right" style="font-size:20px;"></i>
-          </h5>
-          <hr>
-          <div class="row">
+          </h5><hr>
+       <div class="row">
             <div class="col-sm-6">    
               <i class="fa fa-phone" aria-hidden="true"></i><strong>Téléphone:&nbsp;</strong>
               <span id="patient_tel" style="color:#FFFFFF"></span>
@@ -210,7 +190,7 @@ $(document).ready(function() {
             </div>
           </div>
           </div> {{-- modal-header --}}
-          <form id ="updateRdv" role="form" action="" method="POST"> {{-- {{route('rdv.update',5)}} /rdv/5--}}
+          <form id ="updateRdv" role="form" action="" method="POST"> 
             <div class="modal-body">
               {{ csrf_field() }}
               {{ method_field('PUT') }}
@@ -230,7 +210,6 @@ $(document).ready(function() {
                 </div>
               </div>
               @endif
-              <!-- <div class="space-12"></div> -->
               <div class="well">
                 <div class="row">
                   <div class="col-sm-6">

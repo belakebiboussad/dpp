@@ -199,6 +199,7 @@ class RDVController extends Controller
     public function print(Request $request,$id)
     {    
            //$paper_size = array(0,0,297.64,419.53);
+           /*
             $rdv = rdv::findOrFail($id);
              PDF::setOptions([
                                             'dpi' => 150, 
@@ -208,9 +209,7 @@ class RDVController extends Controller
            $pdf = PDF::loadView('rdv.sup', compact('rdv'));
            $name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";
             return $pdf->save($name);
-          
-/*
-            $data = [
+          $data = [
                 'title' => 'First PDF for Medium',
                 'heading' => 'Hello from 99Points.info',
                 'content' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry.'        
@@ -220,11 +219,11 @@ class RDVController extends Controller
                 "defaultPaperSize" => "a6",
                 "dpi" => 130
             ]);
-              */
+              /*
               $pdf = PDF::loadView('rdv.sup', compact('rdv'));
         //$pdf = PDF::loadView('rdv.a', $data);  
         return $pdf->download('medium.pdf');
-           /* 
+            */
           $rdv = rdv::findOrFail($id);
           $viewhtml = View::make('rdv.rdvTicketPDF', array('rdv' =>$rdv))->render();
           $dompdf = new Dompdf();
@@ -233,7 +232,6 @@ class RDVController extends Controller
           $dompdf->render();
           $name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";//"-".microtime(TRUE).
           return $dompdf->stream($name);
-         */ 
     }
     public function getRDV()
     {

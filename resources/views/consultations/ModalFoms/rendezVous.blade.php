@@ -11,7 +11,7 @@
             <div class="panel panel-default">
               &nbsp;&nbsp;&nbsp;&nbsp; 
              <div class="panel-heading" style="margin-top:-20px">
-                <div class="left"><!-- <strong>Liste Des Rendez-Vous</strong> --></div>
+                <div class="left"></div>
              </div>
              <div class="panel-body">
              <div class="calendar1" id="calendar1"></div>

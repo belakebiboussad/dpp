@@ -817,24 +817,8 @@ var autreexamRadio = $("#examRadAutr").tagsinput('items');  if(autreexamRadio !=
 			              }
     			});
     		});
-    		$('#printRdv').click(function(){
-			$.ajaxSetup({
-		    		headers: {
-		        		'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-		    	 	 }
-	  		});
-			$.ajax({
-				type : 'GET',
-				url :'/rdvprint/'+$('#idRDV').val(),
-			       success:function(data){
-				},
-				error:function(data){
-					console.log("error");
-				 }
-			});
-		});
-    $('#chapitre').click(function(){
-    	if(! isEmpty($("#chapitre").val()))
+      $('#chapitre').click(function(){
+        	if(! isEmpty($("#chapitre").val()))
     	{
     	  $( "#schapitre" ).prop( "disabled", false );
     	 	$.ajax({
