@@ -77,6 +77,7 @@
 									<th class ="center" width="11%"><h5><strong>Patient</strong></h5></th>
 									<th class ="center" width="10%"><h5><strong class="text-center">Spécialité</strong></h5></th>
 									<th class ="center" width="10%"><h5><strong>Date Demande</strong></h5></th>
+									<th class ="center" width="10%"><h5><strong>Mode Admission</strong></h5></th>
 									<th class ="center" width="12%"><h5><strong>Medcin traitant</strong></h5></th>
 						    	<th width="10%" class ="center"><h5><strong>Priorité</strong></h5></th>
 									<th class="font-weight-bold center"><h5><strong>Observation</strong></h5></th>
@@ -89,6 +90,7 @@
 		    			<tr id= "{{ $j }}">
 			  				<td hidden> <input type="hidden" name="demandeId" value="{{ $demande->id}}"/></td>	
 			  				<td>{{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }}</td>	
+								<td>{{$demande->modeAdmission }}</td>
 								<td>{{ $demande->Specialite->nom }}</td>
 					 			<td>{{$demande->consultation->Date_Consultation }}</td>
 								<td>
@@ -142,11 +144,7 @@
 													<span>{{ $demande->consultation->docteur->nom }} {{ $demande->consultation->docteur->prenom }}</span>
 												</div>
 											</div>
-											<div class="profile-info-row">
-												<div class="profile-info-name text-center"> <strong>Service:</strong></div>
-												<div class="profile-info-value"><span>{{$demande->Service->nom }}</span></div>
-											</div>
-										</div>	{{-- profile-user-info-striped --}}
+									  </div>	{{-- profile-user-info-striped --}}
 				        	</div>{{-- col-xs-6 col-sm-6 --}}
 									<div class="col-xs-6 col-sm-6">
 										<div class="space visible-xs"></div>

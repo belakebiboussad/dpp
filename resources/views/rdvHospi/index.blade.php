@@ -1,5 +1,6 @@
 @extends('app_sur')
 @section('main-content')
+<div class="row">
 	<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
 		<div class="widget-box widget-color-blue" id="widget-box-2">
 			<div class="widget-header">
@@ -59,10 +60,25 @@
 								</tr>
 								@endif
 							@endforeach
-							</tbody>
-						</table>
-					</div>
+						</tbody>
+					</table>
 				</div>
 			</div>
-		</div><!-- /.span -->
+		</div>
+	</div><!-- /.span -->
+</div>
+<div class="space-12"></div><div class="space-12"></div>
+
+<div class="row">
+	<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
+		<div class="widget-box widget-color-red" id="widget-box-2">
+			<div class="widget-header">
+				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des demandes d'urgence</h5>
+			</div>
+		</div>
+	</div>
+</div>
+
+		
+
 @endsection

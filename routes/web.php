@@ -75,7 +75,7 @@ Route::post('/demandehosp/valider','DemandeHospitalisationController@valider');
 Route::post('/demandehosp/invalider','DemandeHospitalisationController@invalider');
 Route::get('/demandehosp/listedemandes/{type}','DemandeHospitalisationController@listedemandes');
 Route::get('/salle/create/{id}','SalleController@create');
-Route::get('/lit/create/{id}','LitsController@create');//Route::get('/hospitalisation/create/{id}','HospitalisationController@create');
+Route::get('/lit/create/{id}','LitsController@create');
 Route::get('/ordonnace/create/{id}','OrdonnanceController@create');
 Route::post('/ordonnaces/print','OrdonnanceController@print');
 Route::get('/consultations/detailcons/{id}','ConsultationsController@detailcons')->name('consultDetails');
@@ -118,7 +118,6 @@ route::get('/getpatient','PatientController@getpatient');
 route::get('/getpatientcons','PatientController@getpatientconsult');
 route::get('/getpatientrdv','PatientController@getpatientrdv');
 route::get('/getpatientatcd','PatientController@getpatientatcd');
-route::get('/choixpat','ConsultationsController@choix');
 route::get('/getspecialite/{id}','demandeprodController@get_specialite');
 route::get('/getproduits/{idgamme}/{idspec}','demandeprodController@get_produit');
 route::get('/createsalle','SalleController@createsalle');
@@ -182,6 +181,9 @@ Route::get('rendezVous/create/{id?}','RDVController@index');
 Route::get('assur/patientAssuree/{id}','PatientController@create');
 Route::post('/addpatientAssure','PatientController@storePatient');
 Route::get('assur/patientAedit/{id}/{idA}','PatientController@edit');
+Route::get('/createConsultation','ConsultationsController@choix');
+route::get('/choixpat','ConsultationsController@choix');
+
 /************partie viste d'hospitalisation**************/
 Route::get('/delVisite/{id}', 'VisiteController@destroy')->name('visite.destroy');
 Route::get('/visite/create/{id}','VisiteController@create');

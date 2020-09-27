@@ -68,7 +68,7 @@
             <b class="arrow"></b>
             <ul class="submenu">
                 <li class="">
-                    <a href="/choixpat">
+                    <a href="/createConsultation">
                         <i class="menu-icon fa fa-plus purple"></i>Ajouter Consultation   
                     </a>
                     <b class="arrow"></b>
@@ -90,7 +90,7 @@
           <b class="arrow"></b>
           <ul class="submenu">
             <li class="">
-              <a href="{{ route('hospitalisation.create') }}">
+              <a href="/choixpat">
                 <i class="menu-icon fa fa-plus purple"></i>Ajouter Hospitalisation
               </a>
               <b class="arrow"></b>

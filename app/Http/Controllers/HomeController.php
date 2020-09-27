@@ -41,8 +41,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-      $ServiceID = Auth::user()->employ->service;
-      // dd(Auth::user()->employ->Service->Type);
+      $ServiceID = Auth::user()->employ->service;// dd(Auth::user()->employ->Service->Type);
       switch (Auth::user()->role_id) {
             case 1://medecin & meecinChef
                   return view('patient.index');

@@ -49,8 +49,8 @@ $(document).on('click','.findptient',function(event){
 							 		  {"targets": 7 ,	"orderable": false, className: "dt-head-center" },
 							 		  {"targets": 8 ,	"orderable":false,className: "dt-head-right dt-body-center",
 							  			"render": function(data,type,full,meta){
-									       if ( type === 'display' ) {
-											return  '<button value = "'+data.id+'" class="btn btn-success btn-xs " id="getConsults" data-toggle="tooltip" title="Selectionner le patient"><i class="fa fa-hand-o-up fa-xs"></i></button>';
+									      if ( type === 'display' ) {
+													return  '<button value = "'+data.id+'" class="btn btn-success btn-xs" id="getConsults" data-toggle="tooltip" title="Selectionner le patient"><i class="fa fa-hand-o-up fa-xs"></i></button>';
 							      }
 							      return data;	
 							    },

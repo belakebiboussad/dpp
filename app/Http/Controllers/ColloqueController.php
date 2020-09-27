@@ -184,9 +184,9 @@ class ColloqueController extends Controller
     {  
       $colloque=colloque::find($id);
       $type = $colloque->type;
-      $demandes =   DemandeHospitalisation::whereHas('Specialite.type', function ($q) use ($type) {
+      $demandes = DemandeHospitalisation::whereHas('Specialite.type', function ($q) use ($type) {
                             $q->where('type',$type);
-                    })->where('etat','=','en attente')->get();
+                    })->where('etat','en attente')->where('modeAdmission','<>','urgence')->get();
       $medecins = user::where('utilisateurs.role_id',1)->orwhere('utilisateurs.role_id',13)->get();               
       return view('colloques.runcolloque', compact('demandes','medecins','colloque'));
     }
