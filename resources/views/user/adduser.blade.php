@@ -1,9 +1,9 @@
 @extends('app')
 @section('title','Ajouter un Utilisateure')
 @section('main-content')
-	<div class="page-header">
-		<h1>Ajouter un nouveau utilisateur :</h1>
-	</div>
+	<div class="page-header"><h1>Ajouter un nouveau utilisateur </h1></div>
+		
+	
 	<div class="widget-box" id="widget-box-1">
 		<div class="widget-body">
 			<div class="widget-main">

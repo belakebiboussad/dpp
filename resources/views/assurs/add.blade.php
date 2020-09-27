@@ -1,25 +1,22 @@
 @extends('app')
-@section('title','Ajouter un patient')
+@section('title','Ajouter un Fonctionnaire')
 @section('page-script')
 <script>
 	$('#submitButton').click(function () {
-		    $('input:invalid').each(function () {
-				        // Find the tab-pane that this element is inside, and get the id
-				        var $closest = $(this).closest('.tab-pane');
-				        var id = $closest.attr('id');
-
-				        // Find the link that corresponds to the pane and have it show
-				        $('.nav a[href="#' + id + '"]').tab('show');
-
-				        // Only want to do it once
-		        return false;
+		  $('input:invalid').each(function () {
+				// Find the tab-pane that this element is inside, and get the id
+				var $closest = $(this).closest('.tab-pane');
+				var id = $closest.attr('id'); // Find the link that corresponds to the pane and have it show
+        $('.nav a[href="#' + id + '"]').tab('show');
+        // Only want to do it once
+        return false;
     });
 });
 </script>
 @endsection
 @section('main-content')
 	<div class="container-fluid">
-		  <div><h4>Ajouter un Fonctionaire</h4></div>
+		  <div class="page-header"><h1>Ajouter un nouveau Fonctionaire</h1></div>
 		<form class="form-horizontal" id = "addPAtient" action="{{ route('assur.store') }}" method="POST" role="form" >
 			  {{ csrf_field() }}
 			  @include('assurs.addAssure')

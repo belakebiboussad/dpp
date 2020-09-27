@@ -37,8 +37,25 @@ class AssurController extends Controller
      */
     public function store(Request $request)
     {
-        //
-      dd("store");
+      
+       $assure = assur::create([
+        "Nom"=>$request->nomf,
+        "Prenom"=>$request->prenomf,
+        "Date_Naissance"=>$request->datenaissancef,
+        "lieunaissance"=>$request->idlieunaissancef,
+        "Sexe"=>$request->sexef,
+        "adresse"=>$request->adressef,
+        "commune_res"=>$request->idcommunef,
+        "wilaya_res"=>$request->idwilayaf,
+        "grp_sang"=>$request->gsf.$request->rhf,
+        "Matricule"=>$request->mat,
+        "Service"=>$request->service,
+        "Grade"=>$request->grade,
+        "Etat"=>$request->etatf,
+        "NSS"=>$request->nss,
+        "NMGSN"=>$request->NMGSN, 
+      ]);
+       return view('assurs.show',compact('assure'));
     }
 
     /**

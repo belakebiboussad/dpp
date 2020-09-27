@@ -106,14 +106,11 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-       $user = User::FindOrFail($id);
-        $employe = employ::FindOrFail($user->employee_id);
-       $service = service::FindOrFail($employe->service);
-       $specialite= Specialite::FindOrFail($employe->specialite);
-       $roles = rol::all();
-       $services=service::all();
-       $specialites=specialite::all();
-       return view('user.show_user',compact('user','employe','roles','service','specialite','services','specialites'));
+      $user = User::FindOrFail($id);
+      $roles = rol::all();
+      $services=service::all();
+      $specialites=specialite::all();
+      return view('user.show',compact('user','roles','services','specialites'));
     }
 
     /**
@@ -125,11 +122,10 @@ class UsersController extends Controller
     public function edit($id)
     {
       $user = User::FindOrFail($id);
-      $employe = employ::FindOrFail($user->employee_id);
       $roles = rol::all()->keyBy('id');
       $services=service::all()->keyBy('id');
       $specialites = Specialite::all()->keyBy('id');
-       return view('user.edit_user',compact('user','employe','roles','services','specialites'));
+      return view('user.edit',compact('user','roles','services','specialites'));
     }
 
     /**
@@ -142,8 +138,8 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {      
       $user = User::FindOrFail($id);   
-      $a=  $request->validate([
-            "username"=> "required",
+      $request->validate([
+              "username"=> "required",
               "email"=> "nullable|email",//|unique:utilisateurs
               "role"=> "required",
      ]);     
@@ -168,7 +164,7 @@ class UsersController extends Controller
               "role_id"=>$request->role,
               "active"=>$activer,
      ];
-     $a = $user->update([
+     $user->update([
                'name'=>$request->username,
                "password"=>$user->password,
                "email"=>$request->email,
@@ -176,8 +172,8 @@ class UsersController extends Controller
               "role_id"=>$request->role,
               "active"=>$activer,   
      ]);
-//event(new Registered($user = RegisterController::update($user,$userData)));// return $this->registered($request, $user)//?: redirect()->route('users.edit',$id);
-       return redirect(Route('users.edit',$id));
+    return redirect(Route('users.show',$id));
+     
     }
 
     /**

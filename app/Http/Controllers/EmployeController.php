@@ -68,19 +68,18 @@ class EmployeController extends Controller
      */
     public function update(Request $request, $employid)
     {
-       $employe = employ::FindOrFail($employid); 
-       $$request->validate([
+      $employe = employ::FindOrFail($employid); 
+      $request->validate([
             "nom"=> "required | max:120",
             "prenom"=> "required|max:120",
             "datenaissance"=> "required",// | date
             "lieunaissance"=> "required",
             "sexe"=> "required",
             "adresse"=> "required",
-            "mobile"=> "required | regex:/[0][567][0-9]{8}/",
-            // "fixe"=> "numeric | regex:/[0][0-9]{8}/",       //"mat"=> "required",
-              //"service"=> "required",          // "nss"=> "required | regex:/[0-9]{12}/",       //"specialite"=>"required",
-        ]);
-        $employe->update([
+            "mobile"=> "required | regex:/[0][567][0-9]{8}/",  // "fixe"=> "numeric | regex:/[0][0-9]{8}/",       //"mat"=> "required",
+            //"service"=> "required",          // "nss"=> "required | regex:/[0-9]{12}/",       //"specialite"=>"required",
+      ]);
+      $employe->update([
             "nom"=>$request->nom,
             "prenom"=>$request->prenom,
             "sexe"=>$request->sexe,
@@ -94,8 +93,9 @@ class EmployeController extends Controller
             "Matricule_dgsn"=>$request->mat,
             "NSS"=>$request->nss,
      ]);
-     $userID = User::where("employee_id",$employe->id)->get(['id'])->first();             
-     return redirect(Route('users.edit',$userID));//return redirect(Route('users.show',$userID));
+      //$userID = User::where("employee_id",$employe->id)->get(['id'])->first();            
+      return redirect(Route('users.show',$employe->User->id));//return redirect(Route('users.show',$userID));
+      //return redirect(Route('employ.show',$employe->id));//return redirect(Route('users.show',$userID));
     }
 
       /**

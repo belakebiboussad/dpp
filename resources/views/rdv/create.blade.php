@@ -40,8 +40,7 @@ function layout()
   var field = $("select#filtre option").filter(":selected").val();
   if(field == "Dat_Naissance")
   {
-    //$('#patient').datepicker().format("YYYY-MM-DD");
-    $("#patient").datepicker({
+    $("#patient").datepicker({//$('#patient').datepicker().format("YYYY-MM-DD");
       dateFormat: 'YYYY-MM-DD',
       autoclose: true,
     }).on('changeDate', function(ev){
@@ -57,8 +56,7 @@ function layout()
 }
 function getPatient()
 {
-  var field = $("select#filtre option").filter(":selected").val();
-  //patientSearch(field,$("#patient").val()); //to call ajax
+  var field = $("select#filtre option").filter(":selected").val();//patientSearch(field,$("#patient").val()); //to call ajax
   $.ajax({
          url : '{{URL::to('getPatients')}}',
          data: {    
@@ -211,8 +209,7 @@ $(document).ready(function() {
         }
         @endif
        });
-       // keyup
-      $("#patient").on("keyup", function() {
+      $("#patient").on("keyup", function() {// keyup
          getPatient(); 
       });
       $( "#medecin" ).change(function() {
@@ -327,8 +324,8 @@ $(document).ready(function() {
             </div>{{-- panel --}}
           </div>{{-- modalBody --}}
           <div class="modal-footer">
-            <button class="btn btn-xs btn-primary" type="submit" id ="btnSave" disabled><i class="ace-icon fa fa-save bigger-110" ></i>Enregistrer  </button>                     
-            <button type="button" class="btn btn-xs btn-default" data-dismiss="modal" onclick="resetaddModIn();reset_in();"><i class="fa fa-close" aria-hidden="true"  ></i>Fermer</button>
+            <button class="btn btn-xs btn-succes" type="submit" id ="btnSave" disabled><i class="ace-icon fa fa-check bigger-110"></i>&nbsp;Selectionner</button>                     
+            <button type="button" class="btn btn-xs btn-default" data-dismiss="modal" onclick="resetaddModIn();reset_in();"><i class="fa fa-close" aria-hidden="true"></i>&nbsp;Annuler</button>
           </div>   
         </form> 
       </div>

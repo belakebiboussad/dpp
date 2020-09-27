@@ -63,9 +63,11 @@
 			</div><!-- body -->
 			<div class="panel-footer" style="height:40px;">
 				<button type="submit" class="btn btn-xs btn-primary findAssure" style ="margin-top:-0.5%;" ><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+				@if(Auth::user()->role_id == 4)
 				<div class="pull-right">
 					<a  class="btn btn-primary btn-xs hidden" href="{{ route('assur.create') }}" id=btnCreate role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>
 				</div>
+				@endif
 
 			</div>
 		</div><!-- panel -->

@@ -5,10 +5,11 @@
 </div>
 <div class="col-md-8">
 	<div id="edit-info" class="">
-	<form class="form-horizontal" action="{{route('employs.update', $employe->id)}}" method="POST">
+	<form class="form-horizontal" role="form" action="{{route('employs.update', $user->employ->id)}}" method="POST">
 		{{ csrf_field() }}
-		<input type="hidden" name="id" value="{{ $employe->id }}">
 		{{ method_field('PUT') }}
+		<input type="hidden" name="id" value="{{ $user->employ->id }}">
+		
 		<h4 class="header blue bolder smaller">Informations adminstratives</h4>
 		<div class="space-12"></div>
 		
@@ -16,7 +17,7 @@
 			<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
 				<label class="col-sm-5 control-label no-padding-right" for="nom"><b>Nom:</b></label>
 				<div class="col-sm-7">
-				<input class="col-xs-12 col-sm-10" type="text" id="nom" name="nom" value="{{ $employe->nom }}" placeholder="Nom..."/>
+				<input class="col-xs-12 col-sm-10" type="text" id="nom" name="nom" value="{{ $user->employ->nom }}" placeholder="Nom..."/>
 				</div>
 			</div>
 		</div>
@@ -24,7 +25,7 @@
 			<div class="form-group {{ $errors->has('prenom') ? "has-error" : "" }}" >
 				<label class="col-sm-5 control-label no-padding-right" for="prenom"><b>Prénom:</b></label>
 				<div class="col-sm-7">
-					<input class="col-xs-12 col-sm-10" type="text" id="prenom" name="prenom" value="{{ $employe->prenom }}" placeholder="Prénom..."/>
+					<input class="col-xs-12 col-sm-10" type="text" id="prenom" name="prenom" value="{{ $user->employ->prenom }}" placeholder="Prénom..."/>
 				</div>
 			</div>
 		</div>
@@ -34,7 +35,7 @@
 			<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
 				<label class="col-sm-5 control-label no-padding-right" for="datenaissance"><b class="text-nowrap">Date Naissance:</b></label>
 				<div class="col-sm-7">
-					<input class="col-xs-12 col-sm-10 date-picker" type="text" id="datenaissance" name="datenaissance" value="{{ $employe->Date_Naiss }}" placeholder="Date Naissance..." data-date-format="yyyy-mm-dd"/>
+					<input class="col-xs-12 col-sm-10 date-picker" type="text" id="datenaissance" name="datenaissance" value="{{ $user->employ->Date_Naiss }}" placeholder="Date Naissance..." data-date-format="yyyy-mm-dd"/>
 				</div>	
 			</div>
 		</div>
@@ -42,7 +43,7 @@
 			<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
 				<label class="col-sm-5 control-label no-padding-right" for="lieunaissance"><b>Lieu Naissance:</b></label>
 					<div class="col-sm-7">
-						<input class="col-xs-12 col-sm-10" type="text" id="lieunaissance" name="lieunaissance" value="{{ $employe->Lieu_Naissance }}" placeholder="Lieu Naissance..."/>
+						<input class="col-xs-12 col-sm-10" type="text" id="lieunaissance" name="lieunaissance" value="{{ $user->employ->Lieu_Naissance }}" placeholder="Lieu Naissance..."/>
 				</div>
 			
 			</div>
@@ -56,11 +57,11 @@
 				</div>		  
 				<div class="col-sm-9">
 					<label class="inline">
-					<input name="sexe" value="M" type="radio" class="ace" {{ $employe->sexe == "M" ? "checked" : "" }}/>
+					<input name="sexe" value="M" type="radio" class="ace" {{ $user->employ->sexe == "M" ? "checked" : "" }}/>
 					<span class="lbl middle"> Masculin</span>
 					</label>&nbsp; &nbsp; &nbsp;
 					<label class="inline">
-					<input name="sexe" value="F" type="radio" class="ace" {{ $employe->sexe == "F" ? "checked" : "" }}/>
+					<input name="sexe" value="F" type="radio" class="ace" {{ $user->employ->sexe == "F" ? "checked" : "" }}/>
 					<span class="lbl middle"> Féminin</span>
 					</label>
 				</div>
@@ -75,21 +76,21 @@
 						<div class="{{ $errors->has('adresse') ? "has-error" : "" }}">
 							<i class="fa fa-map-marker light-orange bigger-110"></i>
 							<label for="adresse"><b>Adresse:</b></label>
-							<textarea class="form-control" id="adresse" name="adresse" placeholder="Adresse...">{{ $employe->Adresse }}</textarea>
+							<textarea class="form-control" id="adresse" name="adresse" placeholder="Adresse...">{{ $user->employ->Adresse }}</textarea>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-3">
 						<div class="{{ $errors->has('mobile') ? "has-error" : "" }}">
 						<i class="fa fa-phone"></i>
 						<label for="mobile"><b>Tél mobile:</b></label>
-						<input type="tel" class="form-control" id="mobile" name="mobile"  value="{{ $employe->tele_mobile }}"  placeholder="Tél mobile..."  pattern="[0-9]{10}" maxlength =10 minlength =10 >
+						<input type="tel" class="form-control" id="mobile" name="mobile"  value="{{ $user->employ->tele_mobile }}"  placeholder="Tél mobile..."  pattern="[0-9]{10}" maxlength =10 minlength =10 >
 					</div>
 					</div>
 					<div class="col-xs-12 col-sm-3">
 						<div class="{{ $errors->has('fixe') ? "has-error" : "" }}">
 							<i class="fa fa-phone"></i>
 							<label for="fixe"><b>Tél Fixe:</b></label>
-							<input type="tel" class="form-control" id="fixe" name="fixe" value="{{ $employe->Tele_fixe }}" placeholder="Tél Fixe..."
+							<input type="tel" class="form-control" id="fixe" name="fixe" value="{{ $user->employ->Tele_fixe }}" placeholder="Tél Fixe..."
 							pattern="[0-9]{9}">
 						</div>
 					</div>
@@ -100,7 +101,7 @@
 					<div class="col-xs-12 col-sm-4">
 						<div class="{{ $errors->has('mat') ? "has-error" : "" }}">
 							<label for="mat"><b>Matricule:</b></label>
-							<input type="text" class="form-control" id="mat" name="mat" value="{{ $employe->Matricule_dgsn }}" placeholder="Matricule...">
+							<input type="text" class="form-control" id="mat" name="mat" value="{{ $user->employ->Matricule_dgsn }}" placeholder="Matricule...">
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-4">
@@ -109,7 +110,7 @@
 							<select class="form-control" id="service" name="service">
 								<option value="">Aucun</option>		
 								@foreach($services as $key=>$value)
-								<option value="{{ $key }}" {{ ($employe->service == $key)? 'Selected' :'' }}>{{ $value->nom }}</option>
+								<option value="{{ $key }}" {{ ($user->employ->service == $key)? 'Selected' :'' }}>{{ $value->nom }}</option>
 								@endforeach
 							</select>
 						</div>
@@ -120,7 +121,7 @@
 							<select class="form-control" id="specialite" name="specialite">
 								<option value="">Aucun</option>
 								@foreach($specialites as $key=>$value)
-								<option value="{{ $key }}" {{ ($employe->specialite == $key) ? 'Selected':'' }}>{{ $value->nom}}</option>	
+								<option value="{{ $key }}" {{ ($user->employ->specialite == $key) ? 'Selected':'' }}>{{ $value->nom}}</option>	
 								@endforeach
 							</select>
 						</div>
@@ -132,7 +133,7 @@
 					<div class="col-xs-12 col-sm-4">
 						<div class="{{ $errors->has('nss') ? "has-error" : "" }}">
 							<label for="nss"><b>N° Sécurité Sociale:</b></label>
-							<input type="text" class="form-control" id="nss" name="nss" value="{{ $employe->NSS }}" placeholder="N° Sécurité Sociale...">
+							<input type="text" class="form-control" id="nss" name="nss" value="{{ $user->employ->NSS }}" placeholder="N° Sécurité Sociale...">
 						</div>
 					</div>
 				</div>

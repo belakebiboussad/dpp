@@ -12,7 +12,7 @@ class employ extends Model
     {
              return $this->belongsTo('App\modeles\service','service');
     }
-    public function specialite()
+    public function Specialite()
     {
     	return $this->belongsTo('App\modeles\Specialite','specialite');
     }
