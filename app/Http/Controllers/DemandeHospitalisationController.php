@@ -70,11 +70,11 @@ class DemandeHospitalisationController extends Controller
      */
       public function edit($id)
       {
-            $demande = DemandeHospitalisation::FindOrFail($id);
-            $services = service::all();
-            $specialites = Specialite::all();
-            $modesAdmission = config('settings.ModeAdmissions') ;
-             return view('demandehospitalisation.edit', compact('demande','services','specialites','modesAdmission'));
+        $demande = DemandeHospitalisation::FindOrFail($id);
+        $services = service::all();
+        $specialites = Specialite::all();
+        $modesAdmission = config('settings.ModeAdmissions') ;
+         return view('demandehospitalisation.edit', compact('demande','services','specialites','modesAdmission'));
     }
     /**
      * Update the specified resource in storage.
@@ -83,15 +83,15 @@ class DemandeHospitalisationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-       public function update(Request $request, $id)
-      {
-             $demande = DemandeHospitalisation::FindOrFail($id);
-             $demande->update([
-                    "service"      =>$request->service,
-                    "specialite"  =>$request->specialite,
-                    "modeAdmission" =>$request->mode,
-             ]);
-              return redirect()->action('DemandeHospitalisationController@index');
+    public function update(Request $request, $id)
+    {
+      $demande = DemandeHospitalisation::FindOrFail($id);
+      $demande->update([
+              "service"      =>$request->service,
+              "specialite"  =>$request->specialite,
+              "modeAdmission" =>$request->mode,
+      ]);
+       return redirect()->action('DemandeHospitalisationController@index');
     }
 
     /**
@@ -100,25 +100,25 @@ class DemandeHospitalisationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-        public function destroy($id)
-        {
-             $demande = DemandeHospitalisation::destroy($id);
-             return redirect()->action('DemandeHospitalisationController@index');// return Response::json($demande);
-        }
-        public function listedemandes($type)
-        {
-            $demandehospitalisations = DemandeHospitalisation::whereHas('Specialite.type', function ($q) use ($type) {
-                                               $q->where('id',$type);                           
-                                        })->where('etat','en attente')->get();                       
-            return view('demandehospitalisation.index',compact('demandehospitalisations'));
-        }
-        public function valider(Request $request)
-        {
-         $dem = dem_colloque::firstOrCreate($request->all());
-         $demande  =  DemandeHospitalisation::FindOrFail($request->id_demande); 
-         $demande->etat ="valide";
-         $demande->save();
-         return Response::json($demande);
+      public function destroy($id)
+      {
+           $demande = DemandeHospitalisation::destroy($id);
+           return redirect()->action('DemandeHospitalisationController@index');// return Response::json($demande);
+      }
+      public function listedemandes($type)
+      {
+          $demandehospitalisations = DemandeHospitalisation::whereHas('Specialite.type', function ($q) use ($type) {
+                                             $q->where('id',$type);                           
+                                      })->where('etat','en attente')->get();                       
+          return view('demandehospitalisation.index',compact('demandehospitalisations'));
+      }
+      public function valider(Request $request)
+      {
+       $dem = dem_colloque::firstOrCreate($request->all());
+       $demande  =  DemandeHospitalisation::FindOrFail($request->id_demande); 
+       $demande->etat ="valide";
+       $demande->save();
+       return Response::json($demande);
     }
     public function invalider(Request $request)
     {

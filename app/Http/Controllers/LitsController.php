@@ -68,10 +68,10 @@ class LitsController extends Controller
      */
     public function show($id)
     {
-        $lit = lit::FindOrFail($id);
-        $salle = salle::FindOrFail($lit->salle_id);
-        $service = service::FindOrFail($salle->service_id);
-        return view('lits.show_lit', compact('lit','service'));
+      $lit = lit::FindOrFail($id);
+      $salle = salle::FindOrFail($lit->salle_id);
+      $service = service::FindOrFail($salle->service_id);
+      return view('lits.show_lit', compact('lit','service'));
     }
 
     /**
@@ -82,9 +82,9 @@ class LitsController extends Controller
      */
     public function edit($id)
     {
-        $lit = lit::FindOrFail($id);
-        $salles = salle::all();
-        return view('lits.edit_lit', compact('lit','salles'));
+      $lit = lit::FindOrFail($id);
+      $salles = salle::all();
+      return view('lits.edit_lit', compact('lit','salles'));
     }
 
     /**
@@ -96,18 +96,18 @@ class LitsController extends Controller
      */
       public function update(Request $request, $id)
       {
-             $lit = lit::FindOrFail($id);
-             $etat =1 ;
-             if(isset($_POST['etat']) )
-                     $etat = 0;   
-             $lit->update([
-                  "num"=>$request->numlit,
-                  "nom"=>$request->nom,
-                  "etat"=>$etat,
-                  "affectation"=>$request->affectation,
-                  "salle_id"=>$request->salle,
-             ]);
-             return redirect()->action('LitsController@index');
+        $lit = lit::FindOrFail($id);
+        $etat =1 ;
+        if(isset($_POST['etat']) )
+          $etat = 0;   
+        $lit->update([
+          "num"=>$request->numlit,
+          "nom"=>$request->nom,
+          "etat"=>$etat,
+          "affectation"=>$request->affectation,
+          "salle_id"=>$request->salle,
+        ]);
+         return redirect()->action('LitsController@index');
       }
 
     /**
@@ -116,6 +116,13 @@ class LitsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function affecter($id = 0 )
+    {
+      if($id != 0)
+      {
+        
+      }
+    }
     public function destroy($id)
     {
         //
@@ -126,56 +133,37 @@ class LitsController extends Controller
     */
     public function getlits_old(Request $request)
     {  
-        $lits =array();
-        $salle =salle::FindOrFail($request->SalleId);
-        if(isset($request->rdvId))
+      $lits =array();
+      $salle =salle::FindOrFail($request->SalleId);
+      if(isset($request->rdvId))
+      {
+        $rdvHosp =  rdv_hospitalisation::FindOrFail($request->rdvId);
+        if(isset($rdvHosp->bedReservation))
         {
-          $rdvHosp =  rdv_hospitalisation::FindOrFail($request->rdvId);
-          if(isset($rdvHosp->bedReservation))
-          {
-            $rdvHosp->bedReservation->delete();
-            
-          }  
-        }
-        if(isset($rdvHosp) && isset($rdvHosp->bedReservation) && ($rdvHosp->bedReservation->lit->salle_id == $request->SalleId ))
-        {
-          foreach ($salle->lits as $key => $lit) {  
-            if($rdvHosp->bedReservation->id_lit !=$lit->id ){
-              $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate));
-              if(!($free))
-                $salle->lits->pull($key); //$lits->push($lit);    
-            }
+          $rdvHosp->bedReservation->delete();
+          
+        }  
+      }
+      if(isset($rdvHosp) && isset($rdvHosp->bedReservation) && ($rdvHosp->bedReservation->lit->salle_id == $request->SalleId ))
+      {
+        foreach ($salle->lits as $key => $lit) {  
+          if($rdvHosp->bedReservation->id_lit !=$lit->id ){
+            $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate));
+            if(!($free))
+              $salle->lits->pull($key); //$lits->push($lit);    
           }
         }
-        else
-        {  
-            foreach ($salle->lits as $key => $lit) {  
-                $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate));
-                if(!($free))
-                    $salle->lits->pull($key); //$lits->push($lit);    
-            } 
-              
-        }    
-        return $salle->lits;
-        //return($lits); 
-        //return($salle->lits->count());
-        // $lits = lit::where('salle_id',$salleid)->where('etat',1)->where("affectation",0)->get();
-        //$lit =Lit::FindOrFail(4); // $libre = $lit->isFree(5,1588204800,1588291200);
-        /*
-        $idlit = 11;
-        $free ="true";
-        $reservations =  bedReservation::whereHas('lit',function($q) use($idlit){
-                                              $q->where('id',$idlit);
-                                        })->get();
-        foreach ($reservations as $key => $reservation) {
-            if(( strtotime($request->StartDate) >= strtotime($reservation->rdvHosp->date_Prevu_Sortie)) || (strtotime($request->EndDate) <= strtotime($reservation->rdvHosp->date_RDVh)))
-                  $free = " true";
-             else
-                  $free = " false";   
-        }  
-       // return (Response::json(strtotime($reservations[0]->rdvHosp->date_RDVh)));
-        return $free;
-        */
+      }
+      else
+      {  
+          foreach ($salle->lits as $key => $lit) {  
+              $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate));
+              if(!($free))
+                  $salle->lits->pull($key); //$lits->push($lit);    
+          } 
+            
+      }    
+      return $salle->lits;
     }
     public function getlits(Request $request)
     {

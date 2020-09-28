@@ -46,14 +46,12 @@
 								</td>
 								<th>{{ $demande->medecin->nom }} &nbsp; {{ $demande->medecin->prenom }}</th>
 								<td>{{ $demande->observation }}</td>
-								<td>
-									{{ $demande->demandeHosp->consultation->Date_Consultation }}
-								</td>
+								<td>{{ $demande->demandeHosp->consultation->Date_Consultation }}</td>
 								<td>{{ $demande->demandeHosp->Specialite->nom }}</td>
 								<td>
 									<div class="hidden-sm hidden-xs btn-group">
-										<a href="{{ route('rdvHospi.create',['id' =>$demande->id_demande ]) }}" class="btn btn-xs btn-success">
-											<i class="fa fa-plus fa-xs"></i> &nbsp;RDV Hospitalisaton
+										<a href="{{ route('rdvHospi.create',['id' =>$demande->id_demande ]) }}" class="btn btn-xs btn-success" title="Ajouter Rendez-Vous">
+											<i class="fa fa-plus fa-xs"></i>
 										</a>
 									</div>
 									</td>
@@ -68,13 +66,46 @@
 	</div><!-- /.span -->
 </div>
 <div class="space-12"></div><div class="space-12"></div>
-
 <div class="row">
 	<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
 		<div class="widget-box widget-color-red" id="widget-box-2">
 			<div class="widget-header">
 				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des demandes d'urgence</h5>
 			</div>
+		</div>
+		<div class="widget-body">
+				<div class="widget-main no-padding">
+					<table class="table table-striped table-bordered table-hover">
+						<thead class="thin-border-bottom">
+							<tr>
+								<th class="text-center"><h5><strong>Patient</strong></h5></th>
+								<th class="text-center"><h5><strong>Mode Admission</strong></h5></th>
+								<th class="text-center"><h5><strong>date</strong></h5></th>
+								<th class="text-center"><h5><strong>spécialité</strong></h5></th>
+								<th class="text-center"><em class="fa fa-cog"></em></th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach($demandesUrg as $demande)
+							<tr>
+								<td>{{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }}</td>
+								<td>{{ $demande->modeAdmission }}</td>
+								<td>{{ $demande->consultation->Date_Consultation }}</td>					
+								<td>{{ $demande->Specialite->nom }}</td>
+								<td>
+									<a href="{{ route('lit.affecter',['id' =>$demande->id ]) }}" class="btn btn-xs btn-success" title="Ajouter Rendez-Vous">
+										<i class="fa fa-plus fa-xs"></i>
+									</a>
+									<a href="{{route('rdvHospi.destroy',$demande->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">
+										<i class="ace-icon fa fa-trash-o bigger-120"></i>
+									</a>
+								</td>
+							</tr>
+							@endforeach
+						</tbody>
+							
+					</table>
+				</div>
 		</div>
 	</div>
 </div>

@@ -37,7 +37,6 @@ Route::resource('patient','PatientController');
 Route::resource('assur','AssurController');
 Route::resource('atcd','AntecedantsController');
 Route::resource('medicaments','MedicamentsController');
-Route::resource('exclinique','ExamenCliniqueController');
 Route::resource('demandeproduit','demandeprodController');
 Route::resource('rdvHospi','RdvHospiController');
 Route::resource('demandeexb','DemandeExbController');
@@ -87,14 +86,13 @@ Route::get('/listecolloquesCloture/{type}','ColloqueController@getClosedColoques
 Route::get('/runcolloque/{id}','ColloqueController@run');
 Route::get('/endcolloque/{id}','ColloqueController@cloture');
 Route::post('/savecolloque/{id}','ColloqueController@save');
-Route::get('/getRdvs/{date}','RdvHospiController@getRdvs');//->name('admissionsXHR')//Route::get('hospitalisation/addRDV', 'RdvHospiController@ajouterRDV');//sup
-Route::get('hospitalisation/listeRDVs', 'RdvHospiController@getlisteRDVs');
+Route::get('/getRdvs/{date}','RdvHospiController@getRdvs');
+Route::get('/listeRDVs', 'RdvHospiController@getlisteRDVs');
 Route::post('/hospitalisation/{id}','HospitalisationController@update');
 Route::post('users/changePassword', 'UsersController@changePassword');
 Route::post('/users/store/','UsersController@store');
 Route::get('/searchAssure','AssurController@search');
-route::get('/getsalles','SalleController@getsalles');
-Route::post('/exclinique/store/{id}','ExamenCliniqueController@store');
+route::get('/getsalles','SalleController@getsalles');//Route::post('/exclinique/store/{id}','ExamenCliniqueController@store');
 Route::get('/consultations/create/{id}','ConsultationsController@create');
 Route::get('getConsultations/{id}','ConsultationsController@listecons');
 Route::get('/patient/listerdv/{id}','PatientController@listerdv');
@@ -159,9 +157,7 @@ route::get('/showordonnance/{id}','OrdonnanceController@show_ordonnance');
 route::get('/demandeexbio/{id}','DemandeExbController@createexb');
 route::get('/showdemandeexb/{id}','DemandeExbController@print');
 route::get('/showdemandeexr/{id}','DemandeExamenRadio@print');
-Route::get('/affecterLit', function () {
-    return view('errors.404');
-});
+Route::get('lit/affecter/{id}','LitsController@affecter')->name('lit.affecter');
 ///laborontin
 route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');
 route::post('/uploadresultat','DemandeExbController@uploadresultat');

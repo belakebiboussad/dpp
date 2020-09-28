@@ -13,6 +13,9 @@
 .bootstrap-timepicker-widget table tr:nth-child(1)>td:last-child a {
   display: none;
 }
+.ui-timepicker-container {
+      z-index: 3500 !important;
+ }
 </style>
  @endsection
 @section('page-script')
@@ -22,15 +25,7 @@
 	  var hospID = $(this).data('id');
 	  $("#hospID").val( hospID );
 	  $('#sortieHosp').modal('show');
-  	$('#Heure_sortie').timepicker({
-		//format: 'LT',//timeFormat:'%g:%i',
-		showMeridian : false,
-		  use24hours: true,
-         format: 'hh:mm A',
-	}).on('dp.show', function(event) {
-              $(".bootstrap-datetimepicker-widget").find('.btn[data-action="togglePeriod"]').hide();
-})
-   	$('.timepicker').timepicker('setTime', '10:00');
+  	$('#Heure_sortie').timepicker({ template: 'modal' });
   });
 	jQuery('#saveCloturerHop').click(function () {
 		  var formData = {

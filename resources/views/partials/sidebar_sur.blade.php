@@ -56,12 +56,6 @@
             </a>
             <b class="arrow"></b>
           </li>
-          <li class="">
-            <a href="/affecterLit">
-              <i class="menu-icon fa fa-caret-right"></i>Affectater un Lit
-            </a>
-            <b class="arrow"></b>
-          </li>
         </ul>
       </li>
       <li class="">
@@ -78,7 +72,7 @@
             <b class="arrow"></b>
           </li>
           <li class="">
-            <a href="/hospitalisation/listeRDVs">
+            <a href="/listeRDVs">
               <i class="menu-icon fa fa-clock-o"></i>Liste Rendez-Vous     
             </a>
               <b class="arrow"></b>
@@ -92,13 +86,13 @@
         </a>
         <ul class="submenu">
           <li class="">
-            <a href="/404" title="ajouter un Rendez-Vous">
+            <a href="{{ route('lit.affecter', 0) }}" title="ajouter un Rendez-Vous">
               <i class="menu-icon fa fa-plus"></i>Affecter un Lit
             </a>
             <b class="arrow"></b>
           </li>
           <li class="">
-            <a href="/404">
+            <a href="/404">  <!-- /404 -->
               <i class="menu-icon fa fa-clock-o"></i>Liste Lits     
             </a>
               <b class="arrow"></b>

@@ -43,8 +43,7 @@
 <script src="{{ asset('/js/prettify.min.js') }}"></script>
 <script src="{{ asset('/js/bootstrap-toggle.min.js') }}"></script>
 <script src="{{ asset('/js/ace-extra.min.js') }}"></script>
-<script src="{{ asset('/js/jquery.timepicker.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('/js/bootstrap-timepicker.min.js') }}"></script>
+<script src="{{ asset('/js/jquery.timepicker.min.js') }}"></script><!-- <script type="text/javascript" src="{{ asset('/js/bootstrap-timepicker.min.js') }}"></script> -->
 <script src="{{ asset('/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
 <script src="{{ asset('/plugins/fullcalendar/locale/fr.js') }}"></script>
 <script src="{{ asset('/js/jquery-editable-select.js') }}"></script><!--  -->
