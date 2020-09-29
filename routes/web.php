@@ -44,6 +44,7 @@ Route::resource('demandeexr','DemandeExamenRadio');
 Route::resource('visites','VisiteController'); 
 Route::resource('acte','ActeController');
 Route::resource('surveillance','SurveillanceController');
+Route::resource('reservation','BedReservationController');
 route::get('/home_admin',function (){
     $users = App\User::all();
     return view('home.home_admin',compact('users'));

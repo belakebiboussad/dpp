@@ -57,7 +57,6 @@ class HospitalisationController extends Controller
         $modesHosp = ModeHospitalisation::all();
         return view('Hospitalisations.create', compact('adms','medecins','modesHosp'));
       }
-       public function createold($id){$demande = DemandeHospitalisation::FindOrFail($id);return view('Hospitalisations.create_hospitalisation', compact('demande'));}
 
     /**
      * Store a newly created resource in storage.

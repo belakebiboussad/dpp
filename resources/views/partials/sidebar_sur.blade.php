@@ -86,8 +86,14 @@
         </a>
         <ul class="submenu">
           <li class="">
+            <a href="{{ route('reservation.index') }}" title="ajouter un Rendez-Vous">
+              <i class="menu-icon fa fa-plus"></i>Reserver Lit
+            </a>
+            <b class="arrow"></b>
+          </li>
+          <li class="">
             <a href="{{ route('lit.affecter', 0) }}" title="ajouter un Rendez-Vous">
-              <i class="menu-icon fa fa-plus"></i>Affecter un Lit
+              <i class="menu-icon fa fa-plus"></i>Affecter  Lit
             </a>
             <b class="arrow"></b>
           </li>
