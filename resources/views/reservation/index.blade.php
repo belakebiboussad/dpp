@@ -1,7 +1,17 @@
 @extends('app_sur')
+@section('page-script')
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#addReserv").on('click', function() 
+	  {
+  		 alert('fdgfd');
+  	});
+	});
+</script>
+@endsection
 @section('main-content')
 <div class="row">
-	<div class="col-sm-6 col-xs-6 widget-container-col" id="widget-container-col-2">
+	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 widget-container-col" id="widget-container-col-2">
 	<div class="widget-box widget-color-blue" id="widget-box-2">
 		<div class="widget-header">
 			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des Rendez-Vous</h5>
@@ -51,10 +61,12 @@
 						</td>
 						<td>{{ $rdv->date_RDVh }} &nbsp;{{ $rdv->heure_RDVh }}</td>
 						<td>{{ $rdv->date_Prevu_Sortie }} &nbsp;{{ $rdv->heure_Prevu_Sortie }}</td>
-						<td>
-							<a href="{{ route('reservation.create',['id' =>$rdv->id ]) }}" class="btn btn-xs btn-success" title="Réserver Lit">
-										<i class="fa fa-plus fa-xs"></i>
-									</a>
+						<td><!-- {{ route('reservation.create',['id' =>$rdv->id ]) }} -->
+							<a href="#" class="btn btn-xs btn-success" id ="addReserv" title="Réserver Lit">
+								<i class="fa fa-plus fa-xs"></i>
+							<!-- 	<i class="fa fa-hotel fa-xs"></i> -->
+							<i class="fa fa-bed" aria-hidden="true"></i>
+							</a>
 						</td>
 					</tr>
 					@endforeach	
@@ -64,7 +76,7 @@
 		</div>
 	</div>
 	</div>
-	<div class="col-sm-6 col-xs-6">
+	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 	</div>
 </div>
 @endsection

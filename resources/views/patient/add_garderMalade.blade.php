@@ -63,7 +63,7 @@
 									<b class="text-nowrap">Né(e) le :</b>
 								</label>
 								<div class="col-sm-9">
-								<input class="col-xs-12 col-sm-6 date-picker" id="datenaissance_h" name="datenaissance_h" type="text" placeholder="Date de naissance..." pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" required />
+								<input class="col-xs-12 col-sm-6 date-picker" id="datenaissance_h" name="datenaissance_h" type="text" placeholder="YYYY-MM-DD" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" required />
 								</div>
 							</div>
 					</div>

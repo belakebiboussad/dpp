@@ -24,7 +24,7 @@
 		<div class="form-group {{ $errors->has('datenaissancef') ? 'has-error' : '' }}">
 			<label class="col-sm-3 control-label" for="datenaissancef"><strong class="text-nowrap">Né(e) le :</strong></label>
 			<div class="col-sm-9">
-				<input class="col-xs-12 col-sm-12 date-picker" id="datenaissancef" name="datenaissancef" type="text" data-date-format="yyyy-mm-dd" placeholder="Date de naissance..."/>
+				<input class="col-xs-12 col-sm-12 date-picker" id="datenaissancef" name="datenaissancef" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD"/>
 				{!! $errors->first('datenaissancef', '<p class="alert-danger">:message</p>') !!}
 			</div>
 		</div>

@@ -18,7 +18,7 @@ class BedReservationController extends Controller
 		$services = service::all();
 		return view('reservation.index', compact('rdvs','services'));
 	}
-	public function index()
+	public function create(Request $request)
 	{
 		if($request->ajax())  
     {

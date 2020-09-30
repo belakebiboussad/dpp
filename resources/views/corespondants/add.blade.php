@@ -61,7 +61,7 @@
 								<b class="text-nowrap">Né(e) le :</b>
 							</label>
 							<div class="col-sm-9">
-							<input class="col-xs-6 col-sm-6 date-picker" id="datenaissance_h" name="datenaissance_h" type="text" placeholder="Date de naissance..." data-date-format="yyyy-mm-dd" required />
+							<input class="col-xs-6 col-sm-6 date-picker" id="datenaissance_h" name="datenaissance_h" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" required />
 							</div>
 						</div>
 					</div>

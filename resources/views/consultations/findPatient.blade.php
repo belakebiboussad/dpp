@@ -28,7 +28,7 @@
 						<div class="form-group">
 							<label class="control-label" for="Prenom" ><strong>Né(e):</strong></label> 
 							<div class="input-group">
-						  	<input type="text" class="form-control input-sx date-picker" id="Dat_Naissance" name="Dat_Naissance" data-date-format="yyyy-mm-dd" placeholder="date de naissance..." data-toggle="tooltip" data-placement="left" title="Date Naissance"> 
+						  	<input type="text" class="form-control input-sx date-picker" id="Dat_Naissance" name="Dat_Naissance" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" data-toggle="tooltip" data-placement="left" title="Date Naissance"> 
 						  	<span class="glyphicon glyphicon-search form-control-feedback"></span>
 			   			</div>		
 						</div>

@@ -104,7 +104,7 @@
 					<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
 						<label class="col-sm-3 control-label" for="datenaissance"><strong>Né(e) le :</strong></label>
 						<div class="col-sm-9">
-							<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" placeholder="Date de naissance..." data-date-format="yyyy-mm-dd" required/>
+							<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" required/>
 							{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
 						</div>
 					</div>

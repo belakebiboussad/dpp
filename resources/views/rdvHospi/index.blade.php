@@ -93,7 +93,7 @@
 								<td>{{ $demande->consultation->Date_Consultation }}</td>					
 								<td>{{ $demande->Specialite->nom }}</td>
 								<td>
-									<a href="{{ route('lit.affecter',['id' =>$demande->id ]) }}" class="btn btn-xs btn-success" title="Ajouter Rendez-Vous">
+									<a href="{{ route('lit.affecter',['id' =>$demande->id ]) }}" class="btn btn-xs btn-success" title="Affecter un Lits">
 										<i class="fa fa-plus fa-xs"></i>
 									</a>
 									<a href="{{route('rdvHospi.destroy',$demande->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">
