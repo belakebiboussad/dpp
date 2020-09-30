@@ -7,8 +7,8 @@
   if('ontouchstart' in document.documentElement) document.write("<script src='{{asset('/js/jquery.mobile.custom.min.js')}}'>"+"<"+"/script>");
 </script>
 <script src="{{asset('/js/bootstrap.min.js')}}"></script>
-<script src="{{asset('/js/jquery-ui.min.js')}}"></script>{{-- <script src="{{asset('/js/jquery-ui.custom.min.js')}}"></script> --}}
-<link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
+<script src="{{asset('/js/jquery-ui.min.js')}}"></script>
+{{-- <script src="{{asset('/js/jquery-ui.custom.min.js')}}"></script> --}}{{--<link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">--}}
 <script src="{{asset('/js/jquery.ui.touch-punch.min.js')}}"></script>
 <script src="{{asset('/js/jquery.easypiechart.min.js')}}"></script>
 <script src="{{asset('/js/jquery.sparkline.index.min.js')}}"></script>

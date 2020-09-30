@@ -51,7 +51,10 @@
 								<td>
 									<div class="hidden-sm hidden-xs btn-group">
 										<a href="{{ route('rdvHospi.create',['id' =>$demande->id_demande ]) }}" class="btn btn-xs btn-success" title="Ajouter Rendez-Vous">
-											<i class="fa fa-plus fa-xs"></i>
+											<span syle="color:green">
+												<i class="fa fa-clock-o" aria-hidden="true"></i>
+											</span>
+
 										</a>
 									</div>
 									</td>
@@ -94,7 +97,10 @@
 								<td>{{ $demande->Specialite->nom }}</td>
 								<td>
 									<a href="{{ route('lit.affecter',['id' =>$demande->id ]) }}" class="btn btn-xs btn-success" title="Affecter un Lits">
-										<i class="fa fa-plus fa-xs"></i>
+										<!-- <i class="fa fa-plus fa-xs"></i> -->
+										<span style="color: red;">
+											<i class="fa fa-bed fa-1x" aria-hidden="true"></i>
+										</span>
 									</a>
 									<a href="{{route('rdvHospi.destroy',$demande->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">
 										<i class="ace-icon fa fa-trash-o bigger-120"></i>

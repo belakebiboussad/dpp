@@ -63,9 +63,8 @@
 						<td>{{ $rdv->date_Prevu_Sortie }} &nbsp;{{ $rdv->heure_Prevu_Sortie }}</td>
 						<td><!-- {{ route('reservation.create',['id' =>$rdv->id ]) }} -->
 							<a href="#" class="btn btn-xs btn-success" id ="addReserv" title="Réserver Lit">
-								<i class="fa fa-plus fa-xs"></i>
-							<!-- 	<i class="fa fa-hotel fa-xs"></i> -->
-							<i class="fa fa-bed" aria-hidden="true"></i>
+						
+							<i class="fa fa-bed fa-1x" aria-hidden="true"></i>
 							</a>
 						</td>
 					</tr>
