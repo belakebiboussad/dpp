@@ -8,6 +8,7 @@ use App\modeles\salle;
 use App\modeles\service;
 use App\modeles\bedReservation;
 use App\modeles\rdv_hospitalisation;
+use App\modeles\DemandeHospitalisation;
 use Response;
 class LitsController extends Controller
 {
@@ -36,8 +37,8 @@ class LitsController extends Controller
 
     public function create($id_salle = null)
     {
-           $services = service::all();
-           return view('lits.create_lit', compact('services','id_salle'));
+       $services = service::all();
+       return view('lits.create_lit', compact('services','id_salle'));
     }
     /**
      * Store a newly created resource in storage.
@@ -116,12 +117,33 @@ class LitsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function affecter($id = 0 )
+    public function affecter(Request $request,$id )
     {
-      if($id != 0)
-      {
+     
+      // $services = service::all();
+      // if($id != 0)
+      // {
+      //   $demande = DemandeHospitalisation::find($id);
+      //   return view('lits.affecte',compact('services','demande'));
+      // }
+      // else
+      // {
+
+      // }
+      // if($request->ajax())  
+      // {
+      //   dd("1");
+      //   // $patient = patient::FindOrFail($id);
+      //   // $view = view("patient.ajax_patient_detail",compact('patient'))->render();
+      //   // return response()->json(['html'=>$view]);
+      // }else
+      // {
+      //   dd("2");
+      // }
+      // // if($id != 0)
+      // // {
         
-      }
+      // // }
     }
     public function destroy($id)
     {

@@ -25,7 +25,6 @@
 	             e.preventDefault();  
 	    	});
 		});
- 	//ici
 		function updateDureePrevue()
 		{
 			if($("#dateEntree").val() != undefined) {

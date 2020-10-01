@@ -1,5 +1,33 @@
 @extends('app_sur')
+@section('title')
+Gestion Rendez_Vous & Lits
+@endsection
+@section('page-script')
+<script>
+	jQuery('body').on('click', '#bedAffect', function (event) {
+		$('#demande_id').val($(this).val());
+		jQuery('#bedAffectModal').modal('show');
+	});
+	jQuery('body').on('click', '#bedAffect', function (event) {
+		e.preventDefault();
+		var formData = {
+			    Patient_ID_Patient      : '{{ $patient->id }}',
+				  Antecedant           : 'Personnels',//jQuery('#Antecedant').val()
+				  typeAntecedant       : jQuery('#typeAntecedant').val(),
+				  stypeatcd            : jQuery('#sstypeatcdc').val(),
+				  date                    : $('#dateAntcd').val(),
+				  descrioption         : $("#description").val(),
+	   	  };
+
+	});	
+</script>
+@endsection
 @section('main-content')
+<div class="widget-header">
+	<h5 class="widget-title bigger lighter">
+		<i class="fa fa-list" aria-hidden="true"></i>&nbsp;Demandes Hospitalisations
+	</h5>
+</div>
 <div class="row">
 	<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
 		<div class="widget-box widget-color-blue" id="widget-box-2">
@@ -48,7 +76,7 @@
 								<td>{{ $demande->observation }}</td>
 								<td>{{ $demande->demandeHosp->consultation->Date_Consultation }}</td>
 								<td>{{ $demande->demandeHosp->Specialite->nom }}</td>
-								<td>
+								<td class="text-center">
 									<div class="hidden-sm hidden-xs btn-group">
 										<a href="{{ route('rdvHospi.create',['id' =>$demande->id_demande ]) }}" class="btn btn-xs btn-success" title="Ajouter Rendez-Vous">
 											<span syle="color:green">
@@ -69,6 +97,11 @@
 	</div><!-- /.span -->
 </div>
 <div class="space-12"></div><div class="space-12"></div>
+<div class="widget-header">
+	<h5 class="widget-title bigger lighter">
+		<i class="fa fa-list" aria-hidden="true"></i>&nbsp;Demandes Hospitalisations Urgentes
+	</h5>
+</div>
 <div class="row">
 	<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
 		<div class="widget-box widget-color-red" id="widget-box-2">
@@ -95,13 +128,10 @@
 								<td>{{ $demande->modeAdmission }}</td>
 								<td>{{ $demande->consultation->Date_Consultation }}</td>					
 								<td>{{ $demande->Specialite->nom }}</td>
-								<td>
-									<a href="{{ route('lit.affecter',['id' =>$demande->id ]) }}" class="btn btn-xs btn-success" title="Affecter un Lits">
-										<!-- <i class="fa fa-plus fa-xs"></i> -->
-										<span style="color: red;">
-											<i class="fa fa-bed fa-1x" aria-hidden="true"></i>
-										</span>
-									</a>
+								<td class="text-center"><!-- {{ route('lit.affecter',['id' =>$demande->id ]) }} -->
+									<button class="btn btn-xs btn-success" title="Affecter un Lits" id ="bedAffect" value="{{ $demande->id }}">
+										<span style="color: red;"><i class="fa fa-bed fa-1x" aria-hidden="true"></i></span>
+									</button>
 									<a href="{{route('rdvHospi.destroy',$demande->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">
 										<i class="ace-icon fa fa-trash-o bigger-120"></i>
 									</a>
@@ -113,5 +143,8 @@
 				</div>
 		</div>
 	</div>
+</div>
+<div class="row">@include('lits.affecteModalForm')
+	
 </div>
 @endsection

@@ -18,6 +18,7 @@ class RdvHospiController extends Controller
   public function index()
   {
     $ServiceID = Auth::user()->employ->service;
+    $services = service::all(); 
     $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID) {
                                        $q->where('id',$ServiceID);                           
                                 })->whereHas('demandeHosp',function ($q){
@@ -27,7 +28,7 @@ class RdvHospiController extends Controller
     {
       $q->where('id',$ServiceID);   
     })->where('modeAdmission','urgence')->where('etat','en attente')->get();
-    return view('rdvHospi.index', compact('demandes','demandesUrg'));
+    return view('rdvHospi.index', compact('demandes','demandesUrg','services'));
   }
   public function create($id)
   {
@@ -45,8 +46,7 @@ class RdvHospiController extends Controller
             "etat_RDVh"         =>"en attente",
             "date_Prevu_Sortie" =>$request->dateSortiePre,
             "heure_Prevu_Sortie" =>$request->heureSortiePrevue,
-    ]);
-    // $rdv = rdv_hospitalisation::create($request->all());
+    ]); // $rdv = rdv_hospitalisation::create($request->all());
     if(isset($request->lit) && ($request->lit !=0))
     {   
       BedReservation::firstOrCreate([

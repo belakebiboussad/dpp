@@ -62,11 +62,11 @@
 			<br>
 			<div class="modal-footer">
 				<button type="submit" class="btn btn-info btn-sm btn-submit" id ="EnregistrerAntecedant" value="add" data-atcd="Perso">
-			          <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
-			        </button>
-			       	<button type="reset" class="btn btn-default btn-sm" data-dismiss="modal">
-			        	<i class="ace-icon fa fa-close bigger-110"></i>Fermer
-			        </button>
+          <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
+        </button>
+       	<button type="reset" class="btn btn-default btn-sm" data-dismiss="modal">
+        	<i class="ace-icon fa fa-close bigger-110"></i>Fermer
+        </button>
 			</div>
 		</div>
 	</div>

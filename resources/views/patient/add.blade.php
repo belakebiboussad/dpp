@@ -84,8 +84,7 @@
 @section('main-content')
 <div class="container-fluid">
   <div><h4>Ajouter un Patient</h4></div>
-  <div class="row tabs">
-  <!-- onsubmit="return checkFormAddPatient()" -->
+  <div class="row tabs">  <!-- onsubmit="return checkFormAddPatient()" -->
 		<form class="form-horizontal" id = "addPatientForm" action="{{ route('patient.store') }}" method="POST" role="form">
 	    {{ csrf_field() }}
 	    <div class="row">

@@ -4,7 +4,15 @@
 	$(document).ready(function(){
 		$("#addReserv").on('click', function() 
 	  {
-  		 alert('fdgfd');
+  		// value=$(this).val();
+    // 	$.ajax({
+    // 	type : 'get',
+    //   url : '{{URL::to('searchUser')}}',
+   	// 	data:{'search':value},
+    // 	success:function(data,status, xhr){
+    //     $('tbody').html(data);
+    
+    // 	}
   	});
 	});
 </script>
@@ -61,10 +69,9 @@
 						</td>
 						<td>{{ $rdv->date_RDVh }} &nbsp;{{ $rdv->heure_RDVh }}</td>
 						<td>{{ $rdv->date_Prevu_Sortie }} &nbsp;{{ $rdv->heure_Prevu_Sortie }}</td>
-						<td><!-- {{ route('reservation.create',['id' =>$rdv->id ]) }} -->
+						<td>
 							<a href="#" class="btn btn-xs btn-success" id ="addReserv" title="Réserver Lit">
-						
-							<i class="fa fa-bed fa-1x" aria-hidden="true"></i>
+								<i class="fa fa-bed fa-1x" aria-hidden="true"></i>
 							</a>
 						</td>
 					</tr>

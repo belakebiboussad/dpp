@@ -313,7 +313,7 @@
           doc.text(50,125,'Analyses Demandées :',null,null) 
 					var i =0;
 	    		$('input.ace:checkbox:checked').each(function(index, value) {
-	      		doc.text(20,135+i, ++index + ' : '+this.nextElementSibling.innerHTML+" . "); //alert(value.nextElementSibling.innerHTML);
+	      		doc.text(20,135+i, ++index + ' : '+this.nextElementSibling.innerHTML+" . ");
 	      		i=i+10;
 	    		});
 	    		doc.setFontSize(12);
@@ -340,10 +340,6 @@
 	      exbio.text(25,72+i,this.nextElementSibling.innerHTML+", "); //alert(value.nextElementSibling.innerHTML);
 	      i=i+10;
 	    });
-	    /*
-	    var string = exbio.output('datauristring');
-	    $('#exbiopdf').attr('src', string);
-	    */
 	    exbio.save('ExamBio-'+nomp+'-'+prenomp+'.pdf');
   }
   function createeximg(nomp,prenomp,age,ipp) {
@@ -533,12 +529,12 @@ var autreexamRadio = $("#examRadAutr").tagsinput('items');  if(autreexamRadio !=
 			 	$.get('/atcd/' + atcd_id, function (data) { 
 				 	$('#atcd_id').val(data.id);
 					$('#dateAntcd').val(data.date);
-				       $('#description').val(data.descrioption);
+				  $('#description').val(data.descrioption);
 				 	jQuery('#EnregistrerAntecedant').val("update");
 				 	$("#EnregistrerAntecedant").attr('data-atcd',"Famille")	
 					if(! ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
 	 	   			jQuery('#modalFormData > #sous_type').addClass("hidden");
-  	 			   	jQuery('#antecedantModal').modal('show');
+  	 			 jQuery('#antecedantModal').modal('show');
 				});
 			});
   			$("#EnregistrerAntecedant").click(function (e) {

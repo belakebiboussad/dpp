@@ -83,13 +83,13 @@
 			 @foreach($patient->antecedants as $antcd)
 				  @if($antcd->Antecedant == "Familiaux") 
 				  <tr id="{{ 'atcd'.$antcd->id }}">
-	              			<td class ="hidden" >{{ $antcd->Patient_ID_Patient }}</td> 
-	              			<td>{{ $antcd->date }}</td>
-	              			<td>{{ $antcd->descrioption }}</td>
-	              			<td class="center"> 
-											<button type="button" class="btn btn-xs btn-info open-modalFamil" data-atcd ="d" id ="antFamil-edit" value="{{$antcd->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
-	                		<button type="button" class="btn btn-xs btn-danger delete-atcd" value="{{$antcd->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>
-	              			</td>
+      			<td class ="hidden" >{{ $antcd->Patient_ID_Patient }}</td> 
+      			<td>{{ $antcd->date }}</td>
+      			<td>{{ $antcd->descrioption }}</td>
+      			<td class="center"> 
+						<button type="button" class="btn btn-xs btn-info open-modalFamil" data-atcd ="d" id ="antFamil-edit" value="{{$antcd->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
+        		<button type="button" class="btn btn-xs btn-danger delete-atcd" value="{{$antcd->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>
+      			</td>
 				 </tr>
 				    @endif
 			  @endforeach
