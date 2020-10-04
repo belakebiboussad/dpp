@@ -48,11 +48,13 @@ class HospitalisationController extends Controller
       public function create()
       {
         $serviceID = Auth::user()->employ->service;
-        $adms = admission::with('lit','rdvHosp.demandeHospitalisation.DemeandeColloque','rdvHosp.demandeHospitalisation.consultation.patient.hommesConf')->whereHas('rdvHosp', function($q){
+        $adms = admission::with('lit','rdvHosp.demandeHospitalisation.DemeandeColloque','rdvHosp.demandeHospitalisation.consultation.patient.hommesConf','rdvHosp.demandeHospitalisation.Service','rdvHosp.bedReservation')
+                          ->whereHas('rdvHosp', function($q){
                                               $q->where('date_RDVh','=',date("Y-m-d"));
                             })->whereHas('rdvHosp.demandeHospitalisation',function($q) use ($serviceID) {
                                             $q->where('service', $serviceID)->where('etat','admise');//->where('etat','admise')
                                       })->get();
+        //dd($adms);
         $medecins = employ::where('service',Auth::user()->employ->service)->get();
         $modesHosp = ModeHospitalisation::all();
         return view('Hospitalisations.create', compact('adms','medecins','modesHosp'));
@@ -68,15 +70,17 @@ class HospitalisationController extends Controller
       {        
         $dmission =  admission::find($request->id_admission);  //$dmission =  admission::with('rdvHosp')->find($request->id_admission);
         $hosp = hospitalisation::create([
-              "Date_entree"=>$request->Date_entree, //"Date_entree"=>$rdvHospi->date_RDVh,  // "heure_entrée"=>Date("H:i:00"),
-               "Date_Prevu_Sortie"=>$request->Date_Prevu_Sortie, //"Heure_Prevu_Sortie"=>$rdvHospi->heure_Prevu_Sortie,
-                "Date_Sortie"=>null,
-                "patient_id"=>$request->patient_id,
-              "id_admission"=>$request->id_admission,
-              "garde_id" => (isset($request->garde_id)) ? $request->garde_id : null,
-              "modeHosp_id"=>$request->mode,
-              "etat_hosp"=>"en cours",
+          "Date_entree"=>$request->Date_entree, //"Date_entree"=>$rdvHospi->date_RDVh,  // "heure_entrée"=>Date("H:i:00"),
+           "Date_Prevu_Sortie"=>$request->Date_Prevu_Sortie, //"Heure_Prevu_Sortie"=>$rdvHospi->heure_Prevu_Sortie,
+            "Date_Sortie"=>null,
+            "patient_id"=>$request->patient_id,
+          "id_admission"=>$request->id_admission,
+          "garde_id" => (isset($request->garde_id)) ? $request->garde_id : null,
+          "modeHosp_id"=>$request->mode,
+          "etat_hosp"=>"en cours",
         ]);
+        $controller = new LitsController; //affecter le lit
+        $controller->affecter($request);
         $dmission->rdvHosp->demandeHospitalisation->update(["etat" => "hospitalisation"]);
         $dmission->rdvHosp->update([ "etat_RDVh" => "valide" ]);
          return redirect()->action('HospitalisationController@create'); //return \Redirect::route('HospitalisationController@create');

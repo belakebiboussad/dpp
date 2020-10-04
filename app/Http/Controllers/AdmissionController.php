@@ -49,11 +49,10 @@ class AdmissionController extends Controller
               "id_rdvHosp"=>$request->id_RDV,       
               "id_lit"=>$rdvHospi->bedReservation->id_lit,
         ]);
-        
          $adm->rdvHosp->demandeHospitalisation->update([
               "etat" => "admise",
          ]);
-         return redirect()->action('AdmissionController@index');
+        return redirect()->action('AdmissionController@index');
       }  
       public function storeold(Request $request)
       { 

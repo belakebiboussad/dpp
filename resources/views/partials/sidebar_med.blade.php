@@ -90,7 +90,7 @@
           <b class="arrow"></b>
           <ul class="submenu">
             <li class="">
-              <a href="/choixpat">
+              <a href="{{ route('hospitalisation.create') }}">
                 <i class="menu-icon fa fa-plus purple"></i>Ajouter Hospitalisation
               </a>
               <b class="arrow"></b>
@@ -343,14 +343,14 @@
         url= '{{ route ("consultdetailsXHR", ":slug") }}',
         url = url.replace(':slug',consultId);
          $.ajax({
-                type : 'GET',
-                url:url,
-                success:function(data,status, xhr){
-                  $('#consultDetail').html(data.html);
-                },
-                error:function (data){
-                  console.log('Error:', data);
-                }
+            type : 'GET',
+            url:url,
+            success:function(data,status, xhr){
+              $('#consultDetail').html(data.html);
+            },
+            error:function (data){
+              console.log('Error:', data);
+            }
          });             
       }
       function HommeConfcopy(id)

@@ -9,6 +9,7 @@ use App\modeles\service;
 use App\modeles\bedReservation;
 use App\modeles\rdv_hospitalisation;
 use App\modeles\DemandeHospitalisation;
+use App\modeles\bedAffectation;
 use Response;
 class LitsController extends Controller
 {
@@ -117,33 +118,32 @@ class LitsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function affecter(Request $request,$id )
+    public function affecter(Request $request )
     {
-     
+      $affect = bedAffectation::create($request->all());
+      $lit = lit::FindOrFail( $request->lit_id);
+      $lit->update([
+        "affectation" =>1,
+      ]);
+      return Response::json($affect);
       // $services = service::all();
-      // if($id != 0)
-      // {
-      //   $demande = DemandeHospitalisation::find($id);
-      //   return view('lits.affecte',compact('services','demande'));
-      // }
-      // else
-      // {
-
-      // }
+      // if($id != 0) // {
+     
+      //   $demande = DemandeHospitalisation::find($id); //   return view('lits.affecte',compact('services','demande'));
+      // } // else// {// }
+     
+      
       // if($request->ajax())  
       // {
-      //   dd("1");
-      //   // $patient = patient::FindOrFail($id);
+       //   // $patient = patient::FindOrFail($id);
       //   // $view = view("patient.ajax_patient_detail",compact('patient'))->render();
       //   // return response()->json(['html'=>$view]);
       // }else
       // {
-      //   dd("2");
-      // }
+        // }
       // // if($id != 0)
-      // // {
-        
-      // // }
+     // // {// // }
+      
     }
     public function destroy($id)
     {

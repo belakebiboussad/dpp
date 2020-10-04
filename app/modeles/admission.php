@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class admission extends Model
 {
-     public $timestamps = false;
-     //id_demande     
+     public $timestamps = false;//id_demande     
      protected $fillable  = ['id','id_rdvHosp','id_lit'];
      public function lit()
      {

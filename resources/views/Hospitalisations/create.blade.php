@@ -19,14 +19,19 @@
 	 function formFill(adm)
 	{
 		$('#patient option:selected').remove();//consultation,	//demeande_colloque	// patient//demande_hospitalisation//hommes_conf:
-		$('#garde').find('option').remove();
-		//$('#Date_entree').datepicker('disable');//$("#Date_entree").attr('readonly', 'readonly');
+		$('#garde').find('option').remove();//$('#Date_entree').datepicker('disable');//$("#Date_entree").attr('readonly', 'readonly');
+		$('#service').find('option').remove();
 		if($('#widget-box2').hasClass('invisible'))
 	    $('#widget-box2').removeClass('invisible');
 	  $('#patient').append($('<option>', { 
-	      value: adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['id'],
-	      text : adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['Nom']+" " + adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['Prenom'], 
-	      selected : true
+	    value: adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['id'],
+	    text : adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['Nom']+" " + adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['Prenom'], 
+	    selected : true
+	  }));
+	  $('#service').append($('<option>', { 
+	    value: adm['rdv_hosp']['demande_hospitalisation']['service']['id'],
+	    text : adm['rdv_hosp']['demande_hospitalisation']['service']['nom'], 
+	    selected : true
 	  }));
 	  $('[name=medecin]').val( adm['rdv_hosp']['demande_hospitalisation']['demeande_colloque']['id_medecin']);
 	 	if(adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['hommes_conf'].length == 0)
@@ -34,18 +39,20 @@
 	 	else
 	 	{
 	 		if($('#garde').hasClass('invisible'))
-	    			$('#garde').removeClass('invisible');
-		  	$.each(adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['hommes_conf'], function( index, garde ) {
-		    		$('#garde_id').append($('<option>', { 
-	  	    			value: garde['id'],
-	    	  			text : garde['nom']+" " + garde['prenom'], 
-	    			}));
-	  		});
+	    	$('#garde').removeClass('invisible');
+		  $.each(adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['hommes_conf'], function( index, garde ) {
+		   		$('#garde_id').append($('<option>', { 
+	  	 			value: garde['id'],
+	     			text : garde['nom']+" " + garde['prenom'], 
+	    		}));
+	  	});
 	 	}
 	 	$('#id_admission').val(adm['id']);
 	 	$('#patient_id').val(adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['id']);
+	 	$('#lit_id').val(adm['rdv_hosp']['bed_reservation']['id_lit']);
+	 	$('#demande_id').val(adm['rdv_hosp']['demande_hospitalisation']['id']);
 		$("#Date_entree").datepicker("setDate", adm['rdv_hosp']['date_RDVh']);
-	  $("#Date_Prevu_Sortie").datepicker("setDate", adm['rdv_hosp']['date_Prevu_Sortie']);  
+	  $("#Date_Prevu_Sortie").datepicker("setDate", adm['rdv_hosp']['date_Prevu_Sortie']);
 	  updateDureePrevue();
 	}
 	function addDays()
@@ -126,11 +133,21 @@
 						{{ csrf_field() }}
 						<input type="hidden" name="id_admission" id="id_admission" value="" >
 						<input type="hidden" name="patient_id" id="patient_id" value="">
+						<input type="hidden" name="lit_id" id="lit_id" value="">
+						<input type="hidden" name="demande_id" id="demande_id" value="">
 						<div class="row">
 							<div class="form-group">		
 								<label class="col-sm-4 control-label no-padding-right" for="patient"><strong>Patient :</strong></label>
 								<div class="col-sm-8 col-xs-8">
 									<select name="patient" id="patient" class="col-xs-11 col-sm-11" disabled></select>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group">		
+								<label class="col-sm-4 control-label no-padding-right" for="service"><strong>Service :</strong></label>
+								<div class="col-sm-8 col-xs-8">
+									<select name="service" id="service" class="col-xs-11 col-sm-11" disabled /></select>
 								</div>
 							</div>
 						</div>
@@ -193,10 +210,13 @@
 								</div>
 							</div>
 						</div>
+						<div class="space-12"></div>	
 						<div class="row">
-							<div class="col-md-offset-3 col-md-9">
-								<button class="btn btn-info btn-sm" type="submit" id ="sendBtn"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
-								<button class="btn btn-danger btn-sm" type="reset">	<i class="ace-icon fa fa-close bigger-110"></i>Annuler</button>
+							<div class="col-sm12">
+								<div class="center bottom" style="bottom:0px;">
+									<button class="btn btn-info btn-sm" type="submit" id ="sendBtn"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
+									<button class="btn btn-danger btn-sm" type="reset">	<i class="ace-icon fa fa-close bigger-110"></i>Annuler</button>
+								</div>
 							</div>
 						</div>
 						<div class="space-12"></div>

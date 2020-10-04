@@ -8,17 +8,27 @@ Gestion Rendez_Vous & Lits
 		$('#demande_id').val($(this).val());
 		jQuery('#bedAffectModal').modal('show');
 	});
-	jQuery('body').on('click', '#bedAffect', function (event) {
-		e.preventDefault();
-		var formData = {
-			    Patient_ID_Patient      : '{{ $patient->id }}',
-				  Antecedant           : 'Personnels',//jQuery('#Antecedant').val()
-				  typeAntecedant       : jQuery('#typeAntecedant').val(),
-				  stypeatcd            : jQuery('#sstypeatcdc').val(),
-				  date                    : $('#dateAntcd').val(),
-				  descrioption         : $("#description").val(),
-	   	  };
-
+	$('document').ready(function(){
+		jQuery('body').on('click', '#AffectSave', function (e) {
+			e.preventDefault();
+			var formData = {
+		    demande_id : jQuery('#demande_id').val(),
+			  lit_id     : jQuery('#lit_id').val()
+		  };
+		  $.ajax({
+				headers: {
+    	      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    	  },
+    	  url : '{{ route ("lit.affecter") }}',
+    	  type:'POST',
+    	  data:formData,//dataType: 'json',
+    	  success: function (data) {
+    	   	$("#demande" + formData['demande_id']).remove();
+    	   	jQuery('#bedAffectModal').trigger("reset");
+			    jQuery('#bedAffectModal').modal('hide');
+        }
+      });
+		});
 	});	
 </script>
 @endsection
@@ -123,7 +133,7 @@ Gestion Rendez_Vous & Lits
 						</thead>
 						<tbody>
 							@foreach($demandesUrg as $demande)
-							<tr>
+							<tr id="{{ 'demande'.$demande->id }}">
 								<td>{{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }}</td>
 								<td>{{ $demande->modeAdmission }}</td>
 								<td>{{ $demande->consultation->Date_Consultation }}</td>					
@@ -144,7 +154,5 @@ Gestion Rendez_Vous & Lits
 		</div>
 	</div>
 </div>
-<div class="row">@include('lits.affecteModalForm')
-	
-</div>
+<div class="row">@include('lits.affecteModalForm')</div>
 @endsection

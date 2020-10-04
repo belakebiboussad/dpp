@@ -185,9 +185,9 @@
 						</div>
 			  </div>
 			  <div class="col-xs-4">
-			  	<label class="col-sm-3 control-label" for="heure_rdvh">	<strong>Lit : </strong></label>
+			  	<label class="col-sm-3 control-label" for="lit_id">	<strong>Lit : </strong></label>
 						<div class="col-sm-8">
-							<select id="lit" name="lit" data-placeholder="selectionnez le lit" class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9" disabled>
+							<select id="lit_id" name="lit_id" data-placeholder="selectionnez le lit" class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9" disabled>
 								<option value="" selected disabled>selectionnez le lit d'hospitalisation</option>
 							</select>
 						</div>	

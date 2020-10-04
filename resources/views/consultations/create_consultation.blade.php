@@ -249,26 +249,26 @@
 	}
 	function rdvDelete(rdvId)
 	{
-	  	var url ="/rdv/"+rdvId;
-	  	$.ajaxSetup({
-		        headers: {
-		                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-		        }
-		 }); 
+	  var url ="/rdv/"+rdvId;
+	  $.ajaxSetup({
+		  headers: {
+		            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+		  }
+		}); 
 		var token = $("meta[name='csrf-token']").attr("content");
-		 $.ajax({
-		              type : 'DELETE',
-		              url : url,
-		              data: {
-		          		"id": rdvId,
-		            		"_token": token,
-		        	},
-		              success:function(data){  	   		
-		               	$('.calendar1').fullCalendar('removeEvents', data.id);              	
-		              },
-		              error:function(jqXHR, textStatus, errorThrown){
-			              	console.log(errorThrown);
-		              }
+		$.ajax({
+          type : 'DELETE',
+          url : url,
+          data: {
+      			"id": rdvId,
+        		"_token": token,
+    			},
+          success:function(data){  	   		
+           	$('.calendar1').fullCalendar('removeEvents', data.id);              	
+          },
+          error:function(jqXHR, textStatus, errorThrown){
+            	console.log(errorThrown);
+          }
 		});
 	}
 	function createexbio(nomp,prenomp,age,ipp){  
@@ -396,22 +396,7 @@
         }
     });
 }
-  function createeximgorg(nomp,prenomp,age){
-/*moment.locale('fr');//var d = new Date();    var formattedDate = moment(new Date()).format("l");var exmRadio = new jsPDF();
-exmRadio.text(200,20, 'Date :' +formattedDate , null, null, 'right');exmRadio.text(20,25, 'Nom : '+nomp, null, null); exmRadio.text(20,35, 'Prénom : '+prenomp, null, null);
-exmRadio.text(20,45, 'Age : '+ age+' ans', null, null);exmRadio.setFontType("bold");exmRadio.text(105,65, 'Priére de faire', null, null, 'center');
-exmRadio.setFontSize(14);exmRadio.text(45,80,'Examens Demandées :',null,null,'center');exmRadio.setFontSize(13);
-var selected = "";var keys=[], exams=[];  $("#ExamsImgtab thead tr th strong").each(function(){ keys.push($(this).html());
-});$("#ExamsImgtab tbody tr").each(function(){	var i=0,obj={};$(this).children("td").each(function(index){  if((index == 1) || (index == 3) )
-{	obj[keys[i]]=jQuery.trim($(this).html());	i++;}})exams.push(obj);});	var i=0;	$.each(exams, function( index, exam ) {
-var width=0$.each(exam, function( index, value ) {	if(index == 0){width = exmRadio.getTextWidth(value)+20;exmRadio.text(45,95+i,value,null,null,'right');}
-exmRadio.text(45+width,95+i,value,null,null,'center');});i=i+10;}); *//* $("input[class='imgExam']:checked").each(function() {
-exbio.text(25,72+i,$(this).attr('data-checkbox-text')+", ");selected = selected + $(this).val()+", "; i=i+10;}); $('#selectedoption').val(selected); 
-var autreexamRadio = $("#examRadAutr").tagsinput('items');  if(autreexamRadio != undefined){ for (var j = 0;  j< autreexamRadio.length; j++) {
- exbio.text(25,72+i,autreexamRadio[j]+", ");i=i+10;}
- */// var string = exmRadio.output('datauristring');// $('#exradiopdf').attr('src', string);//$("input[type='checkbox']:checked").each(function() {//$(this).attr('checked', false);//});
-    
-  }
+
 	function addCIMCode(code)
 	{
 		$("#codesim").val(code);
@@ -545,34 +530,33 @@ var autreexamRadio = $("#examRadAutr").tagsinput('items');  if(autreexamRadio !=
 	    			 	var tabName = "antsTab";
 	    			 	var formData = {
 			    			Patient_ID_Patient      : '{{ $patient->id }}',
-				      	 	Antecedant           : 'Personnels',//jQuery('#Antecedant').val()
-				       		typeAntecedant       : jQuery('#typeAntecedant').val(),
-				       		stypeatcd            : jQuery('#sstypeatcdc').val(),
+				      	Antecedant           : 'Personnels',//jQuery('#Antecedant').val()
+				       	typeAntecedant       : jQuery('#typeAntecedant').val(),
+				       	stypeatcd            : jQuery('#sstypeatcdc').val(),
 				     		date                    : $('#dateAntcd').val(),
-				       		descrioption         : $("#description").val(),
-	   	  			};
-   	  			if(formData.typeAntecedant =="Physiologiques")
-		   	  	{
-			      		formData.habitudeAlim = $('#habitudeAlim').val();
-			      		formData.tabac = $("#tabac").is(":checked") ? 1:0;
-			      		formData.ethylisme = $("#ethylisme").is(":checked") ? 1:0;     
-		   		  }
-    			}else
-    			{
-	    		 	 var tabName = "antsFamTab";
-	    			 var formData = {
-			    		Patient_ID_Patient   : '{{ $patient->id }}',
-				       	Antecedant           : 'Familiaux',
-				       	date                 : $('#dateAntcd').val(),
 				       	descrioption         : $("#description").val(),
 	   	  			};
-    			}
-    	  	if(!($("#description").val() == ''))
-    		  {	
-  	    		if($('.dataTables_empty').length > 0)
-  	    			$('.dataTables_empty').remove();
-    
-		      	$.ajaxSetup({
+   	  				if(formData.typeAntecedant =="Physiologiques")
+		   	  		{
+			      		formData.habitudeAlim = $('#habitudeAlim').val();
+			      		formData.tabac = $("#tabac").is(":checked") ? 1:0;
+			        	formData.ethylisme = $("#ethylisme").is(":checked") ? 1:0;     
+		   		 	  }
+    				}else
+    			  {
+	    		 	 	var tabName = "antsFamTab";
+	    			  var formData = {
+			    			Patient_ID_Patient   : '{{ $patient->id }}',
+				      	Antecedant           : 'Familiaux',
+				      	date                 : $('#dateAntcd').val(),
+				       	descrioption         : $("#description").val(),
+	   	  			};
+    				}
+    	  		if(!($("#description").val() == ''))
+    		  	{	
+  	    			if($('.dataTables_empty').length > 0)
+  	    				$('.dataTables_empty').remove();
+		      		$.ajaxSetup({
 			      	 headers: {
 			            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
 			      	 }
@@ -611,7 +595,7 @@ var autreexamRadio = $("#examRadAutr").tagsinput('items');  if(autreexamRadio !=
 			                  		$("#atcd" + atcd_id).replaceWith(atcd);
 			              		}
 			            		 jQuery('#modalFormData').trigger("reset");
-			             		 jQuery('#antecedantModal').modal('hide')
+			             		 jQuery('#antecedantModal').modal('hide');
 			        },
 			        error: function (data) {
 			              console.log('Error:', data);

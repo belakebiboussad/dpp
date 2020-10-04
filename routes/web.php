@@ -93,7 +93,7 @@ Route::post('/hospitalisation/{id}','HospitalisationController@update');
 Route::post('users/changePassword', 'UsersController@changePassword');
 Route::post('/users/store/','UsersController@store');
 Route::get('/searchAssure','AssurController@search');
-route::get('/getsalles','SalleController@getsalles');//Route::post('/exclinique/store/{id}','ExamenCliniqueController@store');
+route::get('/getsalles','SalleController@getsalles');
 Route::get('/consultations/create/{id}','ConsultationsController@create');
 Route::get('getConsultations/{id}','ConsultationsController@listecons');
 Route::get('/patient/listerdv/{id}','PatientController@listerdv');
@@ -134,7 +134,7 @@ Route::any('/profile/{userId}', [
     ]);
 });
 Route::get('/role/show/{userId}','RolesController@show');
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 Route::post('AddANTCD','AntecedantsController@createATCDAjax');
 Route::get('/DocorsSearch','EmployeController@searchBySpececialite');
 Route::get('/searchPatient','PatientController@search')->name('patients.search');
@@ -158,7 +158,8 @@ route::get('/showordonnance/{id}','OrdonnanceController@show_ordonnance');
 route::get('/demandeexbio/{id}','DemandeExbController@createexb');
 route::get('/showdemandeexb/{id}','DemandeExbController@print');
 route::get('/showdemandeexr/{id}','DemandeExamenRadio@print');
-Route::get('lit/affecter/{id}','LitsController@affecter')->name('lit.affecter');
+// /{id}
+Route::post('lit/affecter','LitsController@affecter')->name('lit.affecter');
 ///laborontin
 route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');
 route::post('/uploadresultat','DemandeExbController@uploadresultat');

@@ -37,14 +37,14 @@
         success: function (data) {
          	if(data.etat == 'valide')
           {
-     		$(elm).html('<i class="fa fa-close" style="font-size:14px"></i> Annuler');
-       		$(elm).attr('title', 'Annuler');
-       		$(elm).removeClass("btn-success").addClass("btn-danger");
-     	}else{
-     	          $(elm).removeClass("btn-danger").addClass("btn-success");
-       		$(elm).attr('title', 'Valider demande');
-       		$(elm).html('<i class="ace-icon fa fa-check"></i>Valider');
-     	}
+	     			$(elm).html('<i class="fa fa-close" style="font-size:14px"></i> Annuler');
+	       		$(elm).attr('title', 'Annuler');
+	       		$(elm).removeClass("btn-success").addClass("btn-danger");
+     			}else{
+     	      $(elm).removeClass("btn-danger").addClass("btn-success");
+	       		$(elm).attr('title', 'Valider demande');
+	       		$(elm).html('<i class="ace-icon fa fa-check"></i>Valider');
+     			}
 	      },
         error:function(data){
           console.log('Error:', data);

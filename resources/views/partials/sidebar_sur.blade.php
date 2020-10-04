@@ -115,7 +115,6 @@
       try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
       function addDays()
       {
-/*var jsDate = $('#dateEntree').datepicker('getDate');jsDate.setDate(jsDate.getDate() + parseInt($('#numberDays').val()));var dateEnd = jsDate.getFullYear() + '-' + (jsDate.getMonth()+1) + '-' + jsDate.getDate(); $("#dateSortiePre").datepicker("setDate", dateEnd);*/
         var datefin = new Date($('#dateEntree').val());
         datefin.setDate(datefin.getDate() + parseInt($('#numberDays').val(), 10));
         $("#dateSortiePre").val(moment(datefin).format("YYYY-MM-DD"));        
@@ -151,20 +150,23 @@
             }
             $('#lit option[value=0]').prop('selected', true);
             $('#lit').attr('disabled', 'disabled');
-            var serviceID = $('#serviceh').val();
-            var start = $('#dateEntree').val(); 
-            var end = $("#dateSortiePre").val();
+            var formData = { 
+              ServiceID: $('#serviceh').val(), 
+              Affect :$('#affect').val(),
+            };
+            if($('#affect').val() == '0')
+            {
+              formData.StartDate =$('#dateEntree').val();
+              formData.EndDate = $("#dateSortiePre").val();
+            }
+            
             if(end !== null  && end !== '')
             {
               $.ajax({
-                       url : '/getsalles',
-                       type:'GET',
-                       data: { 
-                              ServiceID: serviceID , 
-                              StartDate: start, 
-                              EndDate: end,
-                       }, //dataType : 'json',
-                       success: function(data, textStatus, jqXHR){
+                        url : '/getsalles',
+                        type:'GET',
+                        data:formData, //dataType : 'json',
+                        success: function(data, textStatus, jqXHR){
                               var select = $('#salle').empty();
                              if(data.length != 0){
                                     select.append("<option value='0'>Selectionnez une salle</option>");   
@@ -190,14 +192,11 @@
         $("#salle").change(function(){
           if($(this ).val() != 0)
           {  
-            var attr = $('#lit').attr('disabled');
-            if (typeof attr == typeof undefined && attr == false) {
-              $('#lit').attr('disabled', 'disabled');
-            }
-            $('#lit').removeAttr("disabled");
-            var start = $('#dateEntree').val();
-            var end = $("#dateSortiePre").val();
-            var salleId =  $('#salle').val();
+            var attr = $('#lit_id').attr('disabled');
+            if (typeof attr == typeof undefined && attr == false)
+              $('#lit_id').attr('disabled', 'disabled');
+            $('#lit_id').removeAttr("disabled");
+            var start = $('#dateEntree').val();var end = $("#dateSortiePre").val(); var salleId =  $('#salle').val();
             var rdvId = typeof($('#id').val())  !== "undefined" ? $('#id').val(): null;  
             $.ajax({
                     url : '/getlits',
@@ -209,16 +208,13 @@
                           rdvId : rdvId
                     }, //dataType : 'json', 
                     success: function(data, textStatus, jqXHR){                  
-                          var selectLit = $('#lit').empty();                      
-                          // $.each(data, function( index, value ) {
-                          //   alert( index + ": " + value );
-                          // });
-
+                        var selectLit = $('#lit_id').empty();                      
                         if(data.length != 0){
-                                selectLit.append("<option value='0'>Selectionnez un lit</option>");
-                                $.each(data,function(){
-                                    selectLit.append("<option value='"+this.id+"'>"+this.nom+"</option>");
-                                });
+                          selectLit.append("<option value='0'>Selectionnez un lit</option>");
+                          $.each(data,function(){
+                            selectLit.append("<option value='"+this.id+"'>"+this.nom+"</option>");
+                          });
+                            $('#AffectSave').removeAttr("disabled");
                         }else
                         {
                           selectLit.append('<option value="" selected disabled>Pas de Lit libre</option>');

@@ -47,13 +47,13 @@ class RdvHospiController extends Controller
             "date_Prevu_Sortie" =>$request->dateSortiePre,
             "heure_Prevu_Sortie" =>$request->heureSortiePrevue,
     ]); // $rdv = rdv_hospitalisation::create($request->all());
-    if(isset($request->lit) && ($request->lit !=0))
+    if(isset($request->lit_id) && ($request->lit_id !=0))
     {   
       BedReservation::firstOrCreate([
         "id_rdvHosp"=>$rdv->id,
-        "id_lit" =>$request->lit,
-      ]);           
-     }
+        "id_lit" =>$request->lit_id,
+      ]); 
+    }
     $demande= DemandeHospitalisation::find($request->id_demande);
     $demande->etat = 'programme';
     $demande->save();
