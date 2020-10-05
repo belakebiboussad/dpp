@@ -30,7 +30,7 @@ class DemandeHospitalisation extends Model
   { 
     return $this->hasMany('App\modeles\rdv_hospitalisation','id_demande')->orderBy('date_RDVh');
   }
-  public function affectation()
+  public function bedAffectation()
   {
     return $this->hasOne('App\modeles\bedAffectation','demande_id');
   }

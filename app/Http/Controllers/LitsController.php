@@ -149,48 +149,15 @@ class LitsController extends Controller
     {
         //
     }
-
     /**
-    function ajax return lits ,on retourne pas les lits bloque ou reservé  
+    //function ajax return lits ,on retourne pas les lits bloque ou reservé  
     */
-    public function getlits_old(Request $request)
-    {  
-      $lits =array();
-      $salle =salle::FindOrFail($request->SalleId);
-      if(isset($request->rdvId))
-      {
-        $rdvHosp =  rdv_hospitalisation::FindOrFail($request->rdvId);
-        if(isset($rdvHosp->bedReservation))
-        {
-          $rdvHosp->bedReservation->delete();
-          
-        }  
-      }
-      if(isset($rdvHosp) && isset($rdvHosp->bedReservation) && ($rdvHosp->bedReservation->lit->salle_id == $request->SalleId ))
-      {
-        foreach ($salle->lits as $key => $lit) {  
-          if($rdvHosp->bedReservation->id_lit !=$lit->id ){
-            $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate));
-            if(!($free))
-              $salle->lits->pull($key); //$lits->push($lit);    
-          }
-        }
-      }
-      else
-      {  
-          foreach ($salle->lits as $key => $lit) {  
-              $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate));
-              if(!($free))
-                  $salle->lits->pull($key); //$lits->push($lit);    
-          } 
-            
-      }    
-      return $salle->lits;
-    }
     public function getlits(Request $request)
     {
-        $lits =array();
-        $salle =salle::FindOrFail($request->SalleId);
+      $lits =array();
+      $salle =salle::FindOrFail($request->SalleId);
+      if( $request->Affect == '0')  
+      {
         if(isset($request->rdvId))
         {
           $rdvHosp =  rdv_hospitalisation::FindOrFail($request->rdvId)->with('bedReservation');
@@ -201,8 +168,16 @@ class LitsController extends Controller
           $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate));
           if(!($free))
             $salle->lits->pull($key); //$lits->push($lit);    
-        } 
-        return $salle->lits;
+        }
+      }else
+      {
+        foreach ($salle->lits as $key => $lit) {
+          $affect = $lit->affecter($lit->id); 
+          if($affect)
+            $salle->lits->pull($key);
+        }
+      }    
+      return $salle->lits;
     }
 
 }

@@ -24,12 +24,14 @@ class RdvHospiController extends Controller
                                 })->whereHas('demandeHosp',function ($q){
                                 $q->where('etat','valide'); 
                             })->get();
-    $demandesUrg= DemandeHospitalisation::whereHas('Service',function($q) use($ServiceID)
+    $demandesUrg= DemandeHospitalisation::doesntHave('bedAffectation')->whereHas('Service',function($q) use($ServiceID)
     {
       $q->where('id',$ServiceID);   
     })->where('modeAdmission','urgence')->where('etat','en attente')->get();
     return view('rdvHospi.index', compact('demandes','demandesUrg','services'));
   }
+
+
   public function create($id)
   {
     $demande = dem_colloque::where('dem_colloques.id_demande','=',$id)->first();

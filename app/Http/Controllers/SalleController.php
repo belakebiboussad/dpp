@@ -142,8 +142,8 @@ class SalleController extends Controller
     {
       foreach ($salles as $key1 => $salle) {
           foreach ($salle->lits as $key => $lit) {
-            $free = $lit->isFree(); 
-            if(! $free)
+            $affect = $lit->affecter($lit->id); 
+            if($affect)
             {
               $salle->lits->pull($key);
             }

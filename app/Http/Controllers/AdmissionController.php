@@ -46,8 +46,8 @@ class AdmissionController extends Controller
       {
         $rdvHospi =  rdv_hospitalisation::find($request->id_RDV);
          $adm=admission::create([     
-              "id_rdvHosp"=>$request->id_RDV,       
-              "id_lit"=>$rdvHospi->bedReservation->id_lit,
+            "id_rdvHosp"=>$request->id_RDV,       
+            "id_lit"=>$rdvHospi->bedReservation->id_lit,
         ]);
          $adm->rdvHosp->demandeHospitalisation->update([
               "etat" => "admise",

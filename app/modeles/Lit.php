@@ -28,11 +28,12 @@ class Lit extends Model
     }   
     return $free;
   }
-  public function isFree()
+  public function affecter($id)
   {
-    $lit =Lit::FindOrFail($idlit);
+    $affect = false;
+    $lit =Lit::FindOrFail($id);
     if($lit->etat == 0 || $lit->affectation == 1 )
-      return false; 
+      $affect = true; 
+    return $affect;
   } 
-
 }
