@@ -59,8 +59,8 @@ class DemandeHospitalisationController extends Controller
      */
     public function show($id)
     {
-        $demande = DemandeHospitalisation::FindOrFail($id);
-        return view('demandehospitalisation.show_demande',compact('demande'));
+      $demande = DemandeHospitalisation::FindOrFail($id);
+      return view('demandehospitalisation.show_demande',compact('demande'));
     }
     /**
      * Show the form for editing the specified resource.

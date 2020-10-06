@@ -223,14 +223,11 @@
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                 },
-            });
-         
+            });    
           }
           else
-            $('#lit option[value=0]').prop('selected', true);
+            $('#lit_id option[value=0]').prop('selected', true);
         });
       })
     </script>
 </div>
-
-<!-- /section:basics/sidebar -->

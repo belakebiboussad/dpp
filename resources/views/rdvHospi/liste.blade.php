@@ -65,10 +65,10 @@
                   <a href="{{ route('rdvHospi.edit',$rdv->id) }}" class="btn btn-success btn-xs"  title= "Reporer RDV" >
                     <i class="ace-icon fa fa-clock-o"></i>
                   </a>
-                  <a href="{{ route('rdvHospi.destroy',$rdv->id) }}" class="btn btn-danger btn-xs" title="Annuler RDV" data-method="DELETE" data-confirm="Etes Vous Sur d'annuller le RDV?"><i class="fa fa-trash-o fa-xs"></i></a><!-- onclick= "printRDV();" -->
                   <a href="/rdvHospi/imprimer/{{ $rdv->id }}" class="btn btn-info btn-xs" title="Imprimer RDV">
                     <i class="ace-icon fa fa-print" ></i>
                   </a>
+                  <a href="{{ route('rdvHospi.destroy',$rdv->id) }}" class="btn btn-danger btn-xs" title="Annuler RDV" data-method="DELETE" data-confirm="Etes Vous Sur d'annuller le RDV?"><i class="fa fa-trash-o fa-xs"></i></a><!-- onclick= "printRDV();" -->
                 </td>
               </tr>     
               @endforeach

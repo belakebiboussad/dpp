@@ -87,7 +87,7 @@ Route::get('/listecolloquesCloture/{type}','ColloqueController@getClosedColoques
 Route::get('/runcolloque/{id}','ColloqueController@run');
 Route::get('/endcolloque/{id}','ColloqueController@cloture');
 Route::post('/savecolloque/{id}','ColloqueController@save');
-Route::get('/getRdvs/{date}','RdvHospiController@getRdvs');
+Route::get('/getRdvs/{date}','RdvHospiController@getRdvs')->name('rdvHospi.dayRdvsHosp');
 Route::get('/listeRDVs', 'RdvHospiController@getlisteRDVs');
 Route::post('/hospitalisation/{id}','HospitalisationController@update');
 Route::post('users/changePassword', 'UsersController@changePassword');

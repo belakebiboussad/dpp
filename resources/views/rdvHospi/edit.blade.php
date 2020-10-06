@@ -18,10 +18,9 @@
       startTime: '08:00',
       dynamic: true,
       dropdown: true,
-          scrollbar: true
+      scrollbar: true
     });  
-// $("input[type=number]").bind('keyup input', function(){//   var datefin = new Date($('#dateEntree').val());
-//   datefin.setDate(debut.getDate() + parseInt($( this).val(), 10));//$("#dateSortiePre").val(moment(datefin).format("YYYY-MM-DD"));// });
+//$("input[type=number]").bind('keyup input', function(){//var datefin = new Date($('#dateEntree').val());//datefin.setDate(debut.getDate() + parseInt($( this).val(), 10));//$("#dateSortiePre").val(moment(datefin).format("YYYY-MM-DD"));// });
 	});
 </script>
 @endsection
@@ -30,9 +29,7 @@
   <h1 style="display: inline;">modification du  RDV Hospitalisation du: <strong>&laquo;{{$demande->demandeHosp->consultation->patient->Nom}}
   {{$demande->demandeHosp->consultation->patient->Prenom}}&raquo;</strong></h1>
   <div class="pull-right">
-    <a href="{{route('rdvHospi.index')}}" class="btn btn-white btn-info btn-bold">
-      <i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>liste des RDVs
-    </a>
+    <a href="{{route('rdvHospi.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>liste des RDVs</a>
   </div>
 </div>
 <div class="row">
@@ -40,10 +37,9 @@
       <form class="form-horizontal" id="RDVForm" role="form" method="POST" action="{{ route('rdvHospi.update',$rdv->id) }}">
       {{ csrf_field() }}
       {{ method_field('PUT') }}
-      <input type="text" name="id" id ="id" value="{{$rdv->id}}" hidden>  <!-- <input type="text" name="id_demande" value="{{$demande->id_demande}}" hidden> -->
+      <input type="text" name="id" id ="id" value="{{$rdv->id}}" hidden><!-- <input type="text" name="id_demande" value="{{$demande->id_demande}}" hidden> -->
       <div class="row">
-        <div class="col-sm-12">
-            <h3 class="header smaller lighter blue">informations concernant la demande d'hospitalisation</h3>
+        <div class="col-sm-12"><h3 class="header smaller lighter blue">informations concernant la demande d'hospitalisation</h3>
         </div>
       </div>
       <div class="space-12"></div>
@@ -170,7 +166,7 @@
             </div>
           </div>
           <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-4 control-label no-padding-right" for="salle"> <strong> Salle :</strong></label>
+            <label class="col-sm-4 control-label no-padding-right" for="salle"> <strong>Salle :</strong></label>
             <div class="col-sm-8">
               <select id="salle" name="salle" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12">
                 <option value="0" selected>selectionnez la salle d'hospitalisation</option>      
@@ -183,9 +179,9 @@
             </div>
           </div>
           <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-4 control-label" for="lit"> <strong>Lit :</strong></label>
+            <label class="col-sm-4 control-label" for="lit_id"> <strong>Lit :</strong></label>
             <div class="col-sm-8">
-              <select id="lit" name="lit" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12">
+              <select id="lit_id" name="lit_id" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12">
                 <option value="0" >selectionnez le lit d'hospitalisation</option>
                 <option value="{{ $rdv->bedReservation->id_lit }}" selected>{{ $rdv->bedReservation->lit->nom }} </option>
                 @foreach($rdv->bedReservation->lit->salle->lits as $lit)
@@ -220,10 +216,10 @@
             </div>
         </div>
         <div class="col-xs-4">
-          <label class="col-sm-3 control-label" for="heure_rdvh"><strong>Lit :</strong></label>
+          <label class="col-sm-3 control-label" for="lit_id"><strong>Lit :</strong></label>
           <div class="col-sm-8">
-            <select id="lit" name="lit" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12">
-              <option value="0" selected>selectionnez le lit d'hospitalisation</option>      
+            <select id="lit_id" name="lit_id" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" disabled>
+              <option value="0" selected disabled>selectionnez le lit d'hospitalisation</option>      
             </select>
           </div>  
         </div>

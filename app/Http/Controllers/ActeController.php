@@ -57,10 +57,7 @@ class ActeController extends Controller
     {
         $this->validate($request, [
             'nom'=> 'required|string|max:225',
-             'id_visite'=> 'required',
-            // 'duree'=> 'required',
-            // 'description'=> 'required|string|max:225',
-            // 'periodes'=> 'required'
+             'id_visite'=> 'required',// 'duree'=> 'required', // 'description'=> 'required|string|max:225',// 'periodes'=> 'required'
         ]); // $acte =Acte::create($request->all());    
         $acte = new Acte;
         $acte->nom = $request->nom;

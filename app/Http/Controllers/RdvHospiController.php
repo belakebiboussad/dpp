@@ -36,34 +36,33 @@ class RdvHospiController extends Controller
     $services = service::all();
     return view('rdvHospi.create', compact('demande','services'));
   }
-public function store(Request $request)
-{
- 
-  $ServiceID = Auth::user()->employ->service;
-  $rdv = rdv_hospitalisation::firstOrCreate([
-          "date_RDVh"         =>$request->dateEntree,
-          "heure_RDVh"        =>$request->heure_rdvh,   
-          "id_demande"        =>$request->id_demande,       
-          "etat_RDVh"         =>"en attente",
-          "date_Prevu_Sortie" =>$request->dateSortiePre,
-          "heure_Prevu_Sortie" =>$request->heureSortiePrevue,
-  ]);
-  if(isset($request->lit) && ($request->lit !=0))
-  {   
-    BedReservation::firstOrCreate([
-        "id_rdvHosp"=>$rdv->id,
-        "id_lit" =>$request->lit,
-    ]);           
-  }
-  $demande= DemandeHospitalisation::find($request->id_demande);
-  $demande->etat = 'programme';
-  $demande->save();
-  $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID) {
-                           $q->where('id',$ServiceID);                           
-                     })->whereHas('demandeHosp',function ($q){
-                           $q->where('etat','valide'); //valier par le colloque
-                     })->get();                 
-  return view('rdvHospi.index', compact('demandes'));
+  public function store(Request $request)
+  {
+    $ServiceID = Auth::user()->employ->service;
+    $rdv = rdv_hospitalisation::firstOrCreate([
+            "date_RDVh"         =>$request->dateEntree,
+            "heure_RDVh"        =>$request->heure_rdvh,   
+            "id_demande"        =>$request->id_demande,       
+            "etat_RDVh"         =>"en attente",
+            "date_Prevu_Sortie" =>$request->dateSortiePre,
+            "heure_Prevu_Sortie" =>$request->heureSortiePrevue,
+    ]);
+    if(isset($request->lit) && ($request->lit !=0))
+    {   
+      BedReservation::firstOrCreate([
+          "id_rdvHosp"=>$rdv->id,
+          "id_lit" =>$request->lit,
+      ]);           
+    }
+    $demande= DemandeHospitalisation::find($request->id_demande);
+    $demande->etat = 'programme';
+    $demande->save();
+    $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID) {
+                             $q->where('id',$ServiceID);                           
+                       })->whereHas('demandeHosp',function ($q){
+                             $q->where('etat','valide'); //valier par le colloque
+                       })->get();                 
+    return view('rdvHospi.index', compact('demandes'));
   }
   public function getlisteRDVs()
   {
@@ -79,31 +78,35 @@ public function store(Request $request)
   }
   public function edit($id)
   {
-    $rdv =  rdv_hospitalisation::with('bedReservation')->find($id);
-    /*if(isset($rdv->bedReservation))  $rdv->bedReservation()->delete();  */  
+    $rdv =  rdv_hospitalisation::with('bedReservation')->find($id);/*if(isset($rdv->bedReservation))  $rdv->bedReservation()->delete();  */ 
     $demande  = dem_colloque::where('dem_colloques.id_demande','=',$rdv->demandeHospitalisation->id)->first();
     $services = service::all();
     return view('rdvHospi.edit', compact('demande','services','rdv'));   // return view('rdvHospi.edit', compact('demande','services','rdv'));         
   }
   public function update(Request $request,$id)
   {
-        $rdvHospi =  rdv_hospitalisation::find($id);
-        // reserver le nouveau lit
-        if(isset($request->lit) && ($request->lit !=0))
-        {    
-          BedReservation::firstOrCreate([
-              "id_rdvHosp"=>$rdvHospi->id,
-              "id_lit" =>$request->lit,
-          ]);           
+    $rdvHospi = rdv_hospitalisation::find($id);
+    if(isset($request->lit_id) && ($request->lit_id !=0)) // reserver le nouveau lit
+    { 
+      if(isset($rdvHospi->bedReservation))//$rdvHospi->has('bedReservation')
+        $rdvHospi->bedReservation()->update([
+          "id_lit" =>$request->lit_id 
+        ]);
+      else
+      {
+        $rdvHospi->bedReservation()->firstOrCreate([
+          "id_lit" =>$request->lit_id,
+        ]);
+      }
     }
     $rdvHospi->update([//update un nouveu Rendez-Vous
-            "date_RDVh"=>$request->dateEntree,
-            "heure_RDVh"=>$request->heure_rdvh,   
-            "id_demande"=>$rdvHospi->demandeHospitalisation->id,       
-            "etat_RDVh"=>"en attente",
-            "date_Prevu_Sortie"=>$request->dateSortiePre,
-            "heure_Prevu_Sortie" =>$request->heureSortiePrevue,
-     ]);
+          "date_RDVh"=>$request->dateEntree,
+          "heure_RDVh"=>$request->heure_rdvh,   
+          "id_demande"=>$rdvHospi->demandeHospitalisation->id,       
+          "etat_RDVh"=>"en attente",
+          "date_Prevu_Sortie"=>$request->dateSortiePre,
+          "heure_Prevu_Sortie" =>$request->heureSortiePrevue,
+    ]);
      return redirect()->action('RdvHospiController@getlisteRDVs');
   }
   public function show($id){  }
@@ -120,13 +123,16 @@ public function store(Request $request)
   }
   public function getRdvs($date)
   {
-    $rdvs = rdv_hospitalisation::with('bedReservation.lit.salle.service','demandeHospitalisation.consultation.patient','demandeHospitalisation.Service')->where('etat_RDVh','=','en attente')->where('date_RDVh','=', $date)->get(); 
+    $rdvs = rdv_hospitalisation::with('bedReservation.lit.salle.service','demandeHospitalisation.consultation.patient','demandeHospitalisation.Service')
+                                ->where('etat_RDVh','=','en attente')
+                                ->whereHas('demandeHospitalisation', function($q){
+                                    $q->where('etat', 'programme');
+                                })->where('date_RDVh','=', $date)->get(); 
     if (!empty($rdvs)) {
       return json_encode($rdvs);
     }
   }  
-  //imprimer rdv d'hospitalisation  
-  public function print($id)
+  public function print($id)//imprimer rdv d'hospitalisation 
   { 
     $t = Carbon::now();
     $rdv = rdv_hospitalisation::with('demandeHospitalisation')->FindOrFail($id);
