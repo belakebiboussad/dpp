@@ -7,9 +7,9 @@
       var time = dt.getHours() + ":" + dt.getMinutes();
       var date = dt.getFullYear() + "-" + (dt.getMonth()+1) + "-" +   dt.getDate();          
       var filter= new Date($("#currentday").val());
-      url= '{{ route ("rdvHospi.dayRdvsHosp", ":slug") }}',
+      url= '{{ route ("rdvHospi.dayRdvsHosp", ":slug") }}';
       url = url.replace(':slug',$("#currentday").val());
-      $.ajax({
+    	$.ajax({
         url:url,//url: '/getRdvs/'+ $("#currentday").val(),
         type :'GET',
         dataType: 'JSON',
