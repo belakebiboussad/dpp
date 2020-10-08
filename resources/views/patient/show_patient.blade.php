@@ -300,7 +300,7 @@ $('document').ready(function(){
 													</div>
 													<div class="col-sm-3">
 														<label class="inline">
-															<span><b>Etat :</b></span><span class="lbl blue"> {{ $patient->assure->Etat }}</span>
+															<span><b>Position :</b></span><span class="lbl blue"> {{ $patient->assure->Etat }}</span>
 														</label>
 													</div>
 													<div class="col-sm-6">

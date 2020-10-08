@@ -45,7 +45,7 @@ class demandeprodController extends Controller
     }
     public function index()
     {
-        $demandes = demand_produits::all();
+        $demandes = demand_produits::where('Etat','E')->get();//all();
         return view('demandeproduits.index', compact('demandes'));
     }
 

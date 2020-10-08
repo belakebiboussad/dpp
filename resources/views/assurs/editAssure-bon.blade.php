@@ -137,7 +137,7 @@
          <div class="row">
        		<div class="col-sm-6" id="statut">
 			<div class="form-group">
-				<label class="col-sm-3 control-label" for="etatf"><strong>Etat :</strong></label>
+				<label class="col-sm-3 control-label" for="etatf"><strong>Position :</strong></label>
 				<div class="col-sm-9">
 				<div class="radio">
 				 @if(isset($assure) && !empty($assure))

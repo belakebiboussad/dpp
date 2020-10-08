@@ -1,14 +1,18 @@
 @extends('app_phar')
 @section('page.script')
 <script type="text/javascript">
-</script
+</script>
 @endsection
 @section('main-content')
 <div class="row">
 	<div class="col-xs-12">
 		<div class="col-xs-12">
 			<div class="widget-box">
-				<div class="widget-header"><h4 class="widget-title">Détails de la demande :</h4></div>
+				<div class="widget-header"><h4 class="widget-title">Détails de la demande :</h4>
+					<div class="pull-right" style ="margin-top: -0.5%;">
+						<a href="{{route('demandeproduit.index')}}" class ="btn btn-white btn-info btn-bold btn-xs">Liste demandes&nbsp;<i class="ace-icon fa fa-arrow-circle-left bigger-120 black"></i></a>
+					</div>
+				</div>
 				<div class="widget-body">
 					<div class="widget-main">
 						<div class="row">
@@ -28,10 +32,7 @@
 														<div class="profile-info-name"> Etat : </div>
 														<div class="profile-info-value">
 															<span class="editable" id="username">
-																@if($demande->Etat == "E")
-																	En Attente.
-																@elseif($demande->Etat =="V")
-																	Validé
+																@if($demande->Etat == "E")En Attente. @elseif($demande->Etat =="V") Validé
 																@elseif($demande->Etat =="R")
 																	Rejeté
 																@endif
@@ -113,7 +114,7 @@
 										</div>
 									</div>
 									<div class="form-actions center">
-										<button type="submit" class="btn btn-sm btn-primary disabled"><i class="ace-icon fa fa-save icon-on-left bigger-110"></i>&nbsp;Enregistrer</button>
+										<button type="submit" class="btn btn-sm btn-primary"><i class="ace-icon fa fa-save icon-on-left bigger-110"></i>&nbsp;Enregistrer</button>
 									</div>
 								</form>
 							</div>
