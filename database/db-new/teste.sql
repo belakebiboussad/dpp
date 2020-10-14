@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 14 oct. 2020 à 16:17
+-- Généré le :  mer. 14 oct. 2020 à 16:23
 -- Version du serveur :  5.7.23
 -- Version de PHP :  7.2.10
 
@@ -10127,7 +10127,7 @@ CREATE TABLE IF NOT EXISTS `rdvs` (
   KEY `fk_RDV_Specialite` (`specialite`),
   KEY `fk_RDV_Employe` (`Employe_ID_Employe`),
   KEY `fk_RDV_Patient` (`Patient_ID_Patient`)
-) ENGINE=InnoDB AUTO_INCREMENT=643 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=644 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `rdvs`
@@ -10195,7 +10195,8 @@ INSERT INTO `rdvs` (`id`, `Date_RDV`, `Fin_RDV`, `fixe`, `specialite`, `Employe_
 (639, '2020-10-13 10:30:00', '2020-10-13 10:45:00', 1, 1, 102, 22, 'en attente'),
 (640, '2020-10-15 11:00:00', '2020-10-15 11:15:00', 1, 1, 102, 66, 'en attente'),
 (641, '2020-10-15 11:45:00', '2020-10-15 12:00:00', 1, 1, 102, 54, 'en attente'),
-(642, '2020-10-14 13:00:00', '2020-10-14 13:15:00', 1, 1, 102, 30, 'en attente');
+(642, '2020-10-14 13:00:00', '2020-10-14 13:15:00', 1, 1, 102, 30, 'en attente'),
+(643, '2020-10-15 12:45:00', '2020-10-15 13:00:00', 0, 1, 102, 26, 'en attente');
 
 -- --------------------------------------------------------
 
@@ -10661,7 +10662,7 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (28, 'medChef', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'az@e.fr', 87, 13, 'vlYWoVhmd2IzlC0PyfR8kzStP4YgnxDstbqo7IEzatBZ6DhH6G75rvmKC3wD', 1),
 (29, 'colloque', '$2y$10$Ve5h8oMwfAmfzHgTLrfJTOmGUiBpZLdxrfEfYC/7g2a1G62ZkM2QO', 'gdcedgg@yah.fr', 80, 5, 'gpZZ7n5wZzyDItBNWBgOWJBuHVN9zPFAVCnhFigz3AQFygICRp4ENyCc2B8W', 1),
 (30, 'sur', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'rlakhneche@cdta.dz', 81, 5, 'BfQJCYXPvCHBsICZ4rxkU4eOn3GoaAhuMy1r1eCynki78xgOJZ0fve0Z7z0Z', 1),
-(31, 'rec', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', NULL, 82, 2, 'J54OlU9ShlcafF2oYjiIdmgMS1Vcb4WtbPiNk9nVej01ODMbxMJJY9YTLpHN', 1),
+(31, 'rec', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', NULL, 82, 2, 'OYuI1VToZqeHzouuazIEfX6pL1XcffUo1wAzEJuhORO0cD6BbHlduTObuSsQ', 1),
 (33, 'test', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'test@gmail', 79, 1, 'vOPiwaTdqixSdeIHAEvAbr9FKcLRyihyEbiPMYVrKGTCn5HMf9zUjrCBsUyc', 1),
 (34, 'med', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', NULL, 88, 1, 'fb3Fq2xQgFWyTBO5v1lRHwwIkqlMoObVnU9zTeylFhh5tAzWkHzNg5l2N6ig', 0),
 (35, 'delCol', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'll@a.fr', 89, 6, 'dNrbXR4nFTh4X8h9p0lGrIhEPnKGiG9pl8B8kQhkIBuVVuu5F5Z6VWOMl2JG', 1),
