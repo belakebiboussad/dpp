@@ -652,7 +652,7 @@ function createRDVModal(debut, fin, pid = 0, fixe=1)
         }
        function editRdv(event)
         {
-             var CurrentDate = (new Date()).setHours(0, 0, 0, 0);var GivenDate = (new Date(event.start)).setHours(0, 0, 0, 0);       
+             var CurrentDate = (new Date()).setHours(0, 0, 0, 0);var GivenDate = (new Date(event.start)).setHours(0, 0, 0, 0);
              if( CurrentDate <= GivenDate )
              {
                     $('#patient_tel').text(event.tel);
@@ -660,9 +660,10 @@ function createRDVModal(debut, fin, pid = 0, fixe=1)
                     $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
                     $('#lien').text(event.title);
                     $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
+                    (event.fixe ==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
                     $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
                     $('#btnRdvDelete').attr('href','javascript:rdvDelete('+event.id+');');
-                      var url = '{{ route("rdv.update", ":slug") }}';
+                    var url = '{{ route("rdv.update", ":slug") }}';
                     url = url.replace(':slug',event.id); // $('#updateRdv').attr('action',url);
                     $('#idRDV').val(event.id);
                     $('#fullCalModal').modal({  show: 'true' }); 

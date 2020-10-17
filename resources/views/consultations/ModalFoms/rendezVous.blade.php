@@ -35,7 +35,7 @@
        <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
           <h5 class="modal-title" id="myModalLabel">
-            <span class="glyphicon glyphicon-bell"></span>&nbsp;Modifier le Rendez-Vous du
+            <span class="glyphicon glyphicon-bell"></span>&nbsp;Modifierrr le Rendez-Vous du
             <i class="ace-icon fa fa-angle-double-left" style="font-size:20px;"></i>
             <a href="" id="lien" style="color: inherit;"><span id="patient"></span></a>
             <i class="ace-icon fa fa-angle-double-right" style="font-size:20px;"></i>
@@ -59,11 +59,21 @@
           <input type="hidden" id="idRDV">
           <div class="well">
             <div class="row">
+             <div class="col-sm-6"> 
               <label for="date"><span class="glyphicon glyphicon-time fa-lg"></span><strong> Date Rendez-Vous :</strong></label>
               <div class="input-group">
                 <input class="form-control" id="daterdv" name="daterdv" type="text" data-date-format="yyyy-mm-dd HH:mm:ss" readonly/>
               </div>
             </div>
+             <div class="col-sm-6">
+             <label for="date"><span class="glyphicon glyphicon-time fa-lg"></span><strong> Type Rendez-Vous :</strong></label>
+              <div class="input-group">
+                  <label class="block">
+                          <input type="checkbox" class="ace" id="fixecbx" name="fixecbx"/><span class="lbl">Fixe </span>
+                   </label>
+              </div> 
+             </div>
+             </div>
             <div class="row" class= "invisible">
               <div class="input-group">
                 <input class="form-control" id="datefinrdv" name ="datefinrdv" type="text" data-date-format="yyyy-mm-dd HH:mm:ss" style="display:none"/>
@@ -79,8 +89,8 @@
         @if( empty($patient))
           <a type="button" id="btnConsulter" class="btn btn btn-sm btn-primary" href="" > <i class="fa fa-file-text" aria-hidden="true"></i> Consulter </a>
          @endif
-        @if(Auth::user()->role->id  != 2)   <!-- onclick="updateRdv();"  -->
-        <button type="button" id ="updateRDV" class="btn btn-sm btn-primary invisible" type ="submit"><i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer
+        @if(Auth::user()->role->id  != 2)      {{-- invisible --}}
+            <button type="button" id ="updateRDV" class="btn btn-sm btn-primary" type ="submit"><i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer
         </button>
         @endif
       <a  href ="#" id="printRdv" class="btn btn-success btn-sm"  data-dismiss="modal"> <i class="ace-icon fa fa-print"></i>Imprimer </a>

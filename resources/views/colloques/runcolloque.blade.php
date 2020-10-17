@@ -56,7 +56,7 @@
 @endsection
 @section('main-content')
 <div class="page-header col-xs-12">
-	<h1>Déroulement du Colloque <strong> {{ $colloque->Type->type }} </strong> de la semaine du  <strong>&quot;
+	<h1>Déroulement du Colloque <strong> {{ $colloque->type }} </strong> de la semaine du  <strong>&quot;
 		<?php $d=$colloque->date.' monday next week'; echo(date('d M Y',strtotime($d)-1));?>&quot;</strong>
 	</h1>
 </div>

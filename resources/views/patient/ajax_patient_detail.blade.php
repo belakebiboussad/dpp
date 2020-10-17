@@ -1,39 +1,23 @@
 <style>
 .nav-tabs{
- 
 /*background-color:#C8D3DB;*/
- 
 }
  .nav-tabs > li > a{
- 
-border-radius: 5px;
- 
+    border-radius: 5px;
 }
  
 .nav-tabs > li > a:hover{
- 
-background-color: #3D515F !important;
- 
-border-radius: 5px;
- 
-color:#fff;
- 
-border:1px solid black;
- 
-}
- 
+    background-color: #3D515F !important;
+    border-radius: 5px;
+    color:#fff;
+    border:1px solid black;
+} 
 .nav-tabs > li.active > a,
- 
 .nav-tabs > li.active > a:focus,
- 
 .nav-tabs > li.active > a:hover{
- 
-background-color: #68889E !important;
- 
-color:#fff;
- 
-border:2px solid #3F515F;
- 
+    background-color: #68889E !important;
+    color:#fff;
+      border:2px solid #3F515F;
 }
 </style>
 <div data-role="page" class="ui-responsive-panel">
@@ -156,9 +140,9 @@ border:2px solid #3F515F;
             </div>
             </div>
             <div class="center">
-                  @if(Auth::user()->role->id == 1)
-                  <a  href="/consultations/create/{{ $patient->id }}" class="btn btn-sm btn-primary btn-create"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Consultation</a>
-                  @endif{{-- rdv/create/{{ $patient->id }} --}}
+                   @if( in_array(Auth::user()->role_id,[1,13,14]))
+                   <a  href="/consultations/create/{{ $patient->id }}" class="btn btn-sm btn-primary btn-create"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Consultation</a>
+                  @endif
                   &nbsp;&nbsp;&nbsp;&nbsp;<a href="rendezVous/create/{{ $patient->id }}" class="btn btn-sm btn-primary btn-create"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Rendez-Vous</a>
             </div>
      </div><!-- /panel -->

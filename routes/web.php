@@ -96,7 +96,6 @@ Route::get('/searchAssure','AssurController@search');
 route::get('/getsalles','SalleController@getsalles');
 Route::get('/consultations/create/{id}','ConsultationsController@create');
 Route::get('getConsultations/{id}','ConsultationsController@listecons');
-Route::get('/patient/listerdv/{id}','PatientController@listerdv');
 Route::get('/atcd/create/{id}','AntecedantsController@create');
 Route::get('/atcd/index/{id}','AntecedantsController@index');
 Route::get('/admission/create/{id}','AdmissionController@create');//a commenter
@@ -175,7 +174,7 @@ route::get('/homeradiologue',function(){
     return view('home.home_radiologue', compact('demandesexr'));
 })->name('homeradiologue');
 // route with optonnel parameter
-Route::get('rendezVous/create/{id?}','RDVController@index');
+Route::get('rendezVous/create/{id?}','RDVController@create');
 Route::get('assur/patientAssuree/{id}','PatientController@create');
 Route::post('/addpatientAssure','PatientController@storePatient');
 Route::get('assur/patientAedit/{id}/{idA}','PatientController@edit');

@@ -72,9 +72,8 @@
           <div class="col-xs-7">
             <label for="type_colloque" class= "control-label no-padding-left col-xs-4 col-sm-4"><strong>Type :</strong></label>
             <select id="type_colloque" name="type_colloque" class="col-xs-4 col-sm-4" data-placeholder="sélectionner le type..." required>
-              <option value="" selected disabled>sélectionner le type...</option>
-             {{-- @foreach( $type_c as $type)<option id="id_type" value="{{$type->id}}" >{{$type->type}}</option> @endforeach--}}
-              <option value="0">médicale</option>
+              {{-- <option value="" selected disabled>sélectionner le type...</option>--}}
+              <option value="0" selected >médicale</option>
              <option value="1">chirurgicale</option>
              
             </select>

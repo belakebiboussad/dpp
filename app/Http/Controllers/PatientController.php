@@ -33,12 +33,6 @@ class PatientController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function listerdv($id_patient)
-  {
-     $patient = patient::FindOrFail($id_patient);
-     $rdvs = rdv::where("Patient_ID_Patient",$id_patient)->get()->all(); 
-     return view('patient.liste_rdv_pat',compact('patient','rdvs'));
-  }
   public function index()
   {
     return view('patient.index');

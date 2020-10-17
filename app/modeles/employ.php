@@ -24,9 +24,10 @@ class employ extends Model
 	{
 		return $this->hasOne('App\User','employee_id');
 	}
-	 /*public function colloques()
+	 
+	 public function colloques()
 	{
-		return $this->belongsToMany ('App\modeles\colloque','colloque_employ','id_colloque','id_employ');
-	}*/
+		return $this->belongsToMany ('App\modeles\colloque','membres','id_employ','id_colloque');
+	}
 } 
 

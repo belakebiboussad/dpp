@@ -231,7 +231,7 @@ $(document).ready(function() {
                           <div class="form-check">
                             <br>
                             <label class="block">
-                              <input type="checkbox" class="ace" id="fixe" name="fixe" @if(Auth::user()->role_id == 2) disabled @endif />
+                              <input type="checkbox" class="ace" id="fixe" name="fixe" />
                               <span class="lbl">Fixe </span>
                             </label>
                           </div>

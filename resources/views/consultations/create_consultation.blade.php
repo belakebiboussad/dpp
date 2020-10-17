@@ -720,11 +720,11 @@
 					 element.css('background-color', '#D3D3D3');
 				else
 				{	
-       					element.css("padding", "5px");
-					if(event.fixe == 1)
+       				if(event.fixe)
          					element.css('background-color', '#87CEFA'); 
          				else
-         					element.css('background-color', '#378006');   
+         					element.css('background-color', '#378006');
+         				element.css("padding", "5px"); 
 				}
 				element.popover({
 			  		delay: { "show": 500, "hide": 100 },  // title: event.title,
@@ -756,7 +756,7 @@
 					$('.calendar1').fullCalendar('unselect');
 			},
 		 	eventClick: function(calEvent, jsEvent, view) {
-		      	 	editRdv(calEvent); {{-- @if(Auth::user()->role->id != 2) @endif          --}}
+		      	 	editRdv(calEvent);
 		   	},
    			eventAllow: function(dropLocation, draggedEvent) {
 	    			if(draggedEvent.start < CurrentDate)

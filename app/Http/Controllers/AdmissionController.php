@@ -25,9 +25,14 @@ class AdmissionController extends Controller
      */
       public function index()
       {
+        /*
         $rdvs = rdv_hospitalisation::with('bedReservation')->whereHas('demandeHospitalisation', function($q){
                                            $q->where('etat', 'programme');
                                         })->where('etat_RDVh','=','en attente')->where('date_RDVh','=',date("Y-m-d"))->get(); 
+        */
+        $rdvs = rdv_hospitalisation::with('bedReservation')->whereHas('demandeHospitalisation', function($q){
+                                           $q->where('etat', 'programme');
+                                        })->where('etat_RDVh','=',null)->where('date_RDVh','=',date("Y-m-d"))->get(); 
        
         $demandesUrg = DemandeHospitalisation::with('bedAffectation')
                                              ->whereHas('bedAffectation')
@@ -76,6 +81,7 @@ class AdmissionController extends Controller
           ]);
           }
         }
+        dd('gfdg');
         return redirect()->action('AdmissionController@index');
       }  
     /**

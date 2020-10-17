@@ -24,7 +24,7 @@
 @endsection
 @section('main-content')
 <div class="space-12"></div>
-<div class="page-header"> <h1><strong>Modifier un Colloque du &quot; {{ $colloque->date }} &quot;</strong></h1></div><!-- /.page-header -->
+<div class="page-header"> <h1><strong>Modifier le Colloque du &quot; {{ $colloque->date }} &quot;</strong></h1></div><!-- /.page-header -->
 <br><div class="space-12"></div>
 <div class="row"> 
   <div class="col-sm-12">
@@ -60,7 +60,7 @@
       <div class="space-12"></div> <div class="space-12"></div><div class="space-12"></div><!-- ici date -->
       <div class="row">
         <div class="col-xs-7">
-          <h4><label class= "control-label no-padding-left col-xs-4 col-sm-4" for="date_colloque"><strong>Date du colloque:</strong></label></h4>
+          <h4><label class= "control-label no-padding-left col-xs-4 col-sm-4" for="date_colloque"><strong>Date:</strong></label></h4>
           <input class="col-xs-4 col-sm-4 date-picker" id="date_colloque" name="date_colloque" type="text" value="{{ $colloque->date }}" data-date-format="yyyy-mm-dd" required/>
           <button class="btn btn-sm filelink" onclick="$('#date_colloque').focus()"><i class="fa fa-calendar"></i></button> 
         </div>
@@ -69,14 +69,13 @@
       <div class="space-12"></div> <div class="space-12"></div>
       <div class="row">
         <div class="col-xs-7">
-          <label for="type_colloque" class= "control-label no-padding-left col-xs-4 col-sm-4"><strong>Type du colloque :</strong></label>
-          <select id="type_colloque" name="type_colloque" class="col-xs-4 col-sm-4" data-placeholder="sélectionner le type..." required>
-            <option value="" selected disabled>sélectionner le type...</option>
-            @foreach( $type_c as $type)
-            <option id="id_type" value="{{$type->id}}" @if($type->id == $colloque->type ) selected @endif>{{$type->type}}</option>
-            @endforeach
-          </select>
-          </div>
+             <label for="type_colloque" class= "control-label no-padding-left col-xs-4 col-sm-4"><strong>Type:</strong></label>
+             <select id="type_colloque" name="type_colloque" class="col-xs-4 col-sm-4" data-placeholder="sélectionner le type..." required>
+                 {{--  <option value="" selected disabled>sélectionner le type...</option>   --}}
+                  <option value="0" {{ ($colloque->type == 0)?'selected':'' }} >médicale</option>
+                   <option value="1"  {{ ($colloque->type == 1)?'selected':'' }}>chirurgicale</option>
+              </select>
+       </div>
       </div>
       <div class="space-12"></div><div class="space-12"></div>
       <div class="row">

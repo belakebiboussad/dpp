@@ -34,4 +34,5 @@ class DemandeHospitalisation extends Model
   {
     return $this->hasOne('App\modeles\bedAffectation','demande_id');
   }
+
 }

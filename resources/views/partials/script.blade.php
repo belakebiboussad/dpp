@@ -259,19 +259,19 @@ $('#typeexm').on('change', function() {
             });
         </script>
         <script>
-            $('#rdv_table').DataTable({
-                 processing: true,
-                serverSide: true,
-                ajax: 'http://localhost:8000/getrdv',
-                columns: [
-                    {data: 'action5', name: 'action', orderable: false, searchable: false},
-                    {data: 'action4', name: 'action', orderable: false, searchable: false},
-                    {data: 'action3', name: 'action', orderable: false, searchable: false},
-                    {data: 'action1', name: 'action', orderable: false, searchable: false},
-                    {data: 'action2', name: 'action', orderable: false, searchable: false},
-                    {data: 'action', name: 'action', orderable: false, searchable: false}
-                ]
-            });
+            // $('#rdv_table').DataTable({
+            //      processing: true,
+            //     serverSide: true,
+            //     ajax: 'http://localhost:8000/getrdv',
+            //     columns: [
+            //         {data: 'action5', name: 'action', orderable: false, searchable: false},
+            //         {data: 'action4', name: 'action', orderable: false, searchable: false},
+            //         {data: 'action3', name: 'action', orderable: false, searchable: false},
+            //         {data: 'action1', name: 'action', orderable: false, searchable: false},
+            //         {data: 'action2', name: 'action', orderable: false, searchable: false},
+            //         {data: 'action', name: 'action', orderable: false, searchable: false}
+            //     ]
+            // });
         </script>
 
         <script>

@@ -54,11 +54,11 @@ class RDVController extends Controller
       {    
              if(Auth::user()->role_id == 1)
               {
-                $rdvs = rdv::where('specialite', Auth::user()->employ->specialite)->get();
+                $rdvs = rdv::where('specialite', Auth::user()->employ->specialite)->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get();
                 return view('rdv.index', compact('rdvs')); 
             } else
             {
-                    $rdvs = rdv::all();
+                    $rdvs = rdv::where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get();
                     return view('rdv.index', compact('rdvs')); 
             }     
       }
@@ -70,9 +70,9 @@ class RDVController extends Controller
     // Request $request
       public function create($id_patient =null)
       {
-               if(Auth::user()->role_id == 1)   
-                {         
-                  $rdvs = rdv::with(['patient','employe'])->where('specialite',Auth::user()->employ->specialite)->get();
+              if(Auth::user()->role_id == 1)   
+              {         
+                  $rdvs = rdv::with(['patient','employe'])->where('specialite',Auth::user()->employ->specialite)->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get();
                   if(isset($id_patient) && !empty($id_patient))
                   {
                     $patient = patient::FindOrFail($id_patient);
@@ -81,9 +81,14 @@ class RDVController extends Controller
                     return view('rdv.create', compact('rdvs')); 
                }else
                { 
-                  $rdvs = rdv::with(['patient','employe'])->get();
-                  $specialites = specialite::all();
-                  return view('rdv.create', compact('rdvs','specialites')); 
+                  $rdvs = rdv::with(['patient','employe'])->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get();
+                   $specialites = specialite::all();
+                    if(isset($id_patient) && !empty($id_patient))
+                    {
+                       $patient = patient::FindOrFail($id_patient);
+                        return view('rdv.create', compact('rdvs','specialites','patient')); 
+                    }else
+                       return view('rdv.create', compact('rdvs','specialites')); 
                }
       }
     /**
@@ -92,19 +97,19 @@ class RDVController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-          $request->validate([
+       public function store(Request $request)
+      {
+         $request->validate([
                 "daterdv"=> 'required',
            ]);
            $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
-           $specialite = $employe->specialite;       // $rdv = rdv::create($request->all());
+           $specialite = $employe->specialite;
                 $rdv = rdv::firstOrCreate([
                "Date_RDV"=>$request->daterdv,
                "specialite"=>$specialite,
                "Employe_ID_Employe"=>Auth::user()->employee_id,
-               "Patient_ID_Patient"=>$request->id_patient,
-               "Etat_RDV"=> "en attente",
+               "Patient_ID_Patient"=>$request->id_patient
+               //"Etat_RDV"=> "en attente",
            ]);
           return redirect()->route("rdv.show",$rdv->id);
     }
@@ -140,7 +145,6 @@ class RDVController extends Controller
                     return view('rdv.edit',compact('rdv','patient'));
              }
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -150,7 +154,7 @@ class RDVController extends Controller
      */
       public function update(Request $request, $id)
       {  
-               $fixe=1;
+             $fixe=1;
               $rdv = rdv::FindOrFail($id);
               $medecinId = (Auth::user()->role_id == 1)?$rdv->Employe_ID_Employe:$request->medecin;
                if(Auth::user()->role_id == 1)
@@ -176,16 +180,17 @@ class RDVController extends Controller
      */
       public function destroy(Request $request, $id)
       {
+            $rdv = rdv::findOrFail($id); 
              if($request->ajax())
              {
-                   $rdv = rdv::findOrFail($id); // return Auth::user()->employ->rdvs; // return Response::json($rdvs);
-                    rdv::destroy($id); // $rdvs = $rdv->employe->rdvs;//return Response::json($rdvs);
+                     $rdv->update(['Etat_RDV'=>0]); //rdv::destroy($id);
                     return ($rdv);
             }
             else
             {
-                    rdv::destroy($id);
-                    return redirect()->route('rdv.index');    //return redirect()->action('RDVController@index');
+                    //rdv::destroy($id);
+                    $rdv->update(['Etat_RDV'=>0]);
+                    return redirect()->route('rdv.index'); 
             } 
       }
     public function orderPdf($id)
@@ -206,6 +211,7 @@ class RDVController extends Controller
           $name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";//"-".microtime(TRUE).
           return $dompdf->stream($name); 
       }
+      /*
     public function getRDV()
     {
       $rdvs = rdv::select(['id','Date_RDV','Patient_ID_Patient','Employe_ID_Employe','Etat_RDV']);//'Temp_rdv',
@@ -250,37 +256,36 @@ class RDVController extends Controller
           ->rawColumns(['action5','action4','action3','action1','action2','action'])
           ->make(true);
       }
+      */
       function AddRDV(Request $request)
       { 
-        $specialite ="";
-        $employeId  ="";
-        if(Auth::user()->role_id ==2)
-        {
-               $specialite = $request->specialite;
-               $employeId = (isset($request->medecin)?$request->medecin: null);   //$employe = employ::findOrFail($request->medecin); 
-        }  
-        else
-        {
-          $specialite = Auth::user()->employ->specialite;
-          $employeId = Auth::user()->employ->id;
-        }
-        if($request->ajax())
-               $patient = patient::find($request->id_patient);
-        else
-               $patient=patient::where('IPP', explode("-", $request->patient)[0])->first();
-        $rdv = rdv::firstOrCreate([
-                    "Date_RDV"=>new DateTime($request->Debut_RDV),//"Temp_rdv"=>$time,
-                    "Fin_RDV" =>new DateTime($request->Fin_RDV),
-                    "fixe"    => $request->fixe,
-                    "specialite"=>$specialite,
-                    "Employe_ID_Employe"=>$employeId,//$employe->id,
-                    "Patient_ID_Patient"=> $patient->id,
-                    "Etat_RDV"=> "en attente",
-        ]);       
-        if($request->ajax())
-          return Response::json(array('patient'=>$patient, 'age'=>$patient->getAge(),'rdv'=>$rdv));
-        else     
-        return redirect()->route("rdv.create");     
+          $specialite =""; $employeId  ="";
+          if(Auth::user()->role_id ==2)
+          {
+                 $specialite = $request->specialite;
+                 $employeId = (isset($request->medecin)?$request->medecin: null);
+          }  
+          else
+          {
+            $specialite = Auth::user()->employ->specialite;
+            $employeId = Auth::user()->employ->id;
+          }
+          if($request->ajax())
+                 $patient = patient::find($request->id_patient);
+          else
+                 $patient=patient::where('IPP', explode("-", $request->patient)[0])->first();
+          $rdv = rdv::firstOrCreate([
+                      "Date_RDV"=>new DateTime($request->Debut_RDV),
+                      "Fin_RDV" =>new DateTime($request->Fin_RDV),
+                      "fixe"    => $request->fixe,
+                      "specialite"=>$specialite,
+                      "Employe_ID_Employe"=>$employeId,//$employe->id,
+                      "Patient_ID_Patient"=> $patient->id
+          ]);       
+           if($request->ajax())
+            return Response::json(array('patient'=>$patient, 'age'=>$patient->getAge(),'rdv'=>$rdv));
+          else     
+          return redirect()->route("rdv.create");     
       }     
       public function checkFullCalendar(Request $request)
       {

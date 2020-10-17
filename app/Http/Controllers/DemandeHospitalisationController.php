@@ -107,19 +107,19 @@ class DemandeHospitalisationController extends Controller
       }
       public function listedemandes($type)
       {
-          $demandehospitalisations = DemandeHospitalisation::whereHas('Specialite.type', function ($q) use ($type) {
-                                             $q->where('id',$type);                           
-                                      })->where('etat','en attente')->get();                       
-          return view('demandehospitalisation.index',compact('demandehospitalisations'));
+             $demandehospitalisations = DemandeHospitalisation::whereHas('Specialite', function ($q) use ($type) {
+                                             $q->where('type',$type);                           
+                                      })->where('etat','en attente')->get();                      
+             return view('demandehospitalisation.index',compact('demandehospitalisations'));
       }
       public function valider(Request $request)
       {
-       $dem = dem_colloque::firstOrCreate($request->all());
-       $demande  =  DemandeHospitalisation::FindOrFail($request->id_demande); 
-       $demande->etat ="valide";
-       $demande->save();
-       return Response::json($demande);
-    }
+           $dem = dem_colloque::firstOrCreate($request->all());
+           $demande  =  DemandeHospitalisation::FindOrFail($request->id_demande); 
+           $demande->etat ="valide";
+           $demande->save();
+           return Response::json($demande);
+      }
     public function invalider(Request $request)
     {
         $demande  = DemandeHospitalisation::FindOrFail($request->id_demande);       //$dem = dem_colloque::destroy($request->id_demande);  

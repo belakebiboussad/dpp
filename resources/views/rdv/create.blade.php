@@ -170,7 +170,7 @@ $(document).ready(function() {
                     }
               },
              eventRender: function (event, element, webData) {
-                      if(event.start < today)  // element.css("font-size", "1em");
+                      if(event.start < today)
                         element.css('background-color', '#D3D3D3');  
                       else
                       {
@@ -324,7 +324,7 @@ $(document).ready(function() {
             </div>{{-- panel --}}
           </div>{{-- modalBody --}}
           <div class="modal-footer">
-            <button class="btn btn-xs btn-succes" type="submit" id ="btnSave" disabled><i class="ace-icon fa fa-check bigger-110"></i>&nbsp;Selectionner</button>                     
+            <button class="btn btn-xs btn-succes" type="submit" id ="btnSave" disabled><i class="ace-icon fa fa-save bigger-110"></i>&nbsp;Enregistrer</button>                     
             <button type="button" class="btn btn-xs btn-default" data-dismiss="modal" onclick="resetaddModIn();reset_in();"><i class="fa fa-close" aria-hidden="true"></i>&nbsp;Annuler</button>
           </div>   
         </form> 
