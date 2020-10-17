@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Type_specialite extends Model
 {
-    //
     public $timestamps = false;
     protected $table ="typespecialites";
     protected $fillable  = ['id','nom'];

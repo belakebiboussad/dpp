@@ -3,8 +3,7 @@
 <div class="col-xs-12 widget-container-col" id="widget-container-col-2">
 	<div class="widget-box widget-color-blue" id="widget-box-2">
 		<div class="widget-header">
-			<h5 class="widget-title bigger lighter">
-				<i class="ace-icon fa fa-table"></i>
+			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>
 				<strong>Liste Des Colloques @if(isset($type)) {{( $type == 1) ? 'Médicaux ' : 'Chirurgicaux' }} @endif 	</strong>
 			</h5>
 			<div class="widget-toolbar widget-toolbar-light no-border">
@@ -26,20 +25,19 @@
 					</tr>
 				</thead>
 			  <tbody>	
-			  
-			  	@foreach( $colloques as $cle=>$col)
+				@foreach( $colloques as $cle=>$col)
 			  	<tr>
 			  		<td><?= date('Y-m-j',strtotime( $col->date .' sunday next week')-1);?></td>		
 		   			<td>{{ $col->date }}</td>
 		   			<td>
-							@foreach($col->membres as $i=>$employe)
-								<p class="text-primary">{{ $employe->nom }} {{ $employe->prenom }}</p> 
-							@endforeach
-						</td>
-						<td><p class="text-primary">{{ $col->date_creation }}</p></td>
-						<td><p class="text-primary">{{ $col->Type->type }}</p></td>
-						<td><p class="text-primary">{{ $col->etat }}</p></td>
-						<td>
+						@foreach($col->membres as $i=>$employe)
+							<p class="text-primary">{{ $employe->nom }} {{ $employe->prenom }}</p> 
+						@endforeach
+					</td>
+					<td><p class="text-primary">{{ $col->date_creation }}</p></td>
+					<td><p class="text-primary">{{ ($col->type ==0 ) ? 'médicale' : 'chirurgicale' }}</p></td>
+					<td><p class="text-primary">{{ $col->etat }}</p></td>
+					<td>
 							<a href="{{ route('colloque.edit',$col->id)}} " class="btn btn-xs btn-success"><i class="ace-icon fa fa-pencil-square-o bigger-110"></i></a>
 							@if($col->etat =="en cours")
 				  		<a href="/runcolloque/{{ $col->id }}" class="btn btn-xs btn-green" title="Déroulement">

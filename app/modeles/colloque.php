@@ -14,8 +14,6 @@ class colloque extends Model
     }
     public function membres()
     {
-        // employe_colloque,id_employ,'membres','id_employ'
-    	//return $this->belongsToMany('App\modeles\employe_colloque','membres','id_colloque','id_employ');// ->using('App\modeles\employe_colloque')  
         return $this->belongsToMany ('App\modeles\employ','membres','id_colloque','id_employ');
     }
     public function demandes()
