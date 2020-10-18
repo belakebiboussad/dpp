@@ -114,8 +114,8 @@ class ConsultationsController extends Controller
         ]);
         foreach($consult->patient->rdvs as $rdv)
         {
-             if( $rdv->Date_RDV->setTime(0, 0)  == $consult->Date_Consultation->setTime(0, 0) )
-                  $rdv->update(['Etat_RDV'=>'valide']);
+           if( $rdv->Date_RDV->setTime(0, 0)  == $consult->Date_Consultation->setTime(0, 0) )
+                $rdv->update(['Etat_RDV'=>1]);
         }
         if($request->poids != 0 || $request->temp != null || $request->taille !=0 || $request->autre)
         {

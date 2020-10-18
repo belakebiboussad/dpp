@@ -25,15 +25,12 @@ class AdmissionController extends Controller
      */
       public function index()
       {
-        /*
-        $rdvs = rdv_hospitalisation::with('bedReservation')->whereHas('demandeHospitalisation', function($q){
-                                           $q->where('etat', 'programme');
-                                        })->where('etat_RDVh','=','en attente')->where('date_RDVh','=',date("Y-m-d"))->get(); 
-        */
+       
         $rdvs = rdv_hospitalisation::with('bedReservation')->whereHas('demandeHospitalisation', function($q){
                                            $q->where('etat', 'programme');
                                         })->where('etat_RDVh','=',null)->where('date_RDVh','=',date("Y-m-d"))->get(); 
        
+        //dd($rdvs);
         $demandesUrg = DemandeHospitalisation::with('bedAffectation')
                                              ->whereHas('bedAffectation')
                                              ->whereHas('consultation', function($q){
@@ -81,7 +78,6 @@ class AdmissionController extends Controller
           ]);
           }
         }
-        dd('gfdg');
         return redirect()->action('AdmissionController@index');
       }  
     /**

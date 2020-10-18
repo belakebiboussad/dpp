@@ -343,10 +343,10 @@ $('document').ready(function(){
 												</tr>
 											</thead>
 											<tbody>
+											@if($patient->hospitalisations->count()>0)
 												@foreach($patient->hospitalisations as $hosp)
 												<tr>
-													<td>{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->nom}}
-						  						</td>
+													<td>{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->nom}}</td>
 													<td>{{ $hosp->Date_entree }}</td>
 													<td>{{ $hosp->Date_Prevu_Sortie }}</td>
 													<td>{{ $hosp->Date_Sortie == null ? '/' : $hosp->Date_Sortie }}</td>
@@ -357,6 +357,7 @@ $('document').ready(function(){
 													<td></td>
 												</tr>
 												@endforeach
+											@endif
 											</tbody>
 										</table>
 									</div>

@@ -33,7 +33,7 @@
 @section('main-content')
 <div class="page-header">
 	<h1>
-		Ajouter un RDV Hospitalisation pourss <strong>&laquo;{{$demande->demandeHosp->consultation->patient->Nom}}
+		Ajouter un RDV Hospitalisation pour<strong>&laquo;{{$demande->demandeHosp->consultation->patient->Nom}}
 		 {{ $demande->demandeHosp->consultation->patient->Prenom }}&raquo;</strong>
 	</h1>
 </div><!-- /.page-header -->

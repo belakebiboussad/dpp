@@ -71,6 +71,7 @@ $(document).ready(function() {
                             specialite: {{ $rdv->specialite }},
                             medecin : (isEmpty({{ $rdv->Employe_ID_Employe}}))? "": '{{ $rdv->Employe_ID_Employe}}',
                             fixe:  {{ $rdv->fixe }},
+                            etat : '{{ $rdv->Etat_RDV }}',
                       },
                    @endforeach 
               ],
@@ -78,7 +79,7 @@ $(document).ready(function() {
                     $('.calendar1').fullCalendar('unselect');
               },
               eventClick: function(calEvent, jsEvent, view) {
-                      if(Date.parse(calEvent.start) > today ) 
+                      if(Date.parse(calEvent.start) > today && (calEvent.etat != 1) ) 
                       {
                           reset_in(); 
                           if(calEvent.fixe &&(!(isEmpty(calEvent.medecin))))
@@ -91,8 +92,8 @@ $(document).ready(function() {
                     }
               },
               eventRender: function (event, element, webData) {
-                      if(event.start < today)
-                              element.css('background-color', '#D3D3D3'); 
+                      if((event.start < today) || (event.etat == 1))
+                        element.css('background-color', '#D3D3D3'); 
                       else 
                       {
                               if(event.fixe)
@@ -119,19 +120,19 @@ $(document).ready(function() {
               },
              eventDrop: function(event, delta, revertFunc)
              { 
-                      if( event.start-delta >= today)
-                      { 
-                             jQuery('#btnclose').click(function(){
-                                     revertFunc();
-                              });
-                             if($('#fixe').length &&(event.fixe))
-                                     $("#fixe"). prop("checked", true);
-                              ajaxEditEvent(event,true);          
-                    }
-                    else
-                    {
+                if( event.start-delta >= today)
+                { 
+                       jQuery('#btnclose').click(function(){
                           revertFunc();
-                    }
+                        });
+                       if($('#fixe').length &&(event.fixe))
+                               $("#fixe"). prop("checked", true);
+                        ajaxEditEvent(event,true);          
+              }
+              else
+              {
+                    revertFunc();
+              }
               },  
              eventMouseover: function(event, jsEvent, view){
              },     
@@ -155,18 +156,18 @@ $(document).ready(function() {
 @endsection
 @section('main-content')
 <div class="row"  style="margin-left:-2%;">{{-- margin-top:-2%; --}}
-      <div class="col-md-12">
-              <div class="panel panel-default">
-                    <div class="panel-heading"><div class="left"> <strong>Liste des Rendez-Vous</strong></div></div>
-                    <div class="panel-body">
-                          <div  class="calendar1"></div>
-                    </div>
-                  <div class="panel-footer">
-                    <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><strong>&nbsp;RDV fixe</strong></span>
-                    <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><strong>&nbsp;RDV à fixer</strong></span> 
-                  </div>
-              </div>
+  <div class="col-md-12">
+    <div class="panel panel-default">
+          <div class="panel-heading"><div class="left"> <strong>Liste des Rendez-Vous</strong></div></div>
+          <div class="panel-body">
+                <div  class="calendar1"></div>
+          </div>
+        <div class="panel-footer">
+          <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><strong>&nbsp;RDV fixe</strong></span>
+          <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><strong>&nbsp;RDV à fixer</strong></span> 
         </div>
+    </div>
+  </div>
 </div>
 <div class="row">
       <div class="modal fade" id="fullCalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  {{-- Modal --}}

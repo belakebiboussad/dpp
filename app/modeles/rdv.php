@@ -29,8 +29,7 @@ class rdv extends Model implements IdentifiableEvent
 	public function getEnd()
 	{
 	  return $this->Date_RDV;
-	}
-	/*public function getTime(){      return $this->Temp_rdv;}*/
+	}/*public function getTime(){      return $this->Temp_rdv;}*/
 	public function patient()
 	{
 		return $this->belongsTo('App\modeles\Patient','Patient_ID_Patient','id');

@@ -55,14 +55,10 @@ class RdvHospiController extends Controller
       ]);           
     }
     $demande= DemandeHospitalisation::find($request->id_demande);
-    $demande->etat = 'programme';
-    $demande->save();
-    $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) use ($ServiceID) {
-                             $q->where('id',$ServiceID);                           
-                       })->whereHas('demandeHosp',function ($q){
-                             $q->where('etat','valide'); //valier par le colloque
-                       })->get();                 
-    return view('rdvHospi.index', compact('demandes'));
+    $demande->update([
+        'etat' => 'programme'
+    ]); 
+    return redirect()->action('RdvHospiController@index');
   }
   public function getlisteRDVs()
   {

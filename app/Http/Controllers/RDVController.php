@@ -108,8 +108,7 @@ class RDVController extends Controller
                "Date_RDV"=>$request->daterdv,
                "specialite"=>$specialite,
                "Employe_ID_Employe"=>Auth::user()->employee_id,
-               "Patient_ID_Patient"=>$request->id_patient
-               //"Etat_RDV"=> "en attente",
+               "Patient_ID_Patient"=>$request->id_patient//"Etat_RDV"=> "en attente", 
            ]);
           return redirect()->route("rdv.show",$rdv->id);
     }
@@ -122,8 +121,8 @@ class RDVController extends Controller
      */
     public function show($id)
     {
-           $rdv = rdv::FindOrFail($id); // dd($rdv);
-            return view('rdv.show_rdv',compact('rdv'));
+     $rdv = rdv::FindOrFail($id); // dd($rdv);
+      return view('rdv.show',compact('rdv'));
     }
 
     /**
@@ -134,16 +133,16 @@ class RDVController extends Controller
      */
     public function edit(Request $request,$id)
     {       
-             $rdv = rdv::FindOrFail($id);
-             if($request->ajax())
-                      if(isset($rdv->Employe_ID_Employe))
-                             return Response::json(['rdv'=>$rdv,'medecin'=>$rdv->employe,'patient'=>$rdv->patient]);  
-                       else
-                              return Response::json(['rdv'=>$rdv,'patient'=>$rdv->patient]);  
-             else
-              {
-                    return view('rdv.edit',compact('rdv','patient'));
-             }
+      $Rdv = rdv::FindOrFail($id);
+      $rdvs = rdv::with(['patient','employe'])->where('specialite',Auth::user()->employ->specialite)->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get();
+      if($request->ajax())
+        if(isset($Rdv->Employe_ID_Employe))
+          return Response::json(['rdv'=>$Rdv,'medecin'=>$Rdv->employe,'patient'=>$Rdv->patient]);  
+         else
+          return Response::json(['rdv'=>$Rdv,'patient'=>$Rdv->patient]);  
+      else
+        return view('rdv.edit',compact('Rdv','rdvs'));
+      
     }
     /**
      * Update the specified resource in storage.

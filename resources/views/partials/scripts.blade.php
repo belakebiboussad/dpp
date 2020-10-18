@@ -1036,9 +1036,10 @@ function createRDVModal(debut, fin, pid = 0, fixe=1)
                                  else
                                   getMedecinsSpecialite(data['rdv'].specialite,data['medecin'].id);  
                               }
-                              $('#patient_tel').text(data['patient'].tele_mobile1);
+                              $('#patient_tel').text(event.tel); //$('#patient_tel').text(data['patient'].tele_mobile1);
                               $('#agePatient').text(event.age);
-                              $('#lien').attr('href','/patient/'.concat(data['patient'].id)); 
+                              //$('#lien').attr('href','/patient/'.concat(data['patient'].id)); 
+                              $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
                               $('#lien').text(event.title);
                               if(bool)
                               {
@@ -1048,10 +1049,12 @@ function createRDVModal(debut, fin, pid = 0, fixe=1)
                                 $("#daterdv").val(data['rdv'].Date_RDV);
                                 $("#datefinrdv").val(data['rdv'].Fin_RDV); 
                               }
-                              $('#btnConsulter').attr('href','/consultations/create/'.concat(data['patient'].id));
-                              $('#btnDelete').attr('href','/rdv/'.concat(data['rdv'].id));
-                              var url = '{{ route("rdv.update", ":slug") }}'; 
-                              url = url.replace(':slug',data['rdv'].id);
+                              //$('#btnConsulter').attr('href','/consultations/create/'.concat(data['patient'].id));
+                              $('#btnConsulter').attr('href','/consultations/create/'.concat(event.idPatient));
+                              // $('#btnDelete').attr('href','/rdv/'.concat(data['rdv'].id));
+                              $('#btnDelete').attr('href','/rdv/'.concat(event.idPatient));
+                              var url = '{{ route("rdv.update", ":slug") }}';//url = url.replace(':slug',data['rdv'].id); 
+                              url = url.replace(':slug',event.id);
                               $('#updateRdv').attr('action',url);
                               $('#fullCalModal').modal({ show: 'true' });
                     },
