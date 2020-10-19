@@ -1074,9 +1074,13 @@ $('#typeexm').on('change', function() {
             if(bool)
             {
               $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
+              $("#meetingdate").val(event.start.format('YYYY-MM-DD'));
               $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
+
             }else{
+              var date = new Date(data.rdv.Date_RDV);
               $("#daterdv").val(data.rdv.Date_RDV);
+              $("#meetingdate").val(date.getFullYear() +'-' + (date.getMonth() + 1) + '-' + date.getDate());
               $("#datefinrdv").val(data.rdv.Fin_RDV); 
             }
             $('#btnConsulter').attr('href','/consultations/create/'.concat(data.rdv.patient.id));

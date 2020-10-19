@@ -150,7 +150,14 @@ class RDVController extends Controller
           return Response::json(['rdv'=>$Rdv,'patient'=>$Rdv->patient]);  
       }   
       else
-        return view('rdv.edit',compact('Rdv','rdvs'));
+        {
+           $specialite = Auth::user()->employ->specialite;
+          $rdvs = rdv::with('patient','employe')
+                     ->whereHas('employe.Specialite',function($q) use ($specialite){
+                                  $q->where('id',$specialite);
+                    })->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get(); 
+          return view('rdv.edit',compact('Rdv','rdvs'));
+        }
       
     }
     /**
@@ -164,16 +171,15 @@ class RDVController extends Controller
       {  
         $fixe=1;
         $rdv = rdv::FindOrFail($id);
-        $medecinId = (Auth::user()->role_id == 1)?$rdv->Employe_ID_Employe:$request->medecin;
-         if(Auth::user()->role_id == 1)
-               $fixe =  (isset($request->fixe)) ?1:0;
-         $dateRdv = new DateTime($request->daterdv);
+        $medecinId = (Auth::user()->role_id == 1)?$rdv->Employe_ID_Employe:$request->medecin; //if(Auth::user()->role_id == 1)
+        $fixe =  (isset($request->fixe)) ?1:0;
+        $dateRdv = new DateTime($request->daterdv);
         $dateFinRdv = new DateTime($request->datefinrdv);
         $rdv->update([
-                "Date_RDV"=>$dateRdv,
-                "Fin_RDV"=>$dateFinRdv,
-                "Employe_ID_Employe"=>(Auth::user()->role_id == 1)?$rdv->Employe_ID_Employe:$request->medecin,
-                "fixe"=>$fixe,
+            "Date_RDV"=>$dateRdv,
+            "Fin_RDV"=>$dateFinRdv,
+            "Employe_ID_Employe"=>(Auth::user()->role_id == 1)?$rdv->Employe_ID_Employe:$request->medecin,
+            "fixe"=>$fixe,
         ]);
         if($request->ajax())
           return $rdv;
@@ -188,18 +194,18 @@ class RDVController extends Controller
      */
       public function destroy(Request $request, $id)
       {
-            $rdv = rdv::findOrFail($id); 
-             if($request->ajax())
-             {
-                     $rdv->update(['Etat_RDV'=>0]); //rdv::destroy($id);
-                    return ($rdv);
-            }
-            else
-            {
-                    //rdv::destroy($id);
-                    $rdv->update(['Etat_RDV'=>0]);
-                    return redirect()->route('rdv.index'); 
-            } 
+        $rdv = rdv::findOrFail($id); 
+         if($request->ajax())
+         {
+                 $rdv->update(['Etat_RDV'=>0]); //rdv::destroy($id);
+                return ($rdv);
+        }
+        else
+        {
+                //rdv::destroy($id);
+                $rdv->update(['Etat_RDV'=>0]);
+                return redirect()->route('rdv.index'); 
+        } 
       }
     public function orderPdf($id)
     {

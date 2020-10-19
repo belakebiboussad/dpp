@@ -196,6 +196,7 @@ $(document).ready(function() {
               {{ csrf_field() }}
               {{ method_field('PUT') }}
               <input type="hidden" id="idRDV">
+              <input  id="daterdv" name ="daterdv" type="hidden" />
               <input  id="datefinrdv" name ="datefinrdv" type="hidden" />
               @if(Auth::user()->role->id == 2)
               <div class="well">
@@ -219,7 +220,7 @@ $(document).ready(function() {
                                  <div class="control-group">
                                       <label class="control-label input-label" for="startTime">Date :</label>
                                       <div class="controls bootstrap-timepicker">
-                                            <input type="text" class="datetime" id="daterdv" name="daterdv" data-date-format="yyyy-mm-dd HH:mm" readonly   />
+                                            <input type="text" class="datetime" id="meetingdate" data-date-format="yyyy-mm-dd" readonly   />
                                             <span class="glyphicon glyphicon-time fa-lg"></span> 
                                         </div>
                                  </div>

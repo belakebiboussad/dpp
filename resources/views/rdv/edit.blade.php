@@ -11,6 +11,7 @@
         },
         timeZone: 'local',
         defaultView: 'agendaWeek',  //weekends: false,
+        height:650,
         firstDay: 0, 
         slotDuration: '00:15:00',
         minTime:'08:00:00',
