@@ -4,10 +4,8 @@
 			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des RDV :</h5>
 			<div class="widget-toolbar widget-toolbar-light no-border">
 				<div class="fa fa-plus-circle"></div>
-				<a href="#"  data-target="#RDV" data-toggle="modal" >
-					<b>RDV</b>
-				</a>
-			</div>
+					<a href="#"  data-target="#RDV" data-toggle="modal" ><b>RDV</b></a>
+				</div>
 		</div>
 		<div class="widget-body">
 			<div class="widget-main no-padding">
@@ -54,7 +52,7 @@
 												<i class="ace-icon fa fa-trash-o orange"></i>&nbsp;
 											</a>
 											@endif
-											@if (Carbon\Carbon::today()->lte(Carbon\Carbon::parse($rdv->Date_RDV->format('Y-m-d H:i:s'))))
+											@if (Carbon\Carbon::today()->lte(Carbon\Carbon::parse($rdv->Date_RDV->format('Y-m-d H:i:s'))) && ($rdv->Etat_RDV !=0))
 												<a href="{{route('order.pdf',$rdv->id)}}" class="btn btn-xs btn-white" title="Imprimer recu">
 													<i class="ace-icon fa fa-print"></i>
 												</a>

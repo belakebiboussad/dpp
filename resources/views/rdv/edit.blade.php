@@ -39,7 +39,7 @@
                     idPatient:'{{$rdv->patient->id}}',
                     tel:'{{$rdv->patient->tele_mobile1}}',
                     age:{{ $rdv->patient->getAge() }},
-                    specialite: {{ $rdv->specialite }},
+                    specialite: {{ $rdv->employe["specialite"] }},
                     medecin : (isEmpty({{ $rdv->Employe_ID_Employe}}))? "": '{{ $rdv->Employe_ID_Employe}}',
                     fixe:  {{ $rdv->fixe }},
                     etat : '{{ $rdv->Etat_RDV }}',

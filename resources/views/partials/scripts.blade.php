@@ -604,52 +604,52 @@ $('#typeexm').on('change', function() {
     champ.appendTo('#ordonnace_form');
     $('#ordonnace_form').submit();
   }
-function createRDVModal(debut, fin, pid = 0, fixe=1)
-{ 
-       var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
-       var fin = moment(fin).format('YYYY-MM-DD HH:mm');  
-       if(pid != 0)
-              {
-                     var formData = { id_patient:pid,Debut_RDV:debut, Fin_RDV:fin, fixe:fixe  };
-                     $.ajaxSetup({
-                              headers: {
-                                     'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                              }
-                       }); 
-                        $.ajax({
-                              type : 'POST',
-                              url : '/createRDV',
-                              data:formData,  //dataType: 'json',
-                              success:function(data){         
-                                     var color = (data['rdv']['fixe'] == 1)? '#87CEFA':'#378006';
-                                     var event = new Object();
-                                     event = {
-                                                  title: data['patient']['Nom'] + "  " + data['patient']['Prenom']+" ,("+data['age']+" ans)",
-                                                  start: debut,
-                                                  end: fin,
-                                                  id :data['rdv']['id'],
-                                                  idPatient:data['patient']['id'],
-                                                  tel:data['patient']['tele_mobile1'] ,
-                                                  age:data['age'],         
-                                                  allDay: false,
-                                                  color: '#87CEFA'
-                                     };
-                                    $('.calendar1').fullCalendar( 'renderEvent', event, true );
-                                   $('.calendar1').fullCalendar( 'refresh' );
-                              },
-                            error: function (data) {
-                                   console.log('Error:', data);
-                            }
-              });
-          }else{
-                $('#Debut_RDV').val(debut);
-                $('#Fin_RDV').val(fin); //$('#Temp_rdv').val(heur);
-                $('#fixe').val(fixe);
-                $('#addRDVModal').modal({
-                       show: 'true'
-                 }); 
-          }   
+  function createRDVModal(debut, fin, pid = 0, fixe=1)
+  { 
+    var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
+    var fin = moment(fin).format('YYYY-MM-DD HH:mm');  
+    if(pid != 0)
+    {
+      var formData = { id_patient:pid,Debut_RDV:debut, Fin_RDV:fin, fixe:fixe  };
+      $.ajaxSetup({
+        headers: {
+             'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
         }
+      }); 
+      $.ajax({
+            type : 'POST',
+            url : '/createRDV',
+            data:formData,  //dataType: 'json',
+            success:function(data){         
+                   var color = (data['rdv']['fixe'] == 1)? '#87CEFA':'#378006';
+                   var event = new Object();
+                   event = {
+                                title: data['patient']['Nom'] + "  " + data['patient']['Prenom']+" ,("+data['age']+" ans)",
+                                start: debut,
+                                end: fin,
+                                id :data['rdv']['id'],
+                                idPatient:data['patient']['id'],
+                                tel:data['patient']['tele_mobile1'] ,
+                                age:data['age'],         
+                                allDay: false,
+                                color: '#87CEFA'
+                   };
+                  $('.calendar1').fullCalendar( 'renderEvent', event, true );
+                 $('.calendar1').fullCalendar( 'refresh' );
+            },
+            error: function (data) {
+                 console.log('Error:', data);
+            }
+        });
+      }else{
+        $('#Debut_RDV').val(debut);
+        $('#Fin_RDV').val(fin); //$('#Temp_rdv').val(heur);
+        $('#fixe').val(fixe);
+        $('#addRDVModal').modal({
+          show: 'true'
+        }); 
+      }   
+    }
        function editRdv(event)
         {
              var CurrentDate = (new Date()).setHours(0, 0, 0, 0);var GivenDate = (new Date(event.start)).setHours(0, 0, 0, 0);
@@ -990,8 +990,7 @@ function createRDVModal(debut, fin, pid = 0, fixe=1)
                           html += '<option value="'+med.id+'" >'+med.nom +" "+med.prenom+'</option>';
                         });
                         $('#medecin').removeAttr("disabled");  
-                        $('#medecin').append(html);
-                        $("#medecin").val(medId);
+                        $('#medecin').append(html);//$("#medecin").val(medId);
                   },
                   error:function(data){
                       console.log(data);
@@ -1014,56 +1013,86 @@ function createRDVModal(debut, fin, pid = 0, fixe=1)
         $('#updateRdv').attr('action',url);
        $('#fullCalModal').modal({ show: 'true' }); 
       }
-       function ajaxEditEvent(event,bool)
-       {
-          $.ajaxSetup({
-            headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
+      /*
+      function ajaxEditEvent(event,bool)
+      {
+       
+      url = "rdv" + '/' + event.id + '/edit';
+      $.ajax({
+          type: 'GET',
+          url:  url,
+          success: function(data) {
+                      if($('#medecin').length){
+                        if(isEmpty(data['medecin']))
+                          getMedecinsSpecialite(data['rdv'].specialite);  
+                         else
+                          getMedecinsSpecialite(data['rdv'].specialite,data['medecin'].id);  
+                      }
+                      $('#patient_tel').text(event.tel); //$('#patient_tel').text(data['patient'].tele_mobile1);
+                      $('#agePatient').text(event.age);   //$('#lien').attr('href','/patient/'.concat(data['patient'].id)); 
+                   
+                      $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
+                     
+                      if(bool)
+                      {
+                        $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
+                        $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
+                      }else{
+                        $("#daterdv").val(data['rdv'].Date_RDV);
+                        $("#datefinrdv").val(data['rdv'].Fin_RDV); 
+                      }
+                      //$('#btnConsulter').attr('href','/consultations/create/'.concat(data['patient'].id));
+                      $('#btnConsulter').attr('href','/consultations/create/'.concat(event.idPatient));
+                      // $('#btnDelete').attr('href','/rdv/'.concat(data['rdv'].id));
+                      $('#btnDelete').attr('href','/rdv/'.concat(event.idPatient));
+           
+            },
+            error:function(data){ alert('error'); }
+               
           });
-          url = "rdv" + '/' + event.id + '/edit';
-          $.ajax({
-                  type: 'GET',
-                  url:  url,
-                  data: {
-                        '_token': $('input[name=_token]').val(),
-                        'id': event.id,
-                  },
-                  success: function(data) {
-                              if($('#medecin').length){
-                                if(isEmpty(data['medecin']))
-                                  getMedecinsSpecialite(data['rdv'].specialite);  
-                                 else
-                                  getMedecinsSpecialite(data['rdv'].specialite,data['medecin'].id);  
-                              }
-                              $('#patient_tel').text(event.tel); //$('#patient_tel').text(data['patient'].tele_mobile1);
-                              $('#agePatient').text(event.age);
-                              //$('#lien').attr('href','/patient/'.concat(data['patient'].id)); 
-                              $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
-                              $('#lien').text(event.title);
-                              if(bool)
-                              {
-                                $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
-                                $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
-                              }else{
-                                $("#daterdv").val(data['rdv'].Date_RDV);
-                                $("#datefinrdv").val(data['rdv'].Fin_RDV); 
-                              }
-                              //$('#btnConsulter').attr('href','/consultations/create/'.concat(data['patient'].id));
-                              $('#btnConsulter').attr('href','/consultations/create/'.concat(event.idPatient));
-                              // $('#btnDelete').attr('href','/rdv/'.concat(data['rdv'].id));
-                              $('#btnDelete').attr('href','/rdv/'.concat(event.idPatient));
-                              var url = '{{ route("rdv.update", ":slug") }}';//url = url.replace(':slug',data['rdv'].id); 
-                              url = url.replace(':slug',event.id);
-                              $('#updateRdv').attr('action',url);
-                              $('#fullCalModal').modal({ show: 'true' });
-                    },
-                    error:function(data){
-                        alert('error');
-                    }
-              });
        }//todelete
-       function refrechCal()
+       */
+      function ajaxEditEvent(event,bool)
+      {
+        url = "rdv" + '/' + event.id + '/edit';
+        $.ajax({
+          type: 'GET',
+          url:  url,
+          success: function(data) {
+            var html ='';
+            $('#medecin').empty();
+            jQuery(data.medecins).each(function(i, med){
+              html += '<option value="'+med.id+'" >'+med.nom +" "+med.prenom+'</option>';
+            });
+            $('#medecin').removeAttr("disabled");  
+            $('#medecin').append(html);
+            $("#medecin").val(data.rdv.Employe_ID_Employe);
+            $('#patient_tel').text(data.rdv.patient.tele_mobile1);
+            $('#agePatient').text(event.age);
+            $('#lien').attr('href','/patient/'.concat(data.rdv.patient.id)); 
+            $('#lien').text(event.title);
+            if(bool)
+            {
+              $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
+              $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
+            }else{
+              $("#daterdv").val(data.rdv.Date_RDV);
+              $("#datefinrdv").val(data.rdv.Fin_RDV); 
+            }
+            $('#btnConsulter').attr('href','/consultations/create/'.concat(data.rdv.patient.id));
+            $('#btnDelete').attr('href','/rdv/'.concat(data.rdv.id));
+            var url = '{{ route("rdv.update", ":slug") }}';
+            url = url.replace(':slug',data.rdv.id);
+            $('#updateRdv').attr('action',url);
+            $('#fullCalModal').modal({ show: 'true' }); 
+          },
+          error:function(data){
+            alert('error');
+          }
+
+      });
+      }
+      function refrechCal()
       {  
         $('.calendar1').fullCalendar('refetchEvents');
         $('.calendar1').fullCalendar( 'refetchResources' );

@@ -59,7 +59,7 @@ $('document').ready(function(){
 			       idPatient:{{$rdv->patient->id}},
 			       tel:'{{$rdv->patient->tele_mobile1}}',
 			       age:{{ $rdv->patient->getAge() }},
-			       specialite: {{ $rdv->specialite}},
+			       specialite: {{ $rdv->employe["specialite"] }},
 			       fixe:  {{ $rdv->fixe }},          
 			},
 			 @endforeach 
