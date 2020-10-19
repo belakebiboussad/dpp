@@ -657,35 +657,35 @@
 		});
 		jQuery('body').on('click', '.delete-ExamImg', function () {
 	  	$("#acte-" + $(this).val()).remove();
-	  });
-	  $("#consultForm").submit(function(e){
-	   		if(!checkConsult())
-	   		{
-	   			activaTab("Interogatoire");
-	   			return false;
-	   		}
-	   		var ExamsImg = [];
-	   		var arrayLignes = document.getElementById("ExamsImg").rows;
-	  		for(var i=0; i< arrayLignes.length; i++)
-	  		{
-	  			ExamsImg[i] = { acteImg: arrayLignes[i].cells[0].innerHTML, types: arrayLignes[i].cells[2].innerHTML }
-	  		}
-	   	 	var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
-	    		champ.appendTo('#consultForm');
-	  }); //calendrier  	
-    var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
-	  var today = (new Date()).setHours(0, 0, 0, 0);
-	  $('.calendar1').fullCalendar({
-	    plugins: [ 'dayGrid', 'timeGrid' ],
-		  header: {
+	});
+	 $("#consultForm").submit(function(e){
+   		if(!checkConsult())
+   		{
+   			activaTab("Interogatoire");
+   			return false;
+   		}
+   		var ExamsImg = [];
+   		var arrayLignes = document.getElementById("ExamsImg").rows;
+  		for(var i=0; i< arrayLignes.length; i++)
+  		{
+  			ExamsImg[i] = { acteImg: arrayLignes[i].cells[0].innerHTML, types: arrayLignes[i].cells[2].innerHTML }
+  		}
+   	 	var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
+    		champ.appendTo('#consultForm');
+	}); //calendrier  	
+      var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
+	var today = (new Date()).setHours(0, 0, 0, 0);
+	$('.calendar1').fullCalendar({
+	      plugins: [ 'dayGrid', 'timeGrid' ],
+	      header: {
 		          left: 'prev,next today',
 		          center: 'title,dayGridMonth,timeGridWeek',
 		          right: 'month,agendaWeek,agendaDay'
-		  },
-	    defaultView: 'agendaWeek',
-	    height: 650,
-		  firstDay: 0,
-	    slotDuration: '00:15:00',
+		},
+	       defaultView: 'agendaWeek',
+	       height: 650,
+		firstDay: 0,
+	       slotDuration: '00:15:00',
 	  	minTime:'08:00:00',
     	maxTime: '17:00:00',
       navLinks: true,

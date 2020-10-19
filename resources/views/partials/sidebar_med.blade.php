@@ -399,18 +399,18 @@
           }else
             $('#Div-nomjeuneFille').attr('hidden','');      
         });
-        $('input[type=radio][name=etatf]').change(function(){
-          if($(this).val() != "Activite" && ($(this).val() != "Activite"))
-          {
-            $('#serviceFonc').addClass('invisible');$('#service option:eq(0)').prop('selected', true); 
-          }
-          else
-            $('#serviceFonc').removeClass('invisible');   
-        });
-        if($("input[type=radio][name='etatf']:checked").val() != "Activite" )
-          $('#serviceFonc').addClass('invisible');
-        //homme/garde  
-      $('#listeGardes').DataTable({
+       $( "#etatf" ).change(function() {
+             if($(this).val() != "Activite" && ($(this).val() != "Activite"))
+             {
+                   $('#serviceFonc').addClass('invisible');
+                   $('#service option:eq(0)').prop('selected', true);
+             }
+            else
+                    $('#serviceFonc').removeClass('invisible');   
+      });
+       if($( "#etatf" ).val() != "Activite"  )
+           $('#serviceFonc').addClass('invisible');
+      $('#listeGardes').DataTable({ //homme/garde  
           colReorder: true,
           stateSave: true,
           searching:false,

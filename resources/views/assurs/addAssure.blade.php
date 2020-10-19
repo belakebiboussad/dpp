@@ -1,3 +1,4 @@
+  <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Informations administratives</h3></div></div>
  <div class="row Asdemograph">
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('nomf') ? 'has-error' : '' }}">
@@ -76,15 +77,12 @@
 		</div>	
 	</div>
 </div>{{-- row --}}
-<div class="row">
-	<div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div>
-</div>	{{-- row --}}
+<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div></div>	
 <div class="row Asdemograph"><!-- style="padding-left:7%" -->
 	<div class="col-sm-4">
 		<label class="col-sm-4" for="adressef" ><strong>Adresse:</strong></label>
 		  <input type="text" value="" id="adressef" name="adressef" placeholder="Adresse..." class="col-sm-8"/>
-	</div>
-	 <!-- style="margin-top: -0.1%;" -->
+	</div> <!-- style="margin-top: -0.1%;" -->
 	<div class="col-sm-4">
 		<label class="col-sm-4 text-nowrap" for="communef"><strong>Commune:</strong></label>
 		<input type="hidden" name="idcommunef" id="idcommunef">
@@ -107,20 +105,14 @@
 				<strong>Position :</strong>
 			</label>
 			<div class="col-sm-9">
-			<div class="radio">
-				<label>
-					<input name="etatf" value="Activite" type="radio" class="ace" checked/>
-					<span class="lbl">Activité</span>
-				</label>
-				<label>
-					<input name="etatf" value="Retraite" type="radio" class="ace" />
-					<span class="lbl"> Retraite</span>
-				</label>
-				<label>
-					<input name="etatf" value="conge_maladie" type="radio" class="ace" />
-					<span class="lbl"> Congé Maladie</span>
-				</label>
-			</div>
+				<select name="etatf" id="etatf" class="col-xs-12 col-sm-12">
+					<option value="">Sélectionner...</option>
+					<option value="Activite">Activité</option>
+					<option value="Retraite">Retraite</option>
+					<option value="conge_maladie" >Congé Maladie.</option>
+					<option value="Revoque" >Révoqué</option>
+				</select>
+
 			</div>
 		</div>
 	</div>
@@ -132,17 +124,16 @@
 			<div class="col-sm-9">
 				<select name="service" id="service" class="col-xs-12 col-sm-12">
 					<option value="">Sélectionner...</option>
-					<option value="Sécurité publique">Sécurité publique</option>	<!-- <option value="Agent civile">Agent civile</option> -->
-					<option value="Police judiciaire (PJ)">Police judiciaire (PJ)</option>
-					<option value=" Brigade mobile de la police judiciaire (BMPJ)">Brigade mobile de la police judiciaire (BMPJ)</option>
-					<option value="Service protection et sécurité des personnalités (SPS)">Service protection et sécurité des personnalités (SPS)</option>
-					<option value="Unité aérienne de la sûreté nationale">Unité aérienne de la sûreté nationale</option>
-					<option value="Unités républicaines de sécurité (URS)">Unités républicaines de sécurité (URS)</option>
-					<option value="Police scientifique et technique">Police scientifique et technique</option>
-					<option value="Police aux frontières et de l'immigration (PAF)">	Police aux frontières et de l'immigration (PAF)</option>
-					<option value="La Brigade de recherche et d'intervention (BRI)">La Brigade de recherche et d'intervention (BRI)</option>
-					<option value="Le Groupe des opérations spéciales de la police (GOSP)">Le Groupe des opérations spéciales de la police (GOSP)
-					</option>
+					<option value="1" >Sécurité publique</option>
+					<option value="2" >Police judiciaire (PJ)</option>
+					<option value="3" >Brigade mobile de la police judiciaire (BMPJ)</option>
+					<option value="4" >Service protection et sécurité des personnalités (SPS)</option>
+					<option value="5" >Unité aérienne de la sûreté nationale</option>
+					<option value="6">Unités républicaines de sécurité (URS)</option>
+					<option value="7" >Police scientifique et technique</option>
+					<option value="8">Police aux frontières et de l'immigration (PAF)</option>
+					<option value="9">Brigade de recherche et d'intervention (BRI)</option>
+					<option value="10" >Groupe des opérations spéciales de la police (GOSP)</option>
 				</select>
 			</div>
 		</div>

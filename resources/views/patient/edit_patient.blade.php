@@ -4,34 +4,32 @@
 <script>
 	function showTypeEdit(value,i){
 		switch(value){
-     	case "Assure":
-       	if(i !=0)
+			case "Assure":
+				if(i !=0)
  				{
- 					$("input[name=etatf][value=Activite]").prop('checked', true);
- 					$('#service option:eq(0)').prop('selected', true);
- 					$('#grade option:eq(0)').prop('selected', true);
- 					$("#matf").val("");$("#nss").val("");$("#NMGSN").val("");
+ 					$( "#etatf" ).val('Activite'); $('#service option:eq(0)').prop('selected', true);$('#serviceFonc').removeClass('invisible'); 	
+ 					$('#grade option:eq(0)').prop('selected', true);$("#matf").val("");$("#nss").val("");$("#NMGSN").val("");
 				}
 				copyPatient();
-			  break;
-		  case "Ayant_droit":
-			  if(i !=0)
-			  {
-  	      $("#nomf").val("");$("#prenomf").val(""); $("#datenaissancef").val("");     $("#lieunaissancef").val("");  $("select#grade").prop('selectedIndex', 0);
-         	$("#matf").val(""); $("#NMGSN").val("");	$('#nsspatient').val("");$('#adressef').val("");$('#gsf option:eq(0)').prop('selected', true);
-         	$('#grade option:eq(0)').prop('selected', true);$('#service option:eq(0)').prop('selected', true);	$("#nss").val("");
-			  }
-			  $('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });
+			  	break;
+		  	case "Ayant_droit":
+				if(i !=0)
+			  	{
+  	      				$("#nomf").val("");$("#prenomf").val(""); $("#datenaissancef").val("");$("#lieunaissancef").val("");$("select#grade").prop('selectedIndex', 0);
+         				$("#matf").val(""); $("#NMGSN").val("");	$('#nsspatient').val("");$('#adressef').val("");$('#gsf option:eq(0)').prop('selected', true);
+         				$('#grade option:eq(0)').prop('selected', true);$('#service option:eq(0)').prop('selected', true);	$("#nss").val("");
+			  	}
+			  	$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });
 				$("#foncform").removeClass('hide');  $('#Type_p').attr('required', true);  $('#nsspatient').attr('disabled', false); 
 				addRequiredAttr();
 		               break;
-  		case "Autre":
-  			$(".starthidden").show(250);$('#description').attr('disabled', false); 
-  			$("#foncform").addClass('hide'); 
-      	if(! ($( "ul#menuPatient li:eq(0)" ).hasClass( "hidden" )))
+  			case "Autre":
+  				$(".starthidden").show(250);$('#description').attr('disabled', false); 
+  				$("#foncform").addClass('hide'); 
+      				if(! ($( "ul#menuPatient li:eq(0)" ).hasClass( "hidden" )))
   				$( "ul#menuPatient li:eq(0)" ).addClass( "hidden" );
-  			$('#nomf').attr('required', false); $('#prenomf').attr('required', false);$('#nsspatient').attr('disabled', true); $('#Type_p').attr('required', false);  
-    		        break;         
+  				$('#nomf').attr('required', false); $('#prenomf').attr('required', false);$('#nsspatient').attr('disabled', true); $('#Type_p').attr('required', false);  
+    		       	 break;         
 		}			
 	}
   function checkFormAddPAtient()

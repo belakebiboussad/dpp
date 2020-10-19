@@ -8,7 +8,7 @@
 			<a href="{{ route('rdv.index') }}" class="btn btn-white">
 				<i class="fa fa-list-ul"></i>Liste Rendez-Vous
 			</a>
-			@if (Carbon\Carbon::today()->lte(Carbon\Carbon::parse($rdv->Date_RDV->format('Y-m-d H:i:s'))))
+			@if (Carbon\Carbon::today()->lte(Carbon\Carbon::parse($rdv->Date_RDV->format('Y-m-d H:i:s'))) &&($rdv->Etat_RDV !=0))
 			<a href="{{route('order.pdf',$rdv->id)}}" class="btn btn-white">
 				<i class="ace-icon fa fa-print"></i>Imprimer recu
 			</a>
@@ -88,10 +88,7 @@
 						<ul class="list-unstyled spaced">
 							<li>
 								<i class="ace-icon fa fa-caret-right blue"></i><strong>Etat RDV :</strong>
-								{{--
-							@if (Carbon\Carbon::today()->lte(Carbon\Carbon::parse($rdv->Date_RDV->format('Y-m-d H:i:s'))))	
-						 	@endif
-							--}}
+{{--@if (Carbon\Carbon::today()->lte(Carbon\Carbon::parse($rdv->Date_RDV->format('Y-m-d H:i:s'))))	@endif--}}
 									@if(isset($rdv->Etat_RDV))
 											@switch($rdv->Etat_RDV)
 												@case(0)
@@ -115,20 +112,11 @@
 			<hr>
 			<div class="widget-footer widget-footer-large right">
 				<div class="col-sm-12">
-{{--@if (Carbon\Carbon::today()->lte(Carbon\Carbon::parse($rdv->Date_RDV->format('Y-m-d H:i:s'))))@endif
-					--}}
-					@if(!(isset($rdv->Etat_RDV)))
-					  <a href="{{route('rdv.edit',$rdv->id)}}" class="btn btn-success btn-bold">
-						<i class="fa fa-edit bigger-120 blue"></i>&nbsp;Modifier
-					 	</a>
-				  	<a href="{{route('rdv.destroy',$rdv->id)}}" class="btn btn-danger btn-bold" data-method="DELETE" data-confirm="Etes Vous Sur pour Annuler le RDV ?">
-						<i class="ace-icon fa fa-trash-o bigger-120 orange"></i>&nbsp;Annuler
-						</a>		
-					 @endif <!-- 'rdv.index' -->
-					 	<a href="{{ route('patient.show',$rdv->patient->id) }}" class="btn btn-info btn-bold">
-							<i class="ace-icon fa fa-close bigger-110"></i>&nbsp;Fermer
-						</a>
-					</div>	
+{{--@if (Carbon\Carbon::today()->lte(Carbon\Carbon::parse($rdv->Date_RDV->format('Y-m-d H:i:s'))))@endif--}}
+					 <a href="{{ route('patient.show',$rdv->patient->id) }}" class="btn btn-info btn-bold">
+						<i class="ace-icon fa fa-close bigger-110"></i>&nbsp;Fermer
+					</a>
+				</div>	
 			</div>
 		</div>	
 	</div>

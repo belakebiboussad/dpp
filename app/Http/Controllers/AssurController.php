@@ -28,7 +28,6 @@ class AssurController extends Controller
         $grades = grade::all();
         return view('assurs.add',compact('grades')); 
       }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -37,7 +36,6 @@ class AssurController extends Controller
      */
     public function store(Request $request)
     {
-      
        $assure = assur::create([
         "Nom"=>$request->nomf,
         "Prenom"=>$request->prenomf,
@@ -67,7 +65,7 @@ class AssurController extends Controller
     public function show($id)
     {
       $assure = assur::FindOrFail($id);
-      return view('assurs.show',compact('assure'));
+       return view('assurs.show',compact('assure'));
     }
 
     /**
@@ -80,7 +78,7 @@ class AssurController extends Controller
       {
             $assure = assur::FindOrFail($id);
             $grades = grade::all(); 
-            return view('assurs.edit',compact('assure','grades'));
+             return view('assurs.edit',compact('assure','grades'));
       }
 
     /**
@@ -93,7 +91,6 @@ class AssurController extends Controller
     public function update(Request $request, $id)
     {
       $assure = assur::find($id);
-      //dd($request->all());
       $assure -> update([
                           "Nom"=>$request->nomf,
                           "Prenom"=>$request->prenomf,

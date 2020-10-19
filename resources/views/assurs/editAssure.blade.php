@@ -1,4 +1,5 @@
 <div id ="assurePart">
+	 <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Informations administratives</h3></div></div>
 	<div class="row  Asdemograph">
 		<div class="col-sm-6">
 			<div class="form-group">
@@ -118,10 +119,8 @@
 	   	</div>
     </div>
   </div>
-  <div class="row">
-		<div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3>	</div>
-	</div>
-	<div class="row Asdemograph">
+  <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div></div>
+<div class="row Asdemograph">
 		<div class="col-sm-4">
 			<div class="form-group">
 			 	<label class="col-sm-4 col-xs-4" for="adressef"><Strong>Adresse: </Strong></label>
@@ -163,25 +162,23 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label" for="etatf"><strong>Position :</strong></label>
 				<div class="col-sm-9">
-				<div class="radio">
-				 @if(isset($assure) && !empty($assure))
-					<label><input name ="etatf" value="Activite"  type="radio"  class="ace" @if($assure->Etat =='Activite') Checked @endif />
-						<span class="lbl">Activité</span>
-					</label>
-					<label><input name ="etatf" value="Retraite"  type="radio"  class="ace" @if($assure->Etat =='Retraite') Checked @endif />
-						<span class="lbl"> Retraite</span>
-					</label>
-					<label><input name="etatf" value="conge_maladie"  type="radio" class="ace" @if($assure->Etat =='conge_maladie') Checked @endif />
-							<span class="lbl"> Congé Maladie</span>
-					</label>
-				@else
-				<!-- <label hidden><input name="etatf" value="" type="radio" class="ace"/><span class="lbl"> Autre</span></label> -->
-				<label><input name="etatf" value="Activite" type="radio" class="ace" /><span class="lbl" Checked> Activité</span></label>
-				<label><input name="etatf" value="Retraite" type="radio" class="ace" Checked /><span class="lbl"> Retraite</span></label>
-				<label><input name="etatf" value="Mise en disponibilite" type="radio" class="ace" /><span class="lbl"> Congé Maladie</span>
-				</label>
-				 @endif
-				</div>
+					 @if(isset($assure) && !empty($assure))
+					 <select name="etatf" id="etatf" class="col-xs-12 col-sm-12">
+						<option value="">Sélectionner...</option>
+						<option value="Activite" {{ ($assure->Etat=="Activite") ? "selected" : "" }}>Activité</option>
+						<option value="Retraite" {{ ($assure->Etat=="Retraite") ? "selected" : "" }}>Retraite</option>
+						<option value="conge_maladie" {{ ($assure->Etat=="conge_maladie") ? "selected" : "" }}>Congé Maladie.</option>
+						<option value="Revoque" {{ ($assure->Etat=="Revoque") ? "selected" : "" }}>Révoqué</option>
+					</select>
+					@else	
+					<select name="etatf" id="etatf" class="col-xs-12 col-sm-12">
+						<option value="">Sélectionner...</option>
+						<option value="Activite">Activité</option>
+						<option value="Retraite">Retraite</option>
+						<option value="conge_maladie" >Congé Maladie.</option>
+						<option value="Revoque" >Révoqué</option>
+					</select>
+					 @endif
 				</div>
 			</div>
 		</div>
@@ -192,32 +189,30 @@
 					@if(isset($assure) && !empty($assure))
 					<select name="service" id="service" class="col-xs-12 col-sm-12">
 						<option value="">Sélectionner...</option>
-						<option value="Agent civile" {{ ($assure->Service=="Agent civile") ? "selected" : "" }} >Agent civile</option>
-						<option value="Sécurité publique" selected = {{ ($assure->Service=="Sécurité publique") ? "selected" : "" }}>Sécurité publique</option>
-						<option value="Police judiciaire (PJ)" selected = {{ ($assure->Service=="Police judiciaire (PJ)") ? "selected" : "" }}>Police judiciaire (PJ)</option>
-						<option value="Brigade mobile de la police judiciaire (BMPJ)"  selected = {{ ($assure->Service=="Brigade mobile de la police judiciaire (BMPJ)") ? "selected" : "" }}>Brigade mobile de la police judiciaire (BMPJ)</option>
-						<option value="Service protection et sécurité des personnalités (SPS)" selected =  {{ ($assure->Service=="Service protection et sécurité des personnalités (SPS)")? "selected" : "" }}>Service protection et sécurité des personnalités (SPS)</option>
-						<option value="Unité aérienne de la sûreté nationale"  {{ ($assure->Service=="Unité aérienne de la sûreté nationale") ? "selected" : "" }}>Unité aérienne de la sûreté nationale</option>
-						<option value="Unités républicaines de sécurité (URS)"  {{ ($assure->Service=="Unités républicaines de sécurité (URS)") ? "selected" : "" }}>Unités républicaines de sécurité (URS)</option>
-						<option value="Police scientifique et technique"  {{ ($assure->Service=="Police scientifique et technique") ? "selected" : "" }}>Police scientifique et technique</option>
-						<option value="Police aux frontières et de l'immigration (PAF)"  {{ ($assure->Service=="Police aux frontières et de l'immigration (PAF)")? "selected" : "" }}>	Police aux frontières et de l'immigration (PAF)</option>
-						<option value="Brigade de recherche et d'intervention (BRI)"  {{ ($assure->Service=="Brigade de recherche et d'intervention (BRI)")? "selected" : "" }}>Brigade de recherche et d'intervention (BRI)	</option>
-						<option value="Groupe des opérations spéciales de la police (GOSP)"  {{ ($assure->Service=="Groupe des opérations spéciales de la police (GOSP)")? "selected" : "" }}>Groupe des opérations spéciales de la police (GOSP)</option>
+						<option value="1"  {{ ($assure->Service=="1") ? "selected" : "" }}>Sécurité publique</option>
+						<option value="2"  {{ ($assure->Service=="2") ? "selected" : "" }}>Police judiciaire (PJ)</option>
+						<option value="3"   {{ ($assure->Service=="3") ? "selected" : "" }}>Brigade mobile de la police judiciaire (BMPJ)</option>
+						<option value="4"  {{ ($assure->Service=="4")? "selected" : "" }}>Service protection et sécurité des personnalités (SPS)</option>
+						<option value="5"  {{ ($assure->Service=="5") ? "selected" : "" }}>Unité aérienne de la sûreté nationale</option>
+						<option value="6"  {{ ($assure->Service=="6") ? "selected" : "" }}>Unités républicaines de sécurité (URS)</option>
+						<option value="7"  {{ ($assure->Service=="7") ? "selected" : "" }}>Police scientifique et technique</option>
+						<option value="8"  {{ ($assure->Service=="8")? "selected" : "" }}>Police aux frontières et de l'immigration (PAF)</option>
+						<option value="9"  {{ ($assure->Service=="9")? "selected" : "" }}>Brigade de recherche et d'intervention (BRI)</option>
+						<option value="10"  {{ ($assure->Service=="10")? "selected" : "" }}>Groupe des opérations spéciales de la police (GOSP)</option>
 					</select>
 					@else
 					<select name="service" id="service" class="col-xs-12 col-sm-12">
-						<option value="0">Sélectionner...</option>
-						<option value="Agent civile">Agent civile</option>
-						<option value="Sécurité publique">Sécurité publique</option>
-						<option value="Police judiciaire (PJ)">Police judiciaire (PJ)</option>
-						<option value=" Brigade mobile de la police judiciaire (BMPJ)">Brigade mobile de la police judiciaire (BMPJ)</option>
-						<option value="Service protection et sécurité des personnalités (SPS)">Service protection et sécurité des personnalités (SPS)</option>
-						<option value="L'Unité aérienne de la sûreté nationale">L'Unité aérienne de la sûreté nationale</option>
-						<option value="Unités républicaines de sécurité (URS)">Unités républicaines de sécurité (URS)</option>
-						<option value="Police scientifique et technique">Police scientifique et technique</option>
-						<option value="Police aux frontières et de l'immigration (PAF)">	Police aux frontières et de l'immigration (PAF)</option>
-						<option value="La Brigade de recherche et d'intervention (BRI)">La Brigade de recherche et d'intervention (BRI)	</option>
-						<option value="Le Groupe des opérations spéciales de la police (GOSP)">Le Groupe des opérations spéciales de la police (GOSP)</option>
+						<option value="">Sélectionner...</option>
+						<option value="1" >Sécurité publique</option>
+						<option value="2" >Police judiciaire (PJ)</option>
+						<option value="3" >Brigade mobile de la police judiciaire (BMPJ)</option>
+						<option value="4" >Service protection et sécurité des personnalités (SPS)</option>
+						<option value="5" >Unité aérienne de la sûreté nationale</option>
+						<option value="6">Unités républicaines de sécurité (URS)</option>
+						<option value="7" >Police scientifique et technique</option>
+						<option value="8">Police aux frontières et de l'immigration (PAF)</option>
+						<option value="9">Brigade de recherche et d'intervention (BRI)</option>
+						<option value="10" >Groupe des opérations spéciales de la police (GOSP)</option>
 					</select>
 					@endif 
 				</div>

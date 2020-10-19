@@ -4,7 +4,7 @@
 <script>
 	function showTypeEdit(value,i){
 		switch(value){
-      case "Assure":
+     			 case "Assure":
  				if(i !=0)
  				{
  				 					

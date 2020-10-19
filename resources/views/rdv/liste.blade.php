@@ -4,8 +4,8 @@
 			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des RDV :</h5>
 			<div class="widget-toolbar widget-toolbar-light no-border">
 				<div class="fa fa-plus-circle"></div>
-					<a href="#"  data-target="#RDV" data-toggle="modal" ><b>RDV</b></a>
-				</div>
+				<a href="#"  data-target="#RDV" data-toggle="modal" ><b>RDV</b></a>
+			</div>
 		</div>
 		<div class="widget-body">
 			<div class="widget-main no-padding">
@@ -13,6 +13,7 @@
 					<thead class="thin-border-bottom">
 						<tr>
 							<th class ="center"><strong>Date</strong></th>
+							<th class ="center"><strong>Service</strong></th>
 							<th class ="center"><strong>Médcine Traitant</strong></th>
 							<th class ="center"><strong>Etat</strong></th>
 							<th class ="center"><em class="fa fa-cog"></th>
@@ -23,6 +24,7 @@
 							@foreach($patient->rdvs as $rdv)
 								<tr>
 									<td>{{ $rdv->Date_RDV->format('Y-m-d') }}</td>
+									<td>{{ $rdv->employe->Service->nom}}</td>
 									<td>{{ $rdv->employe->nom }} {{ $rdv->employe->prenom }}	</td>
 									<td class="center">
 										@if(isset($rdv->Etat_RDV))
@@ -43,12 +45,12 @@
 									</td>
 									<td class="center">
 										<div class="hidden-sm hidden-xs btn-group">
-										  <a class="btn btn-xs btn-success" href="{{ route('rdv.show', $rdv->id) }}">	<i class="ace-icon fa fa-hand-o-up"></i></a>
-											@if(!(isset($rdv->Etat_RDV)))
-											<a href="{{route('rdv.edit',$rdv->id)}}" class="btn btn-xs btn-success">
+											<a class="btn btn-xs btn-success" href="{{ route('rdv.show', $rdv->id) }}">	<i class="ace-icon fa fa-hand-o-up"></i></a>
+											@if(!(isset($rdv->Etat_RDV))  &&($rdv->Employe_ID_Employe ==Auth::user()->employee_id))
+											<a href="{{route('rdv.edit',$rdv->id)}}" class="btn btn-xs btn-success" title ="Modifier">
 												<i class="fa fa-edit blue"></i>&nbsp;
 											</a>
-										  <a href="{{route('rdv.destroy',$rdv->id)}}" class="btn btn-xs btn-danger" data-method="DELETE" data-confirm="Etes Vous Sur pour Annuler le RDV ?">
+										  <a href="{{route('rdv.destroy',$rdv->id)}}" class="btn btn-xs btn-danger" data-method="DELETE" data-confirm="Etes Vous Sur pour Annuler le RDV ?" title="Annuler RDV">
 												<i class="ace-icon fa fa-trash-o orange"></i>&nbsp;
 											</a>
 											@endif
@@ -69,4 +71,3 @@
 		</div>
 	</div>
 </div>
-<div class="row">@include('consultations.ModalFoms.rendezVous')</div>

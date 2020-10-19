@@ -1,3 +1,4 @@
+ <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Informations administratives</h3></div></div>
  <div class="row demograph">
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('nom') ? 'has-error' : '' }}">
