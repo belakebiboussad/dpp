@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\modeles\service;
-use App\modeles\typeService;
 use App\user;
 use  App\modeles\salle;
 class ServiceController extends Controller
@@ -26,7 +25,7 @@ class ServiceController extends Controller
     public function create()
     {
       $services = service::all();
-       $types = typeService::all();
+       //$types = typeService::all();
       $users = User::whereHas(
         'role', function($q){
             $q->where('id', 1)->orWhere('id', 5)->orWhere('id', 6);
@@ -70,20 +69,15 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-      $service = service::FindOrFail($id);
-     //dd($service);
-      $services = service::all();
-      $types = typeService::all();
-      $users = User::whereHas(
-        'role', function($q){
-            $q->where('id', 1)->orWhere('id', 5)->orWhere('id', 6);
-        }
-      )->get();
-      return view('services.edit', compact('service','types','users'));
+      public function edit($id)
+      {
+            $service = service::FindOrFail($id);
+              $users = User::whereHas(
+            'role', function($q){
+                    $q->where('id', 1)->orWhere('id', 5)->orWhere('id', 6);
+              })->get();
+            return view('services.edit', compact('service','users'));
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -91,13 +85,11 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        $service = service::FindOrFail($id);
-        $service->update([
-            "nom"=>$request->nom,
-        ]);
-        return redirect()->action('ServiceController@show', ['id'=>$id]);
+      public function update(Request $request, $id)
+      {
+            $service = service::FindOrFail($id);
+             $service->update($request->all());
+             return redirect()->action('ServiceController@show', ['id'=>$id]);
     }
 
     /**
@@ -113,7 +105,7 @@ class ServiceController extends Controller
     }
     public function getRooms(Request $request)
     {
-      $salles = salle::where('service_id',$request->search)->get();// return $salles;// $service = service::FindOrFail($id); //  return response()->json($service);// //return response()->json($service->salles);
+      $salles = salle::where('service_id',$request->search)->get();
       $view = view("services.ajax_servicerooms",compact('salles'))->render();
       return response()->json(['html'=>$view]);
     }

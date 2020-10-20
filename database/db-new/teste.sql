@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 19 oct. 2020 à 22:10
+-- Généré le :  mar. 20 oct. 2020 à 21:09
 -- Version du serveur :  5.7.21
 -- Version de PHP :  7.2.4
 
@@ -363,7 +363,7 @@ CREATE TABLE IF NOT EXISTS `assurs` (
 INSERT INTO `assurs` (`id`, `Nom`, `Prenom`, `Date_Naissance`, `lieunaissance`, `Sexe`, `adresse`, `commune_res`, `wilaya_res`, `grp_sang`, `Etat`, `Service`, `matricule`, `Grade`, `NSS`, `NMGSN`) VALUES
 (9, 'assure1', 'assure1', '2018-03-27', 650, 'M', 'vd', 613, 16, 'B-', 'Activite', '1', 'M123', 1, '032564245651', 'b154sd6'),
 (12, 'assure2', 'assure2', '2018-03-28', 980, 'M', 'rue bab ali', 900, 25, 'A+', 'Activite', '1', 'H123D', 3, '032564s', 'b15458'),
-(13, 'assure3', 'assure3', '2018-03-28', 850, 'M', 'rue bab ali', 1556, 49, 'A+', 'Activite', '1', 'vf125', 7, '032564', 'b154'),
+(13, 'assure3', 'assure3', '2018-03-28', 850, 'M', 'rue bab ali', 1556, 49, 'A+', 'Retraite', NULL, 'vf125', 7, '032564', 'b154'),
 (14, 'assure4', 'malade1', '2003-01-13', 527, 'F', 'ain el hammam', 1556, 49, 'B+', 'Retraite', NULL, '0132D', 3, '03256424565', '5612488255'),
 (15, 'mrid', 'mrid', '2018-03-16', 502, 'M', 'ait oaua', 69, 3, NULL, 'Activite', '1', 'vfd12', 1, '115566666666', '561248825556'),
 (16, 'malade', 'malade', '2018-03-26', 781, 'M', '', 1556, 49, '', 'Activite', '1', 'bsdfb', 3, '557', 'b154ff'),
@@ -420,11 +420,11 @@ INSERT INTO `assurs` (`id`, `Nom`, `Prenom`, `Date_Naissance`, `lieunaissance`, 
 (94, 'malade5', 'prenom', NULL, 78, 'M', 'cite 20 out bat 54 appt 02 Oued El Berdi Bouira', 1556, 49, 'B+', 'En exercice', '1', '47512', 1, '055555555599', '2124649'),
 (95, 'assure', 'assure', NULL, 1268, 'F', 'rue bab djair', 1556, 49, 'A+', 'Activite', '1', '47512', 1, '0136546+413', '5ssf545'),
 (96, 'asssure', 'prenom', NULL, 1033, 'F', 'cite 20 out bat 54 appt 02 Moussadek Chlef', 1556, 49, 'O-', 'Activite', '1', '47512', 5, '088888888888', 'dfs58585'),
-(98, 'fonctionnaire1', 'dfhdfgh', '1989-06-06', 493, 'M', 'rue bab ali', 572, 16, 'B-', 'Retraite', '1', '47512', 7, '0136546+413', '714252525252'),
+(98, 'fonctionnaire1', 'dfhdfgh', '1989-06-06', 493, 'M', 'rue bab ali', 572, 16, 'B-', 'Activite', '2', '47512', 7, '0136546+413', '714252525252'),
 (100, 'mohand', 'reda', '1979-01-22', 58, 'M', 'rue bab ali', 1556, 49, 'AB-', 'Activite', '1', '47512', 9, '055555777788', '5ssf799'),
 (101, 'ami', 'ali', NULL, 6, 'M', 'cite 5 juillet Bir Mourad Rais Sétif', 1556, 49, 'O-', 'En exercice', '1', '475de', 1, '655953213333', 'dfs785'),
 (102, 'malade5', 'prenom', '1983-05-01', 78, 'M', 'cite 20 out bat 54 appt 02 Oued El Berdi Bouira', 1556, 49, 'B+', 'Activite', '1', 'fer12', 4, '55858546+413', 'b1544y'),
-(108, 'as', 'as', '2018-05-29', 86, 'F', 'ain', 533, 15, '', 'Retraite', '1', 'f1258', 6, '58 1245 7898', '646546466666'),
+(108, 'as', 'as', '2018-05-29', 86, 'F', 'ain', 533, 15, '', 'Activite', '4', 'f1258', 6, '58 1245 7898', '646546466666'),
 (114, 'nom', 'prenom', '2020-07-01', 613, 'F', 'afrtrd', 192, 6, 'A-', 'Retraité', '1', 'Mt123', 3, '132497974646', '132545645466'),
 (115, 'as', 'as', '2020-01-06', 462, 'M', 'but', 4, 1, 'B-', 'Retraité', '1', 'Mf456', 1, '236568981445', '236898465565'),
 (116, 'as', 'as', '2020-05-04', 85, 'M', 'bou', 39, 2, 'B+', 'Retraité', '1', 'M8123', 3, '562321665656', '546498331313'),
@@ -9949,7 +9949,6 @@ CREATE TABLE IF NOT EXISTS `patients` (
   `rhesus` enum('+','-') DEFAULT NULL,
   `Assurs_ID_Assure` int(11) DEFAULT NULL,
   `Type` varchar(500) NOT NULL,
-  `Type_p` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `Date_creation` date NOT NULL,
@@ -9966,106 +9965,106 @@ CREATE TABLE IF NOT EXISTS `patients` (
 -- Déchargement des données de la table `patients`
 --
 
-INSERT INTO `patients` (`id`, `IPP`, `Nom`, `Prenom`, `nom_jeune_fille`, `Dat_Naissance`, `Lieu_Naissance`, `Sexe`, `situation_familiale`, `Adresse`, `commune_res`, `wilaya_res`, `tele_mobile1`, `tele_mobile2`, `Profession`, `NSS`, `group_sang`, `rhesus`, `Assurs_ID_Assure`, `Type`, `Type_p`, `description`, `active`, `Date_creation`, `created_at`, `updated_at`) VALUES
-(22, 'M2018/1', 'patient', 'malade', 'mopor', '1979-06-23', 46, 'M', 'celibataire', 'blida', 5, 1, '0554555441', '0664565656', NULL, NULL, 'A', '+', 129, 'Ayant_droit', 'Descendant', NULL, 1, '2020-07-12', '2019-10-12 23:00:00', '2020-04-21 11:55:24'),
-(26, 'M2018/23', 'malade5', 'prenom', NULL, '1983-05-01', 78, 'F', 'celibataire', 'cite 20 out bat 54 appt 02', 346, 10, '0725369514', '0668951432', 'etudiant', '149021365414', 'B', '+', 108, 'Ayant_droit', 'Ascendant', NULL, 1, '2020-09-14', NULL, '2020-04-21 11:55:24'),
-(30, 'M2018/28', 'patient1', 'patient2', NULL, '2011-05-15', 13, 'M', 'celibataire', 'cite 5 juillet', 570, 19, '0566115555', '0656646464', 'macon', '149021365412', 'A', '+', 98, 'Ayant_droit', 'Descendant', NULL, 1, '2020-09-23', NULL, '2020-04-21 11:55:24'),
-(31, 'F2018/31', 'malade', 'mhend', 'boumal', '2014-05-19', 31, 'F', 'marie', 'alger', 34, 2, '0558596231', '0669891554', NULL, NULL, 'B', '-', NULL, 'Autre', NULL, 'engagement', 1, '2020-06-30', NULL, '2020-04-21 11:55:24'),
-(37, 'M2018/36', 'Assurer', 'Assurer', NULL, '2018-03-07', 897, 'M', 'celibataire', 'alger', 131, 5, '0555555549', '0666666666', NULL, NULL, 'AB', '+', NULL, 'Autre', 'Conjoint(e)', 'autre', 1, '2020-07-02', NULL, '2020-04-21 11:55:24'),
-(46, 'M2018/38', 'malade2', 'patient12', '', '2018-05-17', 235, 'M', 'celibataire', NULL, 1556, 49, '0556128584', '', NULL, NULL, NULL, NULL, 89, 'Ayant_droit', 'Ascendant', '', 1, '2019-12-11', NULL, '2020-04-21 11:55:24'),
-(47, 'M2018/47', 'malade1', 'malade1', '', '2018-05-23', 1124, 'M', 'celibataire', 'alger', 1556, 49, '0622110011', '', NULL, NULL, 'A', '+', 36, 'Ayant_droit', 'Ascendant', '', 1, '2019-02-14', NULL, '2020-04-21 11:55:24'),
-(48, 'M2018/48', 'malade3', 'malade3', '', '1960-02-09', 457, 'M', 'marie', 'dz', 1556, 49, '0555555555', '', NULL, NULL, 'O', '+', 36, 'Ayant_droit', 'Descendant', '', 1, '2019-11-04', NULL, '2020-04-21 11:55:24'),
-(49, 'M2018/49', 'malade4', 'malade4', NULL, '2018-05-24', 110, 'M', 'marie', 'trh', 44, 2, '0555555555', '0665154247', NULL, '11 4444 4444', 'A', '+', 119, 'Assure', NULL, 'dd', 1, '2020-07-02', NULL, '2020-04-21 11:55:24'),
-(50, 'M2019/50', 'patient14', 'ahmed', '', '2010-10-09', 596, 'M', 'marie', 'rue 01', 35, 2, '0552555555', '', NULL, NULL, 'O', '+', NULL, 'Autre', NULL, 'fsdfqsdf', 1, '2020-03-31', NULL, '2020-04-21 11:55:24'),
-(51, 'M2019/51', 'patient3', 'patient3', 'boudjedra', '2018-12-30', 17, 'F', 'marie', 'gsdfgdsfg', 307, 9, '0555555555', '', NULL, NULL, 'A', '+', NULL, 'Autre', NULL, 'bcvbfb', 1, '2020-06-11', NULL, '2020-04-21 11:55:24'),
-(52, 'M2019/52', 'patient15', 'dghdh', NULL, '2018-12-30', 222, 'M', 'divorce', 'ain elah', 40, 2, '0555555555', '', NULL, NULL, 'O', '+', NULL, 'Autre', NULL, 'fils du pouvre', 1, '2020-06-11', NULL, '2020-04-21 11:55:24'),
-(53, 'M2019/53', 'mohmmed', 'ali', NULL, '2018-12-30', 653, 'M', 'divorce', 'hdfhdfgh', 32, 15, '0555555555', '0666666666', NULL, '999999999999', 'A', '-', 90, 'Ayant_droit', 'Conjoint(e)', NULL, 1, '2020-07-02', NULL, '2020-04-21 11:55:24'),
-(54, 'M2019/54', 'patient5', 'patient5', '', '2014-05-26', 555, 'M', 'marie', 'alger', 1556, 49, '0555555555', '0666666666', NULL, NULL, 'A', '+', 40, 'Assure', 'Ascendant', 'fgdf', 1, '2019-02-06', NULL, '2020-04-21 11:55:24'),
-(55, 'M2019/55', 'patient15', 'patient15', '', '2011-06-21', 235, 'M', 'marie', 'alger', 1556, 49, '0555555555', '', NULL, NULL, 'B', '+', 89, 'Assure', NULL, NULL, 1, '2019-02-05', NULL, '2020-04-21 11:55:24'),
-(56, 'M2019/56', 'patient16', 'patient16', 'malade16', '2007-02-13', 999, 'M', 'marie', 'alge', 1556, 49, '0555555555', '0666666666', NULL, NULL, 'A', '+', NULL, 'Ayant_droit', NULL, 'derogation', 1, '2019-12-10', NULL, '2020-04-21 11:55:24'),
-(57, 'M2019/57', 'patient17', 'patient17', 'hfg', '2019-02-07', 254, 'M', 'celibataire', 'dhfh', 1556, 49, '0555555555', '', NULL, NULL, 'A', '+', 70, 'Ayant_droit', NULL, 'dfhdf', 1, '2019-12-09', NULL, '2020-04-21 11:55:24'),
-(58, 'M2019/58', 'patient18', 'patient18', 'dfh', '2002-07-02', 18, 'M', 'marie', 'hdhdfh', 2, 2, '0555555555', '0666666666', NULL, NULL, 'A', '-', 135, 'Ayant_droit', 'Descendant', '', 1, '2019-12-11', NULL, '2020-04-21 11:55:24'),
-(61, 'F2019/61', 'patient22', 'patient22', NULL, '2007-11-29', 1354, 'F', 'marie', 'alger', 1556, 49, '0556891452', '0685693214', NULL, NULL, 'A', '-', NULL, 'Autre', NULL, NULL, 1, '2019-12-22', NULL, '2020-04-21 11:55:24'),
-(62, 'F2019/62', 'patient24', 'patient24', NULL, '2005-05-30', 19, 'F', 'marie', 'tue1', 1385, 42, '0552645633', '0689565656', NULL, '135634656546', 'A', '+', 43, 'Assure', NULL, NULL, 1, '2020-07-02', NULL, '2020-04-21 11:55:24'),
-(63, 'F2019/63', 'patient24', 'patient24', NULL, '2002-06-11', 85, 'F', 'marie', 'alge', 1556, 49, '0506563232', '0606513216', NULL, NULL, 'B', '+', 44, 'Assure', NULL, NULL, 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
-(64, 'F2019/64', 'patient24', 'patient24', NULL, '1944-06-20', 102, 'F', 'marie', 'alger', 1556, 49, '0665632235', '', NULL, NULL, 'B', '+', 45, 'Assure', NULL, NULL, 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
-(65, 'F2019/65', 'patient24', 'patient24', NULL, '1937-10-26', 1540, 'F', 'marie', 'alger', 1556, 49, '0555555555', '', NULL, NULL, 'A', '+', 46, 'Assure', NULL, NULL, 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
-(66, 'F2019/66', 'patient24', 'patient24', NULL, '1980-02-12', 160, 'F', 'marie', 'alger', 1556, 17, '0665633232', '', NULL, NULL, 'A', '-', 47, 'Assure', NULL, NULL, 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
-(67, 'F2019/67', 'patient23', 'patient23', NULL, '1989-01-09', 150, 'F', 'marie', 'cite mohammed belouezdad bat 69 apt:56', 1556, 49, '0555555555', '', NULL, NULL, 'B', '-', 48, 'Assure', NULL, NULL, 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
-(68, 'F2019/68', 'patient23', 'patient23', NULL, '1989-01-09', 170, 'F', 'marie', 'cite belouazdar bat 05 apt 45', 1556, 49, '0555555555', '', NULL, NULL, 'B', '-', 48, 'Assure', NULL, NULL, 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
-(69, 'F2019/69', 'patient23', 'patient23', NULL, '1984-06-26', 180, 'F', 'marie', 'alger', 1556, 49, '0556532326', '', NULL, NULL, 'B', '+', 49, 'Assure', NULL, NULL, 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
-(70, 'F2019/70', 'patient23', 'patient23', NULL, '2019-02-20', 190, 'F', 'marie', 'ager', 1556, 49, '0555555555', '', NULL, NULL, 'A', '+', 50, 'Assure', NULL, NULL, 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
-(71, 'F2019/71', 'patient24', 'patient24', NULL, '2013-02-12', 200, 'F', 'marie', 'alge', 1556, 49, '0555555555', '', NULL, NULL, 'B', '+', 51, 'Assure', NULL, NULL, 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
-(72, 'F2019/72', 'patient25', 'patient25', NULL, '1989-06-19', 140, 'F', 'marie', 'alger', 1556, 49, '0555555555', '', NULL, NULL, 'A', '+', 52, 'Assure', NULL, '', 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
-(73, 'F2019/73', 'patient26', 'patient26', NULL, '1990-02-14', 130, 'F', 'celibataire', 'alger', 1556, 49, '0669164646', '', NULL, NULL, 'A', '-', 53, 'Assure', NULL, '', 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
-(74, 'F2019/74', 'patient26', 'patient26', NULL, '1990-02-14', 120, 'F', 'celibataire', 'alger', 1556, 49, '0669164646', '', NULL, NULL, 'A', '-', 53, 'Assure', NULL, NULL, 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
-(75, 'M2019/75', 'patient26', 'patient26', NULL, '1984-10-29', 110, 'M', 'marie', 'alger', 1556, 49, '0646654654', '', NULL, NULL, 'A', '+', 54, 'Assure', NULL, '', 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
-(76, 'F2019/76', 'pat', 'pat', NULL, '2014-05-26', 100, 'F', 'marie', 'alger', 1556, 49, '0555555555', '', NULL, '149021365414', 'A', '+', 77, 'Ayant_droit', 'Conjoint(e)', NULL, 1, '2020-06-12', NULL, '2020-04-21 11:55:24'),
-(77, 'F2019/77', 'patient29', 'patient29', NULL, '1974-10-31', 90, 'F', 'marie', 'alger', 613, 16, '0655555555', '', NULL, NULL, 'B', '+', 80, 'Ayant_droit', 'Ascendant', '', 1, '2019-12-10', NULL, '2020-04-21 11:55:24'),
-(78, 'F2019/78', 'patient30', 'patient30', NULL, '1973-10-01', 80, 'F', 'marie', 'alger', 1556, 49, '0555555555', '', NULL, NULL, 'B', '+', 81, 'Ayant_droit', 'Descendant', '', 1, '2019-12-10', NULL, '2020-04-21 11:55:24'),
-(79, 'F2019/79', 'patient31', 'patient31', NULL, '1973-10-01', 70, 'F', 'marie', 'alger', 613, 16, '0554546464', '', NULL, NULL, 'B', '+', NULL, 'Ayant_droit', NULL, NULL, 1, '2019-12-11', NULL, '2020-04-21 11:55:24'),
-(80, 'F2019/80', 'patient30', 'patient30', NULL, '1989-05-29', 60, 'F', 'celibataire', 'alger', 1556, 49, '0555555555', '', NULL, NULL, 'A', '-', 59, 'Assure', NULL, '', 1, '2019-02-27', NULL, '2020-04-21 11:55:24'),
-(81, 'F2019/81', 'patient27', 'patient27', NULL, '2011-06-21', 50, 'F', 'celibataire', 'alger', 1556, 49, '0654646313', '', NULL, '224654646449', 'A', '+', 58, 'Ayant_droit', 'Descendant', '', 1, '2019-02-27', NULL, '2020-04-21 11:55:24'),
-(82, 'M2019/82', 'dfg', 'sdfg', NULL, '2016-11-22', 210, 'M', 'marie', 'dfg', 1556, 49, '0565454646', '', NULL, '254964631649', 'A', '+', NULL, 'Ayant_droit', 'Ascendant', NULL, 1, '2019-02-27', NULL, '2020-04-21 11:55:24'),
-(83, 'M2019/83', 'pdfgd', 'gsdfg', NULL, '2019-02-14', 220, 'M', 'veuf', 'dfgdfg', 1556, 49, '0534563453', '', NULL, '654345636535', 'AB', '-', 60, 'Ayant_droit', 'Ascendant', NULL, 1, '2019-02-27', NULL, '2020-04-21 11:55:24'),
-(84, 'M2019/84', 'bxfg', 'hhfghdf', NULL, '2019-01-27', 230, 'M', 'marie', 'dfghdfghd', 1556, 49, '0554565444', '0556456464', NULL, '163546546466', 'B', '-', 61, 'Ayant_droit', 'Ascendant', '', 1, '2019-02-27', NULL, '2020-04-21 11:55:24'),
-(85, 'M2019/85', 'nfgn', 'nfgn', NULL, '2019-02-18', 240, 'M', 'marie', 'nfgn', 613, 16, '0555555555', '', NULL, NULL, 'A', '+', 76, 'Ayant_droit', 'Ascendant', '', 1, '2019-12-10', NULL, '2020-04-21 11:55:24'),
-(86, '0201986', 'hrth', 'hrth', NULL, '2019-03-12', 250, 'F', 'marie', 'hrth', 17, 1, '0555555555', '', NULL, NULL, 'A', '-', 134, 'Assure', NULL, '', 1, '2019-12-11', NULL, '2020-04-21 11:55:24'),
-(87, 'M2019/87', 'sg', 'gsdfg', NULL, '2016-06-14', 260, 'M', 'marie', 'gsdfg', 423, 13, '0555555555', '', NULL, NULL, 'AB', '-', 70, 'Ayant_droit', NULL, 'gsdfg', 1, '2019-12-10', NULL, '2020-04-21 11:55:24'),
-(88, '0201988', 'patient23', 'patient23', NULL, '2019-03-11', 270, 'M', 'celibataire', 'hdfg', 1556, 49, '0555555555', '', NULL, NULL, 'B', '+', NULL, 'Autre', NULL, 'jjfghj', 1, '2020-02-12', NULL, '2020-04-21 11:55:24'),
-(89, '0201989', 'belakebi', 'boussad', NULL, '2019-11-10', 498, 'M', 'marie', 'bab', 591, 16, '0554123295', '', NULL, NULL, NULL, NULL, 62, 'Assure', NULL, NULL, 1, '2019-12-08', NULL, '2020-04-21 11:55:24'),
-(94, '0201994', 'fqsd', 'fqds', NULL, '2019-12-01', 40, 'F', 'celibataire', 'erf', 18, 1, '0555555555', '0666666666', NULL, NULL, 'B', NULL, 68, 'Assure', NULL, '', 1, '2019-12-09', NULL, '2020-04-21 11:55:24'),
-(95, '0202095', 'a', 'a', NULL, '2020-02-02', 613, 'M', 'marie', 'alger', 613, 16, '0555555555', '', NULL, NULL, 'A', '+', 75, 'Assure', NULL, NULL, 1, '2020-02-24', NULL, '2020-04-21 11:55:24'),
-(96, '0202096', 'securite', 'fonctionnaire', NULL, '1953-05-18', 613, 'M', 'veuf', 'alg', 613, 16, '0555555555', '', NULL, '655953213333', 'A', '+', 75, 'Assure', NULL, NULL, 1, '2020-06-12', NULL, '2020-04-21 11:55:24'),
-(97, '0202097', 'mrid', 'bezef', NULL, '1943-06-22', 289, 'M', 'marie', 'rue 02 alger gare', 387, 12, '0525656569', '0566666666', NULL, '655555555555', 'A', '+', 77, 'Assure', NULL, NULL, 1, '2020-06-12', NULL, '2020-04-22 10:10:32'),
-(98, '0202098', 'mrid', 'bezef', NULL, '1943-06-22', 289, 'M', 'marie', 'rue 02 alger gare', 387, 12, '0525656569', '', NULL, '554', 'A', '+', 17, 'Assure', NULL, NULL, 1, '2020-06-12', NULL, '2020-04-22 10:12:31'),
-(99, '0202099', 'mahfoud', 'mahfoud', NULL, '1966-08-08', 463, 'F', 'marie', 'rue ben mokhtar', 505, 15, '0565895556', '', NULL, NULL, 'AB', '+', 108, 'Ayant_droit', 'Conjoint(e)', 'niece', 1, '2020-06-12', NULL, '2020-04-29 08:44:49'),
-(100, '02020100', 'Autre', 'Autre', 'maried', '1959-06-09', 39, 'F', 'marie', 'beni', 40, 2, '0655555555', '', NULL, NULL, 'O', '+', NULL, 'Autre', NULL, 'autre', 1, '2020-06-13', NULL, '2020-06-13 17:35:51'),
-(101, '02020101', 'assure', 'assure', 'polika', '1969-05-12', 2, 'F', 'marie', 'beni yezgene', 1179, 34, '0544444444', '0666666666', NULL, NULL, 'A', '+', 109, 'Assure', NULL, NULL, 1, '2020-06-13', NULL, '2020-06-13 17:39:47'),
-(104, '02020104', 'blima', 'blira', 'groua', '1837-08-28', 39, 'F', 'marie', 'rue 01', 141, 5, '0555555555', '', NULL, NULL, 'AB', '-', 111, 'Assure', NULL, NULL, 1, '2020-06-13', NULL, '2020-06-13 18:15:44'),
-(105, '02020105', 'ayant', 'aynt', NULL, '2011-09-05', 573, 'M', 'marie', 'bouira', 312, 10, '0555555555', '', NULL, NULL, 'B', '+', 112, 'Ayant_droit', 'Descendant', NULL, 1, '2020-06-13', NULL, '2020-06-13 18:19:12'),
-(106, NULL, 'a', 'a', NULL, '2020-06-02', 613, 'M', NULL, NULL, NULL, NULL, '0555555555', '', NULL, NULL, NULL, NULL, NULL, 'Autre', NULL, NULL, 1, '2020-06-14', NULL, '2020-06-14 12:33:55'),
-(107, NULL, 'a', 'a', NULL, '2020-06-02', 613, 'M', NULL, NULL, NULL, NULL, '0555555555', '', NULL, NULL, NULL, NULL, NULL, 'Autre', NULL, NULL, 1, '2020-06-14', NULL, '2020-06-14 12:34:14'),
-(108, '02020108', 'a', 'a', NULL, '2020-06-02', 613, 'M', NULL, NULL, 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, NULL, 'Autre', NULL, NULL, 1, '2020-06-14', NULL, '2020-06-14 12:34:35'),
-(109, '02020109', 'y', 'y', NULL, '2020-06-02', 613, 'M', NULL, NULL, NULL, NULL, '0555555555', '', NULL, NULL, NULL, NULL, NULL, 'Autre', NULL, NULL, 1, '2020-06-14', NULL, '2020-06-14 12:45:45'),
-(110, '02020110', 'f', 's', NULL, '2020-06-01', 613, 'M', NULL, NULL, 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, NULL, 'Autre', NULL, NULL, 1, '2020-06-14', NULL, '2020-06-14 12:49:19'),
-(111, '02020111', 't', 'rty', NULL, '2020-06-01', 7, 'M', NULL, NULL, 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, NULL, 'Autre', NULL, NULL, 1, '2020-06-14', NULL, '2020-06-14 13:56:15'),
-(112, '02020112', 'ds', 'fds', NULL, '2020-06-01', 10, 'M', NULL, NULL, 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, NULL, 'Autre', NULL, NULL, 1, '2020-06-14', NULL, '2020-06-14 13:58:10'),
-(113, '02020113', 'a', 'a', NULL, '2020-06-01', 613, 'M', NULL, NULL, 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, NULL, 'Autre', NULL, NULL, 1, '2020-06-14', NULL, '2020-06-14 14:02:48'),
-(114, '02020114', 'd', 'd', NULL, '2020-06-02', 1, 'M', NULL, NULL, 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, NULL, 'Autre', NULL, NULL, 1, '2020-06-14', NULL, '2020-06-14 14:04:26'),
-(115, '02020115', 'd', 'd', NULL, '2020-06-01', 1, 'M', NULL, NULL, 1556, 49, '0655555555', '', NULL, NULL, NULL, NULL, NULL, 'Autre', NULL, NULL, 1, '2020-06-14', NULL, '2020-06-14 14:05:54'),
-(116, '02020116', 'ds', 'sd', NULL, '2020-05-31', 613, 'M', NULL, NULL, 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, NULL, 'Autre', NULL, NULL, 1, '2020-06-14', NULL, '2020-06-14 14:07:08'),
-(117, '02020117', 's', 's', NULL, '2020-06-01', 14, 'M', NULL, NULL, 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, NULL, 'Autre', NULL, NULL, 1, '2020-06-14', NULL, '2020-06-14 14:08:13'),
-(118, '02020118', 's', 's', NULL, '2020-06-01', 14, 'M', NULL, NULL, 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, NULL, 'Autre', NULL, NULL, 1, '2020-06-14', NULL, '2020-06-14 14:08:38'),
-(119, '02020119', 's', 's', NULL, '2020-06-01', 22, 'M', NULL, NULL, 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, NULL, 'Autre', NULL, NULL, 1, '2020-06-14', NULL, '2020-06-14 14:14:22'),
-(120, '02020120', 's', 's', NULL, '2020-06-01', 20, 'M', NULL, NULL, 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, 113, 'Assure', NULL, NULL, 1, '2020-06-14', NULL, '2020-06-14 14:15:27'),
-(121, '02020121', 'assure3', 'assure3', NULL, '2018-03-28', 850, 'M', NULL, 'rue bab ali', 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, 13, 'Assure', NULL, NULL, 1, '2020-06-16', NULL, '2020-06-16 11:17:25'),
-(123, '02020123', 'assure4', 'malade1', 'marie', '2003-01-13', 527, 'F', 'marie', 'ain el hammam', 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, 14, 'Assure', NULL, NULL, 1, '2020-06-16', NULL, '2020-06-16 11:45:04'),
-(124, '02020124', 'Fille', 'Fille', 'marie', '1979-04-30', 287, 'F', 'marie', NULL, 1556, 49, '0555555555', '', NULL, NULL, 'AB', '+', 14, 'Ayant_droit', 'Descendant', NULL, 1, '2020-06-18', NULL, '2020-06-16 12:30:25'),
-(127, NULL, 'mrid', 'mrid', NULL, '2018-03-27', 160, 'M', 'celibataire', 'cite 5 juillet Bir Mourad Rais Sétif', 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, 18, 'Assure', NULL, NULL, 1, '2020-06-18', NULL, '2020-06-18 13:48:20'),
-(128, '02020128', 'mrid', 'malade', NULL, '2018-03-20', 160, 'M', 'celibataire', 'cite 5 juillet Bir Mourad Rais Sétif', 1556, 49, '0555555422', '', NULL, NULL, 'A', '-', 18, 'Ayant_droit', 'Conjoint(e)', NULL, 1, '2020-06-30', NULL, '2020-06-18 13:48:41'),
-(130, '02020130', 'reg', 'gre', NULL, '2020-06-01', 289, 'M', NULL, NULL, 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, 17, 'Ayant_droit', 'Ascendant', NULL, 1, '2020-06-30', NULL, '2020-06-30 12:59:04'),
-(132, NULL, 'p', 'p', NULL, '2020-07-01', 109, 'M', 'divorce', 'afer', 18, 1, '0555555555', '', NULL, NULL, 'B', '+', 117, 'Ayant_droit', 'Conjoint(e)', NULL, 1, '2020-07-01', NULL, '2020-07-01 13:56:58'),
-(133, NULL, 'p', 'p', NULL, '2020-07-01', 109, 'M', 'divorce', 'afer', 18, 1, '0555555555', '', NULL, NULL, 'B', '+', 117, 'Ayant_droit', 'Conjoint(e)', NULL, 1, '2020-07-01', NULL, '2020-07-01 13:57:08'),
-(134, '02020134', 'op', 'pzhj', NULL, '2020-07-01', 4, 'M', 'divorce', 'btert', 608, 16, '0666666666', '', NULL, NULL, 'A', '+', 118, 'Ayant_droit', 'Conjoint(e)', NULL, 1, '2020-07-01', NULL, '2020-07-01 14:02:54'),
-(136, '02020136', 'malade', 'fdsf', NULL, '2020-07-07', 30, 'F', 'marie', 'fers', 76, 3, '0555555555', '', NULL, NULL, 'B', '+', 18, 'Ayant_droit', 'Ascendant', NULL, 1, '2020-07-01', NULL, '2020-07-01 14:11:13'),
-(137, '02020137', 'ati', 'pati', 'dada', '2017-01-02', 56, 'F', 'marie', 'cite 20 out bat 54 appt 02', 94, 4, '0555555555', '', NULL, NULL, 'A', '+', NULL, 'Autre', NULL, NULL, 1, '2020-07-09', NULL, '2020-07-09 08:46:10'),
-(138, '02020138', 'p', 'p', NULL, '2001-12-31', 568, 'M', 'celibataire', 'hdhdfh', 568, 16, '0555555555', '', NULL, '58 1245 7898', 'A', '+', 121, 'Assure', NULL, NULL, 1, '2020-07-09', NULL, '2020-07-09 11:08:51'),
-(139, '02020139', 'z', 'z', NULL, '2002-01-06', 613, 'M', 'marie', 'alger', 613, 16, '0555555555', '', NULL, NULL, 'A', '+', 122, 'Assure', NULL, NULL, 1, '2020-07-09', NULL, '2020-07-09 11:34:02'),
-(140, '02020140', 'ab', 'a', NULL, '2002-05-05', 18, 'M', 'celibataire', 'alger', 613, 16, '0555555555', '', NULL, NULL, 'A', '+', 123, 'Ayant_droit', 'Ascendant', NULL, 1, '2020-07-09', NULL, '2020-07-09 11:50:21'),
-(141, '02020141', 's', 's', NULL, '2010-01-04', 20, 'M', 'celibataire', 'sf', 131, 5, '0555555555', '', NULL, '465465454764', 'B', '-', 124, 'Assure', NULL, NULL, 1, '2020-07-09', NULL, '2020-07-09 12:09:29'),
-(142, '02020142', 'g', 'g', NULL, '2002-07-02', 8, 'M', NULL, NULL, 8, 1, '0555555555', '', NULL, NULL, NULL, NULL, NULL, 'Autre', NULL, 'g', 1, '2020-07-12', NULL, '2020-07-12 10:22:24'),
-(143, '02020143', 's', 's', NULL, '2002-07-02', 20, 'M', NULL, NULL, 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, NULL, 'Autre', NULL, 's', 1, '2020-07-12', NULL, '2020-07-12 10:57:08'),
-(144, '02020144', 'a', 'RTGRY', NULL, '2002-07-02', 2, 'M', 'marie', NULL, 1, 1, '0555555555', '', NULL, '465465454764', NULL, NULL, 126, 'Assure', 'Descendant', NULL, 1, '2020-07-12', NULL, '2020-07-12 11:12:55'),
-(145, '02020145', 'assure3', 'assure3', NULL, '2018-03-28', 850, 'M', 'celibataire', 'rue bab ali', 195, 6, '0555555555', '', NULL, NULL, NULL, NULL, 13, 'Assure', NULL, NULL, 1, '2020-09-14', NULL, '2020-07-12 11:54:35'),
-(146, '02020146', 'mrid', 'mrid', NULL, '2018-03-16', 502, 'M', NULL, 'ait oaua', 69, 3, '0555555555', '', NULL, NULL, NULL, NULL, 15, 'Assure', NULL, NULL, 1, '2020-07-12', NULL, '2020-07-12 13:33:57'),
-(147, '02020147', 'q', 'sq', NULL, '2002-07-02', 613, 'M', NULL, NULL, 613, 16, '0555555555', '', NULL, NULL, 'B', '+', NULL, 'Autre', NULL, 'sfd', 1, '2020-07-13', NULL, '2020-07-13 07:09:53'),
-(148, '02020148', 'd', 'd', NULL, '2002-07-02', 2, 'M', 'celibataire', 'd', 1, 1, '0555555555', '', NULL, NULL, 'A', '-', 130, 'Assure', NULL, NULL, 1, '2020-07-13', NULL, '2020-07-13 07:11:00'),
-(149, '02020149', 'mrid', 'mrid', 'aa', '2018-03-16', 502, 'M', 'veuf', 'ait oaua', 69, 3, '0555555555', '', NULL, NULL, NULL, NULL, 15, 'Assure', NULL, NULL, 1, '2020-07-13', NULL, '2020-07-13 07:19:46'),
-(151, '02020151', 'pat', 'pat', NULL, '2020-03-01', 956, 'M', 'celibataire', 'cite 20 out bat 54 appt 02', 1118, 30, '0555555555', '', NULL, NULL, 'B', '+', NULL, 'Autre', NULL, NULL, 1, '2020-09-14', NULL, '2020-09-14 11:03:36'),
-(152, '02020152', 'h', 'h', NULL, '2020-09-07', 44, 'M', 'celibataire', 'hj', 287, 9, '0555555555', '', NULL, '555555156822', 'AB', '+', 131, 'Ayant_droit', 'Ascendant', NULL, 1, '2020-09-23', NULL, '2020-09-23 07:16:05'),
-(153, '02020153', 'fils', 'fils', NULL, '2008-05-19', 613, 'M', 'celibataire', 'alger', 1118, 30, '0555555555', '', NULL, '555555156822', 'A', '+', 12, 'Ayant_droit', 'Ascendant', NULL, 1, '2020-09-23', NULL, '2020-09-23 07:41:00'),
-(154, '02020154', 'reg', 'gre', NULL, '1959-06-23', 613, 'M', 'celibataire', 'sf', 399, 13, '0555555555', '', NULL, '055555555555', 'B', '+', 133, 'Ayant_droit', 'Descendant', NULL, 1, '2020-10-19', NULL, '2020-10-19 20:53:24');
+INSERT INTO `patients` (`id`, `IPP`, `Nom`, `Prenom`, `nom_jeune_fille`, `Dat_Naissance`, `Lieu_Naissance`, `Sexe`, `situation_familiale`, `Adresse`, `commune_res`, `wilaya_res`, `tele_mobile1`, `tele_mobile2`, `Profession`, `NSS`, `group_sang`, `rhesus`, `Assurs_ID_Assure`, `Type`, `description`, `active`, `Date_creation`, `created_at`, `updated_at`) VALUES
+(22, 'M2018/1', 'patient', 'malade', 'mopor', '1979-06-23', 46, 'M', 'celibataire', 'blida', 5, 1, '0554555441', '0664565656', NULL, NULL, 'A', '+', 129, '1', NULL, 1, '2020-07-12', '2019-10-12 23:00:00', '2020-04-21 11:55:24'),
+(26, 'M2018/23', 'malade5', 'prenom', NULL, '1983-05-01', 78, 'F', 'celibataire', 'cite 20 out bat 54 appt 02', 346, 10, '0725369514', '0668951432', 'etudiant', '149021365414', 'B', '+', 108, '1', NULL, 1, '2020-10-20', NULL, '2020-04-21 11:55:24'),
+(30, 'M2018/28', 'patient1', 'patient2', NULL, '2011-05-15', 13, 'M', 'celibataire', 'cite 5 juillet', 570, 19, '0566115555', '0656646464', 'macon', '149021365412', 'A', '+', 98, '2', NULL, 1, '2020-10-20', NULL, '2020-04-21 11:55:24'),
+(31, 'F2018/31', 'malade', 'mhend', 'boumal', '2014-05-19', 31, 'F', 'marie', 'alger', 34, 2, '0558596231', '0669891554', NULL, NULL, 'B', '-', NULL, '4', 'engagement', 1, '2020-06-30', NULL, '2020-04-21 11:55:24'),
+(37, 'M2018/36', 'Assurer', 'Assurer', NULL, '2018-03-07', 897, 'M', 'celibataire', 'alger', 131, 5, '0555555549', '0666666666', NULL, NULL, 'AB', '+', NULL, '4', 'autre', 1, '2020-07-02', NULL, '2020-04-21 11:55:24'),
+(46, 'M2018/38', 'malade2', 'patient12', '', '2018-05-17', 235, 'M', 'celibataire', NULL, 1556, 49, '0556128584', '', NULL, NULL, NULL, NULL, 89, '2', '', 1, '2019-12-11', NULL, '2020-04-21 11:55:24'),
+(47, 'M2018/47', 'malade1', 'malade1', '', '2018-05-23', 1124, 'M', 'celibataire', 'alger', 1556, 49, '0622110011', '', NULL, NULL, 'A', '+', 36, '3', '', 1, '2019-02-14', NULL, '2020-04-21 11:55:24'),
+(48, 'M2018/48', 'malade3', 'malade3', '', '1960-02-09', 457, 'M', 'marie', 'dz', 1556, 49, '0555555555', '', NULL, NULL, 'O', '+', 36, '2', '', 1, '2019-11-04', NULL, '2020-04-21 11:55:24'),
+(49, 'M2018/49', 'malade4', 'malade4', NULL, '2018-05-24', 110, 'M', 'marie', 'trh', 44, 2, '0555555555', '0665154247', NULL, '11 4444 4444', 'A', '+', 119, '0', 'dd', 1, '2020-07-02', NULL, '2020-04-21 11:55:24'),
+(50, 'M2019/50', 'patient14', 'ahmed', '', '2010-10-09', 596, 'M', 'marie', 'rue 01', 35, 2, '0552555555', '', NULL, NULL, 'O', '+', NULL, '4', 'fsdfqsdf', 1, '2020-03-31', NULL, '2020-04-21 11:55:24'),
+(51, 'M2019/51', 'patient3', 'patient3', 'boudjedra', '2018-12-30', 17, 'F', 'marie', 'gsdfgdsfg', 307, 9, '0555555555', '', NULL, NULL, 'A', '+', NULL, '4', 'bcvbfb', 1, '2020-06-11', NULL, '2020-04-21 11:55:24'),
+(52, 'M2019/52', 'patient15', 'dghdh', NULL, '2018-12-30', 222, 'M', 'divorce', 'ain elah', 40, 2, '0555555555', '', NULL, NULL, 'O', '+', NULL, '4', 'fils du pouvre', 1, '2020-06-11', NULL, '2020-04-21 11:55:24'),
+(53, 'M2019/53', 'mohmmed', 'ali', NULL, '2018-12-30', 653, 'M', 'divorce', 'hdfhdfgh', 32, 15, '0555555555', '0666666666', NULL, '999999999999', 'A', '-', 90, '1', NULL, 1, '2020-07-02', NULL, '2020-04-21 11:55:24'),
+(54, 'M2019/54', 'patient5', 'patient5', '', '2014-05-26', 555, 'M', 'marie', 'alger', 1556, 49, '0555555555', '0666666666', NULL, NULL, 'A', '+', 40, '0', 'fgdf', 1, '2019-02-06', NULL, '2020-04-21 11:55:24'),
+(55, 'M2019/55', 'patient15', 'patient15', '', '2011-06-21', 235, 'M', 'marie', 'alger', 1556, 49, '0555555555', '', NULL, NULL, 'B', '+', 89, '0', NULL, 1, '2019-02-05', NULL, '2020-04-21 11:55:24'),
+(56, 'M2019/56', 'patient16', 'patient16', 'malade16', '2007-02-13', 999, 'M', 'marie', 'alge', 1556, 49, '0555555555', '0666666666', NULL, NULL, 'A', '+', NULL, '2', 'derogation', 1, '2019-12-10', NULL, '2020-04-21 11:55:24'),
+(57, 'M2019/57', 'patient17', 'patient17', 'hfg', '2019-02-07', 254, 'M', 'celibataire', 'dhfh', 1556, 49, '0555555555', '', NULL, NULL, 'A', '+', 70, '2', 'dfhdf', 1, '2019-12-09', NULL, '2020-04-21 11:55:24'),
+(58, 'M2019/58', 'patient18', 'patient18', 'dfh', '2002-07-02', 18, 'M', 'marie', 'hdhdfh', 2, 2, '0555555555', '0666666666', NULL, NULL, 'A', '-', 135, '2', '', 1, '2019-12-11', NULL, '2020-04-21 11:55:24'),
+(61, 'F2019/61', 'patient22', 'patient22', NULL, '2007-11-29', 1354, 'F', 'marie', 'alger', 1556, 49, '0556891452', '0685693214', NULL, NULL, 'A', '-', NULL, '4', NULL, 1, '2019-12-22', NULL, '2020-04-21 11:55:24'),
+(62, 'F2019/62', 'patient24', 'patient24', NULL, '2005-05-30', 19, 'F', 'marie', 'tue1', 1385, 42, '0552645633', '0689565656', NULL, '135634656546', 'A', '+', 43, '0', NULL, 1, '2020-07-02', NULL, '2020-04-21 11:55:24'),
+(63, 'F2019/63', 'patient24', 'patient24', NULL, '2002-06-11', 85, 'F', 'marie', 'alge', 1556, 49, '0506563232', '0606513216', NULL, NULL, 'B', '+', 44, '0', NULL, 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
+(64, 'F2019/64', 'patient24', 'patient24', NULL, '1944-06-20', 102, 'F', 'marie', 'alger', 1556, 49, '0665632235', '', NULL, NULL, 'B', '+', 45, '0', NULL, 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
+(65, 'F2019/65', 'patient24', 'patient24', NULL, '1937-10-26', 1540, 'F', 'marie', 'alger', 1556, 49, '0555555555', '', NULL, NULL, 'A', '+', 46, '0', NULL, 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
+(66, 'F2019/66', 'patient24', 'patient24', NULL, '1980-02-12', 160, 'F', 'marie', 'alger', 1556, 17, '0665633232', '', NULL, NULL, 'A', '-', 47, '0', NULL, 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
+(67, 'F2019/67', 'patient23', 'patient23', NULL, '1989-01-09', 150, 'F', 'marie', 'cite mohammed belouezdad bat 69 apt:56', 1556, 49, '0555555555', '', NULL, NULL, 'B', '-', 48, '0', NULL, 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
+(68, 'F2019/68', 'patient23', 'patient23', NULL, '1989-01-09', 170, 'F', 'marie', 'cite belouazdar bat 05 apt 45', 1556, 49, '0555555555', '', NULL, NULL, 'B', '-', 48, '0', NULL, 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
+(69, 'F2019/69', 'patient23', 'patient23', NULL, '1984-06-26', 180, 'F', 'marie', 'alger', 1556, 49, '0556532326', '', NULL, NULL, 'B', '+', 49, '0', NULL, 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
+(70, 'F2019/70', 'patient23', 'patient23', NULL, '2019-02-20', 190, 'F', 'marie', 'ager', 1556, 49, '0555555555', '', NULL, NULL, 'A', '+', 50, '0', NULL, 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
+(71, 'F2019/71', 'patient24', 'patient24', NULL, '2013-02-12', 200, 'F', 'marie', 'alge', 1556, 49, '0555555555', '', NULL, NULL, 'B', '+', 51, '0', NULL, 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
+(72, 'F2019/72', 'patient25', 'patient25', NULL, '1989-06-19', 140, 'F', 'marie', 'alger', 1556, 49, '0555555555', '', NULL, NULL, 'A', '+', 52, '0', '', 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
+(73, 'F2019/73', 'patient26', 'patient26', NULL, '1990-02-14', 130, 'F', 'celibataire', 'alger', 1556, 49, '0669164646', '', NULL, NULL, 'A', '-', 53, '0', '', 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
+(74, 'F2019/74', 'patient26', 'patient26', NULL, '1990-02-14', 120, 'F', 'celibataire', 'alger', 1556, 49, '0669164646', '', NULL, NULL, 'A', '-', 53, '0', NULL, 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
+(75, 'M2019/75', 'patient26', 'patient26', NULL, '1984-10-29', 110, 'M', 'marie', 'alger', 1556, 49, '0646654654', '', NULL, NULL, 'A', '+', 54, '0', '', 1, '2019-02-26', NULL, '2020-04-21 11:55:24'),
+(76, 'F2019/76', 'pat', 'pat', NULL, '2014-05-26', 100, 'F', 'marie', 'alger', 1556, 49, '0555555555', '', NULL, '149021365414', 'A', '+', 77, '2', NULL, 1, '2020-06-12', NULL, '2020-04-21 11:55:24'),
+(77, 'F2019/77', 'patient29', 'patient29', NULL, '1974-10-31', 90, 'F', 'marie', 'alger', 613, 16, '0655555555', '', NULL, NULL, 'B', '+', 80, '2', '', 1, '2019-12-10', NULL, '2020-04-21 11:55:24'),
+(78, 'F2019/78', 'patient30', 'patient30', NULL, '1973-10-01', 80, 'F', 'marie', 'alger', 1556, 49, '0555555555', '', NULL, NULL, 'B', '+', 81, '2', '', 1, '2019-12-10', NULL, '2020-04-21 11:55:24'),
+(79, 'F2019/79', 'patient31', 'patient31', NULL, '1973-10-01', 70, 'F', 'marie', 'alger', 613, 16, '0554546464', '', NULL, NULL, 'B', '+', NULL, '2', NULL, 1, '2019-12-11', NULL, '2020-04-21 11:55:24'),
+(80, 'F2019/80', 'patient30', 'patient30', NULL, '1989-05-29', 60, 'F', 'celibataire', 'alger', 1556, 49, '0555555555', '', NULL, NULL, 'A', '-', 59, '0', '', 1, '2019-02-27', NULL, '2020-04-21 11:55:24'),
+(81, 'F2019/81', 'patient27', 'patient27', NULL, '2011-06-21', 50, 'F', 'celibataire', 'alger', 1556, 49, '0654646313', '', NULL, '224654646449', 'A', '+', 58, '2', '', 1, '2019-02-27', NULL, '2020-04-21 11:55:24'),
+(82, 'M2019/82', 'dfg', 'sdfg', NULL, '2016-11-22', 210, 'M', 'marie', 'dfg', 1556, 49, '0565454646', '', NULL, '254964631649', 'A', '+', NULL, '2', NULL, 1, '2019-02-27', NULL, '2020-04-21 11:55:24'),
+(83, 'M2019/83', 'pdfgd', 'gsdfg', NULL, '2019-02-14', 220, 'M', 'veuf', 'dfgdfg', 1556, 49, '0534563453', '', NULL, '654345636535', 'AB', '-', 60, '2', NULL, 1, '2019-02-27', NULL, '2020-04-21 11:55:24'),
+(84, 'M2019/84', 'bxfg', 'hhfghdf', NULL, '2019-01-27', 230, 'M', 'marie', 'dfghdfghd', 1556, 49, '0554565444', '0556456464', NULL, '163546546466', 'B', '-', 61, '2', '', 1, '2019-02-27', NULL, '2020-04-21 11:55:24'),
+(85, 'M2019/85', 'nfgn', 'nfgn', NULL, '2019-02-18', 240, 'M', 'marie', 'nfgn', 613, 16, '0555555555', '', NULL, NULL, 'A', '+', 76, '2', '', 1, '2019-12-10', NULL, '2020-04-21 11:55:24'),
+(86, '0201986', 'hrth', 'hrth', NULL, '2019-03-12', 250, 'F', 'marie', 'hrth', 17, 1, '0555555555', '', NULL, NULL, 'A', '-', 134, '0', '', 1, '2019-12-11', NULL, '2020-04-21 11:55:24'),
+(87, 'M2019/87', 'sg', 'gsdfg', NULL, '2016-06-14', 260, 'M', 'marie', 'gsdfg', 423, 13, '0555555555', '', NULL, NULL, 'AB', '-', 70, '2', 'gsdfg', 1, '2019-12-10', NULL, '2020-04-21 11:55:24'),
+(88, '0201988', 'patient23', 'patient23', NULL, '2019-03-11', 270, 'M', 'celibataire', 'hdfg', 1556, 49, '0555555555', '', NULL, NULL, 'B', '+', NULL, '4', 'jjfghj', 1, '2020-02-12', NULL, '2020-04-21 11:55:24'),
+(89, '0201989', 'belakebi', 'boussad', NULL, '2019-11-10', 498, 'M', 'marie', 'bab', 591, 16, '0554123295', '', NULL, NULL, NULL, NULL, 62, '0', NULL, 1, '2019-12-08', NULL, '2020-04-21 11:55:24'),
+(94, '0201994', 'fqsd', 'fqds', NULL, '2019-12-01', 40, 'F', 'celibataire', 'erf', 18, 1, '0555555555', '0666666666', NULL, NULL, 'B', NULL, 68, '0', '', 1, '2019-12-09', NULL, '2020-04-21 11:55:24'),
+(95, '0202095', 'a', 'a', NULL, '2020-02-02', 613, 'M', 'marie', 'alger', 613, 16, '0555555555', '', NULL, NULL, 'A', '+', 75, '0', NULL, 1, '2020-02-24', NULL, '2020-04-21 11:55:24'),
+(96, '0202096', 'securite', 'fonctionnaire', NULL, '1953-05-18', 613, 'M', 'veuf', 'alg', 613, 16, '0555555555', '', NULL, '655953213333', 'A', '+', 75, '0', NULL, 1, '2020-06-12', NULL, '2020-04-21 11:55:24'),
+(97, '0202097', 'mrid', 'bezef', NULL, '1943-06-22', 289, 'M', 'marie', 'rue 02 alger gare', 387, 12, '0525656569', '0566666666', NULL, '655555555555', 'A', '+', 77, '0', NULL, 1, '2020-06-12', NULL, '2020-04-22 10:10:32'),
+(98, '0202098', 'mrid', 'bezef', NULL, '1943-06-22', 289, 'M', 'marie', 'rue 02 alger gare', 387, 12, '0525656569', '', NULL, '554', 'A', '+', 17, '0', NULL, 1, '2020-06-12', NULL, '2020-04-22 10:12:31'),
+(99, '0202099', 'mahfoud', 'mahfoud', NULL, '1966-08-08', 463, 'F', 'marie', 'rue ben mokhtar', 505, 15, '0565895556', '', NULL, NULL, 'AB', '+', 108, '2', 'niece', 1, '2020-06-12', NULL, '2020-04-29 08:44:49'),
+(100, '02020100', 'Autre', 'Autre', 'maried', '1959-06-09', 39, 'F', 'marie', 'beni', 40, 2, '0655555555', '', NULL, NULL, 'O', '+', NULL, '4', 'autre', 1, '2020-06-13', NULL, '2020-06-13 17:35:51'),
+(101, '02020101', 'assure', 'assure', 'polika', '1969-05-12', 2, 'F', 'marie', 'beni yezgene', 1179, 34, '0544444444', '0666666666', NULL, NULL, 'A', '+', 109, '0', NULL, 1, '2020-06-13', NULL, '2020-06-13 17:39:47'),
+(104, '02020104', 'blima', 'blira', 'groua', '1837-08-28', 39, 'F', 'marie', 'rue 01', 141, 5, '0555555555', '', NULL, NULL, 'AB', '-', 111, '0', NULL, 1, '2020-06-13', NULL, '2020-06-13 18:15:44'),
+(105, '02020105', 'ayant', 'aynt', NULL, '2011-09-05', 573, 'M', 'marie', 'bouira', 312, 10, '0555555555', '', NULL, NULL, 'B', '+', 112, '2', NULL, 1, '2020-06-13', NULL, '2020-06-13 18:19:12'),
+(106, NULL, 'a', 'a', NULL, '2020-06-02', 613, 'M', NULL, NULL, NULL, NULL, '0555555555', '', NULL, NULL, NULL, NULL, NULL, '4', NULL, 1, '2020-06-14', NULL, '2020-06-14 12:33:55'),
+(107, NULL, 'a', 'a', NULL, '2020-06-02', 613, 'M', NULL, NULL, NULL, NULL, '0555555555', '', NULL, NULL, NULL, NULL, NULL, '4', NULL, 1, '2020-06-14', NULL, '2020-06-14 12:34:14'),
+(108, '02020108', 'a', 'a', NULL, '2020-06-02', 613, 'M', NULL, NULL, 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, NULL, '4', NULL, 1, '2020-06-14', NULL, '2020-06-14 12:34:35'),
+(109, '02020109', 'y', 'y', NULL, '2020-06-02', 613, 'M', NULL, NULL, NULL, NULL, '0555555555', '', NULL, NULL, NULL, NULL, NULL, '4', NULL, 1, '2020-06-14', NULL, '2020-06-14 12:45:45'),
+(110, '02020110', 'f', 's', NULL, '2020-06-01', 613, 'M', NULL, NULL, 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, NULL, '4', NULL, 1, '2020-06-14', NULL, '2020-06-14 12:49:19'),
+(111, '02020111', 't', 'rty', NULL, '2020-06-01', 7, 'M', NULL, NULL, 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, NULL, '4', NULL, 1, '2020-06-14', NULL, '2020-06-14 13:56:15'),
+(112, '02020112', 'ds', 'fds', NULL, '2020-06-01', 10, 'M', NULL, NULL, 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, NULL, '4', NULL, 1, '2020-06-14', NULL, '2020-06-14 13:58:10'),
+(113, '02020113', 'a', 'a', NULL, '2020-06-01', 613, 'M', NULL, NULL, 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, NULL, '4', NULL, 1, '2020-06-14', NULL, '2020-06-14 14:02:48'),
+(114, '02020114', 'd', 'd', NULL, '2020-06-02', 1, 'M', NULL, NULL, 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, NULL, '4', NULL, 1, '2020-06-14', NULL, '2020-06-14 14:04:26'),
+(115, '02020115', 'd', 'd', NULL, '2020-06-01', 1, 'M', NULL, NULL, 1556, 49, '0655555555', '', NULL, NULL, NULL, NULL, NULL, '4', NULL, 1, '2020-06-14', NULL, '2020-06-14 14:05:54'),
+(116, '02020116', 'ds', 'sd', NULL, '2020-05-31', 613, 'M', NULL, NULL, 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, NULL, '4', NULL, 1, '2020-06-14', NULL, '2020-06-14 14:07:08'),
+(117, '02020117', 's', 's', NULL, '2020-06-01', 14, 'M', NULL, NULL, 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, NULL, '4', NULL, 1, '2020-06-14', NULL, '2020-06-14 14:08:13'),
+(118, '02020118', 's', 's', NULL, '2020-06-01', 14, 'M', NULL, NULL, 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, NULL, '4', NULL, 1, '2020-06-14', NULL, '2020-06-14 14:08:38'),
+(119, '02020119', 's', 's', NULL, '2020-06-01', 22, 'M', NULL, NULL, 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, NULL, '4', NULL, 1, '2020-06-14', NULL, '2020-06-14 14:14:22'),
+(120, '02020120', 's', 's', NULL, '2020-06-01', 20, 'M', NULL, NULL, 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, 113, '0', NULL, 1, '2020-06-14', NULL, '2020-06-14 14:15:27'),
+(121, '02020121', 'assure3', 'assure3', NULL, '2018-03-28', 850, 'M', NULL, 'rue bab ali', 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, 13, '0', NULL, 1, '2020-06-16', NULL, '2020-06-16 11:17:25'),
+(123, '02020123', 'assure4', 'malade1', 'marie', '2003-01-13', 527, 'F', 'marie', 'ain el hammam', 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, 14, '0', NULL, 1, '2020-06-16', NULL, '2020-06-16 11:45:04'),
+(124, '02020124', 'Fille', 'Fille', 'marie', '1979-04-30', 287, 'F', 'marie', NULL, 1556, 49, '0555555555', '', NULL, NULL, 'AB', '+', 14, '2', NULL, 1, '2020-06-18', NULL, '2020-06-16 12:30:25'),
+(127, NULL, 'mrid', 'mrid', NULL, '2018-03-27', 160, 'M', 'celibataire', 'cite 5 juillet Bir Mourad Rais Sétif', 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, 18, '0', NULL, 1, '2020-06-18', NULL, '2020-06-18 13:48:20'),
+(128, '02020128', 'mrid', 'malade', NULL, '2018-03-20', 160, 'M', 'celibataire', 'cite 5 juillet Bir Mourad Rais Sétif', 1556, 49, '0555555422', '', NULL, NULL, 'A', '-', 18, '2', NULL, 1, '2020-06-30', NULL, '2020-06-18 13:48:41'),
+(130, '02020130', 'reg', 'gre', NULL, '2020-06-01', 289, 'M', NULL, NULL, 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, 17, '2', NULL, 1, '2020-06-30', NULL, '2020-06-30 12:59:04'),
+(132, NULL, 'p', 'p', NULL, '2020-07-01', 109, 'M', 'divorce', 'afer', 18, 1, '0555555555', '', NULL, NULL, 'B', '+', 117, '2', NULL, 1, '2020-07-01', NULL, '2020-07-01 13:56:58'),
+(133, NULL, 'p', 'p', NULL, '2020-07-01', 109, 'M', 'divorce', 'afer', 18, 1, '0555555555', '', NULL, NULL, 'B', '+', 117, '2', NULL, 1, '2020-07-01', NULL, '2020-07-01 13:57:08'),
+(134, '02020134', 'op', 'pzhj', NULL, '2020-07-01', 4, 'M', 'divorce', 'btert', 608, 16, '0666666666', '', NULL, NULL, 'A', '+', 118, '2', NULL, 1, '2020-07-01', NULL, '2020-07-01 14:02:54'),
+(136, '02020136', 'malade', 'fdsf', NULL, '2020-07-07', 30, 'F', 'marie', 'fers', 76, 3, '0555555555', '', NULL, NULL, 'B', '+', 18, '2', NULL, 1, '2020-07-01', NULL, '2020-07-01 14:11:13'),
+(137, '02020137', 'ati', 'pati', 'dada', '2017-01-02', 56, 'F', 'marie', 'cite 20 out bat 54 appt 02', 94, 4, '0555555555', '', NULL, NULL, 'A', '+', NULL, '4', NULL, 1, '2020-07-09', NULL, '2020-07-09 08:46:10'),
+(138, '02020138', 'p', 'p', NULL, '2001-12-31', 568, 'M', 'celibataire', 'hdhdfh', 568, 16, '0555555555', '', NULL, '58 1245 7898', 'A', '+', 121, '0', NULL, 1, '2020-07-09', NULL, '2020-07-09 11:08:51'),
+(139, '02020139', 'z', 'z', NULL, '2002-01-06', 613, 'M', 'marie', 'alger', 613, 16, '0555555555', '', NULL, NULL, 'A', '+', 122, '0', NULL, 1, '2020-07-09', NULL, '2020-07-09 11:34:02'),
+(140, '02020140', 'ab', 'a', NULL, '2002-05-05', 18, 'M', 'celibataire', 'alger', 613, 16, '0555555555', '', NULL, NULL, 'A', '+', 123, '2', NULL, 1, '2020-07-09', NULL, '2020-07-09 11:50:21'),
+(141, '02020141', 's', 's', NULL, '2010-01-04', 20, 'M', 'celibataire', 'sf', 131, 5, '0555555555', '', NULL, '465465454764', 'B', '-', 124, '0', NULL, 1, '2020-07-09', NULL, '2020-07-09 12:09:29'),
+(142, '02020142', 'g', 'g', NULL, '2002-07-02', 8, 'M', NULL, NULL, 8, 1, '0555555555', '', NULL, NULL, NULL, NULL, NULL, '4', 'g', 1, '2020-07-12', NULL, '2020-07-12 10:22:24'),
+(143, '02020143', 's', 's', NULL, '2002-07-02', 20, 'M', NULL, NULL, 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, NULL, '4', 's', 1, '2020-07-12', NULL, '2020-07-12 10:57:08'),
+(144, '02020144', 'a', 'RTGRY', NULL, '2002-07-02', 2, 'M', 'marie', NULL, 1, 1, '0555555555', '', NULL, '465465454764', NULL, NULL, 126, '0', NULL, 1, '2020-07-12', NULL, '2020-07-12 11:12:55'),
+(145, '02020145', 'assure3', 'assure3', NULL, '2018-03-28', 850, 'M', 'celibataire', 'rue bab ali', 195, 6, '0555555555', '', NULL, NULL, NULL, NULL, 13, '0', NULL, 1, '2020-09-14', NULL, '2020-07-12 11:54:35'),
+(146, '02020146', 'mrid', 'mrid', NULL, '2018-03-16', 502, 'M', NULL, 'ait oaua', 69, 3, '0555555555', '', NULL, NULL, NULL, NULL, 15, '0', NULL, 1, '2020-07-12', NULL, '2020-07-12 13:33:57'),
+(147, '02020147', 'q', 'sq', NULL, '2002-07-02', 613, 'M', NULL, NULL, 613, 16, '0555555555', '', NULL, NULL, 'B', '+', NULL, '4', 'sfd', 1, '2020-07-13', NULL, '2020-07-13 07:09:53'),
+(148, '02020148', 'd', 'd', NULL, '2002-07-02', 2, 'M', 'celibataire', 'd', 1, 1, '0555555555', '', NULL, NULL, 'A', '-', 130, '0', NULL, 1, '2020-07-13', NULL, '2020-07-13 07:11:00'),
+(149, '02020149', 'mrid', 'mrid', 'aa', '2018-03-16', 502, 'M', 'veuf', 'ait oaua', 69, 3, '0555555555', '', NULL, NULL, NULL, NULL, 15, '0', NULL, 1, '2020-07-13', NULL, '2020-07-13 07:19:46'),
+(151, '02020151', 'pat', 'pat', NULL, '2020-03-01', 956, 'M', 'celibataire', 'cite 20 out bat 54 appt 02', 1118, 30, '0555555555', '', NULL, NULL, 'B', '+', NULL, '4', NULL, 1, '2020-09-14', NULL, '2020-09-14 11:03:36'),
+(152, '02020152', 'h', 'h', NULL, '2020-09-07', 44, 'M', 'celibataire', 'hj', 287, 9, '0555555555', '', NULL, '555555156822', 'AB', '+', 131, '2', NULL, 1, '2020-09-23', NULL, '2020-09-23 07:16:05'),
+(153, '02020153', 'fils', 'fils', NULL, '2008-05-19', 613, 'M', 'celibataire', 'alger', 1118, 30, '0555555555', '', NULL, '555555156822', 'A', '+', 12, '2', NULL, 1, '2020-09-23', NULL, '2020-09-23 07:41:00'),
+(154, '02020154', 'reg', 'gre', NULL, '1959-06-23', 613, 'M', 'celibataire', 'sf', 399, 13, '0555555555', '', NULL, '055555555555', 'B', '+', 133, '2', NULL, 1, '2020-10-19', NULL, '2020-10-19 20:53:24');
 
 -- --------------------------------------------------------
 
@@ -10112,7 +10111,7 @@ CREATE TABLE IF NOT EXISTS `rdvs` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `fk_RDV_Employe` (`Employe_ID_Employe`),
   KEY `fk_RDV_Patient` (`Patient_ID_Patient`)
-) ENGINE=InnoDB AUTO_INCREMENT=692 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=691 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `rdvs`
@@ -10377,48 +10376,48 @@ CREATE TABLE IF NOT EXISTS `services` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(500) NOT NULL,
   `responsable_id` int(11) DEFAULT NULL,
-  `urgence` enum('0','1') NOT NULL DEFAULT '0',
-  `type` int(11) DEFAULT '1',
+  `urgence` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0:non ,1:urgence',
+  `type` enum('0','1','2') DEFAULT '1' COMMENT '0:medicale,1:chirurgicale,2:fonctionnel',
   PRIMARY KEY (`id`),
   KEY `responsable_id` (`responsable_id`),
   KEY `FK_service_type` (`type`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `services`
 --
 
 INSERT INTO `services` (`id`, `nom`, `responsable_id`, `urgence`, `type`) VALUES
-(1, 'CARDIOLOGIE', 87, '0', 1),
-(2, 'DERMATOLOGIE', 88, '0', 1),
-(3, 'DIABETOLOGIE', 79, '0', 1),
-(4, 'ENDOCRINOLOGIE', 100, '0', 1),
-(5, 'GASTRO-ENTEROLOGIE', 89, '0', 1),
-(6, 'HEMATOLOGIE', 88, '0', 1),
-(7, 'PSYCHIATRIE', 80, '0', 1),
-(8, 'MALADIES INFECTIEUSES', 98, '0', 2),
-(9, 'MEDECIN INTERNE', 94, '0', 1),
-(10, 'MEDECINE NUCLAIRE', 1, '0', 1),
-(11, 'NEPHROLOGIE', 93, '0', 1),
-(12, 'NEUROLOGIE', 68, '0', 1),
-(13, 'ONCOLOGIE', 81, '0', 1),
-(14, 'PEDIATRIE', 101, '0', 1),
-(16, 'PNEUMO-PHTISIOLOGIE', 87, '0', 1),
-(17, 'REEDUCATION-FONCTIONNELLE', 87, '0', 1),
-(18, 'RHUMATOLOGIE', 88, '0', 1),
-(19, 'MEDECINE DENTAIRE', 80, '0', 1),
-(20, 'MEDECINE PREVENTIVE ET DU TRAVAIL', 100, '0', 1),
-(21, 'CHIRURGIE CARDIO-VASCULAIRE', 99, '0', 2),
-(22, 'CHIRURGIE GENERALE', 86, '0', 2),
-(23, 'CHIRURGIE INFANTILE', 97, '0', 2),
-(24, 'CHIRURGIE MAXILLO-FACIALE', 79, '0', 2),
-(25, 'CHIRURGIE ORTHOPEDIE', 100, '0', 2),
-(26, 'GYNECO-OBSTETRIQUE', 100, '0', 2),
-(27, 'NEUROCHIRURGIE', 100, '0', 2),
-(28, 'O.R.L', 79, '0', 2),
-(29, 'OPHTALMOLOGIE', 68, '0', 2),
-(30, 'UROLGOGIE', 65, '0', 2),
-(35, 'Pharmacie', 89, '0', 1);
+(1, 'CARDIOLOGIE', 87, 0, '1'),
+(2, 'DERMATOLOGIE', 88, 0, '0'),
+(3, 'DIABETOLOGIE', 79, 0, '0'),
+(4, 'ENDOCRINOLOGIE', 100, 0, '0'),
+(5, 'GASTRO-ENTEROLOGIE', 89, 0, '0'),
+(6, 'HEMATOLOGIE', 88, 0, '0'),
+(7, 'PSYCHIATRIE', 80, 0, '0'),
+(8, 'MALADIES INFECTIEUSES', 98, 0, '1'),
+(9, 'MEDECIN INTERNE', 94, 0, '0'),
+(10, 'MEDECINE NUCLAIRE', 1, 0, '0'),
+(11, 'NEPHROLOGIE', 93, 0, '0'),
+(12, 'NEUROLOGIE', 68, 0, '0'),
+(13, 'ONCOLOGIE', 81, 0, '0'),
+(14, 'PEDIATRIE', 101, 0, '0'),
+(16, 'PNEUMO-PHTISIOLOGIE', 87, 0, '0'),
+(17, 'REEDUCATION-FONCTIONNELLE', 87, 0, '0'),
+(18, 'RHUMATOLOGIE', 88, 0, '0'),
+(19, 'MEDECINE DENTAIRE', 80, 0, '0'),
+(20, 'MEDECINE PREVENTIVE ET DU TRAVAIL', 100, 0, '0'),
+(21, 'CHIRURGIE CARDIO-VASCULAIRE', 99, 0, '1'),
+(22, 'CHIRURGIE GENERALE', 86, 0, '1'),
+(23, 'CHIRURGIE INFANTILE', 97, 0, '1'),
+(24, 'CHIRURGIE MAXILLO-FACIALE', 79, 0, '1'),
+(25, 'CHIRURGIE ORTHOPEDIE', 100, 0, '1'),
+(26, 'GYNECO-OBSTETRIQUE', 100, 0, '1'),
+(27, 'NEUROCHIRURGIE', 100, 0, '1'),
+(28, 'O.R.L', 79, 0, '1'),
+(29, 'OPHTALMOLOGIE', 68, 0, '1'),
+(30, 'UROLGOGIE', 65, 0, '1'),
+(35, 'Pharmacie', 89, 0, '0');
 
 -- --------------------------------------------------------
 
@@ -10577,28 +10576,6 @@ CREATE TABLE IF NOT EXISTS `traitements_habituels` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `types_service`
---
-
-DROP TABLE IF EXISTS `types_service`;
-CREATE TABLE IF NOT EXISTS `types_service` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(30) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `types_service`
---
-
-INSERT INTO `types_service` (`id`, `nom`) VALUES
-(1, 'Médicale'),
-(2, 'Chirurgical'),
-(3, 'Fonctionnel');
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `utilisateurs`
 --
 
@@ -10623,7 +10600,7 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
 
 INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `role_id`, `remember_token`, `active`) VALUES
 (3, 'inf', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'ee@g.sz', 1, 3, 'HX8rOvdd5mkhYEV0JYPUwIeDpTs3HiYH20pwkOPltFIs9zCUuWcD66zAeE4H', 1),
-(25, 'admin', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'mail@live.fr', 65, 4, 'or6raBqs3SxMCACbojzSh3muDZkOSlfqBNXbcMh8NeiPeNkVHnNwGnjuO2Vl', 1),
+(25, 'admin', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'mail@live.fr', 65, 4, '9waeFjBJ2ukSbIvC3gO9jVlvusjEGzX72cUm0I0zdPnmuOn2lofy0qHHUan6', 1),
 (26, 'reception', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'ikesskess@gmail.com', 68, 2, 'JgPaOcCOA17jVkAP8cojWkgyN0MDnkxPNFFF9y5OWBuGJoZaBkbz2GrKnERk', 0),
 (28, 'medChef', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'az@e.fr', 87, 13, 'vlYWoVhmd2IzlC0PyfR8kzStP4YgnxDstbqo7IEzatBZ6DhH6G75rvmKC3wD', 1),
 (29, 'colloque', '$2y$10$Ve5h8oMwfAmfzHgTLrfJTOmGUiBpZLdxrfEfYC/7g2a1G62ZkM2QO', 'gdcedgg@yah.fr', 80, 5, 'gpZZ7n5wZzyDItBNWBgOWJBuHVN9zPFAVCnhFigz3AQFygICRp4ENyCc2B8W', 1),
@@ -10641,7 +10618,7 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, 'VF1suZ1WE4LWKbWG7v2WCGgMReoK3EdagjhDzoVjNR85ULVILMJWOqJcS1sn', 1),
 (45, 'chefServ', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'ID6raXppwTs4odCZlhvkHTGzAGbPmsckVFvs6BZClkChtLsTYr9OXtcbMUpA', 1),
 (46, 'rad', '$2y$10$PNDRMvcnhl1kZ.sxfoq8Yuhoq6ZMQePi9/q1QbLUZ.a.hd5DxvnCS', 'rad@cdta.net', 101, 12, 'TTplQGHKo1N307dPKz3xwtCqQivHMxlJpwngHcIEd7Angb0c8xgKv9AAkLRI', 1),
-(47, 'cardio', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'bbedeebi@cdta.dz', 102, 1, 'yqlAvVnrOjesJsJokN0BEKo633KrWXb8ASL893yQ4xmkSefTeE7RFenarRrT', 1),
+(47, 'cardio', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'bbedeebi@cdta.dz', 102, 1, 'pyslroqChQqFNlwHcy6d05ru86NXWSussIHkoeU8cg8bnyve5vVpT8vVcEth', 1),
 (48, 'geneco', '$2y$10$MeHcy1r9az/dgkC9pLvo/Ob4eqJVp8mRjGuZeyL9yA6k8sc3D0FAW', 'geneco@cdta.dz', 103, 1, 'YKcv4NJ20KZ37HKQZLOZPriKXKOjerLBO9R1lKDZNrTCnZf4sG2SgnRmXt22', 1);
 
 -- --------------------------------------------------------
@@ -11258,7 +11235,6 @@ ALTER TABLE `salles`
 --
 ALTER TABLE `services`
   ADD CONSTRAINT `FK_serviceChef` FOREIGN KEY (`responsable_id`) REFERENCES `employs` (`id`),
-  ADD CONSTRAINT `FK_service_type` FOREIGN KEY (`type`) REFERENCES `types_service` (`id`),
   ADD CONSTRAINT `services_ibfk_1` FOREIGN KEY (`responsable_id`) REFERENCES `employs` (`id`);
 
 --

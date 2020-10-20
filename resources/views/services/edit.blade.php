@@ -20,10 +20,10 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label no-padding-right" for="type"><strong>Type:</strong></label>
 								<div class="col-sm-9">
-									<select id="type" name="type" placeholder="Type du Service" class="selectpicker show-menu-arrow place_holde col-xs-10 col-sm-5" required >
-									@foreach($types as $type)
-										<option value="{{ $type->id }}" @if($service->type == $type->id) selected @endif>{{ $type->nom }}</option>
-									@endforeach
+									<select id="type" name="type"  class="selectpicker show-menu-arrow place_holde col-xs-10 col-sm-5" required >
+										<option value="0" @if($service->type == 0) selected @endif>Médicale</option>
+										<option value="1" @if($service->type == 1) selected @endif>Chirurgical</option>
+										<option value="2" @if($service->type == 2) selected @endif>Fonctionnel</option>
 									</select>	
 								</div>
 							</div>
@@ -31,7 +31,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label no-padding-right" for="type"><strong>Chef:</strong></label>
 								<div class="col-sm-9">
-									<select id="responsable" name="responsable" placeholder="Chef de service" class="selectpicker show-menu-arrow place_holde col-xs-10 col-sm-5" required >
+									<select id="responsable_idresponsable_id" name="responsable_id"  class="selectpicker show-menu-arrow place_holde col-xs-10 col-sm-5" required >
 										<option value="" selected disabled>Selectionner le chef</option>
 										@foreach ($users as $user)
 											<option value="{{ $user->employ->id}}" @if($service->responsable_id == $user->employ->id) selected @endif> {{ $user->employ->nom }} {{ $user->employ->prenom }}</option>
@@ -41,16 +41,12 @@
 							</div>
 								<div class="space-12"></div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label no-padding-right" for="etatlit"><strong> Urgence: </strong></label>
+								<label class="col-sm-3 control-label no-padding-right" for="urgence"><strong> Urgence: </strong></label>
 								<div class="col-sm-9">
 									<label>
-										<input name="urgence" value="0" type="radio" class="ace" @if(!($service->urgence)) checked @endif/>
-										<span class="lbl">Non</span>
-									</label>&nbsp;&nbsp;
+										<input name="urgence" value="0" type="radio" class="ace" @if(!($service->urgence)) checked @endif/><span class="lbl">Non</span></label>&nbsp;&nbsp;
 									<label>
-										<input name="urgence" value="1" type="radio" class="ace" @if($service->urgence) checked @endif/>
-										<span class="lbl">Oui</span>
-									</label>&nbsp;&nbsp;&nbsp;
+										<input name="urgence" value="1" type="radio" class="ace" @if($service->urgence) checked @endif/><span class="lbl">Oui</span></label>&nbsp;&nbsp;&nbsp;								
 								</div>
 							</div>
 							<div class="row center">
@@ -65,7 +61,7 @@
 		<div class="col-xs-6">
 			<div class="widget-box" id="widget-box-2">
 				<div class="widget-header">
-					<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i><span><b>Liste des Chambres</b></span></h5>
+				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i><span><b>Liste des Chambres</b></span></h5>
 				</div>
 			<div class="widget-body">
 			<ol id="" class="">

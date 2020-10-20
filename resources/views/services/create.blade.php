@@ -21,17 +21,17 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label no-padding-right" for="type"><strong>Type:</strong></label>
 								<div class="col-sm-9">
-									<select id="type" name="type" placeholder="Type du Service" class="selectpicker show-menu-arrow place_holde col-xs-10 col-sm-5" required >
-									@foreach($types as $type)
-										<option value="{{ $type->id }}" >{{ $type->nom }}</option>
-									@endforeach
-									</select>	
+								<select  name="type"  class="selectpicker show-menu-arrow place_holde col-xs-10 col-sm-5" required >
+									<option value="0">Médicale</option>
+									<option value="1">Chirurgical</option>
+									<option value="2" >Fonctionnel</option>
+								</select>		
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label no-padding-right" for="type"><strong>Chef de Service:</strong></label>
 								<div class="col-sm-9">
-								<select id="responsable" name="responsable" placeholder="Chef de service" class="selectpicker show-menu-arrow place_holde col-xs-10 col-sm-5" required >
+								<select id="responsable" name="responsable" class="selectpicker show-menu-arrow place_holde col-xs-10 col-sm-5" required >
 										<option value="" selected disabled>Selectionner le chef de service</option>
 										@foreach ($users as $user)
 										<option value="{{ $user->employ->id}}"> {{ $user->employ->nom }} {{ $user->employ->prenom }}</option>

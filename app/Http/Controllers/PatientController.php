@@ -241,10 +241,11 @@ class PatientController extends Controller
     public function show($id)
     {  
       $patient = patient::FindOrFail($id);
+      $employe=Auth::user()->employ;
       $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();//->first();
       $specialites = Specialite::all();
       $grades = grade::all();
-      return view('patient.show_patient',compact('patient','correspondants','specialites','grades'));
+      return view('patient.show_patient',compact('patient','employe','correspondants','specialites','grades'));
     }
     /**
      * Show the form for editing the specified resource.

@@ -44,7 +44,7 @@ $('document').ready(function(){
 	     	weekNumberCalculation: 'ISO',	//aspectRatio: 1.5,  	eventLimit: true,   allDaySlot: false,   eventDurationEditable : false,
 	     	weekNumbers: true,
 		events: [
-		       @foreach((Auth::user()->employ)->rdvs as $rdv)
+		       @foreach($employe->rdvs as $rdv)
 		       {
 			       title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
 			       start : '{{ $rdv->Date_RDV }}',
@@ -101,8 +101,7 @@ $('document').ready(function(){
 		eventAllow: function(dropLocation, draggedEvent) {
 			return false;
 		},
-       });
-	  //fincalendar  
+       });//fincalendar
 });
 </script>
 @endsection

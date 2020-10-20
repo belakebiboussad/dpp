@@ -95,15 +95,11 @@
 	</div>
 </div>
 <div class="space-12"></div>
-<div class="row">
-	<div class="col-sm-12"><h3 class="header smaller lighter blue">Fonction</h3></div>
-</div>	{{-- row --}}
+<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Fonction</h3></div></div>	{{-- row --}}
 <div class="row">
   <div class="col-sm-6" id="statut">
 		<div class="form-group">
-			<label class="col-sm-3 control-label" for="etatf">
-				<strong>Position :</strong>
-			</label>
+			<label class="col-sm-3 control-label" for="etatf"><strong>Position :</strong></label>		
 			<div class="col-sm-9">
 				<select name="etatf" id="etatf" class="col-xs-12 col-sm-12">
 					<option value="">Sélectionner...</option>

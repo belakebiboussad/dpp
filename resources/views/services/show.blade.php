@@ -1,13 +1,10 @@
 @extends('app')
 @section('main-content')
-	<div class="page-header">
-		<h1>Détails Du Service :</h1>
-	</div>
+	<div class="page-header"><h1>Détails Du Service :</h1></div>
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="widget-box" id="widget-box-1">
-				<div class="widget-header">
-					<h5 class="widget-title">Détails du Service :</h5>
+				<div class="widget-header"><h5 class="widget-title">Détails du Service :</h5>
 					<div class="pull-right">
 						<a href="{{ route('service.index') }}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-search bigger-120 blue"></i>Liste des Services</a>
 						<a href="{{route('service.destroy',$service->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-white btn-warning btn-bold"><i class="ace-icon fa fa-trash-o bigger-120 orange"> Supprimer</i></a>
@@ -22,7 +19,19 @@
 						<div class="space-12"></div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right blue" for="type"><strong>Type:</strong></label>
-							<div class="col-sm-9">	<strong>{{ $service->Type->nom }}</strong></div>
+							<div class="col-sm-9">
+								@switch($service->type)
+									@case(0)
+       									<span class="label label-sm label-danger"><b>Médicale</b></span>
+        								 	@break
+        								@case(1)
+        									<span class="label label-sm label-success"><b>Chirurgical</b></span>
+        									@break
+        								@default
+        									<span class="label label-sm label-success"><b>Fonctionnel</b></span>
+        									@break
+									@endswitch
+							</div>
 						</div>
 						<div class="space-12"></div><div class="space-12"></div>
 						<div class="form-group">
@@ -37,17 +46,16 @@
 							<div class="col-sm-9">
 							<label>
 								<input name="urgence" value="0" type="radio" class="ace" @if(!($service->urgence)) checked @endif disabled/>
-									<span class="lbl">Non</span>
-								</label>&nbsp;&nbsp;
+									<span class="lbl">Non</span></label>&nbsp;&nbsp;
 								<label>
 									<input name="urgence" value="1" type="radio" class="ace" @if($service->urgence) checked @endif disabled/>
-									<span class="lbl">Oui</span>
-									</label>&nbsp;&nbsp;&nbsp;
+									<span class="lbl">Oui</span></label>&nbsp;&nbsp;&nbsp;
 								</div>
-						</div>
+						</div><br>	
 					</div>
 				</div>
 				</div>
+					
 			</div>
 		</div>
 	</div>
