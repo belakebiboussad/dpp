@@ -3,27 +3,13 @@
 @section('page-script')
  <script>
   	$( document ).ready(function() {
-  		$('#type').change(function(){
-  			if( $('#type').val() == "0")
-  				$("#foncform").addClass('hide');//copyPatient();
-  			else if(($('#type').val() == "1") ||($('#type').val() == "2")||($('#type').val() == "3"))
-  			{
-  				$("#foncform").removeClass('hide');
-			      addRequiredAttr();
-  			}else
-  			{
-  				$(".starthidden").show(250);
-			     $("#foncform").addClass('hide');
-			     $("ul#menuPatient li:eq(0)").css('display', 'none');	
-  			}
-  		});
- 		$( "#addPatientForm" ).submit(function( event ) {
-			  if( ! checkPatient() )
-      			{
-        			activaTab("Patient");
-        			event.preventDefault();
-      			}else{
-      				if(!($('#autre').is(':checked'))){ 
+ 			$( "#addPatientForm" ).submit(function( event ) {
+		  if( ! checkPatient() )
+      {
+        activaTab("Patient");
+        event.preventDefault();
+      }else{
+      	if(!($('#autre').is(':checked'))){ 
 					$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });	
 					if( ! checkAssure() )
 					{
@@ -34,11 +20,11 @@
 					{
 						if($('#hommeConf').is(':checked')){
 							if( ! checkHomme() )
-              					{
-              						  activaTab("Homme_C");
-              						event.preventDefault();
-              					}else
-                						$( "#addPatientForm" ).submit();
+              {
+                activaTab("Homme_C");
+              	event.preventDefault();
+              }else
+                $( "#addPatientForm" ).submit();
 						}else
 						{
 							$( "#addPatientForm" ).submit();
@@ -47,26 +33,52 @@
 				}
 				else
 				{
-					if($('#hommeConf').is(':checked'))
-					{
-						if( ! checkHomme() )
-					      {
-					             activaTab("Homme_C");
-					           	event.preventDefault();
-					       }else
-					             $( "#addPatientForm" ).submit();
-					}else
-						$( "#addPatientForm" ).submit();
+					if($('#hommeConf').is(':checked')){
+							if( ! checkHomme() )
+              {
+                activaTab("Homme_C");
+              	event.preventDefault();
+              }else
+                $( "#addPatientForm" ).submit();
+						}else
+							$( "#addPatientForm" ).submit();
 				}
-			 }    
+	    }    
 		});
 	});
 	function copyPatientInfo()
 	{
-		if($("#type").val() =="0")
+		if($('#fonc').is(':checked'))
 			copyPatient();
 	}
-	
+	function showType(value,i){ 
+	  switch(value){
+			case "Assure":
+		   				copyPatient();  
+		  				$(".starthidden").hide(250);
+				   		break;
+			case "Ayant_droit":
+							$("#nomf").val("");$("#prenomf").val("");$("#datenaissancef").val('');
+			        $("#lieunaissancef").val('');$( "#gsf" ).val('');$( "#rhf" ).val('');
+			        $('#adressef').val(''); $('#communef').val('');$('#wilayaf').val('');
+			        $("#foncform").removeClass('hide');
+			        $('#Type_p').attr('required', true); 
+		        	if ($("#nsspatient").is(":disabled")){$("#nsspatient").attr("disabled", false);
+		        	}
+			        $('.Asdemograph').find('*').each(function () {$(this).attr("disabled", false);});
+			        addRequiredAttr();
+			        break;
+		  case "Autre":
+		      		$(".starthidden").show(250);
+		      	  $('#description').attr('disabled', false); 
+							$('.Asdemograph').find('*').each(function () {$(this).attr("disabled", true);});
+			        $("#foncform").addClass('hide');
+			        $('#Type_p').attr('required', false); 
+			      	if(! ($( "ul#menuPatient li:eq(0)" ).hasClass( "hidden" )))
+          				$( "ul#menuPatient li:eq(0)" ).addClass( "hidden" );
+			        break;         
+			}			
+	}
 </script>
 @endsection
 @section('main-content')

@@ -4,7 +4,6 @@
 <script>
 	function XHRgetAssure()
 	{
-	
 	}
 	$(document).ready(function(){
 		$(document).on('click','.findAssure',function(event){
@@ -98,7 +97,6 @@
 						</tr>
 						</thead>
 						<tbody id="liste_assures">
-							
 						</tbody>
 					</table>
 				</div>

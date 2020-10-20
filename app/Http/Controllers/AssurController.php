@@ -135,6 +135,40 @@ class AssurController extends Controller
                 $i++;   
                 $sexe =  ($assure->Sexe =="M") ? "Homme":"Femme";   
                 $grade = (isset($assure->grade) )? $assure->grade->nom :"";
+                $service= "";
+                switch($assure->Service)
+                {
+                    case "1":
+                          $service="Sécurité publique";
+                          break;
+                    case "2":
+                          $service="Police judiciaire (PJ)";
+                          break;
+                    case "3":
+                         $service="Brigade mobile de la police judiciaire (BMPJ)";
+                          break;
+                    case "4":
+                           $service="Service protection et sécurité des personnalités (SPS)";
+                          break;
+                    case "5":
+                          $service="Unité aérienne de la sûreté nationale";
+                          break;
+                    case "6":
+                          $service="Unités républicaines de sécurité (URS)";
+                          break;
+                    case "7":
+                           $service="Police scientifique et technique";
+                          break;
+                    case "8":
+                     $service="Police aux frontières et de l'immigration (PAF)";
+                          break;
+                    case "9":
+                     $service="Brigade de recherche et d'intervention (BRI)";
+                          break;
+                     case "10":
+                      $service="Groupe des opérations spéciales de la police (GOSP)";
+                          break;
+                }
                 $output.='<tr>'.
                           '<td>'.$i.'</td>'.
                           '<td hidden>'.$assure->id.'</td>'. 
@@ -144,8 +178,8 @@ class AssurController extends Controller
                           '<td>'.$assure->Prenom.'</td>'.
                           '<td>'.$assure->Date_Naissance.'</td>'.
                           '<td>'.$sexe.'</td>'.// ["nom"]
-                         '<td><span class="badge badge-success">'.$grade.'</span></td>'.
-                         '<td>'.$assure->Service.'</td>'.
+                         '<td><span class="badge badge-success">'.$assure->Etat.'</span></td>'.
+                         '<td>'.$service.'</td>'.
                           '<td class="center">'.'<a href="/assur/'.$assure->id.'" class="'.'btn btn-warning btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i>&nbsp;</a>'."&nbsp;&nbsp;".'<a href="/assur/'.$assure->id.'/edit" class="'.'btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></a>'.'</td></tr>';  
             }
             return Response($output)->withHeaders(['count' => $i]);

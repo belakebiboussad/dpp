@@ -44,19 +44,19 @@ class PatientController extends Controller
    */
   /*public function create() {$grades = grade::all(); return view('patient.add',compact('grades')); }
   */
-  public function create( $asure_id =null)
-  {
-    if(isset($asure_id))
+    public function create( $asure_id =null)
     {
-          $assure = assur::FindOrFail($asure_id);
-         return view('patient.addP',compact('assure'));
-    }
-    else
-    {
-          $grades = grade::all();
-          return view('patient.add',compact('grades'));
-    }  
-  }
+            if(isset($asure_id))
+            {
+                  $assure = assur::FindOrFail($asure_id);
+                 return view('patient.addP',compact('assure'));
+            }
+            else
+            {
+                    $grades = grade::all();
+                     return view('patient.add',compact('grades'));
+            }  
+      }
   /**
    * Store a newly created resource in storage.
    *
@@ -129,8 +129,7 @@ class PatientController extends Controller
         "group_sang"=>$request->gs,
         "rhesus"=>$request->rh,
         "Assurs_ID_Assure"=> $assurObj !=null ? $assurObj->id : null ,
-        "Type"=>$request->type,
-        "Type_p"=> $request->Type_p,
+        "Type"=>$request->type,//"Type_p"=> $request->Type_p,
         "description"=> $request->description,
         "NSS"=>$request->nsspatient,
         "Date_creation"=>Date::Now(),
@@ -168,8 +167,7 @@ class PatientController extends Controller
         "prenom" => 'required',
         "datenaissance" => 'required|date|date_format:Y-m-d',
         "idlieunaissance" => 'required',
-        "mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],
-        "Type_p" =>'required_if:type,Ayant_droit', //"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
+        "mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],//"Type_p" =>'required_if:type,Ayant_droit', //"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
         "prenom_homme_c"=>'required_with:nom_homme_c', 
         "type_piece_id"=>'required_with:nom_homme_c', 
         "npiece_id"=>'required_with:nom_homme_c', //"lien"=>'required_with:nom_homme_c', //"date_piece_id"=>'required_with:nom_homme_c',    
@@ -203,7 +201,7 @@ class PatientController extends Controller
         "rhesus"=>$request->rh,
         "Assurs_ID_Assure"=>$request->assure_id ,
         "Type"=>$request->type,
-        "Type_p"=> $request->Type_p,
+        //"Type_p"=> $request->Type_p,
         "description"=> $request->description,
         "NSS"=>$request->nsspatient,
         "Date_creation"=>$date,
@@ -253,24 +251,23 @@ class PatientController extends Controller
      * @param  \App\modeles\patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function edit($id,$asure_id =null)
-    {     
-       if(!(isset($asure_id)))
-       {    
-          $assure=null ;
-          $grades = grade::all(); 
-          $patient = patient::FindOrFail($id); 
-          $hommes_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
-          if($patient->Type != "Autre")
-            $assure =  $patient->assure;//else $assure = new assur;
-         //dd($assure);   
-         return view('patient.edit_patient',compact('patient','assure','hommes_c','grades'));
-        }else
-        {
-          $patient = patient::FindOrFail($id);
-          $hommes_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
-          return view('patient.editP',compact('patient','hommes_c'));
-        }
+     public function edit($id,$asure_id =null)
+     {  
+             if(!(isset($asure_id)))
+             {    
+                    $assure=null ;
+                    $grades = grade::all(); 
+                    $patient = patient::FindOrFail($id); 
+                    $hommes_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
+                    if($patient->Type != "Autre")
+                         $assure =  $patient->assure;//else $assure = new assur;    //dd($assure);  
+                    return view('patient.edit_patient',compact('patient','assure','hommes_c','grades'));
+              }else
+              {
+                $patient = patient::FindOrFail($id);
+                $hommes_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
+                return view('patient.editP',compact('patient','hommes_c'));
+              }
     }
     /**
      * Update the specified resource in storage.

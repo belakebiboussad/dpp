@@ -98,7 +98,7 @@
 			<input type="text" id="nom_jeune_fille" name="nom_jeune_fille" placeholder="Nom jeune fille..."  autocomplete = "off" class="col-xs-12 col-sm-12" />
 			 {!! $errors->first('nom_jeune_fille', '<small class="alert-danger">:message</small>') !!}
 		</div>
-	</div>
+	</div>{{-- col-sm-6 --}}{{-- /nom de jeune fille --}}
 </div>	{{-- row --}}
 <div class="row">
 	<div class="col-sm-12">
@@ -106,11 +106,11 @@
 	</div>
 </div>	{{-- row --}}
 <div class="space-12"></div>		
-<div  class="row demograph">
+<div  class="row demograph"><!-- style="padding-left:7%" -->
 	<div class="col-sm-4">
 		<label class="col-sm-4  text-nowrap" for="adresse" ><strong>Adresse:</strong></label>
 		  <input type="text" value="" id="adresse" name="adresse" placeholder="Adresse..." class="col-sm-8"/>
-	</div> 
+	</div> <!-- style="margin-top: -0.1%;" -->
 	<div class="col-sm-4">
 		<label class="col-sm-4 text-nowrap" for="commune"><strong>Commune:</strong></label>
 		<input type="hidden" name="idcommune" id="idcommune">
@@ -124,6 +124,24 @@
 </div>
 <div class="space-12"></div>
 <div class="row">
+{{--<div class="col-sm-5" {{ $errors->has('mobile1') ? 'has-error' : '' }}">	<!-- <div class="form-group" style="padding-left:10%;"> -->
+<label class="col-sm-5 control-label" for="mobile1"><i class="fa fa-phone"></i><strong class="text-nowrap">Mob1 :</strong>	</label>
+<div class="col-sm-3" {{ $errors->has('operateur1') ? 'has-error' : '' }}">	<select name="operateur1" id="operateur1" class="form-control">
+<option value="">XX</option><option value="05">05</option><option value="06">06</option><option value="07">07</option></select>	
+</div><input id="mobile1" name="mobile1"  maxlength =8 minlength =8 type="tel" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX"/>	
+</div><div class="col-sm-5">
+		<label class="col-sm-5 control-label" for="mobile2">
+			<i class="fa fa-phone"></i><strong class="text-nowrap">Mob2 :</strong>
+		</label>
+		<div class="col-sm-3">
+		  <select name="operateur2" id="operateur2" class="form-control">
+		 		<option value="">XX</option>
+				<option value="05">05</option>         
+		 		<option value="06">06</option>
+			  <option value="07">07</option>
+	      </select>
+    </div>
+		<input id="mobile2" name="mobile2"  maxlength =8 minlength =8  type="tel" autocomplete="off" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"   placeholder="XXXXXXXX"/></div>--}}
 <div class="col-sm-4 col-xs-4">
 		<div class="form-group" style="padding-left:15%;">
 			<label class="control-label text-nowrap col-sm-4" for="mobile1"><i class="fa fa-phone"></i><strong>Mob1:</strong></label>
@@ -158,31 +176,48 @@
 					<label class="control-label no-padding-right pull-right text-nowrap" style=" padding-top: 0px;"><strong>Type:</strong></label>
 				</div>
 				<div class="col-sm-10">
-					<select class="form-control col-xs-12 col-sm-6" id="type" name="type">
-					<option value="">Selectioner...</option>
-					<option value="0">Assure</option>
-					<option value="1">Conjoint(e)</option>
-					<option value="2">Ascendant</option>
-					<option value="3">Descendant</option>
-					<option value="4">Autre</option>
-				</select>
+					<label class="line-height-1 blue">
+						<input id="fonc" name="type" value="Assure" type="radio" class="ace" onclick="showType('Assure',1)"/>
+						<span class="lbl">Assuré</span>
+					</label>
+					<label class="line-height-1 blue">
+						<input id="ayant" name="type" value="Ayant_droit" type="radio" class="ace" onclick="showType('Ayant_droit',1)" Checked/>
+						<span class="lbl">Ayant droit</span>
+					</label>
+					<label class="line-height-1 blue">
+						<input id="autre" name="type" value="Autre" type="radio" class="ace" onclick="showType('Autre',1)"/>
+						<span class="lbl">Autre</span>
+					</label>	
 				</div>
 			</div>		
 		</div>{{-- col-sm-4 --}}
 </div> 
-<div class="space-12"></div><div class="space-12"></div>
-<div class="row" id="foncform">
+<div class="space-12"></div>
+<div class="space-12"></div>
+	<div class="row" id="foncform">
 		<div class="col-sm-6">
 			<div class="form-group">
-				 <label class="col-sm-4 control-label" for="nsspatient"><strong>NSS (patient):</strong></label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control col-xs-12 col-sm-6" id="nsspatient" name="nsspatient"
-					pattern="^\[0-9]{2}+' '+\[0-9]{4} +' '+\[0-9]{4}+' '+[0-9]{2}$"  placeholder="XXXXXXXXXXXX" maxlength =12 minlength =12 />
+				 <label class="col-sm-3 control-label" for="Type_p">	<strong>Type :</strong></label>
+			        <div class="col-sm-9">
+				<select class="form-control col-xs-12 col-sm-6" id="Type_p" name="Type_p">
+					<option value="">------</option>
+					<option value="Ascendant">Ascendant</option>
+					<option value="Descendant">Descendant</option>
+					<option value="Conjoint(e)">Conjoint(e)</option>
+				</select>
 				</div>
-			</div>		
+			</div>				
 		</div>	
-		<div class="col-sm-6"></div> 	
-	</div> 	{{-- row --}}
+	<div class="col-sm-6">
+	<div class="form-group">
+		 <label class="col-sm-4 control-label" for="nsspatient"><strong>NSS (patient):</strong></label>
+		<div class="col-sm-8">
+			<input type="text" class="form-control col-xs-12 col-sm-6" id="nsspatient" name="nsspatient"
+			pattern="^\[0-9]{2}+' '+\[0-9]{4} +' '+\[0-9]{4}+' '+[0-9]{2}$"  placeholder="XXXXXXXXXXXX" maxlength =12 minlength =12 />
+		</div>
+	</div>			
+ 	</div> 	
+</div> 	{{-- row --}}
 <div class="space-12"></div>
 <div class="row">
 	<div class="col-sm-6 starthidden">
