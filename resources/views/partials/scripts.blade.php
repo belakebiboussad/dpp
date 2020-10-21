@@ -420,7 +420,8 @@
     {
       $('ul#menuPatient li:eq(0)').css('display', '');
     }
-    $(".starthidden").hide(250);  //$('#description').attr('disabled', true); // jQuery('input:radio[name="sexef"]').filter('[value="M"]').attr('checked', true);// jQuery('input:radio[name="etat"]').filter('[value="Activite"]').attr('checked', true);
+    $(".starthidden").hide(250);  //$('#description').attr('disabled', true);
+     // jQuery('input:radio[name="sexef"]').filter('[value="M"]').attr('checked', true);// jQuery('input:radio[name="etat"]').filter('[value="Activite"]').attr('checked', true);
     if($("#type").val() != 0)
       $('.Asdemograph').find('*').each(function () {$(this).attr("disabled", false);});
   }

@@ -60,24 +60,22 @@
 		<div class="col-sm-6">
 			<div class="form-group">
 				<label class="col-sm-3 col-xs-3 control-label no-padding-right" for="sexe"><Strong>Genre: </Strong></label>
-  			<div class="col-sm-9">
-          <div class="radio">
-             @if(isset($assure) && !empty($assure))
-            	  @if($assure->Sexe == "M")
-              	<label><input name="sexef" value="M" type="radio" class="ace" checked/><span class="lbl"> Masculin</span> </label>
-								<label><input name="sexef" value="F" type="radio" class="ace"/><span class="lbl"> Féminin</span></label>	
-								@else
-								<label><input name="sexef" value="M" type="radio" class="ace" checked ='' /><span class="lbl"> Masculin</span> </label>
-	               	<label><input name="sexef" value="F" type="radio" class="ace" checked  = 'checked'/><span class="lbl"> Féminin</span></label>
-	               	@endif
-             @else   
-              <label><input name="sexef" value="M" type="radio" class="ace" /><span class="lbl" > Masculin</span></label>
-              <label><input name="sexef" value="F" type="radio" class="ace" /> <span class="lbl" > Féminin</span></label>      
-             @endif
-            </div>
+  				<div class="col-sm-9">
+  				 @if(isset($assure) && !empty($assure))
+	  				<select name="sexef" id="sexef" class="form-control" >
+	  					<option value="M" @if($assure->Sexe == "M") @endif>Masculin</option>
+	  					<option value="F"  @if($assure->Sexe == "F") @endif>Féminin</option>
+	  				</select>
+	  			@else
+	  					<select name="sexef" id="sexef" class="form-control" >
+	  					<option value="M" >Masculin</option>
+	  					<option value="F"  selected>Féminin</option>
+	  				</select>
+	  			@endif
+  				</div>
+  			</div>
         </div>
      	</div>
-    </div>
     <div class="col-sm-6">
       <div class="form-group">
 	   		<label class="col-sm-3 col-xs-3 control-label text-nowrap" for="gsf"><strong>Groupe sanguin :</strong></label>
