@@ -250,21 +250,22 @@ class PatientController extends Controller
      */
      public function edit($id,$asure_id =null)
      {  
-             if(!(isset($asure_id)))
-             {    
-                    $assure=null ;
-                    $grades = grade::all(); 
-                    $patient = patient::FindOrFail($id); 
-                    $hommes_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
-                    if($patient->Type != "Autre")
-                         $assure =  $patient->assure;//else $assure = new assur;    //dd($assure);  
-                    return view('patient.edit_patient',compact('patient','assure','hommes_c','grades'));
-              }else
-              {
-                $patient = patient::FindOrFail($id);
-                $hommes_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
-                return view('patient.editP',compact('patient','hommes_c'));
-              }
+       if(!(isset($asure_id)))
+       {    
+          $assure=null ;
+          $grades = grade::all(); 
+          $patient = patient::FindOrFail($id); 
+          $hommes_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
+          if($patient->Type != 4)
+            $assure =  $patient->assure;//else $assure = new assur;    //dd($assure);  
+          
+          return view('patient.edit_patient',compact('patient','assure','hommes_c','grades'));
+        }else
+        {
+          $patient = patient::FindOrFail($id);
+          $hommes_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
+          return view('patient.editP',compact('patient','hommes_c'));
+        }
     }
     /**
      * Update the specified resource in storage.

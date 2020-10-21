@@ -159,9 +159,8 @@
 				</div>
 				<div class="col-sm-10">
 					<select class="form-control col-xs-12 col-sm-6" id="type" name="type">
-					<option value="">Selectioner...</option>
 					<option value="0">Assure</option>
-					<option value="1">Conjoint(e)</option>
+					<option value="1" selected>Conjoint(e)</option>
 					<option value="2">Ascendant</option>
 					<option value="3">Descendant</option>
 					<option value="4">Autre</option>

@@ -16,40 +16,6 @@
 		  $( "#rh" ).val('{{ $assure->grp_sang }}'.substr('{{ $assure->grp_sang }}'.length - 1));
 		  $('.demograph').find('*').each(function () { $(this).attr("disabled", true); });
 		}
-		/*
-		function showType(value){ 
-			switch(value){
-				case "Assure":
-					$("#foncform").addClass('hide');$('#Type_p').attr('required', false);	$(".starthidden").hide(250);copyAssure();
-				  break;
-		    case "Ayant_droit":
-		     	$(':input','#addPAtient').not(':button, :submit, :reset, :hidden, :input[name=type],:input[name=sexe], :input[name=hommeConf]' ).val('').removeAttr('checked').removeAttr('selected');
-		    	$("#foncform").removeClass('hide');$('#Type_p').attr('required', true);$(".starthidden").hide(250);
-		      $('.demograph').find('*').each(function () { $(this).attr("disabled", false); });
-		        		break;
-		    case "Autre":
-		    	$(':input','#addPAtient').not(':button, :submit, :reset, :hidden, :input[name=type], :input[name=sexe], :input[name=hommeConf]').val('').removeAttr('checked').removeAttr('selected');
-		      $(".starthidden").show(250);$('.demograph').find('*').each(function () { $(this).attr("disabled", false); });
-		      $("#foncform").addClass('hide');$('#Type_p').attr('required', false); 
-		      break;         
-	 		}			
-		}*/
-		$( document ).ready(function() {
-  		$('#type').change(function(){
-  			if( $('#type').val() == "0")
-  			{
-  				$("#foncform").addClass('hide');
-  				$(".starthidden").hide(250);
-  				copyAssure();
-  			}	
-  			else if(($('#type').val() == "1") ||($('#type').val() == "2")||($('#type').val() == "3"))
-  			{
-  				$("#foncform").removeClass('hide');
-		     	$(':input','#addPAtient').not(':button, :submit, :reset, :hidden, :input[name=type],:input[name=sexe], :input[name=hommeConf]' ).val('').removeAttr('checked').removeAttr('selected');
-  				addRequiredAttr();
-  			}
-  		});
-  });
 		function checkFormAddPAtient()
     {        
     	if( ! checkPatient() )
@@ -71,7 +37,22 @@
     	return true;
     }
   }
-
+  $( document ).ready(function() {
+  		$('#type').change(function(){
+  			if( $('#type').val() == "0")
+  			{
+  				$("#foncform").addClass('hide');
+  				$(".starthidden").hide(250);
+  				copyAssure();
+  			}	
+  			else if(($('#type').val() == "1") ||($('#type').val() == "2")||($('#type').val() == "3"))
+  			{
+  				$("#foncform").removeClass('hide');
+		      $('.demograph').find('*').each(function () { $(this).attr("disabled", false); });//$(':input','#addPAtient').not(':button, :submit, :reset, :hidden, :input[name=type],:input[name=sexe], :input[name=hommeConf]' ).val('').removeAttr('checked').removeAttr('selected');
+  				addRequiredAttr();
+  			}
+  		});
+    });
 	</script>
 @endsection
 @section('main-content')

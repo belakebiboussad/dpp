@@ -221,20 +221,6 @@
             $('div#' + sectionActive).removeClass('active');
          }
       }
-      /*
-      function checkPatientavecRadio()
-      {var erreur =true; var nom = $('#nom').val(); var prenom = $('#prenom').val();var idlieunaissance = $('#idlieunaissance').val();
-        var datenaissance = $('#datenaissance').val();  var mobile1 = $('#mobile1').val(); 
-        var inputAssVal = new Array(mobile1,idlieunaissance,datenaissance,prenom,nom);
-        var inputMessage = new Array("Téléphone mobile 1","Lieu de Naissance","Date de Naissance","Prenom","Nom");
-        if($("input[type=radio][name='type']:checked").val() == "Ayant_droit")
-        {inputAssVal.unshift($("#Type_p").val()); inputMessage.unshift("Type"); }
-         $('.error').each(function(i, obj) { $(obj).next().remove();$(obj).detach();});
-        jQuery.each( inputAssVal, function( i, val ) {
-        if(val =="" ){erreur =false; $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du Patient </span>'+'<br/>');
-        }});return erreur;
-      }
-      */
       function checkPatient()
       {
         var erreur =true;
@@ -323,14 +309,13 @@
         $('.nav-pills a[href="#' + tab + '"]').tab('show');
       }
       function copyPatient(){ 
-              $("#nomf").val($("#nom").val()); $("#prenomf").val($("#prenom").val());
-              $("#datenaissancef").val($("#datenaissance").val());$("#lieunaissancef").val($("#lieunaissance").val()); 
-              $("#idlieunaissancef").val($("#idlieunaissance").val());$("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);
-              $( "#gsf" ).val($( "#gs" ).val());$( "#rhf" ).val($( "#rh" ).val());$('#adressef').val($('#adresse').val());
-              $('#communef').val($('#commune').val());$('#idcommunef').val($('#idcommune').val());$('#idwilayaf').val( $('#idwilaya').val()); $('#wilayaf').val($('#wilaya').val());
-              //$("#foncform").addClass('hide');  // $('#Type_p').attr('required', false);  //$('#nsspatient').attr('disabled', true);
-              $('.Asdemograph').find('*').each(function () { $(this).attr("disabled", true); });
-              addRequiredAttr();
+        $("#nomf").val($("#nom").val()); $("#prenomf").val($("#prenom").val());
+        $("#datenaissancef").val($("#datenaissance").val());$("#lieunaissancef").val($("#lieunaissance").val()); 
+        $("#idlieunaissancef").val($("#idlieunaissance").val());$("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);
+        $( "#gsf" ).val($( "#gs" ).val());$( "#rhf" ).val($( "#rh" ).val());$('#adressef').val($('#adresse').val());
+        $('#communef').val($('#commune').val());$('#idcommunef').val($('#idcommune').val());$('#idwilayaf').val( $('#idwilaya').val()); $('#wilayaf').val($('#wilaya').val());//$("#foncform").addClass('hide');  // $('#Type_p').attr('required', false);  //$('#nsspatient').attr('disabled', true);
+        $('.Asdemograph').find('*').each(function () { $(this).attr("disabled", true); });
+        addRequiredAttr();
        }
       if ($("#addGardeMalade").length > 0) {
         $("#addGardeMalade").validate({

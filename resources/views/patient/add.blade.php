@@ -16,9 +16,9 @@
   				$('.Asdemograph').find('*').each(function () {$(this).attr("disabled", true);});
 			    $("#foncform").addClass('hide');
 			    $("ul#menuPatient li:eq(0)").css('display', 'none');	
-  			}
-  		});
- 		$( "#addPatientForm" ).submit(function( event ) {
+  		 }
+  	  });
+ 	  	$( "#addPatientForm" ).submit(function( event ) {
 			  if( ! checkPatient() )
       	{
         	activaTab("Patient");

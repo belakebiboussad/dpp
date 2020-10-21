@@ -399,23 +399,23 @@
 </script>
 <script type="text/javascript">
   function isNumeric (evt) {
-      var theEvent = evt || window.event;
-      var key = theEvent.keyCode || theEvent.which;
-      key = String.fromCharCode (key);
-      var regex = /[0-9]|\./;
-      if ( !regex.test(key) ) {
-        theEvent.returnValue = false;
-        if(theEvent.preventDefault) theEvent.preventDefault();
-      }
+    var theEvent = evt || window.event;
+    var key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode (key);
+    var regex = /[0-9]|\./;
+    if ( !regex.test(key) ) {
+      theEvent.returnValue = false;
+      if(theEvent.preventDefault) theEvent.preventDefault();
+    }
   }
-      function addRequiredAttr()
-      {  /*  var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);  $.each(classList, function(index, item) {if (item === 'hidden') {   $( "ul#menuPatient li:eq(0)" ).removeClass( item );}  }); */             
-             if($('ul#menuPatient li:eq(0)').css('display') == 'none')
-             {
-                    $('ul#menuPatient li:eq(0)').css('display', '');
-             }
-              $(".starthidden").hide(250);  //$('#description').attr('disabled', true); // jQuery('input:radio[name="sexef"]').filter('[value="M"]').attr('checked', true);  // jQuery('input:radio[name="etat"]').filter('[value="Activite"]').attr('checked', true);
-       }
+  function addRequiredAttr()
+  { /*  var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);  $.each(classList, function(index, item) {if (item === 'hidden') {   $( "ul#menuPatient li:eq(0)" ).removeClass( item );}  }); */             
+    if($('ul#menuPatient li:eq(0)').css('display') == 'none')
+    {
+      $('ul#menuPatient li:eq(0)').css('display', '');
+    }
+    $(".starthidden").hide(250);  //$('#description').attr('disabled', true); // jQuery('input:radio[name="sexef"]').filter('[value="M"]').attr('checked', true);  // jQuery('input:radio[name="etat"]').filter('[value="Activite"]').attr('checked', true);
+  }
 function typep()
 {
     if($('#fonc').is(':checked'))
