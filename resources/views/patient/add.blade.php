@@ -13,26 +13,27 @@
   			}else
   			{
   				$(".starthidden").show(250);
-			     $("#foncform").addClass('hide');
-			     $("ul#menuPatient li:eq(0)").css('display', 'none');	
+  				$('.Asdemograph').find('*').each(function () {$(this).attr("disabled", true);});
+			    $("#foncform").addClass('hide');
+			    $("ul#menuPatient li:eq(0)").css('display', 'none');	
   			}
   		});
  		$( "#addPatientForm" ).submit(function( event ) {
 			  if( ! checkPatient() )
-      			{
-        			activaTab("Patient");
-        			event.preventDefault();
-      			}else{
-      				if(!($('#autre').is(':checked'))){ 
-					$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });	
-					if( ! checkAssure() )
-					{
-					  activaTab("Assure");
-					  event.preventDefault();
-					}
-					else
-					{
-						if($('#hommeConf').is(':checked')){
+      	{
+        	activaTab("Patient");
+        	event.preventDefault();
+      	}else{
+      		if(($('#type').val() != "4" )){ //if(!($('#autre').is(':checked'))){ 
+      			$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });	
+						if( ! checkAssure() )
+						{
+						  activaTab("Assure");
+					  	event.preventDefault();
+						}
+						else
+						{
+							if($('#hommeConf').is(':checked')){
 							if( ! checkHomme() )
               					{
               						  activaTab("Homme_C");

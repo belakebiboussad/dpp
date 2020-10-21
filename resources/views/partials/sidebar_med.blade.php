@@ -221,24 +221,33 @@
             $('div#' + sectionActive).removeClass('active');
          }
       }
+      /*
+      function checkPatientavecRadio()
+      {var erreur =true; var nom = $('#nom').val(); var prenom = $('#prenom').val();var idlieunaissance = $('#idlieunaissance').val();
+        var datenaissance = $('#datenaissance').val();  var mobile1 = $('#mobile1').val(); 
+        var inputAssVal = new Array(mobile1,idlieunaissance,datenaissance,prenom,nom);
+        var inputMessage = new Array("Téléphone mobile 1","Lieu de Naissance","Date de Naissance","Prenom","Nom");
+        if($("input[type=radio][name='type']:checked").val() == "Ayant_droit")
+        {inputAssVal.unshift($("#Type_p").val()); inputMessage.unshift("Type"); }
+         $('.error').each(function(i, obj) { $(obj).next().remove();$(obj).detach();});
+        jQuery.each( inputAssVal, function( i, val ) {
+        if(val =="" ){erreur =false; $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du Patient </span>'+'<br/>');
+        }});return erreur;
+      }
+      */
       function checkPatient()
       {
         var erreur =true;
         var nom = $('#nom').val(); var prenom = $('#prenom').val();
         var idlieunaissance = $('#idlieunaissance').val();
-        var datenaissance = $('#datenaissance').val();  
-        var mobile1 = $('#mobile1').val();
-        var inputAssVal = new Array(mobile1,idlieunaissance,datenaissance,prenom,nom);
-        var inputMessage = new Array("Téléphone mobile 1","Lieu de Naissance","Date de Naissance","Prenom","Nom");
-        if($("input[type=radio][name='type']:checked").val() == "Ayant_droit")
-        {
-          inputAssVal.unshift($("#Type_p").val());
-          inputMessage.unshift("Type");
-        }
+        var datenaissance = $('#datenaissance').val();//var mobile1 = $('#mobile1').val();mobile1,"Téléphone mobile 1",  
+        var type = $('#type').val();
+        var inputAssVal = new Array(idlieunaissance,datenaissance,prenom,nom);
+        var inputMessage = new Array('Type',"Lieu de Naissance","Date de Naissance","Prenom","Nom");
         $('.error').each(function(i, obj) {
           $(obj).next().remove();
           $(obj).detach();
-       });
+        });
         jQuery.each( inputAssVal, function( i, val ) {
           if(val =="" )
           {

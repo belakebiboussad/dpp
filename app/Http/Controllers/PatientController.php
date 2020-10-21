@@ -46,16 +46,16 @@ class PatientController extends Controller
   */
     public function create( $asure_id =null)
     {
-            if(isset($asure_id))
-            {
-                  $assure = assur::FindOrFail($asure_id);
-                 return view('patient.addP',compact('assure'));
-            }
-            else
-            {
-                    $grades = grade::all();
-                     return view('patient.add',compact('grades'));
-            }  
+      if(isset($asure_id))
+      {
+        $assure = assur::FindOrFail($asure_id);
+        return view('patient.addP',compact('assure'));
+      }
+      else
+      {
+              $grades = grade::all();
+               return view('patient.add',compact('grades'));
+      }  
       }
   /**
    * Store a newly created resource in storage.
@@ -71,8 +71,7 @@ class PatientController extends Controller
               "nom" => 'required',
               "prenom" => 'required',
               "datenaissance" => 'required|date|date_format:Y-m-d',
-              "idlieunaissance" => 'required',
-              "mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],
+              "idlieunaissance" => 'required',//"mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],
               "Type_p" =>'required_if:type,Ayant_droit', //"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
               "nomf" => 'required_if:type,Ayant_droit',
               "prenomf"=> 'required_if:type,Ayant_droit',  // "datenaissancef"=> 'required_if:type,Ayant_droit|date|date_format:Y-m-d',
@@ -93,7 +92,7 @@ class PatientController extends Controller
       $grades = grade::all();//$errors = $validator->errors(); 
       return view('patient.add',compact('grades'))->withErrors($validator->errors());
     }
-    if( $request->type !="Autre")  
+    if( $request->type !="4")  
     {    
       $assurObj = assur::firstOrCreate([
         "Nom"=>$request->nomf,
@@ -175,8 +174,8 @@ class PatientController extends Controller
         "operateur_h"=>'required_with:mobileA',
     ); 
       $messages = [
-                    "required"     => "Le champ :attribute est obligatoire.", // "NSSValide"    => 'le numéro du securite sociale est invalide ',
-                    "date"         => "Le champ :attribute n'est pas une date valide.",
+        "required"     => "Le champ :attribute est obligatoire.", // "NSSValide"    => 'le numéro du securite sociale est invalide ',
+        "date"         => "Le champ :attribute n'est pas une date valide.",
       ];
     $validator = Validator::make($request->all(),$rule,$messages);   
     if ($validator->fails()) {
@@ -200,9 +199,7 @@ class PatientController extends Controller
         "group_sang"=>$request->gs,
         "rhesus"=>$request->rh,
         "Assurs_ID_Assure"=>$request->assure_id ,
-        "Type"=>$request->type,
-        //"Type_p"=> $request->Type_p,
-        "description"=> $request->description,
+        "Type"=>$request->type, //"Type_p"=> $request->Type_p, "description"=> $request->description,
         "NSS"=>$request->nsspatient,
         "Date_creation"=>$date,
         "updated_at"=>$date,
@@ -657,9 +654,8 @@ class PatientController extends Controller
             "description"=>$request->description,
             "NSS"=> $request->nss,    
             "Date_creation"=>$request->date,  
-       ]);   
-       $patient2->active=0;$patient2->save();  //desactiver patient 2
-       // return redirect()->route('patient.index')->with('success','Item created successfully!');
-       Return View::make('patient.index');
+      ]);   
+      $patient2->active=0;$patient2->save();  //desactiver patient 2  // return redirect()->route('patient.index')->with('success','Item created successfully!');
+      Return View::make('patient.index');
   }
 }
