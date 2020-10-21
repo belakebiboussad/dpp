@@ -309,14 +309,26 @@
         $('.nav-pills a[href="#' + tab + '"]').tab('show');
       }
       function copyPatient(){ 
-        $("#nomf").val($("#nom").val()); $("#prenomf").val($("#prenom").val());
-        $("#datenaissancef").val($("#datenaissance").val());$("#lieunaissancef").val($("#lieunaissance").val()); 
-        $("#idlieunaissancef").val($("#idlieunaissance").val());$("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);
-        $( "#gsf" ).val($( "#gs" ).val());$( "#rhf" ).val($( "#rh" ).val());$('#adressef').val($('#adresse').val());
-        $('#communef').val($('#commune').val());$('#idcommunef').val($('#idcommune').val());$('#idwilayaf').val( $('#idwilaya').val()); $('#wilayaf').val($('#wilaya').val());//$("#foncform").addClass('hide');  // $('#Type_p').attr('required', false);  //$('#nsspatient').attr('disabled', true);
+        $("#nomf").val($("#nom").val());
+        $("#prenomf").val($("#prenom").val());
+        $("#datenaissancef").val($("#datenaissance").val());
+        $("#lieunaissancef").val($("#lieunaissance").val()); 
+        $("#idlieunaissancef").val($("#idlieunaissance").val());
+        $("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);
+        $( "#gsf" ).val($( "#gs" ).val());$( "#rhf" ).val($( "#rh" ).val());
+        $('#adressef').val($('#adresse').val());
+        $('#communef').val($('#commune').val());
+        $('#idcommunef').val($('#idcommune').val());$('#idwilayaf').val( $('#idwilaya').val()); 
+        $('#wilayaf').val($('#wilaya').val());//$("#foncform").addClass('hide');//$('#nsspatient').attr('disabled', true);
         $('.Asdemograph').find('*').each(function () { $(this).attr("disabled", true); });
         addRequiredAttr();
        }
+      function copyPatientInfo()
+      {
+        if($("#type").val() =="0")
+          copyPatient();
+      }
+      ////avoir
       if ($("#addGardeMalade").length > 0) {
         $("#addGardeMalade").validate({
             rules: {
@@ -332,6 +344,7 @@
           }
         });
       }
+      //a voir ce lui den haut
       function showConsult(consultId)
       {
         url= '{{ route ("consultdetailsXHR", ":slug") }}',

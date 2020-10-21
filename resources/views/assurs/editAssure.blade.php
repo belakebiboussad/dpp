@@ -174,7 +174,7 @@
 					<select name="etatf" id="etatf" class="col-xs-12 col-sm-12">
 						<option value="">Sélectionner...</option>
 						<option value="Activite">Activité</option>
-						<option value="Retraite">Retraite</option>
+						<option value="Retraite" selected>Retraite</option>
 						<option value="conge_maladie" >Congé Maladie.</option>
 						<option value="Revoque" >Révoqué</option>
 					</select>
@@ -279,7 +279,7 @@
 		</div>
 		<div class="col-sm-6">
 			<div class="form-group">
-				<label class="control-label col-xs-12 col-sm-3" for="nss2"><strong>NSS :</strong>	</label>
+				<label class="control-label col-xs-12 col-sm-3" for="nss"><strong>NSS :</strong>	</label>
 				<div class="col-sm-9">
 				<div class="clearfix">
 				@if(isset($assure) && !empty($assure))

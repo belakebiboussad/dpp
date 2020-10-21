@@ -3,99 +3,44 @@
 @section('page-script')
 <script>
 	function showTypeEdit(i){
-		/*
-		switch(value){
-			case "Assure":
-				if(i !=0)
- 				{
- 					$( "#etatf" ).val('Activite'); $('#service option:eq(0)').prop('selected', true);
- 					$('#serviceFonc').removeClass('invisible'); 	
- 					$('#grade option:eq(0)').prop('selected', true);$("#matf").val("");$("#nss").val("");
- 					$("#NMGSN").val("");
-				}
-				copyPatient();
-			  	break;
-		  	case "Ayant_droit":
-				if(i !=0)
-			  	{
-  	      				$("#nomf").val("");$("#prenomf").val(""); 
-  	      				$("#datenaissancef").val("");
-  	      				$("#lieunaissancef").val("");
-  	      				$("select#grade").prop('selectedIndex', 0);
-         				$("#matf").val(""); $("#NMGSN").val("");
-         				$('#nsspatient').val("");
-         				$('#adressef').val("");
-         				$('#gsf option:eq(0)').prop('selected', true);
-         				$('#grade option:eq(0)').prop('selected', true);
-         				$('#service option:eq(0)').prop('selected', true);
-         					$("#nss").val("");
-			  	}
-			  	$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });
-				$("#foncform").removeClass('hide');  $('#Type_p').attr('required', true);  $('#nsspatient').attr('disabled', false); 
-				addRequiredAttr();
-		               break;
-  			case "Autre":
-  				$(".starthidden").show(250);$('#description').attr('disabled', false); 
-  				$("#foncform").addClass('hide'); 
-      				if(! ($( "ul#menuPatient li:eq(0)" ).hasClass( "hidden" )))
-  				$( "ul#menuPatient li:eq(0)" ).addClass( "hidden" );
-  				$('#nomf').attr('required', false);
-  				 $('#prenomf').attr('required', false);
-  				 $('#nsspatient').attr('disabled', true); $('#Type_p').attr('required', false);  
-    		       	 break;         
-		}
-		*/
-		  var value = $("#type").val();
-  		if( value == "0")
-  		{
-  			if(i !=0)
- 				{
- 					$('#Assure').find('input:text').val('');
- 						$("#nss").val("");
-				}
-				$("#foncform").addClass('hide');
-  		}		
-  		else if(($('#type').val() == "1") ||($('#type').val() == "2")||($('#type').val() == "3"))
-  		{
-  			if(i !=0)
-			  {
-			  	$('#nsspatient').val("");
-  	    	
-  	    	$("#nomf").val("");$("#prenomf").val("");
-  	    	$("#datenaissancef").val("");$("#lieunaissancef").val("");
-  	    	$("select#grade").prop('selectedIndex', 0);
-        	$("#matf").val(""); $("#NMGSN").val("");
-       		$('#adressef').val("");
-       		$('#gsf option:eq(0)').prop('selected', true);
-        	$('#grade option:eq(0)').prop('selected', true);
-        	$('#service option:eq(0)').prop('selected', true);
-        	$("#nss").val("");
-			  }
-			  $('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });
+	  var value = $("#type").val();
+  	if( value == "0")
+  	{
+  		if(i !=0)
+ 			{
+ 				$('#Assure').find('input').val('');//copyPatient();
+ 				$('#Assure').find("select").prop("selectedIndex",0);
+ 				addRequiredAttr();
+			}
+			$("#foncform").addClass('hide');
+		}		
+  	else if(($('#type').val() == "1") ||($('#type').val() == "2")||($('#type').val() == "3"))
+  	{
+  		if(i !=0)
+		  {
+		   	if(('{{ $patient->Type }}' == "0"))
+		  	{
+		  		$('#Assure').find('input').val('');//copyPatient();
+					  $('#Assure').find("select").prop("selectedIndex",0);	
+	        }
+		  }else
+		   	$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });
 				$("#foncform").removeClass('hide');
 				$('#nsspatient').attr('disabled', false); 
 				addRequiredAttr();
-  		}else
-  		{
-  			alert("ici");
-  			if(i !=0)
-			  {
-			  }
-  			$(".starthidden").show(250);
-  			$('#description').attr('disabled', false); 
-  			$("#foncform").addClass('hide'); 
-      	if(! ($( "ul#menuPatient li:eq(0)" ).hasClass( "hidden" )))
-  				$( "ul#menuPatient li:eq(0)" ).addClass( "hidden" );
-  			$('#nomf').attr('required', false);
-  			$('#prenomf').attr('required', false);
-  			$('#nsspatient').attr('disabled', true); $('#Type_p').attr('required', false);  
-    			
-  		}
-  
+		}else
+  	{
+  		$(".starthidden").show(250);$('#description').attr('disabled', false); 
+			$("#foncform").addClass('hide'); 
+	    if(! ($( "ul#menuPatient li:eq(0)" ).hasClass( "hidden" )))//$("ul#menuPatient li:eq(0)").css('display', 'none');
+			  $( "ul#menuPatient li:eq(0)" ).addClass( "hidden" );// $('#nomf').attr('required', false);// $('#nomf').attr('required', false);// $('#prenomf').attr('required', false);// $('#nss').attr('required', false);
+			$('#nsspatient').attr('disabled', true);  
+  	}
 	}
   function checkFormAddPAtient()
   {  
-    if(!($('#autre').is(':checked'))){ 
+    
+    if(($('#type').val() != "4" )){ //if(!($('#autre').is(':checked'))){ 
       $('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });
       if( ! checkAssure() )
       {
@@ -115,15 +60,17 @@
           return true;
       }
     }else{
-            if($('#hommeConf').is(':checked')){
-                if( ! checkHomme() )
-                {
-                       activaTab("Homme_C");
-                     return false;
-                 }else
-                      return true;  
-            }else
-                 return true; 
+    		$("#etatf").prop("disabled", true);
+				$('#Assure').find('input').prop("disabled", true).attr('required', false);//$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", true); });
+				if($('#hommeConf').is(':checked')){
+          if( ! checkHomme() )
+          {
+            activaTab("Homme_C");
+            return false;
+          }else
+                  return true;  
+        }else
+             return true; 
     }  
   }
 	$(document).ready(function(){
@@ -159,10 +106,12 @@
 		</div>
 	</div>
 	<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
-		<li class=" @if($patient->Type !="Autre") active @else hidden  @endif"><a data-toggle="tab" href="#Assure">
-	    		<span class="bigger-130"><strong>Assure</strong></span></a>
+		<li class=" @if($patient->Type !="4") active @else hidden  @endif">
+		  <a data-toggle="tab" href="#Assure" data-toggle="tab" onclick="copyPatientInfo();">
+	    	<span class="bigger-130"><strong>Assure</strong></span>
+	    </a>
  		</li>
-	 	<li class=" @if($patient->Type =="Autre") active  @endif" ><a data-toggle="tab" href="#Patient">
+	 	<li class=" @if($patient->Type =="4") active  @endif" ><a data-toggle="tab" href="#Patient">
 	   	 	<span class="bigger-130"><strong>Patient</strong></span></a>
 	   	</li>
 		 <li  id ="hommelink" @if(count($hommes_c) == 0)  class="invisible" @endif><a data-toggle="tab" href="#Homme">
@@ -170,10 +119,10 @@
 		  </li>
 	</ul>	
   <div class="tab-content">
-  	<div id="Assure" class='tab-pane fade @if($patient->Type =="Autre") invisible @else in active  @endif '>
+  	<div id="Assure" class='tab-pane fade @if($patient->Type =="4") invisible @else in active  @endif '>
     	@include('assurs.editAssure')
     </div>
-		<div id="Patient" class="tab-pane fade @if($patient->Type =="Autre")   in active  @endif">
+		<div id="Patient" class="tab-pane fade @if($patient->Type =="4")   in active  @endif">
 			<div class="row">
     		<div class="col-sm-12"><h3 class="header smaller lighter blue">Informations administratives</h3></div>
 			</div>

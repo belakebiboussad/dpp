@@ -5,11 +5,14 @@
   	$( document ).ready(function() {
   		$('#type').change(function(){
   			if( $('#type').val() == "0")
+  			{
   				$("#foncform").addClass('hide');//copyPatient();
+  				addRequiredAttr();
+  			}
   			else if(($('#type').val() == "1") ||($('#type').val() == "2")||($('#type').val() == "3"))
   			{
   				$("#foncform").removeClass('hide');
-			      addRequiredAttr();
+			    addRequiredAttr();
   			}else
   			{
   				$(".starthidden").show(250);
@@ -62,12 +65,6 @@
 			 }    
 		});
 	});
-	function copyPatientInfo()
-	{
-		if($("#type").val() =="0")
-			copyPatient();
-	}
-	
 </script>
 @endsection
 @section('main-content')
@@ -91,8 +88,10 @@
 				</div>
 			</div>
 	    <ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
-			   	<li class="active"><a data-toggle="tab" href="#Assure" class="jumbotron" onclick="copyPatientInfo();">
-			    		<span class="bigger-130"><strong>Assure</strong></span></a>
+			   	<li class="active">
+			   		<a data-toggle="tab" href="#Assure" class="jumbotron" onclick="copyPatientInfo();">
+			    		<span class="bigger-130"><strong>Assure</strong></span>
+			    	</a>
 					</li>
 					<li ><a class="jumbotron" data-toggle="tab" href="#Patient">
 						<span class="bigger-130"><strong>Patient</strong></span></a>

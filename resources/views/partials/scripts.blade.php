@@ -409,12 +409,20 @@
     }
   }
   function addRequiredAttr()
-  { /*  var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);  $.each(classList, function(index, item) {if (item === 'hidden') {   $( "ul#menuPatient li:eq(0)" ).removeClass( item );}  }); */             
+  { 
+    var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
+    $.each(classList, function(index, item) {
+      if (item === 'hidden') { 
+         $( "ul#menuPatient li:eq(0)" ).removeClass( item );
+      }
+    });             
     if($('ul#menuPatient li:eq(0)').css('display') == 'none')
     {
       $('ul#menuPatient li:eq(0)').css('display', '');
     }
-    $(".starthidden").hide(250);  //$('#description').attr('disabled', true); // jQuery('input:radio[name="sexef"]').filter('[value="M"]').attr('checked', true);  // jQuery('input:radio[name="etat"]').filter('[value="Activite"]').attr('checked', true);
+    $(".starthidden").hide(250);  //$('#description').attr('disabled', true); // jQuery('input:radio[name="sexef"]').filter('[value="M"]').attr('checked', true);// jQuery('input:radio[name="etat"]').filter('[value="Activite"]').attr('checked', true);
+    if($("#type").val() != 0)
+      $('.Asdemograph').find('*').each(function () {$(this).attr("disabled", false);});
   }
 function typep()
 {
