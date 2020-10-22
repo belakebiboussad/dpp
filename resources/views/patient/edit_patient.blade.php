@@ -6,15 +6,15 @@
 	  var value = $("#type").val();
   	if( value == "0")
   	{
-  		if(i !=0)
- 		{
- 			$('#Assure').find('input').val('');//copyPatient();
- 			$('#Assure').find("select").prop("selectedIndex",0);
- 			$('#description').val('');
- 			addRequiredAttr();
-		}
-		$("#foncform").addClass('hide');
-	}		
+	  	if(i !=0)
+	 		{
+	 			$('#Assure').find('input').val('');//copyPatient();
+	 			$('#Assure').find("select").prop("selectedIndex",0);
+	 			$('#description').val('');
+	 			addRequiredAttr();
+			}
+			$("#foncform").addClass('hide');
+		}		
   	else if(($('#type').val() == "1") ||($('#type').val() == "2")||($('#type').val() == "3"))
   	{
   		if(i !=0)

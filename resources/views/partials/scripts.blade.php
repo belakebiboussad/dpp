@@ -221,20 +221,20 @@
                   });
              });
            $('#printRdv').click(function(){
-                $.ajaxSetup({
-                      headers: {
-                          'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                       }
-                 });
-                  $.ajax({
-                          type : 'GET',
-                          url :'/rdvprint/'+$('#idRDV').val(),
-                               success:function(data){
-                          },
-                          error:function(data){
-                            console.log("error");
-                           }
-                 });
+              $.ajaxSetup({
+                  headers: {
+                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                  }
+               });
+                $.ajax({
+                        type : 'GET',
+                        url :'/rdvprint/'+$('#idRDV').val(),
+                             success:function(data){
+                        },
+                        error:function(data){
+                          console.log("error");
+                         }
+               });
           });
       });  
 </script>
@@ -421,7 +421,6 @@
       $('ul#menuPatient li:eq(0)').css('display', '');
     }
     $(".starthidden").hide(250);  //$('#description').attr('disabled', true);
-     // jQuery('input:radio[name="sexef"]').filter('[value="M"]').attr('checked', true);// jQuery('input:radio[name="etat"]').filter('[value="Activite"]').attr('checked', true);
     if($("#type").val() != 0)
       $('.Asdemograph').find('*').each(function () {$(this).attr("disabled", false);});
   }

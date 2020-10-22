@@ -25,26 +25,26 @@ class RDVController extends Controller
      * @return \Illuminate\Http\Response
      */
       public function valider($id)
-     {
-            $rdv = rdv::FindOrFail($id);
-            $rdv ->update([
-                "Etat_RDV"=>"Valider"
-            ]);
-            return redirect()->route("rdv.show",$rdv->id);
-       }
-       public function reporter($id)
-       {
-            $rdv = rdv::FindOrFail($id);
-            $patient = patient::FindOrFail($rdv->Patient_ID_Patient);
-            return view('rdv.reporter_rdv',compact('rdv','patient'));
+      {
+        $rdv = rdv::FindOrFail($id);
+        $rdv ->update([
+            "Etat_RDV"=>"Valider"
+        ]);
+        return redirect()->route("rdv.show",$rdv->id);
+      }
+      public function reporter($id)
+      {
+        $rdv = rdv::FindOrFail($id);
+        $patient = patient::FindOrFail($rdv->Patient_ID_Patient);
+        return view('rdv.reporter_rdv',compact('rdv','patient'));
        }
       public function storereporte(Request $request,$id)
       {
-             $rdv = rdv::FindOrFail($id);
-             $rdv->update([
-                  "Date_RDV"=>$request->daterdv,
-              ]);
-              return redirect()->route("rdv.show",$rdv->id);
+        $rdv = rdv::FindOrFail($id);
+        $rdv->update([
+            "Date_RDV"=>$request->daterdv,
+        ]);
+        return redirect()->route("rdv.show",$rdv->id);
       }
       public function choixpatient()
       {
@@ -53,8 +53,7 @@ class RDVController extends Controller
       public function index($patientID = null)
       {    
         if(Auth::user()->role_id == 1)
-        {
-          //$rdvs = rdv::where('specialite', Auth::user()->employ->specialite)->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get();
+        {//$rdvs = rdv::where('specialite', Auth::user()->employ->specialite)->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get();
           $specialite = Auth::user()->employ->specialite;
           $rdvs = rdv::with('patient','employe')
                     ->whereHas('employe.Specialite',function($q) use ($specialite){
@@ -195,10 +194,10 @@ class RDVController extends Controller
       public function destroy(Request $request, $id)
       {
         $rdv = rdv::findOrFail($id); 
-         if($request->ajax())
-         {
-                 $rdv->update(['Etat_RDV'=>0]); //rdv::destroy($id);
-                return ($rdv);
+        if($request->ajax())
+        {
+             $rdv->update(['Etat_RDV'=>0]); //rdv::destroy($id);
+            return ($rdv);
         }
         else
         {
