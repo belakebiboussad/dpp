@@ -535,13 +535,7 @@ $('#typeexm').on('change', function() {
   {
     $("#"+id).remove();// $("tr:has(input:checked)").remove(); 
   }
-  function sexefan()
-  {
-      if( $('#sexef').is(':checked') )
-              $('#civ').css('display','block');
-      else
-              $('#civ').css('display','none');
-  }
+ /* function sexefan() {    if( $('#sexef').is(':checked') ) $('#civ').css('display','block');   else           $('#civ').css('display','none');} */
   function civilitefan()
   {
       if( $('#mdm').is(':checked') )

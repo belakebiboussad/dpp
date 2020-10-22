@@ -10,6 +10,7 @@
  		{
  			$('#Assure').find('input').val('');//copyPatient();
  			$('#Assure').find("select").prop("selectedIndex",0);
+ 			$('#description').val('');
  			addRequiredAttr();
 		}
 		$("#foncform").addClass('hide');
@@ -21,7 +22,9 @@
 		   	if(('{{ $patient->Type }}' == "0"))
 		  	{
 		  		$('#Assure').find('input').val('');//copyPatient();
-			     $('#Assure').find("select").prop("selectedIndex",0);	
+			       $('#Assure').find("select").prop("selectedIndex",0);
+			       $('#description').val('');
+
 	            }
 		}
 		$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });
