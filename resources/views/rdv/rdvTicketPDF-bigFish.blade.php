@@ -25,8 +25,8 @@
 				padding-top:-18px !important;
 			}
 			.mt-12{
-					margin-top: 1px !important;
-				  padding-top:11px !important;
+					margin-top: -2px !important;
+				  padding-top: -2px !important;
 			}
 			.imgCenter{
 					text-align: center;/*border: 1px solid black;*/
@@ -83,16 +83,23 @@
 		   	</div>
 		  </div>
 		  <div class="row">	<div class="col-sm-12"><strong>Nom : </strong><span>{{ $rdv->patient->Nom}}</span></div></div>
-		  <div class="row" ><div class="col-sm-12"><strong>Prenom : </strong><span>{{ $rdv->patient->Prenom}}</span> </div></div>
-		 	<div class="row" id="left">
-		 		<img src="<?= $img->encoded ?>" />
-		 		<span style="font-size: xx-small;">&nbsp;Le jour de votre consultation</span>
-			  <ul style="font-size: xx-small;">	
-			 		<li>Rapportez ce Ticket	</li>
-			 		<li>	Raportez tous les documents Médicaux en votre possession (résultats d'analyses, radiographies,etc.)</li>
+		  <div class="row" >
+		  	<div class="col-sm-12"><strong>Prenom : </strong><span>{{ $rdv->patient->Prenom}}</span> </div>
+		  </div>
+		   <table class="mt-12" style="font-size: xx-small;">
+		   		<tr>
+		   			<td width="10%"><img src="<?= $img->encoded ?>" /></td>
+		   			<td width="80%" style="font-size: xx-small; margin-top:-40px;">
+		   				<span style="font-size: xx-small;margin-top:-10px;">&nbsp;Le jour de votre consultation</span>
+		   				<ul style="font-size: xx-small;">	
+			 					<li>Rapportez ce Ticket	</li>
+			 					<li>	Raportez tous les documents Médicaux en votre possession (résultats d'analyses, radiographies,etc.)</li>
 			 		<li>En arrivant à l'hôpital recupéré votre ticket d'ordre depuis la borne.</li>
-			 	</ul> 	
-		 	</div>
+			 				</ul>	
+		   			</td>
+		   		</tr>
+		   	
+		   </table>
    	</div>
 	</body>
 </html>
