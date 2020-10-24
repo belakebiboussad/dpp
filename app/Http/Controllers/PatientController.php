@@ -25,10 +25,6 @@ use Carbon\Carbon;
 use Session;
 use View;
 use Response;
-
-use BigFish\PDF417\PDF417;
-use BigFish\PDF417\Renderers\ImageRenderer;
-use BigFish\PDF417\Renderers\SvgRenderer;
 class PatientController extends Controller
 {
   /**
@@ -49,18 +45,6 @@ class PatientController extends Controller
   */
     public function create( $asure_id =null)
     {
-      $pdf417 = new PDF417();
-      $data = $pdf417->encode('My nipples explode with delight');
-      $renderer = new ImageRenderer([
-        //'color' => '#FF0000',
-        'format' => 'png',
-        //'bgColor' => '#00FF00',
-        'scale' => 3,
-        'format' => 'data-url'
-      ]);
-      $img = $renderer->render($data);
-      return view('patient.sup',compact('img'));
-      /*
       if(isset($asure_id))
       {
         $assure = assur::FindOrFail($asure_id);
@@ -68,10 +52,10 @@ class PatientController extends Controller
       }
       else
       {
-              $grades = grade::all();
-               return view('patient.add',compact('grades'));
+        $grades = grade::all();
+        return view('patient.add',compact('grades'));
       }
-      */  
+       
     }
   /**
    * Store a newly created resource in storage.

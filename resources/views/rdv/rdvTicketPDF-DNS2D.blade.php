@@ -87,12 +87,12 @@
 		  <div id="container" class="mt-12">
 		 	<div id="row">
 		 		<div id="left">
-		 			<img src="data:image/png;base64,{{DNS2D::getBarcodePNG($rdv->id.'|'.$rdv->employe->specialite.'|'.Carbon\Carbon::parse($rdv->Date_RDV)->format('d-m-Y').'|'.$rdv->patient->IPP, 'PDF417',3,33)}}" alt="barcode"/><br>	
+		 			<img src="data:image/png;base64,{{DNS2D::getBarcodePNG($rdv->id.'|'.$rdv->employe->specialite.'|'.Carbon\Carbon::parse($rdv->Date_RDV)->format('d-m-Y').'|'.$rdv->patient->IPP, 'QRCODE')}}" alt="barcode"/><br>	
 			 			<span>{{ $rdv->patient->IPP }}</span>
 				</div>
 		 			<div id="middle">
 		 				<div id = "parent">	 				
-		 					<span style="font-size: xx-small;">&nbsp;Le jour de votre consultation</span>
+		 					<span>&nbsp;Le jour de votre consultation</span>
 			 				<ul style="font-size: xx-small;">	
 			 					<li>Rapportez ce Ticket	</li>
 			 					<li>	Raportez tous les documents Médicaux en votre possession (résultats d'analyses, radiographies,etc.)</li>
