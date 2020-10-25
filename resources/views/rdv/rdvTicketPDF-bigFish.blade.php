@@ -24,9 +24,11 @@
 				margin-top: -18px !important;
 				padding-top:-18px !important;
 			}
-			.mt-12{
-					margin-top: -2px !important;
-				  padding-top: -2px !important;
+			.mb-12{
+					margin-top: +10px !important;
+       		padding-top:+10px  !important ;
+					margin-bottom: -40px !important;
+				  padding-bottom:-40px !important;
 			}
 			.imgCenter{
 					text-align: center;/*border: 1px solid black;*/
@@ -39,16 +41,21 @@
 			#row  {
 		  	display: table-row;
 		  }
-			#left, #right, #middle {
+			#left, #right{
 			  display: table-cell;
 			  font-size:xx-small; /* padding: 5px;*/
 			     
-		  }			
+		  }	
+		  #left{
+		  	margin-top: +4px !important;
+				padding-top:+4px !important;
+		  }		
 		  #parent {
 		  	width:100%;
-  			height:85px;/*70px*/
+  			height:110px;/*70px*/
   			border: 0.5px solid black !important;
   			border-radius: 5px !important;
+  			font-size:xx-small; /* padding: 5px;*/
   		}
 		</style>
 	</head>
@@ -86,20 +93,22 @@
 		  <div class="row" >
 		  	<div class="col-sm-12"><strong>Prenom : </strong><span>{{ $rdv->patient->Prenom}}</span> </div>
 		  </div>
-		   <table class="mt-12" style="font-size: xx-small;">
-		   		<tr>
-		   			<td width="10%"><img src="<?= $img->encoded ?>" /></td>
-		   			<td width="80%" style="font-size: xx-small; margin-top:-40px;">
-		   				<span style="font-size: xx-small;margin-top:-10px;">&nbsp;Le jour de votre consultation</span>
-		   				<ul style="font-size: xx-small;">	
-			 					<li>Rapportez ce Ticket	</li>
-			 					<li>	Raportez tous les documents Médicaux en votre possession (résultats d'analyses, radiographies,etc.)</li>
-			 		<li>En arrivant à l'hôpital recupéré votre ticket d'ordre depuis la borne.</li>
-			 				</ul>	
-		   			</td>
-		   		</tr>
-		   	
-		   </table>
+		  <div id="container">
+		 		<div id ="row">
+		 			<div id="left"><img src="<?= $img->encoded ?>" /></div>
+		 		</div>
+		 		<div id ="parent" class="row mb-12">
+		 			<span>&nbsp;Le jour de votre consultation</span>
+			 		<ul style="font-size: xx-small;">	
+			 			<li>Rapportez ce Ticket	</li>
+			 			<li>	Raportez tous les documents Médicaux en votre possession (résultats d'analyses, radiographies,etc.)
+			 			</li>
+			 			<li>En arrivant à l'hôpital recupéré votre ticket d'ordre depuis la borne.</li>
+			 		</ul> 
+		 		</div>
+		 		</div>
+		 	</div>
+
    	</div>
 	</body>
 </html>

@@ -26,7 +26,7 @@
 			}
 			.mt-12{
 					margin-top: 1px !important;
-				  padding-top:11px !important;
+				  padding-top:1px !important;
 			}
 			.imgCenter{
 					text-align: center;/*border: 1px solid black;*/

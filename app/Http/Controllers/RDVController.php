@@ -218,7 +218,8 @@ class RDVController extends Controller
       return $pdf->download($name);
     }
     public function print(Request $request,$id)
-    { /*   DNS2D
+    { //   DNS2D
+      /*
       $rdv = rdv::findOrFail($id);
       $viewhtml = View::make('rdv.rdvTicketPDF-DNS2D', array('rdv' =>$rdv))->render();
       $dompdf = new Dompdf();
@@ -226,15 +227,16 @@ class RDVController extends Controller
       $dompdf->setPaper('a6', 'landscape');
       $dompdf->render();
       $name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";//"-".microtime(TRUE).
-      return $dompdf->stream($name); 
-      */
+      return $dompdf->stream($name); */
       $rdv = rdv::findOrFail($id);
       $pdf417 = new PDF417();
       $data = $pdf417->encode($rdv->id.'|'.$rdv->employe->specialite.'|'.Carbon::parse($rdv->Date_RDV)->format('d-m-Y').'|'.$rdv->patient->IPP);
       $renderer = new ImageRenderer([
         'format' => 'png', //'color' => '#FF0000', //'bgColor' => '#00FF00',
-        'scale' => 1,
-        'format' => 'data-url'
+        'scale' => 1,//1
+        'ratio'=>3,//hauteur,largeur
+        'padding'=>0,//espace par rapport left
+        'format' =>'data-url'
       ]);
       $img = $renderer->render($data);
       $viewhtml = View::make('rdv.rdvTicketPDF-bigFish', array('rdv' =>$rdv,'img'=>$img))->render();
@@ -245,7 +247,6 @@ class RDVController extends Controller
       $name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";//"-".microtime(TRUE).
       return $dompdf->stream($name); 
       
-     // return view('patient.sup',compact('img'));
     }
 /*public function getRDV(){$rdvs = rdv::select(['id','Date_RDV','Patient_ID_Patient','Employe_ID_Employe','Etat_RDV']);//'Temp_rdv',
 return Datatables::of($rdvs)->addColumn('action5',function($rdv){return'<span class="label label-xlg label-purple arrowed"><strong>'.$rdv->Date_RDV.'</strong></span>';
