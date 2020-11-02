@@ -162,10 +162,10 @@
 					 @if(isset($assure) && !empty($assure))
 					 <select name="etatf" id="etatf" class="col-xs-12 col-sm-12">
 						<option value="">Sélectionner...</option>
-						<option value="Activite" {{ ($assure->Etat=="Activite") ? "selected" : "" }}>Activité</option>
-						<option value="Retraite" {{ ($assure->Etat=="Retraite") ? "selected" : "" }}>Retraite</option>
-						<option value="conge_maladie" {{ ($assure->Etat=="conge_maladie") ? "selected" : "" }}>Congé Maladie.</option>
-						<option value="Revoque" {{ ($assure->Etat=="Revoque") ? "selected" : "" }}>Révoqué</option>
+						<option value="Activite" {{ ($assure->Etat=="0") ? "selected" : "" }}>Activité</option>
+						<option value="Retraite" {{ ($assure->Etat=="1") ? "selected" : "" }}>Retraite</option>
+						<option value="conge_maladie" {{ ($assure->Etat=="2") ? "selected" : "" }}>Congé Maladie.</option>
+						<option value="Revoque" {{ ($assure->Etat=="3") ? "selected" : "" }}>Révoqué</option>
 					</select>
 					@else	
 					<select name="etatf" id="etatf" class="col-xs-12 col-sm-12">

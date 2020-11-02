@@ -175,8 +175,25 @@ $('document').ready(function(){
 								<h4 class="blue">
 									<span class="middle">{{ $patient->getCivilite()}} {{ $patient->Nom }} {{ $patient->Prenom }}</span>
 									<span class="label label-purple arrowed-in-right">
-										<i class="ace-icon fa fa-circle smaller-80 align-middle"></i>	{{ $patient->Type }}
-									</span>
+										<i class="ace-icon fa fa-circle smaller-80 align-middle"></i>
+										@switch($patient->Type)
+                        @case(0)
+                          Assuré
+                          @break
+                        @case(1)
+                       	  Conjoint(e)
+                          @break
+                        @case(2)
+                       	  Ascendant
+                          @break
+                        @case(3)
+                       	  Descendant
+                          @break  
+                        @case(4)
+                          Autre 
+                          @break       
+                    @endswitch  
+                  </span>
 								</h4>
 								<div class="profile-user-info">
 									<div class="profile-info-row">
@@ -268,29 +285,30 @@ $('document').ready(function(){
 									</div>
 								</div>
 								<div class="hr hr-8 dotted"></div>
-								@if($patient->Type == "Ayant_droit")
-									<div class="col-sm-12 widget-container-col" id="widget-container-col-12">
-										<div class="widget-box transparent" id="widget-box-12">
-											<div class="widget-header">
-												<h4 class="widget-title lighter">Les Informations du fonctionnaire</h4>
-											</div>
-											<div class="widget-body">
-												<div class="widget-main padding-6 no-padding-left no-padding-right">
-													<div class="col-sm-3">
-														<label class="inline">
-															<span><b>Nom :</b></span><span class="lbl blue"> {{ $patient->assure->Nom}} </span>
-														</label>
-													</div>
-													<div class="col-sm-3">
-														<label class="inline">
-															<span><b>Prénom :</b></span><span class="lbl blue"> {{ $patient->assure->Prenom}} </span>
-														</label>
-													</div>
-													<div class="col-sm-3">
-														<label class="inline">
-															<span><b>Date de naissance :</b></span><span class="lbl blue"> {{ $patient->assure->Date_Naissance }}</span>
-														</label>
-													</div>
+								@if(in_array( $patient->Type , [1,2,3]))
+								{{-- @if($patient->Type == "Ayant_droit") --}}
+								<div class="col-sm-12 widget-container-col" id="widget-container-col-12">
+									<div class="widget-box transparent" id="widget-box-12">
+										<div class="widget-header">
+											<h4 class="widget-title lighter">Les Informations du fonctionnaire</h4>
+										</div>
+										<div class="widget-body">
+											<div class="widget-main padding-6 no-padding-left no-padding-right">
+												<div class="col-sm-3">
+													<label class="inline">
+														<span><b>Nom :</b></span><span class="lbl blue"> {{ $patient->assure->Nom}} </span>
+													</label>
+												</div>
+												<div class="col-sm-3">
+													<label class="inline">
+														<span><b>Prénom :</b></span><span class="lbl blue"> {{ $patient->assure->Prenom}} </span>
+													</label>
+												</div>
+												<div class="col-sm-3">
+													<label class="inline">
+														<span><b>Date de naissance :</b></span><span class="lbl blue"> {{ $patient->assure->Date_Naissance }}</span>
+													</label>
+												</div>
 													<div class="col-sm-3">
 														<label class="inline">
 															<span><b>Lieu de naissance :</b></span><span class="lbl blue">{{ $patient->assure->commune->nom_commune}} </span>
@@ -308,7 +326,40 @@ $('document').ready(function(){
 													</div>
 													<div class="col-sm-6">
 														<label class="inline">
-															<span><b>Service :</b></span><span class="lbl blue"> {{ $patient->assure->Service }}</span>
+															<span><b>Service :</b></span><span class="lbl blue">
+															@switch($patient->assure->Service)
+				                        @case(1)
+				                          Sécurité publique
+				                          @break
+				                        @case(2)
+				                       	  Police judiciaire (PJ)
+				                          @break
+				                        @case(3)
+				                       	  Brigade mobile de la police judiciaire (BMPJ)
+				                          @break  
+				                        @case(4)
+				                          Service protection et sécurité des personnalités (SPS)
+				                          @break       
+				                        @case(5)
+				                       	  Unité aérienne de la sûreté nationale
+				                          @break
+				                        @case(6)
+				                       	  Unités républicaines de sécurité (URS)
+				                          @break
+				                        @case(7)
+				                       	  Police scientifique et technique
+				                          @break
+				                         @case(8)
+				                       	 	Police aux frontières et de l'immigration (PAF)
+				                          @break
+				                        @case(9)
+				                       	  Brigade de recherche et d'intervention (BRI)
+				                          @break
+				                        @case(10)
+				                       	  Groupe des opérations spéciales de la police (GOSP)
+				                          @break 
+				                    @endswitch
+														</span>
 														</label>
 													</div>
 													<div class="col-sm-3">
@@ -318,7 +369,23 @@ $('document').ready(function(){
 													</div>
 													<div class="col-sm-3">
 														<label class="inline">
-															<span><b>Position :</b></span><span class="lbl blue"> {{ $patient->assure->Etat }}</span>
+															<span><b>Position :</b></span>
+															<span class="lbl blue">
+															@switch($patient->assure->Etat)
+																@case(0)
+				                          Activité
+				                          @break
+				                        @case(1)
+				                       	  Retraite
+				                          @break
+				                         @case(2)
+				                          Congé Maladie
+				                          @break
+				                        @case(3)
+				                       	  Révoqué
+				                          @break
+															@endswitch
+															</span>
 														</label>
 													</div>
 													<div class="col-sm-6">
@@ -406,7 +473,7 @@ $('document').ready(function(){
 								<input type="text" name="id_patient" value="{{ $patient->id }}" hidden>
     						              <div class="col-sm-12">
 									<label for="typecons"><b>Type de consultation:</b></label>
-									<select class="form-control" id="typecons" name="typecons" required><!-- 	<option value="">--------</option> -->
+									<select class="form-control" id="typecons" name="typecons" required>
 										<option value="Normale">Normale</option>
 										<option value="Urgente">Urgente</option>
 									</select>
