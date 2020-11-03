@@ -89,10 +89,24 @@
 			</div>
 			<div class="profile-user-info profile-user-info-striped">
 				<div class="profile-info-row">
-					<div class="profile-info-name"> Position actuelle </div>
+					<div class="profile-info-name">Position</div>
 					<div class="profile-info-value">
 						<span class="label label-purple arrowed-in-right">
-							<i class="ace-icon fa fa-circle smaller-80 align-middle"></i>{{ $assure->Etat  }}
+							<i class="ace-icon fa fa-circle smaller-80 align-middle"></i>
+							@switch($assure->Etat)
+   					    	@case(0)
+     									Activité
+        							@break
+    							@case(1)
+       								Retraite
+        						 @break
+        					@case(3)
+        							Congé Maladie
+        							@break
+        					@default
+        						  Révoqué
+        							@break
+									@endswitch
 						</span>
 						</div>
 					</div>

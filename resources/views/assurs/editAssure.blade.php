@@ -162,18 +162,18 @@
 					 @if(isset($assure) && !empty($assure))
 					 <select name="etatf" id="etatf" class="col-xs-12 col-sm-12">
 						<option value="">Sélectionner...</option>
-						<option value="Activite" {{ ($assure->Etat=="0") ? "selected" : "" }}>Activité</option>
-						<option value="Retraite" {{ ($assure->Etat=="1") ? "selected" : "" }}>Retraite</option>
-						<option value="conge_maladie" {{ ($assure->Etat=="2") ? "selected" : "" }}>Congé Maladie.</option>
-						<option value="Revoque" {{ ($assure->Etat=="3") ? "selected" : "" }}>Révoqué</option>
+						<option value="0" {{ ($assure->Etat=="0") ? "selected" : "" }}>Activité</option>
+						<option value="1" {{ ($assure->Etat=="1") ? "selected" : "" }}>Retraite</option>
+						<option value="2" {{ ($assure->Etat=="2") ? "selected" : "" }}>Congé Maladie</option>
+						<option value="3" {{ ($assure->Etat=="3") ? "selected" : "" }}>Révoqué</option>
 					</select>
 					@else	
 					<select name="etatf" id="etatf" class="col-xs-12 col-sm-12">
 						<option value="">Sélectionner...</option>
-						<option value="Activite">Activité</option>
-						<option value="Retraite" selected>Retraite</option>
-						<option value="conge_maladie" >Congé Maladie.</option>
-						<option value="Revoque" >Révoqué</option>
+						<option value="0">Activité</option>
+						<option value="1" selected>Retraite</option>
+						<option value="2" >Congé Maladie.</option>
+						<option value="3" >Révoqué</option>
 					</select>
 					 @endif
 				</div>

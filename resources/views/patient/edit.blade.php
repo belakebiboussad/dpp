@@ -2,7 +2,8 @@
 @section('title','modifier  le patient')
 @section('page-script')
 <script>
-	function showTypeEdit(i){
+	function showTypeEdit(i)
+	{
 	  var value = $("#type").val();
   	if( value == "0")
   	{
@@ -18,50 +19,51 @@
   	else if(($('#type').val() == "1") ||($('#type').val() == "2")||($('#type').val() == "3"))
   	{
   		if(i !=0)
-		 {
+		  {
 		   	if(('{{ $patient->Type }}' == "0"))
 		  	{
 		  		$('#Assure').find('input').val('');//copyPatient();
-			       $('#Assure').find("select").prop("selectedIndex",0);
-			       $('#description').val('');
+			    $('#Assure').find("select").prop("selectedIndex",0);
+			    $('#description').val('');
 
-	            }
-		}
-		$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });
-		$("#foncform").removeClass('hide');
-		$('#nsspatient').attr('disabled', false); 
-		addRequiredAttr();
-	}else
+	      }
+		  }
+			$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });
+			$("#foncform").removeClass('hide');
+			$('#nsspatient').attr('disabled', false); 
+			addRequiredAttr();
+		}else
   	{
   		$(".starthidden").show(250);$('#description').attr('disabled', false); 
-		$("#foncform").addClass('hide'); 
-		if(! ($( "ul#menuPatient li:eq(0)" ).hasClass( "hidden" )))//$("ul#menuPatient li:eq(0)").css('display', 'none');
+			$("#foncform").addClass('hide'); 
+			if(! ($( "ul#menuPatient li:eq(0)" ).hasClass( "hidden" )))//$("ul#menuPatient li:eq(0)").css('display', 'none');
 			 $( "ul#menuPatient li:eq(0)" ).addClass( "hidden" );// $('#nomf').attr('required', false);// $('#nomf').attr('required', false);// $('#prenomf').attr('required', false);// $('#nss').attr('required', false);
-		$('#Assure').find('input').prop("required",false);
- 		$('#Assure').find("select").prop("required",false);
+			$('#Assure').find('input').prop("required",false);
+ 			$('#Assure').find("select").prop("required",false);
 			$('#nsspatient').attr('disabled', true);  
-  		}
+  	}
 	}
-      function checkFormAddPAtient()
-     {  
-     		 if(($('#type').val() != "4" )){ //if(!($('#autre').is(':checked'))){ 
-      			$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });
-      		if( ! checkAssure() )
-      		{
-        		activaTab("Assure");
-        		return false;
-      		}else{
-        		if($('#hommeConf').is(':checked')){
-              		if( ! checkHomme() )
-              		{
-                			activaTab("Homme_C");
-                			return false;
-              		}else
-                			return true;  
-         	}else{
-              return true;   
-          }
-          return true;
+  function checkFormAddPAtient()
+  {  
+    if(($('#type').val() != "4" ))
+    { 
+      $('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });
+      if( ! checkAssure() )
+      {
+      	activaTab("Assure");
+      	return false;
+      }else{
+     		if($('#hommeConf').is(':checked')){
+       		if( ! checkHomme() )
+       		{
+       			activaTab("Homme_C");
+       			return false;
+       		}else
+            return true;  
+       	}else{
+          return true;   
+        }
+        return true;
       }
     }else{
     		$("#etatf").prop("disabled", true);
@@ -79,6 +81,7 @@
   }
 	$(document).ready(function(){
 	  showTypeEdit(0);//var value = $("#type").val();
+	  
 	});     
 </script>
 @endsection

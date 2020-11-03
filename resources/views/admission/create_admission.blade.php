@@ -193,10 +193,7 @@
 						</div>	
 				</div>
 			</div><!-- ROW -->
-			<div class="space-12"></div>
-			<div class="space-12"></div>
-			<div class="space-12"></div>
-			<div class="space-12"></div>
+			<div class="space-12"></div><div class="space-12"></div><div class="space-12"></div>	<div class="space-12"></div>
 			<div class="row">
 					<div class="col-xs-3"></div>
 					<div class="col-xs-6 center bottom">

@@ -1010,45 +1010,13 @@ $('#typeexm').on('change', function() {
         $('#updateRdv').attr('action',url);
        $('#fullCalModal').modal({ show: 'true' }); 
       }
-      /*
-      function ajaxEditEvent(event,bool)
-      {
-       
-      url = "rdv" + '/' + event.id + '/edit';
-      $.ajax({
-          type: 'GET',
-          url:  url,
-          success: function(data) {
-                      if($('#medecin').length){
-                        if(isEmpty(data['medecin']))
-                          getMedecinsSpecialite(data['rdv'].specialite);  
-                         else
-                          getMedecinsSpecialite(data['rdv'].specialite,data['medecin'].id);  
-                      }
-                      $('#patient_tel').text(event.tel); //$('#patient_tel').text(data['patient'].tele_mobile1);
-                      $('#agePatient').text(event.age);   //$('#lien').attr('href','/patient/'.concat(data['patient'].id)); 
-                   
-                      $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
-                     
-                      if(bool)
-                      {
-                        $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
-                        $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
-                      }else{
-                        $("#daterdv").val(data['rdv'].Date_RDV);
-                        $("#datefinrdv").val(data['rdv'].Fin_RDV); 
-                      }
-                      //$('#btnConsulter').attr('href','/consultations/create/'.concat(data['patient'].id));
-                      $('#btnConsulter').attr('href','/consultations/create/'.concat(event.idPatient));
-                      // $('#btnDelete').attr('href','/rdv/'.concat(data['rdv'].id));
-                      $('#btnDelete').attr('href','/rdv/'.concat(event.idPatient));
-           
-            },
-            error:function(data){ alert('error'); }
-               
-          });
-       }//todelete
-       */
+/*function ajaxEditEvent(event,bool){ url = "rdv" + '/' + event.id + '/edit';$.ajax({type: 'GET',url:  url,success: function(data) {  if($('#medecin').length){ if(isEmpty(data['medecin']))  
+getMedecinsSpecialite(data['rdv'].specialite);  else  getMedecinsSpecialite(data['rdv'].specialite,data['medecin'].id);  }
+$('#patient_tel').text(event.tel); //$('#patient_tel').text(data['patient'].tele_mobile1); $('#agePatient').text(event.age);   //$('#lien').attr('href','/patient/'.concat(data['patient'].id)); 
+$('#lien').attr('href','/patient/'.concat(event.idPatient));if(bool){$("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));$("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm')); 
+}else{$("#daterdv").val(data['rdv'].Date_RDV); $("#datefinrdv").val(data['rdv'].Fin_RDV); } 
+ //$('#btnConsulter').attr('href','/consultations/create/'.concat(data['patient'].id));$('#btnConsulter').attr('href','/consultations/create/'.concat(event.idPatient));
+// $('#btnDelete').attr('href','/rdv/'.concat(data['rdv'].id));$('#btnDelete').attr('href','/rdv/'.concat(event.idPatient));},error:function(data){ alert('error'); } });  }//todelete  */
       function ajaxEditEvent(event,bool)
       {
         url = "rdv" + '/' + event.id + '/edit';

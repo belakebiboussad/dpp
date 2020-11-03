@@ -136,7 +136,7 @@
 							@if($rdv->bedReservation) {{ $rdv->bedReservation->lit->nom}} @else<strong>/</strong>@endif
 							</td>
 							<td class="text-center">
-								<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $rdv->id }}" data-backdrop="false"><i class="fa fa-check"></i> &nbsp;Confirmer</button>
+								<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $rdv->id }}" data-backdrop="false" @if(!isset($rdv->bedReservation)) disabled @endif><i class="fa fa-check"></i> &nbsp;Confirmer</button>
 								@include('admission.modalForm.confirmEntreeProg')
 							</td>
 						</tr>
@@ -151,7 +151,7 @@
 							<td>@if(isset($demande->bedAffectation)) {{ $demande->bedAffectation->lit->nom}} @else <strong>/</strong> @endif </td>
 							
 							<td class="text-center">
-								<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $demande->id }}" data-backdrop="false"><i class="fa fa-check"></i> &nbsp;Confirmer</button>
+								<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $demande->id }}" data-backdrop="false" @if(!isset($demande->bedAffectation)) 'disabled' @endif><i class="fa fa-check"></i> &nbsp;Confirmer</button>
 								@include('admission.modalForm.confirmEntreeUrg')
 								
 							</td>

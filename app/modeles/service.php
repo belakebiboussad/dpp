@@ -18,10 +18,6 @@ class service extends Model
 	{
     return $this->hasMany('App\modeles\salle');    		
 	}
-  /*public function Type()
-  {
-    return $this->belongsTo('App\modeles\typeService','type');
-  }*/
-
+  /*public function Type(){  return $this->belongsTo('App\modeles\typeService','type'); }*/
 }
 

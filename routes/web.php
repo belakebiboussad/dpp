@@ -158,8 +158,7 @@ route::get('/demandeexbio/{id}','DemandeExbController@createexb');
 route::get('/showdemandeexb/{id}','DemandeExbController@print');
 route::get('/showdemandeexr/{id}','DemandeExamenRadio@print');
 Route::post('lit/affecter','LitsController@affecter')->name('lit.affecter');
-///laborontin
-route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');
+route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');///laborontin
 route::post('/uploadresultat','DemandeExbController@uploadresultat');
 route::get('/homelaboexb',function(){
     $demandesexb = App\modeles\demandeexb::where('etat','E')->get();

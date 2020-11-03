@@ -125,25 +125,8 @@ class LitsController extends Controller
       $lit->update([
         "affectation" =>1,
       ]);
-      return Response::json($affect);
-      // $services = service::all();
-      // if($id != 0) // {
-     
-      //   $demande = DemandeHospitalisation::find($id); //   return view('lits.affecte',compact('services','demande'));
-      // } // else// {// }
-     
-      
-      // if($request->ajax())  
-      // {
-       //   // $patient = patient::FindOrFail($id);
-      //   // $view = view("patient.ajax_patient_detail",compact('patient'))->render();
-      //   // return response()->json(['html'=>$view]);
-      // }else
-      // {
-        // }
-      // // if($id != 0)
-     // // {// // }
-      
+      if($request->ajax())  
+        return Response::json($affect);   
     }
     public function destroy($id)
     {

@@ -236,10 +236,10 @@ class PatientController extends Controller
     public function show($id)
     {  
       $patient = patient::FindOrFail($id);
+      //dd($patient->hospitalisations);
       $employe=Auth::user()->employ;
-
       $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();//->first();
-       $specialites = Specialite::all();
+      $specialites = Specialite::all();
       $grades = grade::all();
       return view('patient.show_patient',compact('patient','employe','correspondants','specialites','grades'));
     }
@@ -259,7 +259,7 @@ class PatientController extends Controller
           $hommes_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
           if($patient->Type != "4")
             $assure =  $patient->assure;//else $assure = new assur;//dd($assure);  
-          return view('patient.edit_patient',compact('patient','assure','hommes_c','grades'));
+          return view('patient.edit',compact('patient','assure','hommes_c','grades'));
         }else
         {
           $patient = patient::FindOrFail($id);

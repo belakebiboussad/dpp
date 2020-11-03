@@ -43,7 +43,6 @@ class RdvHospiController extends Controller
             "date_RDVh"         =>$request->dateEntree,
             "heure_RDVh"        =>$request->heure_rdvh,   
             "id_demande"        =>$request->id_demande,       
-            "etat_RDVh"         =>"en attente",
             "date_Prevu_Sortie" =>$request->dateSortiePre,
             "heure_Prevu_Sortie" =>$request->heureSortiePrevue,
     ]);
@@ -69,7 +68,7 @@ class RdvHospiController extends Controller
                                              })
                                              ->whereHas('demandeHospitalisation.Service',function($q) use ($ServiceID){
                                                   $q->where('id',$ServiceID);       
-                                             })->where('etat_RDVh','=','en attente')->get();
+                                             })->where('etat_RDVh','=',null)->get();
     return view('rdvHospi.liste',compact('rdvHospis'));
   }
   public function edit($id)
@@ -82,8 +81,9 @@ class RdvHospiController extends Controller
   public function update(Request $request,$id)
   {
     $rdvHospi = rdv_hospitalisation::find($id);
+
     if(isset($request->lit_id) && ($request->lit_id !=0)) // reserver le nouveau lit
-    { 
+    {  
       if(isset($rdvHospi->bedReservation))//$rdvHospi->has('bedReservation')
         $rdvHospi->bedReservation()->update([
           "id_lit" =>$request->lit_id 
@@ -94,33 +94,40 @@ class RdvHospiController extends Controller
           "id_lit" =>$request->lit_id,
         ]);
       }
+    }else
+    {
+      if(isset($rdvHospi->bedReservation))
+        {
+          //dd($rdvHospi->bedReservation);
+          $rdvHospi->bedReservation()->delete();
+          
+        }
     }
     $rdvHospi->update([//update un nouveu Rendez-Vous
           "date_RDVh"=>$request->dateEntree,
           "heure_RDVh"=>$request->heure_rdvh,   
-          "id_demande"=>$rdvHospi->demandeHospitalisation->id,       
-          "etat_RDVh"=>"en attente",
+          "id_demande"=>$rdvHospi->demandeHospitalisation->id,
           "date_Prevu_Sortie"=>$request->dateSortiePre,
           "heure_Prevu_Sortie" =>$request->heureSortiePrevue,
     ]);
-     return redirect()->action('RdvHospiController@getlisteRDVs');
+    return redirect()->action('RdvHospiController@getlisteRDVs');
   }
   public function show($id){  }
   public function destroy($id)
   {     
-      $rdvHospi =  rdv_hospitalisation::find($id); 
-      if(isset($rdvHospi->bedReservation))  
-        $rdvHospi->bedReservation()->delete();
-      $rdvHospi->demandeHospitalisation->etat ="valide";
-      $rdvHospi->demandeHospitalisation->save();
-      $rdvHospi->etat_RDVh="Annule";
-      $rdvHospi->save(); 
-      return redirect()->action('RdvHospiController@getlisteRDVs');
+    $rdvHospi =  rdv_hospitalisation::find($id); 
+    if(isset($rdvHospi->bedReservation))  
+      $rdvHospi->bedReservation()->delete();
+    $rdvHospi->demandeHospitalisation->etat ="valide";
+    $rdvHospi->demandeHospitalisation->save();
+    $rdvHospi->etat_RDVh=0;
+    $rdvHospi->save(); 
+    return redirect()->action('RdvHospiController@getlisteRDVs');
   }
   public function getRdvs($date)
   {
     $rdvs = rdv_hospitalisation::with('bedReservation.lit.salle.service','demandeHospitalisation.consultation.patient','demandeHospitalisation.Service')
-                                ->where('etat_RDVh','=','en attente')
+                                ->where('etat_RDVh','=',null)
                                 ->whereHas('demandeHospitalisation', function($q){
                                     $q->where('etat', 'programme');
                                 })->where('date_RDVh','=', $date)->get(); 
