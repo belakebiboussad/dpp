@@ -97,11 +97,7 @@ class RdvHospiController extends Controller
     }else
     {
       if(isset($rdvHospi->bedReservation))
-        {
-          //dd($rdvHospi->bedReservation);
-          $rdvHospi->bedReservation()->delete();
-          
-        }
+        $rdvHospi->bedReservation()->delete();
     }
     $rdvHospi->update([//update un nouveu Rendez-Vous
           "date_RDVh"=>$request->dateEntree,
