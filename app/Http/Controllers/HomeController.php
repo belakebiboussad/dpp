@@ -79,7 +79,6 @@ class HomeController extends Controller
                 return view('home.home_radiologue', compact('demandesexr')); 
                 break;
             case 14://chef de service
-                //return view('patient.index');
                 $meds = medcamte::all();
                 $dispositifs = dispositif::all();
                 $reactifs = reactif::all();
