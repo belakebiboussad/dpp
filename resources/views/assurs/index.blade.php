@@ -2,8 +2,9 @@
 @section('title','Rechercher un Fonctionnaire')
 @section('page-script')
 <script>
-	function XHRgetAssure()
+	function selectPatient(nom,prenom)
 	{
+		alert(nom);
 	}
 	$(document).ready(function(){
 		$(document).on('click','.findAssure',function(event){
@@ -11,14 +12,25 @@
 			$('#btnCreate').removeClass('hidden');
 			var matricule = $('#matricule').val();
 		       var nss = $('#nss').val();
-			$.ajax({
+		     	$.ajax({
 					type : 'get',
 					url : '{{URL::to('searchAssure')}}',
 					data:{'matricule':matricule,'nss':nss},
 					success:function(data,status, xhr){
-						$('#liste_assures').html(data);
+						if(data != "")
+						{
+							$('#assure').html(data[0]);
+							 if($('#widget').hasClass('invisible'))
+								$("#widget").removeClass('invisible');
+							 $('#liste_ayants').html(data[1]);	
+						}else
+						{	
+							$("#assure").empty();$("#liste_ayants").empty();
+							if(!$('#widget').hasClass('invisible'))
+								$("#widget").addClass('invisible');
+						}
 						$(".numberResult").html(xhr.getResponseHeader("count"));
-						$('#matricule').val('');$('#nss').val('');	
+						 $('#matricule').val('');$('#nss').val('');		
 					}
 			});
 		});
@@ -67,7 +79,6 @@
 					<a  class="btn btn-primary btn-xs hidden" href="{{ route('assur.create') }}" id=btnCreate role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>
 				</div>
 				@endif
-
 			</div>
 		</div><!-- panel -->
 	</div><!-- row -->
@@ -80,26 +91,49 @@
 				</div>
 				<div class="bodycontainer scrollable">
 					<table class="table table-striped table-bordered table-condensed table-scrollable">
-						<tr class="info"><th colspan="12">Selectionner dans la liste</th>
-						</tr>
+					<thead>
+						<tr class="info"><th colspan="12">Fonctionnaire</th></tr>
 						<tr class="liste">
-							<th hidden>id</th>
-							<th  class="center" width="3%" >#</th>
-							<th class="blue"  width="3%">Matricule</th>
-							<th class="blue" width="8%">Num Séc Soc</th>
-							<th class="blue">Nom</th>
-							<th class="blue">Prénom</th>
+						    	<th class="blue" width="9%">Nom</th>
+							<th class="blue" width="9%">Prénom</th>
+							<th class="blue" width="7%">Civilité</th>
+						       <th class="blue"  width="5%">Matricule</th>
+							<th class="blue" width="10%">Num Séc Soc</th>
 							<th class="blue" width="7%">Né(e) le</th>
-							<th class="blue" width="5%">Genre</th>
+							<th class="blue" width="6%">Genre</th>
 							<th class="blue" width="10%">Position Actuel</th>
-							<th class="blue" width="7%">Service</th>
+							<th class="blue" width="9%">Service</th>
+							<th class="blue" width="7%">Grade</th>
 							<th class="blue"><em class="fa fa-cog"></em></th>
 						</tr>
 						</thead>
-						<tbody id="liste_assures">
-						</tbody>
+						<tbody id="assure"></tbody>
 					</table>
 				</div>
-	</div>
+			</div>
+		</div>
+	</div>	{{-- roww --}}
+	<div  class="space-12 "></div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="widget-box transparent invisible"  id ="widget">
+				<div class="widget-header widget-header-flat widget-header-small"></div>
+				<div class="bodycontainer scrollable">
+					<table class="table table-striped table-bordered table-condensed table-scrollable">
+						<thead>
+							<tr class="info"><th colspan="12"><i class="ace-icon fa fa-table"></i>Ayants droits</th></tr>
+							<tr class="liste">
+						    		 <th class="blue" width="25%">Prénom</th>
+								<th class="blue" width="20%">Relation</th>
+								<th class="blue"><em class="fa fa-cog"></em></th>	
+							</tr>
+						</thead>
+						<tbody id="liste_ayants"></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6"></div>
+	</div>{{-- row --}}
 </div>
 @endsection

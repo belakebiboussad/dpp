@@ -395,22 +395,12 @@ if(((in_array($patient->Type, $ayants)) && ($request->type =="0")) || (in_array(
                 return redirect() -> route('patient.index');
         }
       }
-    public function getpatient()
-    {
-        $patients = patient::select(['id','IPP','Nom', 'Prenom', 'Dat_Naissance','Sexe','Date_creation']);
-        return Datatables::of($patients)
-            ->addColumn('action', function ($patient) {
-                return '<div class="hidden-sm hidden-xs btn-group">
-                            <a class="btn btn-xs btn-success" href="/patient/'.$patient->id.'">
-                                <i class="ace-icon fa fa-hand-o-up bigger-120"></i>
-                            </a>
-                            <a class="btn btn-xs btn-info" href="'.route('patient.edit',$patient->id).'">
-                                <i class="ace-icon fa fa-pencil bigger-120"></i>
-                            </a>
-                        </div>';
-            })
-            ->make(true);
-    }
+   /*
+    public function getpatient() {
+        $patients = patient::select(['id','IPP','Nom', 'Prenom', 'Dat_Naissance','Sexe','Date_creation']);return Datatables::of($patients)   ->addColumn('action', function ($patient) {
+                         return '<div class="hidden-sm hidden-xs btn-group">  <a class="btn btn-xs btn-success" href="/patient/'.$patient->id.'"><i class="ace-icon fa fa-hand-o-up bigger-120"></i> </a>  <a class="btn btn-xs btn-info" href="'.route('patient.edit',$patient->id).'"> <i class="ace-icon fa fa-pencil bigger-120"></i>   </a> </div>';
+        }) ->make(true);  }*/
+  
     public function getpatientconsult()
     {
         $patientes = patient::select(['id','IPP','Nom', 'Prenom', 'Dat_Naissance','Sexe','Adresse','Type','Date_creation']);
@@ -464,8 +454,8 @@ if(((in_array($patient->Type, $ayants)) && ($request->type =="0")) || (in_array(
     {
       if($request->ajax())  
       {           
-        $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->select('patients.id','patients.Nom','patients.IPP','patients.Prenom')->get(); 
-        return ['success' => true, 'data' => $patients]; 
+                $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->select('patients.id','patients.Nom','patients.IPP','patients.Prenom')->get(); 
+                return ['success' => true, 'data' => $patients]; 
       }
     }
   public function search(Request $request)
@@ -478,17 +468,17 @@ if(((in_array($patient->Type, $ayants)) && ($request->type =="0")) || (in_array(
   }
   public function getPatientDetails($id)
   { 
-    $patient = patient::FindOrFail($id);
-    if($patient->Type !="Autre")
-    {
-      $assure=  assur::FindOrFail($patient->Assurs_ID_Assure); 
-      $view = view("patient.ajax_patient_detail",compact('patient','assure'))->render();
-    }
-    else
-    {
-      $view = view("patient.ajax_patient_detail",compact('patient'))->render();
-    }
-    return response()->json(['html'=>$view]);
+          $patient = patient::FindOrFail($id);
+          if($patient->Type !="Autre")
+          {
+            $assure=  assur::FindOrFail($patient->Assurs_ID_Assure); 
+            $view = view("patient.ajax_patient_detail",compact('patient','assure'))->render();
+          }
+          else
+          {
+            $view = view("patient.ajax_patient_detail",compact('patient'))->render();
+          }
+          return response()->json(['html'=>$view]);
   }
 
   public function AutoCompletePatientField(Request $request)
@@ -501,8 +491,6 @@ if(((in_array($patient->Type, $ayants)) && ($request->type =="0")) || (in_array(
     }
     return response()->json($response);     
   } 
-
-
   public function patientsToMerege(Request $request)
   {
      $statuses = array();
@@ -524,8 +512,7 @@ if(((in_array($patient->Type, $ayants)) && ($request->type =="0")) || (in_array(
                continue;
           }// Multiple values
            $statuses[$field] = count(array_unique($values)) == 1 ? "duplicate" : "multiple";
-       }
-       // Count statuses
+       }// Count statuses
        $counts = array(
               "none"      => 0,
               "unique"    => 0,
