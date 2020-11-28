@@ -169,15 +169,8 @@ class AssurController extends Controller
         }
         /*
         public function searchold(Request $request)
-       {
-              if($request->ajax())  
-              {
-                     $output="";  
-                     $assures =   assur::where('Matricule', 'like', '%' . request('matricule') . '%')->where('NSS', 'LIKE', '%' . request('nss') . "%")->get(); 
-                      if($assures)  
-                      {
-                            $i=0;
-                              foreach ($assures as $key => $assure)
+       {  if($request->ajax())  {   $output="";     $assures =   assur::where('Matricule', 'like', '%' . request('matricule') . '%')->where('NSS', 'LIKE', '%' . request('nss') . "%")->get(); 
+  if($assures)   { $i=0; foreach ($assures as $key => $assure)
                               { $i++;     $sexe =  ($assure->Sexe =="M") ? "Homme":"Femme";   $grade = (isset($assure->grade) )? $assure->grade->nom :"";  
                                      $service= "";
                                      switch($assure->Service) 
