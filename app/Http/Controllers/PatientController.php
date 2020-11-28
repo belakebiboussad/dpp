@@ -460,11 +460,11 @@ if(((in_array($patient->Type, $ayants)) && ($request->type =="0")) || (in_array(
     }
   public function search(Request $request)
   {
-    if($request->ajax())  
-    {
-      $patients = patient::where($request->field,'LIKE','%'.trim($request->value)."%")->where('active','=',1)->get();
-      return Response::json($patients);
-    }
+      if($request->ajax())  
+      {
+        $patients = patient::where($request->field,'LIKE','%'.trim($request->value)."%")->where('active','=',1)->get();
+        return Response::json($patients);
+      }
   }
   public function getPatientDetails($id)
   { 
