@@ -129,7 +129,7 @@ class AssurController extends Controller
                       }else{
                               return("Non");
                       }
-         }
+        }
         public function search(Request $request)
         {
                if($request->ajax())  
@@ -140,31 +140,39 @@ class AssurController extends Controller
                       {                              
                             $assure = $handle->SelectPersonnel(trim($request->matricule),trim($request->nss));   
                              if($assure->Nom != null)
-                            {
-                                     $ayants .='<tr><td>'.$assure->Conjoint.'</td><td><span clas="badge">Conjoint(e)</span></td>'.
+                            {   
+                                    if(trim($assure->Position) != "Revoque")
+                                     {
+                                           $ayants .='<tr><td>'.$assure->Conjoint.'</td><td><span clas="badge">Conjoint(e)</span></td>'.
                                                     '<td class="center">'.'<a href="" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Selectionner" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'.'</td></tr>'. '<tr>'.'<td>'. $assure->Pere.'</td>'. '<td>'.'Pere'.'</td>'.'<td class="center">'.'<a href="" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Selectionner" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'.'</td></tr>'. '<tr>'.'<td>'. $assure->Mere.'</td>'. '<td>'.'Mere'.'</td>'.'<td class="center">'.'<a href="" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Selectionner" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'.'</td></tr>' ;
-                                     $enfants = explode ( '|' , $assure->Enfants);
-                                    foreach ($enfants as $key => $enfant) {
-                                          $ayants .='<tr><td>'.$enfant.'</td><td>Ascendant'.'</td>'.'<td class="center">'.
-                                          '<button onclick= "selectPatient(\''.trim($assure->Nom).'\',\''.trim($enfant).'\');" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Selectionner" ><i class="fa fa-hand-o-up fa-xs"></i></button>'.
-                                          '</td></tr>';
-                                    } 
-                                      $sexe =  ($assure->Genre =="M") ? "Masculin":"Féminin"; 
+                                 
+                                            $enfants = explode ( '|' , $assure->Enfants);
+                                            foreach ($enfants as $key => $enfant) {
+                                                    $ayants .='<tr><td>'.$enfant.'</td><td>Ascendant'.'</td>'.'<td class="center">'.
+                                                           '<button onclick= "selectPatient(\''.trim($assure->Nom).'\',\''.trim($enfant).'\');" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Selectionner" ><i class="fa fa-hand-o-up fa-xs"></i></button>'.
+                                                           '</td></tr>';
+                                           } 
+                                     }               
+                                     $sexe =  ($assure->Genre =="M") ? "Masculin":"Féminin"; 
+                                     $action ="";
+                                     if(trim($assure->Position) != "Revoque")
+                                           $action = '<a href="" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Selectionner" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>';     
+                                    else
+                                            $action = '<b><span class="badge badge-danger">Révoqué</span></b>';
                                      $output.='<tr><td>'.$assure->Nom.'</td>'.'<td>'.$assure->Prenom.'</td>'.'<td>'.$assure->SituationFamille.'</td>'.
                                      '<td><span class="badge">'.$assure->Matricule.'</span></td>'. '<td>'.$assure->NSS.'</td>'. 
                                       '<td>'. Carbon\Carbon::parse($assure->Date_Naissance)->format('Y-m-d') .'</td>'. '<td>'.$sexe.'</td>'.
                                      '<td><span class="badge badge-success">'.$assure->Position.'</span></td>'.
                                      '<td>'.$assure->service.'</td>'. '<td>'.$assure->Grade.'</td>'.
-                                     '<td class="center">'.'<a href="" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Selectionner" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i>&nbsp;</a>'."&nbsp;&nbsp;".'</td></tr>';                                      
+                                     '<td class="center">'.$action.'</td></tr>';                                      
                                      return Response([$output,$ayants])->withHeaders(['count' =>1]);
                               }else
                               {
                                      return Response(null)->withHeaders(['count' =>0]);
                               }
                          
-                      }else{
+                      }else
                               return("Non");
-                      }
               }
         }
         /*
