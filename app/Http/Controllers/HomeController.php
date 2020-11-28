@@ -59,7 +59,7 @@ class HomeController extends Controller
                   return redirect()->action('RdvHospiController@index');
                   break;
             case 6:
-                  return redirect()->action('ColloqueController@index',Auth::user()->employ->Service->Type->id);
+                  return redirect()->action('ColloqueController@index',Auth::user()->employ->Service->type);
                   break;
             case 9: //agent Admission
                     return redirect()->action('AdmissionController@index');
@@ -79,7 +79,6 @@ class HomeController extends Controller
                 return view('home.home_radiologue', compact('demandesexr')); 
                 break;
             case 14://chef de service
-                //return view('patient.index');
                 $meds = medcamte::all();
                 $dispositifs = dispositif::all();
                 $reactifs = reactif::all();

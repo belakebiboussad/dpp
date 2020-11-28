@@ -89,10 +89,24 @@
 			</div>
 			<div class="profile-user-info profile-user-info-striped">
 				<div class="profile-info-row">
-					<div class="profile-info-name"> Position actuelle </div>
+					<div class="profile-info-name">Position</div>
 					<div class="profile-info-value">
 						<span class="label label-purple arrowed-in-right">
-							<i class="ace-icon fa fa-circle smaller-80 align-middle"></i>{{ $assure->Etat  }}
+							<i class="ace-icon fa fa-circle smaller-80 align-middle"></i>
+							@switch($assure->Etat)
+   					    	@case(0)
+     									Activité
+        							@break
+    							@case(1)
+       								Retraite
+        						 @break
+        					@case(3)
+        							Congé Maladie
+        							@break
+        					@default
+        						  Révoqué
+        							@break
+									@endswitch
 						</span>
 						</div>
 					</div>
@@ -161,7 +175,7 @@
 									<th class= "center"> <strong>Nom</strong></th>
 									<th class= "center"><strong>Prénom</strong></th>
 									<th class= "center"><strong>Né(e) le</strong></th>
-									<th class= "center"><strong>Relation</strong></th>
+									<th class= "center"><strong>Type</strong></th>
 									<th class= "center"><em class="fa fa-cog"></em></th>
 								</tr>
 							</thead>
@@ -174,17 +188,32 @@
 								<td> {{ $patient->Prenom}}</td>
 								<td> {{ $patient->Dat_Naissance }}</td>
 								<td>
-									@if( $patient->Type == "Assure")
-										 <span class="badge badge-primary">{{ $patient->Type }}</span>
-									@else
-										{{-- @if($patient->Type_p == "Conjoint(e)")<span class="badge badge-success">{{ $patient->Type_p}}</span>@else --}}
-										 <span class="badge badge-info">{{ $patient->Type_p}}</span>
-									@endif
+								 	@switch($patient->Type)
+								 			@case("0")
+     											<span class="label label-sm label-success"><strong>Assure</strong></span>
+        									@break
+    									@case("1")
+       										<span class="label label-sm label-warning"><strong>Conjoint(e)</strong></span>
+        									@break
+        							@case("2")
+        									<span class="label label-sm label-danger"><strong>Ascendant</strong></span>
+        									@break
+        							@case("3")
+        									<span class="label label-sm label-danger"><strong>Descendant</strong></span>
+        									@break
+        							@case("4")
+        									<span class="label label-sm label-danger"><strong>Autre</strong></span>
+        									@break		
+        								@default
+      										<span class="label label-sm label-success">{{$patient->Type}}</span>
+      										@break
+      						@endswitch
+
 								</td>
 								<td class= "center">
 									<a href="/patient/{{ $patient->id }}" class="btn btn-warning btn-xs" data-toggle="tooltip" title="Consulter le dossier">
 										<i class="fa fa-hand-o-up fa-xs"></i>
-									</a>	<!-- /patient/{{ $patient->id }}/edit -->
+									</a>
 									<a href="patientAedit/{{ $patient->id  }}/{{ $assure->id  }}" class="btn btn-info btn-xs" data-toggle="tooltip" title="modifier">
 										<i class="fa fa-edit fa-xs" aria-hidden="true" ></i>
 									</a>

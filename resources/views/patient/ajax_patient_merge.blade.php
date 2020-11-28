@@ -122,22 +122,6 @@
 		           <td><input  type="radio" name="choixType" onclick="setField('Type', '{{ $patient1->Type }}');" checked>{{ $patient1->Type }}</td>
 		           <td><input type="radio" name="choixType" onclick="setField('Type','{{ $patient2->Type }}');">{{ $patient2->Type }}</td>
 		</tr>
-		@if(($patient1->Type == "Ayant_droit") || ($patient2->Type == "Ayant_droit")  )
-		<tr class="{{ $statuses['Type_p'] }}">
-			<td align="center"><strong>Relation</strong></td>
-			<td><input type="text" id ="Type_p" name="Type_p" value=" {{ $patientResult->Type_p }}"/>	</td>
-		       <td>
-		       @if($patient1->Type == "Ayant_droit" )
-		       	<input  type="radio" name="choixType_p" onclick="setField('Type_p', '{{ $patient1->Type_p }}');" checked>{{ $patient1->Type_p }}
-		       @endif
-		       </td>
-		       <td>
-		       @if($patient2->Type == "Ayant_droit" )
-		       <input type="radio" name="choixType_p" onclick="setField('Type_p','{{ $patient2->Type_p }}');">{{ $patient2->Type_p }}
-		       @endif
-		       </td>
-		</tr>
-		@endif
 		<tr class="{{ $statuses['description'] }}">
 			<td align="center"><strong>Description</strong></td>
 			<td><input type="text" id ="description" name="description" value=" {{ $patientResult->description }}"/>	</td>

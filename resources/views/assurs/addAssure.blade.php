@@ -103,10 +103,10 @@
 			<div class="col-sm-9">
 				<select name="etatf" id="etatf" class="col-xs-12 col-sm-12">
 					<option value="">Sélectionner...</option>
-					<option value="Activite">Activité</option>
-					<option value="Retraite">Retraite</option>
-					<option value="conge_maladie" >Congé Maladie.</option>
-					<option value="Revoque" >Révoqué</option>
+					<option value="0">Activité</option>
+					<option value="1">Retraite</option>
+					<option value="2" >Congé Maladie.</option>
+					<option value="3" >Révoqué</option>
 				</select>
 
 			</div>

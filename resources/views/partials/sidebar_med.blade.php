@@ -226,19 +226,14 @@
         var erreur =true;
         var nom = $('#nom').val(); var prenom = $('#prenom').val();
         var idlieunaissance = $('#idlieunaissance').val();
-        var datenaissance = $('#datenaissance').val();  
-        var mobile1 = $('#mobile1').val();
-        var inputAssVal = new Array(mobile1,idlieunaissance,datenaissance,prenom,nom);
-        var inputMessage = new Array("Téléphone mobile 1","Lieu de Naissance","Date de Naissance","Prenom","Nom");
-        if($("input[type=radio][name='type']:checked").val() == "Ayant_droit")
-        {
-          inputAssVal.unshift($("#Type_p").val());
-          inputMessage.unshift("Type");
-        }
+        var datenaissance = $('#datenaissance').val();//var mobile1 = $('#mobile1').val();mobile1,"Téléphone mobile 1",  
+        var type = $('#type').val();
+        var inputAssVal = new Array(idlieunaissance,datenaissance,prenom,nom);
+        var inputMessage = new Array('Type',"Lieu de Naissance","Date de Naissance","Prenom","Nom");
         $('.error').each(function(i, obj) {
           $(obj).next().remove();
           $(obj).detach();
-       });
+        });
         jQuery.each( inputAssVal, function( i, val ) {
           if(val =="" )
           {
@@ -314,15 +309,27 @@
         $('.nav-pills a[href="#' + tab + '"]').tab('show');
       }
       function copyPatient(){ 
-        $("#nomf").val($("#nom").val()); $("#prenomf").val($("#prenom").val());
-        $("#datenaissancef").val($("#datenaissance").val());$("#lieunaissancef").val($("#lieunaissance").val()); 
-        $("#idlieunaissancef").val($("#idlieunaissance").val());$("input[name=sexef][value=" + $('input[name=sexe]:radio:checked').val() + "]").prop('checked', true);
-        $( "#gsf" ).val($( "#gs" ).val());$( "#rhf" ).val($( "#rh" ).val());$('#adressef').val($('#adresse').val());
-        $('#communef').val($('#commune').val());$('#idcommunef').val($('#idcommune').val());$('#idwilayaf').val( $('#idwilaya').val()); $('#wilayaf').val($('#wilaya').val());
-        $("#foncform").addClass('hide');$('#Type_p').attr('required', false);$('#nsspatient').attr('disabled', true);
-        $('.Asdemograph').find('*').each(function () { $(this).attr("disabled", true); });
-        addRequiredAttr();
+              $("#nomf").val($("#nom").val());
+              $("#prenomf").val($("#prenom").val());
+              $("#datenaissancef").val($("#datenaissance").val());
+              $("#lieunaissancef").val($("#lieunaissance").val()); 
+              $("#idlieunaissancef").val($("#idlieunaissance").val());
+              var sexe = $('input[name=sexe]:radio:checked').val();
+              $('#sexef').val(sexe);             
+              $( "#gsf" ).val($( "#gs" ).val());$( "#rhf" ).val($( "#rh" ).val());
+              $('#adressef').val($('#adresse').val());
+              $('#communef').val($('#commune').val());
+              $('#idcommunef').val($('#idcommune').val());$('#idwilayaf').val( $('#idwilaya').val()); 
+              $('#wilayaf').val($('#wilaya').val());//$("#foncform").addClass('hide');//$('#nsspatient').attr('disabled', true);
+              $('.Asdemograph').find('*').each(function () { $(this).attr("disabled", true); });
+              addRequiredAttr();
        }
+      function copyPatientInfo()
+      {
+             if($("#type").val() =="0")
+                    copyPatient();
+      }
+      ////avoir
       if ($("#addGardeMalade").length > 0) {
         $("#addGardeMalade").validate({
             rules: {
@@ -338,6 +345,7 @@
           }
         });
       }
+      //a voir ce lui den haut
       function showConsult(consultId)
       {
         url= '{{ route ("consultdetailsXHR", ":slug") }}',
@@ -399,16 +407,16 @@
           }else
             $('#Div-nomjeuneFille').attr('hidden','');      
         });
-       $( "#etatf" ).change(function() {
-             if($(this).val() != "Activite" && ($(this).val() != "Activite"))
-             {
-                   $('#serviceFonc').addClass('invisible');
-                   $('#service option:eq(0)').prop('selected', true);
-             }
-            else
-                    $('#serviceFonc').removeClass('invisible');   
-      });
-       if($( "#etatf" ).val() != "Activite"  )
+        $( "#etatf" ).change(function() {
+          if($(this).val() != 0)
+          {
+            $('#serviceFonc').addClass('invisible');
+            $('#service option:eq(0)').prop('selected', true);
+          }
+          else
+            $('#serviceFonc').removeClass('invisible');   
+       });
+       if($( "#etatf" ).val() != "0"  )
            $('#serviceFonc').addClass('invisible');
       $('#listeGardes').DataTable({ //homme/garde  
           colReorder: true,

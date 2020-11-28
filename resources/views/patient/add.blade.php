@@ -3,28 +3,46 @@
 @section('page-script')
  <script>
   	$( document ).ready(function() {
- 			$( "#addPatientForm" ).submit(function( event ) {
-		  if( ! checkPatient() )
-      {
-        activaTab("Patient");
-        event.preventDefault();
-      }else{
-      	if(!($('#autre').is(':checked'))){ 
-					$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });	
-					if( ! checkAssure() )
-					{
-					  activaTab("Assure");
-					  event.preventDefault();
-					}
-					else
-					{
-						if($('#hommeConf').is(':checked')){
+  		$('#type').change(function(){
+  			if( $('#type').val() == "0")
+  			{
+  				$("#foncform").addClass('hide');//copyPatient();
+  				addRequiredAttr();
+  			}
+  			else if(($('#type').val() == "1") ||($('#type').val() == "2")||($('#type').val() == "3"))
+  			{
+  				$("#foncform").removeClass('hide');
+			    addRequiredAttr();
+  			}else
+  			{
+  				$(".starthidden").show(250);
+  				$('.Asdemograph').find('*').each(function () {$(this).attr("disabled", true);});
+			    $("#foncform").addClass('hide');
+			    $("ul#menuPatient li:eq(0)").css('display', 'none');	
+  		 }
+  	  });
+ 	  	$( "#addPatientForm" ).submit(function( event ) {
+			  if( ! checkPatient() )
+      	{
+        	activaTab("Patient");
+        	event.preventDefault();
+      	}else{
+      		if(($('#type').val() != "4" )){ //if(!($('#autre').is(':checked'))){ 
+      			$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });	
+						if( ! checkAssure() )
+						{
+						  activaTab("Assure");
+					  	event.preventDefault();
+						}
+						else
+						{
+							if($('#hommeConf').is(':checked')){
 							if( ! checkHomme() )
-              {
-                activaTab("Homme_C");
-              	event.preventDefault();
-              }else
-                $( "#addPatientForm" ).submit();
+              					{
+              						  activaTab("Homme_C");
+              						event.preventDefault();
+              					}else
+                						$( "#addPatientForm" ).submit();
 						}else
 						{
 							$( "#addPatientForm" ).submit();
@@ -33,52 +51,20 @@
 				}
 				else
 				{
-					if($('#hommeConf').is(':checked')){
-							if( ! checkHomme() )
-              {
-                activaTab("Homme_C");
-              	event.preventDefault();
-              }else
-                $( "#addPatientForm" ).submit();
-						}else
-							$( "#addPatientForm" ).submit();
+					if($('#hommeConf').is(':checked'))
+					{
+						if( ! checkHomme() )
+					      {
+					             activaTab("Homme_C");
+					           	event.preventDefault();
+					       }else
+					             $( "#addPatientForm" ).submit();
+					}else
+						$( "#addPatientForm" ).submit();
 				}
-	    }    
+			 }    
 		});
 	});
-	function copyPatientInfo()
-	{
-		if($('#fonc').is(':checked'))
-			copyPatient();
-	}
-	function showType(value,i){ 
-	  switch(value){
-			case "Assure":
-		   				copyPatient();  
-		  				$(".starthidden").hide(250);
-				   		break;
-			case "Ayant_droit":
-							$("#nomf").val("");$("#prenomf").val("");$("#datenaissancef").val('');
-			        $("#lieunaissancef").val('');$( "#gsf" ).val('');$( "#rhf" ).val('');
-			        $('#adressef').val(''); $('#communef').val('');$('#wilayaf').val('');
-			        $("#foncform").removeClass('hide');
-			        $('#Type_p').attr('required', true); 
-		        	if ($("#nsspatient").is(":disabled")){$("#nsspatient").attr("disabled", false);
-		        	}
-			        $('.Asdemograph').find('*').each(function () {$(this).attr("disabled", false);});
-			        addRequiredAttr();
-			        break;
-		  case "Autre":
-		      		$(".starthidden").show(250);
-		      	  $('#description').attr('disabled', false); 
-							$('.Asdemograph').find('*').each(function () {$(this).attr("disabled", true);});
-			        $("#foncform").addClass('hide');
-			        $('#Type_p').attr('required', false); 
-			      	if(! ($( "ul#menuPatient li:eq(0)" ).hasClass( "hidden" )))
-          				$( "ul#menuPatient li:eq(0)" ).addClass( "hidden" );
-			        break;         
-			}			
-	}
 </script>
 @endsection
 @section('main-content')
@@ -102,8 +88,10 @@
 				</div>
 			</div>
 	    <ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
-			   	<li class="active"><a data-toggle="tab" href="#Assure" class="jumbotron" onclick="copyPatientInfo();">
-			    		<span class="bigger-130"><strong>Assure</strong></span></a>
+			   	<li class="active">
+			   		<a data-toggle="tab" href="#Assure" class="jumbotron" onclick="copyPatientInfo();">
+			    		<span class="bigger-130"><strong>Assure</strong></span>
+			    	</a>
 					</li>
 					<li ><a class="jumbotron" data-toggle="tab" href="#Patient">
 						<span class="bigger-130"><strong>Patient</strong></span></a>

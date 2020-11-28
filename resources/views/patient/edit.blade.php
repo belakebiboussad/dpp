@@ -2,72 +2,86 @@
 @section('title','modifier  le patient')
 @section('page-script')
 <script>
-	function showTypeEdit(value,i){
-		switch(value){
-			case "Assure":
-				if(i !=0)
- 				{
- 					$( "#etatf" ).val('Activite'); $('#service option:eq(0)').prop('selected', true);$('#serviceFonc').removeClass('invisible'); 	
- 					$('#grade option:eq(0)').prop('selected', true);$("#matf").val("");$("#nss").val("");$("#NMGSN").val("");
-				}
-				copyPatient();
-			  	break;
-		  	case "Ayant_droit":
-				if(i !=0)
-			  	{
-  	      				$("#nomf").val("");$("#prenomf").val(""); $("#datenaissancef").val("");$("#lieunaissancef").val("");$("select#grade").prop('selectedIndex', 0);
-         				$("#matf").val(""); $("#NMGSN").val("");	$('#nsspatient').val("");$('#adressef').val("");$('#gsf option:eq(0)').prop('selected', true);
-         				$('#grade option:eq(0)').prop('selected', true);$('#service option:eq(0)').prop('selected', true);	$("#nss").val("");
-			  	}
-			  	$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });
-				$("#foncform").removeClass('hide');  $('#Type_p').attr('required', true);  $('#nsspatient').attr('disabled', false); 
-				addRequiredAttr();
-		               break;
-  			case "Autre":
-  				$(".starthidden").show(250);$('#description').attr('disabled', false); 
-  				$("#foncform").addClass('hide'); 
-      				if(! ($( "ul#menuPatient li:eq(0)" ).hasClass( "hidden" )))
-  				$( "ul#menuPatient li:eq(0)" ).addClass( "hidden" );
-  				$('#nomf').attr('required', false); $('#prenomf').attr('required', false);$('#nsspatient').attr('disabled', true); $('#Type_p').attr('required', false);  
-    		       	 break;         
-		}			
+	function showTypeEdit(i)
+	{
+	  var value = $("#type").val();
+  	if( value == "0")
+  	{
+	  	if(i !=0)
+	 		{
+	 			$('#Assure').find('input').val('');//copyPatient();
+	 			$('#Assure').find("select").prop("selectedIndex",0);
+	 			$('#description').val('');
+	 			addRequiredAttr();
+			}
+			$("#foncform").addClass('hide');
+		}		
+  	else if(($('#type').val() == "1") ||($('#type').val() == "2")||($('#type').val() == "3"))
+  	{
+  		if(i !=0)
+		  {
+		   	if(('{{ $patient->Type }}' == "0"))
+		  	{
+		  		$('#Assure').find('input').val('');//copyPatient();
+			    $('#Assure').find("select").prop("selectedIndex",0);
+			    $('#description').val('');
+
+	      }
+		  }
+			$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });
+			$("#foncform").removeClass('hide');
+			$('#nsspatient').attr('disabled', false); 
+			addRequiredAttr();
+		}else
+  	{
+  		$(".starthidden").show(250);$('#description').attr('disabled', false); 
+			$("#foncform").addClass('hide'); 
+			if(! ($( "ul#menuPatient li:eq(0)" ).hasClass( "hidden" )))//$("ul#menuPatient li:eq(0)").css('display', 'none');
+			 $( "ul#menuPatient li:eq(0)" ).addClass( "hidden" );// $('#nomf').attr('required', false);// $('#nomf').attr('required', false);// $('#prenomf').attr('required', false);// $('#nss').attr('required', false);
+			$('#Assure').find('input').prop("required",false);
+ 			$('#Assure').find("select").prop("required",false);
+			$('#nsspatient').attr('disabled', true);  
+  	}
 	}
   function checkFormAddPAtient()
   {  
-    if(!($('#autre').is(':checked'))){ 
+    if(($('#type').val() != "4" ))
+    { 
       $('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });
       if( ! checkAssure() )
       {
-        activaTab("Assure");
-        return false;
+      	activaTab("Assure");
+      	return false;
       }else{
-        if($('#hommeConf').is(':checked')){
-              if( ! checkHomme() )
-              {
-                activaTab("Homme_C");
-                return false;
-              }else
-                return true;  
-          }else{
-              return true;   
-          }
-          return true;
+     		if($('#hommeConf').is(':checked')){
+       		if( ! checkHomme() )
+       		{
+       			activaTab("Homme_C");
+       			return false;
+       		}else
+            return true;  
+       	}else{
+          return true;   
+        }
+        return true;
       }
     }else{
-            if($('#hommeConf').is(':checked')){
-                if( ! checkHomme() )
-                {
-                       activaTab("Homme_C");
-                     return false;
-                 }else
-                      return true;  
-            }else
-                 return true; 
+    		$("#etatf").prop("disabled", true);
+				$('#Assure').find('input').prop("disabled", true).attr('required', false);//$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", true); });
+				if($('#hommeConf').is(':checked')){
+          if( ! checkHomme() )
+          {
+            activaTab("Homme_C");
+            return false;
+          }else
+                  return true;  
+        }else
+             return true; 
     }  
   }
 	$(document).ready(function(){
-		var value =  $("input[type=radio][name='type']:checked").val();
-	  showTypeEdit(value,0);
+	  showTypeEdit(0);//var value = $("#type").val();
+	  
 	});     
 </script>
 @endsection
@@ -99,10 +113,12 @@
 		</div>
 	</div>
 	<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
-		  <li  class=" @if($patient->Type !="Autre") active @else hidden  @endif"><a data-toggle="tab" href="#Assure" >
-	    		<span class="bigger-130"><strong>Assure</strong></span></a>
+		<li class=" @if($patient->Type !="4") active @else hidden  @endif">
+		  <a data-toggle="tab" href="#Assure" data-toggle="tab" onclick="copyPatientInfo();">
+	    	<span class="bigger-130"><strong>Assure</strong></span>
+	    </a>
  		</li>
-	 	<li class=" @if($patient->Type =="Autre") active  @endif" ><a data-toggle="tab" href="#Patient">
+	 	<li class=" @if($patient->Type =="4") active  @endif" ><a data-toggle="tab" href="#Patient">
 	   	 	<span class="bigger-130"><strong>Patient</strong></span></a>
 	   	</li>
 		 <li  id ="hommelink" @if(count($hommes_c) == 0)  class="invisible" @endif><a data-toggle="tab" href="#Homme">
@@ -110,18 +126,16 @@
 		  </li>
 	</ul>	
   <div class="tab-content">
-  		<div id="Assure" class='tab-pane fade @if($patient->Type =="Autre")  invisible @else in active  @endif '>
-     			@include('assurs.editAssure')
-     		</div>{{-- tab-pane Assure --}} 
-	<div id="Patient" class="tab-pane fade @if($patient->Type =="Autre")   in active  @endif">
-		<div class="row">
-    			<div class="col-sm-12">
-				<h3 class="header smaller lighter blue">Informations administratives</h3>
+  	<div id="Assure" class='tab-pane fade @if($patient->Type =="4") invisible @else in active  @endif '>
+    	@include('assurs.editAssure')
+    </div>
+		<div id="Patient" class="tab-pane fade @if($patient->Type =="4")   in active  @endif">
+			<div class="row">
+    		<div class="col-sm-12"><h3 class="header smaller lighter blue">Informations administratives</h3></div>
 			</div>
-    		</div>
-    		<div class="row">
-			<div class="col-sm-6">
-				<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
+    	<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
 					<label class="col-sm-3 control-label" for="nom"><strong>Nom :</strong></label>
 					<div class="col-sm-9">
 						<input type="text" id="nom" name="nom" placeholder="Nom..." value="{{ $patient->Nom }}" class="col-xs-12 col-sm-12" autocomplete= "off" required alpha />
@@ -138,9 +152,9 @@
 					</div>
 				</div>
 			</div>{{-- col-sm-6	 --}}
-      		</div>  {{-- row --}}
-      		<div class="row">
-      			<div class="col-sm-6">
+    </div>  {{-- row --}}
+    <div class="row">
+    	<div class="col-sm-6">
 				<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
 					<label class="col-sm-3 control-label" for="datenaissance"><strong>Né(e) le :</strong></label>
 					<div class="col-sm-9">
@@ -152,20 +166,20 @@
 			<div class="col-sm-6">
 				<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
 					<label class="col-sm-3 control-label" for="lieunaissance"><strong class="text-nowrap">Né(e) à :</strong></label>
-				      <div class="col-sm-9">
-					       <input type="hidden" name="idlieunaissance" id="idlieunaissance" value={{ $patient->Lieu_Naissance }}>
-					      <input type="text" id="lieunaissance" class="autoCommune col-xs-12 col-sm-12" value="{{ $patient->lieuNaissance->nom_commune }}" required/>
-						    {!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
-				       </div>
+				  <div class="col-sm-9">
+						<input type="hidden" name="idlieunaissance" id="idlieunaissance" value={{ $patient->Lieu_Naissance }}>
+						<input type="text" id="lieunaissance" class="autoCommune col-xs-12 col-sm-12" value="{{ $patient->lieuNaissance->nom_commune }}" required/>
+					  {!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
+				  </div>
 				</div>
-   			  </div>
-      		</div>  {{-- row --}}
-      	  	<div class="row">
-	      		<div class="col-sm-6">
-				<div class="form-group {{ $errors->has('sexe') ? "has-error" : "" }}">
-					<label class="col-sm-3 control-label" for="sexe"><strong>Genre :</strong></label>
-					<div class="col-sm-9">
-						<div class="radio">
+   		</div>
+      </div>  {{-- row --}}
+      <div class="row">
+	    	<div class="col-sm-6">
+			  	<div class="form-group {{ $errors->has('sexe') ? "has-error" : "" }}">
+				  	<label class="col-sm-3 control-label" for="sexe"><strong>Genre :</strong></label>
+					  <div class="col-sm-9">
+						  <div class="radio">
 							<label>
 							<input name="sexe" value="M" type="radio" class="ace" {{ $patient->Sexe == "M" ? "checked" : ""}}/>
 								<span class="lbl"> Masculin</span>
@@ -174,14 +188,14 @@
 							<input name="sexe" value="F" type="radio" class="ace" {{ $patient->Sexe == "F" ? "checked" : ""}}/>
 								<span class="lbl"> Féminin</span>
 							</label>
-						</div>
-					</div>
-				</div>
-			</div>	{{-- col-sm-6 --}}
-			<div class="col-sm-6">
-				<div class="form-group">
-					<label class="col-sm-3 control-label text-nowrap" for="gs"><strong>Groupe sanguin :</strong></label>
-					<div class="col-sm-2">
+					  	</div>
+				  	</div>
+			  	</div>
+			  </div>	{{-- col-sm-6 --}}
+		  	<div class="col-sm-6">
+				    <div class="form-group">
+						<label class="col-sm-3 control-label text-nowrap" for="gs"><strong>Groupe sanguin :</strong></label>
+						<div class="col-sm-2">
 						<select class="form-control" id="gs" name="gs">
 						@if(!isset($patient->group_sang)  && empty($patient->group_sang)) 
 							<option value="" selected >------</option>
@@ -214,134 +228,107 @@
 					</div>
 				</div>
 			</div>{{-- col-sm-6 --}}
-	      	</div> {{-- row --}}
-		    	<div class="row">
-						<div class="col-sm-6">
-							<div class="form-group">
-							<label class="col-sm-3 control-label" for="sf">
-								<strong class="text-nowrap">Civilité :</strong>
-							</label>
-							<div class="col-sm-9">
-								<select class="form-control civilite" id="sf" name="sf">
-									<option value="celibataire" @if( $patient->situation_familiale =='celibataire') selected @endif >Célibataire</option>
-									<option value="marie" @if( $patient->situation_familiale =='marie') selected @endif>Marié</option>
-									<option value="divorce" @if( $patient->situation_familiale =="divorce") selected @endif >Divorcé</option>
-									<option value="veuf" @if( $patient->situation_familiale =="veuf") selected @endif  >Veuf</option>
-								</select>
-							</div>
-							</div>
-						</div>
-						<div class="col-sm-6 " id="Div-nomjeuneFille"  @if($patient->Sexe == "M") hidden @endif>	
-							<label class="col-sm-3 control-label" for="nom_jeune_fille">
-								<strong class="text-nowrap">Nom jeune fille:</strong>
-							</label>
-							<div class="col-sm-9">
-								<input type="text" id="nom_jeune_fille" name="nom_jeune_fille" placeholder="Nom jeune fille..." value="{{ $patient->nom_jeune_fille }}" autocomplete = "off" class="col-xs-12 col-sm-12"/>
-								 {!! $errors->first('nom_jeune_fille', '<small class="alert-danger">:message</small>') !!}
-							</div>		
-						</div>
-						{{-- /nom de jeune fille --}}
-			  	</div>	{{-- row --}}
-				  <div class="row">
-						<div class="col-sm-12">
-						<h3 class="header smaller lighter blue">Contact</h3>
-						</div>
-			  	</div>	{{-- row --}}
-			  	<div class="space-12"></div>	
-			  	<div class="row">
-			  		<div class="col-sm-4"> <!-- style="padding-left:7%" -->
-							<label class="text-nowrap col-sm-4 col-xs-4" for="adresse" ><strong>Adresse:</strong></label>
-							<input type="text" value="{{ $patient->Adresse }}" id="adresse" name="adresse" placeholder="Adresse..." class="col-sm-8 col-xs-8"/>
-						</div>
-						<div class="col-sm-4"> <!-- style="margin-top: -0.1%;" -->
-							<label class="text-nowrap col-sm-4 col-xs-4" for="commune"><strong>Commune:</strong></label>
-							<input type="hidden" name="idcommune" id="idcommune" value="{{ $patient->commune_res }}"/>
-							<input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}" class="autoCommune col-sm-8 col-xs-8"/>					
-						</div>
-						<div class="col-sm-4">
-							<label class="col-sm-4 col-xs-4"><strong>Wilaya :</strong></label>
-						  <input type="hidden" name="idwilaya" id="idwilaya" value="{{ $patient->wilaya->immatriculation_wilaya }}"/>
-						  <input type="text" id="wilaya" value="{{ $patient->wilaya->nom_wilaya }}" class="col-sm-8 col-xs-8"readonly/>	
-						</div>	
-				</div>{{-- row --}}
-				<div class="space-12"></div>
-				<div class="row">
-					<div class="col-sm-4 col-xs-4">
-						<div class="form-group" style="padding-left:13%;">
-							<label class="control-label text-nowrap col-sm-3" for="mobile1"><i class="fa fa-phone"></i><strong>Mob1:</strong></label>
-							<div class="col-sm-3" >
-								<select name="operateur1" id="operateur1" class="form-control" required="">
-						      @php	$operator = substr($patient->tele_mobile1,0,2) @endphp
-			 						<option value="05" @if($operator == '05') selected @endif >05</option>         
-								  <option value="06" @if($operator == '06') selected @endif >06</option>
-								  <option value="07" @if($operator == '07') selected @endif>07</option>
-	              </select>	
-							</div>
-							<input id="mobile1" name="mobile1"  maxlength =8 minlength =8 type="tel" autocomplete="off" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX" value= "{{  substr($patient->tele_mobile1,2,10) }}" required />	
-						 </div>		
-					</div>	 
-					<div class="col-sm-4 col-xs-4">
-						<div class="form-group">
-							<label class="col-sm-4 control-label" for="mobile2"><i class="fa fa-phone"></i><strong class="text-nowrap">Mob2 :</strong>
-							</label>
-							<div class="col-sm-4">
-								<select name="operateur2" id="operateur2" class="form-control">
-								@if(!isset($patient->tele_mobile2)  && empty($patient->tele_mobile2))		
-							              	 <option value="" selected >XX</option>
-							              	  <option value="05" >05</option>
-									 <option value="06">06</option>
-									 <option value="07">07</option>
-								@else
-									@php  $operator2 = substr($patient->tele_mobile2,0,2) @endphp
-									<option value="" >XX</option>
-									 <option value="05" @if($operator2 == '05') selected @endif>05</option>
-									 <option value="06" @if($operator2 == '06') selected @endif>06</option>
-									 <option value="07" @if($operator2 == '07') selected @endif>07</option>
-								@endif				
-		                       			</select>
-							</div>
-							<input id="mobile2" name="mobile2"  maxlength =8 minlength =8  type="tel" autocomplete="off" class="col-sm-4" value="{{  substr($patient->tele_mobile2,2,10) }}" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"   placeholder="XX XX XX XX">
-						</div>
+	    </div> {{-- row --}}
+		  <div class="row">
+				<div class="col-sm-6">
+					<div class="form-group">
+					<label class="col-sm-3 control-label" for="sf"><strong class="text-nowrap">Civilité :</strong></label>
+					<div class="col-sm-9">
+						<select class="form-control civilite" id="sf" name="sf">
+							<option value="celibataire" @if( $patient->situation_familiale =='celibataire') selected @endif >Célibataire</option>
+							<option value="marie" @if( $patient->situation_familiale =='marie') selected @endif>Marié</option>
+							<option value="divorce" @if( $patient->situation_familiale =="divorce") selected @endif >Divorcé</option>
+							<option value="veuf" @if( $patient->situation_familiale =="veuf") selected @endif  >Veuf</option>
+						</select>
+					</div>
+					</div>
+				</div>
+				<div class="col-sm-6 " id="Div-nomjeuneFille"  @if($patient->Sexe == "M") hidden @endif>	
+					<label class="col-sm-3 control-label" for="nom_jeune_fille">
+						<strong class="text-nowrap">Nom jeune fille:</strong>
+					</label>
+					<div class="col-sm-9">
+						<input type="text" id="nom_jeune_fille" name="nom_jeune_fille" placeholder="Nom jeune fille..." value="{{ $patient->nom_jeune_fille }}" autocomplete = "off" class="col-xs-12 col-sm-12"/>
+						 {!! $errors->first('nom_jeune_fille', '<small class="alert-danger">:message</small>') !!}
 					</div>		
+				</div>{{-- /nom de jeune fille --}}
+			</div>	{{-- row --}}
+			<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div></div>
+			<div class="space-12"></div>	
+			<div class="row">
+				<div class="col-sm-4"> <!-- style="padding-left:7%" -->
+					<label class="text-nowrap col-sm-4 col-xs-4" for="adresse" ><strong>Adresse:</strong></label>
+					<input type="text" value="{{ $patient->Adresse }}" id="adresse" name="adresse" placeholder="Adresse..." class="col-sm-8 col-xs-8"/>
+			  </div>
+				<div class="col-sm-4"> <!-- style="margin-top: -0.1%;" -->
+					<label class="text-nowrap col-sm-4 col-xs-4" for="commune"><strong>Commune:</strong></label>
+					<input type="hidden" name="idcommune" id="idcommune" value="{{ $patient->commune_res }}"/>
+					<input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}" class="autoCommune col-sm-8 col-xs-8"/>					
+				</div>
+				<div class="col-sm-4">
+					<label class="col-sm-4 col-xs-4"><strong>Wilaya :</strong></label>
+				  <input type="hidden" name="idwilaya" id="idwilaya" value="{{ $patient->wilaya->immatriculation_wilaya }}"/>
+				  <input type="text" id="wilaya" value="{{ $patient->wilaya->nom_wilaya }}" class="col-sm-8 col-xs-8"readonly/>	
+				</div>	
+			</div>{{-- row --}}
+			<div class="space-12"></div>
+			<div class="row">
+				<div class="col-sm-4 col-xs-4">
+					<div class="form-group" style="padding-left:13%;">
+						<label class="control-label text-nowrap col-sm-3" for="mobile1"><i class="fa fa-phone"></i><strong>Mob1:</strong></label>
+						<div class="col-sm-3" >
+							<select name="operateur1" id="operateur1" class="form-control" required="">
+					      @php	$operator = substr($patient->tele_mobile1,0,2) @endphp
+		 						<option value="05" @if($operator == '05') selected @endif >05</option>         
+							  <option value="06" @if($operator == '06') selected @endif >06</option>
+							  <option value="07" @if($operator == '07') selected @endif>07</option>
+              </select>	
+						</div>
+						<input id="mobile1" name="mobile1"  maxlength =8 minlength =8 type="tel" autocomplete="off" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX" value= "{{  substr($patient->tele_mobile1,2,10) }}" required />	
+					 </div>		
+				</div>	 
+				<div class="col-sm-4 col-xs-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label" for="mobile2"><i class="fa fa-phone"></i><strong class="text-nowrap">Mob2 :</strong>
+						</label>
+						<div class="col-sm-4">
+							<select name="operateur2" id="operateur2" class="form-control">
+							@if(!isset($patient->tele_mobile2)  && empty($patient->tele_mobile2))		
+            	  <option value="" selected >XX</option>
+            	  <option value="05" >05</option>
+								<option value="06">06</option>
+								<option value="07">07</option>
+							@else
+								@php  $operator2 = substr($patient->tele_mobile2,0,2) @endphp
+								<option value="" >XX</option>
+								 <option value="05" @if($operator2 == '05') selected @endif>05</option>
+								 <option value="06" @if($operator2 == '06') selected @endif>06</option>
+								 <option value="07" @if($operator2 == '07') selected @endif>07</option>
+							@endif				
+	                       			</select>
+						</div>
+						<input id="mobile2" name="mobile2"  maxlength =8 minlength =8  type="tel" autocomplete="off" class="col-sm-4" value="{{  substr($patient->tele_mobile2,2,10) }}" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"   placeholder="XX XX XX XX">
+				   	</div>
+			  	</div>		
 					<div class="col-sm-4 col-xs-4">
 						<div class="form-group">
 						<div class="col-sm-2">
 							<label class="control-label no-padding-right pull-right text-nowrap" style=" padding-top: 0px;"><strong>Type:</strong></label>
 						</div>
 						<div class="col-sm-10">
-							<label class="line-height-1 blue">
-								<input id="fonc" name="type" value="Assure" type="radio" class="ace" onclick="showTypeEdit('Assure',1)"  @if($patient->Type =='Assure') Checked @endif />
-								<span class="lbl">Assuré</span>
-							</label>
-							<label class="line-height-1 blue">
-								<input id="ayant" name="type" value="Ayant_droit" type="radio" class="ace" onclick="showTypeEdit('Ayant_droit',1)" @if($patient->Type =='Ayant_droit') Checked @endif />
-								<span class="lbl">Ayant droit</span>
-							</label>
-							<label class="line-height-1 blue">
-								<input id="autre" name="type" value="Autre" type="radio" class="ace" onclick="showTypeEdit('Autre',1)" @if($patient->Type =='Autre') Checked @endif />
-								<span class="lbl">Autre</span>
-							</label>	
-						</div>
+							<select class="form-control col-xs-12 col-sm-6" id="type" name="type" onclick="showTypeEdit(1)">
+								<option value="0" @if($patient->Type =='0') selected @endif>Assure</option>
+								<option value="1" @if($patient->Type =='1') selected @endif>Conjoint(e)</option>
+								<option value="2" @if($patient->Type =='2') selected @endif>Ascendant</option>
+								<option value="3" @if($patient->Type =='3') selected @endif>Descendant</option>
+								<option value="4" @if($patient->Type =='4') selected @endif>Autre</option>
+							</select>
 						</div>		
-					</div>{{-- col-sm-4 --}}
-				</div>	{{-- row --}}
+				  	</div>{{-- col-sm-4 --}}
+				  </div>	{{-- row --}}
+				</div>
 				<div class="space-12"></div>
 				<div class="row" id="foncform">
-					<div class="col-sm-6">
-						<div class="form-group">
-						 <label class="col-sm-3 control-label" for="Type_p">
-							<strong>Type :</strong>
-						</label>
-						<div class="col-sm-9">
-				  			<select class="form-control col-xs-12 col-sm-6" id="Type_p" name="Type_p" >
-								<option value="">------</option>
-								<option value="Ascendant" @if($patient->Type_p == 'Ascendant')  selected @endif>Ascendant</option>
-								<option value="Descendant" @if($patient->Type_p == 'Descendant')  selected @endif>Descendant</option>
-								<option value="Conjoint(e)" @if($patient->Type_p == 'Conjoint(e)')  selected @endif>Conjoint(e)</option>
-							</select>
-						</div>	
-						</div>					
-					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
 							 <label class="col-sm-4 control-label" for="nsspatient">
@@ -351,8 +338,9 @@
 								<input type="text" class="form-control col-xs-12 col-sm-6" id="nsspatient" name="nsspatient" value="{{ $patient->NSS }}"
 								pattern="[0-9]{2}[0-9]{4}[0-9]{4}[0-9]{2}"  placeholder="XXXXXXXXXXXX" maxlength =12 minlength =12 />
 							</div>
-						</div>			
-					 </div>	
+						</div>					
+					</div>
+					<div class="col-sm-6"></div>	
 				</div>{{-- row --}}
 			<div class="space-12"></div>
 			<div class="row">

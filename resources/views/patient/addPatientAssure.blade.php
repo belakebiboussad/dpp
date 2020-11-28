@@ -159,11 +159,11 @@
 				</div>
 				<div class="col-sm-10">
 					<select class="form-control col-xs-12 col-sm-6" id="type" name="type">
+					<option value="">Selectioner...</option>
 					<option value="0">Assure</option>
-					<option value="1" selected>Conjoint(e)</option>
+					<option value="1">Conjoint(e)</option>
 					<option value="2">Ascendant</option>
 					<option value="3">Descendant</option>
-					<option value="4">Autre</option>
 				</select>
 				</div>
 			</div>		
@@ -183,12 +183,6 @@
 		<div class="col-sm-6"></div> 	
 	</div> 	{{-- row --}}
 <div class="space-12"></div>
-<div class="row">
-	<div class="col-sm-6 starthidden">
-		<label for="description"><strong>Autre information :</strong></label>
-		<textarea class="form-control" id="description" name="description" placeholder="Description du la dérogation" ></textarea>
-	</div>
-</div>
 <div class="row">
 	<div class="col-sm-12">
 		<h3 class="header smaller lighter blue">Homme de Confiance</h3>

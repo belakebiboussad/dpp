@@ -132,11 +132,11 @@ Route::any('/profile/{userId}', [
         'uses'  => 'UsersController@viewProfile'
     ]);
 });
-Route::get('/role/show/{userId}','RolesController@show');
-// Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/role/show/{userId}','RolesController@show');// Route::get('/home', 'HomeController@index')->name('home');
 Route::post('AddANTCD','AntecedantsController@createATCDAjax');
 Route::get('/DocorsSearch','EmployeController@searchBySpececialite');
 Route::get('/searchPatient','PatientController@search')->name('patients.search');
+Route::post('/updatePatient/{id}','PatientController@updateP')->name('patients.Update');
 Route::get('/getPatients','PatientController@getPatientsArray');
 Route::post('/user/find', 'UsersController@AutoCompleteField')->name('users.autoField');
 Route::get('/searchUser','UsersController@search');
@@ -157,17 +157,14 @@ route::get('/showordonnance/{id}','OrdonnanceController@show_ordonnance');
 route::get('/demandeexbio/{id}','DemandeExbController@createexb');
 route::get('/showdemandeexb/{id}','DemandeExbController@print');
 route::get('/showdemandeexr/{id}','DemandeExamenRadio@print');
-// /{id}
 Route::post('lit/affecter','LitsController@affecter')->name('lit.affecter');
-///laborontin
-route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');
+route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');///laborontin
 route::post('/uploadresultat','DemandeExbController@uploadresultat');
 route::get('/homelaboexb',function(){
     $demandesexb = App\modeles\demandeexb::where('etat','E')->get();
     return view('home.home_laboanalyses', compact('demandesexb'));
 })->name('homelaboexb');
-///radiologue
-route::get('/details_exr/{id}','DemandeExamenRadio@details_exr');
+route::get('/details_exr/{id}','DemandeExamenRadio@details_exr');///radiologue
 route::post('/uploadexr','DemandeExamenRadio@upload_exr');
 route::get('/homeradiologue',function(){
     $demandesexr = App\modeles\demandeexr::where('etat','E')->get();

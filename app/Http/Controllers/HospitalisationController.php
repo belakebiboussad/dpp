@@ -54,7 +54,8 @@ class HospitalisationController extends Controller
                             })->whereHas('rdvHosp.demandeHospitalisation',function($q) use ($serviceID) {
                                             $q->where('service', $serviceID)->where('etat','admise');//->where('etat','admise')
                                       })->get();
-        //dd($adms);
+        //admission d'urgence
+        //$admissionsUrgence =          
         $medecins = employ::where('service',Auth::user()->employ->service)->get();
         $modesHosp = ModeHospitalisation::all();
         return view('Hospitalisations.create', compact('adms','medecins','modesHosp'));
@@ -67,23 +68,22 @@ class HospitalisationController extends Controller
      * @return \Illuminate\Http\Response
      */
       public function store(Request $request)
-      {        
+      { 
         $dmission =  admission::find($request->id_admission);  //$dmission =  admission::with('rdvHosp')->find($request->id_admission);
         $hosp = hospitalisation::create([
           "Date_entree"=>$request->Date_entree, //"Date_entree"=>$rdvHospi->date_RDVh,  // "heure_entrée"=>Date("H:i:00"),
-           "Date_Prevu_Sortie"=>$request->Date_Prevu_Sortie, //"Heure_Prevu_Sortie"=>$rdvHospi->heure_Prevu_Sortie,
-            "Date_Sortie"=>null,
-            "patient_id"=>$request->patient_id,
+          "Date_Prevu_Sortie"=>$request->Date_Prevu_Sortie, //"Heure_Prevu_Sortie"=>$rdvHospi->heure_Prevu_Sortie,
+          "patient_id"=>$request->patient_id,
           "id_admission"=>$request->id_admission,
           "garde_id" => (isset($request->garde_id)) ? $request->garde_id : null,
           "modeHosp_id"=>$request->mode,
           "etat_hosp"=>"en cours",
         ]);
-        $controller = new LitsController; //affecter le lit
-        $controller->affecter($request);
+        $dmission->rdvHosp->update([ "etat_RDVh" =>1 ]);
+        // $controller = new LitsController; //affecter le lit
+        // $controller->affecter($request);
         $dmission->rdvHosp->demandeHospitalisation->update(["etat" => "hospitalisation"]);
-        $dmission->rdvHosp->update([ "etat_RDVh" => "valide" ]);
-         return redirect()->action('HospitalisationController@create'); //return \Redirect::route('HospitalisationController@create');
+        return redirect()->action('HospitalisationController@create'); //return \Redirect::route('HospitalisationController@create');
       }
     /**
      * Display the specified resource.
@@ -142,8 +142,7 @@ class HospitalisationController extends Controller
     }
     public function affecterLit()
     {
-      $ServiceID = Auth::user()->employ->service;
-      // $rdvHospitalisation = rdv_hospitalisation::whereHas('demandeHospitalisation', function($q){ $q->where('etat', 'programme'); })->with([   'demandeHospitalisation' => function($query) { $query->select('modeAdmission'); }]) ->whereHas('demandeHospitalisation.Service',function($q) use ($ServiceID){$q->where('id',$ServiceID);})->where('etat_RDVh','=','en attente')->with('demandeHospitalisation')->get();  
+      $ServiceID = Auth::user()->employ->service;// $rdvHospitalisation = rdv_hospitalisation::whereHas('demandeHospitalisation', function($q){ $q->where('etat', 'programme'); })->with([   'demandeHospitalisation' => function($query) { $query->select('modeAdmission'); }]) ->whereHas('demandeHospitalisation.Service',function($q) use ($ServiceID){$q->where('id',$ServiceID);})->where('etat_RDVh','=',null)->with('demandeHospitalisation')->get();  
       return view('Hospitalisations.affecterLits', compact('rdvHospitalisation'));
   }
 

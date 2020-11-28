@@ -16,7 +16,7 @@
 			$('#numberDays').val(iDaysDelta );	
 		}		
 	}
-	 function formFill(adm)
+	function formFill(adm)
 	{
 		$('#patient option:selected').remove();//consultation,	//demeande_colloque	// patient//demande_hospitalisation//hommes_conf:
 		$('#garde').find('option').remove();//$('#Date_entree').datepicker('disable');//$("#Date_entree").attr('readonly', 'readonly');
@@ -49,7 +49,8 @@
 	 	}
 	 	$('#id_admission').val(adm['id']);
 	 	$('#patient_id').val(adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['id']);
-	 	$('#lit_id').val(adm['rdv_hosp']['bed_reservation']['id_lit']);
+	  if(adm['rdv_hosp']['bed_reservation'] != null)
+	 	  $('#lit_id').val(adm['rdv_hosp']['bed_reservation']['id_lit']);
 	 	$('#demande_id').val(adm['rdv_hosp']['demande_hospitalisation']['id']);
 		$("#Date_entree").datepicker("setDate", adm['rdv_hosp']['date_RDVh']);
 	  $("#Date_Prevu_Sortie").datepicker("setDate", adm['rdv_hosp']['date_Prevu_Sortie']);
@@ -133,8 +134,8 @@
 						{{ csrf_field() }}
 						<input type="hidden" name="id_admission" id="id_admission" value="" >
 						<input type="hidden" name="patient_id" id="patient_id" value="">
-						<input type="hidden" name="lit_id" id="lit_id" value="">
 						<input type="hidden" name="demande_id" id="demande_id" value="">
+						<input type="hidden" name="lit_id" id="lit_id" value="">
 						<div class="row">
 							<div class="form-group">		
 								<label class="col-sm-4 control-label no-padding-right" for="patient"><strong>Patient :</strong></label>
@@ -165,7 +166,7 @@
 						</div>
 						<div class="row">	
 							<div class="form-group">
-								<label class="col-sm-4 col-xs-4 control-label no-padding-right" for="Date_entree"><strong> Date Hospitalisation :</strong></label>
+								<label class="col-sm-4 col-xs-4 control-label no-padding-right" for="Date_entree"><strong> Date Entrée :</strong></label>
 								<div class="col-sm-8 col-xs-8">
 									<input class="col-xs-11 col-sm-11 date-picker" id="Date_entree" name="Date_entree" type="text" placeholder="Date Hospitalisation" data-date-format="yyyy-mm-dd" disabled/>
 								</div>				
@@ -190,9 +191,9 @@
 						</div>			
 						<div class="row">
 							<div class="form-group">
-								<label class="col-sm-4 control-label no-padding-right" for="mode"><strong>Mode Hospitalisation :</strong></label>
+								<label class="col-sm-4 control-label no-padding-right text-nowrap" for="mode"><strong>Mode Hospitalisation :</strong></label>
 								<div class="col-sm-8 col-xs-8">
-									<select id="mode" name="mode" placeholder="Mode de L'hospitalisation" value="" class="col-xs-11 col-sm-11">
+									<select id="mode" name="mode" value="" class="col-xs-11 col-sm-11">
 									@foreach($modesHosp as $mode)
 										<option value="{{ $mode->id }}">{{ $mode->nom}}</option>
 									@endforeach

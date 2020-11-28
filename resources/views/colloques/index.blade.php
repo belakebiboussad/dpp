@@ -37,7 +37,7 @@
 					<td><p class="text-primary">{{ $col->date_creation }}</p></td>
 					<td><p class="text-primary">{{ ($col->type ==0 ) ? 'médicale' : 'chirurgicale' }}</p></td>
 					<td><p class="text-primary">{{ $col->etat }}</p></td>
-					<td>
+					<td class="center">
 							<a href="{{ route('colloque.edit',$col->id)}} " class="btn btn-xs btn-success"><i class="ace-icon fa fa-pencil-square-o bigger-110"></i></a>
 							@if($col->etat =="en cours")
 				  		<a href="/runcolloque/{{ $col->id }}" class="btn btn-xs btn-green" title="Déroulement">

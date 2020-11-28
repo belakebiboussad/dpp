@@ -34,7 +34,27 @@
 					<label class="inline"> <span class="blue">&nbsp;<strong>NSS :</strong></span><span class="lbl">{{ $patient->NSS }}</span></label>	
 						&nbsp;&nbsp;&nbsp;
 					<label class="inline"> 	
-						<span class="blue">&nbsp;<strong>Type :</strong></span><span class="lbl badge badge-info">{{ $patient->Type }}</span>		
+						<span class="blue">&nbsp;<strong>Type :</strong></span>
+						<span class="lbl badge badge-info">
+						@switch($patient->Type)
+	             @case(0)
+	                Assuré
+	                @break
+              @case(1)
+	             	  Conjoint(e)
+	                @break
+              @case(2)
+	             	  Ascendant
+	                @break
+              @case(3)
+	             	  Descendant
+	                @break  
+              @case(4)
+	                Autre 
+	                @break       
+            @endswitch  
+						
+						</span>		
 					</label>
 				</div>
 			</div>

@@ -3,7 +3,7 @@
 	 <div class="modal-content custom-height-modal">
 		<div class="modal-header">
 			  <button type="button" class="close" data-dismiss="modal">&times;</button>
-			  <h4 class="modal-title">Ajouter un Correspondant</h4>
+			  <h4 class="modal-title">Ajouter un Correspondant(e)</h4>
 		</div>
 		<div class="modal-body">
 			{{-- {{  route('hommeConfiance.store') }} --}}<!-- /hommeConfiance/save -->
@@ -19,7 +19,7 @@
 	             			<input id="editCorrespondant_relation_autre" autocomplete="off" name="relation_autre" value="" type="text">
 	         			</span>
 	          		<span  class ="primary"  style="float: left;">
-	            		<select name="type" id="type" class="enum list|prevenir|garde">
+	            		<select name="type" id="typeH" class="enum list|prevenir|garde">
 										<option value="garde">Garde Malade</option>
 										<option value="prevenir">Personne à prévenir</option>
 									</select>

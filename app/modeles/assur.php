@@ -31,6 +31,4 @@ class assur extends Model
 	{
 		return $this->hasMany('App\modeles\patient','Assurs_ID_Assure');
 	}
-	// public function service()// {// 		return $this->belongsTo('App\modeles\service','Grade');// }
-
 }

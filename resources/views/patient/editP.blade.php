@@ -2,39 +2,24 @@
 @section('title','modifier  le patient')
 @section('page-script')
 <script>
-	function showTypeEdit(value,i){
-		switch(value){
-     			 case "Assure":
- 				if(i !=0)
- 				{
- 				 					
-				}
-				$("#foncform").addClass('hide');
-        $('#Type_p').attr('required', false);
-        $('#nsspatient').attr('disabled', true);
-        addRequiredAttr();
-        break;
-      case "Ayant_droit":
-        if(i !=0)
-     	  {
-          $('#nsspatient').val("");
-        }
-        $("#foncform").removeClass('hide');
-          $('#Type_p').attr('required', true);
-        $('#nsspatient').attr('disabled', false); 
-        addRequiredAttr();
-        break;
-    	case "Autre": 
-  			$(".starthidden").show(250);
-  			$("#foncform").addClass('hide');
-  			$('#Type_p').attr('required', false);
-    			$('#nsspatient').attr('disabled', true);   
-      	break;         
-		}			
+	function showTypeEdit(i){
+		var value = {{ $patient->Type}};
+		if( value == "0")
+  	{
+	 		$("#foncform").addClass('hide');
+	 		$('#type option:not(:selected)').attr('disabled', true);
+
+	 	}else if(($('#type').val() == "1") ||($('#type').val() == "2")||($('#type').val() == "3"))
+  	{
+  		// if(i !=0){if(('{{ $patient->Type }}' == "0")){}	}
+			var select = $('select[name*="type"]');
+			select.find('[value="0"]').prop("disabled", true);
+			$("#foncform").removeClass('hide');//$('#nsspatient').attr('disabled', false);addRequiredAttr();
+		}
+
 	}
 	$(document).ready(function () {
-	  var value =  $("input[type=radio][name='type']:checked").val();
-	  showTypeEdit(value,0);
+	  showTypeEdit(0);
 });
 </script>
 @endsection
@@ -47,9 +32,8 @@
 		</a>
 	</div>
 </div>
-<form class="form-horizontal" action="{{ route('patient.update',$patient ->id) }}" method="POST">
+<form class="form-horizontal" action="{{ route ('patients.Update',['id' => $patient->id]) }}" method="POST" role="form">
 	{{ csrf_field() }}
-  {{ method_field('PUT') }}
   <input type="hidden" name="assure_id" value="{{ $patient->assure->id }}">
 	<div class="row">
 		<div class="col-sm-12">
@@ -84,7 +68,7 @@
 			<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
 				<label class="col-sm-3 control-label" for="nom"><strong>Nom :</strong></label>
 				<div class="col-sm-9">
-					<input type="text" id="nom" name="nom" placeholder="Nom..." value="{{ $patient->Nom }}" class="col-xs-12 col-sm-12" autocomplete= "off" required alpha />
+					<input type="text" id="nom" name="nom" value="{{ $patient->Nom }}" class="col-xs-12 col-sm-12" autocomplete= "off" required alpha />
 					{!! $errors->first('datenaissance', '<small class="alert-danger">:message</small>') !!}
 				</div>
 			</div>
@@ -93,7 +77,7 @@
 			<div class="form-group {{ $errors->has('prenom') ? "has-error" : "" }}">
 				<label class="col-sm-3 control-label" for="prenom"><strong>Prénom :</strong></label>
 				<div class="col-sm-9">
-					<input type="text" id="prenom" name="prenom" placeholder="Prénom..." value="{{ $patient->Prenom }}" class="form-control form-control-lg col-xs-12 col-sm-12" autocomplete="off" required/>
+					<input type="text" id="prenom" name="prenom" value="{{ $patient->Prenom }}" class="form-control form-control-lg col-xs-12 col-sm-12" autocomplete="off" required/>
 					{!! $errors->first('prenom', '<p class="alert-danger">:message</p>') !!}
 				</div>
 			</div>
@@ -104,7 +88,7 @@
 					<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
 						<label class="col-sm-3 control-label" for="datenaissance"><strong>Né(e) le :</strong></label>
 						<div class="col-sm-9">
-							<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" required/>
+							<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" value="{{ $patient->Dat_Naissance }}" required/>
 							{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
 						</div>
 					</div>
@@ -262,43 +246,23 @@
 					</div>		
 					<div class="col-sm-4">
 						<div class="form-group">
-						<div class="col-sm-2">
-							<label class="control-label no-padding-right pull-right no-wrap" style=" padding-top: 0px;"><strong>Type :</strong></label>
-						</div>
-						<div class="col-sm-10">
-							<label class="line-height-1 blue">
-								<input id="fonc" name="type" value="Assure" type="radio" class="ace" onclick="showTypeEdit('Assure',1)"  @if($patient->Type =='Assure') Checked @endif />
-								<span class="lbl">Assuré</span>
-							</label>
-							<label class="line-height-1 blue">
-								<input id="ayant" name="type" value="Ayant_droit" type="radio" class="ace" onclick="showTypeEdit('Ayant_droit',1)" @if($patient->Type =='Ayant_droit') Checked @endif />
-								<span class="lbl">Ayant droit</span>
-							</label>
-							<label class="line-height-1 blue">
-								<input id="autre" name="type" value="Autre" type="radio" class="ace" onclick="showTypeEdit('Autre',1)" @if($patient->Type =='Autre') Checked @endif />
-								<span class="lbl">Autre</span>
-							</label>	
-						</div>
+							<div class="col-sm-2">
+								<label class="control-label no-padding-right pull-right no-wrap" style=" padding-top: 0px;"><strong>Type :</strong></label>
+							</div>
+							<div class="col-sm-10">
+								<select class="form-control col-xs-12 col-sm-12" id="type" name="type" onclick="showTypeEdit(1)">
+										<option value="0" @if($patient->Type =='0') selected disabled @endif>Assure</option>
+									<option value="1" @if($patient->Type =='1') selected @endif>Conjoint(e)</option>
+									<option value="2" @if($patient->Type =='2') selected @endif>Ascendant</option>
+									<option value="3" @if($patient->Type =='3') selected @endif>Descendant</option>
+								</select>
+						
+							</div>
 						</div>		
 					</div>{{-- col-sm-4 --}}
 				</div>	{{-- row --}}
 				<div class="space-12"></div>
 				<div class="row" id="foncform">
-					<div class="col-sm-6">
-						<div class="form-group">
-						 <label class="col-sm-3 control-label" for="Type_p">
-							<strong>Type :</strong>
-						</label>
-						<div class="col-sm-9">
-				  			<select class="form-control col-xs-12 col-sm-6" id="Type_p" name="Type_p" >
-								<option value="">------</option>
-								<option value="Ascendant" @if($patient->Type_p == 'Ascendant')  selected @endif>Ascendant</option>
-								<option value="Descendant" @if($patient->Type_p == 'Descendant')  selected @endif>Descendant</option>
-								<option value="Conjoint(e)" @if($patient->Type_p == 'Conjoint(e)')  selected @endif>Conjoint(e)</option>
-							</select>
-						</div>	
-						</div>					
-					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
 							 <label class="col-sm-4 control-label" for="nsspatient">
@@ -309,8 +273,9 @@
 								pattern="[0-9]{2}[0-9]{4}[0-9]{4}[0-9]{2}"  placeholder="XXXXXXXXXXXX" maxlength =12 minlength =12 />
 							</div>
 						</div>			
-					 </div>	
-				</div>{{-- row --}}
+					</div>
+				<div class="col-sm-6"> </div>
+			</div>{{-- row --}}
 			<div class="space-12"></div>
 			<div class="row">
 				<div class="col-sm-6 starthidden">

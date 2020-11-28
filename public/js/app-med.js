@@ -1,9 +1,8 @@
 
 	function ajaxATCD(patientid){
-		 var type = $('#Antecedant').val();
-		 var date = $('#dateAntcd').val();
-
-		var description = $('#description').val();
+  	var type = $('#Antecedant').val();
+		var date = $('#dateAntcd').val();
+ 		var description = $('#description').val();
 	}
   function checkForm(form)
   {

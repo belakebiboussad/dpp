@@ -41,7 +41,7 @@
 		</div>
 		<div class="col-sm-6">
 			<div class="form-group">
-				<label class="col-sm-3 col-xs-3 control-label" for="lieunaissancef"><span class="text-nowrap"><strong>Né(e)à:</strong></span></label>
+				<label class="col-sm-3 col-xs-3 control-label" for="lieunaissancef"><span class="text-nowrap"><strong>Né(e) à:</strong></span></label>
 				<div class="col-sm-9">
 					<div class="col-sm-9">
 					@if(isset($assure) && !empty($assure))
@@ -60,26 +60,23 @@
 		<div class="col-sm-6">
 			<div class="form-group">
 				<label class="col-sm-3 col-xs-3 control-label no-padding-right" for="sexe"><Strong>Genre: </Strong></label>
-  			<div class="col-sm-9">
-          <div class="radio">
-             @if(isset($assure) && !empty($assure))
-            	  @if($assure->Sexe == "M")
-              	<label><input name="sexef" value="M" type="radio" class="ace" checked/><span class="lbl"> Masculin</span> </label>
-								<label><input name="sexef" value="F" type="radio" class="ace"/><span class="lbl"> Féminin</span></label>	
-								@else
-								<label><input name="sexef" value="M" type="radio" class="ace" checked ='' /><span class="lbl"> Masculin</span> </label>
-	               	<label><input name="sexef" value="F" type="radio" class="ace" checked  = 'checked'/><span class="lbl"> Féminin</span></label>
-	               	@endif
-             @else   
-              <label><input name="sexef" value="M" type="radio" class="ace" /><span class="lbl" > Masculin</span></label>
-              <label><input name="sexef" value="F" type="radio" class="ace" /> <span class="lbl" > Féminin</span></label>      
-             @endif
-            </div>
-        </div>
-     	</div>
-    </div>
-    <div class="col-sm-6">
-      <div class="form-group">
+  				<div class="col-sm-9">
+  				 @if(isset($assure) && !empty($assure))
+	  				<select name="sexef" id="sexef" class="form-control" >
+	  					<option value="M" @if($assure->Sexe == "M") @endif>Masculin</option>
+	  					<option value="F"  @if($assure->Sexe == "F") @endif>Féminin</option>
+	  				</select>
+	  			@else
+	  					<select name="sexef" id="sexef" class="form-control" >
+	  					<option value="M" >Masculin</option>
+	  					<option value="F"  selected>Féminin</option>
+	  				</select>
+	  			@endif
+  				</div>
+  			</div>
+       	</div>
+   		 <div class="col-sm-6">
+     		 <div class="form-group">
 	   		<label class="col-sm-3 col-xs-3 control-label text-nowrap" for="gsf"><strong>Groupe sanguin :</strong></label>
 			<div class="col-sm-2">
 				@if(isset($assure) && !empty($assure))
@@ -117,9 +114,9 @@
 			@endif
 			</div>
 	   	</div>
-    </div>
-  </div>
-  <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div></div>
+    		</div>
+  	</div>
+ 	 <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div></div>
 <div class="row Asdemograph">
 		<div class="col-sm-4">
 			<div class="form-group">
@@ -165,18 +162,18 @@
 					 @if(isset($assure) && !empty($assure))
 					 <select name="etatf" id="etatf" class="col-xs-12 col-sm-12">
 						<option value="">Sélectionner...</option>
-						<option value="Activite" {{ ($assure->Etat=="Activite") ? "selected" : "" }}>Activité</option>
-						<option value="Retraite" {{ ($assure->Etat=="Retraite") ? "selected" : "" }}>Retraite</option>
-						<option value="conge_maladie" {{ ($assure->Etat=="conge_maladie") ? "selected" : "" }}>Congé Maladie.</option>
-						<option value="Revoque" {{ ($assure->Etat=="Revoque") ? "selected" : "" }}>Révoqué</option>
+						<option value="0" {{ ($assure->Etat=="0") ? "selected" : "" }}>Activité</option>
+						<option value="1" {{ ($assure->Etat=="1") ? "selected" : "" }}>Retraite</option>
+						<option value="2" {{ ($assure->Etat=="2") ? "selected" : "" }}>Congé Maladie</option>
+						<option value="3" {{ ($assure->Etat=="3") ? "selected" : "" }}>Révoqué</option>
 					</select>
 					@else	
 					<select name="etatf" id="etatf" class="col-xs-12 col-sm-12">
 						<option value="">Sélectionner...</option>
-						<option value="Activite">Activité</option>
-						<option value="Retraite">Retraite</option>
-						<option value="conge_maladie" >Congé Maladie.</option>
-						<option value="Revoque" >Révoqué</option>
+						<option value="0">Activité</option>
+						<option value="1" selected>Retraite</option>
+						<option value="2" >Congé Maladie.</option>
+						<option value="3" >Révoqué</option>
 					</select>
 					 @endif
 				</div>
@@ -279,7 +276,7 @@
 		</div>
 		<div class="col-sm-6">
 			<div class="form-group">
-				<label class="control-label col-xs-12 col-sm-3" for="nss2"><strong>NSS :</strong>	</label>
+				<label class="control-label col-xs-12 col-sm-3" for="nss"><strong>NSS :</strong>	</label>
 				<div class="col-sm-9">
 				<div class="clearfix">
 				@if(isset($assure) && !empty($assure))

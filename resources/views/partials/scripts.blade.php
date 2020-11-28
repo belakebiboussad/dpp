@@ -221,20 +221,20 @@
                   });
              });
            $('#printRdv').click(function(){
-                $.ajaxSetup({
-                      headers: {
-                          'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                       }
-                 });
-                  $.ajax({
-                          type : 'GET',
-                          url :'/rdvprint/'+$('#idRDV').val(),
-                               success:function(data){
-                          },
-                          error:function(data){
-                            console.log("error");
-                           }
-                 });
+              $.ajaxSetup({
+                  headers: {
+                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                  }
+               });
+                $.ajax({
+                        type : 'GET',
+                        url :'/rdvprint/'+$('#idRDV').val(),
+                             success:function(data){
+                        },
+                        error:function(data){
+                          console.log("error");
+                         }
+               });
           });
       });  
 </script>
@@ -399,27 +399,30 @@
 </script>
 <script type="text/javascript">
   function isNumeric (evt) {
-      var theEvent = evt || window.event;
-      var key = theEvent.keyCode || theEvent.which;
-      key = String.fromCharCode (key);
-      var regex = /[0-9]|\./;
-      if ( !regex.test(key) ) {
-        theEvent.returnValue = false;
-        if(theEvent.preventDefault) theEvent.preventDefault();
-      }
+    var theEvent = evt || window.event;
+    var key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode (key);
+    var regex = /[0-9]|\./;
+    if ( !regex.test(key) ) {
+      theEvent.returnValue = false;
+      if(theEvent.preventDefault) theEvent.preventDefault();
+    }
   }
   function addRequiredAttr()
-  {
+  { 
     var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
     $.each(classList, function(index, item) {
-          if (item === 'hidden') {              
-            $( "ul#menuPatient li:eq(0)" ).removeClass( item );
-          }
-    });
-    $(".starthidden").hide(250);
-    $('#description').attr('disabled', true); 
-    jQuery('input:radio[name="sexef"]').filter('[value="M"]').attr('checked', true);
-    jQuery('input:radio[name="etat"]').filter('[value="Activite"]').attr('checked', true);
+      if (item === 'hidden') { 
+         $( "ul#menuPatient li:eq(0)" ).removeClass( item );
+      }
+    });             
+    if($('ul#menuPatient li:eq(0)').css('display') == 'none')
+    {
+      $('ul#menuPatient li:eq(0)').css('display', '');
+    }
+    $(".starthidden").hide(250);  //$('#description').attr('disabled', true);
+    if($("#type").val() != 0)
+      $('.Asdemograph').find('*').each(function () {$(this).attr("disabled", false);});
   }
 function typep()
 {
@@ -531,13 +534,7 @@ $('#typeexm').on('change', function() {
   {
     $("#"+id).remove();// $("tr:has(input:checked)").remove(); 
   }
-  function sexefan()
-  {
-      if( $('#sexef').is(':checked') )
-              $('#civ').css('display','block');
-      else
-              $('#civ').css('display','none');
-  }
+ /* function sexefan() {    if( $('#sexef').is(':checked') ) $('#civ').css('display','block');   else           $('#civ').css('display','none');} */
   function civilitefan()
   {
       if( $('#mdm').is(':checked') )
@@ -1013,45 +1010,13 @@ $('#typeexm').on('change', function() {
         $('#updateRdv').attr('action',url);
        $('#fullCalModal').modal({ show: 'true' }); 
       }
-      /*
-      function ajaxEditEvent(event,bool)
-      {
-       
-      url = "rdv" + '/' + event.id + '/edit';
-      $.ajax({
-          type: 'GET',
-          url:  url,
-          success: function(data) {
-                      if($('#medecin').length){
-                        if(isEmpty(data['medecin']))
-                          getMedecinsSpecialite(data['rdv'].specialite);  
-                         else
-                          getMedecinsSpecialite(data['rdv'].specialite,data['medecin'].id);  
-                      }
-                      $('#patient_tel').text(event.tel); //$('#patient_tel').text(data['patient'].tele_mobile1);
-                      $('#agePatient').text(event.age);   //$('#lien').attr('href','/patient/'.concat(data['patient'].id)); 
-                   
-                      $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
-                     
-                      if(bool)
-                      {
-                        $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
-                        $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
-                      }else{
-                        $("#daterdv").val(data['rdv'].Date_RDV);
-                        $("#datefinrdv").val(data['rdv'].Fin_RDV); 
-                      }
-                      //$('#btnConsulter').attr('href','/consultations/create/'.concat(data['patient'].id));
-                      $('#btnConsulter').attr('href','/consultations/create/'.concat(event.idPatient));
-                      // $('#btnDelete').attr('href','/rdv/'.concat(data['rdv'].id));
-                      $('#btnDelete').attr('href','/rdv/'.concat(event.idPatient));
-           
-            },
-            error:function(data){ alert('error'); }
-               
-          });
-       }//todelete
-       */
+/*function ajaxEditEvent(event,bool){ url = "rdv" + '/' + event.id + '/edit';$.ajax({type: 'GET',url:  url,success: function(data) {  if($('#medecin').length){ if(isEmpty(data['medecin']))  
+getMedecinsSpecialite(data['rdv'].specialite);  else  getMedecinsSpecialite(data['rdv'].specialite,data['medecin'].id);  }
+$('#patient_tel').text(event.tel); //$('#patient_tel').text(data['patient'].tele_mobile1); $('#agePatient').text(event.age);   //$('#lien').attr('href','/patient/'.concat(data['patient'].id)); 
+$('#lien').attr('href','/patient/'.concat(event.idPatient));if(bool){$("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));$("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm')); 
+}else{$("#daterdv").val(data['rdv'].Date_RDV); $("#datefinrdv").val(data['rdv'].Fin_RDV); } 
+ //$('#btnConsulter').attr('href','/consultations/create/'.concat(data['patient'].id));$('#btnConsulter').attr('href','/consultations/create/'.concat(event.idPatient));
+// $('#btnDelete').attr('href','/rdv/'.concat(data['rdv'].id));$('#btnDelete').attr('href','/rdv/'.concat(event.idPatient));},error:function(data){ alert('error'); } });  }//todelete  */
       function ajaxEditEvent(event,bool)
       {
         url = "rdv" + '/' + event.id + '/edit';
