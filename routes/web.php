@@ -172,7 +172,7 @@ route::get('/homeradiologue',function(){
 })->name('homeradiologue');
 // route with optonnel parameter
 Route::get('rendezVous/create/{id?}','RDVController@create');
-Route::get('assur/patientAssuree/{id}','PatientController@create');
+Route::get('assur/patientAssuree/{NSS}/{Type}/{Prenom}','PatientController@create');
 Route::post('/addpatientAssure','PatientController@storePatient');
 Route::get('assur/patientAedit/{id}/{idA}','PatientController@edit');
 Route::get('/createConsultation','ConsultationsController@choix');

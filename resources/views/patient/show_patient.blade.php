@@ -285,8 +285,7 @@ $('document').ready(function(){
 									</div>
 								</div>
 								<div class="hr hr-8 dotted"></div>
-								@if(in_array( $patient->Type , [1,2,3]))
-								{{-- @if($patient->Type == "Ayant_droit") --}}
+								@if(in_array( $patient->Type , [1,2,3])){{-- @if($patient->Type == "Ayant_droit") --}}
 								<div class="col-sm-12 widget-container-col" id="widget-container-col-12">
 									<div class="widget-box transparent" id="widget-box-12">
 										<div class="widget-header">
@@ -321,7 +320,7 @@ $('document').ready(function(){
 													</div>
 													<div class="col-sm-3">
 														<label class="inline">
-															<span><b>Matricule :</b></span><span class="lbl blue"> {{ $patient->assure->Matricule }}</span>
+															<span><b>Matricule :</b></span><span class="lbl blue"> {{ $patient->assure->matricule }}</span>
 														</label>
 													</div>
 													<div class="col-sm-6">

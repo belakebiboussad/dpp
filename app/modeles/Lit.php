@@ -8,10 +8,14 @@ class Lit extends Model
 {
   //etat si etat=0  il est bloque,etat= 1 non bloque, //affectation , affectation = 0 libre,affectation = 1 occupé    
   public $timestamps = false;
-   protected $fillable = ['num','nom','etat','affectation','salle_id'];
+  protected $fillable = ['num','nom','etat','affectation','salle_id'];
   public function salle() {
 	       return $this->belongsTo('App\modeles\salle','salle_id');
   }
+  protected $casts = [
+    'affectation' => 'boolean',
+    'etat' => 'boolean',
+  ];
   public function isFree($start , $end)
   {
     $free = true;

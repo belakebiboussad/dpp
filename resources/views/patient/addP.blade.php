@@ -1,67 +1,68 @@
 @extends('app')
 @section('title','Ajouter un patient')
-@section('style')
-<style>
-</style>
-@endsection
 @section('page-script')
-	<script>
-		function copyAssure(){
-			$("#nom").val('{{ $assure->Nom }}');$("#prenom").val('{{ $assure->Prenom }}');$("#datenaissance").val('{{ $assure->Date_Naissance}}');
-			$("#lieunaissance").val('{{ $assure->lieuNaissance->nom_commune }}');	$("#idlieunaissance").val({{ $assure->lieunaissance }});
-			$("input[name=sexe][value=" + '{{ $assure->Sexe }}' + "]").prop('checked', true); $("#adresse").val('{{ $assure->adresse }}');
-		 	$("#commune").val('{{ $assure->commune->nom_commune }}');$("#idcommune").val('{{ $assure->commune_res }}');
-		 	$("#wilaya").val('{{ $assure->wilaya->nom_wilaya }}');$("#idwilaya").val('{{ $assure->wilaya_res}}');
-		  $( "#gs" ).val('{{ $assure->grp_sang }}'.substr(0,'{{ $assure->grp_sang }}'.length - 1));
-		  $( "#rh" ).val('{{ $assure->grp_sang }}'.substr('{{ $assure->grp_sang }}'.length - 1));
-		  $('.demograph').find('*').each(function () { $(this).attr("disabled", true); });
-		}
-		function checkFormAddPAtient()
+<script>
+	function checkFormAddPAtient()
     {        
     	if( ! checkPatient() )
-      { 
-				return false;
-      }else{
-      	if($('#hommeConf').is(':checked')){
-  				if( ! checkHomme() )
-        	{	
-          	activaTab("Homme_C");
-            return false;
-      		}else
-      		{
-      			$('input:disabled').removeAttr('disabled');    
-        			return true; 
-      		}
-    		}
-    	$('input:disabled').removeAttr('disabled');    
-    	return true;
-    }
-  }
-  $( document ).ready(function() {
-  		$('#type').change(function(){
-  			if( $('#type').val() == "0")
-  			{
-  				$("#foncform").addClass('hide');
-  				$(".starthidden").hide(250);
-  				copyAssure();
-  			}	
-  			else if(($('#type').val() == "1") ||($('#type').val() == "2")||($('#type').val() == "3"))
-  			{
-  				$("#foncform").removeClass('hide');
-		      $('.demograph').find('*').each(function () { $(this).attr("disabled", false); });//$(':input','#addPAtient').not(':button, :submit, :reset, :hidden, :input[name=type],:input[name=sexe], :input[name=hommeConf]' ).val('').removeAttr('checked').removeAttr('selected');
-  				addRequiredAttr();
-  			}
-  		});
+      	{ 
+			return false;
+      	}else{
+      		if($('#hommeConf').is(':checked')){
+				if( ! checkHomme() )
+				{	
+					activaTab("Homme_C");
+					return false;
+				}else
+				{
+					$('input:disabled').removeAttr('disabled');    
+					return true; 
+				}
+   			}
+    		$('input:disabled').removeAttr('disabled');    
+    		return true;
+   		}
+  	}
+	function copyAssure(){
+		$("#nom").val('{{ $assure->Nom }}');
+		$("#datenaissance").val('{{ $assure->Date_Naissance}}');
+		$("input[name=sexe][value=" + '{{ $assure->Sexe }}' + "]").prop('checked', true);
+		$( "#gs" ).val('{{ $assure->grp_sang }}'.substr(0,'{{ $assure->grp_sang }}'.length - 1));
+		$( "#rh" ).val('{{ $assure->grp_sang }}'.substr('{{ $assure->grp_sang }}'.length - 1));
+		$("#sf").val('{{ $assure->SituationFamille}}'); $("#adresse").val('{{ $assure->adresse }}');//$('.demograph').find('*').each(function () { $(this).attr("disabled", true); });
+	}
+  	$( document ).ready(function() {
+		if({{ $type }} == 0)
+		{
+			copyAssure();
+  			$("#foncform").addClass('hide');
+  			$(".starthidden").hide(250);
+		}
+		
+  		// $('#type').change(function(){
+  		// 	if( $('#type').val() == "0")
+  		// 	{
+		// 		copyAssure();
+  		// 		$("#foncform").addClass('hide');
+  		// 		$(".starthidden").hide(250);
+  		// 	}	
+  		// 	else if(($('#type').val() == "1") ||($('#type').val() == "2")||($('#type').val() == "3"))
+  		// 	{
+  		// 		$("#foncform").removeClass('hide');
+		//       	$('.demograph').find('*').each(function () { $(this).attr("disabled", false); });//$(':input','#addPAtient').not(':button, :submit, :reset, :hidden, :input[name=type],:input[name=sexe], :input[name=hommeConf]' ).val('').removeAttr('checked').removeAttr('selected');
+  		// 		addRequiredAttr();
+  		// 	}
+  		// });
     });
-	</script>
+</script>
 @endsection
 @section('main-content')
 <div class="container-fluid">
-  <div><h4>Ajouter un Patient</h4></div
-  <div class="row">
-  <form class="form-horizontal" id = "addPAtient" action="/addpatientAssure" method="POST" role="form" onsubmit="return checkFormAddPAtient(this);">
+   <div><h4>Ajouter un Patient</h4></div
+   <div class="row">
+    <form class="form-horizontal" id = "addPAtient" action="/addpatientAssure" method="POST" role="form" onsubmit="return checkFormAddPAtient(this);">
 	  	{{ csrf_field() }}
-	  	<input type="hidden" name="assure_id" value="{{ $assure->id }}">
+	  	<input type="hidden" name="assure_id" value="{{ $NSS }}">
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="form-group" id="error" aria-live="polite">
@@ -69,7 +70,7 @@
 				          	<div class="alert alert-danger">
 					<ul>
 					 @foreach ($errors->all() as $error)
-				 	           <li>{{ $error }}</li>
+				 	 <li>{{ $error }}</li>
 					@endforeach
 					</ul>
 					</div>
@@ -81,16 +82,13 @@
 			<li  class="active"><a class="jumbotron" data-toggle="tab" href="#Patient">
 				<span class="bigger-130"><strong>Patient</strong></span></a>
 		 	</li>
-	   		  <li  id ="hommelink" class="invisible" ><a data-toggle="tab" href="#Homme_C">
+	   		<li  id ="hommelink" class="invisible" ><a data-toggle="tab" href="#Homme_C">
 			  	<span class="bigger-130"><strong>Garde Malde</strong></span></a>
-			  </li>
- 		 </ul>
+			</li>
+ 		</ul>
 		<div class="tab-content">
-			<div id="Patient" class="tab-pane fade in active">
-		     @include('patient.addPatientAssure')
-			</div> 	{{-- tab-pane --}}
-		{{-- homme C	 --}}
-		<div id="Homme_C" class="tab-pane">
+			<div id="Patient" class="tab-pane fade in active">@include('patient.addPatientAssure')</div>
+			<div id="Homme_C" class="tab-pane">
 		   	<div id ="homme_cPart">
 				<div class="row">
 					<div class="col-sm-12">

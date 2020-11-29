@@ -4,7 +4,7 @@
 		<div class="form-group {{ $errors->has('nom') ? 'has-error' : '' }}">
 			<label class="col-sm-3 control-label" for="nom"><strong>Nom :</strong></label>
 			<div class="col-sm-9">
-				<input type="text" id="nom" name="nom" placeholder="Nom..." class="col-xs-12 col-sm-12" autocomplete= "off" value="{{ old('nom') }}" alpha/>
+				<input type="text" id="nom" name="nom" placeholder="Nom..." class="col-xs-12 col-sm-12" autocomplete= "off" value="" alpha/>
 					{!! $errors->first('nom', '<small class="alert-danger">:message</small>') !!}
 			</div>
 		</div>
@@ -13,7 +13,7 @@
 		<div class="form-group {{ $errors->has('prenom') ? 'has-error' : '' }}">
 			<label class="col-sm-3 control-label" for="prenom"><strong>Prénom :</strong></label>
 			<div class="col-sm-9">
-				<input type="text" id="prenom" name="prenom" placeholder="Prénom..." class="col-xs-18 col-sm-12" autocomplete="off"/>
+				<input type="text" id="prenom" name="prenom" placeholder="Prénom..." class="col-xs-18 col-sm-12" autocomplete="off" value ="{{ $prenom }}" disabled/>
 				{!! $errors->first('prenom', '<p class="alert-danger">:message</p>') !!}
 			</div>
 		</div>
@@ -158,26 +158,26 @@
 					<label class="control-label no-padding-right pull-right text-nowrap" style=" padding-top: 0px;"><strong>Type:</strong></label>
 				</div>
 				<div class="col-sm-10">
-					<select class="form-control col-xs-12 col-sm-6" id="type" name="type">
-					<option value="">Selectioner...</option>
-					<option value="0">Assure</option>
-					<option value="1">Conjoint(e)</option>
-					<option value="2">Ascendant</option>
-					<option value="3">Descendant</option>
-				</select>
+					<select class="form-control col-xs-12 col-sm-6" id="type" name="type" disabled>
+						<option value="0" @if( $type =='0') selected @endif>Assure</option>
+						<option value="1" @if($type =='1') selected @endif >Conjoint(e)</option>
+						<option value="2" @if($type =='2') selected @endif >Pere</option>
+						<option value="3"@if($type =='3') selected @endif  >Mere</option>
+						<option value="4" @if($type =='4') selected @endif >Enfant</option>
+					</select>
 				</div>
 			</div>		
 		</div>{{-- col-sm-4 --}}
 </div> 
 <div class="space-12"></div><div class="space-12"></div>
 <div class="row" id="foncform">
-		<div class="col-sm-6">
-			<div class="form-group">
-				 <label class="col-sm-4 control-label" for="nsspatient"><strong>NSS (patient):</strong></label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control col-xs-12 col-sm-6" id="nsspatient" name="nsspatient"
+	<div class="col-sm-6">
+		<div class="form-group">
+	   	    <label class="col-sm-4 control-label" for="nsspatient"><strong>NSS (patient):</strong></label>
+			<div class="col-sm-8">
+				<input type="text" class="form-control col-xs-12 col-sm-6" id="nsspatient" name="nsspatient"
 					pattern="^\[0-9]{2}+' '+\[0-9]{4} +' '+\[0-9]{4}+' '+[0-9]{2}$"  placeholder="XXXXXXXXXXXX" maxlength =12 minlength =12 />
-				</div>
+			</div>
 			</div>		
 		</div>	
 		<div class="col-sm-6"></div> 	

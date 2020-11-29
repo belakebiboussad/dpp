@@ -6,6 +6,7 @@
   		$('#type').change(function(){
   			if( $('#type').val() == "0")
   			{
+				alert({{ $assure->Nom }});
   				$("#foncform").addClass('hide');//copyPatient();
   				addRequiredAttr();
   			}

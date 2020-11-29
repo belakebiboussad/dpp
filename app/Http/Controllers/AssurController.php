@@ -3,10 +3,12 @@ namespace App\Http\Controllers;
 use App\modeles\assur;
 use Illuminate\Http\Request;
 use App\modeles\grade;
+use App\Traits\PatientSearch;
 use Carbon;
 use \COM;
 class AssurController extends Controller
 {
+    use PatientSearch;    
     /**
      * Display a listing of the resource.
      *
@@ -64,25 +66,27 @@ class AssurController extends Controller
      * @param  \App\modeles\assur  $assur
      * @return \Illuminate\Http\Response
      */
+    /*
     public function show($id)
     {
       $assure = assur::FindOrFail($id);
-       return view('assurs.show',compact('assure'));
+      return view('assurs.show',compact('assure'));
     }
-
+    */
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\modeles\assur  $assur
      * @return \Illuminate\Http\Response
      */
+    /*
       public function edit($id)
       {
             $assure = assur::FindOrFail($id);
             $grades = grade::all(); 
              return view('assurs.edit',compact('assure','grades'));
       }
-
+      */
     /**
      * Update the specified resource in storage.
      *
@@ -110,7 +114,7 @@ class AssurController extends Controller
                           "NMGSN"=>$request->NMGSN,
                           "NSS"=>$request->nss,
       ] );//$assure->save(); 
-       return redirect(Route('assur.show',$assure->id));
+      return redirect(Route('assur.show',$assure->id));
     }
     /**
      * Remove the specified resource from storage.
@@ -120,87 +124,83 @@ class AssurController extends Controller
      */
         public function destroy(Request $request , $id) 
         {
-                   $handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word"); 
-                      if($handle != null)
-                      {
-                            $p1 = $handle->SelectPersonnel(trim('fdff'),trim("13562487569568"));   
-                            return( $p1->Nom );
-                      return request('matricule') ;
-                      }else{
-                              return("Non");
-                      }
+            $handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word"); 
+            if($handle != null)
+            {
+              $ass = $handle->SelectPersonnel(trim('fdff'),trim("894568124785"));//return( $ass->Nom );
+              $id = $this->patientSearch($ass->Prenom,'894568124785');
+              dd($id);
+            }else{
+              dd("2");
+               return("Non");
+            }
         }
         public function search(Request $request)
         {
-               if($request->ajax())  
+          try {
+            $handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word"); 
+            $output=""; $ayants="";
+            $assure = $handle->SelectPersonnel(trim($request->matricule),trim($request->nss));   
+            if($assure->Nom != null)
+            {
+              $action = "" ;
+              $sexe =  ($assure->Genre =="M") ? "Masculin":"Féminin"; 
+              if(trim($assure->Position) != "Revoque")//existe maisrevoque
               {
-                      $handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word"); 
-                       $output=""; $ayants="";  
-                      if($handle != null)
-                      {                              
-                            $assure = $handle->SelectPersonnel(trim($request->matricule),trim($request->nss));   
-                             if($assure->Nom != null)
-                            {   
-                                    if(trim($assure->Position) != "Revoque")
-                                     {
-                                           $ayants .='<tr><td>'.$assure->Conjoint.'</td><td><span clas="badge">Conjoint(e)</span></td>'.
-                                                    '<td class="center">'.'<a href="" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Selectionner" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'.'</td></tr>'. '<tr>'.'<td>'. $assure->Pere.'</td>'. '<td>'.'Pere'.'</td>'.'<td class="center">'.'<a href="" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Selectionner" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'.'</td></tr>'. '<tr>'.'<td>'. $assure->Mere.'</td>'. '<td>'.'Mere'.'</td>'.'<td class="center">'.'<a href="" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Selectionner" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'.'</td></tr>' ;
-                                 
-                                            $enfants = explode ( '|' , $assure->Enfants);
-                                            foreach ($enfants as $key => $enfant) {
-                                                    $ayants .='<tr><td>'.$enfant.'</td><td>Ascendant'.'</td>'.'<td class="center">'.
-                                                           '<button onclick= "selectPatient(\''.trim($assure->Nom).'\',\''.trim($enfant).'\');" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Selectionner" ><i class="fa fa-hand-o-up fa-xs"></i></button>'.
-                                                           '</td></tr>';
-                                           } 
-                                     }               
-                                     $sexe =  ($assure->Genre =="M") ? "Masculin":"Féminin"; 
-                                     $action ="";
-                                     if(trim($assure->Position) != "Revoque")
-                                           $action = '<a href="" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Selectionner" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>';     
-                                    else
-                                            $action = '<b><span class="badge badge-danger">Révoqué</span></b>';
-                                     $output.='<tr><td>'.$assure->Nom.'</td>'.'<td>'.$assure->Prenom.'</td>'.'<td>'.$assure->SituationFamille.'</td>'.
-                                     '<td><span class="badge">'.$assure->Matricule.'</span></td>'. '<td>'.$assure->NSS.'</td>'. 
-                                      '<td>'. Carbon\Carbon::parse($assure->Date_Naissance)->format('Y-m-d') .'</td>'. '<td>'.$sexe.'</td>'.
-                                     '<td><span class="badge badge-success">'.$assure->Position.'</span></td>'.
-                                     '<td>'.$assure->service.'</td>'. '<td>'.$assure->Grade.'</td>'.
-                                     '<td class="center">'.$action.'</td></tr>';                                      
-                                     return Response([$output,$ayants])->withHeaders(['count' =>1]);
-                              }else
-                              {
-                                     return Response(null)->withHeaders(['count' =>0]);
-                              }
-                         
-                      }else
-                              return("Non");
+                $patientId = $this->patientSearch($assure->Prenom,$assure->NSS);
+                if(isset($patientId))
+                  $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
+                else
+                  $action = '<a href="assur/patientAssuree/'.$assure->NSS.'/0/'.$assure->Prenom.'" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter patient" data-placement="bottom"><i class="fa fa-plus-circle fa-xs"></i></a>';  
+              }  
+              else
+                $action = '<b><span class="badge badge-danger">Révoqué</span></b>';
+              $output.='<tr><td>'.$assure->Nom.'</td>'.'<td>'.$assure->Prenom.'</td>'.'<td>'.$assure->SituationFamille.'</td>'.
+                '<td><span class="badge">'.$assure->Matricule.'</span></td>'. '<td>'.$assure->NSS.'</td>'. 
+                '<td>'. Carbon\Carbon::parse($assure->Date_Naissance)->format('Y-m-d').'</td>'. '<td>'.$sexe.'</td>'.
+                '<td><span class="badge badge-success">'.$assure->Position.'</span></td>'.'<td>'.$assure->service.'</td>'. '<td>'.$assure->Grade.'</td>'.
+                '<td class="center">'.$action.'</td></tr>';
+              if(trim($assure->Position) != "Revoque")
+              {
+                //Ayants  //conjoint
+                $patientId = $this->patientSearch($assure->Conjoint,$assure->NSS);
+                if(isset($patientId))
+                  $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
+                else
+                  $action = '<a href="assur/patientAssuree/'.$assure->NSS.'/1/'.$assure->Conjoint.'" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter Patient" data-placement="bottom"><i class="fa fa-plus-circle fa-xs"></i></a>';  
+                $ayants .='<tr><td>'.$assure->Conjoint.'</td><td><span clas="badge">Conjoint(e)</span></td>'.'<td class="center">'.$action.'</td></tr>';
+                //pere
+                $patientId = $this->patientSearch($assure->Pere,$assure->NSS);
+                if(isset($patientId))
+                  $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
+                else
+                  $action = '<a href="assur/patientAssuree/'.$assure->NSS.'/2/'.$assure->Pere.'" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter Patient" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle"></i></a>';  
+                $ayants .='<tr><td>'.$assure->Pere.'</td><td><span clas="badge">Pere</span></td>'.'<td class="center">'.$action.'</td></tr>';
+                //Mere
+                $patientId = $this->patientSearch($assure->Mere,$assure->NSS);
+                if(isset($patientId))
+                  $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
+                else
+                  $action = '<a href="assur/patientAssuree/'.$assure->NSS.'/3/'.$assure->Mere.'" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter Patient" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle"></i></a>';  
+                $ayants .='<tr><td>'.$assure->Mere.'</td><td><span clas="badge">Mere</span></td>'.'<td class="center">'.$action.'</td></tr>';
+                
+                $enfants = explode ( '|' , $assure->Enfants);
+                foreach ($enfants as $key => $enfant)
+                {
+                  $patientId = $this->patientSearch($enfant,$assure->NSS);
+                  if(isset($patientId))
+                    $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
+                  else
+                    $action = '<a href="assur/patientAssuree/'.$assure->NSS.'/4/'.$enfant.'" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter Patient" data-placement="bottom"><i class="fa fa-plus-circle fa-xs"></i></a>';
+                  $ayants .='<tr><td>'.$enfant.'</td><td><span clas="badge">Enfant</span></td>'.'<td class="center">'.$action.'</td></tr>';    
+                }
               }
+              return Response([$output,$ayants])->withHeaders(['count' =>1]);
+            }else{//pas de donctionnaire
+              return Response(null)->withHeaders(['count' =>0]);
+            }                 
+          }catch (Exception $e) {//errer com
+             echo 'Exception reçue : ',  $e->getMessage(), "\n";
+          }
         }
-        /*
-        public function searchold(Request $request)
-       {  if($request->ajax())  {   $output="";     $assures =   assur::where('Matricule', 'like', '%' . request('matricule') . '%')->where('NSS', 'LIKE', '%' . request('nss') . "%")->get(); 
-  if($assures)   { $i=0; foreach ($assures as $key => $assure)
-                              { $i++;     $sexe =  ($assure->Sexe =="M") ? "Homme":"Femme";   $grade = (isset($assure->grade) )? $assure->grade->nom :"";  
-                                     $service= "";
-                                     switch($assure->Service) 
-                                    {  case "1":$service="Sécurité publique"; break; case "2": $service="Police judiciaire (PJ)"; break;  case "3":  $service="Brigade mobile de la police judiciaire (BMPJ)";  break;  case "4":  $service="Service protection et sécurité des personnalités (SPS)";break; case "5":    $service="Unité aérienne de la sûreté nationale"; break;case "6": $service="Unités républicaines de sécurité (URS)";break; case "7":$service="Police scientifique et technique";break;  case "8":$service="Police aux frontières et de l'immigration (PAF)"; break;case "9": $service="Brigade de recherche et d'intervention (BRI)"; break; case "10":  $service="Groupe des opérations spéciales de la police (GOSP)";  break;
-                                   }
-                                  $output.='<tr>'.
-                                      '<td>'.$i.'</td>'.
-                                      '<td hidden>'.$assure->id.'</td>'. 
-                                      '<td><span class="badge">'.$assure->matricule.'</span></td>'.
-                                       '<td>'.$assure->NSS.'</td>'.                          
-                                      '<td>'.$assure->Nom.'</td>'.
-                                      '<td>'.$assure->Prenom.'</td>'.
-                                      '<td>'.$assure->Date_Naissance.'</td>'.
-                                      '<td>'.$sexe.'</td>'.// ["nom"]
-                                     '<td><span class="badge badge-success">'.$assure->Etat.'</span></td>'.
-                                     '<td>'.$service.'</td>'.
-                                      '<td class="center">'.'<a href="/assur/'.$assure->id.'" class="'.'btn btn-warning btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i>&nbsp;</a>'."&nbsp;&nbsp;".'<a href="/assur/'.$assure->id.'/edit" class="'.'btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></a>'.'</td></tr>';  
-                              }
-                               return Response($output)->withHeaders(['count' => $i]);
-                      }else
-                              return"no";      
-              }
-        }
-        */
-}
+    }

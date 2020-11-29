@@ -55,7 +55,7 @@
 			     return $(this).val() == value; 
 			}).prop('selected', true);
 		}	
-	}// var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+	}
 	var field ="Dat_Naissance";
 	$(document).ready(function(){
 		$(document).on('click','.findptient',function(event){
@@ -67,13 +67,13 @@
 		        url : '{{URL::to('searchPatient')}}',
 		        data:{'field':field,'value':($('#'+field).val())},
 		        success:function(data,status, xhr){
-			     		$('#'+field).val('');	 field= "Dat_Naissance"; 
-     			 	  $(".numberResult").html(Object.keys(data).length);
+			     	$('#'+field).val('');	 field= "Dat_Naissance"; 
+     			 	 $(".numberResult").html(Object.keys(data).length);
      			    $("#liste_patients").DataTable ({
 	     					"processing": true,
-		  				  "paging":   true,
+		  				 "paging":   true,
 		  				  "destroy": true,
-		  					"ordering": true,
+		  				"ordering": true,
 		    				"searching":false,
 		    				"info" : false,
 		    				"language":{"url": '/localisation/fr_FR.json'},
@@ -90,9 +90,9 @@
 										},
 										{ data:'id',title:'ID', "visible": false},
 										{ data: 'Nom', title:'Nom' },
-		       					{ data: 'Prenom', title:'Prenom' },
-		       					{ data: 'IPP', title:'IPP'},
-		       			  	{ data: 'Dat_Naissance', title:'Né(e) le' },
+		       								{ data: 'Prenom', title:'Prenom' },
+		       								{ data: 'IPP', title:'IPP'},
+		       			  					{ data: 'Dat_Naissance', title:'Né(e) le' },
 										{ data: 'Sexe', title:'Sexe'},//{ data: 'Type',title:'Type'}, 
 									  { data: 'Date_creation', title:'Créer le'},
 									  { data:null,title:'<em class="fa fa-cog"></em>', searchable: false,
