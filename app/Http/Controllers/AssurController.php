@@ -126,9 +126,9 @@ class AssurController extends Controller
         {
             $handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word"); 
             if($handle != null)
-            {
-              $ass = $handle->SelectPersonnel(trim('fdff'),trim("894568124785"));//return( $ass->Nom );
-              $id = $this->patientSearch($ass->Prenom,'894568124785');
+            {//$ass = $handle->SelectPersonnel(trim('fdff'),trim("894568124785"));//return( $ass->Nom );
+              
+              $id = $this->patientSearch('malia','894568124785');
               dd($id);
             }else{
               dd("2");

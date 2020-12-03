@@ -13,7 +13,7 @@
 		<div class="form-group {{ $errors->has('prenom') ? 'has-error' : '' }}">
 			<label class="col-sm-3 control-label" for="prenom"><strong>Prénom :</strong></label>
 			<div class="col-sm-9">
-				<input type="text" id="prenom" name="prenom" placeholder="Prénom..." class="col-xs-18 col-sm-12" autocomplete="off" value ="{{ $prenom }}" disabled/>
+				<input type="text" id="prenom" name="prenom" placeholder="Prénom..." class="col-xs-18 col-sm-12" autocomplete="off" value ="{{ $prenom }}" readonly/>
 				{!! $errors->first('prenom', '<p class="alert-danger">:message</p>') !!}
 			</div>
 		</div>
@@ -158,7 +158,7 @@
 					<label class="control-label no-padding-right pull-right text-nowrap" style=" padding-top: 0px;"><strong>Type:</strong></label>
 				</div>
 				<div class="col-sm-10">
-					<select class="form-control col-xs-12 col-sm-6" id="type" name="type" disabled>
+					<select class="form-control col-xs-12 col-sm-6" id="type" name="type">
 						<option value="0" @if( $type =='0') selected @endif>Assure</option>
 						<option value="1" @if($type =='1') selected @endif >Conjoint(e)</option>
 						<option value="2" @if($type =='2') selected @endif >Pere</option>

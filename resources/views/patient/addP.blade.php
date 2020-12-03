@@ -3,12 +3,12 @@
 @section('page-script')
 <script>
 	function checkFormAddPAtient()
-    {        
-    	if( ! checkPatient() )
-      	{ 
+  {        
+  	if( ! checkPatient() )
+   	{ 
 			return false;
-      	}else{
-      		if($('#hommeConf').is(':checked')){
+   	}else{
+      if($('#hommeConf').is(':checked')){
 				if( ! checkHomme() )
 				{	
 					activaTab("Homme_C");
@@ -18,11 +18,11 @@
 					$('input:disabled').removeAttr('disabled');    
 					return true; 
 				}
-   			}
-    		$('input:disabled').removeAttr('disabled');    
-    		return true;
    		}
-  	}
+    	$('input:disabled').removeAttr('disabled');    
+    	return true;
+   	}
+  }
 	function copyAssure(){
 		$("#nom").val('{{ $assure->Nom }}');
 		$("#datenaissance").val('{{ $assure->Date_Naissance}}');
@@ -31,29 +31,19 @@
 		$( "#rh" ).val('{{ $assure->grp_sang }}'.substr('{{ $assure->grp_sang }}'.length - 1));
 		$("#sf").val('{{ $assure->SituationFamille}}'); $("#adresse").val('{{ $assure->adresse }}');//$('.demograph').find('*').each(function () { $(this).attr("disabled", true); });
 	}
-  	$( document ).ready(function() {
+  $( document ).ready(function() {
 		if({{ $type }} == 0)
 		{
 			copyAssure();
-  			$("#foncform").addClass('hide');
-  			$(".starthidden").hide(250);
+  		$("#foncform").addClass('hide');
+  		$(".starthidden").hide(250);
 		}
+		if($('#type').val() =='2')
+			$("input[name=sexe][value='M']").prop('checked', true);
+		else if($('#type').val() =='3')
+			$("input[name=sexe][value='F']").prop('checked', true);
 		
-  		// $('#type').change(function(){
-  		// 	if( $('#type').val() == "0")
-  		// 	{
-		// 		copyAssure();
-  		// 		$("#foncform").addClass('hide');
-  		// 		$(".starthidden").hide(250);
-  		// 	}	
-  		// 	else if(($('#type').val() == "1") ||($('#type').val() == "2")||($('#type').val() == "3"))
-  		// 	{
-  		// 		$("#foncform").removeClass('hide');
-		//       	$('.demograph').find('*').each(function () { $(this).attr("disabled", false); });//$(':input','#addPAtient').not(':button, :submit, :reset, :hidden, :input[name=type],:input[name=sexe], :input[name=hommeConf]' ).val('').removeAttr('checked').removeAttr('selected');
-  		// 		addRequiredAttr();
-  		// 	}
-  		// });
-    });
+  });
 </script>
 @endsection
 @section('main-content')

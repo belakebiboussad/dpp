@@ -5,9 +5,9 @@ trait PatientSearch
 {
     public function patientSearch($prenom , $NSSAssre)
     {
-        $patient = patient::where('Prenom','LIKE','%'.trim($prenom)."%")
-                    ->where('Assurs_ID_Assure','LIKE','%'.trim($NSSAssre)."%")    
-                    ->select('patients.id')->get()->first(); 
+       $patient = patient::where('Prenom',trim($prenom))
+                           ->where('Assurs_ID_Assure',trim($NSSAssre))    
+                           ->select('patients.id')->get()->first(); 
         if(isset($patient))
           return $patient->id;
         else 

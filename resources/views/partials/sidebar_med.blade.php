@@ -228,7 +228,7 @@
         var idlieunaissance = $('#idlieunaissance').val();
         var datenaissance = $('#datenaissance').val();//var mobile1 = $('#mobile1').val();mobile1,"Téléphone mobile 1",  
         var type = $('#type').val();
-        var inputAssVal = new Array(idlieunaissance,datenaissance,prenom,nom);
+        var inputAssVal = new Array(type,idlieunaissance,datenaissance,prenom,nom);
         var inputMessage = new Array('Type',"Lieu de Naissance","Date de Naissance","Prenom","Nom");
         $('.error').each(function(i, obj) {
           $(obj).next().remove();
