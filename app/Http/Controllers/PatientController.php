@@ -70,10 +70,7 @@ class PatientController extends Controller
          }   
         }
         else
-        {
-          return view('patient.addP',compact('assure','NSS','type','prenom')); 
-        }
-          
+          return view('patient.addP',compact('assure','NSS','type','prenom'));   
       }
       else
       {
@@ -92,6 +89,7 @@ class PatientController extends Controller
   {
     static $assurObj;
     $date = Date::Now();
+    //dd($request->all());
     $rule = array(
               "nom" => 'required',
               "prenom" => 'required',
@@ -117,25 +115,25 @@ class PatientController extends Controller
       $grades = grade::all();//$errors = $validator->errors(); 
       return view('patient.add',compact('grades'))->withErrors($validator->errors());
     }
-        if( $request->type !="4")  
-      {    
-        $assurObj = assur::firstOrCreate([
-            "Nom"=>$request->nomf,
-            "Prenom"=>$request->prenomf,
-            "Date_Naissance"=>$request->datenaissancef,
-            "lieunaissance"=>$request->idlieunaissancef,
-            "Sexe"=>$request->sexef,
-            "adresse"=>$request->adressef,
-            "commune_res"=>$request->idcommunef,
-            "wilaya_res"=>$request->idwilayaf,
-            "grp_sang"=>$request->gsf.$request->rhf,
-            "Matricule"=>$request->mat,
-            "Service"=>$request->service,
-            "Grade"=>$request->grade,
-            "Etat"=>$request->etatf,
-            "NSS"=>$request->nss,
-            "NMGSN"=>$request->NMGSN, 
-          ]);            
+    if( $request->type !="5")  
+    {    
+      $assurObj = assur::firstOrCreate([
+          "Nom"=>$request->nomf,
+          "Prenom"=>$request->prenomf,
+          "Date_Naissance"=>$request->datenaissancef,
+          "lieunaissance"=>$request->idlieunaissancef,
+          "Sexe"=>$request->sexef,
+          "adresse"=>$request->adressef,
+          "commune_res"=>$request->idcommunef,
+          "wilaya_res"=>$request->idwilayaf,
+          "grp_sang"=>$request->gsf.$request->rhf,
+          "Matricule"=>$request->mat,
+          "Service"=>$request->service,
+          "Grade"=>$request->grade,
+          "Etat"=>$request->etatf,
+          "NSS"=>$request->nss,
+          "NMGSN"=>$request->NMGSN, 
+        ]);            
     } 
     $patient = patient::firstOrCreate([
         "Nom"=>$request->nom,// "code_barre"=>$codebarre,
@@ -274,17 +272,19 @@ class PatientController extends Controller
      */
     public function edit($id,$asure_id =null)
     {  
+
       if(!(isset($asure_id)))
-      {    
+      {   
         $assure=null ;
         $grades = grade::all(); 
-        $patient = patient::FindOrFail($id); 
+        $patient = patient::FindOrFail($id);
         $hommes_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
-        if($patient->Type != "4")
+        if($patient->Type != "5")
           $assure =  $patient->assure;
         return view('patient.edit',compact('patient','assure','hommes_c','grades'));
       }else
       {
+        dd("dfsdf");
         $patient = patient::FindOrFail($id);
         $hommes_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
         return view('patient.editP',compact('patient','hommes_c'));
@@ -304,7 +304,7 @@ class PatientController extends Controller
         $ayantsAssure = array("0","1", "2", "3");
         $date = Date::Now();
         $patient = patient::FindOrFail($id);
-        if($request->type != "4")
+        if($request->type != "5")
         {
           if(($request->type == $patient->Type) || ((in_array($request->type, $ayants) && (in_array($patient->Type, $ayants)))))
           { 
@@ -328,7 +328,7 @@ class PatientController extends Controller
             ]);
           }else
           {     
-              if(((in_array($patient->Type, $ayants)) && ($request->type =="0")) || (in_array($request->type, $ayants) && ($patient->Type =="0")) ||(($patient->Type == "4") && (in_array($request->type, $ayantsAssure))))
+              if(((in_array($patient->Type, $ayants)) && ($request->type =="0")) || (in_array($request->type, $ayants) && ($patient->Type =="0")) ||(($patient->Type == "5") && (in_array($request->type, $ayantsAssure))))
              { 
             $assure = $assure->firstOrCreate([
                               "Nom"=>$request->nomf,

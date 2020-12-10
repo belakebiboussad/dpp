@@ -15,8 +15,7 @@
 	 			addRequiredAttr();
 			}
 			$("#foncform").addClass('hide');
-		}		
-  	else if(($('#type').val() == "1") ||($('#type').val() == "2")||($('#type').val() == "3"))
+		}else if(($('#type').val() == "1") ||($('#type').val() == "2")||($('#type').val() == "3")||($('#type').val() == "4"))
   	{
   		if(i !=0)
 		  {
@@ -35,17 +34,17 @@
 		}else
   	{
   		$(".starthidden").show(250);$('#description').attr('disabled', false); 
-		$("#foncform").addClass('hide'); 
-		if(! ($( "ul#menuPatient li:eq(0)" ).hasClass( "hidden" )))//$("ul#menuPatient li:eq(0)").css('display', 'none');
-			$( "ul#menuPatient li:eq(0)" ).addClass( "hidden" );// $('#nomf').attr('required', false);// $('#nomf').attr('required', false);// $('#prenomf').attr('required', false);// $('#nss').attr('required', false);
-		$('#Assure').find('input').prop("required",false);
-		$('#Assure').find("select").prop("required",false);
-		$('#nsspatient').attr('disabled', true);  
+			$("#foncform").addClass('hide'); 
+			if(! ($( "ul#menuPatient li:eq(0)" ).hasClass( "hidden" )))//$("ul#menuPatient li:eq(0)").css('display', 'none');
+				$( "ul#menuPatient li:eq(0)" ).addClass( "hidden" );// $('#nomf').attr('required', false);// $('#nomf').attr('required', false);// $('#prenomf').attr('required', false);// $('#nss').attr('required', false);
+			$('#Assure').find('input').prop("required",false);
+			$('#Assure').find("select").prop("required",false);
+			$('#nsspatient').attr('disabled', true);  
   	}
 	}
   function checkFormAddPAtient()
   {  
-    if(($('#type').val() != "4" ))
+    if(($('#type').val() != "5" ))
     { 
       $('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });
       if( ! checkAssure() )
@@ -101,7 +100,7 @@
 		<div class="col-sm-12">
 			<div class="form-group" id="error" aria-live="polite">
 			@if (count($errors) > 0)
-			      <div class="alert alert-danger">
+			  <div class="alert alert-danger">
 				<ul>
 				 @foreach ($errors->all() as $error)
 			 	           <li>{{ $error }}</li>
@@ -126,10 +125,10 @@
 		  </li>
 	</ul>	
   <div class="tab-content">
-  	<div id="Assure" class='tab-pane fade @if($patient->Type =="4") invisible @else in active  @endif '>
+  	<div id="Assure" class='tab-pane fade @if($patient->Type =="5") invisible @else in active  @endif '>
     	@include('assurs.editAssure')
     </div>
-	<div id="Patient" class="tab-pane fade @if($patient->Type =="4")   in active  @endif">
+	<div id="Patient" class="tab-pane fade @if($patient->Type =="5")   in active  @endif">
 		<div class="row">
     		<div class="col-sm-12"><h3 class="header smaller lighter blue">Informations administratives</h3></div>
 		</div>
@@ -138,7 +137,7 @@
 					<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
 					<label class="col-sm-3 control-label" for="nom"><strong>Nom :</strong></label>
 					<div class="col-sm-9">
-						<input type="text" id="nom" name="nom" placeholder="Nom..." value="{{ $patient->Nom }}" class="col-xs-12 col-sm-12" autocomplete= "off" required alpha />
+						<input type="text" id="nom" name="nom" value="{{ $patient->Nom }}" class="col-xs-12 col-sm-12" autocomplete= "off" required alpha />
 					{!! $errors->first('datenaissance', '<small class="alert-danger">:message</small>') !!}
 					</div>
 				</div>
@@ -321,8 +320,8 @@
 								<option value="1" @if($patient->Type =='1') selected @endif>Conjoint(e)</option>
 								<option value="2" @if($patient->Type =='2') selected @endif>Pere</option>
 								<option value="3" @if($patient->Type =='3') selected @endif>Mere</option>
-								<option value="3" @if($patient->Type =='4') selected @endif>Enfant</option>
-								<option value="4" @if($patient->Type =='5') selected @endif>Autre</option>
+								<option value="4" @if($patient->Type =='4') selected @endif>Enfant</option>
+								<option value="5" @if($patient->Type =='5') selected @endif>Autre</option>
 							</select>
 						</div>		
 				  	</div>{{-- col-sm-4 --}}

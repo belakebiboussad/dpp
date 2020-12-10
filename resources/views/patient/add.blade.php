@@ -6,8 +6,7 @@
   		$('#type').change(function(){
   			if( $('#type').val() == "0")
   			{
-				alert({{ $assure->Nom }});
-  				$("#foncform").addClass('hide');//copyPatient();
+					$("#foncform").addClass('hide');//copyPatient();
   				addRequiredAttr();
   			}
   			else if(($('#type').val() == "1") ||($('#type').val() == "2")||($('#type').val() == "3"))
@@ -28,7 +27,7 @@
         	activaTab("Patient");
         	event.preventDefault();
       	}else{
-      		if(($('#type').val() != "4" )){ //if(!($('#autre').is(':checked'))){ 
+      		if(($('#type').val() != "5" )){ //if(!($('#autre').is(':checked'))){ 
       			$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });	
 						if( ! checkAssure() )
 						{
