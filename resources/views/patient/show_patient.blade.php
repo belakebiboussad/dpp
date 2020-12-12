@@ -236,7 +236,7 @@ $('document').ready(function(){
 										<div class="profile-info-name"> Adresse </div>
 										<div class="profile-info-value">
 											<i class="fa fa-map-marker light-orange bigger-110"></i>
-											<span>{{ $patient->Adresse }} ,{{ $patient->commune->nom_commune}} , {{ $patient->wilaya->nom_wilaya }}</span>
+											<span>{{ $patient->Adresse }} ,{{ $patient->commune->nom_commune}} , {{ $patient->wilaya->nom }}</span>
 										</div>
 									</div>
 									<div class="profile-info-row">
@@ -327,34 +327,34 @@ $('document').ready(function(){
 														<label class="inline">
 															<span><b>Service :</b></span><span class="lbl blue">
 															@switch($patient->assure->Service)
-				                        @case(1)
+				                        @case(0)
 				                          Sécurité publique
 				                          @break
-				                        @case(2)
+				                        @case(1)
 				                       	  Police judiciaire (PJ)
 				                          @break
-				                        @case(3)
+				                        @case(2)
 				                       	  Brigade mobile de la police judiciaire (BMPJ)
 				                          @break  
-				                        @case(4)
+				                        @case(3)
 				                          Service protection et sécurité des personnalités (SPS)
 				                          @break       
-				                        @case(5)
+				                        @case(4)
 				                       	  Unité aérienne de la sûreté nationale
 				                          @break
-				                        @case(6)
+				                        @case(5)
 				                       	  Unités républicaines de sécurité (URS)
 				                          @break
-				                        @case(7)
+				                        @case(6)
 				                       	  Police scientifique et technique
 				                          @break
-				                         @case(8)
+				                         @case(7)
 				                       	 	Police aux frontières et de l'immigration (PAF)
 				                          @break
-				                        @case(9)
+				                        @case(8)
 				                       	  Brigade de recherche et d'intervention (BRI)
 				                          @break
-				                        @case(10)
+				                        @case(9)
 				                       	  Groupe des opérations spéciales de la police (GOSP)
 				                          @break 
 				                    @endswitch

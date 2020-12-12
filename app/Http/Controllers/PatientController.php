@@ -46,32 +46,12 @@ class PatientController extends Controller
   */
     public function create( $NSS = null,$type = null,$prenom =  null)
     {
+     
       if(isset($NSS))
       {
-        $assure = new assur;
-        if($type == '0')
-        {
-          try {
-            $handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word");
-            $obj = $handle->SelectPersonnel('',trim($NSS));
-            $assure->Nom = $obj->Nom;
-            $assure->Prenom = $prenom;
-            $date=date_create($obj->Date_Naissance);
-            $assure->Date_Naissance = date_format($date,"Y-m-d");
-            $assure->Sexe = $obj->Genre;
-            $assure->Matricule = $obj->Matricule;
-            $assure->adresse = $obj->Adresse;
-            $assure->grp_sang = $obj->GroupeSanguin;
-            $assure->NSS = $obj->NSS;
-            $assure->SituationFamille = $obj->SituationFamille;
-            return view('patient.addP',compact('assure','NSS','type','prenom')); 
-          }catch (Exception $e) {
-            echo 'Exception reçue : ',  $e->getMessage(), "\n";
-         }   
+        $assure = assur::FindOrFail($NSS);
+        return view('patient.addP',compact('assure','NSS','type','prenom')); 
         }
-        else
-          return view('patient.addP',compact('assure','NSS','type','prenom'));   
-      }
       else
       {
         $grades = grade::all();
@@ -221,7 +201,7 @@ class PatientController extends Controller
         "group_sang"=>$request->gs,
         "rhesus"=>$request->rh,
         "Assurs_ID_Assure"=>$request->assure_id ,
-        "Type"=>$request->type, "description"=> $request->description,
+        "Type"=>$request->typePatient, "description"=> $request->description,
         "NSS"=>$request->nsspatient,
         "Date_creation"=>$date,
         "updated_at"=>$date,

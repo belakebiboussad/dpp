@@ -144,7 +144,7 @@
 	  	<label class="col-sm-4 col-xs-4" for="wilayaf"><strong>Wilaya:</strong></label>
 	  	@if(isset($assure->wilaya) && !empty($assure->wilaya))
 	  	<input type="hidden" name="idwilayaf" id="idwilayaf" value="{{  $assure->wilaya_res  }}">
-		  <input type="text" value="{{ $assure->wilaya->nom_wilaya }}" id="wilayaf" class="col-sm-8 col-xs-8" readonly />	
+		  <input type="text" value="{{ $assure->wilaya->nom }}" id="wilayaf" class="col-sm-8 col-xs-8" readonly />	
 	  	@else	
 	  	<input type="hidden" name="idwilayaf" id="idwilayaf">
 		  <input type="text" value="" id="wilayaf" placeholder="wilaya résidance" class="col-sm-8 col-xs-8" readonly />
@@ -186,30 +186,30 @@
 					@if(isset($assure) && !empty($assure))
 					<select name="service" id="service" class="col-xs-12 col-sm-12">
 						<option value="">Sélectionner...</option>
-						<option value="1"  {{ ($assure->Service=="1") ? "selected" : "" }}>Sécurité publique</option>
-						<option value="2"  {{ ($assure->Service=="2") ? "selected" : "" }}>Police judiciaire (PJ)</option>
-						<option value="3"   {{ ($assure->Service=="3") ? "selected" : "" }}>Brigade mobile de la police judiciaire (BMPJ)</option>
-						<option value="4"  {{ ($assure->Service=="4")? "selected" : "" }}>Service protection et sécurité des personnalités (SPS)</option>
-						<option value="5"  {{ ($assure->Service=="5") ? "selected" : "" }}>Unité aérienne de la sûreté nationale</option>
-						<option value="6"  {{ ($assure->Service=="6") ? "selected" : "" }}>Unités républicaines de sécurité (URS)</option>
-						<option value="7"  {{ ($assure->Service=="7") ? "selected" : "" }}>Police scientifique et technique</option>
-						<option value="8"  {{ ($assure->Service=="8")? "selected" : "" }}>Police aux frontières et de l'immigration (PAF)</option>
-						<option value="9"  {{ ($assure->Service=="9")? "selected" : "" }}>Brigade de recherche et d'intervention (BRI)</option>
-						<option value="10"  {{ ($assure->Service=="10")? "selected" : "" }}>Groupe des opérations spéciales de la police (GOSP)</option>
+						<option value="1"  {{ ($assure->Service=="0") ? "selected" : "" }}>Sécurité publique</option>
+						<option value="2"  {{ ($assure->Service=="1") ? "selected" : "" }}>Police judiciaire (PJ)</option>
+						<option value="3"   {{ ($assure->Service=="2") ? "selected" : "" }}>Brigade mobile de la police judiciaire (BMPJ)</option>
+						<option value="4"  {{ ($assure->Service=="3")? "selected" : "" }}>Service protection et sécurité des personnalités (SPS)</option>
+						<option value="5"  {{ ($assure->Service=="4") ? "selected" : "" }}>Unité aérienne de la sûreté nationale</option>
+						<option value="6"  {{ ($assure->Service=="5") ? "selected" : "" }}>Unités républicaines de sécurité (URS)</option>
+						<option value="7"  {{ ($assure->Service=="6") ? "selected" : "" }}>Police scientifique et technique</option>
+						<option value="8"  {{ ($assure->Service=="7")? "selected" : "" }}>Police aux frontières et de l'immigration (PAF)</option>
+						<option value="9"  {{ ($assure->Service=="8")? "selected" : "" }}>Brigade de recherche et d'intervention (BRI)</option>
+						<option value="10"  {{ ($assure->Service=="9")? "selected" : "" }}>Groupe des opérations spéciales de la police (GOSP)</option>
 					</select>
 					@else
 					<select name="service" id="service" class="col-xs-12 col-sm-12">
 						<option value="">Sélectionner...</option>
-						<option value="1" >Sécurité publique</option>
-						<option value="2" >Police judiciaire (PJ)</option>
-						<option value="3" >Brigade mobile de la police judiciaire (BMPJ)</option>
-						<option value="4" >Service protection et sécurité des personnalités (SPS)</option>
-						<option value="5" >Unité aérienne de la sûreté nationale</option>
-						<option value="6">Unités républicaines de sécurité (URS)</option>
-						<option value="7" >Police scientifique et technique</option>
-						<option value="8">Police aux frontières et de l'immigration (PAF)</option>
-						<option value="9">Brigade de recherche et d'intervention (BRI)</option>
-						<option value="10" >Groupe des opérations spéciales de la police (GOSP)</option>
+						<option value="0" >Sécurité publique</option>
+						<option value="1" >Police judiciaire (PJ)</option>
+						<option value="2" >Brigade mobile de la police judiciaire (BMPJ)</option>
+						<option value="3" >Service protection et sécurité des personnalités (SPS)</option>
+						<option value="4" >Unité aérienne de la sûreté nationale</option>
+						<option value="5">Unités républicaines de sécurité (URS)</option>
+						<option value="6" >Police scientifique et technique</option>
+						<option value="7">Police aux frontières et de l'immigration (PAF)</option>
+						<option value="8">Brigade de recherche et d'intervention (BRI)</option>
+						<option value="9" >Groupe des opérations spéciales de la police (GOSP)</option>
 					</select>
 					@endif 
 				</div>

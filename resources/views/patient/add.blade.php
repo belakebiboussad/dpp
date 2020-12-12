@@ -6,10 +6,10 @@
   		$('#type').change(function(){
   			if( $('#type').val() == "0")
   			{
-					$("#foncform").addClass('hide');//copyPatient();
+				$("#foncform").addClass('hide');//copyPatient();
   				addRequiredAttr();
   			}
-  			else if(($('#type').val() == "1") ||($('#type').val() == "2")||($('#type').val() == "3"))
+  			else if(($('#type').val() == "1") ||($('#type').val() == "2")||($('#type').val() == "3")||($('#type').val() == "4"))
   			{
   				$("#foncform").removeClass('hide');
 			    addRequiredAttr();

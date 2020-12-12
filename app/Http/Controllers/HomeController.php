@@ -14,6 +14,7 @@ use App\modeles\DemandeHospitalisation;
 use App\modeles\admission;
 use App\modeles\medcamte;
 use App\modeles\reactif;
+//use App\modeles\gamme;
 use App\modeles\dispositif;
 use App\modeles\dem_colloque;
 use App\modeles\demandeexb;

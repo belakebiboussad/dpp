@@ -54,7 +54,7 @@
 	            <h6>
 	           		{{ $rdv->demandeHospitalisation->consultation->patient->Adresse }}
 	           		{{ $rdv->demandeHospitalisation->consultation->patient->commune->nom_commune }}
-	            	{{ $rdv->demandeHospitalisation->consultation->patient->wilaya->nom_wilaya }}
+	            	{{ $rdv->demandeHospitalisation->consultation->patient->wilaya->nom }}
 	            </h6>
 	          </div>
             	

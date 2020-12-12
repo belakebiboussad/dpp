@@ -170,7 +170,7 @@
 			</div>		
 		</div>{{-- col-sm-4 --}}
 </div> 
-<div class="space-12"></div><div class="space-12"></div>
+<div class="space-12"></div>
 <div class="row" id="foncform">
 		<div class="col-sm-6">
 			<div class="form-group">
@@ -183,7 +183,6 @@
 		</div>	
 		<div class="col-sm-6"></div> 	
 	</div> 	{{-- row --}}
-<div class="space-12"></div>
 <div class="row">
 	<div class="col-sm-6 starthidden">
 		<label for="description"><strong>Autre information :</strong></label>
@@ -191,9 +190,7 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-sm-12">
-		<h3 class="header smaller lighter blue">Homme de Confiance</h3>
-	</div>
+	<div class="col-sm-12"><h3 class="header smaller lighter blue">Homme de Confiance</h3></div>
 </div>
 <div class="row">
  	<div class="col-sm-1"></div>		

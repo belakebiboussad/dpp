@@ -52,9 +52,9 @@ class ConsultationsController extends Controller
     }
        public function detailconsXHR(Request $request)
        {
-               $consultation = consultation::FindOrFail($request->id);
-               $view =  view("consultations.inc_consult",compact('consultation'))->render();
-               return response()->json(['html'=>$view]);
+          $consultation = consultation::FindOrFail($request->id);
+          $view =  view("consultations.inc_consult",compact('consultation'))->render();
+          return response()->json(['html'=>$view]);
         }
         public function listecons($id)
         {
@@ -68,18 +68,18 @@ class ConsultationsController extends Controller
        */
         public function create(Request $request,$id_patient)
         {
-               $employe=Auth::user()->employ;
-               $modesAdmission = config('settings.ModeAdmissions') ;
-               $patient = patient::FindOrFail($id_patient);//$codesim = codesim::all();
-               $chapitres = chapitre::all();
-               $services = service::all();
-               $meds = User::where('role_id',1)->get()->all(); 
-              $specialites = Specialite::orderBy('nom')->get();
-              $specialitesExamBiolo = specialite_exb::all();
-              $infossupp = infosupppertinentes::all();
-              $examens = exmnsrelatifdemande::all();//CT,RMN
-              $examensradio = examenradiologique::all();//pied,poignet
-              return view('consultations.create_consultation',compact('patient','employe','chapitres','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp','examens','examensradio'));
+          $employe=Auth::user()->employ;
+          $modesAdmission = config('settings.ModeAdmissions') ;
+          $patient = patient::FindOrFail($id_patient);//$codesim = codesim::all();
+          $chapitres = chapitre::all();
+          $services = service::all();
+          $meds = User::where('role_id',1)->get()->all();
+          $specialites = Specialite::orderBy('nom')->get();
+          $specialitesExamBiolo = specialite_exb::all();
+          $infossupp = infosupppertinentes::all();
+          $examens = exmnsrelatifdemande::all();//CT,RMN
+          $examensradio = examenradiologique::all();//pied,poignet
+          return view('consultations.create_consultation',compact('patient','employe','chapitres','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp','examens','examensradio'));
     }
     /**
      * Store a newly created resource in storage.

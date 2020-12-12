@@ -57,7 +57,7 @@
 				<div class="row">
 					<div class="col-sm-2">
 						<label class="control-label pull-right" for="Matricule" >
-							<strong>&nbsp;Mat:</strong>
+							<strong>&nbsp;Matricule:</strong>
 						</label>
 					</div>
 					<div class="col-sm-3">
@@ -74,7 +74,7 @@
 			</div><!-- body -->
 			<div class="panel-footer" style="height:40px;">
 				<button type="submit" class="btn btn-xs btn-primary findAssure" style ="margin-top:-0.5%;" ><i class="fa fa-search"></i>&nbsp;Rechercher</button>
-				<!-- <a href="{{ route('assur.destroy',12) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Supprimer</a> -->
+				<a href="{{ route('assur.destroy',12) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Supprimer</a>
 				
 				@if(Auth::user()->role_id == 4)
 				<div class="pull-right">
@@ -96,15 +96,15 @@
 					<thead>
 						<tr class="info"><th colspan="12">Fonctionnaire</th></tr>
 						<tr class="liste">
-						    	<th class="blue" width="9%">Nom</th>
+						    <th class="blue" width="9%">Nom</th>
 							<th class="blue" width="9%">Prénom</th>
 							<th class="blue" width="7%">Civilité</th>
-						       <th class="blue"  width="5%">Matricule</th>
+						    <th class="blue"  width="5%">Matricule</th>
 							<th class="blue" width="10%">Num Séc Soc</th>
 							<th class="blue" width="7%">Né(e) le</th>
 							<th class="blue" width="6%">Genre</th>
-							<th class="blue" width="10%">Position Actuel</th>
-							<th class="blue" width="9%">Service</th>
+							<th class="blue" width="8%">Position</th>
+							<th class="blue" width="11%">Service</th>
 							<th class="blue" width="7%">Grade</th>
 							<th class="blue"><em class="fa fa-cog"></em></th>
 						</tr>

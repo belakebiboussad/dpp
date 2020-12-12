@@ -3,45 +3,57 @@
 @section('page-script')
 <script>
 	function checkFormAddPAtient()
-  {        
-  	if( ! checkPatient() )
-   	{ 
-			return false;
-   	}else{
+ 	{        
+  		if( ! checkPatient() )
+   		{ 
+		return false;
+   		}else{
       if($('#hommeConf').is(':checked')){
-				if( ! checkHomme() )
-				{	
-					activaTab("Homme_C");
-					return false;
-				}else
-				{
-					$('input:disabled').removeAttr('disabled');    
-					return true; 
-				}
+			if( ! checkHomme() )
+			{	
+				activaTab("Homme_C");
+				return false;
+			}else
+			{
+				$('input:disabled').removeAttr('disabled');    
+				return true; 
+			}
    		}
     	$('input:disabled').removeAttr('disabled');    
     	return true;
-   	}
-  }
-	function copyAssure(){
+   		}
+  	}
+    function copyAssure(){
 		$("#nom").val('{{ $assure->Nom }}');
 		$("#datenaissance").val('{{ $assure->Date_Naissance}}');
+		$("#idlieunaissance").val('{{ $assure->lieunaissance}}');
+		$("#lieunaissance").val('{{ $assure->lieuNaissance->nom_commune}}')
 		$("input[name=sexe][value=" + '{{ $assure->Sexe }}' + "]").prop('checked', true);
+		$("#idcommune").val('{{ $assure->commune_res}}');
+		$("#commune").val('{{ $assure->commune->nom_commune}}');
+		$("#idwilaya").val('{{ $assure->wilaya_res}}');
+		$("#wilaya").val('{{ $assure->wilaya->nom}}');
 		$( "#gs" ).val('{{ $assure->grp_sang }}'.substr(0,'{{ $assure->grp_sang }}'.length - 1));
 		$( "#rh" ).val('{{ $assure->grp_sang }}'.substr('{{ $assure->grp_sang }}'.length - 1));
-		$("#sf").val('{{ $assure->SituationFamille}}'); $("#adresse").val('{{ $assure->adresse }}');//$('.demograph').find('*').each(function () { $(this).attr("disabled", true); });
+		$("#sf").val('{{ $assure->SituationFamille}}'); $("#adresse").val('{{ $assure->adresse }}');//$('.demograph').find('*').each(function () { $(this).attr("disabled", true); });	
 	}
   $( document ).ready(function() {
 		if({{ $type }} == 0)
-		{
+		{	
 			copyAssure();
-  		$("#foncform").addClass('hide');
-  		$(".starthidden").hide(250);
+  			$("#foncform").addClass('hide');
+  			$(".starthidden").hide(250);
 		}
 		if($('#type').val() =='2')
+		{
 			$("input[name=sexe][value='M']").prop('checked', true);
+			$("input[name=sexe]").prop('disabled',true);
+		}
 		else if($('#type').val() =='3')
+		{
 			$("input[name=sexe][value='F']").prop('checked', true);
+			$("input[name=sexe]").prop('disabled',true);
+		}
 		
   });
 </script>
@@ -53,6 +65,7 @@
     <form class="form-horizontal" id = "addPAtient" action="/addpatientAssure" method="POST" role="form" onsubmit="return checkFormAddPAtient(this);">
 	  	{{ csrf_field() }}
 	  	<input type="hidden" name="assure_id" value="{{ $NSS }}">
+		<input type="hidden" name="typePatient" value="{{$type}}">
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="form-group" id="error" aria-live="polite">

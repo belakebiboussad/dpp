@@ -10,19 +10,19 @@
 		        }, 
 		 });
 		$('#dispo_table').dataTable({
-       		 	ordering: true,
-        		"language": 
-      			{
-              			 "url": '/localisation/fr_FR.json'
-            		}, 
-    		});
+       	 	ordering: true,
+        	"language": 
+      		{
+        		"url": '/localisation/fr_FR.json'
+            }, 
+    	});
 		$('#reactif_table').dataTable({
-        		ordering: true,
-        		"language": 
-            		{
-              			"url": '/localisation/fr_FR.json'
-            		}, 
-    		});
+        	ordering: true,
+        	"language": 
+            {
+            	"url": '/localisation/fr_FR.json'
+            }, 
+    	});
 	});
 </script>
 @endsection
@@ -69,17 +69,13 @@
 															<tbody>
 																@foreach($meds as $med)
 																<tr>
-																	<td>
-																		{{App\modeles\gamme::where("id",$med->id_gamme)->get()->first()->gamme}}
-																	</td>
-																	<td>
-																		{{App\modeles\specialite_produit::where("id",$med->id_specialite)->get()->first()->specialite_produit}}
-																	</td>
+																	<td>{{ $med->gamme->nom}}</td>
+																	<td>{{ $med->specialite->specialite_produit }}</td>
 																	<td  class="center">{{ $med->code_produit }}</td>
 																	<td>{{ $med->dci }}</td>
 																</tr>
 																@endforeach
-																</tbody>
+															</tbody>
 															</table>
 														</div>
 													</div>
@@ -98,16 +94,12 @@
 																</thead>
 																<tbody>
 																	@foreach($dispositifs as $dispo)
-																		<tr>
-																			<td>
-																			{{App\modeles\gamme::where("id",$dispo->id_gamme)->get()->first()->gamme}}
-																			</td>
-																			<td>
-																				{{App\modeles\specialite_produit::where("id",$dispo->id_specialite)->get()->first()->specialite_produit}}
-																			</td>
-																			<td class="center">{{ $dispo->code_produit }}</td>
-																			<td>{{ $dispo->dci }}</td>
-																		</tr>
+																	<tr>
+																		<td>{{ $dispo->gamme->nom }}</td>
+																		<td>{{ $dispo->specialite->specialite_produit }}</td>
+																		<td class="center">{{ $dispo->code_produit }}</td>
+																		<td>{{ $dispo->dci }}</td>
+																	</tr>
 																	@endforeach
 																</tbody>
 															</table>
@@ -129,12 +121,8 @@
 																<tbody>
 																	@foreach($reactifs as $react)
 																		<tr>
-																			<td>
-																			{{App\modeles\gamme::where("id",$react->id_gamme)->get()->first()->gamme}}
-																			</td>
-																			<td>
-																				{{App\modeles\specialite_produit::where("id",$react->id_specialite)->get()->first()->specialite_produit}}
-																			</td>
+																			<td>{{ $react->gamme->nom }}</td>
+																			<td>{{ $react->specialite->specialite_produit }}</td>
 																			<td class="center">{{ $react->code_produit }}</td>
 																			<td>{{ $react->dci }}</td>
 																		</tr>

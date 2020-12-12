@@ -117,9 +117,9 @@
 	 	 <input type="text" value="" id="commune" placeholder="commune résidance" class="autoCommune col-sm-8"/>
 	</div>
 	<div class="col-sm-4">
-		  <label class="col-sm-4" for="wilaya"><strong>Wilaya:</strong></label>
-		  <input type="hidden" name="idwilaya" id="idwilaya">
-		  <input type="text" value=""  id="wilaya" placeholder="wilaya résidance" class=" text-nowrap col-sm-8" readonly />
+		<label class="col-sm-4" for="wilaya"><strong>Wilaya:</strong></label>
+		<input type="hidden" name="idwilaya" id="idwilaya">
+		<input type="text" value=""  id="wilaya" placeholder="wilaya résidance" class=" text-nowrap col-sm-8" readonly />
 	</div>
 </div>
 <div class="space-12"></div>
@@ -158,7 +158,7 @@
 					<label class="control-label no-padding-right pull-right text-nowrap" style=" padding-top: 0px;"><strong>Type:</strong></label>
 				</div>
 				<div class="col-sm-10">
-					<select class="form-control col-xs-12 col-sm-6" id="type" name="type">
+					<select class="form-control col-xs-12 col-sm-6" id="type" name="type" disabled >
 						<option value="0" @if( $type =='0') selected @endif>Assure</option>
 						<option value="1" @if($type =='1') selected @endif >Conjoint(e)</option>
 						<option value="2" @if($type =='2') selected @endif >Pere</option>

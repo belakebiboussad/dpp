@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-//use App\modeles\consigne;
+use Illuminate\Support\Facades\Validator;//use App\modeles\consigne;
 use App\modeles\Acte;
 use Response;
 // use Validator;

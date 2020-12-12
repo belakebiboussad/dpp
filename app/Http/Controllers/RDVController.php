@@ -210,24 +210,12 @@ class RDVController extends Controller
                 return redirect()->route('rdv.index'); 
         } 
       }
-    public function orderPdf($id)
-    {
-      $order = rdv::findOrFail($id);
-      $pdf = PDF::loadView('ordre_pdf', compact('order'))->setPaper('a5', 'landscape');
-      $name = "RDV-pour:".patient::where("id",$order->Patient_ID_Patient)->get()->first()->Nom."".patient::where("id",$order->Patient_ID_Patient)->get()->first()->Prenom.".pdf";
-      return $pdf->download($name);
-    }
+/*public function orderPdf($id){$order = rdv::findOrFail($id); $pdf = PDF::loadView('ordre_pdf', compact('order'))->setPaper('a5', 'landscape');
+$name = "RDV-pour:".patient::where("id",$order->Patient_ID_Patient)->get()->first()->Nom."".patient::where("id",$order->Patient_ID_Patient)->get()->first()->Prenom.".pdf";  return $pdf->download($name);}*/
     public function print(Request $request,$id)
     { //   DNS2D
-      /*
-      $rdv = rdv::findOrFail($id);
-      $viewhtml = View::make('rdv.rdvTicketPDF-DNS2D', array('rdv' =>$rdv))->render();
-      $dompdf = new Dompdf();
-      $dompdf->loadHtml($viewhtml);
-      $dompdf->setPaper('a6', 'landscape');
-      $dompdf->render();
-      $name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";//"-".microtime(TRUE).
-      return $dompdf->stream($name); */
+      /* $rdv = rdv::findOrFail($id);   $viewhtml = View::make('rdv.rdvTicketPDF-DNS2D', array('rdv' =>$rdv))->render();$dompdf = new Dompdf();$dompdf->loadHtml($viewhtml);$dompdf->setPaper('a6', 'landscape');
+      $dompdf->render();$name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";//"-".microtime(TRUE).return $dompdf->stream($name); */
       $rdv = rdv::findOrFail($id);
       $pdf417 = new PDF417();
       $data = $pdf417->encode($rdv->id.'|'.$rdv->employe->specialite.'|'.Carbon::parse($rdv->Date_RDV)->format('d-m-Y').'|'.$rdv->patient->IPP);

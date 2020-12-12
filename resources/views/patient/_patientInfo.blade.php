@@ -29,7 +29,7 @@
 					</label>&nbsp;&nbsp;&nbsp;
 					<label class="inline"> 	
 						<span class="blue"><span class="glyphicon glyphicon-home"></span>&nbsp;<strong>Adresse :</strong></span>
-						<span class="lbl">{{ $patient->commune->nom_commune }},{{ $patient->wilaya->nom_wilaya }}</span>
+						<span class="lbl">{{ $patient->commune->nom_commune }},{{ $patient->wilaya->nom }}</span>
 					</label>&nbsp;&nbsp;&nbsp;
 					<label class="inline"> <span class="blue">&nbsp;<strong>NSS :</strong></span><span class="lbl">{{ $patient->NSS }}</span></label>	
 						&nbsp;&nbsp;&nbsp;

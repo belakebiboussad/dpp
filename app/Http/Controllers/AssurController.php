@@ -4,11 +4,12 @@ use App\modeles\assur;
 use Illuminate\Http\Request;
 use App\modeles\grade;
 use App\Traits\PatientSearch;
+use App\Traits\AssureSearch;
 use Carbon;
 use \COM;
 class AssurController extends Controller
 {
-    use PatientSearch;    
+    use PatientSearch,AssureSearch;    
     /**
      * Display a listing of the resource.
      *
@@ -59,7 +60,22 @@ class AssurController extends Controller
       ]);
        return view('assurs.show',compact('assure'));
     }
-
+    /**
+     * //je stock l'assure obtenue de GRH  
+     */
+    public function save($obj)
+    {
+      $assure = new assur;
+      $assure->Nom = $obj->Nom; $assure->Prenom = $obj->Prenom; $date=date_create($obj->Date_Naissance);
+      $assure->Date_Naissance = date_format($date,"Y-m-d");$assure->lieunaissance ='1556';
+      $assure->Sexe = $obj->Genre;$assure->SituationFamille = $obj->SituationFamille;
+      $assure->Matricule = $obj->Matricule;$assure->adresse = $obj->Adresse;
+      $assure->commune_res ='1556'; $assure->wilaya_res ='49';
+      $assure->grp_sang = $obj->GroupeSanguin;
+      $assure->NSS = $obj->NSS;
+      $assure->Etat = $obj->Position;$assure->Service = $obj->Service;
+      $assure->save();
+    }
     /**
      * Display the specified resource.
      *
@@ -82,9 +98,9 @@ class AssurController extends Controller
     /*
       public function edit($id)
       {
-            $assure = assur::FindOrFail($id);
-            $grades = grade::all(); 
-             return view('assurs.edit',compact('assure','grades'));
+        $assure = assur::FindOrFail($id);
+         $grades = grade::all(); 
+        return view('assurs.edit',compact('assure','grades'));
       }
       */
     /**
@@ -127,14 +143,13 @@ class AssurController extends Controller
             $handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word"); 
             if($handle != null)
             {
-              $ass = $handle->SelectPersonnel(trim('hk128'),trim("875614325845"));//return( $ass->Nom );
-              dd($ass->Nom);
-              //$id = $this->patientSearch('malia','875614325845');
-              //dd($id);
-
+              $ass = $handle->SelectPersonnel(trim(''),trim("894568124785"));//return( $ass->Nom );
+              //dd($ass->NSS);//'875614325845'
+              $id = $this->assureSearch($ass->NSS);
+              dd($id);
             }else{
               dd("2");
-               return("Non");
+              return("Non");
             }
         }
         public function search(Request $request)
@@ -145,9 +160,63 @@ class AssurController extends Controller
             $assure = $handle->SelectPersonnel(trim($request->matricule),trim($request->nss));   
             if($assure->Nom != null)
             {
-              $action = "" ;
+              $action = "" ; $position ="";$service="";
+              switch ($assure->Position) {
+                case '0':
+                  $position ="Activité";
+                  break;
+                case '1':
+                  $position ="Retraite";
+                  break;
+                case '2':
+                  $position ="Congé Maladie";
+                  break;
+                case '3':
+                  $position ="Révoqué";
+                    break;
+                default:
+                  break;
+              }
+              switch ($assure->Service) {
+                case '0':
+                  $service ="Sécurité publique";
+                  break;
+                case '1':
+                  $service ="Police judiciaire (PJ)";
+                  break;
+                case '2':
+                  $service ="Brigade mobile de la police judiciaire (BMPJ)";
+                  break;
+                case '3':
+                  $service ="Service protection et sécurité des personnalités";
+                  break;
+                case '4':
+                  $service ="Unité aérienne de la sûreté nationale";
+                  break;
+                case '5':
+                  $service ="Unités républicaines de sécurité (URS)";
+                  break;
+                case '6':
+                  $service ="Police scientifique et technique";
+                  break;
+                case '7':
+                  $service ="Police aux frontières et de l'immigration (PAF)";
+                  break;  
+                case '8':
+                  $service ="Brigade de recherche et d'intervention (BRI)";
+                  break;    
+                case '9':
+                  $service ="Groupe des opérations spéciales de la police (GOSP)";
+                  break;    
+                default:
+                  break;
+              }      
+              if($assure->Position != "3")
+                if($this->assureSearch($assure->NSS) == null)
+                  $this->save($assure);
+              
               $sexe =  ($assure->Genre =="M") ? "Masculin":"Féminin"; 
-              if(trim($assure->Position) != "Revoque")//existe maisrevoque
+              if(trim($assure->Position) != "3")//existe maisrevoque
               {
                 $patientId = $this->patientSearch($assure->Prenom,$assure->NSS);
                 if(isset($patientId))
@@ -160,9 +229,9 @@ class AssurController extends Controller
               $output.='<tr><td>'.$assure->Nom.'</td>'.'<td>'.$assure->Prenom.'</td>'.'<td>'.$assure->SituationFamille.'</td>'.
                 '<td><span class="badge">'.$assure->Matricule.'</span></td>'. '<td>'.$assure->NSS.'</td>'. 
                 '<td>'. Carbon\Carbon::parse($assure->Date_Naissance)->format('Y-m-d').'</td>'. '<td>'.$sexe.'</td>'.
-                '<td><span class="badge badge-success">'.$assure->Position.'</span></td>'.'<td>'.$assure->service.'</td>'. '<td>'.$assure->Grade.'</td>'.
+                '<td><span class="badge badge-success">'.$position.'</span></td>'.'<td>'.$service.'</td>'. '<td>'.$assure->Grade.'</td>'.
                 '<td class="center">'.$action.'</td></tr>';
-              if(trim($assure->Position) != "Revoque")
+              if(trim($assure->Position) != "3")
               {
                 //Ayants  //conjoint
                 $patientId = $this->patientSearch($assure->Conjoint,$assure->NSS);

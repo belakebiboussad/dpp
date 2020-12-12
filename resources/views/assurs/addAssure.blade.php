@@ -120,22 +120,21 @@
 			<div class="col-sm-9">
 				<select name="service" id="service" class="col-xs-12 col-sm-12">
 					<option value="">Sélectionner...</option>
-					<option value="1" >Sécurité publique</option>
-					<option value="2" >Police judiciaire (PJ)</option>
-					<option value="3" >Brigade mobile de la police judiciaire (BMPJ)</option>
-					<option value="4" >Service protection et sécurité des personnalités (SPS)</option>
-					<option value="5" >Unité aérienne de la sûreté nationale</option>
-					<option value="6">Unités républicaines de sécurité (URS)</option>
-					<option value="7" >Police scientifique et technique</option>
-					<option value="8">Police aux frontières et de l'immigration (PAF)</option>
-					<option value="9">Brigade de recherche et d'intervention (BRI)</option>
-					<option value="10" >Groupe des opérations spéciales de la police (GOSP)</option>
+					<option value="0" >Sécurité publique</option>
+					<option value="1" >Police judiciaire (PJ)</option>
+					<option value="2" >Brigade mobile de la police judiciaire (BMPJ)</option>
+					<option value="3" >Service protection et sécurité des personnalités (SPS)</option>
+					<option value="4" >Unité aérienne de la sûreté nationale</option>
+					<option value="5">Unités républicaines de sécurité (URS)</option>
+					<option value="6" >Police scientifique et technique</option>
+					<option value="7">Police aux frontières et de l'immigration (PAF)</option>
+					<option value="8">Brigade de recherche et d'intervention (BRI)</option>
+					<option value="9" >Groupe des opérations spéciales de la police (GOSP)</option>
 				</select>
 			</div>
 		</div>
 	</div>
 </div>
-<div class="space-12"></div>
 <div class="row">
 	<div class="col-sm-6">
 		<div class="form-group">
@@ -164,7 +163,6 @@
 		</div>
 </div>
 </div>	{{-- row --}}
-<div class="space-12"></div>
 <div class="row">
 	<div class="col-sm-6">
 		<div class="form-group">
@@ -177,21 +175,15 @@
 				</div>
 			</div>
 		</div>
-		<br>
 	</div>
 	<div class="col-sm-6">
 		<div class="form-group">
-			<label class="control-label col-xs-12 col-sm-3" for="nss2">
-				<strong>NSS :</strong>
-			</label>
+			<label class="control-label col-xs-12 col-sm-3" for="nss2"><strong>NSS :</strong></label>		
 			<div class="col-sm-9">
 			<div class="clearfix">
-			<input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12" placeholder="XXXXXXXXXXXX" maxlength =12 minlength =12 />
+				<input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12" placeholder="XXXXXXXXXXXX" maxlength =12 minlength =12 />
 			</div>
 			</div>
 		</div>
-		<br><br>
 	</div>
 </div>	{{-- row --}}
-<div class="space-12"></div>
-{{-- <div class="row"><div class="col-sm-6"><br><br></div></div>--}}{{-- row --}} 

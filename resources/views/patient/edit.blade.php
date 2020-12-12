@@ -4,10 +4,10 @@
 <script>
 	function showTypeEdit(i)
 	{
-	  var value = $("#type").val();
-  	if( value == "0")
-  	{
-	  	if(i !=0)
+	 	 var value = $("#type").val();
+  		if( value == "0")
+  		{
+	  		if(i !=0)
 	 		{
 	 			$('#Assure').find('input').val('');//copyPatient();
 	 			$('#Assure').find("select").prop("selectedIndex",0);
@@ -16,27 +16,30 @@
 			}
 			$("#foncform").addClass('hide');
 		}else if(($('#type').val() == "1") ||($('#type').val() == "2")||($('#type').val() == "3")||($('#type').val() == "4"))
-  	{
-  		if(i !=0)
-		  {
-		   	if(('{{ $patient->Type }}' == "0"))
+  		{
+  			if(i !=0)
 		  	{
-		  		$('#Assure').find('input').val('');//copyPatient();
-			    $('#Assure').find("select").prop("selectedIndex",0);
-			    $('#description').val('');
+		   		if(('{{ $patient->Type }}' == "0"))
+		  		{
+		  			$('#Assure').find('input').val('');//copyPatient();
+			    	$('#Assure').find("select").prop("selectedIndex",0);
+			    	$('#description').val('');
 
-	      }
-		  }
+	      		}
+		  	}
 			$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });
 			$("#foncform").removeClass('hide');
 			$('#nsspatient').attr('disabled', false); 
 			addRequiredAttr();
 		}else
-  	{
-  		$(".starthidden").show(250);$('#description').attr('disabled', false); 
+  		{
+  			$(".starthidden").show(250);$('#description').attr('disabled', false); 
 			$("#foncform").addClass('hide'); 
-			if(! ($( "ul#menuPatient li:eq(0)" ).hasClass( "hidden" )))//$("ul#menuPatient li:eq(0)").css('display', 'none');
-				$( "ul#menuPatient li:eq(0)" ).addClass( "hidden" );// $('#nomf').attr('required', false);// $('#nomf').attr('required', false);// $('#prenomf').attr('required', false);// $('#nss').attr('required', false);
+			if(! ($( "ul#menuPatient li:eq(0)" ).hasClass("hidden")))//$("ul#menuPatient li:eq(0)").css('display', 'none');
+				$( "ul#menuPatient li:eq(0)" ).addClass("hidden");// $('#nomf').attr('required', false);// $('#nomf').attr('required', false);// $('#prenomf').attr('required', false);// $('#nss').attr('required', false);
+			if(($( "ul#menuPatient li:eq(0)" ).hasClass("active")))
+				$( "ul#menuPatient li:eq(0)" ).removeClass("active");
+			$( "ul#menuPatient li:eq(1)" ).addClass( "active" );
 			$('#Assure').find('input').prop("required",false);
 			$('#Assure').find("select").prop("required",false);
 			$('#nsspatient').attr('disabled', true);  
@@ -266,8 +269,8 @@
 				</div>
 				<div class="col-sm-4">
 					<label class="col-sm-4 col-xs-4"><strong>Wilaya :</strong></label>
-				  <input type="hidden" name="idwilaya" id="idwilaya" value="{{ $patient->wilaya->immatriculation_wilaya }}"/>
-				  <input type="text" id="wilaya" value="{{ $patient->wilaya->nom_wilaya }}" class="col-sm-8 col-xs-8"readonly/>	
+				  <input type="hidden" name="idwilaya" id="idwilaya" value="{{ $patient->wilaya->id }}"/>
+				  <input type="text" id="wilaya" value="{{ $patient->wilaya->nom }}" class="col-sm-8 col-xs-8"readonly/>	
 				</div>	
 			</div>{{-- row --}}
 			<div class="space-12"></div>

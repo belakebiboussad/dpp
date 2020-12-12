@@ -200,8 +200,8 @@
 						</div>
 						<div class="col-sm-4">
 							<label class="col-sm-3"><strong>Wilaya :</strong></label>
-						  <input type="hidden" name="idwilaya" id="idwilaya" value="{{ $patient->wilaya->immatriculation_wilaya }}"/>
-						  <input type="text" id="wilaya" placeholder="wilaya..." value="{{ $patient->wilaya->nom_wilaya }}" class="col-sm-9" readonly/>	
+						  <input type="hidden" name="idwilaya" id="idwilaya" value="{{ $patient->wilaya->id }}"/>
+						  <input type="text" id="wilaya" placeholder="wilaya..." value="{{ $patient->wilaya->nom }}" class="col-sm-9" readonly/>	
 						</div>	
 				</div>{{-- row --}}
 				<div class="space-12"></div>
