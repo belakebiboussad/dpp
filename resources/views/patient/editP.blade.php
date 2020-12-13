@@ -2,24 +2,23 @@
 @section('title','modifier  le patient')
 @section('page-script')
 <script>
-	function showTypeEdit(i){
-		var value = {{ $patient->Type}};
-		if( value == "0")
+function showTypeEdit(i){
+	var value = {{ $patient->Type}};
+	if( value == "0")
   	{
-	 		$("#foncform").addClass('hide');
-	 		$('#type option:not(:selected)').attr('disabled', true);
+	 	$("#foncform").addClass('hide');
+	 	$('#type option:not(:selected)').attr('disabled', true);
 
-	 	}else if(($('#type').val() == "1") ||($('#type').val() == "2")||($('#type').val() == "3"))
+	}else if(($('#type').val() == "1") ||($('#type').val() == "2")||($('#type').val() == "3"))
   	{
-  		// if(i !=0){if(('{{ $patient->Type }}' == "0")){}	}
-			var select = $('select[name*="type"]');
-			select.find('[value="0"]').prop("disabled", true);
-			$("#foncform").removeClass('hide');//$('#nsspatient').attr('disabled', false);addRequiredAttr();
-		}
-
+  		var select = $('select[name*="type"]');
+		select.find('[value="0"]').prop("disabled", true);
+		$("#foncform").removeClass('hide');//$('#nsspatient').attr('disabled', false);addRequiredAttr();
 	}
-	$(document).ready(function () {
-	  showTypeEdit(0);
+
+}
+$(document).ready(function () {
+   showTypeEdit(0);
 });
 </script>
 @endsection
@@ -165,10 +164,10 @@
 								<label class="col-sm-3 control-label" for="sf"><strong class="text-nowrap">Civilité :</strong></label>
 								<div class="col-sm-9">
 								<select class="form-control civilite" id="sf" name="sf">
-									<option value="celibataire" @if( $patient->situation_familiale =='celibataire') selected @endif >Célibataire</option>
-									<option value="marie" @if( $patient->situation_familiale =='marie') selected @endif>Marié</option>
-									<option value="divorce" @if( $patient->situation_familiale =="divorce") selected @endif >Divorcé</option>
-									<option value="veuf" @if( $patient->situation_familiale =="veuf") selected @endif  >Veuf</option>
+									<option value="célibataire" @if( $patient->situation_familiale =='célibataire') selected @endif >Célibataire<(e)/option>
+									<option value="marié" @if( $patient->situation_familiale =='marié') selected @endif>Marié(e)</option>
+									<option value="divorcé" @if( $patient->situation_familiale =="divorcé") selected @endif >Divorcé(e)</option>
+									<option value="veuf" @if( $patient->situation_familiale =="veuf") selected @endif>Veuf(ve)</option>
 								</select>
 							</div>
 							</div>

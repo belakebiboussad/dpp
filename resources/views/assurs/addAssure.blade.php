@@ -43,8 +43,7 @@
 </div>{{-- row --}}
 <div class="row Asdemograph">
 	<div class="col-sm-6">
-		<div class="form-group {{ $errors->has('sexef') ? 'has-error' : '' }}">
-		<!-- no-padding-right -->
+		<div class="form-group {{ $errors->has('sexef') ? 'has-error' : '' }}"><!-- no-padding-right -->
 			<label class="col-sm-3 control-label" for="sexef"><strong>Genre :</strong></label>
 			<div class="col-sm-9">
 				<div class="radio">
@@ -77,6 +76,22 @@
 		</div>	
 	</div>
 </div>{{-- row --}}
+<div class="row">
+	<div class="col-sm-6">
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="SituationFamille"><strong class="text-nowrap">Civilité :</strong></label>
+			<div class="col-sm-9">
+				<select class="form-control" id="SituationFamille" name="SituationFamille">
+					<option value="">------</option>
+					<option value="célibataire">Célibataire(e)</option>
+					<option value="marié">Marié(e)</option>
+					<option value="divorcé">Divorcé(e)</option>
+					<option value="veuf">Veuf(veuve)</option>
+				</select>
+			</div>
+		</div>
+	</div>
+</div>
 <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div></div>	
 <div class="row Asdemograph"><!-- style="padding-left:7%" -->
 	<div class="col-sm-4">
@@ -99,14 +114,14 @@
 <div class="row">
   <div class="col-sm-6" id="statut">
 		<div class="form-group">
-			<label class="col-sm-3 control-label" for="etatf"><strong>Position :</strong></label>		
+			<label class="col-sm-3 control-label" for="Position"><strong>Position :</strong></label>		
 			<div class="col-sm-9">
-				<select name="etatf" id="etatf" class="col-xs-12 col-sm-12">
+				<select name="Position" id="Position" class="col-xs-12 col-sm-12">
 					<option value="">Sélectionner...</option>
-					<option value="0">Activité</option>
-					<option value="1">Retraite</option>
-					<option value="2" >Congé Maladie.</option>
-					<option value="3" >Révoqué</option>
+					<option value="Activité">Activité</option>
+					<option value="Retraité">Retraite</option>
+					<option value="Congé Maladie" >Congé Maladie</option>
+					<option value="Révoqué" >Révoqué</option>
 				</select>
 
 			</div>

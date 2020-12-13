@@ -391,7 +391,7 @@
           else
           {
             var civilite= $("select.civilite option").filter(":selected").val();
-            if((civilite =="marie")|| (civilite =="veuf"))
+            if((civilite =="marié")|| (civilite =="veuf"))
               $('#Div-nomjeuneFille').removeAttr('hidden');
           }
         });
@@ -400,23 +400,23 @@
           if(sex == "F")
           {
             var civilite= $("select.civilite option").filter(":selected").val();
-            if((civilite =="marie")|| (civilite =="veuf"))
+            if((civilite =="marié")|| (civilite =="veuf"))
                 $('#Div-nomjeuneFille').removeAttr('hidden');
               else
                 $('#Div-nomjeuneFille').attr('hidden','');  
           }else
             $('#Div-nomjeuneFille').attr('hidden','');      
         });
-        $( "#etatf" ).change(function() {
-          if($(this).val() != 0)
+        $( "#Position" ).change(function() {
+          if($(this).val() != "Activité")
           {
-            $('#serviceFonc').addClass('invisible');
-            $('#service option:eq(0)').prop('selected', true);
+              $('#serviceFonc').addClass('invisible');
+              $('#service option:eq(0)').prop('selected', true);
           }
           else
             $('#serviceFonc').removeClass('invisible');   
        });
-       if($( "#etatf" ).val() != "0"  )
+       if($( "#Position" ).val() != "Activité" )
            $('#serviceFonc').addClass('invisible');
       $('#listeGardes').DataTable({ //homme/garde  
           colReorder: true,

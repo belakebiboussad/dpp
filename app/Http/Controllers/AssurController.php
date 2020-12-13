@@ -66,14 +66,49 @@ class AssurController extends Controller
     public function save($obj)
     {
       $assure = new assur;
+      $grade = grade::where('nom',$obj->Grade)->select('id')->get()->first();
+      switch (utf8_encode($obj->Service)) {
+        case 'Sécurité publique':
+          $assure->Service = 0;
+          break;
+        case 'Police judiciaire (PJ)':
+          $assure->Service = 1;
+          break;
+        case 'Brigade mobile de la police judiciaire (BMPJ)':
+          $assure->Service = 2;
+          break;
+        case 'Service protection et sécurité des personnalités':
+          $assure->Service = 3;
+          break;
+        case 'Unité aérienne de la sûreté nationale':
+          $assure->Service = 4;
+          break;
+        case 'Unités républicaines de sécurité (URS)':
+          $assure->Service = 5;
+          break;
+        case 'Police scientifique et technique':
+          $assure->Service = 6;
+          break;
+        case 'Police aux frontières et de l\'immigration (PAF)':
+          $assure->Service = 7;
+          break;  
+        case 'Brigade de recherche et d\'intervention (BRI)':
+          $assure->Service = 8;
+          break;    
+        case 'Groupe des opérations spéciales de la police (GOSP)':
+          $assure->Service = 9;
+          break;    
+        default:
+          break;
+      } 
       $assure->Nom = $obj->Nom; $assure->Prenom = $obj->Prenom; $date=date_create($obj->Date_Naissance);
       $assure->Date_Naissance = date_format($date,"Y-m-d");$assure->lieunaissance ='1556';
-      $assure->Sexe = $obj->Genre;$assure->SituationFamille = $obj->SituationFamille;
+      $assure->Sexe = $obj->Genre;$assure->SituationFamille = utf8_encode($obj->SituationFamille);
       $assure->Matricule = $obj->Matricule;$assure->adresse = $obj->Adresse;
       $assure->commune_res ='1556'; $assure->wilaya_res ='49';
-      $assure->grp_sang = $obj->GroupeSanguin;
-      $assure->NSS = $obj->NSS;
-      $assure->Etat = $obj->Position;$assure->Service = $obj->Service;
+      $assure->grp_sang = $obj->GroupeSanguin;$assure->NSS = $obj->NSS;
+      $assure->Position = utf8_encode($obj->Position);//$assure->Service = $obj->Service;
+      $assure->Grade = $grade->id;
       $assure->save();
     }
     /**
@@ -114,22 +149,22 @@ class AssurController extends Controller
     {
       $assure = assur::find($id);
       $assure -> update([
-                          "Nom"=>$request->nomf,
-                          "Prenom"=>$request->prenomf,
-                          "Date_Naissance"=>$request->datenaissancef,
-                          "lieunaissance"=>$request->idlieunaissancef,
-                          "Sexe"=>$request->sexef,
-                          "adresse"=>$request->adressef,
-                          "commune_res"=>$request->idcommunef,
-                          "wilaya_res"=>$request->idwilayaf,
-                          "grp_sang"=>$request->gsf.$request->rhf,
-                          "Matricule"=>$request->matf, 
-                          "Service"=>$request->service,
-                          "Etat"=>$request->etatf,
-                          "Grade"=>$request->grade,
-                          "NMGSN"=>$request->NMGSN,
-                          "NSS"=>$request->nss,
-      ] );//$assure->save(); 
+                    "Nom"=>$request->nomf,
+                    "Prenom"=>$request->prenomf,
+                    "Date_Naissance"=>$request->datenaissancef,
+                    "lieunaissance"=>$request->idlieunaissancef,
+                    "Sexe"=>$request->sexef,
+                    "adresse"=>$request->adressef,
+                    "commune_res"=>$request->idcommunef,
+                    "wilaya_res"=>$request->idwilayaf,
+                    "grp_sang"=>$request->gsf.$request->rhf,
+                    "Matricule"=>$request->matf, 
+                    "Service"=>$request->service,
+                    "Etat"=>$request->etatf,
+                    "Grade"=>$request->grade,
+                    "NMGSN"=>$request->NMGSN,
+                    "NSS"=>$request->nss,
+      ] );
       return redirect(Route('assur.show',$assure->id));
     }
     /**
@@ -143,10 +178,13 @@ class AssurController extends Controller
             $handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word"); 
             if($handle != null)
             {
-              $ass = $handle->SelectPersonnel(trim(''),trim("894568124785"));//return( $ass->Nom );
-              //dd($ass->NSS);//'875614325845'
-              $id = $this->assureSearch($ass->NSS);
-              dd($id);
+              $ass = $handle->SelectPersonnel(trim(''),trim('135624875695'));
+              //dd($ass->Grade);
+              $grade = grade::where('nom',$ass->Grade)->select('id')->get()->first();
+              dd($grade_id); 
+              //$id = $this->assureSearch($ass->NSS);
+              //dd($id);
+             //return view('assurs.sup',compact('var'));
             }else{
               dd("2");
               return("Non");
@@ -160,63 +198,10 @@ class AssurController extends Controller
             $assure = $handle->SelectPersonnel(trim($request->matricule),trim($request->nss));   
             if($assure->Nom != null)
             {
-              $action = "" ; $position ="";$service="";
-              switch ($assure->Position) {
-                case '0':
-                  $position ="Activité";
-                  break;
-                case '1':
-                  $position ="Retraite";
-                  break;
-                case '2':
-                  $position ="Congé Maladie";
-                  break;
-                case '3':
-                  $position ="Révoqué";
-                    break;
-                default:
-                  break;
-              }
-              switch ($assure->Service) {
-                case '0':
-                  $service ="Sécurité publique";
-                  break;
-                case '1':
-                  $service ="Police judiciaire (PJ)";
-                  break;
-                case '2':
-                  $service ="Brigade mobile de la police judiciaire (BMPJ)";
-                  break;
-                case '3':
-                  $service ="Service protection et sécurité des personnalités";
-                  break;
-                case '4':
-                  $service ="Unité aérienne de la sûreté nationale";
-                  break;
-                case '5':
-                  $service ="Unités républicaines de sécurité (URS)";
-                  break;
-                case '6':
-                  $service ="Police scientifique et technique";
-                  break;
-                case '7':
-                  $service ="Police aux frontières et de l'immigration (PAF)";
-                  break;  
-                case '8':
-                  $service ="Brigade de recherche et d'intervention (BRI)";
-                  break;    
-                case '9':
-                  $service ="Groupe des opérations spéciales de la police (GOSP)";
-                  break;    
-                default:
-                  break;
-              }      
-              if($assure->Position != "3")
-                if($this->assureSearch($assure->NSS) == null)
-                  $this->save($assure);
-              
-              $sexe =  ($assure->Genre =="M") ? "Masculin":"Féminin"; 
-              if(trim($assure->Position) != "3")//existe maisrevoque
+              $action = ""; $service ="";
+              $sexe =  ($assure->Genre =="M") ? "Masculin":"Féminin";
+              $service = utf8_encode($assure->Service);
+              if(trim(utf8_encode($assure->Position)) != "Revoqué")//existe maisrevoque
               {
                 $patientId = $this->patientSearch($assure->Prenom,$assure->NSS);
                 if(isset($patientId))
@@ -226,15 +211,17 @@ class AssurController extends Controller
               }  
               else
                 $action = '<b><span class="badge badge-danger">Révoqué</span></b>';
-              $output.='<tr><td>'.$assure->Nom.'</td>'.'<td>'.$assure->Prenom.'</td>'.'<td>'.$assure->SituationFamille.'</td>'.
+              if(utf8_encode($assure->Position) != "Revoqué")
+                if($this->assureSearch($assure->NSS) == null)
+                  $this->save($assure);
+              $output.='<tr><td>'.$assure->Nom.'</td>'.'<td>'.$assure->Prenom.'</td>'.'<td>'.utf8_encode($assure->SituationFamille).'</td>'.
                 '<td><span class="badge">'.$assure->Matricule.'</span></td>'. '<td>'.$assure->NSS.'</td>'. 
                 '<td>'. Carbon\Carbon::parse($assure->Date_Naissance)->format('Y-m-d').'</td>'. '<td>'.$sexe.'</td>'.
-                '<td><span class="badge badge-success">'.$position.'</span></td>'.'<td>'.$service.'</td>'. '<td>'.$assure->Grade.'</td>'.
+                '<td><span class="badge badge-success">'.utf8_encode($assure->Position).'</span></td>'.'<td>'.$service.'</td>'. '<td>'.$assure->Grade.'</td>'.
                 '<td class="center">'.$action.'</td></tr>';
-              if(trim($assure->Position) != "3")
+              if(trim(utf8_encode($assure->Position)) != "Revoqué")
               {
-                //Ayants  //conjoint
-                $patientId = $this->patientSearch($assure->Conjoint,$assure->NSS);
+                $patientId = $this->patientSearch($assure->Conjoint,$assure->NSS);//Ayants  //conjoint
                 if(isset($patientId))
                   $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
                 else

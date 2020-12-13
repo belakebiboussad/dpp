@@ -75,7 +75,7 @@
   				</div>
   			</div>
        	</div>
-   		 <div class="col-sm-6">
+   		<div class="col-sm-6">
      		 <div class="form-group">
 	   		<label class="col-sm-3 col-xs-3 control-label text-nowrap" for="gsf"><strong>Groupe sanguin :</strong></label>
 			<div class="col-sm-2">
@@ -116,8 +116,23 @@
 	   	</div>
     		</div>
   	</div>
- 	 <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div></div>
-<div class="row Asdemograph">
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label class="col-sm-3 control-label" for="SituationFamille"><strong class="text-nowrap">Civilité :</strong></label>
+				<div class="col-sm-9">
+					<select class="form-control civilite" id="SituationFamille" name="SituationFamille">
+						<option value="célibataire" @if( $assure->SituationFamille =='célibataire') selected @endif >Célibataire(e)</option>
+						<option value="marié" @if( $assure->SituationFamille =='marié') selected @endif>Marié(e)</option>
+						<option value="divorcé" @if( $assure->SituationFamille =="divorcé") selected @endif>Divorcé(e)</option>
+						<option value="veuf" @if( $assure->SituationFamille =="veuf") selected @endif >Veuf(ve)</option>
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div></div>
+	<div class="row Asdemograph">
 		<div class="col-sm-4">
 			<div class="form-group">
 			 	<label class="col-sm-4 col-xs-4" for="adressef"><Strong>Adresse: </Strong></label>
@@ -157,23 +172,23 @@
   <div class="row">
     <div class="col-sm-6" id="statut">
 			<div class="form-group">
-				<label class="col-sm-3 control-label" for="etatf"><strong>Position :</strong></label>
+				<label class="col-sm-3 control-label" for="Position"><strong>Position :</strong></label>
 				<div class="col-sm-9">
 					 @if(isset($assure) && !empty($assure))
-					 <select name="etatf" id="etatf" class="col-xs-12 col-sm-12">
+					 <select name="Position" id="Position" class="col-xs-12 col-sm-12">
 						<option value="">Sélectionner...</option>
-						<option value="0" {{ ($assure->Etat=="0") ? "selected" : "" }}>Activité</option>
-						<option value="1" {{ ($assure->Etat=="1") ? "selected" : "" }}>Retraite</option>
-						<option value="2" {{ ($assure->Etat=="2") ? "selected" : "" }}>Congé Maladie</option>
-						<option value="3" {{ ($assure->Etat=="3") ? "selected" : "" }}>Révoqué</option>
+						<option value="Activité" {{ ($assure->Position=="Activité") ? "selected" : "" }}>Activité</option>
+						<option value="Retraité" {{ ($assure->Position=="Retraité") ? "selected" : "" }}>Retraite</option>
+						<option value="Congé Maladie" {{ ($assure->Position=="Congé Maladie") ? "selected" : "" }}>Congé Maladie</option>
+						<option value="Révoqué" {{ ($assure->Position=="Révoqué") ? "selected" : "" }}>Révoqué</option>
 					</select>
 					@else	
-					<select name="etatf" id="etatf" class="col-xs-12 col-sm-12">
+					<select name="Position" id="Position" class="col-xs-12 col-sm-12">
 						<option value="">Sélectionner...</option>
-						<option value="0">Activité</option>
-						<option value="1" selected>Retraite</option>
-						<option value="2" >Congé Maladie.</option>
-						<option value="3" >Révoqué</option>
+						<option value="Activité">Activité</option>
+						<option value="Retraité" selected>Retraite</option>
+						<option value="Congé Maladie" >Congé Maladie</option>
+						<option value="Révoqué" >Révoqué</option>
 					</select>
 					 @endif
 				</div>
@@ -215,8 +230,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="space-12"></div>	
+	</div>	
 	<div class="row">
 		<div class="col-sm-6">
 			<div class="form-group">
@@ -272,11 +286,10 @@
 					</div>
 				</div>
 			</div>
-			<br>
 		</div>
 		<div class="col-sm-6">
 			<div class="form-group">
-				<label class="control-label col-xs-12 col-sm-3" for="nss"><strong>NSS :</strong>	</label>
+				<label class="control-label col-xs-12 col-sm-3" for="nss"><strong>NSS :</strong></label>
 				<div class="col-sm-9">
 				<div class="clearfix">
 				@if(isset($assure) && !empty($assure))
@@ -287,7 +300,6 @@
 				</div>
 				</div>
 			</div>
-			<br><br>
 		</div>	
 	</div>
 </div>

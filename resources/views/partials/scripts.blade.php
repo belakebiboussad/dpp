@@ -94,7 +94,7 @@
                 $("#idwilaya").val(ui.item.wvalue);
                 $("#wilaya").val(ui.item.wlabel);
                 break;
-            case "communef":    
+            case "communef":   
                 $("#idcommunef").val(ui.item.value);
                 $("#idwilayaf").val(ui.item.wvalue);
                 $("#wilayaf").val(ui.item.wlabel);

@@ -1,5 +1,5 @@
 @extends('app')
-@section('title','modifier  le patient')
+@section('title','Modifier  le patient')
 @section('page-script')
 <script>
 	function showTypeEdit(i)
@@ -68,8 +68,8 @@
         return true;
       }
     }else{
-    		$("#etatf").prop("disabled", true);
-				$('#Assure').find('input').prop("disabled", true).attr('required', false);//$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", true); });
+    		$("#Position").prop("disabled", true);
+			$('#Assure').find('input').prop("disabled", true).attr('required', false);//$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", true); });
 				if($('#hommeConf').is(':checked')){
           if( ! checkHomme() )
           {
@@ -115,12 +115,12 @@
 		</div>
 	</div>
 	<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
-		<li class=" @if($patient->Type !="4") active @else hidden  @endif">
+		<li class=" @if($patient->Type !="5") active @else hidden  @endif">
 		  <a data-toggle="tab" href="#Assure" data-toggle="tab" onclick="copyPatientInfo();">
 	    	<span class="bigger-130"><strong>Assure</strong></span>
 	    </a>
  		</li>
-	 	<li class=" @if($patient->Type =="4") active  @endif" ><a data-toggle="tab" href="#Patient">
+	 	<li class=" @if($patient->Type =="5") active  @endif" ><a data-toggle="tab" href="#Patient">
 	   	 	<span class="bigger-130"><strong>Patient</strong></span></a>
 	   	</li>
 		 <li  id ="hommelink" @if(count($hommes_c) == 0)  class="invisible" @endif><a data-toggle="tab" href="#Homme">
@@ -195,79 +195,77 @@
 			  	</div>
 			  </div>	{{-- col-sm-6 --}}
 		  	<div class="col-sm-6">
-				    <div class="form-group">
-						<label class="col-sm-3 control-label text-nowrap" for="gs"><strong>Groupe sanguin :</strong></label>
-						<div class="col-sm-2">
-						<select class="form-control" id="gs" name="gs">
-						@if(!isset($patient->group_sang)  && empty($patient->group_sang)) 
-							<option value="" selected >------</option>
-							<option value="A" >A</option>
-							<option value="B">B</option>
-							<option value="AB" >AB</option>
-							<option value="O" >O</option>
-						@else 		
-							<option value="" selected >------</option>
-							<option value="A" @if( $patient->group_sang =="A") selected @endif>A</option>
-							<option value="B" @if( $patient->group_sang =="B") selected @endif>B</option>
-							<option value="AB" @if( $patient->group_sang =="AB") selected @endif>AB</option>
-							<option value="O" @if( $patient->group_sang =="O") selected @endif>O</option>
-						@endif
-						</select>
-					</div>
-					<label class="col-sm-3 control-label no-padding-right" for="rh"><strong>Rhésus :</strong></label>
+				<div class="form-group">
+					<label class="col-sm-3 control-label text-nowrap" for="gs"><strong>Groupe sanguin :</strong></label>
 					<div class="col-sm-2">
-					<select id="rh" name="rh">
-					@if(!isset($patient->rhesus)  && empty($patient->rhesus)) 
+					<select class="form-control" id="gs" name="gs">
+					@if(!isset($patient->group_sang)  && empty($patient->group_sang)) 
 						<option value="" selected >------</option>
-						<option value="+">+</option>
-						<option value="-">-</option>
-					@else
-						<option value="" >------</option>
-						<option value="+" @if( $patient->rhesus =="+") selected @endif>+</option>
-						<option value="-" @if( $patient->rhesus =="-") selected @endif>-</option>
+						<option value="A" >A</option>
+						<option value="B">B</option>
+						<option value="AB" >AB</option>
+						<option value="O" >O</option>
+					@else 		
+						<option value="" selected >------</option>
+						<option value="A" @if( $patient->group_sang =="A") selected @endif>A</option>
+						<option value="B" @if( $patient->group_sang =="B") selected @endif>B</option>
+						<option value="AB" @if( $patient->group_sang =="AB") selected @endif>AB</option>
+						<option value="O" @if( $patient->group_sang =="O") selected @endif>O</option>
 					@endif
 					</select>
-					</div>
 				</div>
+				<label class="col-sm-3 control-label no-padding-right" for="rh"><strong>Rhésus :</strong></label>
+				<div class="col-sm-2">
+				<select id="rh" name="rh">
+				@if(!isset($patient->rhesus)  && empty($patient->rhesus)) 
+					<option value="" selected >------</option>
+					<option value="+">+</option>
+					<option value="-">-</option>
+				@else
+					<option value="" >------</option>
+					<option value="+" @if( $patient->rhesus =="+") selected @endif>+</option>
+					<option value="-" @if( $patient->rhesus =="-") selected @endif>-</option>
+				@endif
+				</select>
+				</div>
+			</div>
 			</div>{{-- col-sm-6 --}}
 	    </div> {{-- row --}}
-		  <div class="row">
-				<div class="col-sm-6">
-					<div class="form-group">
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="form-group">
 					<label class="col-sm-3 control-label" for="sf"><strong class="text-nowrap">Civilité :</strong></label>
 					<div class="col-sm-9">
 						<select class="form-control civilite" id="sf" name="sf">
-							<option value="celibataire" @if( $patient->situation_familiale =='celibataire') selected @endif >Célibataire</option>
-							<option value="marie" @if( $patient->situation_familiale =='marie') selected @endif>Marié</option>
-							<option value="divorce" @if( $patient->situation_familiale =="divorce") selected @endif >Divorcé</option>
-							<option value="veuf" @if( $patient->situation_familiale =="veuf") selected @endif  >Veuf</option>
+							<option value="célibataire" @if( $patient->situation_familiale =='célibataire') selected @endif >Célibataire(e)</option>
+							<option value="marié" @if( $patient->situation_familiale =='marié') selected @endif>Marié(e)</option>
+							<option value="divorcé" @if( $patient->situation_familiale =="divorcé") selected @endif >Divorcé(e)</option>
+							<option value="veuf" @if( $patient->situation_familiale =="veuf") selected @endif  >Veuf(ve)</option>
 						</select>
 					</div>
-					</div>
 				</div>
-				<div class="col-sm-6 " id="Div-nomjeuneFille"  @if($patient->Sexe == "M") hidden @endif>	
-					<label class="col-sm-3 control-label" for="nom_jeune_fille">
-						<strong class="text-nowrap">Nom jeune fille:</strong>
-					</label>
-					<div class="col-sm-9">
-						<input type="text" id="nom_jeune_fille" name="nom_jeune_fille" placeholder="Nom jeune fille..." value="{{ $patient->nom_jeune_fille }}" autocomplete = "off" class="col-xs-12 col-sm-12"/>
+			</div>
+			<div class="col-sm-6 " id="Div-nomjeuneFille"  @if($patient->Sexe == "M") hidden @endif>	
+				<label class="col-sm-3 control-label" for="nom_jeune_fille"><strong class="text-nowrap">Nom jeune fille:</strong></label>
+				<div class="col-sm-9">
+					<input type="text" id="nom_jeune_fille" name="nom_jeune_fille" placeholder="Nom jeune fille..." value="{{ $patient->nom_jeune_fille }}" autocomplete = "off" class="col-xs-12 col-sm-12"/>
 						 {!! $errors->first('nom_jeune_fille', '<small class="alert-danger">:message</small>') !!}
-					</div>		
-				</div>{{-- /nom de jeune fille --}}
-			</div>	{{-- row --}}
-			<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div></div>
-			<div class="space-12"></div>	
-			<div class="row">
-				<div class="col-sm-4"> <!-- style="padding-left:7%" -->
-					<label class="text-nowrap col-sm-4 col-xs-4" for="adresse" ><strong>Adresse:</strong></label>
-					<input type="text" value="{{ $patient->Adresse }}" id="adresse" name="adresse" placeholder="Adresse..." class="col-sm-8 col-xs-8"/>
-			  </div>
-				<div class="col-sm-4"> <!-- style="margin-top: -0.1%;" -->
-					<label class="text-nowrap col-sm-4 col-xs-4" for="commune"><strong>Commune:</strong></label>
-					<input type="hidden" name="idcommune" id="idcommune" value="{{ $patient->commune_res }}"/>
-					<input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}" class="autoCommune col-sm-8 col-xs-8"/>					
-				</div>
-				<div class="col-sm-4">
+				</div>		
+			</div>{{-- /nom de jeune fille --}}
+		</div>	{{-- row --}}
+		<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div></div>
+		<div class="space-12"></div>	
+		<div class="row">
+			<div class="col-sm-4"> <!-- style="padding-left:7%" -->
+				<label class="text-nowrap col-sm-4 col-xs-4" for="adresse" ><strong>Adresse:</strong></label>
+				<input type="text" value="{{ $patient->Adresse }}" id="adresse" name="adresse" placeholder="Adresse..." class="col-sm-8 col-xs-8"/>
+			</div>
+			<div class="col-sm-4"> <!-- style="margin-top: -0.1%;" -->
+				<label class="text-nowrap col-sm-4 col-xs-4" for="commune"><strong>Commune:</strong></label>
+				<input type="hidden" name="idcommune" id="idcommune" value="{{ $patient->commune_res }}"/>
+				<input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}" class="autoCommune col-sm-8 col-xs-8"/>					
+			</div>
+			<div class="col-sm-4">
 					<label class="col-sm-4 col-xs-4"><strong>Wilaya :</strong></label>
 				  <input type="hidden" name="idwilaya" id="idwilaya" value="{{ $patient->wilaya->id }}"/>
 				  <input type="text" id="wilaya" value="{{ $patient->wilaya->nom }}" class="col-sm-8 col-xs-8"readonly/>	

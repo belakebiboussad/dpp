@@ -1,11 +1,5 @@
 @extends('app')
 @section('title','Modifier  fonctionnaire')
-@section('page-script')
-<script>/*$(document).ready(function () {$('input[type=radio][name=etatf]').change(function(){ if($(this).val() != "Activite" && ($(this).val() != "Activite")){$('#serviceFonc').addClass('invisible');$('#service option:eq(0)').prop('selected', true);}else$('#serviceFonc').removeClass('invisible');});
-if($("input[type=radio][name='etatf']:checked").val() != "Activite" )$('#serviceFonc').addClass('invisible');
-})*/
-</script>
-@endsection
 @section('main-content')
 <div class="page-header">
 	<h1 style="display: inline;"><strong>Modification du fonctionnaire :&nbsp;</strong>

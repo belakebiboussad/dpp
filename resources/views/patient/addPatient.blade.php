@@ -76,7 +76,6 @@
 		</div>	
 	</div>
 </div>{{-- row --}}
-<div class="space-12"></div>
 <div class="row">
 	<div class="col-sm-6">
 		<div class="form-group">
@@ -84,9 +83,9 @@
 			<div class="col-sm-9">
 				<select class="form-control civilite" id="sf" name="sf">
 					<option value="">------</option>
-					<option value="celibataire">Célibataire(e)</option>
-					<option value="marie">Marié(e)</option>
-					<option value="divorce">Divorcé(e)</option>
+					<option value="célibataire">Célibataire(e)</option>
+					<option value="marié">Marié(e)</option>
+					<option value="divorcé">Divorcé(e)</option>
 					<option value="veuf">Veuf(veuve)</option>
 				</select>
 			</div>

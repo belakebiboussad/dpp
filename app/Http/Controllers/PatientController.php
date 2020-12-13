@@ -46,12 +46,11 @@ class PatientController extends Controller
   */
     public function create( $NSS = null,$type = null,$prenom =  null)
     {
-     
       if(isset($NSS))
       {
         $assure = assur::FindOrFail($NSS);
         return view('patient.addP',compact('assure','NSS','type','prenom')); 
-        }
+      }
       else
       {
         $grades = grade::all();
@@ -103,6 +102,7 @@ class PatientController extends Controller
           "Date_Naissance"=>$request->datenaissancef,
           "lieunaissance"=>$request->idlieunaissancef,
           "Sexe"=>$request->sexef,
+          'SituationFamille'=>$request->SituationFamille,
           "adresse"=>$request->adressef,
           "commune_res"=>$request->idcommunef,
           "wilaya_res"=>$request->idwilayaf,
@@ -110,7 +110,7 @@ class PatientController extends Controller
           "Matricule"=>$request->mat,
           "Service"=>$request->service,
           "Grade"=>$request->grade,
-          "Etat"=>$request->etatf,
+          "Position"=>$request->Position,
           "NSS"=>$request->nss,
           "NMGSN"=>$request->NMGSN, 
         ]);            
@@ -181,7 +181,6 @@ class PatientController extends Controller
       ];
     $validator = Validator::make($request->all(),$rule,$messages);   
     if ($validator->fails()) {
-       
         $errors=$validator->errors(); 
         return view('patient.add')->withErrors($errors);
     }
@@ -206,6 +205,7 @@ class PatientController extends Controller
         "Date_creation"=>$date,
         "updated_at"=>$date,
     ]); 
+    
     $sexe = ($request->sexe == "H") ? 1:0;
     $ipp =$sexe.Date::Now()->year.$patient->id;
     $patient->update([
@@ -227,6 +227,7 @@ class PatientController extends Controller
                 "created_by"=>Auth::user()->employee_id,
       ]);
     }
+    
     return redirect(Route('patient.show',$patient->id));
   }  
     /**
@@ -237,7 +238,7 @@ class PatientController extends Controller
      */
        public function show($id)
        {  
-          $patient = patient::FindOrFail($id); //dd($patient->hospitalisations);
+           $patient = patient::FindOrFail($id); //dd($patient->hospitalisations);
           $employe=Auth::user()->employ;
           $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();//->first();
           $specialites = Specialite::all();
@@ -252,23 +253,18 @@ class PatientController extends Controller
      */
     public function edit($id,$asure_id =null)
     {  
-
+      $patient = patient::FindOrFail($id);
+      $hommes_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
       if(!(isset($asure_id)))
       {   
         $assure=null ;
         $grades = grade::all(); 
-        $patient = patient::FindOrFail($id);
-        $hommes_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
         if($patient->Type != "5")
           $assure =  $patient->assure;
         return view('patient.edit',compact('patient','assure','hommes_c','grades'));
       }else
-      {
-        dd("dfsdf");
-        $patient = patient::FindOrFail($id);
-        $hommes_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
         return view('patient.editP',compact('patient','hommes_c'));
-      }
+ 
     }
     /**
      * Update the specified resource in storage.
@@ -280,8 +276,8 @@ class PatientController extends Controller
       public function update(Request $request,$id)
       {
         $assure = new assur;
-        $ayants = array("1", "2", "3");
-        $ayantsAssure = array("0","1", "2", "3");
+        $ayants = array("1", "2", "3","4");
+        $ayantsAssure = array("0","1", "2", "3","4");
         $date = Date::Now();
         $patient = patient::FindOrFail($id);
         if($request->type != "5")
@@ -295,13 +291,14 @@ class PatientController extends Controller
                       "Date_Naissance"=>$request->datenaissancef,
                       "lieunaissance"=>$request->idlieunaissancef,
                       "Sexe"=>$request->sexef,
+                      'SituationFamille'=>$request->SituationFamille,
                       "adresse"=>$request->adressef,
                       "commune_res"=>$request->idcommunef,
                       "wilaya_res"=>$request->idwilayaf,
                       "grp_sang"=>$request->gsf.$request->rhf,
                       "Matricule"=>$request->matf, 
                       "Service"=>$request->service,
-                      "Etat"=>$request->etatf,
+                      "Position"=>$request->Position,
                       "Grade"=>$request->grade,
                       "NMGSN"=>$request->NMGSN,
                       "NSS"=>$request->nss,
@@ -322,7 +319,7 @@ class PatientController extends Controller
                               "grp_sang"=>$request->gsf.$request->rhf,
                               "Matricule"=>$request->matf, 
                               "Service"=>$request->service,
-                              "Etat"=>$request->etatf,
+                              "Position"=>$request->Position,
                               "Grade"=>$request->grade,
                               "NMGSN"=>$request->NMGSN,
                               "NSS"=>$request->nss,

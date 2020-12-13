@@ -305,12 +305,12 @@ $('document').ready(function(){
 												</div>
 												<div class="col-sm-3">
 													<label class="inline">
-														<span><b>Date de naissance :</b></span><span class="lbl blue"> {{ $patient->assure->Date_Naissance }}</span>
+														<span><b>Né(e) le :</b></span><span class="lbl blue"> {{ $patient->assure->Date_Naissance }}</span>
 													</label>
 												</div>
 													<div class="col-sm-3">
 														<label class="inline">
-															<span><b>Lieu de naissance :</b></span><span class="lbl blue">{{ $patient->assure->commune->nom_commune}} </span>
+															<span><b>Né(e) à :</b></span><span class="lbl blue">{{ $patient->assure->commune->nom_commune}} </span>
 														</label>
 													</div>
 													<div class="col-sm-3">
@@ -327,37 +327,37 @@ $('document').ready(function(){
 														<label class="inline">
 															<span><b>Service :</b></span><span class="lbl blue">
 															@switch($patient->assure->Service)
-				                        @case(0)
-				                          Sécurité publique
-				                          @break
-				                        @case(1)
-				                       	  Police judiciaire (PJ)
-				                          @break
-				                        @case(2)
-				                       	  Brigade mobile de la police judiciaire (BMPJ)
-				                          @break  
-				                        @case(3)
-				                          Service protection et sécurité des personnalités (SPS)
-				                          @break       
-				                        @case(4)
-				                       	  Unité aérienne de la sûreté nationale
-				                          @break
-				                        @case(5)
-				                       	  Unités républicaines de sécurité (URS)
-				                          @break
-				                        @case(6)
-				                       	  Police scientifique et technique
-				                          @break
-				                         @case(7)
-				                       	 	Police aux frontières et de l'immigration (PAF)
-				                          @break
-				                        @case(8)
-				                       	  Brigade de recherche et d'intervention (BRI)
-				                          @break
-				                        @case(9)
-				                       	  Groupe des opérations spéciales de la police (GOSP)
-				                          @break 
-				                    @endswitch
+																@case(0)
+																Sécurité publique
+																@break
+																@case(1)
+																Police judiciaire (PJ)
+																@break
+																@case(2)
+																Brigade mobile de la police judiciaire (BMPJ)
+																@break  
+																@case(3)
+																Service protection et sécurité des personnalités (SPS)
+																@break       
+																@case(4)
+																Unité aérienne de la sûreté nationale
+																@break
+																@case(5)
+																Unités républicaines de sécurité (URS)
+																@break
+																@case(6)
+																Police scientifique et technique
+																@break
+																@case(7)
+																	Police aux frontières et de l'immigration (PAF)
+																@break
+																@case(8)
+																Brigade de recherche et d'intervention (BRI)
+																@break
+																@case(9)
+																Groupe des opérations spéciales de la police (GOSP)
+																@break 
+															@endswitch
 														</span>
 														</label>
 													</div>
