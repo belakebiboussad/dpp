@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 15 déc. 2020 à 17:25
--- Version du serveur :  5.7.23
--- Version de PHP :  7.2.10
+-- Généré le :  mar. 15 déc. 2020 à 20:23
+-- Version du serveur :  5.7.21
+-- Version de PHP :  7.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -3171,6 +3171,29 @@ CREATE TABLE IF NOT EXISTS `demandehospitalisations` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `demande_dispositif`
+--
+
+DROP TABLE IF EXISTS `demande_dispositif`;
+CREATE TABLE IF NOT EXISTS `demande_dispositif` (
+  `id_demande` int(11) NOT NULL,
+  `id_dispositif` int(11) NOT NULL,
+  `qte` int(11) NOT NULL,
+  KEY `id_demande` (`id_demande`),
+  KEY `id_dispositif` (`id_dispositif`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `demande_dispositif`
+--
+
+INSERT INTO `demande_dispositif` (`id_demande`, `id_dispositif`, `qte`) VALUES
+(1, 4, 102),
+(1, 2, 18);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `demande_medicaments`
 --
 
@@ -3183,6 +3206,15 @@ CREATE TABLE IF NOT EXISTS `demande_medicaments` (
   KEY `id_medicaments` (`id_medicaments`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `demande_medicaments`
+--
+
+INSERT INTO `demande_medicaments` (`id_demande`, `id_medicaments`, `qte`) VALUES
+(1, 14, 10),
+(1, 37, 20),
+(1, 14, 45);
+
 -- --------------------------------------------------------
 
 --
@@ -3194,7 +3226,6 @@ CREATE TABLE IF NOT EXISTS `demande_produits` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Date` date NOT NULL,
   `Etat` enum('E','V','R') NOT NULL,
-  `motif` varchar(500) DEFAULT NULL,
   `id_employe` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_employe` (`id_employe`)
@@ -3204,8 +3235,8 @@ CREATE TABLE IF NOT EXISTS `demande_produits` (
 -- Déchargement des données de la table `demande_produits`
 --
 
-INSERT INTO `demande_produits` (`id`, `Date`, `Etat`, `motif`, `id_employe`) VALUES
-(1, '2020-12-15', 'E', NULL, 100);
+INSERT INTO `demande_produits` (`id`, `Date`, `Etat`, `id_employe`) VALUES
+(1, '2020-12-15', 'E', 100);
 
 -- --------------------------------------------------------
 
@@ -3292,7 +3323,7 @@ CREATE TABLE IF NOT EXISTS `dispositifs` (
   `nom` varchar(50) NOT NULL,
   `code` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=240 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=240 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `dispositifs`
@@ -13048,8 +13079,8 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (41, 'agent', '$2y$10$RsD.pKjSIV73uBbaLJNE.uXhzCmCixdBf71lcxBq2wmQu0dsRzdmy', 'agent@hop.dz', 96, 9, 'H8Uz2kmwNV6iLQWztPTT57W5LzCWhZdmoYgzjKS4oo6OssfKc21KolgmbV31', 1),
 (42, 'laborantin', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'lab@hop.dz', 97, 11, 'QZOK8XxQcxpBYZjmZS35YFJIFRomup114aMBLKYYoE8adSBi2nex4mtmKgfJ', 1),
 (43, 'radiogue', '$2y$10$k5gKJEykSI5PNYLHyheO.eXq4ge1e6Rkz/HN/mMKUZiKZFe8qMlki', 'rad@hop.dz', 98, 12, 'benlcglfiv00sldthLpx1KXLmtI2DYvCGoRpjKunnuQE0cSzBTETHsXO9x9e', 1),
-(44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, 'UtlQGQqgbroodLTz7DHobk7fSNqnHHhXW3E7GVQhXUCJTY2XqBaXYtM66H6G', 1),
-(45, 'chefServ', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'G41dh32JBPpSVj5198SmuRl68fiL8mjzmLYPxAXEQTfGTV7pawl1g56bXCsA', 1),
+(44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, 'VN1Q3lu3AcD2CvjrEHWkmPjyJoHU8TX1EgMW9G8abCqXqD12YWaOPt4uUKY3', 1),
+(45, 'chefServ', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'PFjVqc52oKrSqza3o7tik4c1ZY0fzyhQm2EgUxPGHFBrJwpbj8DCUXUyxEL8', 1),
 (46, 'rad', '$2y$10$PNDRMvcnhl1kZ.sxfoq8Yuhoq6ZMQePi9/q1QbLUZ.a.hd5DxvnCS', 'rad@cdta.net', 101, 12, 'LYnFPOG5KXRXnQuoVFseCS3zvBj5ffEsAmaHeVNbwGpeC01ND3Hclu34g0vd', 1),
 (47, 'cardio', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'bbedeebi@cdta.dz', 102, 1, '4txrCaiAyMKUe0DCwhkPUS2GpURevrRdtNv82H1WFPMM5l52OlXjjM0pWHo9', 1),
 (48, 'geneco', '$2y$10$MeHcy1r9az/dgkC9pLvo/Ob4eqJVp8mRjGuZeyL9yA6k8sc3D0FAW', 'geneco@cdta.dz', 103, 1, 'YKcv4NJ20KZ37HKQZLOZPriKXKOjerLBO9R1lKDZNrTCnZf4sG2SgnRmXt22', 1);
@@ -13561,6 +13592,13 @@ ALTER TABLE `demandehospitalisations`
   ADD CONSTRAINT `fk_DemandeHospitalisation_Consultation1` FOREIGN KEY (`id_consultation`) REFERENCES `consultations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_demandehospitalisations_service` FOREIGN KEY (`service`) REFERENCES `services` (`id`),
   ADD CONSTRAINT `k_demandehospitalisations_specialite` FOREIGN KEY (`specialite`) REFERENCES `specialites` (`id`);
+
+--
+-- Contraintes pour la table `demande_dispositif`
+--
+ALTER TABLE `demande_dispositif`
+  ADD CONSTRAINT `demande_dispositif_ibfk_1` FOREIGN KEY (`id_demande`) REFERENCES `demande_produits` (`id`) ON DELETE NO ACTION,
+  ADD CONSTRAINT `demande_dispositif_ibfk_2` FOREIGN KEY (`id_dispositif`) REFERENCES `dispositifs` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `demande_medicaments`

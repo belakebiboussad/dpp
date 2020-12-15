@@ -30,10 +30,12 @@ $('document').ready(function(){
 					if($("#specialiteDiv").is(":hidden"))
 						$("#specialiteDiv").show();
 					$("#specialite").removeAttr("disabled");
+					$("#produit").removeAttr("disabled");
 					break;
 				case "2":
 					if(!$("#specialiteDiv").hasClass('invisble'))
 						$("#specialiteDiv").hide();
+					$("#produit").removeAttr("disabled");
 					getProducts(2);
 					break;
 				case "3":
@@ -56,8 +58,8 @@ $('document').ready(function(){
 				$("#produit").prop('disabled', 'disabled');
 	 	});
 	 	$("#ajoutercmd").click(function() {
-	 			if($('#gamme').val() == "1")
-        	$('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td>"+$('#produit').val()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+$('#specialite option:selected').text()+"</td><td class='center'>"+$("#quantite").val()+"</td></tr>");
+	 		if($('#gamme').val() == "1")
+        			$('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td>"+$('#produit').val()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+$('#specialite option:selected').text()+"</td><td class='center'>"+$("#quantite").val()+"</td></tr>");
         else
         	$('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td>"+$('#produit').val()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+"/"+"</td><td class='center'>"+$("#quantite").val()+"</td></tr>");
         $('#produit').val('<option value="0">Sélectionner...</option>');
@@ -68,11 +70,11 @@ $('document').ready(function(){
     $("#validerdmd").click(function(){
       var arrayLignes = document.getElementById("cmd").rows;
       var longueur = arrayLignes.length;
-      var tab = [];
+       var tab = [];
       for(var i=1; i<longueur; i++)
       {
-        tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;
-      }
+        	tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;//nom produit+gamme+quantité
+       }
       var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");
       champ.appendTo('#dmdprod');
       $('#dmdprod').submit();
@@ -141,7 +143,7 @@ $('document').ready(function(){
 			<div class="widget-header">
 			   <h4 class="widget-title">Produits demandés</h4>
 				<div class="widget-toolbar">						
-					<a id="deletepod"><i class="ace-icon fa fa-refresh"></i></a>
+					<a id="deletepod" class="btn btn-xs btn-danger"><i class="ace-icon fa fa-trash-o"></i></a>
 				</div>
 			</div>
 			<div class="widget-body">
@@ -161,7 +163,7 @@ $('document').ready(function(){
 												<th>Quantité</th>
 											</tr>
 										</thead>
-										<tbody>
+										<tbody >
 										</tbody>
 									</table>
 								</div>

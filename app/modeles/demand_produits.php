@@ -8,7 +8,7 @@ class demand_produits extends Model
 {
 	public $table ="demande_produits";
 	public $timestamps = false;
-    protected $fillable  = ['Date','Etat', 'motif' , 'id_employe'];
+    protected $fillable  = ['Date','Etat','id_employe'];
 
     public function medicaments()
     {

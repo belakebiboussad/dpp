@@ -61,28 +61,29 @@ class demandeprodController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $date = date('Y-m-d');
-        $demande = demand_produits::FirstOrCreate([
-            "Date" => $date,
-            "Etat" => "E",
-            "id_employe" => Auth::user()->employee_id,
-        ]);
-        $listes = json_decode($request->liste);
-        for ($i=1; $i < count($listes); $i++) { 
-            $gamme = gamme::where('gamme',$listes[$i]->gamme)->get()->first();
-            if($gamme->id == "1")
-            {
-                $produit = medcamte::where("dci",$listes[$i]->produit)->get()->first();
-                $demande->medicaments()->attach($produit->id, ['qte' => $listes[$i]->qte]);
-            }
-            elseif($gamme->id == "2") {
-                $produit = dispositif::where('dci',$listes[$i]->produit)->get()->first();
-                $demande->dispositifs()->attach($produit->id, ['qte' => $listes[$i]->qte]);
-            }
-            elseif($gamme->id == "3") {
-                $produit = reactif::where('dci',$listes[$i]->produit)->get()->first();
+      public function store(Request $request)
+      {
+               $date = date('Y-m-d');
+               $demande = demand_produits::FirstOrCreate([
+                     "Date" => $date,
+                      "Etat" => "E",
+                      "id_employe" => Auth::user()->employee_id,
+               ]);
+              // $request->liste:produit+gamme+specialite+quantite
+               $listes = json_decode($request->liste);
+               for ($i=1; $i < count($listes); $i++) { 
+                      $gamme = gamme::where('nom',$listes[$i]->gamme)->get()->first();
+                      if($gamme->id == "1")
+                      {
+                             $produit = medcamte::where("nom",$listes[$i]->produit)->get()->first();
+                             $demande->medicaments()->attach($produit->id, ['qte' => $listes[$i]->qte]);
+                     }
+                     elseif($gamme->id == "2") {
+                              $produit = dispositif::where('nom',$listes[$i]->produit)->get()->first();
+                              $demande->dispositifs()->attach($produit->id, ['qte' => $listes[$i]->qte]);
+                      }
+                      elseif($gamme->id == "3") {
+                $produit = reactif::where('nom',$listes[$i]->produit)->get()->first();
                 $demande->reactifs()->attach($produit->id, ['qte' => $listes[$i]->qte]);
             }
         }
@@ -96,8 +97,8 @@ class demandeprodController extends Controller
      */
     public function show($id)
     {
-            $demande = demand_produits::FindOrFail($id);
-            return view('demandeproduits.show', compact('demande'));
+              $demande = demand_produits::FindOrFail($id);
+               return view('demandeproduits.show', compact('demande'));
     }
     /**
      * Show the form for editing the specified resource.
