@@ -33,7 +33,7 @@ $('document').ready(function(){
 	      },
 	      ajax: '/getdispositifsPCH',
 	       columns: [
-	                    {data: 'nm'},
+	                    {data: 'nom'},
 	                    {data: 'code'}
 	        ]	
 	});
