@@ -72,8 +72,8 @@ $(document).on('click','#getConsults',function(event){
 	 		$("#patient").html(xhr.getResponseHeader("patient"));
 	 		$('#consultList tbody').empty();
 	 		if(data.length != 0)
-	 	  {
-	 	  	$("#consultList").DataTable ({
+	 	 	 {
+	 	  		$("#consultList").DataTable ({
 					"processing": true,
 				  "paging":   true,
 				  "destroy": true,

@@ -122,8 +122,10 @@ route::get('/createsalle','SalleController@createsalle');
 Route::post('/exmbio/store/{id}','ExamenbioController@store');
 route::get('/createlit','LitsController@createlit');
 route::get('/getmedicaments','MedicamentsController@getmedicaments');
+route::get('/getmedicamentsPCH','MedicamentsController@getmedicamentsPCH');
+route::get('/getdispositifsPCH','MedicamentsController@getdispositifsPCH');
 route::get('/getmed/{id}','MedicamentsController@getmed');
-route::get('/setting/{id}', 'UsersController@setting');//Route::get('/pdf/{order}', ['as' => 'order.pdf', 'uses' => 'rdvController@orderPdf']);
+route::get('/setting/{id}', 'UsersController@setting');
 Route::get('/ticket/{ticket}', ['as' => 'ticket.pdf', 'uses' => 'ticketController@ticketPdf']);
 Route::group(['as' => 'user.'], function() {
 Route::any('/profile/{userId}', [

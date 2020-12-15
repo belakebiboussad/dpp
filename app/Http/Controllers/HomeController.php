@@ -80,10 +80,12 @@ class HomeController extends Controller
                 return view('home.home_radiologue', compact('demandesexr')); 
                 break;
             case 14://chef de service
-                $meds = medcamte::all();
-                $dispositifs = dispositif::all();
-                $reactifs = reactif::all();
-                return view('home.home_chef_ser', compact('meds','dispositifs','reactifs'));
+               // $meds = medcamte::all();
+               //$dispositifs = dispositif::all();
+                //$reactifs = reactif::all();
+                //return view('home.home_chef_ser', compact('meds','dispositifs','reactifs'));
+                return view('home.home_chef_ser');
+
             default:
                return view('errors.500');
                break;

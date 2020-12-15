@@ -56,7 +56,7 @@ class demandeprodController extends Controller
      */
     public function create()
     {
-       $gammes = gamme::all();
+        $gammes = gamme::all();
         return view('demandeproduits.create', compact('gammes'));
     }
 

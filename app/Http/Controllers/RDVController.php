@@ -236,18 +236,6 @@ $name = "RDV-pour:".patient::where("id",$order->Patient_ID_Patient)->get()->firs
       return $dompdf->stream($name); 
       
     }
-/*public function getRDV(){$rdvs = rdv::select(['id','Date_RDV','Patient_ID_Patient','Employe_ID_Employe','Etat_RDV']);//'Temp_rdv',
-return Datatables::of($rdvs)->addColumn('action5',function($rdv){return'<span class="label label-xlg label-purple arrowed"><strong>'.$rdv->Date_RDV.'</strong></span>';
-})->addColumn('action3',function($rdv){if($rdv->Etat_RDV == "en attente"){return'<span class="label label-xlg label-yellow arrowed-in arrowed-in-right"><strong>'.$rdv->Etat_RDV.'</strong></span>';
-}elseif($rdv->Etat_RDV == "Valider"){return'<span class="label label-xlg label-purple arrowed"><strong>'.$rdv->Etat_RDV.'</strong></span>';
-}})->addColumn('action1',function($rdv){$patient = patient::where("id",$rdv->Patient_ID_Patient)->get()->first();
-return'<a href="/patient/'.$patient->id.'" class="label label-xlg label-primary arrowed arrowed-right">'.$patient->Nom.' '.$patient->Prenom.'</a>';
-})->addColumn('action2',function($rdv){$medcine = employ::where("id",$rdv->Employe_ID_Employe)->get()->first();return'<a href="/employe/'.$medcine->id.'" class="label label-xlg label-pink arrowed-right">'.$medcine->nom.' '.$medcine->prenom .'</a>';
-})->addColumn('action', function ($rdv) { return '<div class="hidden-sm hidden-xs btn-group">                         <a href="/rdv/'.$rdv->id.'" class="btn btn-xs btn-warning">
-<i class="ace-icon fa fa-hand-o-up bigger-120"></i>Affiché </a> <a href="/rdv/valider/'.$rdv->id.'" class="btn btn-xs btn-success">
-<i class="ace-icon fa fa-check bigger-120"></i>Valider </a><a href="/rdv/reporter/'.$rdv->id.'" class="btn btn-xs btn-info">
-<i class="ace-icon fa fa-pencil bigger-120"></i>Reporter </a></div>';})->rawColumns(['action5','action4','action3','action1','action2','action'])
-->make(true);}*/
   function AddRDV(Request $request)
   {
     $employeId  ="";

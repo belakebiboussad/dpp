@@ -463,13 +463,13 @@
 	                    "url": '/localisation/fr_FR.json'
 	      },
 	      ajax: '/getmedicaments',
-	          columns: [
+	       columns: [
 	                    {data: 'Nom_com'},
 	                    {data: 'Forme'},
 	                    {data: 'Dosage'},
 	                    {data: 'action', name: 'action', orderable: false, searchable: false}
-	                   ]
-		});
+	        ]
+	});
 	  jQuery('#btn-add, #AntFamil-add').click(function () {
 			jQuery('#EnregistrerAntecedant').val("add");
 			jQuery('#modalFormData').trigger("reset");

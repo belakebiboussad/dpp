@@ -246,6 +246,7 @@ $('#typeexm').on('change', function() {
             });
         </script>
         <script>
+        /*
             $('#medc_table').DataTable({
                  processing: true,
                 serverSide: true,
@@ -257,27 +258,7 @@ $('#typeexm').on('change', function() {
                     {data: 'action', name: 'action', orderable: false, searchable: false}
                 ]
             });
-        </script>
-        <script>
-            // $('#rdv_table').DataTable({
-            //      processing: true,
-            //     serverSide: true,
-            //     ajax: 'http://localhost:8000/getrdv',
-            //     columns: [
-            //         {data: 'action5', name: 'action', orderable: false, searchable: false},
-            //         {data: 'action4', name: 'action', orderable: false, searchable: false},
-            //         {data: 'action3', name: 'action', orderable: false, searchable: false},
-            //         {data: 'action1', name: 'action', orderable: false, searchable: false},
-            //         {data: 'action2', name: 'action', orderable: false, searchable: false},
-            //         {data: 'action', name: 'action', orderable: false, searchable: false}
-            //     ]
-            // });
-        </script>
-
-        <script>
-/*$('#listepatient-table').DataTable({ processing: true,serverSide: true,ajax: '/getpatient',columns: [{data: 'code_barre'},{data: 'Nom'},
-{data: 'Prenom'},{data: 'Dat_Naissance'},{data: 'Sexe'},{data: 'Date_creation'},{data: 'action', name: 'action', orderable: false, searchable: false}
-],"columnDefs":[{"targets": [ 0 ],"visible": false,}]});*/
+            */
         </script>
         <script>
             $('#patient-table').DataTable({
