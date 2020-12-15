@@ -15,27 +15,44 @@ $('document').ready(function(){
 	      },
 	      ajax: '/getmedicamentsPCH',
 	       columns: [
-	                    {data: 'dci'},
+	                    {data: 'nom'},
 	                    {data: 'code_produit'},
 	                    {data: 'specialite'},
 	        ]	
 	});
 	$('#dispo_table').dataTable({
 		processing: true, //serverSide: true,
-	      ordering: true,
-	      bInfo : false,
-	      searching: false,
-	      pageLength: 20,         
-	      bLengthChange: false,
-	      nowrap:true,
-	      "language": {
-	                    "url": '/localisation/fr_FR.json'
-	      },
-	      ajax: '/getdispositifsPCH',
-	       columns: [
-	                    {data: 'nom'},
-	                    {data: 'code'}
-	        ]	
+    ordering: true,
+    bInfo : false,
+    searching: false,
+    pageLength: 20,         
+    bLengthChange: false,
+    nowrap:true,
+    "language": {
+                  "url": '/localisation/fr_FR.json'
+    },
+    ajax: '/getdispositifsPCH',
+    columns: [
+              {data: 'nom'},
+              {data: 'code'}
+    ]	
+	});
+	$('#reactifs_table').dataTable({
+		processing: true, //serverSide: true,
+    ordering: true,
+    bInfo : false,
+    searching: false,
+    pageLength: 20,         
+    bLengthChange: false,
+    nowrap:true,
+    "language": {
+                  "url": '/localisation/fr_FR.json'
+    },
+    ajax: '/getreactifsPCH',
+    columns: [
+              {data: 'nom'},
+              {data: 'code'}
+    ]	
 	});
 });
 </script>
@@ -43,6 +60,8 @@ $('document').ready(function(){
 @section('main-content')
 <div class="row">
 <div class="col-xs-12">
+	<div class="space-6"></div>
+	<div class="row">
 	<div class="col-sm-10 col-sm-offset-1">
 		<div class="widget-box transparent">
 			<div class="widget-header widget-header-large">
@@ -60,26 +79,26 @@ $('document').ready(function(){
 								<ul class="nav nav-tabs" id="myTab2">
 									<li class="active"><a data-toggle="tab" href="#medPCH">Médicaments</a></li>
 									<li><a data-toggle="tab" href="#dispositifs">Dispositifs médicaux</a></li>
-									<li><a data-toggle="tab" href="#info2">Réactifs chimiques et dentaires</a></li>
+									<li><a data-toggle="tab" href="#reactifs">Réactifs chimiques et dentaires</a></li>
 								</ul>
 							</div>
 						</div>
-					       <div class="widget-body">
-							<div class="widget-main padding-12 no-padding-left no-padding-right">
-								<div class="tab-content padding-4">
-									<div id="medPCH" class="tab-pane in active">
-										<div class="scrollable-horizontal" data-size="800">
-										<div>
-						         			 <table id="medspch_table" class="table table-bordered table-hover" width=100%> 
-									        	 <thead>
-									                <tr>
-									                  <th class="center"><strong>Nom(D.C.I )</strong></th>
-									                  <th class="center"><strong>Code</strong></th>
-									                  <th class="center"><strong>specialité</strong></th>
-									               </tr>
-									               </thead>
-									        </table>
-										</div>
+					  <div class="widget-body">
+						<div class="widget-main padding-12 no-padding-left no-padding-right">
+							<div class="tab-content padding-4">
+								<div id="medPCH" class="tab-pane in active">
+									<div class="scrollable-horizontal" data-size="800">
+									<div>
+						    		<table id="medspch_table" class="table table-bordered table-hover" width=100%> 
+									    <thead>
+									      <tr>
+				                  <th class="center"><strong>Nom(D.C.I )</strong></th>
+				                  <th class="center"><strong>Code</strong></th>
+				                  <th class="center"><strong>specialité</strong></th>
+				                </tr>
+				                </thead>
+									  </table>
+									</div>
 										</div>
 									</div>{{-- tabpane --}}
 									<div id="dispositifs" class="tab-pane">
@@ -95,7 +114,21 @@ $('document').ready(function(){
 													</table>
 												</div>
 											</div>
-										</div>{{--tabpne --}}
+									</div>{{--tabpne --}}
+									<div id="reactifs" class="tab-pane">
+										<div class="scrollable" data-size="100">
+											<div>
+												<table id="reactifs_table" class="table table-striped table-bordered">
+													<thead>
+														<tr>
+															<th>Nom</th>
+															<th>Code</th>
+														</tr>
+													</thead>
+												</table>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -104,7 +137,8 @@ $('document').ready(function(){
 				</div>
 		</div>
 		</div>
-	</div>
+	</div><!-- col-sm-10 -->
+</div>	
 </div>
 </div>
 @endsection

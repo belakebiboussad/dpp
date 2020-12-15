@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 15 déc. 2020 à 09:52
--- Version du serveur :  5.7.21
--- Version de PHP :  7.2.4
+-- Généré le :  mar. 15 déc. 2020 à 17:25
+-- Version du serveur :  5.7.23
+-- Version de PHP :  7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -3198,7 +3198,14 @@ CREATE TABLE IF NOT EXISTS `demande_produits` (
   `id_employe` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_employe` (`id_employe`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `demande_produits`
+--
+
+INSERT INTO `demande_produits` (`id`, `Date`, `Etat`, `motif`, `id_employe`) VALUES
+(1, '2020-12-15', 'E', NULL, 100);
 
 -- --------------------------------------------------------
 
@@ -4319,7 +4326,7 @@ INSERT INTO `lits` (`id`, `num`, `nom`, `etat`, `affectation`, `salle_id`) VALUE
 DROP TABLE IF EXISTS `medcamtes`;
 CREATE TABLE IF NOT EXISTS `medcamtes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `dci` varchar(500) NOT NULL,
+  `nom` varchar(500) NOT NULL,
   `code_produit` int(11) NOT NULL,
   `code_enr` varchar(20) NOT NULL,
   `Affectation` varchar(50) NOT NULL,
@@ -4332,7 +4339,7 @@ CREATE TABLE IF NOT EXISTS `medcamtes` (
 -- Déchargement des données de la table `medcamtes`
 --
 
-INSERT INTO `medcamtes` (`id`, `dci`, `code_produit`, `code_enr`, `Affectation`, `id_specialite`) VALUES
+INSERT INTO `medcamtes` (`id`, `nom`, `code_produit`, `code_enr`, `Affectation`, `id_specialite`) VALUES
 (14, 'Dexchlorpheniramine Maleate  inj 5mg/ml', 5399, '01 A 004', 'Hôpital / Officine', 1),
 (17, 'Promethazine inj 50mg', 5078, '01 A 011', 'Hôpital', 1),
 (18, 'Alfentanil inj 1mg/2ml', 5850, '02 A 001', 'Hôpital', 2),
@@ -5003,7 +5010,7 @@ INSERT INTO `medcamtes` (`id`, `dci`, `code_produit`, `code_enr`, `Affectation`,
 (685, 'Ofloxacine comp 400mg', 6221, '13 K 271', 'Hôpital', 13),
 (686, 'Ofloxacine inj 200mg/40ml', 6437, '13 K 087', 'Hôpital', 13),
 (687, 'Oseltamivir gelule 30MG', 8408, '13 P 441', 'Hôpital / Officine', 13);
-INSERT INTO `medcamtes` (`id`, `dci`, `code_produit`, `code_enr`, `Affectation`, `id_specialite`) VALUES
+INSERT INTO `medcamtes` (`id`, `nom`, `code_produit`, `code_enr`, `Affectation`, `id_specialite`) VALUES
 (688, 'Oseltamivir gelule 45MG', 8407, '13 P 442', 'Hôpital / Officine', 13),
 (689, 'Oseltamivir gelule 75MG', 7847, '13 P 290', 'Hôpital / Officine', 13),
 (690, 'Oxacilline inj 1 gr', 5143, '13 G 069', 'Hôpital / Officine', 13),
@@ -5650,7 +5657,7 @@ INSERT INTO `medcamtes` (`id`, `dci`, `code_produit`, `code_enr`, `Affectation`,
 (1334, 'Ciclosporine caps 50mg', 5173, '27 A 007', 'Hôpital', 27),
 (1335, 'Eculizumab sol p/perf  300mg/30ml', 8778, '27 A 013', 'Hôpital', 27),
 (1336, 'Immunoglobuline de lapin anti-thymocytes humains 25mg/5ml inj IV', 8395, '27 A 004', 'Hôpital', 27);
-INSERT INTO `medcamtes` (`id`, `dci`, `code_produit`, `code_enr`, `Affectation`, `id_specialite`) VALUES
+INSERT INTO `medcamtes` (`id`, `nom`, `code_produit`, `code_enr`, `Affectation`, `id_specialite`) VALUES
 (1337, 'Mycophenolate mofetil comp 250mg', 7084, '27 A 003', 'Hôpital', 27),
 (1338, 'Mycophenolate Mofetil comp 500mg', 5928, '27 A 002', 'Hôpital', 27),
 (1339, 'Mycophenolate Mofetil inj 500 mg', 7149, '27', 'Hôpital', 27),
@@ -12513,7 +12520,7 @@ DROP TABLE IF EXISTS `reactifs`;
 CREATE TABLE IF NOT EXISTS `reactifs` (
   `id` int(12) NOT NULL AUTO_INCREMENT,
   `nom` varchar(60) NOT NULL,
-  `Code` int(8) NOT NULL,
+  `code` int(8) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=171 DEFAULT CHARSET=utf8;
 
@@ -12521,7 +12528,7 @@ CREATE TABLE IF NOT EXISTS `reactifs` (
 -- Déchargement des données de la table `reactifs`
 --
 
-INSERT INTO `reactifs` (`id`, `nom`, `Code`) VALUES
+INSERT INTO `reactifs` (`id`, `nom`, `code`) VALUES
 (1, 'ACETONE P . A ACS ISO', 3791),
 (2, 'ACID WASH CONC', 2965),
 (3, 'ACIDE ACETIQUE 99 - 100 % P /A', 3002),
@@ -13028,7 +13035,7 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (3, 'inf', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'ee@g.sz', 1, 3, 'koMM4mIyzXAxOQkT61BF0wn2pUx3FMOM3ICiD1QUWq1pw5IfaJFSrjQsJAI3', 1),
 (25, 'admin', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'mail@live.fr', 65, 4, '6Fvu4HmYoVVoz4RxtgE19kXPnaAibfPr4bI8WmCUmYAiRJzP4VwmFuHcb3i7', 1),
 (26, 'reception', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'ikesskess@gmail.com', 68, 2, 'JgPaOcCOA17jVkAP8cojWkgyN0MDnkxPNFFF9y5OWBuGJoZaBkbz2GrKnERk', 0),
-(28, 'medChef', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'az@e.fr', 87, 13, 'vlYWoVhmd2IzlC0PyfR8kzStP4YgnxDstbqo7IEzatBZ6DhH6G75rvmKC3wD', 1),
+(28, 'medChef', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'az@e.fr', 87, 13, 'GtsERzROhMI17wLDz9bj8agtQGftKg9YW3Jop27qso079ht8HqA7rmROafvp', 1),
 (29, 'colloque', '$2y$10$Ve5h8oMwfAmfzHgTLrfJTOmGUiBpZLdxrfEfYC/7g2a1G62ZkM2QO', 'gdcedgg@yah.fr', 80, 5, 'gpZZ7n5wZzyDItBNWBgOWJBuHVN9zPFAVCnhFigz3AQFygICRp4ENyCc2B8W', 1),
 (30, 'sur', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'rlakhneche@cdta.dz', 81, 5, 'BfQJCYXPvCHBsICZ4rxkU4eOn3GoaAhuMy1r1eCynki78xgOJZ0fve0Z7z0Z', 1),
 (31, 'rec', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', NULL, 82, 2, 'ILQMlEqYwvZBwKE0olf9N1sS8tL2SXqrIcTmGmY9rXMXB12skj4P2lEjwUnc', 1),
@@ -13042,9 +13049,9 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (42, 'laborantin', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'lab@hop.dz', 97, 11, 'QZOK8XxQcxpBYZjmZS35YFJIFRomup114aMBLKYYoE8adSBi2nex4mtmKgfJ', 1),
 (43, 'radiogue', '$2y$10$k5gKJEykSI5PNYLHyheO.eXq4ge1e6Rkz/HN/mMKUZiKZFe8qMlki', 'rad@hop.dz', 98, 12, 'benlcglfiv00sldthLpx1KXLmtI2DYvCGoRpjKunnuQE0cSzBTETHsXO9x9e', 1),
 (44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, 'UtlQGQqgbroodLTz7DHobk7fSNqnHHhXW3E7GVQhXUCJTY2XqBaXYtM66H6G', 1),
-(45, 'chefServ', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'rn3V2wNc08v6Tj4ghRpItWfH3TxNdTiWC1O0XJ4WQ193STAS45FK9W0mibWh', 1),
+(45, 'chefServ', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'G41dh32JBPpSVj5198SmuRl68fiL8mjzmLYPxAXEQTfGTV7pawl1g56bXCsA', 1),
 (46, 'rad', '$2y$10$PNDRMvcnhl1kZ.sxfoq8Yuhoq6ZMQePi9/q1QbLUZ.a.hd5DxvnCS', 'rad@cdta.net', 101, 12, 'LYnFPOG5KXRXnQuoVFseCS3zvBj5ffEsAmaHeVNbwGpeC01ND3Hclu34g0vd', 1),
-(47, 'cardio', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'bbedeebi@cdta.dz', 102, 1, 'brjJ1YqqEGOMOTgg0Fs91pJpghb3BdT86NfrSWEr4rX5a3Lq7G4lnRgsKer5', 1),
+(47, 'cardio', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'bbedeebi@cdta.dz', 102, 1, '4txrCaiAyMKUe0DCwhkPUS2GpURevrRdtNv82H1WFPMM5l52OlXjjM0pWHo9', 1),
 (48, 'geneco', '$2y$10$MeHcy1r9az/dgkC9pLvo/Ob4eqJVp8mRjGuZeyL9yA6k8sc3D0FAW', 'geneco@cdta.dz', 103, 1, 'YKcv4NJ20KZ37HKQZLOZPriKXKOjerLBO9R1lKDZNrTCnZf4sG2SgnRmXt22', 1);
 
 -- --------------------------------------------------------

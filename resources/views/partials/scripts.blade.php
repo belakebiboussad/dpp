@@ -170,62 +170,12 @@
     $("#deletepod").click(function(){
       $("tr:has(input:checked)").remove();
     });
-    $("#validerdmd").click(function(){
-      var arrayLignes = document.getElementById("cmd").rows;
-      var longueur = arrayLignes.length;
-      var tab = [];
-      for(var i=1; i<longueur; i++)
-      {
-        tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;
-      }
-      var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");
-      champ.appendTo('#dmdprod');
-      $('#dmdprod').submit();
-      });
-      $("#ajoutercmd").click(function() {
-        $('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td>"+$('#produit').val()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+$('#specialite option:selected').text()+"</td><td class='center'>"+$("#quantite").val()+"</td></tr>");
-        $('#produit').val('');$("#quantite").val(1);$('#gamme').val('0');$('#specialite').val('0')
-      });
-       $('#gamme').change(function(){
-            var id_gamme = $(this).val();
-            var html_code = '<option value="">Sélectionner</option>';
-             $.ajax({
-              url : '/getspecialite/'+id_gamme,
-              type : 'GET',
-              dataType : 'json',
-              success : function(data){
-                      $.each(data, function(){
-                               html_code += "<option value='"+this.id+"'>"+this.specialite_produit+"</option>";
-                      });
-                       $('#specialite').html(html_code);
-              },
-            });
-       });
-             $('#specialite').change(function(){
-                  var id_gamme = $('#gamme').val();
-                  var id_spec = $(this).val();
-                  var html = '';
-                  $.ajax({
-                      url : '/getproduits/'+id_gamme+'/'+id_spec,
-                      type : 'GET',
-                      dataType : 'json',
-                      success : function(data){
-                          $.each(data, function(){
-                            html += "<option value='"+this.dci+"'>"+this.dci+"</option>";
-                          });
-                          $('#produit').html(html);
-                      },
-                      error : function(){
-                          console.log('error');
-                      }
-                  });
-             });
-           $('#printRdv').click(function(){
-              $.ajaxSetup({
-                  headers: {
+    $('#printRdv').click(function(){
+          $.ajaxSetup({
+              headers: {
                         'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
                   }
-               });
+              });
                 $.ajax({
                         type : 'GET',
                         url :'/rdvprint/'+$('#idRDV').val(),

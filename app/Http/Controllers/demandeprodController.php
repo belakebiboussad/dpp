@@ -21,11 +21,6 @@ class demandeprodController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function get_specialite($id_gamme)
-    {
-        $specialites = specialite_produit::where("id_gamme",$id_gamme)->get();
-        return $specialites; 
-    }
     public function get_produit($id_gamme, $id_spes)
     {
         if($id_gamme == 1)
@@ -34,12 +29,12 @@ class demandeprodController extends Controller
             return $produits;
         }
         elseif ($id_gamme == 2) {
-            $produits = dispositif::where("id_specialite",$id_spes)->get();
+            $produits = dispositif::all();
             return $produits;
         }
         elseif($id_gamme == 3)
         {
-            $produits = reactif::where("id_specialite", $id_spes)->get();
+            $produits = reactif::all();
             return $produits;
         }
     }
@@ -56,10 +51,10 @@ class demandeprodController extends Controller
      */
     public function create()
     {
-        $gammes = gamme::all();
-        return view('demandeproduits.create', compact('gammes'));
+      $gammes = gamme::all();
+      $specialites = specialite_produit::all();
+      return view('demandeproduits.create', compact('gammes','specialites'));
     }
-
     /**
      * Store a newly created resource in storage.
      *
