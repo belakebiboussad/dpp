@@ -69,7 +69,6 @@ class demandeprodController extends Controller
                       "Etat" => "E",
                       "id_employe" => Auth::user()->employee_id,
                ]);
-              // $request->liste:produit+gamme+specialite+quantite
                $listes = json_decode($request->liste);
                for ($i=1; $i < count($listes); $i++) { 
                       $gamme = gamme::where('nom',$listes[$i]->gamme)->get()->first();

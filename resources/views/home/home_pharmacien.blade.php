@@ -3,18 +3,23 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#meds_table').dataTable({
-        		ordering: true,
-		       	"language": 
-		      	{
-		        	 "url": '/localisation/fr_FR.json'
-		        }, 
+    		ordering: true,
+	      bInfo : false,
+	      searching: false,
+	      pageLength: 20,         
+	      bLengthChange: false,
+	      nowrap:true,
+       	"language": 
+      	{
+        	 "url": '/localisation/fr_FR.json'
+        }, 
 		 });
 		$('#dispo_table').dataTable({
-       	 	ordering: true,
-        	"language": 
-      		{
-        		"url": '/localisation/fr_FR.json'
-            }, 
+     	 	ordering: true,
+      	"language": 
+    		{
+      		"url": '/localisation/fr_FR.json'
+          }, 
     	});
 		$('#reactif_table').dataTable({
         	ordering: true,
@@ -59,46 +64,41 @@
 													<div>
 														<table id="meds_table" class="table table-striped table-bordered">
 															<thead>
-															<tr>
-																<th class="center"><strong>Gamme</strong></th>
+															<tr>	
+																<th class="center"><strong>Nom (Dénomination Comune Internationale)</strong></th>
 																<th class="center"><strong>Spécialité</strong></th>
 																<th class="center"><strong>Code Produit</strong></th>
-																<th class="center"><strong>D.C.I (Dénomination Comune Internationale)</strong></th>
+															
 															</tr>
 															</thead>
 															<tbody>
-																@foreach($meds as $med)
-																<tr>
-																	<td>{{ $med->gamme->nom}}</td>
-																	<td>{{ $med->specialite->specialite_produit }}</td>
+																 @foreach($meds as $med)
+																<tr>	
+																	<td>{{ $med->nom }}</td>
+																	<td>{{ $med->specialite->nom }}</td>
 																	<td  class="center">{{ $med->code_produit }}</td>
-																	<td>{{ $med->dci }}</td>
 																</tr>
 																@endforeach
 															</tbody>
 															</table>
 														</div>
 													</div>
-												</div>
+											</div>
 												<div id="profile2" class="tab-pane">
 													<div class="scrollable" data-size="100" data-position="left">
 														<div>
 															<table id="dispo_table" class="table table-striped table-bordered">
 																<thead>
 																	<tr>
-																		<th class="center"><strong>Gamme</strong></th>
-																		<th class="center"><strong>Spécialité</strong></th>
 																		<th class="center"><strong>Code Produit</strong></th>
-																		<th class="center"><strong>D.C.I (Dénomination Comune Internationale)</strong></th>
+																		<th class="center"><strong>Nom(Dénomination Comune Internationale)</strong></th>
 																	</tr>
 																</thead>
 																<tbody>
 																	@foreach($dispositifs as $dispo)
 																	<tr>
-																		<td>{{ $dispo->gamme->nom }}</td>
-																		<td>{{ $dispo->specialite->specialite_produit }}</td>
-																		<td class="center">{{ $dispo->code_produit }}</td>
-																		<td>{{ $dispo->dci }}</td>
+																		<td class="center">{{ $dispo->code }}</td>
+																		<td>{{ $dispo->nom }}</td>
 																	</tr>
 																	@endforeach
 																</tbody>
@@ -106,39 +106,13 @@
 														</div>
 													</div>
 												</div>
-												<div id="info2" class="tab-pane">
-													<div class="scrollable" data-size="100">
-														<div>
-															<table id="reactif_table" class="table table-striped table-bordered">
-																<thead>
-																	<tr>
-																		<th>Gamme</th>
-																		<th>Spécialité</th>
-																		<th>Code Produit</th>
-																		<th>D.C.I (Dénomination Comune Internationale)</th>
-																	</tr>
-																</thead>
-																<tbody>
-																	@foreach($reactifs as $react)
-																		<tr>
-																			<td>{{ $react->gamme->nom }}</td>
-																			<td>{{ $react->specialite->specialite_produit }}</td>
-																			<td class="center">{{ $react->code_produit }}</td>
-																			<td>{{ $react->dci }}</td>
-																		</tr>
-																	@endforeach
-																</tbody>
-															</table>
-														</div>
-													</div>
-												</div>
-											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+				</div>
 			</div>
 		  </div>
 </div>
