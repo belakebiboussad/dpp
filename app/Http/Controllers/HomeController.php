@@ -66,9 +66,9 @@ class HomeController extends Controller
                     return redirect()->action('AdmissionController@index');
                     break;       
             case 10:
-                $meds = medcamte::all();
-                $dispositifs = dispositif::all();
-                $reactifs = reactif::all();
+                $meds = medcamte::paginate(50);
+                $dispositifs = dispositif::paginate(50);
+                $reactifs = reactif::paginate(50);
                 return view('home.home_pharmacien', compact('meds','dispositifs','reactifs'));
                 break;   
             case 11://Laborantin

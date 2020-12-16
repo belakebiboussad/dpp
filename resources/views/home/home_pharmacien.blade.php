@@ -16,6 +16,7 @@
 		 });
 		$('#dispo_table').dataTable({
      	 	ordering: true,
+     	 	 pageLength: 20,         
       	"language": 
     		{
       		"url": '/localisation/fr_FR.json'
@@ -81,28 +82,57 @@
 																@endforeach
 															</tbody>
 															</table>
+															{{ $meds->links() }}
+															<p>affichage {{$meds->count()}} de {{ $meds->total() }} Médicament(s).</p>
 														</div>
 													</div>
 											</div>
-												<div id="profile2" class="tab-pane">
-													<div class="scrollable" data-size="100" data-position="left">
+											<div id="profile2" class="tab-pane">
+												<div class="scrollable" data-size="100" data-position="left">
+													<div>
+														<table id="dispo_table" class="table table-striped table-bordered">
+															<thead>
+																<tr>
+																	<th class="center"><strong>Code Produit</strong></th>
+																	<th class="center"><strong>Nom(Dénomination Comune Internationale)</strong></th>
+																</tr>
+															</thead>
+															<tbody>
+																@foreach($dispositifs as $dispo)
+																<tr>
+																	<td class="center">{{ $dispo->code }}</td>
+																	<td>{{ $dispo->nom }}</td>
+																</tr>
+																@endforeach
+															</tbody>
+														</table>
+															{{ $meds->links() }}
+															<p>affichage {{$dispositifs->count()}} de {{ $dispositifs->total() }} Dispositif(s).</p>
+														</div>
+												</div>
+											</div>
+											<div id="info2" class="tab-pane">
+													<div class="scrollable" data-size="100">
 														<div>
-															<table id="dispo_table" class="table table-striped table-bordered">
+															<table id="reactif_table" class="table table-striped table-bordered">
 																<thead>
 																	<tr>
-																		<th class="center"><strong>Code Produit</strong></th>
-																		<th class="center"><strong>Nom(Dénomination Comune Internationale)</strong></th>
+																		<!-- <th>Spécialité</th> -->
+																		<th>Code Produit</th>
+																		<th>D.C.I (Dénomination Comune Internationale)</th>
 																	</tr>
 																</thead>
 																<tbody>
-																	@foreach($dispositifs as $dispo)
-																	<tr>
-																		<td class="center">{{ $dispo->code }}</td>
-																		<td>{{ $dispo->nom }}</td>
-																	</tr>
+																	@foreach($reactifs as $react)
+																		<tr>
+																			<td class="center">{{ $react->code }}</td>
+																			<td>{{ $react->nom}}</td>
+																		</tr>
 																	@endforeach
 																</tbody>
 															</table>
+															{{ $meds->links() }}
+															<p>affichage {{$reactifs->count()}} de {{ $reactifs->total() }} Réactif(s).</p>
 														</div>
 													</div>
 												</div>

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 15 déc. 2020 à 20:23
--- Version du serveur :  5.7.21
--- Version de PHP :  7.2.4
+-- Généré le :  mer. 16 déc. 2020 à 15:58
+-- Version du serveur :  5.7.23
+-- Version de PHP :  7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -350,13 +350,14 @@ CREATE TABLE IF NOT EXISTS `assurs` (
 --
 
 INSERT INTO `assurs` (`Nom`, `Prenom`, `Date_Naissance`, `lieunaissance`, `Sexe`, `SituationFamille`, `adresse`, `commune_res`, `wilaya_res`, `grp_sang`, `Position`, `Service`, `matricule`, `Grade`, `NSS`, `NMGSN`) VALUES
-('magita', 'bori', '1980-12-05', 1556, 'F', 'marié', 'rue 02 blida', 1556, 49, 'AB+', 'Activité', '1', 'po452', 7, '135624875695', NULL),
+('magita', 'bori', '1980-12-05', 1556, 'M', 'marié', 'rue 02', 287, 9, 'AB+', 'Activité', '3', 'po452', 7, '135624875695', '566666666666'),
 ('a', 'a', '2020-12-06', 613, 'M', NULL, 'rue bab ali', 613, 16, 'A+', 'Activité', '9', 'bf840', 10, '135624875699', '212464998989'),
 ('police', 'police', '1982-12-05', 1556, 'M', 'célibataire', 'rue 3 blida', 1556, 49, 'O+', 'Activité', '4', 'Ma125', 4, '245767249874', NULL),
 ('a3', 'a3', '2020-10-11', 287, 'M', NULL, 'alger', 613, 16, 'B+', 'Retraité', '4', 'bf012', 8, '444624875695', '789452124649'),
 ('as2', 'as2', '2020-12-06', 287, 'M', NULL, 'blida', 287, 9, 'B+', 'Activité', '3', 'bf897', 1, '455122326514', '984818444444'),
 ('as4', 'as4', '2020-11-01', 613, 'M', NULL, 'alger', 287, 9, 'A+', 'Congé Maladie', '8', 'bf004', 1, '585624875695', '212464958141'),
 ('as', 'as', '2020-12-13', 613, 'M', 'marié', 'alg', 4, 1, 'B+', 'Activité', '10', 'bf848', 1, '655914253678', '212464914144'),
+('lamine', 'ouali', '1939-11-30', 613, 'M', 'célibataire', 'rua ben omar kouba', 613, 16, 'B+', 'Activité', '5', 'hk128', 1, '875614325845', NULL),
 ('ahmed', 'ali', '1978-05-08', 1556, 'M', 'marié', 'rue 01 alger', 1556, 49, 'A+', 'Congé Maladie', '9', 'g125M', 6, '894568124785', NULL),
 ('a5', 'a5', '1999-01-11', 613, 'M', 'marié', 'blida', 287, 9, 'AB+', 'Activite', '7', 'bf786', 1, '985624875695', '474818444444');
 
@@ -3189,7 +3190,10 @@ CREATE TABLE IF NOT EXISTS `demande_dispositif` (
 
 INSERT INTO `demande_dispositif` (`id_demande`, `id_dispositif`, `qte`) VALUES
 (1, 4, 102),
-(1, 2, 18);
+(1, 2, 18),
+(2, 8, 13),
+(2, 3, 5),
+(2, 4, 10);
 
 -- --------------------------------------------------------
 
@@ -3213,7 +3217,8 @@ CREATE TABLE IF NOT EXISTS `demande_medicaments` (
 INSERT INTO `demande_medicaments` (`id_demande`, `id_medicaments`, `qte`) VALUES
 (1, 14, 10),
 (1, 37, 20),
-(1, 14, 45);
+(1, 14, 45),
+(2, 14, 10);
 
 -- --------------------------------------------------------
 
@@ -3229,14 +3234,15 @@ CREATE TABLE IF NOT EXISTS `demande_produits` (
   `id_employe` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_employe` (`id_employe`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `demande_produits`
 --
 
 INSERT INTO `demande_produits` (`id`, `Date`, `Etat`, `id_employe`) VALUES
-(1, '2020-12-15', 'E', 100);
+(1, '2020-12-15', 'E', 100),
+(2, '2020-12-16', 'E', 100);
 
 -- --------------------------------------------------------
 
@@ -12410,7 +12416,7 @@ CREATE TABLE IF NOT EXISTS `patients` (
   KEY `commune_res` (`commune_res`) USING BTREE,
   KEY `fk_patient_commNaissane` (`Lieu_Naissance`),
   KEY `fk_assure` (`Assurs_ID_Assure`)
-) ENGINE=InnoDB AUTO_INCREMENT=203 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=205 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `patients`
@@ -12424,7 +12430,9 @@ INSERT INTO `patients` (`id`, `IPP`, `Nom`, `Prenom`, `nom_jeune_fille`, `Dat_Na
 (192, '02020192', 'pp', 'pp', NULL, '1979-06-23', 613, 'M', 'marié', 'rue 01', 613, 16, '0666666666', '', NULL, NULL, 'O', '+', '444624875695', '2', NULL, 1, '2020-12-13', NULL, '2020-12-13 09:43:03'),
 (193, '02020193', 'p4', 'p4', NULL, '2020-12-06', 613, 'M', 'marié', 'alg', 287, 9, '0555555555', '', NULL, NULL, 'B', '+', '585624875695', '1', NULL, 1, '2020-12-13', NULL, '2020-12-13 11:03:43'),
 (194, '02020194', 'p5', 'p5', NULL, '2020-10-05', 613, 'M', 'divorcé', 'alg', 613, 16, '0555555555', '', NULL, NULL, 'B', '+', '985624875695', '2', NULL, 1, '2020-12-13', NULL, '2020-12-13 15:58:59'),
-(202, '02020202', 'ahmed', 'malia', NULL, '1959-01-27', 613, 'F', 'marié', 'alger', 613, 16, '0555555555', '', NULL, '149020015465', 'A', '+', '894568124785', '1', NULL, 1, '2020-12-13', NULL, '2020-12-13 21:00:06');
+(202, '02020202', 'ahmed', 'malia', NULL, '1959-01-27', 613, 'F', 'marié', 'alger', 613, 16, '0555555555', '', NULL, '149020015465', 'A', '+', '894568124785', '1', NULL, 1, '2020-12-13', NULL, '2020-12-13 21:00:06'),
+(203, '02020203', 'magita', 'bori', NULL, '1980-12-05', 1452, 'F', 'marié', 'rue 02', 287, 9, '0555555555', '', NULL, NULL, 'AB', '+', '135624875695', '0', NULL, 1, '2020-12-16', NULL, '2020-12-16 08:40:15'),
+(204, '02020204', 'lamine', 'ouali', NULL, '1840-10-05', 613, 'M', 'célibataire', 'rua ben omar kouba', 613, 16, '0556231479', '', NULL, NULL, 'B', '+', '875614325845', '0', NULL, 1, '2020-12-16', NULL, '2020-12-16 11:18:39');
 
 -- --------------------------------------------------------
 
@@ -13069,7 +13077,7 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (28, 'medChef', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'az@e.fr', 87, 13, 'GtsERzROhMI17wLDz9bj8agtQGftKg9YW3Jop27qso079ht8HqA7rmROafvp', 1),
 (29, 'colloque', '$2y$10$Ve5h8oMwfAmfzHgTLrfJTOmGUiBpZLdxrfEfYC/7g2a1G62ZkM2QO', 'gdcedgg@yah.fr', 80, 5, 'gpZZ7n5wZzyDItBNWBgOWJBuHVN9zPFAVCnhFigz3AQFygICRp4ENyCc2B8W', 1),
 (30, 'sur', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'rlakhneche@cdta.dz', 81, 5, 'BfQJCYXPvCHBsICZ4rxkU4eOn3GoaAhuMy1r1eCynki78xgOJZ0fve0Z7z0Z', 1),
-(31, 'rec', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', NULL, 82, 2, 'ILQMlEqYwvZBwKE0olf9N1sS8tL2SXqrIcTmGmY9rXMXB12skj4P2lEjwUnc', 1),
+(31, 'rec', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', NULL, 82, 2, 'N0806H8kT0hpih7cu14yA6xSSrfcWv4y8FEEYLM26j1ZNbdj7BenDd5PXeri', 1),
 (33, 'test', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'test@gmail', 79, 1, 'jVwivfkZ4VIp3AGewC51osG092X85a3MAdPFgfiEGXfy1sOGfzyxuAIaEjC4', 1),
 (34, 'med', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', NULL, 88, 1, 'fb3Fq2xQgFWyTBO5v1lRHwwIkqlMoObVnU9zTeylFhh5tAzWkHzNg5l2N6ig', 0),
 (35, 'delCol', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'll@a.fr', 89, 6, 'p6slkF5uYOsoNW6KHXvqfa0e5w4y979vvT0OBz4H52OwTV3pwwC1G0jqTpvz', 1),
@@ -13079,10 +13087,10 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (41, 'agent', '$2y$10$RsD.pKjSIV73uBbaLJNE.uXhzCmCixdBf71lcxBq2wmQu0dsRzdmy', 'agent@hop.dz', 96, 9, 'H8Uz2kmwNV6iLQWztPTT57W5LzCWhZdmoYgzjKS4oo6OssfKc21KolgmbV31', 1),
 (42, 'laborantin', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'lab@hop.dz', 97, 11, 'QZOK8XxQcxpBYZjmZS35YFJIFRomup114aMBLKYYoE8adSBi2nex4mtmKgfJ', 1),
 (43, 'radiogue', '$2y$10$k5gKJEykSI5PNYLHyheO.eXq4ge1e6Rkz/HN/mMKUZiKZFe8qMlki', 'rad@hop.dz', 98, 12, 'benlcglfiv00sldthLpx1KXLmtI2DYvCGoRpjKunnuQE0cSzBTETHsXO9x9e', 1),
-(44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, 'VN1Q3lu3AcD2CvjrEHWkmPjyJoHU8TX1EgMW9G8abCqXqD12YWaOPt4uUKY3', 1),
-(45, 'chefServ', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'PFjVqc52oKrSqza3o7tik4c1ZY0fzyhQm2EgUxPGHFBrJwpbj8DCUXUyxEL8', 1),
+(44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, 'MKVC4tpQ54lbXehyteQUq2ThTGDVYOiIX7SMoXfacDGHrDfP3K1eBszbmT1H', 1),
+(45, 'chefServ', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'aW04iDqzScLO9arL6kpr91dwbioXKZEzxYEJpcRgnGgPDMhzllrwT6UdO976', 1),
 (46, 'rad', '$2y$10$PNDRMvcnhl1kZ.sxfoq8Yuhoq6ZMQePi9/q1QbLUZ.a.hd5DxvnCS', 'rad@cdta.net', 101, 12, 'LYnFPOG5KXRXnQuoVFseCS3zvBj5ffEsAmaHeVNbwGpeC01ND3Hclu34g0vd', 1),
-(47, 'cardio', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'bbedeebi@cdta.dz', 102, 1, '4txrCaiAyMKUe0DCwhkPUS2GpURevrRdtNv82H1WFPMM5l52OlXjjM0pWHo9', 1),
+(47, 'cardio', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'bbedeebi@cdta.dz', 102, 1, 'gTGDNdZ9qNQbr0fhcXVCaFMai6NdlQVs3SDcrqaXTol4WZ3E4zLcmzujLa5a', 1),
 (48, 'geneco', '$2y$10$MeHcy1r9az/dgkC9pLvo/Ob4eqJVp8mRjGuZeyL9yA6k8sc3D0FAW', 'geneco@cdta.dz', 103, 1, 'YKcv4NJ20KZ37HKQZLOZPriKXKOjerLBO9R1lKDZNrTCnZf4sG2SgnRmXt22', 1);
 
 -- --------------------------------------------------------
