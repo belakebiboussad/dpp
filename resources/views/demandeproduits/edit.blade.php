@@ -68,21 +68,51 @@ $('document').ready(function(){
         $('#specialite').val('0');
     });
     $("#validerdmd").click(function(){
-    	var arrayLignes = document.getElementById("cmd").rows;
-      var longueur = arrayLignes.length;
-       var tab = [];
-      for(var i=1; i<longueur; i++)
-      {
-      	var description = $(this).closest("tr").find('description').text(); //second test
-      	alert(description)
-      	tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;//nom produit+gamme+quantité
-  			alert(tab[i]);     	
-      
-      }
-      var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");
-      champ.appendTo('#dmdprod');
-      //$('#dmdprod').submit();
-    });	
+  		  var tb = $('#cmd tbody');
+  		  var produits = [];
+  		  jsonObj = [];
+  			tb.find("tr").each(function(index, element) {
+			 	  //var produit=[] ;
+			 	  produit = {};
+			 	 $(element).find('td').each(function(index1, element) {
+			  	var prod="";var gamme="";var spec="";var qte="";
+ 					
+       
+        
+			  		if(index1 != 0)
+			    	{
+		    			switch(index1){
+								case 1:
+									//produit += "produit:" + $(element).text()+",";
+									produit ["prod"]= $(element).text();
+		    					break;
+			    			case 2:
+		    					//produit += "gamme:" +  $(element).text()+",";
+									produit["gamme"] = $(element).text();
+		    					break;
+			    			case 3:
+		    					// produit += "spec:"+ $(element).text()+",";
+		    					produit["spec"] = $(element).text();
+		    					break;
+			    			case 4:
+		    					//produit += "qte:"+$(element).find('input').val() + "}";
+		    					produit["qte"] = $(element).text();
+		    					break;
+								default:				
+		    					break;	
+		    			}
+			  		}
+			  	});
+			 	  jsonObj.push(produit);
+			  	alert(jsonObj);
+			  	//produits[index] = produit;
+				});
+				//alert(JSON.stringify(produits));
+				var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(produits)+"' hidden>");
+		  	champ.appendTo('#demandform');
+       	return false;
+       	//$('#demandform').submit();
+		});
 });
 </script>
 @endsection
@@ -164,57 +194,58 @@ $('document').ready(function(){
 					<div class="row">
 					<div class="col-xs-12">
 						<div>
-							<form id="demandform" method="POST" action=""><!-- route('demandeproduit.update') -->
+							<form id="demandform" method="POST" action="{{ route('demandeproduit.update',$demande->id)}}"><!-- route('demandeproduit.update') -->
 								{{ csrf_field() }}
-									<table id="cmd" class="table table-striped table-bordered">
-										<thead>
+								{{ method_field('PUT') }}
+								<table id="cmd" class="table table-striped table-bordered">
+									<thead>
+										<tr>
+											<th></th>
+											<th>Produits</th>
+											<th>Gamme</th>
+											<th>Spécialité</th>
+											<th>Quantité</th>
+										</tr>
+									</thead>
+									<tbody >
+										@foreach($demande->medicaments as $key=>$medicament)
 											<tr>
-												<th></th>
-												<th>Produits</th>
-												<th>Gamme</th>
-												<th>Spécialité</th>
-												<th>Quantité</th>
+												<td><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td>
+												<td>{{ $medicament->nom }}</td>
+												<td> MEDICAMENTS</td>
+												<td>{{ $medicament->specialite->nom }}</td>
+											  <td><input type="number" id="quantite" class="form-control" value="{{ $medicament->pivot->qte }}" min=1></td>
 											</tr>
-										</thead>
-										<tbody >
-											@foreach($demande->medicaments as $medicament)
-												<tr>
-													<td><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td>
-													<td>{{ $medicament->nom }}</td>
-													<td> Médicament</td>
-													<td>{{ $medicament->specialite->nom }}</td>
-												  <td><input type="number" id="quantite" class="form-control description" value="{{ $medicament->pivot->qte }}" min=1></td>
-												</tr>
-											@endforeach
-											@foreach($demande->dispositifs as $dispositif)
-												<tr>
-													<td><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td>
-													<td>{{ $dispositif->nom }}</td>
-													<td>Dispositif médical</td>
-													<td>/</td>
-													<td><input type="number" id="quantite" class="form-control description" value="{{ $dispositif->pivot->qte }}"></td>
-												</tr>
-											@endforeach
-											@foreach($demande->reactifs as $reactif)
-												<tr>
-													<td><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td>
-													<td>{{ $reactif->nom }}</td>
-													<td>Réactifs </td>
-													<td>/</td>
-													<td>{{ $reactif->pivot->qte }}</td>
-													<td><input type="number" id="quantite"class="form-control description" value="{{ $reactif->pivot->qte }}"></td>
-												</tr>
-											@endforeach
-										</tbody>
-									</table>
-								</div>
-								<div class="hr hr8 hr-double hr-dotted"></div>
-								<div class="pull right">
-									<button id="validerdmd" class="btn btn-primary">
-										 <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
-									</button>
-								</div>
-								</form>
+										@endforeach
+										@foreach($demande->dispositifs as $dispositif)
+											<tr>
+												<td><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td>
+												<td>{{ $dispositif->nom }}</td>
+												<td>DISPOSITIFS MEDICAUX</td>
+												<td>/</td>
+												<td><input type="number" id="quantite" class="form-control" value="{{ $dispositif->pivot->qte }}"></td>
+											</tr>
+										@endforeach
+										@foreach($demande->reactifs as $reactif)
+											<tr>
+												<td><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td>
+												<td>{{ $reactif->nom }}</td>
+												<td>Réactifs chimiques et dentaires</td>
+												<td>/</td>
+												<td>{{ $reactif->pivot->qte }}</td>
+												<td><input type="number" id="quantite"class="form-control" value="{{ $reactif->pivot->qte }}"></td>
+											</tr>
+										@endforeach
+									</tbody>
+								</table>
+							</div>
+							<div class="hr hr8 hr-double hr-dotted"></div>
+							<div class="pull right">
+								<button id="validerdmd" class="btn btn-primary">
+									 <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
+								</button>
+							</div>
+							</form>
 							</div>
 						</div>
 					</div>

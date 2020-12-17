@@ -67,6 +67,7 @@ $('document').ready(function(){
         $('#gamme').val('0');
         $('#specialite').val('0');
     });
+    /*
     $("#validerdmd").click(function(){
       var arrayLignes = document.getElementById("cmd").rows;
       var longueur = arrayLignes.length;
@@ -78,7 +79,19 @@ $('document').ready(function(){
       var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");
       champ.appendTo('#dmdprod');
       $('#dmdprod').submit();
-    });	
+    });
+    */	
+     $("#validerdmd").click(function(){
+      var arrayLignes = document.getElementById("cmd").rows;
+      var longueur = arrayLignes.length;   var produits = [];
+      for(var i=1; i<longueur; i++)
+      {
+        produits[i] = { produit: arrayLignes[i].cells[1].innerHTML, gamme: arrayLignes[i].cells[2].innerHTML, spec: arrayLignes[i].cells[3].innerHTML, qte: arrayLignes[i].cells[4].innerHTML}
+      }
+      var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(produits)+"' hidden>");
+      champ.appendTo('#demandform');
+      $('#demandform').submit();
+    });
 });
 </script>
 @endsection
