@@ -43,7 +43,6 @@ class demandeprodController extends Controller
         $demandes = demand_produits::where('Etat','E')->get();//all();
         return view('demandeproduits.index', compact('demandes'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -96,8 +95,8 @@ class demandeprodController extends Controller
      */
     public function show($id)
     {
-              $demande = demand_produits::FindOrFail($id);
-               return view('demandeproduits.show', compact('demande'));
+        $demande = demand_produits::FindOrFail($id);
+         return view('demandeproduits.show', compact('demande'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -107,8 +106,12 @@ class demandeprodController extends Controller
      */
     public function edit($id)
     {
+      // $demande = demand_produits::FindOrFail($id); // return view('demandeproduits.edit', compact('demande')); 
+      $gammes = gamme::all();
+      $specialites = specialite_produit::all();
       $demande = demand_produits::FindOrFail($id);
-      return view('demandeproduits.edit', compact('demande')); 
+       
+      return view('demandeproduits.edit', compact('gammes','specialites','demande'));
     }
 
     /**

@@ -48,9 +48,12 @@
 														<a href="{{ route('demandeproduit.show', $demande->id) }}" class="btn btn-xs btn-success" title="voir détails">
 															<i class="ace-icon fa fa-hand-o-up bigger-120"></i>
 														</a>
+														<a href="{{ route('demandeproduit.edit',$demande->id) }}" class="btn btn-white btn-xs" title="editer Demande" >
+															<i class="fa fa-edit fa-xs"></i>
+														</a>
 														@if(Auth::user()->role_id == 10)
 														{{-- /traiterdemande/{{ $demande->id }}--}}
-														<a href="{{ route('demandeproduit.edit',$demande->id) }}" class="btn btn-white btn-xs" title="Traiter Demande" >
+														<a href="{{ route('demandeproduit.edit',$demande->id) }}" class="btn btn-xs btn-info" title="Traiter Demande" >
 															<i class="ace-icon fa fa-cog  bigger-110"></i>
 														</a>
 														@endif

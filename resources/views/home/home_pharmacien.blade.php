@@ -132,7 +132,7 @@
 																</tbody>
 															</table>
 															{{ $meds->links() }}
-															<p>affichage {{$reactifs->count()}} de {{ $reactifs->total() }} Réactif(s).</p>
+															<p>affichage {{$reactifs->count()}} de {{ $reactifs->total() }} Réactifd(s).</p>
 														</div>
 													</div>
 												</div>
