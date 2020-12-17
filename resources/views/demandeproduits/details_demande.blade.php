@@ -1,4 +1,4 @@
-@extends('app_phar')
+@extends('app')
 @section('main-content')
 <div class="row">
 	<div class="col-xs-12">
@@ -70,10 +70,10 @@
 										<tbody>
 											@foreach($demande->dispositifs as $dispositif)
 												<tr>
-													<td>{{ $dispositif->code_produit }}</td>
-													<td>{{ $dispositif->dci }}</td>
-													<td>{{ $dispositif->specialite->specialite_produit }}</td>
-													<td>{{ $dispositif->gamme->gamme }}</td>
+													<td>{{ $dispositif->code }}</td>
+													<td>{{ $dispositif->nom }}</td>
+													<td>/</td>
+													<td>DISPOSITIFS MEDICAUX</td>
 													<td>{{ $dispositif->pivot->qte }}</td>
 												</tr>
 											@endforeach
@@ -82,16 +82,16 @@
 													<td>{{ $medicament->code_produit }}</td>
 													<td>{{ $medicament->dci }}</td>
 													<td>{{ $medicament->specialite->specialite_produit }}</td>
-													<td>{{ $medicament->gamme->gamme }}</td>
+													<td>MEDICAMENTS</td>
 													<td>{{ $medicament->pivot->qte }}</td>
 												</tr>
 											@endforeach
 											@foreach($demande->reactifs as $reactif)
 												<tr>
-													<td>{{ $reactif->code_produit }}</td>
-													<td>{{ $reactif->dci }}</td>
-													<td>{{ $reactif->specialite->specialite_produit }}</td>
-													<td>{{ $reactif->gamme->gamme }}</td>
+													<td>{{ $reactif->code }}</td>
+													<td>{{ $reactif->nom }}</td>
+													<td>/</td>
+													<td>Réactifs chimiques et dentaires</td>
 													<td>{{ $reactif->pivot->qte }}</td>
 												</tr>
 											@endforeach

@@ -363,23 +363,41 @@
       }
       function HommeConfcopy(id)
       {
-        $.get('/hommeConfiance/'+id+'/edit', function (data) {
-          $('#patientId').val(data.id_patient);
-          $('#type option').each(function() {
-          if($(this).val() == data.type) 
-              $(this).prop("selected", true);
-          });  
-          $('#hom_id').val(data.id);  $('#nom_h').val(data.nom);$('#prenom_h').val(data.prenom);
-          $('#datenaissance_h').val(data.date_naiss);  $('#lien_par').val(data.lien_par).change();    
-          $('#lien_par option').each(function() {
-            if($(this).val() == data.lien_par) 
-              $(this).prop("selected", true);
-          });       
-          $('#' + data.type_piece).prop('checked',true); $('#num_piece').val(data.num_piece);
-          $('#date_piece_id').val(data.date_deliv);
-          $('#adresse_h').val(data.adresse);$('#mobile_h').val(data.mob);
-          jQuery('#gardeMalade').modal('show');
-        });
+            $.get('/hommeConfiance/'+id+'/edit', function (data) {
+              $('#patientId').val(data.id_patient);
+              $('#type option').each(function() {
+              if($(this).val() == data.type) 
+                  $(this).prop("selected", true);
+              });  
+              $('#hom_id').val(data.id);  $('#nom_h').val(data.nom);$('#prenom_h').val(data.prenom);
+              $('#datenaissance_h').val(data.date_naiss);  $('#lien_par').val(data.lien_par).change();    
+              $('#lien_par option').each(function() {
+                if($(this).val() == data.lien_par) 
+                  $(this).prop("selected", true);
+              });       
+              $('#' + data.type_piece).prop('checked',true); $('#num_piece').val(data.num_piece);
+              $('#date_piece_id').val(data.date_deliv);
+              $('#adresse_h').val(data.adresse);$('#mobile_h').val(data.mob);
+              jQuery('#gardeMalade').modal('show');
+            });
+      }
+      function getProducts(id_gamme,id_spec=0)
+      {
+              var html = '<option value="0">Sélectionner...</option>';
+              $.ajax({
+                  url : '/getproduits/'+id_gamme+'/'+id_spec,
+                  type : 'GET',
+                  dataType : 'json',
+                  success : function(data){
+                      $.each(data, function(){
+                        html += "<option value='"+this.id+"'>"+this.nom+"</option>";
+                      });
+                      $('#produit').html(html);
+                  },
+                  error : function(){
+                      console.log('error');
+                  }
+              });
       }
       $(document).ready(function () {
         $('input[type=radio][name=sexe]').change(function(){
@@ -493,7 +511,6 @@
                 } else {
                   $("#garde" + hom_id).replaceWith(homme);      
                 }
-                
             },
             error: function (data) {
               console.log('Error:', data);
@@ -522,6 +539,49 @@
         $('#gardeMalade form')[0].reset();
         $('#addGardeMalade *').prop('disabled', false);
       });
-    }) 
+       $('#gamme').change(function(){
+              switch($(this).val())
+              {
+                case "0":
+                  $('#specialite').val(0);
+                  $('#specialite').prop('disabled', 'disabled');
+                  $('#produit').val(0);
+                  $('#produit').prop('disabled', 'disabled');
+                  break
+                case "1":
+                  if($("#specialiteDiv").is(":hidden"))
+                    $("#specialiteDiv").show();
+                  $("#specialite").removeAttr("disabled");
+                  $("#produit").removeAttr("disabled");
+                  break;
+                case "2":
+                         if(!$("#specialiteDiv").is(":hidden"))
+                                $("#specialiteDiv").hide();
+                                 $("#produit").removeAttr("disabled");
+                                getProducts(2);
+                  break;
+                case "3":
+                  if(!$("#specialiteDiv").is(":hidden"))
+                    $("#specialiteDiv").hide();
+                  getProducts(3);
+                  break;
+                default:
+                  break; 
+              }
+      });
+       $('#specialite').change(function(){
+             if($(this).val() != "0" )
+             {
+                   $("#produit").removeAttr("disabled");
+                   var id_gamme = $('#gamme').val();
+                    var id_spec = $(this).val();
+                  getProducts(id_gamme,id_spec);
+              }else
+              {
+                    $("#produit").val(0);
+                   $("#produit").prop('disabled', 'disabled');
+              }
+      });
+}) 
     </script>
 </div><!-- /section:basics/sidebar -->

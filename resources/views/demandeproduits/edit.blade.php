@@ -1,118 +1,49 @@
 @extends('app')
 @section('page-script')
 <script>
-function getProducts(id_gamme,id_spec=0)
-{
-	  var html = '<option value="0">Sélectionner...</option>';
-	  $.ajax({
-	      url : '/getproduits/'+id_gamme+'/'+id_spec,
-	      type : 'GET',
-	      dataType : 'json',
-	      success : function(data){
-	      	  $.each(data, function(){
-	            html += "<option value='"+this.nom+"'>"+this.nom+"</option>";
-	          });
-	          $('#produit').html(html);
-	      },
-	      error : function(){
-	          console.log('error');
-	      }
-	  });
-}
 $('document').ready(function(){
-		$('#gamme').change(function(){
-			switch($(this).val())
-			{
-				case "0":
-					$('#specialite').prop('disabled', 'disabled');
-					break
-				case "1":
-					if($("#specialiteDiv").is(":hidden"))
-						$("#specialiteDiv").show();
-					$("#specialite").removeAttr("disabled");
-					$("#produit").removeAttr("disabled");
-					break;
-				case "2":
-					if(!$("#specialiteDiv").hasClass('invisble'))
-						$("#specialiteDiv").hide();
-					$("#produit").removeAttr("disabled");
-					getProducts(2);
-					break;
-				case "3":
-					if(!$("#specialiteDiv").addClass('invisble'))
-						$("#specialiteDiv").hide();
-					getProducts(3);
-					break;
-				default:
-					break; 
-			}
-		})
-		$('#specialite').change(function(){
-			if($(this).val() != "0" )
-			{
-				$("#produit").removeAttr("disabled");
-				var id_gamme = $('#gamme').val();
-		  	var id_spec = $(this).val();
-	 			getProducts(id_gamme,id_spec);
-			}else
-				$("#produit").prop('disabled', 'disabled');
-	 	});
-	 	$("#ajoutercmd").click(function() {
-	 		if($('#gamme').val() == "1")
-        	$('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td>"+$('#produit').val()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+$('#specialite option:selected').text()+"</td><td class='center'>"+$("#quantite").val()+"</td></tr>");
-        else
-        	$('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td>"+$('#produit').val()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+"/"+"</td><td class='center'><input type='number' name='qte'	value ='"+$("#quantite").val()+"'></td></tr>");
-        $('#produit').val('<option value="0">Sélectionner...</option>');
-        $("#quantite").val(1);
-        $('#gamme').val('0');
-        $('#specialite').val('0');
+		$("#ajoutercmd").click(function() {
+		 	if($('#gamme').val() == "1")
+		 	{
+	        		$('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td hidden>"+$( "#produit").val()+"</td><td>"+$( "#produit option:selected" ).text()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+$('#specialite option:selected').text()+"</td><td class='center'><input type='number' name='qte' value ='"+$("#quantite").val()+"'></td></tr>");
+	        	}else
+	      		 {
+	        		$('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td hidden>"+$( "#produit").val()+"</td><td>"+$( "#produit option:selected" ).text()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+"/"+"</td><td class='center'><input type='number' name='qte' value ='"+$("#quantite").val()+"'></td></tr>"); 
+	        	 }
+		       $('#produit').val('<option value="0">Sélectionner...</option>');
+		       $("#quantite").val(1);
+		       $('#gamme').val('0');
+		       $('#specialite').val('0');
     });
     $("#validerdmd").click(function(){
-  		  var tb = $('#cmd tbody');
+    		var tb = $('#cmd tbody');
   		  var produits = [];
-  		  jsonObj = [];
-  			tb.find("tr").each(function(index, element) {
-			 	  //var produit=[] ;
-			 	  produit = {};
-			 	 $(element).find('td').each(function(index1, element) {
-			  	var prod="";var gamme="";var spec="";var qte="";
- 					
-       
-        
-			  		if(index1 != 0)
-			    	{
-		    			switch(index1){
-								case 1:
-									//produit += "produit:" + $(element).text()+",";
-									produit ["prod"]= $(element).text();
-		    					break;
-			    			case 2:
-		    					//produit += "gamme:" +  $(element).text()+",";
-									produit["gamme"] = $(element).text();
+  		 tb.find("tr").each(function(index, element) {
+  	  		var jsonData = {};
+  		  	$(element).find('td').each(function(index1, element) {
+  		  		switch(index1){
+						case 1:
+							jsonData ["produit"]= $(element).text();
 		    					break;
 			    			case 3:
-		    					// produit += "spec:"+ $(element).text()+",";
-		    					produit["spec"] = $(element).text();
+		    					jsonData["gamme"] = $(element).text();
 		    					break;
 			    			case 4:
-		    					//produit += "qte:"+$(element).find('input').val() + "}";
-		    					produit["qte"] = $(element).text();
+		    					jsonData["spec"] = $(element).text();
 		    					break;
-								default:				
+			    			case 5:
+			    				jsonData["qte"] = $(element).find('input').val() ;
+		    					break;
+						default:				
 		    					break;	
 		    			}
-			  		}
-			  	});
-			 	  jsonObj.push(produit);
-			  	alert(jsonObj);
-			  	//produits[index] = produit;
-				});
-				//alert(JSON.stringify(produits));
-				var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(produits)+"' hidden>");
-		  	champ.appendTo('#demandform');
-       	return false;
-       	//$('#demandform').submit();
-		});
+      		  	});
+ 			produits.push(jsonData);
+  		 });
+  		var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(produits)+"' hidden>");
+		champ.appendTo('#demandform');
+     		$('#demandform').submit();
+	});
 });
 </script>
 @endsection
@@ -162,7 +93,7 @@ $('document').ready(function(){
 				<div>
 					<label for="produit"><b>Produit</b></label>
 					<select class="form-control" id="produit" disabled>
-						<option value="">Sélectionner...</option>
+						<option value="0">Sélectionner...</option>
 					</select>
 				</div><hr/>
 				<div>
@@ -211,6 +142,7 @@ $('document').ready(function(){
 										@foreach($demande->medicaments as $key=>$medicament)
 											<tr>
 												<td><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td>
+												<td hidden>{{ $medicament->id }}</td>
 												<td>{{ $medicament->nom }}</td>
 												<td> MEDICAMENTS</td>
 												<td>{{ $medicament->specialite->nom }}</td>
@@ -220,6 +152,7 @@ $('document').ready(function(){
 										@foreach($demande->dispositifs as $dispositif)
 											<tr>
 												<td><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td>
+												<td hidden>{{ $dispositif->id }}</td>
 												<td>{{ $dispositif->nom }}</td>
 												<td>DISPOSITIFS MEDICAUX</td>
 												<td>/</td>
@@ -229,10 +162,10 @@ $('document').ready(function(){
 										@foreach($demande->reactifs as $reactif)
 											<tr>
 												<td><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td>
+												<td hidden>{{ $reactif->id }}</td>
 												<td>{{ $reactif->nom }}</td>
 												<td>Réactifs chimiques et dentaires</td>
 												<td>/</td>
-												<td>{{ $reactif->pivot->qte }}</td>
 												<td><input type="number" id="quantite"class="form-control" value="{{ $reactif->pivot->qte }}"></td>
 											</tr>
 										@endforeach

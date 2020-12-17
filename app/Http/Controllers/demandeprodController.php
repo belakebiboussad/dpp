@@ -68,13 +68,13 @@ class demandeprodController extends Controller
           "Etat" => "E",
           "id_employe" => Auth::user()->employee_id,
       ]);
-      dd($request->liste);
       $listes = json_decode($request->liste);
       for ($i=1; $i < count($listes); $i++) { 
         $gamme = gamme::where('nom',$listes[$i]->gamme)->get()->first();
         if($gamme->id == "1")
         {
           $produit = medcamte::where("nom",$listes[$i]->produit)->get()->first();
+          dd($produit);
           $demande->medicaments()->attach($produit->id, ['qte' => $listes[$i]->qte]);
         }
         elseif($gamme->id == "2") {
@@ -123,18 +123,24 @@ class demandeprodController extends Controller
      */
     public function update(Request $request, $id)
     {
-      // $demande = demand_produits::FindOrFail($id);
-      // $demande->update([
-      //     "Etat" => $request->avis,
-      //     "motif" => $request->motif
-      // ]);
-      // return redirect()->action('demandeprodController@details_demande', [ 'id' => $demande->id ]);
-      $listes = json_decode($request->liste);
-      dd($request->liste);
-      for ($i=0; $i < count($listes); $i++) { 
-        $gamme = gamme::where('nom',$listes[$i]->gamme)->get()->first();
-        dd($gamme);
-      }
+            $demande = demand_produits::FindOrFail($id);
+            // $demande->update([ //     "Etat" => $request->avis, //     "motif" => $request->motif   // ]);  // return redirect()->action('demandeprodController@details_demande', [ 'id' => $demande->id ]);
+             $demande->medicaments()->detach();
+             $demande->dispositifs()->detach();
+             $demande->reactifs()->detach();
+             $listes = json_decode($request->liste);
+             for ($i=0; $i < count($listes); $i++) { 
+                    $gamme = gamme::where('nom',trim($listes[$i]->gamme))->get()->first();
+                    if($gamme->id == "1")
+                    {   
+                          $demande->medicaments()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte]);//$produit = medcamte::where("nom",$listes[$i]->produit)->get()->first();
+                      }elseif($gamme->id == "2") {
+                         $demande->dispositifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte]); //$produit = dispositif::where('nom',$listes[$i]->produit)->get()->first();
+                      }elseif($gamme->id == "3") {
+                          $demande->reactifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte]);  //$produit = reactif::where('nom',$listes[$i]->produit)->get()->first();
+                      }
+              }
+             return redirect()->action('demandeprodController@details_demande', [ 'id' => $demande->id ]); //return view('demandeproduits.show', compact('demande'));
     }
     /**
      * Remove the specified resource from storage.
