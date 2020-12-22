@@ -13,8 +13,7 @@ Route::group(['middleware' => 'revalidate'], function()
 {          
     Auth::routes();   
     Route::get('/', 'Auth\LoginController@showLoginForm');  /* Route::get('/', function () { return view('auth/login');  });*/
-});
-//ressources
+});//ressources
 Route::resource('listeadmiscolloque','listeadmisColloqueController');
 Route::resource('colloque','ColloqueController');
 Route::resource('admission','AdmissionController');
@@ -66,7 +65,8 @@ Route::get('exbio/{filename}', function ($filename)
         $response->header("Content-Type", $type);
         return $response;
 });// Auth::routes();
-route::get('/detailsdemande/{id}','demandeprodController@details_demande');
+route::get('/demandeproduit/run/{id}','demandeprodController@run')->name('runDemande');
+route::post('/demandeproduit/valider/{id}','demandeprodController@valider')->name('demandeproduit.valider');
 Route::post('user/credentials','UsersController@credentials');
 Route::post('user/updatepro','UsersController@updatepro');
 Route::get('/atcd/store','AntecedantsController@storeatcd');
@@ -115,7 +115,7 @@ route::get('/getrdv','RDVController@getRDV');
 route::get('/getpatient','PatientController@getpatient');
 route::get('/getpatientcons','PatientController@getpatientconsult');
 route::get('/getpatientrdv','PatientController@getpatientrdv');
-route::get('/getpatientatcd','PatientController@getpatientatcd');//route::get('/getspecialite/{id}','demandeprodController@get_specialite');
+route::get('/getpatientatcd','PatientController@getpatientatcd');
 route::get('/getproduits/{idgamme}/{idspec}','demandeprodController@get_produit');
 route::get('/createsalle','SalleController@createsalle');
 Route::post('/exmbio/store/{id}','ExamenbioController@store');
@@ -158,7 +158,9 @@ route::get('/showordonnance/{id}','OrdonnanceController@show_ordonnance');
 route::get('/demandeexbio/{id}','DemandeExbController@createexb');
 route::get('/showdemandeexb/{id}','DemandeExbController@print');
 route::get('/showdemandeexr/{id}','DemandeExamenRadio@print');
-Route::post('lit/affecter','LitsController@affecter')->name('lit.affecter');
+Route::post('lit/affecter','LitsController@affecterLit')->name('lit.affecter');
+Route::get('/bedAffectation','LitsController@affecter');
+
 route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');///laborontin
 route::post('/uploadresultat','DemandeExbController@uploadresultat');
 route::get('/homelaboexb',function(){

@@ -1,23 +1,22 @@
 @extends('app_sur')
 @section('page-script')
 <script type="text/javascript">
+	function addReserv(rdv_id)
+	{
+		$('#addReservationForm').removeAttr('hidden');
+		$('#rdv_id').val(rdv_id);
+	}
 	$(document).ready(function(){
-		$("#addReserv").on('click', function() 
-	  {
-  		// value=$(this).val();
-    // 	$.ajax({
-    // 	type : 'get',
-    //   url : '{{URL::to('searchUser')}}',
-   	// 	data:{'search':value},
-    // 	success:function(data,status, xhr){
-    //     $('tbody').html(data);
-    
-    // 	}
-  	});
+		$("#saveReservation").click(function(){
+			$('#addReservationForm').submit();
+			$("#serviceh").selct(0);
+		});
 	});
 </script>
 @endsection
 @section('main-content')
+<div class="page-header"><h1 style="display: inline;"><strong>Réserver un Lit </strong></h1><div class="pull-right"></div></div>
+<div class="space-12"></div>
 <div class="row">
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 widget-container-col" id="widget-container-col-2">
 	<div class="widget-box widget-color-blue" id="widget-box-2">
@@ -70,9 +69,10 @@
 						<td>{{ $rdv->date_RDVh }} &nbsp;{{ $rdv->heure_RDVh }}</td>
 						<td>{{ $rdv->date_Prevu_Sortie }} &nbsp;{{ $rdv->heure_Prevu_Sortie }}</td>
 						<td>
-							<a href="#" class="btn btn-xs btn-success" id ="addReserv" title="Réserver Lit">
+<!--<a href="#" class="btn btn-xs btn-success" id ="addReserv" title="Réserver Lit"><i class="fa fa-bed fa-1x" aria-hidden="true"></i></a> -->
+							<button class="btn btn-xs btn-success" onclick ="addReserv({{$rdv->id}})" title="Réserver Lit">
 								<i class="fa fa-bed fa-1x" aria-hidden="true"></i>
-							</a>
+							</button>
 						</td>
 					</tr>
 					@endforeach	
@@ -83,6 +83,60 @@
 	</div>
 	</div>
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+	<form id="addReservationForm" action="{{ route('reservation.store') }}" method="POST" accept-charset="utf-8" role="form" hidden>
+		{{ csrf_field() }}
+		<input type="hidden" id="rdv_id" name="rdv_id">		
+		<div class="row ">
+			<div class="col-sm-12 col-xs-12">
+				<label class="col-sm-4 control-label no-padding-right" for="dateSortie"><strong> Service :</strong>	</label>
+				<div class="col-sm-8">
+					<select id="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" placeholder="Selectionnez le service"/>
+					  <option value="0" selected >Selectionnez un service</option>
+					  @foreach($services as $service)
+							<option value="{{ $service->id }}">{{ $service->nom }}</option>
+						@endforeach
+					</select>
+				</div>
+			</div>
+		</div><!-- row -->
+		<div class="space-12"></div>
+		<div class="row">
+			<div class="col-sm-12 col-xs-12">
+				<div class="form-group">
+				<label class="col-sm-4 control-label no-padding-right" for="salle"><strong> Salle :</strong></label>
+				<div class="col-sm-8">
+					<select id="salle" data-placeholder="selectionnez la salle d'hospitalisation" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" disabled>
+						<option value="0" selected>Selectionnez une salle</option>
+				 	</select>
+				</div>
+				</div>
+			</div>
+		</div>
+		<div class="space-12"></div>
+		<div class="row">
+			<div class="col-sm-12 col-xs-12">
+				<div class="form-group">
+					<label class="col-sm-4 control-label" for="lit_id">	<strong>Lit : </strong></label>
+					<div class="col-sm-8">
+						<select id="lit_id" name="lit_id" data-placeholder="selectionnez le lit"  class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" disabled>
+							<option value="0" selected disabled>Selectionnez un lit</option>
+						</select>
+					</div>	
+			  </div>
+			</div>
+		</div><!-- ROW -->
+		<div class="space-12"></div>
+		<div class="row">
+			<div class="col-sm12">
+				<div class="center bottom" style="bottom:0px;">
+					<button class="btn btn-info btn-sm" type="submit" id="saveReservation">
+						<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
+					</button>&nbsp; &nbsp; &nbsp;
+					<button class="btn btn btn-sm" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
+				</div>
+			</div>
+		</div><!-- row -->
+	</form>
 	</div>
 </div>
 @endsection

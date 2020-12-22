@@ -107,15 +107,14 @@ class AdmissionController extends Controller
       dd("update");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-      public function destroy($id) {
-        $adm = admission::destroy($id);
-        return Response::json($adm);   
-      } 
-    /* public function getAdmissions($date){}  */  
+   /**
+   * Remove the specified resource from storage.
+   *
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+    public function destroy($id) {
+      $adm = admission::destroy($id);
+      return Response::json($adm);   
+    } 
 }

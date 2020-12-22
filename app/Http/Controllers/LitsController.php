@@ -10,6 +10,8 @@ use App\modeles\bedReservation;
 use App\modeles\rdv_hospitalisation;
 use App\modeles\DemandeHospitalisation;
 use App\modeles\bedAffectation;
+use App\modeles\employ;
+use Auth; 
 use Response;
 class LitsController extends Controller
 {
@@ -118,20 +120,29 @@ class LitsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function affecter(Request $request )
+    public function affecterLit(Request $request )
     {
-      $affect = bedAffectation::create($request->all());
-      $lit = lit::FindOrFail( $request->lit_id);
-      $lit->update([
-        "affectation" =>1,
-      ]);
-      if($request->ajax())  
-        return Response::json($affect);   
+      // $affect = bedAffectation::create($request->all());
+      // $lit = lit::FindOrFail( $request->lit_id);
+      // $lit->update([
+      //   "affectation" =>1,
+      // ]);
+      // if($request->ajax())  
+      //   return Response::json($affect);   
     }
-    public function destroy($id)
+    public function affecter()
     {
-        //
+      $ServiceID = Auth::user()->employ->service;
+      $rdvHospis = rdv_hospitalisation::whereHas('demandeHospitalisation', function($q){
+                                            $q->where('etat', 'programme');
+                                      })->whereHas('demandeHospitalisation.Service',function($q) use ($ServiceID){
+                                                  $q->where('id',$ServiceID);       
+                                             })->where('etat_RDVh','=',null)->get();
+      dd($rdvHospis);
+      // $tomorrow = date("Y-m-d", strtotime('tomorrow'));                                     
+
     }
+    //public function destroy($id){}
     /**
     //function ajax return lits ,on retourne pas les lits bloque ou reservé  
     */

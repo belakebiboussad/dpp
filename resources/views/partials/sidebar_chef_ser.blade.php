@@ -30,7 +30,8 @@
       </li>
       <li class="">
         <a href="#" class="dropdown-toggle">
-          <i class="menu-icon fa fa-h-square"></i><span class="menu-text">Produits</span>
+          <!-- <i class="menu-icon fa fa-h-square"></i><span class="menu-text">Produits</span> -->
+          <i class="fa fa-medkit" aria-hidden="true"></i><span class="menu-text">Produits</span>
           <b class="arrow fa fa-angle-down"></b>
         </a>
         <b class="arrow"></b>

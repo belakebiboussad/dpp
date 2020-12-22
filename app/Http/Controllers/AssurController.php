@@ -149,21 +149,21 @@ class AssurController extends Controller
     {
       $assure = assur::find($id);
       $assure -> update([
-                    "Nom"=>$request->nomf,
-                    "Prenom"=>$request->prenomf,
-                    "Date_Naissance"=>$request->datenaissancef,
-                    "lieunaissance"=>$request->idlieunaissancef,
-                    "Sexe"=>$request->sexef,
-                    "adresse"=>$request->adressef,
-                    "commune_res"=>$request->idcommunef,
-                    "wilaya_res"=>$request->idwilayaf,
-                    "grp_sang"=>$request->gsf.$request->rhf,
-                    "Matricule"=>$request->matf, 
-                    "Service"=>$request->service,
-                    "Etat"=>$request->etatf,
-                    "Grade"=>$request->grade,
-                    "NMGSN"=>$request->NMGSN,
-                    "NSS"=>$request->nss,
+              "Nom"=>$request->nomf,
+              "Prenom"=>$request->prenomf,
+              "Date_Naissance"=>$request->datenaissancef,
+              "lieunaissance"=>$request->idlieunaissancef,
+              "Sexe"=>$request->sexef,
+              "adresse"=>$request->adressef,
+              "commune_res"=>$request->idcommunef,
+              "wilaya_res"=>$request->idwilayaf,
+              "grp_sang"=>$request->gsf.$request->rhf,
+              "Matricule"=>$request->matf, 
+              "Service"=>$request->service,
+              "Etat"=>$request->etatf,
+              "Grade"=>$request->grade,
+              "NMGSN"=>$request->NMGSN,
+              "NSS"=>$request->nss,
       ] );
       return redirect(Route('assur.show',$assure->id));
     }
@@ -178,13 +178,9 @@ class AssurController extends Controller
             $handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word"); 
             if($handle != null)
             {
-              $ass = $handle->SelectPersonnel(trim(''),trim('135624875695'));
-              //dd($ass->Grade);
+              $ass = $handle->SelectPersonnel(trim(''),trim('135624875695'));//dd($ass->Grade);
               $grade = grade::where('nom',$ass->Grade)->select('id')->get()->first();
-              dd($grade_id); 
-              //$id = $this->assureSearch($ass->NSS);
-              //dd($id);
-             //return view('assurs.sup',compact('var'));
+              dd($grade_id); //$id = $this->assureSearch($ass->NSS);   //return view('assurs.sup',compact('var'));          
             }else{
               dd("2");
               return("Non");

@@ -73,7 +73,7 @@ class ActeController extends Controller
     }
     public function destroy($id)
     {
-       $acte = Acte::FindOrFail($id);
+        $acte = Acte::FindOrFail($id);
         $acte -> update([
             "retire"=>1,
         ]);

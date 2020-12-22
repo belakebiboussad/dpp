@@ -2,46 +2,44 @@
 @section('page-script')
 <script>
 $('document').ready(function(){
-		$("#ajoutercmd").click(function() {
-		 	if($('#gamme').val() == "1")
-		 	{
-	        		$('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td hidden>"+$( "#produit").val()+"</td><td>"+$( "#produit option:selected" ).text()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+$('#specialite option:selected').text()+"</td><td class='center'><input type='number' name='qte' value ='"+$("#quantite").val()+"'></td></tr>");
-	        	}else
-	      		 {
-	        		$('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td hidden>"+$( "#produit").val()+"</td><td>"+$( "#produit option:selected" ).text()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+"/"+"</td><td class='center'><input type='number' name='qte' value ='"+$("#quantite").val()+"'></td></tr>"); 
-	        	 }
-		       $('#produit').val('<option value="0">Sélectionner...</option>');
-		       $("#quantite").val(1);
-		       $('#gamme').val('0');
-		       $('#specialite').val('0');
-    });
-    $("#validerdmd").click(function(){
+	 $("#ajoutercmd").click(function(){
+        if($('#gamme').val() == "1")
+        {
+          $('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td hidden>"+$("#produit").val()+"</td><td>"+$("#produit option:selected" ).text()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+$('#specialite option:selected').text()+"</td><td class='center'><input type='number' class='form-control' name='qte' value ='"+$("#quantite").val()+"'></td></tr>");
+        }else
+        {
+          $('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td hidden>"+$("#produit").val()+"</td><td>"+$( "#produit option:selected" ).text()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+"/"+"</td><td class='center'><input type='number' class='form-control' name='qte' value ='"+$("#quantite").val()+"'></td></tr>"); 
+        }
+        $('#produit').val('<option value="0">Sélectionner...</option>');
+        $("#quantite").val(1);
+        $('#gamme').val('0');
+        $('#specialite').val('0');
+      });
+	  $("#updatedmd").click(function(){
     		var tb = $('#cmd tbody');
   		  var produits = [];
-  		 tb.find("tr").each(function(index, element) {
+  		  tb.find("tr").each(function(index, element) {
   	  		var jsonData = {};
   		  	$(element).find('td').each(function(index1, element) {
   		  		switch(index1){
 						case 1:
 							jsonData ["produit"]= $(element).text();
-		    					break;
-			    			case 3:
-		    					jsonData["gamme"] = $(element).text();
-		    					break;
-			    			case 4:
-		    					jsonData["spec"] = $(element).text();
-		    					break;
-			    			case 5:
-			    				jsonData["qte"] = $(element).find('input').val() ;
-		    					break;
+		    			break;
+			    	case 3:
+		    			jsonData["gamme"] = $(element).text();
+		    			break;
+			    	case 5:
+			    		jsonData["qte"] = $(element).find('input').val() ;
+		    			break;
 						default:				
 		    					break;	
 		    			}
       		  	});
- 			produits.push(jsonData);
-  		 });
-  		var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(produits)+"' hidden>");
-		champ.appendTo('#demandform');
+ 			 		produits.push(jsonData);
+  		  });
+  		  //alert(JSON.stringify(produits));
+  			var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(produits)+"' hidden>");
+				champ.appendTo('#demandform');
      		$('#demandform').submit();
 	});
 });
@@ -174,7 +172,7 @@ $('document').ready(function(){
 							</div>
 							<div class="hr hr8 hr-double hr-dotted"></div>
 							<div class="pull right">
-								<button id="validerdmd" class="btn btn-primary">
+								<button id="updatedmd" class="btn btn-primary">
 									 <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
 								</button>
 							</div>

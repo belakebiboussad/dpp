@@ -51,11 +51,11 @@ class ColloqueController extends Controller
 
     public function create()
     {  
-           $rols =  array(1,2,2,5,6,13,14);
-           $membre = employ::whereHas('User', function ($q) use ($rols) {
-                                            $q->whereIn('role_id',$rols);                           
-                                        })->get();
-              return view('colloques.create',compact('membre'));//,'type_c'
+       $rols =  array(1,2,2,5,6,13,14);
+       $membre = employ::whereHas('User', function ($q) use ($rols) {
+                                        $q->whereIn('role_id',$rols);                           
+                                    })->get();
+          return view('colloques.create',compact('membre'));//,'type_c'
     }
  /**
      * Store a newly created resource in storage.
@@ -65,21 +65,18 @@ class ColloqueController extends Controller
      */
       public function store(Request $request)
       {  
-             $colloque=colloque::create([
-                                    "date"=>$request->date_colloque,
-                                    "etat"=>"en cours",
-                                    "date_creation"=>Date::Now(),
-                                    "type"=>$request->type_colloque,              
-                                  ]);    
-            foreach ($request->membres as $medecin) {
-                  $colloque->employs()->attach($medecin);
-            }
-             return redirect()->action('ColloqueController@index',$colloque->type);
+         $colloque=colloque::create([
+                                "date"=>$request->date_colloque,
+                                "etat"=>"en cours",
+                                "date_creation"=>Date::Now(),
+                                "type"=>$request->type_colloque,              
+                              ]);    
+        foreach ($request->membres as $medecin) {
+              $colloque->employs()->attach($medecin);
+        }
+         return redirect()->action('ColloqueController@index',$colloque->type);
     }
-
-    public function show($id_colloque)
-    {
-    }
+//  public function show($id_colloque){ }
   /**
      * Show the form for editing the specified resource.
      *

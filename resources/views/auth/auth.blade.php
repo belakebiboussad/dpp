@@ -68,7 +68,6 @@
             $('body').attr('class', 'login-layout');
             $('#id-text2').attr('class', 'white');
             $('#id-company-text').attr('class', 'blue');
-
             e.preventDefault();
         });
         $('#btn-login-light').on('click', function(e) {

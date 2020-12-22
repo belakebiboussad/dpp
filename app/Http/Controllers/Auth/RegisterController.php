@@ -73,7 +73,7 @@ class RegisterController extends Controller
 //maj de l'utilisateur
     public static function update($user,array $data)
     {
-          return $user->update([
+        return $user->update([
                     'name' => $data['name'],
                     'email' => $data['email'],
                     'password' => bcrypt($data['password']),

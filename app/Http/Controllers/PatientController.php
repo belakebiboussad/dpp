@@ -68,7 +68,6 @@ class PatientController extends Controller
   {
     static $assurObj;
     $date = Date::Now();
-    //dd($request->all());
     $rule = array(
               "nom" => 'required',
               "prenom" => 'required',
@@ -238,7 +237,7 @@ class PatientController extends Controller
      */
        public function show($id)
        {  
-           $patient = patient::FindOrFail($id); //dd($patient->hospitalisations);
+          $patient = patient::FindOrFail($id); //dd($patient->hospitalisations);
           $employe=Auth::user()->employ;
           $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();//->first();
           $specialites = Specialite::all();

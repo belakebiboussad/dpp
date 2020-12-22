@@ -1,5 +1,14 @@
 @extends('app')
 @section('main-content')
+<div class="page-header">
+	<h1 style="display: inline;"><strong>Détails de la demande de produit du </strong> &quot;{{ $demande->Date}}&quot;</h1>
+	<div class="pull-right">
+		<a href="{{route('demandeproduit.index')}}" class="btn btn-white btn-info btn-bold">
+			<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i> Liste Demandes
+		</a>
+	</div>
+</div>
+<div class="space-12"></div>
 <div class="row">
 	<div class="col-xs-12">
 		<div class="col-xs-12">
@@ -61,6 +70,9 @@
 												<th class="center"><strong>Spécialité</strong></th>
 												<th class="center"><strong>Gamme </strong></th>
 												<th class="center"><strong>Qte</strong></th>
+												@if($demande->Etat == "V")
+												<th class="center">Qte Donnée</th>
+												@endif
 											</tr>
 										</thead>
 										<tbody>
@@ -71,6 +83,9 @@
 													<td>/</td>
 													<td>DISPOSITIFS MEDICAUX</td>
 													<td>{{ $dispositif->pivot->qte }}</td>
+													@if($demande->Etat == "V")
+													<td>{{ $dispositif->pivot->qteDonne }}</td>
+													@endif
 												</tr>
 											@endforeach
 											@foreach($demande->medicaments as $medicament)
@@ -80,6 +95,9 @@
 													<td>{{ $medicament->specialite->nom }}</td>
 													<td><span>MEDICAMENTS</span></td>
 													<td>{{ $medicament->pivot->qte }}</td>
+													@if($demande->Etat == "V")
+													<td>{{ $medicament->pivot->qteDonne }}</td>
+													@endif
 												</tr>
 											@endforeach
 											@foreach($demande->reactifs as $reactif)
@@ -89,6 +107,9 @@
 													<td>/</td>
 													<td><span>Réactifs chimiques et dentaires</span></td>
 													<td>{{ $reactif->pivot->qte }}</td>
+													@if($demande->Etat == "V")
+														<td>{{ $reactif->pivot->qteDonne }}</td>
+													@endif
 												</tr>
 											@endforeach
 										</tbody>

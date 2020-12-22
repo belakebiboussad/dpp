@@ -139,5 +139,5 @@ class RdvHospiController extends Controller
     $pdf = PDF::loadView('rdvHospi.rdv', compact('rdv','t'))->setPaper('a4','landscape');
     $name = "rdv-".$patient->Nom."-".$patient->Prenom.".pdf";
     return $pdf->stream($name);
-} 
+  } 
 }

@@ -93,11 +93,8 @@ class EmployeController extends Controller
             "Matricule_dgsn"=>$request->mat,
             "NSS"=>$request->nss,
      ]);
-      //$userID = User::where("employee_id",$employe->id)->get(['id'])->first();            
       return redirect(Route('users.show',$employe->User->id));//return redirect(Route('users.show',$userID));
-      //return redirect(Route('employ.show',$employe->id));//return redirect(Route('users.show',$userID));
     }
-
       /**
        * Remove the specified resource from storage.
        *
@@ -108,15 +105,9 @@ class EmployeController extends Controller
       {
           //
       }
-       public function searchBySpececialite(Request $request) 
-       {
-             $doctors =  (specialite::FindOrFail($request->specialiteId))->employes;
-             /*
-             $doctors = employ::whereHas('specialite', function ($query)use($specialiteId) {
-                  $query->where('specialite', '=', $specialiteId);
-              })->get();
-             */
-              return Response::json($doctors);
-             // return($request->specialiteId);
-       }
+      public function searchBySpececialite(Request $request) 
+      {
+        $doctors =  (specialite::FindOrFail($request->specialiteId))->employes;
+        return Response::json($doctors);
+      }
 }

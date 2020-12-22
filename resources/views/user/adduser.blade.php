@@ -12,8 +12,8 @@
 				{{ csrf_field() }}
 				<h4 class="header blue bolder smaller">Informations adminstratives</h4>
 				<div class="row">
-					<div class="vspace-12-sm"></div>
-					<div class="col-xs-12 col-sm-6">
+					<div class="space-12"></div>
+					<div class="col-xs-6 col-sm-6">
 						<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
 						<label class="col-sm-4 control-label no-padding-right" for="nom"><b>Nom:</b></label>
 						<div class="col-sm-8">
@@ -21,7 +21,7 @@
 						</div>
 						</div>
 					</div>
-					<div class="col-xs-12 col-sm-6">
+					<div class="col-xs-6 col-sm-6">
 						<div class="form-group {{ $errors->has('prenom') ? "has-error" : "" }}">
 						<label class="col-sm-4 control-label no-padding-right" for="prenom"><b>Prénom:</b></label>
 						<div class="col-sm-8">
@@ -30,7 +30,7 @@
 						</div>
 					</div>
 					<br/><br/><br/>
-					<div class="col-xs-12 col-sm-6">
+					<div class="col-xs-6 col-sm-6">
 						<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
 						<label class="col-sm-4 control-label no-padding-right" for="datenaissance"><b>Date Naissance:</b></label>
 						<div class="col-sm-8">

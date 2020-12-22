@@ -19,7 +19,6 @@ class HommeConfianceController extends Controller
   {
    	$homme =homme_conf::create($request->all());
     return Response::json($homme);
-
   }
   public function show($id)
   {
@@ -35,12 +34,7 @@ class HommeConfianceController extends Controller
     $homme -> update($request->all());
     $homme->save();
     return Response::json($homme);
-  }
-  // public function show($id)
-  //   {
-  //       $atcd = homme_conf::find($id);//return Response::json($atcd);
-        
-  //   }
+  } // public function show($id){$atcd = homme_conf::find($id);//return Response::json($atcd); }
   public function destroy($id)
   {
   	$homme = homme_conf::destroy($id);

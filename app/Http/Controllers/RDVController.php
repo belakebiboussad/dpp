@@ -200,14 +200,13 @@ class RDVController extends Controller
         $rdv = rdv::findOrFail($id); 
         if($request->ajax())
         {
-             $rdv->update(['Etat_RDV'=>0]); //rdv::destroy($id);
-            return ($rdv);
+          $rdv->update(['Etat_RDV'=>0]); //rdv::destroy($id);
+          return ($rdv);
         }
         else
         {
-                //rdv::destroy($id);
-                $rdv->update(['Etat_RDV'=>0]);
-                return redirect()->route('rdv.index'); 
+          $rdv->update(['Etat_RDV'=>0]);//rdv::destroy($id);
+          return redirect()->route('rdv.index'); 
         } 
       }
 /*public function orderPdf($id){$order = rdv::findOrFail($id); $pdf = PDF::loadView('ordre_pdf', compact('order'))->setPaper('a5', 'landscape');

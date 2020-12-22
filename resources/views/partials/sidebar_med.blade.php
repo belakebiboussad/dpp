@@ -160,7 +160,7 @@
           </ul>
         </li>
         <li class="">
-          <a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-file-o"></i><span class="menu-text" data-toggle="tooltip" data-placement="top" title=" Demandes d'hospitalisation">Demandes</span>
+          <a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-file-o"></i><span class="menu-text">Demandes Hosp</span>
             <b class="arrow fa fa-angle-down"></b>
           </a>
           <b class="arrow"></b>
@@ -174,7 +174,7 @@
         @if( Auth::user()->role_id == 14)
         <li class="">
           <a href="#" class="dropdown-toggle">
-            <i class="menu-icon fa fa-h-square"></i><span class="menu-text">Produits</span>
+            <i class="menu-icon fa fa-medkit" aria-hidden="true"></i><span class="menu-text">Produits</span>
             <b class="arrow fa fa-angle-down"></b>
           </a>
         <b class="arrow"></b>
@@ -326,8 +326,8 @@
        }
       function copyPatientInfo()
       {
-             if($("#type").val() =="0")
-                    copyPatient();
+         if($("#type").val() =="0")
+                copyPatient();
       }
       ////avoir
       if ($("#addGardeMalade").length > 0) {
@@ -345,8 +345,7 @@
           }
         });
       }
-      //a voir ce lui den haut
-      function showConsult(consultId)
+      function showConsult(consultId) //a voir ce lui den haut
       {
         url= '{{ route ("consultdetailsXHR", ":slug") }}',
         url = url.replace(':slug',consultId);
@@ -383,21 +382,21 @@
       }
       function getProducts(id_gamme,id_spec=0)
       {
-              var html = '<option value="0">Sélectionner...</option>';
-              $.ajax({
-                  url : '/getproduits/'+id_gamme+'/'+id_spec,
-                  type : 'GET',
-                  dataType : 'json',
-                  success : function(data){
-                      $.each(data, function(){
-                        html += "<option value='"+this.id+"'>"+this.nom+"</option>";
-                      });
-                      $('#produit').html(html);
-                  },
-                  error : function(){
-                      console.log('error');
-                  }
-              });
+          var html = '<option value="0">Sélectionner...</option>';
+          $.ajax({
+              url : '/getproduits/'+id_gamme+'/'+id_spec,
+              type : 'GET',
+              dataType : 'json',
+              success : function(data){
+                  $.each(data, function(){
+                    html += "<option value='"+this.id+"'>"+this.nom+"</option>";
+                  });
+                  $('#produit').html(html);
+              },
+              error : function(){
+                  console.log('error');
+              }
+          });
       }
       $(document).ready(function () {
         $('input[type=radio][name=sexe]').change(function(){
@@ -516,8 +515,8 @@
               console.log('Error:', data);
             }
         }); 
-      }) ////----- DELETE a Garde and remove from the page -----////
-      jQuery('body').on('click', '.delete-garde', function () {
+      }) 
+      jQuery('body').on('click', '.delete-garde', function () {////----- DELETE a Garde and remove from the page -----////
             var hom_id = $(this).val();
             $.ajaxSetup({
               headers: {
@@ -539,48 +538,48 @@
         $('#gardeMalade form')[0].reset();
         $('#addGardeMalade *').prop('disabled', false);
       });
-       $('#gamme').change(function(){
-              switch($(this).val())
-              {
-                case "0":
-                  $('#specialite').val(0);
-                  $('#specialite').prop('disabled', 'disabled');
-                  $('#produit').val(0);
-                  $('#produit').prop('disabled', 'disabled');
-                  break
-                case "1":
-                  if($("#specialiteDiv").is(":hidden"))
-                    $("#specialiteDiv").show();
-                  $("#specialite").removeAttr("disabled");
-                  $("#produit").removeAttr("disabled");
-                  break;
-                case "2":
-                         if(!$("#specialiteDiv").is(":hidden"))
-                                $("#specialiteDiv").hide();
-                                 $("#produit").removeAttr("disabled");
-                                getProducts(2);
-                  break;
-                case "3":
-                  if(!$("#specialiteDiv").is(":hidden"))
-                    $("#specialiteDiv").hide();
-                  getProducts(3);
-                  break;
-                default:
-                  break; 
-              }
+      $('#gamme').change(function(){
+          switch($(this).val())
+          {
+            case "0":
+              $('#specialite').val(0);
+              $('#specialite').prop('disabled', 'disabled');
+              $('#produit').val(0);
+              $('#produit').prop('disabled', 'disabled');
+              break
+            case "1":
+              if($("#specialiteDiv").is(":hidden"))
+                $("#specialiteDiv").show();
+              $("#specialite").removeAttr("disabled");
+              $("#produit").removeAttr("disabled");
+              break;
+            case "2":
+                     if(!$("#specialiteDiv").is(":hidden"))
+                            $("#specialiteDiv").hide();
+                             $("#produit").removeAttr("disabled");
+                            getProducts(2);
+              break;
+            case "3":
+              if(!$("#specialiteDiv").is(":hidden"))
+                $("#specialiteDiv").hide();
+              getProducts(3);
+              break;
+            default:
+              break; 
+          }
       });
-       $('#specialite').change(function(){
-             if($(this).val() != "0" )
-             {
-                   $("#produit").removeAttr("disabled");
-                   var id_gamme = $('#gamme').val();
-                    var id_spec = $(this).val();
-                  getProducts(id_gamme,id_spec);
-              }else
-              {
-                    $("#produit").val(0);
-                   $("#produit").prop('disabled', 'disabled');
-              }
+      $('#specialite').change(function(){
+         if($(this).val() != "0" )
+         {
+               $("#produit").removeAttr("disabled");
+               var id_gamme = $('#gamme').val();
+                var id_spec = $(this).val();
+              getProducts(id_gamme,id_spec);
+          }else
+          {
+                $("#produit").val(0);
+               $("#produit").prop('disabled', 'disabled');
+          }
       });
 }) 
     </script>

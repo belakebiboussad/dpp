@@ -12,17 +12,17 @@ class demand_produits extends Model
 
     public function medicaments()
     {
-		return $this->belongsToMany('App\modeles\medcamte', 'demande_medicaments', 'id_demande', 'id_medicaments')->withPivot('qte');   	
+		return $this->belongsToMany('App\modeles\medcamte', 'demande_medicaments', 'id_demande', 'id_medicaments')->withPivot('qte','qteDonne');   	
     }
 
     public function dispositifs()
     {
-		return $this->belongsToMany('App\modeles\dispositif', 'demande_dispositif', 'id_demande', 'id_dispositif')->withPivot('qte');   	
+		return $this->belongsToMany('App\modeles\dispositif', 'demande_dispositif', 'id_demande', 'id_dispositif')->withPivot('qte','qteDonne');   	
     }
 
     public function reactifs()
     {
-		return $this->belongsToMany('App\modeles\reactif', 'demande_reactif', 'id_demande', 'id_reactif')->withPivot('qte');   	
+		return $this->belongsToMany('App\modeles\reactif', 'demande_reactif', 'id_demande', 'id_reactif')->withPivot('qte','qteDonne');   	
     }
 
     public function demandeur()

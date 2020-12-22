@@ -35,7 +35,7 @@
     </li>
     <ul class="nav nav-list">
       <li class="">
-        <a href="/home_sur">
+        <a href="{{ route('rdvHospi.index') }}">
             <i class="menu-icon fa fa-university"></i>
             <span class="menu-text"> Acceuil </span>
         </a>
@@ -92,7 +92,8 @@
             <b class="arrow"></b>
           </li>
           <li class="">
-            <a href="{{ route('lit.affecter', 0) }}" title="ajouter un Rendez-Vous">
+            <a href="/bedAffectation" title="Affecter Un Lit">
+            {{-- {{ route('litAffecter', 0) }} --}}
               <i class="menu-icon fa fa-plus"></i>Affecter  Lit
             </a>
             <b class="arrow"></b>

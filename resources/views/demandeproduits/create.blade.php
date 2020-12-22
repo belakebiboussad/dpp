@@ -2,22 +2,22 @@
 @section('page-script')
 <script>
 $('document').ready(function(){
- 	$("#ajoutercmd").click(function() {
+ 	$("#ajoutercmd").click(function(){
  		if($('#gamme').val() == "1")
-      			$('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td>"+$( "#produit option:selected" ).text()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+$('#specialite option:selected').text()+"</td><td class='center'>"+$("#quantite").val()+"</td></tr>");
-	        else
-	        	$('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td>"+$( "#produit option:selected" ).text()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+"/"+"</td><td class='center'>"+$("#quantite").val()+"</td></tr>");
-		        $('#produit').val('<option value="0">Sélectionner...</option>');
-		        $("#quantite").val(1);
-		        $('#gamme').val('0');
-		        $('#specialite').val('0');
-    });	
-     $("#validerdmd").click(function(){
+			$('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td hidden>"+$("#produit").val()+"</td><td>"+$("#produit option:selected").text()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+$('#specialite option:selected').text()+"</td><td class='center'>"+$("#quantite").val()+"</td></tr>");
+    else
+    	$('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td hidden>"+$("#produit").val()+"</td><td>"+$("#produit option:selected" ).text()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+"/"+"</td><td class='center'>"+$("#quantite").val()+"</td></tr>");
+    $('#produit').val('<option value="0">Sélectionner...</option>');
+    $("#quantite").val(1);
+    $('#gamme').val('0');
+    $('#specialite').val('0');
+  });	
+  $("#savedmd").click(function(){
       var arrayLignes = document.getElementById("cmd").rows;
       var longueur = arrayLignes.length;   var produits = [];
       for(var i=1; i<longueur; i++)
       {
-        produits[i] = { produit: arrayLignes[i].cells[1].innerHTML, gamme: arrayLignes[i].cells[2].innerHTML, spec: arrayLignes[i].cells[3].innerHTML, qte: arrayLignes[i].cells[4].innerHTML}
+        produits[i] = { produit: arrayLignes[i].cells[1].innerHTML, gamme: arrayLignes[i].cells[3].innerHTML, qte: arrayLignes[i].cells[5].innerHTML}
       }
       var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(produits)+"' hidden>");
       champ.appendTo('#demandform');
@@ -113,8 +113,8 @@ $('document').ready(function(){
 								</div>
 								<div class="hr hr8 hr-double hr-dotted"></div>
 								<div class="pull right">
-									<button id="validerdmd" class="btn btn-primary">
-										<i class="ace-icon fa fa-check-square-o" style="font-size:18px;"></i>Valider
+									<button id="savedmd" class="btn btn-primary">
+										<i class="ace-icon fa fa-save bigger-110" style="font-size:18px;"></i>Enregistrer
 									</button>
 								</div>
 								</form>

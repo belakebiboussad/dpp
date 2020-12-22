@@ -389,20 +389,18 @@
      				startY: 135,
   				});
   				doc.setFontSize(12);
-  				doc.text(100,270, 'Docteur : ' +'{{$employe->nom}}'+ ' '+ '{{$employe->prenom}}', null, null); 
-  				 // var string = doc.output('datauristring');// $('#exradiopdf').attr('src', string);
-  				 
-          doc.save('ExamRadio-'+nomp+'-'+prenomp+'.pdf');
+  				doc.text(100,270, 'Docteur : ' +'{{$employe->nom}}'+ ' '+ '{{$employe->prenom}}', null, null);  // var string = doc.output('datauristring');// $('#exradiopdf').attr('src', string);
+  			  doc.save('ExamRadio-'+nomp+'-'+prenomp+'.pdf');
         }
     });
-}
-
+  }
 	function addCIMCode(code)
 	{
 		$("#codesim").val(code);
 		$('#liste_codesCIM').empty();
 		$("#chapitre").val($("#chapitre option:first").val());
 		$("#schapitre").val($("#schapitre option:first").val());
+		$('#cim10Modal').modal('toggle');
 	}
 	$('document').ready(function(){
 		$( 'ul.nav li' ).on( 'click', function() {
@@ -799,29 +797,29 @@
     			});
     		});
       $('#chapitre').click(function(){
-        	if(! isEmpty($("#chapitre").val()))
-    	{
-    	  $( "#schapitre" ).prop( "disabled", false );
-    	 	$.ajax({
+        if(! isEmpty($("#chapitre").val()) && $("#chapitre").val()!=0)
+    		{
+    	  	$.ajax({
            type : 'get',
             url : '{{URL::to('schapitres')}}',
               data:{'search':$("#chapitre").val()},
               success:function(data,status, xhr){
+              	$( "#schapitre" ).prop( "disabled", false );
           	    var select = $('#schapitre').empty();
                 select.append("<option value='0'>Selectionnez une Sous Chapitre</option>");   
                   $.each(data,function(){
                     select.append("<option value='"+this.	C_S_CHAPITRE+"'>"+this.TITRE_S_CHAPITRE+"</option>");
                   });
               }
-         });
+          });
     	}
     	else
 		$( "#schapitre" ).prop( "disabled", true );
     });
     $('#schapitre').click(function(){//sous chapitre
-     	if(!($("#schapitre").val() == 0 ))
+     	if($("#schapitre").val() != 0)
     	{
-    	  $.ajax({
+    		$.ajax({
             type : 'get',
             url : '{{URL::to('maladies')}}',
             data:{'search':$("#schapitre").val()},
@@ -857,8 +855,6 @@
      			},
         });
     	}
-    	else
-				$( "#schapitre" ).prop( "disabled", true );
     });
 	});// ready
 </script>	
@@ -938,8 +934,7 @@
 				<div class="center bottom" style="bottom:0px;">
 					<button class="btn btn-info btn-sm" type="submit" id="send">
 						<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
-					</button>
-					&nbsp; &nbsp; &nbsp;
+					</button>&nbsp; &nbsp; &nbsp;
 					<a href="{{ route('patient.show',$patient->id) }}" class="btn btn-warning btn-sm">
 						<i class="ace-icon fa fa-close bigger-110"></i>Annuler
 					</a>

@@ -79,9 +79,7 @@ class HospitalisationController extends Controller
           "modeHosp_id"=>$request->mode,
           "etat_hosp"=>"en cours",
         ]);
-        $dmission->rdvHosp->update([ "etat_RDVh" =>1 ]);
-        // $controller = new LitsController; //affecter le lit
-        // $controller->affecter($request);
+        $dmission->rdvHosp->update([ "etat_RDVh" =>1 ]); // $controller = new LitsController; // $controller->affecter($request); //affecter le lit
         $dmission->rdvHosp->demandeHospitalisation->update(["etat" => "hospitalisation"]);
         return redirect()->action('HospitalisationController@create'); //return \Redirect::route('HospitalisationController@create');
       }
@@ -136,10 +134,6 @@ class HospitalisationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
     public function affecterLit()
     {
       $ServiceID = Auth::user()->employ->service;// $rdvHospitalisation = rdv_hospitalisation::whereHas('demandeHospitalisation', function($q){ $q->where('etat', 'programme'); })->with([   'demandeHospitalisation' => function($query) { $query->select('modeAdmission'); }]) ->whereHas('demandeHospitalisation.Service',function($q) use ($ServiceID){$q->where('id',$ServiceID);})->where('etat_RDVh','=',null)->with('demandeHospitalisation')->get();  
