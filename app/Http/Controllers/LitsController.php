@@ -120,27 +120,32 @@ class LitsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //affeter lit pour demande d'urgence
     public function affecterLit(Request $request )
     {
-      // $affect = bedAffectation::create($request->all());
-      // $lit = lit::FindOrFail( $request->lit_id);
-      // $lit->update([
-      //   "affectation" =>1,
-      // ]);
-      // if($request->ajax())  
-      //   return Response::json($affect);   
+      $affect = bedAffectation::create($request->all());
+      $lit = lit::FindOrFail( $request->lit_id);
+      $lit->update([
+        "affectation" =>1,
+      ]);
+      if($request->ajax())  
+        return Response::json($affect);   
     }
     public function affecter()
     {
-      $ServiceID = Auth::user()->employ->service;
-      $rdvHospis = rdv_hospitalisation::whereHas('demandeHospitalisation', function($q){
-                                            $q->where('etat', 'programme');
-                                      })->whereHas('demandeHospitalisation.Service',function($q) use ($ServiceID){
-                                                  $q->where('id',$ServiceID);       
-                                             })->where('etat_RDVh','=',null)->get();
-      dd($rdvHospis);
-      // $tomorrow = date("Y-m-d", strtotime('tomorrow'));                                     
-
+      $now = date("Y-m-d", strtotime('now'));
+      $services = service::all();
+      $rdvs = rdv_hospitalisation::doesntHave('demandeHospitalisation.bedAffectation')
+                                 ->whereHas('demandeHospitalisation',function ($q){
+                                    $q->where('service',Auth::user()->employ->service)
+                                      ->where('etat','programme');    
+                                 })->where('date_RDVh','>=',$now)->get();
+      $demandesUrg= DemandeHospitalisation::doesntHave('bedAffectation')
+                                          ->whereHas('consultation',function($q) use($now){
+                                               $q->where('Date_Consultation', $now);
+                                          })->where('modeAdmission','urgence')->where('etat','en attente')
+                                            ->where('service',Auth::user()->employ->service)->get(); 
+      return view('bedAffectations.index', compact('rdvs','demandesUrg','services'));  
     }
     //public function destroy($id){}
     /**

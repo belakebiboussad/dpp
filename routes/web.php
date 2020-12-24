@@ -88,6 +88,7 @@ Route::get('/runcolloque/{id}','ColloqueController@run');
 Route::get('/endcolloque/{id}','ColloqueController@cloture');
 Route::post('/savecolloque/{id}','ColloqueController@save');
 Route::get('/getRdvs/{date}','RdvHospiController@getRdvs')->name('rdvHospi.dayRdvsHosp');
+Route::get('/getUrgdemande/{date}','DemandeHospitalisationController@getUrgDemanades')->name('demandehosp.urg');
 Route::get('/listeRDVs', 'RdvHospiController@getlisteRDVs');
 Route::post('/hospitalisation/{id}','HospitalisationController@update');
 Route::post('users/changePassword', 'UsersController@changePassword');
@@ -180,7 +181,6 @@ Route::post('/addpatientAssure','PatientController@storePatient');
 Route::get('assur/patientAedit/{id}/{idA}','PatientController@edit');
 Route::get('/createConsultation','ConsultationsController@choix');
 route::get('/choixpat','ConsultationsController@choix');
-
 /************partie viste d'hospitalisation**************/
 Route::get('/delVisite/{id}', 'VisiteController@destroy')->name('visite.destroy');
 Route::get('/visite/create/{id}','VisiteController@create');

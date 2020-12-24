@@ -129,4 +129,14 @@ class DemandeHospitalisationController extends Controller
         $demande->save();
         return Response::json($demande);   
     }
+    public function getUrgDemanades($date)
+    {
+      $demandehospitalisations = DemandeHospitalisation::with('consultation.patient','Service')->where('modeAdmission','urgence')->where('etat','en attente')
+                                                        ->whereHas('consultation',function($q) use($date){
+                                                            $q->where('Date_Consultation', $date);
+                                                        })->get();
+      if (!empty($demandehospitalisations)) {
+       return json_encode($demandehospitalisations);        
+      }
+    }
 }

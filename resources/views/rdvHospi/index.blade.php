@@ -4,31 +4,8 @@ Gestion Rendez_Vous & Lits
 @endsection
 @section('page-script')
 <script>
-	jQuery('body').on('click', '#bedAffect', function (event) {
-		$('#demande_id').val($(this).val());
-		jQuery('#bedAffectModal').modal('show');
-	});
 	$('document').ready(function(){
-		jQuery('body').on('click', '#AffectSave', function (e) {
-			e.preventDefault();
-			var formData = {
-		    demande_id : jQuery('#demande_id').val(),
-			  lit_id     : jQuery('#lit_id').val()
-		  };
-		  $.ajax({
-				headers: {
-    	      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    	  },
-    	  url : '{{ route ("lit.affecter") }}',
-    	  type:'POST',
-    	  data:formData,//dataType: 'json',
-    	  success: function (data) {
-    	   	$("#demande" + formData['demande_id']).remove();
-    	   	jQuery('#bedAffectModal').trigger("reset");
-			    jQuery('#bedAffectModal').modal('hide');
-        }
-      });
-		});
+
 	});	
 </script>
 @endsection
@@ -113,7 +90,6 @@ Gestion Rendez_Vous & Lits
 		<i class="fa fa-list" aria-hidden="true"></i>&nbsp;Demandes Hospitalisations Urgentes
 	</h5>
 </div>
-
 <div class="row">
 	<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
 		<div class="widget-box widget-color-red" id="widget-box-2">
@@ -158,5 +134,5 @@ Gestion Rendez_Vous & Lits
 	</div>
 </div>
 @endif
-<div class="row">@include('lits.affecteModalForm')</div>
+<div class="row">@include('bedAffectations.affecteModalForm')</div>
 @endsection
