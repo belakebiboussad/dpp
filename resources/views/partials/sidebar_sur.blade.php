@@ -248,11 +248,9 @@
                 type:'POST',
                 data:formData,//dataType: 'json',
                 success: function (data) {
-                       alert(data); 
-                        /*
-                      $("#demande" + formData['demande_id']).remove();
+                    $("#demande" + formData['demande_id']).remove();
                       jQuery('#bedAffectModal').trigger("reset");
-                      jQuery('#bedAffectModal').modal('hide');*/
+                      jQuery('#bedAffectModal').modal('hide');
                 }
           });
         });
