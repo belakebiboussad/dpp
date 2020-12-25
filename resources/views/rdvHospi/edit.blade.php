@@ -37,7 +37,8 @@
       <form class="form-horizontal" id="RDVForm" role="form" method="POST" action="{{ route('rdvHospi.update',$rdv->id) }}">
       {{ csrf_field() }}
       {{ method_field('PUT') }}
-      <input type="text" name="id" id ="id" value="{{$rdv->id}}" hidden><!-- <input type="text" name="id_demande" value="{{$demande->id_demande}}" hidden> -->
+      <input type="text" name="id" id ="id" value="{{$rdv->id}}" hidden>
+      <input type="text" id="affect" value="0" hidden>
       <div class="row">
         <div class="col-sm-12"><h3 class="header smaller lighter blue">informations concernant la demande d'hospitalisation</h3>
         </div>

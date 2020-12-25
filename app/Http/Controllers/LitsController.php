@@ -121,16 +121,26 @@ class LitsController extends Controller
      * @return \Illuminate\Http\Response
      */
     //affeter lit pour demande d'urgence
-    public function affecterLit(Request $request )
-    {
-      $affect = bedAffectation::create($request->all());
-      $lit = lit::FindOrFail( $request->lit_id);
-      $lit->update([
-        "affectation" =>1,
-      ]);
-      if($request->ajax())  
-        return Response::json($affect);   
-    }
+       public function affecterLit(Request $request )
+      {
+            $demande= DemandeHospitalisation::find($request->demande_id); 
+            $rdv = $demande->RDVs->where('etat_RDVh', NULL)->first(); 
+            //if($rdv->has('bedReservation'))    $rdv->bedReservation()->delete();
+             $lit = lit::FindOrFail( $request->lit_id);
+          
+             if($lit->has('bedReservation'))
+             {
+                 $free = $lit->isFree(strtotime($rdv->date_RDVh),strtotime($rdv->date_Prevu_Sortie));  
+                 if(!$free)
+                      $lit->bedReservation()->delete(); 
+             } 
+            $affect = bedAffectation::create($request->all());
+             $lit->update([
+                  "affectation" =>1,
+              ]);
+             if($request->ajax())  
+                return Response::json($affect);   
+      }
     public function affecter()
     {
       $now = date("Y-m-d", strtotime('now'));

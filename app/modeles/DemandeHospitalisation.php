@@ -28,7 +28,7 @@ class DemandeHospitalisation extends Model
   }
   public function RDVs() 
   { 
-    return $this->hasMany('App\modeles\rdv_hospitalisation','id_demande')->orderBy('date_RDVh');
+        return $this->hasMany('App\modeles\rdv_hospitalisation','id_demande')->orderBy('date_RDVh');
   }
   public function bedAffectation()
   {

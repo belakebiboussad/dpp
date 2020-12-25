@@ -9,7 +9,7 @@
 			<form id="modalFormData" name="modalFormData" method="POST" action ="" class="form-horizontal" novalidate="">
 				{!! csrf_field() !!}
 			  <input type="hidden" id="demande_id" name="demande_id" value="0">
-			  <input type="text" id="affect" value="1" hidden>
+			   <input type="text" id="affect" value="1" hidden>
 				<div class="row">
 			    <div class="col-xs-12">
 			     	  <br><label for="service"><strong>Service :</strong></label>
@@ -41,7 +41,7 @@
 			    <div class="row">
 			    	<div class="col-xs-12 center bottom">
 			    		<button class="btn btn-info btn-xs btn-submit" id='AffectSave' disabled><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
-						<button class="btn btn-xs" data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
+					<button class="btn btn-xs" data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 			    	</div>
 			    </div>
 			  </form>
