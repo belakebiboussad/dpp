@@ -53,11 +53,13 @@ class ActeController extends Controller
         return Response::json(['acte'=>$acte,'medecin'=>$acte->visite->medecin->nom,'date'=>$acte->visite->date]); //return Response::json($acte);
     }
     public function store(Request $request)
-    {
+    { 
+    
         $this->validate($request, [
             'nom'=> 'required|string|max:225',
              'id_visite'=> 'required',// 'duree'=> 'required', // 'description'=> 'required|string|max:225',// 'periodes'=> 'required'
         ]); // $acte =Acte::create($request->all());    
+        
         $acte = new Acte;
         $acte->nom = $request->nom;
         $acte->type = $request->type;
@@ -65,11 +67,10 @@ class ActeController extends Controller
         $acte->duree = $request->duree;
         $acte->description = $request->description;
         $acte->periodes = json_encode($request->periodes);
-        $acte->remember_token;
-        $acte->save();
-        return Response::json($acte);
-
-       ;
+     
+       // $acte->remember_token; 
+        $acte->save();   
+        return Response::json(['acte'=>$acte,'visite'=>$acte->visite,'medecin'=>$acte->visite->medecin]); 
     }
     public function destroy($id)
     {

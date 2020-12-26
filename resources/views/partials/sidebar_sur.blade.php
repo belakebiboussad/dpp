@@ -87,7 +87,7 @@
         </a>
         <ul class="submenu">
           <li class="">
-            <a href="{{ route('reservation.index') }}" title="ajouter un Rendez-Vous">
+            <a href="{{ route('reservation.index') }}" title="Reserver  un Lit">
               <i class="menu-icon fa fa-plus"></i>Reserver Lit
             </a>
             <b class="arrow"></b>

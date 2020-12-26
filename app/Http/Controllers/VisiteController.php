@@ -192,6 +192,5 @@ class VisiteController extends Controller
     }
     public function show($id)
     {
-     
     }
 }

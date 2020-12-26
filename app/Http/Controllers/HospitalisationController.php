@@ -120,8 +120,8 @@ class HospitalisationController extends Controller
       $hosp = hospitalisation::find($id);
       if($request->ajax())  
       {
-        $hosp -> update($request->all());
-        return Response::json($hosp );
+          $hosp -> update($request->all());
+          return Response::json($hosp );
       }else{
         $hosp -> update($request->all()); //$hosp->save();
         return redirect()->action('HospitalisationController@index');
