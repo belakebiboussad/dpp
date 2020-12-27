@@ -18,40 +18,37 @@
     /////////////
     //////////////////Enregistre acte
     //////////////////////////////////
-    	$("#btn-addActe").click(function (e) { 
-    		$(' #id_visite').val({{$id}});
-    	});
     	$("#EnregistrerActe").click(function (e) { 
     		e.preventDefault();
     		var periodes = [];
-    		if(! isEmpty($("#acte").val()) )
+    		if(! isEmpty($("#acte").val()) || ($("#acte").val() == ''))
 	    		$('#acteModal').modal('toggle');
 	    	$.ajaxSetup({
 	  		 headers: {
 	        		'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
 	    		}
-	 	});
-	 	 $("input[name='p[]']:checked").each(function() {
+	 			});
+	 	 		$("input[name='p[]']:checked").each(function() {
    			 periodes.push($(this).attr('value'));
-		});
-		var formData = {
-	 	  	id_visite: $('#id_visite').val(),
-	 		nom:$("#acte").val(),
+				});
+				var formData = {
+	 	  		id_visite: $('#id_visite').val(),
+	 				nom:$("#acte").val(),
 	 	    	type:$('#type').val(),
-	 	  	periodes :periodes,
-	 	  	description:$('#description').val(),
-	 	  	duree : $('#duree').val()
-	 	};
-	 	var state = jQuery('#EnregistrerActe').val();
-	 	var acte_id = jQuery('#acte_id').val();
-      		var type = "POST";
-		var ajaxurl = $('#addActe').attr('action');
-	 	if (state == "update") {
-	            type = "PUT";
-	            ajaxurl = '/acte/' + acte_id;
-	    	}
-     		 $('#acte_id').val("").change(); $('#nom').val("").change();$('#id_visite').val("").change();$('#description').val("").change();$('#duree').val(0).change();
-	   	$.ajax({
+	 	  		periodes :periodes,
+	 	  		description:$('#description').val(),
+	 	  		duree : $('#duree').val()
+	 			};
+			 	var state = jQuery('#EnregistrerActe').val();
+			 	var acte_id = jQuery('#acte_id').val();
+		      		var type = "POST";
+				var ajaxurl = $('#addActe').attr('action');
+			 	if (state == "update") {
+            type = "PUT";
+            ajaxurl = '/acte/' + acte_id;
+			  }
+     		$('#acteModal form')[0].reset();//jQuery('#acteModal').trigger("reset");
+      	$.ajax({
           		type:type,
           		url:ajaxurl,
           		data: formData,
@@ -66,7 +63,7 @@
       						    +'</td><td>'+data.medecin.nom+' '+data.medecin.prenom+'</td><td>'+data.visite.date+'</td>';	 
       			             acte    += '<td class ="center"><button type="button" class="btn btn-xs btn-info open-modal" value="' + data.acte.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';    
            			
-					acte += '<button type="button" class="btn btn-xs btn-danger delete-acte" value="' + data.acte.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></btton></td></tr>';
+							acte += '<button type="button" class="btn btn-xs btn-danger delete-acte" value="' + data.acte.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></btton></td></tr>';
          	  		if (state == "add") {
             				$( "#listActes" ).append(acte);
             			}else{
@@ -76,9 +73,56 @@
           		error: function (data){
                 		console.log('Error:', data);
           		}
-      		});
-	  });
+      	});
+	  	});
 	//end of add acte
+	///////////add trait
+	///////////////////////
+	
+	$("#EnregistrerTrait").click(function (e) {
+		e.preventDefault();
+    var periodes = [];
+    if(! isEmpty($("#produit").val()) || ($("#acte").val() == 0) )
+	  	$('#traitModal').modal('toggle');
+	  $.ajaxSetup({
+	   	headers: {
+	     	'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+	   	}
+	 	});
+	 	$("input[name='pT[]']:checked").each(function() {
+   		periodes.push($(this).attr('value'));
+   	});
+   	var formData = {
+	 	  		id_visite: $('#id_visite').val(),
+	 				med:$("#produit").val(),
+	 	    	periodes :periodes,
+	 	  		duree : $('#dureeT').val()
+	 	};
+	 // 	$.each( formData, function( key, value ) {
+		//   alert( key + ": " + value );
+		// });
+		var state = jQuery('#EnregistrerTrait').val();
+		var trait_id = jQuery('#trait_id').val();
+		var type = "POST";
+		var ajaxurl = $('#addTrait').attr('action');
+		if(state == "update") {
+			  type = "PUT";
+			  ajaxurl = '/medicaments/' + trait_id;
+		}
+    $('#traitModal form')[0].reset();//jQuery('#traitModal').trigger("reset");
+    $.ajax({
+          		type:type,
+          		url:ajaxurl,
+          		data: formData,
+          		dataType:'json',
+          		success: function (data) {	/*$.each( data, function( key, value ) {  alert( key + ": " + value );});*/
+          		
+          		},         
+          		error: function (data){
+                		console.log('Error:', data);
+          		}
+    });
+	});
 	//////////////////////////////////////
 	//delete viste
 	 	$("#deleteViste").click(function(e){
@@ -137,6 +181,19 @@
             }
         });
       });
+    //////////Traitement
+    $('body').on('change', '#specialiteProd', function () {
+    	  if($(this).val() != "0" )
+         {
+            $("#produit").removeAttr("disabled");
+            var id_spec = $(this).val();
+            getProducts(1,id_spec);
+          }else
+          {
+            $("#produit").val(0);
+            $("#produit").prop('disabled', 'disabled');
+          }	
+    });
   });
   </script>
 @endsection
@@ -154,17 +211,12 @@
 				<ul class = "nav nav-pills nav-justified list-group" role="tablist" id="menu">
 					<li role= "presentation" class="active col-md-6">
 						<a href="#Actes" aria-controls="Actes" role="tab" data-toggle="tab" class="btn btn-success btn-lg">
-			   			 {{-- <i class="fa fa-commenting" aria-hidden="true"></i> --}}
-			   			<i class="fa fa-stethoscope" style="font-size:24px;"></i>
-			   			 <span class="bigger-160"> Actes</span>
+			   			<span class ="medical medical-icon-immunizations" aria-hidden="true"></span><span class="bigger-160"> Actes</span>
 			  		</a>
 					</li>
 					<li role= "presentation" class="col-md-6">
 						<a href="#Trait" aria-controls="Trait" role="tab" data-toggle="tab" class="btn btn-primary btn-lg">
-			   			 {{-- <i class="fa fa-commenting" aria-hidden="true"></i>{!! file_get_contents('img/drugs.svg') !!} --}}
-			   		
-			   			<img src="drugs.svg" alt="My SVG Icon">
-			   			 <span class="bigger-160">Traitements</span>
+			   			<span class ="medical medical-icon-health-services" aria-hidden="true"></span><span class="bigger-160">Traitements</span>
 			  		</a>
 					</li>
 				</ul>
@@ -186,13 +238,13 @@
 				            		<tr class ="center">
 						              <th class ="hidden"></th>
 						            	<th scope="col" class ="center"><strong>Nom</strong></th>
-								<th scope="col" class ="center">Decription</th>
-								<th scope="col" class ="center"><strong>Type</strong></th>
-								<th scope="col" class ="center"><strong>Périodes</strong></th>
-								<th scope="col" class ="center" width="3%"><strong>Nombre de jours</strong></th>
-								<th scope="col" class ="center"><strong>Médecin prescripteur</strong></th>												
-								<th scope="col" class ="center"><strong>Date Visite</strong></th>												
-								<th scope="col" class=" center nosort"><em class="fa fa-cog"></em></th>
+													<th scope="col" class ="center">Decription</th>
+													<th scope="col" class ="center"><strong>Type</strong></th>
+													<th scope="col" class ="center"><strong>Périodes</strong></th>
+													<th scope="col" class ="center" width="3%"><strong>Nombre de jours</strong></th>
+													<th scope="col" class ="center"><strong>Médecin prescripteur</strong></th>												
+													<th scope="col" class ="center"><strong>Date Visite</strong></th>												
+													<th scope="col" class=" center nosort"><em class="fa fa-cog"></em></th>
 				            		</tr>
 				          		</thead>
 				          		<tbody>
@@ -227,8 +279,44 @@
 			  		  </div><!-- widget-box -->
 			  		</div>
 			  	</div><!-- Actes -->
-			  	<div role="tabpanel" class = "tab-pane" id="Trait"><div class= "col-md-12 col-xs-12">traitement</div></div>	
-				</div><!-- tab-content -->
+			  	<div role="tabpanel" class = "tab-pane" id="Trait">
+			  		<div class= "col-md-12 col-xs-12">
+			  		<div class= "widget-box widget-color-blue" id="widget-box-2">
+			    			<div class="widget-header" >
+			      			<h5 class="widget-title bigger lighter"><font color="black">
+			      				<i class="ace-icon fa fa-table"></i>&nbsp;<b>Trait</b></font>
+			      			</h5>
+			       			<div class="widget-toolbar widget-toolbar-light no-border" width="20%">
+										<div class="fa fa-plus-circle"></div>
+					 					<a href="#" data-target="#traitModal" id="btn-addTrait" name="btn-add" class="btn-xs tooltip-link" data-toggle="modal" data-toggle="tooltip" data-original-title="Ajouter un Traitement" >
+					 						<h4><strong>Traitement Médicale</strong></h4>
+					 					</a>	
+				 					</div>
+			    			</div>	
+			    		<div class="widget-body" id ="TraitementWidget">
+			    			<div class="widget-main no-padding">
+				      		<table class="table nowrap dataTable table-bordered no-footer table-condensed table-scrollable" id="listActes">
+				          	<thead class="thin-border-bottom">
+				           		<tr class ="center">
+						            <th class ="hidden"></th>
+						           	<th scope="col" class ="center"><strong>Nom Medicament</strong></th>
+												<th scope="col" class ="center"><strong>Posologie</strong></th>
+												<th scope="col" class ="center"><strong>Périodes</strong></th>
+												<th scope="col" class ="center" width="3%"><strong>Nombre de jours</strong></th>
+												<th scope="col" class ="center"><strong>Médecin prescripteur</strong></th>												
+												<th scope="col" class ="center"><strong>Date Visite</strong></th>												
+												<th scope="col" class=" center nosort"><em class="fa fa-cog"></em></th>
+				            	</tr>
+				          	</thead>
+				          	<tbody>
+				          	</tbody>
+				          </table>		
+				        </div>
+			    		</div>
+			    	</div><!-- widget-box -->
+			    	</div>
+					</div><!-- tab-pane Trait-->
+		  	</div><!-- tab-content -->
 			</div><!-- tabpanel -->
 			<div class="hr hr-dotted"></div>
 			<div class="space-12"></div>
@@ -243,5 +331,6 @@
 			</div>	
   	</form>
   	<div class="row">@include('visite.ModalFoms.acteModal')</div>
+  	<div class="row">@include('visite.ModalFoms.TraitModal')</div>
   </div>
   @endsection

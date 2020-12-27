@@ -67,7 +67,7 @@
 					 			<button type="submit" id="EnregistrerActe" class="btn btn-primary btn-xs" value ="add">
              							<i class="ace-icon fa fa-save bigger-110"></i>&nbsp;&nbsp;Enregistrer
              						</button>
-             		<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+             		<button type="button" class="btn btn-default btn-xs" data-dismiss="modal">
         					<i class="ace-icon fa fa-close bigger-110"></i>Fermer
         				</button>
 					 		</div>

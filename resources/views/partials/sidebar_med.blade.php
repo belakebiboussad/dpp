@@ -571,14 +571,14 @@
       $('#specialite').change(function(){
          if($(this).val() != "0" )
          {
-               $("#produit").removeAttr("disabled");
-               var id_gamme = $('#gamme').val();
-                var id_spec = $(this).val();
-              getProducts(id_gamme,id_spec);
+            $("#produit").removeAttr("disabled");
+            var id_gamme = $('#gamme').val();
+            var id_spec = $(this).val();
+            getProducts(id_gamme,id_spec);
           }else
           {
-                $("#produit").val(0);
-               $("#produit").prop('disabled', 'disabled');
+            $("#produit").val(0);
+            $("#produit").prop('disabled', 'disabled');
           }
       });
 }) 

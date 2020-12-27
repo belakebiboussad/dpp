@@ -8,6 +8,7 @@ use App\modeles\consigne;
 use App\modeles\periodeconsigne;
 use App\modeles\surveillance;
 use App\modeles\consultations;
+use App\modeles\specialite_produit;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -41,16 +42,17 @@ class VisiteController extends Controller
      */
     public function create($id_hosp)
     {
+      $date = Carbon\Carbon::now(); 
       $hosp = hospitalisation::FindOrFail($id_hosp);//$patient = (hospitalisation::FindOrFail($id_hosp))->admission->demandeHospitalisation->consultation->patient;
       $patient = $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient;
-      $date = Carbon\Carbon::now();//$date = Date::Now();
       $visite =new visite;
       $visite->date=$date;
       $visite->heure=$date->format("H:i");
       $visite->id_hosp=$id_hosp;
       $visite->id_employe=Auth::User()->employee_id;
+      $specialitesProd = specialite_produit::all();
       $visite->save();
-      return view('visite.create',compact('hosp','patient'))->with('id',$visite->id);
+      return view('visite.create',compact('hosp','patient','specialitesProd'))->with('id',$visite->id);
     }
  /**
      * Show the form for creating a new resource.

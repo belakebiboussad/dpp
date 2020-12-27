@@ -315,7 +315,7 @@ $(document).ready(function() {
             </div>{{-- panel --}}
           </div>{{-- modalBody --}}
           <div class="modal-footer">
-            <button class="btn btn-xs btn-succes" type="submit" id ="btnSave" disabled><i class="ace-icon fa fa-save bigger-110"></i>&nbsp;Enregistrer</button>                     
+            <button class="btn btn-xs btn-success" type="submit" id ="btnSave" disabled><i class="ace-icon fa fa-save bigger-110"></i>&nbsp;Enregistrer</button>                     
             <button type="button" class="btn btn-xs btn-default" data-dismiss="modal" onclick="resetaddModIn();reset_in();"><i class="fa fa-close" aria-hidden="true"></i>&nbsp;Annuler</button>
           </div>   
         </form> 
