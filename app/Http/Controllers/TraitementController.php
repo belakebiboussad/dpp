@@ -14,7 +14,8 @@ class TraitementController extends Controller
         'visite_id'=> 'required',
     ]);
     $tait =Traitement::create($request->all());    
-    return Response::json($tait);
+    //return Response::json($tait);
+     return Response::json(['acte'=>$acte,'visite'=>$acte->visite,'medecin'=>$acte->visite->medecin]); 
   }
 
 }

@@ -45,8 +45,8 @@ class ActeController extends Controller
         //     "duree"=>$request->duree,         
         // ]);
         $acte->update($request->all());
-        $acte->remember_token;
-        $acte->save();
+        // $acte->remember_token;
+        // $acte->save();
         return Response::json(['acte'=>$acte,'visite'=>$acte->visite,'medecin'=>$acte->visite->medecin]); 
 
     }

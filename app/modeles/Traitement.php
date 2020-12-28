@@ -12,4 +12,8 @@ class Traitement extends Model
   protected $casts = [
         'periodes' => 'array',
   ];
+  public function visite()
+	{
+		return $this->belongsTo('App\modeles\visite','id_visite');
+	}
 }

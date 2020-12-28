@@ -82,7 +82,6 @@
 	//end of add acte
 	///////////add trait
 	///////////////////////
-	
 	$("#EnregistrerTrait").click(function (e) {
 		e.preventDefault();
     var periodes = [];
@@ -117,10 +116,14 @@
           		data: formData,
           		dataType:'json',
           		success: function (data) {	/*$.each( data, function( key, value ) {  alert( key + ": " + value );});*/
-          			//alert(data);
-          			 	$.each(data, function( key, value ) {
-								  alert( key + ": " + value );
-								});
+          			if($('.dataTables_empty').length > 0)
+	      				{
+	        				$('.dataTables_empty').remove();
+	      				}
+      				frag ="";
+      				$.each( data.acte.periodes, function( key, periode ) {
+							 frag +='<span class="badge badge-success">'+periode+'</span>';
+							});
           		},         
           		error: function (data){
                 		console.log('Error:', data);
