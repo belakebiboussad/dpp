@@ -176,13 +176,14 @@ class AssurController extends Controller
         public function destroy(Request $request , $id) 
         {
             $handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word"); 
+            
             if($handle != null)
             {
-              $ass = $handle->SelectPersonnel(trim(''),trim('135624875695'));//dd($ass->Grade);
+              $ass = $handle->SelectPersonnel(trim(''),trim('135624875695'));
               $grade = grade::where('nom',$ass->Grade)->select('id')->get()->first();
-              dd($grade_id); //$id = $this->assureSearch($ass->NSS);   //return view('assurs.sup',compact('var'));          
+    
             }else{
-              dd("2");
+              
               return("Non");
             }
         }
@@ -254,7 +255,7 @@ class AssurController extends Controller
               return Response(null)->withHeaders(['count' =>0]);
             }                 
           }catch (Exception $e) {//errer com
-             echo 'Exception reçue : ',  $e->getMessage(), "\n";
+             echo 'Exception reçue Com Object : ',  $e->getMessage(), "\n";
           }
         }
     }

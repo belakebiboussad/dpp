@@ -42,7 +42,7 @@ Route::resource('demandeexb','DemandeExbController');
 Route::resource('demandeexr','DemandeExamenRadio');
 Route::resource('visites','VisiteController'); 
 Route::resource('acte','ActeController');
-Route::resource('traitement','ActeController');
+Route::resource('traitement','TraitementController');
 
 Route::resource('surveillance','SurveillanceController');
 Route::resource('reservation','BedReservationController');

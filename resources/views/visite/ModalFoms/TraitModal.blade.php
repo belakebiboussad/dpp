@@ -5,7 +5,7 @@
 			  			<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Ajouter un Traitement Médicale</h4>
 			  		</div>
 					<div class="modal-body">
-				    <form id="addTrait" method="POST" action ="{{route('medicaments.store')}}" name="form1" id="form1">	<!-- /Acte/save -->
+				    <form id="addTrait" method="POST" action ="{{route('traitement.store')}}" name="form1" id="form1">	<!-- /Acte/save -->
 				 		{{ csrf_field() }}
 				 		<input type="hidden" name="id_visite" id ="id_visite" value="{{ $id }}">
 				 		<input type="hidden" value="" name="idhosp">

@@ -41,9 +41,9 @@ class demandeprodController extends Controller
     public function index()
     {
       if(Auth::user()->role_id == 10)
-        $demandes = demand_produits::where('Etat','E')->get();
+        $demandes = demand_produits::where('Etat','E')->orderBy('Date', 'desc')->get();
       else
-        $demandes = demand_produits::all();
+        $demandes = demand_produits::orderBy('Date', 'desc')->get();
       return view('demandeproduits.index', compact('demandes'));
     }
     /**

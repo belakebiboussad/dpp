@@ -53,13 +53,17 @@
           		url:ajaxurl,
           		data: formData,
           		dataType:'json',
-          		success: function (data) {	/*$.each( data, function( key, value ) {  alert( key + ": " + value );});*/
+          		success: function (data) {	/*JSON.parse()*/
           			if($('.dataTables_empty').length > 0)
-      				{
-        				$('.dataTables_empty').remove();
-      				}	
+	      				{
+	        				$('.dataTables_empty').remove();
+	      				}
+      				frag ="";
+      				$.each( data.acte.periodes, function( key, periode ) {
+							 frag +='<span class="badge badge-success">'+periode+'</span>';
+							});
       				var acte   = '<tr id="acte'+data.acte.id+'"><td hidden>'+data.acte.id_visite+'</td><td>'+data.acte.nom+'</td><td>'+data.acte.description+'</td><td>'
-      						    +data.acte.type+'</td><td><span class="badge badge-success">'+JSON.parse(data.acte.periodes)+'</span></td><td>'+data.acte.duree
+      						    +data.acte.type+'</td><td>'+frag+'</td><td>'+data.acte.duree
       						    +'</td><td>'+data.medecin.nom+' '+data.medecin.prenom+'</td><td>'+data.visite.date+'</td>';	 
       			             acte    += '<td class ="center"><button type="button" class="btn btn-xs btn-info open-modal" value="' + data.acte.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';    
            			
@@ -93,14 +97,11 @@
    		periodes.push($(this).attr('value'));
    	});
    	var formData = {
-	 	  		id_visite: $('#id_visite').val(),
-	 				med:$("#produit").val(),
+	 	  		visite_id: $('#id_visite').val(),
+	 				med_id:$("#produit").val(),
 	 	    	periodes :periodes,
 	 	  		duree : $('#dureeT').val()
 	 	};
-	 // 	$.each( formData, function( key, value ) {
-		//   alert( key + ": " + value );
-		// });
 		var state = jQuery('#EnregistrerTrait').val();
 		var trait_id = jQuery('#trait_id').val();
 		var type = "POST";
@@ -116,7 +117,10 @@
           		data: formData,
           		dataType:'json',
           		success: function (data) {	/*$.each( data, function( key, value ) {  alert( key + ": " + value );});*/
-          		
+          			//alert(data);
+          			 	$.each(data, function( key, value ) {
+								  alert( key + ": " + value );
+								});
           		},         
           		error: function (data){
                 		console.log('Error:', data);
@@ -151,10 +155,10 @@
 			  $.get('/acte/'+acteID+'/edit', function (data) {
 			  	$('#id_hosp').val(data.id_hosp);
 			  	$('#acte_id').val(data.id);		
-			  	$('#nom').val(data.nom);
+			  	$('#acte').val(data.nom);
 			  	$('#type').val(data.type).change();
-			  	$('#description').val(data.description);
-			   	$.each( JSON.parse(data.periodes), function( index, value ) {
+			  	$('#description').val(data.description);// JSON.parse(
+			   	$.each(data.periodes, function( index, value ) {
   				  $('#' + value).prop("checked",true);
 					});
 			  	$('#nbr_j').val(data.duree);
@@ -257,7 +261,7 @@
 					          			    <td> {{ $acte->description}}</td>
 					          			    <td> {{ $acte->type}}</td>
 					          			    <td>
-					          			    	@foreach(json_decode($acte->periodes) as $periode)
+					          			    	@foreach($acte->periodes as $periode){{-- json_decode( --}}
 					          			    		<span class="badge badge-success"> {{ $periode }}</span>
 					          			      @endforeach
 					          			    </td>

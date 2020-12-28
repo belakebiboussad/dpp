@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  sam. 26 déc. 2020 à 18:18
--- Version du serveur :  5.7.21
--- Version de PHP :  7.2.4
+-- Généré le :  lun. 28 déc. 2020 à 15:47
+-- Version du serveur :  5.7.23
+-- Version de PHP :  7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `actes` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `actes`
@@ -61,9 +61,22 @@ INSERT INTO `actes` (`id`, `nom`, `id_visite`, `description`, `type`, `periodes`
 (89, 'sd', 841, 'dqs', 'medicale', '[\"Matin\"]', 1, 0, b'1', NULL, NULL),
 (90, 'qs', 842, 'dqs', 'medicale', '[\"Matin\"]', 1, 0, b'1', NULL, NULL),
 (91, 'jh', 843, 'gt', 'medicale', '[\"Matin\"]', 1, 0, b'0', NULL, NULL),
-(92, 'frt', 845, 'gty', 'medicale', '[\"Matin\"]', 1, 0, b'0', NULL, NULL),
+(92, 'frt', 845, 'gty', 'medicale', '[\"Matin\"]', 1, 0, b'1', NULL, NULL),
 (93, 'ni', 846, 'bby', 'medicale', '[\"Matin\"]', 1, 0, b'1', NULL, NULL),
-(94, 'gdf', 847, 'gfd', 'medicale', '[\"Matin\"]', 1, 0, b'1', NULL, NULL);
+(94, 'gdf', 847, 'gfd', 'medicale', '[\"Matin\"]', 1, 0, b'1', NULL, NULL),
+(95, 'acte', 864, 'sqfsdf', 'medicale', '[\"Matin\"]', 1, 0, b'0', NULL, NULL),
+(96, 'f', 913, NULL, 'medicale', '[\"Matin\"]', 0, 0, b'1', NULL, NULL),
+(97, 'f', 913, NULL, 'medicale', '[\"Matin\"]', 0, 0, b'1', NULL, NULL),
+(98, 'df', 921, 'dfd', 'medicale', '[\"Matin\"]', 0, 0, b'1', NULL, NULL),
+(99, 'acte', 937, 's', 'medicale', '[\"Matin\"]', 1, 0, b'0', NULL, NULL),
+(100, 'acteqs', 937, 'qs', 'medicale', '[\"Matin\"]', 1, 0, b'1', NULL, NULL),
+(101, 'nom1', 938, 'descr', 'medicale', '[\"Matin\", \"Midi\"]', 2, 0, b'1', NULL, NULL),
+(102, 'nom1', 939, 'descr1', 'medicale', '[\"Matin\"]', 2, 0, b'1', NULL, NULL),
+(103, 'acte2', 939, 'descro2', 'medicale', '[\"Matin\", \"Midi\"]', 3, 0, b'1', NULL, NULL),
+(104, 'acte', 968, 'sqfsdf', 'paramedicale', '[\"Matin\", \"Midi\", \"Soir\"]', 1, 0, b'0', NULL, NULL),
+(105, 'picure', 968, 'description', 'medicale', '[\"Matin\", \"Soir\"]', 1, 0, b'0', NULL, NULL),
+(106, 'teste', 952, 'desc', 'paramedicale', '[\"Matin\", \"Midi\"]', 10, 0, b'1', NULL, NULL),
+(107, 'acteqstste', 952, NULL, 'paramedicale', '[\"Matin\", \"Midi\"]', 10, 0, b'1', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -3172,13 +3185,10 @@ CREATE TABLE IF NOT EXISTS `demande_dispositif` (
 --
 
 INSERT INTO `demande_dispositif` (`id_demande`, `id_dispositif`, `qte`, `qteDonne`) VALUES
-(1, 4, 102, 0),
-(1, 2, 18, 0),
-(2, 4, 10, NULL),
-(5, 1, 10, NULL),
-(13, 8, 10, NULL),
-(18, 2, 10, NULL),
-(25, 5, 10, 4);
+(25, 5, 10, 4),
+(27, 4, 100, 98),
+(28, 12, 15, NULL),
+(29, 5, 10, 5);
 
 -- --------------------------------------------------------
 
@@ -3201,15 +3211,12 @@ CREATE TABLE IF NOT EXISTS `demande_medicaments` (
 --
 
 INSERT INTO `demande_medicaments` (`id_demande`, `id_medicaments`, `qte`, `qteDonne`) VALUES
-(1, 14, 10, 0),
-(1, 37, 20, 0),
-(1, 14, 45, 0),
-(3, 18, 9, 0),
-(2, 14, 10, NULL),
-(5, 654, 15, NULL),
-(23, 75, 10, NULL),
 (24, 14, 9, 9),
-(26, 17, 10, 8);
+(26, 17, 10, 8),
+(27, 19, 10, 6),
+(28, 979, 10, NULL),
+(29, 110, 1, 4),
+(30, 374, 10, 5);
 
 -- --------------------------------------------------------
 
@@ -3226,23 +3233,20 @@ CREATE TABLE IF NOT EXISTS `demande_produits` (
   `id_employe` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_employe` (`id_employe`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `demande_produits`
 --
 
 INSERT INTO `demande_produits` (`id`, `Date`, `Etat`, `motif`, `id_employe`) VALUES
-(1, '2020-12-15', 'E', NULL, 100),
-(2, '2020-12-16', 'E', NULL, 100),
-(3, '2020-12-17', 'E', NULL, 100),
-(5, '2020-12-20', 'E', NULL, 100),
-(13, '2020-12-20', 'E', NULL, 100),
-(18, '2020-12-20', 'E', NULL, 100),
-(23, '2020-12-20', 'E', NULL, 100),
 (24, '2020-12-20', 'R', 'qsdfqsfsdf', 100),
 (25, '2020-12-20', 'V', NULL, 100),
-(26, '2020-12-22', 'V', NULL, 100);
+(26, '2020-12-22', 'V', NULL, 100),
+(27, '2020-12-27', 'V', NULL, 100),
+(28, '2020-12-28', 'E', NULL, 100),
+(29, '2020-12-28', 'V', NULL, 100),
+(30, '2020-12-28', 'V', NULL, 100);
 
 -- --------------------------------------------------------
 
@@ -3265,8 +3269,7 @@ CREATE TABLE IF NOT EXISTS `demande_reactif` (
 --
 
 INSERT INTO `demande_reactif` (`id_demande`, `id_reactif`, `qte`, `qteDonne`) VALUES
-(5, 4, 12, NULL),
-(23, 3, 10, NULL);
+(30, 72, 10, 8);
 
 -- --------------------------------------------------------
 
@@ -11200,7 +11203,7 @@ CREATE TABLE IF NOT EXISTS `reactifs` (
   `nom` varchar(60) NOT NULL,
   `code` int(8) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=171 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=171 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `reactifs`
@@ -11673,6 +11676,30 @@ CREATE TABLE IF NOT EXISTS `tickets` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `traitements`
+--
+
+DROP TABLE IF EXISTS `traitements`;
+CREATE TABLE IF NOT EXISTS `traitements` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `med_id` int(11) NOT NULL,
+  `periodes` json NOT NULL,
+  `duree` int(11) NOT NULL,
+  `visite_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `traitements`
+--
+
+INSERT INTO `traitements` (`id`, `med_id`, `periodes`, `duree`, `visite_id`) VALUES
+(1, 20, '[\"Matin\", \"Midi\"]', 1, 952),
+(2, 20, '[\"Matin\", \"Midi\"]', 1, 963);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `traitements_habituels`
 --
 
@@ -11716,20 +11743,20 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (28, 'medChef', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'az@e.fr', 87, 13, 'GtsERzROhMI17wLDz9bj8agtQGftKg9YW3Jop27qso079ht8HqA7rmROafvp', 1),
 (29, 'colloque', '$2y$10$Ve5h8oMwfAmfzHgTLrfJTOmGUiBpZLdxrfEfYC/7g2a1G62ZkM2QO', 'gdcedgg@yah.fr', 80, 5, 'gpZZ7n5wZzyDItBNWBgOWJBuHVN9zPFAVCnhFigz3AQFygICRp4ENyCc2B8W', 1),
 (30, 'sur', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'rlakhneche@cdta.dz', 81, 5, 'kTiv5G9IVw53QUDZ1ZlF6fMq37eVo918jATk6UdDCVJKXF8hZ3UO4jR1cUOm', 1),
-(31, 'rec', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', NULL, 82, 2, 'N0806H8kT0hpih7cu14yA6xSSrfcWv4y8FEEYLM26j1ZNbdj7BenDd5PXeri', 1),
+(31, 'rec', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', NULL, 82, 2, 'ZKglbHI92dAg6HC0dmqoe19cB8vYHg7vewcMgYecblvdvA4j8Ngkt7qigPqW', 1),
 (33, 'test', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'test@gmail', 79, 1, 'jVwivfkZ4VIp3AGewC51osG092X85a3MAdPFgfiEGXfy1sOGfzyxuAIaEjC4', 1),
 (34, 'med', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', NULL, 88, 1, 'fb3Fq2xQgFWyTBO5v1lRHwwIkqlMoObVnU9zTeylFhh5tAzWkHzNg5l2N6ig', 0),
 (35, 'delCol', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'll@a.fr', 89, 6, '92dgCiJICXWcq4NDX2UDq6vwhReoCOa73hBLt2I66wJAKqDNEJNPpFWdqwvA', 1),
 (38, 'user', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'jj@hot.frr', 93, 13, 'QGzAK3Ot9VH190WBcOuRMMdfEN0H91VgB1MXO6vbFuiiu15koQYCQLxWP4BT', 1),
-(39, 'surMed', '$2y$10$zUdI0W5QV/1fmnBnhmL2TOTqN8GMNEdZZK6o4gclrJ1CKfxVq.Rca', 'bbedeebi@cdta.dz', 94, 5, 'r0oKIWWxfsw9OM4dPwllQX8Ej60OfUCYEO2ZjlmxGTFINRjglIYRU5zhQMyc', 1),
+(39, 'surMed', '$2y$10$zUdI0W5QV/1fmnBnhmL2TOTqN8GMNEdZZK6o4gclrJ1CKfxVq.Rca', 'bbedeebi@cdta.dz', 94, 5, 'R9M0RyvGrDYVXQpyiDYzdKNqzjT0gjMHclUSI7o9SgaRoyuoQfo7p6G5Pahq', 1),
 (40, 'agentAdm', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'agentAdm@hop.dz', 95, 9, 'hcEiyOu6lVtRBS0HwhkUkIf2CrZunWTA0omOlazCn1GaTHxQPKkyUnaWSueG', 1),
 (41, 'agent', '$2y$10$RsD.pKjSIV73uBbaLJNE.uXhzCmCixdBf71lcxBq2wmQu0dsRzdmy', 'agent@hop.dz', 96, 9, 'UEdBjRGg7OSRg4Gk1mw8Qwmy6AXMDYBd5pjAGJAKDbGgK9tt3W3BrlJK5tKu', 1),
 (42, 'laborantin', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'lab@hop.dz', 97, 11, 'QZOK8XxQcxpBYZjmZS35YFJIFRomup114aMBLKYYoE8adSBi2nex4mtmKgfJ', 1),
 (43, 'radiogue', '$2y$10$k5gKJEykSI5PNYLHyheO.eXq4ge1e6Rkz/HN/mMKUZiKZFe8qMlki', 'rad@hop.dz', 98, 12, 'benlcglfiv00sldthLpx1KXLmtI2DYvCGoRpjKunnuQE0cSzBTETHsXO9x9e', 1),
-(44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, 'qVLoel9leAi41o8Gat5y6VmLaEMYdPcHgPoC5jRw0bO5dN7YXngTZZDJyfLZ', 1),
-(45, 'chefServ', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'MLqIHcc4ouaIKTgLvtOVBLVLhbFBHMjNWy3k7hRzPY7v21z0S3Na9f13cF7y', 1),
+(44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, 'MVNrlQM12kj9HfzWAmDWSoPXBp5jWA2aCjit0KNiQc97rbAW0nJx9UmAlvbr', 1),
+(45, 'chefServ', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'VZZWAWbzBHBbbLMEykchtLgQFbUTq0xUnwOn48WezsExeF5bcP62SRuA0x17', 1),
 (46, 'rad', '$2y$10$PNDRMvcnhl1kZ.sxfoq8Yuhoq6ZMQePi9/q1QbLUZ.a.hd5DxvnCS', 'rad@cdta.net', 101, 12, 'LYnFPOG5KXRXnQuoVFseCS3zvBj5ffEsAmaHeVNbwGpeC01ND3Hclu34g0vd', 1),
-(47, 'cardio', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'bbedeebi@cdta.dz', 102, 1, '3fgCGZ7hMG9wNkUZOstEbFscrsrSPGt4bM5mymMUsnpXg44VCPp5xdhwLg1A', 1),
+(47, 'cardio', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'bbedeebi@cdta.dz', 102, 1, '7PxlYPIcCycWVxzu4UedrdkuKd5nafrXvSb0enWCyEowAfJxcOt9PZbNB7iW', 1),
 (48, 'geneco', '$2y$10$MeHcy1r9az/dgkC9pLvo/Ob4eqJVp8mRjGuZeyL9yA6k8sc3D0FAW', 'geneco@cdta.dz', 103, 1, 'YKcv4NJ20KZ37HKQZLOZPriKXKOjerLBO9R1lKDZNrTCnZf4sG2SgnRmXt22', 1);
 
 -- --------------------------------------------------------
@@ -11750,357 +11777,63 @@ CREATE TABLE IF NOT EXISTS `visites` (
   PRIMARY KEY (`id`),
   KEY `visites_id_hosp_foreign` (`id_hosp`),
   KEY `visites_id_employe_foreign` (`id_employe`)
-) ENGINE=MyISAM AUTO_INCREMENT=864 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=969 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `visites`
 --
 
 INSERT INTO `visites` (`id`, `date`, `heure`, `id_hosp`, `id_employe`, `created_at`, `updated_at`) VALUES
-(718, '2020-02-23', '11:52:00', 7, 88, NULL, NULL),
-(713, '2020-02-17', '15:57:00', 7, 88, NULL, NULL),
-(712, '2020-02-17', '15:57:00', 7, 88, NULL, NULL),
-(711, '2020-02-17', '15:56:00', 7, 88, NULL, NULL),
-(710, '2020-02-17', '15:55:00', 7, 88, NULL, NULL),
-(709, '2020-02-17', '15:48:00', 7, 88, NULL, NULL),
-(708, '2020-02-17', '15:47:00', 7, 88, NULL, NULL),
-(707, '2020-02-17', '15:44:00', 7, 88, NULL, NULL),
-(706, '2020-02-17', '15:43:00', 7, 88, NULL, NULL),
-(705, '2020-02-17', '15:34:00', 7, 88, NULL, NULL),
-(704, '2020-02-17', '15:33:00', 7, 88, NULL, NULL),
-(703, '2020-02-17', '15:30:00', 7, 88, NULL, NULL),
-(702, '2020-02-17', '15:28:00', 7, 88, NULL, NULL),
-(701, '2020-02-17', '15:28:00', 7, 88, NULL, NULL),
-(700, '2020-02-17', '15:26:00', 7, 88, NULL, NULL),
-(699, '2020-02-17', '15:25:00', 7, 88, NULL, NULL),
-(698, '2020-02-17', '15:24:00', 7, 88, NULL, NULL),
-(697, '2020-02-17', '15:24:00', 7, 88, NULL, NULL),
-(696, '2020-02-17', '15:23:00', 7, 88, NULL, NULL),
-(695, '2020-02-17', '15:23:00', 7, 88, NULL, NULL),
-(694, '2020-02-17', '15:22:00', 7, 88, NULL, NULL),
-(693, '2020-02-17', '15:22:00', 7, 88, NULL, NULL),
-(692, '2020-02-17', '15:21:00', 7, 88, NULL, NULL),
-(691, '2020-02-17', '15:21:00', 7, 88, NULL, NULL),
-(690, '2020-02-17', '15:20:00', 7, 88, NULL, NULL),
-(689, '2020-02-17', '15:19:00', 7, 88, NULL, NULL),
-(688, '2020-02-17', '15:17:00', 7, 88, NULL, NULL),
-(687, '2020-02-17', '15:17:00', 7, 88, NULL, NULL),
-(686, '2020-02-17', '15:16:00', 7, 88, NULL, NULL),
-(685, '2020-02-17', '15:16:00', 7, 88, NULL, NULL),
-(684, '2020-02-17', '15:15:00', 7, 88, NULL, NULL),
-(683, '2020-02-17', '15:14:00', 7, 88, NULL, NULL),
-(682, '2020-02-17', '15:11:00', 7, 88, NULL, NULL),
-(681, '2020-02-17', '15:07:00', 7, 88, NULL, NULL),
-(680, '2020-02-17', '15:06:00', 7, 88, NULL, NULL),
-(679, '2020-02-17', '15:02:00', 7, 88, NULL, NULL),
-(678, '2020-02-17', '15:01:00', 7, 88, NULL, NULL),
-(677, '2020-02-17', '15:00:00', 7, 88, NULL, NULL),
-(676, '2020-02-17', '14:59:00', 7, 88, NULL, NULL),
-(675, '2020-02-17', '14:55:00', 7, 88, NULL, NULL),
-(674, '2020-02-17', '14:49:00', 7, 88, NULL, NULL),
-(673, '2020-02-17', '14:42:00', 6, 88, NULL, NULL),
-(672, '2020-02-17', '14:42:00', 6, 88, NULL, NULL),
-(671, '2020-02-17', '14:36:00', 6, 88, NULL, NULL),
-(670, '2020-02-17', '14:35:00', 6, 88, NULL, NULL),
-(669, '2020-02-17', '14:35:00', 6, 88, NULL, NULL),
-(668, '2020-02-17', '14:34:00', 6, 88, NULL, NULL),
-(667, '2020-02-17', '14:34:00', 6, 88, NULL, NULL),
-(666, '2020-02-17', '14:31:00', 6, 88, NULL, NULL),
-(665, '2020-02-17', '14:31:00', 6, 88, NULL, NULL),
-(664, '2020-02-17', '14:31:00', 6, 88, NULL, NULL),
-(663, '2020-02-17', '14:29:00', 6, 88, NULL, NULL),
-(662, '2020-02-17', '14:29:00', 6, 88, NULL, NULL),
-(661, '2020-02-17', '14:25:00', 6, 88, NULL, NULL),
-(660, '2020-02-17', '14:22:00', 6, 88, NULL, NULL),
-(659, '2020-02-17', '14:21:00', 6, 88, NULL, NULL),
-(658, '2020-02-17', '14:21:00', 6, 88, NULL, NULL),
-(657, '2020-02-17', '14:17:00', 6, 88, NULL, NULL),
-(656, '2020-02-17', '14:17:00', 6, 88, NULL, NULL),
-(655, '2020-02-17', '14:14:00', 6, 88, NULL, NULL),
-(654, '2020-02-17', '14:11:00', 7, 88, NULL, NULL),
-(652, '2020-02-17', '13:59:00', 7, 88, NULL, NULL),
-(651, '2020-02-17', '13:58:00', 7, 88, NULL, NULL),
-(650, '2020-02-17', '13:57:00', 7, 88, NULL, NULL),
-(649, '2020-02-17', '13:57:00', 7, 88, NULL, NULL),
-(648, '2020-02-17', '13:56:00', 7, 88, NULL, NULL),
-(647, '2020-02-17', '13:55:00', 7, 88, NULL, NULL),
-(646, '2020-02-17', '13:54:00', 7, 88, NULL, NULL),
-(645, '2020-02-17', '13:54:00', 7, 88, NULL, NULL),
-(644, '2020-02-17', '13:52:00', 7, 88, NULL, NULL),
-(643, '2020-02-17', '13:50:00', 7, 88, NULL, NULL),
-(642, '2020-02-17', '13:29:00', 7, 88, NULL, NULL),
-(641, '2020-02-17', '13:26:00', 7, 88, NULL, NULL),
-(640, '2020-02-17', '13:26:00', 7, 88, NULL, NULL),
-(639, '2020-02-17', '13:24:00', 7, 88, NULL, NULL),
-(638, '2020-02-17', '13:23:00', 7, 88, NULL, NULL),
-(637, '2020-02-17', '13:22:00', 7, 88, NULL, NULL),
-(636, '2020-02-17', '13:21:00', 7, 88, NULL, NULL),
-(635, '2020-02-17', '13:21:00', 7, 88, NULL, NULL),
-(634, '2020-02-17', '13:19:00', 7, 88, NULL, NULL),
-(633, '2020-02-17', '13:17:00', 7, 88, NULL, NULL),
-(632, '2020-02-17', '13:16:00', 7, 88, NULL, NULL),
-(631, '2020-02-17', '13:15:00', 7, 88, NULL, NULL),
-(630, '2020-02-17', '13:13:00', 7, 88, NULL, NULL),
-(629, '2020-02-17', '13:13:00', 7, 88, NULL, NULL),
-(628, '2020-02-17', '13:12:00', 7, 88, NULL, NULL),
-(627, '2020-02-17', '13:12:00', 7, 88, NULL, NULL),
-(626, '2020-02-17', '13:11:00', 7, 88, NULL, NULL),
-(625, '2020-02-17', '08:57:00', 7, 88, NULL, NULL),
-(624, '2020-02-17', '08:55:00', 7, 88, NULL, NULL),
-(623, '2020-02-17', '08:53:00', 7, 88, NULL, NULL),
-(622, '2020-02-16', '16:07:00', 7, 88, NULL, NULL),
-(621, '2020-02-16', '16:05:00', 7, 88, NULL, NULL),
-(620, '2020-02-16', '16:03:00', 7, 88, NULL, NULL),
-(619, '2020-02-16', '16:03:00', 7, 88, NULL, NULL),
-(618, '2020-02-16', '15:55:00', 7, 88, NULL, NULL),
-(617, '2020-02-16', '15:55:00', 7, 88, NULL, NULL),
-(616, '2020-02-16', '15:39:00', 7, 88, NULL, NULL),
-(615, '2020-02-16', '15:39:00', 7, 88, NULL, NULL),
-(614, '2020-02-16', '15:39:00', 7, 88, NULL, NULL),
-(613, '2020-02-16', '15:38:00', 7, 88, NULL, NULL),
-(612, '2020-02-16', '15:35:00', 7, 88, NULL, NULL),
-(611, '2020-02-16', '14:13:00', 6, 88, NULL, NULL),
-(610, '2020-02-16', '14:13:00', 6, 88, NULL, NULL),
-(609, '2020-02-16', '14:12:00', 6, 88, NULL, NULL),
-(608, '2020-02-16', '14:08:00', 6, 88, NULL, NULL),
-(607, '2020-02-16', '14:07:00', 6, 88, NULL, NULL),
-(606, '2020-02-16', '14:06:00', 6, 88, NULL, NULL),
-(605, '2020-02-16', '14:05:00', 6, 88, NULL, NULL),
-(604, '2020-02-16', '14:04:00', 6, 88, NULL, NULL),
-(603, '2020-02-16', '13:13:00', 6, 88, NULL, NULL),
-(602, '2020-02-16', '13:13:00', 7, 88, NULL, NULL),
-(601, '2020-02-16', '13:12:00', 6, 88, NULL, NULL),
-(600, '2020-02-16', '13:10:00', 6, 88, NULL, NULL),
-(599, '2020-02-16', '13:09:00', 6, 88, NULL, NULL),
-(598, '2020-02-16', '13:08:00', 6, 88, NULL, NULL),
-(597, '2020-02-16', '13:07:00', 6, 88, NULL, NULL),
-(596, '2020-02-16', '13:06:00', 6, 88, NULL, NULL),
-(595, '2020-02-16', '13:01:00', 6, 88, NULL, NULL),
-(594, '2020-02-16', '12:59:00', 6, 88, NULL, NULL),
-(593, '2020-02-16', '12:04:00', 7, 88, NULL, NULL),
-(592, '2020-02-16', '11:39:00', 7, 88, NULL, NULL),
-(591, '2020-02-16', '11:38:00', 7, 88, NULL, NULL),
-(590, '2020-02-16', '11:34:00', 7, 88, NULL, NULL),
-(589, '2020-02-16', '11:26:00', 7, 88, NULL, NULL),
-(588, '2020-02-16', '11:25:00', 7, 88, NULL, NULL),
-(587, '2020-02-16', '11:25:00', 7, 88, NULL, NULL),
-(586, '2020-02-16', '11:24:00', 7, 88, NULL, NULL),
-(585, '2020-02-16', '11:16:00', 7, 88, NULL, NULL),
-(584, '2020-02-16', '11:15:00', 7, 88, NULL, NULL),
-(583, '2020-02-16', '11:14:00', 7, 88, NULL, NULL),
-(582, '2020-02-16', '11:13:00', 7, 88, NULL, NULL),
-(581, '2020-02-16', '11:12:00', 7, 88, NULL, NULL),
-(580, '2020-02-16', '11:11:00', 7, 88, NULL, NULL),
-(579, '2020-02-16', '11:10:00', 7, 88, NULL, NULL),
-(578, '2020-02-16', '11:09:00', 7, 88, NULL, NULL),
-(577, '2020-02-16', '11:08:00', 7, 88, NULL, NULL),
-(576, '2020-02-16', '11:01:00', 7, 88, NULL, NULL),
-(575, '2020-02-16', '11:00:00', 7, 88, NULL, NULL),
-(574, '2020-02-16', '10:47:00', 7, 88, NULL, NULL),
-(573, '2020-02-16', '10:46:00', 7, 88, NULL, NULL),
-(572, '2020-02-16', '10:45:00', 7, 88, NULL, NULL),
-(571, '2020-02-16', '10:45:00', 7, 88, NULL, NULL),
-(570, '2020-02-16', '10:44:00', 7, 88, NULL, NULL),
-(569, '2020-02-16', '10:44:00', 7, 88, NULL, NULL),
-(568, '2020-02-16', '10:43:00', 7, 88, NULL, NULL),
-(567, '2020-02-16', '10:43:00', 7, 88, NULL, NULL),
-(566, '2020-02-16', '10:43:00', 7, 88, NULL, NULL),
-(565, '2020-02-16', '10:42:00', 7, 88, NULL, NULL),
-(564, '2020-02-16', '10:41:00', 7, 88, NULL, NULL),
-(563, '2020-02-16', '10:38:00', 7, 88, NULL, NULL),
-(562, '2020-02-16', '10:38:00', 7, 88, NULL, NULL),
-(561, '2020-02-16', '10:38:00', 7, 88, NULL, NULL),
-(560, '2020-02-16', '10:27:00', 7, 88, NULL, NULL),
-(559, '2020-02-16', '10:25:00', 7, 88, NULL, NULL),
-(558, '2020-02-16', '10:25:00', 7, 88, NULL, NULL),
-(557, '2020-02-16', '10:21:00', 7, 88, NULL, NULL),
-(556, '2020-02-16', '10:20:00', 7, 88, NULL, NULL),
-(555, '2020-02-16', '10:20:00', 7, 88, NULL, NULL),
-(554, '2020-02-16', '10:17:00', 7, 88, NULL, NULL),
-(553, '2020-02-16', '10:12:00', 7, 88, NULL, NULL),
-(552, '2020-02-16', '10:09:00', 7, 88, NULL, NULL),
-(551, '2020-02-16', '10:09:00', 7, 88, NULL, NULL),
-(550, '2020-02-16', '10:08:00', 7, 88, NULL, NULL),
-(549, '2020-02-16', '10:06:00', 7, 88, NULL, NULL),
-(548, '2020-02-16', '10:05:00', 7, 88, NULL, NULL),
-(547, '2020-02-16', '10:02:00', 7, 88, NULL, NULL),
-(546, '2020-02-16', '10:01:00', 7, 88, NULL, NULL),
-(545, '2020-02-16', '09:58:00', 6, 88, NULL, NULL),
-(544, '2020-02-16', '09:57:00', 6, 88, NULL, NULL),
-(543, '2020-02-16', '09:56:00', 6, 88, NULL, NULL),
-(542, '2020-02-16', '09:55:00', 7, 88, NULL, NULL),
-(541, '2020-02-16', '09:53:00', 7, 88, NULL, NULL),
-(540, '2020-02-16', '09:51:00', 7, 88, NULL, NULL),
-(539, '2020-02-16', '09:50:00', 7, 88, NULL, NULL),
-(538, '2020-02-16', '09:50:00', 7, 88, NULL, NULL),
-(537, '2020-02-16', '09:48:00', 6, 88, NULL, NULL),
-(536, '2020-02-16', '09:48:00', 7, 88, NULL, NULL),
-(535, '2020-02-16', '09:47:00', 7, 88, NULL, NULL),
-(534, '2020-02-16', '09:42:00', 6, 88, NULL, NULL),
-(533, '2020-02-16', '09:41:00', 7, 88, NULL, NULL),
-(532, '2020-02-16', '09:40:00', 7, 88, NULL, NULL),
-(531, '2020-02-16', '09:39:00', 6, 88, NULL, NULL),
-(530, '2020-02-16', '09:38:00', 6, 88, NULL, NULL),
-(529, '2020-02-16', '09:19:00', 6, 88, NULL, NULL),
-(528, '2020-02-16', '09:18:00', 6, 88, NULL, NULL),
-(527, '2020-02-16', '09:18:00', 6, 88, NULL, NULL),
-(526, '2020-02-16', '09:17:00', 6, 88, NULL, NULL),
-(525, '2020-02-16', '09:16:00', 6, 88, NULL, NULL),
-(524, '2020-02-16', '09:16:00', 7, 88, NULL, NULL),
-(523, '2020-02-16', '09:16:00', 6, 88, NULL, NULL),
-(522, '2020-02-16', '09:14:00', 7, 88, NULL, NULL),
-(521, '2020-02-16', '09:14:00', 6, 88, NULL, NULL),
-(520, '2020-02-16', '09:12:00', 6, 88, NULL, NULL),
-(519, '2020-02-16', '09:12:00', 7, 88, NULL, NULL),
-(518, '2020-02-16', '09:11:00', 7, 88, NULL, NULL),
-(517, '2020-02-16', '09:09:00', 7, 88, NULL, NULL),
-(414, '2020-02-12', '13:55:00', 7, 88, NULL, NULL),
-(413, '2020-02-12', '13:54:00', 7, 88, NULL, NULL),
-(719, '2020-05-14', '23:13:00', 6, 88, NULL, NULL),
-(720, '2020-05-14', '23:14:00', 6, 88, NULL, NULL),
-(721, '2020-06-28', '15:16:00', 18, 102, NULL, NULL),
-(722, '2020-06-28', '15:22:00', 17, 102, NULL, NULL),
-(723, '2020-06-30', '09:54:00', 17, 102, NULL, NULL),
-(724, '2020-06-30', '10:03:00', 21, 102, NULL, NULL),
-(725, '2020-07-16', '14:06:00', 16, 102, NULL, NULL),
-(726, '2020-07-26', '10:35:00', 19, 102, NULL, NULL),
-(727, '2020-07-27', '14:18:00', 16, 102, NULL, NULL),
-(728, '2020-08-30', '14:36:00', 19, 102, NULL, NULL),
-(729, '2020-09-01', '10:31:00', 19, 102, NULL, NULL),
-(730, '2020-09-06', '10:26:00', 17, 102, NULL, NULL),
-(731, '2020-09-07', '10:35:00', 7, 102, NULL, NULL),
-(732, '2020-09-07', '10:35:00', 6, 102, NULL, NULL),
-(733, '2020-09-07', '10:39:00', 7, 102, NULL, NULL),
-(734, '2020-09-08', '14:59:00', 19, 102, NULL, NULL),
-(735, '2020-09-09', '14:41:00', 18, 102, NULL, NULL),
-(736, '2020-09-10', '14:41:00', 22, 102, NULL, NULL),
-(737, '2020-09-23', '09:01:00', 7, 102, NULL, NULL),
-(738, '2020-09-23', '09:01:00', 16, 102, NULL, NULL),
-(739, '2020-09-23', '09:05:00', 16, 102, NULL, NULL),
-(740, '2020-09-24', '08:11:00', 16, 102, NULL, NULL),
-(741, '2020-09-24', '08:21:00', 16, 102, NULL, NULL),
-(742, '2020-09-27', '13:19:00', 16, 102, NULL, NULL),
-(743, '2020-09-27', '13:24:00', 16, 102, NULL, NULL),
-(744, '2020-09-28', '09:01:00', 7, 102, NULL, NULL),
-(745, '2020-09-29', '10:49:00', 16, 102, NULL, NULL),
-(746, '2020-09-29', '10:58:00', 16, 102, NULL, NULL),
-(747, '2020-10-07', '13:08:00', 16, 102, NULL, NULL),
-(748, '2020-10-08', '10:49:00', 7, 102, NULL, NULL),
-(749, '2020-10-12', '14:15:00', 7, 102, NULL, NULL),
-(750, '2020-10-19', '14:19:00', 7, 102, NULL, NULL),
-(751, '2020-10-22', '14:04:00', 7, 102, NULL, NULL),
-(752, '2020-11-04', '09:42:00', 24, 102, NULL, NULL),
-(753, '2020-11-04', '10:06:00', 24, 102, NULL, NULL),
-(754, '2020-11-04', '10:18:00', 24, 102, NULL, NULL),
-(755, '2020-11-09', '13:04:00', 7, 102, NULL, NULL),
-(756, '2020-11-09', '13:05:00', 7, 102, NULL, NULL),
-(757, '2020-11-09', '14:28:00', 7, 102, NULL, NULL),
-(758, '2020-11-09', '14:42:00', 7, 102, NULL, NULL),
-(759, '2020-11-09', '15:05:00', 7, 102, NULL, NULL),
-(760, '2020-11-09', '15:07:00', 7, 102, NULL, NULL),
-(761, '2020-11-09', '15:17:00', 7, 102, NULL, NULL),
-(762, '2020-12-26', '10:36:00', 1, 102, NULL, NULL),
-(763, '2020-12-26', '10:39:00', 1, 102, NULL, NULL),
-(764, '2020-12-26', '10:39:00', 1, 102, NULL, NULL),
-(765, '2020-12-26', '10:39:00', 1, 102, NULL, NULL),
-(766, '2020-12-26', '10:40:00', 1, 102, NULL, NULL),
-(767, '2020-12-26', '10:47:00', 1, 102, NULL, NULL),
-(768, '2020-12-26', '10:48:00', 1, 102, NULL, NULL),
-(769, '2020-12-26', '10:51:00', 1, 102, NULL, NULL),
-(770, '2020-12-26', '10:51:00', 1, 102, NULL, NULL),
-(771, '2020-12-26', '10:54:00', 1, 102, NULL, NULL),
-(772, '2020-12-26', '10:55:00', 1, 102, NULL, NULL),
-(773, '2020-12-26', '10:55:00', 1, 102, NULL, NULL),
-(774, '2020-12-26', '10:56:00', 1, 102, NULL, NULL),
-(775, '2020-12-26', '10:57:00', 1, 102, NULL, NULL),
-(776, '2020-12-26', '10:58:00', 1, 102, NULL, NULL),
-(777, '2020-12-26', '10:58:00', 1, 102, NULL, NULL),
-(778, '2020-12-26', '11:00:00', 1, 102, NULL, NULL),
-(779, '2020-12-26', '11:02:00', 1, 102, NULL, NULL),
-(780, '2020-12-26', '11:03:00', 1, 102, NULL, NULL),
-(781, '2020-12-26', '11:05:00', 1, 102, NULL, NULL),
-(782, '2020-12-26', '11:06:00', 1, 102, NULL, NULL),
-(783, '2020-12-26', '11:07:00', 1, 102, NULL, NULL),
-(784, '2020-12-26', '11:07:00', 1, 102, NULL, NULL),
-(785, '2020-12-26', '11:09:00', 1, 102, NULL, NULL),
-(786, '2020-12-26', '11:10:00', 1, 102, NULL, NULL),
-(787, '2020-12-26', '11:10:00', 1, 102, NULL, NULL),
-(788, '2020-12-26', '11:11:00', 1, 102, NULL, NULL),
-(789, '2020-12-26', '11:14:00', 1, 102, NULL, NULL),
-(790, '2020-12-26', '13:59:00', 1, 102, NULL, NULL),
-(791, '2020-12-26', '13:59:00', 1, 102, NULL, NULL),
-(792, '2020-12-26', '14:00:00', 1, 102, NULL, NULL),
-(793, '2020-12-26', '14:02:00', 1, 102, NULL, NULL),
-(794, '2020-12-26', '14:02:00', 1, 102, NULL, NULL),
-(795, '2020-12-26', '14:04:00', 1, 102, NULL, NULL),
-(796, '2020-12-26', '14:08:00', 1, 102, NULL, NULL),
-(797, '2020-12-26', '14:10:00', 1, 102, NULL, NULL),
-(798, '2020-12-26', '14:10:00', 1, 102, NULL, NULL),
-(799, '2020-12-26', '14:11:00', 1, 102, NULL, NULL),
-(800, '2020-12-26', '14:12:00', 1, 102, NULL, NULL),
-(801, '2020-12-26', '14:14:00', 1, 102, NULL, NULL),
-(802, '2020-12-26', '14:15:00', 1, 102, NULL, NULL),
-(803, '2020-12-26', '14:16:00', 1, 102, NULL, NULL),
-(804, '2020-12-26', '14:18:00', 1, 102, NULL, NULL),
-(805, '2020-12-26', '14:21:00', 1, 102, NULL, NULL),
-(806, '2020-12-26', '14:21:00', 1, 102, NULL, NULL),
-(807, '2020-12-26', '14:22:00', 1, 102, NULL, NULL),
-(808, '2020-12-26', '14:23:00', 1, 102, NULL, NULL),
-(809, '2020-12-26', '14:26:00', 1, 102, NULL, NULL),
-(810, '2020-12-26', '14:35:00', 1, 102, NULL, NULL),
-(811, '2020-12-26', '14:38:00', 1, 102, NULL, NULL),
-(812, '2020-12-26', '14:40:00', 1, 102, NULL, NULL),
-(813, '2020-12-26', '14:45:00', 1, 102, NULL, NULL),
-(814, '2020-12-26', '14:46:00', 1, 102, NULL, NULL),
-(815, '2020-12-26', '14:56:00', 1, 102, NULL, NULL),
-(816, '2020-12-26', '14:57:00', 1, 102, NULL, NULL),
-(817, '2020-12-26', '14:58:00', 1, 102, NULL, NULL),
-(818, '2020-12-26', '14:59:00', 1, 102, NULL, NULL),
-(819, '2020-12-26', '15:00:00', 1, 102, NULL, NULL),
-(820, '2020-12-26', '15:05:00', 1, 102, NULL, NULL),
-(821, '2020-12-26', '15:05:00', 1, 102, NULL, NULL),
-(822, '2020-12-26', '15:07:00', 1, 102, NULL, NULL),
-(823, '2020-12-26', '15:08:00', 1, 102, NULL, NULL),
-(824, '2020-12-26', '15:30:00', 1, 102, NULL, NULL),
-(825, '2020-12-26', '15:31:00', 1, 102, NULL, NULL),
-(826, '2020-12-26', '15:32:00', 1, 102, NULL, NULL),
-(827, '2020-12-26', '15:32:00', 1, 102, NULL, NULL),
-(828, '2020-12-26', '15:38:00', 1, 102, NULL, NULL),
-(829, '2020-12-26', '15:41:00', 1, 102, NULL, NULL),
-(830, '2020-12-26', '15:42:00', 1, 102, NULL, NULL),
-(831, '2020-12-26', '15:43:00', 1, 102, NULL, NULL),
-(832, '2020-12-26', '15:44:00', 1, 102, NULL, NULL),
-(833, '2020-12-26', '15:46:00', 1, 102, NULL, NULL),
-(834, '2020-12-26', '15:46:00', 1, 102, NULL, NULL),
-(835, '2020-12-26', '15:48:00', 1, 102, NULL, NULL),
-(836, '2020-12-26', '15:50:00', 1, 102, NULL, NULL),
-(837, '2020-12-26', '15:50:00', 1, 102, NULL, NULL),
-(838, '2020-12-26', '15:51:00', 1, 102, NULL, NULL),
-(839, '2020-12-26', '15:53:00', 1, 102, NULL, NULL),
-(840, '2020-12-26', '15:53:00', 1, 102, NULL, NULL),
-(841, '2020-12-26', '15:54:00', 1, 102, NULL, NULL),
-(842, '2020-12-26', '15:54:00', 1, 102, NULL, NULL),
-(843, '2020-12-26', '15:56:00', 1, 102, NULL, NULL),
-(844, '2020-12-26', '15:57:00', 1, 102, NULL, NULL),
-(845, '2020-12-26', '15:57:00', 1, 102, NULL, NULL),
-(846, '2020-12-26', '16:01:00', 1, 102, NULL, NULL),
-(847, '2020-12-26', '16:02:00', 1, 102, NULL, NULL),
-(848, '2020-12-26', '16:14:00', 1, 102, NULL, NULL),
-(849, '2020-12-26', '16:14:00', 1, 102, NULL, NULL),
-(850, '2020-12-26', '16:21:00', 1, 102, NULL, NULL),
-(851, '2020-12-26', '16:22:00', 1, 102, NULL, NULL),
-(852, '2020-12-26', '16:22:00', 1, 102, NULL, NULL),
-(853, '2020-12-26', '16:24:00', 1, 102, NULL, NULL),
-(854, '2020-12-26', '16:26:00', 1, 102, NULL, NULL),
-(855, '2020-12-26', '16:26:00', 1, 102, NULL, NULL),
-(856, '2020-12-26', '16:31:00', 1, 102, NULL, NULL),
-(857, '2020-12-26', '16:36:00', 1, 102, NULL, NULL),
-(858, '2020-12-26', '16:38:00', 1, 102, NULL, NULL),
-(859, '2020-12-26', '16:45:00', 1, 102, NULL, NULL),
-(860, '2020-12-26', '16:48:00', 1, 102, NULL, NULL),
-(861, '2020-12-26', '16:49:00', 1, 102, NULL, NULL),
-(862, '2020-12-26', '16:50:00', 1, 102, NULL, NULL),
-(863, '2020-12-26', '16:51:00', 1, 102, NULL, NULL);
+(899, '2020-12-27', '09:40:00', 1, 102, NULL, NULL),
+(968, '2020-12-28', '14:41:00', 1, 102, NULL, NULL),
+(967, '2020-12-28', '14:40:00', 1, 102, NULL, NULL),
+(966, '2020-12-28', '14:39:00', 1, 102, NULL, NULL),
+(965, '2020-12-28', '14:37:00', 1, 102, NULL, NULL),
+(964, '2020-12-28', '14:33:00', 1, 102, NULL, NULL),
+(963, '2020-12-28', '14:31:00', 1, 102, NULL, NULL),
+(962, '2020-12-28', '12:53:00', 1, 102, NULL, NULL),
+(961, '2020-12-28', '12:43:00', 1, 102, NULL, NULL),
+(960, '2020-12-28', '12:42:00', 1, 102, NULL, NULL),
+(959, '2020-12-28', '12:17:00', 1, 102, NULL, NULL),
+(958, '2020-12-28', '12:16:00', 1, 102, NULL, NULL),
+(957, '2020-12-28', '12:13:00', 1, 102, NULL, NULL),
+(956, '2020-12-28', '12:13:00', 1, 102, NULL, NULL),
+(955, '2020-12-28', '12:12:00', 1, 102, NULL, NULL),
+(954, '2020-12-28', '12:11:00', 1, 102, NULL, NULL),
+(953, '2020-12-28', '12:11:00', 1, 102, NULL, NULL),
+(952, '2020-12-28', '12:03:00', 1, 102, NULL, NULL),
+(951, '2020-12-28', '12:02:00', 1, 102, NULL, NULL),
+(950, '2020-12-28', '11:59:00', 1, 102, NULL, NULL),
+(949, '2020-12-28', '11:57:00', 1, 102, NULL, NULL),
+(902, '2020-12-27', '09:45:00', 1, 102, NULL, NULL),
+(901, '2020-12-27', '09:44:00', 1, 102, NULL, NULL),
+(948, '2020-12-28', '11:28:00', 1, 102, NULL, NULL),
+(947, '2020-12-28', '11:26:00', 1, 102, NULL, NULL),
+(946, '2020-12-28', '10:43:00', 1, 102, NULL, NULL),
+(945, '2020-12-28', '10:36:00', 1, 102, NULL, NULL),
+(944, '2020-12-27', '15:00:00', 1, 102, NULL, NULL),
+(942, '2020-12-27', '11:51:00', 1, 102, NULL, NULL),
+(936, '2020-12-27', '11:35:00', 1, 102, NULL, NULL),
+(935, '2020-12-27', '11:35:00', 1, 102, NULL, NULL),
+(934, '2020-12-27', '11:35:00', 1, 102, NULL, NULL),
+(933, '2020-12-27', '10:55:00', 1, 102, NULL, NULL),
+(928, '2020-12-27', '10:36:00', 1, 102, NULL, NULL),
+(923, '2020-12-27', '10:32:00', 1, 102, NULL, NULL),
+(919, '2020-12-27', '10:28:00', 1, 102, NULL, NULL),
+(916, '2020-12-27', '10:22:00', 1, 102, NULL, NULL),
+(915, '2020-12-27', '10:22:00', 1, 102, NULL, NULL),
+(914, '2020-12-27', '10:20:00', 1, 102, NULL, NULL),
+(911, '2020-12-27', '10:14:00', 1, 102, NULL, NULL),
+(910, '2020-12-27', '10:13:00', 1, 102, NULL, NULL),
+(909, '2020-12-27', '10:07:00', 1, 102, NULL, NULL),
+(908, '2020-12-27', '10:01:00', 1, 102, NULL, NULL),
+(907, '2020-12-27', '09:58:00', 1, 102, NULL, NULL),
+(906, '2020-12-27', '09:58:00', 1, 102, NULL, NULL),
+(905, '2020-12-27', '09:56:00', 1, 102, NULL, NULL),
+(904, '2020-12-27', '09:46:00', 1, 102, NULL, NULL),
+(903, '2020-12-27', '09:46:00', 1, 102, NULL, NULL),
+(889, '2020-12-27', '09:10:00', 1, 102, NULL, NULL),
+(891, '2020-12-27', '09:16:00', 1, 102, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12367,7 +12100,7 @@ ALTER TABLE `demande_produits`
 --
 ALTER TABLE `demande_reactif`
   ADD CONSTRAINT `demande_reactif_ibfk_1` FOREIGN KEY (`id_demande`) REFERENCES `demande_produits` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `demande_reactif_ibfk_2` FOREIGN KEY (`id_reactif`) REFERENCES `reactifs-sup` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `demande_reactif_ibfk_2` FOREIGN KEY (`id_reactif`) REFERENCES `reactifs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `employs`
