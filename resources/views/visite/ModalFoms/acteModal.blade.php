@@ -7,8 +7,8 @@
 					<div class="modal-body">
 				      <form id="addActe" method="POST" action ="/saveActe" name="form1" id="form1">	<!-- /Acte/save -->
 				 		{{ csrf_field() }}
-				 		<input type="hidden" name="id_visite" id ="id_visite" value="{{ $id }}">
 				 		<input type="hidden" value="" name="idhosp">
+				 		<input type="hidden" name="id_visite" id ="id_visite" value="{{ $id }}">
 				 		<input type="hidden" value=""  id ="acte_id" name="acte_id">
 				 		<div class="space-12"></div>
 			 			<div class="row">

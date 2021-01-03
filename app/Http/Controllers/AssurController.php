@@ -177,9 +177,8 @@ class AssurController extends Controller
      */
         public function destroy(Request $request , $id) 
         {
-            //$handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word"); 
+          //$handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word"); 
           $handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word"); 
-
           if($handle != null)
             {
               $ass = $handle->SelectPersonnel(trim('12122'),trim(''));

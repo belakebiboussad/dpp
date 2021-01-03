@@ -51,6 +51,15 @@ class VisiteController extends Controller
       $visite->id_hosp=$id_hosp;
       $visite->id_employe=Auth::User()->employee_id;
       $specialitesProd = specialite_produit::all();
+      // foreach($hosp->visites as $visite)
+      // {
+      //   foreach($visite->traitements as $trait)
+      //   {
+      //      echo($trait->medicament);
+      //      echo("<br>");
+      //   }
+      // }  
+      // dd("ddf");
       $visite->save();
       return view('visite.create',compact('hosp','patient','specialitesProd'))->with('id',$visite->id);
     }

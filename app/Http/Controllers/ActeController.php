@@ -40,13 +40,8 @@ class ActeController extends Controller
     public function update(Request $request,$id)
     {
         $acte = Acte::FindOrFail($id);
-        // $acte -> update([  //     "nom"=>$request->nom,  //     "id_visite"=>$request->id_visite,
-        //     "description"=>$request->description, //     "type"=>$request->type,//     "periodes"=>$request->periodes,//json_encode(
-        //     "duree"=>$request->duree,         
-        // ]);
-        $acte->update($request->all());
-        // $acte->remember_token;
-        // $acte->save();
+//$acte -> update(["nom"=>$request->nom,"id_visite"=>$request->id_visite,"description"=>$request->description,"type"=>$request->type,//     "periodes"=>$request->periodes,//json_encode("duree"=>$request->duree,]);
+        $acte->update($request->all()); // $acte->remember_token;// $acte->save();
         return Response::json(['acte'=>$acte,'visite'=>$acte->visite,'medecin'=>$acte->visite->medecin]); 
 
     }

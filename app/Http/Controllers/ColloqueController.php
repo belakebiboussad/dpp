@@ -159,13 +159,13 @@ class ColloqueController extends Controller
         return redirect()->action('ColloqueController@index',$colloque->type);  
   }
   public function destroy($id){
-      $col = colloque::find($id, ['type']);
-      foreach($col->employs as $employ)
-      {
-        $col->employs()->dettach($employ);
-      }
-      $colloque = colloque::destroy($id);
-      return redirect()->action('ColloqueController@index',$col->type);
+    $col = colloque::find($id, ['type']);
+    foreach($col->employs as $employ)
+    {
+      $col->employs()->dettach($employ);
+    }
+    $colloque = colloque::destroy($id);
+    return redirect()->action('ColloqueController@index',$col->type);
   }
 }
 

@@ -15,7 +15,11 @@ class visite extends Model
   }
   public function actes()
   {
-  	return $this->hasMany('App\modeles\Acte','id_visite')->where('retire','=', 0);;
+  	return $this->hasMany('App\modeles\Acte','id_visite')->where('retire','=', 0);
+  }
+  public function traitements()
+  {
+    return $this->hasMany('App\modeles\Traitement','visite_id');
   }
   public function medecin(){
     return $this->belongsTo('App\modeles\employ','id_employe');

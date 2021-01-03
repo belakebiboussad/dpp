@@ -2,13 +2,12 @@
 			<div class="modal-dialog modal-lg">
 				<div  id="" class="modal-content custom-height-modal">
 					<div class="modal-header">
-			  			<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Ajouter un Traitement Médicale</h4>
+			  			<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Ajouter un Traitement Médical</h4>
 			  		</div>
 					<div class="modal-body">
 				    <form id="addTrait" method="POST" action ="{{route('traitement.store')}}" name="form1" id="form1">	<!-- /Acte/save -->
 				 		{{ csrf_field() }}
-				 		<input type="hidden" name="id_visite" id ="id_visite" value="{{ $id }}">
-				 		<input type="hidden" value="" name="idhosp">
+				 		<input type="hidden" name="id_visite" id ="id_visiteT" value="{{ $id }}"><!-- <input type="hidden" value="" name="idhosp"> -->
 				 		<input type="hidden" value="" id ="trait_id" name="trait_id">
 				 		<div class="space-12"></div>
 			 			<div class="row">
@@ -28,7 +27,7 @@
 			 			<div class="row">
 			 				<div class="form-group">
 								<label for=""class="col-sm-3 control-label no-padding-right"><b>Médicament:</b></label>
-								<div class="col-sm-7">
+								<div class="col-sm-7 id_100">
 									<select type="text" name="produit" id="produit" data-placeholder="selectionnez le Médicament" class="selectpicker show-menu-arrow place_holde form-control col-sm-6" disabled>
 									</select>
 								</div>
@@ -49,13 +48,13 @@
 					 		    <label for="" class="control-label no-padding-right"><b>Periodes:</b></label>
 					 			</div>
 						 		<div class="col-sm-3">
-						 			<label class="checkbox-inline ace"><input type="checkbox" name="pT[]" id="Matin" value="Matin" checked><b>Matin</b></label>
+						 			<label class="checkbox-inline ace"><input type="checkbox" name="pT[]" id="TMatin" value="Matin" checked><b>Matin</b></label>
 						 		</div>	
 						 		<div class="col-sm-3">	
-									<label class="checkbox-inline ace"><input type="checkbox" name="pT[]" id="Midi" value="Midi"><b>Midi</b></label>
+									<label class="checkbox-inline ace"><input type="checkbox" name="pT[]" id="TMidi" value="Midi"><b>Midi</b></label>
 								</div>
 								<div class="col-sm-3">
-									<label class="checkbox-inline ace"><input type="checkbox" name="pT[]" id="Soir" value="Soir"><b>Soir</b></label>
+									<label class="checkbox-inline ace"><input type="checkbox" name="pT[]" id="TSoir" value="Soir"><b>Soir</b></label>
 								</div>
 							</div>
 					 		<div class="space-12"></div>

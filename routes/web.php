@@ -43,7 +43,6 @@ Route::resource('demandeexr','DemandeExamenRadio');
 Route::resource('visites','VisiteController'); 
 Route::resource('acte','ActeController');
 Route::resource('traitement','TraitementController');
-
 Route::resource('surveillance','SurveillanceController');
 Route::resource('reservation','BedReservationController');
 route::get('/home_admin',function (){
