@@ -182,7 +182,7 @@ class AssurController extends Controller
           $handle = new COM("GRH.Personnel") or die("Unable to instanciate Word");
           if($handle != null)
             {
-              $ass = $handle->SelectPersonnel(trim('12122'),trim(''));
+              $ass = $handle->SelectPersonnel(trim('po452'),trim(''));
               //dd($ass->Date_Naissance);//10/05/1970
              $date = Carbon::CreateFromFormat('d/m/Y',$ass->Date_Naissance)->format('Y-m-d'); 
               dd($date);
