@@ -364,9 +364,9 @@
       {
             $.get('/hommeConfiance/'+id+'/edit', function (data) {
               $('#patientId').val(data.id_patient);
-              $('#type option').each(function() {
-              if($(this).val() == data.type) 
-                  $(this).prop("selected", true);
+              $('#typeH option').each(function() {
+                if($(this).val() == data.type) 
+                    $(this).prop("selected", true);
               });  
               $('#hom_id').val(data.id);  $('#nom_h').val(data.nom);$('#prenom_h').val(data.prenom);
               $('#datenaissance_h').val(data.date_naiss);  $('#lien_par').val(data.lien_par).change();    
@@ -455,12 +455,12 @@
         $('#addGardeMalade *').prop('disabled', true);
       });
       jQuery('body').on('click', '.open-modal', function () {
-        HommeConfcopy($(this).val());
-        jQuery('#EnregistrerGardeMalade').val("update");
-        if($('#EnregistrerGardeMalade').is(":hidden"))
-            jQuery('#EnregistrerGardeMalade').show();
+              HommeConfcopy($(this).val());
+              jQuery('#EnregistrerGardeMalade').val("update");
+              $('#gardeMalade').modal('toggle');
       });
       $("#EnregistrerGardeMalade").click(function (e) {
+        $('#gardeMalade').modal('toggle');
         $.ajaxSetup({
           headers: {
             'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
@@ -472,7 +472,7 @@
             nom:$('#nom_h').val(),
             prenom : $('#prenom_h').val(),
             date_naiss : $('#datenaissance_h').val(),
-            type:$('#type').val(),
+            type:$('#typeH').val(),
             lien_par : $('#lien_par').val(),
             type_piece : $("input[name='type_piece']:checked").val(),
             num_piece : $('#num_piece').val(),
@@ -487,24 +487,70 @@
           type = "PUT"; ajaxurl = '/hommeConfiance/' + hom_id;
         }
         if (state == "add") {
-          ajaxurl ="{{ route('hommeConfiance.store') }}";
+              ajaxurl ="{{ route('hommeConfiance.store') }}";
         }
-        $('#hom_id').val("");$('#nom_h').val("");$('#prenom_h').val("");$('#datenaissance_h').val("");$('#num_piece').val("");  $('#date_piece_id').val("");
-        $('#adresse_h').val("");$('#mobile_h').val("");
+      $('#addGardeMalade').trigger("reset");
         $.ajax({
             type: type,
             url: ajaxurl,
             data: formData,
             dataType: 'json',
             success: function (data) {
-                $('#gardeMalade').hide();
-                jQuery('#gardeMalade').modal('hide');
-                if($('.dataTables_empty').length > 0)
-                {
-                  $('.dataTables_empty').remove();
+                    //$('#gardeMalade').hide();
+                    //jQuery('#gardeMalade').modal('hide');
+                    if($('.dataTables_empty').length > 0)
+                    {
+                      $('.dataTables_empty').remove();
+                    }
+                   switch(data.lien_par){
+                          case "0":
+                                lien="Conjoint(e)";
+                                break;
+                           case "1":
+                                 lien="Père";
+                                break;
+                           case "2":
+                                lien="Mère";
+                                break;
+                           case "3":
+                                lien="Frère";
+                                 break;
+                           case "4":
+                                lien="Soeur";
+                                break;
+                          case "5":
+                                lien="Ascendant";
+                                break;
+                          case "6":
+                                lien="Grand-parent";
+                                break; 
+                          case "7":
+                                lien="Membre de famille";
+                                break;
+                          case "8":
+                                lien="Ami";
+                                break;              
+                          case "9":
+                                lien="Collègue";
+                                break; 
+                          case "10":
+                                lien="Employeur";
+                                break; 
+                          case "11":
+                                lien="Employé";
+                                break; 
+                          case "12":
+                                lien="Tuteur";
+                                break; 
+                         case "13":
+                                lien="Autre";
+                                break; 
+                         default:
+                                break;
                 }
-                var homme = '<tr id="garde' + data.id + '"><td class="hidden">' + data.id_patient + '</td><td>' + data.nom + '</td><td>' + data.prenom + '</td><td>'+ data.date_naiss +'</td><td>' + data.adresse + '</td><td>'+ data.mob + '</td><td>' + data.lien_par + '</td><td>' + data.type_piece + '</td><td>' + data.num_piece + '</td><td>' +  data.date_deliv + '</td>';
-                homme += '<td class ="center"><button type="button" class="btn btn-xs btn-success show-modal" value="' + data.id + '"><i class="ace-icon fa fa-hand-o-up fa-xs"></i></button>&nbsp;'; 
+                  var homme = '<tr id="garde' + data.id + '"><td class="hidden">' + data.id_patient + '</td><td>' + data.nom + '</td><td>' + data.prenom + '</td><td>'+ data.date_naiss              +'</td><td>' + data.adresse + '</td><td>'+ data.mob + '</td><td>' + lien + '</td><td>' + data.type_piece + '</td><td>' + data.num_piece 
+                                    + '</td><td>' +  data.date_deliv + '</td>';
+                     homme += '<td class ="center"><button type="button" class="btn btn-xs btn-success show-modal" value="' + data.id + '"><i class="ace-icon fa fa-hand-o-up fa-xs"></i></button>&nbsp;'; 
                 homme += '<button type="button" class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
                 homme += '<button type="button" class="btn btn-xs btn-danger delete-garde" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
                 if (state == "add") {

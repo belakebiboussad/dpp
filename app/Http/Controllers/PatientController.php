@@ -254,7 +254,7 @@ class PatientController extends Controller
     {  
       $patient = patient::FindOrFail($id);
       $hommes_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
-      if(!(isset($asure_id)))
+     if(!(isset($asure_id)))
       {   
         $assure=null ;
         $grades = grade::all(); 

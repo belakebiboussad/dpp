@@ -15,12 +15,11 @@
 			 },
      	});
       $('td.dataTables_empty').html('');
-      /////
       $('#btn-addActe').click(function () {
-     	  $('#EnregistrerActe').val("add");
-        $('#addActe').trigger("reset");
-        $('#acteCrudModal').html("Ajouter un Acte Médicale");
-        $('#acteModal').modal('show');
+	     	  $('#EnregistrerActe').val("add");
+	        $('#addActe').trigger("reset");
+	        $('#acteCrudModal').html("Ajouter un Acte Médicale");
+	        $('#acteModal').modal('show');
       });  
     /////////////
     //////////////////Enregistre acte

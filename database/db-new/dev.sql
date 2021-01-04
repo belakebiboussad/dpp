@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 04 jan. 2021 à 21:06
--- Version du serveur :  5.7.23
--- Version de PHP :  7.2.10
+-- Généré le :  lun. 04 jan. 2021 à 22:12
+-- Version du serveur :  5.7.21
+-- Version de PHP :  7.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -79,9 +79,9 @@ INSERT INTO `actes` (`id`, `nom`, `id_visite`, `description`, `type`, `periodes`
 (107, 'acteqstste', 952, NULL, 'paramedicale', '[\"Matin\", \"Midi\"]', 10, 0, b'1', NULL, NULL),
 (108, 'acte41', 969, 'le matin est soir', 'medicale', '[\"Matin\", \"Midi\"]', 10, 0, b'1', NULL, NULL),
 (109, 'nom', 971, 'picure', 'paramedicale', '[\"Matin\", \"Soir\"]', 2, 0, b'1', NULL, NULL),
-(110, 'gilule', 1093, 'gilule', 'medicale', '[\"Matin\", \"Soir\"]', 3, 0, b'0', NULL, NULL),
+(110, 'gilule', 1165, 'gilule', 'paramedicale', '[\"Matin\", \"Soir\"]', 3, 0, b'0', NULL, NULL),
 (111, 'iou', 1074, 'muiom', 'paramedicale', '[\"Matin\", \"Midi\"]', 1, 0, b'1', NULL, NULL),
-(112, 'acte medicale', 1098, 'ajouter pour le malade', 'paramedicale', '[\"Matin\", \"Midi\"]', 2, 0, b'0', NULL, NULL),
+(112, 'acte medicale', 1165, 'ajouter pour le malade', 'paramedicale', '[\"Matin\", \"Soir\"]', 3, 0, b'0', NULL, NULL),
 (113, 'fg', 1089, 'gfdg', 'paramedicale', '[\"Matin\", \"Midi\"]', 7, 0, b'1', NULL, NULL),
 (114, 'un nouveau acte', 1098, 'appliquer le soir', 'paramedicale', '[\"Matin\", \"Soir\"]', 5, 0, b'1', NULL, NULL),
 (115, 'un nouveau traitement', 1098, 'inperative', 'medicale', '[\"Matin\", \"Soir\"]', 2, 0, b'1', NULL, NULL),
@@ -2286,7 +2286,7 @@ CREATE TABLE IF NOT EXISTS `dairas` (
   `nom` varchar(255) DEFAULT NULL,
   `Id_wilaya` int(11) NOT NULL,
   PRIMARY KEY (`Id`,`Id_wilaya`),
-  KEY `fk_daira_wilaya1_idx` (`Id_wilaya`)
+  KEY `fk_daira_wilaya` (`Id_wilaya`)
 ) ENGINE=InnoDB AUTO_INCREMENT=553 DEFAULT CHARSET=utf8;
 
 --
@@ -4181,8 +4181,8 @@ CREATE TABLE IF NOT EXISTS `homme_confs` (
   `nom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `prenom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date_naiss` date DEFAULT NULL,
-  `type` enum('prevenir','garde') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'prevenir',
-  `lien_par` enum('Conjoint','Père','Mère','Frère','Soeur','Ascendant','Grand-parent','membre_famille','Ami','Collègue','Employeur','Employé','Tuteur','Autre') COLLATE utf8mb4_unicode_ci DEFAULT 'Autre',
+  `type` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '0:garde,1:prevenir',
+  `lien_par` enum('0','1','2','3','4','5','6-parent','7','8','9','10','11','12','13') COLLATE utf8mb4_unicode_ci DEFAULT '13' COMMENT '0:Conjoint,1:Père,2:Mère,3:Frère,4:Soeur,5:Ascendant'',6:Grand-parent'',7:membre_famille'',8:Ami'',9:Collègue'',10:Employeur'',11:Employé'',12:Tuteur'',13:Autre',
   `type_piece` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `num_piece` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date_deliv` date DEFAULT NULL,
@@ -4196,53 +4196,14 @@ CREATE TABLE IF NOT EXISTS `homme_confs` (
   PRIMARY KEY (`id`),
   KEY `fk_hommconf_user` (`created_by`),
   KEY `fk_hommconf_user1` (`updated_by`)
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `homme_confs`
 --
 
 INSERT INTO `homme_confs` (`id`, `id_patient`, `nom`, `prenom`, `date_naiss`, `type`, `lien_par`, `type_piece`, `num_piece`, `date_deliv`, `adresse`, `mob`, `etat_hc`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(3, 31, 'mohand', 'amghar', '1954-11-03', 'prevenir', 'Père', 'CNI', '23256512', '2017-06-20', 'alger', '0555555555', 'actuel', '2019-02-26 09:50:11', '2019-02-26 09:50:11', 88, NULL),
-(4, 70, 'pere', 'pere', '2015-06-23', 'prevenir', 'Père', 'CNI', '346464', '2019-02-12', 'alger', '0666666666', 'actuel', '2019-02-26 09:56:17', '2019-02-26 09:56:17', 88, NULL),
-(5, 71, 'pere', 'pere', '1963-05-20', 'prevenir', 'Père', 'CNI', '16464', '2019-02-05', 'alger', '0666666666', 'actuel', '2019-02-26 10:00:06', '2019-02-26 10:00:06', 88, NULL),
-(6, 72, 'mere', 'merepatient', '1924-06-21', 'prevenir', 'Mère', 'Permis', '3413454364', '1924-06-21', 'alger', '0552635265', 'archivé', '2019-02-26 10:33:50', '2019-02-26 14:09:46', 88, NULL),
-(7, 74, 'ami', 'ami', '2007-05-14', 'prevenir', 'Ami', 'Permis', '465653263', '2019-02-13', 'alger', '0556323266', 'actuel', '2019-02-26 11:30:48', '2019-02-26 11:30:48', 88, NULL),
-(8, 75, 'frere', 'soeau', '2015-06-30', 'prevenir', 'Frère', 'Permis', '2123145646', '2015-06-30', 'algr', '0765656565', 'archivé', '2019-02-26 12:19:01', '2019-02-26 12:30:11', 88, NULL),
-(9, 75, 'pere26', 'pere26', '1934-06-27', 'prevenir', 'Père', 'CNI', '44546823', '2010-05-24', 'alger', '0555633255', 'actuel', '2019-02-26 12:29:57', '2019-02-26 12:29:57', 88, NULL),
-(10, 72, 'oncle', 'oncle', '1854-10-24', 'prevenir', 'membre_famille', 'Permis', '2123145598', '1854-10-24', 'alger', '0562554455', 'actuel', '2019-02-26 14:09:45', '2019-02-26 15:10:34', 88, NULL),
-(11, 22, 'mama', 'mama', '1964-06-30', 'prevenir', 'Mère', 'Permis', '02326565', '1964-06-30', 'blida', '0565656655', 'archivé', '2019-02-26 15:45:22', '2019-02-27 10:16:09', 88, NULL),
-(12, 48, 'ami', 'ami', '1980-02-05', 'prevenir', 'Ami', 'CNI', '3546433', '1980-02-05', 'alger', '0562321254', 'actuel', '2019-02-27 06:39:24', '2019-02-27 06:39:59', 88, NULL),
-(13, 30, 'oncle1', 'oncle1', '2013-05-20', 'prevenir', 'Ascendant', 'CNI', '3546433', '2013-05-20', 'alger16', '2561251554', 'actuel', '2019-02-27 10:00:11', '2019-12-26 13:46:49', 88, NULL),
-(14, 84, 'frere', 'frer', '2015-06-16', 'prevenir', 'Frère', 'CNI', '3215645646', '2015-06-16', 'fdgdfg', '0555555555', 'actuel', '2019-02-27 13:17:43', '2019-02-27 13:21:26', 88, NULL),
-(16, 31, 'a', 'a', '2017-08-14', 'prevenir', 'Conjoint', 'Passeport', '04042042', '2019-12-16', 'aa', '0555555555', 'actuel', '2019-02-28 07:31:26', '2020-07-13 06:57:40', 102, NULL),
-(17, 88, 'îo', 'io', '2019-12-04', 'prevenir', 'Tuteur', 'CNI', '04042042', '2019-12-16', 'jkghjl', '0555555555', 'archivé', '2019-12-19 14:02:47', '2019-12-22 09:21:12', 88, NULL),
-(18, 88, 'ety', 'rtu', '2017-08-15', 'prevenir', 'Père', 'CNI', '04042042', '2019-12-15', 'r', '0555555555', 'actuel', '2019-12-22 09:21:12', '2019-12-22 09:21:12', 88, NULL),
-(19, 22, 'garde', 'confiance', '2019-12-22', 'prevenir', 'Mère', 'CNI', '04042042', '2019-12-16', 'alger', '0555555555', 'actuel', '2019-12-22 09:26:10', '2019-12-26 10:57:48', 88, NULL),
-(35, 22, 'îo', 'prenom1', '2010-08-15', 'prevenir', 'Frère', 'CNI', '04042042', '2012-12-16', 'to', '0555555555', 'actuel', '2019-12-26 10:19:03', '2019-12-30 13:20:38', 88, NULL),
-(39, 22, 'vdv', 'vdv', '2017-08-15', 'prevenir', 'Père', 'CNI', '04042042', '2019-12-15', 'dvdv', '0545656565', 'actuel', '2019-12-26 11:05:21', '2019-12-26 11:05:21', 88, NULL),
-(42, 22, 'alpo', 'capo', '2019-12-22', 'garde', 'Père', 'CNI', '04042042', '2019-12-16', 'blida', '0656555555', 'actuel', '2019-12-26 11:29:00', '2020-07-26 11:10:50', 102, NULL),
-(52, 30, 'mere', 'mere', '1968-05-21', 'prevenir', 'Mère', 'CNI', '05612358', '1998-10-21', 'alger', '0565865656', 'actuel', '2019-12-29 09:48:16', '2019-12-29 09:48:16', 88, NULL),
-(55, 46, 'îo', 'io', '2019-12-04', 'prevenir', 'Père', 'Passeport', '04042042', '2019-12-16', 'alger', '0588888888', 'actuel', '2020-01-28 13:06:02', '2020-01-28 13:06:02', 88, NULL),
-(56, 117, 's', 's', NULL, 'prevenir', NULL, 'Permis', 's1654656s', NULL, NULL, '0777777777', 'actuel', '2020-06-14 14:08:13', '2020-06-14 14:08:13', 87, NULL),
-(57, 118, 's', 's', NULL, 'prevenir', 'Père', 'Permis', 's1654656s', NULL, NULL, '0777777777', 'actuel', '2020-06-14 14:08:38', '2020-06-14 14:08:57', 87, NULL),
-(58, 121, 'hrth', 'htrh', '2020-06-01', 'prevenir', 'Père', 'Permis', '3265959', NULL, NULL, '0555555555', 'actuel', '2020-06-16 11:17:25', '2020-06-16 11:17:25', 87, NULL),
-(59, 124, 'homme1', 'homme1', '1989-05-21', 'prevenir', 'Père', 'CNI', '0255814', '2020-06-02', 'alger', '0555555555', 'actuel', '2020-06-16 12:30:25', '2020-06-16 12:30:25', 87, NULL),
-(60, 143, 'w', 'd', NULL, 'prevenir', NULL, 'Permis', '556w', NULL, NULL, '0555555555', 'actuel', '2020-07-12 10:57:08', '2020-07-12 10:57:34', 88, NULL),
-(70, 146, 'garde', 'dsqd', '2017-08-01', 'prevenir', 'Mère', 'Passeport', 'dsqd', '2019-12-15', 'dsqd', '0555555555', 'actuel', '2020-07-12 13:39:44', '2020-07-13 06:51:52', 102, NULL),
-(76, 146, 'farid', 'ff', '2017-08-15', 'prevenir', 'Conjoint', 'Passeport', '04042042', '2019-12-16', 'boumerdas', '0555555555', 'actuel', '2020-07-13 06:54:11', '2020-07-26 12:05:24', 102, NULL),
-(77, 26, 'mohand', 'moh', '2020-03-01', 'garde', 'Père', 'CNI', '04042041', '2020-07-05', 'alger', '0555555599', 'actuel', '2020-07-13 08:07:23', '2020-07-26 11:50:06', 102, NULL),
-(83, 98, 'a', 'a', '2020-07-05', 'garde', 'Mère', 'CNI', '04042042', '2020-07-05', 'aa', '0555555555', 'actuel', '2020-07-13 09:59:37', '2020-07-13 09:59:37', 102, NULL),
-(84, 98, 'g', 'io', '2020-07-12', 'garde', 'Père', 'CNI', '04042042', '2019-12-16', 'ggf', '0555555555', 'actuel', '2020-07-13 10:15:57', '2020-07-13 10:15:57', 102, NULL),
-(86, 98, 'n', 'g', '2020-07-05', 'garde', 'Père', 'CNI', '04042042', '2020-07-01', 'fg', '0555555555', 'actuel', '2020-07-13 10:19:37', '2020-07-13 10:19:37', 102, NULL),
-(87, 149, 'z', 'z', '2020-07-27', 'garde', NULL, 'CNI', '04042042', '2020-07-26', 'zz', '0555555555', 'actuel', '2020-07-13 11:35:00', '2020-07-13 11:35:00', 102, NULL),
-(89, 26, 'garde', 'garde', '1984-06-12', 'garde', NULL, 'CNI', '04042098', '2020-07-20', 'tizi uzou', '0899999454', 'actuel', '2020-07-26 12:06:50', '2020-07-26 12:06:50', 102, NULL),
-(90, 26, 'op', 'pm', '2016-01-04', 'prevenir', 'Père', 'CNI', '04042042', '2016-01-11', 'fyfy', '0898565656', 'actuel', '2020-07-27 13:23:00', '2020-07-27 13:23:00', 102, NULL),
-(91, 151, 'sdbsdb', 'bdfbdfsb', '2020-04-20', 'prevenir', 'Conjoint', 'Permis', 's5959', '2020-06-09', 'bdfbdfb', '0555555555', 'actuel', '2020-09-14 11:03:36', '2020-09-14 11:03:36', 102, NULL),
-(92, 22, 'mere', 'mere', '1989-06-19', 'prevenir', 'Mère', 'CNI', '04042042', '2020-05-19', 'alger', '0555555555', 'actuel', '2020-10-21 08:49:27', '2020-10-21 08:49:27', 102, NULL),
-(94, 22, 'sup', 'sup', '1988-10-25', 'garde', 'Père', 'CNI', '04042042', '2012-05-21', 'alger', '0555555555', 'actuel', '2020-11-10 09:59:05', '2020-11-10 09:59:05', 102, NULL),
-(95, 184, 'garde1', 'garde1', '1978-10-24', 'prevenir', 'Soeur', 'CNI', 'M154681', '2018-05-13', 'rue 1 amrouche alger', '0555555555', 'actuel', '2020-12-12 18:17:04', '2020-12-12 18:17:04', 102, NULL),
-(96, 188, 'g', 'garde', '2021-01-03', 'prevenir', 'Mère', 'CNI', '04042042', '2020-12-13', 'alger', '0555555555', 'actuel', '2021-01-04 06:48:30', '2021-01-04 06:48:40', 102, NULL);
+(101, 189, 'garde2', 'garde12', '2000-02-01', '0', NULL, 'Permis', 'M154125', '2012-10-30', 'alger', '0695866566', 'actuel', '2021-01-04 20:57:01', '2021-01-04 21:12:31', 102, NULL);
 
 -- --------------------------------------------------------
 
@@ -11720,8 +11681,8 @@ CREATE TABLE IF NOT EXISTS `traitements` (
 --
 
 INSERT INTO `traitements` (`id`, `med_id`, `posologie`, `periodes`, `duree`, `visite_id`) VALUES
-(39, 339, '2 comprime par jour', '[\"Matin\", \"Midi\"]', 4, 1164),
-(38, 55, '4 comprime par jour', '[\"Matin\", \"Soir\"]', 4, 1163),
+(39, 339, '3 comprime par jour', '[\"Matin\", \"Midi\", \"Soir\"]', 3, 1165),
+(38, 48, '4 comprime par jour', '[\"Matin\", \"Soir\"]', 3, 1165),
 (35, 77, '5 comprime par jour', '[\"Matin\", \"Soir\"]', 5, 1158),
 (37, 24, '6 comprime par jour', '[\"Matin\", \"Midi\"]', 4, 1140),
 (36, 404, '7 comprime par jour', '[\"Matin\", \"Soir\"]', 4, 1155);
@@ -11806,7 +11767,7 @@ CREATE TABLE IF NOT EXISTS `visites` (
   PRIMARY KEY (`id`),
   KEY `visites_id_hosp_foreign` (`id_hosp`),
   KEY `visites_id_employe_foreign` (`id_employe`)
-) ENGINE=MyISAM AUTO_INCREMENT=1165 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=1166 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `visites`
@@ -11962,7 +11923,8 @@ INSERT INTO `visites` (`id`, `date`, `heure`, `id_hosp`, `id_employe`, `created_
 (1018, '2021-01-03', '11:43:00', 1, 102, NULL, NULL),
 (1017, '2021-01-03', '11:42:00', 1, 102, NULL, NULL),
 (1016, '2021-01-03', '11:41:00', 1, 102, NULL, NULL),
-(1015, '2021-01-03', '11:41:00', 1, 102, NULL, NULL);
+(1015, '2021-01-03', '11:41:00', 1, 102, NULL, NULL),
+(1165, '2021-01-04', '20:11:00', 1, 102, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12104,7 +12066,7 @@ ALTER TABLE `consultations`
 -- Contraintes pour la table `dairas`
 --
 ALTER TABLE `dairas`
-  ADD CONSTRAINT `fk_daira_wilaya1` FOREIGN KEY (`Id_wilaya`) REFERENCES `wilayas-old` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_daira_wilaya` FOREIGN KEY (`Id_wilaya`) REFERENCES `wilayas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `demandeexb_examenbio`
@@ -12112,149 +12074,6 @@ ALTER TABLE `dairas`
 ALTER TABLE `demandeexb_examenbio`
   ADD CONSTRAINT `demandeexb_examenbio_ibfk_1` FOREIGN KEY (`id_demandeexb`) REFERENCES `demandeexb` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `demandeexb_examenbio_ibfk_2` FOREIGN KEY (`id_examenbio`) REFERENCES `examenbiologiques` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `demandeexradio_exmnsrelatifdemande`
---
-ALTER TABLE `demandeexradio_exmnsrelatifdemande`
-  ADD CONSTRAINT `demandeexradio_exmnsrelatifdemande_ibfk_1` FOREIGN KEY (`id_demandeexradio`) REFERENCES `demandeexr` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `demandeexradio_exmnsrelatifdemande_ibfk_2` FOREIGN KEY (`id_examensrelatifdemande`) REFERENCES `exmnsrelatifdemande` (`id`);
-
---
--- Contraintes pour la table `demandeexradio_infosupppertinentes`
---
-ALTER TABLE `demandeexradio_infosupppertinentes`
-  ADD CONSTRAINT `demandeexradio_infosupppertinentes_ibfk_1` FOREIGN KEY (`id_demandeexr`) REFERENCES `demandeexr` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `demandeexradio_infosupppertinentes_ibfk_2` FOREIGN KEY (`id_infosupp`) REFERENCES `infosupppertinentes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `demandehospitalisations`
---
-ALTER TABLE `demandehospitalisations`
-  ADD CONSTRAINT `fk_DemandeHospitalisation_Consultation1` FOREIGN KEY (`id_consultation`) REFERENCES `consultations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_demandehospitalisations_service` FOREIGN KEY (`service`) REFERENCES `services` (`id`),
-  ADD CONSTRAINT `k_demandehospitalisations_specialite` FOREIGN KEY (`specialite`) REFERENCES `specialites` (`id`);
-
---
--- Contraintes pour la table `demande_dispositif`
---
-ALTER TABLE `demande_dispositif`
-  ADD CONSTRAINT `demande_dispositif_ibfk_1` FOREIGN KEY (`id_demande`) REFERENCES `demande_produits` (`id`) ON DELETE NO ACTION,
-  ADD CONSTRAINT `demande_dispositif_ibfk_2` FOREIGN KEY (`id_dispositif`) REFERENCES `dispositifs` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Contraintes pour la table `demande_medicaments`
---
-ALTER TABLE `demande_medicaments`
-  ADD CONSTRAINT `demande_medicaments_ibfk_1` FOREIGN KEY (`id_demande`) REFERENCES `demande_produits` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `demande_medicaments_ibfk_2` FOREIGN KEY (`id_medicaments`) REFERENCES `medcamtes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `demande_produits`
---
-ALTER TABLE `demande_produits`
-  ADD CONSTRAINT `demande_produits_ibfk_1` FOREIGN KEY (`id_employe`) REFERENCES `employs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `demande_reactif`
---
-ALTER TABLE `demande_reactif`
-  ADD CONSTRAINT `demande_reactif_ibfk_1` FOREIGN KEY (`id_demande`) REFERENCES `demande_produits` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `demande_reactif_ibfk_2` FOREIGN KEY (`id_reactif`) REFERENCES `reactifs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `employs`
---
-ALTER TABLE `employs`
-  ADD CONSTRAINT `fk_service` FOREIGN KEY (`service`) REFERENCES `services` (`id`),
-  ADD CONSTRAINT `fk_specialite` FOREIGN KEY (`specialite`) REFERENCES `specialites` (`id`);
-
---
--- Contraintes pour la table `examen_bioligique_consultations`
---
-ALTER TABLE `examen_bioligique_consultations`
-  ADD CONSTRAINT `fk_Examen_Bioligique_has_Consultation_Consultation1` FOREIGN KEY (`Consultation_ID_Consultation`) REFERENCES `consultations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Examen_Bioligique_has_Consultation_Examen_Bioligique1` FOREIGN KEY (`Examen_Bioligique_ID_Examen_Bioligique`) REFERENCES `examenbiologiques` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Contraintes pour la table `hospitalisations`
---
-ALTER TABLE `hospitalisations`
-  ADD CONSTRAINT `fk_hospitalisation_mode` FOREIGN KEY (`modeHosp_id`) REFERENCES `modes_hospitalisations` (`id`);
-
---
--- Contraintes pour la table `lits`
---
-ALTER TABLE `lits`
-  ADD CONSTRAINT `lits_ibfk_1` FOREIGN KEY (`salle_id`) REFERENCES `salles` (`id`);
-
---
--- Contraintes pour la table `membres`
---
-ALTER TABLE `membres`
-  ADD CONSTRAINT `fk_colloqe` FOREIGN KEY (`id_colloque`) REFERENCES `colloques` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_employ` FOREIGN KEY (`id_employ`) REFERENCES `employs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `ordennance_medicaments`
---
-ALTER TABLE `ordennance_medicaments`
-  ADD CONSTRAINT `ordennance_medicaments_ibfk_1` FOREIGN KEY (`id_medicament`) REFERENCES `medicaments` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `ordennance_medicaments_ibfk_2` FOREIGN KEY (`id_ordenannce`) REFERENCES `ordonnances` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `ordonnances`
---
-ALTER TABLE `ordonnances`
-  ADD CONSTRAINT `fk_Ordonnance_Consultation1` FOREIGN KEY (`id_consultation`) REFERENCES `consultations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Contraintes pour la table `ordonnance_medicaments`
---
-ALTER TABLE `ordonnance_medicaments`
-  ADD CONSTRAINT `fk_Ordonnance_has_Medicament_Medicament1` FOREIGN KEY (`Medicament_ID_Medicament`) REFERENCES `medicaments` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Ordonnance_has_Medicament_Ordonnance1` FOREIGN KEY (`Ordonnance_ID_Ordonnance`) REFERENCES `ordonnances` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Contraintes pour la table `patients`
---
-ALTER TABLE `patients`
-  ADD CONSTRAINT `fk_assure` FOREIGN KEY (`Assurs_ID_Assure`) REFERENCES `assurs` (`NSS`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_patient_commNaissane` FOREIGN KEY (`Lieu_Naissance`) REFERENCES `communes` (`id`),
-  ADD CONSTRAINT `fk_patient_commune` FOREIGN KEY (`commune_res`) REFERENCES `communes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Contraintes pour la table `rdvs`
---
-ALTER TABLE `rdvs`
-  ADD CONSTRAINT `fk_RDV_Employe` FOREIGN KEY (`Employe_ID_Employe`) REFERENCES `employs` (`id`),
-  ADD CONSTRAINT `fk_RDV_Patient` FOREIGN KEY (`Patient_ID_Patient`) REFERENCES `patients` (`id`);
-
---
--- Contraintes pour la table `salles`
---
-ALTER TABLE `salles`
-  ADD CONSTRAINT `salles_ibfk_1` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`) ON DELETE CASCADE;
-
---
--- Contraintes pour la table `services`
---
-ALTER TABLE `services`
-  ADD CONSTRAINT `FK_serviceChef` FOREIGN KEY (`responsable_id`) REFERENCES `employs` (`id`),
-  ADD CONSTRAINT `services_ibfk_1` FOREIGN KEY (`responsable_id`) REFERENCES `employs` (`id`);
-
---
--- Contraintes pour la table `specialite_produit`
---
-ALTER TABLE `specialite_produit`
-  ADD CONSTRAINT `specialite_produit_ibfk_1` FOREIGN KEY (`id_gamme`) REFERENCES `gammes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `tickets`
---
-ALTER TABLE `tickets`
-  ADD CONSTRAINT `	FK_SpecialiteTickets` FOREIGN KEY (`specialite`) REFERENCES `specialites` (`id`),
-  ADD CONSTRAINT `FK_PatientTickets` FOREIGN KEY (`id_patient`) REFERENCES `patients` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
