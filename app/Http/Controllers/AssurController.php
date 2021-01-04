@@ -102,13 +102,12 @@ class AssurController extends Controller
           break;
       } 
       $assure->Nom = $obj->Nom; $assure->Prenom = $obj->Prenom;
-      //$date=date_create($obj->Date_Naissance);
-      //$assure->Date_Naissance = Carbon\Carbon::create($obj->Date_Naissance)->format("Y-m-d");//$date; 
+      $assure->Date_Naissance = Carbon::CreateFromFormat('d/m/Y',$obj->Date_Naissance)->format('Y-m-d');
       $assure->lieunaissance ='1556';
       $assure->Sexe = $obj->Genre;$assure->SituationFamille = utf8_encode($obj->SituationFamille);
       $assure->Matricule = $obj->Matricule;$assure->adresse = utf8_encode($obj->Adresse);
       $assure->commune_res ='1556';
-      //$assure->wilaya_res =$obj->WilayaResidence;//a decoomonter avec la vrai dll
+      $assure->wilaya_res =$obj->WilayaResidence;
       $assure->grp_sang = $obj->GroupeSanguin;$assure->NSS = $obj->NSS;
       $assure->Position = utf8_encode($obj->Position);//$assure->Service = $obj->Service;
       $assure->Grade = $grade->id;
@@ -178,17 +177,15 @@ class AssurController extends Controller
      */
         public function destroy(Request $request , $id) 
         {
-          $handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word"); 
-          //$handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word"); 
+          //$handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word"); 
+          //$handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");
+          $handle = new COM("GRH.Personnel") or die("Unable to instanciate Word");
           if($handle != null)
             {
               $ass = $handle->SelectPersonnel(trim('12122'),trim(''));
-              dd($ass->Date_Naissance);
-              //$date = new Carbon(27,01,1991);
-              // $d =  Carbon::parse($ass->Date_Naissance);//->format('Y-m-d')
-              // dd($d);
-              //$grade = grade::where('nom',$ass->Grade)->select('id')->get()->first();
-             
+              //dd($ass->Date_Naissance);//10/05/1970
+             $date = Carbon::CreateFromFormat('d/m/Y',$ass->Date_Naissance)->format('Y-m-d'); 
+              dd($date);
             }else{
               dd("error");
               
@@ -198,8 +195,9 @@ class AssurController extends Controller
         public function search(Request $request)
         {
           try {
-            $handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word");
+            //$handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word");
             //$handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word"); 
+            $handle = new COM("GRH.Personnel") or die("Unable to instanciate Word");
             $output=""; $ayants="";
             $assure = $handle->SelectPersonnel(trim($request->matricule),trim($request->nss));   
             if($assure->Nom != null)
