@@ -380,7 +380,7 @@
               jQuery('#gardeMalade').modal('show');
             });
       }
-      function getProducts(id_gamme,id_spec=0)
+      function getProducts(id_gamme, id_spec=0,med_id = 0)
       {
           var html = '<option value="0">Sélectionner...</option>';
           $.ajax({
@@ -392,6 +392,8 @@
                     html += "<option value='"+this.id+"'>"+this.nom+"</option>";
                   });
                   $('#produit').html(html);
+                  if(med_id != 0)
+                    $('#produit').val(med_id);
               },
               error : function(){
                   console.log('error');

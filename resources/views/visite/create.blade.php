@@ -1,7 +1,7 @@
 @extends('app')
 @section('page-script')
   <script type="text/javascript">
-		$(document).ready(function() {
+		$(document).ready(function(){
   		$('#listActes').DataTable({
 	         	colReorder: true,
 	         	stateSave: true,
@@ -13,8 +13,15 @@
 	   		'language': {
 	   			 "url": '/localisation/fr_FR.json',
 			 },
-     		});
-      		$('td.dataTables_empty').html('');
+     	});
+      $('td.dataTables_empty').html('');
+      /////
+      $('#btn-addActe').click(function () {
+     	  $('#EnregistrerActe').val("add");
+        $('#addActe').trigger("reset");
+        $('#acteCrudModal').html("Ajouter un Acte Médicale");
+        $('#acteModal').modal('show');
+      });  
     /////////////
     //////////////////Enregistre acte
     //////////////////////////////////
@@ -47,7 +54,7 @@
             type = "PUT";
             ajaxurl = '/acte/' + acte_id;
 			  }
-     		$('#acteModal form')[0].reset();//jQuery('#acteModal').trigger("reset");
+			  $('#acteModal form')[0].reset();//jQuery('#acteModal').trigger("reset");
       	$.ajax({
           		type:type,
           		url:ajaxurl,
@@ -77,8 +84,28 @@
                 		console.log('Error:', data);
           		}
       	});
-	  	});	////----- DELETE a acte and remove from the table -----////
-		  jQuery('body').on('click', '.delete-acte', function () {
+			});
+			///edit acte
+			$('body').on('click', '.open-modal', function () {
+				var acteID = $(this).val();
+				$.get('/acte/'+acteID+'/edit', function (data) {
+			  	$('#EnregistrerActe').val("update");
+     		  $('#acteCrudModal').html("Editer un Acte Médical");
+			  	$('#id_hosp').val(data.id_hosp);
+			  	$('#acte_id').val(data.id);		
+			  	$('#acte').val(data.nom);
+			  	$('#type').val(data.type).change();
+			  	$('#duree').val(data.duree).change();
+			  	$('#description').val(data.description);// JSON.parse(
+			   	$.each(data.periodes, function( index, value ) {
+  				  $('#' + value).prop("checked",true);
+					});
+			  	$('#nbr_j').val(data.duree);
+			  	jQuery('#EnregistrerActe').val("update");		
+			  	jQuery('#acteModal').modal('show');
+			  });
+			});
+		  jQuery('body').on('click', '.delete-acte', function () {////----- DELETE a acte and remove from the table -----////
 	      var acte_id = $(this).val();
 	      $.ajaxSetup({
 	            headers: {
@@ -100,6 +127,12 @@
 	//end of add acte
 	///////////add trait
 	///////////////////////
+	$('#btn-addTrait').click(function () {
+ 	  $('#EnregistrerTrait').val("add");
+    $('#traitModal').trigger("reset");
+    $('#TraitCrudModal').html("Ajouter un Traitement");
+    $('#traitModal').modal('show');
+  });  
 	$("#EnregistrerTrait").click(function (e) {
 		e.preventDefault();
     var periodes = [];
@@ -127,14 +160,13 @@
 		if(state == "update") {
 			  type = "PUT";
 			  ajaxurl = '/traitement/' + trait_id;
-		}
-    $('#traitModal form')[0].reset();//jQuery('#traitModal').trigger("reset");
-    $.ajax({
+		} //$('#traitModal form')[0].reset();//jQuery('#traitModal').trigger("reset");
+		$.ajax({
       		type:type,
       		url:ajaxurl,
       		data: formData,
       		dataType:'json',
-      		success: function (data) {	// $.each( data, function( key, value ) {	//   alert( key + ": " + value );		// });
+      		success: function (data) {	
       			if($('.dataTables_empty').length > 0)
     				{
       				$('.dataTables_empty').remove();
@@ -143,7 +175,7 @@
   					$.each( data.trait.periodes, function( key, periode ) {
 					 		frag +='<span class="badge badge-success">'+periode+'</span>';
 						});
-						var trait = '<tr id="acte'+data.trait.id+'"><td hidden>'+data.trait.visite_id+'</td><td>'+data.medicament.nom+'</td><td>'
+						var trait = '<tr id="trait'+data.trait.id+'"><td hidden>'+data.trait.visite_id+'</td><td>'+data.medicament.nom+'</td><td>'
 											+ data.trait.posologie + '</td><td>'+frag+'</td><td>'+data.trait.duree+'</td><td>'+data.medecin.nom
 										  +' '+data.medecin.prenom+'</td><td>'+data.visite.date+'</td>';	 
   			    trait += '<td class ="center"><button type="button" class="btn btn-xs btn-info edit-trait" value="' + data.trait.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
@@ -160,23 +192,21 @@
     });
 	});
   $('body').on('click', '.edit-trait', function () {//edit traitement
-			var traitID = $(this).val();
+			  var traitID = $(this).val();
+			 
 			$.get('/traitement/'+traitID+'/edit', function (data) {
-				$('#trait_id').val(data.id);		
-		  	$('#specialiteProd').val(data.medicament.id_specialite).change();
-		  	//alert(data.med_id);
-		  	//$('#produit option[value='+ data.med_id +']').prop('selected', true);
-	  		
-	  		$('#posologie').val(data.posologie);// JSON.parse(
+				getProducts(1,data.medicament.id_specialite,data.med_id);
+				$('#trait_id').val(data.id);
+				 $("#produit").removeAttr("disabled");
+				$('#TraitCrudModal').html("Editer un Traitement Médical");		
+		  	$('#specialiteProd').val(data.medicament.id_specialite);
+		  	$('#posologie').val(data.posologie);// JSON.parse(
 		  	$.each(data.periodes, function( index, value ) {
 				  $('#T' + value).prop("checked",true).change();
 				});
 		  	$('#dureeT').val(data.duree).change();//$('#nbr_j').val(data.duree);
 				jQuery('#EnregistrerTrait').val("update");		
 		  	jQuery('#traitModal').modal('show');
-		  	// $("div.id_100 option:selected").prop("selected",false);
-		  	// $("div.id_100 option[value=" + data.med_id + "]").prop("selected",true);
-		  	$('select[name="produit"]').val('data.med_id');
 		  });
 		});
 	////----- DELETE a Traitement and remove from the tabele -----////
@@ -194,7 +224,8 @@
          	$("#trait" + trait_id).remove();
         },
         error: function (data) {
-            console.log('Error:', data);
+        	alert(data);
+          console.log('Error:', data);
         }
     });
   });
@@ -220,22 +251,6 @@
             }
         });
         return false;
-		});
-		$('body').on('click', '.open-modal', function () {
-				var acteID = $(this).val();
-			  $.get('/acte/'+acteID+'/edit', function (data) {
-			    $('#acte_id').val(data.id);			//$('#id_hosp').val(data.id_hosp);
-			  	$('#acte').val(data.nom);
-			  	$('#type').val(data.type).change();
-			  	$('#duree').val(data.duree).change();
-			  	$('#description').val(data.description);// JSON.parse(
-			   	$.each(data.periodes, function( index, value ) {
-  				  $('#' + value).prop("checked",true);
-					});
-			  	$('#nbr_j').val(data.duree);
-			  	jQuery('#EnregistrerActe').val("update");		
-			  	jQuery('#acteModal').modal('show');
-			  });
 		});
     //////////Traitement
     $('body').on('change', '#specialiteProd', function () {
@@ -280,9 +295,9 @@
 		    			<div class="widget-header" >
 		      			<h5 class="widget-title bigger lighter"><font color="black"> <i class="ace-icon fa fa-table"></i>&nbsp;<b>Actes</b></font></h5>
 		       			<div class="widget-toolbar widget-toolbar-light no-border" width="20%">
-							<div class="fa fa-plus-circle"></div>
-			 				<a href="#"  data-target="#acteModal" id="btn-addActe" name="btn-add" class="btn-xs tooltip-link" data-toggle="modal"  data-toggle="tooltip" data-original-title="Ajouter un Acte" ><h4><strong>Acte Médicale</strong></h4></a>	
-			 			</div>
+									<div class="fa fa-plus-circle"></div>
+			 						<a href="#" id="btn-addActe" class="btn-xs tooltip-link"><h4><strong>Acte Médical</strong></h4>	</a>	
+			 					</div>
 		    			</div>
 		    			<div class="widget-body" id ="ConsigneWidget">
 			    			<div class="widget-main no-padding">
@@ -341,10 +356,8 @@
 		      			</h5>
 		       			<div class="widget-toolbar widget-toolbar-light no-border" width="20%">
 									<div class="fa fa-plus-circle"></div>
-				 					<a href="#" data-target="#traitModal" id="btn-addTrait" name="btn-add" class="btn-xs tooltip-link" data-toggle="modal" data-toggle="tooltip" data-original-title="Ajouter un Traitement" >
-				 						<h4><strong>Traitement Médical</strong></h4>
-				 					</a>	
-			 					</div>
+				 					<a href="#" id="btn-addTrait" class="btn-xs tooltip-link">	<h4><strong>Traitement Médical</strong></h4></a>	
+				 				</div>
 		    			</div>	
 		    		<div class="widget-body" id ="TraitementWidget">
 		    			<div class="widget-main no-padding">
@@ -366,7 +379,7 @@
 			          			@foreach($visite->traitements as $trait)
 			          			<tr id="{{ 'trait'.$trait->id }}">
 				          		  <td hidden> {{ $trait->visite_id }}</td>
-				          		  <td> {{ $trait->medicament->nom }}</td>
+				          		  <td>{{ $trait->medicament['nom'] }}</td> 
 				          		  <td> {{ $trait->posologie}}</td>
 		          			    <td> 	
 		          			    	@foreach($trait->periodes as $periode)

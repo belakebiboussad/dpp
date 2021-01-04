@@ -107,7 +107,8 @@ class AssurController extends Controller
       $assure->lieunaissance ='1556';
       $assure->Sexe = $obj->Genre;$assure->SituationFamille = utf8_encode($obj->SituationFamille);
       $assure->Matricule = $obj->Matricule;$assure->adresse = utf8_encode($obj->Adresse);
-      $assure->commune_res ='1556'; $assure->wilaya_res =$obj->WilayaResidence;
+      $assure->commune_res ='1556';
+      //$assure->wilaya_res =$obj->WilayaResidence;//a decoomonter avec la vrai dll
       $assure->grp_sang = $obj->GroupeSanguin;$assure->NSS = $obj->NSS;
       $assure->Position = utf8_encode($obj->Position);//$assure->Service = $obj->Service;
       $assure->Grade = $grade->id;
@@ -177,8 +178,8 @@ class AssurController extends Controller
      */
         public function destroy(Request $request , $id) 
         {
-          //$handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word"); 
-          $handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word"); 
+          $handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word"); 
+          //$handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word"); 
           if($handle != null)
             {
               $ass = $handle->SelectPersonnel(trim('12122'),trim(''));

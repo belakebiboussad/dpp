@@ -55,7 +55,7 @@ class VisiteController extends Controller
       // {
       //   foreach($visite->traitements as $trait)
       //   {
-      //      echo($trait->medicament);
+      //      echo($trait->medicament->nom);
       //      echo("<br>");
       //   }
       // }  
@@ -72,112 +72,6 @@ class VisiteController extends Controller
     public function store(Request $request)
     {
      return redirect()->action('HospitalisationController@index');
-    }
-    public function storebouzidi(Request $request,$id)
-    {
-      $date = Date::Now();
-      $v =new visite;
-	    $v->date=$date;
-	    $v->heuree=$request->heurevisite;
-	    $v->id_hosp=$id;
-	    $v->id_employe=Auth::User()->employee_id;
-      $v->save();
-      $cpt=$request->cpt;
-      /*****************************/                  
-      $c=new consigne;
-      $c->consigne=$request->cons[0];
-      $c->id_visite=$v->id;
-      $c->app='Non';
-      $c->duree=$request->dur[0];
-      $c->save();
-      /************************************/
-      if (isset($request->p[0][0]) && !empty($request->p[0][0]))
-      {
-        if (($request->p[0][0])=='Matin')
-        {              
-          $p=new periodeconsigne; 
-          $p->id_consigne=$c->id;
-          $p->id_periode=1;
-          $p->save();
-        }
-      }
-                  if (isset($request->p[1][0]) && !empty($request->p[1][0]))
-                  {
-
-                  if(($request->p[1][0])=='Midi')
-                    {  
-                        
-                    $p=new periodeconsigne; 
-                      $p->id_consigne=$c->id;
-                     $p->id_periode=2;
-                     $p->save();
-                     }
-                 }
-                  if (isset($request->p[2][0]) && !empty($request->p[2][0]))
-                  {
-                 
-                   if(($request->p[2][0])=='Soir')
-                      {
-                       
-                     $p=new periodeconsigne; 
-                     $p->id_consigne=$c->id;
-                     $p->id_periode=3;
-                     $p->save();
-                      }
-                  }
-       
-            for($i=1;$i<$cpt;$i++)
-                   {
-                   	 $c=new consigne;
-                     $c->consigne=$request->cons[$i];
-                     $c->id_visite=$v->id;
-                     $c->app='Non';
-                     $c->duree=$request->dur[$i];
-                     $c->save(); 
-                        
-                 if (isset($request->p[0][$i]) && !empty($request->p[0][$i]))
-                  { 
-                  
-                     
-                    if (($request->p[0][$i])=='Matin')
-                    {
-                       
-                   $p=new periodeconsigne; 
-                     $p->id_consigne=$c->id;
-                      $p->id_periode=1;
-                      $p->save();
-                      }
-                  }
-                   if (isset($request->p[1][$i]) && !empty($request->p[1][$i]))
-                  {
-
-                  if(($request->p[1][$i])=='Midi')
-                    {  
-                        
-                    $p=new periodeconsigne; 
-                      $p->id_consigne=$c->id;
-                     $p->id_periode=2;
-                     $p->save();
-                     }
-                 }
-                  if (isset($request->p[2][$i]) && !empty($request->p[2][$i]))
-                  {
-                 
-                   if(($request->p[2][$i])=='Soir')
-                      {
-                       
-                     $p=new periodeconsigne; 
-                     $p->id_consigne=$c->id;
-                     $p->id_periode=3;
-                     $p->save();
-                      }
-                  }
-                  
-
-                       }
-       
-        return redirect('/choixpatvisite')->with('info','Visite ajoutée avec succès!'); //  return redirect()->action('ConsultationsController@create',['id'=>$id]);
-       
     }
     public function edit($id)
     {

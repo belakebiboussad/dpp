@@ -39,11 +39,9 @@ class ActeController extends Controller
     }
     public function update(Request $request,$id)
     {
-        $acte = Acte::FindOrFail($id);
-//$acte -> update(["nom"=>$request->nom,"id_visite"=>$request->id_visite,"description"=>$request->description,"type"=>$request->type,//     "periodes"=>$request->periodes,//json_encode("duree"=>$request->duree,]);
+        $acte = Acte::FindOrFail($id);//$acte -> update(["nom"=>$request->nom,"id_visite"=>$request->id_visite,"description"=>$request->description,"type"=>$request->type,//     "periodes"=>$request->periodes,//json_encode("duree"=>$request->duree,]);
         $acte->update($request->all()); // $acte->remember_token;// $acte->save();
         return Response::json(['acte'=>$acte,'visite'=>$acte->visite,'medecin'=>$acte->visite->medecin]); 
-
     }
     public function store(Request $request)
     { 
@@ -53,9 +51,6 @@ class ActeController extends Controller
              'id_visite'=> 'required',// 'duree'=> 'required', // 'description'=> 'required|string|max:225',// 'periodes'=> 'required'
         ]);
         $acte =Acte::create($request->all());    
-        // $acte = new Acte; // $acte->nom = $request->nom;   // $acte->type = $request->type; // $acte->id_visite = $request->id_visite;
-        // $acte->duree = $request->duree; // $acte->description = $request->description;// $acte->periodes = json_encode($request->periodes);
-        // $acte->remember_token;//$acte->save();    
         return Response::json(['acte'=>$acte,'visite'=>$acte->visite,'medecin'=>$acte->visite->medecin]); 
     }
     public function destroy($id)

@@ -9,9 +9,8 @@ class TraitementController extends Controller
 {
     public function edit($id)
     {
-        //  $consignes = consigne::FindOrFail($id); // return view('consigne.edit_consigne',compact('consignes'));
-        $trait = Traitement::with('medicament.specialite')->find($id);
-        return Response::json($trait);
+      $trait = Traitement::with('medicament.specialite')->find($id); //  $consignes = consigne::FindOrFail($id); // return view('consigne.edit_consigne',compact('consignes'));
+      return Response::json($trait);
     }
   public function store(Request $request)
   { 
@@ -20,6 +19,12 @@ class TraitementController extends Controller
         'visite_id'=> 'required',
     ]);
     $trait =Traitement::create($request->all());//return Response::json($tait);    
+    return Response::json(['trait'=>$trait,'medicament'=>$trait->medicament,'visite'=>$trait->visite,'medecin'=>$trait->visite->medecin]); 
+  }
+  public function update(Request $request,$id)
+  {
+    $trait = Traitement::FindOrFail($id);
+    $trait->update($request->all());
     return Response::json(['trait'=>$trait,'medicament'=>$trait->medicament,'visite'=>$trait->visite,'medecin'=>$trait->visite->medecin]); 
   }
   public function destroy($id)

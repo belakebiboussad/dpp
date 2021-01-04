@@ -2,7 +2,8 @@
 			<div class="modal-dialog modal-lg">
 				<div  id="" class="modal-content custom-height-modal">
 					<div class="modal-header">
-			  			<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Ajouter un Traitement Médical</h4>
+			  			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			  			<h4 class="modal-title" id="TraitCrudModal">Ajouter un Traitement Médical</h4>
 			  		</div>
 					<div class="modal-body">
 				    <form id="addTrait" method="POST" action ="{{route('traitement.store')}}" name="form1" id="form1">	<!-- /Acte/save -->
@@ -27,8 +28,8 @@
 			 			<div class="row">
 			 				<div class="form-group">
 								<label for=""class="col-sm-3 control-label no-padding-right"><b>Médicament:</b></label>
-								<div class="col-sm-7 id_100">
-									<select type="text" name="produit" id="produit" data-placeholder="selectionnez le Médicament" class="selectpicker show-menu-arrow place_holde form-control col-sm-6" disabled>
+								<div class="col-sm-7">
+									<select name="produit" id="produit" data-placeholder="selectionnez le Médicament" class="selectpicker show-menu-arrow place_holde form-control col-sm-6 id_100" disabled>
 									</select>
 								</div>
 							</div>
@@ -67,8 +68,8 @@
 					 		<hr>
 					 		<div class="row" align="right">
 					 			<button type="submit" id="EnregistrerTrait" class="btn btn-primary btn-xs" value ="add">
-             							<i class="ace-icon fa fa-save bigger-110"></i>&nbsp;&nbsp;Enregistrer
-             						</button>
+             			<i class="ace-icon fa fa-save bigger-110"></i>&nbsp;&nbsp;Enregistrer
+             		</button>
              		<button type="button" class="btn btn-default btn-xs" data-dismiss="modal">
         					<i class="ace-icon fa fa-close bigger-110"></i>Fermer
         				</button>
