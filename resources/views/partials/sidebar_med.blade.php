@@ -213,8 +213,7 @@
         if(section == "Assure")
         {
             var liNonActive =$("ul#menuPatient li:not(.active)"); //var section = $("ul#menuPatient li:not(.active) a").prop('href').split("#")[i]; 
-           
-            var sectionActive = $("ul#menuPatient li.active a").prop('href').split("#")[1];
+           var sectionActive = $("ul#menuPatient li.active a").prop('href').split("#")[1];
             $('ul#menuPatient li.active').removeClass('active');
             liNonActive.addClass('in active');
             $('div#' + section).addClass('in active');
@@ -449,101 +448,112 @@
                       "url": '/localisation/fr_FR.json'
           },
       });
+      ///show modal
+      $('#btn-addCores').click(function () {
+             if( $('#EnregistrerGardeMalade').is(":hidden"))
+                    $('#EnregistrerGardeMalade').show();
+             $('#EnregistrerGardeMalade').val("add");
+             $('#addGardeMalade').trigger("reset");
+             $('#CoresCrudModal').html("Ajouter un Correspondant(e)");
+             $('#gardeMalade').modal('show');
+      });  
+      //////////////
       jQuery('body').on('click', '.show-modal', function () {
-        HommeConfcopy($(this).val());
-        jQuery('#EnregistrerGardeMalade').hide();
-        $('#addGardeMalade *').prop('disabled', true);
+              HommeConfcopy($(this).val());
+              jQuery('#EnregistrerGardeMalade').hide();
+               $('#addGardeMalade').find('input, textarea, select').attr('disabled','disabled');
       });
       jQuery('body').on('click', '.open-modal', function () {
-              HommeConfcopy($(this).val());
+             HommeConfcopy($(this).val());
+               if( $('#EnregistrerGardeMalade').is(":hidden"))
+                    $('#EnregistrerGardeMalade').show();
               jQuery('#EnregistrerGardeMalade').val("update");
+             $('#CoresCrudModal').html("Editer un Correspondant(e)");
               $('#gardeMalade').modal('toggle');
       });
       $("#EnregistrerGardeMalade").click(function (e) {
-        $('#gardeMalade').modal('toggle');
-        $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-          }
-        });
-        e.preventDefault();
-        var formData = {
-            id_patient:$('#patientId').val(),
-            nom:$('#nom_h').val(),
-            prenom : $('#prenom_h').val(),
-            date_naiss : $('#datenaissance_h').val(),
-            type:$('#typeH').val(),
-            lien_par : $('#lien_par').val(),
-            type_piece : $("input[name='type_piece']:checked").val(),
-            num_piece : $('#num_piece').val(),
-            date_deliv : $('#date_piece_id').val(),
-            adresse : $('#adresse_h').val(),
-            mob : $('#mobile_h').val(),
-            created_by: $('#userId').val()
-        };
-        var state = jQuery('#EnregistrerGardeMalade').val();
-        var type = "POST";var hom_id = jQuery('#hom_id').val();var ajaxurl = 'hommeConfiance';
-        if (state == "update") {
-          type = "PUT"; ajaxurl = '/hommeConfiance/' + hom_id;
-        }
-        if (state == "add") {
-              ajaxurl ="{{ route('hommeConfiance.store') }}";
-        }
+            $('#gardeMalade').modal('toggle');
+            $.ajaxSetup({
+             headers: {
+                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+              }
+            });
+            e.preventDefault();
+              var formData = {
+                  id_patient:$('#patientId').val(),
+                  nom:$('#nom_h').val(),
+                  prenom : $('#prenom_h').val(),
+                  date_naiss : $('#datenaissance_h').val(),
+                  type:$('#typeH').val(),
+                  lien_par : $('#lien_par').val(),
+                  type_piece : $("input[name='type_piece']:checked").val(),
+                  num_piece : $('#num_piece').val(),
+                  date_deliv : $('#date_piece_id').val(),
+                  adresse : $('#adresse_h').val(),
+                  mob : $('#mobile_h').val(),
+                  created_by: $('#userId').val()
+              };
+              var state = jQuery('#EnregistrerGardeMalade').val();
+              var type = "POST";var hom_id = jQuery('#hom_id').val();var ajaxurl = 'hommeConfiance';
+              if (state == "update") {
+                type = "PUT"; ajaxurl = '/hommeConfiance/' + hom_id;
+              }
+              if (state == "add") {
+                    ajaxurl ="{{ route('hommeConfiance.store') }}";
+              }
       $('#addGardeMalade').trigger("reset");
         $.ajax({
             type: type,
             url: ajaxurl,
             data: formData,
             dataType: 'json',
-            success: function (data) {
-                    //$('#gardeMalade').hide();
-                    //jQuery('#gardeMalade').modal('hide');
-                    if($('.dataTables_empty').length > 0)
+            success: function (data) { //$('#gardeMalade').hide();   //jQuery('#gardeMalade').modal('hide');
+                   if($('.dataTables_empty').length > 0)
                     {
                       $('.dataTables_empty').remove();
                     }
                    switch(data.lien_par){
                           case "0":
-                                lien="Conjoint(e)";
+                                lien='<span class="label label-sm label-success"><strong>Conjoint(e)</strong></span>';
                                 break;
                            case "1":
-                                 lien="Père";
+                                 lien='<span class="label label-sm label-success"><strong>Père</strong></span>';
                                 break;
                            case "2":
-                                lien="Mère";
+                                lien='<span class="label label-sm label-success"><strong>Mère</strong></span>';
                                 break;
                            case "3":
-                                lien="Frère";
+                                lien='<span class="label label-sm label-success"><strong>Frère</strong></span>';
                                  break;
                            case "4":
-                                lien="Soeur";
+                                lien='<span class="label label-sm label-success"><strong>Soeur</strong></span>';
                                 break;
                           case "5":
-                                lien="Ascendant";
+                                lien='<span class="label label-sm label-success"><strong>Ascendant</strong></span>';
                                 break;
                           case "6":
-                                lien="Grand-parent";
+                                lien='<span class="label label-sm label-success"><strong>Grand-parent</strong></span>';
                                 break; 
                           case "7":
-                                lien="Membre de famille";
+                                 lien='<span class="label label-sm label-success"><strong>Membre de famille</strong></span>';
                                 break;
                           case "8":
-                                lien="Ami";
+                                lien=' <span class="label label-sm label-success"><strong>Ami</strong></span>';
                                 break;              
                           case "9":
-                                lien="Collègue";
+                                lien='<span class="label label-sm label-success"><strong>Collègue</strong></span>';
                                 break; 
                           case "10":
-                                lien="Employeur";
+                                lien='<span class="label label-sm label-success"><strong>Employeur</strong></span>';
                                 break; 
                           case "11":
-                                lien="Employé";
+                                lien='span class="label label-sm label-success"><strong>Employé</strong></span>';
                                 break; 
                           case "12":
-                                lien="Tuteur";
+                                lien='<span class="label label-sm label-success"><strong>Tuteur</strong></span>';
                                 break; 
                          case "13":
-                                lien="Autre";
+                                lien='<span class="label label-sm label-success"><strong>Autre</strong></span>';
                                 break; 
                          default:
                                 break;

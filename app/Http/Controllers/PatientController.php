@@ -253,16 +253,16 @@ class PatientController extends Controller
     public function edit($id,$asure_id =null)
     {  
       $patient = patient::FindOrFail($id);
-      $hommes_c = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
+      $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
      if(!(isset($asure_id)))
       {   
         $assure=null ;
         $grades = grade::all(); 
         if($patient->Type != "5")
           $assure =  $patient->assure;
-        return view('patient.edit',compact('patient','assure','hommes_c','grades'));
+        return view('patient.edit',compact('patient','assure','correspondants','grades'));
       }else
-        return view('patient.editP',compact('patient','hommes_c'));
+        return view('patient.editP',compact('patient','correspondants'));
  
     }
     /**

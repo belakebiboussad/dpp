@@ -5,7 +5,7 @@
 <script type="text/javascript" src="{{ asset('/js/jspdf.debug.js') }}"></script>
 <script src="{{ asset('/js/html2pdf.js') }}"></script>
  <script type="text/javascript">
-     if('ontouchstart' in document.documentElement) document.write("<script src='{{asset('/js/jquery.mobile.custom.min.js')}}'>"+"<"+"/script>");
+   //  if('ontouchstart' in document.documentElement) document.write("<script src='{{asset('/js/jquery.mobile.custom.min.js')}}'>"+"<"+"/script>");
 </script>
 <script src="{{asset('/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('/js/jquery-ui.custom.min.js')}}"></script>

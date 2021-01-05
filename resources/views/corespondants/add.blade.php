@@ -2,11 +2,11 @@
   <div class="modal-dialog modal-lg">
 	 <div class="modal-content custom-height-modal">
 		<div class="modal-header">
-			  <button type="button" class="close" data-dismiss="modal">&times;</button> <h4 class="modal-title">Ajouter un Correspondant(e)</h4> 
+			  <button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title"  id="CoresCrudModal">Ajouter un Correspondant(e)</h4> 
 		</div>
-		<div class="modal-body">{{-- {{  route('hommeConfiance.store') }} --}}<!-- /hommeConfiance/save -->
+		<div class="modal-body">{{--  --}}<!-- /hommeConfiance/save -->
 			
-			<form id="addGardeMalade" method="POST" action ="">
+			<form id="addGardeMalade" method="POST" action ="{{  route('hommeConfiance.store') }}">
 				{!! csrf_field() !!}
 				<input type="hidden" name="patientId" id ="patientId" value="{{ $patient->id }}">
 				<input type="hidden" name="userId" id ="userId" value="{{ Auth::user()->employee_id}}">
@@ -116,29 +116,29 @@
 						</div>
 					</div>
 		  		</div>{{-- row --}}
-					<div class="space-12"></div>
-				      <div class="row">
-			 			<div class="col-sm-6">
-							<div>
-								<i class="fa fa-map-marker light-orange bigger-110"></i><label for="adresse"><b>Adresse :</b></label>
-								<textarea class="form-control" id="adresse_h" name="adresse_h" placeholder="Adresse..." required></textarea>
-							</div>
+				<div class="space-12"></div>
+			      <div class="row">
+		 			<div class="col-sm-6">
+						<div>
+							<i class="fa fa-map-marker light-orange bigger-110"></i><label for="adresse"><b>Adresse :</b></label>
+							<textarea class="form-control" id="adresse_h" name="adresse_h" placeholder="Adresse..." required></textarea>
 						</div>
-						<div class="col-sm-1"></div>
-						<div class="col-sm-5">
-								<div class="form-group col-sm-8">
-									<i class="fa fa-phone"></i><label for="mobile_h"><b>Tél-mob : </b></label>
-									<br/>
-									<input type="tel" id="mobile_h" name="mobile_h" placeholder="XX XX XX XX XX" autocomplete="off" maxlength="10" minlength="10"  pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"  class="col-sm-12" required>
-									<span class="tel validity"></span>
-								</div>
-						</div>			
-				       </div>	{{-- row --}}
-					 <div class="space-12"></div>  <div class="space-12"></div><div class="space-12"></div>	
+					</div>
+					<div class="col-sm-1"></div>
+					<div class="col-sm-5">
+							<div class="form-group col-sm-8">
+								<i class="fa fa-phone"></i><label for="mobile_h"><b>Tél-mob : </b></label>
+								<br/>
+								<input type="tel" id="mobile_h" name="mobile_h" placeholder="XX XX XX XX XX" autocomplete="off" maxlength="10" minlength="10"  pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"  class="col-sm-12" required>
+								<span class="tel validity"></span>
+							</div>
+					</div>			
+			       </div>	{{-- row --}}
+				<div class="space-12"></div>  <div class="space-12"></div><div class="space-12"></div>	
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="submit" class="btn btn-info btn-sm btn-submit" id ="EnregistrerGardeMalade" value="add"> <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer   </button>
+				<button type="submit" class="btn btn-info btn-sm btn-submit" id ="EnregistrerGardeMalade" value="add"> <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
        			<button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-close bigger-110"></i>Fermer</button>
         		</div>	
 		</div>

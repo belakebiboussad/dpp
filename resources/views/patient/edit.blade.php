@@ -98,7 +98,7 @@
 </div>
 <form class="form-horizontal" action="{{ route('patient.update',$patient->id) }}" method="POST" role="form" onsubmit="return checkFormAddPAtient(this);">
 	{{ csrf_field() }}
-  {{ method_field('PUT') }}
+	  {{ method_field('PUT') }}
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="form-group" id="error" aria-live="polite">
@@ -123,7 +123,7 @@
 	 	<li class=" @if($patient->Type =="5") active  @endif" ><a data-toggle="tab" href="#Patient">
 	   	 	<span class="bigger-130"><strong>Patient</strong></span></a>
 	   	</li>
-		 <li  id ="hommelink" @if(count($hommes_c) == 0)  class="invisible" @endif><a data-toggle="tab" href="#Homme">
+		 <li  id ="hommelink" @if(count($correspondants) == 0)  class="invisible" @endif><a data-toggle="tab" href="#Homme">
 		  	<span class="bigger-130"><strong>Garde Malde/Homme de Confiance</strong></span></a>
 		  </li>
 	</ul>	
@@ -350,12 +350,10 @@
 					<textarea class="form-control" id="description" name="description" placeholder="Description" >{{ $patient->description }}</textarea>
 				</div>
 			</div>
-			@if(count($hommes_c) == 0) 	
+			@if(count($correspondants) == 0) 	
 			<div class="row">
-		      		<div class="col-sm-12">
-					<h3 class="header smaller lighter blue">Homme de Confiance</h3>
-				</div>
-		    </div>
+		      		<div class="col-sm-12"><h3 class="header smaller lighter blue">Homme de Confiance</h3></div>
+			</div>
 		    <div class="row">
 		     		<div class="col-sm-1"></div>		
 				<div class="col-sm-11">
@@ -367,70 +365,7 @@
 			</div>		
 		@endif	
   	</div> {{-- tab-pane Patient --}}
-  		{{-- @if(!isset($hommes_c)) style= "display:none" @endif --}}
-  	<div id="Homme" class="tab-pane fade hidden_fields">
-					<div class="row">
-					</div>
-					<div class="row">
-						<div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2">
-							<div class="widget-box widget-color-blue" id="widget-box-2">
-								<div class="widget-header">
-									<h5 class="widget-title bigger lighter">
-										<i class="ace-icon fa fa-table"></i>Gardes Malades/Hommes de Confiance
-									</h5>
-									<div class="widget-toolbar widget-toolbar-light no-border">
-										<div class="fa fa-plus-circle"></div>{{-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> --}}
-											<a href="#" data-target="#gardeMalade" class="btn-xs tooltip-link" data-toggle="modal"  data-toggle="tooltip" data-original-title="Ajouter un Correspondant" >
-												<strong>Ajouter un Correspondant</strong>
-											</a>
-									</div>
-								</div>
-								<div class="widget-body">
-									<div class="widget-main no-padding">
-									  <table id="listeGardes" class="table nowrap dataTable no-footer" style="width:100%">
-					            <thead>
-						            <tr>
-						              <th hidden></th>
-						              <th class ="center"><strong>Nom</strong> </th>
-						              <th class ="center"><strong>Prénom</strong></th>
-						              <th class ="center"><strong>né(e) le</strong></th>
-						              <th class ="center"><strong>Adresse</strong></th>
-						              <th class ="center"><strong>Tél</strong></th>
-						              <th class ="center"><strong>Relation</strong></th>
-						              <th class ="center"><strong>Type Pièce</strong></th>
-						              <th class ="center"><strong>N°</strong></th>
-						              <th class ="center"><strong>date délevrance</strong></th>
-						              <th class="nsort"><em class="fa fa-cog"></em></th>
-						            </tr>
-					            </thead>
-					          <tbody>
-					          @foreach($hommes_c as $hom)
-					            <tr id="{{ 'garde'.$hom->id }}">
-					              <td hidden>{{ $hom->id_patient }}</td>
-					              <td>{{ $hom->nom }}</td>
-					              <td>{{ $hom->prenom }}</td>
-					              <td>{{ $hom->date_naiss }}</td>
-					              <td>{{ $hom->adresse }}</td>
-					              <td>{{ $hom->mob }}</td>
-					              <td>{{ $hom->lien_par }}</td>
-					              <td>{{ $hom->type_piece }}</td>
-					              <td>{{ $hom->num_piece }}</td>
-					              <td>{{ $hom->date_deliv }}</td>
-					              <td class="center nosort">
-					             		<button type="button" class="btn btn-xs btn-success show-modal" value="{{ $hom->id }}" data-cmd="show"><i class="ace-icon fa fa-hand-o-up bigger-120"></i></button>
-					       					<button type="button" class="btn btn-xs btn-info open-modal" value="{{$hom->id}}" data-cmd="edit"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
-                          <button type="button" class="btn btn-xs btn-danger delete-garde" value="{{$hom->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>
-					          		</td>
-					            </tr>
-					          @endforeach
-					          </tbody>
-					         </table>
-					        </div>  <!-- widget-main --> 
-			         </div> <!-- widget-body -->
-		        </div>     <!-- widget-box	 -->
-		       </div> <!-- widget-container  -->
-					</div>
-  		</div>{{-- tab-pane Homme --}}
+  	<div id="Homme" class="tab-pane fade hidden_fields"><div class="row">@include('corespondants.widget')</div></div>
   	</div> {{-- tab-content --}}
 	<div class="hr hr-dotted"></div>
 	<div class="row">

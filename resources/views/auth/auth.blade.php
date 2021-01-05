@@ -61,7 +61,7 @@
 </script>
 <!--[endif]-->
 <script type="text/javascript">
-    if('ontouchstart' in document.documentElement) document.write("<script src='{{ asset('/js/jquery.mobile.custom.min.js') }}'>"+"<"+"/script>");
+//    if('ontouchstart' in document.documentElement) document.write("<script src='{{ asset('/js/jquery.mobile.custom.min.js') }}'>"+"<"+"/script>");
 </script>
 
 <!-- inline scripts related to this page -->

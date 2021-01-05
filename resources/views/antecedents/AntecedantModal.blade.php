@@ -1,24 +1,23 @@
 <div id="antecedantModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-lg">
+<div class="modal-dialog modal-lg">
    	<div  id="" class="modal-content custom-height-modal">
-			<div class="modal-header">
-			  <button type="button" class="close" data-dismiss="modal">&times;</button>
-			  <h4 class="modal-title">Ajouter un Antecedant</h4>
-			</div>
-			<div class="modal-body">
-				<form id="modalFormData" name="modalFormData" method="POST" action ="" class="form-horizontal" novalidate="">
-					{!! csrf_field() !!}
-					<input type="hidden" id="atcd_id" name="atcd_id" value="0">
-        	<div id="sous_type" class="form-group">
-        	<label class="col-sm-2 control-label" for="typeAntecedant">Type :</label>
-        	<div class="col-sm-10">
-  	     		<select class="form-control" id="typeAntecedant" name="typeAntecedant" onchange="atcdhide()">
-							<option value="" selected>Choisir...</option>
-							<option value="Physiologiques">Physiologiques</option>
-							<option value="Pathologiques">Pathologiques</option>
-						</select>
-		     	</div>		
-					</div>
+		<div class="modal-header">
+			  <button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title" id="AntecCrudModal">Ajouter un Antecedant</h4>
+		</div>
+		<div class="modal-body">
+			<form id="modalFormData" name="modalFormData" method="POST" action ="" class="form-horizontal" novalidate="">
+			{!! csrf_field() !!}
+				<input type="hidden" id="atcd_id" name="atcd_id" value="0">
+        			<div id="sous_type" class="form-group">
+       		 	<label class="col-sm-2 control-label" for="typeAntecedant">Type :</label>
+		        	<div class="col-sm-10">
+		  	     		<select class="form-control" id="typeAntecedant" name="typeAntecedant" onchange="atcdhide()">
+						<option value="" selected>Choisir...</option>
+						<option value="Physiologiques">Physiologiques</option>
+						<option value="Pathologiques">Pathologiques</option>
+					</select>
+		    	 	</div>		
+				</div>
 					<div id="atcdsstypehide" class="form-group" hidden="true">
 						<label for="sstypeatcd" class="col-sm-2 control-label">Type:</label>
 						<div class="col-sm-10">
