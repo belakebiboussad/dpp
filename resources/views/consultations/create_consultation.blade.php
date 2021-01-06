@@ -487,7 +487,7 @@
 		}else{	
 			$("#EnregistrerAntecedant").attr('data-atcd','Perso'); 
 			if(($( "#atcdsstypehide" ).hasClass( "hidden" )))
- 			 	$('#atcdsstypehide').removeClass("hidden",false);
+ 			 	$('#atcdsstypehide').removeClass("hidden");
 		}
 		jQuery('#antecedantModal').modal('show');
 	});	
@@ -496,8 +496,9 @@
 		$.get('/atcd/' + atcd_id, function (data) { 
 		 	$('#atcd_id').val(data.id);
 		     $('#typeAntecedant').val(data.typeAntecedant).change();
-		 	if(data.typeAntecedant   === 'Pathologiques')
-				  $('#sstypeatcdc').val(data.stypeatcd).change();
+			$('#sstypeatcdc').val(data.stypeatcd).change();//if(data.typeAntecedant   === 'Pathologiques')
+			if($( "#atcdsstypehide" ).hasClass( "hidden" ))
+ 			 	$( "#atcdsstypehide" ).removeClass("hidden"); 
 			$('#dateAntcd').val(data.date);
 			$('#cim_code').val(data.cim_code);
 			$('#description').val(data.descrioption);
@@ -514,6 +515,8 @@
 			$('#dateAntcd').val(data.date);
 			$('#cim_code').val(data.cim_code);
 		     $('#description').val(data.descrioption);
+		     if(! ($( "#atcdsstypehide" ).hasClass( "hidden" )))
+ 			 	$( "#atcdsstypehide" ).addClass("hidden"); 
 		 	jQuery('#EnregistrerAntecedant').val("update");
 		 	$("#EnregistrerAntecedant").attr('data-atcd',"Famille")	
  			 jQuery('#antecedantModal').modal('show');

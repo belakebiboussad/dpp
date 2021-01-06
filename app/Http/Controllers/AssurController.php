@@ -65,53 +65,20 @@ class AssurController extends Controller
      */
     public function save($obj)
     {
-      $assure = new assur;
-      $grade = grade::where('nom',$obj->Grade)->select('id')->get()->first();
-      switch (utf8_encode($obj->Service)) {
-        case 'Sécurité publique':
-          $assure->Service = 0;
-          break;
-        case 'Police judiciaire (PJ)':
-          $assure->Service = 1;
-          break;
-        case 'Brigade mobile de la police judiciaire (BMPJ)':
-          $assure->Service = 2;
-          break;
-        case 'Service protection et sécurité des personnalités':
-          $assure->Service = 3;
-          break;
-        case 'Unité aérienne de la sûreté nationale':
-          $assure->Service = 4;
-          break;
-        case 'Unités républicaines de sécurité (URS)':
-          $assure->Service = 5;
-          break;
-        case 'Police scientifique et technique':
-          $assure->Service = 6;
-          break;
-        case 'Police aux frontières et de l\'immigration (PAF)':
-          $assure->Service = 7;
-          break;  
-        case 'Brigade de recherche et d\'intervention (BRI)':
-          $assure->Service = 8;
-          break;    
-        case 'Groupe des opérations spéciales de la police (GOSP)':
-          $assure->Service = 9;
-          break;    
-        default:
-          break;
-      } 
-      $assure->Nom = $obj->Nom; $assure->Prenom = $obj->Prenom;
-      $assure->Date_Naissance = Carbon::CreateFromFormat('d/m/Y',$obj->Date_Naissance)->format('Y-m-d');
-      $assure->lieunaissance ='1556';
-      $assure->Sexe = $obj->Genre;$assure->SituationFamille = utf8_encode($obj->SituationFamille);
-      $assure->Matricule = $obj->Matricule;$assure->adresse = utf8_encode($obj->Adresse);
-      $assure->commune_res ='1556';
-      $assure->wilaya_res =$obj->WilayaResidence;
-      $assure->grp_sang = $obj->GroupeSanguin;$assure->NSS = $obj->NSS;
-      $assure->Position = utf8_encode($obj->Position);//$assure->Service = $obj->Service;
-      $assure->Grade = $grade->id;
-      $assure->save();
+            $assure = new assur;
+            $grade = grade::where('nom',$obj->Grade)->select('id')->get()->first();
+            $assure->Nom = $obj->Nom; $assure->Prenom = $obj->Prenom;
+            $assure->Date_Naissance = Carbon::CreateFromFormat('d/m/Y',$obj->Date_Naissance)->format('Y-m-d');
+            $assure->lieunaissance ='1556';
+            $assure->Sexe = $obj->Genre;$assure->SituationFamille = utf8_encode($obj->SituationFamille);
+            $assure->Matricule = $obj->Matricule;$assure->adresse = utf8_encode($obj->Adresse);
+            $assure->commune_res ='1556';
+            $assure->wilaya_res =$obj->WilayaResidence;
+            $assure->grp_sang = $obj->GroupeSanguin;$assure->NSS = $obj->NSS;
+            $assure->Position = utf8_encode($obj->Position);
+            $assure->Service =utf8_encode($obj->Service);
+            $assure->Grade = $grade->id;
+            $assure->save();
     }
     /**
      * Display the specified resource.

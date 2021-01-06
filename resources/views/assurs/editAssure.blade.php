@@ -3,7 +3,7 @@
 	<div class="row  Asdemograph">
 		<div class="col-sm-6">
 			<div class="form-group">
-				<label class="col-sm-3 col-xs-3 control-label" for="nomf">	<strong>Nom :</strong></label>
+				<label class="col-sm-3 col-xs-3 control-label" for="nomf"><strong>Nom :</strong></label>
 				<div class="col-sm-9">
 					@if(isset($assure) && !empty($assure))
 						<input type="text" id="nomf" name="nomf"  value="{{ $assure->Nom }}" class="col-xs-12 col-sm-12" autocomplete= "off" required alpha/>
@@ -199,33 +199,9 @@
 				<label class="col-sm-3 control-label no-padding-right" for="service"><strong>Service :</strong></label>
 				<div class="col-sm-9">
 					@if(isset($assure) && !empty($assure))
-					<select name="service" id="service" class="col-xs-12 col-sm-12">
-						<option value="">Sélectionner...</option>
-						<option value="1"  {{ ($assure->Service=="0") ? "selected" : "" }}>Sécurité publique</option>
-						<option value="2"  {{ ($assure->Service=="1") ? "selected" : "" }}>Police judiciaire (PJ)</option>
-						<option value="3"   {{ ($assure->Service=="2") ? "selected" : "" }}>Brigade mobile de la police judiciaire (BMPJ)</option>
-						<option value="4"  {{ ($assure->Service=="3")? "selected" : "" }}>Service protection et sécurité des personnalités (SPS)</option>
-						<option value="5"  {{ ($assure->Service=="4") ? "selected" : "" }}>Unité aérienne de la sûreté nationale</option>
-						<option value="6"  {{ ($assure->Service=="5") ? "selected" : "" }}>Unités républicaines de sécurité (URS)</option>
-						<option value="7"  {{ ($assure->Service=="6") ? "selected" : "" }}>Police scientifique et technique</option>
-						<option value="8"  {{ ($assure->Service=="7")? "selected" : "" }}>Police aux frontières et de l'immigration (PAF)</option>
-						<option value="9"  {{ ($assure->Service=="8")? "selected" : "" }}>Brigade de recherche et d'intervention (BRI)</option>
-						<option value="10"  {{ ($assure->Service=="9")? "selected" : "" }}>Groupe des opérations spéciales de la police (GOSP)</option>
-					</select>
+					<input type="text" name="service" id="service" class="col-xs-12 col-sm-12" value=" {{ $assure->Service}} ">
 					@else
-					<select name="service" id="service" class="col-xs-12 col-sm-12">
-						<option value="">Sélectionner...</option>
-						<option value="0" >Sécurité publique</option>
-						<option value="1" >Police judiciaire (PJ)</option>
-						<option value="2" >Brigade mobile de la police judiciaire (BMPJ)</option>
-						<option value="3" >Service protection et sécurité des personnalités (SPS)</option>
-						<option value="4" >Unité aérienne de la sûreté nationale</option>
-						<option value="5">Unités républicaines de sécurité (URS)</option>
-						<option value="6" >Police scientifique et technique</option>
-						<option value="7">Police aux frontières et de l'immigration (PAF)</option>
-						<option value="8">Brigade de recherche et d'intervention (BRI)</option>
-						<option value="9" >Groupe des opérations spéciales de la police (GOSP)</option>
-					</select>
+					<input type="text" name="service" id="service" class="col-xs-12 col-sm-12" placeholder="Service du Fonctionnaire">
 					@endif 
 				</div>
 			</div>

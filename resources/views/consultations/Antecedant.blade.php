@@ -94,3 +94,75 @@
 	</div>
 </div>
 <div class="space-12"></div>
+<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Facteurs de risque</h3></div></div>
+   <div class="row">
+        <div class="col-xs-12">
+      	 	<label for="infos"><b>Facteurs Généraux</b></label><br>
+		{{-- @foreach($infossupp as $info)<div class="col-xs-2"><div class="checkbox">
+		 <label><input name="infos[]" type="checkbox" class="ace" value="{{ $info->id }}" /><span class="lbl">{{ $info->nom }}</span>   </label>
+	        	 </div>   </div>	@endforeach --}}
+		</div>
+    </div>
+    <div class="row">
+    	<div class="col-xs-2">
+    		<div class="checkbox">
+			 <label><input name="tabac" id ="tabac" type="checkbox" class="ace" value="" /><span class="lbl">Tabac</span></label>
+	      </div>   
+	 </div>
+	 <div class="col-xs-2">
+    		<div class="checkbox">
+			 <label><input name="exercice" id="exercice" type ="checkbox" class="ace" value="" /><span class="lbl text-nowrap">Exercice physique</span></label>
+	      </div>   
+	 </div>
+	 <div class="col-xs-2">
+    		<div class="checkbox">
+			 <label><input name="enolysme" id="enolysme" type="checkbox" class="ace" value="" /><span class="lbl text-nowrap">Enolysme</span></label>
+	      </div>   
+	 </div>
+	 <div class="col-xs-2">
+    		<div class="checkbox">
+			 <label><input name="regime" id="regime" type="checkbox" class="ace" value="" /><span class="lbl text-nowrap">Régime</span></label>
+	      </div>   
+	 </div>
+	  <div class="col-xs-2">
+    		<div class="checkbox">
+			 <label><input name="drogue" id="drogue" type="checkbox" class="ace" value="" /><span class="lbl text-nowrap">Drogue</span></label>
+	      </div>   
+	 </div>
+	 <div class="col-xs-2">
+    		<div class="checkbox">
+			 <label><input name="sedentarite" id="sedentarite" type="checkbox" class="ace" value="" /><span class="lbl text-nowrap">Sédentarité</span></label>
+	      </div>   
+	 </div>
+    </div>
+    <div class="space-12"></div>
+    <div class="row">
+    	 <div class="col-xs-12">
+    	 <div class="col-xs-3">
+	      <label for="explication"><strong>Autre élément social</strong></label><textarea class="form-control" id="autre" name="autre"></textarea> 
+	</div>
+	<div class="col-xs-3">
+	      <label for="explication"><strong>Statut familial</strong></label><textarea class="form-control" id="statut_fam" name="statut_fam"></textarea> 
+	</div>
+	<div class="col-xs-3">
+	      <label for="explication"><strong>Habitat</strong></label><textarea class="form-control" id="habitat" name="habitat"></textarea> 
+	</div>
+	<div class="col-xs-3">
+	      <label for="explication"><strong>Facteurs Professionels</strong></label><textarea class="form-control" id="professionnel" name="professionnel"></textarea> 
+	</div>
+    	 </div>
+    </div>
+ <div class="space-12"></div>
+<div class="row">
+	 <div class= "widget-box widget-color-danger" id="widget-box-2">
+		<div class="widget-header" >
+		<h5 class="widget-title bigger lighter"><font color="black"> <i class="ace-icon fa fa-table"></i>&nbsp;<b>Facteurs de risque</b></font></h5>
+		 <div class="widget-toolbar widget-toolbar-light no-border" width="20%">
+			<div class="fa fa-plus-circle"></div>
+			<a href="#" id="AntFamil-add" class="btn-xs tooltip-link" data-toggle="modal"><h4><strong>facteur</strong></h4></a>
+		</div>
+		</div>
+	</div>
+</div>
+	
+
