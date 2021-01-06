@@ -482,12 +482,12 @@
 		if(this.id == "AntFamil-add")
     		{
  			$("#EnregistrerAntecedant").attr('data-atcd','Famille'); 
- 			if(! ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
- 				jQuery('#modalFormData > #sous_type').addClass('hidden'); 
+ 			if(! ($( "#atcdsstypehide" ).hasClass( "hidden" )))
+ 			 	$( "#atcdsstypehide" ).addClass("hidden"); 
 		}else{	
 			$("#EnregistrerAntecedant").attr('data-atcd','Perso'); 
-			if( ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
-				jQuery('#modalFormData > #sous_type').removeClass('hidden'); 
+			if(($( "#atcdsstypehide" ).hasClass( "hidden" )))
+ 			 	$('#atcdsstypehide').removeClass("hidden",false);
 		}
 		jQuery('#antecedantModal').modal('show');
 	});	

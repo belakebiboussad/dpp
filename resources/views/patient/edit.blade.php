@@ -35,8 +35,8 @@
   		{
   			$(".starthidden").show(250);$('#description').attr('disabled', false); 
 			$("#foncform").addClass('hide'); 
-			if(! ($( "ul#menuPatient li:eq(0)" ).hasClass("hidden")))//$("ul#menuPatient li:eq(0)").css('display', 'none');
-				$( "ul#menuPatient li:eq(0)" ).addClass("hidden");// $('#nomf').attr('required', false);// $('#nomf').attr('required', false);// $('#prenomf').attr('required', false);// $('#nss').attr('required', false);
+			if(! ($( "ul#menuPatient li:eq(0)" ).hasClass("hidden")))
+				$( "ul#menuPatient li:eq(0)" ).addClass("hidden");
 			if(($( "ul#menuPatient li:eq(0)" ).hasClass("active")))
 				$( "ul#menuPatient li:eq(0)" ).removeClass("active");
 			$( "ul#menuPatient li:eq(1)" ).addClass( "active" );
