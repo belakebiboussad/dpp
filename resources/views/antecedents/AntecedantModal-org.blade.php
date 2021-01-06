@@ -8,8 +8,17 @@
 			<form id="modalFormData" name="modalFormData" method="POST" action ="" class="form-horizontal" novalidate="">
 			{!! csrf_field() !!}
 				<input type="hidden" id="atcd_id" name="atcd_id" value="0">
-				<input type="hidden" id="typeAntecedant" name="typeAntecedant" value="Pathologiques">
-				<div id="atcdsstypehide" class="form-group">
+        			<div id="sous_type" class="form-group">
+       		 	<label class="col-sm-2 control-label" for="typeAntecedant">Type :</label>
+		        	<div class="col-sm-10">
+		  	     		<select class="form-control" id="typeAntecedant" name="typeAntecedant" onchange="atcdhide()">
+						<option value="" selected>Choisir...</option>
+						<option value="Physiologiques">Physiologiques</option>
+						<option value="Pathologiques">Pathologiques</option>
+					</select>
+		    	 	</div>		
+				</div>
+					<div id="atcdsstypehide" class="form-group" hidden="true">
 						<label for="sstypeatcd" class="col-sm-2 control-label">Type:</label>
 						<div class="col-sm-10">
 							<select class="form-control" id="sstypeatcdc" name="sstypeatcdc" onchange="resetField();">
@@ -19,23 +28,25 @@
 							</select>
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="dateatcd" class="col-sm-2 control-label" >Date :</label>
+					<div id="PhysiologieANTC"  class="form-group" hidden="true">
+						<label for="habitudeAlim" class="col-sm-2 control-label">Habitudes Alimentaires:</label>
 						<div class="col-sm-10">
-							<input type="text" name="dateAntcd" id="dateAntcd" class="form-control date-picker" data-date-format="yyyy-mm-dd" data-provide="datepicker" required />
+							<input type="text" name="habitudeAlim"  id="habitudeAlim" class="form-control"/><br>
+							<label>
+	            	<input type="checkbox" class="ace"  id="tabac" name="tabac"/>
+	            	<span class="lbl" >&nbsp; &nbsp;tabac</span>
+	        		</label>&nbsp; &nbsp; &nbsp;
+	        		<label>
+	            			<input type="checkbox" class="ace" id="ethylisme" name="ethylisme"/>
+	            			<span class="lbl"> &nbsp; &nbsp;ethylisme</span>
+	        		</label>
 						</div>
 					</div>
 					<div class="form-group">
-			    			<label class="col-sm-2 control-label" for="codecim"><strong>Code Cim10 :</strong></label>
-						<div class="col-sm-10 input-group">
-
-							<input type="text" class="form-control" id="cim_code" name="cim_code"/>
-							<span class="input-group-addon" style=" padding: 0px 6px;"> 
-							<button class="btn btn-xs CimCode" type="button" value="cim_code">{{-- data-toggle="modal" data-target="#cim10Modal": --}}
-		            					<i class="fa fa-search"></i>
-		        				</button>
-							    </span>
-					    	</div>		
+							<label for="dateatcd" class="col-sm-2 control-label" >Date :</label>
+							<div class="col-sm-10">
+								<input type="text" name="dateAntcd" id="dateAntcd" class="form-control date-picker" data-date-format="yyyy-mm-dd" data-provide="datepicker" required />
+							</div>
 					</div>
 					<div class="form-group">
 						<label for="description" class="col-sm-2 control-label">Description :</label>

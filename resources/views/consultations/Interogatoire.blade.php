@@ -63,7 +63,7 @@
 					<div class="col-sm-8 input-group" style="padding-left:15px;">
 					    <input type="text" class="form-control" id="codesim" name="codesim"/>
 					    <span class="input-group-addon" style=" padding: 0px 6px;"> 
-					      <button class="btn btn-xs" type="button" data-toggle="modal" data-target="#cim10Modal" data-original-title="Checher un code CIM10">
+					      <button class="btn btn-xs CimCode" type="button" value="codesim">
             			<i class="fa fa-search"></i>
         				</button>
 					    </span>

@@ -52,9 +52,8 @@ class Handler extends ExceptionHandler
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $e)
-    {
-        // return parent::render($request, $exception);
-        if ($exception instanceof ModelNotFoundException &&
+    { // return parent::render($request, $exception);
+        if ($e instanceof ModelNotFoundException &&
             $request->wantsJson()) {
             return response()->json([
               'error' => 'Resource not found'
@@ -62,4 +61,5 @@ class Handler extends ExceptionHandler
         }
         return redirect()->guest(route('login'));
     }
+
 }

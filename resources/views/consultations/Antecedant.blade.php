@@ -16,9 +16,10 @@
 					<th class ="hidden"></th>
 					<th class="center"><strong><span style="font-size:14px;">Type</span></strong></th>
 					<th class="center"><strong><span style="font-size:14px;">Nature</span></strong></th>
-					<th class="center" ><i class="fa fa-clock-o bigger-110" aria-hidden="true"></i>
+					<th class="center"><i class="fa fa-clock-o bigger-110" aria-hidden="true"></i>
 						<strong>&nbsp;<span style="font-size:14px;">Date</span></strong>
 				   	</th>
+				   	<th class="center">Code CIM</th>
 					<th class="center hidden-480"><span style="font-size:14px;"><strong>Description</strong></span></th>
 					<th class="center"><em class="fa fa-cog"></em></th>
 				  </tr>
@@ -31,6 +32,7 @@
 						<td>{{ $antcd->typeAntecedant }}</td>
 						<td> {{ $antcd->stypeatcd }}</td>	     
 						<td>{{ $antcd->date }}</td>
+						<td>{{ $antcd->cim_code }}</td>
 						<td>{{ $antcd->descrioption }}</td>
 						<td class="center"> 
 							<button type="button" class="btn btn-xs btn-info open-modal" data-atcd ="c" id ="antPerso-edit" value="{{$antcd->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
@@ -47,7 +49,7 @@
 </div>{{-- row --}}
 <div class="space-12"></div>
 <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Antecedants Familliaux</h3></div></div>
-  <div class="row">
+<div class="row">
  	 <div class= "widget-box widget-color-green" id="widget-box-2">
 		<div class="widget-header" >
 		<h5 class="widget-title bigger lighter"><font color="black"> <i class="ace-icon fa fa-table"></i>&nbsp;<b>Antecedants Familliaux</b></font></h5>
@@ -65,6 +67,7 @@
 							  <th class="center" ><i class="fa fa-clock-o bigger-110" aria-hidden="true"></i>
 								<strong>&nbsp;<span style="font-size:14px;">Date</span></strong>
 							  </th>
+							  <th class="center">Code CIM</th>
 							  <th class="center hidden-480"><span style="font-size:14px;"><strong>Description</strong></span></th>
 							  <th class="center"><em class="fa fa-cog"></em></th>
 						  </tr>
@@ -75,6 +78,7 @@
 						<tr id="{{ 'atcd'.$antcd->id }}">
 							<td class ="hidden" >{{ $antcd->Patient_ID_Patient }}</td> 
 							<td>{{ $antcd->date }}</td>
+							<td>{{ $antcd->cim_code }}</td>
 							<td>{{ $antcd->descrioption }}</td>
 							<td class="center"> 
 								<button type="button" class="btn btn-xs btn-info open-modalFamil" data-atcd ="d" id ="antFamil-edit" value="{{$antcd->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
@@ -89,3 +93,4 @@
 		</div>
 	</div>
 </div>
+<div class="space-12"></div>

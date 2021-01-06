@@ -177,6 +177,7 @@
 	{
 		$("#description").val(' ');$('#dateAntcd').val('');
 	}
+	/*
 	function atcdhide()
 	{  
 		resetField();
@@ -191,6 +192,7 @@
 			$('#PhysiologieANTC').attr("hidden",false);
 		}
 	}
+	*/
 	function createordXhr(patId,employeId)
 	{
 		var keys=[], meds=[];
@@ -349,57 +351,57 @@
       createeximgF(img,nomp,prenomp,age,ipp);
     };
   } 
-  function createeximgF(imge,nomp,prenomp,age,ipp)
-  {  
-  	html2canvas($("#dos"), {
-        onrendered: function(canvas) {         
-        	moment.locale('fr');//var IPP = ipp.toString();
-        	var formattedDate = moment(new Date()).format("l");
-          var imgData = canvas.toDataURL('image/png');              
-          var doc = new jsPDF('p', 'mm');
-          doc.addImage(imgData, 'PNG', 10, 10); //JsBarcode("#itf",IPP); //bonne
-          JsBarcode("#itf", ipp.toString(), {
-				  	lineColor: "#000",
-				  	width:4,
-				  	height:40,
-				 	  displayValue: true,
-				 	  fontSize : 28,
-				 	  textAlign: "left"
-					});
-				  const img = document.querySelector('img#itf');
-          doc.text(105,9, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
-          doc.setFontSize(13);
-          doc.text(105,16, 'HOPITAL CENTRAL DE LA SURETE NATIONALE "LES GLYCINES"', null, null, 'center');
-          doc.setFontSize(12);
-          doc.text(105,21, '12, Chemin des Glycines - ALGER', null, null, 'center');
-          doc.text(105,26, 'Tél : 23-93-34 - 23-93-58', null, null, 'center');
-          doc.addImage(imge, 'JPEG', 95, 27, 17, 17);
-          doc.setFontSize(14);
-          doc.text(200,60, 'Alger :' +formattedDate , null, null, 'right'); 
-          doc.text(20,63, 'Nom : '+nomp, null, null);
-          doc.text(20,68, 'Prénom : '+prenomp, null, null);
-          doc.text(20,73, 'Age : '+ age+' ans', null, null);
-          doc.addImage(img.src, 'JPEG', 20, 75, 50, 15);
-          doc.text(20,110, 'Prière de faire', null, null);
-					doc.setFontSize(16);
-					doc.text(50,125,'Examens Demandées :',null,null)
-          var res = doc.autoTableHtmlToJson(document.getElementById('ExamsImgtab'));
-          var height = doc.internal.pageSize.height;
-          doc.autoTable(res.columns, res.data, {
-     				startY: 135,
-  				});
-  				doc.setFontSize(12);
-  				doc.text(100,270, 'Docteur : ' +'{{$employe->nom}}'+ ' '+ '{{$employe->prenom}}', null, null);  // var string = doc.output('datauristring');// $('#exradiopdf').attr('src', string);
-  			  doc.save('ExamRadio-'+nomp+'-'+prenomp+'.pdf');
-        }
-    });
-  }
-	function addCIMCode(code)
+	function createeximgF(imge,nomp,prenomp,age,ipp)
+	{  
+	  	html2canvas($("#dos"), {
+	        onrendered: function(canvas) {         
+	        	moment.locale('fr');//var IPP = ipp.toString();
+	        	var formattedDate = moment(new Date()).format("l");
+	          var imgData = canvas.toDataURL('image/png');              
+	          var doc = new jsPDF('p', 'mm');
+	          doc.addImage(imgData, 'PNG', 10, 10); //JsBarcode("#itf",IPP); //bonne
+	          JsBarcode("#itf", ipp.toString(), {
+					  	lineColor: "#000",
+					  	width:4,
+					  	height:40,
+					 	  displayValue: true,
+					 	  fontSize : 28,
+					 	  textAlign: "left"
+						});
+					  const img = document.querySelector('img#itf');
+	          doc.text(105,9, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
+	          doc.setFontSize(13);
+	          doc.text(105,16, 'HOPITAL CENTRAL DE LA SURETE NATIONALE "LES GLYCINES"', null, null, 'center');
+	          doc.setFontSize(12);
+	          doc.text(105,21, '12, Chemin des Glycines - ALGER', null, null, 'center');
+	          doc.text(105,26, 'Tél : 23-93-34 - 23-93-58', null, null, 'center');
+	          doc.addImage(imge, 'JPEG', 95, 27, 17, 17);
+	          doc.setFontSize(14);
+	          doc.text(200,60, 'Alger :' +formattedDate , null, null, 'right'); 
+	          doc.text(20,63, 'Nom : '+nomp, null, null);
+	          doc.text(20,68, 'Prénom : '+prenomp, null, null);
+	          doc.text(20,73, 'Age : '+ age+' ans', null, null);
+	          doc.addImage(img.src, 'JPEG', 20, 75, 50, 15);
+	          doc.text(20,110, 'Prière de faire', null, null);
+						doc.setFontSize(16);
+						doc.text(50,125,'Examens Demandées :',null,null)
+	          var res = doc.autoTableHtmlToJson(document.getElementById('ExamsImgtab'));
+	          var height = doc.internal.pageSize.height;
+	          doc.autoTable(res.columns, res.data, {
+	     				startY: 135,
+	  				});
+	  				doc.setFontSize(12);
+	  				doc.text(100,270, 'Docteur : ' +'{{$employe->nom}}'+ ' '+ '{{$employe->prenom}}', null, null); 
+	  			  doc.save('ExamRadio-'+nomp+'-'+prenomp+'.pdf');
+	        }
+	    });
+       }
+      function addCIMCode(code,field)
 	{
-		$("#codesim").val(code);
+		$("#"+field).val(code);
 		$('#liste_codesCIM').empty();
-		$("#chapitre").val($("#chapitre option:first").val());
-		$("#schapitre").val($("#schapitre option:first").val());
+		$("#chapitre").val($("#chapitre option:first").val());$("#schapitre").val($("#schapitre option:first").val());
+		$('#cim10Modal').trigger("reset");
 		$('#cim10Modal').modal('toggle');
 	}
 	$('document').ready(function(){
@@ -468,6 +470,11 @@
 	                    {data: 'action', name: 'action', orderable: false, searchable: false}
 	        ]
 	});
+	jQuery('body').on('click', '.CimCode', function (event) {
+	    $('#cim10Modal').trigger("reset");
+		 $('#inputID').val($(this).val());
+		$('#cim10Modal').modal('show');
+	});
 	jQuery('#btn-add, #AntFamil-add').click(function () {//ADD
 		jQuery('#EnregistrerAntecedant').val("add");
 		jQuery('#modalFormData').trigger("reset");
@@ -478,28 +485,21 @@
  			if(! ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
  				jQuery('#modalFormData > #sous_type').addClass('hidden'); 
 		}else{	
-				$("#EnregistrerAntecedant").attr('data-atcd','Perso'); 
-				if( ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
-					jQuery('#modalFormData > #sous_type').removeClass('hidden'); 
+			$("#EnregistrerAntecedant").attr('data-atcd','Perso'); 
+			if( ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
+				jQuery('#modalFormData > #sous_type').removeClass('hidden'); 
 		}
-		  jQuery('#antecedantModal').modal('show');
+		jQuery('#antecedantModal').modal('show');
 	});	
 	jQuery('body').on('click', '.open-modal', function (event) {//EDIT
 		var atcd_id = $(this).val();
 		$.get('/atcd/' + atcd_id, function (data) { 
 		 	$('#atcd_id').val(data.id);
-			if( ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
-				jQuery('#modalFormData > #sous_type').removeClass('hidden');
-			 $('#typeAntecedant').val(data.typeAntecedant).change();
+		     $('#typeAntecedant').val(data.typeAntecedant).change();
 		 	if(data.typeAntecedant   === 'Pathologiques')
 				  $('#sstypeatcdc').val(data.stypeatcd).change();
-		 	if(data.typeAntecedant   === 'Physiologiques')
-			{
-				$('#habitudeAlim').val(data.habitudeAlim);
-				(data.tabac) ? $('#tabac').prop('checked',true) : '';
-				(data.ethylisme) ? $('#ethylisme').prop('checked',true) : '';
-			}
 			$('#dateAntcd').val(data.date);
+			$('#cim_code').val(data.cim_code);
 			$('#description').val(data.descrioption);
 			$("#EnregistrerAntecedant").attr('data-atcd',"Perso");
 			$('#AntecCrudModal').html("Editer un Antecedant");	
@@ -512,11 +512,10 @@
 	 	$.get('/atcd/' + atcd_id, function (data) { 
 		 	$('#atcd_id').val(data.id);
 			$('#dateAntcd').val(data.date);
-		  $('#description').val(data.descrioption);
+			$('#cim_code').val(data.cim_code);
+		     $('#description').val(data.descrioption);
 		 	jQuery('#EnregistrerAntecedant').val("update");
 		 	$("#EnregistrerAntecedant").attr('data-atcd',"Famille")	
-			if(! ($( "#modalFormData > #sous_type" ).hasClass( "hidden" )))
-	   			jQuery('#modalFormData > #sous_type').addClass("hidden");
  			 jQuery('#antecedantModal').modal('show');
 		});
 	});
@@ -528,26 +527,22 @@
 		 	var tabName = "antsTab";
 		 	var formData = {
 	  			Patient_ID_Patient      : '{{ $patient->id }}',
-		      		Antecedant           : 'Personnels',//jQuery('#Antecedant').val()
+		      	Antecedant           : 'Personnels',//jQuery('#Antecedant').val()
 		       	typeAntecedant       : jQuery('#typeAntecedant').val(),
 		       	stypeatcd            : jQuery('#sstypeatcdc').val(),
 		     		date                    : $('#dateAntcd').val(),
-		       	descrioption         : $("#description").val(),
+		     		cim_code			:$('#cim_code').val(),
+		       	descrioption         : $("#description").val()
   			};
-  			if(formData.typeAntecedant =="Physiologiques")
- 	  		{
-				formData.habitudeAlim = $('#habitudeAlim').val();
-				formData.tabac = $("#tabac").is(":checked") ? 1:0;
-				formData.ethylisme = $("#ethylisme").is(":checked") ? 1:0;     
- 		 	}
 		}else
 		{
 	 	 	var tabName = "antsFamTab";
 			var formData = {
 		  		Patient_ID_Patient   : '{{ $patient->id }}',
-			      	Antecedant           : 'Familiaux',
-			      	date                 : $('#dateAntcd').val(),
-		       	descrioption         : $("#description").val(),
+			      Antecedant           : 'Familiaux',
+			     	date                 : $('#dateAntcd').val(),
+			     	cim_code			:$('#cim_code').val(),
+		       	descrioption         : $("#description").val()
   			};
 		}
   		if(!($("#description").val() == ''))
@@ -575,14 +570,15 @@
 				       success: function (data) {
 				    	   	if(data.Antecedant == "Personnels")
 				    	   	{
-							var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>' + data.typeAntecedant +'</td><td>'+data.stypeatcd+'</td><td>'+ data.date + '</td><td>' + data.descrioption + '</td>';
+							var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>' + data.typeAntecedant +'</td><td>'+data.stypeatcd+'</td><td>'+ data.date +'</td><td>'+data.cim_code+ '</td><td>' + data.descrioption + '</td>';
 			              		atcd += '<td class ="center"><button class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
-			            			  atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+			            			atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
 	              			}else
 	              			{
-		              			var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>' + data.date + '</td><td>' + data.descrioption + '</td>';
+		              			var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>' + data.date + '</td><td>' +data.cim_code
+		              					  +	'</td><td>'	+ data.descrioption + '</td>';
 			              		atcd += '<td class ="center"><button class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
-			            		  	atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+			            	  	atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
 
 	              			}
 		              		if (state == "add") { 
@@ -599,10 +595,6 @@
 				});
     			}          
 		 });
-		$('#antecedantModal').on('hidden.bs.modal', function () {
-		   	  $('#PhysiologieANTC').attr("hidden",true); //$("#sous_type").attr("hidden",true);
-			  $("#atcdsstypehide").attr("hidden",true);
-		});
   		jQuery('body').on('click', '.delete-atcd', function (e) {
   			event.preventDefault();
   			var atcd_id = $(this).val();
@@ -796,26 +788,28 @@
     			});
     		});
       $('#chapitre').click(function(){
-        if(! isEmpty($("#chapitre").val()) && $("#chapitre").val()!=0)
-    		{
-    	  	$.ajax({
-           type : 'get',
-            url : '{{URL::to('schapitres')}}',
-              data:{'search':$("#chapitre").val()},
-              success:function(data,status, xhr){
-              	$( "#schapitre" ).prop( "disabled", false );
-          	    var select = $('#schapitre').empty();
-                select.append("<option value='0'>Selectionnez une Sous Chapitre</option>");   
-                  $.each(data,function(){
-                    select.append("<option value='"+this.	C_S_CHAPITRE+"'>"+this.TITRE_S_CHAPITRE+"</option>");
-                  });
-              }
-          });
-    	}
-    	else
-		$( "#schapitre" ).prop( "disabled", true );
-    });
-    $('#schapitre').click(function(){//sous chapitre
+	       if(! isEmpty($("#chapitre").val()) && $("#chapitre").val()!=0)
+	    	{
+	    	  	$.ajax({
+	           type : 'get',
+	            url : '{{URL::to('schapitres')}}',
+	              data:{'search':$("#chapitre").val()},
+	              success:function(data,status, xhr){
+	              	$( "#schapitre" ).prop( "disabled", false );
+	          	    var select = $('#schapitre').empty();
+	                select.append("<option value='0'>Selectionnez une Sous Chapitre</option>");   
+	                  $.each(data,function(){
+	                    select.append("<option value='"+this.	C_S_CHAPITRE+"'>"+this.TITRE_S_CHAPITRE+"</option>");
+	                  });
+	              }
+	          });
+	    	}
+	    	else
+			$( "#schapitre" ).prop( "disabled", true );
+      });
+    $('#schapitre').click(function(){
+    	var fieldname = $('#inputID').val()
+    	$('#liste_codesCIM tbody').empty();
      	if($("#schapitre").val() != 0)
     	{
     		$.ajax({
@@ -824,11 +818,12 @@
             data:{'search':$("#schapitre").val()},
             success:function(data,status, xhr){
             	$(".numberResult").html(Object.keys(data).length);//$("#liste_codesCIM tbody").html(data);
-					   	 	$('#liste_codesCIM' ).DataTable( {
+			$('#liste_codesCIM' ).DataTable( {
            			 	processing: true,
            			 	bInfo : false,
            			 	pageLength: 5,
            			 	pageLength: 5,
+           			 	destroy: true,
            			 	"language": { "url": '/localisation/fr_FR.json' },
            			 	"data" : data,
            			 	columns: [ 
@@ -837,7 +832,7 @@
 					            {data: null, title :'<em class="fa fa-cog"></em>', orderable: false, searchable: false,
 					            	"render": function(data,type,full,meta){
 					            		if( type === 'display' ) {
-					            			return '<button class="btn btn-xs btn-primary" data-dismiss="modal" onclick="addCIMCode(\''+ data.CODE_DIAG+'\')"><i class="ace-icon fa fa-plus-circle"></i></button>';
+					            			return '<button class="btn btn-xs btn-primary" data-dismiss="modal" onclick="addCIMCode(\''+ data.CODE_DIAG+'\',\''+fieldname+'\')"><i class="ace-icon fa fa-plus-circle"></i></button>';
 					            		}
 					            		return data;
 					            	}      	
@@ -854,7 +849,7 @@
      			},
         });
     	}
-    });
+       });
 	});// ready
 </script>	
 @endsection
@@ -889,8 +884,8 @@
 				  </a>
 				</li>
 				<li role= "presentation"  class="col-md-4">
-	         <a href="#ExamClinique"  ria-controls="ExamClinique" role="tab" data-toggle="tab" class="btn btn-success btn-lg"> 
-	         <span class="bigger-160">Examen Clinique</span></a>
+				        <a href="#ExamClinique"  ria-controls="ExamClinique" role="tab" data-toggle="tab" class="btn btn-success btn-lg"> 
+				        <span class="bigger-160">Examen Clinique</span></a>
 				</li>
 				<li role= "presentation" class="col-md-4">
 				          <a href="#ExamComp" aria-controls="ExamComp" role="tab" data-toggle="tab" class="btn btn-danger btn-lg">
@@ -899,21 +894,9 @@
 				</li>
 		  </ul>
 		  <div class ="tab-content"  style = "border-style: none;" >
-		   	<div role="tabpanel" class = "tab-pane active " id="Interogatoire"> 
-				  <div class= "col-md-12 col-xs-12">
-				    @include('consultations.Interogatoire')
-				  </div>  {{--  <div class= "col-md-3 col-xs-9"> </div> --}}
-				</div>
-				<div role="tabpanel" class = "tab-pane" id="ExamClinique">
-				  <div class= "col-md-12 col-xs-12">
-				     	@include('consultations.examenClinique')
-				  </div>
-				</div>  {{-- row --}}{{-- finexamenclinique --}}
-				<div role="tabpanel" class = "tab-pane" id="ExamComp">
-				  <div class= "col-md-12 col-xs-12">    
-				     	@include('consultations.ExamenCompl')   
-				  </div>{{-- <div class= "col-md-3 col-xs-9"> </div> --}}
-				</div> 
+		   	<div role="tabpanel" class = "tab-pane active " id="Interogatoire">@include('consultations.Interogatoire')</div>
+			<div role="tabpanel" class = "tab-pane" id="ExamClinique">@include('consultations.examenClinique')</div>
+			<div role="tabpanel" class = "tab-pane" id="ExamComp">	@include('consultations.ExamenCompl') </div>   
 		  </div>{{-- content --}}
   	</div>{{-- tabpanel --}}
 		</div><!-- row -->
