@@ -40,16 +40,18 @@ class patient extends Model
  	public function Consultations()
  	{
  		 return $this->hasMany('App\modeles\consultation','Patient_ID_Patient');
-
  	}
  	public function rdvs()
  	{
  		 return $this->hasMany('App\modeles\rdv','Patient_ID_Patient');
  	}
-
  	public function hospitalisations()
  	{
  		 return $this->hasMany('App\modeles\hospitalisation','patient_id');
+ 	}
+ 	public function facteurRisque()
+ 	{
+ 		 return $this->hasOne('App\modeles\facteurRisqueGeneral','patient_id');
  	}
  	public function getCivilite()
  	{

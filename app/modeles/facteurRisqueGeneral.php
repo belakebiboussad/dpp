@@ -7,13 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class facteurRisqueGeneral extends Model
 {
 	public $timestamps = false;
-  	protected $table = 'bedAffectation';
-  	protected $fillable  = ['tabac','exercice','enolysme','regime','drogue','sedentarite','statut_fam','Habita','professionnel','Autre','patient_id'];
+  	protected $table = 'facteurs_generaux';
+  	protected $fillable  = ['exercice','regime','drogue','sedentarite','statut_fam','habitat','professionnel','autrefact','patient_id'];
   	protected $casts = [
-	        'tabac' => 'boolean',
 	        'exercice' => 'boolean',
-	         'regime' => 'boolean',
-	        'enolysme' => 'boolean',
+	        'regime' => 'boolean',
 	        'drogue' => 'boolean',
 	        'sedentarite' => 'boolean'
    	 ];

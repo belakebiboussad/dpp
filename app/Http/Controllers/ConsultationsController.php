@@ -30,7 +30,7 @@ use App\modeles\exmnsrelatifdemande;
 use App\modeles\examenradiologique;
 use App\modeles\demandeexr;
 use App\modeles\CIM\chapitre;
-
+use App\modeles\facteurRisqueGeneral;
 use Validator;
 use Response;
 class ConsultationsController extends Controller
@@ -71,6 +71,7 @@ class ConsultationsController extends Controller
           $employe=Auth::user()->employ;
           $modesAdmission = config('settings.ModeAdmissions') ;
           $patient = patient::FindOrFail($id_patient);//$codesim = codesim::all();
+          dd($patient->facteurRisque);
           $chapitres = chapitre::all();
           $services = service::all();
           $meds = User::where('role_id',1)->get()->all();
@@ -98,7 +99,8 @@ class ConsultationsController extends Controller
           'resume' => 'required',
         ]);
         if($validator->fails())
-          return redirect()->back()->withErrors($validator)->withInput(); 
+          return redirect()->back()->withErrors($validator)->withInput();
+        $fact = facteurRisqueGeneral::updateOrCreate( ['patient_id' =>  request('patient_id')], $request->all());
         $consult = consultation::create([
             "Motif_Consultation"=>$request->motif,
             "histoire_maladie"=>$request->histoirem,
@@ -108,7 +110,7 @@ class ConsultationsController extends Controller
             "isOriented"=> (!empty($request->isOriented) ? 1 : 0),
             "lettreorientaioncontent"=>(!empty($request->isOriented) ? $request->lettreorientaioncontent  : null),
             "Employe_ID_Employe"=>Auth::User()->employee_id,
-            "Patient_ID_Patient"=>$request->id,
+            "Patient_ID_Patient"=>$request->patient_id,
             "id_code_sim"=>$request->codesim,
             "id_lieu"=>session('lieu_id'),
         ]);
@@ -119,7 +121,7 @@ class ConsultationsController extends Controller
         }
         if($request->poids != 0 || $request->temp != null || $request->taille !=0 || $request->autre)
         {
-          $exam = new examen_cliniqu; //$this->ExamCliniqCTLR->store( $request,$consult->id); //save examen clinique
+          $exam = new examen_cliniqu;
           $exam->taille = $request->taille;
           $exam->poids  = $request->poids;
           $exam->temp   = $request->temp;
@@ -174,7 +176,7 @@ class ConsultationsController extends Controller
           $dh->specialite = $request->specialiteDemande; // $dh->id_consultation = $consult->id;  // $dh->etat = "en attente";
           $consult->demandeHospitalisation()->save($dh);
         }
-        return redirect(Route('patient.show',$request->id));
+        return redirect(Route('patient.show',$request->patient_id));
     }
     /**
      * Display the specified resource.

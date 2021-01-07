@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 06 jan. 2021 à 21:04
--- Version du serveur :  5.7.21
--- Version de PHP :  7.2.4
+-- Généré le :  jeu. 07 jan. 2021 à 15:58
+-- Version du serveur :  5.7.23
+-- Version de PHP :  7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -236,7 +236,7 @@ DROP TABLE IF EXISTS `antecedants`;
 CREATE TABLE IF NOT EXISTS `antecedants` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Antecedant` varchar(500) DEFAULT NULL,
-  `typeAntecedant` varchar(500) DEFAULT NULL,
+  `typeAntecedant` enum('0','1') DEFAULT NULL COMMENT '''0'':Pathologiques,''1'':Physiologiques',
   `stypeatcd` varchar(500) DEFAULT NULL,
   `date` date DEFAULT NULL,
   `cim_code` varchar(3) DEFAULT NULL,
@@ -247,19 +247,18 @@ CREATE TABLE IF NOT EXISTS `antecedants` (
   `habitudeAlim` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`,`Patient_ID_Patient`),
   KEY `fk_Antecedant_Patient1_idx` (`Patient_ID_Patient`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `antecedants`
 --
 
 INSERT INTO `antecedants` (`id`, `Antecedant`, `typeAntecedant`, `stypeatcd`, `date`, `cim_code`, `descrioption`, `Patient_ID_Patient`, `tabac`, `ethylisme`, `habitudeAlim`) VALUES
-(28, 'Personnels', 'Pathologiques', 'Chirurigicaux', '2021-01-12', 'E21', 'ufu', 189, 0, 0, NULL),
-(35, 'Personnels', 'Pathologiques', 'Medicaux', '1998-12-28', 'G36', 'g36', 189, 0, 0, NULL),
-(37, 'Familiaux', NULL, NULL, '1998-12-27', 'F31', 'f31', 189, 0, 0, NULL),
-(40, 'Personnels', 'Pathologiques', 'Chirurigicaux', '1963-06-03', 'H40', 'jgj', 189, 0, 0, NULL),
-(41, 'Familiaux', NULL, NULL, '1971-07-08', 'H50', 'h50', 189, 0, 0, NULL),
-(42, 'Personnels', 'Pathologiques', 'Medicaux', '2009-01-05', 'H47', 'h47', 188, 0, 0, NULL);
+(53, 'Familiaux', NULL, NULL, '2021-01-03', NULL, 'dqsd', 189, 0, 0, NULL),
+(57, 'Personnels', '0', 'Medicaux', '2021-01-11', '140', '!ml!m', 189, 0, 0, NULL),
+(58, 'Personnels', '0', 'Medicaux', '2021-01-04', 'D61', 'description', 188, 0, 0, NULL),
+(61, 'Familiaux', NULL, NULL, '2021-01-03', 'F42', 'f42 inconue', 188, 0, 0, NULL),
+(68, 'Personnels', '1', NULL, '2021-01-10', 'D12', 'gdf', 188, 0, 1, 'alimentaire');
 
 -- --------------------------------------------------------
 
@@ -2265,7 +2264,7 @@ CREATE TABLE IF NOT EXISTS `consultations` (
   PRIMARY KEY (`id`,`Employe_ID_Employe`,`Patient_ID_Patient`),
   KEY `fk_Consultation_Employe1_idx` (`Employe_ID_Employe`),
   KEY `fk_Consultation_Patient1_idx` (`Patient_ID_Patient`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `consultations`
@@ -2277,7 +2276,10 @@ INSERT INTO `consultations` (`id`, `Motif_Consultation`, `histoire_maladie`, `Da
 (3, 'motf', NULL, '2020-12-25', NULL, 'resureme', 0, NULL, 102, 191, 'D71', 1),
 (4, 'motif avec dh', NULL, '2020-12-25', NULL, 'motif avec dh', 0, NULL, 102, 189, NULL, 1),
 (5, 'motif dh', NULL, '2020-12-25', NULL, 'dh', 0, NULL, 102, 204, NULL, 1),
-(6, 'avec ordonnance', NULL, '2020-12-29', NULL, 'resume', 0, NULL, 102, 191, NULL, 1);
+(6, 'avec ordonnance', NULL, '2020-12-29', NULL, 'resume', 0, NULL, 102, 191, NULL, 1),
+(7, 'b', NULL, '2021-01-07', NULL, 'bf', 0, NULL, 102, 188, NULL, 1),
+(23, 'sd', NULL, '2021-01-07', NULL, 'dqs', 0, NULL, 102, 188, NULL, 1),
+(24, 'moti', NULL, '2021-01-07', NULL, 'rs', 0, NULL, 102, 188, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -4115,19 +4117,25 @@ INSERT INTO `exmnsrelatifdemande` (`id`, `nom`) VALUES
 DROP TABLE IF EXISTS `facteurs_generaux`;
 CREATE TABLE IF NOT EXISTS `facteurs_generaux` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `tabac` tinyint(4) DEFAULT NULL,
-  `exercice` tinyint(4) DEFAULT NULL,
-  `regime` tinyint(4) DEFAULT NULL,
-  `drogue` tinyint(4) DEFAULT NULL,
-  `sedentarite` tinyint(4) DEFAULT NULL,
+  `exercice` tinyint(4) DEFAULT '0',
+  `regime` tinyint(4) DEFAULT '0',
+  `drogue` tinyint(4) DEFAULT '0',
+  `sedentarite` tinyint(4) DEFAULT '0',
   `statut_fam` varchar(150) DEFAULT NULL,
-  `Habitat` varchar(250) DEFAULT NULL,
+  `habitat` varchar(250) DEFAULT NULL,
   `professionnel` varchar(250) DEFAULT NULL,
-  `Autre` varchar(250) DEFAULT NULL,
+  `autrefact` varchar(250) DEFAULT NULL,
   `patient_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_patient` (`patient_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `facteurs_generaux`
+--
+
+INSERT INTO `facteurs_generaux` (`id`, `exercice`, `regime`, `drogue`, `sedentarite`, `statut_fam`, `habitat`, `professionnel`, `autrefact`, `patient_id`) VALUES
+(11, 1, 1, 0, 0, 'stata', NULL, NULL, 'autre sociale', 188);
 
 -- --------------------------------------------------------
 
