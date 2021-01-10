@@ -155,25 +155,33 @@
  	<div class="col-xs-3">
     		<div class="checkbox">
     		<input type="hidden" name="exercice" value="0">
-			 <label><input name="exercice" type ="checkbox" class="ace" value="1" /><span class="lbl text-nowrap">Exercice physique</span></label>
+			  <label><input name="exercice" type ="checkbox" class="ace" value="1" @if(isset($patient->facteurRisque) && ($patient->facteurRisque->exercice)) checked @endif/>
+			 		<span class="lbl text-nowrap">Exercice physique</span>
+			 	</label>
 	      </div>   
 	    </div>
 		 <div class="col-xs-3">
     		<div class="checkbox">
     			<input type="hidden" name="regime" value="0">
-			 <label><input name="regime" type="checkbox" class="ace" value="1" /><span class="lbl text-nowrap">Régime</span></label>
+			 		<label><input name="regime" type="checkbox" class="ace" value="1" @if(isset($patient->facteurRisque)&&($patient->facteurRisque->regime)) checked @endif/>
+			 			<span class="lbl text-nowrap">Régime</span>
+			 		</label>
 	      </div>   
 	 		</div>
 	  	<div class="col-xs-3">
     		<div class="checkbox">
     			<input type="hidden" name="drogue" value="0">
-					<label><input name="drogue" type="checkbox" class="ace" value="1" /><span class="lbl text-nowrap">Drogue</span></label>
+					<label><input name="drogue" type="checkbox" class="ace" value="1" @if(isset($patient->facteurRisque)&&($patient->facteurRisque->drogue)) checked @endif/>
+						<span class="lbl text-nowrap">Drogue</span>
+					</label>
 	      </div>   
 	 		</div>
 	 		<div class="col-xs-3">
     		<div class="checkbox">
     		<input type="hidden" name="sedentarite" value="0">
-			 <label><input name="sedentarite" type="checkbox" class="ace" value="1" /><span class="lbl text-nowrap">Sédentarité</span></label>
+				<label><input name="sedentarite" type="checkbox" class="ace" value="1" @if(isset($patient->facteurRisque)&&($patient->facteurRisque->sedentarite)) checked @endif/>
+			 		<span class="lbl text-nowrap">Sédentarité</span>
+			 	</label>
 	      </div>   
 	 		</div>
     </div>
@@ -181,16 +189,20 @@
     <div class="row">
     	 <div class="col-xs-12">
     	 <div class="col-xs-3">
-	      <label for="explication"><strong>Autre élément social</strong></label><textarea class="form-control" name="autrefact"></textarea> 
+	      <label for="autrefact"><strong>Autre élément social</strong></label>
+	      <textarea class="form-control" name="autrefact">@if(isset($patient->facteurRisque)) {{ $patient->facteurRisque->autrefact }} @endif</textarea> 
 	</div>
 	<div class="col-xs-3">
-	      <label for="explication"><strong>Statut familial</strong></label><textarea class="form-control" name="statut_fam"></textarea> 
+	  <label for="statut_fam"><strong>Statut familial</strong></label>
+	  <textarea class="form-control" name="statut_fam">@if(isset($patient->facteurRisque)) {{ $patient->facteurRisque->statut_fam }} @endif</textarea> 
 	</div>
 	<div class="col-xs-3">
-	      <label for="explication"><strong>Habitat</strong></label><textarea class="form-control" name="habitat"></textarea> 
+	  <label for="habitat"><strong>Habitat</strong></label>
+	  <textarea class="form-control" name="habitat">@if(isset($patient->facteurRisque)) {{ $patient->facteurRisque->habitat }} @endif</textarea> 
 	</div>
 	<div class="col-xs-3">
-	      <label for="explication"><strong>Facteurs Professionels</strong></label><textarea class="form-control" name="professionnel"></textarea> 
+	      <label for="professionnel"><strong>Facteurs Professionels</strong></label>
+	      <textarea class="form-control" name="professionnel">@if(isset($patient->facteurRisque)) {{ $patient->facteurRisque->professionnel }} @endif</textarea> 
 	</div>
     	 </div>
     </div>

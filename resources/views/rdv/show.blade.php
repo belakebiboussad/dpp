@@ -1,26 +1,17 @@
 @extends('app_recep')
 @section('main-content')
 	<div class="page-header">
-		<h4 class="widget-title grey lighter">
-			<i class="ace-icon fa fa-calendar blue"></i> &nbsp;Détails RDV
-		</h4> 	
+		<h4 class="widget-title grey lighter"><i class="ace-icon fa fa-calendar blue"></i> &nbsp;Détails RDV</h4> 	
 		<div class="pull-right">
-			<a href="{{ route('rdv.index') }}" class="btn btn-white">
-				<i class="fa fa-list-ul"></i>Liste Rendez-Vous
-			</a>
+			<a href="{{ route('rdv.index') }}" class="btn btn-white"><i class="fa fa-list-ul"></i>Liste Rendez-Vous</a>
 			@if (Carbon\Carbon::today()->lte(Carbon\Carbon::parse($rdv->Date_RDV->format('Y-m-d H:i:s'))) &&($rdv->Etat_RDV !=0))
-			<a href="{{route('order.pdf',$rdv->id)}}" class="btn btn-white">
-				<i class="ace-icon fa fa-print"></i>Imprimer recu
-			</a>
+			<a href="{{route('order.pdf',$rdv->id)}}" class="btn btn-white"><i class="ace-icon fa fa-print"></i>Imprimer recu</a>
 			@endif
 	  </div>
 	</div>
 	<div class="row">
 		<div class="widget-box transparent">
-			<div class="widget-header widget-header-large">
-				<div class="widget-toolbar no-border invoice-info">
-				</div>
-			</div>
+			<div class="widget-header widget-header-large"><div class="widget-toolbar no-border invoice-info"></div></div>
 			<div class="widget-body">
 				<div class="widget-main padding-24">
 					<div class="row">
@@ -88,7 +79,6 @@
 						<ul class="list-unstyled spaced">
 							<li>
 								<i class="ace-icon fa fa-caret-right blue"></i><strong>Etat RDV :</strong>
-{{--@if (Carbon\Carbon::today()->lte(Carbon\Carbon::parse($rdv->Date_RDV->format('Y-m-d H:i:s'))))	@endif--}}
 									@if(isset($rdv->Etat_RDV))
 											@switch($rdv->Etat_RDV)
 												@case(0)
@@ -112,8 +102,7 @@
 			<hr>
 			<div class="widget-footer widget-footer-large right">
 				<div class="col-sm-12">
-{{--@if (Carbon\Carbon::today()->lte(Carbon\Carbon::parse($rdv->Date_RDV->format('Y-m-d H:i:s'))))@endif--}}
-					 <a href="{{ route('patient.show',$rdv->patient->id) }}" class="btn btn-info btn-bold">
+					 <a href="{{ route('patient.show',$rdv->patient->id) }}" class="btn btn-warning btn-xs">
 						<i class="ace-icon fa fa-close bigger-110"></i>&nbsp;Fermer
 					</a>
 				</div>	

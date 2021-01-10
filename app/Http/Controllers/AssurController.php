@@ -68,7 +68,11 @@ class AssurController extends Controller
             $assure = new assur;
             $grade = grade::where('nom',$obj->Grade)->select('id')->get()->first();
             $assure->Nom = $obj->Nom; $assure->Prenom = $obj->Prenom;
-            $assure->Date_Naissance = Carbon::CreateFromFormat('d/m/Y',$obj->Date_Naissance)->format('Y-m-d');
+            
+            //$assure->Date_Naissance = Carbon::CreateFromFormat('d/m/Y',$obj->Date_Naissance)->format('Y-m-d');
+            //Carbon::CreateFromFormat('d/m/Y',$ass->Date_Naissance)->format('Y-m-d'); 
+            $date = Carbon::CreateFromFormat('d/m/Y',$obj->Date_Naissance)->format('Y-m-d');
+            $assure->Date_Naissance = $date;
             $assure->lieunaissance ='1556';
             $assure->Sexe = $obj->Genre;$assure->SituationFamille = utf8_encode($obj->SituationFamille);
             $assure->Matricule = $obj->Matricule;$assure->adresse = utf8_encode($obj->Adresse);
@@ -144,14 +148,13 @@ class AssurController extends Controller
      */
         public function destroy(Request $request , $id) 
         {
-          //$handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word"); 
-          //$handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");
+          //$handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word");  //$handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");
           $handle = new COM("GRH.Personnel") or die("Unable to instanciate Word");
           if($handle != null)
             {
-              $ass = $handle->SelectPersonnel(trim('po452'),trim(''));
+              $ass = $handle->SelectPersonnel(trim('12122'),trim(''));
               //dd($ass->Date_Naissance);//10/05/1970
-             $date = Carbon::CreateFromFormat('d/m/Y',$ass->Date_Naissance)->format('Y-m-d'); 
+              $date = Carbon::CreateFromFormat('d/m/Y',$ass->Date_Naissance)->format('Y-m-d'); 
               dd($date);
             }else{
               dd("error");
@@ -162,8 +165,7 @@ class AssurController extends Controller
         public function search(Request $request)
         {
           try {
-            //$handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word");
-            //$handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word"); 
+            //$handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word"); //$handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word"); 
             $handle = new COM("GRH.Personnel") or die("Unable to instanciate Word");
             $output=""; $ayants="";
             $assure = $handle->SelectPersonnel(trim($request->matricule),trim($request->nss));   
@@ -172,7 +174,7 @@ class AssurController extends Controller
               $action = ""; $service ="";
               $sexe =  ($assure->Genre =="M") ? "Masculin":"Féminin";
               $service = utf8_encode($assure->Service);
-              if(trim(utf8_encode($assure->Position)) != "Revoqué")//existe maisrevoque
+              if(trim(utf8_encode($assure->Position)) != "Révoqué")//existe maisrevoque
               {
                 $patientId = $this->patientSearch($assure->Prenom,$assure->NSS);
                 if(isset($patientId))
@@ -182,15 +184,16 @@ class AssurController extends Controller
               }  
               else
                 $action = '<b><span class="badge badge-danger">Révoqué</span></b>';
-              if(utf8_encode($assure->Position) != "Revoqué")
+              if(utf8_encode($assure->Position) != "Révoqué")
                 if($this->assureSearch($assure->NSS) == null)
                   $this->save($assure);
+              $dateN = Carbon::CreateFromFormat('d/m/Y',$assure->Date_Naissance)->format('Y-m-d'); 
               $output.='<tr><td>'.$assure->Nom.'</td>'.'<td>'.$assure->Prenom.'</td>'.'<td>'.utf8_encode($assure->SituationFamille).'</td>'.
                 '<td><span class="badge">'.$assure->Matricule.'</span></td>'. '<td>'.$assure->NSS.'</td>'. 
-                '<td>'. $assure->Date_Naissance.'</td>'. '<td>'.$sexe.'</td>'.
+                '<td>'. $dateN.'</td>'. '<td>'.$sexe.'</td>'.
                 '<td><span class="badge badge-success">'.utf8_encode($assure->Position).'</span></td>'.'<td>'.$service.'</td>'. '<td>'.$assure->Grade.'</td>'.
                 '<td class="center">'.$action.'</td></tr>';
-              if(trim(utf8_encode($assure->Position)) != "Revoqué")
+              if(trim(utf8_encode($assure->Position)) != "Révoqué")
               {
                 $patientId = $this->patientSearch($assure->Conjoint,$assure->NSS);//Ayants  //conjoint
                 if(isset($patientId))

@@ -2,7 +2,7 @@
 @section('page-script')
 <script type="text/javascript">
 $('document').ready(function(){
-	var table = $('#consultList').DataTable({
+	  var table = $('#consultList').DataTable({
        "searching":false,
        "processing": true,
         "scrollY":"450px",
@@ -11,8 +11,8 @@ $('document').ready(function(){
         "language": {
             "url": '/localisation/fr_FR.json'
         },      
-      });
-      $('#consultList tbody').on( 'click', 'tr', function () {
+    });
+    $('#consultList tbody').on( 'click', 'tr', function () {
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
         }
@@ -20,20 +20,21 @@ $('document').ready(function(){
             table.$('tr.selected').removeClass('selected');
             $(this).addClass('selected');
         }
-      });  //calendar
-       var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
-	 var today = (new Date()).setHours(0, 0, 0, 0);
-       $('.calendar1').fullCalendar({
+    });  //calendar
+    var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
+	  var today = (new Date()).setHours(0, 0, 0, 0);
+    $('.calendar1').fullCalendar({
        	plugins: [ 'dayGrid', 'timeGrid' ],
-		 header: {
+		    header: {
 		          left: 'prev,next today',
 		          center: 'title,dayGridMonth,timeGridWeek',
-		          right: 'month,agendaWeek,agendaDay'
-		},
-		height: 650, //defaultView: 'agendaWeek',
-		 firstDay: 0,
-	       slotDuration: '00:15:00',
-	  	minTime:'08:00:00',
+		          right: 'agendaWeek,agendaDay'//
+		    },
+		    defaultView: 'agendaWeek',
+		    height: 650, //defaultView: 'agendaWeek',
+		    firstDay: 0,
+	      slotDuration: '00:15:00',
+	  	  minTime:'08:00:00',
 	    	maxTime: '17:00:00',
 	    	navLinks: true,
 	      selectable: true,
@@ -43,9 +44,9 @@ $('document').ready(function(){
 	     	hiddenDays: [ 5, 6 ],
 	     	weekNumberCalculation: 'ISO',	//aspectRatio: 1.5,  	eventLimit: true,   allDaySlot: false,   eventDurationEditable : false,
 	     	weekNumbers: true,
-		events: [
-		       @foreach($employe->rdvs as $rdv)
-		       {
+		    events: [
+		        @foreach($employe->rdvs as $rdv)
+		        {
 			       title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
 			       start : '{{ $rdv->Date_RDV }}',
 			       end:   '{{ $rdv->Fin_RDV }}',
@@ -55,12 +56,12 @@ $('document').ready(function(){
 			       age:{{ $rdv->patient->getAge() }},
 			       specialite: {{ $rdv->employe["specialite"] }},
 			       fixe:  {{ $rdv->fixe }},          
-			},
-			 @endforeach 
-		 ],
-		 eventRender: function (event, element, webData) {
+			      },
+		      	@endforeach 
+		    ],
+		    eventRender: function (event, element, webData) {
      			  if(event.start < today) 
-				 element.css('background-color', '#D3D3D3');
+				    element.css('background-color', '#D3D3D3');
 			else
 			{	
    				if(event.fixe)
@@ -101,7 +102,7 @@ $('document').ready(function(){
 		eventAllow: function(dropLocation, draggedEvent) {
 			return false;
 		},
-       });//fincalendar
+  });//fincalendar
 });
 </script>
 @endsection
@@ -151,7 +152,7 @@ $('document').ready(function(){
 						</a>
 					</li>
 					@if (!is_null($correspondants))
-					<li >
+					<li>
 						<a data-toggle="tab" href="#homme_conf"><i class="green ace-icon fa fa-user bigger-120"></i>Homme de confiance</a>
 					</li>
 					@endif
@@ -284,8 +285,8 @@ $('document').ready(function(){
 										<div class="profile-info-value"><span>{{ $patient->Date_creation }}</span></div>
 									</div>
 								</div>
-								<div class="hr hr-8 dotted"></div>
-								@if(in_array( $patient->Type , [1,2,3])){{-- @if($patient->Type == "Ayant_droit") --}}
+								<div class="hr hr-8 dotted"></div>{{-- @if($patient->Type == "Ayant_droit") --}}
+								@if(in_array( $patient->Type , [1,2,3,4]))
 								<div class="col-sm-12 widget-container-col" id="widget-container-col-12">
 									<div class="widget-box transparent" id="widget-box-12">
 										<div class="widget-header">
@@ -293,26 +294,29 @@ $('document').ready(function(){
 										</div>
 										<div class="widget-body">
 											<div class="widget-main padding-6 no-padding-left no-padding-right">
-												<div class="col-sm-3">
-													<label class="inline">
-														<span><b>Nom :</b></span><span class="lbl blue"> {{ $patient->assure->Nom}} </span>
-													</label>
-												</div>
-												<div class="col-sm-3">
-													<label class="inline">
-														<span><b>Prénom :</b></span><span class="lbl blue"> {{ $patient->assure->Prenom}} </span>
-													</label>
-												</div>
-												<div class="col-sm-3">
-													<label class="inline">
-														<span><b>Né(e) le :</b></span><span class="lbl blue"> {{ $patient->assure->Date_Naissance }}</span>
-													</label>
-												</div>
+												<div class="row">
+													<div class="col-sm-3">
+														<label class="inline">
+															<span><b>Nom :</b></span><span class="lbl blue"> {{ $patient->assure->Nom}} </span>
+														</label>
+													</div>
+													<div class="col-sm-3">
+														<label class="inline">
+															<span><b>Prénom :</b></span><span class="lbl blue"> {{ $patient->assure->Prenom}} </span>
+														</label>
+													</div>
+													<div class="col-sm-3">
+														<label class="inline">
+															<span><b>Né(e) le :</b></span><span class="lbl blue"> {{ $patient->assure->Date_Naissance }}</span>
+														</label>
+													</div>
 													<div class="col-sm-3">
 														<label class="inline">
 															<span><b>Né(e) à :</b></span><span class="lbl blue">{{ $patient->assure->commune->nom_commune}} </span>
 														</label>
-													</div>
+													</div>	
+												</div>
+												<div class="row">
 													<div class="col-sm-3">
 														<label class="inline">
 															<span><b>Sexe :</b></span><span class="lbl blue"> {{ $patient->assure->Sexe == "H" ? "Masculin" : "Féminin" }}</span>
@@ -320,80 +324,35 @@ $('document').ready(function(){
 													</div>
 													<div class="col-sm-3">
 														<label class="inline">
-															<span><b>Matricule :</b></span><span class="lbl blue"> {{ $patient->assure->matricule }}</span>
-														</label>
-													</div>
-													<div class="col-sm-6">
-														<label class="inline">
-															<span><b>Service :</b></span><span class="lbl blue">
-															@switch($patient->assure->Service)
-																@case(0)
-																Sécurité publique
-																@break
-																@case(1)
-																Police judiciaire (PJ)
-																@break
-																@case(2)
-																Brigade mobile de la police judiciaire (BMPJ)
-																@break  
-																@case(3)
-																Service protection et sécurité des personnalités (SPS)
-																@break       
-																@case(4)
-																Unité aérienne de la sûreté nationale
-																@break
-																@case(5)
-																Unités républicaines de sécurité (URS)
-																@break
-																@case(6)
-																Police scientifique et technique
-																@break
-																@case(7)
-																	Police aux frontières et de l'immigration (PAF)
-																@break
-																@case(8)
-																Brigade de recherche et d'intervention (BRI)
-																@break
-																@case(9)
-																Groupe des opérations spéciales de la police (GOSP)
-																@break 
-															@endswitch
-														</span>
-														</label>
-													</div>
-													<div class="col-sm-3">
-														<label class="inline">
-															<span><b>Grade :</b></span>	<span class="lbl blue"> {{ $patient->assure->grade->nom }}</span>
-														</label>
-													</div>
-													<div class="col-sm-3">
-														<label class="inline">
-															<span><b>Position :</b></span>
-															<span class="lbl blue">
-															@switch($patient->assure->Etat)
-																@case(0)
-				                          Activité
-				                          @break
-				                        @case(1)
-				                       	  Retraite
-				                          @break
-				                         @case(2)
-				                          Congé Maladie
-				                          @break
-				                        @case(3)
-				                       	  Révoqué
-				                          @break
-															@endswitch
+															<span><b>Position :</b></span><span class="lbl blue">{{ $patient->assure->Position }}
+						
 															</span>
 														</label>
 													</div>
 													<div class="col-sm-6">
 														<label class="inline">
-															<span><b>N° sécurité sociale :</b></span><span class="lbl blue"> {{ $patient->assure->NSS }}</span>
+															<span><b>Service :</b></span><span class="lbl blue">{{ $patient->assure->Service }}</span>
 														</label>
 													</div>
+												
+												</div>
+												<div class="col-sm-3">
+													<label class="inline">
+														<span><b>Matricule :</b></span><span class="lbl blue"> {{ $patient->assure->matricule }}</span>
+													</label>
+												</div>
+												<div class="col-sm-3">
+													<label class="inline">
+														<span><b>Grade :</b></span><span class="lbl blue"> {{ $patient->assure->grade->nom }}</span>
+													</label>
+												</div>
+												<div class="col-sm-6">
+													<label class="inline">
+														<span><b>N° sécurité sociale :</b></span><span class="lbl blue"> {{ $patient->assure->NSS }}</span>
+													</label>
 												</div>
 											</div>
+										</div>
 										</div>
 									</div>
 								@endif
@@ -470,17 +429,17 @@ $('document').ready(function(){
     						<form action="{{ route('ticket.store') }}" method="POST" role="form">
 								{{ csrf_field() }}
 								<input type="text" name="id_patient" value="{{ $patient->id }}" hidden>
-    						              <div class="col-sm-12">
+    						   <div class="col-sm-12">
 									<label for="typecons"><b>Type de consultation:</b></label>
 									<select class="form-control" id="typecons" name="typecons" required>
 										<option value="Normale">Normale</option>
 										<option value="Urgente">Urgente</option>
 									</select>
-								</div>	<br/><br/><br/><br/>
+								</div><br/><br/><br/><br/>
 								<div class="col-sm-12">
 									<label for="document"><b>Document:</b></label>
 									<select class="form-control" id="document" name="document" required>
-										<option value="Rendez-vous">Rendez-vous</option><!-- 	<option value="">--------</option> -->
+										<option value="Rendez-vous">Rendez-vous</option>
 										<option value="Lettre d'orientation">Lettre d'orientation</option>
 										<option value="Consultation généraliste">Consultation généraliste</option>
 									</select>
@@ -505,5 +464,5 @@ $('document').ready(function(){
  	</form>
  	</div>
 </div>
-<div class="row">@include('consultations.ModalFoms.rendezVous')</div>
+<div class="row">@include('rdv.rendezVous')</div>
 @endsection

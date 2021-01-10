@@ -20,25 +20,25 @@ class Lit extends Model
         }
       public function isFree($start , $end)//libre pour reservation
       {
-            $idlit = $this->id;
-            $lit =Lit::FindOrFail($idlit);
-            if($lit->etat == 0)
-                return false; 
-             $reservations =  bedReservation::whereHas('lit',function($q) use($idlit){ //toute les reservation du lit
-                                                                          $q->where('id',$idlit);
-                                                                      })->get(); 
-            foreach ($reservations as $key => $reservation) {//1 && 
-                   if(( $start < strtotime($reservation->rdvHosp->date_Prevu_Sortie)) && ($end > strtotime($reservation->rdvHosp->date_RDVh)))
-                           return false;
-            }   
-            return true;
+        $idlit = $this->id;
+        $lit =Lit::FindOrFail($idlit);
+        if($lit->etat == 0)
+            return false; 
+         $reservations =  bedReservation::whereHas('lit',function($q) use($idlit){ //toute les reservation du lit
+                                                                      $q->where('id',$idlit);
+                                                                  })->get(); 
+        foreach ($reservations as $key => $reservation) {//1 && 
+               if(( $start < strtotime($reservation->rdvHosp->date_Prevu_Sortie)) && ($end > strtotime($reservation->rdvHosp->date_RDVh)))
+                       return false;
+        }   
+        return true;
       }
-  public function affecter($id)
-  {
-        $affect = false;
-        $lit =Lit::FindOrFail($id);
-        if($lit->etat == 0 || $lit->affectation == 1 )
-          $affect = true; 
-        return $affect;
-  } 
+      public function affecter($id)
+      {
+            $affect = false;
+            $lit =Lit::FindOrFail($id);
+            if($lit->etat == 0 || $lit->affectation == 1 )
+              $affect = true; 
+            return $affect;
+      } 
 }

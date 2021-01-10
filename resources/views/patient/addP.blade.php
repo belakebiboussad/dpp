@@ -4,40 +4,40 @@
 <script>
 	function checkFormAddPAtient()
  	{        
-  		if( ! checkPatient() )
-   		{ 
-		return false;
-   		}else{
-      if($('#hommeConf').is(':checked')){
-			if( ! checkHomme() )
-			{	
-				activaTab("Homme_C");
-				return false;
-			}else
-			{
-				$('input:disabled').removeAttr('disabled');    
-				return true; 
-			}
+  	if( ! checkPatient() )
+   	{ 
+			return false;
+   	}else{
+   		if($('#hommeConf').is(':checked')){
+				if( ! checkHomme() )
+				{	
+					activaTab("Homme_C");
+					return false;
+				}else
+				{
+					$('input:disabled').removeAttr('disabled');    
+					return true; 
+				}
    		}
     	$('input:disabled').removeAttr('disabled');    
     	return true;
-   		}
-  	}
-    function copyAssure(){
-		$("#nom").val('{{ $assure->Nom }}');
-		$("#datenaissance").val('{{ $assure->Date_Naissance}}');
-		$("#idlieunaissance").val('{{ $assure->lieunaissance}}');
-		$("#lieunaissance").val('{{ $assure->lieuNaissance->nom_commune}}')
-		$("input[name=sexe][value=" + '{{ $assure->Sexe }}' + "]").prop('checked', true);
-		$('#sf option[value="' + '{{ $assure->SituationFamille}}' + '"]').attr("selected", "selected"); 	
-		$("#idcommune").val('{{ $assure->commune_res}}');
-		$("#commune").val('{{ $assure->commune->nom_commune}}');
-		$("#idwilaya").val('{{ $assure->wilaya_res}}');
-		$("#wilaya").val('{{ $assure->wilaya->nom}}');
-		$( "#gs" ).val('{{ $assure->grp_sang }}'.substr(0,'{{ $assure->grp_sang }}'.length - 1));
-		$( "#rh" ).val('{{ $assure->grp_sang }}'.substr('{{ $assure->grp_sang }}'.length - 1));
-		$("#adresse").val('{{ $assure->adresse }}');
-		//$('.demograph').find('*').each(function () { $(this).attr("disabled", true); });	
+   	}
+  }
+  function copyAssure(){
+			$("#nom").val('{{ $assure->Nom }}');
+			$("#datenaissance").val('{{ $assure->Date_Naissance}}');
+			$("#idlieunaissance").val('{{ $assure->lieunaissance}}');
+			$("#lieunaissance").val('{{ $assure->lieuNaissance->nom_commune}}')
+			$("input[name=sexe][value=" + '{{ $assure->Sexe }}' + "]").prop('checked', true);
+			$('#sf option[value="' + '{{ $assure->SituationFamille}}' + '"]').attr("selected", "selected"); 	
+			$("#idcommune").val('{{ $assure->commune_res}}');
+			$("#commune").val('{{ $assure->commune->nom_commune}}');
+			$("#idwilaya").val('{{ $assure->wilaya_res}}');
+			$("#wilaya").val('{{ $assure->wilaya->nom}}');
+			$( "#gs" ).val('{{ $assure->grp_sang }}'.substr(0,'{{ $assure->grp_sang }}'.length - 1));
+			$( "#rh" ).val('{{ $assure->grp_sang }}'.substr('{{ $assure->grp_sang }}'.length - 1));
+			$("#adresse").val('{{ $assure->adresse }}');//$('.demograph').find('*').each(function () { $(this).attr("disabled", true); });	
+		
 	}
   $( document ).ready(function() {
 		if({{ $type }} == 0)

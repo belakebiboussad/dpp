@@ -71,7 +71,7 @@ class ConsultationsController extends Controller
           $employe=Auth::user()->employ;
           $modesAdmission = config('settings.ModeAdmissions') ;
           $patient = patient::FindOrFail($id_patient);//$codesim = codesim::all();
-          dd($patient->facteurRisque);
+          //dd($patient->facteurRisque);
           $chapitres = chapitre::all();
           $services = service::all();
           $meds = User::where('role_id',1)->get()->all();

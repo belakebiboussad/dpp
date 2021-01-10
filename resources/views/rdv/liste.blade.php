@@ -3,8 +3,7 @@
 		<div class="widget-header">
 			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des RDV :</h5>
 			<div class="widget-toolbar widget-toolbar-light no-border">
-				<div class="fa fa-plus-circle"></div>
-				<a href="#"  data-target="#RDV" data-toggle="modal" ><b>RDV</b></a>
+				<div class="fa fa-plus-circle"></div><a href="#" data-target="#RDV" data-toggle="modal"><b>RDV</b></a>
 			</div>
 		</div>
 		<div class="widget-body">

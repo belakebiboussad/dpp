@@ -586,8 +586,8 @@ $('#typeexm').on('change', function() {
             error: function (data) {
                  console.log('Error:', data);
             }
-        });
-      }else{
+       });
+    }else{
         $('#Debut_RDV').val(debut);
         $('#Fin_RDV').val(fin); //$('#Temp_rdv').val(heur);
         $('#fixe').val(fixe);

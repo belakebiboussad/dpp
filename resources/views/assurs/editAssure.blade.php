@@ -44,7 +44,8 @@
 				<label class="col-sm-3 col-xs-3 control-label" for="lieunaissancef"><span class="text-nowrap"><strong>Né(e) à:</strong></span></label>
 				<div class="col-sm-9">
 					<div class="col-sm-9">
-					@if(isset($assure) && !empty($assure))
+					{{-- @if(isset($assure) && (isset($assure->lieuNaissance))) --}}
+					@if(isset($assure) && isset($assure->lieunaissance))
 						<input type="hidden" name="idlieunaissancef" id="idlieunaissancef" value="{{  $assure->lieunaissance  }} ">
 						<input type="text" id="lieunaissancef" name="" class="autoCommune col-xs-12 col-sm-12" value="{{ $assure->lieuNaissance->nom_commune }}" autocomplete= "off" />
 					@else	

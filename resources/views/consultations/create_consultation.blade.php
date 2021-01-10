@@ -492,9 +492,9 @@
 		jQuery('#antecedantModal').modal('show');
 	});
 	jQuery('#btn-addAntPhys').click(function () {//	//antecedant Physiologique
-		jQuery('#EnregistrerAntecedantPhys').val("add");
-		jQuery('#modalFormDataPhysio').trigger("reset");
-		$('#AntecPhysCrudModal').html("Ajouter un Antecedant");
+			jQuery('#EnregistrerAntecedantPhys').val("add");
+			jQuery('#modalFormDataPhysio').trigger("reset");
+			jQuery('#AntecPhysCrudModal').html("Ajouter un Antecedant");
 			jQuery('#antecedantPhysioModal').modal('show');
 	});	
 	jQuery('body').on('click', '.open-modal', function (event) {//EDIT
@@ -534,7 +534,7 @@
 		event.preventDefault();
 		var atcd_id = $(this).val();
 	 	$.get('/atcd/' + atcd_id, function (data) { 
-		 	$('#atcd_id').val(data.id);
+		 	$('#atcdPhys_id').val(data.id);
 		 	$('#dateAntcdPhys').val(data.date);
 			$('#habitudeAlim').val(data.habitudeAlim);
 			if(data.tabac)
@@ -646,11 +646,11 @@
 			var habitudeAlim = null; var tabac=null ; var ethylisme = null;
 			e.preventDefault();
 			var formData = {
-	  			Patient_ID_Patient      : '{{ $patient->id }}',
+	  			Patient_ID_Patient   : '{{ $patient->id }}',
 		     	Antecedant           : 'Personnels',//jQuery('#Antecedant').val()
 		     	typeAntecedant       : '1',//jQuery('#typeAntecedant').val(),
 		     	date                 : $('#dateAntcdPhys').val(),
-		   		cim_code						 :$('#phys_cim_code').val(),
+		   		cim_code						 : $('#phys_cim_code').val(),
 		     	descrioption         : $("#descriptionPhys").val(),
 		     	habitudeAlim 				 : $('#habitudeAlim').val()
   		};
@@ -665,7 +665,7 @@
   		});
   		var state = jQuery('#EnregistrerAntecedantPhys').val();
   		var type = "POST";
-  		var atcd_id = jQuery('#atcd_id').val();
+  		var atcd_id = jQuery('#atcdPhys_id').val();
   		var ajaxurl = '/atcd/';
 	    if (state == "update") {
 		   	type = "PUT";
@@ -752,39 +752,39 @@
 	      header: {
 		          left: 'prev,next today',
 		          center: 'title,dayGridMonth,timeGridWeek',
-		          right: 'month,agendaWeek,agendaDay'
-		},
-	       defaultView: 'agendaWeek',
-	       height: 650,
-		firstDay: 0,
-	       slotDuration: '00:15:00',
-	  	minTime:'08:00:00',
-    	maxTime: '17:00:00',
-      navLinks: true,
-      selectable: true,
-      selectHelper: true,
-      eventColor  : '#87CEFA',
-      editable: true,
-     	hiddenDays: [ 5, 6 ],
-     	weekNumberCalculation: 'ISO',
-     	aspectRatio: 1.5,
-     	eventLimit: true,
-    	allDaySlot: false,
-   		eventDurationEditable : false,
-   		weekNumbers: true,
-    	views: {},
-	    events: [
+		          right: 'agendaWeek,agendaDay'
+				},
+	      defaultView: 'agendaWeek',
+	      height: 650,
+				firstDay: 0,
+	      slotDuration: '00:15:00',
+	  		minTime:'08:00:00',
+    		maxTime: '17:00:00',
+      	navLinks: true,
+      	selectable: true,
+      	selectHelper: true,
+      	eventColor  : '#87CEFA',
+      	editable: true,
+     		hiddenDays: [ 5, 6 ],
+     		weekNumberCalculation: 'ISO',
+     		aspectRatio: 1.5,
+     		eventLimit: true,
+    		allDaySlot: false,
+   			eventDurationEditable : false,
+   			weekNumbers: true,
+    		views: {},
+	    		events: [
 		       @foreach($employe->rdvs as $rdv)
-		       {
-			       title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
-			       start : '{{ $rdv->Date_RDV }}',
-			       end:   '{{ $rdv->Fin_RDV }}',
-			       id :'{{ $rdv->id }}',
-			       idPatient:{{$rdv->patient->id}},
-			       tel:'{{$rdv->patient->tele_mobile1}}',
-			       age:{{ $rdv->patient->getAge() }},
-			       specialite: {{ $rdv->employe["specialite"]}},
-			       fixe:  {{ $rdv->fixe }},          
+		       {	
+		       		  title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
+					      start : '{{ $rdv->Date_RDV }}',
+					       end:   '{{ $rdv->Fin_RDV }}',
+					       id :'{{ $rdv->id }}',
+					       idPatient:{{$rdv->patient->id}},
+					       tel:'{{$rdv->patient->tele_mobile1}}',
+					       age:{{ $rdv->patient->getAge() }},
+					       specialite: {{ $rdv->employe["specialite"]}},
+					       fixe:  {{ $rdv->fixe }},
 		      	},
 		       @endforeach 
 	    ],
@@ -801,15 +801,15 @@
 				}
 				element.popover({
 			  		delay: { "show": 500, "hide": 100 },  // title: event.title,
-			      		content: event.tel,
-			        	trigger: 'hover',
-			             animation:true,
-			             placement: 'bottom',
-			             container: 'body',
-			             template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
+			      content: event.tel,
+			      trigger: 'hover',
+			      animation:true,
+			      placement: 'bottom',
+			      container: 'body',
+			      template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
 			 	});		    
 			}, 
-		       select: function(start, end) {
+		  select: function(start, end) {
 				if(start > CurrentDate){
 	                             Swal.fire({
 		                                 title: 'Confimer vous  le Rendez-Vous ?',
@@ -1015,6 +1015,6 @@
 <div class="row">@include('consultations.ModalFoms.Ordonnance')</div>
 <div class="row">@include('consultations.ModalFoms.imprimerOrdonnance')</div>
 <div class="row">@include('consultations.ModalFoms.imprimerOrdonnanceAjax')</div>
-<div class="row">@include('consultations.ModalFoms.rendezVous')</div>
+<div class="row">@include('rdv.rendezVous')</div>
 <div class="row">@include('cim10.cimModalForm')</div>
 @endsection

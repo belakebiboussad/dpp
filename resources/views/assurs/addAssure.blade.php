@@ -121,7 +121,7 @@
 					<option value="Activité">Activité</option>
 					<option value="Retraité">Retraite</option>
 					<option value="Congé Maladie" >Congé Maladie</option>
-					<option value="Révoqué" >Révoqué</option>
+					<option value="Révoqué">Révoqué</option>
 				</select>
 
 			</div>

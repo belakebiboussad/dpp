@@ -237,7 +237,7 @@ class PatientController extends Controller
      */
        public function show($id)
        {  
-          $patient = patient::FindOrFail($id); //dd($patient->hospitalisations);
+          $patient = patient::FindOrFail($id);
           $employe=Auth::user()->employ;
           $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();//->first();
           $specialites = Specialite::all();
@@ -254,7 +254,8 @@ class PatientController extends Controller
     {  
       $patient = patient::FindOrFail($id);
       $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
-     if(!(isset($asure_id)))
+     
+      if(!(isset($asure_id)))
       {   
         $assure=null ;
         $grades = grade::all(); 

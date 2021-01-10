@@ -11,8 +11,7 @@ class assur extends Model
 	protected $fillable = ['Nom','Prenom','Date_Naissance', 'lieunaissance','SituationFamille', 'Sexe','Matricule','adresse','commune_res','wilaya_res','grp_sang','NSS','NMGSN','Grade','Service','Position'];
 	public function lieuNaissance()
 	{
-		if(isset($this->lieunaissance))
-			return $this->belongsTo('App\modeles\Commune','lieunaissance');
+		return $this->belongsTo('App\modeles\Commune','lieunaissance');
 	}
 	public function grade()
 	{

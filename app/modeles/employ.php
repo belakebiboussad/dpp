@@ -11,14 +11,14 @@ class employ extends Model
 	public function Service()
 	{
 			 return $this->belongsTo('App\modeles\service','service');
-	}
+	} 
 	public function Specialite()
 	{
 		return $this->belongsTo('App\modeles\Specialite','specialite');
 	}
 	public function rdvs()
 	{
-	   return $this->hasMany('App\modeles\rdv','Employe_ID_Employe');// ->orderBy('Date_RDV')     
+	   return $this->hasMany('App\modeles\rdv','Employe_ID_Employe')->where('Etat_RDV','!=','0');// ->orderBy('Date_RDV')     
 	}
 	public function User()
 	{

@@ -7,7 +7,7 @@
 		<div class="modal-body">
 			<form id="modalFormDataPhysio" method="POST" action ="" class="form-horizontal" novalidate="">
 			{!! csrf_field() !!}
-				<input type="hidden" id="atcd_id" value="0"><!-- <input type="hidden" id="typeAntecedantPhys" value="Physiologiques"> -->
+				<input type="hidden" id="atcdPhys_id" value="0"><!-- <input type="hidden" id="typeAntecedantPhys" value="Physiologiques"> -->
 				<div id="PhysiologieANTC"  class="form-group">
 					<label for="habitudeAlim" class="col-sm-2 control-label">Habitudes Alimentaires:</label>
 					<div class="col-sm-10">
