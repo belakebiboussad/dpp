@@ -169,7 +169,7 @@
 	       		     	<a href="{{ route('ordonnace.show', $consultation->ordonnances->id) }}">
 	               		<i class="fa fa-eye"></i>
 	              	</a>
-	              	<a href="/showordonnance/{{ $consultation->ordonnances->id }}" target="_blank" class="btn btn-xs">
+	              	<a href="{{route("ordonnancePdf",$consultation->ordonnances->id)}}" target="_blank" class="btn btn-xs">
                     <i class="fa fa-print"></i>&nbsp;
                   </a>
 	             	</td>

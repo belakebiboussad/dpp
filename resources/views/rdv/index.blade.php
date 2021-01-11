@@ -116,10 +116,8 @@ $(document).ready(function() {
                  if (draggedEvent.start < today)  
                         return false;
             },
-             eventDragStart:function( event, jsEvent, ui, view ) {
-              },
-             eventDrop: function(event, delta, revertFunc)
-             { 
+            eventDrop: function(event, delta, revertFunc)
+            { 
                 if( event.start-delta >= today)
                 { 
                        jQuery('#btnclose').click(function(){
@@ -133,9 +131,8 @@ $(document).ready(function() {
               {
                     revertFunc();
               }
-              },  
-             eventMouseover: function(event, jsEvent, view){
-             },     
+            },  
+                
        }); // calendar
        $('#patient').editableSelect({
                effects: 'default', 

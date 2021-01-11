@@ -10,6 +10,9 @@ use App\modeles\medicament;
 use Jenssegers\Date\Date;
 use PDF;
 use Response;
+use Storage;
+use File;
+use Dompdf\Dompdf;
 use View;
 class OrdonnanceController extends Controller
 {
@@ -81,16 +84,26 @@ class OrdonnanceController extends Controller
      */
     // _ordonnance
 
-     public function show($id)
-     {  
+    public function show($id)
+    {  
            $ordonnance = ordonnance::FindOrFail($id);
            return view('ordennance.show_ordennance', compact('ordonnance'));
-     }
-     public function show_ordonnance($id)
-     {  
+    }
+    public function show_ordonnance($id)
+    {  
         $ordonnance = ordonnance::FindOrFail($id);
         $pdf = PDF::loadView('ordennance.imprimer', compact('ordonnance'));
-        return $pdf->stream('ordonnance.pdf');
+        $filename = $ordonnance->consultation->patient->Nom . "-" . $ordonnance->consultation->patient->Prenom . ".pdf";
+        Storage::put('public/pdf/'.$filename,$pdf->output());
+        $file = storage_path() . "/app/public/pdf/" . $filename;
+        if (File::isFile($file))
+        {
+            $file = File::get($file);
+            $response = Response::make($file, 200);
+            $response->header('Content-Type', 'application/pdf');
+            Storage::deleteDirectory('/public/pdf/');
+            return $response;
+        } 
     }
     public function print(Request $request)
     {   

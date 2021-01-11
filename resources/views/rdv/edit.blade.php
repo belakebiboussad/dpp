@@ -66,9 +66,10 @@
         },
         eventDrop: function(event, delta, revertFunc)
         {
+
         	if( event.id == {{ $Rdv->id}} )
           {
-          		ajaxEditEvent(event,true);
+            ajaxEditEvent(event,true);
           } 
         },
         select: function(start, end) {
@@ -82,9 +83,14 @@
 <div class="page-header">
 	<h1 style="display: inline;"><strong>Modifier RDV du Patient :</strong>
   	<i class="ace-icon fa fa-angle-double-left" style="font-size:20px;"></i>
- 		{{$Rdv->patient->getCivilite()}} {{ $Rdv->patient->Nom }} {{ $Rdv->patient->Prenom }}
+ 		{{ $Rdv->patient->getCivilite() }} {{ $Rdv->patient->Nom }} {{ $Rdv->patient->Prenom }}
 		<i class="ace-icon fa fa-angle-double-right" style="font-size:20px;"></i>
  	</h1>
+    <div class="pull-right">
+      <a href="{{ route('patient.show',$Rdv->patient->id) }}" class="btn btn-white btn-info btn-bold">
+        <i class="ace-icon fa fa-hand-o-up"></i>&nbsp;Patient</a>
+      </a>
+    </div>
 </div>
 {{--
 <div class="col-xs-11"><form class="form-horizontal" role="form" action="{{route('rdv.update',$rdv->id)}}" method="POST">

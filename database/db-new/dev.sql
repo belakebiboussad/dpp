@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  Dim 10 jan. 2021 à 15:57
+-- Généré le :  lun. 11 jan. 2021 à 15:56
 -- Version du serveur :  5.7.23
 -- Version de PHP :  7.2.10
 
@@ -11209,7 +11209,7 @@ CREATE TABLE IF NOT EXISTS `rdvs` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `fk_RDV_Employe` (`Employe_ID_Employe`),
   KEY `fk_RDV_Patient` (`Patient_ID_Patient`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `rdvs`
@@ -11220,9 +11220,8 @@ INSERT INTO `rdvs` (`id`, `Date_RDV`, `Fin_RDV`, `fixe`, `Employe_ID_Employe`, `
 (2, '2020-12-31 12:45:00', '2020-12-31 13:00:00', 1, 103, 203, NULL),
 (3, '2020-12-31 10:30:00', '2020-12-31 10:45:00', 1, 102, 190, NULL),
 (4, '2021-01-03 00:00:00', '2021-01-04 00:00:00', 1, 102, 205, NULL),
-(5, '2021-01-19 00:00:00', '2021-01-20 00:00:00', 0, 102, 189, 0),
-(6, '2021-01-12 10:15:00', '2021-01-12 10:30:00', 1, 102, 191, NULL),
-(7, '2021-01-13 10:30:00', '2021-01-13 10:45:00', 1, 102, 190, 0);
+(6, '2021-01-12 10:15:00', '2021-01-12 10:30:00', 1, 102, 191, 0),
+(8, '2021-01-13 09:00:00', '2021-01-13 09:15:00', 1, 102, 191, NULL);
 
 -- --------------------------------------------------------
 

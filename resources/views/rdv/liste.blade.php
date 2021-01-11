@@ -44,7 +44,6 @@
 									</td>
 									<td class="center">
 										<div class="hidden-sm hidden-xs btn-group">
-											<a class="btn btn-xs btn-success" href="{{ route('rdv.show', $rdv->id) }}">	<i class="ace-icon fa fa-hand-o-up"></i></a>
 											@if(!(isset($rdv->Etat_RDV))  &&($rdv->Employe_ID_Employe ==Auth::user()->employee_id))
 											<a href="{{route('rdv.edit',$rdv->id)}}" class="btn btn-xs btn-success" title ="Modifier">
 												<i class="fa fa-edit blue"></i>&nbsp;

@@ -156,7 +156,7 @@ route::get('/home_reception',function (){
     return view('home.home_recep');
 })->name('home_rec');
 Route::post('/get-all-events','RDVController@checkFullCalendar');
-route::get('/showordonnance/{id}','OrdonnanceController@show_ordonnance');
+route::get('/showordonnance/{id}','OrdonnanceController@show_ordonnance')->name('ordonnancePdf');
 route::get('/demandeexbio/{id}','DemandeExbController@createexb');
 route::get('/showdemandeexb/{id}','DemandeExbController@print');
 route::get('/showdemandeexr/{id}','DemandeExamenRadio@print');

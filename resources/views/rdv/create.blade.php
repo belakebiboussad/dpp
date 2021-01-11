@@ -114,8 +114,11 @@ $(document).ready(function() {
                         @endforeach   
               ], 
               select: function(start, end) {
-                        if(start >= CurrentDate){                                           
-                          @if(Auth::user()->role_id == 1)
+                    var minutes = end.diff(start,"minutes"); 
+                    if(minutes == 15)
+                    { 
+                      if(start >= CurrentDate){                                           
+                        @if(Auth::user()->role_id == 1)
                           Swal.fire({
                                  title: 'Confimer vous  le Rendez-Vous ?',
                                  html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',
@@ -135,12 +138,15 @@ $(document).ready(function() {
                                     createRDVModal(start,end);
                                   @endif          
                                 }
-                        })
+                          })
                         @else
                           createRDVModal(start,end);
                         @endif  
+                      }else
+                        $('#calendar').fullCalendar('unselect');   
                     }else
-                          $('#calendar').fullCalendar('unselect');   
+                      $('#calendar').fullCalendar('unselect');
+
               },
               eventClick: function(calEvent, jsEvent, view) {
                     if(Date.parse(calEvent.start) > today )

@@ -17,7 +17,6 @@ use View;
 use Dompdf\Dompdf;
 use Storage;
 use DNS2D;
-//bigfish
 use BigFish\PDF417\PDF417;
 use BigFish\PDF417\Renderers\ImageRenderer;
 use BigFish\PDF417\Renderers\SvgRenderer;
@@ -55,9 +54,9 @@ class RDVController extends Controller
         return view('patient.index');
       }
       public function index($patientID = null)
-      {    
+      {  
         if(Auth::user()->role_id == 1)
-        {//$rdvs = rdv::where('specialite', Auth::user()->employ->specialite)->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get();
+        {
           $specialite = Auth::user()->employ->specialite;
           $rdvs = rdv::with('patient','employe')
                     ->whereHas('employe.Specialite',function($q) use ($specialite){
@@ -78,6 +77,7 @@ class RDVController extends Controller
     // Request $request
     public function create($id_patient =null)
     {
+
       if(Auth::user()->role_id == 1)   
       {   
         $specialite = Auth::user()->employ->specialite;
@@ -209,10 +209,8 @@ class RDVController extends Controller
           return redirect()->route('rdv.index'); 
         } 
       }
-/*public function orderPdf($id){$order = rdv::findOrFail($id); $pdf = PDF::loadView('ordre_pdf', compact('order'))->setPaper('a5', 'landscape');
-$name = "RDV-pour:".patient::where("id",$order->Patient_ID_Patient)->get()->first()->Nom."".patient::where("id",$order->Patient_ID_Patient)->get()->first()->Prenom.".pdf";  return $pdf->download($name);}*/
-    public function print(Request $request,$id)
-    { //   DNS2D
+      public function print(Request $request,$id)
+      { //   DNS2D
       /* $rdv = rdv::findOrFail($id);   $viewhtml = View::make('rdv.rdvTicketPDF-DNS2D', array('rdv' =>$rdv))->render();$dompdf = new Dompdf();$dompdf->loadHtml($viewhtml);$dompdf->setPaper('a6', 'landscape');
       $dompdf->render();$name = "RDV-".$rdv->patient->Nom."-".$rdv->patient->Prenom.".pdf";//"-".microtime(TRUE).return $dompdf->stream($name); */
       $rdv = rdv::findOrFail($id);
