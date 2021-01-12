@@ -127,16 +127,6 @@
 @endsection
 @section('main-content')
 <div class="page-content">
-	<div class="row">
-		<div class="col-sm-12 center">	
-			<h2>
-				<strong>Bienvenue Docteur:</strong>
-			  <i class="ace-icon fa fa-angle-double-left" style="font-size:20px;"></i>
-				 {{ Auth::User()->employ->nom }} &nbsp;{{ Auth::User()->employ->prenom }}
-				<i class="ace-icon fa fa-angle-double-right" style="font-size:20px;"></i>
-			</h2>
-		</div>		
-	</div>	{{-- row --}}
 	<div class="space-12"></div>
 	<div class="row panel panel-default" style ="margin-right:-35px;">
 		<div class="panel-heading left" style="height: 40px; font-size: 2.3vh;">

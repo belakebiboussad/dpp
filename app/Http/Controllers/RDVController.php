@@ -49,60 +49,57 @@ class RDVController extends Controller
         ]);
         return redirect()->route("rdv.show",$rdv->id);
       }
-      public function choixpatient()
-      {
-        return view('patient.index');
-      }
-      public function index($patientID = null)
-      {  
-        if(Auth::user()->role_id == 1)
-        {
-          $specialite = Auth::user()->employ->specialite;
-          $rdvs = rdv::with('patient','employe')
+     public function choixpatient()
+     {
+           return view('patient.index');
+     }
+     public function index($patientID = null)
+     {  
+           if(Auth::user()->role_id == 1)
+           {
+               $specialite = Auth::user()->employ->specialite;
+                $rdvs = rdv::with('patient','employe')
                     ->whereHas('employe.Specialite',function($q) use ($specialite){
                                   $q->where('id',$specialite);
-                    })->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get();
-          return view('rdv.index', compact('rdvs')); 
-        } else
-        {
-          $rdvs = rdv::where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get();
-          return view('rdv.index', compact('rdvs')); 
-        }     
-      }
+                })->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get();
+                return view('rdv.index', compact('rdvs')); 
+          } else{
+                $rdvs = rdv::where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get();
+                return view('rdv.index', compact('rdvs')); 
+          }     
+     }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     // Request $request
-    public function create($id_patient =null)
-    {
-
-      if(Auth::user()->role_id == 1)   
-      {   
-        $specialite = Auth::user()->employ->specialite;
-        $rdvs = rdv::with('patient','employe')
+     public function create($id_patient =null)
+     {
+          if(Auth::user()->role_id == 1)   
+         {   
+                $specialite = Auth::user()->employ->specialite;
+                $rdvs = rdv::with('patient','employe')
                     ->whereHas('employe.Specialite',function($q) use ($specialite){
                                   $q->where('id',$specialite);
                     })->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get();                                          
-        if(isset($id_patient) && !empty($id_patient))
-        {
-          $patient = patient::FindOrFail($id_patient);
-          return view('rdv.create',compact('patient','rdvs'));
-        }else
-          return view('rdv.create', compact('rdvs')); 
-       }else
-       { 
-          $rdvs = rdv::with(['patient','employe'])->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get();
-          $specialites = specialite::all();
-          if(isset($id_patient) && !empty($id_patient))
-          {
-            $patient = patient::FindOrFail($id_patient);
-            return view('rdv.create', compact('rdvs','specialites','patient')); 
-          }else
-            return view('rdv.create', compact('rdvs','specialites')); 
-       }
-    }
+               if(isset($id_patient) && !empty($id_patient))
+               {
+                     $patient = patient::FindOrFail($id_patient);
+                    return view('rdv.create',compact('patient','rdvs'));
+                }else
+                    return view('rdv.create', compact('rdvs')); 
+          }else{ 
+                $rdvs = rdv::with(['patient','employe'])->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get();
+                $specialites = specialite::all();
+                if(isset($id_patient) && !empty($id_patient))
+                {
+                     $patient = patient::FindOrFail($id_patient);
+                     return view('rdv.create', compact('rdvs','specialites','patient')); 
+                }else
+                     return view('rdv.create', compact('rdvs','specialites')); 
+           }
+      }
     /**
      * Store a newly created resource in storage.
      *
@@ -122,7 +119,6 @@ class RDVController extends Controller
         ]);
         return redirect()->route("rdv.show",$rdv->id);
     }
-
     /**
      * Display the specified resource.
      *
@@ -131,10 +127,9 @@ class RDVController extends Controller
      */
     public function show($id)
     {
-      $rdv = rdv::FindOrFail($id); // dd($rdv);
-      return view('rdv.show',compact('rdv'));
+          $rdv = rdv::FindOrFail($id); // dd($rdv);
+          return view('rdv.show',compact('rdv'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -143,25 +138,21 @@ class RDVController extends Controller
      */
     public function edit(Request $request,$id)
     {       
-      $Rdv = rdv::with('patient','employe')->FindOrFail($id);
-      if($request->ajax())
-      {
-        $medecins = ($Rdv->employe->Specialite)->employes;
-        if(isset($Rdv->Employe_ID_Employe))
-           return(Response::json(['rdv'=>$Rdv,'medecins'=>$medecins]));
-        else
-          return Response::json(['rdv'=>$Rdv,'patient'=>$Rdv->patient]);  
-      }   
-      else
-        {
-           $specialite = Auth::user()->employ->specialite;
-          $rdvs = rdv::with('patient','employe')
-                     ->whereHas('employe.Specialite',function($q) use ($specialite){
-                                  $q->where('id',$specialite);
-                    })->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get(); 
-          return view('rdv.edit',compact('Rdv','rdvs'));
-        }
-      
+          $Rdv = rdv::with('patient','employe')->FindOrFail($id);
+          if($request->ajax())
+          {
+               $medecins = ($Rdv->employe->Specialite)->employes;
+                if(isset($Rdv->Employe_ID_Employe))
+                    return(Response::json(['rdv'=>$Rdv,'medecins'=>$medecins]));
+                else
+                      return Response::json(['rdv'=>$Rdv,'patient'=>$Rdv->patient]);  
+          }else{
+                $specialite = Auth::user()->employ->specialite;
+                $rdvs = rdv::with('patient','employe')->whereHas('employe.Specialite',function($q) use ($specialite){
+                                                                         $q->where('id',$specialite);
+                                                                    })->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get(); 
+                return view('rdv.edit',compact('Rdv','rdvs'));
+          } 
     }
     /**
      * Update the specified resource in storage.

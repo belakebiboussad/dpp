@@ -51,7 +51,7 @@
 <script type="text/javascript">
   var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
   $(document).ready(function(){
-      $('.timepicker').timepicker({
+       $('.timepicker').timepicker({
             timeFormat: 'HH:mm',
             interval: 60,
             minTime: '08',
@@ -155,17 +155,6 @@
           else
              $("#motifr").hide();
     });
-    // $("#validerdmd").click(function(){
-    //   var arrayLignes = document.getElementById("cmd").rows;
-    //   var longueur = arrayLignes.length;   var produits = [];
-    //   for(var i=1; i<longueur; i++)
-    //   {
-    //     produits[i] = { produit: arrayLignes[i].cells[1].innerHTML, gamme: arrayLignes[i].cells[2].innerHTML, spec: arrayLignes[i].cells[3].innerHTML, qte: arrayLignes[i].cells[4].innerHTML}
-    //   }
-    //   var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(produits)+"' hidden>");
-    //   champ.appendTo('#demandform');
-    //         $('#demandform').submit();
-    // });
     $("#deletepod").click(function(){
       $("tr:has(input:checked)").remove();
     });
@@ -922,26 +911,26 @@ $('#typeexm').on('change', function() {
             });
       function getMedecinsSpecialite(specialiteId = 0,medId='')
       {
-        $('#medecin').empty();
-        var specialiteId = 0 ?$('#specialite').val() : specialiteId;
-        $.ajax({
-                  type : 'get',
-                  url : '{{URL::to('DocorsSearch')}}',
-                  data:{'specialiteId': specialiteId },
-                  dataType: 'json',
-                  success:function(data,status, xhr){
-                        var html ='<option value="">Selectionner...</option>';
-                        jQuery(data).each(function(i, med){
-                          
-                          html += '<option value="'+med.id+'" >'+med.nom +" "+med.prenom+'</option>';
-                        });
-                        $('#medecin').removeAttr("disabled");  
-                        $('#medecin').append(html);//$("#medecin").val(medId);
-                  },
-                  error:function(data){
-                      console.log(data);
-                  }
-        });   
+          $('#medecin').empty();
+          var specialiteId = 0 ?$('#specialite').val() : specialiteId;
+          $.ajax({
+                    type : 'get',
+                    url : '{{URL::to('DocorsSearch')}}',
+                    data:{'specialiteId': specialiteId },
+                    dataType: 'json',
+                    success:function(data,status, xhr){
+                          var html ='<option value="">Selectionner...</option>';
+                          jQuery(data).each(function(i, med){
+                            
+                            html += '<option value="'+med.id+'" >'+med.nom +" "+med.prenom+'</option>';
+                          });
+                          $('#medecin').removeAttr("disabled");  
+                          $('#medecin').append(html);//$("#medecin").val(medId);
+                    },
+                    error:function(data){
+                        console.log(data);
+                    }
+          });   
       }      
       function edit(event)
       {       
@@ -959,57 +948,40 @@ $('#typeexm').on('change', function() {
         $('#updateRdv').attr('action',url);
        $('#fullCalModal').modal({ show: 'true' }); 
       }
-/*function ajaxEditEvent(event,bool){ url = "rdv" + '/' + event.id + '/edit';$.ajax({type: 'GET',url:  url,success: function(data) {  if($('#medecin').length){ if(isEmpty(data['medecin']))  
-getMedecinsSpecialite(data['rdv'].specialite);  else  getMedecinsSpecialite(data['rdv'].specialite,data['medecin'].id);  }
-$('#patient_tel').text(event.tel); //$('#patient_tel').text(data['patient'].tele_mobile1); $('#agePatient').text(event.age);   //$('#lien').attr('href','/patient/'.concat(data['patient'].id)); 
-$('#lien').attr('href','/patient/'.concat(event.idPatient));if(bool){$("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));$("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm')); 
-}else{$("#daterdv").val(data['rdv'].Date_RDV); $("#datefinrdv").val(data['rdv'].Fin_RDV); } 
- //$('#btnConsulter').attr('href','/consultations/create/'.concat(data['patient'].id));$('#btnConsulter').attr('href','/consultations/create/'.concat(event.idPatient));
-// $('#btnDelete').attr('href','/rdv/'.concat(data['rdv'].id));$('#btnDelete').attr('href','/rdv/'.concat(event.idPatient));},error:function(data){ alert('error'); } });  }//todelete  */
       function ajaxEditEvent(event,bool)
       {
-        url = "rdv" + '/' + event.id + '/edit';
-        $.ajax({
-          type: 'GET',
-          url:  url,
-          success: function(data) {
-            var html ='';
-            $('#medecin').empty();
-            jQuery(data.medecins).each(function(i, med){
-              html += '<option value="'+med.id+'" >'+med.nom +" "+med.prenom+'</option>';
-            });
-            $('#medecin').removeAttr("disabled");  
-            $('#medecin').append(html);
-            $("#medecin").val(data.rdv.Employe_ID_Employe);
-            $('#patient_tel').text(data.rdv.patient.tele_mobile1);
-            $('#agePatient').text(event.age);
-            $('#lien').attr('href','/patient/'.concat(data.rdv.patient.id)); 
-            $('#lien').text(event.title);
-            if(bool)
-            {
-              $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
-              $("#meetingdate").val(event.start.format('YYYY-MM-DD'));
-              $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
-
-            }else{
-              var date = new Date(data.rdv.Date_RDV);
-              $("#daterdv").val(data.rdv.Date_RDV);
-              $("#meetingdate").val(date.getFullYear() +'-' + (date.getMonth() + 1) + '-' + date.getDate());
-              $("#datefinrdv").val(data.rdv.Fin_RDV); 
-            }
-            $('#btnConsulter').attr('href','/consultations/create/'.concat(data.rdv.patient.id));
-            $('#btnDelete').attr('href','/rdv/'.concat(data.rdv.id));
-            var url = '{{ route("rdv.update", ":slug") }}';
-            url = url.replace(':slug',data.rdv.id);
-            $('#updateRdv').attr('action',url);
-            $('#fullCalModal').modal({ show: 'true' }); 
-          },
-          error:function(data){
-            alert('error');
-          }
-
-      });
-      }
+          $.get('/rdv/'+event.id +'/edit', function (data) {
+                 var html ='';
+                $('#medecin').empty();
+                 jQuery(data.medecins).each(function(i, med){
+                      html += '<option value="'+med.id+'" >'+med.nom +" "+med.prenom+'</option>';
+                });
+                $('#medecin').removeAttr("disabled");  
+                $('#medecin').append(html);
+                $("#medecin").val(data.rdv.Employe_ID_Employe);
+                $('#patient_tel').text(data.rdv.patient.tele_mobile1);
+                $('#agePatient').text(event.age);
+                $('#lien').attr('href','/patient/'.concat(data.rdv.patient.id)); 
+                $('#lien').text(event.title);
+                if(bool)
+                {
+                     $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
+                     $("#meetingdate").val(event.start.format('YYYY-MM-DD'));
+                     $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
+                }else{
+                     var date = new Date(data.rdv.Date_RDV);
+                     $("#daterdv").val(data.rdv.Date_RDV);
+                     $("#meetingdate").val(date.getFullYear() +'-' + (date.getMonth() + 1) + '-' + date.getDate());
+                     $("#datefinrdv").val(data.rdv.Fin_RDV); 
+                }
+                $('#btnConsulter').attr('href','/consultations/create/'.concat(data.rdv.patient.id));
+                $('#btnDelete').attr('href','/rdv/'.concat(data.rdv.id));
+                var url = '{{ route("rdv.update", ":slug") }}';
+                url = url.replace(':slug',data.rdv.id);
+                $('#updateRdv').attr('action',url);
+                $('#fullCalModal').modal({ show: 'true' }); ;
+          });
+      } 
       function refrechCal()
       {  
         $('.calendar1').fullCalendar('refetchEvents');

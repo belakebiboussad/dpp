@@ -80,41 +80,41 @@
 		var poids = $("#poids").val();
 		var taille = $("#taille").val();
 		if(poids==""){
-      alert("STP, saisir le poids");
-     	$("#poids").focus();
-      	return 0;
-    }else if (isNaN(poids)) {
-     	alert("poids doit être un nombre!");  
-     	$("#poids").select();
-     	return 0;
-   	}
- 		if(taille==""){
+     			alert("STP, saisir le poids");
+    			$("#poids").focus();
+      		return 0;
+    		}else if (isNaN(poids)) {
+     			alert("poids doit être un nombre!");  
+     			$("#poids").select();
+     			return 0;
+	   	}
+	 	if(taille==""){
 			alert("STP, Saisir la taille");
  			$("#taille").focus();
  			return 0;
  		}else if (isNaN(taille)) {
-     	alert("taille doit être un nombre!");  
-     	$("#txtaltura").select();
-     	return 0;
-    }
-    var imc = poids / Math.pow(taille,2);
-    var imc = Math.round(imc).toFixed(2);
+		     	alert("taille doit être un nombre!");  
+		     	$("#txtaltura").select();
+		     	return 0;
+   		 }
+    		var imc = poids / Math.pow(taille,2);
+   		var imc = Math.round(imc).toFixed(2);
 		$("#imc").attr("value", imc);
-    if(imc<17){
-      $("#interpretation").attr("value", "Anorexie");
-    }else if(imc>=17.1 && imc<=18.49){
-      $("#interpretation").attr("value", "Migreur");
-    }else if(imc>=18.5 && imc<=24.99){
-      $("#interpretation").attr("value", "Poids Normale");
-    }else if(imc>=25 && imc<=29.99){
-      $("#interpretation").attr("value", "surpois");
-    }else if(imc>=30 && imc<=34.99){
+    		if(imc<17){
+      		$("#interpretation").attr("value", "Anorexie");
+    		}else if(imc>=17.1 && imc<=18.49){
+      		$("#interpretation").attr("value", "Migreur");
+    		}else if(imc>=18.5 && imc<=24.99){
+      		$("#interpretation").attr("value", "Poids Normale");
+    		}else if(imc>=25 && imc<=29.99){
+      		$("#interpretation").attr("value", "surpois");
+    		}else if(imc>=30 && imc<=34.99){
 			$("#interpretation").attr("value", "Obésité I");
-	  }else if(imc>=35 && imc<=39.99){
-	   	$("#interpretation").attr("value", "Obésité II (sévère)");	
-	  }else if(imc>=40){
-	   	$("#interpretation").attr("value", "Obésité III (morbide)");	
-    }
+	  	}else if(imc>=35 && imc<=39.99){
+	   		$("#interpretation").attr("value", "Obésité II (sévère)");	
+	  	}else if(imc>=40){
+	   		$("#interpretation").attr("value", "Obésité III (morbide)");	
+    		}
 	}
 	function storeord1()
 	{
@@ -177,22 +177,6 @@
 	{
 		$("#description").val(' ');$('#dateAntcd').val('');
 	}
-	/*
-	function atcdhide()
-	{  
-		resetField();
-		if($('#typeAntecedant').val() === "Pathologiques")
-		{
-	    $('#atcdsstypehide').attr("hidden",false);
-	    $('#PhysiologieANTC').attr("hidden",true);
-	    $('#habitudeAlim').val(null);$('#tabac').prop('checked', false); 
-	    $('#ethylisme').prop('checked', false);   
-		}else{
-		  $('#atcdsstypehide').attr("hidden",true);
-			$('#PhysiologieANTC').attr("hidden",false);
-		}
-	}
-	*/
 	function createordXhr(patId,employeId)
 	{
 		var keys=[], meds=[];
@@ -975,12 +959,12 @@
 				         		<span class="bigger-160">Examen Complémentaire</span>
 					</a>
 				</li>
-		  </ul>
-		  <div class ="tab-content"  style = "border-style: none;" >
-		   	<div role="tabpanel" class = "tab-pane active " id="Interogatoire">@include('consultations.Interogatoire')</div>
-			<div role="tabpanel" class = "tab-pane" id="ExamClinique">@include('consultations.examenClinique')</div>
-			<div role="tabpanel" class = "tab-pane" id="ExamComp">	@include('consultations.ExamenCompl') </div>   
-		  </div>{{-- content --}}
+		     </ul>
+			  <div class ="tab-content"  style = "border-style: none;" >
+			   	<div role="tabpanel" class = "tab-pane active " id="Interogatoire">@include('consultations.Interogatoire')</div>
+				<div role="tabpanel" class = "tab-pane" id="ExamClinique">@include('consultations.examenClinique')</div>
+				<div role="tabpanel" class = "tab-pane" id="ExamComp">	@include('consultations.ExamenCompl') </div>   
+			  </div>{{-- content --}}
   	</div>{{-- tabpanel --}}
 		</div><!-- row -->
 		<div class="row">
@@ -1008,13 +992,9 @@
 		</div><!-- row -->
 	</form>
 </div><!-- content     -->
-<div class="row">	@include('consultations.LettreOrientation')</div>
-<div class="row">	@include('consultations.DemadeHospitalisation')</div>
-<div class="row">	@include('antecedents.AntecedantModal')</div>
-<div class="row">	@include('antecedents.AntecedantModalPhysio')</div>
-<div class="row">@include('consultations.ModalFoms.Ordonnance')</div>
-<div class="row">@include('consultations.ModalFoms.imprimerOrdonnance')</div>
-<div class="row">@include('consultations.ModalFoms.imprimerOrdonnanceAjax')</div>
-<div class="row">@include('rdv.rendezVous')</div>
+<div class="row">@include('consultations.LettreOrientation')</div><div class="row">@include('consultations.DemadeHospitalisation')</div>
+<div class="row">@include('antecedents.AntecedantModal')</div><div class="row">@include('antecedents.AntecedantModalPhysio')</div>
+<div class="row">@include('consultations.ModalFoms.Ordonnance')</div><div class="row">@include('consultations.ModalFoms.imprimerOrdonnance')</div>
+<div class="row">@include('consultations.ModalFoms.imprimerOrdonnanceAjax')</div><div class="row">@include('rdv.rendezVous')</div>
 <div class="row">@include('cim10.cimModalForm')</div>
 @endsection

@@ -1,7 +1,7 @@
 @extends('app_recep')
 @section('page-script')
 <script>
-	$(document).ready(function() {
+  $(document).ready(function() {
     var today = (new Date()).setHours(0, 0, 0, 0);
     $('.calendar1').fullCalendar({
         header: {
@@ -30,8 +30,7 @@
         displayEventTime : false,
         views: {},
         events: [
-               
-          	   @foreach($rdvs as $rdv)
+          	     @foreach($rdvs as $rdv)
                 {
                     title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
                     start : '{{ $rdv->Date_RDV }}',
@@ -43,38 +42,35 @@
                     specialite: {{ $rdv->employe["specialite"] }},
                     medecin : (isEmpty({{ $rdv->Employe_ID_Employe}}))? "": '{{ $rdv->Employe_ID_Employe}}',
                     fixe:  {{ $rdv->fixe }},
-                    etat : '{{ $rdv->Etat_RDV }}',
-                  
+                    etat : '{{ $rdv->Etat_RDV }}',   
                 },
                @endforeach 	
-        ],
-        eventRender: function (event, element, webData) {
-        	 
-        	  if(event.id == {{$rdv->id}})
-              element.css('background-color', '#87CEFA'); 
-            else
-            {
-              element.css('background-color', '#D3D3D3');   
-              event.draggable = false;
-              event.editable= false; 
-            }
-            element.css("padding", "5px");
-        },
-        eventAllow: function(dropLocation, draggedEvent) {
-          if (draggedEvent.id != {{$rdv->id}}  )  
-            return false;
-        },
-        eventDrop: function(event, delta, revertFunc)
-        {
-
-        	if( event.id == {{ $Rdv->id}} )
+           ],
+          eventRender: function (event, element, webData) {
+        	     
+               if(event.id == {{$Rdv->id}})
+                       element.css('background-color', '#87CEFA'); 
+                else{
+                            element.css('background-color', '#D3D3D3');//  event.editable= false; 
+                }
+                element.css("padding", "5px");
+          },
+          eventAllow: function(dropLocation, draggedEvent) {
+                if (draggedEvent.id != {{$Rdv->id}} || (draggedEvent.start < today))  
+                       return false;
+           },
+          eventDrop: function(event, delta, revertFunc)
           {
-            ajaxEditEvent(event,true);
-          } 
-        },
-        select: function(start, end) {
-          $('.calendar1').fullCalendar('unselect');
-        }, 	
+                jQuery('#btnclose').click(function(){
+                     revertFunc();
+               });
+                if($('#fixe').length &&(event.fixe))
+                     $("#fixe"). prop("checked", true);
+                ajaxEditEvent(event,true);// if( event.id == {{-- $Rdv->id--}} )
+          },
+           select: function(start, end) {
+               $('.calendar1').fullCalendar('unselect');
+           }, 	
     });
   });
 </script>
@@ -92,15 +88,7 @@
       </a>
     </div>
 </div>
-{{--
-<div class="col-xs-11"><form class="form-horizontal" role="form" action="{{route('rdv.update',$rdv->id)}}" method="POST">
-{{ csrf_field() }}{{ method_field('PUT') }}<div class="form-group">
-<label class="col-sm-3 control-label no-padding-right" for="type"><strong> Date RDV : </strong></label>
-<div class="col-sm-9"><input class="col-sm-3 date-picker" id="daterdv" type="text" name="daterdv" value="{{ \Carbon\Carbon::parse($rdv->Date_RDV)->format('Y-m-d') }}" data-date-format="yyyy-mm-dd" required/>
-</div></div><div class="clearfix form-actions"><div class="col-md-offset-3 col-md-9">
-<button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
-</div></div></form></div>--}}
-<div class="row">{{-- style="margin-left:-2%;"margin-top:-2%; --}}
+<div class="row">
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-heading">

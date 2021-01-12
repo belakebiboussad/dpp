@@ -111,28 +111,20 @@ $(document).ready(function() {
                     container: 'body',
                     template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
               });                   
-            },
-            eventAllow: function(dropLocation, draggedEvent) {
-                 if (draggedEvent.start < today)  
-                        return false;
-            },
-            eventDrop: function(event, delta, revertFunc)
-            { 
-                if( event.start-delta >= today)
-                { 
-                       jQuery('#btnclose').click(function(){
-                          revertFunc();
-                        });
-                       if($('#fixe').length &&(event.fixe))
-                               $("#fixe"). prop("checked", true);
-                        ajaxEditEvent(event,true);          
-              }
-              else
-              {
-                    revertFunc();
-              }
-            },  
-                
+          },
+          eventAllow: function(dropLocation, draggedEvent) {
+                if (draggedEvent.start < today)  
+                     return false;
+          },
+          eventDrop: function(event, delta, revertFunc)
+          {  
+                jQuery('#btnclose').click(function(){
+                     revertFunc();
+               });
+                if($('#fixe').length &&(event.fixe))
+                     $("#fixe"). prop("checked", true);
+                ajaxEditEvent(event,true);          
+          },      
        }); // calendar
        $('#patient').editableSelect({
                effects: 'default', 
@@ -152,6 +144,10 @@ $(document).ready(function() {
   </script>
 @endsection
 @section('main-content')
+<div class="page-header" width="100%">
+  <h1 style="display: inline;"><strong>Liste des Rendez-Vous:</strong> 
+    <div class="pull-right"> </div>
+</div>
 <div class="row"  style="margin-left:-2%;">{{-- margin-top:-2%; --}}
   <div class="col-md-12">
     <div class="panel panel-default">

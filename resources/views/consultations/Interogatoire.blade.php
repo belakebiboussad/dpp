@@ -89,14 +89,14 @@
 		         		<div class="fa fa-plus-circle"></div> <span class="bigger-110" > Ordonnance</span>
 		         	</a>
 		     		<div class="space-12"></div>
-		        	<a  href="#" data-target="#RDV" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title="" >
+		        	<a  href="#" data-target="#RDV" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal">
 		         		<div class="fa fa-plus-circle"></div><span class="bigger-110">&nbsp;Rendez-vous</span>
 		      		</a>
 			       	<div class="space-12"></div>
-			        <a  href="#" data-target="#demandehosp" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"   data-toggle="tooltip" data-original-title=""><div class="fa fa-plus-circle"></div><span class="bigger-110"> Hospitalisation</span>
+			        <a  href="#" data-target="#demandehosp" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal"><div class="fa fa-plus-circle"></div><span class="bigger-110"> Hospitalisation</span>
 		          	</a>
 		         	<div class="space-12"></div>
-		         	<a class="btn btn-primary btn-lg tooltip-link" data-toggle="modal"  data-toggle="tooltip" data-original-title="lettre d'orientation" data-target="#lettreorient" style="width:100%;" onclick="lettreoriet('{{ $employe->nom }}','{{ $employe->prenom }}',
+		         	<a class="btn btn-primary btn-lg tooltip-link" data-toggle="modal" data-target="#lettreorient" style="width:100%;" onclick="lettreoriet('{{ $employe->nom }}','{{ $employe->prenom }}',
 		            '{{ $employe->specialite }}','{{ $employe->tele_mobile }}')">
 		           		<div class="fa fa-plus-circle"></div><span class="bigger-110" style ="text-align: right !important;">Orientation</span> 
 		         	</a>

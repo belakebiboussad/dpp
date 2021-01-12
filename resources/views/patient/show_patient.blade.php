@@ -2,107 +2,105 @@
 @section('page-script')
 <script type="text/javascript">
 $('document').ready(function(){
-	  var table = $('#consultList').DataTable({
-       "searching":false,
-       "processing": true,
-        "scrollY":"450px",
-        "scrollCollapse": true,
-        "paging":false,
-        "language": {
-            "url": '/localisation/fr_FR.json'
-        },      
+	var table = $('#consultList').DataTable({
+     		"searching":false,
+      	"processing": true,
+        	"scrollY":"450px",
+       	"scrollCollapse": true,
+        	"paging":false,
+        	"language": {
+          		"url": '/localisation/fr_FR.json'
+        	},      
     });
     $('#consultList tbody').on( 'click', 'tr', function () {
-        if ( $(this).hasClass('selected') ) {
-            $(this).removeClass('selected');
-        }
-        else {
-            table.$('tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-        }
-    });  //calendar
-    var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
-	  var today = (new Date()).setHours(0, 0, 0, 0);
+        	if ( $(this).hasClass('selected') ) {
+          		$(this).removeClass('selected');
+        	}else {
+           	table.$('tr.selected').removeClass('selected');
+            	$(this).addClass('selected');
+        	}
+    	});  //calendar
+    	var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
+	var today = (new Date()).setHours(0, 0, 0, 0);
     $('.calendar1').fullCalendar({
        	plugins: [ 'dayGrid', 'timeGrid' ],
-		    header: {
+	     	     header: {
 		          left: 'prev,next today',
 		          center: 'title,dayGridMonth,timeGridWeek',
 		          right: 'agendaWeek,agendaDay'//
-		    },
-		    defaultView: 'agendaWeek',
-		    height: 650, //defaultView: 'agendaWeek',
-		    firstDay: 0,
-	      slotDuration: '00:15:00',
-	  	  minTime:'08:00:00',
-	    	maxTime: '17:00:00',
-	     	navLinks: true,
-	      selectable: true,
-	      selectHelper: true,
-	      eventColor  : '#87CEFA',
-	      editable: true,
-	     	hiddenDays: [ 5, 6 ],
-	     	weekNumberCalculation: 'ISO',	//aspectRatio: 1.5,  	eventLimit: true,   allDaySlot: false,   eventDurationEditable : false,
-	     	weekNumbers: true,
-		    events: [
-		        @foreach($employe->rdvs as $rdv)
-		        {
-			       title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
-			       start : '{{ $rdv->Date_RDV }}',
-			       end:   '{{ $rdv->Fin_RDV }}',
-			       id :'{{ $rdv->id }}',
-			       idPatient:{{$rdv->patient->id}},
-			       tel:'{{$rdv->patient->tele_mobile1}}',
-			       age:{{ $rdv->patient->getAge() }},
-			       specialite: {{ $rdv->employe["specialite"] }},
-			       fixe:  {{ $rdv->fixe }},          
-			      },
+		     },
+		     defaultView: 'agendaWeek',
+		     height: 650, //defaultView: 'agendaWeek',
+		     firstDay: 0,
+	          slotDuration: '00:15:00',
+	  	     minTime:'08:00:00',
+	    	     maxTime: '17:00:00',
+	       	navLinks: true,
+	          selectable: true,
+	          selectHelper: true,
+	          eventColor  : '#87CEFA',
+	          editable: true,
+	       	hiddenDays: [ 5, 6 ],
+	       	weekNumberCalculation: 'ISO',	//aspectRatio: 1.5,  	eventLimit: true,   allDaySlot: false,   eventDurationEditable : false,
+	        	weekNumbers: true,
+		     events: [
+		    		@foreach($employe->rdvs as $rdv)
+		        	{
+			     		title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
+			       	start : '{{ $rdv->Date_RDV }}',
+			       	end:   '{{ $rdv->Fin_RDV }}',
+			       	id :'{{ $rdv->id }}',
+			       	idPatient:{{$rdv->patient->id}},
+			       	tel:'{{$rdv->patient->tele_mobile1}}',
+			       	age:{{ $rdv->patient->getAge() }},
+			       	specialite: {{ $rdv->employe["specialite"] }},
+			       	fixe:  {{ $rdv->fixe }},          
+			     },
 		      	@endforeach 
-		    ],
-		    eventRender: function (event, element, webData) {
-     			  if(event.start < today) 
-				    element.css('background-color', '#D3D3D3');
-						else
-						{	
-			   				if(event.fixe)
-			     					element.css('background-color', '#87CEFA'); 
-			     				else
-			     					element.css('background-color', '#378006');
-			     				element.css("padding", "5px"); 
-						}
-						element.popover({
+		     ],
+		     eventRender: function (event, element, webData) {
+     				if(event.start < today) 
+					element.css('background-color', '#D3D3D3');
+				else{	
+					if(event.fixe)
+			 			element.css('background-color', '#87CEFA'); 
+			   		else
+			   			element.css('background-color', '#378006');
+			   		element.css("padding", "5px"); 
+				}
+				element.popover({
 						  		delay: { "show": 500, "hide": 100 },  // title: event.title,
-						      		content: event.tel,
-						        	trigger: 'hover',
-						             animation:true,
-						             placement: 'bottom',
-						             container: 'body',
-						             template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
-						 	});		    
-				}, 
-			 	select: function(start, end) {
+					      		content: event.tel,
+			 			        	trigger: 'hover',
+			   			          animation:true,
+						          placement: 'bottom',
+						          container: 'body',
+						          template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
+				});		    
+			}, 
+			select: function(start, end) {
 			 		var minutes = end.diff(start,"minutes"); 
 				 	if(minutes == 15)
 				 	{
 				 		if(start > CurrentDate){
-	              Swal.fire({
-	                             title: 'Confimer vous  le Rendez-Vous ?',
-	                             html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',
-	                             input: 'checkbox',
-	                             inputPlaceholder: 'Redez-Vous Fixe',
-	                             showCancelButton: true,
-	                             confirmButtonColor: '#3085d6',
-	                             cancelButtonColor: '#d33',
-	                             confirmButtonText: 'Oui',
-	                             cancelButtonText: "Non",
-	              }).then((result) => {
-	                        if(!isEmpty(result.value))
-	                          	createRDVModal(start,end,'{{ $patient->id }}',result.value);	
-	                 })
+	          					Swal.fire({
+	                             		title: 'Confimer vous  le Rendez-Vous ?',
+	                             		html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',
+	                             		input: 'checkbox',
+	                            		inputPlaceholder: 'Redez-Vous Fixe',
+	                             		showCancelButton: true,
+	                             		confirmButtonColor: '#3085d6',
+	                             		cancelButtonColor: '#d33',
+	                             		confirmButtonText: 'Oui',
+	                             		cancelButtonText: "Non",
+	              				}).then((result) => {
+	                        			if(!isEmpty(result.value))
+	                          			createRDVModal(start,end,'{{ $patient->id }}',result.value);	
+	                 			})
 						}else
-								$('.calendar1').fullCalendar('unselect');
+							$('.calendar1').fullCalendar('unselect');
 					}else
-							$('.calendar1').fullCalendar('unselect');			
+						$('.calendar1').fullCalendar('unselect');			
 				},
 				eventAllow: function(dropLocation, draggedEvent) {
 					return false;
@@ -115,13 +113,11 @@ $('document').ready(function(){
 	<div >@include('patient._patientInfo')</div>
 	<div class="page-header">
 		<div class="pull-right">
-			<a href="{{ route('patient.index') }}" class="btn btn-white btn-info btn-bold">
-				<i class="ace-icon fa fa-search bigger-120 blue"></i>Chercher
-			</a>
+			<a href="{{ route('patient.index') }}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-search bigger-120 blue"></i>Chercher</a>
 			<a href="{{route('patient.destroy',$patient->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-white btn-warning btn-bold">
-	    	<i class="ace-icon fa fa-trash-o bigger-120 orange"> Supprimer</i>
-	    </a>
-	  </div>
+	    			<i class="ace-icon fa fa-trash-o bigger-120 orange"> Supprimer</i>
+	   		 </a>
+	  	</div>
 	</div>
 	<div>
 		<div id="user-profile-2" class="user-profile">
@@ -183,40 +179,37 @@ $('document').ready(function(){
 									<span class="label label-purple arrowed-in-right">
 										<i class="ace-icon fa fa-circle smaller-80 align-middle"></i>
 										@switch($patient->Type)
-                        @case(0)
-                          Assuré
-                          @break
-                        @case(1)
-                       	  Conjoint(e)
-                          @break
-                        @case(2)
-                       	  Ascendant
-                          @break
-                        @case(3)
-                       	  Descendant
-                          @break  
-                        @case(4)
-                          Autre 
-                          @break       
-                    @endswitch  
-                  </span>
+							                          @case(0)
+								                          Assuré
+								                          @break
+							                         @case(1)
+								                       	Conjoint(e)
+								                          @break
+							                          @case(2)
+								                       	  Ascendant
+								                          @break
+							                          @case(3)
+								                       	 Descendant
+								                          @break  
+							                        @case(4)
+								                          Autre 
+								                          @break       
+							                @endswitch  
+							           </span>
 								</h4>
 								<div class="profile-user-info">
 									<div class="profile-info-row">
-										<div class="profile-info-name">Nom</div>
-										<div class="profile-info-value"><span>{{ $patient->Nom }}</span></div>
+										<div class="profile-info-name">Nom</div><div class="profile-info-value"><span>{{ $patient->Nom }}</span></div>
 									</div>
 									<div class="profile-info-row">
-										<div class="profile-info-name">Prénom</div>
-										<div class="profile-info-value"><span>{{ $patient->Prenom }}</span></div>
+										<div class="profile-info-name">Prénom</div><div class="profile-info-value"><span>{{ $patient->Prenom }}</span></div>
 									</div>
 									<div class="profile-info-row">
 										<div class="profile-info-name">Genre </div>
 										<div class="profile-info-value">	<span>{{ $patient->Sexe =="M" ? "Masculin" : "Féminin" }}</span></div>
 									</div>
 									<div class="profile-info-row">
-										<div class="profile-info-name">né(e) le  </div>
-										<div class="profile-info-value"><span>{{ $patient->Dat_Naissance }}</span></div>
+										<div class="profile-info-name">né(e) le </div><div class="profile-info-value"><span>{{ $patient->Dat_Naissance }}</span></div>
 									</div>
 									<div class="profile-info-row">
 										<div class="profile-info-name"> Âge </div>
@@ -253,24 +246,6 @@ $('document').ready(function(){
 										<div class="profile-info-name"><i class="fa fa-phone"></i>Télé mobile 2 </div>
 										<div class="profile-info-value"><span>{{ $patient->tele_mobile2 }}</span></div>
 									</div>
-									@if($patient->Fonction != null)
-									<div class="profile-info-row">
-										<div class="profile-info-name"> Service </div>
-										<div class="profile-info-value"><span>{{ $patient->Fonction }}</span></div>
-									</div>
-									@endif
-									@if($patient->Grade != null)
-									<div class="profile-info-row">
-										<div class="profile-info-name"> Grade </div>
-										<div class="profile-info-value"><span>{{ $patient->Grade }}</span></div>
-									</div>
-									@endif
-									@if($patient->etat != null)
-									<div class="profile-info-row">
-										<div class="profile-info-name"> Etat </div>
-										<div class="profile-info-value"><span>{{ $patient->etat }}</span></div>
-									</div>
-									@endif
 									<div class="profile-info-row">
 										<div class="profile-info-name"> Groupe Sang</div>
 										<div class="profile-info-value"><span>{{ $patient->group_sang }}</span></div>
@@ -279,12 +254,6 @@ $('document').ready(function(){
 										<div class="profile-info-name"> Rhésus </div>
 										<div class="profile-info-value"><span>{{ $patient->Rihesus == "+" ? "Positif" : "Négatif" }}</span></div>
 									</div>
-									@if($patient->matricule != null)
-									<div class="profile-info-row">
-										<div class="profile-info-name">Matricule</div>
-										<div class="profile-info-value"><span>{{ $patient->matricule }}</span></div>
-									</div>
-									@endif
 									<div class="profile-info-row">
 										<div class="profile-info-name">Date Création</div>
 										<div class="profile-info-value"><span>{{ $patient->Date_creation }}</span></div>
@@ -294,30 +263,22 @@ $('document').ready(function(){
 								@if(in_array( $patient->Type , [1,2,3,4]))
 								<div class="col-sm-12 widget-container-col" id="widget-container-col-12">
 									<div class="widget-box transparent" id="widget-box-12">
-										<div class="widget-header">
-											<h4 class="widget-title lighter">Les Informations du fonctionnaire</h4>
-										</div>
+										<div class="widget-header"><h4 class="widget-title lighter">Les Informations du fonctionnaire</h4></div>
 										<div class="widget-body">
 											<div class="widget-main padding-6 no-padding-left no-padding-right">
 												<div class="row">
 													<div class="col-sm-3">
-														<label class="inline">
-															<span><b>Nom :</b></span><span class="lbl blue"> {{ $patient->assure->Nom}} </span>
-														</label>
+													<label class="inline"><span><b>Nom :</b></span><span class="lbl blue"> {{ $patient->assure->Nom}}</span></label>
 													</div>
 													<div class="col-sm-3">
-														<label class="inline">
-															<span><b>Prénom :</b></span><span class="lbl blue"> {{ $patient->assure->Prenom}} </span>
-														</label>
+													<label class="inline"><span><b>Prénom :</b></span><span class="lbl blue"> {{ $patient->assure->Prenom}}</span></label>
 													</div>
 													<div class="col-sm-3">
-														<label class="inline">
-															<span><b>Né(e) le :</b></span><span class="lbl blue"> {{ $patient->assure->Date_Naissance }}</span>
-														</label>
+													<label class="inline">
+													<span><b>Né(e) le :</b></span><span class="lbl blue"> {{ $patient->assure->Date_Naissance }}</span></label>
 													</div>
 													<div class="col-sm-3">
-														<label class="inline">
-															<span><b>Né(e) à :</b></span><span class="lbl blue">{{ $patient->assure->commune->nom_commune}} </span>
+													<label class="inline">	<span><b>Né(e) à :</b></span><span class="lbl blue">{{ $patient->assure->commune->nom_commune}} </span>
 														</label>
 													</div>	
 												</div>
@@ -328,18 +289,13 @@ $('document').ready(function(){
 														</label>
 													</div>
 													<div class="col-sm-3">
-														<label class="inline">
-															<span><b>Position :</b></span><span class="lbl blue">{{ $patient->assure->Position }}
-						
-															</span>
-														</label>
+													<label class="inline">	<span><b>Position :</b></span><span class="lbl blue">{{ $patient->assure->Position }}</span>
+													</label>
 													</div>
 													<div class="col-sm-6">
-														<label class="inline">
-															<span><b>Service :</b></span><span class="lbl blue">{{ $patient->assure->Service }}</span>
-														</label>
+													<label class="inline"><span><b>Service :</b></span><span class="lbl blue">{{ $patient->assure->Service }}</span>
+													</label>
 													</div>
-												
 												</div>
 												<div class="col-sm-3">
 													<label class="inline">
@@ -425,30 +381,29 @@ $('document').ready(function(){
   	<div class="modal-dialog"><!-- Modal content-->
    		<div class="modal-content">
     		<div class="modal-header">
-    			<button type="button" class="close" data-dismiss="modal">&times;</button>
-    			<h4 class="modal-title"><strong>Ajouter Ticket:</strong></h4>
+    			<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title"><strong>Ajouter Ticket:</strong></h4>
     		</div>
-    			<div class="modal-body">
-    				<div class="row">
-    					<div class="col-sm-12">
-    						<form action="{{ route('ticket.store') }}" method="POST" role="form">
-								{{ csrf_field() }}
-								<input type="text" name="id_patient" value="{{ $patient->id }}" hidden>
-    						   <div class="col-sm-12">
-									<label for="typecons"><b>Type de consultation:</b></label>
-									<select class="form-control" id="typecons" name="typecons" required>
-										<option value="Normale">Normale</option>
-										<option value="Urgente">Urgente</option>
-									</select>
-								</div><br/><br/><br/><br/>
-								<div class="col-sm-12">
-									<label for="document"><b>Document:</b></label>
-									<select class="form-control" id="document" name="document" required>
-										<option value="Rendez-vous">Rendez-vous</option>
-										<option value="Lettre d'orientation">Lettre d'orientation</option>
-										<option value="Consultation généraliste">Consultation généraliste</option>
-									</select>
-								</div><br/><br/><br/><br/>
+    		<div class="modal-body">
+    			<div class="row">
+    				<div class="col-sm-12">
+    					<form action="{{ route('ticket.store') }}" method="POST" role="form">
+						{{ csrf_field() }}
+						<input type="text" name="id_patient" value="{{ $patient->id }}" hidden>
+    						<div class="col-sm-12">
+							<label for="typecons"><b>Type de consultation:</b></label>
+							<select class="form-control" id="typecons" name="typecons" required>
+								<option value="Normale">Normale</option>
+								<option value="Urgente">Urgente</option>
+							</select>
+						</div><br/><br/><br/><br/>
+						<div class="col-sm-12">
+							<label for="document"><b>Document:</b></label>
+							<select class="form-control" id="document" name="document" required>
+								<option value="Rendez-vous">Rendez-vous</option>
+								<option value="Lettre d'orientation">Lettre d'orientation</option>
+								<option value="Consultation généraliste">Consultation généraliste</option>
+							</select>
+						</div><br/><br/><br/><br/>
 						<div class="col-sm-12">
 							<label for="spesialite"><b>Spécialité:</b></label>
 							<select class="form-control" id="spesialite" name="spesialite">

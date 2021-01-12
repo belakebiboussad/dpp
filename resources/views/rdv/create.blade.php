@@ -201,7 +201,6 @@ $(document).ready(function() {
           $("#btnSave").removeAttr("disabled");//if(! isEmpty($("#medecin").val()))
         @else
         {
-          
           if(! isEmpty($("#medecin").val()))//$('#medecin').val() != '';
              $("#btnSave").removeAttr("disabled");
         }
@@ -231,20 +230,19 @@ $(document).ready(function() {
              });
        }); 
   });
-  // });
  </script>
 @endsection
 @section('main-content')
 <div class="row">
   <div class="col-md-12">
     <div class="panel panel-default"> &nbsp;&nbsp;&nbsp;&nbsp; 
-      <div class="panel-heading" style="margin-top:-20px"> <div class="left"> <strong>Ajouter un Rendez-Vous</strong></div></div>
+      <div class="panel-heading" style="margin-top:-20px"> <div class="left"> <strong>Ajouter un Rendez-Vousrt</strong></div></div>
       <div class="panel-body">
         <div id='calendar'></div>
       </div>
       <div class="panel-footer">
         <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><strong>&nbsp;RDV fixe</strong></span>
-        <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px">&nbsp;RDV à fixer<strong></strong></span> 
+        <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px">&nbsp;RDV à fixer<strong></strong></span>
       </div>
     </div>
   </div>
