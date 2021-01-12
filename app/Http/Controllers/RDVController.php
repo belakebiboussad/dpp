@@ -263,7 +263,7 @@ class RDVController extends Controller
       public function orderPdf($id)
         {
           $order = rdv::findOrFail($id);
-          $pdf = PDF::loadView('ordre_pdf', compact('order'))->setPaper('a5', 'landscape');
+          $pdf = PDF::loadView('rdv.rdv_pdf', compact('order'))->setPaper('a5', 'landscape');
           $name = "RDV-pour:".patient::where("id",$order->Patient_ID_Patient)->get()->first()->Nom."".patient::where("id",$order->Patient_ID_Patient)->get()->first()->Prenom.".pdf";
           return $pdf->download($name);
         }

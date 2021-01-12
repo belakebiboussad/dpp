@@ -57,8 +57,8 @@ $(document).ready(function() {
           aspectRatio: 1.5,
           disableDragging: false,
           eventDurationEditable : false,
-           displayEventTime : false,
-          views: {},
+          displayEventTime : false,
+           views: {},
           events: [
                     @foreach($rdvs as $rdv)
                     {
