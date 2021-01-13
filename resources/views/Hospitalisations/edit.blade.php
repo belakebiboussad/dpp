@@ -45,11 +45,12 @@
 </script>
 @endsection
 @section('main-content')
-<div class="row" style="margin-top: -1%;" width="100%">
-  <?php $patient = $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient; ?>
-    @include('patient._patientInfo')  
+ <?php $patient = $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient;?>
+<div class="row"> @include('patient._patientInfo')</div>
+<div class="pull-right">
+  <a href="{{route('hospitalisation.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-edit bigger-120 blue"></i>Hospitalisations</a>
 </div>
-<div class="page-header"> <h2>Modifier l'hospitalisation</h2></div>
+<div class="row"><h3>Modifier l'hospitalisation</h3></div><div class="space-12"></div>  
 <div class="row">
   <div class="col-xs-12">
 	  <form class="form-horizontal" role="form" method="POST" action="{{ route('hospitalisation.update',$hosp->id)}}">

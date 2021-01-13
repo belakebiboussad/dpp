@@ -2,8 +2,8 @@
 	<div class="widget-box widget-color-blue" id="widget-box-2">
 		<div class="widget-header">
 			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des RDV :</h5>
-			<div class="widget-toolbar widget-toolbar-light no-border">
-				<div class="fa fa-plus-circle"></div><a href="#" data-target="#RDV" data-toggle="modal"><b>RDV</b></a>
+			<div class="widget-toolbar widget-toolbar-light no-border">{{-- <a href="#" data-target="#RDV" data-toggle="modal"></a> --}}
+				<div class="fa fa-plus-circle"></div><a href="#" id="addRdv" class="btn-xs tooltip-link" ><h4><strong>RDV</strong></h4></a>
 			</div>
 		</div>
 		<div class="widget-body">

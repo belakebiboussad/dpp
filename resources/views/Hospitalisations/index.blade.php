@@ -1,5 +1,5 @@
 @extends('app')
-@section('title') 	Hospitalisations @endsection
+@section('title')Hospitalisations @endsection
 @section('style') 
 <style>
  .bootstrap-timepicker-meridian, .meridian-column
@@ -9,7 +9,6 @@
  .bootstrap-timepicker-widget table tr:nth-child(3)>td:last-child a {
   display: none;
 }
-
 .bootstrap-timepicker-widget table tr:nth-child(1)>td:last-child a {
   display: none;
 }
@@ -22,23 +21,23 @@
 <script>
  $('document').ready(function(){
 	jQuery('.cloturerHosp').click(function () {
-	  var hospID = $(this).data('id');
-	  $("#hospID").val( hospID );
-	  $('#sortieHosp').modal('show');
-  	$('#Heure_sortie').timepicker({ template: 'modal' });
-  });
+		var hospID = $(this).data('id');
+		$("#hospID").val( hospID );
+		$('#sortieHosp').modal('show');
+	  	$('#Heure_sortie').timepicker({ template: 'modal' });
+  	});
 	jQuery('#saveCloturerHop').click(function () {
-		  var formData = {
+		var formData = {
 			  	id                      : $("#hospID").val(),
-				  Date_Sortie             : jQuery('#Date_Sortie').val(),
-				  Heure_sortie            : jQuery('#Heure_sortie').val(),
-				  modeSortie              :jQuery('#modeSortie').val(),
-				  autre                   : $('#autre').val(),
-				  diagSortie              : $("#diagSortie").val(),
-				  etat_hosp								:'validée',
-	  };
+				Date_Sortie             : jQuery('#Date_Sortie').val(),
+				Heure_sortie            : jQuery('#Heure_sortie').val(),
+				modeSortie              :jQuery('#modeSortie').val(),
+				autre                   : $('#autre').val(),
+				diagSortie              : $("#diagSortie").val(),
+				etat_hosp			:'validée',
+	     };
 	  if(!($("#Date_Sortie").val() == ''))
-    {
+   	 {
   		if($('.dataTables_empty').length > 0)
         $('.dataTables_empty').remove();
       	$.ajax({

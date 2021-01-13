@@ -29,16 +29,13 @@ class HospitalisationController extends Controller
     }
     public function index()
     {  
-      if(Auth::user()->role_id != 9 )
-      {    
-        $ServiceID = Auth::user()->employ->service;
-        $hospitalisations = hospitalisation::whereHas('admission.rdvHosp.demandeHospitalisation.Service',function($q) use($ServiceID){
-                                              $q->where('id',$ServiceID);  
-                                           })->where('etat_hosp','=','en cours')->get();
-      }
-      else
-        $hospitalisations = hospitalisation::where('etat_hosp','=','en cours')->get();
-      return view('Hospitalisations.index', compact('hospitalisations'));
+          if(Auth::user()->role_id != 9 )//9:admission // $ServiceID = Auth::user()->emp loy->service;
+                $hospitalisations = hospitalisation::whereHas('admission.rdvHosp.demandeHospitalisation.Service',function($q){
+                                                  $q->where('id',Auth::user()->employ->service);  
+                                               })->where('etat_hosp','=','en cours')->get();
+          else
+                $hospitalisations = hospitalisation::where('etat_hosp','=','en cours')->get();
+          return view('Hospitalisations.index', compact('hospitalisations'));
     }
     /**
      * Show the form for creating a new resource.
@@ -53,9 +50,7 @@ class HospitalisationController extends Controller
                                               $q->where('date_RDVh','=',date("Y-m-d"));
                             })->whereHas('rdvHosp.demandeHospitalisation',function($q) use ($serviceID) {
                                             $q->where('service', $serviceID)->where('etat','admise');//->where('etat','admise')
-                                      })->get();
-        //admission d'urgence
-        //$admissionsUrgence =          
+                                      })->get();    
         $medecins = employ::where('service',Auth::user()->employ->service)->get();
         $modesHosp = ModeHospitalisation::all();
         return view('Hospitalisations.create', compact('adms','medecins','modesHosp'));

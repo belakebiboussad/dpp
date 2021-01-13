@@ -1,9 +1,9 @@
 <div class="col-xs-5 col-sm-5 widget-container-col" id="widget-container-col-2">
 	<div class="widget-box widget-color-blue" id="widget-box-2">
 		<div class="widget-header">
-			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Consultations</h5>
+			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Visites</h5>
 			<div class="widget-toolbar widget-toolbar-light no-border">
-				<div class="fa fa-plus-circle"></div><a href="/consultations/create/{{$patient->id}}"><b>Consultation </b></a>
+				<a href="/visite/create/{{ $hosp->id }}" class="btn btn-white btn-info btn-bold"><div class="fa fa-plus-circle"></div>Visite</a>
 			</div>
 		</div><!-- widget-header -->
 		<div class="widget-body">
@@ -19,7 +19,7 @@
 						</tr>
 					</thead>
 					<tbody>
-					@foreach($patient->consultations as $consult)
+					{{-- @foreach($patient->consultations as $consult)
 					<tr  role="row" class="even">
 					  <td>{{$consult->Date_Consultation}}</td>
 						<td>{{ $consult->Motif_Consultation }}</td>
@@ -29,7 +29,7 @@
 							<button class="btn btn-primary btn-xs" onclick="showConsult({{ $consult->id }},$(this));"><i class="fa fa-hand-o-up"></i></button>		 
 						</td>	
 					</tr>
-					@endforeach
+					@endforeach --}}
 					</tbody>
 				</table>
 			</div>

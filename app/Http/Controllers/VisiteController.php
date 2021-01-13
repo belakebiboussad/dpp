@@ -42,26 +42,17 @@ class VisiteController extends Controller
      */
     public function create($id_hosp)
     {
-      $date = Carbon\Carbon::now(); 
-      $hosp = hospitalisation::FindOrFail($id_hosp);//$patient = (hospitalisation::FindOrFail($id_hosp))->admission->demandeHospitalisation->consultation->patient;
-      $patient = $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient;
-      $visite =new visite;
-      $visite->date=$date;
-      $visite->heure=$date->format("H:i");
-      $visite->id_hosp=$id_hosp;
-      $visite->id_employe=Auth::User()->employee_id;
-      $specialitesProd = specialite_produit::all();
-      // foreach($hosp->visites as $visite)
-      // {
-      //   foreach($visite->traitements as $trait)
-      //   {
-      //      echo($trait->medicament->nom);
-      //      echo("<br>");
-      //   }
-      // }  
-      // dd("ddf");
-      $visite->save();
-      return view('visite.create',compact('hosp','patient','specialitesProd'))->with('id',$visite->id);
+          $date = Carbon\Carbon::now(); 
+          $hosp = hospitalisation::FindOrFail($id_hosp);//$patient = (hospitalisation::FindOrFail($id_hosp))->admission->demandeHospitalisation->consultation->patient;
+          $patient = $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient;
+          $visite =new visite;
+          $visite->date=$date;
+          $visite->heure=$date->format("H:i");
+          $visite->id_hosp=$id_hosp;
+          $visite->id_employe=Auth::User()->employee_id;
+          $specialitesProd = specialite_produit::all();
+          $visite->save();
+          return view('visite.create',compact('hosp','patient','specialitesProd'))->with('id',$visite->id);
     }
  /**
      * Show the form for creating a new resource.
@@ -71,15 +62,13 @@ class VisiteController extends Controller
      */
     public function store(Request $request)
     {
-     return redirect()->action('HospitalisationController@index');
+          return redirect()->action('HospitalisationController@index');
     }
     public function edit($id)
     {
-      $hosp = hospitalisation::find($id);
-      return view('visite.edit',compact('hosp'));  
+          $hosp = hospitalisation::find($id);
+          return view('visite.edit',compact('hosp'));  
     }
-   
-	//
     public function destroy($id)
     {
       $visite = visite::find($id);
@@ -89,7 +78,6 @@ class VisiteController extends Controller
         report($e);
         return false;
       }
-   
       $hospitalisations = hospitalisation::where('etat_hosp','=','en cours')->get();
       return response()->json([
          'message' =>$obj

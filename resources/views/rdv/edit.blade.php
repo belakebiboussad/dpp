@@ -47,8 +47,7 @@
                @endforeach 	
            ],
           eventRender: function (event, element, webData) {
-        	     
-               if(event.id == {{$Rdv->id}})
+        	     if(event.id == {{$Rdv->id}})
                        element.css('background-color', '#87CEFA'); 
                 else{
                             element.css('background-color', '#D3D3D3');//  event.editable= false; 
@@ -71,7 +70,7 @@
            select: function(start, end) {
                $('.calendar1').fullCalendar('unselect');
            }, 	
-    });
+    }).fullCalendar('gotoDate','{{ $Rdv->Date_RDV }}');
   });
 </script>
 @endsection
@@ -114,5 +113,4 @@
 		</div>
 </div>
 <div class="row">@include('rdv.ajex_edit_event')</div>
-
 @endsection

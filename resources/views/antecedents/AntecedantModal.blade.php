@@ -39,8 +39,7 @@
 						<div class="col-sm-10">
 							<textarea class="form-control" id="description" required=""></textarea>
 						</div>
-					</div>
-					<div class="space-12"></div>
+					</div><div class="space-12"></div>
 				</form>
 			</div><!-- modal-body -->
 			<br>

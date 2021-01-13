@@ -464,7 +464,7 @@
 		jQuery('#modalFormData').trigger("reset");
 		$('#AntecCrudModal').html("Ajouter un Antecedant");
 		if(this.id == "AntFamil-add")
-    {
+    		{
  			$("#EnregistrerAntecedant").attr('data-atcd','Famille'); 
  			if(! ($( "#atcdsstypehide" ).hasClass( "hidden" )))
  			 	$( "#atcdsstypehide" ).addClass("hidden"); 
@@ -740,9 +740,9 @@
 				},
 	      defaultView: 'agendaWeek',
 	      height: 650,
-				firstDay: 0,
+		firstDay: 0,
 	      slotDuration: '00:15:00',
-	  		minTime:'08:00:00',
+	  	minTime:'08:00:00',
     		maxTime: '17:00:00',
       	navLinks: true,
       	selectable: true,
@@ -754,8 +754,8 @@
      		aspectRatio: 1.5,
      		eventLimit: true,
     		allDaySlot: false,
-   			eventDurationEditable : false,
-   			weekNumbers: true,
+   		eventDurationEditable : false,
+   		weekNumbers: true,
     		views: {},
 	    		events: [
 		       @foreach($employe->rdvs as $rdv)

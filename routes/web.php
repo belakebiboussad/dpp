@@ -11,7 +11,7 @@
 */
 Route::group(['middleware' => 'revalidate'], function()
 {          
-    Auth::routes();   
+    Auth::routes(); 
     Route::get('/', 'Auth\LoginController@showLoginForm');  /* Route::get('/', function () { return view('auth/login');  });*/
 });//ressources
 Route::resource('listeadmiscolloque','listeadmisColloqueController');
@@ -55,7 +55,7 @@ route::get('/home_reception',function (){
 route::get('/home_reception','HomeController@index');
 route::get('/home_dele','HomeController@index');
 route::get('/home_admission','AdmissionController@index')->name('home_admission');
-route::get('/home_infermier','HospitalisationController@index')->name('home_infermier');
+//route::get('/home_infermier','HospitalisationController@index')->name('home_infermier');
 Route::get('exbio/{filename}', function ($filename)
 {
         $path = storage_path() . '\\app\\' . $filename;

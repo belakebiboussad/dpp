@@ -21,7 +21,6 @@
 			$('#acteCrudModal').html("Ajouter un Acte Médicale");
 			$('#acteModal').modal('show');
 		  });  
-	/////////////
 	//////////////////Enregistre acte   //////////////////////////////////
  		$("#EnregistrerActe").click(function (e) { 
 			e.preventDefault();
@@ -121,10 +120,8 @@
 			}
 		});
 	  });
-
 	//end of add acte
 	///////////add trait
-	///////////////////////
 	$('#btn-addTrait').click(function () {
 	  $('#EnregistrerTrait').val("add");
 	$('#traitModal').trigger("reset");
@@ -249,9 +246,8 @@
 			}
 		});
 		return false;
-		});
-	//////////Traitement
-	$('body').on('change', '#specialiteProd', function () {
+		});//////////Traitement
+		$('body').on('change', '#specialiteProd', function () {
 		  if($(this).val() != "0" )
 		{
 		  $("#produit").removeAttr("disabled");
@@ -403,9 +399,7 @@
 				</div><!-- tab-pane Trait-->
 		</div><!-- tab-content -->
 		</div><!-- tabpanel -->
-		<div class="hr hr-dotted"></div>
-		<div class="space-12"></div>
-		<br>	
+		<div class="hr hr-dotted"></div><div class="space-12"></div><br>
 		<div class="row">
 			<div class="center">
 				<button type="submit" class="btn btn-info btn-sm" ><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
