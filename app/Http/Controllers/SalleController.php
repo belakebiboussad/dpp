@@ -122,31 +122,22 @@ class SalleController extends Controller
     }
       public function getsalles(Request $request)
       {
-            /*  $salle =salle::findOrFail(4);
-             foreach ($salle->lits as $key => $lit) {
-                    $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate)); //$lit->id,     
-                    if ($free)
-                      return "Oui";
-                    else
-                      return "Non";
-             }
-             */
-            $salles = salle::where('service_id',$request->ServiceID)->where('etat','Non bloquee')->get();
-            if( $request->Affect == '0')  
-            {
-                   foreach ($salles as $key1 => $salle) {
-                            foreach ($salle->lits as $key => $lit) {
-                                  $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate)); //$lit->id,
-                                  if(! $free)
-                                {
-                                    $salle->lits->pull($key);
-                                }
-                          }
-                    }
-                    foreach ($salles as $key => $salle) {
-                           if((count($salle->lits) == 0))
-                                    $salles->pull($key);
-                    }
+          $salles = salle::where('service_id',$request->ServiceID)->where('etat','Non bloquee')->get();
+          if( $request->Affect == '0')  
+          {
+                foreach ($salles as $key1 => $salle) {
+                          foreach ($salle->lits as $key => $lit) {
+                                $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate)); //$lit->id,
+                                if(! $free)
+                              {
+                                  $salle->lits->pull($key);
+                              }
+                        }
+                  }
+                  foreach ($salles as $key => $salle) {
+                         if((count($salle->lits) == 0))
+                                  $salles->pull($key);
+                  }
               }else{
                     foreach ($salles as $key1 => $salle) {
                         foreach ($salle->lits as $key => $lit) {
