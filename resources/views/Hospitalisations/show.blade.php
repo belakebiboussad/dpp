@@ -38,8 +38,8 @@
 						</li>
 						<li>
 							<i class="ace-icon fa fa-caret-right blue"></i><strong>Medecin Traitant:</strong>
-								 	{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->nom }}
-									{{$hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->prenom}}					
+							{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->nom }}
+							{{$hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->prenom}}					
 						</li>
 						<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Date d'entrée:</strong>{{ $hosp->Date_entree }}</li>	
 						<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Date sortie prévue:</strong>{{ $hosp->Date_Prevu_Sortie }}</li>
