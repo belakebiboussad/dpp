@@ -63,7 +63,9 @@
 					</div>
 				</div>
 			</div>
-		</div><div class="space-12"></div>		
+		</div>
+		@if(isset($hosp->garde_id))	
+		<div class="space-12"></div>		
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="row"><div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><b>Garde Malade</b></div></div>
@@ -81,6 +83,7 @@
 				</div>
 			</div>
 		</div>
+		@endif
 		</div>	{{-- tab-pane --}}
 		<div id="visites" class="tab-pane in">
 			<div class="row">@include('visite.liste')</div>

@@ -11,22 +11,23 @@
 				<table id="consultList" class="display dataTable table table-striped table-bordered table-condensed" width="100%" data-page-length="25" role="grid">
 					<thead class="thin-border-bottom">
 						<tr>
-							<th class="">Date</th>	
-							<th class="sorting_disabled">Motif</th>
-							<th class ="center sorting_disabled">Médecin Traitant</th>
-							<th class ="center sorting_disabled">Service</th>
+							<th class="">Date</th>
+							<th class="">Heure</th>		
+							<th class ="center sorting_disabled">Médecin</th>
+							<th class ="center sorting_disabled">Traitements</th>
+							<th class ="center sorting_disabled">Actes</th>
 							<th class="center sorting_disabled"><em class="fa fa-cog"></em></th>
 						</tr>
 					</thead>
 					<tbody>
-					{{-- @foreach($patient->consultations as $consult)
+					{{-- @foreach($hosp->visites as $visite)
 					<tr  role="row" class="even">
-					  <td>{{$consult->Date_Consultation}}</td>
-						<td>{{ $consult->Motif_Consultation }}</td>
-						<td class ="center sorting_disabled"><span>{{ $consult->docteur->nom }}{{ $consult->docteur->prenom }}</span></td>
-						<td class="center sorting_disabled"><span >{{$consult->docteur->Service->nom}}</span></td>
-						<td class="center sorting_disabled">
-							<button class="btn btn-primary btn-xs" onclick="showConsult({{ $consult->id }},$(this));"><i class="fa fa-hand-o-up"></i></button>		 
+					  <td>{{ $visite->date }}</td>
+						<td>{{ $visite->heure }}</td>
+						<!-- <td class ="center sorting_disabled"><span>{{ $visite->medecin->nom }}{{ $visite->medecin->prenom }}</span></td>
+						<td class="center sorting_disabled"><span >{{$visite->docteur->Service->nom}}</span></td>
+						< -->td class="center sorting_disabled">
+						<button class="btn btn-primary btn-xs" onclick="showConsult({{ $visite->id }},$(this));"><i class="fa fa-hand-o-up"></i></button>		 
 						</td>	
 					</tr>
 					@endforeach --}}
