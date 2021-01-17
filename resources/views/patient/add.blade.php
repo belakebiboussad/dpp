@@ -90,7 +90,7 @@
 	    <ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
 			   	<li class="active">
 			   		<a data-toggle="tab" href="#Assure" class="jumbotron" onclick="copyPatientInfo();">
-			    		<span class="bigger-130"><strong>Assure</strong></span>
+			    		<span class="bigger-130"><strong>Assuré(e)</strong></span>
 			    	</a>
 					</li>
 					<li ><a class="jumbotron" data-toggle="tab" href="#Patient">

@@ -1,4 +1,4 @@
-<div id="navbar" class="navbar navbar-default">
+<div id="navbar" class="navbar navbar-default" style="background-color:#19e2f9">
   <script type="text/javascript">
         try{ace.settings.check('navbar' , 'fixed')}catch(e){}
   </script>
@@ -14,14 +14,11 @@
             <span class="icon-bar"></span>
         </button>
         <!-- /section:basics/sidebar.mobile.toggle -->
-        <div class="navbar-header pull-left">
+        <div class="navbar-header pull-left" >
           <!-- #section:basics/navbar.layout.brand -->
-          <a href="#" class="navbar-brand">
-            <small>
-            <i class="ace-icon fa fa-h-square"></i>Système de Gestion du Dossier Patient
-            </small>
-          </a>
-        </div>
+          <a href="#" class="navbar-brand"> <small> <i class="ace-icon fa fa-h-square"></i>
+          <strong>Dossier Médical Electonique EHSN</strong></a>
+         </div>
 
         <!-- #section:basics/navbar.dropdown -->
         <div class="navbar-buttons navbar-header pull-right" role="navigation">

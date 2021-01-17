@@ -130,7 +130,7 @@
 	<div class="space-12"></div>
 	<div class="row panel panel-default" style ="margin-right:-35px;">
 		<div class="panel-heading left" style="height: 40px; font-size: 2.3vh;">
-			<strong>Rechercher un Patient</strong>
+			<strong>Rechercher un patient</strong>
 			<div class="pull-right" style ="margin-top: -0.5%;">
 				<a href="{{route('assur.index')}}" class ="btn btn-white btn-info btn-bold btn-xs">Rechercher un Fonctionnaire&nbsp;<i class="ace-icon fa fa-arrow-circle-right bigger-120 black"></i></a>
 			</div>
@@ -148,7 +148,7 @@
 				</div>
 				<div class="col-sm-2 col-md-offset-1">
 					<div class="form-group">
-						<label class="control-label" for="Prenom" ><strong>Prenom:</strong></label> 
+						<label class="control-label" for="Prenom" ><strong>Prénom:</strong></label> 
 						<div class="input-group">
 					  	<input type="text" class="form-control input-sx autofield" id="Prenom" name="Prenom"  placeholder="prenom du patient..."> 
 					  	<span class="glyphicon glyphicon-search form-control-feedback"></span>
@@ -188,7 +188,7 @@
 			<div class="widget-box transparent">
 				<div class="widget-header widget-header-flat widget-header-small">
 					<h5 class="widget-title"><i class="ace-icon fa fa-user"></i>
-					Resultats: </h5> <label for=""><span class="badge badge-info numberResult"></span></label>
+					Résultats: </h5> <label for=""><span class="badge badge-info numberResult"></span></label>
 				</div>
 				<div class="widget-body">
 					<div class="widget-main no-padding">
