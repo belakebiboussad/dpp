@@ -202,8 +202,8 @@ class RDVController extends Controller
       }
       public function print(Request $request,$id)
       { 
-           $rdv = rdv::findOrFail($id);
-           $pdf417 = new PDF417();
+          $rdv = rdv::findOrFail($id);
+          $pdf417 = new PDF417();
             $data = $pdf417->encode($rdv->id.'|'.$rdv->employe->specialite.'|'.Carbon::parse($rdv->Date_RDV)->format('d-m-Y').'|'.$rdv->patient->IPP);
             $renderer = new ImageRenderer([
                 'format' => 'png', //'color' => '#FF0000', //'bgColor' => '#00FF00',

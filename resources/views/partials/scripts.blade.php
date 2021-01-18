@@ -159,6 +159,7 @@
       $("tr:has(input:checked)").remove();
     });
     $('#printRdv').click(function(){
+          alert("df");
           $.ajaxSetup({
               headers: {
                         'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')

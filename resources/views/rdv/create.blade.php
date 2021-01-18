@@ -214,11 +214,11 @@ $(document).ready(function() {
               $("#btnSave").removeAttr("disabled"); 
       });
       $('#printRdv').click(function(){
-              $.ajaxSetup({
+            $.ajaxSetup({
                   headers: {
                       'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
                    }
-             });
+            });
              $.ajax({
                     type : 'GET',
                     url :'/rdv/print/'+$('#idRDV').val(),
