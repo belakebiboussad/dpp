@@ -59,11 +59,9 @@ $(document).ready(function () {
 	</ul>	
   <div class="tab-content">
   	<div id="Patient" class="tab-pane fade in active">
-			<div class="row">
-    		<div class="col-sm-12"><h3 class="header smaller lighter blue">Informations administratives</h3></div>
-    	</div>
-    	<div class="row">
-		<div class="col-sm-6">
+		<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Informations administratives</h3></div></div>
+    		<div class="row">
+			<div class="col-sm-6">
 			<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
 				<label class="col-sm-3 control-label" for="nom"><strong>Nom :</strong></label>
 				<div class="col-sm-9">
@@ -164,30 +162,25 @@ $(document).ready(function () {
 								<label class="col-sm-3 control-label" for="sf"><strong class="text-nowrap">Civilité :</strong></label>
 								<div class="col-sm-9">
 								<select class="form-control civilite" id="sf" name="sf">
-									<option value="célibataire" @if( $patient->situation_familiale =='célibataire') selected @endif >Célibataire<(e)/option>
-									<option value="marié" @if( $patient->situation_familiale =='marié') selected @endif>Marié(e)</option>
-									<option value="divorcé" @if( $patient->situation_familiale =="divorcé") selected @endif >Divorcé(e)</option>
-									<option value="veuf" @if( $patient->situation_familiale =="veuf") selected @endif>Veuf(ve)</option>
+									<option value="C" @if( $patient->situation_familiale =='C') selected @endif >Célibataire<(e)/option>
+									<option value="M" @if( $patient->situation_familiale =='M') selected @endif>Marié(e)</option>
+									<option value="D" @if( $patient->situation_familiale =="D") selected @endif >Divorcé(e)</option>
+									<option value="V" @if( $patient->situation_familiale =="V") selected @endif>Veuf(ve)</option>
 								</select>
 							</div>
 							</div>
 						</div>
 						<div class="col-sm-6 " id="Div-nomjeuneFille"  @if($patient->Sexe == "M") hidden @endif>	
-							<label class="col-sm-3 control-label" for="nom_jeune_fille">
-								<strong class="text-nowrap">Nom jeune fille:</strong>
-							</label>
+							<label class="col-sm-3 control-label" for="nom_jeune_fille"><strong class="text-nowrap">Nom jeune fille:</strong></label>
 							<div class="col-sm-9">
 								<input type="text" id="nom_jeune_fille" name="nom_jeune_fille" placeholder="Nom jeune fille..." value="{{ $patient->nom_jeune_fille }}" autocomplete = "off" class="col-xs-12 col-sm-12"/>
 								 {!! $errors->first('nom_jeune_fille', '<small class="alert-danger">:message</small>') !!}
 							</div>		
-						</div>
-						{{-- /nom de jeune fille --}}
+						</div>	{{-- /nom de jeune fille --}}
+					
 			  	</div>	{{-- row --}}
-				  <div class="row">
-						<div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div>
-					</div>	{{-- row --}}
-			  	<div class="space-12"></div>	
-			  	<div class="row">
+			     <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div></div><div class="space-12"></div>
+			 	<div class="row">
 						<div class="col-sm-4" style="padding-left:7%">
 							<label class="col-sm-3" for="adresse" ><strong>Adresse :&nbsp;</strong></label>
 							<input type="text" value="{{ $patient->Adresse }}" id="adresse" name="adresse" placeholder="Adresse..." class="col-sm-9"/>

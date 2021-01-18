@@ -4,11 +4,10 @@
 <script>
 	function checkFormAddPAtient()
  	{        
-  	if( ! checkPatient() )
-   	{ 
-			return false;
-   	}else{
-   		if($('#hommeConf').is(':checked')){
+  		if( ! checkPatient() )
+   			return false;
+   		else{
+   			if($('#hommeConf').is(':checked')){
 				if( ! checkHomme() )
 				{	
 					activaTab("Homme_C");
@@ -18,28 +17,23 @@
 					$('input:disabled').removeAttr('disabled');    
 					return true; 
 				}
+   			}
+		    	$('input:disabled').removeAttr('disabled');    
+		    	return true;
    		}
-    	$('input:disabled').removeAttr('disabled');    
-    	return true;
-   	}
-  }
+ 	}
   function copyAssure(){
-			$("#nom").val('{{ $assure->Nom }}');
-			$("#datenaissance").val('{{ $assure->Date_Naissance}}');
-			$("#idlieunaissance").val('{{ $assure->lieunaissance}}');
-			$("#lieunaissance").val('{{ $assure->lieuNaissance->nom_commune}}')
+			$("#nom").val('{{ $assure->Nom }}');$("#datenaissance").val('{{ $assure->Date_Naissance}}');
+			$("#idlieunaissance").val('{{ $assure->lieunaissance}}');$("#lieunaissance").val('{{ $assure->lieuNaissance->nom_commune}}')
 			$("input[name=sexe][value=" + '{{ $assure->Sexe }}' + "]").prop('checked', true);
 			$('#sf option[value="' + '{{ $assure->SituationFamille}}' + '"]').attr("selected", "selected"); 	
-			$("#idcommune").val('{{ $assure->commune_res}}');
-			$("#commune").val('{{ $assure->commune->nom_commune}}');
-			$("#idwilaya").val('{{ $assure->wilaya_res}}');
-			$("#wilaya").val('{{ $assure->wilaya->nom}}');
+			$("#idcommune").val('{{ $assure->commune_res}}');$("#commune").val('{{ $assure->commune->nom_commune}}');
+			$("#idwilaya").val('{{ $assure->wilaya_res}}');$("#wilaya").val('{{ $assure->wilaya->nom}}');
 			$( "#gs" ).val('{{ $assure->grp_sang }}'.substr(0,'{{ $assure->grp_sang }}'.length - 1));
 			$( "#rh" ).val('{{ $assure->grp_sang }}'.substr('{{ $assure->grp_sang }}'.length - 1));
 			$("#adresse").val('{{ $assure->adresse }}');//$('.demograph').find('*').each(function () { $(this).attr("disabled", true); });	
-		
 	}
-  $( document ).ready(function() {
+  	$( document ).ready(function() {
 		if({{ $type }} == 0)
 		{	
 			copyAssure();
@@ -66,8 +60,7 @@
    <div class="row">
     <form class="form-horizontal" id = "addPAtient" action="/addpatientAssure" method="POST" role="form" onsubmit="return checkFormAddPAtient(this);">
 	  	{{ csrf_field() }}
-	  	<input type="hidden" name="assure_id" value="{{ $NSS }}">
-		<input type="hidden" name="typePatient" value="{{$type}}">
+	  	<input type="hidden" name="assure_id" value="{{ $NSS }}"><input type="hidden" name="typePatient" value="{{$type}}">
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="form-group" id="error" aria-live="polite">
@@ -84,42 +77,29 @@
 			</div>
 		</div>
 		<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
-			<li  class="active"><a class="jumbotron" data-toggle="tab" href="#Patient">
-				<span class="bigger-130"><strong>Patient</strong></span></a>
-		 	</li>
-	   		<li  id ="hommelink" class="invisible" ><a data-toggle="tab" href="#Homme_C">
-			  	<span class="bigger-130"><strong>Garde Malde</strong></span></a>
+			<li  class="active"><a class="jumbotron" data-toggle="tab" href="#Patient"><span class="bigger-130"><strong>Patient</strong></span></a></li>
+			<li  id ="hommelink" class="invisible" ><a data-toggle="tab" href="#Homme_C"><span class="bigger-130"><strong>Garde Malde</strong></span></a>
 			</li>
  		</ul>
 		<div class="tab-content">
 			<div id="Patient" class="tab-pane fade in active">@include('patient.addPatientAssure')</div>
 			<div id="Homme_C" class="tab-pane">
 		   	<div id ="homme_cPart">
-				<div class="row">
-					<div class="col-sm-12">
-						<h3 class="header smaller lighter blue"><b>Information de l'Homme de confiance</b></h3>
-					</div>	
-				</div>{{-- row --}}
+				<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue"><b>Information de l'Homme de confiance</b></h3></div></div>
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="nomA"><strong>Nom :</strong></label>
-							<div class="col-sm-9">
-								<input type="text" id="nomA" name="nom_homme_c" placeholder="Nom..." class="col-xs-12 col-sm-12" />
-							</div>
-							<br>
-						</div>
-						<br>
+							<div class="col-sm-9"><input type="text" id="nomA" name="nom_homme_c" placeholder="Nom..." class="col-xs-12 col-sm-12" /></div><br>
+						</div><br>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="prenomA"><strong>Prénom :</strong></label>
 							<div class="col-sm-9">
 								<input type="text" id="prenomA" name="prenom_homme_c" placeholder="Prénom..." class="col-xs-12 col-sm-12" />
-							</div>
-							<br>
-						</div>
-						<br>
+							</div><br>
+						</div><br>
 					</div>
 				</div>	{{-- row --}}
 				<div class="row">
@@ -154,7 +134,7 @@
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="form-group">
-						<label class="col-sm-3 control-label " for="type_piece_id"><strong>Type  pièce d'identité:</strong>			</label>
+						<label class="col-sm-3 control-label " for="type_piece_id"><strong>Type  pièce d'identité:</strong></label>
 						<div class="col-sm-9">
 							<select id="type_piece_id" name="type_piece_id" class="col-xs-12 col-sm-12"/>
 								<option value="">Sélectionner...</option>
@@ -181,29 +161,19 @@
 				<div class="col-sm-6">
 					<div class="form-group">
 						<label class="control-label col-xs-12 col-sm-3" for="date_piece_id"><strong>Délivré le :</strong></label>
-				    <div class="col-sm-9">
+				    		<div class="col-sm-9">
 							<input class="col-xs-12 col-sm-12 date-picker" id="date_piece_id" name="date_piece_id" type="text" data-date-format="yyyy-mm-dd" placeholder="Délivré le..."/>
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-6">
-					<br><br>
-				</div>
-			</div>	{{-- row --}}
-			<div class="space-12"></div>
-			<div class="row">
-				<div class="col-sm-12">
-					<h3 class="header smaller lighter blue"><b>Contact</b></h3>
-				</div>
-			</div>	{{-- row --}}
-			<div class="space-12"></div>
+				<div class="col-sm-6"><br><br></div>	
+			</div><div class="space-12"></div>
+			<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue"><b>Contact</b></h3></div></div><div class="space-12"></div>
 			<div class="row">
 				<div class="col-sm-5">
 					<div class="form-group">
 						<label class="control-label col-sm-3" for="adresseA"><b>Adresse :</b></label>
-						<div class="col-sm-9">
-							<textarea class="form-control" id="adresseA" name="adresseA" placeholder="Adresse..."></textarea>	
-						</div>
+						<div class="col-sm-9"><textarea class="form-control" id="adresseA" name="adresseA" placeholder="Adresse..."></textarea>	</div>
 					</div>
 				</div>
 				<div class="col-sm-6">
@@ -229,8 +199,7 @@
 		</div>{{-- tab_content --}}
 		<div class="hr hr-dotted"></div>
 		<div class="row">
-			<div class="center">
-				<br>
+			<div class="center"><br>
 				<button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
 				<button class="btn" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 			</div>

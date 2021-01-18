@@ -237,10 +237,10 @@
 					<label class="col-sm-3 control-label" for="sf"><strong class="text-nowrap">Civilité :</strong></label>
 					<div class="col-sm-9">
 						<select class="form-control civilite" id="sf" name="sf">
-							<option value="célibataire" @if( $patient->situation_familiale =='célibataire') selected @endif >Célibataire(e)</option>
-							<option value="marié" @if( $patient->situation_familiale =='marié') selected @endif>Marié(e)</option>
-							<option value="divorcé" @if( $patient->situation_familiale =="divorcé") selected @endif >Divorcé(e)</option>
-							<option value="veuf" @if( $patient->situation_familiale =="veuf") selected @endif  >Veuf(ve)</option>
+							<option value="C" @if( $patient->situation_familiale =='C') selected @endif >Célibataire(e)</option>
+							<option value="M" @if( $patient->situation_familiale =='M') selected @endif>Marié(e)</option>
+							<option value="D" @if( $patient->situation_familiale =="D") selected @endif >Divorcé(e)</option>
+							<option value="V" @if( $patient->situation_familiale =="V") selected @endif  >Veuf(ve)</option>
 						</select>
 					</div>
 				</div>

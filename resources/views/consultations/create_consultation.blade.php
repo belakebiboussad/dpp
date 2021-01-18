@@ -682,56 +682,55 @@
 			});
 		});
 		$('#examensradio').on('select2:select', function (e) { 
-			if($("input[name='exmns[]']").is(":checked"))
+			if($("input[name='exmns']").is(":checked"))
 	 			$(".disabledElem").removeClass("disabledElem").addClass("enabledElem");
-		});
+	 	});
 		$('#examensradio').on('select2:unselecting', function(event) {
 	 		$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
 		});
-		$('.exmns').on('change', function(){ // on change of state
-		  if(this.checked) 
-		  {
-		  	if(! isEmpty($('#examensradio').val()))
+		$('input[type=radio][name=exmns]').change(function() {
+	 		if(! isEmpty($('#examensradio').val()))
 		  		$(".disabledElem").removeClass("disabledElem").addClass("enabledElem");
-		  }else{
+			else
 		  		$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
-		  }
 		});
-   	$('#btn-addImgExam').click(function(){
-	  	var selected = []; var array = [];
-	  	$('#ExamIgtModal').modal('toggle');
-			$.each($("input[name='exmns[]']:checked"), function(){
-				selected.push($(this).next('label').text());
-				array.push($(this).val());
-				$(this). prop("checked", false);
-	  	});   
-	 	  var exam = '<tr id="acte-'+$("#examensradio").val()+'"><td id="idExamen" hidden>'+$("#examensradio").val()+'</td><td>'+$("#examensradio option:selected").text()+'</td><td id ="types" hidden>'+array+'</td><td>'+selected+'</td><td class="center" width="5%">';
-	 	  exam += '<button type="button" class="btn btn-xs btn-danger delete-ExamImg" value="'+$("#examensradio").val()+'" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';     
+		$('#btnclose').click(function(){
+			$("#examensradio").select2("val", "");$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
+		})
+   		$('#btn-addImgExam').click(function(){
+		  	var selected = []; var array = [];
+		  	$('#ExamIgtModal').modal('toggle');
+				$.each($("input[name='exmns']:checked"), function(){
+					selected.push($(this).next('label').text());
+					array.push($(this).val());	//$(this). prop("checked", false);
+	 	 	});   
+	 	var exam = '<tr id="acte-'+$("#examensradio").val()+'"><td id="idExamen" hidden>'+$("#examensradio").val()+'</td><td>'+$("#examensradio option:selected").text()+'</td><td id ="types" hidden>'+array+'</td><td>'+selected+'</td><td class="center" width="5%">';
+	 	   exam += '<button type="button" class="btn btn-xs btn-danger delete-ExamImg" value="'+$("#examensradio").val()+'" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';     
 	  	$('#ExamsImg').append(exam);
 		 	$('#examensradio').val(' ').trigger('change');
 		 	$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
 		});
 		jQuery('body').on('click', '.delete-ExamImg', function () {
-	  	$("#acte-" + $(this).val()).remove();
-	});
-	 $("#consultForm").submit(function(e){
-   		if(!checkConsult())
-   		{
-   			activaTab("Interogatoire");
-   			return false;
-   		}
-   		var ExamsImg = [];
-   		var arrayLignes = document.getElementById("ExamsImg").rows;
-  		for(var i=0; i< arrayLignes.length; i++)
-  		{
-  			ExamsImg[i] = { acteImg: arrayLignes[i].cells[0].innerHTML, types: arrayLignes[i].cells[2].innerHTML }
-  		}
-   	 	var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
-    		champ.appendTo('#consultForm');
-	}); //calendrier  	
-      var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
-	var today = (new Date()).setHours(0, 0, 0, 0);
-	$('.calendar1').fullCalendar({
+	 	 	$("#acte-" + $(this).val()).remove();
+		});
+	 	$("#consultForm").submit(function(e){
+   			if(!checkConsult())
+   			{
+   				activaTab("Interogatoire");
+   				return false;
+   			}
+   			var ExamsImg = [];
+   			var arrayLignes = document.getElementById("ExamsImg").rows;
+  			for(var i=0; i< arrayLignes.length; i++)
+  			{
+  				ExamsImg[i] = { acteImg: arrayLignes[i].cells[0].innerHTML, types: arrayLignes[i].cells[2].innerHTML }
+  			}
+   	 		var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
+    			champ.appendTo('#consultForm');
+		}); //calendrier  	
+	      var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
+		var today = (new Date()).setHours(0, 0, 0, 0);
+		$('.calendar1').fullCalendar({
 	      plugins: [ 'dayGrid', 'timeGrid' ],
 	      header: {
 		          left: 'prev,next today',

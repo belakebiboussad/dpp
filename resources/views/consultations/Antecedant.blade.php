@@ -88,7 +88,7 @@
 							<td>{{ $antcd->ethylisme? 'Oui' : 'Non' }}</td>
 							<td>{{ $antcd->habitudeAlim }}</td>
 							<td class="center"> 
-								<button type="button" class="btn btn-xs btn-info Phys-open-modal" data-atcd ="c" id ="antPerso-edit" value="{{$antcd->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
+								<button type="button" class="btn btn-xs btn-info Phys-open-modal" data-atcd ="c"  value="{{$antcd->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
 								<button type="button" class="btn btn-xs btn-danger delete-atcd" value="{{$antcd->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
 						 </td>
 						<table></table>

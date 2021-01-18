@@ -112,8 +112,7 @@ $('document').ready(function(){
 		eventAllow: function(dropLocation, draggedEvent) {
 			return false;
 		},
-      });
-  	//fincalendar
+      });//fincalendar
 });
 </script>
 @endsection
@@ -137,7 +136,8 @@ $('document').ready(function(){
 				@if(in_array(Auth::user()->role_id,[1,14]))
 				<li>
 					 <a data-toggle="tab" href="#Ants">
-					 <i class="fa fa-history fa-1x"></i>&nbsp;<span>Antecedants</span>&nbsp;<span class="badge badge-primary">{{$patient->antecedants->count() }}</span>
+					 	<i class="fa fa-history fa-1x"></i>&nbsp;<span>Antecedants</span>&nbsp;<span class="badge badge-primary">
+					 	{{$patient->antecedants->count() }}</span>
 					</a>
 				</li>
 				<li>
@@ -158,9 +158,7 @@ $('document').ready(function(){
 					</a>
 				</li>
 				@if (!is_null($correspondants))
-				<li>
-					<a data-toggle="tab" href="#homme_conf"><i class="green ace-icon fa fa-user bigger-120"></i>Homme de confiance</a>
-				</li>
+				<li><a data-toggle="tab" href="#homme_conf"><i class="green ace-icon fa fa-user bigger-120"></i>Homme de confiance</a></li>
 				@endif
 			</ul>
 			<div class="tab-content no-border padding-24">
@@ -225,9 +223,25 @@ $('document').ready(function(){
 									</div>
 									<div class="profile-info-row">
 										<div class="profile-info-name"> Civilité </div>
-										<div class="profile-info-value"><span>{{ $patient->situation_familiale }}</span></div>
+										<div class="profile-info-value"><span>
+											@switch($patient->situation_familiale)
+										           @case("C")
+											                Célibataire(e)
+											                @break
+											     @case("M")
+											               Marié(e)
+											                @break
+											     @case("D")
+											                Divorcé(e)
+											                @break
+											     @case("V")
+											                Veuf(veuve)
+											                @break           	
+											@endswitch 
+											</span>
+										</div>
 									</div>
-									@if(($patient->Sexe =="F") && ($patient->situation_familiale == "marie"))
+									@if(($patient->Sexe =="F") && ($patient->situation_familiale == "M"))
 									<div class="profile-info-row">
 										<div class="profile-info-name"> Nom Fille </div>
 										<div class="profile-info-value"><span>{{ $patient->nom_jeune_fille }}</span></div>
@@ -261,7 +275,7 @@ $('document').ready(function(){
 										<div class="profile-info-value"><span>{{ $patient->Date_creation }}</span></div>
 									</div>
 								</div>
-								<div class="hr hr-8 dotted"></div>{{-- @if($patient->Type == "Ayant_droit") --}}
+								<div class="hr hr-8 dotted"></div>
 								@if(in_array( $patient->Type , [1,2,3,4]))
 								<div class="col-sm-12 widget-container-col" id="widget-container-col-12">
 									<div class="widget-box transparent" id="widget-box-12">

@@ -123,10 +123,10 @@
 				<label class="col-sm-3 control-label" for="SituationFamille"><strong class="text-nowrap">Civilité :</strong></label>
 				<div class="col-sm-9">
 					<select class="form-control civilite" id="SituationFamille" name="SituationFamille">
-						<option value="célibataire" @if( $assure->SituationFamille =='célibataire') selected @endif >Célibataire(e)</option>
-						<option value="marié" @if( $assure->SituationFamille =='marié') selected @endif>Marié(e)</option>
-						<option value="divorcé" @if( $assure->SituationFamille =="divorcé") selected @endif>Divorcé(e)</option>
-						<option value="veuf" @if( $assure->SituationFamille =="veuf") selected @endif >Veuf(ve)</option>
+						<option value="C" @if( $assure->SituationFamille =='C') selected @endif >Célibataire(e)</option>
+						<option value="M" @if( $assure->SituationFamille =='M') selected @endif>Marié(e)</option>
+						<option value="D" @if( $assure->SituationFamille =="D") selected @endif>Divorcé(e)</option>
+						<option value="V" @if( $assure->SituationFamille =="V") selected @endif >Veuf(ve)</option>
 					</select>
 				</div>
 			</div>

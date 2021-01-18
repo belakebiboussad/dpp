@@ -83,10 +83,10 @@
 			<div class="col-sm-9">
 				<select class="form-control" id="SituationFamille" name="SituationFamille">
 					<option value="">------</option>
-					<option value="célibataire">Célibataire(e)</option>
-					<option value="marié">Marié(e)</option>
-					<option value="divorcé">Divorcé(e)</option>
-					<option value="veuf">Veuf(veuve)</option>
+					<option value="C">Célibataire(e)</option>
+					<option value="M">Marié(e)</option>
+					<option value="D">Divorcé(e)</option>
+					<option value="V">Veuf(veuve)</option>
 				</select>
 			</div>
 		</div>

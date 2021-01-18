@@ -25,8 +25,7 @@
 		<div class="form-group {{ $errors->has('datenaissance') ? 'has-error' : '' }}">
 			<label class="col-sm-3 control-label" for="datenaissance"><strong>Né(e) le :</strong></label>
 			<div class="col-sm-9">
-				<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD"/>
-				{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
+				<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD"/>{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
 			</div>
 		</div>
 	</div>
@@ -83,10 +82,10 @@
 			<div class="col-sm-9">
 				<select class="form-control civilite" id="sf" name="sf">
 					<option value="">------</option>
-					<option value="célibataire">Célibataire(e)</option>
-					<option value="marié">Marié(e)</option>
-					<option value="divorcé">Divorcé(e)</option>
-					<option value="veuf">Veuf(veuve)</option>
+					<option value="C">Célibataire(e)</option>
+					<option value="M">Marié(e)</option>
+					<option value="D">Divorcé(e)</option>
+					<option value="V">Veuf(veuve)</option>
 				</select>
 			</div>
 		</div>
@@ -99,29 +98,21 @@
 		</div>
 	</div>
 </div>	{{-- row --}}
-<div class="row">
-	<div class="col-sm-12">
-		<h3 class="header smaller lighter blue">Contact</h3>
-	</div>
-</div>	{{-- row --}}
-<div class="space-12"></div>		
+<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div></div><div class="space-12"></div>
 <div  class="row demograph">
 	<div class="col-sm-4">
 		<label class="col-sm-4  text-nowrap" for="adresse" ><strong>Adresse:</strong></label>
 		  <input type="text" value="" id="adresse" name="adresse" placeholder="Adresse..." class="col-sm-8"/>
 	</div> 
 	<div class="col-sm-4">
-		<label class="col-sm-4 text-nowrap" for="commune"><strong>Commune:</strong></label>
-		<input type="hidden" name="idcommune" id="idcommune">
+		<label class="col-sm-4 text-nowrap" for="commune"><strong>Commune:</strong></label><input type="hidden" name="idcommune" id="idcommune">
 	 	 <input type="text" value="" id="commune" placeholder="commune résidance" class="autoCommune col-sm-8"/>
 	</div>
 	<div class="col-sm-4">
-		<label class="col-sm-4" for="wilaya"><strong>Wilaya:</strong></label>
-		<input type="hidden" name="idwilaya" id="idwilaya">
+		<label class="col-sm-4" for="wilaya"><strong>Wilaya:</strong></label><input type="hidden" name="idwilaya" id="idwilaya">
 		<input type="text" value=""  id="wilaya" placeholder="wilaya résidance" class=" text-nowrap col-sm-8" readonly />
 	</div>
-</div>
-<div class="space-12"></div>
+</div><div class="space-12"></div>
 <div class="row">
 <div class="col-sm-4 col-xs-4">
 		<div class="form-group" style="padding-left:15%;">
@@ -177,17 +168,11 @@
 				<input type="text" class="form-control col-xs-12 col-sm-6" id="nsspatient" name="nsspatient"
 					pattern="^\[0-9]{2}+' '+\[0-9]{4} +' '+\[0-9]{4}+' '+[0-9]{2}$"  placeholder="XXXXXXXXXXXX" maxlength =12 minlength =12 />
 			</div>
-			</div>		
-		</div>	
-		<div class="col-sm-6"></div> 	
-	</div> 	{{-- row --}}
-<div class="row">
-	<div class="col-sm-12">
-		<h3 class="header smaller lighter blue">Homme de Confiance</h3>
-	</div>
-</div>
-<div class="row">
- 	<div class="col-sm-1"></div>		
+		</div>		
+	</div><div class="col-sm-6"></div> 			
+</div> 	{{-- row --}}
+<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Homme de Confiance</h3></div></div>
+<div class="row"><div class="col-sm-1"></div>
 	<div class="col-sm-11">
 		<div class="form-group padding-left">
 			<input  type="checkbox" name = "hommeConf" id="hommeConf" value="1"  class="ace input-lg"/>

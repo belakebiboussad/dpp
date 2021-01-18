@@ -23,10 +23,10 @@
   	  });
  	  	$( "#addPatientForm" ).submit(function( event ) {
 			  if( ! checkPatient() )
-      	{
-        	activaTab("Patient");
-        	event.preventDefault();
-      	}else{
+      		{
+	        	activaTab("Patient");
+	        	event.preventDefault();
+	      	}else{
       		if(($('#type').val() != "5" )){ //if(!($('#autre').is(':checked'))){ 
       			$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });	
 						if( ! checkAssure() )
@@ -87,15 +87,13 @@
 				@endif
 				</div>
 			</div>
-	    <ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
+	    		<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
 			   	<li class="active">
-			   		<a data-toggle="tab" href="#Assure" class="jumbotron" onclick="copyPatientInfo();">
-			    		<span class="bigger-130"><strong>Assuré(e)</strong></span>
-			    	</a>
-					</li>
-					<li ><a class="jumbotron" data-toggle="tab" href="#Patient">
-						<span class="bigger-130"><strong>Patient</strong></span></a>
-				 	</li>
+			   		<a data-toggle="tab" href="#Assure" class="jumbotron" onclick="copyPatientInfo();"><span class="bigger-130"><strong>Assuré(e)</strong></span>
+			    		</a>
+				</li>
+				<li ><a class="jumbotron" data-toggle="tab" href="#Patient"><span class="bigger-130"><strong>Patient</strong></span></a>
+				</li>
 			 	  <li id ="hommelink" class="invisible"><a class="jumbotron" data-toggle="tab" href="#Homme_C">
 			  		<span class="bigger-130"><b>Garde Malde</b></span></a>
 				  </li>
@@ -105,31 +103,23 @@
 				<div id="Patient" class="tab-pane fade">@include('patient.addPatient')</div>
 				<div id="Homme_C" class="tab-pane fade hidden_fields">
 				<div id ="homme_cPart">
-					<div class="row">
-						<div class="col-sm-12">
-							<h3 class="header smaller lighter blue"><b>Information de l'Homme de confiance</b></h3>
-						</div>	
-					</div>{{-- row --}}
+					<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue"><b>Information de l'Homme de confiance</b></h3></div></div>
 					<div class="row">
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="nomA"><strong>Nom :</strong></label>
 							<div class="col-sm-9">
 								<input type="text" id="nomA" name="nom_homme_c" placeholder="Nom..." class="col-xs-12 col-sm-12" />
-							</div>
-							<br>
-						</div>
-							<br>
+							</div><br>
+						</div><br>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="prenomA"><strong>Prénom :</strong></label>
 							<div class="col-sm-9">
 								<input type="text" id="prenomA" name="prenom_homme_c" placeholder="Prénom..." class="col-xs-12 col-sm-12" />
-							</div>
-							<br>
-						</div>
-						<br>
+							</div>	<br>
+						</div><br>
 					</div>
 				</div>{{-- row --}}
 				<div class="row">
@@ -159,8 +149,7 @@
 							</div>
 						</div>
 					</div>
-				</div>{{-- row --}}
-				<div class="space-12"></div>
+				</div><div class="space-12"></div>{{-- row --}}
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="form-group">

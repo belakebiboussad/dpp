@@ -5,13 +5,11 @@
     var nowDate = new Date();
     var now = nowDate.getFullYear() + '-' + (nowDate.getMonth()+1) + '-' + ('0'+ nowDate.getDate()).slice(-2);
       $(document).ready(function() {
-        window.prettyPrint && prettyPrint();
-        //$("#date_colloque").datepicker("setDate", now);  
-        $('#liste_membre').multiselect();
+        window.prettyPrint && prettyPrint();      //$("#date_colloque").datepicker("setDate", now);  
+          $('#liste_membre').multiselect();
         $('#reset').click(function(){
             $('#liste_membre_to').empty();       
         });
-
     });
     function myFunction()
     {

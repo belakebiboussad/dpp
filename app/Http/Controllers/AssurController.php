@@ -30,8 +30,8 @@ class AssurController extends Controller
      */
       public function create()
       {
-        $grades = grade::all();
-        return view('assurs.add',compact('grades')); 
+          $grades = grade::all();
+          return view('assurs.add',compact('grades')); 
       }
     /**
      * Store a newly created resource in storage.
@@ -74,8 +74,7 @@ class AssurController extends Controller
             $assure->lieunaissance ='1556';
             $assure->Sexe = $obj->Genre;$assure->SituationFamille = utf8_encode($obj->SituationFamille);
             $assure->Matricule = $obj->Matricule;$assure->adresse = utf8_encode($obj->Adresse);
-            $assure->commune_res ='1556';
-            //$assure->wilaya_res =(int) $obj->WilayaResidence;
+            $assure->commune_res ='1556'; //$assure->wilaya_res =(int) $obj->WilayaResidence;
             $assure->grp_sang = $obj->GroupeSanguin;$assure->NSS = $obj->NSS;
             $assure->Position = utf8_encode($obj->Position);
             $assure->Service =utf8_encode($obj->Service);
@@ -144,10 +143,10 @@ class AssurController extends Controller
      * @param  \App\modeles\assur  $assur
      * @return \Illuminate\Http\Response
      */
-        public function destroy(Request $request , $id) 
-        {
-          $handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word");
-          //$handle = new COM("GRH.Personnel") or die("Unable to instanciate Word");
+     public function destroy(Request $request , $id) 
+     {
+          $handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word"); //dll local
+          //$handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); //dll local
           //$handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");//network dll
           if($handle != null)
             {
@@ -161,79 +160,76 @@ class AssurController extends Controller
               
               return("Non");
             }
-        }
-        public function search(Request $request)
-        {
+     }
+     public function search(Request $request)
+     {
           try {
-                $handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word");
-                // $handle = new COM("GRH.Personnel") or die("Unable to instanciate Word");
+                $handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word"); //dll local// $handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); //dll local //dll local
                 //$handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");//network sll
                 $output=""; $ayants="";
                 $assure = $handle->SelectPersonnel(trim($request->matricule),trim($request->nss));   
                 if($assure->Nom != null)
                 {
-                  $action = ""; $service ="";
-                  $sexe =  ($assure->Genre =="M") ? "Masculin":"Féminin";
-                  $service = utf8_encode($assure->Service);
-                  if(trim(utf8_encode($assure->Position)) != "Révoqué" && utf8_encode($assure->Position) != "Licencié" && utf8_encode($assure->Position) != "Démission" )//existe maisrevoque
-                  {
-                    $patientId = $this->patientSearch($assure->Prenom,$assure->NSS);
-                    if(isset($patientId))
-                      $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
-                    else
-                      $action = '<a href="assur/patientAssuree/'.$assure->NSS.'/0/'.$assure->Prenom.'" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter patient" data-placement="bottom"><i class="fa fa-plus-circle fa-xs"></i></a>';  
-                  }else
-                    $action = '<b><span class="badge badge-danger">'.utf8_encode($assure->Position).'</span></b>';
-                  if(utf8_encode($assure->Position) != "Révoqué" && utf8_encode($assure->Position) != "Licencié" && utf8_encode($assure->Position) != "Démission" )
-                    if($this->assureSearch($assure->NSS) == null)
-                       $this->save($assure);
-                  $dateN = Carbon::CreateFromFormat('d/m/Y',$assure->Date_Naissance)->format('Y-m-d'); 
-                  $output.='<tr><td>'.$assure->Nom.'</td>'.'<td>'.$assure->Prenom.'</td>'.'<td>'.utf8_encode($assure->SituationFamille).'</td>'.
-                            '<td><span class="badge">'.$assure->Matricule.'</span></td>'. '<td>'.$assure->NSS.'</td>'. 
-                            '<td>'. $dateN.'</td>'. '<td>'.$sexe.'</td>'.
-                            '<td><span class="badge badge-success">'.utf8_encode($assure->Position).'</span></td>'.'<td>'.$service.'</td>'. '<td>'.$assure->Grade.'</td>'.
-                            '<td class="center">'.$action.'</td></tr>';
-                  if(utf8_encode($assure->Position) != "Révoqué" && utf8_encode($assure->Position) != "Licencié" && utf8_encode($assure->Position) != "Démission" )
-                  {
-                    $patientId = $this->patientSearch($assure->Conjoint,$assure->NSS);//Ayants  //conjoint
-                    if(isset($patientId))
-                        $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
-                    else
-                        $action = '<a href="assur/patientAssuree/'.$assure->NSS.'/1/'.$assure->Conjoint.'" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter Patient" data-placement="bottom"><i class="fa fa-plus-circle fa-xs"></i></a>';  
+                     $action = ""; 
+                     $positions = array("Révoqué", "Licencié", "Démission", "Contrat résilié");
+                     $sexe =  ($assure->Genre =="M") ? "Masculin":"Féminin";
+                     $service = utf8_encode($assure->Service);
+                     if(!in_array(utf8_encode($assure->Position), $positions))
+                     { //tester si le patient existe
+                          $patientId = $this->patientSearch($assure->Prenom,$assure->NSS);
+                          if(isset($patientId))
+                               $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
+                          else
+                               $action = '<a href="assur/patientAssuree/'.$assure->NSS.'/0/'.$assure->Prenom.'" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter patient" data-placement="bottom"><i class="fa fa-plus-circle fa-xs"></i></a>';  
+                     }else
+                             $action = '<b><span class="badge badge-danger">'.utf8_encode($assure->Position).'</span></b>';
+                     if(!in_array(utf8_encode($assure->Position), $positions))
+                          if($this->assureSearch($assure->NSS) == null) //inserer l'assure s'il n'existe pas
+                               $this->save($assure);
+                    $dateN = Carbon::CreateFromFormat('d/m/Y',$assure->Date_Naissance)->format('Y-m-d'); 
+                    //ici
+                     $output.='<tr><td>'.$assure->Nom.'</td><td>'.$assure->Prenom.'</td><td>'. $dateN.'</td><td>'.utf8_encode($assure->SituationFamille).'</td><td>'
+                                .$assure->WilayaResidence.'</td><td>'.$assure->NSS.'</td><td>'.$sexe.'</td><td><span class="badge badge-success">'
+                                .utf8_encode($assure->Position).'</span></td><td><span class="badge">'.$assure->Matricule.'</span></td><td>'
+                                .utf8_encode($assure->Service).'</td><td>'.$assure->Grade.'</td><td class="center">'.$action.'</td></tr>';
+                     if(!in_array(utf8_encode($assure->Position), $positions))
+                     {
+                          $patientId = $this->patientSearch($assure->Conjoint,$assure->NSS);//Ayants  //conjoint
+                          if(isset($patientId))
+                               $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
+                          else
+                               $action = '<a href="assur/patientAssuree/'.$assure->NSS.'/1/'.$assure->Conjoint.'" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter Patient" data-placement="bottom"><i class="fa fa-plus-circle fa-xs"></i></a>';  
                   
-                    $ayants .='<tr><td>'.$assure->Conjoint.'</td><td><span clas="badge">Conjoint(e)</span></td>'.'<td class="center">'.$action.'</td></tr>';
-                    //pere
-                    $patientId = $this->patientSearch($assure->Pere,$assure->NSS);
-                    if(isset($patientId))
-                      $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
-                    else
-                      $action = '<a href="assur/patientAssuree/'.$assure->NSS.'/2/'.$assure->Pere.'" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter Patient" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle"></i></a>';  
-                    $ayants .='<tr><td>'.$assure->Pere.'</td><td><span clas="badge">Pere</span></td>'.'<td class="center">'.$action.'</td></tr>';
-                    //Mere
-                    $patientId = $this->patientSearch($assure->Mere,$assure->NSS);
-                    if(isset($patientId))
-                      $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
-                    else
-                      $action = '<a href="assur/patientAssuree/'.$assure->NSS.'/3/'.$assure->Mere.'" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter Patient" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle"></i></a>';  
-                    $ayants .='<tr><td>'.$assure->Mere.'</td><td><span clas="badge">Mere</span></td>'.'<td class="center">'.$action.'</td></tr>';
-                    
-                    $enfants = explode ( '|' , $assure->Enfants);
-                    foreach ($enfants as $key => $enfant)
-                    {
-                      $patientId = $this->patientSearch($enfant,$assure->NSS);
-                      if(isset($patientId))
-                        $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
-                      else
-                        $action = '<a href="assur/patientAssuree/'.$assure->NSS.'/4/'.$enfant.'" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter Patient" data-placement="bottom"><i class="fa fa-plus-circle fa-xs"></i></a>';
-                      $ayants .='<tr><td>'.$enfant.'</td><td><span clas="badge">Enfant</span></td>'.'<td class="center">'.$action.'</td></tr>';    
-                    }
-                }
-                return Response([$output,$ayants])->withHeaders(['count' =>1]);
-              }else{//pas de donctionnaire
-                return Response(null)->withHeaders(['count' =>0]);
-              }                 
+                          $ayants .='<tr><td>'.$assure->Conjoint.'</td><td><span clas="badge">Conjoint(e)</span></td>'.'<td class="center">'.$action.'</td></tr>';
+                          $patientId = $this->patientSearch($assure->Pere,$assure->NSS);  //recerche pere
+                          if(isset($patientId))
+                               $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
+                          else
+                               $action = '<a href="assur/patientAssuree/'.$assure->NSS.'/2/'.$assure->Pere.'" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter Patient" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle"></i></a>';  
+                          $ayants .='<tr><td>'.$assure->Pere.'</td><td><span clas="badge">Pere</span></td>'.'<td class="center">'.$action.'</td></tr>';
+                          $patientId = $this->patientSearch($assure->Mere,$assure->NSS); //Recherce Mere
+                          if(isset($patientId))
+                                $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
+                          else
+                               $action = '<a href="assur/patientAssuree/'.$assure->NSS.'/3/'.$assure->Mere.'" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter Patient" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle"></i></a>';  
+                          $ayants .='<tr><td>'.$assure->Mere.'</td><td><span clas="badge">Mere</span></td>'.'<td class="center">'.$action.'</td></tr>';
+                          $enfants = explode ( '|' , $assure->Enfants);
+                          foreach ($enfants as $key => $enfant)
+                          {
+                               $patientId = $this->patientSearch($enfant,$assure->NSS);
+                               if(isset($patientId))
+                                    $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
+                               else
+                                     $action = '<a href="assur/patientAssuree/'.$assure->NSS.'/4/'.$enfant.'" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter Patient" data-placement="bottom"><i class="fa fa-plus-circle fa-xs"></i></a>';
+                               $ayants .='<tr><td>'.$enfant.'</td><td><span clas="badge">Enfant</span></td>'.'<td class="center">'.$action.'</td></tr>';    
+                          }
+                     }
+                     return Response([$output,$ayants])->withHeaders(['count' =>1]);
+                }else{//pas de Fonctionnaire
+                     return Response(null)->withHeaders(['count' =>0]);
+                }                 
           }catch (Exception $e) {//errer com
-             echo 'Exception reçue Com Object : ',  $e->getMessage(), "\n";
+               echo 'Exception reçue Com Object : ',  $e->getMessage(), "\n";
           }
-        }
+      }
     }

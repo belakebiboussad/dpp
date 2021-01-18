@@ -307,28 +307,23 @@
         $('.nav-pills a[href="#' + tab + '"]').tab('show');
       }
       function copyPatient(){ 
-              $("#nomf").val($("#nom").val());
-              $("#prenomf").val($("#prenom").val());
-              $("#datenaissancef").val($("#datenaissance").val());
-              $("#lieunaissancef").val($("#lieunaissance").val()); 
-              $("#idlieunaissancef").val($("#idlieunaissance").val());
-              var sexe = $('input[name=sexe]:radio:checked').val();
-              $('#sexef').val(sexe);             
-              $( "#gsf" ).val($( "#gs" ).val());$( "#rhf" ).val($( "#rh" ).val());
-              $('#adressef').val($('#adresse').val());
-              $('#communef').val($('#commune').val());
-              $('#idcommunef').val($('#idcommune').val());$('#idwilayaf').val( $('#idwilaya').val()); 
-              $('#wilayaf').val($('#wilaya').val());//$("#foncform").addClass('hide');//$('#nsspatient').attr('disabled', true);
-              $('.Asdemograph').find('*').each(function () { $(this).attr("disabled", true); });
-              addRequiredAttr();
+          $("#nomf").val($("#nom").val()); $("#prenomf").val($("#prenom").val());
+           $("#datenaissancef").val($("#datenaissance").val());$("#lieunaissancef").val($("#lieunaissance").val()); 
+           $("#idlieunaissancef").val($("#idlieunaissance").val());var sexe = $('input[name=sexe]:radio:checked').val();$('#sexef').val(sexe);
+           $( "#gsf" ).val($( "#gs" ).val());$( "#rhf" ).val($( "#rh" ).val()); $('#adressef').val($('#adresse').val());
+          $('#communef').val($('#commune').val()); $('#idcommunef').val($('#idcommune').val());$('#idwilayaf').val( $('#idwilaya').val()); 
+          $('#wilayaf').val($('#wilaya').val()); $('#SituationFamille').val($('#sf').val());
+          $('.Asdemograph').find('*').each(function () {
+                $(this).attr("disabled", true); 
+          });
+          addRequiredAttr();//$("#foncform").addClass('hide');//$('#nsspatient').attr('disabled', true);
        }
       function copyPatientInfo()
       {
-         if($("#type").val() =="0")
+           if($("#type").val() =="0")
                 copyPatient();
       }
-      ////avoir
-      if ($("#addGardeMalade").length > 0) {
+     if ($("#addGardeMalade").length > 0) {  ////avoir
         $("#addGardeMalade").validate({
             rules: {
                 mobile_h: { required: true,  digits:true,  minlength: 10,  maxlength:10 }   
