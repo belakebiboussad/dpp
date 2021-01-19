@@ -68,6 +68,7 @@ Route::get('exbio/{filename}', function ($filename)
 });// Auth::routes();
 route::get('/demandeproduit/run/{id}','demandeprodController@run')->name('runDemande');
 route::post('/demandeproduit/valider/{id}','demandeprodController@valider')->name('demandeproduit.valider');
+Route::get('/sortiesAdmission','AdmissionController@sortir')->name('admission.sortieAdm');
 Route::post('user/credentials','UsersController@credentials');
 Route::post('user/updatepro','UsersController@updatepro');
 Route::get('/atcd/store','AntecedantsController@storeatcd');

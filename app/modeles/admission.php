@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class admission extends Model
 {
      public $timestamps = false;//     
-     protected $fillable  = ['id','demande_id','id_rdvHosp','id_lit'];
+     protected $fillable  = ['id','demande_id','id_rdvHosp','id_lit','etat'];
      public function lit()
      {
       	return $this->belongsTo('App\modeles\Lit','id_lit');

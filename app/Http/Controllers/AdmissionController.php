@@ -11,6 +11,7 @@ use App\modeles\employ;
 use App\User;
 use App\modeles\dem_colloque;
 use Illuminate\Support\Facades\Auth;
+use App\modeles\hospitalisation;
 class AdmissionController extends Controller
 {
     /**
@@ -25,16 +26,14 @@ class AdmissionController extends Controller
      */
       public function index()
       {
-        $rdvs = rdv_hospitalisation::with('bedReservation')->whereHas('demandeHospitalisation', function($q){
+          $rdvs = rdv_hospitalisation::with('bedReservation')->whereHas('demandeHospitalisation', function($q){
                                            $q->where('etat', 'programme');
-                                        })->where('etat_RDVh','=',null)->where('date_RDVh','=',date("Y-m-d"))->get(); 
-        //dd($rdvs);
-        $demandesUrg = DemandeHospitalisation::with('bedAffectation') //->whereHas('bedAffectation')
+                                        })->where('etat_RDVh','=',null)->where('date_RDVh','=',date("Y-m-d"))->get();  //dd($rdvs);
+          $demandesUrg = DemandeHospitalisation::with('bedAffectation') //->whereHas('bedAffectation')
                                              ->whereHas('consultation', function($q){
                                                 $q->where('Date_Consultation', date("Y-m-d"));
-                                             })->where('modeAdmission','urgence')->where('etat','en attente')->get();
-        //dd($demandesUrg[0]);
-        return view('home.home_agent_admis', compact('rdvs','demandesUrg'));
+                                             })->where('modeAdmission','urgence')->where('etat','en attente')->get();//dd($demandesUrg[0]);
+          return view('home.home_agent_admis', compact('rdvs','demandesUrg'));
     }
     /**
      * Show the form for creating a new resource.
@@ -49,34 +48,34 @@ class AdmissionController extends Controller
      */
       public function store(Request $request)
       {
-        if(isset($request->id_RDV))
-        {
-          $rdvHospi =  rdv_hospitalisation::find($request->id_RDV);
-          $adm=admission::create([     
-            "id_rdvHosp"=>$request->id_RDV,       
-            "id_lit"=>(isset($rdvHospi->bedReservation) ? $rdvHospi->bedReservation->id_lit  : null),
-          ]);
-          $adm->rdvHosp->demandeHospitalisation->update([
-            "etat" => "admise",
-          ]);
-          $adm->rdvHosp->update([
-            "etat_RDVh" => 1
-          ]);
-        }else
-        {
-          if(isset($request->demande_id))
+          if(isset($request->id_RDV))
           {
-            $demande = DemandeHospitalisation::FindOrFail($request->demande_id); 
-            $adm=admission::create([     
-              "demande_id"=>$request->demande_id,       
-              "id_lit"=>$demande->bedAffectation->lit_id,
-            ]);
-            $demande->update([
-            "etat" => "admise",
-          ]);
+                $rdvHospi =  rdv_hospitalisation::find($request->id_RDV);
+                $adm=admission::create([     
+                    "id_rdvHosp"=>$request->id_RDV,       
+                    "id_lit"=>(isset($rdvHospi->bedReservation) ? $rdvHospi->bedReservation->id_lit  : null),
+                ]);
+                $adm->rdvHosp->demandeHospitalisation->update([
+                     "etat" => "admise",
+                ]);
+                $adm->rdvHosp->update([
+                    "etat_RDVh" => 1
+                ]);
+          }else
+          {
+                if(isset($request->demande_id))
+                {
+                     $demande = DemandeHospitalisation::FindOrFail($request->demande_id); 
+                     $adm=admission::create([     
+                           "demande_id"=>$request->demande_id,       
+                           "id_lit"=>$demande->bedAffectation->lit_id,
+                     ]);
+                    $demande->update([
+                        "etat" => "admise",
+                     ]);
+                }
           }
-        }
-        return redirect()->action('AdmissionController@index');
+          return redirect()->action('AdmissionController@index');
       }  
     /**
      * Display the specified resource.
@@ -102,10 +101,10 @@ class AdmissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-      dd("update");
-    }
+      public function update(Request $request, $id)
+      {
+         dd("update");
+      }
 
    /**
    * Remove the specified resource from storage.
@@ -113,8 +112,15 @@ class AdmissionController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-    public function destroy($id) {
-      $adm = admission::destroy($id);
-      return Response::json($adm);   
-    } 
+     public function destroy($id) {
+          $adm = admission::destroy($id);
+          return Response::json($adm);   
+     } 
+     public function sortir()
+     {
+          $hospitalistions = hospitalisation::with('admission')->whereHas('admission', function ($q) {
+                                                                        $q->where('etat',null);
+                                                          })->where('etat_hosp','valide')->where('Date_Sortie' , date('Y-m-d'))->get();
+            return view('admission.sorties', compact('hospitalistions')); 
+     }
 }

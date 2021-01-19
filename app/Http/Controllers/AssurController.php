@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use App\modeles\assur;
 use Illuminate\Http\Request;
 use App\modeles\grade;
+use App\modeles\Wilaya;
 use App\Traits\PatientSearch;
 use App\Traits\AssureSearch;
 use Carbon\Carbon;
@@ -71,10 +72,10 @@ class AssurController extends Controller
             //$assure->Date_Naissance = Carbon::CreateFromFormat('d/m/Y',$obj->Date_Naissance)->format('Y-m-d');
             $date = Carbon::CreateFromFormat('d/m/Y',$obj->Date_Naissance)->format('Y-m-d');
             $assure->Date_Naissance = $date;
-            $assure->lieunaissance =  $obj->WilayaResidence;
+            $assure->lieunaissance =  1556;
             $assure->Sexe = $obj->Genre;$assure->SituationFamille = utf8_encode($obj->SituationFamille);
             $assure->Matricule = $obj->Matricule;$assure->adresse = utf8_encode($obj->Adresse);
-            $assure->commune_res = $obj->WilayaResidence;
+            $assure->commune_res = 1556;
             $assure->wilaya_res =  $obj->WilayaResidence;
             $assure->grp_sang = $obj->GroupeSanguin;$assure->NSS = $obj->NSS;
             $assure->Position = utf8_encode($obj->Position);
@@ -118,25 +119,25 @@ class AssurController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $assure = assur::find($id);
-      $assure -> update([
-              "Nom"=>$request->nomf,
-              "Prenom"=>$request->prenomf,
-              "Date_Naissance"=>$request->datenaissancef,
-              "lieunaissance"=>$request->idlieunaissancef,
-              "Sexe"=>$request->sexef,
-              "adresse"=>$request->adressef,
-              "commune_res"=>$request->idcommunef,
-              "wilaya_res"=>$request->idwilayaf,
-              "grp_sang"=>$request->gsf.$request->rhf,
-              "Matricule"=>$request->matf, 
-              "Service"=>$request->service,
-              "Etat"=>$request->etatf,
-              "Grade"=>$request->grade,
-              "NMGSN"=>$request->NMGSN,
-              "NSS"=>$request->nss,
-      ] );
-      return redirect(Route('assur.show',$assure->id));
+        $assure = assur::find($id);
+        $assure -> update([
+                "Nom"=>$request->nomf,
+                "Prenom"=>$request->prenomf,
+                "Date_Naissance"=>$request->datenaissancef,
+                "lieunaissance"=>$request->idlieunaissancef,
+                "Sexe"=>$request->sexef,
+                "adresse"=>$request->adressef,
+                "commune_res"=>$request->idcommunef,
+                "wilaya_res"=>$request->idwilayaf,
+                "grp_sang"=>$request->gsf.$request->rhf,
+                "Matricule"=>$request->matf, 
+                "Service"=>$request->service,
+                "Etat"=>$request->etatf,
+                "Grade"=>$request->grade,
+                "NMGSN"=>$request->NMGSN,
+                "NSS"=>$request->nss,
+        ] );
+        return redirect(Route('assur.show',$assure->id));
     }
     /**
      * Remove the specified resource from storage.
@@ -145,17 +146,16 @@ class AssurController extends Controller
      * @return \Illuminate\Http\Response
      */
      public function destroy(Request $request , $id) 
-     {
-         // $handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word"); //dll local//D:/Mes-programmes/DotNET/Dll/GRH2/GRH2
+     { // $handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word"); //dll local//D:/Mes-programmes/DotNET/Dll/GRH2/GRH2
           $handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); //dll local//D:\cdta-work\Dossier Patient\DGSN-Glysines\DLL\Mien\Debugs
           //$handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");//network dll
           if($handle != null)
-            {
-                $ass = $handle->SelectPersonnel(trim('g125M'),trim(''));
-                dd($ass->WilayaResidence);//10/05/1970
+           {
+                $ass = $handle->SelectPersonnel(trim('10246'),trim(''));
+               
             }else{
-              dd("error");
-              return("Non");
+                dd("error");
+                return("Non");
             }
      }
      public function search(Request $request)
@@ -184,41 +184,51 @@ class AssurController extends Controller
                      if(!in_array(utf8_encode($assure->Position), $positions))
                           if($this->assureSearch($assure->NSS) == null) //inserer l'assure s'il n'existe pas
                                $this->save($assure);
-                    $dateN = Carbon::CreateFromFormat('d/m/Y',$assure->Date_Naissance)->format('Y-m-d'); 
+                    $dateN = Carbon::CreateFromFormat('d/m/Y',$assure->Date_Naissance)->format('Y-m-d');
+                    $wilaya = (Wilaya::findOrFail($assure->WilayaResidence))->nom;
                     $output.='<tr><td>'.$assure->Nom.'</td><td>'.$assure->Prenom.'</td><td>'. $dateN.'</td><td>'.utf8_encode($assure->SituationFamille).'</td><td>'
-                                .$assure->WilayaResidence.'</td><td>'.$assure->NSS.'</td><td>'.$sexe.'</td><td><span class="badge badge-success">'
+                                .$wilaya.'</td><td>'.$assure->NSS.'</td><td>'.$sexe.'</td><td><span class="badge badge-success">'
                                 .utf8_encode($assure->Position).'</span></td><td><span class="badge">'.$assure->Matricule.'</span></td><td>'
                                 .utf8_encode($assure->Service).'</td><td>'.$assure->Grade.'</td><td class="center">'.$action.'</td></tr>';
                     if(!in_array(utf8_encode($assure->Position), $positions))
-                     {
-                          $patientId = $this->patientSearch($assure->Conjoint,$assure->NSS);//Ayants  //recherche conjoint
-                          if(isset($patientId))
-                               $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
-                          else
-                               $action = '<a href="assur/patientAssuree/'.$assure->NSS.'/1/'.$assure->Conjoint.'" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter Patient" data-placement="bottom"><i class="fa fa-plus-circle fa-xs"></i></a>';  
-                  
-                          $ayants .='<tr><td>'.$assure->Conjoint.'</td><td><span clas="badge">Conjoint(e)</span></td>'.'<td class="center">'.$action.'</td></tr>';
-                          $patientId = $this->patientSearch($assure->Pere,$assure->NSS);  //recerche pere
-                          if(isset($patientId))
-                               $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
-                          else
-                               $action = '<a href="assur/patientAssuree/'.$assure->NSS.'/2/'.$assure->Pere.'" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter Patient" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle"></i></a>';  
-                          $ayants .='<tr><td>'.$assure->Pere.'</td><td><span clas="badge">Pere</span></td>'.'<td class="center">'.$action.'</td></tr>';
-                          $patientId = $this->patientSearch($assure->Mere,$assure->NSS); //Recherce Mere
-                          if(isset($patientId))
-                                $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
-                          else
-                               $action = '<a href="assur/patientAssuree/'.$assure->NSS.'/3/'.$assure->Mere.'" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter Patient" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle"></i></a>';  
-                          $ayants .='<tr><td>'.$assure->Mere.'</td><td><span clas="badge">Mere</span></td>'.'<td class="center">'.$action.'</td></tr>';
-                          $enfants = explode ( '|' , $assure->Enfants);
-                          foreach ($enfants as $key => $enfant)
-                          {
-                               $patientId = $this->patientSearch($enfant,$assure->NSS);
+                     {    
+                          if($assure->Conjoint != ''){
+                                $patientId = $this->patientSearch($assure->Conjoint,$assure->NSS);//Ayants  //recherche conjoint
+                                if(isset($patientId))
+                                     $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
+                                else
+                                     $action = '<a href="assur/patientAssuree/'.$assure->NSS.'/1/'.$assure->Conjoint.'" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter Patient" data-placement="bottom"><i class="fa fa-plus-circle fa-xs"></i></a>';  
+                        
+                                $ayants .='<tr><td>'.$assure->Conjoint.'</td><td><span clas="badge">Conjoint(e)</span></td>'.'<td class="center">'.$action.'</td></tr>';
+                          }    
+                         if($assure->Pere != '') {
+                                $patientId = $this->patientSearch($assure->Pere,$assure->NSS);  //recerche pere
+                                if(isset($patientId))
+                                     $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
+                                else
+                                     $action = '<a href="assur/patientAssuree/'.$assure->NSS.'/2/'.$assure->Pere.'" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter Patient" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle"></i></a>';  
+                                $ayants .='<tr><td>'.$assure->Pere.'</td><td><span clas="badge">Pere</span></td>'.'<td class="center">'.$action.'</td></tr>';
+                          }
+                          if($assure->Mere != '') {
+                               $patientId = $this->patientSearch($assure->Mere,$assure->NSS); //Recherce Mere
                                if(isset($patientId))
                                     $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
-                               else
-                                     $action = '<a href="assur/patientAssuree/'.$assure->NSS.'/4/'.$enfant.'" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter Patient" data-placement="bottom"><i class="fa fa-plus-circle fa-xs"></i></a>';
-                               $ayants .='<tr><td>'.$enfant.'</td><td><span clas="badge">Enfant</span></td>'.'<td class="center">'.$action.'</td></tr>';    
+                                else
+                                    $action = '<a href="assur/patientAssuree/'.$assure->NSS.'/3/'.$assure->Mere.'" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter Patient" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle"></i></a>';  
+                               $ayants .='<tr><td>'.$assure->Mere.'</td><td><span clas="badge">Mere</span></td>'.'<td class="center">'.$action.'</td></tr>';
+                          }
+                          if($assure->Enfants != '')
+                          {
+                              $enfants = explode ( '|' , $assure->Enfants);
+                               foreach ($enfants as $key => $enfant)
+                               {
+                                     $patientId = $this->patientSearch($enfant,$assure->NSS);
+                                     if(isset($patientId))
+                                          $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
+                                     else
+                                           $action = '<a href="assur/patientAssuree/'.$assure->NSS.'/4/'.$enfant.'" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter Patient" data-placement="bottom"><i class="fa fa-plus-circle fa-xs"></i></a>';
+                                     $ayants .='<tr><td>'.$enfant.'</td><td><span clas="badge">Enfant</span></td>'.'<td class="center">'.$action.'</td></tr>';    
+                               }
                           }
                      }
                      return Response([$output,$ayants])->withHeaders(['count' =>1]);

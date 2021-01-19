@@ -72,28 +72,6 @@ class RdvHospiController extends Controller
   public function edit($id)
   {
       $rdv =  rdv_hospitalisation::with('bedReservation')->find($id);/*if(isset($rdv->bedReservation))  $rdv->bedReservation()->delete();  */
-      /*
-      $salle =salle::findOrFail(4);
-      // dd(strtotime($rdv->date_RDVh));
-      foreach ($salle->lits as $lit) {
-             //$free = true;
-           if($lit->id ==7)
-            {
-                 
-                    $id =$lit->id;
-                    $reservations =  bedReservation::whereHas('lit',function($q) use($id){ //toute les reservation du lit
-                                                                          $q->where('id',$id);
-                                                                      })->get();
-                    foreach ($reservations as $key => $reservation) {
-                           if(( strtotime($rdv->date_RDVh) < strtotime($reservation->rdvHosp->date_Prevu_Sortie)) && (strtotime($rdv->date_Prevu_Sortie) > strtotime($reservation->rdvHosp->date_RDVh)))
-                                 $free = false;
-                    }
-                  
-                    $free = $lit->isFree($lit->id,strtotime($rdv->date_RDVh),strtotime($rdv->date_Prevu_Sortie)); 
-                     dd( $free);
-           }
-       }  
- */
        $demande  = dem_colloque::where('dem_colloques.id_demande','=',$rdv->demandeHospitalisation->id)->first();
       $services = service::all();
        return view('rdvHospi.edit', compact('demande','services','rdv'));   // return view('rdvHospi.edit', compact('demande','services','rdv'));         
@@ -101,7 +79,6 @@ class RdvHospiController extends Controller
   public function update(Request $request,$id)
   {
     $rdvHospi = rdv_hospitalisation::find($id);
-
     if(isset($request->lit_id) && ($request->lit_id !=0)) // reserver le nouveau lit
     {  
       if(isset($rdvHospi->bedReservation))//$rdvHospi->has('bedReservation')

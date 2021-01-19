@@ -34,26 +34,26 @@
 				modeSortie              :jQuery('#modeSortie').val(),
 				autre                   : $('#autre').val(),
 				diagSortie              : $("#diagSortie").val(),
-				etat_hosp			:'validée',
+				etat_hosp			:'valide',
 	     };
 	  if(!($("#Date_Sortie").val() == ''))
    	 {
   		if($('.dataTables_empty').length > 0)
-        $('.dataTables_empty').remove();
+     		$('.dataTables_empty').remove();
       	$.ajax({
     		headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
+          		 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      	 },
     		type: "POST",
-			  url: '/hospitalisation/'+$("#hospID").val(),//'hospitalisation/'+ $("#hospID").val(),
-			  data: formData,
-			  dataType: 'json',
-			  success: function (data) {
-			    $("#hospi" + data.id).remove();
-			  },
-			  error: function (data){
-						console.log('Error:', data);
-			  },
+		url: '/hospitalisation/'+$("#hospID").val(),//'hospitalisation/'+ $("#hospID").val(),
+		data: formData,
+		 dataType: 'json',
+		 success: function (data) {
+			  $("#hospi" + data.id).remove();
+		},
+		error: function (data){
+			console.log('Error:', data);
+		},
     	})
     }	
 	});
