@@ -119,11 +119,20 @@
 				<select name="Position" id="Position" class="col-xs-12 col-sm-12">
 					<option value="">Sélectionner...</option>
 					<option value="Activité">Activité</option>
-					<option value="Retraité">Retraite</option>
+					<option value="Détachement">Détachement</option>
+					<option value="Mise en Disponibilité">Mise en Disponibilité</option>
+					<option value="Licencié">Licencié</option>
+					<option value="Démission">Démission</option>
+					<option value="Congé non rémunéré">Congé non rémunéré</option>
+					<option value="Retraite">Retraite</option>
+					<option value="Congé Longue Durée">Congé Longue Durée</option>
+					<option value="Assurance Invalidité">Assurance Invaliditéé</option>
+					<option value="Décédé">Décédé</option>
+					<option value="Service National">Service National</option>
+					<option value="Contrat résilié">Contrat résilié</option>
 					<option value="Congé Maladie" >Congé Maladie</option>
 					<option value="Révoqué">Révoqué</option>
 				</select>
-
 			</div>
 		</div>
 	</div>
