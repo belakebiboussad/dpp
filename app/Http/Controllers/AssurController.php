@@ -146,8 +146,8 @@ class AssurController extends Controller
      */
      public function destroy(Request $request , $id) 
      {
-          $handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word"); //dll local//D:/Mes-programmes/DotNET/Dll/GRH2/GRH2
-          //$handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); //dll local//D:\cdta-work\Dossier Patient\DGSN-Glysines\DLL\Mien\Debugs
+         // $handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word"); //dll local//D:/Mes-programmes/DotNET/Dll/GRH2/GRH2
+          $handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); //dll local//D:\cdta-work\Dossier Patient\DGSN-Glysines\DLL\Mien\Debugs
           //$handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");//network dll
           if($handle != null)
             {
@@ -161,8 +161,8 @@ class AssurController extends Controller
      public function search(Request $request)
      {
           try {
-                $handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word");   //dll local// D:/Mes-programmes/DotNET/Dll/GRH2/GRH2
-                //$handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); //dll local //D:\cdta-work\Dossier Patient\DGSN-Glysines\DLL\Mien\Debugvl
+                //$handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word");   //dll local// D:/Mes-programmes/DotNET/Dll/GRH2/GRH2
+                $handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); //dll local //D:\cdta-work\Dossier Patient\DGSN-Glysines\DLL\Mien\Debugvl
                 //$handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");//network sll
                 $output=""; $ayants="";
                 $assure = $handle->SelectPersonnel(trim($request->matricule),trim($request->nss));   
