@@ -118,9 +118,9 @@ class AdmissionController extends Controller
      } 
      public function sortir()
      {
-          $hospitalistions = hospitalisation::with('admission')->whereHas('admission', function ($q) {
+        $hospitalistions = hospitalisation::with('admission')->whereHas('admission', function ($q) {
                                                                         $q->where('etat',null);
                                                           })->where('etat_hosp','valide')->where('Date_Sortie' , date('Y-m-d'))->get();
-            return view('admission.sorties', compact('hospitalistions')); 
+        return view('admission.sorties', compact('hospitalistions')); 
      }
 }
