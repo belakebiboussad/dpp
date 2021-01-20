@@ -6,7 +6,7 @@
 		      var op ="";
 		      var frag = "<td><strong>/</strong></td><td><strong>/</strong></td><td><strong>/</strong></td>";
 		     var dt = new Date();
-		      var time = dt.getHours() + ":" + dt.getMinutes();//var date = dt.getFullYear() + "-" + (dt.getMonth()+1) + "-" +   dt.getDate();          
+		      var time = dt.getHours() + ":" + dt.getMinutes();       
 		      var filter= new Date($("#currentday").val());
 		      url= '{{ route ("rdvHospi.dayRdvsHosp", ":slug") }}';
 		      url = url.replace(':slug',$("#currentday").val());
@@ -101,7 +101,7 @@
 <div class="page-content">
 	<div class="row panel panel-default">
 		<div class="panel-heading left" style="height: 40px; font-size: 2.3vh;">
-			<strong>Rechercher une Admission</strong><div class="pull-right" style ="margin-top: -0.5%;"></div>
+			<strong>Rechercher les Admissions</strong><div class="pull-right" style ="margin-top: -0.5%;"></div>
 		</div>
 		<div class="panel-body">
 			<div class="row">
@@ -135,7 +135,7 @@
 				          <th rowspan="2" class="text-center"><h5><strong>Date Entrée</strong></h5></th>
 				          <th rowspan="2" class="text-center"><h5><strong>Mode Entrée</strong></h5></th>
 				          <th colspan="3" scope="colgroup" class="text-center"><h5><strong>Hébergement</strong></h5></th> <!-- merge four columns -->
-				          <th rowspan="2" class="text-center"><em class="fa fa-cog"></th>	
+				          <th rowspan="2" class="text-center"><em class="fa fa-cog"></em></th>	
 				      	</tr>
 				      	<tr>
 				          <th scope="col" class="text-center"><h6><strong>Service</strong></h6></th>

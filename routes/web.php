@@ -102,6 +102,7 @@ Route::get('getConsultations/{id}','ConsultationsController@listecons');
 Route::get('/atcd/create/{id}','AntecedantsController@create');
 Route::get('/atcd/index/{id}','AntecedantsController@index');
 Route::get('/admission/create/{id}','AdmissionController@create');//a commenter
+Route::get('sortiePatient/{id}','AdmissionController@updateAdm');
 Route::post('/atcd/store/{id}','AntecedantsController@store');
 Route::get('/rdv/create/{id}','RDVController@create');
 Route::post('/createRDV','RDVController@AddRDV');

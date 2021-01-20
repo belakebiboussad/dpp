@@ -112,16 +112,15 @@ class HospitalisationController extends Controller
      */
      public function update(Request $request, $id)
      {
-        $hosp = hospitalisation::find($id);
-        if($request->ajax())  
-        {
-          $hosp -> update($request->all()); 
-          // if(isset($request->Date_Sortie)) //      $hosp ->admission->rdvHosp->demandeHospitalisation->update(["etat" => "valide"]);
-         
-          return Response::json($hosp ); 
-        }else{
-              $hosp -> update($request->all());
-              return redirect()->action('HospitalisationController@index');
+           $hosp = hospitalisation::find($id);
+          if($request->ajax())  
+           {
+                $hosp -> update($request->all()); 
+                // if(isset($request->Date_Sortie)) //      $hosp ->admission->rdvHosp->demandeHospitalisation->update(["etat" => "valide"]);
+                return Response::json($hosp ); 
+          }else{
+                $hosp -> update($request->all());
+                return redirect()->action('HospitalisationController@index');
       }
     }
 
@@ -133,7 +132,7 @@ class HospitalisationController extends Controller
      */
     public function affecterLit()
     {
-      $ServiceID = Auth::user()->employ->service;// $rdvHospitalisation = rdv_hospitalisation::whereHas('demandeHospitalisation', function($q){ $q->where('etat', 'programme'); })->with([   'demandeHospitalisation' => function($query) { $query->select('modeAdmission'); }]) ->whereHas('demandeHospitalisation.Service',function($q) use ($ServiceID){$q->where('id',$ServiceID);})->where('etat_RDVh','=',null)->with('demandeHospitalisation')->get();  
+      $ServiceID = Auth::user()->employ->service;
       return view('Hospitalisations.affecterLits', compact('rdvHospitalisation'));
   }
 

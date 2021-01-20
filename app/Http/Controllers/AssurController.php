@@ -136,26 +136,17 @@ class AssurController extends Controller
         ] );
         return redirect(Route('assur.show',$assure->id));
     }
-    public updateAssure($nom, $prenom,$date, )
+    public function  updateAssure($situationFamille, $matricule, $adresse,$wilayaResid, $grade, $service ,$position, $NSS)
     {
-        $assure = assur::find($NSS);
-         $assure->update([
-                      "Nom"=>$$assure->Nom,
-                      "Prenom"=>$assure->Prenom,
-                      "Date_Naissance"=>$date,
-                      "lieunaissance"=>1556,
-                      "SituationFamille"=>$assure->SituationFamille,
-                      "Sexe"=>$assure->Genre,
-                      "adresse"=>utf8_encode($assure->Adresse),
-                      "commune_res"=>1556,
-                      "wilaya_res"=>$assure->WilayaResidence,
-                      "grp_sang"=>$assure->GroupeSanguin,
-                      "Matricule"=>$assure->Matricule, 
-                      "Service"=>utf8_encode($assure->Service),
-                      "Position"=>utf8_encode($assure->Position),
-                      "Grade"=>$grade->id,
-                      "NMGSN"=>null,
-                      "NSS"=> $assure->NSS
+         $assure = assur::find($NSS);
+          $assure->update([
+                      "SituationFamille"=>$situationFamille,
+                      "adresse"=>$adresse,
+                       "wilaya_res"=>$wilayaResid,
+                      "Matricule"=>$matricule, 
+                      "Service"=>$service,
+                      "Position"=>$position,
+                      "Grade"=>$grade,
                   ] );
     }
     /**
@@ -170,56 +161,42 @@ class AssurController extends Controller
           //$handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");//network dll
           if($handle != null)
           {
-            $assure = $handle->SelectPersonnel(trim('g125M'),trim(''));//10246
-            $date = Carbon::CreateFromFormat('d/m/Y',$assure->Date_Naissance)->format('Y-m-d'); 
-            $grade = grade::where('nom',$assure->Grade)->select('id')->get()->first();
-              //dd($grade->id);
-            if($this->assureSearch($assure->NSS) == null) //tester si le patient existe
-            {
-              dd("1");
-              $this->save($assure,$date,$grade->id);//inserer l'assure //
-            } 
-            else
-            {
-              $this->update($assure->Nom,$assure->Prenom, $date, 1556, utf8_encode($assure->SituationFamille), $assure->WilayaResidence, $assure->GroupeSanguin, $assure->Genre,$assure->Matricule, utf8_encode($assure->Adresse), 1556,$assure->WilayaResidence, $assure->GroupeSanguin,$assure->NSS, null, $grade->id, utf8_encode($assure->Service),utf8_encode($assure->Position));
-            }
-                  
-               
-            }else{
+                  $assure = $handle->SelectPersonnel(trim('g125M'),trim(''));//10246
+                $date = Carbon::CreateFromFormat('d/m/Y',$assure->Date_Naissance)->format('Y-m-d'); 
+                $grade = grade::where('nom',$assure->Grade)->select('id')->get()->first();
+          }else{
                 dd("error");
                 return("Non");
             }
      }
      public function search(Request $request)
      {
-        try {
-              //$handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word");   //dll local// D:/Mes-programmes/DotNET/Dll/GRH2/GRH2
-              $handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); //dll local //D:\cdta-work\Dossier Patient\DGSN-Glysines\DLL\Mien\Debugvl
-              //$handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");//network sll
-              $output=""; $ayants="";
-              $assure = $handle->SelectPersonnel(trim($request->matricule),trim($request->nss));   
-              if($assure->Nom != null)
-              {
-                  $action = ""; 
-                  $positions = array("Révoqué", "Licencié", "Démission", "Contrat résilié");
-                  $sexe =  ($assure->Genre =="M") ? "Masculin":"Féminin";
-                  $service = utf8_encode($assure->Service);
-                  $date = Carbon::CreateFromFormat('d/m/Y',$assure->Date_Naissance)->format('Y-m-d'); 
-                  $grade = grade::where('nom',$assure->Grade)->select('id')->get()->first();
-                  if($this->assureSearch($assure->NSS) == null) //tester si le patient existe
-                    $this->save($assure,$date,$grade->id);//inserer l'assure //
-                  else
-                      $this->updateAssure($assure->Nom,$assure->Prenom, $date, utf8_encode($assure->SituationFamille), $assure->WilayaResidence,$assure->GroupeSanguin,$assure->NSS, $grade->id, utf8_encode($assure->Service),utf8_encode($assure->Position))
-                    // $assure->GroupeSanguin, $assure->Genre, $assure->Matricule, utf8_encode($assure->Adresse),1556,$assure->WilayaResidence, $assure->GroupeSanguin, $assure->NSS,null, $grade->id, utf8_encode($assure->Service),utf8_encode($assure->Position));
-                   
-                  if(!in_array(utf8_encode($assure->Position), $positions))
-                  { 
-                    $patientId = $this->patientSearch($assure->Prenom,$assure->NSS);
-                    if(isset($patientId))
-                      $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
-                    else
-                      $action = '<a href="assur/patientAssuree/'.$assure->NSS.'/0/'.$assure->Prenom.'" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter patient" data-placement="bottom"><i class="fa fa-plus-circle fa-xs"></i></a>';  
-                  }else
+          try {
+                //$handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word");   //dll local// D:/Mes-programmes/DotNET/Dll/GRH2/GRH2
+                $handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); //dll local //D:\cdta-work\Dossier Patient\DGSN-Glysines\DLL\Mien\Debugvl
+                //$handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");//network sll
+                $output=""; $ayants="";
+                $assure = $handle->SelectPersonnel(trim($request->matricule),trim($request->nss));   
+                if($assure->Nom != null)
+                {
+                      $action = ""; 
+                      $positions = array("Révoqué", "Licencié", "Démission", "Contrat résilié");
+                      $sexe =  ($assure->Genre =="M") ? "Masculin":"Féminin";
+                      $service = utf8_encode($assure->Service);
+                      $date = Carbon::CreateFromFormat('d/m/Y',$assure->Date_Naissance)->format('Y-m-d'); 
+                      $grade = grade::where('nom',$assure->Grade)->select('id')->get()->first();
+                      if($this->assureSearch($assure->NSS) == null) //tester si le patient existe
+                          $this->save($assure,$date,$grade->id);//inserer l'assure //
+                     else
+                          $this->updateAssure($assure->SituationFamille, $assure->Matricule, utf8_encode($assure->Adresse) , $assure->WilayaResidence, $grade->id, utf8_encode($assure->Service),utf8_encode($assure->Position),  $assure->NSS);
+                     if(!in_array(utf8_encode($assure->Position), $positions))
+                    { 
+                          $patientId = $this->patientSearch($assure->Prenom,$assure->NSS);
+                          if(isset($patientId))
+                              $action = '<a href="/patient/'.$patientId.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter" data-placement="bottom"><i class="fa fa-hand-o-up fa-xs"></i></a>'; 
+                          else
+                             $action = '<a href="assur/patientAssuree/'.$assure->NSS.'/0/'.$assure->Prenom.'" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter patient" data-placement="bottom"><i class="fa fa-plus-circle fa-xs"></i></a>';  
+                    }else
                     $action = '<b><span class="badge badge-danger">'.utf8_encode($assure->Position).'</span></b>';
                   $dateN = Carbon::CreateFromFormat('d/m/Y',$assure->Date_Naissance)->format('Y-m-d');
                   $wilaya = (Wilaya::findOrFail($assure->WilayaResidence))->nom;

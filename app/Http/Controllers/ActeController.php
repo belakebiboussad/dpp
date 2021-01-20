@@ -39,14 +39,13 @@ class ActeController extends Controller
     }
     public function update(Request $request,$id)
     {
-        $acte = Acte::FindOrFail($id);//$acte -> update(["nom"=>$request->nom,"id_visite"=>$request->id_visite,"description"=>$request->description,"type"=>$request->type,//     "periodes"=>$request->periodes,//json_encode("duree"=>$request->duree,]);
+        $acte = Acte::FindOrFail($id);
         $acte->update($request->all()); // $acte->remember_token;// $acte->save();
         return Response::json(['acte'=>$acte,'visite'=>$acte->visite,'medecin'=>$acte->visite->medecin]); 
     }
     public function store(Request $request)
     { 
-    
-        $this->validate($request, [
+          $this->validate($request, [
             'nom'=> 'required|string|max:225',
              'id_visite'=> 'required',// 'duree'=> 'required', // 'description'=> 'required|string|max:225',// 'periodes'=> 'required'
         ]);

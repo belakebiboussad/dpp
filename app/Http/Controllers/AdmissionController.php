@@ -85,7 +85,6 @@ class AdmissionController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**
@@ -103,7 +102,6 @@ class AdmissionController extends Controller
      */
       public function update(Request $request, $id)
       {
-         dd("update");
       }
 
    /**
@@ -122,5 +120,14 @@ class AdmissionController extends Controller
                                                                         $q->where('etat',null);
                                                           })->where('etat_hosp','valide')->where('Date_Sortie' , date('Y-m-d'))->get();
         return view('admission.sorties', compact('hospitalistions')); 
+     }
+     public function updateAdm(Request $request, $id)
+     {
+           if($request->ajax())  
+          {
+                $adm =  admission::find($id);
+                $adm->update([ 'etat'=>1 ]);
+                return Response::json($hosp ); 
+          }
      }
 }
