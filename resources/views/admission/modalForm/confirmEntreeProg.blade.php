@@ -23,6 +23,7 @@
 		<form id="hospitalisation" class="form-horizontal" role="form" method="POST" action="{{route('admission.store')}}">
 		{{ csrf_field() }}
 			<input id="id_RDV" type="text" name="id_RDV" value="{{$rdv->id}}" hidden>
+			<input id="demande_id" type="text" name="demande_id" value="{{$rdv->id_demande}}" hidden>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-120"></i>Annuler</button>
 				<button  type="submit" class="btn btn-success" ><i class="ace-icon fa fa-check bigger-120"></i>Valider</button>

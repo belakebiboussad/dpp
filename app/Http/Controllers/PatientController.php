@@ -452,14 +452,14 @@ class PatientController extends Controller
             ->rawColumns(['action2','action'])
             ->make(true);
   }
-    public function getPatientsArray(Request $request)
-    {
-      if($request->ajax())  
-      {           
-                $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->select('patients.id','patients.Nom','patients.IPP','patients.Prenom')->get(); 
-                return ['success' => true, 'data' => $patients]; 
-      }
+  public function getPatientsArray(Request $request)
+  {
+    if($request->ajax())  
+    {           
+              $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->select('patients.id','patients.Nom','patients.IPP','patients.Prenom')->get(); 
+              return ['success' => true, 'data' => $patients]; 
     }
+  }
   public function search(Request $request)
   {
     if($request->ajax())  

@@ -112,15 +112,15 @@ class HospitalisationController extends Controller
      */
      public function update(Request $request, $id)
      {
-           $hosp = hospitalisation::find($id);
-          if($request->ajax())  
-           {
-                $hosp -> update($request->all()); 
-                // if(isset($request->Date_Sortie)) //      $hosp ->admission->rdvHosp->demandeHospitalisation->update(["etat" => "valide"]);
-                return Response::json($hosp ); 
-          }else{
-                $hosp -> update($request->all());
-                return redirect()->action('HospitalisationController@index');
+         $hosp = hospitalisation::find($id);
+        if($request->ajax())  
+         {
+              $hosp -> update($request->all()); 
+              // if(isset($request->Date_Sortie)) //      $hosp ->admission->rdvHosp->demandeHospitalisation->update(["etat" => "valide"]);
+              return Response::json($hosp ); 
+        }else{
+              $hosp -> update($request->all());
+              return redirect()->action('HospitalisationController@index');
       }
     }
 
@@ -134,6 +134,23 @@ class HospitalisationController extends Controller
     {
       $ServiceID = Auth::user()->employ->service;
       return view('Hospitalisations.affecterLits', compact('rdvHospitalisation'));
-  }
+    }
+    public function getHospitalisations(Request $request)
+    { 
+      if($request->ajax())  
+      {           
+        // $patients = patient::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->select('patients.id','patients.Nom','patients.IPP','patients.Prenom')->get(); 
+        if($request->field != 'patientName')
+        {
+        //   $hosps = hospitalisation::with('admission','admission.rdvHosp','admission.rdvHosp.demandeHospitalisation.DemeandeColloque.medecin','patient')
+        //                           ->where(trim($request->field),'LIKE','%'.trim($request->value)."%")
+        //                           ->select($hosps)->get(); 
+         $hosps = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient')
+                                 ->where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
+          return Response::json($hosps);
+        }
+
+      }
+    }
 
 }

@@ -106,10 +106,10 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-8 col-sm-8 col-xs-8">
-  			  	<div class="col-sm-3 col-xs-3 "><label class="control-label center" for="" ><strong>Date :</strong></label></div>
-	        		<div class="input-group col-sm-5 col-xs-5">
-					<input type="text" id ="currentday" class="col-xs-12 col-sm-12 date-picker form-control"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
-					<div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
+  			  <div class="col-sm-3 col-xs-3 "><label class="control-label center" for="" ><strong>Date :</strong></label></div>
+	        	<div class="input-group col-sm-5 col-xs-5">
+							<input type="text" id ="currentday" class="col-xs-12 col-sm-12 date-picker form-control"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
+							<div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
     				</div>
   				</div><div class="col-md-2 col-sm-2 col-xs-2"></div>
   			</div>

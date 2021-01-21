@@ -93,6 +93,7 @@ Route::get('/getRdvs/{date}','RdvHospiController@getRdvs')->name('rdvHospi.dayRd
 Route::get('/getUrgdemande/{date}','DemandeHospitalisationController@getUrgDemanades')->name('demandehosp.urg');
 Route::get('/listeRDVs', 'RdvHospiController@getlisteRDVs');
 Route::post('/hospitalisation/{id}','HospitalisationController@update');
+Route::get('/getHospitalisations','HospitalisationController@getHospitalisations');
 Route::post('users/changePassword', 'UsersController@changePassword');
 Route::post('/users/store/','UsersController@store');
 Route::get('/searchAssure','AssurController@search');

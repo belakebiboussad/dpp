@@ -67,17 +67,17 @@
 		        url : '{{URL::to('searchPatient')}}',
 		        data:{'field':field,'value':($('#'+field).val())},
 		        success:function(data,status, xhr){
-			     	$('#'+field).val('');	 field= "Dat_Naissance"; 
-     			 	 $(".numberResult").html(Object.keys(data).length);
+			     		$('#'+field).val('');	 field= "Dat_Naissance"; 
+     			 		$(".numberResult").html(Object.keys(data).length);
      			    $("#liste_patients").DataTable ({
-	     					"processing": true,
-		  				 "paging":   true,
-		  				  "destroy": true,
-		  				"ordering": true,
-		    				"searching":false,
-		    				"info" : false,
-		    				"language":{"url": '/localisation/fr_FR.json'},
-		   	 		      	"data" : data,
+	     						"processing": true,
+		  				 		"paging":   true,
+		  				  	"destroy": true,
+		  						"ordering": true,
+		    					"searching":false,
+		    					"info" : false,
+		    					"language":{"url": '/localisation/fr_FR.json'},
+		   	 		    	"data" : data,
 			        		"columns": [
 										{ data:null,title:'#', "orderable": false,searchable: false,
 								    			render: function ( data, type, row ) {
@@ -127,7 +127,6 @@
 @endsection
 @section('main-content')
 <div class="page-content">
-	<div class="space-12"></div>
 	<div class="row panel panel-default" style ="margin-right:-35px;">
 		<div class="panel-heading left" style="height: 40px; font-size: 2.3vh;">
 			<strong>Rechercher un patient</strong>
@@ -188,7 +187,7 @@
 			<div class="widget-box transparent">
 				<div class="widget-header widget-header-flat widget-header-small">
 					<h5 class="widget-title"><i class="ace-icon fa fa-user"></i>
-					Résultats: </h5> <label for=""><span class="badge badge-info numberResult"></span></label>
+					Résultats:</h5><label><span class="badge badge-info numberResult"></span></label>
 				</div>
 				<div class="widget-body">
 					<div class="widget-main no-padding">

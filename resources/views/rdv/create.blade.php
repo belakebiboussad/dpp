@@ -1,9 +1,8 @@
 @extends('app')
 @section('style')
-	<style>
-    /*#dialog { display: none; }*/
-  .make-scrolling {
-   /* overflow-y: scroll; height: 100px;*/
+	<style> /*#dialog { display: none; }*/
+  .make-scrolling {/* overflow-y: scroll; height: 100px;*/
+   
     overflow-y: scroll; /*overflow: hidden;*/
     max-height: 100px;
     margin-left:-0.7%;

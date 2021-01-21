@@ -48,34 +48,35 @@ class AdmissionController extends Controller
      */
       public function store(Request $request)
       {
-          if(isset($request->id_RDV))
-          {
-                $rdvHospi =  rdv_hospitalisation::find($request->id_RDV);
-                $adm=admission::create([     
-                    "id_rdvHosp"=>$request->id_RDV,       
-                    "id_lit"=>(isset($rdvHospi->bedReservation) ? $rdvHospi->bedReservation->id_lit  : null),
-                ]);
-                $adm->rdvHosp->demandeHospitalisation->update([
-                     "etat" => "admise",
-                ]);
-                $adm->rdvHosp->update([
-                    "etat_RDVh" => 1
-                ]);
-          }else
-          {
-                if(isset($request->demande_id))
-                {
-                     $demande = DemandeHospitalisation::FindOrFail($request->demande_id); 
-                     $adm=admission::create([     
-                           "demande_id"=>$request->demande_id,       
-                           "id_lit"=>$demande->bedAffectation->lit_id,
-                     ]);
-                    $demande->update([
-                        "etat" => "admise",
-                     ]);
-                }
-          }
-          return redirect()->action('AdmissionController@index');
+        if(isset($request->id_RDV))
+        {
+              $rdvHospi =  rdv_hospitalisation::find($request->id_RDV);
+              $adm=admission::create([     
+                  "id_rdvHosp"=>$request->id_RDV,
+                  "demande_id"=>$request->demande_id,       
+                  "id_lit"=>(isset($rdvHospi->bedReservation) ? $rdvHospi->bedReservation->id_lit  : null)
+              ]);
+              $adm->rdvHosp->demandeHospitalisation->update([
+                   "etat" => "admise",
+              ]);
+              $adm->rdvHosp->update([
+                  "etat_RDVh" => 1
+              ]);
+        }else
+        {
+              if(isset($request->demande_id))
+              {
+                   $demande = DemandeHospitalisation::FindOrFail($request->demande_id); 
+                   $adm=admission::create([     
+                         "demande_id"=>$request->demande_id,       
+                         "id_lit"=>$demande->bedAffectation->lit_id
+                   ]);
+                  $demande->update([
+                      "etat" => "admise",
+                   ]);
+              }
+        }
+        return redirect()->action('AdmissionController@index');
       }  
     /**
      * Display the specified resource.
@@ -86,7 +87,6 @@ class AdmissionController extends Controller
     public function show($id)
     {
     }
-
     /**
      * Show the form for editing the specified resource.
      *
