@@ -10,7 +10,7 @@
 		 		<div class="row">
 					<div class="col-sm-12">
       					<label for="Date_Sortie"><strong>Date de Sortie :</strong></label>
-     						<input type="text" id="Date_Sortie" class="form-control date-picker"  data-date-format="yyyy-mm-dd" data-provide="datepicker" required/>
+     						<input type="text" id="Date_SortieH" class="form-control date-picker"  data-date-format="yyyy-mm-dd" data-provide="datepicker" required/>
 			 		</div>
 				</div><div class="space-12"></div>
 				<div class="row">

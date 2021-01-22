@@ -4,7 +4,7 @@
 <style>
  .bootstrap-timepicker-meridian, .meridian-column
  {
-        display: none;
+       display: none;
  }	
  .bootstrap-timepicker-widget table tr:nth-child(3)>td:last-child a {
   display: none;
@@ -19,67 +19,89 @@
  @endsection
 @section('page-script')
 <script>
-	function getNomPrenom(data, type, dataToSet)
-  {
-    return data.patient.Nom + " " + data.patient.Prenom;
-  }
-  function getMode(data, type, dataToSet){  return data['admission']['demande_hospitalisation']['modeAdmission']; }
-  function getDateEntre(data, type, dataToSet) { return data['Date_entree']; }
-  function getDateSortiePrev (data, type, dataToSet) { return data['Date_Prevu_Sortie']; }  
-  function getDateSortie (data, type, dataToSet) { return data['Date_Sortie']; }
-  function getMedecin (data, type, dataToSet) {
-    return data['admission']['demande_hospitalisation']['Demeande_colloque']['medecin']['nom']; 
-  }   
-  function getHospitalisations(field,value)
-	{
-	  $.ajax({
-      url : '{{URL::to('getHospitalisations')}}',
-      data: {    
-             "field":field,
-             "value":value,
-      },
-      dataType: "json",// recommended response type
-    	success: function(data) {
-        $(".numberResult").html(Object.keys(data).length);
-        $(".numberResult").html(data.length);
-        $.each(data,function(key,value){
-         $.each(data[key],function(skey,svalue){
-
-          admission
-          $.each(value,function(skey,svalue){
-          alert(skey + ":" + svalue);
-        });
-        });
-
-          // $("#liste_hosptalisations").DataTable ({
-          //       "processing": true,
-          //       "paging":   true,
-          //       "destroy": true,
-          //       "ordering": true,
-          //       "searching":false,
-          //       "info" : false,
-          //       "language":{"url": '/localisation/fr_FR.json'},
-          //       "data" : data,
-          //       "columns": [
-          //           { data:null,title:'#', "orderable": false,searchable: false,
-          //             render: function ( data, type, row ) {
-          //                         if ( type === 'display' ) {
-          //                             return '<input type="checkbox" class="editor-active check" name="fusioner[]" value="'+data.id+'" onClick="return KeepCount()" /><span class="lbl"></span>';
-          //                         }
-          //                         return data;
-          //             },
-          //             className: "dt-body-center",
-          //           },
-          //           { data: getNomPrenom, title:'Nom' },
-          //           { data: getMode , title:'Mode Admission' },
-          //           { data: getDateEntre , title:'Date Entrée' },//
-          //           { data: getDateSortiePrev , title:'Date Sortie Prévue' },
-          //           { data: getDateSortie , title:'Date Sortie' },
-          //           { data: getMedecin , title:'Médecin' }, 
-          //       ],
-          // });
+    function cloturerHosp(hospID)
+    { 
+          $("#hospID").val( hospID );
+           $('#sortieHosp').modal('show');
+           $('#Heure_sortie').timepicker({ template: 'modal' });
+    }
+    function getMedecin (data, type, dataToSet) {
+          return data['admission']['demande_hospitalisation']['Demeande_colloque']['medecin']['nom']; 
+     }
+     function getAction(data, type, dataToSet) {  
+          var actions =  '<a href = "/hospitalisation/'+data.id+'" style="cursor:pointer" class="btn secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>' ;  
+          if(({{  Auth::user()->role_id }} != 3) &&  {{  Auth::user()->role_id }} != 9){
+                actions += '<a href="/hospitalisation/'+data.id+'/edit" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier l\'Hospitalisation" data-placement="bottom"><i class="fa fa-edit fa-xs" aria-hidden="true" fa-lg bigger-120></i></a>';
+                if({{  Auth::user()->role_id }} == 1){
+                     actions +='<a href="/visite/create/'+data.id+'" class ="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter une Visite" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle"></i></a>';
+                     if( data.etat_hosp != "Cloturé")                    
+                          actions +='<a data-toggle="modal" data-id="'+data.id+'" title="Clôturer Hospitalisation"  onclick ="cloturerHosp('+data.id+')" class="btn btn-warning btn-xs" href="#" id="sortieEvent"><i class="fa fa-sign-out" aria-hidden="false"></i></a>';
+                     else
+                           actions +='<a href ="" class ="btn btn-info btn-xs" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';
+                }   
+          }
+           return actions;
       }
-		});
+     function getHospitalisations(field,value)
+	{
+         	$.ajax({
+                url : '{{URL::to('getHospitalisations')}}',
+                data: {    
+                   "field":field,
+                   "value":value,
+          },
+          dataType: "json",// recommended response type
+      	success: function(data) {
+             $(".numberResult").html(Object.keys(data).length);
+             $(".numberResult").html(data.length);
+                     $("#liste_hosptalisations").DataTable ({
+                  "processing": true,
+                  "paging":   true,
+                  "destroy": true,
+                  "ordering": true,
+                  "searching":false,
+                  "info" : false,
+                  "language":{"url": '/localisation/fr_FR.json'},
+                  "data" : data,
+                  "columns": [
+                      { data:null,title:'#', "orderable": false,searchable: false,
+                        render: function ( data, type, row ) {
+                                    if ( type === 'display' ) {
+                                        return '<input type="checkbox" class="editor-active check" name="fusioner[]" value="'+data.id+'" onClick="return KeepCount()" /><span class="lbl"></span>';
+                                    }
+                                    return data;
+                        },
+                        className: "dt-body-center",
+                      },
+                      { data: "patient.Nom",
+                            render: function ( data, type, row ) {
+                                 return row.patient.Nom + ' ' + row.patient.Prenom;
+                            },
+                            title:'Patient',"orderable": true
+                      },
+                      {     data: "admission.demande_hospitalisation.modeAdmission", 
+                                  render: function ( data, type, row ) {
+                                        return row.admission.demande_hospitalisation.modeAdmission ;
+                                 },
+                                  title:"Mode Admission","orderable": false 
+                       },
+                       { data: "Date_entree" , title:'Date Entrée' },//
+                       { data: "Date_Prevu_Sortie" , title:'Date Sortie Prévue' },
+                       { data: "Date_Sortie" , title:'Date Sortie' },
+                       { data: "mode_hospi.nom" , title:'Mode'
+                       },
+                       {   data: "admission.demande_hospitalisation.demeande_colloque.medecin.nom" ,
+                                  render: function ( data, type, row ) {
+                                        return row.admission.demande_hospitalisation.demeande_colloque.medecin.nom + ' ' + row.admission.demande_hospitalisation.demeande_colloque.medecin.prenom ;
+                                 },
+                                 title:'Medecin' 
+                       },
+                       { data: "etat_hosp" , title:'Etat' },
+                       { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false }
+                  ],
+           });
+        }
+	});
 	}
 	$('document').ready(function(){
 		$('.filter').change(function(){
@@ -89,6 +111,38 @@
 		$('.filter').keyup(function(){
 		  getHospitalisations($(this).attr('id'),$(this).val())
 		});
+          jQuery('#saveCloturerHop').click(function () {
+               alert(jQuery('#Date_SortieH').val());
+               var formData = {
+                     id                      : $("#hospID").val(),
+                     Date_Sortie             : jQuery('#Date_SortieH').val(),
+                     Heure_sortie            : jQuery('#Heure_sortie').val(),
+                     modeSortie              :jQuery('#modeSortie').val(),
+                     autre                   : $('#autre').val(),
+                     diagSortie              : $("#diagSortie").val(),
+                     etat_hosp     :'Cloturé',
+                };
+                if(!($("#Date_Sortie").val() == ''))
+                {
+                    if($('.dataTables_empty').length > 0)
+                          $('.dataTables_empty').remove();
+                          $.ajax({
+                                headers: {
+                                       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                               },
+                                type: "POST",
+                                url: '/hospitalisation/'+$("#hospID").val(),//'hospitalisation/'+ $("#hospID").val(),
+                                data: formData,
+                                dataType: 'json',
+                                success: function (data) {
+                                    getHospitalisations("etat_hosp","en Cours"); //$("#hospi" + data.id).remove();
+                                },
+                                error: function (data){
+                                      console.log('Error:', data);
+                                },
+                     })
+               } 
+           });
 	});
 </script>
 @endsection
@@ -108,7 +162,7 @@
                 <select id='etat_hosp' class="form-control filter" style="width: 200px">
                     <option value="">Selectionner Etat</option>
                     <option value="en cours">En Cours</option>
-                    <option value="valide">Cloturé</option>
+                    <option value="Cloturé">Cloturé</option>
                 </select>
             		</div>		
             	</div>
@@ -122,7 +176,7 @@
             		<div class="form-group">
               		<label class="control-label" for="" ><strong>Date :</strong></label>
 		        			<div class="input-group">
-										<input type="text" id ="Date_Sortie" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
+							<input type="text" id ="Date_Sortie" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
 										<div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
 	    						</div>
   							</div>
@@ -150,4 +204,5 @@
 	 </div> <!-- widget-box -->
 </div>
 </div>
+<div class="row">@include('Hospitalisations.sortieModal')</div>
 @endsection

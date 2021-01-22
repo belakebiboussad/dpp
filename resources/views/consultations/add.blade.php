@@ -10,7 +10,7 @@ $(document).on('click','.findptient',function(event){
 		      data:{'field':field,'value':($('#'+field).val())},
 		      success:function(data,status, xhr){
 		      	$('#'+field).val('');field= "Dat_Naissance"; 
-     			  $("#liste_patients").DataTable ({
+     			 	$("#liste_patients").DataTable ({
      					"processing": true,
 	  					"paging":   true,
 	  					"destroy": true,
@@ -40,23 +40,22 @@ $(document).on('click','.findptient',function(event){
 								  { data: 'Date_creation', title:'Créer le'},
 								  { data:null,title:'<em class="fa fa-cog"></em>', searchable: false }
 	  		   			],
-			   			  "columnDefs": [
+			   			"columnDefs": [
 			   						{"targets": 2 ,  className: "dt-head-center" },
 			   						{"targets": 3 ,  className: "dt-head-center" },
 			   						{"targets": 4 ,  className: "dt-head-center" },
 			   						{"targets": 5 ,  className: "dt-head-center" },
 			   						{"targets": 6 ,	"orderable": false, className: "dt-head-center dt-body-center" },
-							 		  {"targets": 7 ,	"orderable": false, className: "dt-head-center" },
-							 		  {"targets": 8 ,	"orderable":false,className: "dt-head-right dt-body-center",
+							 		{"targets": 7 ,	"orderable": false, className: "dt-head-center" },
+							 		{"targets": 8 ,	"orderable":false,className: "dt-head-right dt-body-center",
 							  			"render": function(data,type,full,meta){
-									       if ( type === 'display' ) {
-											return  '<a class="btn btn-success btn-xs" href="/consultations/create/'+data.id+'"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-110"></i>&nbsp;Consultation</a>';
-							      }
-							      	// 
-							      return data;	
-							    },
-							    className: "dt-body-center",
-						    } 
+									     		  if ( type === 'display' ) {
+												return  '<a class="btn btn-success btn-xs" href="/consultations/create/'+data.id+'"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-110"></i>&nbsp;Consultation</a>';
+							     				}
+							      		      return data;	
+							    			},
+							    			className: "dt-body-center",
+						    			}		 
 					   	],
     				});
      			},

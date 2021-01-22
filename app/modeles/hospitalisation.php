@@ -26,6 +26,6 @@ class hospitalisation extends Model
     }
     public function modeHospi()
     {
-        return $this->haseOne('App\modeles\ModeHospitalisation','modeHosp_id');
+        return $this->belongsTo('App\modeles\ModeHospitalisation','modeHosp_id');
     }                      
 }
