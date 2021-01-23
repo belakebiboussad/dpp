@@ -163,7 +163,7 @@
                 };
                 $.ajax({
                     type: "POST",
-                    url: "/hospitalisation/print",
+                    url: "/etatSortie/print",
                     data: formData,
                     dataType:'json',
                     success: function (data){

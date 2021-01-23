@@ -94,7 +94,7 @@ Route::get('/getUrgdemande/{date}','DemandeHospitalisationController@getUrgDeman
 Route::get('/listeRDVs', 'RdvHospiController@getlisteRDVs');
 Route::post('/hospitalisation/{id}','HospitalisationController@update');
 Route::get('/getHospitalisations','HospitalisationController@getHospitalisations');
-Route::get('/hospitalisation/print','HospitalisationController@print');
+Route::post('/etatSortie/print','HospitalisationController@print')->name('printReport');
 Route::post('users/changePassword', 'UsersController@changePassword');
 Route::post('/users/store/','UsersController@store');
 Route::get('/searchAssure','AssurController@search');
@@ -110,8 +110,7 @@ Route::get('/rdv/create/{id}','RDVController@create');
 Route::post('/createRDV','RDVController@AddRDV');
 Route::get('/rdv/valider/{id}','RDVController@valider');
 Route::get('/rdv/reporter/{id}','RDVController@reporter');
-Route::post('/rdv/reporte/{id}','RDVController@storereporte');
-// Route::get('rdvprint/{id}','rdvController@print');
+Route::post('/rdv/reporte/{id}','RDVController@storereporte');// Route::get('rdvprint/{id}','rdvController@print');
 Route::get('rdvHospi/create/{id}','RdvHospiController@create')->name('rdvHospi.create');
 Route::get('/rdvHospi/imprimer/{rdv}', ['as' => 'admission.pdf', 'uses' => 'RdvHospiController@print']);
 Route::get('/choixpatient','RDVController@choixpatient');
@@ -185,7 +184,7 @@ Route::get('/pdf/{order}', ['as' => 'rdv.pdf', 'uses' => 'rdvController@orderPdf
 Route::get('assur/patientAssuree/{NSS}/{Type}/{Prenom}','PatientController@create');
 Route::post('/addpatientAssure','PatientController@storePatient');
 Route::get('assur/patientAedit/{id}/{idA}','PatientController@edit');
-Route::get('/createConsultation','ConsultationsController@choix');f
+Route::get('/createConsultation','ConsultationsController@choix');
 route::get('/choixpat','ConsultationsController@choix');
 /************partie viste d'hospitalisation**************/
 Route::get('/delVisite/{id}', 'VisiteController@destroy')->name('visite.destroy');
