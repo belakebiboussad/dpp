@@ -7,19 +7,21 @@
 		  	<div class="modal-body">
 		  		<input type="hidden" id="hospID" value="">
 		  		<div class="row"> <div class="col-xs-12"><h4 class="header blue bolder smaller">Etat de Sortie</h4></div></div>
-  				<div class="hr hr-dotted"></div><div class="space-12"></div>
+  				<div class="hr hr-dotted"></div>
   				<div style="width:100%;">
 				      <div id = "parent">         
 				          <ul style=" font-size: 15px;">
-			       		@foreach($Etatsortie as $etat)
-				                <a href="#" title="">
-				                  <li style="padding-top: 5px" id="selctetat" name="selctetat" value="{{ $patient->id }}"></i>{{ $etat->titre }}</a></li>
-				                </a>
+			       		@foreach($etatsortie as $etat)
+				                 <li style="padding-top: 5px" id="selctetat" name="selctetat" value=""></i>{{ $etat->titre }}</a></li>
 				           @endforeach 
 				          </ul> 
 				     </div>
 				</div>
 		  	</div>
-		  </div>
+		  	<div class="modal-footer">
+				{{-- <button type="submit" class="btn btn-info btn-sm btn-submit" id ="" data-dismiss="modal"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button> --}}
+		  		<button type="reset" class="btn btn-default btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-close bigger-110"></i>Fermer</button>
+			</div>
+		</div>
 	</div>
 </div>	  

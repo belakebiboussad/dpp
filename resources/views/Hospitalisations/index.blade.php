@@ -27,9 +27,8 @@
     }
     function ImprimerEtat(hospID)
     { 
-          // $("#hospID").val( hospID );
-           $('#EtatSortie').modal('show');
-           // $('#Heure_sortie').timepicker({ template: 'modal' });
+           $("#hospID").val( hospID );
+           $('#EtatSortie').modal('show'); // $('#Heure_sortie').timepicker({ template: 'modal' });
     }
     function getMedecin (data, type, dataToSet) {
           return data['admission']['demande_hospitalisation']['Demeande_colloque']['medecin']['nom']; 
@@ -43,7 +42,7 @@
                      if( data.etat_hosp != "Cloturé")                    
                           actions +='<a data-toggle="modal" data-id="'+data.id+'" title="Clôturer Hospitalisation"  onclick ="cloturerHosp('+data.id+')" class="btn btn-warning btn-xs" href="#" id="sortieEvent"><i class="fa fa-sign-out" aria-hidden="false"></i></a>';
                      else
-                           actions +='<a href ="" class ="btn btn-info btn-xs" onclick ="ImprimerEtat('+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';
+                           actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat('+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';
                 }   
           }
            return actions;
@@ -150,6 +149,49 @@
                                 },
                      })
                } 
+          });
+          $(document).on('click', '#selctetat', function(event){
+               var selectDocm=$(this).text();
+               $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                var formData = {
+                      hosp_id: $('#hospID').val(),
+                      selectDocm :selectDocm,
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "/hospitalisation/print",
+                    data: formData,
+                    dataType:'json',
+                    success: function (data){
+                          if(selectDocm=="Resume standart de Sortie")
+                          {
+                               $('#iframe-pdf').contents().find('html').html(data.html);
+                               $("#OrdonModal").modal('toggle');
+                          }else 
+                               if(selectDocm=="Resume clinique de Sortie")
+                               {
+                                    $('#iframe-pdf').contents().find('html').html(data.html);
+                                     jQuery('#OrdonModal').modal('toggle');
+                               }else 
+                                    if(selectDocm=="Certificat medical")
+                                    {
+                                          $('#iframe-pdf').contents().find('html').html(data.html);
+                                          jQuery('#OrdonModal').modal('toggle');
+                                     }else 
+                                            if(selectDocm=="Attestation Contre Avis Medicale")
+                                            {
+                                              $('#iframe-pdf').contents().find('html').html(data.html);
+                                              jQuery('#OrdonModal').modal('toggle');
+                                            }                
+                    },
+                    error: function (data) {
+                      console.log('Error:', data);
+                    }
+                });
            });
 	});
 </script>
