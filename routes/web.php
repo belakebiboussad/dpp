@@ -94,6 +94,7 @@ Route::get('/getUrgdemande/{date}','DemandeHospitalisationController@getUrgDeman
 Route::get('/listeRDVs', 'RdvHospiController@getlisteRDVs');
 Route::post('/hospitalisation/{id}','HospitalisationController@update');
 Route::get('/getHospitalisations','HospitalisationController@getHospitalisations');
+Route::get('/hospitalisation/print','HospitalisationController@print');
 Route::post('users/changePassword', 'UsersController@changePassword');
 Route::post('/users/store/','UsersController@store');
 Route::get('/searchAssure','AssurController@search');
@@ -184,7 +185,7 @@ Route::get('/pdf/{order}', ['as' => 'rdv.pdf', 'uses' => 'rdvController@orderPdf
 Route::get('assur/patientAssuree/{NSS}/{Type}/{Prenom}','PatientController@create');
 Route::post('/addpatientAssure','PatientController@storePatient');
 Route::get('assur/patientAedit/{id}/{idA}','PatientController@edit');
-Route::get('/createConsultation','ConsultationsController@choix');
+Route::get('/createConsultation','ConsultationsController@choix');f
 route::get('/choixpat','ConsultationsController@choix');
 /************partie viste d'hospitalisation**************/
 Route::get('/delVisite/{id}', 'VisiteController@destroy')->name('visite.destroy');
