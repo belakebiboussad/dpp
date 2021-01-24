@@ -14,6 +14,7 @@ use App\modeles\service;
 use App\modeles\ModeHospitalisation;
 use App\modeles\Etatsortie;
 use Jenssegers\Date\Date;
+use Carbon\Carbon;
 use View;
 use Response;
 class HospitalisationController extends Controller
@@ -36,7 +37,7 @@ class HospitalisationController extends Controller
                                                })->where('etat_hosp','=','en cours')->get();
           else
                 $hospitalisations = hospitalisation::where('etat_hosp','=','en cours')->get();
-          return view('Hospitalisations.index', compact('hospitalisations','etatsortie'));
+          return view('hospitalisations.index', compact('hospitalisations','etatsortie'));
     }
     /**
      * Show the form for creating a new resource.
@@ -54,7 +55,7 @@ class HospitalisationController extends Controller
                                         })->get();    
           $medecins = employ::where('service',Auth::user()->employ->service)->get();
           $modesHosp = ModeHospitalisation::all();
-          return view('Hospitalisations.create', compact('adms','medecins','modesHosp'));
+          return view('hospitalisations.create', compact('adms','medecins','modesHosp'));
      }
 
     /**
@@ -88,7 +89,7 @@ class HospitalisationController extends Controller
     public function show($id)
     {
         $hosp = hospitalisation::find($id); 
-        return View::make('Hospitalisations.show')->with('hosp', $hosp);
+        return View::make('hospitalisations.show')->with('hosp', $hosp);
      }
     /**
      * Show the form for editing the specified resource.
@@ -100,7 +101,7 @@ class HospitalisationController extends Controller
      {
            $hosp = hospitalisation::find($id); 
           $services =service::all();
-          return View::make('Hospitalisations.edit')->with('hosp', $hosp)->with('services',$services);
+          return View::make('hospitalisations.edit')->with('hosp', $hosp)->with('services',$services);
      }
 
     /**
@@ -131,7 +132,7 @@ class HospitalisationController extends Controller
      public function affecterLit()
      {
             $ServiceID = Auth::user()->employ->service;
-            return view('Hospitalisations.affecterLits', compact('rdvHospitalisation'));
+            return view('hospitalisations.affecterLits', compact('rdvHospitalisation'));
      }
      public function getHospitalisations(Request $request)
      { 
@@ -153,29 +154,30 @@ class HospitalisationController extends Controller
      }
      public function print(Request $request)
      {
-          $now= Carbon\Carbon::now();//$date = Date::Now();
-          $date=   $now->format('Y-m-d');
-          $heure=$now->format("H:i");
-          $hosp  = hospitalisation::find($request->hosp_id);
-          $patient = $hosp->patient;
-          $medecins = employ::where('service',Auth::user()->employ->service)->get();
-          $selectDoc=$request->selectDocm;
-           if($selectDoc=="Resume standart de Sortie")
-           {
-                $view = view("visite.EtatsSortie.ResumeStandartSortiePDF",compact('patient','hosp','medecins'))->render();
-                return response()->json(['html'=>$view]);
-          }else  if($selectDoc=="Resume clinique de Sortie")
-          {
-               $view = view("visite.EtatsSortie.ResumeCliniqueSortiePDF",compact('patient','hosp','medecins'))->render();
-                return response()->json(['html'=>$view]);
-          }else if($selectDoc=="Attestation Contre Avis Medicale")
-          {
-                $view = view("visite.EtatsSortie.AttestationContreAvisMedicalePDF",compact('patient','date','hosp','heure','medecins'))->render();
-                return response()->json(['html'=>$view]);
-          }else if($selectDoc=="Certificat medical")
-          {
-                $view = view("visite.EtatsSortie.CertaficatMedicalePDF",compact('patient','date','hosp','medecins'))->render();
-                return response()->json(['html'=>$view]);
-          }
+        $now= Carbon::now();//$date = Date::Now();
+        $date=   $now->format('Y-m-d');
+        $heure=$now->format("H:i");
+        $hosp  = hospitalisation::find($request->hosp_id);
+        $patient = $hosp->patient;
+        $medecins = employ::where('service',Auth::user()->employ->service)->get();
+        $selectDoc=$request->selectDocm;
+        if($selectDoc=="Résumé standart de sortie")
+        {
+          $view = view("hospitalisations.EtatsSortie.ResumeStandartSortiePDF",compact('patient','hosp','medecins'))->render();
+          return response()->json(['html'=>$selectDoc]);
+          return response()->json(['html'=>$view]);
+        }else  if($selectDoc=="Résumé clinique de sortie")
+        {
+          $view = view("hospitalisations.EtatsSortie.ResumeCliniqueSortiePDF",compact('patient','hosp','medecins'))->render();
+          return response()->json(['html'=>$view]);
+        }else if($selectDoc=="Attestation Contre Avis Medical")
+        {
+              $view = view("hospitalisations.EtatsSortie.AttestationContreAvisMedicalePDF",compact('patient','date','hosp','heure','medecins'))->render();
+              return response()->json(['html'=>$view]);
+        }else if($selectDoc=="Certificat medical")
+        {
+          $view = view("hospitalisations.EtatsSortie.CertificatMedicalePDF",compact('patient','date','hosp','medecins'))->render();
+          return response()->json(['html'=>$view]);
+        }
      }
 }

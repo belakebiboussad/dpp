@@ -133,5 +133,5 @@
 		 </div> <!-- widget-box -->
 <!-- debut -->
 	<!-- end -->
-	<div class="row">@include('Hospitalisations.sortieModal')</div>
+	<div class="row">@include('hospitalisations.sortieModal')</div>
 @endsection

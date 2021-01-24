@@ -15,6 +15,45 @@
 .ui-timepicker-container {
       z-index: 3500 !important;
  }
+ ol {list-style: none; counter-reset: li}
+.rounded-list button{
+    position: relative;
+    display: block;
+    padding: .4em .4em .4em 2em;
+    *padding: .4em;
+    margin: .5em 0;
+    background: #ddd;
+    color: #444;
+    text-decoration: none;
+    border-radius: .3em;
+    transition: all .3s ease-out;
+  }
+
+  .rounded-list button:hover{
+    background: #eee;
+  }
+
+  .rounded-list button:hover:before{
+    transform: rotate(360deg);
+  }
+
+  .rounded-list button:before{
+    content: counter(li);
+    counter-increment: li;
+    position: absolute;
+    left: -1.3em;
+    top: 50%;
+    margin-top: -1.3em;
+    background: #87ceeb;
+    height: 2em;
+    width: 2em;
+    line-height: 2em;
+    border: .3em solid #fff;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 2em;
+    transition: all .3s ease-out;
+  }
 </style>
  @endsection
 @section('page-script')
@@ -110,6 +149,7 @@
 	});
 	}
 	$('document').ready(function(){
+    getHospitalisations("etat_hosp",'');
 		$('.filter').change(function(){
            	if($(this).attr('id') != "patientName")
                      getHospitalisations($(this).attr('id'),$(this).val());
@@ -151,7 +191,7 @@
                } 
           });
           $(document).on('click', '#selctetat', function(event){
-               var selectDocm=$(this).text();
+               var selectDocm=$(this).val();
                $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
@@ -167,26 +207,27 @@
                     data: formData,
                     dataType:'json',
                     success: function (data){
-                          if(selectDocm=="Resume standart de Sortie")
-                          {
-                               $('#iframe-pdf').contents().find('html').html(data.html);
-                               $("#OrdonModal").modal('toggle');
-                          }else 
-                               if(selectDocm=="Resume clinique de Sortie")
-                               {
-                                    $('#iframe-pdf').contents().find('html').html(data.html);
-                                     jQuery('#OrdonModal').modal('toggle');
-                               }else 
-                                    if(selectDocm=="Certificat medical")
-                                    {
-                                          $('#iframe-pdf').contents().find('html').html(data.html);
-                                          jQuery('#OrdonModal').modal('toggle');
-                                     }else 
-                                            if(selectDocm=="Attestation Contre Avis Medicale")
-                                            {
-                                              $('#iframe-pdf').contents().find('html').html(data.html);
-                                              jQuery('#OrdonModal').modal('toggle');
-                                            }                
+                        // if(selectDocm=="Resume standart de Sortie")
+                        switch(selectDocm) {
+                          case "Resume standart de sortie":
+                              $('#iframe-pdf').contents().find('html').html(data.html);
+                              $("#OrdonModal").modal('toggle');
+                            break;
+                          case "Résumé clinique de sortie":
+                              $('#iframe-pdf').contents().find('html').html(data.html);
+                              jQuery('#OrdonModal').modal('toggle');
+                            break;
+                          case "Certificat medical":
+                              $('#iframe-pdf').contents().find('html').html(data.html);
+                              jQuery('#OrdonModal').modal('toggle');
+                            break;
+                          case "Attestation Contre Avis Medicale":
+                              $('#iframe-pdf').contents().find('html').html(data.html);
+                              jQuery('#OrdonModal').modal('toggle');
+                            break;  
+                          default:
+                            break;
+                        }          
                     },
                     error: function (data) {
                       console.log('Error:', data);
@@ -254,7 +295,8 @@
 	 </div> <!-- widget-box -->
 </div>
 </div>
-<div class="row">@include('Hospitalisations.ModalFoms.sortieModal')</div>
-<div class="row">@include('Hospitalisations.ModalFoms.EtatSortie')</div>
+<div class="row">@include('hospitalisations.ModalFoms.sortieModal')</div>
+<div class="row">@include('hospitalisations.ModalFoms.EtatSortie')</div>
+<div class="row">@include('hospitalisations.EtatsSortie.OrdonnModal')</div>
 
 @endsection
