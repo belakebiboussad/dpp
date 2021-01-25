@@ -208,11 +208,8 @@
                     data: formData,
                     // dataType:'json',
                     success: function (data){
-                         //open a new window note:this is a popup so it may be blocked by your browser
-                       var newWindow = window.open("", "new window", "width=800, height=600");
-
-                       //write the data to the document of the newWindow
-                       newWindow.document.write(data);
+                          // $('#iframe-pdf').contents().find('html').html(data.html);  // jQuery('#OrdonModal').modal('toggle');
+                         console.log(data);
                     },
                     error: function (data) {
                       console.log('Error:', data);

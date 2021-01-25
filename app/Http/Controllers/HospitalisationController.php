@@ -155,8 +155,8 @@ class HospitalisationController extends Controller
                 }  
                return Response::json($hosps);
           }
-    }
-    /*public function print(Request $request)
+    }/*
+    public function print(Request $request)
     {
       $now= Carbon::now();$view=null;
       $date=   $now->format('Y-m-d');
@@ -184,20 +184,41 @@ class HospitalisationController extends Controller
       }
       return response()->json(['html'=>$view]);              
     }*/
-    public function print(Request $request)
+   public function print(Request $request)
     {
-        define('DOMPDF_ENABLE_AUTOLOAD', false);
-        $filename = "s";
-        $htmlNew = '<html> ' .
-        '<head> ' .
-        '</head> ' .
-        '<body> ' .
-        '<h2>Hello World</h2>' .
-        '</body> ' .
-        '</html> ';
-        $dompdf = new DOMPDF();
-        $dompdf->load_html($htmlNew);
-        $dompdf->render();
-        $dompdf->stream($filename.'.pdf',array("Attachment"=>0));
-    }    
+          $hosp  = hospitalisation::find($request->hosp_id); 
+           $medecins = employ::where('service',Auth::user()->employ->service)->get();
+           switch($request->selectDocm) {
+                case "Résumé standard de sortie":
+                    $filename = "RSS-".$hosp->patient->Nom."-".$hosp->patient->Prenom.".pdf";
+                     $html = View::make('hospitalisations.EtatsSortie.ResumeStandartSortiePDF',array('hosp' =>$hosp))->render();   
+                    break;
+                case "Résumé clinique de sortie":
+                   $view = view("hospitalisations.EtatsSortie.ResumeCliniqueSortiePDF",compact('patient','hosp','medecins'))->render();
+                    $filename = "RCS-".$hosp->patient->Nom."-".$hosp->patient->Prenom.".pdf";
+                     $html = View::make('hospitalisations.EtatsSortie.ResumeCliniqueSortiePDF',array('hosp' =>$hosp))->render(); 
+                    break;
+                case "Certificat medical":
+                    $view = view("hospitalisations.EtatsSortie.CertificatMedicalePDF",compact('patient','date','hosp','medecins'))->render();
+                    break;
+                case "Attestation Contre Avis Medical":
+                    $view = view("visite.ModalFoms.AttestationContreAvisMedicalePDF",compact('patient','date','hosp','heure','medecins'))->render();
+                    break;  
+                default:
+                   return response()->json(['html'=>"unknown"]);
+                   break;
+          } 
+           /*$filename = "etat-".$hosp->patient->Nom."-".$hosp->patient->Prenom.".pdf"; $html = View::make('hospitalisations.EtatsSortie.a')->render(); */  
+           $dompdf = new Dompdf();
+          $dompdf->loadHtml($html);
+           $dompdf->setPaper('A4', 'landscape');// (Optional) Setup the paper size and orientation
+           $dompdf->render();   // Render the HTML as PDF
+          $output = $dompdf->output();
+          Storage::put('public/etats/'.$filename,$output); // file_put_contents($filename, $output);
+          $file = storage_path() . "/app/public/etats/" . $filename;
+         //$file = storage_path() . "/app/public/pdf/" . $filename;//$path = base_path().'\public\\'; $file = $path. $filename;
+        $headers = array('Content-Type: application/pdf',);
+        return Response::download($file, $filename,$headers);
+   
+  }   
 }

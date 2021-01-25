@@ -21,8 +21,7 @@
 			$('#acteCrudModal').html("Ajouter un Acte Médicale");
 			$('#acteModal').modal('show');
 		  });  
-	//////////////////Enregistre acte   //////////////////////////////////
- 		$("#EnregistrerActe").click(function (e) { 
+	     $("#EnregistrerActe").click(function (e) { //////////////////Enregistre acte   //////////////////////////////////
 			e.preventDefault();
 			var periodes = [];
 			if(! isEmpty($("#acte").val()) || ($("#acte").val() == ''))

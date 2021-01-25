@@ -239,17 +239,7 @@ class PatientController extends Controller
        {  
           $patient = patient::FindOrFail($id);
           $employe=Auth::user()->employ;
-          /*
-          foreach ($employe->rdvs as $key => $rdv) {
-              echo($rdv->id);  echo("<br>");
-              echo($rdv->Date_RDV);
-              echo("<br>");
-              echo($rdv->Fin_RDV);
-                echo("<br>");
-          }
-          dd("\n");
-          */
-          $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();//->first();
+           $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();//->first();
           $specialites = Specialite::all();
           $grades = grade::all();
           return view('patient.show_patient',compact('patient','employe','correspondants','specialites','grades'));
