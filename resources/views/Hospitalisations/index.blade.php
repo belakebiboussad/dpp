@@ -209,7 +209,7 @@
                     // dataType:'json',
                     success: function (data){
                           // $('#iframe-pdf').contents().find('html').html(data.html);  // jQuery('#OrdonModal').modal('toggle');
-                         console.log(data);
+                        alert(data);
                     },
                     error: function (data) {
                       console.log('Error:', data);

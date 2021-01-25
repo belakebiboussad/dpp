@@ -184,7 +184,7 @@ class HospitalisationController extends Controller
       }
       return response()->json(['html'=>$view]);              
     }*/
-   public function print(Request $request)
+   public function print1(Request $request)
     {
           $hosp  = hospitalisation::find($request->hosp_id); 
            $medecins = employ::where('service',Auth::user()->employ->service)->get();
@@ -208,17 +208,24 @@ class HospitalisationController extends Controller
                    return response()->json(['html'=>"unknown"]);
                    break;
           } 
-           /*$filename = "etat-".$hosp->patient->Nom."-".$hosp->patient->Prenom.".pdf"; $html = View::make('hospitalisations.EtatsSortie.a')->render(); */  
-           $dompdf = new Dompdf();
+          $dompdf = new Dompdf();
           $dompdf->loadHtml($html);
            $dompdf->setPaper('A4', 'landscape');// (Optional) Setup the paper size and orientation
            $dompdf->render();   // Render the HTML as PDF
           $output = $dompdf->output();
           Storage::put('public/etats/'.$filename,$output); // file_put_contents($filename, $output);
-          $file = storage_path() . "/app/public/etats/" . $filename;
-         //$file = storage_path() . "/app/public/pdf/" . $filename;//$path = base_path().'\public\\'; $file = $path. $filename;
-        $headers = array('Content-Type: application/pdf',);
-        return Response::download($file, $filename,$headers);
-   
-  }   
+          $file = storage_path() . "/app/public/etats/"  . $filename;
+          $headers = array('Content-Type: application/pdf');
+         return Response::download($file, $filename,$headers);
+     }
+     public function print(Request $request)
+    {
+         $filename = 'test.pdf';
+        $path = storage_path($filename);
+          return Response::make(file_get_contents($path), 200, [
+                'Content-Type'=> 'application/pdf',
+                'Content-Disposition' => 'inline; filename="'.$filename.'"'
+          ]);
+
+    }
 }
