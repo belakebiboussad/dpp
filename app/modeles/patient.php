@@ -31,7 +31,8 @@ class patient extends Model
 	public function assure()
 	{	
 		if(isset($this->Assurs_ID_Assure))
-			return $this->belongsTo('App\modeles\assur','Assurs_ID_Assure');
+			return $this->belongsTo('App\modeles\assur','Assurs_ID_Assure');//return $this->belongsTo('App\modeles\assur','Assurs_ID_Assure');
+
 	}
 	public function hommesConf()
   	{

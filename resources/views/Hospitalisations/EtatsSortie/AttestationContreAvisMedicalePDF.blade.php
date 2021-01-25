@@ -103,14 +103,11 @@ padding-bottom: 72px ;
     <br/><br/>
     <span>Fait à  le {{ $date}}</span><br/>	<br/>	
 	<span>Signature</span>	
-	<div class="space"></div>
-	<div class="space"></div>
-	<br/><br/><br/>
+	<div class="space"></div><div class="space"></div> <br/><br/><br/>
 	<div>
 		<span class="col-2">
 		*cette attestation cera établir de préférence , conjointement , par les deux titulaire de l'autorité parentale (le cas échéant)	     	
-		   
-     </span>
+		</span>
 	</div>
 	<section>
 </body></html>

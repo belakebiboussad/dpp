@@ -54,7 +54,7 @@
     border-radius: 2em;
     transition: all .3s ease-out;
   }
-</style>
+ </style>
  @endsection
 @section('page-script')
 <script>
@@ -77,11 +77,12 @@
           if(({{  Auth::user()->role_id }} != 3) &&  {{  Auth::user()->role_id }} != 9){
                 actions += '<a href="/hospitalisation/'+data.id+'/edit" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier l\'Hospitalisation" data-placement="bottom"><i class="fa fa-edit fa-xs" aria-hidden="true" fa-lg bigger-120></i></a>';
                 if({{  Auth::user()->role_id }} == 1){
-                     actions +='<a href="/visite/create/'+data.id+'" class ="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter une Visite" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle"></i></a>';
-                     if( data.etat_hosp != "Cloturé")                    
-                          actions +='<a data-toggle="modal" data-id="'+data.id+'" title="Clôturer Hospitalisation"  onclick ="cloturerHosp('+data.id+')" class="btn btn-warning btn-xs" href="#" id="sortieEvent"><i class="fa fa-sign-out" aria-hidden="false"></i></a>';
-                     else
-                           actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat('+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';
+                    if( data.etat_hosp != "Cloturé")                    
+                    {
+                      actions +='<a href="/visite/create/'+data.id+'" class ="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter une Visite" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle"></i></a>';
+                      actions +='<a data-toggle="modal" data-id="'+data.id+'" title="Clôturer Hospitalisation"  onclick ="cloturerHosp('+data.id+')" class="btn btn-warning btn-xs" href="#" id="sortieEvent"><i class="fa fa-sign-out" aria-hidden="false"></i></a>';
+                    }else
+                      actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat('+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';
                 }   
           }
            return actions;
@@ -141,7 +142,8 @@
                                         return row.admission.demande_hospitalisation.demeande_colloque.medecin.nom + ' ' + row.admission.demande_hospitalisation.demeande_colloque.medecin.prenom ;
                                },
                                title:'Medecin' 
-                          }, // { data: "etat_hosp" , title:'Etat' },
+                          }, 
+                          { data: "etat_hosp" , title:'Etat' },
                           { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false }
                     ],
            });
@@ -181,8 +183,7 @@
                                 data: formData,
                                 dataType: 'json',
                                 success: function (data) {
-                                    //getHospitalisations("etat_hosp","en Cours"); 
-                                    $("#hospi" + data.id).remove();
+                                  $("#hospi" + data.id).remove();
                                 },
                                 error: function (data){
                                       console.log('Error:', data);
@@ -191,7 +192,7 @@
                } 
           });
           $(document).on('click', '#selctetat', function(event){
-               var selectDocm=$(this).val();
+               var selectDocm=$(this).text();
                $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
@@ -205,29 +206,13 @@
                     type: "POST",
                     url: "/etatSortie/print",
                     data: formData,
-                    dataType:'json',
+                    // dataType:'json',
                     success: function (data){
-                        // if(selectDocm=="Resume standart de Sortie")
-                        switch(selectDocm) {
-                          case "Resume standart de sortie":
-                              $('#iframe-pdf').contents().find('html').html(data.html);
-                              $("#OrdonModal").modal('toggle');
-                            break;
-                          case "Résumé clinique de sortie":
-                              $('#iframe-pdf').contents().find('html').html(data.html);
-                              jQuery('#OrdonModal').modal('toggle');
-                            break;
-                          case "Certificat medical":
-                              $('#iframe-pdf').contents().find('html').html(data.html);
-                              jQuery('#OrdonModal').modal('toggle');
-                            break;
-                          case "Attestation Contre Avis Medicale":
-                              $('#iframe-pdf').contents().find('html').html(data.html);
-                              jQuery('#OrdonModal').modal('toggle');
-                            break;  
-                          default:
-                            break;
-                        }          
+                         //open a new window note:this is a popup so it may be blocked by your browser
+                       var newWindow = window.open("", "new window", "width=800, height=600");
+
+                       //write the data to the document of the newWindow
+                       newWindow.document.write(data);
                     },
                     error: function (data) {
                       console.log('Error:', data);
@@ -267,7 +252,7 @@
             		<div class="form-group">
               		<label class="control-label" for="" ><strong>Date :</strong></label>
 		        			<div class="input-group">
-							<input type="text" id ="Date_Sortie" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
+							     <input type="text" id ="Date_Sortie" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
 										<div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
 	    						</div>
   							</div>
@@ -297,6 +282,6 @@
 </div>
 <div class="row">@include('hospitalisations.ModalFoms.sortieModal')</div>
 <div class="row">@include('hospitalisations.ModalFoms.EtatSortie')</div>
-<div class="row">@include('hospitalisations.EtatsSortie.OrdonnModal')</div>
+<div class="row">@include('hospitalisations.EtatsSortie.PrintModal')</div>
 
 @endsection

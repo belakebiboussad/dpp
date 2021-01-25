@@ -10,17 +10,27 @@
 				<div class="hr hr-dotted"></div>
 				<div style="width:100%;">
 			    <div id = "parent">         
-			     {{--   <ol style=" font-size: 15px;" classe="rounded-list">  </ol> --}}
-			  
-			     <ol class="rounded-list">
-							  	@foreach($etatsortie as $etat)
-			        	<li draggable='true' style="padding-top: 5px">
-			        	 	<button id="selctetat" class ="btn btn-primary btn-lg" value ="{{ $etat->titre}}">
-			        		 {{ $etat->titre}}
-			        		</button>
-			        	</li>
-			        	<br/>
-			        @endforeach 
+			     <ol class="rounded-list btn-group btn-group-vertical" role="group">
+				  	@foreach($etatsortie as $etat)
+				  		<li class="btn-group" role="group" style="padding-top: 5px">{{-- href="docStatePrint/{{$etat->id}}" target="_blank" --}}
+				  		<br/>
+				  		@switch($etat->id)
+				  			@case (1)
+				  				<button type="button" id="selctetat" class="btn btn-primary btn-lg"><strong>{{ $etat->titre}}</strong></button>
+				  				@break
+				  			@case (2)
+				  				<button type="button" id="selctetat" class="btn btn-success btn-lg" width="100%"><strong>{{ $etat->titre}}</strong></button> 
+				  				@break
+				  			@case (3)
+				  				<button type="button" id="selctetat" class="btn btn-info btn-lg"><strong>{{ $etat->titre}}</strong></button> 
+				  				@break
+				  			@case (4)
+				  				<button type="button" id="selctetat" class="btn btn-danger btn-lg"><strong>{{ $etat->titre}}</strong></button> 
+				  				@break
+				  		@endswitch
+		        	</li>
+ {{-- <button id="selctetat" class ="btn btn-primary btn-lg" value ="{{ $etat->titre}}">{{ $etat->titre}}</button>
+  --}}    	  		  @endforeach 
 					  </ol>
 					</div> 
 			</div>   

@@ -15,8 +15,12 @@ use App\modeles\ModeHospitalisation;
 use App\modeles\Etatsortie;
 use Jenssegers\Date\Date;
 use Carbon\Carbon;
+use PDF;
+use Dompdf\Dompdf;
 use View;
 use Response;
+use Storage;
+use File;
 class HospitalisationController extends Controller
 {
     /**
@@ -66,10 +70,10 @@ class HospitalisationController extends Controller
      */
      public function store(Request $request)
      { 
-            $dmission =  admission::find($request->id_admission);  //$dmission =  admission::with('rdvHosp')->find($request->id_admission);
+            $dmission =  admission::find($request->id_admission); 
             $hosp = hospitalisation::create([
-              "Date_entree"=>$request->Date_entree, //"Date_entree"=>$rdvHospi->date_RDVh,  // "heure_entrée"=>Date("H:i:00"),
-              "Date_Prevu_Sortie"=>$request->Date_Prevu_Sortie, //"Heure_Prevu_Sortie"=>$rdvHospi->heure_Prevu_Sortie,
+              "Date_entree"=>$request->Date_entree,
+              "Date_Prevu_Sortie"=>$request->Date_Prevu_Sortie,
               "patient_id"=>$request->patient_id,
               "id_admission"=>$request->id_admission,
               "garde_id" => (isset($request->garde_id)) ? $request->garde_id : null,
@@ -134,8 +138,8 @@ class HospitalisationController extends Controller
             $ServiceID = Auth::user()->employ->service;
             return view('hospitalisations.affecterLits', compact('rdvHospitalisation'));
      }
-     public function getHospitalisations(Request $request)
-     { 
+    public function getHospitalisations(Request $request)
+    { 
           if($request->ajax())  
           {           
                if($request->field != 'patientName')
@@ -151,33 +155,49 @@ class HospitalisationController extends Controller
                 }  
                return Response::json($hosps);
           }
-     }
-     public function print(Request $request)
-     {
-        $now= Carbon::now();//$date = Date::Now();
-        $date=   $now->format('Y-m-d');
-        $heure=$now->format("H:i");
-        $hosp  = hospitalisation::find($request->hosp_id);
-        $patient = $hosp->patient;
-        $medecins = employ::where('service',Auth::user()->employ->service)->get();
-        $selectDoc=$request->selectDocm;
-        if($selectDoc=="Résumé standart de sortie")
-        {
-          $view = view("hospitalisations.EtatsSortie.ResumeStandartSortiePDF",compact('patient','hosp','medecins'))->render();
-          return response()->json(['html'=>$selectDoc]);
-          return response()->json(['html'=>$view]);
-        }else  if($selectDoc=="Résumé clinique de sortie")
-        {
-          $view = view("hospitalisations.EtatsSortie.ResumeCliniqueSortiePDF",compact('patient','hosp','medecins'))->render();
-          return response()->json(['html'=>$view]);
-        }else if($selectDoc=="Attestation Contre Avis Medical")
-        {
-              $view = view("hospitalisations.EtatsSortie.AttestationContreAvisMedicalePDF",compact('patient','date','hosp','heure','medecins'))->render();
-              return response()->json(['html'=>$view]);
-        }else if($selectDoc=="Certificat medical")
-        {
-          $view = view("hospitalisations.EtatsSortie.CertificatMedicalePDF",compact('patient','date','hosp','medecins'))->render();
-          return response()->json(['html'=>$view]);
-        }
-     }
+    }
+    /*public function print(Request $request)
+    {
+      $now= Carbon::now();$view=null;
+      $date=   $now->format('Y-m-d');
+      $heure=$now->format("H:i");
+      $hosp  = hospitalisation::find($request->hosp_id);
+      $patient = $hosp->patient;
+      $medecins = employ::where('service',Auth::user()->employ->service)->get();
+      $selectDoc=$request->selectDocm;
+      switch($selectDoc) {
+          case "Résumé standard de sortie":
+            $view = view("hospitalisations.EtatsSortie.ResumeStandartSortiePDF",compact('patient','hosp','medecins'))->render();
+            break;
+          case "Résumé clinique de sortie":
+           $view = view("hospitalisations.EtatsSortie.ResumeCliniqueSortiePDF",compact('patient','hosp','medecins'))->render();
+            break;
+          case "Certificat medical":
+            $view = view("hospitalisations.EtatsSortie.CertificatMedicalePDF",compact('patient','date','hosp','medecins'))->render();
+            break;
+          case "Attestation Contre Avis Medical":
+            $view = view("visite.ModalFoms.AttestationContreAvisMedicalePDF",compact('patient','date','hosp','heure','medecins'))->render();
+            break;  
+          default:
+            return response()->json(['html'=>"unknown"]);
+            break;
+      }
+      return response()->json(['html'=>$view]);              
+    }*/
+    public function print(Request $request)
+    {
+        define('DOMPDF_ENABLE_AUTOLOAD', false);
+        $filename = "s";
+        $htmlNew = '<html> ' .
+        '<head> ' .
+        '</head> ' .
+        '<body> ' .
+        '<h2>Hello World</h2>' .
+        '</body> ' .
+        '</html> ';
+        $dompdf = new DOMPDF();
+        $dompdf->load_html($htmlNew);
+        $dompdf->render();
+        $dompdf->stream($filename.'.pdf',array("Attachment"=>0));
+    }    
 }
