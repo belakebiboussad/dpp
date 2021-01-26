@@ -184,7 +184,7 @@ class HospitalisationController extends Controller
       }
       return response()->json(['html'=>$view]);              
     }*/
-   public function print1(Request $request)
+   public function print(Request $request)
     {
           $hosp  = hospitalisation::find($request->hosp_id); 
            $medecins = employ::where('service',Auth::user()->employ->service)->get();
@@ -218,7 +218,7 @@ class HospitalisationController extends Controller
           $headers = array('Content-Type: application/pdf');
          return Response::download($file, $filename,$headers);
      }
-     public function print(Request $request)
+     public function printother(Request $request)
     {
          $filename = 'test.pdf';
         $path = storage_path($filename);
