@@ -71,7 +71,6 @@ class ConsultationsController extends Controller
           $employe=Auth::user()->employ;
           $modesAdmission = config('settings.ModeAdmissions') ;
           $patient = patient::FindOrFail($id_patient);//$codesim = codesim::all();
-          //dd($patient->facteurRisque);
           $chapitres = chapitre::all();
           $services = service::all();
           $meds = User::where('role_id',1)->get()->all();
@@ -121,14 +120,10 @@ class ConsultationsController extends Controller
           }
           if($request->poids != 0 || $request->temp != null || $request->taille !=0 || $request->autre)
           {
-               $exam = new examen_cliniqu;
-               $exam->taille = $request->taille;
-               $exam->poids  = $request->poids;
-               $exam->temp   = $request->temp;
-              $exam->autre  = $request->autre;
-              $exam->IMC    = $request->imc;
-              $exam->Etat   = $request->etatgen;
-              $exam->peaupha =$request->peaupha; // $exam->id_consultation=$consultID;
+               $exam = new examen_cliniqu;$exam->taille = $request->taille;
+               $exam->poids  = $request->poids;   $exam->temp   = $request->temp;
+              $exam->autre  = $request->autre; $exam->IMC    = $request->imc;
+              $exam->Etat   = $request->etatgen; $exam->peaupha =$request->peaupha; 
               $consult->examensCliniques()->save($exam);
         }
         if(($request->motifOr != "") ||(isset($request->specialite))){
@@ -153,10 +148,8 @@ class ConsultationsController extends Controller
         }
         if(!empty($request->ExamsImg) && count(json_decode($request->ExamsImg)) > 0)
         {
-              $demandeExImg = new demandeexr;
-              $demandeExImg->InfosCliniques = $request->infosc;
-              $demandeExImg->Explecations = $request->explication;
-              $demandeExImg->id_consultation = $consult->id;
+              $demandeExImg = new demandeexr;  $demandeExImg->InfosCliniques = $request->infosc;
+              $demandeExImg->Explecations = $request->explication; $demandeExImg->id_consultation = $consult->id;
               $consult->examensradiologiques()->save($demandeExImg);
               if(isset($request->infos))
               {
@@ -171,9 +164,8 @@ class ConsultationsController extends Controller
         if($request->modeAdmission != null)
         {
           $dh =new DemandeHospitalisation;
-          $dh->modeAdmission = $request->modeAdmission;
-          $dh->service = $request->service;
-          $dh->specialite = $request->specialiteDemande; // $dh->id_consultation = $consult->id;  // $dh->etat = "en attente";
+          $dh->modeAdmission = $request->modeAdmission;  $dh->service = $request->service;
+          $dh->specialite = $request->specialiteDemande; 
           $consult->demandeHospitalisation()->save($dh);
         }
         return redirect(Route('patient.show',$request->patient_id));
@@ -184,14 +176,14 @@ class ConsultationsController extends Controller
      * @param  \App\modeles\consultation  $consultation
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-      $consultation = consultation::FindOrFail($id);
-      $patient = patient::FindOrFail($consultation->Patient_ID_Patient);
-      $antecedants = antecedant::where('Patient_ID_Patient',$patient->id)->get();
-      return view('consultations.show_consultation', compact('consultation','patient','antecedants'));
-    }
-
+      public function show($id)
+      {
+           $consultation = consultation::with('patient','docteur')->FindOrFail($id);
+           $patient = patient::FindOrFail($consultation->Patient_ID_Patient);
+           $antecedants = antecedant::where('Patient_ID_Patient',$patient->id)->get();
+           return view('consultations.show', compact('consultation'));
+           //return view('consultations.show_consultation', compact('consultation','patient','antecedants'));
+      }
     /**
      * Show the form for editing the specified resource.
      *
@@ -213,9 +205,26 @@ class ConsultationsController extends Controller
      * @param  \App\modeles\consultation  $consultation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(consultation $consultation){}
     public function choix()
     {
        return view('consultations.add');
-    } 
+    }
+     public function getConsultations(Request $request)
+     {
+          if($request->ajax())  
+          {         
+               if($request->field != 'patientName')
+                    //$consults = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient','modeHospi')
+                     $consults =consultation::with('patient','docteur')->where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
+                else
+                {
+                     $value =  $request->value;
+                    $consults =consultation::with('patient','docteur')->whereHas('patient',function($q) use ($value){
+                                                              $q->where('Nom','LIKE','%'.trim($value)."%");  
+                                                          })->get();
+                }  
+                return Response::json($consults);
+          }
+
+     } 
 }

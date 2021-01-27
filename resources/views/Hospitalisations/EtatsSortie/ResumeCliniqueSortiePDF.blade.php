@@ -69,7 +69,7 @@
           <tbody>
           <tr>
             <td class="first"><strong>N° Matricule:</strong><span>{{ $hosp->patient->assure->matricule }}</span>%0</td>
-            <td><strong>N° Dossier</strong><span> &nbsp;{{ $hosp->patient->IPP}}</span></td>
+            <td colspan = 2><strong>N° Dossier :</strong><span> &nbsp;{{ $hosp->patient->IPP}}</span></td>
           </tr>
           <tr class="noBorder">
                <td class="first"><strong>Nom et Prenom : </strong>&nbsp;<span> &nbsp;{{ $hosp->patient->Nom }}{{ $hosp->patient->Prenom }}</span></td>
@@ -77,54 +77,72 @@
                 <td><strong>Sexe :<strong>&nbsp;<span> &nbsp;{{ $hosp->patient->Sexe }}</span></td>
           </tr >
           <tr class="noBorder">
-            <td class="first"><strong>Lieu de Naissance :<strong>&nbsp;<span> &nbsp;{{ $hosp->patient->lieuNaissance->nom_commune }}</td>
+             <td class="first"><strong>Adresse :<strong>&nbsp;<span> &nbsp;{{ $hosp->patient->Adresse }}</td>
+            <td class="first"><strong>Commne :<strong>&nbsp;<span> &nbsp;{{ $hosp->patient->lieuNaissance->nom_commune }}</td>
             <td><strong>Wilaya :<strong>&nbsp;<span> &nbsp;{{ $hosp->patient->lieuNaissance->daira->wilaya->nom }}</span></td>
-            
           </tr>
-          <tr class="noBorder">
-              <td class="first"><strong>Date d'Hospitalisation</strong><span> &nbsp;&nbsp;{{ $hosp->Date_entree }}</span></td>
-              <td ><strong>Mode d'entrer</strong><span> &nbsp;{{ $hosp->admission->rdvHosp->demandeHospitalisation->modeAdmission }}</span></td>
-          </tr>
-          <tr class="noBorder">
-              <td class="first"><strong>Service</strong><span> &nbsp;&nbsp;{{ $hosp->admission->rdvHosp->demandeHospitalisation->Service->nom }}</span></td>
-              <td ><strong>Date d'entrée au Service</strong><span> &nbsp;{{$hosp->Date_entree }}</span></td>
-               <td><strong>Date de Sortie de Service</strong><span> &nbsp;{{ $hosp->Date_Sortie }}</span></td>
-          </tr>
-            <tr><td colspan="2" class="center"></td>
+            <tr class="noBorder">
+                <td class="first"><strong>Date d'Hospitalisation</strong><span> &nbsp;&nbsp;{{ $hosp->Date_entree }}</span></td>
+                <td><strong>Mode d'entrer</strong><span> &nbsp;{{ $hosp->admission->rdvHosp->demandeHospitalisation->modeAdmission }}</span></td><td></td>
+            </tr>
+            <tr class="noBorder">
+                <td class="first"><strong>Service</strong><span> &nbsp;&nbsp;{{ $hosp->admission->rdvHosp->demandeHospitalisation->Service->nom }}</span></td>
+                <td ><strong>Date d'entrée au Sce</strong><span> &nbsp;{{$hosp->Date_entree }}</span></td>
+                 <td><strong>Date de Sortie de Sce</strong><span> &nbsp;{{ $hosp->Date_Sortie }}</span></td>
+            </tr>
+           <tr><td colspan="3"></td></tr>
+                <tr class="noBorder">
+                      <td colspan="3" class="first"><strong>Motif d'Hôspitalisation</strong><span> &nbsp;{{ $hosp->admission->rdvHosp->demandeHospitalisation->consultation->Motif_Consultation }}</span></td>
+                </tr>
+                 <tr class="noBorder">
+                    <td colspan="3" class="first"><strong>Bilan Bioloqique :</strong>
+                          <span> &nbsp;</span></td>
+                      </td>
+                </tr>
+                <tr class="noBorder">
+                    <td colspan="3" class="first"><strong>Bilan Radiologique : </strong>
+                          <span> &nbsp;</span>
+                      </td>
+                </tr>
+                <tr class="noBorder">
+                      <td colspan="3" class="first"><strong>Autre Exmens : </strong>
+                            <span> &nbsp;</span>
+                        </td>
+                </tr>
+                <tr class="noBorder">
+                      <td colspan="3" class="first"><strong>Dianostic principal de sortie : </strong> <span> &nbsp;{{ $hosp->diagSortie }}</span> </td>
+                </tr>
+                <tr class="noBorder">
+                      <td colspan="3" class="first"><strong>Dianostic associés : </strong> <span> &nbsp;</span> </td>
+              </tr>
           </tbody>
           </table>
         </section><br><hr/>
         <section class="table"> 
         <table class="head" style="width:100%;">
         <thead></thead>
-        <tbody>  
-          <tr>
-            <td class="first"> <strong> Date d'entrer au sevice:</strong>&nbsp;<span>{{ $hosp->Date_entree}} &nbsp;</span>
-            </td>
-            <td><strong>Medcin traitant : </strong><span>{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->nom }}{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->prenom}}</span>
-            </td>
-          </tr>
+        <tbody> 
           <tr>  
-             <td class="first"><strong>Date sortie de sevice : </strong><span>{{ $hosp->Date_Sortie == null ? "Pas encore" : $hosp->Date_Sortie }}</span> </td>
+                <td class="first"><strong>Actes: </strong>
+                @foreach($hosp->visites as $visite)
+                     @foreach($visite->actes as $acte )
+                          | <span> {{ $acte->nom }}</span>
+                     @endforeach
+                @endforeach
+               </td>
+          </tr>
+           <tr>  
+                <td class="first"><strong>Traitements: </strong>
+                 @foreach($hosp->visites as $visite)
+                      @foreach($visite->traitements as $trait )
+                           |<span> {{ $trait->medicament->nom }}</span>
+                      @endforeach
+                @endforeach  
+             </td>
           </tr>
         </tbody>
         </table>
         </section><br><hr/>
-        <div class="row" ><div class="col-sm-12"><strong>Motif dhospitalisation : </strong><span>{{$hosp->admission->rdvHosp->demandeHospitalisation->
-           consultation->Motif_Consultation }} </span> </div></div>
-        <div class="row" ><div class="col-sm-12"><strong>Bilan boilogique : </strong><span>dfgdfgdfgdfg</span> </div></div>
-        <div class="row" ><div class="col-sm-12"><strong>Bilan radoilogique : </strong><span>dfgdfgdfgdfg</span> </div></div>
-        <div class="row" ><div class="col-sm-12"><strong>Autre examain : </strong><span>dfgdfgdfgdfg</span> </div></div>
-        <div class="row" ><div class="col-sm-12"><strong>Daognostic principale de sortie : </strong>&nbsp;<span> &nbsp;{{ $hosp->diagSortie }}</span> </div></div>
-        <div class="row" ><div class="col-sm-12"><strong>Daognostic associer : </strong><span>dfgdHHHHHHHHHHHHHHHfgdfgdfg</span> <br>
-        <span>dfgdHHHHHHHHHHHHHHHfgdfgdfg</span><br><span>dfgdHHHHHHHHHHHHHHHfgdfgdfg</span><br>
-        </div></div>
-       <div class="row" ><div class="col-sm-12"><strong>Acte et traitement : </strong><span>
-          @foreach($hosp->visites as $visite)
-            @foreach($visite->actes as $acte )
-              {{ $acte->nom }}
-            @endforeach
-          @endforeach</span> </div></div>
-     </div>     
+  
     </body>
 </html>

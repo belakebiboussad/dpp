@@ -82,6 +82,11 @@ Route::get('/ordonnace/create/{id}','OrdonnanceController@create');
 Route::post('/ordonnaces/print','OrdonnanceController@print');
 Route::get('/consultations/detailcons/{id}','ConsultationsController@detailcons')->name('consultDetails');
 Route::get('detailConsXHR/{id}','ConsultationsController@detailconsXHR')->name('consultdetailsXHR');
+Route::get('/consultations/create/{id}','ConsultationsController@create');
+Route::get('getConsultations/{id}','ConsultationsController@listecons');
+Route::get('/createConsultation','ConsultationsController@choix');
+Route::get('/choixpat','ConsultationsController@choix');
+Route::get('/getConsultations','ConsultationsController@getConsultations');
 Route::post('/colloque/store/{id}','ColloqueController@store');// a revoir
 Route::put('/colloque/{membres,id_demh}', 'ColloqueController@store');// a revoir
 Route::get('/listecolloques/{type}','ColloqueController@index');
@@ -99,8 +104,6 @@ Route::post('users/changePassword', 'UsersController@changePassword');
 Route::post('/users/store/','UsersController@store');
 Route::get('/searchAssure','AssurController@search');
 route::get('/getsalles','SalleController@getsalles');
-Route::get('/consultations/create/{id}','ConsultationsController@create');
-Route::get('getConsultations/{id}','ConsultationsController@listecons');
 Route::get('/atcd/create/{id}','AntecedantsController@create');
 Route::get('/atcd/index/{id}','AntecedantsController@index');
 Route::get('/admission/create/{id}','AdmissionController@create');//a commenter
@@ -184,8 +187,6 @@ Route::get('/pdf/{order}', ['as' => 'rdv.pdf', 'uses' => 'rdvController@orderPdf
 Route::get('assur/patientAssuree/{NSS}/{Type}/{Prenom}','PatientController@create');
 Route::post('/addpatientAssure','PatientController@storePatient');
 Route::get('assur/patientAedit/{id}/{idA}','PatientController@edit');
-Route::get('/createConsultation','ConsultationsController@choix');
-route::get('/choixpat','ConsultationsController@choix');
 /************partie viste d'hospitalisation**************/
 Route::get('/delVisite/{id}', 'VisiteController@destroy')->name('visite.destroy');
 Route::get('/visite/create/{id}','VisiteController@create');

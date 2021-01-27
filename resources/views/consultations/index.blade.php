@@ -1,156 +1,118 @@
 @extends('app')
 @section('page-script')
 <script>
-var field ="Dat_Naissance";
-$(document).on('click','.findptient',function(event){
-	event.preventDefault();
+function getConsultations(field,value)
+{
 	$.ajax({
-		      type : 'get',
-		      url : '{{URL::to('searchPatient')}}',
-		      data:{'field':field,'value':($('#'+field).val())},
-		      success:function(data,status, xhr){
-		      	$('#'+field).val('');field= "Dat_Naissance"; 
-     			  $("#liste_patients").DataTable ({
-     					"processing": true,
-	  					"paging":   true,
-	  					"destroy": true,
-	  				 	"bLengthChange": false,
-	  					"pageLength": 4,
-	  					"ordering": true,
-	    				"searching":false,
-	    				"info" : false,
-	    				"language":{"url": '/localisation/fr_FR.json'},
-	   	 		    "data" : data,
-		        	"columns": [
-								{ data:null,title:'#', "orderable": false,searchable: false,
-					    			render: function ( data, type, row ) {
-						      		if ( type === 'display' ) {
-                       	return '<input type="checkbox" class="editor-active check" name="" value="'+data.id+'" onClick="" /><span class="lbl"></span> ';
-              	 			}
-                   	  return data;
-			              },
-			              className: "dt-body-center",
-									},
-									{ data:'id',title:'ID', "visible": false},
-									{ data: 'Nom', title:'Nom' },
-	       					{ data: 'Prenom', title:'Prenom' },
-	       					{ data: 'IPP', title:'IPP', "orderable": false},
-	       			  	{ data: 'Dat_Naissance', title:'Né(e) le' },
-									{ data: 'Sexe', title:'Genre'},
-								  { data: 'Date_creation', title:'Créer le'},
-								  { data:null,title:'<em class="fa fa-cog"></em>', searchable: false }
-	  		   			],
-			   			  "columnDefs": [
-			   						{"targets": 2 ,  className: "dt-head-center" },
-			   						{"targets": 3 ,  className: "dt-head-center" },
-			   						{"targets": 4 ,  className: "dt-head-center" },
-			   						{"targets": 5 ,  className: "dt-head-center" },
-			   						{"targets": 6 ,	"orderable": false, className: "dt-head-center dt-body-center" },
-							 		  {"targets": 7 ,	"orderable": false, className: "dt-head-center" },
-							 		  {"targets": 8 ,	"orderable":false,className: "dt-head-right dt-body-center",
-							  			"render": function(data,type,full,meta){
-									      if ( type === 'display' ) {
-													return  '<button value = "'+data.id+'" class="btn btn-success btn-xs" id="getConsults" data-toggle="tooltip" title="Selectionner le patient"><i class="fa fa-hand-o-up fa-xs"></i></button>';
-							      }
-							      return data;	
-							    },
-							    className: "dt-body-center",
-						    } 
-					   	],
-    				});
-     			},
-     			error:function(){
-     				console.log("error");
-     			},
-    		});	
-})
-$(document).on('click','#getConsults',function(event){
-	event.preventDefault();
-	var patient_id = $(this).val();
-	 $.get('/getConsultations/'+patient_id, function (data, status, xhr) {
-	 		$("#patient").html(xhr.getResponseHeader("patient"));
-	 		$('#consultList tbody').empty();
-	 		if(data.length != 0)
-	 	  {
-	 	  	$("#consultList").DataTable ({
-					"processing": true,
-				  "paging":   true,
-				  "destroy": true,
-					"ordering": true,
-					"searching":false,
-					"info" : false,
-					"language":{"url": '/localisation/fr_FR.json'},
-				 	"data" : data,
-				  "columns": [
-				 					{ data:null,
-				 						render: function ( data, type, row ) {
-				              if ( type === 'display' ) {
-				             		return '<input type="checkbox" class="editor-active check"  value="'+data.id+'" onClick=""/><span class="lbl"></span>';
-				              }
-				              return data;
-				            },
-				            title:'#', "orderable":false,searchable: false
-									},
-									{ data: 'Date_Consultation', title:'Date' },
-				 					{ data: 'Motif_Consultation', title:'Motif',"orderable": false},
-				 					{ data: "docteur.nom",
-	            			render: function ( data, type, row ) {
-	               			 return row.docteur.nom + ' ' + row.docteur.prenom;
-	            			},
-	            			title:'Médecine Traitant',"orderable": false
-	        				},
-	        				{ data: 'docteur.service.nom', title:'Service',"orderable": false},
-	        				{ data:null,
-	        					"render": function(data,type,full,meta){
-										  if ( type === 'display' ) {
-												return  '<a onclick ="showConsult('+data.id+');" style="cursor:pointer" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Résume du patient"><i class="fa fa-eye fa-xs"></i></a>'	;
-								      }
-								      return data;	
-								    },
-								    title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false }
-				 	],
-				 	"columnDefs": [
-							 		{"targets": 0,  className: "dt-head-center"},
-							 		{"targets": 1,  className: "dt-head-center"},
-							 		{"targets": 1,  className: "dt-head-center" },
-							 		{"targets": 3,  className: "dt-head-center" },
-							 		{"targets": 4,  className: "dt-head-center" },
-							 		{"targets": 5 , className: "dt-head-center dt-body-center" } 
-				 	],
-		   });
-			}
-   	});
-	})
+          url : '{{ URL::to('getConsultations') }}',
+          data: {    
+           "field":field,
+           "value":value,
+     },
+     dataType: "json",// recommended response type
+    	success: function(data) {
+             $(".numberResult").html(data.length);  // $(".numberResult").html(Object.keys(data).length);
+               $("#liste_conultations").DataTable ({
+                   "processing": true,
+                   "paging":   true,
+                   "destroy": true,
+                   "ordering": true,
+                   "searching":false,
+                   "info" : false,
+                   "language":{"url": '/localisation/fr_FR.json'},
+                   "data" : data,
+                   "fnCreatedRow": function( nRow, aData, iDataIndex ) {
+                         $(nRow).attr('id',"consult"+aData.id);
+                   },
+                   "columns": [
+                      	{ data:null,title:'#', "orderable": false,searchable: false,
+                               render: function ( data, type, row ) {
+                                    if ( type === 'display' ) {
+                                          return '<input type="checkbox" class="editor-active check" name="fusioner[]" value="'+data.id+'" onClick="return KeepCount()" /><span class="lbl"></span>';
+                                    }
+                                    return data;
+                               },
+                               className: "dt-body-center",
+                          }, 
+                          { data: "Motif_Consultation" , title:'Motif' },
+                          { data: "Date_Consultation" , title:'Date' },
+                          { data: "Resume_OBS" , title:'Résumé' },
+                          { data: "patient.Nom",
+                                render: function ( data, type, row ) {
+                                     return row.patient.Nom + ' ' + row.patient.Prenom;
+                               },
+                           	 title:'Patient',"orderable": true
+                          },
+                           {   data: "docteur.nom" ,
+                               render: function ( data, type, row ) {
+                                        return row.docteur.nom + ' ' + row.docteur.prenom ;
+                               },
+                               title:'Medecin' 
+                          },
+                          { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false }
+                     ],
+         });
+      }
+	});
+}
+ function getAction(data, type, dataToSet) {
+     var actions =  '<a href = "/consultations/'+data.id+'" style="cursor:pointer" class="btn secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>' ; 
+ 	return actions;
+}
+$('document').ready(function(){
+	//getConsultations("",'');
+     $('.filter').change(function(){
+           if($(this).attr('id') != "patientName")
+                getConsultations($(this).attr('id'),$(this).val());
+     });
+     $('.filter').keyup(function(){
+           getConsultations($(this).attr('id'),$(this).val()) 
+     });
+});
 </script>
 @endsection
 @section('main-content')
-<div class="row">
-	<div class="col-sm-12">	
-		<div class="col-sm-6 col-xs-6">
-			@include('consultations.findPatient')
-		</div>
-		<div class="col-sm-6 col-xs-6">
-			<table id="liste_patients" class="display table-responsive" width="100%"></table>
-		</div>
-</div>
-	</div>
-	</div>
-<div class="row">
-	<div class="col-sm-12">	
-		<div class="col-sm-6 col-xs-6">
-			<div class="widget-box transparent">
-				<div class="widget-header widget-header-flat widget-header-small">
-					<h5 class="widget-title">	<i class="ace-icon fa fa-user"></i> Lise des Consultations du <cite><strong><span id="patient"></strong></span></cite></h5>
-				</div>
-				<div class="widget-body">
-					<div class="widget-main no-padding">
-						<table id="consultList" class="table table-bordered table-hover table-striped table-condensed table-responsive"  width="100%"></table>
+<div class="widget">
+<div class="widget-title"><h3><strong>Liste des Consultations :</strong></h3></div>
+<div class="widget-body">
+  <div class="hospGrid" id="" data-grid-name="hospView">
+    <div class="hospFilter well">
+      <div class="FilterDiv" id="Filter">
+        <div class="card">
+       	  <div class="card-body">
+           	 <div class="row">
+            		<div class="col-sm-4">
+            			<div class="form-group"><label><strong>Patient :</strong></label><input type="text" id="patientName" value="" class="form-control filter"></div>
+               		</div>
+            		<div class="col-sm-4">
+            			<div class="form-group">
+                			<label class="control-label" for="" ><strong>Date :</strong></label>
+          			     		<div class="input-group">
+  					     		<input type="text" id ="Date_Consultation" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
+  							<div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
+    						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-6"  id="consultDetail"></div>
-	</div>
-	</div><!-- / -->
+            		</div>	
+            	</div>
+          </div>
+        </div>{{-- card --}}
+      </div>
+     	</div>   	
+    </div>
+  </div>
+</div>{{-- widget --}}
+<div class="row">
+	<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
+	<div class="widget-box transparent" id="widget-box-2">
+		<div class="widget-header"><h5 class="widget-title bigger lighter">
+         		 <i class="ace-icon fa fa-table"></i>Consultations</h5>&nbsp;<label>  <span class="badge badge-info numberResult"></span></label>
+          </div>
+		<div class="widget-body">
+			<div class="widget-main no-padding">
+				<table class="display table-responsive" id="liste_conultations"></table>
+			</div><!-- widget-main -->
+	  	</div>	<!-- widget-body -->
+	 </div> <!-- widget-box -->
+</div>
 </div>
 @endsection

@@ -2,55 +2,53 @@
 @section('title','Colloque')
 @section('page-script')
 <script>
-  $(document).ready(function(){
-	  $(".med").change(function(){
-	    $(this).next().remove();
-	  });
-  });
-  function valideDemande(elm,line,id){
+	$(document).ready(function(){
+		  $(".med").change(function(){
+		    $(this).next().remove();
+		  });
+	});
+ 	function valideDemande(elm,line,id){
 		var  select = $("#" + line).find("select");//row = $(".bodyClass").find('tr').eq(line);
 		if (select.val() == null) {
-		  if (!$(".red")[0]){
-	    	select.after('<div class="red">Sélectionner un Medecin</div>'); 
+			if (!$(".red")[0]){
+	    			select.after('<div class="red">Sélectionner un Medecin</div>'); 
 			}  
-	  }else {
-	  	var formData = {
-  	    id_medecin : $("#" + line).find('[name=medecin]').val(),
-		    observation : $("#" + line).find('[name=observation]').val(),
-		    ordre_priorite : $("#" + line).find("input[type='radio']:checked").val(), //$("#" + line).find('[name=prop]:checked').val(),
-		    id_demande : $("#" + line).find('[name=demandeId]').val(),
-		    id_colloque :$("#colloqueId").val(),
-		  };
-	    var ajaxurl = '/demandehosp/valider';
-	    if(!($(elm).hasClass("btn-success")))
-      {	
-       	ajaxurl = '/demandehosp/invalider';
-      }
-     	$.ajax({
+	  	}else {
+	  		var formData = {
+  	   			 id_medecin : $("#" + line).find('[name=medecin]').val(),
+  	   			 observation : $("#" + line).find('[name=observation]').val(),
+	     		     ordre_priorite : $("#" + line).find("input[type='radio']:checked").val(), //$("#" + line).find('[name=prop]:checked').val(),
+		           id_demande : $("#" + line).find('[name=demandeId]').val(),
+		           id_colloque :$("#colloqueId").val(),
+		     };
+	    		var ajaxurl = '/demandehosp/valider';
+	    		if(!($(elm).hasClass("btn-success")))
+		      {	
+		       	ajaxurl = '/demandehosp/invalider';
+		      }
+    		 	$.ajax({
 			 	headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        url : ajaxurl,
-        type:'POST',
-        data:formData,
-        dataType: 'json',
-        success: function (data) {
-         	if(data.etat == 'valide')
-          {
-	     			$(elm).html('<i class="fa fa-close" style="font-size:14px"></i> Annuler');
-	       		$(elm).attr('title', 'Annuler');
-	       		$(elm).removeClass("btn-success").addClass("btn-danger");
-     			}else{
-     	      $(elm).removeClass("btn-danger").addClass("btn-success");
-	       		$(elm).attr('title', 'Valider demande');
-	       		$(elm).html('<i class="ace-icon fa fa-check"></i>Valider');
-     			}
-	      },
-        error:function(data){
-          console.log('Error:', data);
-        }
+			              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			     },
+	        		url : ajaxurl,
+		        	type:'POST',
+			     data:formData,
+			     dataType: 'json',
+		        	success: function (data) {
+			         	if(data.etat == 'valide')
+			          {
+			     			$(elm).html('<i class="fa fa-close" style="font-size:14px"></i> Annuler');
+			       		$(elm).attr('title', 'Annuler');$(elm).removeClass("btn-success").addClass("btn-danger");	
+			 		}else{
+				     	      $(elm).removeClass("btn-danger").addClass("btn-success");
+					      $(elm).attr('title', 'Valider demande');$(elm).html('<i class="ace-icon fa fa-check"></i>Valider');
+					}
+			      },
+			      error:function(data){
+			          console.log('Error:', data);
+			      }
 			}); 
-	  }
+		}
 	}
 </script>
 @endsection
@@ -74,33 +72,33 @@
 						<table class="table table-striped table-bordered table-hover" id="table1" aria-describedby="table1_info" role="grid">
 			      	<thead class="thin-border-bottom">
 		       			<tr>
-									<th class ="center" width="11%"><h5><strong>Patient</strong></h5></th>
-									<th class ="center" width="10%"><h5><strong class="text-center">Spécialité</strong></h5></th>
-									<th class ="center" width="10%"><h5><strong>Date Demande</strong></h5></th>
-									<th class ="center" width="10%"><h5><strong>Mode Admission</strong></h5></th>
-									<th class ="center" width="12%"><h5><strong>Medcin traitant</strong></h5></th>
+							<th class ="center" width="11%"><h5><strong>Patient</strong></h5></th>
+							<th class ="center" width="10%"><h5><strong class="text-center">Spécialité</strong></h5></th>
+							<th class ="center" width="10%"><h5><strong>Date Demande</strong></h5></th>
+							<th class ="center" width="10%"><h5><strong>Mode Admission</strong></h5></th>
+							<th class ="center" width="12%"><h5><strong>Medcin traitant</strong></h5></th>
 						    	<th width="10%" class ="center"><h5><strong>Priorité</strong></h5></th>
-									<th class="font-weight-bold center"><h5><strong>Observation</strong></h5></th>
-									<th class="detail-col center"><em class="fa fa-cog"></em></th>
-								</tr>
-							</thead>	
-							<tbody id ="demandesBody" class="bodyClass">
-				 			<?php $j = 0; ?>
-				 			@foreach( $demandes as $i=>$demande)
-		    			<tr id= "{{ $j }}">
-			  				<td hidden> <input type="hidden" name="demandeId" value="{{ $demande->id}}"/></td>	
-			  				<td>{{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }}</td>	
-								<td>{{$demande->modeAdmission }}</td>
-								<td>{{ $demande->Specialite->nom }}</td>
-					 			<td>{{$demande->consultation->Date_Consultation }}</td>
-								<td>
-									<select id="medecin" name = "medecin" class ="med" class ="selectpicker show-menu-arrow place_holder col-sm-12">
-										<option value="0" selected disabled>selectionnez... </option>
-										@foreach ($medecins as $medecin)
-										<option value="{{ $medecin->employ->id }}">{{ $medecin->employ->nom }} {{ $medecin->employ->prenom }}</option>
-										@endforeach
-									</select>
-								</td>
+							<th class="font-weight-bold center"><h5><strong>Observation</strong></h5></th>
+							<th class="detail-col center"><em class="fa fa-cog"></em></th>
+						</tr>
+					</thead>	
+					<tbody id ="demandesBody" class="bodyClass">
+		 			<?php $j = 0; ?>
+		 			@foreach( $demandes as $i=>$demande)
+		    				<tr id= "{{ $j }}">
+		  				<td hidden> <input type="hidden" name="demandeId" value="{{ $demande->id}}"/></td>	
+		  				<td>{{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }}</td>	
+						<td>{{$demande->modeAdmission }}</td>
+						<td>{{ $demande->Specialite->nom }}</td>
+			 			<td>{{$demande->consultation->Date_Consultation }}</td>
+						<td>
+							<select id="medecin" name = "medecin" class ="med" class ="selectpicker show-menu-arrow place_holder col-sm-12">
+								<option value="0" selected disabled>selectionnez... </option>
+								@foreach ($medecins as $medecin)
+								<option value="{{ $medecin->employ->id }}">{{ $medecin->employ->nom }} {{ $medecin->employ->prenom }}</option>
+								@endforeach
+							</select>
+						</td>
 					      <td>
 					     		<div class=" btn-group btn-group-vertical col-sm-12 btn-group-lg" data-toggle="radio" role="group"> 
 							 	 		<label for="prop"><input type="radio"  class="radioM" name="prop{{$j}}" value="1" checked/>1</label>&nbsp;&nbsp;

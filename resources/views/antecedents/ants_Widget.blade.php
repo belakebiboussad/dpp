@@ -21,9 +21,7 @@
 						<?php $j = 0; ?>
 						@foreach($patient->antecedants as $i=>$atcd)
 						<tr id= "{{ $j }}">
-							<td><a href="#">{{ $atcd->Antecedant }}</a></td>
-							<td class="">{{ $atcd->typeAntecedant  }}</td>
-							<td>{{ $atcd->date }}</td>
+							<td><a href="#">{{ $atcd->Antecedant }}</a></td><td class="">{{ $atcd->typeAntecedant  }}</td><td>{{ $atcd->date }}</td>
 							<td class="center">
 								 <textarea class="width-100" resize="none"disabled="">{{$atcd->descrioption}} </textarea>
 						  	</td>
@@ -34,36 +32,36 @@
 								</a>
 								@endif
 								<div class="action-buttons hidden-sm hidden-xs btn-group">
-									<a href="{{route('atcd.show',$atcd->id)}}" class="btn btn-xs btn-success">
-										<i class="ace-icon fa fa-sign-in bigger-120"></i>&nbsp;
+									<a href="{{route('atcd.show',$atcd->id)}}" class="btn btn-xs btn-success"><i class="ace-icon fa fa-sign-in bigger-120"></i>&nbsp;
 									</a>&nbsp;&nbsp;
 		 							<a href="{{route('atcd.edit',$atcd->id)}}" class="btn btn-xs btn-info"><i class="ace-icon fa fa-pencil bigger-120"></i></a>
-									<a href="{{route('atcd.destroy',$atcd->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger"><i class="ace-icon fa fa-trash-o bigger-120"></i>
+									<a href="{{route('atcd.destroy',$atcd->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">
+										<i class="ace-icon fa fa-trash-o bigger-120"></i>
 									</a>
 								</div>
 							</td>
 						</tr>
 						@if($atcd->Antecedant == "Personnels")
 						<?php $j++ ?>
-			    	<tr class="collapse out budgets {{$i}}collapsed">
-			      	<td colspan="12">
-				    		<div class="table-detail">
-				     			<div class="row">
-					     			<div class="col-xs-6 col-sm-6">
+			    			<tr class="collapse out budgets {{$i}}collapsed">
+			      			<td colspan="12">
+				    				<div class="table-detail">
+				     					<div class="row">
+					     					<div class="col-xs-6 col-sm-6">
 											<div class="space visible-xs"></div>
 											<div class="profile-user-info profile-user-info-striped">
 												<div class="profile-info-row">
 													<div class="profile-info-name text-center"><strong>Type:</strong></div>
-													<div class="profile-info-value">
-														  <span class="label label-lg label-inverse arrowed-in">{{ $atcd->stypeatcd }}</span>
+													<div class="profile-info-value"><span class="label label-lg label-inverse arrowed-in">{{ $atcd->stypeatcd }}</span>
 													</div>
 												</div>
 												<div class="profile-info-row">
 													<div class="profile-info-name text-center"><strong>Tabac:</strong></div>
 													<div class="profile-info-value">
 														 <label>
-	            												<input type="checkbox" class="ace"  id="tabac" name="tabac" {{ ($atcd->tabac) ? "checked" :"" }} disabled /><span class="lbl" >&nbsp; &nbsp;tabac</span>
-	            												</label>&nbsp; &nbsp; &nbsp;
+	            												<input type="checkbox" class="ace"  id="tabac" name="tabac" {{ ($atcd->tabac) ? "checked" :"" }} disabled />
+	            												<span class="lbl" >&nbsp; &nbsp;tabac</span>
+	            											</label>&nbsp; &nbsp; &nbsp;
 													</div>
 												</div>
 											</div>
@@ -74,16 +72,16 @@
 												<div class="profile-info-row">
 													<div class="profile-info-name text-center"><strong>Habitudes Alimentaires:</strong></div>
 													<div class="profile-info-value">
-			         	 						<textearea>{{ $atcd->habitudeAlim }}</textearea>
+			         	 									<textearea>{{ $atcd->habitudeAlim }}</textearea>
 										 			</div>
 												</div>
 												<div class="profile-info-row">
 													<div class="profile-info-name text-center"><strong>ethylisme:</strong></div>
 													<div class="profile-info-value">
 												 		<label>
-								            			<input type="checkbox" class="ace" id="ethylisme" name="ethylisme" {{ ($atcd->ethylisme)? "checked" :"" }} disabled/>
-								            			<span class="lbl"> &nbsp; &nbsp;ethylisme</span>
-								        		</label>
+									            			<input type="checkbox" class="ace" id="ethylisme" name="ethylisme" {{ ($atcd->ethylisme)? "checked" :"" }} disabled/>
+									            			<span class="lbl"> &nbsp; &nbsp;ethylisme</span>
+								        					</label>
 													</div>
 												</div>
 											</div>

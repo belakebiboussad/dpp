@@ -28,11 +28,10 @@
 				  				<button type="button" id="selctetat" class="btn btn-danger btn-lg"><strong>{{ $etat->titre}}</strong></button> 
 				  				@break
 				  		@endswitch
-		        	</li>
- {{-- <button id="selctetat" class ="btn btn-primary btn-lg" value ="{{ $etat->titre}}">{{ $etat->titre}}</button>
-  --}}    	  		  @endforeach 
-					  </ol>
-					</div> 
+		        			</li>
+ 	  		  		@endforeach 
+				 </ol>
+				</div> 
 			</div>   
 	  	</div>
 	  	<div class="modal-footer">

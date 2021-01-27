@@ -114,10 +114,7 @@
 			@if($assure->Eta == "En exercice")
 			<div class="profile-user-info profile-user-info-striped">
 				<div class="profile-info-row">
-					<div class="profile-info-name"> Service </div>
-						<div class="profile-info-value">
-							<span class="editable" id="nom">{{ $assure->Service  }}</span>
-						</div>
+					<div class="profile-info-name"> Service </div><div class="profile-info-value"><span class="editable" id="nom">{{ $assure->Service  }}</span></div>
 				</div>
 			</div>
 			@endif

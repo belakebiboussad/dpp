@@ -13,6 +13,7 @@ use App\modeles\admission;
 use App\modeles\service;
 use App\modeles\ModeHospitalisation;
 use App\modeles\Etatsortie;
+use App\modeles\CIM\chapitre;
 use Jenssegers\Date\Date;
 use Carbon\Carbon;
 use PDF;
@@ -34,14 +35,23 @@ class HospitalisationController extends Controller
     }
     public function index()
     {  
-          $etatsortie = Etatsortie::all();//dd($etatsortie);
+          $etatsortie = Etatsortie::where('type','0')->get();
+           $chapitres = chapitre::all();
           if(Auth::user()->role_id != 9 )//9:admission
                 $hospitalisations = hospitalisation::whereHas('admission.rdvHosp.demandeHospitalisation.Service',function($q){
                                                   $q->where('id',Auth::user()->employ->service);  
                                                })->where('etat_hosp','=','en cours')->get();
           else
                 $hospitalisations = hospitalisation::where('etat_hosp','=','en cours')->get();
-          return view('hospitalisations.index', compact('hospitalisations','etatsortie'));
+          /*foreach ($hospitalisations as $key => $hosp) {
+                foreach($hosp->visites as $visite){
+                     foreach($visite->traitements as $trait ){
+                         echo($trait->medicament->nom);
+                     }
+                }
+          }
+          dd("fg");*/
+          return view('hospitalisations.index', compact('hospitalisations','etatsortie','chapitres'));
     }
     /**
      * Show the form for creating a new resource.
@@ -186,6 +196,9 @@ class HospitalisationController extends Controller
     }*/
    public function print(Request $request)
     {
+     
+          $date= Carbon::now()->format('Y-m-d');
+          /* $date=   $now;*/
           $hosp  = hospitalisation::find($request->hosp_id); 
            $medecins = employ::where('service',Auth::user()->employ->service)->get();
            switch($request->selectDocm) {
@@ -194,15 +207,18 @@ class HospitalisationController extends Controller
                      $html = View::make('hospitalisations.EtatsSortie.ResumeStandartSortiePDF',array('hosp' =>$hosp))->render();   
                     break;
                 case "Résumé clinique de sortie":
-                   $view = view("hospitalisations.EtatsSortie.ResumeCliniqueSortiePDF",compact('patient','hosp','medecins'))->render();
-                    $filename = "RCS-".$hosp->patient->Nom."-".$hosp->patient->Prenom.".pdf";
+                     $filename = "RCS-".$hosp->patient->Nom."-".$hosp->patient->Prenom.".pdf";
                      $html = View::make('hospitalisations.EtatsSortie.ResumeCliniqueSortiePDF',array('hosp' =>$hosp))->render(); 
                     break;
                 case "Certificat medical":
-                    $view = view("hospitalisations.EtatsSortie.CertificatMedicalePDF",compact('patient','date','hosp','medecins'))->render();
+                     //$view = view("hospitalisations.EtatsSortie.CertificatMedicalePDF",compact('patient','date','hosp','medecins'))->render();
+                     $filename = "CerM-".$hosp->patient->Nom."-".$hosp->patient->Prenom.".pdf";
+                     $html = View::make('hospitalisations.EtatsSortie.CertificatMedicalePDF',array('hosp' =>$hosp))->render(); 
                     break;
                 case "Attestation Contre Avis Medical":
-                    $view = view("visite.ModalFoms.AttestationContreAvisMedicalePDF",compact('patient','date','hosp','heure','medecins'))->render();
+                    //$view = view("visite.ModalFoms.AttestationContreAvisMedicalePDF",compact('patient','date','hosp','heure','medecins'))->render();
+                    $filename = "CAM-".$hosp->patient->Nom."-".$hosp->patient->Prenom.".pdf";
+                     $html = View::make('hospitalisations.EtatsSortie.AttestationContreAvisMedicalePDF',array('hosp' =>$hosp,'date'=>$date))->render(); 
                     break;  
                 default:
                    return response()->json(['html'=>"unknown"]);

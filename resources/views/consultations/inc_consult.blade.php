@@ -17,9 +17,9 @@
 </div>
 @if(isset($consultation->examensCliniques) )
 <div class="row">
-		<div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right">
-			<strong><span style="font-size:18px;">Examens Clinique</span></strong>
-		</div>
+	<div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right">
+		<strong><span style="font-size:18px;">Examens Clinique</span></strong>
+	</div>
 </div>
 <div class="row">
 	<ul class="list-unstyled spaced">

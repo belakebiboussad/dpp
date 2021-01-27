@@ -380,14 +380,6 @@
 	        }
 	    });
        }
-      function addCIMCode(code,field)
-	{
-		$("#"+field).val(code);
-		$('#liste_codesCIM').empty();
-		$("#chapitre").val($("#chapitre option:first").val());$("#schapitre").val($("#schapitre option:first").val());
-		$('#cim10Modal').trigger("reset");
-		$('#cim10Modal').modal('toggle');
-	}
 	$('document').ready(function(){
 		$( 'ul.nav li' ).on( 'click', function() {
 			$(this).siblings().addClass('filter');
@@ -453,11 +445,6 @@
 	                    {data: 'Dosage'},
 	                    {data: 'action', name: 'action', orderable: false, searchable: false}
 	        ]
-	});
-	jQuery('body').on('click', '.CimCode', function (event) {
-	  $('#cim10Modal').trigger("reset");
-		$('#inputID').val($(this).val());
-		$('#cim10Modal').modal('show');
 	});
 	jQuery('#btn-add, #AntFamil-add').click(function () {//ADD
 		jQuery('#EnregistrerAntecedant').val("add");
@@ -853,69 +840,6 @@
 			              }
     			});
     		});
-      $('#chapitre').click(function(){
-	       if(! isEmpty($("#chapitre").val()) && $("#chapitre").val()!=0)
-	    	{
-	    	  	$.ajax({
-	           type : 'get',
-	            url : '{{URL::to('schapitres')}}',
-	              data:{'search':$("#chapitre").val()},
-	              success:function(data,status, xhr){
-	              	$( "#schapitre" ).prop( "disabled", false );
-	          	    var select = $('#schapitre').empty();
-	                select.append("<option value='0'>Selectionnez une Sous Chapitre</option>");   
-	                  $.each(data,function(){
-	                    select.append("<option value='"+this.	C_S_CHAPITRE+"'>"+this.TITRE_S_CHAPITRE+"</option>");
-	                  });
-	              }
-	          });
-	    	}
-	    	else
-			$( "#schapitre" ).prop( "disabled", true );
-      });
-    $('#schapitre').click(function(){
-    	var fieldname = $('#inputID').val()
-    	$('#liste_codesCIM tbody').empty();
-     	if($("#schapitre").val() != 0)
-    	{
-    		$.ajax({
-            type : 'get',
-            url : '{{URL::to('maladies')}}',
-            data:{'search':$("#schapitre").val()},
-            success:function(data,status, xhr){
-            	$(".numberResult").html(Object.keys(data).length);//$("#liste_codesCIM tbody").html(data);
-			$('#liste_codesCIM' ).DataTable( {
-           			 	processing: true,
-           			 	bInfo : false,
-           			 	pageLength: 5,
-           			 	pageLength: 5,
-           			 	destroy: true,
-           			 	"language": { "url": '/localisation/fr_FR.json' },
-           			 	"data" : data,
-           			 	columns: [ 
-           			 			{data: 'CODE_DIAG'},
-           			 			{data: 'NOM_MALADIE'},
-					            {data: null, title :'<em class="fa fa-cog"></em>', orderable: false, searchable: false,
-					            	"render": function(data,type,full,meta){
-					            		if( type === 'display' ) {
-					            			return '<button class="btn btn-xs btn-primary" data-dismiss="modal" onclick="addCIMCode(\''+ data.CODE_DIAG+'\',\''+fieldname+'\')"><i class="ace-icon fa fa-plus-circle"></i></button>';
-					            		}
-					            		return data;
-					            	}      	
-					          	}
-					      	],
-					      	"columnDefs": [
-			   								{"targets": 1 ,  className: "dt-head-center" },
-			   								{"targets": 2 ,  className: "dt-head-center dt-body-center","orderable": false },
-			   					]
-        			});    
-          },
-          error:function(){
-     				console.log("error");
-     			},
-        });
-    	}
-       });
 	});// ready
 </script>	
 @endsection
@@ -959,33 +883,25 @@
 					</a>
 				</li>
 		     </ul>
-			  <div class ="tab-content"  style = "border-style: none;" >
+			 <div class ="tab-content"  style = "border-style: none;" >
 			   	<div role="tabpanel" class = "tab-pane active " id="Interogatoire">@include('consultations.Interogatoire')</div>
 				<div role="tabpanel" class = "tab-pane" id="ExamClinique">@include('consultations.examenClinique')</div>
 				<div role="tabpanel" class = "tab-pane" id="ExamComp">	@include('consultations.ExamenCompl') </div>   
-			  </div>{{-- content --}}
+			 </div>{{-- content --}}
   	</div>{{-- tabpanel --}}
 		</div><!-- row -->
 		<div class="row">
-			<div class="col-sm12">
-			<!-- les input de modal form(Demande Hospitalisation)  -->
-				<input type="hidden" name="service" id="service">
-				<input type="hidden" name="specialiteDemande" id="specialiteDemande">
-				<input type="hidden" name="modeAdmission" id="modeAdmission"><!-- les input de modal form(Lettre Orientation)  -->
-				<input type="hidden" name="specialite" id="specialite">
-				<input type="hidden" name="medecin" id="medecin">
-				<input type="hidden" name="motifOr" id="motifOr">
-			</div>
+			<div class="col-sm12"><!-- les input de modal form(Demande Hospitalisation)  -->
+				<input type="hidden" name="service" id="service"><input type="hidden" name="specialiteDemande" id="specialiteDemande">
+				<input type="hidden" name="modeAdmission" id="modeAdmission"><input type="hidden" name="specialite" id="specialite">
+				<input type="hidden" name="medecin" id="medecin"><input type="hidden" name="motifOr" id="motifOr">
+				</div>
 		</div>
 		<div class="row">
 			<div class="col-sm12">
 				<div class="center bottom" style="bottom:0px;">
-					<button class="btn btn-info btn-sm" type="submit" id="send">
-						<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
-					</button>&nbsp; &nbsp; &nbsp;
-					<a href="{{ route('patient.show',$patient->id) }}" class="btn btn-warning btn-sm">
-						<i class="ace-icon fa fa-close bigger-110"></i>Annuler
-					</a>
+					<button class="btn btn-info btn-sm" type="submit" id="send"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
+					<a href="{{ route('patient.show',$patient->id) }}" class="btn btn-warning btn-sm"><i class="ace-icon fa fa-close bigger-110"></i>Annuler</a>
 				</div>
 			</div>
 		</div><!-- row -->

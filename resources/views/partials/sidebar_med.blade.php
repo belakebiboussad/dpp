@@ -393,65 +393,63 @@
               }
           });
       }
+      function addCIMCode(code,field)
+      {
+        $("#"+field).val(code);
+        $('#liste_codesCIM').empty();  $("#chapitre").val($("#chapitre option:first").val());$("#schapitre").val($("#schapitre option:first").val());
+        $('#cim10Modal').trigger("reset");$('#cim10Modal').modal('toggle');  
+      }
       $(document).ready(function () {
-        $('input[type=radio][name=sexe]').change(function(){
-          if($(this).val() == "M")
-          {
-            $('#Div-nomjeuneFille').attr('hidden','');
-            $('#nom_jeune_fille').val('');
-          }
-          else
-          {
-            var civilite= $("select.civilite option").filter(":selected").val();
-            if((civilite =="marié")|| (civilite =="veuf"))
-              $('#Div-nomjeuneFille').removeAttr('hidden');
-          }
-        });
-        $( ".civilite" ).change(function() {
-          var sex =  $('input[name=sexe]:checked').val();
-          if(sex == "F")
-          {
-            var civilite= $("select.civilite option").filter(":selected").val();
-            if((civilite =="marié")|| (civilite =="veuf"))
-                $('#Div-nomjeuneFille').removeAttr('hidden');
-              else
-                $('#Div-nomjeuneFille').attr('hidden','');  
-          }else
-            $('#Div-nomjeuneFille').attr('hidden','');      
-        });
-        $( "#Position" ).change(function() {
-          if($(this).val() != "Activité")
-          {
-              $('#serviceFonc').addClass('invisible');
-              $('#service option:eq(0)').prop('selected', true);
-          }
-          else
-            $('#serviceFonc').removeClass('invisible');   
-       });
-       if($( "#Position" ).val() != "Activité" )
-           $('#serviceFonc').addClass('invisible');
-      $('#listeGardes').DataTable({ //homme/garde  
-          colReorder: true,
-          stateSave: true,
-          searching:false,
-          'aoColumnDefs': [{
-            'bSortable': false,
-            'aTargets': ['nosort']
-          }],
-          "language": {
-                      "url": '/localisation/fr_FR.json'
-          },
-      });
-      ///show modal
-      $('#btn-addCores').click(function () {
-             if( $('#EnregistrerGardeMalade').is(":hidden"))
-                    $('#EnregistrerGardeMalade').show();
-             $('#EnregistrerGardeMalade').val("add");
-             $('#addGardeMalade').trigger("reset");
-             $('#CoresCrudModal').html("Ajouter un Correspondant(e)");
-             $('#gardeMalade').modal('show');
-      });  
-      //////////////
+           $('input[type=radio][name=sexe]').change(function(){
+                if($(this).val() == "M")
+                {
+                     $('#Div-nomjeuneFille').attr('hidden','');$('#nom_jeune_fille').val(''); 
+                }else {
+                      var civilite= $("select.civilite option").filter(":selected").val();
+                      if((civilite =="marié")|| (civilite =="veuf"))
+                        $('#Div-nomjeuneFille').removeAttr('hidden');
+                }
+           });
+           $( ".civilite" ).change(function() {
+                var sex =  $('input[name=sexe]:checked').val();
+                if(sex == "F")
+                {
+                      var civilite= $("select.civilite option").filter(":selected").val();
+                      if((civilite =="marié")|| (civilite =="veuf"))
+                              $('#Div-nomjeuneFille').removeAttr('hidden');
+                      else
+                              $('#Div-nomjeuneFille').attr('hidden','');  
+                }else
+                      $('#Div-nomjeuneFille').attr('hidden','');      
+            });
+          $( "#Position" ).change(function() {
+                if($(this).val() != "Activité")
+                {
+                    $('#serviceFonc').addClass('invisible'); $('#service option:eq(0)').prop('selected', true);
+                }
+                else
+                  $('#serviceFonc').removeClass('invisible');   
+          });
+          if($( "#Position" ).val() != "Activité" )
+               $('#serviceFonc').addClass('invisible');
+          $('#listeGardes').DataTable({ //homme/garde  
+                colReorder: true,
+                stateSave: true,
+                searching:false,
+                'aoColumnDefs': [{
+                  'bSortable': false,
+                  'aTargets': ['nosort']
+                }],
+                "language": {
+                            "url": '/localisation/fr_FR.json'
+                },
+          });
+          $('#btn-addCores').click(function () { ///show modal
+                if( $('#EnregistrerGardeMalade').is(":hidden"))
+                        $('#EnregistrerGardeMalade').show();
+                $('#EnregistrerGardeMalade').val("add"); $('#addGardeMalade').trigger("reset");
+                $('#CoresCrudModal').html("Ajouter un Correspondant(e)"); $('#gardeMalade').modal('show');   
+          });  
       jQuery('body').on('click', '.show-modal', function () {
               HommeConfcopy($(this).val());
               jQuery('#EnregistrerGardeMalade').hide();
@@ -461,10 +459,8 @@
              HommeConfcopy($(this).val());
                if( $('#EnregistrerGardeMalade').is(":hidden"))
                     $('#EnregistrerGardeMalade').show();
-              jQuery('#EnregistrerGardeMalade').val("update");
-             $('#CoresCrudModal').html("Editer un Correspondant(e)");
-              $('#gardeMalade').modal('toggle');
-      });
+              jQuery('#EnregistrerGardeMalade').val("update"); $('#CoresCrudModal').html("Editer un Correspondant(e)"); $('#gardeMalade').modal('toggle');
+     });
       $("#EnregistrerGardeMalade").click(function (e) {
             $('#gardeMalade').modal('toggle');
             $.ajaxSetup({
@@ -620,7 +616,7 @@
               break; 
           }
       });
-      $('#specialite').change(function(){
+     $('#specialite').change(function(){
          if($(this).val() != "0" )
          {
             $("#produit").removeAttr("disabled");
@@ -633,6 +629,73 @@
             $("#produit").prop('disabled', 'disabled');
           }
       });
+     jQuery('body').on('click', '.CimCode', function (event) {
+          $('#cim10Modal').trigger("reset");
+          $('#inputID').val($(this).val());
+          $('#cim10Modal').modal('show');
+     });
+     $('#chapitre').click(function(){
+          if(! isEmpty($("#chapitre").val()) && $("#chapitre").val()!=0)
+          {
+                $.ajax({
+                     type : 'get',
+                     url : '{{URL::to('schapitres')}}',
+                    data:{'search':$("#chapitre").val()},
+                    success:function(data,status, xhr){
+                          $( "#schapitre" ).prop( "disabled", false );
+                          var select = $('#schapitre').empty();
+                          select.append("<option value='0'>Selectionnez une Sous Chapitre</option>");   
+                          $.each(data,function(){
+                                select.append("<option value='"+this.C_S_CHAPITRE+"'>"+this.TITRE_S_CHAPITRE+"</option>");
+                          });
+                    }
+                });
+          }else
+                $( "#schapitre" ).prop( "disabled", true );
+     });
+     $('#schapitre').click(function(){
+           var fieldname = $('#inputID').val();
+           $('#liste_codesCIM tbody').empty();
+          if($("#schapitre").val() != 0)
+          {
+               $.ajax({
+                    type : 'get',
+                    url : '{{URL::to('maladies')}}',
+                    data:{'search':$("#schapitre").val()},
+                    success:function(data,status, xhr){
+                          $(".numberResult").html(Object.keys(data).length);//$("#liste_codesCIM tbody").html(data);
+                          $('#liste_codesCIM' ).DataTable( {
+                               processing: true,
+                              bInfo : false,
+                              pageLength: 5,
+                              pageLength: 5,
+                              destroy: true,
+                              "language": { "url": '/localisation/fr_FR.json' },
+                              "data" : data,
+                              columns: [ 
+                                   {  data: 'CODE_DIAG'},
+                                   {  data: 'NOM_MALADIE'},
+                                   {      data: null, title :'<em class="fa fa-cog"></em>', orderable: false, searchable: false,
+                                        "render": function(data,type,full,meta){
+                                              if( type === 'display' ) {
+                                                return '<button class="btn btn-xs btn-primary" data-dismiss="modal" onclick="addCIMCode(\''+ data.CODE_DIAG+'\',\''+fieldname+'\')"><i class="ace-icon fa fa-plus-circle"></i></button>';
+                                              }
+                                              return data;
+                                       }       
+                                   }
+                              ],
+                              "columnDefs": [
+                                    {"targets": 1 ,  className: "dt-head-center" },
+                                    {"targets": 2 ,  className: "dt-head-center dt-body-center","orderable": false },
+                              ]
+                        });    
+                    },
+                    error:function(){
+                          console.log("error");
+                    },
+                });
+          }
+      });
 }) 
-    </script>
-</div><!-- /section:basics/sidebar -->
+</script>
+</div>

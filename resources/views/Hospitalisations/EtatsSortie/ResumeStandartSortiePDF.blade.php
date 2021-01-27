@@ -52,7 +52,7 @@
 </head>
 <body>
  <div class="container-fluid">
-        <h2 class="mt-20 center">DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</h2>
+      <h2 class="mt-20 center">DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</h2>
       <h4 class="center">ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</h4>
       <h4 class="center">Chemin des Glycines - ALGER</h4>
       <h4 class="center">Tél : 23-93-34</h4>
@@ -97,7 +97,25 @@
               {{  $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->prenom }}</span></td>
             </tr>
             <tr class="noBorder">
-              <td class="first"><strong>Mode de Sortie :</strong><span> &nbsp;{{ $hosp->modeSortie }}</span></td>
+              <td class="first"><strong>Mode de Sortie :</strong>
+                   @switch($hosp->modeSortie)
+                          @case(0)
+                              &nbsp;Transfert
+                               @break
+                          @case(1)
+                                &nbsp;Contre avis médical
+                               @break
+                          @case(2)
+                               &nbsp;Décès
+                               @break
+                          @case(3)
+                               &nbsp;Reporter
+                               @break
+                          @default  {{-- Domicile = null --}}
+                                &nbsp;Domicile
+                               @break
+                     @endswitch
+                </td>
               <td><strong>Date de Sortie de l'Hôpital :</strong><span> &nbsp;{{ $hosp->Date_Sortie }}</span></td>
             </tr>
             <tr>
