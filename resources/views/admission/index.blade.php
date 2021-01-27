@@ -2,12 +2,7 @@
 @section('main-content')
 		<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
 			<div class="widget-box widget-color-blue" id="widget-box-2">
-				<div class="widget-header">
-					<h5 class="widget-title bigger lighter">
-						<i class="ace-icon fa fa-table"></i>
-						Liste des admission de la semaine
-					</h5>
-				</div>
+				<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des admission de la semaine</h5></div>
 				<div class="widget-body">
 					<div class="widget-main no-padding">
 						<table class="table table-striped table-bordered table-hover">
@@ -56,7 +51,6 @@
 									<td>{{ $demande->demandeHosp->etat }}</td>
 									<td>
 										<div class="hidden-sm hidden-xs btn-group">
-										<!-- /admission/create/{{$demande->id_demande}} -->
 											<a href="{{ route('createRdvHosp',['id' =>$demande->id_demande ]) }}" class="btn btn-xs btn-success">
 												<i class="ace-icon fa fa-bed bigger-120"></i>
 												Créer Un RDV Hospitalisaton

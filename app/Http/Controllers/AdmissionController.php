@@ -26,9 +26,13 @@ class AdmissionController extends Controller
      */
       public function index()
       {
-          $rdvs = rdv_hospitalisation::with('bedReservation')->whereHas('demandeHospitalisation', function($q){
+
+          $rdvs = rdv_hospitalisation::with('bedReservation','demandeHospitalisation')->whereHas('demandeHospitalisation', function($q){
                                            $q->where('etat', 'programme');
                                         })->where('etat_RDVh','=',null)->where('date_RDVh','=',date("Y-m-d"))->get();  //dd($rdvs);
+          /*foreach ($rdvs as $key => $rdv) {
+                dd($rdv->demandeHospitalisation->bedAffectation);
+          }*/
           $demandesUrg = DemandeHospitalisation::with('bedAffectation') //->whereHas('bedAffectation')
                                              ->whereHas('consultation', function($q){
                                                 $q->where('Date_Consultation', date("Y-m-d"));

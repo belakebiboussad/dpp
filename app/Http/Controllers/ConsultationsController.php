@@ -56,11 +56,11 @@ class ConsultationsController extends Controller
           $view =  view("consultations.inc_consult",compact('consultation'))->render();
           return response()->json(['html'=>$view]);
         }
-        public function listecons($id)
-        {
-               $patient = patient::with('Consultations.patient','Consultations.docteur','Consultations.docteur.service')->FindOrFail($id);
-              return Response::json($patient->Consultations)->withHeaders(['patient' => $patient->Nom . " " . $patient->Prenom]);
-        }
+          public function listecons($id)
+          {
+                 $patient = patient::with('Consultations.patient','Consultations.docteur','Consultations.docteur.service')->FindOrFail($id);
+                return Response::json($patient->Consultations)->withHeaders(['patient' => $patient->Nom . " " . $patient->Prenom]);
+          }
         /**
        * Show the form for creating a new resource.
        *
@@ -179,10 +179,11 @@ class ConsultationsController extends Controller
       public function show($id)
       {
            $consultation = consultation::with('patient','docteur')->FindOrFail($id);
+           //dd($consultation->examensCliniques);
            $patient = patient::FindOrFail($consultation->Patient_ID_Patient);
            $antecedants = antecedant::where('Patient_ID_Patient',$patient->id)->get();
-           return view('consultations.show', compact('consultation'));
-           //return view('consultations.show_consultation', compact('consultation','patient','antecedants'));
+           return view('consultations.show', compact('consultation')); //return view('consultations.show_consultation', compact('consultation','patient','antecedants'));
+          
       }
     /**
      * Show the form for editing the specified resource.
@@ -190,7 +191,10 @@ class ConsultationsController extends Controller
      * @param  \App\modeles\consultation  $consultation
      * @return \Illuminate\Http\Response
      */
-    public function edit(consultation $consultation){}
+    public function edit(consultation $consultation)
+    {
+          dd("fsdf");
+    }
     /**
      * Update the specified resource in storage.
      *

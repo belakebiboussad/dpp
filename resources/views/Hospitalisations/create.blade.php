@@ -18,20 +18,20 @@
 	}
 	function formFill(adm)
 	{
-		$('#patient option:selected').remove();//consultation,	//demeande_colloque	// patient//demande_hospitalisation//hommes_conf:
-		$('#garde').find('option').remove();//$('#Date_entree').datepicker('disable');//$("#Date_entree").attr('readonly', 'readonly');
+		$('#patient option:selected').remove();
+		$('#garde').find('option').remove();
 		$('#service').find('option').remove();
 		if($('#widget-box2').hasClass('invisible'))
-	    $('#widget-box2').removeClass('invisible');
-	  $('#patient').append($('<option>', { 
-	    value: adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['id'],
-	    text : adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['Nom']+" " + adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['Prenom'], 
+	    		$('#widget-box2').removeClass('invisible');
+		$('#patient').append($('<option>', { 
+	   	value: adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['id'],
+	   text : adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['Nom']+" " + adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['Prenom'], 
 	    selected : true
 	  }));
 	  $('#service').append($('<option>', { 
-	    value: adm['rdv_hosp']['demande_hospitalisation']['service']['id'],
-	    text : adm['rdv_hosp']['demande_hospitalisation']['service']['nom'], 
-	    selected : true
+		    value: adm['rdv_hosp']['demande_hospitalisation']['service']['id'],
+		    text : adm['rdv_hosp']['demande_hospitalisation']['service']['nom'], 
+		    selected : true
 	  }));
 	  $('[name=medecin]').val( adm['rdv_hosp']['demande_hospitalisation']['demeande_colloque']['id_medecin']);
 	 	if(adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['hommes_conf'].length == 0)
@@ -39,12 +39,16 @@
 	 	else
 	 	{
 	 		if($('#garde').hasClass('invisible'))
-	    	$('#garde').removeClass('invisible');
-		  $.each(adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['hommes_conf'], function( index, garde ) {
+	    			$('#garde').removeClass('invisible');
+		  	$('#garde_id').append($('<option>', { 
+	  	 			value: '',
+	     				text : 'Selectionner un garde malade', 
+	    		}));
+		  	$.each(adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['hommes_conf'], function( index, garde ) {
 		   		$('#garde_id').append($('<option>', { 
 	  	 			value: garde['id'],
-	     			text : garde['nom']+" " + garde['prenom'], 
-	    		}));
+	     				text : garde['nom']+" " + garde['prenom'], 
+	    			}));
 	  	});
 	 	}
 	 	$('#id_admission').val(adm['id']);
@@ -67,8 +71,8 @@
       addDays();
     });
     $( "#sendBtn" ).click(function() {
-    	$("#Date_entree").prop("disabled", false);
-		});	
+    		$("#Date_entree").prop("disabled", false);
+	});	
   });
 </script>
 @endsection
@@ -110,8 +114,8 @@
 									<a href="javascript:formFill({{ $adm }} );" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter une Hospitalisation"> 
 											<i class="menu-icon fa fa-plus"></i>
 									</a>
-									<a href="{{ route('admission.destroy',$adm->id) }}" class="btn btn-danger btn-xs" data-toggle="tooltip" title="supprimer l'admission" data-method="DELETE" data-confirm="Etes Vous Sur de supprimer l'admission?"> 
-											<i class="ace-icon fa fa-trash-o"></i>
+									<a href="{{ route('admission.destroy',$adm->id) }}" class="btn btn-danger btn-xs" data-toggle="tooltip" title="supprimer l'admission" data-method="DELETE" data-confirm="Etes Vous Sur de supprimer l'admission?"><i class="ace-icon fa fa-trash-o"></i>
+											
 									</a>
 								</td>		
 							</tr>
@@ -183,7 +187,7 @@
 						</div>
 						<div class="row">
 							<div class="form-group">
-							<label class="col-sm-4 col-xs-4 control-label no-padding-right" for="Date_Prevu_Sortie"><strong>Date Sortie Prévue :</strong></label>
+							<label class="col-sm-4 col-xs-4 control-label no-padding-right text-nowrap" for="Date_Prevu_Sortie"><strong>Date Sortie Prév. :</strong></label>
 							<div class="col-sm-8 col-xs-8">
 								<input class="col-xs-11 col-sm-11 date-picker" id="Date_Prevu_Sortie" name="Date_Prevu_Sortie" type="text" placeholder="Date Sortie Prévue" data-date-format="yyyy-mm-dd" onchange="updateDureePrevue()" />
 							</div>
@@ -191,7 +195,7 @@
 						</div>			
 						<div class="row">
 							<div class="form-group">
-								<label class="col-sm-4 control-label no-padding-right text-nowrap" for="mode"><strong>Mode Hospitalisation :</strong></label>
+								<label class="col-sm-4 control-label no-padding-right text-nowrap" for="mode"><strong>Mode Hospitalis. :</strong></label>
 								<div class="col-sm-8 col-xs-8">
 									<select id="mode" name="mode" value="" class="col-xs-11 col-sm-11">
 									@foreach($modesHosp as $mode)

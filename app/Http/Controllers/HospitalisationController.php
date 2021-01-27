@@ -103,7 +103,7 @@ class HospitalisationController extends Controller
     public function show($id)
     {
         $hosp = hospitalisation::find($id); 
-        return View::make('hospitalisations.show')->with('hosp', $hosp);
+         return View::make('hospitalisations.show')->with('hosp', $hosp);
      }
     /**
      * Show the form for editing the specified resource.

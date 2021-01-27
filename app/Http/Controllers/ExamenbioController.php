@@ -6,11 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\modeles\examenbiologique;
 use Jenssegers\Date\Date;
-use App\modeles\patient;
-use App\modeles\antecedant;
-use App\modeles\consultation;
-use App\modeles\Lieuconsultation;
-use App\modeles\codesim;
+//use App\modeles\patient;
+//use App\modeles\antecedant;//use App\modeles\consultation;//use App\modeles\Lieuconsultation;//use App\modeles\codesim;
+use App\modeles\demandeexb;
 use Illuminate\Support\Facades\Auth;
 
 class ExamenbioController extends Controller
@@ -22,7 +20,6 @@ class ExamenbioController extends Controller
      */
     public function index($id)
     {
-        dd('je suis la');
     }
 
     /**
@@ -32,7 +29,6 @@ class ExamenbioController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -88,9 +84,8 @@ class ExamenbioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request,$id)
+    {       
     }
 
     /**
@@ -99,8 +94,16 @@ class ExamenbioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    /*public function destroy($examid, $demandeid)
+    { 
+        dd($examid);   
+        // dd($id);
+    }*/
+     public function destroy($id)
+     { 
+          $ids = explode("|", $id);
+          $demande = demandeexb::FindOrFail($ids[1]); //$examen = examenbiologique::FindOrFail($ids[0]);
+         $demande->examensbios()->detach($ids[0]); //dd($demande->examensbios);
+         return redirect()->action('DemandeExbController@edit',$ids[1]);
     }
 }

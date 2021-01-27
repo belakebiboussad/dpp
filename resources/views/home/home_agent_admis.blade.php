@@ -171,8 +171,9 @@
 						@endif
 						</td>
 						<td class="text-center">
-							<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $rdv->id }}" data-backdrop="false" ><i class="fa fa-check"></i> &nbsp;Confirmer</button>
-								@include('admission.modalForm.confirmEntreeProg')
+							
+							<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $rdv->id }}" @if(!(isset($rdv->demandeHospitalisation->bedAffectation))) disabled @endif><i class="fa fa-check"></i> &nbsp;Confirmer</button>
+							@include('admission.modalForm.confirmEntreeProg')
 							</td>
 						</tr>
 						@endforeach
@@ -185,11 +186,9 @@
 							<td>@if(isset($demande->bedAffectation)) {{ $demande->bedAffectation->lit->salle->service->nom}} @else <strong>/</strong> @endif </td>
 							<td>@if(isset($demande->bedAffectation)) {{ $demande->bedAffectation->lit->salle->nom}} @else <strong>/</strong> @endif </td>
 							<td>@if(isset($demande->bedAffectation)) {{ $demande->bedAffectation->lit->nom}} @else <strong>/</strong> @endif </td>
-							
 							<td class="text-center">
-								<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $demande->id }}" data-backdrop="false" @if(!isset($demande->bedAffectation)) 'disabled' @endif><i class="fa fa-check"></i> &nbsp;Confirmer</button>
+									<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $demande->id }}" @if(!(isset($demande->bedAffectation))) disabled @endif>	<i class="fa fa-check"></i> &nbsp;Confirmer</button>	
 								@include('admission.modalForm.confirmEntreeUrg')
-								
 							</td>
 						</tr>
 						@endforeach

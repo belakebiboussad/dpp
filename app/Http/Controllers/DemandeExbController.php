@@ -31,24 +31,22 @@ class DemandeExbController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {  }
-
+    public function create() {  }
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,$consultId)
-    {
-        $demande = demandeexb::FirstOrCreate([  
+      public function store(Request $request,$consultId)
+      {
+          $demande = demandeexb::FirstOrCreate([  
                "id_consultation" => $consultId,
-       ]);
-       foreach($request->exm as $id_exb) {
-                    $demande->examensbios()->attach($id_exb);
-        }
-    }
+          ]);
+         foreach($request->exm as $id_exb) {
+                      $demande->examensbios()->attach($id_exb);
+          }
+      }
 
     /**
      * Display the specified resource.
@@ -56,11 +54,11 @@ class DemandeExbController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $demande = demandeexb::FindOrFail($id);
-        return view('examenbio.show_exb', compact('demande'));
-    }
+     public function show($id)
+     {
+          $demande = demandeexb::FindOrFail($id);
+          return view('examenbio.show', compact('demande'));
+     }
     /**
      * Show the form for editing the specified resource.
      *
@@ -69,7 +67,8 @@ class DemandeExbController extends Controller
      */
     public function edit($id)
     {
-        //
+          $demande = demandeexb::FindOrFail($id);
+          return view('examenbio.edit', compact('demande'));
     }
     /**
      * Update the specified resource in storage.
@@ -78,52 +77,47 @@ class DemandeExbController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+     public function update(Request $request, $id)
+     {
 
+     }
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
-    public function detailsdemandeexb($id)
-    {
-        $demande = demandeexb::FindOrFail($id);
-        return view('examenbio.details_exb', compact('demande'));
-    }
-
-    public function uploadresultat(Request $request)
-    {
-        $request->validate([
-            'resultat' => 'required',
-        ]);
-        $demande = demandeexb::FindOrFail($request->id_demande);
-        $filename = $request->file('resultat')->getClientOriginalName();
-        $filename =  ToUtf::cleanString($filename);
-        $file = file_get_contents($request->file('resultat')->getRealPath());
-        Storage::disk('local')->put($filename, $file);
-        $demande->update([
-            "etat" => "V",
-            "resultat" =>$filename ,
-        ]);
-        return redirect()->route('homelaboexb');
-    }
-    public function listedemandesexb()
-    {
-        $demandesexb = demandeexb::where('etat','E')->get();
-        return view('examenbio.liste_demande_exb', compact('demandesexb'));
-    }
-    public function print($id)
-    {
-        $demande = demandeexb::FindOrFail($id);
-        $pdf = PDF::loadView('examenbio.demande_exb', compact('demande'));
-        return $pdf->stream('demande_examen_biologique.pdf');
+     public function destroy($id)  { }
+     public function detailsdemandeexb($id)
+     {
+         $demande = demandeexb::FindOrFail($id);
+          return view('examenbio.details_exb', compact('demande'));
+     }
+     public function uploadresultat(Request $request)
+     {
+          $request->validate([
+              'resultat' => 'required',
+          ]);
+          $demande = demandeexb::FindOrFail($request->id_demande);
+          $filename = $request->file('resultat')->getClientOriginalName();
+          $filename =  ToUtf::cleanString($filename);
+          $file = file_get_contents($request->file('resultat')->getRealPath());
+          Storage::disk('local')->put($filename, $file);
+          $demande->update([
+              "etat" => "V",
+              "resultat" =>$filename ,
+          ]);
+          return redirect()->route('homelaboexb');
+     }
+     public function listedemandesexb()
+     {
+          $demandesexb = demandeexb::where('etat','E')->get();
+          return view('examenbio.liste_demande_exb', compact('demandesexb'));
+     }
+     public function print($id)
+     {
+          $demande = demandeexb::FindOrFail($id);
+          $pdf = PDF::loadView('examenbio.demande_exb', compact('demande'));
+          return $pdf->stream('demande_examen_biologique.pdf');
     }
 }

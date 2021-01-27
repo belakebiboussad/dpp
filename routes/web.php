@@ -56,16 +56,6 @@ route::get('/home_reception','HomeController@index');
 route::get('/home_dele','HomeController@index');
 route::get('/home_admission','AdmissionController@index')->name('home_admission');
 //route::get('/home_infermier','HospitalisationController@index')->name('home_infermier');
-Route::get('exbio/{filename}', function ($filename)
-{
-        $path = storage_path() . '\\app\\' . $filename;
-        if(!File::exists($path)) abort(404);
-        $file = File::get($path);
-        $type = File::mimeType($path);
-        $response = Response::make($file, 200);
-        $response->header("Content-Type", $type);
-        return $response;
-});// Auth::routes();
 route::get('/demandeproduit/run/{id}','demandeprodController@run')->name('runDemande');
 route::post('/demandeproduit/valider/{id}','demandeprodController@valider')->name('demandeproduit.valider');
 Route::get('/sortiesAdmission','AdmissionController@sortir')->name('admission.sortieAdm');
@@ -141,6 +131,7 @@ Route::any('/profile/{userId}', [
         'uses'  => 'UsersController@viewProfile'
     ]);
 });
+//Route::get('/examdestroy/{$exam_id}/{$demande_id}','ExamenbioController@destroy');
 Route::get('/role/show/{userId}','RolesController@show');// Route::get('/home', 'HomeController@index')->name('home');
 Route::post('AddANTCD','AntecedantsController@createATCDAjax');
 Route::get('/DocorsSearch','EmployeController@searchBySpececialite');

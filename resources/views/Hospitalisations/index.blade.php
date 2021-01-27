@@ -74,7 +74,10 @@
      function getAction(data, type, dataToSet) {  
           var actions =  '<a href = "/hospitalisation/'+data.id+'" style="cursor:pointer" class="btn secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>' ;  
           if(({{  Auth::user()->role_id }} != 3) &&  {{  Auth::user()->role_id }} != 9){
-                actions += '<a href="/hospitalisation/'+data.id+'/edit" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier l\'Hospitalisation" data-placement="bottom"><i class="fa fa-edit fa-xs" aria-hidden="true" fa-lg bigger-120></i></a>';
+                if( data.etat_hosp != "Cloturé")                    
+                {
+                     actions += '<a href="/hospitalisation/'+data.id+'/edit" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier l\'Hospitalisation" data-placement="bottom"><i class="fa fa-edit fa-xs" aria-hidden="true" fa-lg bigger-120></i></a>';
+                }
                 if({{  Auth::user()->role_id }} == 1){
                     if( data.etat_hosp != "Cloturé")                    
                     {

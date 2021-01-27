@@ -56,11 +56,11 @@ function getConsultations(field,value)
 	});
 }
  function getAction(data, type, dataToSet) {
-     var actions =  '<a href = "/consultations/'+data.id+'" style="cursor:pointer" class="btn secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>' ; 
- 	return actions;
+     var actions =  '<a href = "/consultations/'+data.id+'" style="cursor:pointer" class="btn btn-secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>' ;
+      return actions;
 }
 $('document').ready(function(){
-	//getConsultations("",'');
+    getConsultations("Date_Consultation",'<?= date("Y-m-j") ?>');
      $('.filter').change(function(){
            if($(this).attr('id') != "patientName")
                 getConsultations($(this).attr('id'),$(this).val());

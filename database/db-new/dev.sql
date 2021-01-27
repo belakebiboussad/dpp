@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 27 jan. 2021 à 00:08
+-- Généré le :  mer. 27 jan. 2021 à 20:21
 -- Version du serveur :  5.7.21
 -- Version de PHP :  7.2.4
 
@@ -188,7 +188,7 @@ CREATE TABLE IF NOT EXISTS `admissions` (
   KEY `admissions_id_lit_foreign` (`id_lit`),
   KEY `admissions_id_rdvHosp_foreign` (`id_rdvHosp`) USING BTREE,
   KEY `fk_admission_demandeHosp` (`demande_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `admissions`
@@ -197,7 +197,9 @@ CREATE TABLE IF NOT EXISTS `admissions` (
 INSERT INTO `admissions` (`id`, `demande_id`, `id_rdvHosp`, `id_lit`, `etat`) VALUES
 (1, 4, 235, 6, NULL),
 (2, 6, 236, 13, NULL),
-(3, 1, 238, NULL, NULL);
+(3, 1, 238, NULL, NULL),
+(4, 2, 239, 9, NULL),
+(7, 5, 240, 9, NULL);
 
 -- --------------------------------------------------------
 
@@ -355,8 +357,9 @@ CREATE TABLE IF NOT EXISTS `bedaffectation` (
 --
 
 INSERT INTO `bedaffectation` (`demande_id`, `lit_id`) VALUES
-(1, 7),
-(2, 5);
+(111, 7),
+(5, 5),
+(2, 13);
 
 -- --------------------------------------------------------
 
@@ -380,7 +383,7 @@ CREATE TABLE IF NOT EXISTS `bedreservation` (
 
 INSERT INTO `bedreservation` (`id_rdvHosp`, `id_lit`, `created_at`, `updated_at`) VALUES
 (235, 6, NULL, NULL),
-(236, 13, NULL, NULL);
+(240, 9, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -2265,7 +2268,7 @@ INSERT INTO `consultations` (`id`, `Motif_Consultation`, `histoire_maladie`, `Da
 (26, 'avec radio', NULL, '2021-01-18', NULL, 'vec radio', 0, NULL, 102, 188, NULL, 1),
 (27, 'adec demande', NULL, '2021-01-19', NULL, 'avecdemande', 0, NULL, 102, 210, NULL, 1),
 (28, 'avec demae', NULL, '2021-01-20', NULL, 'avec demae', 0, NULL, 102, 190, NULL, 1),
-(29, 'Motif consltfqdsfqsd ezfqsdfqsdf', 'boucaup de douleur au sdfsdf\r\n fqsdfsdfdsqf\r\nfqsdfqsdfq', '2021-01-26', 'dsfds qsdfqsdfdqsf sdfqsdfqsdf', 'fqqfdsf qesume fvfdgdfgsfdgsdfg', 0, NULL, 102, 190, 'D71', 1);
+(29, 'Motif consltfqdsfqsd ezfqsdfqsdf', 'boucaup de douleur au sdfsdf\r\n fqsdfsdfdsqf\r\nfqsdfqsdfq', '2021-01-27', 'dsfds qsdfqsdfdqsf sdfqsdfqsdf', 'fqqfdsf qesume fvfdgdfgsfdgsdfg', 0, NULL, 102, 190, 'D71', 1);
 
 -- --------------------------------------------------------
 
@@ -2950,16 +2953,12 @@ INSERT INTO `demandeexb_examenbio` (`id_demandeexb`, `id_examenbio`) VALUES
 (24, 1),
 (24, 22),
 (24, 76),
-(27, 3),
 (27, 11),
 (27, 16),
 (27, 24),
 (27, 71),
-(29, 2),
-(29, 11),
-(29, 16),
-(30, 1),
-(30, 19);
+(30, 2),
+(30, 16);
 
 -- --------------------------------------------------------
 
@@ -3185,10 +3184,10 @@ CREATE TABLE IF NOT EXISTS `demandehospitalisations` (
 
 INSERT INTO `demandehospitalisations` (`id`, `service`, `specialite`, `modeAdmission`, `degree_urgence`, `etat`, `id_consultation`) VALUES
 (1, 1, 1, 'programme', NULL, 'admise', 1),
-(2, 1, 1, 'programme', NULL, 'valide', 2),
+(2, 1, 1, 'programme', NULL, 'hospitalisation', 2),
 (3, 1, 1, 'programme', NULL, 'programme', 3),
 (4, 1, 1, 'programme', NULL, 'programme', 4),
-(5, 1, 1, 'programme', NULL, 'valide', 5),
+(5, 1, 1, 'programme', NULL, 'admise', 5),
 (6, 1, 1, 'programme', NULL, 'hospitalisation', 27),
 (7, 1, 1, 'programme', NULL, 'valide', 28);
 
@@ -3320,58 +3319,24 @@ CREATE TABLE IF NOT EXISTS `dem_colloques` (
   `id_demande` int(11) NOT NULL,
   `id_medecin` int(11) DEFAULT NULL,
   `ordre_priorite` int(1) NOT NULL,
-  `observation` text
+  `observation` text,
+  `lit_id` int(11) DEFAULT NULL,
+  KEY `fklit` (`lit_id`),
+  KEY `fk_demandeH` (`id_demande`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `dem_colloques`
 --
 
-INSERT INTO `dem_colloques` (`id_colloque`, `id_demande`, `id_medecin`, `ordre_priorite`, `observation`) VALUES
-(56, 9, 88, 1, 'observe'),
-(60, 11, 87, 1, '11'),
-(61, 12, 79, 1, 'obs'),
-(69, 17, 87, 3, 'bgb'),
-(67, 18, 79, 2, 'exemple'),
-(70, 13, 87, 3, 'gdf'),
-(70, 14, 79, 3, 'urgence'),
-(71, 18, 87, 2, 'demndde 1 jui'),
-(72, 11, 87, 2, '1mai'),
-(72, 10, 79, 1, '1mai'),
-(73, 19, 93, 1, '11mai'),
-(74, 20, 87, 1, 'test'),
-(74, 21, 79, 1, 'oudjoudi'),
-(74, 22, 88, 2, NULL),
-(74, 24, 93, 3, NULL),
-(75, 28, 93, 1, 'patient23 user 1'),
-(75, 26, 102, 3, 'patient32 cardio 3'),
-(76, 23, 87, 2, 'test2'),
-(77, 25, 79, 2, NULL),
-(77, 27, 79, 1, NULL),
-(78, 29, 88, 2, 'teste'),
-(78, 30, 102, 2, 'observa'),
-(79, 31, 79, 1, 'cqsc'),
-(80, 32, 79, 2, 'rgt'),
-(80, 33, 88, 1, NULL),
-(81, 39, 87, 1, NULL),
-(82, 34, 79, 2, 'bfdbfd'),
-(84, 35, 88, 1, 'observation'),
-(83, 36, 79, 2, '4'),
-(86, 38, 100, 2, 'cdcx'),
-(103, 40, 88, 2, NULL),
-(88, 45, 79, 2, 'fgf'),
-(85, 46, 87, 1, 'gfdg'),
-(107, 44, 79, 2, 'hgh'),
-(108, 49, 100, 1, NULL),
-(109, 17, 88, 1, 'programme avec bed reservation'),
-(110, 38, 87, 1, 'mùùl'),
-(111, 1, 87, 1, 'obser'),
-(112, 2, 88, 1, 'obser'),
-(113, 3, 88, 2, 'testte'),
-(114, 4, 87, 1, 'obsere'),
-(115, 5, 88, 1, 'obser'),
-(116, 6, 79, 1, 'observ'),
-(117, 7, 100, 1, 'dsq');
+INSERT INTO `dem_colloques` (`id_colloque`, `id_demande`, `id_medecin`, `ordre_priorite`, `observation`, `lit_id`) VALUES
+(111, 1, 87, 1, 'obser', NULL),
+(112, 2, 88, 1, 'obser', NULL),
+(113, 3, 88, 2, 'testte', NULL),
+(114, 4, 87, 1, 'obsere', NULL),
+(115, 5, 88, 1, 'obser', NULL),
+(116, 6, 79, 1, 'observ', NULL),
+(117, 7, 100, 1, 'dsq', NULL);
 
 -- --------------------------------------------------------
 
@@ -4294,7 +4259,7 @@ CREATE TABLE IF NOT EXISTS `hospitalisations` (
   `heure_entrée` time NOT NULL DEFAULT '14:00:00',
   `Heure_Prevu_Sortie` time DEFAULT '10:00:00',
   `Heure_sortie` time DEFAULT '10:00:00',
-  `etatSortie` varchar(500) NOT NULL,
+  `etatSortie` varchar(500) DEFAULT NULL,
   `modeSortie` enum('Domicile','Transfert','CAV','Décès','Reporter') DEFAULT NULL,
   `remumeSortie` varchar(500) DEFAULT '''''',
   `diagSortie` varchar(100) DEFAULT '''''',
@@ -4306,7 +4271,7 @@ CREATE TABLE IF NOT EXISTS `hospitalisations` (
   KEY `fk_hospitalisation_garde` (`garde_id`) USING BTREE,
   KEY `fk_hospitalisation_mode` (`modeHosp_id`),
   KEY `fk_cim` (`ccimdiagSortie`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `hospitalisations`
@@ -4314,7 +4279,8 @@ CREATE TABLE IF NOT EXISTS `hospitalisations` (
 
 INSERT INTO `hospitalisations` (`id`, `Date_entree`, `Date_Prevu_Sortie`, `Date_Sortie`, `id_admission`, `patient_id`, `modeHosp_id`, `garde_id`, `heure_entrée`, `Heure_Prevu_Sortie`, `Heure_sortie`, `etatSortie`, `modeSortie`, `remumeSortie`, `diagSortie`, `ccimdiagSortie`, `strucTransfert`, `etat_hosp`) VALUES
 (1, '2020-12-26', '2020-12-28', NULL, 1, 204, 1, 110, '14:00:00', '08:00:00', NULL, '', NULL, NULL, NULL, NULL, NULL, 'en cours'),
-(2, '2021-01-19', '2021-01-22', '2021-01-27', 2, 210, 2, 0, '14:00:00', '00:00:00', '14:00:00', 'es', '', 'rs', 'fdfd', 'R74', 'mustapha bacha', 'Cloturé');
+(2, '2021-01-19', '2021-01-22', '2021-01-27', 2, 210, 2, NULL, '14:00:00', '00:00:00', '14:00:00', 'es', '', 'rs', 'fdfd', 'R74', 'mustapha bacha', 'Cloturé'),
+(3, '2021-01-27', '2021-01-30', NULL, 4, 204, 2, NULL, '14:00:00', '10:00:00', '10:00:00', NULL, NULL, '\'\'', '\'\'', NULL, NULL, 'en cours');
 
 -- --------------------------------------------------------
 
@@ -4439,7 +4405,7 @@ INSERT INTO `lits` (`id`, `num`, `nom`, `etat`, `affectation`, `salle_id`) VALUE
 (10, 9, 'lit10', 1, 0, 2),
 (11, 1, 'lit11', 1, 0, 7),
 (12, 1, 'lit12', 1, 0, 7),
-(13, 10, 'lit13', 1, 0, 5),
+(13, 10, 'lit13', 1, 1, 5),
 (14, 10, 'lit14', 1, 0, 7),
 (15, 11, 'lit15', 1, 0, 7),
 (16, 12, 'lit16', 1, 0, 7),
@@ -11285,7 +11251,7 @@ CREATE TABLE IF NOT EXISTS `rdv_hospitalisations` (
   `heure_Prevu_Sortie` time DEFAULT '15:00:00',
   PRIMARY KEY (`id`),
   KEY `fk_rdvh_admission` (`id_demande`)
-) ENGINE=InnoDB AUTO_INCREMENT=239 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=241 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `rdv_hospitalisations`
@@ -11301,7 +11267,9 @@ INSERT INTO `rdv_hospitalisations` (`id`, `date_RDVh`, `heure_RDVh`, `id_demande
 (235, '2020-12-26', '08:00:00', 5, 1, '2020-12-28', '08:00:00'),
 (236, '2021-01-19', '08:00:00', 6, 1, '2021-01-22', '08:00:00'),
 (237, '2021-01-20', '08:00:00', 5, 0, '2021-01-25', '08:00:00'),
-(238, '2021-01-20', '08:00:00', 1, 1, '2021-01-23', '08:00:00');
+(238, '2021-01-20', '08:00:00', 1, 1, '2021-01-23', '08:00:00'),
+(239, '2021-01-27', '08:00:00', 2, 1, '2021-01-30', '08:00:00'),
+(240, '2021-01-27', '08:00:00', 5, 1, '2021-01-31', '08:00:00');
 
 -- --------------------------------------------------------
 
@@ -11840,15 +11808,15 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (34, 'med', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', NULL, 88, 1, 'fb3Fq2xQgFWyTBO5v1lRHwwIkqlMoObVnU9zTeylFhh5tAzWkHzNg5l2N6ig', 0),
 (35, 'delCol', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'll@a.fr', 89, 6, '7YbxrRVA9J04N9Ug4F0nSidqLdwRDWsmSz0RwieL3rlPMjYbgHcxSU7Hgv69', 1),
 (38, 'user', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'jj@hot.frr', 93, 13, 'QGzAK3Ot9VH190WBcOuRMMdfEN0H91VgB1MXO6vbFuiiu15koQYCQLxWP4BT', 1),
-(39, 'surMed', '$2y$10$zUdI0W5QV/1fmnBnhmL2TOTqN8GMNEdZZK6o4gclrJ1CKfxVq.Rca', 'bbedeebi@cdta.dz', 94, 5, 'CRXUIkk92RK8HmWMv8LfMeQMouOhreHJE0bIwF7L8YF4BsMhjBkFFJmb2uHE', 1),
+(39, 'surMed', '$2y$10$zUdI0W5QV/1fmnBnhmL2TOTqN8GMNEdZZK6o4gclrJ1CKfxVq.Rca', 'bbedeebi@cdta.dz', 94, 5, '9hc2kIVwj7FBSVwU2620NgLbBffPjbyKY2tgTN512byw0lQhQSiiQ5aK5r58', 1),
 (40, 'agentAdm', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'agentAdm@hop.dz', 95, 9, 'hcEiyOu6lVtRBS0HwhkUkIf2CrZunWTA0omOlazCn1GaTHxQPKkyUnaWSueG', 1),
-(41, 'agent', '$2y$10$RsD.pKjSIV73uBbaLJNE.uXhzCmCixdBf71lcxBq2wmQu0dsRzdmy', 'agent@hop.dz', 96, 9, 'Ei4RV7RIxFLxkkqmeo3UQpuYVb4a8xT0rmiFdQnm7hXwyZPRrGOL3jMUEnVx', 1),
+(41, 'agent', '$2y$10$RsD.pKjSIV73uBbaLJNE.uXhzCmCixdBf71lcxBq2wmQu0dsRzdmy', 'agent@hop.dz', 96, 9, 'Iv0tBegm5BgcRVea9Ld6LLIxlP2mNGwc3bOeByow5QfChPN6MHx6Arw05qFx', 1),
 (42, 'laborantin', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'lab@hop.dz', 97, 11, 'QZOK8XxQcxpBYZjmZS35YFJIFRomup114aMBLKYYoE8adSBi2nex4mtmKgfJ', 1),
 (43, 'radiogue', '$2y$10$k5gKJEykSI5PNYLHyheO.eXq4ge1e6Rkz/HN/mMKUZiKZFe8qMlki', 'rad@hop.dz', 98, 12, 'benlcglfiv00sldthLpx1KXLmtI2DYvCGoRpjKunnuQE0cSzBTETHsXO9x9e', 1),
 (44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, 'p7u8EhvansLoLGwLGWHkXT9g4bUFo7A648CT6NRCSJeGPIoODz3GlZAJO3dG', 1),
 (45, 'chefServ', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'MqwpSXPTQM0JlyL3aHRfqlG29ow5QmZnqGPwuINxH9jaZRFPEFqIoFdW1SxY', 1),
 (46, 'rad', '$2y$10$PNDRMvcnhl1kZ.sxfoq8Yuhoq6ZMQePi9/q1QbLUZ.a.hd5DxvnCS', 'rad@cdta.net', 101, 12, 'LYnFPOG5KXRXnQuoVFseCS3zvBj5ffEsAmaHeVNbwGpeC01ND3Hclu34g0vd', 1),
-(47, 'cardio', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'bbedeebi@cdta.dz', 102, 1, 'GcCXTlhwlmi9BSuhaMDmiDjgnZGU8lxEDwnJMEOn518NFJkrFsf0FQZSo5LP', 1),
+(47, 'cardio', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'bbedeebi@cdta.dz', 102, 1, 'esvNQdN8j9JzBzZPpkSQlEQM24IATfruMIYihJlprbwlSrUK8Y3BYBMIdQCA', 1),
 (48, 'geneco', '$2y$10$MeHcy1r9az/dgkC9pLvo/Ob4eqJVp8mRjGuZeyL9yA6k8sc3D0FAW', 'geneco@cdta.dz', 103, 1, 'lKGjSrxT44fKoI9QgouP76r58Xu0MYY5H4lb0cm1hp0SpPxbG9yJA6yOUjHT', 1);
 
 -- --------------------------------------------------------
@@ -12157,8 +12125,7 @@ ALTER TABLE `assurs`
 -- Contraintes pour la table `bedaffectation`
 --
 ALTER TABLE `bedaffectation`
-  ADD CONSTRAINT `fk_bed` FOREIGN KEY (`lit_id`) REFERENCES `lits` (`id`),
-  ADD CONSTRAINT `fk_demande` FOREIGN KEY (`demande_id`) REFERENCES `demandehospitalisations` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_bed` FOREIGN KEY (`lit_id`) REFERENCES `lits` (`id`);
 
 --
 -- Contraintes pour la table `communes`
@@ -12186,6 +12153,12 @@ ALTER TABLE `dairas`
 ALTER TABLE `demandeexb_examenbio`
   ADD CONSTRAINT `demandeexb_examenbio_ibfk_1` FOREIGN KEY (`id_demandeexb`) REFERENCES `demandeexb` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `demandeexb_examenbio_ibfk_2` FOREIGN KEY (`id_examenbio`) REFERENCES `examenbiologiques` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `dem_colloques`
+--
+ALTER TABLE `dem_colloques`
+  ADD CONSTRAINT `fk_demandeH` FOREIGN KEY (`id_demande`) REFERENCES `demandehospitalisations` (`id`);
 
 --
 -- Contraintes pour la table `facteurs_generaux`

@@ -20,10 +20,7 @@ class DemandeExamenRadio extends Controller
      * @return \Illuminate\Http\Response
      */
     /*public function liste_exr(){ $demandesexr = demandeexr::all(); return view('examenradio.liste_exr', compact('demandesexr'));}*/
-       
-   
-
-    public function details_exr($id)
+      public function details_exr($id)
     {
       $demande = demandeexr::FindOrFail($id);
       return view('examenradio.details_exr', compact('demande'));
@@ -72,25 +69,23 @@ class DemandeExamenRadio extends Controller
      */
     public function store(Request $request, $consultID)
     {
-//$request->validate(["infosc" => "required","explication" => "required","infos" => "required","examensradio" => "required","exmns" => "required"],["infosc.required" => "Ce champ est obligatoire.","explication.required" => "Ce champ est obligatoire.","infos.required" => "Ce champ est obligatoire.","examensradio.required" => "Ce champ est obligatoire.","exmns.required" => "Ce champ est obligatoire.",// ]); 
-      $demande = demandeexr::FirstOrCreate([
-          "Date" => Date::now(),
-          "InfosCliniques" => $request->infosc,
-          "Explecations" => $request->explication,
-          "id_consultation" => $consultID,
-      ]);
-      $examsImagerie = json_decode ($request->ExamsImg);
-      foreach ($examsImagerie as $key => $value) {       
-        $demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);   //$demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => json_encode($value->types)]);
-
-      }
-     if(isset($request->infos))
-     {
-        foreach ($request->infos as $id_info) {
-          $demande->infossuppdemande()->attach($id_info);
-        }
+          $demande = demandeexr::FirstOrCreate([
+                 "Date" => Date::now(),
+                 "InfosCliniques" => $request->infosc,
+                 "Explecations" => $request->explication,
+                 "id_consultation" => $consultID,
+           ]);
+          $examsImagerie = json_decode ($request->ExamsImg);
+          foreach ($examsImagerie as $key => $value) {       
+                $demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);   //$demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => json_encode($value->types)]);
+          }
+          if(isset($request->infos))
+          {
+                foreach ($request->infos as $id_info) {
+                     $demande->infossuppdemande()->attach($id_info);
+                }
+          }
      }
-    }
     /**
      * Display the specified resource.
      *
@@ -108,7 +103,10 @@ class DemandeExamenRadio extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id){}
+     public function edit($id){
+          $demande = demandeexr::FindOrFail($id);
+          return view('examenradio.edit', compact('demande')); 
+     }
     /**
      * Update the specified resource in storage.
      *

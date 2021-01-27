@@ -116,7 +116,7 @@
              			 <div class="profile-contact-links align-right">
               			<a  href="#" data-target="#demandehosp" class="btn  btn-primary btn-lg" style="width:250px;" data-toggle="modal">
                 			<div class="fa fa-plus-circle"></div><span class="bigger-110"> Hospitalisation</span>
-                		</a><div class="space-12"></div>
+                			</a><div class="space-12"></div>
 					<a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#lettreorient" style="width:250px;" onclick="lettreoriet('{{ $employe->nom }}','{{ $employe->prenom }}','{{ $employe->specialite }}','{{ $employe->tele_mobile }}')">
                 			<div class="fa fa-plus-circle"></div><span class="bigger-110" style ="text-align: right !important;">Orientation</span> 
                 		</a>
