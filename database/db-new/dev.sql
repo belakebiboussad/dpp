@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 22 jan. 2021 à 22:01
+-- Généré le :  mer. 27 jan. 2021 à 00:08
 -- Version du serveur :  5.7.21
 -- Version de PHP :  7.2.4
 
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `actes` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=116 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `actes`
@@ -53,7 +53,10 @@ INSERT INTO `actes` (`id`, `nom`, `id_visite`, `description`, `type`, `periodes`
 (95, 'acte', 864, 'sqfsdf', 'medicale', '[\"Matin\"]', 1, 0, b'0', NULL, NULL),
 (99, 'acte', 937, 's', 'medicale', '[\"Matin\"]', 1, 0, b'0', NULL, NULL),
 (110, 'gilule', 1165, 'gilule', 'paramedicale', '[\"Matin\", \"Soir\"]', 3, 0, b'0', NULL, NULL),
-(112, 'acte medicale', 1165, 'ajouter pour le malade', 'paramedicale', '[\"Matin\", \"Soir\"]', 3, 0, b'0', NULL, NULL);
+(112, 'acte medicale', 1165, 'ajouter pour le malade', 'paramedicale', '[\"Matin\", \"Soir\"]', 3, 0, b'0', NULL, NULL),
+(113, 'picure', 1185, 'le matin', 'paramedicale', '[\"Matin\"]', 1, 0, b'0', NULL, NULL),
+(114, 'hygiene', 1185, 'laver lepenement', 'paramedicale', '[\"Matin\"]', 1, 0, b'0', NULL, NULL),
+(115, 'aim1.5', 1185, 'refaire le pensement', 'paramedicale', '[\"Matin\"]', 3, 0, b'0', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -216,7 +219,8 @@ CREATE TABLE IF NOT EXISTS `antecedants` (
   `ethylisme` tinyint(1) DEFAULT '0',
   `habitudeAlim` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`,`Patient_ID_Patient`),
-  KEY `fk_Antecedant_Patient1_idx` (`Patient_ID_Patient`)
+  KEY `fk_Antecedant_Patient1_idx` (`Patient_ID_Patient`),
+  KEY `fk_code_cim10` (`cim_code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
 
 --
@@ -225,7 +229,7 @@ CREATE TABLE IF NOT EXISTS `antecedants` (
 
 INSERT INTO `antecedants` (`id`, `Antecedant`, `typeAntecedant`, `stypeatcd`, `date`, `cim_code`, `descrioption`, `Patient_ID_Patient`, `tabac`, `ethylisme`, `habitudeAlim`) VALUES
 (53, 'Familiaux', NULL, NULL, '2021-01-03', NULL, 'dqsd', 189, 0, 0, NULL),
-(57, 'Personnels', '0', 'Medicaux', '2021-01-11', '140', '!ml!m', 189, 0, 0, NULL),
+(57, 'Personnels', '0', 'Medicaux', '2021-01-11', 'D12', '!ml!m', 189, 0, 0, NULL),
 (58, 'Personnels', '0', 'Medicaux', '2021-01-04', 'D61', 'description', 188, 0, 0, NULL),
 (61, 'Familiaux', NULL, NULL, '2021-01-03', 'F42', 'f42 inconue', 188, 0, 0, NULL),
 (68, 'Personnels', '1', NULL, '2021-01-10', 'D12', 'gdf', 188, 0, 1, 'alimentaire');
@@ -322,7 +326,7 @@ INSERT INTO `assurs` (`Nom`, `Prenom`, `Date_Naissance`, `lieunaissance`, `Sexe`
 ('magita', 'bori', '1980-05-12', 1556, 'F', 'M', 'rue 02 blida', 1556, 41, 'AB+', 'Activité', 'Police judiciaire (PJ)', 'po452', 7, '135624875695', NULL),
 ('a', 'a', '2020-12-06', 613, 'M', 'C', 'rue bab ali', 613, 16, 'A+', 'Activité', 'service 23', 'bf840', 10, '135624875699', '212464998989'),
 ('police', 'police', '1982-05-12', 1556, 'M', 'C', 'rue 3 blida', 287, 9, 'O+', 'Activité', 'Unité aérienne de la sûreté nationale', 'Ma125', 8, '245767249874', NULL),
-('BOUFENAZ', 'TAHAR', '1937-01-14', 1556, 'M', 'M', 'CITE DE POLICE BT E/2 N 08 BOUZAREAH ALGER', 1556, 6, 'O+', 'Retraite', 'ESP CHATEAUNEUF', '10246', 8, '370033012963', NULL),
+('davis', 'moh', '1937-01-14', 1556, 'M', 'M', 'CITE DE POLICE BT E/2 N 08 BOUZAREAH ALGER', 1556, 6, 'O+', 'Activité', 'ESP CHATEAUNEUF', '10246', 8, '370033012963', NULL),
 ('a3', 'a3', '2020-10-11', 287, 'M', 'D', 'alger', 613, 16, 'B+', 'Retraité', '', 'bf012', 8, '444624875695', '789452124649'),
 ('as2', 'as2', '2018-01-08', 287, 'M', 'C', 'blida', 287, 9, 'B+', 'Activité', 'service 4', 'bf897', 1, '455122326514', '984818444444'),
 ('as4', 'as4', '2020-11-01', 613, 'M', 'C', 'alger', 287, 9, 'A+', 'Congé Maladie', 'service 8', 'bf004', 1, '585624875695', '212464958141'),
@@ -2239,8 +2243,9 @@ CREATE TABLE IF NOT EXISTS `consultations` (
   `id_lieu` int(11) NOT NULL,
   PRIMARY KEY (`id`,`Employe_ID_Employe`,`Patient_ID_Patient`),
   KEY `fk_Consultation_Employe1_idx` (`Employe_ID_Employe`),
-  KEY `fk_Consultation_Patient1_idx` (`Patient_ID_Patient`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+  KEY `fk_Consultation_Patient1_idx` (`Patient_ID_Patient`),
+  KEY `fk_code_CIM` (`id_code_sim`)
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `consultations`
@@ -2259,7 +2264,8 @@ INSERT INTO `consultations` (`id`, `Motif_Consultation`, `histoire_maladie`, `Da
 (25, 'motif 11', NULL, '2021-01-10', NULL, 'Resume12', 0, NULL, 102, 188, NULL, 1),
 (26, 'avec radio', NULL, '2021-01-18', NULL, 'vec radio', 0, NULL, 102, 188, NULL, 1),
 (27, 'adec demande', NULL, '2021-01-19', NULL, 'avecdemande', 0, NULL, 102, 210, NULL, 1),
-(28, 'avec demae', NULL, '2021-01-20', NULL, 'avec demae', 0, NULL, 102, 190, NULL, 1);
+(28, 'avec demae', NULL, '2021-01-20', NULL, 'avec demae', 0, NULL, 102, 190, NULL, 1),
+(29, 'Motif consltfqdsfqsd ezfqsdfqsdf', 'boucaup de douleur au sdfsdf\r\n fqsdfsdfdsqf\r\nfqsdfqsdfq', '2021-01-26', 'dsfds qsdfqsdfdqsf sdfqsdfqsdf', 'fqqfdsf qesume fvfdgdfgsfdgsdfg', 0, NULL, 102, 190, 'D71', 1);
 
 -- --------------------------------------------------------
 
@@ -2845,7 +2851,7 @@ CREATE TABLE IF NOT EXISTS `demandeexb` (
   `id_consultation` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_consultation` (`id_consultation`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `demandeexb`
@@ -2870,7 +2876,8 @@ INSERT INTO `demandeexb` (`id`, `etat`, `resultat`, `datafile`, `id_consultation
 (23, 'V', 'BN1.png', NULL, 827),
 (24, 'V', 'Condoleance1.pdf', NULL, 831),
 (27, 'V', 'Bouafia.png', NULL, 856),
-(29, 'E', NULL, NULL, 865);
+(29, 'E', NULL, NULL, 865),
+(30, 'E', NULL, NULL, 29);
 
 -- --------------------------------------------------------
 
@@ -2950,7 +2957,9 @@ INSERT INTO `demandeexb_examenbio` (`id_demandeexb`, `id_examenbio`) VALUES
 (27, 71),
 (29, 2),
 (29, 11),
-(29, 16);
+(29, 16),
+(30, 1),
+(30, 19);
 
 -- --------------------------------------------------------
 
@@ -2968,7 +2977,7 @@ CREATE TABLE IF NOT EXISTS `demandeexr` (
   `datafile` longblob,
   `id_consultation` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `demandeexr`
@@ -3003,7 +3012,8 @@ INSERT INTO `demandeexr` (`id`, `InfosCliniques`, `Explecations`, `etat`, `resul
 (53, 'avec radio', 'avec radio', 'E', NULL, NULL, 857),
 (54, 'exemple demande', 'exemple demande', 'E', NULL, NULL, 883),
 (55, 'Informations cliniques pertinentes', 'Explication de la demande de diagnostic', 'E', NULL, NULL, 1),
-(56, 'sd', 'dsq', 'E', NULL, NULL, 26);
+(56, 'sd', 'dsq', 'E', NULL, NULL, 26),
+(57, 'Informations cliniques pertinentes', 'Explication de la demande de diagnostic', 'E', NULL, NULL, 29);
 
 -- --------------------------------------------------------
 
@@ -3088,7 +3098,9 @@ INSERT INTO `demandeexradio_infosupppertinentes` (`id_demandeexr`, `id_infosupp`
 (54, 2),
 (54, 4),
 (55, 5),
-(56, 1);
+(56, 1),
+(57, 1),
+(57, 3);
 
 -- --------------------------------------------------------
 
@@ -3142,7 +3154,9 @@ INSERT INTO `demandeexr_examenradio` (`id_demandeexr`, `id_examenradio`, `examsR
 (55, 7, '5'),
 (55, 14, '1'),
 (56, 8, '2'),
-(56, 9, '3');
+(56, 9, '3'),
+(57, 8, '1'),
+(57, 18, '3');
 
 -- --------------------------------------------------------
 
@@ -3655,6 +3669,7 @@ DROP TABLE IF EXISTS `etat_sortie`;
 CREATE TABLE IF NOT EXISTS `etat_sortie` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `titre` varchar(200) DEFAULT NULL,
+  `type` enum('0','1') DEFAULT NULL COMMENT 'null:consultation,0:hospitalisation,1:adminstratif',
   `description` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
@@ -3663,11 +3678,11 @@ CREATE TABLE IF NOT EXISTS `etat_sortie` (
 -- Déchargement des données de la table `etat_sortie`
 --
 
-INSERT INTO `etat_sortie` (`id`, `titre`, `description`) VALUES
-(1, 'Resume standart de Sortie', 'nnnn'),
-(3, 'Certaficat medicale', 'nnnn'),
-(2, 'Resume clinique de Sortie', NULL),
-(4, 'Attestation Contre Avis Medicale', NULL);
+INSERT INTO `etat_sortie` (`id`, `titre`, `type`, `description`) VALUES
+(1, 'Résumé standard de sortie', '0', 'nnnn'),
+(3, 'Certificat medical', NULL, 'nnnn'),
+(2, 'Résumé clinique de sortie', '0', NULL),
+(4, 'Attestation Contre Avis Medical', '0', NULL);
 
 -- --------------------------------------------------------
 
@@ -4062,7 +4077,7 @@ CREATE TABLE IF NOT EXISTS `examen_clinique` (
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_consultation` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `examen_clinique`
@@ -4076,7 +4091,8 @@ INSERT INTO `examen_clinique` (`id`, `taille`, `poids`, `temp`, `autre`, `IMC`, 
 (29, NULL, NULL, NULL, 'dfg', NULL, 'gdfg', 'gsdfgdf', '2019-02-06 11:15:40', 1068),
 (30, '1.56', 60, 29, NULL, 25, 'Etat Géneral du patient', 'Peau et phanéres', '2019-05-02 13:59:57', 129),
 (31, '1.5', 45, 38, 'tut', 20, 'uji', 'iyuiuyi', '2020-07-21 08:40:53', 771),
-(32, NULL, 20, NULL, NULL, 20, NULL, NULL, '2020-07-23 15:49:32', 828);
+(32, NULL, 20, NULL, NULL, 20, NULL, NULL, '2020-07-23 15:49:32', 828),
+(33, '1.7', 60, 37, 'gfdgfd fgfdg', 21, 'Etat Géneral du patient :\r\nEtat Géneral du patient...\r\nEtat Géneral du patient :\r\nEtat Géneral du patient...', 'Peau et phanéres Peau et phanéres Peau et phanéres Peau et phanéres Peau et phanéres Peau et phanéres Peau et phanéres', '2021-01-27 00:45:18', 29);
 
 -- --------------------------------------------------------
 
@@ -4278,23 +4294,27 @@ CREATE TABLE IF NOT EXISTS `hospitalisations` (
   `heure_entrée` time NOT NULL DEFAULT '14:00:00',
   `Heure_Prevu_Sortie` time DEFAULT '10:00:00',
   `Heure_sortie` time DEFAULT '10:00:00',
+  `etatSortie` varchar(500) NOT NULL,
   `modeSortie` enum('Domicile','Transfert','CAV','Décès','Reporter') DEFAULT NULL,
-  `autre` varchar(500) DEFAULT '''''',
-  `diagSortie` varchar(100) NOT NULL DEFAULT '''''',
+  `remumeSortie` varchar(500) DEFAULT '''''',
+  `diagSortie` varchar(100) DEFAULT '''''',
+  `ccimdiagSortie` varchar(3) DEFAULT NULL,
+  `strucTransfert` varchar(100) DEFAULT NULL,
   `etat_hosp` enum('en cours','Cloturé') NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_hospitalisation_admission` (`id_admission`),
   KEY `fk_hospitalisation_garde` (`garde_id`) USING BTREE,
-  KEY `fk_hospitalisation_mode` (`modeHosp_id`)
+  KEY `fk_hospitalisation_mode` (`modeHosp_id`),
+  KEY `fk_cim` (`ccimdiagSortie`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `hospitalisations`
 --
 
-INSERT INTO `hospitalisations` (`id`, `Date_entree`, `Date_Prevu_Sortie`, `Date_Sortie`, `id_admission`, `patient_id`, `modeHosp_id`, `garde_id`, `heure_entrée`, `Heure_Prevu_Sortie`, `Heure_sortie`, `modeSortie`, `autre`, `diagSortie`, `etat_hosp`) VALUES
-(1, '2020-12-26', '2020-12-28', '2021-01-22', 1, 204, 1, 110, '14:00:00', '08:00:00', '08:00:00', 'Domicile', 'dqs', 'sq', 'Cloturé'),
-(2, '2021-01-19', '2021-01-22', NULL, 2, 210, 2, 0, '14:00:00', '08:00:00', NULL, 'Domicile', NULL, '', 'en cours');
+INSERT INTO `hospitalisations` (`id`, `Date_entree`, `Date_Prevu_Sortie`, `Date_Sortie`, `id_admission`, `patient_id`, `modeHosp_id`, `garde_id`, `heure_entrée`, `Heure_Prevu_Sortie`, `Heure_sortie`, `etatSortie`, `modeSortie`, `remumeSortie`, `diagSortie`, `ccimdiagSortie`, `strucTransfert`, `etat_hosp`) VALUES
+(1, '2020-12-26', '2020-12-28', NULL, 1, 204, 1, 110, '14:00:00', '08:00:00', NULL, '', NULL, NULL, NULL, NULL, NULL, 'en cours'),
+(2, '2021-01-19', '2021-01-22', '2021-01-27', 2, 210, 2, 0, '14:00:00', '00:00:00', '14:00:00', 'es', '', 'rs', 'fdfd', 'R74', 'mustapha bacha', 'Cloturé');
 
 -- --------------------------------------------------------
 
@@ -11186,7 +11206,7 @@ INSERT INTO `patients` (`id`, `IPP`, `Nom`, `Prenom`, `nom_jeune_fille`, `Dat_Na
 (206, '02021206', 'malde', 'malade', NULL, '1964-11-19', 613, 'M', 'M', 'cite 20 out bat 54 appt 02', 613, 16, '0606354364', '', NULL, '555555144444', 'B', '+', '034956424565', '1', NULL, 1, '2021-01-10', NULL, '2021-01-10 09:50:43'),
 (207, '02021207', 'patient', 'malade', NULL, '1993-05-10', 613, 'M', 'V', 'alg', 613, 16, '0555555555', '', NULL, NULL, 'B', '-', '655953213333', '0', NULL, 1, '2021-01-18', NULL, '2021-01-18 21:58:00'),
 (208, '02021208', 'police', 'police', NULL, '1982-05-12', 1556, 'M', 'C', 'rue 3 blida', 287, 9, '0555555555', '', NULL, NULL, 'O', '+', '245767249874', '0', NULL, 1, '2021-01-19', NULL, '2021-01-19 15:41:29'),
-(210, '02021210', 'davis', 'moh', NULL, '1937-01-14', 1556, 'M', 'M', 'CITE DE POLICE BT E/2 N 08 BOUZAREAH ALGER', 1556, 6, '0555555555', '', NULL, NULL, 'O', '+', '370033012963', '0', NULL, 1, '2021-01-19', NULL, '2021-01-19 18:55:50');
+(210, '02021210', 'davis', 'moh', NULL, '1937-01-14', 1556, 'M', 'M', 'CITE DE POLICE BT E/2 N 08 BOUZAREAH ALGER', 613, 16, '0555555555', '', NULL, NULL, 'O', '+', '370033012963', '0', NULL, 1, '2021-01-25', NULL, '2021-01-19 18:55:50');
 
 -- --------------------------------------------------------
 
@@ -11754,7 +11774,7 @@ CREATE TABLE IF NOT EXISTS `traitements` (
   `duree` int(11) NOT NULL,
   `visite_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `traitements`
@@ -11765,7 +11785,9 @@ INSERT INTO `traitements` (`id`, `med_id`, `posologie`, `periodes`, `duree`, `vi
 (38, 48, '4 comprime par jour', '[\"Matin\", \"Soir\"]', 3, 1165),
 (35, 77, '5 comprime par jour', '[\"Matin\", \"Soir\"]', 5, 1158),
 (37, 24, '6 comprime par jour', '[\"Matin\", \"Midi\"]', 4, 1140),
-(36, 404, '7 comprime par jour', '[\"Matin\", \"Soir\"]', 4, 1155);
+(36, 404, '7 comprime par jour', '[\"Matin\", \"Soir\"]', 4, 1155),
+(43, 17, '3 comprime par jour', '[\"Matin\", \"Soir\"]', 1, 1185),
+(44, 424, '1 comprime par jour', '[\"Matin\", \"Soir\"]', 2, 1185);
 
 -- --------------------------------------------------------
 
@@ -11847,7 +11869,7 @@ CREATE TABLE IF NOT EXISTS `visites` (
   PRIMARY KEY (`id`),
   KEY `visites_id_hosp_foreign` (`id_hosp`),
   KEY `visites_id_employe_foreign` (`id_employe`)
-) ENGINE=MyISAM AUTO_INCREMENT=1180 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=1186 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `visites`
@@ -12004,7 +12026,13 @@ INSERT INTO `visites` (`id`, `date`, `heure`, `id_hosp`, `id_employe`, `created_
 (1017, '2021-01-03', '11:42:00', 1, 102, NULL, NULL),
 (1016, '2021-01-03', '11:41:00', 1, 102, NULL, NULL),
 (1015, '2021-01-03', '11:41:00', 1, 102, NULL, NULL),
-(1165, '2021-01-04', '20:11:00', 1, 102, NULL, NULL);
+(1165, '2021-01-04', '20:11:00', 1, 102, NULL, NULL),
+(1185, '2021-01-26', '16:37:00', 2, 102, NULL, NULL),
+(1184, '2021-01-26', '11:25:00', 1, 102, NULL, NULL),
+(1183, '2021-01-25', '21:38:00', 1, 102, NULL, NULL),
+(1182, '2021-01-25', '21:37:00', 1, 102, NULL, NULL),
+(1181, '2021-01-23', '11:39:00', 1, 102, NULL, NULL),
+(1180, '2021-01-23', '11:38:00', 1, 102, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12106,7 +12134,8 @@ ALTER TABLE `admissions`
 -- Contraintes pour la table `antecedants`
 --
 ALTER TABLE `antecedants`
-  ADD CONSTRAINT `fk_Antecedant_Patient1` FOREIGN KEY (`Patient_ID_Patient`) REFERENCES `patients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Antecedant_Patient1` FOREIGN KEY (`Patient_ID_Patient`) REFERENCES `patients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_code_cim10` FOREIGN KEY (`cim_code`) REFERENCES `cim10`.`maladies` (`CODE_DIAG`);
 
 --
 -- Contraintes pour la table `appareil_examen_cliniques`
@@ -12142,7 +12171,8 @@ ALTER TABLE `communes`
 --
 ALTER TABLE `consultations`
   ADD CONSTRAINT `fk_Consultation_Employe1` FOREIGN KEY (`Employe_ID_Employe`) REFERENCES `employs` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Consultation_Patient1` FOREIGN KEY (`Patient_ID_Patient`) REFERENCES `patients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Consultation_Patient1` FOREIGN KEY (`Patient_ID_Patient`) REFERENCES `patients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_code_CIM` FOREIGN KEY (`id_code_sim`) REFERENCES `cim10`.`maladies` (`CODE_DIAG`);
 
 --
 -- Contraintes pour la table `dairas`
@@ -12162,6 +12192,12 @@ ALTER TABLE `demandeexb_examenbio`
 --
 ALTER TABLE `facteurs_generaux`
   ADD CONSTRAINT `fk_patient` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Contraintes pour la table `hospitalisations`
+--
+ALTER TABLE `hospitalisations`
+  ADD CONSTRAINT `fk_cim` FOREIGN KEY (`ccimdiagSortie`) REFERENCES `cim10`.`maladies` (`CODE_DIAG`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
