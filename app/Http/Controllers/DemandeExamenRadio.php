@@ -103,10 +103,20 @@ class DemandeExamenRadio extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-     public function edit($id){
-          $demande = demandeexr::FindOrFail($id);
-          return view('examenradio.edit', compact('demande')); 
-     }
+    public function edit($id){
+      $demande = demandeexr::FindOrFail($id);
+      foreach ($demande->examensradios as $key => $exam) {
+        $exams = explode (',',$exam->pivot->examsRelatif);
+        //dd($exam->pivot->examsRelatif);
+         echo((exmnsrelatifdemande::FindOrFail($exam->pivot->examsRelatif))->nom);
+          echo("<br>"); 
+       
+                             
+
+      }
+      dd("fg");
+      return view('examenradio.edit', compact('demande')); 
+    }
     /**
      * Update the specified resource in storage.
      *

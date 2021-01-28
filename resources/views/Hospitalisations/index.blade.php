@@ -153,7 +153,7 @@
 	});
 	}
 	$('document').ready(function(){
-          getHospitalisations("etat_hosp",'');
+        getHospitalisations("etat_hosp",'');
       	$('.filter').change(function(){
                	if($(this).attr('id') != "patientName")
                      getHospitalisations($(this).attr('id'),$(this).val());
@@ -207,29 +207,17 @@
                } 
           });
           $(document).on('click', '#selctetat', function(event){
-               var selectDocm=$(this).text();
-               $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                var formData = {
-                      hosp_id: $('#hospID').val(),
-                      selectDocm :selectDocm,
-                };
-                $.ajax({
-                    type: "POST",
-                    url: "/etatSortie/print",
-                    data: formData,
-                    // dataType:'json',
-                    success: function (data){
-                          // $('#iframe-pdf').contents().find('html').html(data.html);  // jQuery('#OrdonModal').modal('toggle');
-                          $('#EtatSortie').modal('toggle');
-                      },
-                    error: function (data) {
-                      console.log('Error:', data);
-                    }
-                });
+              event.preventDefault();
+              var selectDocm=$(this).text();
+              var formData = {
+                    hosp_id: $('#hospID').val(),
+                    selectDocm :selectDocm,
+              };
+              $.ajax({
+                type : 'get',
+                url : '{{URL::to('imprimerEtatSortie')}}',
+                data:formData,
+              }); 
            });
 	});
 </script>

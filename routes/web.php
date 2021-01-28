@@ -89,7 +89,10 @@ Route::get('/getUrgdemande/{date}','DemandeHospitalisationController@getUrgDeman
 Route::get('/listeRDVs', 'RdvHospiController@getlisteRDVs');
 Route::post('/hospitalisation/{id}','HospitalisationController@update');
 Route::get('/getHospitalisations','HospitalisationController@getHospitalisations');
-Route::post('/etatSortie/print','HospitalisationController@print')->name('printReport');
+
+// Route::post('/etatSortie/print','HospitalisationController@print')->name('printReport');
+Route::get('/imprimerEtatSortie','HospitalisationController@imprimer')->name('imprimerReport');
+
 Route::post('users/changePassword', 'UsersController@changePassword');
 Route::post('/users/store/','UsersController@store');
 Route::get('/searchAssure','AssurController@search');
