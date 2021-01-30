@@ -217,6 +217,9 @@
                 type : 'get',
                 url : '{{URL::to('imprimerEtatSortie')}}',
                 data:formData,
+                    success(data){
+                      $('#EtatSortie').toggle();
+                },
               }); 
            });
 	});
@@ -279,8 +282,6 @@
 </div>
 </div>
 <div class="row">@include('hospitalisations.ModalFoms.sortieModal')</div>
-<div class="row">@include('hospitalisations.ModalFoms.EtatSortie')</div>
-<div class="row">@include('hospitalisations.EtatsSortie.PrintModal')</div>
-<div class="row">@include('cim10.cimModalForm')</div>
-
+<div class="row">@include('hospitalisations.ModalFoms.EtatSortie')</div>{{-- <div class="row">@include('hospitalisations.EtatsSortie.PrintModal')</div>--}}
+ <div class="row">@include('cim10.cimModalForm')</div>
 @endsection
