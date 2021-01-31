@@ -51,9 +51,7 @@ class DemandeExamenRadio extends Controller
       $consultation = consultation::FindOrFail($id);
       return view('examenradio.demande_exr', compact('consultation','infossupp','examens','examensradio'));
     }
-
     public function index(){}
-
     /**
      * Show the form for creating a new resource.
      *
@@ -69,23 +67,23 @@ class DemandeExamenRadio extends Controller
      */
     public function store(Request $request, $consultID)
     {
-          $demande = demandeexr::FirstOrCreate([
-                 "Date" => Date::now(),
-                 "InfosCliniques" => $request->infosc,
-                 "Explecations" => $request->explication,
-                 "id_consultation" => $consultID,
-           ]);
-          $examsImagerie = json_decode ($request->ExamsImg);
-          foreach ($examsImagerie as $key => $value) {       
-                $demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);   //$demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => json_encode($value->types)]);
-          }
-          if(isset($request->infos))
-          {
-                foreach ($request->infos as $id_info) {
-                     $demande->infossuppdemande()->attach($id_info);
-                }
-          }
-     }
+      $demande = demandeexr::FirstOrCreate([
+             "Date" => Date::now(),
+             "InfosCliniques" => $request->infosc,
+             "Explecations" => $request->explication,
+             "id_consultation" => $consultID,
+      ]);
+      $examsImagerie = json_decode ($request->ExamsImg);
+      foreach ($examsImagerie as $key => $value) {       
+            $demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);   //$demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => json_encode($value->types)]);
+      }
+      if(isset($request->infos))
+      {
+        foreach ($request->infos as $id_info) {
+             $demande->infossuppdemande()->attach($id_info);
+        }
+      }
+    }
     /**
      * Display the specified resource.
      *
@@ -105,16 +103,6 @@ class DemandeExamenRadio extends Controller
      */
     public function edit($id){
       $demande = demandeexr::FindOrFail($id);
-      foreach ($demande->examensradios as $key => $exam) {
-        $exams = explode (',',$exam->pivot->examsRelatif);
-        //dd($exam->pivot->examsRelatif);
-         echo((exmnsrelatifdemande::FindOrFail($exam->pivot->examsRelatif))->nom);
-          echo("<br>"); 
-       
-                             
-
-      }
-      dd("fg");
       return view('examenradio.edit', compact('demande')); 
     }
     /**
@@ -132,7 +120,8 @@ class DemandeExamenRadio extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id){ }
+    public function destroy($id){
+     }
     public function print($id)//imprime
     {
         $demande = demandeexr::FindOrFail($id); 

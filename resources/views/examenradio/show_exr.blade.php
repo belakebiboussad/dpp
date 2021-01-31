@@ -1,9 +1,6 @@
 @extends('app')
 @section('main-content')
-<div class="page-header" width="100%">
-  <?php $patient = $demande->consultation->patient; ?> 
-    @include('patient._patientInfo')        
-</div>
+<div class="page-header" width="100%"><?php $patient = $demande->consultation->patient; ?>@include('patient._patientInfo')</div>
 <div class="content">
   <div class="row">
     <div class="col-sm-3"></div> <div class="col-sm-3"></div> <div class="col-sm-3"></div>
@@ -20,7 +17,7 @@
     <div class="col-xs-12 widget-container-col" id="consultation">
       <div class="widget-box" id="infopatient">
         <div class="widget-header">
-          <h5 class="widget-title"><b>Détails de la demande des examens Radiologiques :</b></h5>
+          <h4 class="widget-title"><b>Détails de la demande des examens Radiologiques :</b></h4>
         </div>
         <div class="widget-body">
           <div class="widget-main">

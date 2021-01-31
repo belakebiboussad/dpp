@@ -5,15 +5,15 @@
 <div class="pull-right">
 	<a href="{{route('hospitalisation.edit',$hosp->id )}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-edit bigger-120 blue"></i>Edit</a>
 </div>
-<div class="row"><h3>Détails de l'hospitalisation :</h3> </div>
+<div class="row"><h3>Détails de l'hospitalisation :</h3></div>
 <div class="tabbable"  class="user-profile">
 	<ul class="nav nav-tabs padding-18">
 		<li class="active">
-			<a data-toggle="tab" href="#hospi"><i class="green ace-icon fa fa-user bigger-120"></i>Hospitalisation</a>
+			<a data-toggle="tab" href="#hospi">Hospitalisation</a>
 		</li>
 		@if(in_array(Auth::user()->role_id,[1,14]))
 		<li >
-			<a data-toggle="tab" href="#visites"><i class="green ace-icon fa fa-user bigger-120"></i>Visites</a>
+			<a data-toggle="tab" href="#visites">Visites</a>
 		</li>
 		@endif
 	</ul>

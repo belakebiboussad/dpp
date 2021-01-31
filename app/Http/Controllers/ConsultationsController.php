@@ -31,6 +31,7 @@ use App\modeles\examenradiologique;
 use App\modeles\demandeexr;
 use App\modeles\CIM\chapitre;
 use App\modeles\facteurRisqueGeneral;
+use App\modeles\Etatsortie;
 use Validator;
 use Response;
 class ConsultationsController extends Controller
@@ -42,8 +43,10 @@ class ConsultationsController extends Controller
       $this->LettreOrientationCTRL = $LettreOrientationCtrl;
     }
     public function index()
-    { 
-      return view('consultations.index');
+    {
+      $etatsortie = Etatsortie::where('type',null)->get();
+      //dd($etatsortie);
+      return view('consultations.index', compact('etatsortie'));
     }
     public function detailcons($id_cons)
     { 
@@ -178,12 +181,9 @@ class ConsultationsController extends Controller
      */
       public function show($id)
       {
-           $consultation = consultation::with('patient','docteur')->FindOrFail($id);
-           //dd($consultation->examensCliniques);
-           $patient = patient::FindOrFail($consultation->Patient_ID_Patient);
-           $antecedants = antecedant::where('Patient_ID_Patient',$patient->id)->get();
-           return view('consultations.show', compact('consultation')); //return view('consultations.show_consultation', compact('consultation','patient','antecedants'));
-          
+        $consultation = consultation::with('patient','docteur')->FindOrFail($id);
+        return view('consultations.show', compact('consultation'));
+
       }
     /**
      * Show the form for editing the specified resource.

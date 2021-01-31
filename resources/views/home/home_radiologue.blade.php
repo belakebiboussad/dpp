@@ -7,7 +7,7 @@
 			<div class="col-sm-10 col-sm-offset-1">
 				<div class="widget-box transparent">
 					<div class="widget-header widget-header-large">
-						<h3 class="widget-title grey lighter"><i class="ace-icon fa fa-leaf green"></i>Liste des Demandes</h3>
+						<h3 class="widget-title grey lighter"><i class="ace-icon fa fa-table"></i>Liste des Demandes</h3>
 					</div>
 					<div class="widget-body">
 						<div class="widget-main padding-24">
@@ -28,11 +28,12 @@
 											@foreach($demandesexr as $index => $exr)
 												<tr>
 													<td class="center">{{ $index + 1 }}</td>
-													<td>{{ $exr->Date }}</td>
-													<td>{{ $exr->consultation->docteur->nom }}{{ $exr->consultation->docteur->prenom }}</td>
-													<td>{{ $exr->consultation->patient->Nom }}{{ $exr->consultation->patient->Prenom }}
+													<td>{{ $exr->consultation->Date_Consultation }}</td>
+													<td>{{ $exr->consultation->docteur->nom }} {{ $exr->consultation->docteur->prenom }}</td>
+													<td>{{ $exr->consultation->patient->Nom }} {{ $exr->consultation->patient->Prenom }}
 													</td>
 													<td>
+														<span class="badge badge-primary">
 														@if($exr->etat == "E")
 															En Attente
 														@elseif($exr->etat == "V")
@@ -40,10 +41,11 @@
 														@else
 															Rejeté
 														@endif
+														</span>
 													</td>
 													<td class="center">
-													 	<a href="{{ route('demandeexr.show', $exr->id) }}"><i class="fa fa-eye"></i></a>
-			              				<a href="/details_exr/{{ $exr->id}}">	<i class="glyphicon glyphicon-upload glyphicon glyphicon-white" title="attacher résultat"></i></a>
+													 	<a href="{{ route('demandeexr.show', $exr->id) }}" class="btn btn-xs btn-secondary"><i class="fa fa-hand-o-up fa-xs"></i></a>
+			              				<a href="/details_exr/{{ $exr->id}}" class="btn btn-xs btn-info">	<i class="glyphicon glyphicon-upload glyphicon glyphicon-white" title="attacher résultat"></i></a>
 													</td>
 												</tr>
 											@endforeach

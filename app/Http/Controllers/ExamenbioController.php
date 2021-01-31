@@ -21,7 +21,6 @@ class ExamenbioController extends Controller
     public function index($id)
     {
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -30,7 +29,6 @@ class ExamenbioController extends Controller
     public function create()
     {
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -38,30 +36,30 @@ class ExamenbioController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request,$consultID){
-             if($request->AutreBiol != null)  //save examen biologique autre 
-             {
-                $tags = explode(",", $request->AutreBiol);
-                foreach($tags as $k=>$v){    
-                     examenbiologique::create([
-                                "id_consultation"=>$consultID,
-                                "classe"=>"Autre",
-                                "nom"=>$v
-                            ]);
-                    }
-            }
-             if($request->exambio != null)
-            {
-                 foreach($request->exambio as $k=>$v){  
-                      foreach($v as $value)
-                    {
-                             examenbiologique::create([
-                                "id_consultation"=>$consultID,
-                                "classe"=>$k,
-                                "nom"=>$value,
-                            ]);
-                        }
-                 }
+       if($request->AutreBiol != null)  //save examen biologique autre 
+       {
+          $tags = explode(",", $request->AutreBiol);
+          foreach($tags as $k=>$v){    
+               examenbiologique::create([
+                          "id_consultation"=>$consultID,
+                          "classe"=>"Autre",
+                          "nom"=>$v
+                      ]);
               }
+      }
+       if($request->exambio != null)
+      {
+           foreach($request->exambio as $k=>$v){  
+                foreach($v as $value)
+              {
+                       examenbiologique::create([
+                          "id_consultation"=>$consultID,
+                          "classe"=>$k,
+                          "nom"=>$value,
+                      ]);
+                  }
+           }
+        }
     }
      /**
      * Display the specified resource.
@@ -99,11 +97,12 @@ class ExamenbioController extends Controller
         dd($examid);   
         // dd($id);
     }*/
-     public function destroy($id)
-     { 
-          $ids = explode("|", $id);
-          $demande = demandeexb::FindOrFail($ids[1]); //$examen = examenbiologique::FindOrFail($ids[0]);
-         $demande->examensbios()->detach($ids[0]); //dd($demande->examensbios);
-         return redirect()->action('DemandeExbController@edit',$ids[1]);
+    public function destroy($id)
+    { 
+      $ids = explode("|", $id);
+      dd($id);
+      // $demande = demandeexb::FindOrFail($ids[1]); //$examen = examenbiologique::FindOrFail($ids[0]);
+      // $demande->examensbios()->detach($ids[0]); //dd($demande->examensbios);
+      // return redirect()->action('DemandeExbController@edit',$ids[1]);
     }
 }

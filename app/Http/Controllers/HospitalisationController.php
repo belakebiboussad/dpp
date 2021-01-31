@@ -35,23 +35,16 @@ class HospitalisationController extends Controller
     }
     public function index()
     {  
-          $etatsortie = Etatsortie::where('type','0')->get();
-           $chapitres = chapitre::all();
-          if(Auth::user()->role_id != 9 )//9:admission
-                $hospitalisations = hospitalisation::whereHas('admission.rdvHosp.demandeHospitalisation.Service',function($q){
-                                                  $q->where('id',Auth::user()->employ->service);  
-                                               })->where('etat_hosp','=','en cours')->get();
-          else
-                $hospitalisations = hospitalisation::where('etat_hosp','=','en cours')->get();
-          /*foreach ($hospitalisations as $key => $hosp) {
-                foreach($hosp->visites as $visite){
-                     foreach($visite->traitements as $trait ){
-                         echo($trait->medicament->nom);
-                     }
-                }
-          }
-          dd("fg");*/
-          return view('hospitalisations.index', compact('hospitalisations','etatsortie','chapitres'));
+      $etatsortie = Etatsortie::where('type','0')->get();
+      $chapitres = chapitre::all();
+      if(Auth::user()->role_id != 9 )//9:admission
+            $hospitalisations = hospitalisation::whereHas('admission.rdvHosp.demandeHospitalisation.Service',function($q){
+                                              $q->where('id',Auth::user()->employ->service);  
+                                           })->where('etat_hosp','=','en cours')->get();
+      else
+            $hospitalisations = hospitalisation::where('etat_hosp','=','en cours')->get();
+      
+      return view('hospitalisations.index', compact('hospitalisations','etatsortie','chapitres'));
     }
     /**
      * Show the form for creating a new resource.

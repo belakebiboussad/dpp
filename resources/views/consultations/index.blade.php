@@ -4,14 +4,14 @@
 function getConsultations(field,value)
 {
 	$.ajax({
-          url : '{{ URL::to('getConsultations') }}',
-          data: {    
-           "field":field,
-           "value":value,
+        url : '{{ URL::to('getConsultations') }}',
+        data: {    
+         "field":field,
+         "value":value,
      },
      dataType: "json",// recommended response type
     	success: function(data) {
-             $(".numberResult").html(data.length);  // $(".numberResult").html(Object.keys(data).length);
+             $(".numberResult").html(data.length);
                $("#liste_conultations").DataTable ({
                    "processing": true,
                    "paging":   true,
@@ -55,9 +55,11 @@ function getConsultations(field,value)
       }
 	});
 }
- function getAction(data, type, dataToSet) {
-     var actions =  '<a href = "/consultations/'+data.id+'" style="cursor:pointer" class="btn btn-secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>' ;
-      return actions;
+function getAction(data, type, dataToSet) {
+  alert(typeof(data.prototype.CLASSNAME));
+  var actions = '<a href = "/consultations/'+data.id+'" style="cursor:pointer" class="btn btn-secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>';
+  actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat('+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';
+  return actions;
 }
 $('document').ready(function(){
     getConsultations("Date_Consultation",'<?= date("Y-m-j") ?>');
@@ -115,4 +117,5 @@ $('document').ready(function(){
 	 </div> <!-- widget-box -->
 </div>
 </div>
+@include('hospitalisations.ModalFoms.EtatSortie')
 @endsection

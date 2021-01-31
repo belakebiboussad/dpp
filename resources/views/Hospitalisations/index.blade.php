@@ -15,44 +15,6 @@
 .ui-timepicker-container {
       z-index: 3500 !important;
  }
- ol {list-style: none; counter-reset: li}
-.rounded-list button{
-    position: relative;
-    display: block;
-    padding: .4em .4em .4em 2em;
-    padding: .4em;
-    margin: .5em 0;
-    background: #ddd;
-    color: #444;
-    text-decoration: none;
-    border-radius: .3em;
-    transition: all .3s ease-out;
-  }
-  .rounded-list button:hover{
-    background: #eee;
-  }
-
-  .rounded-list button:hover:before{
-    transform: rotate(360deg);
-  }
-
-  .rounded-list button:before{
-    content: counter(li);
-    counter-increment: li;
-    position: absolute;
-    left: -1.3em;
-    top: 50%;
-    margin-top: -1.3em;
-    background: #87ceeb;
-    height: 2em;
-    width: 2em;
-    line-height: 2em;
-    border: .3em solid #fff;
-    text-align: center;
-    font-weight: bold;
-    border-radius: 2em;
-    transition: all .3s ease-out;
-  }
  </style>
  @endsection
 @section('page-script')
@@ -63,12 +25,7 @@
            $('#sortieHosp').modal('show');
            $('#Heure_sortie').timepicker({ template: 'modal' });
     }
-    function ImprimerEtat(hospID)
-    { 
-           $("#hospID").val( hospID );
-           $('#EtatSortie').modal('show'); // $('#Heure_sortie').timepicker({ template: 'modal' });
-    }
-    function getMedecin (data, type, dataToSet) {
+     function getMedecin (data, type, dataToSet) {
           return data['admission']['demande_hospitalisation']['Demeande_colloque']['medecin']['nom']; 
      }
      function getAction(data, type, dataToSet) {  
@@ -91,13 +48,13 @@
       }
      function getHospitalisations(field,value)
 	{
-          	$.ajax({
-                url : '{{URL::to('getHospitalisations')}}',
-                data: {    
-                   "field":field,
-                   "value":value,
-          },
-          dataType: "json",// recommended response type
+        $.ajax({
+              url : '{{URL::to('getHospitalisations')}}',
+              data: {    
+                 "field":field,
+                 "value":value,
+        },
+        dataType: "json",// recommended response type
       	success: function(data) {
                 $(".numberResult").html(data.length);  // $(".numberResult").html(Object.keys(data).length);
                 $("#liste_hosptalisations").DataTable ({
@@ -153,75 +110,75 @@
 	});
 	}
 	$('document').ready(function(){
-        getHospitalisations("etat_hosp",'');
-      	$('.filter').change(function(){
-               	if($(this).attr('id') != "patientName")
-                     getHospitalisations($(this).attr('id'),$(this).val());
-          });
-      	$('.filter').keyup(function(){
-      		       getHospitalisations($(this).attr('id'),$(this).val()) 
-      	});
-          $('#modeSortie').change(function(){
-                if($(this).val()==="0")
-                {
-                     if($('#structure').hasClass('hidden'))
-                          $('#structure').removeClass('hidden');
-                }else{
-                     if(! ($('#structure').hasClass('hidden')))
-                          $('#structure').addClass('hidden');
-                } 
-          });
-          jQuery('#saveCloturerHop').click(function () {
-                (jQuery('#modeSortie').val() === '') ? null : jQuery('#modeSortie').val();
-                var formData = {
-                     id                      : $("#hospID").val(),
-                     Date_Sortie        : jQuery('#Date_SortieH').val(),
-                     Heure_sortie       : jQuery('#Heure_sortie').val(),
-                     modeSortie         :jQuery('#modeSortie').val(),
-                     remumeSortie     : $('#remumeSortie').val(),
-                     etatSortie            : $('#etatSortie').val(),
-                     diagSortie           : $("#diagSortie").val(),
-                     ccimdiagSortie    : $("#ccimdiagSortie").val(),
-                     strucTransfert     : $("#strucTransfert").val(),
-                     etat_hosp            :'Cloturé',
-                };
-                if(!($("#Date_Sortie").val() == ''))
-                {
-                    if($('.dataTables_empty').length > 0)
-                          $('.dataTables_empty').remove();
-                          $.ajax({
-                                headers: {
-                                       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                               },
-                                type: "POST",
-                                url: '/hospitalisation/'+$("#hospID").val(),//'hospitalisation/'+ $("#hospID").val(),
-                                data: formData,
-                                dataType: 'json',
-                                success: function (data) {
-                                  $("#hospi" + data.id).remove();
-                                },
-                                error: function (data){
-                                      console.log('Error:', data);
-                                },
-                     })
-               } 
-          });
-          $(document).on('click', '#selctetat', function(event){
-              event.preventDefault();
-              var selectDocm=$(this).text();
+      getHospitalisations("etat_hosp",'');
+    	$('.filter').change(function(){
+             	if($(this).attr('id') != "patientName")
+                   getHospitalisations($(this).attr('id'),$(this).val());
+        });
+    	$('.filter').keyup(function(){
+    		       getHospitalisations($(this).attr('id'),$(this).val()) 
+    	});
+        $('#modeSortie').change(function(){
+              if($(this).val()==="0")
+              {
+                   if($('#structure').hasClass('hidden'))
+                        $('#structure').removeClass('hidden');
+              }else{
+                   if(! ($('#structure').hasClass('hidden')))
+                        $('#structure').addClass('hidden');
+              } 
+        });
+        jQuery('#saveCloturerHop').click(function () {
+              (jQuery('#modeSortie').val() === '') ? null : jQuery('#modeSortie').val();
               var formData = {
-                    hosp_id: $('#hospID').val(),
-                    selectDocm :selectDocm,
+                   id                      : $("#hospID").val(),
+                   Date_Sortie        : jQuery('#Date_SortieH').val(),
+                   Heure_sortie       : jQuery('#Heure_sortie').val(),
+                   modeSortie         :jQuery('#modeSortie').val(),
+                   remumeSortie     : $('#remumeSortie').val(),
+                   etatSortie            : $('#etatSortie').val(),
+                   diagSortie           : $("#diagSortie").val(),
+                   ccimdiagSortie    : $("#ccimdiagSortie").val(),
+                   strucTransfert     : $("#strucTransfert").val(),
+                   etat_hosp            :'Cloturé',
               };
-              $.ajax({
-                type : 'get',
-                url : '{{URL::to('imprimerEtatSortie')}}',
-                data:formData,
-                    success(data){
-                      $('#EtatSortie').toggle();
-                },
-              }); 
-           });
+              if(!($("#Date_Sortie").val() == ''))
+              {
+                  if($('.dataTables_empty').length > 0)
+                        $('.dataTables_empty').remove();
+                        $.ajax({
+                              headers: {
+                                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                             },
+                              type: "POST",
+                              url: '/hospitalisation/'+$("#hospID").val(),//'hospitalisation/'+ $("#hospID").val(),
+                              data: formData,
+                              dataType: 'json',
+                              success: function (data) {
+                                $("#hospi" + data.id).remove();
+                              },
+                              error: function (data){
+                                    console.log('Error:', data);
+                              },
+                   })
+             } 
+        });
+        $(document).on('click', '#selctetat', function(event){
+            event.preventDefault();
+            var selectDocm=$(this).text();
+            var formData = {
+                  hosp_id: $('#objID').val(),
+                  selectDocm :selectDocm,
+            };
+            $.ajax({
+              type : 'get',
+              url : '{{URL::to('imprimerEtatSortie')}}',
+              data:formData,
+                  success(data){
+                    $('#EtatSortie').toggle();
+              },
+            }); 
+        });
 	});
 </script>
 @endsection
@@ -283,5 +240,5 @@
 </div>
 <div class="row">@include('hospitalisations.ModalFoms.sortieModal')</div>
 <div class="row">@include('hospitalisations.ModalFoms.EtatSortie')</div>{{-- <div class="row">@include('hospitalisations.EtatsSortie.PrintModal')</div>--}}
- <div class="row">@include('cim10.cimModalForm')</div>
+<div class="row">@include('cim10.cimModalForm')</div>
 @endsection

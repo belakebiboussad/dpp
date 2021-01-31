@@ -5,11 +5,12 @@
 	    		<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Générer un document patient</h4>
 	  	</div>
 	  	<div class="modal-body">
-	  		<input type="hidden" id="hospID" value="">
-	  		<div class="row"> <div class="col-xs-12"><h4 class="header blue bolder smaller">Sélectionner Le document </h4></div></div>
+	  		<input type="hidden" id="obClass" value="">
+	  		<input type="hidden" id="objID" value="">
+				<div class="row"> <div class="col-xs-12"><h4 class="header blue bolder smaller">Sélectionner Le document </h4></div></div>
 				<div class="hr hr-dotted"></div>
 				<div style="width:100%;">
-			    <div id = "parent">         
+			    <div id = "parent">  
 			     <ol class="rounded-list btn-group btn-group-vertical" role="group">
 				  	@foreach($etatsortie as $etat)
 				  		<li class="btn-group" role="group" style="padding-top: 5px">{{-- href="docStatePrint/{{$etat->id}}" target="_blank" --}}
@@ -27,6 +28,7 @@
 				  			@case (4)
 				  				<button type="button" id="selctetat" class="btn btn-danger btn-lg"><strong>{{ $etat->titre}}</strong></button> 
 				  				@break
+				  			@default
 				  		@endswitch
 		        			</li>
  	  		  		@endforeach 

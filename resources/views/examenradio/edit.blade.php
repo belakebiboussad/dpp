@@ -2,7 +2,7 @@
 @section('main-content')
 <div class="row" width="100%"><?php $patient = $demande->consultation->patient; ?> @include('patient._patientInfo')</div>
 <div class="space-12"></div>
- <h3 style="display: inline;"><strong>Modifier la demande :</strong></h3>
+ <h3 style="display: inline;"><strong>Modifier la demande d'examens Radiologiques ::</strong></h3>
  <div class="content">
   <div class="row">
     <div class="col-sm-3"></div> <div class="col-sm-3"></div> <div class="col-sm-3"></div>
@@ -18,9 +18,7 @@
   <div class="row">
     <div class="col-xs-12 widget-container-col" id="consultation">
       <div class="widget-box" id="infopatient">
-        <div class="widget-header">
-          <h5 class="widget-title"><b>Demande des examens Radiologiques :</b></h5>
-        </div>
+        <div class="widget-header"><h5 class="widget-title"><b>Demande des examens Radiologiques :</b></h5></div>
         <div class="widget-body">
           <div class="widget-main">
             <div class="row">
@@ -68,21 +66,19 @@
                     <tbody>
 	                    @foreach ($demande->examensradios as $index => $examen)
 	                    <tr>
-		                     <td class="center">{{ $index + 1 }}</td>
-		                     <td>{{ $examen->nom }}</td>
-		                     <td>
-			                        <?php $exams = explode (',',$examen->pivot->examsRelatif) ?>
-			                        @foreach($exams as $id)
-			                        <span class="badge badge-success">{{ App\modeles\exmnsrelatifdemande::FindOrFail($id)->nom}}</span>
-			                        @endforeach
-		                     </td>
-		                     <td>
-		                      		 <?php $id =$exm->id.'|'.$demande->id ?>
-			                             <form method="POST" action="{{ route('.destroy', [ 'id'=>$id]) }}">
-			                              <input type="hidden" name="_token" value="{{ csrf_token() }}"><input type="hidden" name="_method" value="DELETE">
-			                              <button type="submit" class="btn  btn-danger btn-xs"><i class="ace-icon fa fa-trash-o bigger-120"></i></button>
-			                            </form><?php $id =$exm->id.'|'.$demande->id ?>
-		                      </td>
+		                    <td class="center">{{ $index + 1 }}</td>
+		                    <td>{{ $examen->nom }}</td>
+		                    <td>
+                          <span class="badge badge-success">{{ (App\modeles\exmnsrelatifdemande::FindOrFail($examen->pivot->examsRelatif))->nom }}
+		                    </td>
+                        <td class ="center">
+                          <?php $id =$examen->id.'|'.$demande->id ?>
+                          <form method="POST" action="{{ route('demandeexr.destroy', [ 'id'=>$id]) }}">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}"><input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn  btn-danger btn-xs"><i class="ace-icon fa fa-trash-o bigger-120"></i></button>
+                          </form>
+                        </td>
+  		                  <!-- ici -->
 	                    </tr>
 	                    @endforeach
                     </tbody>

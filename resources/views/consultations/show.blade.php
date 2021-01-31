@@ -7,12 +7,12 @@
 <div class="row"><h3>Détails  du la Consultation :</h3> </div> 
 <div class="tabbable"  class="user-profile">
       <ul class="nav nav-tabs padding-18">
-          <li class="active"><a data-toggle="tab" href="#Intero"><i class="green ace-icon fa fa-user bigger-120"></i>Interogatoire</a></li>
+          <li class="active"><a data-toggle="tab" href="#Intero">Interogatoire</a></li>
           @if(isset($consultation->examensCliniques->id) )
-          <li ><a data-toggle="tab" href="#ExamClin"><i class="green ace-icon fa fa-user bigger-120"></i>Examen Clinique</a> </li>
+          <li ><a data-toggle="tab" href="#ExamClin">Examen Clinique</a> </li>
           @endif
           @if((isset($consultation->demandeexmbio)) || (isset($consultation->examensradiologiques)) || (isset($consultation->examenAnapath)) || (isset($consultation->ordonnances)))
-          <li ><a data-toggle="tab" href="#ExamCompl"><i class="green ace-icon fa fa-user bigger-120"></i>Examen Complémentaire /Ordonnance</a></li>
+          <li ><a data-toggle="tab" href="#ExamCompl">Examen Complémentaire /Ordonnance</a></li>
           @endif
      </ul>
       <div class="tab-content no-border padding-24">
@@ -152,28 +152,28 @@
                      <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"> <strong><span style="font-size:18px;">Ordonnance</span></strong></div>
                 </div>
                 <div class="row">
-                     <div class="col-xs-11 widget-container-col" id="widget-container-col-2">
-                     <div class="widget-box widget-color-blue" id="widget-box-2">
-                          <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Ordonnance</h5> </div>
-                          <div class="widget-body">
+                  <div class="col-xs-11 widget-container-col" id="widget-container-col-2">
+                    <div class="widget-box widget-color-blue" id="widget-box-2">
+                      <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Ordonnance</h5> </div>
+                        <div class="widget-body">
                           <div class="widget-main no-padding">
-                               <table class="table table-striped table-bordered table-hover">
-                               <thead class="thin-border-bottom">
-                                     <tr>
-                                          <th class="center"><strong>#</strong></th>
-                                          <th class="center"><strong>Date</strong></th>
-                                          <th class="center"><em class="fa fa-cog"></em></th>
-                                     </tr>
+                            <table class="table table-striped table-bordered table-hover">
+                              <thead class="thin-border-bottom">
+                               <tr>
+                                  <th class="center"><strong>#</strong></th>
+                                  <th class="center"><strong>Date</strong></th>
+                                  <th class="center"><em class="fa fa-cog"></em></th>
+                               </tr>
                                </thead>
                                <tbody>
-                                    <tr>
-                                          <td></td>
-                                          <td>{{ $consultation->ordonnances->date }}</td>
-                                          <td class="center">
-                                            <a href="{{ route('ordonnace.show', $consultation->ordonnances->id) }}"> <i class="fa fa-eye"></i></a>
-                                            <a href="{{route("ordonnancePdf",$consultation->ordonnances->id)}}" target="_blank" class="btn btn-xs"><i class="fa fa-print"></i>&nbsp;</a>
-                                          </td>
-                                    </tr>
+                                <tr>
+                                  <td></td>
+                                  <td>{{ $consultation->ordonnances->date }}</td>
+                                  <td class="center">
+                                    <a href="{{ route('ordonnace.show', $consultation->ordonnances->id) }}" class ="btn btn-secondary btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
+                                    <a href="{{route("ordonnancePdf",$consultation->ordonnances->id)}}" target="_blank" class="btn btn-success btn-xs"><i class="fa fa-print"></i>&nbsp;</a>
+                                  </td>
+                                </tr>
                                </tbody>
                                </table>
                           </div>
