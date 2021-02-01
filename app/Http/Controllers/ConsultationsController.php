@@ -33,6 +33,7 @@ use App\modeles\CIM\chapitre;
 use App\modeles\facteurRisqueGeneral;
 use App\modeles\Etatsortie;
 use Carbon\Carbon;
+use PDF;
 use Validator;
 use Response;
 class ConsultationsController extends Controller
@@ -230,22 +231,21 @@ class ConsultationsController extends Controller
           }
 
     }
-    public function imprimer(Request $request)
-    {
-      $filename ="";
-      $date= Carbon::now()->format('Y-m-d');
-      $consult  = consultation::find($request->consult_id);  
-      view()->share('consult', $consult);
-      return($request->selectDocm);
-      switch($request->selectDocm) {
-            case "Certificat medical":
-              $filename = "CM-".$hosp->patient->Nom."-".$hosp->patient->Prenom.".pdf";
-              $pdf = PDF::loadView('hospitalisations.EtatsSortie.ResumeStandartSortiePDF', compact('hosp'));
-              break;
-            default:
-               return response()->json(['html'=>"unknown"]);
-               break;
-      }
-      return $pdf->download($filename); 
-    } 
+     public function imprimer(Request $request)
+     {
+          $filename ="";
+          $date= Carbon::now()->format('Y-m-d');
+          $consult  = consultation::find($request->consult_id);  
+          view()->share('consult', $consult);
+          switch($request->selectDocm) {
+                case "Certificat medical":
+                    $filename = "CM-".$consult->patient->Nom."-".$consult->patient->Prenom.".pdf";
+                    $pdf = PDF::loadView('consultations.EtatsSortie.CertificatMedicalePDF', compact('consult','date'));
+                    break;
+                default:
+                     return response()->json(['html'=>"unknown"]);
+                     break;
+          }
+          return $pdf->download($filename); 
+      } 
 }
