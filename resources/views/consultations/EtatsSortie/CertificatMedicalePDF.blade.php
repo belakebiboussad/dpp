@@ -109,10 +109,7 @@
         </div>
         <div class="space"></div><div class="space"></div>
         <div class="row"><div class="col-sm-12"><strong>je soussigné docteur  : </strong>
-
-          <span>{{ $consult->docteur->nom }}}</span>
        
-        
       </div>
     </body>
   </html>
