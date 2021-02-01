@@ -15,18 +15,6 @@
         border: 1px solid black;
         padding: 5px;
     }
-    .section
-    {
-      margin-bottom: 20px;
-    }
-    .sec-gauche
-    {
-      float: left;
-    }
-    .sec-droite
-    {
-      float: right;
-    }
     .center
     {
       text-align: center;
@@ -40,11 +28,6 @@
     }
     .mt-20{
       margin-top:-20px;
-    }
-    .foo{
-      position: absolute;
-      top: 90%;
-      right: 22%;
     }
     tr.noBorder td {
       border: 0;
@@ -87,7 +70,7 @@
             </tr>
             <tr class="noBorder">
                 <td class="first"><strong>Service</strong><span> &nbsp;&nbsp;{{ $hosp->admission->rdvHosp->demandeHospitalisation->Service->nom }}</span></td>
-                <td ><strong>Date d'entrée au Sce</strong><span> &nbsp;{{$hosp->Date_entree }}</span></td>
+                <td ><strong>Date d'entrée au Sce</strong><span> &nbsp;{{ $hosp->Date_entree }}</span></td>
                  <td><strong>Date de Sortie de Sce</strong><span> &nbsp;{{ $hosp->Date_Sortie }}</span></td>
             </tr>
            <tr><td colspan="3"></td></tr>

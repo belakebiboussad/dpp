@@ -235,17 +235,16 @@ class ConsultationsController extends Controller
      {
           $filename ="";$pdf;
           $date= Carbon::now()->format('Y-m-d');
-          $consult  = consultation::with('docteur')->find($request->consult_id);  
-          return $consult->docteur;
+          $consult  = consultation::find($request->consult_id);  
           view()->share('consult', $consult);
           switch($request->selectDocm) {
-                case "Certificat medical":
+                case "3":
                     $filename = "CM-".$consult->patient->Nom."-".$consult->patient->Prenom.".pdf";
                     $pdf = PDF::loadView('consultations.EtatsSortie.CertificatMedicalePDF', compact('consult','date'));
                     break;
                 default:
-                     return response()->json(['html'=>"unknown"]);
-                     break;
+                    return response()->json(['html'=>"unknown"]);
+                    break;
           }
           return $pdf->download($filename); 
       } 

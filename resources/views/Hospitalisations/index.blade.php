@@ -163,9 +163,9 @@
                    })
              } 
         });
-        $(document).on('click', '#selctetat', function(event){
+        $(document).on('click', '.selctetat', function(event){
             event.preventDefault();
-            var selectDocm=$(this).text();
+            var selectDocm=$(this).val();
             var formData = {
                   hosp_id: $('#objID').val(),
                   selectDocm :selectDocm,
