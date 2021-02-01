@@ -32,6 +32,7 @@ use App\modeles\demandeexr;
 use App\modeles\CIM\chapitre;
 use App\modeles\facteurRisqueGeneral;
 use App\modeles\Etatsortie;
+use Carbon\Carbon;
 use Validator;
 use Response;
 class ConsultationsController extends Controller
@@ -45,7 +46,6 @@ class ConsultationsController extends Controller
     public function index()
     {
       $etatsortie = Etatsortie::where('type',null)->get();
-      //dd($etatsortie);
       return view('consultations.index', compact('etatsortie'));
     }
     public function detailcons($id_cons)
@@ -53,37 +53,37 @@ class ConsultationsController extends Controller
       $consultation = consultation::FindOrFail($id_cons);
       return view('consultations.resume_cons', compact('consultation'));
     }
-       public function detailconsXHR(Request $request)
-       {
-          $consultation = consultation::FindOrFail($request->id);
-          $view =  view("consultations.inc_consult",compact('consultation'))->render();
-          return response()->json(['html'=>$view]);
-        }
-          public function listecons($id)
-          {
-                 $patient = patient::with('Consultations.patient','Consultations.docteur','Consultations.docteur.service')->FindOrFail($id);
-                return Response::json($patient->Consultations)->withHeaders(['patient' => $patient->Nom . " " . $patient->Prenom]);
-          }
-        /**
-       * Show the form for creating a new resource.
-       *
-        * @return \Illuminate\Http\Response
-       */
-        public function create(Request $request,$id_patient)
-        {
-          $employe=Auth::user()->employ;
-          $modesAdmission = config('settings.ModeAdmissions') ;
-          $patient = patient::FindOrFail($id_patient);//$codesim = codesim::all();
-          $chapitres = chapitre::all();
-          $services = service::all();
-          $meds = User::where('role_id',1)->get()->all();
-          $specialites = Specialite::orderBy('nom')->get();
-          $specialitesExamBiolo = specialite_exb::all();
-          $infossupp = infosupppertinentes::all();
-          $examens = exmnsrelatifdemande::all();//CT,RMN
-          $examensradio = examenradiologique::all();//pied,poignet
-          return view('consultations.create_consultation',compact('patient','employe','chapitres','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp','examens','examensradio'));
+    public function detailconsXHR(Request $request)
+    {
+      $consultation = consultation::FindOrFail($request->id);
+      $view =  view("consultations.inc_consult",compact('consultation'))->render();
+      return response()->json(['html'=>$view]);
     }
+    public function listecons($id)
+    {
+           $patient = patient::with('Consultations.patient','Consultations.docteur','Consultations.docteur.service')->FindOrFail($id);
+          return Response::json($patient->Consultations)->withHeaders(['patient' => $patient->Nom . " " . $patient->Prenom]);
+    }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create(Request $request,$id_patient)
+    {
+      $employe=Auth::user()->employ;
+      $modesAdmission = config('settings.ModeAdmissions') ;
+      $patient = patient::FindOrFail($id_patient);//$codesim = codesim::all();
+      $chapitres = chapitre::all();
+      $services = service::all();
+      $meds = User::where('role_id',1)->get()->all();
+      $specialites = Specialite::orderBy('nom')->get();
+      $specialitesExamBiolo = specialite_exb::all();
+      $infossupp = infosupppertinentes::all();
+      $examens = exmnsrelatifdemande::all();//CT,RMN
+      $examensradio = examenradiologique::all();//pied,poignet
+      return view('consultations.create_consultation',compact('patient','employe','chapitres','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp','examens','examensradio'));
+}
     /**
      * Store a newly created resource in storage.
      *
@@ -183,7 +183,6 @@ class ConsultationsController extends Controller
       {
         $consultation = consultation::with('patient','docteur')->FindOrFail($id);
         return view('consultations.show', compact('consultation'));
-
       }
     /**
      * Show the form for editing the specified resource.
@@ -213,8 +212,8 @@ class ConsultationsController extends Controller
     {
        return view('consultations.add');
     }
-     public function getConsultations(Request $request)
-     {
+    public function getConsultations(Request $request)
+    {
           if($request->ajax())  
           {         
                if($request->field != 'patientName')
@@ -230,5 +229,23 @@ class ConsultationsController extends Controller
                 return Response::json($consults);
           }
 
-     } 
+    }
+    public function imprimer(Request $request)
+    {
+      $filename ="";
+      $date= Carbon::now()->format('Y-m-d');
+      $consult  = consultation::find($request->consult_id);  
+      view()->share('consult', $consult);
+      return($request->selectDocm);
+      switch($request->selectDocm) {
+            case "Certificat medical":
+              $filename = "CM-".$hosp->patient->Nom."-".$hosp->patient->Prenom.".pdf";
+              $pdf = PDF::loadView('hospitalisations.EtatsSortie.ResumeStandartSortiePDF', compact('hosp'));
+              break;
+            default:
+               return response()->json(['html'=>"unknown"]);
+               break;
+      }
+      return $pdf->download($filename); 
+    } 
 }

@@ -77,6 +77,7 @@ Route::get('getConsultations/{id}','ConsultationsController@listecons');
 Route::get('/createConsultation','ConsultationsController@choix');
 Route::get('/choixpat','ConsultationsController@choix');
 Route::get('/getConsultations','ConsultationsController@getConsultations');
+Route::get('/imprimerEtatSortieConsult','ConsultationsController@imprimer');
 Route::post('/colloque/store/{id}','ColloqueController@store');// a revoir
 Route::put('/colloque/{membres,id_demh}', 'ColloqueController@store');// a revoir
 Route::get('/listecolloques/{type}','ColloqueController@index');
@@ -89,10 +90,7 @@ Route::get('/getUrgdemande/{date}','DemandeHospitalisationController@getUrgDeman
 Route::get('/listeRDVs', 'RdvHospiController@getlisteRDVs');
 Route::post('/hospitalisation/{id}','HospitalisationController@update');
 Route::get('/getHospitalisations','HospitalisationController@getHospitalisations');
-
-// Route::post('/etatSortie/print','HospitalisationController@print')->name('printReport');
-Route::get('/imprimerEtatSortie','HospitalisationController@imprimer')->name('imprimerReport');
-
+Route::get('/imprimerEtatSortieHosp','HospitalisationController@imprimer')->name('imprimerReport');
 Route::post('users/changePassword', 'UsersController@changePassword');
 Route::post('/users/store/','UsersController@store');
 Route::get('/searchAssure','AssurController@search');

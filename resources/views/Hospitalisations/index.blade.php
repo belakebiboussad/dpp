@@ -172,11 +172,11 @@
             };
             $.ajax({
               type : 'get',
-              url : '{{URL::to('imprimerEtatSortie')}}',
+              url : '{{URL::to('imprimerEtatSortieHosp')}}',
               data:formData,
-                  success(data){
-                    $('#EtatSortie').toggle();
-              },
+                success(data){
+                    $('#EtatSortie').modal('hide');
+                },
             }); 
         });
 	});

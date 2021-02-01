@@ -207,7 +207,6 @@ class HospitalisationController extends Controller
             case "Attestation Contre Avis Medical":
               $filename = "CAM-".$hosp->patient->Nom."-".$hosp->patient->Prenom.".pdf";
               $pdf = PDF::loadView('hospitalisations.EtatsSortie.AttestationContreAvisMedicalePDF', compact('hosp','date'));
-              
               break;  
             default:
                return response()->json(['html'=>"unknown"]);

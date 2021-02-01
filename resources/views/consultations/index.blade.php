@@ -3,15 +3,16 @@
 <script>
 function getConsultations(field,value)
 {
-	$.ajax({
-        url : '{{ URL::to('getConsultations') }}',
-        data: {    
+  $.ajax({
+      url : '{{ URL::to('getConsultations') }}',
+      data: {    
          "field":field,
          "value":value,
-     },
-     dataType: "json",// recommended response type
+      },
+      dataType: "json",// recommended response type
     	success: function(data) {
-             $(".numberResult").html(data.length);
+              // (field == 'Date_Consultation')? $('#'+field).val('<?= date("Y-m-j") ?>') : $('#'+field).val(''); 
+              $(".numberResult").html(data.length);
                $("#liste_conultations").DataTable ({
                    "processing": true,
                    "paging":   true,
@@ -56,20 +57,37 @@ function getConsultations(field,value)
 	});
 }
 function getAction(data, type, dataToSet) {
-  alert(typeof(data.prototype.CLASSNAME));
   var actions = '<a href = "/consultations/'+data.id+'" style="cursor:pointer" class="btn btn-secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>';
   actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat('+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';
   return actions;
 }
 $('document').ready(function(){
     getConsultations("Date_Consultation",'<?= date("Y-m-j") ?>');
-     $('.filter').change(function(){
-           if($(this).attr('id') != "patientName")
-                getConsultations($(this).attr('id'),$(this).val());
-     });
-     $('.filter').keyup(function(){
-           getConsultations($(this).attr('id'),$(this).val()) 
-     });
+    $('.filter').change(function(){
+        if($(this).attr('id') != "patientName")
+          getConsultations($(this).attr('id'),$(this).val());
+    });
+    $('.filter').keyup(function(){
+        getConsultations($(this).attr('id'),$(this).val()) 
+    });
+    $(document).on('click', '#selctetat', function(event){  
+      var selectDocm=$(this).text(); //event.preventDefault();
+      var formData = {
+            consult_id: $('#objID').val(),
+            selectDocm :selectDocm,
+      };
+       $.ajax({
+            type : 'get',
+            url : '{{URL::to('imprimerEtatSortieConsult')}}',
+            data:formData,
+              success(data){
+                alert(data);
+                $('#EtatSortie').modal('hide');
+              },
+      }); 
+      
+    });
+
 });
 </script>
 @endsection
