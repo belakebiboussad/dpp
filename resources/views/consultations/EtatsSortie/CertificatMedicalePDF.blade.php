@@ -93,16 +93,26 @@
     </style>
     </head>
     <body>
-    <div class="container-fluid" id="myDiv">
-          <h4 class="mt12 center">DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</h4>
-          <h4 class="center">ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</h4>
-          <h4 class="center">Chemin des Glycines - ALGER</h4>
-          <h4 class="center">Tél : 23-93-34</h4>
-          <h5 class="mt-15 center" ><img src="img/logo.png" style="width: 60px; height: 60px" alt="logo"/></h5>
-          <h5 class="mt-20 center"><span style="font-size: xx-large;"><strong>Certificat medical</strong></span></h5>
-          <div class="row"><br>
-                <span class="ml-80">Alger le {{ $date}}</span><br><br>
-           </div>
-          </div>
-          </body>
-          </html>
+      <div class="container-fluid" id="myDiv">
+        <h4 class="mt12 center">DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</h4>
+        <h4 class="center">ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</h4>
+        <h4 class="center">Chemin des Glycines - ALGER</h4>
+        <h4 class="center">Tél : 23-93-34</h4>
+        <h5 class="mt-15 center" ><img src="img/logo.png" style="width: 60px; height: 60px" alt="logo"/></h5>
+        <h5 class="mt-20 center"><span style="font-size: xx-large;"><strong>Certificat medical</strong></span></h5>
+        <div class="row"><br><span class="ml-80">Alger le {{ $date}}</span><br><br></div>
+        <div class="row"><div class="col-sm-12"><strong>Service : </strong>
+          <span>{{ $consult->docteur->Service->nom }}</span> </div>
+        </div>
+        <div class="row"><div class="col-sm-12"><strong>Chef de servise : </strong>
+          <span>{{ $consult->docteur->Service->responsable->nom }}</span></div>
+        </div>
+        <div class="space"></div><div class="space"></div>
+        <div class="row"><div class="col-sm-12"><strong>je soussigné docteur  : </strong>
+
+          <span>{{ $consult->docteur->nom }}}</span>
+       
+        
+      </div>
+    </body>
+  </html>

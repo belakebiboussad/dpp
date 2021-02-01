@@ -17,7 +17,6 @@ class service extends Model
 	public function salles()
 	{
     return $this->hasMany('App\modeles\salle');    		
-	}
-  /*public function Type(){  return $this->belongsTo('App\modeles\typeService','type'); }*/
+	}/*public function Type(){  return $this->belongsTo('App\modeles\typeService','type'); }*/ 
 }
 

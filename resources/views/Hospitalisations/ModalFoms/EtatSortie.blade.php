@@ -23,10 +23,10 @@
 				  				<button type="button" id="selctetat" class="btn btn-success btn-lg" width="100%"><strong>{{ $etat->titre}}</strong></button> 
 				  				@break
 				  			@case (3)
-				  				<button type="button" id="selctetat" class="btn btn-info btn-lg"><strong>{{ $etat->titre}}</strong></button> 
+				  				<button type="button" id="selctetat" class="btn btn-info btn-lg"><strong>&nbsp;&nbsp;{{ $etat->titre}}</strong></button> 
 				  				@break
 				  			@case (4)
-				  				<button type="button" id="selctetat" class="btn btn-danger btn-lg"><strong>{{ $etat->titre}}</strong></button> 
+				  				<button type="button" id="selctetat" class="btn btn-danger btn-lg"><strong>&nbsp;&nbsp;{{ $etat->titre}}</strong></button> 
 				  				@break
 				  			@default
 				  		@endswitch

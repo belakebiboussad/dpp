@@ -233,9 +233,10 @@ class ConsultationsController extends Controller
     }
      public function imprimer(Request $request)
      {
-          $filename ="";
+          $filename ="";$pdf;
           $date= Carbon::now()->format('Y-m-d');
-          $consult  = consultation::find($request->consult_id);  
+          $consult  = consultation::with('docteur')->find($request->consult_id);  
+          return $consult->docteur;
           view()->share('consult', $consult);
           switch($request->selectDocm) {
                 case "Certificat medical":

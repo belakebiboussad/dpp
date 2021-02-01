@@ -81,7 +81,10 @@ $('document').ready(function(){
             url : '{{URL::to('imprimerEtatSortieConsult')}}',
             data:formData,
               success(data){
-                alert(data);
+                // alert(data);
+                // $.each(data,function(key,value){
+                //   alert(key + ":" + value);
+                // })
                 $('#EtatSortie').modal('hide');
               },
       }); 
