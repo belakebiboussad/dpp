@@ -22,12 +22,17 @@ class DemandeHospitalisation extends Model
   {
   	return $this->belongsTo('App\modeles\Specialite','specialite');	
   }
- public function DemeandeColloque()
- {
+  public function DemeandeColloque()
+  {
     return $this->hasOne('App\modeles\dem_colloque','id_demande');
- }
+  }
   public function RDVs() 
   { 
-      return $this->hasMany('App\modeles\rdv_hospitalisation','id_demande')->orderBy('date_RDVh');
+        return $this->hasMany('App\modeles\rdv_hospitalisation','id_demande')->orderBy('date_RDVh');
   }
+  public function bedAffectation()
+  {
+    return $this->hasOne('App\modeles\bedAffectation','demande_id');
+  }
+
 }

@@ -6,8 +6,7 @@
               '10.1.5.78'    => 2,
               '10.1.79.28'   => 3,
            		'192.168.1.35' => 4,
-              '127.0.0.1'    => 1,
-              // 'customer_manage'   =>  []
+              '127.0.0.1'    => 1,// 'customer_manage'   =>  []
             ],
            	'ModeAdmissions'   =>  [
                 'Ambulatoire' => "Ambulatoire",

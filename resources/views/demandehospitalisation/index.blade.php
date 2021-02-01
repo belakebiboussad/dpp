@@ -1,15 +1,10 @@
 @extends('app')
 @section('main-content')
-<div class="page-header">
-	<h1>Liste Des Demande d'hospitalisation :</h1>
-</div>
+<div class="page-header"><h1>Liste Des Demande d'hospitalisation :</h1></div>
 <div class="row">
 	<div class="col-sm-12">
 		<div class="widget-box">
-			<div class="widget-header">
-				<h4 class="widget-title">Liste Des Demande d'hospitalisation:</h4>
-			</div>
-			<br/>
+			<div class="widget-header"><h4 class="widget-title">Liste Des Demande d'hospitalisation:</h4></div>	<br/>
 			<table id="simple-table" class="table  table-bordered table-hover">
 				<thead>
 					<tr>
@@ -29,20 +24,20 @@
 						<tr>
 							<td>{{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }}</td>
 							<td>
-								<span class="badge badge-{{ Jenssegers\Date\Date::parse($demande->consultation->patient->Dat_Naissance)->age < 18 ? 'danger':'success' }}">{{ Jenssegers\Date\Date::parse($demande->consultation->patient->Dat_Naissance)->age }}</span>
+								<span class="badge badge-{{ $demande->consultation->patient->getAge() < 18 ? 'danger':'success' }}">{{ $demande->consultation->patient->getAge() }}</span>
 							</td>
 							<td>{{ $demande->consultation->Date_Consultation }}</td>
 							<td>
 								@switch($demande->modeAdmission)
-    							@case("Ambulatoire")
-        						<span class="label label-sm label-warning">
-        						@break
-         					@case("urgence")
-        						<span class="label label-sm label-danger">
-        						@break
-        					@case("programme")		
-        						<span class="label label-sm label-success">
-        						@break	
+    									@case("Ambulatoire")
+        									<span class="label label-sm label-warning">
+        									@break
+         								@case("urgence")
+        									<span class="label label-sm label-danger">
+        									@break
+        								@case("programme")		
+        									<span class="label label-sm label-success">
+        									@break	
 								@endswitch	
 								{{ $demande->modeAdmission }}</span>
 							</td>
@@ -73,15 +68,15 @@
 								<a href="{{route('demandehosp.show', $demande->id)}}" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Voir détails..." data-placement="bottom">
 									<i class="ace-icon fa fa-hand-o-up bigger-120" aria-hidden="true"></i>
 								</a>
-								@if(Auth::User()->employee_id == $demande->consultation->Employe_ID_Employe || (Auth::User()->role_id == 6))	 
+								@if(Auth::User()->employee_id == $demande->consultation->Employe_ID_Employe || (Auth::User()->role_id == 6))
+								@if($demande->etat == 'en attente')	 
 								<a href="{{ route('demandehosp.edit', $demande->id) }}" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier la demande" data-placement="bottom">
 									<i class="ace-icon fa fa-pencil bigger-120" aria-hidden="true"></i>
 								</a>
 								<a href="{{ route('demandehosp.destroy',$demande->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger"><i class="ace-icon fa fa-trash-o bigger-110"></i>
 								</a>
-	  	
 								@endif
-								
+								@endif
 							</td>
 						</tr>
 					@endforeach

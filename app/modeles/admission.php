@@ -6,13 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class admission extends Model
 {
-     public $timestamps = false;
-     //id_demande     
-     protected $fillable  = ['id','id_rdvHosp','id_lit'];
+     public $timestamps = false;//     
+     protected $fillable  = ['id','demande_id','id_rdvHosp','id_lit','etat'];
+     public function demandeHospitalisation()
+     {
+        return $this->belongsTo('App\modeles\DemandeHospitalisation','demande_id');
+     }
      public function lit()
      {
       	return $this->belongsTo('App\modeles\Lit','id_lit');
-     } /*public function demandeHospitalisation(){return $this->belongsTo('App\modeles\DemandeHospitalisation','id_demande');}*/
+     }
      public function rdvHosp()
      {
           return $this->belongsTo('App\modeles\rdv_hospitalisation','id_rdvHosp');

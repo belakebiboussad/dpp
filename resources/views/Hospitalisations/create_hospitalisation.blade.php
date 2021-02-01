@@ -13,7 +13,7 @@
 				<div class="form-group">
 					<label class="col-sm-3 control-label no-padding-right" for="date">
 					 	<strong> 
-					 		Date Hospitalisation : 
+					 		Date Entrée : 
 						</strong>
 					</label>
 					<div class="col-sm-9">

@@ -1,82 +1,61 @@
-<div class="row">
+  <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Informations démographiques</h3></div></div>
+ <div class="row Asdemograph">
 	<div class="col-sm-6">
-		<div class="form-group">
-			<label class="col-sm-3 control-label" for="nomf">
-				<strong>Nom :</strong> 
-			</label>
+		<div class="form-group {{ $errors->has('nomf') ? 'has-error' : '' }}">
+			<label class="col-sm-3 control-label" for="nomf"><strong>Nom :</strong></label>
 			<div class="col-sm-9">
-				<input type="text" id="nomf" name="nomf" placeholder="Nom..." class="col-xs-12 col-sm-12" />
+				<input type="text" id="nomf" name="nomf" placeholder="Nom..." class="col-xs-12 col-sm-12" autocomplete= "off" value="{{ old('nomf') }}"/>
+					{!! $errors->first('nomf', '<small class="alert-danger">:message</small>') !!}
 			</div>
-			<br>
 		</div>
-		<br>
-	</div>
+	</div>	
 	<div class="col-sm-6">
-		<div class="form-group">
-			<label class="col-sm-3 control-label" for="prenomf">
-			<strong>Prénom :</strong>
-		</label>
-		<div class="col-sm-9">
-			<input type="text" id="prenomf" name="prenomf" placeholder="Prénom..." class="col-xs-12 col-sm-12" />
-		</div>
-		<br>
-		</div>
-		<br>
-	</div>
-</div>
-{{-- row --}}
-<div class="row">
-	<div class="col-sm-6">
-		<div class="form-group">
-			<label class="col-sm-3 control-label" for="datenaissancef">
-				<strong class="text-nowrap">Né(e) le :</strong>
-			</label>
+		<div class="form-group {{ $errors->has('prenomf') ? 'has-error' : '' }}">
+			<label class="col-sm-3 control-label" for="prenomf"><strong>Prénom :</strong></label>
 			<div class="col-sm-9">
-			<input class="col-xs-12 col-sm-12 date-picker" id="datenaissancef" name="datenaissancef" type="text" data-date-format="yyyy-mm-dd" placeholder="Date de naissance..." />
+				<input type="text" id="prenomf" name="prenomf" placeholder="Prénom..." class="col-xs-12 col-sm-12"  value="{{ old('prenomf') }}"/>
+				{!! $errors->first('prenomf', '<p class="alert-danger">:message</p>') !!}
 			</div>
 		</div>
 	</div>
+</div> {{-- row --}}
+<div class="spce-12"></div>
+<div class="row Asdemograph">
 	<div class="col-sm-6">
-		<div class="form-group">
-			<label class="col-sm-3 control-label" for="lieunaissancef">
-				<span class="text-nowrap"><strong>Lieu de naiss :</strong></span>
-			</label>
+		<div class="form-group {{ $errors->has('datenaissancef') ? 'has-error' : '' }}">
+			<label class="col-sm-3 control-label" for="datenaissancef"><strong class="text-nowrap">Né(e) le :</strong></label>
 			<div class="col-sm-9">
-			  <input type="hidden" name="idlieunaissancef" id="idlieunaissancef">
-				<input type="text" id="lieunaissancef" name="lieunaissancef" placeholder="Lieu de naissance..." class="form-control col-xs-12 col-sm-12" autocomplete= "on" />
+				<input class="col-xs-12 col-sm-12 date-picker" id="datenaissancef" name="datenaissancef" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD"/>
+				{!! $errors->first('datenaissancef', '<p class="alert-danger">:message</p>') !!}
 			</div>
-			<br>
 		</div>
-		<br>
 	</div>
-</div>	{{-- row --}}
-<div class="row">
 	<div class="col-sm-6">
-    <div class="form-group">
-   		<label class="col-sm-3  control-label no-padding-right" for="sexe"><Strong>Sexe:</Strong></label>
-      <div class="col-sm-9">
-   			<div class="radio">
-   				<label><input name="sexef" value="M" type="radio" class="ace" checked/><span class="lbl"> Masculin</span></label>
-  				<label><input name="sexef" value="F" type="radio" class="ace"/><span class="lbl"> Féminin</span></label>
-   			</div>
+		<div class="form-group {{ $errors->has('lieunaissancef') ? 'has-error' : '' }}">
+			<label class="col-sm-3 control-label" for="lieunaissance"><strong class="text-nowrap">Né(e) à :</strong></label>
+			<div class="col-sm-9">
+			  	<input type="hidden" name="idlieunaissancef" id="idlieunaissancef">
+					<input type="text" id="lieunaissancef" class="autoCommune col-xs-12 col-sm-12" placeholder="Lieu de naissance..." autocomplete ="on"/>		
+			 		{!! $errors->first('lieunaissancef', '<small class="alert-danger">:message</small>') !!}
 			</div>
 		</div>
-  </div>
-  <div class="col-sm-6">
-    <div class="form-group">
-   		<label class="col-sm-3 control-label" for="adressef"><strong>Adresse :</strong></label>
-   		<div class="col-sm-9">
-			<input type="text" id="adressef" name="adressef" placeholder="Adresse..." class="col-xs-12 col-sm-12" />
-		</div>
-    </div>
-   </div>
+	</div>
 </div>{{-- row --}}
-<div class="row">
+<div class="row Asdemograph">
 	<div class="col-sm-6">
-    <div class="form-group">
-   		<label class="col-sm-3 control-label text-nowrap" for="gsf">
-				<strong>Groupe sanguin :</strong>
-			</label>
+		<div class="form-group {{ $errors->has('sexef') ? 'has-error' : '' }}"><!-- no-padding-right -->
+			<label class="col-sm-3 control-label" for="sexef"><strong>Genre :</strong></label>
+			<div class="col-sm-9">
+				<div class="radio">
+					<label><input name="sexef" value="M" type="radio" class="ace" checked /><span class="lbl"> Masculin</span></label>
+					<label><input name="sexef" value="F" type="radio" class="ace" /><span class="lbl"> Féminin</span></label>
+				</div>
+			</div>	
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="form-group">
+			<label class="col-sm-3 control-label text-nowrap" for="gsf"><strong>Groupe sanguin :</strong></label>
 			<div class="col-sm-2">
 				<select class="form-control" id="gsf" name="gsf">
 					<option value="">------</option>
@@ -84,12 +63,9 @@
 					<option value="B">B</option>
 					<option value="O">O</option>
 					<option value="AB">AB</option>
-					
 				</select>
 			</div>
-			<label class="col-sm-3 control-label no-padding-right" for="rhf">
-				<strong>Rhésus :</strong>
-			</label>
+			<label class="col-sm-3 control-label no-padding-right" for="rh"><strong>Rhésus:</strong></label>
 			<div class="col-sm-2">
 				<select id="rhf" name="rhf">
 					<option value="">------</option>
@@ -97,35 +73,66 @@
 					<option value="-">-</option>
 				</select>
 			</div>
-     </div>
-  </div>
+		</div>	
+	</div>
+</div>{{-- row --}}
+<div class="row">
+	<div class="col-sm-6">
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="SituationFamille"><strong class="text-nowrap">Civilité :</strong></label>
+			<div class="col-sm-9">
+				<select class="form-control" id="SituationFamille" name="SituationFamille">
+					<option value="">------</option>
+					<option value="C">Célibataire(e)</option>
+					<option value="M">Marié(e)</option>
+					<option value="D">Divorcé(e)</option>
+					<option value="V">Veuf(veuve)</option>
+				</select>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div></div>	
+<div class="row Asdemograph"><!-- style="padding-left:7%" -->
+	<div class="col-sm-4">
+		<label class="col-sm-4" for="adressef" ><strong>Adresse:</strong></label>
+		  <input type="text" value="" id="adressef" name="adressef" placeholder="Adresse..." class="col-sm-8"/>
+	</div> <!-- style="margin-top: -0.1%;" -->
+	<div class="col-sm-4">
+		<label class="col-sm-4 text-nowrap" for="communef"><strong>Commune:</strong></label>
+		<input type="hidden" name="idcommunef" id="idcommunef">
+	 	<input type="text" value="" id="communef" placeholder="commune résidance" class="autoCommune col-sm-8"/>
+	</div>
+	<div class="col-sm-4">
+		  <label class="col-sm-4" for="wilayaf"><strong>Wilaya:</strong></label>
+		  <input type="hidden" name="idwilayaf" id="idwilayaf">
+		  <input type="text" value="" id="wilayaf" placeholder="wilaya résidance" class="col-sm-8" readonly />
+	</div>
 </div>
 <div class="space-12"></div>
+<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Fonction</h3></div></div>	{{-- row --}}
 <div class="row">
   <div class="col-sm-6" id="statut">
 		<div class="form-group">
-			<label class="col-sm-3 control-label" for="etatf">
-				<strong>Etat :</strong>
-			</label>
+			<label class="col-sm-3 control-label" for="Position"><strong>Position :</strong></label>		
 			<div class="col-sm-9">
-			<div class="radio">
-				<label>
-					<input name="etatf" value="En exercice" type="radio" class="ace" checked/>
-					<span class="lbl"> En exercice</span>
-				</label>
-				<label>
-					<input name="etatf" value="Retraité" type="radio" class="ace" />
-					<span class="lbl"> Retraité</span>
-				</label>
-				<label>
-					<input name="etatf" value="Invalide" type="radio" class="ace" />
-					<span class="lbl"> Invalide</span>
-				</label>
-				<label>
-					<input name="etatf" value="Mise en disponibilité" type="radio" class="ace" />
-					<span class="lbl"> Mise en disponibilité</span>
-				</label>
-			</div>
+				<select name="Position" id="Position" class="col-xs-12 col-sm-12">
+					<option value="">Sélectionner...</option>
+					<option value="Activité">Activité</option>
+					<option value="Détachement">Détachement</option>
+					<option value="Mise en Disponibilité">Mise en Disponibilité</option>
+					<option value="Licencié">Licencié</option>
+					<option value="Démission">Démission</option>
+					<option value="Congé non rémunéré">Congé non rémunéré</option>
+					<option value="Retraite">Retraite</option>
+					<option value="Congé Longue Durée">Congé Longue Durée</option>
+					<option value="Assurance Invalidité">Assurance Invaliditéé</option>
+					<option value="Décédé">Décédé</option>
+					<option value="Service National">Service National</option>
+					<option value="Contrat résilié">Contrat résilié</option>
+					<option value="Congé Maladie" >Congé Maladie</option>
+					<option value="Révoqué">Révoqué</option>
+				</select>
 			</div>
 		</div>
 	</div>
@@ -135,40 +142,11 @@
 				<strong>Service :</strong>
 			</label>
 			<div class="col-sm-9">
-				<select name="service" id="service" class="col-xs-12 col-sm-12">
-					<option value="">Sélectionner...</option>
-					<option value="Agent civile">Agent civile</option>
-					<option value="Sécurité publique">Sécurité publique</option>
-					<option value="Police judiciaire (PJ)">Police judiciaire (PJ)</option>
-					<option value=" Brigade mobile de la police judiciaire (BMPJ)">
-					Brigade mobile de la police judiciaire (BMPJ)
-					</option>
-					<option value="Service protection et sécurité des personnalités (SPS)">
-					Service protection et sécurité des personnalités (SPS)
-					</option>
-					<option value="L'Unité aérienne de la sûreté nationale">
-					L'Unité aérienne de la sûreté nationale
-					</option>
-					<option value="Unités républicaines de sécurité (URS)">
-						Unités républicaines de sécurité (URS)
-					</option>
-					<option value="Police scientifique et technique">
-						Police scientifique et technique
-					</option>
-					<option value="Police aux frontières et de l'immigration (PAF)">
-					Police aux frontières et de l'immigration (PAF)
-					</option>
-					<option value="La Brigade de recherche et d'intervention (BRI)">La Brigade de recherche et d'intervention (BRI)
-					</option>
-					<option value="Le Groupe des opérations spéciales de la police (GOSP)">
-					Le Groupe des opérations spéciales de la police (GOSP)
-					</option>
-				</select>
+				<input type="text" name="service" id="service" class="col-xs-12 col-sm-12" placeholder="Service du Fonctionnaire">
 			</div>
 		</div>
 	</div>
 </div>
-<div class="space-12"></div>
 <div class="row">
 	<div class="col-sm-6">
 		<div class="form-group">
@@ -177,9 +155,8 @@
 			</label>
 			<div class="col-sm-9">
 			<select id="grade" name="grade" class="col-xs-12 col-sm-12"/>
-				<option value="">Sélectionner...</option>
-				@foreach ($grades as $key=>$grade)
-			 	      <option value="{{ $grade->id }}">{{ $grade->nom }}</option>
+				@foreach($grades as $key=>$grade)
+			    <option value="{{ $grade->id }}">{{ $grade->nom }}</option>
 				@endforeach
 			</select>
 			</div>
@@ -198,7 +175,6 @@
 		</div>
 </div>
 </div>	{{-- row --}}
-<div class="space-12"></div>
 <div class="row">
 	<div class="col-sm-6">
 		<div class="form-group">
@@ -207,30 +183,19 @@
 			</label>
 			<div class="col-sm-9">
 				<div class="clearfix">
-					<input type="text" id="NMGSN" name="NMGSN" class="col-xs-12 col-sm-12" placeholder="numéro mutuel"/>
+					<input type="text" id="NMGSN" name="NMGSN" class="col-xs-12 col-sm-12" placeholder="numéro mutuel" placeholder="XXXXXXXXXXXX" maxlength =12 minlength =12/>
 				</div>
 			</div>
 		</div>
-		<br>
 	</div>
 	<div class="col-sm-6">
 		<div class="form-group">
-			<label class="control-label col-xs-12 col-sm-3" for="nss2">
-				<strong>NSS :</strong>
-			</label>
+			<label class="control-label col-xs-12 col-sm-3" for="nss2"><strong>NSS :</strong></label>		
 			<div class="col-sm-9">
 			<div class="clearfix">
-			<input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12" placeholder="XXXXXXXXXXXX" maxlength =12 minlength =12/>{{-- pattern="^\[0-9]{2}+' '+\[0-9]{4}+' '+\[0-9]{4}+' '+\[0-9]{2}$" --}}
+				<input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12" placeholder="XXXXXXXXXXXX" maxlength =12 minlength =12 />
 			</div>
 			</div>
 		</div>
-		<br><br>
 	</div>
 </div>	{{-- row --}}
-<div class="space-12"></div>
-{{-- <div class="row">
-	
-	<div class="col-sm-6">
-		<br><br>
-	</div>
-</div>--}}{{-- row --}} 

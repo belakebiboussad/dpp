@@ -19,16 +19,11 @@ class DemandeExamenRadio extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function liste_exr()
+    /*public function liste_exr(){ $demandesexr = demandeexr::all(); return view('examenradio.liste_exr', compact('demandesexr'));}*/
+      public function details_exr($id)
     {
-        $demandesexr = demandeexr::all();
-        return view('examenradio.liste_exr', compact('demandesexr'));
-    }
-
-    public function details_exr($id)
-    {
-        $demande = demandeexr::FindOrFail($id);
-        return view('examenradio.details_exr', compact('demande'));
+      $demande = demandeexr::FindOrFail($id);
+      return view('examenradio.details_exr', compact('demande'));
     }
 
     public function upload_exr(Request $request)
@@ -50,27 +45,19 @@ class DemandeExamenRadio extends Controller
 
     public function createexr($id)
     {
-        $infossupp = infosupppertinentes::all();
-        $examens = exmnsrelatifdemande::all();
-        $examensradio = examenradiologique::all();
-        $consultation = consultation::FindOrFail($id);
-        return view('examenradio.demande_exr', compact('consultation','infossupp','examens','examensradio'));
+      $infossupp = infosupppertinentes::all();
+      $examens = exmnsrelatifdemande::all();
+      $examensradio = examenradiologique::all();
+      $consultation = consultation::FindOrFail($id);
+      return view('examenradio.demande_exr', compact('consultation','infossupp','examens','examensradio'));
     }
-
-    public function index()
-    {
-        //
-    }
-
+    public function index(){}
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+    public function create(){}
 
     /**
      * Store a newly created resource in storage.
@@ -80,42 +67,23 @@ class DemandeExamenRadio extends Controller
      */
     public function store(Request $request, $consultID)
     {
-
-            $request->validate([
-                "infosc" => "required",
-                "explication" => "required",
-                "infos" => "required",
-                "examensradio" => "required",
-                "exmns" => "required"
-            ],[
-                "infosc.required" => "Ce champ est obligatoire.",
-                "explication.required" => "Ce champ est obligatoire.",
-                "infos.required" => "Ce champ est obligatoire.",
-                "examensradio.required" => "Ce champ est obligatoire.",
-                "exmns.required" => "Ce champ est obligatoire.",
-           ]); 
-              $date = Date::now();
-             $demande = demandeexr::FirstOrCreate([
-                "Date" => $date,
-                "InfosCliniques" => $request->infosc,
-                "Explecations" => $request->explication,
-                "id_consultation" => $consultID,
-            ]);
-             //dd($request->ExamsImg);
-            $examsImagerie = json_decode ($request->ExamsImg);
-            //dd($examsImagerie);
-            foreach ($examsImagerie as $key => $value) {       
-              $demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);   //$demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => json_encode($value->types)]);
-
-            }
-           if(isset($request->infos))
-           {
-                    foreach ($request->infos as $id_info) {
-                        $demande->infossuppdemande()->attach($id_info);
-                 }
-           }
+      $demande = demandeexr::FirstOrCreate([
+             "Date" => Date::now(),
+             "InfosCliniques" => $request->infosc,
+             "Explecations" => $request->explication,
+             "id_consultation" => $consultID,
+      ]);
+      $examsImagerie = json_decode ($request->ExamsImg);
+      foreach ($examsImagerie as $key => $value) {       
+            $demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);   //$demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => json_encode($value->types)]);
+      }
+      if(isset($request->infos))
+      {
+        foreach ($request->infos as $id_info) {
+             $demande->infossuppdemande()->attach($id_info);
+        }
+      }
     }
-
     /**
      * Display the specified resource.
      *
@@ -124,21 +92,19 @@ class DemandeExamenRadio extends Controller
      */
     public function show($id)
     {
-        $demande = demandeexr::FindOrFail($id);
-        return view('examenradio.show_exr', compact('demande'));
+      $demande = demandeexr::FindOrFail($id);
+      return view('examenradio.show_exr', compact('demande'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit($id){
+      $demande = demandeexr::FindOrFail($id);
+      return view('examenradio.edit', compact('demande')); 
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -146,23 +112,17 @@ class DemandeExamenRadio extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
+    public function update(Request $request, $id)  {}
+  
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
-
-    public function show_demande_exr($id)
+    public function destroy($id){
+     }
+    public function print($id)//imprime
     {
         $demande = demandeexr::FindOrFail($id); 
         $pdf = PDF::loadView('examenradio.demande_exr', compact('demande'));

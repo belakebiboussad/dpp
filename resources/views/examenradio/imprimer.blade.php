@@ -4,9 +4,6 @@
 	<title>Demande examens radiologiques</title>
 	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
-  	{{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> --}}
 	<style type="text/css">
 		table 
 		{
@@ -48,23 +45,16 @@
 	<br><br>
 	<div class="center">
 		<img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($demande->consultation->patient->IPP, 'C128')}}" alt="barcode" />
-	</div>
-	<br><br>
-	<h4 class="center"><b>Demande examens radiologiques</b></h4>
-	<br><br>
+	</div><br><br>
+	<h4 class="center"><b>Demande examens radiologiques</b></h4><br><br>
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="section">
 				<div class="sec-gauche">
-					<b><u>Patient :</u></b> 
-					{{ $demande->consultation->patient->Nom }} 
-					{{ $demande->consultation->patient->Prenom }}
-					&nbsp;
-					{{ Jenssegers\Date\Date::parse($demande->consultation->patient->Dat_Naissance)->age }} ans
+					<b><u>Patient :</u></b> {{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }}&nbsp;
+					{{ $demande->consultation->patient->getAge() }} ans
 				</div>
-				<div class="sec-droite">
-					<b><u>Alger le :</u></b> {{ $demande->Date }}.
-				</div>
+				<div class="sec-droite"><b><u>Alger le :</u></b> {{ $demande->Date }}.</div>
 			</div>
 		</div>
 		<br><br>

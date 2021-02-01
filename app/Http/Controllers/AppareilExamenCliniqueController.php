@@ -10,10 +10,10 @@ class AppareilExamenCliniqueController extends Controller
  	public function store($ExamClinID,$appareilID,$Desccrip)
  	{
  		$a =appareilExamClinique::firstOrCreate([
-                    "appareil_id"=>$appareilID,
-                    "examen_clinique_id"=>$ExamClinID,
-                    "description"=>$Desccrip,
-           	]);
+        "appareil_id"=>$appareilID,
+        "examen_clinique_id"=>$ExamClinID,
+        "description"=>$Desccrip,
+     ]);
 	}
     
 }

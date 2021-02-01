@@ -1,9 +1,8 @@
 @extends('app')
 @section('style')
-	<style>
-    /*#dialog { display: none; }*/
-  .make-scrolling {
-   /* overflow-y: scroll; height: 100px;*/
+	<style> /*#dialog { display: none; }*/
+  .make-scrolling {/* overflow-y: scroll; height: 100px;*/
+   
     overflow-y: scroll; /*overflow: hidden;*/
     max-height: 100px;
     margin-left:-0.7%;
@@ -21,7 +20,11 @@
 var rdvs = @json($rdvs);
 function resetaddModIn()
 {
-  $('.es-list').val(''); $('#patient').val(''); $('#medecin').val(''); $('#specialite').val('');  $("#medecin").attr("disabled", true);   
+  $('.es-list').val(''); 
+  $('#patient').val(''); 
+  $('#medecin').val('');
+  $('#specialite').val(''); 
+  $("#medecin").attr("disabled", true);   
 }
 function resetPrintModIn()
 {
@@ -29,36 +32,20 @@ function resetPrintModIn()
 }
 function reset_in()
 {
-  $('.es-list').val('');
+  $('.es-list').html(''); 
   $('#patient').val('');
   $('#medecin').val('');
+  $('#patient').editableSelect();
 }
 function layout()
 {
   reset_in(); 
-  resetaddModIn();
-  var field = $("select#filtre option").filter(":selected").val();
-  if(field == "Dat_Naissance")
-  {
-    //$('#patient').datepicker().format("YYYY-MM-DD");
-    $("#patient").datepicker({
-      dateFormat: 'YYYY-MM-DD',
-      autoclose: true,
-    }).on('changeDate', function(ev){
-        getPatient();
-    });
-    $("#btnSave").attr("disabled",false);
-  }
-  else
-  { 
-    $("#btnSave").attr("disabled", true);
-    $("#patient").datepicker("destroy");
-  }
+  resetaddModIn();//var field = $("select#filtre option").filter(":selected").val();
+  $("#btnSave").attr("disabled", true);
 }
 function getPatient()
 {
-  var field = $("select#filtre option").filter(":selected").val();
-  //patientSearch(field,$("#patient").val()); //to call ajax
+  var field = $("select#filtre option").filter(":selected").val();//patientSearch(field,$("#patient").val()); //to call ajax
   $.ajax({
          url : '{{URL::to('getPatients')}}',
          data: {    
@@ -71,7 +58,7 @@ function getPatient()
            $(".es-list").addClass("make-scrolling");
            $.each(data['data'], function(i, v) {
              $(".es-list").append($('<li></li>').attr('value', v['id']).attr('class','es-visible list-group-item option').text(v['IPP']+"-"+v['Nom']+"-"+v['Prenom']));
-           })
+           });
          },
         error: function() {
            alert("can't connect to db");
@@ -81,7 +68,7 @@ function getPatient()
 $(document).ready(function() {
     var CurrentDate = (new Date()).setHours(23, 59, 59, 0); 
     var today = (new Date()).setHours(0, 0, 0, 0); 
-   	$('#calendar').fullCalendar({
+    $('#calendar').fullCalendar({//calendar
               header: {
                 left: 'prev,next today',
                 center: 'title',
@@ -119,15 +106,18 @@ $(document).ready(function() {
                           idPatient:'{{$rdv->patient->id}}',
                           tel:'{{$rdv->patient->tele_mobile1}}',
                           age:{{ $rdv->patient->getAge() }},
-                          specialite: {{ $rdv->specialite}},
+                          specialite: {{ $rdv->employe["specialite"]}},
                           key :(isEmpty({{ $rdv->Employe_ID_Employe }}))? "":'{{ $key }}',
                           fixe:  {{ $rdv->fixe }},
                         },
                         @endforeach   
               ], 
               select: function(start, end) {
-                        if(start >= CurrentDate){                                           
-                          @if(Auth::user()->role_id == 1)
+                    var minutes = end.diff(start,"minutes"); 
+                    if(minutes == 15)
+                    { 
+                      if(start >= CurrentDate){                                           
+                        @if(Auth::user()->role_id == 1)
                           Swal.fire({
                                  title: 'Confimer vous  le Rendez-Vous ?',
                                  html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',
@@ -147,32 +137,35 @@ $(document).ready(function() {
                                     createRDVModal(start,end);
                                   @endif          
                                 }
-                        })
+                          })
                         @else
                           createRDVModal(start,end);
                         @endif  
+                      }else
+                        $('#calendar').fullCalendar('unselect');   
                     }else
-                          $('#calendar').fullCalendar('unselect');   
+                      $('#calendar').fullCalendar('unselect');
+
               },
               eventClick: function(calEvent, jsEvent, view) {
                     if(Date.parse(calEvent.start) > today )
                     {
-                          $('#lien').text(calEvent.title); 
-                          $('#patient_tel').text(calEvent.tel);
-                          $('#agePatient').text(calEvent.age); 
-                          $('#idRDV').val(calEvent.id);
-                          if($('#doctor').length && !(isEmpty(calEvent.key)))
-                                 $('#doctor').val(rdvs[calEvent.key]['employe'].Nom_Employe+" "+rdvs[calEvent.key]['employe'].Prenom_Employe);
-                          $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
-                          (calEvent.fixe==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
-                          $('#btnConsulter').attr('href','/consultations/create/'.concat(calEvent.idPatient)); 
-                           if(calEvent.fixe &&(!(isEmpty(calEvent.key))))
-                                $('#printRdv').removeClass('hidden');
-                          $('#fullCalModal').modal({ show: 'true' });
+                      $('#lien').text(calEvent.title); 
+                      $('#patient_tel').text(calEvent.tel);
+                      $('#agePatient').text(calEvent.age); 
+                      $('#idRDV').val(calEvent.id);
+                      if($('#doctor').length && !(isEmpty(calEvent.key)))
+                             $('#doctor').val(rdvs[calEvent.key]['employe'].nom+" "+rdvs[calEvent.key]['employe'].prenom);
+                      $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
+                      (calEvent.fixe==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
+                      $('#btnConsulter').attr('href','/consultations/create/'.concat(calEvent.idPatient)); 
+                       if(calEvent.fixe &&(!(isEmpty(calEvent.key))))
+                            $('#printRdv').removeClass('hidden');
+                      $('#fullCalModal').modal({ show: 'true' });
                     }
               },
              eventRender: function (event, element, webData) {
-                      if(event.start < today)  // element.css("font-size", "1em");
+                      if(event.start < today)
                         element.css('background-color', '#D3D3D3');  
                       else
                       {
@@ -195,24 +188,24 @@ $(document).ready(function() {
              eventMouseover: function(event, jsEvent, view) {
              }
        });//calendar
-      $('#patient').editableSelect({
-         effects: 'slide', 
-         editable: false, 
-      }).on('select.editable-select', function (e, li) {
+    //fincalendar   
+    $('#patient').editableSelect({
+      effects: 'slide', 
+      editable: false, 
+    }).on('select.editable-select', function (e, li) {
         $('#last-selected').html(
               li.val() + '. ' + li.text()
         ); 
         @if(Auth::user()->role_id == 1)
-          $("#btnSave").removeAttr("disabled");
+          $("#btnSave").removeAttr("disabled");//if(! isEmpty($("#medecin").val()))
         @else
         {
-          $('#medecin').val() != '';
-          $("#btnSave").removeAttr("disabled");
+          if(! isEmpty($("#medecin").val()))//$('#medecin').val() != '';
+             $("#btnSave").removeAttr("disabled");
         }
         @endif
        });
-       // keyup
-      $("#patient").on("keyup", function() {
+      $("#patient").on("keyup", function() {// keyup
          getPatient(); 
       });
       $( "#medecin" ).change(function() {
@@ -220,11 +213,11 @@ $(document).ready(function() {
               $("#btnSave").removeAttr("disabled"); 
       });
       $('#printRdv').click(function(){
-              $.ajaxSetup({
+            $.ajaxSetup({
                   headers: {
                       'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
                    }
-             });
+            });
              $.ajax({
                     type : 'GET',
                     url :'/rdv/print/'+$('#idRDV').val(),
@@ -236,23 +229,19 @@ $(document).ready(function() {
              });
        }); 
   });
-  // });
  </script>
 @endsection
 @section('main-content')
 <div class="row">
   <div class="col-md-12">
-    <div class="panel panel-default">
-      &nbsp;&nbsp;&nbsp;&nbsp; 
-      <div class="panel-heading" style="margin-top:-20px">
-        <div class="left"> <strong>Ajouter un Rendez-Vous</strong></div>
-      </div>
+    <div class="panel panel-default"> &nbsp;&nbsp;&nbsp;&nbsp; 
+      <div class="panel-heading" style="margin-top:-20px"> <div class="left"> <strong>Ajouter un Rendez-Vousrt</strong></div></div>
       <div class="panel-body">
         <div id='calendar'></div>
       </div>
       <div class="panel-footer">
         <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><strong>&nbsp;RDV fixe</strong></span>
-        <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px">&nbsp;RDV à fixer<strong></strong></span> 
+        <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px">&nbsp;RDV à fixer<strong></strong></span>
       </div>
     </div>
   </div>
@@ -269,7 +258,6 @@ $(document).ready(function() {
           <input type="hidden" id="Debut_RDV" name="Debut_RDV" value="">
           <input type="hidden" id="Fin_RDV" name="Fin_RDV"  value="" >
           <input type="hidden" id="fixe" name="fixe"  value="" >
-          <!-- <input type="time" id="Temp_rdv" name="Temp_rdv"  value=""  min="8:00" max="18:00" style="display:none;" > -->
           <div id="modalBody" class="modal-body" style="padding:40px 50px;">
              <div class="panel panel-default">
                 <div class="panel-heading"> <i class="ace-icon fa fa-user"></i><span>Selectionner un Patient</span></div>
@@ -283,14 +271,13 @@ $(document).ready(function() {
                               <option value="Nom">Nom</option>
                               <option value="Prenom">Prenom</option>
                               <option value="IPP">IPP</option>
-                              <!-- <option value="Dat_Naissance">Date Naisssance</option> -->
                             </select>
                           </div>
                         </div>
                       </div>
                       <div class="col-sm-5">
                         <span class="input-icon" style="margin-right: -190px;">
-                        <select placeholder="Rechercher... " class="nav-search-input" id="patient" name ="patient" autocomplete="off" style="width:300px;" data-date-format="yyyy-mm-dd" required>
+                        <select placeholder="Rechercher... " class="nav-search-input" id="patient" name ="patient" autocomplete="off" style="width:300px;" required>
                           @if(isset($patient))
                             <option value="{{$patient->id}}" selected>{{ $patient->IPP }}-{{ $patient->Nom }}-{{ $patient->Prenom }}</option>
                           @endif
@@ -302,10 +289,8 @@ $(document).ready(function() {
               </div> {{-- panel-body --}}
               <div class="space-12"></div>
               @if(Auth::user()->role_id == 2)
-              <div class="panel-heading">
-                <i class="ace-icon fa  fa-user-md bigger-110"></i><span>Selectionner un Medecin</span>
-              </div>
-              <div class="panel-body">
+              <div class="panel-heading"><i class="ace-icon fa  fa-user-md bigger-110"></i><span>Selectionner un Medecin</span></div>
+               <div class="panel-body">
                 <div class="row">
                   <div class="col-sm-5">
                     <div class="form-group">
@@ -322,7 +307,7 @@ $(document).ready(function() {
                   </div>
                   <div class="col-sm-5">
                     <span class="input-icon" style="margin-right: -190px;">
-                      <select  placeholder="Selectionner... " class="" id="medecin" name ="medecin" autocomplete="off" style="width:300px;" disabled>
+                      <select  placeholder="Selectionner... " class="" id="medecin" name ="medecin" autocomplete="off" style="width:300px;" disabled required>
                         <option value="" disabled selected>Selectionner....</option>
                       </select>
                     </span>   
@@ -333,8 +318,8 @@ $(document).ready(function() {
             </div>{{-- panel --}}
           </div>{{-- modalBody --}}
           <div class="modal-footer">
-            <button class="btn btn-xs btn-primary" type="submit" id ="btnSave" disabled><i class="ace-icon fa fa-save bigger-110" ></i>Enregistrer  </button>                     
-            <button type="button" class="btn btn-xs btn-default" data-dismiss="modal" onclick="resetaddModIn();reset_in();"><i class="fa fa-close" aria-hidden="true"  ></i>Fermer</button>
+            <button class="btn btn-xs btn-success" type="submit" id ="btnSave" disabled><i class="ace-icon fa fa-save bigger-110"></i>&nbsp;Enregistrer</button>                     
+            <button type="button" class="btn btn-xs btn-default" data-dismiss="modal" onclick="resetaddModIn();reset_in();"><i class="fa fa-close" aria-hidden="true"></i>&nbsp;Annuler</button>
           </div>   
         </form> 
       </div>

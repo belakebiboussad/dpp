@@ -11,6 +11,6 @@ class grade extends Model
     protected $fillable  = ['id','nom'];
      public function assurs()
     {
-           return $this->hasMany('App\modeles\assur');
+      return $this->hasMany('App\modeles\assur','Grade');
     }
 }

@@ -1,5 +1,6 @@
 @extends('auth.auth')
 @section('content')
+<br><br><br><br><br><br><br><br>      
 <div id="login-box" class="login-box visible widget-box no-border">
     <div class="widget-body">
         <div class="widget-main">

@@ -1,4 +1,4 @@
-@import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
+/*@import url('/css/bootstrap.min.css');*/
 .removeButton{
   margin-bottom: 2px;
   margin-left: 0px;
@@ -6,9 +6,7 @@
   position:relatif;
   right:0;
   top:0;
-}
-
-.required:after {
+}.required:after {
         content: '*';
         color: red;
         padding-left: 5px;
@@ -28,22 +26,24 @@
 .ml-80{
        margin-left: +80%;
 }
+.mt-15{
+        margin-top:-15px;
+}
+.mt-20{
+    margin-top:-20px;
+}
 .foo{
       position: absolute;
-      top: 87%;
+      top: 90%;
       right: 22%;
 }
 .modaldialog {
   width:97%;
   height:90% !important;
   overflow-y: initial !important
-  
-
 }
 .contmodal {
-  /*height:800px; */
   height:101%; 
-
 }
 .bodyodal{/*max-height: calc(100vh - 100px);*//*width:100%;*/
   height: 100%;
@@ -65,3 +65,49 @@
 .main-content{
   margin-top: -1%;
 }
+.modal-footer ,.modal-header {
+  background-color: #438eb9;
+  padding:0.5% 0.5%;
+  color:#FFF;
+  border-bottom:0px dashed #438eb9;
+  width:100%;
+}
+ ol {list-style: none; counter-reset: li}
+.rounded-list button{
+    position: relative;
+    display: block;
+    padding: .4em .4em .4em 2em;
+    padding: .4em;
+    margin: .5em 0;
+    background: #ddd;
+    color: #444;
+    text-decoration: none;
+    border-radius: .3em;
+    transition: all .3s ease-out;
+  }
+  .rounded-list button:hover{
+    background: #eee;
+  }
+
+  .rounded-list button:hover:before{
+    transform: rotate(360deg);
+  }
+
+  .rounded-list button:before{
+    content: counter(li);
+    counter-increment: li;
+    position: absolute;
+    left: -1.3em;
+    top: 50%;
+    margin-top: -1.3em;
+    background: #87ceeb;
+    height: 2em;
+    width: 2em;
+    line-height: 2em;
+    border: .3em solid #fff;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 2em;
+    transition: all .3s ease-out;
+  }
+/**/

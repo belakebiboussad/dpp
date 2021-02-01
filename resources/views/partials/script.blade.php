@@ -5,7 +5,7 @@
 <script type="text/javascript" src="{{ asset('/js/jspdf.debug.js') }}"></script>
 <script src="{{ asset('/js/html2pdf.js') }}"></script>
  <script type="text/javascript">
-     if('ontouchstart' in document.documentElement) document.write("<script src='{{asset('/js/jquery.mobile.custom.min.js')}}'>"+"<"+"/script>");
+   //  if('ontouchstart' in document.documentElement) document.write("<script src='{{asset('/js/jquery.mobile.custom.min.js')}}'>"+"<"+"/script>");
 </script>
 <script src="{{asset('/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('/js/jquery-ui.custom.min.js')}}"></script>
@@ -172,35 +172,7 @@ $('#typeexm').on('change', function() {
                         $('#infoass').css('display','block');
                         $('#te').css('display','block');
                     }
-            }
-            function atcd()
-            {
-           
-                if($('#type_atcd').val() == 'Personnels')
-                    {
-                        $('#sous_type').css('display','block');
-                    }
-                else
-                    {
-                        $('#sous_type').css('display','none');
-                        $('#sous_type_atcd').val() = null;
-                    }
-            }
-           function atcdhide()
-           {
-                   
-                    if($('#typeAntecedant').val() == "Pathologiques" )
-                     {
-                             $('#atcdsstypehide').show();
-                             $('#PhysiologieANTC').hide();
-                     }
-                    else
-                     {
-                            $('#atcdsstypehide').hide();
-                            $('#atcdsstypehide').val(null);
-                            $('#PhysiologieANTC').show();
-                    }
-           }
+//function atcd(){if($('#type_atcd').val() == 'Personnels')$('#sous_type').css('display','block');else{$('#sous_type').css('display','none');$('#sous_type_atcd').val() = null;}} 
         </script>
         <script>
         function createord(nompatient,nommedcin) {
@@ -273,6 +245,7 @@ $('#typeexm').on('change', function() {
             });
         </script>
         <script>
+        /*
             $('#medc_table').DataTable({
                  processing: true,
                 serverSide: true,
@@ -284,27 +257,7 @@ $('#typeexm').on('change', function() {
                     {data: 'action', name: 'action', orderable: false, searchable: false}
                 ]
             });
-        </script>
-        <script>
-            $('#rdv_table').DataTable({
-                 processing: true,
-                serverSide: true,
-                ajax: 'http://localhost:8000/getrdv',
-                columns: [
-                    {data: 'action5', name: 'action', orderable: false, searchable: false},
-                    {data: 'action4', name: 'action', orderable: false, searchable: false},
-                    {data: 'action3', name: 'action', orderable: false, searchable: false},
-                    {data: 'action1', name: 'action', orderable: false, searchable: false},
-                    {data: 'action2', name: 'action', orderable: false, searchable: false},
-                    {data: 'action', name: 'action', orderable: false, searchable: false}
-                ]
-            });
-        </script>
-
-        <script>
-/*$('#listepatient-table').DataTable({ processing: true,serverSide: true,ajax: '/getpatient',columns: [{data: 'code_barre'},{data: 'Nom'},
-{data: 'Prenom'},{data: 'Dat_Naissance'},{data: 'Sexe'},{data: 'Date_creation'},{data: 'action', name: 'action', orderable: false, searchable: false}
-],"columnDefs":[{"targets": [ 0 ],"visible": false,}]});*/
+            */
         </script>
         <script>
             $('#patient-table').DataTable({
@@ -673,13 +626,6 @@ $('#typeexm').on('change', function() {
                 //$('#spinner1').closest('.ace-spinner').spinner('disable').spinner('enable').spinner('value', 11);//disable, enable or change value
                 //$('#spinner1').closest('.ace-spinner').spinner('value', 0);//reset to 0
             
-            
-                //datepicker plugin
-                //link
-                // $('.date-picker').datepicker({
-                //     autoclose: true,
-                //     todayHighlight: true
-                // })
                 //show datepicker when clicking on the icon
                 .next().on(ace.click_event, function(){
                     $(this).prev().focus();

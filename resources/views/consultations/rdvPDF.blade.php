@@ -48,8 +48,7 @@
 	        <div class="col-sm-12 content text-center">
 	          <div class="col-sm-4"></div>
 	          <div class="col-sm-4"> <img class = "imgCenter" src="<?php echo $_SERVER["DOCUMENT_ROOT"].'./img/logo-40_x_40.png';?>"/></div>
-	          <div class="col-sm-4"></div>        
-	          <!-- <span class="border border-0" align="center"> </span> --><!--  <br> -->
+	          <div class="col-sm-4"></div>    <!-- <span class="border border-0" align="center"> </span> --><!--  <br> -->       
 	        </div>
       </div>
       <div class="row">
@@ -57,8 +56,7 @@
       </div>
       <div class="row">
       	<div class="col-sm-12">
-      		<div class="col-sm-4 float-left" style="font-size:x-small;">
-      			<!-- {{ $rdv->patient->Nom }} &nbsp;{{ $rdv->patient->Prenom }}({{$rdv->patient->getAge()}}ans) -->
+      		<div class="col-sm-4 float-left" style="font-size:x-small;"><!-- {{ $rdv->patient->Nom }} &nbsp;{{ $rdv->patient->Prenom }}({{$rdv->patient->getAge()}}ans) -->
       		</div>	
       		<div class="col-sm-4 content text-center mt-15" style="padding-top:-10px;">	<!-- <span  class ="mt-10" style="font-size:medium;"></span> -->
       		  <h4><strong>Consultations Externes</strong></h5>

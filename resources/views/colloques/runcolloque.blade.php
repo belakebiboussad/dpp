@@ -2,62 +2,60 @@
 @section('title','Colloque')
 @section('page-script')
 <script>
-  $(document).ready(function(){
-	  $(".med").change(function(){
-	    $(this).next().remove();
-	  });
-  });
-  function valideDemande(elm,line,id){
+	$(document).ready(function(){
+		  $(".med").change(function(){
+		    $(this).next().remove();
+		  });
+	});
+ 	function valideDemande(elm,line,id){
 		var  select = $("#" + line).find("select");//row = $(".bodyClass").find('tr').eq(line);
 		if (select.val() == null) {
-		  if (!$(".red")[0]){
-	    	select.after('<div class="red">Sélectionner un Medecin</div>'); 
+			if (!$(".red")[0]){
+	    			select.after('<div class="red">Sélectionner un Medecin</div>'); 
 			}  
-	  }else {
-	  	var formData = {
-  	    id_medecin : $("#" + line).find('[name=medecin]').val(),
-		    observation : $("#" + line).find('[name=observation]').val(),
-		    ordre_priorite : $("#" + line).find("input[type='radio']:checked").val(), //$("#" + line).find('[name=prop]:checked').val(),
-		    id_demande : $("#" + line).find('[name=demandeId]').val(),
-		    id_colloque :$("#colloqueId").val(),
-		  };
-	    var ajaxurl = '/demandehosp/valider';
-	    if(!($(elm).hasClass("btn-success")))
-      {	
-       	ajaxurl = '/demandehosp/invalider';
-      }
-     	$.ajax({
+	  	}else {
+	  		var formData = {
+  	   			 id_medecin : $("#" + line).find('[name=medecin]').val(),
+  	   			 observation : $("#" + line).find('[name=observation]').val(),
+	     		     ordre_priorite : $("#" + line).find("input[type='radio']:checked").val(), //$("#" + line).find('[name=prop]:checked').val(),
+		           id_demande : $("#" + line).find('[name=demandeId]').val(),
+		           id_colloque :$("#colloqueId").val(),
+		     };
+	    		var ajaxurl = '/demandehosp/valider';
+	    		if(!($(elm).hasClass("btn-success")))
+		      {	
+		       	ajaxurl = '/demandehosp/invalider';
+		      }
+    		 	$.ajax({
 			 	headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        url : ajaxurl,
-        type:'POST',
-        data:formData,
-        dataType: 'json',
-        success: function (data) {
-         	if(data.etat == 'valide')
-          {
-     		$(elm).html('<i class="fa fa-close" style="font-size:14px"></i> Annuler');
-       		$(elm).attr('title', 'Annuler');
-       		$(elm).removeClass("btn-success").addClass("btn-danger");
-     	}else{
-     	          $(elm).removeClass("btn-danger").addClass("btn-success");
-       		$(elm).attr('title', 'Valider demande');
-       		$(elm).html('<i class="ace-icon fa fa-check"></i>Valider');
-     	}
-	      },
-        error:function(data){
-          console.log('Error:', data);
-        }
+			              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			     },
+	        		url : ajaxurl,
+		        	type:'POST',
+			     data:formData,
+			     dataType: 'json',
+		        	success: function (data) {
+			         	if(data.etat == 'valide')
+			          {
+			     			$(elm).html('<i class="fa fa-close" style="font-size:14px"></i> Annuler');
+			       		$(elm).attr('title', 'Annuler');$(elm).removeClass("btn-success").addClass("btn-danger");	
+			 		}else{
+				     	      $(elm).removeClass("btn-danger").addClass("btn-success");
+					      $(elm).attr('title', 'Valider demande');$(elm).html('<i class="ace-icon fa fa-check"></i>Valider');
+					}
+			      },
+			      error:function(data){
+			          console.log('Error:', data);
+			      }
 			}); 
-	  }
+		}
 	}
 </script>
 @endsection
 @section('main-content')
 <div class="page-header col-xs-12">
-	<h1>Déroulement du Colloque <strong> {{ $colloque->type->type }} </strong> de la semaine du  <strong>&quot;
-		<?php $d=$colloque->date_colloque.' monday next week'; echo(date('d M Y',strtotime($d)-1));?>&quot;</strong>
+	<h1>Déroulement du Colloque <strong> {{ $colloque->type }} </strong> de la semaine du  <strong>&quot;
+		<?php $d=$colloque->date.' monday next week'; echo(date('d M Y',strtotime($d)-1));?>&quot;</strong>
 	</h1>
 </div>
 <form id="detail_coll" class="form-horizontal" method="GET" action="/endcolloque/{{ $colloque->id }}"> {{--return redirect()->action('ColloqueController@index');--}}
@@ -74,36 +72,38 @@
 						<table class="table table-striped table-bordered table-hover" id="table1" aria-describedby="table1_info" role="grid">
 			      	<thead class="thin-border-bottom">
 		       			<tr>
-									<th class ="center" width="11%"><h5><strong>Patient</strong></h5></th>
-									<th class ="center" width="10%"><h5><strong class="text-center">Spécialité</strong></h5></th>
-									<th class ="center" width="10%"><h5><strong>Date Demande</strong></h5></th>
-									<th class ="center" width="12%"><h5><strong>Medcin traitant</strong></h5></th>
+							<th class ="center" width="11%"><h5><strong>Patient</strong></h5></th>
+							<th class ="center" width="10%"><h5><strong class="text-center">Spécialité</strong></h5></th>
+							<th class ="center" width="10%"><h5><strong>Date Demande</strong></h5></th>
+							<th class ="center" width="10%"><h5><strong>Mode Admission</strong></h5></th>
+							<th class ="center" width="12%"><h5><strong>Medcin traitant</strong></h5></th>
 						    	<th width="10%" class ="center"><h5><strong>Priorité</strong></h5></th>
-									<th class="font-weight-bold center"><h5><strong>Observation</strong></h5></th>
-									<th class="detail-col center"><em class="fa fa-cog"></em></th>
-								</tr>
-							</thead>	
-							<tbody id ="demandesBody" class="bodyClass">
-				 			<?php $j = 0; ?>
-				 			@foreach( $demandes as $i=>$demande)
-		    			<tr id= "{{ $j }}">
-			  				<td hidden> <input type="hidden" name="demandeId" value="{{ $demande->id}}"/></td>	
-			  				<td>{{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }}</td>	
-								<td>{{ $demande->Specialite->nom }}</td>
-					 			<td>{{$demande->consultation->Date_Consultation }}</td>
-								<td>
-									<select id="medecin" name = "medecin" class ="med" class ="selectpicker show-menu-arrow place_holder col-sm-12">
-										<option value="0" selected disabled>selectionnez... </option>
-										@foreach ($medecins as $medecin)
-										<option value="{{ $medecin->employ->id }}">{{ $medecin->employ->Nom_Employe }} {{ $medecin->employ->Prenom_Employe }}</option>
-										@endforeach
-									</select>
-								</td>
+							<th class="font-weight-bold center"><h5><strong>Observation</strong></h5></th>
+							<th class="detail-col center"><em class="fa fa-cog"></em></th>
+						</tr>
+					</thead>	
+					<tbody id ="demandesBody" class="bodyClass">
+		 			<?php $j = 0; ?>
+		 			@foreach( $demandes as $i=>$demande)
+		    				<tr id= "{{ $j }}">
+		  				<td hidden> <input type="hidden" name="demandeId" value="{{ $demande->id}}"/></td>	
+		  				<td>{{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }}</td>	
+						<td>{{$demande->modeAdmission }}</td>
+						<td>{{ $demande->Specialite->nom }}</td>
+			 			<td>{{$demande->consultation->Date_Consultation }}</td>
+						<td>
+							<select id="medecin" name = "medecin" class ="med" class ="selectpicker show-menu-arrow place_holder col-sm-12">
+								<option value="0" selected disabled>selectionnez... </option>
+								@foreach ($medecins as $medecin)
+								<option value="{{ $medecin->employ->id }}">{{ $medecin->employ->nom }} {{ $medecin->employ->prenom }}</option>
+								@endforeach
+							</select>
+						</td>
 					      <td>
 					     		<div class=" btn-group btn-group-vertical col-sm-12 btn-group-lg" data-toggle="radio" role="group"> 
-							 	 		<label for="prop"><input type="radio"  class="radioM" name="prop{{$j}}"  value="1" checked/>1</label>&nbsp;&nbsp;
-										<label for="prop"><input type="radio"  class="radioM" name="prop{{$j}}"  value="2"/>2</label>&nbsp;&nbsp;
-			         		  <label for="prop"><input type="radio"  class="radioM" name="prop{{$j}}"  value="3" />3</label>
+							 	 		<label for="prop"><input type="radio"  class="radioM" name="prop{{$j}}" value="1" checked/>1</label>&nbsp;&nbsp;
+										<label for="prop"><input type="radio"  class="radioM" name="prop{{$j}}" value="2"/>2</label>&nbsp;&nbsp;
+			         		  <label for="prop"><input type="radio"  class="radioM" name="prop{{$j}}" value="3" />3</label>
 							  	</div>
 						    </td>
 				    		<td>
@@ -126,13 +126,11 @@
 											<div class="profile-user-info profile-user-info-striped">
 												<div class="profile-info-row">
 													<div class="profile-info-name text-center"><strong>Age:</strong></div>
-													<div class="profile-info-value">
-														  <span>{{ $demande->consultation->patient->getAge( )}} ans</span>
-													</div>
+													<div class="profile-info-value"> <span>{{ $demande->consultation->patient->getAge( )}} ans</span></div>
 												</div>
-											<div class="profile-info-row">
-												<div class="profile-info-name text-center"><strong>Groupe Sanguin:</strong></div>
-												<div class="profile-info-value">
+												<div class="profile-info-row">
+													<div class="profile-info-name text-center"><strong>Groupe Sanguin:</strong></div>
+													<div class="profile-info-value">
 			         	 					<h4>
 			         	 						<span class="label label-lg label-inverse arrowed-in">{{ $demande->consultation->patient->group_sang }}{{ $demande->consultation->patient->rhesus }}</span>
 			         	 					</h4>
@@ -141,16 +139,10 @@
 											<div class="profile-info-row">
 												<div class="profile-info-name text-center"><strong>Etablie par Dr:</strong></div>
 												<div class="profile-info-value">
-													<span>{{ $demande->consultation->docteur->Nom_Employe }} {{ $demande->consultation->docteur->Prenom_Employe }}</span>
+													<span>{{ $demande->consultation->docteur->nom }} {{ $demande->consultation->docteur->prenom }}</span>
 												</div>
 											</div>
-											<div class="profile-info-row">
-												<div class="profile-info-name text-center"> <strong>Service:</strong></div>
-												<div class="profile-info-value">
-													<span>{{$demande->Service->nom }}</span>
-												</div>
-											</div>
-										</div>	{{-- profile-user-info-striped --}}
+									  </div>	{{-- profile-user-info-striped --}}
 				        	</div>{{-- col-xs-6 col-sm-6 --}}
 									<div class="col-xs-6 col-sm-6">
 										<div class="space visible-xs"></div>

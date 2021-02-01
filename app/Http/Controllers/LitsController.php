@@ -8,6 +8,10 @@ use App\modeles\salle;
 use App\modeles\service;
 use App\modeles\bedReservation;
 use App\modeles\rdv_hospitalisation;
+use App\modeles\DemandeHospitalisation;
+use App\modeles\bedAffectation;
+use App\modeles\employ;
+use Auth; 
 use Response;
 class LitsController extends Controller
 {
@@ -36,8 +40,8 @@ class LitsController extends Controller
 
     public function create($id_salle = null)
     {
-           $services = service::all();
-           return view('lits.create_lit', compact('services','id_salle'));
+       $services = service::all();
+       return view('lits.create_lit', compact('services','id_salle'));
     }
     /**
      * Store a newly created resource in storage.
@@ -68,10 +72,10 @@ class LitsController extends Controller
      */
     public function show($id)
     {
-        $lit = lit::FindOrFail($id);
-        $salle = salle::FindOrFail($lit->salle_id);
-        $service = service::FindOrFail($salle->service_id);
-        return view('lits.show_lit', compact('lit','service'));
+      $lit = lit::FindOrFail($id);
+      $salle = salle::FindOrFail($lit->salle_id);
+      $service = service::FindOrFail($salle->service_id);
+      return view('lits.show_lit', compact('lit','service'));
     }
 
     /**
@@ -82,9 +86,9 @@ class LitsController extends Controller
      */
     public function edit($id)
     {
-        $lit = lit::FindOrFail($id);
-        $salles = salle::all();
-        return view('lits.edit_lit', compact('lit','salles'));
+      $lit = lit::FindOrFail($id);
+      $salles = salle::all();
+      return view('lits.edit_lit', compact('lit','salles'));
     }
 
     /**
@@ -96,18 +100,18 @@ class LitsController extends Controller
      */
       public function update(Request $request, $id)
       {
-             $lit = lit::FindOrFail($id);
-             $etat =1 ;
-             if(isset($_POST['etat']) )
-                     $etat = 0;   
-             $lit->update([
-                  "num"=>$request->numlit,
-                  "nom"=>$request->nom,
-                  "etat"=>$etat,
-                  "affectation"=>$request->affectation,
-                  "salle_id"=>$request->salle,
-             ]);
-             return redirect()->action('LitsController@index');
+        $lit = lit::FindOrFail($id);
+        $etat =1 ;
+        if(isset($_POST['etat']) )
+          $etat = 0;   
+        $lit->update([
+          "num"=>$request->numlit,
+          "nom"=>$request->nom,
+          "etat"=>$etat,
+          "affectation"=>$request->affectation,
+          "salle_id"=>$request->salle,
+        ]);
+         return redirect()->action('LitsController@index');
       }
 
     /**
@@ -116,71 +120,51 @@ class LitsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    //affeter lit pour demande d'urgence
+       public function affecterLit(Request $request )
+      {
+            $demande= DemandeHospitalisation::find($request->demande_id); 
+            $rdv = $demande->RDVs->where('etat_RDVh', NULL)->first();   //if($rdv->has('bedReservation'))    $rdv->bedReservation()->delete();
+            $lit = lit::FindOrFail( $request->lit_id);
+             if($lit->has('bedReservation'))
+             {
+                   $free = $lit->isFree(strtotime($rdv->date_RDVh),strtotime($rdv->date_Prevu_Sortie));  
+                    if(!$free)
+                        $lit->bedReservation()->delete(); 
+             } 
+            $affect = bedAffectation::create($request->all());
+             $lit->update([
+                  "affectation" =>1,
+              ]);
+             if($request->ajax())  
+                return Response::json($affect);   
+      }
+    public function affecter()
     {
-        //
+      $now = date("Y-m-d", strtotime('now'));
+      $services = service::all();
+      $rdvs = rdv_hospitalisation::doesntHave('demandeHospitalisation.bedAffectation')
+                                 ->whereHas('demandeHospitalisation',function ($q){
+                                    $q->where('service',Auth::user()->employ->service)
+                                      ->where('etat','programme');    
+                                 })->where('date_RDVh','>=',$now)->get();
+      $demandesUrg= DemandeHospitalisation::doesntHave('bedAffectation')
+                                          ->whereHas('consultation',function($q) use($now){
+                                               $q->where('Date_Consultation', $now);
+                                          })->where('modeAdmission','urgence')->where('etat','en attente')
+                                            ->where('service',Auth::user()->employ->service)->get(); 
+      return view('bedAffectations.index', compact('rdvs','demandesUrg','services'));  
     }
-
+    //public function destroy($id){}
     /**
-    function ajax return lits ,on retourne pas les lits bloque ou reservé  
+    //function ajax return lits ,on retourne pas les lits bloque ou reservé  
     */
-    public function getlits_old(Request $request)
-    {  
-        $lits =array();
-        $salle =salle::FindOrFail($request->SalleId);
-        if(isset($request->rdvId))
-        {
-          $rdvHosp =  rdv_hospitalisation::FindOrFail($request->rdvId);
-          if(isset($rdvHosp->bedReservation))
-          {
-            $rdvHosp->bedReservation->delete();
-            
-          }  
-        }
-        if(isset($rdvHosp) && isset($rdvHosp->bedReservation) && ($rdvHosp->bedReservation->lit->salle_id == $request->SalleId ))
-        {
-          foreach ($salle->lits as $key => $lit) {  
-            if($rdvHosp->bedReservation->id_lit !=$lit->id ){
-              $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate));
-              if(!($free))
-                $salle->lits->pull($key); //$lits->push($lit);    
-            }
-          }
-        }
-        else
-        {  
-            foreach ($salle->lits as $key => $lit) {  
-                $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate));
-                if(!($free))
-                    $salle->lits->pull($key); //$lits->push($lit);    
-            } 
-              
-        }    
-        return $salle->lits;
-        //return($lits); 
-        //return($salle->lits->count());
-        // $lits = lit::where('salle_id',$salleid)->where('etat',1)->where("affectation",0)->get();
-        //$lit =Lit::FindOrFail(4); // $libre = $lit->isFree(5,1588204800,1588291200);
-        /*
-        $idlit = 11;
-        $free ="true";
-        $reservations =  bedReservation::whereHas('lit',function($q) use($idlit){
-                                              $q->where('id',$idlit);
-                                        })->get();
-        foreach ($reservations as $key => $reservation) {
-            if(( strtotime($request->StartDate) >= strtotime($reservation->rdvHosp->date_Prevu_Sortie)) || (strtotime($request->EndDate) <= strtotime($reservation->rdvHosp->date_RDVh)))
-                  $free = " true";
-             else
-                  $free = " false";   
-        }  
-       // return (Response::json(strtotime($reservations[0]->rdvHosp->date_RDVh)));
-        return $free;
-        */
-    }
     public function getlits(Request $request)
     {
-        $lits =array();
-        $salle =salle::FindOrFail($request->SalleId);
+      $lits =array();
+      $salle =salle::FindOrFail($request->SalleId);
+      if( $request->Affect == '0')  
+      {
         if(isset($request->rdvId))
         {
           $rdvHosp =  rdv_hospitalisation::FindOrFail($request->rdvId)->with('bedReservation');
@@ -191,8 +175,16 @@ class LitsController extends Controller
           $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate));
           if(!($free))
             $salle->lits->pull($key); //$lits->push($lit);    
-        } 
-        return $salle->lits;
+        }
+      }else
+      {
+        foreach ($salle->lits as $key => $lit) {
+          $affect = $lit->affecter($lit->id); 
+          if($affect)
+            $salle->lits->pull($key);
+        }
+      }    
+      return $salle->lits;
     }
 
 }

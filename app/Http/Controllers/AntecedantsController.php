@@ -24,7 +24,7 @@ class AntecedantsController extends Controller
     {   
         $patient = patient::FindOrFail($id);
         $atcds = antecedant::where("Patient_ID_Patient",$patient->id)->get()->all();
-        return view('antecedents.index_atcd',compact('patient','atcds'));
+        return view('antecedents.index',compact('patient','atcds'));
     }
 
     /**
@@ -35,7 +35,7 @@ class AntecedantsController extends Controller
     public function create($id_patient)
     {
         $patient = patient::FindOrFail($id_patient);
-        return view('antecedents.create_antec',compact('patient'));    // return view('consultations.Antecedant',compact('patient'));
+        return view('antecedents.create_antec',compact('patient'));
     }
     /**
      * Store a newly created resource in storage.

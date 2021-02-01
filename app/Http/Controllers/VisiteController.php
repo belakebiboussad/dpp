@@ -8,6 +8,7 @@ use App\modeles\consigne;
 use App\modeles\periodeconsigne;
 use App\modeles\surveillance;
 use App\modeles\consultations;
+use App\modeles\specialite_produit;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -41,18 +42,17 @@ class VisiteController extends Controller
      */
     public function create($id_hosp)
     {
-      //$patient = (hospitalisation::FindOrFail($id_hosp))->admission->demandeHospitalisation->consultation->patient;
-      $hosp = hospitalisation::FindOrFail($id_hosp);
-      $patient = $hosp->admission->demandeHospitalisation->consultation->patient;
-      $date = Carbon\Carbon::now();//$date = Date::Now();
-      $visite =new visite;
-      $visite->date=$date;
-      $visite->heure=$date->format("H:i");
-      $visite->id_hosp=$id_hosp;
-      $visite->id_employe=Auth::User()->employee_id;
-      $visite->save();
-      // ->with('id_hosp',$id_hosp)
-      return view('visite.create',compact('hosp','patient'))->with('id',$visite->id);
+          $date = Carbon\Carbon::now(); 
+          $hosp = hospitalisation::FindOrFail($id_hosp);//$patient = (hospitalisation::FindOrFail($id_hosp))->admission->demandeHospitalisation->consultation->patient;
+          $patient = $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient;
+          $visite =new visite;
+          $visite->date=$date;
+          $visite->heure=$date->format("H:i");
+          $visite->id_hosp=$id_hosp;
+          $visite->id_employe=Auth::User()->employee_id;
+          $specialitesProd = specialite_produit::all();
+          $visite->save();
+          return view('visite.create',compact('hosp','patient','specialitesProd'))->with('id',$visite->id);
     }
  /**
      * Show the form for creating a new resource.
@@ -62,121 +62,13 @@ class VisiteController extends Controller
      */
     public function store(Request $request)
     {
-     return redirect()->action('HospitalisationController@index');
-    }
-    public function storebouzidi(Request $request,$id)
-    {
-      $date = Date::Now();
-      $v =new visite;
-	    $v->date=$date;
-	    $v->heuree=$request->heurevisite;
-	    $v->id_hosp=$id;
-	    $v->id_employe=Auth::User()->employee_id;
-      $v->save();
-      $cpt=$request->cpt;
-      /*****************************/                  
-      $c=new consigne;
-      $c->consigne=$request->cons[0];
-      $c->id_visite=$v->id;
-      $c->app='Non';
-      $c->duree=$request->dur[0];
-      $c->save();
-      /************************************/
-      if (isset($request->p[0][0]) && !empty($request->p[0][0]))
-      {
-        if (($request->p[0][0])=='Matin')
-        {              
-          $p=new periodeconsigne; 
-          $p->id_consigne=$c->id;
-          $p->id_periode=1;
-          $p->save();
-        }
-      }
-                  if (isset($request->p[1][0]) && !empty($request->p[1][0]))
-                  {
-
-                  if(($request->p[1][0])=='Midi')
-                    {  
-                        
-                    $p=new periodeconsigne; 
-                      $p->id_consigne=$c->id;
-                     $p->id_periode=2;
-                     $p->save();
-                     }
-                 }
-                  if (isset($request->p[2][0]) && !empty($request->p[2][0]))
-                  {
-                 
-                   if(($request->p[2][0])=='Soir')
-                      {
-                       
-                     $p=new periodeconsigne; 
-                     $p->id_consigne=$c->id;
-                     $p->id_periode=3;
-                     $p->save();
-                      }
-                  }
-       
-            for($i=1;$i<$cpt;$i++)
-                   {
-                   	 $c=new consigne;
-                     $c->consigne=$request->cons[$i];
-                     $c->id_visite=$v->id;
-                     $c->app='Non';
-                     $c->duree=$request->dur[$i];
-                     $c->save(); 
-                        
-                 if (isset($request->p[0][$i]) && !empty($request->p[0][$i]))
-                  { 
-                  
-                     
-                    if (($request->p[0][$i])=='Matin')
-                    {
-                       
-                   $p=new periodeconsigne; 
-                     $p->id_consigne=$c->id;
-                      $p->id_periode=1;
-                      $p->save();
-                      }
-                  }
-                   if (isset($request->p[1][$i]) && !empty($request->p[1][$i]))
-                  {
-
-                  if(($request->p[1][$i])=='Midi')
-                    {  
-                        
-                    $p=new periodeconsigne; 
-                      $p->id_consigne=$c->id;
-                     $p->id_periode=2;
-                     $p->save();
-                     }
-                 }
-                  if (isset($request->p[2][$i]) && !empty($request->p[2][$i]))
-                  {
-                 
-                   if(($request->p[2][$i])=='Soir')
-                      {
-                       
-                     $p=new periodeconsigne; 
-                     $p->id_consigne=$c->id;
-                     $p->id_periode=3;
-                     $p->save();
-                      }
-                  }
-                  
-
-                       }
-       
-        return redirect('/choixpatvisite')->with('info','Visite ajoutée avec succès!'); //  return redirect()->action('ConsultationsController@create',['id'=>$id]);
-       
+          return redirect()->action('HospitalisationController@index');
     }
     public function edit($id)
     {
-      $hosp = hospitalisation::find($id);
-      return view('visite.edit',compact('hosp'));  
+          $hosp = hospitalisation::find($id);
+          return view('visite.edit',compact('hosp'));  
     }
-   
-	//
     public function destroy($id)
     {
       $visite = visite::find($id);
@@ -186,7 +78,6 @@ class VisiteController extends Controller
         report($e);
         return false;
       }
-   
       $hospitalisations = hospitalisation::where('etat_hosp','=','en cours')->get();
       return response()->json([
          'message' =>$obj
@@ -194,6 +85,5 @@ class VisiteController extends Controller
     }
     public function show($id)
     {
-     
     }
 }

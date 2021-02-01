@@ -35,7 +35,7 @@
     </li>
     <ul class="nav nav-list">
       <li class="">
-        <a href="/home_sur">
+        <a href="{{ route('rdvHospi.index') }}">
             <i class="menu-icon fa fa-university"></i>
             <span class="menu-text"> Acceuil </span>
         </a>
@@ -52,13 +52,7 @@
           <li class="">     
             {{-- <a href="{{ URL::route('hospitalisation.index') }}"> --}}
             <a href="{{ route('hospitalisation.index') }}">
-              <i class="menu-icon fa fa-caret-right"></i>Liste des Hospitalisations
-            </a>
-            <b class="arrow"></b>
-          </li>
-          <li class="">
-            <a href="/affecterLit">
-              <i class="menu-icon fa fa-caret-right"></i>Affectater un Lit
+              <i class="menu-icon fa fa-caret-right"></i>Liste Hospitalisations
             </a>
             <b class="arrow"></b>
           </li>
@@ -78,31 +72,39 @@
             <b class="arrow"></b>
           </li>
           <li class="">
-            <a href="/hospitalisation/listeRDVs">
-              <i class="menu-icon fa fa-clock-o"></i>Liste des Rendez-Vous     
+            <a href="/listeRDVs">
+              <i class="menu-icon fa fa-clock-o"></i>Liste Rendez-Vous     
             </a>
               <b class="arrow"></b>
           </li>
         </ul>
       </li>
       <li class="">
-        <a href="#" class="dropdown-toggle">
-          <i class="menu-icon fa fa-calendar"></i><span class="menu-text">Gestion des Lits</span>
-          <b class="arrow fa fa-angle-down"></b>
+        <a href="#" class="dropdown-toggle"> {{--  <i class="menu-icon fa fa-calendar"></i> --}}
+             <i class="menu-icon fa fa-bed" aria-hidden="true"></i>
+              <span class="menu-text">Gestion des Lits</span>
+             <b class="arrow fa fa-angle-down"></b>
         </a>
         <ul class="submenu">
           <li class="">
-            <a href="/404" title="ajouter un Rendez-Vous">
-              <i class="menu-icon fa fa-plus"></i>Affecter un Lit
+            <a href="{{ route('reservation.index') }}" title="Reserver  un Lit">
+              <i class="menu-icon fa fa-plus"></i>Reserver Lit
             </a>
             <b class="arrow"></b>
           </li>
           <li class="">
+            <a href="/bedAffectation" title="Affecter Un Lit">
+            {{-- {{ route('litAffecter', 0) }} --}}
+              <i class="menu-icon fa fa-plus"></i>Affecter  Lit
+            </a>
+            <b class="arrow"></b>
+          </li>
+          {{-- <li class="">
             <a href="/404">
               <i class="menu-icon fa fa-clock-o"></i>Liste Lits     
             </a>
               <b class="arrow"></b>
-          </li>
+          </li> --}}
         </ul>
       </li>
     </ul><!-- /.nav-list -->
@@ -115,7 +117,6 @@
       try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
       function addDays()
       {
-/*var jsDate = $('#dateEntree').datepicker('getDate');jsDate.setDate(jsDate.getDate() + parseInt($('#numberDays').val()));var dateEnd = jsDate.getFullYear() + '-' + (jsDate.getMonth()+1) + '-' + jsDate.getDate(); $("#dateSortiePre").datepicker("setDate", dateEnd);*/
         var datefin = new Date($('#dateEntree').val());
         datefin.setDate(datefin.getDate() + parseInt($('#numberDays').val(), 10));
         $("#dateSortiePre").val(moment(datefin).format("YYYY-MM-DD"));        
@@ -142,45 +143,45 @@
             $("#serviceh").trigger("change"); 
           }
         });
-        $("#serviceh").change(function(){
-          if($(this ).val() != 0)
-          {  
-            var attr = $('#salle').attr('disabled');
-            if (typeof attr !== typeof undefined && attr !== false) {
-                $('#salle').removeAttr("disabled");
-            }
-            $('#lit option[value=0]').prop('selected', true);
-            $('#lit').attr('disabled', 'disabled');
-            var serviceID = $('#serviceh').val();
-            var start = $('#dateEntree').val(); //var start =$('#dateEntree').datepicker('getDate');
-            var end = $("#dateSortiePre").val(); //var end = $('#dateSortiePre').datepicker('getDate');
-            if(end !== null  && end !== '')
-            {
-              $.ajax({
-                       url : '/getsalles',
-                       type:'GET',
-                       data: { 
-                              ServiceID: serviceID , 
-                              StartDate: start, 
-                              EndDate: end,
-                       }, //dataType : 'json',
-                       success: function(data, textStatus, jqXHR){
-                              var select = $('#salle').empty();
-                             if(data.length != 0){
-                                    select.append("<option value='0'>Selectionnez une salle</option>");   
-                                    $.each(data,function(){
-                                          select.append("<option value='"+this.id+"'>"+this.nom+"</option>");
-                                    });
-                             }else
-                             {      
-                                    select.append('<option value="" selected disabled>Pas de salle</option>');
-                              }
-                       },
-                       error: function (jqXHR, textStatus, errorThrown) {
-                              alert("error")
-                       }
-                });   
-            }
+             $("#serviceh").change(function(){
+                     if($(this ).val() != 0)
+                     {  
+                          var attr = $('#salle').attr('disabled');
+                           if (typeof attr !== typeof undefined && attr !== false) {
+                                $('#salle').removeAttr("disabled");
+                           }
+                          $('#lit option[value=0]').prop('selected', true);
+                          $('#lit').attr('disabled', 'disabled');
+                          var formData = { 
+                                ServiceID: $('#serviceh').val(), 
+                                Affect :$('#affect').val(),
+                          };
+                          if($('#affect').val() == '0')
+                          {
+                            formData.StartDate =$('#dateEntree').val();
+                            formData.EndDate = $("#dateSortiePre").val();//200-12-25
+                          } ////
+                            /* if(formData.EndDate !== null  &&  formData.EndDate !== '') {*/
+            $.ajax({
+                  url : '/getsalles',
+                  type:'GET',
+                  data:formData, //dataType : 'json',
+                  success: function(data, textStatus, jqXHR){
+                           var select = $('#salle').empty();
+                         if(data.length != 0){
+                                select.append("<option value='0'>Selectionnez une salle</option>");   
+                                 $.each(data,function(){
+                                    select.append("<option value='"+this.id+"'>"+this.nom+"</option>");
+                              });
+                          }else
+                           {      
+                                  select.append('<option value="" selected disabled>Pas de salle</option>');
+                            }
+                  },
+                 error: function (jqXHR, textStatus, errorThrown) {
+                      alert("error")
+                  }
+              });   
           }else
           {
             $('#salle option[value=0]').prop('selected', true);
@@ -190,50 +191,69 @@
         $("#salle").change(function(){
           if($(this ).val() != 0)
           {  
-            var attr = $('#lit').attr('disabled');
-            if (typeof attr == typeof undefined && attr == false) {
-              $('#lit').attr('disabled', 'disabled');
-            }
-            $('#lit').removeAttr("disabled");
-            var start = $('#dateEntree').val();
-            var end = $("#dateSortiePre").val();
-            var salleId =  $('#salle').val();
+            var attr = $('#lit_id').attr('disabled');
+            if (typeof attr == typeof undefined && attr == false)
+              $('#lit_id').attr('disabled', 'disabled');
+            $('#lit_id').removeAttr("disabled");
             var rdvId = typeof($('#id').val())  !== "undefined" ? $('#id').val(): null;  
+            var formData = { 
+              SalleId:  $('#salle').val(), 
+              Affect :$('#affect').val(),
+            };
+            if($('#affect').val() == '0')
+            {
+              formData.StartDate =$('#dateEntree').val();
+              formData.EndDate = $("#dateSortiePre").val();
+              formData.rdvId   = rdvId;
+            } 
             $.ajax({
-                    url : '/getlits',
-                    type : 'GET',
-                    data: { 
-                          SalleId: salleId , 
-                          StartDate: start, 
-                          EndDate: end,
-                          rdvId : rdvId
-                    }, //dataType : 'json', 
-                    success: function(data, textStatus, jqXHR){                  
-                          var selectLit = $('#lit').empty();                      
-                          // $.each(data, function( index, value ) {
-                          //   alert( index + ": " + value );
-                          // });
-
-                        if(data.length != 0){
-                                selectLit.append("<option value='0'>Selectionnez un lit</option>");
-                                $.each(data,function(){
-                                    selectLit.append("<option value='"+this.id+"'>"+this.nom+"</option>");
-                                });
-                        }else
-                        {
-                          selectLit.append('<option value="" selected disabled>Pas de Lit libre</option>');
-                        }
-                          
-                    },
-                  error: function (jqXHR, textStatus, errorThrown) {
-                  },
-            });
+                url : '/getlits',
+                type : 'GET', //dataType : 'json', 
+                 data:formData,
+                success: function(data, textStatus, jqXHR){                  
+                    var selectLit = $('#lit_id').empty();                      
+                    if(data.length != 0){
+                      selectLit.append("<option value='0'>Selectionnez un lit</option>");
+                      $.each(data,function(){
+                        selectLit.append("<option value='"+this.id+"'>"+this.nom+"</option>");
+                      });
+                        $('#AffectSave').removeAttr("disabled");
+                    }else
+                    {
+                      selectLit.append('<option value="" selected disabled>Pas de Lit libre</option>');
+                    }      
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                },
+            });    
           }
           else
-            $('#lit option[value=0]').prop('selected', true);
+            $('#lit_id option[value=0]').prop('selected', true);
+        });
+        jQuery('body').on('click', '.bedAffect', function (event) {
+          $('#demande_id').val($(this).val());
+          jQuery('#bedAffectModal').modal('show');
+        });
+        jQuery('body').on('click', '#AffectSave', function (e) {
+          e.preventDefault();
+          var formData = {
+            demande_id : jQuery('#demande_id').val(),
+            lit_id     : jQuery('#lit_id').val()
+          };
+          $.ajax({
+                headers: {
+                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url : '{{ route ("lit.affecter") }}',
+                type:'POST',
+                data:formData,//dataType: 'json',
+                success: function (data) {
+                    $("#demande" + formData['demande_id']).remove();
+                      jQuery('#bedAffectModal').trigger("reset");
+                      jQuery('#bedAffectModal').modal('hide');
+                }
+          });
         });
       })
     </script>
 </div>
-
-<!-- /section:basics/sidebar -->

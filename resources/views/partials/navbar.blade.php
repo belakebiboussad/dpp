@@ -1,10 +1,8 @@
-<!-- #section:basics/navbar.layout -->
-<div id="navbar" class="navbar navbar-default">
-    <script type="text/javascript">
+<div id="navbar" class="navbar navbar-default" style="background-color:#19e2f9">
+  <script type="text/javascript">
         try{ace.settings.check('navbar' , 'fixed')}catch(e){}
-    </script>
-
-    <div class="navbar-container" id="navbar-container">
+  </script>
+  <div class="navbar-container" id="navbar-container">
         <!-- #section:basics/sidebar.mobile.toggle -->
         <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
             <span class="sr-only">Toggle sidebar</span>
@@ -15,17 +13,12 @@
 
             <span class="icon-bar"></span>
         </button>
-
         <!-- /section:basics/sidebar.mobile.toggle -->
-        <div class="navbar-header pull-left">
-            <!-- #section:basics/navbar.layout.brand -->
-            <a href="#" class="navbar-brand">
-                <small>
-                    <i class="ace-icon fa fa-h-square"></i>
-                    Système de Gestion du Dossier Patient
-                </small>
-            </a>
-        </div>
+        <div class="navbar-header pull-left" >
+          <!-- #section:basics/navbar.layout.brand -->
+          <a href="#" class="navbar-brand"> <small> <i class="ace-icon fa fa-h-square"></i>
+          <strong>Dossier Médical Electonique EHSN</strong></a>
+         </div>
 
         <!-- #section:basics/navbar.dropdown -->
         <div class="navbar-buttons navbar-header pull-right" role="navigation">
@@ -41,19 +34,17 @@
                         <i class="ace-icon fa fa-caret-down"></i>
                     <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
                         <li>
-                        
-                                           <a href="/setting/{{Auth::user()->id}}">
-                                            <i class="ace-icon fa fa-cog"></i>
-                                            Settings
-                                </a>
-
+                            <a href="/setting/{{Auth::user()->id}}">
+                                <i class="ace-icon fa fa-cog"></i>
+                                Réglages
+                            </a>
                         </li>
 
                         <li>
-                                <a href="{{ url('/profile',Auth::user()->id) }}">                     
-                                               <i class="ace-icon fa fa-user"></i>Profile
-                                </a>  
-                             
+                            <a href="{{ url('/profile',Auth::user()->id) }}">
+                                <i class="ace-icon fa fa-user"></i>
+                                Profil
+                            </a>
                         </li>
 
                         <li class="divider"></li>
@@ -62,7 +53,7 @@
                             <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
 
                                 <i class="ace-icon fa fa-power-off"></i>
-                                Logout
+                                Déconnexion
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         {{ csrf_field() }}
                                 </form>

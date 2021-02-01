@@ -2,11 +2,12 @@
 <!--[if !IE]> -->
 <script src="{{ asset('/js/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/jspdf.debug.js') }}"></script>
- <script type="text/javascript">
-     if('ontouchstart' in document.documentElement) document.write("<script src='{{asset('/js/jquery.mobile.custom.min.js')}}'>"+"<"+"/script>");
+<script type="text/javascript" src="{{ asset('/js/jspdf.plugin.autotable.min.js') }}"></script>
+<script type="text/javascript">
+  //if('ontouchstart' in document.documentElement) document.write("<script src='{{asset('/js/jquery.mobile.custom.min.js')}}'>"+"<"+"/script>");
 </script>
-<script src="{{asset('/js/bootstrap.min.js')}}"></script>{{-- <script src="{{asset('/js/angular.min.js')}}"></script> --}}
-<script src="{{asset('/js/jquery-ui.custom.min.js')}}"></script>
+<script src="{{asset('/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('/js/jquery-ui.min.js')}}"></script>{{-- <script src="{{asset('/js/jquery-ui.custom.min.js')}}"></script> --}}
 <script src="{{asset('/js/jquery.ui.touch-punch.min.js')}}"></script>
 <script src="{{asset('/js/jquery.easypiechart.min.js')}}"></script>
 <script src="{{asset('/js/jquery.sparkline.index.min.js')}}"></script>
@@ -41,99 +42,151 @@
 <script src="{{ asset('/js/prettify.min.js') }}"></script>
 <script src="{{ asset('/js/bootstrap-toggle.min.js') }}"></script>
 <script src="{{ asset('/js/ace-extra.min.js') }}"></script>
-<script src="{{ asset('/js/jquery.timepicker.min.js') }}"></script>
-<script src="{{ asset('/js/typeahead.bundle.min.js') }}"></script>
+<script src="{{ asset('/js/jquery.timepicker.min.js') }}"></script><!-- <script type="text/javascript" src="{{ asset('/js/bootstrap-timepicker.min.js') }}"></script> -->
 <script src="{{ asset('/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
 <script src="{{ asset('/plugins/fullcalendar/locale/fr.js') }}"></script>
-<script src="{{ asset('/js/jquery-editable-select.js') }}"></script>
-{{-- <script src="{{asset('/js/jquery-ui.js')}}"></script>
- --}}<script src="{{asset('/js/sweetalert2.all.min.js')}}"></script>
-{{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> --}}
+<script src="{{ asset('/js/jquery-editable-select.js') }}"></script><!--  -->
+<script src="{{asset('/js/sweetalert2.all.min.js')}}"></script>
+<script src="{{asset('/js/JsBarcode.all.min.js')}}"></script>
 <script type="text/javascript">
-      $(document).ready(function(){   // $(".select2").select2({ //     dir: "fr"// });
-      $('#avis').change(function(){
+  var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+  $(document).ready(function(){
+       $('.timepicker').timepicker({
+            timeFormat: 'HH:mm',
+            interval: 60,
+            minTime: '08',
+            maxTime: '17:00pm',
+            defaultTime: '08:00',   
+            startTime: '08:00',
+            dynamic: true,
+            dropdown: true,
+            scrollbar: true
+        });
+        $( ".autoCommune" ).autocomplete({
+            source: function( request, response ) {
+                $.ajax({
+                  url:"{{route('commune.getCommunes')}}",
+                  type: 'post',
+                  dataType: "json",
+                  data: {
+                     _token: CSRF_TOKEN,
+                     search: request.term
+                  },
+                  success: function( data ) {
+                     response( data );
+                  }
+                });
+              },
+              minLength: 3,
+        select: function (event, ui) { // Set selection
+          $(this).val(ui.item.label); // display the selected text
+          switch(event['target']['id'])
+          {
+            case "lieunaissance":
+                $("#idlieunaissance").val(ui.item.value);// save selected id to input
+                break;
+            case "lieunaissancef":
+                $("#idlieunaissancef").val(ui.item.value);
+                break;
+            case "commune":
+                $("#idcommune").val(ui.item.value);
+                $("#idwilaya").val(ui.item.wvalue);
+                $("#wilaya").val(ui.item.wlabel);
+                break;
+            case "communef":   
+                $("#idcommunef").val(ui.item.value);
+                $("#idwilayaf").val(ui.item.wvalue);
+                $("#wilayaf").val(ui.item.wlabel);
+                break;
+            default:
+                break;   
+
+          } 
+          return false;
+        }
+    });
+    $( ".autofield" ).autocomplete({
+        source: function( request, response ) {
+            $.ajax({
+                url:"{{route('patients.autoField')}}",
+                type: 'post',
+                dataType: "json",
+                data: {
+                   _token: CSRF_TOKEN,
+                    q: request.term,
+                    field:$(this.element).prop("id"),
+                },
+                success: function( data ) {
+                  response( data );
+                }
+            });
+        },
+        minLength: 3,
+        select: function (event, ui) {
+          $(this).val(ui.item.label);
+          field =event['target']['id'];
+        }
+    });
+    $( ".autoUserfield" ).autocomplete({
+        source: function( request, response ) {
+          $.ajax({
+                url:"{{route('users.autoField')}}",
+                type: 'post',
+                dataType: "json",
+                data: {
+                   _token: CSRF_TOKEN,
+                    q: request.term,
+                    field:$(this.element).prop("id"),
+                },
+                success: function( data ) {
+                  response( data );
+                }
+            });
+        },
+        minLength: 3,
+        select: function (event, ui) {
+          $(this).val(ui.item.label);
+          field =event['target']['id'];
+        }
+    });
+    $('#avis').change(function(){
           if($(this).val() == "R")
             $("#motifr").show();
           else
              $("#motifr").hide();
     });
-    $("#validerdmd").click(function(){
-      var arrayLignes = document.getElementById("cmd").rows;
-      var longueur = arrayLignes.length;   var produits = [];
-      for(var i=1; i<longueur; i++)
-      {
-        produits[i] = { produit: arrayLignes[i].cells[1].innerHTML, gamme: arrayLignes[i].cells[2].innerHTML, spec: arrayLignes[i].cells[3].innerHTML, qte: arrayLignes[i].cells[4].innerHTML}
-      }
-      var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(produits)+"' hidden>");
-      champ.appendTo('#demandform');
-      $('#demandform').submit();
-    });
     $("#deletepod").click(function(){
       $("tr:has(input:checked)").remove();
     });
-    $("#validerdmd").click(function(){
-      var arrayLignes = document.getElementById("cmd").rows;
-      var longueur = arrayLignes.length;
-      var tab = [];
-      for(var i=1; i<longueur; i++)
-      {
-        tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;
-      }
-      var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");
-      champ.appendTo('#dmdprod');
-      $('#dmdprod').submit();
-    });
-    $("#ajoutercmd").click(function() {
-      $('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td>"+$('#produit').val()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+$('#specialite option:selected').text()+"</td><td class='center'>"+$("#quantite").val()+"</td></tr>");
-      $('#produit').val('');$("#quantite").val(1);$('#gamme').val('0');$('#specialite').val('0')
-    });
-    $('#gamme').change(function(){
-      var id_gamme = $(this).val();
-      var html_code = '<option value="">Sélectionner</option>';
-       $.ajax({
-        url : '/getspecialite/'+id_gamme,
-        type : 'GET',
-        dataType : 'json',
-        success : function(data){
-            $.each(data, function(){
-              html_code += "<option value='"+this.id+"'>"+this.specialite_produit+"</option>";
-            });
-            $('#specialite').html(html_code);
-        },
-      });
-    });
-    $('#specialite').change(function(){
-      var id_gamme = $('#gamme').val();
-      var id_spec = $(this).val();
-      var html = '';
-      $.ajax({
-          url : '/getproduits/'+id_gamme+'/'+id_spec,
-          type : 'GET',
-          dataType : 'json',
-          success : function(data){
-              $.each(data, function(){
-                html += "<option value='"+this.dci+"'>"+this.dci+"</option>";
+    $('#printRdv').click(function(){
+          alert("df");
+          $.ajaxSetup({
+              headers: {
+                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                  }
               });
-              $('#produit').html(html);
-          },
-          error : function(){
-              console.log('error');
-          }
-      });
-    });
-  });  
+                $.ajax({
+                        type : 'GET',
+                        url :'/rdvprint/'+$('#idRDV').val(),
+                             success:function(data){
+                        },
+                        error:function(data){
+                          console.log("error");
+                         }
+               });
+          });
+      });  
 </script>
 <script type="text/javascript">
-    //And for the first simple table, which doesn't have TableTools or dataTables   //select/deselect all rows according to table1 header checkbox
-    var active_class = 'active';
-    $('#table1 > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
+       var active_class = 'active';
+       $('#table1 > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
         var th_checked = this.checked;//checkbox inside "TH" table header
         $(this).closest('table').find('tbody > tr').each(function(){
         var row = this;
         if(th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
         else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
         });
-    });//select/deselect a row table1 when the checkbox is checked/unchecked
+    });
      $('#table1').on('click', 'td input[type=checkbox]' , function(){
                     var $row = $(this).closest('tr');
                     if($row.is('.detail-row ')) return;
@@ -148,8 +201,7 @@
                         if(th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
                         else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
                     });
-                });
-                //select/deselect a row when the checkbox is checked/unchecked
+                });  //select/deselect a row when the checkbox is checked/unchecked
                 $('#table2').on('click', 'td input[type=checkbox]' , function(){
                     var $row = $(this).closest('tr');
                     if($row.is('.detail-row ')) return;
@@ -163,131 +215,110 @@
     var id_medt= new Array();
     var id_prio= new Array();
     var obs= new Array();
-    
     function ajouterligne(){
-        var lignes= new Array();
-        nligne= new Array();//la nouvelle ligne
-        lignes=document.getElementById("table1").getElementsByTagName("tr");
-        //seling=ling.getElementsByClassName("active");
-        tableau = document.getElementById("table2");
-        for(var i=0;i<lignes.length;i++){
-            if (lignes[i].className=='active')
-                {
-                    lignes[i].classList.remove(active_class);
-                    var col=lignes[i].getElementsByTagName("td");
-                    nligne = tableau.insertRow(-1);//on a ajouté une ligne
-
-                    var colonne0 = nligne.insertCell(0);
-                    colonne0.innerHTML += col[0].innerHTML;
-                    colonne0.style.display='none';
-
-                    var colonne1 = nligne.insertCell(1);
-                    colonne1.innerHTML += col[1].innerHTML;
-
-                    var colonne2 = nligne.insertCell(2);
-                    colonne2.innerHTML += col[2].innerHTML; 
-
-                    var colonne3 = nligne.insertCell(3);
-                    colonne3.innerHTML += col[3].innerHTML;
-                    colonne3.style.display='none';      
-
-                    var colonne4 = nligne.insertCell(4);
-                    colonne4.innerHTML += col[4].innerHTML;
-                    colonne4.style.display='none';      
-
-                    var colonne5 = nligne.insertCell(5);
-                    var chm =col[5].getElementsByTagName("select");
-                    var s = chm[0].selectedIndex;
-                    colonne5.innerHTML += col[5].innerHTML;
-                    chm=colonne5.getElementsByTagName("select");
-                    chm[0].options[s].selected='selected';
-                    chm[0].disabled=true;
-                    id_medt.push(chm[0].options[s].value);
-                    //colonne5.innerHTML += chm[0].options[s].text;
-
-                    var colonne6 = nligne.insertCell(6);
-                    colonne6.innerHTML += col[6].innerHTML;
-                    chm=col[6].getElementsByTagName('input');
-                    for(var j = 0;j < chm.length; j++){
-                        if(chm[j].checked)s=j;}
-                    chm=colonne6.getElementsByTagName('input');
-                    chm[s].checked=true;
-                    id_prio.push(chm[s].value);
-                    colonne6.style.display='none';
-
-                    var colonne7 = nligne.insertCell(7);
-                    colonne7.innerHTML += col[7].innerHTML;
-                    chm= col[7].getElementsByTagName('textarea');
-                    s=chm[0].value;
-                    chm=colonne7.getElementsByTagName('textarea');
-                    chm[0].value=s;                 
-                    obs.push(s);                        
-                    colonne7.style.display='none';
-                    id_demh.push(col[0].innerHTML); //$(lignes[i]).appendTo('#table2');
-                    document.getElementById("table1").deleteRow(i);
-                }
-            }
-           lignes=null;
-
+      var lignes= new Array();
+      nligne= new Array();//la nouvelle ligne
+      lignes=document.getElementById("table1").getElementsByTagName("tr");//seling=ling.getElementsByClassName("active");
+      tableau = document.getElementById("table2");
+      for(var i=0;i<lignes.length;i++){
+          if (lignes[i].className=='active')
+          {
+            lignes[i].classList.remove(active_class);
+            var col=lignes[i].getElementsByTagName("td");
+            nligne = tableau.insertRow(-1);//on a ajouté une ligne
+            var colonne0 = nligne.insertCell(0);
+            colonne0.innerHTML += col[0].innerHTML;
+            colonne0.style.display='none';
+            var colonne1 = nligne.insertCell(1);
+            colonne1.innerHTML += col[1].innerHTML;
+            var colonne2 = nligne.insertCell(2);
+            colonne2.innerHTML += col[2].innerHTML; 
+            var colonne3 = nligne.insertCell(3);
+            colonne3.innerHTML += col[3].innerHTML;
+            colonne3.style.display='none';      
+            var colonne4 = nligne.insertCell(4);
+            colonne4.innerHTML += col[4].innerHTML;
+            colonne4.style.display='none';      
+            var colonne5 = nligne.insertCell(5);
+            var chm =col[5].getElementsByTagName("select");
+            var s = chm[0].selectedIndex;
+            colonne5.innerHTML += col[5].innerHTML;
+            chm=colonne5.getElementsByTagName("select");
+            chm[0].options[s].selected='selected';
+            chm[0].disabled=true;
+            id_medt.push(chm[0].options[s].value);//colonne5.innerHTML += chm[0].options[s].text;
+            var colonne6 = nligne.insertCell(6);
+            colonne6.innerHTML += col[6].innerHTML;
+            chm=col[6].getElementsByTagName('input');
+            for(var j = 0;j < chm.length; j++){
+                if(chm[j].checked)s=j;}
+            chm=colonne6.getElementsByTagName('input');
+            chm[s].checked=true;
+            id_prio.push(chm[s].value);
+            colonne6.style.display='none';
+            var colonne7 = nligne.insertCell(7);
+            colonne7.innerHTML += col[7].innerHTML;
+            chm= col[7].getElementsByTagName('textarea');
+            s=chm[0].value;
+            chm=colonne7.getElementsByTagName('textarea');
+            chm[0].value=s;                 
+            obs.push(s);                        
+            colonne7.style.display='none';
+            id_demh.push(col[0].innerHTML); //$(lignes[i]).appendTo('#table2');
+            document.getElementById("table1").deleteRow(i);
+          }
+      }
+      lignes=null;
     }
-      $('#table2 > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
-                    var th_checked = this.checked;//checkbox inside "TH" table2 header
-                    
-                    $(this).closest('table').find('tbody > tr').each(function(){
-                        var row = this;
-                        if(th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
-                        else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
-                    });
-                });
-                
-                //select/deselect a row when the checkbox is checked/unchecked
-                $('#table2').on('click', 'td input[type=checkbox]' , function(){
-                    var $row = $(this).closest('tr');
-                    if($row.is('.detail-row ')) return;
-                    if(this.checked) $row.addClass(active_class);
-                    else $row.removeClass(active_class);
-                });
-  
-  
+    $('#table2 > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
+        var th_checked = this.checked;//checkbox inside "TH" table2 header
+          $(this).closest('table').find('tbody > tr').each(function(){
+            var row = this;
+            if(th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
+            else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
+        });
+    });
+    //select/deselect a row when the checkbox is checked/unchecked
+    $('#table2').on('click', 'td input[type=checkbox]' , function(){
+        var $row = $(this).closest('tr');
+        if($row.is('.detail-row ')) return;
+        if(this.checked) $row.addClass(active_class);
+        else $row.removeClass(active_class);
+    });
     function suppligne(){
         var lignes= new Array();
-        
-        lignes=document.getElementById("table2").getElementsByTagName("tr");
-        //seling=ling.getElementsByClassName("active");
-
+        lignes=document.getElementById("table2").getElementsByTagName("tr"); //seling=ling.getElementsByClassName("active");
         for(var i=0;i<lignes.length;i++){
-            if (lignes[i].className=='active')
-                {   //désactivé la ligne
-                    lignes[i].classList.remove(active_class);
-                    
-                                        
-                    var col=lignes[i].getElementsByTagName("td");
+          if (lignes[i].className=='active')
+          {   //désactivé la ligne
+            lignes[i].classList.remove(active_class);
+            var col=lignes[i].getElementsByTagName("td");
 
-                    //activer la selection du medecin traitant
-                    var chm =col[5].getElementsByTagName("select");
-                    chm[0].disabled=false;
-                    
-                    //décocher le checkbox
-                    var chm =col[1].getElementsByTagName("input");
-                    chm[0].checked=false;
+            //activer la selection du medecin traitant
+            var chm =col[5].getElementsByTagName("select");
+            chm[0].disabled=false;
+            
+            //décocher le checkbox
+            var chm =col[1].getElementsByTagName("input");
+            chm[0].checked=false;
 
-                    //afficher les colonnes cachées
-                    for (var j = 1; j < col.length; j++) {
-                        if (col[j].style.display === 'none') 
-                            col[j].style.display='table-cell' ;
-                    }    
-                    lignes[i].style.display='table-row';
-                    var t=col[0].innerHTML;                         
-                    var index=id_demh.indexOf(t);                   
-                    id_demh.splice(index, 1);                   
-                    id_medt.splice(index, 1);                   
-                    id_prio.splice(index, 1);                           
-                    obs.splice(index, 1);
-                    console.log(id_medt);
-      $(lignes[i]).appendTo('#table1');      
-  }
-           
-        }lignes=null;
+            //afficher les colonnes cachées
+            for (var j = 1; j < col.length; j++) {
+                if (col[j].style.display === 'none') 
+                    col[j].style.display='table-cell' ;
+            }    
+            lignes[i].style.display='table-row';
+            var t=col[0].innerHTML;                         
+            var index=id_demh.indexOf(t);                   
+            id_demh.splice(index, 1);                   
+            id_medt.splice(index, 1);                   
+            id_prio.splice(index, 1);                           
+            obs.splice(index, 1);
+            console.log(id_medt);
+            $(lignes[i]).appendTo('#table1');      
+          }
+        }
+        lignes=null;
     }
     $('#detail_coll').submit(function(ev) {
     ev.preventDefault(); // to stop the form from submitting
@@ -296,101 +327,68 @@
     med=document.getElementById("medt");
     pio=document.getElementById("prio");
     bs=document.getElementById("observation");
-    console.log(sel.length);
     for (var i =0; i <id_demh.length ; i++) {
         sel.options[sel.options.length] = new Option (id_demh[i], id_demh[i],false,true);
         med.options[med.options.length] = new Option (id_demh[i], id_medt[i],false,true);
         pio.options[pio.options.length] = new Option (id_demh[i], id_prio[i],false,true);
         bs.options[bs.options.length] = new Option (id_demh[i], obs[i],false,true);
     }
-
     this.submit(); // If all the validations succeeded
 });
 </script>
 <script type="text/javascript">
-  $(document).ready(function() {
-    // $('#patients_liste').dataTable();    // $('#choixpatientrdv').dataTable();  // $('#rdvs_liste').dataTable();    // $('#patients').dataTable();    // $('#choix-patient-atcd').dataTable();//$('#users').dataTable();
-  });
-  function addRequiredAttr()
-  {
-    $(".starthidden").hide(250);   // $("ul#menuPatient li:not(.active) a").prop('disabled', false); 
-    jQuery('input:radio[name="sexef"]').filter('[value="M"]').attr('checked', true);
-    jQuery('input:radio[name="etat"]').filter('[value="En exercice"]').attr('checked', true);
-    $("ul#menuPatient li:eq(1)").css('display', '');
-  }
-  function typepCreation()
-  {
-    if($('#fonc').is(':checked'))
-    {
-      $('#NSSInput').addClass("hidden").hide().fadeIn();
-      $('#AssureInputs').addClass("hidden").hide().fadeIn();
-      $('#foncinput').css('display', 'block');
-      $('#nssinput').css('display', 'block');
-      $('#nssAssinput').removeClass("hidden").show();
-      $('#matinput').css('display', 'block');
-      $('#etatinput').css('display', 'block');
-      $('#gradeinput').css('display', 'block');
-      $('#foncform').css('display', 'none');
-      $('#typepp').css('display', 'none');
-      $(".starthidden").hide();
+  function isNumeric (evt) {
+    var theEvent = evt || window.event;
+    var key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode (key);
+    var regex = /[0-9]|\./;
+    if ( !regex.test(key) ) {
+      theEvent.returnValue = false;
+      if(theEvent.preventDefault) theEvent.preventDefault();
     }
-    else
-    {
-      if($('#ayant').is(':checked'))  
-      {
-          $('#NSSInput').removeClass("hidden").show();    
-          $('#foncinput').css('display', 'none');
-          $('#nssinput').css('display', 'none');
-          $('#gradeinput').css('display', 'none');
-          $('#nssAssinput').addClass("hidden").hide().fadeIn();
-          $('#matinput').css('display', 'none');
-          $('#etatinput').css('display', 'none');
-          $('#foncform').css('display', 'block');  
-          $('#typepp').css('display', 'block');
-          $(".starthidden").hide();  
-      }else
-      {
-         $('#NSSInput').addClass("hidden").hide().fadeIn();
-         $('#AssureInputs').addClass("hidden").hide().fadeIn();
-         $('#foncform').css('display', 'none');
-         $('#typepp').css('display', 'none');
-         $('#foncinput').css('display', 'none');
-         $('#nssinput').css('display', 'none');
-         $('#gradeinput').css('display', 'none');
-         $('#nssAssinput').addClass("hidden").hide().fadeIn();
-         $('#matinput').css('display', 'none');
-         $('#etatinput').css('display', 'none');
-         $(".starthidden").show();
+  }
+  function addRequiredAttr()
+  { 
+    var classList = $('ul#menuPatient li:eq(0)').attr('class').split(/\s+/);
+    $.each(classList, function(index, item) {
+      if (item === 'hidden') { 
+         $( "ul#menuPatient li:eq(0)" ).removeClass( item );
       }
-}
-}
+    });             
+    if($('ul#menuPatient li:eq(0)').css('display') == 'none')
+    {
+      $('ul#menuPatient li:eq(0)').css('display', '');
+    }
+    $(".starthidden").hide(250);  //$('#description').attr('disabled', true);
+    if($("#type").val() != 0)
+      $('.Asdemograph').find('*').each(function () {$(this).attr("disabled", false);});
+  }
 function typep()
 {
     if($('#fonc').is(':checked'))
     {
-           $('#foncform').addClass("hidden").hide().fadeIn();
-           $('#NSSInput').addClass("hidden").hide().fadeIn();
-            $('#descriptionDerog').addClass("hidden").hide().fadeIn();
-           $('#AssureInputs').removeClass("hidden").show();   
-           
+      $('#foncform').addClass("hidden").hide().fadeIn();
+      $('#NSSInput').addClass("hidden").hide().fadeIn();
+      $('#descriptionDerog').addClass("hidden").hide().fadeIn();
+      $('#AssureInputs').removeClass("hidden").show();       
     }
     else
     {
-           if($('#ayant').is(':checked'))
-           { 
-                     $('#AssureInputs').addClass("hidden").hide().fadeIn();
-                     $('#descriptionDerog').addClass("hidden").hide().fadeIn();
-                     $('#foncform').removeClass("hidden").show();  
-                     $('#NSSInput').removeClass("hidden").show();    
-           }
-           else
-           {
-                    $('#foncform').addClass("hidden").hide().fadeIn();
-                    $('#NSSInput').addClass("hidden").hide().fadeIn();                  
-                    $('#AssureInputs').addClass("hidden").hide().fadeIn();
-                    $('#descriptionDerog').removeClass("hidden").show();
-                  
-           }
+       if($('#ayant').is(':checked'))
+       { 
+         $('#AssureInputs').addClass("hidden").hide().fadeIn();
+         $('#descriptionDerog').addClass("hidden").hide().fadeIn();
+         $('#foncform').removeClass("hidden").show();  
+         $('#NSSInput').removeClass("hidden").show();    
+       }
+       else
+       {
+          $('#foncform').addClass("hidden").hide().fadeIn();
+          $('#NSSInput').addClass("hidden").hide().fadeIn();                  
+          $('#AssureInputs').addClass("hidden").hide().fadeIn();
+          $('#descriptionDerog').removeClass("hidden").show();
+              
+       }
 }
 }
 //end
@@ -426,9 +424,6 @@ $('#typeexm').on('change', function() {
 </script>
 <script>
   $('#flash-overlay-modal').modal();
-  $(document).ready(function(){
-   //$(".tooltip-link").tooltip();//ajouter info bull
-  }); 
 </script>
 <script type="text/javascript">
  function medicm(med)
@@ -478,13 +473,7 @@ $('#typeexm').on('change', function() {
   {
     $("#"+id).remove();// $("tr:has(input:checked)").remove(); 
   }
-  function sexefan()
-  {
-      if( $('#sexef').is(':checked') )
-              $('#civ').css('display','block');
-      else
-              $('#civ').css('display','none');
-  }
+ /* function sexefan() {    if( $('#sexef').is(':checked') ) $('#civ').css('display','block');   else           $('#civ').css('display','none');} */
   function civilitefan()
   {
       if( $('#mdm').is(':checked') )
@@ -538,6 +527,7 @@ $('#typeexm').on('change', function() {
       var string = lettre.output('datauristring');
       $('#lettreorientation').attr('src', string);
   }
+<<<<<<< HEAD
     var createPDF = function(imgData,nompatient,dateNaiss,ipp,age,sexe,nommedcin) {
       moment.locale('fr');var formattedDate = moment(new Date()).format("l");
       var doc = new jsPDF('p', 'pt', 'a5');//var pdf_name = 'Ordonnance-'+nompatient+'.pdf'; doc.setFontSize(12);
@@ -675,63 +665,70 @@ $('#typeexm').on('change', function() {
                         $("input[type='checkbox']:checked").each(function() {
                             $(this).attr('checked', false);
                         });
+=======
+  function storeord()
+  {   
+    var arrayLignes = document.getElementById("ordonnance").rows;
+    var longueur = arrayLignes.length;
+    var tab = [];
+    for(var i=1; i<longueur; i++)
+    {
+       tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;
+    }
+    var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");
+    champ.appendTo('#ordonnace_form');
+    $('#ordonnace_form').submit();
+  }
+  function createRDVModal(debut, fin, pid = 0, fixe=1)
+  { 
+    var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
+    var fin = moment(fin).format('YYYY-MM-DD HH:mm');  
+    if(pid != 0)
+    {
+      var formData = { id_patient:pid,Debut_RDV:debut, Fin_RDV:fin, fixe:fixe  };
+      $.ajaxSetup({
+        headers: {
+             'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+>>>>>>> dev
         }
-        function createRDVModal(debut, fin, pid = 0, fixe=1)
-        {   
-          var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
-          var fin = moment(fin).format('YYYY-MM-DD HH:mm');  
-          if(pid != 0)
-          {
-            var formData = {
-              id_patient:pid,
-              Debut_RDV:debut,
-              Fin_RDV:fin,
-              fixe:fixe
-           };
-           $.ajaxSetup({
-                      headers: {
-                          'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                      }
-            }); 
-           $.ajax({
-              type : 'POST',
-              url : '/createRDV',
-              data:formData,  //dataType: 'json',
-              success:function(data){                                 
-                     var color = (data['rdv']['fixe'] == 1)? '#87CEFA':'#378006';
-                     var event = new Object();
-                     event = {
-                            title: data['patient']['Nom'] + "  " + data['patient']['Prenom']+" ,("+data['age']+" ans)",
-                            start: debut,
-                            end: fin,
-                            id :data['rdv']['id'],
-                            idPatient:data['patient']['id'],
-                            tel:data['patient']['tele_mobile1'] ,
-                            age:data['age'],         
-                            allDay: false,
-                            color: '#87CEFA'
-               };
-              $('.calendar1').fullCalendar( 'renderEvent', event, true );
-              $('.calendar1').fullCalendar( 'refresh' );// $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next');
-               
+      }); 
+      $.ajax({
+            type : 'POST',
+            url : '/createRDV',
+            data:formData,  //dataType: 'json',
+            success:function(data){         
+                   var color = (data['rdv']['fixe'] == 1)? '#87CEFA':'#378006';
+                   var event = new Object();
+                   event = {
+                                title: data['patient']['Nom'] + "  " + data['patient']['Prenom']+" ,("+data['age']+" ans)",
+                                start: debut,
+                                end: fin,
+                                id :data['rdv']['id'],
+                                idPatient:data['patient']['id'],
+                                tel:data['patient']['tele_mobile1'] ,
+                                age:data['age'],         
+                                allDay: false,
+                                color: '#87CEFA'
+                   };
+                  $('.calendar1').fullCalendar( 'renderEvent', event, true );
+                 $('.calendar1').fullCalendar( 'refresh' );
             },
             error: function (data) {
-                   console.log('Error:', data);
+                 console.log('Error:', data);
             }
-              });
-          }else{
-                $('#Debut_RDV').val(debut);
-                $('#Fin_RDV').val(fin); //$('#Temp_rdv').val(heur);
-               
-                $('#fixe').val(fixe);
-                $('#addRDVModal').modal({
-                       show: 'true'
-                 }); 
-          }   
-        }
+       });
+    }else{
+        $('#Debut_RDV').val(debut);
+        $('#Fin_RDV').val(fin); //$('#Temp_rdv').val(heur);
+        $('#fixe').val(fixe);
+        $('#addRDVModal').modal({
+          show: 'true'
+        }); 
+      }   
+    }
        function editRdv(event)
         {
-             var CurrentDate = (new Date()).setHours(0, 0, 0, 0);var GivenDate = (new Date(event.start)).setHours(0, 0, 0, 0);       
+             var CurrentDate = (new Date()).setHours(0, 0, 0, 0);var GivenDate = (new Date(event.start)).setHours(0, 0, 0, 0);
              if( CurrentDate <= GivenDate )
              {
                     $('#patient_tel').text(event.tel);
@@ -739,9 +736,10 @@ $('#typeexm').on('change', function() {
                     $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
                     $('#lien').text(event.title);
                     $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
+                    (event.fixe ==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
                     $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
-                    $('#btnRdvDelete').attr('href','javascript:rdvDelete('+event.id+');'); // $('#printRdv').attr('href','javascript:rdvPrint('+event.id+');');
-                      var url = '{{ route("rdv.update", ":slug") }}';
+                    $('#btnRdvDelete').attr('href','javascript:rdvDelete('+event.id+');');
+                    var url = '{{ route("rdv.update", ":slug") }}';
                     url = url.replace(':slug',event.id); // $('#updateRdv').attr('action',url);
                     $('#idRDV').val(event.id);
                     $('#fullCalModal').modal({  show: 'true' }); 
@@ -855,8 +853,7 @@ $('#typeexm').on('change', function() {
                     remText: '%n character%s remaining...',
                     limitText: 'max allowed : %n.'
                 });
-            
-                  $.mask.definitions['~']='[+-]';
+                $.mask.definitions['~']='[+-]';
                   $('.input-mask-date').mask('99/99/9999');
                   $('.input-mask-phone').mask('(999) 999-9999');
                   $('.input-mask-eyescript').mask('~9.99 ~9.99 999');
@@ -913,9 +910,8 @@ $('#typeexm').on('change', function() {
                     max: 10,
                     value: 2
                 });
-                $( "#slider-eq > span" ).css({width:'90%', 'float':'left', margin:'15px'}).each(function() {
-                    // read initial values from markup and remove that
-                    var value = parseInt( $( this ).text(), 10 );
+                $( "#slider-eq > span" ).css({width:'90%', 'float':'left', margin:'15px'}).each(function() {  // read initial values from markup and remove that
+                   var value = parseInt( $( this ).text(), 10 );
                     $( this ).empty().slider({
                         value: value,
                         range: "min",
@@ -924,8 +920,6 @@ $('#typeexm').on('change', function() {
                     });
                 });
                 $("#slider-eq > span.ui-slider-purple").slider('disable');//disable third item
-            
-                
                 $('#id-input-file-1 , #id-input-file-2').ace_file_input({
                     no_file:'No File ...',
                     btn_choose:'Choose',
@@ -938,7 +932,6 @@ $('#typeexm').on('change', function() {
                     //onchange:''
                     //
                 });
-                //pre-show a file name, for example a previously selected file
                 //$('#id-input-file-1').ace_file_input('show_file_list', ['myfile.txt'])          
                 $('#id-input-file-3').ace_file_input({
                     style: 'well',
@@ -946,20 +939,12 @@ $('#typeexm').on('change', function() {
                     btn_change: null,
                     no_icon: 'ace-icon fa fa-cloud-upload',
                     droppable: true,
-                    thumbnail: 'small'//large | fit
-                    ,
-                    preview_error : function(filename, error_code) {
-                        //name of the file that failed
-                        //error_code values
-                        //1 = 'FILE_LOAD_FAILED',
-                        //2 = 'IMAGE_LOAD_FAILED',
-                        //3 = 'THUMBNAIL_FAILED'
-                        //alert(error_code);
-                    }
-                }).on('change', function(){
-                    //console.log($(this).data('ace_input_files')); //console.log($(this).data('ace_input_method'));
-                });          
-                //dynamically change allowed formats by changing allowExt && allowMime function
+                    thumbnail: 'small' ,//large | fit
+                     preview_error : function(filename, error_code) {
+   //name of the file that failed  //error_code values //1 = 'FILE_LOAD_FAILED',//2 = 'IMAGE_LOAD_FAILED',    //3 = 'THUMBNAIL_FAILED'   //alert(error_code);
+                         }
+                }).on('change', function(){ //console.log($(this).data('ace_input_files')); //console.log($(this).data('ace_input_method'));
+                });     //dynamically change allowed formats by changing allowExt && allowMime function          
                 $('#id-file-format').removeAttr('checked').on('change', function() {
                     var whitelist_ext, whitelist_mime;
                     var btn_choose
@@ -974,7 +959,6 @@ $('#typeexm').on('change', function() {
                     else {
                         btn_choose = "Drop files here or click to choose";
                         no_icon = "ace-icon fa fa-cloud-upload";
-                        
                         whitelist_ext = null;//all extensions are acceptable
                         whitelist_mime = null;//all mimes are acceptable
                     }
@@ -991,16 +975,14 @@ $('#typeexm').on('change', function() {
                     
                     file_input
                     .off('file.error.ace')
-                    .on('file.error.ace', function(e, info) {
-                                
+                    .on('file.error.ace', function(e, info) {          
                     });
              });
             
                 $('#spinner1').ace_spinner({value:0,min:0,max:200,step:10, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
                 .closest('.ace-spinner')
-                .on('changed.fu.spinbox', function(){
-                    //console.log($('#spinner1').val())
-                }); 
+                .on('changed.fu.spinbox', function(){  //console.log($('#spinner1').val())
+               }); 
                 $('#spinner2').ace_spinner({value:0,min:0,max:10000,step:100, touch_spinner: true, icon_up:'ace-icon fa fa-caret-up bigger-110', icon_down:'ace-icon fa fa-caret-down bigger-110'});
                 $('#spinner3').ace_spinner({value:0,min:-100,max:100,step:10, on_sides: true, icon_up:'ace-icon fa fa-plus bigger-110', icon_down:'ace-icon fa fa-minus bigger-110', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
                 $('#spinner4').ace_spinner({value:0,min:-100,max:100,step:10, on_sides: true, icon_up:'ace-icon fa fa-plus', icon_down:'ace-icon fa fa-minus', btn_up_class:'btn-purple' , btn_down_class:'btn-purple'});
@@ -1013,35 +995,26 @@ $('#typeexm').on('change', function() {
                     flat: true,
                     calendars: 1,
                 })
-                //show datepicker when clicking on the icon
-                .next().on(ace.click_event, function(){
+                 .next().on(ace.click_event, function(){    //show datepicker when clicking on the icon
                     $(this).prev().focus();
-                });
-                //or change it into a date range picker
-                $('.input-daterange').datepicker({autoclose:true});
-            
-                $('#simple-colorpicker-1').ace_colorpicker();
-                
-                var tag_input = $('#form-field-tags');
-                try{
-                    tag_input.tag(
-                      {
+                });      //or change it into a date range picker
+              $('.input-daterange').datepicker({autoclose:true});
+               $('#simple-colorpicker-1').ace_colorpicker();
+               var tag_input = $('#form-field-tags');
+              try{
+                      tag_input.tag(
+                         {
                         placeholder:tag_input.attr('placeholder'),
                         source: ace.vars['US_STATES'],//defined in ace.js >> ace.enable_search_ahead
-                      
-                      }
+                       }
                     )
-                    //programmatically add/remove a tag
                     var $tag_obj = $('#form-field-tags').data('tag');
                     $tag_obj.add('Programmatically Added');
-                    
                     var index = $tag_obj.inValues('some tag');
                     $tag_obj.remove(index);
                 }
                 catch(e) {
-                    //display a textarea for old IE, because it doesn't support this plugin or another one I tried!
-                    tag_input.after('<textarea id="'+tag_input.attr('id')+'" name="'+tag_input.attr('name')+'" rows="3">'+tag_input.val()+'</textarea>').remove();
-                    //autosize($('#form-field-tags'));
+                     tag_input.after('<textarea id="'+tag_input.attr('id')+'" name="'+tag_input.attr('name')+'" rows="3">'+tag_input.val()+'</textarea>').remove();
                 }
                 
                 /////////
@@ -1079,27 +1052,26 @@ $('#typeexm').on('change', function() {
             });
       function getMedecinsSpecialite(specialiteId = 0,medId='')
       {
-        $('#medecin').empty();
-        var specialiteId = 0 ?$('#specialite').val() : specialiteId;
-        $.ajax({
-                  type : 'get',
-                  url : '{{URL::to('DocorsSearch')}}',
-                  data:{'specialiteId': specialiteId },
-                  dataType: 'json',
-                  success:function(data,status, xhr){
-                        var html ='<option value="">Selectionner...</option>';
-                        jQuery(data).each(function(i, med){
-                          
-                          html += '<option value="'+med.id+'" >'+med.Nom_Employe +" "+med.Prenom_Employe+'</option>';
-                        });
-                        $('#medecin').removeAttr("disabled");  
-                        $('#medecin').append(html);
-                        $("#medecin").val(medId);
-                  },
-                  error:function(data){
-                      console.log(data);
-                  }
-        });   
+          $('#medecin').empty();
+          var specialiteId = 0 ?$('#specialite').val() : specialiteId;
+          $.ajax({
+                    type : 'get',
+                    url : '{{URL::to('DocorsSearch')}}',
+                    data:{'specialiteId': specialiteId },
+                    dataType: 'json',
+                    success:function(data,status, xhr){
+                          var html ='<option value="">Selectionner...</option>';
+                          jQuery(data).each(function(i, med){
+                            
+                            html += '<option value="'+med.id+'" >'+med.nom +" "+med.prenom+'</option>';
+                          });
+                          $('#medecin').removeAttr("disabled");  
+                          $('#medecin').append(html);//$("#medecin").val(medId);
+                    },
+                    error:function(data){
+                        console.log(data);
+                    }
+          });   
       }      
       function edit(event)
       {       
@@ -1116,62 +1088,48 @@ $('#typeexm').on('change', function() {
         url = url.replace(':slug',event.id);
         $('#updateRdv').attr('action',url);
        $('#fullCalModal').modal({ show: 'true' }); 
-      
       }
-       function ajaxEditEvent(event,bool)
-       {
-          $.ajaxSetup({
-            headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
+      function ajaxEditEvent(event,bool)
+      {
+          $.get('/rdv/'+event.id +'/edit', function (data) {
+                 var html ='';
+                $('#medecin').empty();
+                 jQuery(data.medecins).each(function(i, med){
+                      html += '<option value="'+med.id+'" >'+med.nom +" "+med.prenom+'</option>';
+                });
+                $('#medecin').removeAttr("disabled");  
+                $('#medecin').append(html);
+                $("#medecin").val(data.rdv.Employe_ID_Employe);
+                $('#patient_tel').text(data.rdv.patient.tele_mobile1);
+                $('#agePatient').text(event.age);
+                $('#lien').attr('href','/patient/'.concat(data.rdv.patient.id)); 
+                $('#lien').text(event.title);
+                if(bool)
+                {
+                     $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
+                     $("#meetingdate").val(event.start.format('YYYY-MM-DD'));
+                     $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
+                }else{
+                     var date = new Date(data.rdv.Date_RDV);
+                     $("#daterdv").val(data.rdv.Date_RDV);
+                     $("#meetingdate").val(date.getFullYear() +'-' + (date.getMonth() + 1) + '-' + date.getDate());
+                     $("#datefinrdv").val(data.rdv.Fin_RDV); 
+                }
+                $('#btnConsulter').attr('href','/consultations/create/'.concat(data.rdv.patient.id));
+                $('#btnDelete').attr('href','/rdv/'.concat(data.rdv.id));
+                var url = '{{ route("rdv.update", ":slug") }}';
+                url = url.replace(':slug',data.rdv.id);
+                $('#updateRdv').attr('action',url);
+                $('#fullCalModal').modal({ show: 'true' }); ;
           });
-          url = "rdv" + '/' + event.id + '/edit';
-          $.ajax({
-                  type: 'GET',
-                  url:  url,
-                  data: {
-                        '_token': $('input[name=_token]').val(),
-                        'id': event.id,
-                  },
-                  success: function(data) {
-                              if($('#medecin').length){
-                                if(isEmpty(data['medecin']))
-                                  getMedecinsSpecialite(data['rdv'].specialite);  
-                                 else
-                                  getMedecinsSpecialite(data['rdv'].specialite,data['medecin'].id);  
-                              }
-                              $('#patient_tel').text(data['patient'].tele_mobile1);
-                              $('#agePatient').text(event.age);
-                              $('#lien').attr('href','/patient/'.concat(data['patient'].id)); 
-                              $('#lien').text(event.title);
-                              if(bool)
-                              {
-                                $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
-                                $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
-                              }else{
-                                $("#daterdv").val(data['rdv'].Date_RDV);
-                                $("#datefinrdv").val(data['rdv'].Fin_RDV); 
-                              }
-                              $('#btnConsulter').attr('href','/consultations/create/'.concat(data['patient'].id));
-                              $('#btnDelete').attr('href','/rdv/'.concat(data['rdv'].id));
-                              var url = '{{ route("rdv.update", ":slug") }}'; 
-                              url = url.replace(':slug',data['rdv'].id);
-                              $('#updateRdv').attr('action',url);
-                              $('#fullCalModal').modal({ show: 'true' });
-                    },
-                    error:function(data){
-                        alert('error');
-                    }
-              });
-       }
-       //todelete
+      } 
       function refrechCal()
       {  
-             $('.calendar1').fullCalendar('refetchEvents');
-             $('.calendar1').fullCalendar( 'refetchResources' );
-             $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next');    
-              $('.calendar1').fullCalendar('rerenderEvents');
-              $('.calendar1').fullCalendar( 'refetchEvents' );//getting latest Events
+        $('.calendar1').fullCalendar('refetchEvents');
+        $('.calendar1').fullCalendar( 'refetchResources' );
+        $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next');    
+        $('.calendar1').fullCalendar('rerenderEvents');
+        $('.calendar1').fullCalendar( 'refetchEvents' );//getting latest Events
       } 
       function isEmpty(value) {
              return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;

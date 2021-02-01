@@ -1,10 +1,8 @@
 @extends('app_sur')
 @section('main-content')
-  <div class="page-header">
-    <h2>
-      <strong>Liste des Rendez-Vous d'hospitalisation :</strong>
-    </h2>
-  </div><!-- /.page-header -->
+<div class="page-header">
+    <h2><strong>Liste des Rendez-Vous d'hospitalisation :</strong></h2>
+</div><!-- /.page-header -->
   <div class="col-xs-12 widget-container-col" id="widget-container-col-2">
     <div class="widget-box widget-color-blue" id="widget-box-2">
       <div class="widget-header">
@@ -52,38 +50,25 @@
                 <td class="center text-danger">
                   <strong>{{ \Carbon\Carbon::parse($rdv->heure_Prevu_Sortie)->format('H:i') }}</strong>
                 </td>
-                    <td><strong>{{ $rdv->demandeHospitalisation->DemeandeColloque->medecin->Nom_Employe }}&nbsp;{{ $rdv->demandeHospitalisation->DemeandeColloque->medecin->Prenom_Employe }}</strong>
-                    </td>
+                <td><strong>{{ $rdv->demandeHospitalisation->DemeandeColloque->medecin->nom }}&nbsp;{{ $rdv->demandeHospitalisation->DemeandeColloque->medecin->prenom }}</strong></td>
                 <td class="center">
-                @if(isset($rdv->bedReservation->id_lit))  
-                  {{ $rdv->bedReservation->lit->nom }}
-                @else
-                  <strong>/</strong>
-                @endif    
+                  @if(isset($rdv->bedReservation->id_lit)) {{ $rdv->bedReservation->lit->nom }} @else <strong>/</strong>  @endif    
                 </td>
                 <td>
-                  @if(isset($rdv->bedReservation->id_lit))  
-                    {{ $rdv->bedReservation->lit->salle->nom }}
-                  @else
-                    <strong>/</strong>
-                  @endif    
+                  @if(isset($rdv->bedReservation->id_lit)) {{ $rdv->bedReservation->lit->salle->nom }} @else <strong>/</strong> @endif    
                   {{ $rdv->nomsalle }}
                 </td>
                 <td>
-                  @if(isset($rdv->bedReservation->id_lit))  
-                    {{ $rdv->bedReservation->lit->salle->service->nom }}
-                  @else
-                    <strong>/</strong>
-                  @endif  
+                  @if(isset($rdv->bedReservation->id_lit)) {{ $rdv->bedReservation->lit->salle->service->nom }}  @else <strong>/</strong> @endif  
                 </td>
                 <td class="center">
                   <a href="{{ route('rdvHospi.edit',$rdv->id) }}" class="btn btn-success btn-xs"  title= "Reporer RDV" >
                     <i class="ace-icon fa fa-clock-o"></i>
                   </a>
-                  <a href="{{ route('rdvHospi.destroy',$rdv->id) }}" class="btn btn-danger btn-xs" title="Annuler RDV" data-method="DELETE" data-confirm="Etes Vous Sur d'annuller le RDV?"><i class="fa fa-trash-o fa-xs"></i></a><!-- onclick= "printRDV();" -->
                   <a href="/rdvHospi/imprimer/{{ $rdv->id }}" class="btn btn-info btn-xs" title="Imprimer RDV">
                     <i class="ace-icon fa fa-print" ></i>
                   </a>
+                  <a href="{{ route('rdvHospi.destroy',$rdv->id) }}" class="btn btn-danger btn-xs" title="Annuler RDV" data-method="DELETE" data-confirm="Etes Vous Sur d'annuller le RDV?"><i class="fa fa-trash-o fa-xs"></i></a><!-- onclick= "printRDV();" -->
                 </td>
               </tr>     
               @endforeach

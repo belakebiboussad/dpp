@@ -1,9 +1,9 @@
 @extends('app')
 @section('title','Ajouter un Utilisateure')
 @section('main-content')
-	<div class="page-header">
-		<h1>Ajouter un nouveau utilisateur :</h1>
-	</div>
+	<div class="page-header"><h1>Ajouter un nouveau utilisateur </h1></div>
+		
+	
 	<div class="widget-box" id="widget-box-1">
 		<div class="widget-body">
 			<div class="widget-main">
@@ -12,8 +12,8 @@
 				{{ csrf_field() }}
 				<h4 class="header blue bolder smaller">Informations adminstratives</h4>
 				<div class="row">
-					<div class="vspace-12-sm"></div>
-					<div class="col-xs-12 col-sm-6">
+					<div class="space-12"></div>
+					<div class="col-xs-6 col-sm-6">
 						<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
 						<label class="col-sm-4 control-label no-padding-right" for="nom"><b>Nom:</b></label>
 						<div class="col-sm-8">
@@ -21,7 +21,7 @@
 						</div>
 						</div>
 					</div>
-					<div class="col-xs-12 col-sm-6">
+					<div class="col-xs-6 col-sm-6">
 						<div class="form-group {{ $errors->has('prenom') ? "has-error" : "" }}">
 						<label class="col-sm-4 control-label no-padding-right" for="prenom"><b>Prénom:</b></label>
 						<div class="col-sm-8">
@@ -30,7 +30,7 @@
 						</div>
 					</div>
 					<br/><br/><br/>
-					<div class="col-xs-12 col-sm-6">
+					<div class="col-xs-6 col-sm-6">
 						<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
 						<label class="col-sm-4 control-label no-padding-right" for="datenaissance"><b>Date Naissance:</b></label>
 						<div class="col-sm-8">
@@ -42,14 +42,14 @@
 						<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
 						<label class="col-sm-4 control-label no-padding-right" for="lieunaissance"><b>Lieu Naissance:</b></label>
 						<div class="col-sm-8">
-						<input class="col-xs-12 col-sm-10" type="text" id="lieunaissance" name="lieunaissance" placeholder="Lieu Naissance..." Autocomplete=false/>
+						<input class="col-xs-12 col-sm-10 autoCommune" type="text" id="lieunaissance" name="lieunaissance" placeholder="Lieu Naissance..." Autocomplete=false/>
 						</div>
 						</div>
 					</div>
 				</div>
 				<div class="space-8"></div>
 				<div class="form-group {{ $errors->has('sexe') ? "has-error" : "" }}">
-					<label class="col-sm-3 control-label no-padding-right"><b>Sexe:</b></label>
+					<label class="col-sm-3 control-label no-padding-right"><b>Genre:</b></label>
 					<div class="col-sm-9">
 						<label class="inline">
 							<input name="sexe" value="M" type="radio" class="ace" checked />
@@ -63,7 +63,7 @@
 					</div>
 				</div>
 				<hr>
-				<h4 class="header blue bolder smaller">Contacts</h4>
+				<h4 class="header blue bolder smaller">Contact</h4>
 				<div class="row">
 					<div class="vspace-12-sm"></div>
 					<div class="col-xs-12 col-sm-6">
@@ -124,7 +124,7 @@
 					<div class="col-xs-12 col-sm-4">
 						<div class="{{ $errors->has('nss') ? "has-error" : "" }}">
 							<label for="nss"><b>N° Sécurité Sociale:</b></label>
-							<input type="text" class="form-control" id="nss" name="nss" ppattern="^\[0-9]{2}+' '+\[0-9]{4}+' '+\[0-9]{4}+' '+\[0-9]{2} $"
+							<input type="text" class="form-control" id="nss" name="nss" pattern="^\[0-9]{2}+' '+\[0-9]{4}+' '+\[0-9]{4}+' '+\[0-9]{2} $"
       							 placeholder="XX XXXX XXXX XX"
 							>
 						</div>

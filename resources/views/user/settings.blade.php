@@ -47,16 +47,16 @@
 				<br/><br/>
 				<div class="form-group">
 					<label class="col-sm-3 control-label no-padding-right" for="lieunaissance">
-						<strong>Sexe :</strong>
+						<strong>Genre :</strong>
 					</label>
 					<div class="col-sm-9">
 						<label>
 							<input name="sexe" type="radio" class="ace" />
-							<span class="lbl"> Homme</span>
+							<span class="lbl"> Masculin</span>
 						</label>
 						<label>
 							<input name="sexe" type="radio" class="ace" />
-							<span class="lbl"> Femme</span>
+							<span class="lbl"> Féminin</span>
 						</label>
 					</div>
 				</div>

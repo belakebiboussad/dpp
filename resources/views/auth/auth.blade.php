@@ -5,19 +5,23 @@
 <body class="login-layout light-login" style="background-image: url({{ asset('/avatars/hop.jpg') }}); background-size: cover;">
 <div class="main-container">
     <div class="main-content">
+        <div class="space-12"></div>
+        <div class="space-12"></div>
+        <div class="space-12"></div>
+
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1">
                 <div class="center">
                     <h1>
                         <i class="ace-icon fa fa-h-square blue"></i>
                         Etablissement Hospitalier de la Sûreté Nationale
-                        <i class="ace-icon fa fa-h-square blue"></i>
+                        
                     </h1>
                     <h1>
                         <i class="ace-icon fa fa-user-md blue"></i>
-                        Système de Gestion de Dossier Patient
-                        <i class="ace-icon fa fa-user-md blue"></i>
+                       Dossier Médical Eléctronique  
                     </h1>
+                    
                 </div>
                 <div class="space-6"></div>
                 <div class="login-container">
@@ -57,7 +61,7 @@
 </script>
 <!--[endif]-->
 <script type="text/javascript">
-    if('ontouchstart' in document.documentElement) document.write("<script src='{{ asset('/js/jquery.mobile.custom.min.js') }}'>"+"<"+"/script>");
+//    if('ontouchstart' in document.documentElement) document.write("<script src='{{ asset('/js/jquery.mobile.custom.min.js') }}'>"+"<"+"/script>");
 </script>
 
 <!-- inline scripts related to this page -->
@@ -68,7 +72,6 @@
             $('body').attr('class', 'login-layout');
             $('#id-text2').attr('class', 'white');
             $('#id-company-text').attr('class', 'blue');
-
             e.preventDefault();
         });
         $('#btn-login-light').on('click', function(e) {

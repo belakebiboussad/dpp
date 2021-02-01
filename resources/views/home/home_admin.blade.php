@@ -3,20 +3,19 @@
 @section('page-script')
 <script>
 $( document ).ready(function() {
-       $('#userName').on('keyup',function(){
-                            value=$(this).val();
-                            $.ajax({
-                            type : 'get',
-                            url : '{{URL::to('searchUser')}}',
-                            data:{'search':value},
-                            success:function(data,status, xhr){
-                                $('tbody').html(data);
-                                var count = xhr.getResponseHeader("count");
-                                $(".numberUser").html(count);
-                            }
-                       });
-           });
-
+ $('#userName').on('keyup',function(){
+    value=$(this).val();
+    $.ajax({
+    type : 'get',
+    url : '{{URL::to('searchUser')}}',
+    data:{'search':value},
+    success:function(data,status, xhr){
+        $('tbody').html(data);
+        var count = xhr.getResponseHeader("count");
+        $(".numberUser").html(count);
+    }
+});
+  });
 });
 </script>
 @endsection

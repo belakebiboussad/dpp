@@ -4,205 +4,647 @@
     </script>
     <script type="text/javascript" src="{{ asset('js/app-med.js') }}"></script>
     <div class="sidebar-shortcuts" id="sidebar-shortcuts">
-        <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-            <button class="btn btn-success">
-                <i class="ace-icon fa fa-signal"></i>
-            </button>
-            <button class="btn btn-info">
-                <i class="ace-icon fa fa-pencil"></i>
-            </button> <!-- #section:basics/sidebar.layout.shortcuts -->
-            <button class="btn btn-warning">
-                <i class="ace-icon fa fa-users"></i>
-            </button>
-            <button class="btn btn-danger">
-                <i class="ace-icon fa fa-cogs"></i>
-            </button>
-            <!-- /section:basics/sidebar.layout.shortcuts -->
-        </div>
-        <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
-            <span class="btn btn-success"></span>
-            <span class="btn btn-info"></span>
-            <span class="btn btn-warning"></span>
-            <span class="btn btn-danger"></span>
-        </div>
+      <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+        <button class="btn btn-success"><i class="ace-icon fa fa-signal"></i></button>
+        <button class="btn btn-info"><i class="ace-icon fa fa-pencil"></i>  </button> <!-- #section:basics/sidebar.layout.shortcuts --> 
+        <button class="btn btn-warning"><i class="ace-icon fa fa-users"></i>   </button>
+        <button class="btn btn-danger"><i class="ace-icon fa fa-cogs"></i>  </button>   <!-- /section:basics/sidebar.layout.shortcuts -->
+      </div>
+      <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+        <span class="btn btn-success"></span><span class="btn btn-info"></span><span class="btn btn-warning"></span>
+        <span class="btn btn-danger"></span>
+      </div>
     </div><!-- /.sidebar-shortcuts -->
-
     <li class="">
-        <a href="home">
-            <i class="menu-icon fa fa-picture-o"></i>
-            <span class="menu-text">Gestion Patients</span>
-        </a>
-        <b class="arrow"></b>
+      <a href="home"><i class="menu-icon fa fa-picture-o"></i><span class="menu-text">Gestion Patients</span></a><b class="arrow"></b>
     </li>
     <ul class="nav nav-list">
-        <li class="">
-               <a href="{{ route('patient.index') }}">
-                         <i class="menu-icon fa fa-tachometer"></i>
-                          <span class="menu-text"> Acceuil </span>
-            </a>
-            <b class="arrow"></b>
+      <li>
+        <a href="{{ route('patient.index') }}"><i class="menu-icon fa fa-tachometer"></i><span class="menu-text">Acceuil</span></a>
+        <b class="arrow"></b>
+      </li>
+      <li>
+        <a href="#" class="dropdown-toggle">
+          <i class="menu-icon fa fa-users"></i><span class="menu-text">Patients</span><b class="arrow fa fa-angle-down"></b>
+        </a><b class="arrow"></b>
+        <ul class="submenu">
+          <li>
+            <a href="{{ route('patient.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter Patient</a><b class="arrow"></b>
+          </li>
+          <li><a href="{{ route('patient.index') }}"><i class="menu-icon fa fa-eye pink"></i>Liste Patients</a><b class="arrow"></b></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-users"></i><span class="menu-text"> Fonctionnaires</span><b class="arrow fa fa-angle-down"></b>
+        </a><b class="arrow"></b>
+        <ul class="submenu">
+          <li><a href="{{ route('assur.index') }}"><i class="menu-icon fa fa-eye pink"></i> Liste Fonctionnaires</a><b class="arrow"></b>
+          </li>
+        </ul>
         </li>
-        <li class="">
-               <a href="#" class="dropdown-toggle">
-                <i class="menu-icon fa fa-users"></i>
-               <span class="menu-text">
-                    Gestion Patient
-                </span>
-                <b class="arrow fa fa-angle-down"></b>
-            </a>
-
-            <b class="arrow"></b>
-
-            <ul class="submenu">
-
-                <li class="">
-                    <a href="{{ route('patient.create') }}">
-                        <i class="menu-icon fa fa-plus purple"></i>
-                        Ajouter Patient
-                    </a>
-
-                    <b class="arrow"></b>
-                </li>
-                <li class="">
-                    <a href="{{ route('patient.index') }}">
-                        <i class="menu-icon fa fa-eye pink"></i>
-                        Liste Patients
-                    </a>
-                    <b class="arrow"></b>
-                </li>
-                <li class="">
-                    <a href="{{ route('assur.index') }}">
-                        <i class="menu-icon fa fa-eye pink"></i>
-                        Liste Fonctionnaires
-                    </a>
-                    <b class="arrow"></b>
-                </li>
-            </ul>
+        <li>
+          <a href="#" class="dropdown-toggle">
+             <i class="menu-icon fa fa-user-md"></i> <span class="menu-text"> Consultations </span><b class="arrow fa fa-angle-down"></b>
+          </a><b class="arrow"></b>
+          <ul class="submenu">
+            <li><a href="/createConsultation"><i class="menu-icon fa fa-plus purple"></i>Ajouter Consultation</a><b class="arrow"></b>
+            </li>
+            <li><a href="{{ route('consultations.index')}}"><i class="menu-icon fa fa-eye pink"></i> Liste Consultations</a><b class="arrow"></b>
+            </li>
+          </ul>
         </li>
-        <li class="">
-            <a href="#" class="dropdown-toggle">
-                <i class="menu-icon fa fa-user-md"></i>
-                            <span class="menu-text">
-                                Consultation
-                            </span>
-                <b class="arrow fa fa-angle-down"></b>
-            </a>
-            <b class="arrow"></b>
-            <ul class="submenu">
-                <li class="">
-                    <a href="/choixpat">
-                        <i class="menu-icon fa fa-plus purple"></i>
-                        Ajouter Consultation
-                    </a>
-                    <b class="arrow"></b>
-                </li>
-                <li class="">
-                    <a href="/listcons">
-                        <i class="menu-icon fa fa-eye pink"></i>
-                        Liste Consultations
-                    </a>
-                    <b class="arrow"></b>
-                </li>
-            </ul>
+        <li>
+          <a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-hospital-o"></i>
+            <span class="menu-text" data-toggle="tooltip" data-placement="top" title="hospitalisations du service">Hospitalisations </span>
+            <b class="arrow fa fa-angle-down"></b>
+          </a><b class="arrow"></b>
+          <ul class="submenu">
+            <li><a href="{{ route('hospitalisation.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter Hospitalisation
+              </a><b class="arrow"></b>
+            </li>
+            <li>
+              <a href="{{ route('hospitalisation.index') }}"  data-toggle="tooltip" data-placement="top" title=" Liste d'hospitalisation du service">
+                <i class="menu-icon fa fa-eye pink"></i> Liste Hospitalisations
+              </a><b class="arrow"></b>
+            </li>
+          </ul>
         </li>
-        <li class="">
-              <a href="#" class="dropdown-toggle">
-                     <i class="menu-icon fa fa-hospital-o"></i>
-                            <span class="menu-text" data-toggle="tooltip" data-placement="top" title="hospitalisations du service">
-                                 Hospitalisations
-                            </span>
-                              <b class="arrow fa fa-angle-down"></b>
-              </a>
-            <b class="arrow"></b>
-            <ul class="submenu">
-                <li class="">
-                        <a href="{{ route('hospitalisation.create') }}">
-                            <i class="menu-icon fa fa-plus purple"></i>Ajouter   Hospitalisation
-                        </a>
-                        <b class="arrow"></b>
-                    </li>
-                <li class="">
-                    <a href="{{ route('hospitalisation.index') }}"  data-toggle="tooltip" data-placement="top" title=" Liste d'hospitalisation du service">
-                        <i class="menu-icon fa fa-eye pink"></i>
-                        Liste des Hospitalisations
-                    </a>
-                    <b class="arrow"></b>
-                </li>
-            </ul>
-        </li>
-        <li class="">
-            <a href="#" class="dropdown-toggle">
-                <i class="menu-icon fa fa-table"></i>
-                <span class="menu-text">
-                     Rendez-Vous
-                 </span>
-                <b class="arrow fa fa-angle-down"></b>
-            </a>
-
-            <b class="arrow"></b>
-            <ul class="submenu">
-                <li class="">
-                    <a href="{{ route('rdv.create') }}">
-                        <i class="menu-icon fa fa-plus purple"></i>Ajouter un RDV
-                    </a>
-                    <b class="arrow"></b>
-                </li>
-                <li class="">
-                    <a href="{{ route('rdv.index') }}">
-                        <i class="menu-icon fa fa-eye pink"></i>Liste des RDVs
-                    </a>
-                    <b class="arrow"></b>
-                </li>
-            </ul>
+        <li>
+          <a href="#" class="dropdown-toggle">
+            <i class="menu-icon fa fa-table"></i><span class="menu-text">Rendez-Vous</span><b class="arrow fa fa-angle-down"></b>
+          </a><b class="arrow"></b>
+          <ul class="submenu">
+            <li>
+              <a href="{{ route('rdv.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter RDV</a> <b class="arrow"></b>
+            </li>
+            <li>
+              <a href="{{ route('rdv.index') }}"><i class="menu-icon fa fa-eye pink"></i>Liste RDVs</a><b class="arrow"></b>
+            </li>
+            <li>
+              <a href=""><i class="menu-icon fa fa-eye pink"></i>Planning</a><b class="arrow"></b>
+            </li>
+          </ul>
         </li>
         @if(Auth::user()->role_id == "10")
         <li class="">
-            <a href="#" class="dropdown-toggle">
-                <i class="menu-icon fa fa-stethoscope"></i><span class="menu-text">Produits pharmacie</span><b class="arrow fa fa-angle-down"></b>
-            </a>
-            <b class="arrow"></b>
-            <ul class="submenu">
-                <li class="">
-                    <a href="{{ route('demandeproduit.create') }}">
-                        <i class="menu-icon fa fa-plus purple"></i>Demande Produit
-                    </a>
-                    <b class="arrow"></b>
-                </li>
-            </ul>
+          <a href="#" class="dropdown-toggle">
+            <i class="menu-icon fa fa-stethoscope"></i><span class="menu-text">Produits pharmacie</span><b class="arrow fa fa-angle-down"></b>
+          </a><b class="arrow"></b>
+          <ul class="submenu">
+            <li>
+              <a href="{{ route('demandeproduit.create') }}"><i class="menu-icon fa fa-plus purple"></i>Demande Produit</a>
+              <b class="arrow"></b>
+            </li>
+          </ul>
         </li>
         @endif
-        <li class="">
-            <a href="#" class="dropdown-toggle">
-                <i class="menu-icon fa fa-stethoscope"></i><span class="menu-text">Gestion des visites</span>
-                <b class="arrow fa fa-angle-down"></b>
-            </a>
-            <b class="arrow"></b>
-            <ul class="submenu">
-                <li class="">
-                    <a href="/choixpatvisite"><i class="menu-icon fa fa-plus purple"></i>Ajouter visite</a>
-                    <b class="arrow"></b>
-                </li>
-            </ul>
+        <li>
+          <a href="#" class="dropdown-toggle">
+            <i class="menu-icon fa fa-stethoscope"></i><span class="menu-text">Gestion des visites</span> <b class="arrow fa fa-angle-down"></b>
+          </a><b class="arrow"></b>
+          <ul class="submenu">
+            <li><a href="/choixpatvisite"><i class="menu-icon fa fa-plus purple"></i>Ajouter visite</a><b class="arrow"></b></li>
+          </ul>
         </li>
-        <li class="">
-            <a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-file-o"></i><span class="menu-text" data-toggle="tooltip" data-placement="top" title=" Demandes d'hospitalisation">Demandes</span>
-                <b class="arrow fa fa-angle-down"></b>
-            </a>
-            <b class="arrow"></b>
-            <ul class="submenu">
-                <li class="">
-                    <a href="{{route('demandehosp.index')}}"  data-toggle="tooltip" data-placement="top" title=" Liste Demandes d'hospitalisation"><i class="menu-icon fa fa-eye pink"></i>Liste Demandes</a>
-                    <b class="arrow"></b>
-                </li>
-            </ul>
+        <li>
+          <a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-file-o"></i><span class="menu-text">Demandes Hosp</span>
+            <b class="arrow fa fa-angle-down"></b>
+          </a>
+          <b class="arrow"></b>
+          <ul class="submenu">
+            <li class="">
+              <a href="{{route('demandehosp.index')}}"  data-toggle="tooltip" data-placement="top" title=" Liste Demandes d'hospitalisation"><i class="menu-icon fa fa-eye pink"></i>Liste Demandes</a>
+              <b class="arrow"></b>
+            </li>
+          </ul>
         </li>
+        @if( Auth::user()->role_id == 14)
+        <li class="">
+          <a href="#" class="dropdown-toggle">
+            <i class="menu-icon fa fa-medkit" aria-hidden="true"></i><span class="menu-text">Produits</span>
+            <b class="arrow fa fa-angle-down"></b>
+          </a>
+        <b class="arrow"></b>
+        <ul class="submenu">
+          <li class="">
+            <a href="{{ route('demandeproduit.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter Demande</a><b class="arrow"></b>
+          </li>
+          <li>
+            <a href="{{ route('demandeproduit.index') }}"><i class="menu-icon fa fa-eye pink"></i> Liste Demandes</a>
+            <b class="arrow"></b>
+          </li>              
+        </ul>
+      </li>
+        @endif
     </ul><!-- /.nav-list -->
-    <!-- #section:basics/sidebar.layout.minimize -->
     <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
-        <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+      <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
     </div>
-    <!-- /section:basics/sidebar.layout.minimize -->
     <script type="text/javascript">
-        try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
-    </script>
-</div><!-- /section:basics/sidebar -->
+      try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+      $(function() {
+        var checkbox = $("#hommeConf");
+        checkbox.change(function() {
+              if(checkbox.is(":checked"))
+                      $("#hommelink").removeClass('invisible');
+               else
+                     $("#hommelink").addClass('invisible');  
+        })
+      });
+      function InverserUl()
+      {
+        var section = $("ul#menuPatient li:not(.active) a").prop('href').split("#")[1];
+        if(section == "Assure")
+        {
+            var liNonActive =$("ul#menuPatient li:not(.active)"); //var section = $("ul#menuPatient li:not(.active) a").prop('href').split("#")[i]; 
+           var sectionActive = $("ul#menuPatient li.active a").prop('href').split("#")[1];
+            $('ul#menuPatient li.active').removeClass('active');
+            liNonActive.addClass('in active');
+            $('div#' + section).addClass('in active');
+            $('div#' + sectionActive).removeClass('active');
+         }
+      }
+      function checkPatient()
+      {
+        var erreur =true;
+        var nom = $('#nom').val(); var prenom = $('#prenom').val();
+        var idlieunaissance = $('#idlieunaissance').val();
+        var datenaissance = $('#datenaissance').val();//var mobile1 = $('#mobile1').val();mobile1,"Téléphone mobile 1",  
+        var type = $('#type').val();
+        var inputAssVal = new Array(type,idlieunaissance,datenaissance,prenom,nom);
+        var inputMessage = new Array('Type',"Lieu de Naissance","Date de Naissance","Prenom","Nom");
+        $('.error').each(function(i, obj) {
+          $(obj).next().remove();
+          $(obj).detach();
+        });
+        jQuery.each( inputAssVal, function( i, val ) {
+          if(val =="" )
+          {
+            erreur =false;
+            $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du Patient </span>'+'<br/>');
+          }
+       });
+       return erreur;
+      }
+      function checkAssure()
+      {
+        var erreur =true;//var NMGSN = $('#NMGSN').val();var idlieunaissancef = $('#idlieunaissancef').val();"Lieu de Naissance",
+        var nomf = $('#nomf').val(); var prenomf = $('#prenomf').val();  var datenaissance = $('#datenaissancef').val(); 
+        var nss = $('#nss').val(); 
+        var inputAssVal = new Array(nss,gsf,idlieunaissancef,datenaissance,prenomf,nomf);
+        var inputMessage = new Array("Numèro de Secruté Social","Groupe Sanguin","Date de Naissance","Prenom","Nom");
+        $('.error').each(function(i, obj) { $(obj).next().remove(); $(obj).detach();  });
+        jQuery.each( inputAssVal, function( i, val ) {
+          if(val =="" )
+          {
+             erreur =false;
+             $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
+          }
+       });
+       return erreur;
+      }
+      function  checkHomme(){
+          var erreur =true;
+          var nomA = $('#nomA').val();var prenomA = $('#prenomA').val();
+          var type_piece_id = $('#type_piece_id').val();var npiece_id = $('#npiece_id').val();mobileA = $('#mobileA').val();
+          var inputHomVal = new Array(npiece_id,mobileA,type_piece_id,prenomA,nomA);
+          var inputHomMessage = new Array("Numero de la Pièce","Type de la Pièce","Telephone mobile","Prenom","Nom");
+          $('.error').each(function(i, obj) {
+                $(obj).next().remove();
+                $(obj).detach();
+         });
+          jQuery.each( inputHomVal, function( i, val ) {
+               if(val =="" )
+              {
+                     erreur =false;
+                    $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputHomMessage[i]+' du Correspondant</span>'+'<br/>');
+               }
+          });   
+         return erreur;
+      }
+      function checkConsult()
+      {
+        var erreur =true;
+        var motif = $('#motif').val();  var resume = $('#resume').val();
+        var inputAssVal = new Array(resume,motif);
+        var inputMessage = new Array("Résume","Motif");
+        if($('#' + 'isOriented').is(":checked"))
+        {
+          inputAssVal.unshift($("#lettreorientaioncontent").val());
+          inputMessage.unshift("Résume de la lettre d'orientation");
+          
+        }
+        $('.error').each(function(i, obj) {
+          $(obj).next().remove();
+          $(obj).detach();
+       });
+        jQuery.each( inputAssVal, function( i, val ) {
+          if(val =="" )
+          {
+            erreur =false;
+            $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' de la Consultation </span>'+'<br/>');
+          }
+       });
+       return erreur;
+      }
+      function activaTab(tab){
+        $('.nav-pills a[href="#' + tab + '"]').tab('show');
+      }
+      function copyPatient(){ 
+          $("#nomf").val($("#nom").val()); $("#prenomf").val($("#prenom").val());
+           $("#datenaissancef").val($("#datenaissance").val());$("#lieunaissancef").val($("#lieunaissance").val()); 
+           $("#idlieunaissancef").val($("#idlieunaissance").val());var sexe = $('input[name=sexe]:radio:checked').val();$('#sexef').val(sexe);
+           $( "#gsf" ).val($( "#gs" ).val());$( "#rhf" ).val($( "#rh" ).val()); $('#adressef').val($('#adresse').val());
+          $('#communef').val($('#commune').val()); $('#idcommunef').val($('#idcommune').val());$('#idwilayaf').val( $('#idwilaya').val()); 
+          $('#wilayaf').val($('#wilaya').val()); $('#SituationFamille').val($('#sf').val());
+          $('.Asdemograph').find('*').each(function () {
+                $(this).attr("disabled", true); 
+          });
+          addRequiredAttr();//$("#foncform").addClass('hide');//$('#nsspatient').attr('disabled', true);
+       }
+      function copyPatientInfo()
+      {
+           if($("#type").val() =="0")
+                copyPatient();
+      }
+     if ($("#addGardeMalade").length > 0) {  ////avoir
+        $("#addGardeMalade").validate({
+            rules: {
+                mobile_h: { required: true,  digits:true,  minlength: 10,  maxlength:10 }   
+          },
+          messages: {
+            mobile_h: {
+                required: "Please enter contact number",
+                minlength: "The contact number should be 10 digits",
+                digits: "Please enter only numbers",
+                maxlength: "The contact number should be 12 digits",
+            }
+          }
+        });
+      }
+      function showConsult(consultId) //a voir ce lui den haut
+      {
+        url= '{{ route ("consultdetailsXHR", ":slug") }}',
+        url = url.replace(':slug',consultId);
+         $.ajax({
+            type : 'GET',
+            url:url,
+            success:function(data,status, xhr){
+              $('#consultDetail').html(data.html);
+            },
+            error:function (data){
+              console.log('Error:', data);
+            }
+         });             
+      }
+      function HommeConfcopy(id)
+      {
+            $.get('/hommeConfiance/'+id+'/edit', function (data) {
+              $('#patientId').val(data.id_patient);
+              $('#typeH option').each(function() {
+                if($(this).val() == data.type) 
+                    $(this).prop("selected", true);
+              });  
+              $('#hom_id').val(data.id);  $('#nom_h').val(data.nom);$('#prenom_h').val(data.prenom);
+              $('#datenaissance_h').val(data.date_naiss);  $('#lien_par').val(data.lien_par).change();    
+              $('#lien_par option').each(function() {
+                if($(this).val() == data.lien_par) 
+                  $(this).prop("selected", true);
+              });       
+              $('#' + data.type_piece).prop('checked',true); $('#num_piece').val(data.num_piece);
+              $('#date_piece_id').val(data.date_deliv);
+              $('#adresse_h').val(data.adresse);$('#mobile_h').val(data.mob);
+              jQuery('#gardeMalade').modal('show');
+            });
+      }
+      function getProducts(id_gamme, id_spec=0,med_id = 0)
+      {
+          var html = '<option value="0">Sélectionner...</option>';
+          $.ajax({
+              url : '/getproduits/'+id_gamme+'/'+id_spec,
+              type : 'GET',
+              dataType : 'json',
+              success : function(data){
+                  $.each(data, function(){
+                    html += "<option value='"+this.id+"'>"+this.nom+"</option>";
+                  });
+                  $('#produit').html(html);
+                  if(med_id != 0)
+                    $('#produit').val(med_id);
+              },
+              error : function(){
+                  console.log('error');
+              }
+          });
+      }
+      function addCIMCode(code,field)
+      {
+        $("#"+field).val(code);
+        $('#liste_codesCIM').empty();  $("#chapitre").val($("#chapitre option:first").val());$("#schapitre").val($("#schapitre option:first").val());
+        $('#cim10Modal').trigger("reset");$('#cim10Modal').modal('toggle');  
+      }
+      function ImprimerEtat(objID)
+      { 
+        $("#objID").val( objID );
+        $('#EtatSortie').modal('show');
+      }
+      $(document).ready(function () {
+           $('input[type=radio][name=sexe]').change(function(){
+                if($(this).val() == "M")
+                {
+                     $('#Div-nomjeuneFille').attr('hidden','');$('#nom_jeune_fille').val(''); 
+                }else {
+                      var civilite= $("select.civilite option").filter(":selected").val();
+                      if((civilite =="marié")|| (civilite =="veuf"))
+                        $('#Div-nomjeuneFille').removeAttr('hidden');
+                }
+           });
+           $( ".civilite" ).change(function() {
+                var sex =  $('input[name=sexe]:checked').val();
+                if(sex == "F")
+                {
+                      var civilite= $("select.civilite option").filter(":selected").val();
+                      if((civilite =="marié")|| (civilite =="veuf"))
+                              $('#Div-nomjeuneFille').removeAttr('hidden');
+                      else
+                              $('#Div-nomjeuneFille').attr('hidden','');  
+                }else
+                      $('#Div-nomjeuneFille').attr('hidden','');      
+            });
+          $( "#Position" ).change(function() {
+                if($(this).val() != "Activité")
+                {
+                    $('#serviceFonc').addClass('invisible'); $('#service option:eq(0)').prop('selected', true);
+                }
+                else
+                  $('#serviceFonc').removeClass('invisible');   
+          });
+          if($( "#Position" ).val() != "Activité" )
+               $('#serviceFonc').addClass('invisible');
+          $('#listeGardes').DataTable({ //homme/garde  
+                colReorder: true,
+                stateSave: true,
+                searching:false,
+                'aoColumnDefs': [{
+                  'bSortable': false,
+                  'aTargets': ['nosort']
+                }],
+                "language": {
+                            "url": '/localisation/fr_FR.json'
+                },
+          });
+          $('#btn-addCores').click(function () { ///show modal
+                if( $('#EnregistrerGardeMalade').is(":hidden"))
+                        $('#EnregistrerGardeMalade').show();
+                $('#EnregistrerGardeMalade').val("add"); $('#addGardeMalade').trigger("reset");
+                $('#CoresCrudModal').html("Ajouter un Correspondant(e)"); $('#gardeMalade').modal('show');   
+          });  
+      jQuery('body').on('click', '.show-modal', function () {
+              HommeConfcopy($(this).val());
+              jQuery('#EnregistrerGardeMalade').hide();
+               $('#addGardeMalade').find('input, textarea, select').attr('disabled','disabled');
+      });
+      jQuery('body').on('click', '.open-modal', function () {
+             HommeConfcopy($(this).val());
+               if( $('#EnregistrerGardeMalade').is(":hidden"))
+                    $('#EnregistrerGardeMalade').show();
+              jQuery('#EnregistrerGardeMalade').val("update"); $('#CoresCrudModal').html("Editer un Correspondant(e)"); $('#gardeMalade').modal('toggle');
+     });
+      $("#EnregistrerGardeMalade").click(function (e) {
+            $('#gardeMalade').modal('toggle');
+            $.ajaxSetup({
+             headers: {
+                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+              }
+            });
+            e.preventDefault();
+              var formData = {
+                  id_patient:$('#patientId').val(),
+                  nom:$('#nom_h').val(),
+                  prenom : $('#prenom_h').val(),
+                  date_naiss : $('#datenaissance_h').val(),
+                  type:$('#typeH').val(),
+                  lien_par : $('#lien_par').val(),
+                  type_piece : $("input[name='type_piece']:checked").val(),
+                  num_piece : $('#num_piece').val(),
+                  date_deliv : $('#date_piece_id').val(),
+                  adresse : $('#adresse_h').val(),
+                  mob : $('#mobile_h').val(),
+                  created_by: $('#userId').val()
+              };
+              var state = jQuery('#EnregistrerGardeMalade').val();
+              var type = "POST";var hom_id = jQuery('#hom_id').val();var ajaxurl = 'hommeConfiance';
+              if (state == "update") {
+                type = "PUT"; ajaxurl = '/hommeConfiance/' + hom_id;
+              }
+              if (state == "add") {
+                    ajaxurl ="{{ route('hommeConfiance.store') }}";
+              }
+      $('#addGardeMalade').trigger("reset");
+        $.ajax({
+            type: type,
+            url: ajaxurl,
+            data: formData,
+            dataType: 'json',
+            success: function (data) { //$('#gardeMalade').hide();   //jQuery('#gardeMalade').modal('hide');
+                   if($('.dataTables_empty').length > 0)
+                    {
+                      $('.dataTables_empty').remove();
+                    }
+                   switch(data.lien_par){
+                          case "0":
+                                lien='<span class="label label-sm label-success"><strong>Conjoint(e)</strong></span>';
+                                break;
+                           case "1":
+                                 lien='<span class="label label-sm label-success"><strong>Père</strong></span>';
+                                break;
+                           case "2":
+                                lien='<span class="label label-sm label-success"><strong>Mère</strong></span>';
+                                break;
+                           case "3":
+                                lien='<span class="label label-sm label-success"><strong>Frère</strong></span>';
+                                 break;
+                           case "4":
+                                lien='<span class="label label-sm label-success"><strong>Soeur</strong></span>';
+                                break;
+                          case "5":
+                                lien='<span class="label label-sm label-success"><strong>Ascendant</strong></span>';
+                                break;
+                          case "6":
+                                lien='<span class="label label-sm label-success"><strong>Grand-parent</strong></span>';
+                                break; 
+                          case "7":
+                                 lien='<span class="label label-sm label-success"><strong>Membre de famille</strong></span>';
+                                break;
+                          case "8":
+                                lien=' <span class="label label-sm label-success"><strong>Ami</strong></span>';
+                                break;              
+                          case "9":
+                                lien='<span class="label label-sm label-success"><strong>Collègue</strong></span>';
+                                break; 
+                          case "10":
+                                lien='<span class="label label-sm label-success"><strong>Employeur</strong></span>';
+                                break; 
+                          case "11":
+                                lien='span class="label label-sm label-success"><strong>Employé</strong></span>';
+                                break; 
+                          case "12":
+                                lien='<span class="label label-sm label-success"><strong>Tuteur</strong></span>';
+                                break; 
+                         case "13":
+                                lien='<span class="label label-sm label-success"><strong>Autre</strong></span>';
+                                break; 
+                         default:
+                                break;
+                }
+                  var homme = '<tr id="garde' + data.id + '"><td class="hidden">' + data.id_patient + '</td><td>' + data.nom + '</td><td>' + data.prenom + '</td><td>'+ data.date_naiss              +'</td><td>' + data.adresse + '</td><td>'+ data.mob + '</td><td>' + lien + '</td><td>' + data.type_piece + '</td><td>' + data.num_piece 
+                                    + '</td><td>' +  data.date_deliv + '</td>';
+                     homme += '<td class ="center"><button type="button" class="btn btn-xs btn-success show-modal" value="' + data.id + '"><i class="ace-icon fa fa-hand-o-up fa-xs"></i></button>&nbsp;'; 
+                homme += '<button type="button" class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
+                homme += '<button type="button" class="btn btn-xs btn-danger delete-garde" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+                if (state == "add") {
+                  $("#listeGardes tbody").append(homme);
+                } else {
+                  $("#garde" + hom_id).replaceWith(homme);      
+                }
+            },
+            error: function (data) {
+              console.log('Error:', data);
+            }
+        }); 
+      }) 
+      jQuery('body').on('click', '.delete-garde', function () {////----- DELETE a Garde and remove from the page -----////
+            var hom_id = $(this).val();
+            $.ajaxSetup({
+              headers: {
+                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                  }
+            });
+            $.ajax({
+                  type: "DELETE",
+                  url: '/hommeConfiance/' + hom_id,
+                  success: function (data) {
+                      $("#garde" + hom_id).remove();
+                  },
+                  error: function (data) {
+                         console.log('Error:', data);
+                  }
+            });
+      });
+      $('#gardeMalade').on('hidden.bs.modal', function () {
+        $('#gardeMalade form')[0].reset();
+        $('#addGardeMalade *').prop('disabled', false);
+      });
+      $('#gamme').change(function(){
+          switch($(this).val())
+          {
+            case "0":
+              $('#specialite').val(0);
+              $('#specialite').prop('disabled', 'disabled');
+              $('#produit').val(0);
+              $('#produit').prop('disabled', 'disabled');
+              break
+            case "1":
+              if($("#specialiteDiv").is(":hidden"))
+                $("#specialiteDiv").show();
+              $("#specialite").removeAttr("disabled");
+              $("#produit").removeAttr("disabled");
+              break;
+            case "2":
+                     if(!$("#specialiteDiv").is(":hidden"))
+                            $("#specialiteDiv").hide();
+                             $("#produit").removeAttr("disabled");
+                            getProducts(2);
+              break;
+            case "3":
+              if(!$("#specialiteDiv").is(":hidden"))
+                $("#specialiteDiv").hide();
+              getProducts(3);
+              break;
+            default:
+              break; 
+          }
+      });
+     $('#specialite').change(function(){
+         if($(this).val() != "0" )
+         {
+            $("#produit").removeAttr("disabled");
+            var id_gamme = $('#gamme').val();
+            var id_spec = $(this).val();
+            getProducts(id_gamme,id_spec);
+          }else
+          {
+            $("#produit").val(0);
+            $("#produit").prop('disabled', 'disabled');
+          }
+      });
+     jQuery('body').on('click', '.CimCode', function (event) {
+          $('#cim10Modal').trigger("reset");
+          $('#inputID').val($(this).val());
+          $('#cim10Modal').modal('show');
+     });
+     $('#chapitre').click(function(){
+          if(! isEmpty($("#chapitre").val()) && $("#chapitre").val()!=0)
+          {
+                $.ajax({
+                     type : 'get',
+                     url : '{{URL::to('schapitres')}}',
+                    data:{'search':$("#chapitre").val()},
+                    success:function(data,status, xhr){
+                          $( "#schapitre" ).prop( "disabled", false );
+                          var select = $('#schapitre').empty();
+                          select.append("<option value='0'>Selectionnez une Sous Chapitre</option>");   
+                          $.each(data,function(){
+                                select.append("<option value='"+this.C_S_CHAPITRE+"'>"+this.TITRE_S_CHAPITRE+"</option>");
+                          });
+                    }
+                });
+          }else
+                $( "#schapitre" ).prop( "disabled", true );
+     });
+     $('#schapitre').click(function(){
+           var fieldname = $('#inputID').val();
+           $('#liste_codesCIM tbody').empty();
+          if($("#schapitre").val() != 0)
+          {
+               $.ajax({
+                    type : 'get',
+                    url : '{{URL::to('maladies')}}',
+                    data:{'search':$("#schapitre").val()},
+                    success:function(data,status, xhr){
+                          $(".numberResult").html(Object.keys(data).length);//$("#liste_codesCIM tbody").html(data);
+                          $('#liste_codesCIM' ).DataTable( {
+                               processing: true,
+                              bInfo : false,
+                              pageLength: 5,
+                              pageLength: 5,
+                              destroy: true,
+                              "language": { "url": '/localisation/fr_FR.json' },
+                              "data" : data,
+                              columns: [ 
+                                   {  data: 'CODE_DIAG'},
+                                   {  data: 'NOM_MALADIE'},
+                                   {      data: null, title :'<em class="fa fa-cog"></em>', orderable: false, searchable: false,
+                                        "render": function(data,type,full,meta){
+                                              if( type === 'display' ) {
+                                                return '<button class="btn btn-xs btn-primary" data-dismiss="modal" onclick="addCIMCode(\''+ data.CODE_DIAG+'\',\''+fieldname+'\')"><i class="ace-icon fa fa-plus-circle"></i></button>';
+                                              }
+                                              return data;
+                                       }       
+                                   }
+                              ],
+                              "columnDefs": [
+                                    {"targets": 1 ,  className: "dt-head-center" },
+                                    {"targets": 2 ,  className: "dt-head-center dt-body-center","orderable": false },
+                              ]
+                        });    
+                    },
+                    error:function(){
+                          console.log("error");
+                    },
+                });
+          }
+      });
+}) 
+</script>
+</div>

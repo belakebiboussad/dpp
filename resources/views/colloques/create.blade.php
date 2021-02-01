@@ -39,7 +39,7 @@
           <label for="liste_membre"> <h4> <strong>Liste des Medecins :</strong></h4></label>&nbsp;
           <select  id="liste_membre" class="form-control" size="7" multiple="multiple">
             @foreach( $membre as $membres)
-            <option id="id_membre" value="{{$membres->id}}" >{{$membres->Nom_Employe}} {{$membres->Prenom_Employe}}</option>
+            <option id="id_membre" value="{{$membres->id}}" >{{$membres->nom}} {{$membres->prenom}}</option>
             @endforeach
           </select>
         </div>
@@ -56,38 +56,26 @@
           <select name="membres[]" id="liste_membre_to" class="form-control" size="7" multiple="multiple"></select>
         </div>
       </div>
-      <div class="space-12"></div>
-      <div class="space-12"></div>
-      <div class="space-12"></div>
-      
+      <div class="space-12"></div> <div class="space-12"></div>  <div class="space-12"></div>
         <!-- ici date -->
       <div class="row">
         <div class="col-xs-7">
-            <h4><label class= "control-label no-padding-left col-xs-4 col-sm-4" for="date_colloque"><strong>Date du colloque :</strong></label></h4>
+            <h4><label class= "control-label no-padding-left col-xs-4 col-sm-4" for="date_colloque"><strong>Date :</strong></label></h4>
             <input class="col-xs-4 col-sm-4 date-picker" id="date_colloque" name="date_colloque" type="text" 
                    placeholder="Date d'entrée prévue" data-date-format="yyyy-mm-dd" required/>
             <button class="btn btn-sm filelink" onclick="$('#date_colloque').focus()"><i class="fa fa-calendar"></i></button> 
         </div>
-        <div class="col-xs-5">
-           
-        </div>
-       <!--  <div class="col-xs-3"></div>
-        <div class="col-xs-3"></div>
- -->
+        <div class="col-xs-5"> </div>   
       </div>
-      <div class="space-12"></div>
-      <div class="space-12"></div>
-
-
-
-      <div class="row">
+      <div class="space-12"></div>  <div class="space-12"></div>
+     <div class="row">
           <div class="col-xs-7">
-            <label for="type_colloque" class= "control-label no-padding-left col-xs-4 col-sm-4"><strong>Type du colloque :</strong></label>
+            <label for="type_colloque" class= "control-label no-padding-left col-xs-4 col-sm-4"><strong>Type :</strong></label>
             <select id="type_colloque" name="type_colloque" class="col-xs-4 col-sm-4" data-placeholder="sélectionner le type..." required>
-              <option value="" selected disabled>sélectionner le type...</option>
-              @foreach( $type_c as $type)
-              <option id="id_type" value="{{$type->id}}" >{{$type->type}}</option>
-              @endforeach
+              {{-- <option value="" selected disabled>sélectionner le type...</option>--}}
+              <option value="0" selected >médicale</option>
+             <option value="1">chirurgicale</option>
+             
             </select>
           </div>
       </div>

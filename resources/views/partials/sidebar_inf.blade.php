@@ -30,7 +30,7 @@
     </div>
     <ul class="nav nav-list">
     	<li class="">
-    		<a href="{{ route('home_infermier') }}">
+    		<a href="{{ route('HospitalisationController@index') }}">{{-- 'home_infermier' --}}
           <i class="menu-icon fa fa-university"></i><span class="menu-text"> Acceuil </span>
         </a>
     	</li>

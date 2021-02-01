@@ -7,10 +7,7 @@
 			<div class="col-sm-10 col-sm-offset-1">
 				<div class="widget-box transparent">
 					<div class="widget-header widget-header-large">
-						<h3 class="widget-title grey lighter">
-							<i class="ace-icon fa fa-leaf green"></i>
-							Liste des Demandes
-						</h3>
+						<h3 class="widget-title grey lighter"><i class="ace-icon fa fa-table"></i>Liste des Demandes</h3>
 					</div>
 					<div class="widget-body">
 						<div class="widget-main padding-24">
@@ -20,27 +17,23 @@
 										<thead>
 											<tr>
 												<th class="center">#</th>
-												<th class="hidden-480">Date</th>
-												<th>Médecin traitant</th>
-												<th>Patient</th>
-												<th>Etat</th>
-												<th></th>
+												<th class="hidden-480 center"><strong>Date</strong></th>
+												<th class="center"><strong>Médecin traitant</strong></th>
+												<th class="center"><strong>Patient</strong></th>
+												<th class="center"><strong>Etat</strong></th>
+												<th class="center"><em class="fa fa-cog"></em></th>
 											</tr>
 										</thead>
 										<tbody>
 											@foreach($demandesexr as $index => $exr)
 												<tr>
 													<td class="center">{{ $index + 1 }}</td>
-													<td>{{ $exr->Date }}</td>
-													<td>
-														{{ $exr->consultation->docteur->Nom_Employe }}
-														{{ $exr->consultation->docteur->Prenom_Employe }}
+													<td>{{ $exr->consultation->Date_Consultation }}</td>
+													<td>{{ $exr->consultation->docteur->nom }} {{ $exr->consultation->docteur->prenom }}</td>
+													<td>{{ $exr->consultation->patient->Nom }} {{ $exr->consultation->patient->Prenom }}
 													</td>
 													<td>
-														{{ $exr->consultation->patient->Nom }}
-														{{ $exr->consultation->patient->Prenom }}
-													</td>
-													<td>
+														<span class="badge badge-primary">
 														@if($exr->etat == "E")
 															En Attente
 														@elseif($exr->etat == "V")
@@ -48,14 +41,11 @@
 														@else
 															Rejeté
 														@endif
+														</span>
 													</td>
 													<td class="center">
-														<!-- <a href="/details_exr/{{ $exr->id }}">
-															<i class="fa fa-eye"></i>
-														</a> -->
-														<a href="{{ route('demandeexr.show', $exr->id) }}">
-			              					<i class="fa fa-eye"></i>
-			            					</a>
+													 	<a href="{{ route('demandeexr.show', $exr->id) }}" class="btn btn-xs btn-secondary"><i class="fa fa-hand-o-up fa-xs"></i></a>
+			              				<a href="/details_exr/{{ $exr->id}}" class="btn btn-xs btn-info">	<i class="glyphicon glyphicon-upload glyphicon glyphicon-white" title="attacher résultat"></i></a>
 													</td>
 												</tr>
 											@endforeach

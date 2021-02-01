@@ -21,34 +21,31 @@ class demandeprodController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function get_specialite($id_gamme)
-    {
-        $specialites = specialite_produit::where("id_gamme",$id_gamme)->get();
-        return $specialites; 
-    }
     public function get_produit($id_gamme, $id_spes)
     {
-        if($id_gamme == 1)
-        {
-            $produits = medcamte::where("id_specialite",$id_spes)->get();
-            return $produits;
-        }
-        elseif ($id_gamme == 2) {
-            $produits = dispositif::where("id_specialite",$id_spes)->get();
-            return $produits;
-        }
-        elseif($id_gamme == 3)
-        {
-            $produits = reactif::where("id_specialite", $id_spes)->get();
-            return $produits;
-        }
+      if($id_gamme == 1)
+      {
+          $produits = medcamte::where("id_specialite",$id_spes)->get();
+          return $produits;
+      }
+      elseif ($id_gamme == 2) {
+          $produits = dispositif::all();
+          return $produits;
+      }
+      elseif($id_gamme == 3)
+      {
+          $produits = reactif::all();
+          return $produits;
+      }
     }
     public function index()
     {
-        $demandes = demand_produits::all();
-        return view('demandeproduits.index_demande', compact('demandes'));
+      if(Auth::user()->role_id == 10)
+        $demandes = demand_produits::where('Etat','E')->orderBy('Date', 'desc')->get();
+      else
+        $demandes = demand_produits::orderBy('Date', 'desc')->get();
+      return view('demandeproduits.index', compact('demandes'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -56,10 +53,10 @@ class demandeprodController extends Controller
      */
     public function create()
     {
-       $gammes = gamme::all();
-        return view('demandeproduits.demande_produit', compact('gammes'));
+      $gammes = gamme::all();
+      $specialites = specialite_produit::all();
+      return view('demandeproduits.create', compact('gammes','specialites'));
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -68,32 +65,32 @@ class demandeprodController extends Controller
      */
     public function store(Request $request)
     {
-        $date = date('Y-m-d');
-        $demande = demand_produits::FirstOrCreate([
-            "Date" => $date,
-            "Etat" => "E",
-            "id_employe" => Auth::user()->employee_id,
-        ]);
-        $listes = json_decode($request->liste);
-        for ($i=1; $i < count($listes); $i++) { 
-            $gamme = gamme::where('gamme',$listes[$i]->gamme)->get()->first();
-            if($gamme->id == "1")
-            {
-                $produit = medcamte::where("dci",$listes[$i]->produit)->get()->first();
-                $demande->medicaments()->attach($produit->id, ['qte' => $listes[$i]->qte]);
-            }
-            elseif($gamme->id == "2") {
-                $produit = dispositif::where('dci',$listes[$i]->produit)->get()->first();
-                $demande->dispositifs()->attach($produit->id, ['qte' => $listes[$i]->qte]);
-            }
-            elseif($gamme->id == "3") {
-                $produit = reactif::where('dci',$listes[$i]->produit)->get()->first();
-                $demande->reactifs()->attach($produit->id, ['qte' => $listes[$i]->qte]);
-            }
+      $date = date('Y-m-d');
+      $demande = demand_produits::Create([
+          "Date" => $date,
+          "Etat" => "E",
+          "id_employe" => Auth::user()->employee_id,
+      ]);
+    
+      $listes = json_decode($request->liste);
+      //dd($listes);
+      for ($i=1; $i < count($listes); $i++) { 
+        $gamme = gamme::where('nom',$listes[$i]->gamme)->get()->first();
+        //dd($gamme);
+        if($gamme->id == "1")
+        {
+          $demande->medicaments()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte]);
         }
-        return redirect()->route('demandeproduit.show',$demande->id); 
+        elseif($gamme->id == "2") {
+          $demande->dispositifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte]);
+        }
+        elseif($gamme->id == "3") {
+          $demande->reactifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte]);
+        }
+      }
+      //dd($demande);
+      return redirect()->route('demandeproduit.show',$demande->id); 
     }
-
     /**
      * Display the specified resource.
      *
@@ -102,10 +99,10 @@ class demandeprodController extends Controller
      */
     public function show($id)
     {
-        $demande = demand_produits::FindOrFail($id);
-        return view('demandeproduits.show_demande', compact('demande'));
+      $demande = demand_produits::FindOrFail($id);
+      //dd($demande->medicaments);
+      return view('demandeproduits.show', compact('demande'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -114,9 +111,38 @@ class demandeprodController extends Controller
      */
     public function edit($id)
     {
-        //
+      $gammes = gamme::all();// $demande = demand_produits::FindOrFail($id);return view('demandeproduits.edit', compact('demande')); 
+      $specialites = specialite_produit::all();
+      $demande = demand_produits::FindOrFail($id);
+      return view('demandeproduits.edit', compact('gammes','specialites','demande'));
     }
-
+    public function run($id)
+    {
+      $demande = demand_produits::FindOrFail($id);
+      return view('demandeproduits.run', compact('demande'));
+    }
+    public function valider(Request $request,$id)
+    {
+      $demande = demand_produits::FindOrFail($id);
+      $listes = json_decode($request->liste);
+      for ($i=0; $i < count($listes); $i++) { 
+        $gamme = gamme::where('nom',trim($listes[$i]->gamme))->get()->first();
+        $attributes = ['qteDonne' => $listes[$i]->qteDem];
+        if($gamme->id == "1")
+        {
+          $demande->medicaments()->updateExistingPivot($listes[$i]->produit, $attributes);
+        }elseif($gamme->id == "2") {
+          $demande->dispositifs()->updateExistingPivot($listes[$i]->produit, $attributes);
+        }elseif($gamme->id == "3") {
+          $demande->reactifs()->updateExistingPivot($listes[$i]->produit, $attributes);
+        }
+      }   
+      $demande->update([
+        "Etat" => $request->avis,
+        "motif" => $request->motif
+      ]);
+      return redirect()->action('demandeprodController@index');
+    }  
     /**
      * Update the specified resource in storage.
      *
@@ -126,14 +152,24 @@ class demandeprodController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $demande = demand_produits::FindOrFail($id);
-        $demande->update([
-            "Etat" => $request->avis,
-            "motif" => $request->motif
-        ]);
-        return redirect()->action('demandeprodController@details_demande', [ 'id' => $demande->id ]);
+      $demande = demand_produits::FindOrFail($id);
+      $demande->medicaments()->detach();
+      $demande->dispositifs()->detach();
+      $demande->reactifs()->detach();
+      $listes = json_decode($request->liste);
+      for ($i=0; $i < count($listes); $i++) { 
+              $gamme = gamme::where('nom',trim($listes[$i]->gamme))->get()->first();
+              if($gamme->id == "1")
+              {   
+                  $demande->medicaments()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte]);
+              }elseif($gamme->id == "2") {
+                   $demande->dispositifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte]);
+                }elseif($gamme->id == "3") {
+                  $demande->reactifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte]);
+                }
+        }
+       return redirect()->action('demandeprodController@show', [ 'id' => $demande->id ]);
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -142,24 +178,11 @@ class demandeprodController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
-
-    public function liste_demande()
-    {
-        $demandes = demand_produits::all();
-        return view('demandeproduits.liste_demande', compact('demandes'));  
-    }
-
-    public function traiter_demande($id)
-    {
-        $demande = demand_produits::FindOrFail($id);
-        return view('demandeproduits.traiter_demande', compact('demande'));
-    }
-
-    public function details_demande($id)
-    {
-        $demande = demand_produits::FindOrFail($id);
-        return view('demandeproduits.details_demande', compact('demande'));
+      $demande = demand_produits::FindOrFail($id);
+      $demande->medicaments()->detach();
+      $demande->dispositifs()->detach();
+      $demande->reactifs()->detach();
+      $demande = demand_produits::destroy($id);
+      return redirect()->action('demandeprodController@index');
     }
 }
