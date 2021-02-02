@@ -42,7 +42,7 @@
   			</div>
 		</div><!-- onclick = "getAdmissions();" -->
 		 <div class="panel-footer" style="height: 50px;">
-	   		<button type="submit"name="filter" id="sortiesbtn" class="btn btn-xs btn-primary finoutPatient" style="vertical-align: middle" disabled><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+	   		<button type="submit"name="filter" id="sortiesbtn" class="btn btn-xs btn-primary finoutPatient" style="vertical-align: middle"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
 		</div>
 	</div><!-- panel -->
 	<div class="row"><!-- <div class="col-sm-12"> --><!-- 	</div> -->

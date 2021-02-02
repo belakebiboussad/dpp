@@ -88,7 +88,6 @@
             <tr>
               <th>type</th>
               <th>physio/pathol</th>
-
               <th>decription</th>
               <th>date</th>
             </tr>
@@ -110,6 +109,11 @@
         <strong>Allergie :</strong>
         <span>{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->observation }}</span>
       </div><br>
+      <div>
+        <strong>Traitement d’entrée :</strong>
+        <span>Neon</span>
+      </div><br>
+      <div id="rectangle"><strong>PRISE EN CHARGE HOSPITALIERE</strong></div>
     </div>
   </body>
 </html>
