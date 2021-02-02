@@ -164,6 +164,7 @@ class UsersController extends Controller
               "role_id"=>$request->role,
               "active"=>$activer,
      ];
+
      $user->update([
                'name'=>$request->username,
                "password"=>$user->password,
@@ -172,6 +173,7 @@ class UsersController extends Controller
               "role_id"=>$request->role,
               "active"=>$activer,   
      ]);
+    
     return redirect(Route('users.show',$id));
      
     }

@@ -51,7 +51,7 @@
 				    </li>
 						@if( $employe->service  != null)
 						<li>
-				      <i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong><label class="blue">{{ Auth::User()->employ->service->nom }}</label>
+				      <i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong><label class="blue">{{Auth::User()->employ->Service->nom }}</label>
 				    </li>
 						@endif
          	</ul>
@@ -59,7 +59,7 @@
         <div class="col-md-6 col-sm-6">
        		<ul class="list-unstyled spaced">
        			<li>
-			    		<i class="ace-icon fa fa-caret-right blue"></i><strong>Spécialité :</strong><label class="blue">{{ Auth::User()->employ->specialite->nom }}</label>
+			    		<i class="ace-icon fa fa-caret-right blue"></i><strong>Spécialité :</strong><label class="blue">{{ Auth::User()->employ->Specialite->nom }}</label>
 			      </li>
 						<li>
 			        <i class="ace-icon fa fa-caret-right blue"></i><strong>Matricule :</strong><label class="blue">{{ $employe->Matricule_dgsn }}</label>
@@ -70,10 +70,7 @@
 						<li>
 			       	<i class="ace-icon fa fa-caret-right blue"></i><strong>Rôle :</strong><label class="blue">{{ Auth::user()->role->role }}</label>
 			      </li>
-						<li>
-			       	<i class="ace-icon fa fa-caret-right blue"></i><strong>Rôle :</strong>  <label class="blue">{{ Auth::user()->role->role  }}</label> 			
-						</li>
-					</ul>
+			  </ul>
        	</div>
       </div>
       <div class="w3-teal"><h4 class="header blue bolder smaller">Contact</h4></div>
