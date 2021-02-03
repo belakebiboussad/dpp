@@ -155,4 +155,10 @@ class SalleController extends Controller
             }
             return $salles;
        }
+        public function getRooms(Request $request)
+    { 
+          $lits = lit::where('salle_id',$request->search)->get();
+          $view = view("Salles.ajax_sallerooms",compact('lits'))->render();
+          return response()->json(['html'=>$view]);
+    }
 }
