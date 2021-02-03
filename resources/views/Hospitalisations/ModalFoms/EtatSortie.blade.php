@@ -15,22 +15,8 @@
 				  	@foreach($etatsortie as $etat)
 				  		<li class="btn-group" role="group" style="padding-top: 5px">{{-- href="docStatePrint/{{$etat->id}}" target="_blank" --}}
 				  		<br/>
-				  		@switch($etat->id)
-				  			@case (1)
-				  				<button type="button" id="selctetat" class="btn btn-primary btn-lg"><strong>{{ $etat->titre}}</strong></button>
-				  				@break
-				  			@case (2)
-				  				<button type="button" id="selctetat" class="btn btn-success btn-lg" width="100%"><strong>{{ $etat->titre}}</strong></button> 
-				  				@break
-				  			@case (3)
-				  				<button type="button" id="selctetat" class="btn btn-info btn-lg"><strong>{{ $etat->titre}}</strong></button> 
-				  				@break
-				  			@case (4)
-				  				<button type="button" id="selctetat" class="btn btn-danger btn-lg"><strong>{{ $etat->titre}}</strong></button> 
-				  				@break
-				  			@default
-				  		@endswitch
-		        			</li>
+				  		<button type="button" class="btn btn-primary btn-lg selctetat" value ="{{ $etat->id}}"><strong>&nbsp;&nbsp;{{ $etat->nom}}</strong></button> 
+		        	</li>
  	  		  		@endforeach 
 				 </ol>
 				</div> 

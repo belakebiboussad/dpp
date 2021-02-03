@@ -70,8 +70,8 @@ $('document').ready(function(){
     $('.filter').keyup(function(){
         getConsultations($(this).attr('id'),$(this).val()) 
     });
-    $(document).on('click', '#selctetat', function(event){  
-      var selectDocm=$(this).text(); //event.preventDefault();
+    $(document).on('click', '.selctetat', function(event){  
+      var selectDocm=$(this).val(); //event.preventDefault();
       var formData = {
             consult_id: $('#objID').val(),
             selectDocm :selectDocm,
@@ -81,7 +81,6 @@ $('document').ready(function(){
             url : '{{URL::to('imprimerEtatSortieConsult')}}',
             data:formData,
               success(data){
-                alert(data);
                 $('#EtatSortie').modal('hide');
               },
       }); 

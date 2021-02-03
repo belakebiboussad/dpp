@@ -192,22 +192,22 @@ class HospitalisationController extends Controller
       $hosp  = hospitalisation::find($request->hosp_id);  
       view()->share('hosp', $hosp);
       switch($request->selectDocm) {
-            case "Résumé standard de sortie":
+            case "1":
               $filename = "RSS-".$hosp->patient->Nom."-".$hosp->patient->Prenom.".pdf";
               $pdf = PDF::loadView('hospitalisations.EtatsSortie.ResumeStandartSortiePDF', compact('hosp'));
               break;
-            case "Résumé clinique de sortie":
+            case "2":
               $filename = "RCS-".$hosp->patient->Nom."-".$hosp->patient->Prenom.".pdf";
               $pdf = PDF::loadView('hospitalisations.EtatsSortie.ResumeCliniqueSortiePDF', compact('hosp'));
               break;
-            case "Certificat medical":
-              $filename = "CerM-".$hosp->patient->Nom."-".$hosp->patient->Prenom.".pdf";
-              $pdf = PDF::loadView('hospitalisations.EtatsSortie.CertificatMedicalePDF', compact('hosp'));
-              break;
-            case "Attestation Contre Avis Medical":
+            case "4":
               $filename = "CAM-".$hosp->patient->Nom."-".$hosp->patient->Prenom.".pdf";
               $pdf = PDF::loadView('hospitalisations.EtatsSortie.AttestationContreAvisMedicalePDF', compact('hosp','date'));
-              break;  
+              break;
+            case "5":
+              $filename = "CRO-".$hosp->patient->Nom."-".$hosp->patient->Prenom.".pdf";
+              $pdf = PDF::loadView('hospitalisations.EtatsSortie.CRHPDF', compact('hosp','date'));
+              break;    
             default:
                return response()->json(['html'=>"unknown"]);
                break;
