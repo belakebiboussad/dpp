@@ -3,9 +3,6 @@
 <script src="{{ asset('/js/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/jspdf.debug.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/jspdf.plugin.autotable.min.js') }}"></script>
-<script type="text/javascript">
-  //if('ontouchstart' in document.documentElement) document.write("<script src='{{asset('/js/jquery.mobile.custom.min.js')}}'>"+"<"+"/script>");
-</script>
 <script src="{{asset('/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('/js/jquery-ui.min.js')}}"></script>{{-- <script src="{{asset('/js/jquery-ui.custom.min.js')}}"></script> --}}
 <script src="{{asset('/js/jquery.ui.touch-punch.min.js')}}"></script>
@@ -528,145 +525,6 @@ $('#typeexm').on('change', function() {
       var string = lettre.output('datauristring');
       $('#lettreorientation').attr('src', string);
   }
-<<<<<<< HEAD
-    var createPDF = function(imgData,nompatient,dateNaiss,ipp,age,sexe,nommedcin) {
-      moment.locale('fr');var formattedDate = moment(new Date()).format("l");
-      var doc = new jsPDF('p', 'pt', 'a5');//var pdf_name = 'Ordonnance-'+nompatient+'.pdf'; doc.setFontSize(12);
-      doc.setFontSize(14);
-      doc.text(212,25, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
-      doc.text(213,40, 'HOPITAL CENTRAL DE LA SÛRETE NATIONALE "LES GLYCINES"', null, null, 'center');
-      doc.text(213,57, '12, Chemin des Glycines - ALGER', null, null, 'center');
-      var text = 'Tél : 23-93-34 - 23-93-58',
-      xOffset = (doc.internal.pageSize.width / 2) - (doc.getStringUnitWidth(text) * doc.internal.getFontSize() / 2); 
-      doc.text(text, xOffset, 73); //doc.text(213,73, 'Tél : 23-93-34 - 23-93-58', null, null, 'center');
-      doc.addImage(imgData, 'JPEG', 190, 75, 60, 60, 'monkey');            
-      doc.setDrawColor(0, 0, 255);       //doc.line(20, 25, 60, 25);
-      doc.line(0, 138, 500, 138);
-      doc.setFontType("bold");doc.setFontSize(22); 
-      var text = 'Ordonnance',
-      xOffset = (doc.internal.pageSize.width / 2) - (doc.getStringUnitWidth(text) * doc.internal.getFontSize() / 2); 
-      doc.text(text, xOffset, 165);
-      doc.setFontSize(12);doc.setFontType("normal");
-       doc.text(418,195, 'Faite le :'+formattedDate, null, null, 'right'); 
-      doc.text(150,225, 'Patient(e) : '+nompatient + ', Age: '+age+'(ans )'+', Sexe: '+sexe, null, null, 'center');
-      doc.text(60,245, 'IPP : '+ipp, null, null, 'center');
-      doc.setFontSize(12);
-      var arrayLignes = document.getElementById("ordonnance").rows;var x = 0;
-      for(var i=1; i< arrayLignes.length; i++)
-      {
-          doc.setFontType("bold");
-          doc.text(40,260+(i*(27)),i+ "-  " + " " +arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML+" "+arrayLignes[i].cells[3].innerHTML , null, null); //+ arrayLignes[i].cells[1].innerHTML
-          doc.setFontType("normal");doc.setFontSize(10);
-          doc.text(55,260+(i*(27)+13),"   " + arrayLignes[i].cells[5].innerHTML, null, null); //doc.text(35,240+(i*(20)),"   " + arrayLignes[i].cells[5].innerHTML, null, null);             
-          x = 238+i*(27);                   
-      }
-      doc.setFontSize(12);
-      doc.text(240,560, 'Docteur : '+nommedcin, null, null);//doc.text(230,600,ipp, null, null );
-      var string = doc.output('datauristring');  
-      $('#ordpdf').attr('src', string); //doc.save(pdf_name);//
-    }       
-        var getImageFromUrl = function(url, callback,nompatient,dateNaiss,ipp,age,sexe,nommedcin) {
-            var img = new Image();
-            img.onError = function() { 
-                alert('Cannot load image: "'+url+'"');
-            };
-            img.onload = function() {
-                callback(img,nompatient,dateNaiss,ipp,age,sexe,nommedcin);
-            };
-            img.src = url;
-        }
-        function createord(nompatient,dateNaiss,ipp,age,sexe,nommedcin) {
-          getImageFromUrl('http://localhost:8000/img/logo.png', createPDF,nompatient,dateNaiss,ipp,age,sexe,nommedcin);
-        }
-        function storeord()
-        {   
-                var arrayLignes = document.getElementById("ordonnance").rows;
-                var longueur = arrayLignes.length;
-                var tab = [];
-                for(var i=1; i<longueur; i++)
-                {
-					         tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;
-                }
-                var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");
-                champ.appendTo('#ordonnace_form');
-                $('#ordonnace_form').submit();
-        }
-        function createexbio(nomp,prenomp,age){      
-                     var exbio = new jsPDF();
-                     var d = new Date();
-                     moment.locale('fr');
-                     var formattedDate = moment(d).format("l");
-                     exbio.text(200,20, 'Date : '+formattedDate , null, null, 'right');
-                     exbio.text(20,25, 'Nom : '+nomp, null, null);
-                     exbio.text(20,35, 'Prénom : '+prenomp, null, null);
-                     exbio.text(20,45, 'Age : '+ age+' ans', null, null);
-                     exbio.setFontType("bold");
-                    exbio.text(105,55, 'Priére de faire', null, null, 'center');
-                     exbio.setFontSize(14);
-                     exbio.text(45,65,'Analyses Demandées :',null,null,'center');
-                     exbio.setFontSize(13);
-                     var i =0;
-                     $('input.ace:checkbox:checked').each(function(index, value) {
-                                exbio.text(25,72+i,this.nextElementSibling.innerHTML+", ");
-                                //alert(value.nextElementSibling.innerHTML);
-                                i=i+10;
-                    });
-                     var string = exbio.output('datauristring');
-                    $('#exbiopdf').attr('src', string);
-        }
-        function createeximg(nomp,prenomp){
-            moment.locale('fr');
-            var d = new Date(); //var date=  yyyy + "/" + (mm[1]?mm:"0"+mm[0]) + "/" + (dd[1]?dd:"0"+dd[0]);
-            var formattedDate = moment(d).format("l");
-            var exbio = new jsPDF();
-            exbio.text(200,20, 'Date :' +formattedDate , null, null, 'right');
-            exbio.text(20,25, 'Nom : '+nomp, null, null);
-            exbio.text(20,35, 'Prénom : '+prenomp, null, null);
-            exbio.text(20,45, 'Age :........................................', null, null);
-            exbio.setFontType("bold");
-            exbio.text(105,55, 'Priére de faire', null, null, 'center');
-            exbio.setFontSize(14);
-            exbio.text(45,65,'Analyses Demandées :',null,null,'center');
-            exbio.setFontSize(13);
-            var i =0;   // $(".imgExam").each(function() {//alert($(this).attr('value'));// });
-            var selected = "";
-            $("input[class='imgExam']:checked").each(function() {
-              exbio.text(25,72+i,$(this).attr('data-checkbox-text')+", ");
-              selected = selected + $(this).val()+", ";
-              i=i+10;
-            });
-                     $('#selectedoption').val(selected); 
-                    var autreexamRadio = $("#examRadAutr").tagsinput('items');  
-                    if(autreexamRadio != undefined)
-                    {
-                        for (var j = 0;  j< autreexamRadio.length; j++) {
-                            exbio.text(25,72+i,autreexamRadio[j]+", ");
-                            i=i+10;
-                        }
-                    }   // Autre Echographe
-                    var examautECHO = $("#examRadAutECHO").tagsinput('items');  
-                    for (var j = 0;  j< examautECHO.length; j++) {
-                            exbio.text(25,72+i,examautECHO[j]+", ");
-                            i=i+10;
-                     }
-                     //autre scanner
-                     var examautCT = $("#examRadAutCT").tagsinput('items');  
-                     for (var j = 0;  j< examautCT.length; j++) {
-                            exbio.text(25,72+i,examautCT[j]+", ");
-                            i=i+10;
-                     }
-                      //autre IRM
-                     var examautIRM = $("#examRadAutRMN").tagsinput('items');  
-                     for (var j = 0;  j< examautIRM.length; j++) {
-                            exbio.text(25,72+i,examautIRM[j]+", ");
-                            i=i+10;
-                     }
-                      var string = exbio.output('datauristring');
-                        $('#exbiopdf').attr('src', string);
-                        $("input[type='checkbox']:checked").each(function() {
-                            $(this).attr('checked', false);
-                        });
-=======
   function storeord()
   {   
     var arrayLignes = document.getElementById("ordonnance").rows;
@@ -690,7 +548,6 @@ $('#typeexm').on('change', function() {
       $.ajaxSetup({
         headers: {
              'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
->>>>>>> dev
         }
       }); 
       $.ajax({
