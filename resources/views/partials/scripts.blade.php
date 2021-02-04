@@ -160,23 +160,23 @@
       $("tr:has(input:checked)").remove();
     });
     $('#printRdv').click(function(){
-          alert("df");
           $.ajaxSetup({
               headers: {
                         'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                  }
-              });
-                $.ajax({
-                        type : 'GET',
-                        url :'/rdvprint/'+$('#idRDV').val(),
-                             success:function(data){
-                        },
-                        error:function(data){
-                          console.log("error");
-                         }
-               });
+              }
           });
-      });  
+          $.ajax({
+            type : 'GET',
+            url :'/rdvprint/'+$('#idRDV').val(),
+
+            success:function(data){
+            },
+            error:function(data){
+              console.log("error");
+            }
+          });
+    });
+  });  
 </script>
 <script type="text/javascript">
        var active_class = 'active';
