@@ -41,7 +41,7 @@ class AssurController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    { 
        $assure = assur::create([
         "Nom"=>$request->nomf,
         "Prenom"=>$request->prenomf,

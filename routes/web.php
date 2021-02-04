@@ -126,13 +126,14 @@ route::get('/getreactifsPCH','MedicamentsController@getreactifsPCH');
 route::get('/getmed/{id}','MedicamentsController@getmed');
 route::get('/setting/{id}', 'UsersController@setting');
 Route::get('/ticket/{ticket}', ['as' => 'ticket.pdf', 'uses' => 'ticketController@ticketPdf']);
+
 Route::group(['as' => 'user.'], function() {
 Route::any('/profile/{userId}', [
         'as'    => 'profile',
         'uses'  => 'UsersController@viewProfile'
     ]);
 });
-//Route::get('/examdestroy/{$exam_id}/{$demande_id}','ExamenbioController@destroy');
+
 Route::get('/role/show/{userId}','RolesController@show');// Route::get('/home', 'HomeController@index')->name('home');
 Route::post('AddANTCD','AntecedantsController@createATCDAjax');
 Route::get('/DocorsSearch','EmployeController@searchBySpececialite');
@@ -150,6 +151,7 @@ Route::post('/patient/merge','PatientController@merge');
 Route::get("flash","HomeController@flash");
 Route::get('/getlits','LitsController@getlits');
 Route::get('/serviceRooms', 'ServiceController@getRooms');
+Route::get('/salleRooms', 'SalleController@getRooms');
 route::get('/home_reception',function (){
     return view('home.home_recep');
 })->name('home_rec');

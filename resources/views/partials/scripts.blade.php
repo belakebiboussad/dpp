@@ -97,6 +97,7 @@
                 $("#idcommunef").val(ui.item.value);
                 $("#idwilayaf").val(ui.item.wvalue);
                 $("#wilayaf").val(ui.item.wlabel);
+                console.log(ui.item.wlabel);
                 break;
             default:
                 break;   

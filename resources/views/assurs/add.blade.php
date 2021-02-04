@@ -16,7 +16,7 @@
 @endsection
 @section('main-content')
 	<div class="container-fluid">
-		  <div class="page-header"><h1>Ajouter un nouveau Fonctionaire</h1></div>
+		  <div class="page-header"><h1>Ajouter un nouveau Fonctionnaire</h1></div>
 		<form class="form-horizontal" id = "addPAtient" action="{{ route('assur.store') }}" method="POST" role="form">
 			  {{ csrf_field() }}
 			  @include('assurs.addAssure')
