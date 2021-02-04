@@ -31,9 +31,6 @@ class AdmissionController extends Controller
           $rdvs = rdv_hospitalisation::with('bedReservation','demandeHospitalisation')->whereHas('demandeHospitalisation', function($q){
                                            $q->where('etat', 'programme');
                                         })->where('etat_RDVh','=',null)->where('date_RDVh','=',date("Y-m-d"))->get();  //dd($rdvs);
-          /*foreach ($rdvs as $key => $rdv) {
-                dd($rdv->demandeHospitalisation->bedAffectation);
-          }*/
           $demandesUrg = DemandeHospitalisation::with('bedAffectation') //->whereHas('bedAffectation')
                                              ->whereHas('consultation', function($q){
                                                 $q->where('Date_Consultation', date("Y-m-d"));
@@ -134,5 +131,20 @@ class AdmissionController extends Controller
                 $adm->update([ 'etat'=>1 ]);
                 return Response::json($hosp ); 
           }
+     }
+     public function getSortiesAdmissions(Request $request)
+     {
+        if($request->ajax())  
+        {           
+          if($request->field != 'Date_Sortie')
+            $adms = admission::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
+          else
+          {
+            $adms = admission::whereHas('hospitalisation',function($q) use ($request){
+                                    $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
+                                })->get();
+          }
+          return Response::json($adms);   
+        }
      }
 }

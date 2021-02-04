@@ -19,35 +19,63 @@
  @endsection
 @section('page-script')
 <script>
+    var nowDate = new Date();
+    var now = nowDate.getFullYear() + '-' + (nowDate.getMonth()+1) + '-' + ('0'+ nowDate.getDate()).slice(-2);
     function cloturerHosp(hospID)
     { 
-          $("#hospID").val( hospID );
-           $('#sortieHosp').modal('show');
-           $('#Heure_sortie').timepicker({ template: 'modal' });
+      $("#hospID").val( hospID );
+      $('#sortieHosp').modal('show');
+      $('#Heure_sortie').timepicker({ template: 'modal' });
     }
-     function getMedecin (data, type, dataToSet) {
-          return data['admission']['demande_hospitalisation']['Demeande_colloque']['medecin']['nom']; 
-     }
-     function getAction(data, type, dataToSet) {  
-          var actions =  '<a href = "/hospitalisation/'+data.id+'" style="cursor:pointer" class="btn secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>' ;  
-          if(({{  Auth::user()->role_id }} != 3) &&  {{  Auth::user()->role_id }} != 9){
-                if( data.etat_hosp != "Cloturé")                    
-                {
-                     actions += '<a href="/hospitalisation/'+data.id+'/edit" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier l\'Hospitalisation" data-placement="bottom"><i class="fa fa-edit fa-xs" aria-hidden="true" fa-lg bigger-120></i></a>';
-                }
-                if({{  Auth::user()->role_id }} == 1){
-                    if( data.etat_hosp != "Cloturé")                    
-                    {
-                      actions +='<a href="/visite/create/'+data.id+'" class ="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter une Visite" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle"></i></a>';
-                      actions +='<a data-toggle="modal" data-id="'+data.id+'" title="Clôturer Hospitalisation"  onclick ="cloturerHosp('+data.id+')" class="btn btn-warning btn-xs" href="#" id="sortieEvent"><i class="fa fa-sign-out" aria-hidden="false"></i></a>';
-                    }else
-                      actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat('+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';
-                }   
-          }
-           return actions;
+    function getMedecin (data, type, dataToSet) {
+      return data['admission']['demande_hospitalisation']['Demeande_colloque']['medecin']['nom']; 
+    }
+    function getAction(data, type, dataToSet) {
+      var actions =  '<a href = "/hospitalisation/'+data.id+'" style="cursor:pointer" class="btn secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>' ;  
+      if(({{  Auth::user()->role_id }} != 3) &&  {{  Auth::user()->role_id }} != 9){
+        if( data.etat_hosp != "Cloturé")                    
+        {
+             actions += '<a href="/hospitalisation/'+data.id+'/edit" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier l\'Hospitalisation" data-placement="bottom"><i class="fa fa-edit fa-xs" aria-hidden="true" fa-lg bigger-120></i></a>';
+        }
+        if({{  Auth::user()->role_id }} == 1){
+            if( data.etat_hosp != "Cloturé")                    
+            {
+              actions +='<a href="/visite/create/'+data.id+'" class ="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter une Visite" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle"></i></a>';
+              actions +='<a data-toggle="modal" data-id="'+data.id+'" title="Clôturer Hospitalisation"  onclick ="cloturerHosp('+data.id+')" class="btn btn-warning btn-xs" href="#" id="sortieEvent"><i class="fa fa-sign-out" aria-hidden="false"></i></a>';
+            }else
+              actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat('+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';
+        }
+
       }
-     function getHospitalisations(field,value)
-	{
+      return actions;
+    }
+    function loadDataTable(data){
+      $("#liste_hosptalisations").dataTable().fnDestroy();
+      var oTable = $('#liste_hosptalisations').dataTable({
+          "processing": true,
+          "paging":   true,
+           "destroy": true,
+           "ordering": true,
+           "searching":false,
+           "info" : false,
+           "language":{"url": '/localisation/fr_FR.json'},
+           "data" : data,
+           "fnCreatedRow": function( nRow, aData, iDataIndex ) {
+                 $(nRow).attr('id',"hospi"+aData.id);
+          },
+          "columns": [
+                      { data:null,title:'#', "orderable": false,searchable: false,
+                          render: function ( data, type, row ) {
+                            if ( type === 'display' ) {
+                              return '<input type="checkbox" class="editor-active check" value="'+data.id+'/><span class="lbl"></span>';
+                            }
+                            return data;
+                      },
+          ]
+      });
+    }
+    function getHospitalisations(field,value)
+	  {
         $.ajax({
               url : '{{URL::to('getHospitalisations')}}',
               data: {    
@@ -56,67 +84,68 @@
         },
         dataType: "json",// recommended response type
       	success: function(data) {
-                $(".numberResult").html(data.length);  // $(".numberResult").html(Object.keys(data).length);
-                $("#liste_hosptalisations").DataTable ({
-                     "processing": true,
-                     "paging":   true,
-                     "destroy": true,
-                     "ordering": true,
-                     "searching":false,
-                     "info" : false,
-                     "language":{"url": '/localisation/fr_FR.json'},
-                     "data" : data,
-                     "fnCreatedRow": function( nRow, aData, iDataIndex ) {
-                           $(nRow).attr('id',"hospi"+aData.id);
-                     },
-                     "columns": [
-                          { data:null,title:'#', "orderable": false,searchable: false,
-                               render: function ( data, type, row ) {
-                                    if ( type === 'display' ) {
-                                        return '<input type="checkbox" class="editor-active check" name="fusioner[]" value="'+data.id+'" onClick="return KeepCount()" /><span class="lbl"></span>';
-                                    }
-                                    return data;
-                          },
-                              className: "dt-body-center",
-                          },
-                          { data: "patient.Nom",
-                                render: function ( data, type, row ) {
-                                     return row.patient.Nom + ' ' + row.patient.Prenom;
-                                },
-                            title:'Patient',"orderable": true
-                          },
-                          {     data: "admission.demande_hospitalisation.modeAdmission", 
-                                     render: function ( data, type, row ) {
-                                        return row.admission.demande_hospitalisation.modeAdmission ;
-                                     },
-                                    title:"Mode Admission","orderable": false 
-                          },
-                          { data: "Date_entree" , title:'Date Entrée' },//
-                          { data: "Date_Prevu_Sortie" , title:'Date Sortie Prévue' },
-                          { data: "Date_Sortie" , title:'Date Sortie' },
-                          { data: "mode_hospi.nom" , title:'Mode'
-                          },
-                          {   data: "admission.demande_hospitalisation.demeande_colloque.medecin.nom" ,
-                               render: function ( data, type, row ) {
-                                        return row.admission.demande_hospitalisation.demeande_colloque.medecin.nom + ' ' + row.admission.demande_hospitalisation.demeande_colloque.medecin.prenom ;
-                               },
-                               title:'Medecin' 
-                          }, 
-                          { data: "etat_hosp" , title:'Etat' },
-                          { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false }
-                    ],
-           });
+          $(".numberResult").html(data.length);
+          loadDataTable(data);
+          /*
+          $("#liste_hosptalisations").DataTable ({
+                 "processing": true,
+                 "paging":   true,
+                 "destroy": true,
+                 "ordering": true,
+                 "searching":false,
+                 "info" : false,
+                 "language":{"url": '/localisation/fr_FR.json'},
+                 "data" : data,
+                 "fnCreatedRow": function( nRow, aData, iDataIndex ) {
+                       $(nRow).attr('id',"hospi"+aData.id);
+                 },
+                 "columns": [
+                      { data:null,title:'#', "orderable": false,searchable: false,
+                          render: function ( data, type, row ) {
+                            if ( type === 'display' ) {
+                              return '<input type="checkbox" class="editor-active check" value="'+data.id+'/><span class="lbl"></span>';
+                            }
+                            return data;
+                      },
+                          className: "dt-body-center",
+                      },
+                      { data: "patient.Nom",
+                            render: function ( data, type, row ) {
+                                 return row.patient.Nom + ' ' + row.patient.Prenom;
+                            },
+                        title:'Patient',"orderable": true
+                      },
+                      {     data: "admission.demande_hospitalisation.modeAdmission", 
+                                 render: function ( data, type, row ) {
+                                    return row.admission.demande_hospitalisation.modeAdmission ;
+                                 },
+                                title:"Mode Admission","orderable": false 
+                      },
+                      { data: "Date_entree" , title:'Date Entrée' },
+                      { data: "Date_Prevu_Sortie" , title:'Date Sortie Prévue' },
+                      { data: "Date_Sortie" , title:'Date Sortie' },
+                      { data: "mode_hospi.nom" , title:'Mode' },
+                      {   data: "admission.demande_hospitalisation.demeande_colloque.medecin.nom" ,
+                           render: function ( data, type, row ) {
+                                    return row.admission.demande_hospitalisation.demeande_colloque.medecin.nom + ' ' + row.admission.demande_hospitalisation.demeande_colloque.medecin.prenom ;
+                           },
+                           title:'Medecin' 
+                      }, 
+                      { data: "etat_hosp" , title:'Etat' },
+                      { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false }
+                ],
+          });*/
         }
 	});
 	}
 	$('document').ready(function(){
       getHospitalisations("etat_hosp",'');
     	$('.filter').change(function(){
-             	if($(this).attr('id') != "patientName")
+             	if($(this).attr('id') != "Nom")
                    getHospitalisations($(this).attr('id'),$(this).val());
         });
     	$('.filter').keyup(function(){
-    		       getHospitalisations($(this).attr('id'),$(this).val()) 
+    		  getHospitalisations($(this).attr('id'),$(this).val()) 
     	});
         $('#modeSortie').change(function(){
               if($(this).val()==="0")
@@ -204,7 +233,7 @@
             	</div>
             	<div class="col-sm-4">
             		<div class="form-group">
-                	     <label><strong>Patient :</strong></label><input type="text" id="patientName" value="" class="form-control filter">
+                	     <label><strong>Patient :</strong></label><input type="text" id="Nom" class="form-control filter">
                 	</div>		
             	</div>
             	<div class="col-sm-4">
@@ -232,7 +261,13 @@
           </div>
 		<div class="widget-body">
 			<div class="widget-main no-padding">
-				<table class="display table-responsive" id="liste_hosptalisations"></table>
+				<table class="display table-responsive dataTable" id="liste_hosptalisations">
+        <thead>
+          <tr>
+            <th></th>
+          </tr>
+    </thead>    
+        </table>
 			</div><!-- widget-main -->
 	  	</div>	<!-- widget-body -->
 	 </div> <!-- widget-box -->

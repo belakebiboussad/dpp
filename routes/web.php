@@ -55,10 +55,12 @@ route::get('/home_reception',function (){
 route::get('/home_reception','HomeController@index');
 route::get('/home_dele','HomeController@index');
 route::get('/home_admission','AdmissionController@index')->name('home_admission');
+Route::get('/sortiesAdmission','AdmissionController@sortir')->name('admission.sortieAdm');
+Route::get('/getSortiesAdmissions','AdmissionController@getSortiesAdmissions');//Route::get('/admission/create/{id}','AdmissionController@create');//a commenter
+Route::get('sortiePatient/{id}','AdmissionController@updateAdm');
 //route::get('/home_infermier','HospitalisationController@index')->name('home_infermier');
 route::get('/demandeproduit/run/{id}','demandeprodController@run')->name('runDemande');
 route::post('/demandeproduit/valider/{id}','demandeprodController@valider')->name('demandeproduit.valider');
-Route::get('/sortiesAdmission','AdmissionController@sortir')->name('admission.sortieAdm');
 Route::post('user/credentials','UsersController@credentials');
 Route::post('user/updatepro','UsersController@updatepro');
 Route::get('/atcd/store','AntecedantsController@storeatcd');
@@ -97,8 +99,8 @@ Route::get('/searchAssure','AssurController@search');
 route::get('/getsalles','SalleController@getsalles');
 Route::get('/atcd/create/{id}','AntecedantsController@create');
 Route::get('/atcd/index/{id}','AntecedantsController@index');
-Route::get('/admission/create/{id}','AdmissionController@create');//a commenter
-Route::get('sortiePatient/{id}','AdmissionController@updateAdm');
+
+
 Route::post('/atcd/store/{id}','AntecedantsController@store');
 Route::get('/rdv/create/{id}','RDVController@create');
 Route::post('/createRDV','RDVController@AddRDV');

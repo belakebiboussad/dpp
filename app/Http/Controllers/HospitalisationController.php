@@ -51,8 +51,8 @@ class HospitalisationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function create()
-     {
+    public function create()
+    {
           $serviceID = Auth::user()->employ->service;
           $adms = admission::with('lit','rdvHosp.demandeHospitalisation.DemeandeColloque','rdvHosp.demandeHospitalisation.consultation.patient.hommesConf','rdvHosp.demandeHospitalisation.Service','rdvHosp.bedReservation')
                             ->whereHas('rdvHosp', function($q){
@@ -63,7 +63,7 @@ class HospitalisationController extends Controller
           $medecins = employ::where('service',Auth::user()->employ->service)->get();
           $modesHosp = ModeHospitalisation::all();
           return view('hospitalisations.create', compact('adms','medecins','modesHosp'));
-     }
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -71,8 +71,8 @@ class HospitalisationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-     public function store(Request $request)
-     { 
+    public function store(Request $request)
+    { 
             $dmission =  admission::find($request->id_admission); 
             $hosp = hospitalisation::create([
               "Date_entree"=>$request->Date_entree,
@@ -86,7 +86,7 @@ class HospitalisationController extends Controller
             $dmission->rdvHosp->update([ "etat_RDVh" =>1 ]); // $controller = new LitsController; // $controller->affecter($request); //affecter le lit
             $dmission->rdvHosp->demandeHospitalisation->update(["etat" => "hospitalisation"]);
             return redirect()->action('HospitalisationController@create'); //return \Redirect::route('HospitalisationController@create');
-     }
+    }
     /**
      * Display the specified resource.
      *
@@ -97,19 +97,19 @@ class HospitalisationController extends Controller
     {
         $hosp = hospitalisation::find($id); 
          return View::make('hospitalisations.show')->with('hosp', $hosp);
-     }
+    }
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-     public function edit($id)
-     {
+    public function edit($id)
+    {
            $hosp = hospitalisation::find($id); 
           $services =service::all();
           return View::make('hospitalisations.edit')->with('hosp', $hosp)->with('services',$services);
-     }
+    }
 
     /**
      * Update the specified resource in storage.
@@ -118,8 +118,8 @@ class HospitalisationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-     public function update(Request $request, $id)
-     {
+    public function update(Request $request, $id)
+    {
           $hosp = hospitalisation::find($id);
            if($request->ajax())  
             {
@@ -128,7 +128,7 @@ class HospitalisationController extends Controller
            }else{
                  $hosp -> update($request->all());
           return redirect()->action('HospitalisationController@index');
-      }
+       }
     }
     /**
      * Remove the specified resource from storage.
@@ -136,55 +136,26 @@ class HospitalisationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-     public function affecterLit()
-     {
-            $ServiceID = Auth::user()->employ->service;
-            return view('hospitalisations.affecterLits', compact('rdvHospitalisation'));
-     }
+    public function affecterLit()
+    {
+      $ServiceID = Auth::user()->employ->service;
+      return view('hospitalisations.affecterLits', compact('rdvHospitalisation'));
+    }
     public function getHospitalisations(Request $request)
     { 
-          if($request->ajax())  
-          {           
-               if($request->field != 'patientName')
-                    $hosps = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient','modeHospi')
-                                 ->where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
-                else
-                {
-                     $value =  $request->value;
-                     $hosps = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient','modeHospi')
-                                                          ->whereHas('patient',function($q) use ($value){
-                                                                          $q->where('Nom','LIKE','%'.trim($value)."%");  
-                                                          })->get();
-                }  
-               return Response::json($hosps);
-          }
+      if($request->ajax())  
+      {           
+        if($request->field != 'Nom')
+          $hosps = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient','modeHospi')
+                                  ->where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
+        else
+          $hosps = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient','modeHospi')
+                        ->whereHas('patient',function($q) use ($request){
+                               $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
+                        })->get();
+        return Response::json($hosps);
+      }
     }
-    public function printVrai(Request $request)
-    {
-      $date= Carbon::now()->format('Y-m-d');$hosp  = hospitalisation::find($request->hosp_id); 
-      switch($request->selectDocm) {
-                case "Résumé standard de sortie":
-                    $filename = "RSS-".$hosp->patient->Nom."-".$hosp->patient->Prenom.".pdf";
-                     $html = View::make('hospitalisations.EtatsSortie.ResumeStandartSortiePDF',array('hosp' =>$hosp))->render();   
-                    break;
-                case "Résumé clinique de sortie":
-                     $filename = "RCS-".$hosp->patient->Nom."-".$hosp->patient->Prenom.".pdf";
-                     $html = View::make('hospitalisations.EtatsSortie.ResumeCliniqueSortiePDF',array('hosp' =>$hosp))->render(); 
-                    break;
-                case "Certificat medical":
-                    $filename = "CerM-".$hosp->patient->Nom."-".$hosp->patient->Prenom.".pdf";
-                    $html = View::make('hospitalisations.EtatsSortie.CertificatMedicalePDF',array('hosp' =>$hosp))->render(); 
-                    break;
-                case "Attestation Contre Avis Medical":
-                    $filename = "CAM-".$hosp->patient->Nom."-".$hosp->patient->Prenom.".pdf";
-                    $html = View::make('hospitalisations.EtatsSortie.AttestationContreAvisMedicalePDF',array('hosp' =>$hosp,'date'=>$date))->render(); 
-                    break;  
-                default:
-                    return response()->json(['html'=>"unknown"]);
-                    break;
-          } 
-          
-     }
     public function imprimer(Request $request)
     {
       $filename ="";

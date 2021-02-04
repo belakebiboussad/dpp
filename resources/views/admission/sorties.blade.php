@@ -1,8 +1,28 @@
 @extends('app_agent_admis')
 @section('page-script')
 <script type="text/javascript">
+	function getSorties(field,value)
+	{
+		$.ajax({
+              url : '{{URL::to('getSortiesAdmissions')}}',
+              data: {    
+                 "field":field,
+                 "value":value,
+        },
+        dataType: "json",
+        success: function(data) {
+        	// $.each(data,function(key,data1){
+        	// 	$.each(data1,function(key1,value1){
+        	// 		alert(key1 + ":" + value1);	
+        	// 	})
+        	// })
+        	 $("#liste_Sortie").DataTable ({
+        	 });
+        }
+    });
+	}	
 	$("document").ready(function(){
-		$("#Exitadd").click(function(e){
+		$("#Exitadd").click(function(e){//cobfirmer sortie patient
 			Swal.fire({
                   title: 'Confimer vous  la Sortie du Patient ?',
                   html: '',
@@ -21,6 +41,9 @@
                      }
                 })
 		});
+		$('.filter').change(function(){//rechercher une sortie
+			getSorties($(this).attr('id'),$(this).val());
+		})
 	});
 </script>
 @endsection
@@ -34,10 +57,10 @@
 			<div class="row">
 				<div class="col-sm-4">
        		<div class="form-group"><label><strong>Etat :</strong></label>
-            <select id='etat_hosp' class="form-control filter" style="width: 200px">
+            <select id='etat' class="form-control filter" style="width: 200px">
                 <option value="">Selectionner Etat</option>
-                <option value="en cours">En Cours</option>
-                <option value="Cloturé">Validée</option>
+                <option value="">En Cours</option>
+                <option value="1">Validée</option>
             </select>
           </div>		
         </div>
@@ -45,7 +68,7 @@
         	<div class="form-group">
          		<label class="control-label" for="" ><strong>Date :</strong></label>
             <div class="input-group">
-  			      <input type="text" id ="Date_Sortie" id ="currentday" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
+  			      <input type="text" id ="Date_Sortie" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
   					  <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
     				</div>
 					</div>
@@ -86,34 +109,34 @@
 	  				<tbody id="sorties">
 	  				@foreach($hospitalistions as $hosp)
 	  				<tr id="{{ 'adm'.$hosp->admission->id }}">
-						<td>{{ $hosp->patient->Nom }}&nbsp;{{ $hosp->patient->Prenom }}</td>
-						<td>{{ $hosp->admission->rdvHosp->demandeHospitalisation->Service->nom }}</td>
-						<td><span class ="text-danger"><strong>{{ $hosp->admission->rdvHosp->date_RDVh }}</strong></span></td>
-						<td>{{ $hosp->admission->rdvHosp->demandeHospitalisation->modeAdmission }}</td>
-						<td><span class ="text-danger"><strong>{{ $hosp->Date_Sortie }}</strong></span></td>
-						<td><span class="badge badge-info numberResult">{{ $hosp->modeSortie }}</span></td>
-						<td>
-						@if($hosp->admission->rdvHosp->bedReservation)
-							{{ $hosp->admission->rdvHosp->bedReservation->lit->salle->service->nom}}
-						@else
-							<strong>/</strong>
-						@endif
-						</td>
-						<td>
-						@if($hosp->admission->rdvHosp->bedReservation) 
-							{{ $hosp->admission->rdvHosp->bedReservation->lit->salle->nom}} @else <strong>/</strong>
-						@endif
-						</td>
-						<td>
-						@if($hosp->admission->rdvHosp->bedReservation) 
-							{{ $hosp->admission->rdvHosp->bedReservation->lit->nom}} 
-						@else
-							<strong>/</strong>
-						@endif
-						</td>
-						<td class="text-center">
-							<button type="button" class="btn btn-info btn-sm" id="Exitadd" value="{{ $hosp->admission->id}}" ><i class="fa fa-check"></i> &nbsp;Efffectuer la Sortie</button>
-						</td>
+							<td>{{ $hosp->patient->Nom }}&nbsp;{{ $hosp->patient->Prenom }}</td>
+							<td>{{ $hosp->admission->rdvHosp->demandeHospitalisation->Service->nom }}</td>
+							<td><span class ="text-danger"><strong>{{ $hosp->admission->rdvHosp->date_RDVh }}</strong></span></td>
+							<td>{{ $hosp->admission->rdvHosp->demandeHospitalisation->modeAdmission }}</td>
+							<td><span class ="text-danger"><strong>{{ $hosp->Date_Sortie }}</strong></span></td>
+							<td><span class="badge badge-info numberResult">{{ $hosp->modeSortie }}</span></td>
+							<td>
+							@if($hosp->admission->rdvHosp->bedReservation)
+								{{ $hosp->admission->rdvHosp->bedReservation->lit->salle->service->nom}}
+							@else
+								<strong>/</strong>
+							@endif
+							</td>
+							<td>
+							@if($hosp->admission->rdvHosp->bedReservation) 
+								{{ $hosp->admission->rdvHosp->bedReservation->lit->salle->nom}} @else <strong>/</strong>
+							@endif
+							</td>
+							<td>
+							@if($hosp->admission->rdvHosp->bedReservation) 
+								{{ $hosp->admission->rdvHosp->bedReservation->lit->nom}} 
+							@else
+								<strong>/</strong>
+							@endif
+							</td>
+							<td class="text-center">
+								<button type="button" class="btn btn-info btn-sm" id="Exitadd" value="{{ $hosp->admission->id}}" ><i class="fa fa-check"></i> &nbsp;Efffectuer la Sortie</button>
+							</td>
 					</tr>
 	  				@endforeach
 	  				</tbody>
