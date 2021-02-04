@@ -76,6 +76,7 @@
 		  						"ordering": true,
 		    					"searching":false,
 		    					"info" : false,
+		    					"responsive": true,
 		    					"language":{"url": '/localisation/fr_FR.json'},
 		   	 		    	"data" : data,
 			        		"columns": [

@@ -10,16 +10,16 @@ function getConsultations(field,value)
          "value":value,
       },
       dataType: "json",// recommended response type
-    	success: function(data) {
-              // (field == 'Date_Consultation')? $('#'+field).val('<?= date("Y-m-j") ?>') : $('#'+field).val(''); 
+    	success: function(data) {// (field == 'Date_Consultation')? $('#'+field).val('<?= date("Y-m-j") ?>') : $('#'+field).val(''); 
               $(".numberResult").html(data.length);
-               $("#liste_conultations").DataTable ({
+              $("#liste_conultations").DataTable ({
                    "processing": true,
                    "paging":   true,
                    "destroy": true,
                    "ordering": true,
                    "searching":false,
                    "info" : false,
+                   "responsive": true,
                    "language":{"url": '/localisation/fr_FR.json'},
                    "data" : data,
                    "fnCreatedRow": function( nRow, aData, iDataIndex ) {
