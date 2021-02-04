@@ -4,13 +4,13 @@
 	$("document").ready(function(){
 		$("#Exitadd").click(function(e){
 			Swal.fire({
-                          title: 'Confimer vous  la Sortie du Patient ?',
-                          html: '',
-                          showCancelButton: true,
-                          confirmButtonColor: '#3085d6',
-                          cancelButtonColor: '#d33',
-                          confirmButtonText: 'Oui',
-                          cancelButtonText: "Non",
+                  title: 'Confimer vous  la Sortie du Patient ?',
+                  html: '',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Oui',
+                  cancelButtonText: "Non",
                 }).then((result) => {
                 	if(!isEmpty(result.value))
                      {
@@ -32,14 +32,25 @@
 		</div>
 		<div class="panel-body">
 			<div class="row">
-				<div class="col-md-8 col-sm-8 col-xs-8">
-  			  	<div class="col-sm-3 col-xs-3 "><label class="control-label center" for="" ><strong>Date :</strong></label></div>
-	        		<div class="input-group col-sm-5 col-xs-5">
-					<input type="text" id ="currentday" class="col-xs-12 col-sm-12 date-picker form-control"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
-					<div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
+				<div class="col-sm-4">
+       		<div class="form-group"><label><strong>Etat :</strong></label>
+            <select id='etat_hosp' class="form-control filter" style="width: 200px">
+                <option value="">Selectionner Etat</option>
+                <option value="en cours">En Cours</option>
+                <option value="Cloturé">Validée</option>
+            </select>
+          </div>		
+        </div>
+        <div class="col-sm-4">
+        	<div class="form-group">
+         		<label class="control-label" for="" ><strong>Date :</strong></label>
+            <div class="input-group">
+  			      <input type="text" id ="Date_Sortie" id ="currentday" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
+  					  <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
     				</div>
-  				</div><div class="col-md-2 col-sm-2 col-xs-2"></div>
-  			</div>
+					</div>
+        </div>	
+  		</div>
 		</div><!-- onclick = "getAdmissions();" -->
 		 <div class="panel-footer" style="height: 50px;">
 	   		<button type="submit"name="filter" id="sortiesbtn" class="btn btn-xs btn-primary finoutPatient" style="vertical-align: middle"><i class="fa fa-search"></i>&nbsp;Rechercher</button>

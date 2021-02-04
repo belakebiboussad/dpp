@@ -12,6 +12,7 @@ use App\User;
 use App\modeles\dem_colloque;
 use Illuminate\Support\Facades\Auth;
 use App\modeles\hospitalisation;
+use Response;
 class AdmissionController extends Controller
 {
     /**
@@ -122,7 +123,7 @@ class AdmissionController extends Controller
      {
         $hospitalistions = hospitalisation::with('admission')->whereHas('admission', function ($q) {
                                                                         $q->where('etat',null);
-                                                          })->where('etat_hosp','valide')->where('Date_Sortie' , date('Y-m-d'))->get();
+                                                          })->where('etat_hosp','Cloturé')->where('Date_Sortie' , date('Y-m-d'))->get();
         return view('admission.sorties', compact('hospitalistions')); 
      }
      public function updateAdm(Request $request, $id)

@@ -22,8 +22,8 @@
           <li class=""> <a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-users"></i><span class="menu-text">Admissions</span>
                 <b class="arrow fa fa-angle-down"></b></a><b class="arrow"></b>
                 <ul class="submenu">
-                    <li class=""><a href="{{ route('admission.index') }}"><i class="menu-icon fa fa-plus purple"></i> Admissions</a><b class="arrow"></b></li>
-                     <li class=""><a href="{{ route('admission.sortieAdm')}}"><i class="menu-icon fa fa-minus pink"></i>Sorties</a><b class="arrow"></b></li>
+                    <li class=""><a href="{{ route('admission.index') }}"><i class="menu-icon fa fa-eye pink"></i> Admissions</a><b class="arrow"></b></li>
+                     <li class=""><a href="{{ route('admission.sortieAdm')}}"><i class="menu-icon fa fa-eye pink"></i>Sorties</a><b class="arrow"></b></li>
                      <li class=""><a href="{{ route('hospitalisation.index') }}"><i class="menu-icon fa fa-eye pink"></i>Presents</a><b class="arrow"></b> </li>
                 </ul>
         </li>
