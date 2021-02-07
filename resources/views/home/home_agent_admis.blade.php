@@ -151,27 +151,17 @@
 						<td>{{ $rdv->demandeHospitalisation->Service->nom }}</td>
 						<td><span class ="text-danger"><strong>{{ $rdv->date_RDVh }}</strong></span></td>
 						<td>{{ $rdv->demandeHospitalisation->modeAdmission }}</td>
-						<td>
-						@if($rdv->bedReservation)
-							{{ $rdv->bedReservation->lit->salle->service->nom}}
+						
+						@if($rdv->demandeHospitalisation->bedAffectation)
+							<td>{{ $rdv->demandeHospitalisation->bedAffectation->lit->salle->service->nom}}</td>
+							<td>{{ $rdv->demandeHospitalisation->bedAffectation->lit->salle->nom}}</td>
+							<td>{{ $rdv->demandeHospitalisation->bedAffectation->lit->nom}}</td>
 						@else
-							<strong>/</strong>
+							<td><strong>/</strong></td>
+							<td><strong>/</strong></td>
+							<td><strong>/</strong></td>
 						@endif
-						</td>
-						<td>
-						@if($rdv->bedReservation) 
-							{{ $rdv->bedReservation->lit->salle->nom}} @else <strong>/</strong>
-						@endif
-						</td>
-						<td>
-						@if($rdv->bedReservation) 
-							{{ $rdv->bedReservation->lit->nom}} 
-						@else
-							<strong>/</strong>
-						@endif
-						</td>
 						<td class="text-center">
-							
 							<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $rdv->id }}" @if(!(isset($rdv->demandeHospitalisation->bedAffectation))) disabled @endif><i class="fa fa-check"></i> &nbsp;Confirmer</button>
 							@include('admission.modalForm.confirmEntreeProg')
 							</td>

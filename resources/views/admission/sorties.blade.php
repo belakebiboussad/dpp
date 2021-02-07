@@ -16,8 +16,17 @@
         	// 		alert(key1 + ":" + value1);	
         	// 	})
         	// })
-        	 $("#liste_Sortie").DataTable ({
-        	 });
+        	$(".numberResult").html(data.length);
+        	var oTable =$("#liste_Sortie").DataTable ({
+        		"processing": true,
+	          "paging":   true,
+	           "destroy": true,
+	           "ordering": true,
+	           "searching":false,
+	           "info" : false,
+	           "language":{"url": '/localisation/fr_FR.json'},
+	           "data" : data,
+        	});
         }
     });
 	}	
@@ -56,28 +65,27 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-sm-4">
-       		<div class="form-group"><label><strong>Etat :</strong></label>
-            <select id='etat' class="form-control filter" style="width: 200px">
-                <option value="">Selectionner Etat</option>
-                <option value="">En Cours</option>
-                <option value="1">Validée</option>
-            </select>
-          </div>		
-        </div>
+       				<div class="form-group"><label><strong>Etat :</strong></label>
+           			 <select id='etat' class="form-control filter" style="width: 200px">
+               				 <option value="">En Cours</option>
+			                <option value="1">Validée</option>
+			            </select>
+       				  </div>		
+    				</div>
         <div class="col-sm-4">
         	<div class="form-group">
-         		<label class="control-label" for="" ><strong>Date :</strong></label>
-            <div class="input-group">
+         		<label class="control-label" for="" ><strong>Date Sortie:</strong></label>
+         		<div class="input-group">
   			      <input type="text" id ="Date_Sortie" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
   					  <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
     				</div>
-					</div>
+		</div>
         </div>	
   		</div>
 		</div><!-- onclick = "getAdmissions();" -->
-		 <div class="panel-footer" style="height: 50px;">
+	{{-- 	 <div class="panel-footer" style="height: 50px;">
 	   		<button type="submit"name="filter" id="sortiesbtn" class="btn btn-xs btn-primary finoutPatient" style="vertical-align: middle"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
-		</div>
+		</div> --}}
 	</div><!-- panel -->
 	<div class="row"><!-- <div class="col-sm-12"> --><!-- 	</div> -->
 		<div class="widget-box widget-color-blue" id="widget-box-2">
@@ -114,7 +122,7 @@
 							<td><span class ="text-danger"><strong>{{ $hosp->admission->rdvHosp->date_RDVh }}</strong></span></td>
 							<td>{{ $hosp->admission->rdvHosp->demandeHospitalisation->modeAdmission }}</td>
 							<td><span class ="text-danger"><strong>{{ $hosp->Date_Sortie }}</strong></span></td>
-							<td><span class="badge badge-info numberResult">{{ $hosp->modeSortie }}</span></td>
+							<td><span class="badge badge-info">{{ $hosp->modeSortie }}</span></td>
 							<td>
 							@if($hosp->admission->rdvHosp->bedReservation)
 								{{ $hosp->admission->rdvHosp->bedReservation->lit->salle->service->nom}}

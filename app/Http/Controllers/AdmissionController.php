@@ -28,7 +28,7 @@ class AdmissionController extends Controller
       public function index()
       {
 
-          $rdvs = rdv_hospitalisation::with('bedReservation','demandeHospitalisation')->whereHas('demandeHospitalisation', function($q){
+          $rdvs = rdv_hospitalisation::with('bedReservation','demandeHospitalisation.bedAffectation')->whereHas('demandeHospitalisation', function($q){
                                            $q->where('etat', 'programme');
                                         })->where('etat_RDVh','=',null)->where('date_RDVh','=',date("Y-m-d"))->get();  //dd($rdvs);
           $demandesUrg = DemandeHospitalisation::with('bedAffectation') //->whereHas('bedAffectation')
@@ -118,10 +118,10 @@ class AdmissionController extends Controller
      } 
      public function sortir()
      {
-        $hospitalistions = hospitalisation::with('admission')->whereHas('admission', function ($q) {
+          $hospitalistions = hospitalisation::with('admission')->whereHas('admission', function ($q) {
                                                                         $q->where('etat',null);
-                                                          })->where('etat_hosp','Cloturé')->where('Date_Sortie' , date('Y-m-d'))->get();
-        return view('admission.sorties', compact('hospitalistions')); 
+                                                          })->where('etat_hosp','1')->where('Date_Sortie' , date('Y-m-d'))->get();
+           return view('admission.sorties', compact('hospitalistions')); 
      }
      public function updateAdm(Request $request, $id)
      {
@@ -134,17 +134,17 @@ class AdmissionController extends Controller
      }
      public function getSortiesAdmissions(Request $request)
      {
-        if($request->ajax())  
-        {           
-          if($request->field != 'Date_Sortie')
-            $adms = admission::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
-          else
-          {
-            $adms = admission::whereHas('hospitalisation',function($q) use ($request){
+          if($request->ajax())  
+          {           
+               if($request->field != 'Date_Sortie')
+                    $adms = admission::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
+               else
+               {
+                    $adms = admission::whereHas('hospitalisation',function($q) use ($request){
                                     $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
                                 })->get();
+               }
+               return Response::json($adms);   
           }
-          return Response::json($adms);   
-        }
      }
 }

@@ -35,16 +35,14 @@ class HospitalisationController extends Controller
     }
     public function index()
     {  
-      $etatsortie = Etatsortie::where('type','0')->get();
-      $chapitres = chapitre::all();
-      if(Auth::user()->role_id != 9 )//9:admission
-            $hospitalisations = hospitalisation::whereHas('admission.rdvHosp.demandeHospitalisation.Service',function($q){
-                                              $q->where('id',Auth::user()->employ->service);  
-                                           })->where('etat_hosp','=','en cours')->get();
-      else
-            $hospitalisations = hospitalisation::where('etat_hosp','=','en cours')->get();
-      
-      return view('hospitalisations.index', compact('hospitalisations','etatsortie','chapitres'));
+          $etatsortie = Etatsortie::where('type','0')->get();
+          $chapitres = chapitre::all();
+          if(Auth::user()->role_id != 9 )//9:admission
+               $hospitalisations = hospitalisation::whereHas('admission.rdvHosp.demandeHospitalisation.Service',function($q){
+                                                  $q->where('id',Auth::user()->employ->service);  })->where('etat_hosp','=',null)->get();
+           else
+               $hospitalisations = hospitalisation::where('etat_hosp','=',null)->get();             
+          return view('hospitalisations.index', compact('hospitalisations','etatsortie','chapitres'));
     }
     /**
      * Show the form for creating a new resource.
@@ -54,13 +52,13 @@ class HospitalisationController extends Controller
     public function create()
     {
           $serviceID = Auth::user()->employ->service;
-          $adms = admission::with('lit','rdvHosp.demandeHospitalisation.DemeandeColloque','rdvHosp.demandeHospitalisation.consultation.patient.hommesConf','rdvHosp.demandeHospitalisation.Service','rdvHosp.bedReservation')
+          $adms = admission::with('lit','rdvHosp.demandeHospitalisation.DemeandeColloque','rdvHosp.demandeHospitalisation.consultation.patient.hommesConf','rdvHosp.demandeHospitalisation.Service','demandeHospitalisation.bedAffectation')
                             ->whereHas('rdvHosp', function($q){
                                                 $q->where('date_RDVh','=',date("Y-m-d"));
                               })->whereHas('rdvHosp.demandeHospitalisation',function($q) use ($serviceID) {
                                               $q->where('service', $serviceID)->where('etat','admise');//->where('etat','admise')
                                         })->get();    
-          $medecins = employ::where('service',Auth::user()->employ->service)->get();
+           $medecins = employ::where('service',Auth::user()->employ->service)->get();
           $modesHosp = ModeHospitalisation::all();
           return view('hospitalisations.create', compact('adms','medecins','modesHosp'));
     }
@@ -73,15 +71,14 @@ class HospitalisationController extends Controller
      */
     public function store(Request $request)
     { 
-            $dmission =  admission::find($request->id_admission); 
-            $hosp = hospitalisation::create([
+          $dmission =  admission::find($request->id_admission); 
+           $hosp = hospitalisation::create([
               "Date_entree"=>$request->Date_entree,
               "Date_Prevu_Sortie"=>$request->Date_Prevu_Sortie,
               "patient_id"=>$request->patient_id,
               "id_admission"=>$request->id_admission,
               "garde_id" => (isset($request->garde_id)) ? $request->garde_id : null,
-              "modeHosp_id"=>$request->mode,
-              "etat_hosp"=>"en cours",
+              "modeHosp_id"=>$request->mode,//"etat_hosp"=>"en cours",
             ]);
             $dmission->rdvHosp->update([ "etat_RDVh" =>1 ]); // $controller = new LitsController; // $controller->affecter($request); //affecter le lit
             $dmission->rdvHosp->demandeHospitalisation->update(["etat" => "hospitalisation"]);
@@ -143,18 +140,24 @@ class HospitalisationController extends Controller
     }
     public function getHospitalisations(Request $request)
     { 
-      if($request->ajax())  
-      {           
-        if($request->field != 'Nom')
-          $hosps = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient','modeHospi')
-                                  ->where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
-        else
-          $hosps = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient','modeHospi')
-                        ->whereHas('patient',function($q) use ($request){
-                               $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
-                        })->get();
-        return Response::json($hosps);
-      }
+          if($request->ajax())  
+          {           
+                if($request->field != 'Nom')
+                {
+                     if($request->value != "0")   
+                          $hosps = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient','modeHospi')
+                                                            ->where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
+                     else
+                            $hosps = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient','modeHospi')
+                                                            ->where('etat_hosp','=',null)->get();                                   
+                }
+               else
+                    $hosps = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient','modeHospi')
+                            ->whereHas('patient',function($q) use ($request){
+                                   $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
+                            })->get();
+                return Response::json($hosps);
+          }
     }
     public function imprimer(Request $request)
     {

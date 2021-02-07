@@ -24,16 +24,16 @@
 		if($('#widget-box2').hasClass('invisible'))
 	    		$('#widget-box2').removeClass('invisible');
 		$('#patient').append($('<option>', { 
-	   	value: adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['id'],
-	   text : adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['Nom']+" " + adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['Prenom'], 
-	    selected : true
-	  }));
-	  $('#service').append($('<option>', { 
+	   		value: adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['id'],
+	  		 text : adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['Nom']+" " + adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['Prenom'], 
+	   		 selected : true
+	  	}));
+		$('#service').append($('<option>', { 
 		    value: adm['rdv_hosp']['demande_hospitalisation']['service']['id'],
 		    text : adm['rdv_hosp']['demande_hospitalisation']['service']['nom'], 
 		    selected : true
-	  }));
-	  $('[name=medecin]').val( adm['rdv_hosp']['demande_hospitalisation']['demeande_colloque']['id_medecin']);
+	 	}));
+	  	$('[name=medecin]').val( adm['rdv_hosp']['demande_hospitalisation']['demeande_colloque']['id_medecin']);
 	 	if(adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['hommes_conf'].length == 0)
 	 		$("#garde").addClass('invisible');
 	 	else
@@ -49,24 +49,23 @@
 	  	 			value: garde['id'],
 	     				text : garde['nom']+" " + garde['prenom'], 
 	    			}));
-	  	});
+	  		});
 	 	}
 	 	$('#id_admission').val(adm['id']);
 	 	$('#patient_id').val(adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['id']);
-	  if(adm['rdv_hosp']['bed_reservation'] != null)
-	 	  $('#lit_id').val(adm['rdv_hosp']['bed_reservation']['id_lit']);
-	 	$('#demande_id').val(adm['rdv_hosp']['demande_hospitalisation']['id']);
+	 	if(adm['demande_hospitalisation']['bed_affectation'] != null)
+	 	 	$('#lit_id').val(adm['demande_hospitalisation']['bed_affectation']['lit_id']);// $('#demande_id').val(adm['rdv_hosp']['demande_hospitalisation']['id'])
 		$("#Date_entree").datepicker("setDate", adm['rdv_hosp']['date_RDVh']);
-	  $("#Date_Prevu_Sortie").datepicker("setDate", adm['rdv_hosp']['date_Prevu_Sortie']);
-	  updateDureePrevue();
+	  	$("#Date_Prevu_Sortie").datepicker("setDate", adm['rdv_hosp']['date_Prevu_Sortie']);
+	  	updateDureePrevue();
 	}
 	function addDays()
-  {
-	  var datefin = new Date($('#Date_entree').val());
-	  datefin.setDate(datefin.getDate() + parseInt($('#numberDays').val(), 10));
-	  $("#Date_Prevu_Sortie").val(moment(datefin).format("YYYY-MM-DD"));        
-  }
-  $('document').ready(function(){
+  	{
+		  var datefin = new Date($('#Date_entree').val());
+	  	datefin.setDate(datefin.getDate() + parseInt($('#numberDays').val(), 10));
+	  	$("#Date_Prevu_Sortie").val(moment(datefin).format("YYYY-MM-DD"));        
+  	}
+  	$('document').ready(function(){
   	$("#numberDays").on('click keyup', function() {
       addDays();
     });
@@ -79,14 +78,11 @@
 @section('title') Nouvelle Hospitalisation
 @endsection
 @section('main-content')
-<div class="page-header"><h1> Ajouter une Hospitalisation </h1></div><!-- /.page-header -->
-<div class="space-12"></div>
+<div class="page-header"><h1> Ajouter une Hospitalisation </h1></div><div class="space-12"></div>
 <div class="row">
 	<div class="col-sm-8 col-xs-8">
 		<div class="widget-box widget-color-blue" id="widget-box-2">
-			<div class="widget-header">
-				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des Admissions du Jour :</h5>
-			</div>
+			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des Admissions du Jour :</h5></div>
 			<div class="widget-body">
 				<div class="widget-main no-padding">
 					<table class="table table-striped table-bordered table-hover">
@@ -98,7 +94,7 @@
 							<th class ="center"><strong>Observation</strong></th>
 							<th class ="center"><strong>Date Entrée</strong></th>
 							<th class ="center"><strong>date Sortie prévue</strong></th>
-							<th class ="center"><em class="fa fa-cog"></em></th>
+							<th class ="center"  width="10%"><em class="fa fa-cog"></em></th>
 						</thead>
 						<tbody>
 							@foreach($adms as $key=>$adm)
@@ -112,10 +108,9 @@
 								<td>{{ $adm->rdvHosp->date_Prevu_Sortie}}	</td>
 								<td>
 									<a href="javascript:formFill({{ $adm }} );" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter une Hospitalisation"> 
-											<i class="menu-icon fa fa-plus"></i>
+										<i class="menu-icon fa fa-plus"></i>
 									</a>
-									<a href="{{ route('admission.destroy',$adm->id) }}" class="btn btn-danger btn-xs" data-toggle="tooltip" title="supprimer l'admission" data-method="DELETE" data-confirm="Etes Vous Sur de supprimer l'admission?"><i class="ace-icon fa fa-trash-o"></i>
-											
+									<a href="{{ route('admission.destroy',$adm->id) }}" class="btn btn-danger btn-xs" data-toggle="tooltip" title="supprimer l'admission" data-method="DELETE" data-confirm="Etes Vous Sur de supprimer l'admission?"><i class="ace-icon fa fa-trash-o"></i>		
 									</a>
 								</td>		
 							</tr>
@@ -138,7 +133,7 @@
 						{{ csrf_field() }}
 						<input type="hidden" name="id_admission" id="id_admission" value="" >
 						<input type="hidden" name="patient_id" id="patient_id" value="">
-						<input type="hidden" name="demande_id" id="demande_id" value="">
+					{{-- 	<input type="hidden" name="demande_id" id="demande_id" value=""> --}}
 						<input type="hidden" name="lit_id" id="lit_id" value="">
 						<div class="row">
 							<div class="form-group">		
@@ -179,7 +174,7 @@
 						<div class="row">
 							<div class="form-group">
 								<label class="col-sm-4 col-xs-4 control-label no-padding-right" for="numberDays"><strong> Durée Prévue :</strong></label>
-							  <div class="col-sm-8 col-xs-8">
+							  <div class="col-sm-8 col-xs-8 text-nowrap">
 									<input class="col-xs-10 col-sm-10" id="numberDays" type="number" placeholder="nombre de nuit(s)" min="0" max="50" value="0" />
 									<label for=""><small>&nbsp; nuit(s)</small></label>
 								</div>
@@ -210,12 +205,11 @@
 								<label class="col-sm-4 control-label no-padding-right" for="garde"><strong>Garde Malade :</strong></label>
 								<div class="col-sm-8 col-xs-8">
 									<select id="garde_id" name="garde_id" placeholder="Ajouter garde malade" value="" class="col-xs-11 col-sm-11">
-									<option value="">Selectionner un Garde malade</option>
+										<option value="">Selectionner un Garde malade</option>
 									</select>
 								</div>
 							</div>
 						</div>
-						<div class="space-12"></div>	
 						<div class="row">
 							<div class="col-sm12">
 								<div class="center bottom" style="bottom:0px;">
@@ -223,8 +217,7 @@
 									<button class="btn btn-danger btn-sm" type="reset">	<i class="ace-icon fa fa-close bigger-110"></i>Annuler</button>
 								</div>
 							</div>
-						</div>
-						<div class="space-12"></div>
+						</div><div class="space-12"></div>
 					</form>
 				</div>
 			</div><!-- widget-body -->

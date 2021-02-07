@@ -11,7 +11,6 @@ function getConsultations(field,value)
       },
       dataType: "json",// recommended response type
     	success: function(data) {
-              // (field == 'Date_Consultation')? $('#'+field).val('<?= date("Y-m-j") ?>') : $('#'+field).val(''); 
               $(".numberResult").html(data.length);
                $("#liste_conultations").DataTable ({
                    "processing": true,
@@ -63,12 +62,8 @@ function getAction(data, type, dataToSet) {
 }
 $('document').ready(function(){
     getConsultations("Date_Consultation",'<?= date("Y-m-j") ?>');
-    $('.filter').change(function(){
-        if($(this).attr('id') != "patientName")
+    $('.filter').change(function(){//   if($(this).attr('id') != "patientName")
           getConsultations($(this).attr('id'),$(this).val());
-    });
-    $('.filter').keyup(function(){
-        getConsultations($(this).attr('id'),$(this).val()) 
     });
     $(document).on('click', '.selctetat', function(event){  
       var selectDocm=$(this).val(); //event.preventDefault();
@@ -101,7 +96,7 @@ $('document').ready(function(){
        	  <div class="card-body">
            	 <div class="row">
             		<div class="col-sm-4">
-            			<div class="form-group"><label><strong>Patient :</strong></label><input type="text" id="patientName" value="" class="form-control filter"></div>
+            			<div class="form-group"><label><strong>Patient :</strong></label><input type="text" id="Nom" value="" class="form-control filter"></div>
                		</div>
             		<div class="col-sm-4">
             			<div class="form-group">

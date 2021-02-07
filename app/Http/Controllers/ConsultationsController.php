@@ -217,16 +217,12 @@ class ConsultationsController extends Controller
     {
           if($request->ajax())  
           {         
-               if($request->field != 'patientName')
-                    //$consults = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient','modeHospi')
+               if($request->field != 'Nom')
                      $consults =consultation::with('patient','docteur')->where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
                 else
-                {
-                     $value =  $request->value;
-                    $consults =consultation::with('patient','docteur')->whereHas('patient',function($q) use ($value){
-                                                              $q->where('Nom','LIKE','%'.trim($value)."%");  
+                    $consults =consultation::with('patient','docteur')->whereHas('patient',function($q) use ($request){
+                                                              $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
                                                           })->get();
-                }  
                 return Response::json($consults);
           }
 
