@@ -83,9 +83,9 @@
                         title:'Patient',"orderable": true
                      },
                      {     data: "admission.demande_hospitalisation.modeAdmission", 
-                                 render: function ( data, type, row ) {
+                               render: function ( data, type, row ) {
                                     return row.admission.demande_hospitalisation.modeAdmission ;
-                                 },
+                               },
                                 title:"Mode Admission","orderable": false 
                      },
                      { data: "Date_entree" , title:'Date Entrée', "orderable": true},
@@ -172,10 +172,10 @@
         });
         $(document).on('click', '.selctetat', function(event){
             event.preventDefault();
-            var selectDocm=$(this).val();
+           // var selectDocm=$(this).val();
             var formData = {
                   hosp_id: $('#objID').val(),
-                  selectDocm :selectDocm,
+                  selectDocm :$(this).val(),
             };
             $.ajax({
               type : 'get',
@@ -294,7 +294,6 @@
 	 </div> <!-- widget-box -->
 </div>
 </div>
-<div class="row">@include('hospitalisations.ModalFoms.sortieModal')</div>
-<div class="row">@include('hospitalisations.ModalFoms.EtatSortie')</div>{{-- <div class="row">@include('hospitalisations.EtatsSortie.PrintModal')</div>--}}
+<div class="row">@include('hospitalisations.ModalFoms.sortieModal')</div><div class="row">@include('hospitalisations.ModalFoms.EtatSortie')</div>
 <div class="row">@include('cim10.cimModalForm')</div>
 @endsection

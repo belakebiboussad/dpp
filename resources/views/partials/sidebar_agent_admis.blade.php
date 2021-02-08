@@ -35,7 +35,7 @@
     <!-- /section:basics/sidebar.layout.minimize -->
     <script type="text/javascript">
       try{ace.settings.check('sidebar' , 'collapsed')}catch(e){} // function getAdmissions() { }
-      const datesAreOnSameDay = (first, second) =>
+      const areSameDate = (first, second) =>
         first.getFullYear() === second.getFullYear() &&
         first.getMonth() === second.getMonth() &&
         first.getDate() === second.getDate(); 

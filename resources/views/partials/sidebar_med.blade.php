@@ -343,11 +343,6 @@
         $('#liste_codesCIM').empty();  $("#chapitre").val($("#chapitre option:first").val());$("#schapitre").val($("#schapitre option:first").val());
         $('#cim10Modal').trigger("reset");$('#cim10Modal').modal('toggle');  
       }
-      function ImprimerEtat(objID)
-      { 
-        $("#objID").val( objID );
-        $('#EtatSortie').modal('show');
-      }
       $(document).ready(function () {
            $('input[type=radio][name=sexe]').change(function(){
                 if($(this).val() == "M")

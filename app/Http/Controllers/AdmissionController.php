@@ -12,6 +12,7 @@ use App\User;
 use App\modeles\dem_colloque;
 use Illuminate\Support\Facades\Auth;
 use App\modeles\hospitalisation;
+use App\modeles\Etatsortie;
 use Response;
 class AdmissionController extends Controller
 {
@@ -121,7 +122,8 @@ class AdmissionController extends Controller
           $hospitalistions = hospitalisation::with('admission')->whereHas('admission', function ($q) {
                                                                         $q->where('etat',null);
                                                           })->where('etat_hosp','1')->where('Date_Sortie' , date('Y-m-d'))->get();
-           return view('admission.sorties', compact('hospitalistions')); 
+          $etatsortie = Etatsortie::where('type','1')->get();
+           return view('admission.sorties', compact('hospitalistions','etatsortie')); 
      }
      public function updateAdm(Request $request, $id)
      {
@@ -129,7 +131,7 @@ class AdmissionController extends Controller
           {
                 $adm =  admission::find($id);
                 $adm->update([ 'etat'=>1 ]);
-                return Response::json($hosp ); 
+                return Response::json($adm ); 
           }
      }
      public function getSortiesAdmissions(Request $request)

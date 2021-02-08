@@ -1,6 +1,39 @@
 @extends('app_agent_admis')
 @section('page-script')
 <script type="text/javascript">
+	function effectuerSortieAdm(adm_id){
+		Swal.fire({
+                  title: 'Confimer vous  la Sortie du Patient ?',
+                  html: '',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Oui',
+                  cancelButtonText: "Non",
+                }).then((result) => {
+                	if(!isEmpty(result.value))
+                     {//var adm_id = $(this).val();
+                         	$.get('/sortiePatient/'+adm_id, function (data, status, xhr) {
+					      $("#adm" + adm_id).remove();
+					});
+                     }
+                })
+	}
+	function getAction(data, type, dataToSet) {
+		var actions='';
+		if(data.etat !=1) {
+			var dateSortie = new Date(data.hospitalisation.Date_Sortie);
+		     var dt = new Date();
+			if(areSameDate(dt, dateSortie))
+				actions +='	<button type="button" class="btn btn-info btn-xs" onclick ="effectuerSortieAdm('+data.id+')" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Efffectuer la Sortie"><i class="fa fa-sign-out" aria-hidden="false"></i></button>';
+			else
+				actions +='	<button type="button" class="btn btn-info btn-xs" onclick ="effectuerSortieAdm('+data.id+')" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Efffectuer la Sortie" disabled><i class="fa fa-sign-out" aria-hidden="false"></i></button>';
+		}else
+		{
+			actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat('+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';   
+		}
+		return actions;
+	}
 	function getSorties(field,value)
 	{
 		$("#liste_sorties").dataTable().fnDestroy();
@@ -12,63 +45,56 @@
         	},
        		dataType: "json",
        		success: function(data) {
-       				// $.each(data,function(key,data1){
-	        		// 	$.each(data1['demande_hospitalisation'],function(key1,value1){
-	        		//  		alert(key1 + ":" + value1);	
-	        		// 	})
-        			// });
-
-					 	$(".numberResult").html(data.length);
-         		var oTable =$("#liste_sorties").DataTable ({
-	        		"processing": true,
-		          "paging":   true,
-		          "destroy": true,
-		          "ordering": true,
-		          "searching":false,
-		          "info" : false,
-		          "language":{"url": '/localisation/fr_FR.json'},
-		          "data" : data,
-		          "columns": [
-		          	    { data: "hospitalisation.patient.Nom",
-                            render: function ( data, type, row ) {
-                                 return row.demande_hospitalisation.consultation.patient.Nom + ' ' + row.demande_hospitalisation.consultation.patient.Prenom;
-                            },
-                        title:'Patient',"orderable": true
-                    },
-                    { data : "demande_hospitalisation.service.nom" ,title:'Service',"orderable": true},
-                    { data : "hospitalisation.Date_entree" ,title:'Date Entrée',"orderable": true},
-                    { data : "demande_hospitalisation.modeAdmission" ,title:'Mode Entrée',"orderable": false},
-                    { data : "hospitalisation.Date_Sortie" ,title:'Date Sortie',"orderable": true},
-                    { data : "hospitalisation.modeSortie" ,title:'Mode Sortie',"orderable": false},
-                    { data : "demande_hospitalisation.bed_affectation.lit.salle.service.nom" ,title:'Service',"orderable": false},                   
-		         	],
+			 	$(".numberResult").html(data.length);
+		       	var oTable =$("#liste_sorties").DataTable ({
+	        			"processing": true,
+		          		"paging":   true,
+		          		"destroy": true,
+			          "ordering": true,
+			          "searching":false,
+			          "info" : false,
+			          "language":{"url": '/localisation/fr_FR.json'},
+			          "data" : data,
+			          "fnCreatedRow": function( nRow, aData, iDataIndex ) {
+			                 $(nRow).attr('id',"adm"+aData.id);
+			          },
+			          "columns": [
+			          	    {  data: "hospitalisation.patient.Nom",
+	                        		render: function ( data, type, row ) {
+	                               		  return row.demande_hospitalisation.consultation.patient.Nom + ' ' + row.demande_hospitalisation.consultation.patient.Prenom;
+	                            	},
+	                  		      title:'Patient',"orderable": true
+	                    		},
+		                    { data : "demande_hospitalisation.service.nom" ,title:'Service',"orderable": true},
+		                    { data : "hospitalisation.Date_entree" ,title:'Date Entrée',"orderable": true},
+		                    { data : "demande_hospitalisation.modeAdmission" ,title:'Mode Entrée',"orderable": false},
+		                    { data : "hospitalisation.Date_Sortie" ,title:'Date Sortie',"orderable": true},
+		                    { data : "hospitalisation.modeSortie" ,
+		                    		 render: function ( data, type, row ) {
+                                		    return '<span class="badge badge-info">' + row.hospitalisation.modeSortie +'</span>';
+                              		 },
+		                    		title:'Mode Sortie',"orderable": false
+		                    	},
+		                    { data : "demande_hospitalisation.bed_affectation.lit.salle.service.nom" ,title:'Service',"orderable": false},
+		                    { data : "demande_hospitalisation.bed_affectation.lit.salle.nom" ,title:'Salle',"orderable": false},
+		                    { data : "demande_hospitalisation.bed_affectation.lit.nom" ,title:'Lit',"orderable": false}, 
+		                    { data : getAction ,title:'<em class="fa fa-cog"></em>',"orderable": false,searchable: false},                      
+			         	],
         	});
         }
     });
 	}	
 	$("document").ready(function(){
-		$(".Exitadd").click(function(e){//cobfirmer sortie patient
-			Swal.fire({
-                  title: 'Confimer vous  la Sortie du Patient ?',
-                  html: '',
-                  showCancelButton: true,
-                  confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
-                  confirmButtonText: 'Oui',
-                  cancelButtonText: "Non",
-                }).then((result) => {
-                	if(!isEmpty(result.value))
-                     {
-                     	var adm_id = $(this).val();
-                     	$.get('/sortiePatient/'+adm_id, function (data, status, xhr) {
-					      $("#adm" + adm_id).remove();
-					});
-                     }
-                })
-		});
 		$('.filter').change(function(){//rechercher une sortie
 			getSorties($(this).attr('id'),$(this).val());
-		})
+		});
+		$(document).on('click', '.selctetat', function(event){
+          		event.preventDefault();
+          		var formData = {
+                  adm_id: $('#objID').val(),
+                  selectDocm :$(this).val(),
+            };
+          });
 	});
 </script>
 @endsection
@@ -98,10 +124,7 @@
 		</div>
         </div>	
   		</div>
-		</div><!-- onclick = "getAdmissions();" -->
-	{{-- 	 <div class="panel-footer" style="height: 50px;">
-	   		<button type="submit"name="filter" id="sortiesbtn" class="btn btn-xs btn-primary finoutPatient" style="vertical-align: middle"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
-		</div> --}}
+		</div>
 	</div><!-- panel -->
 	<div class="row"><!-- <div class="col-sm-12"> --><!-- 	</div> -->
 		<div class="widget-box widget-color-blue" id="widget-box-2">
@@ -131,7 +154,6 @@
 				      		</tr>
 	  				</thead>
 	  				<tbody>
-	  				{{--
 	  				@foreach($hospitalistions as $hosp)
 	  				<tr id="{{ 'adm'.$hosp->admission->id }}">
 							<td>{{ $hosp->patient->Nom }}&nbsp;{{ $hosp->patient->Prenom }}</td>
@@ -150,16 +172,17 @@
 							<td><strong>/</strong></td>
 							@endif
 							<td class="text-center">
-								<button type="button" class="btn btn-info btn-sm Exitadd" value="{{ $hosp->admission->id}}" ><i class="fa fa-check"></i> &nbsp;Efffectuer la Sortie</button>
+								<button type="button" class="btn btn-info btn-xs" onclick ="effectuerSortieAdm({{ $hosp->admission->id }})" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Efffectuer la Sortie">
+								<i class="fa fa-sign-out" aria-hidden="false"></i></button>
 							</td>
 						</tr>
 	  				@endforeach
-	  				--}}
 	  				</tbody>
 	  			</table>
 	  		</div>
 	  		</div>{{-- widget-body --}}
 	  	</div> 	{{-- widget-box --}}
 	 </div>	 {{-- row --}}
+	 <div class="row">@include('hospitalisations.ModalFoms.EtatSortie')</div>
 </div>
 @endsection

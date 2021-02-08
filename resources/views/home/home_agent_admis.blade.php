@@ -16,11 +16,11 @@
 			      dataType: 'JSON',
 			      success:function(result,status, xhr)
 			      {
-			     		var admissions = $('#rdvs').empty();
-			        $('#total_records').text(result.length);
-			        if(result.length != 0){
-			         	var disabled =(datesAreOnSameDay(dt, filter))?'':'disabled';
-				        for(var i=0; i<result.length; i++){
+	       	     		var admissions = $('#rdvs').empty();
+      	     	          $('#total_records').text(result.length);
+			          if(result.length != 0){
+			         	     var disabled =(areSameDate(dt, filter))?'':'disabled';
+				          for(var i=0; i<result.length; i++){
 				        		var forms ="";
 				        		if(!isEmpty(result[i]['bed_reservation']))
 				    				frag ='<td>'+result[i]['bed_reservation']['lit']['salle']['service'].nom+'</td><td>'+result[i]['bed_reservation']['lit']['salle'].nom+'</td><td>'+result[i]['bed_reservation']['lit'].nom+'</td>'; 
@@ -52,9 +52,9 @@
           				$('#rdvs').html(op);
        			}
     			});
-					if(datesAreOnSameDay(dt, filter))	//Rechercher les demandes D'urgences
-					{
-						url= '{{ route ("demandehosp.urg", ":slug") }}';
+			if(areSameDate(dt, filter))	//Rechercher les demandes D'urgences
+			{
+				url= '{{ route ("demandehosp.urg", ":slug") }}';
      				url = url.replace(':slug',$("#currentday").val());
 						$.ajax({
 	      		 	url: url,
