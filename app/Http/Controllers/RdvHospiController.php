@@ -14,6 +14,7 @@ use App\modeles\Lit;
 use Auth;
 use Carbon\Carbon;
 use PDF;
+use Response;
 class RdvHospiController extends Controller
 {
   public function index()
@@ -118,14 +119,18 @@ class RdvHospiController extends Controller
   }
   public function getRdvs($date)
   {
-    $rdvs = rdv_hospitalisation::with('bedReservation.lit.salle.service','demandeHospitalisation.consultation.patient','demandeHospitalisation.Service')
-                                ->where('etat_RDVh','=',null)
+    // $rdvs = rdv_hospitalisation::with('bedReservation.lit.salle.service','demandeHospitalisation.consultation.patient','demandeHospitalisation.Service')
+    //                             ->whereHas('demandeHospitalisation', function($q){
+    //                                 $q->where('etat', 'programme');
+    //                             })->where('date_RDVh','=', $date)->where('etat_RDVh','=',null)->get(); 
+    $rdvs =  rdv_hospitalisation::with('bedReservation.lit.salle.service','demandeHospitalisation.consultation.patient','demandeHospitalisation.Service')
                                 ->whereHas('demandeHospitalisation', function($q){
                                     $q->where('etat', 'programme');
-                                })->where('date_RDVh','=', $date)->get(); 
-    if (!empty($rdvs)) {
-      return json_encode($rdvs);
-    }
+                                })->where('date_RDVh','=', $date)->where('etat_RDVh','=',null)->get();
+    return Response::json($rdvs);
+    // if (!empty($rdvs)) {//   return json_encode($rdvs);// }
+    
+    
   }  
   public function print($id)//imprimer rdv d'hospitalisation 
   { 

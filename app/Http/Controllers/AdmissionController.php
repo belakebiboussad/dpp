@@ -134,17 +134,25 @@ class AdmissionController extends Controller
      }
      public function getSortiesAdmissions(Request $request)
      {
-          if($request->ajax())  
-          {           
-               if($request->field != 'Date_Sortie')
-                    $adms = admission::where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
-               else
-               {
-                    $adms = admission::whereHas('hospitalisation',function($q) use ($request){
-                                    $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
-                                })->get();
-               }
-               return Response::json($adms);   
+        if($request->ajax())  
+        { 
+          if($request->field != 'Date_Sortie')
+            if($request->value != "0")   
+              $adms = admission::with('hospitalisation','demandeHospitalisation.consultation.patient','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation.lit.salle.service')
+                               ->where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
+            else
+              $adms = admission::with('hospitalisation','demandeHospitalisation.consultation.patient','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation.lit.salle.service')
+                                ->whereHas('hospitalisation',function($q){
+                                   $q->where('etat_hosp','=',"1");
+                                })->where('etat','=',null)->get();
+          else
+          {
+            $adms = admission::with('hospitalisation','demandeHospitalisation.consultation.patient','demandeHospitalisation.Service','demandeHospitalisation.bedAffectation.lit.salle.service')
+                              ->whereHas('hospitalisation',function($q) use ($request){
+                                $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
+            })->get();
           }
+          return Response::json($adms);
+       }
      }
 }

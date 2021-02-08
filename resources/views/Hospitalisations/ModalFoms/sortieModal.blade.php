@@ -5,9 +5,8 @@
 		    <button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Sortie Patient</h4>
 		</div>
 		  <div class="modal-body">
-		  	<input type="hidden" id="hospID" value="">
-	 		<div class="space-12"></div><div class="space-12"></div>
-	 		<div class="row">
+		  	<input type="hidden" id="hospID" value=""><div class="space-12"></div>
+	 			<div class="row">
 				<div class="col-sm-12">
     					<label for="Date_Sortie"><strong>Date de Sortie :</strong></label>
    					<input type="text" id="Date_SortieH" class="form-control date-picker"  data-date-format="yyyy-mm-dd" data-provide="datepicker" required/>

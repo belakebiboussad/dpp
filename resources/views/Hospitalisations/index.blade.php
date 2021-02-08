@@ -115,27 +115,25 @@
                  "value":value,
           },
           dataType: "json",// recommended response type
-      	success: function(data) {
+      	  success: function(data) {
               $(".numberResult").html(data.length);
                loadDataTable(data);
           }
 	});
 	}
 	$('document').ready(function(){
-          //getHospitalisations("etat_hosp",null);
-      	$('.filter').change(function(){    // if($(this).attr('id') != "Nom")
-               //  $value =($(this).val() ==='')? null :($(this).val());
-                getHospitalisations($(this).attr('id'),$(this).val());
-          }); // $('.filter').keyup(function(){//     getHospitalisations($(this).attr('id'),$(this).val()) // });
-     $('#modeSortie').change(function(){
+      $('.filter').change(function(){    // if($(this).attr('id') != "Nom") //getHospitalisations("etat_hosp",null);
+          getHospitalisations($(this).attr('id'),$(this).val());
+      }); // $('.filter').keyup(function(){//     getHospitalisations($(this).attr('id'),$(this).val()) // });
+      $('#modeSortie').change(function(){
           if($(this).val()==="0")
           {
-               if($('#structure').hasClass('hidden'))
-                     $('#structure').removeClass('hidden');
+              if($('#structure').hasClass('hidden'))
+                $('#structure').removeClass('hidden');
           }else{
-                if(! ($('#structure').hasClass('hidden')))
-                     $('#structure').addClass('hidden');
-           } 
+              if(! ($('#structure').hasClass('hidden')))
+                $('#structure').addClass('hidden');
+          } 
      });
      jQuery('#saveCloturerHop').click(function () {
           (jQuery('#modeSortie').val() === '') ? null : jQuery('#modeSortie').val();
@@ -149,7 +147,7 @@
                 diagSortie           : $("#diagSortie").val(),
                ccimdiagSortie    : $("#ccimdiagSortie").val(),
                strucTransfert     : $("#strucTransfert").val(),
-                etat_hosp            :'Cloturé',
+                etat_hosp            :'1',
           };
               if(!($("#Date_Sortie").val() == ''))
               {
@@ -259,7 +257,7 @@
                           </thead>
                           <tbody>
                                @foreach ($hospitalisations as $hosp)
-                                <tr id="hospi"+{{ $hosp->id }}>
+                                <tr id="hospi{{ $hosp->id }}">
                                     <td><input type="checkbox" class="editor-active check" value="{{ $hosp->id}}"/><span class="lbl"></span></td>
                                     <td>{{ $hosp->patient->Nom }} {{ $hosp->patient->Prenom }}</td>
                                     <td>{{ $hosp->admission->demandeHospitalisation->modeAdmission}} </td>
