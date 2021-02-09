@@ -6,13 +6,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<style>
-			.mt-6 {
-         			margin-top: -6px !important;
-			}
 			.mt-3 {
-         			margin-top: -10px !important;
-         			padding-top:-10px  !important ;
+         			margin-top: -3px !important;
 			}
+			/*.mt-3 {margin-top: -10px !important;	padding-top:-10px  !important ;	}*/
 			.mt-10{
 			       margin-top:-50px;
 			}
@@ -64,13 +61,13 @@
 		  <div class="row">
 			  <div class="col-sm-12">
 			   	<div class="content text-center mt-10">
-			      <h5><strong>DIRECTION GENERAL DE LA SÛRETÉ NATIONALEE</strong></h5>
-			      <h6 class="mt-6" style =" margin-left: -7px;margin-right:-7px;"><strong>ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</strong></h6>
-			      <h6 class="mt-6"><strong> Chemin des Glycines - ALGER</strong><span> - Tél : 023-93-34</span></h6>
+			      <h5><strong>DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</strong></h5>
+			      <h6 class="mt-3" style =" margin-left: -7px;margin-right:-7px;"><strong>ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</strong></h6>
+			      <h6 class="mt-3"><strong> Chemin des Glycines - ALGER</strong><span> - Tél : 023-93-34</span></h6>
 			   	</div>
 			  </div>
 		  </div>
-		  <div class="row mt-6">
+		  <div class="row mt-3">
 			  <div class="col-sm-12 content text-center">
 				 <div class="col-sm-4"></div>
 				 <div class="col-sm-4"><img class = "imgCenter" src="img/logo.png"/></div><div class="col-sm-4"></div>    
