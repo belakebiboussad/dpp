@@ -8,12 +8,67 @@
      @yield('style')
 </head>
 <body class="no-skin">
-    @include('partials.navbar')
-    @include('partials.scripts')
-    <div class="main-container" id="main-container">
-        <script type="text/javascript">
+      @include('partials.navbar')
+      @include('partials.scripts')
+      <div class="main-container" id="main-container">
+     <script type="text/javascript">
             try{ace.settings.check('main-container' , 'fixed')}catch(e){}
-        </script>
+          function createRDVModal(debut, fin, pid = 0, fixe=1)
+          { 
+                var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
+                var fin = moment(fin).format('YYYY-MM-DD HH:mm');  
+                if(pid != 0)
+                {
+                      if('{{ Auth::user()->role_id }}' == 1)
+                      {
+                           $.ajaxSetup({
+                                 headers: {
+                                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                                }
+                          }); 
+                         $.ajax({
+                             type : 'POST',
+                              url : '/createRDV',
+                              data:formData,  //dataType: 'json',
+                              success:function(data){         
+                                      var color = (data['rdv']['fixe'] == 1)? '#87CEFA':'#378006';
+                                      var event = new Object();
+                                      event = {
+                                                  title: data['patient']['Nom'] + "  " + data['patient']['Prenom']+" ,("+data['age']+" ans)",
+                                                  start: debut,
+                                                  end: fin,
+                                                  id :data['rdv']['id'],
+                                                  idPatient:data['patient']['id'],
+                                                  tel:data['patient']['tele_mobile1'] ,
+                                                  age:data['age'],         
+                                                  allDay: false,
+                                                  color: '#87CEFA'
+                                      };
+                                        $('.calendar1').fullCalendar( 'renderEvent', event, true );
+                                        $('.calendar1').fullCalendar( 'refresh' );
+                            },
+                             error: function (data) {
+                                  console.log('Error:', data);
+                             }
+                        });
+                     }else{
+                          $('#Debut_RDV').val(debut);
+                          $('#Fin_RDV').val(fin);
+                          $('#fixe').val(fixe);
+                          $('#addRDVModal').modal({
+                                 show: 'true'
+                          }); 
+                    }
+               }else{
+                    $('#Debut_RDV').val(debut);
+                    $('#Fin_RDV').val(fin);
+                    $('#fixe').val(fixe);
+                    $('#addRDVModal').modal({
+                          show: 'true'
+                    }); 
+               }   
+      }
+</script>
         @yield('page-script')
         @if( Auth::user()->role_id == 1)
             @include('partials.sidebar_med')

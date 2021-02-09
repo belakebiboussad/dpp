@@ -496,8 +496,8 @@ $('#typeexm').on('change', function() {
   }
 </script>
 <script>        
-  function lettreoriet(nommedt,prenommedt,servmedt,telmedt,nompatient,prenompatient,agepatient)
-  {
+function lettreoriet(nommedt,prenommedt,servmedt,telmedt,nompatient,prenompatient,agepatient)
+{
      var specialite = $( "#specialite option:selected" ).text().trim();
      var medecin =  $("#medecin option:selected").text().trim();
      $('#lettreorientation').show();
@@ -523,7 +523,7 @@ $('#typeexm').on('change', function() {
       lettre.text(200,180,'signature',null,null,'right');
       var string = lettre.output('datauristring');
       $('#lettreorientation').attr('src', string);
-  }
+}
   function storeord()
   {   
     var arrayLignes = document.getElementById("ordonnance").rows;
@@ -537,61 +537,7 @@ $('#typeexm').on('change', function() {
     champ.appendTo('#ordonnace_form');
     $('#ordonnace_form').submit();
   }
-  function createRDVModal(debut, fin, pid = 0, fixe=1)
-  { 
-    var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
-    var fin = moment(fin).format('YYYY-MM-DD HH:mm');  
-    if(pid != 0)
-    {
-      if('{{ Auth::user()->role_id }}' == 1)
-      {
-          $.ajaxSetup({
-                  headers: {
-                       'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                 }
-          }); 
-          $.ajax({
-                  type : 'POST',
-                  url : '/createRDV',
-                  data:formData,  //dataType: 'json',
-                  success:function(data){         
-                      var color = (data['rdv']['fixe'] == 1)? '#87CEFA':'#378006';
-                      var event = new Object();
-                      event = {
-                                  title: data['patient']['Nom'] + "  " + data['patient']['Prenom']+" ,("+data['age']+" ans)",
-                                  start: debut,
-                                  end: fin,
-                                  id :data['rdv']['id'],
-                                  idPatient:data['patient']['id'],
-                                  tel:data['patient']['tele_mobile1'] ,
-                                  age:data['age'],         
-                                  allDay: false,
-                                  color: '#87CEFA'
-                      };
-                      $('.calendar1').fullCalendar( 'renderEvent', event, true );
-                      $('.calendar1').fullCalendar( 'refresh' );
-                  },
-                  error: function (data) {
-                       console.log('Error:', data);
-                  }
-          });
-      }else{
-        $('#Debut_RDV').val(debut);
-        $('#Fin_RDV').val(fin);
-        $('#fixe').val(fixe);
-        $('#addRDVModal').modal({
-          show: 'true'
-        }); 
-      }
-    }else{
-        $('#Debut_RDV').val(debut);
-        $('#Fin_RDV').val(fin);
-        $('#fixe').val(fixe);
-        $('#addRDVModal').modal({
-          show: 'true'
-        }); 
-      }   
-    }
+ 
        function editRdv(event)
         {
              var CurrentDate = (new Date()).setHours(0, 0, 0, 0);var GivenDate = (new Date(event.start)).setHours(0, 0, 0, 0);

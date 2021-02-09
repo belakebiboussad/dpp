@@ -20,11 +20,11 @@
 var rdvs = @json($rdvs);
 function resetaddModIn()
 {
-  $('.es-list').val(''); 
-  $('#patient').val(''); 
-  $('#medecin').val('');
-  $('#specialite').val(''); 
-  $("#medecin").attr("disabled", true);   
+      $('.es-list').val(''); 
+      $('#patient').val(''); 
+      $('#medecin').val('');
+      $('#specialite').val(''); 
+      $("#medecin").attr("disabled", true);   
 }
 function resetPrintModIn()
 {
@@ -32,16 +32,15 @@ function resetPrintModIn()
 }
 function reset_in()
 {
-  $('.es-list').html(''); 
-  $('#patient').val('');
-  $('#medecin').val('');
-  $('#patient').editableSelect();
+      //$('.es-list').html('');  $('#patient').val('');
+      $('#medecin').val('');
+      $('#patient').editableSelect();
 }
 function layout()
 {
-  reset_in(); 
-  resetaddModIn();//var field = $("select#filtre option").filter(":selected").val();
-  $("#btnSave").attr("disabled", true);
+      reset_in(); 
+      resetaddModIn();//var field = $("select#filtre option").filter(":selected").val();
+      $("#btnSave").attr("disabled", true);
 }
 function getPatient()
 {
