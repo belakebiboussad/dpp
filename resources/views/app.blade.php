@@ -21,36 +21,37 @@
           {
             if('{{ Auth::user()->role_id }}' == 1)
             {
+              var formData = { id_patient:pid,Debut_RDV:debut, Fin_RDV:fin, fixe:fixe  };
               $.ajaxSetup({
-                     headers: {
-                          'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                      }
+                   headers: {
+                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                    }
               }); 
               $.ajax({
-                        type : 'POST',
-                        url : '/createRDV',
-                        data:formData,  //dataType: 'json',
-                        success:function(data){         
-                                  var color = (data['rdv']['fixe'] == 1)? '#87CEFA':'#378006';
-                                  var event = new Object();
-                                  event = {
-                                              title: data['patient']['Nom'] + "  " + data['patient']['Prenom']+" ,("+data['age']+" ans)",
-                                              start: debut,
-                                              end: fin,
-                                              id :data['rdv']['id'],
-                                              idPatient:data['patient']['id'],
-                                              tel:data['patient']['tele_mobile1'] ,
-                                              age:data['age'],         
-                                              allDay: false,
-                                              color: '#87CEFA'
-                                  };
-                                  $('.calendar1').fullCalendar( 'renderEvent', event, true );
-                                  $('.calendar1').fullCalendar( 'refresh' );
-                        },
-                        error: function (data) {
-                              console.log('Error:', data);
-                        }
-                  });
+                    type : 'POST',
+                    url : '/createRDV',
+                    data:formData,  //dataType: 'json',
+                    success:function(data){         
+                              var color = (data['rdv']['fixe'] == 1)? '#87CEFA':'#378006';
+                              var event = new Object();
+                              event = {
+                                          title: data['patient']['Nom'] + "  " + data['patient']['Prenom']+" ,("+data['age']+" ans)",
+                                          start: debut,
+                                          end: fin,
+                                          id :data['rdv']['id'],
+                                          idPatient:data['patient']['id'],
+                                          tel:data['patient']['tele_mobile1'] ,
+                                          age:data['age'],         
+                                          allDay: false,
+                                          color: '#87CEFA'
+                              };
+                              $('.calendar1').fullCalendar( 'renderEvent', event, true );
+                              $('.calendar1').fullCalendar( 'refresh' );
+                    },
+                    error: function (data) {
+                          console.log('Error:', data);
+                    }
+              });
             }else{
                           $('#Debut_RDV').val(debut);
                           $('#Fin_RDV').val(fin);
@@ -58,16 +59,16 @@
                           $('#addRDVModal').modal({
                                  show: 'true'
                           }); 
-                    }
-               }else{
-                    $('#Debut_RDV').val(debut);
-                    $('#Fin_RDV').val(fin);
-                    $(".es-list").empty(); 
-                    $('#fixe').val(fixe);
-                    $('#addRDVModal').modal({
-                          show: 'true'
-                    }); 
-               }   
+            }
+          }else{
+                $('#Debut_RDV').val(debut);
+                $('#Fin_RDV').val(fin);
+                $(".es-list").empty(); 
+                $('#fixe').val(fixe);
+                $('#addRDVModal').modal({
+                      show: 'true'
+                }); 
+          }   
       }
 </script>
         @yield('page-script')
