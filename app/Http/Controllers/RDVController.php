@@ -74,21 +74,21 @@ class RDVController extends Controller
      * @return \Illuminate\Http\Response
      */
     // Request $request
-     public function create($patient_id = null)
-     {
-          if(Auth::user()->role_id == 1)   
-          {   
-                $specialite = Auth::user()->employ->specialite;
-                $rdvs = rdv::with('patient','employe')
-                            ->whereHas('employe.Specialite',function($q) use ($specialite){
-                                      $q->where('id',$specialite);
-                            })->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get();                                          
-                if(isset($patient_id) && !empty($patient_id))
-                    $patient = patient::FindOrFail($patient_id);
-                else
-                   $patient = new patient;
-               return view('rdv.create',compact('patient','rdvs'));  // }else //   return view('rdv.create', compact('rdvs'));  
-        }else{ 
+    public function create($patient_id = null)
+    {
+      if(Auth::user()->role_id == 1)   
+      {   
+              $specialite = Auth::user()->employ->specialite;
+              $rdvs = rdv::with('patient','employe')
+                          ->whereHas('employe.Specialite',function($q) use ($specialite){
+                                    $q->where('id',$specialite);
+                          })->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get();                                          
+              if(isset($patient_id) && !empty($patient_id))
+                  $patient = patient::FindOrFail($patient_id);
+              else
+                 $patient = new patient;
+             return view('rdv.create',compact('patient','rdvs'));  // }else //   return view('rdv.create', compact('rdvs'));  
+      }else{ 
           $rdvs = rdv::with(['patient','employe'])->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get();
           $specialites = specialite::all();
            if(isset($patient_id) && !empty($patient_id))

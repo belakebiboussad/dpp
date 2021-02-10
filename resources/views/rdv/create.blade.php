@@ -32,8 +32,7 @@ function resetPrintModIn()
 }
 function reset_in()
 {
-      //$('.es-list').html('');  $('#patient').val('');
-      $('#medecin').val('');
+      $('#medecin').val('');//$('.es-list').html('');  $('#patient').val('');
       $('#patient').editableSelect();
 }
 function layout()
@@ -131,7 +130,7 @@ $(document).ready(function() {
                               if(!isEmpty(result.value))//result.value indique rdv fixe ou pas
                               {
                                 if('{{ $patient}}' != null)
-                                 createRDVModal(start,end,'{{ $patient->id }}',result.value);
+                                  createRDVModal(start,end,'{{ $patient->id }}',result.value);
                                 else
                                   createRDVModal(start,end,0,result.value);
                               }
