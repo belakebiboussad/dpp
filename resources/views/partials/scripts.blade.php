@@ -496,67 +496,66 @@ $('#typeexm').on('change', function() {
   }
 </script>
 <script>        
-function lettreoriet(nommedt,prenommedt,servmedt,telmedt,nompatient,prenompatient,agepatient)
-{
-     var specialite = $( "#specialite option:selected" ).text().trim();
-     var medecin =  $("#medecin option:selected").text().trim();
-     $('#lettreorientation').show();
-     $('#lettreorientation').removeClass("hidden");
-      var d = new Date(); var dd = d.getDate(); var mm = d.getMonth()+1;          
-      var yyyy = d.getFullYear();
-      var lettre = new jsPDF({orientation: "p", lineHeight: 1.5})
-      lettre.setFontSize(18);lettre.lineHeightProportion = 100;
-      lettre.text(105,20, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
-      lettre.text(105,28, 'HOPITAL CENTRAL DE LA SURETE NATIONALE "LES GLYCINES"', null, null, 'center');
-      lettre.text(105,36, '12, Chemin des Glycines - ALGER', null, null, 'center');
-      lettre.text(105,44, 'Tél : 23-93-34 - 23-93-58', null, null, 'center');
-      lettre.text(200,58, 'Alger,le : '+dd+'/'+mm+'/'+yyyy, null, null, 'right');
-      lettre.text(20,68, 'Emetteur : '+nommedt+' '+prenommedt, null, null);
-      lettre.text(20,76, 'Tél : '+telmedt, null, null);
-      lettre.text(200,68, 'Destinataire : '+medecin , null, null, 'right');
-      lettre.text(200,76, 'Specialite : '+specialite , null, null,'right');
-      lettre.setFontType("bold");
-      lettre.text(105,90, "Lettre d'orientation", null, null, 'center');
-      var text = "permettez moi de vous adresser le(la) patient(e) sus-nommé(e), "+nompatient+" "+prenompatient+" âgé(e) de "+agepatient+" ans, qui s'est présenté ce jour pour  "+$('#motifOrient').val()+"  . je vous le confie pour prise en charge spécialisé. respectueusement confraternellement.";
-      lines = lettre.splitTextToSize(text, 185);
-      lettre.text(20,110,lines,null,null);
-      lettre.text(200,180,'signature',null,null,'right');
-      var string = lettre.output('datauristring');
-      $('#lettreorientation').attr('src', string);
-}
-  function storeord()
-  {   
-    var arrayLignes = document.getElementById("ordonnance").rows;
-    var longueur = arrayLignes.length;
-    var tab = [];
-    for(var i=1; i<longueur; i++)
+    function lettreoriet(nommedt,prenommedt,servmedt,telmedt,nompatient,prenompatient,agepatient)
     {
-       tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;
+         var specialite = $( "#specialite option:selected" ).text().trim();
+         var medecin =  $("#medecin option:selected").text().trim();
+         $('#lettreorientation').show();
+         $('#lettreorientation').removeClass("hidden");
+          var d = new Date(); var dd = d.getDate(); var mm = d.getMonth()+1;          
+          var yyyy = d.getFullYear();
+          var lettre = new jsPDF({orientation: "p", lineHeight: 1.5})
+          lettre.setFontSize(18);lettre.lineHeightProportion = 100;
+          lettre.text(105,20, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
+          lettre.text(105,28, 'HOPITAL CENTRAL DE LA SURETE NATIONALE "LES GLYCINES"', null, null, 'center');
+          lettre.text(105,36, '12, Chemin des Glycines - ALGER', null, null, 'center');
+          lettre.text(105,44, 'Tél : 23-93-34 - 23-93-58', null, null, 'center');
+          lettre.text(200,58, 'Alger,le : '+dd+'/'+mm+'/'+yyyy, null, null, 'right');
+          lettre.text(20,68, 'Emetteur : '+nommedt+' '+prenommedt, null, null);
+          lettre.text(20,76, 'Tél : '+telmedt, null, null);
+          lettre.text(200,68, 'Destinataire : '+medecin , null, null, 'right');
+          lettre.text(200,76, 'Specialite : '+specialite , null, null,'right');
+          lettre.setFontType("bold");
+          lettre.text(105,90, "Lettre d'orientation", null, null, 'center');
+          var text = "permettez moi de vous adresser le(la) patient(e) sus-nommé(e), "+nompatient+" "+prenompatient+" âgé(e) de "+agepatient+" ans, qui s'est présenté ce jour pour  "+$('#motifOrient').val()+"  . je vous le confie pour prise en charge spécialisé. respectueusement confraternellement.";
+          lines = lettre.splitTextToSize(text, 185);
+          lettre.text(20,110,lines,null,null);
+          lettre.text(200,180,'signature',null,null,'right');
+          var string = lettre.output('datauristring');
+          $('#lettreorientation').attr('src', string);
     }
-    var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");
-    champ.appendTo('#ordonnace_form');
-    $('#ordonnace_form').submit();
-  }
- 
-       function editRdv(event)
-        {
-             var CurrentDate = (new Date()).setHours(0, 0, 0, 0);var GivenDate = (new Date(event.start)).setHours(0, 0, 0, 0);
-             if( CurrentDate <= GivenDate )
-             {
-                    $('#patient_tel').text(event.tel);
-                    $('#agePatient').text(event.age);
-                    $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
-                    $('#lien').text(event.title);
-                    $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
-                    (event.fixe ==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
-                    $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
-                    $('#btnRdvDelete').attr('href','javascript:rdvDelete('+event.id+');');
-                    var url = '{{ route("rdv.update", ":slug") }}';
-                    url = url.replace(':slug',event.id); // $('#updateRdv').attr('action',url);
-                    $('#idRDV').val(event.id);
-                    $('#fullCalModal').modal({  show: 'true' }); 
-             }
-       }
+     function storeord()
+     {   
+          var arrayLignes = document.getElementById("ordonnance").rows;
+          var longueur = arrayLignes.length;
+          var tab = [];
+          for(var i=1; i<longueur; i++)
+          {
+             tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;
+          }
+          var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");
+          champ.appendTo('#ordonnace_form');
+          $('#ordonnace_form').submit();
+     }
+     function editRdv(event)
+     {
+           var CurrentDate = (new Date()).setHours(0, 0, 0, 0);var GivenDate = (new Date(event.start)).setHours(0, 0, 0, 0);
+           if( CurrentDate <= GivenDate )
+           {
+                  $('#patient_tel').text(event.tel);
+                  $('#agePatient').text(event.age);
+                  $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
+                  $('#lien').text(event.title);
+                  $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
+                  (event.fixe ==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
+                  $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
+                  $('#btnRdvDelete').attr('href','javascript:rdvDelete('+event.id+');');
+                  var url = '{{ route("rdv.update", ":slug") }}';
+                  url = url.replace(':slug',event.id); // $('#updateRdv').attr('action',url);
+                  $('#idRDV').val(event.id);
+                  $('#fullCalModal').modal({  show: 'true' }); 
+           }
+     }
        </script>
         <script>
             $('#users-table').DataTable({
@@ -903,7 +902,7 @@ function lettreoriet(nommedt,prenommedt,servmedt,telmedt,nompatient,prenompatien
       }
       function ajaxEditEvent(event,bool)
       {
-          $.get('/rdv/'+event.id +'/edit', function (data) {
+           $.get('/rdv/'+event.id +'/edit', function (data) {
                  var html ='';
                 $('#medecin').empty();
                  jQuery(data.medecins).each(function(i, med){

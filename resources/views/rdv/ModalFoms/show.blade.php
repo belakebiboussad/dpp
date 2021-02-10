@@ -1,5 +1,5 @@
 <div class="modal fade" id="fullCalModal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-lg" role="document">
    		 <div class="modal-content">
       		<div class="modal-header">
         			<h5 class="modal-title"><span class="glyphicon glyphicon-bell"></span>&nbsp;Détails du Rendez-Vous de &nbsp; <q><a href="" id="lien" class="white"></a></q></h5>
@@ -7,19 +7,19 @@
         			<div class="row">
                      	<div class="col-sm-6"> <i class="fa fa-phone" aria-hidden="true"></i><strong>Téléphone:&nbsp;</strong><span id="patient_tel" class="white"></span></div>
                      	<div class="col-sm-6"><strong>Âge:&nbsp;</strong><span id="agePatient" class="white"></span> <small>Ans</small></div>
-                </div>       
+                     </div>       
       		</div>
       		<form id ="updateRdv" role="form" method="POST"> 
       		<div class="modal-body">
-          		      <input type="hidden" id="idRDV">
-                      <div class="well">   
+          		     <input type="hidden" id="idRDV">
+                     <div class="well">   
                           <div class="row">
                                <div class="col-sm-12">
                                     <div class="form-group">
                                          <label for="doctor" class="col-form-label" ><i class="ace-icon fa  fa-user-md bigger-130"></i><strong>&nbsp;Medecin:</strong></label>
                                           <div class="input-group col-sm-12"><input type="text"  class="form-control" id="doctor" name ="doctor"  disabled/> </div>  
                                      </div>
-                            </div>
+                                </div>
                           </div>
                      </div>
                      <div class="well">
@@ -40,10 +40,9 @@
                                     <fieldset class="scheduler-border">
                                           <legend class="scheduler-border">Type Rendez-Vous</legend>
                                           <div class="control-group">
-                                               <label class="control-label input-label" for="startTime">&nbsp;</label>
+                                               <label class="control-label input-label">&nbsp;</label>
                                                <div class="controls form-check">
-                                                    <label class="block"><input type="checkbox" class="ace" id="fixecbx" name="fixecbx" disabled/> <span class="lbl">Fixe </span>
-                                                     </label>
+                                               <label class="block"><input type="checkbox" class="ace" id="fixecbx" disabled/><span class="lbl">Fixe </span></label> 
                                                </div>
                                          </div>
                                       </fieldset>      

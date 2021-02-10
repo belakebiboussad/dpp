@@ -28,7 +28,7 @@
         <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
           <h5 class="modal-title" id="myModalLabel">
-            <span class="glyphicon glyphicon-bell"></span>&nbsp;Modifier le Rendez-Vous du <i class="ace-icon fa fa-angle-double-left" style="font-size:20px;"></i>
+            <span class="glyphicon glyphicon-bell"></span>&nbsp;Modifierr le Rendez-Vous du <i class="ace-icon fa fa-angle-double-left" style="font-size:20px;"></i>
             <a href="" id="lien" style="color: inherit;"><span id="patient"></span></a> <i class="ace-icon fa fa-angle-double-right" style="font-size:20px;"></i>
           </h5><hr>
         </div>
