@@ -111,7 +111,7 @@ $(document).ready(function() {
               ], 
                select: function(start, end) {
                     var minutes = end.diff(start,"minutes"); 
-                    if( (minutes == 15) && (start >= CurrentDate))
+                    if( (minutes == 15) && (start >=today ))//CurrentDate
                     {                                    
                       if('{{ Auth::user()->role_id }}' == 1)
                       {

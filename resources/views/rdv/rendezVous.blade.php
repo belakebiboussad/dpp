@@ -8,13 +8,13 @@
       <div class="modal-body bodyodal">
         <div class="row">
           <div class="col-md-12">
-                <div class="panel panel-default"> &nbsp;&nbsp;&nbsp;&nbsp; 
-                     <div class="panel-heading" style="margin-top:-20px"> <div class="left"></div></div>
-                     <div class="panel-body"><div class="calendar1" id="calendar1"></div> </div>
-                <div class="panel-footer">
-                     <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><strong>&nbsp;RDV fixe</strong></span>
-                     <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><strong>&nbsp;RDV à fixer</strong></span> 
-                </div>
+            <div class="panel panel-default"> &nbsp;&nbsp;&nbsp;&nbsp; 
+              <div class="panel-heading" style="margin-top:-20px"> <div class="left"></div></div>
+              <div class="panel-body"><div class="calendar1" id="calendar1"></div> </div>
+              <div class="panel-footer">
+                <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><strong>&nbsp;RDV fixe</strong></span>
+                <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><strong>&nbsp;RDV à fixer</strong></span> 
+              </div>
             </div>
           </div>
         </div>
@@ -28,8 +28,8 @@
         <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
           <h5 class="modal-title" id="myModalLabel">
-            <span class="glyphicon glyphicon-bell"></span>&nbsp;Modifierr le Rendez-Vous du <i class="ace-icon fa fa-angle-double-left" style="font-size:20px;"></i>
-            <a href="" id="lien" style="color: inherit;"><span id="patient"></span></a> <i class="ace-icon fa fa-angle-double-right" style="font-size:20px;"></i>
+            <span class="glyphicon glyphicon-bell"></span>&nbsp;Modifiersss le Rendez-Vous du <q><a href="" id="lien" style="color: inherit;"></a></q>
+            
           </h5><hr>
         </div>
         <div class="modal-body"><div class="space-12"></div>

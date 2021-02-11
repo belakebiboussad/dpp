@@ -72,6 +72,9 @@
       color: white;
       background-color: rgba(255,255,255,0.2);
 	}
+	.b{
+		background-color: rgba(100,100,100);
+	}
 </style>
 @endsection
 @section('page-script')
@@ -759,15 +762,15 @@
 		       @endforeach 
 	    ],
       eventRender: function (event, element, webData) {
-       if(event.start < today) // element.find('.fc-title').append("," + event.tel);// element.css("font-size", "1em");
+      	if(event.start < today) // element.find('.fc-title').append("," + event.tel);// element.css("font-size", "1em");
 				 element.css('background-color', '#D3D3D3');
 				else
 				{	
-       				if(event.fixe)
-         					element.css('background-color', '#87CEFA'); 
-         				else
-         					element.css('background-color', '#378006');
-         				element.css("padding", "5px"); 
+   				if(event.fixe)
+     					element.css('background-color', '#87CEFA'); 
+     				else
+     					element.css('background-color', '#378006');
+     				element.css("padding", "5px"); 
 				}
 				element.popover({
 			  		delay: { "show": 500, "hide": 100 },  // title: event.title,
@@ -778,23 +781,25 @@
 			      container: 'body',
 			      template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
 			 	});		    
-			}, 
-		  select: function(start, end) {
-				if(start > CurrentDate){
-	                             Swal.fire({
-		                                 title: 'Confimer vous  le Rendez-Vous ?',
-		                                 html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',
-		                                 input: 'checkbox',
-		                                 inputPlaceholder: 'Redez-Vous Fixe',
-		                                 showCancelButton: true,
-		                                 confirmButtonColor: '#3085d6',
-		                                 cancelButtonColor: '#d33',
-		                                 confirmButtonText: 'Oui',
-		                                 cancelButtonText: "Non",
-	                        	 }).then((result) => {
-                             		 if(!isEmpty(result.value))
-                               			createRDVModal(start,end,'{{ $patient->id }}',result.value);//createRDVModal(start,end,$('#id').val(),result.value);	
-                        		  })
+			},
+			select: function(start, end,jsEvent, view) {
+				if(start > today){//CurrentDate
+            Swal.fire({
+                   title: 'Confimer vous  le Rendez-Vous ?',
+                   html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',
+                   input: 'checkbox',
+                   inputPlaceholder: 'Redez-Vous Fixe',
+                   showCancelButton: true,
+                   confirmButtonColor: '#3085d6',
+                   cancelButtonColor: '#d33',
+                   confirmButtonText: 'Oui',
+                   cancelButtonText: "Non",
+        	  }).then((result) => {
+           		if(!isEmpty(result.value))
+           			popoverElement = $(jsEvent.target);
+                popoverElement.addClass("b");
+             		createRDVModal(jsEvent,start,end,'{{ $patient->id }}',result.value);//createRDVModal(start,end,$('#id').val(),result.value);	
+      		  })
 				}else
 					$('.calendar1').fullCalendar('unselect');
 			},
