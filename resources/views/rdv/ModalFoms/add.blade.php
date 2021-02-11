@@ -27,7 +27,7 @@
 					          <div class="col-sm-6">
 						          <div class="form-group">
 						          		<label class="col-form-label" for=""> <strong>&nbsp; </strong></label>
-						          		<select class="nav-search-input form-control" id="patient" name ="patient" autocomplete="off" required>
+						          		<select class="form-control" id="patient" name ="patient" required>{{-- nav-search-input --}}
 					                          @if(isset($patient))
 					                            <option value="{{$patient->id}}" selected>{{ $patient->IPP }}-{{ $patient->Nom }}-{{ $patient->Prenom }}</option>
 					                          @endif
@@ -55,11 +55,11 @@
 			           	<div class="col-sm-6">
 			           		<div class="form-group">
 					          		<label class="col-form-label" for=""> <strong>Medecin: </strong></label>
-			                          <select class="form-control" placeholder="Selectionner... " id="medecin" name ="medecin" autocomplete="off" disabled required></select>
+			                          <select class="form-control" placeholder="Selectionner... " id="medecin" name ="medecin" disabled required></select>
 				         		 </div>
 			           	</div>
-			           	</div>
-			           	</div>
+			           </div>
+			           </div>
 			           </div>
 			           @endif
 			</div>

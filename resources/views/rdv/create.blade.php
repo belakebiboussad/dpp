@@ -2,7 +2,6 @@
 @section('style')
 	<style> /*#dialog { display: none; }*/
   .make-scrolling {/* overflow-y: scroll; height: 100px;*/
-   
     overflow-y: scroll; /*overflow: hidden;*/
     max-height: 100px;
     margin-left:-0.7%;
@@ -110,7 +109,7 @@ $(document).ready(function() {
                         },
                         @endforeach   
               ], 
-              select: function(start, end) {
+               select: function(start, end) {
                     var minutes = end.diff(start,"minutes"); 
                     if( (minutes == 15) && (start >= CurrentDate))
                     {                                    
@@ -145,23 +144,23 @@ $(document).ready(function() {
                     }else
                       $('#calendar').fullCalendar('unselect');
 
-              },
-              eventClick: function(calEvent, jsEvent, view) {
+                },
+                eventClick: function(calEvent, jsEvent, view) {
                     if(Date.parse(calEvent.start) > today )
                     {
-                      $("#lien").attr("href", "{{ route('patient.show',$rdv->patient->id )}}");
-                      $('#lien').text(calEvent.title); 
-                      $('#patient_tel').text(calEvent.tel);
-                      $('#agePatient').text(calEvent.age); 
-                      $('#idRDV').val(calEvent.id);
-                      if($('#doctor').length && !(isEmpty(calEvent.key)))
-                             $('#doctor').val(rdvs[calEvent.key]['employe'].nom+" "+rdvs[calEvent.key]['employe'].prenom);
-                      $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
-                      (calEvent.fixe==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
-                      $('#btnConsulter').attr('href','/consultations/create/'.concat(calEvent.idPatient)); 
-                      if(calEvent.fixe &&(!(isEmpty(calEvent.key))))
-                        $('#printRdv').removeClass('hidden');
-                      $('#fullCalModal').modal({ show: 'true' });
+                          $("#lien").attr("href", "{{ route('patient.show',$rdv->patient->id )}}");
+                          $('#lien').text(calEvent.title); 
+                          $('#patient_tel').text(calEvent.tel);
+                          $('#agePatient').text(calEvent.age); 
+                          $('#idRDV').val(calEvent.id);
+                          if($('#doctor').length && !(isEmpty(calEvent.key)))
+                                 $('#doctor').val(rdvs[calEvent.key]['employe'].nom+" "+rdvs[calEvent.key]['employe'].prenom);
+                          $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
+                          (calEvent.fixe==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
+                          $('#btnConsulter').attr('href','/consultations/create/'.concat(calEvent.idPatient)); 
+                          if(calEvent.fixe &&(!(isEmpty(calEvent.key))))
+                            $('#printRdv').removeClass('hidden');
+                          $('#fullCalModal').modal({ show: 'true' });
                     }
               },
              eventRender: function (event, element, webData) {
@@ -243,6 +242,5 @@ $(document).ready(function() {
     </div>
   </div>
 </div>
-<div class="row">@include('rdv.ModalFoms.add')</div>
-<div class="row">@include('rdv.ModalFoms.show')</div>
+<div class="row">@include('rdv.ModalFoms.add')</div><div class="row">@include('rdv.ModalFoms.show')</div>
 @endsection
