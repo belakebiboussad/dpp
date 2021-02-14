@@ -53,13 +53,30 @@
   </head>
   <body>
     <div class="container-fluid">
-      <h5 class="sec-droite"><span style="font-size: xx-large;">
+      <!-- <h5 class="sec-droite"><span style="font-size: xx-large;">
         <strong> REPUBLIQUE ALGERIENNE DEMOCRATIQUE ET POPULAIRE</strong></span>
       </h5><br>
       <div class="sec-gauche">
         <h5>Ministère de l'Intérieur et des Collectivités Locales</h5>
         <h5>DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</h5>      
       </div><br>
-      <div class="sec-droite"><img src="img/logo.png" style="width: 60px; height: 60px" alt="logo"/></div><br>
+      <div class="sec-droite"><img src="img/logo.png" style="width: 60px; height: 60px" alt="logo"/></div><br> -->
+      <table>
+        <tr>
+          <td>Ministère de l'Intérieur et des Collectivités Locales</td>
+          <td></td>
+          <td rowspan="3"><img src="img/logo.png" style="width: 60px; height: 60px" alt="logo"/></td>
+        </tr>
+         <tr>
+          <td>DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</td>
+          <td>ss</td>
+          <td></td>
+        </tr>
+         <tr>
+          <td>ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
     </div>
 </body>
