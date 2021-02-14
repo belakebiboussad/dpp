@@ -327,35 +327,27 @@
 						</div>		
 				  	</div>{{-- col-sm-4 --}}
 				  </div>	{{-- row --}}
-				</div>
-				<div class="space-12"></div>
+				</div><div class="space-12"></div>
 				<div class="row" id="foncform">
 					<div class="col-sm-6">
 						<div class="form-group">
-							 <label class="col-sm-4 control-label" for="nsspatient">
-								<strong>NSS (patient):</strong>
-							</label>
+							 <label class="col-sm-4 control-label" for="nsspatient"><strong>NSS (patient):</strong></label>
 							<div class="col-sm-8">
 								<input type="text" class="form-control col-xs-12 col-sm-6" id="nsspatient" name="nsspatient" value="{{ $patient->NSS }}"
 								pattern="[0-9]{2}[0-9]{4}[0-9]{4}[0-9]{2}"  placeholder="XXXXXXXXXXXX" maxlength =12 minlength =12 />
 							</div>
 						</div>					
-					</div>
-					<div class="col-sm-6"></div>	
-				</div>{{-- row --}}
-			<div class="space-12"></div>
-			<div class="row">
+					</div><div class="col-sm-6"></div>	
+				</div><div class="space-12"></div>
+				<div class="row">
 				<div class="col-sm-6 starthidden">
 					<label for="description"><strong>Autre information :</strong></label>
 					<textarea class="form-control" id="description" name="description" placeholder="Description" >{{ $patient->description }}</textarea>
 				</div>
 			</div>
 			@if(count($correspondants) == 0) 	
-			<div class="row">
-		      		<div class="col-sm-12"><h3 class="header smaller lighter blue">Homme de Confiance</h3></div>
-			</div>
-		    <div class="row">
-		     		<div class="col-sm-1"></div>		
+			<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Homme de Confiance</h3></div></div>
+		    <div class="row"><div class="col-sm-1"></div>
 				<div class="col-sm-11">
 					<div class="form-group padding-left">
 						<input  type="checkbox" id="hommeConf" value="1"  class="ace input-lg"/>
@@ -366,25 +358,13 @@
 		@endif	
   	</div> {{-- tab-pane Patient --}}
   	<div id="Homme" class="tab-pane fade hidden_fields"><div class="row">@include('corespondants.widget')</div></div>
-  	</div> {{-- tab-content --}}
-	<div class="hr hr-dotted"></div>
+  	</div> {{-- tab-content --}}<div class="hr hr-dotted"></div>
 	<div class="row">
-		<div class="center">
-			<br>
-			<button class="btn btn-info btn-sm" type="submit">
-				<i class="ace-icon fa fa-save bigger-110"></i>
-				Enregistrer
-			</button>&nbsp; &nbsp; &nbsp;
-			<button class="btn btn-default btn-sm" type="reset">
-				<i class="ace-icon fa fa-undo bigger-110"></i>
-				Annuler
-			</button>
+		<div class="center"><br>
+			<button class="btn btn-info btn-sm" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
+			<button class="btn btn-default btn-sm" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 		</div>
 	</div>
-	</form>
-	<div class="row">
-    @include('corespondants.add')
-	</div>
-
+	</form><div class="row">@include('corespondants.add')</div>
 @endsection
 

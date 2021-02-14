@@ -25,8 +25,7 @@ $('document').ready(function(){
 	jQuery('#addRdv').click(function () {
 		jQuery('#RDV').modal('show');
 	});
-    	//calendar   
-     $('#calendar1').fullCalendar({
+     $('#calendar1').fullCalendar({//calendar  
        	plugins: [ 'dayGrid', 'timeGrid' ],
        	header: {
 		          left: 'prev,next today',

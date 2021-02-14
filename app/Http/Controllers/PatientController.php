@@ -25,6 +25,7 @@ use Carbon\Carbon;
 use Session;
 use View;
 use Response;
+use Flashy;
 use \COM;
 class PatientController extends Controller
 {
@@ -78,7 +79,7 @@ class PatientController extends Controller
               "prenomf"=> 'required_if:type,Ayant_droit',  // "datenaissancef"=> 'required_if:type,Ayant_droit|date|date_format:Y-m-d',
               "idlieunaissancef"=> 'required_if:type,Ayant_droit',
               "NMGSN"=> 'required_if:type,Ayant_droit',
-              "prenom_homme_c"=>'required_with:nom_homme_c',    //"datenaissance_h_c"=>'required_with:nom_homme_c',  // dresseA"=>'required_with:nom_homme_c',
+              "prenom_homme_c"=>'required_with:nom_homme_c', 
               "type_piece_id"=>'required_with:nom_homme_c', 
               "npiece_id"=>'required_with:nom_homme_c', //"lien"=>'required_with:nom_homme_c', //"date_piece_id"=>'required_with:nom_homme_c',    
               "mobile_homme_c"=>['required_with:nom_homme_c'],
@@ -242,7 +243,7 @@ class PatientController extends Controller
           $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();//->first();
           $specialites = Specialite::all();
           $grades = grade::all();
-          return view('patient.show_patient',compact('patient','employe','correspondants','specialites','grades'));
+          return view('patient.show',compact('patient','employe','correspondants','specialites','grades'));
         }
     /**
      * Show the form for editing the specified resource.
@@ -348,6 +349,7 @@ class PatientController extends Controller
                        "NSS"=>($request->type != "Autre" )? (($request->type == "Assure" )? $request->nss : $request->nsspatient) : null,
                        "Date_creation"=>$date,  
         ]);
+         Flashy::message('Welcome Aboard!', 'http://your-awesome-link.com');
         return redirect(Route('patient.show',$patient->id));
     }
     public function updateP(Request $request,$id) 

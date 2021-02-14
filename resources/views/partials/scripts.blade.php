@@ -39,7 +39,7 @@
 <script src="{{ asset('/js/prettify.min.js') }}"></script>
 <script src="{{ asset('/js/bootstrap-toggle.min.js') }}"></script>
 <script src="{{ asset('/js/ace-extra.min.js') }}"></script>
-<script src="{{ asset('/js/jquery.timepicker.min.js') }}"></script><!-- <script type="text/javascript" src="{{ asset('/js/bootstrap-timepicker.min.js') }}"></script> -->
+<script src="{{ asset('/js/jquery.timepicker.min.js') }}"></script>{{-- <script type="text/javascript" src="{{ asset('/js/bootstrap-timepicker.min.js') }}"></script> --}}
 <script src="{{ asset('/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
 <script src="{{ asset('/plugins/fullcalendar/locale/fr.js') }}"></script>
 <script src="{{ asset('/js/jquery-editable-select.js') }}"></script><!--  -->
@@ -274,8 +274,7 @@
             else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
         });
     });
-    //select/deselect a row when the checkbox is checked/unchecked
-    $('#table2').on('click', 'td input[type=checkbox]' , function(){
+    $('#table2').on('click', 'td input[type=checkbox]' , function(){  //select/deselect a row when the checkbox is checked/unchecked
         var $row = $(this).closest('tr');
         if($row.is('.detail-row ')) return;
         if(this.checked) $row.addClass(active_class);
@@ -880,7 +879,7 @@ $('#typeexm').on('change', function() {
         $('#updateRdv').attr('action',url);
        $('#fullCalModal').modal({ show: 'true' }); 
       }
-      function ajaxEditEvent(event,bool)
+     function ajaxEditEvent(event,bool)
       {
            $.get('/rdv/'+event.id +'/edit', function (data) {
                  var html ='';
@@ -920,7 +919,62 @@ $('#typeexm').on('change', function() {
         $('.calendar1').fullCalendar( 'refetchResources' );
         $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next');    
         $('.calendar1').fullCalendar('rerenderEvents');
-        $('.calendar1').fullCalendar( 'refetchEvents' );//getting latest Events
+      }
+     function createRDVModal(debut, fin, pid = 0, fixe=1)
+     { 
+          var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
+          var fin = moment(fin).format('YYYY-MM-DD HH:mm');  
+          if(pid != 0)
+          {
+            if('{{ Auth::user()->role_id }}' == 1)
+            {
+              var formData = { id_patient:pid,Debut_RDV:debut, Fin_RDV:fin, fixe:fixe  };
+              $.ajaxSetup({
+                   headers: {
+                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                    }
+              }); 
+              $.ajax({
+                    type : 'POST',
+                    url : '/createRDV',
+                    data:formData,  //dataType: 'json',
+                    success:function(data){         
+                        var color = (data['rdv']['fixe'] != 1)? '#87CEFA':'#378006';
+                        var event = new Object();
+                        event = {
+                                title: data['patient']['Nom'] + "  " + data['patient']['Prenom']+" ,("+data['age']+" ans)",
+                                start: debut,
+                                end: fin,
+                                id : data['rdv']['id'],
+                                idPatient:data['patient']['id'],
+                                fixe: data['rdv']['fixe'],
+                                tel:data['patient']['tele_mobile1'] ,
+                                age:data['age'],         
+                                allDay: false,   //color:color, //'#87CEFA'
+                        };
+                         $('.calendar1').fullCalendar( 'renderEvent', event );//, true
+                    },
+                    error: function (data) {
+                          console.log('Error:', data);
+                    }
+              });
+            }else{
+                    $('#Debut_RDV').val(debut);
+                    $('#Fin_RDV').val(fin);
+                    $('#fixe').val(fixe);
+                    $('#addRDVModal').modal({
+                           show: 'true'
+                    }); 
+            }
+          }else{
+                $('#Debut_RDV').val(debut);
+                $('#Fin_RDV').val(fin);
+                $(".es-list").empty(); 
+                $('#fixe').val(fixe);
+                $('#addRDVModal').modal({
+                      show: 'true'
+                }); 
+          }   
       } 
       function isEmpty(value) {
         return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
