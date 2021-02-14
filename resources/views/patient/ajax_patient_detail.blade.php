@@ -1,11 +1,8 @@
 <style>
-.nav-tabs{
-/*background-color:#C8D3DB;*/
-}
+/*.nav-tabs{background-color:#C8D3DB;}*/
  .nav-tabs > li > a{
     border-radius: 5px;
 }
- 
 .nav-tabs > li > a:hover{
     background-color: #3D515F !important;
     border-radius: 5px;
@@ -36,59 +33,70 @@
         <div class="tab-content" style="border:none">
           <div class="tab-pane noborders  in active" id="patient">
             <table class="table table-bordered table-condensed col-sm-12 w-auto">
-              <thead class="thead-light">
-              </thead>
               <tbody>
                 <tr>
-                  <td colspan="1" class ="noborders"><strong>nom:</strong></td>
-                  <td colspan="1" align="left">{{ $patient->Nom }}</td>
-                  <td colspan="1" class ="noborders"><strong>prenom :</strong></td>
-                  <td colspan="1" align="left">{{ $patient->Prenom }}</td>
+                    <td class ="noborders"><strong>nom:</strong></td><td align="left">{{ $patient->Nom }}</td>
+                    <td class ="noborders"><strong>prenom :</strong></td><td align="left">{{ $patient->Prenom }}</td>
                 </tr>
                 <tr>
-                      <td colspan="1" class ="noborders"><strong><strong>Âge :</strong></strong></td>
+                      <td class ="noborders"><strong><strong>Âge :</strong></strong></td>
                      <td align="left"><span class="badge badge-{{ $patient->getAge() < 18 ? 'danger':'success' }}">{{ $patient->getAge()  }}</span>Ans</td>
-                     <td  colspan="1" class ="noborders"><strong>Né(e) a:</strong></td >
-                     <td align="left">{{ $patient->lieuNaissance->nom_commune }}</td>
+                     <td class ="noborders"><strong>Né(e) a:</strong></td > <td align="left">{{ $patient->lieuNaissance->nom_commune }}</td>
               </tr>
                <tr>
-                                       <td colspan="1" class ="noborders"><strong>Genre :</strong></td>
-                                       <td align="left">@if ( $patient->Sexe == 'F' ) Féminin   @else  Masculin @endif </td>
-                                       <td colspan="1" class ="noborders"><strong>Civilité:</strong></td>
-                                      <td align="left">{{ $patient->situation_familiale }}</td>
-                                </tr>
-                                <tr>
-                                      <td colspan="1" class ="noborders"><strong>Adress :</strong></td>
-                                      <td align="left">{{ $patient->Adresse }}</td>
-                                      <td class ="noborders"><i class="fa fa-phone"></i><strong>Mob1:</strong></td>
-                                      <td align="left">{{ $patient->tele_mobile1 }}</td>
-                                </tr> 
-                                <tr>
-                                            <td colspan="1" class ="noborders"><i class="fa fa-phone"></i><strong>Mob2 :</strong></td>
-                                            <td align="left">{{ $patient->tele_mobile2 }}</td>
-                                            <td class ="noborders"><strong>N°Sec Soc:</strong></td>
-                                            <td align="left">{{ $patient->NSS }}</td>
-                                  </tr> 
-                                  <tr>
-                                            <td colspan="1" class ="noborders"><strong>Sang :</strong></td>
-                                            <td align="left"><span class="badge badge-danger">{{ $patient->group_sang }}{{ $patient->rhesus }}</span></td>
-                                            <td class ="noborders"><strong>Type:</strong></td>
-                                            <td align="left">
-                                              @switch($patient->Type)
-                                                @case("Assure")
-                                                  <span class="label label-sm label-success">
+                     <td class ="noborders"><strong>Genre :</strong></td><td align="left">@if ( $patient->Sexe == 'F' ) Féminin   @else  Masculin @endif </td>
+                     <td  class ="noborders"><strong>Civilité:</strong></td>
+                     <td align="left">
+                          @switch($patient->situation_familiale)
+                               @case("C")
+                                    <span class="label label-sm label-success">Célibataire(e)
+                                    @break
+                               @case("M")
+                                    <span class="label label-sm label-primary">Marié(e)
+                                    @break  
+                                @case("D")
+                                     <span class="label label-sm label-warning"> Divorcé(e)
+                                     @break
+                                @case("V")
+                                    <span class="label label-sm label-warning">Veuf(ve)
+                                     @break
+                          @endswitch  
+                    </td>
+                </tr>
+                <tr>
+                     <td class ="noborders"><strong>Adress :</strong></td><td align="left">{{ $patient->Adresse }}</td>
+                     <td class ="noborders"><i class="fa fa-phone"></i><strong>Mob1:</strong></td><td align="left">{{ $patient->tele_mobile1 }}</td>
+                </tr> 
+                <tr>
+                    <td class ="noborders"><i class="fa fa-phone"></i><strong>Mob2 :</strong></td><td align="left">{{ $patient->tele_mobile2 }}</td>
+                    <td class ="noborders"><strong>N°Sec Soc:</strong></td><td align="left">{{ $patient->NSS }}</td>
+                </tr> 
+                <tr>
+                     <td class ="noborders"><strong>Sang :</strong></td><td align="left"><span class="badge badge-danger">{{ $patient->group_sang }}{{ $patient->rhesus }}</span></td>
+                      <td class ="noborders"><strong>Type:</strong></td>
+                     <td align="left">
+                          @switch($patient->Type)
+                                     @case("0")
+                                                <span class="label label-sm label-success">Assure
                                                   @break
-                                                @case("Ayant_droit")
-                                                  <span class="label label-sm label-primary">
+                                     @case("1")
+                                                  <span class="label label-sm label-primary">Conjoint(e)
                                                   @break  
-                                                @case("Autre")
-                                                  <span class="label label-sm label-warning"> 
+                                     @case("2")
+                                                  <span class="label label-sm label-warning"> Père
                                                   @break
-                                              
-                                              @endswitch  
-                                              {{ $patient->Type}}
-                                              </span>
-                                            </td>
+                                     @case("3")
+                                                  <span class="label label-sm label-warning">Mère 
+                                                  @break
+                                     @case("4")
+                                                  <span class="label label-sm label-warning">Enfant 
+                                                  @break
+                                      @case("5")
+                                                  <span class="label label-sm label-warning">Autre 
+                                                  @break
+                                      @endswitch  
+                                     </span>
+                                    </td>
                                   </tr>           
                                   </tbody>
                                 </table>
@@ -96,41 +104,29 @@
                       @if(isset($assure))
                         <div class="tab-pane" id="assure">
                            <table class="table table-bordered table-condensed col-sm-12 w-auto">
-                           <thead class="thead-light">
-                                <tr></tr>
-                           </thead>
                            <tbody>
                                 <tr>
-                                     <td colspan="1" class ="noborders"><strong>Nom:</strong></td>
-                                     <td colspan="1">{{ $assure->Nom }}</td>
-                                    <td colspan="1" class ="noborders"><strong>Prenom :</strong></td>
-                                    <td colspan="1">{{ $assure->Prenom }}</td>
+                                     <td class ="noborders"><strong>Nom:</strong></td><td colspan="1">{{ $assure->Nom }}</td>
+                                    <td class ="noborders"><strong>Prenom :</strong></td><td >{{ $assure->Prenom }}</td>
                                 </tr>
                                 <tr>
-                                      <td colspan="1" class ="noborders"><strong>Né(e) le :</strong></td>
-                                      <td> {{ $assure->Date_Naissance }}</td>
-                                      <td  colspan="1" class ="noborders"><strong>Né(e) a:</strong></td>
-                                      <td>{{ $assure->lieuNaissance->nom_commune }}</td>
+                                      <td class ="noborders"><strong>Né(e) le :</strong></td> <td> {{ $assure->Date_Naissance }}</td>
+                                     <td class ="noborders"><strong>Né(e) a:</strong></td> <td>{{ $assure->lieuNaissance->nom_commune }}</td>
                                 </tr>  
                                 <tr>
-                                       <td colspan="1" class ="noborders"><strong>Genre :</strong></td>
-                                       <td>@if ( $assure->Sexe == 'F' ) Féminin @else  Masculin @endif </td>
-                                       <td colspan="1" class ="noborders"><strong>Matricule:</strong></td>
-                                      <td>{{ $assure->Matricule }}</td>
+                                       <td class ="noborders"><strong>Genre :</strong></td><td>@if ( $assure->Sexe == 'F' ) Féminin @else  Masculin @endif </td>
+                                       <td class ="noborders"><strong>Matricule:</strong></td><td>{{ $assure->Matricule }}</td> 
                                 </tr>
                                 <tr>
-                                       <td colspan="1" class ="noborders"><strong>N°Sec Soc :</strong></td>
-                                       <td>{{ $assure->NSS }}</td>
-                                       <td colspan="1" class ="noborders"><strong>NMGSN:</strong></td>
-                                      <td>{{ $assure->NMGSN }}</td>
+                                       <td class ="noborders"><strong>N°Sec Soc :</strong></td><td>{{ $assure->NSS }}</td>
+                                      <td class ="noborders"><strong>NMGSN:</strong></td><td>{{ $assure->NMGSN }}</td>
                                 </tr>
                                  <tr>
                                        <td colspan="1" class ="noborders"><strong>Grade :</strong></td>
                                        @if(isset($assure->Grade))
                                         <td>{{ $assure->grade->nom }}</td>
                                         @endif
-                                       <td colspan="1" class ="noborders blue"><strong>Etat:</strong></td>
-                                      <td>{{ $assure->Etat }}</td>
+                                       <td class ="noborders blue"><strong>Etat:</strong></td><td>{{ $assure->Etat }}</td>
                                 </tr>
                             </tbody>
                            </table>

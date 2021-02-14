@@ -47,7 +47,6 @@
                                 //color:color, //'#87CEFA'
                         };
                          $('.calendar1').fullCalendar( 'renderEvent', event );//, true
-                      
                     },
                     error: function (data) {
                           console.log('Error:', data);

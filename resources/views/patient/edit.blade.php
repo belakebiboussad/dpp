@@ -256,11 +256,11 @@
 		<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div></div>
 		<div class="space-12"></div>	
 		<div class="row">
-			<div class="col-sm-4"> <!-- style="padding-left:7%" -->
+			<div class="col-sm-4">
 				<label class="text-nowrap col-sm-4 col-xs-4" for="adresse" ><strong>Adresse:</strong></label>
 				<input type="text" value="{{ $patient->Adresse }}" id="adresse" name="adresse" placeholder="Adresse..." class="col-sm-8 col-xs-8"/>
 			</div>
-			<div class="col-sm-4"> <!-- style="margin-top: -0.1%;" -->
+			<div class="col-sm-4">
 				<label class="text-nowrap col-sm-4 col-xs-4" for="commune"><strong>Commune:</strong></label>
 				<input type="hidden" name="idcommune" id="idcommune" value="{{ $patient->commune_res }}"/>
 				<input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}" class="autoCommune col-sm-8 col-xs-8"/>					
