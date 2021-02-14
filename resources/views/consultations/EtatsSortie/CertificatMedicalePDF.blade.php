@@ -24,11 +24,7 @@
       {
         text-align: center;
       }
-      /*.col-sm-12
-      {
-         font-size: 16px;
-        margin-bottom: 15px;
-      }*/
+      
       .mt-15{
         margin-top:-15px;
       }
@@ -65,37 +61,34 @@
         <h4 class="mt12 center">DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</h4>
         <h4 class="center">ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</h4>
         <h4 class="center">Chemin des Glycines - ALGER</h4>
-        <h4 class="center">Tél : 23-93-34</h4>
+        <h4 class="center">Tél : 023-93-34</h4>
         <h5 class="mt-15 center" ><img src="img/logo.png" style="width: 60px; height: 60px" alt="logo"/></h5>
         <h5 class="mt-20 center"><span style="font-size: xx-large;"><strong>Certificat medical</strong></span></h5>
         <div class="row"><br><span class="ml-80">Alger le {{ $date}}</span><br><br></div>
         <div class="row"><div class="col-sm-12"><strong>Service : </strong>
-          <span>{{ $consult->docteur->Service->nom }}</span> </div>
+          <span>{{ $obj->docteur->Service->nom }}</span> </div>
         </div>
         <div class="row"><div class="col-sm-12"><strong>Chef de servise : </strong>
-        <span>{{ $consult->docteur->Service->responsable->nom }}</span></div>
+        <span>{{ $obj->docteur->Service->responsable->nom }}</span></div>
         </div><br>
         <div class="row">
           <div class="col-sm-12"><strong>je soussigné docteur  : </strong>
-            <span>{{ $consult->docteur->nom }} {{ $consult->docteur->prenom }}</span>
+            <span>{{ $obj->docteur->nom }} {{ $obj->docteur->prenom }}</span>
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-12"><strong>certifier que Mme,mr,Mme : </strong>
-          <span>{{ $consult->patient->Nom }}{{ $consult->patient->Prenom }}</span></div>
+          <div class="col-sm-12"><strong>certifier que {{ $obj->patient->getCivilite() }} : </strong>
+          <span>{{ $obj->patient->Nom }}{{ $obj->patient->Prenom }}</span></div>
         </div>
         <div class="row">
           <div class="col-sm-12"><span style="padding-top: 10px;">
-            Presente {{ $consult->Diagnostic }}
+            Presente {{ $obj->Diagnostic }}
           </div>
         </div>
          <div class="row">
           <div class="col-sm-12"><span style="padding-top: 10px;">
-            le patient {{ $consult->Resume_OBS }}
+            le patient {{ $obj->Resume_OBS }}
           </div>
-        </div>
-        <br>
-       
-       
+        </div><br>      
     </body>
   </html>

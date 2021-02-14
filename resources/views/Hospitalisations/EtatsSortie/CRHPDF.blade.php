@@ -52,33 +52,33 @@
       <h2 class="mt-20 center">DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</h2>
       <h4 class="center">ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</h4>
       <h4 class="center">Chemin des Glycines - ALGER</h4>
-      <h4 class="center">Tél : 23-93-34</h4>
+      <h4 class="center">Tél : 023-93-34</h4>
       <h5 class="mt-15 center" ><img src="img/logo.png" style="width: 60px; height: 60px" alt="logo"/></h5>
       <h5 class="mt-20 center"><span style="font-size: xx-large;"><strong>COMPTE RENDU D’HOSPITALISATION</strong></span></h5><br><br>
       <div class="sec-droite"><strong>FAIT LE :</strong><span>{{ $date }}</span></div><br>
       <div><strong>Cher confrère,</strong></div><br><br>
       <div>
-        <strong>Votre patient (e) : {{ $hosp->patient->getCivilite() }}</strong>
-        <span>{{ $hosp->patient->Nom }} &nbsp;{{ $hosp->patient->Prenom}}</span>.
+        <strong>Votre patient (e) : {{ $obj->patient->getCivilite() }}</strong>
+        <span>{{ $obj->patient->Nom }} &nbsp;{{ $obj->patient->Prenom}}</span>.
       </div><br>
       <div>
-        <strong>Né le :</strong><span>{{ $hosp->patient->Dat_Naissance }} </span>
+        <strong>Né le :</strong><span>{{ $obj->patient->Dat_Naissance }} </span>
       </div><br>
       <div>
         <strong>A été hospitalisé(e) dans le service de : </strong>
-        <span>{{ $hosp->admission->rdvHosp->demandeHospitalisation->Service->nom }}</span>
+        <span>{{ $obj->admission->rdvHosp->demandeHospitalisation->Service->nom }}</span>
       </div><br>
       <div>
         <strong>Date d’hospitalisation :</strong>
-        <span>{{ $hosp->Date_entree }}</span><strong>&nbsp;Au&nbsp;</strong><span>{{ $hosp->Date_Sortie }}</span>
+        <span>{{ $obj->Date_entree }}</span><strong>&nbsp;Au&nbsp;</strong><span>{{ $obj->Date_Sortie }}</span>
       </div><br>
       <div>
         <strong>Mode d’admission :</strong>
-        <span>{{ $hosp->admission->rdvHosp->demandeHospitalisation->modeAdmission }}</span>
+        <span>{{ $obj->admission->rdvHosp->demandeHospitalisation->modeAdmission }}</span>
       </div><br>
       <div>
         <strong>Motif d’hospitalisation :</strong>
-        <span>{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->observation }}</span>
+        <span>{{ $obj->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->observation }}</span>
       </div><br>
       <div class="rectangle center"><strong>INFORMATION PATIENT</strong></div>
       <div><br>
@@ -93,7 +93,7 @@
             </tr>
           </thead>
           <tbody>
-            @foreach ($hosp->patient->antecedants as $ant)
+            @foreach ($obj->patient->antecedants as $ant)
               <tr>
                 <td>{{ $ant->Antecedant }}</td>
                 <td>{{ $ant->typeAntecedant ? 'Physiologiques' : 'pathologiques' }}</td>  
@@ -107,7 +107,7 @@
       </div><br>
       <div>
         <strong>Allergie :</strong>
-        <span>{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->observation }}</span>
+        <span>{{ $obj->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->observation }}</span>
       </div><br>
       <div>
         <strong>Traitement d’entrée :</strong>
@@ -116,20 +116,20 @@
       <div class="rectangle center"><strong>PRISE EN CHARGE HOSPITALIERE</strong></div><br>
       <div>
         <strong>Histoire de la maladie :</strong>
-        <span>{{ $hosp->admission->rdvHosp->demandeHospitalisation->consultation->histoire_maladie }}</span>
+        <span>{{ $obj->admission->rdvHosp->demandeHospitalisation->consultation->histoire_maladie }}</span>
       </div><br>
       <div>
         <strong>Examen clinique :</strong><br><br>
         <span>
-          @if($hosp->admission->rdvHosp->demandeHospitalisation->consultation->examensCliniques)
+          @if($obj->admission->rdvHosp->demandeHospitalisation->consultation->examensCliniques)
           <ul class="list-unstyled spaced">
-            <li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;"><strong>Taille : </strong><span class="badge badge-pill badge-primary"> {{ $hosp->admission->rdvHosp->demandeHospitalisation->consultation->examensCliniques->taille }}</span></span>&nbsp;(m)</li>
-            <li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;"><strong>Poids :</strong><span class="badge badge-pill badge-danger"> {{ $hosp->admission->rdvHosp->demandeHospitalisation->consultation->examensCliniques->poids  }}</span></span>&nbsp;(kg)</li>
-            <li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">IMC : <span class="badge badge-pill badge-danger"> {{ $hosp->admission->rdvHosp->demandeHospitalisation->consultation->examensCliniques->IMC  }}</span></span>&nbsp;</li>
-            <li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">Températeur : {{ $hosp->admission->rdvHosp->demandeHospitalisation->consultation->examensCliniques->temp  }}</span>&nbsp;&deg;C</li>
-            <li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">Autre : {{ $hosp->admission->rdvHosp->demandeHospitalisation->consultation->examensCliniques->autre  }}</span>&nbsp;</li>
-            <li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">Etat Géneral du patient  :</span><span>{{ $hosp->admission->rdvHosp->demandeHospitalisation->consultation->examensCliniques->Etat  }}</span>&nbsp;</li>
-            <li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">Peau et phanéres  : {{ $hosp->admission->rdvHosp->demandeHospitalisation->consultation->examensCliniques->peaupha  }}</span>&nbsp;</li>
+            <li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;"><strong>Taille : </strong><span class="badge badge-pill badge-primary"> {{ $obj->admission->rdvHosp->demandeHospitalisation->consultation->examensCliniques->taille }}</span></span>&nbsp;(m)</li>
+            <li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;"><strong>Poids :</strong><span class="badge badge-pill badge-danger"> {{ $obj->admission->rdvHosp->demandeHospitalisation->consultation->examensCliniques->poids  }}</span></span>&nbsp;(kg)</li>
+            <li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">IMC : <span class="badge badge-pill badge-danger"> {{ $obj->admission->rdvHosp->demandeHospitalisation->consultation->examensCliniques->IMC  }}</span></span>&nbsp;</li>
+            <li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">Températeur : {{ $obj->admission->rdvHosp->demandeHospitalisation->consultation->examensCliniques->temp  }}</span>&nbsp;&deg;C</li>
+            <li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">Autre : {{ $obj->admission->rdvHosp->demandeHospitalisation->consultation->examensCliniques->autre  }}</span>&nbsp;</li>
+            <li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">Etat Géneral du patient  :</span><span>{{ $obj->admission->rdvHosp->demandeHospitalisation->consultation->examensCliniques->Etat  }}</span>&nbsp;</li>
+            <li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">Peau et phanéres  : {{ $obj->admission->rdvHosp->demandeHospitalisation->consultation->examensCliniques->peaupha  }}</span>&nbsp;</li>
           </ul>
         </span>
         @else
@@ -139,11 +139,11 @@
       </div><br>
       <div>
         <strong>Evolution :</strong>
-        <span>{{ $hosp->etatSortie }}</span>
+        <span>{{ $obj->etatSortie }}</span>
       </div><br>
       <div>
         <strong>Conclusion :</strong>
-        <span>{{ $hosp->remumeSortie }}</span>
+        <span>{{ $obj->resumeSortie }}</span>
       </div><br>
     </div>
   </body>

@@ -215,33 +215,16 @@ class ConsultationsController extends Controller
     }
     public function getConsultations(Request $request)
     {
-          if($request->ajax())  
-          {         
-               if($request->field != 'Nom')
-                     $consults =consultation::with('patient','docteur')->where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
-                else
-                    $consults =consultation::with('patient','docteur')->whereHas('patient',function($q) use ($request){
-                                                              $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
-                                                          })->get();
-                return Response::json($consults);
-          }
+      if($request->ajax())  
+      {         
+       if($request->field != 'Nom')
+             $consults =consultation::with('patient','docteur')->where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
+        else
+            $consults =consultation::with('patient','docteur')->whereHas('patient',function($q) use ($request){
+                                                      $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
+                                                  })->get();
+        return Response::json($consults);
+      }
 
     }
-     public function imprimer(Request $request)
-     {
-          $filename ="";$pdf;
-          $date= Carbon::now()->format('Y-m-d');
-          $consult  = consultation::find($request->consult_id);  
-          view()->share('consult', $consult);
-          switch($request->selectDocm) {
-                case "3":
-                    $filename = "CM-".$consult->patient->Nom."-".$consult->patient->Prenom.".pdf";
-                    $pdf = PDF::loadView('consultations.EtatsSortie.CertificatMedicalePDF', compact('consult','date'));
-                    break;
-                default:
-                    return response()->json(['html'=>"unknown"]);
-                    break;
-          }
-          return $pdf->download($filename); 
-      } 
 }

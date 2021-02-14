@@ -41,7 +41,7 @@
 	<h3 class="center">DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</h3>
 	<h4 class="center">ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE</h4>
 	<h4 class="center">Chemin des Glycines - ALGER</h4>
-	<h4 class="center">Tél : 23-93-34</h4>
+	<h4 class="center">Tél : 023-93-34</h4>
 	<br><br>
 	<div class="center">
 		<img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($demande->consultation->patient->IPP, 'C128')}}" alt="barcode" />

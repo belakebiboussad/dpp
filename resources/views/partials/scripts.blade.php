@@ -165,9 +165,7 @@
         $.ajax({
                 type : 'GET',
                 url :'/rdvprint/'+$('#idRDV').val(),
-                success:function(data){
-                  alert(data);
-                },
+                success:function(data){},
                 error:function(data){
                   console.log("error");
                 }
@@ -510,7 +508,7 @@ $('#typeexm').on('change', function() {
           lettre.text(105,20, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
           lettre.text(105,28, 'HOPITAL CENTRAL DE LA SURETE NATIONALE "LES GLYCINES"', null, null, 'center');
           lettre.text(105,36, '12, Chemin des Glycines - ALGER', null, null, 'center');
-          lettre.text(105,44, 'Tél : 23-93-34 - 23-93-58', null, null, 'center');
+          lettre.text(105,44, 'Tél : 023-93-34 - 023-93-58', null, null, 'center');
           lettre.text(200,58, 'Alger,le : '+dd+'/'+mm+'/'+yyyy, null, null, 'right');
           lettre.text(20,68, 'Emetteur : '+nommedt+' '+prenommedt, null, null);
           lettre.text(20,76, 'Tél : '+telmedt, null, null);
@@ -925,11 +923,12 @@ $('#typeexm').on('change', function() {
         $('.calendar1').fullCalendar( 'refetchEvents' );//getting latest Events
       } 
       function isEmpty(value) {
-             return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
+        return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
       }
-      function ImprimerEtat(objID)
+      function ImprimerEtat(className,objID)
       { 
-           $("#objID").val( objID );
-           $('#EtatSortie').modal('show');
+        $("#className").val( className );
+        $("#objID").val( objID );
+        $('#EtatSortie').modal('show');
       }
 </script>

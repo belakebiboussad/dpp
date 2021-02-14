@@ -217,8 +217,7 @@ class RDVController extends Controller
           case 'Enf.':
             $civilite =3; 
             break;   
-        }
-        return($rdv->patient->getCivilite()); 
+        }//return($rdv->patient->getCivilite()); 
         $pdf417 = new PDF417();
         $data = $pdf417->encode($civilite.$rdv->id.'|'.$rdv->employe->specialite.'|'.Carbon::parse($rdv->Date_RDV)->format('dmy'));
         $renderer = new ImageRenderer([

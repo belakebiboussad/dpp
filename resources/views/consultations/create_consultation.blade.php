@@ -279,7 +279,7 @@
           doc.text(105,16, 'HOPITAL CENTRAL DE LA SURETE NATIONALE "LES GLYCINES"', null, null, 'center');
           doc.setFontSize(12);
           doc.text(105,21, '12, Chemin des Glycines - ALGER', null, null, 'center');
-          doc.text(105,26, 'Tél : 23-93-34 - 23-93-58', null, null, 'center');
+          doc.text(105,26, 'Tél : 023-93-34 - 23-93-58', null, null, 'center');
           doc.addImage(imge, 'JPEG', 95, 27, 17, 17);
           doc.setFontSize(14);
           doc.addImage(imgData, 'JPEG', 10, 10);
@@ -361,7 +361,7 @@
 	          doc.text(105,16, 'HOPITAL CENTRAL DE LA SURETE NATIONALE "LES GLYCINES"', null, null, 'center');
 	          doc.setFontSize(12);
 	          doc.text(105,21, '12, Chemin des Glycines - ALGER', null, null, 'center');
-	          doc.text(105,26, 'Tél : 23-93-34 - 23-93-58', null, null, 'center');
+	          doc.text(105,26, 'Tél : 023-93-34 - 23-93-58', null, null, 'center');
 	          doc.addImage(imge, 'JPEG', 95, 27, 17, 17);
 	          doc.setFontSize(14);
 	          doc.text(200,60, 'Alger :' +formattedDate , null, null, 'right'); 

@@ -1,16 +1,16 @@
 <div class="modal fade" id="fullCalModal" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
-   		 <div class="modal-content">
-      		<div class="modal-header">
-        			<h5 class="modal-title"><span class="glyphicon glyphicon-bell"></span>&nbsp;Détails du Rendez-Vous de &nbsp; <q><a href="" id="lien" class="white"></a></q></h5>
-        			<button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span></button><hr>
-        			<div class="row">
-                     	<div class="col-sm-6"> <i class="fa fa-phone" aria-hidden="true"></i><strong>Téléphone:&nbsp;</strong><span id="patient_tel" class="white"></span></div>
-                     	<div class="col-sm-6"><strong>Âge:&nbsp;</strong><span id="agePatient" class="white"></span> <small>Ans</small></div>
-                     </div>       
-      		</div>
-      		<form id ="updateRdv" role="form" method="POST"> 
-      		<div class="modal-body">
+   	<div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><span class="glyphicon glyphicon-bell"></span>&nbsp;Détails du Rendez-Vous de &nbsp; <q><a href="" id="lien" class="white"></a></q></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span></button><hr>
+        <div class="row">
+         	<div class="col-sm-6"> <i class="fa fa-phone" aria-hidden="true"></i><strong>Téléphone:&nbsp;</strong><span id="patient_tel" class="white"></span></div>
+         	<div class="col-sm-6"><strong>Âge:&nbsp;</strong><span id="agePatient" class="white"></span> <small>Ans</small></div>
+        </div>       
+      </div>
+      <form id ="updateRdv" role="form" method="POST"> 
+        <div class="modal-body">
           		     <input type="hidden" id="idRDV">
                      <div class="well">   
                           <div class="row">

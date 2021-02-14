@@ -3,21 +3,21 @@
 <script type="text/javascript">
 	function effectuerSortieAdm(adm_id){
 		Swal.fire({
-                  title: 'Confimer vous  la Sortie du Patient ?',
-                  html: '',
-                  showCancelButton: true,
-                  confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
-                  confirmButtonText: 'Oui',
-                  cancelButtonText: "Non",
-                }).then((result) => {
-                	if(!isEmpty(result.value))
-                     {//var adm_id = $(this).val();
-                         	$.get('/sortiePatient/'+adm_id, function (data, status, xhr) {
-					      $("#adm" + adm_id).remove();
-					});
-                     }
-                })
+              title: 'Confimer vous  la Sortie du Patient ?',
+              html: '',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Oui',
+              cancelButtonText: "Non",
+           	}).then((result) => {
+            	if(!isEmpty(result.value))
+              {//var adm_id = $(this).val();
+                $.get('/sortiePatient/'+adm_id, function (data, status, xhr) {
+			      			$("#adm" + adm_id).remove();
+								});
+              }
+            })
 	}
 	function getAction(data, type, dataToSet) {
 		var actions='';
@@ -30,7 +30,7 @@
 				actions +='	<button type="button" class="btn btn-info btn-xs" onclick ="effectuerSortieAdm('+data.id+')" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Efffectuer la Sortie" disabled><i class="fa fa-sign-out" aria-hidden="false"></i></button>';
 		}else
 		{
-			actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat('+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';   
+			actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat(\'admission\','+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';   
 		}
 		return actions;
 	}
@@ -89,12 +89,23 @@
 			getSorties($(this).attr('id'),$(this).val());
 		});
 		$(document).on('click', '.selctetat', function(event){
-          		event.preventDefault();
-          		var formData = {
-                  adm_id: $('#objID').val(),
-                  selectDocm :$(this).val(),
-            };
-          });
+    		event.preventDefault();
+      	var formData = {
+      		class_name: $('#className').val(),		
+          obj_id: $('#objID').val(),
+          selectDocm :$(this).val(),
+        };
+        $.ajax({
+            type : 'get',
+            url : '{{URL::to('reportprint')}}',
+            data:formData,
+              success(data){
+              	alert(data);
+                //$('#EtatSortie').modal('hide');
+              },
+        }); 
+      
+    });
 	});
 </script>
 @endsection

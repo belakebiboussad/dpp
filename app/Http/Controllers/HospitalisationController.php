@@ -159,33 +159,4 @@ class HospitalisationController extends Controller
                 return Response::json($hosps);
           }
     }
-    public function imprimer(Request $request)
-    {
-      $filename ="";
-      $date= Carbon::now()->format('Y-m-d');
-      $hosp  = hospitalisation::find($request->hosp_id);  
-      view()->share('hosp', $hosp);
-      switch($request->selectDocm) {
-            case "1":
-              $filename = "RSS-".$hosp->patient->Nom."-".$hosp->patient->Prenom.".pdf";
-              $pdf = PDF::loadView('hospitalisations.EtatsSortie.ResumeStandartSortiePDF', compact('hosp'));
-              break;
-            case "2":
-              $filename = "RCS-".$hosp->patient->Nom."-".$hosp->patient->Prenom.".pdf";
-              $pdf = PDF::loadView('hospitalisations.EtatsSortie.ResumeCliniqueSortiePDF', compact('hosp'));
-              break;
-            case "4":
-              $filename = "CAM-".$hosp->patient->Nom."-".$hosp->patient->Prenom.".pdf";
-              $pdf = PDF::loadView('hospitalisations.EtatsSortie.AttestationContreAvisMedicalePDF', compact('hosp','date'));
-              break;
-            case "5":
-              $filename = "CRO-".$hosp->patient->Nom."-".$hosp->patient->Prenom.".pdf";
-              $pdf = PDF::loadView('hospitalisations.EtatsSortie.CRHPDF', compact('hosp','date'));
-              break;    
-            default:
-               return response()->json(['html'=>"unknown"]);
-               break;
-      }
-      return $pdf->download($filename);    
-    }
 }

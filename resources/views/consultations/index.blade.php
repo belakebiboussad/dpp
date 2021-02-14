@@ -57,7 +57,7 @@ function getConsultations(field,value)
 }
 function getAction(data, type, dataToSet) {
   var actions = '<a href = "/consultations/'+data.id+'" style="cursor:pointer" class="btn btn-secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>';
-  actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat('+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';
+  actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat(\'consultation\','+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';
   return actions;
 }
 $('document').ready(function(){
@@ -66,18 +66,19 @@ $('document').ready(function(){
           getConsultations($(this).attr('id'),$(this).val());
     });
     $(document).on('click', '.selctetat', function(event){  
-      var selectDocm=$(this).val(); //event.preventDefault();
+      event.preventDefault();
       var formData = {
-            consult_id: $('#objID').val(),
-            selectDocm :selectDocm,
+          class_name: $('#className').val(),   
+          obj_id: $('#objID').val(),
+          selectDocm :$(this).val(),
       };
-       $.ajax({
-            type : 'get',
-            url : '{{URL::to('imprimerEtatSortieConsult')}}',
-            data:formData,
-              success(data){
-                $('#EtatSortie').modal('hide');
-              },
+      $.ajax({
+          type : 'get',
+          url : '{{URL::to('reportprint')}}',//'{{URL::to('imprimerEtatSortieConsult')}}'
+          data:formData,
+            success(data){
+              $('#EtatSortie').modal('hide');
+            },
       }); 
       
     });

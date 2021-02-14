@@ -60,45 +60,45 @@
       <h5 class="mt-20 center"><span style="font-size: xx-large;"><strong>Résumé Standard de Sortie</strong></span> </h5><br><br> 
      <div class="row"> <div class="col-sm-12"><strong>Etablisement : </strong><span>{{ (App\modeles\Lieuconsultation::find(session('lieu_id'))->nom )}}</span></div></div>
      <div class="row" ><div class="col-sm-12"> <strong>Chef de servise : </strong>
-            <span>{{ $hosp->admission->rdvHosp->demandeHospitalisation->Service->responsable->nom }} {{ $hosp->admission->rdvHosp->demandeHospitalisation->Service->responsable->prenom }}</span> </div>
+            <span>{{ $obj->admission->rdvHosp->demandeHospitalisation->Service->responsable->nom }} {{ $obj->admission->rdvHosp->demandeHospitalisation->Service->responsable->prenom }}</span> </div>
       </div><br><hr/>
      <section class="table"> 
           <table class="head" style="width:100%;">   <thead> </thead>
                <tbody>
                       <tr>
-                          <td class="first"><strong>Matricule :</strong><span> &nbsp;{{ $hosp->patient->assure->matricule }}</span></td>
-                          <td><strong>N° Dossier</strong><span> &nbsp;{{ $hosp->patient->IPP}}</span></td>
+                          <td class="first"><strong>Matricule :</strong><span> &nbsp;{{ $obj->patient->assure->matricule }}</span></td>
+                          <td><strong>N° Dossier</strong><span> &nbsp;{{ $obj->patient->IPP}}</span></td>
                      </tr>
                     <tr class="noBorder">
-                          <td class="first"><strong>Nom et Prenom : </strong>&nbsp;<span> &nbsp;{{ $hosp->patient->Nom }}{{ $hosp->patient->Prenom }}</span></td>
+                          <td class="first"><strong>Nom et Prenom : </strong>&nbsp;<span> &nbsp;{{ $obj->patient->Nom }}{{ $obj->patient->Prenom }}</span></td>
                           <td></td>
                     </tr>
                   <tr class="noBorder">
                       <td class="first"><strong>Date de Naissance :<strong>&nbsp;
-                          <span> &nbsp;{{ $hosp->patient->Dat_Naissance }}</span><span> &nbsp;({{ $hosp->patient->getAge() }} ans)</span>
+                          <span> &nbsp;{{ $obj->patient->Dat_Naissance }}</span><span> &nbsp;({{ $obj->patient->getAge() }} ans)</span>
                       </td>
-                     <td><strong>Sexe :<strong>&nbsp;<span> &nbsp;{{ $hosp->patient->Sexe }}</span></td>
+                     <td><strong>Sexe :<strong>&nbsp;<span> &nbsp;{{ $obj->patient->Sexe }}</span></td>
                 </tr>
                 <tr class="noBorder">
-                  <td class="first"><strong>Lieu de Naissance:</strong><span> &nbsp;{{ $hosp->patient->lieuNaissance->nom_commune }}</span></td>
-                  <td><strong>Lieu de Résidence(Wilaya):</strong><span><span> &nbsp;{{ $hosp->patient->commune->daira->wilaya->nom }}</span></td>
+                  <td class="first"><strong>Lieu de Naissance:</strong><span> &nbsp;{{ $obj->patient->lieuNaissance->nom_commune }}</span></td>
+                  <td><strong>Lieu de Résidence(Wilaya):</strong><span><span> &nbsp;{{ $obj->patient->commune->daira->wilaya->nom }}</span></td>
                 </tr>
             <tr class="noBorder">
-              <td class="first"><strong>Adresse:</strong><span> &nbsp;{{ $hosp->patient->Adresse }}</span></td><td></td>
+              <td class="first"><strong>Adresse:</strong><span> &nbsp;{{ $obj->patient->Adresse }}</span></td><td></td>
             </tr>
             <tr class="noBorder">
-              <td class="first"><strong>Date d'admisston a hopital :</strong><span> &nbsp;{{ $hosp->admission->rdvHosp->date_RDVh }}</span></td><td></td>
+              <td class="first"><strong>Date d'admisston a hopital :</strong><span> &nbsp;{{ $obj->admission->rdvHosp->date_RDVh }}</span></td><td></td>
             </tr>
             <tr><td colspan="2" class="center"><span  style="text-transform:uppercase">dernier service d'hospitalisation</span></td>
             </tr>
             <tr class="noBorder">
-              <td class="first"><strong>Date d'entrée au Service :</strong><span> &nbsp;{{ $hosp->Date_entree }}</span></td>
-              <td><strong>Médecin traitant :</strong><span> &nbsp;{{  $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->nom }}
-              {{  $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->prenom }}</span></td>
+              <td class="first"><strong>Date d'entrée au Service :</strong><span> &nbsp;{{ $obj->Date_entree }}</span></td>
+              <td><strong>Médecin traitant :</strong><span> &nbsp;{{  $obj->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->nom }}
+              {{  $obj->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->prenom }}</span></td>
             </tr>
             <tr class="noBorder">
               <td class="first"><strong>Mode de Sortie :</strong>
-                   @switch($hosp->modeSortie)
+                   @switch($obj->modeSortie)
                           @case(0)
                               &nbsp;Transfert
                                @break
@@ -116,13 +116,13 @@
                                @break
                      @endswitch
                 </td>
-              <td><strong>Date de Sortie de l'Hôpital :</strong><span> &nbsp;{{ $hosp->Date_Sortie }}</span></td>
+              <td><strong>Date de Sortie de l'Hôpital :</strong><span> &nbsp;{{ $obj->Date_Sortie }}</span></td>
             </tr>
             <tr>
-              <td class="first" colspan="2"><strong>Motif d'hospitalisation :</strong><span> &nbsp;{{ $hosp->admission->rdvHosp->demandeHospitalisation->consultation->Motif_Consultation }}</span></td>
+              <td class="first" colspan="2"><strong>Motif d'hospitalisation :</strong><span> &nbsp;{{ $obj->admission->rdvHosp->demandeHospitalisation->consultation->Motif_Consultation }}</span></td>
             </tr>
             <tr class="noBorder">
-              <td class="first" colspan="2"><strong>Diagnostic Principale de sotie :</strong><span> &nbsp;{{ $hosp->diagSortie }}</span></td>
+              <td class="first" colspan="2"><strong>Diagnostic Principale de sotie :</strong><span> &nbsp;{{ $obj->diagSortie }}</span></td>
             </tr>
           </tbody>
         </table>

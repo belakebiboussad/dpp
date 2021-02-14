@@ -58,7 +58,6 @@ route::get('/home_admission','AdmissionController@index')->name('home_admission'
 Route::get('/sortiesAdmission','AdmissionController@sortir')->name('admission.sortieAdm');
 Route::get('/getSortiesAdmissions','AdmissionController@getSortiesAdmissions');//Route::get('/admission/create/{id}','AdmissionController@create');//a commenter
 Route::get('sortiePatient/{id}','AdmissionController@updateAdm');
-//route::get('/home_infermier','HospitalisationController@index')->name('home_infermier');
 route::get('/demandeproduit/run/{id}','demandeprodController@run')->name('runDemande');
 route::post('/demandeproduit/valider/{id}','demandeprodController@valider')->name('demandeproduit.valider');
 Route::post('user/credentials','UsersController@credentials');
@@ -79,7 +78,6 @@ Route::get('getConsultations/{id}','ConsultationsController@listecons');
 Route::get('/createConsultation','ConsultationsController@choix');
 Route::get('/choixpat','ConsultationsController@choix');
 Route::get('/getConsultations','ConsultationsController@getConsultations');
-Route::get('/imprimerEtatSortieConsult','ConsultationsController@imprimer');
 Route::post('/colloque/store/{id}','ColloqueController@store');// a revoir
 Route::put('/colloque/{membres,id_demh}', 'ColloqueController@store');// a revoir
 Route::get('/listecolloques/{type}','ColloqueController@index');
@@ -92,15 +90,12 @@ Route::get('/getUrgdemande/{date}','DemandeHospitalisationController@getUrgDeman
 Route::get('/listeRDVs', 'RdvHospiController@getlisteRDVs');
 Route::post('/hospitalisation/{id}','HospitalisationController@update');
 Route::get('/getHospitalisations','HospitalisationController@getHospitalisations');
-Route::get('/imprimerEtatSortieHosp','HospitalisationController@imprimer')->name('imprimerReport');
 Route::post('users/changePassword', 'UsersController@changePassword');
 Route::post('/users/store/','UsersController@store');
 Route::get('/searchAssure','AssurController@search');
 route::get('/getsalles','SalleController@getsalles');
 Route::get('/atcd/create/{id}','AntecedantsController@create');
 Route::get('/atcd/index/{id}','AntecedantsController@index');
-
-
 Route::post('/atcd/store/{id}','AntecedantsController@store');
 Route::get('/rdv/create/{id}','RDVController@create');
 Route::post('/createRDV','RDVController@AddRDV');
@@ -112,6 +107,7 @@ Route::get('rdvHospi/create/{id}','RdvHospiController@create')->name('rdvHospi.c
 Route::get('/rdvHospi/imprimer/{rdv}', ['as' => 'admission.pdf', 'uses' => 'RdvHospiController@print']);
 Route::get('/choixpatient','RDVController@choixpatient');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/reportprint','HomeController@print');
 route::get('/getAddEditRemoveColumnData','UsersController@getAddEditRemoveColumnData');
 route::get('/getrdv','RDVController@getRDV');
 route::get('/getpatient','PatientController@getpatient');

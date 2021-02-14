@@ -34,16 +34,16 @@
           var rols = [ 3, 5,9 ];
           var actions =  '<a href = "/hospitalisation/'+data.id+'" style="cursor:pointer" class="btn secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>' ;  
           if($.inArray({{  Auth::user()->role_id }}, rols) == -1){
-                if( data.etat_hosp != "1")                    
-                {
-                       actions += '<a href="/hospitalisation/'+data.id+'/editf" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier Hospitalisation" data-placement="bottom"><i class="fa fa-edit fa-xs" aria-hidden="true" fa-lg bigger-120></i></a>';
-                }
-                if( data.etat_hosp != "1")                    
-                {
-                        actions +='<a href="/visite/create/'+data.id+'" class ="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter une Visite" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle"></i></a>';
-                        actions +='<a data-toggle="modal" data-id="'+data.id+'" title="Clôturer Hospitalisation"  onclick ="cloturerHosp('+data.id+')" class="btn btn-warning btn-xs" href="#" id="sortieEvent"><i class="fa fa-sign-out" aria-hidden="false"></i></a>';
-                }else
-                     actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat('+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';      
+            if( data.etat_hosp != "1")                    
+            {
+                   actions += '<a href="/hospitalisation/'+data.id+'/editf" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier Hospitalisation" data-placement="bottom"><i class="fa fa-edit fa-xs" aria-hidden="true" fa-lg bigger-120></i></a>';
+            }
+            if( data.etat_hosp != "1")                    
+            {
+                    actions +='<a href="/visite/create/'+data.id+'" class ="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter une Visite" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle"></i></a>';
+                    actions +='<a data-toggle="modal" data-id="'+data.id+'" title="Clôturer Hospitalisation"  onclick ="cloturerHosp('+data.id+')" class="btn btn-warning btn-xs" href="#" id="sortieEvent"><i class="fa fa-sign-out" aria-hidden="false"></i></a>';
+            }else
+                 actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat(\'hospitalisation\','+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';      
            }
            return actions;
      }
@@ -172,14 +172,14 @@
         });
         $(document).on('click', '.selctetat', function(event){
             event.preventDefault();
-           // var selectDocm=$(this).val();
             var formData = {
-                  hosp_id: $('#objID').val(),
-                  selectDocm :$(this).val(),
+              class_name: $('#className').val(),   
+              obj_id: $('#objID').val(),
+              selectDocm :$(this).val(),
             };
             $.ajax({
               type : 'get',
-              url : '{{URL::to('imprimerEtatSortieHosp')}}',
+              url : '{{URL::to('reportprint')}}',
               data:formData,
                 success(data){
                     $('#EtatSortie').modal('hide');
