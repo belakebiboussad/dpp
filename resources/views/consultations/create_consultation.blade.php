@@ -796,56 +796,51 @@
                    cancelButtonText: "Non",
         	  }).then((result) => {
            		if(!isEmpty(result.value))
-           			popoverElement = $(jsEvent.target);
-                popoverElement.addClass("b");
-             		createRDVModal(jsEvent,start,end,'{{ $patient->id }}',result.value);//createRDVModal(start,end,$('#id').val(),result.value);	
+           			createRDVModal(start,end,'{{ $patient->id }}',result.value);//createRDVModal(start,end,$('#id').val(),result.value);	
       		  })
 				}else
 					$('.calendar1').fullCalendar('unselect');
 			},
-		 	eventClick: function(calEvent, jsEvent, view) {
-		      	 	editRdv(calEvent);
-		   	},
-   			eventAllow: function(dropLocation, draggedEvent) {
-	    			if(draggedEvent.start < CurrentDate)
-	      	 		return false;  	     
-	   		},
+   		eventAllow: function(dropLocation, draggedEvent) {// if(draggedEvent.start < CurrentDate)
+	      return false;  	     
+	   	},
 			eventDrop: function(event, delta, revertFunc) { 
-  				$('#updateRDV').removeClass('invisible');
-  				jQuery('#btnclose').click(function(){
-   		 			revertFunc();
-  				});
-  				editRdv(event);
-    			},
-		     	eventResize: function (event, delta, revertFunc) {},
-		    	eventDragStop: function (event, jsEvent, ui, view) {} 
+  			// $('#updateRDV').removeClass('invisible');// jQuery('#btnclose').click(function(){//revertFunc();// });// editRdv(event);
+  			revertFunc();
+    	},
+		  eventDragStop: function (event, jsEvent, ui, view) {
+		  	return false;
+		  } 
 		}); // calendar
-    $('#updateRDV').click(function(){
-			var url = '{{ route("rdv.update", ":slug") }}'
-			 url = url.replace(':slug',$('#idRDV').val());
-			$.ajaxSetup({
-	          		headers: {
-	                		'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-	          		}
-	        	});
-		       	$.ajax({
-			              type : 'PUT',
-			              url : url,
-			              data: {
-			          		  "id": $('#idRDV').val(),
-			          		   "daterdv" : $('#daterdv').val(),
-			          		   'datefinrdv' :$('#datefinrdv').val(),
-			        	},
-			        	success:function(data){  	   		
-			              		 $('#fullCalModal').modal('toggle');
-			                	 $('#updateRDV').addClass('invisible');
-			              },
-			              error:function(jqXHR, textStatus, errorThrown){
-			              	  console.log(textStatus);		      
-			              }
-    			});
-    		});
-	});// ready
+   //  $('#updateRDV').click(function(){
+			// var url = '{{ route("rdv.update", ":slug") }}'
+			// url = url.replace(':slug',$('#idRDV').val());
+			// $.ajaxSetup({
+   //    		headers: {
+   //          		'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+   //    		}
+   //  	});
+   //   	$.ajax({
+   //            type : 'PUT',
+   //            url : url,
+   //            data: {
+   //        		  "id": $('#idRDV').val(),
+   //        		   "daterdv" : $('#daterdv').val(),
+   //        		   "datefinrdv" :$('#datefinrdv').val(),
+   //      	    },
+   //      	    $.each(data,function(key,value){
+   //      	    	alert(key + ":" + value);
+   //      	    })
+   //      	    success:function(data){  	   		
+   //              $('#fullCalModal').modal('toggle');
+   //              $('#updateRDV').addClass('invisible');
+   //            },
+   //            error:function(jqXHR, textStatus, errorThrown){
+   //              console.log(textStatus);		      
+   //            }
+			// });
+	  // });
+});// ready
 </script>	
 @endsection
 @section('main-content')

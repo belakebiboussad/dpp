@@ -157,22 +157,23 @@
       $("tr:has(input:checked)").remove();
     });
     $('#printRdv').click(function(){
-          $.ajaxSetup({
-              headers: {
-                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                  }
-              });
-                $.ajax({
-                        type : 'GET',
-                        url :'/rdvprint/'+$('#idRDV').val(),
-                             success:function(data){
-                        },
-                        error:function(data){
-                          console.log("error");
-                         }
-               });
-          });
-      });  
+        $.ajaxSetup({
+            headers: {
+                      'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+                type : 'GET',
+                url :'/rdvprint/'+$('#idRDV').val(),
+                success:function(data){
+                  alert(data);
+                },
+                error:function(data){
+                  console.log("error");
+                }
+        });
+    });
+  });  
 </script>
 <script type="text/javascript">
        var active_class = 'active';
@@ -537,26 +538,7 @@ $('#typeexm').on('change', function() {
           champ.appendTo('#ordonnace_form');
           $('#ordonnace_form').submit();
      }
-     function editRdv(event)
-     {
-           var CurrentDate = (new Date()).setHours(0, 0, 0, 0);var GivenDate = (new Date(event.start)).setHours(0, 0, 0, 0);
-           if( CurrentDate <= GivenDate )
-           {
-                  $('#patient_tel').text(event.tel);
-                  $('#agePatient').text(event.age);
-                  $('#lien').attr('href','/patient/'.concat(event.idPatient)); 
-                  $('#lien').text(event.title);
-                  $("#daterdv").val(event.start.format('YYYY-MM-DD HH:mm'));
-                  (event.fixe ==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
-                  $("#datefinrdv").val(event.end.format('YYYY-MM-DD HH:mm'));
-                  $('#btnRdvDelete').attr('href','javascript:rdvDelete('+event.id+');');
-                  var url = '{{ route("rdv.update", ":slug") }}';
-                  url = url.replace(':slug',event.id); // $('#updateRdv').attr('action',url);
-                  $('#idRDV').val(event.id);
-                  $('#fullCalModal').modal({  show: 'true' }); 
-           }
-     }
-       </script>
+    </script>
         <script>
             $('#users-table').DataTable({
                  processing: true,

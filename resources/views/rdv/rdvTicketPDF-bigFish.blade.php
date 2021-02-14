@@ -79,7 +79,9 @@
 		   	<div class="col-md-4 col-sm-4 content text-center mt-18"><h4><strong>Rendez-Vous de Consultation</strong></h4></div>		
 		  </div><br>	
 		  <div class="row mt-8">
-			  <div class="col-sm-12">Rendez-vous avec le <strong>Docteur</strong> {{ $rdv->employe->nom}}&nbsp;{{ $rdv->employe->prenom}}</div>
+			  <div class="col-sm-12"><!-- Rendez-vous avec le <strong>Docteur</strong> {{ $rdv->employe->nom}}&nbsp;{{ $rdv->employe->prenom}} -->
+			  	Rendez-vous dans la &nbsp;<strong>Spécialitè</strong>&nbsp;{{ $rdv->employe->Specialite->nom}}
+			  </div>
 			</div>
 		  <div class="row">
 		   	<div class="col-sm-12">{{-- l d-m-Y --}}

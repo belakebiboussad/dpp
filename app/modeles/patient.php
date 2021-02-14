@@ -56,15 +56,15 @@ class patient extends Model
  	}
  	public function getCivilite()
  	{
- 		if($this->getAge()>16)
+ 		if($this->getAge() >16)
  		{
 	 		if($this->Sexe == "F")
  				if($this->situation_familiale== "celibataire")
- 					return "Mlle. ";
+ 					return "Mlle.";
  				else
- 					return "Mme. ";
- 				else
- 					return "M. ";	
+ 					return "Mme.";
+ 			else
+ 				return "M.";	
  		}else
  			return 'Enf.';
  	}

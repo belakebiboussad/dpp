@@ -13,11 +13,8 @@
       <div class="main-container" id="main-container">
      <script type="text/javascript">
         try{ace.settings.check('main-container' , 'fixed')}catch(e){}
-        function createRDVModal(jsEvent,debut, fin, pid = 0, fixe=1)
+        function createRDVModal(debut, fin, pid = 0, fixe=1)
         { 
-          // $.each(jsEvent,function(key,value){
-          //   alert(key +":" + value);
-          // })
           var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
           var fin = moment(fin).format('YYYY-MM-DD HH:mm');  
           if(pid != 0)

@@ -144,8 +144,9 @@ $(document).ready(function() {
   </script>
 @endsection
 @section('main-content'){{--  --}}
-<div class="page-header"><h1 style="display: inline;"><strong>Liste des Rendez-Vous:</strong></h1></div>
-<div class="row"  style="margin-left:-2%;">{{-- margin-top:-2%; --}}
+<div class="row"><h2 style="display: inline;"><strong>Liste des Rendez-Vous:</strong></h2></div>
+<div class="space-12"></div>
+<div class="row"  style="margin-left:-2%;">
   <div class="col-md-12">
      <div class="panel panel-default">
           <div class="panel-heading"><div class="left"> <strong>Liste des Rendez-Vous</strong></div></div>
@@ -162,7 +163,7 @@ $(document).ready(function() {
       <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
            <div class="modal-header">
-                <h5 class="modal-title"><span class="glyphicon glyphicon-bell"></span> Modifier le Rendez-Vous du<q><a href="" id="lien" class="white"></a></q></h5>
+                <h5 class="modal-title"><span class="glyphicon glyphicon-bell"></span>Modifier le Rendez-Vous du&nbsp;{{ $rdv->patient->getCivilite() }}&nbsp;<q><a href="" id="lien" class="white"></a></q></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span></button><hr>  
                 <div class="row">
                      <div class="col-sm-6"><i class="fa fa-phone" aria-hidden="true"></i><strong>Téléphone:&nbsp;</strong><span id="patient_tel" class="white"></span> 
@@ -218,18 +219,18 @@ $(document).ready(function() {
                 </div>  
                 </div> {{-- modal-body --}} 
                 <div class="modal-footer">
-                     @if(Auth::user()->role->id == 1)
-                      <a type="button" id="btnConsulter" class="btn btn btn-xs btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
-                      @endif 
-                      <button type="submit" id ="updateRDV" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer
-                      </button>
-                     @if(Auth::user()->role->id == 1)          
-                      <a  href="" id="btnDelete" class="btn btn-bold btn-xs btn-danger" data-method="DELETE" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal"> <i class="fa fa-trash" aria-hidden="true"></i> Annuler</a>
-                      @endif
-                     <a  href ="#" id="printRdv" class="btn btn-success btn-xs hidden"  data-dismiss="modal"> <i class="ace-icon fa fa-print"></i>Imprimer</a>
-                     <button type="button" class="btn btn-xs btn-default" data-dismiss="modal"  id ="btnclose" onclick="reset_in();">
-                         <i class="fa fa-close" aria-hidden="true" ></i> Fermer
-                      </button>
+                   @if(Auth::user()->role->id == 1)
+                    <a type="button" id="btnConsulter" class="btn btn btn-xs btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
+                    @endif 
+                    <button type="submit" id ="updateRDV" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer
+                    </button>
+                   @if(Auth::user()->role->id == 1)          
+                    <a  href="" id="btnDelete" class="btn btn-bold btn-xs btn-danger" data-method="DELETE" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal"> <i class="fa fa-trash" aria-hidden="true"></i> Annuler</a>
+                    @endif
+                   <a  href ="#" id="printRdv" class="btn btn-success btn-xs hidden"  data-dismiss="modal"> <i class="ace-icon fa fa-print"></i>Imprimer</a>
+                   <button type="button" class="btn btn-xs btn-default" data-dismiss="modal"  id ="btnclose" onclick="reset_in();">
+                       <i class="fa fa-close" aria-hidden="true" ></i> Fermer
+                    </button>
             </div> {{-- modal-header --}}
           </form>  
         </div>{{-- modal-content --}}
