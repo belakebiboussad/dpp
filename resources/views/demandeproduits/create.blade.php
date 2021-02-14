@@ -85,10 +85,8 @@ $('document').ready(function(){
 	<div class="col-xs-12 col-sm-7">
 		<div class="widget-box">
 			<div class="widget-header">
-			   <h4 class="widget-title">Produits demandés</h4>
-				<div class="widget-toolbar">						
-					<a id="deletepod" class="btn btn-xs btn-danger"><i class="ace-icon fa fa-trash-o"></i></a>
-				</div>
+			      <h4 class="widget-title">Produits demandés</h4>
+				<div class="widget-toolbar">	<a id="deletepod" class="btn btn-xs btn-danger"><i class="ace-icon fa fa-trash-o"></i></a></div>
 			</div>
 			<div class="widget-body">
 				<div class="widget-main">
@@ -110,11 +108,9 @@ $('document').ready(function(){
 										<tbody >
 										</tbody>
 									</table>
-								</div>
-								<div class="hr hr8 hr-double hr-dotted"></div>
+								</div><div class="hr hr8 hr-double hr-dotted"></div>
 								<div class="pull right">
-									<button id="savedmd" class="btn btn-primary">
-										<i class="ace-icon fa fa-save bigger-110" style="font-size:18px;"></i>Enregistrer
+									<button id="savedmd" class="btn btn-primary"><i class="ace-icon fa fa-save bigger-110" style="font-size:18px;"></i>Enregistrer
 									</button>
 								</div>
 								</form>

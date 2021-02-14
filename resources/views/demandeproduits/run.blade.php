@@ -2,6 +2,12 @@
 @section('page-script')
 <script>
 $('document').ready(function(){
+	  $('#avis').change(function(){
+          if($(this).val() == "R")
+            $("#motifr").show();
+          else
+             $("#motifr").hide();
+    });
 	$('#validerdmd').click(function(){
 		var tb = $('#cmd tbody');
   		  var produits = [];
@@ -39,51 +45,43 @@ $('document').ready(function(){
 			<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i> Liste Demandes
 		</a>
 	</div>
-</div>
-<div class="space-12"></div>
+</div><div class="space-12"></div>
 <div class="row">
 	<div class="col-xs-12">
 		<div class="widget-box">
-			<div class="widget-header"><h4 class="widget-title">Détails de la demande :</h4>
-			</div>
+			<div class="widget-header"><h4 class="widget-title">Détails de la demande :</h4></div>
 			<div class="widget-body">
 				<div class="widget-main">
 				<div class="row">
 					<div class="col-xs-12">
-	
-									<div id="user-profile-1" class="user-profile row">
-										<div class="col-xs-12 col-sm-12 center">
-												<div class="profile-user-info profile-user-info-striped">
-													<div class="profile-info-row">
-														<div class="profile-info-name"> Date : </div>
-														<div class="profile-info-value"><span class="editable" id="username">{{ $demande->Date }}</span></div>
-													</div>
-												</div>
-												<div class="profile-user-info profile-user-info-striped">
-													<div class="profile-info-row">
-														<div class="profile-info-name"> Etat : </div>
-														<div class="profile-info-value">
-															<span class="editable" id="username">
-																@if($demande->Etat == "E")En Attente. @elseif($demande->Etat =="V") Validé
-																@elseif($demande->Etat =="R")
-																	Rejeté
-																@endif
-															</span>
-														</div>
-													</div>
-													<div class="profile-info-row">
-														<div class="profile-info-name"> Demandeur : </div>
-														<div class="profile-info-value">
-															<span class="editable" id="username">{{ $demande->demandeur->nom }} {{ $demande->demandeur->prenom }}</span>
-														</div>
-													</div>
-												</div>
-	
-										</div>
+						<div id="user-profile-1" class="user-profile row">
+							<div class="col-xs-12 col-sm-12 center">
+								<div class="profile-user-info profile-user-info-striped">
+								<div class="profile-info-row"><div class="profile-info-name"> Date : </div>
+									<div class="profile-info-value"><span class="editable" id="username">{{ $demande->Date }}</span></div>
+								</div>
+							     </div>
+								<div class="profile-user-info profile-user-info-striped">
+								<div class="profile-info-row"><div class="profile-info-name"> Etat : </div>
+									<div class="profile-info-value">
+										<span class="editable" id="username">
+											@if($demande->Etat == "E")En Attente. @elseif($demande->Etat =="V") Validé
+											@elseif($demande->Etat =="R")
+												Rejeté
+											@endif
+										</span>
 									</div>
-						</div>				
-					</div>
-					<div class="space-12"></div>
+								</div>
+								<div class="profile-info-row"><div class="profile-info-name"> Demandeur : </div>
+								<div class="profile-info-value">
+									<span class="editable" id="username">{{ $demande->demandeur->nom }} {{ $demande->demandeur->prenom }}</span>
+								</div>
+								</div>
+							     </div>
+						      </div>
+						</div>
+					</div>				
+					</div><div class="space-12"></div>
 					<div class="row">
 						<div class="col-xs-12">
 							<table id="cmd" class="table table-striped table-bordered">
@@ -138,14 +136,12 @@ $('document').ready(function(){
 					</div><!-- row-->
 				</div><!-- widget-main -->
 			</div><!-- widget-body -->
-		</div><!-- widget-box -->
-		<div class="space-12"></div>	
-					<div class="row">
-						<div class="col-xs-12">
-							<form class="form-horizontal" id ="runForm" method="POST" action="{{ route('demandeproduit.valider', $demande->id) }}">
-								{{ csrf_field() }}
-  							{{-- {{ method_field('PUT') }} --}}
-								<div class="form-group">
+		</div><!-- widget-box --><div class="space-12"></div>
+		<div class="row">
+			<div class="col-xs-12">
+				<form class="form-horizontal" id ="runForm" method="POST" action="{{ route('demandeproduit.valider', $demande->id) }}">
+				{{ csrf_field() }}{{-- {{ method_field('PUT') }} --}}
+  				<div class="form-group">
 									<label class="col-sm-3 control-label no-padding-right" for="avis"> <b>Avis :</b> </label>
 									<div class="col-sm-8">
 										<select class="chosen-select col-xs-10 col-sm-5" id="avis" name="avis" data-placeholder="Séléctionner...">

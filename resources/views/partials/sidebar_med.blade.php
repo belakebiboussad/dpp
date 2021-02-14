@@ -640,6 +640,9 @@
                 });
           }
       });
+     $("#deletepod").click(function(){
+           $("tr:has(input:checked)").remove();
+      });    
 }) 
 </script>
 </div>

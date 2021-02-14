@@ -147,15 +147,6 @@
           field =event['target']['id'];
         }
     });
-    $('#avis').change(function(){
-          if($(this).val() == "R")
-            $("#motifr").show();
-          else
-             $("#motifr").hide();
-    });
-    $("#deletepod").click(function(){
-      $("tr:has(input:checked)").remove();
-    });
     $('#printRdv').click(function(){
         $.ajaxSetup({
             headers: {
@@ -920,62 +911,6 @@ $('#typeexm').on('change', function() {
         $('.calendar1').fullCalendar('prev');$('.calendar1').fullCalendar('next');    
         $('.calendar1').fullCalendar('rerenderEvents');
       }
-     function createRDVModal(debut, fin, pid = 0, fixe=1)
-     { 
-          var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
-          var fin = moment(fin).format('YYYY-MM-DD HH:mm');  
-          if(pid != 0)
-          {
-            if('{{ Auth::user()->role_id }}' == 1)
-            {
-              var formData = { id_patient:pid,Debut_RDV:debut, Fin_RDV:fin, fixe:fixe  };
-              $.ajaxSetup({
-                   headers: {
-                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                    }
-              }); 
-              $.ajax({
-                    type : 'POST',
-                    url : '/createRDV',
-                    data:formData,  //dataType: 'json',
-                    success:function(data){         
-                        var color = (data['rdv']['fixe'] != 1)? '#87CEFA':'#378006';
-                        var event = new Object();
-                        event = {
-                                title: data['patient']['Nom'] + "  " + data['patient']['Prenom']+" ,("+data['age']+" ans)",
-                                start: debut,
-                                end: fin,
-                                id : data['rdv']['id'],
-                                idPatient:data['patient']['id'],
-                                fixe: data['rdv']['fixe'],
-                                tel:data['patient']['tele_mobile1'] ,
-                                age:data['age'],         
-                                allDay: false,   //color:color, //'#87CEFA'
-                        };
-                         $('.calendar1').fullCalendar( 'renderEvent', event );//, true
-                    },
-                    error: function (data) {
-                          console.log('Error:', data);
-                    }
-              });
-            }else{
-                    $('#Debut_RDV').val(debut);
-                    $('#Fin_RDV').val(fin);
-                    $('#fixe').val(fixe);
-                    $('#addRDVModal').modal({
-                           show: 'true'
-                    }); 
-            }
-          }else{
-                $('#Debut_RDV').val(debut);
-                $('#Fin_RDV').val(fin);
-                $(".es-list").empty(); 
-                $('#fixe').val(fixe);
-                $('#addRDVModal').modal({
-                      show: 'true'
-                }); 
-          }   
-      } 
       function isEmpty(value) {
         return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
       }
