@@ -1,82 +1,103 @@
 <html>
-  <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <title>Resume Clinique de Sortie</title>
-  <style>
-      table 
-    {
-        border-collapse: collapse;
-    }
-    table, th, td 
-    {
-        border: 1px solid black;
-        padding: 5px;
-    }
-    .center
-    {
-      text-align: center;
-    }
-    .sec-droite
-    {
-      float: right;
-    }
-    .sec-droite
-    {
-      float: left;
-    }
-    .col-sm-12
-    {
-      margin-bottom: 10px;
-    }
-    .mt-15{
-        margin-top:-15px;
-    }
-    .mt-20{
-      margin-top:-20px;
-    }
-    tr.noBorder td {
-      border: 0;
-    }
-    .rectangle{
-      width:100%;
-      height:25px;
-      background:#ccc;
-    }
-    #box {
-      fill: orange;
-      stroke: black;
-    }
-  </style>
-  </head>
-  <body>
-    <div class="container-fluid">
-      <!-- <h5 class="sec-droite"><span style="font-size: xx-large;">
-        <strong> REPUBLIQUE ALGERIENNE DEMOCRATIQUE ET POPULAIRE</strong></span>
-      </h5><br>
-      <div class="sec-gauche">
-        <h5>Ministère de l'Intérieur et des Collectivités Locales</h5>
-        <h5>DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</h5>      
-      </div><br>
-      <div class="sec-droite"><img src="img/logo.png" style="width: 60px; height: 60px" alt="logo"/></div><br> -->
-      <table>
-        <tr>
-          <td>Ministère de l'Intérieur et des Collectivités Locales</td>
-          <td></td>
-          <td rowspan="3"><img src="img/logo.png" style="width: 60px; height: 60px" alt="logo"/></td>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title></title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <style>
+        table {
+            border-spacing: 0;
+            width: 600px;
+        }
+
+        table > tbody > tr > td {
+            border: 1px solid black;
+            vertical-align: top;
+            text-align: center;
+        }
+
+        table > tbody > tr > td > div {
+            margin: 0 auto;
+            border: 0px red solid;
+        }
+        .pagination-centered {
+              text-align: center;
+        }
+        .rectangle {
+          width:90%;
+          height:70px;/*background:#ccc;*/
+          border:3px solid black;
+          position: relative;
+          line-height: 20px;
+          padding-top: 5px;
+        }
+        tr.noBorder td {
+          border: 0;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="ontainer-fluid"> 
+        <div class="row">
+          <div class="col-sm-12" style ="text-align: center">
+            <h4><strong>REPUBLIQUE ALGERIENNE DEMOCRATIQUE ET POPULAIRE</h4></strong>
+          </div> 
+        </div>
+        <div class="row">
+        <table border="0" cellspacing="0" cellpadding="0">
+        <tr class="noBorder">
+        <td rowspan="1" colspan="1" width="206" height="30" >
+          <span style="text-align: left;">MINISTERE DE L'INTERIEUR ET DES COLLECTIVITES LOCALES
+          </span>
+        </td>
+        <td rowspan="1" colspan="1" width="230" height="30"></td>
+        <td id ="imagewrapper " rowspan="4" colspan="1" width="120" height="120" >
+          <img src="img/logo.png" style="position: relative; display: inline-block; left: 50%; transform: translate(-50%);width:110px; height:110px" alt="logo"/>
+        </td>
         </tr>
-         <tr>
-          <td>DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</td>
-          <td>ss</td>
-          <td></td>
+        <tr class="noBorder" >
+        <td rowspan="1" colspan="1" width="206" height="30" >DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</td>
+        <td rowspan="1" colspan="1" width="230" height="30" ></td>
+        <td rowspan="1" colspan="1" width="120" height="30" >f</td>
+         </tr>
+        <tr class="noBorder">
+        <td rowspan="1" colspan="1" width="206" height="30" >SERVICE CENTRALE DE LA SANTE DE L'ACTION SOCIALE ET DES SPORTS </td>
+        <td rowspan="1" colspan="1" width="230" height="30" ></td>
+        <td  rowspan="1" colspan="1" width="120" height="30" ></td>
         </tr>
-         <tr>
-          <td>ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</td>
-          <td></td>
-          <td></td>
+        <tr class="noBorder">
+        <td  rowspan="1" colspan="1" width="206" height="30" >ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE</td>
+        <td  rowspan="1" colspan="1" width="230" height="30" ></td>
+        <td rowspan="1" colspan="1" width="120" height="30" >i</td>
         </tr>
-      </table>
-    </div>
-</body>
+        <tr class="noBorder">
+          <td rowspan="1" colspan="1" width="206" height="30" ></td>
+          <td rowspan="2" colspan="1" width="230" height="60" >
+            <div class="rectangle">
+            <h4><strong>DEMANDE D'ORIENATATION MEDICALE</strong></h4>  
+          </div>
+          </td>
+          <td rowspan="1" colspan="1" width="120" height="30" ></td>
+        </tr>
+        <tr class="noBorder">
+          <td rowspan="1" colspan="1" width="206" height="30" ></td>
+          <td rowspan="1" colspan="1" width="230" height="30" ></td>
+          <td rowspan="1" colspan="1" width="120" height="30" ></td>
+        </tr>
+        </table>
+        </div>
+         <br><br> 
+        <div class="row">
+          Chère Consœur, Cher Confrère;
+        </div>
+        <br><br>   
+        <div class="row">
+          Merci de prendre en charge {{ $obj->patient->getCivilite() }}  
+          <span>{{ $obj->patient->Nom }} &nbsp; {{ $obj->patient->Prenom }}</span>
+          âgé(e) de {{ $obj->patient->getAge() }}&nbsp;ans.
+
+        </div>  
+      </div>
+    </body>
+</html>

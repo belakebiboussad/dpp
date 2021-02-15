@@ -6,44 +6,35 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <title>Resume Clinique de Sortie</title>
   <style>
-      table 
-    {
+    table {
         border-collapse: collapse;
     }
-    table, th, td 
-    {
+    table, th, td {
         border: 1px solid black;
         padding: 5px;
     }
-    .center
-    {
+    .center {
       text-align: center;
     }
-    .sec-droite
-    {
+    .sec-droite {
       float: right;
     }
-    .col-sm-12
-    {
+    .col-sm-12 {
       margin-bottom: 10px;
     }
-    .mt-15{
+    .mt-15 {
         margin-top:-15px;
     }
-    .mt-20{
+    .mt-20 {
       margin-top:-20px;
     }
     tr.noBorder td {
       border: 0;
     }
-    .rectangle{
+    .rectangle {
       width:100%;
       height:25px;
       background:#ccc;
-    }
-    #box {
-      fill: orange;
-      stroke: black;
     }
   </style>
   </head>

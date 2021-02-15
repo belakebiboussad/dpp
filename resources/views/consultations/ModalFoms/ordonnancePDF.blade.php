@@ -7,24 +7,19 @@
 	      .print {display:block}
 	      .btn-print {display:none;}
 	    }
-    	.section
-			{
+    	.section{
 				margin-bottom: 20px;
 			}
-			.sec-gauche
-			{
+			.sec-gauche{
 				float: left;
 			}
-			.sec-droite
-			{
+			.sec-droite{
 				float: right;
 			}
-			.center
-			{
+			.center{
 				text-align: center;
 			}
-			.col-sm-12
-			{
+			.col-sm-12{
 				margin-bottom: 10px;
 			}
 			.mt-15{

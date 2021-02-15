@@ -29,9 +29,6 @@
     .mt-20{
       margin-top:-20px;
     }
-    tr.noBorder td {
-      border: 0;
-    }
     </style>
   </head>
   <body>
