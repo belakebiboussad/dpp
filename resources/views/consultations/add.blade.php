@@ -124,10 +124,8 @@ $(document).on('click','#getConsults',function(event){
 </script>
 @endsection
 @section('main-content')
-<div class="page-header">
-	<h4>Selectionner le patient</h4>
-</div>
-<div class="row">
+<div class="page-header"><h4>Selectionner le patient</h4></div>
+	<div class="row">
 	<div class="col-sm-12">	
 		<div class="col-sm-6 col-xs-6">@include('consultations.findPatient')</div>
 		<div class="col-sm-6 col-xs-6">

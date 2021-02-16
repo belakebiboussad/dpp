@@ -96,8 +96,33 @@
           Merci de prendre en charge {{ $obj->patient->getCivilite() }}  
           <span>{{ $obj->patient->Nom }} &nbsp; {{ $obj->patient->Prenom }}</span>
           âgé(e) de {{ $obj->patient->getAge() }}&nbsp;ans.
+        </div>
+        <div class="row">
+          Je vous confie ce (cette) patient(e) qui s'est présenté ce jour pour {{ $obj->Motif_Consultation }},
+          @if(isset($obj->patient->antecedants))
+            aux Antécédants de      
+            @foreach ($obj->patient->antecedants as $ant)
+              {{ $ant->descrioption}},
+            @endforeach  
+          @endif
+          @if(isset($obj->examensCliniques))
+           et dont l'examen clinique {{ $obj->examensCliniques->Etat}}
+          @endif
+          je vous le confie pour une prise en charge specialisé. 
+        </div>
+        <br><br><br>
+        <!-- <br> -->
+        <div class="row">
+          Confraternellement.
+        </div>
+         <div class="row">
+          <div class="col-sm-12">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4"></div>
+          </div>
+        </div>
 
-        </div>  
       </div>
     </body>
 </html>

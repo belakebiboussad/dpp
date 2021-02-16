@@ -126,62 +126,66 @@
 </script>
 @endsection
 @section('main-content')
-<div class="page-content">
-	<div class="row panel panel-default" style ="margin-right:-35px;">
-		<div class="panel-heading left" style="height: 40px; font-size: 2.3vh;">
-			<strong>Rechercher un patient</strong>
-			<div class="pull-right" style ="margin-top: -0.5%;">
-				<a href="{{route('assur.index')}}" class ="btn btn-white btn-info btn-bold btn-xs">Rechercher un Fonctionnaire&nbsp;<i class="ace-icon fa fa-arrow-circle-right bigger-120 black"></i></a>
+<div class="page-content"><!-- style ="margin-right:-35px;" -->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="row panel panel-default">
+			<div class="panel-heading left"><!-- style="height: 40px; font-size: 2.3vh;" -->
+				<H4><strong>Rechercher un patient</strong></H4>
+				<div class="pull-right"><!-- style ="margin-top: -0.5%;" -->
+					<a href="{{route('assur.index')}}" class ="btn btn-white btn-info btn-bold btn-xs">Rechercher un Fonctionnaire&nbsp;<i class="ace-icon fa fa-arrow-circle-right bigger-120 black"></i></a>
+				</div>
 			</div>
-		</div>
-		<div class="panel-body">
-			<div class="row">
-				<div class="col-sm-2">
-		      <div class="form-group">
-		       	<label class="control-label" for="Nom" ><strong>Nom:</strong></label>
-						<div class="input-group">
-							<input type="text" class="form-control input-sx autofield" id="Nom" name="Nom" placeholder="nom du patient..." autofocus/>
-							<span class="glyphicon glyphicon-search form-control-feedback"></span>
-				    </div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-2">
+			      <div class="form-group">
+			       	<label class="control-label" for="Nom" ><strong>Nom:</strong></label>
+							<div class="input-group">
+								<input type="text" class="form-control input-sx autofield" id="Nom" name="Nom" placeholder="nom du patient..." autofocus/>
+								<span class="glyphicon glyphicon-search form-control-feedback"></span>
+					    </div>
+						</div>
 					</div>
-				</div>
-				<div class="col-sm-2 col-md-offset-1">
-					<div class="form-group">
-						<label class="control-label" for="Prenom" ><strong>Prénom:</strong></label> 
-						<div class="input-group">
-					  	<input type="text" class="form-control input-sx autofield" id="Prenom" name="Prenom"  placeholder="prenom du patient..."> 
-					  	<span class="glyphicon glyphicon-search form-control-feedback"></span>
-		   			</div>		
+					<div class="col-sm-2 col-md-offset-1">
+						<div class="form-group">
+							<label class="control-label" for="Prenom" ><strong>Prénom:</strong></label> 
+							<div class="input-group">
+						  	<input type="text" class="form-control input-sx autofield" id="Prenom" name="Prenom"  placeholder="prenom du patient..."> 
+						  	<span class="glyphicon glyphicon-search form-control-feedback"></span>
+			   			</div>		
+						</div>
 					</div>
-				</div>
-				<div class="col-sm-2 col-md-offset-1">
-					<div class="form-group">
-						<label class="control-label" for="Dat_Naissance" ><strong>Né(e):</strong></label>
-						<div class="input-group">
-							<input type="text" class="form-control input-sx tt-input date-picker" id="Dat_Naissance" name="Dat_Naissance"	data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" data-toggle="tooltip" data-placement="left" title="Date Naissance">
-							<span class="glyphicon glyphicon-search form-control-feedback"></span>
+					<div class="col-sm-2 col-md-offset-1">
+						<div class="form-group">
+							<label class="control-label" for="Dat_Naissance" ><strong>Né(e):</strong></label>
+							<div class="input-group">
+								<input type="text" class="form-control input-sx tt-input date-picker" id="Dat_Naissance" name="Dat_Naissance"	data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" data-toggle="tooltip" data-placement="left" title="Date Naissance">
+								<span class="glyphicon glyphicon-search form-control-feedback"></span>
+							</div>		
+						</div>
+					</div>
+					<div class="col-sm-2 col-md-offset-1">
+						<div class="form-group">
+							<label class="control-label" for="IPP" ><strong>IPP:</strong></label>
+							<div class="input-group">
+								<input type="text" class="form-control input-sx tt-input autofield" id="IPP" name="IPP"  placeholder="IPP du patient..." data-toggle="tooltip" data-placement="left" title="Code IPP du patient">
+					   	  <span class="glyphicon glyphicon-search form-control-feedback"></span>
+							</div>		
 						</div>		
 					</div>
 				</div>
-				<div class="col-sm-2 col-md-offset-1">
-					<div class="form-group">
-						<label class="control-label" for="IPP" ><strong>IPP:</strong></label>
-						<div class="input-group">
-							<input type="text" class="form-control input-sx tt-input autofield" id="IPP" name="IPP"  placeholder="IPP du patient..." data-toggle="tooltip" data-placement="left" title="Code IPP du patient">
-				   	  <span class="glyphicon glyphicon-search form-control-feedback"></span>
-						</div>		
-					</div>		
-				</div>
+			</div>  {{-- body --}}
+			<div class="panel-footer" style="height: 50px;">
+		   	<button type="submit" class="btn btn-sm btn-primary findptient " style="vertical-align: middle"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+				<div class="pull-right">
+					<button type="button" class="btn btn-danger btn-sm hidden invisible" id="FusionButton"  onclick ="doMerge();"data-toggle="modal" data-target="#mergeModal" data-backdrop="false" hidden><i class="fa fa-angle-right fa-lg"></i><i class="fa fa-angle-left fa-lg"></i>&nbsp;Fusion</button>
+					<a class="btn btn-primary btn-sm hidden" href="patient/create" id=btnCreate role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>
+				</div>		
 			</div>
-		</div>  {{-- body --}}
-		<div class="panel-footer" style="height: 50px;">
-	   	<button type="submit" class="btn btn-sm btn-primary findptient " style="vertical-align: middle"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
-			<div class="pull-right">
-				<button type="button" class="btn btn-danger btn-sm hidden invisible" id="FusionButton"  onclick ="doMerge();"data-toggle="modal" data-target="#mergeModal" data-backdrop="false" hidden><i class="fa fa-angle-right fa-lg"></i><i class="fa fa-angle-left fa-lg"></i>&nbsp;Fusion</button>
-				<a class="btn btn-primary btn-sm hidden" href="patient/create" id=btnCreate role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>
-			</div>		
-		</div>
- 	</div><!-- panel -->
+	 	</div><!-- panel -->
+		</div>		
+	</div>
  	<div class="row">
 		<div class="col-md-7 col-sm-7">
 			<div class="widget-box transparent">
@@ -191,7 +195,7 @@
 				</div>
 				<div class="widget-body">
 					<div class="widget-main no-padding">
-						<table id="liste_patients" class="display table-responsive" width="100%"></table>
+						<table id="liste_patients" class="display responsive nowrap" width="100%"></table>
 					</div>
 				</div>	
 			</div>
