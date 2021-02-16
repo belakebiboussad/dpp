@@ -2,7 +2,7 @@
     <script type="text/javascript">
         try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
     </script>
-    <script type="text/javascript" src="{{ asset('js/app-med.js') }}"></script>
+   {{--  <script type="text/javascript" src="{{ asset('js/app-med.js') }}"></script> --}}
      <div class="sidebar-shortcuts" id="sidebar-shortcuts">
           <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
                 <button class="btn btn-success"><i class="ace-icon fa fa-signal"></i></button>

@@ -69,16 +69,17 @@
 		        success:function(data,status, xhr){
 			     		$('#'+field).val('');	 field= "Dat_Naissance"; 
      			 		$(".numberResult").html(Object.keys(data).length);
-     			    $("#liste_patients").DataTable ({
+     			          var table = $("#liste_patients").DataTable ({
 	     						"processing": true,
-		  				 		"paging":   true,
+		  				 	"paging":   true,
 		  				  	"destroy": true,
-		  						"ordering": true,
+		  					"ordering": true,
 		    					"searching":false,
 		    					"info" : false,
 		    					"language":{"url": '/localisation/fr_FR.json'},
-		   	 		    	"data" : data,
-			        		"columns": [
+		   	 		        	"data" : data,
+		   	 		        	"scrollX": true,
+			        		     "columns": [
 										{ data:null,title:'#', "orderable": false,searchable: false,
 								    			render: function ( data, type, row ) {
 								                   		 if ( type === 'display' ) {
@@ -116,6 +117,7 @@
 								 		  {"targets": 8 ,	"orderable":false,  className: "dt-head-center dt-body-center"	},
 						   	],
 	    				});
+
      			},
      			error:function(){
      				console.log("error");
@@ -126,13 +128,13 @@
 </script>
 @endsection
 @section('main-content')
-<div class="page-content"><!-- style ="margin-right:-35px;" -->
+<div class="page-content">
 	<div class="row">
-		<div class="col-sm-12">
-			<div class="row panel panel-default">
-			<div class="panel-heading left"><!-- style="height: 40px; font-size: 2.3vh;" -->
+		<div class="col-sm-12 col-md-12">
+			<div class="panel panel-default">
+			<div class="panel-heading left"> 
 				<H4><strong>Rechercher un patient</strong></H4>
-				<div class="pull-right"><!-- style ="margin-top: -0.5%;" -->
+				<div class="pull-right">
 					<a href="{{route('assur.index')}}" class ="btn btn-white btn-info btn-bold btn-xs">Rechercher un Fonctionnaire&nbsp;<i class="ace-icon fa fa-arrow-circle-right bigger-120 black"></i></a>
 				</div>
 			</div>
@@ -195,7 +197,7 @@
 				</div>
 				<div class="widget-body">
 					<div class="widget-main no-padding">
-						<table id="liste_patients" class="display responsive nowrap" width="100%"></table>
+						<table id="liste_patients" class="display responsive nowrap" cellspacing="0" width="100%"></table>
 					</div>
 				</div>	
 			</div>

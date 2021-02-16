@@ -64,6 +64,7 @@
            "info" : false,
            "language":{"url": '/localisation/fr_FR.json'},
            "data" : data,
+           "scrollX": true,
            "fnCreatedRow": function( nRow, aData, iDataIndex ) {
                  $(nRow).attr('id',"hospi"+aData.id);
           },
@@ -200,21 +201,21 @@
        	  <div class="card-body">
             <div class="row">
             	<div class="col-sm-4">
-            		<div class="form-group">
+            		<div class="form-group col-sm-8">
                           <label><strong>Etat :</strong></label>
-                          <select id='etat_hosp' class="form-control filter" style="width: 200px">
+                          <select id='etat_hosp' class="form-control filter">{{-- style="width: 200px" --}}
                                 <option value="0">En Cours</option>
                                <option value="1">Cloturé</option>
                         </select>
             		</div>		
             	</div>
             	<div class="col-sm-4">
-            		<div class="form-group">
+            		<div class="form-group col-sm-8">
                 	     <label><strong>Patient :</strong></label><input type="text" id="Nom" class="form-control filter">
                 	</div>		
             	</div>
             	<div class="col-sm-4">
-            		<div class="form-group">
+            		<div class="form-group col-sm-8">
                 		<label class="control-label" for="" ><strong>Date Sortie:</strong></label>
           			     <div class="input-group">
   					     <input type="text" id ="Date_Sortie" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
@@ -238,7 +239,7 @@
           </div>
 		<div class="widget-body">
 			<div class="widget-main no-padding">
-				<table class="display table-responsive dataTable" id="liste_hosptalisations">
+				<table class="display responsive nowrap" id="liste_hosptalisations" width="100%">
                           <thead>
                               <tr>
                                     <th></th>

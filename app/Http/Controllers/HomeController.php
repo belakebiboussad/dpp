@@ -96,7 +96,7 @@ class HomeController extends Controller
     public function print(Request $request)
     {
       $model_prefix="App\modeles";
-      $hosp  = hospitalisation::find($request->hosp_id);  
+      //$hosp  = hospitalisation::find($request->hosp_id);  
       $filename ="";$pdf;
       $modelName = $model_prefix.'\\'.$request->class_name;
       $date= Carbon::now()->format('Y-m-d'); //$consult  = $className::find($obj_id);
@@ -113,7 +113,7 @@ class HomeController extends Controller
         case "3":
             $filename = "CM-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
             $pdf = PDF::loadView('consultations.EtatsSortie.CertificatMedicalePDF', compact('obj','date'));
-            break;
+             break;
         case "4":
             $filename = "CAM-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
             $pdf = PDF::loadView('hospitalisations.EtatsSortie.AttestationContreAvisMedicalePDF', compact('obj','date'));
@@ -123,8 +123,8 @@ class HomeController extends Controller
             $pdf = PDF::loadView('hospitalisations.EtatsSortie.CRHPDF', compact('obj','date'));
             break;
          case "6"://Certificat sejour
-            // $filename = "CRO-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
-            // $pdf = PDF::loadView('hospitalisations.EtatsSortie.CRHPDF', compact('obj','date'));
+             $filename = "CJ-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
+             $pdf = PDF::loadView('hospitalisations.EtatsSortie.CertificatSejourPDF', compact('obj','date'));
             break;
         case "7"://Demande orientation
             $filename = "DORT-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";

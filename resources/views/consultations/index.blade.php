@@ -21,6 +21,7 @@ function getConsultations(field,value)
                    "info" : false,
                    "language":{"url": '/localisation/fr_FR.json'},
                    "data" : data,
+                   "scrollX": true,
                    "fnCreatedRow": function( nRow, aData, iDataIndex ) {
                          $(nRow).attr('id',"consult"+aData.id);
                    },

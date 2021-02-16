@@ -3,20 +3,10 @@
 <head>
 	<title>RDV</title>
 <style>
-	.numberCircle {
-    width: 45px;
-    line-height: 45px;
-    border-radius: 50%;
-    text-align: center;
-    font-size: 40px;
-    border: 2px solid #666;
-	}
 	.marge {
 		position:absolute;
 		left:250px;
 	}
- 
-
 </style>
 </head>
 <body>

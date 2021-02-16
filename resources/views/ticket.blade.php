@@ -11,9 +11,7 @@
     font-size: 40px;
     border: 2px solid #666;
 	}
-	.mt-10{
-        /*margin-top:-10px;*/
-	}
+/*	.mt-10{margin-top:-10px;}*/
 </style>
 </head>
 <body>
