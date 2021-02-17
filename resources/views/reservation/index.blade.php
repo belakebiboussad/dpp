@@ -1,4 +1,4 @@
-@extends('app_sur')
+@extends('app'){{-- @extends('app_sur') --}}
 @section('page-script')
 <script type="text/javascript">
 	function addReserv(rdv_id)

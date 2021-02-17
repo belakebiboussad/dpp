@@ -129,29 +129,51 @@
       $('#modeSortie').change(function(){
           if($(this).val()==="0")
           {
-              if($('#structure').hasClass('hidden'))
-                $('#structure').removeClass('hidden');
+              if($('.transfert').hasClass('hidden'))
+                $('.transfert').removeClass('hidden');
+          }else{ 
+              if(! ($('.transfert').hasClass('hidden')))
+                $('.transfert').addClass('hidden');
+          }
+          if ($(this).val()==="2"){
+                if($('.deces').hasClass('hidden'))
+                    $('.deces').removeClass('hidden');
           }else{
-              if(! ($('#structure').hasClass('hidden')))
-                $('#structure').addClass('hidden');
-          } 
+            if(! ($('.deces').hasClass('hidden')))
+                $('.deces').addClass('hidden');
+            }
      });
      jQuery('#saveCloturerHop').click(function () {
-          (jQuery('#modeSortie').val() === '') ? null : jQuery('#modeSortie').val();
           var formData = {
                id                      : $("#hospID").val(),
                Date_Sortie        : jQuery('#Date_SortieH').val(),
                Heure_sortie       : jQuery('#Heure_sortie').val(),
-                modeSortie         :jQuery('#modeSortie').val(),
+               modeSortie          :jQuery('#modeSortie').val(),
                remumeSortie     : $('#remumeSortie').val(),
                etatSortie            : $('#etatSortie').val(),
                 diagSortie           : $("#diagSortie").val(),
                ccimdiagSortie    : $("#ccimdiagSortie").val(),
-               strucTransfert     : $("#strucTransfert").val(),
                 etat_hosp            :'1',
           };
-              if(!($("#Date_Sortie").val() == ''))
-              {
+          if(jQuery('#modeSortie').val() === '0'){
+               formData.structure = $("#structure").val();
+                formData.motif = $("#motif").val();
+          }
+           if(jQuery('#modeSortie').val() === '2'){
+               formData.cause = $("#cause").val();
+                formData.date = $("#date").val();
+                 formData.heure = $("#heure").val();
+                 formData.medecin = $("#medecin").val();
+          }    
+          
+          // (jQuery('#modeSortie').val() === '') ? null : jQuery('#modeSortie').val();
+          // alert(jQuery('#modeSortie').val());
+              //formData.modeSortie = Query('#modeSortie').val(),
+          /*$.each(formData,function(key,value){
+                alert(key+":"+value);
+           })*/
+          if(!($("#Date_Sortie").val() == ''))
+           {
                   if($('.dataTables_empty').length > 0)
                         $('.dataTables_empty').remove();
                         $.ajax({
@@ -169,7 +191,7 @@
                                     console.log('Error:', data);
                               },
                    })
-             } 
+          } 
         });
         $(document).on('click', '.selctetat', function(event){
             event.preventDefault();

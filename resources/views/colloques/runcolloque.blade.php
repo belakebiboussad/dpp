@@ -7,7 +7,7 @@
 		    $(this).next().remove();
 		  });
 	});
- 	function valideDemande(elm,line,id){
+	function valideDemande(elm,line,id){
 		var  select = $("#" + line).find("select");//row = $(".bodyClass").find('tr').eq(line);
 		if (select.val() == null) {
 			if (!$(".red")[0]){
@@ -17,44 +17,41 @@
 	  		var formData = {
   	   			 id_medecin : $("#" + line).find('[name=medecin]').val(),
   	   			 observation : $("#" + line).find('[name=observation]').val(),
-	     		     ordre_priorite : $("#" + line).find("input[type='radio']:checked").val(), //$("#" + line).find('[name=prop]:checked').val(),
+	     		      ordre_priorite : $("#" + line).find("input[type='radio']:checked").val(), //$("#" + line).find('[name=prop]:checked').val(),
 		           id_demande : $("#" + line).find('[name=demandeId]').val(),
 		           id_colloque :$("#colloqueId").val(),
 		     };
-	    		var ajaxurl = '/demandehosp/valider';
+	    		var ajaxurl = '/validerdemandehosp';
 	    		if(!($(elm).hasClass("btn-success")))
 		      {	
-		       	ajaxurl = '/demandehosp/invalider';
+		       	ajaxurl = '/invaliderdemandehosp';
 		      }
-    		 	$.ajax({
-			 	headers: {
-			              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			     },
-	        		url : ajaxurl,
-		        	type:'POST',
-			     data:formData,
-			     dataType: 'json',
-		        	success: function (data) {
-			         	if(data.etat == 'valide')
-			          {
-			     			$(elm).html('<i class="fa fa-close" style="font-size:14px"></i> Annuler');
-			       		$(elm).attr('title', 'Annuler');$(elm).removeClass("btn-success").addClass("btn-danger");	
-			 		}else{
-				     	      $(elm).removeClass("btn-danger").addClass("btn-success");
-					      $(elm).attr('title', 'Valider demande');$(elm).html('<i class="ace-icon fa fa-check"></i>Valider');
-					}
-			      },
-			      error:function(data){
-			          console.log('Error:', data);
-			      }
-			}); 
+		         $.ajax({
+		         		type : 'GET',
+		        	 	url : ajaxurl,
+            			data:formData,
+            			 success(data){
+			              	if(data.etat == 'valide')
+				          {
+				     			$(elm).html('<i class="fa fa-close" style="font-size:14px"></i> Annuler');
+				       		$(elm).attr('title', 'Annuler');$(elm).removeClass("btn-success").addClass("btn-danger");	
+				 		}else{
+					     	      $(elm).removeClass("btn-danger").addClass("btn-success");
+						      $(elm).attr('title', 'Valider demande');$(elm).html('<i class="ace-icon fa fa-check"></i>Valider');
+						}
+			           },
+			           error(data){
+			           	console.log("error");
+			           }
+		         });
 		}
 	}
+
 </script>
 @endsection
 @section('main-content')
 <div class="page-header col-xs-12">
-	<h1>Déroulement du Colloque <strong> {{ $colloque->type }} </strong> de la semaine du  <strong>&quot;
+	<h1>Déroulement du Colloque {{( $colloque->type == "0" ) ? 'Médical' :'Chérurgical'}}  de la semaine du  <strong>&quot;
 		<?php $d=$colloque->date.' monday next week'; echo(date('d M Y',strtotime($d)-1));?>&quot;</strong>
 	</h1>
 </div>
@@ -88,9 +85,11 @@
 		    				<tr id= "{{ $j }}">
 		  				<td hidden> <input type="hidden" name="demandeId" value="{{ $demande->id}}"/></td>	
 		  				<td>{{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }}</td>	
-						<td>{{$demande->modeAdmission }}</td>
-						<td>{{ $demande->Specialite->nom }}</td>
-			 			<td>{{$demande->consultation->Date_Consultation }}</td>
+		  				<td>{{ $demande->Specialite->nom }}</td>
+		  				<td>{{$demande->consultation->Date_Consultation }}</td>
+						 <td>{{$demande->modeAdmission }}</td>
+						
+			 			
 						<td>
 							<select id="medecin" name = "medecin" class ="med" class ="selectpicker show-menu-arrow place_holder col-sm-12">
 								<option value="0" selected disabled>selectionnez... </option>

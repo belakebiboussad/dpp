@@ -40,9 +40,7 @@
 					<td class="center">
 							<a href="{{ route('colloque.edit',$col->id)}} " class="btn btn-xs btn-success"><i class="ace-icon fa fa-pencil-square-o bigger-110"></i></a>
 							@if($col->etat =="en cours")
-				  		<a href="/runcolloque/{{ $col->id }}" class="btn btn-xs btn-green" title="Déroulement">
-				   			<i class="ace-icon fa fa-cog  bigger-110"></i>
-				   		</a>
+				  		<a href="/runcolloque/{{ $col->id }}" class="btn btn-xs btn-green" title="Déroulement"><i class="ace-icon fa fa-cog  bigger-110"></i></a>
 				    	<a href="{{ route('colloque.destroy',$col->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger"><i class="ace-icon fa fa-trash-o bigger-110"></i>
 
 				  	@endif

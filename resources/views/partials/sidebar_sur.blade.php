@@ -230,16 +230,42 @@
           else
             $('#lit_id option[value=0]').prop('selected', true);
         });
-        jQuery('body').on('click', '.bedAffect', function (event) {
-          $('#demande_id').val($(this).val());
-          jQuery('#bedAffectModal').modal('show');
-        });
-        jQuery('body').on('click', '#AffectSave', function (e) {
-          e.preventDefault();
-          var formData = {
-            demande_id : jQuery('#demande_id').val(),
-            lit_id     : jQuery('#lit_id').val()
-          };
+           jQuery('body').on('click', '.bedAffect', function (event) {
+              $('#demande_id').val($(this).val());
+              jQuery('#bedAffectModal').modal('show');
+           });
+           jQuery('body').on('click', '#AffectSave', function (e) {
+              e.preventDefault();
+              var formData = {
+                demande_id : jQuery('#demande_id').val(),
+                lit_id     : jQuery('#lit_id').val()
+              };
+                $.ajax({
+                type : 'GET',
+                url :'/affecterlit',
+                     data:formData,
+                     success(data){
+                          $("#demande" + formData['demande_id']).remove();
+                           jQuery('#bedAffectModal').trigger("reset");
+                           jQuery('#bedAffectModal').modal('hide');
+                     },
+                    error(data){
+                            console.log("error");
+                     }
+                   });
+              });
+
+        /*
+          jQuery('body').on('click', '.bedAffect', function (event) {
+              $('#demande_id').val($(this).val());
+              jQuery('#bedAffectModal').modal('show');
+           });
+           jQuery('body').on('click', '#AffectSave', function (e) {
+              e.preventDefault();
+              var formData = {
+                demande_id : jQuery('#demande_id').val(),
+                lit_id     : jQuery('#lit_id').val()
+              };
           $.ajax({
                 headers: {
                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -254,6 +280,7 @@
                 }
           });
         });
+           */
       })
     </script>
 </div>

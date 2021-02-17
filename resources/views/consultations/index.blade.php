@@ -75,7 +75,7 @@ $('document').ready(function(){
       };
       $.ajax({
           type : 'get',
-          url : '{{URL::to('reportprint')}}',//'{{URL::to('imprimerEtatSortieConsult')}}'
+          url : '{{URL::to('reportprint')}}',
           data:formData,
             success(data){
               $('#EtatSortie').modal('hide');

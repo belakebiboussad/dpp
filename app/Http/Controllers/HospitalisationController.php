@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use App\modeles\admission;
 use App\modeles\service;
 use App\modeles\ModeHospitalisation;
+use App\modeles\Transfert;
 use App\modeles\Etatsortie;
 use App\modeles\CIM\chapitre;
 use Jenssegers\Date\Date;
@@ -37,12 +38,13 @@ class HospitalisationController extends Controller
     {  
           $etatsortie = Etatsortie::where('type','0')->get();
           $chapitres = chapitre::all();
+          $medecins = employ::where('service',Auth::user()->employ->service)->get();
           if(Auth::user()->role_id != 9 )//9:admission
                $hospitalisations = hospitalisation::whereHas('admission.rdvHosp.demandeHospitalisation.Service',function($q){
-                                                  $q->where('id',Auth::user()->employ->service);  })->where('etat_hosp','=',null)->get();
+                                                   $q->where('id',Auth::user()->employ->service);  })->where('etat_hosp','=',null)->get();
            else
                $hospitalisations = hospitalisation::where('etat_hosp','=',null)->get();             
-          return view('hospitalisations.index', compact('hospitalisations','etatsortie','chapitres'));
+          return view('hospitalisations.index', compact('hospitalisations','etatsortie','chapitres','medecins'));
     }
     /**
      * Show the form for creating a new resource.
@@ -120,8 +122,13 @@ class HospitalisationController extends Controller
           $hosp = hospitalisation::find($id);
            if($request->ajax())  
             {
-              $hosp -> update($request->all());  // if(isset($request->Date_Sortie)) //$hosp ->admission->rdvHosp->demandeHospitalisation->update(["etat" => "valide"]);
-              return Response::json($hosp ); 
+                $hosp -> update($request->all());
+                if($request->modeSortie == "0")
+                {
+                    $transfert = Transfert::create($request->all());
+                    $transfert->hospitalisation()->attach($id);
+                }
+                return Response::json($hosp ); 
            }else{
                  $hosp -> update($request->all());
           return redirect()->action('HospitalisationController@index');
