@@ -21,6 +21,7 @@ function getConsultations(field,value)
                    "info" : false,
                    "language":{"url": '/localisation/fr_FR.json'},
                    "data" : data,
+                   // "scrollX": true,
                    "fnCreatedRow": function( nRow, aData, iDataIndex ) {
                          $(nRow).attr('id',"consult"+aData.id);
                    },
@@ -49,8 +50,15 @@ function getConsultations(field,value)
                                },
                                title:'Medecin' 
                           },
-                          { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false }
-                     ],
+                          { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false}
+                    ],
+                    "columnDefs": [
+                        {"targets": 2 ,  className: "dt-head-center" },//nom
+                        {"targets": 3 ,  className: "dt-head-center" },
+                        {"targets": 4 ,  className: "dt-head-center" },
+                        {"targets": 5 ,  className: "dt-head-center" },
+                        {"targets": 6 , "orderable": false, className: "dt-head-center dt-body-center" },
+                    ],
          });
       }
 	});

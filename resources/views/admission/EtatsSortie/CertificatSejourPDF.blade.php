@@ -39,7 +39,7 @@
       <h4 class="center">Tél : 023-93-34</h4>
       <h5 class="mt-15 center" ><img src="img/logo.png" style="width: 60px; height: 60px" alt="logo"/></h5>
       <h5 class="mt-20 center"><span style="font-size: xx-large;">
-        <strong>Attestation de Presence</strong></span>
+        <strong>Attestation de Séjour</strong></span>
       </h5><br><br>  
       <div class="row">
         <div class="col-sm-12"><strong>

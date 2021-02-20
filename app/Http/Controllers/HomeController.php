@@ -123,8 +123,8 @@ class HomeController extends Controller
             $pdf = PDF::loadView('hospitalisations.EtatsSortie.CRHPDF', compact('obj','date'));
             break;
          case "6"://Certificat sejour
-            // $filename = "CRO-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
-            // $pdf = PDF::loadView('hospitalisations.EtatsSortie.CRHPDF', compact('obj','date'));
+            $filename = "CJ-".$obj->hospitalisation->patient->Nom."-".$obj->hospitalisation->patient->Prenom.".pdf";
+            $pdf = PDF::loadView('admission.EtatsSortie.CertificatSejourPDF', compact('obj','date'));
             break;
         case "7"://Demande orientation
             $filename = "DORT-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";

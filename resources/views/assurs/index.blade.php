@@ -74,8 +74,7 @@
 				</div><!-- body -->
 				<div class="panel-footer" style="height:40px;">
 					<button type="submit" class="btn btn-xs btn-primary findAssure" style ="margin-top:-0.5%;" ><i class="fa fa-search"></i>&nbsp;Rechercher</button>
-{{-- <a href="{{ route('assur.destroy',12) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?"class="btn btn-xs btn-danger"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Supprimer</a> --}}
-					
+{{-- <a href="{{ route('assur.destroy',12) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?"class="btn btn-xs btn-danger"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Supprimer</a> --}}	
 					@if(Auth::user()->role_id == 4)
 					<div class="pull-right">
 						<a  class="btn btn-primary btn-xs hidden" href="{{ route('assur.create') }}" id=btnCreate role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>
@@ -93,8 +92,7 @@
 					<label for=""><span class="badge badge-info numberResult"></span></label>
 				</div>
 				<div class="bodycontainer scrollable">
-					<!-- <table class="table table-striped table-bordered table-condensed table-scrollable"> -->
-					<table class="display responsive nowrap"  width="100%">
+				<table class="display responsive nowrap table-condensed table-scrollable"  width="100%">
 					<thead>
 						<tr class="info"><th colspan="12">Fonctionnaire</th></tr>
 						<tr class="liste">

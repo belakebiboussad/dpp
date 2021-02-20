@@ -12,11 +12,9 @@
         <!-- /section:basics/sidebar.mobile.toggle -->
         <div class="navbar-header pull-left" >  <!-- #section:basics/navbar.layout.brand -->
           <a href="#" class="navbar-brand"> <small> <i class="ace-icon fa fa-h-square"></i><strong>Dossier Médical Electonique EHSN</strong></a>
-         </div>
-        <!-- #section:basics/navbar.dropdown -->
+         </div><!-- #section:basics/navbar.dropdown -->
         <div class="navbar-buttons navbar-header pull-right" role="navigation">
-            <ul class="nav ace-nav">
-                <!-- #section:basics/navbar.user_menu -->
+            <ul class="nav ace-nav"><!-- #section:basics/navbar.user_menu -->
                 <li class="light-blue">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
                          <img class="nav-user-photo" src="{{ asset('/avatars/user.jpg') }}" alt="admins's Photo" />
@@ -35,9 +33,7 @@
                         </li>
                     </ul>
                     </a>
-                </li>
-
-                <!-- /section:basics/navbar.user_menu -->
+                </li><!-- /section:basics/navbar.user_menu -->
             </ul>
         </div>
         <!-- /section:basics/navbar.dropdown -->

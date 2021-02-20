@@ -100,8 +100,7 @@
             url : '{{URL::to('reportprint')}}',
             data:formData,
               success(data){
-              	alert(data);
-                //$('#EtatSortie').modal('hide');
+                $('#EtatSortie').modal('hide');
               },
         }); 
       

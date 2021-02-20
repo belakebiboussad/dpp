@@ -69,7 +69,7 @@
 		        success:function(data,status, xhr){
 			     		$('#'+field).val('');	 field= "Dat_Naissance"; 
      			 		$(".numberResult").html(Object.keys(data).length);
-     			    $("#liste_patients").DataTable ({
+     			  	var table =   $("#liste_patients").DataTable ({
 	     						"processing": true,
 		  				 		"paging":   true,
 		  				  	"destroy": true,
@@ -78,6 +78,7 @@
 		    					"info" : false,
 		    					"language":{"url": '/localisation/fr_FR.json'},
 		   	 		    	"data" : data,
+		   	 		    	"scrollX": true,
 			        		"columns": [
 										{ data:null,title:'#', "orderable": false,searchable: false,
 								    			render: function ( data, type, row ) {

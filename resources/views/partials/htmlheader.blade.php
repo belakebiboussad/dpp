@@ -4,11 +4,9 @@
     <meta name="description" content="and Validation" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
-   <!--  <title>{{ $html_title or 'Dossier Patient' }}</title> -->
     <title>@yield('title')</title>
     <meta name="description" content="{{ $html_description or ' Dossier Patient' }}" />
     <meta name="csrf-token" content="{{csrf_token()}}">
-   <!-- app.css is bootstrap.css (slightly modified by Ace template) compiled with less -->
     <link href="{{ asset('/css/font-awesome.css') }}" rel="stylesheet"> 
     <link rel="stylesheet" href="{{ asset('/css/jquery-ui.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}" /><!-- abm -->

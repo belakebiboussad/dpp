@@ -126,47 +126,63 @@
           getHospitalisations($(this).attr('id'),$(this).val());
       }); // $('.filter').keyup(function(){//     getHospitalisations($(this).attr('id'),$(this).val()) // });
       $('#modeSortie').change(function(){
-          if($(this).val()==="0")
+         if($(this).val()==="0")
           {
-              if($('#structure').hasClass('hidden'))
-                $('#structure').removeClass('hidden');
+              if($('.transfert').hasClass('hidden'))
+                $('.transfert').removeClass('hidden');
+          }else{ 
+              if(! ($('.transfert').hasClass('hidden')))
+                $('.transfert').addClass('hidden');
+          }
+          if ($(this).val()==="2"){
+                if($('.deces').hasClass('hidden'))
+                    $('.deces').removeClass('hidden');
           }else{
-              if(! ($('#structure').hasClass('hidden')))
-                $('#structure').addClass('hidden');
-          } 
+            if(! ($('.deces').hasClass('hidden')))
+                $('.deces').addClass('hidden');
+            } 
      });
      jQuery('#saveCloturerHop').click(function () {
-          (jQuery('#modeSortie').val() === '') ? null : jQuery('#modeSortie').val();
+          // (jQuery('#modeSortie').val() === '') ? null : jQuery('#modeSortie').val();
           var formData = {
-               id                      : $("#hospID").val(),
-               Date_Sortie        : jQuery('#Date_SortieH').val(),
-               Heure_sortie       : jQuery('#Heure_sortie').val(),
+                id                      : $("#hospID").val(),
+                Date_Sortie        : jQuery('#Date_SortieH').val(),
+                Heure_sortie       : jQuery('#Heure_sortie').val(),
                 modeSortie         :jQuery('#modeSortie').val(),
-               remumeSortie     : $('#remumeSortie').val(),
-               etatSortie            : $('#etatSortie').val(),
+                remumeSortie     : $('#remumeSortie').val(),
+                etatSortie            : $('#etatSortie').val(),
                 diagSortie           : $("#diagSortie").val(),
-               ccimdiagSortie    : $("#ccimdiagSortie").val(),
-               strucTransfert     : $("#strucTransfert").val(),
+                ccimdiagSortie    : $("#ccimdiagSortie").val(),
                 etat_hosp            :'1',
           };
-              if(!($("#Date_Sortie").val() == ''))
-              {
-                  if($('.dataTables_empty').length > 0)
-                        $('.dataTables_empty').remove();
-                        $.ajax({
-                              headers: {
-                                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                             },
-                              type: "POST",
-                              url: '/hospitalisation/'+$("#hospID").val(),//'hospitalisation/'+ $("#hospID").val(),
-                              data: formData,
-                              dataType: 'json',
-                              success: function (data) {
-                                $("#hospi" + data.id).remove();
-                              },
-                              error: function (data){
-                                    console.log('Error:', data);
-                              },
+          if(jQuery('#modeSortie').val() === '0'){
+              formData.structure = $("#structure").val();
+              formData.motif = $("#motif").val();
+          }
+          if(jQuery('#modeSortie').val() === '2'){
+              formData.cause = $("#cause").val();
+              formData.date = $("#date").val();
+              formData.heure = $("#heure").val();
+              formData.medecin = $("#medecin").val();
+          } 
+          if(!($("#Date_Sortie").val() == ''))
+          {
+            if($('.dataTables_empty').length > 0)
+              $('.dataTables_empty').remove();
+                $.ajax({
+                        headers: {
+                           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        type: "POST",
+                        url: '/hospitalisation/'+$("#hospID").val(),//'hospitalisation/'+ $("#hospID").val(),
+                        data: formData,
+                        dataType: 'json',
+                        success: function (data) {
+                          $("#hospi" + data.id).remove();
+                        },
+                        error: function (data){
+                          console.log('Error:', data);
+                        },
                    })
              } 
         });
@@ -200,21 +216,21 @@
        	  <div class="card-body">
             <div class="row">
             	<div class="col-sm-4">
-            		<div class="form-group">
+            		<div class="form-group col-sm-8">
                           <label><strong>Etat :</strong></label>
-                          <select id='etat_hosp' class="form-control filter" style="width: 200px">
+                          <select id='etat_hosp' class="form-control filter"> <!-- style="width: 200px" -->
                                 <option value="0">En Cours</option>
                                <option value="1">Cloturé</option>
                         </select>
             		</div>		
             	</div>
             	<div class="col-sm-4">
-            		<div class="form-group">
-                	     <label><strong>Patient :</strong></label><input type="text" id="Nom" class="form-control filter">
-                	</div>		
+            		<div class="form-group col-sm-8">
+                	<label><strong>Patient :</strong></label><input type="text" id="Nom" class="form-control filter">
+                </div>		
             	</div>
             	<div class="col-sm-4">
-            		<div class="form-group">
+            		<div class="form-group col-sm-8">
                 		<label class="control-label" for="" ><strong>Date Sortie:</strong></label>
           			     <div class="input-group">
   					     <input type="text" id ="Date_Sortie" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
@@ -238,7 +254,7 @@
           </div>
 		<div class="widget-body">
 			<div class="widget-main no-padding">
-				<table class="display table-responsive dataTable" id="liste_hosptalisations">
+				<table class="display responsive nowrap" id="liste_hosptalisations" width="100%">
                           <thead>
                               <tr>
                                     <th></th>

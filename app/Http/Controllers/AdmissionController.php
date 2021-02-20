@@ -103,8 +103,10 @@ class AdmissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-      public function update(Request $request, $id)
+      public function edit(Request $request, $id)
       {
+        $adm =  admission::find($id);
+        dd($adm->hospitalisation->patient);
       }
 
    /**
@@ -123,7 +125,7 @@ class AdmissionController extends Controller
                                                                         $q->where('etat',null);
                                                           })->where('etat_hosp','1')->where('Date_Sortie' , date('Y-m-d'))->get();
           $etatsortie = Etatsortie::where('type','1')->get();
-           return view('admission.sorties', compact('hospitalistions','etatsortie')); 
+          return view('admission.sorties', compact('hospitalistions','etatsortie')); 
      }
      public function updateAdm(Request $request, $id)
      {
