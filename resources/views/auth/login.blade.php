@@ -1,4 +1,5 @@
 @extends('auth.auth')
+@section('title','Dossier Patient | login')
 @section('content')
 <br><br><br><br><br><br><br><br>      
 <div id="login-box" class="login-box visible widget-box no-border">
