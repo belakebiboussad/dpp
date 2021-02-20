@@ -1,20 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
    <meta charset="UTF-8">
     <title>@yield('title','Dossier patient')</title>
      @include('partials.htmlheader')
      @yield('style')
-</head>
-<body class="no-skin">
-      @include('partials.navbar')
-      @include('partials.scripts')
-      @include('flashy::message')
-      <div class="main-container" id="main-container">
-      <script type="text/javascript">
-        try{ace.settings.check('main-container' , 'fixed')}catch(e){}
-        function createRDVModal(debut, fin, pid = 0, fixe=1)
+     <script type="text/javascript" charset="utf-8" async defer>
+       function createRDVModal(debut, fin, pid = 0, fixe=1)
          { 
               var debut = moment(debut).format('YYYY-MM-DD HH:mm'); 
               var fin = moment(fin).format('YYYY-MM-DD HH:mm');  
@@ -71,6 +63,16 @@
               }   
           } 
      </script>
+</head>
+<body class="no-skin">
+      @include('partials.navbar')
+      @include('partials.scripts')
+      @include('flashy::message')
+      <div class="main-container" id="main-container">
+     <script type="text/javascript">
+        try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+        
+     </script>
         @yield('page-script')
         @if( Auth::user()->role_id == 1)
             @include('partials.sidebar_med')
@@ -97,15 +99,9 @@
         @endif
         <div class="main-content">
             <div class="main-content-inner"> {{-- @include('partials.breadcrumbs') --}}
-                <div class="page-content">
-                  @include('flashy::message')
-              	  @yield('main-content')
-                </div>
-                <!-- /page-content -->
-            </div>
-            <!-- /main-content-inner -->
-        </div>
-        <!-- /main-content -->
+                <div class="page-content"> @yield('main-content')</div><!-- /page-content -->
+            </div>   <!-- /main-content-inner -->
+        </div> <!-- /main-content -->
         <div>
             @include('partials.footer')
         </div>

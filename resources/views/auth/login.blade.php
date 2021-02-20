@@ -1,6 +1,5 @@
 @extends('auth.auth')
 @section('title','Dossier Patient | login')
-
 @section('content')
 <br><br><br><br><br><br><br><br>      
 <div id="login-box" class="login-box visible widget-box no-border">
@@ -26,7 +25,7 @@
                     <label class="block clearfix">
                             <span class="block input-icon input-icon-right">
                                 <input type="password" class="form-control"
-                                       placeholder="Password" name="password"/>
+                                       placeholder="Password" name="password" autocomplete="on"/>
                                 <i class="ace-icon fa fa-lock"></i>
                             </span>
                     </label>

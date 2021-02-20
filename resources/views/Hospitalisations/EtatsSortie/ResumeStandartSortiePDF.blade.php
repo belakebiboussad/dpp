@@ -70,7 +70,7 @@
                           <td><strong>N° Dossier</strong><span> &nbsp;{{ $obj->patient->IPP}}</span></td>
                      </tr>
                     <tr class="noBorder">
-                          <td class="first"><strong>Nom et Prenom : </strong>&nbsp;<span> &nbsp;{{ $obj->patient->Nom }}{{ $obj->patient->Prenom }}</span></td>
+                          <td class="first"><strong>Nom et Prenom : </strong>&nbsp;<span> &nbsp;{{ $obj->patient->Nom }}&nbsp;{{ $obj->patient->Prenom }}</span></td>
                           <td></td>
                     </tr>
                   <tr class="noBorder">

@@ -64,6 +64,7 @@
            "info" : false,
            "language":{"url": '/localisation/fr_FR.json'},
            "data" : data,
+           "scrollX": true,
            "fnCreatedRow": function( nRow, aData, iDataIndex ) {
                  $(nRow).attr('id',"hospi"+aData.id);
           },
@@ -169,7 +170,7 @@
           {
             if($('.dataTables_empty').length > 0)
               $('.dataTables_empty').remove();
-                $.ajax({
+              $.ajax({
                         headers: {
                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
@@ -183,10 +184,10 @@
                         error: function (data){
                           console.log('Error:', data);
                         },
-                   })
-             } 
-        });
-        $(document).on('click', '.selctetat', function(event){
+              });
+          }
+      });
+      $(document).on('click', '.selctetat', function(event){
             event.preventDefault();
             var formData = {
               class_name: $('#className').val(),   
@@ -201,7 +202,7 @@
                     $('#EtatSortie').modal('hide');
                 },
             }); 
-        });
+      });
 	});
 </script>
 @endsection
@@ -218,7 +219,11 @@
             	<div class="col-sm-4">
             		<div class="form-group col-sm-8">
                           <label><strong>Etat :</strong></label>
+<<<<<<< HEAD
                           <select id='etat_hosp' class="form-control filter"> <!-- style="width: 200px" -->
+=======
+                          <select id='etat_hosp' class="form-control filter">{{-- style="width: 200px" --}}
+>>>>>>> eecb04a0bb489fcd79b64443b19a5ca7d219b50e
                                 <option value="0">En Cours</option>
                                <option value="1">Cloturé</option>
                         </select>
@@ -226,8 +231,13 @@
             	</div>
             	<div class="col-sm-4">
             		<div class="form-group col-sm-8">
+<<<<<<< HEAD
                 	<label><strong>Patient :</strong></label><input type="text" id="Nom" class="form-control filter">
                 </div>		
+=======
+                	     <label><strong>Patient :</strong></label><input type="text" id="Nom" class="form-control filter">
+                	</div>		
+>>>>>>> eecb04a0bb489fcd79b64443b19a5ca7d219b50e
             	</div>
             	<div class="col-sm-4">
             		<div class="form-group col-sm-8">

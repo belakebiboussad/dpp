@@ -70,17 +70,18 @@
 			     		$('#'+field).val('');	 field= "Dat_Naissance"; 
      			 		$(".numberResult").html(Object.keys(data).length);
      			  	var table =   $("#liste_patients").DataTable ({
+
 	     						"processing": true,
-		  				 		"paging":   true,
+		  				 	"paging":   true,
 		  				  	"destroy": true,
-		  						"ordering": true,
+		  					"ordering": true,
 		    					"searching":false,
 		    					"info" : false,
 		    					"language":{"url": '/localisation/fr_FR.json'},
 		   	 		    	"data" : data,
 		   	 		    	"scrollX": true,
-			        		"columns": [
-										{ data:null,title:'#', "orderable": false,searchable: false,
+			        		"columns": [	
+											{ data:null,title:'#', "orderable": false,searchable: false,
 								    			render: function ( data, type, row ) {
 								                   		 if ( type === 'display' ) {
 								                        		return '<input type="checkbox" class="editor-active check" name="fusioner[]" value="'+data.id+'" onClick="return KeepCount()" /><span class="lbl"></span>';
@@ -88,9 +89,9 @@
 								                   		 return data;
 								                	},
 								                	className: "dt-body-center",
-										},
-										{ data:'id',title:'ID', "visible": false},
-										{ data: 'Nom', title:'Nom' },
+											},
+											{ data:'id',title:'ID', "visible": false},
+											{ data: 'Nom', title:'Nom' },
 		       								{ data: 'Prenom', title:'Prenom' },
 		       								{ data: 'IPP', title:'IPP'},
 		       			  					{ data: 'Dat_Naissance', title:'Né(e) le' },
@@ -117,6 +118,7 @@
 								 		  {"targets": 8 ,	"orderable":false,  className: "dt-head-center dt-body-center"	},
 						   	],
 	    				});
+
      			},
      			error:function(){
      				console.log("error");
@@ -127,13 +129,13 @@
 </script>
 @endsection
 @section('main-content')
-<div class="page-content"><!-- style ="margin-right:-35px;" -->
+<div class="page-content">
 	<div class="row">
-		<div class="col-sm-12">
-			<div class="row panel panel-default">
-			<div class="panel-heading left"><!-- style="height: 40px; font-size: 2.3vh;" -->
+		<div class="col-sm-12 col-md-12">
+			<div class="panel panel-default">
+			<div class="panel-heading left"> 
 				<H4><strong>Rechercher un patient</strong></H4>
-				<div class="pull-right"><!-- style ="margin-top: -0.5%;" -->
+				<div class="pull-right">
 					<a href="{{route('assur.index')}}" class ="btn btn-white btn-info btn-bold btn-xs">Rechercher un Fonctionnaire&nbsp;<i class="ace-icon fa fa-arrow-circle-right bigger-120 black"></i></a>
 				</div>
 			</div>
@@ -196,7 +198,7 @@
 				</div>
 				<div class="widget-body">
 					<div class="widget-main no-padding">
-						<table id="liste_patients" class="display responsive nowrap" width="100%"></table>
+						<table id="liste_patients" class="display responsive nowrap" cellspacing="0" width="100%"></table>
 					</div>
 				</div>	
 			</div>
