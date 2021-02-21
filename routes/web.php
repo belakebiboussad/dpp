@@ -64,8 +64,8 @@ Route::post('user/credentials','UsersController@credentials');
 Route::post('user/updatepro','UsersController@updatepro');
 Route::get('/atcd/store','AntecedantsController@storeatcd');
 Route::get('/demandehosp/create/{id}','DemandeHospitalisationController@create');
-Route::get('/validerdemandehosp','DemandeHospitalisationController@valider');
-Route::get('/invaliderdemandehosp','DemandeHospitalisationController@invalider');
+Route::post('/demandehosp/valider','DemandeHospitalisationController@valider');
+Route::post('/demandehosp/invalider','DemandeHospitalisationController@invalider');
 Route::get('/demandehosp/listedemandes/{type}','DemandeHospitalisationController@listedemandes');
 Route::get('/salle/create/{id}','SalleController@create');
 Route::get('/lit/create/{id}','LitsController@create');
@@ -159,8 +159,7 @@ route::get('/showordonnance/{id}','OrdonnanceController@show_ordonnance')->name(
 route::get('/demandeexbio/{id}','DemandeExbController@createexb');
 route::get('/showdemandeexb/{id}','DemandeExbController@print');
 route::get('/showdemandeexr/{id}','DemandeExamenRadio@print');
-Route::get('/affecterlit','LitsController@affecterLit')->name('lit.affecter');//Route::post('lit/affecter','LitsController@affecterLit')->name('lit.affecter');
-
+Route::post('lit/affecter','LitsController@affecterLit')->name('lit.affecter');
 Route::get('/bedAffectation','LitsController@affecter');
 route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');///laborontin
 route::post('/uploadresultat','DemandeExbController@uploadresultat');

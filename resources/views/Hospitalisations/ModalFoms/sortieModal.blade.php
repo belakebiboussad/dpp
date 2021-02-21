@@ -14,44 +14,44 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
-  						<label for="Heure_sortie"><strong>Heure de Sortie :</strong></label>
+  					<label for="Heure_sortie"><strong>Heure de Sortie :</strong></label>
  						<input type="text" id="Heure_sortie" class="form-control timepicker" />
 	 			</div>
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
-	      			<label for="remumeSortie"><strong>Résumé de sortie:</strong></label><textarea class="form-control"  id="remumeSortie"></textarea>
-	      		</div>
+	      	<label for="remumeSortie"><strong>Résumé de sortie:</strong></label><textarea class="form-control"  id="remumeSortie"></textarea>
+	      </div>
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
-	      			<label for="etatSortie"><strong>Etat a la sortie:</strong></label><textarea class="form-control"  id="etatSortie"></textarea>
-	      		</div>
+	      	<label for="etatSortie"><strong>Etat a la sortie:</strong></label><textarea class="form-control"  id="etatSortie"></textarea>
+	      </div>
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
-	      		<label for="modeSortie"><strong>Mode de Sortie :</strong></label>
-	      		<select class="form-control" id="modeSortie">
-	      			<option value="">Domicile</option>
-					<option value="0">Transfert</option>
-					<option value="1">Contre avis médical</option>
-					<option value="2">Décès</option>
-					<option value="3">Reporter</option>
-	      		</select>
-	      	</div>
+	      	<label for="modeSortie"><strong>Mode de Sortie :</strong></label>
+	      	<select class="form-control" id="modeSortie">
+	      		<option value="">Domicile</option>
+						<option value="0">Transfert</option>
+						<option value="1">Contre avis médical</option>
+						<option value="2">Décès</option>
+						<option value="3">Reporter</option>
+	      	</select>
+	      </div>
 			</div>
 			<div class="row hidden transfert">
 				<div class="col-sm-12">
-		      		<label for="structure"><strong>Malade adresé à :</strong></label>
-		      		<input type="text" class="form-control" id="structure" value="" placeholder="saisir structure de Transfert">
-	      		</div>
-	      	</div>
+		   		<label for="structure"><strong>Malade adresé à :</strong></label>
+		   		<input type="text" class="form-control" id="structure" value="" placeholder="saisir structure de Transfert">
+	     	</div>
+	     </div>
 	      	<div class="row hidden transfert" >
-				<div class="col-sm-12">
+					<div class="col-sm-12">
 	      		<label for="motif"><strong>Motif du transfert :</strong></label>
 	      		<input type="text" class="form-control" id="motif" value="" placeholder="motif du Transfert">
 	      		</div>
-			</div>
+					</div>
 			<div class="row hidden deces" >
 				<div class="col-sm-12">
 	      		<label for="motif"><strong>Cause décès :</strong></label>
@@ -97,7 +97,7 @@
 					    </span>
 			    	</div>
 			     </div>
-		  	</div>	<div class="space-12"></div>
+		  	</div><div class="space-12"></div>
 		 	<div class="modal-footer">
 				<button type="submit" class="btn btn-info btn-sm btn-submit" id ="saveCloturerHop" data-dismiss="modal">  <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
 	  			<button type="reset" class="btn btn-default btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-close bigger-110"></i>Fermer</button>

@@ -25,7 +25,7 @@
                     <label class="block clearfix">
                             <span class="block input-icon input-icon-right">
                                 <input type="password" class="form-control"
-                                       placeholder="Password" name="password" autocomplete="on"/>
+                                       placeholder="Password" name="password" autocomplete="off"/>
                                 <i class="ace-icon fa fa-lock"></i>
                             </span>
                     </label>

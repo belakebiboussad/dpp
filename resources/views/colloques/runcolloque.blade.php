@@ -17,33 +17,37 @@
 	  		var formData = {
   	   			 id_medecin : $("#" + line).find('[name=medecin]').val(),
   	   			 observation : $("#" + line).find('[name=observation]').val(),
-	     		      ordre_priorite : $("#" + line).find("input[type='radio']:checked").val(), //$("#" + line).find('[name=prop]:checked').val(),
+	     		     ordre_priorite : $("#" + line).find("input[type='radio']:checked").val(), //$("#" + line).find('[name=prop]:checked').val(),
 		           id_demande : $("#" + line).find('[name=demandeId]').val(),
 		           id_colloque :$("#colloqueId").val(),
 		     };
-	    		var ajaxurl = '/validerdemandehosp';
+	    		var ajaxurl = '/demandehosp/valider';
 	    		if(!($(elm).hasClass("btn-success")))
 		      {	
-		       	ajaxurl = '/invaliderdemandehosp';
+		       	ajaxurl = '/demandehosp/invalider';
 		      }
-		         $.ajax({
-		         		type : 'GET',
-		        	 	url : ajaxurl,
-            			data:formData,
-            			 success(data){
-			              	if(data.etat == 'valide')
-				          {
-				     			$(elm).html('<i class="fa fa-close" style="font-size:14px"></i> Annuler');
-				       		$(elm).attr('title', 'Annuler');$(elm).removeClass("btn-success").addClass("btn-danger");	
-				 		}else{
-					     	      $(elm).removeClass("btn-danger").addClass("btn-success");
-						      $(elm).attr('title', 'Valider demande');$(elm).html('<i class="ace-icon fa fa-check"></i>Valider');
-						}
-			           },
-			           error(data){
-			           	console.log("error");
-			           }
-		         });
+    		 	$.ajax({
+			 	headers: {
+			              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			     },
+	        		url : ajaxurl,
+		        	type:'POST',
+			     data:formData,
+			     dataType: 'json',
+		        	success: function (data) {
+			         	if(data.etat == 'valide')
+			          {
+			     			$(elm).html('<i class="fa fa-close" style="font-size:14px"></i> Annuler');
+			       		$(elm).attr('title', 'Annuler');$(elm).removeClass("btn-success").addClass("btn-danger");	
+			 		}else{
+				     	      $(elm).removeClass("btn-danger").addClass("btn-success");
+					      $(elm).attr('title', 'Valider demande');$(elm).html('<i class="ace-icon fa fa-check"></i>Valider');
+					}
+			      },
+			      error:function(data){
+			          console.log('Error:', data);
+			      }
+			}); 
 		}
 	}
 
@@ -82,40 +86,38 @@
 					<tbody id ="demandesBody" class="bodyClass">
 		 			<?php $j = 0; ?>
 		 			@foreach( $demandes as $i=>$demande)
-		    				<tr id= "{{ $j }}">
+		    		<tr id= "{{ $j }}">
 		  				<td hidden> <input type="hidden" name="demandeId" value="{{ $demande->id}}"/></td>	
 		  				<td>{{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }}</td>	
 		  				<td>{{ $demande->Specialite->nom }}</td>
 		  				<td>{{$demande->consultation->Date_Consultation }}</td>
-						 <td>{{$demande->modeAdmission }}</td>
-						
-			 			
-						<td>
-							<select id="medecin" name = "medecin" class ="med" class ="selectpicker show-menu-arrow place_holder col-sm-12">
-								<option value="0" selected disabled>selectionnez... </option>
-								@foreach ($medecins as $medecin)
-								<option value="{{ $medecin->employ->id }}">{{ $medecin->employ->nom }} {{ $medecin->employ->prenom }}</option>
-								@endforeach
-							</select>
-						</td>
-					      <td>
-					     		<div class=" btn-group btn-group-vertical col-sm-12 btn-group-lg" data-toggle="radio" role="group"> 
+						  <td>{{$demande->modeAdmission }}</td>
+							<td>
+								<select id="medecin" name = "medecin" class ="med" class ="selectpicker show-menu-arrow place_holder col-sm-12">
+									<option value="0" selected disabled>selectionnez... </option>
+									@foreach ($medecins as $medecin)
+									<option value="{{ $medecin->employ->id }}">{{ $medecin->employ->nom }} {{ $medecin->employ->prenom }}</option>
+									@endforeach
+								</select>
+							</td>
+					    <td>
+					    	<div class=" btn-group btn-group-vertical col-sm-12 btn-group-lg" data-toggle="radio" role="group"> 
 							 	 		<label for="prop"><input type="radio"  class="radioM" name="prop{{$j}}" value="1" checked/>1</label>&nbsp;&nbsp;
 										<label for="prop"><input type="radio"  class="radioM" name="prop{{$j}}" value="2"/>2</label>&nbsp;&nbsp;
 			         		  <label for="prop"><input type="radio"  class="radioM" name="prop{{$j}}" value="3" />3</label>
-							  	</div>
-						    </td>
-				    		<td>
-				    			<textarea class="width-100" resize="none" name="observation"></textarea>
-				    		</td>
-				    		<td>
-					   			 <a href="#" class="green btn-lg show-details-btn" title="Afficher Details" data-toggle="collapse"  id="{{$i}}" data-target=".{{$i}}collapsed" >
-					    			<i class="fa fa-eye-slash" aria-hidden="true"></i><span class="sr-only">Details</span>
-					   			 </a>
-					   	 		<a href="#" class="btn btn-success btn-xs aaaa" value ="valider" title= "Valider demande"	onclick= "valideDemande(this,{{ $j }},{{$demande->id}});"><i class="ace-icon fa fa-check" ></i> Valider</a>     
-				    		</td>   			
-			    		</tr> 
-			    		<?php $j++ ?>
+							 	</div>
+						  </td>
+				    	<td>
+				    		<textarea class="width-100" resize="none" name="observation"></textarea>
+				    	</td>
+				    	<td>
+				   			<a href="#" class="green btn-lg show-details-btn" title="Afficher Details" data-toggle="collapse"  id="{{$i}}" data-target=".{{$i}}collapsed" >
+				    			<i class="fa fa-eye-slash" aria-hidden="true"></i><span class="sr-only">Details</span>
+				   			</a>
+				   	 		<a href="#" class="btn btn-success btn-xs aaaa" value ="valider" title= "Valider demande"	onclick= "valideDemande(this,{{ $j }},{{$demande->id}});"><i class="ace-icon fa fa-check" ></i> Valider</a>     
+				    	</td>   			
+			    	</tr> 
+			    	<?php $j++ ?>
 			    		<tr class="collapse out budgets {{$i}}collapsed">
 				      	<td colspan="12">
 					    		<div class="table-detail">

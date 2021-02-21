@@ -40,8 +40,9 @@ class HospitalisationController extends Controller
           $chapitres = chapitre::all();
           $medecins = employ::where('service',Auth::user()->employ->service)->get();
           if(Auth::user()->role_id != 9 )//9:admission
-               $hospitalisations = hospitalisation::whereHas('admission.rdvHosp.demandeHospitalisation.Service',function($q){
-                                                   $q->where('id',Auth::user()->employ->service);  })->where('etat_hosp','=',null)->get();
+            $hospitalisations = hospitalisation::whereHas('admission.rdvHosp.demandeHospitalisation.Service',function($q){
+                                                  $q->where('id',Auth::user()->employ->service);
+                                                 })->where('etat_hosp','=',null)->get();
            else
                $hospitalisations = hospitalisation::where('etat_hosp','=',null)->get();             
           return view('hospitalisations.index', compact('hospitalisations','etatsortie','chapitres','medecins'));
@@ -105,9 +106,9 @@ class HospitalisationController extends Controller
      */
     public function edit($id)
     {
-           $hosp = hospitalisation::find($id); 
-          $services =service::all();
-          return View::make('hospitalisations.edit')->with('hosp', $hosp)->with('services',$services);
+      $hosp = hospitalisation::find($id); 
+      $services =service::all();
+      return View::make('hospitalisations.edit')->with('hosp', $hosp)->with('services',$services);
     }
 
     /**
@@ -119,20 +120,18 @@ class HospitalisationController extends Controller
      */
     public function update(Request $request, $id)
     {
-          $hosp = hospitalisation::find($id);
-           if($request->ajax())  
-            {
-                $hosp -> update($request->all());
-                if($request->modeSortie == "0")
-                {
-                    $transfert = Transfert::create($request->all());
-                    $transfert->hospitalisation()->attach($id);
-                }
-                return Response::json($hosp ); 
-           }else{
-                 $hosp -> update($request->all());
-          return redirect()->action('HospitalisationController@index');
-       }
+      $hosp -> update($request->all());
+      $hosp = hospitalisation::find($id);
+       if($request->ajax())  
+        {
+          if($request->modeSortie == "0")
+          {
+            $transfert = Transfert::create($request->all());
+            $transfert->hospitalisation()->attach($id);
+          }
+          return Response::json($hosp ); 
+       }else
+        return redirect()->action('HospitalisationController@index');
     }
     /**
      * Remove the specified resource from storage.

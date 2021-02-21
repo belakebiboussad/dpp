@@ -125,10 +125,6 @@ $('#typeexm').on('change', function() {
                 $("#pos").val( $("#nbprise").val()+' fois par '+$("#fois").val()+' Pendant '+$("#duree").val()+' '+$("#dureefois").val()+'. '+$("#temps").val()+'.');
                 
             }
-            // function addmidifun()
-            // {
-            //     $("#ordonnance").append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td>" + $("#nommedic").text() + "</td><td>" + $("#forme").text() + "</td><td>" + $("#qte").val() +"</td><td>"+$("#pos").val()+"</td></tr>");
-            // }
             function supcolonne()
             {
                 $("tr:has(input:checked)").remove(); 
