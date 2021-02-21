@@ -1,11 +1,11 @@
 <!-- basic scripts -->
 
 <!--[if !IE]> -->
-<script src="{{ asset('/js/jquery.min.js') }}"></script>
+{{--<script src="{{ asset('/js/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/jspdf.debug.js') }}"></script>
 <script src="{{ asset('/js/html2pdf.js') }}"></script>
  <script type="text/javascript">
-   //  if('ontouchstart' in document.documentElement) document.write("<script src='{{asset('/js/jquery.mobile.custom.min.js')}}'>"+"<"+"/script>");
+   if('ontouchstart' in document.documentElement) document.write("<script src='{{asset('/js/jquery.mobile.custom.min.js')}}'>"+"<"+"/script>");
 </script>
 <script src="{{asset('/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('/js/jquery-ui.custom.min.js')}}"></script>
@@ -13,12 +13,11 @@
 <script src="{{asset('/js/bootbox.js')}}"></script>
 <script src="{{asset('/js/jquery.easypiechart.min.js')}}"></script>
 <script src="{{asset('/js/jquery.gritter.min.js')}}"></script>
- <script src="{{asset('/js/spin.js')}}"></script>
+ <script src="{{asset('/js/spin.js')}}"></script>--}}
 
         <!-- ace scripts -->
-<script src="{{asset('/js/ace-elements.min.js')}}"></script>
+{{--<script src="{{asset('/js/ace-elements.min.js')}}"></script>
 <script src="{{asset('/js/ace.min.js')}}"></script>
-<!-- ace scripts -->
 <script src="{{ asset('/js/larails.js') }}"></script>
 <script src="{{ asset('/js/datatables.js') }}"></script>
 <script src="{{ asset('/js/wizard.min.js') }}"></script>
@@ -39,7 +38,7 @@
 <script src="{{ asset('/js/bootstrap-tagsinput-angular.min.js') }}"></script>
 <script src="{{ asset('/js/bootstrap-switch/bootstrap-switch.min.js') }}"></script>
 <script src="{{ asset('/js/bootstrap-switch/main.js') }}"></script>
-<script src="{{ asset('/js/bootstrap-switch/highlight.js') }}"></script>
+<script src="{{ asset('/js/bootstrap-switch/highlight.js') }}"></script> --}}
 <script type="text/javascript">
 function typep()
 {
@@ -522,17 +521,6 @@ $('#typeexm').on('change', function() {
                     //console.log($(this).data('ace_input_files'));
                     //console.log($(this).data('ace_input_method'));
                 });
-                
-                
-                //$('#id-input-file-3')
-                //.ace_file_input('show_file_list', [
-                    //{type: 'image', name: 'name of image', path: 'http://path/to/image/for/preview'},
-                    //{type: 'file', name: 'hello.txt'}
-                //]);
-            
-                
-                
-            
                 //dynamically change allowed formats by changing allowExt && allowMime function
                 $('#id-file-format').removeAttr('checked').on('change', function() {
                     var whitelist_ext, whitelist_mime;
@@ -566,46 +554,7 @@ $('#typeexm').on('change', function() {
                     file_input
                     .off('file.error.ace')
                     .on('file.error.ace', function(e, info) {
-                        //console.log(info.file_count);//number of selected files
-                        //console.log(info.invalid_count);//number of invalid files
-                        //console.log(info.error_list);//a list of errors in the following format
-                        
-                        //info.error_count['ext']
-                        //info.error_count['mime']
-                        //info.error_count['size']
-                        
-                        //info.error_list['ext']  = [list of file names with invalid extension]
-                        //info.error_list['mime'] = [list of file names with invalid mimetype]
-                        //info.error_list['size'] = [list of file names with invalid size]
-                        
-                        
-                        /**
-                        if( !info.dropped ) {
-                            //perhapse reset file field if files have been selected, and there are invalid files among them
-                            //when files are dropped, only valid files will be added to our file array
-                            e.preventDefault();//it will rest input
-                        }
-                        */
-                        
-                        
-                        //if files have been selected (not dropped), you can choose to reset input
-                        //because browser keeps all selected files anyway and this cannot be changed
-                        //we can only reset file field to become empty again
-                        //on any case you still should check files with your server side script
-                        //because any arbitrary file can be uploaded by user and it's not safe to rely on browser-side measures
                     });
-                    
-                    
-                    /**
-                    file_input
-                    .off('file.preview.ace')
-                    .on('file.preview.ace', function(e, info) {
-                        console.log(info.file.width);
-                        console.log(info.file.height);
-                        e.preventDefault();//to prevent preview
-                    });
-                    */
-                
                 });
             
                 $('#spinner1').ace_spinner({value:0,min:0,max:200,step:10, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
@@ -616,13 +565,6 @@ $('#typeexm').on('change', function() {
                 $('#spinner2').ace_spinner({value:0,min:0,max:10000,step:100, touch_spinner: true, icon_up:'ace-icon fa fa-caret-up bigger-110', icon_down:'ace-icon fa fa-caret-down bigger-110'});
                 $('#spinner3').ace_spinner({value:0,min:-100,max:100,step:10, on_sides: true, icon_up:'ace-icon fa fa-plus bigger-110', icon_down:'ace-icon fa fa-minus bigger-110', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
                 $('#spinner4').ace_spinner({value:0,min:-100,max:100,step:10, on_sides: true, icon_up:'ace-icon fa fa-plus', icon_down:'ace-icon fa fa-minus', btn_up_class:'btn-purple' , btn_down_class:'btn-purple'});
-            
-                //$('#spinner1').ace_spinner('disable').ace_spinner('value', 11);
-                //or
-                //$('#spinner1').closest('.ace-spinner').spinner('disable').spinner('enable').spinner('value', 11);//disable, enable or change value
-                //$('#spinner1').closest('.ace-spinner').spinner('value', 0);//reset to 0
-            
-                //show datepicker when clicking on the icon
                 .next().on(ace.click_event, function(){
                     $(this).prev().focus();
                 });
@@ -630,15 +572,6 @@ $('#typeexm').on('change', function() {
                 //or change it into a date range picker
                 $('.input-daterange').datepicker({autoclose:true});
                 $('#simple-colorpicker-1').ace_colorpicker();
-                //$('#simple-colorpicker-1').ace_colorpicker('pick', 2);//select 2nd color
-                //$('#simple-colorpicker-1').ace_colorpicker('pick', '#fbe983');//select #fbe983 color
-                //var picker = $('#simple-colorpicker-1').data('ace_colorpicker')
-                //picker.pick('red', true);//insert the color if it doesn't exist
-            
-            
-                // $(".knob").knob();
-                
-                
                 var tag_input = $('#form-field-tags');
                 try{
                     tag_input.tag(
@@ -693,16 +626,7 @@ $('#typeexm').on('change', function() {
                         });
                     }
                 })
-                /**
-                //or you can activate the chosen plugin after modal is shown
-                //this way select element becomes visible with dimensions and chosen works as expected
-                $('#modal-form').on('shown', function () {
-                    $(this).find('.modal-chosen').chosen();
-                })
-                */
-            
-                
-                
+                               
                 $(document).one('ajaxloadstart.page', function(e) {
                     autosize.destroy('textarea[class*=autosize]')
                     
