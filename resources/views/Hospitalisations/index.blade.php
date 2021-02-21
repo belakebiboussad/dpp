@@ -219,25 +219,16 @@
             	<div class="col-sm-4">
             		<div class="form-group col-sm-8">
                           <label><strong>Etat :</strong></label>
-<<<<<<< HEAD
                           <select id='etat_hosp' class="form-control filter"> <!-- style="width: 200px" -->
-=======
-                          <select id='etat_hosp' class="form-control filter">{{-- style="width: 200px" --}}
->>>>>>> eecb04a0bb489fcd79b64443b19a5ca7d219b50e
-                                <option value="0">En Cours</option>
+                              <option value="0">En Cours</option>
                                <option value="1">Cloturé</option>
                         </select>
             		</div>		
             	</div>
             	<div class="col-sm-4">
             		<div class="form-group col-sm-8">
-<<<<<<< HEAD
                 	<label><strong>Patient :</strong></label><input type="text" id="Nom" class="form-control filter">
                 </div>		
-=======
-                	     <label><strong>Patient :</strong></label><input type="text" id="Nom" class="form-control filter">
-                	</div>		
->>>>>>> eecb04a0bb489fcd79b64443b19a5ca7d219b50e
             	</div>
             	<div class="col-sm-4">
             		<div class="form-group col-sm-8">
@@ -265,55 +256,55 @@
 		<div class="widget-body">
 			<div class="widget-main no-padding">
 				<table class="display responsive nowrap" id="liste_hosptalisations" width="100%">
-                          <thead>
-                              <tr>
-                                    <th></th>
-                                    <th><strong>Patient</strong></th>
-                                     <th><strong>Mode Admission</strong></th>
-                                     <th><strong>Date_entree</strong></th>
-                                    <th><strong>Date Sortie Prévue</strong></th>
-                                    <th><strong>Date Sortie</strong></th>
-                                    <th><strong>Mode</strong></th>
-                                    <th><strong>Medecin</strong></th>
-                                    <th><strong>Etat</strong></th>
-                                    <th class ="center">
-                                      <strong><em class="fa fa-cog"></em></strong>
-                                    </th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                               @foreach ($hospitalisations as $hosp)
-                                <tr id="hospi{{ $hosp->id }}">
-                                    <td><input type="checkbox" class="editor-active check" value="{{ $hosp->id}}"/><span class="lbl"></span></td>
-                                    <td>{{ $hosp->patient->Nom }} {{ $hosp->patient->Prenom }}</td>
-                                    <td>{{ $hosp->admission->demandeHospitalisation->modeAdmission}} </td>
-                                    <td>{{  $hosp->Date_entree}}</td>
-                                    <td>{{  $hosp->Date_Prevu_Sortie}}</td>
-                                    <td>{{  $hosp->Date_Sortie}}</td>
-                                    <td>{{  $hosp->modeHospi->nom }}</td>
-                                     <td>{{  $hosp->admission->demandeHospitalisation->demeandeColloque->medecin->nom }}
-                                            {{  $hosp->admission->demandeHospitalisation->demeandeColloque->medecin->prenom }}
-                                     </td>
-                                    <td>
-                                         @if(isset( $hosp->etat_hosp))
-                                              <span class="badge badge-pill badge-success">{{  $hosp->etat_hosp }}</span>
-                                          @else
-                                                <span class="badge badge-pill badge-primary">En Cours</span>
-                                          @endif
-                                      </td>
-                                    <td class ="center">
-                                          <a href = "/hospitalisation/{{ $hosp->id }}" style="cursor:pointer" class="btn secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>
-                                          @if((Auth::user()->role_id != 3))
-                                               @if(Auth::user()->role_id == 1)
-                                                    <a href="/hospitalisation/{{ $hosp->id}}/edit" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier Hospitalisation" data-placement="bottom"><i class="fa fa-edit fa-xs" aria-hidden="true" fa-lg bigger-120></i></a>                   
-                                                     <a href="/visite/create/{{ $hosp->id }}" class ="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter une Visite" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle"></i></a>
-                                                    <a data-toggle="modal" data-id="{{ $hosp->id }}" title="Clôturer Hospitalisation"  onclick ="cloturerHosp({{ $hosp->id }})" class="btn btn-warning btn-xs" href="#" id="sortieEvent"><i class="fa fa-sign-out" aria-hidden="false"></i></a>
-                                              @endif
-                                          @endif
-                                    </td>
-                             </tr>
-                            @endforeach
-                          </tbody>    
+          <thead>
+              <tr>
+                <th></th>
+                <th><strong>Patient</strong></th>
+                 <th><strong>Mode Admission</strong></th>
+                 <th><strong>Date_entree</strong></th>
+                <th><strong>Date Sortie Prévue</strong></th>
+                <th><strong>Date Sortie</strong></th>
+                <th><strong>Mode</strong></th>
+                <th><strong>Medecin</strong></th>
+                <th><strong>Etat</strong></th>
+                <th class ="center">
+                  <strong><em class="fa fa-cog"></em></strong>
+                </th>
+              </tr>
+          </thead>
+          <tbody>
+               @foreach ($hospitalisations as $hosp)
+                <tr id="hospi{{ $hosp->id }}">
+                    <td><input type="checkbox" class="editor-active check" value="{{ $hosp->id}}"/><span class="lbl"></span></td>
+                    <td>{{ $hosp->patient->Nom }} {{ $hosp->patient->Prenom }}</td>
+                    <td>{{ $hosp->admission->demandeHospitalisation->modeAdmission}} </td>
+                    <td>{{  $hosp->Date_entree}}</td>
+                    <td>{{  $hosp->Date_Prevu_Sortie}}</td>
+                    <td>{{  $hosp->Date_Sortie}}</td>
+                    <td>{{  $hosp->modeHospi->nom }}</td>
+                     <td>{{  $hosp->admission->demandeHospitalisation->demeandeColloque->medecin->nom }}
+                            {{  $hosp->admission->demandeHospitalisation->demeandeColloque->medecin->prenom }}
+                     </td>
+                    <td>
+                         @if(isset( $hosp->etat_hosp))
+                              <span class="badge badge-pill badge-success">{{  $hosp->etat_hosp }}</span>
+                          @else
+                                <span class="badge badge-pill badge-primary">En Cours</span>
+                          @endif
+                      </td>
+                    <td class ="center">
+                          <a href = "/hospitalisation/{{ $hosp->id }}" style="cursor:pointer" class="btn secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>
+                          @if((Auth::user()->role_id != 3))
+                               @if(Auth::user()->role_id == 1)
+                                    <a href="/hospitalisation/{{ $hosp->id}}/edit" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier Hospitalisation" data-placement="bottom"><i class="fa fa-edit fa-xs" aria-hidden="true" fa-lg bigger-120></i></a>                   
+                                     <a href="/visite/create/{{ $hosp->id }}" class ="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter une Visite" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle"></i></a>
+                                    <a data-toggle="modal" data-id="{{ $hosp->id }}" title="Clôturer Hospitalisation"  onclick ="cloturerHosp({{ $hosp->id }})" class="btn btn-warning btn-xs" href="#" id="sortieEvent"><i class="fa fa-sign-out" aria-hidden="false"></i></a>
+                              @endif
+                          @endif
+                    </td>
+             </tr>
+            @endforeach
+          </tbody>    
                     </table>
 			</div><!-- widget-main -->
 	  	</div>	<!-- widget-body -->
