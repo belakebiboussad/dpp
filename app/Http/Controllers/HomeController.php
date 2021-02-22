@@ -96,7 +96,6 @@ class HomeController extends Controller
     public function print(Request $request)
     {
       $model_prefix="App\modeles";
-      //$hosp  = hospitalisation::find($request->hosp_id);  
       $filename ="";$pdf;
       $modelName = $model_prefix.'\\'.$request->class_name;
       $date= Carbon::now()->format('Y-m-d'); //$consult  = $className::find($obj_id);
@@ -123,7 +122,7 @@ class HomeController extends Controller
             $pdf = PDF::loadView('hospitalisations.EtatsSortie.CRHPDF', compact('obj','date'));
             break;
          case "6"://Certificat sejour
-            $filename = "CJ-".$obj->hospitalisation->patient->Nom."-".$obj->hospitalisation->patient->Prenom.".pdf";
+            $filename = "CJ-".$obj->hospitalisation->patient->Nom."-".$obj->hospitalisation->patient->Prenom.time().".pdf";
             $pdf = PDF::loadView('admission.EtatsSortie.CertificatSejourPDF', compact('obj','date'));
             break;
         case "7"://Demande orientation
