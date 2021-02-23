@@ -23,6 +23,10 @@ class DemandeHospitalisationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+      {
+          $this->middleware('auth');
+      }
       public function index()
       {
         $employeID= employ::where("id",Auth::user()->employee_id)->get()->first()->id ;           

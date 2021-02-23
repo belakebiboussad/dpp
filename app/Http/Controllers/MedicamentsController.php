@@ -9,6 +9,10 @@ use App\modeles\dispositif;
 use App\modeles\reactif;
 class MedicamentsController extends Controller
 {
+  public function __construct()
+      {
+          $this->middleware('auth');
+      }
     public function getmed($id)
     {
          $med = medicament::FindOrFail($id);

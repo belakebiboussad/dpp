@@ -48,7 +48,7 @@
 				    <div class="col-sm-6 col-xs-6">
 					    <label class="col-sm-4 col-xs-4 control-label no-padding-right text-right" for="motif"><strong>Motif:</strong></label>
 					    <div class="col-sm-8 col-xs-8">
-					      <input type="text" id="motif" name="motif" value="{{ $demande->consultation->Motif_Consultation }}" class="col-xs-12 col-sm-12" disabled/>
+					      <input type="text" id="motif" name="motif" value="{{ $demande->consultation->motif }}" class="col-xs-12 col-sm-12" disabled/>
 					    </div>
 				    </div>
 					</div>

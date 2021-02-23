@@ -7,7 +7,11 @@ use App\modeles\Commune;
 
 class CommuneController extends Controller
 {
-  //
+  
+  public function __construct()
+      {
+          $this->middleware('auth');
+      }
   public function AutoCompleteCommune(Request $request)
   {
     $search = $request->search;

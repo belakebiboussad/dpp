@@ -21,8 +21,8 @@
 					<tbody>
 					@foreach($patient->consultations as $consult)
 					<tr  role="row" class="even">
-					  <td>{{$consult->Date_Consultation}}</td>
-						<td>{{ $consult->Motif_Consultation }}</td>
+					  <td>{{$consult->motif}}</td>
+						<td>{{ $consult->motif }}</td>
 						<td class ="center sorting_disabled"><span>{{ $consult->docteur->nom }}{{ $consult->docteur->prenom }}</span></td>
 						<td class="center sorting_disabled"><span >{{$consult->docteur->Service->nom}}</span></td>
 						<td class="center sorting_disabled">

@@ -5,7 +5,7 @@
 <div class="row">
 	<ul class="list-unstyled spaced">
 		<li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Date de la Consultation : <span class="badge badge-pill badge-success">{{ $consultation->Date_Consultation }}</span></span></li>
-		<li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:16px;">Motif de la Consultation :</span><span>{{ $consultation->Motif_Consultation }}</span></li>
+		<li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:16px;">Motif de la Consultation :</span><span>{{ $consultation->motif }}</span></li>
 		<li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Histoire de la maladie :</span><span>{{ $consultation->histoire_maladie }}
 		</span></li>
 		<li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Diagnostic :</span><span>{{ $consultation->Diagnostic }}</span></li>

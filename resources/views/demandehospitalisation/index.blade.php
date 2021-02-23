@@ -43,7 +43,7 @@
 							</td>
 							<td>{{ $demande->Specialite->nom }}</td>
 							<td>{{ $demande->Service->nom }}</td>
-							<td>{{ $demande->consultation->Motif_Consultation }}</td>
+							<td>{{ $demande->consultation->motif }}</td>
 							<td>
 							@switch($demande->etat)
     							@case("en attente")

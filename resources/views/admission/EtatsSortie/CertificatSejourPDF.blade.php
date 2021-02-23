@@ -4,6 +4,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="css/bootstrap.min.css">{{--   <link href="{{public_path('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />  --}}
+   <link rel="stylesheet" href="css/styles.css">
    <title>Attestation de Séjour</title>
   <style>
      table {
@@ -64,12 +65,16 @@
                 </tr>
           </table>
       </div>
+      <br/>
       <div class="row" >
-          je soussigné, Docteur  <span>{{$obj->demandeHospitalisation->DemeandeColloque->medecin->nom}} &nbsp;{{$obj->demandeHospitalisation->DemeandeColloque->medecin->prenom}}</span>,certifie que  {{ $obj->hospitalisation->patient->nom }} &nbsp; {{ $obj->hospitalisation->patient->nom }}
+           &nbsp;&nbsp;je soussigné, Docteur  <span>{{$obj->demandeHospitalisation->DemeandeColloque->medecin->nom}} &nbsp;{{$obj->demandeHospitalisation->DemeandeColloque->medecin->prenom}}</span>,certifie que  {{ $obj->hospitalisation->patient->getCivilite() }}&nbsp;<strong> {{ $obj->hospitalisation->patient->Nom }} &nbsp; {{ $obj->hospitalisation->patient->Prenom }}</strong>  à été hospitalisée du  {{ $obj->hospitalisation->Date_entree }} au {{ $obj->hospitalisation->Date_Sortie }} en {{ $obj->demandeHospitalisation->Service->nom}} pour  {{ $obj->demandeHospitalisation->consultation->motif }}
       </div>
-      <div class="row" >
-       
+       <br><br><br>
+      <div class="row">
+          <div class="sec-droite"><strong>Docteur &nbsp; </strong><span>{{  $obj->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->nom }}
+              {{  $obj->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->prenom }}</span></div><br>
       </div>
-      <br><hr/>
+
+      <hr/>
     </div>
     </body>

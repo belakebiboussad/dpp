@@ -9,7 +9,10 @@ use App\modeles\service;
 use App\modeles\BedReservation;
 class BedReservationController extends Controller
 {
-   //
+	 public function __construct()
+      {
+          $this->middleware('auth');
+      }
 	public function index()
 	{
 		$tomorrow = date("Y-m-d", strtotime('now'));// $tomorrow = date("Y-m-d", strtotime('tomorrow'));

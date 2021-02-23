@@ -17,6 +17,10 @@ use PDF;
 use Response;
 class RdvHospiController extends Controller
 {
+     public function __construct()
+      {
+          $this->middleware('auth');
+      }
   public function index()
   {
       $services = service::all();

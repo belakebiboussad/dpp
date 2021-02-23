@@ -92,7 +92,7 @@ $(document).on('click','#getConsults',function(event){
 				            title:'#', "orderable":false,searchable: false
 									},
 									{ data: 'Date_Consultation', title:'Date' },
-				 					{ data: 'Motif_Consultation', title:'Motif',"orderable": false},
+				 					{ data: 'motif', title:'Motif',"orderable": false},
 				 					{ data: "docteur.nom",
 	            			render: function ( data, type, row ) {
 	               			 return row.docteur.nom + ' ' + row.docteur.prenom;

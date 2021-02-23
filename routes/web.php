@@ -14,7 +14,6 @@ Route::group(['middleware' => 'revalidate'], function()
     Auth::routes(); 
     Route::get('/', 'Auth\LoginController@showLoginForm');  /* Route::get('/', function () { return view('auth/login');  });*/
 });//ressources
-Route::resource('listeadmiscolloque','listeadmisColloqueController');
 Route::resource('colloque','ColloqueController');
 Route::resource('admission','AdmissionController');
 Route::resource('hommeConfiance','HommeConfianceController');

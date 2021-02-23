@@ -119,7 +119,7 @@
               <td><strong>Date de Sortie de l'Hôpital :</strong><span> &nbsp;{{ $obj->Date_Sortie }}</span></td>
             </tr>
             <tr>
-              <td class="first" colspan="2"><strong>Motif d'hospitalisation :</strong><span> &nbsp;{{ $obj->admission->rdvHosp->demandeHospitalisation->consultation->Motif_Consultation }}</span></td>
+              <td class="first" colspan="2"><strong>Motif d'hospitalisation :</strong><span> &nbsp;{{ $obj->admission->rdvHosp->demandeHospitalisation->consultation->motif }}</span></td>
             </tr>
             <tr class="noBorder">
               <td class="first" colspan="2"><strong>Diagnostic Principale de sotie :</strong><span> &nbsp;{{ $obj->diagSortie }}</span></td>

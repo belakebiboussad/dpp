@@ -26,6 +26,10 @@ class AdmissionController extends Controller
      * @return \App\modeles\admission
      * @return \App\modeles\rdv_hospitalisation
      */
+    public function __construct()
+      {
+          $this->middleware('auth');
+      }
       public function index()
       {
 

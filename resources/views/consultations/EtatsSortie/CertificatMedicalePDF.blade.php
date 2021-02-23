@@ -37,8 +37,7 @@
         margin-left: +80%;
       }
       span {
-        display: inline-block;
-        /*padding:6px 0;font-size:16px;*/
+        display: inline-block;/*padding:6px 0;font-size:16px;*/
       } 
       table.head, table.head thead{border:none;}
       table.head thead tr th{padding:1px 0;}

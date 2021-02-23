@@ -804,43 +804,31 @@
    		eventAllow: function(dropLocation, draggedEvent) {// if(draggedEvent.start < CurrentDate)
 	      return false;  	     
 	   	},
-			eventDrop: function(event, delta, revertFunc) { 
+		eventDrop: function(event, delta, revertFunc) { 
   			// $('#updateRDV').removeClass('invisible');// jQuery('#btnclose').click(function(){//revertFunc();// });// editRdv(event);
   			revertFunc();
-    	},
-		  eventDragStop: function (event, jsEvent, ui, view) {
+    		},
+		 eventDragStop: function (event, jsEvent, ui, view) {
 		  	return false;
-		  } 
+		 } 
 		}); // calendar
-   //  $('#updateRDV').click(function(){
-			// var url = '{{ route("rdv.update", ":slug") }}'
-			// url = url.replace(':slug',$('#idRDV').val());
-			// $.ajaxSetup({
-   //    		headers: {
-   //          		'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-   //    		}
-   //  	});
-   //   	$.ajax({
-   //            type : 'PUT',
-   //            url : url,
-   //            data: {
-   //        		  "id": $('#idRDV').val(),
-   //        		   "daterdv" : $('#daterdv').val(),
-   //        		   "datefinrdv" :$('#datefinrdv').val(),
-   //      	    },
-   //      	    $.each(data,function(key,value){
-   //      	    	alert(key + ":" + value);
-   //      	    })
-   //      	    success:function(data){  	   		
-   //              $('#fullCalModal').modal('toggle');
-   //              $('#updateRDV').addClass('invisible');
-   //            },
-   //            error:function(jqXHR, textStatus, errorThrown){
-   //              console.log(textStatus);		      
-   //            }
-			// });
-	  // });
+		$("#btnSlider").click(function (e) {
+			e.preventDefault();
+			var selection = $( "#taille" ).slider( "value" );
+			alert(selection);
+		})
+		$('.input-range').on('input', function() {
+  			$(this).parent().parent().next().children('.range-value')
+}		);
 });// ready
+//var slider = document.getElementById("myRange");
+var slider = document.getElementById("myRange");
+var output = document.getElementById("demo");
+output.innerHTML = slider.value;
+
+slider.oninput = function() {
+  output.innerHTML = this.value;
+}
 </script>	
 @endsection
 @section('main-content')

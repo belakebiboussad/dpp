@@ -56,7 +56,7 @@
 								<ul class="list-unstyled  spaced">
 									<li>
 										<i class="ace-icon fa fa-caret-right green"></i><strong>Motif :</strong>
-										<b class="blue">{{ $demande->consultation->Motif_Consultation }}</b>
+										<b class="blue">{{ $demande->consultation->motif }}</b>
 									</li>
 									<li>
 										<i class="ace-icon fa fa-caret-right green"></i><strong>Date Consultation :</strong>

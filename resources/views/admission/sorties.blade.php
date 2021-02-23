@@ -46,7 +46,7 @@
        		dataType: "json",
        		success: function(data) {
 			 	$(".numberResult").html(data.length);
-		       	var oTable =$("#liste_sorties").DataTable ({
+			  	var oTable =$("#liste_sorties").DataTable ({
 	        			"processing": true,
 		          		"paging":   true,
 		          		"destroy": true,
@@ -90,9 +90,9 @@
 		});
 		$(document).on('click', '.selctetat', function(event){
     		event.preventDefault();
-				var formData = {
+			var formData = {
       		class_name: $('#className').val(),		
-          obj_id: $('#objID').val(),
+          		obj_id: $('#objID').val(),
           selectDocm :$(this).val(),
         };
         $.ajax({

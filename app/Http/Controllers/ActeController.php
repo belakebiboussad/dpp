@@ -10,11 +10,13 @@ use Response;
 class ActeController extends Controller
 {
     //
+    public function __construct()
+      {
+          $this->middleware('auth');
+      }
 	  public function choixhospconsigne()
     {
-    	   
-         
-     return view('consigne.choix_patient_consigne');
+            return view('consigne.choix_patient_consigne');
      //   return view('visite.choix_patient_visite');
     }
 

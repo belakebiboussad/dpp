@@ -35,7 +35,7 @@ function getConsultations(field,value)
                                },
                                className: "dt-body-center",
                           }, 
-                          { data: "Motif_Consultation" , title:'Motif' },
+                          { data: "motif" , title:'Motif' },
                           { data: "Date_Consultation" , title:'Date' },
                           { data: "Resume_OBS" , title:'Résumé' },
                           { data: "patient.Nom",

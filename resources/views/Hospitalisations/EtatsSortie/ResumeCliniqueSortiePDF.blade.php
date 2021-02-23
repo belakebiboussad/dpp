@@ -79,7 +79,7 @@
             </tr>
            <tr><td colspan="3"></td></tr>
                 <tr class="noBorder">
-                      <td colspan="3" class="first"><strong>Motif d'Hôspitalisation</strong><span> &nbsp;{{ $obj->admission->rdvHosp->demandeHospitalisation->consultation->Motif_Consultation }}</span></td>
+                      <td colspan="3" class="first"><strong>Motif d'Hôspitalisation</strong><span> &nbsp;{{ $obj->admission->rdvHosp->demandeHospitalisation->consultation->motif }}</span></td>
                 </tr>
                  <tr class="noBorder">
                     <td colspan="3" class="first"><strong>Bilan Bioloqique :</strong>

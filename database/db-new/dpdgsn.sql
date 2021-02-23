@@ -1,9 +1,9 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 17 fév. 2021 à 23:18
+-- Généré le :  mar. 23 fév. 2021 à 18:53
 -- Version du serveur :  5.7.21
 -- Version de PHP :  7.2.4
 
@@ -2258,7 +2258,7 @@ INSERT INTO `communes` (`id`, `nom_commune`, `Id_daira`) VALUES
 DROP TABLE IF EXISTS `consultations`;
 CREATE TABLE IF NOT EXISTS `consultations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Motif_Consultation` text,
+  `motif` text,
   `histoire_maladie` text,
   `Date_Consultation` date DEFAULT NULL,
   `Diagnostic` varchar(100) DEFAULT NULL,
@@ -2279,7 +2279,7 @@ CREATE TABLE IF NOT EXISTS `consultations` (
 -- Déchargement des données de la table `consultations`
 --
 
-INSERT INTO `consultations` (`id`, `Motif_Consultation`, `histoire_maladie`, `Date_Consultation`, `Diagnostic`, `Resume_OBS`, `isOriented`, `lettreorientaioncontent`, `Employe_ID_Employe`, `Patient_ID_Patient`, `id_code_sim`, `id_lieu`) VALUES
+INSERT INTO `consultations` (`id`, `motif`, `histoire_maladie`, `Date_Consultation`, `Diagnostic`, `Resume_OBS`, `isOriented`, `lettreorientaioncontent`, `Employe_ID_Employe`, `Patient_ID_Patient`, `id_code_sim`, `id_lieu`) VALUES
 (1, 'motif teste', 'histoire', '2020-12-22', 'diag', 'resumr', 0, NULL, 102, 190, 'D60', 1),
 (2, 'motif teste', 'fffsd', '2020-12-22', 'diag', 'reasume', 0, NULL, 102, 204, NULL, 1),
 (3, 'motf', NULL, '2020-12-25', NULL, 'resureme', 0, NULL, 102, 191, 'D71', 1),
@@ -3696,7 +3696,7 @@ INSERT INTO `etat_sortie` (`id`, `nom`, `type`) VALUES
 (4, 'Attestation Contre Avis Medical', '0'),
 (5, 'Compte rendu d\'hospitalisation', '0'),
 (7, 'DEMANDE D\'ORIENTATION MEDICALE', NULL),
-(6, 'Certificat de séjour', '1');
+(6, 'Attestation de séjour', '1');
 
 -- --------------------------------------------------------
 
@@ -12029,13 +12029,13 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (38, 'user', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'jj@hot.frr', 93, 13, 'QGzAK3Ot9VH190WBcOuRMMdfEN0H91VgB1MXO6vbFuiiu15koQYCQLxWP4BT', 1),
 (39, 'surMed', '$2y$10$zUdI0W5QV/1fmnBnhmL2TOTqN8GMNEdZZK6o4gclrJ1CKfxVq.Rca', 'bbedeebi@cdta.dz', 94, 5, 'VMi8WFJWcGe7iPxbmAZ2W7Z4TAip64VNxFH4yLf84BgUk1mKcSVpVUd5e1Mm', 1),
 (40, 'agentAdm', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'agentAdm@hop.dz', 95, 9, 'hcEiyOu6lVtRBS0HwhkUkIf2CrZunWTA0omOlazCn1GaTHxQPKkyUnaWSueG', 1),
-(41, 'agent', '$2y$10$RsD.pKjSIV73uBbaLJNE.uXhzCmCixdBf71lcxBq2wmQu0dsRzdmy', 'agent@hop.dz', 96, 9, 'Oi1pHnAe42YUNMXfbjd1FhiSWDzR5nVaNmU9O6S2sW5Hl20jvYDgiTEyW5IQ', 1),
+(41, 'agent', '$2y$10$RsD.pKjSIV73uBbaLJNE.uXhzCmCixdBf71lcxBq2wmQu0dsRzdmy', 'agent@hop.dz', 96, 9, 'GZ96UcUX8POSEzXnX2XKEJtTMANGxsWYcEpvEcJkB5GlHqm1qrve7hEye7nK', 1),
 (42, 'laborantin', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'lab@hop.dz', 97, 11, 'QZOK8XxQcxpBYZjmZS35YFJIFRomup114aMBLKYYoE8adSBi2nex4mtmKgfJ', 1),
 (43, 'radiogue', '$2y$10$k5gKJEykSI5PNYLHyheO.eXq4ge1e6Rkz/HN/mMKUZiKZFe8qMlki', 'rad@hop.dz', 98, 12, 'benlcglfiv00sldthLpx1KXLmtI2DYvCGoRpjKunnuQE0cSzBTETHsXO9x9e', 1),
 (44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, 'kpBJfTCvd2SP3BkyPqgdnSHwoMHEoAWGaDS0QeQu6arJNqxWOxijlkb8pQji', 1),
 (45, 'chefServ', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'MqwpSXPTQM0JlyL3aHRfqlG29ow5QmZnqGPwuINxH9jaZRFPEFqIoFdW1SxY', 1),
 (46, 'rad', '$2y$10$PNDRMvcnhl1kZ.sxfoq8Yuhoq6ZMQePi9/q1QbLUZ.a.hd5DxvnCS', 'rad@cdta.net', 101, 12, 'wNIKVHg2PbzJIsiLAb18xOxGgX8DyOsB6KEa3V8sU25YvFxdlzuUnyNPUeha', 1),
-(47, 'cardio', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'bbedeebi@cdta.dz', 102, 1, 'OXNk7i8py9sGzU7znNBULXCgbxnrkQQOf25GjatHEHpnZVLk6kJk3AhQGlgf', 1),
+(47, 'cardio', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'bbedeebi@cdta.dz', 102, 1, 'gZUgG4JX4Z8SesS2onJZR6uzsQ3UwAVmJZKPJiEcJ8UQKLZM2k9kaeXSVitk', 1),
 (48, 'geneco', '$2y$10$MeHcy1r9az/dgkC9pLvo/Ob4eqJVp8mRjGuZeyL9yA6k8sc3D0FAW', 'geneco@cdta.dz', 103, 1, 'wG4AMsJliph2HEp2SwRF5E6z7xHjvR9gDzzEAU9vV9Fe4FsAh28t3TGQZDra', 1);
 
 -- --------------------------------------------------------

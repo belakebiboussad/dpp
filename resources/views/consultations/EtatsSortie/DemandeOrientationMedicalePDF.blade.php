@@ -9,13 +9,11 @@
             border-spacing: 0;
             width: 600px;
         }
-
         table > tbody > tr > td {
             border: 1px solid black;
             vertical-align: top;
             text-align: center;
         }
-
         table > tbody > tr > td > div {
             margin: 0 auto;
             border: 0px red solid;
@@ -97,7 +95,7 @@
           âgé(e) de {{ $obj->patient->getAge() }}&nbsp;ans.
         </div>
         <div class="row">
-          Je vous confie ce (cette) patient(e) qui s'est présenté ce jour pour {{ $obj->Motif_Consultation }},
+          Je vous confie ce (cette) patient(e) qui s'est présenté ce jour pour {{ $obj->motif }},
           @if(isset($obj->patient->antecedants))
             aux Antécédants de      
             @foreach ($obj->patient->antecedants as $ant)

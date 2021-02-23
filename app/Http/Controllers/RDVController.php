@@ -27,6 +27,10 @@ class RDVController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     public function __construct()
+      {
+          $this->middleware('auth');
+      }
       public function valider($id)
       {
         $rdv = rdv::FindOrFail($id);

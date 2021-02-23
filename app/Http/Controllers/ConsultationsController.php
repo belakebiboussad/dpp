@@ -105,7 +105,7 @@ class ConsultationsController extends Controller
                 return redirect()->back()->withErrors($validator)->withInput();
           $fact = facteurRisqueGeneral::updateOrCreate( ['patient_id' =>  request('patient_id')], $request->all());
           $consult = consultation::create([
-                "Motif_Consultation"=>$request->motif,
+                "motif"=>$request->motif,
                 "histoire_maladie"=>$request->histoirem,
                 "Date_Consultation"=>Date::Now(),
                 "Diagnostic"=>$request->diagnostic,

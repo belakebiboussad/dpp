@@ -20,7 +20,7 @@
           <div class="row">
           <ul class="list-unstyled spaced">
                 <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Date de la Consultation :</span> <span class="badge badge-pill badge-success">{{ $consultation->Date_Consultation }}</span></li>
-                <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:16px;">Motif de la Consultation : <blockquote>{{ $consultation->Motif_Consultation }}</blockquote></span></li>
+                <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:16px;">Motif de la Consultation : <blockquote>{{ $consultation->motif }}</blockquote></span></li>
                 <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Histoire de la maladie : </span><span>{{ $consultation->histoire_maladie }} </span></li>
                 <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Diagnostic :</span><span>{{ $consultation->Diagnostic }}</span> </li>
                 <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Résumé :</span><span> {{ $consultation->Resume_OBS }}</span></li>
@@ -28,7 +28,7 @@
           </div>
           </div>{{-- Intero --}}
           @if(isset($consultation->examensCliniques->id) )
-          <div id="ExamClin" class="tab-pane in active"><div class="space-12"></div> 
+          <div id="ExamClin" class="tab-pane"><div class="space-12"></div> 
               <div class="row">
                      <ul class="list-unstyled spaced">
                           <li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">Taille : <span class="badge badge-pill badge-primary"> {{ $consultation->examensCliniques->taille  }}</span></span>&nbsp;(m)</li>
@@ -43,7 +43,7 @@
           </div>{{-- ExamClin --}}
           @endif
           @if((isset($consultation->demandeexmbio)) || (isset($consultation->examensradiologiques)) || (isset($consultation->examenAnapath)) ||(isset($consultation->ordonnances)))
-           <div id="ExamCompl" class="tab-pane in active"><div class="space-12"></div> 
+           <div id="ExamCompl" class="tab-pane"><div class="space-12"></div> 
                 @if(isset($consultation->demandeexmbio))
                 <div class="row">
                     <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right">
