@@ -15,19 +15,12 @@
 	</div> {{-- row ul --}}
 	<div class="row">
 		<div class= "col-md-8 col-xs-8"> 
-			{{-- <div class="row">	
+			
 				<div class="form-group">
-					<label class="col-sm-2 control-label no-padding-right" for="motif"><strong>Taille (H) : </strong>
-					</label> 
-					<div class="col-sm-2">
-						<div id="heightSlider"></div>
-					</div>
-					<div class="col-sm-2">(cm)</div>
-					<div class="col-sm-2">
-						<input type="text" id="taille" value="" >
-					</div>
+				<input type="text" name="chance" id="chance" class="text" value="50">
+				<input type="range" id="chanceSlider" class="vHorizon" min="0.01" max="98" step="0.01" style="background-color: #00aec8; width: 50%;">
 				</div>
-			</div> --}}
+		
 			<div class="form-group">
 				 <div class="range-slider col-xs-9">
 					 <div class="col-xs-4">
@@ -35,11 +28,12 @@
   						</label>
   					</div>
   					<div class="col-xs-6">
-  						<input class="input-range" type="range" value="0" min="0" max="250">		
+  						<input type="range" name="rangeInput" min="0" max="100" onchange="updateTextInput(this.value);">		
   					</div>
 				</div>
 				<div class="col-xs-3">
-					<span class="range-value">0</span>
+					<input type="text" id="textInput" value="">
+
 				</div>
 				  
 			</div>
@@ -51,14 +45,9 @@
 				</div>
 			</div>
 			<div class="form-group">
-			{{-- <label for="volume">Temperature:</label>
-			 <input type="range" min="30" max="50" value="37" class="slider" id="myRange">
-			  <input type="text"  id="temp" name="temp"> --}}
-			  <div class="slidecontainer">
-  <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-  <p>Value: <span id="demo"></span></p>
-</div>
+
 			</div>
+			
 		</div>
 		<div class= "col-md-4 col-xs-4"> 
 			<div class="right">

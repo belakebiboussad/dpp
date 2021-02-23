@@ -811,24 +811,20 @@
 		 eventDragStop: function (event, jsEvent, ui, view) {
 		  	return false;
 		 } 
-		}); // calendar
-		$("#btnSlider").click(function (e) {
-			e.preventDefault();
-			var selection = $( "#taille" ).slider( "value" );
-			alert(selection);
-		})
-		$('.input-range').on('input', function() {
-  			$(this).parent().parent().next().children('.range-value')
-}		);
+	}); // calendar
+	$('#chanceSlider').on('change', function(){
+   		 $('#chance').val($('#chanceSlider').val());
+	});
+	$('#chance').on('keyup', function(){
+    		$('#chanceSlider').val($('#chance').val());
+	});
+	$('.input-range').on('input', function() {
+  		$(this).parent().parent().next().children('.range-value')
+	});
 });// ready
-//var slider = document.getElementById("myRange");
-var slider = document.getElementById("myRange");
-var output = document.getElementById("demo");
-output.innerHTML = slider.value;
-
-slider.oninput = function() {
-  output.innerHTML = this.value;
-}
+function updateTextInput(val) {
+          document.getElementById('textInput').value=val; 
+        }
 </script>	
 @endsection
 @section('main-content')
