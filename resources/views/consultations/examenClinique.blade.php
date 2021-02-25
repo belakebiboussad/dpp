@@ -20,7 +20,7 @@
   					</div>	</div>	<div class="col-xs-3"><input type="text" id="textInput" value="">	</div>	</div> -->
 			<br><br><br><br>
       <div class="form-group irs-demo m-b-30"> <b>Taille :</b>
-   		  <input type="text" id="height_range" name="height" class="irs-hidden-input" tabindex="-1" value="" readonly="">
+   		  <input type="text" id="taille" name="taille" class="irs-hidden-input" tabindex="-1" value="" readonly="">
 			</div>
 			<br>
       <div class="form-group irs-demo m-b-30"> <b>Poids :</b>

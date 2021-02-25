@@ -818,7 +818,7 @@
   		$(this).parent().parent().next().children('.range-value')
 	});
 	 $(document).ready(function(e){
-       $("#height_range").ionRangeSlider({
+       $("#taille").ionRangeSlider({
             min:0,
             max:200,
             from:0
