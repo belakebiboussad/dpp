@@ -15,39 +15,43 @@
 	</div> {{-- row ul --}}
 	<div class="row">
 		<div class= "col-md-8 col-xs-8"> 
-			
-				<div class="form-group">
-				<input type="text" name="chance" id="chance" class="text" value="50">
-				<input type="range" id="chanceSlider" class="vHorizon" min="0.01" max="98" step="0.01" style="background-color: #00aec8; width: 50%;">
-				</div>
-		
-			<div class="form-group">
-				 <div class="range-slider col-xs-9">
-					 <div class="col-xs-4">
-				 		<label class="control-label no-padding-right" for="motif"><strong>Taille (H) : </strong>
-  						</label>
-  					</div>
-  					<div class="col-xs-6">
-  						<input type="range" name="rangeInput" min="0" max="100" onchange="updateTextInput(this.value);">		
-  					</div>
-				</div>
-				<div class="col-xs-3">
-					<input type="text" id="textInput" value="">
-
-				</div>
-				  
+			<!-- <div class="form-group">	<div class="range-slider col-xs-9">	<div class="col-xs-4"><label class="control-label no-padding-right" for="motif"><strong>Taille (H) : </strong></label>
+  					</div><div class="col-xs-6"><input type="range" name="rangeInput" min="0" max="100" onchange="updateTextInput(this.value);">		
+  					</div>	</div>	<div class="col-xs-3"><input type="text" id="textInput" value="">	</div>	</div> -->
+			<br><br><br><br>
+      <div class="form-group irs-demo m-b-30"> <b>Taille :</b>
+   		  <input type="text" id="height_range" name="height" class="irs-hidden-input" tabindex="-1" value="" readonly="">
 			</div>
-			<div class="form-group">
-				<label class="col-xs-2 control-label no-padding-right right" for="poids"><strong>Poids :</strong></label>
-				 <div class="range-slider">
-					<input class="input-range" type="range" value="0" min="0" max="200">
-					 <span class="range-value">1</span>
+			<br>
+      <div class="form-group irs-demo m-b-30"> <b>Poids :</b>
+   		  <input type="text" id="weidth_range" name="poids" class="irs-hidden-input" tabindex="-1" value="" readonly="">
+			</div>
+			<br>
+ 			<div class="row">
+ 				<div class="col-xs-2"><button id ="btnCalc" class="btn btn-info form-control" onclick="IMC1();">Calculer IMC</button></div>
+				<div class="col-xs-4">
+					<label class= "col-xs-2" for="IMC"></label>
+					<input type="text" id="imc" name="imc" class="col-xs-10" placeholder="IMC du Patient..."><!-- <span class="input-group-addon"><small>Kg/m2</small></span>-->
 				</div>
-			</div>
-			<div class="form-group">
-
-			</div>
-			
+				<div class="col-xs-6">
+					<label for="IMC" class= "col-xs-5">Interpretation :</label>
+					<input type="text" id="imc" name="imc" class="col-xs-7" placeholder="IMC du Patient..."><!-- <span class="input-group-addon"><small>Kg/m2</small></span>-->
+				</div> 
+		  </div>
+	<br><br>
+			<br>
+		 <!--  <div class="irs-demo m-b-30"> <b>Poids</b>
+        <span class="irs js-irs-0"><span class="irs">	<span class="irs-line" tabindex="-1">	<span class="irs-line-left"></span><span class="irs-line-mid"></span>
+        	       			<span class="irs-line-right"></span></span>
+         			<span class="irs-min" style="visibility: visible;">0</span>
+         			<span class="irs-max" style="visibility: visible;">200</span>
+         			<span class="irs-from" style="visibility: hidden;">0</span>
+         			<span class="irs-to" style="visibility: hidden;">0</span>
+         			<span class="irs-single" style="left: 22.9252%;">31</span>
+         	</span>
+         	<span class="irs-grid"></span>
+         	<span class="irs-bar" style="left: 0.609292%; width: 23.049%;"></span><span class="irs-bar-edge"></span><span class="irs-shadow shadow-single" style="display: none;"></span><span class="irs-slider single" style="left: 23.049%;"></span></span><input type="text" id="range_01" value="" class="irs-hidden-input" readonly="">
+      </div> -->
 		</div>
 		<div class= "col-md-4 col-xs-4"> 
 			<div class="right">

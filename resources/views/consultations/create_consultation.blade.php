@@ -812,19 +812,42 @@
 		  	return false;
 		 } 
 	}); // calendar
-	$('#chanceSlider').on('change', function(){
-   		 $('#chance').val($('#chanceSlider').val());
-	});
-	$('#chance').on('keyup', function(){
-    		$('#chanceSlider').val($('#chance').val());
-	});
+//teste slider
+
 	$('.input-range').on('input', function() {
   		$(this).parent().parent().next().children('.range-value')
 	});
+	 $(document).ready(function(e){
+       $("#height_range").ionRangeSlider({
+            min:0,
+            max:200,
+            from:0
+        });
+        $("#weidth_range").ionRangeSlider({
+            min:0,
+            max:180,
+            from:0
+        });
+       
+    })
+	//fin teste
 });// ready
 function updateTextInput(val) {
           document.getElementById('textInput').value=val; 
-        }
+}
+$( function() {
+        $( "#slider-range1" ).slider({
+            range: true,
+            min: 0,
+            max: 200,
+            value: 0,
+            orientation: "horizontal",
+            slide: function( event, ui ) {
+                $( "#amount" ).val( ui.value +"cm" );
+            }
+        });
+        $( "#amount" ).val( 0 + "cm" );
+    });
 </script>	
 @endsection
 @section('main-content')

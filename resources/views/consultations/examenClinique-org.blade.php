@@ -45,8 +45,8 @@
 		        		<div class="col-xs-2"><label class="col-sm-12 control-label no-padding-right right" for="IMC"><strong>IMC :</strong></label></div>        	  
         				<div class="col-xs-3">
         		 			<div class="input-group">
-	         					<input type="number" id="imc"  name="imc" placeholder="IMC du Patient..." class="form-control col-sm-4" value ="" readonly  />
-	           				  <span class="input-group-addon"><small>Kg/m2</small> </span>    				
+	         					<input type="number" id="imc"  name="imc" placeholder="IMC du Patient..." class="form-control col-sm-4" readonly  />
+	           				  <span class="input-group-addon"><small>Kg/m2</small></span>    				
 	           			</div>
         				</div>
 		        		<div class="col-xs-2">

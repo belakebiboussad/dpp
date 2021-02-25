@@ -43,6 +43,7 @@
 <script src="{{ asset('/js/jquery-editable-select.js') }}"></script><!--  -->
 <script src="{{asset('/js/sweetalert2.all.min.js')}}"></script>
 <script src="{{asset('/js/JsBarcode.all.min.js')}}"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.2.0/js/ion.rangeSlider.min.js"></script>
 <script type="text/javascript">
   var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
   $(document).ready(function(){
