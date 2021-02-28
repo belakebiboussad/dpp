@@ -32,6 +32,5 @@
     <link rel="stylesheet" href="{{ asset('/css/bootstrap-timepicker.min.css') }}" />
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet"href="{{ asset('/css/styles.css') }}">
-
-     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.2.0/css/ion.rangeSlider.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.2.0/css/ion.rangeSlider.skinFlat.min.css">
+     <link rel="stylesheet" type="text/css" href="{{ asset('/css/ion.rangeSlider.min.css') }}"><!--   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.2.0/css/ion.rangeSlider.min.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.2.0/css/ion.rangeSlider.skinFlat.min.css"> -->

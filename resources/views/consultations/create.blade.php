@@ -83,26 +83,24 @@
 		var poids = $("#poids").val();
 		var taille = $("#taille").val();
 		if(poids==""){
-     			alert("STP, saisir le poids");
-    			$("#poids").focus();
-      		return 0;
-    		}else if (isNaN(poids)) {
-     			alert("poids doit être un nombre!");  
-     			$("#poids").select();
-     			return 0;
-	   	}
+ 			alert("STP, saisir le poids");	// $("#poids").focus();
+  		return 0;
+    }else if (isNaN(poids)) {
+ 			alert("poids doit être un nombre!");  
+ 			$("#poids").select();
+ 			return 0;
+	  }
 	 	if(taille==""){
-			alert("STP, Saisir la taille");
- 			$("#taille").focus();
+			alert("STP, Saisir la taille");	// $("#taille").focus();
  			return 0;
  		}else if (isNaN(taille)) {
-		     	alert("taille doit être un nombre!");  
-		     	$("#txtaltura").select();
-		     	return 0;
-   		 }
-    		var imc = poids / Math.pow(taille,2);
-   		var imc = Math.round(imc).toFixed(2);
-		$("#imc").attr("value", imc);
+     	alert("taille doit être un nombre!");  
+     	$("#txtaltura").select();
+     	return 0;
+   	}
+    var imc = poids / Math.pow(taille/100,2);
+   	var imc = Math.round(imc).toFixed(2);
+    $("#imc").attr("value", imc);
     		if(imc<17){
       		$("#interpretation").attr("value", "Anorexie");
     		}else if(imc>=17.1 && imc<=18.49){
@@ -801,53 +799,24 @@
 				}else
 					$('.calendar1').fullCalendar('unselect');
 			},
-   		eventAllow: function(dropLocation, draggedEvent) {// if(draggedEvent.start < CurrentDate)
-	      return false;  	     
-	   	},
-		eventDrop: function(event, delta, revertFunc) { 
-  			// $('#updateRDV').removeClass('invisible');// jQuery('#btnclose').click(function(){//revertFunc();// });// editRdv(event);
-  			revertFunc();
-    		},
-		 eventDragStop: function (event, jsEvent, ui, view) {
-		  	return false;
-		 } 
-	}); // calendar
+   	eventAllow: function(dropLocation, draggedEvent) {  return false; },
+		eventDrop: function(event, delta, revertFunc) { revertFunc();	},
+		eventDragStop: function (event, jsEvent, ui, view) {return false;} 
+		  	
+		 
+	});// calendar
 //teste slider
-
-	$('.input-range').on('input', function() {
-  		$(this).parent().parent().next().children('.range-value')
-	});
-	 $(document).ready(function(e){
-       $("#taille").ionRangeSlider({
-            min:0,
-            max:200,
-            from:0
-        });
-        $("#weidth_range").ionRangeSlider({
-            min:0,
-            max:180,
-            from:0
-        });
-       
-    })
-	//fin teste
+	$("#taille").ionRangeSlider({
+      min:0,  max:250,  from:0,   grid: true,   grid_num: 20,
+  });
+  $("#poids").ionRangeSlider({
+      min:0,  max:200,   step:0.1,  from:0,  grid: true,   grid_num: 20,
+  });
+  $("#temp").ionRangeSlider({
+      min:30,   max:50,    step:0.1,    from:37,   grid: true,   grid_num: 20,
+  });
+  //fin teste
 });// ready
-function updateTextInput(val) {
-          document.getElementById('textInput').value=val; 
-}
-$( function() {
-        $( "#slider-range1" ).slider({
-            range: true,
-            min: 0,
-            max: 200,
-            value: 0,
-            orientation: "horizontal",
-            slide: function( event, ui ) {
-                $( "#amount" ).val( ui.value +"cm" );
-            }
-        });
-        $( "#amount" ).val( 0 + "cm" );
-    });
 </script>	
 @endsection
 @section('main-content')

@@ -83,8 +83,8 @@ class ConsultationsController extends Controller
       $infossupp = infosupppertinentes::all();
       $examens = exmnsrelatifdemande::all();//CT,RMN
       $examensradio = examenradiologique::all();//pied,poignet
-      return view('consultations.create_consultation',compact('patient','employe','chapitres','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp','examens','examensradio'));
-}
+      return view('consultations.create',compact('patient','employe','chapitres','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp','examens','examensradio'));
+    }
     /**
      * Store a newly created resource in storage.
      *
