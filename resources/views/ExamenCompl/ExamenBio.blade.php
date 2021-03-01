@@ -20,17 +20,17 @@
 	@foreach($specialitesExamBiolo as $specialite)
 		<div id="{{ $specialite->specialite }}" class="tab-pane @if ($loop->first) in active @endif">
 			<div class="row">
-                  		@foreach($specialite->examensbio as $exbio)
-			                <div class="col-xs-3">
-			                     <div class="checkbox">
-			                          <label>
-			          		                <input name="exm[]" type="checkbox" class="ace" value="{{ $exbio->id }}" />
-			               			     <span class="lbl">{{ $exbio->nom_examen }} </span> 
-			                          </label>
-			                     </div>
-			                </div>
-                    		  @endforeach
-                  		</div>{{-- row --}}
+    		@foreach($specialite->examensbio as $exbio)
+        <div class="col-xs-3">
+             <div class="checkbox">
+                  <label>
+  		                <input name="exm[]" type="checkbox" class="ace" value="{{ $exbio->id }}" />
+       			     <span class="lbl">{{ $exbio->nom_examen }} </span> 
+                  </label>
+             </div>
+        </div>
+      		  @endforeach
+    		</div>{{-- row --}}
 		</div>
 	@endforeach
 </div>

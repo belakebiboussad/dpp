@@ -258,77 +258,6 @@
           }
 		});
 	}
-	function createexbio(nomp,prenomp,age,ipp){  
-		 var img = new Image();
-    img.src = '{{ asset("/img/logo.png") }}';
-    img.onload = function () {
-      createexbioF(img,nomp,prenomp,age,ipp);
-    };
-	}
-	function createexbioF(imge,nomp,prenomp,age,ipp){  
-		html2canvas($("#dos"), {
-        onrendered: function(canvas) {
-          moment.locale('fr');//var IPP = ipp.toString();
-        	var formattedDate = moment(new Date()).format("l");         
-          var imgData = canvas.toDataURL('image/png');              
-          var doc = new jsPDF('p', 'mm');
-         	doc.text(105,9, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
-         	doc.setFontSize(13);
-          doc.text(105,16, 'HOPITAL CENTRAL DE LA SURETE NATIONALE "LES GLYCINES"', null, null, 'center');
-          doc.setFontSize(12);
-          doc.text(105,21, '12, Chemin des Glycines - ALGER', null, null, 'center');
-          doc.text(105,26, 'Tél : 023-93-34 - 23-93-58', null, null, 'center');
-          doc.addImage(imge, 'JPEG', 95, 27, 17, 17);
-          doc.setFontSize(14);
-          doc.addImage(imgData, 'JPEG', 10, 10);
-          JsBarcode("#itf", ipp.toString(), {
-				  	lineColor: "#000",
-				  	width:4,
-				  	height:40,
-				 	  displayValue: true,
-				 	  fontSize : 28,
-				 	  textAlign: "left"
-					});
-          doc.text(200,60, 'Alger :' +formattedDate , null, null, 'right'); 
-          doc.text(20,63, 'Nom : '+nomp, null, null);
-          doc.text(20,68, 'Prénom : '+prenomp, null, null);
-          doc.text(20,73, 'Age : '+ age+' ans', null, null); 
-          const img = document.querySelector('img#itf');
-          doc.addImage(img.src, 'JPEG', 20, 75, 50, 15);
-          doc.text(20,110, 'Prière de faire', null, null);
-					doc.setFontSize(16);
-          doc.text(50,125,'Analyses Demandées :',null,null) 
-					var i =0;
-	    		$('input.ace:checkbox:checked').each(function(index, value) {
-	      		doc.text(20,135+i, ++index + ' : '+this.nextElementSibling.innerHTML+" . ");
-	      		i=i+10;
-	    		});
-	    		doc.setFontSize(12);
-	    	   doc.text(100,270, 'Docteur : ' +'{{$employe->nom}}'+ ' '+ '{{$employe->prenom}}', null, null); 
-          doc.save('ExamBiolo-'+nomp+'-'+prenomp+'.pdf');
-        }
-    });    
-	}
-	function createexbioOrg(nomp,prenomp,age){      
-	    var exbio = new jsPDF();//var d = new Date();
-	    moment.locale('fr');
-	    var formattedDate = moment(new Date()).format("l");
-	    exbio.text(200,20, 'Date : '+formattedDate , null, null, 'right');
-	    exbio.text(20,25, 'Nom : '+nomp, null, null);
-	    exbio.text(20,35, 'Prénom : '+prenomp, null, null);
-	    exbio.text(20,45, 'Age : '+ age+' ans', null, null);
-	    exbio.setFontType("bold");
-	    exbio.text(105,55, 'Priére de faire', null, null, 'center');
-	    exbio.setFontSize(14);
-	    exbio.text(45,65,'Analyses Demandées :',null,null,'center');
-	    exbio.setFontSize(13);
-	    var i =0;
-	    $('input.ace:checkbox:checked').each(function(index, value) {
-	      exbio.text(25,72+i,this.nextElementSibling.innerHTML+", "); //alert(value.nextElementSibling.innerHTML);
-	      i=i+10;
-	    });
-	    exbio.save('ExamBio-'+nomp+'-'+prenomp+'.pdf');
-  }
   function createeximg(nomp,prenomp,age,ipp) {
     var img = new Image();
     img.src = '{{ asset("/img/logo.png") }}';
@@ -380,7 +309,7 @@
 	  			  doc.save('ExamRadio-'+nomp+'-'+prenomp+'.pdf');
 	        }
 	    });
-       }
+  }
 	$('document').ready(function(){
 		$( 'ul.nav li' ).on( 'click', function() {
 			$(this).siblings().addClass('filter');
@@ -727,9 +656,9 @@
 				},
 	      defaultView: 'agendaWeek',
 	      height: 650,
-		firstDay: 0,
+	    	firstDay: 0,
 	      slotDuration: '00:15:00',
-	  	minTime:'08:00:00',
+	  	  minTime:'08:00:00',
     		maxTime: '17:00:00',
       	navLinks: true,
       	selectable: true,
@@ -799,23 +728,19 @@
 				}else
 					$('.calendar1').fullCalendar('unselect');
 			},
-   	eventAllow: function(dropLocation, draggedEvent) {  return false; },
-		eventDrop: function(event, delta, revertFunc) { revertFunc();	},
-		eventDragStop: function (event, jsEvent, ui, view) {return false;} 
-		  	
-		 
+	   	eventAllow: function(dropLocation, draggedEvent) {  return false; },
+			eventDrop: function(event, delta, revertFunc) { revertFunc();	},
+			eventDragStop: function (event, jsEvent, ui, view) {return false;} 
 	});// calendar
-//teste slider
 	$("#taille").ionRangeSlider({
-      min:0,  max:250,  from:0,   grid: true,   grid_num: 20,
+      min:0,  max:250,  from:0,   grid: true,   grid_num: 20,postfix:" cm", 
   });
   $("#poids").ionRangeSlider({
-      min:0,  max:200,   step:0.1,  from:0,  grid: true,   grid_num: 20,
+      min:0,  max:200,   step:0.1,  from:0,  grid: true,   grid_num: 20, postfix:" kg", 
   });
   $("#temp").ionRangeSlider({
-      min:30,   max:50,    step:0.1,    from:37,   grid: true,   grid_num: 20,
+      min:30,   max:50,    step:0.1,    from:37,   grid: true,   grid_num: 20, postfix:" C", 
   });
-  //fin teste
 });// ready
 </script>	
 @endsection
@@ -846,23 +771,23 @@
 			<ul class = "nav nav-pills nav-justified list-group" role="tablist" id="menu">
 				<li role= "presentation" class="active col-md-4">
 				  <a href="#Interogatoire" aria-controls="Interogatoire" role="tab" data-toggle="tab" class="btn btn-secondary btn-lg">
-				    <i class="fa fa-commenting" aria-hidden="true"></i><span class="bigger-160"> Interogatoire</span>
+				  <span class="bigger-160"> Interogatoire</span>
 				  </a>
 				</li>
 				<li role= "presentation"  class="col-md-4">
 				        <a href="#ExamClinique"  ria-controls="ExamClinique" role="tab" data-toggle="tab" class="btn btn-success btn-lg"> 
-				        <span class="bigger-160">Examen Clinique</span></a>
+				        <span class="bigger-160">Examens Cliniques</span></a>
 				</li>
 				<li role= "presentation" class="col-md-4">
-				          <a href="#ExamComp" aria-controls="ExamComp" role="tab" data-toggle="tab" class="btn btn-danger btn-lg">
-				         		<span class="bigger-160">Examen Complémentaire</span>
+          <a href="#ExamComp" aria-controls="ExamComp" role="tab" data-toggle="tab" class="btn btn-danger btn-lg">
+         		<span class="bigger-160">Examens Complémentaires</span>
 					</a>
 				</li>
-		     </ul>
-			 <div class ="tab-content"  style = "border-style: none;" >
+		  </ul>
+			<div class ="tab-content"  style = "border-style: none;" >
 			   	<div role="tabpanel" class = "tab-pane active " id="Interogatoire">@include('consultations.Interogatoire')</div>
 				<div role="tabpanel" class = "tab-pane" id="ExamClinique">@include('consultations.examenClinique')</div>
-				<div role="tabpanel" class = "tab-pane" id="ExamComp">	@include('consultations.ExamenCompl') </div>   
+				<div role="tabpanel" class = "tab-pane" id="ExamComp">@include('ExamenCompl.index')</div>   
 			 </div>{{-- content --}}
   	</div>{{-- tabpanel --}}
 		</div><!-- row -->

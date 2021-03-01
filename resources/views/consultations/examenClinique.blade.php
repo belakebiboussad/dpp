@@ -63,19 +63,6 @@
 				<div role="tabpanel" class = "tab-pane" id="Appareils">	@include("consultations.ExamenAppareils")	</div>
 			</div>
  		</div>
-		<div class= "col-md-3 col-xs-3 pull-right"> 
-			<a data-target="#Ordonnance" class="btn btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal">
-      	<div class="fa fa-plus-circle"></div><span class="bigger-110"> Ordonnance</span>
-     	</a><div class="space-12"></div>
-     	<a data-target="#RDV" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal">
-   			<div class="fa fa-plus-circle"></div><span class="bigger-110">Rendez-vous</span>
-    	</a><div class="space-12"></div>
-    	<a data-target="#demandehosp" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal">
-        <div class="fa fa-plus-circle"></div><span class="bigger-110"> Hospitalisation</span>
-      </a> <div class="space-12"></div>
-      <a class="btn btn-primary btn-lg tooltip-link" data-toggle="modal" data-target="#lettreorient" style="width:100%;" onclick="lettreoriet('{{ $employe->nom }}','{{ $employe->prenom }}','{{ $employe->specialite }}','{{ $employe->tele_mobile }}')">
-        <div class="fa fa-plus-circle"></div><span class="bigger-110">Orientation</span> 
-      </a>
-		</div>
+		<div class= "col-md-3 col-xs-3">@include('consultations.actions')</div>
 	</div>
 </div>

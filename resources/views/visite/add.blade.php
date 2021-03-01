@@ -268,22 +268,30 @@
 		{{ csrf_field() }}
 		<input type="hidden" name="id" value="{{$id}}">
 		<div id="prompt"></div>
-		<div class="tabpanel  mb-3">
-			<ul class = "nav nav-pills nav-justified list-group" role="tablist" id="menu">
-				<li role= "presentation" class="active col-md-6">
-					<a href="#Actes" aria-controls="Actes" role="tab" data-toggle="tab" class="btn btn-success btn-lg">
-					<span class ="medical medical-icon-immunizations" aria-hidden="true"></span><span class="bigger-160"> Actes</span>
-				</a>
-				</li>
-				<li role= "presentation" class="col-md-6">
-					<a href="#Trait" aria-controls="Trait" role="tab" data-toggle="tab" class="btn btn-primary btn-lg">
-					<span class ="medical medical-icon-health-services" aria-hidden="true"></span><span class="bigger-160">Traitements</span>
-				</a>
-				</li>
-			</ul>
-			<div class ="tab-content"  style = "border-style: none;" >
-				<div role="tabpanel" class = "tab-pane active " id="Actes"> 
-				<div class= "col-md-12 col-xs-12">
+		<div class="tabpanel mb-3">
+		  <div class="row">
+				<ul class = "nav nav-pills nav-justified list-group" role="tablist" id="menu">
+					<li role= "presentation" class="active col-md-4">
+						<a href="#Actes" aria-controls="Actes" role="tab" data-toggle="tab" class="btn btn-success btn-lg">
+						<span class ="medical medical-icon-immunizations" aria-hidden="true"></span><span class="bigger-160"> Actes</span>
+					</a>
+					</li>
+					<li role= "presentation" class="col-md-4">
+						<a href="#Trait" aria-controls="Trait" role="tab" data-toggle="tab" class="btn btn-primary btn-lg">
+							<span class ="medical medical-icon-health-services" aria-hidden="true"></span><span class="bigger-160">Traitements</span>
+						</a>
+					</li>
+					<li role= "presentation" class="col-md-4">
+						<a href="#ExamComp" aria-controls="ExamComp" role="tab" data-toggle="tab" class="btn btn-danger btn-lg">
+						  <span class ="medical medical-icon-i-imaging-root-category"></span><span class="bigger-160">Examens Complémentaires</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="row">
+				<div class ="tab-content"  style = "border-style: none;" >
+				<div role="tabpanel" class ="tab-pane active " id="Actes"> 
+					<div class= "col-md-12 col-xs-12">
 					<div class= "widget-box widget-color-green" id="widget-box-2">
 						<div class="widget-header" >
 						<h5 class="widget-title bigger lighter"><font color="black"> <i class="ace-icon fa fa-table"></i>&nbsp;<b>Actes</b></font></h5>
@@ -339,64 +347,68 @@
 					</div>
 				  </div><!-- widget-box -->
 				</div>
-			</div><!-- Actes -->
-			<div role="tabpanel" class = "tab-pane" id="Trait">
+				</div><!-- Actes -->
+				<div role="tabpanel" class ="tab-pane" id="Trait">
 				<div class= "col-md-12 col-xs-12">
-				<div class= "widget-box widget-color-blue" id="widget-box-2">
-						<div class="widget-header" >
-						<h5 class="widget-title bigger lighter"><font color="black">
-							<i class="ace-icon fa fa-table"></i>&nbsp;<b>Trait</b></font>
-						</h5>
-						<div class="widget-toolbar widget-toolbar-light no-border" width="20%">
-									<div class="fa fa-plus-circle"></div>
-									<a href="#" id="btn-addTrait" class="btn-xs tooltip-link">	<h4><strong>Traitement Médical</strong></h4></a>	
-								</div>
-						</div>	
-					<div class="widget-body" id ="TraitementWidget">
-						<div class="widget-main no-padding">
-						<table class="table nowrap dataTable table-bordered no-footer table-condensed table-scrollable" id="listTraits">
-						<thead class="thin-border-bottom">
-							<tr class ="center">
-								<th class ="hidden"></th>
-								<th scope="col" class ="center"><strong>Nom Medicament</strong></th>
-											<th scope="col" class ="center"><strong>Posologie</strong></th>
-											<th scope="col" class ="center"><strong>Périodes</strong></th>
-											<th scope="col" class ="center" width="3%"><strong>Nombre de jours</strong></th>
-											<th scope="col" class ="center"><strong>Médecin prescripteur</strong></th>												
-											<th scope="col" class ="center"><strong>Date Visite</strong></th>												
-											<th scope="col" class=" center nosort"><em class="fa fa-cog"></em></th>
-							</tr>
-						</thead>
-						<tbody>
-						  @foreach($hosp->visites as $visite)
-								@foreach($visite->traitements as $trait)
-								<tr id="{{ 'trait'.$trait->id }}">
-								  <td hidden> {{ $trait->visite_id }}</td>
-								  <td>{{ $trait->medicament['nom'] }}</td> 
-								  <td> {{ $trait->posologie}}</td>
-								<td> 	
-									@foreach($trait->periodes as $periode)
-										<span class="badge badge-success"> {{ $periode }}</span>
-									  @endforeach
-									</td>
-								<td> {{ $trait->duree }}</td>
-								<td> {{ $trait->visite->medecin->nom}}&nbsp; {{ $trait->visite->medecin->prenom}}</td>
-								<td> {{ $trait->visite->date }}</td>
-							  <td class="center nosort">
-								<button type="button" class="btn btn-xs btn-info edit-trait" value="{{ $trait->id }}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
-						  <button type="button" class="btn btn-xs btn-danger delete-Trait" value="{{ $trait->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>
-							  </td>	
-							</tr>
+					<div class= "widget-box widget-color-blue" id="widget-box-2">
+							<div class="widget-header" >
+							<h5 class="widget-title bigger lighter"><font color="black">
+								<i class="ace-icon fa fa-table"></i>&nbsp;<b>Trait</b></font>
+							</h5>
+							<div class="widget-toolbar widget-toolbar-light no-border" width="20%">
+										<div class="fa fa-plus-circle"></div>
+										<a href="#" id="btn-addTrait" class="btn-xs tooltip-link">	<h4><strong>Traitement Médical</strong></h4></a>	
+									</div>
+							</div>	
+						<div class="widget-body" id ="TraitementWidget">
+							<div class="widget-main no-padding">
+							<table class="table nowrap dataTable table-bordered no-footer table-condensed table-scrollable" id="listTraits">
+							<thead class="thin-border-bottom">
+								<tr class ="center">
+									<th class ="hidden"></th>
+									<th scope="col" class ="center"><strong>Nom Medicament</strong></th>
+												<th scope="col" class ="center"><strong>Posologie</strong></th>
+												<th scope="col" class ="center"><strong>Périodes</strong></th>
+												<th scope="col" class ="center" width="3%"><strong>Nombre de jours</strong></th>
+												<th scope="col" class ="center"><strong>Médecin prescripteur</strong></th>												
+												<th scope="col" class ="center"><strong>Date Visite</strong></th>												
+												<th scope="col" class=" center nosort"><em class="fa fa-cog"></em></th>
+								</tr>
+							</thead>
+							<tbody>
+							  @foreach($hosp->visites as $visite)
+									@foreach($visite->traitements as $trait)
+									<tr id="{{ 'trait'.$trait->id }}">
+									  <td hidden> {{ $trait->visite_id }}</td>
+									  <td>{{ $trait->medicament['nom'] }}</td> 
+									  <td> {{ $trait->posologie}}</td>
+									<td> 	
+										@foreach($trait->periodes as $periode)
+											<span class="badge badge-success"> {{ $periode }}</span>
+										  @endforeach
+										</td>
+									<td> {{ $trait->duree }}</td>
+									<td> {{ $trait->visite->medecin->nom}}&nbsp; {{ $trait->visite->medecin->prenom}}</td>
+									<td> {{ $trait->visite->date }}</td>
+								  <td class="center nosort">
+									<button type="button" class="btn btn-xs btn-info edit-trait" value="{{ $trait->id }}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
+							  <button type="button" class="btn btn-xs btn-danger delete-Trait" value="{{ $trait->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>
+								  </td>	
+								</tr>
+									@endforeach
 								@endforeach
-							@endforeach
-						</tbody>
-					  </table>		
-					</div>
-					</div>
-				</div><!-- widget-box -->
+							</tbody>
+						  </table>		
+						</div>
+						</div>
+					</div><!-- widget-box -->
 				</div>
 				</div><!-- tab-pane Trait-->
-		</div><!-- tab-content -->
+				<div role="tabpanel" class ="tab-pane" id="ExamComp">
+					 @include('ExamenCompl.index')
+				</div>
+			</div><!-- tab-content -->
+			</div>
 		</div><!-- tabpanel -->
 		<div class="hr hr-dotted"></div><div class="space-12"></div><br>
 		<div class="row">

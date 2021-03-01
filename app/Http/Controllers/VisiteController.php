@@ -9,6 +9,10 @@ use App\modeles\periodeconsigne;
 use App\modeles\surveillance;
 use App\modeles\consultations;
 use App\modeles\specialite_produit;
+use App\modeles\specialite_exb;
+use App\modeles\infosupppertinentes;
+use App\modeles\examenradiologique;
+use App\modeles\exmnsrelatifdemande;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +37,7 @@ class VisiteController extends Controller
                  ->join('demandehospitalisations','consultations.id','=','demandehospitalisations.id_consultation')
                  ->join('hospitalisations','demandehospitalisations.id','=','hospitalisations.id_demande')
                  ->select('patients.Nom','patients.Prenom','patients.Sexe','patients.Dat_Naissance','hospitalisations.Date_entree','hospitalisations.Date_Prevu_Sortie','hospitalisations.id')->get();
-      return view('visite.choix_patient_visite',compact('patients')); //   return view('visite.choix_patient_visite');
+      return view('visite.choix_patient_visite',compact('patients'));
     }
     /**
      * Show the form for creating a new resource.
@@ -42,17 +46,21 @@ class VisiteController extends Controller
      */
     public function create($id_hosp)
     {
-          $date = Carbon\Carbon::now(); 
-          $hosp = hospitalisation::FindOrFail($id_hosp);//$patient = (hospitalisation::FindOrFail($id_hosp))->admission->demandeHospitalisation->consultation->patient;
-          $patient = $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient;
-          $visite =new visite;
-          $visite->date=$date;
-          $visite->heure=$date->format("H:i");
-          $visite->id_hosp=$id_hosp;
-          $visite->id_employe=Auth::User()->employee_id;
-          $specialitesProd = specialite_produit::all();
-          $visite->save();
-          return view('visite.create',compact('hosp','patient','specialitesProd'))->with('id',$visite->id);
+      $date = Carbon\Carbon::now(); 
+      $hosp = hospitalisation::FindOrFail($id_hosp);//$patient = (hospitalisation::FindOrFail($id_hosp))->admission->demandeHospitalisation->consultation->patient;
+      $patient = $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient;
+      $visite =new visite;
+      $visite->date=$date;
+      $visite->heure=$date->format("H:i");
+      $visite->id_hosp=$id_hosp;
+      $visite->id_employe=Auth::User()->employee_id;
+      $specialitesProd = specialite_produit::all();
+      $specialitesExamBiolo = specialite_exb::all();
+      $infossupp = infosupppertinentes::all();
+      $examens = exmnsrelatifdemande::all();//CT,RMN
+      $examensradio = examenradiologique::all();
+      $visite->save();
+      return view('visite.add',compact('hosp','patient','specialitesProd','specialitesExamBiolo','infossupp','examens','examensradio'))->with('id',$visite->id);
     }
  /**
      * Show the form for creating a new resource.

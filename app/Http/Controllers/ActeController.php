@@ -17,7 +17,6 @@ class ActeController extends Controller
 	  public function choixhospconsigne()
     {
             return view('consigne.choix_patient_consigne');
-     //   return view('visite.choix_patient_visite');
     }
 
     /**

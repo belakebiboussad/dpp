@@ -21,7 +21,6 @@ class consultation extends Model
     {
         return $this->hasOne('App\modeles\demandeexb','id_consultation');
     }
-   
     public function examensCliniques()
     {
         return $this->hasOne('App\modeles\examen_cliniqu','id_consultation');

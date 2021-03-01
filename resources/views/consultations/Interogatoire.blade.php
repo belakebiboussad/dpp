@@ -3,12 +3,12 @@
 		<ul class = "nav nav-pills nav-justified navbar-custom list-group" role="tablist" id ="intero">
 			 <li role= "presentation" name="motif" class="active">
 			    <a href="#Motif" aria-controls="Motif" role="tab" data-toggle="tab" class="jumbotron">
-			      <i class="fa fa-comment fa-2x"></i> <span class="bigger-130"> Motif</span>
+			      <i class="fa fa-comment fa-2x pull-left"></i> <span class="bigger-130"> Motif</span>
 				  </a>
 			</li>
 			<li role= "presentation">
 				<a href="#ATCD" aria-controls="ATCD"  data-toggle="tab" class="jumbotron">
-					<i class="fa fa-history fa-2x"></i><span class="bigger-130">Antecedants</span>
+					<i class="fa fa-history fa-2x pull-left"></i><span class="bigger-130">Antecedants</span>
 				</a>
 			</li>
 		</ul>
@@ -69,17 +69,6 @@
 				<div role="tabpanel" class = "tab-pane " id="ATCD">@include('consultations.Antecedant')</div>
 			</div>
 		</div>
-		<div class= "col-md-3 col-xs-3">
-		 <a data-target="#Ordonnance" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal" data-toggle="tooltip">
-      <div class="fa fa-plus-circle"></div><span class="bigger-110" >Ordonnance</span>
-	    </a><div class="space-12"></div>
-	    <a data-target="#RDV" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal" data-toggle="tooltip"><div class="fa fa-plus-circle"></div><span class="bigger-110">Rendez-vous</span>
-	    </a><div class="space-12"></div>
-	    <a data-target="#demandehosp" class="btn  btn-primary btn-lg tooltip-link" style="width:100%;" data-toggle="modal" data-toggle="tooltip" data-original-title="Demande"><div class="fa fa-plus-circle"></div>  <span class="bigger-110"> Hospitalisation</span>
-	    </a><div class="space-12"></div>
-	    <a class="btn btn-primary btn-lg tooltip-link" data-toggle="modal" data-target="#lettreorient" style="width:100%;" onclick="lettreoriet('{{ $employe->nom }}','{{ $employe->prenom }}','{{ $employe->specialite }}','{{ $employe->tele_mobile }}')">
-		    <div class="fa fa-plus-circle"></div><span class="bigger-110" style ="text-align: right !important;">Orientation</span> 
-	  	</a>
-		</div>
+		<div class= "col-md-3 col-xs-3">@include('consultations.actions')</div>
 	</div>
 </div>

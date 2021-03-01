@@ -28,10 +28,14 @@
 	</div><!-- col-md-9 col-xs-9 -->
 	<div class= "col-md-3 col-xs-3">
 			<div class="row">
-			<button type="button" class="btn btn-primary btn-lg col-sm-12" onclick="print();">
+			<button type="button" class="btn btn-primary btn-lg col-sm-12" onclick="printExamCom('{{$patient->Nom}}','{{$patient->Prenom}}', '{{ $patient->getAge() }}','{{$patient->IPP}}');">
 				<div class="fa fa-print bigger-120"></div><span class="bigger-110"> &nbsp;&nbsp;&nbsp;Imprimer</span>
 			</button>
-		</div><div class="space-12"></div>@include('consultations.actions')</div>	
+		</div><div class="space-12"></div>
+		@if(! isset( $hosp))
+			@include('consultations.actions')	
+		@endif
+	</div>
 </div><!-- row -->
 </div><!-- ExamCompl -->
 <div class="row"><canvas id="dos"><img id='itf' /></canvas></div>
