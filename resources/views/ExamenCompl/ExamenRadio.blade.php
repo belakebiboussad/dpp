@@ -31,7 +31,7 @@
 			@endforeach
 		</div>
       		</div>
-       		<div class="row"><div class="col-xs-12">@include('consultations.ModalFoms.ExamenImgModal')</div></div>	
+       		<div class="row"><div class="col-xs-12">@include('ExamenCompl.ModalFoms.ExamenImgModal')</div></div>	
 	      	<div class="space-12"></div>
 	      <div class="row">
 			 <div class= "widget-box widget-color-blue" id="widget-box-2 col-xs-12">

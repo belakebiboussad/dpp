@@ -118,14 +118,12 @@
 				console.log('Error:', data);
 			}
 		});
-	  });
-	//end of add acte
-	///////////add trait
-	$('#btn-addTrait').click(function () {
+	  });	//end of add acte
+	$('#btn-addTrait').click(function () {///////////add trait
 	  $('#EnregistrerTrait').val("add");
-	$('#traitModal').trigger("reset");
-	$('#TraitCrudModal').html("Ajouter un Traitement");
-	$('#traitModal').modal('show');
+		$('#traitModal').trigger("reset");
+		$('#TraitCrudModal').html("Ajouter un Traitement");
+		$('#traitModal').modal('show');
   });  
 	$("#EnregistrerTrait").click(function (e) {
 		e.preventDefault();
@@ -187,22 +185,21 @@
 	});
   $('body').on('click', '.edit-trait', function () {//edit traitement
 			  var traitID = $(this).val();
-			 
-			$.get('/traitement/'+traitID+'/edit', function (data) {
-				getProducts(1,data.medicament.id_specialite,data.med_id);
-				$('#trait_id').val(data.id);
-				 $("#produit").removeAttr("disabled");
-				$('#TraitCrudModal').html("Editer un Traitement Médical");		
-			$('#specialiteProd').val(data.medicament.id_specialite);
-			$('#posologie').val(data.posologie);// JSON.parse(
-			$.each(data.periodes, function( index, value ) {
-				  $('#T' + value).prop("checked",true).change();
-				});
-			$('#dureeT').val(data.duree).change();//$('#nbr_j').val(data.duree);
-				jQuery('#EnregistrerTrait').val("update");		
-			jQuery('#traitModal').modal('show');
-		  });
-		});
+				$.get('/traitement/'+traitID+'/edit', function (data) {
+					getProducts(1,data.medicament.id_specialite,data.med_id);
+					$('#trait_id').val(data.id);
+					 $("#produit").removeAttr("disabled");
+					$('#TraitCrudModal').html("Editer un Traitement Médical");		
+					$('#specialiteProd').val(data.medicament.id_specialite);
+					$('#posologie').val(data.posologie);// JSON.parse(
+					$.each(data.periodes, function( index, value ) {
+					  $('#T' + value).prop("checked",true).change();
+					});
+					$('#dureeT').val(data.duree).change();//$('#nbr_j').val(data.duree);
+					jQuery('#EnregistrerTrait').val("update");		
+					jQuery('#traitModal').modal('show');
+		  	});
+	});
 	////----- DELETE a Traitement and remove from the tabele -----////
   jQuery('body').on('click', '.delete-Trait', function () {
 	var trait_id = $(this).val();
@@ -223,10 +220,8 @@
 		}
 	});
   });
-	//////////////////////////////////////
-	//delete viste
-		$("#deleteViste").click(function(e){
-			e.preventDefault();
+	$("#deleteViste").click(function(e){
+		e.preventDefault();
 		var id = $(this).data("id");
 		var token = $(this).data("token");
 		var url = e.target;
@@ -248,23 +243,27 @@
 		});//////////Traitement
 		$('body').on('change', '#specialiteProd', function () {
 		  if($(this).val() != "0" )
-		{
-		  $("#produit").removeAttr("disabled");
-		  var id_spec = $(this).val();
-		  getProducts(1,id_spec);
-		}else
-		{
-		  $("#produit").val(0);
-		  $("#produit").prop('disabled', 'disabled');
-		}	
-	});
+			{
+			  $("#produit").removeAttr("disabled");
+			  var id_spec = $(this).val();
+			  getProducts(1,id_spec);
+			}else
+			{
+			  $("#produit").val(0);
+			  $("#produit").prop('disabled', 'disabled');
+			}	
+		});
+		$("#visiteForm").submit(function(e){
+				addExamsImg(this);	
+    		//return false;
+		});
   });
   </script>
 @endsection
 @section('main-content')
 <div class="page-header" width="100%">@include('patient._patientInfo')	</div>
 <div class="content">
-	<form  class="form-horizontal" action="{{ route('visites.store') }}" method="POST" role="form">
+	<form  class="form-horizontal" id ="visiteForm" action="{{ route('visites.store') }}" method="POST" role="form">
 		{{ csrf_field() }}
 		<input type="hidden" name="id" value="{{$id}}">
 		<div id="prompt"></div>

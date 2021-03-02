@@ -93,16 +93,17 @@
                      { data: "Date_Prevu_Sortie" , title:'Date Sortie Prévue', "orderable": true },
                      { data: "Date_Sortie" , title:'Date Sortie',"orderable": true },
                      { data: "mode_hospi.nom" , title:'Mode',"orderable": false  },
-                     {   data: "admission.demande_hospitalisation.demeande_colloque.medecin.nom" ,
+                     {   data: "admission.demande_hospitalisation.demeande_colloque.medecin.nom" ,//6
                            render: function ( data, type, row ) {
                                     return row.admission.demande_hospitalisation.demeande_colloque.medecin.nom + ' ' + row.admission.demande_hospitalisation.demeande_colloque.medecin.prenom ;
                            },
                            title:'Medecin',"orderable": false   
-                     },
-                     { data: getState , title:'Etat' },
+                     },//7
+                     { data: getState , title:'Etat', "orderable":false },//8
                      { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false }              
           ],
           "columnDefs": [
+                  {"targets": 3 ,  className: "dt-head-center priority-6" },
                   {"targets": 9,  className: "dt-body-center"},
           ],
       });

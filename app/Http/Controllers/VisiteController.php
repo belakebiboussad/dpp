@@ -13,6 +13,8 @@ use App\modeles\specialite_exb;
 use App\modeles\infosupppertinentes;
 use App\modeles\examenradiologique;
 use App\modeles\exmnsrelatifdemande;
+use App\modeles\demandeexb;
+use App\modeles\demandeexr;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -49,6 +51,7 @@ class VisiteController extends Controller
       $date = Carbon\Carbon::now(); 
       $hosp = hospitalisation::FindOrFail($id_hosp);//$patient = (hospitalisation::FindOrFail($id_hosp))->admission->demandeHospitalisation->consultation->patient;
       $patient = $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient;
+      $employe = Auth::user()->employ;
       $visite =new visite;
       $visite->date=$date;
       $visite->heure=$date->format("H:i");
@@ -60,7 +63,7 @@ class VisiteController extends Controller
       $examens = exmnsrelatifdemande::all();//CT,RMN
       $examensradio = examenradiologique::all();
       $visite->save();
-      return view('visite.add',compact('hosp','patient','specialitesProd','specialitesExamBiolo','infossupp','examens','examensradio'))->with('id',$visite->id);
+      return view('visite.add',compact('hosp','patient', 'employe','specialitesProd','specialitesExamBiolo','infossupp','examens','examensradio'))->with('id',$visite->id);
     }
  /**
      * Show the form for creating a new resource.
@@ -70,12 +73,39 @@ class VisiteController extends Controller
      */
     public function store(Request $request)
     {
-          return redirect()->action('HospitalisationController@index');
+      //Enregistrer Examen Complentaire
+      // dd($request->all());
+      $visite = visite::find($request->id); 
+      if($request->exm  != null)  //save ExamBiolo
+      {
+        $demandeExamBio = new demandeexb;
+        $visite->demandeexmbio()->save($demandeExamBio);
+        foreach($request->exm as $id_exb) {
+          $demandeExamBio->examensbios()->attach($id_exb);
+        }
+      }
+      if(!empty($request->ExamsImg) && count(json_decode($request->ExamsImg)) > 0)
+      {
+        $demandeExImg = new demandeexr;  $demandeExImg->InfosCliniques = $request->infosc;
+        $demandeExImg->Explecations = $request->explication;
+        $demandeExImg->visite_id = $request->id;
+        $visite->examensradiologiques()->save($demandeExImg);
+        if(isset($request->infos))
+        {
+          foreach ($request->infos as $id_info) {
+            $demandeExImg->infossuppdemande()->attach($id_info);
+          }
+        }
+        foreach (json_decode ($request->ExamsImg) as $key => $value) {       
+           $demandeExImg ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);
+        }
+      }
+      return redirect()->action('HospitalisationController@index');
     }
     public function edit($id)
     {
-          $hosp = hospitalisation::find($id);
-          return view('visite.edit',compact('hosp'));  
+      $hosp = hospitalisation::find($id);
+      return view('visite.edit',compact('hosp'));  
     }
     public function destroy($id)
     {

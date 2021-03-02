@@ -28,7 +28,7 @@
 	</div><!-- col-md-9 col-xs-9 -->
 	<div class= "col-md-3 col-xs-3">
 			<div class="row">
-			<button type="button" class="btn btn-primary btn-lg col-sm-12" onclick="printExamCom('{{$patient->Nom}}','{{$patient->Prenom}}', '{{ $patient->getAge() }}','{{$patient->IPP}}');">
+			<button type="button" class="btn btn-primary btn-lg col-sm-12" onclick="printExamCom('{{$patient->Nom}}','{{$patient->Prenom}}', '{{ $patient->getAge() }}','{{$patient->IPP}}','{{ $employe->nom }}','{{$employe->prenom}}');">
 				<div class="fa fa-print bigger-120"></div><span class="bigger-110"> &nbsp;&nbsp;&nbsp;Imprimer</span>
 			</button>
 		</div><div class="space-12"></div>

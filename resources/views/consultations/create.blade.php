@@ -258,58 +258,6 @@
           }
 		});
 	}
-  function createeximg(nomp,prenomp,age,ipp) {
-    var img = new Image();
-    img.src = '{{ asset("/img/logo.png") }}';
-    img.onload = function () {
-      createeximgF(img,nomp,prenomp,age,ipp);
-    };
-  } 
-	function createeximgF(imge,nomp,prenomp,age,ipp)
-	{  
-	  	html2canvas($("#dos"), {
-	        onrendered: function(canvas) {         
-	        	moment.locale('fr');//var IPP = ipp.toString();
-	        	var formattedDate = moment(new Date()).format("l");
-	          var imgData = canvas.toDataURL('image/png');              
-	          var doc = new jsPDF('p', 'mm');
-	          doc.addImage(imgData, 'PNG', 10, 10); //JsBarcode("#itf",IPP); //bonne
-	          JsBarcode("#itf", ipp.toString(), {
-					  	lineColor: "#000",
-					  	width:4,
-					  	height:40,
-					 	  displayValue: true,
-					 	  fontSize : 28,
-					 	  textAlign: "left"
-						});
-					  const img = document.querySelector('img#itf');
-	          doc.text(105,9, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
-	          doc.setFontSize(13);
-	          doc.text(105,16, 'HOPITAL CENTRAL DE LA SURETE NATIONALE "LES GLYCINES"', null, null, 'center');
-	          doc.setFontSize(12);
-	          doc.text(105,21, '12, Chemin des Glycines - ALGER', null, null, 'center');
-	          doc.text(105,26, 'Tél : 023-93-34 - 23-93-58', null, null, 'center');
-	          doc.addImage(imge, 'JPEG', 95, 27, 17, 17);
-	          doc.setFontSize(14);
-	          doc.text(200,60, 'Alger :' +formattedDate , null, null, 'right'); 
-	          doc.text(20,63, 'Nom : '+nomp, null, null);
-	          doc.text(20,68, 'Prénom : '+prenomp, null, null);
-	          doc.text(20,73, 'Age : '+ age+' ans', null, null);
-	          doc.addImage(img.src, 'JPEG', 20, 75, 50, 15);
-	          doc.text(20,110, 'Prière de faire', null, null);
-						doc.setFontSize(16);
-						doc.text(50,125,'Examens Demandées :',null,null)
-	          var res = doc.autoTableHtmlToJson(document.getElementById('ExamsImgtab'));
-	          var height = doc.internal.pageSize.height;
-	          doc.autoTable(res.columns, res.data, {
-	     				startY: 135,
-	  				});
-	  				doc.setFontSize(12);
-	  				doc.text(100,270, 'Docteur : ' +'{{$employe->nom}}'+ ' '+ '{{$employe->prenom}}', null, null); 
-	  			  doc.save('ExamRadio-'+nomp+'-'+prenomp+'.pdf');
-	        }
-	    });
-  }
 	$('document').ready(function(){
 		$( 'ul.nav li' ).on( 'click', function() {
 			$(this).siblings().addClass('filter');
@@ -320,14 +268,13 @@
 		   		$(this).removeAttr('disabled');
 	 		});
 		});
-		$('.select2').css('width','400px').select2({allowClear:true})
-   		$('#select2-multiple-style .btn').on('click', function(e){
+   	$('#select2-multiple-style .btn').on('click', function(e){
  			var target = $(this).find('input[type=radio]');
-  			var which = parseInt(target.val());
+  		var which = parseInt(target.val());
  			if(which == 2) 
  				$('.select2').addClass('tag-input-style');
-		     	else
-		     	 $('.select2').removeClass('tag-input-style');
+		  else
+		    $('.select2').removeClass('tag-input-style');
  		});
 		$(function() {
 			var checkbox = $("#isOriented");  // Get the form fields and hidden div
@@ -598,54 +545,24 @@
 		        }
 			});
 		});
-		$('#examensradio').on('select2:select', function (e) { 
-			if($("input[name='exmns']").is(":checked"))
-	 			$(".disabledElem").removeClass("disabledElem").addClass("enabledElem");
-	 	});
-		$('#examensradio').on('select2:unselecting', function(event) {
-	 		$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
-		});
-		$('input[type=radio][name=exmns]').change(function() {
-	 		if(! isEmpty($('#examensradio').val()))
-		  		$(".disabledElem").removeClass("disabledElem").addClass("enabledElem");
-			else
-		  		$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
-		});
-		$('#btnclose').click(function(){
-			$("#examensradio").select2("val", "");$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
-		})
-   		$('#btn-addImgExam').click(function(){
-		  	var selected = []; var array = [];
-		  	$('#ExamIgtModal').modal('toggle');
-				$.each($("input[name='exmns']:checked"), function(){
-					selected.push($(this).next('label').text());
-					array.push($(this).val());	//$(this). prop("checked", false);
-	 	 	});   
-	 	var exam = '<tr id="acte-'+$("#examensradio").val()+'"><td id="idExamen" hidden>'+$("#examensradio").val()+'</td><td>'+$("#examensradio option:selected").text()+'</td><td id ="types" hidden>'+array+'</td><td>'+selected+'</td><td class="center" width="5%">';
-	 	   exam += '<button type="button" class="btn btn-xs btn-danger delete-ExamImg" value="'+$("#examensradio").val()+'" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';     
-	  	$('#ExamsImg').append(exam);
-		 	$('#examensradio').val(' ').trigger('change');
-		 	$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
-		});
-		jQuery('body').on('click', '.delete-ExamImg', function () {
-	 	 	$("#acte-" + $(this).val()).remove();
-		});
 	 	$("#consultForm").submit(function(e){
    			if(!checkConsult())
    			{
    				activaTab("Interogatoire");
    				return false;
    			}
-   			var ExamsImg = [];
-   			var arrayLignes = document.getElementById("ExamsImg").rows;
-  			for(var i=0; i< arrayLignes.length; i++)
-  			{
-  				ExamsImg[i] = { acteImg: arrayLignes[i].cells[0].innerHTML, types: arrayLignes[i].cells[2].innerHTML }
-  			}
-   	 		var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
-    			champ.appendTo('#consultForm');
+	   		// 	var ExamsImg = [];
+	   		// 	var arrayLignes = document.getElementById("ExamsImg").rows;
+	  			// for(var i=0; i< arrayLignes.length; i++)
+	  			// {
+	  			// 	ExamsImg[i] = { acteImg: arrayLignes[i].cells[0].innerHTML, types: arrayLignes[i].cells[2].innerHTML }
+	  			// }
+	   	 // 		var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
+	    	// 	champ.appendTo('#consultForm');
+    		addExamsImg(this);
+    		//return false;
 		}); //calendrier  	
-	      var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
+	  var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
 		var today = (new Date()).setHours(0, 0, 0, 0);
 		$('.calendar1').fullCalendar({
 	      plugins: [ 'dayGrid', 'timeGrid' ],
@@ -731,16 +648,16 @@
 	   	eventAllow: function(dropLocation, draggedEvent) {  return false; },
 			eventDrop: function(event, delta, revertFunc) { revertFunc();	},
 			eventDragStop: function (event, jsEvent, ui, view) {return false;} 
-	});// calendar
-	$("#taille").ionRangeSlider({
-      min:0,  max:250,  from:0,   grid: true,   grid_num: 20,postfix:" cm", 
-  });
-  $("#poids").ionRangeSlider({
-      min:0,  max:200,   step:0.1,  from:0,  grid: true,   grid_num: 20, postfix:" kg", 
-  });
-  $("#temp").ionRangeSlider({
-      min:30,   max:50,    step:0.1,    from:37,   grid: true,   grid_num: 20, postfix:" C", 
-  });
+		});// calendar
+		$("#taille").ionRangeSlider({
+	      min:0,  max:250,  from:0,   grid: true,   grid_num: 20,postfix:" cm", 
+	  });
+	  $("#poids").ionRangeSlider({
+	      min:0,  max:200,   step:0.1,  from:0,  grid: true,   grid_num: 20, postfix:" kg", 
+	  });
+	  $("#temp").ionRangeSlider({
+	      min:30,   max:50,    step:0.1,    from:37,   grid: true,   grid_num: 20, postfix:" C", 
+	  });
 });// ready
 </script>	
 @endsection
@@ -752,7 +669,7 @@
 </div>
 <div class="content"><!-- style="height:800px;" -->
 	<div class="row">
-	<form  class="form-horizontal" action="{{ route('consultations.store') }}" method="POST" role="form" id ="consultForm">
+	<form  class="form-horizontal" id ="consultForm" action="{{ route('consultations.store') }}" method="POST" role="form">
 	  {{ csrf_field() }}
 	    <input type="hidden" name="patient_id" id="patient_id" value="{{ $patient->id }}">
 	    <div class="form-group" id="error" aria-live="polite">
@@ -810,7 +727,7 @@
 </div><!-- content     -->
 <div class="row">@include('consultations.LettreOrientation')</div><div class="row">@include('consultations.DemadeHospitalisation')</div>
 <div class="row">@include('antecedents.AntecedantModal')</div><div class="row">@include('antecedents.AntecedantModalPhysio')</div>
-<div class="row">@include('consultations.ModalFoms.Ordonnance')</div><div class="row">@include('consultations.ModalFoms.imprimerOrdonnance')</div>
-<div class="row">@include('consultations.ModalFoms.imprimerOrdonnanceAjax')</div><div class="row">@include('rdv.rendezVous')</div>
+<div class="row">@include('ExamenCompl.ModalFoms.Ordonnance')</div><div class="row">@include('ExamenCompl.ModalFoms.imprimerOrdonnance')</div>
+<div class="row">@include('ExamenCompl.ModalFoms.imprimerOrdonnanceAjax')</div><div class="row">@include('rdv.rendezVous')</div>
 <div class="row">@include('cim10.cimModalForm')</div>
 @endsection

@@ -21,6 +21,14 @@ class visite extends Model
   {
     return $this->hasMany('App\modeles\Traitement','visite_id');
   }
+  public function demandeexmbio()
+  {
+    return $this->hasOne('App\modeles\demandeexb','visite_id');
+  }
+  public function examensradiologiques()
+  {
+      return $this->hasOne('App\modeles\demandeexr','visite_id');
+  }
   public function medecin(){
     return $this->belongsTo('App\modeles\employ','id_employe');
 

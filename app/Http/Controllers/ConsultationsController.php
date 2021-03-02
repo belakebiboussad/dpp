@@ -62,8 +62,8 @@ class ConsultationsController extends Controller
     }
     public function listecons($id)
     {
-           $patient = patient::with('Consultations.patient','Consultations.docteur','Consultations.docteur.service')->FindOrFail($id);
-          return Response::json($patient->Consultations)->withHeaders(['patient' => $patient->Nom . " " . $patient->Prenom]);
+      $patient = patient::with('Consultations.patient','Consultations.docteur','Consultations.docteur.service')->FindOrFail($id);
+      return Response::json($patient->Consultations)->withHeaders(['patient' => $patient->Nom . " " . $patient->Prenom]);
     }
     /**
      * Show the form for creating a new resource.
@@ -124,8 +124,8 @@ class ConsultationsController extends Controller
           }
           if($request->poids != 0 || $request->temp != null || $request->taille !=0 || $request->autre)
           {
-               $exam = new examen_cliniqu;$exam->taille = $request->taille;
-               $exam->poids  = $request->poids;   $exam->temp   = $request->temp;
+              $exam = new examen_cliniqu;$exam->taille = $request->taille;
+              $exam->poids  = $request->poids;   $exam->temp   = $request->temp;
               $exam->autre  = $request->autre; $exam->IMC    = $request->imc;
               $exam->Etat   = $request->etatgen; $exam->peaupha =$request->peaupha; 
               $consult->examensCliniques()->save($exam);

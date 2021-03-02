@@ -8,7 +8,7 @@ class demandeexr extends Model
 {
     public $timestamps = false;
     protected $table = "demandeexr";
-    protected $fillable = ['InfosCliniques', 'Explecations', 'etat', 'resultat', 'id_consultation'];
+    protected $fillable = ['InfosCliniques', 'Explecations', 'etat', 'resultat', 'id_consultation','visite_id'];
 
     public function examensradios()
     {
@@ -28,6 +28,10 @@ class demandeexr extends Model
     public function consultation()
     {
         return $this->belongsTo('App\modeles\consultation','id_consultation');
+    }
+     public function visite()
+    {
+        return $this->belongsTo('App\modeles\consultation','visite_id');
     }
 
 }

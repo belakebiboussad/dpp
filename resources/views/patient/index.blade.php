@@ -1,6 +1,6 @@
 @extends('app')
 @section('title','Rechercher un patient')
-@section('page-script')
+	@section('page-script')
 <script>
 	function getPatientdetail(id)
 	{
@@ -83,12 +83,12 @@
 			        		"columns": [	
 											{ data:null,title:'#', "orderable": false,searchable: false,
 								    			render: function ( data, type, row ) {
-								                   		 if ( type === 'display' ) {
-								                        		return '<input type="checkbox" class="editor-active check" name="fusioner[]" value="'+data.id+'" onClick="return KeepCount()" /><span class="lbl"></span>';
-								                  		}
-								                   		 return data;
-								                	},
-								                	className: "dt-body-center",
+			                   		if ( type === 'display' ) {
+			                        		return '<input type="checkbox" class="editor-active check" name="fusioner[]" value="'+data.id+'" onClick="return KeepCount()" /><span class="lbl"></span>';
+			                  		}
+			                   		 return data;
+								          },
+								          className: "dt-body-center",
 											},
 											{ data:'id',title:'ID', "visible": false},
 											{ data: 'Nom', title:'Nom' },
@@ -109,13 +109,13 @@
 									  }
 		  		   			],
 				   			"columnDefs": [
-				   						{"targets": 2 ,  className: "dt-head-center" },//nom
-				   						{"targets": 3 ,  className: "dt-head-center" },
-				   						{"targets": 4 ,  className: "dt-head-center" },
-				   						{"targets": 5 ,  className: "dt-head-center" },
-				   						{"targets": 6 ,	"orderable": false, className: "dt-head-center" },
-								 		  {"targets": 7 ,	"orderable": false, className: "dt-head-center" },
-								 		  {"targets": 8 ,	"orderable":false,  className: "dt-head-center dt-body-center"	},
+				   						{"targets": 2 ,  className: "dt-head-center priority-1" },//nom
+				   						{"targets": 3 ,  className: "dt-head-center priority-2" },
+				   						{"targets": 4 ,  className: "dt-head-center priority-3" },
+				   						{"targets": 5 ,  className: "dt-head-center priority-4" },//date
+				   						{"targets": 6 ,	"orderable": false, className: "dt-head-center priority-5" },//sexe
+								 		  {"targets": 7 ,	"orderable": true, className: "dt-head-center priority-6"},//creele
+								 		  {"targets": 8 ,	"orderable":false,  className: "dt-head-center dt-body-center priority-7"},//actions
 						   	],
 	    				});
 
@@ -193,19 +193,19 @@
 		<div class="col-md-7 col-sm-7">
 			<div class="widget-box transparent">
 				<div class="widget-header widget-header-flat widget-header-small">
-					<h5 class="widget-title"><i class="ace-icon fa fa-user"></i>
-					Résultats:</h5><label><span class="badge badge-info numberResult"></span></label>
+					<h5 class="widget-title"><i class="ace-icon fa fa-user"></i>Résultats:</h5><label><span class="badge badge-info numberResult"></span></label>
 				</div>
 				<div class="widget-body">
 					<div class="widget-main no-padding">
 						<table id="liste_patients" class="display responsive nowrap" cellspacing="0" width="100%"></table>
+
 					</div>
 				</div>	
 			</div>
 		</div>{{-- col-sm-7 --}}
-		<div class="hidden-xs hidden-sm col-md-5 col-sm-5"> <br>
-		  <div class="widget-box transparent" id="patientDetail" style ="margin-top: 14px;"></div>		
-		</div>
+		<!-- hidden-xs hidden-sm  -->
+		<div class="col-md-5 col-sm-5"> <br><div class="widget-box transparent" id="patientDetail" style ="margin-top: 14px;"></div></div>		
+		  
 	</div>{{-- row --}}
 	<div class="row">
 		<div  id="mergeModal" class="modal fade" role="dialog" aria-hidden="true"> 
