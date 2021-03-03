@@ -49,7 +49,7 @@
      }
      function getState(data, type, dataToSet) {
            if(data.etat_hosp == 1)
-                return '<span class="badge badge-pill badge-success">Cloturé</span>';
+                return '<span class="badge badge-pill badge-primary">Cloturé</span>';
           else
                  return '<span class="badge badge-pill badge-primary">En Cours</span>'
      }
@@ -88,12 +88,12 @@
                                     return row.admission.demande_hospitalisation.modeAdmission ;
                                },
                                 title:"Mode Admission","orderable": false 
-                     },
-                     { data: "Date_entree" , title:'Date Entrée', "orderable": true},
-                     { data: "Date_Prevu_Sortie" , title:'Date Sortie Prévue', "orderable": true },
-                     { data: "Date_Sortie" , title:'Date Sortie',"orderable": true },
-                     { data: "mode_hospi.nom" , title:'Mode',"orderable": false  },
-                     {   data: "admission.demande_hospitalisation.demeande_colloque.medecin.nom" ,//6
+                     },//2
+                     { data: "Date_entree" , title:'Date Entrée', "orderable": true},//3
+                     { data: "Date_Prevu_Sortie" , title:'Date Sortie Prévue', "orderable": true },//4
+                     { data: "Date_Sortie" , title:'Date Sortie',"orderable": true },//5
+                     { data: "mode_hospi.nom" , title:'Mode',"orderable": false  },//6
+                     {   data: "admission.demande_hospitalisation.demeande_colloque.medecin.nom" ,
                            render: function ( data, type, row ) {
                                     return row.admission.demande_hospitalisation.demeande_colloque.medecin.nom + ' ' + row.admission.demande_hospitalisation.demeande_colloque.medecin.prenom ;
                            },
@@ -103,24 +103,27 @@
                      { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false }              
           ],
           "columnDefs": [
-                  {"targets": 3 ,  className: "dt-head-center priority-6" },
-                  {"targets": 9,  className: "dt-body-center"},
+                {"targets": 0 ,  className: "dt-head-center priority-6" },
+                {"targets": 2 ,  className: "dt-head-center priority-4" },
+                {"targets": 4 ,  className: "dt-head-center priority-6" },
+                 {"targets": 5,  className: "dt-head-center priority-4" },
+                 {"targets": 6 ,  className: "dt-head-center priority-5" },
+                {"targets": 7 ,  className: "dt-head-center priority-6" },
+                 {"targets": 8 ,  className: "dt-head-center priority-6" },
+                {"targets": 9,  className: "dt-body-center"},
           ],
       });
     }
      function getHospitalisations(field,value)
 	{
           $.ajax({
-              url : '{{URL::to('getHospitalisations')}}',
-              data: {    
-                 "field":field,
-                 "value":value,
-          },
-          dataType: "json",// recommended response type
-      	  success: function(data) {
-              $(".numberResult").html(data.length);
-               loadDataTable(data);
-          }
+               url : '{{URL::to('getHospitalisations')}}',
+               data: {  "field":field, "value":value, },
+               dataType: "json",// recommended response type
+      	     success: function(data) {
+                     $(".numberResult").html(data.length);
+                     loadDataTable(data);
+                }
 	});
 	}
 	$('document').ready(function(){
@@ -220,7 +223,7 @@
             	<div class="col-sm-4">
             		<div class="form-group col-sm-8">
                           <label><strong>Etat :</strong></label>
-                          <select id='etat_hosp' class="form-control filter"> <!-- style="width: 200px" -->
+                          <select id='etat_hosp' class="form-control filter">
                               <option value="0">En Cours</option>
                                <option value="1">Cloturé</option>
                         </select>
@@ -256,43 +259,32 @@
           </div>
 		<div class="widget-body">
 			<div class="widget-main no-padding">
-				<table class="display responsive nowrap" id="liste_hosptalisations" width="100%">
-          <thead>
-              <tr>
-                <th></th>
-                <th><strong>Patient</strong></th>
-                 <th><strong>Mode Admission</strong></th>
-                 <th><strong>Date_entree</strong></th>
-                <th><strong>Date Sortie Prévue</strong></th>
-                <th><strong>Date Sortie</strong></th>
-                <th><strong>Mode</strong></th>
-                <th><strong>Medecin</strong></th>
-                <th><strong>Etat</strong></th>
-                <th class ="center">
-                  <strong><em class="fa fa-cog"></em></strong>
-                </th>
-              </tr>
-          </thead>
+		    <table class="display responsive nowrap" id="liste_hosptalisations" width="100%">
+                <thead>
+                    <tr>
+                      <th class ="center priority-6" width="2%"></th><th class ="center"><strong>Patient</strong></th>
+                       <th class ="center priority-4"><strong>Mode Admission</strong></th><th class ="center"><strong>Date_entree</strong></th>
+                      <th class ="center  priority-6"><strong>Date Sortie Prévue</strong></th><th class ="center priority-4"><strong>Date Sortie</strong></th>
+                      <th  class ="center  priority-5"><strong>Mode</strong></th><th  class ="center  priority-6"><strong>Medecin</strong></th>
+                      <th class ="center  priority-6"><strong>Etat</strong></th><th class ="center"><strong><em class="fa fa-cog"></em></strong></th>
+                    </tr>
+                </thead>
           <tbody>
                @foreach ($hospitalisations as $hosp)
                 <tr id="hospi{{ $hosp->id }}">
-                    <td><input type="checkbox" class="editor-active check" value="{{ $hosp->id}}"/><span class="lbl"></span></td>
+                    <td class="priority-6"><input type="checkbox" class="editor-active check" value="{{ $hosp->id}}"/><span class="lbl"></span></td>
                     <td>{{ $hosp->patient->Nom }} {{ $hosp->patient->Prenom }}</td>
-                    <td>{{ $hosp->admission->demandeHospitalisation->modeAdmission}} </td>
+                    <td class="priority-4">{{ $hosp->admission->demandeHospitalisation->modeAdmission}} </td>
                     <td>{{  $hosp->Date_entree}}</td>
-                    <td>{{  $hosp->Date_Prevu_Sortie}}</td>
-                    <td>{{  $hosp->Date_Sortie}}</td>
-                    <td>{{  $hosp->modeHospi->nom }}</td>
-                     <td>{{  $hosp->admission->demandeHospitalisation->demeandeColloque->medecin->nom }}
+                    <td  class="priority-6">{{  $hosp->Date_Prevu_Sortie}}</td>
+                    <td class="priority-4">{{  $hosp->Date_Sortie}}</td>
+                    <td class="priority-5">{{  $hosp->modeHospi->nom }}</td>
+                    <td class="priority-6">{{  $hosp->admission->demandeHospitalisation->demeandeColloque->medecin->nom }}
                             {{  $hosp->admission->demandeHospitalisation->demeandeColloque->medecin->prenom }}
                      </td>
-                    <td>
-                         @if(isset( $hosp->etat_hosp))
-                              <span class="badge badge-pill badge-success">{{  $hosp->etat_hosp }}</span>
-                          @else
-                                <span class="badge badge-pill badge-primary">En Cours</span>
-                          @endif
-                      </td>
+                     <td class="priority-6" >
+                         <span class="badge badge-pill badge-primary">{{  isset($hosp->etat_hosp)  ?  $hosp->etat_hosp : 'En Cours'}}</span>
+                     </td>
                     <td class ="center">
                           <a href = "/hospitalisation/{{ $hosp->id }}" style="cursor:pointer" class="btn secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>
                           @if((Auth::user()->role_id != 3))

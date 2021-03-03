@@ -1,25 +1,6 @@
-<style>
-/*.nav-tabs{background-color:#C8D3DB;}*/
- .nav-tabs > li > a{
-    border-radius: 5px;
-}
-.nav-tabs > li > a:hover{
-    background-color: #3D515F !important;
-    border-radius: 5px;
-    color:#fff;
-    border:1px solid black;
-} 
-.nav-tabs > li.active > a,
-.nav-tabs > li.active > a:focus,
-.nav-tabs > li.active > a:hover{
-    background-color: #68889E !important;
-    color:#fff;
-      border:2px solid #3F515F;
-}
-</style>
 <div data-role="page" class="ui-responsive-panel">
 <div class="panel panel-default panel-table">
-  <div data-role="panel" class="panel-body tabbable" data-display="push" id="nav-panel">
+  <div data-role="panel" class="panel-body tabbable" data-display="push">
     <div class="panel with-nav-tabs panel-info">
       <div class="panel-heading">
         <ul class="nav nav-pills justify-content-center" role="tablist">
@@ -69,7 +50,7 @@
                 </tr> 
                 <tr>
                     <td class ="noborders"><i class="fa fa-phone"></i><strong>Mob2 :</strong></td><td align="left">{{ $patient->tele_mobile2 }}</td>
-                    <td class ="noborders"><strong>N°Sec Soc:</strong></td><td align="left">{{ $patient->NSS }}</td>
+                    <td class ="noborders"><strong>NSS:</strong></td><td align="left">{{ $patient->NSS }}</td>
                 </tr> 
                 <tr>
                      <td class ="noborders"><strong>Sang :</strong></td><td align="left"><span class="badge badge-danger">{{ $patient->group_sang }}{{ $patient->rhesus }}</span></td>
@@ -114,15 +95,15 @@
                                      <td class ="noborders"><strong>Né(e) a:</strong></td> <td>{{ $assure->lieuNaissance->nom_commune }}</td>
                                 </tr>  
                                 <tr>
-                                       <td class ="noborders"><strong>Genre :</strong></td><td>@if ( $assure->Sexe == 'F' ) Féminin @else  Masculin @endif </td>
+                                       <td class ="noborders nowrap"><strong>Genre :</strong></td><td>@if ( $assure->Sexe == 'F' ) Féminin @else  Masculin @endif </td>
                                        <td class ="noborders"><strong>Matricule:</strong></td><td>{{ $assure->Matricule }}</td> 
                                 </tr>
                                 <tr>
-                                       <td class ="noborders"><strong>N°Sec Soc :</strong></td><td>{{ $assure->NSS }}</td>
+                                       <td class ="noborders"><strong>NSS :</strong></td><td>{{ $assure->NSS }}</td>
                                       <td class ="noborders"><strong>NMGSN:</strong></td><td>{{ $assure->NMGSN }}</td>
                                 </tr>
                                  <tr>
-                                       <td colspan="1" class ="noborders"><strong>Grade :</strong></td>
+                                       <td colspan="1" class ="noborders nowrap"><strong>Grade :</strong></td>
                                        @if(isset($assure->Grade))
                                         <td>{{ $assure->grade->nom }}</td>
                                         @endif

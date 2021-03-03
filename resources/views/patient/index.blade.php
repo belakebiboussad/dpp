@@ -69,8 +69,7 @@
 		        success:function(data,status, xhr){
 			     		$('#'+field).val('');	 field= "Dat_Naissance"; 
      			 		$(".numberResult").html(Object.keys(data).length);
-     			  	var table =   $("#liste_patients").DataTable ({
-
+     			 	 	var table =   $("#liste_patients").DataTable ({
 	     						"processing": true,
 		  				 	"paging":   true,
 		  				  	"destroy": true,
@@ -115,7 +114,7 @@
 				   						{"targets": 5 ,  className: "dt-head-center priority-4" },//date
 				   						{"targets": 6 ,	"orderable": false, className: "dt-head-center priority-5" },//sexe
 								 		  {"targets": 7 ,	"orderable": true, className: "dt-head-center priority-6"},//creele
-								 		  {"targets": 8 ,	"orderable":false,  className: "dt-head-center dt-body-center priority-7"},//actions
+								 		  {"targets": 8 ,	"orderable":false,  className: "dt-head-center dt-body-center priority-7"},
 						   	],
 	    				});
 
@@ -196,14 +195,10 @@
 					<h5 class="widget-title"><i class="ace-icon fa fa-user"></i>Résultats:</h5><label><span class="badge badge-info numberResult"></span></label>
 				</div>
 				<div class="widget-body">
-					<div class="widget-main no-padding">
-						<table id="liste_patients" class="display responsive nowrap" cellspacing="0" width="100%"></table>
-
-					</div>
+					<div class="widget-main no-padding"><table id="liste_patients" class="display responsive nowrap" cellspacing="0" width="100%"></table></div>
 				</div>	
 			</div>
-		</div>{{-- col-sm-7 --}}
-		<!-- hidden-xs hidden-sm  -->
+		</div>{{-- col-sm-7 --}}<!-- hidden-xs hidden-sm  -->
 		<div class="col-md-5 col-sm-5"> <br><div class="widget-box transparent" id="patientDetail" style ="margin-top: 14px;"></div></div>		
 		  
 	</div>{{-- row --}}
