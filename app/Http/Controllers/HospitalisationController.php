@@ -146,23 +146,23 @@ class HospitalisationController extends Controller
     }
     public function getHospitalisations(Request $request)
     { 
-          if($request->ajax())  
-          {           
-                if($request->field != 'Nom')
-                {
-                     if($request->value != "0")   
-                          $hosps = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient','modeHospi')
-                                                            ->where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
-                     else
-                            $hosps = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient','modeHospi')
-                                                            ->where('etat_hosp','=',null)->get();                                   
-                }
-               else
+      if($request->ajax())  
+      {           
+        if($request->field != 'Nom' && ($request->field != 'IPP'))
+        {
+             if($request->value != "0")   
+                  $hosps = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient','modeHospi')
+                                                    ->where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
+             else
                     $hosps = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient','modeHospi')
-                            ->whereHas('patient',function($q) use ($request){
-                                   $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
-                            })->get();
-                return Response::json($hosps);
-          }
+                                                    ->where('etat_hosp','=',null)->get();                                   
+        }
+        else
+            $hosps = hospitalisation::with('admission.demandeHospitalisation.DemeandeColloque.medecin','patient','modeHospi')
+                    ->whereHas('patient',function($q) use ($request){
+                           $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
+                    })->get();
+        return Response::json($hosps);
+      }
     }
 }

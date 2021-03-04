@@ -45,10 +45,10 @@
           {{-- <div role="tabpanel" class = "tab-pane active" id="Interogatoire"><div class= "col-md-12 col-xs-12"> @include('consultations.Interogatoire') </div></div>   --}}
            <div role="tabpanel" class = "tab-pane" id="ExamClinique"><div class= "col-md-12 col-xs-12">@include('consultations.examenClinique')</div></div> 
           <div role="tabpanel" class = "tab-pane" id="ExamComp">
-                     <div class= "col-md-12 col-xs-12">@if( !empty($consultation))  @include('consultations.ExamenCompl') @endif</div>    
+                     <div class= "col-md-12 col-xs-12">@if( !empty($consultation))  @include('ExamenCompl.index') @endif</div>    
            </div>
           <div role="tabpanel" class = "tab-pane" id="Prescription">
-                      <div class= "col-md-12 col-xs-12"> Prescription</div>@if( !empty($consultation)) @include('consultations.ExamenCompl.Ordonnance') @endif
+                      <div class= "col-md-12 col-xs-12"> Prescription</div>@if( !empty($consultation)) @include('ExamenCompl.ModalFoms.Ordonnance') @endif
           </div>
         </div>
   </div>

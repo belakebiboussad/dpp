@@ -14,7 +14,7 @@
 		</ul>
 	</div> {{-- row ul --}}
 	<div class="row">
-		<div class= "col-md-9 col-xs-9"> 
+		<div class= "col-md-9 col-sm-9"> 
 		  <div  class="tab-content" style ="border-style: none;">
 				<div  role="tabpanel" class ="tab-pane active" id="ExamGen">
 					<div class="row">
@@ -63,6 +63,6 @@
 				<div role="tabpanel" class = "tab-pane" id="Appareils">	@include("consultations.ExamenAppareils")	</div>
 			</div>
  		</div>
-		<div class= "col-md-3 col-xs-3">@include('consultations.actions')</div>
+		<div class= "col-md-3 col-sm-9">@include('consultations.actions')</div>
 	</div>
 </div>

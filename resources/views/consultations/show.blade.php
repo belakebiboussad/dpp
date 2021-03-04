@@ -75,17 +75,16 @@
                                     @elseif($consultation->demandeexmbio->etat == "V")
                                       <span class="badge badge-success">Validé</span>       
                                     @else
-                                      <span class="badge badge-success">Rejeté</span>   
+                                      <span class="badge badge-danger">Rejeté</span>   
                                     @endif
                                     </td>
                                     <td class="center">
                                       <a href="{{ route('demandeexb.show', $consultation->demandeexmbio->id) }}" class="btn btn-secondary btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
-                                     @if($consultation->demandeexmbio->etat == "E")
+                                      @if($consultation->demandeexmbio->etat == "E")
                                         <a href="{{ route('demandeexb.edit', $consultation->demandeexmbio->id) }}" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-pencil"></i></a>
-                                     @endif
-                                      <a href="/showdemandeexb/{{ $consultation->demandeexmbio->id }}" target="_blank" class="btn btn-info btn-xs">
-                                           <i class="ace-icon fa fa-print"></i>&nbsp;
-                                        </a>
+                                        <a href="{{ route('demandeexb.destroy', $consultation->demandeexmbio->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-danger btn-xs"><i class="ace-icon fa fa-trash-o"></i></a>
+                                      @endif
+                                      <a href="/showdemandeexb/{{ $consultation->demandeexmbio->id }}" target="_blank" class="btn btn-info btn-xs"><i class="ace-icon fa fa-print"></i>&nbsp;</a> 
                                     </td>
                                 </tbody>
                               </table>
@@ -124,7 +123,7 @@
                                         @if($consultation->examensradiologiques->etat == "E")
                                                <span class="badge badge-warning"> En Attente</span>
                                         @elseif($consultation->examensradiologiques->etat == "V")
-                                                Validé
+                                              <span class="badge badge-success">Validé</span>   
                                         @else
                                                 <span class="badge badge-danger">Rejeté</span>
                                         @endif
@@ -133,6 +132,7 @@
                                           <a href="{{ route('demandeexr.show', $consultation->examensradiologiques->id) }}" class="btn btn-info btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
                                           @if($consultation->examensradiologiques->etat == "E")
                                           <a href="{{ route('demandeexr.edit', $consultation->examensradiologiques->id) }}" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-pencil"></i></a>
+                                           <a href="{{ route('demandeexr.destroy', $consultation->examensradiologiques->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-danger btn-xs"><i class="ace-icon fa fa-trash-o"></i></a>
                                           @endif
                                            <a href="/showdemandeexr/{{ $consultation->examensradiologiques->id }}" target="_blank" class="btn btn-xs">
                                                  <i class="ace-icon fa fa-print"></i>&nbsp;

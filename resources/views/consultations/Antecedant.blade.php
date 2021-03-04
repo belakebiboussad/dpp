@@ -13,8 +13,7 @@
 			<table class="table nowrap dataTable table-bordered no-footer table-condensed table-scrollable" id="antsTab">
 				<thead class="thin-border-bottom">
 				  <tr class ="center">
-					<th class ="hidden"></th>
-					<th class="center"><strong><span style="font-size:14px;">Type</span></strong></th>
+					<th class ="hidden"></th>	<!-- 		<th class="center"><strong><span style="font-size:14px;">Type</span></strong></th> -->
 					<th class="center"><strong><span style="font-size:14px;">Nature</span></strong></th>
 					<th class="center"><i class="fa fa-clock-o bigger-110" aria-hidden="true"></i>
 						<strong>&nbsp;<span style="font-size:14px;">Date</span></strong>
@@ -28,8 +27,7 @@
 				 @foreach($patient->antecedants as $antcd)
 					@if(($antcd->Antecedant == "Personnels") &&($antcd->typeAntecedant == "0"))
 					<tr id="{{ 'atcd'.$antcd->id }}">
-						<td class ="hidden" >{{ $antcd->Patient_ID_Patient }}</td>
-						<td>Pathologiques</td>
+						<td class ="hidden" >{{ $antcd->Patient_ID_Patient }}</td><!-- 	<td>Pathologiques</td> -->
 						<td> {{ $antcd->stypeatcd }}</td>	     
 						<td>{{ $antcd->date }}</td>
 						<td>{{ $antcd->cim_code }}</td>
@@ -62,8 +60,7 @@
 			<table class="table nowrap dataTable table-bordered no-footer table-condensed table-scrollable" id="antsPhysTab">
 				<thead class="thin-border-bottom">
 				  <tr class ="center">
-						<th class ="hidden"></th>
-						<th class="center"><strong><span style="font-size:14px;">Type</span></strong></th>
+						<th class ="hidden"></th><!-- 	<th class="center"><strong><span style="font-size:14px;">Type</span></strong></th> -->
 						<th class="center"><i class="fa fa-clock-o bigger-110" aria-hidden="true"></i>
 							<strong>&nbsp;<span style="font-size:14px;">Date</span></strong>
 					  </th>
@@ -71,7 +68,7 @@
 						<th class="center hidden-480"><span style="font-size:14px;"><strong>Description</strong></span></th>
 						<th class ="center">Tabac</th>
 						<th class ="center">Ethylisme</th>
-						<th class ="center">Habitude alimentaire</th>
+						<th class ="center">Hab alim</th>
 						<th class="center"><em class="fa fa-cog"></em></th>
 				  </tr>
 				</thead>
@@ -79,8 +76,7 @@
 				 	@foreach($patient->antecedants as $antcd)
 						@if(($antcd->Antecedant == "Personnels") &&($antcd->typeAntecedant == "1"))
 						<tr id="{{ 'atcd'.$antcd->id }}">
-							<td class ="hidden" >{{ $antcd->Patient_ID_Patient }}</td>
-							<td>Physiologiques</td>  
+							<td class ="hidden" >{{ $antcd->Patient_ID_Patient }}</td><!-- <td>Physiologiques</td>   -->
 							<td>{{ $antcd->date }}</td>
 							<td>{{ $antcd->cim_code }}</td>
 							<td>{{ $antcd->descrioption }}</td>
@@ -147,63 +143,58 @@
 			</div>	
 		</div>
 	</div>
-</div>
-<div class="space-12"></div>
+</div><div class="space-12"></div>
 <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Facteurs de risque</h3></div></div>
 <div class="row"><div class="col-xs-12">	<label for="infos"><b>Facteurs Généraux</b></label><br></div> </div>
 <div class="row">
  	<div class="col-xs-3">
-    		<div class="checkbox">
-    		<input type="hidden" name="exercice" value="0">
-			  <label><input name="exercice" type ="checkbox" class="ace" value="1" @if(isset($patient->facteurRisque) && ($patient->facteurRisque->exercice)) checked @endif/>
-			 		<span class="lbl text-nowrap">Exercice physique</span>
-			 	</label>
-	      </div>   
-	    </div>
-		 <div class="col-xs-3">
-    		<div class="checkbox">
-    			<input type="hidden" name="regime" value="0">
-			 		<label><input name="regime" type="checkbox" class="ace" value="1" @if(isset($patient->facteurRisque)&&($patient->facteurRisque->regime)) checked @endif/>
-			 			<span class="lbl text-nowrap">Régime</span>
-			 		</label>
-	      </div>   
-	 		</div>
-	  	<div class="col-xs-3">
-    		<div class="checkbox">
-    			<input type="hidden" name="drogue" value="0">
-					<label><input name="drogue" type="checkbox" class="ace" value="1" @if(isset($patient->facteurRisque)&&($patient->facteurRisque->drogue)) checked @endif/>
-						<span class="lbl text-nowrap">Drogue</span>
-					</label>
-	      </div>   
-	 		</div>
-	 		<div class="col-xs-3">
-    		<div class="checkbox">
-    		<input type="hidden" name="sedentarite" value="0">
-				<label><input name="sedentarite" type="checkbox" class="ace" value="1" @if(isset($patient->facteurRisque)&&($patient->facteurRisque->sedentarite)) checked @endif/>
-			 		<span class="lbl text-nowrap">Sédentarité</span>
-			 	</label>
-	      </div>   
-	 		</div>
-    </div>
-    <div class="space-12"></div>
+		<div class="checkbox">
+		<input type="hidden" name="exercice" value="0">
+	  <label><input name="exercice" type ="checkbox" class="ace" value="1" @if(isset($patient->facteurRisque) && ($patient->facteurRisque->exercice)) checked @endif/>
+	 		<span class="lbl text-nowrap">Exercice physique</span>
+	 	</label>
+    </div>   
+  </div>
+ <div class="col-xs-3">
+		<div class="checkbox">
+			<input type="hidden" name="regime" value="0">
+	 		<label><input name="regime" type="checkbox" class="ace" value="1" @if(isset($patient->facteurRisque)&&($patient->facteurRisque->regime)) checked @endif/>
+	 			<span class="lbl text-nowrap">Régime</span>
+	 		</label>
+    </div>   
+	</div>
+	<div class="col-xs-3">
+		<div class="checkbox">
+			<input type="hidden" name="drogue" value="0">
+			<label><input name="drogue" type="checkbox" class="ace" value="1" @if(isset($patient->facteurRisque)&&($patient->facteurRisque->drogue)) checked @endif/>
+				<span class="lbl text-nowrap">Drogue</span>
+			</label>
+    </div>   
+	</div>
+	<div class="col-xs-3">
+		<div class="checkbox">
+		<input type="hidden" name="sedentarite" value="0">
+		<label><input name="sedentarite" type="checkbox" class="ace" value="1" @if(isset($patient->facteurRisque)&&($patient->facteurRisque->sedentarite)) checked @endif/>
+	 		<span class="lbl text-nowrap">Sédentarité</span>
+	 	</label>
+	  </div>   
+	</div>
+</div> <div class="space-12"></div>
     <div class="row">
-    	 <div class="col-xs-12">
-    	 <div class="col-xs-3">
+      <div class="col-xs-3">
 	      <label for="autrefact"><strong>Autre élément social</strong></label>
 	      <textarea class="form-control" name="autrefact">@if(isset($patient->facteurRisque)) {{ $patient->facteurRisque->autrefact }} @endif</textarea> 
-	</div>
-	<div class="col-xs-3">
-	  <label for="statut_fam"><strong>Statut familial</strong></label>
-	  <textarea class="form-control" name="statut_fam">@if(isset($patient->facteurRisque)) {{ $patient->facteurRisque->statut_fam }} @endif</textarea> 
-	</div>
-	<div class="col-xs-3">
-	  <label for="habitat"><strong>Habitat</strong></label>
-	  <textarea class="form-control" name="habitat">@if(isset($patient->facteurRisque)) {{ $patient->facteurRisque->habitat }} @endif</textarea> 
-	</div>
-	<div class="col-xs-3">
-	      <label for="professionnel"><strong>Facteurs Professionels</strong></label>
-	      <textarea class="form-control" name="professionnel">@if(isset($patient->facteurRisque)) {{ $patient->facteurRisque->professionnel }} @endif</textarea> 
-	</div>
-    	 </div>
-    </div>
- <div class="space-12"></div>
+			</div>
+			<div class="col-xs-3">
+			  <label for="statut_fam"><strong>Statut familial</strong></label>
+			  <textarea class="form-control" name="statut_fam">@if(isset($patient->facteurRisque)) {{ $patient->facteurRisque->statut_fam }} @endif</textarea> 
+			</div>
+			<div class="col-xs-3">
+			  <label for="habitat"><strong>Habitat</strong></label>
+			  <textarea class="form-control" name="habitat">@if(isset($patient->facteurRisque)) {{ $patient->facteurRisque->habitat }} @endif</textarea> 
+			</div>
+			<div class="col-xs-3">
+			      <label for="professionnel"><strong>Facteurs Professionels</strong></label>
+			      <textarea class="form-control" name="professionnel">@if(isset($patient->facteurRisque)) {{ $patient->facteurRisque->professionnel }} @endif</textarea> 
+			</div>
+    </div><div class="space-12"></div>

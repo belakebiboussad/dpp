@@ -20,8 +20,7 @@ function getConsultations(field,value)
                    "searching":false,
                    "info" : false,
                    "language":{"url": '/localisation/fr_FR.json'},
-                   "data" : data,
-                   // "scrollX": true,
+                   "data" : data,  // "scrollX": true,
                    "fnCreatedRow": function( nRow, aData, iDataIndex ) {
                          $(nRow).attr('id',"consult"+aData.id);
                    },
@@ -54,9 +53,9 @@ function getConsultations(field,value)
                     ],
                     "columnDefs": [
                         {"targets": 2 ,  className: "dt-head-center" },//nom
-                        {"targets": 3 ,  className: "dt-head-center" },
-                        {"targets": 4 ,  className: "dt-head-center" },
-                        {"targets": 5 ,  className: "dt-head-center" },
+                        {"targets": 3 ,  className: "dt-head-center priority-5" },
+                        {"targets": 4 ,  className: "dt-head-center"},
+                        {"targets": 5 ,  className: "dt-head-center priority-4" },
                         {"targets": 6 , "orderable": false, className: "dt-head-center dt-body-center" },
                     ],
          });
@@ -96,7 +95,7 @@ $('document').ready(function(){
 @endsection
 @section('main-content')
 <div class="widget">
-<div class="widget-title"><h3><strong>Liste des Consultations :</strong></h3></div>
+<div class="widget-title"><h3><strong>Rechercher une consultation</strong></h3></div>
 <div class="widget-body">
   <div class="hospGrid" id="" data-grid-name="hospView">
     <div class="hospFilter well">
@@ -108,13 +107,12 @@ $('document').ready(function(){
             			<div class="form-group"><label><strong>Patient :</strong></label><input type="text" id="Nom" value="" class="form-control filter"></div>
                		</div>
             		<div class="col-sm-4">
-            			<div class="form-group">
-                			<label class="control-label" for="" ><strong>Date :</strong></label>
-          			     		<div class="input-group">
-  					     		<input type="text" id ="Date_Consultation" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
-  							<div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
-    						</div>
-					</div>
+            			<div class="form-group"><label class="control-label" for="" ><strong>Date :</strong></label>
+          			    <div class="input-group">
+  					     		  <input type="text" id ="Date_Consultation" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
+  							       <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
+    						    </div>
+					        </div>
             		</div>	
             	</div>
           </div>

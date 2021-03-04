@@ -114,19 +114,19 @@
           ],
       });
     }
-     function getHospitalisations(field,value)
-	{
-          $.ajax({
-               url : '{{URL::to('getHospitalisations')}}',
-               data: {  "field":field, "value":value, },
-               dataType: "json",// recommended response type
-      	     success: function(data) {
-                     $(".numberResult").html(data.length);
-                     loadDataTable(data);
-                }
-	});
-	}
-	$('document').ready(function(){
+    function getHospitalisations(field,value)
+	  {
+      $.ajax({
+           url : '{{URL::to('getHospitalisations')}}',
+           data: {  "field":field, "value":value, },
+           dataType: "json",
+  	     success: function(data) {
+                 $(".numberResult").html(data.length);
+                 loadDataTable(data);
+            }
+    	});
+	  }
+	  $('document').ready(function(){
       $('.filter').change(function(){    // if($(this).attr('id') != "Nom") //getHospitalisations("etat_hosp",null);
           getHospitalisations($(this).attr('id'),$(this).val());
       }); // $('.filter').keyup(function(){//     getHospitalisations($(this).attr('id'),$(this).val()) // });
@@ -147,8 +147,7 @@
                 $('.deces').addClass('hidden');
             } 
      });
-     jQuery('#saveCloturerHop').click(function () {
-          // (jQuery('#modeSortie').val() === '') ? null : jQuery('#modeSortie').val();
+     jQuery('#saveCloturerHop').click(function () {  // (jQuery('#modeSortie').val() === '') ? null : jQuery('#modeSortie').val();
           var formData = {
                 id                      : $("#hospID").val(),
                 Date_Sortie        : jQuery('#Date_SortieH').val(),
@@ -212,7 +211,7 @@
 @endsection
 @section('main-content')
 <div class="widget">
-<div class="widget-title"><h3><strong>Liste des Hospitalisations :</strong></h3></div>
+<div class="widget-title"><h3><strong>Rechercher une Hospitalisation</strong></h3></div>
 <div class="widget-body">
   <div class="hospGrid" id="" data-grid-name="hospView">
     <div class="hospFilter well">
@@ -220,28 +219,25 @@
         <div class="card">
        	  <div class="card-body">
             <div class="row">
-            	<div class="col-sm-4">
-            		<div class="form-group col-sm-8">
-                          <label><strong>Etat :</strong></label>
-                          <select id='etat_hosp' class="form-control filter">
-                              <option value="0">En Cours</option>
-                               <option value="1">Cloturé</option>
-                        </select>
-            		</div>		
+            	<div class="col-sm-3"> <!--  <div class="form-group col-sm-8"> -->  <!-- </div>    -->
+                <label><strong>Etat :</strong></label>
+                <select id='etat_hosp' class="form-control filter">
+                  <option value="0">En Cours</option>
+                  <option value="1">Cloturé</option>
+                </select>
             	</div>
-            	<div class="col-sm-4">
-            		<div class="form-group col-sm-8">
-                	<label><strong>Patient :</strong></label><input type="text" id="Nom" class="form-control filter">
-                </div>		
-            	</div>
-            	<div class="col-sm-4">
-            		<div class="form-group col-sm-8">
-                		<label class="control-label" for="" ><strong>Date Sortie:</strong></label>
-          			     <div class="input-group">
-  					     <input type="text" id ="Date_Sortie" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
-  						<div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
-    					</div>
-				</div>
+            	<div class="col-sm-3"><!-- <div class="form-group col-sm-8"> --><!-- </div> -->
+            		<label><strong>Patient :</strong></label><input type="text" id="Nom" class="form-control filter">
+              </div>		
+            	<div class="col-sm-3">
+                <label class="control-label" for="" ><strong>IPP:</strong></label> <input type="text" id="IPP" class="form-control filter">
+              </div>
+            	<div class="col-sm-3"><!-- <div class="form-group col-sm-8"></div> -->
+            		<label class="control-label" for="" ><strong>Date Sortie:</strong></label>
+            	  <div class="input-group">
+  					      <input type="text" id ="Date_Sortie" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
+  						    <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
+    					  </div>
             	</div>	
             </div>
           </div>
@@ -259,16 +255,16 @@
           </div>
 		<div class="widget-body">
 			<div class="widget-main no-padding">
-		    <table class="display responsive nowrap" id="liste_hosptalisations" width="100%">
-                <thead>
-                    <tr>
-                      <th class ="center priority-6" width="2%"></th><th class ="center"><strong>Patient</strong></th>
-                       <th class ="center priority-4"><strong>Mode Admission</strong></th><th class ="center"><strong>Date_entree</strong></th>
-                      <th class ="center  priority-6"><strong>Date Sortie Prévue</strong></th><th class ="center priority-4"><strong>Date Sortie</strong></th>
-                      <th  class ="center  priority-5"><strong>Mode</strong></th><th  class ="center  priority-6"><strong>Medecin</strong></th>
-                      <th class ="center  priority-6"><strong>Etat</strong></th><th class ="center"><strong><em class="fa fa-cog"></em></strong></th>
-                    </tr>
-                </thead>
+		    <table class="display table-responsive nowrap" id="liste_hosptalisations" width="100%">
+          <thead>
+              <tr>
+                <th class ="center priority-6" width="2%"></th><th class ="center"><strong>Patient</strong></th>
+                 <th class ="center priority-4"><strong>Mode Admission</strong></th><th class ="center"><strong>Date_entree</strong></th>
+                <th class ="center  priority-6"><strong>Date Sortie Prévue</strong></th><th class ="center priority-4"><strong>Date Sortie</strong></th>
+                <th  class ="center  priority-5"><strong>Mode</strong></th><th  class ="center  priority-6"><strong>Medecin</strong></th>
+                <th class ="center  priority-6"><strong>Etat</strong></th><th class ="center"><strong><em class="fa fa-cog"></em></strong></th>
+              </tr>
+          </thead>
           <tbody>
                @foreach ($hospitalisations as $hosp)
                 <tr id="hospi{{ $hosp->id }}">

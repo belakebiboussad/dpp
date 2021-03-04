@@ -90,11 +90,17 @@ public function __construct()
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-     public function destroy($id)  { }
+    public function destroy($id)
+    { 
+      $demande = demandeexb::FindOrFail($id);
+      $consult_id = $demande->consultation;
+      $demande = demandeexb::destroy($id);
+      return redirect()->action('ConsultationsController@show',$consult_id);
+    }
      public function detailsdemandeexb($id)
      {
-         $demande = demandeexb::FindOrFail($id);
-          return view('examenbio.details_exb', compact('demande'));
+        $demande = demandeexb::FindOrFail($id);
+        return view('examenbio.details_exb', compact('demande'));
      }
      public function uploadresultat(Request $request)
      {

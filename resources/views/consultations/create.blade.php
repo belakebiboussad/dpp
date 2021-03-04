@@ -350,7 +350,7 @@
 		var atcd_id = $(this).val();
 		$.get('/atcd/' + atcd_id, function (data) { 
 		 	$('#atcd_id').val(data.id);
-		     $('#typeAntecedant').val(data.typeAntecedant).change();
+		  $('#typeAntecedant').val(data.typeAntecedant).change();
 			$('#sstypeatcdc').val(data.stypeatcd).change();//if(data.typeAntecedant   === 'Pathologiques')
 			if($( "#atcdsstypehide" ).hasClass( "hidden" ))
  			 	$( "#atcdsstypehide" ).removeClass("hidden"); 
@@ -359,9 +359,9 @@
 			$('#description').val(data.descrioption);
 			$("#EnregistrerAntecedant").attr('data-atcd',"Perso");
 			$('#AntecCrudModal').html("Editer un Antecedant");	
-		 	 jQuery('#EnregistrerAntecedant').val("update");	
+		 	jQuery('#EnregistrerAntecedant').val("update");	
 			jQuery('#antecedantModal').modal('show');
-	   	 });
+	  });
 	});
 	jQuery('body').on('click', '.open-modalFamil', function (event) {//edit famill
 		event.preventDefault();
@@ -444,9 +444,8 @@
 		       dataType: 'json',
 		       success: function (data) {
 		    	   	if(data.Antecedant == "Personnels")
-		    	   	{
-								var typeAntecedant = (data.typeAntecedant == '0') ? 'Pathologiques':'Physiologiques';
-								var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>' + typeAntecedant +'</td><td>'+data.stypeatcd+'</td><td>'+ data.date +'</td><td>'+data.cim_code+ '</td><td>' + data.descrioption + '</td>';
+		    	   	{// var typeAntecedant = (data.typeAntecedant == '0') ? 'Pathologiques':'Physiologiques';typeAntecedant +'</td><td>'+
+								var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>' + data.stypeatcd +'</td><td>'+ data.date +'</td><td>'+data.cim_code+ '</td><td>' + data.descrioption + '</td>';
 	              atcd += '<td class ="center"><button class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
 	            	atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
             	}else
@@ -525,10 +524,9 @@
 		       data: formData,
 		       dataType: 'json',
 		       success: function (data) {
-		       		var typeAntecedant = (data.typeAntecedant == '0') ? 'Pathologiques':'Physiologiques';
 		       		var tabac = data.tabac ? 'Oui' : 'Non';
 		       		var ethylisme = data.ethylisme ? 'Oui' : 'Non';
-		    	   	var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>' +typeAntecedant +'</td><td>'+data.date+'</td><td>'
+		    	   	var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>'+data.date+'</td><td>'
 		    	   					 + data.cim_code +'</td><td>'+data.descrioption+ '</td><td>' + tabac + '</td><td>'+ ethylisme+'</td><td>'+ data.habitudeAlim +'</td>';
 	             		atcd += '<td class ="center"><button class="btn btn-xs btn-info Phys-open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
 	           			atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
@@ -725,7 +723,7 @@
 		</div><!-- row -->
 	</form>
 </div><!-- content     -->
-<div class="row">@include('consultations.LettreOrientation')</div><div class="row">@include('consultations.DemadeHospitalisation')</div>
+<div class="row">@include('consultations.LettreOrientation')</div><div class="row">@include('consultations.ModalFoms.DemadeHospitalisation')</div>
 <div class="row">@include('antecedents.AntecedantModal')</div><div class="row">@include('antecedents.AntecedantModalPhysio')</div>
 <div class="row">@include('ExamenCompl.ModalFoms.Ordonnance')</div><div class="row">@include('ExamenCompl.ModalFoms.imprimerOrdonnance')</div>
 <div class="row">@include('ExamenCompl.ModalFoms.imprimerOrdonnanceAjax')</div><div class="row">@include('rdv.rendezVous')</div>

@@ -150,8 +150,7 @@
 						</div>
 					</div>
 					<div class="col-sm-2 col-md-offset-1">
-						<div class="form-group">
-							<label class="control-label" for="Prenom" ><strong>Prénom:</strong></label> 
+						<div class="form-group"><label class="control-label" for="Prenom" ><strong>Prénom:</strong></label> 
 							<div class="input-group">
 						  	<input type="text" class="form-control input-sx autofield" id="Prenom" name="Prenom"  placeholder="prenom du patient..."> 
 						  	<span class="glyphicon glyphicon-search form-control-feedback"></span>
@@ -199,7 +198,10 @@
 				</div>	
 			</div>
 		</div>{{-- col-sm-7 --}}<!-- hidden-xs hidden-sm  -->
-		<div class="col-md-5 col-sm-5"> <br><div class="widget-box transparent" id="patientDetail" style ="margin-top: 14px;"></div></div>		
+		<div class="col-md-5 col-sm-5 widget-box transparent"  id="patientDetail">
+		 <!-- 	<br>
+		 	<div class="widget-box transparent" id="patientDetail" style ="margin-top: 14px;"></div> -->
+		 </div>		
 		  
 	</div>{{-- row --}}
 	<div class="row">

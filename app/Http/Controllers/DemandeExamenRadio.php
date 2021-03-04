@@ -125,7 +125,11 @@ class DemandeExamenRadio extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
-     }
+      $demande = demandeexr::FindOrFail($id);
+      $consult_id = $demande->consultation;
+      $demande = demandeexr::destroy($id);
+      return redirect()->action('ConsultationsController@show',$consult_id);
+    }
     public function print($id)//imprime
     {
         $demande = demandeexr::FindOrFail($id); 

@@ -72,8 +72,7 @@ class LoginController extends Controller
         return redirect()->back()
                 ->withInput($request->only($this->username(), 'remember'))
                 ->withErrors($errors);
-      }
-      //fabm
+      }//fabm
       public function logout() {
         Auth::logout(); // logout user  // Session::flush(); // Redirect::back();
         return Redirect::to('/login'); //redirect back to login
@@ -87,7 +86,7 @@ class LoginController extends Controller
       }
 	    public function username()
       {
-  		    return 'name';
+  		   return 'name';
       }
       public function showLoginForm()
       {
