@@ -20,15 +20,11 @@ class MedicamentsController extends Controller
     }
     public function getmedicaments()
     {
-       $medicaments = medicament::select(['id','Nom_com','Code_DCI','Forme','Dosage','Conditionnement']); // $x = Datatables::of($medicaments);  // dd($x);
+       $medicaments = medicament::select(['id','Nom_com','Code_DCI','Forme','Dosage','Conditionnement']); 
        return Datatables::of($medicaments)
-              ->addColumn('action', function ($medicament) {
-                     return '<div class="hidden-sm hidden-xs btn-group">
-                                 <button class="btn btn-xs btn-primary"  
-                                    onclick="medicmV1('.$medicament->id.')">
-                                     <i class="ace-icon  fa fa-plus-circle"></i>
-                                   </button>';
-      })   ->make(true);
+              ->addColumn('action', function ($medicament) {//<div class="btn-group">hidden-sm hidden-xs 
+                     return '<button class="btn btn-xs btn-primary" onclick="medicmV1('.$medicament->id.')"><i class="ace-icon  fa fa-plus-circle"></i></button>';
+      }) ->make(true);
     }
     public function getmedicamentsPCH()
     {

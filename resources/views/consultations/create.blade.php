@@ -4,17 +4,9 @@
 @endsection
 @section('style')
 <style>
-	.modalord {
-		width:104.7% !important;
-		right:-16% !important;
-		left:-2.5% !important;
-		top:-3.1% !important;
-	}
-	.with-margin {
-	 	margin-bottom: 5px;
-	}
-	.spacer5 {
-	  	height: 5px;
+	.body {
+	  height: 132px;
+	  overflow: auto
 	}
 	.modal-body
 	{
@@ -26,8 +18,8 @@
 		  right:2px;		
   		bottom: 0px;
 	}
-	.modal.modal-wide .modal-dialog {
-	  width: 60%;
+	.modal .modal-wide .modal-dialog {
+	  width: 100%;
 	  height:900px !important;
 	  overflow: scroll; 
 	}
@@ -38,8 +30,8 @@
 	  height: 100%; /* = 100% of the .modal-dialog block */
 	}
 	#ord {/*position: absolute;*/
-  		 top:1%;	
-  		 left:-5%%;
+		 top:1%;	
+		 left:-5%%;
 	}
 	iframe {
 	    display: block;

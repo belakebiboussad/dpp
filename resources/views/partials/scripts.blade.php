@@ -443,10 +443,9 @@ $('#typeexm').on('change', function() {
           }
       });
   }
-  // function clearInput() { //$('#id_medicament').val('');//$('#nommedic').val('');//$("#forme").val('');//$("#dosage").val();//$("#posologie_medic").val('');// }
   function addmidifun()
   {
-      var med = "<tr id="+$("#id_medicament").val()+"><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td hidden>"+$("#id_medicament").val()+"</td><td>"+$("#nommedic").val()+"</td><td>"+$("#forme").val()+"</td><td>"+$("#dosage").val()+"</td><td>"+$("#posologie_medic").val()+"</td>";
+      var med = "<tr id="+$("#id_medicament").val()+"><td hidden>"+$("#id_medicament").val()+"</td><td>"+$("#nommedic").val()+"</td><td>"+$("#forme").val()+"</td><td>"+$("#dosage").val()+"</td><td>"+$("#posologie_medic").val()+"</td>";
       med += '<td class ="center"><button class="btn btn-xs btn-info open-modal" value="' + $("#id_medicament").val()+ '" onclick="medicmV1('+$("#id_medicament").val()+');supcolonne('+$("#id_medicament").val()+')"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
       med += '<button class="btn btn-xs btn-danger delete-atcd" value="' + $("#nommedic").val()+ '" onclick ="supcolonne('+$("#id_medicament").val()+')" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
       $("#ordonnance").append(med);

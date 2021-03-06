@@ -11,9 +11,7 @@
 						<th class="center"><strong>Médicament</strong></th>
 						<th class="center"><strong>Forme</strong></th>
 						<th class="center"><strong>Dosage</strong></th>
-						<th class="center">
-						<em class="fa fa-cog"></em>
-						</th>
+						<th class="center"><em class="fa fa-cog"></em></th>
 						</tr>
 						</thead>
 						</table>
@@ -29,38 +27,24 @@
 		<div class="widget-main"  id = "posologie">
 		<div class="row">
 			<div  class="col-xs-9">
-				<label for="nommedic">
-					<strong>Médicament :</strong>
-				</label>
+				<label for="nommedic"><strong>Médicament :</strong></label>
 				<input id="nommedic" class="form-control" type="text"  placeholder="Médicament"/>
 			</div>
 			<div  class="col-xs-3">
-				<label for="form-field-8">
-					<strong>Présentation :</strong>	
-				</label>
-					<input id="forme" class="form-control" type="text"  placeholder="Forme"/>
+				<label for="form-field-8"><strong>Présentation :</strong></label>
+				<input id="forme" class="form-control" type="text"  placeholder="Forme"/>
 			</div>
-		</div>{{-- row --}}
-		<div class="space-12"></div>
+		</div><div class="space-12"></div>{{-- row --}}
 		<div class="row">
 			<div  class="col-xs-3">
-				<label for="form-field-8">
-					<strong>Qte :</strong>
-				</label>
+				<label for="form-field-8"><strong>Qte :</strong></label>
 				<input id="qte" class="form-control" type="number" value="1" min="1" />
 			</div>
 			<div class="col-xs-9">
-				<label>
-					<strong>&nbsp;&nbsp;&nbsp;Nombre de Prise :</strong>
-				</label>
-				<br>
-				<div class="col-xs-3">
-					<input id="nbprise" class="form-control" type="number" value="1" min="1"/>
-				</div>
+				<label><strong>&nbsp;&nbsp;&nbsp;Nombre de Prise :</strong></label><br>
+				<div class="col-xs-3"><input id="nbprise" class="form-control" type="number" value="1" min="1"/></div>
 				<div class="col-xs-1"></div>
-				<div class="col-xs-3">
-					<label class="" >Fois par</label>
-				</div>
+				<div class="col-xs-3"><label class="" >Fois par</label></div>
 				<div class="col-xs-4">
 					<select id="fois" class="form-control" id="form-field-select-3">
 						<option value="">Choose...</option>
@@ -79,12 +63,11 @@
 <div class="row">
 	<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
 	<div class="widget-box widget-color-warning" id="widget-box-2">
-		<div class="widget-header">
-			<h5 class="widget-title text-info lighter"> Ordonnance:</h5>
+		<div class="widget-header"><h5 class="widget-title text-info lighter"> Ordonnance:</h5>
 			<div class="widget-toolbar widget-toolbar-light no-border pull-right" >
 				<button type="button" onclick="supcolonne()" class="btn btn-transparent my-right-float">
-					<i class="ace-icon fa fa-trash-o orange"></i>
-			</button>
+				<i class="ace-icon fa fa-trash-o orange"></i>	
+				</button>
 			</div>
 		</div>	{{-- widget-header --}}
 		<div class="widget-body">
@@ -105,8 +88,7 @@
 								<option value="Mois">Mois</option>
 							</select>
 						</div>		 
-				</div>{{-- row --}}
-				<div class="space-12"></div>
+				</div><div class="space-12"></div>{{-- row --}}
 				<div class="row">
 					<table id="ordonnance" class="table  table-bordered table-hover">
 					<thead>
@@ -127,21 +109,4 @@
 	</div>{{-- widget-container-col --}}
 </div><!-- /.row -->
 <div class="row">
-{{-- 	<div id="ord" class="modal fade" role="dialog">
-	<div class="modal-dialog">
-		<!-- Modal content-->
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title"><b>Ordonnance :</b></h4>
-			</div>
-			<div class="modal-body">
-				<iframe id="ordpdf" class="preview-pane" type="application/pdf" width="100%" height="500" frameborder="0" style="position:relative;z-index:999"></iframe>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal" onclick="storeord1()" >Terminer</button>
-			</div>
-		</div>
-	</div>
-</div> --}}
 </div>

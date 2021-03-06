@@ -218,43 +218,26 @@ $('#typeexm').on('change', function() {
                 $('#exbiopdf').attr('src', string);
             }
         </script>
-
         <script>
-            $('#dynamic-table').DataTable({
-                 processing: true,
-                serverSide: true,
-                ordering: true,
-                "bInfo" : false,
-                 searching: false,
-                 "language": {
-                "url": '/localisation/fr_FR.json'},
-                
-                ajax: 'http://localhost:8000/getAddEditRemoveColumnData',
-                columns: [
-                    {data: 'name'},
-                    {data: 'email'},
-                    {data: 'action1', name: 'action1', orderable: false, searchable: false},
-                    {data: 'action2', name: 'action2', orderable: false, searchable: false},
-                    {data: 'action', name: 'action', orderable: false, searchable: false}
-                ]
-            });
+     
         </script>
         <script>
-        /*
-            $('#medc_table').DataTable({
-                 processing: true,
-                serverSide: true,
-                ajax: 'http://localhost:8000/getmedicaments',
-                columns: [
-                    {data: 'Nom_com'},
-                    {data: 'Forme'},
-                    {data: 'Dosage'},
-                    {data: 'action', name: 'action', orderable: false, searchable: false}
-                ]
+             $('#dynamic-table').DataTable({
+                   processing: true,
+                   serverSide: true,
+                   ordering: true,
+                   "bInfo" : false,
+                   searching: false,
+                   "language": { "url": '/localisation/fr_FR.json'},
+                   ajax: 'http://localhost:8000/getAddEditRemoveColumnData',
+                   columns: [
+                        {data: 'name'},
+                        {data: 'email'},
+                        {data: 'action1', name: 'action1', orderable: false, searchable: false},
+                        {data: 'action2', name: 'action2', orderable: false, searchable: false},
+                        {data: 'action', name: 'action', orderable: false, searchable: false}
+                    ]
             });
-            */
-        </script>
-        <script>
             $('#patient-table').DataTable({
                  processing: true,
                 serverSide: true,

@@ -3,7 +3,7 @@
 		 <div class="modal-content custom-width-modal">  <!-- Modal content-->
 		       <div class="modal-header">
 		           <button type="button" class="close" data-dismiss="modal">&times;</button>
-		           <h4 class="modal-title">Lettre d'orientations</h4>
+		           <h4 class="modal-title">Lettre d'orientation</h4>
 		      </div>
 		       <div class="modal-body ">
 			        <div class="container-fluid">
@@ -38,9 +38,9 @@
       			<div class="space-12"></div> <div class="space-12"></div>
 	     		 <div class="modal-footer">
 			        <div class="col-sm-12">
-			        	<button type="button" class="btn btn-xs btn-primary" data-dismiss="modal" onclick="lettreorientation()">Enregistrer</button>
-				      	<button type="button" class="btn btn-xs btn-success"  data-toggle="modal" data-target="#lettreorien"  onclick="lettreoriet('{{ Auth::User()->employ->nom }}','{{Auth::User()->employ->prenom }}','{{Auth::User()->employ->service }}','{{Auth::User()->employ->tele_mobile }}','{{$patient->Nom}}','{{ $patient->Prenom}}',{{$patient->getAge() }})">Imprimer</button>
-				      	<button type="button" class="btn btn-xs btn-danger" data-dismiss="modal">Annuler</button>
+			        	<button type="button" class="btn btn-xs btn-primary" data-dismiss="modal" onclick="lettreorientation()"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
+				      	<button type="button" class="btn btn-xs btn-success"  data-toggle="modal" data-target="#lettreorien"  onclick="lettreoriet('{{ Auth::User()->employ->nom }}','{{Auth::User()->employ->prenom }}','{{Auth::User()->employ->service }}','{{Auth::User()->employ->tele_mobile }}','{{$patient->Nom}}','{{ $patient->Prenom}}',{{$patient->getAge() }})"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button>
+				      	<button type="button" class="btn btn-xs btn-danger" data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 			        </div>
 			 </div>
    		 </div>

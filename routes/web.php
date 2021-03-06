@@ -67,8 +67,7 @@ Route::post('/demandehosp/valider','DemandeHospitalisationController@valider');
 Route::post('/demandehosp/invalider','DemandeHospitalisationController@invalider');
 Route::get('/demandehosp/listedemandes/{type}','DemandeHospitalisationController@listedemandes');
 Route::get('/salle/create/{id}','SalleController@create');
-Route::get('/lit/create/{id}','LitsController@create');
-Route::get('/ordonnace/create/{id}','OrdonnanceController@create');
+Route::get('/lit/create/{id}','LitsController@create');//Route::get('/ordonnace/create/{id}','OrdonnanceController@create');
 Route::post('/ordonnaces/print','OrdonnanceController@print');
 Route::get('/consultations/detailcons/{id}','ConsultationsController@detailcons')->name('consultDetails');
 Route::get('detailConsXHR/{id}','ConsultationsController@detailconsXHR')->name('consultdetailsXHR');
@@ -172,7 +171,6 @@ route::get('/homeradiologue',function(){
     $demandesexr = App\modeles\demandeexr::where('etat','E')->get();
     return view('home.home_radiologue', compact('demandesexr'));
 })->name('homeradiologue');
-// route with optonnel parameter
 Route::get('rendezVous/create/{id?}','RDVController@create');
 Route::get('/pdf/{order}', ['as' => 'rdv.pdf', 'uses' => 'rdvController@orderPdf']);
 Route::get('assur/patientAssuree/{NSS}/{Type}/{Prenom}','PatientController@create');
