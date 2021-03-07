@@ -4,12 +4,41 @@
 @endsection
 @section('style')
 <style>
-	.body {
-	  height: 132px;
-	  overflow: auto
+	.modaldialog {
+	  width:99%;
+	  height:95% !important;
+	  overflow-y: initial !important
 	}
-	.modal-body
-	{
+	.contmodal {
+	  height:101%; 
+	}
+	.bodyodal{
+	  height: 100%;
+	  overflow-y: auto;
+	}
+	
+	/*.tablebody {
+	  height: 200px;
+	  width:100%;
+	  overflow: auto
+	}*/
+	tr {
+		width: 100%;
+		display: inline-table;
+		table-layout: fixed;
+	}
+	.mtable {
+		height:360px;              
+ 		display: -moz-groupbox;  
+	}
+	.mtbody{
+  overflow-y: scroll;      
+  height: 355px;            //  <-- Select the height of the body
+  width: 100%;
+  position: absolute;
+}
+	/*fin*/
+	.modal-body{
 	  top: -1px !important;
 	}
 	.modal-footer {
@@ -19,8 +48,7 @@
   		bottom: 0px;
 	}
 	.modal .modal-wide .modal-dialog {
-	  width: 100%;
-	  height:900px !important;
+	  width: 100%;/* height:900px !important;*/
 	  overflow: scroll; 
 	}
 	.modal-wide .modal-body {
@@ -112,15 +140,15 @@
 	function storeord1()
 	{
 		var arrayLignes = document.getElementById("ordonnance").rows;
-    		var longueur = arrayLignes.length; 
-   		 var ordonnance = [];
-	       for(var i=1; i<longueur; i++)
+  	var longueur = arrayLignes.length; 
+   	var ordonnance = [];
+	  for(var i=1; i<longueur; i++)
 		{
-		      ordonnance[i-1] = { med: arrayLignes[i].cells[1].innerHTML, posologie: arrayLignes[i].cells[5].innerHTML }
-		    }
-	    var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
-	    champ.appendTo('#consultForm');
-  	}
+		  ordonnance[i-1] = { med: arrayLignes[i].cells[0].innerHTML, posologie: arrayLignes[i].cells[4].innerHTML }
+		}
+	  var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
+	  champ.appendTo('#consultForm');
+  }
  	function lettreorientation()
 	{
 		$('#specialite').val($('#specialiteOrient').val());
@@ -250,6 +278,37 @@
           }
 		});
 	}
+	function editMedicm(med)
+  {
+    $.ajax({
+          type: 'GET',
+          url: '/getmed/'+med,
+          dataType: "json",
+          success: function (result)
+          {
+              $("#nommedic").val(result['Nom_com']);
+              $("#forme").val(result['Forme']);
+              $("#dosage").val(result.Dosage);
+              $("#id_medicament").val(result['id']);
+              $(".disabledElem").removeClass("disabledElem").addClass("enabledElem"); //$('#Ordonnance').reset();
+          }
+      });
+  }
+  function addmidifun()
+  {
+    var med ='<tr id="'+$("#id_medicament").val()+'"><td hidden>'+$("#id_medicament").val()+'</td><td>'+$("#nommedic").val()+'</td><td class="priority-5">'+$("#forme").val()+'</td><td class="priority-5">'+$("#dosage").val()+'</td><td>'+$("#posologie_medic").val()+'</td>';
+    med += '<td class ="center"><button class="btn btn-xs btn-info open-modal" value="' + $("#id_medicament").val()+ '" onclick="editMedicm('+$("#id_medicament").val()+');supcolonne('+$("#id_medicament").val()+');"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
+    med += '<button class="btn btn-xs btn-danger delete-atcd" value="' + $("#nommedic").val()+ '" onclick ="supcolonne('+$("#id_medicament").val()+')" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+    $("#ordonnance").append(med);
+    $(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
+    efface_formulaire();
+           
+  }
+   function supcolonne(id)
+  {
+  
+    $("#"+id).remove();
+  }
 	$('document').ready(function(){
 		$( 'ul.nav li' ).on( 'click', function() {
 			$(this).siblings().addClass('filter');
@@ -296,25 +355,71 @@
 	 $("#btnCalc").click(function(event){
 	    	event.preventDefault();
 	  });
-	$('#medc_table').DataTable({
-	      processing: true, //serverSide: true,
-	      ordering: true,
-	      bInfo : false,
-	      searching: true,
-	      pageLength: 5,         
-	      bLengthChange: false,
-	      nowrap:true,
-	      "language": {
+	// $('#medc_table').DataTable({ processing: true, //serverSide: true,ordering: true, bInfo : false,searching: true, pageLength: 5,bLengthChange: false,
+	// nowrap:true, "language": {"url": '/localisation/fr_FR.json' }, ajax: '/getmedicaments', columns: [{data: 'Nom_com'},{data: 'Forme',className: "priority-3" , orderable: false},
+	// {data: 'Dosage' , orderable: false},{data: 'action', name: 'action', orderable: false, searchable: false} ],columnDefs: [{ "targets": 3 ,  className: "dt-head-center dt-body-center" }],});
+var table = $('#medc_table').DataTable({
+	  'bLengthChange': false,
+    'autoWidth': false,
+    'scrollX': true,
+    'scrollY': 300,
+    'scrollCollapse': true,
+    'language': {
 	                    "url": '/localisation/fr_FR.json'
-	      },
-	      ajax: '/getmedicaments',
-	       columns: [
-	                    {data: 'Nom_com'},
-	                    {data: 'Forme'},
-	                    {data: 'Dosage'},
-	                    {data: 'action', name: 'action', orderable: false, searchable: false}
-	        ]
-	});
+    },
+	  ajax: '/getmedicaments',
+    "createdRow": function(row, data, index) {
+      var tableApi = this.api();
+      var columns = tableApi.settings().init().columns;
+      var tds = $(row).find('td');
+      tds.each(function(index) {
+        var $td = $(this);
+        // question:
+        // which is better way to get columnIndex
+        // considering oredring pluign is active and 
+        // some cols are hidden and ordered as well
+        var columnIndex = tableApi.column(this).index();
+        //var columnIndex = tableApi.cell(this).index().column; 
+        //var columnIndex  = tableApi.column($(this).index() + ':visIdx').index();
+        //
+        var hasWidth = columns[columnIndex].width;
+        if (hasWidth) {
+          $td.css({
+            'width': hasWidth,
+            'max-width': hasWidth,
+            'min-width': hasWidth,//will enforce fixed width, skip if not required
+            'word-wrap': 'break-word'
+          });
+        }
+        //
+      });
+    },
+    columns: [{
+      data: 'Nom_com',
+      title: 'Medicament',
+      width: 100, // render: function(data) {   //   return '<span class="">' + data + '</span>';   // }
+    }, {
+      data: 'Forme',
+      title: 'Forme',
+      orderable:false,
+      width: 30,
+      className: "priority-3"
+     
+    }, {
+      data: 'Dosage',
+      width: 200,
+      title: 'Dosage',
+      orderable:false,
+    }, {
+      data: 'action',
+      title: '<em class="fa fa-cog"></em>',
+      width: 15,
+      orderable: false,
+      className: "dt-head-center dt-body-center"
+    }],
+  
+  });
+  ////////////////////////////fin 
 	jQuery('#btn-add, #AntFamil-add').click(function () {//ADD
 		jQuery('#EnregistrerAntecedant').val("add");
 		jQuery('#modalFormData').trigger("reset");
@@ -541,16 +646,7 @@
    				activaTab("Interogatoire");
    				return false;
    			}
-	   		// 	var ExamsImg = [];
-	   		// 	var arrayLignes = document.getElementById("ExamsImg").rows;
-	  			// for(var i=0; i< arrayLignes.length; i++)
-	  			// {
-	  			// 	ExamsImg[i] = { acteImg: arrayLignes[i].cells[0].innerHTML, types: arrayLignes[i].cells[2].innerHTML }
-	  			// }
-	   	 // 		var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
-	    	// 	champ.appendTo('#consultForm');
     		addExamsImg(this);
-    		//return false;
 		}); //calendrier  	
 	  var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
 		var today = (new Date()).setHours(0, 0, 0, 0);
@@ -654,7 +750,7 @@
 @section('main-content')
 <div class="page-header" width="100%">
 	<div class="row">
-		<div class="col-sm-12" style="margin-top: -3%;">@include('patient._patientInfo')	</div>
+		<div class="col-sm-12" style="margin-top: -3%;">@include('patient._patientInfo')</div>
 	</div>
 </div>
 <div class="content"><!-- style="height:800px;" -->
@@ -678,16 +774,16 @@
 			<ul class = "nav nav-pills nav-justified list-group" role="tablist" id="menu">
 				<li role= "presentation" class="active col-md-4">
 				  <a href="#Interogatoire" aria-controls="Interogatoire" role="tab" data-toggle="tab" class="btn btn-secondary btn-lg">
-				  <span class="bigger-160"> Interogatoire</span>
+				  <span class="bigger-160" style="font-size:10vw"> Interogatoire</span>
 				  </a>
 				</li>
 				<li role= "presentation"  class="col-md-4">
 				        <a href="#ExamClinique"  ria-controls="ExamClinique" role="tab" data-toggle="tab" class="btn btn-success btn-lg"> 
-				        <span class="bigger-160">Examens Cliniques</span></a>
+				        <span class="bigger-160" style="font-size:10vw">Examens Cliniques</span></a>
 				</li>
 				<li role= "presentation" class="col-md-4">
           <a href="#ExamComp" aria-controls="ExamComp" role="tab" data-toggle="tab" class="btn btn-danger btn-lg">
-         		<span class="bigger-160">Examens Complémentaires</span>
+         		<span class="bigger-160" style="font-size:10vw">Examens Complémentaires</span>
 					</a>
 				</li>
 		  </ul>

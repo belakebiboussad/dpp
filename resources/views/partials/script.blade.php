@@ -101,24 +101,10 @@ $('#typeexm').on('change', function() {
              $("#exmclnform").submit();
             });
     </script>
-        <script>
-            $('#flash-overlay-modal').modal();
-        </script>
+    <script>
+        $('#flash-overlay-modal').modal();
+    </script>
         <script type="text/javascript">
-            function medicm(med)
-            {
-             $.ajax({
-                type: 'GET',
-                url: '/getmed/'+med,
-                dataType: "json",
-                success: function (result)
-                    {
-                       $("#nommedic").val(result['Nom_com']+' '+result['Dosage']);
-                       $("#forme").val(result['Forme']);
-                    
-                    }
-                 });
-            }
             function posologiefun()
             {
                 $("#pos").val( $("#nbprise").val()+' fois par '+$("#fois").val()+' Pendant '+$("#duree").val()+' '+$("#dureefois").val()+'. '+$("#temps").val()+'.');

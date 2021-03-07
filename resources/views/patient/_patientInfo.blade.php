@@ -27,13 +27,13 @@
 						<span class="blue"><i class="fa fa-phone"></i>&nbsp;<strong>Mobile :</strong></span><span class="lbl">{{ $patient->tele_mobile1 }}
 						</span>
 					</label>&nbsp;&nbsp;&nbsp;
-					<label class="inline"> 	
+					<label class="inline hidden-xs"> 	
 						<span class="blue"><span class="glyphicon glyphicon-home"></span>&nbsp;<strong>Adresse :</strong></span>
 						<span class="lbl">{{ $patient->commune->nom_commune }},{{ $patient->wilaya->nom }}</span>
 					</label>&nbsp;&nbsp;&nbsp;
-					<label class="inline"> <span class="blue">&nbsp;<strong>NSS :</strong></span><span class="lbl">{{ $patient->NSS }}</span></label>	
+					<label class="inline hidden-xs"> <span class="blue">&nbsp;<strong>NSS :</strong></span><span class="lbl">{{ $patient->NSS }}</span></label>	
 						&nbsp;&nbsp;&nbsp;
-					<label class="inline"> 	
+					<label class="inline hidden-xs"> 	
 						<span class="blue">&nbsp;<strong>Type :</strong></span>
 						<span class="lbl badge badge-info">
 						@switch($patient->Type)
@@ -53,7 +53,6 @@
 	                Autre 
 	                @break       
             @endswitch  
-						
 						</span>		
 					</label>
 				</div>

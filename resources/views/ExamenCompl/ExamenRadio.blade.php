@@ -1,10 +1,10 @@
 <div class="row">
 	<div class="col-xs-12 widget-container-col" id="consultation">
 		<div class="widget-box" id="infopatient">
-			<div class="widget-header"><h5 class="widget-title"><b>Demande d'un examen radiologique :</b></h5> </div>
+			<div class="widget-header"><h5 class="widget-title"><b>Demande examen radiologique :</b></h5> </div>
 	        </div><!-- widget-box -->
 		<div class="widget-body">
-                <div class="widget-main"><div class="space-12"></div>
+                <div class="widget-main"><div class="space-12 hidden-xs"></div>
 	        <div class="row">
 	        	<div class="col-xs-12">
 	        		<label for="infosc">  <b>Informations cliniques pertinentes</b></label>
@@ -18,16 +18,16 @@
 			 				<textarea class="form-control" id="explication" name="explication"></textarea>
 			     	 {!! $errors->first('explication', '<small class="alert-danger"><b>:message</b></small>')!!}
 	      		</div>
-	        </div><div class="space-12"></div>
+	        </div><div class="space-12 hidden-xs"></div>
 	        <div class="row">
 	        <div class="col-xs-12">
 	      	 	<label for="infos"><b>Informations supplémentaires pertinentes</b></label><br>
 			@foreach($infossupp as $info)
-			<div class="col-xs-2">
-				<div class="checkbox">
-					 <label><input name="infos[]" type="checkbox" class="ace" value="{{ $info->id }}" /><span class="lbl">{{ $info->nom }}</span>   </label>
-		        	 </div>
-		       </div>
+			<div class="col-sm-2 col-xs-6">
+				<div class="checkbox col-xs-12">
+					 <label><input name="infos[]" type="checkbox" class="ace" value="{{ $info->id }}" /><span class="lbl">{{ $info->nom }}</span></label>
+		    </div>
+		  </div>
 			@endforeach
 		</div>
       		</div>

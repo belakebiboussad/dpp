@@ -1,4 +1,4 @@
-<div class="col-sm-18 widget-container-col ui-sortable" id="widget-container-col-13">
+<div class="col-sm-12 widget-container-col ui-sortable" id="widget-container-col-13">
 <div class="widget-box transparent ui-sortable-handle" id="widget-box-13">
 <div class="widget-header">
 <h4 class="widget-title lighter"></h4>
@@ -38,4 +38,3 @@
 </div>{{-- widget-body --}}
 </div>{{-- widget-box --}}
 </div>
-	

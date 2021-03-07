@@ -411,53 +411,8 @@ $('#typeexm').on('change', function() {
   $('#flash-overlay-modal').modal();
 </script>
 <script type="text/javascript">
- function medicm(med)
- {
-          $.ajax({
-              type: 'GET',
-              url: '/getmed/'+med,
-              dataType: "json",
-              success: function (result)
-                  {
-                      $("#nommedic").val(result['Nom_com']+' '+result['Dosage']);
-                      $("#forme").val(result['Forme']);
-                      $("#medicamentId").val(result['id']);
-                      $("#conditionnement").val(result['Conditionnement']);
-                      $(".disabledElem").removeClass("disabledElem").addClass("enabledElem"); //$('#Ordonnance').reset();
-                  }
-            });
-  }
-  function medicmV1(med)
-  {
-      $.ajax({
-          type: 'GET',
-          url: '/getmed/'+med,
-          dataType: "json",
-          success: function (result)
-          {
-              $("#nommedic").val(result['Nom_com']);
-              $("#forme").val(result['Forme']);
-              $("#dosage").val(result.Dosage);
-              $("#id_medicament").val(result['id']);
-              $(".disabledElem").removeClass("disabledElem").addClass("enabledElem"); //$('#Ordonnance').reset();
-          }
-      });
-  }
-  function addmidifun()
-  {
-      var med = "<tr id="+$("#id_medicament").val()+"><td hidden>"+$("#id_medicament").val()+"</td><td>"+$("#nommedic").val()+"</td><td>"+$("#forme").val()+"</td><td>"+$("#dosage").val()+"</td><td>"+$("#posologie_medic").val()+"</td>";
-      med += '<td class ="center"><button class="btn btn-xs btn-info open-modal" value="' + $("#id_medicament").val()+ '" onclick="medicmV1('+$("#id_medicament").val()+');supcolonne('+$("#id_medicament").val()+')"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
-      med += '<button class="btn btn-xs btn-danger delete-atcd" value="' + $("#nommedic").val()+ '" onclick ="supcolonne('+$("#id_medicament").val()+')" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
-      $("#ordonnance").append(med);
-      $(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
-    efface_formulaire();
-           
-  }
-   function supcolonne(id)
-  {
-    $("#"+id).remove();// $("tr:has(input:checked)").remove(); 
-  }
- /* function sexefan() {    if( $('#sexef').is(':checked') ) $('#civ').css('display','block');   else           $('#civ').css('display','none');} */
+/* function medicm(med){ $.ajax({type: 'GET',url: '/getmed/'+med,dataType: "json",success: function (result){$("#nommedic").val(result['Nom_com']+' '+result['Dosage']);$("#forme").val(result['Forme']);
+$("#medicamentId").val(result['id']);$("#conditionnement").val(result['Conditionnement']);$(".disabledElem").removeClass("disabledElem").addClass("enabledElem"); //$('#Ordonnance').reset();}});}*/
   function civilitefan()
   {
       if( $('#mdm').is(':checked') )
@@ -481,9 +436,7 @@ $('#typeexm').on('change', function() {
  function efface_formulaire() {
            $('form').find("textarea, :text, select").val("").end().find(":checked").prop("checked", false);
   }
-</script>
-<script>        
-    function lettreoriet(nommedt,prenommedt,servmedt,telmedt,nompatient,prenompatient,agepatient)
+   function lettreoriet(nommedt,prenommedt,servmedt,telmedt,nompatient,prenompatient,agepatient)
     {
          var specialite = $( "#specialite option:selected" ).text().trim();
          var medecin =  $("#medecin option:selected").text().trim();
@@ -510,22 +463,9 @@ $('#typeexm').on('change', function() {
           lettre.text(200,180,'signature',null,null,'right');
           var string = lettre.output('datauristring');
           $('#lettreorientation').attr('src', string);
-    }
-     function storeord()
-     {   
-          var arrayLignes = document.getElementById("ordonnance").rows;
-          var longueur = arrayLignes.length;
-          var tab = [];
-          for(var i=1; i<longueur; i++)
-          {
-             tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;
-          }
-          var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");
-          champ.appendTo('#ordonnace_form');
-          $('#ordonnace_form').submit();
-     }
-    </script>
-        <script>
+    }/*function storeord(){var arrayLignes = document.getElementById("ordonnance").rows;var longueur = arrayLignes.length;var tab = [];for(var i=1; i<longueur; i++){tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;}var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");champ.appendTo('#ordonnace_form');$('#ordonnace_form').submit();}*/
+</script>
+<script>
             $('#users-table').DataTable({
                  processing: true,
                 serverSide: true,

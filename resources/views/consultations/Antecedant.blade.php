@@ -45,7 +45,7 @@
 	</div>{{-- widget-body --}}
 </div>{{-- widget-box --}}
 </div>{{-- row --}}
-<div class="space-12"></div>
+<div class="space-12 hidden-xs"></div>
 <div class="row"><!-- Physiologiques -->
 <div class= "widget-box widget-color-blue" id="widget-box-2">
 	<div class="widget-header" >
@@ -98,7 +98,7 @@
 </div>{{-- widget-box --}}
 </div>{{-- row --}}
 <!-- fin physiologiques -->
-<div class="space-12"></div>
+<div class="space-12 hidden-xs"></div>
 <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Antecedants Familliaux</h3></div></div>
 <div class="row">
  	 <div class= "widget-box widget-color-green" id="widget-box-2">
@@ -143,11 +143,11 @@
 			</div>	
 		</div>
 	</div>
-</div><div class="space-12"></div>
+</div><div class="space-12 hidden-xs"></div>
 <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Facteurs de risque</h3></div></div>
 <div class="row"><div class="col-sm-12"><label for="infos"><b>Facteurs Généraux</b></label><br></div> </div>
 <div class="row">
- 	<div class="col-sm-3 col-xs-3">
+ 	<div class="col-sm-3 col-xs-6">
 		<div class="checkbox">
 		<input type="hidden" name="exercice" value="0">
 	  <label><input name="exercice" type ="checkbox" class="ace" value="1" @if(isset($patient->facteurRisque) && ($patient->facteurRisque->exercice)) checked @endif/>
@@ -155,7 +155,7 @@
 	 	</label>
     </div>   
   </div>
-      <div class="col-sm-3 col-xs-3">
+      <div class="col-sm-3 col-xs-6">
 		<div class="checkbox">
 			<input type="hidden" name="regime" value="0">
 	 		<label><input name="regime" type="checkbox" class="ace" value="1" @if(isset($patient->facteurRisque)&&($patient->facteurRisque->regime)) checked @endif/>
@@ -163,7 +163,7 @@
 	 		</label>
     </div>   
 	</div>
-	<div class="col-sm-3 col-xs-3">
+	<div class="col-sm-3 col-xs-6">
 		<div class="checkbox">
 			<input type="hidden" name="drogue" value="0">
 			<label><input name="drogue" type="checkbox" class="ace" value="1" @if(isset($patient->facteurRisque)&&($patient->facteurRisque->drogue)) checked @endif/>
@@ -171,7 +171,7 @@
 			</label>
     </div>   
 	</div>
-	<div class="col-sm-3 col-xs-3">
+	<div class="col-sm-3 col-xs-6">
 		<div class="checkbox">
 		<input type="hidden" name="sedentarite" value="0">
 		<label><input name="sedentarite" type="checkbox" class="ace" value="1" @if(isset($patient->facteurRisque)&&($patient->facteurRisque->sedentarite)) checked @endif/>
@@ -179,7 +179,7 @@
 	 	</label>
 	  </div>   
 	</div>
-</div><div class="space-12"></div>
+</div><div class="space-12 hidden-xs"></div>
 <div class="row">
       <div class="col-sm-3 col-xs-6">
 	      <label for="autrefact" class="text-nowrap"><strong>Autre élément social</strong></label>
@@ -197,4 +197,4 @@
 	      <label for="professionnel" class="text-nowrap"><strong>Facteurs Professionels</strong></label>
 	      <textarea class="form-control" name="professionnel">@if(isset($patient->facteurRisque)) {{ $patient->facteurRisque->professionnel }} @endif</textarea> 
 	</div>
-    </div><div class="space-12"></div>
+    </div><div class="space-12 hidden-xs"></div>

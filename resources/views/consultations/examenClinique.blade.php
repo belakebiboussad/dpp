@@ -35,13 +35,13 @@
 						<div class="col-sm-2 col-xs-12"><button id ="btnCalc" class="btn btn-info form-control" onclick="IMC1();">Calculer IMC</button></div>
 						<div class="col-sm-4 col-xs-12">
 							<label class= "col-sm-2 col-xs-5" for="IMC" style="text-align:right">IMC:</label>
-							<input type="text" id="imc" name="imc" class="col-sm-10 col-xs-7" placeholder="IMC du Patient..."><!-- <span class="input-group-addon"><small>Kg/m2</small></span>-->
+							<input type="text" id="imc" name="imc" class="col-sm-10 col-xs-7" placeholder="IMC du Patient...">
 						</div>
 						<div class="col-sm-6 col-xs-12">
-							<label for="interpretation" class= "col-sm-2 col-xs-5" style="text-align:right">Interpretation :</label>
-							<input type="text" id="interpretation" name="interpretation" class="col-sm-10 col-xs-7" placeholder="Interpretation..."><!-- <span class="input-group-addon"><small>Kg/m2</small></span>-->
+							<label for="interpretation" class= "col-sm-2 col-xs-5 text-nowrap" style="text-align:right">Interpretation :</label>
+							<input type="text" id="interpretation" name="interpretation" class="col-sm-10 col-xs-7" placeholder="Interpretation...">
 						</div> 
-				      </div><div class="space-12"></div>
+				      </div><div class="space-12 hidden-xs"></div>
 				      <div class="row">
 				      	<div class="col-sm-12">
 				    		<div class="form-group irs-demo m-b-30"> <b>Températeur :</b>
