@@ -9,8 +9,8 @@
         <div class="row">
           <div class="col-sm-6 col-xs-12">
             <table id="medc_table" class="table table-bordered table-hover" width=100%> 
-          <!--     <thead> <tr> <th class="center" ><strong>Médicament</strong></th> <th class="center priority-3"><strong>Forme</strong></th>
-                   <th class="center" ><strong>Dosage</strong></th> <th class="center" ><em class="fa fa-cog"></em></th> </tr>  </thead> -->
+              <thead> <tr> <th class="center" ><strong>Médicament</strong></th> <th class="center priority-3"><strong>Forme</strong></th>
+                   <th class="center" ><strong>Dosage</strong></th> <th class="center" ><em class="fa fa-cog"></em></th> </tr>  </thead>
             </table>
           </div>
           <div class="col-sm-6 col-xs-12">

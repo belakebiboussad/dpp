@@ -370,14 +370,7 @@ var table = $('#medc_table').DataTable({
       var tds = $(row).find('td');
       tds.each(function(index) {
         var $td = $(this);
-        // question:
-        // which is better way to get columnIndex
-        // considering oredring pluign is active and 
-        // some cols are hidden and ordered as well
         var columnIndex = tableApi.column(this).index();
-        //var columnIndex = tableApi.cell(this).index().column; 
-        //var columnIndex  = tableApi.column($(this).index() + ':visIdx').index();
-        //
         var hasWidth = columns[columnIndex].width;
         if (hasWidth) {
           $td.css({
