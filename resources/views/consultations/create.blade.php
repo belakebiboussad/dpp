@@ -10,7 +10,7 @@
 	  overflow-y: initial !important
 	}
 	.contmodal {
-	  height:101%; 
+	  height:100%; 
 	}
 	.bodyodal{
 	  height: 100%;
@@ -22,12 +22,12 @@
 		table-layout: fixed;
 	}
 	.mtable {
-		height:360px;              
+		height:350px;              
  		display: -moz-groupbox;  
 	}
 	.mtbody{
   overflow-y: scroll;      
-  height: 355px;            //  <-- Select the height of the body
+  height: 345px;
   width: 100%;
   position: absolute;
 }
@@ -233,9 +233,6 @@
 			data:formData,//contentType: "application/j-son;charset=UTF-8",
 		  	dataType: "json",
 		  	success: function (data,status, xhr) {	  	
-			   	$.each(data.html,function(){
-			   		
-			   	})
 			   	$('#iframe-pdf').contents().find('html').html(data.html);
 			  	$("#ordajax").modal();	// $('#iframe-pdf').focus();//$("#iframe-pdf").get(0).contentWindow.print();			       
 		  	},	
@@ -293,7 +290,7 @@
   function addmidifun()
   {
     var med ='<tr id="'+$("#id_medicament").val()+'"><td hidden>'+$("#id_medicament").val()+'</td><td>'+$("#nommedic").val()+'</td><td class="priority-5">'+$("#forme").val()+'</td><td class="priority-5">'+$("#dosage").val()+'</td><td>'+$("#posologie_medic").val()+'</td>';
-    med += '<td class ="center"><button class="btn btn-xs btn-info open-modal" value="' + $("#id_medicament").val()+ '" onclick="editMedicm('+$("#id_medicament").val()+');supcolonne('+$("#id_medicament").val()+');"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
+    med += '<td class ="bleu center"><button class="btn btn-xs btn-info open-modal" value="' + $("#id_medicament").val()+ '" onclick="editMedicm('+$("#id_medicament").val()+');supcolonne('+$("#id_medicament").val()+');"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
     med += '<button class="btn btn-xs btn-danger delete-atcd" value="' + $("#nommedic").val()+ '" onclick ="supcolonne('+$("#id_medicament").val()+')" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
     $("#ordonnance").append(med);
     $(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
@@ -348,66 +345,37 @@
 	    			return true;
 			}
  		});
-	 $("#btnCalc").click(function(event){
+	  $("#btnCalc").click(function(event){
 	    	event.preventDefault();
 	  });
-	// $('#medc_table').DataTable({ processing: true, //serverSide: true,ordering: true, bInfo : false,searching: true, pageLength: 5,bLengthChange: false,
-	// nowrap:true, "language": {"url": '/localisation/fr_FR.json' }, ajax: '/getmedicaments', columns: [{data: 'Nom_com'},{data: 'Forme',className: "priority-3" , orderable: false},
-	// {data: 'Dosage' , orderable: false},{data: 'action', name: 'action', orderable: false, searchable: false} ],columnDefs: [{ "targets": 3 ,  className: "dt-head-center dt-body-center" }],});
-var table = $('#medc_table').DataTable({
-	  'bLengthChange': false,
-    'autoWidth': false,
-    'scrollX': true,
-    'scrollY': 300,
-    'scrollCollapse': true,
-    'language': {
-	                    "url": '/localisation/fr_FR.json'
-    },
-	  ajax: '/getmedicaments',
-    "createdRow": function(row, data, index) {
-      var tableApi = this.api();
-      var columns = tableApi.settings().init().columns;
-      var tds = $(row).find('td');
-      tds.each(function(index) {
-        var $td = $(this);
-        var columnIndex = tableApi.column(this).index();
-        var hasWidth = columns[columnIndex].width;
-        if (hasWidth) {
-          $td.css({
-            'width': hasWidth,
-            'max-width': hasWidth,
-            'min-width': hasWidth,//will enforce fixed width, skip if not required
-            'word-wrap': 'break-word'
-          });
-        }
-        //
-      });
-    },
-    columns: [{
-      data: 'Nom_com',
-      title: 'Medicament',
-      width: 100, // render: function(data) {   //   return '<span class="">' + data + '</span>';   // }
-    }, {
-      data: 'Forme',
-      title: 'Forme',
-      orderable:false,
-      width: 30,
-      className: "priority-3"
-     
-    }, {
-      data: 'Dosage',
-      width: 160,
-      title: 'Dosage',
-      orderable:false,
-    }, {
-      data: 'action',
-      title: '<em class="fa fa-cog"></em>',
-      width: 15,
-      orderable: false,
-      className: "dt-head-center dt-body-center"
-    }],
-  
-  });
+	  $('#medc_table').DataTable({
+	    processing: true,
+	    serverSide: true,
+	    ordering: true,
+	    bInfo : false,
+	    searching: true,
+	    pageLength: 5,
+	    bLengthChange: false,
+	    nowrap:true,
+	    "language": {
+	    	"url": '/localisation/fr_FR.json'
+	    },
+	    ajax: '/getmedicaments',
+	    columns: [
+	      {data: 'Nom_com'},
+	      {data: 'Forme',className: "priority-3" , orderable: false},
+	      {data: 'Dosage' , orderable: false},
+	      {data: 'action', name: 'action', orderable: false, searchable: false}
+	    ],
+	    columnDefs: [
+	      { "targets": 3 ,  className: "dt-head-center dt-body-center" }
+	    ],
+	  });/*var table = $('#medc_table').DataTable({ 'bLengthChange': false, 'autoWidth': false, 'scrollX': true, 'scrollY': 300,  'scrollCollapse': true, 'language': {       "url": '/localisation/fr_FR.json'
+},ajax: '/getmedicaments',"createdRow": function(row, data, index) {var tableApi = this.api();var columns = tableApi.settings().init().columns;var tds = $(row).find('td');tds.each(function(index) {
+var $td = $(this);var columnIndex = tableApi.column(this).index(); var hasWidth = columns[columnIndex].width;if (hasWidth) { $td.css({'width': hasWidth,'max-width': hasWidth,'min-width': hasWidth,//will enforce fixed width, skip if not required
+'word-wrap': 'break-word'});}//}); },columns: [{data: 'Nom_com',title: 'Medicament',width: 100, // render: function(data) {   //   return '<span class="">' + data + '</span>';   // }
+ }, {data: 'Forme',title: 'Forme', orderable:false, width: 30,className: "priority-3"}, { data: 'Dosage', width: 150, title: 'Dosage', orderable:false,}, { data: 'action', title: '<em class="fa fa-cog"></em>',
+width: 15, orderable: false,className: "dt-head-center dt-body-center"}],});*/
   ////////////////////////////fin 
 	jQuery('#btn-add, #AntFamil-add').click(function () {//ADD
 		jQuery('#EnregistrerAntecedant').val("add");
@@ -662,9 +630,9 @@ var table = $('#medc_table').DataTable({
      		aspectRatio: 1.5,
      		eventLimit: true,
     		allDaySlot: false,
-   		eventDurationEditable : false,
-   		weekNumbers: true,
-    		views: {},
+   	  	eventDurationEditable : false,
+   		  weekNumbers: true,
+   		  views: {},
 	    		events: [
 		       @foreach($employe->rdvs as $rdv)
 		       {	
@@ -724,6 +692,7 @@ var table = $('#medc_table').DataTable({
 			eventDrop: function(event, delta, revertFunc) { revertFunc();	},
 			eventDragStop: function (event, jsEvent, ui, view) {return false;} 
 		});// calendar
+		// $('.calendar1').addTouch();	
 		$("#taille").ionRangeSlider({
 	      min:0,  max:250,  from:0,   grid: true,   grid_num: 20,postfix:" cm", 
 	  });
@@ -800,7 +769,7 @@ var table = $('#medc_table').DataTable({
 		</div><!-- row -->
 	</form>
 </div><!-- content     -->
-<div class="row">@include('consultations.LettreOrientation')</div><div class="row">@include('consultations.ModalFoms.DemadeHospitalisation')</div>
+<div class="row">@include('consultations.ModalFoms.LettreOrientation')</div><div class="row">@include('consultations.ModalFoms.DemadeHospitalisation')</div>
 <div class="row">@include('antecedents.AntecedantModal')</div><div class="row">@include('antecedents.AntecedantModalPhysio')</div>
 <div class="row">@include('consultations.ModalFoms.Ordonnance')</div><div class="row">@include('consultations.ModalFoms.imprimerOrdonnance')</div>
 <div class="row">@include('consultations.ModalFoms.imprimerOrdonnanceAjax')</div><div class="row">@include('rdv.rendezVous')</div>

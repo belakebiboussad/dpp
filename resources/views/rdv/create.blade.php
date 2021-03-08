@@ -174,20 +174,21 @@ $(document).ready(function() {
                           element.css('background-color', '#378006');   
                         element.css("padding", "5px");
                       }
-                    element.popover({
-                                 delay: { "show": 500, "hide": 100 },  // title: event.title,
-                                content: event.tel,
-                                 trigger: 'hover',
-                                animation:true,
-                                placement: 'bottom',
-                                container: 'body',
-                                template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
+                      element.popover({
+                          delay: { "show": 500, "hide": 100 },  // title: event.title,
+                          content: event.tel,
+                          trigger: 'hover',
+                          animation:true,
+                          placement: 'bottom',
+                          container: 'body',
+                          template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
                     });       
              },
              eventMouseover: function(event, jsEvent, view) {
-             }
+  
+            }
     });//calendar //fincalendar 
-    $('#patient').editableSelect({
+       $('#patient').editableSelect({
       effects: 'slide', 
       editable: false, 
     }).on('select.editable-select', function (e, li) {

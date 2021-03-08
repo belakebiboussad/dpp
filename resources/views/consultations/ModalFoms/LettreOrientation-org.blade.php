@@ -1,10 +1,7 @@
 <div id="lettreorient" class="modal" role="dialog" aria-hidden="true">
   	<div class="modal-dialog modal-lg" role="document">
 		 <div class="modal-content custom-width-modal">  <!-- Modal content-->
-		       <div class="modal-header">
-		           <button type="button" class="close" data-dismiss="modal">&times;</button>
-		           <h4 class="modal-title">Lettre d'orientation</h4>
-		      </div>
+		       <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Lettre d'orientation</h4></div>
 		       <div class="modal-body ">
 			        <div class="container-fluid">
 			         	 <div class="row">

@@ -6,6 +6,9 @@
 <script src="{{asset('/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('/js/jquery-ui.min.js')}}"></script>{{-- <script src="{{asset('/js/jquery-ui.custom.min.js')}}"></script> --}}
 <script src="{{asset('/js/jquery.ui.touch-punch.min.js')}}"></script>
+ <script type="text/javascript">
+//   if('ontouchstart' in document.documentElement) document.write("<script src='{{asset('/js/jquery.mobile.custom.min.js')}}'>"+"<"+"/script>");
+</script>
 <script src="{{asset('/js/jquery.easypiechart.min.js')}}"></script>
 <script src="{{asset('/js/jquery.sparkline.index.min.js')}}"></script>
 <script src="{{asset('/js/jquery.flot.min.js')}}"></script>
@@ -43,7 +46,7 @@
 <script src="{{ asset('/js/jquery-editable-select.js') }}"></script><!--  -->
 <script src="{{asset('/js/sweetalert2.all.min.js')}}"></script>
 <script src="{{asset('/js/JsBarcode.all.min.js')}}"></script>
-<script src="{{asset('/js/ion.rangeSlider.min.js')}}"></script><!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.2.0/js/ion.rangeSlider.min.js"></script> -->
+<script src="{{asset('/js/ion.rangeSlider.min.js')}}"></script>
 <script type="text/javascript">
   var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
   $(document).ready(function(){
