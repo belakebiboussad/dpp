@@ -9,7 +9,7 @@
         <div class="row">
           <div class="col-sm-6 col-xs-12">
             <table id="medc_table" class="table table-bordered table-hover" width=100%> 
-          <!--     <thead> <tr> <th class="center" ><strong>Médicament</strong></th>       <th class="center priority-3"><strong>Forme</strong></th>
+          <!--     <thead> <tr> <th class="center" ><strong>Médicament</strong></th> <th class="center priority-3"><strong>Forme</strong></th>
                    <th class="center" ><strong>Dosage</strong></th> <th class="center" ><em class="fa fa-cog"></em></th> </tr>  </thead> -->
             </table>
           </div>
@@ -40,7 +40,7 @@
              <div class="row">
               <div class="col-xs-12">
                     <button type="button" id="addliste" class="btn btn-primary btn-xs pull-right disabledElem" onclick="addmidifun()">
-                         Ajouter a la liste&nbsp;<i class="fa fa-arrow-down" ></i>
+                         Ajouter&nbsp;<i class="fa fa-arrow-down" ></i>
                      </button>
               </div>
             </div>

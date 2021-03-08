@@ -53,9 +53,7 @@
 			<h5 class="mt-15 center" ><img src="{{ asset('/img/logo.png') }}" style="width: 60px; height: 60px" alt="logo"/></h5>
   		<h5 class="mt-20 center"><span style="font-size: xx-large;"><strong>Ordonnance</strong></span></h5>
   		<div class="row">
-			<div class="col-sm-12">
-				<div class="section"><div class="ml-80"><b><u>Fait le:</u></b> {{ Carbon\Carbon::today()->format('Y-m-d') }}.</div></div>
-			</div>
+			<div class="col-sm-12"><div class="section"><div class="ml-80"><b><u>Fait le:</u></b> {{ Carbon\Carbon::today()->format('Y-m-d') }}.</div></div></div>
 			</div>
 			<div class="row ml-4">
 				<div class="col-sm-12">
@@ -71,9 +69,7 @@
 			<div class="row ml-4">
 				<div class="col-sm-12">
 					<div class="section">
-						<div class="sec-gauche">
-								<img src="data:image/png;base64,{{DNS1D::getBarcodePNG($patient->IPP, 'C128')}}" alt="barcode"/><br> {{ $patient->IPP }}   
-						</div>
+						<div class="sec-gauche"><img src="data:image/png;base64,{{DNS1D::getBarcodePNG($patient->IPP, 'C128')}}" alt="barcode"/><br> {{ $patient->IPP }}</div>   
 					</div>
 				</div>
 			</div>

@@ -16,12 +16,6 @@
 	  height: 100%;
 	  overflow-y: auto;
 	}
-	
-	/*.tablebody {
-	  height: 200px;
-	  width:100%;
-	  overflow: auto
-	}*/
 	tr {
 		width: 100%;
 		display: inline-table;
@@ -203,19 +197,18 @@
 		var keys=[], meds=[];
 	 	$("#ordonnance thead tr th").each(function(){
 		  	if(($(this).html() == "id") || ($(this).html() == "Posologie"))
-		  	{
-		  	  keys.push($(this).html());
-		  	}  
+		   	  keys.push($(this).html());  
 		});
 		$("#ordonnance tbody tr").each(function(){
 	  	var obj={}, i=0;
-		$(this).children("td").each(function(index){
-		    if((index == 1) || (index == 5) )
+  		$(this).children("td").each(function(index){
+		 		
+		    if((index == 0) || (index == 4) )
 		  	{
 		  		obj[keys[i]]=$(this).html();
-		    		i++;
-		  	}
-	      })
+		   		i++;
+	    	}
+	    })
   		meds.push(obj);	
 	 	});
 	 	var formData = {
@@ -223,7 +216,7 @@
        		id_employe:employeId,
        		meds:JSON.stringify(meds),
 	 	};
-		$.ajaxSetup({
+	 	$.ajaxSetup({
 	    		headers: {
 	        		'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
 	    		}
@@ -240,13 +233,16 @@
 			data:formData,//contentType: "application/j-son;charset=UTF-8",
 		  	dataType: "json",
 		  	success: function (data,status, xhr) {	  	
+			   	$.each(data.html,function(){
+			   		
+			   	})
 			   	$('#iframe-pdf').contents().find('html').html(data.html);
-			  	$("#ordajax").modal();	// $('#iframe-pdf').focus();//$("#iframe-pdf").get(0).contentWindow.print();			        
+			  	$("#ordajax").modal();	// $('#iframe-pdf').focus();//$("#iframe-pdf").get(0).contentWindow.print();			       
 		  	},	
 	   		error: function (data) {
      	 			console.log('Error:', data);
      			}
-  		})
+  	})
 	}
 	function print()
 	{
@@ -407,7 +403,7 @@ var table = $('#medc_table').DataTable({
      
     }, {
       data: 'Dosage',
-      width: 200,
+      width: 160,
       title: 'Dosage',
       orderable:false,
     }, {
@@ -813,7 +809,7 @@ var table = $('#medc_table').DataTable({
 </div><!-- content     -->
 <div class="row">@include('consultations.LettreOrientation')</div><div class="row">@include('consultations.ModalFoms.DemadeHospitalisation')</div>
 <div class="row">@include('antecedents.AntecedantModal')</div><div class="row">@include('antecedents.AntecedantModalPhysio')</div>
-<div class="row">@include('ExamenCompl.ModalFoms.Ordonnance')</div><div class="row">@include('ExamenCompl.ModalFoms.imprimerOrdonnance')</div>
-<div class="row">@include('ExamenCompl.ModalFoms.imprimerOrdonnanceAjax')</div><div class="row">@include('rdv.rendezVous')</div>
+<div class="row">@include('consultations.ModalFoms.Ordonnance')</div><div class="row">@include('consultations.ModalFoms.imprimerOrdonnance')</div>
+<div class="row">@include('consultations.ModalFoms.imprimerOrdonnanceAjax')</div><div class="row">@include('rdv.rendezVous')</div>
 <div class="row">@include('cim10.cimModalForm')</div>
 @endsection

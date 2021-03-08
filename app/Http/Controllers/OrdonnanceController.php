@@ -115,16 +115,16 @@ class OrdonnanceController extends Controller
       $medicaments = array();
       $posologies = array();
       foreach ($meds as $key => $med) {
-          foreach ($med as $key => $value) {
-                   if($key == "id")
-                   {
-                        $m =  medicament::FindOrFail($value); 
-                         $medicaments[] = $m;                                        
-                   }
-                   else
-                        array_push($posologies, $value);
-              }
+        foreach ($med as $key => $value) {
+          if($key == "id")
+          {
+            $m =  medicament::FindOrFail($value); 
+            $medicaments[] = $m;                                        
+          }else
+            array_push($posologies, $value);
+        }
       }
+      return response()->json(['html'=> $medicaments]);
       $view = view("consultations.ModalFoms.ordonnancePDF",compact('patient','employe','medicaments','posologies'))->render();
       return response()->json(['html'=>$view]);/* $pdf = PDF::loadView('ordennance.ordonnancePDF', compact('patient','employe','medicaments','posologies'));   return $pdf->stream('ordonnance.pdf');*/
    }
