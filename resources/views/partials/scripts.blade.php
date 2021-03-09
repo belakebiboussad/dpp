@@ -6,9 +6,6 @@
 <script src="{{asset('/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('/js/jquery-ui.min.js')}}"></script>{{-- <script src="{{asset('/js/jquery-ui.custom.min.js')}}"></script> --}}
 <script src="{{asset('/js/jquery.ui.touch-punch.min.js')}}"></script>
- <script type="text/javascript">
-//   if('ontouchstart' in document.documentElement) document.write("<script src='{{asset('/js/jquery.mobile.custom.min.js')}}'>"+"<"+"/script>");
-</script>
 <script src="{{asset('/js/jquery.easypiechart.min.js')}}"></script>
 <script src="{{asset('/js/jquery.sparkline.index.min.js')}}"></script>
 <script src="{{asset('/js/jquery.flot.min.js')}}"></script>
@@ -862,11 +859,11 @@ $("#medicamentId").val(result['id']);$("#conditionnement").val(result['Condition
         $('#EtatSortie').modal('show');
       }
       function myFunction() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
-  } else {
-    x.className = "topnav";
-  }
-}
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+          x.className += " responsive";
+        } else {
+          x.className = "topnav";
+        }
+      }
 </script>
