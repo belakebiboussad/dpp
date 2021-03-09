@@ -36,7 +36,7 @@
             <div class="col-sm-6">    
               <i class="fa fa-phone" aria-hidden="true"></i><strong>Téléphone:&nbsp;</strong><span id="patient_tel" class="green"></span>
             </div>
-            <div class="col-sm-6"><strong>Age:&nbsp;</strong>  <span id="agePatient" class="blue"></span><small>Ans</small></div>
+            <div class="col-sm-6"><strong>Age:&nbsp;</strong><span id="agePatient" class="blue"></span><small>Ans</small></div>
           </div>
           <div class="space-12"></div>
           <div class="row">   

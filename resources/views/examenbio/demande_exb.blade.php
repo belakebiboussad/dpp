@@ -2,7 +2,8 @@
 <head>
   <title>Demande examens biologiques</title>
   <meta charset="utf-8">
-    <style type="text/css">
+  <link rel="stylesheet" href="css/styles.css">
+  <style type="text/css">
     table 
     {
         border-collapse: collapse;
@@ -11,37 +12,6 @@
     {
         border: 1px solid black;
         padding: 5px;
-    }
-    .section
-    {
-      margin-bottom: 20px;
-    }
-    .sec-gauche
-    {
-      float: left;
-    }
-    .sec-droite
-    {
-      float: right;
-    }
-    .center
-    {
-      text-align: center;
-    }
-    .col-sm-12
-    {
-      margin-bottom: 10px;
-    }
-    .mt-15{
-        margin-top:-15px;
-    }
-    .mt-20{
-      margin-top:-20px;
-    }
-    .foo{
-      position: absolute;
-      top: 90%;
-      right: 22%;
     }
   </style>
 </head>

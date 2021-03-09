@@ -2,47 +2,14 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Ordonnance</title>
+		<link rel="stylesheet" href="{{ asset('/css/styles.css') }}"/>
 		<style>
   		@media print {
 	      .print {display:block}
 	      .btn-print {display:none;}
 	    }
-    	.section{
-				margin-bottom: 20px;
-			}
-			.sec-gauche{
-				float: left;
-			}
-			.sec-droite{
-				float: right;
-			}
-			.center{
-				text-align: center;
-			}
-			.col-sm-12{
-				margin-bottom: 10px;
-			}
-			.mt-15{
-	        margin-top:-15px;
-			}
-			.mt12{
-	        padding-top:+12px;
-			}
-			.mt-20{
-	      margin-top:-20px;
-			}
-			.ml-80{
-      	 margin-left: +80%;
-			}
-			.ml-4{
-        margin-left: +4%;
-			}
-			.foo{
-      position: absolute;
-      top: 90%;
-      right: 22%;
-		}
-    </style>
+    	/*.mt-15{margin-top:-15px;}*//*.mt-20{ margin-top:-20px;}*/	/*.ml-80{ margin-left: +80%;}*/
+		</style>
 	</head>
 	<body>
   	<div class="container-fluid" >
@@ -78,23 +45,14 @@
 				<div class="col-sm-12"><br>
 					<ol>
 						@for ($i = 0; $i < count($medicaments); $i++)
-						<li>
-							{{ $medicaments[$i]->Nom_com }} {{ $medicaments[$i]->Forme }} {{ $medicaments[$i]->Dosage }} <br>{{ $posologies[$i] }}.		
-						</li><br><br>
+						<li>{{ $medicaments[$i]->Nom_com }} {{ $medicaments[$i]->Forme }} {{ $medicaments[$i]->Dosage }} <br>{{ $posologies[$i] }}.</li><br><br>	
 						@endfor
 					</ol>
 				</div>
 			</div>
 			<div class="row foo">
-		       <div class="col-sm-12">
-			<div class="section"><div class="sec-droite"><span><strong> Docteur :</strong> {{ $employe->nom}} {{ $employe->prenom}}</span></div></div>
-		      </div>
-  		      </div>
-  		      <div class="row foo">
-		    <div class="col-sm-12">
-			<div class="section"><div class="sec-droite"><span><strong> Docteur :</strong> {{ $employe->nom}} {{ $employe->prenom}}</span></div> </div>
-		    </div>
- 		 </div>				
+		    <div class="col-sm-12"><div class="section"><div class="sec-droite"><span><strong> Docteur :</strong> {{ $employe->nom}} {{ $employe->prenom}}</span></div></div></div>
+		  </div>		
     </div>
 	</body>
 </html>

@@ -5,7 +5,7 @@
 @section('style')
 <style>
 	.modaldialog {
-	  width:99%;
+	  width:92%;
 	  height:95% !important;
 	  overflow-y: initial !important
 	}

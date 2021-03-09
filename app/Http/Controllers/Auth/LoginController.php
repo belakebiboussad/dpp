@@ -81,7 +81,7 @@ class LoginController extends Controller
       { /*premier solutions $IPs = Config::get('settings');session(['lieu_id' => $IPs[$_SERVER['REMOTE_ADDR']]]); */
         $IPs = config('settings.IPs');// $IPs = config('constants.IPs');
         session(['lieu_id' => $IPs[$_SERVER['REMOTE_ADDR']]]);
-       if(isset($user->employ->service))
+        if(isset($user->employ->service))
           session(['service' => (in_array($user->role_id,[1,3,5,6,10,11,12,13,14])) ? $user->employ->Service->id :0]);
       }
 	    public function username()

@@ -3,6 +3,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
     <title>Certificat medical</title>
       <style>
       @media print  
@@ -18,23 +19,6 @@
           padding-top: 72px;
           padding-bottom: 72px ;
         }
-      }
-      .center
-      {
-        text-align: center;
-      }
-      
-      .mt-15{
-        margin-top:-15px;
-      }
-      .mt12{
-        padding-top:+12px;
-      }
-      .mt-20{
-        margin-top:-20px;
-      }
-      .ml-80{
-        margin-left: +80%;
       }
       span {
         display: inline-block;/*padding:6px 0;font-size:16px;*/
