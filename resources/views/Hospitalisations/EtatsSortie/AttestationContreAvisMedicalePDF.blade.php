@@ -1,9 +1,9 @@
 <html>
     <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
      <link rel="stylesheet" href="css/bootstrap.min.css">
+     <link rel="stylesheet" href="css/styles.css">
       <title>Attestation Contre Avis Médical</title>
 	<style>
           @media print  
@@ -20,22 +20,8 @@
                      padding-bottom: 60px ;
                }
           }
-           .section
-           {
-                margin-bottom: 20px;
-           }
-          .center
-          {
-               text-align: center;
-          }
-          .mt-15{
-            margin-top:-15px;
-            }
-          .mt-30{
+          .mt-40{
                 margin-top:-40px;
-           }
-           .mt-20{
-                margin-top:-20px;
            }
           span {
                 padding-left: 20px; 
@@ -59,14 +45,13 @@
      </head>
     <body>
           <div class="container-fluid"> {{-- id="myDiv" --}}
-                <h2 class="mt-30 center">DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</h2>
+                <h2 class="mt-40 center">DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</h2>
                 <h4 class="center">ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</h4>
                 <h4 class="center">Chemin des Glycines - ALGER</h4>
                 <h4 class="center">Tél : 23-93-34</h4>
                 <h5 class="mt-15 center" ><img src="img/logo.png" style="width: 60px; height: 60px" alt="logo"/></h5>
                <h5 class="mt-15 center"><span style="font-size: xx-large;"><strong>Attestation contre avis medical</strong></span></h5>
                 <section class="borderv">
-                      <h3 style="text-align: center; text-decoration: underline;">Attestation</h3><br>
 	                 <span class="marge">&nbsp;&nbsp;&nbsp;&nbsp;je soussigné M ,Mme  :</span><span>{{ $obj->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->nom }}&nbsp;{{ $obj->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->prenom}}<span><br/>
 	                <span class="marge">&nbsp;&nbsp;&nbsp;&nbsp;Demande de sortie de l'hopital :</span>
                      <span>&nbsp;{{ (App\modeles\Lieuconsultation::find(session('lieu_id'))->nom )}}</span><br/>	

@@ -5,11 +5,10 @@
 		<link rel="stylesheet" href="{{ asset('/css/styles.css') }}"/>
 		<style>
   		@media print {
-	      .print {display:block}
-	      .btn-print {display:none;}
-	    }
-    	/*.mt-15{margin-top:-15px;}*//*.mt-20{ margin-top:-20px;}*/	/*.ml-80{ margin-left: +80%;}*/
-		</style>
+		      .print {display:block}
+		      .btn-print {display:none;}
+	 	 }/*.mt-15{margin-top:-15px;}*//*.mt-20{ margin-top:-20px;}*/	/*.ml-80{ margin-left: +80%;}*/
+    		</style>
 	</head>
 	<body>
   	<div class="container-fluid" >

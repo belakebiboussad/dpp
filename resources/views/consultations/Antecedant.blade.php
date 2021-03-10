@@ -1,11 +1,10 @@
 <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Antecedants Personnels</h3></div></div>
 <div class="row">
-<div class= "widget-box widget-color-blue" id="widget-box-2">
-	<div class="widget-header" >
-		 <h5 class="widget-title bigger lighter"><font color="black"><i class="ace-icon fa fa-table"></i>&nbsp;<b>Antecedants Pathologiques</b></font></h5>
-		<div class="widget-toolbar widget-toolbar-light no-border" width="20%">
-			<div class="fa fa-plus-circle"></div>
-			<a href="#" id="btn-add" class="btn-xs tooltip-link" data-toggle="modal"><h4><strong>Antecedant</strong></h4></a>
+<div class= "widget-box widget-color-blue">
+	<div class="widget-header">
+		 <h5 class="widget-title bigger lighter"><font color="black"><i class="ace-icon fa fa-table"></i>&nbsp;<b>Pathologiques</b></font></h5>
+		<div class="widget-toolbar widget-toolbar-light no-border">
+			<a  id="btn-add" class="btn-xs align-middle" data-toggle="modal"><i class="fa fa-plus-circle bigger-180" style="color:black"></i>	</a>
 		</div>
 	</div>
 	<div class="widget-body" id ="ATCDWidget">
@@ -13,7 +12,7 @@
 			<table class="table nowrap dataTable table-bordered no-footer table-condensed table-scrollable" id="antsTab">
 				<thead class="thin-border-bottom">
 				  <tr class ="center">
-					<th class ="hidden"></th>	<!-- 		<th class="center"><strong><span style="font-size:14px;">Type</span></strong></th> -->
+					<th class ="hidden"></th>	<!-- <th class="center"><strong><span style="font-size:14px;">Type</span></strong></th> -->
 					<th class="center"><strong><span style="font-size:14px;">Nature</span></strong></th>
 					<th class="center"><i class="fa fa-clock-o bigger-110" aria-hidden="true"></i>
 						<strong>&nbsp;<span style="font-size:14px;">Date</span></strong>
@@ -44,15 +43,13 @@
 		</div>
 	</div>{{-- widget-body --}}
 </div>{{-- widget-box --}}
-</div>{{-- row --}}
-<div class="space-12 hidden-xs"></div>
+</div><div class="space-12 hidden-xs"></div>{{-- row --}}
 <div class="row"><!-- Physiologiques -->
-<div class= "widget-box widget-color-blue" id="widget-box-2">
+<div class= "widget-box widget-color-blue">
 	<div class="widget-header" >
-		 <h5 class="widget-title bigger lighter"><font color="black"><i class="ace-icon fa fa-table"></i>&nbsp;<b>Antecedants physiologiques</b></font></h5>
-		<div class="widget-toolbar widget-toolbar-light no-border" width="20%">
-			<div class="fa fa-plus-circle"></div>
-			<a href="#" id="btn-addAntPhys" class="btn-xs tooltip-link" data-toggle="modal"><h4><strong>Antecedant</strong></h4></a>
+		 <h5 class="widget-title bigger lighter"><font color="black"><i class="ace-icon fa fa-table"></i>&nbsp;<b>physiologiques</b></font></h5>
+		<div class="widget-toolbar widget-toolbar-light no-border">
+			<a id="btn-addAntPhys" class="btn-xs align-middle" data-toggle="modal"><i class="fa fa-plus-circle bigger-180" style="color:black"></i></a>
 		</div>
 	</div>
 	<div class="widget-body" id ="ATCDWidget">
@@ -96,17 +93,14 @@
 		</div>
 	</div>{{-- widget-body --}}
 </div>{{-- widget-box --}}
-</div>{{-- row --}}
-<!-- fin physiologiques -->
-<div class="space-12 hidden-xs"></div>
+</div><div class="space-12 hidden-xs"></div>{{-- row --}}
 <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Antecedants Familliaux</h3></div></div>
 <div class="row">
- 	 <div class= "widget-box widget-color-green" id="widget-box-2">
+ 	 <div class= "widget-box widget-color-green">
 		<div class="widget-header" >
 		<h5 class="widget-title bigger lighter"><font color="black"> <i class="ace-icon fa fa-table"></i>&nbsp;<b>Antecedants Familliaux</b></font></h5>
-		 <div class="widget-toolbar widget-toolbar-light no-border" width="20%">
-			<div class="fa fa-plus-circle"></div>
-			<a href="#" id="AntFamil-add" class="btn-xs tooltip-link" data-toggle="modal"><h4><strong>Antecedant</strong></h4></a>
+		 <div class="widget-toolbar widget-toolbar-light no-border">
+			<a id="AntFamil-add" class="btn-xs align-middle" data-toggle="modal"><i class="fa fa-plus-circle bigger-180" style="color:black"></i></a>
 		</div>
 	 	 </div>
 	 	 <div class="widget-body" id ="ATCDWidget">

@@ -51,6 +51,9 @@
 .ml-80{
        margin-left: +80%;
 }
+ tr.noBorder td {
+      border: 0;
+}
 .foo{
       position: absolute;
       top: 90%;
@@ -62,12 +65,13 @@
 #RDV {
  z-index: 1040 !important;
 }
- fieldset.scheduler-border {
+fieldset.scheduler-border {
     border: 1px groove #ddd !important;
     padding: 0 1.4em 1.4em 1.4em !important;
     margin: 0 0 1.5em 0 !important;
      -webkit-box-shadow:  0px 0px 0px 0px #000;
      box-shadow:  0px 0px 0px 0px #000;
+}
 }
 /*.main-content{ margin-top: -1%;}*/
 .modal-footer ,.modal-header {
@@ -93,7 +97,6 @@
   .rounded-list button:hover{
     background: #eee;
   }
-
   .rounded-list button:hover:before{
     transform: rotate(360deg);
   }

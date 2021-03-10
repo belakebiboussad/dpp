@@ -3,6 +3,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/styles.css">
   <title>Resume Clinique de Sortie</title>
   <style>
       table 
@@ -14,22 +15,9 @@
         border: 1px solid black;
         padding: 5px;
     }
-    .center
-    {
-      text-align: center;
-    }
     .col-sm-12
     {
       margin-bottom: 10px;
-    }
-    .mt-15{
-        margin-top:-15px;
-    }
-    .mt-20{
-      margin-top:-20px;
-    }
-    tr.noBorder td {
-      border: 0;
     }
     </style>
     </head>
@@ -54,7 +42,6 @@
               @if(isset($obj->patient->assure))
                <span>{{ $obj->patient->assure->matricule }}</span>
               @endif
-             
             </td>
             <td colspan = 2><strong>N° Dossier :</strong><span> &nbsp;{{ $obj->patient->IPP}}</span></td>
           </tr>
@@ -82,19 +69,13 @@
                       <td colspan="3" class="first"><strong>Motif d'Hôspitalisation</strong><span> &nbsp;{{ $obj->admission->rdvHosp->demandeHospitalisation->consultation->motif }}</span></td>
                 </tr>
                  <tr class="noBorder">
-                    <td colspan="3" class="first"><strong>Bilan Bioloqique :</strong>
-                          <span> &nbsp;</span></td>
-                      </td>
+                    <td colspan="3" class="first"><strong>Bilan Bioloqique :</strong><span> &nbsp;</span></td></td>
                 </tr>
                 <tr class="noBorder">
-                    <td colspan="3" class="first"><strong>Bilan Radiologique : </strong>
-                          <span> &nbsp;</span>
-                      </td>
-                </tr>
+                    <td colspan="3" class="first"><strong>Bilan Radiologique : </strong> <span> &nbsp;</span></td>
+                    </tr>
                 <tr class="noBorder">
-                      <td colspan="3" class="first"><strong>Autre Exmens : </strong>
-                            <span> &nbsp;</span>
-                        </td>
+                      <td colspan="3" class="first"><strong>Autre Exmens : </strong>  <span> &nbsp;</span></td>
                 </tr>
                 <tr class="noBorder">
                       <td colspan="3" class="first"><strong>Dianostic principal de sortie : </strong> <span> &nbsp;{{ $obj->diagSortie }}</span> </td>
@@ -130,6 +111,5 @@
         </tbody>
         </table>
         </section><br><hr/>
-  
     </body>
 </html>
