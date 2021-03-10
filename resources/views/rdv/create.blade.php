@@ -109,7 +109,7 @@ $(document).ready(function() {
                         },
                         @endforeach   
               ], 
-               select: function(start, end) {
+              select: function(start, end) {
                     var minutes = end.diff(start,"minutes"); 
                     if( (minutes == 15) && (start >=today ))//CurrentDate
                     {                                    
@@ -163,7 +163,7 @@ $(document).ready(function() {
                           $('#fullCalModal').modal({ show: 'true' });
                     }
               },
-             eventRender: function (event, element, webData) {
+              eventRender: function (event, element, webData) {
                       if(event.start < today)
                         element.css('background-color', '#D3D3D3');  
                       else
@@ -183,9 +183,8 @@ $(document).ready(function() {
                           container: 'body',
                           template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
                     });       
-             },
-             eventMouseover: function(event, jsEvent, view) {
-  
+            },
+            eventMouseover: function(event, jsEvent, view) {
             }
     });//calendar //fincalendar 
        $('#patient').editableSelect({
@@ -231,16 +230,17 @@ $(document).ready(function() {
 </script>
 @endsection
 @section('main-content')
+<!-- <div class="row"><div class="col-sm-12 col-xs-12">
+  <div class="panel panel-default mt-20" width="100%">&nbsp;&nbsp;&nbsp;&nbsp; <div class="panel-heading mt-20"><div class="left"> <strong>Ajouter un Rendez-Vous</strong></div></div>
+    <div class="panel-body">  <div id='calendar'></div></div><div class="panel-footer">
+      <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><h7><strong>&nbsp;RDV fixe</strong></h7>  <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><h7>&nbsp;RDV à fixer<strong></strong></h7>
+</div></div> </div></div> -->
+<div class="row mt-20"><div class="col-sm-12"> <h4>Ajouter un Rendez-Vous</h4></div></div>
+<div class="row"> <div class="col-sm-12" id='calendar'></div></div>
 <div class="row">
-  <div class="col-sm-12 col-xs-12">
-    <div class="panel panel-default mt-20" width="100%">&nbsp;&nbsp;&nbsp;&nbsp;
-      <div class="panel-heading mt-20"> <div class="left"> <strong>Ajouter un Rendez-Vous</strong></div></div>
-      <div class="panel-body">  <div id='calendar'></div> </div>
-      <div class="panel-footer">
-        <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><h7><strong>&nbsp;RDV fixe</strong></h7>
-        <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><h7>&nbsp;RDV à fixer<strong></strong></h7>
-      </div>
-    </div>
+  <div class="col-sm-12 col-sm-12">
+    <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><h7><strong>&nbsp;RDV fixe</strong></h7>
+    <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><h7>&nbsp;RDV à fixer<strong></strong></h7>
   </div>
 </div>
 <div class="row">@include('rdv.ModalFoms.add')</div><div class="row">@include('rdv.ModalFoms.show')</div>

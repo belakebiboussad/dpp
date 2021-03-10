@@ -4,6 +4,7 @@
   <title>Résumé Standard de Sortie</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/styles.css">
     <style type="text/css">
     table 
     {
@@ -14,39 +15,9 @@
         border: 1px solid black;
         padding: 5px;
     }
-    .section
-    {
-      margin-bottom: 20px;
-    }
-    .sec-gauche
-    {
-      float: left;
-    }
-    .sec-droite
-    {
-      float: right;
-    }
-    .center
-    {
-      text-align: center;
-    }
     .col-sm-12
     {
       margin-bottom: 10px;
-    }
-    .mt-15{
-        margin-top:-15px;
-    }
-    .mt-20{
-      margin-top:-20px;
-    }
-    .foo{
-      position: absolute;
-      top: 90%;
-      right: 22%;
-    }
-    tr.noBorder td {
-      border: 0;
     }
   </style>
 </head>

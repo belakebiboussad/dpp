@@ -123,7 +123,7 @@
 	</div><!-- col-sm-8  -->
 	<div class="col-sm-4 col-xs-4">
 		<div class="widget-box widget-color-blue col-xs-12 col-sm-12 invisible" id="widget-box2">
-			<div class="widget-header" style = " width : 104%; margin-left : -3% ">
+			<div class="widget-header" style = " width : 104%; margin-left :-3% ">
 				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Ajouter une Hospitalisation</h5>
 			</div>
 			<div class="widget-body">

@@ -207,52 +207,52 @@
       lignes=document.getElementById("table1").getElementsByTagName("tr");//seling=ling.getElementsByClassName("active");
       tableau = document.getElementById("table2");
       for(var i=0;i<lignes.length;i++){
-          if (lignes[i].className=='active')
-          {
-            lignes[i].classList.remove(active_class);
-            var col=lignes[i].getElementsByTagName("td");
-            nligne = tableau.insertRow(-1);//on a ajouté une ligne
-            var colonne0 = nligne.insertCell(0);
-            colonne0.innerHTML += col[0].innerHTML;
-            colonne0.style.display='none';
-            var colonne1 = nligne.insertCell(1);
-            colonne1.innerHTML += col[1].innerHTML;
-            var colonne2 = nligne.insertCell(2);
-            colonne2.innerHTML += col[2].innerHTML; 
-            var colonne3 = nligne.insertCell(3);
-            colonne3.innerHTML += col[3].innerHTML;
-            colonne3.style.display='none';      
-            var colonne4 = nligne.insertCell(4);
-            colonne4.innerHTML += col[4].innerHTML;
-            colonne4.style.display='none';      
-            var colonne5 = nligne.insertCell(5);
-            var chm =col[5].getElementsByTagName("select");
-            var s = chm[0].selectedIndex;
-            colonne5.innerHTML += col[5].innerHTML;
-            chm=colonne5.getElementsByTagName("select");
-            chm[0].options[s].selected='selected';
-            chm[0].disabled=true;
-            id_medt.push(chm[0].options[s].value);//colonne5.innerHTML += chm[0].options[s].text;
-            var colonne6 = nligne.insertCell(6);
-            colonne6.innerHTML += col[6].innerHTML;
-            chm=col[6].getElementsByTagName('input');
-            for(var j = 0;j < chm.length; j++){
-                if(chm[j].checked)s=j;}
-            chm=colonne6.getElementsByTagName('input');
-            chm[s].checked=true;
-            id_prio.push(chm[s].value);
-            colonne6.style.display='none';
-            var colonne7 = nligne.insertCell(7);
-            colonne7.innerHTML += col[7].innerHTML;
-            chm= col[7].getElementsByTagName('textarea');
-            s=chm[0].value;
-            chm=colonne7.getElementsByTagName('textarea');
-            chm[0].value=s;                 
-            obs.push(s);                        
-            colonne7.style.display='none';
-            id_demh.push(col[0].innerHTML); //$(lignes[i]).appendTo('#table2');
-            document.getElementById("table1").deleteRow(i);
-          }
+        if (lignes[i].className=='active')
+        {
+          lignes[i].classList.remove(active_class);
+          var col=lignes[i].getElementsByTagName("td");
+          nligne = tableau.insertRow(-1);//on a ajouté une ligne
+          var colonne0 = nligne.insertCell(0);
+          colonne0.innerHTML += col[0].innerHTML;
+          colonne0.style.display='none';
+          var colonne1 = nligne.insertCell(1);
+          colonne1.innerHTML += col[1].innerHTML;
+          var colonne2 = nligne.insertCell(2);
+          colonne2.innerHTML += col[2].innerHTML; 
+          var colonne3 = nligne.insertCell(3);
+          colonne3.innerHTML += col[3].innerHTML;
+          colonne3.style.display='none';      
+          var colonne4 = nligne.insertCell(4);
+          colonne4.innerHTML += col[4].innerHTML;
+          colonne4.style.display='none';      
+          var colonne5 = nligne.insertCell(5);
+          var chm =col[5].getElementsByTagName("select");
+          var s = chm[0].selectedIndex;
+          colonne5.innerHTML += col[5].innerHTML;
+          chm=colonne5.getElementsByTagName("select");
+          chm[0].options[s].selected='selected';
+          chm[0].disabled=true;
+          id_medt.push(chm[0].options[s].value);//colonne5.innerHTML += chm[0].options[s].text;
+          var colonne6 = nligne.insertCell(6);
+          colonne6.innerHTML += col[6].innerHTML;
+          chm=col[6].getElementsByTagName('input');
+          for(var j = 0;j < chm.length; j++){
+              if(chm[j].checked)s=j;}
+          chm=colonne6.getElementsByTagName('input');
+          chm[s].checked=true;
+          id_prio.push(chm[s].value);
+          colonne6.style.display='none';
+          var colonne7 = nligne.insertCell(7);
+          colonne7.innerHTML += col[7].innerHTML;
+          chm= col[7].getElementsByTagName('textarea');
+          s=chm[0].value;
+          chm=colonne7.getElementsByTagName('textarea');
+          chm[0].value=s;                 
+          obs.push(s);                        
+          colonne7.style.display='none';
+          id_demh.push(col[0].innerHTML); //$(lignes[i]).appendTo('#table2');
+          document.getElementById("table1").deleteRow(i);
+        }
       }
       lignes=null;
     }
