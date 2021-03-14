@@ -51,13 +51,13 @@
     <section class="borderv">
       <span class="marge">&nbsp;&nbsp;&nbsp;&nbsp;je soussigné M ,Mme  :</span><span>{{ $obj->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->nom }}&nbsp;{{ $obj->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->prenom}}<span><br/>
       <span class="marge">&nbsp;&nbsp;&nbsp;&nbsp;Demande de sortie de l'hopital :</span>
-      <span>&nbsp;{{ (App\modeles\Lieuconsultation::find(session('lieu_id'))->nom )}}</span><br/>	
+      <span>&nbsp;{{ (App\modeles\Etablissement::find(session('lieu_id'))->nom )}}</span><br/>	
       <span class="marge">&nbsp;&nbsp;&nbsp;&nbsp;Du patient :</span><span>{{ $obj->patient->Nom }}&nbsp;{{ $obj->patient->Prenom }}</span><br/>
       <span class="marge">&nbsp;&nbsp;&nbsp;&nbsp;immédiatement :</span>&nbsp;<span>(ou Le :{{ $obj->Date_Sortie == null ? "Pas encore" : $obj->Date_Sortie }}</span>
       <span> heures :{{$obj->Heure_sortie}}).</span><br/><br/>
       <span>&nbsp;&nbsp;&nbsp;&nbsp;j'ai été clairement informé de l'avie médical contraire du médcin responsable a cette sortie , ce dernier</span>
       <span> l'estimant  prématurée et présentant un danger pour la santé de mon patient </span><br/><br/><br/><br/>
-      <span>&nbsp;&nbsp;&nbsp;&nbsp;Fait  à </span><span>&nbsp;{{ (App\modeles\Lieuconsultation::find(session('lieu_id'))->nom )}}</span>&nbsp;&nbsp;
+      <span>&nbsp;&nbsp;&nbsp;&nbsp;Fait  à </span><span>&nbsp;{{ (App\modeles\Etablissement::find(session('lieu_id'))->nom )}}</span>&nbsp;&nbsp;
       <span>&nbsp;&nbsp;&nbsp;&nbsp;le</span>{{ $date}}<span></span><br/><br/>	
     	<span>&nbsp;&nbsp;&nbsp;&nbsp;Signature</span>	
      	<!-- <div class="space"></div><div class="space"></div> -->

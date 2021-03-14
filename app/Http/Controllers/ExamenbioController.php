@@ -6,11 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\modeles\examenbiologique;
 use Jenssegers\Date\Date;
-//use App\modeles\patient;
-//use App\modeles\antecedant;//use App\modeles\consultation;//use App\modeles\Lieuconsultation;//use App\modeles\codesim;
 use App\modeles\demandeexb;
 use Illuminate\Support\Facades\Auth;
-
 class ExamenbioController extends Controller
 {
     /**

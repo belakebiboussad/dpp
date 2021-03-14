@@ -1,9 +1,10 @@
-<div class="col-xs-5 col-sm-5 widget-container-col" id="widget-container-col-2">
+<div class="col-sm-5 col-xs-12 widget-container-col" id="widget-container-col-2">
 	<div class="widget-box widget-color-blue" id="widget-box-2">
 		<div class="widget-header">
 			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Consultations</h5>
 			<div class="widget-toolbar widget-toolbar-light no-border">
-				<div class="fa fa-plus-circle"></div><a href="/consultations/create/{{$patient->id}}"><b>Consultation </b></a>
+				{{-- <div class="fa fa-plus-circle"></div> --}}{{-- <b>Consultation </b> --}}
+				<a href="/consultations/create/{{$patient->id}}"><i class="fa fa-plus-circle bigger-180" style="color:black"></i></a>
 			</div>
 		</div><!-- widget-header -->
 		<div class="widget-body">
@@ -36,6 +37,6 @@
 		</div><!-- widget-body -->
 	</div>
 </div>
-<div class="col-sm-7" id="consultDetail">
+<div class="col-sm-7 col-xs-12" id="consultDetail">
 
 </div>

@@ -29,8 +29,7 @@
 		.center
 		{
 			text-align: center;
-		}
-	/*	.col-sm-12	{			margin-bottom: 10px;		}*/
+		}/*	.col-sm-12	{			margin-bottom: 10px;		}*/
 	</style>
 </head>
 <body>

@@ -7,51 +7,27 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/styles.css">
 		<style>
-			/*.mt-10 {
-        margin-top: -10px !important;
-      }*/
-			.pt-10 {
-				padding-top:-10px  !important ;
-			}
-			.mt-50{
-			       margin-top:-50px;
-			}
-			.mt-5 {
-				margin-top: -5px !important;
-			}
-			.pt-5 {
-        padding-top:-5px  !important ;
-			}
-			.mt-18 {
-				margin-top: -18px !important;
-				padding-top:-18px !important;
-			}
-			.mt-1{
-					margin-top: 1px !important;
-				  padding-top:1px !important;
-			}
 			.imgCenter{
 					text-align: center;/*border: 1px solid black;*/
   					width:13%;/*margin-top: -10px !important;*/
   					height:13%;
 			}
 			#container {
-		    display: table;
-		  }
+		  		  display: table;
+		 	 }
 			#row  {
-		  	display: table-row;
-		  }
+		  		display: table-row;
+		 	 }
 			#left, #right, #middle {
-			  display: table-cell;
-			  font-size:xx-small; /* padding: 5px;*/
-			     
-		  }			
-		  #parent {
-		  	width:100%;
-  			height:85px;/*70px*/
-  			border: 0.5px solid black !important;
-  			border-radius: 5px !important;
-  		}
+				  display: table-cell;
+				  font-size:xx-small; /* padding: 5px;*/     
+		  	}			
+		  	#parent {
+		  		width:100%;
+  				height:85px;/*70px*/
+  				border: 0.5px solid black !important;
+  				border-radius: 5px !important;
+  			}
 		</style>
 	</head>
 	<body>
@@ -74,7 +50,7 @@
 		  <div class="row"><hr class ="mt-10 pt-10"> </div>
 		  <div class="row">
 		   	<div class="col-md-4  col-sm-4 float-left" style="font-size:x-small;"></div>
-		   	<div class="col-md-4 col-sm-4 content text-center mt-18"><h4><strong>Rendez-Vous de Consultation</strong></h4></div>		
+		   	<div class="col-md-4 col-sm-4 content text-center mt-18 pt-18"><h4><strong>Rendez-Vous de Consultation</strong></h4></div>		
 		  </div><br>	
 		  <div class="row mt-5 pt-5">
 			  <div class="col-sm-12">Rendez-vous avec le <strong>Docteur</strong> {{ $rdv->employe->nom}}&nbsp;{{ $rdv->employe->prenom}}</div>
@@ -86,7 +62,7 @@
 		  </div>
 		  <div class="row">	<div class="col-sm-12"><strong>Nom : </strong><span>{{ $rdv->patient->Nom}}</span></div></div>
 		  <div class="row" ><div class="col-sm-12"><strong>Prenom : </strong><span>{{ $rdv->patient->Prenom}}</span> </div></div>
-		  <div id="container" class="mt-1">
+		  <div id="container" class="mt-1 pt-1">
 		 	<div id="row">
 		 		<div id="left">
 		 			<img src="data:image/png;base64,{{DNS2D::getBarcodePNG($rdv->id.'|'.$rdv->employe->specialite.'|'.Carbon\Carbon::parse($rdv->Date_RDV)->format('d-m-Y').'|'.$rdv->patient->IPP, 'QRCODE')}}" alt="barcode"/><br>	
@@ -96,7 +72,7 @@
 		 				<div id = "parent">	 				
 		 					<span>&nbsp;Le jour de votre consultation</span>
 			 				<ul style="font-size: xx-small;">	
-			 					<li>Rapportez ce Ticket	</li>
+			 					<li>Rapportez ce Ticket</li>
 			 					<li>	Raportez tous les documents Médicaux en votre possession (résultats d'analyses, radiographies,etc.)</li>
 			 					<li>En arrivant à l'hôpital recupéré votre ticket d'ordre depuis la borne.</li>
 			 				</ul> 

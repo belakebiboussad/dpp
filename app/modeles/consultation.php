@@ -39,7 +39,7 @@ class consultation extends Model
     }
     public function lieu()
     {
-        return $this->belongsTo('App\modeles\Lieuconsultation','id_lieu');
+        return $this->belongsTo('App\modeles\Etablissement','id_lieu');
     }
     public function demandeHospitalisation()
     {

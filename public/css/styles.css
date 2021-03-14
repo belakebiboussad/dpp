@@ -24,11 +24,20 @@
 .sec-droite{
   float: right;
 }
-.mt-2 {
+.mt-1 {
+          margin-top: 1px !important;
+}
+ .mt-2 {
   margin-top: -2px !important;
 }
 .mt-3 {
         margin-top: +6px !important;
+}
+.mt-5 {
+  margin-top: -5px !important;
+}
+.mt-6 {
+        margin-top: -6px !important;
 }
 .mt-10{
         margin-top:-10px;
@@ -39,30 +48,22 @@
 .mt-15 {
         margin-top:-15px;
 }
+.mt-18 {
+  margin-top: -18px !important; 
+}
 .mt-20 {
   margin-top:-1.4%; /*margin-top:-20px;*/
 }
 .mt-40 {
   margin-top:-40px;
 }
-.mt-5 {
-  margin-top: -5px !important;
-}
 .mt-50 {
   margin-top:-50px;
 }
-.pt-5 {
-  padding-top:-5px  !important ;
+.mt12 {
+    padding-top:+12px;/*padding-top:-0.7%*/
 }
-.mt-6 {
-        margin-top: -6px !important;
-}
-.mt-18 {
-  margin-top: -18px !important; 
-}
-.pt-18 {
-  padding-top:-18px !important;
-}
+
 .ml-2 {
   margin-left: +0.5%;
 }
@@ -75,8 +76,17 @@
 .mb-10 {
     margin-bottom: 10px;
  }
-.mt12 {
-    padding-top:+12px;/*padding-top:-0.7%*/
+ .pt-1 {
+       padding-top:1px !important;
+}
+.pt-5 {
+  padding-top:-5px  !important ;
+}
+.pt-10 {
+        padding-top:-10px  !important ;
+}
+.pt-18 {
+    padding-top:-18px !important;
 }
  tr.noBorder td {
       border: 0;
