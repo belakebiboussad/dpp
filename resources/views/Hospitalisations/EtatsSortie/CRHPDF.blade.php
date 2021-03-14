@@ -1,8 +1,8 @@
 <html>
   <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
+  <link rel="stylesheet" href="css/styles.css">
   <title>Resume Clinique de Sortie</title>
   <style>
     table {
@@ -11,24 +11,6 @@
     table, th, td {
         border: 1px solid black;
         padding: 5px;
-    }
-    .center {
-      text-align: center;
-    }
-    .sec-droite {
-      float: right;
-    }
-    .col-sm-12 {
-      margin-bottom: 10px;
-    }
-    .mt-15 {
-        margin-top:-15px;
-    }
-    .mt-20 {
-      margin-top:-20px;
-    }
-    tr.noBorder td {
-      border: 0;
     }
     .rectangle {
       width:100%;

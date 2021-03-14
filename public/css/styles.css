@@ -1,4 +1,4 @@
-/*@import url('/css/bootstrap.min.css');*/
+@import url('/css/bootstrap.min.css');*/
 .removeButton{
   margin-bottom: 2px;
   margin-left: 0px;
@@ -25,7 +25,7 @@
   float: right;
 }
 .mt-2 {
-         margin-top: -2px !important;
+  margin-top: -2px !important;
 }
 .mt-3 {
         margin-top: +6px !important;
@@ -33,50 +33,73 @@
 .mt-10{
         margin-top:-10px;
 }
-.mt12{
-    padding-top:+12px;/*padding-top:-0.7%*/
+.mt-12 {
+    padding-top:-12px;/*padding-top:-0.7%*/
 }
-.mt-15{
+.mt-15 {
         margin-top:-15px;
 }
-.mt-20{
+.mt-20 {
   margin-top:-1.4%; /*margin-top:-20px;*/
 }
-.ml-2{
-        margin-left: +0.5%;
+.mt-40 {
+  margin-top:-40px;
 }
-.ml-4{
-        margin-left: +4%;
+.mt-5 {
+  margin-top: -5px !important;
 }
-.ml-80{
+.mt-50 {
+  margin-top:-50px;
+}
+.pt-5 {
+  padding-top:-5px  !important ;
+}
+.mt-6 {
+        margin-top: -6px !important;
+}
+.mt-18 {
+  margin-top: -18px !important; 
+}
+.pt-18 {
+  padding-top:-18px !important;
+}
+.ml-2 {
+  margin-left: +0.5%;
+}
+.ml-4 {
+  margin-left: +4%;
+}
+.ml-80 {
        margin-left: +80%;
 }
-.mb-10{
+.mb-10 {
     margin-bottom: 10px;
-  }
+ }
+.mt12 {
+    padding-top:+12px;/*padding-top:-0.7%*/
+}
  tr.noBorder td {
       border: 0;
 }
-}
-.foo{
+.foo {
       position: absolute;
       top: 90%;
       right: 22%;
 }
-.modal-backdrop{
+.modal-backdrop {
   z-index:0;
 }
 #RDV {
  z-index: 1040 !important;
 }
 fieldset.scheduler-border {
-    border: 1px groove #ddd !important;
-    padding: 0 1.4em 1.4em 1.4em !important;
-    margin: 0 0 1.5em 0 !important;
-     -webkit-box-shadow:  0px 0px 0px 0px #000;
-     box-shadow:  0px 0px 0px 0px #000;
+  border: 1px groove #ddd !important;
+  padding: 0 1.4em 1.4em 1.4em !important;
+  margin: 0 0 1.5em 0 !important;
+  -webkit-box-shadow:  0px 0px 0px 0px #000;
+  box-shadow:  0px 0px 0px 0px #000;
 }
-}
+/*}*/
 /*.main-content{ margin-top: -1%;}*/
 .modal-footer ,.modal-header {
   background-color: #438eb9;
@@ -184,4 +207,4 @@ fieldset.scheduler-border {
 { 
     #nav-bar { font-size: 1em } 
 }
-/**/
+/*

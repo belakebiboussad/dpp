@@ -1,8 +1,7 @@
 <html>
     <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><!--<link rel="stylesheet" href="css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="css/styles.css">
     <title>Certificat medical</title>
       <style>
@@ -39,12 +38,12 @@
     </head>
     <body>
       <div class="container-fluid" id="myDiv">
-        <h4 class="mt12 center">DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</h4>
+        <h4 class="mt-12 center">DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</h4>
         <h4 class="center">ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</h4>
         <h4 class="center">Chemin des Glycines - ALGER</h4>
         <h4 class="center">Tél : 023-93-34</h4>
         <h5 class="mt-15 center" ><img src="img/logo.png" style="width: 60px; height: 60px" alt="logo"/></h5>
-        <h5 class="mt-20 center"><span style="font-size: xx-large;"><strong>Certificat medical</strong></span></h5>
+        <h3 class="center mt-20"><strong>Certificat medical</strong></h3>
         <div class="row"><br><span class="ml-80">Alger le {{ $date}}</span><br><br></div>
         <div class="row"><div class="col-sm-12"><strong>Service : </strong>
           <span>{{ $obj->docteur->Service->nom }}</span> </div>

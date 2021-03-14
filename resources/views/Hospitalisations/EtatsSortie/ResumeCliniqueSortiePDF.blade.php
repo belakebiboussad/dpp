@@ -2,8 +2,7 @@
   <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/styles.css">
+   <link rel="stylesheet" href="css/styles.css">
   <title>Resume Clinique de Sortie</title>
   <style>
       table 
@@ -15,13 +14,9 @@
         border: 1px solid black;
         padding: 5px;
     }
-    .col-sm-12
-    {
-      margin-bottom: 10px;
-    }
-    </style>
-    </head>
-    <body>
+   </style>
+  </head>
+  <body>
     <div class="container-fluid">
             <h2 class="mt-20 center">DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</h2>
           <h4 class="center">ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</h4>
@@ -29,9 +24,9 @@
           <h4 class="center">Tél : 023-93-34</h4>
           <h5 class="mt-15 center" ><img src="img/logo.png" style="width: 60px; height: 60px" alt="logo"/></h5>
           <h5 class="mt-20 center"><span style="font-size: xx-large;"><strong>Résumé Clinique de Sortie</strong></span> </h5><br><br>  
-          <div class="row">   <div class="col-sm-12"><strong>Etablisement : </strong><span>{{ (App\modeles\Lieuconsultation::find(session('lieu_id'))->nom )}}</span></div></div>
-          <div class="row" ><div class="col-sm-12"><strong>Service : </strong><span>{{ $obj->admission->rdvHosp->demandeHospitalisation->Service->nom }}</span></div></div>
-          <div class="row" ><div class="col-sm-12"><strong>Chef de servise : </strong><span>{{ $obj->admission->rdvHosp->demandeHospitalisation->Service->responsable->nom }} {{ $obj->admission->rdvHosp->demandeHospitalisation->Service->responsable->prenom }}</span></div>
+          <div class="row">   <div class="mb-10"><strong>Etablisement : </strong><span>{{ (App\modeles\Lieuconsultation::find(session('lieu_id'))->nom )}}</span></div></div>
+          <div class="row" ><div class="mb-10"><strong>Service : </strong><span>{{ $obj->admission->rdvHosp->demandeHospitalisation->Service->nom }}</span></div></div>
+          <div class="row" ><div class="mb-10"><strong>Chef de servise : </strong><span>{{ $obj->admission->rdvHosp->demandeHospitalisation->Service->responsable->nom }} {{ $obj->admission->rdvHosp->demandeHospitalisation->Service->responsable->prenom }}</span></div>
           </div> <br><hr/>
         <section class="table"> 
           <table class="head" style="width:100%;">

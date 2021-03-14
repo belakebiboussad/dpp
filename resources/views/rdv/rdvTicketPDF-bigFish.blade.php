@@ -5,22 +5,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/styles.css">
 		<style>
-			.mt-3 {
-         			margin-top: -5px !important;
-			}
-			/*.mt-3 {margin-top: -10px !important;	padding-top:-10px  !important ;	}*/
-			.mt-10{
-			       margin-top:-50px;
-			}
-			.mt-8{
-				margin-top: -5px !important;
-        padding-top:-5px  !important ;
-			}
-			.mt-18 {
-				margin-top: -18px !important;
-				padding-top:-18px !important;
-			}
 			.mb-12{
 					margin-top: +10px !important;
        		padding-top:+10px  !important ;
@@ -60,25 +46,24 @@
 		<div class="container-fluid">
 		  <div class="row">
 			  <div class="col-sm-12">
-			   	<div class="content text-center mt-10">
+			   	<div class="content text-center mt-50">
 			      <h5><strong>DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</strong></h5>
-			      <h6 class="mt-3" style =" margin-left: -7px;margin-right:-7px;"><strong>ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</strong></h6>
-			      <h6 class="mt-3"><strong> Chemin des Glycines - ALGER</strong><span> - Tél : 023-93-34</span></h6>
+			      <h6 class="mt-5" style =" margin-left: -7px;margin-right:-7px;"><strong>ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</strong></h6>
+			      <h6 class="mt-5"><strong> Chemin des Glycines - ALGER</strong><span> - Tél : 023-93-34</span></h6>
 			   	</div>
 			  </div>
 		  </div>
-		  <div class="row mt-3">
-			  <div class="col-sm-12 content text-center">
-				 <div class="col-sm-4"></div>
-				 <div class="col-sm-4"><img class = "imgCenter" src="img/logo.png"/></div><div class="col-sm-4"></div>    
+		  <div class="row mt-5">
+			  <div class="col-sm-12 content text-center"><div class="col-sm-4"></div>
+				<div class="col-sm-4"><img class = "imgCenter" src="img/logo.png"/></div><div class="col-sm-4"></div>    
 				</div>
       </div>
-		  <div class="row"><hr class ="mt-3"> </div>
+		  <div class="row"><hr class ="mt-5"> </div>
 		  <div class="row">
 		   	<div class="col-md-4  col-sm-4 float-left" style="font-size:x-small;"></div>
-		   	<div class="col-md-4 col-sm-4 content text-center mt-18"><h4><strong>Rendez-Vous de Consultation</strong></h4></div>		
+		   	<div class="col-md-4 col-sm-4 content text-center mt-18 pt-18"><h4><strong>Rendez-Vous de Consultation</strong></h4></div>		
 		  </div><br>	
-		  <div class="row mt-8">
+		  <div class="row mt-5 pt-5">
 			  <div class="col-sm-12"><!-- Rendez-vous avec le <strong>Docteur</strong> {{ $rdv->employe->nom}}&nbsp;{{ $rdv->employe->prenom}} -->
 			  	Rendez-vous dans la &nbsp;<strong>Spécialitè</strong>&nbsp;{{ $rdv->employe->Specialite->nom}}
 			  </div>

@@ -98,12 +98,10 @@ class RDVController extends Controller
            if(isset($patient_id) && !empty($patient_id))
                 $patient = patient::FindOrFail($patient_id);
            else
-                $patient = new patient;
-         // dd($patient->id); 
-          return view('rdv.create', compact('rdvs','specialites','patient'));  // }elsereturn view('rdv.create', compact('rdvs','specialites'));   
-         
-        }
+              $patient = new patient;  // dd($patient->id); 
+              return view('rdv.create', compact('rdvs','specialites','patient'));  // }elsereturn view('rdv.create', compact('rdvs','specialites'));   
       }
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -232,7 +230,8 @@ class RDVController extends Controller
                 'format' =>'data-url'
         ]);
         $img = $renderer->render($data);
-        $viewhtml = View::make('rdv.rdvTicketPDF-bigFish', array('rdv' =>$rdv,'img'=>$img))->render();
+        // $viewhtml = View::make('rdv.rdvTicketPDF-bigFish', array('rdv' =>$rdv,'img'=>$img))->render();
+        $viewhtml = View::make('rdv.rdvTicketPDF-DNS2D', array('rdv' =>$rdv,'img'=>$img))->render();
         $dompdf = new Dompdf();
         $dompdf->loadHtml($viewhtml);
         $dompdf->setPaper('a6', 'landscape');
