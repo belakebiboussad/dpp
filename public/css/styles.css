@@ -51,8 +51,12 @@
 .ml-80{
        margin-left: +80%;
 }
+.mb-10{
+    margin-bottom: 10px;
+  }
  tr.noBorder td {
       border: 0;
+}
 }
 .foo{
       position: absolute;
