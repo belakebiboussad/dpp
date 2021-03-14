@@ -44,6 +44,7 @@ Route::resource('acte','ActeController');
 Route::resource('traitement','TraitementController');
 Route::resource('surveillance','SurveillanceController');
 Route::resource('reservation','BedReservationController');
+Route::resource('etablissement','EtablissementControler');
 route::get('/home_admin',function (){
     $users = App\User::all();
     return view('home.home_admin',compact('users'));

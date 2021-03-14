@@ -16,7 +16,7 @@
 							<label class="col-sm-3 control-label no-padding-right blue" for="nom"><strong> Nom : </strong></label>
 							<div class="col-sm-9"><strong>{{ $service->nom }}</strong></div>
 						</div>
-						<div class="space-12"></div>
+						<div class="space-12 hidden-xs"></div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right blue" for="type"><strong>Type:</strong></label>
 							<div class="col-sm-9">
@@ -33,14 +33,14 @@
 									@endswitch
 							</div>
 						</div>
-						<div class="space-12"></div><div class="space-12"></div>
+						<div class="space-12 hidden-xs"></div><div class="space-12 hidden-xs"></div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right blue" for="type"><strong>Chef de Service:</strong></label>
 							<div class="col-sm-9">
 							<strong>{{ $service->responsable->nom }} {{ $service->responsable->prenom }}</strong>
 							</div>
 						</div>
-						<div class="space-12"></div><div class="space-12"></div>
+						<div class="space-12 hidden-xs"></div><div class="space-12 hidden-xs"></div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right blue" for="type"><strong>Urgence:</strong></label>
 							<div class="col-sm-9">

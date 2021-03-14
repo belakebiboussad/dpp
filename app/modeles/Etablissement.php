@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Etablissement extends Model
 {
   public $timestamps = false;
-  ptotected $table = "etablissement";
+  protected $table = "etablissement";
   protected $fillable = ['nom'];
 }

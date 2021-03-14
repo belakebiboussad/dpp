@@ -15,7 +15,7 @@ function getServiceRoom($id)
 </script>
 @endsection
 @section('main-content')
-<div class="page-header"><h1>Services du l'Hôpital</h1></div>
+<div class="row"><h3>Services du l'Hôpital</h3></div>
 <div class="row">
 	<div class="col-sm-7 col-xs-12 widget-container-col" id="widget-container-col-2">
 		<div class="widget-box widget-color-blue" id="widget-box-2">

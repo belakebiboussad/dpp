@@ -9,7 +9,7 @@ use App\modeles\codesim;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Jenssegers\Date\Date;
-//use App\modeles\Etablissement;
+use App\modeles\Etablissement;
 use App\modeles\DemandeHospitalisation;
 use App\modeles\examenbiologique;
 use App\modeles\examenimagrie;
@@ -93,18 +93,19 @@ class ConsultationsController extends Controller
      */
      public function store(Request $request)
      {
-          $request->validate([
-              "motif" => 'required',
-              "resume" => 'required',
-          ]);
-          $validator = Validator::make($request->all(), [
-            'motif' => 'required|max:255',
-            'resume' => 'required',
-          ]);
-          if($validator->fails())
-                return redirect()->back()->withErrors($validator)->withInput();
-          $fact = facteurRisqueGeneral::updateOrCreate( ['patient_id' =>  request('patient_id')], $request->all());
-          $consult = consultation::create([
+             $request->validate([
+                    "motif" => 'required',
+                    "resume" => 'required',
+            ]);
+            $validator = Validator::make($request->all(), [
+                  'motif' => 'required|max:255',
+                  'resume' => 'required',
+             ]);
+              if($validator->fails())
+                   return redirect()->back()->withErrors($validator)->withInput();
+             $etablissement = Etablissement::first(); 
+            $fact = facteurRisqueGeneral::updateOrCreate( ['patient_id' =>  request('patient_id')], $request->all());
+           $consult = consultation::create([
                 "motif"=>$request->motif,
                 "histoire_maladie"=>$request->histoirem,
                 "Date_Consultation"=>Date::Now(),
@@ -115,7 +116,7 @@ class ConsultationsController extends Controller
                 "Employe_ID_Employe"=>Auth::User()->employee_id,
                 "Patient_ID_Patient"=>$request->patient_id,
                 "id_code_sim"=>$request->codesim,
-                "id_lieu"=>session('lieu_id'),
+               "id_lieu"=>$etablissement->id// "id_lieu"=>session('lieu_id'),
            ]);
           foreach($consult->patient->rdvs as $rdv)
           {
