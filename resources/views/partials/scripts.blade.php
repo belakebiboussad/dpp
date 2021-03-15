@@ -286,7 +286,6 @@
             //décocher le checkbox
             var chm =col[1].getElementsByTagName("input");
             chm[0].checked=false;
-
             //afficher les colonnes cachées
             for (var j = 1; j < col.length; j++) {
                 if (col[j].style.display === 'none') 
@@ -411,8 +410,6 @@ $('#typeexm').on('change', function() {
   $('#flash-overlay-modal').modal();
 </script>
 <script type="text/javascript">
-/* function medicm(med){ $.ajax({type: 'GET',url: '/getmed/'+med,dataType: "json",success: function (result){$("#nommedic").val(result['Nom_com']+' '+result['Dosage']);$("#forme").val(result['Forme']);
-$("#medicamentId").val(result['id']);$("#conditionnement").val(result['Conditionnement']);$(".disabledElem").removeClass("disabledElem").addClass("enabledElem"); //$('#Ordonnance').reset();}});}*/
   function civilitefan()
   {
       if( $('#mdm').is(':checked') )
@@ -463,312 +460,281 @@ $("#medicamentId").val(result['id']);$("#conditionnement").val(result['Condition
           lettre.text(200,180,'signature',null,null,'right');
           var string = lettre.output('datauristring');
           $('#lettreorientation').attr('src', string);
-    }/*function storeord(){var arrayLignes = document.getElementById("ordonnance").rows;var longueur = arrayLignes.length;var tab = [];for(var i=1; i<longueur; i++){tab[i]=arrayLignes[i].cells[1].innerHTML +" "+arrayLignes[i].cells[2].innerHTML+" "+arrayLignes[i].cells[4].innerHTML;}var champ = $("<input type='text' name ='liste' value='"+tab.toString()+"' hidden>");champ.appendTo('#ordonnace_form');$('#ordonnace_form').submit();}*/
+    }
 </script>
 <script>
-            $('#users-table').DataTable({
-                 processing: true,
-                serverSide: true,
-                ordering: true,
-                 "bInfo" : false,
-                 searching: false,
-                 "language": {
-                "url": '/localisation/fr_FR.json'},
-                ajax: 'http://localhost:8000/getAddEditRemoveColumnData',
-                columns: [
-                    {data: 'name'},
-                    {data: 'email'},
-                    {data: 'action2', name: 'action2', orderable: false, searchable: false},
-                    {data: 'action', name: 'action', orderable: false, searchable: false}
-                ]
-            });
-        </script>
-        <script>
-            $('#patient-table-atcd').DataTable({
-                processing: true,
-                serverSide: true,
-                ordering: true,
-                "bInfo" : false,
-                searching: false,
-                "language": {
-                "url": '/localisation/fr_FR.json'},
-                ajax: 'http://localhost:8000/getpatientatcd',
-                columns: [
-                    {data: 'code_barre'},
-                    {data: 'Nom'},
-                    {data: 'Prenom'},
-                    {data: 'Dat_Naissance'},
-                    {data: 'Sexe'},
-                    {data: 'Type'},
-                    {data: 'Adresse'},
-                    {data: 'Date_creation'},
-                    {data: 'action2', name: 'action2', orderable: false, searchable: false},
-                    {data: 'action', name: 'action', orderable: false, searchable: false}
-                ],
-                "columnDefs": 
-                    [
-                        {
-                            "targets": [ 0 ],
-                            "visible": false,
-                        }
-                    ]
-            });
-        </script>
-        <!-- inline scripts related to this page -->
-        <script type="text/javascript">
-            $('.show-details-btn').on('click', function(e) {
-                    e.preventDefault();
-                    $(this).closest('tr').next().toggleClass('open');
-                    $(this).find(ace.vars['.icon']).toggleClass('fa-angle-double-down').toggleClass('fa-angle-double-up');
-                });
-           jQuery(function($) {
-                $('#id-disable-check').on('click', function() {
-                    var inp = $('#form-input-readonly').get(0);
-                    if(inp.hasAttribute('disabled')) {
-                        inp.setAttribute('readonly' , 'true');
-                        inp.removeAttribute('disabled');
-                        inp.value="This text field is readonly!";
-                    }
-                    else {
-                        inp.setAttribute('disabled' , 'disabled');
-                        inp.removeAttribute('readonly');
-                        inp.value="This text field is disabled!";
-                    }
-                });  
-                if(!ace.vars['touch']) {
-                    $('.chosen-select').chosen({allow_single_deselect:true}); 
-                    //resize the chosen on window resize
-                    $(window)
-                    .off('resize.chosen')
-                    .on('resize.chosen', function() {
-                        $('.chosen-select').each(function() {
-                             var $this = $(this);
-                             $this.next().css({'width': $this.parent().width()});
-                        })
-                    }).trigger('resize.chosen');
-                    //resize chosen on sidebar collapse/expand
-                    $(document).on('settings.ace.chosen', function(e, event_name, event_val) {
-                        if(event_name != 'sidebar_collapsed') return;
-                        $('.chosen-select').each(function() {
-                             var $this = $(this);
-                             $this.next().css({'width': $this.parent().width()});
-                        })
-                    });
-                    $('#chosen-multiple-style .btn').on('click', function(e){
-                        var target = $(this).find('input[type=radio]');
-                        var which = parseInt(target.val());
-                        if(which == 2) $('#form-field-select-4').addClass('tag-input-style');
-                         else $('#form-field-select-4').removeClass('tag-input-style');
-                    });
-                }
-            
-            
-                $('[data-rel=tooltip]').tooltip({container:'body'});
-                $('[data-rel=popover]').popover({container:'body'});
-            
-                autosize($('textarea[class*=autosize]'));
-                
-                $('textarea.limited').inputlimiter({
-                    remText: '%n character%s remaining...',
-                    limitText: 'max allowed : %n.'
-                });
-                $.mask.definitions['~']='[+-]';
-                  $('.input-mask-date').mask('99/99/9999');
-                  $('.input-mask-phone').mask('(999) 999-9999');
-                  $('.input-mask-eyescript').mask('~9.99 ~9.99 999');
-                  $(".input-mask-product").mask("a*-999-a999",{placeholder:" ",completed:function(){alert("You typed the following: "+this.val());}});  
-                   $( "#input-size-slider" ).css('width','200px').slider({
-                    value:1,
-                    range: "min",
-                    min: 1,
-                    max: 8,
-                    step: 1,
-                    slide: function( event, ui ) {
-                        var sizing = ['', 'input-sm', 'input-lg', 'input-mini', 'input-small', 'input-medium', 'input-large', 'input-xlarge', 'input-xxlarge'];
-                        var val = parseInt(ui.value);
-                        $('#form-field-4').attr('class', sizing[val]).attr('placeholder', '.'+sizing[val]);
-                    }
-                });
-            
-                $( "#input-span-slider" ).slider({
-                    value:1,
-                    range: "min",
-                    min: 1,
-                    max: 12,
-                    step: 1,
-                    slide: function( event, ui ) {
-                        var val = parseInt(ui.value);
-                        $('#form-field-5').attr('class', 'col-xs-'+val).val('.col-xs-'+val);
-                    }
-                });
-                //"jQuery UI Slider"
-                //range slider tooltip example
-                $( "#slider-range" ).css('height','200px').slider({
-                    orientation: "vertical",
-                    range: true,
-                    min: 0,
-                    max: 100,
-                    values: [ 17, 67 ],
-                    slide: function( event, ui ) {
-                        var val = ui.values[$(ui.handle).index()-1] + "";
-            
-                        if( !ui.handle.firstChild ) {
-                            $("<div class='tooltip right in' style='display:none;left:16px;top:-6px;'><div class='tooltip-arrow'></div><div class='tooltip-inner'></div></div>")
-                            .prependTo(ui.handle);
-                        }
-                        $(ui.handle.firstChild).show().children().eq(1).text(val);
-                    }
-                }).find('span.ui-slider-handle').on('blur', function(){
-                    $(this.firstChild).hide();
-                });
-                
-                
-                $( "#slider-range-max" ).slider({
-                    range: "max",
-                    min: 1,
-                    max: 10,
-                    value: 2
-                });
-                $( "#slider-eq > span" ).css({width:'90%', 'float':'left', margin:'15px'}).each(function() {  // read initial values from markup and remove that
-                   var value = parseInt( $( this ).text(), 10 );
-                    $( this ).empty().slider({
-                        value: value,
-                        range: "min",
-                        animate: true
-                        
-                    });
-                });
-                $("#slider-eq > span.ui-slider-purple").slider('disable');//disable third item
-                $('#id-input-file-1 , #id-input-file-2').ace_file_input({
-                    no_file:'No File ...',
-                    btn_choose:'Choose',
-                    btn_change:'Change',
-                    droppable:false,
-                    onchange:null,
-                    thumbnail:false //| true | large
-                    //whitelist:'gif|png|jpg|jpeg'
-                    //blacklist:'exe|php'
-                    //onchange:''
-                    //
-                });
-                //$('#id-input-file-1').ace_file_input('show_file_list', ['myfile.txt'])          
-                $('#id-input-file-3').ace_file_input({
-                    style: 'well',
-                    btn_choose: 'Drop files here or click to choose',
-                    btn_change: null,
-                    no_icon: 'ace-icon fa fa-cloud-upload',
-                    droppable: true,
-                    thumbnail: 'small' ,//large | fit
-                     preview_error : function(filename, error_code) {
-   //name of the file that failed  //error_code values //1 = 'FILE_LOAD_FAILED',//2 = 'IMAGE_LOAD_FAILED',    //3 = 'THUMBNAIL_FAILED'   //alert(error_code);
-                         }
-                }).on('change', function(){ //console.log($(this).data('ace_input_files')); //console.log($(this).data('ace_input_method'));
-                });     //dynamically change allowed formats by changing allowExt && allowMime function          
-                $('#id-file-format').removeAttr('checked').on('change', function() {
-                    var whitelist_ext, whitelist_mime;
-                    var btn_choose
-                    var no_icon
-                    if(this.checked) {
-                        btn_choose = "Drop images here or click to choose";
-                        no_icon = "ace-icon fa fa-picture-o";
-            
-                        whitelist_ext = ["jpeg", "jpg", "png", "gif" , "bmp"];
-                        whitelist_mime = ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/bmp"];
-                    }
-                    else {
-                        btn_choose = "Drop files here or click to choose";
-                        no_icon = "ace-icon fa fa-cloud-upload";
-                        whitelist_ext = null;//all extensions are acceptable
-                        whitelist_mime = null;//all mimes are acceptable
-                    }
-                    var file_input = $('#id-input-file-3');
-                    file_input
-                    .ace_file_input('update_settings',
-                    {
-                        'btn_choose': btn_choose,
-                        'no_icon': no_icon,
-                        'allowExt': whitelist_ext,
-                        'allowMime': whitelist_mime
-                    })
-                    file_input.ace_file_input('reset_input');
-                    
-                    file_input
-                    .off('file.error.ace')
-                    .on('file.error.ace', function(e, info) {          
-                    });
-             });
-            
-                $('#spinner1').ace_spinner({value:0,min:0,max:200,step:10, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
-                .closest('.ace-spinner')
-                .on('changed.fu.spinbox', function(){  //console.log($('#spinner1').val())
-               }); 
-                $('#spinner2').ace_spinner({value:0,min:0,max:10000,step:100, touch_spinner: true, icon_up:'ace-icon fa fa-caret-up bigger-110', icon_down:'ace-icon fa fa-caret-down bigger-110'});
-                $('#spinner3').ace_spinner({value:0,min:-100,max:100,step:10, on_sides: true, icon_up:'ace-icon fa fa-plus bigger-110', icon_down:'ace-icon fa fa-minus bigger-110', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
-                $('#spinner4').ace_spinner({value:0,min:-100,max:100,step:10, on_sides: true, icon_up:'ace-icon fa fa-plus', icon_down:'ace-icon fa fa-minus', btn_up_class:'btn-purple' , btn_down_class:'btn-purple'});
-            
-                $('.date-picker').datepicker({
-                    autoclose: true,
-                    todayHighlight: true,
-                    dateFormat: 'yy-mm-dd',
-                    language: 'fr',
-                    flat: true,
-                    calendars: 1,
-                })
-                 .next().on(ace.click_event, function(){    //show datepicker when clicking on the icon
-                    $(this).prev().focus();
-                });      //or change it into a date range picker
-              $('.input-daterange').datepicker({autoclose:true});
-               $('#simple-colorpicker-1').ace_colorpicker();
-               var tag_input = $('#form-field-tags');
-              try{
-                      tag_input.tag(
-                         {
-                        placeholder:tag_input.attr('placeholder'),
-                        source: ace.vars['US_STATES'],//defined in ace.js >> ace.enable_search_ahead
-                       }
-                    )
-                    var $tag_obj = $('#form-field-tags').data('tag');
-                    $tag_obj.add('Programmatically Added');
-                    var index = $tag_obj.inValues('some tag');
-                    $tag_obj.remove(index);
-                }
-                catch(e) {
-                     tag_input.after('<textarea id="'+tag_input.attr('id')+'" name="'+tag_input.attr('name')+'" rows="3">'+tag_input.val()+'</textarea>').remove();
-                }
-                
-                /////////
-                $('#modal-form input[type=file]').ace_file_input({
-                    style:'well',
-                    btn_choose:'Drop files here or click to choose',
-                    btn_change:null,
-                    no_icon:'ace-icon fa fa-cloud-upload',
-                    droppable:true,
-                    thumbnail:'large'
-                })
-                   $('#modal-form').on('shown.bs.modal', function () {
-                    if(!ace.vars['touch']) {
-                        $(this).find('.chosen-container').each(function(){
-                            $(this).find('a:first-child').css('width' , '210px');
-                            $(this).find('.chosen-drop').css('width' , '210px');
-                            $(this).find('.chosen-search input').css('width' , '200px');
-                        });
-                    }
-                   })
-                     $(document).one('ajaxloadstart.page', function(e) {
-                    autosize.destroy('textarea[class*=autosize]')
-                    $('.limiterBox,.autosizejs').remove();
-                    $('.daterangepicker.dropdown-menu,.colorpicker.dropdown-menu,.bootstrap-datetimepicker-widget.dropdown-menu').remove();
-                });
-            
-            });       
-            $('#user-profile-3').ready(function(){
-                     if (window.location.hash == '#edit-password') {
-                               $('.nav-tabs li.active').removeClass('active');
-                               $('div#edit-basic').removeClass('active');
-                               $('li.edit-password').addClass('active');
-                               $('div#edit-password').addClass('in active');
-                     }
-            });
+  $('#users-table').DataTable({
+      processing: true,
+      serverSide: true,
+      ordering: true,
+       "bInfo" : false,
+       searching: false,
+       "language": {
+      "url": '/localisation/fr_FR.json'},
+      ajax: 'http://localhost:8000/getAddEditRemoveColumnData',
+      columns: [
+          {data: 'name'},
+          {data: 'email'},
+          {data: 'action2', name: 'action2', orderable: false, searchable: false},
+          {data: 'action', name: 'action', orderable: false, searchable: false}
+      ]
+  });
+  $('#patient-table-atcd').DataTable({
+    processing: true,
+    serverSide: true,
+    ordering: true,
+    "bInfo" : false,
+    searching: false,
+    "language": {
+    "url": '/localisation/fr_FR.json'},
+    ajax: 'http://localhost:8000/getpatientatcd',
+    columns: [
+        {data: 'code_barre'},
+        {data: 'Nom'},
+        {data: 'Prenom'},
+        {data: 'Dat_Naissance'},
+        {data: 'Sexe'},
+        {data: 'Type'},
+        {data: 'Adresse'},
+        {data: 'Date_creation'},
+        {data: 'action2', name: 'action2', orderable: false, searchable: false},
+        {data: 'action', name: 'action', orderable: false, searchable: false}
+    ],
+    "columnDefs": 
+        [
+            {
+                "targets": [ 0 ],
+                "visible": false,
+            }
+        ]
+});
+</script><!-- inline scripts related to this page -->
+<script type="text/javascript">
+  $('.show-details-btn').on('click', function(e) {
+      e.preventDefault();
+      $(this).closest('tr').next().toggleClass('open');
+      $(this).find(ace.vars['.icon']).toggleClass('fa-angle-double-down').toggleClass('fa-angle-double-up');
+  });
+  jQuery(function($) {
+    $('#id-disable-check').on('click', function() {
+        var inp = $('#form-input-readonly').get(0);
+        if(inp.hasAttribute('disabled')) {
+            inp.setAttribute('readonly' , 'true');
+            inp.removeAttribute('disabled');
+            inp.value="This text field is readonly!";
+        }
+        else {
+            inp.setAttribute('disabled' , 'disabled');
+            inp.removeAttribute('readonly');
+            inp.value="This text field is disabled!";
+        }
+    });  
+    if(!ace.vars['touch']) {
+        $('.chosen-select').chosen({allow_single_deselect:true}); 
+        $(window)//resize the chosen on window resize
+        .off('resize.chosen')
+        .on('resize.chosen', function() {
+            $('.chosen-select').each(function() {
+                 var $this = $(this);
+                 $this.next().css({'width': $this.parent().width()});
+            })
+        }).trigger('resize.chosen');
+          //resize chosen on sidebar collapse/expand
+          $(document).on('settings.ace.chosen', function(e, event_name, event_val) {
+              if(event_name != 'sidebar_collapsed') return;
+              $('.chosen-select').each(function() {
+                   var $this = $(this);
+                   $this.next().css({'width': $this.parent().width()});
+              })
+          });
+          $('#chosen-multiple-style .btn').on('click', function(e){
+              var target = $(this).find('input[type=radio]');
+              var which = parseInt(target.val());
+              if(which == 2) $('#form-field-select-4').addClass('tag-input-style');
+               else $('#form-field-select-4').removeClass('tag-input-style');
+          });
+      }
+      $('[data-rel=tooltip]').tooltip({container:'body'});
+      $('[data-rel=popover]').popover({container:'body'});
+      autosize($('textarea[class*=autosize]'));
+      
+      $('textarea.limited').inputlimiter({
+          remText: '%n character%s remaining...',
+          limitText: 'max allowed : %n.'
+      });
+      $.mask.definitions['~']='[+-]';
+      $('.input-mask-date').mask('99/99/9999');
+      $('.input-mask-phone').mask('(999) 999-9999');
+      $('.input-mask-eyescript').mask('~9.99 ~9.99 999');
+      $(".input-mask-product").mask("a*-999-a999",{placeholder:" ",completed:function(){alert("You typed the following: "+this.val());}});  
+      $( "#input-size-slider" ).css('width','200px').slider({
+        value:1,
+        range: "min",
+        min: 1,
+        max: 8,
+        step: 1,
+        slide: function( event, ui ) {
+            var sizing = ['', 'input-sm', 'input-lg', 'input-mini', 'input-small', 'input-medium', 'input-large', 'input-xlarge', 'input-xxlarge'];
+            var val = parseInt(ui.value);
+            $('#form-field-4').attr('class', sizing[val]).attr('placeholder', '.'+sizing[val]);
+        }
+      });
+      $( "#input-span-slider" ).slider({
+          value:1,
+          range: "min",
+          min: 1,
+          max: 12,
+          step: 1,
+          slide: function( event, ui ) {
+              var val = parseInt(ui.value);
+              $('#form-field-5').attr('class', 'col-xs-'+val).val('.col-xs-'+val);
+          }
+      });//"jQuery UI Slider"//range slider tooltip example
+      $( "#slider-range" ).css('height','200px').slider({
+          orientation: "vertical",
+          range: true,
+          min: 0,
+          max: 100,
+          values: [ 17, 67 ],
+          slide: function( event, ui ) {
+              var val = ui.values[$(ui.handle).index()-1] + "";
+  
+              if( !ui.handle.firstChild ) {
+                  $("<div class='tooltip right in' style='display:none;left:16px;top:-6px;'><div class='tooltip-arrow'></div><div class='tooltip-inner'></div></div>")
+                  .prependTo(ui.handle);
+              }
+              $(ui.handle.firstChild).show().children().eq(1).text(val);
+          }
+      }).find('span.ui-slider-handle').on('blur', function(){
+          $(this.firstChild).hide();
+      });
+      $( "#slider-range-max" ).slider({
+          range: "max",
+          min: 1,
+          max: 10,
+          value: 2
+      });
+      $( "#slider-eq > span" ).css({width:'90%', 'float':'left', margin:'15px'}).each(function() {  // read initial values from markup and remove that
+         var value = parseInt( $( this ).text(), 10 );
+          $( this ).empty().slider({
+              value: value,
+              range: "min",
+              animate: true
+              
+          });
+      });
+      $("#slider-eq > span.ui-slider-purple").slider('disable');//disable third item
+      $('#id-input-file-1 , #id-input-file-2').ace_file_input({
+          no_file:'No File ...',
+          btn_choose:'Choose',
+          btn_change:'Change',
+          droppable:false,
+          onchange:null,
+          thumbnail:false //| true | large //whitelist:'gif|png|jpg|jpeg'//blacklist:'exe|php' //onchange:''
+      });
+      $('#id-input-file-3').ace_file_input({
+          style: 'well',
+          btn_choose: 'Drop files here or click to choose',
+          btn_change: null,
+          no_icon: 'ace-icon fa fa-cloud-upload',
+          droppable: true,
+          thumbnail: 'small' ,//large | fit
+          preview_error : function(filename, error_code) {//name of the file that failed //error_code values //1 = 'FILE_LOAD_FAILED',//2 = 'IMAGE_LOAD_FAILED',//3 = 'THUMBNAIL_FAILED'   //alert(error_code);
+          }
+      }).on('change', function(){ });//console.log($(this).data('ace_input_files')); //console.log($(this).data('ace_input_method'));//dynamically change allowed formats by changing allowExt && allowMime function  
+      $('#id-file-format').removeAttr('checked').on('change', function() {
+        var whitelist_ext, whitelist_mime;
+        var btn_choose
+        var no_icon
+        if(this.checked) {
+            btn_choose = "Drop images here or click to choose";
+            no_icon = "ace-icon fa fa-picture-o";
+
+            whitelist_ext = ["jpeg", "jpg", "png", "gif" , "bmp"];
+            whitelist_mime = ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/bmp"];
+        }
+        else {
+            btn_choose = "Drop files here or click to choose";
+            no_icon = "ace-icon fa fa-cloud-upload";
+            whitelist_ext = null;//all extensions are acceptable
+            whitelist_mime = null;//all mimes are acceptable
+        }
+        var file_input = $('#id-input-file-3');
+        file_input
+        .ace_file_input('update_settings',
+        {
+            'btn_choose': btn_choose,
+            'no_icon': no_icon,
+            'allowExt': whitelist_ext,
+            'allowMime': whitelist_mime
+        })
+        file_input.ace_file_input('reset_input');
+        file_input
+        .off('file.error.ace')
+        .on('file.error.ace', function(e, info) { });
+      });
+      $('#spinner1').ace_spinner({value:0,min:0,max:200,step:10, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
+        .closest('.ace-spinner')
+        .on('changed.fu.spinbox', function(){ });//console.log($('#spinner1').val()) 
+      $('#spinner2').ace_spinner({value:0,min:0,max:10000,step:100, touch_spinner: true, icon_up:'ace-icon fa fa-caret-up bigger-110', icon_down:'ace-icon fa fa-caret-down bigger-110'});
+      $('#spinner3').ace_spinner({value:0,min:-100,max:100,step:10, on_sides: true, icon_up:'ace-icon fa fa-plus bigger-110', icon_down:'ace-icon fa fa-minus bigger-110', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
+      $('#spinner4').ace_spinner({value:0,min:-100,max:100,step:10, on_sides: true, icon_up:'ace-icon fa fa-plus', icon_down:'ace-icon fa fa-minus', btn_up_class:'btn-purple' , btn_down_class:'btn-purple'});
+      $('.date-picker').datepicker({
+          autoclose: true,
+          todayHighlight: true,
+          dateFormat: 'yy-mm-dd',
+          language: 'fr',
+          flat: true,
+          calendars: 1,
+      })
+      .next().on(ace.click_event, function(){    //show datepicker when clicking on the icon
+          $(this).prev().focus();
+      });      //or change it into a date range picker
+      $('.input-daterange').datepicker({autoclose:true});
+      $('#simple-colorpicker-1').ace_colorpicker();
+      var tag_input = $('#form-field-tags');
+      try{
+            tag_input.tag(
+              {
+                placeholder:tag_input.attr('placeholder'),
+                source: ace.vars['US_STATES'],//defined in ace.js >> ace.enable_search_ahead
+              }
+            )
+            var $tag_obj = $('#form-field-tags').data('tag');
+            $tag_obj.add('Programmatically Added');
+            var index = $tag_obj.inValues('some tag');
+            $tag_obj.remove(index);
+      }catch(e) {
+           tag_input.after('<textarea id="'+tag_input.attr('id')+'" name="'+tag_input.attr('name')+'" rows="3">'+tag_input.val()+'</textarea>').remove();
+      }
+      $('#modal-form input[type=file]').ace_file_input({
+          style:'well',
+          btn_choose:'Drop files here or click to choose',
+          btn_change:null,
+          no_icon:'ace-icon fa fa-cloud-upload',
+          droppable:true,
+          thumbnail:'large'
+      })
+      $('#modal-form').on('shown.bs.modal', function () {
+        if(!ace.vars['touch']) {
+          $(this).find('.chosen-container').each(function(){
+              $(this).find('a:first-child').css('width' , '210px');
+              $(this).find('.chosen-drop').css('width' , '210px');
+              $(this).find('.chosen-search input').css('width' , '200px');
+          });
+        }
+      })
+      //les maskes
+      $('.mobile').mask('0-999-99-99-99');
+      $('.telfixe').mask('099-99-99-99');
+      $(document).one('ajaxloadstart.page', function(e) {
+          autosize.destroy('textarea[class*=autosize]')
+          $('.limiterBox,.autosizejs').remove();
+          $('.daterangepicker.dropdown-menu,.colorpicker.dropdown-menu,.bootstrap-datetimepicker-widget.dropdown-menu').remove();
+      });
+    });//jQuery(function($)       
+    /*$('#user-profile-3').ready(function(){ if (window.location.hash == '#edit-password') {  $('.nav-tabs li.active').removeClass('active');   $('div#edit-basic').removeClass('active');
+         $('li.edit-password').addClass('active'); $('div#edit-password').addClass('in active'); }  });*/
       function getMedecinsSpecialite(specialiteId = 0,medId='')
       {
           $('#medecin').empty();

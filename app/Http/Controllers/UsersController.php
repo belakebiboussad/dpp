@@ -49,7 +49,7 @@ class UsersController extends Controller
       $roles = rol::all();
       $services = service::all();
       $specialites = Specialite::all();
-      return view('user.adduser', compact('roles','services','specialites'));
+      return view('user.add', compact('roles','services','specialites'));
     }
 
     /**

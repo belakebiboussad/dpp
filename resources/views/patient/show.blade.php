@@ -116,8 +116,7 @@ $('document').ready(function(){
 </script>
 @endsection
 @section('main-content')
-<div >@include('patient._patientInfo')</div>
-<div class="page-header">
+<div class="row">
 	<div class="pull-right">
 		<a href="{{ route('patient.index') }}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-search bigger-120 blue"></i>Chercher</a>
 		<a href="{{route('patient.destroy',$patient->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-white btn-warning btn-bold">
