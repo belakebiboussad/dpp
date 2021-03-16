@@ -78,7 +78,7 @@ class HomeController extends Controller
                 return view('home.home_laboanalyses', compact('demandesexb'));
                 break;   
             case 12://radiologue
-                $demandesexr = demandeexr::with('consultation')->where('etat','E')->get();
+                $demandesexr = demandeexr::with('consultation','visite')->where('etat','E')->get();
                 return view('home.home_radiologue', compact('demandesexr')); 
                 break;
             case 14://chef de service

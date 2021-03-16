@@ -27,11 +27,17 @@
 										<tbody>
 											@foreach($demandesexr as $index => $exr)
 												<tr>
+												@if(isset($exr->consultation))
 													<td class="center">{{ $index + 1 }}</td>
 													<td>{{ $exr->consultation->Date_Consultation }}</td>
 													<td>{{ $exr->consultation->docteur->nom }} {{ $exr->consultation->docteur->prenom }}</td>
-													<td>{{ $exr->consultation->patient->Nom }} {{ $exr->consultation->patient->Prenom }}
-													</td>
+													<td>{{ $exr->consultation->patient->Nom }} {{ $exr->consultation->patient->Prenom }}</td>
+												@else
+												<td class="center">{{ $index + 1 }}</td>
+												<td>{{ $exr->visite->date }}</td>
+												<td>{{ $exr->visite->medecin->nom }} {{ $exr->visite->medecin->prenom }}</td>
+												<td>{{ $exr->visite->hospitalisation->patient->Nom }} {{ $exr->visite->hospitalisation->patient->Prenom }}</td>
+												@endif
 													<td>
 														<span class="badge badge-primary">
 														@if($exr->etat == "E")

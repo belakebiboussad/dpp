@@ -2,13 +2,13 @@
 @section('main-content')
 	<div class="row"><h3>Etablissement :</h3></div><div class="space-12 hidden-xs"></div>
 	<div class="row">
+		<form class="form-horizontal" role="form" method="POST" action="{{ route('etablissement.store') }}" enctype="multipart/form-data">
+			{{ csrf_field() }}
 		<div class="col-sm-9 col-xs-12">
 			<div class="widget-box widget-primary" id="widget-box-1">
 				<div class="widget-header" bg="blue"><h5 class="widget-title"><strong>Etablissement </strong></h5></div>
 				<div class="widget-body">
 					<div class="widget-main">
-						<form class="form-horizontal" role="form" method="POST" action="{{ route('etablissement.store') }}">
-						{{ csrf_field() }}
 						<div class="space-12 hidden-xs"></div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right" for="nom"><strong> Nom: </strong></label>
@@ -28,7 +28,7 @@
 							<button class="btn btn-xs btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
 							<button class="btn btn-xs" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 						</div>
-						</form>
+						
 					</div>
 				</div>
 			</div>
@@ -39,10 +39,12 @@
 			  <label class="col-sm-3 control-label no-padding-right" for="nom"><strong> Logo: </strong></label>
 				<div class="col-sm-9">
 					<span class="profile-picture col-sm-9">
-						<img class="editable img-responsive" alt="Logo du l'etablissement" id="avatar2" src="{{ asset('assets/images/avatars/profile-pic.jpg') }}"/>
+					<!-- 	<img class="editable img-responsive" alt="Logo du l'etablissement" id="logo" name="logo" src="{{ asset('assets/images/avatars/profile-pic.jpg') }}"/> -->
+						<input type="file" class="form-control" id="logo" name="logo" alt="Logo du l'etablissement">
 					</span>
 				</div>	
 			</div>
 		</div>
+		</form>
 	</div>
 @endsection

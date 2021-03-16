@@ -1,5 +1,6 @@
 <script>
 	$(document).ready(function(){
+		// file-input
 		$('#logo').on('click', function(){
 					var modal = 
 					'<div class="modal fade">\
@@ -13,11 +14,11 @@
 						<form class="no-margin">\
 						 <div class="modal-body">\
 							<div class="space-4"></div>\
-							<div style="width:75%;margin-left:12%;"><input type="file" name="file-input" /></div>\
+							<div style="width:75%;margin-left:12%;"><input type="file" name="file-input"/></div>\
 						 </div>\
 						\
 						 <div class="modal-footer center">\
-							<button type="submit" class="btn btn-sm btn-success"><i class="ace-icon fa fa-check"></i>Envoyer</button>\
+							<button type="submit" class="btn btn-sm btn-success"><i class="ace-icon fa fa-check"></i>Enregistrer</button>\
 							<button type="button" class="btn btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-times"></i>Annuler</button>\
 						 </div>\
 						</form>\
@@ -31,50 +32,33 @@
 					var working = false;
 					var form = modal.find('form:eq(0)');
 					var file = form.find('input[type=file]').eq(0);
+
 					file.ace_file_input({
-						style:'default',//well
+						style:'well',//welldefault
 						btn_choose:'Click pour choisir un Nouveau Logo',
-						btn_change:null,
+						no_file: 'Click to choose or drag & drop',
 						no_icon:'ace-icon fa fa-picture-o',
-						thumbnail:'small',
-						before_remove: function() {
-							//don't remove/reset files while being uploaded
-							return !working;
-						},
+						thumbnail:'large',//large//small
+						droppable: true,
 						allowExt: ['jpg', 'jpeg', 'png', 'gif'],
-						allowMime: ['image/jpg', 'image/jpeg', 'image/png', 'image/gif']
+						allowMime: ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'],
 					});
-					var ie_timeout = null;//a time for old browsers uploading via iframe
-					form.on('submit', function(){
-					  if(!file.data('ace_input_files')) return false;
-						file.ace_file_input('disable');
+					file.on('file.error.ace', function(ev, info) {
+						if(info.error_count['ext'] || info.error_count['mime']) alert('Invalid file type! Please select an image!');
+						if(info.error_count['size']) alert('Invalid file size! Maximum 100KB');
+						file.ace_file_input('reset_input');
+					});
+					form.on('submit', function(e) {
+						e.preventDefault();
+						if(!file.data('ace_input_files')) return false;
+					  file.ace_file_input('disable');
 						form.find('button').attr('disabled', 'disabled');
 						form.find('.modal-body').append("<div class='center'><i class='ace-icon fa fa-spinner fa-spin bigger-150 orange'></i></div>");
-						 /*
-						var deferred = new $.Deferred;
-						working = true;
-						deferred.done(function() {
-							form.find('button').removeAttr('disabled');
-							form.find('input[type=file]').ace_file_input('enable');
-							form.find('.modal-body > :last-child').remove();
-							modal.modal("hide");
-							var thumb = file.next().find('img').data('thumb');
-							if(thumb) $('#logo').get(0).src = thumb;
-							working = false;
-						});
-						setTimeout(function(){
-							deferred.resolve();
-						} , parseInt(Math.random() * 800 + 800));
-						return false;
-					   */
-					  formData_object = new FormData();//create empty FormData object
-						//serialize our form (which excludes file inputs)
-						$.each($form.serializeArray(), function(i, item) {
-							alert(item.name);
-							//add them one by one to our FormData 
-							//formData_object.append(item.name, item.value);							
-						});
-					});		
+						var thumb = file.next().find('img').data('thumb');
+						if(thumb) $('#logo').get(0).src = thumb;
+						modal.modal("hide");
+			
+					});	
 				});
 	})
 </script>

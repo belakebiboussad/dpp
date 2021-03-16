@@ -31,7 +31,7 @@ class demandeexr extends Model
     }
      public function visite()
     {
-        return $this->belongsTo('App\modeles\consultation','visite_id');
+        return $this->belongsTo('App\modeles\visite','visite_id');
     }
 
 }
