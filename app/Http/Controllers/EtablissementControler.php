@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\modeles\Etablissement;
 use Illuminate\Http\Request;
 use ToUtf;
+use Storage;
 class EtablissementControler extends Controller
 {
 	 public function index() 
@@ -19,14 +20,27 @@ class EtablissementControler extends Controller
 		$this->validate($request, [
    		'nom'=> 'required|string|max:225',
     ]);
-    
-    if ($request->hasFile('logo')) {
-			  $filename = $request->file('logo')->getClientOriginalName();
-			  $filename =  ToUtf::cleanString($filename);
-			  dd($filename);
-		}
-		$etablissement =Etablissement::create($request->all());    
-   		return view('etablissement.edit',compact('etablissement'));
+    //   if ($request->hasFile('logo')) {
+		// 	  $filename = $request->file('logo')->getClientOriginalName();
+		// 	  $filename =  ToUtf::cleanString($filename);
+		// 	  dd($filename);
+		// }
+		//$etablissement =Etablissement::create($request->all());    
+  	//  	return view('etablissement.edit',compact('etablissement'));
+  	if($request->ajax())  
+    {
+    	$filename = ToUtf::cleanString($request->file('logo')->getClientOriginalName());
+    	$file = file_get_contents($request->file('logo')->getRealPath());
+      Storage::disk('local')->put($filename, $file);
+      $etablissement =Etablissement::create([
+      	"nom"=>$request->nom,
+      	"adresse"=>$request->adresse,
+      	"tel"=>$request->tel,
+      	"logo"=>$filename,
+      ]);
+    	return response()->json(['status' => true]); 
+    } 
+
 	}
 	public function update(Request $request,$id)
   {

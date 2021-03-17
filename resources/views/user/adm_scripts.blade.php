@@ -1,64 +1,66 @@
-<script>
-	$(document).ready(function(){
-		// file-input
-		$('#logo').on('click', function(){
-					var modal = 
-					'<div class="modal fade">\
-					  <div class="modal-dialog">\
-					   <div class="modal-content">\
-						<div class="modal-header">\
-							<button type="button" class="close" data-dismiss="modal">&times;</button>\
-							<h4 class="blue">changer Logo</h4>\
-						</div>\
-						\
-						<form class="no-margin">\
-						 <div class="modal-body">\
-							<div class="space-4"></div>\
-							<div style="width:75%;margin-left:12%;"><input type="file" name="file-input"/></div>\
-						 </div>\
-						\
-						 <div class="modal-footer center">\
-							<button type="submit" class="btn btn-sm btn-success"><i class="ace-icon fa fa-check"></i>Enregistrer</button>\
-							<button type="button" class="btn btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-times"></i>Annuler</button>\
-						 </div>\
-						</form>\
-					  </div>\
-					 </div>\
-					</div>';
-					var modal = $(modal);
-					modal.modal("show").on("hidden", function(){
-						modal.remove();
-					});
-					var working = false;
-					var form = modal.find('form:eq(0)');
-					var file = form.find('input[type=file]').eq(0);
-
-					file.ace_file_input({
-						style:'well',//welldefault
-						btn_choose:'Click pour choisir un Nouveau Logo',
-						no_file: 'Click to choose or drag & drop',
-						no_icon:'ace-icon fa fa-picture-o',
-						thumbnail:'large',//large//small
-						droppable: true,
-						allowExt: ['jpg', 'jpeg', 'png', 'gif'],
-						allowMime: ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'],
-					});
-					file.on('file.error.ace', function(ev, info) {
-						if(info.error_count['ext'] || info.error_count['mime']) alert('Invalid file type! Please select an image!');
-						if(info.error_count['size']) alert('Invalid file size! Maximum 100KB');
-						file.ace_file_input('reset_input');
-					});
-					form.on('submit', function(e) {
-						e.preventDefault();
-						if(!file.data('ace_input_files')) return false;
-					  file.ace_file_input('disable');
-						form.find('button').attr('disabled', 'disabled');
-						form.find('.modal-body').append("<div class='center'><i class='ace-icon fa fa-spinner fa-spin bigger-150 orange'></i></div>");
-						var thumb = file.next().find('img').data('thumb');
-						if(thumb) $('#logo').get(0).src = thumb;
-						modal.modal("hide");
-			
-					});	
+<script type="text/javascript">
+	// $(document).ready(function(){
+		jQuery(function($) {
+				var $form = $('#addEtab');
+				var file_input = $form.find('input[type=file]');
+				var upload_in_progress = false;
+				file_input.ace_file_input({
+					style : 'well',
+					btn_choose : 'Selectionner le logo',
+					btn_change: null,
+					droppable: true,
+					thumbnail: 'large',
+					maxSize: 110000,//bytes
+					allowExt: ["jpeg", "jpg", "png", "gif"],
+					allowMime: ["image/jpg", "image/jpeg", "image/png", "image/gif"],
+					before_remove: function() {
+						if(upload_in_progress)
+							return false;//if we are in the middle of uploading a file, don't allow resetting file input
+						return true;
+					},
+					preview_error: function(filename , code) {}	//code = 1 means file load error//code = 2 image load error (possibly file is not an image)					//code = 3 preview failed
 				});
-	})
+				file_input.on('file.error.ace', function(ev, info) {
+					if(info.error_count['ext'] || info.error_count['mime']) alert('Invalid file type! Please select an image!');
+					if(info.error_count['size']) alert('Invalid file size! Maximum 100KB');
+				});
+				var ie_timeout = null;//a time for old browsers uploading via iframe
+				$form.on('submit', function(e) {
+					e.preventDefault();
+				  var files = file_input.data('ace_input_files');
+					if( !files || files.length == 0 ) return false;//no files selected
+					var deferred ;
+					if( "FormData" in window ) {
+						formData_object = new FormData();//create empty FormData object	//serialize our form (which excludes file inputs)
+						$.each($form.serializeArray(), function(i, item) {//add them one by one to our FormData 
+							formData_object.append(item.name, item.value);		
+						});
+						$form.find('input[type=file]').each(function(){
+							var field_name = $(this).attr('name');
+							var files = $(this).data('ace_input_files');
+							if(files && files.length > 0) {
+								for(var f = 0; f < files.length; f++) {
+									formData_object.append(field_name, files[f]);
+								}
+							}
+						});
+						upload_in_progress = true;
+						file_input.ace_file_input('loading', true);
+						deferred = $.ajax({
+										    url: $form.attr('action'),
+							      		type: $form.attr('method'),
+												processData: false,//important
+												contentType: false,//important
+							  			  dataType: 'json',
+							       		data: formData_object,
+							   				success : function(data) {
+													upload_in_progress = false;
+													file_input.ace_file_input('loading', false);
+												}
+					  });//ajax
+					}					
+				});
+		})
+	// });
 </script>
+		
