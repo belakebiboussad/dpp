@@ -23,11 +23,11 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label no-padding-right" for="nom"><strong> Téléphone: </strong></label>
 								<div class="col-sm-9"><input type="tel" name="tel" placeholder="Téléphone du l'etablissement" class="col-xs-12 col-sm-12 telfixe"/></div>
-							</div><div class="space-12  hidden-xs"></div>	
+							</div><!-- <div class="space-12  hidden-xs"></div>	
 							<div class="center">
 								<button class="btn btn-xs btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
 								<button class="btn btn-xs" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
-							</div>
+							</div> -->
 							
 						</div>
 					</div>
@@ -43,6 +43,12 @@
 						</span>
 					</div>	
 			</div>
+			</div><div class="space-12  hidden-xs"></div>	
+			<div class="row">
+					<div class="center">
+						<button class="btn btn-xs btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
+						<button class="btn btn-xs" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
+					</div>
 			</div>
 		</form>
 
