@@ -40,8 +40,8 @@ class EtablissementControler extends Controller
 	}
 	// public function edit(Etablissement $etablissement)//  {//  	dd($etablissement); //  }
 	public function update(Request $request,$id)
-	{	// if($request->ajax()) { }
-  	$etablissement = Etablissement::FindOrFail($id);
+	{	
+  		$etablissement = Etablissement::FindOrFail($id);
 		$filename="";
 		if($request->hasfile('logo')){
 			$filename = ToUtf::cleanString($request->file('logo')->getClientOriginalName());
