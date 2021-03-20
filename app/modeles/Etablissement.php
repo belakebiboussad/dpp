@@ -8,5 +8,5 @@ class Etablissement extends Model
 {
   public $timestamps = false;
   protected $table = "etablissement";
-  protected $fillable = ['nom','adresse','tel','logo'];
+  protected $fillable = ['nom','adresse','tel','tutelle','logo'];
 }

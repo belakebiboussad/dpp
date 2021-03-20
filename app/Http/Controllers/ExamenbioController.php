@@ -93,11 +93,7 @@ class ExamenbioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    /*public function destroy($examid, $demandeid)
-    { 
-        dd($examid);   
-        // dd($id);
-    }*/
+    /*public function destroy($examid, $demandeid)  {   dd($examid);     // dd($id);  }*/
     public function destroy($id)
     { 
       $ids = explode("|", $id);

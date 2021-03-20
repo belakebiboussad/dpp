@@ -39,7 +39,7 @@
 @section('main-content')
 {{-- 	<div class="row"><h3>Etablissement:</h3></div><div class="space-12 hidden-xs"></div> --}}
 	<div class="row">
-		<div class="table-wrapper">
+		<div class="table-wrapper" style="overflow-x:auto;">
             		<div class="table-title">
             		       <div class="row">
                    			 <div class="col-sm-6"><h3> <b>Etablissement</b></h3></div>
@@ -49,21 +49,25 @@
                 		<thead>
                     		<tr>
 						<th>Nom</th>
-		                         <th>Adresse</th>
-						<th>Téléphone</th>
+		                         <th class="priority-4">Adresse</th>
+						<th class="priority-4">Téléphone</th>
+						<th class="priority-4">Tutelle</th>
 						<th width="30%">Logo</th>
-		                        <th width="5%">Actions</th>
+		                        <th width="10%" class="center"><em class="fa fa-cog"></em></th>
                    			 </tr>
 				</thead>
 				<tbody>
                   			 <tr>
 		         			<td>{{ $etablissement->nom }}</td>
-                       			 <td>{{ $etablissement->adresse }}</td>
-						<td>{{ $etablissement->tel }} </td>
-                      			<td><img src="/download/{{ $etablissement->logo }}" alt ="pas de logo" height="1%" width="70%" id ="logoimg"/></td>
-                        			<td>
-		                            <a href="{{ route('etablissement.edit', $etablissement->id) }}" class="edit" ><i class="fa fa-edit fa-xs bigger-130"></i></a>
-		                            <a href="{{ route('etablissement.destroy', $etablissement->id) }}" class="delete" ><i class="ace-icon fa fa-trash-o bigger-130"></i></a>
+                       			 <td class="priority-4">{{ $etablissement->adresse }}</td>
+						<td class="priority-4">{{ $etablissement->tel }} </td>
+						<td class="priority-4">{{ $etablissement->tutelle }} </td>
+                      			<td>
+			           			 <img src="<?php echo asset("storage/$etablissement->logo")?>"  width="100" height="100"></img>
+                      			</td>		
+                        			<td class="center" width="10%">
+		                            <a href="{{ route('etablissement.edit', $etablissement->id) }}" class="edit" ><i class="fa fa-edit fa-xs bigger-200"></i></a>
+		                            <a href="{{ route('etablissement.destroy', $etablissement->id) }}" class="delete" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger" ><i class="ace-icon fa fa-trash-o bigger-200"></i></a>
 		                        </td>
                     </tr>
                     </tbody>

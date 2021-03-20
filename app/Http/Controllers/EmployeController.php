@@ -105,10 +105,7 @@ class EmployeController extends Controller
        * @param  \App\modeles\employ  $employ
        * @return \Illuminate\Http\Response
        */
-      public function destroy(employ $employ)
-      {
-          //
-      }
+     // public function destroy(employ $employ)     {      }
       public function searchBySpececialite(Request $request) 
       {
         $doctors =  (specialite::FindOrFail($request->specialiteId))->employes;

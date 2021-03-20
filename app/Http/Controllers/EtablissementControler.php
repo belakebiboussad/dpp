@@ -22,43 +22,58 @@ class EtablissementControler extends Controller
 		$filename="";
 		$this->validate($request, [
    			'nom'=> 'required|string|max:225',
-    ]);	// if($request->ajax()){} return response()->json(['status' => true]); 
-  	if($request->hasfile('logo'))
-    {
-	  	$filename = ToUtf::cleanString($request->file('logo')->getClientOriginalName());
-			$file = file_get_contents($request->file('logo')->getRealPath());
-	 		Storage::disk('local')->put($filename, $file); 	
+   		 ]);	// if($request->ajax()){} return response()->json(['status' => true]); 
+  		if($request->hasfile('logo'))
+    		{
+	  		$filename = ToUtf::cleanString($request->file('logo')->getClientOriginalName());
+			$file = file_get_contents($request->file('logo')->getRealPath());//Storage::disk('local')->put($filename, $file); 	
+	 	             Storage::putFileAs('public', $request->file('logo'),$filename);
 	 	}
 	 	$etablissement =Etablissement::create([
-	    	"nom"=>$request->nom,
+	    		"nom"=>$request->nom,
 	   	 	"adresse"=>$request->adresse,
-	    	"tel"=>$request->tel,
-	    	"logo"=>$filename,
+	    		"tel"=>$request->tel,
+	    		"tutelle"=>$request->tutelle,
+	    		"logo"=>$filename,
 	 	]);
-		// return redirect()->action('EtablissementControler@edit',$etablissement->id);
-		return redirect()->action('EtablissementControler@index');
+		return redirect()->action('EtablissementControler@show',$etablissement->id);//return redirect()->action('EtablissementControler@index');
 	}
-	// public function edit(Etablissement $etablissement)//  {//  	dd($etablissement); //  }
+	public function edit(Etablissement $etablissement)
+	 {
+	   	return view('etablissement.edit',compact('etablissement'));
+	 }
+	 public function show(Etablissement $etablissement)
+	 {
+		return view('etablissement.show',compact('etablissement'));
+	 }
 	public function update(Request $request,$id)
 	{	
   		$etablissement = Etablissement::FindOrFail($id);
 		$filename="";
 		if($request->hasfile('logo')){
 			$filename = ToUtf::cleanString($request->file('logo')->getClientOriginalName());
-  		$file = file_get_contents($request->file('logo')->getRealPath());
-   		Storage::disk('local')->put($filename, $file);//$file->move('uploads/Etablissement/',$filename);
-   	  // if($etablissement->photo != "")
-   	  	
-   	  if ($etablissement->logo != "") {   //File::delete($image_path);//File::delete($filename);
-     		Storage::delete($etablissement->logo);
-    	}
-    }
+	  		$file = file_get_contents($request->file('logo')->getRealPath());//Storage::disk('local')->put($filename, $file);//$file->move('uploads/Etablissement/',$filename);if($etablissement->photo != "")
+	  		$path  =  Storage::putFileAs('public', $request->file('logo'),$filename);
+	  		if ($etablissement->logo != "") {   //File::delete($image_path);//File::delete($filename);
+     				Storage::disk('public')->delete($etablissement->logo);//Storage::delete($etablissement->logo); 
+    			}
+   		 }
 		$etablissement ->update([
-  		"nom"=>$request->nom,
+  			"nom"=>$request->nom,
  	 		"adresse"=>$request->adresse,
-  		"tel"=>$request->tel,
-  		"logo"=>$filename,
+  			"tel"=>$request->tel,
+  			"tutelle"=>$request->tutelle,
+  			"logo"=>$filename,
 		]);
 		return redirect()->action('EtablissementControler@index');
-  }
+  	}
+  	public  function destroy(Etablissement $etablissement)
+  	{
+  		if ($etablissement->logo != "") { 	//Storage::delete($etablissement->logo);	
+     			Storage::disk('public')->delete($etablissement->logo);
+    		}
+    		$etablissement->delete();//$etab = Etablissement::destroy($etablissement->id);
+  		return view('etablissement.add');
+  	}
+  	
 }

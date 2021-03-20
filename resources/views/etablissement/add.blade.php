@@ -23,6 +23,10 @@
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right" for="nom"><strong> Téléphone: </strong></label>
 							<div class="col-sm-9"><input type="tel" name="tel" class="col-xs-12 col-sm-12 telfixe"  /></div>
+						</div><div class="space-12  hidden-xs"></div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right" for="nom"><strong> Tutelle: </strong></label>
+							<div class="col-sm-9"><input type="text" name="tutelle" class="col-xs-12 col-sm-12 "  /></div>
 						</div>
 					</div>
 				</div>
