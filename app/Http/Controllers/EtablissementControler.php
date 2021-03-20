@@ -12,9 +12,8 @@ class EtablissementControler extends Controller
 	 {
 	 	$etablissement = Etablissement::first();
 	 	if(isset($etablissement))
-	 	{
-	 		//dd(Storage::get($etablissement->logo));//dd(Storage::url($etablissement->logo));
-	 		return view('etablissement.edit',compact('etablissement'));
+	 	{//dd(Storage::get($etablissement->logo));//dd(Storage::url($etablissement->logo));
+	 		return view('etablissement.show',compact('etablissement'));
 	 	}else
 	 		return view('etablissement.add');
 	 }
@@ -50,10 +49,8 @@ class EtablissementControler extends Controller
    		Storage::disk('local')->put($filename, $file);//$file->move('uploads/Etablissement/',$filename);
    	  // if($etablissement->photo != "")
    	  	
-   	  if ($etablissement->logo != "") {
-        //File::delete($image_path);
-        //File::delete($filename);
-   		  Storage::delete($etablissement->logo);
+   	  if ($etablissement->logo != "") {   //File::delete($image_path);//File::delete($filename);
+     		Storage::delete($etablissement->logo);
     	}
     }
 		$etablissement ->update([

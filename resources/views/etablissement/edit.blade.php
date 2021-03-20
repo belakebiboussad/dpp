@@ -34,6 +34,9 @@
 			<div class="space-12  hidden-xs"></div>
 			<div class="form-group">
 				<img src="/download/{{ $etablissement->logo }}" alt ="pas de logo" height="30%" width="30%" id ="logoimg"/>
+				
+			</div>
+			<div class="form-group">
 				<input type="file" class="form-control" id="logo" name="logo" alt="Logo du l'etablissement" value= "{{ $etablissement->logo }}"/>
 			</div>
 		</div>
