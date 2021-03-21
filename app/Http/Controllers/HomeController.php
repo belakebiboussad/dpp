@@ -26,6 +26,8 @@ use Date;
 use route;
 use Carbon\Carbon;
 use PDF;
+use Storage;
+use File;
 class HomeController extends Controller
 {
     /**
@@ -102,6 +104,8 @@ class HomeController extends Controller
           $etablissement = Etablissement::first();
           $date= Carbon::now()->format('Y-m-d'); //$consult  = $className::find($obj_id);
           $obj=$modelName::find( $request->obj_id);
+          $path = storage_path('app\public');
+          //return $path;
           switch($request->selectDocm) {
             case "1":
                 $filename = "RSS-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
@@ -114,7 +118,7 @@ class HomeController extends Controller
             case "3":
                 $filename = "CM-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
                 $pdf = PDF::loadView('consultations.EtatsSortie.CertificatMedicalePDF', compact('obj','date','etablissement'));
-                 break;
+                break;
             case "4":
                 $filename = "CAM-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
                 $pdf = PDF::loadView('hospitalisations.EtatsSortie.AttestationContreAvisMedicalePDF', compact('obj','date'));

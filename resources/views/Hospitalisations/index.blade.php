@@ -15,7 +15,31 @@
 .ui-timepicker-container {
       z-index: 3500 !important;
  }
- </style>
+.list--wrapper {
+  position: relative;
+  margin: auto 2em;
+  max-width: 1140px;
+}
+.list--title {
+  margin: 50px 0 25px;
+  padding-bottom: 5px;
+  font-size: 20px;
+  font-weight: 700;
+  border-bottom: 2px solid;
+}
+.list {
+  counter-reset: list;
+  list-style: none;
+  padding: 0;
+}
+.list--link {
+  position: relative;
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+</style>
  @endsection
 @section('page-script')
 <script>
@@ -191,20 +215,20 @@
           }
       });
       $(document).on('click', '.selctetat', function(event){
-            event.preventDefault();
-            var formData = {
-              class_name: $('#className').val(),   
-              obj_id: $('#objID').val(),
-              selectDocm :$(this).val(),
-            };
-            $.ajax({
-              type : 'get',
-              url : '{{URL::to('reportprint')}}',
-              data:formData,
-                success(data){
-                    $('#EtatSortie').modal('hide');
-                },
-            }); 
+          event.preventDefault();
+          var formData = {
+            class_name: $('#className').val(),   
+            obj_id: $('#objID').val(),
+            selectDocm :$(this).val(),
+          };
+          $.ajax({
+            type : 'get',
+            url : '{{URL::to('reportprint')}}',
+            data:formData,
+              success(data){
+                $('#EtatSortie').modal('hide');
+              },
+          }); 
       });
 	});
 </script>
