@@ -20,6 +20,7 @@ use App\modeles\dem_colloque;
 use App\modeles\demandeexb;
 use App\modeles\demandeexr;
 use App\modeles\Etablissement;
+use App\modeles\Etatsortie;
 use App\User;
 use Auth; 
 use Date;
@@ -104,36 +105,35 @@ class HomeController extends Controller
           $etablissement = Etablissement::first();
           $date= Carbon::now()->format('Y-m-d'); //$consult  = $className::find($obj_id);
           $obj=$modelName::find( $request->obj_id);
-          $path = storage_path('app\public');
-          //return $path;
+          $etat=Etatsortie::find( $request->selectDocm );
           switch($request->selectDocm) {
             case "1":
                 $filename = "RSS-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
-                $pdf = PDF::loadView('hospitalisations.EtatsSortie.ResumeStandartSortiePDF', compact('obj'));
+                $pdf = PDF::loadView('hospitalisations.EtatsSortie.ResumeStandartSortiePDF', compact('etat','obj','etablissement'));
                 break;
             case "2":
                 $filename = "RCS-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
-                $pdf = PDF::loadView('hospitalisations.EtatsSortie.ResumeCliniqueSortiePDF', compact('obj'));
+                $pdf = PDF::loadView('hospitalisations.EtatsSortie.ResumeCliniqueSortiePDF', compact('etat','obj','etablissement'));
                 break;
             case "3":
                 $filename = "CM-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
-                $pdf = PDF::loadView('consultations.EtatsSortie.CertificatMedicalePDF', compact('obj','date','etablissement'));
+                $pdf = PDF::loadView('consultations.EtatsSortie.CertificatMedicalePDF', compact('etat','obj','date','etablissement'));
                 break;
             case "4":
                 $filename = "CAM-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
-                $pdf = PDF::loadView('hospitalisations.EtatsSortie.AttestationContreAvisMedicalePDF', compact('obj','date'));
+                $pdf = PDF::loadView('hospitalisations.EtatsSortie.AttestationContreAvisMedicalePDF', compact('etat','obj','date','etablissement'));
                 break;
             case "5":
                 $filename = "CRO-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
-                $pdf = PDF::loadView('hospitalisations.EtatsSortie.CRHPDF', compact('obj','date'));
+                $pdf = PDF::loadView('hospitalisations.EtatsSortie.CRHPDF', compact('etat','obj','date','etablissement'));
                 break;
              case "6"://Certificat sejour
                 $filename = "CJ-".$obj->hospitalisation->patient->Nom."-".$obj->hospitalisation->patient->Prenom.time().".pdf";
-                $pdf = PDF::loadView('admission.EtatsSortie.CertificatSejourPDF', compact('obj','date'));
+                $pdf = PDF::loadView('admission.EtatsSortie.CertificatSejourPDF', compact('etat','obj','date','etablissement'));
                 break;
             case "7"://Demande orientation
                 $filename = "DORT-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
-                $pdf = PDF::loadView('consultations.EtatsSortie.DemandeOrientationMedicalePDF', compact('obj','date'));
+                $pdf = PDF::loadView('consultations.EtatsSortie.DemandeOrientationMedicalePDF', compact('etat','obj','date','etablissement'));
                 break;
             default:
                 return response()->json(['html'=>"unknown"]);

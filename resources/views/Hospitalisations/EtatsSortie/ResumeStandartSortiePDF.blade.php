@@ -19,16 +19,11 @@
 </head>
 <body>
  <div class="container-fluid">
-      <h2 class="mt-20 center">DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</h2>
-      <h4 class="center">ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</h4>
-      <h4 class="center">Chemin des Glycines - ALGER</h4>
-      <h4 class="center">Tél : 23-93-34</h4>
-      <h5 class="mt-15 center" ><img src="img/logo.png" style="width: 60px; height: 60px" alt="logo"/></h5>
-      <h5 class="mt-20 center"><span style="font-size: xx-large;"><strong>Résumé Standard de Sortie</strong></span> </h5><br><br> 
-     <div class="row"> <div class="mb-10"><strong>Etablisement : </strong><span>{{ (App\modeles\Etablissement::find(session('lieu_id'))->nom )}}</span></div></div>
-     <div class="row" ><div class="mb-10"> <strong>Chef de servise : </strong>
-            <span>{{ $obj->admission->rdvHosp->demandeHospitalisation->Service->responsable->nom }} {{ $obj->admission->rdvHosp->demandeHospitalisation->Service->responsable->prenom }}</span> </div>
-      </div><br><hr/>
+    @include('partials.etatHeader')
+    <div class="row"> <div class="mb-10"><strong>Etablisement : </strong><span>{{ $etablissement->nom }}</span></div></div>
+    <div class="row" ><div class="mb-10"> <strong>Chef de servise : </strong>
+      <span>{{ $obj->admission->rdvHosp->demandeHospitalisation->Service->responsable->nom }} {{ $obj->admission->rdvHosp->demandeHospitalisation->Service->responsable->prenom }}</span> </div>
+    </div><br><hr/>
      <section class="table"> 
           <table class="head" style="width:100%;">   <thead> </thead>
                <tbody>

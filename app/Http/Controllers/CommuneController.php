@@ -23,9 +23,8 @@ class CommuneController extends Controller
 
     $response = array();
     foreach($communes as $com){
-      $response[] = array("value"=>$com->id,"label"=>$com->nom_commune,"wvalue"=>$com->daira->wilaya->id,"wlabel"=>$com->daira->wilaya->nom_wilaya);
+      $response[] = array("value"=>$com->id,"label"=>$com->nom_commune,"wvalue"=>$com->daira->wilaya->id,"wlabel"=>$com->daira->wilaya->nom);
     }
-
     return response()->json($response);
   }
  }

@@ -127,9 +127,9 @@
 					<div class="col-sm-1"></div>
 					<div class="col-sm-5">
 							<div class="form-group col-sm-8">
-								<i class="fa fa-phone"></i><label for="mobile_h"><b>Tél-mob : </b></label>
+								<i class="fa fa-phone"></i><label for="mobile_h"><b>Mob : </b></label>
 								<br/>
-								<input type="tel" id="mobile_h" name="mobile_h" placeholder="XX XX XX XX XX" autocomplete="off" maxlength="10" minlength="10"  pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"  class="col-sm-12" required>
+								<input type="tel" id="mobile_h" name="mobile_h" placeholder="XX-XX-XX-XX-XX" maxlength="10" minlength="10"  pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"  class="col-sm-12 mobileform" required>
 								<span class="tel validity"></span>
 							</div>
 					</div>			

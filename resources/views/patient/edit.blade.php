@@ -284,7 +284,7 @@
 							  <option value="07" @if($operator == '07') selected @endif>07</option>
               </select>	
 						</div>
-						<input id="mobile1" name="mobile1"  maxlength =8 minlength =8 type="tel" autocomplete="off" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX" value= "{{  substr($patient->tele_mobile1,2,10) }}" required />	
+						<input id="mobile1" name="mobile1"  maxlength =8 minlength =8 type="tel"  class="col-sm-4 mobileform" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" value= "{{  substr($patient->tele_mobile1,2,10) }}" required />	
 					 </div>		
 				</div>	 
 				<div class="col-sm-4 col-xs-4">
@@ -307,7 +307,7 @@
 							@endif				
 	                       			</select>
 						</div>
-						<input id="mobile2" name="mobile2"  maxlength =8 minlength =8  type="tel" autocomplete="off" class="col-sm-4" value="{{  substr($patient->tele_mobile2,2,10) }}" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"   placeholder="XX XX XX XX">
+						<input id="mobile2" name="mobile2"  maxlength =8 minlength =8  type="tel" class="col-sm-4 mobileform" value="{{  substr($patient->tele_mobile2,2,10) }}" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"   placeholder="XXXXXXXX">
 				   	</div>
 			  	</div>		
 					<div class="col-sm-4 col-xs-4">

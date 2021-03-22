@@ -1,33 +1,28 @@
 <html>
   <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-   <link rel="stylesheet" href="css/styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="css/styles.css">
   <title>Resume Clinique de Sortie</title>
   <style>
-      table 
+    table 
     {
-        border-collapse: collapse;
+      border-collapse: collapse;
     }
     table, th, td 
     {
-        border: 1px solid black;
-        padding: 5px;
+      border: 1px solid black;
+      padding: 5px;
     }
    </style>
   </head>
   <body>
-    <div class="container-fluid">
-            <h2 class="mt-20 center">DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</h2>
-          <h4 class="center">ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</h4>
-          <h4 class="center">Chemin des Glycines - ALGER</h4>
-          <h4 class="center">Tél : 023-93-34</h4>
-          <h5 class="mt-15 center" ><img src="img/logo.png" style="width: 60px; height: 60px" alt="logo"/></h5>
-          <h5 class="mt-20 center"><span style="font-size: xx-large;"><strong>Résumé Clinique de Sortie</strong></span> </h5><br><br>  
-          <div class="row">   <div class="mb-10"><strong>Etablisement : </strong><span>{{ (App\modeles\Etablissement::find(session('lieu_id'))->nom )}}</span></div></div>
-          <div class="row" ><div class="mb-10"><strong>Service : </strong><span>{{ $obj->admission->rdvHosp->demandeHospitalisation->Service->nom }}</span></div></div>
-          <div class="row" ><div class="mb-10"><strong>Chef de servise : </strong><span>{{ $obj->admission->rdvHosp->demandeHospitalisation->Service->responsable->nom }} {{ $obj->admission->rdvHosp->demandeHospitalisation->Service->responsable->prenom }}</span></div>
-          </div> <br><hr/>
+    <div class="container-fluid"><!-- <h4 class="mt-20 center">DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</h4> -->
+    @include('partials.etatHeader')
+    <div class="row">   <div class="mb-10"><strong>Etablisement : </strong><span>{{ $etablissement->nom}}</span></div></div>
+    <div class="row" ><div class="mb-10"><strong>Service : </strong><span>{{ $obj->admission->rdvHosp->demandeHospitalisation->Service->nom }}</span></div></div>
+    <div class="row" ><div class="mb-10"><strong>Chef de servise : </strong><span>{{ $obj->admission->rdvHosp->demandeHospitalisation->Service->responsable->nom }} {{ $obj->admission->rdvHosp->demandeHospitalisation->Service->responsable->prenom }}</span></div>
+    </div> <br><hr/>
         <section class="table"> 
           <table class="head" style="width:100%;">
           <thead> </thead>

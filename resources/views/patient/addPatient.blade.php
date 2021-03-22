@@ -133,7 +133,7 @@
 				  <option value="07">07</option>
 	      </select>	
 			</div>
-			<input id="mobile1" name="mobile1"  maxlength =8 minlength =8 type="tel" autocomplete="off" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX"/>	
+			<input id="mobile1" name="mobile1"  maxlength =8 minlength =8 type="tel" class="col-sm-4 mobileform" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX"/>	
 		</div>		
 		</div>	 
 		<div class="col-sm-4 col-xs-4">
@@ -147,7 +147,7 @@
 						<option value="07">07</option>
 			    </select>
 				</div>
-				<input id="mobile2" name="mobile2"  maxlength =8 minlength =8  type="tel" autocomplete="off" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"   placeholder="XX XX XX XX">
+				<input id="mobile2" name="mobile2"  maxlength =8 minlength =8  type="tel" class="col-sm-4 mobileform" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"   placeholder="XX XX XX XX">
 			</div>
 		</div>		
 		<div class="col-sm-4 col-xs-4">

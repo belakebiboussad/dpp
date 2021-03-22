@@ -45,7 +45,7 @@
 </div>{{-- widget-box --}}
 </div><div class="space-12 hidden-xs"></div>{{-- row --}}
 <div class="row"><!-- Physiologiques -->
-<div class= "widget-box widget-color-blue">
+<div class= "widget-box widget-color-danger">
 	<div class="widget-header" >
 		 <h5 class="widget-title bigger lighter"><font color="black"><i class="ace-icon fa fa-table"></i>&nbsp;<b>physiologiques</b></font></h5>
 		<div class="widget-toolbar widget-toolbar-light no-border">

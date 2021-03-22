@@ -74,8 +74,9 @@ class AntecedantsController extends Controller
     public function edit($id)
     {
         $atcd = antecedant::FindOrFail($id);
+        //dd($atcd);
         $patient = patient::FindOrFail($atcd->Patient_ID_Patient);
-        return view('antecedents.edit_atcd',compact('atcd','patient'));
+        return view('antecedents.edit',compact('atcd','patient'));
     }
 
     /**

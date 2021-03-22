@@ -59,7 +59,7 @@
             scrollbar: true
         });
         $( ".autoCommune" ).autocomplete({
-            source: function( request, response ) {
+              source: function( request, response ) {
                 $.ajax({
                   url:"{{route('commune.getCommunes')}}",
                   type: 'post',
@@ -74,35 +74,35 @@
                 });
               },
               minLength: 3,
-        select: function (event, ui) { // Set selection
-          $(this).val(ui.item.label); // display the selected text
-          switch(event['target']['id'])
-          {
-            case "lieunaissance":
-                $("#idlieunaissance").val(ui.item.value);// save selected id to input
-                break;
-            case "lieunaissancef":
-                $("#idlieunaissancef").val(ui.item.value);
-                break;
-            case "commune":
-                $("#idcommune").val(ui.item.value);
-                $("#idwilaya").val(ui.item.wvalue);
-                $("#wilaya").val(ui.item.wlabel);
-                break;
-            case "communef":   
-                $("#idcommunef").val(ui.item.value);
-                $("#idwilayaf").val(ui.item.wvalue);
-                $("#wilayaf").val(ui.item.wlabel);
-                console.log(ui.item.wlabel);
-                break;
-            default:
-                break;   
+              select: function (event, ui) { // Set selection
+                $(this).val(ui.item.label); // display the selected text
+                switch(event['target']['id'])
+                {
+                  case "lieunaissance":
+                    $("#idlieunaissance").val(ui.item.value);// save selected id to input
+                    break;
+                  case "lieunaissancef":
+                    $("#idlieunaissancef").val(ui.item.value);
+                    break;
+                  case "commune":
+                    $("#idcommune").val(ui.item.value);
+                    $("#idwilaya").val(ui.item.wvalue);
+                    $("#wilaya").val(ui.item.wlabel);
+                    break;
+                  case "communef":   
+                    $("#idcommunef").val(ui.item.value);
+                    $("#idwilayaf").val(ui.item.wvalue);
+                    $("#wilayaf").val(ui.item.wlabel);
+                    console.log(ui.item.wlabel);
+                    break;
+                default:
+                    break;   
 
-          } 
-          return false;
-        }
-    });
-    $( ".autofield" ).autocomplete({
+              } 
+              return false;
+          }
+        });
+        $( ".autofield" ).autocomplete({
         source: function( request, response ) {
             $.ajax({
                 url:"{{route('patients.autoField')}}",
@@ -726,6 +726,7 @@ $('#typeexm').on('change', function() {
       })
       //les maskes
       $('.mobile').mask('0-999-99-99-99');
+      $('.mobileform').mask('99999999');
       $('.telfixe').mask('099-99-99-99');
       $(document).one('ajaxloadstart.page', function(e) {
           autosize.destroy('textarea[class*=autosize]')
