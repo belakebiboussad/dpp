@@ -35,9 +35,8 @@
 									</a>
 									@endif
 									<div class="action-buttons hidden-sm hidden-xs btn-group">
-									{{-- 	<a href="{{route('atcd.show',$atcd->id)}}" class="btn btn-xs btn-success"><i class="ace-icon fa fa-hand-o-up bigger-120"></i>&nbsp;
-										</a>&nbsp;&nbsp; --}}
-			 							<a href="{{route('atcd.edit',$atcd->id)}}" class="btn btn-xs btn-info"><i class="ace-icon fa fa-pencil bigger-120"></i></a>
+										{{--<a href="{{route('atcd.show',$atcd->id)}}" class="btn btn-xs btn-success"><i class="ace-icon fa fa-hand-o-up bigger-120"></i>&nbsp;
+										</a>&nbsp;&nbsp; <a href="{{route('atcd.edit',$atcd->id)}}" class="btn btn-xs btn-info"><i class="ace-icon fa fa-pencil bigger-120"></i></a>--}}
 										<a href="{{route('atcd.destroy',$atcd->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">
 											<i class="ace-icon fa fa-trash-o bigger-120"></i>
 										</a>
@@ -102,7 +101,7 @@
 	<div class="widget-box widget-color-green" id="widget-box-2">
 		<div class="widget-header">
 			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Antecedants Familliaux</h5>
-			<div class="widget-toolbar widget-toolbar-light no-border"><!-- <div class="fa fa-plus-circle"></div><a href=""><b>Antecedant </b></a> -->
+			<div class="widget-toolbar widget-toolbar-light no-border"><!--<div class="fa fa-plus-circle"></div><a href=""><b>Antecedant </b></a> -->
 			</div>
 		</div>
 		<div class="widget-body">
@@ -128,8 +127,7 @@
 							 	  <td class="center">
 							  		<div class="action-buttons hidden-sm hidden-xs btn-group">
 											{{-- <a href="{{route('atcd.show',$atcd->id)}}" class="btn btn-xs btn-success"><i class="ace-icon fa fa-hand-o-up bigger-120"></i>&nbsp;
-											</a> --}}&nbsp;&nbsp;
-			 								<a href="{{route('atcd.edit',$atcd->id)}}" class="btn btn-xs btn-info"><i class="ace-icon fa fa-pencil bigger-120"></i></a>
+											</a>&nbsp;&nbsp;<a href="{{route('atcd.edit',$atcd->id)}}" class="btn btn-xs btn-info"><i class="ace-icon fa fa-pencil bigger-120"></i></a>--}}
 											<a href="{{route('atcd.destroy',$atcd->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">
 												<i class="ace-icon fa fa-trash-o bigger-120"></i>
 											</a>
