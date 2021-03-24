@@ -49,13 +49,13 @@ $(document).on('click','.findptient',function(event){
 							 		{"targets": 7 ,	"orderable": false, className: "dt-head-center" },
 							 		{"targets": 8 ,	"orderable":false,className: "dt-head-right dt-body-center",
 							  			"render": function(data,type,full,meta){
-									     		  if ( type === 'display' ) {
-												return  '<a class="btn btn-success btn-xs" href="/consultations/create/'+data.id+'"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-110"></i>&nbsp;Consultation</a>';
+									   		  if ( type === 'display' ) {
+														return  '<a class="btn btn-success btn-xs" href="/consultations/create/'+data.id+'"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-110"></i>&nbsp;Consultation</a>';
 							     				}
-							      		      return data;	
+							      		  return data;	
 							    			},
 							    			className: "dt-body-center",
-						    			}		 
+						    	}		 
 					   	],
     				});
      			},
@@ -67,11 +67,11 @@ $(document).on('click','.findptient',function(event){
 $(document).on('click','#getConsults',function(event){
 	event.preventDefault();
 	var patient_id = $(this).val();
-	 $.get('/getConsultations/'+patient_id, function (data, status, xhr) {
+	$.get('/getConsultations/'+patient_id, function (data, status, xhr) {
 	 		$("#patient").html(xhr.getResponseHeader("patient"));
 	 		$('#consultList tbody').empty();
 	 		if(data.length != 0)
-	 	 	 {
+	 	 	{
 	 	  		$("#consultList").DataTable ({
 					"processing": true,
 				  "paging":   true,
