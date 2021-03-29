@@ -24,29 +24,31 @@ class DemandeExamenRadio extends Controller
      * @return \Illuminate\Http\Response
      */
     /*public function liste_exr(){ $demandesexr = demandeexr::all(); return view('examenradio.liste_exr', compact('demandesexr'));}*/
-      public function details_exr($id)
+    public function details_exr($id)
     {
       $demande = demandeexr::FindOrFail($id);
-      return view('examenradio.details_exr', compact('demande'));
+      if(isset($demande->consultation))
+        $patient = $demande->consultation->patient;
+      else
+        $patient = $demande->visite->hospitalisation->patient;
+      return view('examenradio.details_exr', compact('demande','patient'));
     }
-
     public function upload_exr(Request $request)
     {
-        $request->validate([
-            'resultat' => 'required',
-        ]);
-        $demande = demandeexr::FindOrFail($request->id_demande);
-        $filename = $request->file('resultat')->getClientOriginalName();
-        $filename =  ToUtf::cleanString($filename);
-        $file = file_get_contents($request->file('resultat')->getRealPath());
-        Storage::disk('local')->put($filename, $file);
-        $demande->update([
-            "etat" => "V",
-            "resultat" => $filename,
-        ]);
-        return redirect()->route('homeradiologue');
+      $request->validate([
+        'resultat' => 'required',
+      ]);
+      $demande = demandeexr::FindOrFail($request->id_demande);
+      $filename = $request->file('resultat')->getClientOriginalName();
+      $filename =  ToUtf::cleanString($filename);
+      $file = file_get_contents($request->file('resultat')->getRealPath());
+      Storage::disk('local')->put($filename, $file);
+      $demande->update([
+          "etat" => "V",
+          "resultat" => $filename,
+      ]);
+      return redirect()->route('homeradiologue');
     }
-
     public function createexr($id)
     {
       $infossupp = infosupppertinentes::all();
@@ -96,8 +98,13 @@ class DemandeExamenRadio extends Controller
      */
     public function show($id)
     {
+      
       $demande = demandeexr::FindOrFail($id);
-      return view('examenradio.show_exr', compact('demande'));
+      if(isset($demande->consultation))
+        $patient = $demande->consultation->patient;
+      else
+        $patient = $demande->visite->hospitalisation->patient;
+      return view('examenradio.show', compact('demande','patient'));
     }
     /**
      * Show the form for editing the specified resource.

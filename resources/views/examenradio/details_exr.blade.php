@@ -13,12 +13,12 @@
              return true;
       }
     });
-});
+  });
 </script>
 @endsection
 @section('main-content')
 <div class="content">
-<div class="row" width="100%"><?php $patient = $demande->consultation->patient; ?>@include('patient._patientInfo')</div>
+<div class="row" width="100%">@include('patient._patientInfo')</div>
 <div class="space-12"></div>
 <div class="row">
   <div class="col-sm-12 col-xs-12 widget-container-col">
@@ -28,7 +28,13 @@
         <div class="widget-main">
           <div class="row">
             <div class="col-xs-12">
-              <label><b>Date :</b></label>&nbsp;&nbsp;<span>{{ $demande->consultation->Date_Consultation }}</span><br><br>
+              <label><b>Date :</b></label>&nbsp;&nbsp;<span>
+                @if(isset($demande->consultation))
+                  {{ $demande->consultation->Date_Consultation }}
+                @else
+                  {{ $demande->visite->date }}
+                @endif 
+              </span><br><br>
               <label><b>Informations cliniques pertinentes :</b></label> &nbsp;&nbsp;<span>{{ $demande->InfosCliniques }}.</span>
               <br><br>
               <label><b>Explication de la demande de diagnostic :</b></label>&nbsp;&nbsp;<span>{{ $demande->Explecations }}.</span>
@@ -48,6 +54,7 @@
                     <th class="center" width="10%">#</th>
                     <th>Nom</th>
                     <th class="center"><strong>Type</strong></th>
+                    <th class="center"><strong>Attacher le Résultat</strong></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -61,6 +68,11 @@
                         <span class="badge badge-success">{{ App\modeles\exmnsrelatifdemande::FindOrFail($id)->nom}}</span>
                         @endforeach
                       </td>
+                      <td>
+                        @if(Auth::user()->role->id == 12)
+                           <input type="file" id="resultat" name="resultat" class="form-control" accept="image/*,.pdf" required/>
+                                 @endif
+                      </td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -73,12 +85,12 @@
                   <form class="form-horizontal" method="POST" action="/uploadexr" enctype="multipart/form-data">
                   {{ csrf_field() }}
                   <input type="text" name="id_demande" value="{{ $demande->id }}" hidden>
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                     <div class="col-xs-2"><label><b>Attacher le Résultat :</b></label></div>
                     <div class="col-xs-8">
                        <input type="file" id="resultat" name="resultat" class="form-control" accept="image/*,.pdf" required/>
                     </div>
-                  </div>
+                  </div> -->
                   <div class="clearfix form-actions">
                     <div class="col-md-offset-5 col-md-7">
                       <button class="btn btn-info" type="submit"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i> Démarrer l'envoie

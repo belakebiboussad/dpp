@@ -1,5 +1,6 @@
 @extends('app')
 @section('page-script')
+{{--
 <script src="{{ asset('/js/Dicom/cornerstone.min.js') }}"></script>
 <script src="{{ asset('/js/Dicom/cornerstoneMath.min.js') }}"></script> 
 <script src="{{ asset('/js/Dicom/cornerstoneTools.min.js') }}"></script> 
@@ -8,8 +9,16 @@
 <script src="{{ asset('/js/Dicom/cornerstoneWADOImageLoader.min.js') }}"></script>       
 <script crossorigin  src="{{ asset('/js/Dicom/react-dom.production.min.js') }}"></script> 
 <script  crossorigin src="{{ asset('/js/Dicom/react.production.min.js') }}"></script> 
- <!-- Why we're all here ;) -->
-  <!-- <script src="https://unpkg.com/cornerstone-tools@%5E4"></script>-->
+--}}
+<script src="{{ asset('/js/Dicom/hammer.min.js') }}"></script>
+<script src="{{ asset('/js/Dicom/dicomParser.min.js') }}"></script>
+<!-- include the cornerstone library -->
+<script src="{{ asset('/js/Dicom/cornerstone.min.js') }}"></script>
+<script src="{{ asset('/js/Dicom/cornerstoneMath.js') }}"></script>
+<script src="{{ asset('/js/Dicom/cornerstoneWADOImageLoader.min.js') }}"></script>  
+<script src="{{ asset('/js/Dicom/cornerstoneTools.js') }}"></script>
+<!-- Why we're all here ;) -->
+ <!-- <script src="https://unpkg.com/cornerstone-tools@%5E4"></script>-->
 <script type="text/javascript">
     var loaded = false;
     function getTransferSyntax(image) {
