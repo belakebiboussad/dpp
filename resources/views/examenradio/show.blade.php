@@ -174,7 +174,11 @@
                     <span class="badge badge-success">{{ App\modeles\exmnsrelatifdemande::FindOrFail($id)->nom}}</span>
                     @endforeach
                   </td>
-                  <td class="center"><button type="submit" class="btn btn-info btn-sm open-modal"><i class="ace-icon fa fa-eye-slash"></i></button></td>
+                  <td class="center">
+                    @if( $demande->etat == "V" )
+                      <button type="submit" class="btn btn-info btn-sm open-modal"><i class="ace-icon fa fa-eye-slash"></i></button>
+                    @endif  
+                  </td>
                 </tr>
                 @endforeach
                 </tbody>
@@ -190,7 +194,7 @@
         <form id="form" class="form-horizontal">
           <div class="form-group">
             <div class="col-sm-8">
-              <input class="form-control" type="hidden" id="wadoURL" placeholder="Enter WADO URL" value="http://localhost:8000/imagedicom/{{$demande->resultat}}">
+              <input class="form-control" type="hidden" id="wadoURL" placeholder="Enter WADO URL" value="http://localhost:3000/imagedicom/{{$demande->resultat}}">
             </div>
           </div>
         </form>

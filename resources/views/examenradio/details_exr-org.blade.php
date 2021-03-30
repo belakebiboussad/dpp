@@ -13,54 +13,6 @@
              return true;
       }
     });
-    //  $('#my_uploader').change(function() {
-    //   if($(this).val()) {
-    //     $('#my_submit_button').attr('disabled', '');
-    //   } else {
-    //     $('#my_submit_button').attr('disabled', 'disabled');
-    //   }
-    // });
-    
-    $('.result').change(function() {
-        var res = $(this).attr('id').replace("exm", "btn");
-        if($(this).val())
-      
-          $('#'+res).removeAttr('disabled'); 
-        else
-          $('#'+res).attr('disabled', 'disabled');
-    })
-    $(".start").click( function(){
-      $.ajaxSetup({
-        headers: {
-          'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-        }
-      });
-      var formData = {
-         id_demandeexr:$('#id_demandeexr').val(),
-         id_examenradio:$(this).val(),
-         resultat: $("#exm-" + $(this).val()).val(),
-      };
-      $.ajax({
-        type:'POST',
-        url: "{{ url('store-file')}}",
-        data: formData,
-        cache:false,
-        contentType: false,
-        processData: false,
-        success: (data) => {
-          this.reset();
-          //alert('File has been uploaded successfully');
-          $.each(data,function(key,value) {
-             alert(key + ":" + value);
-          });
-          // console.log(data);
-        },
-        error: function(data){
-          alert("error");
-          console.log(data);
-        }
-      });
-    });
   });
 </script>
 @endsection
@@ -76,7 +28,6 @@
         <div class="widget-main">
           <div class="row">
             <div class="col-xs-12">
-              <input type="hidden" id ="id_demandeexr" value="{{ $demande->id }}">
               <label><b>Date :</b></label>&nbsp;&nbsp;<span>
                 @if(isset($demande->consultation))
                   {{ $demande->consultation->Date_Consultation }}
@@ -104,12 +55,12 @@
                     <th>Nom</th>
                     <th class="center"><strong>Type</strong></th>
                     <th class="center"><strong>Attacher le Résultat</strong></th>
-                    <td width="15%"></td>
+                    <td colspan="" rowspan="" headers=""></td>
                   </tr>
                 </thead>
                 <tbody>
                    @foreach ($demande->examensradios as $index => $examen)
-                    <tr id = {{ $examen->id }}>
+                    <tr>
                       <td class="center">{{ $index + 1 }}</td>
                       <td>{{ $examen->nom }}</td>
                       <td>
@@ -120,20 +71,16 @@
                       </td>
                       <td>
                         @if(Auth::user()->role->id == 12)
-                          <input type="file" id="exm-{{ $examen->id }}" name="resultat" class="form-control result" accept="image/*,.pdf" required/>
-                        @endif
+                           <input type="file" id="resultat" name="resultat" class="form-control" accept="image/*,.pdf" required/>
+                                 @endif
                       </td>
-                      <td class="center" width="15%">
-                       <!--  <form method="POST" enctype="multipart/form-data" id="ajax-file-upload" action="javascript:void(0)" > -->
-                         <!--  <input type="hidden" id="id_examenradio" value="{{ $examen->id }}"> -->
-                          <button  type="submit" class="btn btn-sm btn-primary start" id="btn-{{ $examen->id }}" value ="{{ $examen->id }}" disabled>
-                            <i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>
-                          </button>
-                          <!--  <input type="hidden" id="id_examenradio" value="{{ $examen->id }}"> -->
-                          <button class="btn btn-sm btn-warning cancel">
-                            <i class="glyphicon glyphicon-ban-circle glyphicon glyphicon-white"></i>
-                          </button>
-                        <!-- </form> -->
+                      <td class="center">
+                        <button class="btn btn-primary start">
+                          <i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>
+                        </button>
+                        <button class="btn btn-warning cancel">
+                          <i class="glyphicon glyphicon-ban-circle glyphicon glyphicon-white"></i>
+                        </button>
                       </td>
                     </tr>
                     @endforeach
@@ -147,7 +94,13 @@
                   <form class="form-horizontal" method="POST" action="/uploadexr" enctype="multipart/form-data">
                   {{ csrf_field() }}
                   <input type="text" name="id_demande" value="{{ $demande->id }}" hidden>
-                                    <div class="clearfix form-actions">
+                  <!-- <div class="form-group">
+                    <div class="col-xs-2"><label><b>Attacher le Résultat :</b></label></div>
+                    <div class="col-xs-8">
+                       <input type="file" id="resultat" name="resultat" class="form-control" accept="image/*,.pdf" required/>
+                    </div>
+                  </div> -->
+                  <div class="clearfix form-actions">
                     <div class="col-md-offset-5 col-md-7">
                       <button class="btn btn-info" type="submit"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i> Démarrer l'envoie
                       </button>

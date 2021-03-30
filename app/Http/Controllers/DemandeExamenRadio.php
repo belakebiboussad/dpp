@@ -33,6 +33,18 @@ class DemandeExamenRadio extends Controller
         $patient = $demande->visite->hospitalisation->patient;
       return view('examenradio.details_exr', compact('demande','patient'));
     }
+    public function upload(Request $request)
+    {
+      // if ($files = $request->file('file')) 
+      // { 
+        //$file = $request->file->store('public/documents');
+        $file = "Bonjour";
+        return Response()->json([
+                "success" => true,
+                "file" => $file
+        ]);
+      // }
+    }
     public function upload_exr(Request $request)
     {
       $request->validate([
@@ -81,7 +93,8 @@ class DemandeExamenRadio extends Controller
       ]);
       $examsImagerie = json_decode ($request->ExamsImg);
       foreach ($examsImagerie as $key => $value) {       
-            $demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);   //$demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => json_encode($value->types)]);
+        $demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);
+         //$demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => json_encode($value->types)]);
       }
       if(isset($request->infos))
       {
@@ -112,7 +125,7 @@ class DemandeExamenRadio extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id){
+    public function edit($id) {
       $demande = demandeexr::FindOrFail($id);
       return view('examenradio.edit', compact('demande')); 
     }
@@ -123,7 +136,9 @@ class DemandeExamenRadio extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)  {}
+    public function update(Request $request, $id) {
+
+    }
   
     /**
      * Remove the specified resource from storage.
