@@ -22,12 +22,6 @@ class BedReservationController extends Controller
 																		})->where('date_RDVh','>=',$tomorrow)->where('etat_RDVh','=',null)->get();
 		return view('reservation.index', compact('rdvs','services'));
 	}
-	public function create(Request $request)
-	{
-		if($request->ajax())  
-    {
-    }
-	}
 	public function store(Request $request)
 	{
 		BedReservation::firstOrCreate([

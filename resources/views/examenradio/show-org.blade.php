@@ -1,15 +1,5 @@
 @extends('app')
 @section('page-script')
-{{--
-<script src="{{ asset('/js/Dicom/cornerstone.min.js') }}"></script>
-<script src="{{ asset('/js/Dicom/cornerstoneMath.min.js') }}"></script> 
-<script src="{{ asset('/js/Dicom/cornerstoneTools.min.js') }}"></script> 
-<script src="{{ asset('/js/Dicom/dicomParser.min.js') }}"></script> 
-<script src="{{ asset('/js/Dicom/uids.js') }}"></script> 
-<script src="{{ asset('/js/Dicom/cornerstoneWADOImageLoader.min.js') }}"></script>       
-<script crossorigin  src="{{ asset('/js/Dicom/react-dom.production.min.js') }}"></script> 
-<script  crossorigin src="{{ asset('/js/Dicom/react.production.min.js') }}"></script> 
---}}
 <script src="{{ asset('/js/Dicom/hammer.min.js') }}"></script>
 <script src="{{ asset('/js/Dicom/dicomParser.min.js') }}"></script>
 <!-- include the cornerstone library -->
@@ -154,65 +144,9 @@
 </script>
 @endsection
 @section('main-content')
-<div class="page-header" width="100%"><?php $patient = $demande->consultation->patient; ?>@include('patient._patientInfo')</div>
 <div class="container-fluid">
   <div class="row no-gutters">
     <div class="col-lg-6">
-      <div class="row align-items-center justify-content-center">
-          <div class="col">
-              <h4><label><b>Date Demande:</b></label>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{ $demande->consultation->Date_Consultation }}</span></h4>
-          </div>
-      </div>
-      <div class="row align-items-center justify-content-center">
-        <div class="col"><label><b>Informations cliniques pertinentes :</b></label>&nbsp;&nbsp;<span>{{ $demande->InfosCliniques }}.</span></div>
-      </div>
-       <div class="row align-items-center justify-content-center">
-          <div class="col"><label><b>Explication de la demande de diagnostic :</b></label>&nbsp;&nbsp;<span>{{ $demande->Explecations }}.</span></div>
-      </div>
-       <div class="row align-items-center justify-content-center">
-          <div class="col">
-            <label><b>Informations supplémentaires pertinentes :</b></label>
-            <div>
-              <ul class="list-inline"> 
-                @foreach($demande->infossuppdemande as $index => $info)
-                  <li class="active"><span class="badge badge-warning">{{ $info->nom }}</span></li>
-                @endforeach
-              </ul>
-            </div>
-          </div>
-      </div>
-       <div class="row align-items-center justify-content-center">
-          <div class="col">
-            <label><b>Examen(s) proposé(s) :</b></label>
-            <div>
-              <table class="table table-striped table-bordered">
-                <thead>
-                  <tr>
-                    <th class="center" width="10%">#</th>
-                    <th class="center"><strong>Nom</strong></th>
-                    <th class="center"><strong>Type</strong></th>
-                    <th class="center"><strong><em class="fa fa-cog"></em></strong></th>
-                  </tr>
-                </thead>
-                <tbody>
-                @foreach ($demande->examensradios as $index => $examen)
-                <tr>
-                  <td class="center">{{ $index + 1 }}</td>
-                  <td>{{ $examen->nom }}</td>
-                  <td>
-                    <?php $exams = explode (',',$examen->pivot->examsRelatif) ?>
-                    @foreach($exams as $id)
-                    <span class="badge badge-success">{{ App\modeles\exmnsrelatifdemande::FindOrFail($id)->nom}}</span>
-                    @endforeach
-                  </td>
-                  <td><button type="submit" class="btn btn-info btn-sm open-modal"><i class="ace-icon fa fa-save bigger-110"></i>Dicom</button></td>
-                </tr>
-                @endforeach
-                </tbody>
-              </table>
-            </div>
-          </div>
-      </div>
     </div>  
     <div class="col-lg-6 container"  id="dicom"  hidden="true"><!--  <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">image dicom</h3></div></div> -->
         <div id="loadProgress">Image Load Progress:</div>
@@ -224,17 +158,9 @@
               <input class="form-control" type="hidden" id="wadoURL" placeholder="Enter WADO URL" value="http://localhost:8000/imagedicom/{{$demande->resultat}}">
             </div>
           </div>
-          <div class="form-group">
-            <div class="col-sm-2"><button class="form-control" type="button" id="load" class="btn btn-primary">Load</button></div>
-            <div class="col-sm-2"><button class="form-control" type="button" id="unload" class="btn btn-primary">Unload</button></div>
-            <div class="col-sm-2"><button class="form-control" type="button" id="purge" class="btn btn-primary">Purge Cache</button></div>
-          </div>
+
         </form>
       </div><!-- row -->
-      <div class="row">
-        <div class="col-sm-4"><input type="checkbox" id="toggleModalityLUT">Apply Modality LUT</input></div>
-        <div class="col-sm-4"><input type="checkbox" id="toggleVOILUT">Apply VOI LUT</input><br></div><div class="col-sm-4"></div>       
-      </div>
       <div class="row">
         <div class="col-md-8 col-sm-8 col-xs-12">
           <div col="col-md-12 col-sm-12" oncontextmenu="return false" class='disable-selection noIbar' unselectable='on' onselectstart='return false;' onmousedown='return false;'>
@@ -249,15 +175,6 @@
           <span>Genre: </span><span id="genre"></span><br>
           <span>Age: </span><span id="age"></span><br>
           <span>Machine: </span><span id="machine"></span><br>
-        </div>
-      </div>
-      <div class="space-12 hidden-xs"></div>
-      <div class="row">
-        <div class="col-sm-12">
-          <label>Résultat :</label>&nbsp;&nbsp;
-          @isset($demande->resultat)
-          <span><a href='/download/{{ $demande->resultat }}'>{{ $demande->resultat }} &nbsp;<i class="fa fa-download"></i></a></span>
-          @endisset
         </div>
       </div>
     </div><!-- col-lg-6  -->

@@ -32,24 +32,32 @@ class DemandeExamenRadio extends Controller
       else
         $patient = $demande->visite->hospitalisation->patient;
       return view('examenradio.details_exr', compact('demande','patient'));
-    }
-    public function upload(Request $request)
-    {
-      // if ($files = $request->file('file')) 
-      // { 
-        //$file = $request->file->store('public/documents');
-        $file = "Bonjour";
-        return Response()->json([
-                "success" => true,
-                "file" => $file
-        ]);
-      // }
-    }
-    public function upload_exr(Request $request)
-    {
-      $request->validate([
-        'resultat' => 'required',
-      ]);
+       }
+       public function upload(Request $request)
+       {
+             if($request->ajax())  
+             {    
+                   $demande = $request->id_demandeexr;
+                   $examen = $request->id_examenradio;
+                   if ($files = $request->file('resultat'))
+                   {
+                          $file = $request->resultat->store('public/documents');
+                          return Response()->json([
+                              "success" => true,
+                              "dem" =>$demande,
+                          ]);
+                  }else
+                          return Response()->json([
+                              "success" => false,
+                          ]);
+
+             }
+       }
+       public function upload_exr(Request $request)
+       {
+              $request->validate([
+                     'resultat' => 'required',
+             ]);
       $demande = demandeexr::FindOrFail($request->id_demande);
       $filename = $request->file('resultat')->getClientOriginalName();
       $filename =  ToUtf::cleanString($filename);

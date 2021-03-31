@@ -4,7 +4,7 @@
 <script src="{{ asset('/js/Dicom/dicomParser.min.js') }}"></script>
 <!-- include the cornerstone library -->
 <script src="{{ asset('/js/Dicom/cornerstone.min.js') }}"></script>
-<script src="{{ asset('/js/Dicom/cornerstoneMath.js') }}"></script>
+<script src="{{ asset('/js/Dicom/cornerstoneMath.min.js') }}"></script>
 <script src="{{ asset('/js/Dicom/cornerstoneWADOImageLoader.min.js') }}"></script>  
 <script src="{{ asset('/js/Dicom/cornerstoneTools.js') }}"></script>
 <script type="text/javascript">
@@ -69,9 +69,7 @@
       cornerstone.enable(element);
       const toolName = 'Length';
       var  url = "wadouri:" + document.getElementById('wadoURL').value;
-      const imageIds = [ // 'wadouri:http://localhost:8000/imagedicom/CT_small.dcm', 'wadouri:http://localhost:8000/imagedicom/IMG00005.dcm',
-        url
-      ];
+      const imageIds = [  url  ];
       const stack = {
         currentImageIdIndex: 0,
         imageIds: imageIds,
@@ -194,7 +192,7 @@
         <form id="form" class="form-horizontal">
           <div class="form-group">
             <div class="col-sm-8">
-              <input class="form-control" type="hidden" id="wadoURL" placeholder="Enter WADO URL" value="http://localhost:3000/imagedicom/{{$demande->resultat}}">
+              <input class="form-control" type="hidden" id="wadoURL" placeholder="Enter WADO URL" value="http://localhost:8000/imagedicom/{{$demande->resultat}}">
             </div>
           </div>
         </form>

@@ -13,18 +13,9 @@
              return true;
       }
     });
-    //  $('#my_uploader').change(function() {
-    //   if($(this).val()) {
-    //     $('#my_submit_button').attr('disabled', '');
-    //   } else {
-    //     $('#my_submit_button').attr('disabled', 'disabled');
-    //   }
-    // });
-    
     $('.result').change(function() {
         var res = $(this).attr('id').replace("exm", "btn");
         if($(this).val())
-      
           $('#'+res).removeAttr('disabled'); 
         else
           $('#'+res).attr('disabled', 'disabled');
@@ -38,22 +29,20 @@
       var formData = {
          id_demandeexr:$('#id_demandeexr').val(),
          id_examenradio:$(this).val(),
-         resultat: $("#exm-" + $(this).val()).val(),
+         resultat: $("#exm-" + $(this).val()).val()
       };
+      alert($("#exm-" + $(this).val()).val());
       $.ajax({
         type:'POST',
         url: "{{ url('store-file')}}",
         data: formData,
-        cache:false,
-        contentType: false,
+        cache:false, 
+        contentType: false, 
         processData: false,
         success: (data) => {
-          this.reset();
-          //alert('File has been uploaded successfully');
           $.each(data,function(key,value) {
              alert(key + ":" + value);
           });
-          // console.log(data);
         },
         error: function(data){
           alert("error");
