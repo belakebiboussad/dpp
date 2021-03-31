@@ -74,7 +74,6 @@ class VisiteController extends Controller
     public function store(Request $request)
     {
       //Enregistrer Examen Complentaire
-      // dd($request->all());
       $visite = visite::find($request->id); 
       if($request->exm  != null)  //save ExamBiolo
       {
@@ -89,6 +88,7 @@ class VisiteController extends Controller
         $demandeExImg = new demandeexr;  $demandeExImg->InfosCliniques = $request->infosc;
         $demandeExImg->Explecations = $request->explication;
         $demandeExImg->visite_id = $request->id;
+        
         $visite->examensradiologiques()->save($demandeExImg);
         if(isset($request->infos))
         {

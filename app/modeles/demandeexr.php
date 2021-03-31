@@ -11,8 +11,8 @@ class demandeexr extends Model
     protected $fillable = ['InfosCliniques', 'Explecations', 'etat', 'resultat', 'id_consultation','visite_id'];
 
     public function examensradios()
-    {
-        return $this->belongsToMany('App\modeles\examenradiologique', 'demandeexr_examenradio', 'id_demandeexr', 'id_examenradio')->withPivot('examsRelatif');       
+    { //
+      return $this->belongsToMany('App\modeles\examenradiologique', 'demandeexr_examenradio', 'id_demandeexr', 'id_examenradio')->withPivot('examsRelatif','resultat');       
     }
 
     public function examensrelatifsdemande()

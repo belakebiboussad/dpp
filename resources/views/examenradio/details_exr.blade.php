@@ -26,22 +26,27 @@
           'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
         }
       });
-      var formData = {
-         id_demandeexr:$('#id_demandeexr').val(),
-         id_examenradio:$(this).val(),
-         resultat: $("#exm-" + $(this).val()).val()
-      };
-      alert($("#exm-" + $(this).val()).val());
+      // var formData = {
+      //    id_demandeexr:$('#id_demandeexr').val(),
+      //    id_examenradio:$(this).val(),//resultat: $("#exm-" + $(this).val()).val()
+      //    resultat:$("#exm-" + $(this).val()).prop('files')[0]
+      // };
+      var formData = new FormData();
+      formData.append('resultat', $("#exm-" + $(this).val()).prop('files')[0]);
+      formData.append('id_demandeexr', $('#id_demandeexr').val());
+      formData.append('id_examenradio',$(this).val());
       $.ajax({
         type:'POST',
         url: "{{ url('store-file')}}",
         data: formData,
-        cache:false, 
+        enctype: 'multipart/form-data',
+        // cache:false, 
         contentType: false, 
         processData: false,
-        success: (data) => {
+        dataType : 'json', 
+        success: (data) => {//['params']
           $.each(data,function(key,value) {
-             alert(key + ":" + value);
+            alert(key + ":" + value);
           });
         },
         error: function(data){
@@ -138,8 +143,7 @@
                   <input type="text" name="id_demande" value="{{ $demande->id }}" hidden>
                                     <div class="clearfix form-actions">
                     <div class="col-md-offset-5 col-md-7">
-                      <button class="btn btn-info" type="submit"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i> Démarrer l'envoie
-                      </button>
+                      <button class="btn btn-info" type="submit"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>Enregistrer</button>
                     </div>
                   </div>
                   </form>

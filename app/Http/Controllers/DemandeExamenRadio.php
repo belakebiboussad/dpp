@@ -32,27 +32,41 @@ class DemandeExamenRadio extends Controller
       else
         $patient = $demande->visite->hospitalisation->patient;
       return view('examenradio.details_exr', compact('demande','patient'));
-       }
-       public function upload(Request $request)
-       {
-             if($request->ajax())  
-             {    
-                   $demande = $request->id_demandeexr;
-                   $examen = $request->id_examenradio;
-                   if ($files = $request->file('resultat'))
-                   {
-                          $file = $request->resultat->store('public/documents');
-                          return Response()->json([
-                              "success" => true,
-                              "dem" =>$demande,
-                          ]);
-                  }else
-                          return Response()->json([
-                              "success" => false,
-                          ]);
+    }
+    public function upload(Request $request)
+    {
+      if($request->ajax())  
+      {    
+        $examen = $request->id_examenradio;
+        if ($files = $request->file('resultat'))
+        {
+         
+          $demande = demandeexr::with('examensradios')->FindOrFail($request->id_demandeexr);
+          foreach ($demande->examensradios as $key => $exam) {
+            if( $exam->pivot->id_examenradio == $request->id_examenradio)
+            {
+              //$rel = $exam->examsRelatif;
+             // $file =  $request->resultat;
+              $namefile = $request->resultat->getClientOriginalName();
+              //$request->resultat->store('public/examsRadio');
+              $request->resultat->store('public');
+              $exam->pivot->resultat = $namefile;
+              $exam->pivot->save();
+              return Response()->json([
+                "success" => true,
+                //"params" =>$exam->pivot->examsRelatif
+                "name" =>$namefile
+              ]);    
+            }  
+          }
+          
+          }else
+            return Response()->json([
+                "success" => false,
+            ]);
 
-             }
-       }
+      }
+   }
        public function upload_exr(Request $request)
        {
               $request->validate([
