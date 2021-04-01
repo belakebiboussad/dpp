@@ -35,40 +35,38 @@ class DemandeExamenRadio extends Controller
     }
     public function upload(Request $request)
     {
-      if($request->ajax())  
-      {    
-        $examen = $request->id_examenradio;
-        if ($files = $request->file('resultat'))
-        {
-         
-          $demande = demandeexr::with('examensradios')->FindOrFail($request->id_demandeexr);
-          foreach ($demande->examensradios as $key => $exam) {
+      $demande = demandeexr::with('examensradios','consultation','visite')->FindOrFail($request->id_demandeexr);
+      if($request->TotalFiles >0) { 
+        if(isset($demande->visite))
+           $patient = $demande->visite->hospitalisation->patient;
+        else
+           $patient = $demande->consultation->patient;
+          foreach ($demande->examensradios as $key => $exam)
+          {
             if( $exam->pivot->id_examenradio == $request->id_examenradio)
             {
-              //$rel = $exam->examsRelatif;
-             // $file =  $request->resultat;
-              $namefile = $request->resultat->getClientOriginalName();
-              //$request->resultat->store('public/examsRadio');
-              $request->resultat->store('public');
-              $exam->pivot->resultat = $namefile;
+              for ($x = 0; $x < $request->TotalFiles; $x++) 
+              {
+                if ($request->hasFile('files'.$x)) 
+                {
+                  $file = $request->file('files'.$x);
+                  $namefile = $file->getClientOriginalName();
+                  $file->move(public_path().'/Patients/'.$patient->Nom.$patient->Prenom.'/examsRadio/'.$request->id_demandeexr.'/'.$request->id_examenradio.'/', $namefile);
+                  $data[] = $namefile;
+                 }
+              }
+              $exam->pivot->resultat = json_encode($data);
+              $exam->pivot->etat = 1;
               $exam->pivot->save();
-              return Response()->json([
-                "success" => true,
-                //"params" =>$exam->pivot->examsRelatif
-                "name" =>$namefile
-              ]);    
-            }  
+            }
           }
-          
-          }else
-            return Response()->json([
-                "success" => false,
-            ]);
-
-      }
-   }
-       public function upload_exr(Request $request)
-       {
+        return Response()->json([
+          "rowID" => $request->id_examenradio,
+        ]);
+      }//if
+    }
+    public function upload_exr(Request $request)
+    {
               $request->validate([
                      'resultat' => 'required',
              ]);

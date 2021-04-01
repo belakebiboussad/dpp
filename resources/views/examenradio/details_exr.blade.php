@@ -2,17 +2,7 @@
 @section('page-script')
 <script src="{{asset('/js/jquery.min.js')}}"></script>
 <script>
-  $('document').ready(function(){
-    $("button").click(function (event) {
-      which = '';
-      str ='send';
-      which = $(this).attr("id");
-      var which = $.trim(which);
-      var str = $.trim(str);
-      if(which==str){
-             return true;
-      }
-    });
+  $('document').ready(function(){//$("button").click(function (event) {which = '';str ='send';which = $(this).attr("id");var which = $.trim(which);var str = $.trim(str);if(which==str){ return true;}});
     $('.result').change(function() {
         var res = $(this).attr('id').replace("exm", "btn");
         if($(this).val())
@@ -26,35 +16,47 @@
           'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
         }
       });
-      // var formData = {
-      //    id_demandeexr:$('#id_demandeexr').val(),
-      //    id_examenradio:$(this).val(),//resultat: $("#exm-" + $(this).val()).val()
-      //    resultat:$("#exm-" + $(this).val()).prop('files')[0]
-      // };
       var formData = new FormData();
-      formData.append('resultat', $("#exm-" + $(this).val()).prop('files')[0]);
+      let TotalFiles = $("#exm-" + $(this).val())[0].files.length;//Total files
+      let files = $("#exm-" + $(this).val())[0];
+      for (let i = 0; i < TotalFiles; i++) {
+        formData.append('files' + i, files.files[i]);
+      }
+      formData.append('TotalFiles', TotalFiles);
       formData.append('id_demandeexr', $('#id_demandeexr').val());
       formData.append('id_examenradio',$(this).val());
       $.ajax({
         type:'POST',
         url: "{{ url('store-file')}}",
         data: formData,
-        enctype: 'multipart/form-data',
-        // cache:false, 
+        enctype: 'multipart/form-data',// cache:false, 
         contentType: false, 
         processData: false,
         dataType : 'json', 
-        success: (data) => {//['params']
+        success: (data) => {
           $.each(data,function(key,value) {
-            alert(key + ":" + value);
+            $('#'+value).remove();
           });
         },
         error: function(data){
-          alert("error");
           console.log(data);
         }
       });
     });
+   $(".cancel").click( function(){
+        Swal.fire({
+                     title: 'Annulez vous  la demande d\'Examen ?',
+                     html: '<br/><h4><strong id="dateRendezVous">'+'Pourquoi?'+'</strong></h4>',
+                     input: 'textarea',
+                     inputPlaceholder: 'la cause d\'annulation du l\'examen',
+                     showCancelButton: true,
+                     confirmButtonColor: '#3085d6',
+                     cancelButtonColor: '#d33',
+                     confirmButtonText: 'Oui',
+                     cancelButtonText: "Non",
+        }).then((result) => {
+                })
+   });
   });
 </script>
 @endsection
@@ -98,12 +100,13 @@
                     <th>Nom</th>
                     <th class="center"><strong>Type</strong></th>
                     <th class="center"><strong>Attacher le Résultat</strong></th>
-                    <td width="15%"></td>
+                    <td class="center" width="15%"><em class="fa fa-cog"></em></td>
                   </tr>
                 </thead>
                 <tbody>
                    @foreach ($demande->examensradios as $index => $examen)
-                    <tr id = {{ $examen->id }}>
+                    @if($examen->pivot->etat === null)
+                    <tr id = "{{ $examen->id }}">
                       <td class="center">{{ $index + 1 }}</td>
                       <td>{{ $examen->nom }}</td>
                       <td>
@@ -114,22 +117,21 @@
                       </td>
                       <td>
                         @if(Auth::user()->role->id == 12)
-                          <input type="file" id="exm-{{ $examen->id }}" name="resultat" class="form-control result" accept="image/*,.pdf" required/>
+                          <input type="file" id="exm-{{ $examen->id }}" name="resultat[]" class="form-control result" accept="image/*,.pdf,.dcm" multiple required/>
                         @endif
                       </td>
                       <td class="center" width="15%">
                        <!--  <form method="POST" enctype="multipart/form-data" id="ajax-file-upload" action="javascript:void(0)" > -->
-                         <!--  <input type="hidden" id="id_examenradio" value="{{ $examen->id }}"> -->
                           <button  type="submit" class="btn btn-sm btn-primary start" id="btn-{{ $examen->id }}" value ="{{ $examen->id }}" disabled>
                             <i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>
                           </button>
-                          <!--  <input type="hidden" id="id_examenradio" value="{{ $examen->id }}"> -->
                           <button class="btn btn-sm btn-warning cancel">
                             <i class="glyphicon glyphicon-ban-circle glyphicon glyphicon-white"></i>
                           </button>
                         <!-- </form> -->
                       </td>
                     </tr>
+                    @endif
                     @endforeach
                 </tbody>
               </table>
@@ -141,9 +143,10 @@
                   <form class="form-horizontal" method="POST" action="/uploadexr" enctype="multipart/form-data">
                   {{ csrf_field() }}
                   <input type="text" name="id_demande" value="{{ $demande->id }}" hidden>
-                                    <div class="clearfix form-actions">
+                    <div class="clearfix form-actions">
                     <div class="col-md-offset-5 col-md-7">
-                      <button class="btn btn-info" type="submit"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>Enregistrer</button>
+                      <button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>&nbsp;Enregistrer</button>
+                      <a class="btn btn-warning" href="{{ URL::previous() }}"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>
                     </div>
                   </div>
                   </form>

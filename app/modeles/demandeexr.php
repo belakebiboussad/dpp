@@ -12,7 +12,7 @@ class demandeexr extends Model
 
     public function examensradios()
     { //
-      return $this->belongsToMany('App\modeles\examenradiologique', 'demandeexr_examenradio', 'id_demandeexr', 'id_examenradio')->withPivot('examsRelatif','resultat');       
+      return $this->belongsToMany('App\modeles\examenradiologique', 'demandeexr_examenradio', 'id_demandeexr', 'id_examenradio')->withPivot('examsRelatif','resultat','etat','observation');       
     }
 
     public function examensrelatifsdemande()
