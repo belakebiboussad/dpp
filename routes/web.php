@@ -169,6 +169,7 @@ route::get('/homelaboexb',function(){
 route::get('/details_exr/{id}','DemandeExamenRadio@details_exr');///radiologue
 route::post('/uploadexr','DemandeExamenRadio@upload_exr');
 Route::post('store-file', 'DemandeExamenRadio@upload');
+Route::post('cancel-exam', 'DemandeExamenRadio@examCancel');
 route::get('/homeradiologue',function(){
     $demandesexr = App\modeles\demandeexr::where('etat','E')->get();
     return view('home.home_radiologue', compact('demandesexr'));

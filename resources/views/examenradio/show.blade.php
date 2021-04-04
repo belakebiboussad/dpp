@@ -158,26 +158,36 @@
                     <th class="center" width="10%">#</th>
                     <th class="center"><strong>Nom</strong></th>
                     <th class="center"><strong>Type</strong></th>
+                    <th class="center"><strong>Resultats</strong></th>
                     <th class="center"><strong><em class="fa fa-cog"></em></strong></th>
                   </tr>
                 </thead>
                 <tbody>
                 @foreach ($demande->examensradios as $index => $examen)
-                <tr>
-                  <td class="center">{{ $index + 1 }}</td>
-                  <td>{{ $examen->nom }}</td>
-                  <td>
-                    <?php $exams = explode (',',$examen->pivot->examsRelatif) ?>
-                    @foreach($exams as $id)
-                    <span class="badge badge-success">{{ App\modeles\exmnsrelatifdemande::FindOrFail($id)->nom}}</span>
-                    @endforeach
-                  </td>
-                  <td class="center">
-                    @if( $demande->etat == "V" )
-                      <button type="submit" class="btn btn-info btn-sm open-modal"><i class="ace-icon fa fa-eye-slash"></i></button>
-                    @endif  
+               {{ $lk =  end(json_decode($examen->pivot->resultat)) }}
+                  @foreach (json_decode($examen->pivot->resultat) as $k=>$f)
+                  <tr>
+                    <td class="center" rowspan="{{ $lk }}" >{{ $index + 1 }}</td>
+                    <td rowspan="{{  $lk }}">{{ $examen->nom }}</td>
+                    <td  rowspan="{{ $lk }}">
+                      <?php $exams = explode (',',$examen->pivot->examsRelatif) ?>
+                      @foreach($exams as $id)
+                      <span class="badge badge-success">{{ App\modeles\exmnsrelatifdemande::FindOrFail($id)->nom}}</span>
+                      @endforeach
+                    </td>
+                    <td>
+                      @if($examen->pivot->etat == "1")
+                        {{ $f }}
+                      @endif
+                    </td>
+                    <td class="center">
+                  @if($examen->pivot->etat == "1")
+                    <button type="submit" class="btn btn-info btn-sm open-modal"><i class="ace-icon fa fa-eye-slash"></i></button>
+                    
+                  @endif
                   </td>
                 </tr>
+                @endforeach
                 @endforeach
                 </tbody>
               </table>
@@ -185,9 +195,8 @@
           </div>
       </div>
     </div>  
-    <div class="col-lg-6 container"  id="dicom"  hidden="true"><!--  <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">image dicom</h3></div></div> -->
-        <div id="loadProgress">Image Load Progress:</div>
-      <!--   <button id='toggleCollapseInfo' class="btn btn-primary" type="button">             Click for more info        </button> -->
+    <div class="col-lg-6 container"  id="dicom"  hidden="true"><!--<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">image dicom</h3></div></div> -->
+        <div id="loadProgress">Image Load Progress:</div><!--<button id='toggleCollapseInfo' class="btn btn-primary" type="button">Click for more info </button> -->
       <div class="row">
         <form id="form" class="form-horizontal">
           <div class="form-group">

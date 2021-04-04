@@ -55,7 +55,34 @@
                      confirmButtonText: 'Oui',
                      cancelButtonText: "Non",
         }).then((result) => {
-                })
+          if(!isEmpty(result.value))
+          {
+            $.ajaxSetup({
+              headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+              }
+            });
+            var formData = new FormData();
+            formData.append('observation', result.value);
+            formData.append('id_demandeexr', $('#id_demandeexr').val());
+            formData.append('id_examenradio',$(this).val());
+            $.ajax({
+                type:'POST',
+                url: "{{ url('cancel-exam')}}",
+                data: formData,
+                processData: false,
+                contentType: false, //dataType : 'json', 
+                success: (data) => {
+                  $.each(data,function(key,value) {
+                    $('#'+value).remove();
+                  });
+                },
+                error: function(data){
+                  console.log(data);                
+                }
+            });
+          }
+        })
    });
   });
 </script>
@@ -117,7 +144,7 @@
                       </td>
                       <td>
                         @if(Auth::user()->role->id == 12)
-                          <input type="file" id="exm-{{ $examen->id }}" name="resultat[]" class="form-control result" accept="image/*,.pdf,.dcm" multiple required/>
+                          <input type="file" id="exm-{{ $examen->id }}" name="resultat[]" class="form-control result" accept="image/*,.pdf,.dcm,.DCM" multiple required/>
                         @endif
                       </td>
                       <td class="center" width="15%">
@@ -125,7 +152,7 @@
                           <button  type="submit" class="btn btn-sm btn-primary start" id="btn-{{ $examen->id }}" value ="{{ $examen->id }}" disabled>
                             <i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>
                           </button>
-                          <button class="btn btn-sm btn-warning cancel">
+                          <button class="btn btn-sm btn-warning cancel" value ="{{ $examen->id }}">
                             <i class="glyphicon glyphicon-ban-circle glyphicon glyphicon-white"></i>
                           </button>
                         <!-- </form> -->
