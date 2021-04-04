@@ -164,12 +164,11 @@
                 </thead>
                 <tbody>
                 @foreach ($demande->examensradios as $index => $examen)
-               {{ $lk =  end(json_decode($examen->pivot->resultat)) }}
                   @foreach (json_decode($examen->pivot->resultat) as $k=>$f)
-                  <tr>
-                    <td class="center" rowspan="{{ $lk }}" >{{ $index + 1 }}</td>
-                    <td rowspan="{{  $lk }}">{{ $examen->nom }}</td>
-                    <td  rowspan="{{ $lk }}">
+                    <tr>
+                    <td class="center" rowspan="" >{{ $index + 1 }}</td>
+                    <td rowspan="">{{ $examen->nom }}</td>
+                    <td  rowspan="">
                       <?php $exams = explode (',',$examen->pivot->examsRelatif) ?>
                       @foreach($exams as $id)
                       <span class="badge badge-success">{{ App\modeles\exmnsrelatifdemande::FindOrFail($id)->nom}}</span>
