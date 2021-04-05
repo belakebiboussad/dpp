@@ -42,8 +42,7 @@
       cornerstoneTools.external.cornerstoneMath = cornerstoneMath;
       cornerstoneTools.external.cornerstone = cornerstone;
       cornerstoneTools.external.Hammer = Hammer;
-      // Image Loader
-      const config = { 
+      const config = { // Image Loader
         webWorkerPath:"{{ asset('/js/Dicom/cornerstoneWADOImageLoader.min.js') }}",
         taskConfiguration: {
             decodeTask: {
@@ -68,7 +67,8 @@
       });
       cornerstone.enable(element);
       const toolName = 'Length';
-      var  url = "wadouri:" + document.getElementById('wadoURL').value;
+      var APP_URL = {!! json_encode(url('/')) !!} +'/Patients/{{ $patient->Nom}}{{$patient->Prenom }}/examsRadio/{{$demande->id}}/'+$(this).val();
+      var url = "wadouri:" + APP_URL;
       const imageIds = [  url  ];
       const stack = {
         currentImageIdIndex: 0,
@@ -87,6 +87,8 @@
         document.getElementById('machine').textContent = image.data.string('x00081010');
         document.getElementById('genre').textContent = image.data.string('x00100040');
         document.getElementById('age').textContent = image.data.string('x00101010');
+        cornerstone.reset(element);
+     
       });
       cornerstone.events.addEventListener('cornerstoneimageloadprogress', function(event) {
         const eventData = event.detail;
@@ -157,54 +159,49 @@
                   <tr>
                     <th class="center" width="10%">#</th>
                     <th class="center"><strong>Nom</strong></th>
-                    <th class="center"><strong>Type</strong></th>
-                    <th class="center"><strong>Resultats</strong></th>
-                    <th class="center"><strong><em class="fa fa-cog"></em></strong></th>
+                    <th class="center"><strong>Type</strong></th><!--  <th class="center"><strong>Resultats</strong></th> -->
+                    <th class="center" colspan="2"><strong><em class="fa fa-cog"></em></strong></th>
                   </tr>
                 </thead>
                 <tbody>
-                @foreach ($demande->examensradios as $index => $examen)
-                  @foreach (json_decode($examen->pivot->resultat) as $k=>$f)
-                    <tr>
-                    <td class="center" rowspan="" >{{ $index + 1 }}</td>
-                    <td rowspan="">{{ $examen->nom }}</td>
-                    <td  rowspan="">
+                 @foreach ($demande->examensradios as $index => $examen)
+                  <tr>
+                    <td class="center">{{ $index +1 }}</td>
+                    <td>{{ $examen->nom }}</td>
+                    <td >
                       <?php $exams = explode (',',$examen->pivot->examsRelatif) ?>
                       @foreach($exams as $id)
                       <span class="badge badge-success">{{ App\modeles\exmnsrelatifdemande::FindOrFail($id)->nom}}</span>
                       @endforeach
                     </td>
-                    <td>
-                      @if($examen->pivot->etat == "1")
-                        {{ $f }}
-                      @endif
-                    </td>
                     <td class="center">
-                  @if($examen->pivot->etat == "1")
-                    <button type="submit" class="btn btn-info btn-sm open-modal"><i class="ace-icon fa fa-eye-slash"></i></button>
-                    
-                  @endif
+                      <table width="100%" class="table table-striped table-bordered">
+                        <tbody>
+                        @if($examen->pivot->etat == "1")
+                        @foreach (json_decode($examen->pivot->resultat) as $k=>$f)
+                        <tr>
+                          <td width="80%">{{ $f }}</td>
+                          <td width="20%">
+                          <button type="submit" class="btn btn-info btn-xs open-modal" value="{{ $examen->pivot->id_examenradio."/".$f }}"><i class="ace-icon fa fa-eye-slash"></i></button>
+                          <span><a href='/download/{{ $demande->resultat }}' class="btn btn-success btn-xs"><i class="fa fa-download"></i></a></span>
+                          </td>
+                        </tr>
+                        @endforeach
+                         @endif
+                      </tbody>
+                    </table>
                   </td>
                 </tr>
-                @endforeach
                 @endforeach
                 </tbody>
               </table>
             </div>
           </div>
+         
       </div>
     </div>  
     <div class="col-lg-6 container"  id="dicom"  hidden="true"><!--<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">image dicom</h3></div></div> -->
-        <div id="loadProgress">Image Load Progress:</div><!--<button id='toggleCollapseInfo' class="btn btn-primary" type="button">Click for more info </button> -->
-      <div class="row">
-        <form id="form" class="form-horizontal">
-          <div class="form-group">
-            <div class="col-sm-8">
-              <input class="form-control" type="hidden" id="wadoURL" placeholder="Enter WADO URL" value="http://localhost:8000/imagedicom/{{$demande->resultat}}">
-            </div>
-          </div>
-        </form>
-      </div><!-- row -->
+      <div id="loadProgress">Image Load Progress:</div><!--<button id='toggleCollapseInfo' class="btn btn-primary" type="button">Click for more info </button> -->
       <div class="row">
         <div class="col-md-8 col-sm-8 col-xs-12">
           <div col="col-md-12 col-sm-12" oncontextmenu="return false" class='disable-selection noIbar' unselectable='on' onselectstart='return false;' onmousedown='return false;'>
