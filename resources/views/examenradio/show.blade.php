@@ -116,11 +116,24 @@
 </script>
 @endsection
 @section('main-content')
-<div class="page-header" width="100%">
-@include('patient._patientInfo')</div>
+<div class="row" width="100%">@include('patient._patientInfo')</div>
 <div class="container-fluid">
+  <div class="row"><h2> Détails de la demande Radiologique</h2></div>     
   <div class="row no-gutters">
     <div class="col-lg-6">
+      <div class="row align-items-center justify-content-center">
+        <div class="col"><h4><label><b>Etat:</b></label>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+          @if($demande->etat == "E")
+             <span class="badge badge-warning">En Cours</span>
+          @elseif($demande->etat =="V")
+            <span class="badge badge-success">Validé</span>
+          @elseif($demande->etat =="R")
+            <span class="badge badge-danger">Rejeté</span>
+          @endif
+         </span>
+           </h4>
+         </div>
+      </div>
       <div class="row align-items-center justify-content-center">
         <div class="col"><h4><label><b>Date Demande:</b></label>&nbsp;&nbsp;&nbsp;&nbsp;<span>
           @if(isset($demande->consultation))
@@ -131,12 +144,12 @@
          </span></h4></div>
       </div>
       <div class="row align-items-center justify-content-center">
-        <div class="col"> <h4><label><b>Informations cliniques pertinentes :</b></label>&nbsp;&nbsp;<span>{{ $demande->InfosCliniques }}.</span></h4></div>
+        <div class="col"> <h4><label><b>Informations cliniques pertinentes :</b></label>&nbsp;&nbsp;<span>{{ $demande->InfosCliniques }}</span></h4></div>
       </div>
       <div class="row align-items-center justify-content-center">
-        <div class="col"><h4><label><b>Explication de la demande de diagnostic :</b></label>&nbsp;&nbsp;<span>{{ $demande->Explecations }}.</span></div></h4>
+        <div class="col"><h4><label><b>Explication de la demande de diagnostic :</b></label>&nbsp;&nbsp;<span>{{ $demande->Explecations }}</span></div></h4>
       </div>
-       <div class="row align-items-center justify-content-center">
+      <div class="row align-items-center justify-content-center">
           <div class="col">
             <h4>
               <label><b>Informations supplémentaires pertinentes :</b></label>
@@ -149,24 +162,24 @@
               </div>
             </h4>  
           </div>
-      </div>
-       <div class="row align-items-center justify-content-center">
+      </div><div class="space-12 hidden-xs"></div>
+      <div class="row align-items-center justify-content-center">
           <div class="col">
             <label><b>Examen(s) proposé(s) :</b></label>
             <div>
               <table class="table table-striped table-bordered">
                 <thead>
                   <tr>
-                    <th class="center" width="10%">#</th>
+                    <th class="center" width="5%">#</th>
                     <th class="center"><strong>Nom</strong></th>
                     <th class="center"><strong>Type</strong></th><!--  <th class="center"><strong>Resultats</strong></th> -->
-                    <th class="center" colspan="2"><strong><em class="fa fa-cog"></em></strong></th>
+                    <th class="center"><strong><em class="fa fa-cog"></em></strong></th>
                   </tr>
                 </thead>
                 <tbody>
                  @foreach ($demande->examensradios as $index => $examen)
                   <tr>
-                    <td class="center">{{ $index +1 }}</td>
+                    <td class="center" width="5%">{{ $index +1 }}</td>
                     <td>{{ $examen->nom }}</td>
                     <td >
                       <?php $exams = explode (',',$examen->pivot->examsRelatif) ?>
@@ -175,20 +188,20 @@
                       @endforeach
                     </td>
                     <td class="center">
-                      <table width="100%" class="table table-striped table-bordered">
-                        <tbody>
+                      <table width="100%" height="100%" class="table table-striped table-bordered">
                         @if($examen->pivot->etat == "1")
-                        @foreach (json_decode($examen->pivot->resultat) as $k=>$f)
-                        <tr>
-                          <td width="80%">{{ $f }}</td>
-                          <td width="20%">
-                          <button type="submit" class="btn btn-info btn-xs open-modal" value="{{ $examen->pivot->id_examenradio."/".$f }}"><i class="ace-icon fa fa-eye-slash"></i></button>
-                          <span><a href='/download/{{ $demande->resultat }}' class="btn btn-success btn-xs"><i class="fa fa-download"></i></a></span>
-                          </td>
-                        </tr>
-                        @endforeach
-                         @endif
-                      </tbody>
+                          @foreach (json_decode($examen->pivot->resultat) as $k=>$f)
+                          <tr>
+                            <td width="70%">{{ $f }}</td>
+                            <td width="30%">{{-- {{URL::to("/")}} --}}
+                            <button type="submit" class="btn btn-info btn-xs open-modal" value="{{ $examen->pivot->id_examenradio."/".$f }}"><i class="ace-icon fa fa-eye-slash"></i></button>
+                            <a href='/Patients/{{$patient->Nom}}{{$patient->Prenom}}/examsRadio/{{$demande->id}}/{{$examen->pivot->id_examenradio}}/{{ $f }}' class="btn btn-success btn-xs" target="_blank"> <i class="fa fa-download"></i></a>
+                            </td>
+                          </tr>
+                          @endforeach
+                        @else
+                          <span class="badge badge-warning">En Cours</span>
+                        @endif
                     </table>
                   </td>
                 </tr>
@@ -197,7 +210,6 @@
               </table>
             </div>
           </div>
-         
       </div>
     </div>  
     <div class="col-lg-6 container"  id="dicom"  hidden="true"><!--<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">image dicom</h3></div></div> -->
@@ -223,14 +235,6 @@
           <button id="zoomIn" type="button" class="btn btn-default"><i class="fa fa-search-plus bigger-150" aria-hidden="true"></i></button>
           <button id="zoomOut" type="button" class="btn btn-default"><i class="fa fa-search-minus bigger-150" aria-hidden="true"></i></button>
           <button id="reset" type="button" class="btn btn-default"><i class="fa fa-undo bigger-150" aria-hidden="true"></i></button>
-        </div>
-      </div><div class="space-12 hidden-xs"></div>
-      <div class="row">
-        <div class="col-sm-12">
-          <label>Résultat :</label>&nbsp;&nbsp;
-          @isset($demande->resultat)
-          <span><a href='/download/{{ $demande->resultat }}'>{{ $demande->resultat }} &nbsp;<i class="fa fa-download"></i></a></span>
-          @endisset
         </div>
       </div>
     </div><!-- col-lg-6  -->

@@ -94,7 +94,7 @@
 <div class="row">
   <div class="col-sm-12 col-xs-12 widget-container-col">
     <div class="widget-box">
-      <div class="widget-header"><h5 class="widget-title"><b>Détails de la demande d'examens radiologique :</b></h5></div>
+      <div class="widget-header"><h5 class="widget-title"><b>Traiter la demande d'examens radiologique :</b></h5></div>
       <div class="widget-body">
         <div class="widget-main">
           <div class="row">
@@ -147,15 +147,13 @@
                           <input type="file" id="exm-{{ $examen->id }}" name="resultat[]" class="form-control result" accept="image/*,.pdf,.dcm,.DCM" multiple required/>
                         @endif
                       </td>
-                      <td class="center" width="15%">
-                       <!--  <form method="POST" enctype="multipart/form-data" id="ajax-file-upload" action="javascript:void(0)" > -->
+                      <td class="center" width="15%"> <!--  <form method="POST" enctype="multipart/form-data" id="ajax-file-upload" action="javascript:void(0)" > -->
                           <button  type="submit" class="btn btn-sm btn-primary start" id="btn-{{ $examen->id }}" value ="{{ $examen->id }}" disabled>
                             <i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>
                           </button>
                           <button class="btn btn-sm btn-warning cancel" value ="{{ $examen->id }}">
                             <i class="glyphicon glyphicon-ban-circle glyphicon glyphicon-white"></i>
-                          </button>
-                        <!-- </form> -->
+                          </button><!-- </form> -->
                       </td>
                     </tr>
                     @endif
