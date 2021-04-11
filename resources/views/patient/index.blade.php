@@ -168,7 +168,10 @@
 							<div class="input-group">
 								<input type="text" class="form-control input-sx tt-input autofield" id="IPP" name="IPP"  placeholder="IPP du patient..." data-toggle="tooltip" data-placement="left" title="Code IPP du patient">
 					   	  <span class="glyphicon glyphicon-search form-control-feedback"></span>
-							</div>		
+								
+							</div>
+
+			
 						</div>		
 					</div>
 				</div>
