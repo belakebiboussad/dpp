@@ -7,14 +7,14 @@
   		@media print {
 		      .print {display:block}
 		      .btn-print {display:none;}
-	 	 }/*.mt-15{margin-top:-15px;}*//*.mt-20{ margin-top:-20px;}*/	/*.ml-80{ margin-left: +80%;}*/
-    		</style>
+	 	 }
+   	</style>
 	</head>
 	<body>
   	<div class="container-fluid" >
-  		<h4 class="mt12 center">DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</h4>
-      <h4 class="center">ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</h4>
-			<h4 class="center">Chemin des Glycines - ALGER</h4>
+  		<h4 class="mt12 center">{{ $etablissement->tutelle }}</h4>
+      <h4 class="center">{{ $etablissement->nom }}</h4>
+			<h4 class="center">{{ $etablissement->adresse }}</h4>
 			<h4 class="center">Tél : 023-93-34</h4>
 			<h5 class="mt-15 center" ><img src="{{ asset('/img/logo.png') }}" style="width: 60px; height: 60px" alt="logo"/></h5>
   		<h5 class="mt-20 center"><span style="font-size: xx-large;"><strong>Ordonnance</strong></span></h5>

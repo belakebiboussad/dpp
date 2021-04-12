@@ -7,6 +7,7 @@ use App\modeles\patient;
 use App\modeles\employ;
 use App\modeles\ordonnance;
 use App\modeles\medicament;
+use App\modeles\Etablissement;
 use Jenssegers\Date\Date;
 use PDF;
 use Response;
@@ -111,6 +112,7 @@ class OrdonnanceController extends Controller
     {   
       $patient = patient::FindOrFail($request->id_patient);
       $employe = employ::FindOrFail($request->id_employe);
+      $etablissement = Etablissement::first();
       $meds = json_decode($request->meds);
       $medicaments = array();
       $posologies = array();
@@ -124,8 +126,8 @@ class OrdonnanceController extends Controller
             array_push($posologies, $value);
         }
       }
-      $view = view("consultations.ModalFoms.ordonnancePDF",compact('patient','employe','medicaments','posologies'))->render();
-      return response()->json(['html'=>$view]);/* $pdf = PDF::loadView('ordennance.ordonnancePDF', compact('patient','employe','medicaments','posologies'));   return $pdf->stream('ordonnance.pdf');*/
+      $view = view("consultations.ModalFoms.ordonnancePDF",compact('patient','employe','medicaments','posologies','etablissement'))->render();
+      return response()->json(['html'=>$view]);
    }
 
 }

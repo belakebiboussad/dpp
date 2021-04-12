@@ -1,6 +1,15 @@
 @extends('app')
 @section('title','Rechercher un patient')
-	@section('page-script')
+@section('style')
+	<style>
+  #interactive.viewport {position: relative; width: 100%; height: auto; overflow: hidden; text-align: center;}
+  #interactive.viewport > canvas, #interactive.viewport > video {max-width: 100%;width: 100%;}
+  canvas.drawing, canvas.drawingBuffer {position: absolute; left: 0; top: 0;}
+	</style>
+@endsection
+@section('page-script')
+	<script src="{{asset('/js/quagga.min.js')}}"></script>
+	<script src="{{asset('/js/live_w_locator.js')}}"></script>
 <script>
 	function getPatientdetail(id)
 	{
@@ -141,37 +150,41 @@
 				<div class="row">
 					<div class="col-sm-2">
 			      <div class="form-group"><label class="control-label" for="Nom" ><strong>Nom:</strong></label>
-							<div class="input-group">
-								<input type="text" class="form-control input-sx autofield" id="Nom" name="Nom" placeholder="nom du patient..." autofocus/>
+							<div class="input-group col-sm-12 col-xs-12">
+								<input type="text" class="form-control autofield" id="Nom" name="Nom" placeholder="nom du patient..." autofocus/>
 								<span class="glyphicon glyphicon-search form-control-feedback"></span>
 					    </div>
 						</div>
 					</div>
 					<div class="col-sm-2 col-md-offset-1">
 						<div class="form-group"><label class="control-label" for="Prenom" ><strong>Prénom:</strong></label> 
-							<div class="input-group">
-						  	<input type="text" class="form-control input-sx autofield" id="Prenom" name="Prenom"  placeholder="prenom du patient..."> 
+							<div class="input-group col-sm-12 col-xs-12">
+						  	<input type="text" class="form-control autofield" id="Prenom" name="Prenom"  placeholder="prenom du patient..."> 
 						  	<span class="glyphicon glyphicon-search form-control-feedback"></span>
 			   			</div>		
 						</div>
 					</div>
 					<div class="col-sm-2 col-md-offset-1">
 						<div class="form-group"><label class="control-label" for="Dat_Naissance" ><strong>Né(e):</strong></label>
-							<div class="input-group">
-								<input type="text" class="form-control input-sx tt-input date-picker" id="Dat_Naissance" name="Dat_Naissance"	data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" data-toggle="tooltip" data-placement="left" title="Date Naissance">
+							<div class="input-group col-sm-12 col-xs-12">
+								<input type="text" class="form-control date-picker" id="Dat_Naissance" name="Dat_Naissance"	data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" data-toggle="tooltip" data-placement="left" title="Date Naissance">
 								<span class="glyphicon glyphicon-search form-control-feedback"></span>
 							</div>		
 						</div>
 					</div>
 					<div class="col-sm-2 col-md-offset-1">
 						<div class="form-group"><label class="control-label" for="IPP" ><strong>IPP:</strong></label>
-							<div class="input-group">
-								<input type="text" class="form-control input-sx tt-input autofield" id="IPP" name="IPP"  placeholder="IPP du patient..." data-toggle="tooltip" data-placement="left" title="Code IPP du patient">
-					   	  <span class="glyphicon glyphicon-search form-control-feedback"></span>
-								
-							</div>
-
-			
+<!-- <div class="input-group"><input type="text" class="form-control input-sx tt-input autofield" id="IPP" name="IPP"  placeholder="IPP du patient..." data-toggle="tooltip" data-placement="left" title="Code IPP du patient">
+<span class="glyphicon glyphicon-search form-control-feedback"></span></div> -->
+						<div class="input-group col-sm-12 col-xs-12">
+							<input id="IPP" name="IPP" class="form-control autofield" placeholder="IPP du patient..." type="text" data-toggle="tooltip" data-placement="left" title="Code IPP du patient"/> 
+							<span class="input-group-btn"> 
+								<button class="btn btn-default" type="button" data-toggle="modal" data-target="#livestream_scanner">
+									<i class="fa fa-barcode"></i>
+								</button> 
+							</span>
+						</div>
+					
 						</div>		
 					</div>
 				</div>
@@ -202,27 +215,7 @@
 		  
 	</div>{{-- row --}}
 	<div class="row">
-		<div  id="mergeModal" class="modal fade" role="dialog" aria-hidden="true"> 
-		  <div class="modal-dialog modal-ku">
-			  <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal">&times;</button>
-		        <h4 class="modal-title">Merger les données des Patients :</h4>
-		      </div>
-		      <div class="modal-body">
-		      	<p class="center">êtes-vous sûr de vouloir de vouloire merger les deux patients ?</p>
-						<p> <span  style="color: red;">mergé les patient est permanent et ne  peut pas  étre refait !!</span></p>
-		   			<form id="form-merge" class="form-horizontal" role="form" method="POST" action="{{ url('/patient/merge') }}">	
-		      	  {{ csrf_field() }}
-			      	<div id="tablePatientToMerge"></div>
-			        <div class="modal-footer">
-			        	<button type="button" class="btn btn-default" data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-120"></i>Fermer</button>
-			        	<button  type="submit" class="btn btn-success"><i class="ace-icon fa fa-check bigger-120"></i>Valider</button>
-			      	</div> 	
-		        </form>
-		       </div>
-		    </div>  	{{-- modal-content --}}
-		  </div>
-		</div>
+	@include('patient.ModalFoms.mergeModal')
+	@include('patient.ModalFoms.scanbarCodeModal')
 	</div>{{-- row --}}
 @endsection
