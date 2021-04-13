@@ -34,6 +34,7 @@
   <body>
   <div class="container-fluid"> {{-- id="myDiv" --}}
     @include('partials.etatHeader')
+    <h3 class="center mt-10"><span style="font-size: xx-large;"><strong>{{ $etat->nom}}</strong></span></h3><!-- mt-20,mt-5 -->
     <section class="borderv">
       <br><br>
       <span class="marge">&nbsp;&nbsp;&nbsp;&nbsp;je soussigné M ,Mme  :</span><span>{{ $obj->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->nom }}&nbsp;{{ $obj->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->prenom}}<span><br/>

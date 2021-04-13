@@ -19,7 +19,6 @@
 		background: #435d7d;
 		color: #fff;
 		padding: 16px 30px;
-		/*margin: -20px -25px 10px;*/
 		border-radius: 3px 3px 0 0;
     }
       .table-title h3 {
@@ -40,10 +39,8 @@
 {{-- 	<div class="row"><h3>Etablissement:</h3></div><div class="space-12 hidden-xs"></div> --}}
 	<div class="row">
 		<div class="table-wrapper" style="overflow-x:auto;">
-            		<div class="table-title">
-            		       <div class="row">
-                   			 <div class="col-sm-6"><h3> <b>Etablissement</b></h3></div>
-				</div>
+      <div class="table-title">
+        <div class="row"><div class="col-sm-6"><h3> <b>Etablissement</b></h3></div></div>            			 
 			</div>
 			<table class="table table-striped table-hover">
         <thead>
@@ -63,7 +60,7 @@
 						<td class="priority-4">{{ $etablissement->tel }} </td>
 						<td class="priority-4">{{ $etablissement->tutelle }} </td>
             <td>
-            	<img src="storage/{{ $etablissement->logo }}" alt="" width="100" height="100"/>
+            	<img src="storage/{{ $etablissement->logo }}" alt="logo" width="100" height="100"/>
             </td>		
             <td class="center" width="10%">
               <a href="{{ route('etablissement.edit', $etablissement->id) }}" class="edit" ><i class="fa fa-edit fa-xs bigger-200"></i></a>

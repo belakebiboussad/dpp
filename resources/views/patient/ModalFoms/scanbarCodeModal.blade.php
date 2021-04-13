@@ -14,7 +14,7 @@
 			<div class="modal-footer">
 			<div class="controls">
 				<fieldset class="reader-config-group">
-				  <label class="pull-left">
+				  <label>
           	<span>Type</span>
           	<select name="decoder_readers">
               <option value="code_128" selected="selected">Code 128</option>

@@ -8,6 +8,7 @@ use App\modeles\infosupppertinentes;
 use App\modeles\exmnsrelatifdemande;
 use App\modeles\examenradiologique;
 use App\modeles\demandeexr;
+use App\modeles\Etablissement;
 use Illuminate\Support\Facades\Storage;
 use Jenssegers\Date\Date;
 use PDF;
@@ -170,10 +171,7 @@ class DemandeExamenRadio extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) {
-
-    }
-  
+    public function update(Request $request, $id) { }
     /**
      * Remove the specified resource from storage.
      *
@@ -188,8 +186,14 @@ class DemandeExamenRadio extends Controller
     }
     public function print($id)//imprime
     {
-        $demande = demandeexr::FindOrFail($id); 
-        $pdf = PDF::loadView('examenradio.demande_exr', compact('demande'));
-        return $pdf->stream('demande_examen_radiologique.pdf');
+      $demande = demandeexr::FindOrFail($id); 
+      $etablissement = Etablissement::first();
+      if(isset($demande->consultation))
+        $patient = $demande->consultation->patient;
+      else
+        $patient = $demande->visite->hospitalisation->patient;
+      $filename = "Examens-Radio-".$patient->Nom."-".$patient->Prenom.".pdf";
+      $pdf = PDF::loadView('examenradio.demande_exr', compact('demande','etablissement'));
+      return $pdf->stream($filename);
     }
 }

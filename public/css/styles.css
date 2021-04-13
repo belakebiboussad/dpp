@@ -12,93 +12,35 @@
   color: red;
   padding-left: 5px;
 }
-.section{
-  margin-bottom: 20px;
+.section{ margin-bottom: 20px;}
+.center{  text-align: center;}
+.sec-gauche{  float: left; }
+.sec-droite{  float: right; }
+.mt-1 {  margin-top: 1px !important; }
+.mt-2 {  margin-top: -2px !important; }
+.mt-3 {  margin-top: +6px !important; }
+.mt-5 {  margin-top: -5px !important; }
+.mt-6 {  margin-top: -6px !important; }
+.mt-10 {  margin-top:-10px; }
+.mt-12 { padding-top:-12px;}
+.mt-15 { margin-top:-15px;
 }
-.center{
-  text-align: center;
-}
-.sec-gauche{
-  float: left;
-}
-.sec-droite{
-  float: right;
-}
-.mt-1 {
-          margin-top: 1px !important;
-}
- .mt-2 {
-  margin-top: -2px !important;
-}
-.mt-3 {
-        margin-top: +6px !important;
-}
-.mt-5 {
-  margin-top: -5px !important;
-}
-.mt-6 {
-        margin-top: -6px !important;
-}
-.mt-10{
-        margin-top:-10px;
-}
-.mt-12 {
-    padding-top:-12px;/*padding-top:-0.7%*/
-}
-.mt-15 {
-        margin-top:-15px;
-}
-.mt-18 {
-  margin-top: -18px !important; 
-}
-.mt-20 {
-  margin-top:-1.4%; /*margin-top:-20px;*/
-}
-.mt-40 {
-  margin-top:-40px;
-}
-.mt-50 {
-  margin-top:-50px;
-}
-.mt12 {
-    padding-top:+12px;/*padding-top:-0.7%*/
-}
-
-.ml-2 {
-  margin-left: +0.5%;
-}
-.ml-4 {
-  margin-left: +4%;
-}
-.ml-80 {
-       margin-left: +80%;
-}
-.mb-10 {
-    margin-bottom: 10px;
- }
- .pt-1 {
-       padding-top:1px !important;
-}
-.pt-5 {
-  padding-top:-5px  !important ;
-}
-.pt-10 {
-        padding-top:-10px  !important ;
-}
-.pt-18 {
-    padding-top:-18px !important;
-}
- tr.noBorder td {
-      border: 0;
-}
-.foo {
-      position: absolute;
-      top: 90%;
-      right: 22%;
-}
-.modal-backdrop {
-  z-index:0;
-}
+.mt-18 { margin-top: -18px !important; }
+.mt-20 { margin-top:-1.4%; }
+.mt-30 { margin-top:-30px; }
+.mt-40 { margin-top:-40px; }
+.mt-50 { margin-top:-50px; }/*.mt12 { padding-top:+12px; } */
+.ml-2 { margin-left: +0.5%; }
+.ml-4 { margin-left: +4%; }
+.ml-80 { margin-left: +80%; }
+.mb-10 { margin-bottom: 10px; }
+ .pt-1 { padding-top:1px !important; }
+.pt-5 {  padding-top:-5px  !important ; }
+.pt-10 { padding-top:-10px  !important ;}
+.pt-18 { padding-top:-18px !important; }
+ tr.noBorder td { border: 0; }
+.foo { position: absolute; top: 90%; right: 22%; }
+.modal-backdrop { z-index:0; }
 #RDV {
  z-index: 1040 !important;
 }

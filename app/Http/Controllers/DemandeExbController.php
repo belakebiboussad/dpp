@@ -7,51 +7,50 @@ use App\modeles\specialite_exb;
 use App\modeles\consultation;
 use Jenssegers\Date\Date;
 use App\modeles\demandeexb;
+use App\modeles\Etablissement;
 use Illuminate\Support\Facades\Storage;
 use PDF;
 use ToUtf;
 class DemandeExbController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-public function __construct()
-      {
-          $this->middleware('auth');
-      }
-    public function createexb($id)
-    {
-        $specialites = specialite_exb::all();
-        $consultation = consultation::FindOrFail($id);
-        return view('examenbio.demande_exb', compact('specialites','consultation')); 
+  /**
+   * Display a listing of the resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function __construct()
+  {
+      $this->middleware('auth');
+  }
+  public function createexb($id)
+  {
+    $specialites = specialite_exb::all();
+    $consultation = consultation::FindOrFail($id);
+    return view('examenbio.demande_exb', compact('specialites','consultation')); 
+  }
+  public function index() {}
+  /**
+   * Show the form for creating a new resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function create() {  }
+  /**
+  * Store a newly created resource in storage.
+  *
+  * @param  \Illuminate\Http\Request  $request
+  * @return \Illuminate\Http\Response
+  */
+  public function store(Request $request,$consultId)
+  {
+    $demande = demandeexb::FirstOrCreate([  
+         "id_consultation" => $consultId,
+    ]);
+   foreach($request->exm as $id_exb) {
+                $demande->examensbios()->attach($id_exb);
     }
-    public function index()
-    {}
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create() {  }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-      public function store(Request $request,$consultId)
-      {
-          $demande = demandeexb::FirstOrCreate([  
-               "id_consultation" => $consultId,
-          ]);
-         foreach($request->exm as $id_exb) {
-                      $demande->examensbios()->attach($id_exb);
-          }
-      }
-
-    /**
+  }
+  /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -123,10 +122,16 @@ public function __construct()
           $demandesexb = demandeexb::where('etat','E')->get();
           return view('examenbio.liste_demande_exb', compact('demandesexb'));
      }
-     public function print($id)
-     {
-          $demande = demandeexb::FindOrFail($id);
-          $pdf = PDF::loadView('examenbio.demande_exb', compact('demande'));
-          return $pdf->stream('demande_examen_biologique.pdf');
+    public function print($id)
+    {
+      $demande = demandeexb::FindOrFail($id);
+      $etablissement = Etablissement::first();
+      if(isset($demande->consultation))
+        $patient = $demande->consultation->patient;
+      else
+        $patient = $demande->visite->hospitalisation->patient;
+      $filename = "Examens-Bio-".$patient->Nom."-".$patient->Prenom.".pdf";
+      $pdf = PDF::loadView('examenbio.demande_exb', compact('demande','etablissement'));
+      return $pdf->stream($filename);
     }
 }

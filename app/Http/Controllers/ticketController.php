@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Jenssegers\Date\Date;
 use App\modeles\ticket;
+use App\modeles\Etablissement;
 use PDF;
 
 class ticketController extends Controller
@@ -37,40 +38,38 @@ class ticketController extends Controller
      */
     public function store(Request $request)
     {
-        $date = Date::Now()->toDateString();
-        $datea = Date::Now();
-        if($request->typecons == "Normale")
-        {
-            $tickets = ticket::where("date", $date)
-                            ->where("specialite",$request->spesialite)
-                            ->get()->count();
-            $ticket = ticket::firstOrCreate([
-                "date" => $datea,
-                "specialite" => $request->spesialite,
-                "type_consultation" => $request->typecons,
-                "document" => $request->document,
-                "num_order" => ($tickets+1),
-                "id_patient" => $request->id_patient,
-            ]);
-            // dd($ticket);
-           
-            return redirect()->route("ticket.pdf",$ticket->id);
-        }
-        else
-        {
-           $tickets = ticket::where("date", $date)
-                            ->where("type_consultation",$request->typecons)
-                            ->get()->count();
-            $ticket = ticket::firstOrCreate([
-                "date" => $datea,
-                "specialite" => $request->spesialite,
-                "type_consultation" => $request->typecons,
-                "document" => $request->document,
-                "num_order" => ($tickets+1),
-                "id_patient" => $request->id_patient,
-            ]);
-            return redirect()->route("ticket.pdf",$ticket->id);
-        }
+      $date = Date::Now()->toDateString();
+      $datea = Date::Now();
+      if($request->typecons == "Normale")
+      {
+        $tickets = ticket::where("date", $date)
+                        ->where("specialite",$request->spesialite)
+                        ->get()->count();
+        $ticket = ticket::firstOrCreate([
+            "date" => $datea,
+            "specialite" => $request->spesialite,
+            "type_consultation" => $request->typecons,
+            "document" => $request->document,
+            "num_order" => ($tickets+1),
+            "id_patient" => $request->id_patient,
+        ]);
+       return redirect()->route("ticket.pdf",$ticket->id);
+      }
+      else
+      {
+         $tickets = ticket::where("date", $date)
+                          ->where("type_consultation",$request->typecons)
+                          ->get()->count();
+          $ticket = ticket::firstOrCreate([
+              "date" => $datea,
+              "specialite" => $request->spesialite,
+              "type_consultation" => $request->typecons,
+              "document" => $request->document,
+              "num_order" => ($tickets+1),
+              "id_patient" => $request->id_patient,
+          ]);
+          return redirect()->route("ticket.pdf",$ticket->id);
+      }
     }
 // comment
     /**
@@ -119,9 +118,10 @@ class ticketController extends Controller
     }
     public function ticketPdf($id)
     {
-        $ticket = ticket::FindOrFail($id);
-        $pdf = PDF::loadView('ticket', compact('ticket'))->setPaper('a6','landscape');
-        $name = "Ticket.pdf";
-        return $pdf->download($name);
+      $ticket = ticket::FindOrFail($id);
+      $etablissement = Etablissement::first();
+      $pdf = PDF::loadView('ticket', compact('ticket','etablissement'))->setPaper('a6','landscape');
+      $name = "Ticket.pdf";
+      return $pdf->download($name);
     }
 }

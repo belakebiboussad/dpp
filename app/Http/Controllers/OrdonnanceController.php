@@ -94,19 +94,20 @@ class OrdonnanceController extends Controller
     }
     public function show_ordonnance($id)
     {  
-        $ordonnance = ordonnance::FindOrFail($id);
-        $pdf = PDF::loadView('ordennance.imprimer', compact('ordonnance'));
-        $filename = $ordonnance->consultation->patient->Nom . "-" . $ordonnance->consultation->patient->Prenom . ".pdf";
-        Storage::put('public/pdf/'.$filename,$pdf->output());
-        $file = storage_path() . "/app/public/pdf/" . $filename;
-        if (File::isFile($file))
-        {
-          $file = File::get($file);
-          $response = Response::make($file, 200);
-          $response->header('Content-Type', 'application/pdf');
-          Storage::deleteDirectory('/public/pdf/');
-          return $response;
-        } 
+      $ordonnance = ordonnance::FindOrFail($id);
+      $etablissement = Etablissement::first();
+      $pdf = PDF::loadView('ordennance.imprimer', compact('ordonnance','etablissement'));
+      $filename = $ordonnance->consultation->patient->Nom . "-" . $ordonnance->consultation->patient->Prenom . ".pdf";
+      Storage::put('public/pdf/'.$filename,$pdf->output());
+      $file = storage_path() . "/app/public/pdf/" . $filename;
+      if (File::isFile($file))
+      {
+        $file = File::get($file);
+        $response = Response::make($file, 200);
+        $response->header('Content-Type', 'application/pdf');
+        Storage::deleteDirectory('/public/pdf/');
+        return $response;
+      } 
     }
     public function print(Request $request)
     {   

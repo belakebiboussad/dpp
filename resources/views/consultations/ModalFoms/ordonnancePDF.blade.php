@@ -12,12 +12,12 @@
 	</head>
 	<body>
   	<div class="container-fluid" >
-  		<h4 class="mt12 center">{{ $etablissement->tutelle }}</h4>
+  		<h4 class="mt-12 center">{{ $etablissement->tutelle }}</h4>
       <h4 class="center">{{ $etablissement->nom }}</h4>
-			<h4 class="center">{{ $etablissement->adresse }}</h4>
-			<h4 class="center">Tél : 023-93-34</h4>
-			<h5 class="mt-15 center" ><img src="{{ asset('/img/logo.png') }}" style="width: 60px; height: 60px" alt="logo"/></h5>
-  		<h5 class="mt-20 center"><span style="font-size: xx-large;"><strong>Ordonnance</strong></span></h5>
+			<h5 class="center">{{ $etablissement->adresse }}</h5>
+			<h5 class="center">Tél : {{ $etablissement->tel }}</h5>
+			<h5 class="mt-10 center" ><img src='{{ asset("storage/$etablissement->logo") }}' style="width: 80px; height: 80px" alt="logo"/></h5>
+		 	<h5 class="mt-20 center"><span style="font-size: xx-large;"><strong>Ordonnance</strong></span></h5>
   		<div class="row">
 			<div class="col-sm-12"><div class="section"><div class="ml-80"><b><u>Fait le:</u></b> {{ Carbon\Carbon::today()->format('Y-m-d') }}.</div></div></div>
 			</div>

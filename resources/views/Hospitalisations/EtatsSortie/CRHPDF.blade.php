@@ -22,6 +22,7 @@
   <body>
     <div class="container-fluid">
       @include('partials.etatHeader')
+      <h3 class="center mt-10"><span style="font-size: xx-large;"><strong>{{ $etat->nom}}</strong></span></h3><!-- mt-20,mt-5 -->
       <div class="sec-droite"><strong>FAIT LE :</strong><span>{{ $date }}</span></div><br>
       <div><strong>Cher confrère,</strong></div><br><br>
       <div>

@@ -5,6 +5,9 @@
   #interactive.viewport {position: relative; width: 100%; height: auto; overflow: hidden; text-align: center;}
   #interactive.viewport > canvas, #interactive.viewport > video {max-width: 100%;width: 100%;}
   canvas.drawing, canvas.drawingBuffer {position: absolute; left: 0; top: 0;}
+  .controls .reader-config-group {
+  	float: left;
+	}
 	</style>
 @endsection
 @section('page-script')

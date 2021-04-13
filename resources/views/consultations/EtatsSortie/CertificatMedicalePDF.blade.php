@@ -39,6 +39,15 @@
     <body>
       <div class="container-fluid" id="myDiv">
         @include('partials.etatHeader')
+        <div class="row mt-30">
+          <div class="col-sm-2">
+          </div>
+          <div class="col-sm-8" align="center">
+            <h3><strong>{{ $etat->nom}}</strong></h3>
+          </div>
+          <div class="col-sm-2">
+          </div>
+        </div>
         <div class="row"><br><span class="ml-80">Alger le {{ $date}}</span><br><br></div>
         <div class="row"><div class="col-sm-12"><strong>Service : </strong>
           <span>{{ $obj->docteur->Service->nom }}</span> </div>

@@ -40,11 +40,10 @@
           </td>
           <td rowspan="1" colspan="1" width="230" height="30"></td>
           <td id ="imagewrapper " rowspan="4" colspan="1" width="120" height="120" >
-           <!--  <img src="img/logo.png" style="position: relative; display: inline-block; left: 50%; transform: translate(-50%);width:110px; height:110px" alt="logo"/> -->
            <img src="storage/{{ $etablissement->logo }}" style="position: relative; display: inline-block; left: 50%; transform: translate(-50%);width:110px; height:110px" alt="logo"/>
           </td>
         </tr>
-        <tr class="noBorder" ><!--  <td rowspan="1" colspan="1" width="206" height="30" >DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</td> -->
+        <tr class="noBorder" >
          <td rowspan="1" colspan="1" width="206" height="30" >{{ $etablissement->tutelle }}</td>
           <td rowspan="1" colspan="1" width="230" height="30" ></td><td rowspan="1" colspan="1" width="120" height="30" ></td>
          </tr>

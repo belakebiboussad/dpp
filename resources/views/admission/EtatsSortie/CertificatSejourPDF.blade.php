@@ -19,6 +19,7 @@
   <body>
     <div class="container-fluid">
       @include('partials.etatHeader')
+      <h3 class="center mt-10"><span style="font-size: xx-large;"><strong>{{ $etat->nom}}</strong></span></h3><!-- mt-20,mt-5 -->
       <div class="row"><div class="sec-droite">Le : {{ $date }}</div> </div>
       <div class="row">
         <table border="0" cellspacing="0" cellpadding="0">
@@ -27,7 +28,6 @@
               <strong>Service :</strong><span>{{ $obj->demandeHospitalisation->Service->nom}}</span>
             </td>
             <td rowspan="1" colspan="1" width="230" height="30"></td><td  rowspan="1" colspan="1" width="120" height="30" ></td>
-            
           </tr>
           <tr class="noBorder">
             <td rowspan="1" colspan="1" width="206" height="30" >

@@ -5,6 +5,7 @@ use App\modeles\patient;
 use App\modeles\employ;
 use App\modeles\rol;
 use App\modeles\specialite;
+use App\modeles\Etablissement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
@@ -205,6 +206,7 @@ class RDVController extends Controller
       public function print(Request $request,$id)
       { 
         $rdv = rdv::findOrFail($id);
+        $etablissement = Etablissement::first();
         $civilite;
         switch ($rdv->patient->getCivilite()) {
           case 'M.':
@@ -230,8 +232,8 @@ class RDVController extends Controller
                 'format' =>'data-url'
         ]);
         $img = $renderer->render($data);
-         $viewhtml = View::make('rdv.rdvTicketPDF-bigFish', array('rdv' =>$rdv,'img'=>$img))->render();
-        //$viewhtml = View::make('rdv.rdvTicketPDF-DNS2D', array('rdv' =>$rdv,'img'=>$img))->render();
+        //$viewhtml = View::make('rdv.rdvTicketPDF-bigFish', array('rdv' =>$rdv,'img'=>$img,'etablissement'=>$etablissement))->render();
+        $viewhtml = View::make('rdv.rdvTicketPDF-DNS2D', array('rdv' =>$rdv,'img'=>$img,'etablissement'=>$etablissement))->render();
         $dompdf = new Dompdf();
         $dompdf->loadHtml($viewhtml);
         $dompdf->setPaper('a6', 'landscape');
