@@ -691,8 +691,7 @@ width: 15, orderable: false,className: "dt-head-center dt-body-center"}],});*/
 	   	eventAllow: function(dropLocation, draggedEvent) {  return false; },
 			eventDrop: function(event, delta, revertFunc) { revertFunc();	},
 			eventDragStop: function (event, jsEvent, ui, view) {return false;} 
-		});// calendar
-		// $('.calendar1').addTouch();	
+		});// calendar// $('.calendar1').addTouch();	
 		$("#taille").ionRangeSlider({
 	      min:0,  max:250,  from:0,   grid: true,   grid_num: 20,postfix:" cm", 
 	  });

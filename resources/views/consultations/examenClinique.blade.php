@@ -45,7 +45,7 @@
 				      <div class="row">
 				      	<div class="col-sm-12">
 				    		<div class="form-group irs-demo m-b-30"> <b>Températeur :</b>
-				          		 <input type="text" id="temp" name="temp" class="irs-hidden-input col-sm-12" tabindex="-1" value="" readonly="">
+				          		 <input type="text" id="temp" name="temp" class="irs-hidden-input col-sm-12" tabindex="-1" readonly="">
 						</div>
 				      </div>
 					</div>

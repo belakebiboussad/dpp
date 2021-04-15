@@ -127,8 +127,8 @@ $(document).on('click','#getConsults',function(event){
 <div class="page-header"><h4>Selectionner le patient</h4></div>
 	<div class="row">
 	<div class="col-sm-12">	
-		<div class="col-sm-6 col-xs-6">@include('consultations.findPatient')</div>
-		<div class="col-sm-6 col-xs-6">
+		<div class="col-sm-6 col-xs-12">@include('consultations.findPatient')</div>
+		<div class="col-sm-6 col-xs-12">
 			<table id="liste_patients" class="display table-responsive" width="100%"></table>
 		</div>
 	</div>

@@ -29,6 +29,7 @@ use App\modeles\infosupppertinentes;
 use App\modeles\exmnsrelatifdemande;
 use App\modeles\examenradiologique;
 use App\modeles\demandeexr;
+use App\modeles\appareil;
 use App\modeles\CIM\chapitre;
 use App\modeles\facteurRisqueGeneral;
 use App\modeles\Etatsortie;
@@ -77,13 +78,14 @@ class ConsultationsController extends Controller
       $patient = patient::FindOrFail($id_patient);//$codesim = codesim::all();
       $chapitres = chapitre::all();
       $services = service::all();
+      $apareils = appareil::all();
       $meds = User::where('role_id',1)->get()->all();
       $specialites = Specialite::orderBy('nom')->get();
       $specialitesExamBiolo = specialite_exb::all();
       $infossupp = infosupppertinentes::all();
       $examens = exmnsrelatifdemande::all();//CT,RMN
       $examensradio = examenradiologique::all();//pied,poignet
-      return view('consultations.create',compact('patient','employe','chapitres','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp','examens','examensradio'));
+      return view('consultations.create',compact('patient','employe','chapitres','apareils','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp','examens','examensradio'));
     }
     /**
      * Store a newly created resource in storage.
@@ -92,44 +94,50 @@ class ConsultationsController extends Controller
      * @return \Illuminate\Http\Response
      */
      public function store(Request $request)
-     {
-             $request->validate([
-                    "motif" => 'required',
-                    "resume" => 'required',
-            ]);
-            $validator = Validator::make($request->all(), [
-                  'motif' => 'required|max:255',
-                  'resume' => 'required',
-             ]);
-              if($validator->fails())
-                   return redirect()->back()->withErrors($validator)->withInput();
-             $etablissement = Etablissement::first(); 
-            $fact = facteurRisqueGeneral::updateOrCreate( ['patient_id' =>  request('patient_id')], $request->all());
-           $consult = consultation::create([
-                "motif"=>$request->motif,
-                "histoire_maladie"=>$request->histoirem,
-                "Date_Consultation"=>Date::Now(),
-                "Diagnostic"=>$request->diagnostic,
-                "Resume_OBS"=>$request->resume,
-                "isOriented"=> (!empty($request->isOriented) ? 1 : 0),
-                "lettreorientaioncontent"=>(!empty($request->isOriented) ? $request->lettreorientaioncontent  : null),
-                "Employe_ID_Employe"=>Auth::User()->employee_id,
-                "Patient_ID_Patient"=>$request->patient_id,
-                "id_code_sim"=>$request->codesim,
-               "id_lieu"=>$etablissement->id// "id_lieu"=>session('lieu_id'),
-           ]);
-          foreach($consult->patient->rdvs as $rdv)
-          {
-               if( $rdv->Date_RDV->setTime(0, 0)  == $consult->Date_Consultation->setTime(0, 0) )
-                    $rdv->update(['Etat_RDV'=>1]);
-          }
-          if($request->poids != 0 || $request->temp != null || $request->taille !=0 || $request->autre)
-          {
-              $exam = new examen_cliniqu;$exam->taille = $request->taille;
-              $exam->poids  = $request->poids;   $exam->temp   = $request->temp;
-              $exam->autre  = $request->autre; $exam->IMC    = $request->imc;
-              $exam->Etat   = $request->etatgen; $exam->peaupha =$request->peaupha; 
-              $consult->examensCliniques()->save($exam);
+     {  
+        $apareils = appareil::all();
+        foreach ($apareils as $key => $appareil) {
+          if(isset($request->input("$appareil")))
+            dd("Oui");
+        }
+        dd("fsd");
+        $request->validate([
+              "motif" => 'required',
+              "resume" => 'required',
+        ]);
+        $validator = Validator::make($request->all(), [
+            'motif' => 'required|max:255',
+            'resume' => 'required',
+        ]);
+        if($validator->fails())
+          return redirect()->back()->withErrors($validator)->withInput();
+        $etablissement = Etablissement::first(); 
+        $fact = facteurRisqueGeneral::updateOrCreate( ['patient_id' =>  request('patient_id')], $request->all());
+        $consult = consultation::create([
+            "motif"=>$request->motif,
+            "histoire_maladie"=>$request->histoirem,
+            "Date_Consultation"=>Date::Now(),
+            "Diagnostic"=>$request->diagnostic,
+            "Resume_OBS"=>$request->resume,
+            "isOriented"=> (!empty($request->isOriented) ? 1 : 0),
+            "lettreorientaioncontent"=>(!empty($request->isOriented) ? $request->lettreorientaioncontent  : null),
+            "Employe_ID_Employe"=>Auth::User()->employee_id,
+            "Patient_ID_Patient"=>$request->patient_id,
+            "id_code_sim"=>$request->codesim,
+           "id_lieu"=>$etablissement->id// "id_lieu"=>session('lieu_id'),
+        ]);
+        foreach($consult->patient->rdvs as $rdv)
+        {
+          if( $rdv->Date_RDV->setTime(0, 0)  == $consult->Date_Consultation->setTime(0, 0) )
+            $rdv->update(['Etat_RDV'=>1]);
+        }
+        if($request->poids != 0 || $request->taille !=0 || $request->autre)//$request->temp != null ||
+        {
+          $exam = new examen_cliniqu;$exam->taille = $request->taille;
+          $exam->poids  = $request->poids;   $exam->temp   = $request->temp;
+          $exam->autre  = $request->autre; $exam->IMC    = $request->imc;
+          $exam->Etat   = $request->etatgen; $exam->peaupha =$request->peaupha; 
+          $consult->examensCliniques()->save($exam);
         }
         if(($request->motifOr != "") ||(isset($request->specialite))){
           $this->LettreOrientationCTRL->store($request,$consult->id);
