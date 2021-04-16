@@ -93,14 +93,17 @@ class ConsultationsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-     public function store(Request $request)
-     {  
-        $apareils = appareil::all();
-        foreach ($apareils as $key => $appareil) {
-          if(isset($request->input("$appareil")))
-            dd("Oui");
-        }
-        dd("fsd");
+      public function store(Request $request)
+      {     //dd($request->all());  
+            $apareils = appareil::all();
+            $emptyArray = [];
+            foreach ($apareils as $key => $appareil) {
+                   if ($request->has($appareil->nom)) {
+                          //$emptyArray.push($appareil->nom);   
+                          array_push($emptyArray,$request->input($appareil->nom));
+                   }
+            }
+        dd($emptyArray);
         $request->validate([
               "motif" => 'required',
               "resume" => 'required',
