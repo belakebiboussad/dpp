@@ -4,24 +4,26 @@
 </div>
 <div class="row">
 	<ul class="list-unstyled spaced">
-		<li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Date de la Consultation : <span class="badge badge-pill badge-success">{{ $consultation->Date_Consultation }}</span></span></li>
-		<li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:16px;">Motif de la Consultation :</span><span>{{ $consultation->motif }}</span></li>
+		<li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Date de la Consultation : </span><span class="badge badge-pill badge-success">{{ $consultation->Date_Consultation }}</span></li>
+		<li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Motif de la Consultation :</span><span>{{ $consultation->motif }}</span></li>
 		<li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Histoire de la maladie :</span><span>{{ $consultation->histoire_maladie }}
 		</span></li>
 		<li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Diagnostic :</span><span>{{ $consultation->Diagnostic }}</span></li>
-		<li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Résumé :  <blockquote>{{ $consultation->Resume_OBS }} </blockquote></span> </li>
+		<li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Résumé : </span><blockquote>{{ $consultation->Resume_OBS }} </blockquote> </li>
 	</ul>
 </div>
 @if(isset($consultation->examensCliniques) )
 <div class="row">
-	<div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><strong><span style="font-size:18px;">Examens Clinique</span></strong></div>
+	<div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right">
+		<span style="font-size:18px;"><strong>Examens Clinique</strong></span>
+	</div>
 </div>
 <div class="row">
 	<ul class="list-unstyled spaced">
-		<li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">Taille : <span class="badge badge-pill badge-primary"> {{ $consultation->examensCliniques->taille  }}</span></span>&nbsp;(m)</li>
-		<li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">Poids : <span class="badge badge-pill badge-danger"> {{ $consultation->examensCliniques->poids  }}</span></span>&nbsp;(kg)</li>
-		<li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">IMC : <span class="badge badge-pill badge-danger"> {{ $consultation->examensCliniques->IMC  }}</span></span>&nbsp;</li>
-		<li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">Températeur : {{ $consultation->examensCliniques->temp  }}</span>&nbsp;&deg;C</li>
+		<li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">Taille : </span><span class="badge badge-pill badge-primary"> {{ $consultation->examensCliniques->taille  }}</span>&nbsp;(m)</li>
+		<li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">Poids : </span><span class="badge badge-pill badge-danger"> {{ $consultation->examensCliniques->poids  }}</span>&nbsp;(kg)</li>
+		<li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">IMC :</span><span class="badge badge-pill badge-danger"> {{ $consultation->examensCliniques->IMC  }}</span>&nbsp;</li>
+		<li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">Températeur :</span> {{ $consultation->examensCliniques->temp  }}&nbsp;&deg;C</li>
 		<li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">Autre : {{ $consultation->examensCliniques->autre  }}</span>&nbsp;</li>
 		<li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">Etat Géneral du patient  :</span><span>{{ $consultation->examensCliniques->Etat  }}</span>&nbsp;</li>
 		<li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">Peau et phanéres  : {{ $consultation->examensCliniques->peaupha  }}</span>&nbsp;</li>
