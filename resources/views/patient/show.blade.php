@@ -167,7 +167,9 @@ $('document').ready(function(){
 								<img class="editable img-responsive" alt="Avatar" id="avatar2" src="{{asset('/avatars/profile-pic.jpg')}}" />
 							</span><div class="space space-12"></div>
 							<a href="{{ route('patient.edit', $patient->id) }}" class="btn btn-sm btn-block btn-success">
-								<i class="ace-icon fa fa-pencil bigger-120"></i><span class="bigger-110">Modifier Les Informations</span>
+								<i class="ace-icon fa fa-pencil bigger-120"></i>
+								<!-- <i class="ace-icon fa fa-pencil-square-o bigger-110"></i> -->
+								<span class="bigger-110">Modifier</span>
 							</a>
 							<a class="btn btn-sm btn-block btn-primary" data-toggle="modal" data-target="#ticket">
 									<i class="ace-icon fa fa-plus bigger-120"></i><span class="bigger-110">Ajouter Ticket</span>
@@ -340,51 +342,7 @@ $('document').ready(function(){
 					<div class="row">@include('rdv.liste')</div>
 					<div class="row">@include('rdv.rendezVous')</div>
 				</div>	{{-- rdvs --}}
-				<div id="Hosp" class="tab-pane">
-				<div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2">
-					<div class="widget-box widget-color-blue" id="widget-box-2">
-						<div class="widget-header">
-							<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Listes Des Hospitalisations :</h5>
-						</div>
-						<div class="widget-body">
-							<div class="widget-main no-padding">
-								<table class="table table-striped table-bordered table-hover">
-									<thead class="thin-border-bottom">
-										<tr>
-											<th><strong>Medecin Traitant</strong></th>
-											<th><strong>Date d'entrée</strong></th>				
-											<th><strong>date de sortie prévue</strong></th>				
-											<th><strong>Date de sortie</strong></th>
-											<th><strong>Service</strong></th>
-											<th><strong>Salle</strong></th>
-											<th><strong>lit</strong></th>
-											<th><strong>Etat</strong></th>
-											<th><em class="fa fa-cog"></em></th>				
-										</tr>
-									</thead>
-									<tbody>
-									@if($patient->hospitalisations->count()>0)
-										@foreach($patient->hospitalisations as $hosp)
-										<tr>
-											<td>{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->nom}}</td>
-											<td>{{ $hosp->Date_entree }}</td>
-											<td>{{ $hosp->Date_Prevu_Sortie }}</td>
-											<td>{{ $hosp->Date_Sortie == null ? '/' : $hosp->Date_Sortie }}</td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td><span class="badge badge-danger">{{ $hosp->etat_hosp }}</span> </td>
-											<td></td>
-										</tr>
-										@endforeach
-									@endif
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-				</div>
-				</div><!-- /#Hosp -->
+				<div id="Hosp" class="tab-pane">@include('hospitalisations.liste')	</div><!-- /#Hosp -->
 				<div id="homme_conf" class="tab-pane"><!--homme_conf -->
 						<div class="row">@include('corespondants.widget')</div><div class="row">@include('corespondants.add')</div>
 				</div><!-- /#homme_conf -->	

@@ -1,8 +1,7 @@
 @extends('app')
 @section('page-script')
 <script src="{{ asset('/js/Dicom/hammer.min.js') }}"></script>
-<script src="{{ asset('/js/Dicom/dicomParser.min.js') }}"></script>
-<!-- include the cornerstone library -->
+<script src="{{ asset('/js/Dicom/dicomParser.min.js') }}"></script><!-- include the cornerstone library -->
 <script src="{{ asset('/js/Dicom/cornerstone.min.js') }}"></script>
 <script src="{{ asset('/js/Dicom/cornerstoneMath.min.js') }}"></script>
 <script src="{{ asset('/js/Dicom/cornerstoneWADOImageLoader.min.js') }}"></script>  
@@ -88,7 +87,6 @@
         document.getElementById('genre').textContent = image.data.string('x00100040');
         document.getElementById('age').textContent = image.data.string('x00101010');
         cornerstone.reset(element);
-     
       });
       cornerstone.events.addEventListener('cornerstoneimageloadprogress', function(event) {
         const eventData = event.detail;
@@ -118,7 +116,14 @@
 @section('main-content')
 <div class="row" width="100%">@include('patient._patientInfo')</div>
 <div class="container-fluid">
-  <div class="row"><h2> Détails de la demande Radiologique</h2></div>     
+  <div class="row">
+    <div class="col-sm-4"><h3> Détails de la demande Radiologique</h3></div><div class="col-sm-5"></div>
+      <a href="/showdemandeexr/{{ $demande->consultation->examensradiologiques->id }}" target="_blank" class="btn btn-sm btn-primary pull-right">
+       <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
+      </a>&nbsp;&nbsp;
+      <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
+    </div>
+  </div>     
   <div class="row no-gutters">
     <div class="col-lg-6">
       <div class="row align-items-center justify-content-center">

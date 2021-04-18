@@ -51,7 +51,7 @@
           <td rowspan="1" colspan="1" width="206" height="30" >SERVICE CENTRALE DE LA SANTE DE L'ACTION SOCIALE ET DES SPORTS </td>
           <td rowspan="1" colspan="1" width="230" height="30" ></td>  <td  rowspan="1" colspan="1" width="120" height="30" ></td>
         </tr>
-        <tr class="noBorder"><!-- <td  rowspan="1" colspan="1" width="206" height="30" >ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE</td> -->
+        <tr class="noBorder">
           <td  rowspan="1" colspan="1" width="206" height="30" >{{ $etablissement->nom }}</td>
           <td  rowspan="1" colspan="1" width="230" height="30" ></td><td rowspan="1" colspan="1" width="120" height="30" ></td>
         </tr>

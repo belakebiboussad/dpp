@@ -9,11 +9,10 @@
     <div class="row">
       <div class="col-sm-10 col-sm-offset-1">
         <div class="center">
-            <h4 class="blue" id="id-company-text">&copy;Etablissement Hospitalier de la Sûreté Nationale</h4>
+            <h4 class="blue" id="id-company-text">&copy;{{ $etablissement->nom}}</h4>
             <h1><i class="ace-icon fa fa-h-square blue"></i>
              <span class="white" id="id-text2">Dossier Médical Eléctronique</span>
-          </h1>
-               
+          </h1> 
         </div>
         <div class="space-6"></div>
         <div class="login-container">

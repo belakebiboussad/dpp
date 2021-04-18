@@ -20,7 +20,7 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
-	      	<label for="remumeSortie"><strong>Résumé de sortie:</strong></label><textarea class="form-control"  id="remumeSortie"></textarea>
+	      	<label for="resumeSortie"><strong>Résumé de sortie:</strong></label><textarea class="form-control"  id="resumeSortie"></textarea>
 	      </div>
 			</div>
 			<div class="row">

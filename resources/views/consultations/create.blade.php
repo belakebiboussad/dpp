@@ -370,12 +370,7 @@
 	    columnDefs: [
 	      { "targets": 3 ,  className: "dt-head-center dt-body-center" }
 	    ],
-	  });/*var table = $('#medc_table').DataTable({ 'bLengthChange': false, 'autoWidth': false, 'scrollX': true, 'scrollY': 300,  'scrollCollapse': true, 'language': {       "url": '/localisation/fr_FR.json'
-},ajax: '/getmedicaments',"createdRow": function(row, data, index) {var tableApi = this.api();var columns = tableApi.settings().init().columns;var tds = $(row).find('td');tds.each(function(index) {
-var $td = $(this);var columnIndex = tableApi.column(this).index(); var hasWidth = columns[columnIndex].width;if (hasWidth) { $td.css({'width': hasWidth,'max-width': hasWidth,'min-width': hasWidth,//will enforce fixed width, skip if not required
-'word-wrap': 'break-word'});}//}); },columns: [{data: 'Nom_com',title: 'Medicament',width: 100, // render: function(data) {   //   return '<span class="">' + data + '</span>';   // }
- }, {data: 'Forme',title: 'Forme', orderable:false, width: 30,className: "priority-3"}, { data: 'Dosage', width: 150, title: 'Dosage', orderable:false,}, { data: 'action', title: '<em class="fa fa-cog"></em>',
-width: 15, orderable: false,className: "dt-head-center dt-body-center"}],});*/
+	  });
   ////////////////////////////fin 
 	jQuery('#btn-add, #AntFamil-add').click(function () {//ADD
 		jQuery('#EnregistrerAntecedant').val("add");
@@ -706,9 +701,7 @@ width: 15, orderable: false,className: "dt-head-center dt-body-center"}],});*/
 @endsection
 @section('main-content')
 <div class="page-header" width="100%">
-	<div class="row">
-		<div class="col-sm-12" style="margin-top: -3%;">@include('patient._patientInfo')</div>
-	</div>
+	<div class="row"><div class="col-sm-12" style="margin-top: -3%;">@include('patient._patientInfo')</div></div>
 </div>
 <div class="content"><!-- style="height:800px;" -->
 	<div class="row">

@@ -3,9 +3,9 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\modeles\Etablissement;
 use Auth;
-use Redirect;
-//use config;
+use Redirect;//use config;
 use Config;
 class LoginController extends Controller
 {
@@ -33,10 +33,10 @@ class LoginController extends Controller
      */
       public function __construct()
       {
-          // $this->middleware('auth');
-          $this->middleware('guest')->except('logout');
+        // $this->middleware('auth');
+        $this->middleware('guest')->except('logout');
       }
-    //abm
+      //abm
       protected function validator(array $data)
       {       
               $validator = Validator::make($data, [
@@ -44,22 +44,20 @@ class LoginController extends Controller
               'password' => 'required|confirmed|min:1',
               ]);
               return $validator;
-       }
-
-       protected function getFailedLoginMessage()
+      }
+      protected function getFailedLoginMessage()
       {
-               return 'what you want here.';
+        return 'what you want here.';
       }
       protected function credentials(Request $request)
       {
-          $credentials = $request->only($this->username(), 'password');
-          $credentials['active'] = 1;
-          return $credentials;
+        $credentials = $request->only($this->username(), 'password');
+        $credentials['active'] = 1;
+        return $credentials;
       }
       protected function sendFailedLoginResponse(Request $request)
       {
-        $errors = [$this->username() => trans('auth.failed')];
-        // Load user from database
+        $errors = [$this->username() => trans('auth.failed')];// Load user from database
         $user = \App\User::where($this->username(), $request->{$this->username()})->first();
         // Check if user was successfully loaded, that the password matches
         // and active is not 1. If so, override the default error message.
@@ -77,20 +75,16 @@ class LoginController extends Controller
         Auth::logout(); // logout user  // Session::flush(); // Redirect::back();
         return Redirect::to('/login'); //redirect back to login
       }//abm
-      /*protected function authenticated(Request $request, $user)
-       {   
-             $IPs = config('settings.IPs');
-             session(['lieu_id' => $IPs[$_SERVER['REMOTE_ADDR']]]);
-            if(isset($user->employ->service))
-                session(['service' => (in_array($user->role_id,[1,3,5,6,10,11,12,13,14])) ? $user->employ->Service->id :0]);
-      }*/
-	public function username()
+/*protected function authenticated(Request $request, $user){$IPs = config('settings.IPs');session(['lieu_id' => $IPs[$_SERVER['REMOTE_ADDR']]]);
+  if(isset($user->employ->service))session(['service' => (in_array($user->role_id,[1,3,5,6,10,11,12,13,14])) ? $user->employ->Service->id :0]);}*/
+	    public function username()
       {
-  		   return 'name';
+  		  return 'name';
       }
       public function showLoginForm()
       {
-              return view('auth/login');
+        $etablissement = Etablissement::first();
+        return view('auth/login',compact('etablissement'));
       }
     //fabm
 }

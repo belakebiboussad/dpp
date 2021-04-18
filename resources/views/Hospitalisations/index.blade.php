@@ -153,7 +153,7 @@
                 Date_Sortie        : jQuery('#Date_SortieH').val(),
                 Heure_sortie       : jQuery('#Heure_sortie').val(),
                 modeSortie         :jQuery('#modeSortie').val(),
-                remumeSortie     : $('#remumeSortie').val(),
+                resumeSortie     : $('#resumeSortie').val(),
                 etatSortie            : $('#etatSortie').val(),
                 diagSortie           : $("#diagSortie").val(),
                 ccimdiagSortie    : $("#ccimdiagSortie").val(),

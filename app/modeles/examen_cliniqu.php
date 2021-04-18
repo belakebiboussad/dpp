@@ -11,10 +11,10 @@ class examen_cliniqu extends Model
 	protected $table = 'examen_clinique';
 	public function consultation()
 	{
-	  	return $this->belongsTo('App\modeles\consultation','id_consultation');
+	  return $this->belongsTo('App\modeles\consultation','id_consultation');
 	} 
 	public function examsAppareil()
-   	{
-      		return $this->hasMany('App\modeles\examAppareil','examen_clinique_id');
-   	}
+  {
+  	return $this->hasMany('App\modeles\examAppareil','examen_clinique_id');
+  }
 }

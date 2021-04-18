@@ -297,6 +297,21 @@
             }
          });             
       }
+      function showHosp(hospId) //a voir ce lui den haut
+      {
+        url= '{{ route ("hospdetailsXHR", ":slug") }}',
+        url = url.replace(':slug',hospId);
+         $.ajax({
+            type : 'GET',
+            url:url,
+            success:function(data,status, xhr){
+              $('#hospDetail').html(data.html);
+            },
+            error:function (data){
+              console.log('Error:', data);
+            }
+         });             
+      }
       function HommeConfcopy(id)
       {
             $.get('/hommeConfiance/'+id+'/edit', function (data) {

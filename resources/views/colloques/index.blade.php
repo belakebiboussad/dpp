@@ -34,15 +34,14 @@
 							<p class="text-primary">{{ $employe->nom }} {{ $employe->prenom }}</p> 
 						@endforeach
 					</td>
-					<td><p class="text-primary">{{ $col->date_creation }}</p></td>
-					<td><p class="text-primary">{{ ($col->type ==0 ) ? 'médicale' : 'chirurgicale' }}</p></td>
-					<td><p class="text-primary">{{ $col->etat }}</p></td>
+					<td>{{ $col->date_creation }}</td>
+					<td>{{ ($col->type ==0 ) ? 'médicale' : 'chirurgicale' }}</td>
+					<td>{{ $col->etat }}</td>
 					<td class="center">
-							<a href="{{ route('colloque.edit',$col->id)}} " class="btn btn-xs btn-success"><i class="ace-icon fa fa-pencil-square-o bigger-110"></i></a>
+							<a href="{{ route('colloque.edit',$col->id)}} " class="btn btn-sm btn-success"><i class="ace-icon fa fa-pencil-square-o bigger-110"></i></a>
 							@if($col->etat =="en cours")
-				  		<a href="/runcolloque/{{ $col->id }}" class="btn btn-xs btn-green" title="Déroulement"><i class="ace-icon fa fa-cog  bigger-110"></i></a>
-				    	<a href="{{ route('colloque.destroy',$col->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger"><i class="ace-icon fa fa-trash-o bigger-110"></i>
-
+				  		<a href="/runcolloque/{{ $col->id }}" class="btn btn-sm btn-green" title="Déroulement"><i class="ace-icon fa fa-cog  bigger-110"></i></a>
+				    	<a href="{{ route('colloque.destroy',$col->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-sm btn-danger"><i class="ace-icon fa fa-trash-o bigger-110"></i>
 				  	@endif
 						</td>
 			  	</tr>

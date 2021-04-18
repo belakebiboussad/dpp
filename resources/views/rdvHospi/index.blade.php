@@ -1,19 +1,8 @@
 @extends('app_sur')
-@section('title')
-Gestion Rendez_Vous & Lits
-@endsection
-@section('page-script')
-<script>
-	$('document').ready(function(){
-
-	});	
-</script>
-@endsection
+@section('title','Gestion Rendez_Vous & Lits')
 @section('main-content')
 <div class="widget-header">
-	<h5 class="widget-title bigger lighter">
-		<i class="fa fa-list" aria-hidden="true"></i>&nbsp;Demandes Hospitalisations
-	</h5>
+	<h5 class="widget-title bigger lighter"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;Demandes Hospitalisations</h5>
 </div>
 <div class="row">
 	<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
@@ -30,7 +19,7 @@ Gestion Rendez_Vous & Lits
 								<th class="text-center"><h5><strong>Mode Admission</strong></h5></th>
 								<th class="text-center" width="3%"><h5><strong>Priorité</strong></h5></th>
 								<th class="text-center"><h5><strong>Medecin Trait.</strong></h5></th>
-								<th class="text-center"><h5><strong>Observation</strong></h5></th>
+								<th class="text-center hidden-xs"><h5><strong>Observation</strong></h5></th>
 								<th class="text-center"><h5><strong>date</strong></h5></th>
 								<th class="text-center"><h5><strong>spécialité</strong></h5></th>
 								<th class="text-center"><em class="fa fa-cog"></em></th>
@@ -60,19 +49,16 @@ Gestion Rendez_Vous & Lits
 									@endswitch
 								</td>
 								<th>{{ $demande->medecin->nom }} &nbsp; {{ $demande->medecin->prenom }}</th>
-								<td>{{ $demande->observation }}</td>
+								<td class="hidden-xs">{{ $demande->observation }}</td>
 								<td>{{ $demande->demandeHosp->consultation->Date_Consultation }}</td>
 								<td>{{ $demande->demandeHosp->Specialite->nom }}</td>
 								<td class="text-center">
-									<div class="hidden-sm hidden-xs btn-group">
-										<a href="{{ route('rdvHospi.create',['id' =>$demande->id_demande ]) }}" class="btn btn-xs btn-success" title="Ajouter Rendez-Vous">
-											<span syle="color:green">
-												<i class="fa fa-clock-o" aria-hidden="true"></i>
-											</span>
-
+									<div class="btn-group">
+										<a href="{{ route('rdvHospi.create',['id' =>$demande->id_demande ]) }}" class="btn btn-sm btn-success" title="Ajouter Rendez-Vous">
+											<span syle="color:green"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
 										</a>
 									</div>
-									</td>
+								</td>
 								</tr>
 								@endif
 							@endforeach
@@ -86,9 +72,7 @@ Gestion Rendez_Vous & Lits
 @if(isset($demandesUrg) && $demandesUrg->count() )
 <div class="space-12"></div><div class="space-12"></div>
 <div class="widget-header">
-	<h5 class="widget-title bigger lighter">
-		<i class="fa fa-list" aria-hidden="true"></i>&nbsp;Demandes Hospitalisations Urgentes
-	</h5>
+	<h5 class="widget-title bigger lighter"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;Demandes Hospitalisations Urgentes</h5>
 </div>
 <div class="row">
 	<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
@@ -110,13 +94,12 @@ Gestion Rendez_Vous & Lits
 							</tr>
 						</thead>
 						<tbody>
-						
 							@foreach($demandesUrg as $demande)
 							<tr id="{{ 'demande'.$demande->id }}">
 								<td>{{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }}</td>
 								<td>{{ $demande->modeAdmission }}</td>
-								<td>{{ $demande->consultation->Date_Consultation }}</td>			<td>{{ $demande->Specialite->nom }}</td>
-								<td class="text-center"><!-- {{ route('lit.affecter',['id' =>$demande->id ]) }} -->
+								<td>{{ $demande->consultation->Date_Consultation }}</td><td>{{ $demande->Specialite->nom }}</td>
+								<td class="text-center">
 									<button class="btn btn-xs btn-success" title="Affecter un Lits" id ="bedAffect" value="{{ $demande->id }}">
 										<span style="color: red;"><i class="fa fa-bed fa-1x" aria-hidden="true"></i></span>
 									</button>
@@ -126,7 +109,6 @@ Gestion Rendez_Vous & Lits
 								</td>
 							</tr>
 							@endforeach
-							
 						</tbody>
 					</table>
 				</div>

@@ -17,34 +17,34 @@
 		}		
 	}
 	function formFill(adm)
-	{
+	{	
 		$('#patient option:selected').remove();
 		$('#garde').find('option').remove();
 		$('#service').find('option').remove();
 		if($('#widget-box2').hasClass('invisible'))
 	    		$('#widget-box2').removeClass('invisible');
 		$('#patient').append($('<option>', { 
-	   		value: adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['id'],
-	  		 text : adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['Nom']+" " + adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['Prenom'], 
+	   		value: adm['demande_hospitalisation']['consultation']['patient']['id'],
+	  		 text : adm['demande_hospitalisation']['consultation']['patient']['Nom']+" " + adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['Prenom'], 
 	   		 selected : true
-	  	}));
-		$('#service').append($('<option>', { 
-		    value: adm['rdv_hosp']['demande_hospitalisation']['service']['id'],
-		    text : adm['rdv_hosp']['demande_hospitalisation']['service']['nom'], 
+	  }));
+	  $('#service').append($('<option>', { 
+		    value: adm['demande_hospitalisation']['service']['id'],
+		    text : adm['demande_hospitalisation']['service']['nom'], 
 		    selected : true
 	 	}));
-	  	$('[name=medecin]').val( adm['rdv_hosp']['demande_hospitalisation']['demeande_colloque']['id_medecin']);
-	 	if(adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['hommes_conf'].length == 0)
+	 	$('[name=medecin]').val( adm['demande_hospitalisation']['demeande_colloque']['id_medecin']);
+	 	if(adm['demande_hospitalisation']['consultation']['patient']['hommes_conf'].length == 0)
 	 		$("#garde").addClass('invisible');
 	 	else
 	 	{
 	 		if($('#garde').hasClass('invisible'))
 	    			$('#garde').removeClass('invisible');
-		  	$('#garde_id').append($('<option>', { 
+		  $('#garde_id').append($('<option>', { 
 	  	 			value: '',
 	     				text : 'Selectionner un garde malade', 
 	    		}));
-		  	$.each(adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['hommes_conf'], function( index, garde ) {
+		  	$.each(adm['demande_hospitalisation']['consultation']['patient']['hommes_conf'], function( index, garde ) {
 		   		$('#garde_id').append($('<option>', { 
 	  	 			value: garde['id'],
 	     				text : garde['nom']+" " + garde['prenom'], 
@@ -52,12 +52,12 @@
 	  		});
 	 	}
 	 	$('#id_admission').val(adm['id']);
-	 	$('#patient_id').val(adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['id']);
+	 	$('#patient_id').val(adm['demande_hospitalisation']['consultation']['patient']['id']);
 	 	if(adm['demande_hospitalisation']['bed_affectation'] != null)
-	 	 	$('#lit_id').val(adm['demande_hospitalisation']['bed_affectation']['lit_id']);// $('#demande_id').val(adm['rdv_hosp']['demande_hospitalisation']['id'])
-		$("#Date_entree").datepicker("setDate", adm['rdv_hosp']['date_RDVh']);
-	  	$("#Date_Prevu_Sortie").datepicker("setDate", adm['rdv_hosp']['date_Prevu_Sortie']);
-	  	updateDureePrevue();
+	 	 	$('#lit_id').val(adm['demande_hospitalisation']['bed_affectation']['lit_id']);
+ 		$("#Date_entree").datepicker("setDate", adm['rdv_hosp']['date_RDVh']);
+  	$("#Date_Prevu_Sortie").datepicker("setDate", adm['rdv_hosp']['date_Prevu_Sortie']);
+  	updateDureePrevue();
 	}
 	function addDays()
   	{
