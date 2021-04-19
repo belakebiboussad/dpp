@@ -45,33 +45,30 @@
 			  <div class="col-sm-12"><h3 class="header smaller lighter blue">Demande d'Hospitalisation</h3></div>
 			</div><div class="space-12 hidden-xs"></div>
 			<div class="row">
-				<div class="col-sm-12">
-					<div class="col-sm-4 col-xs-12">
+				<div class="col-sm-4 col-xs-12">
 				    <label class="col-sm-4 col-xs-5 control-label no-padding-right" for="service"> <strong>Service:</strong></label>
 	          <div class="col-sm-8 col-xs-7">
-				      <input type="text" id="service" name="service" value="{{ $demande->demandeHosp->Service->nom }}" class="col-xs-12 col-sm-12" disabled/>
+				      <input type="text" id="service" name="service" value="{{ $demande->demandeHosp->Service->nom }}" disabled/>
 				    </div>
-				  </div>
-   			  <div class="col-sm-4 col-xs-12">
-				  	<label class="col-sm-4 col-xs-5 control-label no-padding-right no-wrap" for="specialite"><strong>Specialite :</strong></label>
-				  	<div class="col-sm-8 col-xs-7">
-				       <input type="text" id="specialite" name="specialite" value="{{ $demande->demandeHosp->Specialite->nom }}" class="col-xs-12 col-sm-12" disabled/>
-				    </div>  
-				  </div>
+				</div>
+				<div class="col-sm-4 col-xs-12">
+			  	<label class="col-sm-4 col-xs-5 control-label no-padding-right no-wrap" for="specialite"><strong>Specialite :</strong></label>
+			  	<div class="col-sm-8 col-xs-7">
+			       <input type="text" id="specialite" name="specialite" value="{{ $demande->demandeHosp->Specialite->nom }}" disabled/>
+			    </div>  
+			  </div>
 			   	<div class="col-sm-4 col-xs-12">
 				    <label class="col-sm-4 col-xs-5 control-label no-padding-right no-wrap" for="mode"> <strong>Mode admis.:</strong></label>
 				    <div class="col-sm-8 col-xs-7">
-				      <input  type="text" id="mode" name="mode" value="{{ $demande->demandeHosp->modeAdmission }}" class="col-xs-12 col-sm-12" disabled/>
+				      <input  type="text" id="mode" name="mode" value="{{ $demande->demandeHosp->modeAdmission }}" disabled/>
 				    </div>
 				  </div>
-	   			</div>
-   			</div><div class="space-12"></div>
+	   		</div><div class="space-12"></div>
 			  <div class="row">
-			  <div class="col-sm-12">
 				  <div class="col-sm-4 col-xs-12">
 				    <label class="col-sm-4 col-xs-5 control-label no-padding-right no-wrap" for="medecin"><strong>Medecin Trait.:</strong></label>
 				    <div class="col-sm-8 col-xs-7">
-				      <input type="text" id="medecin" name="medecin" value="{{$demande->medecin->nom}} {{$demande->medecin->prenom}}" class="col-xs-12 col-sm-12" disabled/>
+				      <input type="text" id="medecin" name="medecin" value="{{$demande->medecin->nom}} {{$demande->medecin->prenom}}" disabled/>
 				    </div>  
 				  </div>
 			    <div class="col-sm-4 col-xs-12">
@@ -91,21 +88,19 @@
 				  <div class="col-sm-4 col-xs-12">
             <label class="col-sm-4 col-xs-5 control-label no-padding-right" for="motif"><strong>observation :</strong></label>		              
               <div class="col-sm-8 col-xs-7">
-               <input type="text" id="motif" name="motifhos" value="{{$demande->observation}}" class="col-xs-12 col-sm-12" disabled/>
+               <input type="text" id="motif" name="motifhos" value="{{$demande->observation}}" disabled/>
               </div>
 				  </div>
-       	</div>
         </div><div class="space-12 hidden-xs"></div>
 			  <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Admissions</h3></div></div>
 			  <div class="space-12 hidden-xs"></div>
-			  <div class="row">
-				<div class="col-sm-12">		
+			  <div class="row">		
 					<div class="col-sm-4 col-xs-12">
 						<label class="col-sm-7 col-xs-5 control-label no-padding-right" for="dateEntree"><strong> Date entrée : </strong></label>
 						<div class=" input-group col-sm-5 col-xs-7">
 							<input class="form-control date-picker" id="dateEntree" name="dateEntree" type="text" data-date-format="yyyy-mm-dd" required/>
-						  	<span class="input-group-addon" onclick="$('#dateEntree').focus()"><i class="fa fa-calendar bigger-110"></i></span> 
-						 </div>
+						  <span class="input-group-addon" onclick="$('#dateEntree').focus()"><i class="fa fa-calendar bigger-110"></i></span> 
+						</div>
 					</div>
 					<div class="col-sm-4 col-xs-12">
 						<label class="col-sm-7 col-xs-5 control-label no-padding-right no-wrap" for="heure_rdvh"><strong> Heure entrée :</strong> </label>
@@ -115,32 +110,30 @@
 						</div>
 					</div>
 					<div id ="numberofDays" class="col-sm-4 col-xs-12">
-						<label class="col-sm-7 col-xs-5 control-label no-padding-right" for="numberDays"><strong> Durée Prévue :</strong>	</label>
-				    <div class="col-sm-5 col-xs-7">
-							<input class="col-xs-9 col-sm-9" id="numberDays" type="number" placeholder="nombre de nuit(s)" min="0" max="50" value="0" required /><label><small>nuit(s)</small></label>
-						</div>	
+						<label class="col-sm-7 col-xs-5 control-label no-padding-right no-wrap" for="numberDays"><strong> Durée :</strong>	</label>
+				   	 <div class="input-group col-sm-5 col-xs-7">	
+				   	 		<input id="numberDays" min="0" max="50" value="0" class="form-control" type="number" required>
+				   	 		<span class="input-group-addon">nuit(s)</span>
+				   	 </div>
 					</div>
+			  </div><div class="space-12"></div>
+			  <div class="row">		
+				<div class="col-sm-4 col-xs-12">
+				  <label class="col-sm-7 col-xs-5 control-label no-padding-right" for="dateSortiePre"><strong>Date sortie :</strong></label>
+			    <div class="input-group col-sm-5 col-xs-7">
+						<input class="form-control date-picker" id="" name="" type="text" data-date-format="yyyy-mm-dd" required/>
+						 <span class="input-group-addon" onclick=""><i class="fa fa-calendar bigger-110"></i></span> 		
+          </div>
 				</div>
-			</div><div class="space-12"></div>
-			<div class="row">
-				<div class="col-sm-12">		
-					<div class="col-sm-4 col-xs-12">
-				  	<label class="col-sm-7 col-xs-5 control-label no-padding-right" for="dateSortiePre"><strong> Date sortie :</strong></label>
-			     	<div class="input-group col-sm-5 col-xs-7">
-							<input class="date-picker" id="dateSortiePre" name="dateSortiePre" type="text" data-date-format="yyyy-mm-dd" onchange="updateDureePrevue()" required/>
-						  <span class="input-group-addon" onclick="$('#dateSortie').focus()"><i class="fa fa-calendar bigger-110"></i></span>      
-            </div>
-					</div>
-					<div class="col-sm-4 col-xs-12">
-						<div class="form-group">
-							<label class="col-sm-7 col-xs-7 control-label no-padding-right no-wrap" for="heureSortiePrevue"><strong> Heure sortie :</strong></label>
-					    <div class="input-group col-sm-5 col-xs-5">
+				<div class="col-sm-4 col-xs-12">
+					<div class="form-group">
+						<label class="col-sm-7 col-xs-7 control-label no-padding-right no-wrap" for="heureSortiePrevue"><strong> Heure sortie :</strong></label>
+				    <div class="input-group col-sm-5 col-xs-5">
 								<input id="heureSortiePrevue" name="heureSortiePrevue" class="form-control timepicker" type="text" required>
 								<span class="input-group-addon"><i class="fa fa-clock-o bigger-110"></i></span>		
 							</div>
 						</div>
 					</div>
-			  </div>
 			</div><div class="space-12 hidden-xs"></div>
 		  <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Hébergement</h3></div> </div>
 			<div class="space-12 hidden-xs"></div>
