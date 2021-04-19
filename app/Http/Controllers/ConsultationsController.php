@@ -101,10 +101,10 @@ class ConsultationsController extends Controller
           'resume' => 'required',
         ]);
         if($validator->fails())
-              return redirect()->back()->withErrors($validator)->withInput();
-         $etablissement = Etablissement::first(); 
-         $fact = facteurRisqueGeneral::updateOrCreate( ['patient_id' =>  request('patient_id')], $request->all());
-         $consult = consultation::create([
+          return redirect()->back()->withErrors($validator)->withInput();
+        $etablissement = Etablissement::first(); 
+        $fact = facteurRisqueGeneral::updateOrCreate( ['patient_id' =>  request('patient_id')], $request->all());
+        $consult = consultation::create([
             "motif"=>$request->motif,
             "histoire_maladie"=>$request->histoirem,
             "Date_Consultation"=>Date::Now(),
@@ -130,15 +130,15 @@ class ConsultationsController extends Controller
           $exam->autre  = $request->autre; $exam->IMC    = $request->imc;
           $exam->Etat   = $request->etatgen; $exam->peaupha =$request->peaupha; 
           $consult->examensCliniques()->save($exam);
-           foreach ($apareils as $appareil) {
-                 if( null !== $request->input($appareil->nom))
-                  {
-                        $examAppareil = new examAppareil;
-                        $examAppareil->appareil_id = $appareil->id;
-                        $examAppareil->description = $request->input($appareil->nom);
-                        $exam->examsAppareil()->save($examAppareil);
-                   }      
-            } 
+          foreach ($apareils as $appareil) {
+            if( null !== $request->input($appareil->nom))
+            {
+              $examAppareil = new examAppareil;
+              $examAppareil->appareil_id = $appareil->id;
+              $examAppareil->description = $request->input($appareil->nom);
+              $exam->examsAppareil()->save($examAppareil);
+            }      
+          } 
         }
         if(($request->motifOr != "") ||(isset($request->specialite))){
           $this->LettreOrientationCTRL->store($request,$consult->id);
@@ -201,10 +201,6 @@ class ConsultationsController extends Controller
      * @param  \App\modeles\consultation  $consultation
      * @return \Illuminate\Http\Response
      */
-    public function edit(consultation $consultation)
-    {
-          dd("fsdf");
-    }
     /**
      * Update the specified resource in storage.
      *
@@ -235,6 +231,5 @@ class ConsultationsController extends Controller
                                                   })->get();
         return Response::json($consults);
       }
-
     }
 }

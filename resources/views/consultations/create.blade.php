@@ -1,7 +1,5 @@
 @extends('app')
-@section('title')
-  	Nouvelle Consultation
-@endsection
+@section('title','Nouvelle Consultation')
 @section('style')
 <style>
 	.modaldialog {
@@ -493,7 +491,7 @@
 		       dataType: 'json',
 		       success: function (data) {
 		    	   	if(data.Antecedant == "Personnels")
-		    	   	{// var typeAntecedant = (data.typeAntecedant == '0') ? 'Pathologiques':'Physiologiques';typeAntecedant +'</td><td>'+
+		    	   	{
 								var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>' + data.stypeatcd +'</td><td>'+ data.date +'</td><td>'+data.cim_code+ '</td><td>' + data.descrioption + '</td>';
 	              atcd += '<td class ="center"><button class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
 	            	atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
@@ -696,7 +694,7 @@
 	  $("#temp").ionRangeSlider({
 	      min:30,   max:50,    step:0.1,    from:37,   grid: true,   grid_num: 20, postfix:" C", 
 	  });
-});// ready
+ });// ready
 </script>	
 @endsection
 @section('main-content')

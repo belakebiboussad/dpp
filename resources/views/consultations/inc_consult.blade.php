@@ -27,12 +27,47 @@
 		<li><i class="message-star ace-icon fa fa-star orange2"></i><strong>Autre :</strong>{{ $consultation->examensCliniques->autre  }}&nbsp;</li>
 		<li><i class="message-star ace-icon fa fa-star orange2"></i><strong>Etat Géneral du patient :</strong><span>{{ $consultation->examensCliniques->Etat  }}</span></li>
 		<li><i class="message-star ace-icon fa fa-star orange2"></i><strong>Peau et phanéres  :</strong><span>{{ $consultation->examensCliniques->peaupha  }}</span></li>
-		{{-- 	@foreach($consultation->examensCliniques->examsAppareil as $examAppareil)
-			@if(null !== $examAppareil )
-			{{ $examAppareil}}
-			@endif
-		@endforeach --}}
 	</ul>
+</div>
+<div class="row">
+	{{--<div id="accordion" class="accordion-style2 ui-accordion ui-widget ui-helper-reset ui-sortable" role="tablist">
+		<div class="group">
+		@foreach($consultation->examensCliniques->examsAppareil as $examAppareil)
+			@if(null !== $examAppareil )
+				<h3 class="accordion-header ui-accordion-header ui-state-default ui-accordion-icons ui-sortable-handle ui-corner-all ui-state-hover" role="tab" id="ui-id-23" aria-controls="ui-id-24" aria-selected="false" aria-expanded="false" tabindex="-1"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>{{ $examAppareil->appareil_id}}</h3>
+				<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-id-24" aria-labelledby="ui-id-23" role="tabpanel" style="display: none;" aria-hidden="true">
+					<p>
+					  {{ $examAppareil->description}}
+					</p>
+				</div>	
+			@endif
+		@endforeach
+		</div>
+	</div>--}}
+ <!-- deb -->
+ <div id="accordion" class="accordion-style2 ui-accordion ui-widget ui-helper-reset ui-sortable" role="tablist">
+    <div class="group" style="">
+        <h3 class="accordion-header ui-accordion-header ui-state-default ui-accordion-icons ui-sortable-handle ui-corner-all" role="tab" id="ui-id-23" aria-controls="ui-id-24" aria-selected="false" aria-expanded="false" tabindex="-1"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>Section 1</h3>
+			<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-id-24" aria-labelledby="ui-id-23" role="tabpanel" style="display: none;" aria-hidden="true">
+            <p> Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
+           </p>
+        </div>
+    </div>
+
+    <div class="group">
+        <h3 class="accordion-header ui-accordion-header ui-state-default ui-accordion-icons ui-sortable-handle ui-state-hover ui-corner-all" role="tab" id="ui-id-25" aria-controls="ui-id-26" aria-selected="false" aria-expanded="false" tabindex="0"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>Section 2</h3>
+
+        <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="ui-id-26" aria-labelledby="ui-id-25" role="tabpanel" aria-hidden="true" style="display: none;">
+            <p>
+                Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
+purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
+velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
+suscipit faucibus urna.
+            </p>
+        </div>
+    </div>
+</div><!-- #accordion -->
+ <!-- fin -->
 </div>
 @endif
 @if(isset($consultation->demandeexmbio))
@@ -97,13 +132,13 @@
 						<tr>
 						  <td>{{ $consultation->Date_Consultation }}</td>
 					    <td>
-				           @if($consultation->examensradiologiques->etat == "E")
-				                <span class="badge badge-warning"> En Attente</span>
-				           @elseif($consultation->examensradiologiques->etat == "V")
-				                Validé
-				          @else
-				               <span class="badge badge-danger">Rejeté</span>
-				           @endif
+			           @if($consultation->examensradiologiques->etat == "E")
+			                <span class="badge badge-warning"> En Attente</span>
+			           @elseif($consultation->examensradiologiques->etat == "V")
+			                Validé
+			          @else
+			               <span class="badge badge-danger">Rejeté</span>
+			           @endif
 					    </td>
 				      <td class="center">
 					      <a href="{{ route('demandeexr.show', $consultation->examensradiologiques->id) }}"><i class="fa fa-eye"></i></a>
