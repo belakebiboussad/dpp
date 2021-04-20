@@ -24,7 +24,7 @@
           	<tr>
               <td class="center">{{ $index + 1 }}</td>
               <td>{{ $exm->nom_examen }}</td>
-            	@if($index ==0)
+            	@if($loop->first)
             		<td rowspan ="{{ $demande->examensbios->count()}}" class="center align-middle">
             			@if($demande->etat == "E")
                     <span class="badge badge-danger"> En Attente</span>

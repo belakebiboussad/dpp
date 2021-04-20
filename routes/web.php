@@ -180,7 +180,7 @@ Route::get('/pdf/{order}', ['as' => 'rdv.pdf', 'uses' => 'rdvController@orderPdf
 Route::get('assur/patientAssuree/{NSS}/{Type}/{Prenom}','PatientController@create');
 Route::post('/addpatientAssure','PatientController@storePatient');
 Route::get('assur/patientAedit/{id}/{idA}','PatientController@edit');
-/************partie viste d'hospitalisation**************/
+/************partie visite d'hospitalisation**************/
 Route::get('/delVisite/{id}', 'VisiteController@destroy')->name('visite.destroy');
 Route::get('/visite/create/{id}','VisiteController@create');
 Route::post('/visite/store/{id}','VisiteController@store');

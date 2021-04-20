@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class visite extends Model
 {
-  //
-	public $timestamps = false;
+  public $timestamps = false;
   protected $fillable  = ['date','heure','id_hosp','id_employe'];
   public function hospitalisation()
   {

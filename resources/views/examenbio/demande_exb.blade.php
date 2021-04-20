@@ -25,7 +25,7 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="section">
-          <div class="sec-droite"><b><u>Fait le:</u></b> {{ $demande->consultation->Date_Consultation  }}.</div>
+          <div class="sec-droite"><b><u>Fait le:</u></b> {{ $date  }}.</div>
         </div>
       </div>
     </div><br><br>
@@ -33,9 +33,9 @@
     <div class="col-sm-12">
       <div class="section">
         <div class="sec-gauche">
-          <b><u>Patient(e) :</u></b> <b> {{ $demande->consultation->patient->getCivilite() }} </b>  
-          {{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }},&nbsp;
-          {{ $demande->consultation->patient->getAge() }} ans,{{ $demande->consultation->patient->Sexe }}
+          <b><u>Patient(e) :</u></b> <b> {{ $patient->getCivilite() }} </b>  
+          {{ $patient->Nom }} {{ $patient->Prenom }},&nbsp;
+          {{ $patient->getAge() }} ans,{{ $patient->Sexe }}
         </div>
       </div>
     </div>
@@ -45,12 +45,12 @@
     <div class="col-sm-12">
       <div class="section">
         <div class="sec-gauche">
-          <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($demande->consultation->patient->IPP, 'C128')}}" alt="barcode" />
-          <br> {{ $demande->consultation->patient->IPP }}
+          <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($patient->IPP, 'C128')}}" alt="barcode" />
+          <br> {{ $patient->IPP }}
         </div>
       </div>
     </div>
-  </div><!-- <br><br><h4 class="center"><b>Demande examens biologiques</b></h4> -->
+  </div>
 	<br><br><br><br>
 	<div class="row">
     <div class="col-sm-12">

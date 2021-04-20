@@ -74,14 +74,12 @@
 </div>
 @endif
 @if($hosp->visites->count() > 0)
-<div class="row">
-	<div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><strong><span style="font-size:16px;">Visites</span></strong>
-	</div>
+<div class="row"><div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><strong><span style="font-size:16px;">Visites</span></strong></div>
 </div>
 <div class="row">
 	<div class="col-xs-11 widget-container-col">
 		<div class="widget-box widget-color-blue">
-			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande Examens Biologique</h5></div>
+			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des Visites</h5></div>
 			<div class="widget-body">
 				<div class="widget-main no-padding">
 					<table class="table table-striped table-bordered table-hover">
@@ -108,8 +106,7 @@
 							 		{{ $trait->medicament->nom }} <br>
 							 	@endforeach
 						 	</td>
-						 	<td><a href="{{ route('visite.show', $visite->id) }}"><i class="fa fa-eye"></i></a>	{{ $visite->examensradiologiques }}</td>
-
+						 	<td><a href="{{ route('visite.show', $visite->id) }}"><i class="fa fa-eye"></i></a>	{{ $visite->id }}</td>
 						 </tr>
 						@endforeach
 						</tbody>
