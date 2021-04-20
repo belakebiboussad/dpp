@@ -45,6 +45,7 @@ Route::resource('traitement','TraitementController');
 Route::resource('surveillance','SurveillanceController');
 Route::resource('reservation','BedReservationController');
 Route::resource('etablissement','EtablissementControler');
+Route::resource('visite','VisiteController');
 route::get('/home_admin',function (){
     $users = App\User::all();
     return view('home.home_admin',compact('users'));
@@ -132,7 +133,6 @@ Route::any('/profile/{userId}', [
         'uses'  => 'UsersController@viewProfile'
     ]);
 });
-
 Route::get('/role/show/{userId}','RolesController@show');// Route::get('/home', 'HomeController@index')->name('home');
 Route::post('AddANTCD','AntecedantsController@createATCDAjax');
 Route::get('/DocorsSearch','EmployeController@searchBySpececialite');

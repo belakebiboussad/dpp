@@ -123,5 +123,7 @@ class VisiteController extends Controller
     }
     public function show($id)
     {
+      $visite = visite::with('actes','traitements')->FindOrFail($id);
+      return view('visite.show', compact('visite'));
     }
 }

@@ -4,7 +4,7 @@
 	<div class="widget-box widget-color-blue" id="widget-box-2">
 		<div class="widget-header">
 			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>
-				<strong>Liste Des Colloques @if(isset($type)) {{( $type == 0) ? 'Médicaux ' : 'Chirurgicaux' }} @endif 	</strong>
+				<strong>Liste des Colloques @if(isset($type)) {{( $type == 0) ? 'Médicaux ' : 'Chirurgicaux' }} @endif 	</strong>
 			</h5>
 			<div class="widget-toolbar widget-toolbar-light no-border">
 			  <div class="fa fa-plus-circle"></div><a href="{{ route('colloque.create')}}"><b>Ajouter Colloque</b></a>

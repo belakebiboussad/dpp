@@ -1,10 +1,12 @@
-@extends('app_med')
+@extends('app')
 @section('main-content')
-<?php $patient = $consultation->patient; ?><div class="row">@include('patient._patientInfo', $patient)</div>
-<div class="pull-right">
-  <a href="{{route('consultations.edit',$consultation->id )}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-edit bigger-120 blue"></i>Edit</a>
+<div class="row" width="100%">
+  <div class="col-sm-12" style="margin-top: -1%;">
+    <?php $patient = $consultation->patient; ?> @include('patient._patientInfo', $patient)
+  </div>
 </div>
-<div class="row"><h3>Détails du la Consultation :</h3> </div> 
+ {{--<div class="pull-right"><a href="{{route('consultations.edit',$consultation->id )}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-edit bigger-120 blue"></i>Edit</a></div>--}}
+<div class="row"><h4>Détails du la Consultation :</h4></div> 
   <div class="tabbable"  class="user-profile">
     <ul class="nav nav-tabs padding-18">
         <li class="active"><a data-toggle="tab" href="#Intero">Interogatoire</a></li>

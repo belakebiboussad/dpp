@@ -210,31 +210,11 @@ $(document).ready(function() {
         if($('#patient').val())
               $("#btnSave").removeAttr("disabled"); 
     });
-    $('#printRdv').click(function(){
-        $.ajaxSetup({
-              headers: {
-                  'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-               }
-        });
-        $.ajax({
-                type : 'GET',
-                url :'/rdv/print/'+$('#idRDV').val(),
-                success:function(data){
-                },
-                error:function(data){
-                  console.log("error");
-                }
-        });
-    }); 
 });
 </script>
 @endsection
 @section('main-content')
-<!-- <div class="row"><div class="col-sm-12 col-xs-12">
-  <div class="panel panel-default mt-20" width="100%">&nbsp;&nbsp;&nbsp;&nbsp; <div class="panel-heading mt-20"><div class="left"> <strong>Ajouter un Rendez-Vous</strong></div></div>
-    <div class="panel-body">  <div id='calendar'></div></div><div class="panel-footer">
-      <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><h7><strong>&nbsp;RDV fixe</strong></h7>  <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><h7>&nbsp;RDV à fixer<strong></strong></h7>
-</div></div> </div></div> -->
+
 <div class="row mt-20"><div class="col-sm-12"> <h4>Ajouter un Rendez-Vous</h4></div></div>
 <div class="row"> <div class="col-sm-12" id='calendar'></div></div>
 <div class="row">

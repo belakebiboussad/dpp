@@ -12,10 +12,7 @@
 							<th><strong>Medecin Traitant</strong></th>
 							<th><strong>Date d'entrée</strong></th>				
 							<th><strong>Date sortie prévue</strong></th>				
-							<th><strong>Date sortie</strong></th>
-							<!-- <th><strong>Service</strong></th>
-							<th><strong>Salle</strong></th>
-							<th><strong>lit</strong></th> -->
+							<th><strong>Date sortie</strong></th>	
 							<th><strong>Etat</strong></th>
 							<th><em class="fa fa-cog"></em></th>				
 						</tr>
@@ -28,8 +25,13 @@
 							<td>{{ $hosp->Date_entree }}</td>
 							<td>{{ $hosp->Date_Prevu_Sortie }}</td>
 							<td>{{ $hosp->Date_Sortie == null ? '/' : $hosp->Date_Sortie }}</td>
-							<!-- <td></td><td></td><td></td> -->
-							<td><span class="badge badge-danger">{{ $hosp->etat_hosp }}</span> </td>
+							<td><span class="badge badge-danger">
+							@if(!(isset($hosp->etat_hosp)))
+								En Cours
+							@else
+								 Cloturé 
+							@endif
+							</span></td>
 							<td><button class="btn btn-primary btn-xs" onclick="showHosp({{ $hosp->id }});"><i class="fa fa-hand-o-up"></i></button></td>
 						</tr>
 						@endforeach

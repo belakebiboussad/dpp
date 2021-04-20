@@ -55,7 +55,7 @@
 		  </div>
 		  <div class="row mt-5">
 			  <div class="col-sm-12 content text-center"><div class="col-sm-4"></div>
-				<div class="col-sm-4"><img class = "imgCenter" src="storage/{{ $etablissement->logo }}"/></div><div class="col-sm-4"></div>
+				 <div class="col-sm-4"><img class = "imgCenter" src="storage/{{ $etablissement->logo }}"/></div><div class="col-sm-4"></div>
 				</div>
       </div>
 		  <div class="row"><hr class ="mt-5"> </div>
@@ -64,9 +64,7 @@
 		   	<div class="col-md-4 col-sm-4 content text-center mt-18 pt-18"><h4><strong>Rendez-Vous de Consultation</strong></h4></div>		
 		  </div><br>	
 		  <div class="row mt-5 pt-5">
-			  <div class="col-sm-12"><!-- Rendez-vous avec le <strong>Docteur</strong> {{ $rdv->employe->nom}}&nbsp;{{ $rdv->employe->prenom}} -->
-			  	Rendez-vous dans la &nbsp;<strong>Spécialitè</strong>&nbsp;{{ $rdv->employe->Specialite->nom}}
-			  </div>
+			  <div class="col-sm-12">Rendez-vous dans la &nbsp;<strong>Spécialitè</strong>&nbsp;{{ $rdv->employe->Specialite->nom}}</div>
 			</div>
 		  <div class="row">
 		   	<div class="col-sm-12">{{-- l d-m-Y --}}

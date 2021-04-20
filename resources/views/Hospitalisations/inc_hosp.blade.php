@@ -96,19 +96,20 @@
 						<tbody>
 						@foreach($hosp->visites as $visite)
 						 <tr>
-						 	<td>{{ $visite->date}} {{ $visite->id }}</td>
-						 	<td>{{ $visite->medecin->nom }}{{ $visite->medecin->prenom }}</td>
-						 	<td>
+						 	<td>{{ $visite->date}}</td>
+						 	<td>{{ $visite->medecin->nom }} &nbsp; {{ $visite->medecin->prenom }}</td>
+						 	<td class="text-primary">
 						 	@foreach($visite->actes as $acte)
 						 		{{ $acte->nom }} <br>
 						 	@endforeach
 						 	</td>
-						 	<td>
-						 	@foreach($visite->traitements as $trait)
-						 		{{ $trait->nom }} <br>
-						 	@endforeach
+						 	<td class="text-primary">
+							 	@foreach($visite->traitements as $trait)
+							 		{{ $trait->medicament->nom }} <br>
+							 	@endforeach
 						 	</td>
-						 	<td><a href=""><i class="fa fa-eye"></i></a></td>
+						 	<td><a href="{{ route('visite.show', $visite->id) }}"><i class="fa fa-eye"></i></a>	{{ $visite->examensradiologiques }}</td>
+
 						 </tr>
 						@endforeach
 						</tbody>

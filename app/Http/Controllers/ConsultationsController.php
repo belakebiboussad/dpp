@@ -192,8 +192,8 @@ class ConsultationsController extends Controller
      */
       public function show($id)
       {
-            $consultation = consultation::with('patient','docteur')->FindOrFail($id);
-            return view('consultations.show', compact('consultation'));
+        $consultation = consultation::with('patient','docteur')->FindOrFail($id);
+        return view('consultations.show', compact('consultation'));
       }
     /**
      * Show the form for editing the specified resource.
