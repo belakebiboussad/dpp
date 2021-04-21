@@ -2,9 +2,11 @@
 @section('main-content')
 <?php $patient = $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient; ?>
 <div class="row">@include('patient._patientInfo', $patient)</div>
+@if(in_array(Auth::user()->role_id,[1,14]))
 <div class="pull-right">
 	<a href="{{route('hospitalisation.edit',$hosp->id )}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-edit bigger-120 blue"></i>Edit</a>
 </div>
+@endif
 <div class="row"><h3>Détails de l'hospitalisation :</h3></div>
 <div class="tabbable"  class="user-profile">
 	<ul class="nav nav-tabs padding-18">

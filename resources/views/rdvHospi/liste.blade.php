@@ -42,7 +42,7 @@
                               </label>
                             </td>
                             <td>
-                                 {{$rdv->demandeHospitalisation->consultation->patient->Nom }}&nbsp;{{$rdv->demandeHospitalisation->consultation->patient->Prenom }}  
+                                 {{ $rdv->demandeHospitalisation->consultation->patient->Nom }}&nbsp;{{$rdv->demandeHospitalisation->consultation->patient->Prenom }}  
                             </td>
                             <td class ="text-danger"><strong>{{ $rdv->date_RDVh }}</strong></td>
                             <td><strong>{{ \Carbon\Carbon::parse($rdv->heure_RDVh)->format('H:i') }}</strong></td>
@@ -68,7 +68,8 @@
                               <a href="/rdvHospi/imprimer/{{ $rdv->id }}" class="btn btn-info btn-xs" title="Imprimer RDV">
                                 <i class="ace-icon fa fa-print" ></i>
                               </a>
-                              <a href="{{ route('rdvHospi.destroy',$rdv->id) }}" class="btn btn-danger btn-xs" title="Annuler RDV" data-method="DELETE" data-confirm="Etes Vous Sur d'annuller le RDV?"><i class="fa fa-trash-o fa-xs"></i></a><!-- onclick= "printRDV();" -->
+                              <a href="{{ route('rdvHospi.destroy',$rdv->id) }}" class="btn btn-danger btn-xs" title="Annuler RDV" data-method="DELETE" data-confirm="Etes Vous Sur d'annuller le RDV?"><i class="fa fa-trash-o fa-xs"></i></a>
+                              <a href="/rdvHospi/ticketPrint/{{ $rdv->demandeHospitalisation->consultation->patient->id}}" class="btn btn-info btn-xs" title="Imprimer Ticket"><i class="fa fa-file-pdf-o fa-xs"></i></a>
                             </td>
                           </tr>     
                           @endforeach

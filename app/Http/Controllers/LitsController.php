@@ -11,6 +11,7 @@ use App\modeles\rdv_hospitalisation;
 use App\modeles\DemandeHospitalisation;
 use App\modeles\bedAffectation;
 use App\modeles\employ;
+use Carbon\Carbon;
 use Auth; 
 use Response;
 class LitsController extends Controller
@@ -130,18 +131,30 @@ class LitsController extends Controller
       $demande= DemandeHospitalisation::find($request->demande_id); 
       $rdv = $demande->RDVs->where('etat_RDVh', NULL)->first();   //if($rdv->has('bedReservation'))    $rdv->bedReservation()->delete();
       $lit = lit::FindOrFail( $request->lit_id);
-       if($lit->has('bedReservation'))
-       {
-         $free = $lit->isFree(strtotime($rdv->date_RDVh),strtotime($rdv->date_Prevu_Sortie));  
+      if($lit->has('bedReservation'))
+      {
+        if($demande->modeAdmission !="urgence" )
+        {
+          $free = $lit->isFree(strtotime($rdv->date_RDVh),strtotime($rdv->date_Prevu_Sortie));  
           if(!$free)
-              $lit->bedReservation()->delete(); 
-       } 
+            $lit->bedReservation()->delete();
+        }else {
+          $now = $today = Carbon::now()->toDateString();
+          $newDateTime = Carbon::now()->addDay(3)->toDateString();
+          $free = $lit->isFree(strtotime($now),strtotime( $newDateTime));  
+          if(!$free)
+            $lit->bedReservation()->delete();
+          $demande->update([
+            'etat' => 'programme'
+          ]); 
+        }  
+      } 
       $affect = bedAffectation::create($request->all());
-       $lit->update([
-            "affectation" =>1,
-        ]);
-       if($request->ajax())  
-          return Response::json($affect);   
+      $lit->update([
+        "affectation" =>1,
+      ]);
+      if($request->ajax())  
+        return Response::json($affect);   
     }
     public function affecter()
     {

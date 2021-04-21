@@ -18,7 +18,7 @@
 											<tr>
 												<th class="center">#</th>
 												<th class="hidden-480 center"><strong>Date</strong></th>
-												<th class="center"><strong>Médecin traitant</strong></th>
+												<th class="center"><strong>Médecin demandeur</strong></th>
 												<th class="center"><strong>Patient</strong></th>
 												<th class="center"><strong>Etat</strong></th>
 												<th class="center"><em class="fa fa-cog"></em></th>

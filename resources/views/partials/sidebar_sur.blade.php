@@ -231,15 +231,15 @@
             $('#lit_id option[value=0]').prop('selected', true);
         });
         jQuery('body').on('click', '.bedAffect', function (event) {
-              $('#demande_id').val($(this).val());
-              jQuery('#bedAffectModal').modal('show');
+          $('#demande_id').val($(this).val());
+          jQuery('#bedAffectModal').modal('show');
         });
         jQuery('body').on('click', '#AffectSave', function (e) {
-              e.preventDefault();
-              var formData = {
-                demande_id : jQuery('#demande_id').val(),
-                lit_id     : jQuery('#lit_id').val()
-              };
+          e.preventDefault();
+          var formData = {
+            demande_id : jQuery('#demande_id').val(),
+            lit_id     : jQuery('#lit_id').val()
+          };
           $.ajax({
                 headers: {
                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -249,8 +249,8 @@
                 data:formData,//dataType: 'json',
                 success: function (data) {
                     $("#demande" + formData['demande_id']).remove();
-                      jQuery('#bedAffectModal').trigger("reset");
-                      jQuery('#bedAffectModal').modal('hide');
+                    jQuery('#bedAffectModal').trigger("reset");
+                    jQuery('#bedAffectModal').modal('hide');
                 }
           });
         });

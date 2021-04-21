@@ -45,12 +45,12 @@ class ActeController extends Controller
     }
     public function store(Request $request)
     { 
-          $this->validate($request, [
-            'nom'=> 'required|string|max:225',
-             'id_visite'=> 'required',// 'duree'=> 'required', // 'description'=> 'required|string|max:225',// 'periodes'=> 'required'
-        ]);
-        $acte =Acte::create($request->all());    
-        return Response::json(['acte'=>$acte,'visite'=>$acte->visite,'medecin'=>$acte->visite->medecin]); 
+      $this->validate($request, [
+        'nom'=> 'required|string|max:225',
+        'id_visite'=> 'required',// 'duree'=> 'required', // 'description'=> 'required|string|max:225',// 'periodes'=> 'required'
+      ]);
+      $acte =Acte::create($request->all());    
+      return Response::json(['acte'=>$acte,'visite'=>$acte->visite,'medecin'=>$acte->visite->medecin]); 
     }
     public function destroy($id)
     {

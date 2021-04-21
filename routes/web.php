@@ -106,6 +106,7 @@ Route::post('/rdv/reporte/{id}','RDVController@storereporte');
 Route::get('rdvprint/{id}','rdvController@print');
 Route::get('rdvHospi/create/{id}','RdvHospiController@create')->name('rdvHospi.create');
 Route::get('/rdvHospi/imprimer/{rdv}', ['as' => 'admission.pdf', 'uses' => 'RdvHospiController@print']);
+Route::get('rdvHospi/ticketPrint/{id}','RdvHospiController@ticketPrint');
 Route::get('/choixpatient','RDVController@choixpatient');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/reportprint','HomeController@print');

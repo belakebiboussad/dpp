@@ -52,7 +52,9 @@ class DemandeExamenRadio extends Controller
                 {
                   $file = $request->file('files'.$x);
                   $namefile = $file->getClientOriginalName();
-                  $file->move(public_path().'/Patients/'.$patient->Nom.$patient->Prenom.'/examsRadio/'.$request->id_demandeexr.'/'.$request->id_examenradio.'/', $namefile);
+                  //$file->move(public_path().'/Patients/'.$patient->Nom.$patient->Prenom.'/examsRadio/'.$request->id_demandeexr.'/'.$request->id_examenradio.'/', $namefile);
+                  $file->move(public_path().'/Patients/'.$patient->id.'/examsRadio/'.$request->id_demandeexr.'/'.$request->id_examenradio.'/', $namefile);
+                  
                   $data[] = $namefile;
                  }
               }
@@ -145,8 +147,7 @@ class DemandeExamenRadio extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-      
+    {      
       $demande = demandeexr::FindOrFail($id);
       if(isset($demande->consultation))
         $patient = $demande->consultation->patient;

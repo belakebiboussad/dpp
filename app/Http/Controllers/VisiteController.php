@@ -15,6 +15,7 @@ use App\modeles\examenradiologique;
 use App\modeles\exmnsrelatifdemande;
 use App\modeles\demandeexb;
 use App\modeles\demandeexr;
+use App\modeles\NGAP;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -62,8 +63,9 @@ class VisiteController extends Controller
       $infossupp = infosupppertinentes::all();
       $examens = exmnsrelatifdemande::all();//CT,RMN
       $examensradio = examenradiologique::all();
+      $codesNgap = NGAP::all();
       $visite->save();
-      return view('visite.add',compact('hosp','patient', 'employe','specialitesProd','specialitesExamBiolo','infossupp','examens','examensradio'))->with('id',$visite->id);
+      return view('visite.add',compact('hosp','patient', 'employe','specialitesProd','specialitesExamBiolo','infossupp','examens','examensradio','codesNgap'))->with('id',$visite->id);
     }
  /**
      * Show the form for creating a new resource.

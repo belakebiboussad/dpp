@@ -8,65 +8,66 @@
 				searching:false,
 				'aoColumnDefs': [{
 					'bSortable': false,
-				'aTargets': ['nosort']
-			}],
-			'language': {
+					'aTargets': ['nosort']
+				}],
+				'language': {
 				 "url": '/localisation/fr_FR.json',
-			 },
+			  },
 		});
 		$('td.dataTables_empty').html('');
-		 $('#btn-addActe').click(function () {
-			 $('#EnregistrerActe').val("add");
+		$('#btn-addActe').click(function () {
+			$('#EnregistrerActe').val("add");
 			$('#addActe').trigger("reset");
 			$('#acteCrudModal').html("Ajouter un Acte Médicale");
 			$('#acteModal').modal('show');
-		  });  
-	     $("#EnregistrerActe").click(function (e) { //////////////////Enregistre acte   //////////////////////////////////
+		});  
+	  $("#EnregistrerActe").click(function (e) {
 			e.preventDefault();
 			var periodes = [];
 			if(! isEmpty($("#acte").val()) || ($("#acte").val() == ''))
 				$('#acteModal').modal('toggle');
 			$.ajaxSetup({
-			 headers: {
+			  headers: {
 					'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
 				}
-				});
-				$("input[name='p[]']:checked").each(function() {
-			 periodes.push($(this).attr('value'));
-				});
-				var formData = {
-				id_visite: $('#id_visite').val(),
+			});
+			$("input[name='p[]']:checked").each(function() {
+			 		periodes.push($(this).attr('value'));
+			});
+			var formData = {
+					id_visite: $('#id_visite').val(),
 					nom:$("#acte").val(),
-				type:$('#type').val(),
-				periodes :periodes,
-				description:$('#description').val(),
-				duree : $('#duree').val()
-				};
-				var state = jQuery('#EnregistrerActe').val();
-				var acte_id = jQuery('#acte_id').val();
-					var type = "POST";
-				var ajaxurl = $('#addActe').attr('action');
-				if (state == "update") {
-			type = "PUT";
-			ajaxurl = '/acte/' + acte_id;
-			  }
-			  $('#acteModal form')[0].reset();//jQuery('#acteModal').trigger("reset");
-		$.ajax({
+					type:$('#type').val(),
+					code_ngap:$('#code_ngap').val(),
+					periodes :periodes,
+					description:$('#description').val(),
+					duree : $('#duree').val()
+			};
+			var state = jQuery('#EnregistrerActe').val();
+			var acte_id = jQuery('#acte_id').val();
+			var type = "POST";
+			var ajaxurl = $('#addActe').attr('action');
+			if (state == "update") {
+				type = "PUT";
+				ajaxurl = '/acte/' + acte_id;
+			}
+			$('#acteModal form')[0].reset();//jQuery('#acteModal').trigger("reset");
+			$.ajax({
 				type:type,
 				url:ajaxurl,
 				data: formData,
 				dataType:'json',
 				success: function (data) {	/*JSON.parse()*/
 					if($('.dataTables_empty').length > 0)
-						{
-							$('.dataTables_empty').remove();
-						}
-						frag ="";
-						$.each( data.acte.periodes, function( key, periode ) {
-								 frag +='<span class="badge badge-success">'+periode+'</span>';
-								});
-						var acte = '<tr id="acte'+data.acte.id+'"><td hidden>'+data.acte.id_visite+'</td><td>'+data.acte.nom+'</td><td>'+data.acte.description+'</td><td>'
-									 + data.acte.type+'</td><td>'+frag+'</td><td>'+data.acte.duree
+					{
+						$('.dataTables_empty').remove();
+					}
+					frag ="";
+					$.each( data.acte.periodes, function( key, periode ) {
+					  frag +='<span class="badge badge-success">'+periode+'</span>';
+					});
+					var acte = '<tr id="acte'+data.acte.id+'"><td hidden>'+data.acte.id_visite+'</td><td>'+data.acte.nom+'</td><td>'+data.acte.description+'</td><td>'
+									 + data.acte.type+'</td><td>'+data.acte.code_ngap+'</td><td>'+frag+'</td><td>'+data.acte.duree
 									 + '</td><td>'+data.medecin.nom+' '+data.medecin.prenom+'</td><td>'+data.visite.date+'</td>';	 
 							acte += '<td class ="center"><button type="button" class="btn btn-xs btn-info open-modal" value="' + data.acte.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';    
 							acte += '<button type="button" class="btn btn-xs btn-danger delete-acte" value="' + data.acte.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></btton></td></tr>';
@@ -80,8 +81,7 @@
 						console.log('Error:', data);
 				}
 		});
-			});
-			///edit acte
+			});///edit acte
 			$('body').on('click', '.open-modal', function () {
 				var acteID = $(this).val();
 				$.get('/acte/'+acteID+'/edit', function (data) {
@@ -91,6 +91,7 @@
 				$('#acte_id').val(data.id);		
 				$('#acte').val(data.nom);
 				$('#type').val(data.type).change();
+				$('#code_ngap').val(data.code_ngap).change();
 				$('#duree').val(data.duree).change();
 				$('#description').val(data.description);// JSON.parse(
 				$.each(data.periodes, function( index, value ) {
@@ -305,12 +306,13 @@
 							<thead class="thin-border-bottom">
 								<tr class ="center">
 								  <th class ="hidden"></th>
-									<th scope="col" class ="center"><strong>Nom</strong></th>
-												<th scope="col" class ="center">Decription</th>
-												<th scope="col" class ="center"><strong>Type</strong></th>
-												<th scope="col" class ="center"><strong>Périodes</strong></th>
-												<th scope="col" class ="center" width="3%"><strong>Nombre de jours</strong></th>
-												<th scope="col" class ="center"><strong>Médecin prescripteur</strong></th>												
+									<th scope="col" class ="center sorting_disabled"><strong>Nom</strong></th>
+												<th scope="col" class ="center sorting_disabled">Decription</th>
+												<th scope="col" class ="center sorting_disabled"><strong>Type</strong></th>
+												<th scope="col" class ="center sorting_disabled"><strong>Code NGAP</strong></th>
+												<th scope="col" class ="center sorting_disabled"><strong>Périodes</strong></th>
+												<th scope="col" class ="center sorting_disabled" width="3%"><strong>Nombre de jours</strong></th>
+												<th scope="col" class ="center sorting_disabled"><strong>Médecin prescripteur</strong></th>												
 												<th scope="col" class ="center"><strong>Date Visite</strong></th>												
 												<th scope="col" class=" center nosort"><em class="fa fa-cog"></em></th>
 								</tr>
@@ -324,6 +326,7 @@
 										<td> {{ $acte->nom }}</td>
 										<td> {{ $acte->description}}</td>
 										<td> {{ $acte->type}}</td>
+										<td> {{ $acte->code_ngap}}</td>
 										<td>
 											@foreach($acte->periodes as $periode){{-- json_decode( --}}
 												<span class="badge badge-success"> {{ $periode }}</span>

@@ -147,7 +147,7 @@
                           <input type="file" id="exm-{{ $examen->id }}" name="resultat[]" class="form-control result" accept="image/*,.pdf,.dcm,.DCM" multiple required/>
                         @endif
                       </td>
-                      <td class="center" width="15%"> <!--  <form method="POST" enctype="multipart/form-data" id="ajax-file-upload" action="javascript:void(0)" > -->
+                      <td class="center" width="15%">
                           <button  type="submit" class="btn btn-sm btn-primary start" id="btn-{{ $examen->id }}" value ="{{ $examen->id }}" disabled>
                             <i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>
                           </button>

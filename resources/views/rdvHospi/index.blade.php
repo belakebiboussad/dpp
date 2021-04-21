@@ -71,15 +71,11 @@
 </div>
 @if(isset($demandesUrg) && $demandesUrg->count() )
 <div class="space-12"></div><div class="space-12"></div>
-<div class="widget-header">
-	<h5 class="widget-title bigger lighter"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;Demandes Hospitalisations Urgentes</h5>
-</div>
+<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;Demandes Hospitalisations Urgentes</h5></div>
 <div class="row">
 	<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
 		<div class="widget-box widget-color-red" id="widget-box-2">
-			<div class="widget-header">
-				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des demandes d'urgence</h5>
-			</div>
+			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des demandes d'urgence</h5></div>
 		</div>
 		<div class="widget-body">
 				<div class="widget-main no-padding">
@@ -100,7 +96,7 @@
 								<td>{{ $demande->modeAdmission }}</td>
 								<td>{{ $demande->consultation->Date_Consultation }}</td><td>{{ $demande->Specialite->nom }}</td>
 								<td class="text-center">
-									<button class="btn btn-xs btn-success" title="Affecter un Lits" id ="bedAffect" value="{{ $demande->id }}">
+									<button class="btn btn-xs btn-success bedAffect" title="Affecter un Lits" value="{{ $demande->id }}">
 										<span style="color: red;"><i class="fa fa-bed fa-1x" aria-hidden="true"></i></span>
 									</button>
 									<a href="{{route('rdvHospi.destroy',$demande->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">

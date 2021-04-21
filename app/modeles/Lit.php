@@ -18,7 +18,7 @@ class Lit extends Model
         {
               return $this->hasOne('App\modeles\BedReservation','id_lit');//hasOne
         }
-      public function isFree($start , $end)//libre pour reservation
+      public function isFree($start , $end)//libre de reservation
       {
         $idlit = $this->id;
         $lit =Lit::FindOrFail($idlit);
@@ -27,18 +27,33 @@ class Lit extends Model
          $reservations =  bedReservation::whereHas('lit',function($q) use($idlit){ //toute les reservation du lit
                                                                       $q->where('id',$idlit);
                                                                   })->get(); 
-        foreach ($reservations as $key => $reservation) {//1 && 
-               if(( $start < strtotime($reservation->rdvHosp->date_Prevu_Sortie)) && ($end > strtotime($reservation->rdvHosp->date_RDVh)))
-                       return false;
+        foreach ($reservations as $key => $reservation) {
+          if(( $start < strtotime($reservation->rdvHosp->date_Prevu_Sortie)) && ($end > strtotime($reservation->rdvHosp->date_RDVh)))
+            return false;
         }   
         return true;
       }
+      // //dans le cas hosp urg le lit qui a une reserv a partir d'aujourd'hui
+      // public function isFreeU($start) 
+      // {
+      //   $lit =Lit::FindOrFail($this->id);
+      //   if($lit->etat == 0)
+      //     return false; 
+      //   $reservations =  bedReservation::whereHas('lit',function($q) use($idlit){ //toute les reservation du lit
+      //                                                                 $q->where('id',$idlit);
+      //                                                             })->get(); 
+      //   foreach ($reservations as $key => $reservation) {
+      //     if( $start <= strtotime($reservation->rdvHosp->date_Prevu_Sortie))
+      //       return true;
+      //   }   
+      //   return false;
+      // }
       public function affecter($id)
       {
-            $affect = false;
-            $lit =Lit::FindOrFail($id);
-            if($lit->etat == 0 || $lit->affectation == 1 )
-              $affect = true; 
-            return $affect;
+        $affect = false;
+        $lit =Lit::FindOrFail($id);
+        if($lit->etat == 0 || $lit->affectation == 1 )
+          $affect = true; 
+        return $affect;
       } 
 }
