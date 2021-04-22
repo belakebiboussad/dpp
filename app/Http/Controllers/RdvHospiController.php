@@ -122,8 +122,6 @@ class RdvHospiController extends Controller
   }
   public function getRdvs($date)
   {
-// $rdvs = rdv_hospitalisation::with('bedReservation.lit.salle.service','demandeHospitalisation.consultation.patient','demandeHospitalisation.Service')
-//->whereHas('demandeHospitalisation', function($q){ // $q->where('etat', 'programme');//})->where('date_RDVh','=', $date)->where('etat_RDVh','=',null)->get(); 
     $rdvs =  rdv_hospitalisation::with('bedReservation.lit.salle.service','demandeHospitalisation.consultation.patient','demandeHospitalisation.Service')
                                 ->whereHas('demandeHospitalisation', function($q){
                                     $q->where('etat', 'programme');
@@ -142,7 +140,8 @@ class RdvHospiController extends Controller
   }
   public function ticketPrint($id)//imprimer rdv d'hospitalisation 
   {
-    dd("sdfsdf");
+    $patient = patient::FindOrFail($id);
+    dd($patient);
   }
    
 }

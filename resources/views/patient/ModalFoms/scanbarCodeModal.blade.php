@@ -11,17 +11,10 @@
 				<div id="interactive" class="viewport"></div>
 				<div class="error"></div>
 			</div>
-			<div class="modal-footer">
+			<div class="modal-footer a">
 			<div class="controls">
 				<fieldset class="reader-config-group">
-				  <label>
-          	<span>Type</span>
-          	<select name="decoder_readers">
-              <option value="code_128" selected="selected">Code 128</option>
-              <option value="code_39">Code 39</option>
-              <option value="code_93">Code 93</option>
-          	</select>
-      		</label>
+<!-- <label><span>Type</span><select name="decoder_readers"><option value="code_128" selected="selected">Code 128</option><option value="code_39">Code 39</option><option value="code_93">Code 93</option></select></label> -->
     			<label>
             <span>Resolution</span>
             <select name="input-stream_constraints" class="tt-input input-sx">
@@ -33,7 +26,7 @@
               <option value="1920x1080">1920px</option>
             </select>
           </label>
-      		<label>
+      		<label class="hidden-xs">
             <span>Camera</span>
             <select name="input-stream_constraints" id="deviceSelection" class="tt-input input-sx">
             </select>
