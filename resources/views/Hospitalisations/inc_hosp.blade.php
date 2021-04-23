@@ -95,7 +95,7 @@
 						@foreach($hosp->visites as $visite)
 						 <tr>
 						 	<td>{{ $visite->date}}</td>
-						 	<td>{{ $visite->medecin->nom }} &nbsp; {{ $visite->medecin->prenom }}</td>
+						 	<td>{{ $visite->medecin->nom }} <span>{{ $visite->medecin->prenom }}</span></td>
 						 	<td class="text-primary">
 						 	@foreach($visite->actes as $acte)
 						 		{{ $acte->nom }} <br>
@@ -106,7 +106,7 @@
 							 		{{ $trait->medicament->nom }} <br>
 							 	@endforeach
 						 	</td>
-						 	<td><a href="{{ route('visite.show', $visite->id) }}"><i class="fa fa-eye"></i></a>	{{ $visite->id }}</td>
+						 	<td><a href="{{ route('visite.show', $visite->id) }}"><i class="fa fa-eye"></i></a>	</td>
 						 </tr>
 						@endforeach
 						</tbody>

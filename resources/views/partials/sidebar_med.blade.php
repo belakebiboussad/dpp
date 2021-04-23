@@ -463,16 +463,16 @@
   }
       function printExamCom(nom, prenom, age, ipp, nomEmploye,prenomEmploye)
       {
-        var interest = $('ul#compl').find('li.active').data('interest');
-        switch(interest){
-          case 0:
-            createexbio(nom, prenom, age, ipp, nomEmploye,prenomEmploye);
-            break;
-          case 1:
-            createeximg(nom, prenom, age, ipp, nomEmploye,prenomEmploye);
-            break;
-          case 2:
-            break;
+           var interest = $('ul#compl').find('li.active').data('interest');
+           switch(interest){
+                case 0:
+                      createexbio(nom, prenom, age, ipp, nomEmploye,prenomEmploye);
+                      break;
+                case 1:
+                      createeximg(nom, prenom, age, ipp, nomEmploye,prenomEmploye);
+                      break;
+                case 2:
+                    break;
         }
       }
       function addExamsImg(form)
