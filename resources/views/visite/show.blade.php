@@ -1,9 +1,6 @@
 @extends('app')
 @section('main-content')
-<?php
-	$patient = $visite->hospitalisation->patient;
-	$demande = $visite->examensradiologiques;
-?> 
+<?php 	$patient = $visite->hospitalisation->patient; 	$demande = $visite->examensradiologiques;  ?> 
 <div class="page-header" width="100%">
 	<div class="row"><div class="col-sm-12" style="margin-top: -2%;">@include('patient._patientInfo')</div></div>
 </div>
@@ -37,6 +34,7 @@
       @endif
     </ul>
     <div class="tab-content no-border padding-24">
+      @if($visite->actes->count() > 0)
       <div id="actes" class="tab-pane  active">
       	<div class="col-xs-11 widget-container-col">
 			<div class="widget-box widget-color-green">
@@ -77,6 +75,7 @@
 			</div>
 		</div>		
       </div>
+      @endif
       <div id="traitement" class="tab-pane">
        <div class="col-xs-11 widget-container-col">
 		<div class="widget-box widget-color-info">
