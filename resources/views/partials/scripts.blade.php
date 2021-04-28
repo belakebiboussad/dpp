@@ -733,12 +733,10 @@ $('#typeexm').on('change', function() {
           $('.limiterBox,.autosizejs').remove();
           $('.daterangepicker.dropdown-menu,.colorpicker.dropdown-menu,.bootstrap-datetimepicker-widget.dropdown-menu').remove();
       });
-    });//jQuery(function($)       
-    /*$('#user-profile-3').ready(function(){ if (window.location.hash == '#edit-password') {  $('.nav-tabs li.active').removeClass('active');   $('div#edit-basic').removeClass('active');
-         $('li.edit-password').addClass('active'); $('div#edit-password').addClass('in active'); }  });*/
-      function getMedecinsSpecialite(specialiteId = 0,medId='')
+    });
+        function getMedecinsSpecialite(specialiteId = 0,medId='')
       {
-          $('#medecin').empty();
+           $('#medecin').empty();
           var specialiteId = 0 ?$('#specialite').val() : specialiteId;
           $.ajax({
                     type : 'get',
@@ -748,7 +746,6 @@ $('#typeexm').on('change', function() {
                     success:function(data,status, xhr){
                           var html ='<option value="">Selectionner...</option>';
                           jQuery(data).each(function(i, med){
-                            
                             html += '<option value="'+med.id+'" >'+med.nom +" "+med.prenom+'</option>';
                           });
                           $('#medecin').removeAttr("disabled");  
