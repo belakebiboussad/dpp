@@ -39,7 +39,7 @@ class AdmissionController extends Controller
           $demandesUrg = DemandeHospitalisation::with('bedAffectation') //->whereHas('bedAffectation')
                                              ->whereHas('consultation', function($q){
                                                 $q->where('Date_Consultation', date("Y-m-d"));
-                                             })->where('modeAdmission','urgence')->where('etat','en attente')->get();//dd($demandesUrg[0]);
+                                             })->where('modeAdmission','urgence')->where('etat','programme')->get();//dd($demandesUrg[0]);
           return view('home.home_agent_admis', compact('rdvs','demandesUrg'));
     }
     /**
