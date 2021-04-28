@@ -34,8 +34,7 @@ use App\modeles\appareil;
 use App\modeles\CIM\chapitre;
 use App\modeles\facteurRisqueGeneral;
 use App\modeles\Etatsortie;
-use Carbon\Carbon;
-use PDF;
+use Carbon\Carbon;//use PDF;
 use Validator;
 use Response;
 class ConsultationsController extends Controller
