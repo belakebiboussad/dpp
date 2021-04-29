@@ -11,7 +11,7 @@
 <script src="{{asset('/js/jquery.flot.min.js')}}"></script>
 <script src="{{asset('/js/jquery.flot.pie.min.js')}}"></script>
 <script src="{{asset('/js/jquery.flot.resize.min.js')}}"></script>
-<script src="{{asset('/js/bootbox.js')}}"></script>
+<script src="{{asset('/js/bootbox.min.js')}}"></script>
 <script src="{{asset('/js/jquery.easypiechart.min.js')}}"></script>
 <script src="{{ asset('/js/jquery.gritter.min.js') }}"></script>
 <script src="{{ asset('/js/spin.js') }}"></script>
@@ -179,147 +179,7 @@
                     if(this.checked) $row.addClass(active_class);
                     else $row.removeClass(active_class);
                 });
-                $('#table2 > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
-                    var th_checked = this.checked;//checkbox inside "TH" table2 header
-                    
-                    $(this).closest('table').find('tbody > tr').each(function(){
-                        var row = this;
-                        if(th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
-                        else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
-                    });
-                });  //select/deselect a row when the checkbox is checked/unchecked
-                $('#table2').on('click', 'td input[type=checkbox]' , function(){
-                    var $row = $(this).closest('tr');
-                    if($row.is('.detail-row ')) return;
-                    if(this.checked) $row.addClass(active_class);
-                    else $row.removeClass(active_class);
-                });
 </script>   
-<script type="text/javascript">
-    var active_class = 'active';
-    var id_demh= new Array();
-    var id_medt= new Array();
-    var id_prio= new Array();
-    var obs= new Array();
-    function ajouterligne(){
-      var lignes= new Array();
-      nligne= new Array();//la nouvelle ligne
-      lignes=document.getElementById("table1").getElementsByTagName("tr");//seling=ling.getElementsByClassName("active");
-      tableau = document.getElementById("table2");
-      for(var i=0;i<lignes.length;i++){
-        if (lignes[i].className=='active')
-        {
-          lignes[i].classList.remove(active_class);
-          var col=lignes[i].getElementsByTagName("td");
-          nligne = tableau.insertRow(-1);//on a ajouté une ligne
-          var colonne0 = nligne.insertCell(0);
-          colonne0.innerHTML += col[0].innerHTML;
-          colonne0.style.display='none';
-          var colonne1 = nligne.insertCell(1);
-          colonne1.innerHTML += col[1].innerHTML;
-          var colonne2 = nligne.insertCell(2);
-          colonne2.innerHTML += col[2].innerHTML; 
-          var colonne3 = nligne.insertCell(3);
-          colonne3.innerHTML += col[3].innerHTML;
-          colonne3.style.display='none';      
-          var colonne4 = nligne.insertCell(4);
-          colonne4.innerHTML += col[4].innerHTML;
-          colonne4.style.display='none';      
-          var colonne5 = nligne.insertCell(5);
-          var chm =col[5].getElementsByTagName("select");
-          var s = chm[0].selectedIndex;
-          colonne5.innerHTML += col[5].innerHTML;
-          chm=colonne5.getElementsByTagName("select");
-          chm[0].options[s].selected='selected';
-          chm[0].disabled=true;
-          id_medt.push(chm[0].options[s].value);//colonne5.innerHTML += chm[0].options[s].text;
-          var colonne6 = nligne.insertCell(6);
-          colonne6.innerHTML += col[6].innerHTML;
-          chm=col[6].getElementsByTagName('input');
-          for(var j = 0;j < chm.length; j++){
-              if(chm[j].checked)s=j;}
-          chm=colonne6.getElementsByTagName('input');
-          chm[s].checked=true;
-          id_prio.push(chm[s].value);
-          colonne6.style.display='none';
-          var colonne7 = nligne.insertCell(7);
-          colonne7.innerHTML += col[7].innerHTML;
-          chm= col[7].getElementsByTagName('textarea');
-          s=chm[0].value;
-          chm=colonne7.getElementsByTagName('textarea');
-          chm[0].value=s;                 
-          obs.push(s);                        
-          colonne7.style.display='none';
-          id_demh.push(col[0].innerHTML); //$(lignes[i]).appendTo('#table2');
-          document.getElementById("table1").deleteRow(i);
-        }
-      }
-      lignes=null;
-    }
-    $('#table2 > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
-        var th_checked = this.checked;//checkbox inside "TH" table2 header
-          $(this).closest('table').find('tbody > tr').each(function(){
-            var row = this;
-            if(th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
-            else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
-        });
-    });
-    $('#table2').on('click', 'td input[type=checkbox]' , function(){  //select/deselect a row when the checkbox is checked/unchecked
-        var $row = $(this).closest('tr');
-        if($row.is('.detail-row ')) return;
-        if(this.checked) $row.addClass(active_class);
-        else $row.removeClass(active_class);
-    });
-    function suppligne(){
-        var lignes= new Array();
-        lignes=document.getElementById("table2").getElementsByTagName("tr"); //seling=ling.getElementsByClassName("active");
-        for(var i=0;i<lignes.length;i++){
-          if (lignes[i].className=='active')
-          {   //désactivé la ligne
-            lignes[i].classList.remove(active_class);
-            var col=lignes[i].getElementsByTagName("td");
-
-            //activer la selection du medecin traitant
-            var chm =col[5].getElementsByTagName("select");
-            chm[0].disabled=false;
-            
-            //décocher le checkbox
-            var chm =col[1].getElementsByTagName("input");
-            chm[0].checked=false;
-            //afficher les colonnes cachées
-            for (var j = 1; j < col.length; j++) {
-                if (col[j].style.display === 'none') 
-                    col[j].style.display='table-cell' ;
-            }    
-            lignes[i].style.display='table-row';
-            var t=col[0].innerHTML;                         
-            var index=id_demh.indexOf(t);                   
-            id_demh.splice(index, 1);                   
-            id_medt.splice(index, 1);                   
-            id_prio.splice(index, 1);                           
-            obs.splice(index, 1);
-            console.log(id_medt);
-            $(lignes[i]).appendTo('#table1');      
-          }
-        }
-        lignes=null;
-    }
-    $('#detail_coll').submit(function(ev) {
-    ev.preventDefault(); // to stop the form from submitting
-    /* Validations go here */
-    sel=document.getElementById("demh");
-    med=document.getElementById("medt");
-    pio=document.getElementById("prio");
-    bs=document.getElementById("observation");
-    for (var i =0; i <id_demh.length ; i++) {
-        sel.options[sel.options.length] = new Option (id_demh[i], id_demh[i],false,true);
-        med.options[med.options.length] = new Option (id_demh[i], id_medt[i],false,true);
-        pio.options[pio.options.length] = new Option (id_demh[i], id_prio[i],false,true);
-        bs.options[bs.options.length] = new Option (id_demh[i], obs[i],false,true);
-    }
-    this.submit(); // If all the validations succeeded
-});
-</script>
 <script type="text/javascript">
   function isNumeric (evt) {
     var theEvent = evt || window.event;

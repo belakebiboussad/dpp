@@ -10,12 +10,9 @@ use App\modeles\membre;
 use App\modeles\dem_colloque;
 use App\modeles\DemandeHospitalisation;
 use App\modeles\fonction;
-//use App\modeles\type_colloque;
 use App\modeles\medecin_traitant;
 use App\User;
 use Jenssegers\Date\Date;
-//use Request;
-
 class ColloqueController extends Controller
 {    
 	/**

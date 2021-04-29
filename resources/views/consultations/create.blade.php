@@ -195,19 +195,18 @@
 		var keys=[], meds=[];
 	 	$("#ordonnance thead tr th").each(function(){
 		  	if(($(this).html() == "id") || ($(this).html() == "Posologie"))
-		   	  keys.push($(this).html());  
+		        	keys.push($(this).html());  
 		});
 		$("#ordonnance tbody tr").each(function(){
-	  	var obj={}, i=0;
-  		$(this).children("td").each(function(index){
-		 		
-		    if((index == 0) || (index == 4) )
-		  	{
-		  		obj[keys[i]]=$(this).html();
-		   		i++;
-	    	}
-	    })
-  		meds.push(obj);	
+	  		var obj={}, i=0;
+  			$(this).children("td").each(function(index){
+		 	       if((index == 0) || (index == 4) )
+		  		{
+		  			obj[keys[i]]=$(this).html();
+		   			i++;
+	    			}
+	      		})
+  			meds.push(obj);	
 	 	});
 	 	var formData = {
        		id_patient:patId,
@@ -232,7 +231,7 @@
 		  	dataType: "json",
 		  	success: function (data,status, xhr) {	  	
 			   	$('#iframe-pdf').contents().find('html').html(data.html);
-			  	$("#ordajax").modal();	// $('#iframe-pdf').focus();//$("#iframe-pdf").get(0).contentWindow.print();			       
+			  	$("#ordajax").modal();		       
 		  	},	
 	   		error: function (data) {
      	 			console.log('Error:', data);

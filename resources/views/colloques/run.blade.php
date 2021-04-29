@@ -177,13 +177,10 @@
 			</div><!-- widget-box	 -->
 		</div><!-- widget-container -->
 	</div><!-- row -->
-	<div class="space-12"></div>
-	<div class="hr hr-dotted"></div>
+	<div class="space-12"></div><div class="hr hr-dotted"></div>
 	<div class="row">
 		<div class="center col-xs-12">
-		<!-- 	<div class="col-md-8"> </div> -->
-				<!-- <div class="col-md-4"> -->
-					<div class="form-group">
+					<div class="center bottom" style="bottom:0px;">
 						<button type="submit" class="btn btn-xs btn-primary btn-space" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
 					  <a type="reset" href="/home_dele" class="btn btn-xs btn-danger btn-space" onclick="javascript:document.getElementById('detail_coll').reset();"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>
 					</div>
