@@ -25,7 +25,7 @@
 	    		$('#widget-box2').removeClass('invisible');
 		$('#patient').append($('<option>', { 
 	   		value: adm['demande_hospitalisation']['consultation']['patient']['id'],
-	  		 text : adm['demande_hospitalisation']['consultation']['patient']['Nom']+" " + adm['rdv_hosp']['demande_hospitalisation']['consultation']['patient']['Prenom'], 
+	  		 text : adm['demande_hospitalisation']['consultation']['patient']['Nom']+" " + adm['demande_hospitalisation']['consultation']['patient']['Prenom'], 
 	   		 selected : true
 	  }));
 	  $('#service').append($('<option>', { 
@@ -33,7 +33,12 @@
 		    text : adm['demande_hospitalisation']['service']['nom'], 
 		    selected : true
 	 	}));
-	 	$('[name=medecin]').val( adm['demande_hospitalisation']['demeande_colloque']['id_medecin']);
+	  
+	  if(adm['demande_hospitalisation']['modeAdmission']=='urgence')
+	 	  $("#medecin").val(adm['demande_hospitalisation']['consultation']['docteur']['id']).change();
+	 	else
+	 	  $("#medecin").val(adm['demande_hospitalisation']['demeande_colloque']['id_medecin']).change();
+	 	
 	 	if(adm['demande_hospitalisation']['consultation']['patient']['hommes_conf'].length == 0)
 	 		$("#garde").addClass('invisible');
 	 	else
@@ -55,12 +60,20 @@
 	 	$('#patient_id').val(adm['demande_hospitalisation']['consultation']['patient']['id']);
 	 	if(adm['demande_hospitalisation']['bed_affectation'] != null)
 	 	 	$('#lit_id').val(adm['demande_hospitalisation']['bed_affectation']['lit_id']);
- 		$("#Date_entree").datepicker("setDate", adm['rdv_hosp']['date_RDVh']);
-  	$("#Date_Prevu_Sortie").datepicker("setDate", adm['rdv_hosp']['date_Prevu_Sortie']);
+ 	  if(adm['demande_hospitalisation']['modeAdmission']=='urgence')
+ 		{
+ 			$("#Date_entree").datepicker("setDate", adm['demande_hospitalisation']['consultation']['Date_Consultation']);
+ 			$("#Date_Prevu_Sortie").datepicker("setDate", adm['demande_hospitalisation']['consultation']['Date_Consultation']);
+ 		}
+ 		else
+ 		{
+ 			$("#Date_entree").datepicker("setDate", adm['rdv_hosp']['date_RDVh']);
+    	$("#Date_Prevu_Sortie").datepicker("setDate", adm['rdv_hosp']['date_Prevu_Sortie']);
+ 		}
   	updateDureePrevue();
 	}
 	function addDays()
-  	{
+  {
 		  var datefin = new Date($('#Date_entree').val());
 	  	datefin.setDate(datefin.getDate() + parseInt($('#numberDays').val(), 10));
 	  	$("#Date_Prevu_Sortie").val(moment(datefin).format("YYYY-MM-DD"));        
@@ -81,7 +94,7 @@
 <div class="page-header"><h1> Ajouter une Hospitalisation </h1></div><div class="space-12"></div>
 <div class="row">
 	<div class="col-sm-8 col-xs-8">
-		<div class="widget-box widget-color-blue" id="widget-box-2">
+		<div class="widget-box widget-color-blue">
 			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des Admissions du Jour :</h5></div>
 			<div class="widget-body">
 				<div class="widget-main no-padding">
@@ -120,6 +133,40 @@
 				</div>
 			</div>
 		</div>
+		<br>
+		<!-- debut -->
+		<div class="widget-box widget-color-red">
+			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des Admissions d'urgence :</h5></div>
+			<div class="widget-body">
+				<div class="widget-main no-padding">
+					<table class="table table-striped table-bordered table-hover">
+				  	<thead>
+							<th class ="center" width="15%"><strong>Patient</strong></th>
+							<th class ="center"><strong>Mode Admission</strong></th>
+							<th class ="center"><strong>Date Entrée</strong></th>
+							<th class ="center"><strong>date Sortie prévue</strong></th>
+							<th class ="center"  width="10%"><em class="fa fa-cog"></em></th>
+						</thead>
+						<tbody>
+							@foreach($admsUrg as $key=>$adm)
+							<tr>
+								<td>{{ $adm->demandeHospitalisation->consultation->patient->Nom }} {{ $adm->demandeHospitalisation->consultation->patient->Prenom }}</td>
+								<td>{{ $adm->demandeHospitalisation->modeAdmission }}</td>
+								<td>{{ date("Y-m-d")	}}</td>
+								<td>{{ date("Y-m-d")	}}</td>
+								<td>
+									<a href="javascript:formFill({{ $adm }} );" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter une Hospitalisation"> 
+										<i class="menu-icon fa fa-plus"></i>
+									</a>
+									<a href="{{ route('admission.destroy',$adm->id) }}" class="btn btn-danger btn-xs" data-toggle="tooltip" title="supprimer l'admission" data-method="DELETE" data-confirm="Etes Vous Sur de supprimer l'admission?"><i class="ace-icon fa fa-trash-o"></i>
+								</td>		
+							</tr>
+							@endforeach
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div><!-- fin -->
 	</div><!-- col-sm-8  -->
 	<div class="col-sm-4 col-xs-4">
 		<div class="widget-box widget-color-blue col-xs-12 col-sm-12 invisible" id="widget-box2">

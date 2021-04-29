@@ -1,10 +1,10 @@
 @extends('app')
 @section('main-content')
-<?php $patient = $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient; ?>
+<?php $patient = $hosp->patient; ?>
 <div class="row">@include('patient._patientInfo', $patient)</div>
 @if(in_array(Auth::user()->role_id,[1,14]))
 <div class="pull-right">
-	<a href="{{route('hospitalisation.edit',$hosp->id )}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-edit bigger-120 blue"></i>Edit</a>
+	 <a href="{{route('hospitalisation.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-list bigger-120 blue"></i>Hospitalisations</a>
 </div>
 @endif
 <div class="row"><h3>Détails de l'hospitalisation :</h3></div>
@@ -19,23 +19,22 @@
 		<div id="hospi" class="tab-pane in active">
 			<div class="row">
 			<div class="col-sm-12">
-				<div class="row"><div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right"><b>Hospitalisation</b></div></div>
+				<div class="row"><div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right"><strong><span style="font-size:16px;">Hospitalisation</span></strong></div></div>
 				<div class="row">
 					<div class="col-sm-12">
 					<ul class="list-unstyled spaced">
 						<li>
-					    <i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>{{ $hosp->admission->rdvHosp->demandeHospitalisation->Service->nom }}
+					    <i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>{{ $hosp->admission->demandeHospitalisation->Service->nom }}
 						</li>
 						<li>
-			 				<i class="ace-icon fa fa-caret-right blue"></i><strong>Specialite :</strong> {{ $hosp->admission->rdvHosp->demandeHospitalisation->Specialite->nom }}
+			 				<i class="ace-icon fa fa-caret-right blue"></i><strong>Specialite :</strong> {{ $hosp->admission->demandeHospitalisation->Specialite->nom }}
 						</li>
 						<li>
-							<i class="ace-icon fa fa-caret-right blue"></i><strong>Mode d'admission:</strong>{{ $hosp->admission->rdvHosp->demandeHospitalisation->modeAdmission }}
+							<i class="ace-icon fa fa-caret-right blue"></i><strong>Mode d'admission:</strong>{{ $hosp->admission->demandeHospitalisation->modeAdmission }}
 						</li>
 						<li>
 							<i class="ace-icon fa fa-caret-right blue"></i><strong>Medecin Traitant:</strong>
-							{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->nom }}
-							{{$hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->prenom}}					
+							{{ $hosp->medecin->nom }}	{{$hosp->medecin->prenom}}		
 						</li>
 						<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Date d'entrée:</strong>{{ $hosp->Date_entree }}</li>	
 						<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Date sortie prévue:</strong>{{ $hosp->Date_Prevu_Sortie }}</li>
@@ -46,7 +45,7 @@
 		</div><div class="space-12"></div>	
 		<div class="row">
 			<div class="col-sm-12">
-				<div class="row"><div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><b>Hébergement</b></div></div>
+				<div class="row"><div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><strong><span style="font-size:16px;">Hébergement</span></strong></div></div>
 				<div class="row">
 					<div class="col-sm-12">
 					     <ul class="list-inline" style="flex-grow: 1;">
@@ -64,7 +63,7 @@
 		<div class="space-12"></div>		
 		<div class="row">
 			<div class="col-sm-12">
-				<div class="row"><div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><b>Garde Malade</b></div></div>
+				<div class="row"><div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><span style="font-size:16px;">Garde Malade</span></strong></div></div>
 				<div class="row">
 					<ul class="list-unstyled spaced">
 					  	<li> <i class="ace-icon fa fa-caret-right blue"></i><strong>Nom:</strong> {{ $hosp->garde->nom}}</li>

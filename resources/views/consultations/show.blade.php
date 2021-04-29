@@ -5,7 +5,9 @@
     <?php $patient = $consultation->patient; ?> @include('patient._patientInfo', $patient)
   </div>
 </div>
- {{--<div class="pull-right"><a href="{{route('consultations.edit',$consultation->id )}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-edit bigger-120 blue"></i>Edit</a></div>--}}
+ <div class="pull-right">
+   <a href="{{route('consultations.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-list bigger-120 blue"></i>Consultations</a>
+</div>
 <div class="row"><h4>Détails du la Consultation :</h4></div> 
   <div class="tabbable"  class="user-profile">
     <ul class="nav nav-tabs padding-18">

@@ -132,8 +132,10 @@ class ColloqueController extends Controller
         $demandes = DemandeHospitalisation::whereHas('Specialite', function ($q) use ($type) {
                               $q->where('type',$type);
                       })->where('etat','en attente')->where('modeAdmission','<>','urgence')->get();
-         $medecins = user::whereIn('role_id',[1,13,14])->get() ;
-        return view('colloques.runcolloque', compact('demandes','medecins','colloque'));
+        $medecins = employ::whereHas('User', function($q){
+          $q->whereIn('role_id', [1,13,14]);
+        })->orderBy('nom')->get();//$medecins = user::whereIn('role_id',[1,13,14]);
+        return view('colloques.run', compact('demandes','medecins','colloque'));
     }
     public function save(Request $request ,$id)
     {

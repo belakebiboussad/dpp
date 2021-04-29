@@ -69,14 +69,8 @@
                  $(nRow).attr('id',"hospi"+aData.id);
           },
           "columns": [
-                     { data:null,title:'#', "orderable": false,searchable: false,
-                          render: function ( data, type, row ) {
-                               if ( type === 'display' ) {
-                                    return '<input type="checkbox" class="editor-active check" value="'+data.id+'/><span class="lbl"></span>';
-                               }
-                               return data;
-                          },
-                     },
+/* { data:null,title:'#', "orderable": false,searchable: false, render: function ( data, type, row ) {  if ( type === 'display' ) {
+  return '<input type="checkbox" class="editor-active check" value="'+data.id+'/><span class="lbl"></span>';}return data;},},*/
                      { data: "patient.Nom",
                             render: function ( data, type, row ) {
                                  return row.patient.Nom + ' ' + row.patient.Prenom;
@@ -147,7 +141,7 @@
                 $('.deces').addClass('hidden');
             } 
      });
-     jQuery('#saveCloturerHop').click(function () {  // (jQuery('#modeSortie').val() === '') ? null : jQuery('#modeSortie').val();
+     jQuery('#saveCloturerHop').click(function () {
           var formData = {
                 id                      : $("#hospID").val(),
                 Date_Sortie        : jQuery('#Date_SortieH').val(),
@@ -255,10 +249,10 @@
           </div>
 		<div class="widget-body">
 			<div class="widget-main no-padding">
-		    <table class="display table-responsive nowrap" id="liste_hosptalisations" width="100%">
+		    <table class="display table-responsive" id="liste_hosptalisations">
           <thead>
-              <tr>
-                <th class ="center priority-6" width="2%"></th><th class ="center"><strong>Patient</strong></th>
+              <tr><!-- <th class ="center priority-6" width="2%"></th> -->
+                <th class ="center"><strong>Patient</strong></th>
                  <th class ="center priority-4"><strong>Mode Admission</strong></th><th class ="center"><strong>Date_entree</strong></th>
                 <th class ="center  priority-6"><strong>Date Sortie Prévue</strong></th><th class ="center priority-4"><strong>Date Sortie</strong></th>
                 <th  class ="center  priority-5"><strong>Mode</strong></th><th  class ="center  priority-6"><strong>Medecin</strong></th>
@@ -268,15 +262,15 @@
           <tbody>
                @foreach ($hospitalisations as $hosp)
                 <tr id="hospi{{ $hosp->id }}">
-                    <td class="priority-6"><input type="checkbox" class="editor-active check" value="{{ $hosp->id}}"/><span class="lbl"></span></td>
+                  {{--   <td class="priority-6"><input type="checkbox" class="editor-active check" value="{{ $hosp->id}}"/><span class="lbl"></span></td> --}}
                     <td>{{ $hosp->patient->Nom }} {{ $hosp->patient->Prenom }}</td>
                     <td class="priority-4">{{ $hosp->admission->demandeHospitalisation->modeAdmission}} </td>
                     <td>{{  $hosp->Date_entree}}</td>
                     <td  class="priority-6">{{  $hosp->Date_Prevu_Sortie}}</td>
                     <td class="priority-4">{{  $hosp->Date_Sortie}}</td>
                     <td class="priority-5">{{  $hosp->modeHospi->nom }}</td>
-                    <td class="priority-6">{{  $hosp->admission->demandeHospitalisation->demeandeColloque->medecin->nom }}
-                            {{  $hosp->admission->demandeHospitalisation->demeandeColloque->medecin->prenom }}
+                    <td class="priority-6">{{  $hosp->medecin->nom }}<!-- admission->demandeHospitalisation->demeandeColloque-> -->
+                            {{  $hosp->medecin->prenom }}
                      </td>
                      <td class="priority-6" >
                          <span class="badge badge-pill badge-primary">{{  isset($hosp->etat_hosp)  ?  $hosp->etat_hosp : 'En Cours'}}</span>

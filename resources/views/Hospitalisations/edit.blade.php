@@ -40,15 +40,14 @@
   			}
   			$('#numberDays').val(iDaysDelta );	
 		}
-			
 	}
 </script>
 @endsection
 @section('main-content')
- <?php $patient = $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient;?>
+ <?php $patient = $hosp->patient;?>
 <div class="row"> @include('patient._patientInfo')</div>
 <div class="pull-right">
-  <a href="{{route('hospitalisation.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-edit bigger-120 blue"></i>Hospitalisations</a>
+  <a href="{{route('hospitalisation.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-list bigger-120 blue"></i>Hospitalisations</a>
 </div>
 <div class="row"><h3>Modifier l'hospitalisation</h3></div><div class="space-12"></div>  
 <div class="row">
@@ -61,19 +60,19 @@
         <div class="col-xs-4">
           <label class="col-sm-4 control-label no-padding-right" for="service"><strong>Service :</strong> </label>
           <div class="col-sm-8">
-            <input type="text" id="service" name="service" value="{{ $hosp->admission->rdvHosp->demandeHospitalisation->Service->nom }}" class="col-xs-12 col-sm-12" readonly/>
+            <input type="text" id="service" name="service" value="{{ $hosp->admission->demandeHospitalisation->Service->nom }}" class="col-xs-12 col-sm-12" readonly/>
           </div>  
         </div>
         <div class="col-xs-4">
           <label class="col-sm-4 control-label no-padding-right" for="specialite"><strong>Specialite:</strong></label>
           <div class="col-sm-8">
-            <input type="text" id="specialite" name="specialite" value="{{ $hosp->admission->rdvHosp->demandeHospitalisation->Specialite->nom }}" class="col-xs-12 col-sm-12" readonly/>
+            <input type="text" id="specialite" name="specialite" value="{{ $hosp->admission->demandeHospitalisation->Specialite->nom }}" class="col-xs-12 col-sm-12" readonly/>
           </div>  
         </div>
         <div class="col-xs-4">
           <label class="col-sm-4 control-label no-padding-right" for="modeAdm"><strong>Mode admission:</strong></label>
           <div class="col-sm-8">
-            <input  type="text" id="modeAdm" name="modeAdm" value="{{ $hosp->admission->rdvHosp->demandeHospitalisation->modeAdmission }}" class="col-xs-12 col-sm-12" readonly/>
+            <input  type="text" id="modeAdm" name="modeAdm" value="{{ $hosp->admission->demandeHospitalisation->modeAdmission }}" class="col-xs-12 col-sm-12" readonly/>
           </div>  
         </div>
       </div>
@@ -82,9 +81,10 @@
       	<div class="col-xs-4">
           <label class="col-sm-4 control-label no-padding-right" for="medecin"><strong>Medecin Traitant:</strong></label>
           <div class="col-sm-8">
-            <input type="text" id="medecin" name="medecin" value="{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->nom }} {{$hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->prenom}}" class="col-xs-12 col-sm-12" readonly/>
+            <input type="text" id="medecin" name="medecin" value="{{ $hosp->medecin->nom }} {{$hosp->medecin->prenom}}" class="col-xs-12 col-sm-12" readonly/>
           </div>  
         </div>
+        @if(isset($hosp->admission->rdvHosp))
         <div class="col-xs-4">
           <div class="form-group">
             <label class="col-sm-4 control-label no-padding-right" for="priorite"><strong> Priorité:</strong></label>
@@ -109,9 +109,11 @@
           <div class="col-sm-8">
             <input type="text" id="observ" name="observ" value="{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->observation}}" class="col-xs-12 col-sm-12" disabled/>
           </div>  
-        </div>	
+        </div>
+        @endif	
       </div><!-- row -->
-      <div class="page-header"><h1>Entrée</h1></div>
+
+      <div class="row text-primary"><h3>Entrée</h3><hr></div>
       <div class="space-12"></div>
 			  <div class="row form-group">
       		<div class="col-xs-4">
@@ -138,8 +140,7 @@
 		        </div>  
         	</div>
         </div> <!-- row -->
-        <div class="space-12"></div>
-        <div class="page-header"><h1>Sortie Prévue</h1></div>
+        <div class="row text-primary"><h3>Sortie Prévue</h3><hr></div>
      	  <div class="row form-group">
 	        <div class="col-xs-4">
 	          <label class="col-sm-4 control-label no-padding-right" for="Date_Prevu_Sortie"> <strong> Date:</strong></label>
@@ -161,7 +162,7 @@
 							<div class="input-group col-sm-9" style ="width:35.8%;padding: 0.8%;">	
 							<select name="garde_id" id="garde_id" @if(in_array(Auth::user()->role->id,[5])) disabled @endif>
 							 		<option value="0" selected>selectionnez le Garde Malade</option>
-							 		@foreach( $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient->hommesConf as $homme)
+							 		@foreach( $hosp->patient->hommesConf as $homme)
 							 		<option value="{{ $homme->id }}" @if($hosp->garde_id ==  $homme->id) selected @endif> {{ $homme->nom }} {{ $homme->prenom }}</option>
 								  @endforeach
 							</select>
@@ -169,7 +170,7 @@
 						</div>
 					</div>
         </div>
-      <div class="page-header"><h1>Hébergement</h1></div>
+      <div class="row text-primary"><h3>Hébergement</h3><hr></div>
          @if(isset($hosp->admission->id_lit))
       <div class="row form group">
 	      <div class="col-xs-4">

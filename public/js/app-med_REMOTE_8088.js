@@ -96,20 +96,9 @@ function IMC(){
   	
 	}
 
-	// function addAntecedant()
-	// {
-
-	// 	//  var type = $('#Antecedant').val();
-	// 	//  var date = $('#dateAntcd').val();
-	// 	  var description = $('#description').val();
-	// 	alert(description);
-	// 	// var tbody = $("#ants-tab").find('tbody').
-	// 	// // //Then if no tbody just select your table 
-	// 	// var table = tbody.length ? tbody : $('#myTable');
-	// 	// // var row = '<tr>'+
- //  //   			'<td>'.type.'</td>'+
- //  //  			 '<td>{{name}}</td>'+
- //  //  			 '<td>{{phone}}</td>'+
+	// function addAntecedant()// {	// 	//  var type = $('#Antecedant').val();// 	//  var date = $('#dateAntcd').val();// 	  var description = $('#description').val();
+	// 	alert(description);	// 	// var tbody = $("#ants-tab").find('tbody').	// 	// // //Then if no tbody just select your table 	// 	// var table = tbody.length ? tbody : $('#myTable');
+	// 	// // var row = '<tr>'+0 //  //   			'<td>'.type.'</td>'+ //  //  			 '<td>{{name}}</td>'+ //  //  			 '<td>{{phone}}</td>'+
 	// 	// 	'</tr>';
 	// }
 	function ajaxATCD(patientid){

@@ -35,11 +35,11 @@ class AdmissionController extends Controller
 
           $rdvs = rdv_hospitalisation::with('bedReservation','demandeHospitalisation.bedAffectation')->whereHas('demandeHospitalisation', function($q){
                                            $q->where('etat', 'programme');
-                                        })->where('etat_RDVh','=',null)->where('date_RDVh','=',date("Y-m-d"))->get();  //dd($rdvs);
+                                        })->where('etat_RDVh','=',null)->where('date_RDVh','=',date("Y-m-d"))->get();
           $demandesUrg = DemandeHospitalisation::with('bedAffectation') //->whereHas('bedAffectation')
                                              ->whereHas('consultation', function($q){
                                                 $q->where('Date_Consultation', date("Y-m-d"));
-                                             })->where('modeAdmission','urgence')->where('etat','programme')->get();//dd($demandesUrg[0]);
+                                             })->where('modeAdmission','urgence')->where('etat','programme')->get();
           return view('home.home_agent_admis', compact('rdvs','demandesUrg'));
     }
     /**
@@ -56,7 +56,7 @@ class AdmissionController extends Controller
       public function store(Request $request)
       {       
         if(isset($request->id_RDV))
-        { //$rdvHospi =  rdv_hospitalisation::find($request->id_RDV);
+        {
           $demande =  DemandeHospitalisation::find($request->demande_id);
           $adm=admission::create([     
               "id_rdvHosp"=>$request->id_RDV,
@@ -91,9 +91,7 @@ class AdmissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-    }
+    public function show($id)   {  }
     /**
      * Show the form for editing the specified resource.
      *
@@ -120,8 +118,8 @@ class AdmissionController extends Controller
    * @return \Illuminate\Http\Response
    */
      public function destroy($id) {
-          $adm = admission::destroy($id);
-          return Response::json($adm);   
+        $adm = admission::destroy($id);
+        return Response::json($adm);   
      } 
      public function sortir()
      {

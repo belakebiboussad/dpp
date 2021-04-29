@@ -96,7 +96,7 @@
 								<select id="medecin" name = "medecin" class ="med" class ="selectpicker show-menu-arrow place_holder col-sm-12">
 									<option value="0" selected disabled>selectionnez... </option>
 									@foreach ($medecins as $medecin)
-									<option value="{{ $medecin->employ->id }}">{{ $medecin->employ->nom }} {{ $medecin->employ->prenom }}</option>
+									<option value="{{ $medecin->id }}">{{ $medecin->nom }} {{ $medecin->prenom }}</option>
 									@endforeach
 								</select>
 							</td>

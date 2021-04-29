@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class hospitalisation extends Model
 {
     public $timestamps = false;
-    protected $fillable  = ['id','Date_entree','Date_Prevu_Sortie','Date_Sortie','patient_id','id_admission','heure_entrée', 'Heure_Prevu_Sortie', 'Heure_sortie', 'etat_hosp','modeHosp_id','garde_id','resumeSortie','etatSortie','modeSortie','diagSortie','ccimdiagSortie'];
+    protected $fillable  = ['id','Date_entree','Date_Prevu_Sortie','Date_Sortie','patient_id','id_admission','heure_entrée', 'Heure_Prevu_Sortie', 'Heure_sortie', 'etat_hosp','modeHosp_id','medecin_id','garde_id','resumeSortie','etatSortie','modeSortie','diagSortie','ccimdiagSortie'];
     public function admission()
     {
      	return $this->belongsTo('App\modeles\admission','id_admission');
@@ -27,5 +27,9 @@ class hospitalisation extends Model
     public function modeHospi()
     {
         return $this->belongsTo('App\modeles\ModeHospitalisation','modeHosp_id');
+    }
+    public function medecin()//medecin traitant
+    {
+        return $this->belongsTo('App\modeles\employ','medecin_id');
     }                      
 }
