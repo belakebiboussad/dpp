@@ -5,7 +5,7 @@
  .bootstrap-timepicker-meridian, .meridian-column
  {
      display: none;
- }  
+ }	
  .bootstrap-timepicker-widget table tr:nth-child(3)>td:last-child a {
   display: none;
 }
@@ -53,71 +53,73 @@
           else
                  return '<span class="badge badge-pill badge-primary">En Cours</span>'
      }
-    function loadDataTable(data){// $("#liste_hosptalisations").dataTable().fnDestroy();
-          $('#liste_hosptalisations').dataTable({// "processing": true,
+    function loadDataTable(data){
+      $("#liste_hosptalisations").dataTable().fnDestroy();
+      var oTable = $('#liste_hosptalisations').dataTable({
+          "processing": true,
           "paging":   true,
            "destroy": true,
            "ordering": true,
            "searching":false,
            "info" : false,
            "language":{"url": '/localisation/fr_FR.json'},
-           "data" : data,// "scrollX": true,
+           "data" : data,
+           "scrollX": true,
            "fnCreatedRow": function( nRow, aData, iDataIndex ) {
                  $(nRow).attr('id',"hospi"+aData.id);
           },
           "columns": [
-            { data: "patient.Nom",
-              render: function ( data, type, row ) {
-                return row.patient.Nom + ' ' + row.patient.Prenom;
-              },
-              title:'Patient',"orderable": true
-            },
-            { data: "admission.demande_hospitalisation.modeAdmission", 
-              render: function ( data, type, row ) {
-                return row.admission.demande_hospitalisation.modeAdmission ;
-               },
-              title:"Mode Admission","orderable": false 
-            },//2
-            { data: "Date_entree" , title:'Date Entrée', "orderable": true},//3
-            { data: "Date_Prevu_Sortie" , title:'Date Sortie Prévue', "orderable": true },//4
-            { data: "Date_Sortie" , title:'Date Sortie',"orderable": true },//5
-            { data: "mode_hospi.nom" , title:'Mode',"orderable": false  },//6
-            {  data: "medecin.nom" ,
-                render: function ( data, type, row ) {
-                  return row.medecin.nom + ' ' + row.medecin.prenom ;
-                },
-                title:'Medecin',"orderable": false   
-            },//7
-            { data: getState , title:'Etat', "orderable":false },//8
-            { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false }
+/*{ data:null,title:'#',"orderable": false,searchable: false, render: function ( data, type, row ){if ( type === 'display' ){return '<input type="checkbox" class="editor-active check" value="'+data.id+'/><span class="lbl"></span>';}return data;},},*/
+                     { data: "patient.Nom",
+                            render: function ( data, type, row ) {
+                                 return row.patient.Nom + ' ' + row.patient.Prenom;
+                            },
+                        title:'Patient',"orderable": true
+                     },
+                     {     data: "admission.demande_hospitalisation.modeAdmission", 
+                               render: function ( data, type, row ) {
+                                    return row.admission.demande_hospitalisation.modeAdmission ;
+                               },
+                                title:"Mode Admission","orderable": false 
+                     },//2
+                     { data: "Date_entree" , title:'Date Entrée', "orderable": true},//3
+                     { data: "Date_Prevu_Sortie" , title:'Date Sortie Prévue', "orderable": true },//4
+                     { data: "Date_Sortie" , title:'Date Sortie',"orderable": true },//5
+                     { data: "mode_hospi.nom" , title:'Mode',"orderable": false  },//6
+                     {   data: "admission.demande_hospitalisation.demeande_colloque.medecin.nom" ,
+                           render: function ( data, type, row ) {
+                                    return row.admission.demande_hospitalisation.demeande_colloque.medecin.nom + ' ' + row.admission.demande_hospitalisation.demeande_colloque.medecin.prenom ;
+                           },
+                           title:'Medecin',"orderable": false   
+                     },//7
+                     { data: getState , title:'Etat', "orderable":false },//8
+                     { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false }              
           ],
           "columnDefs": [
-            {"targets": 1 ,  className: "dt-head-center priority-4" },
-            {"targets": 3 ,  className: "dt-head-center priority-6" },
-            {"targets": 4,  className: "dt-head-center priority-4" },
-            {"targets": 5 ,  className: "dt-head-center priority-5" },
-            {"targets": 6 ,  className: "dt-head-center priority-6" },
-            {"targets": 7 ,  className: "dt-head-center priority-6" },
-            {"targets": 8,  className: "dt-head-center dt-body-center"}
-          ]
-          
+                 
+                 {"targets": 1 ,  className: "dt-head-center priority-4" },
+                 {"targets": 3 ,  className: "dt-head-center priority-6" },
+                 {"targets": 4,  className: "dt-head-center priority-4" },
+                  {"targets": 5 ,  className: "dt-head-center priority-5" },
+                {"targets": 6 ,  className: "dt-head-center priority-6" },
+               {"targets": 7 ,  className: "dt-head-center priority-6" },
+              {"targets": 8,  className: "dt-body-center"}
+          ],
       });
     }
     function getHospitalisations(field,value)
-    {
+	  {
       $.ajax({
            url : '{{URL::to('getHospitalisations')}}',
            data: {  "field":field, "value":value, },
            dataType: "json",
-         success: function(data) {
-              $(".numberResult").html(data.length);
-              loadDataTable(data);
-              //alert(data[0].id);
-          
+  	     success: function(data) {
+                $(".numberResult").html(data.length);
+                loadDataTable(data);
             }
-      });
-    }
-    $('document').ready(function(){
+    	});
+	  }
+	  $('document').ready(function(){
       $('.filter').change(function(){// if($(this).attr('id') != "Nom") //getHospitalisations("etat_hosp",null);
           getHospitalisations($(this).attr('id'),$(this).val());
       }); // $('.filter').keyup(function(){//     getHospitalisations($(this).attr('id'),$(this).val()) // });
@@ -197,7 +199,7 @@
               },
           }); 
       });
-  });
+	});
 </script>
 @endsection
 @section('main-content')
@@ -208,55 +210,55 @@
     <div class="hospFilter well">
       <div class="FilterDiv" id="Filter">
         <div class="card">
-          <div class="card-body">
+       	  <div class="card-body">
             <div class="row">
-              <div class="col-sm-3"> <!--  <div class="form-group col-sm-8"> -->  <!-- </div>    -->
+            	<div class="col-sm-3"> <!--  <div class="form-group col-sm-8"> -->  <!-- </div>    -->
                 <label><strong>Etat :</strong></label>
                 <select id='etat_hosp' class="form-control filter">
                   <option value="0">En Cours</option>
                   <option value="1">Cloturé</option>
                 </select>
-              </div>
-              <div class="col-sm-3"><!-- <div class="form-group col-sm-8"> --><!-- </div> -->
-                <label><strong>Patient :</strong></label><input type="text" id="Nom" class="form-control filter">
-              </div>    
-              <div class="col-sm-3">
+            	</div>
+            	<div class="col-sm-3"><!-- <div class="form-group col-sm-8"> --><!-- </div> -->
+            		<label><strong>Patient :</strong></label><input type="text" id="Nom" class="form-control filter">
+              </div>		
+            	<div class="col-sm-3">
                 <label class="control-label" for="" ><strong>IPP:</strong></label> <input type="text" id="IPP" class="form-control filter">
               </div>
-              <div class="col-sm-3"><!-- <div class="form-group col-sm-8"></div> -->
-                <label class="control-label" for="" ><strong>Date Sortie:</strong></label>
-                <div class="input-group">
-                  <input type="text" id ="Date_Sortie" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
-                  <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
-                </div>
-              </div>  
+            	<div class="col-sm-3"><!-- <div class="form-group col-sm-8"></div> -->
+            		<label class="control-label" for="" ><strong>Date Sortie:</strong></label>
+            	  <div class="input-group">
+  					      <input type="text" id ="Date_Sortie" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
+  						    <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
+    					  </div>
+            	</div>	
             </div>
           </div>
         </div>
       </div>
-      </div>    
+     	</div>   	
     </div>
   </div>
  </div>
 <div class="row">
-  <div class="col-xs-12 widget-container-col" id="widget-container-col-2">
-  <div class="widget-box transparent" id="widget-box-2">
-    <div class="widget-header"><h5 class="widget-title bigger lighter">
-      <i class="ace-icon fa fa-table"></i>Hospitalisations</h5>&nbsp;<label><span class="badge badge-info numberResult">{{ $hospitalisations->count() }}</span></label>
-    </div>
-    <div class="widget-body">
-      <div class="widget-main no-padding">
-        <table class="table display table-responsive table-bordered" id="liste_hosptalisations">
+	<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
+	<div class="widget-box transparent" id="widget-box-2">
+		<div class="widget-header"><h5 class="widget-title bigger lighter">
+            <i class="ace-icon fa fa-table"></i>Hospitalisations</h5>&nbsp;<label><span class="badge badge-info numberResult"></span></label>
+          </div>
+		<div class="widget-body">
+			<div class="widget-main no-padding">
+		    <table class="display table table-striped table-bordered table-hover table-responsive" id="liste_hosptalisations">
           <thead>
-            <tr><!-- <th class ="center priority-6" width="2%"></th> -->
-              <th class ="center"><strong>Patient</strong></th>
-              <th class ="center priority-4"><strong>Mode Admission</strong></th><th class ="center"><strong>Date_entree</strong></th>
-              <th class ="center  priority-6"><strong>Date Sortie Prévue</strong></th><th class ="center priority-4"><strong>Date Sortie</strong></th>
-              <th  class ="center  priority-5"><strong>Mode</strong></th><th  class ="center  priority-6"><strong>Medecin</strong></th>
-              <th class ="center  priority-6"><strong>Etat</strong></th><th class ="center"><strong><em class="fa fa-cog"></em></strong></th>
-            </tr>
+              <tr><!-- <th class ="center priority-6" width="2%"></th> -->
+                <th class ="center"><strong>Patient</strong></th>
+                 <th class ="center priority-4"><strong>Mode Admission</strong></th><th class ="center"><strong>Date_entree</strong></th>
+                <th class ="center  priority-6"><strong>Date Sortie Prévue</strong></th><th class ="center priority-4"><strong>Date Sortie</strong></th>
+                <th  class ="center  priority-5"><strong>Mode</strong></th><th  class ="center  priority-6"><strong>Medecin</strong></th>
+                <th class ="center  priority-6"><strong>Etat</strong></th><th class ="center"><strong><em class="fa fa-cog"></em></strong></th>
+              </tr>
           </thead>
-           <tbody>
+          <tbody>
                @foreach ($hospitalisations as $hosp)
                 <tr id="hospi{{ $hosp->id }}">
                   {{--   <td class="priority-6"><input type="checkbox" class="editor-active check" value="{{ $hosp->id}}"/><span class="lbl"></span></td> --}}
@@ -284,11 +286,11 @@
                     </td>
              </tr>
             @endforeach
-          </tbody>   
-        </table>                  
-      </div><!-- widget-main -->
-      </div>  <!-- widget-body -->
-   </div> <!-- widget-box -->
+          </tbody>    
+                    </table>
+			</div><!-- widget-main -->
+	  	</div>	<!-- widget-body -->
+	 </div> <!-- widget-box -->
 </div>
 </div>
 <div class="row">@include('hospitalisations.ModalFoms.sortieModal')</div><div class="row">@include('hospitalisations.ModalFoms.EtatSortie')</div>
