@@ -358,27 +358,28 @@
         $('#liste_codesCIM').empty();  $("#chapitre").val($("#chapitre option:first").val());$("#schapitre").val($("#schapitre option:first").val());
         $('#cim10Modal').trigger("reset");$('#cim10Modal').modal('toggle');  
       }
-  function createexbio(nomp,prenomp,age,ipp, nomEmploye,prenomEmploye){  
-    var img = new Image();
-    img.src = '{{ asset("/img/logo.png") }}';
-    img.onload = function () {
-      createexbioF(img,nomp,prenomp,age,ipp, nomEmploye,prenomEmploye);
-    };
-  }
-  function createexbioF(imge,nomp,prenomp,age,ipp, nomEmploye,prenomEmploye){  
-    html2canvas($("#dos"), {
+      function createexbio(nomp,prenomp,age,ipp, nomEmploye,prenomEmploye,etabname,etabTutel,etabAdress,etabtel,etabLogo){  
+        var img = new Image();
+        img.src = '{{ asset("/img/logo.png") }}';
+        img.onload = function () {
+           createexbioF(img,nomp,prenomp,age,ipp, nomEmploye,prenomEmploye,etabname,etabTutel,etabAdress,etabtel,etabLogo);
+        };
+      }
+      function createexbioF(image,nomp,prenomp,age,ipp, nomEmploye,prenomEmploye,etabname,etabTutel,etabAdress,etabtel,etabLogo){ 
+           html2canvas($("#dos"), {
         onrendered: function(canvas) {
           moment.locale('fr');//var IPP = ipp.toString();
           var formattedDate = moment(new Date()).format("l");         
           var imgData = canvas.toDataURL('image/png');              
           var doc = new jsPDF('p', 'mm');
-          doc.text(105,9, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
+          doc.text(105,9, etabTutel, null, null, 'center');
           doc.setFontSize(13);
-          doc.text(105,16, 'HOPITAL CENTRAL DE LA SURETE NATIONALE "LES GLYCINES"', null, null, 'center');
+          
+          doc.text(105,16, etabname, null, null, 'center');
           doc.setFontSize(12);
-          doc.text(105,21, '12, Chemin des Glycines - ALGER', null, null, 'center');
-          doc.text(105,26, 'Tél : 023-93-34 - 23-93-58', null, null, 'center');
-          doc.addImage(imge, 'JPEG', 95, 27, 17, 17);
+          doc.text(105,21, etabAdress, null, null, 'center');
+          doc.text(105,26, 'Tél : '+ etabtel, null, null, 'center');//doc.text(105,26, 'Tél : 023-93-34 - 23-93-58', null, null, 'center');
+          doc.addImage(image, 'JPEG', 95, 27, 17, 17);
           doc.setFontSize(14);
           doc.addImage(imgData, 'JPEG', 10, 10);
           JsBarcode("#itf", ipp.toString(), {
@@ -404,76 +405,80 @@
             i=i+10;
           });
           doc.setFontSize(12);
-           doc.text(100,270, 'Docteur : ' +nomEmploye+ ' '+ prenomEmploye, null, null); 
+          doc.text(100,270, 'Docteur : ' +nomEmploye+ ' '+ prenomEmploye, null, null); 
           doc.save('ExamBiolo-'+nomp+'-'+prenomp+'.pdf');
           }
         });    
       }
-       function createeximg(nomp,prenomp,age, ipp, nomEmploye,prenomEmploye) {
-    var img = new Image();
-    img.src = '{{ asset("/img/logo.png") }}';
-    img.onload = function () {
-      createeximgF(img,nomp,prenomp,age,ipp, nomEmploye, prenomEmploye);
-    };
-  } 
-  function createeximgF(imge,nomp,prenomp,age,ipp, nomEmploye, prenomEmploye)
-  {  
-      html2canvas($("#dos"), {
-          onrendered: function(canvas) {         
-            moment.locale('fr');//var IPP = ipp.toString();
-            var formattedDate = moment(new Date()).format("l");
-            var imgData = canvas.toDataURL('image/png');              
-            var doc = new jsPDF('p', 'mm');
-            doc.addImage(imgData, 'PNG', 10, 10); //JsBarcode("#itf",IPP); //bonne
-            JsBarcode("#itf", ipp.toString(), {
-              lineColor: "#000",
-              width:4,
-              height:40,
-              displayValue: true,
-              fontSize : 28,
-              textAlign: "left"
-            });
-            const img = document.querySelector('img#itf');
-            doc.text(105,9, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
-            doc.setFontSize(13);
-            doc.text(105,16, 'HOPITAL CENTRAL DE LA SURETE NATIONALE "LES GLYCINES"', null, null, 'center');
-            doc.setFontSize(12);
-            doc.text(105,21, '12, Chemin des Glycines - ALGER', null, null, 'center');
-            doc.text(105,26, 'Tél : 023-93-34 - 23-93-58', null, null, 'center');
-            doc.addImage(imge, 'JPEG', 95, 27, 17, 17);
-            doc.setFontSize(14);
-            doc.text(200,60, 'Alger :' +formattedDate , null, null, 'right'); 
-            doc.text(20,63, 'Nom : '+nomp, null, null);
-            doc.text(20,68, 'Prénom : '+prenomp, null, null);
-            doc.text(20,73, 'Age : '+ age+' ans', null, null);
-            doc.addImage(img.src, 'JPEG', 20, 75, 50, 15);
-            doc.text(20,110, 'Prière de faire', null, null);
-            doc.setFontSize(16);
-            doc.text(50,125,'Examens Demandées :',null,null)
-            var res = doc.autoTableHtmlToJson(document.getElementById('ExamsImgtab'));
-            var height = doc.internal.pageSize.height;
-            doc.autoTable(res.columns, res.data, {
-              startY: 135,
-            });
-            doc.setFontSize(12);
-            doc.text(100,270, 'Docteur : ' + nomEmploye + ' '+ prenomEmploye, null, null); 
-            doc.save('ExamRadio-'+nomp+'-'+prenomp+'.pdf');
-          }
-      });
-  }
-      function printExamCom(nom, prenom, age, ipp, nomEmploye,prenomEmploye)
+      //fin
+
+    function createeximg(nomp,prenomp,age, ipp, nomEmploye,prenomEmploye, prenomEmploye,etabname,etabTutel,etabAdress,etabtel,etabLogo) {
+      var img = new Image();
+      img.src = '{{ asset("/img/logo.png") }}';
+      img.onload = function () {
+        createeximgF(img,nomp,prenomp,age,ipp, nomEmploye, prenomEmploye, prenomEmploye,etabname,etabTutel,etabAdress,etabtel,etabLogo);
+      };
+    } 
+    function createeximgF(image,nomp,prenomp,age,ipp, nomEmploye, prenomEmploye,etabname,etabTutel,etabAdress,etabtel,etabLogo)
+    {  
+        html2canvas($("#dos"), {
+            onrendered: function(canvas) {         
+              moment.locale('fr');//var IPP = ipp.toString();
+              var formattedDate = moment(new Date()).format("l");
+              var imgData = canvas.toDataURL('image/png');              
+              var doc = new jsPDF('p', 'mm');
+              doc.addImage(imgData, 'PNG', 10, 10); //JsBarcode("#itf",IPP); //bonne
+              JsBarcode("#itf", ipp.toString(), {
+                lineColor: "#000",
+                width:4,
+                height:40,
+                displayValue: true,
+                fontSize : 28,
+                textAlign: "left"
+              });
+              const img = document.querySelector('img#itf');
+              doc.text(105, 9, etabTutel, null, null, 'center');
+              
+              doc.setFontSize(13);
+              doc.text(105,16,etabname , null, null, 'center');
+              doc.setFontSize(12);
+              doc.text(105,21, etabAdress, null, null, 'center');
+              doc.text(105,26, 'Tél : ' + etabtel, null, null, 'center');
+              doc.addImage(image, 'JPEG', 95, 27, 17, 17);
+              doc.setFontSize(14);
+              doc.text(200,60, 'Alger :' +formattedDate , null, null, 'right'); 
+              doc.text(20,63, 'Nom : '+nomp, null, null);
+              doc.text(20,68, 'Prénom : '+prenomp, null, null);
+              doc.text(20,73, 'Age : '+ age+' ans', null, null);
+              doc.addImage(img.src, 'JPEG', 20, 75, 50, 15);
+              doc.text(20,110, 'Prière de faire', null, null);
+              doc.setFontSize(16);
+              doc.text(50,125,'Examens Demandées :',null,null)
+              var res = doc.autoTableHtmlToJson(document.getElementById('ExamsImgtab'));
+              var height = doc.internal.pageSize.height;
+              doc.autoTable(res.columns, res.data, {
+                startY: 135,
+              });
+              doc.setFontSize(12);
+              doc.text(100,270, 'Docteur : ' + nomEmploye + ' '+ prenomEmploye, null, null); 
+              doc.save('ExamRadio-'+nomp+'-'+prenomp+'.pdf');
+            }
+        });
+    }
+      function printExamCom(nom, prenom, age, ipp, nomEmploye,prenomEmploye,etabname,etabTutel,etabAdress,etabtel,etabLogo)
       {
-           var interest = $('ul#compl').find('li.active').data('interest');
-           switch(interest){
-                case 0:
-                      createexbio(nom, prenom, age, ipp, nomEmploye,prenomEmploye);
-                      break;
-                case 1:
-                      createeximg(nom, prenom, age, ipp, nomEmploye,prenomEmploye);
-                      break;
-                case 2:
-                    break;
+        var interest = $('ul#compl').find('li.active').data('interest');
+        switch(interest){
+              case 0:
+                createexbio(nom, prenom, age, ipp, nomEmploye,prenomEmploye,etabname,etabTutel,etabAdress,etabtel,etabLogo);
+                break;
+              case 1:
+                createeximg(nom, prenom, age, ipp, nomEmploye,prenomEmploye,etabname,etabTutel,etabAdress,etabtel,etabLogo);
+                break;
+              case 2:
+                  break;
         }
+
       }
       function addExamsImg(form)
       {

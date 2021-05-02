@@ -73,6 +73,7 @@ class ConsultationsController extends Controller
      */
     public function create(Request $request,$id_patient)
     {
+      $etablissement = Etablissement::first(); 
       $employe=Auth::user()->employ;
       $modesAdmission = config('settings.ModeAdmissions') ;
       $patient = patient::FindOrFail($id_patient);//$codesim = codesim::all();
@@ -85,7 +86,7 @@ class ConsultationsController extends Controller
       $infossupp = infosupppertinentes::all();
       $examens = exmnsrelatifdemande::all();//CT,RMN
       $examensradio = examenradiologique::all();//pied,poignet
-      return view('consultations.create',compact('patient','employe','chapitres','apareils','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp','examens','examensradio'));
+      return view('consultations.create',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp','examens','examensradio'));
     }
     /**
      * Store a newly created resource in storage.
