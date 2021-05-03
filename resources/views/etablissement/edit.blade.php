@@ -40,7 +40,8 @@
 				<img src="<?php echo asset("storage/$etablissement->logo")?>" alt ="" height="30%" width="30%" id ="logoimg"/>
 			</div>
 			<div class="form-group">
-				<input type="file" class="form-control" id="logo" name="logo" alt="Logo du l'etablissement" value= "<?php echo asset("storage/$etablissement->logo")?>"/>
+			  <input type="file" class="form-control" id="logo" name="logo" alt="Logo du l'etablissement"   value="{{ URL::asset('/storage/'.$etablissement->logo) }}"/>
+		{{-- <input type="file" class="form-control" id="logo" name="logo" alt="Logo du l'etablissement" value= "{{ $etablissement->logo }}" /> --}}
 			</div>
 		</div>
 		</div><div class="space-12  hidden-xs"></div>	

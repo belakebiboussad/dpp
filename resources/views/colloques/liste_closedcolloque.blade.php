@@ -36,7 +36,7 @@
 								@foreach($col->demandes as $key=>$demande)
 								<p class="text-primary">
 									{{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }} &nbsp;&nbsp;
-									<a  href="#" class="green btn-sm show-details-btn" title="Afficher Détails" data-toggle="collapse" id="{{ $demande->id }}"  data-target=".{{ $demande->id }}collapsed">
+									<a  href="#" class="green btn-sm show-details-btn" title="Afficher Détails" data-toggle="collapse" id="{{ $demande->id }}"  data-target=".{{ $demande->id }} collapsed">
 										<i class="fa fa-eye-slash" aria-hidden="true"></i><span class="sr-only">Details</span>
 									</a>
 								</p>
@@ -64,7 +64,7 @@
 											</div>
 											</div>
 										</td>
-										<td class="">
+										<td>
 										<div class="profile-info-row profile-user-info-striped">
 											<div class="profile-info-name"><strong>Mode:</strong></div>
 											<div class="profile-info-value"><span>{{ $demande->modeAdmission }}</span></div>
@@ -78,7 +78,7 @@
 											<div class="profile-info-value"><span>{{ $demande->Service->nom }}</span></div>
 										</div>
 									</td>
-									<td class="">
+									<td >
 										<div class="profile-info-row profile-user-info-striped">
 										<div class="profile-info-name"><strong>Specialité:</strong></div>
 										<div class="profile-info-value"><span>{{ $demande->Specialite->nom }}</span></div>

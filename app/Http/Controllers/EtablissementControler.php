@@ -49,17 +49,16 @@ class EtablissementControler extends Controller
 	 }
 	public function update(Request $request,$id)
 	{	
-  	$etablissement = Etablissement::FindOrFail($id);
-		$filename="";
-		if ($etablissement->logo != "") {   //File::delete($image_path);//File::delete($filename);
-    		Storage::disk('public')->delete($etablissement->logo);//Storage::delete($etablissement->logo); 
-    }
+  		$etablissement = Etablissement::FindOrFail($id);
+		$filename="";/*if ($etablissement->logo != "") { Storage::disk('public')->delete($etablissement->logo);//Storage::delete($etablissement->logo); }*/
 		if($request->hasfile('logo')){
 			$filename = ToUtf::cleanString($request->file('logo')->getClientOriginalName());
-	   	$file = file_get_contents($request->file('logo')->getRealPath());//Storage::disk('local')->put($filename, $file);//$file->move('uploads/Etablissement/',$filename);if($etablissement->photo != "")
-	  	$path  =  Storage::putFileAs('public', $request->file('logo'),$filename);
-	  	($etablissement->logo);
-   	}
+			if(isset($etablissement->logo) && ($etablissement->logo != $filename))
+			{	//$file = file_get_contents($request->file('logo')->getRealPath());
+	  			$path  =  Storage::putFileAs('public', $request->file('logo'),$filename);
+	  			Storage::disk('public')->delete($etablissement->logo);
+			}	  	
+   		}	
 		$etablissement ->update([
   			"nom"=>$request->nom,
  	 		"adresse"=>$request->adresse,
