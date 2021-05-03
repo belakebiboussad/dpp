@@ -1,0 +1,1 @@
+@echo off php artisan serve --host=10.1.79.28 --port=8000 

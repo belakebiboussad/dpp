@@ -8,11 +8,9 @@
 		font-size: 13px;
 	}
 	.table-wrapper {
-       	 background: #fff;
-    		 /*   padding: 20px 25px;
-      		  margin: 30px 0;*/
-		border-radius: 3px;
-       	 box-shadow: 0 1px 1px rgba(0,0,0,.05);
+      background: #fff;/*   padding: 20px 25px; margin: 30px 0;*/
+		  border-radius: 3px;
+      box-shadow: 0 1px 1px rgba(0,0,0,.05);
     }
     .table-title {        
 		padding-bottom: 15px;
@@ -21,10 +19,10 @@
 		padding: 16px 30px;
 		border-radius: 3px 3px 0 0;
     }
-      .table-title h3 {
-		margin: 5px 0 0;
-		font-size: 24px;
-	}
+    .table-title h3 {
+			margin: 5px 0 0;
+			font-size: 24px;
+		}
 	.table-title .btn-group {
 		float: right;
 	}

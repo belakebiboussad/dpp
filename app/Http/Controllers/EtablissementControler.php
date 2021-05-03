@@ -24,7 +24,6 @@ class EtablissementControler extends Controller
    			'nom'=> 'required|string|max:225',
    			'logo' => 'file|image|mimes:jpeg,png,gif,webp|max:4096'
    		 ]);	// if($request->ajax()){} return response()->json(['status' => true]); 
-  	
   	if($request->hasfile('logo'))
     {
 	   	$filename = ToUtf::cleanString($request->file('logo')->getClientOriginalName());
