@@ -37,7 +37,7 @@
 		<div class="col-sm-3 col-xs-12 center">
 			<div class="space-12  hidden-xs"></div>
 			<div class="form-group">
-				<img src="<?php echo asset("storage/$etablissement->logo")?>" alt ="" height="30%" width="30%" id ="logoimg"/>
+			<img src="{{ url('/img/'.$etablissement->logo) }}" alt ="" height="30%" width="30%" id ="logoimg"/>
 			</div>
 			<div class="form-group">
 			  <input type="file" class="form-control" id="logo" name="logo" alt="Logo du l'etablissement"   value="{{ URL::asset('/storage/'.$etablissement->logo) }}"/>

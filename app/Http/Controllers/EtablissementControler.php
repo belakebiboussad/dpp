@@ -23,12 +23,11 @@ class EtablissementControler extends Controller
 		$this->validate($request, [
    			'nom'=> 'required|string|max:225',
    			'logo' => 'file|image|mimes:jpeg,png,gif,webp|max:4096'
-   		 ]);	// if($request->ajax()){} return response()->json(['status' => true]); 
-  	if($request->hasfile('logo'))
-    {
-	   	$filename = ToUtf::cleanString($request->file('logo')->getClientOriginalName());
-			$file = file_get_contents($request->file('logo')->getRealPath());//Storage::disk('local')->put($filename, $file); 	
-	 	  Storage::putFileAs('public', $request->file('logo'),$filename);
+   		]);	// if($request->ajax()){} return response()->json(['status' => true]); 
+  		if($request->hasfile('logo'))
+    		{
+	   		$filename = ToUtf::cleanString($request->file('logo')->getClientOriginalName());
+	 	  	$request->logo->move(public_path('img/'), $filename);//Storage::putFileAs('public', $request->file('logo'),$filename);
 	 	}
 	 	$etablissement =Etablissement::create([
 	    		"nom"=>$request->nom,
@@ -37,7 +36,7 @@ class EtablissementControler extends Controller
 	    		"tutelle"=>$request->tutelle,
 	    		"logo"=>$filename,
 	 	]);
-		return redirect()->action('EtablissementControler@show',$etablissement->id);//return redirect()->action('EtablissementControler@index');
+		return redirect()->action('EtablissementControler@show',$etablissement->id);
 	}
 	public function edit(Etablissement $etablissement)
 	 {
@@ -50,13 +49,13 @@ class EtablissementControler extends Controller
 	public function update(Request $request,$id)
 	{	
   		$etablissement = Etablissement::FindOrFail($id);
-		$filename="";/*if ($etablissement->logo != "") { Storage::disk('public')->delete($etablissement->logo);//Storage::delete($etablissement->logo); }*/
+		$filename="";
 		if($request->hasfile('logo')){
 			$filename = ToUtf::cleanString($request->file('logo')->getClientOriginalName());
 			if(isset($etablissement->logo) && ($etablissement->logo != $filename))
-			{	//$file = file_get_contents($request->file('logo')->getRealPath());
-	  			$path  =  Storage::putFileAs('public', $request->file('logo'),$filename);
-	  			Storage::disk('public')->delete($etablissement->logo);
+			{	
+	  			$request->logo->move(public_path('img/'), $filename);//Storage::putFileAs('public', $request->file('logo'),$filename);
+	  			File::delete('img/'.$etablissement->logo);//Storage::disk('public')->delete($etablissement->logo);
 			}	  	
    		}	
 		$etablissement ->update([

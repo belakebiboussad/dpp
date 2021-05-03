@@ -57,8 +57,8 @@
             <td class="priority-4">{{ $etablissement->adresse }}</td>
 						<td class="priority-4">{{ $etablissement->tel }} </td>
 						<td class="priority-4">{{ $etablissement->tutelle }} </td>
-            <td>
-            	<img src="storage/{{ $etablissement->logo }}" alt="logo" width="100" height="100"/>
+            <td>{{-- <img src="storage/{{ $etablissement->logo }}" alt="logo" width="100" height="100"/>--}}
+                 <img src="{{  url('/img/'.$etablissement->logo) }}" alt="logo" width="100" height="100"/>
             </td>		
             <td class="center" width="10%">
               <a href="{{ route('etablissement.edit', $etablissement->id) }}" class="edit" ><i class="fa fa-edit fa-xs bigger-200"></i></a>
