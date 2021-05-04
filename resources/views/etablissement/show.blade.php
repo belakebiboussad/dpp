@@ -46,6 +46,7 @@
 				  <th>Nom</th>
 		      <th class="priority-4">Adresse</th>
 					<th class="priority-4">Téléphone</th>
+					<th class="priority-4">Téléphone2</th>
 					<th class="priority-4">Tutelle</th>
 					<th width="30%">Logo</th>
 		      <th width="10%" class="center"><em class="fa fa-cog"></em></th>
@@ -55,11 +56,10 @@
           <tr>
      				<td>{{ $etablissement->nom }}</td>
             <td class="priority-4">{{ $etablissement->adresse }}</td>
-						<td class="priority-4">{{ $etablissement->tel }} </td>
+						<td class="priority-4">{{ $etablissement->tel }}</td>
+						<td class="priority-4">{{ $etablissement->tel2 }}</td>
 						<td class="priority-4">{{ $etablissement->tutelle }} </td>
-            <td>{{-- <img src="storage/{{ $etablissement->logo }}" alt="logo" width="100" height="100"/>--}}
-                 <img src="{{  url('/img/'.$etablissement->logo) }}" alt="logo" width="100" height="100"/>
-            </td>		
+            <td><img src="{{  url('/img/'.$etablissement->logo) }}" alt="logo" width="100" height="100"/></td>		
             <td class="center" width="10%">
               <a href="{{ route('etablissement.edit', $etablissement->id) }}" class="edit" ><i class="fa fa-edit fa-xs bigger-200"></i></a>
                         <a href="{{ route('etablissement.destroy', $etablissement->id) }}" class="delete" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger" ><i class="ace-icon fa fa-trash-o bigger-200"></i></a>

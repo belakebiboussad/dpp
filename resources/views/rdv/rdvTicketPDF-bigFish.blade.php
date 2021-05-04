@@ -2,21 +2,12 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/styles.css">
 		<style>
 			.mb-12{
-					margin-top: +10px !important;
-       		padding-top:+10px  !important ;
-					margin-bottom: -40px !important;
-				  padding-bottom:-40px !important;
-			}
-			.imgCenter{
-					text-align: center;/*border: 1px solid black;*/
-  					width:13%;/*margin-top: -10px !important;*/
-  					height:13%;
+				margin-bottom: -25px !important;
+				padding-bottom:-25px !important;
 			}
 			#container {
 		    display: table;
@@ -24,13 +15,10 @@
 			#row  {
 		  	display: table-row;
 		  }
-			#left, #right{
+			#left {
 			  display: table-cell;
 			  font-size:xx-small; /* padding: 5px;*/
-			     
-		  }	
-		  #left{
-		  	margin-top: +4px !important;
+			  margin-top: +4px !important;
 				padding-top:+4px !important;
 		  }		
 		  #parent {
@@ -43,41 +31,40 @@
 		</style>
 	</head>
 	<body>
-		<div class="container-fluid">
-		  <div class="row">
-			  <div class="col-sm-12">
-			   	<div class="content text-center mt-50">
-			      <h5><strong>{{ $etablissement->tutelle }}</strong></h5>
-			      <h6 class="mt-5" style =" margin-left: -7px;margin-right:-7px;"><strong>{{ $etablissement->nom }}</strong></h6>
-			      <h6 class="mt-5"><strong>{{ $etablissement->adresse }}</strong><span> - Tél : {{ $etablissement->tel }}</span></h6>
-			   	</div>
-			  </div>
-		  </div>
-		  <div class="row mt-5">
-			  <div class="col-sm-12 content text-center"><div class="col-sm-4"></div>
-				 <div class="col-sm-4"><img class = "imgCenter" src="storage/{{ $etablissement->logo }}"/></div><div class="col-sm-4"></div>
-				</div>
-      </div>
-		  <div class="row"><hr class ="mt-5"> </div>
-		  <div class="row">
-		   	<div class="col-md-4  col-sm-4 float-left" style="font-size:x-small;"></div>
-		   	<div class="col-md-4 col-sm-4 content text-center mt-18 pt-18"><h4><strong>Rendez-Vous de Consultation</strong></h4></div>		
-		  </div><br>	
-		  <div class="row mt-5 pt-5">
-			  <div class="col-sm-12">Rendez-vous dans la &nbsp;<strong>Spécialitè</strong>&nbsp;{{ $rdv->employe->Specialite->nom}}</div>
-			</div>
-		  <div class="row">
-		   	<div class="col-sm-12">{{-- l d-m-Y --}}
-			 	  <strong> {{ ( $rdv->fixe) ? "Le" : "A partir du" }}</strong>&nbsp;<span> &nbsp;{{ Carbon\Carbon::parse($rdv->Date_RDV)->format('d-m-Y') }}</span>
+	  <div class="row">
+		  <div class="col-sm-12">
+		   	<div class="content text-center mt-50">
+		      <h5><strong>{{ $etablissement->tutelle }}</strong></h5>
+		      <h6 class="mt-5" style =" margin-left: -7px;margin-right:-7px;"><strong>{{ $etablissement->nom }}</strong></h6>
+		      <h6 class="mt-10"><strong>{{ $etablissement->adresse }}</strong><span> - Tél : {{ $etablissement->tel }}</span></h6>
 		   	</div>
 		  </div>
-		  <div class="row">	<div class="col-sm-12"><strong>Nom : </strong><span>{{ $rdv->patient->Nom}}</span></div></div>
-		  <div class="row" >
+	  </div>
+	  <div class="row mt-5">
+		  <div class="col-sm-12 content text-center"><div class="col-sm-4"></div>
+			 <div class="col-sm-4"><img class = "imgCenter" src="img/{{ $etablissement->logo }}"/></div><div class="col-sm-4"></div>
+			</div>
+    </div>
+		<div class="row"><hr class ="mt-5"></div>
+	  <div class="row">
+	   	<div class="col-md-4 col-sm-4 float-left" style="font-size:x-small;"></div>
+	   	<div class="col-md-4 col-sm-4 content text-center pt-21"><h4><strong>Rendez-Vous de Consultation</strong></h4></div>		
+	  </div><br>	
+	  <div class="row mt-10 pt-10">
+		  <div class="col-sm-12">Rendez-vous dans la &nbsp;Spécialitè&nbsp;<strong>{{ $rdv->employe->Specialite->nom}}</strong></div>
+		</div>
+	  <div class="row">
+	   	<div class="col-sm-12">
+		 	  <strong> {{ ( $rdv->fixe) ? "Le" : "A partir du" }}</strong>&nbsp;<span> &nbsp;{{ Carbon\Carbon::parse($rdv->Date_RDV)->format('d-m-Y') }}</span>
+	   	</div>
+	  </div>
+		<div class="row">	<div class="col-sm-12"><strong>Nom : </strong><span>{{ $rdv->patient->Nom}}</span></div></div>
+		<div class="row" >
 		  	<div class="col-sm-12"><strong>Prenom : </strong><span>{{ $rdv->patient->Prenom}}</span> </div>
 		  </div>
-		  <div id="container">
+		  <div id="container" class="mt-2">
 		 		<div id ="row">
-		 			<div id="left"><img src="<?= $img->encoded ?>" /></div>
+		 			<div id="left"><img src="<?= $img->encoded ?>" /><br><span>{{ $rdv->patient->IPP }}</span></div>
 		 		</div>
 		 		<div id ="parent" class="row mb-12">
 		 			<span>&nbsp;Le jour de votre consultation</span>
@@ -90,7 +77,5 @@
 		 		</div>
 		 		</div>
 		 	</div>
-
-   	</div>
 	</body>
 </html>

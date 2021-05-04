@@ -1,6 +1,6 @@
 @extends('app')
 @section('main-content')
-	<div class="row"><h3>Etablissement:</h3></div><div class="space-12 hidden-xs"></div>
+	<div class="row"><h3>Ajouter Etablissement:</h3></div><div class="space-12 hidden-xs"></div>
 		<form id ="addEtab" class="form-horizontal" role="form" method="POST" action="{{ route('etablissement.store') }}" enctype="multipart/form-data">
 		<div class="row">
 			{{ csrf_field() }}
@@ -23,6 +23,10 @@
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right" for="nom"><strong> Téléphone: </strong></label>
 							<div class="col-sm-9"><input type="tel" name="tel" class="col-xs-12 col-sm-12 telfixe"  /></div>
+						</div><div class="space-12  hidden-xs"></div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right" for="nom"><strong> Téléphone 2: </strong></label>
+							<div class="col-sm-9"><input type="tel" name="tel2" class="col-xs-12 col-sm-12 telfixe"  /></div>
 						</div><div class="space-12  hidden-xs"></div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right" for="nom"><strong> Tutelle: </strong></label>

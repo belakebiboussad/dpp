@@ -23,8 +23,9 @@
 .mt-6 {  margin-top: -6px !important; }
 .mt-10 {  margin-top:-10px; }
 .mt-12 { padding-top:-12px;}
-.mt-15 { margin-top:-15px;
-}
+.mt-15 { margin-top:-15px !important; }
+.mt-16 { margin-top:-16px !important;}
+.mt-17 { margin-top:-17px !important;}
 .mt-18 { margin-top: -18px !important; }
 .mt-20 { margin-top:-1.4%; }
 .mt-30 { margin-top:-30px; }
@@ -34,10 +35,14 @@
 .ml-4 { margin-left: +4%; }
 .ml-80 { margin-left: +80%; }
 .mb-10 { margin-bottom: 10px; }
- .pt-1 { padding-top:1px !important; }
+.pt-1 { padding-top:1px !important; }
 .pt-5 {  padding-top:-5px  !important ; }
+.pt-6 {  padding-top:-6px  !important ; }
 .pt-10 { padding-top:-10px  !important ;}
+.pt-16 { padding-top:-16px !important; }
+.pt-17 { padding-top:-17px !important; }
 .pt-18 { padding-top:-18px !important; }
+.pt-21 { padding-top:-21px !important;  }
  tr.noBorder td { border: 0; }
 .foo { position: absolute; top: 90%; right: 22%; }
 .modal-backdrop { z-index:0; }
@@ -147,4 +152,9 @@ ol {list-style: none; counter-reset: li}
   width: 100%;
   text-decoration: none;
   color: inherit;
+}
+.imgCenter{
+  text-align: center;/*border: 1px solid black;*/
+  width:13%;/*margin-top: -10px !important;*/
+  height:13%;
 }

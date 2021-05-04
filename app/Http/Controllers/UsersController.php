@@ -295,9 +295,8 @@ class UsersController extends Controller
                     $q->where('role','LIKE','%'.$value.'%');
                  })->get();
       else 
-       $users = User::with('role')->where($request->field,'LIKE','%'.$value."%")->get();          
-      
-      return Response::json($users);
+        $users = User::with('role')->where($request->field,'LIKE','%'.$value."%")->get();          
+       return Response::json($users);
     }    
     public function AutoCompleteField(Request $request)
     { 

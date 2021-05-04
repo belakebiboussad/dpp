@@ -61,8 +61,8 @@ $(document).ready(function(){
 	   	 		    {"targets": 2 ,  className: "dt-head-center" },
 			   			{"targets": 3 ,  className: "dt-head-center" ,	"orderable":false },
 			   			{"targets": 4 ,  className: "dt-head-center" ,	"orderable":false },
-			   			{"targets": 4 ,  className: "dt-head-center" },
-			   			{"targets": 4 ,  className: "dt-head-center", className: "dt-head-center dt-body-center"},
+			   			{"targets": 5 ,  className: "dt-head-center" ,	"orderable":false },
+			   			{"targets": 6 ,  className: "dt-head-center", className: "dt-head-center dt-body-center"},
 	   	 		  ]
 
       		});

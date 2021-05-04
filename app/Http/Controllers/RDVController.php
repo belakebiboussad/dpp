@@ -232,8 +232,8 @@ class RDVController extends Controller
                 'format' =>'data-url'
         ]);
         $img = $renderer->render($data);
-        $viewhtml = View::make('rdv.rdvTicketPDF-bigFish', array('rdv' =>$rdv,'img'=>$img,'etablissement'=>$etablissement))->render();
-        //$viewhtml = View::make('rdv.rdvTicketPDF-DNS2D', array('rdv' =>$rdv,'img'=>$img,'etablissement'=>$etablissement))->render();
+        //$viewhtml = View::make('rdv.rdvTicketPDF-bigFish', array('rdv' =>$rdv,'img'=>$img,'etablissement'=>$etablissement))->render();
+        $viewhtml = View::make('rdv.rdvTicketPDF-DNS2D', array('rdv' =>$rdv,'img'=>$img,'etablissement'=>$etablissement))->render();
         $dompdf = new Dompdf();
         $dompdf->loadHtml($viewhtml);
         $dompdf->setPaper('a6', 'landscape');

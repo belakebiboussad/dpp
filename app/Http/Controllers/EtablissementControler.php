@@ -30,11 +30,12 @@ class EtablissementControler extends Controller
 	 	  	$request->logo->move(public_path('img/'), $filename);//Storage::putFileAs('public', $request->file('logo'),$filename);
 	 	}
 	 	$etablissement =Etablissement::create([
-	    		"nom"=>$request->nom,
+	    	"nom"=>$request->nom,
 	   	 	"adresse"=>$request->adresse,
-	    		"tel"=>$request->tel,
-	    		"tutelle"=>$request->tutelle,
-	    		"logo"=>$filename,
+	    	"tel"=>$request->tel,
+	    	"tel2"=>$request->tel2,
+	    	"tutelle"=>$request->tutelle,
+	    	"logo"=>$filename,
 	 	]);
 		return redirect()->action('EtablissementControler@show',$etablissement->id);
 	}
@@ -59,11 +60,12 @@ class EtablissementControler extends Controller
 			}	  	
    		}	
 		$etablissement ->update([
-  			"nom"=>$request->nom,
+  		"nom"=>$request->nom,
  	 		"adresse"=>$request->adresse,
-  			"tel"=>$request->tel,
-  			"tutelle"=>$request->tutelle,
-  			"logo"=>$filename,
+  		"tel"=>$request->tel,
+  		"tel2"=>$request->tel2,
+  		"tutelle"=>$request->tutelle,
+  		"logo"=>$filename,
 		]);
 		return redirect()->action('EtablissementControler@index');
   }

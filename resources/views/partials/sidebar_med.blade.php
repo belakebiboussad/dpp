@@ -359,8 +359,8 @@
         $('#cim10Modal').trigger("reset");$('#cim10Modal').modal('toggle');  
       }
       function createexbio(nomp,prenomp,age,ipp, nomEmploye,prenomEmploye,etabname,etabTutel,etabAdress,etabtel,etabLogo){  
-        var img = new Image();//img.src = '{{ asset("/img/logo.png") }}';
-        img.src = '{{ asset("/storage") }}/'+etabLogo;
+        var img = new Image();
+        img.src = '{{ asset("/img/logo.png") }}';
         img.onload = function () {
            createexbioF(img,nomp,prenomp,age,ipp, nomEmploye,prenomEmploye,etabname,etabTutel,etabAdress,etabtel,etabLogo);
         };
@@ -410,8 +410,8 @@
         });    
     }
     function createeximg(nomp,prenomp,age, ipp, nomEmploye,prenomEmploye,etabname,etabTutel,etabAdress,etabtel,etabLogo) {
-      var img = new Image();//img.src = '{{ asset("/img/logo.png") }}';
-      img.src = '{{ asset("/storage") }}/'+etabLogo;
+      var img = new Image();
+      img.src = '{{ asset("/img/logo.png") }}';
       img.onload = function () {
         createeximgF(img,nomp,prenomp,age,ipp, nomEmploye, prenomEmploye, prenomEmploye,etabname,etabTutel,etabAdress,etabtel,etabLogo);
       };

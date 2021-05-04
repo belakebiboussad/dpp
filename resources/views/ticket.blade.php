@@ -12,13 +12,12 @@
     font-size: 40px;
     border: 2px solid #666;
 	}
-/*	.mt-10{margin-top:-10px;}*/
 </style>
 </head>
 <body>
-  <!-- <br><br> -->
-	<h6 style="text-align:center;mt-12">{{ $etablissement->nom }}</h6>
-	<h6 style="text-align:center; mt-30">Tél : {{ $etablissement->tel }}</h6>
+  <h6 class="mt-15" style="text-align:center;">{{ $etablissement->nom }}</h6>
+	<h6 style="text-align:center;">Tél : {{ $etablissement->tel }}</h6>
+	<h6 style="text-align:center;"><img src="img/{{ $etablissement->logo }}" alt="logo" style="width: 60px; height: 60px"/></h6>
 	<br><br>
 	<table width="100%">
 		<tr>
@@ -37,7 +36,7 @@
 	<br>
 	<div style="text-align: center;">
 		<img src="data:image/png;base64,{{DNS1D::getBarcodePNG($ticket->Patient->code_barre, 'C128',3,33)}}" alt="barcode" />
-		<br><span> {{$ticket->Patient->IPP }}</span><!-- <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($ticket->Patient->code_barre, 'C128')}}" alt="barcode" /> -->
+		<br><span> {{$ticket->Patient->IPP }}</span>
 	</div>
 </body>
 </html>

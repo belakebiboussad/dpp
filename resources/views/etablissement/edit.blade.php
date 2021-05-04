@@ -1,6 +1,6 @@
 @extends('app')
 @section('main-content')
-	<div class="row"><h3>Etablissement:</h3></div><div class="space-12 hidden-xs"></div>
+	<div class="row"><h3>Modifier Etablissement:</h3></div><div class="space-12 hidden-xs"></div>
 		<form id ="editEtab" class="form-horizontal" role="form" method="POST" action="{{ route('etablissement.update', $etablissement->id) }}" enctype="multipart/form-data">
 		<div class="row">
 			<input type="hidden" name="id" value="{{ $etablissement->id }}">
@@ -27,6 +27,10 @@
 							<div class="col-sm-9"><input type="tel" name="tel" class="col-xs-12 col-sm-12 telfixe" value="{{ $etablissement->tel }}" /></div>
 						</div><div class="space-12  hidden-xs"></div>
 						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right" for="nom"><strong> Téléphone 2: </strong></label>
+							<div class="col-sm-9"><input type="tel" name="tel2" class="col-xs-12 col-sm-12 telfixe" value="{{ $etablissement->tel2 }}" /></div>
+						</div><div class="space-12  hidden-xs"></div>
+						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right" for="nom"><strong> Tutelle: </strong></label>
 							<div class="col-sm-9"><input type="text" name="tutelle" class="col-xs-12 col-sm-12 "  value="{{ $etablissement->tutelle }}"  /></div>
 						</div>v
@@ -40,8 +44,7 @@
 			<img src="{{ url('/img/'.$etablissement->logo) }}" alt ="" height="30%" width="30%" id ="logoimg"/>
 			</div>
 			<div class="form-group">
-			  <input type="file" class="form-control" id="logo" name="logo" alt="Logo du l'etablissement"   value="{{ URL::asset('/storage/'.$etablissement->logo) }}"/>
-		{{-- <input type="file" class="form-control" id="logo" name="logo" alt="Logo du l'etablissement" value= "{{ $etablissement->logo }}" /> --}}
+		<input type="file" class="form-control" id="logo" name="logo" alt="Logo du l'etablissement" value= "{{ $etablissement->logo }}" /> 
 			</div>
 		</div>
 		</div><div class="space-12  hidden-xs"></div>	
