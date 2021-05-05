@@ -5,37 +5,37 @@
 	<div class="widget-body">
 		<div class="widget-main">
 			<label class="inline">
-					<span class="blue"><strong>Nom :</strong></span>
-					<span class="lbl" id="nom"> {{ $patient->Nom }}</span>
+				<span class="lbl" id="nom"> Nom :</span><span class="blue">{{ $patient->Nom }}</span>
 			</label>&nbsp;&nbsp;&nbsp;
 			<label class="inline">
-				<span class="blue"><strong>Prénom :</strong></span><span class="lbl"  id="prenom"> {{ $patient->Prenom }}</span>
+				<span class="lbl"  id="prenom">Prénom : </span>
+				<span class="blue">{{ $patient->Prenom }}</span>
 			</label>&nbsp;&nbsp;&nbsp;
 			<label class="inline">
-				<span class="blue"><i class = "fa fa-transgender" aria-hidden="true"></i><strong>&nbsp;Sexe:</strong></span>
-				<span class="lbl"> {{ $patient->Sexe == "M" ? "Masculin" : "Féminin" }}</span>
+				<span class="lbl"><i class = "fa fa-transgender" aria-hidden="true"></i>&nbsp;Sexe: </span>
+				<span class="blue"><strong>{{ $patient->Sexe == "M" ? "Masculin" : "Féminin" }}</strong></span>
 			</label>&nbsp;&nbsp;&nbsp;
 			<label class="inline">
-				<span class="blue"><strong>Âge:</strong></span>
-				<span class="badge badge-{{ $patient->getAge() < 18 ? 'danger':'success' }}">{{ $patient->getAge() }}</span>
+				<span class="lbl">Âge:</span>
+				<span class="badge badge-{{ $patient->getAge() < 18 ? 'danger':'success' }} blue">{{ $patient->getAge() }}</span>
 			</label>&nbsp;&nbsp;&nbsp;
 			<label class="inline">
-						<span class="blue"><span class="glyphicon glyphicon-map-marker"></span><strong> Né(e) à :</strong></span>
-						<span class="lbl">{{ $patient->lieuNaissance->nom_commune }}</span>
-					</label>&nbsp;&nbsp;&nbsp;
-					<label class="inline"> 	
-						<span class="blue"><i class="fa fa-phone"></i>&nbsp;<strong>Mobile :</strong></span><span class="lbl">{{ $patient->tele_mobile1 }}
-						</span>
-					</label>&nbsp;&nbsp;&nbsp;
-					<label class="inline hidden-xs"> 	
-						<span class="blue"><span class="glyphicon glyphicon-home"></span>&nbsp;<strong>Adresse :</strong></span>
-						<span class="lbl">{{ $patient->commune->nom_commune }},{{ $patient->wilaya->nom }}</span>
-					</label>&nbsp;&nbsp;&nbsp;
-					<label class="inline hidden-xs"> <span class="blue">&nbsp;<strong>NSS :</strong></span><span class="lbl">{{ $patient->NSS }}</span></label>	
-						&nbsp;&nbsp;&nbsp;
-					<label class="inline hidden-xs"> 	
-						<span class="blue">&nbsp;<strong>Type :</strong></span>
-						<span class="lbl badge badge-info">
+				<span class="lbl"><span class="glyphicon glyphicon-map-marker"></span>Né(e) à :</span>
+				<span class="blue">{{ $patient->lieuNaissance->nom_commune }}</span>
+			</label>&nbsp;&nbsp;&nbsp;
+			<label class="inline"> 	
+			<span class="lbl"><i class="fa fa-phone"></i>&nbsp;Mobile :</span>
+			<span class="blue">{{ $patient->tele_mobile1 }}</span>
+		       </label>&nbsp;&nbsp;&nbsp;
+			<label class="inline hidden-xs"> 	
+			<span class="lbl"><span class="glyphicon glyphicon-home"></span>&nbsp;Adresse :</span>
+			<span class="blue">{{ $patient->commune->nom_commune }},{{ $patient->wilaya->nom }}</span>
+			</label>&nbsp;&nbsp;&nbsp;
+			<label class="inline hidden-xs"> <span class="lbl">&nbsp;NSS :</span>
+			<span class="blue">{{ $patient->NSS }}</span></label>	&nbsp;&nbsp;&nbsp;
+			<label class="inline hidden-xs"> 	
+			<span class="lbl">&nbsp;<strong>Type :</strong></span>
+						<span class="blue badge badge-info">
 						@switch($patient->Type)
 	             @case(0)
 	                Assuré

@@ -4,54 +4,6 @@
 <style>
 	.modaldialog {
 	  width:92%;
-	  height:95% !important;
-	  overflow-y: initial !important
-	}
-	.contmodal {
-	  height:100%; 
-	}
-	.bodyodal{
-	  height: 100%;
-	  overflow-y: auto;
-	}
-	tr {
-		width: 100%;
-		display: inline-table;
-		table-layout: fixed;
-	}
-	.mtable {
-		height:350px;              
- 		display: -moz-groupbox;  
-	}
-	.mtbody{
-  overflow-y: scroll;      
-  height: 345px;
-  width: 100%;
-  position: absolute;
-}
-	/*fin*/
-	.modal-body{
-	  top: -1px !important;
-	}
-	.modal-footer {
-		  background-color: transparent;
-		  position: absolute;
-		  right:2px;		
-  		bottom: 0px;
-	}
-	.modal .modal-wide .modal-dialog {
-	  width: 100%;/* height:900px !important;*/
-	  overflow: scroll; 
-	}
-	.modal-wide .modal-body {
-	  overflow-y: auto;
-	}
-	.modal-content {
-	  height: 100%; /* = 100% of the .modal-dialog block */
-	}
-	#ord {/*position: absolute;*/
-		 top:1%;	
-		 left:-5%%;
 	}
 	iframe {
 	    display: block;
@@ -59,33 +11,6 @@
 	    border: 0;
 	    position:relative;
 	    z-index:999;
-	}
-	#mymainWidget div {
-		height: 250px !important;
-	}/*fin*/
-	.dataTables_wrapper {
-      font-family: tahoma;
-      font-size: 10px;
-      position: relative;
-      clear: both;
-      zoom: 1;
-      zoom: 1;
-	}
-	.btn-transparent {
-	      background: transparent;
-	      color: #F2F2F2;
-	      -webkit-transition: background .2s ease-in-out, border .2s ease-in-out;
-	      -moz-transition: background .2s ease-in-out, border .2s ease-in-out;
-	      -o-transition: background .2s ease-in-out, border .2s ease-in-out;
-	      transition: background .2s ease-in-out, border .2s ease-in-out;
-	      border: 2px solid #4992B7;
-	}
-	.btn-transparent:hover {
-      color: white;
-      background-color: rgba(255,255,255,0.2);
-	}
-	.b{
-		background-color: rgba(100,100,100);
 	}
 </style>
 @endsection
@@ -95,45 +20,45 @@
 		var poids = $("#poids").val();
 		var taille = $("#taille").val();
 		if(poids==""){
- 			alert("STP, saisir le poids");	// $("#poids").focus();
-  		return 0;
-    }else if (isNaN(poids)) {
- 			alert("poids doit être un nombre!");  
- 			$("#poids").select();
- 			return 0;
+			alert("STP, saisir le poids");	// $("#poids").focus();
+		return 0;
+	}else if (isNaN(poids)) {
+			alert("poids doit être un nombre!");  
+			$("#poids").select();
+			return 0;
 	  }
-	 	if(taille==""){
+		if(taille==""){
 			alert("STP, Saisir la taille");	// $("#taille").focus();
- 			return 0;
- 		}else if (isNaN(taille)) {
-     	alert("taille doit être un nombre!");  
-     	$("#txtaltura").select();
-     	return 0;
-   	}
-    var imc = poids / Math.pow(taille/100,2);
-   	var imc = Math.round(imc).toFixed(2);
-    $("#imc").attr("value", imc);
-    		if(imc<17){
-      		$("#interpretation").attr("value", "Anorexie");
-    		}else if(imc>=17.1 && imc<=18.49){
-      		$("#interpretation").attr("value", "Migreur");
-    		}else if(imc>=18.5 && imc<=24.99){
-      		$("#interpretation").attr("value", "Poids Normale");
-    		}else if(imc>=25 && imc<=29.99){
-      		$("#interpretation").attr("value", "surpois");
-    		}else if(imc>=30 && imc<=34.99){
+			return 0;
+		}else if (isNaN(taille)) {
+		alert("taille doit être un nombre!");  
+		$("#txtaltura").select();
+		return 0;
+	}
+	var imc = poids / Math.pow(taille/100,2);
+	var imc = Math.round(imc).toFixed(2);
+	$("#imc").attr("value", imc);
+			if(imc<17){
+			$("#interpretation").attr("value", "Anorexie");
+			}else if(imc>=17.1 && imc<=18.49){
+			$("#interpretation").attr("value", "Migreur");
+			}else if(imc>=18.5 && imc<=24.99){
+			$("#interpretation").attr("value", "Poids Normale");
+			}else if(imc>=25 && imc<=29.99){
+			$("#interpretation").attr("value", "surpois");
+			}else if(imc>=30 && imc<=34.99){
 			$("#interpretation").attr("value", "Obésité I");
-	  	}else if(imc>=35 && imc<=39.99){
-	   		$("#interpretation").attr("value", "Obésité II (sévère)");	
-	  	}else if(imc>=40){
-	   		$("#interpretation").attr("value", "Obésité III (morbide)");	
-    		}
+		}else if(imc>=35 && imc<=39.99){
+			$("#interpretation").attr("value", "Obésité II (sévère)");	
+		}else if(imc>=40){
+			$("#interpretation").attr("value", "Obésité III (morbide)");	
+			}
 	}
 	function storeord1()
 	{
 		var arrayLignes = document.getElementById("ordonnance").rows;
-  	var longueur = arrayLignes.length; 
-   	var ordonnance = [];
+	var longueur = arrayLignes.length; 
+	var ordonnance = [];
 	  for(var i=1; i<longueur; i++)
 		{
 		  ordonnance[i-1] = { med: arrayLignes[i].cells[0].innerHTML, posologie: arrayLignes[i].cells[4].innerHTML }
@@ -141,7 +66,7 @@
 	  var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
 	  champ.appendTo('#consultForm');
   }
- 	function lettreorientation()
+	function lettreorientation()
 	{
 		$('#specialite').val($('#specialiteOrient').val());
 		$('#medecin').val($('#medecinOrient').val());
@@ -154,7 +79,7 @@
 		$('#service').val($('#serviceHospi').val());
 	}
 	function ajaxfunc(patientid)
- 	{        
+	{        
 		var habitudeAlim = null; var tabac=null ; var ethylisme = null;
 		var antecedant = $('#Antecedant').val();
 		var typeAntecedant = $('#typeAntecedant').val();
@@ -163,29 +88,29 @@
 		var description = $("#description").val();               
 		if(typeAntecedant =="Physiologiques")
 		{
-		      habitudeAlim= $('#habitudeAlim').val();
-		      tabac = $("#tabac").is(":checked") ? 1:0;
-		      ethylisme = $("#ethylisme").is(":checked") ? 1:0;
+			  habitudeAlim= $('#habitudeAlim').val();
+			  tabac = $("#tabac").is(":checked") ? 1:0;
+			  ethylisme = $("#ethylisme").is(":checked") ? 1:0;
 		}
 		if (description == "")
 		{
 		}else{
-		      $.ajax({
-			       headers: {
-			               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			        },
-			        type:"POST",
-			        url:'/AddANTCD',
-			        data:{ antecedant:antecedant,typeAntecedant:typeAntecedant,soustype:soustype,dateATCD:dateATCD,description:description,patientid:patientid,habitudeAlim:habitudeAlim,tabac:tabac,ethylisme:ethylisme 
-			        },
-		          	success:function(data){
-		             		$("#msg").html(data.msg);
-		          	}
-		       }); 
-		       $('#ants-tab').append("<tr><td>"+$('#Antecedant').val()+"</td><td>"+$('#dateAntcd').val()+"</td><td>"+$('#description').val()+"</td><td></td></tr>");  
-		        resetField(); 
+			  $.ajax({
+				   headers: {
+						   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					},
+					type:"POST",
+					url:'/AddANTCD',
+					data:{ antecedant:antecedant,typeAntecedant:typeAntecedant,soustype:soustype,dateATCD:dateATCD,description:description,patientid:patientid,habitudeAlim:habitudeAlim,tabac:tabac,ethylisme:ethylisme 
+					},
+					success:function(data){
+							$("#msg").html(data.msg);
+					}
+			   }); 
+			   $('#ants-tab').append("<tr><td>"+$('#Antecedant').val()+"</td><td>"+$('#dateAntcd').val()+"</td><td>"+$('#description').val()+"</td><td></td></tr>");  
+				resetField(); 
 		}
-  	}
+	}
 	function resetField()
 	{
 		$("#description").val(' ');$('#dateAntcd').val('');
@@ -193,50 +118,50 @@
 	function createordXhr(patId,employeId)
 	{
 		var keys=[], meds=[];
-	 	$("#ordonnance thead tr th").each(function(){
-		  	if(($(this).html() == "id") || ($(this).html() == "Posologie"))
-		        	keys.push($(this).html());  
+		$("#ordonnance thead tr th").each(function(){
+			if(($(this).html() == "id") || ($(this).html() == "Posologie"))
+					keys.push($(this).html());  
 		});
 		$("#ordonnance tbody tr").each(function(){
-	  		var obj={}, i=0;
-  			$(this).children("td").each(function(index){
-		 	       if((index == 0) || (index == 4) )
-		  		{
-		  			obj[keys[i]]=$(this).html();
-		   			i++;
-	    			}
-	      		})
-  			meds.push(obj);	
-	 	});
-	 	var formData = {
-       		id_patient:patId,
-       		id_employe:employeId,
-       		meds:JSON.stringify(meds),
-	 	};
-	 	$.ajaxSetup({
-	    		headers: {
-	        		'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-	    		}
-	  	});
+			var obj={}, i=0;
+			$(this).children("td").each(function(index){
+				   if((index == 0) || (index == 4) )
+				{
+					obj[keys[i]]=$(this).html();
+					i++;
+					}
+				})
+			meds.push(obj);	
+		});
+		var formData = {
+			id_patient:patId,
+			id_employe:employeId,
+			meds:JSON.stringify(meds),
+		};
+		$.ajaxSetup({
+				headers: {
+					'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+				}
+		});
 		$.ajax({
 			beforeSend: function (xhr) {
-	      			var token = $('meta[name="_token"]').attr('content');
-	      			if (token) {
-	      				return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-	       			}
-   	 		 },
+					var token = $('meta[name="_token"]').attr('content');
+					if (token) {
+						return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+					}
+			 },
 			type: "POST",
 			url: "/ordonnaces/print",
 			data:formData,//contentType: "application/j-son;charset=UTF-8",
-		  	dataType: "json",
-		  	success: function (data,status, xhr) {	  	
-			   	$('#iframe-pdf').contents().find('html').html(data.html);
-			  	$("#ordajax").modal();		       
-		  	},	
-	   		error: function (data) {
-     	 			console.log('Error:', data);
-     			}
-  	})
+			dataType: "json",
+			success: function (data,status, xhr) {	  	
+				$('#iframe-pdf').contents().find('html').html(data.html);
+				$("#ordajax").modal();		       
+			},	
+			error: function (data) {
+					console.log('Error:', data);
+				}
+	})
 	}
 	function print()
 	{
@@ -249,124 +174,124 @@
 	  var url ="/rdv/"+rdvId;
 	  $.ajaxSetup({
 		  headers: {
-		            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+					'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
 		  }
 		}); 
 		var token = $("meta[name='csrf-token']").attr("content");
 		$.ajax({
-          type : 'DELETE',
-          url : url,
-          data: {
-      			"id": rdvId,
-        		"_token": token,
-    			},
-          success:function(data){  	   		
-           	$('.calendar1').fullCalendar('removeEvents', data.id);              	
-          },
-          error:function(jqXHR, textStatus, errorThrown){
-            	console.log(errorThrown);
-          }
+		  type : 'DELETE',
+		  url : url,
+		  data: {
+				"id": rdvId,
+				"_token": token,
+				},
+		  success:function(data){  	   		
+			$('.calendar1').fullCalendar('removeEvents', data.id);              	
+		  },
+		  error:function(jqXHR, textStatus, errorThrown){
+				console.log(errorThrown);
+		  }
 		});
 	}
 	function editMedicm(med)
   {
-    $.ajax({
-          type: 'GET',
-          url: '/getmed/'+med,
-          dataType: "json",
-          success: function (result)
-          {
-              $("#nommedic").val(result['Nom_com']);
-              $("#forme").val(result['Forme']);
-              $("#dosage").val(result.Dosage);
-              $("#id_medicament").val(result['id']);
-              $(".disabledElem").removeClass("disabledElem").addClass("enabledElem"); //$('#Ordonnance').reset();
-          }
-      });
+	$.ajax({
+		  type: 'GET',
+		  url: '/getmed/'+med,
+		  dataType: "json",
+		  success: function (result)
+		  {
+			  $("#nommedic").val(result['Nom_com']);
+			  $("#forme").val(result['Forme']);
+			  $("#dosage").val(result.Dosage);
+			  $("#id_medicament").val(result['id']);
+			  $(".disabledElem").removeClass("disabledElem").addClass("enabledElem"); //$('#Ordonnance').reset();
+		  }
+	  });
   }
   function addmidifun()
   {
-    var med ='<tr id="'+$("#id_medicament").val()+'"><td hidden>'+$("#id_medicament").val()+'</td><td>'+$("#nommedic").val()+'</td><td class="priority-5">'+$("#forme").val()+'</td><td class="priority-5">'+$("#dosage").val()+'</td><td>'+$("#posologie_medic").val()+'</td>';
-    med += '<td class ="bleu center"><button class="btn btn-xs btn-info open-modal" value="' + $("#id_medicament").val()+ '" onclick="editMedicm('+$("#id_medicament").val()+');supcolonne('+$("#id_medicament").val()+');"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
-    med += '<button class="btn btn-xs btn-danger delete-atcd" value="' + $("#nommedic").val()+ '" onclick ="supcolonne('+$("#id_medicament").val()+')" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
-    $("#ordonnance").append(med);
-    $(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
-    efface_formulaire();
-           
+	var med ='<tr id="'+$("#id_medicament").val()+'"><td hidden>'+$("#id_medicament").val()+'</td><td>'+$("#nommedic").val()+'</td><td class="priority-5">'+$("#forme").val()+'</td><td class="priority-5">'+$("#dosage").val()+'</td><td>'+$("#posologie_medic").val()+'</td>';
+	med += '<td class ="bleu center"><button class="btn btn-xs btn-info open-modal" value="' + $("#id_medicament").val()+ '" onclick="editMedicm('+$("#id_medicament").val()+');supcolonne('+$("#id_medicament").val()+');"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
+	med += '<button class="btn btn-xs btn-danger delete-atcd" value="' + $("#nommedic").val()+ '" onclick ="supcolonne('+$("#id_medicament").val()+')" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+	$("#ordonnance").append(med);
+	$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
+	efface_formulaire();
+		   
   }
    function supcolonne(id)
   {
   
-    $("#"+id).remove();
+	$("#"+id).remove();
   }
 	$('document').ready(function(){
 		$( 'ul.nav li' ).on( 'click', function() {
 			$(this).siblings().addClass('filter');
 		});
 		$('.wysiwyg-editor').on('input',function(e){
-		  	var a = $(this).parent().nextAll("div.clearfix");
-	   		var i = a.find("button:button").each(function(){
-		   		$(this).removeAttr('disabled');
-	 		});
+			var a = $(this).parent().nextAll("div.clearfix");
+			var i = a.find("button:button").each(function(){
+				$(this).removeAttr('disabled');
+			});
 		});
-   	$('#select2-multiple-style .btn').on('click', function(e){
- 			var target = $(this).find('input[type=radio]');
-  		var which = parseInt(target.val());
- 			if(which == 2) 
- 				$('.select2').addClass('tag-input-style');
+	$('#select2-multiple-style .btn').on('click', function(e){
+			var target = $(this).find('input[type=radio]');
+		var which = parseInt(target.val());
+			if(which == 2) 
+				$('.select2').addClass('tag-input-style');
 		  else
-		    $('.select2').removeClass('tag-input-style');
- 		});
+			$('.select2').removeClass('tag-input-style');
+		});
 		$(function() {
 			var checkbox = $("#isOriented");  // Get the form fields and hidden div
 			var hidden = $("#hidden_fields");  // Setup an event listener for when the state of the    // checkbox changes.
-	   		 checkbox.change(function() {
-			   	if (checkbox.is(':checked')) {
-			  		hidden.show();
-			   	} else {
-			     		hidden.hide();
-			     		$("#lettreorientaioncontent").val("");
-			   	 }
+			 checkbox.change(function() {
+				if (checkbox.is(':checked')) {
+					hidden.show();
+				} else {
+						hidden.hide();
+						$("#lettreorientaioncontent").val("");
+				 }
 			})
- 		}); 
+		}); 
 	  $(".two-decimals").change(function(){
-	    			this.value = parseFloat(this.value).toFixed(2);
+					this.value = parseFloat(this.value).toFixed(2);
 	  });
 		$("button").click(function (event) {
-	 		which = '';
-	 		str ='send';
-	 		which = $(this).attr("id");
-	 		var which = $.trim(which);
-	 		var str = $.trim(str);
+			which = '';
+			str ='send';
+			which = $(this).attr("id");
+			var which = $.trim(which);
+			var str = $.trim(str);
 			if(which==str){
-	    			return true;
+					return true;
 			}
- 		});
+		});
 	  $("#btnCalc").click(function(event){
-	    	event.preventDefault();
+			event.preventDefault();
 	  });
 	  $('#medc_table').DataTable({
-	    processing: true,
-	    serverSide: true,
-	    ordering: true,
-	    bInfo : false,
-	    searching: true,
-	    pageLength: 5,
-	    bLengthChange: false,
-	    nowrap:true,
-	    "language": {
-	    	"url": '/localisation/fr_FR.json'
-	    },
-	    ajax: '/getmedicaments',
-	    columns: [
-	      {data: 'Nom_com'},
-	      {data: 'Forme',className: "priority-3" , orderable: false},
-	      {data: 'Dosage' , orderable: false},
-	      {data: 'action', name: 'action', orderable: false, searchable: false}
-	    ],
-	    columnDefs: [
-	      { "targets": 3 ,  className: "dt-head-center dt-body-center" }
-	    ],
+		processing: true,
+		serverSide: true,
+		ordering: true,
+		bInfo : false,
+		searching: true,
+		pageLength: 5,
+		bLengthChange: false,
+		nowrap:true,
+		"language": {
+			"url": '/localisation/fr_FR.json'
+		},
+		ajax: '/getmedicaments',
+		columns: [
+		  {data: 'Nom_com'},
+		  {data: 'Forme',className: "priority-3" , orderable: false},
+		  {data: 'Dosage' , orderable: false},
+		  {data: 'action', name: 'action', orderable: false, searchable: false}
+		],
+		columnDefs: [
+		  { "targets": 3 ,  className: "dt-head-center dt-body-center" }
+		],
 	  });
   ////////////////////////////fin 
 	jQuery('#btn-add, #AntFamil-add').click(function () {//ADD
@@ -374,14 +299,14 @@
 		jQuery('#modalFormData').trigger("reset");
 		$('#AntecCrudModal').html("Ajouter un Antecedant");
 		if(this.id == "AntFamil-add")
-    		{
- 			$("#EnregistrerAntecedant").attr('data-atcd','Famille'); 
- 			if(! ($( "#atcdsstypehide" ).hasClass( "hidden" )))
- 			 	$( "#atcdsstypehide" ).addClass("hidden"); 
+			{
+			$("#EnregistrerAntecedant").attr('data-atcd','Famille'); 
+			if(! ($( "#atcdsstypehide" ).hasClass( "hidden" )))
+				$( "#atcdsstypehide" ).addClass("hidden"); 
 		}else{	
 			$("#EnregistrerAntecedant").attr('data-atcd','Perso'); 
 			if(($( "#atcdsstypehide" ).hasClass( "hidden" )))
- 			 	$('#atcdsstypehide').removeClass("hidden");
+				$('#atcdsstypehide').removeClass("hidden");
 		}
 		jQuery('#antecedantModal').modal('show');
 	});
@@ -395,41 +320,41 @@
 		event.preventDefault();
 		var atcd_id = $(this).val();
 		$.get('/atcd/' + atcd_id, function (data) { 
-		 	$('#atcd_id').val(data.id);
+			$('#atcd_id').val(data.id);
 		  $('#typeAntecedant').val(data.typeAntecedant).change();
 			$('#sstypeatcdc').val(data.stypeatcd).change();//if(data.typeAntecedant   === 'Pathologiques')
 			if($( "#atcdsstypehide" ).hasClass( "hidden" ))
- 			 	$( "#atcdsstypehide" ).removeClass("hidden"); 
+				$( "#atcdsstypehide" ).removeClass("hidden"); 
 			$('#dateAntcd').val(data.date);
 			$('#cim_code').val(data.cim_code);
 			$('#description').val(data.descrioption);
 			$("#EnregistrerAntecedant").attr('data-atcd',"Perso");
 			$('#AntecCrudModal').html("Editer un Antecedant");	
-		 	jQuery('#EnregistrerAntecedant').val("update");	
+			jQuery('#EnregistrerAntecedant').val("update");	
 			jQuery('#antecedantModal').modal('show');
 	  });
 	});
 	jQuery('body').on('click', '.open-modalFamil', function (event) {//edit famill
 		event.preventDefault();
 		var atcd_id = $(this).val();
-	 	$.get('/atcd/' + atcd_id, function (data) { 
-		 	$('#atcd_id').val(data.id);
+		$.get('/atcd/' + atcd_id, function (data) { 
+			$('#atcd_id').val(data.id);
 			$('#dateAntcd').val(data.date);
 			$('#cim_code').val(data.cim_code);
 		  $('#description').val(data.descrioption);
 		  if(! ($( "#atcdsstypehide" ).hasClass( "hidden" )))
- 			 	$( "#atcdsstypehide" ).addClass("hidden"); 
-		 	jQuery('#EnregistrerAntecedant').val("update");
-		 	$("#EnregistrerAntecedant").attr('data-atcd',"Famille")	
- 			 jQuery('#antecedantModal').modal('show');
+				$( "#atcdsstypehide" ).addClass("hidden"); 
+			jQuery('#EnregistrerAntecedant').val("update");
+			$("#EnregistrerAntecedant").attr('data-atcd',"Famille")	
+			 jQuery('#antecedantModal').modal('show');
 		});
 	});
 	jQuery('body').on('click', '.Phys-open-modal', function (event) {//edit famill
 		event.preventDefault();
 		var atcd_id = $(this).val();
-	 	$.get('/atcd/' + atcd_id, function (data) { 
-		 	$('#atcdPhys_id').val(data.id);
-		 	$('#dateAntcdPhys').val(data.date);
+		$.get('/atcd/' + atcd_id, function (data) { 
+			$('#atcdPhys_id').val(data.id);
+			$('#dateAntcdPhys').val(data.date);
 			$('#habitudeAlim').val(data.habitudeAlim);
 			if(data.tabac)
 				$('#tabac').prop('checked', true);
@@ -437,261 +362,261 @@
 					$('#ethylisme').prop('checked', true);
 			$('#phys_cim_code').val(data.cim_code);
 		  $('#descriptionPhys').val(data.descrioption);
-		 	jQuery('#EnregistrerAntecedantPhys').val("update");//$("#EnregistrerAntecedant").attr('data-atcd',"Famille")	
- 			jQuery('#antecedantPhysioModal').modal('show');
+			jQuery('#EnregistrerAntecedantPhys').val("update");//$("#EnregistrerAntecedant").attr('data-atcd',"Famille")	
+			jQuery('#antecedantPhysioModal').modal('show');
 		});
 	});
 	$("#EnregistrerAntecedant").click(function (e) {//save
-	 	e.preventDefault();
-  	if($("#EnregistrerAntecedant").attr('data-atcd') == "Perso")
+		e.preventDefault();
+	if($("#EnregistrerAntecedant").attr('data-atcd') == "Perso")
 		{
-		 	var tabName = "antsTab";
-		 	var formData = {
-	  			Patient_ID_Patient      : '{{ $patient->id }}',
-		      	Antecedant           : 'Personnels',//jQuery('#Antecedant').val()
-		       	typeAntecedant       : '0',//jQuery('#typeAntecedant').val(),
-		       	stypeatcd            : jQuery('#sstypeatcdc').val(),
-		     		date                    : $('#dateAntcd').val(),
-		     		cim_code			:$('#cim_code').val(),
-		       	descrioption         : $("#description").val()
-  			};
+			var tabName = "antsTab";
+			var formData = {
+				Patient_ID_Patient      : '{{ $patient->id }}',
+				Antecedant           : 'Personnels',//jQuery('#Antecedant').val()
+				typeAntecedant       : '0',//jQuery('#typeAntecedant').val(),
+				stypeatcd            : jQuery('#sstypeatcdc').val(),
+					date                    : $('#dateAntcd').val(),
+					cim_code			:$('#cim_code').val(),
+				descrioption         : $("#description").val()
+			};
 		}else
 		{
-	 	 	var tabName = "antsFamTab";
+			var tabName = "antsFamTab";
 			var formData = {
-		  		Patient_ID_Patient   : '{{ $patient->id }}',
-			      Antecedant         : 'Familiaux',
-			     	date               : $('#dateAntcd').val(),
-			     	cim_code					 : $('#cim_code').val(),
-		       	descrioption       : $("#description").val()
-  			};
+				Patient_ID_Patient   : '{{ $patient->id }}',
+				  Antecedant         : 'Familiaux',
+					date               : $('#dateAntcd').val(),
+					cim_code					 : $('#cim_code').val(),
+				descrioption       : $("#description").val()
+			};
 		}
-  	if(!($("#description").val() == ''))
+	if(!($("#description").val() == ''))
 	  {	
 			if($('.dataTables_empty').length > 0)
 				$('.dataTables_empty').remove();
 			$.ajaxSetup({
-   	  	headers: {
-    			      'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-   		 	}
-	  	});
-    	var state = jQuery('#EnregistrerAntecedant').val();
- 			var type = "POST";
-  		var atcd_id = jQuery('#atcd_id').val();
-  		var ajaxurl = '/atcd';
-	    if (state == "update") {
-		   	type = "PUT";
-		   	ajaxurl = '/atcd/' + atcd_id;
-      }   
-     	$.ajax({
-		       type: type,
-		       url: ajaxurl,
-		       data: formData,
-		       dataType: 'json',
-		       success: function (data) {
-		    	   	if(data.Antecedant == "Personnels")
-		    	   	{
-								var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>' + data.stypeatcd +'</td><td>'+ data.date +'</td><td>'+data.cim_code+ '</td><td>' + data.descrioption + '</td>';
-	              atcd += '<td class ="center"><button class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
-	            	atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
-            	}else
-            	{
-          			var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>' + data.date + '</td><td>' +data.cim_code
-          					  +	'</td><td>'	+ data.descrioption + '</td>';
-            		atcd += '<td class ="center"><button class="btn btn-xs btn-info open-modalFamil" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
-          	  	atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
-
-            	}
-              if (state == "add") { 
-       					jQuery('#' + tabName+' tbody').append(atcd);
-              } else {
-              	$("#atcd" + atcd_id).replaceWith(atcd);
-              }
-	            jQuery('#modalFormData').trigger("reset");
-	            jQuery('#antecedantModal').modal('hide');
-       		 },
-		        error: function (data) {
-		              console.log('Error:', data);
-		       }
-				});
-    	}          
+		headers: {
+					  'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+			}
 		});
-  	jQuery('body').on('click', '.delete-atcd', function (e) {
-  			event.preventDefault();
-  			var atcd_id = $(this).val();
-  			$.ajaxSetup({
-	       		headers: {
-	        			 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-	          		}
-	      		});
-       		$.ajax({
-	       		type: "DELETE",
-	        		url: '/atcd/' + atcd_id,
-	       		success: function (data) {
-	            			$("#atcd" + atcd_id).remove();
-	         		 },
-			        error: function (data) {
-			             console.log('Error:', data);
-			        }
-      			});
+		var state = jQuery('#EnregistrerAntecedant').val();
+			var type = "POST";
+		var atcd_id = jQuery('#atcd_id').val();
+		var ajaxurl = '/atcd';
+		if (state == "update") {
+			type = "PUT";
+			ajaxurl = '/atcd/' + atcd_id;
+	  }   
+		$.ajax({
+			   type: type,
+			   url: ajaxurl,
+			   data: formData,
+			   dataType: 'json',
+			   success: function (data) {
+					if(data.Antecedant == "Personnels")
+					{
+								var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>' + data.stypeatcd +'</td><td>'+ data.date +'</td><td>'+data.cim_code+ '</td><td>' + data.descrioption + '</td>';
+				  atcd += '<td class ="center"><button class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
+					atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+				}else
+				{
+					var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>' + data.date + '</td><td>' +data.cim_code
+							  +	'</td><td>'	+ data.descrioption + '</td>';
+					atcd += '<td class ="center"><button class="btn btn-xs btn-info open-modalFamil" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
+				atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+
+				}
+			  if (state == "add") { 
+						jQuery('#' + tabName+' tbody').append(atcd);
+			  } else {
+				$("#atcd" + atcd_id).replaceWith(atcd);
+			  }
+				jQuery('#modalFormData').trigger("reset");
+				jQuery('#antecedantModal').modal('hide');
+			 },
+				error: function (data) {
+					  console.log('Error:', data);
+			   }
+				});
+		}          
+		});
+	jQuery('body').on('click', '.delete-atcd', function (e) {
+			event.preventDefault();
+			var atcd_id = $(this).val();
+			$.ajaxSetup({
+				headers: {
+						 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+					}
+				});
+			$.ajax({
+				type: "DELETE",
+					url: '/atcd/' + atcd_id,
+				success: function (data) {
+							$("#atcd" + atcd_id).remove();
+					 },
+					error: function (data) {
+						 console.log('Error:', data);
+					}
+				});
 		});
 		$("#EnregistrerAntecedantPhys").click(function (e) {
 			var habitudeAlim = null; var tabac=null ; var ethylisme = null;
 			e.preventDefault();
 			var formData = {
-	  			Patient_ID_Patient   : '{{ $patient->id }}',
-		     	Antecedant           : 'Personnels',//jQuery('#Antecedant').val()
-		     	typeAntecedant       : '1',//jQuery('#typeAntecedant').val(),
-		     	date                 : $('#dateAntcdPhys').val(),
-		   		cim_code						 : $('#phys_cim_code').val(),
-		     	descrioption         : $("#descriptionPhys").val(),
-		     	habitudeAlim 				 : $('#habitudeAlim').val()
-  		};
-  		formData.tabac = $("#tabac").is(":checked") ? 1:0;
+				Patient_ID_Patient   : '{{ $patient->id }}',
+				Antecedant           : 'Personnels',//jQuery('#Antecedant').val()
+				typeAntecedant       : '1',//jQuery('#typeAntecedant').val(),
+				date                 : $('#dateAntcdPhys').val(),
+				cim_code						 : $('#phys_cim_code').val(),
+				descrioption         : $("#descriptionPhys").val(),
+				habitudeAlim 				 : $('#habitudeAlim').val()
+		};
+		formData.tabac = $("#tabac").is(":checked") ? 1:0;
 		  formData.ethylisme = $("#ethylisme").is(":checked") ? 1:0;
-  		if($('.dataTables_empty').length > 0)
+		if($('.dataTables_empty').length > 0)
 				$('.dataTables_empty').remove();
-    	$.ajaxSetup({
-	      	headers: {
-	      			      'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-	    	 	}
-  		});
-  		var state = jQuery('#EnregistrerAntecedantPhys').val();
-  		var type = "POST";
-  		var atcd_id = jQuery('#atcdPhys_id').val();
-  		var ajaxurl = '/atcd/';
-	    if (state == "update") {
-		   	type = "PUT";
-		   	ajaxurl = '/atcd/' + atcd_id;
-      } 
-     	$.ajax({
-		       type: type,
-		       url: ajaxurl,
-		       data: formData,
-		       dataType: 'json',
-		       success: function (data) {
-		       		var tabac = data.tabac ? 'Oui' : 'Non';
-		       		var ethylisme = data.ethylisme ? 'Oui' : 'Non';
-		    	   	var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>'+data.date+'</td><td>'
-		    	   					 + data.cim_code +'</td><td>'+data.descrioption+ '</td><td>' + tabac + '</td><td>'+ ethylisme+'</td><td>'+ data.habitudeAlim +'</td>';
-	             		atcd += '<td class ="center"><button class="btn btn-xs btn-info Phys-open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
-	           			atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
-            	if (state == "add") { 
-       					jQuery('#antsPhysTab tbody').append(atcd);
-            	} else {
-             		$("#atcd" + atcd_id).replaceWith(atcd);
-            	}
-	            jQuery('#modalFormDataPhysio').trigger("reset");
-	            jQuery('#antecedantPhysioModal').modal('hide');
-       		  },
-		        error: function (data) {
-		            console.log('Error:', data);
-		        }
+		$.ajaxSetup({
+			headers: {
+						  'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+				}
+		});
+		var state = jQuery('#EnregistrerAntecedantPhys').val();
+		var type = "POST";
+		var atcd_id = jQuery('#atcdPhys_id').val();
+		var ajaxurl = '/atcd/';
+		if (state == "update") {
+			type = "PUT";
+			ajaxurl = '/atcd/' + atcd_id;
+	  } 
+		$.ajax({
+			   type: type,
+			   url: ajaxurl,
+			   data: formData,
+			   dataType: 'json',
+			   success: function (data) {
+					var tabac = data.tabac ? 'Oui' : 'Non';
+					var ethylisme = data.ethylisme ? 'Oui' : 'Non';
+					var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>'+data.date+'</td><td>'
+									 + data.cim_code +'</td><td>'+data.descrioption+ '</td><td>' + tabac + '</td><td>'+ ethylisme+'</td><td>'+ data.habitudeAlim +'</td>';
+						atcd += '<td class ="center"><button class="btn btn-xs btn-info Phys-open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
+						atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+				if (state == "add") { 
+						jQuery('#antsPhysTab tbody').append(atcd);
+				} else {
+					$("#atcd" + atcd_id).replaceWith(atcd);
+				}
+				jQuery('#modalFormDataPhysio').trigger("reset");
+				jQuery('#antecedantPhysioModal').modal('hide');
+			  },
+				error: function (data) {
+					console.log('Error:', data);
+				}
 			});
 		});
-	 	$("#consultForm").submit(function(e){
-   			if(!checkConsult())
-   			{
-   				activaTab("Interogatoire");
-   				return false;
-   			}
-    		addExamsImg(this);
+		$("#consultForm").submit(function(e){
+			if(!checkConsult())
+			{
+				activaTab("Interogatoire");
+				return false;
+			}
+			addExamsImg(this);
 		}); //calendrier  	
 	  var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
 		var today = (new Date()).setHours(0, 0, 0, 0);
 		$('.calendar1').fullCalendar({
-	      plugins: [ 'dayGrid', 'timeGrid' ],
-	      header: {
-		          left: 'prev,next today',
-		          center: 'title,dayGridMonth,timeGridWeek',
-		          right: 'agendaWeek,agendaDay'
+		  plugins: [ 'dayGrid', 'timeGrid' ],
+		  header: {
+				  left: 'prev,next today',
+				  center: 'title,dayGridMonth,timeGridWeek',
+				  right: 'agendaWeek,agendaDay'
 				},
-	      defaultView: 'agendaWeek',
-	      height: 650,
-	    	firstDay: 0,
-	      slotDuration: '00:15:00',
-	  	  minTime:'08:00:00',
-    		maxTime: '17:00:00',
-      	navLinks: true,
-      	selectable: true,
-      	selectHelper: true,
-      	eventColor  : '#87CEFA',
-      	editable: true,
-     		hiddenDays: [ 5, 6 ],
-     		weekNumberCalculation: 'ISO',
-     		aspectRatio: 1.5,
-     		eventLimit: true,
-    		allDaySlot: false,
-   	  	eventDurationEditable : false,
-   		  weekNumbers: true,
-   		  views: {},
-	    		events: [
-		       @foreach($employe->rdvs as $rdv)
-		       {	
-		       		  title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
-					      start : '{{ $rdv->Date_RDV }}',
-					       end:   '{{ $rdv->Fin_RDV }}',
-					       id :'{{ $rdv->id }}',
-					       idPatient:{{$rdv->patient->id}},
-					       tel:'{{$rdv->patient->tele_mobile1}}',
-					       age:{{ $rdv->patient->getAge() }},
-					       specialite: {{ $rdv->employe["specialite"]}},
-					       fixe:  {{ $rdv->fixe }},
-		      	},
-		       @endforeach 
-	    ],
-      eventRender: function (event, element, webData) {
-      	if(event.start < today) // element.find('.fc-title').append("," + event.tel);// element.css("font-size", "1em");
+		  defaultView: 'agendaWeek',
+		  height: 650,
+			firstDay: 0,
+		  slotDuration: '00:15:00',
+		  minTime:'08:00:00',
+			maxTime: '17:00:00',
+		navLinks: true,
+		selectable: true,
+		selectHelper: true,
+		eventColor  : '#87CEFA',
+		editable: true,
+			hiddenDays: [ 5, 6 ],
+			weekNumberCalculation: 'ISO',
+			aspectRatio: 1.5,
+			eventLimit: true,
+			allDaySlot: false,
+		eventDurationEditable : false,
+		  weekNumbers: true,
+		  views: {},
+				events: [
+			   @foreach($employe->rdvs as $rdv)
+			   {	
+					  title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
+						  start : '{{ $rdv->Date_RDV }}',
+						   end:   '{{ $rdv->Fin_RDV }}',
+						   id :'{{ $rdv->id }}',
+						   idPatient:{{$rdv->patient->id}},
+						   tel:'{{$rdv->patient->tele_mobile1}}',
+						   age:{{ $rdv->patient->getAge() }},
+						   specialite: {{ $rdv->employe["specialite"]}},
+						   fixe:  {{ $rdv->fixe }},
+				},
+			   @endforeach 
+		],
+	  eventRender: function (event, element, webData) {
+		if(event.start < today) // element.find('.fc-title').append("," + event.tel);// element.css("font-size", "1em");
 				 element.css('background-color', '#D3D3D3');
 				else
 				{	
-   				if(event.fixe)
-     					element.css('background-color', '#87CEFA'); 
-     				else
-     					element.css('background-color', '#378006');
-     				element.css("padding", "5px"); 
+				if(event.fixe)
+						element.css('background-color', '#87CEFA'); 
+					else
+						element.css('background-color', '#378006');
+					element.css("padding", "5px"); 
 				}
 				element.popover({
-			  		delay: { "show": 500, "hide": 100 },  // title: event.title,
-			      content: event.tel,
-			      trigger: 'hover',
-			      animation:true,
-			      placement: 'bottom',
-			      container: 'body',
-			      template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
-			 	});		    
+					delay: { "show": 500, "hide": 100 },  // title: event.title,
+				  content: event.tel,
+				  trigger: 'hover',
+				  animation:true,
+				  placement: 'bottom',
+				  container: 'body',
+				  template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
+				});		    
 			},
 			select: function(start, end,jsEvent, view) {
 				if(start > today){//CurrentDate
-            Swal.fire({
-                   title: 'Confimer vous  le Rendez-Vous ?',
-                   html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',
-                   input: 'checkbox',
-                   inputPlaceholder: 'Redez-Vous Fixe',
-                   showCancelButton: true,
-                   confirmButtonColor: '#3085d6',
-                   cancelButtonColor: '#d33',
-                   confirmButtonText: 'Oui',
-                   cancelButtonText: "Non",
-        	  }).then((result) => {
-           		if(!isEmpty(result.value))
-           			createRDVModal(start,end,'{{ $patient->id }}',result.value);//createRDVModal(start,end,$('#id').val(),result.value);	
-      		  })
+			Swal.fire({
+				   title: 'Confimer vous  le Rendez-Vous ?',
+				   html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',
+				   input: 'checkbox',
+				   inputPlaceholder: 'Redez-Vous Fixe',
+				   showCancelButton: true,
+				   confirmButtonColor: '#3085d6',
+				   cancelButtonColor: '#d33',
+				   confirmButtonText: 'Oui',
+				   cancelButtonText: "Non",
+			  }).then((result) => {
+				if(!isEmpty(result.value))
+					createRDVModal(start,end,'{{ $patient->id }}',result.value);//createRDVModal(start,end,$('#id').val(),result.value);	
+			  })
 				}else
 					$('.calendar1').fullCalendar('unselect');
 			},
-	   	eventAllow: function(dropLocation, draggedEvent) {  return false; },
+		eventAllow: function(dropLocation, draggedEvent) {  return false; },
 			eventDrop: function(event, delta, revertFunc) { revertFunc();	},
 			eventDragStop: function (event, jsEvent, ui, view) {return false;} 
 		});// calendar// $('.calendar1').addTouch();	
 		$("#taille").ionRangeSlider({
-	      min:0,  max:250,  from:0,   grid: true,   grid_num: 20,postfix:" cm", 
+		  min:0,  max:250,  from:0,   grid: true,   grid_num: 20,postfix:" cm", 
 	  });
 	  $("#poids").ionRangeSlider({
-	      min:0,  max:200,   step:0.1,  from:0,  grid: true,   grid_num: 20, postfix:" kg", 
+		  min:0,  max:200,   step:0.1,  from:0,  grid: true,   grid_num: 20, postfix:" kg", 
 	  });
 	  $("#temp").ionRangeSlider({
-	      min:30,   max:50,    step:0.1,    from:37,   grid: true,   grid_num: 20, postfix:" C", 
+		  min:30,   max:50,    step:0.1,    from:37,   grid: true,   grid_num: 20, postfix:" C", 
 	  });
  });// ready
 </script>	
@@ -704,13 +629,13 @@
 	<div class="row">
 	<form  class="form-horizontal" id ="consultForm" action="{{ route('consultations.store') }}" method="POST" role="form"  onsubmit="alert('une fois vous avez enregistrer, vous pouvez plus la modifié');">
 	  {{ csrf_field() }}
-	    <input type="hidden" name="patient_id" id="patient_id" value="{{ $patient->id }}">
-	    <div class="form-group" id="error" aria-live="polite">
+		<input type="hidden" name="patient_id" id="patient_id" value="{{ $patient->id }}">
+		<div class="form-group" id="error" aria-live="polite">
 		@if (count($errors) > 0)
 		  <div class="alert alert-danger">
 				<ul>
 				 @foreach ($errors->all() as $error)
-			 	  <li>{{ $error }}</li>
+				  <li>{{ $error }}</li>
 				@endforeach
 				</ul>
 			</div>
@@ -725,21 +650,21 @@
 				  </a>
 				</li>
 				<li role= "presentation"  class="col-md-4">
-				        <a href="#ExamClinique"  ria-controls="ExamClinique" role="tab" data-toggle="tab" class="btn btn-success btn-lg"> 
-				        <span class="bigger-160" style="font-size:10vw">Examens Cliniques</span></a>
+						<a href="#ExamClinique"  ria-controls="ExamClinique" role="tab" data-toggle="tab" class="btn btn-success btn-lg"> 
+						<span class="bigger-160" style="font-size:10vw">Examens Cliniques</span></a>
 				</li>
 				<li role= "presentation" class="col-md-4">
-          <a href="#ExamComp" aria-controls="ExamComp" role="tab" data-toggle="tab" class="btn btn-danger btn-lg">
-         		<span class="bigger-160" style="font-size:10vw">Examens Complémentaires</span>
+		  <a href="#ExamComp" aria-controls="ExamComp" role="tab" data-toggle="tab" class="btn btn-danger btn-lg">
+				<span class="bigger-160" style="font-size:10vw">Examens Complémentaires</span>
 					</a>
 				</li>
 		  </ul>
 			<div class ="tab-content"  style = "border-style: none;" >
-			   	<div role="tabpanel" class = "tab-pane active " id="Interogatoire">@include('consultations.Interogatoire')</div>
+				<div role="tabpanel" class = "tab-pane active " id="Interogatoire">@include('consultations.Interogatoire')</div>
 				<div role="tabpanel" class = "tab-pane" id="ExamClinique">@include('consultations.examenClinique')</div>
 				<div role="tabpanel" class = "tab-pane" id="ExamComp">@include('ExamenCompl.index')</div>   
 			 </div>{{-- content --}}
-  	</div>{{-- tabpanel --}}
+	</div>{{-- tabpanel --}}
 		</div><!-- row -->
 		<div class="row">
 			<div class="col-sm12"><!-- les input de modal form(Demande Hospitalisation)  -->
@@ -760,7 +685,8 @@
 </div><!-- content     -->
 <div class="row">@include('consultations.ModalFoms.LettreOrientation')</div><div class="row">@include('consultations.ModalFoms.DemadeHospitalisation')</div>
 <div class="row">@include('antecedents.AntecedantModal')</div><div class="row">@include('antecedents.AntecedantModalPhysio')</div>
-<div class="row">@include('consultations.ModalFoms.Ordonnance')</div><div class="row">@include('consultations.ModalFoms.imprimerOrdonnance')</div>
-<div class="row">@include('consultations.ModalFoms.imprimerOrdonnanceAjax')</div><div class="row">@include('rdv.rendezVous')</div>
+<div class="row">@include('consultations.ModalFoms.Ordonnance')</div>
+<div class="row">@include('consultations.ModalFoms.imprimerOrdonnanceAjax')</div>
+<div class="row">@include('rdv.rendezVous')</div>
 <div class="row">@include('cim10.cimModalForm')</div>
 @endsection

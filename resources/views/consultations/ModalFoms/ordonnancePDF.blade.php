@@ -12,15 +12,14 @@
 	</head>
 	<body>
   	<div class="container-fluid" >
-  		<h4 class="mt-12 center">{{ $etablissement->tutelle }}</h4>
-      <h4 class="center">{{ $etablissement->nom }}</h4>
-			<h5 class="center">{{ $etablissement->adresse }}</h5>
-			<h5 class="center">Tél : {{ $etablissement->tel }}</h5>
+  		<h5 class="mt-12 center">{{ $etablissement->tutelle }}</h5>
+      <h5 class="center">{{ $etablissement->nom }}</h5>
+			<h6 class="center">{{ $etablissement->adresse }}</h6>
+			<h6 class="center">Tél : {{ $etablissement->tel }}</h6>
 			<h5 class="mt-10 center" >
 				<img src='{{ asset("img/$etablissement->logo") }}' style="width: 80px; height: 80px" alt="logo"/>
-				{{-- <img src="img/{{ $etablissement->logo }}" alt="logo" style="width: 80px; height: 80px"/> --}}
 			</h5>
-		 	<h5 class="mt-20 center"><span style="font-size: xx-large;"><strong>Ordonnance</strong></span></h5>
+		 	<h6 class="mt-20 center"><span style="font-size: xx-large;"><strong>Ordonnance</strong></span></h6>
   		<div class="row">
 			<div class="col-sm-12"><div class="section"><div class="ml-80"><b><u>Fait le:</u></b> {{ Carbon\Carbon::today()->format('Y-m-d') }}.</div></div></div>
 			</div>

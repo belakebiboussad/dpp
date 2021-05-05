@@ -1,11 +1,11 @@
 <div class="modal fade" id="Ordonnance" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog  modaldialog" >
-    <div class="modal-content contmodal">
+  <div class="modal-dialog  modaldialog modal-lg" >
+    <div class="modal-content ">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title" id="myModalLabel"><strong>Ajouter une Ordonnance</strong></h4>
       </div>
-      <div class="modal-body bodyodal">
+      <div class="modal-body">
         <div class="row">
           <div class="col-sm-6 col-xs-12">
             <table id="medc_table" class="table table-bordered table-hover" width=100%> 
@@ -52,7 +52,7 @@
           <div class="col-sm-12 col-xs-12 widget-container-col">
             <div class="widget-box widget-color-warning"> 
               <div class="widget-body"><!-- tablebody -->
-                <table id="ordonnance" class="table table-striped mtable"> <!--  <div class="table-responsive"> <table class="table" id="ordonnance"> -->
+                <table id="ordonnance" class="table table-striped"> 
                   <thead>
                     <tr>
                       <th hidden>id</th>
@@ -63,21 +63,18 @@
                       <th class="center bleu"><em class="fa fa-cog"></em></th>
                     </tr>   
                   </thead>
-                  <tbody class="mtbody"></tbody> 
+                  <tbody ></tbody> 
                 </table>
               </div>{{-- widget-body --}}
             </div>{{-- widget-box --}}
           </div>{{-- widget-container-col --}}
       </div><!-- /.row -->
-      </div>
-      <div class="row modal-footer m-b-0">
-        <div class="col-sm-12 col-xs-12"> 
-          <button type="button" class="btn btn-info btn-xs" data-dismiss="modal" onclick="storeord1()"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
-          <button type="button" class="btn btn-success btn-xs"  data-dismiss="modal" onclick="createordXhr({{ $patient->id }},{{ Auth::User()->employ->id }})"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button>
-          <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
-        </div>
-      </div>
     </div>
+    <div class="modal-footer">
+         <button type="button" class="btn btn-info btn-xs" data-dismiss="modal" onclick="storeord1()"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
+        <button type="button" class="btn btn-success btn-xs"  data-dismiss="modal" onclick="createordXhr({{ $patient->id }},{{ Auth::User()->employ->id }})"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button>
+          <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
+      </div>
   </div>
 </div>
   

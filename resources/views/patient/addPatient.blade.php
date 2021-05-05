@@ -98,7 +98,7 @@
 		</div>
 	</div>
 </div>	{{-- row --}}
-<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div></div>{{-- row --}}
+<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div></div>
 <div class="space-12 hidden-xs"></div>		
 <div  class="row demograph">
 	<div class="col-sm-4">

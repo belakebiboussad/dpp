@@ -68,7 +68,7 @@
 		<hr>
 		<h4 class="header blue bolder smaller">Contacts:</h4>
 				<div class="row">
-					<div class="vspace-12-sm"></div>
+					<div class="space-12-sm"></div>
 					<div class="col-xs-12 col-sm-6">
 						<div class="{{ $errors->has('adresse') ? "has-error" : "" }}">
 							<i class="fa fa-map-marker light-orange bigger-110"></i>
@@ -94,7 +94,7 @@
 				</div>
 				<h4 class="header blue bolder smaller">Information de poste</h4>
 				<div class="row">
-					<div class="vspace-12-sm"></div>
+					<div class="space-12-sm"></div>
 					<div class="col-xs-12 col-sm-4">
 						<div class="{{ $errors->has('mat') ? "has-error" : "" }}">
 							<label for="mat"><b>Matricule:</b></label>
