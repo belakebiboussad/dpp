@@ -4,7 +4,7 @@
 	<h1>Modification de : {{ $user->name }}</h1>
 </div>
 <div class="col-md-8">
-	<div id="edit-info" class="">
+	<div id="edit-info">
 	<form class="form-horizontal" role="form" action="{{route('employs.update', $user->employ->id)}}" method="POST">
 		{{ csrf_field() }}
 		{{ method_field('PUT') }}
@@ -42,8 +42,7 @@
 				<label class="col-sm-5 control-label no-padding-right" for="lieunaissance"><b>Lieu Naissance:</b></label>
 					<div class="col-sm-7">
 						<input class="col-xs-12 col-sm-12" type="text" id="lieunaissance" name="lieunaissance" value="{{ $user->employ->Lieu_Naissance }}" placeholder="Lieu Naissance..."/>
-				</div>
-			
+				</div>	
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-12">
@@ -212,7 +211,7 @@
 				@endif
 			</div>
 		</div>
-		<div class=form-actions center">
+		<div class="form-actions center">
 			<button class="btn btn-info" type="submit">
 				<i class="ace-icon fa fa-save bigger-110"></i>Enregistrer
 			</button>&nbsp; &nbsp;

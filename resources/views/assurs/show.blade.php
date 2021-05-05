@@ -211,7 +211,7 @@
 										<i class="fa fa-hand-o-up fa-xs"></i>
 									</a>
 									<a href="patientAedit/{{ $patient->id  }}/{{ $assure->id  }}" class="btn btn-info btn-xs" data-toggle="tooltip" title="modifier">
-										<i class="fa fa-edit fa-xs" aria-hidden="true" ></i>
+										<i class="fa fa-edit fa-xs" aria-hidden="true" ></i>Editer
 									</a>
 									 <button type="button" class="btn btn-xs btn-danger delete-patient" value="{{ $patient->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>
 								</td>

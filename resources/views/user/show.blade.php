@@ -1,6 +1,15 @@
 @extends('app')
 @section('main-content')
-<div class="page-header"><h1>Détails de : {{ $user->name }}</h1></div>
+<div class="page-header"><h1>Détails de : {{ $user->name }}</h1>
+<div class="pull-right">
+	<a href="{{ route('users.edit',$user->id )}}" class="btn btn-info btn-sm" data-toggle="tooltip" title="modifier">
+		<i class="fa fa-edit fa-xs" aria-hidden="true" ></i>Edit
+	</a>
+	<a href="{{ route('users.destroy',$user->id )}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-sm btn-danger">
+		<i class="fa fa-trash-o fa-xs"></i>Supprimer
+	</a>
+</div>
+</div>
 <div class="tabbable">
 	<ul class="nav nav-tabs padding-16">
 		<li class="active">

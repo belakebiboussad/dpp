@@ -478,7 +478,7 @@
     	var state = jQuery('#EnregistrerAntecedant').val();
  			var type = "POST";
   		var atcd_id = jQuery('#atcd_id').val();
-  		var ajaxurl = '/atcd/';
+  		var ajaxurl = '/atcd';
 	    if (state == "update") {
 		   	type = "PUT";
 		   	ajaxurl = '/atcd/' + atcd_id;
@@ -563,7 +563,7 @@
 	    if (state == "update") {
 		   	type = "PUT";
 		   	ajaxurl = '/atcd/' + atcd_id;
-      }   
+      } 
      	$.ajax({
 		       type: type,
 		       url: ajaxurl,
@@ -702,7 +702,7 @@
 </div>
 <div class="content"><!-- style="height:800px;" -->
 	<div class="row">
-	<form  class="form-horizontal" id ="consultForm" action="{{ route('consultations.store') }}" method="POST" role="form">
+	<form  class="form-horizontal" id ="consultForm" action="{{ route('consultations.store') }}" method="POST" role="form"  onsubmit="alert('une fois vous avez enregistrer, vous pouvez plus la modifié');">
 	  {{ csrf_field() }}
 	    <input type="hidden" name="patient_id" id="patient_id" value="{{ $patient->id }}">
 	    <div class="form-group" id="error" aria-live="polite">

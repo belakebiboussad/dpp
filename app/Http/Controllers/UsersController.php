@@ -137,45 +137,32 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {      
-      $user = User::FindOrFail($id);   
+      $user = User::FindOrFail($id);
       $request->validate([
               "username"=> "required",
               "email"=> "nullable|email",//|unique:utilisateurs
               "role"=> "required",
      ]);     
      $activer = $user->active;
+    
      if($user->active)
      {
-         if(! isset($request->desactiveCompt))
-         {
-                 $activer= 0;      
-         }
-
+        if(! isset($request->desactiveCompt))
+          $activer= 0;      
      }else
      {
-       if(isset($request->activeCompt))
+        if(isset($request->activeCompt))
                $activer=1;
      }
-     $userData = [
-              "name"=>$request->username,
-              "password"=>$user->password,
-              "email"=>$request->email,
-              "employee_id"=>$user->employee_id,
-              "role_id"=>$request->role,
-              "active"=>$activer,
-     ];
-
      $user->update([
-               'name'=>$request->username,
+              'name'=>$request->username,
                "password"=>$user->password,
                "email"=>$request->email,
               "employee_id"=>$user->employee_id,
               "role_id"=>$request->role,
               "active"=>$activer,   
-     ]);
-    
+     ]);  
     return redirect(Route('users.show',$id));
-     
     }
 
     /**
