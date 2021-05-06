@@ -104,10 +104,18 @@ class DemandeHospitalisationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-      public function destroy($id)
+      public function destroy(Request $request,$id)
       {
+        if($request->ajax())
+        {
+          $demande = DemandeHospitalisation::destroy($id);
+          return Response::json("d");
+        }
+        else
+        {
            $demande = DemandeHospitalisation::destroy($id);
-           return redirect()->action('DemandeHospitalisationController@index');// return Response::json($demande);
+          return redirect()->action('DemandeHospitalisationController@index');// return Response::json($demande);
+        } 
       }
       public function listedemandes($type)
       {

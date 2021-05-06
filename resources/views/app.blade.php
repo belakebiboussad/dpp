@@ -104,12 +104,10 @@
                 <!-- /page-content -->
             </div>
             <!-- /main-content-inner -->
-        </div>
-        <!-- /main-content -->
+        </div><!-- /main-content -->
         <div>
-            @include('partials.footer')
+            {{-- @include('partials.footer') --}}
         </div>
-    </div>
-    <!-- /main-container -->
+    </div><!-- /main-container -->
 </body>
 </html>

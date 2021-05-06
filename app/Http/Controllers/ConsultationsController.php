@@ -151,14 +151,14 @@ class ConsultationsController extends Controller
           foreach (json_decode($request->liste) as $key => $trait) {
             $ord->medicamentes()->attach($trait->med,['posologie' => $trait->posologie]);     
           }
-         }
-         if($request->exm  != null)  //save ExamBiolo
-         {
-              $demandeExamBio = new demandeexb;
-             $consult->demandeexmbio()->save($demandeExamBio);
-      foreach($request->exm as $id_exb) {
-        $demandeExamBio->examensbios()->attach($id_exb);
-      }
+        }
+        if($request->exm  != null)  //save ExamBiolo
+        {
+            $demandeExamBio = new demandeexb;
+            $consult->demandeexmbio()->save($demandeExamBio);
+            foreach($request->exm as $id_exb) {
+              $demandeExamBio->examensbios()->attach($id_exb);
+            }
         }
         if(!empty($request->ExamsImg) && count(json_decode($request->ExamsImg)) > 0)
         {
@@ -175,6 +175,7 @@ class ConsultationsController extends Controller
                  $demandeExImg ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);
               }
         }
+
         if($request->modeAdmission != null)
         {
           $dh =new DemandeHospitalisation;

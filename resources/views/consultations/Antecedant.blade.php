@@ -43,7 +43,7 @@
 		</div>
 	</div>{{-- widget-body --}}
 </div>{{-- widget-box --}}
-</div><div class="space-12 hidden-xs"></div>{{-- row --}}
+</div>{{-- row --}}
 <div class="row"><!-- Physiologiques -->
 <div class= "widget-box widget-color-danger">
 	<div class="widget-header" >
@@ -93,7 +93,7 @@
 		</div>
 	</div>{{-- widget-body --}}
 </div>{{-- widget-box --}}
-</div><div class="space-12 hidden-xs"></div>{{-- row --}}
+</div>{{-- row --}}
 <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Antecedants Familliaux</h3></div></div>
 <div class="row">
  	 <div class= "widget-box widget-color-green">
@@ -137,9 +137,9 @@
 			</div>	
 		</div>
 	</div>
-</div><div class="space-12 hidden-xs"></div>
+</div>
 <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Facteurs de risque</h3></div></div>
-<div class="row"><div class="col-sm-12"><label for="infos"><b>Facteurs Généraux</b></label><br></div> </div>
+<div class="row"><div class="col-sm-12"><label for="infos"><b>Facteurs Généraux</b></label></div> </div>
 <div class="row">
  	<div class="col-sm-3 col-xs-6">
 		<div class="checkbox">
@@ -173,7 +173,7 @@
 	 	</label>
 	  </div>   
 	</div>
-</div><div class="space-12 hidden-xs"></div>
+</div>
 <div class="row">
       <div class="col-sm-3 col-xs-6">
 	      <label for="autrefact" class="text-nowrap"><strong>Autre élément social</strong></label>
@@ -191,4 +191,4 @@
 	      <label for="professionnel" class="text-nowrap"><strong>Facteurs Professionels</strong></label>
 	      <textarea class="form-control" name="professionnel">@if(isset($patient->facteurRisque)) {{ $patient->facteurRisque->professionnel }} @endif</textarea> 
 	</div>
-    </div><div class="space-12 hidden-xs"></div>
+</div>

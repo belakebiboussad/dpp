@@ -1,7 +1,26 @@
 @extends('app')
 @section('page-script')
 <script type="text/javascript">
-$('document').ready(function(){
+  function deleteDemandeHospi(id)
+  {
+    event.preventDefault();
+		$.ajaxSetup({
+				headers: {
+						 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+					}
+				});
+			$.ajax({
+				type: "DELETE",
+					url: '/demandehosp/' + id,
+				  success: function (data) {
+						$(".dh").remove();//$("#dh" + id).remove();
+					},
+					error: function (data) {
+						 console.log('Error:', data);
+					}
+				});
+  }
+  $('document').ready(function(){
    $("#accordion" ).accordion({
       collapsible: true ,
       heightStyle: "content",

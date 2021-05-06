@@ -16,6 +16,68 @@
 @endsection
 @section('page-script')
 <script>
+	function IMC1(){
+		var poids = $("#poids").val();
+		var taille = $("#taille").val();
+		if(poids==""){
+			alert("STP, saisir le poids");	// $("#poids").focus();
+		return 0;
+	}else if (isNaN(poids)) {
+			alert("poids doit être un nombre!");  
+			$("#poids").select();
+			return 0;
+	  }
+		if(taille==""){
+			alert("STP, Saisir la taille");	// $("#taille").focus();
+			return 0;
+		}else if (isNaN(taille)) {
+		alert("taille doit être un nombre!");  
+		$("#txtaltura").select();
+		return 0;
+	}
+	var imc = poids / Math.pow(taille/100,2);
+	var imc = Math.round(imc).toFixed(2);
+	$("#imc").attr("value", imc);
+			if(imc<17){
+			$("#interpretation").attr("value", "Anorexie");
+			}else if(imc>=17.1 && imc<=18.49){
+			$("#interpretation").attr("value", "Migreur");
+			}else if(imc>=18.5 && imc<=24.99){
+			$("#interpretation").attr("value", "Poids Normale");
+			}else if(imc>=25 && imc<=29.99){
+			$("#interpretation").attr("value", "surpois");
+			}else if(imc>=30 && imc<=34.99){
+			$("#interpretation").attr("value", "Obésité I");
+		}else if(imc>=35 && imc<=39.99){
+			$("#interpretation").attr("value", "Obésité II (sévère)");	
+		}else if(imc>=40){
+			$("#interpretation").attr("value", "Obésité III (morbide)");	
+			}
+	}
+	function storeord1()
+	{
+		var arrayLignes = document.getElementById("ordonnance").rows;
+	var longueur = arrayLignes.length; 
+	var ordonnance = [];
+	  for(var i=1; i<longueur; i++)
+		{
+		  ordonnance[i-1] = { med: arrayLignes[i].cells[0].innerHTML, posologie: arrayLignes[i].cells[4].innerHTML }
+		}
+	  var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
+	  champ.appendTo('#consultForm');
+  }
+	function lettreorientation()
+	{
+		$('#specialite').val($('#specialiteOrient').val());
+		$('#medecin').val($('#medecinOrient').val());
+		$('#motifOr').val($('#motifOrient').val());
+	}
+	function demandehosp()
+	{
+		$('#modeAdmission').val($('#modeAdmissionHospi').val());// $("#degreurg").appendTo('#consultForm');
+		$('#specialiteDemande').val($('#specialiteHospi').val());	
+		$('#service').val($('#serviceHospi').val());
+	}
 	function ajaxfunc(patientid)
 	{        
 		var habitudeAlim = null; var tabac=null ; var ethylisme = null;
@@ -557,7 +619,7 @@
 		  min:30,   max:50,    step:0.1,    from:37,   grid: true,   grid_num: 20, postfix:" C", 
 	  });
  });// ready
-</script>
+</script>	
 @endsection
 @section('main-content')
 <div class="page-header" width="100%">
@@ -579,7 +641,7 @@
 			</div>
 		@endif
 		</div>
-<!-- 		<div id="prompt"></div> -->
+		<div id="prompt"></div>
 		<div class="tabpanel">
 			<ul class = "nav nav-pills nav-justified list-group" role="tablist" id="menu">
 				<li role= "presentation" class="active col-md-4">
@@ -592,18 +654,19 @@
 						<span class="bigger-160" style="font-size:10vw">Examens Cliniques</span></a>
 				</li>
 				<li role= "presentation" class="col-md-4">
-		  		<a href="#ExamComp" aria-controls="ExamComp" role="tab" data-toggle="tab" class="btn btn-danger btn-lg">
-						<span class="bigger-160" style="font-size:10vw">Examens Complémentaires</span>
+		  <a href="#ExamComp" aria-controls="ExamComp" role="tab" data-toggle="tab" class="btn btn-danger btn-lg">
+				<span class="bigger-160" style="font-size:10vw">Examens Complémentaires</span>
 					</a>
 				</li>
-			</ul>
-			<div class ="tab-content"  style = "border-style: none;">
+		  </ul>
+			<div class ="tab-content"  style = "border-style: none;" >
 				<div role="tabpanel" class = "tab-pane active " id="Interogatoire">@include('consultations.Interogatoire')</div>
 				<div role="tabpanel" class = "tab-pane" id="ExamClinique">@include('consultations.examenClinique')</div>
-				<div role="tabpanel" class = "tab-pane" id="ExamComp">@include('ExamenCompl.index')</div>  
-			</div>
-		</div><!-- tabpanel -->
-			<div class="row">
+				<div role="tabpanel" class = "tab-pane" id="ExamComp">@include('ExamenCompl.index')</div>   
+			 </div>{{-- content --}}
+	</div>{{-- tabpanel --}}
+		</div><!-- row -->
+		<div class="row">
 			<div class="col-sm12"><!-- les input de modal form(Demande Hospitalisation)  -->
 				<input type="hidden" name="service" id="service"><input type="hidden" name="specialiteDemande" id="specialiteDemande">
 				<input type="hidden" name="modeAdmission" id="modeAdmission"><input type="hidden" name="specialite" id="specialite">
@@ -612,15 +675,14 @@
 		</div>
 		<div class="row">
 			<div class="col-sm12">
-				<div class="center" style="bottom:0px;">
+				<div class="center bottom" style="bottom:0px;">
 					<button class="btn btn-info btn-sm" type="submit" id="send"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
 					<a href="{{ route('patient.show',$patient->id) }}" class="btn btn-warning btn-sm"><i class="ace-icon fa fa-close bigger-110"></i>Annuler</a>
 				</div>
 			</div>
 		</div><!-- row -->
 	</form>
-	</div>	
-</div>
+</div><!-- content     -->
 <div class="row">@include('consultations.ModalFoms.LettreOrientation')</div><div class="row">@include('consultations.ModalFoms.DemadeHospitalisation')</div>
 <div class="row">@include('antecedents.AntecedantModal')</div><div class="row">@include('antecedents.AntecedantModalPhysio')</div>
 <div class="row">@include('consultations.ModalFoms.Ordonnance')</div>

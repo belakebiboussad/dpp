@@ -81,8 +81,8 @@ class PatientController extends Controller
               "Type_p" =>'required_if:type,Ayant_droit', //"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
               "nomf" => 'required_if:type,Ayant_droit',
               "prenomf"=> 'required_if:type,Ayant_droit',  // "datenaissancef"=> 'required_if:type,Ayant_droit|date|date_format:Y-m-d',
-              "idlieunaissancef"=> 'required_if:type,Ayant_droit',
-              "NMGSN"=> 'required_if:type,Ayant_droit',
+              //"nss2"=> 'required_if:type,Ayant_droit,unique,',
+              "idlieunaissancef"=> 'required_if:type,Ayant_droit', //"NMGSN"=> 'required_if:type,Ayant_droit',
               "prenom_homme_c"=>'required_with:nom_homme_c', 
               "type_piece_id"=>'required_with:nom_homme_c', 
               "npiece_id"=>'required_with:nom_homme_c', //"lien"=>'required_with:nom_homme_c', //"date_piece_id"=>'required_with:nom_homme_c',    
@@ -99,8 +99,10 @@ class PatientController extends Controller
       return view('patient.add',compact('grades'))->withErrors($validator->errors());
     }
     if( $request->type !="5")  
-    {    
-      $assurObj = assur::firstOrCreate([
+    {  
+      $assure = assur::where('NSS', $request->nss)->first(); 
+      if ($assure === null) {
+        $assurObj = assur::firstOrCreate([
           "Nom"=>$request->nomf,
           "Prenom"=>$request->prenomf,
           "Date_Naissance"=>$request->datenaissancef,
@@ -118,7 +120,28 @@ class PatientController extends Controller
           "NSS"=>$request->nss,
           "NMGSN"=>$request->NMGSN, 
         ]);            
-    } 
+      }else
+      {
+        $assurObj = $assure->update([
+          "Nom"=>$request->nomf,
+          "Prenom"=>$request->prenomf,
+          "Date_Naissance"=>$request->datenaissancef,
+          "lieunaissance"=>$request->idlieunaissancef,
+          "Sexe"=>$request->sexef,
+          'SituationFamille'=>$request->SituationFamille,
+          "adresse"=>$request->adressef,
+          "commune_res"=>$request->idcommunef,
+          "wilaya_res"=>$request->idwilayaf,
+          "grp_sang"=>$request->gsf.$request->rhf,
+          "Matricule"=>$request->mat,
+          "Service"=>$request->service,
+          "Grade"=>$request->grade,
+          "Position"=>$request->Position,
+          "NSS"=>$request->nss,
+          "NMGSN"=>$request->NMGSN, 
+        ]);           
+      } 
+   }
     $patient = patient::firstOrCreate([
         "Nom"=>$request->nom,// "code_barre"=>$codebarre,
         "Prenom"=>$request->prenom,

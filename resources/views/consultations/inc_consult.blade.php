@@ -28,6 +28,35 @@ $('document').ready(function(){
 		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Résumé :</strong> </span>{{ $consultation->Resume_OBS }}</li>
 	</ul>
 </div>
+@if(isset($consultation->demandeHospitalisation))
+<div class="row dh">
+	<div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><strong><span style="font-size:16px;">Demande d'Hospitalisation</span></strong>
+	</div>
+</div>
+<div class="row dh">
+	<div class="col-xs-11 widget-container-col">
+		<div class="widget-box widget-color-blue">
+			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande d'Hospitalisation</h5></div>
+			<div class="widget-body">
+				<div class="widget-main no-padding">
+					<table class="table table-striped table-bordered table-hover">
+						<tr>
+							<td>{{$consultation->demandeHospitalisation->modeAdmission}}</td>
+							<td>{{$consultation->demandeHospitalisation->Specialite->nom}}</td>
+							<td>{{$consultation->demandeHospitalisation->Service->nom}}</td>
+							<td>{{ $consultation->demandeHospitalisation->etat }}</td>
+							<td class="center">
+								@if($consultation->demandeHospitalisation->etat =="en attente")
+								<button type="button" class="btn btn-xs btn-danger" data-method="DELETE" data-confirm="Etes Vous Sur ?" onclick ="deleteDemandeHospi({{ $consultation->demandeHospitalisation->id }})"><i class="fa fa-trash-o fa-xs"></i></button>
+								@endif
+								</td>
+					</table>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+@endif
 @if(isset($consultation->examensCliniques) )
 <div class="row">
 	<div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right">
@@ -54,8 +83,8 @@ $('document').ready(function(){
 				<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom"  role="tabpanel" style="display: none;" aria-hidden="true">
 				<p>{{ $examAppareil->description}}</p>
 		</div>	
-	@endif
-@endforeach
+		@endif
+	@endforeach
 </div>
 	</div>
  <!-- fin -->
