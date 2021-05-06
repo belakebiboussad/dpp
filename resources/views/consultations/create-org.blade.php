@@ -144,12 +144,6 @@
 				}
 		});
 		$.ajax({
-			beforeSend: function (xhr) {
-					var token = $('meta[name="_token"]').attr('content');
-					if (token) {
-						return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-					}
-			 },
 			type: "POST",
 			url: "/ordonnaces/print",
 			data:formData,//contentType: "application/j-son;charset=UTF-8",
@@ -216,8 +210,7 @@
 	med += '<button class="btn btn-xs btn-danger delete-atcd" value="' + $("#nommedic").val()+ '" onclick ="supcolonne('+$("#id_medicament").val()+')" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
 	$("#ordonnance").append(med);
 	$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
-	efface_formulaire();
-		   
+	efface_formulaire();	   
   }
    function supcolonne(id)
   {
@@ -515,7 +508,6 @@
 			});
 		});
 		$("#consultForm").submit(function(e){
-			if()
 			if(!checkConsult())
 			{
 				activaTab("Interogatoire");

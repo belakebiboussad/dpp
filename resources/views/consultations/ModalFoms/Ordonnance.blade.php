@@ -15,7 +15,6 @@
             </table>
           </div>
           <div class="col-sm-6 col-xs-12">
-          <form action="">
              <div class="row">
              <div  class="col-sm-9 col-xs-12">
                    <input type="text" id="id_medicament" name="id_medicament" hidden>
@@ -45,7 +44,6 @@
                      </button>
               </div>
             </div>
-            </form>
           </div>
        </div>
        <div class="row">
@@ -72,7 +70,7 @@
     </div>
     <div class="modal-footer">
          <button type="button" class="btn btn-info btn-xs" data-dismiss="modal" onclick="storeord()"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
-        <button type="button" class="btn btn-success btn-xs"  data-dismiss="modal" onclick="createordXhr({{ $patient->id }},{{ Auth::User()->employ->id }})"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button>
+        <button type="button"  id ="drugsPrint" class="btn btn-success btn-xs"  data-dismiss="modal"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button>
           <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
       </div>
   </div>

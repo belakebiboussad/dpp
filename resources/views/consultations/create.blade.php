@@ -53,54 +53,6 @@
 	{
 		$("#description").val(' ');$('#dateAntcd').val('');
 	}
-	function createordXhr(patId,employeId)
-	{
-		var keys=[], meds=[];
-		$("#ordonnance thead tr th").each(function(){
-			if(($(this).html() == "id") || ($(this).html() == "Posologie"))
-					keys.push($(this).html());  
-		});
-		$("#ordonnance tbody tr").each(function(){
-			var obj={}, i=0;
-			$(this).children("td").each(function(index){
-				   if((index == 0) || (index == 4) )
-				{
-					obj[keys[i]]=$(this).html();
-					i++;
-					}
-				})
-			meds.push(obj);	
-		});
-		var formData = {
-			id_patient:patId,
-			id_employe:employeId,
-			meds:JSON.stringify(meds),
-		};
-		$.ajaxSetup({
-				headers: {
-					'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-				}
-		});
-		$.ajax({
-			beforeSend: function (xhr) {
-					var token = $('meta[name="_token"]').attr('content');
-					if (token) {
-						return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-					}
-			 },
-			type: "POST",
-			url: "/ordonnaces/print",
-			data:formData,//contentType: "application/j-son;charset=UTF-8",
-			dataType: "json",
-			success: function (data,status, xhr) {	  	
-				$('#iframe-pdf').contents().find('html').html(data.html);
-				$("#ordajax").modal();		       
-			},	
-			error: function (data) {
-					console.log('Error:', data);
-				}
-	})
-	}
 	function print()
 	{
 		document.title = 'ordonnance-'+$.trim($('#nom').text())+'-'+$.trim($('#prenom').text());
@@ -154,8 +106,7 @@
 	med += '<button class="btn btn-xs btn-danger delete-atcd" value="' + $("#nommedic").val()+ '" onclick ="supcolonne('+$("#id_medicament").val()+')" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
 	$("#ordonnance").append(med);
 	$(".enabledElem").removeClass("enabledElem").addClass("disabledElem");
-	efface_formulaire();
-		   
+	$("#nommedic").val('');$("#forme").val('');$("#dosage").val('');
   }
    function supcolonne(id)
   {
@@ -172,7 +123,7 @@
 				$(this).removeAttr('disabled');
 			});
 		});
-	$('#select2-multiple-style .btn').on('click', function(e){
+        	$('#select2-multiple-style .btn').on('click', function(e){
 			var target = $(this).find('input[type=radio]');
 		var which = parseInt(target.val());
 			if(which == 2) 
@@ -453,23 +404,33 @@
 			});
 		});
 		$("#consultForm").submit(function(e){
-				if(!checkConsult())
-				{
-					activaTab("Interogatoire");
-					return false;
-				}else
-				{
-					Swal.fire({
+			event.preventDefault();
+			if(!checkConsult())
+			{
+				activaTab("Interogatoire");
+				return false;
+			}else
+			 {
+			 	Swal.fire({
 						  title: 'Enregistrer la Consultation ?',
+						  icon: 'warning',
 						  html: '<br/><h4><strong>'+"Attention! En appuyant sur ce boutton, Vous allez Clôturer la Consulatation en Cours "+'</strong></h4><br/><hr/> ',
 						  showCancelButton: true,
+						  allowOutsideClick: false,
 						  confirmButtonColor: '#3085d6',
 						  cancelButtonColor: '#d33',
 						  confirmButtonText: 'Oui',
-						  cancelButtonText: "Non"
-					});
-					addExamsImg(this);	
-				}		
+						  cancelButtonText: "Non",
+						   timer: 2000,
+					}).then((result) => {
+		             		if(result.value)
+		             		{
+		             			addExamsImg(this);
+		             			$("#consultForm").submit();
+		             		}else
+		             		 	return false;
+		             	});
+			 }
 		}); //calendrier  	
 	  var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
 		var today = (new Date()).setHours(0, 0, 0, 0);
@@ -566,7 +527,51 @@
 	  });
 	  $("#temp").ionRangeSlider({
 		  min:30,   max:50,    step:0.1,    from:37,   grid: true,   grid_num: 20, postfix:" C", 
-	  });
+	 });
+	  $("#drugsPrint").click(function(){
+	  	var pid = '{{ $patient->id }}';
+	  	var mid = '{{  Auth::User()->employ->id }}';
+	  		var keys=[], meds=[];
+		$("#ordonnance thead tr th").each(function(){
+			if(($(this).html() == "id") || ($(this).html() == "Posologie"))
+					keys.push($(this).html());  
+		});
+		$("#ordonnance tbody tr").each(function(){
+			var obj={}, i=0;
+			$(this).children("td").each(function(index){
+				   if((index == 0) || (index == 4) )
+				{
+					obj[keys[i]]=$(this).html();
+					i++;
+					}
+				})
+			meds.push(obj);	
+		});
+		var formData = {
+			id_patient:pid,
+			id_employe:mid,
+			meds:JSON.stringify(meds),
+		};
+		$.ajaxSetup({
+				headers: {
+					'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+				}
+		});
+		$.ajax({
+			type: "POST",
+			url: "/ordonnaces/print",
+			data:formData,//contentType: "application/j-son;charset=UTF-8",
+			dataType: "json",
+			success: function (data,status, xhr) {	  	
+				$('#iframe-pdf').contents().find('html').html(data.html);
+				$("#ordajax").modal();		       
+			},	
+			error: function (data) {
+				console.log('Error:', data);
+			}
+		})
+	  })//fin drug  print
+
  });// ready
 </script>
 @endsection

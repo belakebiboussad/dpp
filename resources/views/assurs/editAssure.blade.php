@@ -64,8 +64,8 @@
   				<div class="col-sm-9">
   				 @if(isset($assure) && !empty($assure))
 	  				<select name="sexef" id="sexef" class="form-control" >
-	  					<option value="M" @if($assure->Sexe == "M") @endif>Masculin</option>
-	  					<option value="F"  @if($assure->Sexe == "F") @endif>Féminin</option>
+	  					<option value="M" @if($assure->Sexe == "M") selected @endif>Masculin</option>
+	  					<option value="F"  @if($assure->Sexe == "F")  selected @endif>Féminin</option>
 	  				</select>
 	  			@else
 	  					<select name="sexef" id="sexef" class="form-control" >

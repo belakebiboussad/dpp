@@ -482,14 +482,14 @@
       }
       function addExamsImg(form)
       {
-        var ExamsImg = [];
-        var arrayLignes = document.getElementById("ExamsImg").rows;
-        for(var i=0; i< arrayLignes.length; i++)
-        {
-          ExamsImg[i] = { acteImg: arrayLignes[i].cells[0].innerHTML, types: arrayLignes[i].cells[2].innerHTML }
-        }
-        var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
-        champ.appendTo(form);
+            var ExamsImg = [];
+            var arrayLignes = document.getElementById("ExamsImg").rows;
+            for(var i=0; i< arrayLignes.length; i++)
+            {
+              ExamsImg[i] = { acteImg: arrayLignes[i].cells[0].innerHTML, types: arrayLignes[i].cells[2].innerHTML }
+            }
+            var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
+            champ.appendTo(form);
       }
       function IMC1(){
         var poids = $("#poids").val();

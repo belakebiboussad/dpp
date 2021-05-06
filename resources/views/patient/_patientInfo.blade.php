@@ -35,8 +35,8 @@
 			<span class="blue">{{ $patient->NSS }}</span></label>	&nbsp;&nbsp;&nbsp;
 			<label class="inline hidden-xs"> 	
 			<span class="lbl">&nbsp;<strong>Type :</strong></span>
-						<span class="blue badge badge-info">
-						@switch($patient->Type)
+				<span class="bbadge badge-info">
+					@switch($patient->Type)
 	             @case(0)
 	                Assuré
 	                @break

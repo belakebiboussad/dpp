@@ -5,7 +5,6 @@
 		</span><div class="space space-12"></div>
 		<a href="{{ route('patient.edit', $patient->id) }}" class="btn btn-sm btn-block btn-success">
 			<i class="ace-icon fa fa-pencil bigger-120"></i>
-			<!-- <i class="ace-icon fa fa-pencil-square-o bigger-110"></i> -->
 			<span class="bigger-110">Modifier</span>
 		</a>
 		<a class="btn btn-sm btn-block btn-primary" data-toggle="modal" data-target="#ticket">
@@ -95,10 +94,12 @@
 					<div class="profile-info-name"><i class="fa fa-phone"></i>Télé mobile 1 </div>
 					<div class="profile-info-value"><span>{{ $patient->tele_mobile1 }}</span></div>
 				</div>
+				@if(isset($patient->tele_mobile2) &&($patient->tele_mobile2 != ''))
 				<div class="profile-info-row">
 					<div class="profile-info-name"><i class="fa fa-phone"></i>Télé mobile 2 </div>
 					<div class="profile-info-value"><span>{{ $patient->tele_mobile2 }}</span></div>
 				</div>
+				@endif
 				<div class="profile-info-row">
 					<div class="profile-info-name"> Groupe Sang</div>
 					<div class="profile-info-value"><span>{{ $patient->group_sang }}</span></div>
