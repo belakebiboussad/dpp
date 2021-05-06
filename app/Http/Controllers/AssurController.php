@@ -32,8 +32,8 @@ class AssurController extends Controller
      */
       public function create()
       {
-          $grades = grade::all();
-          return view('assurs.add',compact('grades')); 
+        $grades = grade::all();
+        return view('assurs.add',compact('grades')); 
       }
     /**
      * Store a newly created resource in storage.

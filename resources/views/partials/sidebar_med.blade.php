@@ -190,9 +190,12 @@
       {
         var erreur =true;//var NMGSN = $('#NMGSN').val();var idlieunaissancef = $('#idlieunaissancef').val();"Lieu de Naissance",
         var nomf = $('#nomf').val(); var prenomf = $('#prenomf').val();  var datenaissance = $('#datenaissancef').val(); 
-        var nss = $('#nss').val(); 
-        var inputAssVal = new Array(nss,gsf,idlieunaissancef,datenaissance,prenomf,nomf);
-        var inputMessage = new Array("Numèro de Secruté Social","Groupe Sanguin","Date de Naissance","Prenom","Nom");
+        var nss = $('#nss').val(); var position = $('#Position').val(); 
+        //var inputAssVal = new Array(nss,gsf,idlieunaissancef,datenaissance,prenomf,nomf);
+        var inputAssVal = new Array(nss,position,gsf,prenomf,nomf);
+        //var inputMessage = new Array("Numèro de Secruté Social","Groupe Sanguin","Date de Naissance","Prenom","Nom");
+        var inputMessage = new Array("Numèro de Secruté Social","position","Groupe Sanguin","Prenom","Nom");
+        
         $('.error').each(function(i, obj) { $(obj).next().remove(); $(obj).detach();  });
         jQuery.each( inputAssVal, function( i, val ) {
           if(val =="" )

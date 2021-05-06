@@ -422,7 +422,7 @@
 		var state = jQuery('#EnregistrerAntecedantPhys').val();
 		var type = "POST";
 		var atcd_id = jQuery('#atcdPhys_id').val();
-		var ajaxurl = '/atcd/';
+		var ajaxurl = '/atcd';
 		if (state == "update") {
 			type = "PUT";
 			ajaxurl = '/atcd/' + atcd_id;

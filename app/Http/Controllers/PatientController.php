@@ -110,8 +110,10 @@ class PatientController extends Controller
           "Sexe"=>$request->sexef,
           'SituationFamille'=>$request->SituationFamille,
           "adresse"=>$request->adressef,
-          "commune_res"=>$request->idcommunef,
-          "wilaya_res"=>$request->idwilayaf,
+          // "commune_res"=>$request->idcommunef,   // "wilaya_res"=>$request->idwilayaf,
+
+          'commune_res'=>isset($request->idcommunef) ?$request->idcommunef:'1556',
+          'wilaya_res'=>isset($request->idwilayaf) ?$request->idwilayaf:'49',
           "grp_sang"=>$request->gsf.$request->rhf,
           "Matricule"=>$request->mat,
           "Service"=>$request->service,
@@ -130,8 +132,10 @@ class PatientController extends Controller
           "Sexe"=>$request->sexef,
           'SituationFamille'=>$request->SituationFamille,
           "adresse"=>$request->adressef,
-          "commune_res"=>$request->idcommunef,
-          "wilaya_res"=>$request->idwilayaf,
+          // "commune_res"=>$request->idcommunef, // "wilaya_res"=>$request->idwilayaf,
+
+          'commune_res'=>isset($request->idcommunef) ?$request->idcommunef:'1556',
+          'wilaya_res'=>isset($request->idwilayaf) ?$request->idwilayaf:'49',
           "grp_sang"=>$request->gsf.$request->rhf,
           "Matricule"=>$request->mat,
           "Service"=>$request->service,
@@ -284,15 +288,19 @@ class PatientController extends Controller
       $patient = patient::FindOrFail($id);
       $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
      
+      
       if(!(isset($asure_id)))
-      {   
+      {
         $assure=null ;
         $grades = grade::all(); 
         if($patient->Type != "5")
           $assure =  $patient->assure;
         return view('patient.edit',compact('patient','assure','correspondants','grades'));
       }else
+      {
+        dd($patient);
         return view('patient.editP',compact('patient','correspondants'));
+      }
  
     }
     /**
