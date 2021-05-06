@@ -515,6 +515,7 @@
 			});
 		});
 		$("#consultForm").submit(function(e){
+			if()
 			if(!checkConsult())
 			{
 				activaTab("Interogatoire");
@@ -627,7 +628,7 @@
 </div>
 <div class="content">
 	<div class="row">
-	<form  class="form-horizontal" id ="consultForm" action="{{ route('consultations.store') }}" method="POST" role="form"  onsubmit="alert('une fois vous avez enregistrer, vous pouvez plus la modifié');">
+	<form  class="form-horizontal" id ="consultForm" action="{{ route('consultations.store') }}" method="POST" role="form">
 	  {{ csrf_field() }}
 		<input type="hidden" name="patient_id" id="patient_id" value="{{ $patient->id }}">
 		<div class="form-group" id="error" aria-live="polite">

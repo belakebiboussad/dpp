@@ -453,12 +453,23 @@
 			});
 		});
 		$("#consultForm").submit(function(e){
-			if(!checkConsult())
-			{
-				activaTab("Interogatoire");
-				return false;
-			}
-			addExamsImg(this);
+				if(!checkConsult())
+				{
+					activaTab("Interogatoire");
+					return false;
+				}else
+				{
+					Swal.fire({
+						  title: 'Enregistrer la Consultation ?',
+						  html: '<br/><h4><strong>'+"Attention! En appuyant sur ce boutton, Vous allez Clôturer la Consulatation en Cours "+'</strong></h4><br/><hr/> ',
+						  showCancelButton: true,
+						  confirmButtonColor: '#3085d6',
+						  cancelButtonColor: '#d33',
+						  confirmButtonText: 'Oui',
+						  cancelButtonText: "Non"
+					});
+					addExamsImg(this);	
+				}		
 		}); //calendrier  	
 	  var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
 		var today = (new Date()).setHours(0, 0, 0, 0);
@@ -526,7 +537,7 @@
 			},
 			select: function(start, end,jsEvent, view) {
 				if(start > today){//CurrentDate
-			Swal.fire({
+			    Swal.fire({
 				   title: 'Confimer vous  le Rendez-Vous ?',
 				   html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',
 				   input: 'checkbox',
@@ -565,7 +576,7 @@
 </div>
 <div class="content">
 	<div class="row">
-	<form  class="form-horizontal" id ="consultForm" action="{{ route('consultations.store') }}" method="POST" role="form"  onsubmit="alert('une fois vous avez enregistrer, vous pouvez plus la modifié');">
+	<form  class="form-horizontal" id ="consultForm" action="{{ route('consultations.store') }}" method="POST" role="form">
 	  {{ csrf_field() }}
 		<input type="hidden" name="patient_id" id="patient_id" value="{{ $patient->id }}">
 		<div class="form-group" id="error" aria-live="polite">

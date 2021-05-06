@@ -109,9 +109,7 @@ class PatientController extends Controller
           "lieunaissance"=>$request->idlieunaissancef,
           "Sexe"=>$request->sexef,
           'SituationFamille'=>$request->SituationFamille,
-          "adresse"=>$request->adressef,
-          // "commune_res"=>$request->idcommunef,   // "wilaya_res"=>$request->idwilayaf,
-
+          "adresse"=>$request->adressef,      // "commune_res"=>$request->idcommunef,   // "wilaya_res"=>$request->idwilayaf,
           'commune_res'=>isset($request->idcommunef) ?$request->idcommunef:'1556',
           'wilaya_res'=>isset($request->idwilayaf) ?$request->idwilayaf:'49',
           "grp_sang"=>$request->gsf.$request->rhf,
@@ -131,9 +129,7 @@ class PatientController extends Controller
           "lieunaissance"=>$request->idlieunaissancef,
           "Sexe"=>$request->sexef,
           'SituationFamille'=>$request->SituationFamille,
-          "adresse"=>$request->adressef,
-          // "commune_res"=>$request->idcommunef, // "wilaya_res"=>$request->idwilayaf,
-
+          "adresse"=>$request->adressef,   // "commune_res"=>$request->idcommunef, // "wilaya_res"=>$request->idwilayaf,
           'commune_res'=>isset($request->idcommunef) ?$request->idcommunef:'1556',
           'wilaya_res'=>isset($request->idwilayaf) ?$request->idwilayaf:'49',
           "grp_sang"=>$request->gsf.$request->rhf,
