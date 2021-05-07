@@ -60,7 +60,7 @@ $('document').ready(function(){
 @if(isset($consultation->examensCliniques)  &&($consultation->examensCliniques->poids != 0))
 <div class="row">
 	<div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right">
-		<span style="font-size:16px;"><strong>Examens Clinique {{ $consultation->examensCliniques->poids }}</strong></span>
+		<span style="font-size:16px;"><strong>Examens Clinique</strong></span>
 	</div>
 </div>
 <div class="row">
