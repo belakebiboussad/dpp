@@ -211,7 +211,7 @@
 				</div>	
 			</div>
 		</div>{{-- col-sm-7 --}}<!-- hidden-xs hidden-sm  -->
-		<div class="col-md-5 col-sm-5 widget-box transparent"  id="patientDetail"><!--<br><div class="widget-box transparent" id="patientDetail" style ="margin-top: 14px;"></div> -->
+		<div class="col-md-5 col-sm-5 widget-box transparent"  id="patientDetail">
 		</div>		
 		  
 	</div>{{-- row --}}

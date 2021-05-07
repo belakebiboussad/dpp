@@ -25,7 +25,7 @@
                           <th  class="center"><strong>Dosage</strong></th>
                           <th  class="center"><strong>Forme</strong></th>
                           <th  class="center">Posologie</th>
-                          <th class="center"></th>
+                          <th class="center"><em class="fa fa-cog"></em></th>
                      </tr>
                 </thead>
                 <tbody>
@@ -36,10 +36,12 @@
                     <td>{{ $med->Dosage }}</td>
                     <td>{{ $med->Forme }}</td>
                     <td>{{ $med->pivot->posologie }}</td>
-                    <td class="center"><a href="/showordonnance/{{ $ordonnance->id }}" target="_blank" class="btn btn-primary pull-right">
+                    @if($loop->first)
+                    <td rowspan ="{{ $ordonnance->medicamentes->count()}}" class="center align-middle"><a href="/showordonnance/{{ $ordonnance->id }}" target="_blank" class="btn btn-primary">
                       <i class="fa fa-print"></i>&nbsp;
                       </a>
                     </td>
+                    @endif
                   </tr>
                   @endforeach
                 </tbody>
