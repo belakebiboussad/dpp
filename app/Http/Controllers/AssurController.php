@@ -158,7 +158,8 @@ class AssurController extends Controller
      */
      public function destroy(Request $request , $id) 
      { 
-        // $handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word"); //dll local//D:/Mes-programmes/DotNET/Dll/GRH2/GRH2
+        //chemin de registre=I:/MessPrograms/program.net/com/GRH2/GRH2/bin/Debug/GRH2.DLL//probleme WilayaResidence
+        //$handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word"); //dll local//D:/Mes-programmes/DotNET/Dll/GRH2/GRH2
         //J:\TRAVAIL_CDTA\DossierPatient_Projet_Actuel\DGSN-Dossier PAtient\DLL\!DLL_CDTA_My//I:/MessPrograms/program.net/com/GRH/GRH/bin/Debug/GRH.DLL 
         //vrai derniere dll local//D:\cdta-work\Dossier Patient\DGSN-Glysines\DLL\Mien\Debug
         $handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); 
