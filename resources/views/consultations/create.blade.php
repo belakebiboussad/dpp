@@ -110,8 +110,11 @@
   }
    function supcolonne(id)
   {
-  
 	$("#"+id).remove();
+  }
+  function fct(elem)
+  {
+  	elem.submit();
   }
 	$('document').ready(function(){
 		$( 'ul.nav li' ).on( 'click', function() {
@@ -403,6 +406,7 @@
 				}
 			});
 		});
+		var confirmed = false;
 		$("#consultForm").submit(function(e){
 			event.preventDefault();
 			if(!checkConsult())
@@ -411,7 +415,8 @@
 				return false;
 			}else
 			 {
-			 	Swal.fire({
+			 	if (!confirmed) {
+			 	      Swal.fire({
 						  title: 'Enregistrer la Consultation ?',
 						  icon: 'warning',
 						  html: '<br/><h4><strong>'+"Attention! En appuyant sur ce boutton, Vous allez Clôturer la Consulatation en Cours "+'</strong></h4><br/><hr/> ',
@@ -421,16 +426,19 @@
 						  cancelButtonColor: '#d33',
 						  confirmButtonText: 'Oui',
 						  cancelButtonText: "Non",
-						   timer: 2000,
+						  closeOnConfirm: true,
+						   //timer: 2000,
 					}).then((result) => {
 		             		if(result.value)
 		             		{
+		             			 confirmed = true;
 		             			addExamsImg(this);
 		             			$("#consultForm").submit();
 		             		}else
 		             		 	return false;
 		             	});
-			 }
+				}
+			}	    
 		}); //calendrier  	
 	  var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
 		var today = (new Date()).setHours(0, 0, 0, 0);

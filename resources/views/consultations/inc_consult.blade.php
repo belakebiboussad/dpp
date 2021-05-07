@@ -57,17 +57,19 @@ $('document').ready(function(){
 	</div>
 </div>
 @endif
-@if(isset($consultation->examensCliniques) )
+@if(isset($consultation->examensCliniques)  &&($consultation->examensCliniques->poids != 0))
 <div class="row">
 	<div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right">
-		<span style="font-size:16px;"><strong>Examens Clinique</strong></span>
+		<span style="font-size:16px;"><strong>Examens Clinique {{ $consultation->examensCliniques->poids }}</strong></span>
 	</div>
 </div>
 <div class="row">
 	<ul class="list-unstyled spaced">
-		<li><i class="message-star ace-icon fa fa-star orange2"></i><strong>Taille :</strong><span class="badge badge-pill badge-primary"> {{ $consultation->examensCliniques->taille  }}</span>(m)</li>
+		<li><i class="message-star ace-icon fa fa-star orange2"></i><strong>Taille :</strong><span class="badge badge-pill badge-primary"> {{  $consultation->examensCliniques->taille  }}</span>(m)</li>
 		<li><i class="message-star ace-icon fa fa-star orange2"></i><strong>Poids :</strong><span class="badge badge-pill badge-danger"> {{ $consultation->examensCliniques->poids  }}</span>(kg)</li>
+		@if(isset($consultation->examensCliniques->IMC) )
 		<li><i class="message-star ace-icon fa fa-star orange2"></i><strong>IMC :</strong><span class="badge badge-pill badge-danger"> {{ $consultation->examensCliniques->IMC  }}</span></li>
+		@endif
 		<li><i class="message-star ace-icon fa fa-star orange2"></i><strong>Températeur :</strong>{{ $consultation->examensCliniques->temp  }}&nbsp;&deg;C</li>
 		<li><i class="message-star ace-icon fa fa-star orange2"></i><strong>Autre :</strong>{{ $consultation->examensCliniques->autre  }}&nbsp;</li>
 		<li><i class="message-star ace-icon fa fa-star orange2"></i><strong>Etat Géneral du patient :</strong><span>{{ $consultation->examensCliniques->Etat  }}</span></li>
