@@ -66,12 +66,6 @@
 	  var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
 	  champ.appendTo('#consultForm');
   }
-	function lettreorientation()
-	{
-		$('#specialite').val($('#specialiteOrient').val());
-		$('#medecin').val($('#medecinOrient').val());
-		$('#motifOr').val($('#motifOrient').val());
-	}
 	function demandehosp()
 	{
 		$('#modeAdmission').val($('#modeAdmissionHospi').val());// $("#degreurg").appendTo('#consultForm');

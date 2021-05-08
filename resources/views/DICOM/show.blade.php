@@ -46,7 +46,7 @@
               codecsPath: "{{ asset('/js/Dicom/cornerstoneWADOImageLoaderCodecs.min.js') }}",
             },
         },
-      };//cornerstoneWADOImageLoader.webWorkerManager.initialize(config);
+      };
   }
   function _initInterface() {
     initModeButtons();
@@ -110,27 +110,32 @@
     });
   });
 </script>
-<div id="loadProgress">Image Load Progress:</div>
 <div class="row">
-  <div class="col-md-8 col-sm-8 col-xs-12">
+  <div class="col-sm-4 col-xs-12"><strong>Institusion :</strong><span id="institution"></span></div> 
+  <div class="col-sm-4 col-xs-12"><strong>Nom patient :</strong><span id="patientName"></span></div>
+  <div class="col-sm-4 col-xs-12"><strong>Code patient :</strong><span id="patientId"></span></div>
+</div>
+<div class="row">
+  <div class="col-sm-4 col-xs-12"><strong>Date :</strong><span id="date"></span>
+  </div>
+  <div class="col-sm-4 col-xs-12"><strong>Genre :</strong><span id="genre"></span>
+  </div>
+  <div class="col-sm-4 col-xs-12"><strong>Age :</strong><span id="age"></span><br><!-- <span>Machine: </span><span id="machine"></span><br> -->
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12 col-xs-12">
     <div col="col-md-12 col-sm-12" oncontextmenu="return false" class='disable-selection noIbar' unselectable='on' onselectstart='return false;' onmousedown='return false;'>
       <div id="dicomImage" style="height:512px"></div>
     </div>
   </div>
-  <div class="col-md-4 col-sm-8 col-xs-12">
-    <span>Institusion: </span><span id="institution"></span><br>
-    <span>Nom patient: </span><span id="patientName"></span><br>
-    <span>Code patient: </span><span id="patientId"></span><br>
-    <span>Date: </span><span id="date"></span><br>
-    <span>Genre: </span><span id="genre"></span><br>
-    <span>Age: </span><span id="age"></span><br>
-    <span>Machine: </span><span id="machine"></span><br>
-  </div>
 </div><div class="space-12 hidden-xs"></div>
 <div class="row">
-  <div class="col-sm-12">
+  <div class="col-sm-8">
     <button id="zoomIn" type="button" class="btn btn-default"><i class="fa fa-search-plus bigger-150" aria-hidden="true"></i></button>
     <button id="zoomOut" type="button" class="btn btn-default"><i class="fa fa-search-minus bigger-150" aria-hidden="true"></i></button>
     <button id="reset" type="button" class="btn btn-default"><i class="fa fa-undo bigger-150" aria-hidden="true"></i></button>
   </div>
+  <div class="col-sm-4 pull-right" id="loadProgress">Image Load Progress: </div>
+
 </div>

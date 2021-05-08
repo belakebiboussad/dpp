@@ -30,7 +30,7 @@
 	   			<div class="row">
 	   				<div class="col-xs-12">
 							<label for="motif"><b>Motif :</b></label>     
-							<textarea class="form-control" id="motifOrient" name="motifOrient" cols="30" rows="3"></textarea>
+							<textarea class="form-control" id="motifOrient" name="motifOrient" cols="20" rows="3"></textarea>
 						</div>
 					</div>
 			</div>{{-- modal-body --}}
@@ -38,7 +38,7 @@
 		  <div class="modal-footer">
           <div class="col-sm-12">
 			    <button type="button" class="btn btn-xs btn-primary" data-dismiss="modal" onclick="lettreorientation()"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
-				  <button type="button" class="btn btn-xs btn-success"  data-toggle="modal" data-target="#lettreorien"  onclick="lettreoriet('{{ Auth::User()->employ->nom }}','{{Auth::User()->employ->prenom }}','{{Auth::User()->employ->service }}','{{Auth::User()->employ->tele_mobile }}','{{$patient->Nom}}','{{ $patient->Prenom}}',{{$patient->getAge() }})"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button>
+				  <button type="button" class="btn btn-xs btn-success"  data-toggle="modal" data-target="#lettreorien"  onclick="orLetterPrint('{{$patient->Nom}}','{{ $patient->Prenom}}',{{$patient->getAge() }})"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button>
 				  <button type="button" class="btn btn-xs btn-danger" data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 			  </div>
       </div>

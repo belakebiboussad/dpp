@@ -361,26 +361,26 @@
         $('#liste_codesCIM').empty();  $("#chapitre").val($("#chapitre option:first").val());$("#schapitre").val($("#schapitre option:first").val());
         $('#cim10Modal').trigger("reset");$('#cim10Modal').modal('toggle');  
       }
-      function createexbio(nomp,prenomp,age,ipp, nomEmploye,prenomEmploye,etabname,etabTutel,etabAdress,etabtel,etabLogo){  
+      function createexbio(nomp,prenomp,age,ipp){  
         var img = new Image();
         img.src = '{{ asset("/img/logo.png") }}';
         img.onload = function () {
-           createexbioF(img,nomp,prenomp,age,ipp, nomEmploye,prenomEmploye,etabname,etabTutel,etabAdress,etabtel,etabLogo);
+           createexbioF(img,nomp,prenomp,age,ipp);
         };
       }
-      function createexbioF(image,nomp,prenomp,age,ipp, nomEmploye,prenomEmploye,etabname,etabTutel,etabAdress,etabtel,etabLogo){ 
+      function createexbioF(image,nomp,prenomp,age,ipp){ 
         html2canvas($("#dos"), {
           onrendered: function(canvas) {
               moment.locale('fr');//var IPP = ipp.toString();
               var formattedDate = moment(new Date()).format("l");         
               var imgData = canvas.toDataURL('image/png');              
               var doc = new jsPDF('p', 'mm');
-              doc.text(105,9, etabTutel, null, null, 'center');
+              doc.text(105,9,'{{ $etablissement->tutelle }}', null, null, 'center');
               doc.setFontSize(13);
-              doc.text(105,16, etabname, null, null, 'center');
+              doc.text(105,16,'{{ $etablissement->nom }}', null, null, 'center');
               doc.setFontSize(12);
-              doc.text(105,21, etabAdress, null, null, 'center');
-              doc.text(105,26, 'Tél : '+ etabtel, null, null, 'center');//doc.text(105,26, 'Tél : 023-93-34 - 23-93-58', null, null, 'center');
+              doc.text(105,21,'{{ $etablissement->adresse }}', null, null, 'center');
+              doc.text(105,26, 'Tél : {{ $etablissement->tel }} - {{ $etablissement->tel2 }}', null, null, 'center');//doc.text(105,26, 'Tél : 023-93-34 - 23-93-58', null, null, 'center');
               doc.addImage(image, 'JPEG', 95, 27, 17, 17);
               doc.setFontSize(14);
               doc.addImage(imgData, 'JPEG', 10, 10);
@@ -407,19 +407,20 @@
                 i=i+10;
               });
               doc.setFontSize(12);
-              doc.text(100,270, 'Docteur : ' +nomEmploye+ ' '+ prenomEmploye, null, null); 
+              doc.text(100,270, 'Docteur : {{ Auth::user()->employ->nom}} {{ Auth::user()->employ->prenom}}', null, null); 
               doc.save('ExamBiolo-'+nomp+'-'+prenomp+'.pdf');
           }
         });    
     }
-    function createeximg(nomp,prenomp,age, ipp, nomEmploye,prenomEmploye,etabname,etabTutel,etabAdress,etabtel,etabLogo) {
+     
+    function createeximg(nomp,prenomp,age, ipp) {
       var img = new Image();
       img.src = '{{ asset("/img/logo.png") }}';
       img.onload = function () {
-        createeximgF(img,nomp,prenomp,age,ipp, nomEmploye, prenomEmploye, prenomEmploye,etabname,etabTutel,etabAdress,etabtel,etabLogo);
+        createeximgF(img,nomp,prenomp,age,ipp);
       };
     } 
-    function createeximgF(image,nomp,prenomp,age,ipp, nomEmploye, prenomEmploye,etabname,etabTutel,etabAdress,etabtel,etabLogo)
+    function createeximgF(image,nomp,prenomp,age,ipp)
     {  
         html2canvas($("#dos"), {
             onrendered: function(canvas) {         
@@ -437,13 +438,13 @@
                 textAlign: "left"
               });
               const img = document.querySelector('img#itf');
-              doc.text(105, 9, etabTutel, null, null, 'center');
+              doc.text(105, 9,'{{ $etablissement->tutelle }}', null, null, 'center');
               
               doc.setFontSize(13);
-              doc.text(105,16,etabname , null, null, 'center');
+              doc.text(105,16, '{{ $etablissement->nom }}', null, null, 'center');
               doc.setFontSize(12);
-              doc.text(105,21, etabAdress, null, null, 'center');
-              doc.text(105,26, 'Tél : ' + etabtel, null, null, 'center');
+              doc.text(105,21, '{{ $etablissement->adresse }}', null, null, 'center');
+              doc.text(105,26, 'Tél : {{ $etablissement->tel }} - {{ $etablissement->tel2 }}', null, null, 'center');
               doc.addImage(image, 'JPEG', 95, 27, 17, 17);
               doc.setFontSize(14);
               doc.text(200,60, 'Alger :' +formattedDate , null, null, 'right'); 
@@ -460,20 +461,20 @@
                 startY: 135,
               });
               doc.setFontSize(12);
-              doc.text(100,270, 'Docteur : ' + nomEmploye + ' '+ prenomEmploye, null, null); 
+              doc.text(100,270, 'Docteur : {{ Auth::user()->employ->nom}} {{ Auth::user()->employ->prenom}}', null, null); 
               doc.save('ExamRadio-'+nomp+'-'+prenomp+'.pdf');
             }
         });
     }
-      function printExamCom(nom, prenom, age, ipp, nomEmploye,prenomEmploye,etabname,etabTutel,etabAdress,etabtel,etabLogo)
+      function printExamCom(nom, prenom, age, ipp)
       {
         var interest = $('ul#compl').find('li.active').data('interest');
         switch(interest){
               case 0:
-                createexbio(nom, prenom, age, ipp, nomEmploye,prenomEmploye,etabname,etabTutel,etabAdress,etabtel,etabLogo);
+                createexbio(nom, prenom, age, ipp);
                 break;
               case 1:
-                createeximg(nom, prenom, age, ipp, nomEmploye,prenomEmploye,etabname,etabTutel,etabAdress,etabtel,etabLogo);
+                createeximg(nom, prenom, age, ipp);
                 break;
               case 2:
                   break;
@@ -490,6 +491,44 @@
             }
             var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
             champ.appendTo(form);
+      }
+      function orLetterPrint(nomP,prenomP,ageP) {
+        var img = new Image();
+        img.src = '{{ asset("/img/logo.png") }}';
+        img.onload = function () {
+          lettreoriet(img,nomP,prenomP,ageP);
+        };
+    } 
+      function lettreoriet(logo,nompatient,prenompatient,agepatient)
+      {
+        var specialite = $( "#specialiteOrient option:selected" ).text().trim();
+        var medecin =  $("#medecinOrient option:selected").text().trim();
+        $('#lettreorientation').show();
+        $('#lettreorientation').removeClass("hidden");
+        var d = new Date(); var dd = d.getDate(); var mm = d.getMonth()+1;          
+        var yyyy = d.getFullYear();
+        var lettre = new jsPDF({orientation: "p", lineHeight: 1.5})
+        lettre.setFontSize(15);
+        lettre.lineHeightProportion = 100;
+        lettre.text(105,20, '{{ $etablissement->tutelle }}', null, null, 'center');
+         lettre.text(105,28, 'ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE "LES GLYCINES"', null, null, 'center');//lettre.text(105,28, '{{ $etablissement->nom }}', null, null, 'center');
+        lettre.setFontSize(12);
+        lettre.text(105,36, '{{ $etablissement->adresse }}', null, null, 'center');//12, Chemin des Glycines - ALGER
+        lettre.text(105,44, 'Tél : {{ $etablissement->tel }} - {{ $etablissement->tel2 }}', null, null, 'center');
+        lettre.text(200,58, 'Alger,le : '+dd+'/'+mm+'/'+yyyy, null, null, 'right');
+        lettre.text(20,68, 'Emetteur : {{ Auth::User()->employ->nom }} {{Auth::User()->employ->prenom }}', null, null);
+
+        lettre.text(20,76, 'Tél : {{Auth::User()->employ->tele_mobile }}', null, null);
+        lettre.text(200,68, 'Destinataire : '+medecin , null, null, 'right');
+        lettre.text(200,76, 'Specialite : '+specialite , null, null,'right');
+        lettre.setFontType("bold");
+        lettre.text(105,90, "Lettre d'orientation", null, null, 'center');
+        var text = "permettez moi de vous adresser le(la) patient(e) sus-nommé(e), "+nompatient+" "+prenompatient+" âgé(e) de "+agepatient+" ans, qui s'est présenté ce jour pour  "+$('#motifOrient').val()+"  . je vous le confie pour prise en charge spécialisé. respectueusement confraternellement.";
+        lines = lettre.splitTextToSize(text, 185);
+        lettre.text(20,110,lines,null,null);
+        lettre.text(200,180,'signature',null,null,'right');
+        var string = lettre.output('datauristring');
+        $('#lettreorientation').attr('src', string);
       }
       function IMC1(){
         var poids = $("#poids").val();
@@ -540,13 +579,11 @@
         }
         var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(ordonnance)+"' hidden>");
         champ.appendTo('#consultForm');
-      }
-      function lettreorientation()
-      {
+      }//save input modal to input form
+      function lettreorientation() {
         $('#specialite').val($('#specialiteOrient').val());
         $('#medecin').val($('#medecinOrient').val());
-        $('#motifOr').val($('#motifOrient').val());
-      }
+        $('#motifOr').val($('#motifOrient').val()); }
       function demandehosp()
       {
         $('#modeAdmission').val($('#modeAdmissionHospi').val());// $("#degreurg").appendTo('#consultForm');

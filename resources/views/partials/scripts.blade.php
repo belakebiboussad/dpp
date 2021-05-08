@@ -293,34 +293,7 @@ $('#typeexm').on('change', function() {
  function efface_formulaire() {
            $('form').find("textarea, :text, select").val("").end().find(":checked").prop("checked", false);
   }
-   function lettreoriet(nommedt,prenommedt,servmedt,telmedt,nompatient,prenompatient,agepatient)
-    {
-         var specialite = $( "#specialite option:selected" ).text().trim();
-         var medecin =  $("#medecin option:selected").text().trim();
-         $('#lettreorientation').show();
-         $('#lettreorientation').removeClass("hidden");
-          var d = new Date(); var dd = d.getDate(); var mm = d.getMonth()+1;          
-          var yyyy = d.getFullYear();
-          var lettre = new jsPDF({orientation: "p", lineHeight: 1.5})
-          lettre.setFontSize(18);lettre.lineHeightProportion = 100;
-          lettre.text(105,20, 'DIRECTION GENERAL DE LA SURETE NATIONALE', null, null, 'center');
-          lettre.text(105,28, 'HOPITAL CENTRAL DE LA SURETE NATIONALE "LES GLYCINES"', null, null, 'center');
-          lettre.text(105,36, '12, Chemin des Glycines - ALGER', null, null, 'center');
-          lettre.text(105,44, 'Tél : 023-93-34 - 023-93-58', null, null, 'center');
-          lettre.text(200,58, 'Alger,le : '+dd+'/'+mm+'/'+yyyy, null, null, 'right');
-          lettre.text(20,68, 'Emetteur : '+nommedt+' '+prenommedt, null, null);
-          lettre.text(20,76, 'Tél : '+telmedt, null, null);
-          lettre.text(200,68, 'Destinataire : '+medecin , null, null, 'right');
-          lettre.text(200,76, 'Specialite : '+specialite , null, null,'right');
-          lettre.setFontType("bold");
-          lettre.text(105,90, "Lettre d'orientation", null, null, 'center');
-          var text = "permettez moi de vous adresser le(la) patient(e) sus-nommé(e), "+nompatient+" "+prenompatient+" âgé(e) de "+agepatient+" ans, qui s'est présenté ce jour pour  "+$('#motifOrient').val()+"  . je vous le confie pour prise en charge spécialisé. respectueusement confraternellement.";
-          lines = lettre.splitTextToSize(text, 185);
-          lettre.text(20,110,lines,null,null);
-          lettre.text(200,180,'signature',null,null,'right');
-          var string = lettre.output('datauristring');
-          $('#lettreorientation').attr('src', string);
-    }
+ 
 </script>
 <script>
   $('#users-table').DataTable({

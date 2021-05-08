@@ -49,9 +49,10 @@ class HomeController extends Controller
     public function index()
     {
       $ServiceID = Auth::user()->employ->service;
+      $etablissement = Etablissement::first();
       switch (Auth::user()->role_id) {
             case 1://medecin & meecinChef
-                  return view('patient.index');
+                  return view('patient.index',compact('etablissement'));
                   break;
             case 2:
                   return view('home.home_recep');
@@ -63,7 +64,7 @@ class HomeController extends Controller
                   return redirect()->action('UsersController@index');
                   break;
             case 5:
-                  return redirect()->action('RdvHospiController@index');
+                  return redirect()->action('RdvHospiController@index',compact('etablissement'));
                   break;
             case 6:
                   return redirect()->action('ColloqueController@index',Auth::user()->employ->Service->type);
@@ -86,7 +87,7 @@ class HomeController extends Controller
                 return view('home.home_radiologue', compact('demandesexr')); 
                 break;
             case 14://chef de service
-                return view('home.home_chef_ser');
+                return view('home.home_chef_ser',compact('etablissement'));
             default:
                return view('errors.500');
                break;
