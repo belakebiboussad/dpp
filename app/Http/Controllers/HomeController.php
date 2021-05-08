@@ -29,6 +29,7 @@ use Carbon\Carbon;
 use PDF;
 use Storage;
 use File;
+use Session;
 class HomeController extends Controller
 {
     /**
@@ -49,10 +50,22 @@ class HomeController extends Controller
     public function index()
     {
       $ServiceID = Auth::user()->employ->service;
-      $etablissement = Etablissement::first();
+      $etablissement = Etablissement::first(); //$etablissement = Etablissement::first()->toArray();
+     
+      //session()->put('etablissement', $etablissement);
+//       $etabli = array(//     "foo" => "bar",
+//     "bar" => "foo",// );
+      // Session::put('etablissement', $etablissement);
+      Session::put('etabname', $etablissement->nom);
+      Session::put('etabTut', $etablissement->tutelle);
+      Session::put('etabAdr', $etablissement->adresse);
+      Session::put('etabTel', $etablissement->tel);
+      Session::put('etabTel2', $etablissement->tel2);
+      Session::put('etabLogo', $etablissement->logo);
+      // session(['etabname' => ]);
       switch (Auth::user()->role_id) {
             case 1://medecin & meecinChef
-                  return view('patient.index',compact('etablissement'));
+                  return view('patient.index');
                   break;
             case 2:
                   return view('home.home_recep');
@@ -64,7 +77,7 @@ class HomeController extends Controller
                   return redirect()->action('UsersController@index');
                   break;
             case 5:
-                  return redirect()->action('RdvHospiController@index',compact('etablissement'));
+                  return redirect()->action('RdvHospiController@index');
                   break;
             case 6:
                   return redirect()->action('ColloqueController@index',Auth::user()->employ->Service->type);
@@ -87,7 +100,7 @@ class HomeController extends Controller
                 return view('home.home_radiologue', compact('demandesexr')); 
                 break;
             case 14://chef de service
-                return view('home.home_chef_ser',compact('etablissement'));
+                return view('home.home_chef_ser');
             default:
                return view('errors.500');
                break;
