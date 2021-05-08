@@ -144,7 +144,7 @@
 		<div class="col-sm-12 col-md-12">
 			<div class="panel panel-default">
 			<div class="panel-heading left"> 
-				<H4><strong>Rechercher un patient</strong>{{ Session::get('etabLogo') }}</H4>
+				<H4><strong>Rechercher un patient</strong></H4>
 				<div class="pull-right">
 					<a href="{{route('assur.index')}}" class ="btn btn-white btn-info btn-bold btn-xs">Rechercher un Fonctionnaire&nbsp;<i class="ace-icon fa fa-arrow-circle-right bigger-120 black"></i></a>
 				</div>

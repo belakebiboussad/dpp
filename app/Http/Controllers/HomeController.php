@@ -51,18 +51,13 @@ class HomeController extends Controller
     {
       $ServiceID = Auth::user()->employ->service;
       $etablissement = Etablissement::first(); //$etablissement = Etablissement::first()->toArray();
-     
-      //session()->put('etablissement', $etablissement);
-//       $etabli = array(//     "foo" => "bar",
-//     "bar" => "foo",// );
-      // Session::put('etablissement', $etablissement);
+      //session()->put('etablissement', $etablissement);//     $etabli = array(//     "foo" => "bar",//     "bar" => "foo",// );    // Session::put('etablissement', $etablissement);
       Session::put('etabname', $etablissement->nom);
       Session::put('etabTut', $etablissement->tutelle);
       Session::put('etabAdr', $etablissement->adresse);
       Session::put('etabTel', $etablissement->tel);
       Session::put('etabTel2', $etablissement->tel2);
       Session::put('etabLogo', $etablissement->logo);
-      // session(['etabname' => ]);
       switch (Auth::user()->role_id) {
             case 1://medecin & meecinChef
                   return view('patient.index');
@@ -71,7 +66,7 @@ class HomeController extends Controller
                   return view('home.home_recep');
                   break;
             case 3:                    
-                  return redirect()->action('HospitalisationController@index');// return redirect()->route('HospitalisationController@index');
+                  return redirect()->action('HospitalisationController@index');
                   break;
             case 4: //admin// $users = User::all(); // return view('home.home_admin', compact('users'));
                   return redirect()->action('UsersController@index');
