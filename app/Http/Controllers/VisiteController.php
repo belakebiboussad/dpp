@@ -51,7 +51,7 @@ class VisiteController extends Controller
     {
           $date = Carbon\Carbon::now(); 
           $hosp = hospitalisation::FindOrFail($id_hosp);//$patient = (hospitalisation::FindOrFail($id_hosp))->admission->demandeHospitalisation->consultation->patient;
-          $patient = $hosp->admission->rdvHosp->demandeHospitalisation->consultation->patient;
+          $patient = $hosp->admission->demandeHospitalisation->consultation->patient;
           $employe = Auth::user()->employ;
           $visite =new visite;
           $visite->date=$date;
