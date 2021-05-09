@@ -380,7 +380,7 @@
               doc.text(105,16,'{{ Session::get('etabname') }}', null, null, 'center');
               doc.setFontSize(12);
               doc.text(105,21,'{{ Session::get('etabAdr') }}', null, null, 'center');
-              doc.text(105,26, 'Tél : {{ Session::get('etabTel') }} - {{ Session::get('etabTel') }}', null, null, 'center');//doc.text(105,26, 'Tél : 023-93-34 - 23-93-58', null, null, 'center');
+              doc.text(105,26, 'Tél : {{ Session::get("etabTel") }} - {{ Session::get("etabTel") }}', null, null, 'center');//doc.text(105,26, 'Tél : 023-93-34 - 23-93-58', null, null, 'center');
               doc.addImage(image, 'JPEG', 95, 27, 17, 17);
               doc.setFontSize(14);
               doc.addImage(imgData, 'JPEG', 10, 10);
@@ -458,7 +458,7 @@
             }
         });
     }
-     function lettreoriet(logo,nompatient,prenompatient,agepatient)
+     function lettreorietOLD(logo,nompatient,prenompatient,agepatient)
       {
         var specialite = $( "#specialiteOrient option:selected" ).text().trim();
         var medecin =  $("#medecinOrient option:selected").text().trim();
@@ -466,28 +466,71 @@
         $('#lettreorientation').removeClass("hidden");
         var d = new Date(); var dd = d.getDate(); var mm = d.getMonth()+1;          
         var yyyy = d.getFullYear();
-        var lettre = new jsPDF({orientation: "p", lineHeight: 1.5})
-        lettre.setFontSize(15);
-        lettre.lineHeightProportion = 100;
-        lettre.text(105,20, '{{ Session::get('etabTut') }}', null, null, 'center');//lettre.text(105,28, 'ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE "LES GLYCINES"', null, null, 'center');
-        lettre.text(105,28, '{{ Session::get('etabname') }}', null, null, 'center');
-        lettre.setFontSize(12);
-        lettre.text(105,36, '{{ Session::get('etabAdr') }}', null, null, 'center');//12, Chemin des Glycines - ALGER
-        lettre.text(105,44, 'Tél : {{ Session::get('etabTel') }} - {{ Session::get('etabTel2') }}', null, null, 'center');
-        lettre.text(200,58, 'Alger,le : '+dd+'/'+mm+'/'+yyyy, null, null, 'right');
-        lettre.text(20,68, 'Emetteur : {{ Auth::User()->employ->nom }} {{Auth::User()->employ->prenom }}', null, null);
-        lettre.text(20,76, 'Tél : {{Auth::User()->employ->tele_mobile }}', null, null);
-        lettre.text(200,68, 'Destinataire : '+medecin , null, null, 'right');
-        lettre.text(200,76, 'Specialite : '+specialite , null, null,'right');
-        lettre.setFontType("bold");
-        lettre.text(105,90, "Lettre d'orientation", null, null, 'center');
+        var doc = new jsPDF({orientation: "p", lineHeight: 1.5})
+        doc.setFontSize(15);
+        doc.lineHeightProportion = 100;
+        doc.text(105,20, '{{ Session::get('etabTut') }}', null, null, 'center');//lettre.text(105,28, 'ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE "LES GLYCINES"', null, null, 'center');
+        doc.text(105,28, '{{ Session::get('etabname') }}', null, null, 'center');
+        doc.setFontSize(12);
+        doc.text(105,36, '{{ Session::get('etabAdr') }}', null, null, 'center');//12, Chemin des Glycines - ALGER
+        doc.text(105,44, 'Tél : {{ Session::get('etabTel') }} - {{ Session::get('etabTel2') }}', null, null, 'center');
+        doc.text(200,58, 'Alger,le : '+dd+'/'+mm+'/'+yyyy, null, null, 'right');
+        doc.text(20,68, 'Emetteur : {{ Auth::User()->employ->nom }} {{Auth::User()->employ->prenom }}', null, null);
+        doc.text(20,76, 'Tél : {{Auth::User()->employ->tele_mobile }}', null, null);
+        doc.text(200,68, 'Destinataire : '+medecin , null, null, 'right');
+        doc.text(200,76, 'Specialite : '+specialite , null, null,'right');
+        doc.setFontType("bold");
+        doc.text(105,90, "Lettre d'orientation", null, null, 'center');
         var text = "permettez moi de vous adresser le(la) patient(e) sus-nommé(e), "+nompatient+" "+prenompatient+" âgé(e) de "+agepatient+" ans, qui s'est présenté ce jour pour  "+$('#motifOrient').val()+"  . je vous le confie pour prise en charge spécialisé. respectueusement confraternellement.";
-        lines = lettre.splitTextToSize(text, 185);
-        lettre.text(20,110,lines,null,null);
-        lettre.text(200,180,'signature',null,null,'right');
-        var string = lettre.output('datauristring');
+        lines = doc.splitTextToSize(text, 185);
+        doc.text(20,110,lines,null,null);
+        doc.text(200,180,'signature',null,null,'right');
+        var string = doc.output('datauristring');
         $('#lettreorientation').attr('src', string);
       }
+    function lettreoriet(logo,nomP,prenomP,ageP,ipp)
+    {
+      var specialite = $( "#specialiteOrient option:selected" ).text().trim();
+      var medecin =  $("#medecinOrient option:selected").text().trim();
+      html2canvas($("#lettreorientation"), {
+        onrendered: function(canvas) {         
+          moment.locale('fr');//var IPP = ipp.toString();
+          var d = new Date(); var dd = d.getDate(); var mm = d.getMonth()+1;          
+          var yyyy = d.getFullYear();
+          var doc = new jsPDF({orientation: "p", lineHeight: 1.5})
+          // var imgData = canvas.toDataURL('image/png');// doc.addImage(imgData, 'PNG', 10, 10);
+          doc.text(105,9,'{{ Session::get('etabTut') }}', null, null, 'center');
+          doc.setFontSize(13);
+          doc.text(105,16,'{{ Session::get('etabname') }}', null, null, 'center');
+          doc.setFontSize(12);
+          doc.text(105,21,'{{ Session::get('etabAdr') }}', null, null, 'center');
+          doc.text(105,26, 'Tél : {{ Session::get("etabTel") }} - {{ Session::get("etabTel") }}', null, null, 'center');//doc.text(105,26, 'Tél : 023-93-34 - 23-93-58', null, null, 'center');
+          doc.addImage(logo, 'JPEG', 95, 27, 17, 17);
+          doc.setFontSize(14);
+          //doc.addImage(imgData, 'JPEG', 10, 10);
+          JsBarcode("#itfL", ipp.toString(), {
+            lineColor: "#000",
+            width:4,
+            height:40,
+            displayValue: true,
+            fontSize : 28,
+            textAlign: "left"
+          });
+          doc.text(200,58, 'Alger,le : '+dd+'/'+mm+'/'+yyyy, null, null, 'right');
+          doc.text(20,68, 'Emetteur : {{ Auth::User()->employ->nom }} {{Auth::User()->employ->prenom }}', null, null);
+          doc.text(20,76, 'Tél : {{Auth::User()->employ->tele_mobile }}', null, null);
+          doc.text(200,68, 'Destinataire : '+medecin , null, null, 'right');
+          doc.text(200,76, 'Specialite : '+specialite , null, null,'right');
+          doc.setFontType("bold");
+          doc.text(105,90, "Lettre d'orientation", null, null, 'center');
+          var text = "permettez moi de vous adresser le(la) patient(e) sus-nommé(e), "+nomP+" "+prenomP+" âgé(e) de "+ageP+" ans, qui s'est présenté ce jour pour  "+$('#motifOrient').val()+"  . je vous le confie pour prise en charge spécialisé. respectueusement confraternellement.";
+          lines = doc.splitTextToSize(text, 185);
+          doc.text(20,110,lines,null,null);
+          doc.text(200,180,'signature',null,null,'right');
+            doc.save('orientLettre-'+nomP+'-'+prenomP+'.pdf');// var string = doc.output('datauristring');// $('#lettreorientation').attr('src', string);
+          }
+      })
+    }
     function createeximg(nomp,prenomp,age, ipp) {
       var img = new Image();
       img.src = '{{ asset("/img/logo.png") }}';
@@ -522,11 +565,11 @@
             var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
             champ.appendTo(form);
       }
-      function orLetterPrint(nomP,prenomP,ageP) {
+      function orLetterPrint(nomP,prenomP,ageP,ipp) {
         var img = new Image();
         img.src = '{{ asset("/img/logo.png") }}';
         img.onload = function () {
-          lettreoriet(img,nomP,prenomP,ageP);
+          lettreoriet(img,nomP,prenomP,ageP,ipp);
         };
       } 
       

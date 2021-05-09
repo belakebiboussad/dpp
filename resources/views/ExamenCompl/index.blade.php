@@ -38,4 +38,4 @@
 	</div>
 </div><!-- row -->
 </div><!-- ExamCompl -->
-<div class="row"><canvas id="dos" height="1%"><img id='itf' class="hidden-xs" /></canvas></div>
+<div class="row"><canvas id="dos" height="1%"><img id='itf'/></canvas></div>

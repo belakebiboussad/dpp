@@ -38,7 +38,8 @@
 		  <div class="modal-footer">
           <div class="col-sm-12">
 			    <button type="button" class="btn btn-xs btn-primary" data-dismiss="modal" onclick="lettreorientation()"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
-				  <button type="button" class="btn btn-xs btn-success"  data-toggle="modal" data-target="#lettreorien"  onclick="orLetterPrint('{{$patient->Nom}}','{{ $patient->Prenom}}',{{$patient->getAge() }})"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button>
+				  {{-- <button type="button" class="btn btn-xs btn-success"  data-toggle="modal" data-target="#lettreorien"  onclick="orLetterPrint('{{$patient->Nom}}','{{ $patient->Prenom}}','{{$patient->getAge() }}','{{$patient->IPP }}')"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button> --}}
+				  <button type="button" class="btn btn-xs btn-success" onclick="orLetterPrint('{{$patient->Nom}}','{{ $patient->Prenom}}','{{$patient->getAge() }}','{{$patient->IPP }}')"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button>
 				  <button type="button" class="btn btn-xs btn-danger" data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 			  </div>
       </div>
@@ -51,9 +52,10 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title"><b>Lettre Orientation :</b></h4>
 			</div>
-			<div class="modal-body" height="100%">
+			<!-- <div class="modal-body" height="100%">
 				 <iframe id="lettreorientation" class="preview-pane hidden" type="application/pdf" width="100%" height="600" frameborder="0" style="position:relative;z-index:999" hidden></iframe>
-			</div>
+			</div> -->
+			<div class="row"><canvas id="lettreorientation" height="1%"><img id='itfL'/></canvas></div>
 		</div>
 	</div>
 </div>
