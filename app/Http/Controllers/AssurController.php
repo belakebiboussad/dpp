@@ -71,7 +71,9 @@ class AssurController extends Controller
       $assure->Nom = $obj->Nom; $assure->Prenom = $obj->Prenom;
       $assure->Date_Naissance = $date;
       $assure->lieunaissance =  1556;
-      $assure->Sexe = $obj->Genre;$assure->SituationFamille = utf8_encode($obj->SituationFamille);
+      $assure->Sexe = $obj->Genre;
+      // $assure->SituationFamille = utf8_encode($obj->SituationFamille);
+      $assure->SituationFamille = "M";
       $assure->Matricule = $obj->Matricule;$assure->adresse = utf8_encode($obj->Adresse);
       $assure->commune_res = 1556;
       $assure->wilaya_res =  $obj->WilayaResidence;
@@ -169,8 +171,8 @@ class AssurController extends Controller
         //$handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); 
         if($handle != null)
         {
-          $assure = $handle->SelectPersonnel(trim('mop14'),trim(''));//10246 
-          dd($assure->Nom);
+          $assure = $handle->SelectPersonnel(trim('3M534'),trim(''));//10246 
+          dd($assure->SituationFamille);
           $date = Carbon::CreateFromFormat('d/m/Y',$assure->Date_Naissance)->format('Y-m-d'); 
           $grade = grade::where('nom',$assure->Grade)->select('id')->get()->first();
         }else{
@@ -192,12 +194,14 @@ class AssurController extends Controller
                 $positions = array("Révoqué", "Licencié", "Démission", "Contrat résilié");
                 $sexe =  ($assure->Genre =="M") ? "Masculin":"Féminin";
                 $service = utf8_encode($assure->Service);
-                $date = Carbon::CreateFromFormat('d/m/Y',$assure->Date_Naissance)->format('Y-m-d'); 
+                //$date = Carbon::CreateFromFormat('d/m/Y',$assure->Date_Naissance)->format('Y-m-d'); 
+               $date = "1970-2-12";
                 $grade = grade::where('nom',$assure->Grade)->select('id')->get()->first();
                 if($this->assureSearch($assure->NSS) == null) //tester si le patient existe
                   $this->save($assure,$date,$grade->id);//inserer l'assure //
                 else
-                  $this->updateAssure($assure->SituationFamille, $assure->Matricule, utf8_encode($assure->Adresse) , $assure->WilayaResidence, $grade->id, utf8_encode($assure->Service),utf8_encode($assure->Position),  $assure->NSS);
+                  // $assure->SituationFamille
+                 // $this->updateAssure("M", $assure->Matricule, utf8_encode($assure->Adresse) , $assure->WilayaResidence, $grade->id, utf8_encode($assure->Service),utf8_encode($assure->Position),  $assure->NSS);
                 if(Auth::user()->role_id !=4)
                 {
                   if(!in_array(utf8_encode($assure->Position), $positions))
@@ -210,7 +214,8 @@ class AssurController extends Controller
                   }else
                     $action = '<b><span class="badge badge-danger">'.utf8_encode($assure->Position).'</span></b>';
                 }
-                $dateN = Carbon::CreateFromFormat('d/m/Y',$assure->Date_Naissance)->format('Y-m-d');
+                // $dateN = Carbon::CreateFromFormat('d/m/Y',$assure->Date_Naissance)->format('Y-m-d');
+                $dateN = "1970-10-5";
                 $wilaya = (Wilaya::findOrFail($assure->WilayaResidence))->nom;
                 $output.='<tr><td>'.$assure->Nom.'</td><td>'.$assure->Prenom.'</td><td>'. $dateN.'</td><td>'.utf8_encode($assure->SituationFamille).'</td><td>'
                             .$wilaya.'</td><td>'.$assure->NSS.'</td><td>'.$sexe.'</td><td><span class="badge badge-success">'

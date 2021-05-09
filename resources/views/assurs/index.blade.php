@@ -75,7 +75,7 @@
 				<div class="panel-footer" style="height:40px;">
 				 <!-- style ="margin-top:-0.5%;"  -->
 					<button type="submit" class="btn btn-xs btn-primary findAssure"><i class="fa fa-search"></i>&nbsp;Rechercher</button> 	
-{{-- <a  class="btn btn-danger btn-xs" href="{{ route('assur.destroy',12) }}" role="button" aria-pressed="true" data-method="DELETE"><i class="ace-icon fa fa-trash-o bigger-110"></i>Supprimer</a> --}}
+<a  class="btn btn-danger btn-xs" href="{{ route('assur.destroy',12) }}" role="button" aria-pressed="true" data-method="DELETE"><i class="ace-icon fa fa-trash-o bigger-110"></i>Supprimer</a>
 					
 					@if(Auth::user()->role_id == 4)
 					<div class="pull-right">
