@@ -95,7 +95,7 @@
 				</div>
 				<div class="bodycontainer scrollable">
 				<!-- <table class="table table-striped table-bordered table-condensed table-scrollable"> -->
-					<table class="display responsive nowrap table-condensed table-scrollable"  width="100%">
+					<table class="table display table-responsive table-bordered table-scrollable"  width="100%">
 					<thead>
 						<tr class="info"><th colspan="12">Fonctionnaire</th></tr>
 						<tr class="liste">
