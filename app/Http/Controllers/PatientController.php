@@ -75,13 +75,10 @@ class PatientController extends Controller
     $date = Date::Now();
     $rule = array(
               "nom" => 'required',
-              "prenom" => 'required',
-              "datenaissance" => 'required|date|date_format:Y-m-d',
-              "idlieunaissance" => 'required',//"mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],
-              "Type_p" =>'required_if:type,Ayant_droit', //"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
+              "prenom" => 'required',//"datenaissance" => 'required|date|date_format:Y-m-d',"idlieunaissance" => 'required',"mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],
+              "Type_p" =>'required_if:type,Ayant_droit',//"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
               "nomf" => 'required_if:type,Ayant_droit',
-              "prenomf"=> 'required_if:type,Ayant_droit',  // "datenaissancef"=> 'required_if:type,Ayant_droit|date|date_format:Y-m-d',
-              //"nss2"=> 'required_if:type,Ayant_droit,unique,',
+              "prenomf"=> 'required_if:type,Ayant_droit',// "datenaissancef"=> 'required_if:type,Ayant_droit|date|date_format:Y-m-d',//"nss2"=> 'required_if:type,Ayant_droit,unique,',
               "idlieunaissancef"=> 'required_if:type,Ayant_droit', //"NMGSN"=> 'required_if:type,Ayant_droit',
               "prenom_homme_c"=>'required_with:nom_homme_c', 
               "type_piece_id"=>'required_with:nom_homme_c', 
@@ -109,8 +106,8 @@ class PatientController extends Controller
           "lieunaissance"=>$request->idlieunaissancef,
           "Sexe"=>$request->sexef,
           'SituationFamille'=>$request->SituationFamille,
-          "adresse"=>$request->adressef,      // "commune_res"=>$request->idcommunef,   // "wilaya_res"=>$request->idwilayaf,
-          'commune_res'=>isset($request->idcommunef) ?$request->idcommunef:'1556',
+          "adresse"=>$request->adressef,      
+          "commune_res"=>$request->idcommunef,   // "wilaya_res"=>$request->idwilayaf,//'commune_res'=>isset($request->idcommunef) ?$request->idcommunef:'1556',
           'wilaya_res'=>isset($request->idwilayaf) ?$request->idwilayaf:'49',
           "grp_sang"=>$request->gsf.$request->rhf,
           "Matricule"=>$request->mat,
@@ -141,7 +138,7 @@ class PatientController extends Controller
           "NMGSN"=>$request->NMGSN, 
         ]);           
       } 
-   }
+    }
     $patient = patient::firstOrCreate([
         "Nom"=>$request->nom,// "code_barre"=>$codebarre,
         "Prenom"=>$request->prenom,
@@ -151,8 +148,8 @@ class PatientController extends Controller
         "situation_familiale"=>$request->sf,
         "nom_jeune_fille"=>$request->nom_jeune_fille, 
         "Adresse"=>$request->adresse,
-        'commune_res'=>isset($request->idcommune) ? $request->idcommune:'1556',
-        'wilaya_res'=>isset($request->idwilaya) ? $request->idwilaya:'49',
+        'commune_res'=>$request->idcommune,//'commune_res'=>isset($request->idcommune) ?$request->idcommune:'1556',
+        'wilaya_res'=>$request->idwilaya,//'wilaya_res'=>isset($request->idwilaya) ?$request->idwilaya:'49',
         "tele_mobile1"=>$request->operateur1 . $request->mobile1,
         "tele_mobile2"=>$request->operateur2 . $request->mobile2,
         "group_sang"=>$request->gs,
@@ -220,8 +217,8 @@ class PatientController extends Controller
         "situation_familiale"=>$request->sf,
         "nom_jeune_fille"=>$request->nom_jeune_fille, 
         "Adresse"=>$request->adresse,
-        'commune_res'=>isset($request->idcommune) ?$request->idcommune:'1556',
-        'wilaya_res'=>isset($request->idwilaya) ?$request->idwilaya:'49',
+        'commune_res'=>$request->idcommune,//'commune_res'=>isset($request->idcommune) ?$request->idcommune:'1556',
+        'wilaya_res'=>$request->idwilaya,//'wilaya_res'=>isset($request->idwilaya) ?$request->idwilaya:'49',
         "tele_mobile1"=>$request->operateur1 . $request->mobile1,
         "tele_mobile2"=>$request->operateur2 . $request->mobile2,
         "group_sang"=>$request->gs,
@@ -268,7 +265,6 @@ class PatientController extends Controller
           $specialites = Specialite::all();
           $grades = grade::all(); 
           $patient = patient::FindOrFail($id);
-          //dd($patient->assure);
           $employe=Auth::user()->employ;
           $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();//->first();
           return view('patient.show',compact('patient','employe','correspondants','specialites','grades'));

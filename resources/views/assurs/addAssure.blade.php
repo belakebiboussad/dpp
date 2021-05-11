@@ -100,7 +100,7 @@
 	</div><!-- style="margin-top: -0.1%;" -->
 	<div class="col-sm-4">
 		<label class="col-sm-4 text-nowrap" for="communef"><strong>Commune:</strong></label>
-		<input type="hidden" name="idcommunef" id="idcommunef" value="1556">
+		<input type="hidden" name="idcommunef" id="idcommunef">
 	 	<input type="text" value="" id="communef" placeholder="commune résidance" class="autoCommune col-sm-8" value="Autre"/>
 	</div>
 	<div class="col-sm-4">

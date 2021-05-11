@@ -15,21 +15,24 @@
 		<h4 class="blue"><span class="middle">{{ $patient->getCivilite()}} {{ $patient->Nom }} {{ $patient->Prenom }}</span>
 			<span class="label label-purple arrowed-in-right"><i class="ace-icon fa fa-circle smaller-80 align-middle"></i>
 			@switch($patient->Type)
-		                @case(0)
-			                     Assuré
-			                     @break
-		                @case(1)
-			                     Conjoint(e)
-			                     @break
-		                @case(2)
-			                     Ascendant
-			                     @break
-		                @case(3)
-			                     Descendant
-			                          @break  
-		                @case(4)
-			                     Autre 
-			                     @break       
+          @case(0)
+                 Assuré
+                 @break
+          @case(1)
+                 Conjoint(e)
+                 @break
+          @case(2)
+                 Pere
+                 @break
+          @case(3)
+                 Mere
+                      @break  
+          @case(4)
+                 Enfant 
+                 @break
+          @case(5)
+                 Autre 
+                 @break              
 		      @endswitch  
 		     </span>
 			</h4>
@@ -44,19 +47,23 @@
 					<div class="profile-info-name">Genre </div>
 					<div class="profile-info-value">	<span>{{ $patient->Sexe =="M" ? "Masculin" : "Féminin" }}</span></div>
 				</div>
+				@if(isset($patient->Dat_Naissance))
 				<div class="profile-info-row">
 					<div class="profile-info-name">né(e) le </div><div class="profile-info-value"><span>{{ $patient->Dat_Naissance }}</span></div>
 				</div>
-				<div class="profile-info-row">
-					<div class="profile-info-name"> Âge </div>
+				<div class="profile-info-row"><div class="profile-info-name"> Âge </div>
 					<div class="numberCircle">{{ $patient->getAge() }}</div> <span class="blue">Ans</span>
 				</div>
+				@endif
+				@if(isset($patient->Lieu_Naissance))
 				<div class="profile-info-row">
 					<div class="profile-info-name"> Lieu Naissance </div>
 					<div class="profile-info-value">
 						<i class="fa fa-map-marker light-orange bigger-110"></i><span>{{ $patient->lieuNaissance->nom_commune }}</span>
 					</div>
 				</div>
+				@endif
+				@if(isset($patient->situation_familiale))
 				<div class="profile-info-row">
 					<div class="profile-info-name"> Civilité </div>
 					<div class="profile-info-value"><span>
@@ -77,12 +84,14 @@
 						</span>
 					</div>
 				</div>
+				@endif
 				@if(($patient->Sexe =="F") && ($patient->situation_familiale == "M"))
 				<div class="profile-info-row">
 					<div class="profile-info-name"> Nom Fille </div>
 					<div class="profile-info-value"><span>{{ $patient->nom_jeune_fille }}</span></div>
 				</div>
 				@endif
+				@if(isset($patient->commune_res))
 				<div class="profile-info-row">
 					<div class="profile-info-name"> Adresse </div>
 					<div class="profile-info-value">
@@ -90,24 +99,29 @@
 						<span>{{ $patient->Adresse }} ,{{ $patient->commune->nom_commune}} , {{ $patient->wilaya->nom }}</span>
 					</div>
 				</div>
+				@endif
+				@if(isset($patient->tele_mobile1) &&($patient->tele_mobile1 != ''))
 				<div class="profile-info-row">
 					<div class="profile-info-name"><i class="fa fa-phone"></i>Télé mobile 1 </div>
 					<div class="profile-info-value"><span>{{ $patient->tele_mobile1 }}</span></div>
 				</div>
+				@endif
 				@if(isset($patient->tele_mobile2) &&($patient->tele_mobile2 != ''))
 				<div class="profile-info-row">
 					<div class="profile-info-name"><i class="fa fa-phone"></i>Télé mobile 2 </div>
 					<div class="profile-info-value"><span>{{ $patient->tele_mobile2 }}</span></div>
 				</div>
 				@endif
+				@if(isset($patient->group_sang))
 				<div class="profile-info-row">
 					<div class="profile-info-name"> Groupe Sang</div>
 					<div class="profile-info-value"><span>{{ $patient->group_sang }}</span></div>
 				</div>
 				<div class="profile-info-row">
 					<div class="profile-info-name"> Rhésus </div>
-					<div class="profile-info-value"><span>{{ $patient->Rihesus == "+" ? "Positif" : "Négatif" }}</span></div>
+					<div class="profile-info-value"><span>{{ $patient->Rihesus }}</span></div>{{-- {{ $patient->Rihesus == "+" ? "Positif" : "Négatif" }} --}}
 				</div>
+				@endif
 				<div class="profile-info-row">
 					<div class="profile-info-name">Date Création</div>
 					<div class="profile-info-value"><span>{{ $patient->Date_creation }}</span></div>

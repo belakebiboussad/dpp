@@ -168,11 +168,10 @@
       {
         var erreur =true;
         var nom = $('#nom').val(); var prenom = $('#prenom').val();
-        var idlieunaissance = $('#idlieunaissance').val();
-        var datenaissance = $('#datenaissance').val();//var mobile1 = $('#mobile1').val();mobile1,"Téléphone mobile 1",  
+//var idlieunaissance = $('#idlieunaissance').val();//var datenaissance = $('#datenaissance').val();//var mobile1 = $('#mobile1').val();mobile1,"Téléphone mobile 1",  
         var type = $('#type').val();
-        var inputAssVal = new Array(type,idlieunaissance,datenaissance,prenom,nom);
-        var inputMessage = new Array('Type',"Lieu de Naissance","Date de Naissance","Prenom","Nom");
+        var inputAssVal = new Array(type,prenom,nom);
+        var inputMessage = new Array('Type',"Prenom","Nom");
         $('.error').each(function(i, obj) {
           $(obj).next().remove();
           $(obj).detach();
