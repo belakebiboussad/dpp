@@ -172,7 +172,7 @@ class AssurController extends Controller
         if($handle != null)
         {
           $assure = $handle->SelectPersonnel(trim('3M534'),trim(''));//10246 
-          dd($assure->SituationFamille);
+          dd($assure->Date_Naissance);
           $date = Carbon::CreateFromFormat('d/m/Y',$assure->Date_Naissance)->format('Y-m-d'); 
           $grade = grade::where('nom',$assure->Grade)->select('id')->get()->first();
         }else{

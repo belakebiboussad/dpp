@@ -131,10 +131,12 @@
 								<label class="inline">
 								<span><b>Né(e) le :</b></span><span class="lbl blue"> {{ $patient->assure->Date_Naissance }}</span></label>
 								</div>
+								@idf(isset($patient->assure->commune))
 								<div class="col-sm-3">
 								<label class="inline">	<span><b>Né(e) à :</b></span><span class="lbl blue">{{ $patient->assure->commune->nom_commune}} </span>
 									</label>
 								</div>	
+								@endif
 							</div>
 							<div class="row">
 								<div class="col-sm-3">
