@@ -131,9 +131,9 @@
 								<label class="inline">
 								<span><b>Né(e) le :</b></span><span class="lbl blue"> {{ $patient->assure->Date_Naissance }}</span></label>
 								</div>
-								@if(isset($patient->assure->commune))
+								@if(isset($patient->assure->lieunaissance))
 								<div class="col-sm-3">
-								<label class="inline">	<span><b>Né(e) à :</b></span><span class="lbl blue">{{ $patient->assure->commune->nom_commune}} </span>
+								<label class="inline">	<span><b>Né(e) à :</b></span><span class="lbl blue">{{ $patient->assure->lieuNaissance->nom_commune}} </span>
 									</label>
 								</div>	
 								@endif
