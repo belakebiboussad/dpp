@@ -49,7 +49,7 @@ class PatientController extends Controller
    */
   /*public function create() {$grades = grade::all(); return view('patient.add',compact('grades')); }
   */
-    public function create( $NSS = null,$type = null,$prenom =  null)
+    public function create( $NSS = null, $type = null, $prenom =  null)
     {
       if(isset($NSS))
       {
@@ -126,9 +126,9 @@ class PatientController extends Controller
           "lieunaissance"=>$request->idlieunaissancef,
           "Sexe"=>$request->sexef,
           'SituationFamille'=>$request->SituationFamille,
-          "adresse"=>$request->adressef,   // "commune_res"=>$request->idcommunef, // "wilaya_res"=>$request->idwilayaf,
-          'commune_res'=>isset($request->idcommunef) ?$request->idcommunef:'1556',
-          'wilaya_res'=>isset($request->idwilayaf) ?$request->idwilayaf:'49',
+          "adresse"=>$request->adressef,
+          "commune_res"=>$request->idcommunef,
+          "wilaya_res"=>$request->idwilayaf,//'commune_res'=>isset($request->idcommunef) ?$request->idcommunef:'1556','wilaya_res'=>isset($request->idwilayaf) ?$request->idwilayaf:'49',
           "grp_sang"=>$request->gsf.$request->rhf,
           "Matricule"=>$request->mat,
           "Service"=>$request->service,
@@ -190,23 +190,23 @@ class PatientController extends Controller
     $rule = array(
         "nom" => 'required',
         "prenom" => 'required',
-        "datenaissance" => 'required|date|date_format:Y-m-d',
-        "idlieunaissance" => 'required',
-        "mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],//"Type_p" =>'required_if:type,Ayant_droit', //"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
+        //"datenaissance" => 'required|date|date_format:Y-m-d',
+        //"idlieunaissance" => 'required',
+        //"mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],//"Type_p" =>'required_if:type,Ayant_droit', //"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
         "prenom_homme_c"=>'required_with:nom_homme_c', 
         "type_piece_id"=>'required_with:nom_homme_c', 
         "npiece_id"=>'required_with:nom_homme_c', //"lien"=>'required_with:nom_homme_c', //"date_piece_id"=>'required_with:nom_homme_c',    
         "mobile_homme_c"=>['required_with:nom_homme_c'],
         "operateur_h"=>'required_with:mobileA',
-    ); 
-      $messages = [
+    );
+    $messages = [
         "required"     => "Le champ :attribute est obligatoire.", // "NSSValide"    => 'le numéro du securite sociale est invalide ',
         "date"         => "Le champ :attribute n'est pas une date valide.",
-      ];
+    ];
     $validator = Validator::make($request->all(),$rule,$messages);   
     if ($validator->fails()) {
-        $errors=$validator->errors(); 
-        return view('patient.add')->withErrors($errors);
+      $errors=$validator->errors(); 
+      return view('patient.add')->withErrors($errors);
     }
     $patient = patient::firstOrCreate([
         "Nom"=>$request->nom,// "code_barre"=>$codebarre,
@@ -229,7 +229,6 @@ class PatientController extends Controller
         "Date_creation"=>$date,
         "updated_at"=>$date,
     ]); 
-    
     $sexe = ($request->sexe == "H") ? 1:0;
     $ipp =$sexe.Date::Now()->year.$patient->id;
     $patient->update([
@@ -251,7 +250,6 @@ class PatientController extends Controller
                 "created_by"=>Auth::user()->employee_id,
       ]);
     }
-    
     return redirect(Route('patient.show',$patient->id));
   }  
     /**

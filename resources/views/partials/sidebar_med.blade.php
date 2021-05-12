@@ -189,12 +189,9 @@
       {
         var erreur =true;//var NMGSN = $('#NMGSN').val();var idlieunaissancef = $('#idlieunaissancef').val();"Lieu de Naissance",
         var nomf = $('#nomf').val(); var prenomf = $('#prenomf').val();  var datenaissance = $('#datenaissancef').val(); 
-        var nss = $('#nss').val(); var position = $('#Position').val(); 
-        //var inputAssVal = new Array(nss,gsf,idlieunaissancef,datenaissance,prenomf,nomf);
-        var inputAssVal = new Array(nss,position,gsf,prenomf,nomf);
-        //var inputMessage = new Array("Numèro de Secruté Social","Groupe Sanguin","Date de Naissance","Prenom","Nom");
+        var nss = $('#nss').val(); var position = $('#Position').val();//var inputAssVal = new Array(nss,gsf,idlieunaissancef,datenaissance,prenomf,nomf);
+        var inputAssVal = new Array(nss,position,gsf,prenomf,nomf);//var inputMessage = new Array("Numèro de Secruté Social","Groupe Sanguin","Date de Naissance","Prenom","Nom");
         var inputMessage = new Array("Numèro de Secruté Social","position","Groupe Sanguin","Prenom","Nom");
-        
         $('.error').each(function(i, obj) { $(obj).next().remove(); $(obj).detach();  });
         jQuery.each( inputAssVal, function( i, val ) {
           if(val =="" )
@@ -233,8 +230,7 @@
         if($('#' + 'isOriented').is(":checked"))
         {
           inputAssVal.unshift($("#lettreorientaioncontent").val());
-          inputMessage.unshift("Résume de la lettre d'orientation");
-          
+          inputMessage.unshift("Résume de la lettre d'orientation");   
         }
         $('.error').each(function(i, obj) {
           $(obj).next().remove();
@@ -253,21 +249,32 @@
         $('.nav-pills a[href="#' + tab + '"]').tab('show');
       }
       function copyPatient(){ 
-          $("#nomf").val($("#nom").val()); $("#prenomf").val($("#prenom").val());
-           $("#datenaissancef").val($("#datenaissance").val());$("#lieunaissancef").val($("#lieunaissance").val()); 
-           $("#idlieunaissancef").val($("#idlieunaissance").val());var sexe = $('input[name=sexe]:radio:checked').val();$('#sexef').val(sexe);
-           $( "#gsf" ).val($( "#gs" ).val());$( "#rhf" ).val($( "#rh" ).val()); $('#adressef').val($('#adresse').val());
-          $('#communef').val($('#commune').val()); $('#idcommunef').val($('#idcommune').val());$('#idwilayaf').val( $('#idwilaya').val()); 
-          $('#wilayaf').val($('#wilaya').val()); $('#SituationFamille').val($('#sf').val());
-          $('.Asdemograph').find('*').each(function () {
-                $(this).attr("disabled", true); 
-          });
-          addRequiredAttr();//$("#foncform").addClass('hide');//$('#nsspatient').attr('disabled', true);
-       }
+        $("#nomf").val($("#nom").val());
+        $("#prenomf").val($("#prenom").val());
+        $("#datenaissancef").val($("#datenaissance").val());$("#lieunaissancef").val($("#lieunaissance").val()); 
+        $("#idlieunaissancef").val($("#idlieunaissance").val());var sexe = $('input[name=sexe]:radio:checked').val();$('#sexef').val(sexe);
+        $('#adressef').val($('#adresse').val());
+        $('#communef').val($('#commune').val()); $('#idcommunef').val($('#idcommune').val());$('#idwilayaf').val( $('#idwilaya').val()); 
+        $('#wilayaf').val($('#wilaya').val()); $('#SituationFamille').val($('#sf').val());
+        if ( $("#gs option:selected").val() === "" ){
+              $(gsf).attr("disabled", false);
+              $("#rhf" ).attr("disabled", false);
+        }
+        else{
+            $("#gsf").val($("#gs option:selected").val());
+            $("#rhf").val($("#rh option:selected").val());
+            $(gsf).attr("disabled", true);
+            $("#rhf" ).attr("disabled", true);     
+        }
+        $('.Asdemograph').find('*').each(function () {
+          $(this).attr("disabled", true); 
+        });
+         addRequiredAttr();
+      }
       function copyPatientInfo()
       {
-           if($("#type").val() =="0")
-                copyPatient();
+        if($("#type").val() =="0")
+           copyPatient();
       }
       if ($("#addGardeMalade").length > 0) {  ////avoir
         $("#addGardeMalade").validate({
@@ -496,8 +503,7 @@
           moment.locale('fr');//var IPP = ipp.toString();
           var d = new Date(); var dd = d.getDate(); var mm = d.getMonth()+1;          
           var yyyy = d.getFullYear();
-          var doc = new jsPDF({orientation: "p", lineHeight: 1.5})
-          // var imgData = canvas.toDataURL('image/png');// doc.addImage(imgData, 'PNG', 10, 10);
+          var doc = new jsPDF({orientation: "p", lineHeight: 1.5});// var imgData = canvas.toDataURL('image/png');// doc.addImage(imgData, 'PNG', 10, 10);
           doc.text(105,9,'{{ Session::get('etabTut') }}', null, null, 'center');
           doc.setFontSize(13);
           doc.text(105,16,'{{ Session::get('etabname') }}', null, null, 'center');
@@ -505,8 +511,7 @@
           doc.text(105,21,'{{ Session::get('etabAdr') }}', null, null, 'center');
           doc.text(105,26, 'Tél : {{ Session::get("etabTel") }} - {{ Session::get("etabTel") }}', null, null, 'center');//doc.text(105,26, 'Tél : 023-93-34 - 23-93-58', null, null, 'center');
           doc.addImage(logo, 'JPEG', 95, 27, 17, 17);
-          doc.setFontSize(14);
-          //doc.addImage(imgData, 'JPEG', 10, 10);
+          doc.setFontSize(14);//doc.addImage(imgData, 'JPEG', 10, 10);
           JsBarcode("#itfL", ipp.toString(), {
             lineColor: "#000",
             width:4,
@@ -570,8 +575,7 @@
         img.onload = function () {
           lettreoriet(img,nomP,prenomP,ageP,ipp);
         };
-      } 
-      
+      }     
       function IMC1(){
         var poids = $("#poids").val();
         var taille = $("#taille").val();
@@ -964,6 +968,47 @@
         });
         $("#deletepod").click(function(){
              $("tr:has(input:checked)").remove();
+        }); 
+        $("select.groupeSanguin").change(function(){//var gs = $(this).children("option:selected").val();
+
+          if($(this).children("option:selected").val() !=="")
+          {
+            if($(this).attr('name') === "gs")
+            {
+              $("#rh" ).attr("disabled", false);
+              if($("#type").val() =="0")
+                $("#gsf").val($("#gs option:selected").val());  
+            }else
+            {
+              $("#rhf" ).attr("disabled", false);
+              if($("#type").val() =="0")
+                 $("#gs").val($("#gsf option:selected").val());
+            } 
+          }else
+          {
+            if($(this).attr('name') === "gs")
+            {
+              $("#rh" ).attr("disabled", true);
+              $("select#rh").val(''); 
+            }
+            else
+            {
+              $("#rhf" ).attr("disabled", true);
+              $("select#rhf").val(''); 
+            }
+          }
+        });
+        $("select.rhesus").change(function(){ //var rhval = $(this).children("option:selected").val();
+            if($("#type").val() =="0")
+            {
+              if($(this).children("option:selected").val() !=="")
+              {
+                if($(this).attr('name') === "rh")
+                  $("#rhf").val($("#rh option:selected").val());  
+                else
+                  $("#rh").val($("#rhf option:selected").val());  
+              }
+            }        
         }); 
 }) 
 </script>

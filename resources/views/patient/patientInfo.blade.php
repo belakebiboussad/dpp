@@ -85,9 +85,9 @@
 					</div>
 				</div>
 				@endif
-				@if(($patient->Sexe =="F") && ($patient->situation_familiale == "M"))
+				@if(($patient->Sexe =="F") && ($patient->situation_familiale == "M") &&(isset($patient->nom_jeune_fille)))
 				<div class="profile-info-row">
-					<div class="profile-info-name"> Nom Fille </div>
+					<div class="profile-info-name"> Nom Jeune Fille </div>
 					<div class="profile-info-value"><span>{{ $patient->nom_jeune_fille }}</span></div>
 				</div>
 				@endif

@@ -41,7 +41,7 @@
 		</div>
 	</div>
 </div>{{-- row --}}
-<div class="row Asdemograph">
+<div class="row">
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('sexef') ? 'has-error' : '' }}"><!-- no-padding-right -->
 			<label class="col-sm-3 control-label" for="sexef"><strong>Genre :</strong></label>
@@ -57,7 +57,7 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label text-nowrap" for="gsf"><strong>Groupe sanguin :<span style="color: red">*</span></strong></label>
 			<div class="col-sm-3">
-				<select class="form-control" id="gsf" name="gsf" class="col-sm-12 col-xs-12">
+				<select class="form-control groupeSanguin" id="gsf" name="gsf" class="col-sm-12 col-xs-12">
 					<option value="">------</option>
 					<option value="A">A</option>
 					<option value="B">B</option>
@@ -67,7 +67,7 @@
 			</div>
 			<label class="col-sm-3 control-label no-padding-right" for="rh"><strong>Rhésus :<span style="color: red">*</span></strong></label>
 			<div class="col-sm-3">
-				<select id="rhf" name="rhf" class="col-sm-12 col-xs-12">
+				<select id="rhf" name="rhf" class="col-sm-12 col-xs-12 rhesus" disabled>
 					<option value="">------</option>
 					<option value="+">+</option>
 					<option value="-">-</option>

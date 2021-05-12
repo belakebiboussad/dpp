@@ -42,9 +42,24 @@
                 <td><strong>Sexe :<strong>&nbsp;<span> &nbsp;{{ $obj->patient->Sexe }}</span></td>
           </tr >
           <tr class="noBorder">
-             <td class="first"><strong>Adresse :<strong>&nbsp;<span> &nbsp;{{ $obj->patient->Adresse }}</td>
-            <td class="first"><strong>Commne :<strong>&nbsp;<span> &nbsp;{{ $obj->patient->lieuNaissance->nom_commune }}</td>
-            <td><strong>Wilaya :<strong>&nbsp;<span> &nbsp;{{ $obj->patient->lieuNaissance->daira->wilaya->nom }}</span></td>
+            <td class="first">
+              @if(isset($obj->patient->Adresse))
+              <strong>Adresse :<strong>&nbsp;
+              <span> &nbsp;{{ $obj->patient->Adresse }}</span>
+              @endif
+            </td>
+            <td class="first">
+              @if(isset($obj->patient->commune_res))
+                <strong>Commne :<strong>&nbsp;
+                <span> &nbsp;{{ $obj->patient->commune->nom_commune }}
+              @endif
+            </td>
+            <td>
+              @if(isset($obj->patient->wilaya_res))
+              <strong>Wilaya :<strong>&nbsp;
+              <span> &nbsp;{{ $obj->patient->commune->daira->wilaya->nom }}</span>
+              @endif
+            </td>
           </tr>
             <tr class="noBorder">
                 <td class="first"><strong>Date d'Hospitalisation</strong><span> &nbsp;&nbsp;{{ $obj->Date_entree }}</span></td>

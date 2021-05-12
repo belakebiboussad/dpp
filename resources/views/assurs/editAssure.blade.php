@@ -44,7 +44,6 @@
 				<label class="col-sm-3 col-xs-3 control-label" for="lieunaissancef"><span class="text-nowrap"><strong>Né(e) à:</strong></span></label>
 				<div class="col-sm-9">
 					<div class="col-sm-12">
-					{{-- @if(isset($assure) && (isset($assure->lieuNaissance))) --}}
 					@if(isset($assure) && isset($assure->lieunaissance))
 						<input type="hidden" name="idlieunaissancef" id="idlieunaissancef" value="{{  $assure->lieunaissance  }} ">
 						<input type="text" id="lieunaissancef" name="" class="autoCommune col-xs-12 col-sm-12" value="{{ $assure->lieuNaissance->nom_commune }}" autocomplete= "off" />
@@ -80,28 +79,26 @@
      		 <div class="form-group">
 	   		<label class="col-sm-3 col-xs-3 control-label text-nowrap" for="gsf"><strong>Groupe sanguin :</strong></label>
 			<div class="col-sm-2">
+			  <select class="form-control groupeSanguin" id="gsf" name="gsf">
 				@if(isset($assure) && !empty($assure))
-					<select class="form-control" id="gsf" name="gsf">
-						<option value=""  {{ ($assure->grp_sang=="")? "selected" : "" }} >------</option>
-						<option value="A"  {{  (substr($assure->grp_sang,0,strlen($assure->grp_sang)-1) == "A" )? "selected" : ""  }}>A</option>
-						<option value="B"  {{  (substr($assure->grp_sang,0,strlen($assure->grp_sang)-1) == "B" )? "selected" : ""  }}>B</option>
-						<option value="O"  {{  (substr($assure->grp_sang,0,strlen($assure->grp_sang)-1) == "O" )? "selected" : ""  }}>O</option>
-						<option value="AB"  {{  (substr($assure->grp_sang,0,strlen($assure->grp_sang)-1) == "AB" )? "selected" : ""  }}>AB</option>	
-					</select>
+					<option value=""  {{ ($assure->grp_sang=="")? "selected" : "" }} >------</option>
+					<option value="A"  {{  (substr($assure->grp_sang,0,strlen($assure->grp_sang)-1) == "A" )? "selected" : ""  }}>A</option>
+					<option value="B"  {{  (substr($assure->grp_sang,0,strlen($assure->grp_sang)-1) == "B" )? "selected" : ""  }}>B</option>
+					<option value="O"  {{  (substr($assure->grp_sang,0,strlen($assure->grp_sang)-1) == "O" )? "selected" : ""  }}>O</option>
+					<option value="AB"  {{  (substr($assure->grp_sang,0,strlen($assure->grp_sang)-1) == "AB" )? "selected" : ""  }}>AB</option>	
 				@else 
-					<select class="form-control" id="gsf" name="gsf">
-						<option value="">------</option>
-						<option value="A">A</option>
-						<option value="B">B</option>
-						<option value="O">O</option>
-						<option value="AB">AB</option>
-					</select>
+					<option value="">------</option>
+					<option value="A">A</option>
+					<option value="B">B</option>
+					<option value="O">O</option>
+					<option value="AB">AB</option>
 				@endif
+				</select>
 			</div>
-			<label class="col-sm-3 control-label no-padding-right" for="rhf"><strong>Rhésus:</strong></label>
+			<label class="col-sm-3 control-label no-padding-right" for="rhf"><strong>Rhésus :</strong></label>
 			<div class="col-sm-2">
 			@if(isset($assure) && !empty($assure))
-				<select id="rhf" name="rhf">
+				<select id="rhf" name="rhf" class="groupeSanguin" >
 					<option value=""  {{ ($assure->grp_sang=="")? "selected" : "" }} >------</option>
 					<option value="+" {{  (substr($assure->grp_sang,strlen($assure->grp_sang)-1,strlen($assure->grp_sang)) == "+" )? "selected" : ""  }}>+</option>
 					<option value="-" {{  (substr($assure->grp_sang,strlen($assure->grp_sang)-1,strlen($assure->grp_sang)) == "-" )? "selected" : ""  }}>-</option>
@@ -117,6 +114,7 @@
 	   	</div>
     		</div>
   	</div>
+	@if(isset($assure->SituationFamille))
 	<div class="row">
 		<div class="col-sm-6">
 			<div class="form-group">
@@ -132,6 +130,7 @@
 			</div>
 		</div>
 	</div>
+  @endif
 	<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div></div>
 	<div class="row Asdemograph">
 		<div class="col-sm-4">
@@ -139,16 +138,16 @@
 			 	<label class="col-sm-4 col-xs-4" for="adressef"><Strong>Adresse: </Strong></label>
 	  			<div class="col-sm-8">
 	  			@if(isset($assure) && !empty($assure))
-	  				<input type="text" id="adressef" name="adressef"  class="col-xs-12 col-sm-12" value= "{{ $assure->adresse }}" />
-	  			  @else 
-	  			  <input type="text" id="adressef" name="adressef"  placeholder="Adresse..."  class="col-xs-12 col-sm-12" />  
-	  			  @endif
+	  			<input type="text" id="adressef" name="adressef"  class="col-xs-12 col-sm-12" value= "{{ $assure->adresse }}" />
+	  			@else 
+	  			<input type="text" id="adressef" name="adressef"  placeholder="Adresse..."  class="col-xs-12 col-sm-12" />  
+	  			@endif
 	  			</div>
 	  	</div>
 	  </div>
 	  <div class="col-sm-4">
 	  	<label class="col-sm-4 col-xs-4 text-nowrap" for="communef"><strong>Commune:</strong></label>
-	  	@if(isset($assure->commune) && !empty($assure->commune))
+	  	@if(isset($assure->commune_res) && !empty($assure->commune_res))
 	  	<input type="hidden" name="idcommunef" id="idcommunef" value="{{  $assure->commune_res  }}">
 			<input type="text" id="communef" name="" class="autoCommune col-xs-8 col-sm-8" value="{{ $assure->commune->nom_commune }}"/>
 	  	@else	

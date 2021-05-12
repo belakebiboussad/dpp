@@ -69,6 +69,7 @@
 						</div>
 				</div>
 			</div>
+			@if(isset($assure->commune_res))
 			<div class="profile-user-info profile-user-info-striped">
 				<div class="profile-info-row">
 					<div class="profile-info-name"> Adress </div>
@@ -78,6 +79,7 @@
 						</div>
 				</div>
 			</div>
+			@endif
 			<div class="profile-user-info profile-user-info-striped">
 				<div class="profile-info-row">
 					<div class="profile-info-name"> Genre </div>
