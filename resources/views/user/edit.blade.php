@@ -1,8 +1,6 @@
 @extends('app')
 @section('main-content')
-<div class="row">
-	<h3>Modification de : {{ $user->name }}</h3>
-</div>
+<div class="row"><h3>Modification de : {{ $user->name }}</h3></div>
 <div class="row">
 	<div class="col-sm-9 col-xs-12">
 		<div id="edit-info">
@@ -69,7 +67,7 @@
 						<div class="form-group {{ $errors->has('nss') ? "has-error" : "" }}">
 						<label class="col-sm-3 control-label no-padding-right" for="nss"><b>NSS :</b></label>
 						<div class="col-sm-9">
-						<input type="text" class="form-control" id="nss" name="nss" value="{{ $user->employ->NSS }}" placeholder="N° Sécurité Sociale...">
+						<input type="text" class="form-control nssform" id="nss" name="nss" value="{{ $user->employ->NSS }}" placeholder="N° Sécurité Sociale...">
 						</div>							
 						</div>
 					</div>
@@ -220,7 +218,6 @@
 			<button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp;
 			<button class="btn" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 		</div>
-
   </form>
 	</div>	
 </div>

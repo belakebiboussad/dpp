@@ -671,26 +671,27 @@
              $("#acte-" + $(this).val()).remove();
           });
           $('input[type=radio][name=sexe]').change(function(){
-              if($(this).val() == "M")
-              {
-                   $('#Div-nomjeuneFille').attr('hidden','');$('#nom_jeune_fille').val(''); 
-              }else {
-                    var civilite= $("select.civilite option").filter(":selected").val();
-                    if((civilite =="marié")|| (civilite =="veuf"))
-                      $('#Div-nomjeuneFille').removeAttr('hidden');
-              }
+            if($(this).val() == "M")
+            {
+              $('#Div-nomjeuneFille').attr('hidden','');
+              $('#nom_jeune_fille').val(''); 
+            }else {
+              var civilite= $("select.civilite option").filter(":selected").val();
+              if((civilite ==="M")|| (civilite =="V"))
+                $('#Div-nomjeuneFille').removeAttr('hidden');
+            }
           });
           $( ".civilite" ).change(function() {
               var sex =  $('input[name=sexe]:checked').val();
               if(sex == "F")
               {
-                    var civilite= $("select.civilite option").filter(":selected").val();
-                    if((civilite =="marié")|| (civilite =="veuf"))
-                            $('#Div-nomjeuneFille').removeAttr('hidden');
-                    else
-                            $('#Div-nomjeuneFille').attr('hidden','');  
+                var civilite= $("select.civilite option").filter(":selected").val(); 
+                if((civilite ==="M")|| (civilite ==="V"))
+                  $('#Div-nomjeuneFille').removeAttr('hidden');
+                else
+                  $('#Div-nomjeuneFille').attr('hidden','');  
               }else
-                    $('#Div-nomjeuneFille').attr('hidden','');      
+                $('#Div-nomjeuneFille').attr('hidden','');      
           });
           $( "#Position" ).change(function() {
               if($(this).val() != "Activité")

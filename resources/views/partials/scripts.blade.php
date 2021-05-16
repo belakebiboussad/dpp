@@ -561,6 +561,7 @@ $('#typeexm').on('change', function() {
       $('.mobile').mask('0-999-99-99-99');
       $('.mobileform').mask('99999999');
       $('.telfixe').mask('099-99-99-99');
+      $('.nssform').mask('999999999999');
       $(document).one('ajaxloadstart.page', function(e) {
           autosize.destroy('textarea[class*=autosize]')
           $('.limiterBox,.autosizejs').remove();

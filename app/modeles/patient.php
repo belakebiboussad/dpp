@@ -14,8 +14,7 @@ class patient extends Model
 	}
 	public function lieuNaissance()
 	{
-		if(isset($this->Lieu_Naissance))
-			return $this->belongsTo('App\modeles\Commune','Lieu_Naissance');
+		return $this->belongsTo('App\modeles\Commune','Lieu_Naissance');
 	}
 	public function antecedants()
 	{
@@ -23,7 +22,6 @@ class patient extends Model
 	}
 	public function commune()
 	{
-		if(isset($this->commune_res))
 			return $this->belongsTo('App\modeles\Commune','commune_res');
 	}
 	public function wilaya()
@@ -59,17 +57,25 @@ class patient extends Model
  	}
  	public function getCivilite()
  	{
- 		if($this->getAge() >16)
+		if(isset($this->Dat_Naissance))
  		{
-	 		if($this->Sexe == "F")
- 				if($this->situation_familiale== "celibataire")
- 					return "Mlle.";
+ 			if($this->getAge() >16)
+ 			{
+	 			if($this->Sexe == "F")
+ 					if($this->situation_familiale== "celibataire")
+ 						return "Mlle.";
+ 					else
+ 						return "Mme.";
  				else
- 					return "Mme.";
- 			else
- 				return "M.";	
+ 					return "M.";	
+ 			}else
+ 				return 'Enf.';
  		}else
- 			return 'Enf.';
+ 		{
+ 			if($this->Sexe == "F")
+ 				return "Mme";
+ 			else
+ 				return "M.";
+ 		}
  	}
-
 }

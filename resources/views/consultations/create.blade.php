@@ -539,32 +539,32 @@
 	  $("#drugsPrint").click(function(){
 	  	var pid = '{{ $patient->id }}';
 	  	var mid = '{{  Auth::User()->employ->id }}';
-	  		var keys=[], meds=[];
-		$("#ordonnance thead tr th").each(function(){
-			if(($(this).html() == "id") || ($(this).html() == "Posologie"))
+	  	var keys=[], meds=[];
+			$("#ordonnance thead tr th").each(function(){
+				if(($(this).html() == "id") || ($(this).html() == "Posologie"))
 					keys.push($(this).html());  
-		});
-		$("#ordonnance tbody tr").each(function(){
-			var obj={}, i=0;
-			$(this).children("td").each(function(index){
-				   if((index == 0) || (index == 4) )
-				{
-					obj[keys[i]]=$(this).html();
-					i++;
+			});
+			$("#ordonnance tbody tr").each(function(){
+				var obj={}, i=0;
+				$(this).children("td").each(function(index){
+				  if((index == 0) || (index == 4) )
+					{
+						obj[keys[i]]=$(this).html();
+						i++;
 					}
 				})
-			meds.push(obj);	
-		});
-		var formData = {
-			id_patient:pid,
-			id_employe:mid,
-			meds:JSON.stringify(meds),
-		};
-		$.ajaxSetup({
-				headers: {
-					'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-				}
-		});
+				meds.push(obj);	
+			});
+			var formData = {
+				id_patient:pid,
+				id_employe:mid,
+				meds:JSON.stringify(meds),
+			};
+			$.ajaxSetup({
+					headers: {
+						'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+					}
+			});
 		$.ajax({
 			type: "POST",
 			url: "/ordonnaces/print",

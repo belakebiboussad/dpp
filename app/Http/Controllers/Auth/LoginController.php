@@ -7,6 +7,7 @@ use App\modeles\Etablissement;
 use Auth;
 use Redirect;//use config;
 use Config;
+use Session;
 class LoginController extends Controller
 {
     /*
@@ -72,7 +73,8 @@ class LoginController extends Controller
                 ->withErrors($errors);
       }//fabm
       public function logout() {
-        Auth::logout(); // logout user  // Session::flush(); // Redirect::back();
+        Auth::logout(); // logout user  
+        Session::flush(); // Redirect::back();
         return Redirect::to('/login'); //redirect back to login
       }//abm
 /*protected function authenticated(Request $request, $user){$IPs = config('settings.IPs');session(['lieu_id' => $IPs[$_SERVER['REMOTE_ADDR']]]);

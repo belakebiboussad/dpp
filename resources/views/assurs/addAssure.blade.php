@@ -172,12 +172,10 @@
 <div class="row">
 	<div class="col-sm-6">
 		<div class="form-group">
-			<label class="control-label col-xs-12 col-sm-3" for="NMGSN">
-				<strong>NMGSN :</strong>
-			</label>
+			<label class="control-label col-xs-12 col-sm-3" for="NMGSN"><strong>NMGSN :</strong></label>
 			<div class="col-sm-9">
 				<div class="clearfix">
-					<input type="text" id="NMGSN" name="NMGSN" class="col-xs-12 col-sm-12" placeholder="numéro mutuel" placeholder="XXXXXXXXXXXX" maxlength =12 minlength =12/>
+					<input type="text" id="NMGSN" name="NMGSN" class="col-xs-12 col-sm-12 nssform" placeholder="numéro mutuel" placeholder="XXXXXXXXXXXX" maxlength =12 minlength =12/>
 				</div>
 			</div>
 		</div>
@@ -187,7 +185,7 @@
 			<label class="control-label col-xs-12 col-sm-3" for="nss2"><strong>NSS :<span style="color: red">*</span></strong></label>		
 			<div class="col-sm-9">
 			<div class="clearfix">
-				<input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12" placeholder="XXXXXXXXXXXX" maxlength =12 minlength =12 />
+				<input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12 nssform" placeholder="XXXXXXXXXXXX" maxlength =12 minlength =12 />
 			</div>
 			</div>
 		</div>

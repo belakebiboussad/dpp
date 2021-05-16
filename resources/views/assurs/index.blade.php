@@ -1,8 +1,7 @@
 @extends('app')
 @section('title','Rechercher un Fonctionnaire')
 @section('page-script')
-<script>
-	// function selectPatient(nom,prenom)// {// 	alert(nom);// }
+<script>// function selectPatient(nom,prenom)// {// 	alert(nom);// }
 	$(document).ready(function(){
 		$(document).on('click','.findAssure',function(event){
 					event.preventDefault();

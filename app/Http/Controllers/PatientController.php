@@ -49,12 +49,26 @@ class PatientController extends Controller
    */
   /*public function create() {$grades = grade::all(); return view('patient.add',compact('grades')); }
   */
-    public function create( $NSS = null, $type = null, $prenom =  null)
+    public function create( $NSS = null, $type = null, $nomprenom =  null)
     {
       if(isset($NSS))
       {
         $assure = assur::FindOrFail($NSS);
-        return view('patient.addP',compact('assure','NSS','type','prenom')); 
+        if(($type != 2) && ($type != 0) )
+        {
+          $identite = explode(' ',$nomprenom,2);//je supposer un vide entre nom et prenom
+          $nom = $identite[0];
+          $prenom = $identite[1];
+        }else
+        {
+          $nom = $assure->Nom;
+          if($type == 2)
+           $prenom = $nomprenom;
+          else
+           $prenom = $assure->Prenom;         
+        } //return view('patient.addP',compact('assure','NSS','type','prenom')); 
+        return view('patient.addP',compact('assure','NSS','type','nom','prenom')); 
+
       }
       else
       {
@@ -277,8 +291,6 @@ class PatientController extends Controller
     {  
       $patient = patient::FindOrFail($id);
       $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
-     
-      
       if(!(isset($asure_id)))
       {
         $assure=null ;
@@ -286,9 +298,8 @@ class PatientController extends Controller
         if($patient->Type != "5")
           $assure =  $patient->assure;
         return view('patient.edit',compact('patient','assure','correspondants','grades'));
-      }else
+      }else//ce chemin est introuvable
       {
-        dd($patient);
         return view('patient.editP',compact('patient','correspondants'));
       }
  

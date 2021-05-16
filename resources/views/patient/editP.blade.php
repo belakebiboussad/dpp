@@ -84,7 +84,7 @@ $(document).ready(function () {
 					<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
 						<label class="col-sm-3 control-label" for="datenaissance"><strong>Né(e) le :</strong></label>
 						<div class="col-sm-9">
-							<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" value="{{ $patient->Dat_Naissance }}" required/>
+							<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" value="{{ $patient->Dat_Naissance }}"/>
 							{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
 						</div>
 					</div>
@@ -93,9 +93,15 @@ $(document).ready(function () {
 					<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
 						<label class="col-sm-3 control-label" for="lieunaissance"><strong class="text-nowrap">Né(e) à:</strong></label>
 				    <div class="col-sm-9">
-					    <input type="hidden" name="idlieunaissance" id="idlieunaissance" value={{ $patient->Lieu_Naissance }}>
-					    <input type="text" id="lieunaissance" class="autoCommune col-xs-12 col-sm-12" value="{{ $patient->lieuNaissance->nom_commune }}" required/>
+					   	@if(isset($patient->Lieu_Naissance))
+					    	<input type="hidden" name="idlieunaissance" id="idlieunaissance" value={{ $patient->Lieu_Naissance }}>
+					    	<input type="text" id="lieunaissance" class="autoCommune col-xs-12 col-sm-12" value="{{ $patient->lieuNaissance->nom_commune }}" />
 						    {!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
+						  @else
+						  	<input type="hidden" name="idlieunaissance" id="idlieunaissance">
+					    	<input type="text" id="lieunaissance" class="autoCommune col-xs-12 col-sm-12" />
+						    {!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
+						  @endif
 				      </div>
 					</div>
    			</div>
@@ -186,8 +192,13 @@ $(document).ready(function () {
 						</div>
 						<div class="col-sm-4" style="margin-top: -0.1%;">
 							<label class="col-sm-3" for="commune"><strong>Commune :</strong></label>
-							<input type="hidden" name="idcommune" id="idcommune" value="{{ $patient->commune_res }}"/>
-							<input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}" class="autoCommune col-sm-9"/>					
+						  @if($patient->commune_res)	
+								<input type="hidden" name="idcommune" id="idcommune" value="{{ $patient->commune_res }}"/>
+								<input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}" class="autoCommune col-sm-9"/>					
+							@else
+								<input type="hidden" name="idcommune" id="idcommune"/>
+								<input type="text" id="commune" class="autoCommune col-sm-9"/>
+							@endif
 						</div>
 						<div class="col-sm-4">
 							<label class="col-sm-3"><strong>Wilaya :</strong></label>

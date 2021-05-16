@@ -34,10 +34,18 @@
 				<td class="col-md-8" rowspan="4" >
 						<h5 class="float-right" style ="padding-right:1px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Hôpital Glycine, le {{ $t->day }} {{ $t->subMonth(0)->format('F')}} {{ $t->year}}</h5>
             <div style="line-height:4px">
-	            <h5>M. {{$rdv->demandeHospitalisation->consultation->patient->Nom}}</h5>
-	            <h6>{{ $rdv->demandeHospitalisation->consultation->patient->Adresse }}{{ $rdv->demandeHospitalisation->consultation->patient->commune->nom_commune }}
-	            	{{ $rdv->demandeHospitalisation->consultation->patient->wilaya->nom }}
+	            <h5>
+	            	{{-- @if(isset($rdv->demandeHospitalisation->consultation->patient->Dat_Naissance))
+	            		<strong>{{ $rdv->demandeHospitalisation->consultation->patient->getCivilite}}</strong>,
+	            	@endif --}}
+	            	{{	$rdv->demandeHospitalisation->consultation->patient->getCivilite() }}
+	            	{{$rdv->demandeHospitalisation->consultation->patient->Nom}}
+	            </h5>
+	            @if(isset($rdv->demandeHospitalisation->consultation->patient->commune_res))
+	            <h6>{{ $rdv->demandeHospitalisation->consultation->patient->Adresse }}&nbsp;&nbsp;{{ $rdv->demandeHospitalisation->consultation->patient->commune->nom_commune }}
+	            	&nbsp;&nbsp;{{ $rdv->demandeHospitalisation->consultation->patient->wilaya->nom }}
 	            </h6>
+	            @endif
 	          </div> 	
 					</td>
 			</tr>	

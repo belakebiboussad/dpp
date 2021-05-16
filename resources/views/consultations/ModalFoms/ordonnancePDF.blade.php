@@ -37,7 +37,7 @@
 			<div class="row ml-4">
 				<div class="col-sm-12">
 					<div class="section">
-						<div class="sec-gauche"><img src="data:image/png;base64,{{DNS1D::getBarcodePNG($patient->IPP, 'C128')}}" alt="barcode"/><br> {{ $patient->IPP }}</div>   
+						<div class="sec-gauche"><img src="data:image/png;base64,{{DNS1D::getBarcodePNG($patient->IPP, 'C128')}}" alt="barcode"/><br>IPP : {{ $patient->IPP }}</div>   
 					</div>
 				</div>
 			</div>
@@ -46,7 +46,10 @@
 				<div class="col-sm-12"><br>
 					<ol>
 						@for ($i = 0; $i < count($medicaments); $i++)
-						<li>{{ $medicaments[$i]->Nom_com }} {{ $medicaments[$i]->Forme }} {{ $medicaments[$i]->Dosage }} <br>{{ $posologies[$i] }}.</li><br><br>	
+						<li>
+						 <h4>	{{ $medicaments[$i]->Nom_com }} {{ $medicaments[$i]->Forme }} &nbsp;&nbsp; {{ $medicaments[$i]->Dosage }}</h4> <br>
+						 <h5>{{ $posologies[$i] }}</h5>
+						</li><br><br>	
 						@endfor
 					</ol>
 				</div>

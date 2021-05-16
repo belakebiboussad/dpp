@@ -120,7 +120,7 @@ function getUserdetail(id)
 	  	</div>			   
 		</div>
 		<div class="panel-footer" style="height: 50px;">
-			<button type="submit" class="btn-sm btn-primary findUser"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+			<button type="submit" class="btn btn-sm btn-primary findUser" style="vertical-align: middle"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
 			<div class="pull-right">
 				<a class="btn btn-primary btn-sm hidden" href="users/create" role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>	
 			</div>

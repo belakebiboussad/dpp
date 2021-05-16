@@ -14,8 +14,13 @@
         </tr>
         <tr>
              <td class ="noborders"><strong><strong>Âge :</strong></strong></td>
-             <td align="left"><span class="badge badge-{{ $patient->getAge() < 18 ? 'danger':'success' }}">{{ $patient->getAge()  }}</span>Ans</td>
-             <td class ="noborders"><strong>Né(e) a:</strong></td > <td align="left">{{ $patient->lieuNaissance->nom_commune }}</td>
+             <td align="left"><span class="badge badge-{{ $patient->getAge() < 18 ? 'danger':'success' }}">{{ $patient->getAge() }}</span>Ans</td>
+             <td class ="noborders"><strong>Né(e) a:</strong></td>
+             <td align="left">
+                @if(isset($patient->Lieu_Naissance))
+                   {{ $patient->lieuNaissance->nom_commune }}
+                @endif
+             </td>
        </tr>
         <tr>
           <td class ="noborders"><strong>Genre :</strong></td><td align="left">@if ( $patient->Sexe == 'F' ) Féminin   @else  Masculin @endif </td>
@@ -51,49 +56,54 @@
           <td class ="noborders"><strong>Sang :</strong></td><td align="left"><span class="badge badge-danger">{{ $patient->group_sang }}{{ $patient->rhesus }}</span></td>
           <td class ="noborders"><strong>Type:</strong></td>
           <td align="left">
-              @switch($patient->Type)
-                         @case("0")
-                                    <span class="label label-sm label-success">Assure
-                                      @break
-                         @case("1")
-                                      <span class="label label-sm label-primary">Conjoint(e)
-                                      @break  
-                         @case("2")
-                                      <span class="label label-sm label-warning"> Père
-                                      @break
-                         @case("3")
-                                      <span class="label label-sm label-warning">Mère 
-                                      @break
-                         @case("4")
-                                      <span class="label label-sm label-warning">Enfant 
-                                      @break
-                          @case("5")
-                                      <span class="label label-sm label-warning">Autre 
-                                      @break
-                          @endswitch  
-                         </span>
-            </td>
+            @switch($patient->Type)
+               @case("0")
+                          <span class="label label-sm label-success">Assure
+                            @break
+               @case("1")
+                            <span class="label label-sm label-primary">Conjoint(e)
+                            @break  
+               @case("2")
+                            <span class="label label-sm label-warning"> Père
+                            @break
+               @case("3")
+                            <span class="label label-sm label-warning">Mère 
+                            @break
+               @case("4")
+                            <span class="label label-sm label-warning">Enfant 
+                            @break
+                @case("5")
+                            <span class="label label-sm label-warning">Autre 
+                            @break
+            @endswitch  
+            </span>
+          </td>
         </tr>           
       </tbody>
     </table>
   </div> {{-- tabpane --}}
   @if(isset($assure))
   <div class="tab-pane" id="assure">
-     <table class="table table-bordered table-condensed col-sm-12 w-auto">
-     <tbody>
-          <tr>
-               <td class ="noborders"><strong>Nom:</strong></td><td colspan="1">{{ $assure->Nom }}</td>
-              <td class ="noborders"><strong>Prenom :</strong></td><td >{{ $assure->Prenom }}</td>
-          </tr>
-          <tr>
-                <td class ="noborders text-nowrap"><strong>Né(e) le :</strong></td> <td> {{ $assure->Date_Naissance }}</td>
-               <td class ="noborders"><strong>Né(e) a:</strong></td> <td>{{ $assure->lieuNaissance->nom_commune }}</td>
-          </tr>  
-          <tr>
-                 <td class ="noborders nowrap"><strong>Genre :</strong></td><td>@if ( $assure->Sexe == 'F' ) Féminin @else  Masculin @endif </td>
-                 <td class ="noborders"><strong>Matricule:</strong></td><td>{{ $assure->Matricule }}</td> 
-          </tr>
-          <tr>
+    <table class="table table-bordered table-condensed col-sm-12 w-auto">
+      <tbody>
+        <tr>
+          <td class ="noborders"><strong>Nom:</strong></td><td colspan="1">{{ $assure->Nom }}</td>
+          <td class ="noborders"><strong>Prenom :</strong></td><td >{{ $assure->Prenom }}</td>
+        </tr>
+        <tr>
+          <td class ="noborders text-nowrap"><strong>Né(e) le :</strong></td> <td> {{ $assure->Date_Naissance }}</td>
+          <td class ="noborders"><strong>Né(e) a:</strong></td>
+          <td>
+          @if($assure->lieunaissance)
+            {{ $assure->lieuNaissance->nom_commune }}
+          @endif
+          </td>
+        </tr>  
+        <tr>
+          <td class ="noborders nowrap"><strong>Genre :</strong></td><td>@if ( $assure->Sexe == 'F' ) Féminin @else  Masculin @endif </td>
+          <td class ="noborders"><strong>Matricule:</strong></td><td>{{ $assure->Matricule }}</td> 
+        </tr>
+        <tr>
                  <td class ="noborders"><strong>NSS :</strong></td><td>{{ $assure->NSS }}</td>
                 <td class ="noborders"><strong>NMGSN:</strong></td><td>{{ $assure->NMGSN }}</td>
           </tr>

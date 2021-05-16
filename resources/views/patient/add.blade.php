@@ -33,8 +33,7 @@
 						{
 						  activaTab("Assure");
 					  	event.preventDefault();
-						}
-						else
+						}else
 						{
 							if($('#hommeConf').is(':checked')){
 							if( ! checkHomme() )
