@@ -36,7 +36,6 @@ class OrdonnanceController extends Controller
         $patient = patient::where("id",$consultation->Patient_ID_Patient)->get()->first();
         return view("ordennance.create_ordennance",compact('consultation','patient'));
     }
-
     /**
      * Store a newly created resource in storage.
      *

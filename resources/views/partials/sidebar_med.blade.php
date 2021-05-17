@@ -432,12 +432,12 @@
                 width:4,
                 height:40,
                 displayValue: true,
+                text:"IPP :"+ipp.toString(),
                 fontSize : 28,
                 textAlign: "left"
               });
               const img = document.querySelector('img#itf');
               doc.text(105, 9,'{{ Session::get('etabTut') }}', null, null, 'center');
-              
               doc.setFontSize(13);
               doc.text(105,16, '{{ Session::get('etabname') }}', null, null, 'center');
               doc.setFontSize(12);
@@ -503,36 +503,40 @@
           moment.locale('fr');//var IPP = ipp.toString();
           var d = new Date(); var dd = d.getDate(); var mm = d.getMonth()+1;          
           var yyyy = d.getFullYear();
-          var doc = new jsPDF({orientation: "p", lineHeight: 1.5});// var imgData = canvas.toDataURL('image/png');// doc.addImage(imgData, 'PNG', 10, 10);
-          doc.text(105,9,'{{ Session::get('etabTut') }}', null, null, 'center');
+          var doc = new jsPDF({orientation: "p", lineHeight: 2});// var imgData = canvas.toDataURL('image/png');// doc.addImage(imgData, 'PNG', 10, 10);
+          doc.text(105,10,'{{ Session::get('etabTut') }}', null, null, 'center');
           doc.setFontSize(13);
-          doc.text(105,16,'{{ Session::get('etabname') }}', null, null, 'center');
+          doc.text(105,18,'{{ Session::get('etabname') }}', null, null, 'center');
           doc.setFontSize(12);
-          doc.text(105,21,'{{ Session::get('etabAdr') }}', null, null, 'center');
-          doc.text(105,26, 'Tél : {{ Session::get("etabTel") }} - {{ Session::get("etabTel") }}', null, null, 'center');//doc.text(105,26, 'Tél : 023-93-34 - 23-93-58', null, null, 'center');
-          doc.addImage(logo, 'JPEG', 95, 27, 17, 17);
+          doc.text(105,24,'{{ Session::get('etabAdr') }}', null, null, 'center');
+          doc.text(105,30, 'Tél : {{ Session::get("etabTel") }} - {{ Session::get("etabTel") }}', null, null, 'center');//doc.text(105,26, 'Tél : 023-93-34 - 23-93-58', null, null, 'center');
+          doc.addImage(logo, 'JPEG', 95, 33, 20, 20);
           doc.setFontSize(14);//doc.addImage(imgData, 'JPEG', 10, 10);
           JsBarcode("#itfL", ipp.toString(), {
             lineColor: "#000",
             width:4,
-            height:40,
+            height:45,
             displayValue: true,
+            text:"IPP :"+ipp.toString(),
             fontSize : 28,
             textAlign: "left"
           });
+          const img = document.querySelector('img#itfL');
           doc.text(200,58, 'Alger,le : '+dd+'/'+mm+'/'+yyyy, null, null, 'right');
           doc.text(20,68, 'Emetteur : {{ Auth::User()->employ->nom }} {{Auth::User()->employ->prenom }}', null, null);
           doc.text(20,76, 'Tél : {{Auth::User()->employ->tele_mobile }}', null, null);
-          doc.text(200,68, 'Destinataire : '+medecin , null, null, 'right');
-          doc.text(200,76, 'Specialite : '+specialite , null, null,'right');
-          doc.setFontType("bold");
+          doc.text(200,68, 'Specialite : '+specialite , null, null,'right');
+          doc.text(200,76, 'Destinataire : '+medecin , null, null, 'right');
+          doc.setFontType("bold");doc.setFontSize(16);
           doc.text(105,90, "Lettre d'orientation", null, null, 'center');
+          doc.addImage(img.src, 'JPEG', 20, 96, 50, 15);
+          doc.setFontType("normal");doc.setFontSize(12);//doc.lineHeightProportion = 2; 
           var text = "permettez moi de vous adresser le(la) patient(e) sus-nommé(e), "+nomP+" "+prenomP+" âgé(e) de "+ageP+" ans, qui s'est présenté ce jour pour  "+$('#motifOrient').val()+"  . je vous le confie pour prise en charge spécialisé. respectueusement confraternellement.";
           lines = doc.splitTextToSize(text, 185);
-          doc.text(20,110,lines,null,null);
-          doc.text(200,180,'signature',null,null,'right');
-            doc.save('orientLettre-'+nomP+'-'+prenomP+'.pdf');// var string = doc.output('datauristring');// $('#lettreorientation').attr('src', string);
-          }
+          doc.text(20,130,lines,null,null);
+          doc.text(160,260,'signature',null,null,'right');
+          doc.save('orientLettre-'+nomP+'-'+prenomP+'.pdf');// var string = doc.output('datauristring');// $('#lettreorientation').attr('src', string);
+        }
       })
     }
     function createeximg(nomp,prenomp,age, ipp) {

@@ -232,8 +232,7 @@ class RDVController extends Controller
                 'format' =>'data-url'
         ]);
         $img = $renderer->render($data);
-        //$viewhtml = View::make('rdv.rdvTicketPDF-bigFish', array('rdv' =>$rdv,'img'=>$img,'etablissement'=>$etablissement))->render();
-        $viewhtml = View::make('rdv.rdvTicketPDF-DNS2D', array('rdv' =>$rdv,'img'=>$img,'etablissement'=>$etablissement))->render();
+        $viewhtml = View::make('rdv.rdvTicketPDF-bigFish', array('rdv' =>$rdv,'img'=>$img,'etablissement'=>$etablissement))->render();// $viewhtml = View::make('rdv.rdvTicketPDF-DNS2D', array('rdv' =>$rdv,'img'=>$img,'etablissement'=>$etablissement))->render();
         $dompdf = new Dompdf();
         $dompdf->loadHtml($viewhtml);
         $dompdf->setPaper('a6', 'landscape');
@@ -280,11 +279,7 @@ class RDVController extends Controller
         }
         return response()->json($events); // return response()->json(['events' , $events]);
       }
-      public function orderPdf($id)
-        {
-          $order = rdv::findOrFail($id);
-          $pdf = PDF::loadView('rdv.rdv_pdf', compact('order'))->setPaper('a5', 'landscape');
-          $name = "RDV-pour:".patient::where("id",$order->Patient_ID_Patient)->get()->first()->Nom."".patient::where("id",$order->Patient_ID_Patient)->get()->first()->Prenom.".pdf";
-          return $pdf->download($name);
-        }
+      // public function orderPdf($id)// { //   $rdv = rdv::findOrFail($id);   //   $pdf = PDF::loadView('rdv.rdv_pdf', compact('rdv'))->setPaper('a5', 'landscape');
+      //   $name = "RDV-pour:".patient::where("id",$rdv->Patient_ID_Patient)->get()->first()->Nom."".patient::where("id",$rdv->Patient_ID_Patient)->get()->first()->Prenom.".pdf";
+      //   return $pdf->download($name); // }
 }

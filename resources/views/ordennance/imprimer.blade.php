@@ -15,6 +15,7 @@
     		border: 1px solid black;
     		padding: 5px;
 		}
+		ol.c {list-style-type: decimal;}
 		.foo{
       position: absolute;
       top: 90%;
@@ -54,8 +55,8 @@
 		<div class="col-sm-12">
 			<div class="section">
 				<div class="sec-gauche">
-					<img src="data:image/png;base64,{{DNS1D::getBarcodePNG($ordonnance->consultation->patient->IPP, 'C128')}}" alt="barcode" />
-          <br>{{ $ordonnance->consultation->patient->IPP }}
+					<img src="data:image/png;base64,{{DNS1D::getBarcodePNG($ordonnance->consultation->patient->IPP, 'C128')}}" alt="barcode" /><br>
+					<strong>IPP :</strong>{{ $ordonnance->consultation->patient->IPP }}
         </div>
 			</div>
 		</div>
@@ -63,9 +64,12 @@
 	<br><br>
 	<div class="row">
 		<div class="col-sm-12"><br>
-			<ol>
+			<ol class="c">
 				@foreach($ordonnance->medicamentes as $index => $med)
-				<li>{{ $med->Nom_com }} {{ $med->Dosage }} {{ $med->Forme }}<br>{{ $med->pivot->posologie }}.</li><br><br>
+				<li>
+					{{ $med->Nom_com }} &nbsp;&nbsp; {{ $med->Dosage }}	{{-- $med->Forme --}}
+					<h4>{{ $med->pivot->posologie }}</h4>
+				</li><br>
 				@endforeach
 			</ol>
 		</div>

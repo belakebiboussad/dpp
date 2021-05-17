@@ -1,13 +1,14 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Ordonnance</title>
+		<title>Ordonnance-{{ $patient->Nom }}-{{ $patient->Prenom }}</title>
 		<link rel="stylesheet" href="{{ asset('/css/styles.css') }}"/>
 		<style>
   		@media print {
 		      .print {display:block}
 		      .btn-print {display:none;}
-	 	 }
+	 	  }
+	 	  ol.c {list-style-type: decimal;}
    	</style>
 	</head>
 	<body>
@@ -37,17 +38,17 @@
 			<div class="row ml-4">
 				<div class="col-sm-12">
 					<div class="section">
-						<div class="sec-gauche"><img src="data:image/png;base64,{{DNS1D::getBarcodePNG($patient->IPP, 'C128')}}" alt="barcode"/><br>IPP : {{ $patient->IPP }}</div>   
+						<div class="sec-gauche"><img src="data:image/png;base64,{{DNS1D::getBarcodePNG($patient->IPP, 'C128')}}" alt="barcode"/><h6>IPP :{{ $patient->IPP }}</h6></div>   
 					</div>
 				</div>
 			</div>
 			<br><br>
 			<div class="row">
 				<div class="col-sm-12"><br>
-					<ol>
+					<ol class="c">
 						@for ($i = 0; $i < count($medicaments); $i++)
 						<li>
-						 <h4>	{{ $medicaments[$i]->Nom_com }} {{ $medicaments[$i]->Forme }} &nbsp;&nbsp; {{ $medicaments[$i]->Dosage }}</h4> <br>
+						 <h4>	{{ $medicaments[$i]->Nom_com }} {{ $medicaments[$i]->Forme }} &nbsp;&nbsp; {{ $medicaments[$i]->Dosage }}</h4> {{-- $med->Forme --}}
 						 <h5>{{ $posologies[$i] }}</h5>
 						</li><br><br>	
 						@endfor

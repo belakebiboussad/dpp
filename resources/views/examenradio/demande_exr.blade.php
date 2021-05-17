@@ -48,8 +48,8 @@
     <div class="col-sm-12">
       <div class="section">
         <div class="sec-gauche">
-            <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($demande->consultation->patient->IPP, 'C128')}}" alt="barcode" />
-            <br>{{ $demande->consultation->patient->IPP }}
+            <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($demande->consultation->patient->IPP, 'C128')}}" alt="barcode" /><br>
+            <strong>IPP :</strong>{{ $demande->consultation->patient->IPP }}
          </div>
       </div>
     </div>

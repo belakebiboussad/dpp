@@ -124,19 +124,19 @@ class DemandeExbController extends Controller
      }
     public function print($id)
     {
-          $demande = demandeexb::with('visite.hospitalisation.patient')->FindOrFail($id);
-          $etablissement = Etablissement::first();
-          if(isset($demande->id_consultation))
-          {
-                $patient = $demande->consultation->patient ;
-                $date = $demande->consultation->Date_Consultation ;
-          }  else
-          {
-               $patient = $demande->visite->hospitalisation->patient ;
-                $date = $demande->visite->date;
-          }
-          $filename = "Examens-Bio-".$patient->Nom."-".$patient->Prenom.".pdf";
-          $pdf = PDF::loadView('examenbio.demande_exb', compact('demande','patient','date','etablissement'));
-           return $pdf->stream($filename);
+      $demande = demandeexb::with('visite.hospitalisation.patient')->FindOrFail($id);
+      $etablissement = Etablissement::first();
+      if(isset($demande->id_consultation))
+      {
+            $patient = $demande->consultation->patient ;
+            $date = $demande->consultation->Date_Consultation ;
+      }  else
+      {
+           $patient = $demande->visite->hospitalisation->patient ;
+            $date = $demande->visite->date;
+      }
+      $filename = "Examens-Bio-".$patient->Nom."-".$patient->Prenom.".pdf";
+      $pdf = PDF::loadView('examenbio.demande_exb', compact('demande','patient','date','etablissement'));
+      return $pdf->stream($filename);
     }
 }

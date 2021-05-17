@@ -493,23 +493,23 @@ class PatientController extends Controller
   {
     if($request->ajax())  
     {
-      $patients = patient::where($request->field,'LIKE','%'.trim($request->value)."%")->where('active','=',1)->get();
+      $patients = patient::where($request->field,'LIKE', trim($request->value)."%")->where('active','=',1)->get();// $patients = patient::where($request->field,'LIKE','%'.trim($request->value)."%")->where('active','=',1)->get();
       return Response::json($patients);
     }
   }
   public function getPatientDetails($id)
   { 
-          $patient = patient::FindOrFail($id);
-          if($patient->Type !="Autre")
-          {
-            $assure=  assur::FindOrFail($patient->Assurs_ID_Assure); 
-            $view = view("patient.ajax_patient_detail",compact('patient','assure'))->render();
-          }
-          else
-          {
-            $view = view("patient.ajax_patient_detail",compact('patient'))->render();
-          }
-          return response()->json(['html'=>$view]);
+    $patient = patient::FindOrFail($id);
+    if($patient->Type !="Autre")
+    {
+      $assure=  assur::FindOrFail($patient->Assurs_ID_Assure); 
+      $view = view("patient.ajax_patient_detail",compact('patient','assure'))->render();
+    }
+    else
+    {
+      $view = view("patient.ajax_patient_detail",compact('patient'))->render();
+    }
+    return response()->json(['html'=>$view]);
   }
 
   public function AutoCompletePatientField(Request $request)

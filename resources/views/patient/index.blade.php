@@ -64,34 +64,42 @@
 		{
 			var select = $('#'+field);
 			$("select option").filter(function() {
-			     return $(this).val() == value; 
+			  return $(this).val() == value; 
 			}).prop('selected', true);
 		}	
 	}
 	var field ="Dat_Naissance";
 	$(document).ready(function(){
 		$(document).on('click','.findptient',function(event){
+			var field ="Dat_Naissance";
 			event.preventDefault();
 			$('#btnCreate').removeClass('hidden');$('#FusionButton').removeClass('hidden');
 			$('#patientDetail').html('');$(".numberResult").html('');
+			$('.autofield').each(function() {
+	  	  if (this.value.trim()) { //value = this.value.trim();
+	    	  field = $(this).prop("id");
+	      	return false;
+	    	}
+	  	});
 			$.ajax({
 		        type : 'get',
 		        url : '{{URL::to('searchPatient')}}',
 		        data:{'field':field,'value':($('#'+field).val())},
 		        success:function(data,status, xhr){
-			     		$('#'+field).val('');	 field= "Dat_Naissance"; 
+			     		$('#'+field).val('');
+			     		field= "Dat_Naissance"; 
      			 		$(".numberResult").html(Object.keys(data).length);
      			 	 	var table =   $("#liste_patients").DataTable ({
-	     						"processing": true,
+	     					"processing": true,
 		  				 	"paging":   true,
-		  				  	"destroy": true,
+		  				  "destroy": true,
 		  					"ordering": true,
-		    					"searching":false,
-		    					"info" : false,
-		    					"language":{"url": '/localisation/fr_FR.json'},
-		   	 		    	"data" : data,
-		   	 		    	"scrollX": true,
-			        		"columns": [	
+		    				"searching":false,
+		    				"info" : false,
+		    				"language":{"url": '/localisation/fr_FR.json'},
+		   	 		    "data" : data,
+		   	 		    "scrollX": true,
+			        	"columns": [	
 											{ data:null,title:'#', "orderable": false,searchable: false,
 								    			render: function ( data, type, row ) {
 			                   		if ( type === 'display' ) {

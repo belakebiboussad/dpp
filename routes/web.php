@@ -103,7 +103,9 @@ Route::post('/createRDV','RDVController@AddRDV');
 Route::get('/rdv/valider/{id}','RDVController@valider');
 Route::get('/rdv/reporter/{id}','RDVController@reporter');
 Route::post('/rdv/reporte/{id}','RDVController@storereporte');
-Route::get('rdvprint/{id}','rdvController@print');
+//Route::get('rdvprint/{id}','rdvController@print');
+Route::get('rdvprint/{id}', ['as' => 'rdv.print', 'uses' => 'rdvController@print']);
+// Route::get('/pdf/{order}', ['as' => 'rdv.pdf', 'uses' => 'rdvController@print']);
 Route::get('rdvHospi/create/{id}','RdvHospiController@create')->name('rdvHospi.create');
 Route::get('/rdvHospi/imprimer/{rdv}', ['as' => 'admission.pdf', 'uses' => 'RdvHospiController@print']);
 Route::get('rdvHospi/ticketPrint/{id}','RdvHospiController@ticketPrint');
@@ -177,7 +179,6 @@ route::get('/homeradiologue',function(){
     return view('home.home_radiologue', compact('demandesexr'));
 })->name('homeradiologue');
 Route::get('rendezVous/create/{id?}','RDVController@create');
-Route::get('/pdf/{order}', ['as' => 'rdv.pdf', 'uses' => 'rdvController@orderPdf']);
 Route::get('assur/patientAssuree/{NSS}/{Type}/{Prenom}','PatientController@create');
 Route::post('/addpatientAssure','PatientController@storePatient');
 Route::get('assur/patientAedit/{id}/{idA}','PatientController@edit');

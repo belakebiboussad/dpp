@@ -48,7 +48,7 @@
 							<a href="{{route('rdv.destroy',$rdv->id)}}" class="btn btn-xs btn-danger" data-method="DELETE" data-confirm="Etes Vous Sur d\'annuler le RDV ?" title="Annuler RDV"><i class="ace-icon fa fa-trash-o orange"></i>&nbsp;</a>
 							@endif
 							@if (\Carbon\Carbon::now()->lte($rdv->Date_RDV->format('Y-m-d H:i:s')))
-  							<a href="{{route('rdv.pdf',$rdv->id)}}" class="btn btn-xs btn-white" title="Imprimer recu"><i class="ace-icon fa fa-print"></i></a>
+  							<a href="{{route('rdv.print',$rdv->id)}}" class="btn btn-xs btn-white" title="Imprimer recu"><i class="ace-icon fa fa-print"></i></a>
 							@endif
 						     	</div>
 				            </td>
