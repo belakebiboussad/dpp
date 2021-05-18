@@ -32,27 +32,43 @@
       stop: function( event, ui ) {
         ui.item.children( ".accordion-header" ).triggerHandler( "focusout" );
       }
-  });
-	var table = $('#consultList').DataTable({
-     		"searching":false,
-      	"processing": true,
-        	"scrollY":"450px",
-       	"scrollCollapse": true,
-        	"paging":false,
-        	"language": {
+  });// var table = $('#consultList').DataTable({//"searching":false,//"processing": true,//"scrollY":"500px",//"scrollCollapse": true,//"paging":false//});
+		var table = $('#consultList').DataTable({
+			"searching":false,
+			"pageLength" : 10,
+			"language": {
           		"url": '/localisation/fr_FR.json'
-        	},      
-    });
-
+      }, 
+		});
     $('#consultList tbody').on( 'click', 'tr', function () {
-        	if ( $(this).hasClass('selected') ) {
-          		$(this).removeClass('selected');
-        	}else {
-           	table.$('tr.selected').removeClass('selected');
-            	$(this).addClass('selected');
-        	}
+      	if ( $(this).hasClass('selected') ) {
+        		$(this).removeClass('selected');
+      	}else {
+         	table.$('tr.selected').removeClass('selected');
+          	$(this).addClass('selected');
+      	}
     });
+    var rows = document.getElementById("consultList").children[1].children;
+    var selectedRow = 0;
+    document.body.onkeydown = function(e){//Prevent page scrolling on keypress
+      e.preventDefault();//Clear out old row's color
+    	rows[selectedRow].style.backgroundColor = "#FFFFFF"; //Calculate new row
+	    if(e.keyCode == 38){
+	        selectedRow--;
+	     } else if(e.keyCode == 40){
+	        selectedRow++;
+	    }
+	    if(selectedRow >= rows.length){
+	          selectedRow = 0;
+	     } else if(selectedRow < 0){
+	          selectedRow = rows.length-1;
+	      }//Set new row's color
+	      rows[selectedRow].style.backgroundColor = "#8888FF";
+	 			showConsult(rows[selectedRow].getAttribute("id"));
+	     };//Set the first row to selected color
+	 		rows[0].style.backgroundColor = "#8888FF";
 });
+
 </script>
 @endsection
 @section('main-content')

@@ -1,6 +1,5 @@
 @extends('app_radiologue')
 @section('page-script')
-<script src="{{asset('/js/jquery.min.js')}}"></script>
 <script>
   $('document').ready(function(){//$("button").click(function (event) {which = '';str ='send';which = $(this).attr("id");var which = $.trim(which);var str = $.trim(str);if(which==str){ return true;}});
     $('.result').change(function() {
@@ -94,19 +93,28 @@
 <div class="row">
   <div class="col-sm-12 col-xs-12 widget-container-col">
     <div class="widget-box">
-      <div class="widget-header"><h5 class="widget-title"><b>Traiter la demande d'examens radiologique :</b></h5></div>
+      <div class="widget-header"><h5 class="widget-title"><b>Demande d'examens radiologique</b></h5></div>
       <div class="widget-body">
         <div class="widget-main">
           <div class="row">
             <div class="col-xs-12">
               <input type="hidden" id ="id_demandeexr" value="{{ $demande->id }}">
-              <label><b>Date :</b></label>&nbsp;&nbsp;<span>
+              <label><b>Date :</b></label>&nbsp;&nbsp;
+              <span>
                 @if(isset($demande->consultation))
                   {{ $demande->consultation->Date_Consultation }}
                 @else
                   {{ $demande->visite->date }}
                 @endif 
               </span><br><br>
+              <label><b>Medecin demandeur :</b></label> &nbsp;&nbsp;
+              <span>
+                @if(isset($demande->consultation))
+                {{ $demande->consultation->docteur->nom }} &nbsp;{{ $demande->consultation->docteur->prenom }}
+                @else
+                 {{ $demande->visite->medecin->nom }} &nbsp;{{ $demande->visite->medecin->prenom }}
+                @endif
+                .</span><br><br>
               <label><b>Informations cliniques pertinentes :</b></label> &nbsp;&nbsp;<span>{{ $demande->InfosCliniques }}.</span>
               <br><br>
               <label><b>Explication de la demande de diagnostic :</b></label>&nbsp;&nbsp;<span>{{ $demande->Explecations }}.</span>

@@ -32,7 +32,7 @@ class DemandeExamenRadio extends Controller
         $patient = $demande->consultation->patient;
       else
         $patient = $demande->visite->hospitalisation->patient;
-      return view('examenradio.details_exr', compact('demande','patient'));
+      return view('examenradio.details', compact('demande','patient'));
     }
     public function upload(Request $request)
     {
