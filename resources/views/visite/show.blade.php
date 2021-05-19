@@ -199,7 +199,7 @@
 					 		<td>
 					 			<?php $exams = explode (',',$examen->pivot->examsRelatif) ?>
 	              @foreach($exams as $id)
-	                <span class="badge badge-success">{{ App\modeles\exmnsrelatifdemande::FindOrFail($id)->nom}}</span>
+	                <span class="badge badge-success">{{ App\modeles\TypeExam::FindOrFail($id)->nom}}</span>
 	              @endforeach
 					 		</td>
 							<td>

@@ -8,7 +8,7 @@
  <div class="pull-right">
    <a href="{{route('consultations.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-list bigger-120 blue"></i>Consultations</a>
 </div>
-<div class="row"><h4>Détails du la Consultation :</h4></div> 
+<div class="row"><h4>Détails du la Consultation du "{{ $consultation->Date_Consultation}}" :</h4></div> 
   <div class="tabbable"  class="user-profile">
     <ul class="nav nav-tabs padding-18">
         <li class="active"><a data-toggle="tab" href="#Intero">Interogatoire</a></li>

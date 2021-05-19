@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\modeles\consultation;
 use App\modeles\infosupppertinentes;
-use App\modeles\exmnsrelatifdemande;
+use App\modeles\TypeExam;
 use App\modeles\examenradiologique;
 use App\modeles\demandeexr;
 use App\modeles\Etablissement;
@@ -101,7 +101,7 @@ class DemandeExamenRadio extends Controller
     public function createexr($id)
     {
       $infossupp = infosupppertinentes::all();
-      $examens = exmnsrelatifdemande::all();
+      $examens = TypeExam::all();
       $examensradio = examenradiologique::all();
       $consultation = consultation::FindOrFail($id);
       return view('examenradio.demande_exr', compact('consultation','infossupp','examens','examensradio'));
@@ -163,7 +163,10 @@ class DemandeExamenRadio extends Controller
      */
     public function edit($id) {
       $demande = demandeexr::FindOrFail($id);
-      return view('examenradio.edit', compact('demande')); 
+      $infossupp = infosupppertinentes::all();
+      $examens = TypeExam::all();//CT,RMN
+      $examensradio = examenradiologique::all();//pied,poignet
+      return view('examenradio.edit', compact('demande','infossupp','examensradio','examens')); 
     }
     /**
      * Update the specified resource in storage.

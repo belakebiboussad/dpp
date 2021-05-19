@@ -5,32 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/styles.css">
   <style type="text/css">
-    table 
-    {
-        border-collapse: collapse;
-    }
-    table, th, td 
-    {
-        border: 1px solid black;
-        padding: 5px;
-    }
+    table { border-collapse: collapse;  }
+    table, th, td { border: 1px solid black; padding: 5px; }
   </style>
 </head>
 <body>
 <div class="container-fluid">
   @include('partials.etatHeader')
-  <h5 class="mt-20 center">
-    <span style="font-size: xx-large;"><strong>Demande d'examens radiologiques</strong></span>
-  </h5> 
-  <br><br>
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="section">
-        <div class="sec-droite"><b><u>Fait le:</u></b> {{ $demande->consultation->Date_Consultation  }} </div>
-      </div>
-    </div>
-  </div>
-  <br><br>
+  <h5 class="mt-20 center"><span style="font-size: xx-large;"><strong>Demande d'examens radiologiques</strong></span></h5> 
+  <br>
+  <div class="row"><div class="col-sm-12"><div class="section"><div class="sec-droite"><b><u>Fait le:</u></b>{{ $demande->consultation->Date_Consultation }}</div></div></div></div>
   <div class="row">
     <div class="col-sm-12">
       <div class="section">
@@ -42,8 +26,7 @@
         </div>
       </div>
     </div>
-  </div>
-  <br><br>
+  </div><br>
   <div class="row">
     <div class="col-sm-12">
       <div class="section">
@@ -54,10 +37,10 @@
       </div>
     </div>
   </div>
-  <br><br><br>
+  <br>
   <div class="content">
     <div class="col-sm-12">
-      <div class="col-xs-12 widget-container-col" id="consultation">
+      <div class="col-xs-12 widget-container-col">
         <div class="widget-box" id="infopatient">
           <div class="widget-body">
             <div class="widget-main">
@@ -70,7 +53,7 @@
                   </div>                    
                   <br>                  
                   <div>
-                    <label for="infos"><b>Informations supplémentaires pertinentes</b></label>
+                    <label for="infos"><b>Explication de la demande de diagnostic</b></label>
                     <textarea class="form-control" id="infosc" name="infosc" >{{ $demande->Explecations }}</textarea> 
                   </div>              
                   <br>
@@ -103,7 +86,7 @@
                             <td>
                               <?php $exams = explode (',',$examen->pivot->examsRelatif) ?>
                               @foreach($exams as $id)
-                              <span class="badge badge-success">{{ App\modeles\exmnsrelatifdemande::FindOrFail($id)->nom}}</span>
+                              <span class="badge badge-success">{{ App\modeles\TypeExam::FindOrFail($id)->nom}}</span>
                               @endforeach
                             </td>
                           </tr>
@@ -122,11 +105,7 @@
   </div>
   <div class="row foo">
     <div class="col-sm-12">
-      <div class="section">
-        <div class="sec-droite">
-          <span><strong> Docteur :</strong> {{ Auth::user()->employ->nom }} {{ Auth::user()->employ->prenom }}</span>
-        </div>
-      </div>
+      <div class="section"><div class="sec-droite"><span><strong> Docteur :</strong> {{ Auth::user()->employ->nom }} {{ Auth::user()->employ->prenom }}</span></div></div>
     </div>
   </div>
 </div><!-- container-fluid -->

@@ -178,16 +178,16 @@
 					 <select name="Position" id="Position" class="col-xs-12 col-sm-12">
 						<option value="">Sélectionner...</option>
 						<option value="Activité" {{ ($assure->Position=="Activité") ? "selected" : "" }}>Activité</option>
-						<option value="Activité" {{ ($assure->Position=="Détachement") ? "selected" : "" }}>Détachement</option>
-						<option value="Activité" {{ ($assure->Position=="Mise en Disponibilité") ? "selected" : "" }}>Mise en Disponibilité</option>
-						<option value="Activité" {{ ($assure->Position=="Licencié") ? "selected" : "" }}>Licencié</option>
-						<option value="Activité" {{ ($assure->Position=="Démission") ? "selected" : "" }}>Démission</option>
-						<option value="Activité" {{ ($assure->Position=="Retraite") ? "selected" : "" }}>Retraite</option>
-						<option value="Activité" {{ ($assure->Position=="Congé Longue Durée") ? "selected" : "" }}>Congé Longue Durée</option>
-						<option value="Activité" {{ ($assure->Position=="Assurance Invaliditéé") ? "selected" : "" }}>Assurance Invaliditéé</option>
-						<option value="Activité" {{ ($assure->Position=="Décédé") ? "selected" : "" }}>Décédé</option>
-						<option value="Activité" {{ ($assure->Position=="Service National") ? "selected" : "" }}>Service National</option>
-						<option value="Activité" {{ ($assure->Position=="Contrat résilié") ? "selected" : "" }}>Contrat résilié</option>
+						<option value="Détachement" {{ ($assure->Position=="Détachement") ? "selected" : "" }}>Détachement</option>
+						<option value="Mise en Disponibilité" {{ ($assure->Position=="Mise en Disponibilité") ? "selected" : "" }}>Mise en Disponibilité</option>
+						<option value="Licencié" {{ ($assure->Position=="Licencié") ? "selected" : "" }}>Licencié</option>
+						<option value="Démission" {{ ($assure->Position=="Démission") ? "selected" : "" }}>Démission</option>
+						<option value="Retraite" {{ ($assure->Position=="Retraite") ? "selected" : "" }}>Retraite</option>
+						<option value="Congé Longue Durée" {{ ($assure->Position=="Congé Longue Durée") ? "selected" : "" }}>Congé Longue Durée</option>
+						<option value="Assurance Invaliditéé" {{ ($assure->Position=="Assurance Invaliditéé") ? "selected" : "" }}>Assurance Invaliditéé</option>
+						<option value="Décédé" {{ ($assure->Position=="Décédé") ? "selected" : "" }}>Décédé</option>
+						<option value="Service National" {{ ($assure->Position=="Service National") ? "selected" : "" }}>Service National</option>
+						<option value="Contrat résilié" {{ ($assure->Position=="Contrat résilié") ? "selected" : "" }}>Contrat résilié</option>
 						<option value="Congé Maladie" {{ ($assure->Position=="Congé Maladie") ? "selected" : "" }}>Congé Maladie</option>
 						<option value="Révoqué" {{ ($assure->Position=="Révoqué") ? "selected" : "" }}>Révoqué</option>
 					</select>

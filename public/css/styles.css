@@ -44,7 +44,7 @@
 .pt-18 { padding-top:-18px !important; }
 .pt-21 { padding-top:-21px !important;  }
  tr.noBorder td { border: 0; }
-.foo { position: absolute; top: 90%; right: 22%; }
+.foo { position: absolute; top: 96%; right: 22%; }
 .modal-backdrop { z-index:0; }
 #RDV {
  z-index: 1040 !important;
@@ -66,9 +66,7 @@ fieldset.scheduler-border {
   width:100%;
 }
 ol {list-style: none; counter-reset: li}
-.sec-droite {
-      float: right;
-    }
+.sec-droite { float: right; }
     @media screen and (max-width: 1225px) and (min-width: 1045px) {
     .priority-6{
       display:none;
@@ -98,15 +96,9 @@ ol {list-style: none; counter-reset: li}
     .priority-6{
       display:none;
     }
-    .priority-5{
-      display:none;
-    }
-    .priority-4{
-      display:none;
-    }
-    .priority-3{
-      display:none;
-    }
+    .priority-5 { display:none; }
+    .priority-4 {  display:none; }
+    .priority-3 {   display:none; }
   }
   @media screen and (max-width: 300px) {
     .priority-5{

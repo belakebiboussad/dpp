@@ -15,16 +15,14 @@ class demandeexr extends Model
       return $this->belongsToMany('App\modeles\examenradiologique', 'demandeexr_examenradio', 'id_demandeexr', 'id_examenradio')->withPivot('examsRelatif','resultat','etat','observation');       
     }
 
-    public function examensrelatifsdemande()
+    public function typeExam()//exmnsrelatifdemande//demandeexradio_exmnsrelatifdemande
     {
-        return $this->belongsToMany('App\modeles\exmnsrelatifdemande', 'demandeexradio_exmnsrelatifdemande', 'id_demandeexradio', 'id_examensrelatifdemande');       
+        return $this->belongsToMany('App\modeles\TypeExam', 'examradio_typeExam', 'id_demandeexradio', 'id_typexam');       
     }
-
     public function infossuppdemande()
     {
         return $this->belongsToMany('App\modeles\infosupppertinentes', 'demandeexradio_infosupppertinentes', 'id_demandeexr', 'id_infosupp');       
     }
-
     public function consultation()
     {
         return $this->belongsTo('App\modeles\consultation','id_consultation');

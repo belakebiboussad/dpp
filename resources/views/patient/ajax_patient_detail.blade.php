@@ -94,7 +94,7 @@
           <td class ="noborders text-nowrap"><strong>Né(e) le :</strong></td> <td> {{ $assure->Date_Naissance }}</td>
           <td class ="noborders"><strong>Né(e) a:</strong></td>
           <td>
-          @if($assure->lieunaissance)
+          @if(isset($assure->lieunaissance))
             {{ $assure->lieuNaissance->nom_commune }}
           @endif
           </td>

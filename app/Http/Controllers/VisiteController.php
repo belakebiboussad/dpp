@@ -12,7 +12,7 @@ use App\modeles\specialite_produit;
 use App\modeles\specialite_exb;
 use App\modeles\infosupppertinentes;
 use App\modeles\examenradiologique;
-use App\modeles\exmnsrelatifdemande;
+use App\modeles\TypeExam;
 use App\modeles\demandeexb;
 use App\modeles\demandeexr;
 use App\modeles\NGAP;
@@ -61,7 +61,7 @@ class VisiteController extends Controller
           $specialitesProd = specialite_produit::all();
           $specialitesExamBiolo = specialite_exb::all();
           $infossupp = infosupppertinentes::all();
-          $examens = exmnsrelatifdemande::all();//CT,RMN
+          $examens = TypeExam::all();//CT,RMN
           $examensradio = examenradiologique::all();
           $codesNgap = NGAP::all();
           $visite->save();

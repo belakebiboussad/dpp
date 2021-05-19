@@ -27,7 +27,7 @@ use App\modeles\Specialite;
 use App\modeles\LettreOrientation;
 use App\modeles\specialite_exb;
 use App\modeles\infosupppertinentes;
-use App\modeles\exmnsrelatifdemande;
+use App\modeles\TypeExam;
 use App\modeles\examenradiologique;
 use App\modeles\demandeexr;
 use App\modeles\appareil;
@@ -84,7 +84,7 @@ class ConsultationsController extends Controller
       $specialites = Specialite::orderBy('nom')->get();
       $specialitesExamBiolo = specialite_exb::all();
       $infossupp = infosupppertinentes::all();
-      $examens = exmnsrelatifdemande::all();//CT,RMN
+      $examens = TypeExam::all();//CT,RMN
       $examensradio = examenradiologique::all();//pied,poignet
       return view('consultations.create',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp','examens','examensradio'));
     }
