@@ -30,10 +30,9 @@
 			  tabac = $("#tabac").is(":checked") ? 1:0;
 			  ethylisme = $("#ethylisme").is(":checked") ? 1:0;
 		}
-		if (description == "")
+		if (description != "")
 		{
-		}else{
-			  $.ajax({
+		  $.ajax({
 				   headers: {
 						   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 					},
@@ -332,25 +331,6 @@
 			   }
 				});
 		}          
-		});
-	jQuery('body').on('click', '.delete-atcd', function (e) {
-			event.preventDefault();
-			var atcd_id = $(this).val();
-			$.ajaxSetup({
-				headers: {
-						 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-					}
-				});
-			$.ajax({
-				type: "DELETE",
-					url: '/atcd/' + atcd_id,
-				success: function (data) {
-							$("#atcd" + atcd_id).remove();
-					 },
-					error: function (data) {
-						 console.log('Error:', data);
-					}
-				});
 		});
 		$("#EnregistrerAntecedantPhys").click(function (e) {
 			var habitudeAlim = null; var tabac=null ; var ethylisme = null;

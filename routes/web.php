@@ -39,13 +39,12 @@ Route::resource('demandeproduit','demandeprodController');
 Route::resource('rdvHospi','RdvHospiController');
 Route::resource('demandeexb','DemandeExbController');
 Route::resource('demandeexr','DemandeExamenRadio');
-Route::resource('visites','VisiteController'); 
+Route::resource('visites','VisiteController');// Route::resource('visite','VisiteController');
 Route::resource('acte','ActeController');
 Route::resource('traitement','TraitementController');
 Route::resource('surveillance','SurveillanceController');
 Route::resource('reservation','BedReservationController');
-Route::resource('etablissement','EtablissementControler');
-Route::resource('visite','VisiteController');
+Route::resource('etablissement','EtablissementControler');//Route::resource('crrs','CRRControler');
 route::get('/home_admin',function (){
     $users = App\User::all();
     return view('home.home_admin',compact('users'));
@@ -102,10 +101,8 @@ Route::get('/rdv/create/{id}','RDVController@create');
 Route::post('/createRDV','RDVController@AddRDV');
 Route::get('/rdv/valider/{id}','RDVController@valider');
 Route::get('/rdv/reporter/{id}','RDVController@reporter');
-Route::post('/rdv/reporte/{id}','RDVController@storereporte');
-//Route::get('rdvprint/{id}','rdvController@print');
-Route::get('rdvprint/{id}', ['as' => 'rdv.print', 'uses' => 'rdvController@print']);
-// Route::get('/pdf/{order}', ['as' => 'rdv.pdf', 'uses' => 'rdvController@print']);
+Route::post('/rdv/reporte/{id}','RDVController@storereporte');//Route::get('rdvprint/{id}','rdvController@print');
+Route::get('rdvprint/{id}', ['as' => 'rdv.print', 'uses' => 'rdvController@print']);// Route::get('/pdf/{order}', ['as' => 'rdv.pdf', 'uses' => 'rdvController@print']);
 Route::get('rdvHospi/create/{id}','RdvHospiController@create')->name('rdvHospi.create');
 Route::get('/rdvHospi/imprimer/{rdv}', ['as' => 'admission.pdf', 'uses' => 'RdvHospiController@print']);
 Route::get('rdvHospi/ticketPrint/{id}','RdvHospiController@ticketPrint');
@@ -129,7 +126,6 @@ route::get('/getreactifsPCH','MedicamentsController@getreactifsPCH');
 route::get('/getmed/{id}','MedicamentsController@getmed');
 route::get('/setting/{id}', 'UsersController@setting');
 Route::get('/ticket/{ticket}', ['as' => 'ticket.pdf', 'uses' => 'ticketController@ticketPdf']);
-
 Route::group(['as' => 'user.'], function() {
 Route::any('/profile/{userId}', [
         'as'    => 'profile',
@@ -182,20 +178,20 @@ Route::get('rendezVous/create/{id?}','RDVController@create');
 Route::get('assur/patientAssuree/{NSS}/{Type}/{Prenom}','PatientController@create');
 Route::post('/addpatientAssure','PatientController@storePatient');
 Route::get('assur/patientAedit/{id}/{idA}','PatientController@edit');
+Route::post('/surveillances/store/{id}','SurveillanceController@store');
+route::get('/getpatientvisite','PatientController@getpatientvisite');
+route::get('/getpatientconsigne','PatientController@getpatientconsigne');
 /************partie visite d'hospitalisation**************/
 Route::get('/delVisite/{id}', 'VisiteController@destroy')->name('visite.destroy');
 Route::get('/visite/create/{id}','VisiteController@create');
 Route::post('/visite/store/{id}','VisiteController@store');
-Route::post('/surveillances/store/{id}','SurveillanceController@store');
-route::get('/getpatientvisite','PatientController@getpatientvisite');
-route::get('/getpatientconsigne','PatientController@getpatientconsigne');
 route::get('/choixpatvisite','VisiteController@choixpatvisite');
 route::get('/choixhospconsigne','ActeController@choixhospconsigne');
 route::get('/consigne','ActeController@choixhospconsigne');
 route::post('/saveActe','ActeController@store');
 route::get('/schapitres','CimController@getChapters');
-route::get('/maladies','CimController@getdiseases');
-//route::post('/acte','AntecedantsController@store');
+route::get('/maladies','CimController@getdiseases');//route::post('/acte','AntecedantsController@store');
+Route::post('/crr/store', 'CRRControler@store')->name('crrStore');
 Route::get('/404', function () {
     return view('errors.404');
 });

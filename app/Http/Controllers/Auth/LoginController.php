@@ -8,6 +8,7 @@ use Auth;
 use Redirect;//use config;
 use Config;
 use Session;
+use Cache;
 class LoginController extends Controller
 {
     /*
@@ -75,6 +76,7 @@ class LoginController extends Controller
       public function logout() {
         Auth::logout(); // logout user  
         Session::flush(); // Redirect::back();
+        Cache::flush(); 
         return Redirect::to('/login'); //redirect back to login
       }//abm
 /*protected function authenticated(Request $request, $user){$IPs = config('settings.IPs');session(['lieu_id' => $IPs[$_SERVER['REMOTE_ADDR']]]);

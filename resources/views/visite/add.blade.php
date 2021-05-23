@@ -132,9 +132,9 @@
 	if(! isEmpty($("#produit").val()) || ($("#acte").val() == 0) )
 		$('#traitModal').modal('toggle');
 	  $.ajaxSetup({
-		headers: {
-			'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-		}
+			headers: {
+				'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+			}
 		});
 		$("input[name='pT[]']:checked").each(function() {
 		periodes.push($(this).attr('value'));
@@ -161,11 +161,11 @@
 			dataType:'json',
 			success: function (data) {	
 				if($('.dataTables_empty').length > 0)
-					{
+				{
 					$('.dataTables_empty').remove();
-					}
-					frag ="";
-					$.each( data.trait.periodes, function( key, periode ) {
+				}
+				frag ="";
+				$.each( data.trait.periodes, function( key, periode ) {
 							frag +='<span class="badge badge-success">'+periode+'</span>';
 						});
 						var trait = '<tr id="trait'+data.trait.id+'"><td hidden>'+data.trait.visite_id+'</td><td>'+data.medicament.nom+'</td><td>'
@@ -416,7 +416,7 @@
 		<div class="row">
 			<div class="center">
 				<button type="submit" class="btn btn-info btn-sm" ><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
-				<a href="{{ route('visite.destroy',$id) }}" class="btn btn-sm btn-danger" id="deleteViste" data-id="{{ $id }}">
+				<a href="{{ route('visites.destroy',$id) }}" class="btn btn-sm btn-danger" id="deleteViste" data-id="{{ $id }}">
 				<i class="ace-icon fa fa-undo bigger-110"></i>Annuler
 				</a>
 			</div>

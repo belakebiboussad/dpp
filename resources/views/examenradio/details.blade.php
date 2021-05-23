@@ -4,8 +4,34 @@
 <script>
   function CRRSave()
   {
-      alert('{{$demande->id}}');
-      alert($("#examId").val());
+      var formData = {
+        demande_id:'{{$demande->id}}',
+        exam_id:$("#examId").val(),
+        indication:$("#indication").val(),
+        techRea:$("#techRea").val(),
+        result:$("#result").val(),
+        conclusion:$("#conclusion").val(),  
+      };
+      $.ajax({
+        headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url : '{{ route ("crrStore") }}',//url:'/crr/store',
+        type:'POST',
+        data: formData,
+        dataType : 'json',
+        success: (data) => {
+          if($('#crr-edit').hasClass("hidden"))
+            $('#crr-edit').removeClass("hidden");
+          if(!$('#crr-add').hasClass("hidden"))
+            $('#crr-add').addClass("hidden");
+          $('#crrModalTitle').html('Editer un Compte Rendue Radiologique');
+          jQuery('#CRRForm').trigger("reset");  
+        },
+        error: function(data){
+          console.log(data);
+        }
+      }); 
   }
   $('document').ready(function(){//$("button").click(function (event) {which = '';str ='send';which = $(this).attr("id");var which = $.trim(which);var str = $.trim(str);if(which==str){ return true;}});
     $('.result').change(function() {
@@ -203,11 +229,14 @@
                       <input type="file" id="exm-{{ $examen->id }}" name="resultat[]" class="form-control result" accept="image/*,.pdf,.dcm,.DCM" multiple required/>
                     @endif
                   </td>
-                  <td class="center" width="15%"><!-- value ="{{ $examen->id }}" data-toggle="tooltip" data-placement="top" title="ajouter compte rendu"  -->
-                    <a class="btn btn-md btn-success open-AddCRRDialog" data-toggle="modal" title="ajouter un compte rendu" data-id="{{$examen->id}}">
+                  <td class="center" width="15%">
+                    <a class="btn btn-md btn-success open-AddCRRDialog @if( isset($examen->pivot->crr_id)) hidden @endif" id ="crr-add" data-toggle="modal" title="ajouter un Compte Rendu" data-id="{{$examen->id}}">
                       <i class="glyphicon glyphicon-plus glyphicon glyphicon-white"></i>
                     </a>
-                    <button  type="submit" class="btn btn-md btn-primary start" id="btn-{{ $examen->id }}" value ="{{ $examen->id }}" disabled>
+                    <a class="btn btn-md btn-primary open-AddCRRDialog @if(! isset($examen->pivot->crr_id)) hidden @endif" id ="crr-edit" data-toggle="modal" title="Modifier le Compte Rendu" data-id="{{$examen->id}}">
+                      <i class="glyphicon glyphicon-edit glyphicon glyphicon-white"></i>
+                    </a>
+                    <button  type="submit" class="btn btn-md btn-info start" id="btn-{{ $examen->id }}" value ="{{ $examen->id }}" disabled>
                       <i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>
                     </button>
                     <button class="btn btn-md btn-warning cancel" value ="{{ $examen->id }}">

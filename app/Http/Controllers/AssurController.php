@@ -67,18 +67,18 @@ class AssurController extends Controller
      */
     public function save($obj, $date,$sf, $grade)
     {
-            $assure = new assur;
-            $assure->Nom = $obj->Nom; $assure->Prenom = $obj->Prenom;
-            $assure->Date_Naissance = $date;//$assure->lieunaissance =  1556;
-            $assure->Sexe = $obj->Genre;// $assure->SituationFamille = utf8_encode($obj->SituationFamille);
-            $assure->SituationFamille =$sf;
-            $assure->Matricule = $obj->Matricule;$assure->adresse = utf8_encode($obj->Adresse);//$assure->commune_res = 1556;
-            $assure->wilaya_res =  $obj->WilayaResidence;
-            $assure->grp_sang = $obj->GroupeSanguin;$assure->NSS = $obj->NSS;
-            $assure->Position = utf8_encode($obj->Position);
-            $assure->Service =utf8_encode($obj->Service);
-            $assure->Grade = $grade;
-            $assure->save();
+        $assure = new assur;
+        $assure->Nom = $obj->Nom; $assure->Prenom = $obj->Prenom;
+        $assure->Date_Naissance = $date;//$assure->lieunaissance =  1556;
+        $assure->Sexe = $obj->Genre;// $assure->SituationFamille = utf8_encode($obj->SituationFamille);
+        $assure->SituationFamille =$sf;
+        $assure->Matricule = $obj->Matricule;$assure->adresse = utf8_encode($obj->Adresse);//$assure->commune_res = 1556;
+        $assure->wilaya_res =  $obj->WilayaResidence;
+        $assure->grp_sang = $obj->GroupeSanguin;$assure->NSS = $obj->NSS;
+        $assure->Position = utf8_encode($obj->Position);
+        $assure->Service =utf8_encode($obj->Service);
+        $assure->Grade = $grade;
+        $assure->save();
     }
     /**
      * Display the specified resource.
@@ -87,11 +87,7 @@ class AssurController extends Controller
      * @return \Illuminate\Http\Response
      */
     /*
-    public function show($id)
-    {
-      $assure = assur::FindOrFail($id);
-      return view('assurs.show',compact('assure'));
-    }
+    public function show($id) { $assure = assur::FindOrFail($id);   return view('assurs.show',compact('assure'));   }
     */
     /**
      * Show the form for editing the specified resource.

@@ -44,7 +44,7 @@
 						@endif  
 						 </td>
 						 <td></td>
-						<td class="center sorting_disabled"><a href="{{ route('visite.show', $visite->id) }}"><i class="fa fa-eye"></i></a>{{ $visite->id}}</td>
+						<td class="center sorting_disabled"><a href="{{ route('visites.show', $visite->id) }}"><i class="fa fa-eye"></i></a></td>
 					</tr>
 					@endforeach 
 					</tbody>

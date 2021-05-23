@@ -129,12 +129,14 @@
 	</ul>	
   <div class="tab-content">
   	<div id="Assure" class='tab-pane fade @if($patient->Type =="5") invisible @else in active  @endif '>
-    	@include('assurs.editAssure')
+    	@isset($assure)
+    		@include('assurs.editAssure')
+    	@endisset
     </div>
-	<div id="Patient" class="tab-pane fade @if($patient->Type =="5")   in active  @endif">
-		<div class="row">
+	  <div id="Patient" class="tab-pane fade @if($patient->Type =="5")   in active  @endif">
+			<div class="row">
     		<div class="col-sm-12"><h3 class="header smaller lighter blue">Informations administratives</h3></div>
-		</div>
+			</div>
     	<div class="row">
 				<div class="col-sm-6">
 					<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">

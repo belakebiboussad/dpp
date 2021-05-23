@@ -91,7 +91,7 @@
       </div>
      </div>
   </div>
-{{--  <div class="row">   <div class="col-sm-12"><label>Résultat :</label>&nbsp;&nbsp;     @isset($demande->resultat) <span><a href='/download/{{ $demande->resultat }}'>{{ $demande->resultat }} &nbsp;<i class="fa fa-download"></i></a></span>
+{{--  <div class="row">   <div class="col-sm-12"><label>Résultat :</label>&nbsp;&nbsp;  @isset($demande->resultat) <span><a href='/download/{{ $demande->resultat }}'>{{ $demande->resultat }} &nbsp;<i class="fa fa-download"></i></a></span>
       @endisset  </div> </div> --}}
 </div>
 @endsection

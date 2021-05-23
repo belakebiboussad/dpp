@@ -73,16 +73,49 @@
           Merci de prendre en charge {{ $obj->patient->getCivilite() }} <span>{{ $obj->patient->Nom }} &nbsp; {{ $obj->patient->Prenom }}</span> âgé(e) de {{ $obj->patient->getAge() }}&nbsp;ans.
         </div>
         <div class="row">
-          Je vous confie ce (cette) patient(e) qui s'est présenté ce jour pour {{ $obj->motif }},
+          Je vous confie ce (cette) patient(e) qui s'est présenté ce jour pour Motif "{{ $obj->motif }}",
           @if(isset($obj->patient->antecedants))
-            aux Antécédants de      
-            @foreach ($obj->patient->antecedants as $ant)
-              {{ $ant->descrioption}},
-            @endforeach  
+            aux Antécédants suivants:  <br/><br/>
+            <table class="table table-striped table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th class="center">Type</th>
+                  <th class="center">Date</th>
+                  <th class="center">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+              @foreach ($obj->patient->antecedants as $ant)
+                <tr>
+                <td>{{ $ant->stypeatcd}}</td>
+                <td>{{  $ant->date }}</td> 
+                <td>{{ $ant->descrioption}}</td>
+                </tr>
+               @endforeach  
+              </tbody>
+            </table>    
           @endif
-          @if(isset($obj->examensCliniques))
-           et dont l'examen clinique {{ $obj->examensCliniques->Etat}}
-          @endif
+          @isset($obj->examensCliniques)
+           et dont l'examen clinique: <br/><br/>
+            <table class="table table-striped table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th class="center">Taille</th>
+                  <th class="center">Poids</th>
+                  <th class="center">Températeur</th>
+                  <th class="center">Etat</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                <td>{{ $obj->examensCliniques->taille}}</td>
+                <td>{{  $obj->examensCliniques->poids }}</td> 
+                <td>{{ $obj->examensCliniques->temp}}</td>
+                <td>{{ $obj->examensCliniques->Etat}}</td>
+                </tr>
+              </tbody>
+            </table>
+          @endisset
           je vous le confie pour une prise en charge specialisé. 
         </div> <br><br><br>
         <div class="row">Confraternellement. </div>

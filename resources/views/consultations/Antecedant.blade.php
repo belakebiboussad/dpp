@@ -44,6 +44,7 @@
 	</div>{{-- widget-body --}}
 </div>{{-- widget-box --}}
 </div>{{-- row --}}
+<div class="space-12"></div>
 <div class="row"><!-- Physiologiques -->
 <div class= "widget-box widget-color-danger">
 	<div class="widget-header" >

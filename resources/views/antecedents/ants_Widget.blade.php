@@ -21,7 +21,7 @@
 						<?php $j = 0; ?>
 						@foreach($patient->antecedants as $i=>$atcd)
 							@if($atcd->Antecedant == "Personnels")
-						  <tr id= "{{ $j }}">
+						  <tr id="{{ 'atcd'.$atcd->id }}">
 								<td class="">{{( $atcd->typeAntecedant == '0') ? 'Pathologiques':'Physiologiques'}}</td>
 								<td>{{ $atcd->date }}</td>
 								<td>{{ $atcd->cim_code }}</td>
@@ -35,11 +35,7 @@
 									</a>
 									@endif
 									<div class="action-buttons hidden-sm hidden-xs btn-group">
-										{{--<a href="{{route('atcd.show',$atcd->id)}}" class="btn btn-xs btn-success"><i class="ace-icon fa fa-hand-o-up bigger-120"></i>&nbsp;
-										</a>&nbsp;&nbsp; <a href="{{route('atcd.edit',$atcd->id)}}" class="btn btn-xs btn-info"><i class="ace-icon fa fa-pencil bigger-120"></i></a>--}}
-										<a href="{{route('atcd.destroy',$atcd->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">
-											<i class="ace-icon fa fa-trash-o bigger-120"></i>
-										</a>
+										<button type="button" class="btn btn-xs btn-danger delete-atcd" value="{{ $atcd->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
 									</div>
 								</td>
 							</tr>
@@ -126,12 +122,8 @@
 									<td class="center"><textarea class="width-100" resize="none"disabled="">{{$atcd->descrioption}}</textarea></td>
 							 	  <td class="center">
 							  		<div class="action-buttons hidden-sm hidden-xs btn-group">
-											{{-- <a href="{{route('atcd.show',$atcd->id)}}" class="btn btn-xs btn-success"><i class="ace-icon fa fa-hand-o-up bigger-120"></i>&nbsp;
-											</a>&nbsp;&nbsp;<a href="{{route('atcd.edit',$atcd->id)}}" class="btn btn-xs btn-info"><i class="ace-icon fa fa-pencil bigger-120"></i></a>--}}
-											<a href="{{route('atcd.destroy',$atcd->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">
-												<i class="ace-icon fa fa-trash-o bigger-120"></i>
-											</a>
-										</div>
+											<button type="button" class="btn btn-xs btn-danger delete-atcd" value="{{ $atcd->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
+									  </div>
 								</td>
 							</tr>	
 							@endif

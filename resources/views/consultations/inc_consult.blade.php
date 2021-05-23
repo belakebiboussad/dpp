@@ -28,7 +28,7 @@ $('document').ready(function(){
 		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Résumé :</strong> </span>{{ $consultation->Resume_OBS }}</li>
 	</ul>
 </div>
-@if(isset($consultation->demandeHospitalisation))
+@isset($consultation->demandeHospitalisation)
 <div class="row dh">
 	<div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><strong><span style="font-size:16px;">Demande d'Hospitalisation</span></strong>
 	</div>
@@ -56,7 +56,7 @@ $('document').ready(function(){
 		</div>
 	</div>
 </div>
-@endif
+@endisset
 @if(isset($consultation->examensCliniques)  &&($consultation->examensCliniques->poids != 0))
 <div class="row">
 	<div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right">

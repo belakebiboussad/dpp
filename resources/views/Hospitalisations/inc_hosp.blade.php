@@ -106,7 +106,7 @@
 							 		{{ $trait->medicament->nom }} <br>
 							 	@endforeach
 						 	</td>
-						 	<td><a href="{{ route('visite.show', $visite->id) }}"><i class="fa fa-eye"></i></a>	</td>
+						 	<td><a href="{{ route('visites.show', $visite->id) }}"><i class="fa fa-eye"></i></a></td>
 						 </tr>
 						@endforeach
 						</tbody>

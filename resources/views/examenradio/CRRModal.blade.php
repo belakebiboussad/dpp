@@ -1,34 +1,36 @@
 <div id="addCRRDialog" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
    	<div class="modal-content custom-height-modal">	<!-- Modal content-->
-			<div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button> <h4 class="modal-title">Compte Rendue Radiologique </h4></div>
+			<div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;
+				</button> <h4 class="modal-title" id="crrModalTitle">Ajouter un Compte Rendue Radiologique </h4>
+			</div>
 			<div class="modal-body">
-			  <form action="#" method="POST">
+			  <form id="CRRForm" action="" method="POST" class="form-horizontal">
 			    <input type="hidden" name=""  id="examId" value="">
 			    <div class="row">
-			      <div class="col-xs-12"><br><label for="modeAdmissionHospi"><strong> Indication:</strong></label>
-			     		 <textarea class="form-control" name="" rows="3"></textarea>	
+			      <div class="col-xs-12"><br><label for="indication"><strong> Indication:</strong></label>
+			     		 <textarea class="form-control" id="indication" rows="3"></textarea>	
 				    </div>
 			    </div>{{-- row --}}
 			    <div class="space-12"></div>
         	<div class="row">
 			     	<div class="col-xs-12">
-			     		<label for="specialiteHospi"><strong>Technique de réaliation :</strong></label>
-							<textarea class="form-control" name="" rows="6"></textarea>	
+			     		<label for="techRea"><strong>Technique de réaliation :</strong></label>
+							<textarea class="form-control" id="techRea" rows="6"></textarea>	
 			      </div>		
 			    </div>{{-- row --}}
 			    <div class="space-12"></div>
 			    <div class="row">
 			     	<div class="col-xs-12">
-			     	 	<label for="serviceHospi"><b>Resultat:</b></label>
-					    <textarea class="form-control" name="" rows="6"></textarea>
+			     	 	<label for="result"><b>Resultat:</b></label>
+					    <textarea class="form-control" id="result" rows="6"></textarea>
 			      </div>	
 			    </div>
 			    <br>
 			    <div class="row">
 			     	<div class="col-xs-12">
-			     	 	<label for="serviceHospi"><b>Synthèse & Conclusion:<span style="color: red">*</span></b></label>
-					    <textarea class="form-control" name="" rows="6" required></textarea>
+			     	 	<label for="conclusion"><b>Synthèse & Conclusion:<span style="color: red">*</span></b></label>
+					    <textarea class="form-control" id="conclusion" rows="6" required></textarea>
 			      </div>	
 			    </div>
 			  </form>
@@ -44,7 +46,7 @@
           </div>
 		    </div>
 		    </form> --}}
-        <button type="submit" class="btn btn-primary btn-sm" data-dismiss="modal" onclick= "CRRSave();"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
+        <button type="submit" class="btn btn-primary btn-sm" data-dismiss="modal" onclick= "CRRSave();" value="add"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
         <button type="button" class="btn btn-sm btn-success" onclick=""><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button>
         <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">	<i class="ace-icon fa fa-close bigger-110"></i>Fermer</button>
       </div>
