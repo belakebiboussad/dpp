@@ -4,63 +4,72 @@
 <script>
   function CRRSave()
   {
-      var formData = {
-        demande_id:'{{$demande->id}}',
-        exam_id:$("#examId").val(),
-        indication:$("#indication").val(),
-        techRea:$("#techRea").val(),
-        result:$("#result").val(),
-        conclusion:$("#conclusion").val(),  
-      };
-      $.ajax({
-        headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        url : '{{ route ("crrStore") }}',//url:'/crr/store',
-        type:'POST',
+      $.ajaxSetup({
+    headers: {
+            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    var formData = {
+      demande_id:'{{$demande->id}}',
+      exam_id:$("#examId").val(),
+      indication:$("#indication").val(),
+      techRea:$("#techRea").val(),
+      result:$("#result").val(),
+      conclusion:$("#conclusion").val(),  
+    };
+    var state = jQuery('#crrSave').val();
+    var type = "POST";
+    var ajaxurl = '/crrs';
+    if (state == "update") {
+      var crr_id =  $('#crrId').val();
+      type = "PUT";
+      ajaxurl = '/crrs/' + crr_id;
+     }
+    $.ajax({
+        type: type,
+        url: ajaxurl,
         data: formData,
         dataType : 'json',
         success: (data) => {
-          if($('#crr-edit').hasClass("hidden"))
-            $('#crr-edit').removeClass("hidden");
-          if(!$('#crr-add').hasClass("hidden"))
-            $('#crr-add').addClass("hidden");
+          if (state == "add")
+          {
+            $('#crr-edit'+"-"+$("#examId").val()).val(data.id);
+            $("button.cancel[value='"+$('#examId').val()+"']").addClass("hidden"); //hide cancel button  
+          }
+          if($('#crr-edit'+"-"+$("#examId").val()).hasClass("hidden"))
+           $('#crr-edit'+"-"+$("#examId").val()).removeClass("hidden");
+          if(!$('#crr-add'+"-"+$("#examId").val()).hasClass("hidden"))
+            $('#crr-add'+"-"+$("#examId").val()).addClass("hidden");
           $('#crrModalTitle').html('Editer un Compte Rendue Radiologique');
-          jQuery('#CRRForm').trigger("reset");  
         },
         error: function(data){
           console.log(data);
-        }
-      }); 
+      }
+    });
   }
-  $('document').ready(function(){//$("button").click(function (event) {which = '';str ='send';which = $(this).attr("id");var which = $.trim(which);var str = $.trim(str);if(which==str){ return true;}});
-    $('.result').change(function() {
-        var res = $(this).attr('id').replace("exm", "btn");
-        if($(this).val())
-          $('#'+res).removeAttr('disabled'); 
-        else
-          $('#'+res).attr('disabled', 'disabled');
-    })
-    $(".start").click( function(){
+  function uploadFiles(examId)
+  {
       $.ajaxSetup({
         headers: {
           'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
         }
       });
       var formData = new FormData();
-      let TotalFiles = $("#exm-" + $(this).val())[0].files.length;//Total files
-      let files = $("#exm-" + $(this).val())[0];
+      let TotalFiles = $("#exm-" + examId)[0].files.length;//let TotalFiles = $("#exm-" + $(this).val())[0].files.length;//Total files  
+      let files = $("#exm-" + examId)[0];// let files = $("#exm-" + $(this).val())[0];
       for (let i = 0; i < TotalFiles; i++) {
         formData.append('files' + i, files.files[i]);
       }
-      formData.append('TotalFiles', TotalFiles);//ormData.append('id_demandeexr', $('#id_demandeexr').val());
+      formData.append('TotalFiles', TotalFiles);
       formData.append('id_demandeexr', '{{ $demande->id }}');
-      formData.append('id_examenradio',$(this).val());
+      formData.append('id_examenradio',examId); // formData.append('id_examenradio',$(this).val());
+    
+      
       $.ajax({
         type:'POST',
         url: "{{ url('store-file')}}",
         data: formData,
-        enctype: 'multipart/form-data',// cache:false, 
+        enctype: 'multipart/form-data',
         contentType: false, 
         processData: false,
         dataType : 'json', 
@@ -73,18 +82,63 @@
           console.log(data);
         }
       });
+  }
+  $('document').ready(function(){
+    $('.result').change(function() {
+        var res = $(this).attr('id').replace("exm", "btn");
+        if($(this).val())
+          $('#'+res).removeAttr('disabled'); 
+        else
+          $('#'+res).attr('disabled', 'disabled');
     });
-    $(".cancel").click( function(){
+    $(".start").click( function(){
+      if(!$('#crr-add'+"-"+$(this).val()).hasClass("hidden"))
+      {
         Swal.fire({
-                     title: 'Annulez vous  la demande d\'Examen ?',
-                     html: '<br/><h4><strong id="dateRendezVous">'+'Pourquoi?'+'</strong></h4>',
-                     input: 'textarea',
-                     inputPlaceholder: 'la cause d\'annulation du l\'examen',
+                     title: 'Compte Rendue ?',
+                     html: '<br/><h4><strong>'+'Voulez-Vous ajouter un Compte Rendue ?'+'</strong></h4>',
+                     icon: 'info',
+                     type:'info',
                      showCancelButton: true,
                      confirmButtonColor: '#3085d6',
                      cancelButtonColor: '#d33',
                      confirmButtonText: 'Oui',
                      cancelButtonText: "Non",
+        }).then((result) => {
+          if(!isEmpty(result.value))
+          {
+            var examId =  $(this).val();
+            $('#examId').val($(this).data('id'));
+            jQuery('#CRRForm').trigger("reset");
+            jQuery('#crrSave').val("add");
+            $('#addCRRDialog').modal('show');
+            $('#addCRRDialog').on('hidden.bs.modal', function (e) {
+              uploadFiles(examId); //upload Files
+            });
+          }else
+          {
+            uploadFiles($(this).val());    
+          }
+        });
+      }else
+      {
+        uploadFiles($(this).val()); 
+      }
+      
+    });
+    $(".cancel").click( function(){
+        Swal.fire({
+                    title: 'Annulez vous  la demande d\'Examen ?',
+                    icon: 'warning',
+                    type:'warning',
+                    html: '<br/><h4><strong>'+'Pourquoi?'+'</strong></h4>',
+                    input: 'textarea',
+                    inputPlaceholder: 'la cause d\'annulation du l\'examen',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Oui',
+                    cancelButtonText: "Non",
         }).then((result) => {
           if(!isEmpty(result.value))
           {
@@ -102,7 +156,7 @@
                 url: "{{ url('cancel-exam')}}",
                 data: formData,
                 processData: false,
-                contentType: false, //dataType : 'json', 
+                contentType: false,
                 success: (data) => {
                   $.each(data,function(key,value) {
                     $('#'+value).remove();
@@ -117,7 +171,23 @@
     });
     $(".open-AddCRRDialog").click(function () {
         $('#examId').val($(this).data('id'));
+        jQuery('#CRRForm').trigger("reset");
+        jQuery('#crrSave').val("add");
         $('#addCRRDialog').modal('show');
+    });
+    $(".open-editCRRDialog").click(function (event) {
+        event.preventDefault();
+        $('#examId').val($(this).data('id'));
+        var crr_id = $(this).val();
+        $.get('/crrs/' + crr_id + '/edit', function (data) { 
+          $('#crrId').val(data.id);
+          $('#indication').val(data.indication);
+          $('#techRea').val(data.techRea);
+          $('#result').val(data.result);
+          $('#conclusion').val(data.conclusion);
+          jQuery('#crrSave').val("update");
+          $('#addCRRDialog').modal('show');
+        });
     });
 });
 </script>
@@ -230,18 +300,20 @@
                     @endif
                   </td>
                   <td class="center" width="15%">
-                    <a class="btn btn-md btn-success open-AddCRRDialog @if( isset($examen->pivot->crr_id)) hidden @endif" id ="crr-add" data-toggle="modal" title="ajouter un Compte Rendu" data-id="{{$examen->id}}">
+                    <button type="button" class="btn btn-md btn-success open-AddCRRDialog @if( isset($examen->pivot->crr_id)) hidden @endif" id ="crr-add-{{ $examen->id }}" data-toggle="modal" title="ajouter un Compte Rendu" data-id="{{ $examen->id }}">
                       <i class="glyphicon glyphicon-plus glyphicon glyphicon-white"></i>
-                    </a>
-                    <a class="btn btn-md btn-primary open-AddCRRDialog @if(! isset($examen->pivot->crr_id)) hidden @endif" id ="crr-edit" data-toggle="modal" title="Modifier le Compte Rendu" data-id="{{$examen->id}}">
+                    </button>
+                    <button type="button" class="btn btn-md btn-primary open-editCRRDialog @if(! isset($examen->pivot->crr_id)) hidden @endif" id ="crr-edit-{{ $examen->id }}" data-toggle="modal" title="Modifier le Compte Rendu" data-id="{{ $examen->id }}" value="{{ $examen->pivot->crr_id }}">
                       <i class="glyphicon glyphicon-edit glyphicon glyphicon-white"></i>
-                    </a>
-                    <button  type="submit" class="btn btn-md btn-info start" id="btn-{{ $examen->id }}" value ="{{ $examen->id }}" disabled>
+                    </button>
+                    <button  type="submit" class="btn btn-md btn-info start" id="btn-{{ $examen->id }}" value ="{{ $examen->id }}" data-id="{{ $examen->id }}" disabled>
                       <i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>
                     </button>
+                    @if(!isset($examen->pivot->crr_id ))
                     <button class="btn btn-md btn-warning cancel" value ="{{ $examen->id }}">
                       <i class="glyphicon glyphicon-ban-circle glyphicon glyphicon-white"></i>
-                    </button><!-- </form> -->
+                    </button>
+                    @endif
                   </td>
                 </tr>
                 @endif

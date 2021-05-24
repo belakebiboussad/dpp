@@ -225,7 +225,7 @@
 			jQuery('#antecedantModal').modal('show');
 	  });
 	});
-	jQuery('body').on('click', '.open-modalFamil', function (event) {//edit famill
+	jQuery('body').on('click', '.open-modalFamil', function (event) {
 		event.preventDefault();
 		var atcd_id = $(this).val();
 		$.get('/atcd/' + atcd_id, function (data) { 
@@ -240,7 +240,7 @@
 			 jQuery('#antecedantModal').modal('show');
 		});
 	});
-	jQuery('body').on('click', '.Phys-open-modal', function (event) {//edit famill
+	jQuery('body').on('click', '.Phys-open-modal', function (event) {
 		event.preventDefault();
 		var atcd_id = $(this).val();
 		$.get('/atcd/' + atcd_id, function (data) { 
@@ -250,7 +250,7 @@
 			if(data.tabac)
 				$('#tabac').prop('checked', true);
 			if(data.ethylisme)
-					$('#ethylisme').prop('checked', true);
+				$('#ethylisme').prop('checked', true);
 			$('#phys_cim_code').val(data.cim_code);
 		  $('#descriptionPhys').val(data.descrioption);
 			jQuery('#EnregistrerAntecedantPhys').val("update");//$("#EnregistrerAntecedant").attr('data-atcd',"Famille")	
@@ -292,7 +292,7 @@
 			}
 		});
 		var state = jQuery('#EnregistrerAntecedant').val();
-			var type = "POST";
+		var type = "POST";
 		var atcd_id = jQuery('#atcd_id').val();
 		var ajaxurl = '/atcd';
 		if (state == "update") {
@@ -396,9 +396,10 @@
 			}else
 			 {
 			 	if (!confirmed) {
-			 	      Swal.fire({
-						  title: 'Enregistrer la Consultation ?',
+			 	      Swal.fire({ //title: 'Enregistrer Vous la Consultation ?',
+						  title:'<strong>êtes-vous sûr ?</strong>',
 						  icon: 'warning',
+						  type:'warning',
 						  html: '<br/><h4><strong>'+"Attention! En appuyant sur ce boutton, Vous allez Clôturer la Consulatation en Cours "+'</strong></h4><br/><hr/> ',
 						  showCancelButton: true,
 						  allowOutsideClick: false,

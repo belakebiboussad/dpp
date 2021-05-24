@@ -24,11 +24,18 @@ class CRRControler extends Controller
       	$exam->pivot->save();
       }
     }
-    // return Response()->json([
-    //   "rowID" => "Bonj",
-    // ]);
- 		return Response::json($crr->id);
- 		//return Response::json("sdf");
-
+    return Response::json($crr);
+ 	}
+ 	public function edit($id)
+ 	{
+ 		$crr= CRR::find($id);
+    return Response::json($crr);
+ 	}
+ 	public function update(Request $request, $id)
+  {
+      $crr = CRR::find($id);
+      $crr->update($request->all()); 
+      $crr->save();
+      return Response::json($crr);  
   }
 }

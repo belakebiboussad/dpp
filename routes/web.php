@@ -44,7 +44,8 @@ Route::resource('acte','ActeController');
 Route::resource('traitement','TraitementController');
 Route::resource('surveillance','SurveillanceController');
 Route::resource('reservation','BedReservationController');
-Route::resource('etablissement','EtablissementControler');//Route::resource('crrs','CRRControler');
+Route::resource('etablissement','EtablissementControler');
+Route::resource('crrs','CRRControler');
 route::get('/home_admin',function (){
     $users = App\User::all();
     return view('home.home_admin',compact('users'));
@@ -191,7 +192,7 @@ route::get('/consigne','ActeController@choixhospconsigne');
 route::post('/saveActe','ActeController@store');
 route::get('/schapitres','CimController@getChapters');
 route::get('/maladies','CimController@getdiseases');//route::post('/acte','AntecedantsController@store');
-Route::post('/crr/store', 'CRRControler@store')->name('crrStore');
+// Route::post('/crr/store', 'CRRControler@store')->name('crrStore');
 Route::get('/404', function () {
     return view('errors.404');
 });
