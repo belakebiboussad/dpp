@@ -102,18 +102,42 @@
 			                      @foreach (json_decode($examen->pivot->resultat) as $k=>$f)
 			                      <tr>
 			                        <td width="70%">{{ $f }}</td>
-			                        <td width="30%">{{-- {{URL::to("/")}} --}}
+			                        <td width="30%">
 			                        <button type="submit" class="btn btn-info btn-xs open-modal" value="{{ $examen->pivot->id_examenradio."/".$f }}"><i class="ace-icon fa fa-eye-slash"></i></button>
 			                        <a href='/Patients/{{$patient->id}}/examsRadio/{{$demande->id}}/{{$examen->pivot->id_examenradio}}/{{ $f }}' class="btn btn-success btn-xs" target="_blank"> <i class="fa fa-download"></i></a>
 			                        </td>
 			                      </tr>
 			                      @endforeach
-				                    @else
-				                      <span class="badge badge-warning">En Cours</span>
-				                    @endif
+				                  @elseif($examen->pivot->etat == "0")
+			                      <span class="badge badge-danger">Annuler</span>
+			                      <a href="#" class="green btn-lg show-details-btn" title="Afficher Details" data-toggle="collapse"  id="{{$index}}" data-target=".{{$index}}collapsed" >
+				    									<i class="fa fa-eye-slash" aria-hidden="true"></i><span class="sr-only">Details</span>
+				   									</a> 
+			                    @else  
+			                      <span class="badge badge-warning">En Cours</span>
+				                  @endif
 			                    </table>
 			                  </td>
 			                </tr>
+			                @if($examen->pivot->etat == "0")
+			                <tr class="collapse out budgets {{$index}}collapsed">
+			                	<td colspan="12">
+										   		<div class="table-detail">
+										   			<div class="row">
+										     			<div class="col-xs-6 col-sm-6">
+																<div class="space visible-xs"></div>
+																<div class="profile-user-info profile-user-info-striped">
+																	<div class="profile-info-row">
+																		<div class="profile-info-name text-center"><strong>Observation:</strong></div>
+																		<div class="profile-info-value"> <span>{{ $examen->pivot->observation }} </span></div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</td>
+								      </tr>
+			                @endif
 			                @endforeach
 			            </tbody>
 			          </table>

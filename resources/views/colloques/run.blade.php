@@ -72,13 +72,13 @@
 					<div class="widget-main no-padding">
 						<table class="table table-striped table-bordered table-hover" id="table1" aria-describedby="table1_info" role="grid">
 			      	<thead class="thin-border-bottom">
-		       			<tr>
+		       		<tr>
 							<th class ="center" width="11%"><h5><strong>Patient</strong></h5></th>
 							<th class ="center" width="10%"><h5><strong class="text-center">Spécialité</strong></h5></th>
 							<th class ="center" width="10%"><h5><strong>Date Demande</strong></h5></th>
 							<th class ="center" width="10%"><h5><strong>Mode Admission</strong></h5></th>
 							<th class ="center" width="12%"><h5><strong>Medcin traitant</strong></h5></th>
-						    	<th width="10%" class ="center"><h5><strong>Priorité</strong></h5></th>
+						  <th width="10%" class ="center"><h5><strong>Priorité</strong></h5></th>
 							<th class="font-weight-bold center"><h5><strong>Observation</strong></h5></th>
 							<th class="detail-col center"><em class="fa fa-cog"></em></th>
 						</tr>
@@ -118,10 +118,10 @@
 				    	</td>   			
 			    	</tr> 
 			    	<?php $j++ ?>
-			    		<tr class="collapse out budgets {{$i}}collapsed">
-				      	<td colspan="12">
-					    		<div class="table-detail">
-					     			<div class="row">
+			    	<tr class="collapse out budgets {{$i}}collapsed">
+				     	<td colspan="12">
+					   		<div class="table-detail">
+					   			<div class="row">
 					     			<div class="col-xs-6 col-sm-6">
 											<div class="space visible-xs"></div>
 											<div class="profile-user-info profile-user-info-striped">

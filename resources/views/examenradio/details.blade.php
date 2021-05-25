@@ -2,29 +2,48 @@
 @section('title','Demande Examens Imagerie')
 @section('page-script')
 <script>
+  function ComptRRPrint()
+  {
+     var img = new Image();
+      // img.src = '{{ asset("/img/logo.png") }}';
+      // alert('{{ Session::get("etabLogo") }}');
+      img.src = "/img/"+'{{ Session::get("etabLogo") }}';
+      img.onload = function () {
+        CRRPrint(img);
+      };
+  }
+  function CRRPrint()
+  {
+    var indication = $("#indication").val();
+    var techRea = $("#techRea").val();
+    var result  = $("#result").val();
+    var conclusion = $("#conclusion").val();
+   
+   
+  }
   function CRRSave()
   {
-      $.ajaxSetup({
-    headers: {
-            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+    $.ajaxSetup({
+      headers: {
+              'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      var formData = {
+        demande_id:'{{$demande->id}}',
+        exam_id:$("#examId").val(),
+        indication:$("#indication").val(),
+        techRea:$("#techRea").val(),
+        result:$("#result").val(),
+        conclusion:$("#conclusion").val(),  
+      };
+      var state = jQuery('#crrSave').val();
+      var type = "POST";
+      var ajaxurl = '/crrs';
+      if (state == "update") {
+         var crr_id =  $('#crrId').val();
+        type = "PUT";
+        ajaxurl = '/crrs/' + crr_id;
       }
-    });
-    var formData = {
-      demande_id:'{{$demande->id}}',
-      exam_id:$("#examId").val(),
-      indication:$("#indication").val(),
-      techRea:$("#techRea").val(),
-      result:$("#result").val(),
-      conclusion:$("#conclusion").val(),  
-    };
-    var state = jQuery('#crrSave').val();
-    var type = "POST";
-    var ajaxurl = '/crrs';
-    if (state == "update") {
-      var crr_id =  $('#crrId').val();
-      type = "PUT";
-      ajaxurl = '/crrs/' + crr_id;
-     }
     $.ajax({
         type: type,
         url: ajaxurl,
@@ -62,9 +81,7 @@
       }
       formData.append('TotalFiles', TotalFiles);
       formData.append('id_demandeexr', '{{ $demande->id }}');
-      formData.append('id_examenradio',examId); // formData.append('id_examenradio',$(this).val());
-    
-      
+      formData.append('id_examenradio',examId); // formData.append('id_examenradio',$(this).val());    
       $.ajax({
         type:'POST',
         url: "{{ url('store-file')}}",
@@ -95,15 +112,15 @@
       if(!$('#crr-add'+"-"+$(this).val()).hasClass("hidden"))
       {
         Swal.fire({
-                     title: 'Compte Rendue ?',
-                     html: '<br/><h4><strong>'+'Voulez-Vous ajouter un Compte Rendue ?'+'</strong></h4>',
-                     icon: 'info',
-                     type:'info',
-                     showCancelButton: true,
-                     confirmButtonColor: '#3085d6',
-                     cancelButtonColor: '#d33',
-                     confirmButtonText: 'Oui',
-                     cancelButtonText: "Non",
+              title: 'Compte Rendue ?',
+              html: '<br/><h4><strong>'+'Voulez-Vous ajouter un Compte Rendue ?'+'</strong></h4>',
+              icon: 'info',
+              type:'info',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Oui',
+               cancelButtonText: "Non",
         }).then((result) => {
           if(!isEmpty(result.value))
           {
@@ -123,8 +140,7 @@
       }else
       {
         uploadFiles($(this).val()); 
-      }
-      
+      } 
     });
     $(".cancel").click( function(){
         Swal.fire({
@@ -263,13 +279,13 @@
       @endforeach
       </ul>    
      </label>
-       </div>
+    </div>
   </div>
 </div>
 <div class="row">
   <div class="col-sm-12 col-xs-12 widget-container-col">
     <div class="widget-box">
-      <div class="widget-header"><h5 class="widget-title"><b>Demande d'examens radiologique</b></h5></div>
+      <div class="widget-header"><h5 class="widget-title"><b>Demande d'examens radiologiques</b></h5></div>
       <div class="widget-body">
         <div class="widget-main">
          <table class="table table-striped table-bordered">

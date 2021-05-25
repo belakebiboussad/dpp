@@ -11,19 +11,17 @@
             <table id="medc_table" class="table table-bordered table-hover" width=100%> 
               <thead>
                 <tr> <th class="center"><strong>Médicament</strong></th><th class="center priority-3"><strong>Forme</strong></th>
-                  <th class="center"><strong>Dosage</strong></th> <th class="center"><em class="fa fa-cog"></em></th></tr></thead>
+                <th class="center"><strong>Dosage</strong></th> <th class="center"><em class="fa fa-cog"></em></th></tr></thead>
             </table>
           </div>
           <div class="col-sm-6 col-xs-12">
              <div class="row">
              <div  class="col-sm-9 col-xs-12">
                    <input type="text" id="id_medicament" name="id_medicament" hidden>
-                   <label for="nommedic"><strong>Nom Médicament :</strong></label>
-                   <input id="nommedic" class="form-control" type="text"  placeholder="Médicament" readonly/>
+                   <label for="nommedic"><strong>Nom Médicament :</strong></label><input id="nommedic" class="form-control" type="text"  placeholder="Médicament" readonly/>  
              </div>
-              <div  class="col-sm-3 hidden-xs">
-                   <label for="form-field-8"> <strong>Forme :</strong> </label>  
-                   <input id="forme" class="form-control" type="text"  placeholder="Forme" readonly/>
+              <div class="col-sm-3 hidden-xs">
+                <label for="form-field-8"> <strong>Forme :</strong></label><input id="forme" class="form-control" type="text"  placeholder="Forme" readonly/>   
               </div>
             </div><div class="space-12 hidden-xs"></div>{{-- row --}}
             <div class="row">
@@ -33,15 +31,14 @@
             </div><div class="space-12 hidden-xs"></div>
             <div class="row">
               <div class="col-xs-12">
-                <label for="posologie_medic">Posologie:</label>
-                <input type="text" class="form-control disabledElem" id="posologie_medic" placeholder="Posologie...">
+                <label for="posologie_medic">Posologie:</label><input type="text" class="form-control disabledElem" id="posologie_medic" placeholder="Posologie...">
               </div>
             </div><div class="space-12 hidden-xs"></div><div class="space-12 hidden-xs"></div>     
              <div class="row">
               <div class="col-xs-12">
-                    <button type="button" id="addliste" class="btn btn-primary btn-xs pull-right disabledElem" onclick="addmidifun()">
-                         Ajouter&nbsp;<i class="fa fa-arrow-down" ></i>
-                     </button>
+                <button type="button" id="addliste" class="btn btn-primary btn-xs pull-right disabledElem" onclick="addmidifun()">
+                  Ajouter&nbsp;<i class="fa fa-arrow-down" ></i>
+                </button>
               </div>
             </div>
           </div>
@@ -75,6 +72,3 @@
       </div>
   </div>
 </div>
-  
-
-

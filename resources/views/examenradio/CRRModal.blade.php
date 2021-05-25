@@ -48,9 +48,10 @@
 		    </div>
 		    </form> --}}
         <button type="submit" class="btn btn-primary btn-sm" id="crrSave" data-dismiss="modal" onclick= "CRRSave();" value="add"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
-        <button type="button" class="btn btn-sm btn-success" onclick=""><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button>
+        <button type="button" class="btn btn-sm btn-success" onclick="ComptRRPrint()"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button>
         <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">	<i class="ace-icon fa fa-close bigger-110"></i>Fermer</button>
       </div>
 		</div>{{-- modal-content --}}
 	</div>{{-- modal-dialog --}}
 </div>{{-- modal --}}
+<div class="row"><canvas id="crr" height="1%"><img id='itfcrr'/></canvas></div>

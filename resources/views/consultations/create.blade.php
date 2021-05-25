@@ -546,19 +546,19 @@
 						'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
 					}
 			});
-		$.ajax({
-			type: "POST",
-			url: "/ordonnaces/print",
-			data:formData,//contentType: "application/j-son;charset=UTF-8",
-			dataType: "json",
-			success: function (data,status, xhr) {	  	
-				$('#iframe-pdf').contents().find('html').html(data.html);
-				$("#ordajax").modal();		       
-			},	
-			error: function (data) {
-				console.log('Error:', data);
-			}
-		})
+			$.ajax({
+				type: "POST",
+				url: "/ordonnaces/print",
+				data:formData,//contentType: "application/j-son;charset=UTF-8",
+				dataType: "json",
+				success: function (data,status, xhr) {	  	
+					$('#iframe-pdf').contents().find('html').html(data.html);
+					$("#ordajax").modal();		       
+				},	
+				error: function (data) {
+					console.log('Error:', data);
+				}
+			})
 	  })//fin drug  print
 
  });// ready

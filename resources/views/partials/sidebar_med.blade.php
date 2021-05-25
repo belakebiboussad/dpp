@@ -464,7 +464,7 @@
             }
         });
     }
-     function lettreorietOLD(logo,nompatient,prenompatient,agepatient)
+    /* function lettreorietOLD(logo,nompatient,prenompatient,agepatient)
       {
         var specialite = $( "#specialiteOrient option:selected" ).text().trim();
         var medecin =  $("#medecinOrient option:selected").text().trim();
@@ -490,10 +490,10 @@
         var text = "permettez moi de vous adresser le(la) patient(e) sus-nommé(e), "+nompatient+" "+prenompatient+" âgé(e) de "+agepatient+" ans, qui s'est présenté ce jour pour  "+$('#motifOrient').val()+"  . je vous le confie pour prise en charge spécialisé. respectueusement confraternellement.";
         lines = doc.splitTextToSize(text, 185);
         doc.text(20,110,lines,null,null);
-        doc.text(200,180,'signature',null,null,'right');
-        var string = doc.output('datauristring');
-        $('#lettreorientation').attr('src', string);
-      }
+        doc.text(200,180,'signature',null,null,'right');  var string = doc.output('datauristring');$('#lettreorientation').attr('src', string);
+      
+        
+      }*/
     function lettreoriet(logo,nomP,prenomP,ageP,ipp)
     {
       var specialite = $( "#specialiteOrient option:selected" ).text().trim();
