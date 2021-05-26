@@ -378,140 +378,106 @@
         html2canvas($("#dos"), {
           onrendered: function(canvas) {
               moment.locale('fr');//var IPP = ipp.toString();
-              var formattedDate = moment(new Date()).format("l");         
-              var imgData = canvas.toDataURL('image/png');              
+              var formattedDate = moment(new Date()).format("l");                     
               var doc = new jsPDF('p', 'mm');
               doc.text(105,9,'{{ Session::get('etabTut') }}', null, null, 'center');
               doc.setFontSize(13);
-              doc.text(105,16,'{{ Session::get('etabname') }}', null, null, 'center');
+              doc.text(105,16,'{{ Session::get('etabname') }}'.replace(/&quot;/g,'"'), null, null, 'center');
               doc.setFontSize(12);
               doc.text(105,21,'{{ Session::get('etabAdr') }}', null, null, 'center');
               doc.text(105,26, 'Tél : {{ Session::get("etabTel") }} - {{ Session::get("etabTel") }}', null, null, 'center');//doc.text(105,26, 'Tél : 023-93-34 - 23-93-58', null, null, 'center');
-              doc.addImage(image, 'JPEG', 95, 27, 17, 17);
+              doc.addImage(image, 'JPEG', 95, 27, 20, 20);
               doc.setFontSize(14);
-              doc.addImage(imgData, 'JPEG', 10, 10);
               JsBarcode("#itf", ipp.toString(), {
                 lineColor: "#000",
                 width:4,
                 height:40,
                 displayValue: true,
+                text:"IPP :"+ ipp.toString(),
                 fontSize : 28,
                 textAlign: "left"
               });
-              doc.text(200,60, 'Alger :' +formattedDate , null, null, 'right'); 
-              doc.text(20,63, 'Nom : '+nomp, null, null);
-              doc.text(20,68, 'Prénom : '+prenomp, null, null);
-              doc.text(20,73, 'Age : '+ age+' ans', null, null); 
+              doc.text(200,60, formattedDate , null, null, 'right'); 
+              doc.text(10,63, 'Nom : '+nomp, null, null);
+              doc.text(10,68, 'Prénom : '+prenomp, null, null);
+              doc.text(10,73, 'Age : '+ age+' ans', null, null); 
               const img = document.querySelector('img#itf');
-              doc.addImage(img.src, 'JPEG', 20, 75, 50, 15);
-              doc.text(20,110, 'Prière de faire', null, null);
+              doc.addImage(img.src, 'JPEG', 10, 75, 50, 15);
+              doc.text(10,100, 'Prière de faire', null, null);
               doc.setFontSize(16);
-              doc.text(50,125,'Analyses Demandées :',null,null) 
+              doc.text(10,115,'Analyses Demandées :',null,null) 
               var i =0;
               $('input.ace:checkbox:checked').each(function(index, value) {
-                doc.text(20,135+i, ++index + ' : '+this.nextElementSibling.innerHTML+" . ");
+                doc.text(10,125+i, ++index + ' : '+this.nextElementSibling.innerHTML+" . ");
                 i=i+10;
               });
               doc.setFontSize(12);
-              doc.text(100,270, 'Docteur : {{ Auth::user()->employ->nom}} {{ Auth::user()->employ->prenom}}', null, null); 
+              doc.text(100,275, 'Docteur : {{ Auth::user()->employ->nom}} {{ Auth::user()->employ->prenom}}', null, null); 
               doc.save('ExamBiolo-'+nomp+'-'+prenomp+'.pdf');
           }
         });    
     }
      function createeximgF(image,nomp,prenomp,age,ipp)
-    {  
-        html2canvas($("#dos"), {
-            onrendered: function(canvas) {         
-              moment.locale('fr');//var IPP = ipp.toString();
-              var formattedDate = moment(new Date()).format("l");
-              var imgData = canvas.toDataURL('image/png');              
-              var doc = new jsPDF('p', 'mm');
-              doc.addImage(imgData, 'PNG', 10, 10); //JsBarcode("#itf",IPP); //bonne
-              JsBarcode("#itf", ipp.toString(), {
-                lineColor: "#000",
-                width:4,
-                height:40,
-                displayValue: true,
-                text:"IPP :"+ipp.toString(),
-                fontSize : 28,
-                textAlign: "left"
-              });
-              const img = document.querySelector('img#itf');
-              doc.text(105, 9,'{{ Session::get('etabTut') }}', null, null, 'center');
-              doc.setFontSize(13);
-              doc.text(105,16, '{{ Session::get('etabname') }}', null, null, 'center');
-              doc.setFontSize(12);
-              doc.text(105,21, '{{ Session::get('etabAdr') }}', null, null, 'center');
-              doc.text(105,26, 'Tél : {{ Session::get('etabTel') }} - {{ Session::get('etabTel2') }}', null, null, 'center');
-              doc.addImage(image, 'JPEG', 95, 27, 17, 17);
-              doc.setFontSize(14);
-              doc.text(200,60, 'Alger :' +formattedDate , null, null, 'right'); 
-              doc.text(20,63, 'Nom : '+nomp, null, null);
-              doc.text(20,68, 'Prénom : '+prenomp, null, null);
-              doc.text(20,73, 'Age : '+ age+' ans', null, null);
-              doc.addImage(img.src, 'JPEG', 20, 75, 50, 15);
-              doc.text(20,110, 'Prière de faire', null, null);
-              doc.setFontSize(16);
-              doc.text(50,125,'Examens Demandées :',null,null)
-              var res = doc.autoTableHtmlToJson(document.getElementById('ExamsImgtab'));
-              var height = doc.internal.pageSize.height;
-              doc.autoTable(res.columns, res.data, {
-                startY: 135,
-              });
-              doc.setFontSize(12);
-              doc.text(100,270, 'Docteur : {{ Auth::user()->employ->nom}} {{ Auth::user()->employ->prenom}}', null, null); 
-              doc.save('ExamRadio-'+nomp+'-'+prenomp+'.pdf');
-            }
-        });
+    { 
+      html2canvas($("#dos"), {
+          onrendered: function(canvas) {         
+            moment.locale('fr');
+            var formattedDate = moment(new Date()).format("l");
+            var doc = new jsPDF('p', 'mm');//JsBarcode("#itf",IPP); //bonne
+            JsBarcode("#itf", ipp.toString(), {
+              lineColor: "#000",
+              width:4,
+              height:40,
+              displayValue: true,
+              text:"IPP :"+ipp.toString(),
+              fontSize : 28,
+              textAlign: "left"
+            });
+            const img = document.querySelector('img#itf');
+            doc.text(105, 9,'{{ Session::get('etabTut') }}', null, null, 'center');
+            doc.setFontSize(13);
+            doc.text(105,16, '{{ Session::get('etabname') }}'.replace(/&quot;/g,'"'), null, null, 'center');
+            doc.setFontSize(12);
+            doc.text(105,21, '{{ Session::get('etabAdr') }}', null, null, 'center');
+            doc.text(105,26, 'Tél : {{ Session::get('etabTel') }} - {{ Session::get('etabTel2') }}', null, null, 'center');
+            doc.addImage(image, 'JPEG', 95, 27, 23, 23);
+            doc.setFontSize(14);
+            doc.text(200,60, formattedDate , null, null, 'right'); 
+            doc.text(10,63, 'Nom : '+nomp, null, null);
+            doc.text(10,68, 'Prénom : '+prenomp, null, null);
+            doc.text(10,73, 'Age : '+ age+' ans', null, null);
+            doc.addImage(img.src, 'JPEG', 10, 75, 50, 15);
+            doc.text(10,110, 'Prière de faire', null, null);
+            doc.setFontSize(16);
+            doc.text(50,125,'Examens Radiologiques Demandées :',null,null)
+            var res = doc.autoTableHtmlToJson(document.getElementById('ExamsImgtab'));
+            var height = doc.internal.pageSize.height;
+            doc.autoTable(res.columns, res.data, {
+              startY: 135,
+            });
+            doc.setFontSize(12);
+            doc.text(100,273, 'Docteur : {{ Auth::user()->employ->nom}} {{ Auth::user()->employ->prenom}}', null, null); 
+            doc.save('ExamRadio-'+nomp+'-'+prenomp+'.pdf');
+          }
+      });
     }
-    /* function lettreorietOLD(logo,nompatient,prenompatient,agepatient)
-      {
-        var specialite = $( "#specialiteOrient option:selected" ).text().trim();
-        var medecin =  $("#medecinOrient option:selected").text().trim();
-        $('#lettreorientation').show();
-        $('#lettreorientation').removeClass("hidden");
-        var d = new Date(); var dd = d.getDate(); var mm = d.getMonth()+1;          
-        var yyyy = d.getFullYear();
-        var doc = new jsPDF({orientation: "p", lineHeight: 1.5})
-        doc.setFontSize(15);
-        doc.lineHeightProportion = 100;
-        doc.text(105,20, '{{ Session::get('etabTut') }}', null, null, 'center');//lettre.text(105,28, 'ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE "LES GLYCINES"', null, null, 'center');
-        doc.text(105,28, '{{ Session::get('etabname') }}', null, null, 'center');
-        doc.setFontSize(12);
-        doc.text(105,36, '{{ Session::get('etabAdr') }}', null, null, 'center');//12, Chemin des Glycines - ALGER
-        doc.text(105,44, 'Tél : {{ Session::get('etabTel') }} - {{ Session::get('etabTel2') }}', null, null, 'center');
-        doc.text(200,58, 'Alger,le : '+dd+'/'+mm+'/'+yyyy, null, null, 'right');
-        doc.text(20,68, 'Emetteur : {{ Auth::User()->employ->nom }} {{Auth::User()->employ->prenom }}', null, null);
-        doc.text(20,76, 'Tél : {{Auth::User()->employ->tele_mobile }}', null, null);
-        doc.text(200,68, 'Destinataire : '+medecin , null, null, 'right');
-        doc.text(200,76, 'Specialite : '+specialite , null, null,'right');
-        doc.setFontType("bold");
-        doc.text(105,90, "Lettre d'orientation", null, null, 'center');
-        var text = "permettez moi de vous adresser le(la) patient(e) sus-nommé(e), "+nompatient+" "+prenompatient+" âgé(e) de "+agepatient+" ans, qui s'est présenté ce jour pour  "+$('#motifOrient').val()+"  . je vous le confie pour prise en charge spécialisé. respectueusement confraternellement.";
-        lines = doc.splitTextToSize(text, 185);
-        doc.text(20,110,lines,null,null);
-        doc.text(200,180,'signature',null,null,'right');  var string = doc.output('datauristring');$('#lettreorientation').attr('src', string);
-      
-        
-      }*/
     function lettreoriet(logo,nomP,prenomP,ageP,ipp)
     {
       var specialite = $( "#specialiteOrient option:selected" ).text().trim();
       var medecin =  $("#medecinOrient option:selected").text().trim();
       html2canvas($("#lettreorientation"), {
         onrendered: function(canvas) {         
-          moment.locale('fr');//var IPP = ipp.toString();
-          var d = new Date(); var dd = d.getDate(); var mm = d.getMonth()+1;          
-          var yyyy = d.getFullYear();
-          var doc = new jsPDF({orientation: "p", lineHeight: 2});// var imgData = canvas.toDataURL('image/png');// doc.addImage(imgData, 'PNG', 10, 10);
+          moment.locale('fr');
+          var formattedDate = moment(new Date()).format("l");
+          var doc = new jsPDF({orientation: "p", lineHeight: 2});
           doc.text(105,10,'{{ Session::get('etabTut') }}', null, null, 'center');
           doc.setFontSize(13);
-          doc.text(105,18,'{{ Session::get('etabname') }}', null, null, 'center');
+          doc.text(105,18,'{{ Session::get('etabname') }}'.replace(/&quot;/g,'"'), null, null, 'center');
           doc.setFontSize(12);
           doc.text(105,24,'{{ Session::get('etabAdr') }}', null, null, 'center');
           doc.text(105,30, 'Tél : {{ Session::get("etabTel") }} - {{ Session::get("etabTel") }}', null, null, 'center');//doc.text(105,26, 'Tél : 023-93-34 - 23-93-58', null, null, 'center');
           doc.addImage(logo, 'JPEG', 95, 33, 20, 20);
-          doc.setFontSize(14);//doc.addImage(imgData, 'JPEG', 10, 10);
+          doc.setFontSize(14);
           JsBarcode("#itfL", ipp.toString(), {
             lineColor: "#000",
             width:4,
@@ -521,8 +487,8 @@
             fontSize : 28,
             textAlign: "left"
           });
-          const img = document.querySelector('img#itfL');
-          doc.text(200,58, 'Alger,le : '+dd+'/'+mm+'/'+yyyy, null, null, 'right');
+          const img = document.querySelector('img#itfL');//doc.text(200,58, 'Alger,le : '+dd+'/'+mm+'/'+yyyy, null, null, 'right');
+          doc.text(200,58, formattedDate , null, null, 'right');        
           doc.text(20,68, 'Emetteur : {{ Auth::User()->employ->nom }} {{Auth::User()->employ->prenom }}', null, null);
           doc.text(20,76, 'Tél : {{Auth::User()->employ->tele_mobile }}', null, null);
           doc.text(200,68, 'Specialite : '+specialite , null, null,'right');

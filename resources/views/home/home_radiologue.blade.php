@@ -7,7 +7,7 @@
 			<div class="col-sm-10 col-sm-offset-1">
 				<div class="widget-box transparent">
 					<div class="widget-header widget-header-large">
-						<h3 class="widget-title grey lighter"><i class="ace-icon fa fa-table"></i>Liste des Demande</h3>
+						<h3 class="widget-title grey lighter"><i class="ace-icon fa fa-table"></i>Liste des Demandes</h3>
 					</div>
 					<div class="widget-body">
 						<div class="widget-main padding-24">
@@ -39,7 +39,7 @@
 												<td>{{ $exr->visite->hospitalisation->patient->Nom }} {{ $exr->visite->hospitalisation->patient->Prenom }}</td>
 												@endif
 													<td>
-														<span class="badge badge-primary">
+														<span class="badge badge-warning">
 														@if($exr->etat == "E")
 															En Attente
 														@elseif($exr->etat == "V")

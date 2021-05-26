@@ -12,14 +12,48 @@
         CRRPrint(img);
       };
   }
-  function CRRPrint()
+  function CRRPrint(image)
   {
     var indication = $("#indication").val();
     var techRea = $("#techRea").val();
     var result  = $("#result").val();
     var conclusion = $("#conclusion").val();
-   
-   
+    html2canvas($("#crr"), {
+        onrendered: function(canvas) {         
+          moment.locale('fr');
+          var formattedDate = moment(new Date()).format("l");
+          var doc = new jsPDF({orientation: "p", lineHeight: 2});
+          doc.text(105,9,'{{ Session::get('etabTut') }}', null, null, 'center');        
+          doc.setFontSize(13);
+          doc.text(105,16, '{{ Session::get('etabname') }}'.replace(/&quot;/g,'"'), null, null, 'center');
+          doc.setFontSize(12);
+          doc.text(105,21, '{{ Session::get('etabAdr') }}', null, null, 'center');
+          doc.text(105,26, 'Tél : {{ Session::get('etabTel') }} - {{ Session::get('etabTel2') }}', null, null, 'center');
+          doc.addImage(image, 'JPEG', 95, 28, 25, 25);
+          doc.setFontSize(18);
+          doc.text(105,58, "Compte Rendu Radiologique", null, null, 'center');
+          doc.setFontSize(14);
+          doc.text(200,65, formattedDate , null, null, 'right');
+          doc.text(10,70, 'Nom : ' + '{{ $patient->Nom }}' , null, null);
+          doc.text(10,75, 'Prénom : ' + '{{ $patient->Prenom }}' , null, null);
+          doc.text(10,80, 'Age : '+ '{{ $patient->getAge() }}' +' ans', null, null);
+          JsBarcode("#itfcrr",'{{ $patient->IPP }}'.toString() , {
+            lineColor: "#000",
+            width:4,
+            height:45,
+            displayValue: true,
+            text:"IPP :"+'{{ $patient->IPP }}'.toString(),
+            fontSize : 28,
+            textAlign: "left"
+          });
+          const img = document.querySelector('img#itfcrr');
+          doc.addImage(img.src, 'JPEG', 10, 83, 50, 15);
+          doc.text(10,90,'Indication :',null,null);
+          
+          doc.text(100,270, 'Docteur : {{ Auth::user()->employ->nom}} {{ Auth::user()->employ->prenom}}', null, null);        
+          doc.save('crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+'.pdf');
+        }
+    });
   }
   function CRRSave()
   {

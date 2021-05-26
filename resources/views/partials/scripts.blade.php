@@ -664,4 +664,7 @@ $('#typeexm').on('change', function() {
           x.className = "topnav";
         }
       }
+      function htmlspecialchars(str) {
+         return str.replace('&', '&amp;').replace('&quot;', '"').replace("'", '&#039;').replace('<', '&lt;').replace('>', '&gt;');
+      }
 </script>

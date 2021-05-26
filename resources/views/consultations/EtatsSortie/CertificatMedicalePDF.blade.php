@@ -48,7 +48,7 @@
           <div class="col-sm-2">
           </div>
         </div>
-        <div class="row"><br><span class="ml-80">Alger le {{ $date}}</span><br><br></div>
+        <div class="row"><br><span class="ml-80">Alger le {{ Carbon\Carbon::parse($date)->format('d-m-Y') }}</span><br><br></div>
         <div class="row"><div class="col-sm-12"><strong>Service : </strong>
           <span>{{ $obj->docteur->Service->nom }}</span> </div>
         </div>
@@ -69,10 +69,6 @@
             Presente {{ $obj->Diagnostic }}
           </div>
         </div>
-         <div class="row">
-          <div class="col-sm-12"><span style="padding-top: 10px;">
-            le patient {{ $obj->Resume_OBS }}
-          </div>
-        </div><br>      
+         <div class="row"><div class="col-sm-12"><span style="padding-top: 10px;">  le patient {{ $obj->Resume_OBS }}</div></div><br>      
     </body>
   </html>
