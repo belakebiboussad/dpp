@@ -192,7 +192,7 @@ route::get('/consigne','ActeController@choixhospconsigne');
 route::post('/saveActe','ActeController@store');
 route::get('/schapitres','CimController@getChapters');
 route::get('/maladies','CimController@getdiseases');//route::post('/acte','AntecedantsController@store');
-// Route::post('/crr/store', 'CRRControler@store')->name('crrStore');
+Route::get('/crrs/download/{id}', 'CRRControler@download')->name('crrs.download');
 Route::get('/404', function () {
     return view('errors.404');
 });

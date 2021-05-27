@@ -78,22 +78,13 @@ class ticketController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
-
+   
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -101,25 +92,15 @@ class ticketController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
     public function ticketPdf($id)
     {
-      $ticket = ticket::with('Patient')->FindOrFail($id);
-      //dd($ticket->Patient);
+      $ticket = ticket::with('Patient')->FindOrFail($id);//dd($ticket->Patient);
       $etablissement = Etablissement::first();
       $pdf = PDF::loadView('ticket', compact('ticket','etablissement'))->setPaper('a6','landscape');
       $name = "Ticket.pdf";

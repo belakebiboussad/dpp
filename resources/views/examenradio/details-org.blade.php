@@ -2,63 +2,97 @@
 @section('title','Demande Examens Imagerie')
 @section('style')
 <style>
+#pdfContent {
+   visibility: hidden;
+    width: 0px;
+    height: 0px;
+    overflow: hidden;
+}
 </style>
 @endsection
 @section('page-script')
 <script>
-function ComptRRPrint()
+  function ComptRRPrint()
   {
-    var img = new Image(); // img.src = '{{ asset("/img/logo.png") }}'; // alert('{{ Session::get("etabLogo") }}');
-    img.src = "/img/"+'{{ Session::get("etabLogo") }}';
+     var img = new Image();
+      // img.src = '{{ asset("/img/logo.png") }}';
+      // alert('{{ Session::get("etabLogo") }}');
+      img.src = "/img/"+'{{ Session::get("etabLogo") }}';
       img.onload = function () {
         CRRPrint(img);
       };
   }
+  // function CRRPrint(image)
+  // {
+  //   var indication = $("#indication").val();
+  //   var techRea = $("#techRea").val();
+  //   var result  = $("#result").val();
+  //   var conclusion = $("#conclusion").val();
+  //   html2canvas($("#crr"), {
+  //       onrendered: function(canvas) {         
+  //         moment.locale('fr');
+  //         var formattedDate = moment(new Date()).format("l");
+  //         var doc = new jsPDF({orientation: "p", lineHeight: 2});
+  //         doc.text(105,9,'{{ Session::get('etabTut') }}', null, null, 'center');        
+  //         doc.setFontSize(13);
+  //         doc.text(105,16, '{{ Session::get('etabname') }}'.replace(/&quot;/g,'"'), null, null, 'center');
+  //         doc.setFontSize(12);
+  //         doc.text(105,21, '{{ Session::get('etabAdr') }}', null, null, 'center');
+  //         doc.text(105,26, 'Tél : {{ Session::get('etabTel') }} - {{ Session::get('etabTel2') }}', null, null, 'center');
+  //         doc.addImage(image, 'JPEG', 95, 28, 25, 25);
+  //         doc.setFontSize(18);
+  //         doc.text(105,58, "Compte Rendu Radiologique", null, null, 'center');
+  //         doc.setFontSize(14);
+  //         doc.text(200,65, formattedDate , null, null, 'right');
+  //         doc.text(10,70, 'Nom : ' + '{{ $patient->Nom }}' , null, null);
+  //         doc.text(10,75, 'Prénom : ' + '{{ $patient->Prenom }}' , null, null);
+  //         doc.text(10,80, 'Age : '+ '{{ $patient->getAge() }}' +' ans', null, null);
+  //         JsBarcode("#itfcrr",'{{ $patient->IPP }}'.toString() , {
+  //           lineColor: "#000",
+  //           width:4,
+  //           height:45,
+  //           displayValue: true,
+  //           text:"IPP :"+'{{ $patient->IPP }}'.toString(),
+  //           fontSize : 28,
+  //           textAlign: "left"
+  //         });
+  //         const img = document.querySelector('img#itfcrr');
+  //         doc.addImage(img.src, 'JPEG', 10, 83, 50, 15);
+  //         doc.text(10,110,'Indication :',null,null);
+  //         pageHeight= doc.internal.pageSize.height;
+  //         alert(pageHeight);
+  //         doc.text(100,270, 'Docteur : {{ Auth::user()->employ->nom}} {{ Auth::user()->employ->prenom}}', null, null);        
+  //         doc.save('crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+'.pdf');
+  //       }
+  //   });
+  //}
   function CRRPrint(image)
   {
     var indication = $("#indication").val();
     var techRea = $("#techRea").val();
     var result  = $("#result").val();
     var conclusion = $("#conclusion").val();
-   // var doc = new jsPDF('p', 'pt', 'a4');//$("#pdfContent").removeClass('invisible');
+    var doc = new jsPDF('p', 'pt', 'a4');//$("#pdfContent").removeClass('invisible');
     var elem1=$("#pdfContent");
-    $("#indicationPDF").text($('#indication').val());
-    $("#techReaPDF").text($('#techRea').val());
-    $("#resultPDF").text($('#result').val());
-    $("#conclusionPDF").text($('#conclusion').val());
     if(!elem1.is(":visible")) 
     {
         elem1.show();elem1.fadeIn(1);elem1.fadeOut(1);
     }
     const input = document.getElementById("pdfContent");
-    /*  html2canvas(input)      .then((canvas) => {            const doc = new jsPDF("p", "px", "a4");   doc.addHTML(input, 10, 5, {             pagesplit: true,              background: "#ffffff",
-    onclone: function(document) {   hiddenDiv = document.getElementById("pdfContent");                hiddenDiv.style.display = 'block';             }
-          }, () => {            doc.save('crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+'.pdf');//doc.save("download.pdf");//$("#pdfContent").addClass('invisible');
-          });            });    */
-    margins = {
-        bottom:10,
-        top:10,
-        left:10,
-        right:10
-    };
-    const doc = new jspdf('p', 'pt', 'a4'); // For A4 Sheet layout
-    pageHeight= doc.internal.pageSize.height;
-     doc.addHTML(input, 10, 5, {
-        pagesplit: true,
-        margin: margins,
-        background: "#ffffff",
-        onclone: function(document) {
-            hiddenDiv = document.getElementById("pdfContent");
-            hiddenDiv.style.display = 'block';
-        }
-    },
-    function(dispose) {
-        var pageCount = doc.internal.getNumberOfPages();
-        for (i = 0; i < pageCount; i++) {
-            doc.setPage(i);
-        }
-        doc.save('crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+'.pdf');
-    });
+    html2canvas(input)
+      .then((canvas) => {
+          const doc = new jsPDF("p", "px", "a4");
+          doc.addHTML(input, 0, 0, {
+              pagesplit: true,
+              background: "#ffffff",
+              onclone: function(document) {
+                hiddenDiv = document.getElementById("pdfContent");
+                hiddenDiv.style.display = 'block';
+             }
+          }, () => {
+            doc.save("download.pdf");//$("#pdfContent").addClass('invisible');
+          });
+      });
   }
   function CRRSave()
   {
@@ -245,7 +279,7 @@ function ComptRRPrint()
         });
     });
 });
-  </script>
+</script>
 @endsection
 @section('main-content')
 <div class="row" width="100%">@include('patient._patientInfo')</div>
@@ -256,13 +290,11 @@ function ComptRRPrint()
        <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer</a>&nbsp;&nbsp;
       <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
     </div>
-</div><hr>
+</div><hr> 
 <div class="space-12 hidden-xs"></div>
 <input type="hidden" id ="id_demandeexr" value="{{ $demande->id }}">
 <div class="row">
-<div class="col-xs-12 col-sm-8">
-<div class="row">
-  <div class="col-xs-12 col-sm-12">
+  <div class="col-xs-12 col-sm-6">
     <div class="col-sm-6">
       <label class="control-label pull-right"><b>Date :</b></label>
     </div>
@@ -276,9 +308,9 @@ function ComptRRPrint()
       </label>
     </div>
   </div>
-</div>
+</div>  
  <div class="row">
-  <div class="col-xs-12 col-sm-12">
+  <div class="col-xs-12 col-sm-6">
     <div class="col-sm-6"><label class="control-label pull-right"><b>Medecin demandeur :</b></label></div>  
     <div class="form-group col-sm-6">
       <label class="blue">
@@ -292,25 +324,25 @@ function ComptRRPrint()
   </div>
 </div>
 <div class="row">
-  <div class="col-xs-12 col-sm-12">
+  <div class="col-xs-12 col-sm-6">
     <div class="col-sm-6"><label class="control-label pull-right"><b>Informations cliniques pertinentes :</b></label></div>
      <div class="form-group col-sm-6"><label class="blue">{{ $demande->InfosCliniques }}</label></div>
     </div>
 </div>
 <div class="row">
-  <div class="col-xs-12 col-sm-12">
+  <div class="col-xs-12 col-sm-6">
     <div class="col-sm-6"><label class="control-label pull-right"><b>Explication de la demande de diagnostic :</b></label></div>
     <div class="form-group col-sm-6"><label class="blue"> {{ $demande->Explecations }} </label> </div>
   </div>
 </div>
 <div class="row">
-  <div class="col-xs-12 col-sm-12">
+  <div class="col-xs-12 col-sm-6">
     <div class="col-sm-6"><label class="control-label pull-right"><b>Explication de la demande de diagnostic :</b></label></div>
     <div class="form-group col-sm-6"><label class="blue"> {{ $demande->Explecations }} </label> </div>
   </div>
 </div>
 <div class="row">
-  <div class="col-xs-12 col-sm-12">
+  <div class="col-xs-12 col-sm-6">
     <div class="col-sm-6"><label class="control-label pull-right"><b>Informations supplémentaires pertinentes :</b></label></div>
     <div class="form-group col-sm-6">
       <label class="blue">
@@ -367,7 +399,9 @@ function ComptRRPrint()
                       <i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>
                     </button>
                     @if(!isset($examen->pivot->crr_id ))
-                    <button class="btn btn-md btn-warning cancel" value ="{{ $examen->id }}"><i class="glyphicon glyphicon-ban-circle glyphicon glyphicon-white"></i></button>
+                    <button class="btn btn-md btn-warning cancel" value ="{{ $examen->id }}">
+                      <i class="glyphicon glyphicon-ban-circle glyphicon glyphicon-white"></i>
+                    </button>
                     @endif
                   </td>
                 </tr>
@@ -379,15 +413,10 @@ function ComptRRPrint()
       </div>
     </div>
   </div> 
-</div><!-- row tabel  -->
-</div><!-- col-sm-6 -->
-<div class="col-xs-12 col-sm-4">
- <div class="row" id="pdfContent" style="display:none"> @include('examenradio.EtatsSortie.crr')</div>
-</div>
 </div>
 <div class="space-12 hidden-xs"></div>
-<div class="row" style="bottom:0px;">
-  <div class="col-sm-12" >
+<div class="row">
+  <div class="col-sm-12">
     <form class="form-horizontal" method="POST" action="/uploadexr" enctype="multipart/form-data">
     {{ csrf_field() }}
     <input type="text" name="id_demande" value="{{ $demande->id }}" hidden>
@@ -400,5 +429,6 @@ function ComptRRPrint()
     </form>
   </div>
 </div>
-<div class="row jumbotron text-center">@include('examenradio.CRRModal')</div> 
+<div class="row">@include('examenradio.CRRModal')</div>
+ <div class="row" id="pdfContent" style="display:none"> @include('examenradio.EtatsSortie.crr')</div>
 @endsection

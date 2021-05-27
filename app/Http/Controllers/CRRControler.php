@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\modeles\CRR;
 use App\modeles\demandeexr;
 use Response;
+use PDF;
 class CRRControler extends Controller
 {
 	public function __construct()
@@ -37,5 +38,11 @@ class CRRControler extends Controller
       $crr->update($request->all()); 
       $crr->save();
       return Response::json($crr);  
+  }
+  public function download($id)
+  {
+    $crr = CRR::find($id);
+    $pdf = PDF::loadView('examenradio.EtatsSortie.crrPDf',compact('crr'));
+    return $pdf->stream("crr.pdf");
   }
 }

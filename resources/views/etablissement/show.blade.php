@@ -62,10 +62,10 @@
             <td><img src="{{  url('/img/'.$etablissement->logo) }}" alt="logo" width="100" height="100"/></td>		
             <td class="center" width="10%">
               <a href="{{ route('etablissement.edit', $etablissement->id) }}" class="edit" ><i class="fa fa-edit fa-xs bigger-200"></i></a>
-                        <a href="{{ route('etablissement.destroy', $etablissement->id) }}" class="delete" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger" ><i class="ace-icon fa fa-trash-o bigger-200"></i></a>
-                    </td>
-            </tr>
-            </tbody>
+              <a href="{{ route('etablissement.destroy', $etablissement->id) }}" class="delete" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger" ><i class="ace-icon fa fa-trash-o bigger-200"></i></a>
+            </td>
+          </tr>
+        </tbody>
 			</table>				
 		</div>{{-- table-wrapper --}}
 	</div>	
