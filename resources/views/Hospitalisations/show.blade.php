@@ -12,7 +12,7 @@
 	<ul class="nav nav-tabs padding-18">
 		<li class="active"><a data-toggle="tab" href="#hospi">Hospitalisation</a></li>
 		@if(in_array(Auth::user()->role_id,[1,14]))
-		<li ><a data-toggle="tab" href="#visites">Visites</a></li>
+		<li ><a data-toggle="tab" href="#visites">Visites & Contrôles</a></li>
 		@endif
 	</ul>
 	<div class="tab-content no-border padding-24">

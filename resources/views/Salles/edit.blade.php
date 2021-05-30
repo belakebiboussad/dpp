@@ -1,7 +1,7 @@
 @extends('app')
 @section('main-content')
 	<div class="page-header">
-		<h1>Modifier une Chambre :</h1>
+		<h1>Modifier la Chambre "{{ $salle->nom }}" :</h1>
 	</div>
 	<div class="row">
 		<div class="col-xs-12">
@@ -17,40 +17,38 @@
 				<div class="form-group">
 					<label class="col-sm-3 control-label no-padding-right" for="numsalle"><strong> Numéro Chambre : </strong></label>
 					<div class="col-sm-9">
-						<input type="text" id="numsalle" name="numsalle" value="{{ $salle->num }}" placeholder="Numéro De La Chambre" class="col-xs-10 col-sm-5" />
+						<input type="text" name="num" value="{{ $salle->num }}" placeholder="Numéro De La Chambre" class="col-xs-10 col-sm-5" />
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label no-padding-right" for="nomsalle"><strong> Nom Chambre : </strong></label>
 					<div class="col-sm-9">
-						<input type="text" id="nomsalle" name="nomsalle" value="{{ $salle->nom }}" placeholder="Nom De La Chambre" class="col-xs-10 col-sm-5" />
+						<input type="text" name="nom" value="{{ $salle->nom }}" placeholder="Nom De La Chambre" class="col-xs-10 col-sm-5" />
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="maxlits"><strong> Max Lits : </strong></label>
+					<label class="col-sm-3 control-label no-padding-right" for="max_lit"><strong> Max Lits : </strong></label>
 					<div class="col-sm-9">
-						<input type="text" id="maxlits" name="maxlits" value="{{ $salle->max_lit }}" placeholder="Max des Lits" class="col-xs-10 col-sm-5" />
+						<input type="text" name="max_lit" value="{{ $salle->max_lit }}" placeholder="Max des Lits" class="col-xs-10 col-sm-5" />
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label no-padding-right" for="bloc"><strong> Bloc : </strong></label>
 					<div class="col-sm-9">
-						<input type="text" id="bloc" name="bloc" value="{{ $salle->bolc }}" placeholder="Bloc" class="col-xs-10 col-sm-5" />
+						<input type="text" name="bloc" value="{{ $salle->bloc }}" placeholder="Bloc" class="col-xs-10 col-sm-5" />
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label no-padding-right" for="etage"><strong> N° d'etage : </strong></label>
 					<div class="col-sm-9">
-					<input type="text" id="etage" name="etage" value="{{ $salle->etage }}" placeholder="N° d'etage" class="col-xs-10 col-sm-5" />
+					<input type="text" name="etage" value="{{ $salle->etage }}" placeholder="N° d'etage" class="col-xs-10 col-sm-5" />
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label no-padding-right" for="etage"><strong> Service : </strong></label>
 					<div class="col-sm-9">
-						<select class="col-xs-10 col-sm-5" id="service" name="service">
-						<option value="{{$salle->service_id}}">
-						{{ App\modeles\service::where("id", $salle->service_id)->get()->first()->nom }}
-						</option>
+						<select class="col-xs-10 col-sm-5" name="service_id">
+						<option value="{{$salle->service_id}}">{{ $salle->service->nom }}</option>
 						@foreach($services as $service)
 						<option value="{{ $service->id }}">{{ $service->nom }}</option>
 						@endforeach
@@ -58,16 +56,34 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="bloc"><strong> Etat : </strong></label>
+					<label class="col-sm-3 control-label no-padding-right" for="genre"><strong> Genre: </strong></label>
 					<div class="col-sm-9">
+					<label><input name="genre" value="0" type="radio" class="ace" @if(!($service->genre)) checked @endif/><span class="lbl">Homme</span></label>&nbsp;&nbsp;
+					<label><input name="genre" value="1" type="radio" class="ace" @if($service->genre) checked @endif/><span class="lbl">Femme</span></label>&nbsp;&nbsp;&nbsp;
+				  </div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for="etat"><strong> bloquée : </strong></label>
+					<div class="col-sm-9">
+						@if(isset($salle->etat))
 						<label>
-							<input name="etat" value="bloquée" type="radio" class="ace" {{ $salle->etat == "bloquee" ? "checked" : "" }}/>
-							<span class="lbl"> bloquée</span>
+							<input name="etat" value="1" type="radio" class="ace" checked="checked" />
+							<span class="lbl"> Oui {{$salle->etat }}</span>
 						</label>&nbsp;&nbsp;&nbsp;				
 						<label>
-							<input name="etat" value="Non bloquee" type="radio" class="ace" {{ $salle->etat == "Non bloquee" ? "checked" : "" }}/>
-							<span class="lbl"> Non bloquée</span>
+							<input name="etat" value="" type="radio" class="ace"/>
+							<span class="lbl"> Non</span>
 						</label>
+						@else
+						<label>
+							<input name="etat" value="1" type="radio" class="ace"/>
+							<span class="lbl"> Oui {{$salle->etat }}</span>
+						</label>&nbsp;&nbsp;&nbsp;				
+						<label>
+							<input name="etat" value="" type="radio" class="ace"  checked="checked"/>
+							<span class="lbl"> Non</span>
+						</label>
+						@endif
 						
 					</div>
 					</div>

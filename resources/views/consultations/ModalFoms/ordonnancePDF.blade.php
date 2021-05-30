@@ -22,7 +22,7 @@
 			</h5>
 		 	<h6 class="mt-20 center"><span style="font-size: xx-large;"><strong>Ordonnance</strong></span></h6>
   		<div class="row">
-			<div class="col-sm-12"><div class="section"><div class="ml-80"><b><u>Fait le:</u></b> {{ Carbon\Carbon::today()->format('Y-m-d') }}.</div></div></div>
+			<div class="col-sm-12"><div class="section"><div class="ml-80"><b><u>Fait le:</u></b> {{ Carbon\Carbon::today()->format('d/m/Y') }}.</div></div></div>
 			</div>
 			<div class="row ml-4">
 				<div class="col-sm-12">

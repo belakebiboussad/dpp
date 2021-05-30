@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\modeles\CRR;
 use App\modeles\demandeexr;
+use App\modeles\Etablissement;
 use Response;
 use PDF;
 class CRRControler extends Controller
@@ -42,7 +43,8 @@ class CRRControler extends Controller
   public function download($id)
   {
     $crr = CRR::find($id);
-    $pdf = PDF::loadView('examenradio.EtatsSortie.crrPDf',compact('crr'));
+    $etablissement = Etablissement::first();
+    $pdf = PDF::loadView('examenradio.EtatsSortie.crrPDf',compact('crr','etablissement'));
     return $pdf->stream("crr.pdf");
   }
 }

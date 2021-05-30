@@ -5,18 +5,19 @@
 		$('#service').change(function(){
 			$('#chambre').removeAttr("disabled");
 		  $.ajax({
-          url : '/getsalles/'+ $('#service').val(),
+          //url : '/getsalles/'+ $('#service').val(),
+          url : '/salles/'+ $('#service').val(),
           type : 'GET',
           dataType : 'json',
           success : function(data){
             if(data.length != 0){
               	var select = $('#chambre').empty();
                   $.each(data,function(){
-                             select.append("<option value='"+this.id+"'>"+this.nom+"</option>");
+                       select.append("<option value='"+this.id+"'>"+this.nom+"</option>");
                   });
-              }
-              else
-                $('#chambre').html('<option value="" disabled selected>Pas de salle</option>');
+            }else
+              $('#chambre').html('<option value="" disabled selected>Pas de salle</option>');
+              
           },
       });
 		})

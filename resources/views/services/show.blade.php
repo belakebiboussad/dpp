@@ -13,12 +13,12 @@
 				<div class="widget-body">
 					<div class="widget-main">
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right blue" for="nom"><strong> Nom : </strong></label>
+							<label class="col-sm-3 control-label no-padding-right blue"><strong> Nom : </strong></label>
 							<div class="col-sm-9"><strong>{{ $service->nom }}</strong></div>
 						</div>
 						<div class="space-12 hidden-xs"></div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right blue" for="type"><strong>Type:</strong></label>
+							<label class="col-sm-3 control-label no-padding-right blue"><strong>Type:</strong></label>
 							<div class="col-sm-9">
 								@switch($service->type)
 									@case(0)
@@ -35,14 +35,26 @@
 						</div>
 						<div class="space-12 hidden-xs"></div><div class="space-12 hidden-xs"></div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right blue" for="type"><strong>Chef de Service:</strong></label>
+							<label class="col-sm-3 control-label no-padding-right blue"><strong>Chef de Service:</strong></label>
 							<div class="col-sm-9">
 							<strong>{{ $service->responsable->nom }} {{ $service->responsable->prenom }}</strong>
 							</div>
 						</div>
 						<div class="space-12 hidden-xs"></div><div class="space-12 hidden-xs"></div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right blue" for="type"><strong>Urgence:</strong></label>
+							<label class="col-sm-3 control-label no-padding-right blue" for="hebergement"><strong>Hébergement:</strong></label>
+							<div class="col-sm-9">
+							<label>
+								<input name="hebergement" value="0" type="radio" class="ace" @if(!($service->hebergement)) checked @endif disabled/>
+									<span class="lbl">Non</span></label>&nbsp;&nbsp;
+								<label>
+									<input name="hebergement" value="1" type="radio" class="ace" @if($service->hebergement) checked @endif disabled/>
+									<span class="lbl">Oui</span></label>&nbsp;&nbsp;&nbsp;
+								</div>
+						</div>	
+						<div class="space-12 hidden-xs"></div><div class="space-12 hidden-xs"></div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right blue" for="urgence"><strong>Urgence:</strong></label>
 							<div class="col-sm-9">
 							<label>
 								<input name="urgence" value="0" type="radio" class="ace" @if(!($service->urgence)) checked @endif disabled/>

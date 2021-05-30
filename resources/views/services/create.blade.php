@@ -27,18 +27,26 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="type"><strong>Chef de Service:</strong></label>
+							<label class="col-sm-3 control-label no-padding-right" for="responsable_id"><strong>Chef de Service:</strong></label>
 							<div class="col-sm-9">
-						       	<select id="responsable" name="responsable" class="selectpicker show-menu-arrow place_holde col-xs-12 col-sm-12" required >
+						       	<select id="responsable_id" name="responsable_id" class="selectpicker show-menu-arrow place_holde col-xs-12 col-sm-12" required >
 									<option value="" selected disabled>Selectionner le chef de service</option>
 									@foreach ($users as $user)
 									<option value="{{ $user->employ->id}}"> {{ $user->employ->nom }} {{ $user->employ->prenom }}</option>
 									@endforeach
 								</select>	
 							</div>
+						</div>
+						<div class="space-12 hidden-xs"></div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right" for="hebergement"><strong> Hébergement: </strong></label>
+							<div class="col-sm-9">
+								<label><input name="hebergement" value="0" type="radio" class="ace" checked/><span class="lbl">Non</span></label>&nbsp;&nbsp;
+								<label><input name="hebergement" value="1" type="radio" class="ace"/><span class="lbl">Oui</span></label>&nbsp;&nbsp;&nbsp;
+							  </div>
 						</div><div class="space-12 hidden-xs"></div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="etatlit"><strong> Urgence: </strong></label>
+							<label class="col-sm-3 control-label no-padding-right" for="urgence"><strong> Urgence: </strong></label>
 							<div class="col-sm-9">
 								<label><input name="urgence" value="0" type="radio" class="ace" checked/><span class="lbl">Non</span></label>&nbsp;&nbsp;
 								<label><input name="urgence" value="1" type="radio" class="ace"/><span class="lbl">Oui</span></label>&nbsp;&nbsp;&nbsp;

@@ -1,10 +1,9 @@
-  <h3 class="mt-12 center">{{ Session::get('etabTut') }}</h3>
-  <h4 class="center">{{ Session::get('etabname') }}</h4>
-  <h5 class="center">{{ Session::get('etabAdr') }}</h5>  
-  <h5 class="center">Tél : {{ Session::get('etabTel') }} - {{ Session::get('etabTel2') }}</h5>
-  {{-- <h5 class="mt-10 center"><img src="/img/{{ Session::get('etabLogo') }}" style="width: 120px; height:70px"/></h5> --}}
-  <h5 class="mt-10 center"><img src="{{  url('/img/'.Session::get('etabLogo')) }}" alt="logo" width="100" height="100"/></h5>
-  <hr class="mt-10"/>
+<h3 class="mt-12 center">{{ $etablissement->tutelle }}</h3>
+<h4 class="center">{{ $etablissement->nom }}</h4>
+<h5 class="center">{{ $etablissement->adresse }}</h5>  
+<h5 class="center">Tél : {{ $etablissement->tel }}- {{ $etablissement->tel2 }}</h5>
+<h5 class="mt-10 center" ><img src="img/{{ $etablissement->logo }}" alt="logo" style="width: 80px; height: 80px"/></h5>
+<hr class="mt-10"/>
   <div class="row mt-30"><div class="col-sm-12 center"><h3>Compte Rendu Radiologique</h3></div></div>
    <div class="space-12"></div> <div class="space-12"></div>
   <div class="row">

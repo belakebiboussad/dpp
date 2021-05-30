@@ -33,6 +33,7 @@ function getServiceRoom($id)
 							<th class ="center">Nom</th>
 							<th class ="center">Type</th>
 							<th class ="center">Chef Service</th>
+							<th class ="center">Hébergement</th>
 							<th class ="center  priority-4">Service d'urgence</th>
 							<th class ="center"><em class="fa fa-cog"></em></th>
 						</tr>
@@ -40,9 +41,16 @@ function getServiceRoom($id)
 					<tbody>
 					@foreach($services as $service)
 					<tr>
-						<td><a href="#" id ={{  $service->id }} onclick="getServiceRoom({{ $service->id }});">{{ $service->nom }}</a></td>
+						<td>
+							@if($service->hebergement && ( $service->salles->count() > 0))
+								<a href="#" id ={{ $service->id }}  onclick="getServiceRoom({{ $service->id }});">{{ $service->nom }}</a>
+							@else
+								{{ $service->nom }}
+							@endif
+						</td>
 						<td>{{ ($service->type ==0) ?'médicale':'chirurgicale' }}	</td>				
 						<td> {{ $service->responsable->nom }} {{ $service->responsable->prenom }}</td>
+						<td class="priority-4"> {{($service->hebergement) ?'Oui':'Non' }}</td>
 						<td class="priority-4"> {{($service->urgence) ?'Oui':'Non' }}</td>
 						<td class ="center">
 							<a href="{{ route('service.show',$service->id) }}" class="btn btn-xs btn-success smalltext">
@@ -51,9 +59,11 @@ function getServiceRoom($id)
 							<a href="{{ route('service.edit', $service->id) }}" class="btn btn-xs btn-info smalltext">
 								<i class="ace-icon fa fa-pencil fa-xs"></i>
 							</a>
+							@if($service->hebergement)
 							<a href="/salle/create/{{ $service->id }}" class="btn btn-xs btn-grey smalltext" title="Ajouter une chambre">
 								<i class="ace-icon fa fa-plus fa-xs"></i>
 							</a>
+							@endif
 							<a href="{{ route('service.destroy', $service->id) }}"  data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger smalltext" ><i class="ace-icon fa fa-trash-o fa-xs"></i>
 							</a>
 						</td>

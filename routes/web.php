@@ -68,8 +68,8 @@ Route::get('/demandehosp/create/{id}','DemandeHospitalisationController@create')
 Route::post('/demandehosp/valider','DemandeHospitalisationController@valider');
 Route::post('/demandehosp/invalider','DemandeHospitalisationController@invalider');
 Route::get('/demandehosp/listedemandes/{type}','DemandeHospitalisationController@listedemandes');
-Route::get('/salle/create/{id}','SalleController@create');
-Route::get('/lit/create/{id}','LitsController@create');//Route::get('/ordonnace/create/{id}','OrdonnanceController@create');
+
+//Route::get('/lit/create/{id}','LitsController@create');//Route::get('/ordonnace/create/{id}','OrdonnanceController@create');
 Route::post('/ordonnaces/print','OrdonnanceController@print');
 Route::get('/consultations/detailcons/{id}','ConsultationsController@detailcons')->name('consultDetails');
 Route::get('detailConsXHR/{id}','ConsultationsController@detailconsXHR')->name('consultdetailsXHR');
@@ -94,7 +94,7 @@ Route::get('detailHospXHR/{id}','HospitalisationController@detailHospXHR')->name
 Route::post('users/changePassword', 'UsersController@changePassword');
 Route::post('/users/store/','UsersController@store');
 Route::get('/searchAssure','AssurController@search');
-route::get('/getsalles','SalleController@getsalles');
+
 Route::get('/atcd/create/{id}','AntecedantsController@create');
 Route::get('/atcd/index/{id}','AntecedantsController@index');
 Route::post('/atcd/store/{id}','AntecedantsController@store');
@@ -117,7 +117,13 @@ route::get('/getpatientcons','PatientController@getpatientconsult');
 route::get('/getpatientrdv','PatientController@getpatientrdv');
 route::get('/getpatientatcd','PatientController@getpatientatcd');
 route::get('/getproduits/{idgamme}/{idspec}','demandeprodController@get_produit');
-route::get('/createsalle','SalleController@createsalle');
+
+route::get('/getsalles','SalleController@getsalles');
+
+route::get('/salles/{id}','ServiceController@getsalles');
+
+Route::get('/salle/create/{id}','SalleController@create');
+Route::get('/salleRooms', 'SalleController@getRooms');
 Route::post('/exmbio/store/{id}','ExamenbioController@store');
 route::get('/createlit','LitsController@createlit');
 route::get('/getmedicaments','MedicamentsController@getmedicaments');
@@ -133,7 +139,7 @@ Route::any('/profile/{userId}', [
         'uses'  => 'UsersController@viewProfile'
     ]);
 });
-Route::get('/role/show/{userId}','RolesController@show');// Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/role/show/{userId}','RolesController@show');
 Route::post('AddANTCD','AntecedantsController@createATCDAjax');
 Route::get('/DocorsSearch','EmployeController@searchBySpececialite');
 Route::get('/searchPatient','PatientController@search')->name('patients.search');
@@ -150,7 +156,6 @@ Route::post('/patient/merge','PatientController@merge');
 Route::get("flash","HomeController@flash");
 Route::get('/getlits','LitsController@getlits');
 Route::get('/serviceRooms', 'ServiceController@getRooms');
-Route::get('/salleRooms', 'SalleController@getRooms');
 route::get('/home_reception',function (){
     return view('home.home_recep');
 })->name('home_rec');
@@ -185,8 +190,7 @@ route::get('/getpatientconsigne','PatientController@getpatientconsigne');
 /************partie visite d'hospitalisation**************/
 Route::get('/delVisite/{id}', 'VisiteController@destroy')->name('visite.destroy');
 Route::get('/visite/create/{id}','VisiteController@create');
-Route::post('/visite/store/{id}','VisiteController@store');
-route::get('/choixpatvisite','VisiteController@choixpatvisite');
+Route::post('/visite/store/{id}','VisiteController@store');//route::get('/choixpatvisite','VisiteController@choixpatvisite');
 route::get('/choixhospconsigne','ActeController@choixhospconsigne');
 route::get('/consigne','ActeController@choixhospconsigne');
 route::post('/saveActe','ActeController@store');

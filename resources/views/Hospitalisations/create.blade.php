@@ -95,13 +95,14 @@
 <div class="row">
 	<div class="col-sm-8 col-xs-8">
 		<div class="widget-box widget-color-blue">
-			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des Admissions du Jour :</h5></div>
+			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des Admissions du Jourd</h5></div>
 			<div class="widget-body">
 				<div class="widget-main no-padding">
 					<table class="table table-striped table-bordered table-hover">
 				  	<thead>
 							<th class ="center" width="15%"><strong>Patient</strong></th>
 							<th class ="center"><strong>Mode Admission</strong></th>
+							<th class ="center"><strong>Service</strong></th>
 							<th class ="center"><strong>Medecin Traitant</strong></th>
 							<th class ="center" width="1%"><strong>Priorite</strong></th>
 							<th class ="center"><strong>Observation</strong></th>
@@ -114,12 +115,13 @@
 							<tr>
 								<td>{{ $adm->rdvHosp->demandeHospitalisation->consultation->patient->Nom }} {{$adm->rdvHosp->demandeHospitalisation->consultation->patient->Prenom }}</td>
 								<td>{{ $adm->rdvHosp->demandeHospitalisation->modeAdmission }}</td>
+								<td>{{ $adm->rdvHosp->demandeHospitalisation->Service->nom }}</td>
 								<td>{{ $adm->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->nom }} {{ $adm->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->prenom }}</td>
 								<td>{{ $adm->rdvHosp->demandeHospitalisation->DemeandeColloque->ordre_priorite }}</td>
 								<td>{{ $adm->rdvHosp->demandeHospitalisation->DemeandeColloque->observation }}	</td>
 								<td>{{ $adm->rdvHosp->date_RDVh	}}</td>
 								<td>{{ $adm->rdvHosp->date_Prevu_Sortie}}	</td>
-								<td>
+								<td class ="center">
 									<a href="javascript:formFill({{ $adm }} );" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter une Hospitalisation"> 
 										<i class="menu-icon fa fa-plus"></i>
 									</a>
@@ -136,25 +138,27 @@
 		<br>
 		<!-- debut -->
 		<div class="widget-box widget-color-red">
-			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des Admissions d'urgence :</h5></div>
+			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des Admissions d'urgence  du Jour</h5></div>
 			<div class="widget-body">
 				<div class="widget-main no-padding">
 					<table class="table table-striped table-bordered table-hover">
 				  	<thead>
 							<th class ="center" width="15%"><strong>Patient</strong></th>
 							<th class ="center"><strong>Mode Admission</strong></th>
+							<th class ="center"><strong>Service</strong></th>
 							<th class ="center"><strong>Date Entrée</strong></th>
 							<th class ="center"><strong>date Sortie prévue</strong></th>
-							<th class ="center"  width="10%"><em class="fa fa-cog"></em></th>
+							<th class ="center" width="10%"><em class="fa fa-cog"></em></th>
 						</thead>
 						<tbody>
 							@foreach($admsUrg as $key=>$adm)
 							<tr>
 								<td>{{ $adm->demandeHospitalisation->consultation->patient->Nom }} {{ $adm->demandeHospitalisation->consultation->patient->Prenom }}</td>
 								<td>{{ $adm->demandeHospitalisation->modeAdmission }}</td>
+								<td>{{ $adm->demandeHospitalisation->Service->nom }}</td>
 								<td>{{ date("Y-m-d")	}}</td>
 								<td>{{ date("Y-m-d")	}}</td>
-								<td>
+								<td class ="center">
 									<a href="javascript:formFill({{ $adm }} );" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter une Hospitalisation"> 
 										<i class="menu-icon fa fa-plus"></i>
 									</a>
@@ -257,6 +261,33 @@
 								</div>
 							</div>
 						</div>
+						<div class="row">
+							<div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right"><strong><span style="font-size:16px;">Hébergement</span></strong></div>
+						</div>
+						<div class="row">
+						<div class="col-sm-4">
+							<ul class="list-unstyled spaced">
+								<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>
+									<span class="badge badge-pill badge-success">{{ $adm->demandeHospitalisation->bedAffectation->lit->salle->service->nom }}</span>
+								</li>
+							</ul>
+						</div>
+						<div class="col-sm-4">
+							<ul class="list-unstyled spaced">
+								<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Salle :</strong>
+									<span class="badge badge-pill badge-primary">{{ $adm->demandeHospitalisation->bedAffectation->lit->salle->nom }}</span>
+								</li>
+							</ul>
+						</div>
+						<div class="col-sm-4">
+							<ul class="list-unstyled spaced">
+								<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Lit :</strong>
+									<span class="badge badge-pill badge-default">{{ $adm->demandeHospitalisation->bedAffectation->lit->nom }}</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+						 <div class="space-12"></div>
 						<div class="row">
 							<div class="col-sm12">
 								<div class="center bottom" style="bottom:0px;">

@@ -43,19 +43,6 @@
 						</select>
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="etatlit"><strong> Lit Affecté : </strong></label>
-					<div class="col-sm-9">
-						<label>
-							<input name="affectation" value="0" type="radio" class="ace" {{ $lit->affectation == 0 ? "checked" : ""}}/>
-							<span class="lbl"> Non</span>
-						</label>&nbsp;&nbsp;&nbsp;
-						<label>
-							<input name="affectation" value="1" type="radio" class="ace" {{ $lit->affectation == 1 ? "checked" : ""}}/>
-							<span class="lbl">Oui</span>
-						</label>
-					</div>
-				</div>
 				<div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label no-padding-right" for="etatlit"><strong> Lit Bloqué : </strong></label>

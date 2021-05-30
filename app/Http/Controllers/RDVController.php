@@ -17,7 +17,7 @@ use Response;
 use View;
 use Dompdf\Dompdf;
 use Storage;
-use DNS2D;
+//use DNS2D;
 use BigFish\PDF417\PDF417;
 use BigFish\PDF417\Renderers\ImageRenderer;
 use BigFish\PDF417\Renderers\SvgRenderer;

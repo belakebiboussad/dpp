@@ -74,12 +74,12 @@
 </div>
 @endif
 @if($hosp->visites->count() > 0)
-<div class="row"><div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><strong><span style="font-size:16px;">Visites</span></strong></div>
+<div class="row"><div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><strong><span style="font-size:16px;">Visites & Contrôles</span></strong></div>
 </div>
 <div class="row">
 	<div class="col-xs-11 widget-container-col">
 		<div class="widget-box widget-color-blue">
-			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des Visites</h5></div>
+			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des Visites & Contrôles</h5></div>
 			<div class="widget-body">
 				<div class="widget-main no-padding">
 					<table class="table table-striped table-bordered table-hover">
@@ -94,19 +94,19 @@
 						<tbody>
 						@foreach($hosp->visites as $visite)
 						 <tr>
-						 	<td>{{ $visite->date}}</td>
-						 	<td>{{ $visite->medecin->nom }} <span>{{ $visite->medecin->prenom }}</span></td>
-						 	<td class="text-primary">
-						 	@foreach($visite->actes as $acte)
-						 		{{ $acte->nom }} <br>
-						 	@endforeach
-						 	</td>
-						 	<td class="text-primary">
-							 	@foreach($visite->traitements as $trait)
-							 		{{ $trait->medicament->nom }} <br>
+							 	<td>{{ $visite->date}}</td>
+							 	<td>{{ $visite->medecin->nom }} <span>{{ $visite->medecin->prenom }}</span></td>
+							 	<td class="text-primary">
+							 	@foreach($visite->actes as $acte)
+							 		{{ $acte->nom }} <br>
 							 	@endforeach
-						 	</td>
-						 	<td><a href="{{ route('visites.show', $visite->id) }}"><i class="fa fa-eye"></i></a></td>
+							 	</td>
+							 	<td class="text-primary">
+								 	@foreach($visite->traitements as $trait)
+								 		{{ $trait->medicament->nom }} <br>
+								 	@endforeach
+							 	</td>
+							 	<td class="center"><a href="{{ route('visites.show', $visite->id) }}"><i class="fa fa-eye"></i></a></td>
 						 </tr>
 						@endforeach
 						</tbody>

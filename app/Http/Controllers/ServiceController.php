@@ -25,7 +25,6 @@ class ServiceController extends Controller
     public function create()
     {
       $services = service::all();
-       //$types = typeService::all();
       $users = User::whereHas(
         'role', function($q){
             $q->where('id', 1)->orWhere('id', 5)->orWhere('id', 6);
@@ -42,12 +41,7 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-      service::create([
-          "nom"=>$request->nom,
-          "Type"=>$request->type,
-          "responsable_id"=>$request->responsable,
-
-      ]);
+      service::create($request->all());
       return redirect()->action('ServiceController@index');
     }
 
@@ -71,12 +65,12 @@ class ServiceController extends Controller
      */
       public function edit($id)
       {
-            $service = service::FindOrFail($id);
-              $users = User::whereHas(
-            'role', function($q){
-                    $q->where('id', 1)->orWhere('id', 5)->orWhere('id', 6);
-              })->get();
-            return view('services.edit', compact('service','users'));
+        $service = service::FindOrFail($id);
+          $users = User::whereHas(
+        'role', function($q){
+                $q->where('id', 1)->orWhere('id', 5)->orWhere('id', 6);
+          })->get();
+        return view('services.edit', compact('service','users'));
     }
     /**
      * Update the specified resource in storage.
@@ -87,26 +81,30 @@ class ServiceController extends Controller
      */
       public function update(Request $request, $id)
       {
-            $service = service::FindOrFail($id);
-             $service->update($request->all());
-             return redirect()->action('ServiceController@show', ['id'=>$id]);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $service = service::destroy($id);
-        return redirect()->route('service.index');    
-    }
-    public function getRooms(Request $request)
-    {
-      $salles = salle::where('service_id',$request->search)->get();
-      $view = view("services.ajax_servicerooms",compact('salles'))->render();
-      return response()->json(['html'=>$view]);
-    }
+        $service = service::FindOrFail($id);
+        $service->update($request->all());
+        return redirect()->action('ServiceController@show', ['id'=>$id]);
+      }
+      /**
+       * Remove the specified resource from storage.
+       *
+       * @param  int  $id
+       * @return \Illuminate\Http\Response
+       */
+      public function destroy($id)
+      {
+          $service = service::destroy($id);
+          return redirect()->route('service.index');    
+      }
+      public function getRooms(Request $request)
+      {
+        $service = service::with('salles')->FindOrFail($request->search);
+        $view = view("services.ajax_servicerooms",compact('service'))->render();
+        return response()->json(['html'=>$view]);
+      }
+      public function getsalles( $id)
+      { // $service = service::FindOrFail($id);
+        $salles = salle::where('service_id',$id)->where('etat',null)->get();
+        return $salles;
+      }
 }

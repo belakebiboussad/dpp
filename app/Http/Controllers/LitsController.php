@@ -27,10 +27,8 @@ class LitsController extends Controller
       }
     public function index()
     {
-         $lits=lit::join('salles','lits.salle_id','=','salles.id')
-                  ->join('services','salles.service_id','=','services.id')
-         ->select('lits.*','salles.nom as nomSalle','services.nom as nomService')->get();
-        return view('lits.index_lit', compact('lits'));
+      $lits=lit::with('salle','salle.service')->get();
+      return view('lits.index', compact('lits'));
     }
     /**
      * Show the form for creating a new resource.
@@ -45,8 +43,8 @@ class LitsController extends Controller
 
     public function create($id_salle = null)
     {
-       $services = service::all();
-       return view('lits.create_lit', compact('services','id_salle'));
+      $services = service::where('hebergement',1)->get();//$services = service::all();
+      return view('lits.create', compact('services','id_salle'));
     }
     /**
      * Store a newly created resource in storage.
@@ -80,7 +78,7 @@ class LitsController extends Controller
       $lit = lit::FindOrFail($id);
       $salle = salle::FindOrFail($lit->salle_id);
       $service = service::FindOrFail($salle->service_id);
-      return view('lits.show_lit', compact('lit','service'));
+      return view('lits.show', compact('lit','service'));
     }
 
     /**
@@ -93,7 +91,7 @@ class LitsController extends Controller
     {
       $lit = lit::FindOrFail($id);
       $salles = salle::all();
-      return view('lits.edit_lit', compact('lit','salles'));
+      return view('lits.edit', compact('lit','salles'));
     }
 
     /**
