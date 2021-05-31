@@ -190,7 +190,7 @@
 						<td class="text-center">
 							<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $rdv->id }}" @if(!(isset($rdv->demandeHospitalisation->bedAffectation))) disabled @endif><i class="fa fa-check"></i></button>
 							@include('admission.modalForm.confirmEntreeProg')
-							<a data-toggle="modal" href="#" class ="btn btn-info btn-sm" onclick ="ImprimerEtat('admission',{{ $rdv->id }});" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
+							<a data-toggle="modal" href="#" class ="btn btn-info btn-sm" onclick ="ImprimerEtat('rdv',{{ $rdv->id }});" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
 						</td>
 						</tr>
 						@endforeach
