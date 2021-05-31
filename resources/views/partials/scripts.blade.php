@@ -653,7 +653,6 @@ $('#typeexm').on('change', function() {
       function ImprimerEtat(className,objID)
       { 
         $("#className").val( className );
-        alert(className);
         $("#objID").val( objID );
         $('#EtatSortie').modal('show');
       }

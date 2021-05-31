@@ -95,12 +95,13 @@
 			}
 		});
 		$(document).on('click', '.selctetat', function(event){
-    		event.preventDefault();
-				var formData = {
-      			class_name: $('#className').val(),		
-          	obj_id: $('#objID').val(),
-          	selectDocm :$(this).val(),
-        };
+    			alert($(this).val());
+    			event.preventDefault();
+			var formData = {
+      				class_name: $('#className').val(),		
+          			obj_id: $('#objID').val(),
+          			selectDocm :$(this).val(),
+        		};
         $.ajax({
             type : 'get',
             url : '{{URL::to('reportprint')}}',
