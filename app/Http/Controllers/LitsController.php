@@ -66,21 +66,25 @@ class LitsController extends Controller
        ]);
        return redirect()->action('LitsController@index');
     }
-
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request,$id)
     {
       $lit = lit::FindOrFail($id);
-      $salle = salle::FindOrFail($lit->salle_id);
-      $service = service::FindOrFail($salle->service_id);
-      return view('lits.show', compact('lit','service'));
+      if($request->ajax())  
+      {
+        $view = view("lits.ajax_show",compact('lit'))->render();
+        return response()->json(['html'=>$view]);
+      }else{
+        $salle = salle::FindOrFail($lit->salle_id);
+        $service = service::FindOrFail($salle->service_id);
+        return view('lits.show', compact('lit','service'));
+      }
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -93,7 +97,11 @@ class LitsController extends Controller
       $salles = salle::all();
       return view('lits.edit', compact('lit','salles'));
     }
-
+    public function destroy($id)
+    {
+      $lit = lit::destroy($id);
+      return redirect()->route('lit.index');    
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -110,11 +118,10 @@ class LitsController extends Controller
         $lit->update([
           "num"=>$request->numlit,
           "nom"=>$request->nom,
-          "etat"=>$etat,
-          "affectation"=>$request->affectation,
+          "etat"=>$etat,//"affectation"=>$request->affectation,
           "salle_id"=>$request->salle,
         ]);
-         return redirect()->action('LitsController@index');
+        return redirect()->route('lit.index');//return redirect()->action('LitsController@index');
       }
 
     /**

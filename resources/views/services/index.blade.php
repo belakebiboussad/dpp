@@ -1,7 +1,7 @@
 @extends('app')
 @section('page-script')
 <script type="text/javascript">
-function getServiceRoom($id)
+function getServiceRoom(id)
 {
 	$.ajax({
 	        type : 'get',
@@ -64,8 +64,7 @@ function getServiceRoom($id)
 								<i class="ace-icon fa fa-plus fa-xs"></i>
 							</a>
 							@endif
-							<a href="{{ route('service.destroy', $service->id) }}"  data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger smalltext" ><i class="ace-icon fa fa-trash-o fa-xs"></i>
-							</a>
+							<a href="{{ route('service.destroy', $service->id) }}"  data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger smalltext"><i class="ace-icon fa fa-trash-o fa-xs"></i></a>
 						</td>
 					</tr>
 					@endforeach

@@ -1,41 +1,31 @@
-<div class="servive-block servive-block-grey" id="widget-box-2">
-<div class="widget-header">
-	<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i><span><b>Détails du Lit :</b></span>	</h5>
-</div>
-<div class="widget-body">
-	<div class="widget-main">	
-		<thead>	</thead>
-		<tbody >
-		@foreach ($lits as $key=>$lit)			
-			<div class="form-group">
-				<div class="i-checks">
-					<label class="col-sm-3 control-label no-padding-right blue" for="num"><strong> Numéro : </strong></label>
-					<div><strong>{{ $lit->num }}</strong></div>
-				</div>	
-			</div>
-    @endforeach
-	</div>	{{-- widget-main--}}
-	</div>{{-- widget-body --}}
-	</div> 
-<div class="widget-body">
+		<div class="widget-box" id="widget-box-1"><!-- debut -->
+				<div class="widget-header">
+					<h5 class="widget-title"><i class="ace-icon fa fa-bed bigger-120"></i><strong>Détails :</strong>
+					</h5>
+					<div class="widget-toolbar widget-toolbar-light no-border">
+					<i class="ace-icon fa fa-table"></i>
+					<a href="/lit"> <b>&nbsp;Liste des Lits</b></a>
+				</div>
+				</div>
+				<div class="widget-body">
 					<div class="widget-main">					
 						<div class="form-group">
-							
+						<div class="i-checks">
+							<label class="col-sm-3 control-label no-padding-right blue" for="num"><strong> Numéro : </strong></label>
+							<div>
+								<strong>{{ $lit->num }}</strong>
+							</div>
+						</div>	
 						</div>
 						<div class="form-group">
 						<div class="i-checks">
 							<label class="col-sm-3 control-label no-padding-right blue" for="num"><strong> Nom : </strong></label>
 							<div>
-								@foreach ($lits as $key=>$lit)	
-		                      
 								<strong>{{ $lit->nom }}</strong><br>
-								
-		                       @endforeach
 							</div>
 						</div>	
 						</div>
-
-	                 <div class="form-group">
+						<div class="form-group">
 						<div class="i-checks">
 							<label class="col-sm-3 control-label no-padding-right blue" for="etat"><strong> Etat : </strong></label>
 							<div>
@@ -59,13 +49,12 @@
 								<strong> {{ App\modeles\salle::where("id",$lit->salle_id)->get()->first()->nom }}</strong>
 							</div>
 						</div>
-
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right blue" for="salle">
-								<strong> Service : </strong>
-							</label>
+							<label class="col-sm-3 control-label no-padding-right blue" for="bloc"><strong> Service : </strong></label>
 							<div>
-								<strong> {{ App\modeles\salle::where("id",$lit->salle_id)->get()->first()->service->nom }}</strong>
+								<strong>{{ $service->nom }}</strong>
 							</div>
 						</div>
-    </div>
+					</div>
+				</div>
+			</div><!-- fin -->

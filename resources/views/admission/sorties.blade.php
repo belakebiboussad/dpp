@@ -12,7 +12,7 @@
               cancelButtonText: "Non",
            	}).then((result) => {
             	if(!isEmpty(result.value))
-              {//var adm_id = $(this).val();
+              {
                 $.get('/sortiePatient/'+adm_id, function (data, status, xhr) {
 			      			$("#adm" + adm_id).remove();
 								});

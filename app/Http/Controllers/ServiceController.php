@@ -93,8 +93,8 @@ class ServiceController extends Controller
        */
       public function destroy($id)
       {
-          $service = service::destroy($id);
-          return redirect()->route('service.index');    
+        $service = service::destroy($id);
+        return redirect()->route('service.index');    
       }
       public function getRooms(Request $request)
       {
