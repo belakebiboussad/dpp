@@ -63,14 +63,10 @@ class UsersController extends Controller
       $request->validate([
         "nom"=> "required",
         "prenom"=> "required",
-        "datenaissance"=> "required",
-        "lieunaissance"=> "required",
-        "adresse"=> "required",
-        "mobile"=> "required",   //"fixe"=> "required",age // "mat"=> "required", //"service"=> "required",
-        "nss"=> "required",
+        "datenaissance"=> "required",// "lieunaissance"=> "required",  //"adresse"=> "required",
+        "mobile"=> "required",   //"fixe"=> "required",age // "mat"=> "required", //"service"=> "required",//"nss"=> "required",
         "username"=> "required",
-        "password"=> "required",
-        "mail"=> "required",
+        "password"=> "required",// "mail"=> "required",
         "role"=> "required",
       ]);
       $employe = employ::firstOrCreate([
@@ -87,16 +83,17 @@ class UsersController extends Controller
             "Matricule_dgsn"=>$request->mat,
             "NSS"=>$request->nss,
       ]);
-      $usere = [
-        "name"=>$request->username,
-        "password"=>$request->password,
+/*$user = ["name"=>$request->username,"password"=>$request->password,"email"=>$request->mail,"employee_id"=>$employe->id,"role_id"=>$request->role, ]; event(new Registered($user = RegisterController::create($user)));//$this->guard()->login($user); return $this->registered($request, $user)?: redirect()->route('users.index');*/
+      $user = User::firstOrCreate([
+        "name"=>$request->username,// "password"=>$request->password,
+        "password"=> Hash::make($request['password']),
         "email"=>$request->mail,
         "employee_id"=>$employe->id,
         "role_id"=>$request->role,
-      ];
-      event(new Registered($user = RegisterController::create($usere)));//$this->guard()->login($user);
-        return $this->registered($request, $user)
-                        ?: redirect()->route('users.index');
+      ]);
+      //return redirect(Route('employs.show',$employe->id)); 
+      //dd($user);
+      return redirect(Route('users.show',$user->id));                 
     }
     /**
      * Display the specified resource.
@@ -171,9 +168,13 @@ class UsersController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    //public function destroy(User $user)
+    public function destroy(Request $request , $id)
     {
-        //
+      $user = User::FindOrFail($id);
+      employ::destroy($user->employee_id);  
+      User::destroy($id);
+      return redirect()->route('users.index');
     }
     protected function guard()
     {
@@ -223,17 +224,16 @@ class UsersController extends Controller
       $messages = [
         'current-password.required' => 'Entrer le mot de passe actuel correct',
         'newPassword.required' => 'entrer le nouveau mot de passe SVP', 
-          'password_confirmation.required' => 'Entrer le  mot de passe de confiration SVP',
+        'password_confirmation.required' => 'Entrer le  mot de passe de confiration SVP',
         'password_confirmation.same'=>'le mot de passe du confirmation doit correspondre au  nouveau mot de passe',
-      ];
-// |same:newPassword
-            $validator = Validator::make($data, [
-                'curPassword' => 'required',
-                'newPassword' => 'required',
-                'password_confirmation' => 'required|same:newPassword', 
-                // |confirmed 
-            ], $messages); // dd($validator->getMessageBag()); 
-          return $validator;
+      ];// |same:newPassword
+      $validator = Validator::make($data, [
+          'curPassword' => 'required',
+          'newPassword' => 'required',
+          'password_confirmation' => 'required|same:newPassword', 
+          // |confirmed 
+      ], $messages); // dd($validator->getMessageBag()); 
+      return $validator;
     }  
     public function changePassword(Request $request)
     {

@@ -48,7 +48,7 @@
 			 	$(".numberResult").html(data.length);
 			  	var oTable =$("#liste_sorties").DataTable ({
 	        			"processing": true,
-		          		"paging":   true,
+		          	"paging":   true,
 		          		"destroy": true,
 			          "ordering": true,
 			          "searching":false,
@@ -80,6 +80,9 @@
 		                    { data : "demande_hospitalisation.bed_affectation.lit.nom" ,title:'Lit',"orderable": false}, 
 		                    { data : getAction ,title:'<em class="fa fa-cog"></em>',"orderable": false,searchable: false},                      
 			         	],
+			         	"columnDefs": [
+			   						{"targets": 9 ,  className: "dt-head-center dt-body-center" },
+			   				],
         	});
         }
     });
@@ -89,11 +92,11 @@
 			getSorties($(this).attr('id'),$(this).val());
 		});
 		$(document).on('click', '.selctetat', function(event){
-    		event.preventDefault();
+    	event.preventDefault();
 			var formData = {
-      		class_name: $('#className').val(),		
-          		obj_id: $('#objID').val(),
-          selectDocm :$(this).val(),
+      			class_name: $('#className').val(),		
+          	obj_id: $('#objID').val(),
+          	selectDocm :$(this).val(),
         };
         $.ajax({
             type : 'get',
@@ -103,7 +106,6 @@
                 $('#EtatSortie').modal('hide');
               },
         }); 
-      
     });
 	});
 </script>
@@ -181,9 +183,9 @@
 							<td><strong>/</strong></td>
 							<td><strong>/</strong></td>
 							@endif
-							<td class="text-center">
+							<td class="center">
 								<button type="button" class="btn btn-info btn-xs" onclick ="effectuerSortieAdm({{ $hosp->admission->id }})" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Efffectuer la Sortie">
-								<i class="fa fa-sign-out" aria-hidden="false"></i></button>
+								<i class="fa fa-sign-out" aria-hidden="false"></i>s</button>
 							</td>
 						</tr>
 	  				@endforeach

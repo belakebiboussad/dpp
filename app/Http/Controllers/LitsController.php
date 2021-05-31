@@ -74,15 +74,13 @@ class LitsController extends Controller
      */
     public function show(Request $request,$id)
     {
-      $lit = lit::FindOrFail($id);
+      $lit = lit::with('salle','salle.service')->FindOrFail($id);
       if($request->ajax())  
       {
         $view = view("lits.ajax_show",compact('lit'))->render();
         return response()->json(['html'=>$view]);
       }else{
-        $salle = salle::FindOrFail($lit->salle_id);
-        $service = service::FindOrFail($salle->service_id);
-        return view('lits.show', compact('lit','service'));
+        return view('lits.show', compact('lit'));
       }
     }
     /**
@@ -159,7 +157,7 @@ class LitsController extends Controller
         "affectation" =>1,
       ]);
       if($request->ajax())  
-        return Response::json($affect);   
+        return Response::json($affect);
     }
     public function affecter()
     {

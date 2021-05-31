@@ -12,6 +12,7 @@ $(document).ready(function(){
       	url : '{{URL::to('searchUser')}}',
      		data:{'field':field,'value':($('#'+field).val())},
      		success:function(data,status, xhr){
+     			$('#btnCreate').removeClass('hidden');
      			$('#'+field).val('');
       	  $(".numberUser").html(Object.keys(data).length);
       		$("#users").DataTable ({
@@ -48,12 +49,12 @@ $(document).ready(function(){
 	   	 		  	},
 	   	 		  	{ data:null,title:'<em class="fa fa-cog"></em>',"orderable": false, searchable: false,
 	   	 		  		"render": function(data,type,full,meta){
-									    		if ( type === 'display' ) {
-									    			return  '<a href = "/users/'+data.id+'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter le dossier"><i class="fa fa-hand-o-up fa-xs"></i></a>'+
-															'&nbsp;<a href ="/users/'+data.id+'/edit" class="btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs"></i></a>'+
-															 '&nbsp;<a onclick ="getUserdetail('+data.id+')" style="cursor:pointer" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Résume du patient"><i class="fa fa-eye fa-xs"></i></a>';
-							      	   		}
-									    		return data;	
+					    		if ( type === 'display' ) {
+					    			return  '<a href = "/users/'+data.id+'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter le dossier"><i class="fa fa-hand-o-up fa-xs"></i></a>'+
+											'&nbsp;<a href ="/users/'+data.id+'/edit" class="btn btn-info btn-xs" data-toggle="tooltip" title="modifier"><i class="fa fa-edit fa-xs"></i></a>'+
+											'&nbsp;<a onclick ="getUserdetail('+data.id+')" style="cursor:pointer" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Résume du patient"><i class="fa fa-eye fa-xs"></i></a>';
+			      	   		}
+					    		return data;	
 								}
 							}
 	   	 		  ],
@@ -70,10 +71,6 @@ $(document).ready(function(){
       });			
 	});
 });
-function XHRgetUser()
-{
-
-}
 function getUserdetail(id)
 {	  
   $.ajax({
@@ -122,7 +119,7 @@ function getUserdetail(id)
 		<div class="panel-footer" style="height: 50px;">
 			<button type="submit" class="btn btn-sm btn-primary findUser" style="vertical-align: middle"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
 			<div class="pull-right">
-				<a class="btn btn-primary btn-sm hidden" href="users/create" role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>	
+				<a class="btn btn-primary btn-sm hidden" href="users/create" id="btnCreate" role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>	
 			</div>
 		</div>
 	</div>

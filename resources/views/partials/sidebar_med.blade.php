@@ -267,12 +267,34 @@
         $('.Asdemograph').find('*').each(function () {
           $(this).attr("disabled", true); 
         });
-         addRequiredAttr();
+        addRequiredAttr();
       }
+
       function copyPatientInfo()
       {
         if($("#type").val() =="0")
-           copyPatient();
+          copyPatient();
+        else
+          emptyPatient();
+      }
+      function emptyPatient(){ 
+        $("#nomf").val("");
+        $("#prenomf").val("");
+        $("#datenaissancef").val("");
+        $("#lieunaissancef").val(""); 
+        $("#idlieunaissancef").val("");
+        $('#adressef').val("");
+        $('#communef').val("");
+        $('#idcommunef').val("");
+        $('#idwilayaf').val(""); 
+        $('#wilayaf').val("");
+        $("#gsf").val("");
+        $("#rhf").val("");
+        $(gsf).attr("disabled", false);
+        $("#rhf" ).attr("disabled", false);     
+        $('.Asdemograph').find('*').each(function () {
+          $(this).attr("disabled", false); 
+        });
       }
       if ($("#addGardeMalade").length > 0) {  ////avoir
         $("#addGardeMalade").validate({

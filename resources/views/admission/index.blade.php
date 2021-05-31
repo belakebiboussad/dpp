@@ -52,8 +52,7 @@
 									<td>
 										<div class="hidden-sm hidden-xs btn-group">
 											<a href="{{ route('createRdvHosp',['id' =>$demande->id_demande ]) }}" class="btn btn-xs btn-success">
-												<i class="ace-icon fa fa-bed bigger-120"></i>
-												Créer Un RDV Hospitalisaton
+												<i class="ace-icon fa fa-bed bigger-120"></i>Créer Un RDV Hospitalisaton
 											</a>
 										</div>
 									</td>

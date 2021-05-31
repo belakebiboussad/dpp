@@ -155,7 +155,7 @@
 							<div class="row">
 								<div class="col-sm-3">
 									<label class="inline">
-										<span><b>Sexe :</b></span><span class="lbl blue"> {{ $patient->assure->Sexe == "H" ? "Masculin" : "Féminin" }}</span>
+										<span><b>Sexe :</b></span><span class="lbl blue"> {{ $patient->assure->Sexe == "M" ? "Masculin" : "Féminin" }}</span>
 									</label>
 								</div>
 								<div class="col-sm-3">

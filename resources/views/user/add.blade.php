@@ -2,7 +2,10 @@
 @section('title','Ajouter un Utilisateure')
 @section('page-script')
 <script>
-/*jQuery(function($) {$('.mobile').mask('0-999-99-99-99');$('.telfixe').mask('099-99-99-99');});*/
+// $(document).ready(function() { 
+// });
+//jQuery(function($) {
+//$('.mobile1').mask('0999999999');//$('.telfixe').mask('099-99-99-99');});
 </script>
 @endsection
 @section('main-content')
@@ -10,7 +13,7 @@
 	<div class="widget-box" id="widget-box-1">
 		<div class="widget-body">
 			<div class="widget-main">	{{-- "{{route('users.store')}} --}}
-		  <form class="form-horizontal" action="{{ url('/users/store') }}" method="POST">
+		  <form  id="userAdd" class="form-horizontal" action="{{ url('/users/store') }}" method="POST">
 				{{ csrf_field() }}
 				<h4 class="header blue bolder smaller">Informations adminstratives</h4><div class="space-12 hidden-xs"></div>
 				<div class="row">
@@ -18,7 +21,7 @@
 						<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
 							<label class="col-sm-4 control-label no-padding-right" for="nom"><b>Nom:</b></label>
 							<div class="col-sm-8">
-							<input class="col-xs-12 col-sm-12" type="text" id="nom" name="nom" placeholder="Nom..." Autocomplete=false/>
+							<input class="col-xs-12 col-sm-12" type="text" id="nom" name="nom" placeholder="Nom..." Autocomplete="off" required/>
 							</div>
 						</div>
 					</div>
@@ -26,7 +29,7 @@
 						<div class="form-group {{ $errors->has('prenom') ? "has-error" : "" }}">
 						<label class="col-sm-4 control-label no-padding-right" for="prenom"><b>Prénom:</b></label>
 						<div class="col-sm-8">
-						<input class="col-xs-12 col-sm-12" type="text" id="prenom" name="prenom" placeholder="Prénom..." Autocomplete=false/>
+						<input class="col-xs-12 col-sm-12" type="text" id="prenom" name="prenom" placeholder="Prénom..." Autocomplete="off" required/>
 							</div>
 						</div>
 					</div>
@@ -36,7 +39,7 @@
 						<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
 						<label class="col-sm-4 control-label no-padding-right" for="datenaissance"><b>Date Naissance:</b></label>
 						<div class="col-sm-8">
-						<input class="col-xs-12 col-sm-12 date-picker" type="text" id="datenaissance" name="datenaissance" placeholder="Date Naissance..." data-date-format="yyyy-mm-dd"/>
+						<input class="col-xs-12 col-sm-12 date-picker" type="text" id="datenaissance" name="datenaissance" placeholder="Date Naissance..." data-date-format="yyyy-mm-dd" required/>
 						</div>
 						</div>
 					</div>
@@ -44,7 +47,7 @@
 						<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
 						<label class="col-sm-4 control-label no-padding-right" for="lieunaissance"><b>Lieu Naissance:</b></label>
 						<div class="col-sm-8">
-						<input class="col-xs-12 col-sm-12 autoCommune" type="text" id="lieunaissance" name="lieunaissance" placeholder="Lieu Naissance..." Autocomplete=false/>
+						<input class="col-xs-12 col-sm-12 autoCommune" type="text" id="lieunaissance" name="lieunaissance" placeholder="Lieu Naissance..." Autocomplete="off"/>
 						</div>
 						</div>
 					</div>
@@ -74,7 +77,7 @@
 					</div>
 					<div class="col-xs-12 col-sm-3">
 						<div class="{{ $errors->has('mobile') ? "has-error" : "" }}">
-							<label for="mobile"><b>Tél mobile:</b></label><input type="tel" id="mobile" name="mobile" class ="form-control mobile"/>
+							<label for="mobile"><b>Tél mobile:</b></label><input type="tel" id="mobile" name="mobile" class ="form-control mobile"  required/>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-3">
@@ -127,13 +130,13 @@
 					<div class="col-xs-12 col-sm-3">
 						<div class="{{ $errors->has('username') ? "has-error" : "" }}">
 							<label for="username"><b>Nom d'utilisateur:</b></label>
-							<input type="text" class="form-control" id="usernamee" name="username" placeholder="Nom d'utilisateur..." autocomplete="off" readonly onfocus="this.removeAttribute('readonly');">
+							<input type="text" class="form-control" id="usernamee" name="username" placeholder="Nom d'utilisateur..." autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" required>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-3">
 						<div class="{{ $errors->has('password') ? "has-error" : "" }}">
 							<label for="password"><b>Mot de passe:</b></label>
-							<input type="password" autocomplete="off" class="form-control" id="password" name="password" placeholder="Mot de passe..." >
+							<input type="password" autocomplete="off" class="form-control" id="password" name="password" placeholder="Mot de passe..." required>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-3">
@@ -156,8 +159,8 @@
 				</div>
 			</div>
 			<div class="form-actions center">
-				<button type="submit" class="btn btn-sm btn-primary">&nbsp;Enregistrer<i class="ace-icon fa fa-save icon-on-left bigger-110"></i>	</button>
-				<button type="reset" class="btn btn-sm btn-default">	&nbsp;Annuler	<i class="ace-icon fa fa-undo icon-on-left bigger-110"></i></button>
+				<button type="submit" class="btn btn-sm btn-primary"><i class="ace-icon fa fa-save icon-on-left bigger-110"></i>&nbsp;Enregistrer	</button>
+				<button type="reset" class="btn btn-sm btn-default">	<i class="ace-icon fa fa-undo icon-on-left bigger-110"></i>&nbsp;Annuler</button>
 			</div>
 			</form>
 		</div>

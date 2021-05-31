@@ -40,7 +40,8 @@ class AdmissionController extends Controller
                                              ->whereHas('consultation', function($q){
                                                 $q->where('Date_Consultation', date("Y-m-d"));
                                              })->where('modeAdmission','urgence')->where('etat','programme')->get();
-          return view('home.home_agent_admis', compact('rdvs','demandesUrg'));
+          $etatsortie = Etatsortie::where('type','1')->get();
+          return view('home.home_agent_admis', compact('rdvs','demandesUrg','etatsortie'));
     }
     /**
      * Show the form for creating a new resource.
@@ -126,7 +127,7 @@ class AdmissionController extends Controller
           $hospitalistions = hospitalisation::with('admission')->whereHas('admission', function ($q) {
                                                                         $q->where('etat',null);
                                                           })->where('etat_hosp','1')->where('Date_Sortie' , date('Y-m-d'))->get();
-          $etatsortie = Etatsortie::where('type','1')->get();
+          $etatsortie = Etatsortie::where('type','2')->get();
           return view('admission.sorties', compact('hospitalistions','etatsortie')); 
      }
      public function updateAdm(Request $request, $id)

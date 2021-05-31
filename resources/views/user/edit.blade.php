@@ -80,7 +80,7 @@
 						<div class="form-group {{ $errors->has('adresse') ? "has-error" : "" }}">
 						<label class="col-sm-3 control-label no-padding-right" for="adresse"><b>Adresse :</b></label>
 						<div class="col-sm-9">
-						<input class="col-xs-12 col-sm-12" type="text" id="adresse" name="adresse" value="{{ $user->employ->adresse }}" placeholder="Adresse..."/>
+						<input class="col-xs-12 col-sm-12" type="text" id="adresse" name="adresse" value="{{ $user->employ->Adresse }}" placeholder="Adresse..."/>
 						</div>	
 					</div>	
 					</div>

@@ -93,7 +93,23 @@
 	       			 }
       			});
 			}
-		})
+		});
+		$(document).on('click', '.selctetat', function(event){
+    		event.preventDefault();
+				var formData = {
+      			class_name: $('#className').val(),		
+          	obj_id: $('#objID').val(),
+          	selectDocm :$(this).val(),
+        };
+        $.ajax({
+            type : 'get',
+            url : '{{URL::to('reportprint')}}',
+            data:formData,
+              success(data){
+                $('#EtatSortie').modal('hide');
+              },
+        }); 
+    });
   });
 </script>
 @endsection
@@ -106,12 +122,12 @@
 		<div class="panel-body">
 			<div class="row">
   			<div class="col-sm-4">
-       				<div class="form-group"><label><strong>Etat :</strong></label>
-           			 <select id='etat' class="form-control filter" style="width: 200px">
-               				 <option value="0">En Cours</option>
-			                <option value="1">Validée</option>
-			            </select>
-       				  </div>		
+   				<div class="form-group"><label><strong>Etat :</strong></label>
+     			 <select id='etat' class="form-control filter" style="width: 200px">
+         			<option value="0">En Cours</option>
+              <option value="1">Validée</option>
+            </select>
+   				 </div>		
     		</div>
     		<div class="col-sm-4">
         	<div class="form-group">
@@ -172,9 +188,10 @@
 							<td><strong>/</strong></td>
 						@endif
 						<td class="text-center">
-							<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $rdv->id }}" @if(!(isset($rdv->demandeHospitalisation->bedAffectation))) disabled @endif><i class="fa fa-check"></i> &nbsp;Confirmer</button>
+							<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $rdv->id }}" @if(!(isset($rdv->demandeHospitalisation->bedAffectation))) disabled @endif><i class="fa fa-check"></i></button>
 							@include('admission.modalForm.confirmEntreeProg')
-							</td>
+							<a data-toggle="modal" href="#" class ="btn btn-info btn-sm" onclick ="ImprimerEtat('admission',{{ $rdv->id }});" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
+						</td>
 						</tr>
 						@endforeach
 						@foreach($demandesUrg as $demande)
@@ -187,8 +204,9 @@
 							<td>@if(isset($demande->bedAffectation)) {{ $demande->bedAffectation->lit->salle->nom}} @else <strong>/</strong> @endif </td>
 							<td>@if(isset($demande->bedAffectation)) {{ $demande->bedAffectation->lit->nom}} @else <strong>/</strong> @endif </td>
 							<td class="text-center">
-									<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $demande->id }}" @if(!(isset($demande->bedAffectation))) disabled @endif>	<i class="fa fa-check"></i> &nbsp;Confirmer</button>	
+								<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $demande->id }}" @if(!(isset($demande->bedAffectation))) disabled @endif>	<i class="fa fa-check"></i> &nbsp;Confirmer</button>	
 								@include('admission.modalForm.confirmEntreeUrg')
+								<a data-toggle="modal" href="#" class ="btn btn-info btn-sm" onclick ="ImprimerEtat('DemandeHospitalisation',{{ $demande->id }});" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
 							</td>
 						</tr>
 						@endforeach
@@ -198,5 +216,6 @@
 			</div>
 		</div>
   </div>{{-- row --}}
+  <div class="row">@include('hospitalisations.ModalFoms.EtatSortie')</div>
 </div><!-- page-content -->
 @endsection

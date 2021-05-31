@@ -3,10 +3,10 @@
 <div class="page-header"><h1>Détails : {{ $user->name }}</h1>
 <div class="pull-right">
 	<a href="{{ route('users.edit',$user->id )}}" class="btn btn-info btn-sm" data-toggle="tooltip" title="modifier">
-		<i class="fa fa-edit fa-xs" aria-hidden="true" ></i>Edit
+		<i class="fa fa-edit fa-xs" aria-hidden="true" ></i>
 	</a>
 	<a href="{{ route('users.destroy',$user->id )}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-sm btn-danger">
-		<i class="fa fa-trash-o fa-xs"></i>Supprimer
+		<i class="fa fa-trash-o fa-xs"></i>
 	</a>
 </div>
 </div>
@@ -81,16 +81,20 @@
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-4">
+					@isset($user->employ->service)
 					<div class="form-group">
 						<label class="col-sm-4 control-label no-padding-right"><b>Service :</b></label>
 						<div class="col-sm-8"><label class="blue">{{ $user->employ->Service->nom }}</label></div>
 					</div>
+					@endisset
 				</div>
 				<div class="col-xs-12 col-sm-4">
+				@isset($user->employ->service)
 					<div class="form-group">
 						<label class="col-sm-4 control-label no-padding-right"><strong>Spécialité :</strong></label>
 						<div class="col-sm-8"><label class="blue">{{ $user->employ->Specialite->nom }}</label></div>
 					</div>
+				@endisset	
 				</div>
 			</div>
 			<h4 class="header blue bolder smaller">Informations d'assurance</h4>
@@ -115,8 +119,14 @@
 				</div>
 				<div class="col-xs-12 col-sm-4">
 					<div class="form-group">
-						<label class="col-sm-4 control-label no-padding-right"><b>E-Mail :</b></label>
-						<div class="col-sm-8"><label class="blue">{{ $user->email }}</label>	</div>
+						<label class="col-sm-4 control-label no-padding-right"><b>Nom d'utilisateur :</b></label>
+						<div class="col-sm-8"><label class="blue">{{ $user->name }}</label></div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label no-padding-right"><b>Rôle :</b></label>
+						<div class="col-sm-8"><label class="blue">{{ $user->role->role }}</label>	</div>
 					</div>
 				</div>
 			</div>

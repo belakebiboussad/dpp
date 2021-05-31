@@ -13,12 +13,10 @@ class EmployeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __construct()
-      {
-          $this->middleware('auth');
-      }
-    public function index()
     {
-        //
+        $this->middleware('auth');
+    }
+    public function index()  {       //
     }
     /**
      * Show the form for creating a new resource.
@@ -47,9 +45,8 @@ class EmployeController extends Controller
      */
     public function show($id)
     {
-        $employe = employ::FindOrFail($id);
-        //$employe = employ::with('service')->FindOrFail($id);
-        return view('employe.show_employe',compact('employe'));
+        $employe = employ::FindOrFail($id);//$employe = employ::with('service')->FindOrFail($id);
+        return view('employe.show',compact('employe'));
     }
 
     /**
