@@ -150,7 +150,6 @@ class HomeController extends Controller
                 break;
              case "8"://Bulltin Admission
                 $filename = "BA-". $obj->consultation->patient->Nom."-".$obj->consultation->patient->Prenom;
-                return $filename;
                 $pdf = PDF::loadView('admission.EtatsSortie.BAPDF', compact('etat','obj','date','etablissement'));
                 break;
             case "9"://Billet de salle

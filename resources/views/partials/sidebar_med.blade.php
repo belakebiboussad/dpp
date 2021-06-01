@@ -270,28 +270,23 @@
         addRequiredAttr();
       }
 
-      function copyPatientInfo()
+      function copyPatientInfo(idP)
       {
         if($("#type").val() =="0")
           copyPatient();
         else
-          emptyPatient();
+          if(idP == null)
+            emptyPatient();
       }
       function emptyPatient(){ 
-        $("#nomf").val("");
-        $("#prenomf").val("");
-        $("#datenaissancef").val("");
-        $("#lieunaissancef").val(""); 
-        $("#idlieunaissancef").val("");
-        $('#adressef').val("");
-        $('#communef').val("");
-        $('#idcommunef').val("");
-        $('#idwilayaf').val(""); 
-        $('#wilayaf').val("");
+        $("#nomf").val("");$("#prenomf").val("");$("#datenaissancef").val("");$("#lieunaissancef").val("");$("#idlieunaissancef").val("");$('#adressef').val("");$('#communef').val("");
+        $('#idcommunef').val("");$('#idwilayaf').val("");$('#wilayaf').val("");
         $("#gsf").val("");
         $("#rhf").val("");
-        $(gsf).attr("disabled", false);
-        $("#rhf" ).attr("disabled", false);     
+        if($("#gsf").prop('disabled') == true)
+          $('#gsf').attr("disabled", false);
+        if($("#gsf").prop('disabled') == true)
+          $("#rhf" ).attr("disabled", false);
         $('.Asdemograph').find('*').each(function () {
           $(this).attr("disabled", false); 
         });

@@ -83,7 +83,6 @@
   }
 	$(document).ready(function(){
 	  showTypeEdit(0);//var value = $("#type").val();
-	  
 	});     
 </script>
 @endsection
@@ -105,9 +104,9 @@
 			@if (count($errors) > 0)
 			  <div class="alert alert-danger">
 				<ul>
-				 @foreach ($errors->all() as $error)
-			 	           <li>{{ $error }}</li>
-				@endforeach
+					@foreach ($errors->all() as $error)
+			 	  <li>{{ $error }}</li>
+					@endforeach
 				</ul>
 				</div>
 			@endif
@@ -116,7 +115,7 @@
 	</div>
 	<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
 		<li class=" @if($patient->Type !="5") active @else hidden  @endif">
-		  <a data-toggle="tab" href="#Assure" data-toggle="tab" onclick="copyPatientInfo();">
+		  <a data-toggle="tab" href="#Assure" data-toggle="tab" onclick="copyPatientInfo('{{ $patient->id}}');">
 	    	<span class="bigger-130"><strong>Assure</strong></span>
 	    </a>
  		</li>

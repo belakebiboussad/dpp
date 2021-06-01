@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 31 mai 2021 à 16:29
+-- Généré le : mar. 01 juin 2021 à 13:49
 -- Version du serveur :  5.7.23
 -- Version de PHP : 7.2.10
 
@@ -365,7 +365,7 @@ INSERT INTO `assurs` (`Nom`, `Prenom`, `Date_Naissance`, `lieunaissance`, `Sexe`
 ('ali', 'patient', '1965-07-20', NULL, 'M', NULL, NULL, 1556, 49, 'B+', 'Retraite', NULL, NULL, 1, '985624875656', NULL),
 ('up', 'assure', NULL, NULL, 'F', NULL, NULL, NULL, 49, 'A+', 'Détachement', NULL, NULL, 1, '985624875695', NULL),
 ('meraoui', 'abdelah', NULL, NULL, 'M', NULL, NULL, 613, 16, '', 'Activité', 'PJ', NULL, 1, '993256424565', NULL),
-('mrabet', 'omar', NULL, NULL, 'M', NULL, NULL, NULL, 49, 'B-', 'Activité', 'PJ', NULL, 1, '999256424565', NULL);
+('mrabet', 'omar', '2021-03-15', 493, 'M', 'M', 'alger', 606, 16, 'B-', 'Activité', 'PJ', NULL, 1, '999256424565', NULL);
 
 -- --------------------------------------------------------
 
@@ -407,7 +407,8 @@ INSERT INTO `bedaffectation` (`demande_id`, `lit_id`) VALUES
 (16, 15),
 (27, 12),
 (21, 16),
-(14, 1);
+(14, 1),
+(28, 18);
 
 -- --------------------------------------------------------
 
@@ -2310,7 +2311,7 @@ CREATE TABLE IF NOT EXISTS `consultations` (
   KEY `fk_Consultation_Employe1_idx` (`Employe_ID_Employe`),
   KEY `fk_Consultation_Patient1_idx` (`Patient_ID_Patient`),
   KEY `fk_code_CIM` (`id_code_sim`)
-) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `consultations`
@@ -2387,7 +2388,8 @@ INSERT INTO `consultations` (`id`, `motif`, `histoire_maladie`, `Date_Consultati
 (115, 'avec radio', NULL, '2021-05-25', NULL, 'gdfg', 0, NULL, 102, 191, NULL, 21),
 (116, 'avec antece', NULL, '2021-05-27', NULL, 'avec antec', 0, NULL, 102, 192, NULL, 21),
 (117, 'avec dh', NULL, '2021-05-30', NULL, 'avec dh', 0, NULL, 102, 190, NULL, 21),
-(118, 'avec ordonnance', NULL, '2021-05-31', NULL, 'avec ordonnance', 0, NULL, 102, 190, NULL, 21);
+(118, 'avec ordonnance', NULL, '2021-05-31', NULL, 'avec ordonnance', 0, NULL, 102, 190, NULL, 21),
+(119, 'urgene demaned', NULL, '2021-06-01', NULL, 'urgene demaned', 0, NULL, 102, 243, NULL, 21);
 
 -- --------------------------------------------------------
 
@@ -3220,7 +3222,7 @@ CREATE TABLE IF NOT EXISTS `demandehospitalisations` (
   KEY `fk_DemandeHospitalisation_Consultation1_idx` (`id_consultation`),
   KEY `service` (`service`),
   KEY `specialite` (`specialite`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `demandehospitalisations`
@@ -3253,7 +3255,8 @@ INSERT INTO `demandehospitalisations` (`id`, `service`, `specialite`, `modeAdmis
 (24, 2, 6, 'Ambulatoire', NULL, 'en attente', 84),
 (25, 1, 1, 'programme', NULL, 'en attente', 85),
 (26, 1, 1, 'programme', NULL, 'programme', 106),
-(27, 1, 1, 'urgence', NULL, 'admise', 117);
+(27, 1, 1, 'urgence', NULL, 'admise', 117),
+(28, 1, 1, 'urgence', NULL, 'programme', 119);
 
 -- --------------------------------------------------------
 
@@ -4543,7 +4546,7 @@ INSERT INTO `lits` (`id`, `num`, `nom`, `etat`, `affectation`, `salle_id`) VALUE
 (15, 11, 'lit15', 1, 1, 7),
 (16, 12, 'lit16', 1, 1, 7),
 (17, 13, 'lit17', 1, 1, 3),
-(18, 14, 'lit18', 1, 0, 1);
+(18, 14, 'lit18', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -11521,15 +11524,14 @@ INSERT INTO `patients` (`id`, `IPP`, `Nom`, `Prenom`, `nom_jeune_fille`, `Dat_Na
 (238, '02021238', 'ould rachid', 'amar', NULL, '1984-06-19', NULL, 'M', NULL, NULL, NULL, NULL, '', '', NULL, NULL, 'O', NULL, '031164245651', '0', NULL, 1, '2021-05-12', NULL, '2021-05-12 07:37:20'),
 (239, '02021239', 'ouled brahim', 'farid', NULL, NULL, NULL, 'M', NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, '444256424565', '2', NULL, 1, '2021-05-12', NULL, '2021-05-12 07:39:31'),
 (240, '02021240', 'ait ali', 'djamila', NULL, NULL, NULL, 'M', NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, '669914253678', '1', NULL, 1, '2021-05-12', NULL, '2021-05-12 07:41:04'),
-(243, '02021243', 'mrabet', 'saber', NULL, '2009-05-11', NULL, 'M', 'C', NULL, NULL, NULL, '05', '', NULL, NULL, NULL, NULL, '999256424565', '4', NULL, 1, '2021-05-12', NULL, '2021-05-12 10:00:38'),
+(243, '02021243', 'mrabet', 'sabrina', 'djouahra', '2000-05-11', 493, 'F', 'M', 'alger', 287, 9, '05', '', NULL, NULL, 'A', NULL, '999256424565', '1', NULL, 1, '2021-06-01', NULL, '2021-05-12 10:00:38'),
 (245, '02021245', 'mrabet', 'oualid', NULL, NULL, 493, 'M', 'C', NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, '655914253678', '4', NULL, 1, '2021-05-12', NULL, '2021-05-12 10:07:40'),
 (246, '02021246', 'boali', 'sabrina', NULL, NULL, NULL, 'M', NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, '581245887898', '3', NULL, 1, '2021-05-12', NULL, '2021-05-12 10:12:27'),
 (247, '02021247', 'ouali', 'loucif', NULL, NULL, NULL, 'M', 'C', NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, '415624875695', '2', NULL, 1, '2021-05-12', NULL, '2021-05-12 11:01:02'),
 (248, '02021248', 'louali', 'karima', NULL, NULL, NULL, 'F', 'M', NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, '155256424565', '1', NULL, 1, '2021-05-12', NULL, '2021-05-12 11:04:04'),
 (249, '02021249', 'meraoui', 'abdelah', NULL, NULL, NULL, 'M', 'C', '', NULL, NULL, '', '', NULL, NULL, 'A', NULL, '993256424565', '0', NULL, 1, '2021-05-12', NULL, '2021-05-12 11:11:42'),
 (252, '02021252', 'ahmed', 'ali', NULL, '1970-02-12', 613, 'M', 'V', 'rue 01 bab hassen', 287, 9, '', '', NULL, NULL, 'A', '+', '894568124785', '0', NULL, 1, '2021-05-12', NULL, '2021-05-12 12:15:32'),
-(253, '02021253', 'magita', 'bori', NULL, '1970-02-12', NULL, 'F', 'C', 'rue 02', 287, 9, '', '', NULL, NULL, 'AB', '+', '111111111111', '0', NULL, 1, '2021-05-16', NULL, '2021-05-16 11:55:25'),
-(254, '02021254', 'sup', 'sup', NULL, '2002-07-02', 613, 'M', 'C', NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, '985624875695', '2', NULL, 1, '2021-05-31', NULL, '2021-05-31 12:58:38');
+(253, '02021253', 'magita', 'bori', NULL, '1970-02-12', NULL, 'F', 'C', 'rue 02', 287, 9, '', '', NULL, NULL, 'AB', '+', '111111111111', '0', NULL, 1, '2021-05-16', NULL, '2021-05-16 11:55:25');
 
 -- --------------------------------------------------------
 
@@ -11724,7 +11726,7 @@ INSERT INTO `rdvs` (`id`, `Date_RDV`, `Fin_RDV`, `fixe`, `Employe_ID_Employe`, `
 (151, '2021-05-06 12:15:00', '2021-05-06 12:30:00', 1, 102, 211, NULL),
 (152, '2021-05-12 11:30:00', '2021-05-12 11:45:00', 1, 102, 190, NULL),
 (153, '2021-05-12 10:30:00', '2021-05-12 10:45:00', 1, 102, 190, NULL),
-(154, '2021-05-20 13:00:00', '2021-05-20 13:15:00', 1, 102, 190, NULL),
+(154, '2021-06-01 13:00:00', '2021-06-03 13:15:00', 1, 102, 190, NULL),
 (155, '2021-06-03 10:45:00', '2021-06-03 11:00:00', 1, 102, 225, NULL);
 
 -- --------------------------------------------------------
@@ -11973,19 +11975,19 @@ CREATE TABLE IF NOT EXISTS `rols` (
 --
 
 INSERT INTO `rols` (`id`, `role`) VALUES
-(1, 'Medecin'),
-(2, 'Receptioniste'),
+(1, 'Médecin'),
+(2, 'Réceptioniste'),
 (3, 'Infirmier'),
-(4, 'administrateur'),
-(5, 'Surveillant medical'),
-(6, 'Delegue colloque'),
+(4, 'Administrateur'),
+(5, 'Surveillant Médical'),
+(6, 'Délégué Colloque'),
 (8, 'Directeur'),
-(9, 'Admission'),
+(9, 'Agent Admission'),
 (10, 'Pharmacien'),
 (11, 'Laborantin'),
 (12, 'Radiologue'),
-(13, 'Medecin Chef'),
-(14, 'Chef de service');
+(13, 'Médecin Chef'),
+(14, 'Chef de Service');
 
 -- --------------------------------------------------------
 
@@ -12058,7 +12060,7 @@ INSERT INTO `services` (`id`, `nom`, `responsable_id`, `hebergement`, `urgence`,
 (11, 'MEDECINE INTERNE', 80, 1, 0, '0'),
 (12, 'PRE-ANESTHESIE', 68, 0, 0, '0'),
 (13, 'RADIOLOGIE', 81, 0, 0, '0'),
-(14, 'PHARMACIE', 101, 0, 0, '0'),
+(14, 'PHARMACIE', 81, 0, 0, '2'),
 (16, 'Covid/19', 89, 1, 0, '0'),
 (17, 'Chirurgie', 103, 1, 1, '1');
 
@@ -12349,7 +12351,7 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
 
 INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `role_id`, `remember_token`, `active`) VALUES
 (3, 'inf', '$2y$10$iCZWwSL3s9u9Fn/9M.TykeHfUx/CRhmrp069KVhYg34RXohdBaVdy', NULL, 1, 3, 'qUnBTPkQ4EtuXmXJs50V8y5jl2b57qtovhNkV8NoQ2t7k4qxAxTniMVUL4f1', 1),
-(25, 'admin', '$2y$10$B1bDBc58b2oRAgoTFEqWauKio.yiYSlkmTxC8yNkaG6uaK4SA3HoC', 'mail@live.fr', 65, 4, 'OhYogGBfq1EEvPwxv7X7voqbhC2Ap0iNlY7hJrXFamF32IkF7B9GWEeNOqEA', 1),
+(25, 'admin', '$2y$10$B1bDBc58b2oRAgoTFEqWauKio.yiYSlkmTxC8yNkaG6uaK4SA3HoC', 'mail@live.fr', 65, 4, 'hBLj7vLNtiUxrFkoJxJLwCMQHBb1xCiv4NIypZEUBT3SHJpOchGzTNJcxgTc', 1),
 (26, 'reception', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'ikesskess@gmail.com', 68, 2, 'JgPaOcCOA17jVkAP8cojWkgyN0MDnkxPNFFF9y5OWBuGJoZaBkbz2GrKnERk', 0),
 (28, 'medChef', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'az@e.fr', 87, 13, 'GtsERzROhMI17wLDz9bj8agtQGftKg9YW3Jop27qso079ht8HqA7rmROafvp', 1),
 (29, 'colloque', '$2y$10$Ve5h8oMwfAmfzHgTLrfJTOmGUiBpZLdxrfEfYC/7g2a1G62ZkM2QO', 'gdcedgg@yah.fr', 80, 5, 'gpZZ7n5wZzyDItBNWBgOWJBuHVN9zPFAVCnhFigz3AQFygICRp4ENyCc2B8W', 1),
@@ -12359,15 +12361,15 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (34, 'med', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'admin@gmail.com', 88, 1, 'fb3Fq2xQgFWyTBO5v1lRHwwIkqlMoObVnU9zTeylFhh5tAzWkHzNg5l2N6ig', 0),
 (35, 'delCol', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'll@a.fr', 89, 6, '77CX9vhXHGnug7hF9R8SAJP8VzwxV4N5uNN3F1RNXk4UmydF9ksDXFTTjcPG', 1),
 (38, 'user', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'jj@hot.frr', 93, 13, 'QGzAK3Ot9VH190WBcOuRMMdfEN0H91VgB1MXO6vbFuiiu15koQYCQLxWP4BT', 1),
-(39, 'surMed', '$2y$10$zUdI0W5QV/1fmnBnhmL2TOTqN8GMNEdZZK6o4gclrJ1CKfxVq.Rca', 'bbedeebi@cdta.dz', 94, 5, 'Yk3b9gTQPVxH2FziEBXPLZlw6CA1JFEONadjeOdXVkw50p2JEq0KTP1RQ3HT', 1),
+(39, 'surMed', '$2y$10$zUdI0W5QV/1fmnBnhmL2TOTqN8GMNEdZZK6o4gclrJ1CKfxVq.Rca', 'bbedeebi@cdta.dz', 94, 5, 'uZZ7f0G4klVTDIvIOb3Kz02C7lq11OHBMIuthKXW8GZgauVgsw0WisCyFGj4', 1),
 (40, 'agentAdm', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'agentAdm@hop.dz', 95, 9, 'hcEiyOu6lVtRBS0HwhkUkIf2CrZunWTA0omOlazCn1GaTHxQPKkyUnaWSueG', 1),
-(41, 'agent', '$2y$10$RsD.pKjSIV73uBbaLJNE.uXhzCmCixdBf71lcxBq2wmQu0dsRzdmy', 'agent@hop.dz', 96, 9, '6EzHJIDzOcljFfluKfnQGhi1rUP0av5iCPw1dUwv6xkoyHpdOC1RUJjGjGBy', 1),
+(41, 'agent', '$2y$10$RsD.pKjSIV73uBbaLJNE.uXhzCmCixdBf71lcxBq2wmQu0dsRzdmy', 'agent@hop.dz', 96, 9, '5iofoaCzf7igW6n4G2tgVRrRnmP9169zSHnXBpqYT530DIaYBTs0at55LEg7', 1),
 (42, 'laborantin', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'lab@hop.dz', 97, 11, 'zbixiEM6WdM87dmjQgY5wyyOwbjnaztI2VFnOx0qk5MshMa9urOQOjGdzzIq', 1),
 (43, 'radiogue', '$2y$10$k5gKJEykSI5PNYLHyheO.eXq4ge1e6Rkz/HN/mMKUZiKZFe8qMlki', 'rad@hop.dz', 98, 12, 'benlcglfiv00sldthLpx1KXLmtI2DYvCGoRpjKunnuQE0cSzBTETHsXO9x9e', 1),
 (44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, 'kpBJfTCvd2SP3BkyPqgdnSHwoMHEoAWGaDS0QeQu6arJNqxWOxijlkb8pQji', 1),
 (45, 'chefServ', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'MqwpSXPTQM0JlyL3aHRfqlG29ow5QmZnqGPwuINxH9jaZRFPEFqIoFdW1SxY', 1),
 (46, 'rad', '$2y$10$PNDRMvcnhl1kZ.sxfoq8Yuhoq6ZMQePi9/q1QbLUZ.a.hd5DxvnCS', 'rad@cdta.net', 101, 12, 'PzqW76wLGyYoM3Dk3AWPaq0EwIZBFY554iRiWaF2IyoeHLEBXojOXCL9Yz77', 1),
-(47, 'cardio', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'bbedeebi@cdta.dz', 102, 1, 'xZc8O5RP0uVhGKMEHQeL8TR1xU7vLgQxGRXX7c3Bilkzc8NlO5b6xZQ7B6xz', 1),
+(47, 'cardio', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'bbedeebi@cdta.dz', 102, 1, 'KtY13AFy13XdOcx9yoXqfsrWx8boqO1jB2hFYB5Vfki2BQn0HYsAqllg50mq', 1),
 (48, 'geneco', '$2y$10$MeHcy1r9az/dgkC9pLvo/Ob4eqJVp8mRjGuZeyL9yA6k8sc3D0FAW', 'geneco@cdta.dz', 103, 1, 'wG4AMsJliph2HEp2SwRF5E6z7xHjvR9gDzzEAU9vV9Fe4FsAh28t3TGQZDra', 1),
 (55, 'sup', '$2y$10$KMz3xI6SFSVafWDbulGrEegn7wTkCr4HmxVdUTwMeNvarK3o0N9AW', 'admin@gmail.com', 110, 2, 'yKzTFVPrnDywAvS2qoqmKHFRKurGGwJwy8b00YLZPZYysquBO1dqsV1VA4eq', 1);
 

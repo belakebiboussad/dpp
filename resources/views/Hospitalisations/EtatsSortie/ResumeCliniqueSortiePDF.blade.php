@@ -23,10 +23,9 @@
     <div class="row">   <div class="mb-10"><strong>Etablisement : </strong><span>{{ $etablissement->nom}}</span></div></div>
     <div class="row" ><div class="mb-10"><strong>Service : </strong><span>{{ $obj->admission->rdvHosp->demandeHospitalisation->Service->nom }}</span></div></div>
     <div class="row" ><div class="mb-10"><strong>Chef de servise : </strong><span>{{ $obj->admission->rdvHosp->demandeHospitalisation->Service->responsable->nom }} {{ $obj->admission->rdvHosp->demandeHospitalisation->Service->responsable->prenom }}</span></div>
-    </div> <br><hr/>
+    </div><br><hr/>
         <section class="table"> 
           <table class="head" style="width:100%;">
-          <thead> </thead>
           <tbody>
           <tr>
             <td class="first"><strong>N° Matricule:</strong>
