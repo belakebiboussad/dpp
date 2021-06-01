@@ -95,13 +95,12 @@
 			}
 		});
 		$(document).on('click', '.selctetat', function(event){
-    			alert($(this).val());
-    			event.preventDefault();
-			var formData = {
+    		event.preventDefault();
+				var formData = {
       				class_name: $('#className').val(),		
           			obj_id: $('#objID').val(),
           			selectDocm :$(this).val(),
-        		};
+        };
         $.ajax({
             type : 'get',
             url : '{{URL::to('reportprint')}}',
@@ -205,7 +204,7 @@
 							<td>@if(isset($demande->bedAffectation)) {{ $demande->bedAffectation->lit->salle->nom}} @else <strong>/</strong> @endif </td>
 							<td>@if(isset($demande->bedAffectation)) {{ $demande->bedAffectation->lit->nom}} @else <strong>/</strong> @endif </td>
 							<td class="text-center">
-								<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $demande->id }}" @if(!(isset($demande->bedAffectation))) disabled @endif>	<i class="fa fa-check"></i> &nbsp;Confirmer</button>	
+								<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $demande->id }}" @if(!(isset($demande->bedAffectation))) disabled @endif>	<i class="fa fa-check"></i></button>	
 								@include('admission.modalForm.confirmEntreeUrg')
 								<a data-toggle="modal" href="#" class ="btn btn-info btn-sm" onclick ="ImprimerEtat('DemandeHospitalisation',{{ $demande->id }});" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
 							</td>

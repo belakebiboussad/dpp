@@ -113,49 +113,49 @@ class HomeController extends Controller
     public function print(Request $request)
     {
           $model_prefix="App\modeles";
-          $pdf;
+          $filename ; $pdf;
           $modelName = $model_prefix.'\\'.$request->class_name;
           $etablissement = Etablissement::first();
-          $date= Carbon::now()->format('Y-m-d'); //$consult  = $className::find($obj_id);
+          $date= Carbon::now()->format('d-m-Y'); //$consult  = $className::find($obj_id);
           $obj=$modelName::find( $request->obj_id);
-          $filename =$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
           $etat=Etatsortie::find( $request->selectDocm );
           switch($request->selectDocm) {
             case "1":
-                $filename = "RSS-".$filename;
+                $filename = "RSS-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
                 $pdf = PDF::loadView('hospitalisations.EtatsSortie.ResumeStandartSortiePDF', compact('etat','obj','etablissement'));
                 break;
             case "2":
-                $filename = "RCS-".$filename;
+                $filename = "RCS-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
                 $pdf = PDF::loadView('hospitalisations.EtatsSortie.ResumeCliniqueSortiePDF', compact('etat','obj','etablissement'));
                 break;
             case "3":
-                $filename = "CM-".$filename;
+                $filename = "CM-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
                 $pdf = PDF::loadView('consultations.EtatsSortie.CertificatMedicalePDF', compact('etat','obj','date','etablissement'));
                 break;
             case "4":
-                $filename = "CAM-".$filename;
+                $filename = "CAM-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
                 $pdf = PDF::loadView('hospitalisations.EtatsSortie.AttestationContreAvisMedicalePDF', compact('etat','obj','date','etablissement'));
                 break;
             case "5":
-                $filename = "CRO-".$filename;
+                $filename = "CRO-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
                 $pdf = PDF::loadView('hospitalisations.EtatsSortie.CRHPDF', compact('etat','obj','date','etablissement'));
                 break;
              case "6"://Certificat sejour
-                $filename = "CJ-".$filename;
+                $filename = "CJ-". $obj->demandeHospitalisation->consultation->patient->Nom."-".$obj->demandeHospitalisation->consultation->patient->Prenom;
                 $pdf = PDF::loadView('admission.EtatsSortie.CertificatSejourPDF', compact('etat','obj','date','etablissement'));
                 break;
             case "7"://Demande orientation
-                $filename = "DORT-".$filename;
+                $filename = "DORT-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
                 $pdf = PDF::loadView('consultations.EtatsSortie.DemandeOrientationMedicalePDF', compact('etat','obj','date','etablissement'));
                 break;
-             case "8"://Demande orientation
-                $filename = "BA-".$filename;
-                $pdf = PDF::loadView('consultations.EtatsSortie.DemandeOrientationMedicalePDF', compact('etat','obj','date','etablissement'));
+             case "8"://Bulltin Admission
+                $filename = "BA-". $obj->consultation->patient->Nom."-".$obj->consultation->patient->Prenom;
+                return $filename;
+                $pdf = PDF::loadView('admission.EtatsSortie.BAPDF', compact('etat','obj','date','etablissement'));
                 break;
-            case "9"://Demande orientation
-                $filename = "BS-".$filename;
-                $pdf = PDF::loadView('consultations.EtatsSortie.DemandeOrientationMedicalePDF', compact('etat','obj','date','etablissement'));
+            case "9"://Billet de salle
+                $filename = "BS-". $obj->consultation->patient->Nom."-".$obj->consultation->patient->Prenom;
+                $pdf = PDF::loadView('admission.EtatsSortie.BSPDF', compact('etat','obj','date','etablissement'));
                 break;
             default:
                 return response()->json(['html'=>"unknown"]);
