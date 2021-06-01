@@ -116,7 +116,7 @@ class HomeController extends Controller
           $filename ; $pdf;
           $modelName = $model_prefix.'\\'.$request->class_name;
           $etablissement = Etablissement::first();
-          $date= Carbon::now()->format('d-m-Y'); //$consult  = $className::find($obj_id);
+          $date= Carbon::now()->format('d/m/Y'); //$consult  = $className::find($obj_id);
           $obj=$modelName::find( $request->obj_id);
           $etat=Etatsortie::find( $request->selectDocm );
           switch($request->selectDocm) {
@@ -149,8 +149,17 @@ class HomeController extends Controller
                 $pdf = PDF::loadView('consultations.EtatsSortie.DemandeOrientationMedicalePDF', compact('etat','obj','date','etablissement'));
                 break;
              case "8"://Bulltin Admission
-                $filename = "BA-". $obj->consultation->patient->Nom."-".$obj->consultation->patient->Prenom;
-                $pdf = PDF::loadView('admission.EtatsSortie.BAPDF', compact('etat','obj','date','etablissement'));
+                if($request->class_name == "rdv_hospitalisation")
+                {
+                  $filename = "BA-". $obj->demandeHospitalisation->consultation->patient->Nom."-".$obj->demandeHospitalisation->consultation->patient->Prenom;
+                  $patient = $obj->demandeHospitalisation->consultation->patient;
+                  $pdf = PDF::loadView('admission.EtatsSortie.BAPDF', compact('patient','etat','obj','date','etablissement'));
+
+                }else
+                {
+                  $filename = "BA-". $obj->consultation->patient->Nom."-".$obj->consultation->patient->Prenom;
+                  $pdf = PDF::loadView('admission.EtatsSortie.BAPDFUrg', compact('etat','obj','date','etablissement'));
+                }  
                 break;
             case "9"://Billet de salle
                 $filename = "BS-". $obj->consultation->patient->Nom."-".$obj->consultation->patient->Prenom;

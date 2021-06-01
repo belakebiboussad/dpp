@@ -15,7 +15,7 @@
 			<div class="row">
 			 	<div class="col-sm-12">
 				 	<h3>
-						le  &quot;<span  style="color: orange;"><strong>{{ $rdv->date_RDVh }}</strong></span>&quot; &nbsp;à &nbsp;<span style="color: red;"><strong>{{Date("H:i")}}</strong></span>
+						le  &quot;<span  style="color: orange;"><strong>{{ $rdv->date_RDVh }}</strong></span>&quot; &nbsp;à &nbsp;<span style="color: red;"><strong>{{ Date("H:i")}}</strong></span>
 				 	 </h3>
 			 	</div>	
 			</div>

@@ -99,7 +99,7 @@
 			  	<div class="row">	
 					<div class="col-sm-6">
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="num_piece"><b>N° de la pièce: </b></label>
+							<label class="col-sm-3 control-label no-padding-right" for="num_piece"><b>N° pièce: </b></label>
 							<div class="col-sm-9">
 								<input type="text" id="num_piece" name="num_piece" placeholder="N° pièce..." class="col-xs-12 col-sm-6" required/>
 							</div>
