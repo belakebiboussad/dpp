@@ -7,15 +7,48 @@
 @section('page-script')
 <script>
 function ComptRRPrint()
-  {
+{
+  var w = document.getElementById("pdfContent").offsetWidth;
+  var h = document.getElementById("pdfContent").offsetHeight;
+  const input = document.getElementById("pdfContent");
+  // html2canvas(input)      .then((canvas) =>
+  // {
+  //   const doc = new jsPDF("p", "px", "a4");
+  //   doc.addHTML(input, 10, 5, {
+  //     pagesplit: true,
+  //     background: "#ffffff",
+  //     onclone: function(document) {  
+  //       hiddenDiv = document.getElementById("pdfContent");
+  //                    hiddenDiv.style.display = 'block';  
+  //     }
+  //   }, () => { 
+  //       doc.save('crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+'.pdf');//doc.save("download.pdf");//$("#pdfContent").addClass('invisible');
+  //    })
+  // });
+  html2canvas(document.getElementById("pdfContent"), {
+    dpi: 300, // Set to 300 DPI
+    scale: 3, // Adjusts your resolution
+    background: "#ffffff",
+    onrendered: function(canvas) {
+      var img = canvas.toDataURL("image/jpeg", 1);
+      var doc = new jsPDF('L', 'px', [w, h]);
+      doc.addImage(img, 'JPEG', 0, 0, w, h);
+      doc.save('sample-file.pdf');
+    }
+  });
+}
+   
+
+function ComptRRPrintOrg()
+{
     var img = new Image(); // img.src = '{{ asset("/img/logo.png") }}'; // alert('{{ Session::get("etabLogo") }}');
     img.src = "/img/"+'{{ Session::get("etabLogo") }}';
       img.onload = function () {
         CRRPrint(img);
       };
-  }
-  function CRRPrint(image)
-  {
+}
+function CRRPrintOrg(image)
+{
     var indication = $("#indication").val();
     var techRea = $("#techRea").val();
     var result  = $("#result").val();
@@ -31,8 +64,12 @@ function ComptRRPrint()
         elem1.show();elem1.fadeIn(1);elem1.fadeOut(1);
     }
     const input = document.getElementById("pdfContent");
-    /*  html2canvas(input)      .then((canvas) => {            const doc = new jsPDF("p", "px", "a4");   doc.addHTML(input, 10, 5, {             pagesplit: true,              background: "#ffffff",
-    onclone: function(document) {   hiddenDiv = document.getElementById("pdfContent");                hiddenDiv.style.display = 'block';             }
+    /*  html2canvas(input)      .then((canvas) =>
+     {            const doc = new jsPDF("p", "px", "a4");   doc.addHTML(input, 10, 5, {             pagesplit: true,              background: "#ffffff",
+    onclone: function(document) {  
+     hiddenDiv = document.getElementById("pdfContent");
+                     hiddenDiv.style.display = 'block';  
+                                }
           }, () => {            doc.save('crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+'.pdf');//doc.save("download.pdf");//$("#pdfContent").addClass('invisible');
           });            });    */
     margins = {
@@ -98,7 +135,6 @@ function ComptRRPrint()
            $('#crr-edit'+"-"+$("#examId").val()).removeClass("hidden");
           if(!$('#crr-add'+"-"+$("#examId").val()).hasClass("hidden"))
             $('#crr-add'+"-"+$("#examId").val()).addClass("hidden");
-          $('#crrModalTitle').html('Editer un Compte Rendue Radiologique');
         },
         error: function(data){
           console.log(data);
@@ -234,6 +270,7 @@ function ComptRRPrint()
         event.preventDefault();
         $('#examId').val($(this).data('id'));
         var crr_id = $(this).val();
+        $('#crrModalTitle').html('Editer un Compte Rendue Radiologique');
         $.get('/crrs/' + crr_id + '/edit', function (data) { 
           $('#crrId').val(data.id);
           $('#indication').val(data.indication);
@@ -382,7 +419,13 @@ function ComptRRPrint()
 </div><!-- row tabel  -->
 </div><!-- col-sm-6 -->
 <div class="col-xs-12 col-sm-4">
- <div class="row" id="pdfContent" style="display:none"> @include('examenradio.EtatsSortie.crr')</div>
+ <div class="row" id="pdfContent">
+  <!-- style="display:none;" -->
+    <span>fdf</span>
+    @isset($crr)
+      @include('examenradio.EtatsSortie.crr')
+    @endisset
+ </div>
 </div>
 </div>
 <div class="space-12 hidden-xs"></div>

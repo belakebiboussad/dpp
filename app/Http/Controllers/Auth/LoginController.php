@@ -89,6 +89,5 @@ class LoginController extends Controller
       {
         $etablissement = Etablissement::first();
         return view('auth/login',compact('etablissement'));
-      }
-    //fabm
+      }    //fabm
 }

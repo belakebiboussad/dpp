@@ -22,14 +22,19 @@
 			</h5>
 		 	<h6 class="mt-20 center"><span style="font-size: xx-large;"><strong>Ordonnance</strong></span></h6>
   		<div class="row">
-			<div class="col-sm-12"><div class="section"><div class="ml-80"><b><u>Fait le:</u></b> {{ Carbon\Carbon::today()->format('d/m/Y') }}.</div></div></div>
+				<div class="col-sm-12">
+					<div class="section sec-droite">
+						<h4><strong><u>Fait le:</u></strong>{{ Carbon\Carbon::today()->format('d/m/Y') }}.</h4>
+					</div>
+				</div>
+				</div>
 			</div>
 			<div class="row ml-4">
 				<div class="col-sm-12">
 					<div class="section">
 						<div class="sec-gauche">
-							<b><u>Patient(e) :</u></b><b>	{{ $patient->getCivilite() }}</b>{{ $patient->Nom }}	{{ $patient->Prenom }},&nbsp;  
-							{{ $patient->getAge() }} ans,{{ $patient->Sexe }}
+							<h4><u>Patient(e) :</u></strong>{{ $patient->getCivilite() }}{{ $patient->Nom }}	{{ $patient->Prenom }},&nbsp;</strong>  
+							{{ $patient->getAge() }} ans,{{ $patient->Sexe }}</h4>
 						</div>
 					</div>
 				</div>

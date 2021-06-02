@@ -28,11 +28,12 @@ class DemandeExamenRadio extends Controller
     public function details_exr($id)
     {
       $demande = demandeexr::FindOrFail($id);
+      $etablissement = Etablissement::first();
       if(isset($demande->consultation))
         $patient = $demande->consultation->patient;
       else
         $patient = $demande->visite->hospitalisation->patient;
-      return view('examenradio.details', compact('demande','patient'));
+      return view('examenradio.details', compact('demande','patient','etablissement'));
     }
     public function upload(Request $request)
     {

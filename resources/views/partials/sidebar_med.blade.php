@@ -432,7 +432,8 @@
           }
         });    
     }
-     function createeximgF(image,nomp,prenomp,age,ipp)
+    
+    function createeximgF(image,nomp,prenomp,age,ipp)
     { 
       html2canvas($("#dos"), {
           onrendered: function(canvas) {         

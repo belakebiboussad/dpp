@@ -14,9 +14,7 @@
 <script>
   function ComptRRPrint()
   {
-     var img = new Image();
-      // img.src = '{{ asset("/img/logo.png") }}';
-      // alert('{{ Session::get("etabLogo") }}');
+     var img = new Image();// img.src = '{{ asset("/img/logo.png") }}';// alert('{{ Session::get("etabLogo") }}');
       img.src = "/img/"+'{{ Session::get("etabLogo") }}';
       img.onload = function () {
         CRRPrint(img);
