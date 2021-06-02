@@ -48,6 +48,7 @@
           	$(this).addClass('selected');
       	}
     });
+  });
 //     var rows = document.getElementById("consultList").children[1].children;var selectedRow = 0;
 //     document.body.onkeydown = function(e){//Prevent page scrolling on keypress
 //       e.preventDefault();//Clear out old row's color
@@ -66,7 +67,6 @@
 // 	 			showConsult(rows[selectedRow].getAttribute("id"));
 // 	     };//Set the first row to selected color
 // 	 		rows[0].style.backgroundColor = "#8888FF";
-// });
 
 </script>
 @endsection

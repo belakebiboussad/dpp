@@ -2,58 +2,66 @@
 @section('title','Demande Examens Imagerie')
 @section('style')
 <style>
+  iframe {
+      display: block;
+      margin: 0 auto;
+      border: 0;
+      position:relative;
+      z-index:999;
+  }
 </style>
 @endsection
 @section('page-script')
 <script>
 function ComptRRPrint()
 {
-  var w = document.getElementById("pdfContent").offsetWidth;
-  var h = document.getElementById("pdfContent").offsetHeight;
-  const input = document.getElementById("pdfContent");
-  // html2canvas(input)      .then((canvas) =>
-  // {
-  //   const doc = new jsPDF("p", "px", "a4");
-  //   doc.addHTML(input, 10, 5, {
-  //     pagesplit: true,
-  //     background: "#ffffff",
-  //     onclone: function(document) {  
-  //       hiddenDiv = document.getElementById("pdfContent");
-  //                    hiddenDiv.style.display = 'block';  
-  //     }
-  //   }, () => { 
-  //       doc.save('crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+'.pdf');//doc.save("download.pdf");//$("#pdfContent").addClass('invisible');
-  //    })
-  // });
-  html2canvas(document.getElementById("pdfContent"), {
-    dpi: 300, // Set to 300 DPI
-    scale: 3, // Adjusts your resolution
-    background: "#ffffff",
-    onrendered: function(canvas) {
-      var img = canvas.toDataURL("image/jpeg", 1);
-      var doc = new jsPDF('L', 'px', [w, h]);
-      doc.addImage(img, 'JPEG', 0, 0, w, h);
-      doc.save('sample-file.pdf');
-    }
+  var indication = $("#indication").val();
+  var techRea = $("#techRea").val();
+  var result  = $("#result").val();
+  var conclusion = $("#conclusion").val();
+  var formData = {
+        id : '{{ $demande->id}}',
+        indic:techRea,
+        techRea:techRea,
+        result:result,
+        conclusion:conclusion
+  };
+  $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+          }
   });
-}
-   
+  $.ajax({
+    // headers: {    //    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')    // },
+    type: "POST", //url : '{{URL::to('crrprint')}}',// url: "/ordonnaces/print",
+    url :'/crrs/print',
+    data:formData,
+    dataType: "json",
+    success: function (data,status, xhr) {      
+      $('#iframe-print').contents().find('html').html(data["html"]);
+      $("#ccrajax").modal();             
+    },  
+    error: function (data) {
+      console.log('Error:', data);
+    }
+  })
+} 
 
-function ComptRRPrintOrg()
+function ComptRRPrint1()
 {
-    var img = new Image(); // img.src = '{{ asset("/img/logo.png") }}'; // alert('{{ Session::get("etabLogo") }}');
-    img.src = "/img/"+'{{ Session::get("etabLogo") }}';
-      img.onload = function () {
-        CRRPrint(img);
-      };
+  var img = new Image(); // img.src = '{{ asset("/img/logo.png") }}'; // alert('{{ Session::get("etabLogo") }}');
+  img.src = "/img/"+'{{ Session::get("etabLogo") }}';
+    img.onload = function () {
+      CRRPrint(img);
+    };
 }
-function CRRPrintOrg(image)
+function CRRPrint(image)
 {
-    var indication = $("#indication").val();
-    var techRea = $("#techRea").val();
-    var result  = $("#result").val();
-    var conclusion = $("#conclusion").val();
-   // var doc = new jsPDF('p', 'pt', 'a4');//$("#pdfContent").removeClass('invisible');
+  var indication = $("#indication").val();
+  var techRea = $("#techRea").val();
+  var result  = $("#result").val();
+  var conclusion = $("#conclusion").val();
+  // var doc = new jsPDF('p', 'pt', 'a4');//$("#pdfContent").removeClass('invisible');
     var elem1=$("#pdfContent");
     $("#indicationPDF").text($('#indication').val());
     $("#techReaPDF").text($('#techRea').val());
@@ -71,7 +79,8 @@ function CRRPrintOrg(image)
                      hiddenDiv.style.display = 'block';  
                                 }
           }, () => {            doc.save('crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+'.pdf');//doc.save("download.pdf");//$("#pdfContent").addClass('invisible');
-          });            });    */
+          });      });    */
+   
     margins = {
         bottom:10,
         top:10,
@@ -444,4 +453,5 @@ function CRRPrintOrg(image)
   </div>
 </div>
 <div class="row jumbotron text-center">@include('examenradio.CRRModal')</div> 
+<div class="row">@include('crrs.ModalFoms.imprimerCRRAjax')</div>
 @endsection

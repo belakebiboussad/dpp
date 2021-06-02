@@ -178,7 +178,7 @@ class ConsultationsController extends Controller
 
         if($request->modeAdmission != null)
         {
-          $dh =new DemandeHospitalisation;
+          $dh = new DemandeHospitalisation;
           $dh->modeAdmission = $request->modeAdmission;  $dh->service = $request->service;
           $dh->specialite = $request->specialiteDemande; 
           $consult->demandeHospitalisation()->save($dh);

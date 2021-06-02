@@ -560,7 +560,6 @@
 				}
 			})
 	  })//fin drug  print
-
  });// ready
 </script>
 @endsection
