@@ -107,8 +107,8 @@ class HomeController extends Controller
     }
     public function flash()
     {
-        flashy()->success('You get success notification.', 'hdtuto.com');
-         return view('flash');
+      flashy()->success('You get success notification.', 'hdtuto.com');
+      return view('flash');
     }
     public function print(Request $request)
     {
@@ -150,20 +150,27 @@ class HomeController extends Controller
                 break;
              case "8"://Bulltin Admission
                 if($request->class_name == "rdv_hospitalisation")
-                {
-                  $filename = "BA-". $obj->demandeHospitalisation->consultation->patient->Nom."-".$obj->demandeHospitalisation->consultation->patient->Prenom;
+                { 
                   $patient = $obj->demandeHospitalisation->consultation->patient;
                   $pdf = PDF::loadView('admission.EtatsSortie.BAPDF', compact('patient','etat','obj','date','etablissement'));
-
                 }else
                 {
-                  $filename = "BA-". $obj->consultation->patient->Nom."-".$obj->consultation->patient->Prenom;
-                  $pdf = PDF::loadView('admission.EtatsSortie.BAPDFUrg', compact('etat','obj','date','etablissement'));
-                }  
+                  $patient = $obj->consultation->patient;
+                  $pdf = PDF::loadView('admission.EtatsSortie.BAPDFUrg', compact('patient','etat','obj','date','etablissement')); 
+                }
+                $filename = "BA-". $patient->Nom."-".$patient->Prenom;
                 break;
             case "9"://Billet de salle
-                $filename = "BS-". $obj->consultation->patient->Nom."-".$obj->consultation->patient->Prenom;
-                $pdf = PDF::loadView('admission.EtatsSortie.BSPDF', compact('etat','obj','date','etablissement'));
+                if($request->class_name == "rdv_hospitalisation")
+                { 
+                  $patient = $obj->demandeHospitalisation->consultation->patient;
+                  $pdf = PDF::loadView('admission.EtatsSortie.BSPDF', compact('patient','etat','obj','date','etablissement'));
+                }else
+                {
+                  $patient = $obj->consultation->patient;
+                  $pdf = PDF::loadView('admission.EtatsSortie.BSPDFUrg', compact('patient','etat','obj','date','etablissement')); 
+                }
+                $filename = "BA-". $patient->Nom."-".$patient->Prenom;
                 break;
             default:
                 return response()->json(['html'=>"unknown"]);

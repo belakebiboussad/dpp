@@ -28,9 +28,9 @@
         </tr>
         <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
         <tr>
-          <td><strong>Service :</strong><span>{{ $obj->demandeHospitalisation->bedAffectation->lit->salle->service->nom}}</span></td>
-          <td><strong>Salle :</strong><span>{{ $obj->demandeHospitalisation->bedAffectation->lit->salle->num }}</span></td>
-          <td><strong>Lit :</strong><span>{{ $obj->demandeHospitalisation->bedAffectation->lit->num }}</span></td>
+          <td><strong>Service :</strong><span>{{ $obj->bedAffectation->lit->salle->service->nom}}</span></td>
+          <td><strong>Salle :</strong><span>{{ $obj->bedAffectation->lit->salle->num }}</span></td>
+          <td><strong>Lit :</strong><span>{{ $obj->bedAffectation->lit->num }}</span></td>
         </tr>
         <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
         <tr>
