@@ -1,9 +1,4 @@
-
-	function ajaxATCD(patientid){
-  	var type = $('#Antecedant').val();
-		var date = $('#dateAntcd').val();
- 		var description = $('#description').val();
-	}
+/*function ajaxATCD(patientid){var type = $('#Antecedant').val();var date = $('#dateAntcd').val();var description = $('#description').val();	}*/
   function checkForm(form)
   {
    	$('.nav-pills li.active').removeClass('active');
@@ -44,7 +39,7 @@
   }
 	function addAppareils(appareil)
 	{
-  	       $("#"+appareil).each(function(i){
+    	       $("#"+appareil).each(function(i){
 			if(($(this).find(".wysiwyg-editor").text()) !=" ");
 				$('input:hidden[name="' + appareil + '"]').val($(this).find(".wysiwyg-editor").text());
                    $(this).collapse('hide');

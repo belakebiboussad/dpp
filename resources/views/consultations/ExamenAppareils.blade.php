@@ -22,14 +22,11 @@
                 </div>
                 <div class="widget-toolbox padding-4 clearfix">
                   <div class="btn-group pull-left">
-                    <button class="btn btn-sm btn-default btn-white btn-round" type="button" onclick = 'removeAppareilsContent("{{ $appareil->nom }}")' disabled>
-                      <i class="ace-icon fa fa-times bigger-125"></i>Annuler
+                    <button class="btn btn-sm btn-default btn-white btn-round" type="button" onclick = 'removeAppareilsContent("{{ $appareil->nom }}")' disabled><i class="ace-icon fa fa-times bigger-125"></i>Annuler
                     </button>
                   </div>
                   <div class="btn-group pull-right">
-                    <button class="btn btn-sm btn-danger btn-white btn-round" type="button" onclick = 'addAppareils("{{ $appareil->nom }}")' disabled>
-                      <i class="ace-icon fa fa-floppy-o bigger-125"></i>
-                      Enregistrer
+                    <button class="btn btn-sm btn-danger btn-white btn-round" type="button" onclick = 'addAppareils("{{ $appareil->nom }}")' disabled><i class="ace-icon fa fa-floppy-o bigger-125"></i>Enregistrer
                     </button>
                   </div>
                 </div>
