@@ -3,10 +3,9 @@
 <div class="row" width="100%">@include('patient._patientInfo')</div>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-4"><h3> Détails de la demande Radiologique</h3></div>
-    <div class="col-sm-8 pull-right">
-      <a href="/showdemandeexr/{{ $demande->consultation->examensradiologiques->id }}" target="_blank" class="btn btn-sm btn-primary pull-right">
-       <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
+    <div class="col-sm-5"><h3> Détails de la demande Radiologique</h3></div>
+    <div class="col-sm-7 pull-right">
+      <a href="/showdemandeexr/{{ $demande->consultation->examensradiologiques->id }}" target="_blank" class="btn btn-sm btn-primary pull-right"> <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
       </a>&nbsp;&nbsp;
       <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
     </div>
@@ -20,9 +19,9 @@
 			    <div class="form-group col-sm-6">
 			    	<label class="blue">
 			      @if(isset($demande->consultation))
-			          {{ $demande->consultation->Date_Consultation }}
+			        {{  (\Carbon\Carbon::parse($demande->consultation->Date_Consultation))->format('d/m/Y') }}
 			        @else
-			          {{ $demande->visite->date }}
+			         {{  (\Carbon\Carbon::parse($demande->visite->date))->format('d/m/Y') }}
 			        @endif 
 			      </label>
 			    </div>

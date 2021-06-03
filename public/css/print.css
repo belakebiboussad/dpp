@@ -1,0 +1,12 @@
+@media print {
+   	.center {  text-align: center;    }
+}
+@media print { 
+	.mt-3 {  margin-top: -0.3em;    }
+}
+@media print { 
+	.mt-2 {  margin-top: -0.2em;    }
+}
+@media print {
+	div.solid { 	border: solid;	}
+}

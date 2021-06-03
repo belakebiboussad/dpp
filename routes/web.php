@@ -68,7 +68,6 @@ Route::get('/demandehosp/create/{id}','DemandeHospitalisationController@create')
 Route::post('/demandehosp/valider','DemandeHospitalisationController@valider');
 Route::post('/demandehosp/invalider','DemandeHospitalisationController@invalider');
 Route::get('/demandehosp/listedemandes/{type}','DemandeHospitalisationController@listedemandes');
-
 //Route::get('/lit/create/{id}','LitsController@create');//Route::get('/ordonnace/create/{id}','OrdonnanceController@create');
 Route::post('/ordonnaces/print','OrdonnanceController@print');
 Route::get('/consultations/detailcons/{id}','ConsultationsController@detailcons')->name('consultDetails');
@@ -197,7 +196,7 @@ route::post('/saveActe','ActeController@store');
 route::get('/schapitres','CimController@getChapters');
 route::get('/maladies','CimController@getdiseases');//route::post('/acte','AntecedantsController@store');
 Route::get('/crrs/download/{id}', 'CRRControler@download')->name('crrs.download');
-Route::post('/crrs/print','CRRControler@print')->name('crrprint');
+Route::post('/crrPrint','CRRControler@print')->name('crrprint');
 Route::get('/404', function () {
     return view('errors.404');
 });

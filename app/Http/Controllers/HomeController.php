@@ -51,11 +51,8 @@ class HomeController extends Controller
     {
       $ServiceID = Auth::user()->employ->service;
       $etablissement = Etablissement::first(); //$etablissement = Etablissement::first()->toArray();
-      //session()->put('etablissement', $etablissement);$etabli = array("foo" => "bar","bar" =>"foo",); Session::put('etablissement', $etablissement);
-      // dd($etablissement->nom);
-      // $nom =  htmlspecialchars_decode($etablissement->nom,ENT_QUOTES);    
-     //$nom =  htmlspecialchars($etablissement->nom);
-      //dd($nom);
+      //session()->put('etablissement', $etablissement);$etabli = array("foo" => "bar","bar" =>"foo",); Session::put('etablissement', $etablissement);// dd($etablissement->nom);  // $nom =  htmlspecialchars_decode($etablissement->nom,ENT_QUOTES);    
+      //$nom =  htmlspecialchars($etablissement->nom);
       Session::put('etabname', $etablissement->nom);
       Session::put('etabTut', $etablissement->tutelle);
       Session::put('etabAdr', $etablissement->adresse);

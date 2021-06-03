@@ -1,6 +1,7 @@
 @extends('app_radiologue')
 @section('title','Demande Examens Imagerie')
 @section('style')
+<link rel="stylesheet" href="css/styles.css">
 <style>
   iframe {
       display: block;
@@ -9,103 +10,47 @@
       position:relative;
       z-index:999;
   }
+  .mt-12 { padding-top:-12px;}
 </style>
 @endsection
 @section('page-script')
 <script>
-function ComptRRPrint()
+/*function ComptRRPrint(){  var indication = $("#indication").val();        var techRea = $("#techRea").val();       var result  = $("#result").val();        var conclusion = $("#conclusion").val();var formData = { id : '{{-- $demande->id--}}', indic:indication,techRea:techRea, result:result,conclusion:conclusion }; $.ajaxSetup({headers: {  'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')}  }); $.ajax({// headers: { // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')    // },        type: "POST",url :'/crrs/print', data:formData,dataType: "json", success: function (data,status, xhr) {   // $('#iframe-print').contents().find('html').html(data["html"]); $("#ccrajax").modal(); },  error: function (data) {console.log('Error:', data);  }        }) } */
+ function ComptRRPrint()
 {
-  var indication = $("#indication").val();
-  var techRea = $("#techRea").val();
-  var result  = $("#result").val();
-  var conclusion = $("#conclusion").val();
-  var formData = {
-        id : '{{ $demande->id}}',
-        indic:techRea,
-        techRea:techRea,
-        result:result,
-        conclusion:conclusion
-  };
-  $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-          }
-  });
-  $.ajax({
-    // headers: {    //    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')    // },
-    type: "POST", //url : '{{URL::to('crrprint')}}',// url: "/ordonnaces/print",
-    url :'/crrs/print',
-    data:formData,
-    dataType: "json",
-    success: function (data,status, xhr) {      
-      $('#iframe-print').contents().find('html').html(data["html"]);
-      $("#ccrajax").modal();             
-    },  
-    error: function (data) {
-      console.log('Error:', data);
-    }
-  })
-} 
-
-function ComptRRPrint1()
-{
-  var img = new Image(); // img.src = '{{ asset("/img/logo.png") }}'; // alert('{{ Session::get("etabLogo") }}');
-  img.src = "/img/"+'{{ Session::get("etabLogo") }}';
-    img.onload = function () {
-      CRRPrint(img);
-    };
+       var indication = $("#indication").val();
+        var techRea = $("#techRea").val();
+        var result  = $("#result").val();
+        var conclusion = $("#conclusion").val();
+        var formData = {
+             indic:indication,
+             techRea:techRea,
+             result:result,
+             conclusion:conclusion
+        };
+        $.ajaxSetup({
+                headers: {
+                  'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                }
+        });
+        $.ajax({  
+              type: "POST", 
+              url :'/crrPrint',
+              data:formData,  //dataType: "json",
+             success: function (viewContent,status, xhr) {      
+                    document.title ="CCR";
+                    $.print(viewContent);  // $('#iframe-print').contents().find('html').html(data["html"]); $("#ccrajax").modal();     
+              },  
+              error: function (data) {
+                console.log('Error:', data);
+              }
+        })
 }
-function CRRPrint(image)
+function CRRPrint()
 {
-  var indication = $("#indication").val();
-  var techRea = $("#techRea").val();
-  var result  = $("#result").val();
-  var conclusion = $("#conclusion").val();
-  // var doc = new jsPDF('p', 'pt', 'a4');//$("#pdfContent").removeClass('invisible');
-    var elem1=$("#pdfContent");
-    $("#indicationPDF").text($('#indication').val());
-    $("#techReaPDF").text($('#techRea').val());
-    $("#resultPDF").text($('#result').val());
-    $("#conclusionPDF").text($('#conclusion').val());
-    if(!elem1.is(":visible")) 
-    {
-        elem1.show();elem1.fadeIn(1);elem1.fadeOut(1);
-    }
-    const input = document.getElementById("pdfContent");
-    /*  html2canvas(input)      .then((canvas) =>
-     {            const doc = new jsPDF("p", "px", "a4");   doc.addHTML(input, 10, 5, {             pagesplit: true,              background: "#ffffff",
-    onclone: function(document) {  
-     hiddenDiv = document.getElementById("pdfContent");
-                     hiddenDiv.style.display = 'block';  
-                                }
-          }, () => {            doc.save('crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+'.pdf');//doc.save("download.pdf");//$("#pdfContent").addClass('invisible');
-          });      });    */
-   
-    margins = {
-        bottom:10,
-        top:10,
-        left:10,
-        right:10
-    };
-    const doc = new jspdf('p', 'pt', 'a4'); // For A4 Sheet layout
-    pageHeight= doc.internal.pageSize.height;
-     doc.addHTML(input, 10, 5, {
-        pagesplit: true,
-        margin: margins,
-        background: "#ffffff",
-        onclone: function(document) {
-            hiddenDiv = document.getElementById("pdfContent");
-            hiddenDiv.style.display = 'block';
-        }
-    },
-    function(dispose) {
-        var pageCount = doc.internal.getNumberOfPages();
-        for (i = 0; i < pageCount; i++) {
-            doc.setPage(i);
-        }
-        doc.save('crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+'.pdf');
-    });
-  }
+      /* var doc = new jsPDF() var tut = document.getElementById('tutelle'); doc.fromHTML(tut, 0, 10, { width: 160 }) var name = document.getElementById('etabname');doc.fromHTML(name, 10, 22, { width: 180 })var adr = document.getElementById('etabAdr');
+      doc.fromHTML(adr, 10, 30, { width: 100 })    var adr = document.getElementById('etabTel ');*/
+ }
   function CRRSave()
   {
     $.ajaxSetup({
@@ -296,28 +241,30 @@ function CRRPrint(image)
 @section('main-content')
 <div class="row" width="100%">@include('patient._patientInfo')</div>
 <div class="row">
-    <div class="col-sm-4"><h3>  Demande Examens Radiologique</h3></div>
-    <div class="col-sm-8">
+    <div class="col-md-5 col-sm-5"><h3>  Demande Examens Radiologique</h3></div>
+    <div class="col-md-7 col-sm-7">
       <a href="/showdemandeexr/{{ $demande->consultation->examensradiologiques->id }}" target="_blank" class="btn btn-sm btn-primary pull-right">
        <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer</a>&nbsp;&nbsp;
-      <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
+       @if('Auth::user()->role_id ' == 12)
+         <a href="/listeexrs" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
+       @else
+         <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
+       @endif
     </div>
 </div><hr>
 <div class="space-12 hidden-xs"></div>
 <input type="hidden" id ="id_demandeexr" value="{{ $demande->id }}">
 <div class="row">
-<div class="col-xs-12 col-sm-8">
+<div class="col-xs-12 col-sm-9">
 <div class="row">
   <div class="col-xs-12 col-sm-12">
-    <div class="col-sm-6">
-      <label class="control-label pull-right"><b>Date :</b></label>
-    </div>
+    <div class="col-sm-6"><label class="control-label pull-right"><b>Date :</b></label></div>
     <div class="form-group col-sm-6">
       <label class="blue">
       @if(isset($demande->consultation))
-          {{ $demande->consultation->Date_Consultation }}
-        @else
-          {{ $demande->visite->date }}
+          {{  (\Carbon\Carbon::parse($demande->consultation->Date_Consultation))->format('d/m/Y') }}
+       @else
+          {{  (\Carbon\Carbon::parse($demande->visite->date))->format('d/m/Y') }}
         @endif 
       </label>
     </div>
@@ -382,7 +329,7 @@ function CRRPrint(image)
                 <th>Nom</th>
                 <th class="center"><strong>Type</strong></th>
                 <th class="center"><strong>Attacher le Résultat</strong></th>
-                <td class="center" width="15%"><em class="fa fa-cog"></em></td>
+                <td class="center" width="18%"><em class="fa fa-cog"></em></td>
               </tr>
             </thead>
             <tbody>
@@ -402,7 +349,7 @@ function CRRPrint(image)
                       <input type="file" id="exm-{{ $examen->id }}" name="resultat[]" class="form-control result" accept="image/*,.pdf,.dcm,.DCM" multiple required/>
                     @endif
                   </td>
-                  <td class="center" width="15%">
+                  <td class="center" width="18%">
                     <button type="button" class="btn btn-md btn-success open-AddCRRDialog @if( isset($examen->pivot->crr_id)) hidden @endif" id ="crr-add-{{ $examen->id }}" data-toggle="modal" title="ajouter un Compte Rendu" data-id="{{ $examen->id }}">
                       <i class="glyphicon glyphicon-plus glyphicon glyphicon-white"></i>
                     </button>
@@ -427,15 +374,7 @@ function CRRPrint(image)
   </div> 
 </div><!-- row tabel  -->
 </div><!-- col-sm-6 -->
-<div class="col-xs-12 col-sm-4">
- <div class="row" id="pdfContent">
-  <!-- style="display:none;" -->
-    <span>fdf</span>
-    @isset($crr)
-      @include('examenradio.EtatsSortie.crr')
-    @endisset
- </div>
-</div>
+<div class="col-xs-12 col-sm-3" ></div>
 </div>
 <div class="space-12 hidden-xs"></div>
 <div class="row" style="bottom:0px;">
@@ -453,5 +392,4 @@ function CRRPrint(image)
   </div>
 </div>
 <div class="row jumbotron text-center">@include('examenradio.CRRModal')</div> 
-<div class="row">@include('crrs.ModalFoms.imprimerCRRAjax')</div>
 @endsection
