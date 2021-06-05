@@ -53,66 +53,40 @@ function ComptRRPrint1()
       CRRPrint(img);
     };
 }
-function CRRPrint(image)
+function CRRPrint()
 {
-  var indication = $("#indication").val();
-  var techRea = $("#techRea").val();
-  var result  = $("#result").val();
-  var conclusion = $("#conclusion").val();
-  // var doc = new jsPDF('p', 'pt', 'a4');//$("#pdfContent").removeClass('invisible');
-    var elem1=$("#pdfContent");
-    $("#indicationPDF").text($('#indication').val());
-    $("#techReaPDF").text($('#techRea').val());
-    $("#resultPDF").text($('#result').val());
-    $("#conclusionPDF").text($('#conclusion').val());
-    if(!elem1.is(":visible")) 
-    {
-        elem1.show();elem1.fadeIn(1);elem1.fadeOut(1);
-    }
-    const input = document.getElementById("pdfContent");
-    /*  html2canvas(input)      .then((canvas) =>
-     {            const doc = new jsPDF("p", "px", "a4");   doc.addHTML(input, 10, 5, {             pagesplit: true,              background: "#ffffff",
-    onclone: function(document) {  
-     hiddenDiv = document.getElementById("pdfContent");
-                     hiddenDiv.style.display = 'block';  
-                                }
-          }, () => {            doc.save('crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+'.pdf');//doc.save("download.pdf");//$("#pdfContent").addClass('invisible');
-          });      });    */
-   
-    margins = {
-        bottom:10,
-        top:10,
-        left:10,
-        right:10
-    };
-    const doc = new jspdf('p', 'pt', 'a4'); // For A4 Sheet layout
-    pageHeight= doc.internal.pageSize.height;
-     doc.addHTML(input, 10, 5, {
-        pagesplit: true,
-        margin: margins,
-        background: "#ffffff",
-        onclone: function(document) {
-            hiddenDiv = document.getElementById("pdfContent");
-            hiddenDiv.style.display = 'block';
-        }
-    },
-    function(dispose) {
-        var pageCount = doc.internal.getNumberOfPages();
-        for (i = 0; i < pageCount; i++) {
-            doc.setPage(i);
-        }
-        doc.save('crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+'.pdf');
-    });
-  }
-  function CRRSave()
-  {
-    $.ajaxSetup({
-      headers: {
-              'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-        }
+       var indication = $("#indication").val();
+       $("#indicationPDF").text(indication);
+       var techRea = $("#techRea").val();
+       $("#techReaPDF").text(techRea);
+       var result  = $("#result").val();
+       $("#resultPDF").text(result);
+       var conclusion = $("#conclusion").val();
+       $("#conclusionPDF").text(conclusion);// Get the element to print
+      $("#pdfContent").removeClass('invisible'); 
+        var element = document.getElementById('pdfContent');
+       var options = {
+            filename: 'crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+".pdf"
+       };
+       var exporter = new html2pdf(element, options);// Create instance of html2pdf class
+       $("#pdfContent").addClass('invisible');
+       exporter.getPdf(true).then((pdf) => {// Download the PDF or...
+             console.log('pdf file downloaded');
+       });
+      exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it
+            console.log('doing something before downloading pdf file');
+              pdf.save();
+      });
+}
+function CRRSave()
+{
+     $.ajaxSetup({
+          headers: {
+                  'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+           }
       });
       var formData = {
-        demande_id:'{{$demande->id}}',
+       demande_id:'{{$demande->id}}',
         exam_id:$("#examId").val(),
         indication:$("#indication").val(),
         techRea:$("#techRea").val(),
@@ -304,7 +278,7 @@ function CRRPrint(image)
 <div class="space-12 hidden-xs"></div>
 <input type="hidden" id ="id_demandeexr" value="{{ $demande->id }}">
 <div class="row">
-<div class="col-xs-12 col-sm-8">
+<div class="col-xs-12 col-sm-9">
 <div class="row">
   <div class="col-xs-12 col-sm-12">
     <div class="col-sm-6">
@@ -424,16 +398,8 @@ function CRRPrint(image)
     </div>
   </div> 
 </div><!-- row tabel  -->
-</div><!-- col-sm-6 -->
-<div class="col-xs-12 col-sm-4">
- <div class="row" id="pdfContent">
-  <!-- style="display:none;" -->
-    <span>fdf</span>
-    @isset($crr)
-      @include('examenradio.EtatsSortie.crr')
-    @endisset
- </div>
-</div>
+</div><!-- col-sm-8 -->
+      <div class="col-xs-12 col-sm-3"><div id="pdfContent" class="invisible">@include('examenradio.EtatsSortie.crrClient')</div></div>
 </div>
 <div class="space-12 hidden-xs"></div>
 <div class="row" style="bottom:0px;">

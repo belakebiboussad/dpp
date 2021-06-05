@@ -7,7 +7,7 @@
 </head>
     <body>
       <div class="container-fluid" id="myDiv">
-       @include('examenradio.EtatsSortie.crr', $crr)</div>
+       @include('examenradio.EtatsSortie.crrS', $crr)</div>
       </div>
     </body>
 </html>
