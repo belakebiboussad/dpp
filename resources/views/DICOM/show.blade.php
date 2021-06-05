@@ -81,7 +81,7 @@
         document.getElementById('patientName').textContent =  image.data.string('x00100010');
         document.getElementById('patientId').textContent =  image.data.string('x00100020'); 
         document.getElementById('date').textContent =  image.data.string('x00080032'); 
-        document.getElementById('machine').textContent = image.data.string('x00081010');
+        //document.getElementById('machine').textContent = image.data.string('x00081010');
         document.getElementById('genre').textContent = image.data.string('x00100040');
         document.getElementById('age').textContent = image.data.string('x00101010');
         cornerstone.reset(element);
