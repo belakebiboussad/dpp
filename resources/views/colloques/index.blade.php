@@ -4,7 +4,7 @@
 	<div class="widget-box widget-color-blue" id="widget-box-2">
 		<div class="widget-header">
 			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>
-				<strong>Liste Des Colloques @if(isset($type)) {{( $type == 0) ? 'Médicaux ' : 'Chirurgicaux' }} @endif 	</strong>
+				<strong>Liste des Colloques @if(isset($type)) {{( $type == 0) ? 'Médicaux ' : 'Chirurgicaux' }} @endif 	</strong>
 			</h5>
 			<div class="widget-toolbar widget-toolbar-light no-border">
 			  <div class="fa fa-plus-circle"></div><a href="{{ route('colloque.create')}}"><b>Ajouter Colloque</b></a>
@@ -34,17 +34,14 @@
 							<p class="text-primary">{{ $employe->nom }} {{ $employe->prenom }}</p> 
 						@endforeach
 					</td>
-					<td><p class="text-primary">{{ $col->date_creation }}</p></td>
-					<td><p class="text-primary">{{ ($col->type ==0 ) ? 'médicale' : 'chirurgicale' }}</p></td>
-					<td><p class="text-primary">{{ $col->etat }}</p></td>
+					<td>{{ $col->date_creation }}</td>
+					<td>{{ ($col->type ==0 ) ? 'médicale' : 'chirurgicale' }}</td>
+					<td>{{ $col->etat }}</td>
 					<td class="center">
-							<a href="{{ route('colloque.edit',$col->id)}} " class="btn btn-xs btn-success"><i class="ace-icon fa fa-pencil-square-o bigger-110"></i></a>
+							<a href="{{ route('colloque.edit',$col->id)}} " class="btn btn-sm btn-success"><i class="ace-icon fa fa-pencil-square-o bigger-110"></i></a>
 							@if($col->etat =="en cours")
-				  		<a href="/runcolloque/{{ $col->id }}" class="btn btn-xs btn-green" title="Déroulement">
-				   			<i class="ace-icon fa fa-cog  bigger-110"></i>
-				   		</a>
-				    	<a href="{{ route('colloque.destroy',$col->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger"><i class="ace-icon fa fa-trash-o bigger-110"></i>
-
+				  		<a href="/runcolloque/{{ $col->id }}" class="btn btn-sm btn-green" title="Déroulement"><i class="ace-icon fa fa-cog  bigger-110"></i></a>
+				    	<a href="{{ route('colloque.destroy',$col->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-sm btn-danger"><i class="ace-icon fa fa-trash-o bigger-110"></i>
 				  	@endif
 						</td>
 			  	</tr>

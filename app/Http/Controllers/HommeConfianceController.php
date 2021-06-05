@@ -9,6 +9,10 @@ use Auth;
 use Response;
 class HommeConfianceController extends Controller
 {
+  public function __construct()
+  {
+      $this->middleware('auth');
+  }
   public function edit($id)
   {
     $homme = homme_conf::find($id);

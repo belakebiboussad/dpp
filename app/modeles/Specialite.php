@@ -11,7 +11,7 @@ class Specialite extends Model
 	/*public function type(){return $this->belongsTo('App\modeles\Type_specialite','type');}*/
 	public function employes ()
 	{
-		return $this->hasMany('App\modeles\employ','specialite');
+		return $this->hasMany('App\modeles\employ','specialite')->orderBy('nom');
 	}
 
 }

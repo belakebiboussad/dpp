@@ -2,12 +2,12 @@
 <div class="modal-dialog modal-lg">
    	<div  id="" class="modal-content custom-height-modal">
 		<div class="modal-header">
-			  <button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title" id="AntecCrudModal">Ajouter un Antecedant</h4>
+			  <button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title" id="AntecCrudModal">Ajouter un Antecedants</h4>
 		</div>
 		<div class="modal-body">
 			<form id="modalFormData" method="POST" action ="" class="form-horizontal" novalidate="">
 			{!! csrf_field() !!}
-				<input type="hidden" id="atcd_id" value="0"><!-- <input type="hidden" id="typeAntecedant" value="Pathologiques"> -->
+				<input type="hidden" id="atcd_id" value="0">
 				<div id="atcdsstypehide" class="form-group">
 						<label for="sstypeatcd" class="col-sm-2 control-label">Type:</label>
 						<div class="col-sm-10">

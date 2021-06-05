@@ -1,71 +1,20 @@
-<!DOCTYPE html>
 <html>
 <head>
   <title>Demande examens biologiques</title>
   <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/styles.css">
   <style type="text/css">
-    table 
-    {
-        border-collapse: collapse;
-    }
-    table, th, td 
-    {
-        border: 1px solid black;
-        padding: 5px;
-    }
-    .section
-    {
-      margin-bottom: 20px;
-    }
-    .sec-gauche
-    {
-      float: left;
-    }
-    .sec-droite
-    {
-      float: right;
-    }
-    .center
-    {
-      text-align: center;
-    }
-    .col-sm-12
-    {
-      margin-bottom: 10px;
-    }
-      .mt-15{
-        margin-top:-15px;
-    }
-    .mt-20{
-      margin-top:-20px;
-    }
-    .foo{
-      position: absolute;
-      top: 90%;
-      right: 22%;
-    }
+    table { border-collapse: collapse;  }
+    table, th, td { border: 1px solid black; padding: 5px; }
   </style>
 </head>
 <body>
 <div class="container-fluid">
-  <h2 class="mt-20 center">DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</h2>
-  <h4 class="center">ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</h4>
-  <h4 class="center">Chemin des Glycines - ALGER</h4>
-  <h4 class="center">Tél : 23-93-34</h4> {{-- {{ storage_path('app/public/logo.png') }} --}}
- <h5 class="mt-15 center" ><img src="img/logo.png" style="width: 60px; height: 60px" alt="logo"/></h5>
-  <h5 class="mt-20 center">
-    <span style="font-size: xx-large;"><strong>Demande d'examens radiologiques</strong></span>
-  </h5> 
-  <br><br>
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="section">
-        <div class="sec-droite"><b><u>Fait le:</u></b> {{ $demande->consultation->Date_Consultation  }} </div>
-      </div>
-    </div>
-  </div>
-  <br><br>
+  @include('partials.etatHeader')
+  <h5 class="mt-20 center"><span style="font-size: xx-large;"><strong>Demande d'examens radiologiques</strong></span></h5> 
+  <br>
+  <div class="row"><div class="col-sm-12"><div class="section"><div class="sec-droite"><b><u>Fait le:</u></b>{{ $demande->consultation->Date_Consultation }}</div></div></div></div>
   <div class="row">
     <div class="col-sm-12">
       <div class="section">
@@ -77,22 +26,21 @@
         </div>
       </div>
     </div>
-  </div>
-  <br><br>
+  </div><br>
   <div class="row">
     <div class="col-sm-12">
       <div class="section">
         <div class="sec-gauche">
-            <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($demande->consultation->patient->IPP, 'C128')}}" alt="barcode" />
-            <br>{{ $demande->consultation->patient->IPP }}
+            <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($demande->consultation->patient->IPP, 'C128')}}" alt="barcode" /><br>
+            <strong>IPP :</strong>{{ $demande->consultation->patient->IPP }}
          </div>
       </div>
     </div>
   </div>
-  <br><br><br>
+  <br>
   <div class="content">
     <div class="col-sm-12">
-      <div class="col-xs-12 widget-container-col" id="consultation">
+      <div class="col-xs-12 widget-container-col">
         <div class="widget-box" id="infopatient">
           <div class="widget-body">
             <div class="widget-main">
@@ -105,7 +53,7 @@
                   </div>                    
                   <br>                  
                   <div>
-                    <label for="infos"><b>Informations supplémentaires pertinentes</b></label>
+                    <label for="infos"><b>Explication de la demande de diagnostic</b></label>
                     <textarea class="form-control" id="infosc" name="infosc" >{{ $demande->Explecations }}</textarea> 
                   </div>              
                   <br>
@@ -138,7 +86,7 @@
                             <td>
                               <?php $exams = explode (',',$examen->pivot->examsRelatif) ?>
                               @foreach($exams as $id)
-                              <span class="badge badge-success">{{ App\modeles\exmnsrelatifdemande::FindOrFail($id)->nom}}</span>
+                              <span class="badge badge-success">{{ App\modeles\TypeExam::FindOrFail($id)->nom}}</span>
                               @endforeach
                             </td>
                           </tr>
@@ -157,11 +105,7 @@
   </div>
   <div class="row foo">
     <div class="col-sm-12">
-      <div class="section">
-        <div class="sec-droite">
-          <span><strong> Docteur :</strong> {{ Auth::user()->employ->nom }} {{ Auth::user()->employ->prenom }}</span>
-        </div>
-      </div>
+      <div class="section"><div class="sec-droite"><span><strong> Docteur :</strong> {{ Auth::user()->employ->nom }} {{ Auth::user()->employ->prenom }}</span></div></div>
     </div>
   </div>
 </div><!-- container-fluid -->

@@ -6,11 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\modeles\examenbiologique;
 use Jenssegers\Date\Date;
-//use App\modeles\patient;
-//use App\modeles\antecedant;//use App\modeles\consultation;//use App\modeles\Lieuconsultation;//use App\modeles\codesim;
 use App\modeles\demandeexb;
 use Illuminate\Support\Facades\Auth;
-
 class ExamenbioController extends Controller
 {
     /**
@@ -18,6 +15,10 @@ class ExamenbioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+      {
+          $this->middleware('auth');
+      }
     public function index($id)
     {
     }
@@ -92,11 +93,7 @@ class ExamenbioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    /*public function destroy($examid, $demandeid)
-    { 
-        dd($examid);   
-        // dd($id);
-    }*/
+    /*public function destroy($examid, $demandeid)  {   dd($examid);     // dd($id);  }*/
     public function destroy($id)
     { 
       $ids = explode("|", $id);

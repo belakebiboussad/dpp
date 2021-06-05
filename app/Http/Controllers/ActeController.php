@@ -10,12 +10,13 @@ use Response;
 class ActeController extends Controller
 {
     //
+    public function __construct()
+      {
+          $this->middleware('auth');
+      }
 	  public function choixhospconsigne()
     {
-    	   
-         
-     return view('consigne.choix_patient_consigne');
-     //   return view('visite.choix_patient_visite');
+            return view('consigne.choix_patient_consigne');
     }
 
     /**
@@ -27,8 +28,7 @@ class ActeController extends Controller
 
      public function edit($id)
     {
-        //  $consignes = consigne::FindOrFail($id); // return view('consigne.edit_consigne',compact('consignes'));
-        $acte = Acte::find($id);
+        $acte = Acte::find($id);//  $consignes = consigne::FindOrFail($id); // return view('consigne.edit_consigne',compact('consignes'));
         return Response::json($acte);
     }
 
@@ -45,12 +45,12 @@ class ActeController extends Controller
     }
     public function store(Request $request)
     { 
-          $this->validate($request, [
-            'nom'=> 'required|string|max:225',
-             'id_visite'=> 'required',// 'duree'=> 'required', // 'description'=> 'required|string|max:225',// 'periodes'=> 'required'
-        ]);
-        $acte =Acte::create($request->all());    
-        return Response::json(['acte'=>$acte,'visite'=>$acte->visite,'medecin'=>$acte->visite->medecin]); 
+      $this->validate($request, [
+        'nom'=> 'required|string|max:225',
+        'id_visite'=> 'required',// 'duree'=> 'required', // 'description'=> 'required|string|max:225',// 'periodes'=> 'required'
+      ]);
+      $acte =Acte::create($request->all());    
+      return Response::json(['acte'=>$acte,'visite'=>$acte->visite,'medecin'=>$acte->visite->medecin]); 
     }
     public function destroy($id)
     {

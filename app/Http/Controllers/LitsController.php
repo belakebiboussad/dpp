@@ -11,6 +11,7 @@ use App\modeles\rdv_hospitalisation;
 use App\modeles\DemandeHospitalisation;
 use App\modeles\bedAffectation;
 use App\modeles\employ;
+use Carbon\Carbon;
 use Auth; 
 use Response;
 class LitsController extends Controller
@@ -20,12 +21,14 @@ class LitsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+      {
+          $this->middleware('auth');
+      }
     public function index()
     {
-         $lits=lit::join('salles','lits.salle_id','=','salles.id')
-                  ->join('services','salles.service_id','=','services.id')
-         ->select('lits.*','salles.nom as nomSalle','services.nom as nomService')->get();
-        return view('lits.index_lit', compact('lits'));
+      $lits=lit::with('salle','salle.service')->get();
+      return view('lits.index', compact('lits'));
     }
     /**
      * Show the form for creating a new resource.
@@ -40,8 +43,8 @@ class LitsController extends Controller
 
     public function create($id_salle = null)
     {
-       $services = service::all();
-       return view('lits.create_lit', compact('services','id_salle'));
+      $services = service::where('hebergement',1)->get();//$services = service::all();
+      return view('lits.create', compact('services','id_salle'));
     }
     /**
      * Store a newly created resource in storage.
@@ -63,21 +66,23 @@ class LitsController extends Controller
        ]);
        return redirect()->action('LitsController@index');
     }
-
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request,$id)
     {
-      $lit = lit::FindOrFail($id);
-      $salle = salle::FindOrFail($lit->salle_id);
-      $service = service::FindOrFail($salle->service_id);
-      return view('lits.show_lit', compact('lit','service'));
+      $lit = lit::with('salle','salle.service')->FindOrFail($id);
+      if($request->ajax())  
+      {
+        $view = view("lits.ajax_show",compact('lit'))->render();
+        return response()->json(['html'=>$view]);
+      }else{
+        return view('lits.show', compact('lit'));
+      }
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -88,9 +93,13 @@ class LitsController extends Controller
     {
       $lit = lit::FindOrFail($id);
       $salles = salle::all();
-      return view('lits.edit_lit', compact('lit','salles'));
+      return view('lits.edit', compact('lit','salles'));
     }
-
+    public function destroy($id)
+    {
+      $lit = lit::destroy($id);
+      return redirect()->route('lit.index');    
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -107,11 +116,10 @@ class LitsController extends Controller
         $lit->update([
           "num"=>$request->numlit,
           "nom"=>$request->nom,
-          "etat"=>$etat,
-          "affectation"=>$request->affectation,
+          "etat"=>$etat,//"affectation"=>$request->affectation,
           "salle_id"=>$request->salle,
         ]);
-         return redirect()->action('LitsController@index');
+        return redirect()->route('lit.index');//return redirect()->action('LitsController@index');
       }
 
     /**
@@ -121,24 +129,36 @@ class LitsController extends Controller
      * @return \Illuminate\Http\Response
      */
     //affeter lit pour demande d'urgence
-       public function affecterLit(Request $request )
+    public function affecterLit(Request $request )
+    {
+      $demande= DemandeHospitalisation::find($request->demande_id); 
+      $rdv = $demande->RDVs->where('etat_RDVh', NULL)->first();   //if($rdv->has('bedReservation'))    $rdv->bedReservation()->delete();
+      $lit = lit::FindOrFail( $request->lit_id);
+      if($lit->has('bedReservation'))
       {
-            $demande= DemandeHospitalisation::find($request->demande_id); 
-            $rdv = $demande->RDVs->where('etat_RDVh', NULL)->first();   //if($rdv->has('bedReservation'))    $rdv->bedReservation()->delete();
-            $lit = lit::FindOrFail( $request->lit_id);
-             if($lit->has('bedReservation'))
-             {
-                   $free = $lit->isFree(strtotime($rdv->date_RDVh),strtotime($rdv->date_Prevu_Sortie));  
-                    if(!$free)
-                        $lit->bedReservation()->delete(); 
-             } 
-            $affect = bedAffectation::create($request->all());
-             $lit->update([
-                  "affectation" =>1,
-              ]);
-             if($request->ajax())  
-                return Response::json($affect);   
-      }
+        if($demande->modeAdmission !="urgence" )
+        {
+          $free = $lit->isFree(strtotime($rdv->date_RDVh),strtotime($rdv->date_Prevu_Sortie));  
+          if(!$free)
+            $lit->bedReservation()->delete();
+        }else {
+          $now = $today = Carbon::now()->toDateString();
+          $newDateTime = Carbon::now()->addDay(3)->toDateString();
+          $free = $lit->isFree(strtotime($now),strtotime( $newDateTime));  
+          if(!$free)
+            $lit->bedReservation()->delete();
+          $demande->update([
+            'etat' => 'programme'
+          ]); 
+        }  
+      } 
+      $affect = bedAffectation::create($request->all());
+      $lit->update([
+        "affectation" =>1,
+      ]);
+      if($request->ajax())  
+        return Response::json($affect);
+    }
     public function affecter()
     {
       $now = date("Y-m-d", strtotime('now'));

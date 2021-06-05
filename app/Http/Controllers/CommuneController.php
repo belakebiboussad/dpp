@@ -7,7 +7,11 @@ use App\modeles\Commune;
 
 class CommuneController extends Controller
 {
-  //
+  
+  public function __construct()
+      {
+          $this->middleware('auth');
+      }
   public function AutoCompleteCommune(Request $request)
   {
     $search = $request->search;
@@ -19,9 +23,8 @@ class CommuneController extends Controller
 
     $response = array();
     foreach($communes as $com){
-      $response[] = array("value"=>$com->id,"label"=>$com->nom_commune,"wvalue"=>$com->daira->wilaya->id,"wlabel"=>$com->daira->wilaya->nom_wilaya);
+      $response[] = array("value"=>$com->id,"label"=>$com->nom_commune,"wvalue"=>$com->daira->wilaya->id,"wlabel"=>$com->daira->wilaya->nom);
     }
-
     return response()->json($response);
   }
  }

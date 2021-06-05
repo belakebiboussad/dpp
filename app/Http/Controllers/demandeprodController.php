@@ -21,6 +21,10 @@ class demandeprodController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+      {
+          $this->middleware('auth');
+      }
     public function get_produit($id_gamme, $id_spes)
     {
       if($id_gamme == 1)

@@ -4,8 +4,7 @@
 		<div class="modal-header">
 			  <button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title"  id="CoresCrudModal">Ajouter un Correspondant(e)</h4> 
 		</div>
-		<div class="modal-body">{{--  --}}<!-- /hommeConfiance/save -->
-			
+		<div class="modal-body">
 			<form id="addGardeMalade" method="POST" action ="{{  route('hommeConfiance.store') }}">
 				{!! csrf_field() !!}
 				<input type="hidden" name="patientId" id ="patientId" value="{{ $patient->id }}">
@@ -28,38 +27,37 @@
 				</div>
 				<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Informations&nbsp;&nbsp;&nbsp;</h3></div></div>	
 				<div class="row">
-					<div class="col-sm-6">
+					<div class="col-sm-6 col-sm-12">
 						<div class="form-group ">
 							<label class="col-sm-3 control-label no-padding-right" for="nom_h"><b>Nom:</b> </label>
 							<div class="col-sm-9">
-								<input type="text" id="nom_h" name="nom_h"  placeholder="Nom..." class="col-xs-12 col-sm-6"  required/>
+								<input type="text" id="nom_h" name="nom_h"  placeholder="Nom..." class="col-xs-12 col-sm-12"  required/>
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-6">
+					<div class="col-sm-6 col-sm-12">
 						<div class="form-group ">
 							<label class="col-sm-3 control-label no-padding-right" for="prenom_h"><b>Prénom :</b></label>
 							<div class="col-sm-9">
-								<input type="text" id="prenom_h" name="prenom_h" placeholder="Prénom..." class="col-xs-12 col-sm-6" required/>
+								<input type="text" id="prenom_h" name="prenom_h" placeholder="Prénom..." class="col-xs-12 col-sm-12" required/>
 							</div>
 						</div>
 					</div>
-				  </div>	{{-- row --}}
-				<div class="space-12"></div>
+				  </div>	<div class="space-12"></div>
 		  		<div class="row">
 					<div class="col-sm-6">
 						<div class="form-group ">
 							<label class="col-sm-3 control-label no-padding-right" for="datenaissance_h"><b class="text-nowrap">Né(e) le :</b></label>
 							<div class="col-sm-9">
-								<input class="col-xs-6 col-sm-6 date-picker" id="datenaissance_h" name="datenaissance_h" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" required />
+								<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance_h" name="datenaissance_h" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" required />
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group ">
 							<label class="col-sm-3 control-label no-padding-right" for="lien_par"><b>Relation :</b></label>
-							<div class="col-sm-5">
-								<select class="form-control" id="lien_par" name="lien_par" placeholder="date de délivrance ..." required>
+							<div class="col-sm-9">
+								<select class="form-control col-xs-12 col-sm-12" id="lien_par" name="lien_par" placeholder="date de délivrance ..."  required>
 									<option value="">Sélectionner...</option>
 									<option value="0">Conjoint(e)</option>
 									<option value="1">Père</option>
@@ -101,7 +99,7 @@
 			  	<div class="row">	
 					<div class="col-sm-6">
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="num_piece"><b>N° de la pièce: </b></label>
+							<label class="col-sm-3 control-label no-padding-right" for="num_piece"><b>N° pièce: </b></label>
 							<div class="col-sm-9">
 								<input type="text" id="num_piece" name="num_piece" placeholder="N° pièce..." class="col-xs-12 col-sm-6" required/>
 							</div>
@@ -127,9 +125,9 @@
 					<div class="col-sm-1"></div>
 					<div class="col-sm-5">
 							<div class="form-group col-sm-8">
-								<i class="fa fa-phone"></i><label for="mobile_h"><b>Tél-mob : </b></label>
+								<i class="fa fa-phone"></i><label for="mobile_h"><b>Mob : </b></label>
 								<br/>
-								<input type="tel" id="mobile_h" name="mobile_h" placeholder="XX XX XX XX XX" autocomplete="off" maxlength="10" minlength="10"  pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"  class="col-sm-12" required>
+								<input type="tel" id="mobile_h" name="mobile_h" placeholder="XX-XX-XX-XX-XX" maxlength="10" minlength="10"  pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"  class="col-sm-12 " required>
 								<span class="tel validity"></span>
 							</div>
 					</div>			

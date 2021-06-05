@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\modeles\LettreOrientation;
 class LettreOrientationController extends Controller
 {
+	public function __construct()
+      {
+          $this->middleware('auth');
+      }
     public function store(Request $request ,$consultID)
     { 
         LettreOrientation::create([

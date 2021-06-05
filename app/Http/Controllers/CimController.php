@@ -8,6 +8,10 @@ use App\modeles\CIM\sChapitre;
 use Response;
 class CimController extends Controller
 {
+  public function __construct()
+      {
+          $this->middleware('auth');
+      }
 	  public function getChapters(Request $request)
       {
             $chapitre = chapitre::FindOrFail($request->search);

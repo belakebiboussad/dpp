@@ -1,11 +1,4 @@
 @extends('app')
-@section('page-script')
-	<script type="text/javascript" src="{{asset('/js/jquery-2.1.4.min.js')}}"></script>
-	<script type="text/javascript">
-	    $('#user-profile-3').ready(function(){      
-	    });
-	</script>
-@endsection
 @section('main-content')
 <div class="row">
  	<div class="page-header" @if($user->profile_banner_url != '') style="background-image: url('{{ route('profile/banner', ['profile_banner_url' => $user->profile_banner_url]) }}');" @endif>

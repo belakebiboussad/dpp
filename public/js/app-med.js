@@ -42,12 +42,12 @@
 				
         		return true; 
   }
-
 	function addAppareils(appareil)
 	{
-		$("#"+appareil).each(function(i){
+  	       $("#"+appareil).each(function(i){
 			if(($(this).find(".wysiwyg-editor").text()) !=" ");
 				$('input:hidden[name="' + appareil + '"]').val($(this).find(".wysiwyg-editor").text());
+                   $(this).collapse('hide');
 		});
 	}
 	function removeAppareilsContent(appareil)

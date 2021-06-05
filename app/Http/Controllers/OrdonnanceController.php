@@ -7,6 +7,7 @@ use App\modeles\patient;
 use App\modeles\employ;
 use App\modeles\ordonnance;
 use App\modeles\medicament;
+use App\modeles\Etablissement;
 use Jenssegers\Date\Date;
 use PDF;
 use Response;
@@ -25,13 +26,16 @@ class OrdonnanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+      {
+          $this->middleware('auth');
+      }
     public function create($id_consultation)
     {
         $consultation = consultation::where("id",$id_consultation)->get()->first();
         $patient = patient::where("id",$consultation->Patient_ID_Patient)->get()->first();
         return view("ordennance.create_ordennance",compact('consultation','patient'));
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -85,45 +89,45 @@ class OrdonnanceController extends Controller
     public function show($id)
     {  
        $ordonnance = ordonnance::FindOrFail($id);
-       return view('ordennance.show_ordennance', compact('ordonnance'));
+       return view('ordennance.show', compact('ordonnance'));
     }
     public function show_ordonnance($id)
     {  
-        $ordonnance = ordonnance::FindOrFail($id);
-        $pdf = PDF::loadView('ordennance.imprimer', compact('ordonnance'));
-        $filename = $ordonnance->consultation->patient->Nom . "-" . $ordonnance->consultation->patient->Prenom . ".pdf";
-        Storage::put('public/pdf/'.$filename,$pdf->output());
-        $file = storage_path() . "/app/public/pdf/" . $filename;
-        if (File::isFile($file))
-        {
-          $file = File::get($file);
-          $response = Response::make($file, 200);
-          $response->header('Content-Type', 'application/pdf');
-          Storage::deleteDirectory('/public/pdf/');
-          return $response;
-        } 
+      $ordonnance = ordonnance::FindOrFail($id);
+      $etablissement = Etablissement::first();
+      $pdf = PDF::loadView('ordennance.imprimer', compact('ordonnance','etablissement'));
+      $filename = $ordonnance->consultation->patient->Nom . "-" . $ordonnance->consultation->patient->Prenom . ".pdf";
+      Storage::put('public/pdf/'.$filename,$pdf->output());
+      $file = storage_path() . "/app/public/pdf/" . $filename;
+      if (File::isFile($file))
+      {
+        $file = File::get($file);
+        $response = Response::make($file, 200);
+        $response->header('Content-Type', 'application/pdf');
+        Storage::deleteDirectory('/public/pdf/');
+        return $response;
+      } 
     }
     public function print(Request $request)
     {   
       $patient = patient::FindOrFail($request->id_patient);
       $employe = employ::FindOrFail($request->id_employe);
+      $etablissement = Etablissement::first();
       $meds = json_decode($request->meds);
       $medicaments = array();
       $posologies = array();
       foreach ($meds as $key => $med) {
-          foreach ($med as $key => $value) {
-                   if($key == "id")
-                   {
-                        $m =  medicament::FindOrFail($value); 
-                         $medicaments[] = $m;                                        
-                   }
-                   else
-                        array_push($posologies, $value);
-              }
+        foreach ($med as $key => $value) {
+          if($key == "id")
+          {
+            $m =  medicament::FindOrFail($value); 
+            $medicaments[] = $m;                                        
+          }else
+            array_push($posologies, $value);
+        }
       }
-      $view = view("consultations.ModalFoms.ordonnancePDF",compact('patient','employe','medicaments','posologies'))->render();
+      $view = view("consultations.ModalFoms.ordonnancePDF",compact('patient','employe','medicaments','posologies','etablissement'))->render();
       return response()->json(['html'=>$view]);
-  /* $pdf = PDF::loadView('ordennance.ordonnancePDF', compact('patient','employe','medicaments','posologies'));   return $pdf->stream('ordonnance.pdf');*/
    }
 
 }

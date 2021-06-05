@@ -185,7 +185,7 @@ return [
         Milon\Barcode\BarcodeServiceProvider::class,
         Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
         MercurySeries\Flashy\FlashyServiceProvider::class,
-        MaddHatter\LaravelFullcalendar\ServiceProvider::class,
+       // MaddHatter\LaravelFullcalendar\ServiceProvider::class,
         App\Providers\ToUtfServerProvider::class,
     ],
 
@@ -242,7 +242,7 @@ return [
         'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
         'Input'     => Illuminate\Support\Facades\Input::class,
         'Flashy' => MercurySeries\Flashy\Flashy::class,
-        'Calendar'=>MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
+        //'Calendar'=>MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
         'ToUtf' => App\Helpers\String\Utf8::class,
     ],
 ];

@@ -5,26 +5,26 @@
   		$("#getadmsbtn").click(function(e){
 		      var op ="";
 		      var frag = "<td><strong>/</strong></td><td><strong>/</strong></td><td><strong>/</strong></td>";
-		     var dt = new Date();
+		      var dt = new Date();
 		      var time = dt.getHours() + ":" + dt.getMinutes();       
 		      var filter= new Date($("#currentday").val());
 		      url= '{{ route ("rdvHospi.dayRdvsHosp", ":slug") }}';
 		      url = url.replace(':slug',$("#currentday").val());
 		      $.ajax({
-			     url:url,//url: '/getRdvs/'+ $("#currentday").val(),
-			     type :'GET',
-			     dataType: 'JSON',
-			     success:function(result,status, xhr)
-			     {
-			         	var admissions = $('#rdvs').empty();
-			          $('#total_records').text(result.length);
+			      url:url,//url: '/getRdvs/'+ $("#currentday").val(),
+			      type :'GET',
+			      dataType: 'JSON',
+			      success:function(result,status, xhr)
+			      {
+	       	     		var admissions = $('#rdvs').empty();
+      	     	          $('#total_records').text(result.length);
 			          if(result.length != 0){
-			         	 	var disabled =(datesAreOnSameDay(dt, filter))?'':'disabled';
-				          	for(var i=0; i<result.length; i++){
-				          		var forms ="";
-				          		if(!isEmpty(result[i]['bed_reservation']))
+			         	     var disabled =(areSameDate(dt, filter))?'':'disabled';
+				          for(var i=0; i<result.length; i++){
+				        		var forms ="";
+				        		if(!isEmpty(result[i]['bed_reservation']))
 				    				frag ='<td>'+result[i]['bed_reservation']['lit']['salle']['service'].nom+'</td><td>'+result[i]['bed_reservation']['lit']['salle'].nom+'</td><td>'+result[i]['bed_reservation']['lit'].nom+'</td>'; 
-            					forms ='<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-backdrop="false"data-target="#'
+            						forms ='<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-backdrop="false"data-target="#'
 		       						+result[i].id+'"'+disabled+'>&nbsp;Confirmer</button>'
 		       						+'<div class="modal fade" role="dialog" aria-hidden="true" id="'+result[i].id+'">'
 					                    	+'<div class="modal-dialog"><div class="modal-content"><div class="modal-header">'
@@ -50,13 +50,13 @@
         				  	}
           				}
           				$('#rdvs').html(op);
-       			 }
+       			}
     			});
-			if(datesAreOnSameDay(dt, filter))	//Rechercher les demandes D'urgences
+			if(areSameDate(dt, filter))	//Rechercher les demandes D'urgences
 			{
 				url= '{{ route ("demandehosp.urg", ":slug") }}';
      				url = url.replace(':slug',$("#currentday").val());
-				$.ajax({
+						$.ajax({
 	      		 	url: url,
 				     type :'GET',
 				     dataType: 'JSON',
@@ -93,7 +93,23 @@
 	       			 }
       			});
 			}
-		})
+		});
+		$(document).on('click', '.selctetat', function(event){
+    		event.preventDefault();
+				var formData = {
+      				class_name: $('#className').val(),		
+          		obj_id: $('#objID').val(),
+          		selectDocm :$(this).val(),
+        };
+        $.ajax({
+            type : 'get',
+            url : '{{URL::to('reportprint')}}',
+            data:formData,
+              success(data){
+                $('#EtatSortie').modal('hide');
+              },
+        }); 
+    });
   });
 </script>
 @endsection
@@ -105,17 +121,27 @@
 		</div>
 		<div class="panel-body">
 			<div class="row">
-				<div class="col-md-8 col-sm-8 col-xs-8">
-  			  <div class="col-sm-3 col-xs-3 "><label class="control-label center" for="" ><strong>Date :</strong></label></div>
-	        	<div class="input-group col-sm-5 col-xs-5">
-							<input type="text" id ="currentday" class="col-xs-12 col-sm-12 date-picker form-control"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
-							<div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
+  			<div class="col-sm-4">
+   				<div class="form-group"><label><strong>Etat :</strong></label>
+     			 <select id='etat' class="form-control filter" style="width: 200px">
+         			<option value="0">En Cours</option>
+              <option value="1">Validée</option>
+            </select>
+   				 </div>		
+    		</div>
+    		<div class="col-sm-4">
+        	<div class="form-group">
+         		<label class="control-label" for="currentday" ><strong>Date:</strong></label>
+         		<div class="input-group">
+  			      <input type="text" id ="currentday" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
+  					  <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
     				</div>
-  				</div><div class="col-md-2 col-sm-2 col-xs-2"></div>
-  			</div>
-		</div><!-- onclick = "getAdmissions();" -->
-		 <div class="panel-footer" style="height: 50px;">
-	   		<button type="submit"name="filter" id="getadmsbtn" class="btn btn-xs btn-primary findptient" style="vertical-align: middle"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+					</div>
+        </div>
+		  </div><!-- onclick = "getAdmissions();" -->
+		</div>
+		<div class="panel-footer" style="height: 50px;">
+	   		<button type="submit"name="filter" id="getadmsbtn" class="btn btn-xs btn-primary" style="vertical-align: middle"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
 		</div>
 	</div><!-- panel -->
 	<div class="row"><!-- <div class="col-sm-12"> --><!-- 	</div> -->
@@ -151,30 +177,21 @@
 						<td>{{ $rdv->demandeHospitalisation->Service->nom }}</td>
 						<td><span class ="text-danger"><strong>{{ $rdv->date_RDVh }}</strong></span></td>
 						<td>{{ $rdv->demandeHospitalisation->modeAdmission }}</td>
-						<td>
-						@if($rdv->bedReservation)
-							{{ $rdv->bedReservation->lit->salle->service->nom}}
+						
+						@if($rdv->demandeHospitalisation->bedAffectation)
+							<td>{{ $rdv->demandeHospitalisation->bedAffectation->lit->salle->service->nom}}</td>
+							<td>{{ $rdv->demandeHospitalisation->bedAffectation->lit->salle->nom}}</td>
+							<td>{{ $rdv->demandeHospitalisation->bedAffectation->lit->nom}}</td>
 						@else
-							<strong>/</strong>
+							<td><strong>/</strong></td>
+							<td><strong>/</strong></td>
+							<td><strong>/</strong></td>
 						@endif
-						</td>
-						<td>
-						@if($rdv->bedReservation) 
-							{{ $rdv->bedReservation->lit->salle->nom}} @else <strong>/</strong>
-						@endif
-						</td>
-						<td>
-						@if($rdv->bedReservation) 
-							{{ $rdv->bedReservation->lit->nom}} 
-						@else
-							<strong>/</strong>
-						@endif
-						</td>
 						<td class="text-center">
-							
-							<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $rdv->id }}" @if(!(isset($rdv->demandeHospitalisation->bedAffectation))) disabled @endif><i class="fa fa-check"></i> &nbsp;Confirmer</button>
+							<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $rdv->id }}" @if(!(isset($rdv->demandeHospitalisation->bedAffectation))) disabled @endif><i class="fa fa-check"></i></button>
 							@include('admission.modalForm.confirmEntreeProg')
-							</td>
+							<a data-toggle="modal" href="#" class ="btn btn-info btn-sm" onclick ="ImprimerEtat('rdv_hospitalisation',{{ $rdv->id }});" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
+						</td>
 						</tr>
 						@endforeach
 						@foreach($demandesUrg as $demande)
@@ -187,8 +204,9 @@
 							<td>@if(isset($demande->bedAffectation)) {{ $demande->bedAffectation->lit->salle->nom}} @else <strong>/</strong> @endif </td>
 							<td>@if(isset($demande->bedAffectation)) {{ $demande->bedAffectation->lit->nom}} @else <strong>/</strong> @endif </td>
 							<td class="text-center">
-									<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $demande->id }}" @if(!(isset($demande->bedAffectation))) disabled @endif>	<i class="fa fa-check"></i> &nbsp;Confirmer</button>	
+								<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{ $demande->id }}" @if(!(isset($demande->bedAffectation))) disabled @endif>	<i class="fa fa-check"></i></button>	
 								@include('admission.modalForm.confirmEntreeUrg')
+								<a data-toggle="modal" href="#" class ="btn btn-info btn-sm" onclick ="ImprimerEtat('DemandeHospitalisation',{{ $demande->id }});" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
 							</td>
 						</tr>
 						@endforeach
@@ -198,6 +216,6 @@
 			</div>
 		</div>
   </div>{{-- row --}}
- 
+  <div class="row">@include('hospitalisations.ModalFoms.EtatSortie')</div>
 </div><!-- page-content -->
 @endsection

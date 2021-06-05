@@ -7,12 +7,14 @@ class patient extends Model
   public $timestamps = false;
   protected $fillable = ['IPP','Nom','Prenom','nom_jeune_fille','Dat_Naissance','Lieu_Naissance','Sexe','situation_familiale' ,'Adresse','commune_res','wilaya_res','wilaya_res','tele_mobile1','tele_mobile2','NSS','group_sang','rhesus','Assurs_ID_Assure','Type','description','active','Date_creation','updated_at'];
   public function getAge(){	
-    		return (Carbon::createFromDate(date('Y', strtotime($this->Dat_Naissance)), date('m', strtotime($this->Dat_Naissance)), date('d', strtotime($this->Dat_Naissance)))->age);
+    if(isset($this->Dat_Naissance))
+    	return (Carbon::createFromDate(date('Y', strtotime($this->Dat_Naissance)), date('m', strtotime($this->Dat_Naissance)), date('d', strtotime($this->Dat_Naissance)))->age);
+    else
+    	return "NAN";
 	}
 	public function lieuNaissance()
 	{
-		if(isset($this->Lieu_Naissance))
-			return $this->belongsTo('App\modeles\Commune','Lieu_Naissance');
+		return $this->belongsTo('App\modeles\Commune','Lieu_Naissance');
 	}
 	public function antecedants()
 	{
@@ -20,7 +22,6 @@ class patient extends Model
 	}
 	public function commune()
 	{
-		if(isset($this->commune_res))
 			return $this->belongsTo('App\modeles\Commune','commune_res');
 	}
 	public function wilaya()
@@ -32,7 +33,6 @@ class patient extends Model
 	{	
 		if(isset($this->Assurs_ID_Assure))
 			return $this->belongsTo('App\modeles\assur','Assurs_ID_Assure');//return $this->belongsTo('App\modeles\assur','Assurs_ID_Assure');
-
 	}
 	public function hommesConf()
   	{
@@ -56,17 +56,25 @@ class patient extends Model
  	}
  	public function getCivilite()
  	{
- 		if($this->getAge()>16)
+		if(isset($this->Dat_Naissance))
  		{
-	 		if($this->Sexe == "F")
- 				if($this->situation_familiale== "celibataire")
- 					return "Mlle. ";
+ 			if($this->getAge() >16)
+ 			{
+	 			if($this->Sexe == "F")
+ 					if($this->situation_familiale== "celibataire")
+ 						return "Mlle.";
+ 					else
+ 						return "Mme.";
  				else
- 					return "Mme. ";
- 				else
- 					return "M. ";	
+ 					return "M.";	
+ 			}else
+ 				return 'Enf.';
  		}else
- 			return 'Enf.';
+ 		{
+ 			if($this->Sexe == "F")
+ 				return "Mme";
+ 			else
+ 				return "M.";
+ 		}
  	}
-
 }

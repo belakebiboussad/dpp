@@ -2,8 +2,7 @@
 @section('main-content')
 <div class="page-header"><h1>Détails De La Demande d'hospitalisation :</h1></div>
 <div class="row">
-	<div class="col-xs-12"><div class="space-12"></div>
-		<div class="row">
+	<div class="col-xs-12">
 			<div class="col-sm-10 col-sm-offset-1">
 				<div class="widget-box transparent">
 					<div class="widget-header widget-header-large">
@@ -56,7 +55,7 @@
 								<ul class="list-unstyled  spaced">
 									<li>
 										<i class="ace-icon fa fa-caret-right green"></i><strong>Motif :</strong>
-										<b class="blue">{{ $demande->consultation->Motif_Consultation }}</b>
+										<b class="blue">{{ $demande->consultation->motif }}</b>
 									</li>
 									<li>
 										<i class="ace-icon fa fa-caret-right green"></i><strong>Date Consultation :</strong>
@@ -84,6 +83,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
 	</div>
+</div>
 @endsection

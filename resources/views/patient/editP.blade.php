@@ -15,7 +15,6 @@ function showTypeEdit(i){
 		select.find('[value="0"]').prop("disabled", true);
 		$("#foncform").removeClass('hide');//$('#nsspatient').attr('disabled', false);addRequiredAttr();
 	}
-
 }
 $(document).ready(function () {
    showTypeEdit(0);
@@ -85,7 +84,7 @@ $(document).ready(function () {
 					<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
 						<label class="col-sm-3 control-label" for="datenaissance"><strong>Né(e) le :</strong></label>
 						<div class="col-sm-9">
-							<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" value="{{ $patient->Dat_Naissance }}" required/>
+							<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" value="{{ $patient->Dat_Naissance }}"/>
 							{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
 						</div>
 					</div>
@@ -94,9 +93,15 @@ $(document).ready(function () {
 					<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
 						<label class="col-sm-3 control-label" for="lieunaissance"><strong class="text-nowrap">Né(e) à:</strong></label>
 				    <div class="col-sm-9">
-					    <input type="hidden" name="idlieunaissance" id="idlieunaissance" value={{ $patient->Lieu_Naissance }}>
-					    <input type="text" id="lieunaissance" class="autoCommune col-xs-12 col-sm-12" value="{{ $patient->lieuNaissance->nom_commune }}" required/>
+					   	@if(isset($patient->Lieu_Naissance))
+					    	<input type="hidden" name="idlieunaissance" id="idlieunaissance" value={{ $patient->Lieu_Naissance }}>
+					    	<input type="text" id="lieunaissance" class="autoCommune col-xs-12 col-sm-12" value="{{ $patient->lieuNaissance->nom_commune }}" />
 						    {!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
+						  @else
+						  	<input type="hidden" name="idlieunaissance" id="idlieunaissance">
+					    	<input type="text" id="lieunaissance" class="autoCommune col-xs-12 col-sm-12" />
+						    {!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
+						  @endif
 				      </div>
 					</div>
    			</div>
@@ -187,8 +192,13 @@ $(document).ready(function () {
 						</div>
 						<div class="col-sm-4" style="margin-top: -0.1%;">
 							<label class="col-sm-3" for="commune"><strong>Commune :</strong></label>
-							<input type="hidden" name="idcommune" id="idcommune" value="{{ $patient->commune_res }}"/>
-							<input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}" class="autoCommune col-sm-9"/>					
+						  @if($patient->commune_res)	
+								<input type="hidden" name="idcommune" id="idcommune" value="{{ $patient->commune_res }}"/>
+								<input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}" class="autoCommune col-sm-9"/>					
+							@else
+								<input type="hidden" name="idcommune" id="idcommune"/>
+								<input type="text" id="commune" class="autoCommune col-sm-9"/>
+							@endif
 						</div>
 						<div class="col-sm-4">
 							<label class="col-sm-3"><strong>Wilaya :</strong></label>
@@ -209,7 +219,7 @@ $(document).ready(function () {
 								  <option value="07" @if($operator == '07') selected @endif>07</option>
 	               </select>	
 							</div>
-							<input id="mobile1" name="mobile1"  maxlength =8 minlength =8 type="tel" autocomplete="off" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX" value= "{{  substr($patient->tele_mobile1,2,10) }}" required />	
+							<input id="mobile1" name="mobile1"  maxlength =8 minlength =8 type="tel" class="col-sm-4 mobileform" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX" value= "{{  substr($patient->tele_mobile1,2,10) }}" required />	
 						</div>
 							
 					</div>	 
@@ -233,7 +243,7 @@ $(document).ready(function () {
 								@endif				
 		            </select>
 							</div>
-							<input id="mobile2" name="mobile2"  maxlength =8 minlength =8  type="tel" autocomplete="off" class="col-sm-4" value="{{  substr($patient->tele_mobile2,2,10) }}" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"   placeholder="XX XX XX XX">
+							<input id="mobile2" name="mobile2"  maxlength =8 minlength =8  type="tel" class="col-sm-4 mobileform" value="{{ substr($patient->tele_mobile2,2,10) }}" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"   placeholder="XX XX XX XX">
 						</div>
 					</div>		
 					<div class="col-sm-4">

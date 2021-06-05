@@ -25,9 +25,7 @@ $( document ).ready(function() {
 		<div class="space-12"></div>
 		<div class="row">
 			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3>Rechercher un Utilisateur:</h3>
-				</div>
+				<div class="panel-heading"><h3>Rechercher un Utilisateur:</h3></div>
 				<div class="panel-body">
 					<div class="form-group   has-feedback">
 						<label class="control-label" for="userName" >Nom Utilisateur:</label>
@@ -47,7 +45,7 @@ $( document ).ready(function() {
 			</div>
 			<div class="infobox-data">
 				<span class="infobox-data-number">{{ App\User::where("role_id",1)->get()->count() }}</span>
-				<div class="infobox-content"><b>Médecine</b></div>
+				<div class="infobox-content"><b>Médecins</b></div>
 			</div>
 		</div>
 		<div class="infobox infobox-pink">
@@ -56,7 +54,7 @@ $( document ).ready(function() {
 			</div>
 			<div class="infobox-data">
 				<span class="infobox-data-number">{{ App\User::where("role_id",3)->get()->count() }}</span>
-				<div class="infobox-content"><b>Infermier</b></div>
+				<div class="infobox-content"><b>Infirmiers</b></div>
 			</div>
 		</div>
 		<div class="infobox infobox-red">
@@ -65,7 +63,7 @@ $( document ).ready(function() {
 			</div>
 			<div class="infobox-data">
 				<span class="infobox-data-number">{{ App\User::where("role_id",2)->get()->count() }}</span>
-				<div class="infobox-content"><b>Agent de reception</b></div>
+				<div class="infobox-content"><b>Agents de réception</b></div>
 			</div>
 		</div>
 		<div class="infobox infobox-red">
@@ -74,7 +72,7 @@ $( document ).ready(function() {
 			</div>
 			<div class="infobox-data">
 				<span class="infobox-data-number">{{ App\User::where("role_id",5)->get()->count() }}</span>
-				<div class="infobox-content"><b>Surveillant médical</b></div>
+				<div class="infobox-content"><b>Surveillants Médicaux</b></div>
 			</div>
 		</div>
 		<div class="space-12"></div>

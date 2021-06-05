@@ -11,11 +11,17 @@ use App\modeles\employ;
 use App\modeles\DemandeHospitalisation;
 use App\modeles\salle;
 use App\modeles\Lit;
+use App\modeles\Etablissement;
 use Auth;
 use Carbon\Carbon;
 use PDF;
+use Response;
 class RdvHospiController extends Controller
 {
+     public function __construct()
+      {
+          $this->middleware('auth');
+      }
   public function index()
   {
       $services = service::all();
@@ -32,7 +38,7 @@ class RdvHospiController extends Controller
   public function create($id)
   {
     $demande = dem_colloque::where('dem_colloques.id_demande','=',$id)->first(); // dd($demande->demandeHosp->RDVs->where('etat_RDVh', 0));//
-      $services = service::all();
+    $services = service::all();
     return view('rdvHospi.create', compact('demande','services'));
   }
   public function store(Request $request)
@@ -60,18 +66,16 @@ class RdvHospiController extends Controller
   }
   public function getlisteRDVs()
   {
-    $rdvHospis = rdv_hospitalisation::whereHas('demandeHospitalisation', function($q){
+    $rdvHospis = rdv_hospitalisation::with('bedReservation')->whereHas('demandeHospitalisation', function($q){
                                                        $q->where('etat', 'programme');
-                                             })
-                                             ->whereHas('demandeHospitalisation.Service',function($q){
+                                             })->whereHas('demandeHospitalisation.Service',function($q){
                                                   $q->where('id',Auth::user()->employ->service);       
                                              })->where('etat_RDVh','=',null)->get();
-
     return view('rdvHospi.liste',compact('rdvHospis'));
   }
   public function edit($id)
   {
-      $rdv =  rdv_hospitalisation::with('bedReservation')->find($id);/*if(isset($rdv->bedReservation))  $rdv->bedReservation()->delete();  */
+      $rdv =  rdv_hospitalisation::with('bedReservation')->find($id);
        $demande  = dem_colloque::where('dem_colloques.id_demande','=',$rdv->demandeHospitalisation->id)->first();
       $services = service::all();
        return view('rdvHospi.edit', compact('demande','services','rdv'));   // return view('rdvHospi.edit', compact('demande','services','rdv'));         
@@ -118,22 +122,26 @@ class RdvHospiController extends Controller
   }
   public function getRdvs($date)
   {
-    $rdvs = rdv_hospitalisation::with('bedReservation.lit.salle.service','demandeHospitalisation.consultation.patient','demandeHospitalisation.Service')
-                                ->where('etat_RDVh','=',null)
+    $rdvs =  rdv_hospitalisation::with('bedReservation.lit.salle.service','demandeHospitalisation.consultation.patient','demandeHospitalisation.Service')
                                 ->whereHas('demandeHospitalisation', function($q){
                                     $q->where('etat', 'programme');
-                                })->where('date_RDVh','=', $date)->get(); 
-    if (!empty($rdvs)) {
-      return json_encode($rdvs);
-    }
+                                })->where('date_RDVh','=', $date)->where('etat_RDVh','=',null)->get();
+    return Response::json($rdvs); // if (!empty($rdvs)) {//   return json_encode($rdvs);// }
   }  
   public function print($id)//imprimer rdv d'hospitalisation 
   { 
     $t = Carbon::now();
     $rdv = rdv_hospitalisation::with('demandeHospitalisation')->FindOrFail($id);
     $patient =  $rdv->demandeHospitalisation->consultation->patient;
-    $pdf = PDF::loadView('rdvHospi.rdv', compact('rdv','t'))->setPaper('a4','landscape');
+    $etablissement = Etablissement::first();
+    $pdf = PDF::loadView('rdvHospi.rdv', compact('rdv','t','etablissement'))->setPaper('a4','landscape');
     $name = "rdv-".$patient->Nom."-".$patient->Prenom.".pdf";
     return $pdf->stream($name);
-  } 
+  }
+  public function ticketPrint($id)//imprimer rdv d'hospitalisation 
+  {
+    $patient = patient::FindOrFail($id);
+    dd($patient);
+  }
+   
 }

@@ -15,7 +15,7 @@
 			<div class="row">
 			 	<div class="col-sm-12">
 				 	<h3>
-						le  &quot;<span  style="color: orange;"><strong>{{ $rdv->date_RDVh }}</strong></span>&quot; &nbsp;à &nbsp;<span style="color: red;"><strong>{{Date("H:i")}}</strong></span>
+						le  &quot;<span  style="color: orange;"><strong>{{ $rdv->date_RDVh }}</strong></span>&quot; &nbsp;à &nbsp;<span style="color: red;"><strong>{{ Date("H:i")}}</strong></span>
 				 	 </h3>
 			 	</div>	
 			</div>
@@ -25,8 +25,8 @@
 			<input id="id_RDV" type="text" name="id_RDV" value="{{$rdv->id}}" hidden>
 			<input id="demande_id" type="text" name="demande_id" value="{{$rdv->id_demande}}" hidden>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-120"></i>Annuler</button>
 				<button  type="submit" class="btn btn-success" ><i class="ace-icon fa fa-check bigger-120"></i>Valider</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-120"></i>Annuler</button>
 			</div> 
 		</form>
 	</div>

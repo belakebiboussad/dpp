@@ -1,9 +1,8 @@
 <html>
     <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><!--<link rel="stylesheet" href="css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="css/styles.css">
     <title>Certificat medical</title>
       <style>
       @media print  
@@ -20,31 +19,8 @@
           padding-bottom: 72px ;
         }
       }
-      .center
-      {
-        text-align: center;
-      }
-      /*.col-sm-12
-      {
-         font-size: 16px;
-        margin-bottom: 15px;
-      }*/
-      .mt-15{
-        margin-top:-15px;
-      }
-      .mt12{
-        padding-top:+12px;
-      }
-      .mt-20{
-        margin-top:-20px;
-      }
-      .ml-80{
-        margin-left: +80%;
-      }
       span {
-        display: inline-block;
-        /*padding:6px 0;*/
-       /* font-size:16px;*/
+        display: inline-block;/*padding:6px 0;font-size:16px;*/
       } 
       table.head, table.head thead{border:none;}
       table.head thead tr th{padding:1px 0;}
@@ -62,40 +38,37 @@
     </head>
     <body>
       <div class="container-fluid" id="myDiv">
-        <h4 class="mt12 center">DIRECTION GENERAL DE LA SÛRETÉ NATIONALE</h4>
-        <h4 class="center">ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE"LES GLYCINES"</h4>
-        <h4 class="center">Chemin des Glycines - ALGER</h4>
-        <h4 class="center">Tél : 23-93-34</h4>
-        <h5 class="mt-15 center" ><img src="img/logo.png" style="width: 60px; height: 60px" alt="logo"/></h5>
-        <h5 class="mt-20 center"><span style="font-size: xx-large;"><strong>Certificat medical</strong></span></h5>
-        <div class="row"><br><span class="ml-80">Alger le {{ $date}}</span><br><br></div>
+        @include('partials.etatHeader')
+        <div class="row mt-30">
+          <div class="col-sm-2">
+          </div>
+          <div class="col-sm-8" align="center">
+            <h3><strong>{{ $etat->nom}}</strong></h3>
+          </div>
+          <div class="col-sm-2">
+          </div>
+        </div>
+        <div class="row"><br><span class="ml-80">Alger le {{ Carbon\Carbon::parse($date)->format('d-m-Y') }}</span><br><br></div>
         <div class="row"><div class="col-sm-12"><strong>Service : </strong>
-          <span>{{ $consult->docteur->Service->nom }}</span> </div>
+          <span>{{ $obj->docteur->Service->nom }}</span> </div>
         </div>
         <div class="row"><div class="col-sm-12"><strong>Chef de servise : </strong>
-        <span>{{ $consult->docteur->Service->responsable->nom }}</span></div>
+        <span>{{ $obj->docteur->Service->responsable->nom }}</span></div>
         </div><br>
         <div class="row">
           <div class="col-sm-12"><strong>je soussigné docteur  : </strong>
-            <span>{{ $consult->docteur->nom }} {{ $consult->docteur->prenom }}</span>
+            <span>{{ $obj->docteur->nom }} {{ $obj->docteur->prenom }}</span>
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-12"><strong>certifier que Mme,mr,Mme : </strong>
-          <span>{{ $consult->patient->Nom }}{{ $consult->patient->Prenom }}</span></div>
+          <div class="col-sm-12"><strong>certifier que {{ $obj->patient->getCivilite() }} : </strong>
+          <span>{{ $obj->patient->Nom }}{{ $obj->patient->Prenom }}</span></div>
         </div>
         <div class="row">
           <div class="col-sm-12"><span style="padding-top: 10px;">
-            Presente {{ $consult->Diagnostic }}
+            Presente {{ $obj->Diagnostic }}
           </div>
         </div>
-         <div class="row">
-          <div class="col-sm-12"><span style="padding-top: 10px;">
-            le patient {{ $consult->Resume_OBS }}
-          </div>
-        </div>
-        <br>
-       
-       
+         <div class="row"><div class="col-sm-12"><span style="padding-top: 10px;">  le patient {{ $obj->Resume_OBS }}</div></div><br>      
     </body>
   </html>

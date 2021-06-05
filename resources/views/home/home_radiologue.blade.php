@@ -18,7 +18,7 @@
 											<tr>
 												<th class="center">#</th>
 												<th class="hidden-480 center"><strong>Date</strong></th>
-												<th class="center"><strong>Médecin traitant</strong></th>
+												<th class="center"><strong>Médecin demandeur</strong></th>
 												<th class="center"><strong>Patient</strong></th>
 												<th class="center"><strong>Etat</strong></th>
 												<th class="center"><em class="fa fa-cog"></em></th>
@@ -27,13 +27,19 @@
 										<tbody>
 											@foreach($demandesexr as $index => $exr)
 												<tr>
+												@if(isset($exr->consultation))
 													<td class="center">{{ $index + 1 }}</td>
 													<td>{{ $exr->consultation->Date_Consultation }}</td>
 													<td>{{ $exr->consultation->docteur->nom }} {{ $exr->consultation->docteur->prenom }}</td>
-													<td>{{ $exr->consultation->patient->Nom }} {{ $exr->consultation->patient->Prenom }}
-													</td>
+													<td>{{ $exr->consultation->patient->Nom }} {{ $exr->consultation->patient->Prenom }}</td>
+												@else
+												<td class="center">{{ $index + 1 }}</td>
+												<td>{{ $exr->visite->date }}</td>
+												<td>{{ $exr->visite->medecin->nom }} {{ $exr->visite->medecin->prenom }}</td>
+												<td>{{ $exr->visite->hospitalisation->patient->Nom }} {{ $exr->visite->hospitalisation->patient->Prenom }}</td>
+												@endif
 													<td>
-														<span class="badge badge-primary">
+														<span class="badge badge-warning">
 														@if($exr->etat == "E")
 															En Attente
 														@elseif($exr->etat == "V")

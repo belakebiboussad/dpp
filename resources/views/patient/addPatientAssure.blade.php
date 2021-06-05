@@ -4,7 +4,7 @@
 		<div class="form-group {{ $errors->has('nom') ? 'has-error' : '' }}">
 			<label class="col-sm-3 control-label" for="nom"><strong>Nom :</strong></label>
 			<div class="col-sm-9">
-				<input type="text" id="nom" name="nom" placeholder="Nom..." class="col-xs-12 col-sm-12" autocomplete= "off" value="" alpha/>
+				<input type="text" id="nom" name="nom" placeholder="Nom..." class="col-xs-12 col-sm-12" autocomplete= "off" value="{{ $nom }}" alpha/>
 					{!! $errors->first('nom', '<small class="alert-danger">:message</small>') !!}
 			</div>
 		</div>
@@ -13,7 +13,7 @@
 		<div class="form-group {{ $errors->has('prenom') ? 'has-error' : '' }}">
 			<label class="col-sm-3 control-label" for="prenom"><strong>Prénom :</strong></label>
 			<div class="col-sm-9">
-				<input type="text" id="prenom" name="prenom" placeholder="Prénom..." class="col-xs-18 col-sm-12" autocomplete="off" value ="{{ $prenom }}" readonly/>
+				<input type="text" id="prenom" name="prenom" placeholder="Prénom..." class="col-xs-18 col-sm-12" autocomplete="off" value ="{{ $prenom }}"/>
 				{!! $errors->first('prenom', '<p class="alert-danger">:message</p>') !!}
 			</div>
 		</div>
@@ -109,7 +109,8 @@
 	 	 <input type="text" value="" id="commune" placeholder="commune résidance" class="autoCommune col-sm-8"/>
 	</div>
 	<div class="col-sm-4">
-		<label class="col-sm-4" for="wilaya"><strong>Wilaya:</strong></label><input type="hidden" name="idwilaya" id="idwilaya">
+		<label class="col-sm-4" for="wilaya"><strong>Wilaya:</strong></label>
+		<input type="hidden" name="idwilaya" id="idwilaya"/>
 		<input type="text" value=""  id="wilaya" placeholder="wilaya résidance" class=" text-nowrap col-sm-8" readonly />
 	</div>
 </div><div class="space-12"></div>
@@ -125,7 +126,7 @@
 				  <option value="07">07</option>
 	      </select>	
 			</div>
-			<input id="mobile1" name="mobile1"  maxlength =8 minlength =8 type="tel" autocomplete="off" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX"/>	
+			<input id="mobile1" name="mobile1"  maxlength =8 minlength =8 type="tel" class="col-sm-4 mobileform" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX"/>	
 		</div>		
 		</div>	 
 		<div class="col-sm-4 col-xs-4">
@@ -139,7 +140,7 @@
 						<option value="07">07</option>
 			    </select>
 				</div>
-				<input id="mobile2" name="mobile2"  maxlength =8 minlength =8  type="tel" autocomplete="off" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"   placeholder="XX XX XX XX">
+				<input id="mobile2" name="mobile2"  maxlength =8 minlength =8  type="tel" class="col-sm-4 mobileform" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"   placeholder="XX XX XX XX">
 			</div>
 		</div>		
 		<div class="col-sm-4 col-xs-4">

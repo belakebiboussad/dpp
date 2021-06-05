@@ -8,7 +8,6 @@
 <input type="hidden" name="patient1_id" value="{{ $patient1->id}}">
 <input type="hidden" name="patient2_id" value="{{ $patient2->id}}">
 <table id ="PatiensMerge" class="table table-striped table-bordered merger">
-
  	<thead>
 		<th class="category narrow"></th>
 	      	<th>Résultat</th>
@@ -43,9 +42,23 @@
 		</tr>
 		<tr class="{{ $statuses['Lieu_Naissance'] }}">
 			<td align="center"><strong>à</strong></td>
-		           <td><input type="text" id ="Lieu_Naissance" name="lieunaissance" value=" {{ $patientResult->Lieu_Naissance }}"/></td>
-		           <td><input  type="radio" name="choixLieu_Naissance" onclick="setField('Lieu_Naissance', '{{ $patient1->Lieu_Naissance }}');" checked>{{ $patient1->lieuNaissance->nom_commune }}</td>
-		           <td><input type="radio" name="choixLieu_Naissance" onclick="setField('Lieu_Naissance','{{ $patient2->Lieu_Naissance }}');">{{ $patient2->lieuNaissance->nom_commune }}</td>
+      <td><input type="text" id ="Lieu_Naissance" name="lieunaissance" value=" {{ $patientResult->Lieu_Naissance }}"/></td>
+      <td>
+       	@if(isset($patient1->Lieu_Naissance))
+       	<input  type="radio" name="choixLieu_Naissance" onclick="setField('Lieu_Naissance', '{{ $patient1->Lieu_Naissance }}');" checked>
+       	{{ $patient1->lieuNaissance->nom_commune }}
+       	@else
+       	<input  type="radio" name="choixLieu_Naissance" onclick="setField('Lieu_Naissance', '');" checked>
+       	@endif
+     	</td>
+      <td>
+       	@if(isset($patient2->Lieu_Naissance))
+     	  	<input type="radio" name="choixLieu_Naissance" onclick="setField('Lieu_Naissance','{{ $patient2->Lieu_Naissance }}');">
+     	  	{{ $patient2->lieuNaissance->nom_commune }}
+     	  @else
+     	   <input type="radio" name="choixLieu_Naissance" onclick="setField('Lieu_Naissance','');">
+     	  @endif
+     	</td>
 		</tr>
 		<tr class="{{ $statuses['Sexe'] }}">
 			<td align="center"><strong>Sexe</strong></td>

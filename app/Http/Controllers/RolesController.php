@@ -11,6 +11,10 @@ class RolesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+      {
+          $this->middleware('auth');
+      }
     public function index()
     {
         $roles = rol::all();
@@ -78,14 +82,15 @@ class RolesController extends Controller
      */
     public function update(Request $request, $id)
     {
-           $role = rol::FindOrFail($id);  
-           $request->validate([
-              "rolename" => 'required|min:3',
-           ]);
-           $role->update([
-             "role"=>$request->rolename,
-           ]);
-           return view('role.edit_role', compact('role'));
+       $role = rol::FindOrFail($id);  
+       $request->validate([
+          "rolename" => 'required|min:3',
+       ]);
+       $role->update([
+         "role"=>$request->rolename,
+       ]);
+     
+      return redirect(Route('role.index'));   
     }
 
     /**

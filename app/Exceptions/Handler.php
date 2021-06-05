@@ -53,13 +53,16 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     { // return parent::render($request, $exception);
-        if ($e instanceof ModelNotFoundException &&
-            $request->wantsJson()) {
-            return response()->json([
-              'error' => 'Resource not found'
-            ], 404);
-        }
-        return redirect()->guest(route('login'));
+      if ($e instanceof ModelNotFoundException &&
+          $request->wantsJson()) {
+          return response()->json([
+            'error' => 'Resource not found'
+          ], 404);
+      }
+      if ($e instanceof \Illuminate\Session\TokenMismatchException) {
+          return redirect('/login');
+      }
+      return redirect()->guest(route('login'));
     }
 
 }

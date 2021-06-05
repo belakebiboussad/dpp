@@ -4,10 +4,10 @@
 <script>
 	function showTypeEdit(i)
 	{
-	 	 var value = $("#type").val();
-  		if( value == "0")
-  		{
-	  		if(i !=0)
+	 	var value = $("#type").val();
+  	if( value == "0")
+  	{
+	  	if(i !=0)
 	 		{
 	 			$('#Assure').find('input').val('');//copyPatient();
 	 			$('#Assure').find("select").prop("selectedIndex",0);
@@ -83,7 +83,6 @@
   }
 	$(document).ready(function(){
 	  showTypeEdit(0);//var value = $("#type").val();
-	  
 	});     
 </script>
 @endsection
@@ -105,9 +104,9 @@
 			@if (count($errors) > 0)
 			  <div class="alert alert-danger">
 				<ul>
-				 @foreach ($errors->all() as $error)
-			 	           <li>{{ $error }}</li>
-				@endforeach
+					@foreach ($errors->all() as $error)
+			 	  <li>{{ $error }}</li>
+					@endforeach
 				</ul>
 				</div>
 			@endif
@@ -116,7 +115,7 @@
 	</div>
 	<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
 		<li class=" @if($patient->Type !="5") active @else hidden  @endif">
-		  <a data-toggle="tab" href="#Assure" data-toggle="tab" onclick="copyPatientInfo();">
+		  <a data-toggle="tab" href="#Assure" data-toggle="tab" onclick="copyPatientInfo('{{ $patient->id}}');">
 	    	<span class="bigger-130"><strong>Assure</strong></span>
 	    </a>
  		</li>
@@ -129,12 +128,14 @@
 	</ul>	
   <div class="tab-content">
   	<div id="Assure" class='tab-pane fade @if($patient->Type =="5") invisible @else in active  @endif '>
-    	@include('assurs.editAssure')
+    	@isset($assure)
+    		@include('assurs.editAssure')
+    	@endisset
     </div>
-	<div id="Patient" class="tab-pane fade @if($patient->Type =="5")   in active  @endif">
-		<div class="row">
+	  <div id="Patient" class="tab-pane fade @if($patient->Type =="5")   in active  @endif">
+			<div class="row">
     		<div class="col-sm-12"><h3 class="header smaller lighter blue">Informations administratives</h3></div>
-		</div>
+			</div>
     	<div class="row">
 				<div class="col-sm-6">
 					<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
@@ -156,12 +157,16 @@
 			</div>{{-- col-sm-6	 --}}
     </div>  {{-- row --}}
     <div class="row">
-    	<div class="col-sm-6">
+      <div class="col-sm-6">
 				<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
 					<label class="col-sm-3 control-label" for="datenaissance"><strong>Né(e) le :</strong></label>
 					<div class="col-sm-9">
-						<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" value="{{ $patient->Dat_Naissance }}" required/>
+					@if(isset($patient->Dat_Naissance)) 
+						<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" value="{{ $patient->Dat_Naissance }}"/>
 						{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
+					@else
+					<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd"/>
+					@endif
 					</div>
 				</div>
 			</div>
@@ -169,9 +174,14 @@
 				<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
 					<label class="col-sm-3 control-label" for="lieunaissance"><strong class="text-nowrap">Né(e) à :</strong></label>
 				  <div class="col-sm-9">
-						<input type="hidden" name="idlieunaissance" id="idlieunaissance" value={{ $patient->Lieu_Naissance }}>
-						<input type="text" id="lieunaissance" class="autoCommune col-xs-12 col-sm-12" value="{{ $patient->lieuNaissance->nom_commune }}" required/>
-					  {!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
+						@if(isset($patient->Lieu_Naissance)) 
+							<input type="hidden" name="idlieunaissance" id="idlieunaissance" value={{ $patient->Lieu_Naissance }}>
+							<input type="text" id="lieunaissance" class="autoCommune col-xs-12 col-sm-12" value="{{ $patient->lieuNaissance->nom_commune }}"/>
+					 	  {!! $errors->first('lieunaissance', '<small class="alert-danger">:message</small>') !!}
+					  @else
+					  	<input type="hidden" name="idlieunaissance" id="idlieunaissance">
+							<input type="text" id="lieunaissance" class="autoCommune col-xs-12 col-sm-12"/>
+					  @endif
 				  </div>
 				</div>
    		</div>
@@ -198,7 +208,7 @@
 				<div class="form-group">
 					<label class="col-sm-3 control-label text-nowrap" for="gs"><strong>Groupe sanguin :</strong></label>
 					<div class="col-sm-2">
-					<select class="form-control" id="gs" name="gs">
+					<select class="form-control groupeSanguin" id="gs" name="gs">
 					@if(!isset($patient->group_sang)  && empty($patient->group_sang)) 
 						<option value="" selected >------</option>
 						<option value="A" >A</option>
@@ -216,7 +226,7 @@
 				</div>
 				<label class="col-sm-3 control-label no-padding-right" for="rh"><strong>Rhésus :</strong></label>
 				<div class="col-sm-2">
-				<select id="rh" name="rh">
+				<select id="rh" name="rh" disabled>
 				@if(!isset($patient->rhesus)  && empty($patient->rhesus)) 
 					<option value="" selected >------</option>
 					<option value="+">+</option>
@@ -256,35 +266,47 @@
 		<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div></div>
 		<div class="space-12"></div>	
 		<div class="row">
-			<div class="col-sm-4"> <!-- style="padding-left:7%" -->
+			<div class="col-sm-4">
 				<label class="text-nowrap col-sm-4 col-xs-4" for="adresse" ><strong>Adresse:</strong></label>
 				<input type="text" value="{{ $patient->Adresse }}" id="adresse" name="adresse" placeholder="Adresse..." class="col-sm-8 col-xs-8"/>
 			</div>
-			<div class="col-sm-4"> <!-- style="margin-top: -0.1%;" -->
+			<div class="col-sm-4">
 				<label class="text-nowrap col-sm-4 col-xs-4" for="commune"><strong>Commune:</strong></label>
+				@if(isset($patient->commune_res))
 				<input type="hidden" name="idcommune" id="idcommune" value="{{ $patient->commune_res }}"/>
 				<input type="text" id="commune"  value="{{ $patient->commune->nom_commune}}" class="autoCommune col-sm-8 col-xs-8"/>					
+				@else
+				<input type="hidden" name="idcommune" id="idcommune" value=""/>
+				<input type="text" id="commune"  value="" class="autoCommune col-sm-8 col-xs-8"/>					
+				@endif
 			</div>
 			<div class="col-sm-4">
-					<label class="col-sm-4 col-xs-4"><strong>Wilaya :</strong></label>
-				  <input type="hidden" name="idwilaya" id="idwilaya" value="{{ $patient->wilaya->id }}"/>
-				  <input type="text" id="wilaya" value="{{ $patient->wilaya->nom }}" class="col-sm-8 col-xs-8"readonly/>	
-				</div>	
-			</div>{{-- row --}}
-			<div class="space-12"></div>
+				<label class="col-sm-4 col-xs-4"><strong>Wilaya :</strong></label>
+				@if(isset($patient->wilaya_res))
+				<input type="hidden" name="idwilaya" id="idwilaya" value="{{ $patient->wilaya->id }}"/>
+				<input type="text" id="wilaya" value="{{ $patient->wilaya->nom }}" class="col-sm-8 col-xs-8"readonly/>	
+				@else
+				<input type="hidden" name="idwilaya" id="idwilaya" value=""/>
+				<input type="text" id="wilaya" value="" class="col-sm-8 col-xs-8"readonly/>	
+				@endif
+			</div>
+			</div>
+			<div class="space-12"></div>{{-- row --}}
+			
 			<div class="row">
 				<div class="col-sm-4 col-xs-4">
 					<div class="form-group" style="padding-left:13%;">
 						<label class="control-label text-nowrap col-sm-3" for="mobile1"><i class="fa fa-phone"></i><strong>Mob1:</strong></label>
 						<div class="col-sm-3" >
-							<select name="operateur1" id="operateur1" class="form-control" required="">
+							<select name="operateur1" id="operateur1" class="form-control">
 					      @php	$operator = substr($patient->tele_mobile1,0,2) @endphp
+		 						<option value="" @if($operator == '') selected @endif >XX</option>         
 		 						<option value="05" @if($operator == '05') selected @endif >05</option>         
 							  <option value="06" @if($operator == '06') selected @endif >06</option>
 							  <option value="07" @if($operator == '07') selected @endif>07</option>
               </select>	
 						</div>
-						<input id="mobile1" name="mobile1"  maxlength =8 minlength =8 type="tel" autocomplete="off" class="col-sm-4" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX" value= "{{  substr($patient->tele_mobile1,2,10) }}" required />	
+						<input id="mobile1" name="mobile1"  maxlength =8 minlength =8 type="tel"  class="col-sm-4 mobileform" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" value= "{{  substr($patient->tele_mobile1,2,10) }}"/>	
 					 </div>		
 				</div>	 
 				<div class="col-sm-4 col-xs-4">
@@ -307,7 +329,7 @@
 							@endif				
 	                       			</select>
 						</div>
-						<input id="mobile2" name="mobile2"  maxlength =8 minlength =8  type="tel" autocomplete="off" class="col-sm-4" value="{{  substr($patient->tele_mobile2,2,10) }}" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"   placeholder="XX XX XX XX">
+						<input id="mobile2" name="mobile2"  maxlength =8 minlength =8  type="tel" class="col-sm-4 mobileform" value="{{  substr($patient->tele_mobile2,2,10) }}" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"   placeholder="XXXXXXXX">
 				   	</div>
 			  	</div>		
 					<div class="col-sm-4 col-xs-4">
@@ -327,35 +349,27 @@
 						</div>		
 				  	</div>{{-- col-sm-4 --}}
 				  </div>	{{-- row --}}
-				</div>
-				<div class="space-12"></div>
+				</div><div class="space-12"></div>
 				<div class="row" id="foncform">
 					<div class="col-sm-6">
 						<div class="form-group">
-							 <label class="col-sm-4 control-label" for="nsspatient">
-								<strong>NSS (patient):</strong>
-							</label>
+							 <label class="col-sm-4 control-label" for="nsspatient"><strong>NSS (patient):</strong></label>
 							<div class="col-sm-8">
 								<input type="text" class="form-control col-xs-12 col-sm-6" id="nsspatient" name="nsspatient" value="{{ $patient->NSS }}"
 								pattern="[0-9]{2}[0-9]{4}[0-9]{4}[0-9]{2}"  placeholder="XXXXXXXXXXXX" maxlength =12 minlength =12 />
 							</div>
 						</div>					
-					</div>
-					<div class="col-sm-6"></div>	
-				</div>{{-- row --}}
-			<div class="space-12"></div>
-			<div class="row">
+					</div><div class="col-sm-6"></div>	
+				</div><div class="space-12"></div>
+				<div class="row">
 				<div class="col-sm-6 starthidden">
 					<label for="description"><strong>Autre information :</strong></label>
 					<textarea class="form-control" id="description" name="description" placeholder="Description" >{{ $patient->description }}</textarea>
 				</div>
 			</div>
 			@if(count($correspondants) == 0) 	
-			<div class="row">
-		      		<div class="col-sm-12"><h3 class="header smaller lighter blue">Homme de Confiance</h3></div>
-			</div>
-		    <div class="row">
-		     		<div class="col-sm-1"></div>		
+			<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Homme de Confiance</h3></div></div>
+		    <div class="row"><div class="col-sm-1"></div>
 				<div class="col-sm-11">
 					<div class="form-group padding-left">
 						<input  type="checkbox" id="hommeConf" value="1"  class="ace input-lg"/>
@@ -366,25 +380,13 @@
 		@endif	
   	</div> {{-- tab-pane Patient --}}
   	<div id="Homme" class="tab-pane fade hidden_fields"><div class="row">@include('corespondants.widget')</div></div>
-  	</div> {{-- tab-content --}}
-	<div class="hr hr-dotted"></div>
+  	</div> {{-- tab-content --}}<div class="hr hr-dotted"></div>
 	<div class="row">
-		<div class="center">
-			<br>
-			<button class="btn btn-info btn-sm" type="submit">
-				<i class="ace-icon fa fa-save bigger-110"></i>
-				Enregistrer
-			</button>&nbsp; &nbsp; &nbsp;
-			<button class="btn btn-default btn-sm" type="reset">
-				<i class="ace-icon fa fa-undo bigger-110"></i>
-				Annuler
-			</button>
+		<div class="center"><br>
+			<button class="btn btn-info btn-sm" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
+			<button class="btn btn-default btn-sm" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 		</div>
 	</div>
-	</form>
-	<div class="row">
-    @include('corespondants.add')
-	</div>
-
+	</form><div class="row">@include('corespondants.add')</div>
 @endsection
 

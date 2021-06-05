@@ -6417,11 +6417,6 @@ table-condensed thead th{
   width: 1250px;
   margin: auto;
 }
-/*table.merger tr.unique td, 
-table.merger tr.unique th {
-  background-color: #aaf;
-}*/
-
 table.merger tr.multiple td, 
 table.merger tr.multiple th {
   background-color: #faa;
@@ -6442,29 +6437,6 @@ width:auto !important;
     font-size: 27px;
     border: 2px solid #666;
 }
-.numberCircle20{
-    width: 40px;
-    line-height: 40px;
-    border-radius: 50%;
-    text-align: center;
-    font-size: 20px;
-    border: 2px solid #666;
-}
-.circle {
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
-  border-radius: 50%; /* the magic */
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  text-align: center;
-  color: red;
-  background-color:#ccc;
-  font-size: 18px;
-  text-transform: uppercase;
-  font-weight: 400;
-  margin: 0 auto 40px;
-}
 .pull-right {
   float: right !important;
 }
@@ -6479,3 +6451,7 @@ width:auto !important;
 #ui-datepicker-div {
   display: none;
 }
+/*deb*/
+
+/*fin/*/
+

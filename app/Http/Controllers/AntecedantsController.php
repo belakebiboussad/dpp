@@ -15,6 +15,10 @@ class AntecedantsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+      {
+          $this->middleware('auth');
+      }
     public function storeatcd()
     {
         $message ='exemple';
@@ -71,7 +75,7 @@ class AntecedantsController extends Controller
     {
         $atcd = antecedant::FindOrFail($id);
         $patient = patient::FindOrFail($atcd->Patient_ID_Patient);
-        return view('antecedents.edit_atcd',compact('atcd','patient'));
+        return view('antecedents.edit',compact('atcd','patient'));
     }
 
     /**

@@ -1,16 +1,12 @@
 @extends('app')
 @section('title','Rechercher un Fonctionnaire')
 @section('page-script')
-<script>
-	function selectPatient(nom,prenom)
-	{
-		alert(nom);
-	}
+<script>// function selectPatient(nom,prenom)// {// 	alert(nom);// }
 	$(document).ready(function(){
 		$(document).on('click','.findAssure',function(event){
-			event.preventDefault();
-			$('#btnCreate').removeClass('hidden');
-			var matricule = $('#matricule').val();
+					event.preventDefault();
+					$('#btnCreate').removeClass('hidden');
+					var matricule = $('#matricule').val();
 		       var nss = $('#nss').val();
 		     	$.ajax({
 					type : 'get',
@@ -43,42 +39,51 @@
 		<div class="col-sm-12 center">	
 			<h2><strong>Bienvenue Docteur:</strong><q class="blue">{{ Auth::User()->employ->nom }} {{ Auth::User()->employ->prenom }}</q></h2>
 		</div>		
-	</div>
-	<div class="space-12"></div>
+	</div><div class="space-12"></div>
 	<div class="row">
-		<div class="panel panel-default ">
-			<div class="panel-heading left" style="height: 40px; font-size: 2.3vh;">
-				<strong>Rechercher un Fonctionnire</strong>
-				<div class="pull-right" style ="margin-top:-0.5%;">
-					<a href="{{route('patient.index')}}" class ="btn btn-white btn-info btn-bold btn-xs">Rechercher un Patient&nbsp;<i class="ace-icon fa fa-arrow-circle-right bigger-120 black"></i></a>
+		<div class="col-sm-12">
+			<div class="panel panel-default ">
+				<div class="panel-heading left"><!-- style="height: 40px; font-size: 2.3vh;" -->
+					<H4><strong>Rechercher un Fonctionnire</strong></H4>
+					<div class="pull-right"><!-- style ="margin-top:-0.5%;" -->
+						<a href="{{route('patient.index')}}" class ="btn btn-white btn-info btn-bold btn-xs">Rechercher un Patient&nbsp;<i class="ace-icon fa fa-arrow-circle-right bigger-120 black"></i></a>
+					</div>
 				</div>
-			</div>
-			<div class="panel-body">
-				<div class="row">
-					<div class="col-sm-2">
-						<label class="control-label pull-right" for="Matricule" ><strong>&nbsp;Matricule:</strong></label>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-sm-4">
+			      <div class="form-group col-sm-12">
+			       	<label class="control-label" for="matricule" ><strong>Matricule:</strong></label>
+							<div class="input-group col-sm-8">
+								<input type="text" class="form-control input-sx" id="matricule" name="matricule" placeholder="Matricule de l'assuré(e)..." autofocus/>
+								<span class="glyphicon glyphicon-search form-control-feedback"></span>
+					    </div>
+						</div>
 					</div>
-					<div class="col-sm-3">
-						<input type="text" class="form-control input-sm tt-input" id="matricule" name="matricule"  placeholder="Matricule de l'assuré(e)...">
+					<div class="col-sm-4">
+			      <div class="form-group col-sm-12">
+			       	<label class="control-label" for="nss" ><strong>NSS:</strong></label>
+						<div class="input-group col-sm-8">
+							<input type="text" class="form-control input-sx" id="nss" name="nss" placeholder="Numéro du sécurité..."/>
+							<span class="glyphicon glyphicon-search form-control-feedback"></span>
+					    </div>
+						</div>
 					</div>
-					<div class="col-sm-2"><label class="control-label pull-right" for="nss" ><strong>NSS:</strong></label></div>
-					<div class="col-sm-3">
-					<input type="text" class="form-control input-sm tt-input" id="nss" name="nss"  placeholder="Numéro du sécurité..."
-					 data-toggle="tooltip" data-placement="left" title="nss du  l'assuré(e)...">
+					</div><!-- row -->
+				</div><!-- body -->
+				<div class="panel-footer" style="height:40px;">
+				 <!-- style ="margin-top:-0.5%;"  -->
+					<button type="submit" class="btn btn-xs btn-primary findAssure"><i class="fa fa-search"></i>&nbsp;Rechercher</button> 	
+<a  class="btn btn-danger btn-xs" href="{{ route('assur.destroy',12) }}" role="button" aria-pressed="true" data-method="DELETE"><i class="ace-icon fa fa-trash-o bigger-110"></i>Supprimer</a>
+					
+					@if(Auth::user()->role_id == 4)
+					<div class="pull-right">
+						<a  class="btn btn-primary btn-xs hidden" href="{{ route('assur.create') }}" id=btnCreate role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>
 					</div>
-				</div><!-- row -->
-			</div><!-- body -->
-			<div class="panel-footer" style="height:40px;">
-				<button type="submit" class="btn btn-xs btn-primary findAssure" style ="margin-top:-0.5%;" ><i class="fa fa-search"></i>&nbsp;Rechercher</button>
-				<a href="{{ route('assur.destroy',12) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" 
-				class="btn btn-xs btn-danger"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Supprimer</a>
-				@if(Auth::user()->role_id == 4)
-				<div class="pull-right">
-					<a  class="btn btn-primary btn-xs hidden" href="{{ route('assur.create') }}" id=btnCreate role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>
+					@endif
 				</div>
-				@endif
-			</div>
-		</div><!-- panel -->
+			</div><!-- panel -->
+		</div>
 	</div><!-- row -->
 	<div class="row">
 		<div class="col-sm-12">
@@ -88,7 +93,8 @@
 					<label for=""><span class="badge badge-info numberResult"></span></label>
 				</div>
 				<div class="bodycontainer scrollable">
-					<table class="table table-striped table-bordered table-condensed table-scrollable">
+				<!-- <table class="table table-striped table-bordered table-condensed table-scrollable"> -->
+					<table class="table display table-responsive table-bordered table-scrollable"  width="100%">
 					<thead>
 						<tr class="info"><th colspan="12">Fonctionnaire</th></tr>
 						<tr class="liste">

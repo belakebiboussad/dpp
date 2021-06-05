@@ -49,7 +49,7 @@ class UsersController extends Controller
       $roles = rol::all();
       $services = service::all();
       $specialites = Specialite::all();
-      return view('user.adduser', compact('roles','services','specialites'));
+      return view('user.add', compact('roles','services','specialites'));
     }
 
     /**
@@ -63,14 +63,10 @@ class UsersController extends Controller
       $request->validate([
         "nom"=> "required",
         "prenom"=> "required",
-        "datenaissance"=> "required",
-        "lieunaissance"=> "required",
-        "adresse"=> "required",
-        "mobile"=> "required",   //"fixe"=> "required",age // "mat"=> "required", //"service"=> "required",
-        "nss"=> "required",
+        "datenaissance"=> "required",// "lieunaissance"=> "required",  //"adresse"=> "required",
+        "mobile"=> "required",   //"fixe"=> "required",age // "mat"=> "required", //"service"=> "required",//"nss"=> "required",
         "username"=> "required",
-        "password"=> "required",
-        "mail"=> "required",
+        "password"=> "required",// "mail"=> "required",
         "role"=> "required",
       ]);
       $employe = employ::firstOrCreate([
@@ -87,16 +83,17 @@ class UsersController extends Controller
             "Matricule_dgsn"=>$request->mat,
             "NSS"=>$request->nss,
       ]);
-      $usere = [
-        "name"=>$request->username,
-        "password"=>$request->password,
+/*$user = ["name"=>$request->username,"password"=>$request->password,"email"=>$request->mail,"employee_id"=>$employe->id,"role_id"=>$request->role, ]; event(new Registered($user = RegisterController::create($user)));//$this->guard()->login($user); return $this->registered($request, $user)?: redirect()->route('users.index');*/
+      $user = User::firstOrCreate([
+        "name"=>$request->username,// "password"=>$request->password,
+        "password"=> Hash::make($request['password']),
         "email"=>$request->mail,
         "employee_id"=>$employe->id,
         "role_id"=>$request->role,
-      ];
-      event(new Registered($user = RegisterController::create($usere)));//$this->guard()->login($user);
-        return $this->registered($request, $user)
-                        ?: redirect()->route('users.index');
+      ]);
+      //return redirect(Route('employs.show',$employe->id)); 
+      //dd($user);
+      return redirect(Route('users.show',$user->id));                 
     }
     /**
      * Display the specified resource.
@@ -137,45 +134,32 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {      
-      $user = User::FindOrFail($id);   
+      $user = User::FindOrFail($id);
       $request->validate([
               "username"=> "required",
               "email"=> "nullable|email",//|unique:utilisateurs
               "role"=> "required",
      ]);     
      $activer = $user->active;
+    
      if($user->active)
      {
-         if(! isset($request->desactiveCompt))
-         {
-                 $activer= 0;      
-         }
-
+        if(! isset($request->desactiveCompt))
+          $activer= 0;      
      }else
      {
-       if(isset($request->activeCompt))
+        if(isset($request->activeCompt))
                $activer=1;
      }
-     $userData = [
-              "name"=>$request->username,
-              "password"=>$user->password,
-              "email"=>$request->email,
-              "employee_id"=>$user->employee_id,
-              "role_id"=>$request->role,
-              "active"=>$activer,
-     ];
-
      $user->update([
-               'name'=>$request->username,
+              'name'=>$request->username,
                "password"=>$user->password,
                "email"=>$request->email,
               "employee_id"=>$user->employee_id,
               "role_id"=>$request->role,
               "active"=>$activer,   
-     ]);
-    
+     ]);  
     return redirect(Route('users.show',$id));
-     
     }
 
     /**
@@ -184,9 +168,13 @@ class UsersController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    //public function destroy(User $user)
+    public function destroy(Request $request , $id)
     {
-        //
+      $user = User::FindOrFail($id);
+      employ::destroy($user->employee_id);  
+      User::destroy($id);
+      return redirect()->route('users.index');
     }
     protected function guard()
     {
@@ -236,17 +224,16 @@ class UsersController extends Controller
       $messages = [
         'current-password.required' => 'Entrer le mot de passe actuel correct',
         'newPassword.required' => 'entrer le nouveau mot de passe SVP', 
-          'password_confirmation.required' => 'Entrer le  mot de passe de confiration SVP',
+        'password_confirmation.required' => 'Entrer le  mot de passe de confiration SVP',
         'password_confirmation.same'=>'le mot de passe du confirmation doit correspondre au  nouveau mot de passe',
-      ];
-// |same:newPassword
-            $validator = Validator::make($data, [
-                'curPassword' => 'required',
-                'newPassword' => 'required',
-                'password_confirmation' => 'required|same:newPassword', 
-                // |confirmed 
-            ], $messages); // dd($validator->getMessageBag()); 
-          return $validator;
+      ];// |same:newPassword
+      $validator = Validator::make($data, [
+          'curPassword' => 'required',
+          'newPassword' => 'required',
+          'password_confirmation' => 'required|same:newPassword', 
+          // |confirmed 
+      ], $messages); // dd($validator->getMessageBag()); 
+      return $validator;
     }  
     public function changePassword(Request $request)
     {
@@ -295,9 +282,8 @@ class UsersController extends Controller
                     $q->where('role','LIKE','%'.$value.'%');
                  })->get();
       else 
-       $users = User::with('role')->where($request->field,'LIKE','%'.$value."%")->get();          
-      
-      return Response::json($users);
+        $users = User::with('role')->where($request->field,'LIKE','%'.$value."%")->get();          
+       return Response::json($users);
     }    
     public function AutoCompleteField(Request $request)
     { 

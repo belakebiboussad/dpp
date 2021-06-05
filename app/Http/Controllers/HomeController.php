@@ -8,21 +8,28 @@ use App\modeles\Order;
 use App\modeles\consultation;
 use App\modeles\colloque;
 use App\modeles\rdv_hospitalisation;
+use App\modeles\hospitalisation;
 use App\modeles\ticket;
 use App\modeles\employ;
 use App\modeles\DemandeHospitalisation;
 use App\modeles\admission;
 use App\modeles\medcamte;
 use App\modeles\reactif;
-//use App\modeles\gamme;
 use App\modeles\dispositif;
 use App\modeles\dem_colloque;
 use App\modeles\demandeexb;
 use App\modeles\demandeexr;
+use App\modeles\Etablissement;
+use App\modeles\Etatsortie;
 use App\User;
 use Auth; 
 use Date;
 use route;
+use Carbon\Carbon;
+use PDF;
+use Storage;
+use File;
+use Session;
 class HomeController extends Controller
 {
     /**
@@ -43,6 +50,18 @@ class HomeController extends Controller
     public function index()
     {
       $ServiceID = Auth::user()->employ->service;
+      $etablissement = Etablissement::first(); //$etablissement = Etablissement::first()->toArray();
+      //session()->put('etablissement', $etablissement);$etabli = array("foo" => "bar","bar" =>"foo",); Session::put('etablissement', $etablissement);
+      // dd($etablissement->nom);
+      // $nom =  htmlspecialchars_decode($etablissement->nom,ENT_QUOTES);    
+     //$nom =  htmlspecialchars($etablissement->nom);
+      //dd($nom);
+      Session::put('etabname', $etablissement->nom);
+      Session::put('etabTut', $etablissement->tutelle);
+      Session::put('etabAdr', $etablissement->adresse);
+      Session::put('etabTel', $etablissement->tel);
+      Session::put('etabTel2', $etablissement->tel2);
+      Session::put('etabLogo', $etablissement->logo);
       switch (Auth::user()->role_id) {
             case 1://medecin & meecinChef
                   return view('patient.index');
@@ -51,7 +70,7 @@ class HomeController extends Controller
                   return view('home.home_recep');
                   break;
             case 3:                    
-                  return redirect()->action('HospitalisationController@index');// return redirect()->route('HospitalisationController@index');
+                  return redirect()->action('HospitalisationController@index');
                   break;
             case 4: //admin// $users = User::all(); // return view('home.home_admin', compact('users'));
                   return redirect()->action('UsersController@index');
@@ -76,7 +95,7 @@ class HomeController extends Controller
                 return view('home.home_laboanalyses', compact('demandesexb'));
                 break;   
             case 12://radiologue
-                $demandesexr = demandeexr::with('consultation')->where('etat','E')->get();
+                $demandesexr = demandeexr::with('consultation','visite')->where('etat','E')->get();
                 return view('home.home_radiologue', compact('demandesexr')); 
                 break;
             case 14://chef de service
@@ -88,7 +107,75 @@ class HomeController extends Controller
     }
     public function flash()
     {
-        flashy()->success('You get success notification.', 'hdtuto.com');
-         return view('flash');
+      flashy()->success('You get success notification.', 'hdtuto.com');
+      return view('flash');
+    }
+    public function print(Request $request)
+    {
+          $model_prefix="App\modeles";
+          $filename ; $pdf;
+          $modelName = $model_prefix.'\\'.$request->class_name;
+          $etablissement = Etablissement::first();
+          $date= Carbon::now()->format('d/m/Y'); //$consult  = $className::find($obj_id);
+          $obj=$modelName::find( $request->obj_id);
+          $etat=Etatsortie::find( $request->selectDocm );
+          switch($request->selectDocm) {
+            case "1":
+                $filename = "RSS-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
+                $pdf = PDF::loadView('hospitalisations.EtatsSortie.ResumeStandartSortiePDF', compact('etat','obj','etablissement'));
+                break;
+            case "2":
+                $filename = "RCS-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
+                $pdf = PDF::loadView('hospitalisations.EtatsSortie.ResumeCliniqueSortiePDF', compact('etat','obj','etablissement'));
+                break;
+            case "3":
+                $filename = "CM-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
+                $pdf = PDF::loadView('consultations.EtatsSortie.CertificatMedicalePDF', compact('etat','obj','date','etablissement'));
+                break;
+            case "4":
+                $filename = "CAM-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
+                $pdf = PDF::loadView('hospitalisations.EtatsSortie.AttestationContreAvisMedicalePDF', compact('etat','obj','date','etablissement'));
+                break;
+            case "5":
+                $filename = "CRO-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
+                $pdf = PDF::loadView('hospitalisations.EtatsSortie.CRHPDF', compact('etat','obj','date','etablissement'));
+                break;
+             case "6"://Certificat sejour
+                $filename = "CJ-". $obj->demandeHospitalisation->consultation->patient->Nom."-".$obj->demandeHospitalisation->consultation->patient->Prenom;
+                $pdf = PDF::loadView('admission.EtatsSortie.CertificatSejourPDF', compact('etat','obj','date','etablissement'));
+                break;
+            case "7"://Demande orientation
+                $filename = "DORT-".$obj->patient->Nom."-".$obj->patient->Prenom.".pdf";
+                $pdf = PDF::loadView('consultations.EtatsSortie.DemandeOrientationMedicalePDF', compact('etat','obj','date','etablissement'));
+                break;
+             case "8"://Bulltin Admission
+                if($request->class_name == "rdv_hospitalisation")
+                { 
+                  $patient = $obj->demandeHospitalisation->consultation->patient;
+                  $pdf = PDF::loadView('admission.EtatsSortie.BAPDF', compact('patient','etat','obj','date','etablissement'));
+                }else
+                {
+                  $patient = $obj->consultation->patient;
+                  $pdf = PDF::loadView('admission.EtatsSortie.BAPDFUrg', compact('patient','etat','obj','date','etablissement')); 
+                }
+                $filename = "BA-". $patient->Nom."-".$patient->Prenom;
+                break;
+            case "9"://Billet de salle
+                if($request->class_name == "rdv_hospitalisation")
+                { 
+                  $patient = $obj->demandeHospitalisation->consultation->patient;
+                  $pdf = PDF::loadView('admission.EtatsSortie.BSPDF', compact('patient','etat','obj','date','etablissement'));
+                }else
+                {
+                  $patient = $obj->consultation->patient;
+                  $pdf = PDF::loadView('admission.EtatsSortie.BSPDFUrg', compact('patient','etat','obj','date','etablissement')); 
+                }
+                $filename = "BA-". $patient->Nom."-".$patient->Prenom;
+                break;
+            default:
+                return response()->json(['html'=>"unknown"]);
+                break;
+          }
+          return $pdf->download($filename); 
     }
 }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class consultation extends Model
 {
     public $timestamps = false;
-    protected $fillable =['isOriented','lettreorientaioncontent','Motif_Consultation','histoire_maladie','Date_Consultation','Diagnostic',
+    protected $fillable =['isOriented','lettreorientaioncontent','motif','histoire_maladie','Date_Consultation','Diagnostic',
                           'id_code_sim','Resume_OBS','Employe_ID_Employe','Patient_ID_Patient','id_lieu'];//modeAdmission
     public function docteur()
     {
@@ -21,7 +21,6 @@ class consultation extends Model
     {
         return $this->hasOne('App\modeles\demandeexb','id_consultation');
     }
-   
     public function examensCliniques()
     {
         return $this->hasOne('App\modeles\examen_cliniqu','id_consultation');
@@ -40,7 +39,7 @@ class consultation extends Model
     }
     public function lieu()
     {
-        return $this->belongsTo('App\modeles\Lieuconsultation','id_lieu');
+        return $this->belongsTo('App\modeles\Etablissement','id_lieu');
     }
     public function demandeHospitalisation()
     {

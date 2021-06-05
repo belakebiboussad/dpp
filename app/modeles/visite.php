@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class visite extends Model
 {
-  //
-	public $timestamps = false;
+  public $timestamps = false;
   protected $fillable  = ['date','heure','id_hosp','id_employe'];
   public function hospitalisation()
   {
@@ -20,6 +19,14 @@ class visite extends Model
   public function traitements()
   {
     return $this->hasMany('App\modeles\Traitement','visite_id');
+  }
+  public function demandeexmbio()
+  {
+    return $this->hasOne('App\modeles\demandeexb','visite_id');
+  }
+  public function examensradiologiques()
+  {
+      return $this->hasOne('App\modeles\demandeexr','visite_id');
   }
   public function medecin(){
     return $this->belongsTo('App\modeles\employ','id_employe');

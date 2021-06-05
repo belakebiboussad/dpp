@@ -1,6 +1,18 @@
 @extends('app')
 @section('title','Rechercher un patient')
+@section('style')
+	<style>
+  #interactive.viewport {position: relative; width: 100%; height: auto; overflow: hidden; text-align: center;}
+  #interactive.viewport > canvas, #interactive.viewport > video {max-width: 100%;width: 100%;}
+  canvas.drawing, canvas.drawingBuffer {position: absolute; left: 0; top: 0;}
+  .controls .reader-config-group {
+  	float: left;
+	}
+	</style>
+@endsection
 @section('page-script')
+	<script src="{{asset('/js/quagga.min.js')}}"></script>
+	<script src="{{asset('/js/live_w_locator.js')}}"></script>
 <script>
 	function getPatientdetail(id)
 	{
@@ -52,45 +64,53 @@
 		{
 			var select = $('#'+field);
 			$("select option").filter(function() {
-			     return $(this).val() == value; 
+			  return $(this).val() == value; 
 			}).prop('selected', true);
 		}	
 	}
 	var field ="Dat_Naissance";
 	$(document).ready(function(){
 		$(document).on('click','.findptient',function(event){
+			var field ="Dat_Naissance";
 			event.preventDefault();
 			$('#btnCreate').removeClass('hidden');$('#FusionButton').removeClass('hidden');
 			$('#patientDetail').html('');$(".numberResult").html('');
+			$('.autofield').each(function() {
+	  	  if (this.value.trim()) { //value = this.value.trim();
+	    	  field = $(this).prop("id");
+	      	return false;
+	    	}
+	  	});
 			$.ajax({
 		        type : 'get',
 		        url : '{{URL::to('searchPatient')}}',
 		        data:{'field':field,'value':($('#'+field).val())},
 		        success:function(data,status, xhr){
-			     		$('#'+field).val('');	 field= "Dat_Naissance"; 
+			     		$('#'+field).val('');
+			     		field= "Dat_Naissance"; 
      			 		$(".numberResult").html(Object.keys(data).length);
-     			    $("#liste_patients").DataTable ({
-	     						"processing": true,
-		  				 		"paging":   true,
-		  				  	"destroy": true,
-		  						"ordering": true,
-		    					"searching":false,
-		    					"info" : false,
-		    					"responsive": true,
-		    					"language":{"url": '/localisation/fr_FR.json'},
-		   	 		    	"data" : data,
-			        		"columns": [
-										{ data:null,title:'#', "orderable": false,searchable: false,
+     			 	 	var table =   $("#liste_patients").DataTable ({
+	     					"processing": true,
+		  				 	"paging":   true,
+		  				  "destroy": true,
+		  					"ordering": true,
+		    				"searching":false,
+		    				"info" : false,
+		    				"language":{"url": '/localisation/fr_FR.json'},
+		   	 		    "data" : data,
+		   	 		    "scrollX": true,
+			        	"columns": [	
+											{ data:null,title:'#', "orderable": false,searchable: false,
 								    			render: function ( data, type, row ) {
-								                   		 if ( type === 'display' ) {
-								                        		return '<input type="checkbox" class="editor-active check" name="fusioner[]" value="'+data.id+'" onClick="return KeepCount()" /><span class="lbl"></span>';
-								                  		}
-								                   		 return data;
-								                	},
-								                	className: "dt-body-center",
-										},
-										{ data:'id',title:'ID', "visible": false},
-										{ data: 'Nom', title:'Nom' },
+			                   		if ( type === 'display' ) {
+			                        		return '<input type="checkbox" class="editor-active check" name="fusioner[]" value="'+data.id+'" onClick="return KeepCount()" /><span class="lbl"></span>';
+			                  		}
+			                   		 return data;
+								          },
+								          className: "dt-body-center",
+											},
+											{ data:'id',title:'ID', "visible": false},
+											{ data: 'Nom', title:'Nom' },
 		       								{ data: 'Prenom', title:'Prenom' },
 		       								{ data: 'IPP', title:'IPP'},
 		       			  					{ data: 'Dat_Naissance', title:'Né(e) le' },
@@ -108,15 +128,16 @@
 									  }
 		  		   			],
 				   			"columnDefs": [
-				   						{"targets": 2 ,  className: "dt-head-center" },//nom
-				   						{"targets": 3 ,  className: "dt-head-center" },
-				   						{"targets": 4 ,  className: "dt-head-center" },
-				   						{"targets": 5 ,  className: "dt-head-center" },
-				   						{"targets": 6 ,	"orderable": false, className: "dt-head-center" },
-								 		  {"targets": 7 ,	"orderable": false, className: "dt-head-center" },
-								 		  {"targets": 8 ,	"orderable":false,  className: "dt-head-center dt-body-center"	},
+				   						{"targets": 2 ,  className: "dt-head-center priority-1" },//nom
+				   						{"targets": 3 ,  className: "dt-head-center priority-2" },
+				   						{"targets": 4 ,  className: "dt-head-center priority-3" },
+				   						{"targets": 5 ,  className: "dt-head-center priority-4" },//date
+				   						{"targets": 6 ,	"orderable": false, className: "dt-head-center priority-5" },//sexe
+								 		  {"targets": 7 ,	"orderable": true, className: "dt-head-center priority-6"},//creele
+								 		  {"targets": 8 ,	"orderable":false,  className: "dt-head-center dt-body-center priority-7"},
 						   	],
 	    				});
+
      			},
      			error:function(){
      				console.log("error");
@@ -127,103 +148,83 @@
 </script>
 @endsection
 @section('main-content')
-<div class="page-content">
-	<div class="row panel panel-default" style ="margin-right:-35px;">
-		<div class="panel-heading left" style="height: 40px; font-size: 2.3vh;">
-			<strong>Rechercher un patient</strong>
-			<div class="pull-right" style ="margin-top: -0.5%;">
-				<a href="{{route('assur.index')}}" class ="btn btn-white btn-info btn-bold btn-xs">Rechercher un Fonctionnaire&nbsp;<i class="ace-icon fa fa-arrow-circle-right bigger-120 black"></i></a>
+	<div class="row">
+		<div class="col-sm-12 col-md-12">
+			<div class="panel panel-default">
+			<div class="panel-heading left"> 
+				<H4><strong>Rechercher un patient</strong></H4>
+				<div class="pull-right">
+					<a href="{{route('assur.index')}}" class ="btn btn-white btn-info btn-bold btn-xs">Rechercher un Fonctionnaire&nbsp;<i class="ace-icon fa fa-arrow-circle-right bigger-120 black"></i></a>
+				</div>
 			</div>
-		</div>
-		<div class="panel-body">
-			<div class="row">
-				<div class="col-sm-2">
-		      <div class="form-group">
-		       	<label class="control-label" for="Nom" ><strong>Nom:</strong></label>
-						<div class="input-group">
-							<input type="text" class="form-control input-sx autofield" id="Nom" name="Nom" placeholder="nom du patient..." autofocus/>
-							<span class="glyphicon glyphicon-search form-control-feedback"></span>
-				    </div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-3">
+			      <div class="form-group"><label class="control-label" for="Nom" ><strong>Nom:</strong></label>
+							<div class="input-group col-sm-12 col-xs-12">
+								<input type="text" class="form-control autofield" id="Nom" name="Nom" placeholder="nom du patient..." autofocus/>
+								<span class="glyphicon glyphicon-search form-control-feedback"></span>
+					    </div>
+						</div>
 					</div>
-				</div>
-				<div class="col-sm-2 col-md-offset-1">
-					<div class="form-group">
-						<label class="control-label" for="Prenom" ><strong>Prénom:</strong></label> 
-						<div class="input-group">
-					  	<input type="text" class="form-control input-sx autofield" id="Prenom" name="Prenom"  placeholder="prenom du patient..."> 
-					  	<span class="glyphicon glyphicon-search form-control-feedback"></span>
-		   			</div>		
+					<div class="col-sm-3"><!-- col-md-offset-1 col-sm-offset-1 -->
+						<div class="form-group"><label class="control-label" for="Prenom" ><strong>Prénom:</strong></label> 
+							<div class="input-group col-sm-12 col-xs-12">
+						  	<input type="text" class="form-control autofield" id="Prenom" name="Prenom"  placeholder="prenom du patient..."> 
+						  	<span class="glyphicon glyphicon-search form-control-feedback"></span>
+			   			</div>		
+						</div>
 					</div>
-				</div>
-				<div class="col-sm-2 col-md-offset-1">
-					<div class="form-group">
-						<label class="control-label" for="Dat_Naissance" ><strong>Né(e):</strong></label>
-						<div class="input-group">
-							<input type="text" class="form-control input-sx tt-input date-picker" id="Dat_Naissance" name="Dat_Naissance"	data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" data-toggle="tooltip" data-placement="left" title="Date Naissance">
-							<span class="glyphicon glyphicon-search form-control-feedback"></span>
+					<div class="col-sm-3"><!-- col-md-offset-1 col-sm-offset-1 -->
+						<div class="form-group"><label class="control-label" for="Dat_Naissance" ><strong>Né(e):</strong></label>
+							<div class="input-group col-sm-12 col-xs-12">
+								<input type="text" class="form-control date-picker" id="Dat_Naissance" name="Dat_Naissance"	data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" data-toggle="tooltip" data-placement="left" title="Date Naissance">
+								<span class="glyphicon glyphicon-search form-control-feedback"></span>
+							</div>		
+						</div>
+					</div>
+					<div class="col-sm-3"><!-- col-md-offset-1 col-sm-offset-1 -->
+						<div class="form-group"><label class="control-label" for="IPP" ><strong>IPP:</strong></label>
+						 <div class="input-group col-sm-12 col-xs-12">
+							<input id="IPP" name="IPP" class="form-control autofield" placeholder="IPP du patient..." type="text" data-toggle="tooltip" data-placement="left" title="Code IPP du patient"/> 
+							<span class="input-group-btn"> 
+								<button class="btn btn-default" type="button" data-toggle="modal" data-target="#livestream_scanner">
+									<i class="fa fa-barcode"></i>
+								</button> 
+							</span>
+						</div>
+					
 						</div>		
 					</div>
 				</div>
-				<div class="col-sm-2 col-md-offset-1">
-					<div class="form-group">
-						<label class="control-label" for="IPP" ><strong>IPP:</strong></label>
-						<div class="input-group">
-							<input type="text" class="form-control input-sx tt-input autofield" id="IPP" name="IPP"  placeholder="IPP du patient..." data-toggle="tooltip" data-placement="left" title="Code IPP du patient">
-				   	  <span class="glyphicon glyphicon-search form-control-feedback"></span>
-						</div>		
-					</div>		
-				</div>
+			</div>  {{-- body --}}
+			<div class="panel-footer" style="height: 50px;">
+		   	<button type="submit" class="btn btn-sm btn-primary findptient " style="vertical-align: middle"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+				<div class="pull-right">
+					<button type="button" class="btn btn-danger btn-sm hidden invisible" id="FusionButton"  onclick ="doMerge();"data-toggle="modal" data-target="#mergeModal" data-backdrop="false" hidden><i class="fa fa-angle-right fa-lg"></i><i class="fa fa-angle-left fa-lg"></i>&nbsp;Fusion</button>
+					<a class="btn btn-primary btn-sm hidden" href="patient/create" id="btnCreate" role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>
+				</div>		
 			</div>
-		</div>  {{-- body --}}
-		<div class="panel-footer" style="height: 50px;">
-	   	<button type="submit" class="btn btn-sm btn-primary findptient " style="vertical-align: middle"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
-			<div class="pull-right">
-				<button type="button" class="btn btn-danger btn-sm hidden invisible" id="FusionButton"  onclick ="doMerge();"data-toggle="modal" data-target="#mergeModal" data-backdrop="false" hidden><i class="fa fa-angle-right fa-lg"></i><i class="fa fa-angle-left fa-lg"></i>&nbsp;Fusion</button>
-				<a class="btn btn-primary btn-sm hidden" href="patient/create" id=btnCreate role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>
-			</div>		
-		</div>
- 	</div><!-- panel -->
+	 	</div><!-- panel -->
+		</div>		
+	</div>
  	<div class="row">
 		<div class="col-md-7 col-sm-7">
 			<div class="widget-box transparent">
 				<div class="widget-header widget-header-flat widget-header-small">
-					<h5 class="widget-title"><i class="ace-icon fa fa-user"></i>
-					Résultats:</h5><label><span class="badge badge-info numberResult"></span></label>
+					<h5 class="widget-title"><i class="ace-icon fa fa-user"></i>Résultats:</h5><label><span class="badge badge-info numberResult"></span></label>
 				</div>
 				<div class="widget-body">
-					<div class="widget-main no-padding">
-						<table id="liste_patients" class="display table-responsive" width="100%"></table>
-					</div>
+					<div class="widget-main no-padding"><table id="liste_patients" class="display responsive nowrap" cellspacing="0" width="100%"></table></div>
 				</div>	
 			</div>
-		</div>{{-- col-sm-7 --}}
-		<div class="hidden-xs hidden-sm col-md-5 col-sm-5"> <br>
-		  <div class="widget-box transparent" id="patientDetail" style ="margin-top: 14px;"></div>		
-		</div>
+		</div>{{-- col-sm-7 --}}<!-- hidden-xs hidden-sm  -->
+		<div class="col-md-5 col-sm-5 widget-box transparent"  id="patientDetail">
+		</div>		
+		  
 	</div>{{-- row --}}
 	<div class="row">
-		<div  id="mergeModal" class="modal fade" role="dialog" aria-hidden="true"> 
-		  <div class="modal-dialog modal-ku">
-			  <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal">&times;</button>
-		        <h4 class="modal-title">Merger les données des Patients :</h4>
-		      </div>
-		      <div class="modal-body">
-		      	<p class="center">êtes-vous sûr de vouloir de vouloire merger les deux patients ?</p>
-						<p> <span  style="color: red;">mergé les patient est permanent et ne  peut pas  étre refait !!</span></p>
-		   			<form id="form-merge" class="form-horizontal" role="form" method="POST" action="{{ url('/patient/merge') }}">	
-		      	  {{ csrf_field() }}
-			      	<div id="tablePatientToMerge"></div>
-			        <div class="modal-footer">
-			        	<button type="button" class="btn btn-default" data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-120"></i>Fermer</button>
-			        	<button  type="submit" class="btn btn-success"><i class="ace-icon fa fa-check bigger-120"></i>Valider</button>
-			      	</div> 	
-		        </form>
-		       </div>
-		    </div>  	{{-- modal-content --}}
-		  </div>
-		</div>
+	@include('patient.ModalFoms.mergeModal')
+	@include('patient.ModalFoms.scanbarCodeModal')
 	</div>{{-- row --}}
-</div>
 @endsection

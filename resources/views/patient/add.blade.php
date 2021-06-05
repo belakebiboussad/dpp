@@ -33,8 +33,7 @@
 						{
 						  activaTab("Assure");
 					  	event.preventDefault();
-						}
-						else
+						}else
 						{
 							if($('#hommeConf').is(':checked')){
 							if( ! checkHomme() )
@@ -79,8 +78,8 @@
 				@if (count($errors) > 0)
 				  <div class="alert alert-danger">
 						<ul>
-						 @foreach ($errors->all() as $error)
-					 	           <li>{{ $error }}</li>
+						@foreach ($errors->all() as $error)
+					 	  <li>{{ $error }}</li>
 						@endforeach
 						</ul>
 					</div>
@@ -89,7 +88,7 @@
 			</div>
 	    		<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
 			   	<li class="active">
-			   		<a data-toggle="tab" href="#Assure" class="jumbotron" onclick="copyPatientInfo();"><span class="bigger-130"><strong>Assuré(e)</strong></span>
+			   		<a data-toggle="tab" href="#Assure" class="jumbotron" onclick="copyPatientInfo(null);"><span class="bigger-130"><strong>Assuré(e)</strong></span>
 			    		</a>
 				</li>
 				<li ><a class="jumbotron" data-toggle="tab" href="#Patient"><span class="bigger-130"><strong>Patient</strong></span></a>

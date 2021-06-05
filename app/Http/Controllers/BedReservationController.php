@@ -9,7 +9,10 @@ use App\modeles\service;
 use App\modeles\BedReservation;
 class BedReservationController extends Controller
 {
-   //
+	 public function __construct()
+      {
+          $this->middleware('auth');
+      }
 	public function index()
 	{
 		$tomorrow = date("Y-m-d", strtotime('now'));// $tomorrow = date("Y-m-d", strtotime('tomorrow'));
@@ -18,12 +21,6 @@ class BedReservationController extends Controller
 																			$q->doesntHave('bedAffectation')->where('service',Auth::user()->employ->service);    
 																		})->where('date_RDVh','>=',$tomorrow)->where('etat_RDVh','=',null)->get();
 		return view('reservation.index', compact('rdvs','services'));
-	}
-	public function create(Request $request)
-	{
-		if($request->ajax())  
-    {
-    }
 	}
 	public function store(Request $request)
 	{

@@ -1,4 +1,4 @@
-<div class="modal fade" id="RDV" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+<div class="modal fade" id="RDV" role="dialog" aria-hidden="true" data-backdrop="false">
   <div class="modal-dialog  modaldialog modal-lg" >
     <div class="modal-content">
       <div class="modal-header">
@@ -8,12 +8,9 @@
       <div class="modal-body bodyodal">
         <div class="row">
           <div class="col-md-12">
-            <div class="panel panel-default">
-              &nbsp;&nbsp;&nbsp;&nbsp; 
+            <div class="panel panel-default"> &nbsp;&nbsp;&nbsp;&nbsp; 
               <div class="panel-heading" style="margin-top:-20px"> <div class="left"></div></div>
-              <div class="panel-body">
-                <div class="calendar1" id="calendar1"></div>
-                </div>
+              <div class="panel-body"><div class="calendar1" id="calendar1"></div> </div>
               <div class="panel-footer">
                 <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><strong>&nbsp;RDV fixe</strong></span>
                 <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><strong>&nbsp;RDV à fixer</strong></span> 
@@ -25,23 +22,21 @@
     </div>
   </div>
 </div>
-<div class="modal fade" id="fullCalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
-          <h5 class="modal-title" id="myModalLabel">
-            <span class="glyphicon glyphicon-bell"></span>&nbsp;Modifierrr le Rendez-Vous du <i class="ace-icon fa fa-angle-double-left" style="font-size:20px;"></i>
-            <a href="" id="lien" style="color: inherit;"><span id="patient"></span></a> <i class="ace-icon fa fa-angle-double-right" style="font-size:20px;"></i>
-          </h5><hr>
-        </div>
-        <div class="modal-body">
-          <div class="space-12"></div>
+<div class="modal fade" id="fullCalModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+        <h5 class="modal-title" id="myModalLabel">
+          <span class="glyphicon glyphicon-bell"></span>&nbsp;Modifier le Rendez-Vous du <q><a href="" id="lien" style="color: inherit;"></a></q>
+        </h5><hr>
+      </div>
+      <div class="modal-body"><div class="space-12"></div>
           <div class="row">
             <div class="col-sm-6">    
               <i class="fa fa-phone" aria-hidden="true"></i><strong>Téléphone:&nbsp;</strong><span id="patient_tel" class="green"></span>
             </div>
-            <div class="col-sm-6"><strong>Age:&nbsp;</strong>  <span id="agePatient" class="blue"></span><small>Ans</small></div>
+            <div class="col-sm-6"><strong>Age:&nbsp;</strong><span id="agePatient" class="blue"></span><small>Ans</small></div>
           </div>
           <div class="space-12"></div>
           <div class="row">   
@@ -77,16 +72,16 @@
     <div class="modal-footer">
       @if(Auth::user()->role->id == 1)
         @if( empty($patient))
-          <a type="button" id="btnConsulter" class="btn btn btn-sm btn-primary" href="" > <i class="fa fa-file-text" aria-hidden="true"></i> Consulter </a>
+          <a type="button" id="btnConsulter" class="btn btn btn-sm btn-primary"><i class="fa fa-file-text" aria-hidden="true"></i> Consulter </a>
          @endif
-        @if(Auth::user()->role->id  != 2) 
-            <button type="button" id ="updateRDV" class="btn btn-sm btn-primary" type ="submit"><i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer
+        @if(Auth::user()->role->id  != 2)  
+          <button type="button" id ="updateRDV" class="btn btn-sm btn-primary" type ="submit"><i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer
         </button>
-        @endif
-      <a  href ="#" id="printRdv" class="btn btn-success btn-sm"  data-dismiss="modal"> <i class="ace-icon fa fa-print"></i>Imprimer </a>
-       <a href="#"  id="btnRdvDelete" class="btn btn-bold btn-sm btn-danger" data-method="DELETE" data-dismiss="modal" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?">  <i class="fa fa-trash" aria-hidden="true"></i> Annuler
+      @endif
+      <a href ="#" id="printRdv" class="btn btn-success btn-sm"  data-dismiss="modal"> <i class="ace-icon fa fa-print"></i>Imprimer </a>
+      <a href="#"  id="btnRdvDelete" class="btn btn-bold btn-sm btn-danger" data-method="DELETE" data-dismiss="modal" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?">  <i class="fa fa-trash" aria-hidden="true"></i> Annuler
       </a>
-      <button type="button" class="btn btn-sm btn-default" id ="btnclose" data-dismiss="modal" onclick="$('#updateRDV').addClass('invisible');">
+      <button type="button" class="btn btn-sm btn-default" id ="btnclose" data-dismiss="modal"><!-- onclick="$('#updateRDV').addClass('invisible');" -->
            <i class="fa fa-close" aria-hidden="true" ></i> Fermer
       </button>
      @endif
