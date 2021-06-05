@@ -99,11 +99,8 @@
         </li>
         @endif
        {{--  <li><a href="#" class="dropdown-toggle">
-            <i class="menu-icon fa fa-stethoscope"></i><span class="menu-text">visites & Contrôle</span> <b class="arrow fa fa-angle-down"></b>
-          </a><b class="arrow"></b>
-          <ul class="submenu">
-            <li><a href="/choixpatvisite"><i class="menu-icon fa fa-plus purple"></i>Ajouter visite & Contrôles</a><b class="arrow"></b></li>
-          </ul></li> --}}
+            <i class="menu-icon fa fa-stethoscope"></i><span class="menu-text">visites & Contrôle</span> <b class="arrow fa fa-angle-down"></b></a><b class="arrow"></b> <ul class="submenu">
+            <li><a href="/choixpatvisite"><i class="menu-icon fa fa-plus purple"></i>Ajouter visite & Contrôles</a><b class="arrow"></b></li></ul></li> --}}
         <li>
           <a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-file-o"></i><span class="menu-text">Demandes Hosp</span>
             <b class="arrow fa fa-angle-down"></b>
@@ -185,63 +182,63 @@
       }
       function checkAssure()
       {
-        var erreur =true;//var NMGSN = $('#NMGSN').val();var idlieunaissancef = $('#idlieunaissancef').val();"Lieu de Naissance",
-        var nomf = $('#nomf').val(); var prenomf = $('#prenomf').val();  var datenaissance = $('#datenaissancef').val(); 
-        var nss = $('#nss').val(); var position = $('#Position').val();//var inputAssVal = new Array(nss,gsf,idlieunaissancef,datenaissance,prenomf,nomf);
-        var inputAssVal = new Array(nss,position,gsf,prenomf,nomf);//var inputMessage = new Array("Numèro de Secruté Social","Groupe Sanguin","Date de Naissance","Prenom","Nom");
-        var inputMessage = new Array("Numèro de Secruté Social","position","Groupe Sanguin","Prenom","Nom");
-        $('.error').each(function(i, obj) { $(obj).next().remove(); $(obj).detach();  });
-        jQuery.each( inputAssVal, function( i, val ) {
-          if(val =="" )
-          {
-             erreur =false;
-             $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
-          }
-       });
-       return erreur;
+            var erreur =true;//var NMGSN = $('#NMGSN').val();var idlieunaissancef = $('#idlieunaissancef').val();"Lieu de Naissance",
+            var nomf = $('#nomf').val(); var prenomf = $('#prenomf').val();  var datenaissance = $('#datenaissancef').val(); 
+            var nss = $('#nss').val(); var position = $('#Position').val();//var inputAssVal = new Array(nss,gsf,idlieunaissancef,datenaissance,prenomf,nomf);
+            var inputAssVal = new Array(nss,position,gsf,prenomf,nomf);//var inputMessage = new Array("Numèro de Secruté Social","Groupe Sanguin","Date de Naissance","Prenom","Nom");
+            var inputMessage = new Array("Numèro de Secruté Social","position","Groupe Sanguin","Prenom","Nom");
+            $('.error').each(function(i, obj) { $(obj).next().remove(); $(obj).detach();  });
+            jQuery.each( inputAssVal, function( i, val ) {
+              if(val =="" )
+              {
+                 erreur =false;
+                 $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
+              }
+           });
+           return erreur;
       }
       function  checkHomme(){
-          var erreur =true;
-          var nomA = $('#nomA').val();var prenomA = $('#prenomA').val();
-          var type_piece_id = $('#type_piece_id').val();var npiece_id = $('#npiece_id').val();mobileA = $('#mobileA').val();
-          var inputHomVal = new Array(npiece_id,mobileA,type_piece_id,prenomA,nomA);
-          var inputHomMessage = new Array("Numero de la Pièce","Type de la Pièce","Telephone mobile","Prenom","Nom");
-          $('.error').each(function(i, obj) {
-                $(obj).next().remove();
-                $(obj).detach();
-         });
-          jQuery.each( inputHomVal, function( i, val ) {
-               if(val =="" )
-              {
-                     erreur =false;
-                    $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputHomMessage[i]+' du Correspondant</span>'+'<br/>');
-               }
-          });   
-         return erreur;
+              var erreur =true;
+              var nomA = $('#nomA').val();var prenomA = $('#prenomA').val();
+              var type_piece_id = $('#type_piece_id').val();var npiece_id = $('#npiece_id').val();mobileA = $('#mobileA').val();
+              var inputHomVal = new Array(npiece_id,mobileA,type_piece_id,prenomA,nomA);
+              var inputHomMessage = new Array("Numero de la Pièce","Type de la Pièce","Telephone mobile","Prenom","Nom");
+              $('.error').each(function(i, obj) {
+                    $(obj).next().remove();
+                    $(obj).detach();
+             });
+            jQuery.each( inputHomVal, function( i, val ) {
+                 if(val =="" )
+                {
+                       erreur =false;
+                      $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputHomMessage[i]+' du Correspondant</span>'+'<br/>');
+                 }
+            });   
+           return erreur;
       }
       function checkConsult()
       {
-        var erreur =true;
-        var motif = $('#motif').val();  var resume = $('#resume').val();
-        var inputAssVal = new Array(resume,motif);
-        var inputMessage = new Array("Résume","Motif");
-        if($('#' + 'isOriented').is(":checked"))
-        {
-          inputAssVal.unshift($("#lettreorientaioncontent").val());
-          inputMessage.unshift("Résume de la lettre d'orientation");   
-        }
-        $('.error').each(function(i, obj) {
-          $(obj).next().remove();
-          $(obj).detach();
-       });
-        jQuery.each( inputAssVal, function( i, val ) {
-          if(val =="" )
-          {
-            erreur =false;
-            $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' de la Consultation </span>'+'<br/>');
-          }
-       });
-       return erreur;
+            var erreur =true;
+            var motif = $('#motif').val();  var resume = $('#resume').val();
+            var inputAssVal = new Array(resume,motif);
+            var inputMessage = new Array("Résume","Motif");
+            if($('#' + 'isOriented').is(":checked"))
+            {
+              inputAssVal.unshift($("#lettreorientaioncontent").val());
+              inputMessage.unshift("Résume de la lettre d'orientation");   
+            }
+            $('.error').each(function(i, obj) {
+              $(obj).next().remove();
+              $(obj).detach();
+           });
+            jQuery.each( inputAssVal, function( i, val ) {
+              if(val =="" )
+              {
+                erreur =false;
+                $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' de la Consultation </span>'+'<br/>');
+              }
+           });
+           return erreur;
       }
       function activaTab(tab){
         $('.nav-pills a[href="#' + tab + '"]').tab('show');
@@ -358,29 +355,29 @@
       }
       function getProducts(id_gamme, id_spec=0,med_id = 0)
       {
-          var html = '<option value="0">Sélectionner...</option>';
-          $.ajax({
-              url : '/getproduits/'+id_gamme+'/'+id_spec,
-              type : 'GET',
-              dataType : 'json',
-              success : function(data){
-                  $.each(data, function(){
-                    html += "<option value='"+this.id+"'>"+this.nom+"</option>";
-                  });
-                  $('#produit').html(html);
-                  if(med_id != 0)
-                    $('#produit').val(med_id);
-              },
-              error : function(){
-                  console.log('error');
-              }
-          });
+            var html = '<option value="0">Sélectionner...</option>';
+            $.ajax({
+                  url : '/getproduits/'+id_gamme+'/'+id_spec,
+                  type : 'GET',
+                  dataType : 'json',
+                  success : function(data){
+                          $.each(data, function(){
+                                   html += "<option value='"+this.id+"'>"+this.nom+"</option>";
+                          });
+                         $('#produit').html(html);
+                          if(med_id != 0)
+                              $('#produit').val(med_id);
+                         },
+                        error : function(){
+                            console.log('error');
+                        }
+              });
       }
       function addCIMCode(code,field)
       {
-        $("#"+field).val(code);
-        $('#liste_codesCIM').empty();  $("#chapitre").val($("#chapitre option:first").val());$("#schapitre").val($("#schapitre option:first").val());
-        $('#cim10Modal').trigger("reset");$('#cim10Modal').modal('toggle');  
+            $("#"+field).val(code);
+            $('#liste_codesCIM').empty();  $("#chapitre").val($("#chapitre option:first").val());$("#schapitre").val($("#schapitre option:first").val());
+            $('#cim10Modal').trigger("reset");$('#cim10Modal').modal('toggle');  
       }
       function createexbio(nomp,prenomp,age,ipp){  
         var img = new Image();
@@ -389,8 +386,8 @@
            createexbioF(img,nomp,prenomp,age,ipp);
         };
       }
-      function createexbioF(image,nomp,prenomp,age,ipp){ 
-        html2canvas($("#dos"), {
+      function createexbioFOrg(image,nomp,prenomp,age,ipp){ 
+        html2canvas($("#dos")[0], {
           onrendered: function(canvas) {
               moment.locale('fr');//var IPP = ipp.toString();
               var formattedDate = moment(new Date()).format("l");                     
@@ -400,7 +397,7 @@
               doc.text(105,16,'{{ Session::get('etabname') }}'.replace(/&quot;/g,'"'), null, null, 'center');
               doc.setFontSize(12);
               doc.text(105,21,'{{ Session::get('etabAdr') }}', null, null, 'center');
-              doc.text(105,26, 'Tél : {{ Session::get("etabTel") }} - {{ Session::get("etabTel") }}', null, null, 'center');//doc.text(105,26, 'Tél : 023-93-34 - 23-93-58', null, null, 'center');
+              doc.text(105,26, 'Tél : {{ Session::get("etabTel") }} - {{ Session::get("etabTel") }}', null, null, 'center');
               doc.addImage(image, 'JPEG', 95, 27, 20, 20);
               doc.setFontSize(14);
               JsBarcode("#itf", ipp.toString(), {
@@ -431,50 +428,68 @@
               doc.save('ExamBiolo-'+nomp+'-'+prenomp+'.pdf');
           }
         });    
-    }
-    
-    function createeximgF(image,nomp,prenomp,age,ipp)
-    { 
-      html2canvas($("#dos"), {
-          onrendered: function(canvas) {         
-            moment.locale('fr');
-            var formattedDate = moment(new Date()).format("l");
-            var doc = new jsPDF('p', 'mm');//JsBarcode("#itf",IPP); //bonne
-            JsBarcode("#itf", ipp.toString(), {
-              lineColor: "#000",
-              width:4,
-              height:40,
-              displayValue: true,
-              text:"IPP :"+ipp.toString(),
-              fontSize : 28,
-              textAlign: "left"
-            });
-            const img = document.querySelector('img#itf');
-            doc.text(105, 9,'{{ Session::get('etabTut') }}', null, null, 'center');
-            doc.setFontSize(13);
-            doc.text(105,16, '{{ Session::get('etabname') }}'.replace(/&quot;/g,'"'), null, null, 'center');
-            doc.setFontSize(12);
-            doc.text(105,21, '{{ Session::get('etabAdr') }}', null, null, 'center');
-            doc.text(105,26, 'Tél : {{ Session::get('etabTel') }} - {{ Session::get('etabTel2') }}', null, null, 'center');
-            doc.addImage(image, 'JPEG', 95, 27, 23, 23);
-            doc.setFontSize(14);
-            doc.text(200,60, formattedDate , null, null, 'right'); 
-            doc.text(10,63, 'Nom : '+nomp, null, null);
-            doc.text(10,68, 'Prénom : '+prenomp, null, null);
-            doc.text(10,73, 'Age : '+ age+' ans', null, null);
-            doc.addImage(img.src, 'JPEG', 10, 75, 50, 15);
-            doc.text(10,110, 'Prière de faire', null, null);
-            doc.setFontSize(16);
-            doc.text(50,125,'Examens Radiologiques Demandées :',null,null)
-            var res = doc.autoTableHtmlToJson(document.getElementById('ExamsImgtab'));
-            var height = doc.internal.pageSize.height;
-            doc.autoTable(res.columns, res.data, {
-              startY: 135,
-            });
-            doc.setFontSize(12);
-            doc.text(100,273, 'Docteur : {{ Auth::user()->employ->nom}} {{ Auth::user()->employ->prenom}}', null, null); 
-            doc.save('ExamRadio-'+nomp+'-'+prenomp+'.pdf');
-          }
+      }
+      function createeximgF(image,nomp,prenomp,age,ipp)
+      {
+            $( "#ExamsImgtab" ).clone().appendTo( "#imgExams" );
+            $('#ExamsImgtab tr').find('th:last-child, td:last-child').remove()
+            $("#imagExamsPdf").removeClass('invisible'); 
+             var element = document.getElementById('imagExamsPdf');
+              var options = {
+                      filename: 'a.pdf'
+            };
+             var exporter = new html2pdf(element, options);
+            $("#imagExamsPdf").addClass('invisible');
+            exporter.getPdf(true).then((pdf) => {// Download the PDF or...
+                     console.log('pdf file downloaded');
+             });
+            exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it
+                     console.log('doing something before downloading pdf file');
+                    pdf.save();
+             });
+      }
+       function createeximgFOrg(image,nomp,prenomp,age,ipp)
+      { 
+            html2canvas($("#dos")[0], {
+                onrendered: function(canvas) {         
+                  moment.locale('fr');
+                  var formattedDate = moment(new Date()).format("l");
+                  var doc = new jsPDF('p', 'mm');//JsBarcode("#itf",IPP); //bonne
+                    JsBarcode("#itf", ipp.toString(), {
+                          lineColor: "#000",
+                          width:4,
+                          height:40,
+                          displayValue: true,
+                          text:"IPP :"+ipp.toString(),
+                          fontSize : 28,
+                          textAlign: "left"
+                  });
+                  const img = document.querySelector('img#itf');
+                  doc.text(105, 9,'{{ Session::get('etabTut') }}', null, null, 'center');
+                  doc.setFontSize(13);
+                  doc.text(105,16, '{{ Session::get('etabname') }}'.replace(/&quot;/g,'"'), null, null, 'center');
+                  doc.setFontSize(12);
+                  doc.text(105,21, '{{ Session::get('etabAdr') }}', null, null, 'center');
+                  doc.text(105,26, 'Tél : {{ Session::get('etabTel') }} - {{ Session::get('etabTel2') }}', null, null, 'center');
+                  doc.addImage(image, 'JPEG', 95, 27, 23, 23);
+                  doc.setFontSize(14);
+                  doc.text(200,60, formattedDate , null, null, 'right'); 
+                  doc.text(10,63, 'Nom : '+nomp, null, null);
+                  doc.text(10,68, 'Prénom : '+prenomp, null, null);
+                  doc.text(10,73, 'Age : '+ age+' ans', null, null);
+                  doc.addImage(img.src, 'JPEG', 10, 75, 50, 15);
+                  doc.text(10,110, 'Prière de faire', null, null);
+                  doc.setFontSize(16);
+                  doc.text(50,125,'Examens Radiologiques Demandées :',null,null)
+                  var res = doc.autoTableHtmlToJson(document.getElementById('ExamsImgtab'));
+                  var height = doc.internal.pageSize.height;
+                  doc.autoTable(res.columns, res.data, {
+                      startY: 135,
+                  });
+                  doc.setFontSize(12);
+                  doc.text(100,273, 'Docteur : {{ Auth::user()->employ->nom}} {{ Auth::user()->employ->prenom}}', null, null); 
+                  doc.save('ExamRadio-'+nomp+'-'+prenomp+'.pdf');
+            }
       });
     }
     function lettreoriet(logo,nomP,prenomP,ageP,ipp)

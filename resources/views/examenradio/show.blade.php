@@ -76,18 +76,18 @@
 			      <div class="widget-body">
 			        <div class="widget-main">
 			         <table class="table table-striped table-bordered">
-			            <thead>
+			             <thead>
 			              <tr>
-			                <th class="center" width="5%">#</th>
-			                <th class="center" width="40%">Nom</th>
-			                <th class="center" width="5%"><strong>Type</strong></th>
-			                <th class="center" width="20%"><strong>Résultat</strong></th>
-			                <th class="center" width="20%"><strong><em class="fa fa-cog"></em></strong></th>
+			                	<th class="center" width="5%">#</th>
+			               	 <th class="center" width="40%">Nom</th>
+			               	 <th class="center" width="5%"><strong>Type</strong></th>
+			                	<th class="center" width="20%"><strong>Résultat</strong></th>
+			                	<th class="center" width="20%"><strong><em class="fa fa-cog"></em></strong></th>
 			              </tr>
 			            </thead>
 			            <tbody>
-			               @foreach ($demande->examensradios as $index => $examen)
-			                <tr id = "{{ $examen->id }}">
+			               	@foreach ($demande->examensradios as $index => $examen)
+			                 <tr id = "{{ $examen->id }}">
 			                  <td class="center" width="5%">{{ $index }}</td>
 			                  <td>{{ $examen->nom }}</td>
 			                  <td>
@@ -96,7 +96,7 @@
 			                    <span class="badge badge-success">{{ App\modeles\TypeExam::FindOrFail($id)->nom}}</span>
 			                    @endforeach
 			                  </td>
-			                  <td>
+			                  <td >
 			                  <table width="100%" height="100%" class="table">
 			                  	@if($examen->pivot->etat == "1")
 			                      @foreach (json_decode($examen->pivot->resultat) as $k=>$f)
@@ -107,19 +107,19 @@
 			                    @endif
 			                    </table>
 			                  </td>
-			                  <td class="center" width="15%">
+			                  <td class="center" width="20%">
 			                    <table width="100%" height="100%" class="table">
-			                    @if($examen->pivot->etat == "1")
-			                      @foreach (json_decode($examen->pivot->resultat) as $k=>$f)
-			                      <tr><!-- <td width="70%">{{-- $f --}}</td> -->
-			                        <td width="100%">
-			                        <button type="submit" class="btn btn-info btn-xs open-modal" value="{{ $examen->pivot->id_examenradio."/".$f }}"><i class="ace-icon fa fa-eye-slash"></i></button>
-			                        <a href='/Patients/{{$patient->id}}/examsRadio/{{$demande->id}}/{{$examen->pivot->id_examenradio}}/{{ $f }}' class="btn btn-success btn-xs" target="_blank"><i class="fa fa-download"></i></a>
-			                        @isset($examen->pivot->crr_id)
-						  	<a href="{{ route('crrs.download',$examen->pivot->crr_id )}}" title="télecharger le compte rendu" class="btn btn-default btn-xs" target="_blank"><i class="fa fa-download"></i>CRR</a>
-						  	@endisset 
-			                        </td>
-			                      </tr>
+			                 	@if($examen->pivot->etat == "1")
+			                   		 @foreach (json_decode($examen->pivot->resultat) as $k=>$f)
+			                      	<tr><!-- <td width="70%">{{-- $f --}}</td> -->
+			                        		<td width="100%">
+			                       		 <button type="submit" class="btn btn-info btn-xs open-modal" value="{{ $examen->pivot->id_examenradio."/".$f }}"><i class="ace-icon fa fa-eye-slash"></i></button>
+			                        		<a href='/Patients/{{$patient->id}}/examsRadio/{{$demande->id}}/{{$examen->pivot->id_examenradio}}/{{ $f }}' class="btn btn-success btn-xs" target="_blank"><i class="fa fa-download"></i></a>
+			                        		@isset($examen->pivot->crr_id)
+						  			<a href="{{ route('crrs.download',$examen->pivot->crr_id )}}" title="télecharger le compte rendu" class="btn btn-default btn-xs" target="_blank"><i class="fa fa-download"></i>CRR</a>
+						  		@endisset 
+			                         		</td>
+			                      	</tr>
 			                      @endforeach
 				                  @elseif($examen->pivot->etat == "0")
 			                      <span class="badge badge-danger">Annuler</span>
@@ -135,20 +135,20 @@
 			                @if($examen->pivot->etat == "0")
 			                <tr class="collapse out budgets {{$index}}collapsed">
 			                	<td colspan="12">
-										   		<div class="table-detail">
-										   			<div class="row">
-										     			<div class="col-xs-6 col-sm-6">
-																<div class="space visible-xs"></div>
-																<div class="profile-user-info profile-user-info-striped">
-																	<div class="profile-info-row">
-																		<div class="profile-info-name text-center"><strong>Observation:</strong></div>
-																		<div class="profile-info-value"> <span>{{ $examen->pivot->observation }} </span></div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-												</td>
+				   		<div class="table-detail">
+				   			<div class="row">
+				     			<div class="col-xs-6 col-sm-6">
+										<div class="space visible-xs"></div>
+										<div class="profile-user-info profile-user-info-striped">
+											<div class="profile-info-row">
+												<div class="profile-info-name text-center"><strong>Observation:</strong></div>
+												<div class="profile-info-value"> <span>{{ $examen->pivot->observation }} </span></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</td>
 								      </tr>
 			                @endif
 			                @endforeach

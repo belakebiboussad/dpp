@@ -56,8 +56,7 @@ class CRRControler extends Controller
              $path_img = 'data:image/' . $extencion . ';base64,' . $img_base_64;
              return view('examenradio.EtatsSortie.crr',compact('indication','techRea','result','conclusion','etablissement','path_img'))->render();/*$demande = demandeexr::FindOrFail($request->id);   if(isset($demande->consultation))  $patient = $demande->consultation->patient; else $patient = $demande->visite->hospitalisation->patient;$filename = "CRR-".$patient->Nom."-".$patient->Prenom.".pdf";$crr = new CRR;   $crr->indication = $request->indication;$crr->techRea = $request->techRea ;$crr->result = $request->result ;$crr->conclusion = $request->conclusion;     
     $pdf = PDF::loadView('examenradio.EtatsSortie.crr', compact('etablissement','request')); // return $pdf->stream($filename);
-    return $pdf->download($filename);   //return $pdf->stream($filename);$view = view("examenradio.EtatsSortie.crr",compact('etablissement','crr'));->render();*/    
-    /*$view = view("crrPage")->render(); return response()->json(['html'=>$view]);*/
+    return $pdf->download($filename);   //return $pdf->stream($filename);$view = view("examenradio.EtatsSortie.crr",compact('etablissement','crr'));->render();*//*$view = view("crrPage")->render(); return response()->json(['html'=>$view]);*/
    
 }
 public function download($id)
@@ -65,12 +64,12 @@ public function download($id)
       $opciones_ssl=array( "ssl"=>array( "verify_peer"=>false, "verify_peer_name"=>false,),);
        $crr = CRR::find($id);
        $etablissement = Etablissement::first();
-       $img_path = 'img/' . $etablissement->logo;
+      /* $img_path = 'img/' . $etablissement->logo;
        $extencion = pathinfo($img_path, PATHINFO_EXTENSION);
        $data = file_get_contents($img_path, false, stream_context_create($opciones_ssl));
        $img_base_64 = base64_encode($data);
-       $path_img = 'data:image/' . $extencion . ';base64,' . $img_base_64;
-       $pdf = PDF::loadView('examenradio.EtatsSortie.crrPDf',compact('crr','etablissement','path_img'));
+       $path_img = 'data:image/' . $extencion . ';base64,' . $img_base_64;*/
+       $pdf = PDF::loadView('examenradio.EtatsSortie.crrPDf',compact('crr','etablissement'));
        return $pdf->stream("crr.pdf");
   }
 }

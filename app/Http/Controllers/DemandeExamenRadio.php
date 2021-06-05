@@ -37,14 +37,14 @@ class DemandeExamenRadio extends Controller
     }
     public function upload(Request $request)
     {
-      $demande = demandeexr::with('examensradios','consultation','visite')->FindOrFail($request->id_demandeexr);
-      if($request->TotalFiles >0) { 
-        if(isset($demande->visite))
-           $patient = $demande->visite->hospitalisation->patient;
-        else
-           $patient = $demande->consultation->patient;
-          foreach ($demande->examensradios as $key => $exam)
-          {
+          $demande = demandeexr::with('examensradios','consultation','visite')->FindOrFail($request->id_demandeexr);
+          if($request->TotalFiles >0) { 
+            if(isset($demande->visite))
+               $patient = $demande->visite->hospitalisation->patient;
+            else
+               $patient = $demande->consultation->patient;
+              foreach ($demande->examensradios as $key => $exam)
+              {
             if( $exam->pivot->id_examenradio == $request->id_examenradio)
             {
               for ($x = 0; $x < $request->TotalFiles; $x++) 
@@ -191,14 +191,14 @@ class DemandeExamenRadio extends Controller
     }
     public function print($id)//imprime
     {
-      $demande = demandeexr::FindOrFail($id); 
-      $etablissement = Etablissement::first();
-      if(isset($demande->consultation))
-        $patient = $demande->consultation->patient;
-      else
-        $patient = $demande->visite->hospitalisation->patient;
-      $filename = "Examens-Radio-".$patient->Nom."-".$patient->Prenom.".pdf";
-      $pdf = PDF::loadView('examenradio.demande_exr', compact('demande','etablissement'));
-      return $pdf->stream($filename);
+            $demande = demandeexr::FindOrFail($id); 
+            $etablissement = Etablissement::first();
+            if(isset($demande->consultation))
+              $patient = $demande->consultation->patient;
+            else
+              $patient = $demande->visite->hospitalisation->patient;
+            $filename = "Examens-Radio-".$patient->Nom."-".$patient->Prenom.".pdf";
+            $pdf = PDF::loadView('examenradio.demande_exr', compact('demande','etablissement'));
+            return $pdf->stream($filename);
     }
 }

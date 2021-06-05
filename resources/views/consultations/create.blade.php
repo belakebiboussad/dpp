@@ -183,8 +183,7 @@
 		columnDefs: [
 		  { "targets": 3 ,  className: "dt-head-center dt-body-center" }
 		],
-	  });
-  ////////////////////////////fin 
+	  }); ////////////////////////////fin 
 	jQuery('#btn-add, #AntFamil-add').click(function () {//ADD
 		jQuery('#EnregistrerAntecedant').val("add");
 		jQuery('#modalFormData').trigger("reset");
@@ -345,7 +344,7 @@
 				habitudeAlim 				 : $('#habitudeAlim').val()
 		};
 		formData.tabac = $("#tabac").is(":checked") ? 1:0;
-		  formData.ethylisme = $("#ethylisme").is(":checked") ? 1:0;
+	      formData.ethylisme = $("#ethylisme").is(":checked") ? 1:0;
 		if($('.dataTables_empty').length > 0)
 				$('.dataTables_empty').remove();
 		$.ajaxSetup({
@@ -407,8 +406,7 @@
 						  cancelButtonColor: '#d33',
 						  confirmButtonText: 'Oui',
 						  cancelButtonText: "Non",
-						  closeOnConfirm: true,
-						   //timer: 2000,
+						  closeOnConfirm: true, //timer: 2000,
 					}).then((result) => {
 		             		if(result.value)
 		             		{
@@ -582,8 +580,7 @@
 				</ul>
 			</div>
 		@endif
-		</div>
-<!-- 		<div id="prompt"></div> -->
+		</div><!-- 		<div id="prompt"></div> -->
 		<div class="tabpanel">
 			<ul class = "nav nav-pills nav-justified list-group" role="tablist" id="menu">
 				<li role= "presentation" class="active col-md-4">
@@ -592,11 +589,11 @@
 				  </a>
 				</li>
 				<li role= "presentation"  class="col-md-4">
-						<a href="#ExamClinique"  ria-controls="ExamClinique" role="tab" data-toggle="tab" class="btn btn-success btn-lg"> 
+					<a href="#ExamClinique"  ria-controls="ExamClinique" role="tab" data-toggle="tab" class="btn btn-success btn-lg"> 
 						<span class="bigger-160" style="font-size:10vw">Examens Cliniques</span></a>
 				</li>
 				<li role= "presentation" class="col-md-4">
-		  		<a href="#ExamComp" aria-controls="ExamComp" role="tab" data-toggle="tab" class="btn btn-danger btn-lg">
+		  			<a href="#ExamComp" aria-controls="ExamComp" role="tab" data-toggle="tab" class="btn btn-danger btn-lg">
 						<span class="bigger-160" style="font-size:10vw">Examens Complémentaires</span>
 					</a>
 				</li>

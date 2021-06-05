@@ -45,8 +45,7 @@
           <div class="widget-body">
             <div class="widget-main">
               <div class="row">
-                <div class="col-xs-12">
-                  <br>
+                <div class="col-xs-12"><br>
                   <div>
                     <label for="infosc"><b>Informations cliniques pertinentes</b> </label>
                     <textarea class="form-control" id="infosc" name="infosc" >{{ $demande->InfosCliniques }}</textarea>

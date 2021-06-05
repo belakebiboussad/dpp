@@ -21,7 +21,7 @@
 <div class="row">
 	<div class= "col-md-9 col-sm-9">
 		<div class="tab-content" style = "border-style: none;">
-	 		<div class="tab-pane active" id="biologique">	@include('ExamenCompl.ExamenBio')</div>
+	 		<div class="tab-pane active" id="biologique">@include('ExamenCompl.ExamenBio')</div>
 	 		<div class="tab-pane" id="radiologique"> @include('ExamenCompl.ExamenRadio')</div>
 	 		<div class="tab-pane" id="anapath">@include('ExamenCompl.examAnapath')</div>
 	 	</div>

@@ -59,10 +59,10 @@
 					<table class="table nowrap dataTable table-bordered no-footer table-condensed table-scrollable" id="ExamsImgtab">
 					 	 <thead class="thin-border-bottom">
 							 <tr>
-                  <th class ="hidden"></th>
-							    <th class ="center" class="nsort" style="background-color: #eee; color; white;"><strong>Examen du </strong></th>
-								  <th class ="center" style="background-color: #eee; color; white;"><strong>Type Examen</strong></th>
-								   <th class="center" width="5%" style="background-color: #eee; color; white;"><em class="fa fa-cog"></em></th>
+                  						<th class ="hidden"></th>
+							    	<th class ="center" class="nsort" style="background-color: #eee; color; white;"><strong>Examen du </strong></th>
+								 <th class ="center" style="background-color: #eee; color; white;"><strong>Type Examen</strong></th>
+								 <th class="center" width="5%" style="background-color: #eee; color; white;"><em class="fa fa-cog"></em></th>
 						    </tr>
 							  </thead>
 							  <tbody id="ExamsImg"></tbody>
