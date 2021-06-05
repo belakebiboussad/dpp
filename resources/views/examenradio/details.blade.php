@@ -11,11 +11,18 @@
       z-index:999;
   }
   .mt-12 { padding-top:-12px;}
+  #pdfContent {
+    background: #fff;
+    width: 70%;
+    height: 100px;
+    margin: 20px auto;
+    border: 1px solid black;
+    padding: 20px;
+}
 </style>
 @endsection
 @section('page-script')
 <script>
-/*function ComptRRPrint(){  var indication = $("#indication").val();        var techRea = $("#techRea").val();       var result  = $("#result").val();        var conclusion = $("#conclusion").val();var formData = { id : '{{-- $demande->id--}}', indic:indication,techRea:techRea, result:result,conclusion:conclusion }; $.ajaxSetup({headers: {  'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')}  }); $.ajax({// headers: { // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')    // },        type: "POST",url :'/crrs/print', data:formData,dataType: "json", success: function (data,status, xhr) {   // $('#iframe-print').contents().find('html').html(data["html"]); $("#ccrajax").modal(); },  error: function (data) {console.log('Error:', data);  }        }) } */
  function ComptRRPrint()
 {
        var indication = $("#indication").val();
@@ -38,8 +45,9 @@
               url :'/crrPrint',
               data:formData,  //dataType: "json",
              success: function (viewContent,status, xhr) {      
-                    document.title ="CCR";
+                    document.title = 'crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}";
                     $.print(viewContent);  // $('#iframe-print').contents().find('html').html(data["html"]); $("#ccrajax").modal();     
+                    document.title = "Demande Examens Imagerie";
               },  
               error: function (data) {
                 console.log('Error:', data);
@@ -48,8 +56,32 @@
 }
 function CRRPrint()
 {
-      /* var doc = new jsPDF() var tut = document.getElementById('tutelle'); doc.fromHTML(tut, 0, 10, { width: 160 }) var name = document.getElementById('etabname');doc.fromHTML(name, 10, 22, { width: 180 })var adr = document.getElementById('etabAdr');
-      doc.fromHTML(adr, 10, 30, { width: 100 })    var adr = document.getElementById('etabTel ');*/
+       var indication = $("#indication").val();
+       $("#indicationPDF").text(indication);
+       var techRea = $("#techRea").val();
+       $("#techReaPDF").text(techRea);
+       var result  = $("#result").val();
+       $("#resultPDF").text(result);
+       var conclusion = $("#conclusion").val();
+       $("#conclusionPDF").text(conclusion);
+      // Get the element to print
+$("#pdfContent").removeClass('invisible'); 
+var element = document.getElementById('pdfContent');
+var options = {
+    filename: 'crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+".pdf"
+};
+var exporter = new html2pdf(element, options);// Create instance of html2pdf class
+$("#pdfContent").addClass('invisible');
+exporter.getPdf(true).then((pdf) => {// Download the PDF or...
+
+         console.log('pdf file downloaded');
+});
+exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it
+     console.log('doing something before downloading pdf file');
+        pdf.save();
+});
+// You can also use static methods for one time use...
+// options.source = element;// options.download = true;// html2pdf.getPdf(options);
  }
   function CRRSave()
   {
@@ -374,7 +406,9 @@ function CRRPrint()
   </div> 
 </div><!-- row tabel  -->
 </div><!-- col-sm-6 -->
-<div class="col-xs-12 col-sm-3" ></div>
+<div class="col-xs-12 col-sm-3">
+<div id="pdfContent" class="invisible">@include('examenradio.EtatsSortie.crrClient')</div>
+</div>
 </div>
 <div class="space-12 hidden-xs"></div>
 <div class="row" style="bottom:0px;">

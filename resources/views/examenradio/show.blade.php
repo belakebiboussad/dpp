@@ -111,13 +111,13 @@
 			                    <table width="100%" height="100%" class="table">
 			                    @if($examen->pivot->etat == "1")
 			                      @foreach (json_decode($examen->pivot->resultat) as $k=>$f)
-			                      <tr><!-- <td width="70%">{{ $f }}</td> -->
+			                      <tr><!-- <td width="70%">{{-- $f --}}</td> -->
 			                        <td width="100%">
 			                        <button type="submit" class="btn btn-info btn-xs open-modal" value="{{ $examen->pivot->id_examenradio."/".$f }}"><i class="ace-icon fa fa-eye-slash"></i></button>
 			                        <a href='/Patients/{{$patient->id}}/examsRadio/{{$demande->id}}/{{$examen->pivot->id_examenradio}}/{{ $f }}' class="btn btn-success btn-xs" target="_blank"><i class="fa fa-download"></i></a>
 			                        @isset($examen->pivot->crr_id)
-				   								  	<a href="{{ route('crrs.download',$examen->pivot->crr_id )}}" title="télecharger le compte rendu" class="btn btn-default btn-xs" target="_blank"><i class="fa fa-download"></i>CRR</a>
-				   								  	@endisset 
+						  	<a href="{{ route('crrs.download',$examen->pivot->crr_id )}}" title="télecharger le compte rendu" class="btn btn-default btn-xs" target="_blank"><i class="fa fa-download"></i>CRR</a>
+						  	@endisset 
 			                        </td>
 			                      </tr>
 			                      @endforeach

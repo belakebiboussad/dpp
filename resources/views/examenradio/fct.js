@@ -1,0 +1,14 @@
+/*function CRRPrint(image){  var indication = $("#indication").val();  var techRea = $("#techRea").val();var result  = $("#result").val();
+  var conclusion = $("#conclusion").val(); // var doc = new jsPDF('p', 'pt', 'a4');//$("#pdfContent").removeClass('invisible'); var elem1=$("#pdfContent");
+    $("#indicationPDF").text($('#indication').val());$("#techReaPDF").text($('#techRea').val()); $("#resultPDF").text($('#result').val());
+    $("#conclusionPDF").text($('#conclusion').val());if(!elem1.is(":visible")){ elem1.show();elem1.fadeIn(1);elem1.fadeOut(1);}const input = document.getElementById("pdfContent");
+    /*  html2canvas(input) .then((canvas) =>{ const doc = new jsPDF("p", "px", "a4");   doc.addHTML(input, 10, 5, {pagesplit: true,background: "#ffffff",onclone: function(document) {  
+     hiddenDiv = document.getElementById("pdfContent");hiddenDiv.style.display = 'block';} }, () => {            doc.save('crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+'.pdf');//doc.save("download.pdf");//$("#pdfContent").addClass('invisible');
+  });}); *//*margins = { bottom:10,top:10,left:10,right:10};const doc = new jspdf('p', 'pt', 'a4'); // For A4 Sheet layoutdoc.addHTML(input, 10, 5, {
+pagesplit: true,margin: margins, background: "#ffffff",onclone: function(document) {hiddenDiv = document.getElementById("pdfContent");
+hiddenDiv.style.display = 'block';}},function(dispose) {var pageCount = doc.internal.getNumberOfPages();for (i = 0; i < pageCount; i++) {
+doc.setPage(i);} doc.save('crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+'.pdf'); });  }*/
+  /*function ComptRRPrint(){  var indication = $("#indication").val();var techRea = $("#techRea").val();var result  = $("#result").val();        var conclusion = $("#conclusion").val();var formData = { id : '{{-- $demande->id--}}', indic:indication,techRea:techRea, result:result,conclusion:conclusion }; $.ajaxSetup({headers: {  'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')}  }); $.ajax({// headers: { // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')    // },        type: "POST",url :'/crrs/print', data:formData,dataType: "json", success: function (data,status, xhr) {   // $('#iframe-print').contents().find('html').html(data["html"]); $("#ccrajax").modal(); },  error: function (data) {console.log('Error:', data);}}) } */
+  /*  // var elem1=$("#pdfContent"); //const input = document.getElementById("pdfContent");
+      //$("#pdfContent").removeClass('invisible');/*  html2canvas(document.getElementById("pdfContent"), {onrendered: function(canvas) { var imgData = canvas.toDataURL('image/png');
+   console.log('Report Image URL: '+imgData);var doc = new jsPDF('p', 'mm', [297, 210]); doc.addImage(imgData, 'PNG', 10, 10);doc.save('sample.pdf');}});*/
