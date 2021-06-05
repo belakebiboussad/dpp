@@ -432,7 +432,6 @@
           }
         });    
     }
-    
     function createeximgF(image,nomp,prenomp,age,ipp)
     { 
       html2canvas($("#dos"), {
@@ -477,6 +476,25 @@
           }
       });
     }
+      function createeximg(nomp,prenomp,age,ipp)
+      {
+            $( "#ExamsImgtab" ).clone().appendTo( "#imgExams" );
+            $('#ExamsImgtab tr').find('th:last-child, td:last-child').remove()
+            $("#imagExamsPdf").removeClass('invisible'); 
+             var element = document.getElementById('imagExamsPdf');
+             var options = {
+                    filename:'ExamRadio-'+nomp+'-'+prenomp+'.pdf'
+              };
+             var exporter = new html2pdf(element, options);
+            $("#imagExamsPdf").addClass('invisible');
+            exporter.getPdf(true).then((pdf) => {// Download the PDF or...
+                     console.log('pdf file downloaded');
+             });
+            exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it
+                     console.log('doing something before downloading pdf file');
+                    pdf.save();
+             });
+      }
     function lettreoriet(logo,nomP,prenomP,ageP,ipp)
     {
       var specialite = $( "#specialiteOrient option:selected" ).text().trim();
@@ -521,7 +539,7 @@
         }
       })
     }
-    function createeximg(nomp,prenomp,age, ipp) {
+    function createeximgOrg(nomp,prenomp,age, ipp) {
       var img = new Image();
       img.src = '{{ asset("/img/logo.png") }}';
       img.onload = function () {

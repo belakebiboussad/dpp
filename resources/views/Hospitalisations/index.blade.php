@@ -86,7 +86,6 @@
             {  data: "medecin.nom" ,
                 render: function ( data, type, row ) {
                   return row.medecin.nom + ' ' + row.medecin.prenom ;
->>>>>>> Bous
                 },
                 title:'Medecin',"orderable": false   
             },//7

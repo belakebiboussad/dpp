@@ -130,18 +130,22 @@ class HospitalisationController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, $id)
-  {
-    $hosp = hospitalisation::find($id);
-    $hosp -> update($request->all());
-     if($request->ajax())  
+      public function update(Request $request, $id)
       {
-        if($request->modeSortie == "0")
-        {
-          $transfert = Transfert::create($request->all());
-          $transfert->hospitalisation()->attach($id);
-        }
-        return Response::json($hosp ); 
+             $hosp = hospitalisation::find($id);
+              $hosp -> update($request->all());
+             if($request->ajax())  
+             {     //lliberer  le lit
+                   $lit =  $hosp->admission->demandeHospitalisation->bedAffectation->lit;
+                   $lit->update([
+                        "affectation"=> 0,
+                    ]);
+                    if($request->modeSortie == "0")
+                    {
+                          $transfert = Transfert::create($request->all());
+                           $transfert->hospitalisation()->attach($id);
+                    }
+            return Response::json($hosp ); 
      }else
       return redirect()->action('HospitalisationController@index');
   }

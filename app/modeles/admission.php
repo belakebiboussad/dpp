@@ -12,12 +12,12 @@ class admission extends Model
     {
        return $this->belongsTo('App\modeles\DemandeHospitalisation','demande_id');
     }
-    public function lit()
+      public function lit()
+      {
+         	return $this->belongsTo('App\modeles\Lit','id_lit');
+       }
+      public function rdvHosp()
      {
-      	return $this->belongsTo('App\modeles\Lit','id_lit');
-     }
-    public function rdvHosp()
-    {
         return $this->belongsTo('App\modeles\rdv_hospitalisation','id_rdvHosp');
     }
     public function RDVs() { return $this->hasMany('App\modeles\rdv_hospitalisation','id_admission')->orderBy('date_RDVh'); }
