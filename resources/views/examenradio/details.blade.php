@@ -15,37 +15,35 @@
 <script>
 function ComptRRPrint()
 {
-  var indication = $("#indication").val();
-  var techRea = $("#techRea").val();
-  var result  = $("#result").val();
-  var conclusion = $("#conclusion").val();
-  var formData = {
-        id : '{{ $demande->id}}',
-        indic:techRea,
-        techRea:techRea,
-        result:result,
-        conclusion:conclusion
-  };
-  $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-          }
-  });
-  $.ajax({
-    // headers: {    //    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')    // },
-    type: "POST", //url : '{{URL::to('crrprint')}}',// url: "/ordonnaces/print",
-    url :'/crrs/print',
-    data:formData,
-    dataType: "json",
-    success: function (data,status, xhr) {      
-      $('#iframe-print').contents().find('html').html(data["html"]);
-      $("#ccrajax").modal();             
-    },  
-    error: function (data) {
-      console.log('Error:', data);
-    }
-  })
-} 
+       var indication = $("#indication").val();
+        var techRea = $("#techRea").val();
+        var result  = $("#result").val();
+        var conclusion = $("#conclusion").val();
+        var formData = {
+             indic:indication,
+             techRea:techRea,
+             result:result,
+             conclusion:conclusion
+        };
+        $.ajaxSetup({
+                headers: {
+                  'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                }
+        });
+        $.ajax({  
+              type: "POST", 
+              url :'/crrPrint',
+              data:formData,  //dataType: "json",
+             success: function (viewContent,status, xhr) {      
+                    document.title = 'crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}";
+                    $.print(viewContent);
+                    document.title = "Demande Examens Imagerie";
+              },  
+              error: function (data) {
+                console.log('Error:', data);
+              }
+        })
+}
 
 function ComptRRPrint1()
 {
