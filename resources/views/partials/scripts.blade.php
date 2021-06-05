@@ -44,6 +44,7 @@
 <script src="{{asset('/js/sweetalert2.all.min.js')}}"></script>
 <script src="{{asset('/js/JsBarcode.all.min.js')}}"></script>
 <script src="{{asset('/js/ion.rangeSlider.min.js')}}"></script>
+<script src="{{asset('/js/jQuery.print.js')}}"></script>
 <script type="text/javascript">
   var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
   $(document).ready(function(){
