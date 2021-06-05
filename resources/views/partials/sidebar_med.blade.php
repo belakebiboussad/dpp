@@ -428,16 +428,60 @@
               doc.save('ExamBiolo-'+nomp+'-'+prenomp+'.pdf');
           }
         });    
-      }
-      function createeximgF(image,nomp,prenomp,age,ipp)
+    }
+    function createeximgF(image,nomp,prenomp,age,ipp)
+    { 
+      html2canvas($("#dos"), {
+          onrendered: function(canvas) {         
+            moment.locale('fr');
+            var formattedDate = moment(new Date()).format("l");
+            var doc = new jsPDF('p', 'mm');//JsBarcode("#itf",IPP); //bonne
+            JsBarcode("#itf", ipp.toString(), {
+              lineColor: "#000",
+              width:4,
+              height:40,
+              displayValue: true,
+              text:"IPP :"+ipp.toString(),
+              fontSize : 28,
+              textAlign: "left"
+            });
+            const img = document.querySelector('img#itf');
+            doc.text(105, 9,'{{ Session::get('etabTut') }}', null, null, 'center');
+            doc.setFontSize(13);
+            doc.text(105,16, '{{ Session::get('etabname') }}'.replace(/&quot;/g,'"'), null, null, 'center');
+            doc.setFontSize(12);
+            doc.text(105,21, '{{ Session::get('etabAdr') }}', null, null, 'center');
+            doc.text(105,26, 'Tél : {{ Session::get('etabTel') }} - {{ Session::get('etabTel2') }}', null, null, 'center');
+            doc.addImage(image, 'JPEG', 95, 27, 23, 23);
+            doc.setFontSize(14);
+            doc.text(200,60, formattedDate , null, null, 'right'); 
+            doc.text(10,63, 'Nom : '+nomp, null, null);
+            doc.text(10,68, 'Prénom : '+prenomp, null, null);
+            doc.text(10,73, 'Age : '+ age+' ans', null, null);
+            doc.addImage(img.src, 'JPEG', 10, 75, 50, 15);
+            doc.text(10,110, 'Prière de faire', null, null);
+            doc.setFontSize(16);
+            doc.text(50,125,'Examens Radiologiques Demandées :',null,null)
+            var res = doc.autoTableHtmlToJson(document.getElementById('ExamsImgtab'));
+            var height = doc.internal.pageSize.height;
+            doc.autoTable(res.columns, res.data, {
+              startY: 135,
+            });
+            doc.setFontSize(12);
+            doc.text(100,273, 'Docteur : {{ Auth::user()->employ->nom}} {{ Auth::user()->employ->prenom}}', null, null); 
+            doc.save('ExamRadio-'+nomp+'-'+prenomp+'.pdf');
+          }
+      });
+    }
+      function createeximg(nomp,prenomp,age,ipp)
       {
             $( "#ExamsImgtab" ).clone().appendTo( "#imgExams" );
             $('#ExamsImgtab tr').find('th:last-child, td:last-child').remove()
             $("#imagExamsPdf").removeClass('invisible'); 
              var element = document.getElementById('imagExamsPdf');
-              var options = {
-                      filename: 'a.pdf'
-            };
+             var options = {
+                    filename:'ExamRadio-'+nomp+'-'+prenomp+'.pdf'
+              };
              var exporter = new html2pdf(element, options);
             $("#imagExamsPdf").addClass('invisible');
             exporter.getPdf(true).then((pdf) => {// Download the PDF or...
@@ -448,50 +492,6 @@
                     pdf.save();
              });
       }
-       function createeximgFOrg(image,nomp,prenomp,age,ipp)
-      { 
-            html2canvas($("#dos")[0], {
-                onrendered: function(canvas) {         
-                  moment.locale('fr');
-                  var formattedDate = moment(new Date()).format("l");
-                  var doc = new jsPDF('p', 'mm');//JsBarcode("#itf",IPP); //bonne
-                    JsBarcode("#itf", ipp.toString(), {
-                          lineColor: "#000",
-                          width:4,
-                          height:40,
-                          displayValue: true,
-                          text:"IPP :"+ipp.toString(),
-                          fontSize : 28,
-                          textAlign: "left"
-                  });
-                  const img = document.querySelector('img#itf');
-                  doc.text(105, 9,'{{ Session::get('etabTut') }}', null, null, 'center');
-                  doc.setFontSize(13);
-                  doc.text(105,16, '{{ Session::get('etabname') }}'.replace(/&quot;/g,'"'), null, null, 'center');
-                  doc.setFontSize(12);
-                  doc.text(105,21, '{{ Session::get('etabAdr') }}', null, null, 'center');
-                  doc.text(105,26, 'Tél : {{ Session::get('etabTel') }} - {{ Session::get('etabTel2') }}', null, null, 'center');
-                  doc.addImage(image, 'JPEG', 95, 27, 23, 23);
-                  doc.setFontSize(14);
-                  doc.text(200,60, formattedDate , null, null, 'right'); 
-                  doc.text(10,63, 'Nom : '+nomp, null, null);
-                  doc.text(10,68, 'Prénom : '+prenomp, null, null);
-                  doc.text(10,73, 'Age : '+ age+' ans', null, null);
-                  doc.addImage(img.src, 'JPEG', 10, 75, 50, 15);
-                  doc.text(10,110, 'Prière de faire', null, null);
-                  doc.setFontSize(16);
-                  doc.text(50,125,'Examens Radiologiques Demandées :',null,null)
-                  var res = doc.autoTableHtmlToJson(document.getElementById('ExamsImgtab'));
-                  var height = doc.internal.pageSize.height;
-                  doc.autoTable(res.columns, res.data, {
-                      startY: 135,
-                  });
-                  doc.setFontSize(12);
-                  doc.text(100,273, 'Docteur : {{ Auth::user()->employ->nom}} {{ Auth::user()->employ->prenom}}', null, null); 
-                  doc.save('ExamRadio-'+nomp+'-'+prenomp+'.pdf');
-            }
-      });
-    }
     function lettreoriet(logo,nomP,prenomP,ageP,ipp)
     {
       var specialite = $( "#specialiteOrient option:selected" ).text().trim();
@@ -536,7 +536,7 @@
         }
       })
     }
-    function createeximg(nomp,prenomp,age, ipp) {
+    function createeximgOrg(nomp,prenomp,age, ipp) {
       var img = new Image();
       img.src = '{{ asset("/img/logo.png") }}';
       img.onload = function () {

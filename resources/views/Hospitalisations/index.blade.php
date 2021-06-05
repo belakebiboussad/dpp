@@ -46,6 +46,7 @@
               actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat(\'hospitalisation\','+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';      
            }
            return actions;
+
      }
      function getState(data, type, dataToSet) {
            if(data.etat_hosp == 1)

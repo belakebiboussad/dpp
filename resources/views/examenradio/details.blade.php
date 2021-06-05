@@ -46,13 +46,22 @@
               data:formData,  //dataType: "json",
              success: function (viewContent,status, xhr) {      
                     document.title = 'crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}";
-                    $.print(viewContent);  // $('#iframe-print').contents().find('html').html(data["html"]); $("#ccrajax").modal();     
+                    $.print(viewContent);
                     document.title = "Demande Examens Imagerie";
               },  
               error: function (data) {
                 console.log('Error:', data);
               }
         })
+}
+
+function ComptRRPrint1()
+{
+  var img = new Image(); // img.src = '{{ asset("/img/logo.png") }}'; // alert('{{ Session::get("etabLogo") }}');
+  img.src = "/img/"+'{{ Session::get("etabLogo") }}';
+    img.onload = function () {
+      CRRPrint(img);
+    };
 }
 function CRRPrint()
 {
@@ -65,32 +74,29 @@ function CRRPrint()
        var conclusion = $("#conclusion").val();
        $("#conclusionPDF").text(conclusion);// Get the element to print
       $("#pdfContent").removeClass('invisible'); 
-      var element = document.getElementById('pdfContent');
-      var options = {
-          filename: 'crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+".pdf"
-      };
-      var exporter = new html2pdf(element, options);// Create instance of html2pdf class
-      $("#pdfContent").addClass('invisible');
-      exporter.getPdf(true).then((pdf) => {// Download the PDF or...
-
-               console.log('pdf file downloaded');
+        var element = document.getElementById('pdfContent');
+       var options = {
+            filename: 'crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+".pdf"
+       };
+       var exporter = new html2pdf(element, options);// Create instance of html2pdf class
+       $("#pdfContent").addClass('invisible');
+       exporter.getPdf(true).then((pdf) => {// Download the PDF or...
+             console.log('pdf file downloaded');
+       });
+      exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it
+            console.log('doing something before downloading pdf file');
+              pdf.save();
       });
-exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it
-     console.log('doing something before downloading pdf file');
-        pdf.save();
-});
-// You can also use static methods for one time use...
-// options.source = element;// options.download = true;// html2pdf.getPdf(options);
- }
-  function CRRSave()
-  {
-    $.ajaxSetup({
-      headers: {
-              'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-        }
+}
+function CRRSave()
+{
+     $.ajaxSetup({
+              headers: {
+                  'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            }
       });
       var formData = {
-        demande_id:'{{$demande->id}}',
+       demande_id:'{{$demande->id}}',
         exam_id:$("#examId").val(),
         indication:$("#indication").val(),
         techRea:$("#techRea").val(),
@@ -404,10 +410,8 @@ exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it
     </div>
   </div> 
 </div><!-- row tabel  -->
-</div><!-- col-sm-6 -->
-<div class="col-xs-12 col-sm-3">
-<div id="pdfContent" class="invisible">@include('examenradio.EtatsSortie.crrClient')</div>
-</div>
+</div><!-- col-sm-8 -->
+      <div class="col-xs-12 col-sm-3"><div id="pdfContent" class="invisible">@include('examenradio.EtatsSortie.crrClient')</div></div>
 </div>
 <div class="space-12 hidden-xs"></div>
 <div class="row" style="bottom:0px;">

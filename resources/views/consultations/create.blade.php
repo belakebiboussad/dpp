@@ -1,6 +1,7 @@
 @extends('app')
 @section('title','Nouvelle Consultation')
 @section('style')
+ <link rel="stylesheet" href="{{ asset('css/print.css') }}"  />	
 <style>
 	.modaldialog {
 	  width:92%;

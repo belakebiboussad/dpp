@@ -6,9 +6,6 @@
   <title>Compte Rendu Radiologique </title>
 </head>
     <body>
-      <div class="container-fluid" id="myDiv">
-       @include('examenradio.EtatsSortie.crrS', $crr)
-       </div>
-      </div>
+      <div class="container-fluid" id="myDiv">@include('examenradio.EtatsSortie.crrS', $crr)</div></div>
     </body>
 </html>

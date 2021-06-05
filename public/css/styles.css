@@ -72,7 +72,6 @@ ol {list-style: none; counter-reset: li}
       display:none;
     }
   }
-  
   @media screen and (max-width: 1045px) and (min-width: 835px) {
     .priority-6{
       display:none;

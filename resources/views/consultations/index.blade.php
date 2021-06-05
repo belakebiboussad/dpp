@@ -12,13 +12,14 @@ function getConsultations(field,value)
       dataType: "json",// recommended response type
     	success: function(data) {
               $(".numberResult").html(data.length);
-               $("#liste_conultations").DataTable ({
+              $("#liste_conultations").DataTable ({
                    "processing": true,
                    "paging":   true,
                    "destroy": true,
                    "ordering": true,
                    "searching":false,
                    "info" : false,
+                   "responsive": true,
                    "language":{"url": '/localisation/fr_FR.json'},
                    "data" : data,  // "scrollX": true,
                    "fnCreatedRow": function( nRow, aData, iDataIndex ) {

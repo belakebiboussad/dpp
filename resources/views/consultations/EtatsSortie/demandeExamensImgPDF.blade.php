@@ -7,8 +7,8 @@
 <div class="row mt-20"><div class="col-sm-12 center"><h3>Demande Examens d'Imagerie</h3></div></div>
 <div class="space-12"></div><div class="space-12"></div>
 <div class="row">
-	<div class="col-sm-12"><div class="section sec-droite">
-			<h4><strong><u>Fait le:</u></strong>{{ Carbon\Carbon::today()->format('d/m/Y') }}.</h4>
+	<div class="col-sm-12"><div class="sec-droite">
+		<h4><strong><u>Fait le:</u></strong>{{ Carbon\Carbon::today()->format('d/m/Y') }}.</h4>
 	</div></div>
 </div>
 <div class="row ml-4">
@@ -22,8 +22,9 @@
 	<div class="col-sm-12">
 		<div class="sec-gauche"><img src="data:image/png;base64,{{DNS1D::getBarcodePNG($patient->IPP, 'C128')}}" alt="barcode"/><h6>IPP :{{ $patient->IPP }}</h6></div>   
 	</div>
-</div>
-.<div class="row ml-4"><div class="col-sm-12 ">
+</div><div class="space-12"></div>
+<div class="row  ml-4"><div class="col-sm-12"><h3>Prière de faire</h3></div></div>
+<div class="row ml-4"><div class="col-sm-12 ">
 	<h3>Examens Radiologiques Demandées:</h3>
 </div></div><div class="space-12"></div>
 <div class="row"><div class="col-sm-1"></div>
@@ -32,8 +33,7 @@
 			<div class="widget-main no-padding" id="imgExams"></div>
 		</div>
 	</div><div class="col-sm-1"></div>
-</div>
-<div class="row foo">
-	<div class="col-sm-12"><div class="section"><div class="sec-droite"><span><strong> Docteur :</strong> {{ $employe->nom}} {{ $employe->prenom}}</span></div></div></div>
- </div>	
-
+</div> <div class="space-12"></div>
+  <footer class= "center">
+  <div class="sec-droite"><span><strong> Docteur :</strong> {{ $employe->nom}} {{ $employe->prenom}}</span></div>
+  </footer>

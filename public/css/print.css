@@ -10,3 +10,11 @@
 @media print {
 	div.solid { 	border: solid;	}
 }
+@media print {
+	.print {display:block}
+	 .btn-print {display:none;}
+ }
+@media print {
+ 	 ol.c { list-style-type: decimal; 	font-size:14px;}
+ }
+
