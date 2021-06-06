@@ -4,7 +4,10 @@
 <script type="text/javascript" src="{{ asset('/js/jspdf.debug.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/jspdf.plugin.autotable.min.js') }}"></script><!-- a commenter -->
 <script src="{{asset('/js/bootstrap.min.js')}}"></script>
-<script src="{{asset('/js/jquery-ui.min.js')}}"></script>{{-- <script src="{{asset('/js/jquery-ui.custom.min.js')}}"></script> --}}
+
+ <script src="{{asset('/js/jquery-ui.min.js')}}"></script> 
+
+
 <script src="{{asset('/js/jquery.ui.touch-punch.min.js')}}"></script>
 <script src="{{asset('/js/jquery.easypiechart.min.js')}}"></script>
 <script src="{{asset('/js/jquery.sparkline.index.min.js')}}"></script>
@@ -21,11 +24,16 @@
 <script src="{{ asset('/js/larails.js') }}"></script>
 <script src="{{ asset('/js/datatables.js') }}"></script>
 <script src="{{ asset('/js/wizard.min.js') }}"></script>
-<script src="{{ asset('/js/jquery.validate.min.js') }}"></script>
 <script src="{{ asset('/js/select2.min.js') }}"></script>
 <script src="{{ asset('/js/chosen.jquery.min.js') }}"></script>
-<script src="{{ asset('/js/bootstrap-datepicker.min.js') }}"></script>
-<script src="{{ asset('/js/daterangepicker.min.js') }}"></script>
+
+
+{{-- 
+<script src="{{ asset('/js/bootstrap-datepicker.min.js') }}"></script>--}}
+
+<script src="{{ asset('/js/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('/js/daterangepicker.min.js') }}"></script> 
+
 <script src="{{ asset('/js/autosize.min.js') }}"></script>
 <script src="{{ asset('/js/jquery.inputlimiter.min.js') }}"></script>
 <script src="{{ asset('/js/jquery.maskedinput.min.js') }}"></script>
@@ -37,10 +45,12 @@
 <script src="{{ asset('/js/prettify.min.js') }}"></script>
 <script src="{{ asset('/js/bootstrap-toggle.min.js') }}"></script>
 <script src="{{ asset('/js/ace-extra.min.js') }}"></script>
-<script src="{{ asset('/js/jquery.timepicker.min.js') }}"></script>{{-- <script type="text/javascript" src="{{ asset('/js/bootstrap-timepicker.min.js') }}"></script> --}}
+<script src="{{ asset('/js/jquery.timepicker.min.js') }}"></script>
+
+{{-- <script type="text/javascript" src="{{ asset('/js/bootstrap-timepicker.min.js') }}"></script> --}}
 <script src="{{ asset('/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
 <script src="{{ asset('/plugins/fullcalendar/locale/fr.js') }}"></script>
-<script src="{{ asset('/js/jquery-editable-select.js') }}"></script><!--  -->
+<script src="{{ asset('/js/jquery-editable-select.js') }}"></script>
 <script src="{{asset('/js/sweetalert2.all.min.js')}}"></script>
 <script src="{{asset('/js/JsBarcode.all.min.js')}}"></script>
 <script src="{{asset('/js/ion.rangeSlider.min.js')}}"></script>
@@ -508,7 +518,7 @@ $('#typeexm').on('change', function() {
       });
       $('#spinner1').ace_spinner({value:0,min:0,max:200,step:10, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
         .closest('.ace-spinner')
-        .on('changed.fu.spinbox', function(){ });//console.log($('#spinner1').val()) 
+        .on('changed.fu.spinbox', function(){ });
       $('#spinner2').ace_spinner({value:0,min:0,max:10000,step:100, touch_spinner: true, icon_up:'ace-icon fa fa-caret-up bigger-110', icon_down:'ace-icon fa fa-caret-down bigger-110'});
       $('#spinner3').ace_spinner({value:0,min:-100,max:100,step:10, on_sides: true, icon_up:'ace-icon fa fa-plus bigger-110', icon_down:'ace-icon fa fa-minus bigger-110', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
       $('#spinner4').ace_spinner({value:0,min:-100,max:100,step:10, on_sides: true, icon_up:'ace-icon fa fa-plus', icon_down:'ace-icon fa fa-minus', btn_up_class:'btn-purple' , btn_down_class:'btn-purple'});
@@ -516,13 +526,17 @@ $('#typeexm').on('change', function() {
           autoclose: true,
           todayHighlight: true,
           dateFormat: 'yy-mm-dd',
-          language: 'fr',
           flat: true,
           calendars: 1,
+          changeYear: true,//language: 'fr',
       })
       .next().on(ace.click_event, function(){    //show datepicker when clicking on the icon
           $(this).prev().focus();
-      });      //or change it into a date range picker
+      });
+      $( function() {
+        $( ".ltnow" ).datepicker( "option", "maxDate", new Date );  //diable future date
+      }); 
+      //or change it into a date range picker
       $('.input-daterange').datepicker({autoclose:true});
       $('#simple-colorpicker-1').ace_colorpicker();
       var tag_input = $('#form-field-tags');

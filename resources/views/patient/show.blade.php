@@ -73,8 +73,8 @@
 @section('main-content')
 <div class="row">
 	<div class="pull-right">
-	<a href="{{ route('patient.index') }}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-search bigger-120 blue"></i>Chercher</a>
-	<a href="{{route('patient.destroy',$patient->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-white btn-warning btn-bold"><i class="ace-icon fa fa-trash-o bigger-120 orange"> Supprimer</i>
+	<a href="{{ route('patient.index') }}" class="btn btn-xs btn-white btn-info btn-bold"><i class="ace-icon fa fa-search blue"></i>Chercher</a>
+	<a href="{{route('patient.destroy',$patient->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-white btn-warning btn-bold"><i class="ace-icon fa fa-trash-o  orange"> Supprimer</i>
 	 </a>
 	 </div>
 </div>
@@ -115,13 +115,13 @@
 			</ul>
 			<div class="tab-content no-border padding-24">
 				<div id="home" class="tab-pane in active"> @include('patient.patientInfo')</div>
-				<div id="Ants" class="tab-pane">@include('antecedents.ants_Widget')</div><!-- Ants -->
-				<div id="Cons" class="tab-pane">@include('consultations.liste')</div><!-- /#Cons -->
+				<div id="Ants" class="tab-pane">@include('antecedents.ants_Widget')</div>
+				<div id="Cons" class="tab-pane">@include('consultations.liste')</div>
 				<div id="rdvs" class="tab-pane"><div class="row">@include('rdv.liste')</div></div>
-				<div id="Hosp" class="tab-pane">@include('hospitalisations.liste')	</div><!-- /#Hosp -->
-				<div id="homme_conf" class="tab-pane"><!--homme_conf -->
+				<div id="Hosp" class="tab-pane">@include('hospitalisations.liste')	</div>
+				<div id="homme_conf" class="tab-pane">
 				<div class="row">@include('corespondants.widget')</div><div class="row">@include('corespondants.add')</div>
-				</div><!-- /#homme_conf -->	
+				</div>
 			</div>
 		</div>
 	</div>

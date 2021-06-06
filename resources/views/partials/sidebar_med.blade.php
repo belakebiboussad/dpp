@@ -512,7 +512,7 @@
           doc.setFontType("bold");doc.setFontSize(16);
           doc.text(105,90, "Lettre d'orientation", null, null, 'center');
           doc.addImage(img.src, 'JPEG', 20, 96, 50, 15);
-          doc.setFontType("normal");doc.setFontSize(12);//doc.lineHeightProportion = 2; 
+          doc.setFontType("normal");doc.setFontSize(12);
           var text = "permettez moi de vous adresser le(la) patient(e) sus-nommé(e), "+nomP+" "+prenomP+" âgé(e) de "+ageP+" ans, qui s'est présenté ce jour pour  "+$('#motifOrient').val()+"  . je vous le confie pour prise en charge spécialisé. respectueusement confraternellement.";
           lines = doc.splitTextToSize(text, 185);
           doc.text(20,130,lines,null,null);

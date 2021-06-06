@@ -207,3 +207,61 @@ $('document').ready(function(){
 	</div>
 </div>	
 @endif
+@if(isset($consultation->lettreOrintation))
+<div class="row">
+	<div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><strong><span style="font-size:16px;">Lettre d'Orientation</span></strong></div>
+</div>
+<div class="row">
+	<div class="col-xs-11 widget-container-col">
+		<div class="widget-box widget-color-blue">
+			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Lettre</h5></div>
+			<div class="widget-body">
+				<div class="widget-main no-padding">
+					<table class="table table-striped table-bordered table-hover">
+						<thead class="thin-border-bottom">
+							<tr>
+								<th class="center"><strong>Date</strong></th>
+								<th class="center"><strong>Spécilalité</strong></th>
+								<th class="center"><strong>Médecin</strong></th>		
+								<th class="center"><em class="fa fa-cog"></em></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>{{ $consultation->Date_Consultation }}</td>
+								<td>{{ $consultation->lettreOrintation->Specialite->nom }}</td>
+								<td>{{ $consultation->lettreOrintation->Medecin->nom }} {{ $consultation->lettreOrintation->Medecin->prenom }}</td>
+								<td class="center">
+									<a href="#" class="green bigger-140 show-details-btn" title="Afficher Details" data-toggle="collapse"  data-target=".collapsed">
+										<i class="ace-icon fa fa-eye-slash"></i><span class="sr-only">Details</span>&nbsp;
+									</a>
+									<!-- <a href="" target="_blank" class="btn btn-xs"><i class="fa fa-print"></i></a> -->
+				  				<button type="button" class="btn btn-xs btn-success" onclick="orLetterPrint('{{$consultation->patient->Nom}}','{{ $consultation->patient->Prenom}}','{{$consultation->patient->getAge() }}','{{$consultation->patient->IPP }}')"><i class="ace-icon fa fa-print"></i></button>
+								</td>
+							</tr>
+							<tr class="collapse out budgets collapsed">
+			      	  <td colspan="12">
+				    			<div class="table-detail">
+				     				<div class="row">
+				     					<div class="col-xs-12 col-sm-12"><div class="space visible-xs"></div>
+												<div class="profile-user-info profile-user-info-striped">
+													<div class="profile-info-row">
+														<div class="profile-info-name text-center"><strong>Motif:</strong></div>
+														<div class="profile-info-value">{{ $consultation->lettreOrintation->motif }}</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@endif
+<div class="row"><canvas id="lettreorientation" height="1%"><img id='itfL'/></canvas></div>
+

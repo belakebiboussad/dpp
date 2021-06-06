@@ -115,17 +115,22 @@
   {
   	elem.submit();
   }
-	$('document').ready(function(){
-		$( 'ul.nav li' ).on( 'click', function() {
-			$(this).siblings().addClass('filter');
-		});
-		$('.wysiwyg-editor').on('input',function(e){
-			var a = $(this).parent().nextAll("div.clearfix");
-			var i = a.find("button:button").each(function(){
-				$(this).removeAttr('disabled');
+  $( function() {
+		var date = new Date('{{ $patient->Dat_Naissance }}');
+		$( ".gdob" ).datepicker( "option", "minDate", date );	//great to date of bearth	
+		//$( ".ltnow" ).datepicker( "option", "maxDate", new Date );	
+	});
+ 	$('document').ready(function(){
+			$( 'ul.nav li' ).on( 'click', function() {
+				$(this).siblings().addClass('filter');
 			});
-		});
-        	$('#select2-multiple-style .btn').on('click', function(e){
+			$('.wysiwyg-editor').on('input',function(e){
+				var a = $(this).parent().nextAll("div.clearfix");
+				var i = a.find("button:button").each(function(){
+					$(this).removeAttr('disabled');
+				});
+			});
+      $('#select2-multiple-style .btn').on('click', function(e){
 			var target = $(this).find('input[type=radio]');
 		var which = parseInt(target.val());
 			if(which == 2) 
@@ -190,14 +195,18 @@
 		jQuery('#modalFormData').trigger("reset");
 		$('#AntecCrudModal').html("Ajouter un Antecedant");
 		if(this.id == "AntFamil-add")
-			{
+		{
 			$("#EnregistrerAntecedant").attr('data-atcd','Famille'); 
 			if(! ($( "#atcdsstypehide" ).hasClass( "hidden" )))
-				$( "#atcdsstypehide" ).addClass("hidden"); 
+				$( "#atcdsstypehide" ).addClass("hidden");
+			if($( "#dateAntcd" ).hasClass( "gdob" ))
+				$( "#dateAntcd" ).removeClass("gdob");	 
 		}else{	
 			$("#EnregistrerAntecedant").attr('data-atcd','Perso'); 
 			if(($( "#atcdsstypehide" ).hasClass( "hidden" )))
 				$('#atcdsstypehide').removeClass("hidden");
+			if(! ($( "#dateAntcd" ).hasClass( "gdob" )))
+				$( "#dateAntcd" ).addClass("gdob");
 		}
 		jQuery('#antecedantModal').modal('show');
 	});
@@ -267,8 +276,8 @@
 				Antecedant           : 'Personnels',//jQuery('#Antecedant').val()
 				typeAntecedant       : '0',//jQuery('#typeAntecedant').val(),
 				stypeatcd            : jQuery('#sstypeatcdc').val(),
-					date                    : $('#dateAntcd').val(),
-					cim_code			:$('#cim_code').val(),
+				date                    : $('#dateAntcd').val(),
+				cim_code			:$('#cim_code').val(),
 				descrioption         : $("#description").val()
 			};
 		}else
@@ -367,8 +376,8 @@
 			   data: formData,
 			   dataType: 'json',
 			   success: function (data) {
-					var tabac = data.tabac ? 'Oui' : 'Non';
-					var ethylisme = data.ethylisme ? 'Oui' : 'Non';
+					var tabac = data.tabac != 0 ? 'Oui' : 'Non';
+					var ethylisme = data.ethylisme !=0 ? 'Oui' : 'Non';
 					var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>'+data.date+'</td><td>'
 									 + data.cim_code +'</td><td>'+data.descrioption+ '</td><td>' + tabac + '</td><td>'+ ethylisme+'</td><td>'+ data.habitudeAlim +'</td>';
 						atcd += '<td class ="center"><button class="btn btn-xs btn-info Phys-open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';

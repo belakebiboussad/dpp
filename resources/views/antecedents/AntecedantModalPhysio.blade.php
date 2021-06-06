@@ -19,13 +19,13 @@
 				<div class="form-group">
 					<label for="dateatcd" class="col-sm-2 control-label" >Date :</label>
 					<div class="col-sm-10">
-						<input type="text" id="dateAntcdPhys" class="form-control date-picker" data-date-format="yyyy-mm-dd" data-provide="datepicker" required />
+						<input type="text" id="dateAntcdPhys" class="form-control date-picker gdob ltnow" data-date-format="yyyy-mm-dd" data-provide="datepicker" required />
 					</div>
 				</div>
 				<div class="form-group">
 		    	<label class="col-sm-2 control-label" for="codecim"><strong>Code Cim10 :</strong></label>
 					<div class="col-sm-10 input-group">
-						<input type="text" class="form-control" id="phys_cim_code"/><span class="input-group-addon" style=" padding: 0px 6px;">  {{--  --}}
+						<input type="text" class="form-control" id="phys_cim_code"/><span class="input-group-addon" style=" padding: 0px 6px;">
 						<button class="btn btn-xs CimCode" type="button" value="phys_cim_code"><i class="fa fa-search"></i></button>
 					  </span>
 				  </div>		

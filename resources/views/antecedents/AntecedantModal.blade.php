@@ -21,7 +21,7 @@
 					<div class="form-group">
 						<label for="dateatcd" class="col-sm-2 control-label" >Date :</label>
 						<div class="col-sm-10">
-							<input type="text" id="dateAntcd" class="form-control date-picker" data-date-format="yyyy-mm-dd" data-provide="datepicker" required />
+							<input type="text" id="dateAntcd" class="form-control date-picker gdob ltnow" data-date-format="yyyy-mm-dd" data-provide="datepicker" required />
 						</div>
 					</div>
 					<div class="form-group">
@@ -36,9 +36,7 @@
 					</div>
 					<div class="form-group">
 						<label for="description" class="col-sm-2 control-label">Description :</label>
-						<div class="col-sm-10">
-							<textarea class="form-control" id="description" required=""></textarea>
-						</div>
+						<div class="col-sm-10"><textarea class="form-control" id="description" required=""></textarea></div>
 					</div><div class="space-12"></div>
 				</form>
 			</div><!-- modal-body -->

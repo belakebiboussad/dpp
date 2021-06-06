@@ -204,9 +204,7 @@ class PatientController extends Controller
     $rule = array(
         "nom" => 'required',
         "prenom" => 'required',
-        //"datenaissance" => 'required|date|date_format:Y-m-d',
-        //"idlieunaissance" => 'required',
-        //"mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],//"Type_p" =>'required_if:type,Ayant_droit', //"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
+        //"datenaissance" => 'required|date|date_format:Y-m-d',//"idlieunaissance"=>'required',//"mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],//"Type_p" =>'required_if:type,Ayant_droit', //"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
         "prenom_homme_c"=>'required_with:nom_homme_c', 
         "type_piece_id"=>'required_with:nom_homme_c', 
         "npiece_id"=>'required_with:nom_homme_c', //"lien"=>'required_with:nom_homme_c', //"date_piece_id"=>'required_with:nom_homme_c',    

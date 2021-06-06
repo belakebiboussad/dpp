@@ -78,8 +78,8 @@
 							<td>{{ $antcd->date }}</td>
 							<td>{{ $antcd->cim_code }}</td>
 							<td>{{ $antcd->descrioption }}</td>
-							<td>{{ $antcd->tabac ? 'Oui' : 'Non' }}</td>
-							<td>{{ $antcd->ethylisme? 'Oui' : 'Non' }}</td>
+							<td>{{ $antcd->tabac === 0 ?  'Non' : 'Oui' }}</td>
+							<td>{{ $antcd->ethylisme ===0 ? 'Non' : 'Oui' }}</td>
 							<td>{{ $antcd->habitudeAlim }}</td>
 							<td class="center"> 
 								<button type="button" class="btn btn-xs btn-info Phys-open-modal" data-atcd ="c"  value="{{$antcd->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
@@ -150,7 +150,7 @@
 	 	</label>
     </div>   
   </div>
-      <div class="col-sm-3 col-xs-6">
+  <div class="col-sm-3 col-xs-6">
 		<div class="checkbox">
 			<input type="hidden" name="regime" value="0">
 	 		<label><input name="regime" type="checkbox" class="ace" value="1" @if(isset($patient->facteurRisque)&&($patient->facteurRisque->regime)) checked @endif/>
@@ -175,6 +175,7 @@
 	  </div>   
 	</div>
 </div>
+<div class="space-12"></div>
 <div class="row">
       <div class="col-sm-3 col-xs-6">
 	      <label for="autrefact" class="text-nowrap"><strong>Autre élément social</strong></label>

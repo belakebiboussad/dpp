@@ -16,7 +16,7 @@ class LettreOrientationController extends Controller
         "motif"=>$request->motifOr,
         "specialite"=>$request->specialite,
         "medecin"=>$request->medecin,
-        "Consultation_ID_Consultation"=>$consultID,
+        "consultation_id"=>$consultID,
         ]);
     }
 }
