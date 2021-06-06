@@ -162,10 +162,10 @@
 					<label class="col-sm-3 control-label" for="datenaissance"><strong>Né(e) le :</strong></label>
 					<div class="col-sm-9">
 					@if(isset($patient->Dat_Naissance)) 
-						<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" value="{{ $patient->Dat_Naissance }}"/>
+						<input class="col-xs-12 col-sm-12 date-picker ltnow" id="datenaissance" name="datenaissance" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" value="{{ $patient->Dat_Naissance }}"/>
 						{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
 					@else
-					<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd"/>
+					<input class="col-xs-12 col-sm-12 date-picker ltnow" id="datenaissance" name="datenaissance" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd"/>
 					@endif
 					</div>
 				</div>

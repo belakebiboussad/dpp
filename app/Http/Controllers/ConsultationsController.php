@@ -229,7 +229,7 @@ class ConsultationsController extends Controller
     {
       if($request->ajax())  
       {         
-       if($request->field != 'Nom')
+       if($request->field == 'Date_Consultation')
              $consults =consultation::with('patient','docteur')->where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
         else
             $consults =consultation::with('patient','docteur')->whereHas('patient',function($q) use ($request){

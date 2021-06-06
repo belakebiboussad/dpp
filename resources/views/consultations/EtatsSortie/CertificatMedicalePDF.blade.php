@@ -1,10 +1,13 @@
 <html>
     <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><!--<link rel="stylesheet" href="css/bootstrap.min.css"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/styles.css">
     <title>Certificat medical</title>
       <style>
+      .espace{
+         margin-left:6em
+      }
       @media print  
       {
         a[href]:after {
@@ -39,30 +42,22 @@
     <body>
       <div class="container-fluid" id="myDiv">
         @include('partials.etatHeader')
-        <div class="row mt-30">
-          <div class="col-sm-2">
-          </div>
-          <div class="col-sm-8" align="center">
-            <h3><strong>{{ $etat->nom}}</strong></h3>
-          </div>
-          <div class="col-sm-2">
-          </div>
+        <hr class="mt-10"/>
+        <div class="row mt-30"><div class="center"><h3><strong>{{ $etat->nom }}</strong></h3></div></div><br>
+        <div class="row"><div class="sec-droite">Le  {{ Carbon\Carbon::parse($date)->format('d/m/Y') }}</div> </div>
+        <div class="row"><div><strong>Service : </strong>{{ $obj->docteur->Service->nom }}</div></div>
+        <div class="row"><div><strong>Chef de Servise : </strong>{{ $obj->docteur->Service->responsable->nom }} &nbsp;
+          {{ $obj->docteur->Service->responsable->prenom }}</div>
         </div>
-        <div class="row"><br><span class="ml-80">Alger le {{ Carbon\Carbon::parse($date)->format('d-m-Y') }}</span><br><br></div>
-        <div class="row"><div class="col-sm-12"><strong>Service : </strong>
-          <span>{{ $obj->docteur->Service->nom }}</span> </div>
-        </div>
-        <div class="row"><div class="col-sm-12"><strong>Chef de servise : </strong>
-        <span>{{ $obj->docteur->Service->responsable->nom }}</span></div>
-        </div><br>
+        <br><br>
         <div class="row">
-          <div class="col-sm-12"><strong>je soussigné docteur  : </strong>
-            <span>{{ $obj->docteur->nom }} {{ $obj->docteur->prenom }}</span>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-12"><strong>certifier que {{ $obj->patient->getCivilite() }} : </strong>
-          <span>{{ $obj->patient->Nom }}{{ $obj->patient->Prenom }}</span></div>
+          <p class="espace">
+           Je soussigné , <strong>{{ $obj->docteur->nom }} {{ $obj->docteur->prenom }}</strong>
+           Docteur en  <strong> {{ $obj->docteur->Specialite->nom }}</strong>,
+          </p>
+          <p>
+            <strong>certifie avoir examiné {{ $obj->patient->getCivilite() }} </strong>
+            <strong>{{ $obj->patient->Nom }} &nbsp;{{ $obj->patient->Prenom }}</strong> né(e) le{{  (\Carbon\Carbon::parse($obj->patient->Dat_Naissance))->format('d/m/Y') }}
         </div>
         <div class="row">
           <div class="col-sm-12"><span style="padding-top: 10px;">

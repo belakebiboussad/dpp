@@ -118,7 +118,6 @@
   $( function() {
 		var date = new Date('{{ $patient->Dat_Naissance }}');
 		$( ".gdob" ).datepicker( "option", "minDate", date );	//great to date of bearth	
-		//$( ".ltnow" ).datepicker( "option", "maxDate", new Date );	
 	});
  	$('document').ready(function(){
 			$( 'ul.nav li' ).on( 'click', function() {
@@ -189,7 +188,6 @@
 		  { "targets": 3 ,  className: "dt-head-center dt-body-center" }
 		],
 	  });
-  ////////////////////////////fin 
 	jQuery('#btn-add, #AntFamil-add').click(function () {//ADD
 		jQuery('#EnregistrerAntecedant').val("add");
 		jQuery('#modalFormData').trigger("reset");
@@ -199,14 +197,10 @@
 			$("#EnregistrerAntecedant").attr('data-atcd','Famille'); 
 			if(! ($( "#atcdsstypehide" ).hasClass( "hidden" )))
 				$( "#atcdsstypehide" ).addClass("hidden");
-			if($( "#dateAntcd" ).hasClass( "gdob" ))
-				$( "#dateAntcd" ).removeClass("gdob");	 
-		}else{	
+		}else{
 			$("#EnregistrerAntecedant").attr('data-atcd','Perso'); 
 			if(($( "#atcdsstypehide" ).hasClass( "hidden" )))
 				$('#atcdsstypehide').removeClass("hidden");
-			if(! ($( "#dateAntcd" ).hasClass( "gdob" )))
-				$( "#dateAntcd" ).addClass("gdob");
 		}
 		jQuery('#antecedantModal').modal('show');
 	});
