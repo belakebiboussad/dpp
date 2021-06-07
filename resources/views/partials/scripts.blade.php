@@ -46,7 +46,6 @@
 <script src="{{ asset('/js/bootstrap-toggle.min.js') }}"></script>
 <script src="{{ asset('/js/ace-extra.min.js') }}"></script>
 <script src="{{ asset('/js/jquery.timepicker.min.js') }}"></script>
-
 {{-- <script type="text/javascript" src="{{ asset('/js/bootstrap-timepicker.min.js') }}"></script> --}}
 <script src="{{ asset('/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
 <script src="{{ asset('/plugins/fullcalendar/locale/fr.js') }}"></script>
@@ -680,5 +679,14 @@ $('#typeexm').on('change', function() {
       }
       function htmlspecialchars(str) {
          return str.replace('&', '&amp;').replace('&quot;', '"').replace("'", '&#039;').replace('<', '&lt;').replace('>', '&gt;');
+      }
+      function formatDate(date) {
+        var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+        return [day ,year, month].join('/');
       }
 </script>

@@ -307,19 +307,20 @@
         });
       }
       function showConsult(consultId) //a voir ce lui den haut
-      {
+      { 
         url= '{{ route ("consultdetailsXHR", ":slug") }}',
         url = url.replace(':slug',consultId);
-         $.ajax({
+        $.ajax({
             type : 'GET',
             url:url,
             success:function(data,status, xhr){
+
               $('#consultDetail').html(data.html);
             },
             error:function (data){
               console.log('Error:', data);
             }
-         });             
+        });             
       }
       function showHosp(hospId) //a voir ce lui den haut
       {
@@ -484,14 +485,16 @@
       html2canvas($("#lettreorientation"), {
         onrendered: function(canvas) {         
           moment.locale('fr');
-          var formattedDate = moment(new Date()).format("l");
+          // var formattedDate = moment(new Date()).format("l");
+          var d = new Date();
+          var formattedDate = formatDate(d);
           var doc = new jsPDF({orientation: "p", lineHeight: 2});
           doc.text(105,10,ett, null, null, 'center');
           doc.setFontSize(13);
-          doc.text(105,18,etn, null, null, 'center');// doc.text(105,18,'{{ Session::get('etabname') }}'.replace(/&quot;/g,'"'), null, null, 'center');
+          doc.text(105,18,etn, null, null, 'center');
           doc.setFontSize(12);
           doc.text(105,24,etadr, null, null, 'center');
-          doc.text(105,30, ettel, null, null, 'center');//doc.text(105,26, 'Tél : 023-93-34 - 23-93-58', null, null, 'center');
+          doc.text(105,30, ettel, null, null, 'center');
           doc.addImage(logo, 'JPEG', 95, 33, 20, 20);
           doc.setFontSize(14);
           JsBarcode("#itfL", ipp.toString(), {
@@ -503,17 +506,16 @@
             fontSize : 28,
             textAlign: "left"
           });
-          const img = document.querySelector('img#itfL');//doc.text(200,58, 'Alger,le : '+dd+'/'+mm+'/'+yyyy, null, null, 'right');
+          const img = document.querySelector('img#itfL');
           doc.text(200,58, formattedDate , null, null, 'right');        
           doc.text(20,68, 'Docteur : {{ Auth::User()->employ->nom }} {{Auth::User()->employ->prenom }}', null, null);
           doc.text(20,76, 'Tél : {{Auth::User()->employ->tele_mobile }}', null, null);
-          doc.text(200,68, 'Specialite : '+specialite , null, null,'right');
-          doc.text(200,76, 'Destinataire : '+medecin , null, null, 'right');
+          doc.text(200,68, 'Specialite : '+specialite , null, null,'right');// doc.text(200,76, 'Destinataire : '+medecin , null, null, 'right');
           doc.setFontType("bold");doc.setFontSize(16);
           doc.text(105,90, "Lettre d'orientation", null, null, 'center');
           doc.addImage(img.src, 'JPEG', 20, 96, 50, 15);
           doc.setFontType("normal");doc.setFontSize(12);
-          var text = "permettez moi de vous adresser le(la) patient(e) sus-nommé(e), "+nomP+" "+prenomP+" âgé(e) de "+ageP+" ans, qui s'est présenté ce jour pour  "+$('#motifOrient').val()+"  . je vous le confie pour prise en charge spécialisé. respectueusement confraternellement.";
+          var text = "Permettez moi de vous adresser le(la) patient(e) sus-nommé(e), "+nomP+" "+prenomP+" âgé(e) de "+ageP+" ans, qui s'est présenté ce jour pour  "+$('#motifOrient').val()+"  . je vous le confie pour prise en charge spécialisé. respectueusement confraternellement.";
           lines = doc.splitTextToSize(text, 185);
           doc.text(20,130,lines,null,null);
           doc.text(160,260,'signature',null,null,'right');
@@ -613,8 +615,7 @@
         champ.appendTo('#consultForm');
       }//save input modal to input form
       function lettreorientation() {
-        $('#specialite').val($('#specialiteOrient').val());
-        $('#medecin').val($('#medecinOrient').val());
+        $('#specialite').val($('#specialiteOrient').val());// $('#medecin').val($('#medecinOrient').val());
         $('#motifOr').val($('#motifOrient').val()); }
       function demandehosp()
       {

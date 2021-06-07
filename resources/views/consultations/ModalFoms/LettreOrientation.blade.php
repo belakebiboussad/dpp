@@ -15,18 +15,9 @@
 					  	@endforeach 
 				  	</select>
 				  </div>
-			  	</div><div class="space-12"></div><!-- row -->
-	    		<div class="row">
-	    			<div class="col-xs-12">
-			    		<label for="medecin"><b>Medecin :</b></label>
-					 		<select class="form-control" id="medecinOrient" name="medecinOrient">
-					   		<option value="">Sélectionner...</option> 
-					    	@foreach($meds as $med)
-					 			<option value="{{ $med->employ->id}}">{{ $med->employ->nom}} {{$med->employ->prenom}}</option>
-					    	@endforeach 
-					  	</select>
-				  	</div>
-	   			</div><div class="space-12"></div><!-- row -->
+			  	</div><div class="space-12"></div>
+{{--<div class="row"><div class="col-xs-12"><label for="medecin"><b>Medecin :</b></label><select class="form-control" id="medecinOrient" name="medecinOrient"><option value="">Sélectionner...</option> 
+@foreach($meds as $med)<option value="{{ $med->employ->id}}">{{ $med->employ->nom}} {{$med->employ->prenom}}</option>@endforeach</select></div></div><div class="space-12"></div>--}}
 	   			<div class="row">
 	   				<div class="col-xs-12">
 							<label for="motif"><b>Motif :</b></label>     
@@ -38,7 +29,7 @@
 		  <div class="modal-footer">
           <div class="col-sm-12">
 			    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" onclick="lettreorientation()"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>{{-- <button data-toggle="modal" data-target="#lettreorien"  onclick=""></button> --}}
-				  <button type="button" class="btn btn-xs btn-success" onclick="orLetterPrint('{{$patient->Nom}}','{{ $patient->Prenom}}','{{$patient->getAge() }}','{{$patient->IPP }}','{{$etablissement->tutelle }}','{{$etablissement->nom }}','{{$etablissement->adresse }}','{{$etablissement->tel }}','{{$etablissement->logo }}')"><i class="ace-icon fa fa-print"></i>Imprimer</button>
+				  <button type="button" class="btn btn-sm btn-success" onclick="orLetterPrint('{{$patient->Nom}}','{{ $patient->Prenom}}','{{$patient->getAge() }}','{{$patient->IPP }}','{{$etablissement->tutelle }}','{{$etablissement->nom }}','{{$etablissement->adresse }}','{{$etablissement->tel }}','{{$etablissement->logo }}')"><i class="ace-icon fa fa-print"></i>Imprimer</button>
 				  <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 			  </div>
       </div>

@@ -222,7 +222,6 @@ $('document').ready(function(){
 							<tr>
 								<th class="center"><strong>Date</strong></th>
 								<th class="center"><strong>Spécilalité</strong></th>
-								<th class="center"><strong>Médecin</strong></th>		
 								<th class="center"><em class="fa fa-cog"></em></th>
 							</tr>
 						</thead>
@@ -230,7 +229,6 @@ $('document').ready(function(){
 							<tr>
 								<td>{{ $consultation->Date_Consultation }}</td>
 								<td>{{ $consultation->lettreOrintation->Specialite->nom }}</td>
-								<td>{{ $consultation->lettreOrintation->Medecin->nom }} {{ $consultation->lettreOrintation->Medecin->prenom }}</td>
 								<td class="center">
 									<a href="#" class="green bigger-140 show-details-btn" title="Afficher Details" data-toggle="collapse"  data-target=".collapsed">
 										<i class="ace-icon fa fa-eye-slash"></i><span class="sr-only">Details</span>&nbsp;

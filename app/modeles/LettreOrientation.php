@@ -8,7 +8,7 @@ class LettreOrientation extends Model
 {
     //
 	public $timestamps = false;
-	protected $fillable  = ['motif','specialite','medecin','consultation_id'];
+	protected $fillable  = ['motif','specialite','consultation_id'];
 	protected $table="lettre_oriantations";
 	public function consultation()
   {
@@ -17,10 +17,5 @@ class LettreOrientation extends Model
   public function Specialite()
   {
   	return $this->belongsTo('App\modeles\Specialite','specialite');	
-  }
-  public function Medecin()
-  {
-  	return $this->belongsTo('App\modeles\employ','medecin');
-  }
-
+  }  // public function Medecin() { 	return $this->belongsTo('App\modeles\employ','medecin'); }
 }

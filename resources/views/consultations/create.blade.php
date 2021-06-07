@@ -614,7 +614,8 @@
 			<div class="col-sm12"><!-- les inputs de modal form(Demande Hospitalisation)  -->
 				<input type="hidden" name="service" id="service"><input type="hidden" name="specialiteDemande" id="specialiteDemande">
 				<input type="hidden" name="modeAdmission" id="modeAdmission"><input type="hidden" name="specialite" id="specialite">
-				<input type="hidden" name="medecin" id="medecin"><input type="hidden" name="motifOr" id="motifOr">
+				<!-- <input type="hidden" name="medecin" id="medecin"> -->
+				<input type="hidden" name="motifOr" id="motifOr">
 				</div>
 		</div>
 		<div class="row">
