@@ -276,9 +276,9 @@ class PatientController extends Controller
           $specialites = Specialite::all();
           $grades = grade::all(); 
           $patient = patient::FindOrFail($id);
-           $employe=Auth::user()->employ;
+          $employe=Auth::user()->employ;
           $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();//->first();
-          return view('patient.show',compact('etablissement','patient','employe','correspondants','specialites','grades'));
+          return view('patient.show',compact('patient','employe','correspondants','specialites','grades'));
         }
     /**
      * Show the form for editing the specified resource.

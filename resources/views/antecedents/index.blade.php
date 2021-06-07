@@ -92,7 +92,7 @@
 								<div class="space visible-xs"></div>
 								<h1><strong>Description de l'antécédant</strong></h1>
 								<p class="lead">
-									{{$atcd->descrioption}}
+									{{$atcd->description}}
 								</p>
 							</div>
 						</div>

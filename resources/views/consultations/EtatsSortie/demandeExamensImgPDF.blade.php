@@ -1,5 +1,5 @@
 <h3 class="mt-12 center" id="tutelle">{{ $etablissement->tutelle }}</h3>
- <h4 class="center" id="etabname">{{ $etablissement->nom }}</h4>
+<h4 class="center" id="etabname">{{ $etablissement->nom }}</h4>
 <h5 class="center" id="etabAdr">{{ $etablissement->adresse }}</h5>  
 <h5 class="center" id="etabTel">Tél : {{ $etablissement->tel }}- {{ $etablissement->tel2 }}</h5>
 <h5 class="mt-10 center" ><img src='{{ asset("img/$etablissement->logo") }}' style="width: 80px; height: 80px" alt="logo"/></h5>

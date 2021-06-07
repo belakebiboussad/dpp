@@ -221,7 +221,7 @@
 				$( "#atcdsstypehide" ).removeClass("hidden"); 
 			$('#dateAntcd').val(data.date);
 			$('#cim_code').val(data.cim_code);
-			$('#description').val(data.descrioption);
+			$('#description').val(data.description);
 			$("#EnregistrerAntecedant").attr('data-atcd',"Perso");
 			$('#AntecCrudModal').html("Editer un Antecedant");	
 			jQuery('#EnregistrerAntecedant').val("update");	
@@ -235,7 +235,7 @@
 			$('#atcd_id').val(data.id);
 			$('#dateAntcd').val(data.date);
 			$('#cim_code').val(data.cim_code);
-		  $('#description').val(data.descrioption);
+		  $('#description').val(data.description);
 		  if(! ($( "#atcdsstypehide" ).hasClass( "hidden" )))
 				$( "#atcdsstypehide" ).addClass("hidden"); 
 			jQuery('#EnregistrerAntecedant').val("update");
@@ -255,7 +255,7 @@
 			if(data.ethylisme)
 				$('#ethylisme').prop('checked', true);
 			$('#phys_cim_code').val(data.cim_code);
-		  $('#descriptionPhys').val(data.descrioption);
+		  $('#descriptionPhys').val(data.description);
 			jQuery('#EnregistrerAntecedantPhys').val("update");//$("#EnregistrerAntecedant").attr('data-atcd',"Famille")	
 			jQuery('#antecedantPhysioModal').modal('show');
 		});
@@ -272,7 +272,7 @@
 				stypeatcd            : jQuery('#sstypeatcdc').val(),
 				date                    : $('#dateAntcd').val(),
 				cim_code			:$('#cim_code').val(),
-				descrioption         : $("#description").val()
+				description         : $("#description").val()
 			};
 		}else
 		{
@@ -316,7 +316,7 @@
 				}else
 				{
 					var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>' + data.date + '</td><td>' +data.cim_code
-							  +	'</td><td>'	+ data.descrioption + '</td>';
+							  +	'</td><td>'	+ data.description + '</td>';
 					atcd += '<td class ="center"><button class="btn btn-xs btn-info open-modalFamil" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
 				atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
 
@@ -344,7 +344,7 @@
 				typeAntecedant       : '1',//jQuery('#typeAntecedant').val(),
 				date                 : $('#dateAntcdPhys').val(),
 				cim_code						 : $('#phys_cim_code').val(),
-				descrioption         : $("#descriptionPhys").val(),
+				description         : $("#descriptionPhys").val(),
 				habitudeAlim 				 : $('#habitudeAlim').val()
 		};
 		formData.tabac = $("#tabac").is(":checked") ? 1:0;
@@ -373,7 +373,7 @@
 					var tabac = data.tabac != 0 ? 'Oui' : 'Non';
 					var ethylisme = data.ethylisme !=0 ? 'Oui' : 'Non';
 					var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>'+data.date+'</td><td>'
-									 + data.cim_code +'</td><td>'+data.descrioption+ '</td><td>' + tabac + '</td><td>'+ ethylisme+'</td><td>'+ data.habitudeAlim +'</td>';
+									 + data.cim_code +'</td><td>'+data.description+ '</td><td>' + tabac + '</td><td>'+ ethylisme+'</td><td>'+ data.habitudeAlim +'</td>';
 						atcd += '<td class ="center"><button class="btn btn-xs btn-info Phys-open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
 						atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
 				if (state == "add") { 
@@ -635,4 +635,5 @@
 <div class="row">@include('consultations.ModalFoms.imprimerOrdonnanceAjax')</div>
 <div class="row">@include('rdv.rendezVous')</div>
 <div class="row">@include('cim10.cimModalForm')</div>
+<div class="row"><div id="OrientLetterPdf" class="invisible">@include('consultations.EtatsSortie.orienLetterImgPDF')</div></div>
 @endsection

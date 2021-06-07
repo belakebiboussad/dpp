@@ -6,15 +6,15 @@
     <div class="sidebar-shortcuts" id="sidebar-shortcuts">
       <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
         <button class="btn btn-success"><i class="ace-icon fa fa-signal"></i></button>
-        <button class="btn btn-info"><i class="ace-icon fa fa-pencil"></i>  </button> <!-- #section:basics/sidebar.layout.shortcuts --> 
-        <button class="btn btn-warning"><i class="ace-icon fa fa-users"></i>   </button>
-        <button class="btn btn-danger"><i class="ace-icon fa fa-cogs"></i>  </button>   <!-- /section:basics/sidebar.layout.shortcuts -->
+        <button class="btn btn-info"><i class="ace-icon fa fa-pencil"></i></button>
+        <button class="btn btn-warning"><i class="ace-icon fa fa-users"></i></button>
+        <button class="btn btn-danger"><i class="ace-icon fa fa-cogs"></i></button>
       </div>
       <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
         <span class="btn btn-success"></span><span class="btn btn-info"></span><span class="btn btn-warning"></span>
         <span class="btn btn-danger"></span>
       </div>
-    </div><!-- /.sidebar-shortcuts -->
+    </div>
     <li class="">
       <a href="home"><i class="menu-icon fa fa-picture-o"></i><span class="menu-text">Gestion Patients</span></a><b class="arrow"></b>
     </li>
@@ -484,8 +484,7 @@
       var medecin =  $("#medecinOrient option:selected").text().trim();
       html2canvas($("#lettreorientation"), {
         onrendered: function(canvas) {         
-          moment.locale('fr');
-          // var formattedDate = moment(new Date()).format("l");
+          moment.locale('fr');// var formattedDate = moment(new Date()).format("l");
           var d = new Date();
           var formattedDate = formatDate(d);
           var doc = new jsPDF({orientation: "p", lineHeight: 2});
@@ -512,7 +511,7 @@
           doc.text(20,76, 'Tél : {{Auth::User()->employ->tele_mobile }}', null, null);
           doc.text(200,68, 'Specialite : '+specialite , null, null,'right');// doc.text(200,76, 'Destinataire : '+medecin , null, null, 'right');
           doc.setFontType("bold");doc.setFontSize(16);
-          doc.text(105,90, "Lettre d'orientation", null, null, 'center');
+          doc.text(105,90, "Lettre d'Orientation", null, null, 'center');
           doc.addImage(img.src, 'JPEG', 20, 96, 50, 15);
           doc.setFontType("normal");doc.setFontSize(12);
           var text = "Permettez moi de vous adresser le(la) patient(e) sus-nommé(e), "+nomP+" "+prenomP+" âgé(e) de "+ageP+" ans, qui s'est présenté ce jour pour  "+$('#motifOrient').val()+"  . je vous le confie pour prise en charge spécialisé. respectueusement confraternellement.";
@@ -576,9 +575,27 @@
             champ.appendTo(form);
       }
       function orLetterPrint(nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo) {
-        var img = new Image();
-        img.src = '{{ asset("/img/logo.png") }}';
-        img.onload = function () {
+        $("#OrientLetterPdf").removeClass('invisible');
+
+        $("#orSpecialite").text($( "#specialiteOrient option:selected" ).text().trim());
+        $("#motifCons").text($( "#motifC" ).val());
+        $("#motifO").text($( "#motifOrient" ).val());
+        var element = document.getElementById('OrientLetterPdf');
+        var options = {
+          filename:'lettreOrient-'+nomP+'-'+nomP+'.pdf'
+        };
+        var exporter = new html2pdf(element, options);
+        $("#OrientLetterPdf").addClass('invisible');
+        exporter.getPdf(true).then((pdf) => {
+            console.log('pdf file downloaded');
+        });
+        exporter.getPdf(false).then((pdf) => {
+            console.log('doing something before downloading pdf file');
+            pdf.save();
+        });
+      }
+      function orLetterPrintOrg(nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo) {
+        var img = new Image();img.src = '{{ asset("/img/logo.png") }}';img.onload = function () {
           lettreoriet(img,nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo);
         };
       }     
@@ -594,7 +611,7 @@
         return 0;
       }
       if(taille==""){
-        alert("STP, Saisir la taille"); // $("#taille").focus();
+        alert("STP, Saisir la taille");
         return 0;
       }else if (isNaN(taille)) {
         alert("taille doit être un nombre!");  

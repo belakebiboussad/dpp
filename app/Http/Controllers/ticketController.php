@@ -43,11 +43,11 @@ class ticketController extends Controller
       if($request->typecons == "Normale")
       {
         $tickets = ticket::where("date", $date)
-                        ->where("specialite",$request->spesialite)
+                        ->where("specialite",$request->specialite)
                         ->get()->count();
         $ticket = ticket::firstOrCreate([
             "date" => $datea,
-            "specialite" => $request->spesialite,
+            "specialite" => $request->specialite,
             "type_consultation" => $request->typecons,
             "document" => $request->document,
             "num_order" => ($tickets+1),
@@ -62,7 +62,7 @@ class ticketController extends Controller
                           ->get()->count();
           $ticket = ticket::firstOrCreate([
               "date" => $datea,
-              "specialite" => $request->spesialite,
+              "specialite" => $request->specialite,
               "type_consultation" => $request->typecons,
               "document" => $request->document,
               "num_order" => ($tickets+1),

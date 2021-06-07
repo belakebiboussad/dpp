@@ -48,19 +48,28 @@
           	$(this).addClass('selected');
       	}
     });
+    $('#specialiteTick').change(function(){
+        if($(this).val() =="")
+        {        	
+         	$('#prinTick').prop('disabled', 'disabled');
+         }
+        else
+        {
+        	$('#prinTick').removeAttr("disabled");
+        	
+        }
+  	});
   });
-//     var rows = document.getElementById("consultList").children[1].children;var selectedRow = 0;
-//     document.body.onkeydown = function(e){//Prevent page scrolling on keypress
-//       e.preventDefault();//Clear out old row's color
-//     	rows[selectedRow].style.backgroundColor = "#FFFFFF"; //Calculate new row
-// 	    if(e.keyCode == 38){
-// 	        selectedRow--;
-// 	     } else if(e.keyCode == 40){//  selectedRow++;
-// 	    }
-// 	    if(selectedRow >= rows.length){// selectedRow = 0;
-// 	     } else if(selectedRow < 0){// selectedRow = rows.length-1;//   }//Set new row's color
-// 	      rows[selectedRow].style.backgroundColor = "#8888FF";// 	showConsult(rows[selectedRow].getAttribute("id"));// 	     };//Set the first row to selected color// rows[0].style.backgroundColor = "#8888FF";
-
+ /* var rows = document.getElementById("consultList").children[1].children;var selectedRow = 0;   document.body.onkeydown = function(e){//Prevent page scrolling on keypress
+      e.preventDefault();//Clear out old row's color
+      	rows[selectedRow].style.backgroundColor = "#FFFFFF"; //Calculate new row
+	    if(e.keyCode == 38){selectedRow--;
+	     } else if(e.keyCode == 40){//  selectedRow++;
+	    }
+	    if(selectedRow >= rows.length){// selectedRow = 0;
+	     } else if(selectedRow < 0){// selectedRow = rows.length-1;//   }//Set new row's color
+	      rows[selectedRow].style.backgroundColor = "#8888FF";// 	showConsult(rows[selectedRow].getAttribute("id"));// 	     };//Set the first row to selected color// rows[0].style.backgroundColor = "#8888FF";
+*/
 </script>
 @endsection
 @section('main-content')
@@ -131,10 +140,12 @@
 	    		<div class="modal-body">
 	    			<div class="row">
 					<div  class="col-sm-12 form-group">
-						<label for="typecons"><b>Type de consultation:</b></label>
+						<label for="typecons"><b>Type de Consultation:</b></label>
 						<select class="form-control" id="typecons" name="typecons" required>
 							<option value="Normale">Normale</option>
 							<option value="Urgente">Urgente</option>
+							<option value="controle">Côntrole</option>
+							<option value="specialise">Spécialisé</option>
 						</select>
 					</div>
 				</div>
@@ -145,14 +156,15 @@
 							<option value="Rendez-vous">Rendez-vous</option>
 							<option value="Lettre d'orientation">Lettre d'orientation</option>
 							<option value="Consultation généraliste">Consultation généraliste</option>
+							<option value="autre">Autre</option>
 						</select>
 					</div>
 				</div>
 				<div class="row">
 					<div  class="col-sm-12 form-group">
-						<label for="spesialite"><b>Spécialité:</b></label>
-						<select class="form-control" id="spesialite" name="spesialite">
-							<option value="0">Selectionner la spécialité</option>
+						<label for="specialite"><b>Spécialité:</b></label>
+						<select class="form-control" id="specialiteTick" name="specialite" required>
+							<option value="">Selectionner la spécialité</option>
 							@foreach($specialites as $specialite)
 							<option value="{{ $specialite->id}}"> {{ $specialite->nom}}</option>
 							@endforeach
@@ -161,7 +173,7 @@
 				</div>	
 	    		</div>
 	    		<div class="modal-footer">
-    				<button type="submit" class="btn btn-primary"><i class="ace-icon fa fa-copy"></i>Générer un ticket</button>	
+    				<button type="submit" class="btn btn-primary" id ="prinTick"disabled><i class="ace-icon fa fa-copy"></i>Générer un ticket</button>	
     				<button type="button" class="btn btn-default" data-dismiss="modal"><i class="ace-icon fa fa-close bigger-110"></i>Fermer</button>
     			</div>
 	    	</form>

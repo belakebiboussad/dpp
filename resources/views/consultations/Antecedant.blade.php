@@ -30,7 +30,7 @@
 						<td> {{ $antcd->stypeatcd }}</td>	     
 						<td>{{ $antcd->date }}</td>
 						<td>{{ $antcd->cim_code }}</td>
-						<td>{{ $antcd->descrioption }}</td>
+						<td>{{ $antcd->description }}</td>
 						<td class="center"> 
 							<button type="button" class="btn btn-xs btn-info open-modal" data-atcd ="c" id ="antPerso-edit" value="{{$antcd->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
 							 <button type="button" class="btn btn-xs btn-danger delete-atcd" value="{{$antcd->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
@@ -77,7 +77,7 @@
 							<td class ="hidden" >{{ $antcd->Patient_ID_Patient }}</td><!-- <td>Physiologiques</td>   -->
 							<td>{{ $antcd->date }}</td>
 							<td>{{ $antcd->cim_code }}</td>
-							<td>{{ $antcd->descrioption }}</td>
+							<td>{{ $antcd->description }}</td>
 							<td>{{ $antcd->tabac === 0 ?  'Non' : 'Oui' }}</td>
 							<td>{{ $antcd->ethylisme ===0 ? 'Non' : 'Oui' }}</td>
 							<td>{{ $antcd->habitudeAlim }}</td>
@@ -125,7 +125,7 @@
 							<td class ="hidden" >{{ $antcd->Patient_ID_Patient }}</td> 
 							<td>{{ $antcd->date }}</td>
 							<td>{{ $antcd->cim_code }}</td>
-							<td>{{ $antcd->descrioption }}</td>
+							<td>{{ $antcd->description }}</td>
 							<td class="center"> 
 								<button type="button" class="btn btn-xs btn-info open-modalFamil" data-atcd ="d" id ="antFamil-edit" value="{{$antcd->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
 								<button type="button" class="btn btn-xs btn-danger delete-atcd" value="{{$antcd->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>

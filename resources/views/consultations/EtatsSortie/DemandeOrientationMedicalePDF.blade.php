@@ -89,7 +89,7 @@
                 <tr>
                 <td>{{ $ant->stypeatcd}}</td>
                 <td>{{  $ant->date }}</td> 
-                <td>{{ $ant->descrioption}}</td>
+                <td>{{ $ant->description}}</td>
                 </tr>
                @endforeach  
               </tbody>
