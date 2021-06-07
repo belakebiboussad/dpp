@@ -18,6 +18,7 @@ use App\modeles\grade;
 use App\modeles\homme_conf;
 use App\modeles\antecedant;
 use App\modeles\ticket;
+use App\modeles\etablissement;
 use Validator;
 use Redirect;
 use MessageBag;
@@ -109,7 +110,7 @@ class PatientController extends Controller
       $grades = grade::all();//$errors = $validator->errors(); 
       return view('patient.add',compact('grades'))->withErrors($validator->errors());
     }
-    if( $request->type !="5")  
+    if( $request->type !="5")
     {  
       $assure = assur::where('NSS', $request->nss)->first(); 
       if ($assure === null) {
@@ -275,9 +276,9 @@ class PatientController extends Controller
           $specialites = Specialite::all();
           $grades = grade::all(); 
           $patient = patient::FindOrFail($id);
-          $employe=Auth::user()->employ;
+           $employe=Auth::user()->employ;
           $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();//->first();
-          return view('patient.show',compact('patient','employe','correspondants','specialites','grades'));
+          return view('patient.show',compact('etablissement','patient','employe','correspondants','specialites','grades'));
         }
     /**
      * Show the form for editing the specified resource.

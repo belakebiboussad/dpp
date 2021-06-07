@@ -58,7 +58,8 @@ class ConsultationsController extends Controller
     public function detailconsXHR(Request $request)
     {
       $consultation = consultation::FindOrFail($request->id);
-      $view =  view("consultations.inc_consult",compact('consultation'))->render();
+      $etablissement = Etablissement::first();
+      $view =  view("consultations.inc_consult",compact('consultation','etablissement'))->render();
       return response()->json(['html'=>$view]);
     }
     public function listecons($id)

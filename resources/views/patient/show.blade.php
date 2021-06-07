@@ -55,18 +55,11 @@
 //     	rows[selectedRow].style.backgroundColor = "#FFFFFF"; //Calculate new row
 // 	    if(e.keyCode == 38){
 // 	        selectedRow--;
-// 	     } else if(e.keyCode == 40){
-// 	        selectedRow++;
+// 	     } else if(e.keyCode == 40){//  selectedRow++;
 // 	    }
-// 	    if(selectedRow >= rows.length){
-// 	          selectedRow = 0;
-// 	     } else if(selectedRow < 0){
-// 	          selectedRow = rows.length-1;
-// 	      }//Set new row's color
-// 	      rows[selectedRow].style.backgroundColor = "#8888FF";
-// 	 			showConsult(rows[selectedRow].getAttribute("id"));
-// 	     };//Set the first row to selected color
-// 	 		rows[0].style.backgroundColor = "#8888FF";
+// 	    if(selectedRow >= rows.length){// selectedRow = 0;
+// 	     } else if(selectedRow < 0){// selectedRow = rows.length-1;//   }//Set new row's color
+// 	      rows[selectedRow].style.backgroundColor = "#8888FF";// 	showConsult(rows[selectedRow].getAttribute("id"));// 	     };//Set the first row to selected color// rows[0].style.backgroundColor = "#8888FF";
 
 </script>
 @endsection

@@ -477,7 +477,7 @@
           }
       });
     }
-    function lettreoriet(logo,nomP,prenomP,ageP,ipp)
+    function lettreoriet(logo,nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo)
     {
       var specialite = $( "#specialiteOrient option:selected" ).text().trim();
       var medecin =  $("#medecinOrient option:selected").text().trim();
@@ -486,12 +486,12 @@
           moment.locale('fr');
           var formattedDate = moment(new Date()).format("l");
           var doc = new jsPDF({orientation: "p", lineHeight: 2});
-          doc.text(105,10,'{{ Session::get('etabTut') }}', null, null, 'center');
+          doc.text(105,10,ett, null, null, 'center');
           doc.setFontSize(13);
-          doc.text(105,18,'{{ Session::get('etabname') }}'.replace(/&quot;/g,'"'), null, null, 'center');
+          doc.text(105,18,etn, null, null, 'center');// doc.text(105,18,'{{ Session::get('etabname') }}'.replace(/&quot;/g,'"'), null, null, 'center');
           doc.setFontSize(12);
-          doc.text(105,24,'{{ Session::get('etabAdr') }}', null, null, 'center');
-          doc.text(105,30, 'Tél : {{ Session::get("etabTel") }} - {{ Session::get("etabTel") }}', null, null, 'center');//doc.text(105,26, 'Tél : 023-93-34 - 23-93-58', null, null, 'center');
+          doc.text(105,24,etadr, null, null, 'center');
+          doc.text(105,30, ettel, null, null, 'center');//doc.text(105,26, 'Tél : 023-93-34 - 23-93-58', null, null, 'center');
           doc.addImage(logo, 'JPEG', 95, 33, 20, 20);
           doc.setFontSize(14);
           JsBarcode("#itfL", ipp.toString(), {
@@ -505,7 +505,7 @@
           });
           const img = document.querySelector('img#itfL');//doc.text(200,58, 'Alger,le : '+dd+'/'+mm+'/'+yyyy, null, null, 'right');
           doc.text(200,58, formattedDate , null, null, 'right');        
-          doc.text(20,68, 'Emetteur : {{ Auth::User()->employ->nom }} {{Auth::User()->employ->prenom }}', null, null);
+          doc.text(20,68, 'Docteur : {{ Auth::User()->employ->nom }} {{Auth::User()->employ->prenom }}', null, null);
           doc.text(20,76, 'Tél : {{Auth::User()->employ->tele_mobile }}', null, null);
           doc.text(200,68, 'Specialite : '+specialite , null, null,'right');
           doc.text(200,76, 'Destinataire : '+medecin , null, null, 'right');
@@ -555,11 +555,11 @@
             var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
             champ.appendTo(form);
       }
-      function orLetterPrint(nomP,prenomP,ageP,ipp) {
+      function orLetterPrint(nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo) {
         var img = new Image();
         img.src = '{{ asset("/img/logo.png") }}';
         img.onload = function () {
-          lettreoriet(img,nomP,prenomP,ageP,ipp);
+          lettreoriet(img,nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo);
         };
       }     
       function IMC1(){

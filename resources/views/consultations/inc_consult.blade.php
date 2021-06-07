@@ -234,9 +234,8 @@ $('document').ready(function(){
 								<td class="center">
 									<a href="#" class="green bigger-140 show-details-btn" title="Afficher Details" data-toggle="collapse"  data-target=".collapsed">
 										<i class="ace-icon fa fa-eye-slash"></i><span class="sr-only">Details</span>&nbsp;
-									</a>
-									<!-- <a href="" target="_blank" class="btn btn-xs"><i class="fa fa-print"></i></a> -->
-				  				<button type="button" class="btn btn-xs btn-success" onclick="orLetterPrint('{{$consultation->patient->Nom}}','{{ $consultation->patient->Prenom}}','{{$consultation->patient->getAge() }}','{{$consultation->patient->IPP }}')"><i class="ace-icon fa fa-print"></i></button>
+									</a><!-- <a href="" target="_blank" class="btn btn-xs"><i class="fa fa-print"></i></a> -->
+				  				<button type="button" class="btn btn-xs btn-success" onclick="orLetterPrint('{{$consultation->patient->Nom}}','{{ $consultation->patient->Prenom}}','{{$consultation->patient->getAge() }}',		'{{$consultation->patient->IPP }}','{{$etablissement->tutelle }}','{{$etablissement->nom }}','{{$etablissement->adresse }}','{{$etablissement->tel }}','{{$etablissement->logo }}')"><i class="ace-icon fa fa-print"></i></button>
 								</td>
 							</tr>
 							<tr class="collapse out budgets collapsed">
@@ -264,4 +263,3 @@ $('document').ready(function(){
 </div>
 @endif
 <div class="row"><canvas id="lettreorientation" height="1%"><img id='itfL'/></canvas></div>
-
