@@ -37,28 +37,28 @@
 	function getSorties(field,value)
 	{
 		$("#liste_sorties").dataTable().fnDestroy();
-	  $.ajax({
-          url : '{{URL::to('getSortiesAdmissions')}}',
-          data: {    
-                 "field":field,
-                 "value":value,
-        	},
+	  	$.ajax({
+         		 url : '{{URL::to('getSortiesAdmissions')}}',
+          		data: {    
+             	    "field":field,
+                		 "value":value,
+        		},
        		dataType: "json",
        		success: function(data) {
 			 	$(".numberResult").html(data.length);
 			  	var oTable =$("#liste_sorties").DataTable ({
 	        			"processing": true,
-		          	"paging":   true,
+		          		"paging":   true,
 		          		"destroy": true,
-			          "ordering": true,
-			          "searching":false,
-			          "info" : false,
-			          "language":{"url": '/localisation/fr_FR.json'},
-			          "data" : data,
-			          "fnCreatedRow": function( nRow, aData, iDataIndex ) {
+			        	"ordering": true,
+			         	"searching":false,
+			          	"info" : false,
+			          	"language":{"url": '/localisation/fr_FR.json'},
+			          	"data" : data,
+			          	"fnCreatedRow": function( nRow, aData, iDataIndex ) {
 			                 $(nRow).attr('id',"adm"+aData.id);
-			          },
-			          "columns": [
+			          	},
+			          	"columns": [
 			          	    {  data: "hospitalisation.patient.Nom",
 	                        		render: function ( data, type, row ) {
 	                               		  return row.demande_hospitalisation.consultation.patient.Nom + ' ' + row.demande_hospitalisation.consultation.patient.Prenom;

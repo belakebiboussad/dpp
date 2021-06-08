@@ -99,8 +99,11 @@
         </li>
         @endif
        {{--  <li><a href="#" class="dropdown-toggle">
-            <i class="menu-icon fa fa-stethoscope"></i><span class="menu-text">visites & Contrôle</span> <b class="arrow fa fa-angle-down"></b></a><b class="arrow"></b> <ul class="submenu">
-            <li><a href="/choixpatvisite"><i class="menu-icon fa fa-plus purple"></i>Ajouter visite & Contrôles</a><b class="arrow"></b></li></ul></li> --}}
+            <i class="menu-icon fa fa-stethoscope"></i><span class="menu-text">visites & Contrôle</span> <b class="arrow fa fa-angle-down"></b>
+          </a><b class="arrow"></b>
+          <ul class="submenu">
+            <li><a href="/choixpatvisite"><i class="menu-icon fa fa-plus purple"></i>Ajouter visite & Contrôles</a><b class="arrow"></b></li>
+          </ul></li> --}}
         <li>
           <a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-file-o"></i><span class="menu-text">Demandes Hosp</span>
             <b class="arrow fa fa-angle-down"></b>
@@ -137,15 +140,6 @@
     </div>
     <script type="text/javascript">
       try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
-      $(function() {
-        var checkbox = $("#hommeConf");
-        checkbox.change(function() {
-              if(checkbox.is(":checked"))
-                      $("#hommelink").removeClass('invisible');
-               else
-                     $("#hommelink").addClass('invisible');  
-        })
-      });
       function InverserUl()
       {
         var section = $("ul#menuPatient li:not(.active) a").prop('href').split("#")[1];
@@ -161,8 +155,7 @@
       }
       function checkPatient()
       {
-        var erreur =true;
-        var nom = $('#nom').val(); var prenom = $('#prenom').val();
+        var erreur =true;  var nom = $('#nom').val(); var prenom = $('#prenom').val();
 //var idlieunaissance = $('#idlieunaissance').val();//var datenaissance = $('#datenaissance').val();//var mobile1 = $('#mobile1').val();mobile1,"Téléphone mobile 1",  
         var type = $('#type').val();
         var inputAssVal = new Array(type,prenom,nom);
@@ -182,41 +175,22 @@
       }
       function checkAssure()
       {
-            var erreur =true;//var NMGSN = $('#NMGSN').val();var idlieunaissancef = $('#idlieunaissancef').val();"Lieu de Naissance",
-            var nomf = $('#nomf').val(); var prenomf = $('#prenomf').val();  var datenaissance = $('#datenaissancef').val(); 
-            var nss = $('#nss').val(); var position = $('#Position').val();//var inputAssVal = new Array(nss,gsf,idlieunaissancef,datenaissance,prenomf,nomf);
-            var inputAssVal = new Array(nss,position,gsf,prenomf,nomf);//var inputMessage = new Array("Numèro de Secruté Social","Groupe Sanguin","Date de Naissance","Prenom","Nom");
-            var inputMessage = new Array("Numèro de Secruté Social","position","Groupe Sanguin","Prenom","Nom");
-            $('.error').each(function(i, obj) { $(obj).next().remove(); $(obj).detach();  });
-            jQuery.each( inputAssVal, function( i, val ) {
-              if(val =="" )
-              {
-                 erreur =false;
-                 $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
-              }
-           });
-           return erreur;
+        var erreur =true;//var NMGSN = $('#NMGSN').val();var idlieunaissancef = $('#idlieunaissancef').val();"Lieu de Naissance",
+        var nomf = $('#nomf').val(); var prenomf = $('#prenomf').val();  var datenaissance = $('#datenaissancef').val(); 
+        var nss = $('#nss').val(); var position = $('#Position').val();//var inputAssVal = new Array(nss,gsf,idlieunaissancef,datenaissance,prenomf,nomf);
+        var inputAssVal = new Array(nss,position,gsf,prenomf,nomf);//var inputMessage = new Array("Numèro de Secruté Social","Groupe Sanguin","Date de Naissance","Prenom","Nom");
+        var inputMessage = new Array("Numèro de Secruté Social","position","Groupe Sanguin","Prenom","Nom");
+        $('.error').each(function(i, obj) { $(obj).next().remove(); $(obj).detach();  });
+        jQuery.each( inputAssVal, function( i, val ) {
+          if(val =="" )
+          {
+             erreur =false;
+             $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
+          }
+       });
+       return erreur;
       }
       function  checkHomme(){
-<<<<<<< HEAD
-              var erreur =true;
-              var nomA = $('#nomA').val();var prenomA = $('#prenomA').val();
-              var type_piece_id = $('#type_piece_id').val();var npiece_id = $('#npiece_id').val();mobileA = $('#mobileA').val();
-              var inputHomVal = new Array(npiece_id,mobileA,type_piece_id,prenomA,nomA);
-              var inputHomMessage = new Array("Numero de la Pièce","Type de la Pièce","Telephone mobile","Prenom","Nom");
-              $('.error').each(function(i, obj) {
-                    $(obj).next().remove();
-                    $(obj).detach();
-             });
-            jQuery.each( inputHomVal, function( i, val ) {
-                 if(val =="" )
-                {
-                       erreur =false;
-                      $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputHomMessage[i]+' du Correspondant</span>'+'<br/>');
-                 }
-            });   
-           return erreur;
-=======
           var erreur =true;
           var nomA = $('#nomA').val();var prenomA = $('#prenomA').val();
           var type_piece_id = $('#type_piece_id').val();
@@ -236,31 +210,30 @@
                }
           });   
          return erreur;
->>>>>>> 18cf02bc86a897943686beda46cbfc65f028d873
       }
       function checkConsult()
       {
-            var erreur =true;
-            var motif = $('#motif').val();  var resume = $('#resume').val();
-            var inputAssVal = new Array(resume,motif);
-            var inputMessage = new Array("Résume","Motif");
-            if($('#' + 'isOriented').is(":checked"))
-            {
-              inputAssVal.unshift($("#lettreorientaioncontent").val());
-              inputMessage.unshift("Résume de la lettre d'orientation");   
-            }
-            $('.error').each(function(i, obj) {
-              $(obj).next().remove();
-              $(obj).detach();
-           });
-            jQuery.each( inputAssVal, function( i, val ) {
-              if(val =="" )
-              {
-                erreur =false;
-                $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' de la Consultation </span>'+'<br/>');
-              }
-           });
-           return erreur;
+        var erreur =true;
+        var motif = $('#motif').val();  var resume = $('#resume').val();
+        var inputAssVal = new Array(resume,motif);
+        var inputMessage = new Array("Résume","Motif");
+        if($('#' + 'isOriented').is(":checked"))
+        {
+          inputAssVal.unshift($("#lettreorientaioncontent").val());
+          inputMessage.unshift("Résume de la lettre d'orientation");   
+        }
+        $('.error').each(function(i, obj) {
+          $(obj).next().remove();
+          $(obj).detach();
+       });
+        jQuery.each( inputAssVal, function( i, val ) {
+          if(val =="" )
+          {
+            erreur =false;
+            $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' de la Consultation </span>'+'<br/>');
+          }
+       });
+       return erreur;
       }
       function activaTab(tab){
         $('.nav-pills a[href="#' + tab + '"]').tab('show');
@@ -288,7 +261,6 @@
         });
         addRequiredAttr();
       }
-
       function copyPatientInfo(idP)
       {
         if($("#type").val() =="0")
@@ -378,29 +350,29 @@
       }
       function getProducts(id_gamme, id_spec=0,med_id = 0)
       {
-            var html = '<option value="0">Sélectionner...</option>';
-            $.ajax({
-                  url : '/getproduits/'+id_gamme+'/'+id_spec,
-                  type : 'GET',
-                  dataType : 'json',
-                  success : function(data){
-                          $.each(data, function(){
-                                   html += "<option value='"+this.id+"'>"+this.nom+"</option>";
-                          });
-                         $('#produit').html(html);
-                          if(med_id != 0)
-                              $('#produit').val(med_id);
-                         },
-                        error : function(){
-                            console.log('error');
-                        }
-              });
+          var html = '<option value="0">Sélectionner...</option>';
+          $.ajax({
+              url : '/getproduits/'+id_gamme+'/'+id_spec,
+              type : 'GET',
+              dataType : 'json',
+              success : function(data){
+                  $.each(data, function(){
+                    html += "<option value='"+this.id+"'>"+this.nom+"</option>";
+                  });
+                  $('#produit').html(html);
+                  if(med_id != 0)
+                    $('#produit').val(med_id);
+              },
+              error : function(){
+                  console.log('error');
+              }
+          });
       }
       function addCIMCode(code,field)
       {
-            $("#"+field).val(code);
-            $('#liste_codesCIM').empty();  $("#chapitre").val($("#chapitre option:first").val());$("#schapitre").val($("#schapitre option:first").val());
-            $('#cim10Modal').trigger("reset");$('#cim10Modal').modal('toggle');  
+        $("#"+field).val(code);
+        $('#liste_codesCIM').empty();  $("#chapitre").val($("#chapitre option:first").val());$("#schapitre").val($("#schapitre option:first").val());
+        $('#cim10Modal').trigger("reset");$('#cim10Modal').modal('toggle');  
       }
       function createexbio(nomp,prenomp,age,ipp){  
         var img = new Image();
@@ -409,8 +381,8 @@
            createexbioF(img,nomp,prenomp,age,ipp);
         };
       }
-      function createexbioFOrg(image,nomp,prenomp,age,ipp){ 
-        html2canvas($("#dos")[0], {
+      function createexbioF(image,nomp,prenomp,age,ipp){ 
+        html2canvas($("#dos"), {
           onrendered: function(canvas) {
               moment.locale('fr');//var IPP = ipp.toString();
               var formattedDate = moment(new Date()).format("l");                     
@@ -420,7 +392,7 @@
               doc.text(105,16,'{{ Session::get('etabname') }}'.replace(/&quot;/g,'"'), null, null, 'center');
               doc.setFontSize(12);
               doc.text(105,21,'{{ Session::get('etabAdr') }}', null, null, 'center');
-              doc.text(105,26, 'Tél : {{ Session::get("etabTel") }} - {{ Session::get("etabTel") }}', null, null, 'center');
+              doc.text(105,26, 'Tél : {{ Session::get("etabTel") }} - {{ Session::get("etabTel") }}', null, null, 'center');//doc.text(105,26, 'Tél : 023-93-34 - 23-93-58', null, null, 'center');
               doc.addImage(image, 'JPEG', 95, 27, 20, 20);
               doc.setFontSize(14);
               JsBarcode("#itf", ipp.toString(), {
@@ -452,6 +424,7 @@
           }
         });    
     }
+    
     function createeximgF(image,nomp,prenomp,age,ipp)
     { 
       html2canvas($("#dos"), {
@@ -496,30 +469,7 @@
           }
       });
     }
-<<<<<<< HEAD
-      function createeximg(nomp,prenomp,age,ipp)
-      {
-            $( "#ExamsImgtab" ).clone().appendTo( "#imgExams" );
-            $('#ExamsImgtab tr').find('th:last-child, td:last-child').remove()
-            $("#imagExamsPdf").removeClass('invisible'); 
-             var element = document.getElementById('imagExamsPdf');
-             var options = {
-                    filename:'ExamRadio-'+nomp+'-'+prenomp+'.pdf'
-              };
-             var exporter = new html2pdf(element, options);
-            $("#imagExamsPdf").addClass('invisible');
-            exporter.getPdf(true).then((pdf) => {// Download the PDF or...
-                     console.log('pdf file downloaded');
-             });
-            exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it
-                     console.log('doing something before downloading pdf file');
-                    pdf.save();
-             });
-      }
-    function lettreoriet(logo,nomP,prenomP,ageP,ipp)
-=======
     function lettreoriet(logo,nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo)
->>>>>>> 18cf02bc86a897943686beda46cbfc65f028d873
     {
       var specialite = $( "#specialiteOrient option:selected" ).text().trim();
       var medecin =  $("#medecinOrient option:selected").text().trim();
@@ -573,7 +523,7 @@
     function createeximg(nomp,prenomp,age,ipp)
     {
             $( "#ExamsImgtab" ).clone().appendTo( "#imgExams" );
-            $('#ExamsImgtab tr').find('th:last-child, td:last-child').remove()
+            $('#imgExams tr').find('th:last-child, td:last-child').remove()
             $("#imagExamsPdf").removeClass('invisible'); 
              var element = document.getElementById('imagExamsPdf');
              var options = {

@@ -30,7 +30,6 @@ class AntecedantsController extends Controller
         $atcds = antecedant::where("Patient_ID_Patient",$patient->id)->get()->all();
         return view('antecedents.index',compact('patient','atcds'));
     }
-
     /**
      * Show the form for creating a new resource.
      *

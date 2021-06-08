@@ -90,10 +90,13 @@ Route::get('/listeRDVs', 'RdvHospiController@getlisteRDVs');
 Route::post('/hospitalisation/{id}','HospitalisationController@update');
 Route::get('/getHospitalisations','HospitalisationController@getHospitalisations');
 Route::get('detailHospXHR/{id}','HospitalisationController@detailHospXHR')->name('hospdetailsXHR');
+
+//Route::get('/barreCodeprint','HospitalisationController@codebarrePrint');
+Route::get('barreCodeprint/{id}', ['as' => 'barreCode.print', 'uses' => 'HospitalisationController@codebarrePrint']);
+
 Route::post('users/changePassword', 'UsersController@changePassword');
 Route::post('/users/store/','UsersController@store');
 Route::get('/searchAssure','AssurController@search');
-
 Route::get('/atcd/create/{id}','AntecedantsController@create');
 Route::get('/atcd/index/{id}','AntecedantsController@index');
 Route::post('/atcd/store/{id}','AntecedantsController@store');
@@ -116,11 +119,8 @@ route::get('/getpatientcons','PatientController@getpatientconsult');
 route::get('/getpatientrdv','PatientController@getpatientrdv');
 route::get('/getpatientatcd','PatientController@getpatientatcd');
 route::get('/getproduits/{idgamme}/{idspec}','demandeprodController@get_produit');
-
 route::get('/getsalles','SalleController@getsalles');
-
 route::get('/salles/{id}','ServiceController@getsalles');
-
 Route::get('/salle/create/{id}','SalleController@create');
 Route::get('/salleRooms', 'SalleController@getRooms');
 Route::post('/exmbio/store/{id}','ExamenbioController@store');
@@ -197,6 +197,7 @@ route::get('/schapitres','CimController@getChapters');
 route::get('/maladies','CimController@getdiseases');//route::post('/acte','AntecedantsController@store');
 Route::get('/crrs/download/{id}', 'CRRControler@download')->name('crrs.download');
 Route::post('/crrPrint','CRRControler@print')->name('crrprint');
+Route::post('/createTicket','ticketController@store');
 Route::get('/404', function () {
     return view('errors.404');
 });

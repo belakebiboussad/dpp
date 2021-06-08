@@ -30,23 +30,39 @@
      function getMedecin (data, type, dataToSet) {
          return data['admission']['demande_hospitalisation']['Demeande_colloque']['medecin']['nom']; 
      }
+     function codeBPrint(id)
+     {
+            event.preventDefault();
+             var formData = {
+                  id: id,    
+               };
+       $.ajax({
+             type : 'get',
+             url : "{{URL::to('barreCode.print',['id'=>id])}}",
+             // data:formData,
+             success(data){
+                  alert(data);
+             },
+        });
+     }
      function getAction(data, type, dataToSet) {
-          var rols = [ 3, 5,9 ];
-          var actions =  '<a href = "/hospitalisation/'+data.id+'" style="cursor:pointer" class="btn secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>' ;  
-          if($.inArray({{  Auth::user()->role_id }}, rols) == -1){
-            if( data.etat_hosp != "1")                    
-            {
-                   actions += '<a href="/hospitalisation/'+data.id+'/editf" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier Hospitalisation" data-placement="bottom"><i class="fa fa-edit fa-xs" aria-hidden="true" fa-lg bigger-120></i></a>';
-            }
-            if( data.etat_hosp != "1")                    
-            {
+      var rols = [ 1,5,13,14 ]; // [ 3, 5,9,,14 ]; 
+      var actions =  '<a href = "/hospitalisation/'+data.id+'" style="cursor:pointer" class="btn secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>' ;  
+       if($.inArray({{  Auth::user()->role_id }}, rols) > -1){ /* if( data.etat_hosp != "1") { }*/ 
+             if( data.etat_hosp != "1")                    
+            {   
+             if({{  Auth::user()->role_id }} != 5)
+             { 
+              actions += '<a href="/hospitalisation/'+data.id+'/edit" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier Hospitalisation" data-placement="bottom"><i class="fa fa-edit fa-xs" aria-hidden="true" fa-lg bigger-120></i></a>';
               actions +='<a href="/visite/create/'+data.id+'" class ="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter une Visite" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle"></i></a>';
               actions +='<a data-toggle="modal" data-id="'+data.id+'" title="Clôturer Hospitalisation"  onclick ="cloturerHosp('+data.id+')" class="btn btn-warning btn-xs" href="#" id="sortieEvent"><i class="fa fa-sign-out" aria-hidden="false"></i></a>';
             }else
-              actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat(\'hospitalisation\','+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';      
-           }
-           return actions;
-
+                  actions += ' <a href="#" class ="btn btn-info btn-xs" data-toggle="tooltip" title="Imprimer Code a barre" data-placement="bottom" onclick ="codeBPrint('+data.id+')"><i class="fa fa-barcode"></i></a>';
+            }else
+             if({{  Auth::user()->role_id }} != 5)
+                   actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat(\'hospitalisation\','+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';      
+       }
+       return actions;
      }
      function getState(data, type, dataToSet) {
            if(data.etat_hosp == 1)
@@ -254,13 +270,14 @@
               <th class ="center priority-4"><strong>Mode Admission</strong></th><th class ="center"><strong>Date_entree</strong></th>
               <th class ="center  priority-6"><strong>Date Sortie Prévue</strong></th><th class ="center priority-4"><strong>Date Sortie</strong></th>
               <th  class ="center  priority-5"><strong>Mode</strong></th><th  class ="center  priority-6"><strong>Medecin</strong></th>
-              <th class ="center  priority-6"><strong>Etat</strong></th><th class ="center"><strong><em class="fa fa-cog"></em></strong></th>
+              <th class ="center  priority-6"><strong>Etat</strong></th>
+              <th class ="center" width="12%"><strong><em class="fa fa-cog"></em></strong></th>
             </tr>
           </thead>
            <tbody>
                @foreach ($hospitalisations as $hosp)
                 <tr id="hospi{{ $hosp->id }}">
-                  {{--   <td class="priority-6"><input type="checkbox" class="editor-active check" value="{{ $hosp->id}}"/><span class="lbl"></span></td> --}}
+ {{-- <td><input type="checkbox" class="editor-active check" value="{{ $hosp->id}}"/><span class="lbl"></span></td>--}}
                     <td>{{ $hosp->patient->Nom }} {{ $hosp->patient->Prenom }}</td>
                     <td class="priority-4">{{ $hosp->admission->demandeHospitalisation->modeAdmission}} </td>
                     <td>{{  $hosp->Date_entree}}</td>
@@ -273,16 +290,16 @@
                      <td class="priority-6" >
                          <span class="badge badge-pill badge-primary">{{  isset($hosp->etat_hosp)  ?  $hosp->etat_hosp : 'En Cours'}}</span>
                      </td>
-                    <td class ="center">
-                      <a href = "/hospitalisation/{{ $hosp->id }}" style="cursor:pointer" class="btn secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>
-                      @if(Auth::user()->role_id != 3)
-                        @if(Auth::user()->role_id == 1)
-                          <a href="/hospitalisation/{{ $hosp->id}}/edit" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier Hospitalisation" data-placement="bottom"><i class="fa fa-edit fa-xs" aria-hidden="true" fa-lg bigger-120></i></a>                   
+                    <td class ="center"  width="12%">
+                      <a href = "/hospitalisation/{{ $hosp->id }}" style="cursor:pointer" class="btn secondary btn-xs" data-toggle="tooltip"><i class="fa fa-hand-o-up fa-xs"></i></a>
+                      @if(Auth::user()->role_id != 3){{-- inf --}}
+                        @if(Auth::user()->role_id == 1){{-- med --}}
+                          <a href="/hospitalisation/{{ $hosp->id}}/edit" class="btn btn-xs btn-success" data-toggle="tooltip" title="Modifier Hospitalisation" data-placement="bottom"><i class="fa fa-edit fa-xs" aria-hidden="true" fa-lg bigger-120></i></a>           
                           <a href="/visite/create/{{ $hosp->id }}" class ="btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter une Visite" data-placement="bottom"><i class="ace-icon  fa fa-plus-circle"></i></a>
                           <a data-toggle="modal" data-id="{{ $hosp->id }}" title="Clôturer Hospitalisation" onclick ="cloturerHosp({{ $hosp->id }})" class="btn btn-warning btn-xs" href="#" id="sortieEvent"><i class="fa fa-sign-out" aria-hidden="false"></i></a>
                         @else
-                          @if(Auth::user()->role_id == 5)
-                            <a href="" class ="btn btn-info btn-xs" data-toggle="tooltip" title="Imprimer Code a barre" data-placement="bottom"><i class="fa fa-barcode"></i></a>                      
+                          @if(Auth::user()->role_id == 5){{-- surmed --}}
+                            <a href="#" class ="btn btn-info btn-xs" data-toggle="tooltip" title="Imprimer Code a barre" data-placement="bottom" onclick ="codeBPrint('{{ $hosp->id }}')"><i class="fa fa-barcode"></i></a>                      
                            @endif
                         @endif
                       @endif

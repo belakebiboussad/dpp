@@ -18,8 +18,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<?php $d=Date::Now().' monday next week'
-								?>
+							<?php $d=Date::Now().' monday next week' ?>
 							@foreach($demandes as $demande)
 								@if(date('d M Y',strtotime(($demande->date).' monday next week')-1) == date('d M Y',strtotime($d)-1))
 								<tr>

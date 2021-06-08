@@ -28,52 +28,49 @@ class ticketController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
-
+    public function create()   {   }
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-      $date = Date::Now()->toDateString();
-      $datea = Date::Now();
-      if($request->typecons == "Normale")
+      public function store(Request $request)
       {
-        $tickets = ticket::where("date", $date)
-                        ->where("specialite",$request->specialite)
-                        ->get()->count();
-        $ticket = ticket::firstOrCreate([
-            "date" => $datea,
-            "specialite" => $request->specialite,
-            "type_consultation" => $request->typecons,
-            "document" => $request->document,
-            "num_order" => ($tickets+1),
-            "id_patient" => $request->id_patient,
-        ]);
-       return redirect()->route("ticket.pdf",$ticket->id);
-      }
-      else
-      {
-         $tickets = ticket::where("date", $date)
-                          ->where("type_consultation",$request->typecons)
-                          ->get()->count();
-          $ticket = ticket::firstOrCreate([
-              "date" => $datea,
-              "specialite" => $request->specialite,
-              "type_consultation" => $request->typecons,
-              "document" => $request->document,
-              "num_order" => ($tickets+1),
-              "id_patient" => $request->id_patient,
-          ]);
-          return redirect()->route("ticket.pdf",$ticket->id);
-      }
-    }
+              if($request->ajax())  
+            {
+                   $date = Date::Now()->toDateString();
+                   $datea = Date::Now();
+                    if($request->typecons == "Normale")
+                   {
+                         $tickets = ticket::where("date", $date)
+                                        ->where("specialite",$request->specialite)
+                                        ->get()->count();
+                          $ticket = ticket::firstOrCreate([
+                                 "date" => $datea,
+                                  "specialite" => $request->specialite,
+                                "type_consultation" => $request->typecons,
+                                "document" => $request->document,
+                                "num_order" => ($tickets+1),
+                                "id_patient" => $request->id_patient,
+                          ]);
+                    }else
+                    {
+                           $tickets = ticket::where("date", $date)
+                                          ->where("type_consultation",$request->typecons)
+                                          ->get()->count();
+                          $ticket = ticket::firstOrCreate([
+                                       "date" => $datea,
+                                        "specialite" => $request->specialite,
+                                        "type_consultation" => $request->typecons,
+                                       "document" => $request->document,
+                                         "num_order" => ($tickets+1),
+                                        "id_patient" => $request->id_patient,
+                           ]);
+                    }
+                     return redirect()->route("ticket.pdf",$ticket->id);
+            }
+       }
 // comment
     /**
      * Display the specified resource.
@@ -101,12 +98,12 @@ class ticketController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function ticketPdf($id)
-    {
-      $ticket = ticket::with('Patient')->FindOrFail($id);//dd($ticket->Patient);
-      $etablissement = Etablissement::first();
-      $pdf = PDF::loadView('ticketPDF', compact('ticket','etablissement'))->setPaper('a6','landscape');
-      $name = "Ticket.pdf";
-      return $pdf->download($name);
-    }
+       public function ticketPdf($id)
+      {
+            $ticket = ticket::with('Patient')->FindOrFail($id);//dd($ticket->Patient);
+            $etablissement = Etablissement::first();
+            $pdf = PDF::loadView('ticketPDF', compact('ticket','etablissement'))->setPaper('a6','landscape');
+            $name = "Ticket-".$ticket->Patient->Nom."-".$ticket->Patient->Nom.".pdf";
+            return $pdf->download($name);
+      }
 }

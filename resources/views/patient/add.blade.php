@@ -106,15 +106,15 @@
 					<div class="row">
 					<div class="col-sm-6">
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="nomA"><strong>Nom :</strong></label>
-							<div class="col-sm-9">
-								<input type="text" id="nomA" name="nom_homme_c" placeholder="Nom..." class="col-xs-12 col-sm-12" />
+						<label class="col-sm-3 control-label" for="nomA"><strong>Nom :<span style="color: red">*</span></strong></label>
+						<div class="col-sm-9">
+							<input type="text" id="nomA" name="nom_homme_c" placeholder="Nom..." class="col-xs-12 col-sm-12" />
 							</div><br>
 						</div><br>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="prenomA"><strong>Prénom :</strong></label>
+							<label class="col-sm-3 control-label" for="prenomA"><strong>Prénom :<span style="color: red">*</span></strong></label>
 							<div class="col-sm-9">
 								<input type="text" id="prenomA" name="prenom_homme_c" placeholder="Prénom..." class="col-xs-12 col-sm-12" />
 							</div>	<br>
@@ -152,7 +152,7 @@
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="type_piece_id"><strong>Type pièce d'identité:</strong>			</label>
+							<label class="col-sm-3 control-label" for="type_piece_id"><strong>Type pièce d'identité:<span style="color: red">*</span></strong>			</label>
 							<div class="col-sm-9">
 								<select name="type_piece_id" id="type_piece_id" class="col-xs-12 col-sm-12">
 									<option value="">Sélectionner...</option>
@@ -165,7 +165,7 @@
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
-							<label class="control-label col-xs-12 col-sm-3 text-nowrap" for="npiece_id"><strong>N° Pièce :</strong></label>
+							<label class="control-label col-xs-12 col-sm-3 text-nowrap" for="npiece_id"><strong>N° Pièce :<span style="color: red">*</span></strong></label>
 							<div class="col-sm-9">
 								<div class="clearfix">
 									<input type="text" id="npiece_id" name="npiece_id" class="col-xs-12 col-sm-12" placeholder="N° de la pièce d'identité..."/>
@@ -203,7 +203,7 @@
 					<div class="col-sm-6">
 						<div class="form-group">
 							<div class="form-group">
-								<label class="control-label text-nowrap col-sm-2" for="mobileA"><i class="fa fa-phone"></i><b>Mob :</b></label>
+								<label class="control-label text-nowrap col-sm-2" for="mobileA"><i class="fa fa-phone"></i><b>Mob :<span style="color: red">*</span></b></label>
 								<div class="col-sm-2">
 									<select name="operateur_h" id="operateur_h" class="form-control" >
 								    <option value="">XX</option>

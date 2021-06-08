@@ -2,15 +2,7 @@
 @section('page-script')
 <script type="text/javascript">
 function bedShow(id){
-	// $.ajax({
- //        type : 'get',
- //        url : '{{URL::to('lit.show')}}',
- //        data:{'search':$id},
- //        success:function(data,status, xhr){
- //        	alert("fgfd");
- //        	//$('#lit').html(data.html);
- //        }
- //  });
+/*$.ajax({type : 'get',url : '{{--URL::to('lit.show')--}}',data:{'search':$id},success:function(data,status, xhr){alert("fgfd"); $('#lit').html(data.html);}});*/
  	$.get('/lit/'+id, function (data, status, xhr) {
 	  $('#lit').html(data.html);
 	});

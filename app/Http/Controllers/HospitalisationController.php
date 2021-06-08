@@ -107,7 +107,7 @@ class HospitalisationController extends Controller
    */
   public function show($id)
   {
-      $hosp = hospitalisation::find($id); 
+      $hosp = hospitalisation::find($id);
        return View::make('hospitalisations.show')->with('hosp', $hosp);
   }
   /**
@@ -207,8 +207,12 @@ class HospitalisationController extends Controller
   }
   public function detailHospXHR(Request $request)
   {
-    $hosp = hospitalisation::FindOrFail($request->id);
-    $view =  view("hospitalisations.inc_hosp",compact('hosp'))->render();
-    return response()->json(['html'=>$view]);
+        $hosp = hospitalisation::FindOrFail($request->id);
+        $view =  view("hospitalisations.inc_hosp",compact('hosp'))->render();
+        return response()->json(['html'=>$view]);
+  }
+  public function  codebarrePrint(Request $request)
+  {
+        return $id;
   }
 }

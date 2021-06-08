@@ -25,14 +25,9 @@
 <script src="{{ asset('/js/wizard.min.js') }}"></script>
 <script src="{{ asset('/js/select2.min.js') }}"></script>
 <script src="{{ asset('/js/chosen.jquery.min.js') }}"></script>
-
-
-{{-- 
-<script src="{{ asset('/js/bootstrap-datepicker.min.js') }}"></script>--}}
-
+{{-- <script src="{{ asset('/js/bootstrap-datepicker.min.js') }}"></script>--}}
 <script src="{{ asset('/js/jquery.validate.min.js') }}"></script>
 <script src="{{ asset('/js/daterangepicker.min.js') }}"></script> 
-
 <script src="{{ asset('/js/autosize.min.js') }}"></script>
 <script src="{{ asset('/js/jquery.inputlimiter.min.js') }}"></script>
 <script src="{{ asset('/js/jquery.maskedinput.min.js') }}"></script>
@@ -51,45 +46,42 @@
 <script src="{{asset('/js/sweetalert2.all.min.js')}}"></script>
 <script src="{{asset('/js/JsBarcode.all.min.js')}}"></script>
 <script src="{{asset('/js/ion.rangeSlider.min.js')}}"></script>
-<<<<<<< HEAD
 <script src="{{asset('/js/jQuery.print.js')}}"></script>
-=======
->>>>>>> 18cf02bc86a897943686beda46cbfc65f028d873
 <script type="text/javascript" src="{{ asset('/js/html2pdf.bundle.min.js') }}"></script>
 <script type="text/javascript">
-  var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-  $(document).ready(function(){
-       $('.timepicker').timepicker({
-            timeFormat: 'HH:mm',
-            interval: 60,
-            minTime: '08',
-            maxTime: '17:00pm',
-            defaultTime: '08:00',   
-            startTime: '08:00',
-            dynamic: true,
-            dropdown: true,
-            scrollbar: true
-        });
+     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+      $(document).ready(function(){
+             $('.timepicker').timepicker({
+                      timeFormat: 'HH:mm',
+                      interval: 60,
+                      minTime: '08',
+                      maxTime: '17:00pm',
+                      defaultTime: '08:00',   
+                      startTime: '08:00',
+                      dynamic: true,
+                      dropdown: true,
+                      scrollbar: true
+              });
         $( ".autoCommune" ).autocomplete({
               source: function( request, response ) {
-                $.ajax({
-                  url:"{{route('commune.getCommunes')}}",
-                  type: 'post',
-                  dataType: "json",
-                  data: {
-                     _token: CSRF_TOKEN,
-                     search: request.term
-                  },
-                  success: function( data ) {
-                     response( data );
-                  }
-                });
+                    $.ajax({
+                            url:"{{route('commune.getCommunes')}}",
+                            type: 'post',
+                            dataType: "json",
+                            data: {
+                               _token: CSRF_TOKEN,
+                               search: request.term
+                            },
+                            success: function( data ) {
+                               response( data );
+                            }
+                    });
               },
               minLength: 3,
-              select: function (event, ui) { // Set selection
-                $(this).val(ui.item.label); // display the selected text
-                switch(event['target']['id'])
-                {
+             select: function (event, ui) { // Set selection
+             $(this).val(ui.item.label); // display the selected text
+             switch(event['target']['id'])
+             {
                   case "lieunaissance":
                     $("#idlieunaissance").val(ui.item.value);// save selected id to input
                     break;
@@ -158,12 +150,12 @@
           field =event['target']['id'];
         }
     });
-    $('#printRdv').click(function(){
-        $.ajaxSetup({
-          headers: {
-                      'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-            }
-        });
+      $('#printRdv').click(function(){
+            $.ajaxSetup({
+              headers: {
+                          'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                }
+            });
         $.ajax({
                 type : 'GET',
                 url :'/rdvprint/'+$('#idRDV').val(),
@@ -174,6 +166,15 @@
         });
     });
   });  
+      $(function() {
+             var checkbox = $("#hommeConf");
+             checkbox.change(function() {
+                   if(checkbox.is(":checked"))
+                          $("#hommelink").removeClass('invisible');
+                     else
+                          $("#hommelink").addClass('invisible');  
+             })
+      });
 </script>
 <script type="text/javascript">
        var active_class = 'active';
