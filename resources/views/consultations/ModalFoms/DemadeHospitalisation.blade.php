@@ -13,11 +13,10 @@
 				       	@endforeach
 				      </select>
 				    </div>
-			    </div>{{-- row --}}
-			    <div class="space-12"></div>
+			    </div><div class="space-12"></div>{{-- row --}}
         	<div class="row">
 			     	<div class="col-xs-12">
-			     		<label for="specialiteHospi"><strong>Specialite :</strong></label>
+			     		<label for="specialiteHospi"><strong>Spécialité :</strong></label>
 					   	<select class="form-control" id="specialiteHospi" name="specialiteHospi">
 						    <option value="0">Sélectionner la spécialité...</option>
 						    @foreach($specialites as $specialite)
@@ -26,8 +25,7 @@
 						  </select>
 						  <br>
 			      </div>		
-			    </div>{{-- row --}}
-			    <div class="spcae-12"></div>
+			    </div><div class="spcae-12"></div>{{-- row --}}
 			    <div class="row">
 			     	<div class="col-xs-12">
 			     	 	<label for="serviceHospi"><b>Service:</b></label>

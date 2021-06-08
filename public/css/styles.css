@@ -18,7 +18,7 @@
 .sec-droite{  float: right; }
 .mt-1 {  margin-top: 1px !important; }
 .mt-2 {  margin-top: -2px !important; }
-.mt-3 {  margin-top: +6px !important; }
+.mt-6 {  margin-top: +6px !important; }
 .mt-5 {  margin-top: -5px !important; }
 .mt-6 {  margin-top: -6px !important; }
 .mt-10 {  margin-top:-10px; }
@@ -148,4 +148,4 @@ ol {list-style: none; counter-reset: li}
   width:13%;/*margin-top: -10px !important;*/
   height:13%;
 }
- .espace{ margin-left:6em }
+.espace{ margin-left:6em }

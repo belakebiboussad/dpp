@@ -13,17 +13,17 @@
 					<thead >
 						<tr>
 							<th class="center">Date</th>	
-							<th class ="center sorting_disabled">Médecin Traitant</th>
-							<th class ="center sorting_disabled">Service</th>
+							<th class ="center sorting_disabled">Médecin Consultatnt</th>
+							<th class ="center sorting_disabled">Motif</th>
 							<th class ="center sorting_disabled"><em class="fa fa-cog"></em></th>
 						</tr>
 					</thead>
 					<tbody>
 					@foreach($patient->Consultations as $consult)
-					<tr id ={{ $consult->id }}>
+					<tr id ="{{ $consult->id }}">
 					  <td>{{ $consult->Date_Consultation }}</td>
-						<td>{{ $consult->docteur->nom }}{{ $consult->docteur->prenom }}</td>
-						<td>{{ $consult->docteur->Service->nom }}</td>
+						<td>{{ $consult->docteur->nom }}&nbsp;{{ $consult->docteur->prenom }}</td>
+						<td><small>{{ $consult->motif }}</small></td>
 						<td><button class="btn btn-primary btn-xs" onclick="showConsult({{ $consult->id }});"><i class="fa fa-hand-o-up"></i></button></td>	
 					</tr>
 					@endforeach

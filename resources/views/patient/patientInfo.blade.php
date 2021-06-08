@@ -122,9 +122,9 @@
 					<div class="profile-info-value"> {{-- $patient->Rihesus === "+" ? "Positif" : "Négatif" --}}
 						<span>
 							@if($patient->rhesus == "+")
-						 		"Positif"
+						 		Positif
 							@else
-								"Négatif"
+								Négatif
 							@endif	
 						</span>
 					</div>

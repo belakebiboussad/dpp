@@ -12,7 +12,8 @@
 <body>
 <div class="container-fluid">
   @include('partials.etatHeader')
-  <h5 class="mt-20 center"><span style="font-size: xx-large;"><strong>Demande d'examens radiologiques</strong></span></h5> 
+  <div class="space-12"></div>
+  <h5 class="mt-20 center"><span style="font-size: xx-large;"><strong>Demande d'examen radiologique</strong></span></h5> 
   <br>
   <div class="row"><div class="col-sm-12"><div class="section"><div class="sec-droite"><b><u>Fait le:</u></b>{{ $demande->consultation->Date_Consultation }}</div></div></div></div>
   <div class="row">

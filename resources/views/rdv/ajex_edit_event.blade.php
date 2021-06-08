@@ -31,7 +31,7 @@
                   <div class="col-sm-12">                   
                     <label for="medecin"><i class="ace-icon fa  fa-user-md bigger-130"></i><strong>&nbsp;Medecin:</strong></label>
                     <div class="input-group">
-                      <select  placeholder="Selectionner... " class="" id="medecin" name ="medecin" autocomplete="off" style="width:300px;">
+                      <select id="medecin" name ="medecin" autocomplete="off" style="width:300px;">
                         <option value="">Selectionner....</option>
                       </select> 
                     </div> 

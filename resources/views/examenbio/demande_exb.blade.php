@@ -18,8 +18,9 @@
 <body>
 	<div class="container-fluid">
 	  @include('partials.etatHeader')
+    <div class="space-12"></div>
     <h5 class="mt-20 center">
-      <span style="font-size: xx-large;"><strong>Demande examens biologiques</strong></span>
+      <span style="font-size: xx-large;"><strong>Demande d'examen biologique</strong></span>
     </h5> 
     <br><br>
     <div class="row">

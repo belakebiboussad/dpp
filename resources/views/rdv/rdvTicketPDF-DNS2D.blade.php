@@ -49,7 +49,7 @@
 	  </div>
 	  <div class="row">	<div class="col-sm-12"><strong>Nom : </strong><span>{{ $rdv->patient->Nom}}</span></div></div>
 	  <div class="row" ><div class="col-sm-12"><strong>Prenom : </strong><span>{{ $rdv->patient->Prenom}}</span> </div></div>
-	  <div id="container" class="mt-3">
+	  <div id="container" class="mt-6">
  			<div id="row">
  				<div id="left">
  					<img src="data:image/png;base64,{{DNS2D::getBarcodePNG($rdv->id.'|'.$rdv->employe->specialite.'|'.Carbon\Carbon::parse($rdv->Date_RDV)->format('d-m-Y').'|'.$rdv->patient->IPP, 'QRCODE')}}" alt="barcode"/><br><span>{{ $rdv->patient->IPP }}</span>

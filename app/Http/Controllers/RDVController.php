@@ -16,8 +16,7 @@ use DateTime;
 use Response;
 use View;
 use Dompdf\Dompdf;
-use Storage;
-//use DNS2D;
+use Storage;//use DNS2D;
 use BigFish\PDF417\PDF417;
 use BigFish\PDF417\Renderers\ImageRenderer;
 use BigFish\PDF417\Renderers\SvgRenderer;
@@ -45,7 +44,7 @@ class RDVController extends Controller
         $rdv = rdv::FindOrFail($id);
         $patient = patient::FindOrFail($rdv->Patient_ID_Patient);
         return view('rdv.reporter_rdv',compact('rdv','patient'));
-       }
+      }
       public function storereporte(Request $request,$id)
       {
         $rdv = rdv::FindOrFail($id);
@@ -54,12 +53,12 @@ class RDVController extends Controller
         ]);
         return redirect()->route("rdv.show",$rdv->id);
       }
-     public function choixpatient()
-     {
+      public function choixpatient()
+      {
            return view('patient.index');
-     }
-     public function index($patientID = null)
-     {  
+      }
+      public function index($patientID = null)
+      {  
            if(Auth::user()->role_id == 1)
            {
                $specialite = Auth::user()->employ->specialite;
@@ -204,11 +203,10 @@ class RDVController extends Controller
         } 
       }
       public function print(Request $request,$id)
-      { 
+      { //$civilite;
         $rdv = rdv::findOrFail($id);
         $etablissement = Etablissement::first();
-        $civilite;
-        switch ($rdv->patient->getCivilite()) {
+        switch ($civilite = $rdv->patient->getCivilite()) {
           case 'M.':
             $civilite = 1; 
             break;
@@ -225,11 +223,11 @@ class RDVController extends Controller
         $pdf417 = new PDF417();
         $data = $pdf417->encode($civilite.$rdv->id.'|'.$rdv->employe->specialite.'|'.Carbon::parse($rdv->Date_RDV)->format('dmy'));
         $renderer = new ImageRenderer([
-                'format' => 'png', //'color' => '#FF0000', //'bgColor' => '#00FF00',
-                'scale' => 1,//1
-                'ratio'=>3,//hauteur,largeur
-                'padding'=>0,//espace par rapport left
-                'format' =>'data-url'
+          'format' => 'png', //'color' => '#FF0000', //'bgColor' => '#00FF00',
+          'scale' => 1,//1
+          'ratio'=>3,//hauteur,largeur
+          'padding'=>0,//espace par rapport left
+          'format' =>'data-url'
         ]);
         $img = $renderer->render($data);
         $viewhtml = View::make('rdv.rdvTicketPDF-bigFish', array('rdv' =>$rdv,'img'=>$img,'etablissement'=>$etablissement))->render();// $viewhtml = View::make('rdv.rdvTicketPDF-DNS2D', array('rdv' =>$rdv,'img'=>$img,'etablissement'=>$etablissement))->render();

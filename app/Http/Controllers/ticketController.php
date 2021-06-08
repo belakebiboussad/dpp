@@ -7,7 +7,10 @@ use Jenssegers\Date\Date;
 use App\modeles\ticket;
 use App\modeles\Etablissement;
 use PDF;
-
+use BigFish\PDF417\PDF417;
+use BigFish\PDF417\Renderers\ImageRenderer;
+use BigFish\PDF417\Renderers\SvgRenderer;
+use Carbon\Carbon;
 class ticketController extends Controller
 {
     /**
@@ -102,7 +105,7 @@ class ticketController extends Controller
     {
       $ticket = ticket::with('Patient')->FindOrFail($id);//dd($ticket->Patient);
       $etablissement = Etablissement::first();
-      $pdf = PDF::loadView('ticket', compact('ticket','etablissement'))->setPaper('a6','landscape');
+      $pdf = PDF::loadView('ticketPDF', compact('ticket','etablissement'))->setPaper('a6','landscape');
       $name = "Ticket.pdf";
       return $pdf->download($name);
     }

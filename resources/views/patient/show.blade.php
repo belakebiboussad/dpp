@@ -129,55 +129,55 @@
 	</div>
 </div>
 <div id="ticket" class="modal fade" role="dialog">
-  	<div class="modal-dialog"><!-- Modal content-->
-  		<div class="modal-content">
-  		<form action="{{ route('ticket.store') }}" method="POST" role="form">
-			{{ csrf_field() }}
-			<input type="text" name="id_patient" value="{{ $patient->id }}" hidden>
-			<div class="modal-header">
-	    			<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title"><strong>Ajouter Ticket:</strong></h4>
-	    		</div>
-	    		<div class="modal-body">
-	    			<div class="row">
-					<div  class="col-sm-12 form-group">
+	<div class="modal-dialog"><!-- Modal content-->
+		<div class="modal-content">
+		<form action="{{ route('ticket.store') }}" method="POST" role="form">
+		{{ csrf_field() }}
+		<input type="text" name="id_patient" value="{{ $patient->id }}" hidden>
+		<div class="modal-header">
+    			<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title"><strong>Ajouter Ticket:</strong></h4>
+    		</div>
+    		<div class="modal-body">
+	    		<div class="row">
+						<div  class="col-sm-12 form-group">
 						<label for="typecons"><b>Type de Consultation:</b></label>
 						<select class="form-control" id="typecons" name="typecons" required>
 							<option value="Normale">Normale</option>
 							<option value="Urgente">Urgente</option>
-							<option value="controle">Côntrole</option>
+							<option value="controle">Contrôle</option>
 							<option value="specialise">Spécialisé</option>
 						</select>
 					</div>
-				</div>
-				<div class="row">
-					<div  class="col-sm-12 form-group">
-						<label for="document"><b>Document:</b></label>
-						<select class="form-control" id="document" name="document" required>
-							<option value="Rendez-vous">Rendez-vous</option>
-							<option value="Lettre d'orientation">Lettre d'orientation</option>
-							<option value="Consultation généraliste">Consultation généraliste</option>
-							<option value="autre">Autre</option>
-						</select>
 					</div>
-				</div>
-				<div class="row">
-					<div  class="col-sm-12 form-group">
-						<label for="specialite"><b>Spécialité:</b></label>
-						<select class="form-control" id="specialiteTick" name="specialite" required>
-							<option value="">Selectionner la spécialité</option>
-							@foreach($specialites as $specialite)
-							<option value="{{ $specialite->id}}"> {{ $specialite->nom}}</option>
-							@endforeach
-						</select>
+					<div class="row">
+						<div  class="col-sm-12 form-group">
+							<label for="document"><b>Document:</b></label>
+							<select class="form-control" id="document" name="document" required>
+								<option value="Rendez-vous">Rendez-vous</option>
+								<option value="Lettre d'orientation">Lettre d'orientation</option>
+								<option value="Consultation généraliste">Consultation généraliste</option>
+								<option value="autre">Autre</option>
+							</select>
+						</div>
 					</div>
-				</div>	
+					<div class="row">
+						<div  class="col-sm-12 form-group">
+							<label for="specialite"><b>Spécialité:</b></label>
+							<select class="form-control" id="specialiteTick" name="specialite" required>
+								<option value="">Selectionner...</option>
+								@foreach($specialites as $specialite)
+								<option value="{{ $specialite->id}}"> {{ $specialite->nom}}</option>
+								@endforeach
+							</select>
+						</div>
+					</div>	
 	    		</div>
 	    		<div class="modal-footer">
     				<button type="submit" class="btn btn-primary" id ="prinTick"disabled><i class="ace-icon fa fa-copy"></i>Générer un ticket</button>	
     				<button type="button" class="btn btn-default" data-dismiss="modal"><i class="ace-icon fa fa-close bigger-110"></i>Fermer</button>
     			</div>
-	    	</form>
-    		</div>
-    	</div>
+    	</form>
+  		</div>
+  	</div>
 </div>
 @endsection
