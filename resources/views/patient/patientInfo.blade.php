@@ -118,8 +118,16 @@
 					<div class="profile-info-value"><span>{{ $patient->group_sang }}</span></div>
 				</div>
 				<div class="profile-info-row">
-					<div class="profile-info-name"> Rhésus </div>
-					<div class="profile-info-value"><span>{{ $patient->Rihesus }}</span></div>{{-- {{ $patient->Rihesus == "+" ? "Positif" : "Négatif" }} --}}
+					<div class="profile-info-name"> Rhésus</div>
+					<div class="profile-info-value"> {{-- $patient->Rihesus === "+" ? "Positif" : "Négatif" --}}
+						<span>
+							@if($patient->rhesus == "+")
+						 		Positif
+							@else
+								Négatif
+							@endif	
+						</span>
+					</div>
 				</div>
 				@endif
 				<div class="profile-info-row">

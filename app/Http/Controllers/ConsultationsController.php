@@ -58,7 +58,8 @@ class ConsultationsController extends Controller
     public function detailconsXHR(Request $request)
     {
       $consultation = consultation::FindOrFail($request->id);
-      $view =  view("consultations.inc_consult",compact('consultation'))->render();
+      $etablissement = Etablissement::first();
+      $view =  view("consultations.inc_consult",compact('consultation','etablissement'))->render();
       return response()->json(['html'=>$view]);
     }
     public function listecons($id)
@@ -196,6 +197,11 @@ class ConsultationsController extends Controller
         $consultation = consultation::with('patient','docteur')->FindOrFail($id);
         return view('consultations.show', compact('consultation'));
       }
+      // public function edit(consultation $consultation)
+      // {
+      //   dd($consultation->lettreOrintation);
+       
+      // }
     /**
      * Show the form for editing the specified resource.
      *
@@ -224,12 +230,13 @@ class ConsultationsController extends Controller
     {
       if($request->ajax())  
       {         
-       if($request->field != 'Nom')
-             $consults =consultation::with('patient','docteur')->where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
+        if($request->field == 'Date_Consultation')//consults =consultation::with('patient','docteur')->where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
+          $consults =consultation::with('patient','docteur')->where(trim($request->field),'=',trim($request->value))->get();
         else
-            $consults =consultation::with('patient','docteur')->whereHas('patient',function($q) use ($request){
+          $consults =consultation::with('patient','docteur')->whereHas('patient',function($q) use ($request){
                                                       $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
                                                   })->get();
+        
         return Response::json($consults);
       }
     }

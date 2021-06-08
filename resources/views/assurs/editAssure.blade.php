@@ -23,7 +23,7 @@
 			<div class="form-group">
 				<label class="col-sm-3 col-xs-3 control-label" for="datenaissancef"><strong class="text-nowrap">Né(e) le :</strong></label>
 				<div class="col-sm-9">
-					<input class="autoCommune col-xs-12 col-sm-12 date-picker" id="datenaissancef" name="datenaissancef" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" value="{{ $assure->Date_Naissance }}"/>		
+					<input class="autoCommune col-xs-12 col-sm-12 date-picker ltnow" id="datenaissancef" name="datenaissancef" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" value="{{ $assure->Date_Naissance }}"/>		
 				</div>
 			</div>
 		</div>

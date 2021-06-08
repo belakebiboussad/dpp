@@ -65,7 +65,7 @@
               <tr>
                 <td>{{ $ant->Antecedant }}</td>
                 <td>{{ $ant->typeAntecedant ? 'Physiologiques' : 'pathologiques' }}</td>  
-                <td>{{ $ant->descrioption}}</td>
+                <td>{{ $ant->description}}</td>
                 <td>{{ $ant->date}}</td>
 
               </tr>

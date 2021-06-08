@@ -26,7 +26,7 @@
 								<td>{{ $atcd->date }}</td>
 								<td>{{ $atcd->cim_code }}</td>
 								<td class="center">
-									 <textarea class="width-100" resize="none"disabled="">{{$atcd->descrioption}} </textarea>
+									 <textarea class="width-100" resize="none"disabled="">{{$atcd->description}} </textarea>
 							  	</td>
 							 	 <td class="center">
 							  	@if($atcd->Antecedant == "Personnels")
@@ -119,7 +119,7 @@
 							  <tr id="{{ 'atcd'.$antcd->id }}">
 									<td>{{ $atcd->date }}</td>
 									<td>{{ $atcd->cim_code }}</td>
-									<td class="center"><textarea class="width-100" resize="none"disabled="">{{$atcd->descrioption}}</textarea></td>
+									<td class="center"><textarea class="width-100" resize="none"disabled="">{{$atcd->description}}</textarea></td>
 							 	  <td class="center">
 							  		<div class="action-buttons hidden-sm hidden-xs btn-group">
 											<button type="button" class="btn btn-xs btn-danger delete-atcd" value="{{ $atcd->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 

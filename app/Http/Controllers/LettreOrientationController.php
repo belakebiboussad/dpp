@@ -14,9 +14,8 @@ class LettreOrientationController extends Controller
     { 
         LettreOrientation::create([
         "motif"=>$request->motifOr,
-        "specialite"=>$request->specialite,
-        "medecin"=>$request->medecin,
-        "Consultation_ID_Consultation"=>$consultID,
+        "specialite"=>$request->specialite,//"medecin"=>$request->medecin,
+        "consultation_id"=>$consultID,
         ]);
     }
 }

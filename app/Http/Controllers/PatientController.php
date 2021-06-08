@@ -18,6 +18,7 @@ use App\modeles\grade;
 use App\modeles\homme_conf;
 use App\modeles\antecedant;
 use App\modeles\ticket;
+use App\modeles\etablissement;
 use Validator;
 use Redirect;
 use MessageBag;
@@ -109,7 +110,7 @@ class PatientController extends Controller
       $grades = grade::all();//$errors = $validator->errors(); 
       return view('patient.add',compact('grades'))->withErrors($validator->errors());
     }
-    if( $request->type !="5")  
+    if( $request->type !="5")
     {  
       $assure = assur::where('NSS', $request->nss)->first(); 
       if ($assure === null) {
@@ -204,9 +205,7 @@ class PatientController extends Controller
     $rule = array(
         "nom" => 'required',
         "prenom" => 'required',
-        //"datenaissance" => 'required|date|date_format:Y-m-d',
-        //"idlieunaissance" => 'required',
-        //"mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],//"Type_p" =>'required_if:type,Ayant_droit', //"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
+        //"datenaissance" => 'required|date|date_format:Y-m-d',//"idlieunaissance"=>'required',//"mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],//"Type_p" =>'required_if:type,Ayant_droit', //"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
         "prenom_homme_c"=>'required_with:nom_homme_c', 
         "type_piece_id"=>'required_with:nom_homme_c', 
         "npiece_id"=>'required_with:nom_homme_c', //"lien"=>'required_with:nom_homme_c', //"date_piece_id"=>'required_with:nom_homme_c',    

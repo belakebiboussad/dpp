@@ -38,7 +38,7 @@
 						<div>
 							<label for="description"><strong>Description :</strong></label>
 							<textarea class="form-control" id="description" name="description" placeholder="Description de l'antécédant" required>
-								{{$atcd->descrioption}}
+								{{$atcd->description}}
 							</textarea>
 						</div>
 					</div>

@@ -1,10 +1,13 @@
 <html>
     <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><!--<link rel="stylesheet" href="css/bootstrap.min.css"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/styles.css">
     <title>Certificat medical</title>
       <style>
+      .espace{
+         margin-left:6em
+      }
       @media print  
       {
         a[href]:after {
@@ -22,53 +25,35 @@
       span {
         display: inline-block;/*padding:6px 0;font-size:16px;*/
       } 
-      table.head, table.head thead{border:none;}
-      table.head thead tr th{padding:1px 0;}
-      table.head tr th, table.head tr td {text-align:left;}
-      table.head tbody tr td{text-align:left;}
-      table.head tbody tr td{padding:2px 0 2px 45px; padding-bottom: :  2px;}
-      table.head tbody tr td.first{padding:2px 0;width:50%;padding-bottom:  2px;}
-      table{border-collapse: collapse;text-align:center;border:1px solid #000;}
-      thead {border-top:1px solid #000;}
-      thead tr th, tbody tr td{padding:8px 0;font-size:14px;}
-      thead tr th{border-left:0px solid #000;}
-      tbody tr td{border-left:0px solid #000;}
-      thead tr th.first, tbody tr td.first{text-align:left;}
+  
     </style>
     </head>
     <body>
       <div class="container-fluid" id="myDiv">
         @include('partials.etatHeader')
-        <div class="row mt-30">
-          <div class="col-sm-2">
-          </div>
-          <div class="col-sm-8" align="center">
-            <h3><strong>{{ $etat->nom}}</strong></h3>
-          </div>
-          <div class="col-sm-2">
-          </div>
+        <hr class="mt-10"/>
+        <div class="row mt-30"><div class="center"><h3><strong>{{ $etat->nom }}</strong></h3></div></div><br>
+        <div class="row"><div><strong>Service : </strong>{{ $obj->docteur->Service->nom }}</div></div>
+        <div class="row"><div><strong>Chef de Servise : </strong>{{ $obj->docteur->Service->responsable->nom }} &nbsp;
+          {{ $obj->docteur->Service->responsable->prenom }}</div>
         </div>
-        <div class="row"><br><span class="ml-80">Alger le {{ Carbon\Carbon::parse($date)->format('d-m-Y') }}</span><br><br></div>
-        <div class="row"><div class="col-sm-12"><strong>Service : </strong>
-          <span>{{ $obj->docteur->Service->nom }}</span> </div>
-        </div>
-        <div class="row"><div class="col-sm-12"><strong>Chef de servise : </strong>
-        <span>{{ $obj->docteur->Service->responsable->nom }}</span></div>
-        </div><br>
+        <br><br><br><br>
         <div class="row">
-          <div class="col-sm-12"><strong>je soussigné docteur  : </strong>
-            <span>{{ $obj->docteur->nom }} {{ $obj->docteur->prenom }}</span>
-          </div>
+          <p class="espace">
+           Je soussigné , <strong>{{ $obj->docteur->nom }} {{ $obj->docteur->prenom }}</strong>
+           Docteur en  <strong> {{ $obj->docteur->Specialite->nom }}</strong>,
+          </p>
+          <p>
+            <strong>certifie avoir examiné {{ $obj->patient->getCivilite() }} </strong>
+            <strong>{{ $obj->patient->Nom }} &nbsp;{{ $obj->patient->Prenom }}</strong> né(e) le &nbsp;{{  (\Carbon\Carbon::parse($obj->patient->Dat_Naissance))->format('d/m/Y') }}
+            et avoir constaté, Ce jour &nbsp {{ $obj->Resume_OBS }}
+          </p>
+        </div><br><br>
+        <div class="row foo">
+          <div><strong>Certificat fait pour servir et valoir ce que de droit sur la demande de l'intéréssé et remise en mains propre</strong>
+          <div>Le:  {{ Carbon\Carbon::parse($date)->format('d/m/Y') }}</div>
+          </div><br>
+          <div class="sec-droite">à : {{ $etablissement->nom }}</div>
         </div>
-        <div class="row">
-          <div class="col-sm-12"><strong>certifier que {{ $obj->patient->getCivilite() }} : </strong>
-          <span>{{ $obj->patient->Nom }}{{ $obj->patient->Prenom }}</span></div>
-        </div>
-        <div class="row">
-          <div class="col-sm-12"><span style="padding-top: 10px;">
-            Presente {{ $obj->Diagnostic }}
-          </div>
-        </div>
-         <div class="row"><div class="col-sm-12"><span style="padding-top: 10px;">  le patient {{ $obj->Resume_OBS }}</div></div><br>      
     </body>
   </html>

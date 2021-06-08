@@ -26,23 +26,19 @@
 	<body>
 	  <div class="row">
 		  <div class="col-sm-12">
-		   	<div class="text-center mt-50">
-		      <h5><strong>{{ $etablissement->tutelle }}</strong></h5>
-		      <h6 class="mt-6" style =" margin-left: -7px;margin-right:-7px;"><strong>{{ $etablissement->nom }}</strong></h6>
-		      <h6 class="mt-10"><strong>{{ $etablissement->adresse }}</strong><span> - Tél : {{ $etablissement->tel }}</span></h6>
-		   	</div>
-	  </div>
-	  <div class="row mt-6">
+		   	<div class="text-center mt-50">@include('partials.etatHeader-min')</div>
+	    </div>
+	    <div class="row mt-6">
 		  <div class="col-sm-12 text-center">
 			 <div class="col-sm-4"></div>
 			 <div class="col-sm-4"><img class ="imgCenter" src="img/{{ $etablissement->logo }}"/></div><div class="col-sm-4"></div>    
 			</div>
-    </div>
-	  <div class="row"><hr class ="mt-10 pt-10"> </div>
-	  <div class="row mt-6">
-	   	<div class="col-md-4  col-sm-4 float-left" style="font-size:x-small;"></div>
-	   	<div class="col-md-4 col-sm-4 text-center mt-16 pt-16"><h4><strong>Rendez-Vous de Consultation</strong></h4></div>		
-	  </div><br>	
+      </div>
+		  <div class="row"><hr class ="mt-10 pt-10"> </div>
+		  <div class="row mt-6">
+		   	<div class="col-md-4  col-sm-4 float-left" style="font-size:x-small;"></div>
+		   	<div class="col-md-4 col-sm-4 text-center mt-16 pt-16"><h4><strong>Rendez-Vous de Consultation</strong></h4></div>		
+		  </div><br>	
 	  <div class="row mt-6 pt-6">
 		  <div class="col-sm-12">Rendez-vous avec le <strong>Docteur</strong> {{ $rdv->employe->nom}}&nbsp;{{ $rdv->employe->prenom}}</div>
 		</div>
@@ -53,7 +49,7 @@
 	  </div>
 	  <div class="row">	<div class="col-sm-12"><strong>Nom : </strong><span>{{ $rdv->patient->Nom}}</span></div></div>
 	  <div class="row" ><div class="col-sm-12"><strong>Prenom : </strong><span>{{ $rdv->patient->Prenom}}</span> </div></div>
-	  <div id="container" class="mt-3">
+	  <div id="container" class="mt-6">
  			<div id="row">
  				<div id="left">
  					<img src="data:image/png;base64,{{DNS2D::getBarcodePNG($rdv->id.'|'.$rdv->employe->specialite.'|'.Carbon\Carbon::parse($rdv->Date_RDV)->format('d-m-Y').'|'.$rdv->patient->IPP, 'QRCODE')}}" alt="barcode"/><br><span>{{ $rdv->patient->IPP }}</span>

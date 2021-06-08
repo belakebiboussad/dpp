@@ -16,7 +16,7 @@ $('document').ready(function(){
 </script>
 <div class="page-header" style="margin-top:-5px;"> <h5><strong>Détails de la Consulation :</strong></h5></div>
 <div class="row">
-	<div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right"><strong><span style="font-size:16px;">Interogatoire</span></strong></div>
+	<div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right"><strong><span style="font-size:16px;">Interrogatoire</span></strong></div>
 </div>
 <div class="row">
 	<ul class="list-unstyled spaced">
@@ -28,35 +28,6 @@ $('document').ready(function(){
 		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Résumé :</strong> </span>{{ $consultation->Resume_OBS }}</li>
 	</ul>
 </div>
-@isset($consultation->demandeHospitalisation)
-<div class="row dh">
-	<div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><strong><span style="font-size:16px;">Demande d'Hospitalisation</span></strong>
-	</div>
-</div>
-<div class="row dh">
-	<div class="col-xs-11 widget-container-col">
-		<div class="widget-box widget-color-blue">
-			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande d'Hospitalisation</h5></div>
-			<div class="widget-body">
-				<div class="widget-main no-padding">
-					<table class="table table-striped table-bordered table-hover">
-						<tr>
-							<td>{{$consultation->demandeHospitalisation->modeAdmission}}</td>
-							<td>{{$consultation->demandeHospitalisation->Specialite->nom}}</td>
-							<td>{{$consultation->demandeHospitalisation->Service->nom}}</td>
-							<td>{{ $consultation->demandeHospitalisation->etat }}</td>
-							<td class="center">
-								@if($consultation->demandeHospitalisation->etat =="en attente")
-								<button type="button" class="btn btn-xs btn-danger" data-method="DELETE" data-confirm="Etes Vous Sur ?" onclick ="deleteDemandeHospi({{ $consultation->demandeHospitalisation->id }})"><i class="fa fa-trash-o fa-xs"></i></button>
-								@endif
-								</td>
-					</table>
-				</div>	
-			</div>
-		</div>
-	</div>
-</div>
-@endisset
 @if(isset($consultation->examensCliniques)  &&($consultation->examensCliniques->poids != 0))
 <div class="row">
 	<div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right">
@@ -94,13 +65,13 @@ $('document').ready(function(){
 @endif
 @if(isset($consultation->demandeexmbio))
 <div class="row">
-	<div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><strong><span style="font-size:16px;">Demande Examens Biologique</span></strong>
+	<div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><strong><span style="font-size:16px;">Demande d'examen biologique</span></strong>
 	</div>
 </div>
 <div class="row">
 	<div class="col-xs-11 widget-container-col">
 		<div class="widget-box widget-color-blue">
-			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande Examens Biologique</h5></div>
+			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande d'examen biologique</h5></div>
 			<div class="widget-body">
 				<div class="widget-main no-padding">
 					<table class="table table-striped table-bordered table-hover">
@@ -135,13 +106,13 @@ $('document').ready(function(){
 @endif
 @if(isset($consultation->examensradiologiques))	
 <div class="row">
-	<div class="col-xs-11 label label-lg label-danger arrowed-in arrowed-right"><strong><span style="font-size:16px;">Demande Examens Imagerie</span></strong>
+	<div class="col-xs-11 label label-lg label-danger arrowed-in arrowed-right"><strong><span style="font-size:16px;">Demande d'examen d'imagerie</span></strong>
 	</div>
 </div>
 <div class="row">
 	<div class="col-xs-11 widget-container-col">
 	<div class="widget-box widget-color-pink">
-		<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande Examens Imagerie</h5></div>
+		<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande d'examen d'imagerie</h5></div>
 		<div class="widget-body">
 			<div class="widget-main no-padding">
 				<table class="table table-striped table-bordered table-hover">
@@ -207,3 +178,89 @@ $('document').ready(function(){
 	</div>
 </div>	
 @endif
+@isset($consultation->demandeHospitalisation)
+<div class="row dh">
+	<div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><strong><span style="font-size:16px;">Demande d'Hospitalisation</span></strong>
+	</div>
+</div>
+<div class="row dh">
+	<div class="col-xs-11 widget-container-col">
+		<div class="widget-box widget-color-blue">
+			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande d'Hospitalisation</h5></div>
+			<div class="widget-body">
+				<div class="widget-main no-padding">
+					<table class="table table-striped table-bordered table-hover">
+						<tr>
+							<td>{{$consultation->demandeHospitalisation->modeAdmission}}</td>
+							<td>{{$consultation->demandeHospitalisation->Specialite->nom}}</td>
+							<td>{{$consultation->demandeHospitalisation->Service->nom}}</td>
+							<td>{{ $consultation->demandeHospitalisation->etat }}</td>
+							<td class="center">
+								@if($consultation->demandeHospitalisation->etat =="en attente")
+								<button type="button" class="btn btn-xs btn-danger" data-method="DELETE" data-confirm="Etes Vous Sur ?" onclick ="deleteDemandeHospi({{ $consultation->demandeHospitalisation->id }})"><i class="fa fa-trash-o fa-xs"></i></button>
+								@endif
+								</td>
+					</table>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+@endisset
+@if(isset($consultation->lettreOrintation))
+<div class="row">
+	<div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><strong><span style="font-size:16px;">Lettre d'Orientation</span></strong></div>
+</div>
+<div class="row">
+	<div class="col-xs-11 widget-container-col">
+		<div class="widget-box widget-color-blue">
+			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Lettre</h5></div>
+			<div class="widget-body">
+				<div class="widget-main no-padding">
+					<table class="table table-striped table-bordered table-hover">
+						<thead class="thin-border-bottom">
+							<tr>
+								<th class="center"><strong>Date</strong></th>
+								<th class="center"><strong>Spécilalité</strong></th>
+								<th class="center"><em class="fa fa-cog"></em></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>{{ $consultation->Date_Consultation }}</td>
+								<td>
+									{{-- $consultation->lettreOrintation->Specialite->nom --}}
+									{{ $consultation->lettreOrintation->id }}
+								</td>
+								<td class="center">
+									<a href="#" class="green bigger-140 show-details-btn" title="Afficher Details" data-toggle="collapse"  data-target=".collapsed">
+										<i class="ace-icon fa fa-eye-slash"></i><span class="sr-only">Details</span>&nbsp;
+									</a><!-- <a href="" target="_blank" class="btn btn-xs"><i class="fa fa-print"></i></a> -->
+				  				<button type="button" class="btn btn-xs btn-success" onclick="orLetterPrint('{{$consultation->patient->Nom}}','{{ $consultation->patient->Prenom}}','{{$consultation->patient->getAge() }}',		'{{$consultation->patient->IPP }}','{{$etablissement->tutelle }}','{{$etablissement->nom }}','{{$etablissement->adresse }}','{{$etablissement->tel }}','{{$etablissement->logo }}')"><i class="ace-icon fa fa-print"></i></button>
+								</td>
+							</tr>
+							<tr class="collapse out budgets collapsed">
+			      	  <td colspan="12">
+				    			<div class="table-detail">
+				     				<div class="row">
+				     					<div class="col-xs-12 col-sm-12"><div class="space visible-xs"></div>
+												<div class="profile-user-info profile-user-info-striped">
+													<div class="profile-info-row">
+														<div class="profile-info-name text-center"><strong>Motif:</strong></div>
+														<div class="profile-info-value">{{ $consultation->lettreOrintation->motif }}</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@endif
+<div class="row"><canvas id="lettreorientation" height="1%"><img id='itfL'/></canvas></div>

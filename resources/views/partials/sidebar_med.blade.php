@@ -6,15 +6,15 @@
     <div class="sidebar-shortcuts" id="sidebar-shortcuts">
       <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
         <button class="btn btn-success"><i class="ace-icon fa fa-signal"></i></button>
-        <button class="btn btn-info"><i class="ace-icon fa fa-pencil"></i>  </button> <!-- #section:basics/sidebar.layout.shortcuts --> 
-        <button class="btn btn-warning"><i class="ace-icon fa fa-users"></i>   </button>
-        <button class="btn btn-danger"><i class="ace-icon fa fa-cogs"></i>  </button>   <!-- /section:basics/sidebar.layout.shortcuts -->
+        <button class="btn btn-info"><i class="ace-icon fa fa-pencil"></i></button>
+        <button class="btn btn-warning"><i class="ace-icon fa fa-users"></i></button>
+        <button class="btn btn-danger"><i class="ace-icon fa fa-cogs"></i></button>
       </div>
       <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
         <span class="btn btn-success"></span><span class="btn btn-info"></span><span class="btn btn-warning"></span>
         <span class="btn btn-danger"></span>
       </div>
-    </div><!-- /.sidebar-shortcuts -->
+    </div>
     <li class="">
       <a href="home"><i class="menu-icon fa fa-picture-o"></i><span class="menu-text">Gestion Patients</span></a><b class="arrow"></b>
     </li>
@@ -198,6 +198,7 @@
            return erreur;
       }
       function  checkHomme(){
+<<<<<<< HEAD
               var erreur =true;
               var nomA = $('#nomA').val();var prenomA = $('#prenomA').val();
               var type_piece_id = $('#type_piece_id').val();var npiece_id = $('#npiece_id').val();mobileA = $('#mobileA').val();
@@ -215,6 +216,27 @@
                  }
             });   
            return erreur;
+=======
+          var erreur =true;
+          var nomA = $('#nomA').val();var prenomA = $('#prenomA').val();
+          var type_piece_id = $('#type_piece_id').val();
+          var npiece_id = $('#npiece_id').val();
+          mobileA = $('#mobileA').val();
+          var inputHomVal = new Array(npiece_id,mobileA,type_piece_id,prenomA,nomA);
+          var inputHomMessage = new Array("Numero de la Pièce","Type de la Pièce","Telephone mobile","Prenom","Nom");
+          $('.error').each(function(i, obj) {
+                $(obj).next().remove();
+                $(obj).detach();
+         });
+          jQuery.each( inputHomVal, function( i, val ) {
+               if(val =="" )
+              {
+                     erreur =false;
+                    $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputHomMessage[i]+' du Correspondant</span>'+'<br/>');
+               }
+          });   
+         return erreur;
+>>>>>>> 18cf02bc86a897943686beda46cbfc65f028d873
       }
       function checkConsult()
       {
@@ -304,19 +326,20 @@
         });
       }
       function showConsult(consultId) //a voir ce lui den haut
-      {
+      { 
         url= '{{ route ("consultdetailsXHR", ":slug") }}',
         url = url.replace(':slug',consultId);
-         $.ajax({
+        $.ajax({
             type : 'GET',
             url:url,
             success:function(data,status, xhr){
+
               $('#consultDetail').html(data.html);
             },
             error:function (data){
               console.log('Error:', data);
             }
-         });             
+        });             
       }
       function showHosp(hospId) //a voir ce lui den haut
       {
@@ -473,6 +496,7 @@
           }
       });
     }
+<<<<<<< HEAD
       function createeximg(nomp,prenomp,age,ipp)
       {
             $( "#ExamsImgtab" ).clone().appendTo( "#imgExams" );
@@ -493,20 +517,24 @@
              });
       }
     function lettreoriet(logo,nomP,prenomP,ageP,ipp)
+=======
+    function lettreoriet(logo,nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo)
+>>>>>>> 18cf02bc86a897943686beda46cbfc65f028d873
     {
       var specialite = $( "#specialiteOrient option:selected" ).text().trim();
       var medecin =  $("#medecinOrient option:selected").text().trim();
       html2canvas($("#lettreorientation"), {
         onrendered: function(canvas) {         
-          moment.locale('fr');
-          var formattedDate = moment(new Date()).format("l");
+          moment.locale('fr');// var formattedDate = moment(new Date()).format("l");
+          var d = new Date();
+          var formattedDate = formatDate(d);
           var doc = new jsPDF({orientation: "p", lineHeight: 2});
-          doc.text(105,10,'{{ Session::get('etabTut') }}', null, null, 'center');
+          doc.text(105,10,ett, null, null, 'center');
           doc.setFontSize(13);
-          doc.text(105,18,'{{ Session::get('etabname') }}'.replace(/&quot;/g,'"'), null, null, 'center');
+          doc.text(105,18,etn, null, null, 'center');
           doc.setFontSize(12);
-          doc.text(105,24,'{{ Session::get('etabAdr') }}', null, null, 'center');
-          doc.text(105,30, 'Tél : {{ Session::get("etabTel") }} - {{ Session::get("etabTel") }}', null, null, 'center');//doc.text(105,26, 'Tél : 023-93-34 - 23-93-58', null, null, 'center');
+          doc.text(105,24,etadr, null, null, 'center');
+          doc.text(105,30, ettel, null, null, 'center');
           doc.addImage(logo, 'JPEG', 95, 33, 20, 20);
           doc.setFontSize(14);
           JsBarcode("#itfL", ipp.toString(), {
@@ -518,17 +546,16 @@
             fontSize : 28,
             textAlign: "left"
           });
-          const img = document.querySelector('img#itfL');//doc.text(200,58, 'Alger,le : '+dd+'/'+mm+'/'+yyyy, null, null, 'right');
+          const img = document.querySelector('img#itfL');
           doc.text(200,58, formattedDate , null, null, 'right');        
-          doc.text(20,68, 'Emetteur : {{ Auth::User()->employ->nom }} {{Auth::User()->employ->prenom }}', null, null);
+          doc.text(20,68, 'Docteur : {{ Auth::User()->employ->nom }} {{Auth::User()->employ->prenom }}', null, null);
           doc.text(20,76, 'Tél : {{Auth::User()->employ->tele_mobile }}', null, null);
-          doc.text(200,68, 'Specialite : '+specialite , null, null,'right');
-          doc.text(200,76, 'Destinataire : '+medecin , null, null, 'right');
+          doc.text(200,68, 'Specialite : '+specialite , null, null,'right');// doc.text(200,76, 'Destinataire : '+medecin , null, null, 'right');
           doc.setFontType("bold");doc.setFontSize(16);
-          doc.text(105,90, "Lettre d'orientation", null, null, 'center');
+          doc.text(105,90, "Lettre d'Orientation", null, null, 'center');
           doc.addImage(img.src, 'JPEG', 20, 96, 50, 15);
-          doc.setFontType("normal");doc.setFontSize(12);//doc.lineHeightProportion = 2; 
-          var text = "permettez moi de vous adresser le(la) patient(e) sus-nommé(e), "+nomP+" "+prenomP+" âgé(e) de "+ageP+" ans, qui s'est présenté ce jour pour  "+$('#motifOrient').val()+"  . je vous le confie pour prise en charge spécialisé. respectueusement confraternellement.";
+          doc.setFontType("normal");doc.setFontSize(12);
+          var text = "Permettez moi de vous adresser le(la) patient(e) sus-nommé(e), "+nomP+" "+prenomP+" âgé(e) de "+ageP+" ans, qui s'est présenté ce jour pour  "+$('#motifOrient').val()+"  . je vous le confie pour prise en charge spécialisé. respectueusement confraternellement.";
           lines = doc.splitTextToSize(text, 185);
           doc.text(20,130,lines,null,null);
           doc.text(160,260,'signature',null,null,'right');
@@ -543,9 +570,27 @@
         createeximgF(img,nomp,prenomp,age,ipp);
       };
     } 
-
-      function printExamCom(nom, prenom, age, ipp)
-      {
+    function createeximg(nomp,prenomp,age,ipp)
+    {
+            $( "#ExamsImgtab" ).clone().appendTo( "#imgExams" );
+            $('#ExamsImgtab tr').find('th:last-child, td:last-child').remove()
+            $("#imagExamsPdf").removeClass('invisible'); 
+             var element = document.getElementById('imagExamsPdf');
+             var options = {
+                    filename:'ExamRadio-'+nomp+'-'+prenomp+'.pdf'
+              };
+             var exporter = new html2pdf(element, options);
+            $("#imagExamsPdf").addClass('invisible');
+            exporter.getPdf(true).then((pdf) => {// Download the PDF or...
+                     console.log('pdf file downloaded');
+             });
+            exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it
+                     console.log('doing something before downloading pdf file');
+                    pdf.save();
+             });
+    }
+    function printExamCom(nom, prenom, age, ipp)
+    {
         var interest = $('ul#compl').find('li.active').data('interest');
         switch(interest){
               case 0:
@@ -570,11 +615,29 @@
             var champ = $("<input type='text' name ='ExamsImg' value='"+JSON.stringify(ExamsImg)+"' hidden>");
             champ.appendTo(form);
       }
-      function orLetterPrint(nomP,prenomP,ageP,ipp) {
-        var img = new Image();
-        img.src = '{{ asset("/img/logo.png") }}';
-        img.onload = function () {
-          lettreoriet(img,nomP,prenomP,ageP,ipp);
+      function orLetterPrint(nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo) {
+        $("#OrientLetterPdf").removeClass('invisible');
+
+        $("#orSpecialite").text($( "#specialiteOrient option:selected" ).text().trim());
+        $("#motifCons").text($( "#motifC" ).val());
+        $("#motifO").text($( "#motifOrient" ).val());
+        var element = document.getElementById('OrientLetterPdf');
+        var options = {
+          filename:'lettreOrient-'+nomP+'-'+nomP+'.pdf'
+        };
+        var exporter = new html2pdf(element, options);
+        $("#OrientLetterPdf").addClass('invisible');
+        exporter.getPdf(true).then((pdf) => {
+            console.log('pdf file downloaded');
+        });
+        exporter.getPdf(false).then((pdf) => {
+            console.log('doing something before downloading pdf file');
+            pdf.save();
+        });
+      }
+      function orLetterPrintOrg(nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo) {
+        var img = new Image();img.src = '{{ asset("/img/logo.png") }}';img.onload = function () {
+          lettreoriet(img,nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo);
         };
       }     
       function IMC1(){
@@ -589,7 +652,7 @@
         return 0;
       }
       if(taille==""){
-        alert("STP, Saisir la taille"); // $("#taille").focus();
+        alert("STP, Saisir la taille");
         return 0;
       }else if (isNaN(taille)) {
         alert("taille doit être un nombre!");  
@@ -628,8 +691,7 @@
         champ.appendTo('#consultForm');
       }//save input modal to input form
       function lettreorientation() {
-        $('#specialite').val($('#specialiteOrient').val());
-        $('#medecin').val($('#medecinOrient').val());
+        $('#specialite').val($('#specialiteOrient').val());// $('#medecin').val($('#medecinOrient').val());
         $('#motifOr').val($('#motifOrient').val()); }
       function demandehosp()
       {

@@ -32,7 +32,7 @@
 						<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
 							<label class="col-sm-3 control-label no-padding-right" for="datenaissance"><b class="text-nowrap">Né(e) le :</b></label>
 							<div class="col-sm-9">
-								<input class="col-xs-12 col-sm-12 date-picker" type="text" id="datenaissance" name="datenaissance" value="{{ $user->employ->Date_Naiss }}" placeholder="Date Naissance..." data-date-format="yyyy-mm-dd"/>
+								<input class="col-xs-12 col-sm-12 date-picker ltnow" type="text" id="datenaissance" name="datenaissance" value="{{ $user->employ->Date_Naiss }}" placeholder="Date Naissance..." data-date-format="yyyy-mm-dd"/>
 							</div>	
 						</div>
 					</div>

@@ -5,7 +5,7 @@
 </div>
 <div class="row">	
 	<div class="form-group" id="hidden_fields" hidden>	
-		<label class="col-sm-3 control-label no-padding-right" for="lettreorientaion"><strong>Lettre d'orientation :</strong></label>	  
+		<label class="col-sm-3 control-label no-padding-right" for="lettreorientaion"><strong>Orienté pour :</strong></label>	  
 		<div class="col-sm-8"><textarea type="text" id="lettreorientaioncontent" name="lettreorientaioncontent" placeholder="Resumé" class="form-control"></textarea></div>
 	</div>	
 </div>

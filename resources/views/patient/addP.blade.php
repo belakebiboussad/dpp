@@ -104,7 +104,7 @@
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="datenaissanceA"><strong class="text-nowrap">Né(e) le :</strong>	</label>
 							<div class="col-sm-9">
-								<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance_h_c" name="datenaissance_h_c" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" />
+								<input class="col-xs-12 col-sm-12 date-picker ltnow" id="datenaissance_h_c" name="datenaissance_h_c" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" />
 							</div>
 						</div>
 					</div>

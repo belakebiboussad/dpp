@@ -1,6 +1,9 @@
 @extends('app')
 @section('page-script')
-<script type="text/javascript">
+ <!--<script type="text/javascript" src="http://ADRESSE_BORNE:90/Scripts/jquery-1.6.4.min.js"></script> 
+	<script type="text/javascript" src="http://ADRESSE_BORNE:90/Scripts/jquery.signalR-1.1.3.min.js"></script>
+	<script type="text/javascript" src="http://ADRESSE_BORNE:90/myhubs/hubs"></script>-->
+	<script type="text/javascript">
   function deleteDemandeHospi(id)
   {
     event.preventDefault();
@@ -19,7 +22,23 @@
 						 console.log('Error:', data);
 					}
 				});
-  }
+  }/*
+  $(function () {
+		$.connection.hub.url = 'http://ADRESSE_BORNE:90/myhubs';
+	    	// Connect Hubs without the generated proxy
+				var chatHubProxy = $.connection.myChatHub;
+				$.connection.hub.start().done(function () {
+					console.log("Hub connected.");
+					$("#print").click(function () {
+						// barcode à envoyer
+						var barcode = "1600|1|030621"; 
+						// Fonction d'envoie
+						chatHubProxy.server.send(barcode);
+					});
+				}).fail(function () {
+					console.log("Could not connect to Hub.");
+				});
+	});*/
   $('document').ready(function(){
    $("#accordion" ).accordion({
       collapsible: true ,
@@ -48,33 +67,29 @@
           	$(this).addClass('selected');
       	}
     });
+    $('#specialiteTick').change(function(){
+        if($(this).val() =="")        	
+         	$('#print').prop('disabled', 'disabled');
+        else
+        	$('#print').removeAttr("disabled");
+  	});
+		/*$('#print').click(function(e){e.preventDefault();$("#ticket").hide();	$("#ticketForm").submit();})*/	
   });
-//     var rows = document.getElementById("consultList").children[1].children;var selectedRow = 0;
-//     document.body.onkeydown = function(e){//Prevent page scrolling on keypress
-//       e.preventDefault();//Clear out old row's color
-//     	rows[selectedRow].style.backgroundColor = "#FFFFFF"; //Calculate new row
-// 	    if(e.keyCode == 38){
-// 	        selectedRow--;
-// 	     } else if(e.keyCode == 40){
-// 	        selectedRow++;
-// 	    }
-// 	    if(selectedRow >= rows.length){
-// 	          selectedRow = 0;
-// 	     } else if(selectedRow < 0){
-// 	          selectedRow = rows.length-1;
-// 	      }//Set new row's color
-// 	      rows[selectedRow].style.backgroundColor = "#8888FF";
-// 	 			showConsult(rows[selectedRow].getAttribute("id"));
-// 	     };//Set the first row to selected color
-// 	 		rows[0].style.backgroundColor = "#8888FF";
-
+ /* var rows = document.getElementById("consultList").children[1].children;var selectedRow = 0;   document.body.onkeydown = function(e){//Prevent page scrolling on keypress
+      e.preventDefault();//Clear out old row's color
+      	rows[selectedRow].style.backgroundColor = "#FFFFFF"; //Calculate new row
+	    if(e.keyCode == 38){selectedRow--;     } else if(e.keyCode == 40){//  selectedRow++;
+	    }	    if(selectedRow >= rows.length){// selectedRow = 0;
+	     } else if(selectedRow < 0){// selectedRow = rows.length-1;//   }//Set new row's color
+	      rows[selectedRow].style.backgroundColor = "#8888FF";// 	showConsult(rows[selectedRow].getAttribute("id"));// 	     };//Set the first row to selected color// rows[0].style.backgroundColor = "#8888FF";
+*/
 </script>
 @endsection
 @section('main-content')
 <div class="row">
 	<div class="pull-right">
-	<a href="{{ route('patient.index') }}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-search bigger-120 blue"></i>Chercher</a>
-	<a href="{{route('patient.destroy',$patient->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-white btn-warning btn-bold"><i class="ace-icon fa fa-trash-o bigger-120 orange"> Supprimer</i>
+	<a href="{{ route('patient.index') }}" class="btn btn-xs btn-white btn-info btn-bold"><i class="ace-icon fa fa-search blue"></i>Chercher</a>
+	<a href="{{route('patient.destroy',$patient->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-white btn-warning btn-bold"><i class="ace-icon fa fa-trash-o  orange"> Supprimer</i>
 	 </a>
 	 </div>
 </div>
@@ -115,64 +130,67 @@
 			</ul>
 			<div class="tab-content no-border padding-24">
 				<div id="home" class="tab-pane in active"> @include('patient.patientInfo')</div>
-				<div id="Ants" class="tab-pane">@include('antecedents.ants_Widget')</div><!-- Ants -->
-				<div id="Cons" class="tab-pane">@include('consultations.liste')</div><!-- /#Cons -->
+				<div id="Ants" class="tab-pane">@include('antecedents.ants_Widget')</div>
+				<div id="Cons" class="tab-pane">@include('consultations.liste')</div>
 				<div id="rdvs" class="tab-pane"><div class="row">@include('rdv.liste')</div></div>
-				<div id="Hosp" class="tab-pane">@include('hospitalisations.liste')	</div><!-- /#Hosp -->
-				<div id="homme_conf" class="tab-pane"><!--homme_conf -->
+				<div id="Hosp" class="tab-pane">@include('hospitalisations.liste')	</div>
+				<div id="homme_conf" class="tab-pane">
 				<div class="row">@include('corespondants.widget')</div><div class="row">@include('corespondants.add')</div>
-				</div><!-- /#homme_conf -->	
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
 <div id="ticket" class="modal fade" role="dialog">
-  	<div class="modal-dialog"><!-- Modal content-->
-  		<div class="modal-content">
-  		<form action="{{ route('ticket.store') }}" method="POST" role="form">
-			{{ csrf_field() }}
-			<input type="text" name="id_patient" value="{{ $patient->id }}" hidden>
-			<div class="modal-header">
-	    			<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title"><strong>Ajouter Ticket:</strong></h4>
-	    		</div>
-	    		<div class="modal-body">
-	    			<div class="row">
-					<div  class="col-sm-12 form-group">
-						<label for="typecons"><b>Type de consultation:</b></label>
+	<div class="modal-dialog"><!-- Modal content-->
+		<div class="modal-content">
+		<form  id ="ticketForm" action="{{ route('ticket.store') }}" method="POST" role="form">
+		{{ csrf_field() }}
+		<input type="text" name="id_patient" value="{{ $patient->id }}" hidden>
+		<div class="modal-header">
+    			<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title"><strong>Ajouter Ticket:</strong></h4>
+    		</div>
+    		<div class="modal-body">
+	    		<div class="row">
+						<div  class="col-sm-12 form-group">
+						<label for="typecons"><b>Type de Consultation:</b></label>
 						<select class="form-control" id="typecons" name="typecons" required>
 							<option value="Normale">Normale</option>
 							<option value="Urgente">Urgente</option>
+							<option value="controle">Contrôle</option>
+							<option value="specialise">Spécialisé</option>
 						</select>
 					</div>
-				</div>
-				<div class="row">
-					<div  class="col-sm-12 form-group">
-						<label for="document"><b>Document:</b></label>
-						<select class="form-control" id="document" name="document" required>
-							<option value="Rendez-vous">Rendez-vous</option>
-							<option value="Lettre d'orientation">Lettre d'orientation</option>
-							<option value="Consultation généraliste">Consultation généraliste</option>
-						</select>
 					</div>
-				</div>
-				<div class="row">
-					<div  class="col-sm-12 form-group">
-						<label for="spesialite"><b>Spécialité:</b></label>
-						<select class="form-control" id="spesialite" name="spesialite">
-							<option value="0">Selectionner la spécialité</option>
-							@foreach($specialites as $specialite)
-							<option value="{{ $specialite->id}}"> {{ $specialite->nom}}</option>
-							@endforeach
-						</select>
+					<div class="row">
+						<div  class="col-sm-12 form-group">
+							<label for="document"><b>Document:</b></label>
+							<select class="form-control" id="document" name="document" required>
+								<option value="Rendez-vous">Rendez-vous</option>
+								<option value="Lettre d'orientation">Lettre d'orientation</option>
+								<option value="Consultation généraliste">Consultation généraliste</option>
+								<option value="autre">Autre</option>
+							</select>
+						</div>
 					</div>
-				</div>	
+					<div class="row">
+						<div  class="col-sm-12 form-group">
+							<label for="specialite"><b>Spécialité:</b></label>
+							<select class="form-control" id="specialiteTick" name="specialite" required>
+								<option value="">Selectionner...</option>
+								@foreach($specialites as $specialite)
+								<option value="{{ $specialite->id}}"> {{ $specialite->nom}}</option>
+								@endforeach
+							</select>
+						</div>
+					</div>	
 	    		</div>
 	    		<div class="modal-footer">
-    				<button type="submit" class="btn btn-primary"><i class="ace-icon fa fa-copy"></i>Générer un ticket</button>	
+    				<button type="submit" class="btn btn-primary" id ="print" disabled><i class="ace-icon fa fa-copy"></i>Générer un ticket</button>	
     				<button type="button" class="btn btn-default" data-dismiss="modal"><i class="ace-icon fa fa-close bigger-110"></i>Fermer</button>
     			</div>
-	    	</form>
-    		</div>
-    	</div>
+    	</form>
+  		</div>
+  	</div>
 </div>
 @endsection
