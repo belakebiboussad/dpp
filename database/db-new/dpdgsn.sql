@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : dim. 06 juin 2021 à 14:27
+-- Généré le : mar. 08 juin 2021 à 13:43
 -- Version du serveur :  5.7.23
 -- Version de PHP : 7.2.10
 
@@ -236,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `antecedants` (
   `stypeatcd` varchar(500) DEFAULT NULL,
   `date` date DEFAULT NULL,
   `cim_code` varchar(3) DEFAULT NULL,
-  `descrioption` varchar(256) DEFAULT NULL,
+  `description` varchar(256) DEFAULT NULL,
   `Patient_ID_Patient` int(11) NOT NULL,
   `tabac` tinyint(1) DEFAULT '0',
   `ethylisme` tinyint(1) DEFAULT '0',
@@ -250,7 +250,7 @@ CREATE TABLE IF NOT EXISTS `antecedants` (
 -- Déchargement des données de la table `antecedants`
 --
 
-INSERT INTO `antecedants` (`id`, `Antecedant`, `typeAntecedant`, `stypeatcd`, `date`, `cim_code`, `descrioption`, `Patient_ID_Patient`, `tabac`, `ethylisme`, `habitudeAlim`) VALUES
+INSERT INTO `antecedants` (`id`, `Antecedant`, `typeAntecedant`, `stypeatcd`, `date`, `cim_code`, `description`, `Patient_ID_Patient`, `tabac`, `ethylisme`, `habitudeAlim`) VALUES
 (58, 'Personnels', '0', 'Medicaux', '2021-01-04', 'D61', 'description', 188, 0, 0, NULL),
 (61, 'Familiaux', NULL, NULL, '2021-01-03', 'F42', 'f42 inconue', 188, 0, 0, NULL),
 (68, 'Personnels', '1', NULL, '2021-01-10', 'D12', 'gdf', 188, 0, 1, 'alimentaire'),
@@ -2315,14 +2315,14 @@ CREATE TABLE IF NOT EXISTS `consultations` (
   KEY `fk_Consultation_Employe1_idx` (`Employe_ID_Employe`),
   KEY `fk_Consultation_Patient1_idx` (`Patient_ID_Patient`),
   KEY `fk_code_CIM` (`id_code_sim`)
-) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `consultations`
 --
 
 INSERT INTO `consultations` (`id`, `motif`, `histoire_maladie`, `Date_Consultation`, `Diagnostic`, `Resume_OBS`, `isOriented`, `lettreorientaioncontent`, `Employe_ID_Employe`, `Patient_ID_Patient`, `id_code_sim`, `id_lieu`) VALUES
-(1, 'motif teste', 'histoire', '2020-12-22', 'diag', 'resumr', 0, NULL, 102, 190, 'D60', 1),
+(1, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'histoire', '2021-01-20', 'diag', 'resumr', 0, NULL, 102, 204, 'D60', 1),
 (2, 'motif teste', 'fffsd', '2020-12-22', 'diag', 'reasume', 0, NULL, 102, 204, NULL, 1),
 (3, 'motf', NULL, '2020-12-25', NULL, 'resureme', 0, NULL, 102, 191, 'D71', 1),
 (4, 'motif avec dh', NULL, '2020-12-25', NULL, 'motif avec dh', 0, NULL, 102, 189, NULL, 1),
@@ -2395,7 +2395,10 @@ INSERT INTO `consultations` (`id`, `motif`, `histoire_maladie`, `Date_Consultati
 (118, 'avec ordonnance', NULL, '2021-05-31', NULL, 'avec ordonnance', 0, NULL, 102, 190, NULL, 21),
 (119, 'urgene demaned', NULL, '2021-06-02', NULL, 'urgene demaned', 0, NULL, 102, 243, NULL, 21),
 (120, 'avec radio', NULL, '2021-06-02', NULL, 'avec rad', 0, NULL, 102, 189, NULL, 21),
-(121, 'patient orienté', NULL, '2021-06-06', NULL, 'patient orienté', 0, NULL, 102, 190, NULL, 21);
+(121, 'patient orienté', NULL, '2021-06-06', NULL, 'patient orienté', 0, NULL, 102, 190, NULL, 21),
+(122, 'avec orientatiion', NULL, '2021-06-07', NULL, 'avec orientatiion', 0, NULL, 102, 188, NULL, 21),
+(123, 'avec orienttion', NULL, '2021-06-07', NULL, 'avec orienttion', 0, NULL, 102, 188, NULL, 21),
+(124, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum. consult', NULL, '2021-06-08', NULL, 'resumé', 0, NULL, 102, 190, NULL, 21);
 
 -- --------------------------------------------------------
 
@@ -3702,7 +3705,7 @@ INSERT INTO `employs` (`id`, `nom`, `prenom`, `sexe`, `Date_Naiss`, `Lieu_Naissa
 (99, 'phar', 'phar', 'M', '2002-07-01', 'alger', 'wdf', NULL, '0555555555', 14, 35, 'sdfg', '465465454764'),
 (100, 'chef', 'chef', 'M', '2001-08-05', 'alger', 'alger', NULL, '0555555548', 1, 1, 'sdfg', '465465454764'),
 (101, 'rad', 'rad', 'M', '2002-07-02', 'alger', 'alger', NULL, '0555555555', 13, 8, 'sdfg', '465465454764'),
-(102, 'cardio', 'cardio', 'M', '1950-05-18', 'blida', 'rue 01 blida', '023569845', '0664879989', 1, 1, 'bff44', '25 555 5465 45'),
+(102, 'medecin', 'medecin', 'M', '1950-05-18', 'blida', 'rue 01 blida', '023569845', '0664879989', 1, 1, 'bff44', '25 555 5465 45'),
 (103, 'geneco', 'geneco', 'M', '1959-05-26', 'adrar', 'rue mohammed', '056981152', '0659896558', 1, 1, 'bff44', '0136546+413'),
 (110, 'sup', 'sup', 'M', '2002-07-02', 'Alger-Centre', 'algre', '056562656', '0565656566', 1, 1, 'sdfg5', NULL);
 
@@ -3740,7 +3743,7 @@ CREATE TABLE IF NOT EXISTS `etablissement` (
 --
 
 INSERT INTO `etablissement` (`id`, `nom`, `adresse`, `tel`, `tel2`, `tutelle`, `logo`) VALUES
-(21, 'ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE \"LES GLYCINES\"', '12, Chemin des Glycines - ALGER', '023461142', NULL, 'Direction Général de la Sûreté Nationale', 'logo.png');
+(21, 'ETABLISSEMENT HOSPITALIER DE LA SÛRETÉ NATIONALE \"LES GLYCINES\"', '12, Chemin des Glycines - ALGER', '023461142', NULL, 'DIRECTION GENERALE DE LA SÛRETÉ NATIONALE', 'logo.png');
 
 -- --------------------------------------------------------
 
@@ -3762,11 +3765,11 @@ CREATE TABLE IF NOT EXISTS `etat_sortie` (
 
 INSERT INTO `etat_sortie` (`id`, `nom`, `type`) VALUES
 (1, 'Résumé standard de sortie', '0'),
-(3, 'Certificat medical', NULL),
+(3, 'CERTIFICAT MEDICALE', NULL),
 (2, 'Résumé clinique de sortie', '0'),
 (4, 'Attestation Contre Avis Medical', '0'),
 (5, 'Compte rendu d\'hospitalisation', '0'),
-(7, 'DEMANDE D\'ORIENTATION MEDICALE', NULL),
+(7, 'LETTRE D\'ORIENTATION MEDICALE', NULL),
 (6, 'Attestation de séjour', '2'),
 (8, 'Bulletin d’admission', '1'),
 (9, 'Billet de salle', '1');
@@ -4506,25 +4509,24 @@ CREATE TABLE IF NOT EXISTS `lettre_oriantations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `motif` text,
   `specialite` int(11) DEFAULT NULL,
-  `medecin` int(11) DEFAULT NULL,
   `consultation_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_orientation_consultation` (`consultation_id`),
-  KEY `fk_orientation_specialite` (`specialite`),
-  KEY `fk_orientation_medecin` (`medecin`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+  KEY `fk_orientation_specialite` (`specialite`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `lettre_oriantations`
 --
 
-INSERT INTO `lettre_oriantations` (`id`, `motif`, `specialite`, `medecin`, `consultation_id`) VALUES
-(1, 'motif', 2, 88, 81),
-(2, NULL, NULL, NULL, 113),
-(3, 'cqsc', NULL, NULL, 114),
-(5, 'bonjour moif', 6, 79, 119),
-(6, 'dfdsfds', 1, 79, 93),
-(7, '\r\nLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 5, 88, 121);
+INSERT INTO `lettre_oriantations` (`id`, `motif`, `specialite`, `consultation_id`) VALUES
+(1, 'motif', 2, 81),
+(2, NULL, 10, 113),
+(3, 'cqsc', 1, 114),
+(5, 'bonjour moif', 6, 119),
+(6, 'dfdsfds', 1, 93),
+(7, '\r\nLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 5, 121),
+(8, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 6, 122);
 
 -- --------------------------------------------------------
 
@@ -11518,7 +11520,7 @@ INSERT INTO `patients` (`id`, `IPP`, `Nom`, `Prenom`, `nom_jeune_fille`, `Dat_Na
 (188, '02020188', 'p', 'p', NULL, '1969-05-12', 613, 'M', 'M', 'rue 01', 613, 16, '0555555555', NULL, NULL, NULL, 'A', '+', '135624875699', '1', NULL, 1, '2021-02-11', NULL, '2020-12-13 08:07:43'),
 (189, '02020189', 'p1', 'pat', NULL, '2019-09-22', 613, 'F', 'C', 'alg', 613, 16, '0556565121', '0698956450', NULL, NULL, 'B', '-', '655914253678', '4', NULL, 1, '2021-03-22', NULL, '2020-12-13 08:17:44'),
 (190, '02020190', 'patient', 'mohamed', NULL, '1968-11-05', 287, 'F', 'C', 'blida', 287, 9, '0555555587', '', NULL, NULL, 'O', NULL, '455122326514', '3', NULL, 1, '2021-05-23', NULL, '2020-12-13 08:32:20'),
-(191, '02020191', 'benchrif', 'rahma', NULL, '1959-01-04', 287, 'M', 'C', 'blida', 287, 9, '0555555555', '', NULL, NULL, 'O', NULL, '455122326514', '3', NULL, 1, '2021-05-23', NULL, '2020-12-13 08:32:22'),
+(191, '02020191', 'benchrif', 'rahma', NULL, '1959-01-04', 287, 'M', 'C', 'blida', 287, 9, '0555555555', '', NULL, NULL, 'A', '+', '455122326514', '3', NULL, 1, '2021-06-07', NULL, '2020-12-13 08:32:22'),
 (192, '02020192', 'slimana', 'ouamer', NULL, '1979-06-23', 613, 'M', 'M', 'rue 01', 613, 16, '0666666666', '', NULL, NULL, 'O', NULL, '444624875695', '2', NULL, 1, '2021-05-19', NULL, '2020-12-13 08:43:03'),
 (193, '02020193', 'p4', 'p4', NULL, '2020-12-06', 613, 'M', 'M', 'alg', 287, 9, '0555555555', '', NULL, NULL, 'B', '+', '585624875695', '1', NULL, 1, '2020-12-13', NULL, '2020-12-13 10:03:43'),
 (194, '02020194', 'p5', 'p5', NULL, '2020-10-05', 613, 'M', 'D', 'alg', 613, 16, '0555555555', '', NULL, NULL, 'B', '+', '985624875695', '2', NULL, 1, '2020-12-13', NULL, '2020-12-13 14:58:59'),
@@ -11537,7 +11539,7 @@ INSERT INTO `patients` (`id`, `IPP`, `Nom`, `Prenom`, `nom_jeune_fille`, `Dat_Na
 (221, '02021221', 'dsq', 'dsq', NULL, '2021-05-02', 613, 'M', NULL, NULL, 1556, 49, '', '', NULL, NULL, NULL, NULL, '875614325845', '4', NULL, 1, '2021-05-06', NULL, '2021-05-06 12:05:56'),
 (222, '02021222', 'foudil', 'feradj', NULL, '2021-05-02', 613, 'M', 'C', NULL, 1556, 49, '', '', NULL, NULL, NULL, NULL, '875614325845', '4', NULL, 1, '2021-05-17', NULL, '2021-05-06 12:07:11'),
 (223, '02021223', 'fdsf', 'fds', NULL, '2011-05-10', 613, 'M', NULL, NULL, 1556, 49, '', '', NULL, NULL, NULL, NULL, '875614325845', '4', NULL, 1, '2021-05-06', NULL, '2021-05-06 12:10:21'),
-(224, '02021224', 'nom', 'sd', NULL, '2021-05-02', 613, 'M', NULL, NULL, 1556, 49, '', '', NULL, NULL, NULL, NULL, '985624875695', '4', NULL, 1, '2021-05-06', NULL, '2021-05-06 12:17:10'),
+(224, '02021224', 'nom', 'sd', NULL, '2020-06-07', 613, 'M', NULL, NULL, 1556, 49, '', '', NULL, NULL, NULL, NULL, '985624875695', '4', NULL, 1, '2021-05-06', NULL, '2021-05-06 12:17:10'),
 (225, '02021225', 'patient', 'inconu', NULL, '1963-06-18', 613, 'M', 'C', 'alger', 613, 16, '0555555555', '', NULL, NULL, 'A', '+', '455122326514', '3', NULL, 1, '2021-05-08', NULL, '2021-05-08 10:28:44'),
 (226, '02021226', 'patient23', 'fatma amel', NULL, '1979-05-21', 613, 'M', 'M', NULL, 287, 9, '0669386386', '', NULL, NULL, NULL, NULL, '455122326514', '1', NULL, 1, '2021-05-08', NULL, '2021-05-08 10:35:35'),
 (227, '02021227', 'ali', 'farid', NULL, '1903-12-01', 613, 'M', NULL, NULL, 1556, 49, '0555555555', '', NULL, NULL, NULL, NULL, '985624875656', '1', NULL, 1, '2021-05-11', NULL, '2021-05-11 12:53:54'),
@@ -11601,7 +11603,7 @@ CREATE TABLE IF NOT EXISTS `rdvs` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `fk_RDV_Employe` (`Employe_ID_Employe`),
   KEY `fk_RDV_Patient` (`Patient_ID_Patient`)
-) ENGINE=InnoDB AUTO_INCREMENT=156 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `rdvs`
@@ -11750,7 +11752,9 @@ INSERT INTO `rdvs` (`id`, `Date_RDV`, `Fin_RDV`, `fixe`, `Employe_ID_Employe`, `
 (152, '2021-05-12 11:30:00', '2021-05-12 11:45:00', 1, 102, 190, NULL),
 (153, '2021-05-12 10:30:00', '2021-05-12 10:45:00', 1, 102, 190, NULL),
 (154, '2021-06-01 13:00:00', '2021-06-03 13:15:00', 1, 102, 190, NULL),
-(155, '2021-06-03 10:45:00', '2021-06-03 11:00:00', 1, 102, 225, NULL);
+(155, '2021-06-03 10:45:00', '2021-06-03 11:00:00', 1, 102, 225, NULL),
+(156, '2021-06-10 12:15:00', '2021-06-10 12:30:00', 1, 102, 211, NULL),
+(157, '2021-06-10 11:45:00', '2021-06-10 12:00:00', 1, 102, 225, NULL);
 
 -- --------------------------------------------------------
 
@@ -12227,8 +12231,8 @@ CREATE TABLE IF NOT EXISTS `tickets` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL,
   `specialite` int(11) NOT NULL,
-  `type_consultation` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `document` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type_consultation` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `document` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `num_order` bigint(20) NOT NULL,
   `id_patient` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -12236,7 +12240,7 @@ CREATE TABLE IF NOT EXISTS `tickets` (
   PRIMARY KEY (`id`),
   KEY `	FK_SpecialiteTickets` (`specialite`),
   KEY `FK_PatientTickets` (`id_patient`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `tickets`
@@ -12256,7 +12260,70 @@ INSERT INTO `tickets` (`id`, `date`, `specialite`, `type_consultation`, `documen
 (11, '2021-05-04', 2, 'Normale', 'Rendez-vous', 3, 189, NULL, NULL),
 (12, '2021-05-04', 1, 'Normale', 'Lettre d\'orientation', 1, 189, NULL, NULL),
 (13, '2021-05-04', 0, 'Normale', 'Rendez-vous', 2, 189, NULL, NULL),
-(14, '2021-05-04', 1, 'Urgente', 'Lettre d\'orientation', 1, 189, NULL, NULL);
+(14, '2021-05-04', 1, 'Urgente', 'Lettre d\'orientation', 1, 189, NULL, NULL),
+(15, '2021-06-07', 0, 'Normale', 'Rendez-vous', 1, 188, NULL, NULL),
+(16, '2021-06-07', 0, 'Normale', 'Rendez-vous', 2, 190, NULL, NULL),
+(17, '2021-06-07', 3, 'Normale', 'Rendez-vous', 1, 190, NULL, NULL),
+(18, '2021-06-07', 2, 'Normale', 'Lettre d\'orientation', 1, 191, NULL, NULL),
+(19, '2021-06-07', 1, 'Urgente', 'Rendez-vous', 1, 190, NULL, NULL),
+(20, '2021-06-07', 1, 'Normale', 'Rendez-vous', 2, 190, NULL, NULL),
+(21, '2021-06-07', 1, 'Normale', 'Rendez-vous', 3, 190, NULL, NULL),
+(22, '2021-06-07', 2, 'Normale', 'Rendez-vous', 2, 190, NULL, NULL),
+(23, '2021-06-07', 3, 'Normale', 'Rendez-vous', 2, 190, NULL, NULL),
+(24, '2021-06-07', 2, 'Normale', 'autre', 3, 191, NULL, NULL),
+(25, '2021-06-07', 2, 'Normale', 'Rendez-vous', 4, 192, NULL, NULL),
+(26, '2021-06-07', 4, 'Normale', 'Lettre d\'orientation', 1, 192, NULL, NULL),
+(27, '2021-06-07', 2, 'Normale', 'Rendez-vous', 5, 192, NULL, NULL),
+(28, '2021-06-07', 2, 'Normale', 'Lettre d\'orientation', 6, 192, NULL, NULL),
+(29, '2021-06-07', 1, 'Urgente', 'Lettre d\'orientation', 2, 192, NULL, NULL),
+(30, '2021-06-07', 2, 'Urgente', 'Lettre d\'orientation', 3, 192, NULL, NULL),
+(31, '2021-06-07', 2, 'Urgente', 'Consultation généraliste', 4, 192, NULL, NULL),
+(32, '2021-06-07', 4, 'Urgente', 'Lettre d\'orientation', 5, 192, NULL, NULL),
+(33, '2021-06-07', 2, 'Urgente', 'Lettre d\'orientation', 6, 192, NULL, NULL),
+(34, '2021-06-08', 1, 'Urgente', 'Lettre d\'orientation', 1, 192, NULL, NULL),
+(35, '2021-06-08', 1, 'Urgente', 'Lettre d\'orientation', 2, 192, NULL, NULL),
+(36, '2021-06-08', 1, 'controle', 'Consultation généraliste', 1, 192, NULL, NULL),
+(37, '2021-06-08', 3, 'controle', 'Consultation généraliste', 2, 192, NULL, NULL),
+(38, '2021-06-08', 2, 'Urgente', 'Lettre d\'orientation', 3, 192, NULL, NULL),
+(39, '2021-06-08', 1, 'Urgente', 'Lettre d\'orientation', 4, 192, NULL, NULL),
+(40, '2021-06-08', 1, 'controle', 'Lettre d\'orientation', 3, 192, NULL, NULL),
+(41, '2021-06-08', 1, 'Normale', 'Rendez-vous', 6, 192, NULL, NULL),
+(42, '2021-06-08', 1, 'Normale', 'Rendez-vous', 7, 192, NULL, NULL),
+(43, '2021-06-08', 1, 'Normale', 'Rendez-vous', 8, 192, NULL, NULL),
+(44, '2021-06-08', 2, 'Normale', 'Rendez-vous', 2, 192, NULL, NULL),
+(45, '2021-06-08', 4, 'Normale', 'Rendez-vous', 1, 192, NULL, NULL),
+(46, '2021-06-08', 4, 'Normale', 'Rendez-vous', 2, 192, NULL, NULL),
+(47, '2021-06-08', 2, 'Normale', 'Rendez-vous', 3, 192, NULL, NULL),
+(48, '2021-06-08', 2, 'Normale', 'Rendez-vous', 4, 192, NULL, NULL),
+(49, '2021-06-08', 2, 'Normale', 'Rendez-vous', 5, 192, NULL, NULL),
+(50, '2021-06-08', 4, 'Normale', 'Rendez-vous', 3, 192, NULL, NULL),
+(51, '2021-06-08', 3, 'Urgente', 'Consultation généraliste', 5, 190, NULL, NULL),
+(52, '2021-06-08', 2, 'Normale', 'Lettre d\'orientation', 6, 190, NULL, NULL),
+(53, '2021-06-08', 5, 'Normale', 'Consultation généraliste', 1, 191, NULL, NULL),
+(54, '2021-06-08', 2, 'controle', 'Rendez-vous', 4, 192, NULL, NULL),
+(55, '2021-06-08', 3, 'Normale', 'Consultation généraliste', 3, 192, NULL, NULL),
+(56, '2021-06-08', 2, 'Normale', 'Rendez-vous', 8, 192, NULL, NULL),
+(57, '2021-06-08', 1, 'specialise', 'Lettre d\'orientation', 1, 191, NULL, NULL),
+(58, '2021-06-08', 1, 'specialise', 'Lettre d\'orientation', 2, 191, NULL, NULL),
+(59, '2021-06-08', 2, 'Urgente', 'Consultation généraliste', 6, 192, NULL, NULL),
+(60, '2021-06-08', 1, 'controle', 'Lettre d\'orientation', 5, 192, NULL, NULL),
+(61, '2021-06-08', 1, 'Urgente', 'Lettre d\'orientation', 7, 188, NULL, NULL),
+(62, '2021-06-08', 1, 'Normale', 'Rendez-vous', 13, 188, NULL, NULL),
+(63, '2021-06-08', 1, 'Urgente', 'Consultation généraliste', 8, 188, NULL, NULL),
+(64, '2021-06-08', 1, 'Normale', 'Rendez-vous', 15, 188, NULL, NULL),
+(65, '2021-06-08', 3, 'Normale', 'Rendez-vous', 4, 188, NULL, NULL),
+(66, '2021-06-08', 2, 'Normale', 'Rendez-vous', 10, 188, NULL, NULL),
+(67, '2021-06-08', 3, 'Normale', 'Rendez-vous', 5, 188, NULL, NULL),
+(68, '2021-06-08', 2, 'Normale', 'Rendez-vous', 11, 188, NULL, NULL),
+(69, '2021-06-08', 3, 'controle', 'Lettre d\'orientation', 6, 188, NULL, NULL),
+(70, '2021-06-08', 2, 'Urgente', 'Consultation généraliste', 9, 188, NULL, NULL),
+(71, '2021-06-08', 2, 'Urgente', 'Consultation généraliste', 10, 188, NULL, NULL),
+(72, '2021-06-08', 1, 'Normale', 'Rendez-vous', 16, 188, NULL, NULL),
+(73, '2021-06-08', 2, 'Urgente', 'Lettre d\'orientation', 11, 188, NULL, NULL),
+(74, '2021-06-08', 2, 'Urgente', 'Lettre d\'orientation', 12, 188, NULL, NULL),
+(75, '2021-06-08', 4, 'Normale', 'Rendez-vous', 4, 188, NULL, NULL),
+(76, '2021-06-08', 3, 'Normale', 'Rendez-vous', 7, 188, NULL, NULL),
+(77, '2021-06-08', 4, 'Normale', 'Lettre d\'orientation', 5, 188, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12375,7 +12442,7 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
 
 INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `role_id`, `remember_token`, `active`) VALUES
 (3, 'inf', '$2y$10$iCZWwSL3s9u9Fn/9M.TykeHfUx/CRhmrp069KVhYg34RXohdBaVdy', NULL, 1, 3, 'qUnBTPkQ4EtuXmXJs50V8y5jl2b57qtovhNkV8NoQ2t7k4qxAxTniMVUL4f1', 1),
-(25, 'admin', '$2y$10$B1bDBc58b2oRAgoTFEqWauKio.yiYSlkmTxC8yNkaG6uaK4SA3HoC', 'mail@live.fr', 65, 4, '7tL3TXbc1ZTaAhCgZFWmUIcqdI4ATrA7CstaUPNFJz8inwu7IcosojIdHAvT', 1),
+(25, 'admin', '$2y$10$B1bDBc58b2oRAgoTFEqWauKio.yiYSlkmTxC8yNkaG6uaK4SA3HoC', 'mail@live.fr', 65, 4, 'J1hHEOBhSXoDFDmTOKhiWb9mqcdHTvgDkFMUd3Iekd04YkDHVTo4vRzc7Bes', 1),
 (26, 'reception', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'ikesskess@gmail.com', 68, 2, 'JgPaOcCOA17jVkAP8cojWkgyN0MDnkxPNFFF9y5OWBuGJoZaBkbz2GrKnERk', 0),
 (28, 'medChef', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'az@e.fr', 87, 13, 'GtsERzROhMI17wLDz9bj8agtQGftKg9YW3Jop27qso079ht8HqA7rmROafvp', 1),
 (29, 'colloque', '$2y$10$Ve5h8oMwfAmfzHgTLrfJTOmGUiBpZLdxrfEfYC/7g2a1G62ZkM2QO', 'gdcedgg@yah.fr', 80, 5, 'gpZZ7n5wZzyDItBNWBgOWJBuHVN9zPFAVCnhFigz3AQFygICRp4ENyCc2B8W', 1),
@@ -12393,7 +12460,7 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, 'kpBJfTCvd2SP3BkyPqgdnSHwoMHEoAWGaDS0QeQu6arJNqxWOxijlkb8pQji', 1),
 (45, 'chefServ', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'MqwpSXPTQM0JlyL3aHRfqlG29ow5QmZnqGPwuINxH9jaZRFPEFqIoFdW1SxY', 1),
 (46, 'rad', '$2y$10$PNDRMvcnhl1kZ.sxfoq8Yuhoq6ZMQePi9/q1QbLUZ.a.hd5DxvnCS', 'rad@cdta.net', 101, 12, 'XmZjjEEybk932zk0BXVlcskVloXoYAzVAZoLoUeOhKwdbEponTwqeKfFvG9I', 1),
-(47, 'cardio', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'bbedeebi@cdta.dz', 102, 1, 'XwBCRF0rqQTzOnMUVBcwctWdCh9aopAuURtBMXE2z2SXFsuoKq2vL7JQ3lRq', 1),
+(47, 'cardio', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'bbedeebi@cdta.dz', 102, 1, 'saFaghshheL1hUohtpwipOTXHsSxxLHHB9xgV9KsoR0T0Rvt3aQTgOEsi7OR', 1),
 (48, 'geneco', '$2y$10$MeHcy1r9az/dgkC9pLvo/Ob4eqJVp8mRjGuZeyL9yA6k8sc3D0FAW', 'geneco@cdta.dz', 103, 1, 'wG4AMsJliph2HEp2SwRF5E6z7xHjvR9gDzzEAU9vV9Fe4FsAh28t3TGQZDra', 1),
 (55, 'sup', '$2y$10$KMz3xI6SFSVafWDbulGrEegn7wTkCr4HmxVdUTwMeNvarK3o0N9AW', 'admin@gmail.com', 110, 2, 'yKzTFVPrnDywAvS2qoqmKHFRKurGGwJwy8b00YLZPZYysquBO1dqsV1VA4eq', 1);
 
@@ -12749,7 +12816,6 @@ ALTER TABLE `hospitalisations`
 --
 ALTER TABLE `lettre_oriantations`
   ADD CONSTRAINT `fk_orientation_consultation` FOREIGN KEY (`consultation_id`) REFERENCES `consultations` (`id`),
-  ADD CONSTRAINT `fk_orientation_medecin` FOREIGN KEY (`medecin`) REFERENCES `employs` (`id`),
   ADD CONSTRAINT `fk_orientation_specialite` FOREIGN KEY (`specialite`) REFERENCES `specialites` (`id`);
 
 --

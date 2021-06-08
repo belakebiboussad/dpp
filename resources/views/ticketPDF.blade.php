@@ -26,11 +26,11 @@
 				<strong>Patient :</strong>
 				<span>{{ $ticket->Patient->Nom }} {{ $ticket->Patient->Prenom }}</span>
 			</td>
-			<td class="col-md-4"><strong>Date :</strong><span>&nbsp;{{ $ticket->date }}</span></td>{{-- <td class="col-md-8" rowspan="6">N° :<div class="numberCircle">{{ $ticket->num_order }}</div></td> --}}
+			<td class="col-md-4"><strong>Date :</strong><span>&nbsp;{{ $ticket->date }}</span></td>
 		</tr>
 		<tr>
 			<td class="col-md-4"></td>
-			<td class="col-md-8" rowspan="4"><strong>N° :</strong><div class="numberCircle">{{ $ticket->num_order }}</div></td>
+			<!-- <td class="col-md-8" rowspan="4"><strong>N° :</strong><div class="numberCircle">{{ $ticket->num_order }}</div></td> -->
 		</tr>
 		<tr><td class="col-md-4">&nbsp;</td></tr>	
 		<tr>
