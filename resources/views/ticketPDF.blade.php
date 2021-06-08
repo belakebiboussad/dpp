@@ -16,10 +16,10 @@
 </head>
 <body>
 	<div class="row"><div class="col-sm-12">@include('partials.etatHeader-min')</div></div>
-	<div class="row" style="margin-top:15px;">
+	<div class="row" style="margin-top:20px;">
 		<h3 style="text-align:center;"><u><strong>Ticket d'enregistrement</strong></u></h3>
 	</div>
-	<br>
+	<br><br>
 	<table width="100%">
 		<tr>
 			<td class="col-md-4">

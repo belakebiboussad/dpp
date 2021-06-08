@@ -1,6 +1,9 @@
 @extends('app')
 @section('page-script')
-<script type="text/javascript">
+ <!--<script type="text/javascript" src="http://ADRESSE_BORNE:90/Scripts/jquery-1.6.4.min.js"></script> 
+	<script type="text/javascript" src="http://ADRESSE_BORNE:90/Scripts/jquery.signalR-1.1.3.min.js"></script>
+	<script type="text/javascript" src="http://ADRESSE_BORNE:90/myhubs/hubs"></script>-->
+	<script type="text/javascript">
   function deleteDemandeHospi(id)
   {
     event.preventDefault();
@@ -19,7 +22,23 @@
 						 console.log('Error:', data);
 					}
 				});
-  }
+  }/*
+  $(function () {
+		$.connection.hub.url = 'http://ADRESSE_BORNE:90/myhubs';
+	    	// Connect Hubs without the generated proxy
+				var chatHubProxy = $.connection.myChatHub;
+				$.connection.hub.start().done(function () {
+					console.log("Hub connected.");
+					$("#print").click(function () {
+						// barcode à envoyer
+						var barcode = "1600|1|030621"; 
+						// Fonction d'envoie
+						chatHubProxy.server.send(barcode);
+					});
+				}).fail(function () {
+					console.log("Could not connect to Hub.");
+				});
+	});*/
   $('document').ready(function(){
    $("#accordion" ).accordion({
       collapsible: true ,
@@ -49,24 +68,18 @@
       	}
     });
     $('#specialiteTick').change(function(){
-        if($(this).val() =="")
-        {        	
-         	$('#prinTick').prop('disabled', 'disabled');
-         }
+        if($(this).val() =="")        	
+         	$('#print').prop('disabled', 'disabled');
         else
-        {
-        	$('#prinTick').removeAttr("disabled");
-        	
-        }
+        	$('#print').removeAttr("disabled");
   	});
+		/*$('#print').click(function(e){e.preventDefault();$("#ticket").hide();	$("#ticketForm").submit();})*/	
   });
  /* var rows = document.getElementById("consultList").children[1].children;var selectedRow = 0;   document.body.onkeydown = function(e){//Prevent page scrolling on keypress
       e.preventDefault();//Clear out old row's color
       	rows[selectedRow].style.backgroundColor = "#FFFFFF"; //Calculate new row
-	    if(e.keyCode == 38){selectedRow--;
-	     } else if(e.keyCode == 40){//  selectedRow++;
-	    }
-	    if(selectedRow >= rows.length){// selectedRow = 0;
+	    if(e.keyCode == 38){selectedRow--;     } else if(e.keyCode == 40){//  selectedRow++;
+	    }	    if(selectedRow >= rows.length){// selectedRow = 0;
 	     } else if(selectedRow < 0){// selectedRow = rows.length-1;//   }//Set new row's color
 	      rows[selectedRow].style.backgroundColor = "#8888FF";// 	showConsult(rows[selectedRow].getAttribute("id"));// 	     };//Set the first row to selected color// rows[0].style.backgroundColor = "#8888FF";
 */
@@ -131,7 +144,7 @@
 <div id="ticket" class="modal fade" role="dialog">
 	<div class="modal-dialog"><!-- Modal content-->
 		<div class="modal-content">
-		<form action="{{ route('ticket.store') }}" method="POST" role="form">
+		<form  id ="ticketForm" action="{{ route('ticket.store') }}" method="POST" role="form">
 		{{ csrf_field() }}
 		<input type="text" name="id_patient" value="{{ $patient->id }}" hidden>
 		<div class="modal-header">
@@ -173,7 +186,7 @@
 					</div>	
 	    		</div>
 	    		<div class="modal-footer">
-    				<button type="submit" class="btn btn-primary" id ="prinTick"disabled><i class="ace-icon fa fa-copy"></i>Générer un ticket</button>	
+    				<button type="submit" class="btn btn-primary" id ="print" disabled><i class="ace-icon fa fa-copy"></i>Générer un ticket</button>	
     				<button type="button" class="btn btn-default" data-dismiss="modal"><i class="ace-icon fa fa-close bigger-110"></i>Fermer</button>
     			</div>
     	</form>

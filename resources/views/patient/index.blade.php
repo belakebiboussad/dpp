@@ -112,7 +112,7 @@
 		       						{ data: 'Prenom', title:'Prenom' },
 		       						{ data: 'IPP', title:'IPP'},
 		       			  		{ data: 'Dat_Naissance', title:'Né(e) le' },
-										{ data: 'Sexe', title:'Sexe'},//{ data: 'Type',title:'Type'}, 
+										{ data: 'Sexe', title:'Sexe'},
 									  { data: 'Date_creation', title:'Créer le'},
 									  { data:null,title:'<em class="fa fa-cog"></em>', searchable: false,
 									  	"render": function(data,type,full,meta){

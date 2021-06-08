@@ -203,7 +203,9 @@
       function  checkHomme(){
           var erreur =true;
           var nomA = $('#nomA').val();var prenomA = $('#prenomA').val();
-          var type_piece_id = $('#type_piece_id').val();var npiece_id = $('#npiece_id').val();mobileA = $('#mobileA').val();
+          var type_piece_id = $('#type_piece_id').val();
+          var npiece_id = $('#npiece_id').val();
+          mobileA = $('#mobileA').val();
           var inputHomVal = new Array(npiece_id,mobileA,type_piece_id,prenomA,nomA);
           var inputHomMessage = new Array("Numero de la Pièce","Type de la Pièce","Telephone mobile","Prenom","Nom");
           $('.error').each(function(i, obj) {

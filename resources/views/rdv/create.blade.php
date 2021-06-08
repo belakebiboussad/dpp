@@ -49,7 +49,7 @@ function getPatient()
                "field":field,
                "value":$("#patient").val(),
          },
-         dataType: "json",// recommended response type
+         dataType: "json",
          success: function(data) {
            $(".es-list").html("");//remove list
            $(".es-list").addClass("make-scrolling");

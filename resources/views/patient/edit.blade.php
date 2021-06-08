@@ -68,17 +68,17 @@
         return true;
       }
     }else{
-    		$("#Position").prop("disabled", true);
+    	$("#Position").prop("disabled", true);
 			$('#Assure').find('input').prop("disabled", true).attr('required', false);//$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", true); });
-				if($('#hommeConf').is(':checked')){
+			if($('#hommeConf').is(':checked')){
           if( ! checkHomme() )
           {
             activaTab("Homme_C");
             return false;
           }else
-                  return true;  
+            return true;  
         }else
-             return true; 
+          return true; 
     }  
   }
 	$(document).ready(function(){
