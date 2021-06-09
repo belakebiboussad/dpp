@@ -525,19 +525,23 @@ $('#typeexm').on('change', function() {
       $('#spinner2').ace_spinner({value:0,min:0,max:10000,step:100, touch_spinner: true, icon_up:'ace-icon fa fa-caret-up bigger-110', icon_down:'ace-icon fa fa-caret-down bigger-110'});
       $('#spinner3').ace_spinner({value:0,min:-100,max:100,step:10, on_sides: true, icon_up:'ace-icon fa fa-plus bigger-110', icon_down:'ace-icon fa fa-minus bigger-110', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
       $('#spinner4').ace_spinner({value:0,min:-100,max:100,step:10, on_sides: true, icon_up:'ace-icon fa fa-plus', icon_down:'ace-icon fa fa-minus', btn_up_class:'btn-purple' , btn_down_class:'btn-purple'});
+      /*$('.date-picker').datepicker({autoclose: true,todayHighlight: true,dateFormat: 'yy-mm-dd',flat: true,calendars: 1,changeYear: true,//language: 'fr', })  .next().on(ace.click_event, function(){    //show datepicker when clicking on the icon $(this).prev().focus(); });*/
       $('.date-picker').datepicker({
-          autoclose: true,
-          todayHighlight: true,
-          dateFormat: 'yy-mm-dd',
-          flat: true,
-          calendars: 1,
-          changeYear: true,//language: 'fr',
-      })
-      .next().on(ace.click_event, function(){    //show datepicker when clicking on the icon
+              autoclose: true,
+              todayHighlight: true,
+              dateFormat: 'yy-mm-dd',
+              flat: true,
+              calendars: 1,//language: 'fr',
+              changeYear: true,
+              yearRange: "-120:+80"
+      }).on('click', function(e) {
+            e.preventDefault();
+          $(this).attr("autocomplete", "off");  
+       }).next().on(ace.click_event, function(){  //show datepicker when clicking on the icon
           $(this).prev().focus();
       });
       $( function() {
-        $( ".ltnow" ).datepicker( "option", "maxDate", new Date );  //diable future date
+           $( ".ltnow" ).datepicker( "option", "maxDate", new Date );  //diable future date
       }); 
       //or change it into a date range picker
       $('.input-daterange').datepicker({autoclose:true});
@@ -587,9 +591,9 @@ $('#typeexm').on('change', function() {
     });
         function getMedecinsSpecialite(specialiteId = 0,medId='')
       {
-           $('#medecin').empty();
-          var specialiteId = 0 ?$('#specialite').val() : specialiteId;
-          $.ajax({
+            $('#medecin').empty();
+            var specialiteId = 0 ?$('#specialite').val() : specialiteId;
+            $.ajax({
                     type : 'get',
                     url : '{{URL::to('DocorsSearch')}}',
                     data:{'specialiteId': specialiteId },

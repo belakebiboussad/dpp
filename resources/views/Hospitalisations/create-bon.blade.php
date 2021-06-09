@@ -60,7 +60,7 @@
 	 	$('#patient_id').val(adm['demande_hospitalisation']['consultation']['patient']['id']);
 	 	if(adm['demande_hospitalisation']['bed_affectation'] != null)
 	 	 	$('#lit_id').val(adm['demande_hospitalisation']['bed_affectation']['lit_id']);
- 	  if(adm['demande_hospitalisation']['modeAdmission']=='urgence')
+ 		  if(adm['demande_hospitalisation']['modeAdmission']=='urgence')
  		{
  			$("#Date_entree").datepicker("setDate", adm['demande_hospitalisation']['consultation']['Date_Consultation']);
  			$("#Date_Prevu_Sortie").datepicker("setDate", adm['demande_hospitalisation']['consultation']['Date_Consultation']);
@@ -68,13 +68,13 @@
  		else
  		{
  			$("#Date_entree").datepicker("setDate", adm['rdv_hosp']['date_RDVh']);
-    	$("#Date_Prevu_Sortie").datepicker("setDate", adm['rdv_hosp']['date_Prevu_Sortie']);
+    			$("#Date_Prevu_Sortie").datepicker("setDate", adm['rdv_hosp']['date_Prevu_Sortie']);
  		}
   	updateDureePrevue();
 	}
 	function addDays()
   {
-		  var datefin = new Date($('#Date_entree').val());
+		 var datefin = new Date($('#Date_entree').val());
 	  	datefin.setDate(datefin.getDate() + parseInt($('#numberDays').val(), 10));
 	  	$("#Date_Prevu_Sortie").val(moment(datefin).format("YYYY-MM-DD"));        
   	}

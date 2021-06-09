@@ -19,7 +19,7 @@
 				<div class="form-group">
 					<label for="dateatcd" class="col-sm-2 control-label" >Date :</label>
 					<div class="col-sm-10">
-						<input type="text" id="dateAntcdPhys" class="form-control date-picker gdob ltnow" data-date-format="yyyy-mm-dd" data-provide="datepicker" required />
+						<input type="text" id="dateAntcdPhys" class="form-control date-picker gdob ltnow" data-date-format="yyyy-mm-dd" data-provide="datepicker" autocomplete="off" required />
 					</div>
 				</div>
 				<div class="form-group">

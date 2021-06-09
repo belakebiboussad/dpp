@@ -130,9 +130,9 @@
         	<div class="form-group">
          		<label class="control-label" for="" ><strong>Date Sortie:</strong></label>
          		<div class="input-group">
-  			      <input type="text" id ="Date_Sortie" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
+  			      <input type="text" id ="Date_Sortie" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd" autocomplete="off">
   					  <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
-    				</div>
+    			</div>
 		</div>
         </div>	
   		</div>

@@ -167,9 +167,15 @@ class AdmissionController extends Controller
     { 
       $adm =  admission::find($id);
       $medecins = employ::where('service',Auth::user()->employ->service)->orderBy('nom')->get();
-      // $modesHosp = ModeHospitalisation::all();  
-      // ,compact('adm','medecins','modesHosp')
-      $view = view("admission.ajax_adm_detail",compact('adm','medecins'))->render();
+      $modesHosp = ModeHospitalisation::all();  
+      $nbr=0;
+      if($adm->demandeHospitalisation->modeAdmission !="urgence")
+      {
+             $to = \Carbon\Carbon::createFromFormat('Y-m-d', $adm->rdvHosp->date_Prevu_Sortie);
+             $from = \Carbon\Carbon::createFromFormat('Y-m-d', $adm->rdvHosp->date_RDVh);
+              $nbr = $to->diffInDays($from);
+      }
+      $view = view("admission.ajax_adm_detail",compact('adm','medecins','modesHosp','nbr'))->render();
       return response()->json(['html'=>$view]);
     }
 

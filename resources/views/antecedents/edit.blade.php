@@ -32,7 +32,7 @@
 						@endif
 						<div>
 							<label for="description"><strong>Date :</strong></label>
-							<input type="text" name="dateatcd" value="{{$atcd->date}}" class="form-control date-picker" id="id-date-picker-1"  data-date-format="yyyy-mm-dd" />
+							<input type="text" name="dateatcd" value="{{$atcd->date}}" class="form-control date-picker" id="id-date-picker-1"  data-date-format="yyyy-mm-dd"/>
 						</div>
 						<hr/>
 						<div>

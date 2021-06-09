@@ -69,8 +69,7 @@ class HospitalisationController extends Controller
                       })->whereHas('demandeHospitalisation',function($q) use ($serviceID) {
                                         $q->where('service', $serviceID)->where('modeAdmission','urgence')->where('etat','admise');
                                   })->get();                                                       
-      
-    return view('hospitalisations.create', compact('adms','admsUrg'));
+      return view('hospitalisations.create', compact('adms','admsUrg'));
   }
   /**
    * Store a newly created resource in storage.

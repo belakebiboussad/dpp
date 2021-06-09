@@ -126,7 +126,7 @@
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="datenaissanceA"><strong class="text-nowrap">Né(e) le :</strong>	</label>
 							<div class="col-sm-9">
-								<input class="col-xs-12 col-sm-12 date-picker ltnow" id="datenaissance_h_c" name="datenaissance_h_c" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" />
+								<input class="col-xs-12 col-sm-12 date-picker ltnow" id="datenaissance_h_c" name="datenaissance_h_c" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" autocomplete="off"/>
 							</div>
 						</div>
 					</div>
@@ -152,7 +152,7 @@
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="type_piece_id"><strong>Type pièce d'identité:<span style="color: red">*</span></strong>			</label>
+							<label class="col-sm-3 control-label" for="type_piece_id"><strong>Type pièce d'identité:<span style="color: red">*</span></strong></label>
 							<div class="col-sm-9">
 								<select name="type_piece_id" id="type_piece_id" class="col-xs-12 col-sm-12">
 									<option value="">Sélectionner...</option>
@@ -179,8 +179,8 @@
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label class="control-label col-xs-12 col-sm-3" for="date_piece_id"><strong>Délivré le :</strong></label>
-					    <div class="col-sm-9">
-								<input class="col-xs-12 col-sm-12 date-picker" id="date_piece_id" name="date_piece_id" type="text" data-date-format="yyyy-mm-dd" placeholder="Délivré le..."/>
+					    		<div class="col-sm-9">
+								<input class="col-xs-12 col-sm-12 date-picker" id="date_piece_id" name="date_piece_id" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" autocomplete="off"/>
 							</div>
 						</div>
 					</div>
