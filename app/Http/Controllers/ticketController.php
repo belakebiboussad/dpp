@@ -98,12 +98,12 @@ class ticketController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-       public function ticketPdf($id)
+      public function ticketPdf($id)
       {
-            $ticket = ticket::with('Patient')->FindOrFail($id);//dd($ticket->Patient);
-            $etablissement = Etablissement::first();
-            $pdf = PDF::loadView('ticketPDF', compact('ticket','etablissement'))->setPaper('a6','landscape');
-            $name = "Ticket-".$ticket->Patient->Nom."-".$ticket->Patient->Nom.".pdf";
-            return $pdf->download($name);
+        $ticket = ticket::with('Patient')->FindOrFail($id);//dd($ticket->Patient);
+        $etablissement = Etablissement::first();
+        $pdf = PDF::loadView('ticketPDF', compact('ticket','etablissement'))->setPaper('a6','landscape');
+        $name = "Ticket-".$ticket->Patient->Nom."-".$ticket->Patient->Nom.".pdf";
+        return $pdf->download($name);
       }
 }

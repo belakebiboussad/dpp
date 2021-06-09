@@ -20,7 +20,7 @@
 					</select>
 					@else
 					<select class="col-xs-10 col-sm-5" id="service" name="service_id">
-						<option value="">Choisir Un Service...</option>
+						<option value="">Selectionner....</option>
 						@foreach($services as $service)
 						<option value="{{ $service->id }}">{{ $service->nom }}</option>
 						@endforeach

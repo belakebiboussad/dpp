@@ -7,6 +7,12 @@
 @media print { 
 	.mt-2 {  margin-top: -0.2em;    }
 }
+@media print { 
+	.mt-3 {  margin-top: -0.3em;    }
+}
+@media print { 
+	.mt-18 { margin-top: -18px !important; }
+}
 @media print {
 	div.solid { 	border: solid;	}
 }

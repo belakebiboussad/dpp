@@ -62,7 +62,7 @@
 					<div class="col-sm-9">
 					@if(!isset($id_salle)  && empty($id_salle)) 
 					<select class="col-xs-10 col-sm-5" id="service" name="service" required>
-						<option value="">Choisir un Service...</option>
+						<option value="">Selectionner....</option>
 						@foreach($services as $service)
 						<option value="{{ $service->id }}">{{ $service->nom }}</option>
 						@endforeach
@@ -81,7 +81,7 @@
 					<div class="col-sm-9">
 					@if(!isset($id_salle)  && empty($id_salle)) 
 						<select class="col-xs-10 col-sm-5" id="chambre" name="chambre" required>
-						<option value="" selected disabled>Choisir un Chambre...</option>
+						<option value="" selected disabled>Selectionner....</option>
 						</select>
 					@else
 						<select class="col-xs-10 col-sm-5" id="chambre" name="chambre" required>

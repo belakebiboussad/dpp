@@ -511,7 +511,6 @@ class PatientController extends Controller
     }
     return response()->json(['html'=>$view]);
   }
-
   public function AutoCompletePatientField(Request $request)
   {
     $field = trim($request->field);

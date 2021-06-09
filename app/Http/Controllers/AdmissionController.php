@@ -12,6 +12,7 @@ use App\User;
 use App\modeles\dem_colloque;
 use Illuminate\Support\Facades\Auth;
 use App\modeles\hospitalisation;
+use App\modeles\ModeHospitalisation;
 use App\modeles\Etatsortie;
 use Response;
 class AdmissionController extends Controller
@@ -160,6 +161,16 @@ class AdmissionController extends Controller
             })->get();
           }
           return Response::json($adms);
-       }
-     }
+        }
+    }
+    public function getDetails($id)
+    { 
+      $adm =  admission::find($id);
+      $medecins = employ::where('service',Auth::user()->employ->service)->orderBy('nom')->get();
+      // $modesHosp = ModeHospitalisation::all();  
+      // ,compact('adm','medecins','modesHosp')
+      $view = view("admission.ajax_adm_detail",compact('adm','medecins'))->render();
+      return response()->json(['html'=>$view]);
+    }
+
 }

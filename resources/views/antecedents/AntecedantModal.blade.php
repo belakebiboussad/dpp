@@ -12,7 +12,7 @@
 						<label for="sstypeatcd" class="col-sm-2 control-label">Type:</label>
 						<div class="col-sm-10">
 							<select class="form-control" id="sstypeatcdc" onchange="resetField();">
-								<option value="">Choisir...</option>
+								<option value="">Selectionner....</option>
 								<option value="Medicaux" >Médicaux</option>
 								<option value="Chirurigicaux">Chirurigicaux</option>
 							</select>

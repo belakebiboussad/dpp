@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Africa/Algiers',
     // 'timezone' => 'Africa/Algiers',
     // 'timezone' => env('APP_TIMEZONE', 'UTC'),
 

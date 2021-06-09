@@ -59,6 +59,7 @@ route::get('/home_admission','AdmissionController@index')->name('home_admission'
 Route::get('/sortiesAdmission','AdmissionController@sortir')->name('admission.sortieAdm');
 Route::get('/getSortiesAdmissions','AdmissionController@getSortiesAdmissions');//Route::get('/admission/create/{id}','AdmissionController@create');//a commenter
 Route::get('sortiePatient/{id}','AdmissionController@updateAdm');
+Route::get('/admdetail/{id}', 'AdmissionController@getDetails');
 route::get('/demandeproduit/run/{id}','demandeprodController@run')->name('runDemande');
 route::post('/demandeproduit/valider/{id}','demandeprodController@valider')->name('demandeproduit.valider');
 Route::post('user/credentials','UsersController@credentials');
@@ -68,7 +69,6 @@ Route::get('/demandehosp/create/{id}','DemandeHospitalisationController@create')
 Route::post('/demandehosp/valider','DemandeHospitalisationController@valider');
 Route::post('/demandehosp/invalider','DemandeHospitalisationController@invalider');
 Route::get('/demandehosp/listedemandes/{type}','DemandeHospitalisationController@listedemandes');
-//Route::get('/lit/create/{id}','LitsController@create');//Route::get('/ordonnace/create/{id}','OrdonnanceController@create');
 Route::post('/ordonnaces/print','OrdonnanceController@print');
 Route::get('/consultations/detailcons/{id}','ConsultationsController@detailcons')->name('consultDetails');
 Route::get('detailConsXHR/{id}','ConsultationsController@detailconsXHR')->name('consultdetailsXHR');
@@ -90,10 +90,7 @@ Route::get('/listeRDVs', 'RdvHospiController@getlisteRDVs');
 Route::post('/hospitalisation/{id}','HospitalisationController@update');
 Route::get('/getHospitalisations','HospitalisationController@getHospitalisations');
 Route::get('detailHospXHR/{id}','HospitalisationController@detailHospXHR')->name('hospdetailsXHR');
-
-//Route::get('/barreCodeprint','HospitalisationController@codebarrePrint');
-Route::get('barreCodeprint/{id}', ['as' => 'barreCode.print', 'uses' => 'HospitalisationController@codebarrePrint']);
-
+Route::get('/barreCodeprint', ['as' => 'barreCode.print', 'uses' => 'HospitalisationController@codebarrePrint']);
 Route::post('users/changePassword', 'UsersController@changePassword');
 Route::post('/users/store/','UsersController@store');
 Route::get('/searchAssure','AssurController@search');

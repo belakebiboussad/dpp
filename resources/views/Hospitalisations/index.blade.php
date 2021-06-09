@@ -32,16 +32,15 @@
      }
      function codeBPrint(id)
      {
-            event.preventDefault();
-             var formData = {
-                  id: id,    
-               };
-       $.ajax({
+        event.preventDefault();
+        var formData = {
+              id: id,    
+        };
+        $.ajax({
              type : 'get',
-             url : "{{URL::to('barreCode.print',['id'=>id])}}",
-             // data:formData,
+             url : "{{ URL::to('barreCodeprint') }}",
+             data:formData,
              success(data){
-                  alert(data);
              },
         });
      }

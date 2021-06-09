@@ -104,18 +104,9 @@
           <ul class="submenu">
             <li><a href="/choixpatvisite"><i class="menu-icon fa fa-plus purple"></i>Ajouter visite & Contrôles</a><b class="arrow"></b></li>
           </ul></li> --}}
-        <li>
-          <a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-file-o"></i><span class="menu-text">Demandes Hosp</span>
-            <b class="arrow fa fa-angle-down"></b>
-          </a>
-          <b class="arrow"></b>
-          <ul class="submenu">
-            <li class="">
-              <a href="{{route('demandehosp.index')}}"  data-toggle="tooltip" data-placement="top" title=" Liste Demandes d'hospitalisation"><i class="menu-icon fa fa-eye pink"></i>Liste Demandes</a>
-              <b class="arrow"></b>
-            </li>
-          </ul>
-        </li>
+{{-- <li><a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-file-o"></i><span class="menu-text">Demandes Hosp</span><b class="arrow fa fa-angle-down"></b></a>
+<b class="arrow"></b><ul class="submenu"><li class=""><a href="{{route('demandehosp.index')}}"  data-toggle="tooltip" data-placement="top" title="Liste Demandes d'hospitalisation"><i class="menu-icon fa fa-eye pink"></i>Liste Demandes</a>
+<b class="arrow"></b></li></ul></li> --}}
         @if( Auth::user()->role_id == 14)
         <li class="">
           <a href="#" class="dropdown-toggle">
