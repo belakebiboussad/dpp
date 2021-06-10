@@ -176,7 +176,6 @@ class PatientController extends Controller
         "Date_creation"=>Date::Now(),
         "updated_at"=>Date::Now(),
     ]);
-    dd($request->sexe);
     $sexe = ($request->sexe == "M") ? 1:0;
     $ipp =$sexe.$date->year.$patient->id;
     $patient->update([

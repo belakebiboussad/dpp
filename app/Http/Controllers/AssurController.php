@@ -7,6 +7,7 @@ use App\modeles\Wilaya;
 use App\Traits\PatientSearch;
 use App\Traits\AssureSearch;
 use Carbon\Carbon;
+use DateTime;
 use Auth;
 use \COM;
 class AssurController extends Controller
@@ -95,14 +96,39 @@ class AssurController extends Controller
      * @param  \App\modeles\assur  $assur
      * @return \Illuminate\Http\Response
      */
-    /*
+    
       public function edit($id)
       {
-        $assure = assur::FindOrFail($id);
-         $grades = grade::all(); 
-        return view('assurs.edit',compact('assure','grades'));
+        //$assure = assur::FindOrFail($id);$grades = grade::all(); return view('assurs.edit',compact('assure','grades'));
+       //$newDateString = date('Y-m-d H:i:s',strtotime('03/27/2015 01:17 pm'));//oui
+        //$newDateString = date('Y-m-d',strtotime('03/27/2015 01:17 pm'));//oui
+        //$newDateString = date('Y-m-d',strtotime('03/27/2015 01:17 am'));//oui
+       //$newDateString = date('Y-m-d H:i:s',strtotime('03/27/2015 01:17 AM'));//oui
+       // $newDateString = date('Y-m-d',strtotime('03/27/2015 01:17 AM'));///oui
+       //$newDateString = (Carbon::createFromFormat('m/d/Y H:i:sA', '03/27/2015 01:17:12 AM'))->toDateString();//oui
+       //$newDateString = (Carbon::createFromFormat('m/d/Y H:iA', '03/27/2015 01:17AM'))->toDateString();//oui
+        //$newDateString = (Carbon::createFromFormat('m/d/Y H:iA', '05/27/2015 01:17AM'))->toDateString();//oui
+        //$newDateString = DateTime::createFromFormat('d-m-Y H:i A', '14-01-2011 01:00PM')->format('Y-m-d'); //oui
+       // $newDateString = Carbon::now();
+       // $newDateString->format('Y/m/d g:i:s A');
+        //$newDateString = now()->format('g:i:s a');
+        // 24-hour time to 12-hour time 
+        //$newDateString  = date("g:i a", strtotime("13:30"));//"1:30 pm"
+        // 12-hour time to 24-hour time 
+        //$newDateString  = date("H:i", strtotime("1:30 PM"));//13:30
+        //$newDateString  = date("H:i", strtotime("1:30 AM"));//1:30
+        //$newDateString  = date("Y-m-d H:i", strtotime("1989-10-21 1:30 AM"));//"1989-10-21 01:30"
+        //$newDateString  = date("Y-m-d H:i", strtotime("1989-10-21 1:30 PM"));//"1989-10-21 13:30"
+        //$newDateString  =  Carbon::parse('1989-10-21 1:30 PM')->format('d-m-Y G:ia');//"21-10-1989 13:30pm"
+        //$newDateString  =  Carbon::parse('1989-10-21 1:30 PM')->format('d-m-Y G:i');//"21-10-1989 13:30"    //H ou G la meme    chose
+        //$newDateString  =  Carbon::parse('1989-10-21 1:30 PM')->format('Y-m-d');//""1989-10-21"     
+        //$newDateString  =  Carbon::parse('1989-10-21 1:30 PM')->format('Y-d-m');//""1989-21-10"  
+       // $newDateString  =  Carbon::parse('21/10/1985 1:30 PM')->format('d/m/Y');//""1989-21-10"  
+
+
+        //dd($newDateString);
+     
       }
-      */
     /**
      * Update the specified resource in storage.
      *
@@ -153,18 +179,18 @@ class AssurController extends Controller
      */
      public function destroy(Request $request , $id) 
      { 
-        //chemin de registre=I:/MessPrograms/program.net/com/GRH2/GRH2/bin/Debug/GRH2.DLL//probleme WilayaResidence
+        //chemin de registre=I:/MessPrograms/program.net/com/GRH2/GRH2/bin/Debug/GRH2.DLL
         //$handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word"); //dll local//D:/Mes-programmes/DotNET/Dll/GRH2/GRH2
         //J:\TRAVAIL_CDTA\DossierPatient_Projet_Actuel\DGSN-Dossier PAtient\DLL\!DLL_CDTA_My//I:/MessPrograms/program.net/com/GRH/GRH/bin/Debug/GRH.DLL 
         //vrai derniere dll local//D:\cdta-work\Dossier Patient\DGSN-Glysines\DLL\Mien\Debug
-        $handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); 
+        //$handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); 
         //dgsn network dll,path=J:\TRAVAIL_CDTA\DossierPatient_Projet_Actuel\DGSN-Dossier PAtient\DLL\!Last_DGSN_DLL//I:/MessPrograms/program.net/Pgm-Laptop/GRH_DLL/GRH_DLLL/bin/x64/Debug
-        //$handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");
+        $handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");
         //teste network dll
         //$handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); 
         if($handle != null)
         {
-          $assure = $handle->SelectPersonnel(trim('3M534'),trim(''));//10246 
+          $assure = $handle->SelectPersonnel(trim('12122'),trim(''));//10246 3M534
           dd($assure->Date_Naissance);
           $date = Carbon::CreateFromFormat('d/m/Y',$assure->Date_Naissance)->format('Y-m-d'); 
           $grade = grade::where('nom',$assure->Grade)->select('id')->get()->first();
@@ -207,8 +233,8 @@ class AssurController extends Controller
      {
         try {
               //$handle = new COM("GRH2.Personnel") or die("Unable to instanciate Word");   //dll local// D:/Mes-programmes/DotNET/Dll/GRH2/GRH2
-              $handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); //vrai derniere dll local //D:\cdta-work\Dossier Patient\DGSN-Glysines\DLL\Mien\Debug
-              //$handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");//dgsn network sll
+              //$handle = new COM("GRH.Personnel") or die("Unable to instanciate Word"); //vrai derniere dll local //D:\cdta-work\Dossier Patient\DGSN-Glysines\DLL\Mien\Debug
+              $handle = new COM("GRH_DLL.Personnel") or die("Unable to instanciate Word");//dgsn network sll
               $output=""; $ayants="";
               $assure = $handle->SelectPersonnel(trim($request->matricule),trim($request->nss));   
               if($assure->Nom != null)
@@ -220,7 +246,7 @@ class AssurController extends Controller
                     //$date = (Carbon::createFromFormat('d/m/Y H:i:s',  $assure->Date_Naissance))->toDateString(); 
                     //$date =(Carbon::createFromFormat('Y-m-d H:i:s',  $assure->Date_Naissance))->toDateString();
                    //$date =  \Carbon\Carbon::parse($assure->Date_Naissance)->format('Y-m-d');
-                   $date = "1970-2-12";
+                    $date =  \Carbon\Carbon::parse(trim($assure->Date_Naissance))->format('Y-m-d');
                     $grade = grade::where('nom',$assure->Grade)->select('id')->get()->first();
                              switch(($assure->SituationFamille{0})){
                                 case "M"  :
@@ -256,10 +282,11 @@ class AssurController extends Controller
                          }else
                                 $action = '<b><span class="badge badge-danger">'.utf8_encode($assure->Position).'</span></b>';
                   }
-                    // $dateN = Carbon::CreateFromFormat('d/m/Y',$assure->Date_Naissance)->format('Y-m-d');
-                    //$date="1970-8-15";
+                    //$dateN = Carbon::CreateFromFormat('d/m/Y',$assure->Date_Naissance)->format('Y-m-d');
+                    $dateN =  \Carbon\Carbon::parse(trim($assure->Date_Naissance))->format('Y-m-d');
+                     //$date="1970-8-15";
                     $wilaya = (Wilaya::findOrFail($assure->WilayaResidence))->nom;
-                    $output.='<tr><td>'.$assure->Nom.'</td><td>'.$assure->Prenom.'</td><td>'. '/' .'</td><td>'.utf8_encode($assure->SituationFamille).'</td><td>'
+                    $output.='<tr><td>'.$assure->Nom.'</td><td>'.$assure->Prenom.'</td><td>'.$dateN.'</td><td>'.utf8_encode($assure->SituationFamille).'</td><td>'
                             .$wilaya.'</td><td>'.$assure->NSS.'</td><td>'.$sexe.'</td><td><span class="badge badge-success">'
                             .utf8_encode($assure->Position).'</span></td><td><span class="badge">'.$assure->Matricule.'</span></td><td>'
                             .utf8_encode($assure->Service).'</td><td>'.$assure->Grade.'</td><td class="center">'.$action.'</td></tr>';

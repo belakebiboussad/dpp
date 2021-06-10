@@ -229,6 +229,7 @@
       function activaTab(tab){
         $('.nav-pills a[href="#' + tab + '"]').tab('show');
       }
+      /*
       function copyPatient(){ 
         $("#nomf").val($("#nom").val());
         $("#prenomf").val($("#prenom").val());
@@ -272,7 +273,7 @@
         $('.Asdemograph').find('*').each(function () {
           $(this).attr("disabled", false); 
         });
-      }
+      }*/
       if ($("#addGardeMalade").length > 0) {  ////avoir
         $("#addGardeMalade").validate({
             rules: {
@@ -974,47 +975,6 @@
         $("#deletepod").click(function(){
              $("tr:has(input:checked)").remove();
         }); 
-        $("select.groupeSanguin").change(function(){//var gs = $(this).children("option:selected").val();
-
-          if($(this).children("option:selected").val() !=="")
-          {
-            if($(this).attr('name') === "gs")
-            {
-              $("#rh" ).attr("disabled", false);
-              if($("#type").val() =="0")
-                $("#gsf").val($("#gs option:selected").val());  
-            }else
-            {
-              $("#rhf" ).attr("disabled", false);
-              if($("#type").val() =="0")
-                 $("#gs").val($("#gsf option:selected").val());
-            } 
-          }else
-          {
-            if($(this).attr('name') === "gs")
-            {
-              $("#rh" ).attr("disabled", true);
-              $("select#rh").val(''); 
-            }
-            else
-            {
-              $("#rhf" ).attr("disabled", true);
-              $("select#rhf").val(''); 
-            }
-          }
-        });
-        $("select.rhesus").change(function(){ //var rhval = $(this).children("option:selected").val();
-            if($("#type").val() =="0")
-            {
-              if($(this).children("option:selected").val() !=="")
-              {
-                if($(this).attr('name') === "rh")
-                  $("#rhf").val($("#rh option:selected").val());  
-                else
-                  $("#rh").val($("#rhf option:selected").val());  
-              }
-            }        
-        });
         jQuery('body').on('click', '.delete-atcd', function (e) {
           event.preventDefault();
           var atcd_id = $(this).val();

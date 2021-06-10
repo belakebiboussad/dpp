@@ -88,11 +88,9 @@
 			</div>
 	    		<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
 			   	<li class="active">
-			   		<a data-toggle="tab" href="#Assure" class="jumbotron" onclick="copyPatientInfo(null);"><span class="bigger-130"><strong>Assuré(e)</strong></span>
-			    		</a>
-				</li>
-				<li ><a class="jumbotron" data-toggle="tab" href="#Patient"><span class="bigger-130"><strong>Patient</strong></span></a>
-				</li>
+			   		<a data-toggle="tab" href="#Assure" class="jumbotron" onclick="copyPatientInfo(null);"><span class="bigger-130"><strong>Assuré(e)</strong></span></a>
+					</li>
+					<li ><a class="jumbotron" data-toggle="tab" href="#Patient"><span class="bigger-130"><strong>Patient</strong></span></a></li>
 			 	  <li id ="hommelink" class="invisible"><a class="jumbotron" data-toggle="tab" href="#Homme_C">
 			  		<span class="bigger-130"><b>Garde Malde</b></span></a>
 				  </li>
