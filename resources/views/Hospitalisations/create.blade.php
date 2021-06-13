@@ -19,7 +19,13 @@
 @section('title') Nouvelle Hospitalisation
 @endsection
 @section('main-content')
-<div class="page-header"><h1> Ajouter une hospitalisation </h1></div><div class="space-12"></div>
+	<div class="page-header"><h1> Ajouter une hospitalisation</h1>
+		<div class="pull-right">
+		<a href="{{route('hospitalisation.index')}}" class="btn btn-white btn-info btn-bold">
+			<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>Liste des Hospitalisation
+		</a>
+	</div>
+	</div><div class="space-12"></div>
 <div class="row">
 	<div class="col-sm-8 col-xs-8">
 		<div class="widget-box widget-color-blue">

@@ -79,11 +79,12 @@ class HospitalisationController extends Controller
    */
   public function store(Request $request)
   { 
-    $dmission =  admission::find($request->id_admission); 
+    $today = Carbon::now()->format('Y-m-d');
+    $admission =  admission::find($request->id_admission); 
     $hosp = hospitalisation::create([
-      "Date_entree"=>$request->Date_entree,
+      "Date_entree"=>$today,//>$request->Date_entree,
       "Date_Prevu_Sortie"=>$request->Date_Prevu_Sortie,
-      "patient_id"=>$request->patient_id,
+      "patient_id"=>$admission->demandeHospitalisation->consultation->patient->id,//$request->patient_id,
       "id_admission"=>$request->id_admission,
       'medecin_id'=>$request->medecin,
       "garde_id" => (isset($request->garde_id)) ? $request->garde_id : null,
@@ -91,11 +92,10 @@ class HospitalisationController extends Controller
     ]);
     if(isset($dmission->rdvHosp))
     { 
-      $dmission->rdvHosp->update([ "etat_RDVh" =>1 ]);
-      $dmission->rdvHosp->demandeHospitalisation->update(["etat" => "hospitalisation"]);
+      $admission->rdvHosp->update([ "etat_RDVh" =>1 ]);
+      $admission->rdvHosp->demandeHospitalisation->update(["etat" => "hospitalisation"]);
     }else
-      $dmission->demandeHospitalisation->update(["etat" => "hospitalisation"]);
-
+      $admission->demandeHospitalisation->update(["etat" => "hospitalisation"]);
     return redirect()->action('HospitalisationController@create'); //return \Redirect::route('HospitalisationController@create');
   }
   /**

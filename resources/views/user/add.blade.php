@@ -39,7 +39,7 @@
 						<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
 						<label class="col-sm-4 control-label no-padding-right" for="datenaissance"><b>Date Naissance:</b></label>
 						<div class="col-sm-8">
-						<input class="col-xs-12 col-sm-12 date-picker" type="text" id="datenaissance" name="datenaissance" placeholder="Date Naissance..." data-date-format="yyyy-mm-dd" required/>
+						<input class="col-xs-12 col-sm-12 date-picker" type="text" id="datenaissance" name="datenaissance" placeholder="Date Naissance..." data-date-format="yyyy-mm-dd" autocomplete ="off" required/>
 						</div>
 						</div>
 					</div>
@@ -108,7 +108,7 @@
 						<div>
 							<label for="specialite"><b>Spécialité:</b></label>
 							<select class="form-control" id="specialite" name="specialite">
-								<option  value="" selected disabled>Sélectionner...</option>
+								<option  value="" selected>Sélectionner...</option>
 								@foreach($specialites as $specialite)
 								<option value="{{ $specialite->id }}">{{ $specialite->nom }}</option>
 								@endforeach

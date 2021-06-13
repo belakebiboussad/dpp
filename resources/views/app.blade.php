@@ -120,14 +120,10 @@
           {
             if($(this).attr('name') === "gs")
             {
-              $("#rh" ).attr("disabled", false);
-              if($("#type").val() =="0")
-                $("#gsf").val($("#gs option:selected").val());  
+              $("#rh" ).attr("disabled", false);/*if($("#type").val() =="0")  $("#gsf").val($("#gs option:selected").val()); */ 
             }else
             {
-              $("#rhf" ).attr("disabled", false);
-              if($("#type").val() =="0")
-                 $("#gs").val($("#gsf option:selected").val());
+              $("#rhf" ).attr("disabled", false);/*if($("#type").val() =="0") $("#gs").val($("#gsf option:selected").val());*/
             } 
           }else
           {
@@ -144,19 +140,9 @@
           }
         });
         $("select.rhesus").change(function(){ //var rhval = $(this).children("option:selected").val();
-            if($(this).children("option:selected").val() !=="")
-            {
-              if($(this).attr('name') == "rh")
-              {
-                if($("#type").val() =="0")
-                   $("select#rhf").val($("#rh option:selected").val());  
-              }else
-              {
-                if($("#type").val() =="0")
-                  $("select#rh").val($("#rh option:selected").val());  
-              }
-            }else
-            {
+            if($(this).children("option:selected").val() =="")
+            { /*if($(this).attr('name') == "rh"){if($("#type").val() =="0")$("select#rhf").val($("#rh option:selected").val());  
+              }else{if($("#type").val() =="0")$("select#rh").val($("#rh option:selected").val());}*/
               if($(this).attr('name') === "rh")
                 $("select#gs").val(''); 
               else

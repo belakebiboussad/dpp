@@ -2,18 +2,18 @@
 	<div class="widget-header" style = " width : 104%; margin-left :-3% ">
 		<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Ajouter une hospitalisation</h5>
 	</div>
-	<div class="widget-body">
-		<div class="widget-main no-padding">
-			<div class="space-12"></div>
-			<form class="form-horizontal" role="form" method="POST" action="{{ route('hospitalisation.store') }}">
-				{{ csrf_field() }}
-				<input type="hidden" name="id_admission" id="id_admission" value="" >
-				<input type="hidden" name="patient_id" value="{{ $adm->demandeHospitalisation->consultation->patient->id }}">
+	<form class="form-horizontal" role="form" method="POST" action="{{ route('hospitalisation.store') }}">
+		{{ csrf_field() }}
+		 <input type="hidden" name="id_admission" id="id_admission" value="{{ $adm->id }}" >
+		{{--<input type="hidden" name="patient_id" value="{{ $adm->demandeHospitalisation->consultation->patient->id }}"> --}}
+		<div class="widget-body">
+			<div class="widget-main no-padding">
+				<div class="space-12"></div>
 				<div class="row">
 					<div class="form-group">		
 						<label class="col-sm-4 control-label no-padding-right" for="patient"><strong>Patient :</strong></label>
 						<div class="col-sm-8 col-xs-8">
-							<input type="text" class="col-xs-11 col-sm-11" name="patient" value="{{ $adm->demandeHospitalisation->consultation->patient->Nom }} {{ $adm->demandeHospitalisation->consultation->patient->Nom }}"  readonly>			
+							<input type="text" class="col-xs-11 col-sm-11" value="{{ $adm->demandeHospitalisation->consultation->patient->Nom }} {{ $adm->demandeHospitalisation->consultation->patient->Nom }}"  readonly>			
 						</div>
 					</div>
 				</div>
@@ -21,7 +21,7 @@
 					<div class="form-group">		
 						<label class="col-sm-4 control-label no-padding-right" for="service"><strong>Service :</strong></label>
 						<div class="col-sm-8 col-xs-8">
-							<input type="text" name="service" class="col-xs-11 col-sm-11"  value="{{ $adm->demandeHospitalisation->Service->nom }}" readonly>
+							<input type="text" class="col-xs-11 col-sm-11"  value="{{ $adm->demandeHospitalisation->Service->nom }}" readonly>
 						</div>
 					</div>
 				</div>
@@ -58,16 +58,16 @@
 					</div>
 		  	</div>
   			<div class="row">
-				<div class="form-group">
-					<label class="col-sm-4 col-xs-4 control-label no-padding-right text-nowrap" for="Date_Prevu_Sortie"><strong>Date Sortie Prév. :</strong></label>
-					<div class="col-sm-8 col-xs-8">
-					@if($adm->demandeHospitalisation->modeAdmission =="urgence")
-					<input class="col-xs-11 col-sm-11 date-picker" id="Date_Prevu_Sortie" name="Date_Prevu_Sortie" type="text" data-date-format="yyyy-mm-dd" onchange="updateDureePrevue()" value="<?= date("Y-m-j") ?>"  autocomplete="off"/> 
-					@else
-					<input class="col-xs-11 col-sm-11 date-picker" id="Date_Prevu_Sortie" name="Date_Prevu_Sortie" type="text" data-date-format="yyyy-mm-dd" value="{{ $adm->rdvHosp->date_Prevu_Sortie}}" onchange="updateDureePrevue()"  autocomplete="off"/>
-					@endif
+					<div class="form-group">
+						<label class="col-sm-4 col-xs-4 control-label no-padding-right text-nowrap" for="Date_Prevu_Sortie"><strong>Date Sortie Prév. :</strong></label>
+						<div class="col-sm-8 col-xs-8">
+						@if($adm->demandeHospitalisation->modeAdmission =="urgence")
+						<input class="col-xs-11 col-sm-11 date-picker" id="Date_Prevu_Sortie" name="Date_Prevu_Sortie" type="text" data-date-format="yyyy-mm-dd" onchange="updateDureePrevue()" value="<?= date("Y-m-j") ?>"  autocomplete="off"/> 
+						@else
+						<input class="col-xs-11 col-sm-11 date-picker" id="Date_Prevu_Sortie" name="Date_Prevu_Sortie" type="text" data-date-format="yyyy-mm-dd" value="{{ $adm->rdvHosp->date_Prevu_Sortie}}" onchange="updateDureePrevue()"  autocomplete="off"/>
+						@endif
+						</div>
 					</div>
-				</div>
 			</div>
 			<div class="row">
 				<div class="form-group">
@@ -102,46 +102,47 @@
 				<div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right"><strong><span style="font-size:16px;">Hébergement</span></strong></div>
 			</div>
 			<div class="row">
-			<div class="col-sm-4">
-				<ul class="list-unstyled spaced">
-					<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>
+				<div class="col-sm-4">
+					<ul class="list-unstyled spaced">
+						<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>
+							<div class="input-group">
+								<span class="badge badge-pill badge-success">{{ $adm->demandeHospitalisation->bedAffectation->lit->salle->service->nom }}</span>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="col-sm-4">
+					<ul class="list-unstyled spaced">
+						<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Salle :</strong>
+							<div class="input-group">
+								<span class="badge badge-pill badge-primary">{{ $adm->demandeHospitalisation->bedAffectation->lit->salle->nom }}</span>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="col-sm-4">
+					<ul class="list-unstyled spaced">
+						<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Lit :</strong>
 						<div class="input-group">
-							<span class="badge badge-pill badge-success">{{ $adm->demandeHospitalisation->bedAffectation->lit->salle->service->nom }}</span>
-						</div>
-					</li>
-				</ul>
-			</div>
-			<div class="col-sm-4">
-				<ul class="list-unstyled spaced">
-					<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Salle :</strong>
-						<div class="input-group">
-							<span class="badge badge-pill badge-primary">{{ $adm->demandeHospitalisation->bedAffectation->lit->salle->nom }}</span>
-						</div>
-					</li>
-				</ul>
-			</div>
-			<div class="col-sm-4">
-				<ul class="list-unstyled spaced">
-					<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Lit :</strong>
-					<div class="input-group">
-						<span class="badge badge-pill badge-default">{{ $adm->demandeHospitalisation->bedAffectation->lit->nom }}</span>
-					</div>	
-					</li>
-				</ul>
-			</div>
-			</div>
-			 <div class="space-12"></div>
+							<span class="badge badge-pill badge-default">{{ $adm->demandeHospitalisation->bedAffectation->lit->nom }}</span>
+						</div>	
+						</li>
+					</ul>
+				</div>
+		  </div><div class="space-12"></div>
+		</div>
+		<div class="widget-footer widget-footer-large center">
 			<div class="row">
 				<div class="col-sm12">
 					<div class="center bottom" style="bottom:0px;">
 						<button class="btn btn-info btn-sm" type="submit" id ="sendBtn"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
-						<button class="btn btn-danger btn-sm" type="reset">	<i class="ace-icon fa fa-close bigger-110"></i>Annuler</button>
+						<!-- <button class="btn btn-danger btn-sm" type="reset">	<i class="ace-icon fa fa-close bigger-110"></i>Annuler</button> -->
 					</div>
 				</div>
-			</div>
-			</form>
+			</div><div class="space-12"></div>
 		</div>
 	</div>
+	</form>
 </div>
 <script type="text/javascript">
 	function updateDureePrevue()
@@ -177,6 +178,7 @@
   		 });
   		$("#numberDays").on('click keyup', function() {
       			addDays();
-    		});
-	}); 
+    	});
+    	
+	});	// $(function() {	$( "#sendBtn" ).click(function() { 		$("#Date_entree").prop("disabled", false);});}); 
 </script>

@@ -68,7 +68,14 @@
 @endsection
 @section('main-content')
 <div class="container-fluid">
-  <div><h4>Ajouter un Patient</h4></div>
+  <div>
+  	<h4>Ajouter un Patient</h4>
+  	<div class="pull-right">
+			<a href="{{route('patient.index')}}" class="btn btn-white btn-info btn-bold">
+				<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i> Chercher un Patient
+			</a>
+			</div>
+  </div>
   <div class="row tabs">
 		<form class="form-horizontal" id = "addPatientForm" action="{{ route('patient.store') }}" method="POST" role="form">
 	    {{ csrf_field() }}
