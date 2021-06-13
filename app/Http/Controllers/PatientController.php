@@ -69,7 +69,6 @@ class PatientController extends Controller
            $prenom = $assure->Prenom;         
         } //return view('patient.addP',compact('assure','NSS','type','prenom')); 
         return view('patient.addP',compact('assure','NSS','type','nom','prenom')); 
-
       }
       else
       {

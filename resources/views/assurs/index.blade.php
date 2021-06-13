@@ -26,7 +26,7 @@
 								$("#widget").addClass('invisible');
 						}
 						$(".numberResult").html(xhr.getResponseHeader("count"));
-						 $('#matricule').val('');$('#nss').val('');		
+						$('#matricule').val('');$('#nss').val('');		
 					}
 			});
 		});
@@ -63,19 +63,18 @@
 					<div class="col-sm-4">
 			      <div class="form-group col-sm-12">
 			       	<label class="control-label" for="nss" ><strong>NSS:</strong></label>
-						<div class="input-group col-sm-8">
-							<input type="text" class="form-control input-sx" id="nss" name="nss" placeholder="Numéro du sécurité..."/>
-							<span class="glyphicon glyphicon-search form-control-feedback"></span>
-					    </div>
-						</div>
+							<div class="input-group col-sm-8">
+								<input type="text" class="form-control input-sx nssform" id="nss" name="nss" placeholder="Numéro du sécurité..."/>
+								<span class="glyphicon glyphicon-search form-control-feedback"></span>
+					  	</div>
+					  </div>
 					</div>
 					</div><!-- row -->
 				</div><!-- body -->
 				<div class="panel-footer" style="height:40px;"> <!-- style ="margin-top:-0.5%;"  -->
 <button type="submit" class="btn btn-xs btn-primary findAssure"><i class="fa fa-search"></i>&nbsp;Rechercher</button> 	
-<a  class="btn btn-danger btn-xs" href="{{ route('assur.destroy',12) }}" role="button" aria-pressed="true" data-method="DELETE"><i class="ace-icon fa fa-trash-o bigger-110"></i>Supprimer</a>
-<a  class="btn btn-danger btn-xs" href="{{ route('assur.edit',12) }}" role="button" aria-pressed="true" >Teste</a>
-					
+{{-- <a  class="btn btn-danger btn-xs" href="{{ route('assur.destroy',12) }}" role="button" aria-pressed="true" data-method="DELETE"><i class="ace-icon fa fa-trash-o bigger-110"></i>Supprimer</a>
+<a class="btn btn-danger btn-xs" href="{{ route('assur.edit',12) }}" role="button" aria-pressed="true" >Teste</a>--}}
 					@if(Auth::user()->role_id == 4)
 					<div class="pull-right">
 						<a  class="btn btn-primary btn-xs hidden" href="{{ route('assur.create') }}" id=btnCreate role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>
@@ -93,7 +92,6 @@
 					<label for=""><span class="badge badge-info numberResult"></span></label>
 				</div>
 				<div class="bodycontainer scrollable">
-				<!-- <table class="table table-striped table-bordered table-condensed table-scrollable"> -->
 					<table class="table display table-responsive table-bordered table-scrollable"  width="100%">
 					<thead>
 						<tr class="info"><th colspan="12">Fonctionnaire</th></tr>

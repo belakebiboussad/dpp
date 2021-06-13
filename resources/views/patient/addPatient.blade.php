@@ -171,7 +171,7 @@
 				 <label class="col-sm-4 control-label" for="nsspatient"><strong>NSS (patient):</strong></label>
 				<div class="col-sm-8">
 					<input type="text" class="form-control col-xs-12 col-sm-6 nssform" id="nsspatient" name="nsspatient"
-					pattern="^\[0-9]{2}+' '+\[0-9]{4} +' '+\[0-9]{4}+' '+[0-9]{2}$"  placeholder="XXXXXXXXXXXX" maxlength =12 minlength =12 />
+					pattern="^\[0-9]{2}+' '+\[0-9]{4} +' '+\[0-9]{4}+' '+[0-9]{2}$"  placeholder="XXXXXXXXXXXX"/>
 				</div>
 			</div>		
 		</div>	

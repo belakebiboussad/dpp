@@ -581,6 +581,7 @@ $('#typeexm').on('change', function() {
       //les maskes
       $('.mobile').mask('0999999999');// $('.mobile').mask('0-999-99-99-99');
       $('.mobileform').mask('99999999');
+       $('.nssform').mask('999999999999');
       $('.telfixe').mask('099999999');// $('.telfixe').mask('099-99-99-99');
       $('.nssform').mask('999999999999');
       $(document).one('ajaxloadstart.page', function(e) {

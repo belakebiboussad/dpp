@@ -472,12 +472,10 @@ doc.save('ExamRadio-'+nomp+'-'+prenomp+'.pdf')}});}*/
         });
     }
     function createexbioF(image,nomp,prenomp,age,ipp){ 
-      var i =0;
+      ol = document.getElementById('listBioExam');
       $('input.ace:checkbox:checked').each(function(index, value) {
-        //doc.text(10,125+i, ++index + ' : '+this.nextElementSibling.innerHTML+" . ");
-        //i=i+10;
-        alert(this.nextElementSibling.innerHTML);
-      });
+         $("ol").append('<li><h3>-'+this.nextElementSibling.innerHTML+'</h3></l3>');
+      }); 
       $("#bioExamsPdf").removeClass('invisible'); 
       var element = document.getElementById('bioExamsPdf');
       var options = {

@@ -4,9 +4,6 @@
 		<title>Ordonnance-{{ $patient->Nom }}-{{ $patient->Prenom }}</title>
 		<link rel="stylesheet" href="{{ asset('/css/styles.css') }}"/>
 		<link rel="stylesheet" href="{{ asset('css/print.css') }}"  />	
-		<style>
-  	
-   		</style>
 	</head>
 	<body>
   	<div class="container-fluid" >

@@ -1,4 +1,7 @@
 @extends('app')
+@section('style')
+<link rel="stylesheet" href="{{ asset('css/print.css') }}"  />	
+@endsection
 @section('page-script')
   <script type="text/javascript">
 		$(document).ready(function(){

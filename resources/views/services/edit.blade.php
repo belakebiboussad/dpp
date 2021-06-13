@@ -71,7 +71,7 @@
 				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i><span><b>Chambres</b></span></h5>
 				</div>
 			<div class="widget-body">
-			<ol id="" class="">
+			<ol>
 				@foreach ($service->salles as $salle)	
 				<tr>
 					<td><li><a href="/salle/{{$salle->id}}" title="detail de la salle">{{ $salle->nom }}</a>	</td>

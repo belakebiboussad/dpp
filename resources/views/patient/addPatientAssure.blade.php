@@ -25,7 +25,8 @@
 		<div class="form-group {{ $errors->has('datenaissance') ? 'has-error' : '' }}">
 			<label class="col-sm-3 control-label" for="datenaissance"><strong>Né(e) le :</strong></label>
 			<div class="col-sm-9">
-				<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD"/>{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
+				<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" autocomplete="off"/>
+				{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
 			</div>
 		</div>
 	</div>
@@ -56,7 +57,7 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label text-nowrap" for="gs"><strong>Groupe sanguin :</strong></label>
 			<div class="col-sm-2">
-				<select class="form-control" id="gs" name="gs">
+				<select class="form-control groupeSanguin" id="gs" name="gs">
 					<option value="">------</option>
 					<option value="A">A</option>
 					<option value="B">B</option>
@@ -66,7 +67,7 @@
 			</div>
 			<label class="col-sm-3 control-label no-padding-right" for="rh"><strong>Rhésus:</strong></label>
 			<div class="col-sm-2">
-				<select id="rh" name="rh">
+				<select id="rh" name="rh" class="rhesus" disabled>
 					<option value="">------</option>
 					<option value="+">+</option>
 					<option value="-">-</option>
@@ -166,8 +167,8 @@
 		<div class="form-group">
 	   	    <label class="col-sm-4 control-label" for="nsspatient"><strong>NSS (patient):</strong></label>
 			<div class="col-sm-8">
-				<input type="text" class="form-control col-xs-12 col-sm-6" id="nsspatient" name="nsspatient"
-					pattern="^\[0-9]{2}+' '+\[0-9]{4} +' '+\[0-9]{4}+' '+[0-9]{2}$"  placeholder="XXXXXXXXXXXX" maxlength =12 minlength =12 />
+				<input type="text" class="form-control col-xs-12 col-sm-6 nssform" id="nsspatient" name="nsspatient"
+					pattern="^\[0-9]{2}+' '+\[0-9]{4} +' '+\[0-9]{4}+' '+[0-9]{2}$"  placeholder="XXXXXXXXXXXX"/>
 			</div>
 		</div>		
 	</div><div class="col-sm-6"></div> 			

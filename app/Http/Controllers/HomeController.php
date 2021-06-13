@@ -50,9 +50,7 @@ class HomeController extends Controller
     public function index()
     {
       $ServiceID = Auth::user()->employ->service;
-      $etablissement = Etablissement::first(); //$etablissement = Etablissement::first()->toArray();
-      //session()->put('etablissement', $etablissement);$etabli = array("foo" => "bar","bar" =>"foo",); Session::put('etablissement', $etablissement);// dd($etablissement->nom);  // $nom =  htmlspecialchars_decode($etablissement->nom,ENT_QUOTES);    
-      //$nom =  htmlspecialchars($etablissement->nom);
+      $etablissement = Etablissement::first(); 
       Session::put('etabname', $etablissement->nom);
       Session::put('etabTut', $etablissement->tutelle);
       Session::put('etabAdr', $etablissement->adresse);
@@ -89,6 +87,11 @@ class HomeController extends Controller
                 break;   
             case 11://Laborantin
                 $demandesexb = demandeexb::with('consultation.patient')->where('etat','E')->get();
+                foreach ($demandesexb as $key => $value) {
+                 echo($value->consultation->id);
+                 echo("<br/>");
+                }
+                dd("df");
                 return view('home.home_laboanalyses', compact('demandesexb'));
                 break;   
             case 12://radiologue
