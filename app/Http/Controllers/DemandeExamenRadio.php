@@ -35,78 +35,72 @@ class DemandeExamenRadio extends Controller
         $patient = $demande->visite->hospitalisation->patient;
       return view('examenradio.details', compact('demande','patient','etablissement'));
     }
-    public function upload(Request $request)
-    {
-          $demande = demandeexr::with('examensradios','consultation','visite')->FindOrFail($request->id_demandeexr);
-          if($request->TotalFiles >0) { 
-            if(isset($demande->visite))
-               $patient = $demande->visite->hospitalisation->patient;
-            else
-               $patient = $demande->consultation->patient;
-              foreach ($demande->examensradios as $key => $exam)
-              {
-            if( $exam->pivot->id_examenradio == $request->id_examenradio)
-            {
-              for ($x = 0; $x < $request->TotalFiles; $x++) 
-              {
-                if ($request->hasFile('files'.$x)) 
-                {
-                  $file = $request->file('files'.$x);
-                  $namefile = $file->getClientOriginalName();
-                  //$file->move(public_path().'/Patients/'.$patient->Nom.$patient->Prenom.'/examsRadio/'.$request->id_demandeexr.'/'.$request->id_examenradio.'/', $namefile);
-                  $file->move(public_path().'/Patients/'.$patient->id.'/examsRadio/'.$request->id_demandeexr.'/'.$request->id_examenradio.'/', $namefile);
-                  
-                  $data[] = $namefile;
-                 }
-              }
-              $exam->pivot->resultat = json_encode($data,JSON_FORCE_OBJECT);
-              $exam->pivot->etat = 1;
-              $exam->pivot->save();
-            }
-          }
-        return Response()->json([
-          "rowID" => $request->id_examenradio,
-        ]);
-      }//if
-    }
-    public function examCancel(Request $request)
-    {
-      $demande = demandeexr::with('examensradios','consultation','visite')->FindOrFail($request->id_demandeexr);
-      foreach ($demande->examensradios as $key => $exam)
+      public function upload(Request $request)
       {
-        if( $exam->pivot->id_examenradio == $request->id_examenradio)
-        {
-          $exam->pivot->etat = 0;
-          $exam->pivot->observation = $request->observation;
-          $exam->pivot->save();
-        }
+             $demande = demandeexr::with('examensradios','consultation','visite')->FindOrFail($request->id_demandeexr);
+             if($request->TotalFiles >0) { 
+                    if(isset($demande->visite))
+                          $patient = $demande->visite->hospitalisation->patient;
+                    else
+                           $patient = $demande->consultation->patient;
+                    foreach ($demande->examensradios as $key => $exam)
+                    {
+                          if( $exam->pivot->id_examenradio == $request->id_examenradio)
+                          {
+                                for ($x = 0; $x < $request->TotalFiles; $x++) 
+                                {
+                                        if ($request->hasFile('files'.$x)) 
+                                        {
+                                              $file = $request->file('files'.$x);
+                                              $namefile = $file->getClientOriginalName();//$file->move(public_path().'/Patients/'.$patient->Nom.$patient->Prenom.'/examsRadio/'.$request->id_demandeexr.'/'.$request->id_examenradio.'/', $namefile);
+                                              $file->move(public_path().'/Patients/'.$patient->id.'/examsRadio/'.$request->id_demandeexr.'/'.$request->id_examenradio.'/', $namefile);
+                                              $data[] = $namefile;
+                                        }
+                                 }
+                                $exam->pivot->resultat = json_encode($data,JSON_FORCE_OBJECT);
+                                $exam->pivot->etat = 1;
+                                $exam->pivot->save();
+                          }
+                    }
+                    return Response()->json([ "rowID" => $request->id_examenradio, ]);
+            }//if
       }
-      return Response()->json([
-        "rowID" => $request->id_examenradio,
-      ]);
-    }
-    public function upload_exr(Request $request)
-    {  // $request->validate([  //     'resultat' => 'required',   // ]);
-      $demande = demandeexr::FindOrFail($request->id_demande);//$filename = $request->file('resultat')->getClientOriginalName(); $filename =  ToUtf::cleanString($filename); $file = file_get_contents($request->file('resultat')->getRealPath());Storage::disk('local')->put($filename, $file);
-      foreach ($demande->examensradios as $key => $exam)
+      public function examCancel(Request $request)
       {
-        if(!isset($exam->pivot->etat))
-          return redirect()->route('homeradiologue');
-      } 
-      $demande->update([
-          "etat" => "V"// "resultat" => $filename,
-      ]);
-      $demande->save();
-      return redirect()->route('homeradiologue');
-    }
-    public function createexr($id)
-    {
-      $infossupp = infosupppertinentes::all();
-      $examens = TypeExam::all();
-      $examensradio = examenradiologique::all();
-      $consultation = consultation::FindOrFail($id);
-      return view('examenradio.demande_exr', compact('consultation','infossupp','examens','examensradio'));
-    }
+            $demande = demandeexr::with('examensradios','consultation','visite')->FindOrFail($request->id_demandeexr);
+            foreach ($demande->examensradios as $key => $exam)
+            {
+                  if( $exam->pivot->id_examenradio == $request->id_examenradio)
+                  {
+                          $exam->pivot->etat = 0;
+                          $exam->pivot->observation = $request->observation;
+                          $exam->pivot->save();
+                  }
+             }
+             return Response()->json([ "rowID" => $request->id_examenradio, ]);
+      }
+       public function upload_exr(Request $request)
+       {  // $request->validate([  //     'resultat' => 'required',   // ]);
+            $demande = demandeexr::FindOrFail($request->id_demande);//$filename = $request->file('resultat')->getClientOriginalName(); $filename =  ToUtf::cleanString($filename); $file = file_get_contents($request->file('resultat')->getRealPath());Storage::disk('local')->put($filename, $file);
+            foreach ($demande->examensradios as $key => $exam)
+            {
+                   if(!isset($exam->pivot->etat))
+                          return redirect()->route('homeradiologue');
+            } 
+            $demande->update([
+                    "etat" => "V"// "resultat" => $filename,
+             ]);
+             $demande->save();
+             return redirect()->route('homeradiologue');
+      }
+       public function createexr($id)
+      {
+            $infossupp = infosupppertinentes::all();
+              $examens = TypeExam::all();
+              $examensradio = examenradiologique::all();
+              $consultation = consultation::FindOrFail($id);
+              return view('examenradio.demande_exr', compact('consultation','infossupp','examens','examensradio'));
+       }
     public function index(){}
     /**
      * Show the form for creating a new resource.

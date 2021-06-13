@@ -6,7 +6,7 @@
   <div class="row">
     <div class="col-sm-3"></div> <div class="col-sm-3"></div> <div class="col-sm-3"></div>
     <div class="col-sm-3">
-          <a href="/showdemandeexb/{{ $demande->id }}" title = "Imprimer"  target="_blank" class="btn btn-sm btn-primary pull-right">
+          <a href="/dbToPDF/{{ $demande->id }}" title = "Imprimer"  target="_blank" class="btn btn-sm btn-primary pull-right">
             <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
           </a>&nbsp; &nbsp;
           <a href="{{ route('consultations.show',$demande->consultation)}}" class="btn btn-sm btn-warning pull-right"> <i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>

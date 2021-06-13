@@ -32,7 +32,7 @@ class RdvHospiController extends Controller
                             })->get();
       $demandesUrg= DemandeHospitalisation::doesntHave('bedAffectation')->whereHas('Service',function($q) {
           $q->where('id',Auth::user()->employ->service);
-      })->where('modeAdmission','urgence')->where('etat','en attente')->get();
+      })->where('modeAdmission','Urgence')->where('etat','en attente')->get();
       return view('rdvHospi.index', compact('demandes','demandesUrg','services'));
   }
   public function create($id)

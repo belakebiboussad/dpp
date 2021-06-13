@@ -147,7 +147,7 @@ function CRRSave()
       }
       formData.append('TotalFiles', TotalFiles);
       formData.append('id_demandeexr', '{{ $demande->id }}');
-      formData.append('id_examenradio',examId); // formData.append('id_examenradio',$(this).val());    
+      formData.append('id_examenradio',examId); 
       $.ajax({
         type:'POST',
         url: "{{ url('store-file')}}",
@@ -280,10 +280,10 @@ function CRRSave()
 <div class="row">
     <div class="col-md-5 col-sm-5"><h3>  Demande Examens Radiologique</h3></div>
     <div class="col-md-7 col-sm-7">
-      <a href="/showdemandeexr/{{ $demande->consultation->examensradiologiques->id }}" target="_blank" class="btn btn-sm btn-primary pull-right">
+      <a href="/drToPDF/{{ $demande->consultation->examensradiologiques->id }}" target="_blank" class="btn btn-sm btn-primary pull-right">
        <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer</a>&nbsp;&nbsp;
-       @if('Auth::user()->role_id ' == 12)
-         <a href="/listeexrs" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
+       @if(Auth::user()->role_id  == 12){{-- listeexrs --}}
+         <a href="/home" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
        @else
          <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
        @endif

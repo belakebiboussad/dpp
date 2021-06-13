@@ -39,7 +39,7 @@
 						<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
 						<label class="col-sm-4 control-label no-padding-right" for="datenaissance"><b>Date Naissance:</b></label>
 						<div class="col-sm-8">
-						<input class="col-xs-12 col-sm-12 date-picker" type="text" id="datenaissance" name="datenaissance" placeholder="Date Naissance..." data-date-format="yyyy-mm-dd" autocomplete ="off" required/>
+						<input class="col-xs-12 col-sm-12 date-picker ltnow" type="text" id="datenaissance" name="datenaissance" placeholder="Date Naissance..." data-date-format="yyyy-mm-dd" autocomplete ="off" required/>
 						</div>
 						</div>
 					</div>
@@ -90,7 +90,7 @@
 					<div class="col-xs-12 col-sm-4">
 						<div class="{{ $errors->has('mat') ? "has-error" : "" }}">
 							<label for="mat"><b>Matricule:</b></label>
-							<input type="text" class="form-control" id="mat" name="mat" placeholder="Matricule...">
+							<input type="text" class="form-control" name="mat" placeholder="Matricule..." maxlength =5 minlength =5>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-4">
@@ -112,6 +112,7 @@
 								@foreach($specialites as $specialite)
 								<option value="{{ $specialite->id }}">{{ $specialite->nom }}</option>
 								@endforeach
+								<option  value="" >Autre</option>
 							</select>
 						</div>
 					</div>
@@ -120,8 +121,8 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-4">
 						<div class="{{ $errors->has('nss') ? "has-error" : "" }}">
-							<label for="nss"><b>N° Sécurité Sociale:</b></label>
-							<input type="text" class="form-control" id="nss" name="nss" pattern="^\[0-9]{2}+' '+\[0-9]{4}+' '+\[0-9]{4}+' '+\[0-9]{2} $" placeholder="XX XXXX XXXX XX">
+							<label for="nss"><b>NSS :</b></label>{{-- pattern="^\[0-9]{2}+' '+\[0-9]{4}+' '+\[0-9]{4}+' '+\[0-9]{2} $" --}}
+							<input type="text" class="form-control nssform"  name="nss"  placeholder="XXXXXXXXXXXX">
 						</div>
 					</div>
 				</div>
@@ -130,7 +131,7 @@
 					<div class="col-xs-12 col-sm-3">
 						<div class="{{ $errors->has('username') ? "has-error" : "" }}">
 							<label for="username"><b>Nom d'utilisateur:</b></label>
-							<input type="text" class="form-control" id="usernamee" name="username" placeholder="Nom d'utilisateur..." autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" required>
+					<input type="text" class="form-control"  name="username" placeholder="Nom d'utilisateur..." readonly onfocus="this.removeAttribute('readonly');" autocomplete="off" required>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-3">
@@ -142,7 +143,7 @@
 					<div class="col-xs-12 col-sm-3">
 						<div class="{{ $errors->has('mail') ? "has-error" : "" }}">
 							<label for="mail"><b>E-Mail:</b></label>
-							<input type="email" class="form-control" id="mail" name="mail" placeholder="E-Mail...">
+							<input type="email" class="form-control"  name="mail" placeholder="E-Mail..." autocomplete="off">
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-3">

@@ -158,8 +158,8 @@ route::get('/home_reception',function (){
 Route::post('/get-all-events','RDVController@checkFullCalendar');
 route::get('/showordonnance/{id}','OrdonnanceController@show_ordonnance')->name('ordonnancePdf');
 route::get('/demandeexbio/{id}','DemandeExbController@createexb');
-route::get('/showdemandeexb/{id}','DemandeExbController@print');
-route::get('/showdemandeexr/{id}','DemandeExamenRadio@print');
+route::get('/dbToPDF/{id}','DemandeExbController@print');
+route::get('/drToPDF/{id}','DemandeExamenRadio@print');
 Route::post('lit/affecter','LitsController@affecterLit')->name('lit.affecter');
 Route::get('/bedAffectation','LitsController@affecter');
 route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');///laborontin

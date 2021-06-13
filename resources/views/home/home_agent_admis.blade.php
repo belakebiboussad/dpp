@@ -117,7 +117,7 @@
 <div class="page-content">
 	<div class="row panel panel-default">
 		<div class="panel-heading left" style="height: 40px; font-size: 2.3vh;">
-			<strong>Rechercher les Admissions</strong><div class="pull-right" style ="margin-top: -0.5%;"></div>
+			<strong>Rechercher une admission</strong><div class="pull-right" style ="margin-top: -0.5%;"></div>
 		</div>
 		<div class="panel-body">
 			<div class="row">

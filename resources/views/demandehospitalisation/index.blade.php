@@ -32,7 +32,7 @@
     									@case("Ambulatoire")
         									<span class="label label-sm label-warning">
         									@break
-         								@case("urgence")
+         								@case("Urgence")
         									<span class="label label-sm label-danger">
         									@break
         								@case("programme")		

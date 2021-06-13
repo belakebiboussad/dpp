@@ -10,7 +10,7 @@
             ],
            	'ModeAdmissions'   =>  [
                 'Ambulatoire' => "Ambulatoire",
-                'urgence' => "urgence",
-                'programme' => "programme",
+                'urgence' => "Urgence",
+                'programme' => "Programme",
            	],
   ];

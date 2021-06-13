@@ -175,7 +175,7 @@
 			<label class="control-label col-xs-12 col-sm-3" for="NMGSN"><strong>NMGSN :</strong></label>
 			<div class="col-sm-9">
 				<div class="clearfix">
-					<input type="text" id="NMGSN" name="NMGSN" class="col-xs-12 col-sm-12 nssform" placeholder="numéro mutuel" placeholder="XXXXXXXXXXXX" maxlength =12 minlength =12/>
+					<input type="text" id="NMGSN" name="NMGSN" class="col-xs-12 col-sm-12 nssform" placeholder="numéro mutuel" placeholder="XXXXXXXXXXXX" />
 				</div>
 			</div>
 		</div>

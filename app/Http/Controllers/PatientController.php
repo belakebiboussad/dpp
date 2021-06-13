@@ -93,7 +93,7 @@ class PatientController extends Controller
               "Type_p" =>'required_if:type,Ayant_droit',//"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
               "nomf" => 'required_if:type,Ayant_droit',
               "prenomf"=> 'required_if:type,Ayant_droit',// "datenaissancef"=> 'required_if:type,Ayant_droit|date|date_format:Y-m-d',//"nss2"=> 'required_if:type,Ayant_droit,unique,',
-              "idlieunaissancef"=> 'required_if:type,Ayant_droit', //"NMGSN"=> 'required_if:type,Ayant_droit',
+              //"idlieunaissancef"=> 'required_if:type,Ayant_droit', //"NMGSN"=> 'required_if:type,Ayant_droit',
               "prenom_homme_c"=>'required_with:nom_homme_c', 
               "type_piece_id"=>'required_with:nom_homme_c', 
               "npiece_id"=>'required_with:nom_homme_c', //"lien"=>'required_with:nom_homme_c', //"date_piece_id"=>'required_with:nom_homme_c',    

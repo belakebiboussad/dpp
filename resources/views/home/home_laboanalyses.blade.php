@@ -28,9 +28,27 @@
 											@foreach($demandesexb as $index => $demande)
 												<tr>
 													<td class="center">{{ $index + 1 }}</td>
-													<td>{{ $demande->DateDemande }}</td>
-													<td>{{ $demande->consultation->docteur->nom }} {{ $demande->consultation->docteur->prenom }}</td>
-													<td>{{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }}</td>
+													<td>
+													@if(isset($demande->id_consultation))
+														{{ $demande->consultation->Date_Consultation }}
+													@else		
+														{{ $demande->visite->date }}
+													@endif
+													</td>
+													<td>
+													@if(isset($demande->id_consultation))
+														{{ $demande->consultation->docteur->nom }} {{ $demande->consultation->docteur->prenom }}
+													@else
+														{{ $demande->visite->hospitalisation->medecin->nom }} {{ $demande->visite->hospitalisation->medecin->prenom }}
+													@endif	
+													</td>
+													<td>
+													@if(isset($demande->id_consultation))
+														{{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }} <small class="text-primary">(Consultation)</small>
+													@else
+														{{ $demande->visite->hospitalisation->patient->Nom }} {{ $demande->visite->hospitalisation->patient->Prenom }} <small class="text-warning">(Hospitalisation)</small>
+													@endif
+													</td>
 													<td>
 														@if($demande->etat == "E")
 															En Attente

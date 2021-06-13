@@ -153,9 +153,9 @@
 			                  @endif
 		            		</td>
 		            	@endif 
-					@if($loop->first)
+				@if($loop->first)
 		            	<td rowspan ="{{ $visite->demandeexmbio->examensbios->count()}}" class="center align-middle">
-		            	<a href="/showdemandeexb/{{ $visite->demandeexmbio->id }}" target="_blank" class="btn btn-xs"><i class="ace-icon fa fa-print"></i></a>
+		            	<a href="/dbToPDF/{{ $visite->demandeexmbio->id }}" target="_blank" class="btn btn-xs"><i class="ace-icon fa fa-print"></i></a>
 		            	</td>
 			          @endif   	
 		                </tr>

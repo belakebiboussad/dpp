@@ -5,7 +5,6 @@
 	<form class="form-horizontal" role="form" method="POST" action="{{ route('hospitalisation.store') }}">
 		{{ csrf_field() }}
 		 <input type="hidden" name="id_admission" id="id_admission" value="{{ $adm->id }}" >
-		{{--<input type="hidden" name="patient_id" value="{{ $adm->demandeHospitalisation->consultation->patient->id }}"> --}}
 		<div class="widget-body">
 			<div class="widget-main no-padding">
 				<div class="space-12"></div>
@@ -61,7 +60,7 @@
 					<div class="form-group">
 						<label class="col-sm-4 col-xs-4 control-label no-padding-right text-nowrap" for="Date_Prevu_Sortie"><strong>Date Sortie Prév. :</strong></label>
 						<div class="col-sm-8 col-xs-8">
-						@if($adm->demandeHospitalisation->modeAdmission =="urgence")
+						@if($adm->demandeHospitalisation->modeAdmission =="Urgence")
 						<input class="col-xs-11 col-sm-11 date-picker" id="Date_Prevu_Sortie" name="Date_Prevu_Sortie" type="text" data-date-format="yyyy-mm-dd" onchange="updateDureePrevue()" value="<?= date("Y-m-j") ?>"  autocomplete="off"/> 
 						@else
 						<input class="col-xs-11 col-sm-11 date-picker" id="Date_Prevu_Sortie" name="Date_Prevu_Sortie" type="text" data-date-format="yyyy-mm-dd" value="{{ $adm->rdvHosp->date_Prevu_Sortie}}" onchange="updateDureePrevue()"  autocomplete="off"/>
@@ -102,7 +101,7 @@
 				<div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right"><strong><span style="font-size:16px;">Hébergement</span></strong></div>
 			</div>
 			<div class="row">
-				<div class="col-sm-4">
+				<div class="col-sm-5">
 					<ul class="list-unstyled spaced">
 						<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>
 							<div class="input-group">
@@ -120,7 +119,7 @@
 						</li>
 					</ul>
 				</div>
-				<div class="col-sm-4">
+				<div class="col-sm-3">
 					<ul class="list-unstyled spaced">
 						<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Lit :</strong>
 						<div class="input-group">

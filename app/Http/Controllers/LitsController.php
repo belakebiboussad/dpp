@@ -136,7 +136,7 @@ class LitsController extends Controller
       $lit = lit::FindOrFail( $request->lit_id);
       if($lit->has('bedReservation'))
       {
-        if($demande->modeAdmission !="urgence" )
+        if($demande->modeAdmission !="Urgence" )
         {
           $free = $lit->isFree(strtotime($rdv->date_RDVh),strtotime($rdv->date_Prevu_Sortie));  
           if(!$free)
@@ -171,7 +171,7 @@ class LitsController extends Controller
       $demandesUrg= DemandeHospitalisation::doesntHave('bedAffectation')
                                           ->whereHas('consultation',function($q) use($now){
                                                $q->where('Date_Consultation', $now);
-                                          })->where('modeAdmission','urgence')->where('etat','en attente')
+                                          })->where('modeAdmission','Urgence')->where('etat','en attente')
                                             ->where('service',Auth::user()->employ->service)->get(); 
       return view('bedAffectations.index', compact('rdvs','demandesUrg','services'));  
     }

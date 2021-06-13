@@ -143,7 +143,7 @@ class DemandeHospitalisationController extends Controller
     }
     public function getUrgDemanades($date)
     {
-      $demandehospitalisations = DemandeHospitalisation::with('consultation.patient','Service')->where('modeAdmission','urgence')->where('etat','en attente')
+      $demandehospitalisations = DemandeHospitalisation::with('consultation.patient','Service')->where('modeAdmission','Urgence')->where('etat','en attente')
                                                         ->whereHas('consultation',function($q) use($date){
                                                             $q->where('Date_Consultation', $date);
                                                         })->get();

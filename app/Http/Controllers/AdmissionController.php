@@ -44,7 +44,7 @@ class AdmissionController extends Controller
                                                 $q->where('Date_Consultation', date("Y-m-d"));
                                              })->whereHas('bedAffectation', function($q){
                                                 $q->where('lit_id','!=',null);
-                                             })->where('modeAdmission','urgence')->where('etat','programme')->get();
+                                             })->where('modeAdmission','Urgence')->where('etat','programme')->get();
         $etatsortie = Etatsortie::where('type','1')->get();
           return view('home.home_agent_admis', compact('rdvs','demandesUrg','etatsortie'));
     }
@@ -173,7 +173,7 @@ class AdmissionController extends Controller
       $medecins = employ::where('service',Auth::user()->employ->service)->orderBy('nom')->get();
       $modesHosp = ModeHospitalisation::all();  
       $nbr=0;
-      if($adm->demandeHospitalisation->modeAdmission !="urgence")
+      if($adm->demandeHospitalisation->modeAdmission !="Urgence")
       {
              $to = \Carbon\Carbon::createFromFormat('Y-m-d', $adm->rdvHosp->date_Prevu_Sortie);
              $from = \Carbon\Carbon::createFromFormat('Y-m-d', $adm->rdvHosp->date_RDVh);
@@ -182,5 +182,4 @@ class AdmissionController extends Controller
       $view = view("admission.ajax_adm_detail",compact('adm','medecins','modesHosp','nbr'))->render();
       return response()->json(['html'=>$view]);
     }
-
 }

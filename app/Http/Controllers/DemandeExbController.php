@@ -58,8 +58,12 @@ class DemandeExbController extends Controller
      */
      public function show($id)
      {
-          $demande = demandeexb::FindOrFail($id);
-          return view('examenbio.show', compact('demande'));
+             $demande = demandeexb::FindOrFail($id);
+             if(isset($demande->consultation))
+                   $patient = $demande->consultation->patient;
+             else
+                   $patient = $demande->visite->hospitalisation->patient;
+             return view('examenbio.show', compact('demande','patient'));
      }
     /**
      * Show the form for editing the specified resource.
@@ -98,8 +102,12 @@ class DemandeExbController extends Controller
     }
      public function detailsdemandeexb($id)
      {
-        $demande = demandeexb::FindOrFail($id);
-        return view('examenbio.details_exb', compact('demande'));
+             $demande = demandeexb::FindOrFail($id);
+             if(isset($demande->consultation))
+                    $patient = $demande->consultation->patient;
+             else
+                    $patient = $demande->visite->hospitalisation->patient;
+             return view('examenbio.details', compact('demande','patient'));
      }
      public function uploadresultat(Request $request)
      {
