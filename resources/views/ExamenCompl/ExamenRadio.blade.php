@@ -63,4 +63,3 @@
  	</div>	<!-- widget-container-col -->
 </div><!-- row -->
 <div class="row"><div id="imagExamsPdf" class="invisible">@include('consultations.EtatsSortie.demandeExamensImgPDF')</div></div>
-

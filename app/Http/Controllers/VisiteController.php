@@ -15,6 +15,7 @@ use App\modeles\examenradiologique;
 use App\modeles\TypeExam;
 use App\modeles\demandeexb;
 use App\modeles\demandeexr;
+use App\modeles\Etablissement;
 use App\modeles\NGAP;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -48,23 +49,24 @@ class VisiteController extends Controller
      */
     public function create($id_hosp)
     {
-          $date = Carbon\Carbon::now(); 
-          $hosp = hospitalisation::FindOrFail($id_hosp);//$patient = (hospitalisation::FindOrFail($id_hosp))->admission->demandeHospitalisation->consultation->patient;
-          $patient = $hosp->admission->demandeHospitalisation->consultation->patient;
-          $employe = Auth::user()->employ;
-          $visite =new visite;
-          $visite->date=$date;
-          $visite->heure=$date->format("H:i");
-          $visite->id_hosp=$id_hosp;
-          $visite->id_employe=Auth::User()->employee_id;
-          $specialitesProd = specialite_produit::all();
-          $specialitesExamBiolo = specialite_exb::all();
-          $infossupp = infosupppertinentes::all();
-          $examens = TypeExam::all();//CT,RMN
-          $examensradio = examenradiologique::all();
-          $codesNgap = NGAP::all();
-          $visite->save();
-          return view('visite.add',compact('hosp','patient', 'employe','specialitesProd','specialitesExamBiolo','infossupp','examens','examensradio','codesNgap'))->with('id',$visite->id);
+      $date = Carbon\Carbon::now();
+      $etablissement = Etablissement::first(); 
+      $hosp = hospitalisation::FindOrFail($id_hosp);//$patient = (hospitalisation::FindOrFail($id_hosp))->admission->demandeHospitalisation->consultation->patient;
+      $patient = $hosp->admission->demandeHospitalisation->consultation->patient;
+      $employe = Auth::user()->employ;
+      $visite =new visite;
+      $visite->date=$date;
+      $visite->heure=$date->format("H:i");
+      $visite->id_hosp=$id_hosp;
+      $visite->id_employe=Auth::User()->employee_id;
+      $specialitesProd = specialite_produit::all();
+      $specialitesExamBiolo = specialite_exb::all();
+      $infossupp = infosupppertinentes::all();
+      $examens = TypeExam::all();//CT,RMN
+      $examensradio = examenradiologique::all();
+      $codesNgap = NGAP::all();
+      $visite->save();
+      return view('visite.add',compact('hosp','patient', 'employe','specialitesProd','specialitesExamBiolo','infossupp','examens','examensradio','etablissement','codesNgap'))->with('id',$visite->id);
     }
  /**
      * Show the form for creating a new resource.
