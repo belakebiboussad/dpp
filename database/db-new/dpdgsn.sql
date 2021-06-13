@@ -1,9 +1,9 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  Dim 13 juin 2021 à 22:38
+-- Généré le :  Dim 13 juin 2021 à 23:05
 -- Version du serveur :  5.7.21
 -- Version de PHP :  7.2.4
 
@@ -3717,7 +3717,7 @@ CREATE TABLE IF NOT EXISTS `employs` (
   PRIMARY KEY (`id`),
   KEY `fk_service` (`service`),
   KEY `fk_specialite` (`specialite`)
-) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `employs`
@@ -3746,8 +3746,7 @@ INSERT INTO `employs` (`id`, `nom`, `prenom`, `sexe`, `Date_Naiss`, `Lieu_Naissa
 (101, 'rad', 'rad', 'M', '2002-07-02', 'alger', 'alger', NULL, '0555555555', 13, 8, 'sdfg', '465465454764'),
 (102, 'medecin', 'medecin', 'M', '1950-05-18', 'blida', 'rue 01 blida', '023569845', '0664879989', 1, 1, 'bff44', '25 555 5465 45'),
 (103, 'geneco', 'geneco', 'M', '1959-05-26', 'adrar', 'rue mohammed', '056981152', '0659896558', 1, 1, 'bff44', '0136546+413'),
-(110, 'sup', 'sup', 'M', '2002-07-02', 'Alger-Centre', 'algre', '056562656', '0565656566', 1, 1, 'sdfg5', NULL),
-(111, 'amelal', 'mohand', 'M', '1920-06-11', 'Alger-Centre', 'alger', '021454878', '0584465400', NULL, 1, 'm4566', '326596565656');
+(111, 'amelal', 'mohand', 'M', '1920-06-11', 'Alger-Centre', 'alger', '021454878', '0584465400', 15, 1, 'm4566', '326596565656');
 
 -- --------------------------------------------------------
 
@@ -12161,10 +12160,10 @@ DROP TABLE IF EXISTS `specialites`;
 CREATE TABLE IF NOT EXISTS `specialites` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(70) DEFAULT NULL,
-  `type` tinyint(1) NOT NULL COMMENT '0:medicale,1:chirgical',
+  `type` tinyint(1) DEFAULT NULL COMMENT 'null:autre,0:medicale,1:chirgical',
   `nbMax` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `specialites`
@@ -12184,7 +12183,8 @@ INSERT INTO `specialites` (`id`, `nom`, `type`, `nbMax`) VALUES
 (11, 'Médecine interne', 0, NULL),
 (12, 'Pré-anesthésie', 1, NULL),
 (13, 'Radiologie', 0, NULL),
-(14, 'PHARMACIE', 0, NULL);
+(14, 'PHARMACIE', 0, NULL),
+(15, 'Autre', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12505,7 +12505,7 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
   PRIMARY KEY (`id`,`employee_id`,`role_id`),
   KEY `fk_Utilidsateurs_Employs1_idx` (`employee_id`),
   KEY `fk_Utilidsateurs_rols1_idx` (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `utilisateurs`
@@ -12513,7 +12513,7 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
 
 INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `role_id`, `remember_token`, `active`) VALUES
 (3, 'inf', '$2y$10$iCZWwSL3s9u9Fn/9M.TykeHfUx/CRhmrp069KVhYg34RXohdBaVdy', NULL, 1, 3, 'qUnBTPkQ4EtuXmXJs50V8y5jl2b57qtovhNkV8NoQ2t7k4qxAxTniMVUL4f1', 1),
-(25, 'admin', '$2y$10$B1bDBc58b2oRAgoTFEqWauKio.yiYSlkmTxC8yNkaG6uaK4SA3HoC', 'mail@live.fr', 65, 4, 'BoRCohKhxhELfDpxvd8p7ojAsHxzXf1YjI1vxiuaJMXsKUnrgn3cUtd04AWk', 1),
+(25, 'admin', '$2y$10$B1bDBc58b2oRAgoTFEqWauKio.yiYSlkmTxC8yNkaG6uaK4SA3HoC', 'mail@live.fr', 65, 4, 'yu3scNK6gRlypXsrW6q1WtUBVFwoEDkbgqDcvHYbrawVNrWLsojjDhuOB2eK', 1),
 (28, 'medChef', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'az@e.fr', 87, 13, 'GtsERzROhMI17wLDz9bj8agtQGftKg9YW3Jop27qso079ht8HqA7rmROafvp', 1),
 (29, 'colloque', '$2y$10$Ve5h8oMwfAmfzHgTLrfJTOmGUiBpZLdxrfEfYC/7g2a1G62ZkM2QO', 'gdcedgg@yah.fr', 80, 5, 'gpZZ7n5wZzyDItBNWBgOWJBuHVN9zPFAVCnhFigz3AQFygICRp4ENyCc2B8W', 1),
 (30, 'sur', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'rlakhneche@cdta.dz', 81, 5, '0XbJqdFqdwM20NY6k1cEGQO3PZrQKVoCAhWAnZfz5zmd2VGrjnwdGVH4EKat', 1),
@@ -12533,7 +12533,8 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (47, 'cardio', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'bbedeebi@cdta.dz', 102, 1, 'tYmcLoQ23aZJZlDX2N5eowU1QzaiEdKfI0LnvSbACGTJ7fIOTh1DBcAWTVhX', 1),
 (48, 'geneco', '$2y$10$MeHcy1r9az/dgkC9pLvo/Ob4eqJVp8mRjGuZeyL9yA6k8sc3D0FAW', 'geneco@cdta.dz', 103, 1, 'wG4AMsJliph2HEp2SwRF5E6z7xHjvR9gDzzEAU9vV9Fe4FsAh28t3TGQZDra', 1),
 (55, 'sup', '$2y$10$KMz3xI6SFSVafWDbulGrEegn7wTkCr4HmxVdUTwMeNvarK3o0N9AW', 'admin@gmail.com', 110, 2, 'yKzTFVPrnDywAvS2qoqmKHFRKurGGwJwy8b00YLZPZYysquBO1dqsV1VA4eq', 1),
-(56, 'mohand', '$2y$10$P/S8ej3FHSVBfr0YNsVIcOtmxxR3NSxR8X2uOLIq3Qcvv/uCt4eBi', 'ma@gmail.com', 111, 3, NULL, 1);
+(56, 'mohand', '$2y$10$P/S8ej3FHSVBfr0YNsVIcOtmxxR3NSxR8X2uOLIq3Qcvv/uCt4eBi', 'ma@gmail.com', 111, 3, NULL, 1),
+(57, 'sup', '$2y$10$f0R.H3xHnM0feyLAr3U4jeo8u237S8gPX9gjRLre.Fq/76uMdcmhe', 'sup@gmail.com', 112, 3, NULL, 1);
 
 -- --------------------------------------------------------
 

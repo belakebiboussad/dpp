@@ -1,13 +1,5 @@
 @extends('app')
 @section('title','Ajouter un Utilisateure')
-@section('page-script')
-<script>
-// $(document).ready(function() { 
-// });
-//jQuery(function($) {
-//$('.mobile1').mask('0999999999');//$('.telfixe').mask('099-99-99-99');});
-</script>
-@endsection
 @section('main-content')
 	<div class="page-header"><h2>Ajouter un nouveau utilisateur </h2></div>
 	<div class="widget-box" id="widget-box-1">
@@ -21,7 +13,7 @@
 						<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
 							<label class="col-sm-4 control-label no-padding-right" for="nom"><b>Nom:</b></label>
 							<div class="col-sm-8">
-							<input class="col-xs-12 col-sm-12" type="text" id="nom" name="nom" placeholder="Nom..." Autocomplete="off" required/>
+							<input class="col-xs-12 col-sm-12" type="text" name="nom" placeholder="Nom..." Autocomplete="off" required/>
 							</div>
 						</div>
 					</div>
@@ -29,7 +21,7 @@
 						<div class="form-group {{ $errors->has('prenom') ? "has-error" : "" }}">
 						<label class="col-sm-4 control-label no-padding-right" for="prenom"><b>Prénom:</b></label>
 						<div class="col-sm-8">
-						<input class="col-xs-12 col-sm-12" type="text" id="prenom" name="prenom" placeholder="Prénom..." Autocomplete="off" required/>
+						<input class="col-xs-12 col-sm-12" type="text"  name="prenom" placeholder="Prénom..." Autocomplete="off" required/>
 							</div>
 						</div>
 					</div>
@@ -39,7 +31,7 @@
 						<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
 						<label class="col-sm-4 control-label no-padding-right" for="datenaissance"><b>Date Naissance:</b></label>
 						<div class="col-sm-8">
-						<input class="col-xs-12 col-sm-12 date-picker ltnow" type="text" id="datenaissance" name="datenaissance" placeholder="Date Naissance..." data-date-format="yyyy-mm-dd" autocomplete ="off" required/>
+						<input class="col-xs-12 col-sm-12 date-picker ltnow" type="text" name="datenaissance" placeholder="Date Naissance..." data-date-format="yyyy-mm-dd" autocomplete ="off" required/>
 						</div>
 						</div>
 					</div>
@@ -72,17 +64,17 @@
 					<div class="col-xs-12 col-sm-6">
 						<div class="{{ $errors->has('adresse') ? "has-error" : "" }}">
 						<label for="adresse"><b>Adresse:</b></label>
-						<textarea class="form-control" id="adresse" name="adresse" placeholder="Adresse..."></textarea>
+						<textarea class="form-control" name="adresse" placeholder="Adresse..."></textarea>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-3">
 						<div class="{{ $errors->has('mobile') ? "has-error" : "" }}">
-							<label for="mobile"><b>Tél mobile:</b></label><input type="tel" id="mobile" name="mobile" class ="form-control mobile"  required/>
+							<label for="mobile"><b>Tél mobile:</b></label><input type="tel" name="mobile" class ="form-control mobile"  required/>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-3">
 						<div class="{{ $errors->has('fixe') ? "has-error" : "" }}">
-						<label for="fixe"><b>Tél Fixe:</b></label><input type="tel" class="form-control telfixe" id="fixe" name="fixe"></div>
+						<label for="fixe"><b>Tél Fixe:</b></label><input type="tel" class="form-control telfixe" name="fixe"></div>
 					</div>
 				</div>
 				<h4 class="header blue bolder smaller">Information de poste</h4>	<div class="space-12 hidden-xs"></div>
@@ -96,7 +88,7 @@
 					<div class="col-xs-12 col-sm-4">
 						<div class="{{ $errors->has('service') ? "has-error" : "" }}">
 							<label for="service"><b>Service:</b></label>
-							<select class="form-control" id="service" name="service">
+							<select class="form-control" name="service">
 								<option value="" selected disabled>Sélectionner...</option>
 								@foreach($services as $service)
 								<option value="{{ $service->id }}">{{ $service->nom }}</option>
@@ -107,12 +99,11 @@
 					<div class="col-xs-12 col-sm-4">
 						<div>
 							<label for="specialite"><b>Spécialité:</b></label>
-							<select class="form-control" id="specialite" name="specialite">
+							<select class="form-control" name="specialite">
 								<option  value="" selected>Sélectionner...</option>
 								@foreach($specialites as $specialite)
 								<option value="{{ $specialite->id }}">{{ $specialite->nom }}</option>
 								@endforeach
-								<option  value="" >Autre</option>
 							</select>
 						</div>
 					</div>
@@ -130,14 +121,14 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-3">
 						<div class="{{ $errors->has('username') ? "has-error" : "" }}">
-							<label for="username"><b>Nom d'utilisateur:</b></label>
+							<label for="username"><b>Login:</b></label>
 					<input type="text" class="form-control"  name="username" placeholder="Nom d'utilisateur..." readonly onfocus="this.removeAttribute('readonly');" autocomplete="off" required>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-3">
 						<div class="{{ $errors->has('password') ? "has-error" : "" }}">
 							<label for="password"><b>Mot de passe:</b></label>
-							<input type="password" autocomplete="off" class="form-control" id="password" name="password" placeholder="Mot de passe..." required>
+							<input type="password" autocomplete="off" class="form-control"  name="password" placeholder="Mot de passe..."  autocomplete="off" required>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-3">
