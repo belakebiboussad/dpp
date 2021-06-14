@@ -70,7 +70,7 @@
   }
   function getAction(data, type, dataToSet) {
 	  var actions = '<a href = "/consultations/'+data.id+'" style="cursor:pointer" class="btn btn-secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>';
-	  // actions +='<a href = "/consultations/'+data.id+'/edit" style="cursor:pointer" class="btn btn-secondary btn-xs" data-toggle="tooltip" title=""><i class="ace-icon fa fa-pencil fa-xs"></i></a>';
+// actions +='<a href = "/consultations/'+data.id+'/edit" style="cursor:pointer" class="btn btn-secondary btn-xs" data-toggle="tooltip" title=""><i class="ace-icon fa fa-pencil fa-xs"></i></a>';
 	  actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat(\'consultation\','+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';
 	  return actions;
 	}
@@ -83,8 +83,8 @@
 	     }
 	  });
     $(document).on('click','.findconsult',function(event){
-    	var value = $('#'+field).val().trim();
-    	getConsultations(field,value);
+    	//var value = $('#'+field).val().trim();
+    	getConsultations(field,$('#'+field).val().trim());
     	if(field != "Date_Consultation")
     		$('#'+field).val('');	
     });
@@ -108,7 +108,7 @@
       		<div class="col-sm-4">
       			<div class="form-group"><label class="control-label" for="" ><strong>Date :</strong></label>
     			    <div class="input-group">
-			     		  <input type="text" id ="Date_Consultation" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
+			     		  <input type="text" id ="Date_Consultation" class="date-picker form-control ltnow filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
 					       <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
 					    </div>
 		        </div>

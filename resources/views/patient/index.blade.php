@@ -76,9 +76,9 @@
 			$('#btnCreate').removeClass('hidden');$('#FusionButton').removeClass('hidden');
 			$('#patientDetail').html('');$(".numberResult").html('');
 			$('.autofield').each(function() {
-	  	  if (this.value.trim()) { //value = this.value.trim();
-	    	  field = $(this).prop("id");	//return false;
-	    	}
+	  			  if (this.value.trim()) { //value = this.value.trim();
+	    				  field = $(this).prop("id");	//return false;
+	    		}
 	  	});
 			$.ajax({
 		        type : 'get',
@@ -176,7 +176,7 @@
 					<div class="col-sm-3">
 						<div class="form-group"><label class="control-label" for="Dat_Naissance" ><strong>Né(e):</strong></label>
 							<div class="input-group col-sm-12 col-xs-12">
-								<input type="text" class="form-control date-picker" id="Dat_Naissance" name="Dat_Naissance"	data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" data-toggle="tooltip" data-placement="left" title="Date Naissance">
+								<input type="text" class="form-control date-picker ltnow" id="Dat_Naissance" name="Dat_Naissance"	data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" data-toggle="tooltip" data-placement="left" title="Date Naissance">
 								<span class="glyphicon glyphicon-search form-control-feedback"></span>
 							</div>		
 						</div>

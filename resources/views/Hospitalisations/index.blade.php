@@ -119,35 +119,32 @@
           
       });
     }
-    function getHospitalisations(field,value)
-    {
-      $.ajax({
+      function getHospitalisations(field,value)
+      {
+             $.ajax({
            url : '{{URL::to('getHospitalisations')}}',
            data: {  "field":field, "value":value, },
            dataType: "json",
-         success: function(data) {
-              $(".numberResult").html(data.length);
-              loadDataTable(data);
-              //alert(data[0].id);
-          
-            }
+                   success: function(data) {
+                        $(".numberResult").html(data.length);
+                        loadDataTable(data);
+                        $('#'+field).val(''); 
+                   }
+            });
+       }
+        var field ="etat_hosp";
+       $(function() {
+             $('.filter').change(function() {
+                    if (this.value.trim())
+                          field = $(this).prop("id"); //return false;
+              });
       });
-    }
-    var field ="etat_hosp";
-    $('document').ready(function(){
-      $('.filter').each(function() {
-        if (this.value.trim()) { //value = this.value.trim();
-          field = $(this).prop("id"); //return false;
-        }
-      });
+      $('document').ready(function(){
       /*
-      $('.filter').change(function(){// if($(this).attr('id') != "Nom") //getHospitalisations("etat_hosp",null);
-          getHospitalisations($(this).attr('id'),$(this).val());
-      }); // $('.filter').keyup(function(){//     getHospitalisations($(this).attr('id'),$(this).val()) // });
-      */
+$('.filter').change(function(){// if($(this).attr('id') != "Nom") //getHospitalisations("etat_hosp",null);getHospitalisations($(this).attr('id'),$(this).val()); }); // $('.filter').keyup(function(){//     getHospitalisations($(this).attr('id'),$(this).val()) // });*/
       $(document).on('click','.findHosp',function(event){
+             getHospitalisations(field,$('#'+field).val().trim());
       });
-
       $('#modeSortie').change(function(){
          if($(this).val()==="0")
           {
@@ -230,7 +227,7 @@
 @section('main-content')
 <div class="row">
   <div class="col-sm-12 col-md-12">
-    <h2><strong>Rechercher une Hospitalisation</strong><</h2>
+    <h2><strong>Rechercher une Hospitalisation</strong></h2>
     <div class="panel panel-default">
       <div class="panel-heading">Recherche</div>
       <div class="panel-body">
@@ -248,7 +245,7 @@
          <div class="col-sm-3"><!-- <div class="form-group col-sm-8"></div> -->
             <label class="control-label" for="" ><strong>Date Sortie:</strong></label>
             <div class="input-group">
-              <input type="text" id ="Date_Sortie" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
+              <input type="text" id ="Date_Sortie" class="date-picker form-control filter ltnow"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
               <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
             </div>
           </div>
