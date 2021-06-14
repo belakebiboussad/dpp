@@ -134,8 +134,7 @@
 					<div class="profile-info-name">Date Création</div>
 					<div class="profile-info-value"><span>{{ $patient->Date_creation }}</span></div>
 				</div>
-			</div>
-			<div class="hr hr-8 dotted"></div>
+			</div><div class="hr hr-8 dotted"></div>
 			@if(in_array( $patient->Type , [1,2,3,4]))
 			<div class="col-sm-12 widget-container-col" id="widget-container-col-12">
 				<div class="widget-box transparent" id="widget-box-12">
@@ -187,7 +186,8 @@
 							</div>
 							<div class="col-sm-6">
 								<label class="inline">
-									<span><b>N° sécurité sociale :</b></span><span class="lbl blue"> {{-- $patient->assure->NSS --}} {{ $patient->Assurs_ID_Assure}}</span>
+									<span><b>N° sécurité sociale :</b></span>
+									<span class="lbl blue">{{ $patient->Assurs_ID_Assure }}</span>
 								</label>
 							</div>
 						</div>

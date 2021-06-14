@@ -8,9 +8,9 @@
  {
       event.preventDefault();
       $.ajaxSetup({
-			headers: {
-				 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-			}
+		headers: {
+			 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+		}
 	});
 	$.ajax({
 			type: "DELETE",

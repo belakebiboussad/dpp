@@ -8,6 +8,7 @@ class assur extends Model
 {
 	public $timestamps = false;
 	protected $primaryKey = 'NSS';
+	public $incrementing = false;
 	protected $fillable = ['Nom','Prenom','Date_Naissance', 'lieunaissance','SituationFamille', 'Sexe','Matricule','adresse','commune_res','wilaya_res','grp_sang','NSS','NMGSN','Grade','Service','Position'];
 	public function lieuNaissance()
 	{
