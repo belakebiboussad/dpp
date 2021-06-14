@@ -94,7 +94,7 @@
 @section('main-content')
 <div class="row">
 	<div class="col-sm-12 col-md-12">
-	  <h2><strong>Rechercher une consultation</strong></h3></h2>
+	  <h2><strong>Rechercher une consultation</strong></h2>
   	<div class="panel panel-default">
     	<div class="panel-heading">Recherche</div>
     	<div class="panel-body">

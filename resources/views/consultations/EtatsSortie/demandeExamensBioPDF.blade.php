@@ -4,7 +4,7 @@
 <h5 class="center" id="etabTel">Tél : {{ $etablissement->tel }}</h5>
 <h5 class="mt-10 center" ><img src='{{ asset("img/$etablissement->logo") }}' style="width: 80px; height: 80px" alt="logo"/></h5>
 <hr class="mt-1"/>
-<div class="row mt-20"><div class="col-sm-12 center"><h3>Demande Examens Biologique</h3></div></div>
+<div class="row mt-20"><div class="col-sm-12 center"><h3>Demande d'examen biologique</h3></div></div>
 <div class="space-12"></div><div class="space-12"></div>
 <div class="row">
 	<div class="col-sm-12"><div class="sec-droite">

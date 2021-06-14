@@ -187,7 +187,7 @@
 							</div>
 							<div class="col-sm-6">
 								<label class="inline">
-									<span><b>N° sécurité sociale :</b></span><span class="lbl blue"> {{ $patient->assure->NSS }}</span>
+									<span><b>N° sécurité sociale :</b></span><span class="lbl blue"> {{-- $patient->assure->NSS --}} {{ $patient->Assurs_ID_Assure}}</span>
 								</label>
 							</div>
 						</div>

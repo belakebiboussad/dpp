@@ -205,7 +205,10 @@
 				<label class="control-label col-xs-12 col-sm-3" for="nss"><strong>NSS :</strong></label>
 				<div class="col-sm-9">
 				<div class="clearfix">
-				<input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12"  value="{{ $assure->NSS }}" maxlength =12 minlength =12/>{{-- pattern="^\[0-9]{2}+' '+\[0-9]{4}+' '+\[0-9]{4}+' '+\[0-9]{2}$" --}}
+			{{--	<input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12" value="{{ $assure->NSS }}" maxlength =12 minlength =12 />
+			  <input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12" value="{{ $patient->assure->NSS }}" maxlength =12 minlength =12 /> --}}
+			  <input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12" value="{{ $patient->Assurs_ID_Assure }}" maxlength =12 minlength =12 />
+				 {{--  pattern="^\[0-9]{12}$"pattern="^\[0-9]{2}+' '+\[0-9]{4}+' '+\[0-9]{4}+' '+\[0-9]{2}$" --}}
 				</div>
 				</div>
 			</div>

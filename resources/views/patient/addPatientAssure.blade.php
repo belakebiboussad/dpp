@@ -165,10 +165,10 @@
 <div class="row" id="foncform">
 	<div class="col-sm-6">
 		<div class="form-group">
-	   	    <label class="col-sm-4 control-label" for="nsspatient"><strong>NSS (patient):</strong></label>
+	   	    <label class="col-sm-4 control-label" for="nsspatient"><strong>NSSs (patient):</strong></label>
 			<div class="col-sm-8">
-				<input type="text" class="form-control col-xs-12 col-sm-6 nssform" id="nsspatient" name="nsspatient"
-					pattern="^\[0-9]{2}+' '+\[0-9]{4} +' '+\[0-9]{4}+' '+[0-9]{2}$"  placeholder="XXXXXXXXXXXX"/>
+				<input type="text" class="form-control col-xs-12 col-sm-6 nssform" id="nsspatient" name="nsspatient" placeholder="XXXXXXXXXXXX"/>
+						<!-- pattern="^\[0-9]{2}+' '+\[0-9]{4} +' '+\[0-9]{4}+' '+[0-9]{2}$" -->
 			</div>
 		</div>		
 	</div><div class="col-sm-6"></div> 			

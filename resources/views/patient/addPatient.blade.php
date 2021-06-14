@@ -4,7 +4,7 @@
 		<div class="form-group {{ $errors->has('nom') ? 'has-error' : '' }}">
 			<label class="col-sm-3 control-label" for="nom"><strong>Nom :<span style="color: red">*</span></strong></label>
 			<div class="col-sm-9">
-				<input type="text" id="nom" name="nom" placeholder="Nom..." class="col-xs-12 col-sm-12" autocomplete= "off" value="{{ old('nom') }}" alpha/>
+				<input type="text" id="nom" name="nom" placeholder="Nom..." class="col-xs-12 col-sm-12" autocomplete= "off" value="{{Input::old('nom')}}" alpha/>
 					{!! $errors->first('nom', '<small class="alert-danger">:message</small>') !!}
 			</div>
 		</div>
@@ -13,7 +13,7 @@
 		<div class="form-group {{ $errors->has('prenom') ? 'has-error' : '' }}">
 			<label class="col-sm-3 control-label" for="prenom"><strong>Prénom :<span style="color: red">*</span></strong></label>
 			<div class="col-sm-9">
-				<input type="text" id="prenom" name="prenom" placeholder="Prénom..." class="col-xs-18 col-sm-12" autocomplete="off"/>
+				<input type="text" id="prenom" name="prenom" placeholder="Prénom..." class="col-xs-18 col-sm-12" value="{{Input::old('prenom')}}" autocomplete="off"/>
 				{!! $errors->first('prenom', '<p class="alert-danger">:message</p>') !!}
 			</div>
 		</div>
@@ -170,8 +170,8 @@
 			<div class="form-group">
 				 <label class="col-sm-4 control-label" for="nsspatient"><strong>NSS (patient):</strong></label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control col-xs-12 col-sm-6 nssform" id="nsspatient" name="nsspatient"
-					pattern="^\[0-9]{2}+' '+\[0-9]{4} +' '+\[0-9]{4}+' '+[0-9]{2}$"  placeholder="XXXXXXXXXXXX"/>
+					<input type="text" class="form-control col-xs-12 col-sm-6 nssform" id="nsspatient" name="nsspatient" placeholder="XXXXXXXXXXXX"/>
+					<!-- pattern="^\[0-9]{2}+' '+\[0-9]{4} +' '+\[0-9]{4}+' '+[0-9]{2}$"  --><!-- pattern="^\[0-9]{12}$"  -->
 				</div>
 			</div>		
 		</div>	

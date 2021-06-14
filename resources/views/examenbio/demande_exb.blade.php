@@ -55,7 +55,7 @@
 	<br><br><br><br>
 	<div class="row">
     <div class="col-sm-12">
-      <label><b> Liste Des examens :</b></label><br>
+      <label><b> Liste des examens :</b></label><br>
       <ol>
         @foreach($demande->examensbios as $exb)
         <li>{{ $exb->nom_examen }}</li>

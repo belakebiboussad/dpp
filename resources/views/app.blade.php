@@ -114,6 +114,16 @@
           $(this).attr("disabled", false); 
         });
       }
+      $(function () {
+        $( "#Position" ).change(function() {
+              if($(this).val() != "Activité")
+              {
+                  $('#serviceFonc').addClass('invisible'); $('#service option:eq(0)').prop('selected', true);
+              }
+              else
+                $('#serviceFonc').removeClass('invisible');   
+        });
+      });
       $(document).ready(function(){
           $("select.groupeSanguin").change(function(){//var gs = $(this).children("option:selected").val();
           if($(this).children("option:selected").val() !=="")
@@ -141,14 +151,15 @@
         });
         $("select.rhesus").change(function(){ //var rhval = $(this).children("option:selected").val();
             if($(this).children("option:selected").val() =="")
-            { /*if($(this).attr('name') == "rh"){if($("#type").val() =="0")$("select#rhf").val($("#rh option:selected").val());  
-              }else{if($("#type").val() =="0")$("select#rh").val($("#rh option:selected").val());}*/
+            { /*if($(this).attr('name') == "rh"){if($("#type").val() =="0")$("select#rhf").val($("#rh option:selected").val());}else{if($("#type").val() =="0")$("select#rh").val($("#rh option:selected").val());}*/
               if($(this).attr('name') === "rh")
                 $("select#gs").val(''); 
               else
                  $("select#gsf").val('');             
             }
         });
+        if($("#Position").val() != "Activité" )
+          $('#serviceFonc').addClass('invisible');
       }) 
      </script>
         @yield('page-script')

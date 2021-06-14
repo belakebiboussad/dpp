@@ -133,10 +133,21 @@
             }
       });
     }
+    var field ="etat_hosp";
     $('document').ready(function(){
+      $('.filter').each(function() {
+        if (this.value.trim()) { //value = this.value.trim();
+          field = $(this).prop("id"); //return false;
+        }
+      });
+      /*
       $('.filter').change(function(){// if($(this).attr('id') != "Nom") //getHospitalisations("etat_hosp",null);
           getHospitalisations($(this).attr('id'),$(this).val());
       }); // $('.filter').keyup(function(){//     getHospitalisations($(this).attr('id'),$(this).val()) // });
+      */
+      $(document).on('click','.findHosp',function(event){
+      });
+
       $('#modeSortie').change(function(){
          if($(this).val()==="0")
           {
@@ -217,45 +228,40 @@
 </script>
 @endsection
 @section('main-content')
-<div class="widget">
-<div class="widget-title"><h3><strong>Rechercher une Hospitalisation</strong></h3></div>
-<div class="widget-body">
-  <div class="hospGrid" id="" data-grid-name="hospView">
-    <div class="hospFilter well">
-      <div class="FilterDiv" id="Filter">
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-sm-3"> <!--  <div class="form-group col-sm-8"> -->  <!-- </div>    -->
-                <label><strong>Etat :</strong></label>
-                <select id='etat_hosp' class="form-control filter">
-                  <option value="0">En Cours</option>
-                  <option value="1">Cloturé</option>
-                </select>
-              </div>
-              <div class="col-sm-3"><!-- <div class="form-group col-sm-8"> --><!-- </div> -->
-                <label><strong>Patient :</strong></label><input type="text" id="Nom" class="form-control filter">
-              </div>    
-              <div class="col-sm-3">
-                <label class="control-label" for="" ><strong>IPP:</strong></label> <input type="text" id="IPP" class="form-control filter">
-              </div>
-              <div class="col-sm-3"><!-- <div class="form-group col-sm-8"></div> -->
-                <label class="control-label" for="" ><strong>Date Sortie:</strong></label>
-                <div class="input-group">
-                  <input type="text" id ="Date_Sortie" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
-                  <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
-                </div>
-              </div>  
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <h2><strong>Rechercher une Hospitalisation</strong><</h2>
+    <div class="panel panel-default">
+      <div class="panel-heading">Recherche</div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-3">
+            <label><strong>Etat :</strong></label>
+            <select id='etat_hosp' class="form-control filter">
+              <option value="0">En Cours</option>
+              <option value="1">Cloturé</option>
+            </select>
+          </div>
+          <div class="col-sm-3">
+             <label><strong>Patient :</strong></label><input type="text" id="Nom" class="form-control filter">
+          </div>
+         <div class="col-sm-3"><!-- <div class="form-group col-sm-8"></div> -->
+            <label class="control-label" for="" ><strong>Date Sortie:</strong></label>
+            <div class="input-group">
+              <input type="text" id ="Date_Sortie" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
+              <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
             </div>
           </div>
         </div>
       </div>
-      </div>    
+      <div class="panel-footer" style="height: 50px;">
+        <button type="submit" class="btn btn-sm btn-primary findHosp" style="vertical-align: middle"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+      </div>
     </div>
   </div>
- </div>
+</div>
 <div class="row">
-  <div class="col-xs-12 widget-container-col" id="widget-container-col-2">
+  <div class="col-xs-12 widget-container-col">
   <div class="widget-box transparent" id="widget-box-2">
     <div class="widget-header"><h5 class="widget-title bigger lighter">
       <i class="ace-icon fa fa-table"></i>Hospitalisations</h5>&nbsp;<label><span class="badge badge-info numberResult">{{ $hospitalisations->count() }}</span></label>

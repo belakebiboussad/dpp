@@ -676,16 +676,7 @@ doc.save('ExamRadio-'+nomp+'-'+prenomp+'.pdf')}});}*/
               }else
                 $('#Div-nomjeuneFille').attr('hidden','');      
           });
-          $( "#Position" ).change(function() {
-              if($(this).val() != "Activité")
-              {
-                  $('#serviceFonc').addClass('invisible'); $('#service option:eq(0)').prop('selected', true);
-              }
-              else
-                $('#serviceFonc').removeClass('invisible');   
-          });
-          if($( "#Position" ).val() != "Activité" )
-            $('#serviceFonc').addClass('invisible');
+/*$( "#Position" ).change(function(){if($(this).val() != "Activité"){$('#serviceFonc').addClass('invisible'); $('#service option:eq(0)').prop('selected', true);}else$('#serviceFonc').removeClass('invisible');});if($( "#Position" ).val() != "Activité" )$('#serviceFonc').addClass('invisible');*/ 
           $('#listeGardes').DataTable({ //homme/garde  
                 colReorder: true,
                 stateSave: true,
