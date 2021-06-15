@@ -5,7 +5,7 @@
 @section('page-script')
   <script type="text/javascript">
 		$(document).ready(function(){
-		$('#listActes').DataTable({
+			$('#listActes').DataTable({
 				colReorder: true,
 				stateSave: true,
 				searching:false,
@@ -53,8 +53,7 @@
 			if (state == "update") {
 				type = "PUT";
 				ajaxurl = '/acte/' + acte_id;
-			}
-			$('#acteModal form')[0].reset();//jQuery('#acteModal').trigger("reset");
+			}//$('#acteModal form')[0].reset();
 			$.ajax({
 				type:type,
 				url:ajaxurl,
@@ -78,14 +77,15 @@
 						$( "#listActes" ).append(acte);
 					}else{
 						$("#acte" + data.acte.id).replaceWith(acte);
-					}    
+					}
+					$('#acteModal form')[0].reset();//jQuery('#acteModal').trigger("reset");    
 				},         
 				error: function (data){
 						console.log('Error:', data);
 				}
-		});
-			});///edit acte
-			$('body').on('click', '.open-modal', function () {
+			});
+		});///edit acte
+		$('body').on('click', '.open-modal', function () {
 				var acteID = $(this).val();
 				$.get('/acte/'+acteID+'/edit', function (data) {
 				$('#EnregistrerActe').val("update");
@@ -106,28 +106,28 @@
 			  });
 			});
 		  jQuery('body').on('click', '.delete-acte', function () {////----- DELETE a acte and remove from the table -----////
-		  var acte_id = $(this).val();
-		  $.ajaxSetup({
-				headers: {
-					'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+			  var acte_id = $(this).val();
+			  $.ajaxSetup({
+					headers: {
+						'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+					}
+				});
+				$.ajax({
+					type: "DELETE",
+					url: '/acte/' + acte_id,
+				success: function (data) {
+				  $("#acte" + acte_id).remove();
+				},
+				error: function (data) {
+					console.log('Error:', data);
 				}
 			});
-		$.ajax({
-			type: "DELETE",
-			url: '/acte/' + acte_id,
-			success: function (data) {
-			  $("#acte" + acte_id).remove();
-			},
-			error: function (data) {
-				console.log('Error:', data);
-			}
-		});
 	  });	//end of add acte
-	$('#btn-addTrait').click(function () {///////////add trait
-	  $('#EnregistrerTrait').val("add");
-		$('#traitModal').trigger("reset");
-		$('#TraitCrudModal').html("Ajouter un Traitement");
-		$('#traitModal').modal('show');
+		$('#btn-addTrait').click(function () {///////////add trait
+		  $('#EnregistrerTrait').val("add");
+			$('#traitModal').trigger("reset");
+			$('#TraitCrudModal').html("Ajouter un Traitement");
+			$('#traitModal').modal('show');
   });  
 	$("#EnregistrerTrait").click(function (e) {
 		e.preventDefault();
@@ -156,7 +156,7 @@
 		if(state == "update") {
 			  type = "PUT";
 			  ajaxurl = '/traitement/' + trait_id;
-		} //$('#traitModal form')[0].reset();//jQuery('#traitModal').trigger("reset");
+		} 
 		$.ajax({
 			type:type,
 			url:ajaxurl,
@@ -177,11 +177,12 @@
 				trait += '<td class ="center"><button type="button" class="btn btn-xs btn-info edit-trait" value="' + data.trait.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
 				trait += '<button type="button" class="btn btn-xs btn-danger delete-Trait" value="' + data.trait.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></btton></td></tr>';
 				if (state == "add") {
-				$( "#listTraits" ).append(trait);
-			}else{
+					$( "#listTraits" ).append(trait);
+				}else{
 				$("#trait" + data.trait.id).replaceWith(trait);
 			}
-					},         
+			$('#traitModal form')[0].reset();
+		},         
 			error: function (data){
 					console.log('Error:', data);
 			}

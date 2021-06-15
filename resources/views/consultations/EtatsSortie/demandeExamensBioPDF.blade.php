@@ -1,4 +1,5 @@
-<h3 class="mt-12 center" id="tutelle">{{ $etablissement->tutelle }}</h3>
+<br>
+<h3 class="pt-1 center" id="tutelle">{{ $etablissement->tutelle }}</h3>
 <h4 class="center" id="etabname">{{ $etablissement->nom }}</h4>
 <h5 class="center" id="etabAdr">{{ $etablissement->adresse }}</h5>  
 <h5 class="center" id="etabTel">Tél : {{ $etablissement->tel }}</h5>
@@ -14,7 +15,7 @@
 <div class="row ml-4">
 	<div class="col-sm-12">
 		<div class="sec-gauche">
-			<h4><u>Patient(e):</u></strong>&nbsp;{{ $patient->getCivilite() }}{{ $patient->Nom }}	{{ $patient->Prenom }},&nbsp;</strong>  	{{ $patient->getAge() }} ans,&nbsp;{{ $patient->Sexe }}</h4>
+			<h4><u>Patient(e):</u></strong>&nbsp;{{ $patient->getCivilite() }}{{ $patient->Nom }}	{{ $patient->Prenom }},&nbsp;</strong>{{ $patient->getAge() }} ans,&nbsp;{{ $patient->Sexe }}</h4>
 		</div>
 	</div>
 </div>
@@ -23,8 +24,7 @@
 		<div class="sec-gauche"><img src="data:image/png;base64,{{DNS1D::getBarcodePNG($patient->IPP, 'C128')}}" alt="barcode"/><h6>IPP :{{ $patient->IPP }}</h6></div>   
 	</div>
 </div><div class="space-12"></div>
-<!-- <div class="row  ml-4"><div class="col-sm-12"><h3>Prière de faire</h3></div></div> -->
-<div class="row ml-4"><div class="col-sm-12 "><h3>Examens Biologiques Demandées:</h3></div></div>
+<div class="row  ml-4"><div class="col-sm-12"><h4>Prière de faire :</h4></div></div><!-- <div class="row ml-4"><div class="col-sm-12 "><h4>Examens biologiques demandés:</h4></div></div> -->
 <div class="row">
 	<div class="col-sm-11 ml-4">
 		<div class="widget-body">

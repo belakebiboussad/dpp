@@ -242,7 +242,11 @@ $('.filter').change(function(){// if($(this).attr('id') != "Nom") //getHospitali
           <div class="col-sm-3">
              <label><strong>Patient :</strong></label><input type="text" id="Nom" class="form-control filter">
           </div>
-         <div class="col-sm-3"><!-- <div class="form-group col-sm-8"></div> -->
+          <div class="col-sm-3">
+             <label><strong>IPP :</strong></label>
+             <input type="text" id="IPP" class="form-control filter">
+          </div>
+           <div class="col-sm-3"><!-- <div class="form-group col-sm-8"></div> -->
             <label class="control-label" for="" ><strong>Date Sortie:</strong></label>
             <div class="input-group">
               <input type="text" id ="Date_Sortie" class="date-picker form-control filter ltnow"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">

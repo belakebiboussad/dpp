@@ -1,14 +1,13 @@
-﻿-- phpMyAdmin SQL Dump
--- version 4.7.9
+-- phpMyAdmin SQL Dump
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  Dim 13 juin 2021 à 23:05
--- Version du serveur :  5.7.21
--- Version de PHP :  7.2.4
+-- Généré le : mar. 15 juin 2021 à 09:09
+-- Version du serveur :  5.7.23
+-- Version de PHP : 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `dpdgsn`
+-- Base de données : `dpdgsn`
 --
 
 -- --------------------------------------------------------
@@ -340,10 +339,12 @@ CREATE TABLE IF NOT EXISTS `assurs` (
 --
 
 INSERT INTO `assurs` (`Nom`, `Prenom`, `Date_Naissance`, `lieunaissance`, `Sexe`, `SituationFamille`, `adresse`, `commune_res`, `wilaya_res`, `grp_sang`, `Position`, `Service`, `matricule`, `Grade`, `NSS`, `NMGSN`) VALUES
+('amar', 'kocy', '1973-06-06', NULL, 'M', NULL, NULL, NULL, 49, 'O+', 'Activité', 'PJ', NULL, 1, '005624875694', NULL),
 ('ouali', 'Mustapha', NULL, NULL, 'M', NULL, NULL, NULL, 49, 'O-', 'Activité', 'PJ', NULL, 1, '015256424565', NULL),
 ('ould rachid', 'amar', '1984-06-19', NULL, 'M', NULL, NULL, NULL, 49, '', 'Activité', 'PJ', NULL, 1, '031164245651', NULL),
 (NULL, NULL, NULL, NULL, 'M', 'C', NULL, NULL, NULL, '', 'Activité', 'PJ', NULL, 1, '032564245657', NULL),
 ('malade', 'assure', '1942-09-28', NULL, 'M', 'C', 'ain el hammam', 613, 16, 'B+', 'Activité', 'police judicaire', 'Mp102', 6, '034956424565', NULL),
+('dqs', 'dqsd', NULL, NULL, 'M', NULL, NULL, NULL, NULL, 'B+', 'Licencié', NULL, NULL, 1, '054654564981', NULL),
 ('magita', 'bori', '1970-02-12', NULL, 'F', 'C', 'rue 02 blida', NULL, 16, 'AB+', 'Activité', 'BAC', 'mop14', 2, '111111111111', NULL),
 ('magita', 'bori', '1980-05-12', 1556, 'F', 'C', 'rue 02 blida', 1556, 16, 'AB+', 'Activité', 'BAC', 'po452', 2, '135624875695', NULL),
 ('a', 'a', '1994-01-09', 613, 'M', 'C', 'rue bab ali', 613, 16, 'A+', 'Activité', 'service 23', 'bf840', 10, '135624875699', '212464998989'),
@@ -11549,7 +11550,7 @@ CREATE TABLE IF NOT EXISTS `patients` (
   `tele_mobile1` varchar(10) DEFAULT NULL,
   `tele_mobile2` varchar(10) DEFAULT NULL,
   `Profession` varchar(500) DEFAULT NULL,
-  `NSS` varchar(15) DEFAULT NULL,
+  `NSS` varchar(12) DEFAULT NULL,
   `group_sang` enum('A','B','AB','O') DEFAULT NULL,
   `rhesus` enum('+','-') DEFAULT NULL,
   `Assurs_ID_Assure` varchar(12) DEFAULT NULL,
@@ -11563,7 +11564,7 @@ CREATE TABLE IF NOT EXISTS `patients` (
   KEY `commune_res` (`commune_res`) USING BTREE,
   KEY `fk_patient_commNaissane` (`Lieu_Naissance`),
   KEY `fk_assure` (`Assurs_ID_Assure`)
-) ENGINE=InnoDB AUTO_INCREMENT=261 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=264 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `patients`
@@ -11613,7 +11614,9 @@ INSERT INTO `patients` (`id`, `IPP`, `Nom`, `Prenom`, `nom_jeune_fille`, `Dat_Na
 (256, '02021256', 'AMOURA', 'ISLAM', NULL, '1990-12-04', 613, 'M', 'C', 'RUE BOUGHOUAS AZZEDDINE COMMUNE DE YAHIA BENI KECHA', NULL, 43, '0555555555', '', NULL, NULL, 'O', '+', '902878002637', '0', NULL, 1, '2021-06-10', NULL, '2021-06-10 10:58:54'),
 (257, NULL, 'csc', 'csc', NULL, '2021-06-07', 613, 'M', 'V', NULL, 613, 16, '0555555555', '', NULL, NULL, 'B', '+', '985625554587', '0', NULL, 1, '2021-06-10', NULL, '2021-06-10 14:28:51'),
 (258, NULL, 'rabii', 'lamia', NULL, '1973-06-13', 613, 'F', 'C', NULL, NULL, NULL, '0547465656', '', NULL, NULL, 'A', '+', '032564245657', '0', NULL, 1, '2021-06-10', NULL, '2021-06-10 14:30:49'),
-(259, '02021259', 'rabii', 'lamia', NULL, '1973-06-13', 613, 'F', 'C', NULL, NULL, NULL, '0547465656', '', NULL, NULL, 'A', '+', '032564245657', '0', NULL, 1, '2021-06-10', NULL, '2021-06-10 14:31:31');
+(259, '02021259', 'rabii', 'lamia', NULL, '1973-06-13', 613, 'F', 'C', NULL, NULL, NULL, '0547465656', '', NULL, NULL, 'A', '+', '032564245657', '0', NULL, 1, '2021-06-10', NULL, '2021-06-10 14:31:31'),
+(261, '12021261', 'amar', 'ouaheb', NULL, '1933-06-10', 287, 'M', 'M', NULL, NULL, NULL, '', '', NULL, NULL, 'A', NULL, '005624875694', '2', NULL, 1, '2021-06-14', NULL, '2021-06-14 09:58:17'),
+(263, '12021263', 'dqsd', 'dqsd', NULL, NULL, NULL, 'M', 'C', NULL, NULL, NULL, '', '', NULL, '004566666456', 'B', NULL, '054654564981', '2', NULL, 1, '2021-06-14', NULL, '2021-06-14 12:26:25');
 
 -- --------------------------------------------------------
 
@@ -12517,7 +12520,7 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (28, 'medChef', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'az@e.fr', 87, 13, 'GtsERzROhMI17wLDz9bj8agtQGftKg9YW3Jop27qso079ht8HqA7rmROafvp', 1),
 (29, 'colloque', '$2y$10$Ve5h8oMwfAmfzHgTLrfJTOmGUiBpZLdxrfEfYC/7g2a1G62ZkM2QO', 'gdcedgg@yah.fr', 80, 5, 'gpZZ7n5wZzyDItBNWBgOWJBuHVN9zPFAVCnhFigz3AQFygICRp4ENyCc2B8W', 1),
 (30, 'sur', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'rlakhneche@cdta.dz', 81, 5, '0XbJqdFqdwM20NY6k1cEGQO3PZrQKVoCAhWAnZfz5zmd2VGrjnwdGVH4EKat', 1),
-(31, 'rec', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', NULL, 82, 2, 'BKSMwg4N7ROTOIjYulDVTLTtED2LFCHVADaWwrXntYgey3lOdG1QlQVCDBHJ', 1),
+(31, 'rec', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', NULL, 82, 2, 'eX5IENlsv94A4ET7Qwp8HlppjNfAoKgQnU7tZ1I0iUujbiYtW4jnpiauV5Rn', 1),
 (33, 'test', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'test@gmail', 79, 1, 'jVwivfkZ4VIp3AGewC51osG092X85a3MAdPFgfiEGXfy1sOGfzyxuAIaEjC4', 1),
 (34, 'med', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'admin@gmail.com', 88, 1, 'fb3Fq2xQgFWyTBO5v1lRHwwIkqlMoObVnU9zTeylFhh5tAzWkHzNg5l2N6ig', 0),
 (35, 'delCol', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'll@a.fr', 89, 6, '7tcJdo3T0rLHGgA4zCnqRh7CTTBlduDXaNvF6MvvQKLUY5tOQ86eUX5gMAPn', 1),
@@ -12525,12 +12528,12 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (39, 'surMed', '$2y$10$zUdI0W5QV/1fmnBnhmL2TOTqN8GMNEdZZK6o4gclrJ1CKfxVq.Rca', 'bbedeebi@cdta.dz', 94, 5, 'wYLElOPP99DTqQLuh4jkvmlrr64gQx9WeBNsW9aWFHwVrg9VF3lHQ9PWLooI', 1),
 (40, 'agentAdm', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'agentAdm@hop.dz', 95, 9, 'hcEiyOu6lVtRBS0HwhkUkIf2CrZunWTA0omOlazCn1GaTHxQPKkyUnaWSueG', 1),
 (41, 'agent', '$2y$10$RsD.pKjSIV73uBbaLJNE.uXhzCmCixdBf71lcxBq2wmQu0dsRzdmy', 'agent@hop.dz', 96, 9, '0XvVOj64SWnrVr73lAOs01XU4d23KoTjZB3rW0uzpaEmxFf5WUMAMXlb3aEP', 1),
-(42, 'laborantin', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'lab@hop.dz', 97, 11, 'tt4QLHUN0t9Hponx6MQiI8HBKJ3xi37BpD9QlbmeU2bpA3troG6oEAi6fmMl', 1),
+(42, 'laborantin', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'lab@hop.dz', 97, 11, 'pgYRiIwrKwjwKfFq4fGNgCmOddOIDNOcAcMchTWpT3untJmBsdf6w7sSAQmJ', 1),
 (43, 'radiogue', '$2y$10$k5gKJEykSI5PNYLHyheO.eXq4ge1e6Rkz/HN/mMKUZiKZFe8qMlki', 'rad@hop.dz', 98, 12, 'benlcglfiv00sldthLpx1KXLmtI2DYvCGoRpjKunnuQE0cSzBTETHsXO9x9e', 1),
 (44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, 'kpBJfTCvd2SP3BkyPqgdnSHwoMHEoAWGaDS0QeQu6arJNqxWOxijlkb8pQji', 1),
 (45, 'chefServ', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'MqwpSXPTQM0JlyL3aHRfqlG29ow5QmZnqGPwuINxH9jaZRFPEFqIoFdW1SxY', 1),
 (46, 'rad', '$2y$10$PNDRMvcnhl1kZ.sxfoq8Yuhoq6ZMQePi9/q1QbLUZ.a.hd5DxvnCS', 'rad@cdta.net', 101, 12, 'dU7FBnACADohcjhtgc8RJXNUTGQxaey21pQcY16XMVs6QSCRyQp610ortzDP', 1),
-(47, 'cardio', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'bbedeebi@cdta.dz', 102, 1, 'tYmcLoQ23aZJZlDX2N5eowU1QzaiEdKfI0LnvSbACGTJ7fIOTh1DBcAWTVhX', 1),
+(47, 'cardio', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'bbedeebi@cdta.dz', 102, 1, 'hVrC8CaipnEHTLWCzKbLuRIjweu4MiLKPOybEvhPXnEUeykiLJbV63VsKyLv', 1),
 (48, 'geneco', '$2y$10$MeHcy1r9az/dgkC9pLvo/Ob4eqJVp8mRjGuZeyL9yA6k8sc3D0FAW', 'geneco@cdta.dz', 103, 1, 'wG4AMsJliph2HEp2SwRF5E6z7xHjvR9gDzzEAU9vV9Fe4FsAh28t3TGQZDra', 1),
 (55, 'sup', '$2y$10$KMz3xI6SFSVafWDbulGrEegn7wTkCr4HmxVdUTwMeNvarK3o0N9AW', 'admin@gmail.com', 110, 2, 'yKzTFVPrnDywAvS2qoqmKHFRKurGGwJwy8b00YLZPZYysquBO1dqsV1VA4eq', 1),
 (56, 'mohand', '$2y$10$P/S8ej3FHSVBfr0YNsVIcOtmxxR3NSxR8X2uOLIq3Qcvv/uCt4eBi', 'ma@gmail.com', 111, 3, NULL, 1),
@@ -12812,7 +12815,8 @@ INSERT INTO `wilayas` (`id`, `nom`) VALUES
 --
 DROP TABLE IF EXISTS `nextrdvs`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvs`  AS  select `rdvs`.`id` AS `Id`,date_format(`rdvs`.`Date_RDV`,'%Y-%m-%d') AS `DateRdv`,`rdvs`.`Patient_ID_Patient` AS `PatientId`,`patients`.`IPP` AS `Ipp`,`patients`.`Nom` AS `Nom`,`patients`.`Prenom` AS `Prenom`,`patients`.`Dat_Naissance` AS `DateNaissance`,`patients`.`Sexe` AS `Sexe`,`employs`.`specialite` AS `SpecialiteId` from ((`rdvs` join `patients` on((`rdvs`.`Patient_ID_Patient` = `patients`.`id`))) join `employs` on((`rdvs`.`Employe_ID_Employe` = `employs`.`id`))) where ((cast(`rdvs`.`Date_RDV` as date) = curdate()) and isnull(`rdvs`.`Etat_RDV`)) order by `rdvs`.`Date_RDV` desc ;
+DROP VIEW IF EXISTS `nextrdvs`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvs`  AS SELECT `rdvs`.`id` AS `Id`, date_format(`rdvs`.`Date_RDV`,'%Y-%m-%d') AS `DateRdv`, `rdvs`.`Patient_ID_Patient` AS `PatientId`, `patients`.`IPP` AS `Ipp`, `patients`.`Nom` AS `Nom`, `patients`.`Prenom` AS `Prenom`, `patients`.`Dat_Naissance` AS `DateNaissance`, `patients`.`Sexe` AS `Sexe`, `employs`.`specialite` AS `SpecialiteId` FROM ((`rdvs` join `patients` on((`rdvs`.`Patient_ID_Patient` = `patients`.`id`))) join `employs` on((`rdvs`.`Employe_ID_Employe` = `employs`.`id`))) WHERE ((cast(`rdvs`.`Date_RDV` as date) = curdate()) AND isnull(`rdvs`.`Etat_RDV`)) ORDER BY `rdvs`.`Date_RDV` DESC ;
 
 --
 -- Contraintes pour les tables déchargées

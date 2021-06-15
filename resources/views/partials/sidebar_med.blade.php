@@ -366,7 +366,7 @@
         $('#liste_codesCIM').empty();  $("#chapitre").val($("#chapitre option:first").val());$("#schapitre").val($("#schapitre option:first").val());
         $('#cim10Modal').trigger("reset");$('#cim10Modal').modal('toggle');  
       }
-      function createexbio(nomp,prenomp,age,ipp){  
+      function createexbioOrg(nomp,prenomp,age,ipp){  
         var img = new Image();
         img.src = '{{ asset("/img/logo.png") }}';
         img.onload = function () {
@@ -428,7 +428,7 @@ doc.save('ExamRadio-'+nomp+'-'+prenomp+'.pdf')}});}*/
       })
     }
     //function createeximgOrg(nomp,prenomp,age, ipp){var img = new Image();img.src = '{{ asset("/img/logo.png") }}';img.onload = function (){//JsBarcode("#itf",IPP); //bonne(img,nomp,prenomp,age,ipp);};} 
-    function createexbioFOrg(image,nomp,prenomp,age,ipp){ 
+    function createexbioF(image,nomp,prenomp,age,ipp){ 
             html2canvas($("#dos"), {
           onrendered: function(canvas) {
               moment.locale('fr');//var IPP = ipp.toString();
@@ -471,19 +471,19 @@ doc.save('ExamRadio-'+nomp+'-'+prenomp+'.pdf')}});}*/
           }
         });
     }
-    function createexbioF(image,nomp,prenomp,age,ipp){ 
+    function createexbio(nomp,prenomp,age,ipp){ 
       ol = document.getElementById('listBioExam');
       $('input.ace:checkbox:checked').each(function(index, value) {
-         $("ol").append('<li><h3>-'+this.nextElementSibling.innerHTML+'</h3></l3>');
+         $("ol").append('<li><h4>-'+this.nextElementSibling.innerHTML+'</h4></li>');
       }); 
       $("#bioExamsPdf").removeClass('invisible'); 
       var element = document.getElementById('bioExamsPdf');
       var options = {
-              filename:'ExamBio-'+nomp+'-'+prenomp+'.pdf'
+        filename:'ExamBio-'+nomp+'-'+prenomp+'.pdf'
       };
       var exporter = new html2pdf(element, options);
       $("#bioExamsPdf").addClass('invisible');
-      exporter.getPdf(true).then((pdf) => {// Download the PDF or...
+      exporter.getPdf(true).then((pdf) => {
         console.log('pdf file downloaded');
       });
       exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it

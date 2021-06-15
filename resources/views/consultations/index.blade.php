@@ -12,6 +12,7 @@
       dataType: "json",// recommended response type
     	success: function(data) {
               $(".numberResult").html(data.length);
+              /*     
               $("#liste_conultations").DataTable ({
                    "processing": true,
                    "paging":   true,
@@ -64,7 +65,36 @@
                         {"targets": 5 ,  className: "dt-head-center priority-4" },
                         {"targets": 6 , "orderable": false, className: "dt-head-center dt-body-center" },
                     ],
-         });
+              });*/
+              $("#liste_conultations").DataTable ({
+                   "processing": true,
+                   "paging":   true,
+                   "destroy": true,
+                   "ordering": true,
+                   "searching":false,
+                   "info" : false,
+                   "responsive": true,
+                   "language":{"url": '/localisation/fr_FR.json'},
+                   "data" : data,  // "scrollX": true,
+                   "fnCreatedRow": function( nRow, aData, iDataIndex ) {
+                         $(nRow).attr('id',"consult"+aData.id);
+                    },
+                    "columns": [
+                        { data:null,title:'#', "orderable": false,searchable: false,
+                               render: function ( data, type, row ) {
+                                    if ( type === 'display' ) {
+                                          return '<input type="checkbox" class="editor-active check" name="fusioner[]" value="'+data.id+'" onClick="return KeepCount()" /><span class="lbl"></span>';
+                                    }
+                                    return data;
+                               },
+                               className: "dt-body-center",
+                          },
+                    ],
+                    "columnDefs": [
+                      
+                    ]
+
+              });
       }
 		});
   }
@@ -82,8 +112,7 @@
 	      field = $(this).prop("id"); //return false;
 	     }
 	  });
-    $(document).on('click','.findconsult',function(event){
-    	//var value = $('#'+field).val().trim();
+    $(document).on('click','.findconsult',function(event){	//var value = $('#'+field).val().trim();
     	getConsultations(field,$('#'+field).val().trim());
     	if(field != "Date_Consultation")
     		$('#'+field).val('');	
