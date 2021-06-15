@@ -12,60 +12,6 @@
       dataType: "json",// recommended response type
     	success: function(data) {
               $(".numberResult").html(data.length);
-              /*     
-              $("#liste_conultations").DataTable ({
-                   "processing": true,
-                   "paging":   true,
-                   "destroy": true,
-                   "ordering": true,
-                   "searching":false,
-                   "info" : false,
-                   "responsive": true,
-                   "language":{"url": '/localisation/fr_FR.json'},
-                   "data" : data,  // "scrollX": true,
-                   "fnCreatedRow": function( nRow, aData, iDataIndex ) {
-                         $(nRow).attr('id',"consult"+aData.id);
-                   },
-                   "columns": [
-                      	{ data:null,title:'#', "orderable": false,searchable: false,
-                               render: function ( data, type, row ) {
-                                    if ( type === 'display' ) {
-                                          return '<input type="checkbox" class="editor-active check" name="fusioner[]" value="'+data.id+'" onClick="return KeepCount()" /><span class="lbl"></span>';
-                                    }
-                                    return data;
-                               },
-                               className: "dt-body-center",
-                          }, 
-                          //{ data: "motif" , title:'Motif' },
-                          { data: null , title:'Motif', 
-                            "render": function(data,type,full,meta){
-                               return '<small>'+data.motif+'</small>';
-                            }
-                          },
-                          { data: "Date_Consultation" , title:'Date' },
-                          { data: "Resume_OBS" , title:'Résumé' },
-                          { data: "patient.Nom",
-                                render: function ( data, type, row ) {
-                                     return row.patient.Nom + ' ' + row.patient.Prenom;
-                               },
-                           	 title:'Patient',"orderable": true
-                          },
-                           {   data: "docteur.nom" ,
-                               render: function ( data, type, row ) {
-                                        return row.docteur.nom + ' ' + row.docteur.prenom ;
-                               },
-                               title:'Medecin' 
-                          },
-                          { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false}
-                    ],
-                    "columnDefs": [
-                        {"targets": 2 ,  className: "dt-head-center" },//nom
-                        {"targets": 3 ,  className: "dt-head-center priority-5" },
-                        {"targets": 4 ,  className: "dt-head-center"},
-                        {"targets": 5 ,  className: "dt-head-center priority-4" },
-                        {"targets": 6 , "orderable": false, className: "dt-head-center dt-body-center" },
-                    ],
-              });*/
               $("#liste_conultations").DataTable ({
                    "processing": true,
                    "paging":   true,
@@ -83,16 +29,40 @@
                         { data:null,title:'#', "orderable": false,searchable: false,
                                render: function ( data, type, row ) {
                                     if ( type === 'display' ) {
-                                          return '<input type="checkbox" class="editor-active check" name="fusioner[]" value="'+data.id+'" onClick="return KeepCount()" /><span class="lbl"></span>';
+                                          return '<input type="checkbox" class="editor-active check" name="" value="'+data.id+'" onClick="" /><span class="lbl"></span>';
                                     }
                                     return data;
                                },
                                className: "dt-body-center",
                         },
                         { data: "Date_Consultation" , title:'Date' },
+                        { data: "patient.Nom",
+                          render: function ( data, type, row ) {
+                            return row.patient.Nom + ' ' + row.patient.Prenom;
+                          },
+                          title:'Patient',"orderable": true
+                        },
+                        { data: null , title:'Motif', "orderable":false,  
+                            "render": function(data,type,full,meta){
+                               return '<small>'+data.motif+'</small>';
+                            }
+                        },
+                        {   data: "docteur.nom" ,
+                             render: function ( data, type, row ) {
+                                      return row.docteur.nom + ' ' + row.docteur.prenom ;
+                             },
+                             title:'Medecin', "orderable":false, 
+                        },
+                        { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false}
+
                     ],
                     "columnDefs": [
-                      
+                      {"targets": 0 ,  className: "dt-head-center" },
+                      {"targets": 1 ,  className: "dt-head-center" },
+                      {"targets": 2 ,  className: "dt-head-center" },
+                      {"targets": 3 ,  className: "dt-head-center" },
+                      {"targets": 4 ,  className: "dt-head-center" },
+                      {"targets": 5 ,  className: "dt-head-center dt-body-center" },
                     ]
 
               });
@@ -165,4 +135,6 @@
 	 </div>
 </div>
 </div>
+<div class="row">@include('hospitalisations.ModalFoms.EtatSortie')</div>
+
 @endsection

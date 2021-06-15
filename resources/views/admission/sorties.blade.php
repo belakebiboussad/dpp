@@ -91,23 +91,23 @@
 		$('.filter').change(function(){//rechercher une sortie
 			getSorties($(this).attr('id'),$(this).val());
 		});
-		$(document).on('click', '.selctetat', function(event){
-    	event.preventDefault();
-			var formData = {
-      			class_name: $('#className').val(),		
-          	obj_id: $('#objID').val(),
-          	selectDocm :$(this).val(),
-       };
-       $.ajax({
-            type : 'get',
-            url : '{{URL::to('reportprint')}}',
-            data:formData,
-              success(data){
-                $('#EtatSortie').modal('hide');
-              },
-        });
-    });
-	});
+	// 	$(document).on('click', '.selctetat', function(event){
+ //    	event.preventDefault();
+	// 		var formData = {
+ //      			class_name: $('#className').val(),		
+ //          	obj_id: $('#objID').val(),
+ //          	selectDocm :$(this).val(),
+ //       };
+ //       $.ajax({
+ //            type : 'get',
+ //            url : '{{URL::to('reportprint')}}',
+ //            data:formData,
+ //              success(data){
+ //                $('#EtatSortie').modal('hide');
+ //              },
+ //        });
+ //    });
+	// });
 </script>
 @endsection
 @section('main-content')
