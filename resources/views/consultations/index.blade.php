@@ -88,7 +88,8 @@
                                     return data;
                                },
                                className: "dt-body-center",
-                          },
+                        },
+                        { data: "Date_Consultation" , title:'Date' },
                     ],
                     "columnDefs": [
                       
