@@ -20,7 +20,7 @@
     </li>
     <ul class="nav nav-list">
       <li>
-        <a href="{{ route('patient.index') }}"><i class="menu-icon fa fa-tachometer"></i><span class="menu-text">Acceuil</span></a>
+        <a href="{{ route('patient.index') }}"><i class="menu-icon fa fa-tachometer"></i><span class="menu-text">Accueil</span></a>
         <b class="arrow"></b>
       </li>
       <li>

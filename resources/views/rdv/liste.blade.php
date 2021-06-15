@@ -1,7 +1,7 @@
 <div class="col-xs-12 col-sm-12 widget-container-col">
 	<div class="widget-box widget-color-blue">
 		<div class="widget-header">
-			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des RDV :</h5>
+			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des rendez-vous :</h5>
 		</div>
 		<div class="widget-body">
 			<div class="widget-main no-padding">
@@ -9,9 +9,9 @@
 				<thead class="thin-border-bottom">
 					<tr>
 						<th class ="center"><strong>Date</strong></th>
-						<th class ="center"><strong>Fixe ?</strong></th>
+						<th class ="center"><strong>Type</strong></th>
 						<th class ="center"><strong>Service</strong></th>
-						<th class ="center"><strong>Médcine Traitant</strong></th>
+						<th class ="center"><strong>Médcine traitant</strong></th>
 						<th class ="center"><strong>Etat</strong></th>
 						<th class ="center"><em class="fa fa-cog"></em></th>
 					</tr>
@@ -21,7 +21,7 @@
 					@foreach($patient->rdvs as $rdv)
 					<tr>
 						<td>{{ $rdv->Date_RDV->format('Y-m-d') }}</td>
-						<td>{{ $rdv->fixe ? 'Oui' : 'Non' }}</td>
+						<td>{{ $rdv->fixe ? 'Fixe' : 'Non Fixe' }}</td>
 						<td>{{ $rdv->employe->Service->nom}}</td>
 						<td>{{ $rdv->employe->nom }} {{ $rdv->employe->prenom }}	</td>
 						<td class="center">

@@ -101,10 +101,10 @@ $('document').ready(function(){
 									</div>
 										</div>
 									</div>{{-- tabpane --}}
-									<div id="dispositifs" class="tab-pane">
+									<div id="dispositifs" class="tab-pane col-sm-12">
 											<div class="scrollable" data-size="100" data-position="left">
 												<div>
-													<table id="dispo_table" class="table table-striped table-bordered">
+													<table id="dispo_table" class="table table-striped table-bordered col-sm-12">
 														<thead>
 															<tr>
 																<th>Nom</th>
@@ -118,7 +118,7 @@ $('document').ready(function(){
 									<div id="reactifs" class="tab-pane">
 										<div class="scrollable" data-size="100">
 											<div>
-												<table id="reactifs_table" class="table table-striped table-bordered">
+												<table id="reactifs_table" class="table table-striped table-bordered col-sm-12">
 													<thead>
 														<tr>
 															<th>Nom</th>

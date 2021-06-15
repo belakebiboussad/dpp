@@ -1,4 +1,5 @@
-@extends('app_agent_admis')
+{{--@extends('app_agent_admis')--}}
+@extends('app') 
 @section('page-script')
 <script type="text/javascript">
 	function effectuerSortieAdm(adm_id){
@@ -91,23 +92,7 @@
 		$('.filter').change(function(){//rechercher une sortie
 			getSorties($(this).attr('id'),$(this).val());
 		});
-	// 	$(document).on('click', '.selctetat', function(event){
- //    	event.preventDefault();
-	// 		var formData = {
- //      			class_name: $('#className').val(),		
- //          	obj_id: $('#objID').val(),
- //          	selectDocm :$(this).val(),
- //       };
- //       $.ajax({
- //            type : 'get',
- //            url : '{{URL::to('reportprint')}}',
- //            data:formData,
- //              success(data){
- //                $('#EtatSortie').modal('hide');
- //              },
- //        });
- //    });
-	// });
+});
 </script>
 @endsection
 @section('main-content')

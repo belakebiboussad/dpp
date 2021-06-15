@@ -14,7 +14,7 @@
     </div><!-- /.sidebar-shortcuts -->
     <ul class="nav nav-list">
       <li class="">
-        <a href="{{ route('home_admin') }}"> <i class="menu-icon fa fa-university"></i><span class="menu-text">Acceuil</span></a><b class="arrow"></b>
+        <a href="{{ route('home_admin') }}"> <i class="menu-icon fa fa-university"></i><span class="menu-text">Accueil</span></a><b class="arrow"></b>
       </li>
       <li>
         <a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-users"></i><span class="menu-text">Gestion Utilisateurs</span><b class="arrow fa fa-angle-down"></b></a>

@@ -1,7 +1,7 @@
 <div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2">
 	<div class="widget-box widget-color-blue" id="widget-box-2">
 		<div class="widget-header">
-			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Antecedants Personnels</h5>
+			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Antécédents personnels</h5>
 			<div class="widget-toolbar widget-toolbar-light no-border"><!-- <div class="fa fa-plus-circle"></div><a href=""><b>Antecedant </b></a> -->
 			</div>
 		</div>
@@ -96,7 +96,7 @@
 <div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2">
 	<div class="widget-box widget-color-green" id="widget-box-2">
 		<div class="widget-header">
-			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Antecedants Familliaux</h5>
+			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Antécédents Familiaux</h5>
 			<div class="widget-toolbar widget-toolbar-light no-border"><!--<div class="fa fa-plus-circle"></div><a href=""><b>Antecedant </b></a> -->
 			</div>
 		</div>

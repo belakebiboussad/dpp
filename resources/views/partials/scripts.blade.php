@@ -107,7 +107,7 @@
           }
         });
         $( ".autofield" ).autocomplete({
-        source: function( request, response ) {
+          source: function( request, response ) {
             $.ajax({
                 url:"{{route('patients.autoField')}}",
                 type: 'post',
@@ -121,12 +121,12 @@
                   response( data );
                 }
             });
-        },
-        minLength: 3,
-        select: function (event, ui) {
-          $(this).val(ui.item.label);
-          field =event['target']['id'];
-        }
+          },
+          minLength: 3,
+          select: function (event, ui) {
+            $(this).val(ui.item.label);
+            field =event['target']['id'];
+          }
     });
     $( ".autoUserfield" ).autocomplete({
         source: function( request, response ) {
@@ -150,13 +150,13 @@
           field =event['target']['id'];
         }
     });
-      $('#printRdv').click(function(){
-            $.ajaxSetup({
+    $('#printRdv').click(function(){
+          $.ajaxSetup({
               headers: {
                           'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
                 }
-            });
-        $.ajax({
+          });
+          $.ajax({
                 type : 'GET',
                 url :'/rdvprint/'+$('#idRDV').val(),
                 success:function(data){},
@@ -166,15 +166,15 @@
         });
     });
   });  
-      $(function() {
-             var checkbox = $("#hommeConf");
-             checkbox.change(function() {
-                   if(checkbox.is(":checked"))
-                          $("#hommelink").removeClass('invisible');
-                     else
-                          $("#hommelink").addClass('invisible');  
-             })
-      });
+  $(function() {
+      var checkbox = $("#hommeConf");
+      checkbox.change(function() {
+          if(checkbox.is(":checked"))
+            $("#hommelink").removeClass('invisible');
+          else
+            $("#hommelink").addClass('invisible');  
+     })
+  });
 </script>
 <script type="text/javascript">
        var active_class = 'active';

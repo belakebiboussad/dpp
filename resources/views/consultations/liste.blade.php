@@ -13,7 +13,7 @@
 					<thead >
 						<tr>
 							<th class="center">Date</th>	
-							<th class ="center sorting_disabled">Médecin Consultatnt</th>
+							<th class ="center sorting_disabled">Médecin Consultant</th>
 							<th class ="center sorting_disabled">Motif</th>
 							<th class ="center sorting_disabled"><em class="fa fa-cog"></em></th>
 						</tr>

@@ -126,7 +126,7 @@
 				@if(in_array(Auth::user()->role_id,[1,14]))
 				<li>
 					 <a data-toggle="tab" href="#Ants">
-					 	<i class="fa fa-history fa-1x"></i>&nbsp;<span>Antecedants</span>&nbsp;<span class="badge badge-primary">
+					 	<i class="fa fa-history fa-1x"></i>&nbsp;<span>Antécédents</span>&nbsp;<span class="badge badge-primary">
 					 	{{$patient->antecedants->count() }}</span>
 					</a>
 				</li>

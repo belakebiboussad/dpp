@@ -36,8 +36,8 @@ class UsersController extends Controller
     }
     public function index()
     {
-      $users = User::all();
-      return view('user.index',compact('users'));
+      $roles = rol::all(); //$users = User::all();
+      return view('user.index',compact('roles'));
     }
     /**
      * Show the form for creating a new resource.
@@ -277,10 +277,8 @@ class UsersController extends Controller
     public function search(Request $request)
     {
       $value = trim($request->value);
-      if($request->field == "role_id")
-          $users = User::with('role')->whereHas('role', function ($q) use ($value){
-                    $q->where('role','LIKE','%'.$value.'%');
-                 })->get();
+      if($request->field == "role_id")//$users = User::with('role')->whereHas('role', function ($q) use ($value){$q->where('role','LIKE','%'.$value.'%');})->get();
+        $users = User::with('role')->where($request->field,$value)->get(); 
       else 
         $users = User::with('role')->where($request->field,'LIKE','%'.$value."%")->get();          
        return Response::json($users);

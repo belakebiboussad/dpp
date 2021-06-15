@@ -1,4 +1,4 @@
-<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Antecedants Personnels</h3></div></div>
+<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Antécédents personnels</h3></div></div>
 <div class="row">
 <div class= "widget-box widget-color-blue">
 	<div class="widget-header">

@@ -37,7 +37,7 @@
       <li class="">
         <a href="{{ route('rdvHospi.index') }}">
             <i class="menu-icon fa fa-university"></i>
-            <span class="menu-text"> Acceuil </span>
+            <span class="menu-text">Accueil</span>
         </a>
         <b class="arrow"></b>
       </li>

@@ -68,18 +68,25 @@
 			}).prop('selected', true);
 		}	
 	}
+	$(function(){
+		$('.autofield').change(function() {
+	      if (this.value.trim()) { //value = this.value.trim();
+	   		  field = $(this).prop("id");	//return false;
+	   		}
+	  });
+	});
+	$(function(){
+		$('#Dat_Naissance').change(function(){
+    	 field = $(this).prop("id");	
+		});
+	});
+
 	var field ="Dat_Naissance";
 	$(document).ready(function(){
 		$(document).on('click','.findptient',function(event){
-			var field ="Dat_Naissance";
 			event.preventDefault();
 			$('#btnCreate').removeClass('hidden');$('#FusionButton').removeClass('hidden');
 			$('#patientDetail').html('');$(".numberResult").html('');
-			$('.autofield').each(function() {
-	  			  if (this.value.trim()) { //value = this.value.trim();
-	    				  field = $(this).prop("id");	//return false;
-	    		}
-	  	});
 			$.ajax({
 		        type : 'get',
 		        url : '{{URL::to('searchPatient')}}',

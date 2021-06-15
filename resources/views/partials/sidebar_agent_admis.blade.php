@@ -17,7 +17,7 @@
     </div><!-- /.sidebar-shortcuts -->
      <li class=""><a href="home"><i class="menu-icon fa fa-picture-o"></i><span class="menu-text">Gestion des Admissions</span></a><b class="arrow"></b></li>
      <ul class="nav nav-list">
-          <li class=""> <a href="{{route('home_admission')}}"><i class="menu-icon fa fa-tachometer"></i><span class="menu-text"> Acceuil</span></a>
+          <li class=""> <a href="{{route('home_admission')}}"><i class="menu-icon fa fa-tachometer"></i><span class="menu-text">Accueil</span></a>
           <b class="arrow"></b></li>
           <li class=""> <a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-users"></i><span class="menu-text">Admissions</span>
                 <b class="arrow fa fa-angle-down"></b></a><b class="arrow"></b>

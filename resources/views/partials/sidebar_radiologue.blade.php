@@ -24,7 +24,7 @@
     </li>
     <ul class="nav nav-list">
         <li class="">
-            <a href="/homeradiologue"> <i class="menu-icon fa fa-university"></i> <span class="menu-text"> Acceuil </span></a>
+            <a href="/homeradiologue"> <i class="menu-icon fa fa-university"></i> <span class="menu-text">Accueil</span></a>
             <b class="arrow"></b>
         </li>
         <li class="">

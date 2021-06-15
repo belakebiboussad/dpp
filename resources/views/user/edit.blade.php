@@ -72,17 +72,15 @@
 						</div>
 					</div>
 				</div>{{-- row --}}
-				<div class="row">
-					<div class="col-sm-12"><h4 class="header smaller lighter blue">Contact</h4></div>
-				</div>
+				<div class="row"><div class="col-sm-12"><h4 class="header smaller lighter blue">Contact</h4></div></div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group {{ $errors->has('adresse') ? "has-error" : "" }}">
-						<label class="col-sm-3 control-label no-padding-right" for="adresse"><b>Adresse :</b></label>
-						<div class="col-sm-9">
-						<input class="col-xs-12 col-sm-12" type="text" name="adresse" value="{{ $user->employ->Adresse }}" placeholder="Adresse..."/>
+							<label class="col-sm-3 control-label no-padding-right" for="adresse"><b>Adresse :</b></label>
+							<div class="col-sm-9">
+								<input class="col-xs-12 col-sm-12" type="text" name="adresse" value="{{ $user->employ->Adresse }}" placeholder="Adresse..."/>
+							</div>	
 						</div>	
-					</div>	
 					</div>
 					<div class="col-xs-12 col-sm-3">
 						<div class="form-group {{ $errors->has('mobile') ? "has-error" : "" }}">
@@ -101,9 +99,7 @@
 						</div>
 					</div>
 				</div>{{-- row--}}
-				<div class="row">
-					<div class="col-sm-12"><h4 class="header smaller lighter blue">Information de poste</h4></div>
-				</div>
+				<div class="row"><div class="col-sm-12"><h4 class="header smaller lighter blue">Information de poste</h4></div></div>
 				  <div class="row">
 					<div class="col-xs-12 col-sm-4">
 						<div class="form-group {{ $errors->has('mat') ? "has-error" : "" }}">
@@ -142,8 +138,7 @@
 				</div>{{-- row --}}
 				<div class="form-actions center">
 					<button type="submit" class="btn btn-sm btn-success">
-					<i class="ace-icon fa fa-save icon-on-left bigger-110"></i>
-						Enregistrer
+						<i class="ace-icon fa fa-save icon-on-left bigger-110"></i>Enregistrer
 					</button>
 				</div>
 			</form>
@@ -155,24 +150,16 @@
 			{{ csrf_field() }}
   		{{ method_field('PUT') }}
   		<div class="form-group">
-				<label class="col-sm-4 control-label no-padding-right" for="username">
-	   			<strong>Login	 :</strong>
-	   		</label>
+				<label class="col-sm-4 control-label no-padding-right" for="username"><strong>Login	:</strong></label>
 				<div class="col-sm-8 input-group">
-				  <div class="input-group-addon">
-				  	<span class="glyphicon glyphicon-user"></span> 
-				  </div>
+				  <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
 				 	<input type="text" name="username" placeholder="Username" value="{{ $user->name }}" class="col-xs-11 col-sm-11" />
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-4 control-label no-padding-right" for="email">
-					<strong>Email :</strong>
-				</label>
+				<label class="col-sm-4 control-label no-padding-right" for="email"><strong>Email :</strong></label>
 				<div class="col-sm-8 input-group">
-			  	<div class="input-group-addon">
-			  		<span class="glyphicon glyphicon-envelope"></span>
-			  	</div>
+			  	<div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
 			    <input name="email" type="email" value="{{ $user->email }}" class="col-xs-11 col-sm-11"/>
 			     <!-- class="form-control" -->
 			  </div>

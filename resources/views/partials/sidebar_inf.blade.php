@@ -31,7 +31,7 @@
     <ul class="nav nav-list">
       <li class="">
         <a href="{{ route('hospitalisation.index') }}">
-          <i class="menu-icon fa fa-university"></i><span class="menu-text"> Acceuil </span>
+          <i class="menu-icon fa fa-university"></i><span class="menu-text">Accueil</span>
         </a>
         <b class="arrow"></b>
       </li>

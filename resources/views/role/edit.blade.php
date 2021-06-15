@@ -10,9 +10,7 @@
 				{{ csrf_field() }}
 				{{ method_field('PUT') }}
 				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-						<strong> Nom du role </strong>
-					</label>
+					<label class="col-sm-3 control-label no-padding-right" for="form-field-1"><strong> Nom du role </strong></label>
 					<div class="col-sm-9">
 						<input type="text" id="rolename" name="rolename" placeholder="Nom du role" class="col-xs-10 col-sm-5"  value="{{ $role->role }}" required/>
 					</div>

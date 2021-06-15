@@ -40,7 +40,7 @@
     <li class="">
         <a href="home">
             <i class="menu-icon fa fa-picture-o"></i>
-            <span class="menu-text">MENU Gestion Patients</span>
+            <span class="menu-text">Menu Gestion Patients</span>
         </a>
 
         <b class="arrow"></b>
@@ -50,7 +50,7 @@
         <li class="">
             <a href="/homelaboexb">
                 <i class="menu-icon fa fa-university"></i>
-                <span class="menu-text"> Acceuil </span>
+                <span class="menu-text">Accueil</span>
             </a>
 
             <b class="arrow"></b>
@@ -59,7 +59,7 @@
         <li class="">
             <a href="/listedemandesexb">
                 <i class="menu-icon fa fa-bookmark-o"></i>
-                <span class="menu-text"> Liste Des Demandes </span>
+                <span class="menu-text"> Liste des demandes </span>
             </a>
             <b class="arrow"></b>
         </li>

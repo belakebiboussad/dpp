@@ -43,11 +43,13 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="panel panel-default ">
-				<div class="panel-heading left"><!-- style="height: 40px; font-size: 2.3vh;" -->
+				<div class="panel-heading left">
 					<H4><strong>Rechercher un Fonctionnire</strong></H4>
+					@if(in_array(Auth::user()->role->id,[1,2,13,14]))
 					<div class="pull-right"><!-- style ="margin-top:-0.5%;" -->
 						<a href="{{route('patient.index')}}" class ="btn btn-white btn-info btn-bold btn-xs">Rechercher un Patient&nbsp;<i class="ace-icon fa fa-arrow-circle-right bigger-120 black"></i></a>
 					</div>
+					  @endif
 				</div>
 				<div class="panel-body">
 					<div class="row">
@@ -75,11 +77,6 @@
 <button type="submit" class="btn btn-xs btn-primary findAssure"><i class="fa fa-search"></i>&nbsp;Rechercher</button> 	
 {{-- <a  class="btn btn-danger btn-xs" href="{{ route('assur.destroy',12) }}" role="button" aria-pressed="true" data-method="DELETE"><i class="ace-icon fa fa-trash-o bigger-110"></i>Supprimer</a>
 <a class="btn btn-danger btn-xs" href="{{ route('assur.edit',12) }}" role="button" aria-pressed="true" >Teste</a>--}}
-					@if(Auth::user()->role_id == 4)
-					<div class="pull-right">
-						<a  class="btn btn-primary btn-xs hidden" href="{{ route('assur.create') }}" id=btnCreate role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>
-					</div>
-					@endif
 				</div>
 			</div><!-- panel -->
 		</div>

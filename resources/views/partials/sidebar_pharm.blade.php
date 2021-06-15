@@ -24,13 +24,13 @@
   <ul class="nav nav-list">
     <li class="">
       <a href="/home">
-        <i class="menu-icon fa fa-university"></i> <span class="menu-text"> Acceuil </span>
+        <i class="menu-icon fa fa-university"></i> <span class="menu-text">Accueil</span>
       </a>
       <b class="arrow"></b>
     </li>
     <li class="">
         <a href="{{ route('demandeproduit.index') }}">
-                <i class="menu-icon fa fa-bookmark-o"></i><span class="menu-text"> Liste Demandes </span>
+                <i class="menu-icon fa fa-bookmark-o"></i><span class="menu-text"> Liste demandes </span>
       </a>
       <b class="arrow"></b>
     </li>

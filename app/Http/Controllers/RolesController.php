@@ -70,7 +70,7 @@ class RolesController extends Controller
     public function edit($id)
     {
         $role = rol::FindOrFail($id);
-        return view('role.edit_role', compact('role'));
+        return view('role.edit', compact('role'));
     }
 
     /**
