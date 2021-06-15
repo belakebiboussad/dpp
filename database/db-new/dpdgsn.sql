@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 15 juin 2021 à 09:09
+-- Généré le : mar. 15 juin 2021 à 10:30
 -- Version du serveur :  5.7.23
 -- Version de PHP : 7.2.10
 
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `actes` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_code_ngap` (`code_ngap`)
-) ENGINE=InnoDB AUTO_INCREMENT=128 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `actes`
@@ -69,7 +69,11 @@ INSERT INTO `actes` (`id`, `nom`, `id_visite`, `description`, `type`, `code_ngap
 (124, 'acte', 1287, 'fgfdgf', 'paramedicale', 'PRA', '[\"Matin\", \"Midi\", \"Soir\"]', 2, 0, b'0', NULL, NULL),
 (125, 'acte', 1290, '71', 'medicale', 'CRM', '[\"Matin\", \"Soir\"]', 2, 0, b'1', NULL, NULL),
 (126, 'temiratute', 1312, NULL, 'paramedicale', NULL, '[\"Matin\", \"Midi\"]', 1, 0, b'0', NULL, NULL),
-(127, 'tension', 1312, 'xcgvn', 'paramedicale', 'FPE', '[\"Matin\", \"Soir\"]', 3, 0, b'0', NULL, NULL);
+(127, 'tension', 1312, 'xcgvn', 'paramedicale', 'FPE', '[\"Matin\", \"Soir\"]', 3, 0, b'0', NULL, NULL),
+(128, 'cxwc', 1319, '81', 'paramedicale', 'CA', '[\"Matin\", \"Midi\"]', 1, 0, b'1', NULL, NULL),
+(129, 'acte', 1321, 'dsqds', 'paramedicale', 'CA', '[\"Matin\", \"Soir\"]', 3, 0, b'0', NULL, NULL),
+(130, 'csc', 1322, 'etrere', 'paramedicale', 'C', '[\"Matin\", \"Soir\"]', 4, 0, b'1', NULL, NULL),
+(131, 'sdf', 1323, 'fsdf', 'medicale', 'C', '[\"Matin\", \"Soir\"]', 8, 0, b'0', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -201,7 +205,7 @@ CREATE TABLE IF NOT EXISTS `admissions` (
   KEY `admissions_id_lit_foreign` (`id_lit`),
   KEY `admissions_id_rdvHosp_foreign` (`id_rdvHosp`) USING BTREE,
   KEY `fk_admission_demandeHosp` (`demande_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `admissions`
@@ -227,7 +231,8 @@ INSERT INTO `admissions` (`id`, `demande_id`, `id_rdvHosp`, `id_lit`, `etat`) VA
 (21, 31, NULL, 16, NULL),
 (22, 32, 254, 2, NULL),
 (23, 33, NULL, 5, NULL),
-(24, 28, NULL, 6, NULL);
+(24, 28, NULL, 6, NULL),
+(25, 34, NULL, 15, NULL);
 
 -- --------------------------------------------------------
 
@@ -428,7 +433,8 @@ INSERT INTO `bedaffectation` (`demande_id`, `lit_id`) VALUES
 (33, 5),
 (29, 18),
 (28, 6),
-(25, 14);
+(25, 14),
+(34, 15);
 
 -- --------------------------------------------------------
 
@@ -2333,7 +2339,7 @@ CREATE TABLE IF NOT EXISTS `consultations` (
   KEY `fk_Consultation_Employe1_idx` (`Employe_ID_Employe`),
   KEY `fk_Consultation_Patient1_idx` (`Patient_ID_Patient`),
   KEY `fk_code_CIM` (`id_code_sim`)
-) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `consultations`
@@ -2423,7 +2429,8 @@ INSERT INTO `consultations` (`id`, `motif`, `histoire_maladie`, `Date_Consultati
 (128, 'avec dh programe', NULL, '2021-06-09', NULL, 'avec dh programe', 0, NULL, 102, 192, NULL, 21),
 (129, 'avec ordonnance', NULL, '2021-06-10', NULL, 'avec ord', 0, NULL, 102, 191, NULL, 21),
 (130, 'avec dh urg', NULL, '2021-06-13', NULL, 'avec dh urg', 0, NULL, 102, 189, NULL, 21),
-(131, 'avec examen bio', NULL, '2021-06-13', NULL, 'avec examen bio', 0, NULL, 102, 190, NULL, 21);
+(131, 'avec examen bio', NULL, '2021-06-13', NULL, 'avec examen bio', 0, NULL, 102, 190, NULL, 21),
+(132, 'avec DH urgence', NULL, '2021-06-15', NULL, 'avec DH urgence', 0, NULL, 102, 192, NULL, 21);
 
 -- --------------------------------------------------------
 
@@ -3271,7 +3278,7 @@ CREATE TABLE IF NOT EXISTS `demandehospitalisations` (
   KEY `fk_DemandeHospitalisation_Consultation1_idx` (`id_consultation`),
   KEY `service` (`service`),
   KEY `specialite` (`specialite`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `demandehospitalisations`
@@ -3310,7 +3317,8 @@ INSERT INTO `demandehospitalisations` (`id`, `service`, `specialite`, `modeAdmis
 (30, 1, 1, 'Urgence', NULL, 'hospitalisation', 126),
 (31, 1, 1, 'Urgence', NULL, 'admise', 127),
 (32, 1, 1, 'Programme', NULL, 'hospitalisation', 128),
-(33, 1, 1, 'Urgence', NULL, 'hospitalisation', 130);
+(33, 1, 1, 'Urgence', NULL, 'hospitalisation', 130),
+(34, 1, 1, 'Urgence', NULL, 'admise', 132);
 
 -- --------------------------------------------------------
 
@@ -4596,7 +4604,7 @@ CREATE TABLE IF NOT EXISTS `lits` (
 --
 
 INSERT INTO `lits` (`id`, `num`, `nom`, `etat`, `affectation`, `salle_id`) VALUES
-(1, 2, 'lit1', 1, 1, 3),
+(1, 2, 'lit1', 1, 0, 3),
 (2, 1, 'lit2', 1, 1, 2),
 (3, 3, 'lit3', 1, 1, 3),
 (4, 4, 'lit4', 1, 1, 3),
@@ -11574,11 +11582,11 @@ INSERT INTO `patients` (`id`, `IPP`, `Nom`, `Prenom`, `nom_jeune_fille`, `Dat_Na
 (188, '02020188', 'p', 'p', NULL, '1969-05-12', 613, 'M', 'M', 'rue 01', 613, 16, '0555555555', NULL, NULL, NULL, 'A', '+', '135624875699', '1', NULL, 1, '2021-02-11', NULL, '2020-12-13 08:07:43'),
 (189, '02020189', 'mrabet', 'kamel', NULL, '2019-09-22', 613, 'F', 'C', 'alg', 613, 16, '0556565121', '0698956450', NULL, NULL, 'B', NULL, '655914253678', '4', NULL, 1, '2021-06-09', NULL, '2020-12-13 08:17:44'),
 (190, '02020190', 'patient', 'mohamed', NULL, '1968-11-05', 287, 'F', 'C', 'blida', 287, 9, '0555555587', '', NULL, NULL, 'O', NULL, '455122326514', '3', NULL, 1, '2021-05-23', NULL, '2020-12-13 08:32:20'),
-(191, '02020191', 'benchrif', 'rahma', NULL, '1959-01-04', 287, 'M', 'C', 'blida', 287, 9, '0555555555', '', NULL, NULL, 'A', '+', '455122326514', '3', NULL, 1, '2021-06-07', NULL, '2020-12-13 08:32:22'),
+(191, '12020191', 'benchrif', 'rahma', NULL, '1959-01-04', 287, 'M', 'C', 'blida', 287, 9, '0555555555', '', NULL, NULL, 'A', '+', '455122326514', '3', NULL, 1, '2021-06-07', NULL, '2020-12-13 08:32:22'),
 (192, '02020192', 'slimana', 'ouamer', NULL, '1979-06-23', 613, 'M', 'M', 'rue 01', 613, 16, '0666666666', '', NULL, NULL, 'O', NULL, '444624875695', '2', NULL, 1, '2021-05-19', NULL, '2020-12-13 08:43:03'),
 (193, '02020193', 'p4', 'p4', NULL, '2020-12-06', 613, 'M', 'M', 'alg', 287, 9, '0555555555', '', NULL, NULL, 'B', '+', '585624875695', '1', NULL, 1, '2020-12-13', NULL, '2020-12-13 10:03:43'),
 (194, '02020194', 'p5', 'p5', NULL, '2020-10-05', 613, 'M', 'D', 'alg', 613, 16, '0555555555', '', NULL, NULL, 'B', '+', '985624875695', '2', NULL, 1, '2020-12-13', NULL, '2020-12-13 14:58:59'),
-(202, '02020202', 'ahmed', 'malia', NULL, '1959-01-27', 613, 'F', 'M', 'alger', 613, 16, '0555555555', '', NULL, '149020015465', 'A', '+', '894568124785', '1', NULL, 1, '2020-12-13', NULL, '2020-12-13 20:00:06'),
+(202, '12020202', 'ahmed', 'malia', NULL, '1959-01-27', 613, 'F', 'M', 'alger', 613, 16, '0555555555', '', NULL, '149020015465', 'A', '+', '894568124785', '1', NULL, 1, '2020-12-13', NULL, '2020-12-13 20:00:06'),
 (203, '02020203', 'magita', 'bori', NULL, '1980-12-05', 1452, 'F', 'M', 'rue 02', 287, 9, '0555555555', '', NULL, NULL, 'AB', '+', '135624875695', '0', NULL, 1, '2020-12-16', NULL, '2020-12-16 07:40:15'),
 (204, '02020204', 'lamine', 'ouali', NULL, '1950-06-27', 613, 'M', 'C', 'rua ben omar kouba', 613, 16, '0556231479', '', NULL, NULL, 'B', '+', '875614325845', '0', NULL, 1, '2021-01-10', NULL, '2020-12-16 10:18:39'),
 (205, '02020205', 'nom', 'mari', NULL, '1989-06-13', 287, 'M', 'C', 'alger', 613, 16, '0556892314', '', NULL, NULL, 'B', '-', '135624875695', '4', NULL, 1, '2020-12-29', NULL, '2020-12-29 05:41:47'),
@@ -11615,7 +11623,7 @@ INSERT INTO `patients` (`id`, `IPP`, `Nom`, `Prenom`, `nom_jeune_fille`, `Dat_Na
 (257, NULL, 'csc', 'csc', NULL, '2021-06-07', 613, 'M', 'V', NULL, 613, 16, '0555555555', '', NULL, NULL, 'B', '+', '985625554587', '0', NULL, 1, '2021-06-10', NULL, '2021-06-10 14:28:51'),
 (258, NULL, 'rabii', 'lamia', NULL, '1973-06-13', 613, 'F', 'C', NULL, NULL, NULL, '0547465656', '', NULL, NULL, 'A', '+', '032564245657', '0', NULL, 1, '2021-06-10', NULL, '2021-06-10 14:30:49'),
 (259, '02021259', 'rabii', 'lamia', NULL, '1973-06-13', 613, 'F', 'C', NULL, NULL, NULL, '0547465656', '', NULL, NULL, 'A', '+', '032564245657', '0', NULL, 1, '2021-06-10', NULL, '2021-06-10 14:31:31'),
-(261, '12021261', 'amar', 'ouaheb', NULL, '1933-06-10', 287, 'M', 'M', NULL, NULL, NULL, '', '', NULL, NULL, 'A', NULL, '005624875694', '2', NULL, 1, '2021-06-14', NULL, '2021-06-14 09:58:17'),
+(261, '12021261', 'amar', 'ouaheb', NULL, '1933-06-10', 287, 'M', 'M', NULL, NULL, NULL, '', '', NULL, '005124555144', 'A', NULL, '005624875694', '2', NULL, 1, '2021-06-15', NULL, '2021-06-14 09:58:17'),
 (263, '12021263', 'dqsd', 'dqsd', NULL, NULL, NULL, 'M', 'C', NULL, NULL, NULL, '', '', NULL, '004566666456', 'B', NULL, '054654564981', '2', NULL, 1, '2021-06-14', NULL, '2021-06-14 12:26:25');
 
 -- --------------------------------------------------------
@@ -12414,7 +12422,7 @@ CREATE TABLE IF NOT EXISTS `traitements` (
   `duree` int(11) NOT NULL,
   `visite_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `traitements`
@@ -12433,7 +12441,8 @@ INSERT INTO `traitements` (`id`, `med_id`, `posologie`, `periodes`, `duree`, `vi
 (47, 20, '1 comprime par jour', '[\"Matin\", \"Midi\"]', 1, 1273),
 (48, 948, '1 comprime par jour', '[\"Matin\", \"Soir\"]', 2, 1275),
 (49, 21, '1 comprime par jour', '[\"Matin\", \"Soir\"]', 2, 1275),
-(50, 330, '1 comprime par jour', '[\"Matin\"]', 1, 1276);
+(50, 330, '1 comprime par jour', '[\"Matin\"]', 1, 1276),
+(52, 21, '1 comprime par jour', '[\"Matin\", \"Midi\", \"Soir\"]', 1, 1324);
 
 -- --------------------------------------------------------
 
@@ -12516,24 +12525,24 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
 
 INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `role_id`, `remember_token`, `active`) VALUES
 (3, 'inf', '$2y$10$iCZWwSL3s9u9Fn/9M.TykeHfUx/CRhmrp069KVhYg34RXohdBaVdy', NULL, 1, 3, 'qUnBTPkQ4EtuXmXJs50V8y5jl2b57qtovhNkV8NoQ2t7k4qxAxTniMVUL4f1', 1),
-(25, 'admin', '$2y$10$B1bDBc58b2oRAgoTFEqWauKio.yiYSlkmTxC8yNkaG6uaK4SA3HoC', 'mail@live.fr', 65, 4, 'yu3scNK6gRlypXsrW6q1WtUBVFwoEDkbgqDcvHYbrawVNrWLsojjDhuOB2eK', 1),
+(25, 'admin', '$2y$10$B1bDBc58b2oRAgoTFEqWauKio.yiYSlkmTxC8yNkaG6uaK4SA3HoC', 'mail@live.fr', 65, 4, 'c28bZ1OiPyPc5Pd0cTZVr0tB2RAnwXP2nFsGMl7QQuL6E8vsmDK8ncgXVqYq', 1),
 (28, 'medChef', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'az@e.fr', 87, 13, 'GtsERzROhMI17wLDz9bj8agtQGftKg9YW3Jop27qso079ht8HqA7rmROafvp', 1),
 (29, 'colloque', '$2y$10$Ve5h8oMwfAmfzHgTLrfJTOmGUiBpZLdxrfEfYC/7g2a1G62ZkM2QO', 'gdcedgg@yah.fr', 80, 5, 'gpZZ7n5wZzyDItBNWBgOWJBuHVN9zPFAVCnhFigz3AQFygICRp4ENyCc2B8W', 1),
 (30, 'sur', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'rlakhneche@cdta.dz', 81, 5, '0XbJqdFqdwM20NY6k1cEGQO3PZrQKVoCAhWAnZfz5zmd2VGrjnwdGVH4EKat', 1),
-(31, 'rec', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', NULL, 82, 2, 'eX5IENlsv94A4ET7Qwp8HlppjNfAoKgQnU7tZ1I0iUujbiYtW4jnpiauV5Rn', 1),
+(31, 'rec', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', NULL, 82, 2, 'bj95brzFQJMYmOhW1roNEG4MoWMu4xku7KXYRE9PrlGp5PSm7Ff0jDPUREwA', 1),
 (33, 'test', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'test@gmail', 79, 1, 'jVwivfkZ4VIp3AGewC51osG092X85a3MAdPFgfiEGXfy1sOGfzyxuAIaEjC4', 1),
 (34, 'med', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'admin@gmail.com', 88, 1, 'fb3Fq2xQgFWyTBO5v1lRHwwIkqlMoObVnU9zTeylFhh5tAzWkHzNg5l2N6ig', 0),
 (35, 'delCol', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'll@a.fr', 89, 6, '7tcJdo3T0rLHGgA4zCnqRh7CTTBlduDXaNvF6MvvQKLUY5tOQ86eUX5gMAPn', 1),
 (38, 'user', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'jj@hot.frr', 93, 13, 'QGzAK3Ot9VH190WBcOuRMMdfEN0H91VgB1MXO6vbFuiiu15koQYCQLxWP4BT', 1),
-(39, 'surMed', '$2y$10$zUdI0W5QV/1fmnBnhmL2TOTqN8GMNEdZZK6o4gclrJ1CKfxVq.Rca', 'bbedeebi@cdta.dz', 94, 5, 'wYLElOPP99DTqQLuh4jkvmlrr64gQx9WeBNsW9aWFHwVrg9VF3lHQ9PWLooI', 1),
+(39, 'surMed', '$2y$10$zUdI0W5QV/1fmnBnhmL2TOTqN8GMNEdZZK6o4gclrJ1CKfxVq.Rca', 'bbedeebi@cdta.dz', 94, 5, 'MySQsZ8DaEby6q2RjnDnqNkrf9R0potpEq9mNNU7NiJYl5W6T1krEL5jUDkz', 1),
 (40, 'agentAdm', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'agentAdm@hop.dz', 95, 9, 'hcEiyOu6lVtRBS0HwhkUkIf2CrZunWTA0omOlazCn1GaTHxQPKkyUnaWSueG', 1),
-(41, 'agent', '$2y$10$RsD.pKjSIV73uBbaLJNE.uXhzCmCixdBf71lcxBq2wmQu0dsRzdmy', 'agent@hop.dz', 96, 9, '0XvVOj64SWnrVr73lAOs01XU4d23KoTjZB3rW0uzpaEmxFf5WUMAMXlb3aEP', 1),
+(41, 'agent', '$2y$10$RsD.pKjSIV73uBbaLJNE.uXhzCmCixdBf71lcxBq2wmQu0dsRzdmy', 'agent@hop.dz', 96, 9, '4TwoPDArPyKDjGZU0qI1sXy8irpV28SQOFkRIuCgyhBnhOLmuUjb1jeWmCEy', 1),
 (42, 'laborantin', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'lab@hop.dz', 97, 11, 'pgYRiIwrKwjwKfFq4fGNgCmOddOIDNOcAcMchTWpT3untJmBsdf6w7sSAQmJ', 1),
 (43, 'radiogue', '$2y$10$k5gKJEykSI5PNYLHyheO.eXq4ge1e6Rkz/HN/mMKUZiKZFe8qMlki', 'rad@hop.dz', 98, 12, 'benlcglfiv00sldthLpx1KXLmtI2DYvCGoRpjKunnuQE0cSzBTETHsXO9x9e', 1),
 (44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, 'kpBJfTCvd2SP3BkyPqgdnSHwoMHEoAWGaDS0QeQu6arJNqxWOxijlkb8pQji', 1),
 (45, 'chefServ', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'MqwpSXPTQM0JlyL3aHRfqlG29ow5QmZnqGPwuINxH9jaZRFPEFqIoFdW1SxY', 1),
 (46, 'rad', '$2y$10$PNDRMvcnhl1kZ.sxfoq8Yuhoq6ZMQePi9/q1QbLUZ.a.hd5DxvnCS', 'rad@cdta.net', 101, 12, 'dU7FBnACADohcjhtgc8RJXNUTGQxaey21pQcY16XMVs6QSCRyQp610ortzDP', 1),
-(47, 'cardio', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'bbedeebi@cdta.dz', 102, 1, 'hVrC8CaipnEHTLWCzKbLuRIjweu4MiLKPOybEvhPXnEUeykiLJbV63VsKyLv', 1),
+(47, 'cardio', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'bbedeebi@cdta.dz', 102, 1, '9pxs6aMZ037mymSrmOdzPt2OWDTxH2D8wQtaSwpdeyMyJAKKvAzZSXVmY4NI', 1),
 (48, 'geneco', '$2y$10$MeHcy1r9az/dgkC9pLvo/Ob4eqJVp8mRjGuZeyL9yA6k8sc3D0FAW', 'geneco@cdta.dz', 103, 1, 'wG4AMsJliph2HEp2SwRF5E6z7xHjvR9gDzzEAU9vV9Fe4FsAh28t3TGQZDra', 1),
 (55, 'sup', '$2y$10$KMz3xI6SFSVafWDbulGrEegn7wTkCr4HmxVdUTwMeNvarK3o0N9AW', 'admin@gmail.com', 110, 2, 'yKzTFVPrnDywAvS2qoqmKHFRKurGGwJwy8b00YLZPZYysquBO1dqsV1VA4eq', 1),
 (56, 'mohand', '$2y$10$P/S8ej3FHSVBfr0YNsVIcOtmxxR3NSxR8X2uOLIq3Qcvv/uCt4eBi', 'ma@gmail.com', 111, 3, NULL, 1),
@@ -12557,7 +12566,7 @@ CREATE TABLE IF NOT EXISTS `visites` (
   PRIMARY KEY (`id`),
   KEY `visites_id_hosp_foreign` (`id_hosp`),
   KEY `visites_id_employe_foreign` (`id_employe`)
-) ENGINE=InnoDB AUTO_INCREMENT=1319 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1325 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `visites`
@@ -12738,7 +12747,13 @@ INSERT INTO `visites` (`id`, `date`, `heure`, `id_hosp`, `id_employe`, `created_
 (1315, '2021-06-13', '12:14:00', 15, 102, NULL, NULL),
 (1316, '2021-06-13', '12:21:00', 15, 102, NULL, NULL),
 (1317, '2021-06-13', '23:09:00', 19, 102, NULL, NULL),
-(1318, '2021-06-13', '23:09:00', 19, 102, NULL, NULL);
+(1318, '2021-06-13', '23:09:00', 19, 102, NULL, NULL),
+(1319, '2021-06-15', '09:30:00', 17, 102, NULL, NULL),
+(1320, '2021-06-15', '09:32:00', 17, 102, NULL, NULL),
+(1321, '2021-06-15', '09:33:00', 17, 102, NULL, NULL),
+(1322, '2021-06-15', '09:34:00', 17, 102, NULL, NULL),
+(1323, '2021-06-15', '09:42:00', 17, 102, NULL, NULL),
+(1324, '2021-06-15', '09:43:00', 17, 102, NULL, NULL);
 
 -- --------------------------------------------------------
 
