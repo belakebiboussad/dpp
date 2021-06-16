@@ -3,7 +3,7 @@
 				<div  id="" class="modal-content custom-height-modal">
 					<div class="modal-header">
 			  			<button type="button" class="close" data-dismiss="modal">&times;</button>
-			  			<h4 class="modal-title" id="acteCrudModal">Ajouter un Acte Médicale</h4>
+			  			<h4 class="modal-title" id="acteCrudModal">Prescrire un Acte Médicale</h4>
 			  		</div>
 					<div class="modal-body">
 				      <form id="addActe" method="POST" action ="/saveActe" name="form1" id="form1">	<!-- /Acte/save -->
