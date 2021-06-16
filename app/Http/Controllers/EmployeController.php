@@ -5,6 +5,7 @@ use Response;
 use App\User;
 use App\modeles\employ;
 use App\modeles\specialite;
+use Validator;
 class EmployeController extends Controller
 {
     /**
@@ -69,15 +70,23 @@ class EmployeController extends Controller
      */
     public function update(Request $request, $employid)
     {
+        $rule = array(
+            "nom"=> "required | max:120",
+            "prenom"=> "required|max:120",
+            "datenaissance"=> "required",// | date
+            "lieunaissance"=> "required",
+            "sexe"=> "required",//"adresse"=>"required",
+            "mobile"=> "required | regex:/[0][567][0-9]{8}/",//"fixe"=> "numeric | regex:/[0][0-9]{8}/","mat"=> "required","service"=> "required",nss"=> "required | regex:/[0-9]{12}/","specialite"=>"required",
+        );
+        $messages = [
+          "required"     => "Le champ :attribute est obligatoire.", // "NSSValide"    => 'le numéro du securite sociale est invalide ',
+           "date"         => "Le champ :attribute n'est pas une date valide.",
+        ];
+        $validator = Validator::make($request->all(),$rule,$messages);     
+        if ($validator->fails()) {
+            return redirect()->back()->withInput($request->input())->withErrors($validator->errors());
+        }
         $employe = employ::FindOrFail($employid);
-        $request->validate([
-                "nom"=> "required | max:120",
-                "prenom"=> "required|max:120",
-                "datenaissance"=> "required",// | date
-                "lieunaissance"=> "required",
-                "sexe"=> "required",//"adresse"=>"required",
-                "mobile"=> "required | regex:/[0][567][0-9]{8}/",//"fixe"=> "numeric | regex:/[0][0-9]{8}/","mat"=> "required","service"=> "required",nss"=> "required | regex:/[0-9]{12}/","specialite"=>"required",
-        ]);
         $employe->update([
                 "nom"=>$request->nom,
                 "prenom"=>$request->prenom,

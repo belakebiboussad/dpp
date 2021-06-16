@@ -134,23 +134,32 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {      
+      $rule = array(
+            "username"=> "required",
+            "email"=> "nullable|email",//|unique:utilisateurs
+            "role"=> "required",
+      );
+      $messages = [
+          "required"     => "Le champ :attribute est obligatoire.", // "NSSValide"    => 'le numéro du securite sociale est invalide ',
+           "date"         => "Le champ :attribute n'est pas une date valide.",
+      ];
+
+      $validator = Validator::make($request->all(),$rule,$messages);  
+      if ($validator->fails()) {
+        dd($validator->errors());
+        return redirect()->back()->withInput($request->input())->withErrors($validator->errors());
+      }
       $user = User::FindOrFail($id);
-      $request->validate([
-              "username"=> "required",
-              "email"=> "nullable|email",//|unique:utilisateurs
-              "role"=> "required",
-     ]);     
-     $activer = $user->active;
-    
-     if($user->active)
-     {
+      $activer = $user->active;
+      if($user->active)
+      {
         if(! isset($request->desactiveCompt))
           $activer= 0;      
-     }else
-     {
+      }else
+      {
         if(isset($request->activeCompt))
-               $activer=1;
-     }
+          $activer=1;
+      }
      $user->update([
               'name'=>$request->username,
                "password"=>$user->password,
@@ -314,5 +323,11 @@ class UsersController extends Controller
      $view = view("user.ajax_userdetail",compact('user','role','employe'))->render();
      return response()->json(['html'=>$view]);
     }
-    
+    public function passwordReset(Request $request)
+    {
+      if(Auth::Check() && (Auth::user()->is(4)))
+      {
+        return("dfgf");
+      }
+    }
 }

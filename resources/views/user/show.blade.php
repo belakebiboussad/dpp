@@ -117,12 +117,8 @@
 						<div class="col-sm-8"><label class="blue">{{ $user->name }}</label></div>
 					</div>
 				</div>
-				<div class="col-xs-12 col-sm-4">
-					<div class="form-group">
-						<label class="col-sm-4 control-label no-padding-right"><b>Nom d'utilisateur :</b></label>
-						<div class="col-sm-8"><label class="blue">{{ $user->name }}</label></div>
-					</div>
-				</div>
+{{-- <div class="col-xs-12 col-sm-4">		<div class="form-group"><label class="col-sm-4 control-label no-padding-right"><b>Password :</b></label>
+<div class="col-sm-8"><label class="blue">{{ decrypt($user->password) }}</label></div></div></div> --}}
 				<div class="col-xs-12 col-sm-4">
 					<div class="form-group">
 						<label class="col-sm-4 control-label no-padding-right"><b>Rôle :</b></label>
