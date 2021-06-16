@@ -94,14 +94,15 @@ function getUserdetail(id)
 @section('main-content')
 <div class="page-content">
 	<div class="row">
-	  <div class="col-sm-12 center">	
-			<h2><strong>Bienvenue :</strong><q class="blue"> {{ Auth::User()->employ->nom }} &nbsp;{{ Auth::User()->employ->prenom }}</q></h2>
+	  {{--<div class="col-sm-12 center">--}}
+	  <div class ="pull-left">	
+			<h3><strong>Bienvenu(e):</strong><q class="blue"> {{ Auth::User()->employ->nom }} &nbsp;{{ Auth::User()->employ->prenom }}</q></h3>
 		</div>		
 	</div>	{{-- row --}}
 	<div class="space-12"></div>
 	<div class="row panel panel-default">
 		<div class="panel-heading left">
-			<strong>Rechercher un Utilisateur</strong><div class="pull-right"></div>
+			<strong>Rechercher un utilisateur</strong><div class="pull-right"></div>
 		</div>
 		<div class="panel-body">
 			<div class="row">
@@ -109,7 +110,7 @@ function getUserdetail(id)
 	  	    <div class="form-group">
 		  	    <label class="control-label" for="name"><strong>Nom:</strong></label>
 		  	    <div class="input-group col-sm-10">
-							<input type="text" class="form-control input input-xs col-sm-12 autoUserfield filter" id="name" name="name"  placeholder="nom du l'utilisateur"/>
+							<input type="text" class="form-control input input-xs col-sm-12 autoUserfield filter" id="name" name="name"  placeholder="Nom de l'utilisateur"/>
 						</div>
 	  	    </div>
 	  	  </div>
@@ -139,7 +140,7 @@ function getUserdetail(id)
 		<div class="col-sm-7">
 		<div class="widget-box transparent">
 			<div class="widget-header widget-header-flat widget-header-small">
-				<h5 class="widget-title"><i class="ace-icon fa fa-user"></i>Resultats: </h5> 
+				<h5 class="widget-title"><i class="ace-icon fa fa-user"></i>Résultats: </h5> 
 				<label for=""><span class="badge badge-info numberUser"></span></label>
 			</div>
 			<div class="widget-body">

@@ -6,16 +6,16 @@
 	@include('patient._patientInfo',$patient)
 </div>
 <div class="page-header">
-	<h1 style="display: inline;">modification la demande d'hospitalisation</h1>
+	<h1 style="display: inline;">Modification de la demande d'hospitalisation</h1>
 	<div class="pull-right">
     <a href="{{route('demandehosp.index')}}" class="btn btn-white btn-info btn-bold">
-      <i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>liste des Demandes 'hospitalisation'
+      <i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>Liste des Demandes d'hospitalisation'
     </a>
   </div>
 </div>
 <div class="row">
 	<div class="col-sm-12">
-		<h3 class="header smaller lighter blue">informations concernant Consultation</h3>
+		<h3 class="header smaller lighter blue">Informations concernant la consultation</h3>
 	</div>	
 </div>
 <div class="row">
@@ -41,7 +41,7 @@
 					<div class="space-12"></div>
 					<div class="row">
 						<div class="col-sm-6 col-xs-6">
-					    <label class="col-sm-4 col-xs-4 control-label no-padding-right text-right" for="medein"><strong>Medecin:</strong></label>
+					    <label class="col-sm-4 col-xs-4 control-label no-padding-right text-right" for="medein"><strong>Médecin:</strong></label>
 					    <div class="col-sm-8 col-xs-8">
 					   	  <input type="text" id="medein" name="medein" value="{{ $demande->consultation->docteur->nom }}&nbsp; {{ $demande->consultation->docteur->prenom }}" class="col-xs-12 col-sm-12" disabled/>
 					    </div>
@@ -56,13 +56,13 @@
 					<div class="space-12"></div>
 					<div class="row">
 						<div class="col-sm-12 col-xs-12">
-							<label class = "col-sm-2 col-xs-2 control-label no-padding-right text-right" for="resume"><strong>reumé:</strong></label>
+							<label class = "col-sm-2 col-xs-2 control-label no-padding-right text-right" for="resume"><strong>resumé:</strong></label>
            	  <div class="col-sm-10 col-xs-10">
 					     <input type="text" id="resume" name="resume" value="{{ $demande->consultation->Resume_OBS }}" class="col-xs-12 col-sm-12" disabled/>
 					    </div>
 						</div>
 	      	</div>
-	     		<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">informations concernant la Demade</h3></div></div>
+	     		<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Informations concernant la Demande</h3></div></div>
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="widget-box">

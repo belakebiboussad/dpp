@@ -13,7 +13,7 @@
                <label class="inline"><span class="blue"><strong>Prénom :</strong></span><span class="lbl">{{ $patient->Prenom }}</span></label>&nbsp;&nbsp;&nbsp;
                 <label class="inline"><span class="blue"><strong>Genre :</strong></span><span class="lbl"> {{ $patient->Sexe == "M" ? "Masculin" : "Féminin" }}</span> 
                 </label>&nbsp;&nbsp;&nbsp;
-                <label class="inline"><span class="blue"><strong>Date Naissance :</strong></span><span class="lbl"> {{ $patient->Dat_Naissance }}</span></label>
+                <label class="inline"><span class="blue"><strong>Date de naissance :</strong></span><span class="lbl"> {{ $patient->Dat_Naissance }}</span></label>
                 &nbsp;&nbsp;&nbsp;
             <label class="inline"><span class="blue"><strong>Age :</strong></span> <span class="lbl"> {{ $patient->getAge() }} ans</span></label>
            </div>
@@ -25,7 +25,7 @@
       <ul class = "nav nav-tabs nav-justified" role="tablist">
           <li role= "presentation" class="active"  style="padding-left: 5px; padding-right: 5px;">
                 <a href="#Interogatoire" aria-controls="Interogatoire" role="tab" data-toggle="tab" class="btn btn-primary">
-                <span class="bigger-130"> Interogatoire</span></a>
+                <span class="bigger-130"> Interrogatoire</span></a>
           </li>
            <li role= "presentation" style="padding-left: 5px; padding-right: 5px;">
                 <a href="#ExamClinique"  ria-controls="ExamClinique" role="tab" data-toggle="tab" class="btn btn-primary btn-lg   {{ ! isset($consultation) ? 'disabled' : 'enabled' }} " > 

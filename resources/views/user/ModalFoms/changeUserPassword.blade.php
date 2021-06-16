@@ -1,20 +1,20 @@
 <div id="passwordReset" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
    	<div class="modal-content custom-height-modal">	<!-- Modal content-->
-			<div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button> <h4 class="modal-title">Changer le mot de Passe</h4></div>
+			<div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button> <h4 class="modal-title">Changer le mot de passe</h4></div>
 			<div class="modal-body">
 			  <div class="row">
 			    <div class="col-xs-12">
 						<input type="hidden" value="" id="user_id"/>	
-				 		<label for="specialiteOrient"><b>Mot de Passe:</b></label>
-				 		<input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="taper le nouveau mot de passe" required/>
+				 		<label for="specialiteOrient"><b>Mot de passe:</b></label>
+				 		<input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="Entrer un nouveau mot de passe" required/>
             <small class="help-block"></small>
 				  </div>
 			  </div><div class="space-12"></div>
 			  <div class="row">
    				<div class="col-xs-12">
-						<label for="motif"><b>Confirmer le Mot de Passe :</b></label>     
-			 			<input type="password" class="form-control" id="password_again" name="password_again" placeholder="taper encore le mot de passe" required/>
+						<label for="motif"><b>Confirmer le mot de passe :</b></label>     
+			 			<input type="password" class="form-control" id="password_again" name="password_again" placeholder="Entrer à nouveau le mot de passe" required/>
 					</div>
 				</div><div class="space-12"></div>
 	   	</div>{{-- modal-body --}}

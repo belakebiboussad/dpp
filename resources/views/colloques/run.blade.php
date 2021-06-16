@@ -65,7 +65,7 @@
 		<div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2">
 			<div class="widget-box widget-color-blue" id="widget-box-2">
 				<div class="widget-header">
-					<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des Demandes d'Hospitalisation :</h5>
+					<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des demandes d'hospitalisation :</h5>
 					<input type="hidden" id ="colloqueId" value ="{{ $colloque->id}}">
 				</div>
 				<div class="widget-body">

@@ -7,7 +7,7 @@
 			</li>
 			<li role= "presentation">
 				<a href="#ATCD" aria-controls="ATCD"  data-toggle="tab" class="jumbotron">
-					<i class="fa fa-history fa-2x pull-left"></i><span class="bigger-130">Antecedants</span>
+					<i class="fa fa-history fa-2x pull-left"></i><span class="bigger-130">Antecedents</span>
 				</a>
 			</li>
 	</ul>

@@ -11,7 +11,7 @@
 </div>
 <div class="row">	
 	<div class="form-group {{ $errors->has('motif') ? 'has-error' : '' }}">
-		<label class="col-sm-4 control-label no-padding-right" for="motif"><strong>Motif de Consultation : <span style="color: red">*</span></strong></label> 
+		<label class="col-sm-4 control-label no-padding-right" for="motif"><strong>Motif de consultation : <span style="color: red">*</span></strong></label> 
 		<div class="col-sm-8"><input type="text" id="motif" name="motif" placeholder="Motif de Consultation..." class="form-control"/></div>
 	</div>
 </div>
@@ -31,7 +31,7 @@
 </div>
 <div class="row">
  	<div class="form-group">
-		<label class="col-sm-4 control-label no-padding-right" for="codecim"><strong>Code Cim10 :</strong></label>
+		<label class="col-sm-4 control-label no-padding-right" for="codecim"><strong>Code CIM-10 :</strong></label>
 		<div class="col-sm-8 input-group" style="padding-left:15px;">
 		  <input type="text" class="form-control" id="codesim" name="codesim"/>
 		  <span class="input-group-addon" style=" padding: 0px 6px;"> 
