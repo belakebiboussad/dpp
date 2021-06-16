@@ -6,6 +6,7 @@
 			  <div class="row">
 			    <div class="col-xs-12">
 						<input type="hidden" value="" id="user_id"/>	
+
 				 		<label for="specialiteOrient"><b>Mot de passe:</b></label>
 				 		<input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="Entrer un nouveau mot de passe" required/>
             <small class="help-block"></small>
@@ -21,7 +22,7 @@
 			<div class="space-12"></div><div class="space-12"></div>
 		  <div class="modal-footer">
           <div class="col-sm-12">
-			    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" id ="passwordResetbtn"  onclick ="resetPwd();"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>{{-- <button data-toggle="modal" data-target="#lettreorien"  onclick=""></button> --}}
+			    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" id ="passwordResetbtn"	><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>{{-- <button data-toggle="modal" data-target="#lettreorien"  onclick=""></button> --}}
 				  <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 			  </div>
       </div>

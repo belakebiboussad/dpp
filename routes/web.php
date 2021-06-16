@@ -204,10 +204,10 @@ route::get('/download/{filename}', function($filename)
     return Storage::download($filename);
 });
 
-//Route::post('/admin/password/reset','UsersController@passwordReset');
+Route::post('/admin/password/reset','UsersController@passwordReset');
 // Route::post('/admin/password/reset',function(){
 //     return("oui");
 // });
-Route::post('/admin',function(){
-    return("oui");
-});
+// Route::post('admin/password/reset',function(){
+//     return("oui");
+// })->name('admin');
