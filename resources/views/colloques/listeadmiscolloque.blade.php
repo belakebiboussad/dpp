@@ -19,7 +19,7 @@ foreach ($lits as $lit) {
 <form id="coll" class="form-horizontal" role="form" method="POST" action="{{route('listeadmiscolloque.store')}}">{{ csrf_field() }} 
 <div class="col-xs-12 page-header">
 	<h1>
-		Création des RDV d'hospitalisation 
+		Création des rendez-vous d'hospitalisation 
 	</h1>
 </div>
 <div class="col-xs-9">
@@ -62,7 +62,7 @@ foreach ($lits as $lit) {
 							<th>Patient</th>
 							<th>Date prévue d'hospitalisation</th>
 							<th>Heure prévue d'hospitalisation</th>
-							<th>service</th>
+							<th>Service</th>
 							<th>Salle</th>
 							<th>Lit</th>
 							<th></th>

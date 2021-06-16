@@ -22,14 +22,14 @@
 </script>
 @endsection
 @section('main-content')
-<div class="row"><h2><strong>Ajouter un  Nouveau Colloque</strong></h2></div><div class="space-12 hidden-xs"></div>
+<div class="row"><h2><strong>Ajouter un  nouveau colloque</strong></h2></div><div class="space-12 hidden-xs"></div>
 <div class="row"> 
   <div class="col-sm-12">
     <form id="creat_col" class="form-horizontal" role="form" method="POST" action="{{route('colloque.store')}}" onsubmit="return myFunction()">
       {{ csrf_field() }} 
       <div class="row">
         <div class="col-sm-5 col-xs-5">
-          <label for="liste_membre"> <h4> <strong>Liste des Medecins :</strong></h4></label>&nbsp;
+          <label for="liste_membre"> <h4> <strong>Liste des médecins :</strong></h4></label>&nbsp;
           <select  id="liste_membre" class="form-control" size="7" multiple="multiple">
             @foreach( $membre as $membres)
             <option id="id_membre" value="{{$membres->id}}" >{{$membres->nom}} {{$membres->prenom}}</option>
@@ -62,8 +62,8 @@
           <div class="col-sm-7 col-xs-12">
             <label for="type_colloque" class= "control-label no-padding-left col-sm-4 col-xs-4"><strong>Type :</strong></label>
             <select id="type_colloque" name="type_colloque" class="col-sm-4 col-xs-8" data-placeholder="sélectionner le type..." required>
-              <option value="0" selected >médicale</option>
-             <option value="1">chirurgicale</option>
+              <option value="0" selected >Médical</option>
+             <option value="1">Chirurgical</option>
             </select>
           </div>
       </div><div class="space-12"></div><div class="space-12"></div>

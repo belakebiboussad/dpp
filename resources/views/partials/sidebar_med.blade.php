@@ -29,16 +29,16 @@
         </a><b class="arrow"></b>
         <ul class="submenu">
           <li>
-            <a href="{{ route('patient.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter Patient</a><b class="arrow"></b>
+            <a href="{{ route('patient.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter un patient</a><b class="arrow"></b>
           </li>
-          <li><a href="{{ route('patient.index') }}"><i class="menu-icon fa fa-eye pink"></i>Liste Patients</a><b class="arrow"></b></li>
+          <li><a href="{{ route('patient.index') }}"><i class="menu-icon fa fa-eye pink"></i>Liste des patients</a><b class="arrow"></b></li>
         </ul>
       </li>
       <li>
         <a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-users"></i><span class="menu-text"> Fonctionnaires</span><b class="arrow fa fa-angle-down"></b>
         </a><b class="arrow"></b>
         <ul class="submenu">
-          <li><a href="{{ route('assur.index') }}"><i class="menu-icon fa fa-eye pink"></i> Liste Fonctionnaires</a><b class="arrow"></b>
+          <li><a href="{{ route('assur.index') }}"><i class="menu-icon fa fa-eye pink"></i> Liste des fonctionnaires</a><b class="arrow"></b>
           </li>
         </ul>
         </li>
@@ -47,9 +47,9 @@
              <i class="menu-icon fa fa-user-md"></i> <span class="menu-text"> Consultations </span><b class="arrow fa fa-angle-down"></b>
           </a><b class="arrow"></b>
           <ul class="submenu">
-            <li><a href="/createConsultation"><i class="menu-icon fa fa-plus purple"></i>Ajouter Consultation</a><b class="arrow"></b>
+            <li><a href="/createConsultation"><i class="menu-icon fa fa-plus purple"></i>Ajouter une consultation</a><b class="arrow"></b>
             </li>
-            <li><a href="{{ route('consultations.index')}}"><i class="menu-icon fa fa-eye pink"></i> Liste Consultations</a><b class="arrow"></b>
+            <li><a href="{{ route('consultations.index')}}"><i class="menu-icon fa fa-eye pink"></i> Liste des consultations</a><b class="arrow"></b>
             </li>
           </ul>
         </li>
@@ -59,12 +59,12 @@
             <b class="arrow fa fa-angle-down"></b>
           </a><b class="arrow"></b>
           <ul class="submenu">
-            <li><a href="{{ route('hospitalisation.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter Hospitalisation
+            <li><a href="{{ route('hospitalisation.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter une hospitalisation
               </a><b class="arrow"></b>
             </li>
             <li>
               <a href="{{ route('hospitalisation.index') }}"  data-toggle="tooltip" data-placement="top" title=" Liste d'hospitalisation du service">
-                <i class="menu-icon fa fa-eye pink"></i> Liste Hospitalisations
+                <i class="menu-icon fa fa-eye pink"></i> Liste des hospitalisations
               </a><b class="arrow"></b>
             </li>
           </ul>
@@ -88,7 +88,7 @@
         @if(Auth::user()->role_id == "10")
         <li class="">
           <a href="#" class="dropdown-toggle">
-            <i class="menu-icon fa fa-stethoscope"></i><span class="menu-text">Produits pharmacie</span><b class="arrow fa fa-angle-down"></b>
+            <i class="menu-icon fa fa-stethoscope"></i><span class="menu-text">Produits de la pharmacie</span><b class="arrow fa fa-angle-down"></b>
           </a><b class="arrow"></b>
           <ul class="submenu">
             <li>
@@ -99,13 +99,13 @@
         </li>
         @endif
        {{--  <li><a href="#" class="dropdown-toggle">
-            <i class="menu-icon fa fa-stethoscope"></i><span class="menu-text">visites & Contrôle</span> <b class="arrow fa fa-angle-down"></b>
+            <i class="menu-icon fa fa-stethoscope"></i><span class="menu-text">Visites & Contrôle</span> <b class="arrow fa fa-angle-down"></b>
           </a><b class="arrow"></b>
           <ul class="submenu">
-            <li><a href="/choixpatvisite"><i class="menu-icon fa fa-plus purple"></i>Ajouter visite & Contrôles</a><b class="arrow"></b></li>
+            <li><a href="/choixpatvisite"><i class="menu-icon fa fa-plus purple"></i>Ajouter visite & contrôles</a><b class="arrow"></b></li>
           </ul></li> --}}
 {{-- <li><a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-file-o"></i><span class="menu-text">Demandes Hosp</span><b class="arrow fa fa-angle-down"></b></a>
-<b class="arrow"></b><ul class="submenu"><li class=""><a href="{{route('demandehosp.index')}}"  data-toggle="tooltip" data-placement="top" title="Liste Demandes d'hospitalisation"><i class="menu-icon fa fa-eye pink"></i>Liste Demandes</a>
+<b class="arrow"></b><ul class="submenu"><li class=""><a href="{{route('demandehosp.index')}}"  data-toggle="tooltip" data-placement="top" title="Liste Demandes d'hospitalisation"><i class="menu-icon fa fa-eye pink"></i>Liste des demandes</a>
 <b class="arrow"></b></li></ul></li> --}}
         @if( Auth::user()->role_id == 14)
         <li class="">
@@ -116,10 +116,10 @@
         <b class="arrow"></b>
         <ul class="submenu">
           <li class="">
-            <a href="{{ route('demandeproduit.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter Demande</a><b class="arrow"></b>
+            <a href="{{ route('demandeproduit.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter demande</a><b class="arrow"></b>
           </li>
           <li>
-            <a href="{{ route('demandeproduit.index') }}"><i class="menu-icon fa fa-eye pink"></i> Liste Demandes</a>
+            <a href="{{ route('demandeproduit.index') }}"><i class="menu-icon fa fa-eye pink"></i> Liste des demandes</a>
             <b class="arrow"></b>
           </li>              
         </ul>

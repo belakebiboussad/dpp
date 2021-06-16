@@ -3,7 +3,7 @@
 		<ul class = "nav nav-pills nav-justified navbar-custom1 list-group" role="tablist" id ="cliniq">
 			<li role= "presentation" class="active">
 	    			<a href="#ExamGen"  name="ExamGen" aria-controls="ExamGen" role="tab" data-toggle="tab" class="jumbotron">
-	 	 			<i class="fa fa-stethoscope fa-2x pull-left"></i><span class="bigger-130">  Exemen Génerale</span>
+	 	 			<i class="fa fa-stethoscope fa-2x pull-left"></i><span class="bigger-130">  Exemen Général</span>
 	    			 </a>
 	   		 </li>
 			<li role= "presentation" name="appareils">
@@ -83,7 +83,7 @@
         			<div class="row">
         				<div class="col-sm-3"> 		
         					<div class="form-group">
-	           				<label class="control-label no-padding-right right" for="etatgen"><strong>Etat Géneral du patient :</strong></label>
+	           				<label class="control-label no-padding-right right" for="etatgen"><strong>Etat géneral du patient :</strong></label>
 	            			</div>
 	       			</div>	
 	          			<div class="col-sm-8">

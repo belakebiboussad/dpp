@@ -48,7 +48,7 @@
 <div class="row"><!-- Physiologiques -->
 <div class= "widget-box widget-color-danger">
 	<div class="widget-header" >
-		 <h5 class="widget-title bigger lighter"><font color="black"><i class="ace-icon fa fa-table"></i>&nbsp;<b>physiologiques</b></font></h5>
+		 <h5 class="widget-title bigger lighter"><font color="black"><i class="ace-icon fa fa-table"></i>&nbsp;<b>Physiologiques</b></font></h5>
 		<div class="widget-toolbar widget-toolbar-light no-border">
 			<a id="btn-addAntPhys" class="btn-xs align-middle" data-toggle="modal"><i class="fa fa-plus-circle bigger-180" style="color:black"></i></a>
 		</div>
@@ -95,11 +95,11 @@
 	</div>{{-- widget-body --}}
 </div>{{-- widget-box --}}
 </div>{{-- row --}}
-<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Antecedants Familliaux</h3></div></div>
+<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Antecedents familiaux</h3></div></div>
 <div class="row">
  	 <div class= "widget-box widget-color-green">
 		<div class="widget-header" >
-		<h5 class="widget-title bigger lighter"><font color="black"> <i class="ace-icon fa fa-table"></i>&nbsp;<b>Antecedants Familliaux</b></font></h5>
+		<h5 class="widget-title bigger lighter"><font color="black"> <i class="ace-icon fa fa-table"></i>&nbsp;<b>Antecedents Familiaux</b></font></h5>
 		 <div class="widget-toolbar widget-toolbar-light no-border">
 			<a id="AntFamil-add" class="btn-xs align-middle" data-toggle="modal"><i class="fa fa-plus-circle bigger-180" style="color:black"></i></a>
 		</div>

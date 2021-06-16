@@ -14,14 +14,14 @@ $('document').ready(function(){
 		});
 });
 </script>
-<div class="page-header" style="margin-top:-5px;"> <h5><strong>Détails de la Consulation :</strong></h5></div>
+<div class="page-header" style="margin-top:-5px;"> <h5><strong>Détails de la consulation :</strong></h5></div>
 <div class="row">
 	<div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right"><strong><span style="font-size:16px;">Interrogatoire</span></strong></div>
 </div>
 <div class="row">
 	<ul class="list-unstyled spaced">
-		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Date de la Consultation :</strong><span class="badge badge-pill badge-success">{{ $consultation->Date_Consultation }}</span></li>
-		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Motif de la Consultation :</strong><span>{{ $consultation->motif }}</span></li>
+		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Date de la consultation :</strong><span class="badge badge-pill badge-success">{{ $consultation->Date_Consultation }}</span></li>
+		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Motif de la consultation :</strong><span>{{ $consultation->motif }}</span></li>
 		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Histoire de la maladie :</strong><span>{{ $consultation->histoire_maladie }}
 		</span></li>
 		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Diagnostic :</strong><span>{{ $consultation->Diagnostic }}</span></li>
@@ -31,7 +31,7 @@ $('document').ready(function(){
 @if(isset($consultation->examensCliniques)  &&($consultation->examensCliniques->poids != 0))
 <div class="row">
 	<div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right">
-		<span style="font-size:16px;"><strong>Examens Clinique</strong></span>
+		<span style="font-size:16px;"><strong>Examens clinique</strong></span>
 	</div>
 </div>
 <div class="row">
@@ -43,7 +43,7 @@ $('document').ready(function(){
 		@endif
 		<li><i class="message-star ace-icon fa fa-star orange2"></i><strong>Températeur :</strong>{{ $consultation->examensCliniques->temp  }}&nbsp;&deg;C</li>
 		<li><i class="message-star ace-icon fa fa-star orange2"></i><strong>Autre :</strong>{{ $consultation->examensCliniques->autre  }}&nbsp;</li>
-		<li><i class="message-star ace-icon fa fa-star orange2"></i><strong>Etat Géneral du patient :</strong><span>{{ $consultation->examensCliniques->Etat  }}</span></li>
+		<li><i class="message-star ace-icon fa fa-star orange2"></i><strong>Etat général du patient :</strong><span>{{ $consultation->examensCliniques->Etat  }}</span></li>
 		<li><i class="message-star ace-icon fa fa-star orange2"></i><strong>Peau et phanéres  :</strong><span>{{ $consultation->examensCliniques->peaupha  }}</span></li>
 	</ul>
 </div>
@@ -186,7 +186,7 @@ $('document').ready(function(){
 <div class="row dh">
 	<div class="col-xs-11 widget-container-col">
 		<div class="widget-box widget-color-blue">
-			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande d'Hospitalisation</h5></div>
+			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande d'hospitalisation</h5></div>
 			<div class="widget-body">
 				<div class="widget-main no-padding">
 					<table class="table table-striped table-bordered table-hover">
