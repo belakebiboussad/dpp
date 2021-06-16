@@ -21,7 +21,7 @@
 		$('#btn-addActe').click(function () {
 			$('#EnregistrerActe').val("add");
 			$('#addActe').trigger("reset");
-			$('#acteCrudModal').html("Ajouter un Acte Médicale");
+			$('#acteCrudModal').html("Prescrire un Acte Médicale");
 			$('#acteModal').modal('show');
 		});  
 	  $("#EnregistrerActe").click(function (e) {
@@ -68,11 +68,17 @@
 					$.each( data.acte.periodes, function( key, periode ) {
 					  frag +='<span class="badge badge-success">'+periode+'</span>';
 					});
+					/*
 					var acte = '<tr id="acte'+data.acte.id+'"><td hidden>'+data.acte.id_visite+'</td><td>'+data.acte.nom+'</td><td>'+data.acte.description+'</td><td>'
 									 + data.acte.type+'</td><td>'+data.acte.code_ngap+'</td><td>'+frag+'</td><td>'+data.acte.duree
 									 + '</td><td>'+data.medecin.nom+' '+data.medecin.prenom+'</td><td>'+data.visite.date+'</td>';	 
 							acte += '<td class ="center"><button type="button" class="btn btn-xs btn-info open-modal" value="' + data.acte.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';    
 							acte += '<button type="button" class="btn btn-xs btn-danger delete-acte" value="' + data.acte.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></btton></td></tr>';
+					*/
+					var acte = '<tr id="acte'+data.acte.id+'"><td hidden>'+data.acte.id_visite+'</td><td>'+data.visite.date+'</td><td>'+data.acte.nom+'</td><td>'+data.acte.type+'</td><td>'
+										+'</td><td>'+data.acte.code_ngap+'</td><td>'+frag+'</td><td>'+data.acte.duree+'</td><td>'+data.medecin.nom+' '+data.medecin.prenom+'</td><td>';
+							 acte += '<td class ="center"><button type="button" class="btn btn-xs btn-info open-modal" value="' + data.acte.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';    
+							 acte += '<button type="button" class="btn btn-xs btn-danger delete-acte" value="' + data.acte.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></btton></td></tr>';
 					if (state == "add") {
 						$( "#listActes" ).append(acte);
 					}else{
@@ -310,25 +316,24 @@
 							<thead class="thin-border-bottom">
 								<tr class ="center">
 								  <th class ="hidden"></th>
-									<th scope="col" class ="center sorting_disabled"><strong>Nom</strong></th>
-												<th scope="col" class ="center sorting_disabled">Decription</th>
-												<th scope="col" class ="center sorting_disabled"><strong>Type</strong></th>
-												<th scope="col" class ="center sorting_disabled"><strong>Code NGAP</strong></th>
-												<th scope="col" class ="center sorting_disabled"><strong>Périodes</strong></th>
-												<th scope="col" class ="center sorting_disabled" width="3%"><strong>Nombre de jours</strong></th>
-												<th scope="col" class ="center sorting_disabled"><strong>Médecin prescripteur</strong></th>												
-												<th scope="col" class ="center"><strong>Date Visite</strong></th>												
-												<th scope="col" class=" center nosort"><em class="fa fa-cog"></em></th>
+								  	<th scope="col" class ="center"><strong>Date Visite</strong></th>
+									  <th scope="col" class ="center sorting_disabled"><strong>Acte</strong></th>
+										<th scope="col" class ="center sorting_disabled"><strong>Type</strong></th>
+										<th scope="col" class ="center sorting_disabled"><strong>Code NGAP</strong></th>
+										<th scope="col" class ="center sorting_disabled"><strong>Périodes</strong></th>
+										<th scope="col" class ="center sorting_disabled" width="3%"><strong>Nombre de jours</strong></th>
+										<th scope="col" class ="center sorting_disabled"><strong>Médecin prescripteur</strong></th>																								
+										<th scope="col" class=" center nosort"><em class="fa fa-cog"></em></th>
 								</tr>
 							</thead>
 							<tbody>
 								 @foreach($hosp->visites as $visite)
 								  @foreach($visite->actes as $acte )
 									@if(!$acte->retire)
-									  <tr id="{{ 'acte'.$acte->id }}">
+									<tr id="{{ 'acte'.$acte->id }}">
 										<td hidden> {{ $acte->id_visite }}</td>
+									  <td>{{ $acte->visite->date }}</td>
 										<td> {{ $acte->nom }}</td>
-										<td> {{ $acte->description}}</td>
 										<td> {{ $acte->type}}</td>
 										<td> {{ $acte->code_ngap}}</td>
 										<td>
@@ -338,8 +343,7 @@
 										</td>
 										<td> {{ $acte->duree }}</td>
 										<td> {{ $acte->visite->medecin->nom}}&nbsp; {{ $acte->visite->medecin->prenom}}</td>
-										<td>{{ $acte->visite->date }}</td>
-									  <td class="center nosort">
+										<td class="center nosort">
 										<button type="button" class="btn btn-xs btn-info open-modal" value="{{$acte->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
 							  <button type="button" class="btn btn-xs btn-danger delete-acte" value="{{$acte->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>
 									  </td>	

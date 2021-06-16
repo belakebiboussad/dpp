@@ -89,7 +89,7 @@
 					@endisset
 				</div>
 				<div class="col-xs-12 col-sm-4">
-				@isset($user->employ->service)
+				@isset($user->employ->Specialite)
 					<div class="form-group">
 						<label class="col-sm-4 control-label no-padding-right"><strong>Spécialité :</strong></label>
 						<div class="col-sm-8"><label class="blue">{{ $user->employ->Specialite->nom }}</label></div>
