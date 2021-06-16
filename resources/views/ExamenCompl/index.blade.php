@@ -3,7 +3,7 @@
 	<ul  class="nav nav-pills nav-justified navbar-custom2 list-group" id ="compl">
 		<li role= "presentation" class="active" data-interest = "0">
 	    		<a href="#biologique" aria-controls="biologique" role="tab" data-toggle="tab" class="jumbotron">
-	     			<i class="fa fa-2x fa-flask deep-purple-text"></i><span class="bigger-130">Examen Biologique</span>	
+	     			<i class="fa fa-2x fa-flask deep-purple-text"></i><span class="bigger-130">Examen biologique</span>	
 	   		 </a>
 	 	 </li>
 		<li role= "presentation" data-interest = "1">
