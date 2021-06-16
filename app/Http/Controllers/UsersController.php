@@ -327,7 +327,7 @@ class UsersController extends Controller
     {
       if(Auth::Check() && (Auth::user()->is(4)))
       {
-        return("dfgf");
+        return $request->newPassword;
       }
     }
 }

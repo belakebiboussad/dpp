@@ -5,29 +5,32 @@ $(document).ready(function(){
 });
 $(function(){
 	$('#passwordResetbtn').click(function(e){
+		alert( $("newPassword").val());
+		var formData = {
+				id:'{{$user->id}}',
+				new_password: $("newPassword").val()
+		};
 		$.ajaxSetup({
-            headers: {
-              'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-            }
+        headers: {
+          'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+        }
     });
 		$.ajax({
     	type: "POST",
-    	url: "URL::to('/admin')",
-    	data: {
-        // id: $("userID").val(), // This could be a hidden field whit the value of user id
-        // new_password: $("newPassword").val()
-        id:'{{$user->id}}',
-    	},
-    success:function(data,status, xhr){
-    	// $('#EtatSortie').modal('hide');
-     	alert(data);
-    }
-    ,
-    error:function(data){
-    	alert("error");	
-    }
+    	// url: "URL::to('admin')",
+    	// url: "/admin",
+    	 url: "{{ url('admin/password/reset')}}",
+    	data:formData,
+    	//dataType: "json",
+    	success:function(data,status, xhr){
+    		// $('#EtatSortie').modal('hide');
+     		alert(data);
+   	  },
+    	error: function(data){
+        console.log(data);                
+      }
+		});
 	});
-});
 });
 </script>
 @endsection
