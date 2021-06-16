@@ -25,7 +25,7 @@ $( document ).ready(function() {
 		<div class="space-12"></div>
 		<div class="row">
 			<div class="panel panel-default">
-				<div class="panel-heading"><h3>Rechercher un Utilisateur:</h3></div>
+				<div class="panel-heading"><h3>Rechercher un utilisateur:</h3></div>
 				<div class="panel-body">
 					<div class="form-group   has-feedback">
 						<label class="control-label" for="userName" >Nom Utilisateur:</label>

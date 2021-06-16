@@ -211,7 +211,7 @@ $('.filter').change(function(){// if($(this).attr('id') != "Nom") //getHospitali
 @section('main-content')
 <div class="row">
   <div class="col-sm-12 col-md-12">
-    <h2><strong>Rechercher une Hospitalisation</strong></h2>
+    <h2><strong>Rechercher une hospitalisation</strong></h2>
     <div class="panel panel-default">
       <div class="panel-heading">Recherche</div>
       <div class="panel-body">
@@ -231,7 +231,7 @@ $('.filter').change(function(){// if($(this).attr('id') != "Nom") //getHospitali
              <input type="text" id="IPP" class="form-control filter">
           </div>
            <div class="col-sm-3"><!-- <div class="form-group col-sm-8"></div> -->
-            <label class="control-label" for="" ><strong>Date Sortie:</strong></label>
+            <label class="control-label" for="" ><strong>Date sortie:</strong></label>
             <div class="input-group">
               <input type="text" id ="Date_Sortie" class="date-picker form-control filter ltnow"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
               <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
@@ -257,9 +257,9 @@ $('.filter').change(function(){// if($(this).attr('id') != "Nom") //getHospitali
           <thead>
             <tr><!-- <th class ="center priority-6" width="2%"></th> -->
               <th class ="center"><strong>Patient</strong></th>
-              <th class ="center priority-4"><strong>Mode Admission</strong></th><th class ="center"><strong>Date_entree</strong></th>
-              <th class ="center  priority-6"><strong>Date Sortie Prévue</strong></th><th class ="center priority-4"><strong>Date Sortie</strong></th>
-              <th  class ="center  priority-5"><strong>Mode</strong></th><th  class ="center  priority-6"><strong>Medecin</strong></th>
+              <th class ="center priority-4"><strong>Mode d'admission</strong></th><th class ="center"><strong>Date d'entrée</strong></th>
+              <th class ="center  priority-6"><strong>Date sortie prévue</strong></th><th class ="center priority-4"><strong>Date sortie</strong></th>
+              <th  class ="center  priority-5"><strong>Mode</strong></th><th  class ="center  priority-6"><strong>Médecin</strong></th>
               <th class ="center  priority-6"><strong>Etat</strong></th>
               <th class ="center" width="12%"><strong><em class="fa fa-cog"></em></strong></th>
             </tr>

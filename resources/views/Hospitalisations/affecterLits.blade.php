@@ -32,7 +32,7 @@
      		<div class="widget-box widget-color-blue" id="widget-box-12">
 					<div class="widget-header">
 					    <h3 class="widget-title bigger lighter">
-					      <i class="ace-icon fa fa-table"></i>Liste Admissions :
+					      <i class="ace-icon fa fa-table"></i>Liste des admissions :
 				      </h3>
 					</div>
     		</div>

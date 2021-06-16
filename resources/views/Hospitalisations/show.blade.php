@@ -27,17 +27,17 @@
 					    <i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>{{ $hosp->admission->demandeHospitalisation->Service->nom }}
 						</li>
 						<li>
-			 				<i class="ace-icon fa fa-caret-right blue"></i><strong>Specialite :</strong> {{ $hosp->admission->demandeHospitalisation->Specialite->nom }}
+			 				<i class="ace-icon fa fa-caret-right blue"></i><strong>Spécialité :</strong> {{ $hosp->admission->demandeHospitalisation->Specialite->nom }}
 						</li>
 						<li>
 							<i class="ace-icon fa fa-caret-right blue"></i><strong>Mode d'admission:</strong>{{ $hosp->admission->demandeHospitalisation->modeAdmission }}
 						</li>
 						<li>
-							<i class="ace-icon fa fa-caret-right blue"></i><strong>Medecin Traitant:</strong>
+							<i class="ace-icon fa fa-caret-right blue"></i><strong>Médecin traitant:</strong>
 							{{ $hosp->medecin->nom }}	{{$hosp->medecin->prenom}}		
 						</li>
 						<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Date d'entrée:</strong>{{ $hosp->Date_entree }}</li>	
-						<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Date sortie prévue:</strong>{{ $hosp->Date_Prevu_Sortie }}</li>
+						<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Date de sortie prévue:</strong>{{ $hosp->Date_Prevu_Sortie }}</li>
 					</ul>
 					</div>
 				</div>

@@ -4,9 +4,9 @@
 </div>
 <div class="row">
 	<ul class="list-unstyled spaced">
-		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Mode Admission :</strong> {{ $hosp->admission->demandeHospitalisation->modeAdmission }}</li>
+		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Mode d'admission :</strong> {{ $hosp->admission->demandeHospitalisation->modeAdmission }}</li>
 		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Specialité :</strong> {{ $hosp->admission->demandeHospitalisation->Specialite->nom }}</li>
-		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Mode Hospitalisation :</strong> {{ $hosp->modeHospi->nom }}</li>
+		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Mode d'hospitalisation :</strong> {{ $hosp->modeHospi->nom }}</li>
 		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Etat :</strong>
 		 	@if($hosp->etat_hosp == "1" )
 		 		<span class="badge badge-pill badge-succes">Cloturé</span>
@@ -17,7 +17,7 @@
 		@if($hosp->etat_hosp == "1" )
 			<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Résumé de sortie :</strong> {{ $hosp->resumeSortie }}</li>	
 			<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Etat a la sortie :</strong> {{ $hosp->etatSortie }}</li>	
-			<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Mode de Sortie :</strong>
+			<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Mode de sortie :</strong>
 			@if(!(isset($hosp->modeSortie)))
 				Domicile
 			@else
@@ -40,8 +40,8 @@
 				@endswitch
 			@endif
 			 </li>	
-			<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Diagnostic de Sortie :</strong> {{ $hosp->diagSortie }}</li>	
-			<li><i class="ace-icon fa fa-caret-right blue"></i><strong>CIM10 :</strong> {{ $hosp->ccimdiagSortie }}</li>	
+			<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Diagnostic de sortie :</strong> {{ $hosp->diagSortie }}</li>	
+			<li><i class="ace-icon fa fa-caret-right blue"></i><strong>CIM-10 :</strong> {{ $hosp->ccimdiagSortie }}</li>	
 		@endif
 	</ul>
 </div>
@@ -66,7 +66,7 @@
 <div class="row">
 	<ul class="list-unstyled spaced">
 	<li><i class="ace-icon fa fa-chevron-circle-right green"></i><strong>Nom :</strong>{{ $hosp->garde->nom }}</li>
-	<li><i class="ace-icon fa fa-chevron-circle-right green"></i><strong>Prenom :</strong>{{ $hosp->garde->prenom }}</li>
+	<li><i class="ace-icon fa fa-chevron-circle-right green"></i><strong>Prénom :</strong>{{ $hosp->garde->prenom }}</li>
 	<li><i class="ace-icon fa fa-chevron-circle-right green"></i><strong>Né(e) le :</strong>{{ $hosp->garde->date_naiss }}</li>
 	<li><i class="ace-icon fa fa-chevron-circle-right green"></i><strong>Adresse :</strong>{{ $hosp->garde->adresse }}</li>
 	<li><i class="ace-icon fa fa-chevron-circle-right green"></i><strong>Mobile :</strong>{{ $hosp->garde->mob }}</li>
@@ -85,7 +85,7 @@
 					<table class="table table-striped table-bordered table-hover">
 						<thead class="thin-border-bottom">
 							<tr>
-							  <th class="center"><strong>Date</strong></th><th class="center"><strong>Medecin</strong></th>
+							  <th class="center"><strong>Date</strong></th><th class="center"><strong>Médecin</strong></th>
 							  <th class="center"><strong>Actes</strong></th>
 							  <th class="center"><strong>Traitement</strong></th>	
 							  <th class="center"><em class="fa fa-cog"></em></th>

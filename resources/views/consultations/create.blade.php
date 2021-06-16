@@ -590,7 +590,7 @@
 			<ul class = "nav nav-pills nav-justified list-group" role="tablist" id="menu">
 				<li role= "presentation" class="active col-md-4">
 				  <a href="#Interogatoire" aria-controls="Interogatoire" role="tab" data-toggle="tab" class="btn btn-secondary btn-lg">
-				  <span class="bigger-160" style="font-size:10vw"> Interogatoire</span>
+				  <span class="bigger-160" style="font-size:10vw"> Interrogatoire</span>
 				  </a>
 				</li>
 				<li role= "presentation"  class="col-md-4">

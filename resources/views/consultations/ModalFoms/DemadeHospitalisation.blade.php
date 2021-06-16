@@ -5,7 +5,7 @@
 			<div class="modal-body">
 			  <form action="#" method="POST">
 			    <div class="row">
-			      <div class="col-xs-12"><br><label for="modeAdmissionHospi"><strong>Mode Admission  :</strong></label>
+			      <div class="col-xs-12"><br><label for="modeAdmissionHospi"><strong>Mode d'admission  :</strong></label>
 			     	  <select class="form-control" id="modeAdmissionHospi" name="modeAdmissionHospi">
 				       	<option value="">Sélectionner...</option>
 				        @foreach($modesAdmission as $mode =>$value)

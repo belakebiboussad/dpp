@@ -2,7 +2,7 @@
 @section('main-content')
 	<div class="page-header">
 		<h1> {{dd($demande)}}
-			Ajouter un RDV Hospitalisation :{{ $demande->id }}
+			Ajouter un rendez-vous d'hospitalisation :{{ $demande->id }}
 		</h1>
 	</div><!-- /.page-header -->
 	<div class="row">
@@ -13,7 +13,7 @@
 				<div class="form-group">
 					<label class="col-sm-3 control-label no-padding-right" for="date">
 					 	<strong> 
-					 		Date Entrée : 
+					 		Date entrée : 
 						</strong>
 					</label>
 					<div class="col-sm-9">
@@ -23,7 +23,7 @@
 				<div class="form-group">
 					<label class="col-sm-3 control-label no-padding-right" for="date">
 					 	<strong> 
-					 		Date Prévue Pour Sortir : 
+					 		Date de sortie prévue : 
 						</strong>
 					</label>
 					<div class="col-sm-9">
@@ -33,7 +33,7 @@
 				<div class="form-group">
 					<label class="col-sm-3 control-label no-padding-right" for="motif">
 						<strong> 
-							Motif De L'hospitalisation :
+							Motif d'hospitalisation :
 						</strong>
 					</label>
 					<div class="col-sm-9">

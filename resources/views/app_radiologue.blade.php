@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <title>Gestion des Examens Imagerie</title>
+    <title>Gestion des examens d'imagerie</title>
     @include('partials.htmlheader')
 <body class="no-skin">
   @include('partials.navbar')

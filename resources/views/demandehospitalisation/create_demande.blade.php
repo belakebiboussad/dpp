@@ -1,7 +1,7 @@
 @extends('app_med')
 @section('main-content')
 <div class="page-header">
-	<h1>Détails Du Consultation Pour : {{ $patient->Nom }} {{ $patient->Prenom }}</h1>
+	<h1>Détails de la consultation Pour : {{ $patient->Nom }} {{ $patient->Prenom }}</h1>
 </div>
 <div class="row">
 	<div class="col-sm-12">
@@ -40,7 +40,7 @@
 		</div>
 		<div class="widget-box">
 			<div class="widget-header">
-				<h4 class="widget-title">Demande hospitalisation :</h4>
+				<h4 class="widget-title">Demande d'hospitalisation :</h4>
 			</div>
 			<div class="widget-body">
 				<div class="widget-main">

@@ -75,9 +75,9 @@
 		       		<tr>
 							<th class ="center" width="11%"><h5><strong>Patient</strong></h5></th>
 							<th class ="center" width="10%"><h5><strong class="text-center">Spécialité</strong></h5></th>
-							<th class ="center" width="10%"><h5><strong>Date Demande</strong></h5></th>
-							<th class ="center" width="10%"><h5><strong>Mode Admission</strong></h5></th>
-							<th class ="center" width="12%"><h5><strong>Medcin traitant</strong></h5></th>
+							<th class ="center" width="10%"><h5><strong>Date demande</strong></h5></th>
+							<th class ="center" width="10%"><h5><strong>Mode d'admission</strong></h5></th>
+							<th class ="center" width="12%"><h5><strong>Medecin traitant</strong></h5></th>
 						  <th width="10%" class ="center"><h5><strong>Priorité</strong></h5></th>
 							<th class="font-weight-bold center"><h5><strong>Observation</strong></h5></th>
 							<th class="detail-col center"><em class="fa fa-cog"></em></th>

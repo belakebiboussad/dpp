@@ -5,7 +5,7 @@
 			<div class="modal-body">
 			  <div class="row">
 			    <div class="col-xs-12">
-				 		<label for="specialiteOrient"><b>Specialite:</b></label>
+				 		<label for="specialiteOrient"><b>Spécialité:</b></label>
 				  	<select class="form-control" id="specialiteOrient" name="specialiteOrient">
 					  	<option value="">Sélectionner...</option>
 					  	@foreach($specialites as $specialite)

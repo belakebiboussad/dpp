@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-lg">
    	<div class="modal-content custom-height-modal">	<!-- Modal content-->
 			<div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;
-				</button> <h4 class="modal-title" id="crrModalTitle">Ajouter un Compte Rendue Radiologique </h4>
+				</button> <h4 class="modal-title" id="crrModalTitle">Ajouter un compte-rendue radiologique </h4>
 			</div>
 			<div class="modal-body">
 			  <form id="CRRForm" action="" method="POST" class="form-horizontal">
