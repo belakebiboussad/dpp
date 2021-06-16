@@ -327,7 +327,11 @@ class UsersController extends Controller
     {
       if(Auth::Check() && (Auth::user()->is(4)))
       {
-        return $request->newPassword;
+        $user = User::FindOrFail($request->id);
+        $user->update([
+           "password"=> Hash::make($request['password']),
+        ]);
+       
       }
     }
 }

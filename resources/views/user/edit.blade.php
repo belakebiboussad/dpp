@@ -1,14 +1,22 @@
 @extends('app')
 @section('page-script')
 <script>
-$(document).ready(function(){
+function check(input) {
+  $('#newPassword, #password_confirm').on('keyup', function () {
+  	if ($('#newPassword').val() == $('#password_confirm').val()) {
+    	$('#message').html('correspond').css('color', 'green');
+    	$('#passwordResetbtn').removeAttr("disabled"); 
+  	} else {
+    		$('#message').html('ne correspond pas').css('color', 'red');
+    		$('#passwordResetbtn').prop('disabled', true);; 
+  	}
 });
+}
 $(function(){
 	$('#passwordResetbtn').click(function(e){
-		alert( $("newPassword").val());
 		var formData = {
 				id:'{{$user->id}}',
-				new_password: $("newPassword").val()
+				password: $("#newPassword").val()
 		};
 		$.ajaxSetup({
         headers: {
@@ -17,14 +25,10 @@ $(function(){
     });
 		$.ajax({
     	type: "POST",
-    	// url: "URL::to('admin')",
-    	// url: "/admin",
-    	 url: "{{ url('admin/password/reset')}}",
-    	data:formData,
-    	//dataType: "json",
+ 			url: "{{ url('admin/password/reset')}}",
+    	data:formData,//dataType: "json",
+    	
     	success:function(data,status, xhr){
-    		// $('#EtatSortie').modal('hide');
-     		alert(data);
    	  },
     	error: function(data){
         console.log(data);                
