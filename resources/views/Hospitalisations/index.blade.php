@@ -219,8 +219,8 @@ $('.filter').change(function(){// if($(this).attr('id') != "Nom") //getHospitali
           <div class="col-sm-3">
             <label><strong>Etat :</strong></label>
             <select id='etat_hosp' class="form-control filter">
-              <option value="0">En Cours</option>
-              <option value="1">Cloturé</option>
+              <option value="0">En cours</option>
+              <option value="1">Cloturée</option>
             </select>
           </div>
           <div class="col-sm-3">

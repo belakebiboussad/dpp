@@ -14,7 +14,7 @@
 						<th class="center"><strong>Mode Admission</strong></th>
 						<th class="center"><strong>Spécialité</strong></th>
 						<th class="center"><strong>Service</strong></th>
-						<th class="center"><strong>Motif de l'hospitalisation</strong></th>
+						<th class="center"><strong>Motif d'hospitalisation</strong></th>
 						<th class="center"><strong>Etat</strong></th>
 						<th class="center"><em class="fa fa-cog"></em></th>
 					</tr>
