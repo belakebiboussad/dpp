@@ -42,11 +42,11 @@
         @endif
       </tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
       <tr>
-        <td colspan="2"><strong>&nbsp;Adresse de Résidene :</strong><span>&nbsp;{{ $patient->Adresse}} &nbsp;{{ $patient->commune->nom_commune}}</span></td>
+        <td colspan="2"><strong>&nbsp;Adresse de résidene :</strong><span>&nbsp;{{ $patient->Adresse}} &nbsp;{{ $patient->commune->nom_commune}}</span></td>
         <td><strong>Code Wilaye :</strong><span>&nbsp; {{ $patient->wilaya->nom }}</span></td>
       </tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
        <tr>
-        <td colspan="2"><strong>&nbsp;Personne à Contacter :</strong><span>&nbsp;{{ $patient->hommesConf[0]->nom }}&nbsp;{{ $patient->hommesConf[0]->prenom }}</span></td>
+        <td colspan="2"><strong>&nbsp;Personne à contacter :</strong><span>&nbsp;{{ $patient->hommesConf[0]->nom }}&nbsp;{{ $patient->hommesConf[0]->prenom }}</span></td>
         <td><strong>N° Tel :</strong><span>&nbsp;{{ $patient->hommesConf[0]->mob }}</span></td>
       </tr> 
       </table>
@@ -79,10 +79,10 @@
             <strong>Date d'entée :</strong>
             <span>&nbsp;{{  (\Carbon\Carbon::parse($obj->date_RDVh))->format('d/m/Y') }}</span>
           </td>
-          <td><strong>Heure d'entée :</strong><span>&nbsp;{{(\Carbon\Carbon::parse($obj->heure_RDVh))->format("H:i")}}</span></td>
+          <td><strong>Heure d'entrée :</strong><span>&nbsp;{{(\Carbon\Carbon::parse($obj->heure_RDVh))->format("H:i")}}</span></td>
         </tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
         <tr>
-          <td><strong>&nbsp;Medecin Traitant :</strong>
+          <td><strong>&nbsp;Médecin traitant :</strong>
             <span>&nbsp;{{ $obj->demandeHospitalisation->DemeandeColloque->medecin->nom}} &nbsp;
               {{ $obj->demandeHospitalisation->DemeandeColloque->medecin->prenom}}
             </span>
@@ -100,10 +100,10 @@
           <td><strong>&nbsp;Service :</strong>
             <span>&nbsp;{{ $obj->demandeHospitalisation->bedAffectation->lit->salle->service->nom}}</span>
           </td>
-          <td><strong>N° de Salle :</strong>
+          <td><strong>N° de salle :</strong>
             <span>{{ $obj->demandeHospitalisation->bedAffectation->lit->salle->num }}</span>
           </td>
-            <td><strong>N° de Lit :</strong>
+            <td><strong>N° de lit :</strong>
             <span>{{ $obj->demandeHospitalisation->bedAffectation->lit->num }}</span>
           </td> 
         </tr>
