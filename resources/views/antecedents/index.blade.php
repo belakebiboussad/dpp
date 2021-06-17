@@ -1,7 +1,7 @@
 @extends('app_recep')
 @section('main-content')
 	<div class="page-header">
-		<h1 style="display: inline;"><strong>La Liste Des Antécédants du :</strong> {{ $patient->Nom }} {{ $patient->Prenom }}</h1>
+		<h1 style="display: inline;"><strong>Liste es antécédants du :</strong> {{ $patient->Nom }} {{ $patient->Prenom }}</h1>
 		<div class="pull-right">
         </div>
 	</div>

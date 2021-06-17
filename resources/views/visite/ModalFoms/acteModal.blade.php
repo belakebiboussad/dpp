@@ -49,33 +49,17 @@
 					 		<div class="space-12"></div>
 					 		<div class="row">
 					 			<div class="col-sm-3">
-					 		    <label for="" class="control-label no-padding-right"><b>description :</b></label>
+					 		    <label for="" class="control-label no-padding-right"><b>Application :</b></label>
 					 			</div>
 					 			<div class="col-sm-7">
 									<input type="text" id="description" class="form-control col-sm-6" placeholder = "applcation de l'acte" />
 								</div>
 					 		</div>
-					 		<div class="space-12"></div>
-							<div class="row">
-					 		  <div class="col-sm-3">
-					 		    <label for="" class="control-label no-padding-right"><b>Periodes:</b></label>
-					 			</div>
-						 		<div class="col-sm-3">
-						 			<label class="checkbox-inline ace"><input type="checkbox" name="p[]" id="Matin" value="Matin" checked><b>Matin</b></label>
-						 		</div>	
-						 		<div class="col-sm-3">	
-									<label class="checkbox-inline ace"><input type="checkbox" name="p[]" id="Midi" value="Midi"><b>Midi</b></label>
-								</div>
-								<div class="col-sm-3">
-									<label class="checkbox-inline ace"><input type="checkbox" name="p[]" id="Soir" value="Soir"><b>Soir</b></label>
-								</div>
-							</div>
-					 		<div class="space-12"></div>
-					 		<div class="row">
-					 		  	<div class="col-sm-3"><label for="" class="control-label no-padding-right"><b>Pendant :</b></label></div>
-								<div class="col-sm-7"><input type="number" id="duree" name="duree" class="form-control col-sm-6" min="1" value="1" />	</div>	
-								<div class="col-sm-2"><label class="" for="col-sm-3">jour</label></div>
-							</div>
+<!--<div class="space-12"></div><div class="row"><div class="col-sm-3"><label for="" class="control-label no-padding-right"><b>Periodes:</b></label></div><div class="col-sm-3">
+<label class="checkbox-inline ace"><input type="checkbox" name="p[]" id="Matin" value="Matin" checked><b>Matin</b></label></div><div class="col-sm-3"><label class="checkbox-inline ace"><input type="checkbox" name="p[]" id="Midi" value="Midi"><b>Midi</b></label>
+</div><div class="col-sm-3"><label class="checkbox-inline ace"><input type="checkbox" name="p[]" id="Soir" value="Soir"><b>Soir</b></label></div></div> <div class="space-12"></div>-->
+<!-- 	<div class="row"><div class="col-sm-3"><label for="" class="control-label no-padding-right"><b>Pendant :</b></label></div><div class="col-sm-7"><input type="number" id="duree" name="duree" class="form-control col-sm-6" min="1" value="1" />	</div>	
+<div class="col-sm-2"><label class="" for="col-sm-3">jour</label></div>	</div> -->
 					 		<div class="space-12"></div>
 					 		<hr>
 					 		<div class="row" align="right">

@@ -186,9 +186,7 @@ route::get('/getpatientconsigne','PatientController@getpatientconsigne');
 /************partie visite d'hospitalisation**************/
 Route::get('/delVisite/{id}', 'VisiteController@destroy')->name('visite.destroy');
 Route::get('/visite/create/{id}','VisiteController@create');
-Route::post('/visite/store/{id}','VisiteController@store');//route::get('/choixpatvisite','VisiteController@choixpatvisite');
-route::get('/choixhospconsigne','ActeController@choixhospconsigne');
-route::get('/consigne','ActeController@choixhospconsigne');
+Route::post('/visite/store/{id}','VisiteController@store');//route::get('/choixpatvisite','VisiteController@choixpatvisite');//route::get('/choixhospconsigne','ActeController@choixhospconsigne');//route::get('/consigne','ActeController@choixhospconsigne');
 route::post('/saveActe','ActeController@store');
 route::get('/schapitres','CimController@getChapters');
 route::get('/maladies','CimController@getdiseases');//route::post('/acte','AntecedantsController@store');

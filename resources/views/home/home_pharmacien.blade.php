@@ -39,10 +39,7 @@
 		<div class="col-sm-10 col-sm-offset-1">
 			<div class="widget-box transparent">
 				<div class="widget-header widget-header-large">
-					<h3 class="widget-title grey lighter"><i class="ace-icon fa fa-leaf green"></i>Liste des produits</h3>
-					<div class="widget-toolbar hidden-480">
-						<a href="{{ route('demandeproduit.create') }}"><i class="ace-icon fa fa-plus"></i>Demander un produit</a>
-					</div>
+					<h3 class="widget-title grey lighter"><i class="ace-icon fa fa-leaf green"></i>Base de données de produits pharmaceutique</h3>
 				</div>
 				<div class="widget-body">
 					<div class="widget-main padding-24">

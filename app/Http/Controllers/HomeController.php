@@ -79,7 +79,7 @@ class HomeController extends Controller
             case 9: //agent Admission
                     return redirect()->action('AdmissionController@index');
                     break;       
-            case 10:
+            case 10://phar
                 $meds = medcamte::paginate(50);
                 $dispositifs = dispositif::paginate(50);
                 $reactifs = reactif::paginate(50);
@@ -94,7 +94,8 @@ class HomeController extends Controller
                 return view('home.home_radiologue', compact('demandesexr')); 
                 break;
             case 14://chef de service
-                return view('home.home_chef_ser');
+                // return view('home.home_chef_ser');
+                return view('patient.index'); 
             default:
                return view('errors.500');
                break;

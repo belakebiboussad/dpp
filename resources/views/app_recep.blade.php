@@ -6,7 +6,7 @@
          <meta name="viewport" content="width=device-width, initial-scale=1">
           <title>@yield('title','Gestion des rendez-vous')</title>
          @yield('style')
-         <title>Gestion Des Patients</title>
+         <title>Gestion des Patients</title>
          @include('partials.htmlheader')
          @include('partials.scripts')   
    </head>

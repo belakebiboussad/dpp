@@ -65,9 +65,9 @@ $('document').ready(function(){
 	<div class="col-sm-10 col-sm-offset-1">
 		<div class="widget-box transparent">
 			<div class="widget-header widget-header-large">
-				<h3 class="widget-title grey lighter"><i class="ace-icon fa fa-leaf green"></i>	Liste des produits	</h3>
+				<h3 class="widget-title grey lighter"><i class="ace-icon fa fa-leaf green"></i>Base de données de produits pharmaceutique</h3>
 				<div class="widget-toolbar hidden-480">
-					<a href="{{ route('demandeproduit.create') }}"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120" style="font-size:18px;"></i>Demander un produit</a>
+					<a href="{{ route('demandeproduit.create') }}"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120" style="font-size:18px;"></i>Demander</a>
 				</div>
 			</div>
 			<div class="widget-body">
@@ -101,28 +101,28 @@ $('document').ready(function(){
 									</div>
 										</div>
 									</div>{{-- tabpane --}}
-									<div id="dispositifs" class="tab-pane col-sm-12">
+									<div id="dispositifs" class="tab-pane col-sm-12 no-padding-left no-padding-right">
 											<div class="scrollable" data-size="100" data-position="left">
 												<div>
-													<table id="dispo_table" class="table table-striped table-bordered col-sm-12">
+													<table id="dispo_table" class="table table-bordered table-hover" width="100%">
 														<thead>
 															<tr>
-																<th>Nom</th>
-																<th>Code </th>
+																<th width="50%">Nom</th>
+																<th width="50%">Code </th>
 															</tr>
 														</thead>
 													</table>
 												</div>
 											</div>
 									</div>{{--tabpne --}}
-									<div id="reactifs" class="tab-pane">
+									<div id="reactifs" class="tab-pane col-sm-12 no-padding-left no-padding-right">
 										<div class="scrollable" data-size="100">
 											<div>
-												<table id="reactifs_table" class="table table-striped table-bordered col-sm-12">
+												<table id="reactifs_table" class="table table-bordered table-hover" width="100%">
 													<thead>
 														<tr>
-															<th>Nom</th>
-															<th>Code</th>
+															<th width="50%">Nom</th>
+															<th width="50%">Code</th>
 														</tr>
 													</thead>
 												</table>

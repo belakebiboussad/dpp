@@ -47,10 +47,10 @@ $('document').ready(function(){
 @endsection
 @section('main-content')
 <div class="page-header">
-	<h1 style="display: inline;"><strong>Modification de la demande de produit du </strong> &quot;{{ $demande->Date}}&quot;</h1>
+	<h1 style="display: inline;"><strong>Modification de la demande du </strong> &quot;{{ $demande->Date}}&quot;</h1>
 	<div class="pull-right">
 		<a href="{{route('demandeproduit.index')}}" class="btn btn-white btn-info btn-bold">
-			<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i> Liste Demandes
+			<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>Demandes
 		</a>
 	</div>
 </div>

@@ -14,15 +14,17 @@
 <div class="page-header">
 	<h1 style="display: inline;"><strong>Liste des demandes </strong></h1>
 	<div class="pull-right">
+		@if(Auth::user()->is(14))
 		<a href="{{route('demandeproduit.create')}}" class="btn btn-white btn-info btn-bold">
-			<i class="ace-icon fa fa-plus-circle fa-lg bigger-120"></i> Demande de produit
+			<i class="ace-icon fa fa-plus-circle fa-lg bigger-120"></i> Demande
 		</a>
+		@endif
 	</div>
 </div>
 <div class="row">
 	<div class="col-xs-12">
 		<div class="widget-box">
-				<div class="widget-header"><h4 class="widget-title">Liste Des Demandes :</h4>	</div>
+				<div class="widget-header"><h4 class="widget-title">Demandes :</h4>	</div>
 				<div class="widget-body">
 					<div class="widget-main">
 						<div class="row">

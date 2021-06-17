@@ -105,7 +105,7 @@
             <li><a href="/choixpatvisite"><i class="menu-icon fa fa-plus purple"></i>Ajouter visite & contrôles</a><b class="arrow"></b></li>
           </ul></li> --}}
 {{-- <li><a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-file-o"></i><span class="menu-text">Demandes Hosp</span><b class="arrow fa fa-angle-down"></b></a>
-<b class="arrow"></b><ul class="submenu"><li class=""><a href="{{route('demandehosp.index')}}"  data-toggle="tooltip" data-placement="top" title="Liste Demandes d'hospitalisation"><i class="menu-icon fa fa-eye pink"></i>Liste des demandes</a>
+<b class="arrow"></b><ul class="submenu"><li class=""><a href="{{route('demandehosp.index')}}"  data-toggle="tooltip" data-placement="top" title="Demandes d'hospitalisation"><i class="menu-icon fa fa-eye pink"></i>Liste des demandes</a>
 <b class="arrow"></b></li></ul></li> --}}
         @if( Auth::user()->role_id == 14)
         <li class="">
@@ -873,6 +873,9 @@ doc.save('ExamRadio-'+nomp+'-'+prenomp+'.pdf')}});}*/
                 $("#produit").val(0);
                 $("#produit").prop('disabled', 'disabled');
               }
+          });
+          $('#produit').change(function(){
+             $("#ajoutercmd").removeAttr("disabled");
           });
          jQuery('body').on('click', '.CimCode', function (event) {
               $('#cim10Modal').trigger("reset");

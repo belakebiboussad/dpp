@@ -18,7 +18,7 @@ use Jenssegers\Date\Date;
 use App\modeles\etablissement;
 use Carbon\Carbon;
 use PDF;
-use Dompdf\Dompdf;
+//use Dompdf\Dompdf;
 use View;
 use Response;
 use Storage;
@@ -214,23 +214,15 @@ class HospitalisationController extends Controller
   {
     $hosp = hospitalisation::FindOrFail($request->id);
     $etablissement = Etablissement::first();// ,'img'=>$img// ,'etablissement'=>$etablissement
-    $viewhtml = View::make('hospitalisations.EtatsSortie.etiquettePDF',array('hosp' =>$hosp))->render();
-    
-    $dompdf = new Dompdf();
-    $dompdf->loadHtml($viewhtml);
-    
-    //$dompdf->setPaper('a7', 'landscape'); 
-    $customPaper = array(0,0,210,125);
-    $dompdf->set_paper($customPaper);
-
-    $dompdf->render();
-    //Page numbers
-    $font = $dompdf->getFontMetrics()->getFont("Arial", "bold");
-    
-    $dompdf->getCanvas()->page_text(16, 30, "", $font, 8, array(0, 0, 0));//Page: {PAGE_NUM} of {PAGE_COUNT}
-    
-    $name="etiquette.pdf"; 
-    
-    return $dompdf->stream($name); 
+    $filename="etiquette.pdf"; 
+    /* $viewhtml = View::make('hospitalisations.EtatsSortie.etiquettePDF',array('hosp' =>$hosp))->render();    $dompdf = new Dompdf();
+     $dompdf->loadHtml($viewhtml);    //$dompdf->setPaper('a9', 'landscape');    $customPaper = array(0,0,210,125);     $dompdf->set_paper($customPaper);
+    $dompdf->render();    $font = $dompdf->getFontMetrics()->getFont("Arial", "bold");    $dompdf->getCanvas()->page_text(16, 30, "", $font, 8, array(0, 0, 0));//Page: {PAGE_NUM} of {PAGE_COUNT}
+    return $dompdf->stream($filename);   */// $customPaper = array(0,0,30,60);$customPaper = array(0,0,215.00,130.80);
+    $pdf = PDF::loadView('hospitalisations.EtatsSortie.etiquettePDF',compact('hosp'));//->setPaper($customPaper);
+    // $pdf = PDF::loadView('hospitalisations.EtatsSortie.etiquettePDF', compact('hosp'));//return $pdf->setPaper('a9')->setOrientation('landscape')->stream();
+     return $pdf->download($filename); 
+     
+   
   }
 }
