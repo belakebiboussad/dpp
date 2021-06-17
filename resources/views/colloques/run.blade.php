@@ -130,7 +130,7 @@
 													<div class="profile-info-value"> <span>{{ $demande->consultation->patient->getAge( )}} ans</span></div>
 												</div>
 												<div class="profile-info-row">
-													<div class="profile-info-name text-center"><strong>Groupe Sanguin:</strong></div>
+													<div class="profile-info-name text-center"><strong>Groupe sanguin:</strong></div>
 													<div class="profile-info-value">
 			         	 					<h4>
 			         	 						<span class="label label-lg label-inverse arrowed-in">{{ $demande->consultation->patient->group_sang }}{{ $demande->consultation->patient->rhesus }}</span>
@@ -149,7 +149,7 @@
 										<div class="space visible-xs"></div>
 										<div class="profile-user-info profile-user-info-striped">
 											<div class="profile-info-row">
-												<div class="profile-info-name text-center"><strong>Mode Admission:</strong></div>
+												<div class="profile-info-name text-center"><strong>Mode d'admission:</strong></div>
 												<div class="profile-info-value"><h4><span class = "label label-lg label-success">{{$demande->modeAdmission }}</span></h4></div>
 											</div>
 											<div class="profile-info-row">
