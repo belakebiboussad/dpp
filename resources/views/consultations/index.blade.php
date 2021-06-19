@@ -71,17 +71,10 @@
   }
   function getAction(data, type, dataToSet) {
 	  var actions = '<a href = "/consultations/'+data.id+'" style="cursor:pointer" class="btn btn-secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>';
-// actions +='<a href = "/consultations/'+data.id+'/edit" style="cursor:pointer" class="btn btn-secondary btn-xs" data-toggle="tooltip" title=""><i class="ace-icon fa fa-pencil fa-xs"></i></a>';
 	  actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat(\'consultation\','+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';
 	  return actions;
 	}
-  $(function(){
-    $('.filter').change(function() {
-      if (this.value.trim()) { 
-        field = $(this).prop("id"); //return false;
-       }
-    });
-  });
+/*$(function(){$('.filter').change(function() { if (this.value.trim()) { field = $(this).prop("id"); } }); });*/
  	$('document').ready(function(){
     getConsultations("Date_Consultation",'<?= date("Y-m-j") ?>');
    	field= "Date_Consultation"; 
@@ -95,16 +88,14 @@
 @endsection
 @section('main-content')
 <div class="row">
-	<div class="col-sm-12 col-md-12">
-	  <h2><strong>Rechercher une consultation</strong></h2>
-  	<div class="panel panel-default">
-    	<div class="panel-heading">Recherche</div>
+	<div class="col-sm-12 col-md-12"> <h2><strong>Rechercher une consultation</strong></h2>
+  	<div class="panel panel-default"><div class="panel-heading">Recherche</div>
     	<div class="panel-body">
-	  	  <div class="row">
+      <div class="row">
       		<div class="col-sm-4">
-      			<div class="form-group"><label><strong>Patient :</strong></label><input type="text" id="Nom" class="form-control filter autofield"></div>
+        	<div class="form-group"><label><strong>Patient :</strong></label><input type="text" id="Nom" class="form-control filter autofield"></div>
          	</div>
-          <div class="col-sm-4">
+            <div class="col-sm-4">
             <div class="form-group"><label class="control-label"><strong>IPP:</strong></label><input type="text" id="IPP" class="form-control filter"></div>
           </div>
       		<div class="col-sm-4">
@@ -118,7 +109,7 @@
       	</div>
     	</div>
     	<div class="panel-footer">
-    		<button type="submit" class="btn btn-sm btn-primary findconsult" style="vertical-align: middle"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+    		<button type="submit" class="btn btn-sm btn-primary findconsult"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
     	</div>
   	</div>
 	</div>

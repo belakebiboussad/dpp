@@ -35,11 +35,11 @@
 														<div class="profile-info-name"> Etat : </div>
 														<div class="profile-info-value">
 															<span class="editable" id="username">
-																@if($demande->Etat == "E")
+																@if($demande->etat == "E")
 																	En Attente.
-																@elseif($demande->Etat =="V")
+																@elseif($demande->etat =="V")
 																	Validé
-																@elseif($demande->Etat =="R")
+																@elseif($demande->etat =="R")
 																	Rejeté
 																@endif
 															</span>

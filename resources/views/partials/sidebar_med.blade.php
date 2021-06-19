@@ -98,16 +98,7 @@
           </ul>
         </li>
         @endif
-       {{--  <li><a href="#" class="dropdown-toggle">
-            <i class="menu-icon fa fa-stethoscope"></i><span class="menu-text">Visites & Contrôle</span> <b class="arrow fa fa-angle-down"></b>
-          </a><b class="arrow"></b>
-          <ul class="submenu">
-            <li><a href="/choixpatvisite"><i class="menu-icon fa fa-plus purple"></i>Ajouter visite & contrôles</a><b class="arrow"></b></li>
-          </ul></li> --}}
-{{-- <li><a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-file-o"></i><span class="menu-text">Demandes Hosp</span><b class="arrow fa fa-angle-down"></b></a>
-<b class="arrow"></b><ul class="submenu"><li class=""><a href="{{route('demandehosp.index')}}"  data-toggle="tooltip" data-placement="top" title="Demandes d'hospitalisation"><i class="menu-icon fa fa-eye pink"></i>Liste des demandes</a>
-<b class="arrow"></b></li></ul></li> --}}
-        @if( Auth::user()->role_id == 14)
+        @if(Auth::user()->is(14)) {{-- @if( Auth::user()->role_id == 14) --}}
         <li class="">
           <a href="#" class="dropdown-toggle">
             <i class="menu-icon fa fa-medkit" aria-hidden="true"></i><span class="menu-text">Produits</span>
@@ -229,51 +220,6 @@
       function activaTab(tab){
         $('.nav-pills a[href="#' + tab + '"]').tab('show');
       }
-      /*
-      function copyPatient(){ 
-        $("#nomf").val($("#nom").val());
-        $("#prenomf").val($("#prenom").val());
-        $("#datenaissancef").val($("#datenaissance").val());$("#lieunaissancef").val($("#lieunaissance").val()); 
-        $("#idlieunaissancef").val($("#idlieunaissance").val());var sexe = $('input[name=sexe]:radio:checked').val();$('#sexef').val(sexe);
-        $('#adressef').val($('#adresse').val());
-        $('#communef').val($('#commune').val()); $('#idcommunef').val($('#idcommune').val());$('#idwilayaf').val( $('#idwilaya').val()); 
-        $('#wilayaf').val($('#wilaya').val()); $('#SituationFamille').val($('#sf').val());
-        if ( $("#gs option:selected").val() === "" ){
-              $(gsf).attr("disabled", false);
-              $("#rhf" ).attr("disabled", false);
-        }
-        else{
-            $("#gsf").val($("#gs option:selected").val());
-            $("#rhf").val($("#rh option:selected").val());
-            $(gsf).attr("disabled", true);
-            $("#rhf" ).attr("disabled", true);     
-        }
-        $('.Asdemograph').find('*').each(function () {
-          $(this).attr("disabled", true); 
-        });
-        addRequiredAttr();
-      }
-      function copyPatientInfo(idP)
-      {
-        if($("#type").val() =="0")
-          copyPatient();
-        else
-          if(idP == null)
-            emptyPatient();
-      }
-      function emptyPatient(){ 
-        $("#nomf").val("");$("#prenomf").val("");$("#datenaissancef").val("");$("#lieunaissancef").val("");$("#idlieunaissancef").val("");$('#adressef').val("");$('#communef').val("");
-        $('#idcommunef').val("");$('#idwilayaf').val("");$('#wilayaf').val("");
-        $("#gsf").val("");
-        $("#rhf").val("");
-        if($("#gsf").prop('disabled') == true)
-          $('#gsf').attr("disabled", false);
-        if($("#gsf").prop('disabled') == true)
-          $("#rhf" ).attr("disabled", false);
-        $('.Asdemograph').find('*').each(function () {
-          $(this).attr("disabled", false); 
-        });
-      }*/
       if ($("#addGardeMalade").length > 0) {  ////avoir
         $("#addGardeMalade").validate({
             rules: {
@@ -373,16 +319,6 @@
            createexbioF(img,nomp,prenomp,age,ipp);
         };
       } 
-/* function createeximgF(image,nomp,prenomp,age,ipp)
-{ html2canvas($("#dos"),{onrendered: function(canvas){moment.locale('fr');var formattedDate = moment(new Date()).format("l");var doc = new jsPDF('p', 'mm');
-JsBarcode("#itf", ipp.toString(), {lineColor: "#000",width:4,height:40,displayValue: true,text:"IPP :"+ipp.toString(),fontSize : 28,textAlign: "left"});
-const img = document.querySelector('img#itf');doc.text(105, 9,'{{ Session::get('etabTut') }}', null, null, 'center');doc.setFontSize(13);doc.text(105,16, '{{ Session::get('etabname') }}'.replace(/&quot;/g,'"'), null, null, 'center');
-doc.setFontSize(12);doc.text(105,21, '{{ Session::get('etabAdr') }}', null, null, 'center');doc.text(105,26, 'Tél : {{ Session::get('etabTel') }} - {{ Session::get('etabTel2') }}', null, null, 'center');
-doc.addImage(image, 'JPEG', 95, 27, 23, 23);doc.setFontSize(14);doc.text(200,60, formattedDate , null, null, 'right');doc.text(10,63, 'Nom : '+nomp, null, null);
-doc.text(10,68, 'Prénom : '+prenomp, null, null);doc.text(10,73, 'Age : '+ age+' ans', null, null);doc.addImage(img.src, 'JPEG', 10, 75, 50, 15);doc.text(10,110, 'Prière de faire', null, null);
-doc.setFontSize(16);doc.text(50,125,'Examens Radiologiques Demandées :',null,null);var res = doc.autoTableHtmlToJson(document.getElementById('ExamsImgtab'));var height = doc.internal.pageSize.height;
-doc.autoTable(res.columns, res.data, {startY: 135,});doc.setFontSize(12);doc.text(100,273, 'Docteur : {{ Auth::user()->employ->nom}} {{ Auth::user()->employ->prenom}}', null, null); 
-doc.save('ExamRadio-'+nomp+'-'+prenomp+'.pdf')}});}*/
     function lettreoriet(logo,nomP,prenomP,ageP,ipp,ett,etn,etadr,ettel,etlogo)
     {
       var specialite = $( "#specialiteOrient option:selected" ).text().trim();
@@ -915,7 +851,6 @@ doc.save('ExamRadio-'+nomp+'-'+prenomp+'.pdf')}});}*/
                         $('#liste_codesCIM' ).DataTable( {
                              processing: true,
                             bInfo : false,
-                            pageLength: 5,
                             pageLength: 5,
                             destroy: true,
                             "language": { "url": '/localisation/fr_FR.json' },

@@ -80,11 +80,8 @@ class HomeController extends Controller
                     return redirect()->action('AdmissionController@index');
                     break;       
             case 10://phar
-                $meds = medcamte::paginate(50);
-                $dispositifs = dispositif::paginate(50);
-                $reactifs = reactif::paginate(50);
-                return view('home.home_pharmacien', compact('meds','dispositifs','reactifs'));
-                break;   
+                     return redirect()->action('demandeprodController@index');
+                    break;   
             case 11://Laborantin
                 $demandesexb = demandeexb::with('consultation.patient')->where('etat','E')->get();
                 return view('home.home_laboanalyses', compact('demandesexb'));
@@ -94,8 +91,7 @@ class HomeController extends Controller
                 return view('home.home_radiologue', compact('demandesexr')); 
                 break;
             case 14://chef de service
-                // return view('home.home_chef_ser');
-                return view('patient.index'); 
+                return view('patient.index');   // return view('home.home_chef_ser');
             default:
                return view('errors.500');
                break;

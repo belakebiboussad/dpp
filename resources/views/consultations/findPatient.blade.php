@@ -45,7 +45,7 @@
 				</div>
 				</div>
 			</div>
-			<div class="panel-footer" style="height: 50px;">
-		   	<button type="submit" class="btn btn-xs btn-primary findptient " style="vertical-align: middle"><i class="fa fa-search"></i>&nbsp;Rechercher</button>		
+			<div class="panel-footer">
+		   	<button type="submit" class="btn btn-xs btn-primary findptient "><i class="fa fa-search"></i>&nbsp;Rechercher</button>		
 			</div>
 	</div>

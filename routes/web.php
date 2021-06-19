@@ -57,11 +57,13 @@ route::get('/home_reception','HomeController@index');
 route::get('/home_dele','HomeController@index');
 route::get('/home_admission','AdmissionController@index')->name('home_admission');
 Route::get('/sortiesAdmission','AdmissionController@sortir')->name('admission.sortieAdm');
-Route::get('/getSortiesAdmissions','AdmissionController@getSortiesAdmissions');//Route::get('/admission/create/{id}','AdmissionController@create');//a commenter
+Route::get('/getSortiesAdmissions','AdmissionController@getSortiesAdmissions');
 Route::get('sortiePatient/{id}','AdmissionController@updateAdm');
 Route::get('/admdetail/{id}', 'AdmissionController@getDetails');
 route::get('/demandeproduit/run/{id}','demandeprodController@run')->name('runDemande');
 route::post('/demandeproduit/valider/{id}','demandeprodController@valider')->name('demandeproduit.valider');
+route::get('/demandeproduit/rejeter/{id}/{motif}','demandeprodController@rejeter');
+route::get('/products/list','demandeprodController@getProducts')->name('productsList');
 Route::post('user/credentials','UsersController@credentials');
 Route::post('user/updatepro','UsersController@updatepro');
 Route::get('/atcd/store','AntecedantsController@storeatcd');
@@ -101,7 +103,7 @@ Route::get('/rdv/create/{id}','RDVController@create');
 Route::post('/createRDV','RDVController@AddRDV');
 Route::get('/rdv/valider/{id}','RDVController@valider');
 Route::get('/rdv/reporter/{id}','RDVController@reporter');
-Route::post('/rdv/reporte/{id}','RDVController@storereporte');//Route::get('rdvprint/{id}','rdvController@print');
+Route::post('/rdv/reporte/{id}','RDVController@storereporte');
 Route::get('rdvprint/{id}', ['as' => 'rdv.print', 'uses' => 'rdvController@print']);// Route::get('/pdf/{order}', ['as' => 'rdv.pdf', 'uses' => 'rdvController@print']);
 Route::get('rdvHospi/create/{id}','RdvHospiController@create')->name('rdvHospi.create');
 Route::get('/rdvHospi/imprimer/{rdv}', ['as' => 'admission.pdf', 'uses' => 'RdvHospiController@print']);
@@ -186,7 +188,7 @@ route::get('/getpatientconsigne','PatientController@getpatientconsigne');
 /************partie visite d'hospitalisation**************/
 Route::get('/delVisite/{id}', 'VisiteController@destroy')->name('visite.destroy');
 Route::get('/visite/create/{id}','VisiteController@create');
-Route::post('/visite/store/{id}','VisiteController@store');//route::get('/choixpatvisite','VisiteController@choixpatvisite');//route::get('/choixhospconsigne','ActeController@choixhospconsigne');//route::get('/consigne','ActeController@choixhospconsigne');
+Route::post('/visite/store/{id}','VisiteController@store');
 route::post('/saveActe','ActeController@store');
 route::get('/schapitres','CimController@getChapters');
 route::get('/maladies','CimController@getdiseases');//route::post('/acte','AntecedantsController@store');
@@ -201,11 +203,4 @@ route::get('/download/{filename}', function($filename)
 {
     return Storage::download($filename);
 });
-
 Route::post('/admin/password/reset','UsersController@passwordReset');
-// Route::post('/admin/password/reset',function(){
-//     return("oui");
-// });
-// Route::post('admin/password/reset',function(){
-//     return("oui");
-// })->name('admin');

@@ -37,7 +37,6 @@ $('document').ready(function(){
       		  	});
  			 		produits.push(jsonData);
   		  });
-  		  //alert(JSON.stringify(produits));
   			var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(produits)+"' hidden>");
 				champ.appendTo('#demandform');
      		$('#demandform').submit();

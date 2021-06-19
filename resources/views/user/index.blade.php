@@ -3,13 +3,7 @@
 @section('page-script')
 <script>
 var field = 'name';
-  $(function(){
-    $('.filter').change(function() {
-      if (this.value.trim()) { 
-        field = $(this).prop("id"); //return false;
-       }
-    });
-  });
+  /*$(function(){$('.filter').change(function() {if (this.value.trim()) { field = $(this).prop("id");} });});*/
 $(document).ready(function(){
 	$(document).on('click','.findUser',function(event){
 		event.preventDefault();
@@ -129,8 +123,8 @@ function getUserdetail(id)
 	  	  </div>
 	  	</div>			   
 		</div>
-		<div class="panel-footer" style="height: 50px;">
-			<button type="submit" class="btn btn-sm btn-primary findUser" style="vertical-align: middle"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+		<div class="panel-footer">
+			<button type="submit" class="btn btn-sm btn-primary findUser"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
 			<div class="pull-right">
 				<a class="btn btn-primary btn-sm hidden" href="users/create" id="btnCreate" role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>	
 			</div>

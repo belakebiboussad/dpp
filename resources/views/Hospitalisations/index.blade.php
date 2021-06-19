@@ -133,28 +133,21 @@
             });
        }
         var field ="etat_hosp";
-       $(function() {
-             $('.filter').change(function() {
-                    if (this.value.trim())
-                          field = $(this).prop("id"); //return false;
-              });
-      });
+       /*$(function() {$('.filter').change(function() {if (this.value.trim()) field = $(this).prop("id");});});*/
       $('document').ready(function(){
-      /*
-$('.filter').change(function(){// if($(this).attr('id') != "Nom") //getHospitalisations("etat_hosp",null);getHospitalisations($(this).attr('id'),$(this).val()); }); // $('.filter').keyup(function(){//     getHospitalisations($(this).attr('id'),$(this).val()) // });*/
-      $(document).on('click','.findHosp',function(event){
-             getHospitalisations(field,$('#'+field).val().trim());
-      });
-      $('#modeSortie').change(function(){
-         if($(this).val()==="0")
-          {
-              if($('.transfert').hasClass('hidden'))
-                $('.transfert').removeClass('hidden');
-          }else{ 
-              if(! ($('.transfert').hasClass('hidden')))
-                $('.transfert').addClass('hidden');
-          }
-          if ($(this).val()==="2"){
+              $(document).on('click','.findHosp',function(event){
+                     getHospitalisations(field,$('#'+field).val().trim());
+              });
+             $('#modeSortie').change(function(){
+                     if($(this).val()==="0")
+                      {
+                          if($('.transfert').hasClass('hidden'))
+                            $('.transfert').removeClass('hidden');
+                      }else{ 
+                          if(! ($('.transfert').hasClass('hidden')))
+                            $('.transfert').addClass('hidden');
+                      }
+                      if ($(this).val()==="2"){
                 if($('.deces').hasClass('hidden'))
                     $('.deces').removeClass('hidden');
           }else{
@@ -239,8 +232,8 @@ $('.filter').change(function(){// if($(this).attr('id') != "Nom") //getHospitali
           </div>
         </div>
       </div>
-      <div class="panel-footer" style="height: 50px;">
-        <button type="submit" class="btn btn-sm btn-primary findHosp" style="vertical-align: middle"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+      <div class="panel-footer">
+        <button type="submit" class="btn btn-sm btn-primary findHosp"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
       </div>
     </div>
   </div>

@@ -4,8 +4,7 @@
 @endsection
 @section('page-script')
   <script type="text/javascript">
-
-		$(document).ready(function(){
+	$(document).ready(function(){
 			$('#listActes').DataTable({
 				processing: true,
 				ordering: true,
@@ -45,8 +44,8 @@
 				$('#acteModal').modal('show');
 			});  
 	  $("#EnregistrerActe").click(function (e) {
-			e.preventDefault();
-			//var periodes = [];
+			e.preventDefault();//var periodes = [];
+			
 			if(! isEmpty($("#acte").val()) || ($("#acte").val() == ''))
 				$('#acteModal').modal('toggle');
 			$.ajaxSetup({

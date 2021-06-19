@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 17 juin 2021 à 16:29
--- Version du serveur :  5.7.23
--- Version de PHP : 7.2.10
+-- Généré le :  sam. 19 juin 2021 à 19:14
+-- Version du serveur :  5.7.21
+-- Version de PHP :  7.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `dpdgsn`
+-- Base de données :  `dpdgsn`
 --
 
 -- --------------------------------------------------------
@@ -3354,8 +3355,11 @@ INSERT INTO `demande_dispositif` (`id_demande`, `id_dispositif`, `qte`, `qteDonn
 (25, 5, 10, 4),
 (27, 4, 100, 98),
 (29, 5, 10, 5),
-(28, 12, 20, NULL),
-(31, 10, 20, 13);
+(28, 12, 20, 16),
+(31, 10, 20, 13),
+(34, 2, 5, NULL),
+(35, 2, 5, 4),
+(36, 1, 8, 5);
 
 -- --------------------------------------------------------
 
@@ -3383,11 +3387,14 @@ INSERT INTO `demande_medicaments` (`id_demande`, `id_medicaments`, `qte`, `qteDo
 (27, 19, 10, 6),
 (29, 110, 1, 4),
 (30, 374, 10, 5),
-(28, 979, 10, NULL),
+(28, 979, 10, 6),
 (31, 105, 12, 3),
 (32, 14, 10, 5),
 (32, 434, 1, 10),
-(33, 14, 10, NULL);
+(33, 14, 10, NULL),
+(34, 14, 4, NULL),
+(35, 17, 4, 3),
+(36, 14, 10, 5);
 
 -- --------------------------------------------------------
 
@@ -3399,28 +3406,21 @@ DROP TABLE IF EXISTS `demande_produits`;
 CREATE TABLE IF NOT EXISTS `demande_produits` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Date` date NOT NULL,
-  `Etat` enum('E','V','R') NOT NULL,
+  `etat` enum('0','1') DEFAULT NULL COMMENT 'null;attente,0:Annuler,1:valide',
   `motif` varchar(200) DEFAULT NULL,
   `id_employe` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_employe` (`id_employe`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `demande_produits`
 --
 
-INSERT INTO `demande_produits` (`id`, `Date`, `Etat`, `motif`, `id_employe`) VALUES
-(24, '2020-12-20', 'R', 'qsdfqsfsdf', 100),
-(25, '2020-12-20', 'V', NULL, 100),
-(26, '2020-12-22', 'V', NULL, 100),
-(27, '2020-12-27', 'V', NULL, 100),
-(28, '2020-12-28', 'E', NULL, 100),
-(29, '2020-12-28', 'V', NULL, 100),
-(30, '2020-12-28', 'V', NULL, 100),
-(31, '2020-12-29', 'V', NULL, 100),
-(32, '2021-01-04', 'V', NULL, 100),
-(33, '2021-01-04', 'E', NULL, 100);
+INSERT INTO `demande_produits` (`id`, `Date`, `etat`, `motif`, `id_employe`) VALUES
+(34, '2021-06-19', '0', 'repture de stoxk', 100),
+(35, '2021-06-19', '1', NULL, 100),
+(36, '2021-06-19', '1', NULL, 100);
 
 -- --------------------------------------------------------
 
@@ -3444,7 +3444,10 @@ CREATE TABLE IF NOT EXISTS `demande_reactif` (
 
 INSERT INTO `demande_reactif` (`id_demande`, `id_reactif`, `qte`, `qteDonne`) VALUES
 (30, 72, 10, 8),
-(31, 60, 5, 5);
+(31, 60, 5, 5),
+(34, 7, 3, NULL),
+(35, 9, 6, 5),
+(36, 27, 15, 10);
 
 -- --------------------------------------------------------
 
@@ -12538,23 +12541,23 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
 
 INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `role_id`, `remember_token`, `active`) VALUES
 (3, 'infcar', '$2y$10$iCZWwSL3s9u9Fn/9M.TykeHfUx/CRhmrp069KVhYg34RXohdBaVdy', 'infcar@hop.dz', 1, 3, 'qUnBTPkQ4EtuXmXJs50V8y5jl2b57qtovhNkV8NoQ2t7k4qxAxTniMVUL4f1', 1),
-(25, 'admin', '$2y$10$B1bDBc58b2oRAgoTFEqWauKio.yiYSlkmTxC8yNkaG6uaK4SA3HoC', 'mail@live.fr', 65, 4, 'BZoaPSQ4jbbW4W6iUG6FtIB8pv0TFbTFquGzdFJhkWtXOokZBfBa1mK6nHm8', 1),
+(25, 'admin', '$2y$10$B1bDBc58b2oRAgoTFEqWauKio.yiYSlkmTxC8yNkaG6uaK4SA3HoC', 'mail@live.fr', 65, 4, '8Z1tLsvjHGqjPtvKU3GX8H4skROlddcWOrSqUiffkAWFqaOnMiVc22PapG3P', 1),
 (28, 'medChef', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'az@e.fr', 87, 13, 'dv2JHJKB9VFM1Nfg76y821tWLHprv0CujPf0R5pmSDM0cN01JTmzJA811UUF', 1),
 (29, 'surint', '$2y$10$Ve5h8oMwfAmfzHgTLrfJTOmGUiBpZLdxrfEfYC/7g2a1G62ZkM2QO', 'surint@hop.dz', 80, 5, 'gpZZ7n5wZzyDItBNWBgOWJBuHVN9zPFAVCnhFigz3AQFygICRp4ENyCc2B8W', 1),
 (30, 'surped', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'surped@hop.dz', 81, 5, 'abRyKAC759q8jUucTebEooGvkMSb8WWmkzEZKi81osrEtvTc54kcurpb4UZo', 1),
 (31, 'rec', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'rec@gmail.com', 82, 2, 'bj95brzFQJMYmOhW1roNEG4MoWMu4xku7KXYRE9PrlGp5PSm7Ff0jDPUREwA', 1),
 (33, 'medorl', '$2y$10$MkXa.6SlrtM.V/6WY.LsFeiWb7qNiUAS.ZEQIn9on2Py7IVSOUYim', 'medOrl@gmail.cpm', 79, 1, 'vi7jdwX1xkuQN9uDXLrwZpygZeXf2cQFy6Nhz26EOLEYulAcw1OGXZ78vpCc', 1),
 (34, 'medint', '$2y$10$.GT6U9nNpDRNokGxPe9BF.HXLl8MpgPZFv3OL8xoK00hHNPgXWhHW', 'admin@gmail.com', 88, 1, 'DprHVUZMvVijtCjI7g5jbzF8KQUgtv9BBHEykRrqsdncd7ZlI31KwepasN8R', 1),
-(35, 'delCol', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'll@a.fr', 89, 6, 'PfDkwGEah2mPZGKxn0H8R61Lvda9xoHWoURq17dSdunjpOZM0S3cQtjykaWP', 1),
+(35, 'delCol', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'll@a.fr', 89, 6, 'nfvvp5bfJBkBUX0yD2q7OEnXPlsr8yEdckJ22J5amnlOIfTlrZpyeNplVNJj', 1),
 (38, 'user', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'jj@hot.frr', 93, 13, 'QGzAK3Ot9VH190WBcOuRMMdfEN0H91VgB1MXO6vbFuiiu15koQYCQLxWP4BT', 1),
 (39, 'surcar', '$2y$10$zUdI0W5QV/1fmnBnhmL2TOTqN8GMNEdZZK6o4gclrJ1CKfxVq.Rca', 'bbedeebi@cdta.dz', 94, 5, 'pR7QRrEam2xmG9mBcndnFLKyQo1J1pDcIyEPZZuO25w6pmdLVJARaAcPMl3F', 1),
 (40, 'agentAdm', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'agentAdm@hop.dz', 95, 9, 'hcEiyOu6lVtRBS0HwhkUkIf2CrZunWTA0omOlazCn1GaTHxQPKkyUnaWSueG', 1),
-(41, 'agent', '$2y$10$RsD.pKjSIV73uBbaLJNE.uXhzCmCixdBf71lcxBq2wmQu0dsRzdmy', 'agent@hop.dz', 96, 9, 'yWPyvDEGLHCbosKmhHKcmR38rOFrFkm9UK2poaiYhr1CgUwLrsM55tLDseWm', 1),
+(41, 'agent', '$2y$10$RsD.pKjSIV73uBbaLJNE.uXhzCmCixdBf71lcxBq2wmQu0dsRzdmy', 'agent@hop.dz', 96, 9, 'XzdGreoA3JOwI1TpcX0esWZJkAURhdkCmy1m1Oz7lmtF6UyTQkTC2XoveYar', 1),
 (42, 'laborantin', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'lab@hop.dz', 97, 11, 'QVhpcnKas8aHAXFYzjhhOG6ZPPC4YLPIKcMNmiFrV0zYGhJ2wZ0tKCbmMLGo', 1),
-(44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, 'SzsYQ4wGSAE8AC4nvm0vyIHJqm6crKBPoDinlcHnMAmbupQ3pWU9Cm0mDgPa', 1),
-(45, 'chefcar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'CujKdtyNZ4Id8UBcAu0gXW3cYuhIu8KuNcSXNgJOmgekvWJMop2X2pcbijlN', 1),
-(46, 'rad', '$2y$10$PNDRMvcnhl1kZ.sxfoq8Yuhoq6ZMQePi9/q1QbLUZ.a.hd5DxvnCS', 'rad@cdta.net', 101, 12, 'uT26m9dnHoegALkdqoLgh9PmsoPYnMwTpMDSOkgmaUFSKbOkxpArHK4vmEM0', 1),
-(47, 'medcar', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'bbedeebi@cdta.dz', 102, 1, 'nMpfJ44QWYrtRftsgs4JvT9nlftdoZvKnjMQ1A6mHXtyNqfqY1QDl22gCAQ5', 1),
+(44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, '7C9uUqCJsoV1SI07SU3CB0Yh4DTq8j31rC1eTjxsE0O8us3rhmkISynueSTA', 1),
+(45, 'chefcar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'hUmu02wv5XnbG18HMcJdKceZ1Q5l7BM9CKiZXw4YCwICLHjRmpjQC7cqgBzn', 1),
+(46, 'rad', '$2y$10$PNDRMvcnhl1kZ.sxfoq8Yuhoq6ZMQePi9/q1QbLUZ.a.hd5DxvnCS', 'rad@cdta.net', 101, 12, 'r0RR4ZQu9tUXPDYraRNkOgSzBHcnT3g6FPfHzeIE10VeW1GO3HOkCq4JVJDr', 1),
+(47, 'medcar', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'bbedeebi@cdta.dz', 102, 1, 'IhwHsEjaxkEf61r8NUSQBXiQgPBh2YzPNXIi028PzZxzfv5sHoTCZk7ADZPj', 1),
 (48, 'medped', '$2y$10$lXIIp1ZIWckVgX8YtOqSDethY/JmY8WVIWIert0RsoNyPSa/KYBiK', 'medped@gmail.dz', 103, 1, 'kkLKmOWaDvwyomcBTOU1Or1ZhAeRDYjQavrmS1g5EZcXbGI56Kur1c8oKgNf', 1),
 (56, 'infped', '$2y$10$P/S8ej3FHSVBfr0YNsVIcOtmxxR3NSxR8X2uOLIq3Qcvv/uCt4eBi', 'infped@hop.dz', 111, 3, NULL, 1),
 (57, 'infint', '$2y$10$f0R.H3xHnM0feyLAr3U4jeo8u237S8gPX9gjRLre.Fq/76uMdcmhe', 'infint@gmail.com', 68, 3, 'YYSiAxEl6bEirML3V8YioMpD2HjwPv2qbwxfjgTLreFN6YwrieUhXSL0zAqu', 1),
@@ -12919,8 +12922,7 @@ INSERT INTO `wilayas` (`id`, `nom`) VALUES
 --
 DROP TABLE IF EXISTS `nextrdvs`;
 
-DROP VIEW IF EXISTS `nextrdvs`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvs`  AS SELECT `rdvs`.`id` AS `Id`, date_format(`rdvs`.`Date_RDV`,'%Y-%m-%d') AS `DateRdv`, `rdvs`.`Patient_ID_Patient` AS `PatientId`, `patients`.`IPP` AS `Ipp`, `patients`.`Nom` AS `Nom`, `patients`.`Prenom` AS `Prenom`, `patients`.`Dat_Naissance` AS `DateNaissance`, `patients`.`Sexe` AS `Sexe`, `employs`.`specialite` AS `SpecialiteId` FROM ((`rdvs` join `patients` on((`rdvs`.`Patient_ID_Patient` = `patients`.`id`))) join `employs` on((`rdvs`.`Employe_ID_Employe` = `employs`.`id`))) WHERE ((cast(`rdvs`.`Date_RDV` as date) = curdate()) AND isnull(`rdvs`.`Etat_RDV`)) ORDER BY `rdvs`.`Date_RDV` DESC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvs`  AS  select `rdvs`.`id` AS `Id`,date_format(`rdvs`.`Date_RDV`,'%Y-%m-%d') AS `DateRdv`,`rdvs`.`Patient_ID_Patient` AS `PatientId`,`patients`.`IPP` AS `Ipp`,`patients`.`Nom` AS `Nom`,`patients`.`Prenom` AS `Prenom`,`patients`.`Dat_Naissance` AS `DateNaissance`,`patients`.`Sexe` AS `Sexe`,`employs`.`specialite` AS `SpecialiteId` from ((`rdvs` join `patients` on((`rdvs`.`Patient_ID_Patient` = `patients`.`id`))) join `employs` on((`rdvs`.`Employe_ID_Employe` = `employs`.`id`))) where ((cast(`rdvs`.`Date_RDV` as date) = curdate()) and isnull(`rdvs`.`Etat_RDV`)) order by `rdvs`.`Date_RDV` desc ;
 
 --
 -- Contraintes pour les tables déchargées

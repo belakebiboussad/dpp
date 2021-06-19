@@ -1,7 +1,8 @@
 @extends('app')
+@section('title','Détails demande')
 @section('main-content')
 <div class="page-header">
-	<h1 style="display: inline;"><strong>Détails demande du </strong> &quot;{{ $demande->Date}}&quot;</h1>
+	<h1 style="display: inline;"><strong>Détails de la demande du </strong> &quot;{{ $demande->Date}}&quot;</h1>
 	<div class="pull-right">
 		<a href="{{route('demandeproduit.index')}}" class="btn btn-white btn-info btn-bold">
 			<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>Demandes
@@ -32,13 +33,12 @@
 													<div class="profile-info-row">
 														<div class="profile-info-name"> Etat : </div>
 														<div class="profile-info-value">
-															<span class="editable" id="username">
-																@if($demande->Etat == "E")
-																	En Attente.
-																@elseif($demande->Etat =="V")
-																	Validé
-																@elseif($demande->Etat =="R")
-																	Rejeté
+															@if($demande->etat == null)
+																<span class="badge badge-success">En Cours
+																@elseif($demande->etat == 1)
+																<span class="badge badge-primary">Validé	
+																@elseif($demande->etat == 0)
+																	<span class="badge badge-warning">Rejeté
 																@endif
 															</span>
 														</div>
@@ -70,7 +70,7 @@
 												<th class="center"><strong>Spécialité</strong></th>
 												<th class="center"><strong>Gamme </strong></th>
 												<th class="center"><strong>Qte</strong></th>
-												@if($demande->Etat == "V")
+												@if($demande->etat == "1")
 												<th class="center">Qte Donnée</th>
 												@endif
 											</tr>
@@ -82,9 +82,9 @@
 													<td>{{ $dispositif->nom}}</td>
 													<td>/</td>
 													<td>DISPOSITIFS MEDICAUX</td>
-													<td>{{ $dispositif->pivot->qte }}</td>
-													@if($demande->Etat == "V")
-													<td>{{ $dispositif->pivot->qteDonne }}</td>
+													<td  class="center">{{ $dispositif->pivot->qte }}</td>
+													@if($demande->etat == "1")
+													<td  class="center">{{ $dispositif->pivot->qteDonne }}</td>
 													@endif
 												</tr>
 											@endforeach
@@ -94,9 +94,9 @@
 													<td>{{ $medicament->nom }}</td>
 													<td>{{ $medicament->specialite->nom }}</td>
 													<td><span>MEDICAMENTS</span></td>
-													<td>{{ $medicament->pivot->qte }}</td>
-													@if($demande->Etat == "V")
-													<td>{{ $medicament->pivot->qteDonne }}</td>
+													<td  class="center">{{ $medicament->pivot->qte }}</td>
+													@if($demande->etat == "1")
+													<td  class="center">{{ $medicament->pivot->qteDonne }}</td>
 													@endif
 												</tr>
 											@endforeach
@@ -106,9 +106,9 @@
 													<td>{{ $reactif->nom }}</td>
 													<td>/</td>
 													<td><span>Réactifs chimiques et dentaires</span></td>
-													<td>{{ $reactif->pivot->qte }}</td>
-													@if($demande->Etat == "V")
-														<td>{{ $reactif->pivot->qteDonne }}</td>
+													<td class="center">{{ $reactif->pivot->qte }}</td>
+													@if($demande->etat == "1")
+														<td  class="center">{{ $reactif->pivot->qteDonne }}</td>
 													@endif
 												</tr>
 											@endforeach

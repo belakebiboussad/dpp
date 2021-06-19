@@ -17,7 +17,7 @@
 	<li class="">
     <a href="#">
       <i class="menu-icon fa fa-picture-o"></i>
-      <span class="menu-text">Menu Gestion Patients</span>
+      <span class="menu-text">Gestion Pharmacie</span>
      </a>
     <b class="arrow"></b>
   </li>
@@ -28,9 +28,17 @@
       </a>
       <b class="arrow"></b>
     </li>
-    <li class="">
-        <a href="{{ route('demandeproduit.index') }}">
-                <i class="menu-icon fa fa-bookmark-o"></i><span class="menu-text"> Liste demandes </span>
+    <li >
+        <a href="{{ route('demandeproduit.index') }}">{{--  <i class="menu-icon fa fa-bookmark-o"></i>  --}}
+             <i class="menu-icon fa fa-table"></i> 
+             {{-- <span class ="medical medical-icon-i-first-aid"></span> --}}
+              <span class="menu-text"> Liste des demandes </span>
+      </a>
+      <b class="arrow"></b>
+    </li>
+    <li >
+        <a href="{{ route('productsList') }}">
+              <i class="menu-icon fa fa-medkit" aria-hidden="true"></i> <span class="menu-text"> Liste des produits </span>
       </a>
       <b class="arrow"></b>
     </li>

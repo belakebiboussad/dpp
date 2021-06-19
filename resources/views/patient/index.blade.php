@@ -202,8 +202,8 @@
 					</div>
 				</div>
 			</div>  {{-- body --}}
-			<div class="panel-footer" style="height: 50px;">
-		   	<button type="submit" class="btn btn-sm btn-primary findptient" style="vertical-align: middle"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+			<div class="panel-footer">
+		   	<button type="submit" class="btn btn-sm btn-primary findptient"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
 				<div class="pull-right">
 					<button type="button" class="btn btn-danger btn-sm hidden invisible" id="FusionButton"  onclick ="doMerge();"data-toggle="modal" data-target="#mergeModal" data-backdrop="false" hidden><i class="fa fa-angle-right fa-lg"></i><i class="fa fa-angle-left fa-lg"></i>&nbsp;Fusion</button>
 					<a class="btn btn-primary btn-sm hidden" href="patient/create" id="btnCreate" role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>
