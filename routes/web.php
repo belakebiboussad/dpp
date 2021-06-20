@@ -64,6 +64,7 @@ route::get('/demandeproduit/run/{id}','demandeprodController@run')->name('runDem
 route::post('/demandeproduit/valider/{id}','demandeprodController@valider')->name('demandeproduit.valider');
 route::get('/demandeproduit/rejeter/{id}/{motif}','demandeprodController@rejeter');
 route::get('/products/list','demandeprodController@getProducts')->name('productsList');
+route::get('/searchProductsRequests','demandeprodController@search')->name('demandeProducts.search');
 Route::post('user/credentials','UsersController@credentials');
 Route::post('user/updatepro','UsersController@updatepro');
 Route::get('/atcd/store','AntecedantsController@storeatcd');

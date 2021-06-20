@@ -125,11 +125,9 @@
         });
       });
        $(function(){
-              $('.filter').change(function() {
-                      if (this.value.trim()) { 
-                             field = $(this).prop("id"); 
-                      }
-              });
+          $('.filter').change(function() {// if (this.value.trim()) {  // }
+            field = $(this).prop("id"); 
+          });
        });
       $(document).ready(function(){
           $("select.groupeSanguin").change(function(){//var gs = $(this).children("option:selected").val();

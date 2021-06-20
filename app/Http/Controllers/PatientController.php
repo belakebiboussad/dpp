@@ -27,7 +27,7 @@ use Session;
 use View;
 use Response;
 use Flashy;
-use \COM;
+// use \COM;
 class PatientController extends Controller
 {
   /**

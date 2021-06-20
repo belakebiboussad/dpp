@@ -14,7 +14,7 @@ use App\modeles\demande_dispositif;
 use App\modeles\demande_medicaments;
 use Illuminate\Support\Facades\Auth;
 use Jenssegers\Date\Date;
-
+use Response;
 class demandeprodController extends Controller
 {
     /**
@@ -43,21 +43,21 @@ class demandeprodController extends Controller
           return $produits;
       }
     }
-      public function index()
-     {
-              if(Auth::user()->role_id == 10)
-                {
-                      $services =service::where('id','!=',14)->get();
-                       $demandes = demand_produits::where('Etat',null)->orderBy('Date', 'desc')->get();
-                      return view('demandeproduits.index', compact('demandes','services'));
-                }
-            else
-              {
-                    $demandes = demand_produits::orderBy('Date', 'desc')->get();
-                    return view('demandeproduits.index', compact('demandes'));
-                 
-            }
+    public function index()
+    {
+      if(Auth::user()->role_id == 10)
+      {
+                $services =service::where('id','!=',14)->get();
+                 $demandes = demand_produits::where('Etat',null)->orderBy('Date', 'desc')->get();
+                return view('demandeproduits.index', compact('demandes','services'));
       }
+      else
+      {
+              $demandes = demand_produits::orderBy('Date', 'desc')->get();
+              return view('demandeproduits.index', compact('demandes'));
+           
+      }
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -195,13 +195,52 @@ class demandeprodController extends Controller
                ]);
                return redirect()->action('demandeprodController@index');
       }
-      public function destroy($id)
+      public function destroy(Request $request ,$id)
       {
-            $demande = demand_produits::FindOrFail($id);
-            $demande->medicaments()->detach();
-            $demande->dispositifs()->detach();
-            $demande->reactifs()->detach();
-            $demande = demand_produits::destroy($id);
-            return redirect()->action('demandeprodController@index');
+        if($request->ajax())  
+        {
+          $demande = demand_produits::destroy($id);
+          return Response::json($demande); 
+        }
+        else
+        {
+          $demande = demand_produits::FindOrFail($id);
+          $demande->medicaments()->detach();
+          $demande->dispositifs()->detach();
+          $demande->reactifs()->detach();
+          $demande = demand_produits::destroy($id);
+          return redirect()->action('demandeprodController@index');
+        } 
+      }
+      public function search(Request $request)
+      {
+        if(Auth::user()->is(14)) 
+        {
+          $ServiceId = Auth()->user()->employ->service;    
+          if(isset($request->value))
+              $demandes = demand_produits::with('demandeur')->whereHas('demandeur.Service', function($q) use( $ServiceId){
+                                       $q->where('id', $ServiceId);
+                         })->where($request->field,'LIKE', trim($request->value)."%")->get();
+          else
+              $demandes = demand_produits::with('demandeur')->whereHas('demandeur.Service', function($q) use( $ServiceId) {
+                              $q->where('id', $ServiceId);
+                         })->where($request->field, null)->get();
+        }else
+        {
+          if($request->field != "service")  
+          {
+              if(isset($request->value))
+                $demandes = demand_produits::with('demandeur')->where($request->field,'LIKE', trim($request->value)."%")->get();
+              else
+                $demandes = demand_produits::with('demandeur')->where($request->field, null)->get();
+          }else
+          {
+            $serviceID = $request->value;
+            $demandes = demand_produits::with('demandeur')->whereHas('demandeur.Service', function($q) use ($serviceID) {
+                                          $q->where('id', $serviceID);
+                                        })->get();
+          }
+        }
+         return Response::json($demandes);
       }
 }
