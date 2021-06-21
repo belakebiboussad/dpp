@@ -77,13 +77,15 @@
                   </tr>
                 </thead>
                 <tbody>
-                    @foreach($demande->examensbios as $index => $exm)
-                      <tr>
-                        <td class="center">{{ $index + 1 }}</td>
-                        <td>{{ $exm->nom_examen }}</td>
-                        <td></td>
-                      </tr>
-                    @endforeach                         
+                  @foreach($demande->examensbios as $index => $exm)
+                  <tr>
+                    <td class="center">{{ $index + 1 }}</td>
+                    <td>{{ $exm->nom_examen }}</td>
+                    @if($loop->first)
+                    <td rowspan ="{{ $demande->examensbios->count()}}"></td>
+                     @endif
+                  </tr>
+                  @endforeach                         
                 </tbody>
       </table>
       <form class="form-horizontal" method="POST" action="/uploadresultat" enctype="multipart/form-data">
