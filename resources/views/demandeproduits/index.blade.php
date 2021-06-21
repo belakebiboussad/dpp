@@ -12,8 +12,9 @@
    	    actions +='&nbsp;<a href="/demandeproduit/'+data.id+'/edit" class="btn btn-info btn-xs" title="editer Demande"><i class="fa fa-edit fa-xs"></i></a>';
    	   	actions += '<button class="btn btn-xs btn-danger deletedemande" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>';   
    	  }
-    }	
- 		return actions;		
+    }else
+   	  actions +='&nbsp;<a href="/demandeproduit/run/'+data.id+'" class="btn btn-info btn-xs" title="Traiter Demande"><i class="ace-icon fa fa-cog  bigger-110"></i>';
+    return actions;		
  	}
  	function getProdsRequests(field,value)
 	{
@@ -26,7 +27,7 @@
     	dataType: "json",// recommended response type
     	success: function(data) {
        	$(".numberResult").html(data.length);
-      	$("#demandes_liste").DataTable ({  
+      		$("#demandes_liste").DataTable ({  
       		  "processing": true,
             "paging":   true,
             "destroy": true,
@@ -60,20 +61,21 @@
 							 		}        
                 }
               },
+              { data: "demandeur.service.nom", title:'Service',"orderable": false },
               { data: "demandeur.nom",
                           render: function ( data, type, row ) {
                             return row.demandeur.nom + ' ' + row.demandeur.prenom;
                           },
-                          title:'Medecin',"orderable": false
+                          title:'Chef de Service',"orderable": false
               },
               { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false}
            		 
            	],
            	"columnDefs": [
-           	 {"targets": 3 ,  className: "dt-head-center dt-body-center" },
+           	 {"targets": 4 ,  className: "dt-head-center dt-body-center" },
            	]
 
-      	});    
+      	});  
      	}
   	})
 	}
@@ -168,12 +170,15 @@
 											<tr>
 												<th class="center"><strong>Date</strong></th>
 												<th class="center"><strong>Etat</strong></th>
-												<th class="center"><strong>Medecin</strong></th>
+												@if(Auth::user()->role_id == 10)
+												<th class="center"><strong>Service</strong></th>
+												@endif
+												<th class="center"><strong>Chef de Service</strong></th>
 												<th class="center"><strong><em class="fa fa-cog"></em></strong></th>
 											</tr>
 										</thead>
 										<tbody>	
-									 		{{--@foreach($demandes as $demande)
+									 		@foreach($demandes as $demande)
 												<tr>
 													<td>{{ $demande->Date }}</td>
 													<td>
@@ -192,6 +197,7 @@
 														@endswitch
 														
 													</td>
+													<td>{{ $demande->demandeur->Service->nom }} </td>
 													<td>{{ $demande->demandeur->nom }} {{ $demande->demandeur->prenom }}</td>
 													<td class="center">
 														<a href="{{ route('demandeproduit.show', $demande->id) }}" class="btn btn-xs btn-success" title="voir détails">
@@ -212,7 +218,7 @@
 														@endif
 													</td>
 												</tr>
-											@endforeach--}}
+											@endforeach
 										</tbody>
 									</table>
 								</div>
@@ -220,7 +226,6 @@
 						</div>
 					</div>
 				</div>
-				
 			</div>
 	</div>
 </div>

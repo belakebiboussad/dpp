@@ -25,7 +25,6 @@
 
             <!-- /section:basics/sidebar.layout.shortcuts -->
         </div>
-
         <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
             <span class="btn btn-success"></span>
 
@@ -36,17 +35,14 @@
             <span class="btn btn-danger"></span>
         </div>
     </div><!-- /.sidebar-shortcuts -->
-
-    <li class="">
-        <a href="home">
-            <i class="menu-icon fa fa-picture-o"></i>
-            <span class="menu-text">Menu Gestion Patients</span>
-        </a>
-
-        <b class="arrow"></b>
-    </li>
-
     <ul class="nav nav-list">
+        <li class="">
+            <a href="home">
+                <i class="menu-icon fa fa-picture-o"></i>
+                <span class="menu-text">Gestion Patients</span>
+            </a>
+            <b class="arrow"></b>
+        </li>
         <li class="">
             <a href="/homelaboexb">
                 <i class="menu-icon fa fa-university"></i>

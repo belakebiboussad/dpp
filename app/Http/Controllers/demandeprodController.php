@@ -218,11 +218,11 @@ class demandeprodController extends Controller
         {
           $ServiceId = Auth()->user()->employ->service;    
           if(isset($request->value))
-              $demandes = demand_produits::with('demandeur')->whereHas('demandeur.Service', function($q) use( $ServiceId){
+              $demandes = demand_produits::with('demandeur','demandeur.Service')->whereHas('demandeur.Service', function($q) use( $ServiceId){
                                        $q->where('id', $ServiceId);
                          })->where($request->field,'LIKE', trim($request->value)."%")->get();
           else
-              $demandes = demand_produits::with('demandeur')->whereHas('demandeur.Service', function($q) use( $ServiceId) {
+              $demandes = demand_produits::with('demandeur','demandeur.Service')->whereHas('demandeur.Service', function($q) use( $ServiceId) {
                               $q->where('id', $ServiceId);
                          })->where($request->field, null)->get();
         }else
@@ -230,13 +230,13 @@ class demandeprodController extends Controller
           if($request->field != "service")  
           {
               if(isset($request->value))
-                $demandes = demand_produits::with('demandeur')->where($request->field,'LIKE', trim($request->value)."%")->get();
+                $demandes = demand_produits::with('demandeur','demandeur.Service')->where($request->field,'LIKE', trim($request->value)."%")->get();
               else
-                $demandes = demand_produits::with('demandeur')->where($request->field, null)->get();
+                $demandes = demand_produits::with('demandeur','demandeur.Service')->where($request->field, null)->get();
           }else
           {
             $serviceID = $request->value;
-            $demandes = demand_produits::with('demandeur')->whereHas('demandeur.Service', function($q) use ($serviceID) {
+            $demandes = demand_produits::with('demandeur','demandeur.Service')->whereHas('demandeur.Service', function($q) use ($serviceID) {
                                           $q->where('id', $serviceID);
                                         })->get();
           }

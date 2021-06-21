@@ -20,8 +20,7 @@ $(function(){
 		        }
    		 })
 	})
-});
-//window.location.href='/demandeproduit/valider/'+'/'+id;	
+});//window.location.href='/demandeproduit/valider/'+'/'+id;	
 $('document').ready(function(){
 	$('#validerdmd').click(function(){
 		var tb = $('#cmd tbody');
@@ -88,7 +87,7 @@ $('document').ready(function(){
 							</div>
 							</div>
 							</div>
-						      </div>
+						  </div>
 						</div>
 					</div>				
 					</div><div class="space-12"></div>

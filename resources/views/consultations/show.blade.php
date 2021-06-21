@@ -51,36 +51,37 @@
                 @if(isset($consultation->demandeexmbio))
                 <div class="row">
                     <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right">
-                      <strong><span style="font-size:18px;">Demande Examens Biologique</span></strong>
+                      <strong><span style="font-size:18px;">Demande examen biologique</span></strong>
                     </div>
                 </div>
                 <div class="row">
                      <div class="col-xs-11 widget-container-col" id="widget-container-col-2">
                           <div class="widget-box widget-color-blue" id="widget-box-2">
-                          <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande Examens Biologique</h5></div>
+                          <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande examen biologique</h5></div>
                           <div class="widget-body">
                                <div class="widget-main no-padding">
                                <table class="table table-striped table-bordered table-hover">
                                <thead class="thin-border-bottom">
-                                    <tr>
-                                          <th class="center"><strong>#</strong></th>
-                                          <th class="center"><strong>Date</strong></th>
-                                          <th class="center"><strong>Etat</strong></th>
-                                          <th class="center"><em class="fa fa-cog"></em></th>
-                                     </tr>
+                                  <tr>
+                                    <th class="center"><strong>#</strong></th>
+                                    <th class="center"><strong>Date</strong></th>
+                                    <th class="center"><strong>Etat</strong></th>
+                                    <th class="center"><em class="fa fa-cog"></em></th>
+                                   </tr>
                                 </thead>
                                 <tbody>
                                   <tr>
                                     <td class="center"></td>
                                     <td>{{ $consultation->Date_Consultation }}</td>
                                     <td>
-                                    @if($consultation->demandeexmbio->etat == "E")
-                                      <span class="badge badge-danger"> En Attente</span>
-                                    @elseif($consultation->demandeexmbio->etat == "V")
-                                      <span class="badge badge-success">Validé</span>       
+                                    @if($consultation->demandeexmbio->etat == null)
+                                      <span class="badge badge-success">En Cours
+                                    @elseif($consultation->demandeexmbio->etat == "1")
+                                      <span class="badge badge-primary">Validé         
                                     @else
-                                      <span class="badge badge-danger">Rejeté</span>   
+                                      <span class="badge badge-warning">Rejeté   
                                     @endif
+                                    </span>
                                     </td>
                                     <td class="center">
                                       <a href="{{ route('demandeexb.show', $consultation->demandeexmbio->id) }}" class="btn btn-secondary btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>

@@ -83,7 +83,7 @@ class HomeController extends Controller
                      return redirect()->action('demandeprodController@index');
                     break;   
             case 11://Laborantin
-                $demandesexb = demandeexb::with('consultation.patient')->where('etat','E')->get();
+                $demandesexb = demandeexb::with('consultation.patient')->where('etat',null)->get();
                 return view('home.home_laboanalyses', compact('demandesexb'));
                 break;   
             case 12://radiologue

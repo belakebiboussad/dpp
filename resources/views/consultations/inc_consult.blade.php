@@ -84,12 +84,12 @@ $('document').ready(function(){
 							<tr>
 								<td>{{ $consultation->Date_Consultation }}</td>
 								<td>
-								@if($consultation->demandeexmbio->etat == "E")
-									<span class="badge badge-warning"> En Attente</span>
-								@elseif($consultation->demandeexmbio->etat == "V")
-									<span class="badge badge-success">Validé</span>       
+								@if($consultation->demandeexmbio->etat == null)
+									<span class="badge badge-success">En Cours</span>
+								@elseif($consultation->demandeexmbio->etat == "1")
+									<span class="badge badge-primary">Validé</span>       
 								@else
-									<span class="badge badge-danger">Rejeté</span>   
+									<span class="badge badge-warning">Rejeté</span>   
 								@endif
 								</td>
 								<td class="center">

@@ -15,10 +15,10 @@
         <span class="btn btn-danger"></span>
       </div>
     </div>
-    <li class="">
-      <a href="home"><i class="menu-icon fa fa-picture-o"></i><span class="menu-text">Gestion Patients</span></a><b class="arrow"></b>
-    </li>
     <ul class="nav nav-list">
+      <li class="">
+        <a href="home"><i class="menu-icon fa fa-picture-o"></i><span class="menu-text">Gestion Patients</span></a><b class="arrow"></b>
+      </li>
       <li>
         <a href="{{ route('patient.index') }}"><i class="menu-icon fa fa-tachometer"></i><span class="menu-text">Accueil</span></a>
         <b class="arrow"></b>

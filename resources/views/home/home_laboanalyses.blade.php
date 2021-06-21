@@ -11,7 +11,7 @@
 					</div>
 					<div class="widget-body">
 						<div class="widget-main padding-24">
-							<div class="col-sm-12 widget-container-col" id="widget-container-col-13">
+							<div class="col-sm-12 widget-container-col">
 								<div>
 									<table class="table table-striped table-bordered">
 										<thead>
@@ -50,9 +50,9 @@
 													@endif
 													</td>
 													<td>
-														@if($demande->etat == "E")
+														@if($demande->etat == null)
 															En Attente
-														@elseif($demande->etat == "V")
+														@elseif($demande->etat == "1")
 															Validé
 														@else
 															Rejeté
