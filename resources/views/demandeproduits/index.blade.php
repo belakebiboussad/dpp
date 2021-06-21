@@ -5,7 +5,7 @@
  	$field ="etat";
  	function getAction(data, type, dataToSet) {
  		var actions = '<a href = "/demandeproduit/'+data.id+'" style="cursor:pointer" class="btn btn-secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>';
- 		if({{ (Auth::user()->is(14)) }} )
+ 		if({{ (Auth::user()->role_id) }} == 14 )
  		{
    	  if(data.etat == null)
    	  {
