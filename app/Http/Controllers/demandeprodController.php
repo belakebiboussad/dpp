@@ -47,8 +47,8 @@ class demandeprodController extends Controller
     {
       if(Auth::user()->role_id == 10)
       {
-                $services =service::where('id','!=',14)->get();
-                 $demandes = demand_produits::where('Etat',null)->orderBy('Date', 'desc')->get();
+               $services =service::where('id','!=',14)->get();
+               $demandes = demand_produits::where('Etat',null)->orderBy('Date', 'desc')->get();
                 return view('demandeproduits.index', compact('demandes','services'));
       }
       else
@@ -241,6 +241,6 @@ class demandeprodController extends Controller
                                         })->get();
           }
         }
-         return Response::json($demandes);
+        return Response::json($demandes);
       }
 }

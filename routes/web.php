@@ -160,16 +160,14 @@ route::get('/home_reception',function (){
 })->name('home_rec');
 Route::post('/get-all-events','RDVController@checkFullCalendar');
 route::get('/showordonnance/{id}','OrdonnanceController@show_ordonnance')->name('ordonnancePdf');
-route::get('/demandeexbio/{id}','DemandeExbController@createexb');
-route::get('/dbToPDF/{id}','DemandeExbController@print');
 route::get('/drToPDF/{id}','DemandeExamenRadio@print');
 Route::post('lit/affecter','LitsController@affecterLit')->name('lit.affecter');
 Route::get('/bedAffectation','LitsController@affecter');
+route::get('/demandeexbio/{id}','DemandeExbController@createexb');
+route::get('/dbToPDF/{id}','DemandeExbController@print');
+route::get('/searchBioRequests','DemandeExbController@search');
 route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');///laborontin
 route::post('/uploadresultat','DemandeExbController@uploadresultat');
-
-route::get('/listedemandesexb','DemandeExbController@listedemandesexb');
-
 route::get('/details_exr/{id}','DemandeExamenRadio@details_exr');///radiologue
 route::post('/uploadexr','DemandeExamenRadio@upload_exr');
 Route::post('store-file', 'DemandeExamenRadio@upload');
@@ -185,7 +183,6 @@ Route::get('assur/patientAedit/{id}/{idA}','PatientController@edit');
 Route::post('/surveillances/store/{id}','SurveillanceController@store');
 route::get('/getpatientvisite','PatientController@getpatientvisite');
 route::get('/getpatientconsigne','PatientController@getpatientconsigne');
-/************partie visite d'hospitalisation**************/
 Route::get('/delVisite/{id}', 'VisiteController@destroy')->name('visite.destroy');
 Route::get('/visite/create/{id}','VisiteController@create');
 Route::post('/visite/store/{id}','VisiteController@store');
@@ -198,7 +195,6 @@ Route::post('/createTicket','ticketController@store');
 Route::get('/404', function () {
     return view('errors.404');
 });
-/**************************/// telechargement
 route::get('/download/{filename}', function($filename)
 {
     return Storage::download($filename);
