@@ -167,10 +167,9 @@ Route::post('lit/affecter','LitsController@affecterLit')->name('lit.affecter');
 Route::get('/bedAffectation','LitsController@affecter');
 route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');///laborontin
 route::post('/uploadresultat','DemandeExbController@uploadresultat');
-route::get('/homelaboexb',function(){
-    $demandesexb = App\modeles\demandeexb::where('etat','E')->get();
-    return view('home.home_laboanalyses', compact('demandesexb'));
-})->name('homelaboexb');
+
+route::get('/listedemandesexb','DemandeExbController@listedemandesexb');
+
 route::get('/details_exr/{id}','DemandeExamenRadio@details_exr');///radiologue
 route::post('/uploadexr','DemandeExamenRadio@upload_exr');
 Route::post('store-file', 'DemandeExamenRadio@upload');

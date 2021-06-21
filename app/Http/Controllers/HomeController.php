@@ -80,12 +80,11 @@ class HomeController extends Controller
                     return redirect()->action('AdmissionController@index');
                     break;       
             case 10://phar
-                     return redirect()->action('demandeprodController@index');
+                    return redirect()->action('demandeprodController@index');
                     break;   
             case 11://Laborantin
-                $demandesexb = demandeexb::with('consultation.patient')->where('etat',null)->get();
-                return view('home.home_laboanalyses', compact('demandesexb'));
-                break;   
+                    return redirect()->action('DemandeExbController@index');
+                    break;   
             case 12://radiologue
                 $demandesexr = demandeexr::with('consultation','visite')->where('etat','E')->get();
                 return view('home.home_radiologue', compact('demandesexr')); 

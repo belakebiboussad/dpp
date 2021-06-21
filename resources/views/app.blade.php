@@ -202,6 +202,8 @@
             @include('partials.sidebar_chef_ser') 
         @elseif(Auth::user()->role_id == 3)
             @include('partials.sidebar_inf')
+         @elseif(Auth::user()->role_id == 11)
+            @include('partials.sidebar_laboanalyses')    
         @elseif(Auth::user()->role_id == 12)
             @include('partials.sidebar_radiologue')
         @elseif(Auth::user()->role_id == 14)

@@ -50,17 +50,17 @@ class ExamenbioController extends Controller
       }
        if($request->exambio != null)
       {
-           foreach($request->exambio as $k=>$v){  
-                foreach($v as $value)
-              {
-                       examenbiologique::create([
-                          "id_consultation"=>$consultID,
-                          "classe"=>$k,
-                          "nom"=>$value,
-                      ]);
-                  }
-           }
+        foreach($request->exambio as $k=>$v){  
+          foreach($v as $value)
+          {
+            examenbiologique::create([
+                "id_consultation"=>$consultID,
+                "classe"=>$k,
+                "nom"=>$value,
+            ]);
+          }
         }
+      }
     }
      /**
      * Display the specified resource.
@@ -97,9 +97,8 @@ class ExamenbioController extends Controller
     public function destroy($id)
     { 
       $ids = explode("|", $id);
-      dd($id);
-      // $demande = demandeexb::FindOrFail($ids[1]); //$examen = examenbiologique::FindOrFail($ids[0]);
-      // $demande->examensbios()->detach($ids[0]); //dd($demande->examensbios);
-      // return redirect()->action('DemandeExbController@edit',$ids[1]);
+      $demande = demandeexb::FindOrFail($ids[1]);//$examen = examenbiologique::FindOrFail($ids[0]);
+      $demande->examensbios()->detach($ids[0]);
+      return redirect()->action('DemandeExbController@edit',$ids[1]);
     }
 }

@@ -28,7 +28,15 @@ class DemandeExbController extends Controller
     $consultation = consultation::FindOrFail($id);
     return view('examenbio.demande_exb', compact('specialites','consultation')); 
   }
-  public function index() {}
+  public function index() {
+    $demandesexb = demandeexb::with('consultation.patient')->where('etat',null)->get();
+    return view('examenbio.index', compact('demandesexb'));//return view('home.home_laboanalyses', compact('demandesexb'));
+  }
+  public function listedemandesexb()
+  {
+    $demandesexb = demandeexb::where('etat', null)->get();
+    return view('examenbio.liste_demande_exb', compact('demandesexb'));
+  }
   /**
    * Show the form for creating a new resource.
    *
@@ -85,7 +93,6 @@ class DemandeExbController extends Controller
      */
      public function update(Request $request, $id)
      {
-
      }
     /**
      * Remove the specified resource from storage.
@@ -100,36 +107,31 @@ class DemandeExbController extends Controller
       $demande = demandeexb::destroy($id);
       return redirect()->action('ConsultationsController@show',$consult_id);
     }
-     public function detailsdemandeexb($id)
-     {
-             $demande = demandeexb::FindOrFail($id);
-             if(isset($demande->consultation))
-                    $patient = $demande->consultation->patient;
-             else
-                    $patient = $demande->visite->hospitalisation->patient;
-             return view('examenbio.details', compact('demande','patient'));
-     }
-     public function uploadresultat(Request $request)
-     {
-        $request->validate([
-            'resultat' => 'required',
-        ]);
-        $demande = demandeexb::FindOrFail($request->id_demande);
-        $filename = $request->file('resultat')->getClientOriginalName();
-        $filename =  ToUtf::cleanString($filename);
-        $file = file_get_contents($request->file('resultat')->getRealPath());
-        Storage::disk('local')->put($filename, $file);
-        $demande->update([
-            "etat" => "1",
-            "resultat" =>$filename ,
-        ]);
-        return redirect()->route('homelaboexb');
-     }
-     public function listedemandesexb()
-     {
-          $demandesexb = demandeexb::where('etat', null)->get();
-          return view('examenbio.liste_demande_exb', compact('demandesexb'));
-     }
+    public function detailsdemandeexb($id)
+    {
+       $demande = demandeexb::FindOrFail($id);
+       if(isset($demande->consultation))
+              $patient = $demande->consultation->patient;
+       else
+              $patient = $demande->visite->hospitalisation->patient;
+       return view('examenbio.details', compact('demande','patient'));
+    }
+    public function uploadresultat(Request $request)
+    {
+      $request->validate([
+          'resultat' => 'required',
+      ]);
+      $demande = demandeexb::FindOrFail($request->id_demande);
+      $filename = $request->file('resultat')->getClientOriginalName();
+      $filename =  ToUtf::cleanString($filename);
+      $file = file_get_contents($request->file('resultat')->getRealPath());
+      Storage::disk('local')->put($filename, $file);
+      $demande->update([
+          "etat" => "1",
+          "resultat" =>$filename ,
+      ]);
+      return  redirect()->action('DemandeExbController@index');//return redirect()->route('homelaboexb');
+    }
     public function print($id)
     {
       $demande = demandeexb::with('visite.hospitalisation.patient')->FindOrFail($id);

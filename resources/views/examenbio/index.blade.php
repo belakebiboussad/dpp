@@ -1,4 +1,4 @@
-@extends('app_laboanalyses')
+@extends('app')
 @section('main-content')
 <div class="row">
 	<div class="col-xs-12">

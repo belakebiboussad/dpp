@@ -5,9 +5,11 @@
     <div class="row">
       <div class="col-sm-5"><h3>Détails de la demande Biologique</h3></div> <div class="col-sm-5"></div>
       <div class="col-sm-7">
+        @if($demande->consultation->docteur->id == Auth::user()->employ->id)
         <a href="/dbToPDF/{{ $demande->id }}" title = "Imprimer"  target="_blank" class="btn btn-sm btn-primary pull-right">
-               <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
+          <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
         </a>
+        @endif
         <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp;precedant</a>
       </div>
     </div><div class="space-12 hidden-xs"></div>
@@ -44,16 +46,16 @@
                     <div class="profile-info-row">
                       <div class="profile-info-name"> Demandeur : </div>
                       <div class="profile-info-value">
-                        <span class="editable" id="username">{{ $demande->consultation->docteur->nom }} {{ $demande->consultation->docteur  ->prenom }}</span>
+                        <span class="editable" id="username">{{ $demande->consultation->docteur->nom }} {{ $demande->consultation->docteur->prenom }}</span>
                       </div>
                     </div>
                   </div><!-- profile-user-info  -->
                 </div>
               </div><br><!-- user-profile -->
               <div class="user-profile row">
-                  <table class="table table-striped table-bordered">
-                    <thead>
-                      <tr>
+                <table class="table table-striped table-bordered">
+                  <thead>
+                    <tr>
                         <th class="center"><strong>#</strong></th><th class="center"><strong>Nom Examen</strong></th><th class="center">Etat</em></th>
                       </tr>
                     </thead>
@@ -77,6 +79,12 @@
                     @endforeach          
                     </tbody>
                   </table>
+              </div>
+              <div class="user-profile row">
+                @if($demande->etat == "1")
+                  <label>Résultat :</label>&nbsp;&nbsp;
+                  <span><a href='/download/{{ $demande->resultat }}'>{{ $demande->resultat }} &nbsp;<i class="fa fa-download"></i></a></span>
+                @endif
               </div> 
             </div><!-- col-xs-12 -->
           </div><!-- row -->
