@@ -4,7 +4,7 @@
 		<div class="widget-header">
 			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Consultations</h5>
 			<div class="widget-toolbar widget-toolbar-light no-border">
-				<a href="/consultations/create/{{$patient->id}}"><i class="fa fa-plus-circle bigger-180" style="color:black"></i></a>
+				<a href="/consultations/create/{{$patient->id}}" class="align-middle"><i class="fa fa-plus-circle bigger-180" style="color:black"></i></a>
 			</div>
 		</div><!-- widget-header -->
 		<div class="widget-body">

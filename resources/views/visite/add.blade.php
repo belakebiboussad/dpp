@@ -406,5 +406,7 @@
 	</form>
 	<div class="row">@include('visite.ModalFoms.acteModal')</div>
 	<div class="row">@include('visite.ModalFoms.TraitModal')</div>
+	<div class="row"><div id="bioExamsPdf" class="invisible b"> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div></div>
+<div class="row"><div id="imagExamsPdf" class="invisible">@include('consultations.EtatsSortie.demandeExamensImgPDF')</div></div>
   </div>
   @endsection

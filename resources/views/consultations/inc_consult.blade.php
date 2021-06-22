@@ -82,19 +82,25 @@ $('document').ready(function(){
 						</thead>
 						<tbody>
 							<tr>
-								<td>{{ $consultation->Date_Consultation }}</td>
+								<td>{{ $consultation->Date_Consultation }}{{ $consultation->docteur->id }}</td>
 								<td>
-								@if($consultation->demandeexmbio->etat == "E")
-									<span class="badge badge-warning"> En Attente</span>
-								@elseif($consultation->demandeexmbio->etat == "V")
-									<span class="badge badge-success">Validé</span>       
+								@if($consultation->demandeexmbio->etat == null)
+									<span class="badge badge-success">En Cours</span>
+								@elseif($consultation->demandeexmbio->etat == "1")
+									<span class="badge badge-primary">Validé</span>       
 								@else
-									<span class="badge badge-danger">Rejeté</span>   
+									<span class="badge badge-warning">Rejeté</span>   
 								@endif
 								</td>
 								<td class="center">
-									<a href="{{ route('demandeexb.show', $consultation->demandeexmbio->id) }}"><i class="fa fa-eye"></i></a>
-									<a href="/dbToPDF/{{ $consultation->demandeexmbio->id }}" target="_blank" class="btn btn-xs"> <i class="ace-icon fa fa-print"></i></a>
+									<a href="{{ route('demandeexb.show', $consultation->demandeexmbio->id) }}" class="btn btn-success btn-xs"><i class="fa fa-eye"></i></a>
+									@if($consultation->docteur->id == Auth::user()->employ->id)
+										@if($consultation->demandeexmbio->etat == null)
+											<a href="{{ route('demandeexb.edit', $consultation->demandeexmbio->id) }}" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-pencil" aria-hidden="true"></i></a>
+											<a href="{{ route('demandeexb.destroy',$consultation->demandeexmbio->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger"><i class="ace-icon fa fa-trash-o bigger-110"></i></a>
+										@endif
+										<a href="/dbToPDF/{{ $consultation->demandeexmbio->id }}" target="_blank" class="btn btn-xs"> <i class="ace-icon fa fa-print"></i></a>
+									@endif	
 								</td>
 						</tbody>
 					</table>

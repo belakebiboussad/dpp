@@ -62,33 +62,36 @@
                                <div class="widget-main no-padding">
                                <table class="table table-striped table-bordered table-hover">
                                <thead class="thin-border-bottom">
-                                    <tr>
-                                          <th class="center"><strong>#</strong></th>
-                                          <th class="center"><strong>Date</strong></th>
-                                          <th class="center"><strong>Etat</strong></th>
-                                          <th class="center"><em class="fa fa-cog"></em></th>
-                                     </tr>
+                                  <tr>
+                                    <th class="center"><strong>#</strong></th>
+                                    <th class="center"><strong>Date</strong></th>
+                                    <th class="center"><strong>Etat</strong></th>
+                                    <th class="center"><em class="fa fa-cog"></em></th>
+                                   </tr>
                                 </thead>
                                 <tbody>
                                   <tr>
                                     <td class="center"></td>
                                     <td>{{ $consultation->Date_Consultation }}</td>
                                     <td>
-                                    @if($consultation->demandeexmbio->etat == "E")
-                                      <span class="badge badge-danger"> En Attente</span>
-                                    @elseif($consultation->demandeexmbio->etat == "V")
-                                      <span class="badge badge-success">Validé</span>       
+                                    @if($consultation->demandeexmbio->etat == null)
+                                      <span class="badge badge-success">En Cours
+                                    @elseif($consultation->demandeexmbio->etat == "1")
+                                      <span class="badge badge-primary">Validé         
                                     @else
-                                      <span class="badge badge-danger">Rejeté</span>   
+                                      <span class="badge badge-warning">Rejeté   
                                     @endif
+                                    </span>
                                     </td>
                                     <td class="center">
                                       <a href="{{ route('demandeexb.show', $consultation->demandeexmbio->id) }}" class="btn btn-secondary btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
-                                      @if($consultation->demandeexmbio->etat == "E")
+                                      @if($consultation->docteur->id == Auth::user()->employ->id)
+                                        @if($consultation->demandeexmbio->etat == null)
                                         <a href="{{ route('demandeexb.edit', $consultation->demandeexmbio->id) }}" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-pencil"></i></a>
                                         <a href="{{ route('demandeexb.destroy', $consultation->demandeexmbio->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-danger btn-xs"><i class="ace-icon fa fa-trash-o"></i></a>
-                                      @endif
+                                        @endif
                                       <a href="/dbToPDF/{{ $consultation->demandeexmbio->id }}" target="_blank" class="btn btn-info btn-xs"><i class="ace-icon fa fa-print"></i>&nbsp;</a> 
+                                      @endif
                                     </td>
                                 </tbody>
                               </table>

@@ -13,6 +13,9 @@
 	    position:relative;
 	    z-index:999;
 	}
+	.b{
+		height:20px !important;
+	}
 </style>
 @endsection
 @section('page-script')
@@ -635,4 +638,6 @@
 <div class="row">@include('rdv.rendezVous')</div>
 <div class="row">@include('cim10.cimModalForm')</div>
 <div class="row"><div id="OrientLetterPdf" class="invisible">@include('consultations.EtatsSortie.orienLetterImgPDF')</div></div>
+<div class="row"><div id="bioExamsPdf" class="invisible b"> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div></div>
+<div class="row"><div id="imagExamsPdf" class="invisible">@include('consultations.EtatsSortie.demandeExamensImgPDF')</div></div>
 @endsection

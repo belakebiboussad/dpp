@@ -1,107 +1,108 @@
 @extends('app')
-@section('title','Liste des demandes')
+@section('title','demandes de produits')
 @section('page-script')
  <script>
  	$field ="etat";
  	function getAction(data, type, dataToSet) {
  		var actions = '<a href = "/demandeproduit/'+data.id+'" style="cursor:pointer" class="btn btn-secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>';
- 		if({{ (Auth::user()->is(14)) }} )
+ 		if({{ (Auth::user()->role_id) }} == 14 )
  		{
    	  if(data.etat == null)
    	  {
    	    actions +='&nbsp;<a href="/demandeproduit/'+data.id+'/edit" class="btn btn-info btn-xs" title="editer Demande"><i class="fa fa-edit fa-xs"></i></a>';
    	   	actions += '<button class="btn btn-xs btn-danger deletedemande" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>';   
    	  }
-    }	
- 		return actions;		
+    }else
+   	  actions +='&nbsp;<a href="/demandeproduit/run/'+data.id+'" class="btn btn-info btn-xs" title="Traiter Demande"><i class="ace-icon fa fa-cog  bigger-110"></i>';
+    return actions;		
  	}
  	function getProdsRequests(field,value)
 	{
 		$.ajax({
 			url : '{{ URL::to('searchProductsRequests') }}',
-    	data: {    
-      	"field":field,
-      	"value":value,
-    	},
-    	dataType: "json",// recommended response type
-    	success: function(data) {
-       	$(".numberResult").html(data.length);
-      	$("#demandes_liste").DataTable ({  
-      		  "processing": true,
-            "paging":   true,
-            "destroy": true,
-            "ordering": true,
-            "searching":false,
-            "info" : false,
-            "responsive": true,
-            "language":{"url": '/localisation/fr_FR.json'},
-            "data" : data,
-            "fnCreatedRow": function( nRow, aData, iDataIndex ) {
-                $(nRow).attr('id',"demande-"+aData.id);
-            },
-          	"columns": [
-           		{ data: 'Date', title:'Date' },
-           		{ data: 'etat', title:'Etat',"orderable":false,
-           			render: function ( data, type, row ) {
-                  switch(row.etat)
-							 		{
-							 				case null:
-							 					return '<span class="badge badge-success">En Cours</span>';
-							 					break;
-							 				case "1":
-							 					return '<span class="badge badge-info">Validée</span>';
-							 					break;
-							 				case "0":
-							 					return '<span class="badge badge-warning">Rejetée</span>';
-							 					break;
-							 				default:
-							 					return "UNKNOWN";
-							 					break;			
-							 		}        
-                }
-              },
-              { data: "demandeur.nom",
-                          render: function ( data, type, row ) {
-                            return row.demandeur.nom + ' ' + row.demandeur.prenom;
-                          },
-                          title:'Medecin',"orderable": false
-              },
-              { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false}
+			 data: {    
+			      	"field":field,
+			      	"value":value,
+			 },
+		    	dataType: "json",// recommended response type
+		    	success: function(data) {
+		       	$(".numberResult").html(data.length);
+		      		$("#demandes_liste").DataTable ({  
+		      		 "processing": true,
+		            	"paging":   true,
+		            	"destroy": true,
+		            	"ordering": true,
+		            	"searching":false,
+		            	"info" : false,
+		            	"responsive": true,
+		            	"language":{"url": '/localisation/fr_FR.json'},
+		            	"data" : data,
+		            	"fnCreatedRow": function( nRow, aData, iDataIndex ) {
+		             		$(nRow).attr('id',"demande-"+aData.id);
+		            	},
+		          	"columns": [
+		           		{ data: 'Date', title:'Date' },
+		           		{ data: 'etat', title:'Etat',"orderable":false,
+		           			render: function ( data, type, row ) {
+		              			 	switch(row.etat)
+			 				{
+				 				case null:
+				 					return '<span class="badge badge-success">En Cours</span>';
+				 					break;
+				 				case "1":
+				 					return '<span class="badge badge-info">Validée</span>';
+				 					break;
+				 				case "0":
+				 					return '<span class="badge badge-warning">Rejetée</span>';
+				 					break;
+				 				default:
+				 					return "UNKNOWN";
+				 					break;			
+			 				}        
+		       			       	}
+              				},
+              				{ data: "demandeur.service.nom", title:'Service',"orderable": false },
+              				{ data: "demandeur.nom",
+                          			render: function ( data, type, row ) {
+                            				return row.demandeur.nom + ' ' + row.demandeur.prenom;
+                          			},
+                          			title:'Chef de Service',"orderable": false
+              				},
+              				{ data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false}
            		 
-           	],
-           	"columnDefs": [
-           	 {"targets": 3 ,  className: "dt-head-center dt-body-center" },
-           	]
-
-      	});    
-     	}
+           			],
+           			"columnDefs": [
+           	 			{"targets": 4 ,  className: "dt-head-center dt-body-center" },
+           			]
+      			});  
+     		}
   	})
 	}
-  $(function(){
-  	$(".demandeSearch").click(function(e){
-  	  getProdsRequests(field,$('#'+field).val().trim());//$('#'+field).val('');	
+	$(function(){
+  		$(".demandeSearch").click(function(e){
+  	 		 getProdsRequests(field,$('#'+field).val().trim());//$('#'+field).val('');	
+  		})
   	})
-  })
  	$(document).ready(function(){
   		 jQuery('body').on('click', '.deletedemande', function (e) {
   		 	event.preventDefault();
-          var demande_id = $(this).val();
-          $.ajaxSetup({
-            headers: {
-             'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-            }
-          });
-        $.ajax({
-          type: "DELETE",
-          url: '/demandeproduit/' + demande_id,
-          success: function (data) {
-              $("#demande-" + demande_id).remove();
-          },
-          error: function (data) {
-            console.log('Error:', data);
-          }
-        });
-			})
+          		var demande_id = $(this).val();
+          		$.ajaxSetup({
+	       		headers: {
+	             		'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+	            	}
+          	});
+        	$.ajax({
+          		type: "DELETE",
+          		url: '/demandeproduit/' + demande_id,
+          		success: function (data) {
+              			$("#demande-" + demande_id).remove();
+          		},
+          		error: function (data) {
+            			console.log('Error:', data);
+          		}
+        	});
+	})
  	});
 </script>
 @endsection
@@ -168,30 +169,33 @@
 											<tr>
 												<th class="center"><strong>Date</strong></th>
 												<th class="center"><strong>Etat</strong></th>
-												<th class="center"><strong>Médecin</strong></th>
+												@if(Auth::user()->role_id == 10)
+												<th class="center"><strong>Service</strong></th>
+												@endif
+												<th class="center"><strong>Chef de service</strong></th>
 												<th class="center"><strong><em class="fa fa-cog"></em></strong></th>
 											</tr>
 										</thead>
 										<tbody>	
-									 		{{--@foreach($demandes as $demande)
+									 		@foreach($demandes as $demande)
 												<tr>
 													<td>{{ $demande->Date }}</td>
 													<td>
 														@switch($demande->etat)
 															 @case(null)
 														  		 <span class="badge badge-success">En Cours</span>
-														       	 @break
+														       		 @break
 														       @case("1")
 														  		 <span class="badge badge-info">Validée</span>
-														       	 @break
+														       	 	@break
 														       @case("0")
 														  		 <span class="badge badge-warning">Rejetée</span>
-														       	 @break	 
+														       		 @break	 
 														    @default
-														            Default case...
+														           @break
 														@endswitch
-														
 													</td>
+													<td>{{ $demande->demandeur->Service->nom }} </td>
 													<td>{{ $demande->demandeur->nom }} {{ $demande->demandeur->prenom }}</td>
 													<td class="center">
 														<a href="{{ route('demandeproduit.show', $demande->id) }}" class="btn btn-xs btn-success" title="voir détails">
@@ -212,7 +216,7 @@
 														@endif
 													</td>
 												</tr>
-											@endforeach--}}
+											@endforeach
 										</tbody>
 									</table>
 								</div>
@@ -220,7 +224,6 @@
 						</div>
 					</div>
 				</div>
-				
 			</div>
 	</div>
 </div>
