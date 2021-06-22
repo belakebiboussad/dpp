@@ -27,8 +27,8 @@
 		    	dataType: "json",// recommended response type
 		    	success: function(data) {
 		       		$(".numberResult").html(data.length);
-		    			$("#demandes_liste").DataTable ({  
-		      			 "processing": true,
+		    		$("#demandes_liste").DataTable ({  
+		      		 "processing": true,
 		            	"paging":   true,
 		            	"destroy": true,
 		            	"ordering": true,
@@ -44,35 +44,36 @@
 		           			{ data: 'Date', title:'Date' },
 		           			{ data: 'etat', title:'Etat',"orderable":false,
 		           				render: function ( data, type, row ) {
-		              			switch(row.etat)
-			 									{
-					 								case null:
-									 					return '<span class="badge badge-success">En Cours</span>';
-									 					break;
-									 				case "1":
-									 					return '<span class="badge badge-info">Validée</span>';
-									 					break;
-									 				case "0":
-									 					return '<span class="badge badge-warning">Rejetée</span>';
-									 					break;
-									 				default:
-									 					return "UNKNOWN";
-									 					break;			
-								 			  }        
-		       			   	  }
-              			},
-              			{ data: "demandeur.nom",
-                			render: function ( data, type, row ) {
-                  				return row.demandeur.nom + ' ' + row.demandeur.prenom;
-                			},
-                			title:'Chef de Service',"orderable": false
+		              					switch(row.etat)
+								{
+	 								case null:
+					 					return '<span class="badge badge-success">En Cours</span>';
+					 					break;
+					 				case "1":
+					 					return '<span class="badge badge-info">Validée</span>';
+					 					break;
+					 				case "0":
+					 					return '<span class="badge badge-warning">Rejetée</span>';
+					 					break;
+					 				default:
+					 					return "UNKNOWN";
+					 					break;			
+				 				 }        
+		       			   	       }
+              			              },
+              			              { data: 'demandeur.service.nom', title:'Service',"orderable":true,},
+              					{ data: "demandeur.nom",
+		                			render: function ( data, type, row ) {
+		                  				return row.demandeur.nom + ' ' + row.demandeur.prenom;
+		                			},
+		                			title:'Chef de Service',"orderable": false
           					},
           					{ data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false}, 
 		           		],
 		           		"columnDefs": [
-           	 			{"targets": 3 ,  className: "dt-head-center dt-body-center" },
+           	 			{"targets": 4 ,  className: "dt-head-center dt-body-center" },
            			]
-		    			})
+		    	})
 		      }
 
   		})
@@ -175,7 +176,7 @@
 											</tr>
 										</thead>
 										<tbody>	
-									 		{{-- @foreach($demandes as $demande)
+									 		 @foreach($demandes as $demande)
 												<tr>
 													<td>{{ $demande->Date }}</td>
 													<td>
@@ -215,7 +216,6 @@
 													</td>
 												</tr>
 											@endforeach
-											--}}
 										</tbody>
 									</table>
 								</div>

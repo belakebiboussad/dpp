@@ -154,10 +154,9 @@
             }
           }
         });
-        $("select.rhesus").change(function(){ //var rhval = $(this).children("option:selected").val();
+        $("select.rhesus").change(function(){
             if($(this).children("option:selected").val() =="")
-            { /*if($(this).attr('name') == "rh"){if($("#type").val() =="0")$("select#rhf").val($("#rh option:selected").val());}else{if($("#type").val() =="0")$("select#rh").val($("#rh option:selected").val());}*/
-              if($(this).attr('name') === "rh")
+               if($(this).attr('name') === "rh")
                 $("select#gs").val(''); 
               else
                  $("select#gsf").val('');             

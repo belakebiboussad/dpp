@@ -24,17 +24,21 @@ class DemandeExamenRadio extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    /*public function liste_exr(){ $demandesexr = demandeexr::all(); return view('examenradio.liste_exr', compact('demandesexr'));}*/
-    public function details_exr($id)
-    {
-      $demande = demandeexr::FindOrFail($id);
-      $etablissement = Etablissement::first();
-      if(isset($demande->consultation))
-        $patient = $demande->consultation->patient;
-      else
-        $patient = $demande->visite->hospitalisation->patient;
-      return view('examenradio.details', compact('demande','patient','etablissement'));
-    }
+        public function index()
+        {
+                $demandesexr = demandeexr::with('consultation','visite')->where('etat','E')->get();
+                return view('examenradio.index', compact('demandesexr')); 
+        }
+        public function details_exr($id)
+       {
+             $demande = demandeexr::FindOrFail($id);
+              $etablissement = Etablissement::first();
+              if(isset($demande->consultation))
+                    $patient = $demande->consultation->patient;
+              else
+                    $patient = $demande->visite->hospitalisation->patient;
+               return view('examenradio.details', compact('demande','patient','etablissement'));
+       }
       public function upload(Request $request)
       {
              $demande = demandeexr::with('examensradios','consultation','visite')->FindOrFail($request->id_demandeexr);
@@ -101,7 +105,6 @@ class DemandeExamenRadio extends Controller
               $consultation = consultation::FindOrFail($id);
               return view('examenradio.demande_exr', compact('consultation','infossupp','examens','examensradio'));
        }
-    public function index(){}
     /**
      * Show the form for creating a new resource.
      *
@@ -117,23 +120,22 @@ class DemandeExamenRadio extends Controller
      */
     public function store(Request $request, $consultID)
     {
-      $demande = demandeexr::FirstOrCreate([
-             "Date" => Date::now(),
-             "InfosCliniques" => $request->infosc,
-             "Explecations" => $request->explication,
-             "id_consultation" => $consultID,
-      ]);
-      $examsImagerie = json_decode ($request->ExamsImg);
-      foreach ($examsImagerie as $key => $value) {       
-        $demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);//$demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => json_encode($value->types)]);
-      
-      }
-      if(isset($request->infos))
-      {
-        foreach ($request->infos as $id_info) {
-             $demande->infossuppdemande()->attach($id_info);
-        }
-      }
+              $demande = demandeexr::FirstOrCreate([
+                     "Date" => Date::now(),
+                     "InfosCliniques" => $request->infosc,
+                     "Explecations" => $request->explication,
+                     "id_consultation" => $consultID,
+              ]);
+              $examsImagerie = json_decode ($request->ExamsImg);
+              foreach ($examsImagerie as $key => $value) {       
+                $demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);//$demande ->examensradios()->attach($value->acteImg, ['examsRelatif' => json_encode($value->types)]); 
+              }
+              if(isset($request->infos))
+              {
+                foreach ($request->infos as $id_info) {
+                     $demande->infossuppdemande()->attach($id_info);
+                }
+              }
     }
     /**
      * Display the specified resource.
@@ -143,12 +145,12 @@ class DemandeExamenRadio extends Controller
      */
     public function show($id)
     {      
-      $demande = demandeexr::FindOrFail($id);
-      if(isset($demande->consultation))
-        $patient = $demande->consultation->patient;
-      else
-        $patient = $demande->visite->hospitalisation->patient;
-      return view('examenradio.show', compact('demande','patient'));
+          $demande = demandeexr::FindOrFail($id);
+          if(isset($demande->consultation))
+            $patient = $demande->consultation->patient;
+          else
+            $patient = $demande->visite->hospitalisation->patient;
+          return view('examenradio.show', compact('demande','patient'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -157,11 +159,11 @@ class DemandeExamenRadio extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
-      $demande = demandeexr::FindOrFail($id);
-      $infossupp = infosupppertinentes::all();
-      $examens = TypeExam::all();//CT,RMN
-      $examensradio = examenradiologique::all();//pied,poignet
-      return view('examenradio.edit', compact('demande','infossupp','examensradio','examens')); 
+          $demande = demandeexr::FindOrFail($id);
+          $infossupp = infosupppertinentes::all();
+          $examens = TypeExam::all();//CT,RMN
+          $examensradio = examenradiologique::all();//pied,poignet
+          return view('examenradio.edit', compact('demande','infossupp','examensradio','examens')); 
     }
     /**
      * Update the specified resource in storage.

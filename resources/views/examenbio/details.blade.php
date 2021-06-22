@@ -91,14 +91,23 @@
       <form class="form-horizontal" method="POST" action="/uploadresultat" enctype="multipart/form-data">
         {{ csrf_field() }}
         <input type="text" name="id_demande" value="{{ $demande->id }}" hidden>
+        {{-- <div class="form-group"><div class="col-xs-2"><label for="resultat">Attacher le Résultat </label></div>
+<div class="col-xs-8"><input type="file" id="resultat" name="resultat" class="form-control" accept="image/*,.pdf" required/></div></div> --}}
         <div class="form-group">
-          <div class="col-xs-2"><label for="resultat">Attacher le Résultat </label></div>
-          <div class="col-xs-8"><input type="file" id="resultat" name="resultat" class="form-control" accept="image/*,.pdf" required/></div>
-        </div>
+              <label class="col-sm-3 control-label no-padding-right" for="nom"><strong> Attacher le Résultat: </strong></label>
+                <div class="col-sm-9"> <input type="file" class="form-control col-xs-12 col-sm-12"   id="resultat" name="resultat" alt="Résultat du l'éxamen"  accept="image/*,.pdf" required/> 
+                </div>
+       </div>
+        <div class="form-group">
+               <label class="col-sm-3 control-label no-padding-right" for="nom"><strong>Compte Rendu : </strong></label>
+                <div class="col-sm-9"> 
+                        <textarea name="crb" name="crb" class="form-control col-xs-12 col-sm-12" placeholder="Compte  rendu des examens" rows=3 ></textarea> 
+               </div>
+       </div>
         <div class="clearfix form-actions">
-          <div class="col-md-offset-5 col-md-7">
-            <button class="btn btn-info" type="submit"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>Démarrer l'envoie</button>
-          </div>
+              <div class="col-md-offset-5 col-md-7">
+                 <button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
+              </div>
         </div>
        </form>
             </div>
