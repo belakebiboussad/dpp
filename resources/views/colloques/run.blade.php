@@ -55,7 +55,7 @@
 @endsection
 @section('main-content')
 <div class="page-header col-xs-12">
-	<h1>Déroulement du Colloque <strong> {{( $colloque->type == "0" ) ? 'Médical' :'Chérurgical'}} </strong> de la semaine du  <strong>&quot;
+	<h1>Déroulement du colloque <strong> {{( $colloque->type == "0" ) ? 'Médical' :'Chérurgical'}} </strong> de la semaine du  <strong>&quot;
 	<?php $d=$colloque->date.' monday next week'; echo(date('d M Y',strtotime($d)-1));?>&quot;</strong>
 	</h1>
 </div>
@@ -65,7 +65,7 @@
 		<div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2">
 			<div class="widget-box widget-color-blue" id="widget-box-2">
 				<div class="widget-header">
-					<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des Demandes d'Hospitalisation :</h5>
+					<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des demandes d'hospitalisation :</h5>
 					<input type="hidden" id ="colloqueId" value ="{{ $colloque->id}}">
 				</div>
 				<div class="widget-body">
@@ -75,9 +75,9 @@
 		       		<tr>
 							<th class ="center" width="11%"><h5><strong>Patient</strong></h5></th>
 							<th class ="center" width="10%"><h5><strong class="text-center">Spécialité</strong></h5></th>
-							<th class ="center" width="10%"><h5><strong>Date Demande</strong></h5></th>
-							<th class ="center" width="10%"><h5><strong>Mode Admission</strong></h5></th>
-							<th class ="center" width="12%"><h5><strong>Medcin traitant</strong></h5></th>
+							<th class ="center" width="10%"><h5><strong>Date demande</strong></h5></th>
+							<th class ="center" width="10%"><h5><strong>Mode d'admission</strong></h5></th>
+							<th class ="center" width="12%"><h5><strong>Médecin traitant</strong></h5></th>
 						  <th width="10%" class ="center"><h5><strong>Priorité</strong></h5></th>
 							<th class="font-weight-bold center"><h5><strong>Observation</strong></h5></th>
 							<th class="detail-col center"><em class="fa fa-cog"></em></th>
@@ -94,7 +94,7 @@
 						  <td>{{$demande->modeAdmission }}</td>
 							<td>
 								<select id="medecin" name = "medecin" class ="med" class ="selectpicker show-menu-arrow place_holder col-sm-12">
-									<option value="0" selected disabled>selectionnez... </option>
+									<option value="0" selected disabled>Selectionnez... </option>
 									@foreach ($medecins as $medecin)
 									<option value="{{ $medecin->id }}">{{ $medecin->nom }} {{ $medecin->prenom }}</option>
 									@endforeach
@@ -130,7 +130,7 @@
 													<div class="profile-info-value"> <span>{{ $demande->consultation->patient->getAge( )}} ans</span></div>
 												</div>
 												<div class="profile-info-row">
-													<div class="profile-info-name text-center"><strong>Groupe Sanguin:</strong></div>
+													<div class="profile-info-name text-center"><strong>Groupe sanguin:</strong></div>
 													<div class="profile-info-value">
 			         	 					<h4>
 			         	 						<span class="label label-lg label-inverse arrowed-in">{{ $demande->consultation->patient->group_sang }}{{ $demande->consultation->patient->rhesus }}</span>
@@ -138,7 +138,7 @@
 										 		</div>
 											</div>
 											<div class="profile-info-row">
-												<div class="profile-info-name text-center"><strong>Etablie par Dr:</strong></div>
+												<div class="profile-info-name text-center"><strong>Établi par Dr:</strong></div>
 												<div class="profile-info-value">
 													<span>{{ $demande->consultation->docteur->nom }} {{ $demande->consultation->docteur->prenom }}</span>
 												</div>
@@ -149,7 +149,7 @@
 										<div class="space visible-xs"></div>
 										<div class="profile-user-info profile-user-info-striped">
 											<div class="profile-info-row">
-												<div class="profile-info-name text-center"><strong>Mode Admission:</strong></div>
+												<div class="profile-info-name text-center"><strong>Mode d'admission:</strong></div>
 												<div class="profile-info-value"><h4><span class = "label label-lg label-success">{{$demande->modeAdmission }}</span></h4></div>
 											</div>
 											<div class="profile-info-row">

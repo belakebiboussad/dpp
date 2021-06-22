@@ -1,7 +1,7 @@
 @extends('app')
 @section('main-content')
 <div class="page-header">
-	<h1 style="display: inline;"><strong>Détails de la demande de produit du </strong> &quot;{{ $demande->Date}}&quot;</h1>
+	<h1 style="display: inline;"><strong>Détails demande du </strong> &quot;{{ $demande->Date}}&quot;</h1>
 	<div class="pull-right">
 		<a href="{{route('demandeproduit.index')}}" class="btn btn-white btn-info btn-bold">
 			<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i> Liste Demandes
@@ -35,11 +35,11 @@
 														<div class="profile-info-name"> Etat : </div>
 														<div class="profile-info-value">
 															<span class="editable" id="username">
-																@if($demande->Etat == "E")
+																@if($demande->etat == "E")
 																	En Attente.
-																@elseif($demande->Etat =="V")
+																@elseif($demande->etat =="V")
 																	Validé
-																@elseif($demande->Etat =="R")
+																@elseif($demande->etat =="R")
 																	Rejeté
 																@endif
 															</span>
@@ -73,7 +73,7 @@
 												<th>Produit</th>
 												<th>Spécialité</th>
 												<th>Gamme</th>
-												<th>Qte</th>
+												<th>Qté</th>
 											</tr>
 										</thead>
 										<tbody>

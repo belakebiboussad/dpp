@@ -7,7 +7,7 @@
 				<strong>Liste des Colloques @if(isset($type)) {{( $type == 0) ? 'Médicaux ' : 'Chirurgicaux' }} @endif 	</strong>
 			</h5>
 			<div class="widget-toolbar widget-toolbar-light no-border">
-			  <div class="fa fa-plus-circle"></div><a href="{{ route('colloque.create')}}"><b>Ajouter Colloque</b></a>
+			  <div class="fa fa-plus-circle"></div><a href="{{route('colloque.create')}}"><b>Ajouter Colloque</b></a>
 			</div>	
 		</div>
 		<div class="widget-body">
@@ -15,12 +15,12 @@
 			<table class="table table-striped table-bordered table-hover">
 				<thead class="thin-border-bottom">
 					<tr>
-						<th class="center"><h5><strong>colloque de semaine du</strong></h5></th>
+						<th class="center"><h5><strong>Colloque de la semaine du</strong></h5></th>
 						<th class="center"><h5><strong>Date du colloque</strong></h5></th>
-						<th class="center"><h5><strong>Membres</strong></h5></th>
-						<th class="center"><h5><strong>colloque créer le</strong></h5></th>
-						<th class="center"><h5><strong>Type colloque</strong></h5></th>
-						<th class="center"><h5><strong>Etat colloque</strong></h5></th>
+						<th class="center"><h5><strong>Membres du colloque</strong></h5></th>
+						<th class="center"><h5><strong>Colloque créer le</strong></h5></th>
+						<th class="center"><h5><strong>Type du colloque</strong></h5></th>
+						<th class="center"><h5><strong>Etat du colloque</strong></h5></th>
 						<th class="center"><em class="fa fa-cog"></em></th>
 					</tr>
 				</thead>

@@ -1,16 +1,30 @@
 @extends('app')
+@section('title','Créer une demande')
 @section('page-script')
 <script>
+function enableDestry()
+{
+	if($("input:checked").length >= 1)
+	{
+		if($('#deletepod').is('[disabled=disabled]'))
+		  	$('#deletepod').attr("disabled",false);
+	}else
+	{
+		if(!$('#deletepod').is('[disabled=disabled]'))
+			 $('#deletepod').attr("disabled", true);	
+	}
+}
 $('document').ready(function(){
  	$("#ajoutercmd").click(function(){
  		if($('#gamme').val() == "1")
-			$('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td hidden>"+$("#produit").val()+"</td><td>"+$("#produit option:selected").text()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+$('#specialite option:selected').text()+"</td><td class='center'>"+$("#quantite").val()+"</td></tr>");
+			$('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace' id='chk[]' onClick='enableDestry()'/><span class='lbl'></span></label></td><td hidden>"+$("#produit").val()+"</td><td>"+$("#produit option:selected").text()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+$('#specialite option:selected').text()+"</td><td class='center'>"+$("#quantite").val()+"</td></tr>");
     else
-    	$('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label></td><td hidden>"+$("#produit").val()+"</td><td>"+$("#produit option:selected" ).text()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+"/"+"</td><td class='center'>"+$("#quantite").val()+"</td></tr>");
+    	$('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace' id='chk[]' onClick='enableDestry()'/><span class='lbl'></span></label></td><td hidden>"+$("#produit").val()+"</td><td>"+$("#produit option:selected" ).text()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+"/"+"</td><td class='center'>"+$("#quantite").val()+"</td></tr>");
     $('#produit').val('<option value="0">Sélectionner...</option>');
     $("#quantite").val(1);
     $('#gamme').val('0');
     $('#specialite').val('0');
+    $("#ajoutercmd").prop('disabled', true);
   });	
   $("#savedmd").click(function(){
       var arrayLignes = document.getElementById("cmd").rows;
@@ -22,7 +36,7 @@ $('document').ready(function(){
       var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(produits)+"' hidden>");
       champ.appendTo('#demandform');
       $('#demandform').submit();
-    });
+   });
 });
 </script>
 @endsection
@@ -31,7 +45,7 @@ $('document').ready(function(){
 <div class="col-xs-12">
 	<div class="col-xs-12 col-sm-5">
 		<div class="widget-box">
-			<div class="widget-header"><h4 class="widget-title">Demande d'un produit pharmaceutique</h4></div>
+			<div class="widget-header"><h4 class="widget-title">Sélectionner un produit</h4></div>
 			<div class="widget-body">
 				<div class="widget-main">
 					<div class="row">
@@ -72,8 +86,8 @@ $('document').ready(function(){
 				</div>
 				<hr/>
 				<div class="pull right">
-					<button id="ajoutercmd" class="btn btn-sm btn-success">
-						<i class="ace-icon  fa fa-plus-circle fa-lg bigger-120" style="font-size:18px;"></i><strong>Ajouter</strong>
+					<button id="ajoutercmd" class="btn btn-sm btn-success" disabled>
+						<i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i><strong>Ajouter</strong>
 					</button>
 				</div>
 			</div>
@@ -85,8 +99,8 @@ $('document').ready(function(){
 	<div class="col-xs-12 col-sm-7">
 		<div class="widget-box">
 			<div class="widget-header">
-			      <h4 class="widget-title">Produits demandés</h4>
-				<div class="widget-toolbar">	<a id="deletepod" class="btn btn-xs btn-danger"><i class="ace-icon fa fa-trash-o"></i></a></div>
+			  <h4 class="widget-title">Produits demandés</h4>
+				<div class="widget-toolbar"><a id="deletepod" class="btn btn-xs btn-danger" disabled><i class="ace-icon fa fa-trash-o"></i></a></div>
 			</div>
 			<div class="widget-body">
 				<div class="widget-main">
@@ -95,20 +109,20 @@ $('document').ready(function(){
 						<div>
 							<form id="demandform" method="POST" action="{{ route('demandeproduit.store') }}">
 								{{ csrf_field() }}
-									<table id="cmd" class="table table-striped table-bordered">
-										<thead>
-											<tr>
-												<th></th>
-												<th>Produit</th>
-												<th>Gamme</th>
-												<th>Spécialité</th>
-												<th>Quantité</th>
-											</tr>
-										</thead>
-										<tbody >
-										</tbody>
-									</table>
-								</div><div class="hr hr8 hr-double hr-dotted"></div>
+								<table id="cmd" class="table table-striped table-bordered">
+									<thead>
+										<tr>
+											<th></th>
+											<th>Produits</th>
+											<th>Gamme</th>
+											<th>Spécialité</th>
+											<th>Quantité</th>
+										</tr>
+									</thead>
+									<tbody >
+									</tbody>
+								</table>
+							  </div><div class="hr hr8 hr-double hr-dotted"></div>
 								<div class="pull right">
 									<button id="savedmd" class="btn btn-primary"><i class="ace-icon fa fa-save bigger-110" style="font-size:18px;"></i>Enregistrer
 									</button>

@@ -15,7 +15,7 @@ function getServiceRoom(id)
 </script>
 @endsection
 @section('main-content')
-<div class="row"><h3>Services de l'Hôpital</h3></div>
+<div class="row"><h3><strong>Services de l'hôpital</strong></h3></div>
 <div class="row">
 	<div class="col-sm-7 col-xs-12 widget-container-col" id="widget-container-col-2">
 		<div class="widget-box widget-color-blue" id="widget-box-2">
@@ -32,7 +32,7 @@ function getServiceRoom(id)
 						<tr>
 							<th class ="center">Nom</th>
 							<th class ="center">Type</th>
-							<th class ="center">Chef Service</th>
+							<th class ="center">Chef de service</th>
 							<th class ="center">Hébergement</th>
 							<th class ="center  priority-4">Service d'urgence</th>
 							<th class ="center"><em class="fa fa-cog"></em></th>

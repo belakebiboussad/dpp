@@ -17,6 +17,6 @@ class demandeexb extends Model
     }
     public function visite()
     {
-          return $this->belongsTo('App\modeles\visite','visite_id');
+      return $this->belongsTo('App\modeles\visite','visite_id');
     }
 }

@@ -311,7 +311,7 @@ $(document).ready(function () {
 										<i class="ace-icon fa fa-table"></i>Gardes Malades/Hommes de Confiance
 									</h5>
 									<div class="widget-toolbar widget-toolbar-light no-border">
-										<div class="fa fa-plus-circle"></div>{{-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> --}}
+										<div class="fa fa-plus-circle"></div>
 											<a href="#" data-target="#gardeMalade" class="btn-xs tooltip-link" data-toggle="modal"  data-toggle="tooltip" data-original-title="Ajouter Garde Malade ou Homme de Confiance" >
 												<strong>Ajouter un Garde Malade</strong>
 											</a>

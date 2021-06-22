@@ -153,7 +153,7 @@ $(document).ready(function() {
 <div class="row"  style="margin-left:-2%;">
   <div class="col-md-12">
      <div class="panel panel-default">
-          <div class="panel-heading"><div class="left"> <strong>Liste des Rendez-Vous</strong></div></div>
+          <div class="panel-heading"><div class="left"> <strong>Liste des rendez-vous</strong></div></div>
           <div class="panel-body"><div  class="calendar1"></div></div>
           <div class="panel-footer">
           <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><strong>&nbsp;RDV fixe</strong></span>
@@ -167,7 +167,7 @@ $(document).ready(function() {
   <div class="modal-dialog modal-lg" role="document">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title"><span class="glyphicon glyphicon-bell"></span>Modifier le Rendez-Vous du&nbsp;
+      <h5 class="modal-title"><span class="glyphicon glyphicon-bell"></span>Modifier le rendez-vous du&nbsp;
         <q><a href="" id="lien" class="white"></a></q></h5>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span></button><hr>  
       <div class="row">
@@ -187,7 +187,7 @@ $(document).ready(function() {
        <div class="well">
              <div class="row">
                  <div class="col-sm-12">                   
-                      <label for="medecin"><i class="ace-icon fa  fa-user-md bigger-130"></i><strong>&nbsp;Medecin:</strong></label>
+                      <label for="medecin"><i class="ace-icon fa  fa-user-md bigger-130"></i><strong>&nbsp;Médecin:</strong></label>
                       <div class="input-group col-sm-12"> {{-- style="width:300px;" --}}
                             <select  placeholder="Selectionner... " class="form-control" id="medecin" name ="medecin"> </select>
                        </div> 

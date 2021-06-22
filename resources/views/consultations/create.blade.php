@@ -13,6 +13,9 @@
 	    position:relative;
 	    z-index:999;
 	}
+	.b{
+		height:20px !important;
+	}
 </style>
 @endsection
 @section('page-script')
@@ -192,7 +195,7 @@
 	jQuery('#btn-add, #AntFamil-add').click(function () {//ADD
 		jQuery('#EnregistrerAntecedant').val("add");
 		jQuery('#modalFormData').trigger("reset");
-		$('#AntecCrudModal').html("Ajouter un Antecedant");
+		$('#AntecCrudModal').html("Ajouter un antécédent");
 		if(this.id == "AntFamil-add")
 		{
 			$("#EnregistrerAntecedant").attr('data-atcd','Famille'); 
@@ -208,7 +211,7 @@
 	jQuery('#btn-addAntPhys').click(function () {//	//antecedant Physiologique
 			jQuery('#EnregistrerAntecedantPhys').val("add");
 			jQuery('#modalFormDataPhysio').trigger("reset");
-			jQuery('#AntecPhysCrudModal').html("Ajouter un Antecedant");
+			jQuery('#AntecPhysCrudModal').html("Ajouter un antécédent");
 			jQuery('#antecedantPhysioModal').modal('show');
 	});	
 	jQuery('body').on('click', '.open-modal', function (event) {//EDIT
@@ -590,7 +593,7 @@
 			<ul class = "nav nav-pills nav-justified list-group" role="tablist" id="menu">
 				<li role= "presentation" class="active col-md-4">
 				  <a href="#Interogatoire" aria-controls="Interogatoire" role="tab" data-toggle="tab" class="btn btn-secondary btn-lg">
-				  <span class="bigger-160" style="font-size:10vw"> Interogatoire</span>
+				  <span class="bigger-160" style="font-size:10vw"> Interrogatoire</span>
 				  </a>
 				</li>
 				<li role= "presentation"  class="col-md-4">
@@ -635,4 +638,6 @@
 <div class="row">@include('rdv.rendezVous')</div>
 <div class="row">@include('cim10.cimModalForm')</div>
 <div class="row"><div id="OrientLetterPdf" class="invisible">@include('consultations.EtatsSortie.orienLetterImgPDF')</div></div>
+<div class="row"><div id="bioExamsPdf" class="invisible b"> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div></div>
+<div class="row"><div id="imagExamsPdf" class="invisible">@include('consultations.EtatsSortie.demandeExamensImgPDF')</div></div>
 @endsection

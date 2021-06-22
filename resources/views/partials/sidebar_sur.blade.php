@@ -37,7 +37,7 @@
       <li class="">
         <a href="{{ route('rdvHospi.index') }}">
             <i class="menu-icon fa fa-university"></i>
-            <span class="menu-text"> Acceuil </span>
+            <span class="menu-text">Accueil</span>
         </a>
         <b class="arrow"></b>
       </li>
@@ -52,7 +52,7 @@
           <li class="">     
             {{-- <a href="{{ URL::route('hospitalisation.index') }}"> --}}
             <a href="{{ route('hospitalisation.index') }}">
-              <i class="menu-icon fa fa-caret-right"></i>Liste Hospitalisations
+              <i class="menu-icon fa fa-caret-right"></i>Liste des hospitalisations
             </a>
             <b class="arrow"></b>
           </li>
@@ -67,13 +67,13 @@
         <ul class="submenu">
           <li class="">
             <a href="{{ route('rdvHospi.index') }}" title="ajouter un Rendez-Vous">
-              <i class="menu-icon fa fa-plus"></i>Ajouter Rendez-Vous
+              <i class="menu-icon fa fa-plus"></i>Ajouter un rendez-vous
             </a>
             <b class="arrow"></b>
           </li>
           <li class="">
             <a href="/listeRDVs">
-              <i class="menu-icon fa fa-clock-o"></i>Liste Rendez-Vous     
+              <i class="menu-icon fa fa-clock-o"></i>Liste des rendez-vous     
             </a>
               <b class="arrow"></b>
           </li>
@@ -82,26 +82,26 @@
       <li class="">
         <a href="#" class="dropdown-toggle"> {{--  <i class="menu-icon fa fa-calendar"></i> --}}
              <i class="menu-icon fa fa-bed" aria-hidden="true"></i>
-              <span class="menu-text">Gestion des Lits</span>
+              <span class="menu-text">Gestion des lits</span>
              <b class="arrow fa fa-angle-down"></b>
         </a>
         <ul class="submenu">
           <li class="">
             <a href="{{ route('reservation.index') }}" title="Reserver  un Lit">
-              <i class="menu-icon fa fa-plus"></i>Reserver Lit
+              <i class="menu-icon fa fa-plus"></i>Reserver un lit
             </a>
             <b class="arrow"></b>
           </li>
           <li class="">
             <a href="/bedAffectation" title="Affecter Un Lit">
             {{-- {{ route('litAffecter', 0) }} --}}
-              <i class="menu-icon fa fa-plus"></i>Affecter  Lit
+              <i class="menu-icon fa fa-plus"></i>Affecter un lit
             </a>
             <b class="arrow"></b>
           </li>
           {{-- <li class="">
             <a href="/404">
-              <i class="menu-icon fa fa-clock-o"></i>Liste Lits     
+              <i class="menu-icon fa fa-clock-o"></i>Liste des lits     
             </a>
               <b class="arrow"></b>
           </li> --}}

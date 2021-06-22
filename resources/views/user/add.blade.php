@@ -1,7 +1,7 @@
 @extends('app')
 @section('title','Ajouter un Utilisateure')
 @section('main-content')
-	<div class="page-header"><h2>Ajouter un nouveau utilisateur </h2></div>
+	<div class="row"><h3><strong>Ajouter un nouveau utilisateur </strong></h3></div>
 	<div class="widget-box" id="widget-box-1">
 		<div class="widget-body">
 			<div class="widget-main">	{{-- "{{route('users.store')}} --}}
@@ -29,7 +29,7 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
-						<label class="col-sm-4 control-label no-padding-right" for="datenaissance"><b>Date Naissance:</b></label>
+						<label class="col-sm-4 control-label no-padding-right" for="datenaissance"><b>Date de naissance:</b></label>
 						<div class="col-sm-8">
 						<input class="col-xs-12 col-sm-12 date-picker ltnow" type="text" name="datenaissance" placeholder="Date Naissance..." data-date-format="yyyy-mm-dd" autocomplete ="off" required/>
 						</div>
@@ -37,7 +37,7 @@
 					</div>
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
-						<label class="col-sm-4 control-label no-padding-right" for="lieunaissance"><b>Lieu Naissance:</b></label>
+						<label class="col-sm-4 control-label no-padding-right" for="lieunaissance"><b>Lieu de naissance:</b></label>
 						<div class="col-sm-8">
 						<input class="col-xs-12 col-sm-12 autoCommune" type="text" id="lieunaissance" name="lieunaissance" placeholder="Lieu Naissance..." Autocomplete="off"/>
 						</div>
@@ -139,7 +139,7 @@
 					</div>
 					<div class="col-xs-12 col-sm-3">
 						<div class="{{ $errors->has('role') ? "has-error" : "" }}">
-							<label for="role"><b>Role:</b></label>
+							<label for="role"><b>Rôle:</b></label>
 							<select id="role" name="role" class="form-control" required>
 								<option value="">Sélectionner...</option>
 								@foreach($roles as $role)

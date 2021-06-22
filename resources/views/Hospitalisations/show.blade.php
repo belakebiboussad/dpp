@@ -28,7 +28,7 @@
 					    	<i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->Service->nom }}
 						</li>
 						<li>
-			 				<i class="ace-icon fa fa-caret-right blue"></i><strong>Specialite :</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->Specialite->nom }}
+                            <i class="ace-icon fa fa-caret-right blue"></i><strong>Specialite :</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->Specialite->nom }}
 						</li>
 						<li>
 							<i class="ace-icon fa fa-caret-right blue"></i><strong>Mode d'admission:</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->modeAdmission }}
@@ -70,10 +70,10 @@
 				<div class="row">
 					<ul class="list-unstyled spaced">
 					  	<li> <i class="ace-icon fa fa-caret-right blue"></i><strong>Nom:</strong> {{ $hosp->garde->nom}}</li>
-						<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Prenom:</strong> {{ $hosp->garde->prenom }} </li>
+						<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Prénom:</strong> {{ $hosp->garde->prenom }} </li>
 						 <li><i class="ace-icon fa fa-caret-right blue"></i><strong>Né(e) le :</strong> {{ $hosp->garde->date_naiss }}</li>			  	
 						<li>
-					  		 <i class="ace-icon fa fa-caret-right blue"></i><strong>Age :</strong> <span class="badge badge-info">{{ Jenssegers\Date\Date::parse($hosp->garde->date_naiss)->age }}</span> ans
+					  		 <i class="ace-icon fa fa-caret-right blue"></i><strong>Âge :</strong> <span class="badge badge-info">{{ Jenssegers\Date\Date::parse($hosp->garde->date_naiss)->age }}</span> ans
 						 </li>
 					 	<li> <i class="ace-icon fa fa-caret-right blue"></i><strong>Relation :</strong> <span class="badge badge-success">{{ $hosp->garde->lien_par }}</li>
 					  	<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Téléphone :</strong> <span class="badge badge-danger">{{ $hosp->garde->mob }}</li>  	

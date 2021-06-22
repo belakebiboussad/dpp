@@ -2,12 +2,12 @@
 	<ul class = "nav nav-pills nav-justified navbar-custom list-group" role="tablist" id ="intero">
 			 <li role= "presentation" name="motif" class="active">
 			    <a href="#Motif" aria-controls="Motif" role="tab" data-toggle="tab" class="jumbotron">
-			      <i class="fa fa-comment fa-2x pull-left"></i> <span class="bigger-130"> Motif</span>
+			      <i class="fa fa-comment fa-2x pull-left"></i> <span class="bigger-130"> Motif de consultation</span>
 				  </a>
 			</li>
 			<li role= "presentation">
 				<a href="#ATCD" aria-controls="ATCD"  data-toggle="tab" class="jumbotron">
-					<i class="fa fa-history fa-2x pull-left"></i><span class="bigger-130">Antecedants</span>
+					<i class="fa fa-history fa-2x pull-left"></i><span class="bigger-130">Antécédents</span>
 				</a>
 			</li>
 	</ul>
@@ -18,6 +18,6 @@
 				<div role="tabpanel" class = "tab-pane " id="ATCD">@include('consultations.Antecedant')</div>
 			</div>
 		</div><!-- col-sm-9	 -->
-		<div class= "col-sm-3">@include('consultations.actions')</div>
+		<div class= "col-sm-3"><div>@include('consultations.actions')</div></div>
 	</div><!-- row -->
 </div>

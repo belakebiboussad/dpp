@@ -69,10 +69,10 @@
 @section('main-content')
 <div class="container-fluid">
   <div>
-  	<h4>Ajouter un Patient</h4>
+  	<h3><strong>Ajouter un nouveau patient</strong></h3>
   	<div class="pull-right">
 			<a href="{{route('patient.index')}}" class="btn btn-white btn-info btn-bold">
-				<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i> Chercher un Patient
+				<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i> Rechercher un patient
 			</a>
 			</div>
   </div>
@@ -99,7 +99,7 @@
 					</li>
 					<li ><a class="jumbotron" data-toggle="tab" href="#Patient"><span class="bigger-130"><strong>Patient</strong></span></a></li>
 			 	  <li id ="hommelink" class="invisible"><a class="jumbotron" data-toggle="tab" href="#Homme_C">
-			  		<span class="bigger-130"><b>Garde Malde</b></span></a>
+			  		<span class="bigger-130"><b>Garde Malade</b></span></a>
 				  </li>
 		  </ul>
 		  <div class="tab-content">
@@ -107,7 +107,7 @@
 				<div id="Patient" class="tab-pane fade">@include('patient.addPatient')</div>
 				<div id="Homme_C" class="tab-pane fade hidden_fields">
 				<div id ="homme_cPart">
-					<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue"><b>Information de l'Homme de confiance</b></h3></div></div>
+					<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue"><b>Information Homme de confiance</b></h3></div></div>
 					<div class="row">
 					<div class="col-sm-6">
 						<div class="form-group">
@@ -147,7 +147,7 @@
 									<option value="frère">Frère </option>
 									<option value="soeur">Soeur </option>
 									<option value="membre_famille">Membre de famille </option>
-									<option value="ami">Ami </option>
+									<option value="ami">Ami(e) </option>
 									<option value="Autre">Autre </option>
 								</select>
 							</div>
@@ -162,7 +162,7 @@
 								<select name="type_piece_id" id="type_piece_id" class="col-xs-12 col-sm-12">
 									<option value="">Sélectionner...</option>
 									<option value="CNI">Carte d'identité nationale</option>
-									<option value="Permis">Permis de Conduire</option>
+									<option value="Permis">Permis de conduire</option>
 									<option value="Passeport">Passeport </option>
 								</select>
 							</div>

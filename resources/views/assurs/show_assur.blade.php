@@ -1,7 +1,7 @@
 @extends('app_recep')
 @section('main-content')
 	<div class="page-header">
-		<h1>Détails Du L'assuré : {{ $assur->Nom }} {{ $assur->Prenom }}</h1>
+		<h1>Détails de l'assuré(e): {{ $assur->Nom }} {{ $assur->Prenom }}</h1>
 	</div>
 	<div class="profile-user-info profile-user-info-striped">
 		<div class="profile-info-row">
@@ -21,7 +21,7 @@
 	</div>
 	<div class="profile-user-info profile-user-info-striped">
 		<div class="profile-info-row">
-			<div class="profile-info-name"> Date Naissance </div>
+			<div class="profile-info-name"> Date de naissance </div>
 				<div class="profile-info-value">
 					<span class="editable" id="nom">{{ $assur->Date_Naissance }}</span>
 				</div>
@@ -45,7 +45,7 @@
 	</div>
 	<div class="profile-user-info profile-user-info-striped">
 		<div class="profile-info-row">
-			<div class="profile-info-name"> sécurité sociale </div>
+			<div class="profile-info-name"> Sécurité sociale </div>
 				<div class="profile-info-value">
 					<span class="editable" id="nom">{{ $assur->NSS }}</span>
 				</div>

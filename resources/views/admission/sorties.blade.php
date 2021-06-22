@@ -1,4 +1,5 @@
-@extends('app_agent_admis')
+{{--@extends('app_agent_admis')--}}
+@extends('app') 
 @section('page-script')
 <script type="text/javascript">
 	function effectuerSortieAdm(adm_id){
@@ -87,50 +88,36 @@
         }
     });
 	}	
-	$("document").ready(function(){
-		$('.filter').change(function(){//rechercher une sortie
-			getSorties($(this).attr('id'),$(this).val());
-		});
-		$(document).on('click', '.selctetat', function(event){
-    	event.preventDefault();
-			var formData = {
-      			class_name: $('#className').val(),		
-          	obj_id: $('#objID').val(),
-          	selectDocm :$(this).val(),
-       };
-       $.ajax({
-            type : 'get',
-            url : '{{URL::to('reportprint')}}',
-            data:formData,
-              success(data){
-                $('#EtatSortie').modal('hide');
-              },
-        });
-    });
-	});
+	   $(function(){
+              $('.filter1').change(function() {
+                      if (this.value.trim()) { 
+                          	getSorties($(this).attr('id'),$(this).val());
+                      }
+              });
+       })/*$("document").ready(function(){	});*/
 </script>
 @endsection
 @section('main-content')
 <div class="page-content">
 	<div class="row panel panel-default">
 		<div class="panel-heading left" style="height: 40px; font-size: 2.3vh;">
-			<strong>Rechercher les Sorties</strong><div class="pull-right" style ="margin-top: -0.5%;"></div>
+			<strong>Rechercher les sorties</strong><div class="pull-right" style ="margin-top: -0.5%;"></div>
 		</div>
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-sm-4">
        				<div class="form-group"><label><strong>Etat :</strong></label>
-           			 <select id='etat' class="form-control filter" style="width: 200px">
-               				 <option value="0">En Cours</option>
+           			 <select id='etat' class="form-control filter1" style="width: 200px">
+               				 <option value="0">En cours</option>
 			                <option value="1">Validée</option>
 			            </select>
        				  </div>		
     				</div>
         <div class="col-sm-4">
         	<div class="form-group">
-         		<label class="control-label" for="" ><strong>Date Sortie:</strong></label>
+         		<label class="control-label" for="" ><strong>Date sortie:</strong></label>
          		<div class="input-group">
-  			      <input type="text" id ="Date_Sortie" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd" autocomplete="off">
+  			      <input type="text" id ="Date_Sortie" class="date-picker form-control filter1"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd" autocomplete="off">
   					  <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
     			</div>
 		</div>

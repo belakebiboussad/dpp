@@ -3,6 +3,7 @@
 @section('page-script')
 <script>
 var field = 'name';
+  /*$(function(){$('.filter').change(function() {if (this.value.trim()) { field = $(this).prop("id");} });});*/
 $(document).ready(function(){
 	$(document).on('click','.findUser',function(event){
 		event.preventDefault();
@@ -74,12 +75,12 @@ $(document).ready(function(){
 function getUserdetail(id)
 {	  
   $.ajax({
-          type : 'get',
-          url : '{{URL::to('userdetail')}}',
-         data:{'search':id},
-         success:function(data,status, xhr){
-         		$('#userDetail').html(data.html);
-         }
+      type : 'get',
+      url : '{{URL::to('userdetail')}}',
+      data:{'search':id},
+      success:function(data,status, xhr){
+     		$('#userDetail').html(data.html);
+      }
   });	
 }
 </script>
@@ -87,14 +88,15 @@ function getUserdetail(id)
 @section('main-content')
 <div class="page-content">
 	<div class="row">
-	  <div class="col-sm-12 center">	
-			<h2><strong>Bienvenue :</strong><q class="blue"> {{ Auth::User()->employ->nom }} &nbsp;{{ Auth::User()->employ->prenom }}</q></h2>
+	  {{--<div class="col-sm-12 center">--}}
+	  <div class ="pull-left">	
+			<h3><strong>Bienvenu(e):</strong><q class="blue"> {{ Auth::User()->employ->nom }} &nbsp;{{ Auth::User()->employ->prenom }}</q></h3>
 		</div>		
 	</div>	{{-- row --}}
 	<div class="space-12"></div>
 	<div class="row panel panel-default">
 		<div class="panel-heading left">
-			<strong>Rechercher un Utilisateur</strong><div class="pull-right"></div>
+			<strong>Rechercher un utilisateur</strong><div class="pull-right"></div>
 		</div>
 		<div class="panel-body">
 			<div class="row">
@@ -102,22 +104,27 @@ function getUserdetail(id)
 	  	    <div class="form-group">
 		  	    <label class="control-label" for="name"><strong>Nom:</strong></label>
 		  	    <div class="input-group col-sm-10">
-							<input type="text" class="form-control input input-xs col-sm-12 autoUserfield" id="name" name="name"  placeholder="nom du l'utilisateur"/>
+							<input type="text" class="form-control input input-xs col-sm-12 autoUserfield filter" id="name" name="name"  placeholder="Nom de l'utilisateur"/>
 						</div>
 	  	    </div>
 	  	  </div>
 	  	  <div class="col-sm-4">
 	  	    <div class="form-group">
 		  	    <label class="control-label" for="userRole"><strong>Rôle:</strong></label>
-		  	    <div class="input-group col-sm-10">
-							<input type="text" class="form-control input input-xs col-sm-12 autoUserfield" id="role_id" name="role_id"  placeholder="Rôle du l'utilisateur"/>
+		  	    <div class="input-group col-sm-10"><!-- <input type="text" class="form-control input input-xs col-sm-12 filter" id="role_id" name="role_id"  placeholder="Rôle du l'utilisateur"/> -->
+							<select class="col-xs-12 col-sm-12 input-xs filter" name="role_id" id="role_id">
+								<option value="" selected>Selectionner...</option>}
+							@foreach ($roles as $role)
+								<option value="{{ $role->id }}">{{ $role->role }}</option>
+							@endforeach
+							</select>
 						</div>
 	  	    </div>
 	  	  </div>
 	  	</div>			   
 		</div>
-		<div class="panel-footer" style="height: 50px;">
-			<button type="submit" class="btn btn-sm btn-primary findUser" style="vertical-align: middle"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+		<div class="panel-footer">
+			<button type="submit" class="btn btn-sm btn-primary findUser"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
 			<div class="pull-right">
 				<a class="btn btn-primary btn-sm hidden" href="users/create" id="btnCreate" role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>	
 			</div>
@@ -127,7 +134,7 @@ function getUserdetail(id)
 		<div class="col-sm-7">
 		<div class="widget-box transparent">
 			<div class="widget-header widget-header-flat widget-header-small">
-				<h5 class="widget-title"><i class="ace-icon fa fa-user"></i>Resultats: </h5> 
+				<h5 class="widget-title"><i class="ace-icon fa fa-user"></i>Résultats: </h5> 
 				<label for=""><span class="badge badge-info numberUser"></span></label>
 			</div>
 			<div class="widget-body">

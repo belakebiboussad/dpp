@@ -36,7 +36,7 @@
         <li class="">
             <a href="{{route('home_rec')}}">
                 <i class="menu-icon fa fa-university"></i>
-                <span class="menu-text"> Acceuil </span>
+                <span class="menu-text">Accueil</span>
             </a>
             <b class="arrow"></b>
         </li>
@@ -44,7 +44,7 @@
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-users"></i>
                             <span class="menu-text">
-                                Gestion Patient
+                                Gestion patient
                             </span>
                 <b class="arrow fa fa-angle-down"></b>
             </a>
@@ -53,7 +53,7 @@
                 <li class="">
                     <a href="{{ route('patient.create') }}">
                         <i class="menu-icon fa fa-caret-right"></i>
-                        Ajouter Patient
+                        Ajouter un patient
                     </a>
 
                     <b class="arrow"></b>
@@ -61,7 +61,7 @@
                 <li class="">
                     <a href="{{ route('patient.index') }}">
                         <i class="menu-icon fa fa-caret-right"></i>
-                        Liste Patients
+                        Liste des patients
                     </a>
                     <b class="arrow"></b>
                 </li>
@@ -76,7 +76,7 @@
             <ul class="submenu">
               <li class="">
                 <a href="{{ route('assur.index') }}">
-                  <i class="menu-icon fa fa-eye pink"></i> Liste Fonctionnaires
+                  <i class="menu-icon fa fa-eye pink"></i> Liste des fonctionnaires
                 </a>
                 <b class="arrow"></b>
               </li>
@@ -91,11 +91,11 @@
           <b class="arrow"></b>
           <ul class="submenu">
             <li class="">
-              <a href="/rdv/create"><i class="menu-icon fa fa-plus purple"></i>Ajouter RDV</a>
+              <a href="/rdv/create"><i class="menu-icon fa fa-plus purple"></i>Ajouter un RDV</a>
               <b class="arrow"></b>
             </li>
             <li class="">
-              <a href="{{ route('rdv.index') }}"><i class="menu-icon fa fa-eye pink"></i>Liste RDVs</a>
+              <a href="{{ route('rdv.index') }}"><i class="menu-icon fa fa-eye pink"></i>Liste des RDVs</a>
               <b class="arrow"></b>
             </li>
             </ul>

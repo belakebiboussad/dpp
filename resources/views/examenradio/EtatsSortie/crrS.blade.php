@@ -4,7 +4,7 @@
 <h5 class="center" id="etabTel">Tél : {{ $etablissement->tel }}- {{ $etablissement->tel2 }}</h5>
 <h5 class="mt-10 center" ><img src="img/{{ $etablissement->logo }}" alt="logo" style="width: 80px; height: 80px"/></h5>
 <hr class="mt-10"/>
-  <div class="row mt-30"><div class="col-sm-12 center"><h3>Compte Rendu Radiologique</h3></div></div>
+  <div class="row mt-30"><div class="col-sm-12 center"><h3>Compte-rendu radiologique</h3></div></div>
    <div class="space-12"></div> <div class="space-12"></div>
   <div class="row">
     <div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right"><strong><span style="font-size:20px;">Indication</span></strong>
@@ -31,7 +31,7 @@
   </div>
    <div class="space-12"></div>
    <div class="row">
-    <div class="col-xs-11 label label-lg label-default arrowed-in arrowed-right"><strong><span style="font-size:20px;">Resultat</span></strong>
+    <div class="col-xs-11 label label-lg label-default arrowed-in arrowed-right"><strong><span style="font-size:20px;">Résultat</span></strong>
    </div>
   </div><div class="space-12"></div>
   <div class="row">

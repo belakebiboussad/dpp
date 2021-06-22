@@ -6,11 +6,11 @@
         <div class="widget-main">
             <h4 class="header green lighter bigger">
                 <i class="ace-icon fa fa-users blue"></i>
-                New User Registration
+                Enregistrement d'un nouvel utilisateur
             </h4>
 
             <div class="space-6"></div>
-            <p> Enter your details to begin: </p>
+            <p> Entrez vos coordonnées pour commencer : </p>
 
             <form role="form" method="POST" action="{{ url('/auth/register') }}">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -67,12 +67,12 @@
                     <div class="clearfix">
                         <button type="reset" class="width-30 pull-left btn btn-sm">
                             <i class="ace-icon fa fa-refresh"></i>
-                            <span class="bigger-110">Reset</span>
+                            <span class="bigger-110">Réinitialiser</span>
                         </button>
 
                         <button type="submit"
                                 class="width-65 pull-right btn btn-sm btn-success">
-                            <span class="bigger-110">Register</span>
+                            <span class="bigger-110">S'inscrire</span>
 
                             <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
                         </button>
@@ -84,7 +84,7 @@
         <div class="toolbar center">
             <a href="{{ url('/auth/login') }}" data-target="#login-box" class="back-to-login-link">
                 <i class="ace-icon fa fa-arrow-left"></i>
-                Back to login
+                Retour connexion
             </a>
         </div>
     </div>

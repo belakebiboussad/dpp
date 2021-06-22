@@ -1,12 +1,12 @@
 @extends('app')
 @section('main-content')
-	<div class="page-header"><h1>Détails Du Service :</h1></div>
+	<div class="row"><h3><strong>Détails du service :</strong></h3></div>
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="widget-box" id="widget-box-1">
-				<div class="widget-header"><h5 class="widget-title">Détails du Service :</h5>
+				<div class="widget-header"><h5 class="widget-title"><strong>Détails du service :</strong></h5>
 					<div class="pull-right">
-						<a href="{{ route('service.index') }}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-search bigger-120 blue"></i>Liste des Services</a>
+						<a href="{{ route('service.index') }}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-search bigger-120 blue"></i>Liste des services</a>
 						<a href="{{route('service.destroy',$service->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-white btn-warning btn-bold"><i class="ace-icon fa fa-trash-o bigger-120 orange"> Supprimer</i></a>
 					</div>
 				</div>
@@ -22,7 +22,7 @@
 							<div class="col-sm-9">
 								@switch($service->type)
 									@case(0)
-       									<span class="label label-sm label-danger"><b>Médicale</b></span>
+       									<span class="label label-sm label-danger"><b>Médical</b></span>
         								 	@break
         								@case(1)
         									<span class="label label-sm label-success"><b>Chirurgical</b></span>

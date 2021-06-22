@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <title>Gestion Des Admissions</title>
+  <title>Gestion des admissions</title>
   @include('partials.htmlheader')
   @yield('style')
   <body class="no-skin">

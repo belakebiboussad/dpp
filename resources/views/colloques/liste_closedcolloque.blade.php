@@ -7,7 +7,7 @@
     	<div class="widget-box widget-color-blue" >
     		<div class="widget-header">
 		    	<h5 class="widget-title bigger lighter">
-		      	<i class="ace-icon fa fa-table"></i><strong>Liste Des Colloques {{ ($type == 0) ? 'Médicaux ' : 'Chirurgicaux' }} Cloturé</strong>
+		      	<i class="ace-icon fa fa-table"></i><strong>Liste des colloques {{ ($type == 0) ? 'Médicaux ' : 'Chirurgicaux' }} Cloturés</strong>
 	       	</h5>
 		</div>
 		<div class="widget-body">
@@ -16,10 +16,10 @@
 		    		<table class="table table-striped table-bordered table-hover" id="table1" aria-describedby="table1_info" role="grid">
 					 <thead class="thin-border-bottom">
 					  	 <tr>
-						      <th><h4><strong>Semaine du</strong></h4></th>
-							<th><h4><strong>Date du colloque</strong></h4></th>
-							<th><h4><strong>Membres</strong></h4></th>
-					        <th><h4><strong>Les demandes validées</strong></h4></th>
+						      <th><h5><strong>Semaine du</strong></h5></th>
+							<th><h5><strong>Date du colloque</strong></h5></th>
+							<th><h5><strong>Membres</strong></h5></th>
+					        <th><h5><strong>Les demandes validées</strong></h5></th>
 		  				 </tr>
 				  	</thead>
 				  	  <tbody id ="colloquesBody" class="bodyClass">
@@ -59,7 +59,7 @@
 									<tr>
 										<td>
 											<div class="profile-info-row profile-user-info-striped">
-											<div class="profile-info-name"><strong>Medecin:</strong></div>
+											<div class="profile-info-name"><strong>Médecin:</strong></div>
 											<div class="profile-info-value"><span>{{ $demande->DemeandeColloque->medecin->nom }} {{ $demande->DemeandeColloque->medecin->prenom }} </span>
 											</div>
 											</div>
@@ -80,7 +80,7 @@
 									</td>
 									<td >
 										<div class="profile-info-row profile-user-info-striped">
-										<div class="profile-info-name"><strong>Specialité:</strong></div>
+										<div class="profile-info-name"><strong>Spécialité:</strong></div>
 										<div class="profile-info-value"><span>{{ $demande->Specialite->nom }}</span></div>
 										</div>
 									</td>

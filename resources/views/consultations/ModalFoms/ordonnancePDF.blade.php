@@ -37,18 +37,18 @@
 			<div class="row">
 				<div class="col-sm-12"><br>
 					<ol class="c">
-						@for ($i = 0; $i < count($medicaments); $i++)
-						<li>
-						 <h4>	{{ $medicaments[$i]->Nom_com }} {{ $medicaments[$i]->Forme }} &nbsp;&nbsp; {{ $medicaments[$i]->Dosage }}</h4> {{-- $med->Forme --}}
-						 <h5>{{ $posologies[$i] }}</h5>
-						</li><br><br>	
-						@endfor
+						@foreach($medicaments as $i => $value)
+							<li>
+								<h4>{{ $medicaments[$i]->Nom_com }} {{ $medicaments[$i]->Forme }} &nbsp;&nbsp; {{ $medicaments[$i]->Dosage }}</h4>
+								<h5>{{ $posologies[$i] }}</h5>
+							</li>
+							@if($loop->last)
+								<br><br><br><div class="col-sm-12"><div class="sec-droite"><span><strong> Docteur :</strong> {{ $employe->nom}} {{ $employe->prenom}}</span></div></div> 	
+							@endif
+						@endforeach
 					</ol>
 				</div>
-			</div>
-			<div class="row foo">
-		    	<div class="col-sm-12"><div class="sec-droite"><span><strong> Docteur :</strong> {{ $employe->nom}} {{ $employe->prenom}}</span></div></div>
-		  </div>		
+			</div>		
     </div>
 	</body>
 </html>

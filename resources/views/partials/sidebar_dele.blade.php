@@ -16,14 +16,14 @@
   </div><!-- /.sidebar-shortcuts -->
   <li class="">
         <a href="home">
-            <i class="menu-icon fa fa-picture-o"></i>    <span class="menu-text">Gestion Colloques</span> 
+            <i class="menu-icon fa fa-picture-o"></i>    <span class="menu-text">Gestion des colloques</span> 
         </a>
         <b class="arrow"></b>
   </li>
   <ul class="nav nav-list">
     <li class="">
         <a href="/home_dele">
-                <i class="menu-icon fa fa-university"></i><span class="menu-text"> Acceuil </span>
+                <i class="menu-icon fa fa-university"></i><span class="menu-text">Accueil</span>
         </a>
 
         <b class="arrow"></b>
@@ -31,7 +31,7 @@
     <li class="">
           <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-h-square"></i>
-                <span class="menu-text">Colloques en Cours</span>
+                <span class="menu-text">Colloques en cours</span>
                 <b class="arrow fa fa-angle-down"></b>
           </a>
           <b class="arrow"></b>
@@ -39,15 +39,15 @@
                 <li class="">
                     <a href="/listecolloques/0">
                         <i class="menu-icon fa fa-eye pink"></i>
-                        Colloques Médicaux
+                        Colloques médicaux
                     </a>
                     <b class="arrow"></b>
                 </li>
                 <li>
-                    <a href="/listecolloques/1">  <i class="menu-icon fa fa-eye pink"></i> Colloques Chirurgicaux  </a>   
+                    <a href="/listecolloques/1">  <i class="menu-icon fa fa-eye pink"></i> Colloques chirurgicaux  </a>   
                 </li>
                 <li class="">
-                    <a href="{{ route('colloque.create')}}"> <i class="menu-icon fa fa-plus purple"></i> Ajouter colloque </a>
+                    <a href="{{ route('colloque.create')}}"> <i class="menu-icon fa fa-plus purple"></i> Ajouter un colloque </a>
                     <b class="arrow"></b>
                 </li>              
             </ul>
@@ -55,18 +55,18 @@
     <li class="">
         <a href="#" class="dropdown-toggle">
             <i class="menu-icon fa fa-user-md"></i>
-            <span class="menu-text">Colloques Cloturé</span>
+            <span class="menu-text">Colloques cloturé</span>
             <b class="arrow fa fa-angle-down"></b>
         </a>
         <b class="arrow"></b>
         <ul class="submenu">
               <li class="">
                     <a href="/listecolloquesCloture/0">
-                        <i class="menu-icon fa fa-eye pink"></i>  Colloques Médicaux </a>  <b class="arrow"></b>
+                        <i class="menu-icon fa fa-eye pink"></i>  Colloques médicaux </a>  <b class="arrow"></b>
                    </li>
 
                 <li class="">
-                    <a href="/listecolloquesCloture/1"> <i class="menu-icon fa fa-eye pink"></i> Colloques Chirurgicaux  </a>
+                    <a href="/listecolloquesCloture/1"> <i class="menu-icon fa fa-eye pink"></i> Colloques chirurgicaux  </a>
                    <b class="arrow"></b>
                 </li>
         </ul>
@@ -80,13 +80,13 @@
                  @php $x = 1 @endphp
                 <li class="">             
                     <a href="/demandehosp/listedemandes/{{ $x }}">                 
-                         <i class="menu-icon fa fa-eye pink"></i>Demandes Médicaux
+                         <i class="menu-icon fa fa-eye pink"></i>Demandes médicales
                     </a>
                     <b class="arrow"></b>
                 </li>
                 <li class="">
                     <a href="/demandehosp/listedemandes/{{ ++$x }}">
-                        <i class="menu-icon fa fa-eye pink"></i>Demandes Chirurgicaux
+                        <i class="menu-icon fa fa-eye pink"></i>Demandes chirurgicales
                     </a>
                     <b class="arrow"></b>
                 </li>

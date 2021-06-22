@@ -64,13 +64,13 @@
           </div>  
         </div>
         <div class="col-xs-4">
-          <label class="col-sm-4 control-label no-padding-right" for="specialite"><strong>Specialite:</strong></label>
+          <label class="col-sm-4 control-label no-padding-right" for="specialite"><strong>Spécialité:</strong></label>
           <div class="col-sm-8">
             <input type="text" id="specialite" name="specialite" value="{{ $hosp->admission->demandeHospitalisation->Specialite->nom }}" class="col-xs-12 col-sm-12" readonly/>
           </div>  
         </div>
         <div class="col-xs-4">
-          <label class="col-sm-4 control-label no-padding-right" for="modeAdm"><strong>Mode admission:</strong></label>
+          <label class="col-sm-4 control-label no-padding-right" for="modeAdm"><strong>Mode d'admission:</strong></label>
           <div class="col-sm-8">
             <input  type="text" id="modeAdm" name="modeAdm" value="{{ $hosp->admission->demandeHospitalisation->modeAdmission }}" class="col-xs-12 col-sm-12" readonly/>
           </div>  
@@ -79,7 +79,7 @@
 			<div class="space-12"></div>
       <div class="row form-group">
       	<div class="col-xs-4">
-          <label class="col-sm-4 control-label no-padding-right" for="medecin"><strong>Medecin Traitant:</strong></label>
+          <label class="col-sm-4 control-label no-padding-right" for="medecin"><strong>Médecin traitant:</strong></label>
           <div class="col-sm-8">
             <input type="text" id="medecin" name="medecin" value="{{ $hosp->medecin->nom }} {{$hosp->medecin->prenom}}" class="col-xs-12 col-sm-12" readonly/>
           </div>  
@@ -105,7 +105,7 @@
           </div>
         </div>
         <div class="col-xs-4">
-          <label class="col-sm-4 control-label no-padding-right" for="observ"><strong>observation:</strong> </label>
+          <label class="col-sm-4 control-label no-padding-right" for="observ"><strong>Observation:</strong> </label>
           <div class="col-sm-8">
             <input type="text" id="observ" name="observ" value="{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->observation}}" class="col-xs-12 col-sm-12" disabled/>
           </div>  
@@ -140,7 +140,7 @@
 		        </div>  
         	</div>
         </div> <!-- row -->
-        <div class="row text-primary"><h3>Sortie Prévue</h3><hr></div>
+        <div class="row text-primary"><h3>Sortie prévue</h3><hr></div>
      	  <div class="row form-group">
 	        <div class="col-xs-4">
 	          <label class="col-sm-4 control-label no-padding-right" for="Date_Prevu_Sortie"> <strong> Date:</strong></label>
@@ -161,7 +161,7 @@
 							<label class="col-sm-3 control-label no-padding-right no-wrap" for="garde_id" style="padding: 0.9%;"><strong>Garde Malade :</strong></label>
 							<div class="input-group col-sm-9" style ="width:35.8%;padding: 0.8%;">	
 							<select name="garde_id" id="garde_id" @if(in_array(Auth::user()->role->id,[5])) disabled @endif>
-							 		<option value="0" selected>selectionnez le Garde Malade</option>
+							 		<option value="0" selected>Selectionnez le garde malade</option>
 							 		@foreach( $hosp->patient->hommesConf as $homme)
 							 		<option value="{{ $homme->id }}" @if($hosp->garde_id ==  $homme->id) selected @endif> {{ $homme->nom }} {{ $homme->prenom }}</option>
 								  @endforeach
@@ -177,7 +177,7 @@
 	        <label class="col-sm-4 control-label no-padding-right" for="serviceh"><strong> Service :</strong></label>
 	        <div class="col-sm-8">
 	      		<select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" @if(in_array(Auth::user()->role->id,[1])) disabled @endif />
-	            <option value="0" selected>selectionnez le service d'hospitalisation</option>
+	            <option value="0" selected>Selectionnez le service d'hospitalisation</option>
 	            @foreach($services as $service)
 	            <option value="{{ $service->id }}" @if($hosp->admission->lit->salle->service->id == $service->id) selected @endif>
 	              {{ $service->nom }}
@@ -190,7 +190,7 @@
           <label class="col-sm-4 control-label no-padding-right" for="salle"> <strong> Salle :</strong></label>
           <div class="col-sm-8">
             <select id="salle" name="salle" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" @if(in_array(Auth::user()->role->id,[1])) disabled @endif>
-              <option value="0" selected>selectionnez la salle d'hospitalisation</option>      
+              <option value="0" selected>Selectionnez la salle d'hospitalisation</option>      
               @foreach($hosp->admission->lit->salle->service->salles as $salle)
               <option value="{{ $salle->id }}" @if($hosp->admission->lit->salle->id == $salle->id) selected @endif >{{ $salle->nom }}</option>
               @endforeach
@@ -201,7 +201,7 @@
           <label class="col-sm-4 control-label" for="heure_rdvh"><strong>Lit :</strong></label>
           <div class="col-sm-8">
             <select id="lit" name="lit" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" @if(in_array(Auth::user()->role->id,[1])) disabled @endif>
-              <option value="0" selected>selectionnez le lit d'hospitalisation</option>      
+              <option value="0" selected>Selectionnez le lit d'hospitalisation</option>      
               @foreach($hosp->admission->lit->salle->lits as $lit)
               <option value="{{ $lit->id }}" @if($hosp->admission->lit->id == $lit->id) selected @endif >{{ $lit->nom }} </option>
                @endforeach

@@ -39,12 +39,12 @@
 			           </div>
 			           @if(Auth::user()->role_id == 2)
 			           <div class="panel panel-default">
-			           	 <div class="panel-heading"><i class="ace-icon fa  fa-user-md bigger-110"></i><span>Selectionner un Medecin</span></div>
+			           	 <div class="panel-heading"><i class="ace-icon fa  fa-user-md bigger-110"></i><span>Selectionner un médecin</span></div>
                				<div class="panel-body">
 			           	<div class="row">
 			           	<div class="col-sm-6">
 			           		<div class="form-group">
-					          		 <label class="col-form-label" for=""> <strong>Specilité :</strong></label>
+					          		 <label class="col-form-label" for=""> <strong>Spécialité :</strong></label>
 			                          <select class="form-control" id="specialite" name="specialite" onchange="getMedecinsSpecialite($(this).val());">
 			                             	 @foreach($specialites as $specialite)
 				                          <option value="{{ $specialite->id}}">{{  $specialite->nom }}</option>
@@ -54,7 +54,7 @@
 			           	</div>
 			           	<div class="col-sm-6">
 			           		<div class="form-group">
-					          		<label class="col-form-label" for=""> <strong>Medecin: </strong></label>
+					          		<label class="col-form-label" for=""> <strong>Médecin: </strong></label>
 			                          <select class="form-control" placeholder="Selectionner... " id="medecin" name ="medecin" disabled required></select>
 				         		 </div>
 			           	</div>

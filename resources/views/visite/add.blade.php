@@ -1,14 +1,33 @@
 @extends('app')
 @section('style')
-<link rel="stylesheet" href="{{ asset('css/print.css') }}"  />	
+<link rel="stylesheet" href="{{ asset('css/print.css') }}"  />
 @endsection
 @section('page-script')
   <script type="text/javascript">
-		$(document).ready(function(){
+	$(document).ready(function(){
 			$('#listActes').DataTable({
-				colReorder: true,
-				stateSave: true,
-				searching:false,
+				processing: true,
+				ordering: true,
+				bInfo : false,
+				searching: false,
+				bLengthChange: false,
+				"info":     false,
+				bLengthChange: false,
+				'aoColumnDefs': [{
+					'bSortable': false,
+					'aTargets': ['nosort'],
+				}],
+				'language': {
+				 "url": '/localisation/fr_FR.json',
+			  },
+			 });
+			$('#listTraits').DataTable({
+				processing: true,
+				ordering: true,
+				bInfo : false,
+				searching: false,
+				bLengthChange: false,
+				"info":     false,
 				'aoColumnDefs': [{
 					'bSortable': false,
 					'aTargets': ['nosort']
@@ -16,35 +35,30 @@
 				'language': {
 				 "url": '/localisation/fr_FR.json',
 			  },
-		});
-		$('td.dataTables_empty').html('');
-		$('#btn-addActe').click(function () {
-			$('#EnregistrerActe').val("add");
-			$('#addActe').trigger("reset");
-			$('#acteCrudModal').html("Ajouter un Acte Médicale");
-			$('#acteModal').modal('show');
-		});  
+			});
+			$('td.dataTables_empty').html('');
+			$('#btn-addActe').click(function () {
+				$('#EnregistrerActe').val("add");
+				$('#addActe').trigger("reset");
+				$('#acteCrudModal').html("Prescrire un Acte Médicale");
+				$('#acteModal').modal('show');
+			});  
 	  $("#EnregistrerActe").click(function (e) {
-			e.preventDefault();
-			var periodes = [];
+			e.preventDefault();//var periodes = [];
+			
 			if(! isEmpty($("#acte").val()) || ($("#acte").val() == ''))
 				$('#acteModal').modal('toggle');
 			$.ajaxSetup({
 			  headers: {
 					'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
 				}
-			});
-			$("input[name='p[]']:checked").each(function() {
-			 		periodes.push($(this).attr('value'));
-			});
+			});//$("input[name='p[]']:checked").each(function() {periodes.push($(this).attr('value'));	});
 			var formData = {
 					id_visite: $('#id_visite').val(),
 					nom:$("#acte").val(),
 					type:$('#type').val(),
-					code_ngap:$('#code_ngap').val(),
-					periodes :periodes,
-					description:$('#description').val(),
-					duree : $('#duree').val()
+					code_ngap:$('#code_ngap').val(),//periodes :periodes,
+					description:$('#description').val(),//duree : $('#duree').val()
 			};
 			var state = jQuery('#EnregistrerActe').val();
 			var acte_id = jQuery('#acte_id').val();
@@ -64,13 +78,9 @@
 					{
 						$('.dataTables_empty').remove();
 					}
-					frag ="";
-					$.each( data.acte.periodes, function( key, periode ) {
-					  frag +='<span class="badge badge-success">'+periode+'</span>';
-					});
-					var acte = '<tr id="acte'+data.acte.id+'"><td hidden>'+data.acte.id_visite+'</td><td>'+data.acte.nom+'</td><td>'+data.acte.description+'</td><td>'
-									 + data.acte.type+'</td><td>'+data.acte.code_ngap+'</td><td>'+frag+'</td><td>'+data.acte.duree
-									 + '</td><td>'+data.medecin.nom+' '+data.medecin.prenom+'</td><td>'+data.visite.date+'</td>';	 
+/*frag ="";$.each( data.acte.periodes, function( key, periode ) {frag +='<span class="badge badge-success">'+periode+'</span>';		});*/
+					var acte = '<tr id="acte'+data.acte.id+'"><td hidden>'+data.acte.id_visite+'</td><td>'+data.visite.date+'</td><td>'+data.acte.nom+'</td><td>'+data.acte.type
+										+'</td><td>'+data.acte.code_ngap+'</td><td>'+data.acte.description+'</td><td>'+data.medecin.nom+' '+data.medecin.prenom+'</td>';
 							acte += '<td class ="center"><button type="button" class="btn btn-xs btn-info open-modal" value="' + data.acte.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';    
 							acte += '<button type="button" class="btn btn-xs btn-danger delete-acte" value="' + data.acte.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></btton></td></tr>';
 					if (state == "add") {
@@ -96,13 +106,9 @@
 				$('#type').val(data.type).change();
 				$('#code_ngap').val(data.code_ngap).change();
 				$('#duree').val(data.duree).change();
-				$('#description').val(data.description);// JSON.parse(
-				$.each(data.periodes, function( index, value ) {
-				  $('#' + value).prop("checked",true);
-					});
-				$('#nbr_j').val(data.duree);
+				$('#description').val(data.description);/*$.each(data.periodes, function( index, value ){$('#' + value).prop("checked",true);});$('#nbr_j').val(data.duree);*/
 				jQuery('#EnregistrerActe').val("update");		
-				jQuery('#acteModal').modal('show');
+					jQuery('#acteModal').modal('show');
 			  });
 			});
 		  jQuery('body').on('click', '.delete-acte', function () {////----- DELETE a acte and remove from the table -----////
@@ -126,7 +132,7 @@
 		$('#btn-addTrait').click(function () {///////////add trait
 		  $('#EnregistrerTrait').val("add");
 			$('#traitModal').trigger("reset");
-			$('#TraitCrudModal').html("Ajouter un Traitement");
+			$('#TraitCrudModal').html("Prescrire un traitement");
 			$('#traitModal').modal('show');
   });  
 	$("#EnregistrerTrait").click(function (e) {
@@ -139,15 +145,11 @@
 				'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
 			}
 		});
-		$("input[name='pT[]']:checked").each(function() {
-		periodes.push($(this).attr('value'));
-	});
-	var formData = {
+		/*$("input[name='pT[]']:checked").each(function(){periodes.push($(this).attr('value'));});*/
+		var formData = {
 				visite_id: $('#id_visiteT').val(),
-					med_id:$("#produit").val(),
-					posologie:$("#posologie").val(),
-				periodes :periodes,
-				duree : $('#dureeT').val()
+				med_id:$("#produit").val(),
+				posologie:$("#posologie").val(),/*periodes :periodes,duree : $('#dureeT').val()*/
 		};
 		var state = jQuery('#EnregistrerTrait').val();
 		var trait_id = jQuery('#trait_id').val();
@@ -167,26 +169,22 @@
 				{
 					$('.dataTables_empty').remove();
 				}
-				frag ="";
-				$.each( data.trait.periodes, function( key, periode ) {
-							frag +='<span class="badge badge-success">'+periode+'</span>';
-						});
-						var trait = '<tr id="trait'+data.trait.id+'"><td hidden>'+data.trait.visite_id+'</td><td>'+data.medicament.nom+'</td><td>'
-											+ data.trait.posologie + '</td><td>'+frag+'</td><td>'+data.trait.duree+'</td><td>'+data.medecin.nom
-										  +' '+data.medecin.prenom+'</td><td>'+data.visite.date+'</td>';	 
+/*frag ="";$.each( data.trait.periodes, function( key, periode ){frag +='<span class="badge badge-success">'+periode+'</span>';});*/
+				var trait = '<tr id="trait'+data.trait.id+'"><td hidden>'+data.trait.visite_id+'</td><td>'+data.visite.date+'</td><td>'+data.medicament.nom+'</td><td>'
+									+data.trait.posologie+'</td><td>'+data.medecin.nom +' '+data.medecin.prenom+'</td>';
 				trait += '<td class ="center"><button type="button" class="btn btn-xs btn-info edit-trait" value="' + data.trait.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
 				trait += '<button type="button" class="btn btn-xs btn-danger delete-Trait" value="' + data.trait.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></btton></td></tr>';
 				if (state == "add") {
 					$( "#listTraits" ).append(trait);
 				}else{
-				$("#trait" + data.trait.id).replaceWith(trait);
-			}
-			$('#traitModal form')[0].reset();
-		},         
+					$("#trait" + data.trait.id).replaceWith(trait);
+				}
+				$('#traitModal form')[0].reset();
+			},         
 			error: function (data){
 					console.log('Error:', data);
 			}
-	});
+		});
 	});
   $('body').on('click', '.edit-trait', function () {//edit traitement
 			  var traitID = $(this).val();
@@ -196,11 +194,7 @@
 					 $("#produit").removeAttr("disabled");
 					$('#TraitCrudModal').html("Editer un Traitement Médical");		
 					$('#specialiteProd').val(data.medicament.id_specialite);
-					$('#posologie').val(data.posologie);// JSON.parse(
-					$.each(data.periodes, function( index, value ) {
-					  $('#T' + value).prop("checked",true).change();
-					});
-					$('#dureeT').val(data.duree).change();//$('#nbr_j').val(data.duree);
+					$('#posologie').val(data.posologie);/*$.each(data.periodes, function( index, value ){$('#T' + value).prop("checked",true).change();});$('#dureeT').val(data.duree).change();*/
 					jQuery('#EnregistrerTrait').val("update");		
 					jQuery('#traitModal').modal('show');
 		  	});
@@ -259,8 +253,7 @@
 			}	
 		});
 		$("#visiteForm").submit(function(e){
-				addExamsImg(this);	
-    		//return false;
+			addExamsImg(this);//return false;
 		});
   });
   </script>
@@ -310,36 +303,29 @@
 							<thead class="thin-border-bottom">
 								<tr class ="center">
 								  <th class ="hidden"></th>
-									<th scope="col" class ="center sorting_disabled"><strong>Nom</strong></th>
-												<th scope="col" class ="center sorting_disabled">Decription</th>
-												<th scope="col" class ="center sorting_disabled"><strong>Type</strong></th>
-												<th scope="col" class ="center sorting_disabled"><strong>Code NGAP</strong></th>
-												<th scope="col" class ="center sorting_disabled"><strong>Périodes</strong></th>
-												<th scope="col" class ="center sorting_disabled" width="3%"><strong>Nombre de jours</strong></th>
-												<th scope="col" class ="center sorting_disabled"><strong>Médecin prescripteur</strong></th>												
-												<th scope="col" class ="center"><strong>Date Visite</strong></th>												
-												<th scope="col" class=" center nosort"><em class="fa fa-cog"></em></th>
+								  	<th class ="center"><strong>Date Visite</strong></th>
+									  <th class ="center sorting_disabled"><strong>Acte</strong></th>
+										<th class ="center sorting_disabled"><strong>Type</strong></th>
+										<th class ="center sorting_disabled"><strong>Code NGAP</strong></th><!-- <th scope="col" class ="center sorting_disabled"><strong>Périodes</strong></th>
+										<th scope="col" class ="center sorting_disabled" width="3%"><strong>Nombre de jours</strong></th> -->
+										<th class ="center sorting_disabled"><strong>Application</strong></th>
+										<th class ="center sorting_disabled"><strong>Médecin prescripteur</strong></th>																								
+										<th class=" center nosort"><em class="fa fa-cog"></em></th>
 								</tr>
 							</thead>
 							<tbody>
 								 @foreach($hosp->visites as $visite)
 								  @foreach($visite->actes as $acte )
 									@if(!$acte->retire)
-									  <tr id="{{ 'acte'.$acte->id }}">
+									<tr id="{{ 'acte'.$acte->id }}">
 										<td hidden> {{ $acte->id_visite }}</td>
+									  <td>{{ $acte->visite->date }}</td>
 										<td> {{ $acte->nom }}</td>
-										<td> {{ $acte->description}}</td>
 										<td> {{ $acte->type}}</td>
-										<td> {{ $acte->code_ngap}}</td>
-										<td>
-											@foreach($acte->periodes as $periode){{-- json_decode( --}}
-												<span class="badge badge-success"> {{ $periode }}</span>
-										  @endforeach
-										</td>
-										<td> {{ $acte->duree }}</td>
+										<td> {{ $acte->code_ngap}}</td>{{-- <td>@foreach($acte->periodes as $periode)<span class="badge badge-success"> {{ $periode }}</span>@endforeach</td><td> {{ $acte->duree }}</td> --}}
+										<td> {{ $acte->description }}</td>
 										<td> {{ $acte->visite->medecin->nom}}&nbsp; {{ $acte->visite->medecin->prenom}}</td>
-										<td>{{ $acte->visite->date }}</td>
-									  <td class="center nosort">
+										<td class="center nosort">
 										<button type="button" class="btn btn-xs btn-info open-modal" value="{{$acte->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
 							  <button type="button" class="btn btn-xs btn-danger delete-acte" value="{{$acte->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>
 									  </td>	
@@ -357,28 +343,26 @@
 				<div role="tabpanel" class ="tab-pane" id="Trait">
 				<div class= "col-md-12 col-xs-12">
 					<div class= "widget-box widget-color-blue" id="widget-box-2">
-							<div class="widget-header" >
+						<div class="widget-header" >
 							<h5 class="widget-title bigger lighter"><font color="black">
-								<i class="ace-icon fa fa-table"></i>&nbsp;<b>Trait</b></font>
+								<i class="ace-icon fa fa-table"></i>&nbsp;<b>Traitements</b></font>
 							</h5>
 							<div class="widget-toolbar widget-toolbar-light no-border" width="20%">
-										<div class="fa fa-plus-circle"></div>
-										<a href="#" id="btn-addTrait" class="btn-xs tooltip-link">	<h4><strong>Traitement Médical</strong></h4></a>	
-									</div>
-							</div>	
+								<div class="fa fa-plus-circle"></div>
+								<a href="#" id="btn-addTrait" class="btn-xs tooltip-link"><h4><strong>Traitement</strong></h4></a>	
+							</div>
+						</div>	
 						<div class="widget-body" id ="TraitementWidget">
 							<div class="widget-main no-padding">
 							<table class="table nowrap dataTable table-bordered no-footer table-condensed table-scrollable" id="listTraits">
 							<thead class="thin-border-bottom">
 								<tr class ="center">
 									<th class ="hidden"></th>
-									<th scope="col" class ="center"><strong>Nom Medicament</strong></th>
-												<th scope="col" class ="center"><strong>Posologie</strong></th>
-												<th scope="col" class ="center"><strong>Périodes</strong></th>
-												<th scope="col" class ="center" width="3%"><strong>Nombre de jours</strong></th>
-												<th scope="col" class ="center"><strong>Médecin prescripteur</strong></th>												
-												<th scope="col" class ="center"><strong>Date Visite</strong></th>												
-												<th scope="col" class=" center nosort"><em class="fa fa-cog"></em></th>
+									<th class ="center"><strong>Date Visite</strong></th>												
+									<th class ="center sorting_disabled"><strong>Nom Medicament</strong></th>
+									<th class ="center sorting_disabled"><strong>Posologie</strong></th><!--<th class ="center"><strong>Périodes</strong></th><th class ="center" width="3%"><strong>Nombre de jours</strong></th> -->	
+									<th class ="center sorting_disabled"><strong>Médecin prescripteur</strong></th>											
+									<th class=" center sorting_disabled"><em class="fa fa-cog"></em></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -386,19 +370,13 @@
 									@foreach($visite->traitements as $trait)
 									<tr id="{{ 'trait'.$trait->id }}">
 									  <td hidden> {{ $trait->visite_id }}</td>
+										<td> {{ $trait->visite->date }}</td>
 									  <td>{{ $trait->medicament['nom'] }}</td> 
-									  <td> {{ $trait->posologie}}</td>
-									<td> 	
-										@foreach($trait->periodes as $periode)
-											<span class="badge badge-success"> {{ $periode }}</span>
-										  @endforeach
-										</td>
-									<td> {{ $trait->duree }}</td>
-									<td> {{ $trait->visite->medecin->nom}}&nbsp; {{ $trait->visite->medecin->prenom}}</td>
-									<td> {{ $trait->visite->date }}</td>
-								  <td class="center nosort">
-									<button type="button" class="btn btn-xs btn-info edit-trait" value="{{ $trait->id }}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
-							  <button type="button" class="btn btn-xs btn-danger delete-Trait" value="{{ $trait->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>
+									  <td> {{ $trait->posologie}}</td>{{--<td>@foreach($trait->periodes as $periode)<span class="badge badge-success"> {{ $periode }}</span>@endforeach</td><td> {{ $trait->duree }}</td>--}}
+										<td> {{ $trait->visite->medecin->nom}}&nbsp; {{ $trait->visite->medecin->prenom}}</td>
+								 		<td class="center nosort">
+											<button type="button" class="btn btn-xs btn-info edit-trait" value="{{ $trait->id }}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
+							  			<button type="button" class="btn btn-xs btn-danger delete-Trait" value="{{ $trait->id }}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>
 								  </td>	
 								</tr>
 									@endforeach
@@ -428,5 +406,7 @@
 	</form>
 	<div class="row">@include('visite.ModalFoms.acteModal')</div>
 	<div class="row">@include('visite.ModalFoms.TraitModal')</div>
+	<div class="row"><div id="bioExamsPdf" class="invisible b"> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div></div>
+<div class="row"><div id="imagExamsPdf" class="invisible">@include('consultations.EtatsSortie.demandeExamensImgPDF')</div></div>
   </div>
   @endsection

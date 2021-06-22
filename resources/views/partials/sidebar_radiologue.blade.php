@@ -24,12 +24,12 @@
     </li>
     <ul class="nav nav-list">
         <li class="">
-            <a href="/homeradiologue"> <i class="menu-icon fa fa-university"></i> <span class="menu-text"> Acceuil </span></a>
+            <a href="/homeradiologue"> <i class="menu-icon fa fa-university"></i> <span class="menu-text">Accueil</span></a>
             <b class="arrow"></b>
         </li>
         <li class="">
             <a href="/listeexrs">
-                <i class="menu-icon fa fa-bookmark-o"></i><span class="menu-text"> Liste des Demandes </span>
+                <i class="menu-icon fa fa-bookmark-o"></i><span class="menu-text"> Liste des demandes </span>
             </a>
             <b class="arrow"></b>
         </li>

@@ -1,13 +1,12 @@
 @extends('app')
 @section('main-content')
-	<div class="page-header">
-		<h1>Modifier la Chambre "{{ $salle->nom }}" :</h1>
+	<div class="row"><h3><strong>Modifier les données de la chambre "{{ $salle->nom }}" :</strong></h3>
 	</div>
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="widget-box" id="widget-box-1">
 			<div class="widget-header">
-				<h5 class="widget-title">Modifier Une Chambre :</h5>
+				<h5 class="widget-title"><strong>Modifier une chambre :</strong></h5>
 			</div>
 			<div class="widget-body">
 			<div class="widget-main">
@@ -15,19 +14,19 @@
 				{{ csrf_field() }}
 				{{ method_field('PUT') }}
 				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="numsalle"><strong> Numéro Chambre : </strong></label>
+					<label class="col-sm-3 control-label no-padding-right" for="numsalle"><strong> Numéro chambre : </strong></label>
 					<div class="col-sm-9">
 						<input type="text" name="num" value="{{ $salle->num }}" placeholder="Numéro De La Chambre" class="col-xs-10 col-sm-5" />
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="nomsalle"><strong> Nom Chambre : </strong></label>
+					<label class="col-sm-3 control-label no-padding-right" for="nomsalle"><strong> Nom chambre : </strong></label>
 					<div class="col-sm-9">
 						<input type="text" name="nom" value="{{ $salle->nom }}" placeholder="Nom De La Chambre" class="col-xs-10 col-sm-5" />
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="max_lit"><strong> Max Lits : </strong></label>
+					<label class="col-sm-3 control-label no-padding-right" for="max_lit"><strong> Max lits : </strong></label>
 					<div class="col-sm-9">
 						<input type="text" name="max_lit" value="{{ $salle->max_lit }}" placeholder="Max des Lits" class="col-xs-10 col-sm-5" />
 					</div>
@@ -91,7 +90,7 @@
 					<div class="center">
 						<button class="btn btn-info" type="submit">
 							<i class="ace-icon fa fa-save bigger-110"></i>
-							Enregistrer
+							Actualiser
 						</button>&nbsp; &nbsp; &nbsp;
 						<button class="btn" type="reset">
 							<i class="ace-icon fa fa-undo bigger-110"></i>Annuler

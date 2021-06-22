@@ -133,28 +133,21 @@
             });
        }
         var field ="etat_hosp";
-       $(function() {
-             $('.filter').change(function() {
-                    if (this.value.trim())
-                          field = $(this).prop("id"); //return false;
-              });
-      });
+       /*$(function() {$('.filter').change(function() {if (this.value.trim()) field = $(this).prop("id");});});*/
       $('document').ready(function(){
-      /*
-$('.filter').change(function(){// if($(this).attr('id') != "Nom") //getHospitalisations("etat_hosp",null);getHospitalisations($(this).attr('id'),$(this).val()); }); // $('.filter').keyup(function(){//     getHospitalisations($(this).attr('id'),$(this).val()) // });*/
-      $(document).on('click','.findHosp',function(event){
-             getHospitalisations(field,$('#'+field).val().trim());
-      });
-      $('#modeSortie').change(function(){
-         if($(this).val()==="0")
-          {
-              if($('.transfert').hasClass('hidden'))
-                $('.transfert').removeClass('hidden');
-          }else{ 
-              if(! ($('.transfert').hasClass('hidden')))
-                $('.transfert').addClass('hidden');
-          }
-          if ($(this).val()==="2"){
+              $(document).on('click','.findHosp',function(event){
+                     getHospitalisations(field,$('#'+field).val().trim());
+              });
+             $('#modeSortie').change(function(){
+                     if($(this).val()==="0")
+                      {
+                          if($('.transfert').hasClass('hidden'))
+                            $('.transfert').removeClass('hidden');
+                      }else{ 
+                          if(! ($('.transfert').hasClass('hidden')))
+                            $('.transfert').addClass('hidden');
+                      }
+                      if ($(this).val()==="2"){
                 if($('.deces').hasClass('hidden'))
                     $('.deces').removeClass('hidden');
           }else{
@@ -205,29 +198,13 @@ $('.filter').change(function(){// if($(this).attr('id') != "Nom") //getHospitali
               });
           }
       });
-      $(document).on('click', '.selctetat', function(event){
-          event.preventDefault();
-          var formData = {
-            class_name: $('#className').val(),   
-            obj_id: $('#objID').val(),
-            selectDocm :$(this).val(),
-          };
-          $.ajax({
-            type : 'get',
-            url : '{{URL::to('reportprint')}}',
-            data:formData,
-              success(data){
-                $('#EtatSortie').modal('hide');
-              },
-          }); 
-      });
   });
 </script>
 @endsection
 @section('main-content')
 <div class="row">
   <div class="col-sm-12 col-md-12">
-    <h2><strong>Rechercher une Hospitalisation</strong></h2>
+    <h2><strong>Rechercher une hospitalisation</strong></h2>
     <div class="panel panel-default">
       <div class="panel-heading">Recherche</div>
       <div class="panel-body">
@@ -235,8 +212,8 @@ $('.filter').change(function(){// if($(this).attr('id') != "Nom") //getHospitali
           <div class="col-sm-3">
             <label><strong>Etat :</strong></label>
             <select id='etat_hosp' class="form-control filter">
-              <option value="0">En Cours</option>
-              <option value="1">Cloturé</option>
+              <option value="0">En cours</option>
+              <option value="1">Cloturée</option>
             </select>
           </div>
           <div class="col-sm-3">
@@ -247,7 +224,7 @@ $('.filter').change(function(){// if($(this).attr('id') != "Nom") //getHospitali
              <input type="text" id="IPP" class="form-control filter">
           </div>
            <div class="col-sm-3"><!-- <div class="form-group col-sm-8"></div> -->
-            <label class="control-label" for="" ><strong>Date Sortie:</strong></label>
+            <label class="control-label" for="" ><strong>Date sortie:</strong></label>
             <div class="input-group">
               <input type="text" id ="Date_Sortie" class="date-picker form-control filter ltnow"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
               <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
@@ -255,8 +232,8 @@ $('.filter').change(function(){// if($(this).attr('id') != "Nom") //getHospitali
           </div>
         </div>
       </div>
-      <div class="panel-footer" style="height: 50px;">
-        <button type="submit" class="btn btn-sm btn-primary findHosp" style="vertical-align: middle"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+      <div class="panel-footer">
+        <button type="submit" class="btn btn-sm btn-primary findHosp"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
       </div>
     </div>
   </div>
@@ -273,9 +250,9 @@ $('.filter').change(function(){// if($(this).attr('id') != "Nom") //getHospitali
           <thead>
             <tr><!-- <th class ="center priority-6" width="2%"></th> -->
               <th class ="center"><strong>Patient</strong></th>
-              <th class ="center priority-4"><strong>Mode Admission</strong></th><th class ="center"><strong>Date_entree</strong></th>
-              <th class ="center  priority-6"><strong>Date Sortie Prévue</strong></th><th class ="center priority-4"><strong>Date Sortie</strong></th>
-              <th  class ="center  priority-5"><strong>Mode</strong></th><th  class ="center  priority-6"><strong>Medecin</strong></th>
+              <th class ="center priority-4"><strong>Mode d'admission</strong></th><th class ="center"><strong>Date d'entrée</strong></th>
+              <th class ="center  priority-6"><strong>Date sortie prévue</strong></th><th class ="center priority-4"><strong>Date sortie</strong></th>
+              <th  class ="center  priority-5"><strong>Mode</strong></th><th  class ="center  priority-6"><strong>Médecin</strong></th>
               <th class ="center  priority-6"><strong>Etat</strong></th>
               <th class ="center" width="12%"><strong><em class="fa fa-cog"></em></strong></th>
             </tr>

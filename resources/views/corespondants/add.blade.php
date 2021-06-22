@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-lg">
 	 <div class="modal-content custom-height-modal">
 		<div class="modal-header">
-			  <button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title"  id="CoresCrudModal">Ajouter un Correspondant(e)</h4> 
+			  <button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title"  id="CoresCrudModal">Ajouter un correspondant(e)</h4> 
 		</div>
 		<div class="modal-body">
 			<form id="addGardeMalade" method="POST" action ="{{  route('hommeConfiance.store') }}">
@@ -19,7 +19,7 @@
 				         	</span>
 			          		<span  class ="primary"  style="float: left;">
 			            		<select name="typeH" id="typeH" class="enum list|prevenir|garde">
-							<option value="0">Garde Malade</option>
+							<option value="0">Garde malade</option>
 							<option value="1">Personne à prévenir</option>
 						</select>
 			          		</span>
@@ -86,7 +86,7 @@
 							<div class="col-sm-9">					
 							<div class="radio">
 								<label>
-								<input id="CNI" name="type_piece" value="CNI" type="radio" class="ace" checked /><span class="lbl">Carte Nationale d'Identité</span>
+								<input id="CNI" name="type_piece" value="CNI" type="radio" class="ace" checked /><span class="lbl">Carte nationale d'identité</span>
 								</label>
 								<label><input id="Permis" name="type_piece" value="Permis" type="radio" class="ace" /><span class="lbl">Permis de Conduire</span></label>
 								<label><input id="Passeport" name="type_piece" value="Passeport" type="radio" class="ace" /><span class="lbl"> Passeport</span></label>

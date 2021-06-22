@@ -1,7 +1,7 @@
 @extends('app_recep')
 @section('main-content')
 	<div class="page-header">
-		<h1 style="display: inline;"><strong>La Liste Des Antécédants du :</strong> {{ $patient->Nom }} {{ $patient->Prenom }}</h1>
+		<h1 style="display: inline;"><strong>Liste des antécédents du :</strong> {{ $patient->Nom }} {{ $patient->Prenom }}</h1>
 		<div class="pull-right">
         </div>
 	</div>
@@ -11,7 +11,7 @@
 				<th class="detail-col">Description</th>
 				<th>Type</th>
 				<th>Date</th>
-				<th class="hidden-480">Sous Type </th>
+				<th class="hidden-480">Sous type </th>
 				<th></th>
 			</tr>
 		</thead>
@@ -22,7 +22,7 @@
 					<div class="action-buttons">
 						<a href="#" class="green bigger-140 show-details-btn" title="Show Details">
 							<i class="ace-icon fa fa-angle-double-down"></i>
-							<span class="sr-only">Details</span>
+							<span class="sr-only">Détails</span>
 						</a>
 					</div>
 				</td>
@@ -90,7 +90,7 @@
 							</div>
 							<div class="col-xs-12 col-sm-7">
 								<div class="space visible-xs"></div>
-								<h1><strong>Description de l'antécédant</strong></h1>
+								<h1><strong>Description de l'antécédent</strong></h1>
 								<p class="lead">
 									{{$atcd->description}}
 								</p>

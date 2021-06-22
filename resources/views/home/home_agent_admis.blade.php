@@ -1,4 +1,4 @@
-@extends('app_agent_admis')
+@extends('app') {{-- @extends('app_agent_admis') --}}
 @section('page-script')
 <script type="text/javascript">
   	$("document").ready(function(){
@@ -94,22 +94,6 @@
       			});
 			}
 		});
-		$(document).on('click', '.selctetat', function(event){
-    		event.preventDefault();
-				var formData = {
-      				class_name: $('#className').val(),		
-          		obj_id: $('#objID').val(),
-          		selectDocm :$(this).val(),
-        };
-        $.ajax({
-            type : 'get',
-            url : '{{URL::to('reportprint')}}',
-            data:formData,
-              success(data){
-                $('#EtatSortie').modal('hide');
-              },
-        }); 
-    });
   });
 </script>
 @endsection
@@ -124,7 +108,7 @@
   			<div class="col-sm-4">
    				<div class="form-group"><label><strong>Etat :</strong></label>
      			 <select id='etat' class="form-control filter" style="width: 200px">
-         			<option value="0">En Cours</option>
+         			<option value="0">En cours</option>
               <option value="1">Validée</option>
             </select>
    				 </div>		
@@ -140,11 +124,11 @@
         </div>
 		  </div><!-- onclick = "getAdmissions();" -->
 		</div>
-		<div class="panel-footer" style="height: 50px;">
-	   		<button type="submit"name="filter" id="getadmsbtn" class="btn btn-xs btn-primary" style="vertical-align: middle"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+		<div class="panel-footer align-middle">
+	   		<button type="submit"name="filter" id="getadmsbtn" class="btn btn-xs btn-primary" ><i class="fa fa-search"></i>&nbsp;Rechercher</button>
 		</div>
 	</div><!-- panel -->
-	<div class="row"><!-- <div class="col-sm-12"> --><!-- 	</div> -->
+	<div class="row">
 		<div class="widget-box widget-color-blue" id="widget-box-2">
 			<div class="widget-header">
 				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>
@@ -158,8 +142,8 @@
 				      	<tr>
 				          <th rowspan="2" class="text-center"><h5><strong>Patient</strong></h5></th> 
 				          <th rowspan="2" class="text-center"><h5><strong>Service</strong></h5></th>
-				          <th rowspan="2" class="text-center"><h5><strong>Date Entrée</strong></h5></th>
-				          <th rowspan="2" class="text-center"><h5><strong>Mode Entrée</strong></h5></th>
+				          <th rowspan="2" class="text-center"><h5><strong>Date d'entrée</strong></h5></th>
+				          <th rowspan="2" class="text-center"><h5><strong>Mode d'entrée</strong></h5></th>
 				          <th colspan="3" scope="colgroup" class="text-center"><h5><strong>Hébergement</strong></h5></th> <!-- merge four columns -->
 				          <th rowspan="2" class="text-center"><em class="fa fa-cog"></em></th>	
 				      	</tr>

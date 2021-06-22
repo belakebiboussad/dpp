@@ -36,8 +36,8 @@ class UsersController extends Controller
     }
     public function index()
     {
-      $users = User::all();
-      return view('user.index',compact('users'));
+      $roles = rol::all(); //$users = User::all();
+      return view('user.index',compact('roles'));
     }
     /**
      * Show the form for creating a new resource.
@@ -134,23 +134,32 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {      
+      $rule = array(
+            "username"=> "required",
+            "email"=> "nullable|email",//|unique:utilisateurs
+            "role"=> "required",
+      );
+      $messages = [
+          "required"     => "Le champ :attribute est obligatoire.", // "NSSValide"    => 'le numéro du securite sociale est invalide ',
+           "date"         => "Le champ :attribute n'est pas une date valide.",
+      ];
+
+      $validator = Validator::make($request->all(),$rule,$messages);  
+      if ($validator->fails()) {
+        dd($validator->errors());
+        return redirect()->back()->withInput($request->input())->withErrors($validator->errors());
+      }
       $user = User::FindOrFail($id);
-      $request->validate([
-              "username"=> "required",
-              "email"=> "nullable|email",//|unique:utilisateurs
-              "role"=> "required",
-     ]);     
-     $activer = $user->active;
-    
-     if($user->active)
-     {
+      $activer = $user->active;
+      if($user->active)
+      {
         if(! isset($request->desactiveCompt))
           $activer= 0;      
-     }else
-     {
+      }else
+      {
         if(isset($request->activeCompt))
-               $activer=1;
-     }
+          $activer=1;
+      }
      $user->update([
               'name'=>$request->username,
                "password"=>$user->password,
@@ -277,10 +286,8 @@ class UsersController extends Controller
     public function search(Request $request)
     {
       $value = trim($request->value);
-      if($request->field == "role_id")
-          $users = User::with('role')->whereHas('role', function ($q) use ($value){
-                    $q->where('role','LIKE','%'.$value.'%');
-                 })->get();
+      if($request->field == "role_id")//$users = User::with('role')->whereHas('role', function ($q) use ($value){$q->where('role','LIKE','%'.$value.'%');})->get();
+        $users = User::with('role')->where($request->field,$value)->get(); 
       else 
         $users = User::with('role')->where($request->field,'LIKE','%'.$value."%")->get();          
        return Response::json($users);
@@ -316,5 +323,15 @@ class UsersController extends Controller
      $view = view("user.ajax_userdetail",compact('user','role','employe'))->render();
      return response()->json(['html'=>$view]);
     }
-    
+    public function passwordReset(Request $request)
+    {
+      if(Auth::Check() && (Auth::user()->is(4)))
+      {
+        $user = User::FindOrFail($request->id);
+        $user->update([
+           "password"=> Hash::make($request['password']),
+        ]);
+       
+      }
+    }
 }

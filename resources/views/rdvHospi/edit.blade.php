@@ -53,7 +53,7 @@
            </div>
           </div>
           <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-4 control-label no-padding-right" for="specialite"><strong>Specialite :</strong> </label>
+            <label class="col-sm-4 control-label no-padding-right" for="specialite"><strong>Spécialité :</strong> </label>
             <div class="col-sm-8 col-xs-8">
               <input type="text" id="specialite" name="specialite" value="{{ $demande->demandeHosp->Specialite->nom }}" class="col-xs-12 col-sm-12" disabled/>
             </div>  
@@ -70,7 +70,7 @@
       <div class="row">
         <div class="col-sm-12">
           <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-4 col-xs-4 control-label no-padding-right no-wrap" for="medecin"><strong>Medecin Trait.:</strong></label>
+            <label class="col-sm-4 col-xs-4 control-label no-padding-right no-wrap" for="medecin"><strong>Médecin Traitant:</strong></label>
             <div class="col-sm-8 col-xs-8">
               <input type="text" id="medecin" name="medecin" value="{{$demande->medecin->nom}} {{$demande->medecin->prenom}}" class="col-xs-12 col-sm-12" disabled/>
             </div>  
@@ -95,7 +95,7 @@
             </div>
           </div>
           <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-4 col-xs-4 control-label no-padding-right" for="motif"> <strong>observation :</strong></label>
+            <label class="col-sm-4 col-xs-4 control-label no-padding-right" for="motif"> <strong>Observation :</strong></label>
             <div class="col-sm-8 col-xs-8">
                <input type="text" id="motif" name="motifhos" value="{{$demande->observation}}" class="col-xs-12 col-sm-12" disabled/>
             </div>
@@ -114,14 +114,14 @@
             </div>
           </div>
           <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-7 control-label no-padding-right no-wrap" for="heure_rdvh"><strong> Heure entrée Prévue :</strong> </label>
+            <label class="col-sm-7 control-label no-padding-right no-wrap" for="heure_rdvh"><strong> Heure entrée prévue :</strong> </label>
             <div class="input-group col-sm-5 col-xs-5">
               <input id="heure_rdvh" name="heure_rdvh" class="form-control timepicker" type="text" value = "{{ $rdv->heure_RDVh }}" required />
               <span class="input-group-addon"><i class="fa fa-clock-o bigger-110"></i></span> 
             </div>
           </div>
           <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-6 control-label no-padding-right" for=""><strong> Durée Prévue :</strong> </label>
+            <label class="col-sm-6 control-label no-padding-right" for=""><strong> Durée prévue :</strong> </label>
             <div class="col-sm-6 col-xs-6">    
               <input class="col-xs-8 col-sm-8" id="numberDays" name="numberDays" type="number" value="soustraction" min="0" max="50" value="0" required/>
               <label for=""><small><strong>&nbsp;nuit(s)</strong></small></label>
@@ -140,7 +140,7 @@
             </div>  
           </div>
           <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-7 control-label no-padding-right no-wrap" for="heureSortiePrevue"><strong> Heure sortie Prévue :</strong></label>
+            <label class="col-sm-7 control-label no-padding-right no-wrap" for="heureSortiePrevue"><strong> Heure sortie prévue :</strong></label>
             <div class="input-group col-sm-5 col-xs-5">
               <input id="heureSortiePrevue" name="heureSortiePrevue" class="form-control timepicker" type="text" value = "{{ $rdv->heure_Prevu_Sortie }}" required />
               <span class="input-group-addon"><i class="fa fa-clock-o bigger-110"></i> </span> 
@@ -157,7 +157,7 @@
             <label class="col-sm-4 control-label no-padding-right" for="dateSortie"> <strong> Service:</strong> </label>
             <div class="col-sm-8">
               <select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12"/>
-                <option value="0" selected>selectionnez le service d'hospitalisation</option>
+                <option value="0" selected>Selectionnez le service d'hospitalisation</option>
                 @foreach($services as $service)
                 <option value="{{ $service->id }}" @if((isset($rdv->bedReservation->id_lit)) && ($rdv->bedReservation->lit->salle->service->id == $service->id)) selected @endif>
                   {{ $service->nom }}
@@ -170,7 +170,7 @@
             <label class="col-sm-4 control-label no-padding-right" for="salle"> <strong>Salle :</strong></label>
             <div class="col-sm-8">
               <select id="salle" name="salle" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12">
-                <option value="0" selected>selectionnez la salle d'hospitalisation</option>      
+                <option value="0" selected>Selectionnez la salle d'hospitalisation</option>      
                 @foreach($rdv->bedReservation->lit->salle->service->salles as $salle)
                 <option value="{{ $salle->id }}" @if($rdv->bedReservation->lit->salle->id == $salle->id) selected @endif >
                   {{ $salle->nom }}
@@ -183,7 +183,7 @@
             <label class="col-sm-4 control-label" for="lit_id"> <strong>Lit :</strong></label>
             <div class="col-sm-8">
               <select id="lit_id" name="lit_id" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12">
-                <option value="0" >selectionnez le lit d'hospitalisation</option>
+                <option value="0" >Selectionnez le lit d'hospitalisation</option>
                 <option value="{{ $rdv->bedReservation->id_lit }}" selected>{{ $rdv->bedReservation->lit->nom }} </option>
                 @foreach($rdv->bedReservation->lit->salle->lits as $lit)
                   @if($lit->isFree(strtotime($rdv->date_RDVh),strtotime($rdv->date_Prevu_Sortie))) 
@@ -201,7 +201,7 @@
           <label class="col-sm-4 control-label no-padding-right" for="serviceh"><strong> Service :</strong></label>
           <div class="col-sm-8">
             <select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" placeholder="selectionnez le service d'hospitalisation"/>
-              <option value="0" selected>selectionnez le service d'hospitalisation</option>
+              <option value="0" selected>Selectionnez le service d'hospitalisation</option>
               @foreach($services as $service)
               <option value="{{ $service->id }}">{{ $service->nom }}</option>
               @endforeach
@@ -212,7 +212,7 @@
             <label class="col-sm-4 control-label no-padding-right" for="salle"><strong> Salle :</strong></label>
              <div class="col-sm-8">
               <select id="salle" name="salle" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" disabled>
-                <option value="0" selected>selectionnez la salle d'hospitalisation</option>      
+                <option value="0" selected>Selectionnez la salle d'hospitalisation</option>      
               </select>
             </div>
         </div>
@@ -220,7 +220,7 @@
           <label class="col-sm-3 control-label" for="lit_id"><strong>Lit :</strong></label>
           <div class="col-sm-8">
             <select id="lit_id" name="lit_id" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" disabled>
-              <option value="0" selected disabled>selectionnez le lit d'hospitalisation</option>      
+              <option value="0" selected disabled>Selectionnez le lit d'hospitalisation</option>      
             </select>
           </div>  
         </div>

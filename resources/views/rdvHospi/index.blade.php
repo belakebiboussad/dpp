@@ -16,12 +16,12 @@
 						<thead class="thin-border-bottom">
 							<tr>
 								<th class="text-center"><h5><strong>Patient</strong></h5></th>
-								<th class="text-center"><h5><strong>Mode Admission</strong></h5></th>
+								<th class="text-center"><h5><strong>Mode d'admission</strong></h5></th>
 								<th class="text-center" width="3%"><h5><strong>Priorité</strong></h5></th>
-								<th class="text-center"><h5><strong>Medecin Trait.</strong></h5></th>
+								<th class="text-center"><h5><strong>Médecin Traitant</strong></h5></th>
 								<th class="text-center hidden-xs"><h5><strong>Observation</strong></h5></th>
-								<th class="text-center"><h5><strong>date</strong></h5></th>
-								<th class="text-center"><h5><strong>spécialité</strong></h5></th>
+								<th class="text-center"><h5><strong>Date</strong></h5></th>
+								<th class="text-center"><h5><strong>Spécialité</strong></h5></th>
 								<th class="text-center"><em class="fa fa-cog"></em></th>
 							</tr>
 						</thead>

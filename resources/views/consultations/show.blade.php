@@ -8,10 +8,10 @@
  <div class="pull-right">
    <a href="{{route('consultations.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-list bigger-120 blue"></i>Consultations</a>
 </div>
-<div class="row"><h4>Détails du la Consultation du "{{ $consultation->Date_Consultation}}" :</h4></div> 
+<div class="row"><h4>Détails de la Consultation du {{ $consultation->Date_Consultation}} :</h4></div> 
   <div class="tabbable"  class="user-profile">
     <ul class="nav nav-tabs padding-18">
-        <li class="active"><a data-toggle="tab" href="#Intero">Interogatoire</a></li>
+        <li class="active"><a data-toggle="tab" href="#Intero">Interrogatoire</a></li>
           @if(isset($consultation->examensCliniques->id) )
         <li ><a data-toggle="tab" href="#ExamClin">Examen Clinique</a> </li>
           @endif
@@ -23,8 +23,8 @@
           <div id="Intero" class="tab-pane in active">
           <div class="row">
           <ul class="list-unstyled spaced">
-                <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Date de la Consultation :</span> <span class="badge badge-pill badge-success">{{ $consultation->Date_Consultation }}</span></li>
-                <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:16px;">Motif de la Consultation : <blockquote>{{ $consultation->motif }}</blockquote></span></li>
+                <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Date de la consultation :</span> <span class="badge badge-pill badge-success">{{ $consultation->Date_Consultation }}</span></li>
+                <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:16px;">Motif de la consultation : <blockquote>{{ $consultation->motif }}</blockquote></span></li>
                 <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Histoire de la maladie : </span><span>{{ $consultation->histoire_maladie }} </span></li>
                 <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Diagnostic :</span><span>{{ $consultation->Diagnostic }}</span> </li>
                 <li><i class="ace-icon fa fa-caret-right blue"></i><span style="font-size:15px;">Résumé :</span><span> {{ $consultation->Resume_OBS }}</span></li>
@@ -40,7 +40,7 @@
                           <li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">IMC : <span class="badge badge-pill badge-danger"> {{ $consultation->examensCliniques->IMC  }}</span></span>&nbsp;</li>
                           <li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">Températeur : {{ $consultation->examensCliniques->temp  }}</span>&nbsp;&deg;C</li>
                           <li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">Autre : {{ $consultation->examensCliniques->autre  }}</span>&nbsp;</li>
-                          <li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">Etat Géneral du patient  :</span>{{ $consultation->examensCliniques->Etat }}</li>
+                          <li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">Etat général du patient  :</span>{{ $consultation->examensCliniques->Etat }}</li>
                           <li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">Peau et phanéres  : {{ $consultation->examensCliniques->peaupha  }}</span>&nbsp;</li>
                      </ul>
                 </div>
@@ -51,44 +51,47 @@
                 @if(isset($consultation->demandeexmbio))
                 <div class="row">
                     <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right">
-                      <strong><span style="font-size:18px;">Demande Examens Biologique</span></strong>
+                      <strong><span style="font-size:18px;">Demande d'examen biologique</span></strong>
                     </div>
                 </div>
                 <div class="row">
                      <div class="col-xs-11 widget-container-col" id="widget-container-col-2">
                           <div class="widget-box widget-color-blue" id="widget-box-2">
-                          <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande Examens Biologique</h5></div>
+                          <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande d'examens biologique</h5></div>
                           <div class="widget-body">
                                <div class="widget-main no-padding">
                                <table class="table table-striped table-bordered table-hover">
                                <thead class="thin-border-bottom">
-                                    <tr>
-                                          <th class="center"><strong>#</strong></th>
-                                          <th class="center"><strong>Date</strong></th>
-                                          <th class="center"><strong>Etat</strong></th>
-                                          <th class="center"><em class="fa fa-cog"></em></th>
-                                     </tr>
+                                  <tr>
+                                    <th class="center"><strong>#</strong></th>
+                                    <th class="center"><strong>Date</strong></th>
+                                    <th class="center"><strong>Etat</strong></th>
+                                    <th class="center"><em class="fa fa-cog"></em></th>
+                                   </tr>
                                 </thead>
                                 <tbody>
                                   <tr>
                                     <td class="center"></td>
                                     <td>{{ $consultation->Date_Consultation }}</td>
                                     <td>
-                                    @if($consultation->demandeexmbio->etat == "E")
-                                      <span class="badge badge-danger"> En Attente</span>
-                                    @elseif($consultation->demandeexmbio->etat == "V")
-                                      <span class="badge badge-success">Validé</span>       
+                                    @if($consultation->demandeexmbio->etat == null)
+                                      <span class="badge badge-success">En Cours
+                                    @elseif($consultation->demandeexmbio->etat == "1")
+                                      <span class="badge badge-primary">Validé         
                                     @else
-                                      <span class="badge badge-danger">Rejeté</span>   
+                                      <span class="badge badge-warning">Rejeté   
                                     @endif
+                                    </span>
                                     </td>
                                     <td class="center">
                                       <a href="{{ route('demandeexb.show', $consultation->demandeexmbio->id) }}" class="btn btn-secondary btn-xs"><i class="fa fa-hand-o-up fa-xs"></i></a>
-                                      @if($consultation->demandeexmbio->etat == "E")
+                                      @if($consultation->docteur->id == Auth::user()->employ->id)
+                                        @if($consultation->demandeexmbio->etat == null)
                                         <a href="{{ route('demandeexb.edit', $consultation->demandeexmbio->id) }}" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-pencil"></i></a>
                                         <a href="{{ route('demandeexb.destroy', $consultation->demandeexmbio->id) }}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-danger btn-xs"><i class="ace-icon fa fa-trash-o"></i></a>
-                                      @endif
+                                        @endif
                                       <a href="/dbToPDF/{{ $consultation->demandeexmbio->id }}" target="_blank" class="btn btn-info btn-xs"><i class="ace-icon fa fa-print"></i>&nbsp;</a> 
+                                      @endif
                                     </td>
                                 </tbody>
                               </table>
@@ -101,13 +104,13 @@
                 @if(isset($consultation->examensradiologiques))
                 <div class="row">
                       <div class="col-xs-11 label label-lg label-danger arrowed-in arrowed-right">
-                          <strong><span style="font-size:18px;">Demande Examens Imagerie</span></strong>
+                          <strong><span style="font-size:18px;">Demande d'examen d'imagerie</span></strong>
                       </div>
                 </div>
                 <div class="row">
                      <div class="col-xs-11 widget-container-col" id="widget-container-col-2">
                      <div class="widget-box widget-color-pink" id="widget-box-2">
-                          <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande Examens Imagerie</h5></div>
+                          <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande d'examen d'imagerie</h5></div>
                           <div class="widget-body">
                                <div class="widget-main no-padding">
                                 <table class="table table-striped table-bordered table-hover">

@@ -1,4 +1,5 @@
-@extends('app_phar')
+@extends('app')
+@section('title','Liste de produits')
 @section('page.script')
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -39,18 +40,15 @@
 		<div class="col-sm-10 col-sm-offset-1">
 			<div class="widget-box transparent">
 				<div class="widget-header widget-header-large">
-					<h3 class="widget-title grey lighter"><i class="ace-icon fa fa-leaf green"></i>Liste des produits</h3>
-					<div class="widget-toolbar hidden-480">
-						<a href="{{ route('demandeproduit.create') }}"><i class="ace-icon fa fa-plus"></i>Demander un produit</a>
-					</div>
+					<h3 class="widget-title grey lighter"><i class="ace-icon fa fa-leaf green"></i>Base de données de produits pharmaceutique</h3>
 				</div>
 				<div class="widget-body">
 					<div class="widget-main padding-24">
-						<div class="col-sm-12 widget-container-col" id="widget-container-col-13">
-							<div class="widget-box transparent" id="widget-box-13">
+						<div class="col-sm-12 widget-container-col">
+							<div class="widget-box transparent">
 								<div class="widget-header">
 									<div class="widget-toolbar no-border">
-										<ul class="nav nav-tabs" id="myTab2">
+										<ul class="nav nav-tabs">
 											<li class="active"><a data-toggle="tab" href="#home2">Médicaments</a></li>
 											<li><a data-toggle="tab" href="#profile2">Dispositifs médicaux</a></li>
 											<li><a data-toggle="tab" href="#info2">Réactifs chimiques et dentaires</a></li>
@@ -66,10 +64,9 @@
 														<table id="meds_table" class="table table-striped table-bordered">
 															<thead>
 															<tr>	
-																<th class="center"><strong>Nom (Dénomination Comune Internationale)</strong></th>
+																<th class="center"><strong>Nom (Dénomination Commune Internationale)</strong></th>
 																<th class="center"><strong>Spécialité</strong></th>
-																<th class="center"><strong>Code Produit</strong></th>
-															
+																<th class="center"><strong>Code produit</strong></th>
 															</tr>
 															</thead>
 															<tbody>
@@ -93,8 +90,8 @@
 														<table id="dispo_table" class="table table-striped table-bordered">
 															<thead>
 																<tr>
-																	<th class="center"><strong>Code Produit</strong></th>
-																	<th class="center"><strong>Nom(Dénomination Comune Internationale)</strong></th>
+																	<th class="center"><strong>Code produit</strong></th>
+																	<th class="center"><strong>Nom(Dénomination Commune Internationale)</strong></th>
 																</tr>
 															</thead>
 															<tbody>
@@ -116,10 +113,9 @@
 														<div>
 															<table id="reactif_table" class="table table-striped table-bordered">
 																<thead>
-																	<tr>
-																		<!-- <th>Spécialité</th> -->
+																	<tr><!-- <th>Spécialité</th> -->
 																		<th>Code Produit</th>
-																		<th>D.C.I (Dénomination Comune Internationale)</th>
+																		<th>D.C.I (Dénomination Commune Internationale)</th>
 																	</tr>
 																</thead>
 																<tbody>

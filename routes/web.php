@@ -57,11 +57,14 @@ route::get('/home_reception','HomeController@index');
 route::get('/home_dele','HomeController@index');
 route::get('/home_admission','AdmissionController@index')->name('home_admission');
 Route::get('/sortiesAdmission','AdmissionController@sortir')->name('admission.sortieAdm');
-Route::get('/getSortiesAdmissions','AdmissionController@getSortiesAdmissions');//Route::get('/admission/create/{id}','AdmissionController@create');//a commenter
+Route::get('/getSortiesAdmissions','AdmissionController@getSortiesAdmissions');
 Route::get('sortiePatient/{id}','AdmissionController@updateAdm');
 Route::get('/admdetail/{id}', 'AdmissionController@getDetails');
 route::get('/demandeproduit/run/{id}','demandeprodController@run')->name('runDemande');
 route::post('/demandeproduit/valider/{id}','demandeprodController@valider')->name('demandeproduit.valider');
+route::get('/demandeproduit/rejeter/{id}/{motif}','demandeprodController@rejeter');
+route::get('/products/list','demandeprodController@getProducts')->name('productsList');
+route::get('/searchProductsRequests','demandeprodController@search')->name('demandeProducts.search');
 Route::post('user/credentials','UsersController@credentials');
 Route::post('user/updatepro','UsersController@updatepro');
 Route::get('/atcd/store','AntecedantsController@storeatcd');
@@ -101,7 +104,7 @@ Route::get('/rdv/create/{id}','RDVController@create');
 Route::post('/createRDV','RDVController@AddRDV');
 Route::get('/rdv/valider/{id}','RDVController@valider');
 Route::get('/rdv/reporter/{id}','RDVController@reporter');
-Route::post('/rdv/reporte/{id}','RDVController@storereporte');//Route::get('rdvprint/{id}','rdvController@print');
+Route::post('/rdv/reporte/{id}','RDVController@storereporte');
 Route::get('rdvprint/{id}', ['as' => 'rdv.print', 'uses' => 'rdvController@print']);// Route::get('/pdf/{order}', ['as' => 'rdv.pdf', 'uses' => 'rdvController@print']);
 Route::get('rdvHospi/create/{id}','RdvHospiController@create')->name('rdvHospi.create');
 Route::get('/rdvHospi/imprimer/{rdv}', ['as' => 'admission.pdf', 'uses' => 'RdvHospiController@print']);
@@ -157,17 +160,14 @@ route::get('/home_reception',function (){
 })->name('home_rec');
 Route::post('/get-all-events','RDVController@checkFullCalendar');
 route::get('/showordonnance/{id}','OrdonnanceController@show_ordonnance')->name('ordonnancePdf');
-route::get('/demandeexbio/{id}','DemandeExbController@createexb');
-route::get('/dbToPDF/{id}','DemandeExbController@print');
 route::get('/drToPDF/{id}','DemandeExamenRadio@print');
 Route::post('lit/affecter','LitsController@affecterLit')->name('lit.affecter');
 Route::get('/bedAffectation','LitsController@affecter');
+route::get('/demandeexbio/{id}','DemandeExbController@createexb');
+route::get('/dbToPDF/{id}','DemandeExbController@print');
+route::get('/searchBioRequests','DemandeExbController@search');
 route::get('/detailsdemandeexb/{id}','DemandeExbController@detailsdemandeexb');///laborontin
 route::post('/uploadresultat','DemandeExbController@uploadresultat');
-route::get('/homelaboexb',function(){
-    $demandesexb = App\modeles\demandeexb::where('etat','E')->get();
-    return view('home.home_laboanalyses', compact('demandesexb'));
-})->name('homelaboexb');
 route::get('/details_exr/{id}','DemandeExamenRadio@details_exr');///radiologue
 route::post('/uploadexr','DemandeExamenRadio@upload_exr');
 Route::post('store-file', 'DemandeExamenRadio@upload');
@@ -183,12 +183,9 @@ Route::get('assur/patientAedit/{id}/{idA}','PatientController@edit');
 Route::post('/surveillances/store/{id}','SurveillanceController@store');
 route::get('/getpatientvisite','PatientController@getpatientvisite');
 route::get('/getpatientconsigne','PatientController@getpatientconsigne');
-/************partie visite d'hospitalisation**************/
 Route::get('/delVisite/{id}', 'VisiteController@destroy')->name('visite.destroy');
 Route::get('/visite/create/{id}','VisiteController@create');
-Route::post('/visite/store/{id}','VisiteController@store');//route::get('/choixpatvisite','VisiteController@choixpatvisite');
-route::get('/choixhospconsigne','ActeController@choixhospconsigne');
-route::get('/consigne','ActeController@choixhospconsigne');
+Route::post('/visite/store/{id}','VisiteController@store');
 route::post('/saveActe','ActeController@store');
 route::get('/schapitres','CimController@getChapters');
 route::get('/maladies','CimController@getdiseases');//route::post('/acte','AntecedantsController@store');
@@ -198,7 +195,6 @@ Route::post('/createTicket','ticketController@store');
 Route::get('/404', function () {
     return view('errors.404');
 });
-/**************************/// telechargement
 route::get('/download/{filename}', function($filename)
 {
     return Storage::download($filename);
@@ -213,3 +209,4 @@ route::get('/getpouls/{id}', 'HospitalisationController@get_pouls');
 route::get('/gettemp/{id}', 'HospitalisationController@get_temp');
 route::get('/getglycemie/{id}', 'HospitalisationController@get_glycemie');
 route::get('/getcholest/{id}','HospitalisationController@get_cholest');
+Route::post('/admin/password/reset','UsersController@passwordReset');

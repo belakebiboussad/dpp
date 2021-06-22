@@ -68,18 +68,25 @@
 			}).prop('selected', true);
 		}	
 	}
+	$(function(){
+		$('.autofield').change(function() {
+	      if (this.value.trim()) { //value = this.value.trim();
+	   		  field = $(this).prop("id");	//return false;
+	   		}
+	  });
+	});
+	$(function(){
+		$('#Dat_Naissance').change(function(){
+    	 field = $(this).prop("id");	
+		});
+	});
+
 	var field ="Dat_Naissance";
 	$(document).ready(function(){
 		$(document).on('click','.findptient',function(event){
-			var field ="Dat_Naissance";
 			event.preventDefault();
 			$('#btnCreate').removeClass('hidden');$('#FusionButton').removeClass('hidden');
 			$('#patientDetail').html('');$(".numberResult").html('');
-			$('.autofield').each(function() {
-	  			  if (this.value.trim()) { //value = this.value.trim();
-	    				  field = $(this).prop("id");	//return false;
-	    		}
-	  	});
 			$.ajax({
 		        type : 'get',
 		        url : '{{URL::to('searchPatient')}}',
@@ -112,9 +119,9 @@
 		       						{ data: 'Prenom', title:'Prenom' },
 		       						{ data: 'IPP', title:'IPP'},
 		       			  		{ data: 'Dat_Naissance', title:'Né(e) le' },
-										{ data: 'Sexe', title:'Sexe'},
-									  { data: 'Date_creation', title:'Créer le'},
-									  { data:null,title:'<em class="fa fa-cog"></em>', searchable: false,
+										  { data: 'Sexe', title:'Sexe'},
+									    { data: 'Date_creation', title:'Créer le'},
+									    { data:null,title:'<em class="fa fa-cog"></em>', searchable: false,
 									  	"render": function(data,type,full,meta){
 										    if ( type === 'display' ) {
 														return  '<a href = "/patient/'+data.id+'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Consulter le dossier"><i class="fa fa-hand-o-up fa-xs"></i></a>'+
@@ -195,8 +202,8 @@
 					</div>
 				</div>
 			</div>  {{-- body --}}
-			<div class="panel-footer" style="height: 50px;">
-		   	<button type="submit" class="btn btn-sm btn-primary findptient" style="vertical-align: middle"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
+			<div class="panel-footer">
+		   	<button type="submit" class="btn btn-sm btn-primary findptient"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
 				<div class="pull-right">
 					<button type="button" class="btn btn-danger btn-sm hidden invisible" id="FusionButton"  onclick ="doMerge();"data-toggle="modal" data-target="#mergeModal" data-backdrop="false" hidden><i class="fa fa-angle-right fa-lg"></i><i class="fa fa-angle-left fa-lg"></i>&nbsp;Fusion</button>
 					<a class="btn btn-primary btn-sm hidden" href="patient/create" id="btnCreate" role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>

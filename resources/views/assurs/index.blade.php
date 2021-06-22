@@ -36,18 +36,21 @@
 @section('main-content')
 <div class="page-content">
 	<div class="row">
-		<div class="col-sm-12 center">	
-			<h2><strong>Bienvenue Docteur:</strong><q class="blue">{{ Auth::User()->employ->nom }} {{ Auth::User()->employ->prenom }}</q></h2>
+		{{-- <div class="col-sm-12 center">--}}	
+			<div >
+			<h3><strong>Bienvenu(e) Docteur:</strong><q class="blue">{{ Auth::User()->employ->nom }} {{ Auth::User()->employ->prenom }}</q></h3>
 		</div>		
 	</div><div class="space-12"></div>
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="panel panel-default ">
-				<div class="panel-heading left"><!-- style="height: 40px; font-size: 2.3vh;" -->
-					<H4><strong>Rechercher un Fonctionnire</strong></H4>
+				<div class="panel-heading left">
+					<H4><strong>Rechercher un fonctionnaire</strong></H4>
+					@if(in_array(Auth::user()->role->id,[1,2,13,14]))
 					<div class="pull-right"><!-- style ="margin-top:-0.5%;" -->
-						<a href="{{route('patient.index')}}" class ="btn btn-white btn-info btn-bold btn-xs">Rechercher un Patient&nbsp;<i class="ace-icon fa fa-arrow-circle-right bigger-120 black"></i></a>
+						<a href="{{route('patient.index')}}" class ="btn btn-white btn-info btn-bold btn-xs">Rechercher un patient&nbsp;<i class="ace-icon fa fa-arrow-circle-right bigger-120 black"></i></a>
 					</div>
+					  @endif
 				</div>
 				<div class="panel-body">
 					<div class="row">
@@ -75,11 +78,6 @@
 <button type="submit" class="btn btn-xs btn-primary findAssure"><i class="fa fa-search"></i>&nbsp;Rechercher</button> 	
 {{-- <a  class="btn btn-danger btn-xs" href="{{ route('assur.destroy',12) }}" role="button" aria-pressed="true" data-method="DELETE"><i class="ace-icon fa fa-trash-o bigger-110"></i>Supprimer</a>
 <a class="btn btn-danger btn-xs" href="{{ route('assur.edit',12) }}" role="button" aria-pressed="true" >Teste</a>--}}
-					@if(Auth::user()->role_id == 4)
-					<div class="pull-right">
-						<a  class="btn btn-primary btn-xs hidden" href="{{ route('assur.create') }}" id=btnCreate role="button" aria-pressed="true"><i class="ace-icon  fa fa-plus-circle fa-lg bigger-120"></i>Créer</a>
-					</div>
-					@endif
 				</div>
 			</div><!-- panel -->
 		</div>
@@ -88,20 +86,20 @@
 		<div class="col-sm-12">
 			<div class="widget-box transparent">
 				<div class="widget-header widget-header-flat widget-header-small">
-					<h5 class="widget-title"><img src="img/policeman.png" class="img1 img-thumbnail">Resultats: </h5>
+					<h5 class="widget-title"><img src="img/policeman.png" class="img1 img-thumbnail"><strong>Resultats:</strong></h5>
 					<label for=""><span class="badge badge-info numberResult"></span></label>
 				</div>
 				<div class="bodycontainer scrollable">
 					<table class="table display table-responsive table-bordered table-scrollable"  width="100%">
 					<thead>
-						<tr class="info"><th colspan="12">Fonctionnaire</th></tr>
+						<tr class="info"><th colspan="12">Détails fonctionnaire</th></tr>
 						<tr class="liste">
 						    <th class="blue" width="9%">Nom</th>
 							<th class="blue" width="9%">Prénom</th>
 							<th class="blue" width="7%">Né(e) le</th>
 							<th class="blue" width="7%">Civilité</th>
-						     <th class="blue" width="5%">Wilaya Résid</th>
-						     	<th class="blue" width="10%">Num Séc Soc</th>
+						     <th class="blue" width="5%">Wilaya Résidence</th>
+						     <th class="blue" width="10%">NSS</th>
 							<th class="blue" width="6%">Genre</th>
 							<th class="blue" width="8%">Position</th>
 							<th class="blue"  width="5%">Matricule</th>

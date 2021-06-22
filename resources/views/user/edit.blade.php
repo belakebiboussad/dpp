@@ -1,4 +1,43 @@
 @extends('app')
+@section('page-script')
+<script>
+function check(input) {
+  $('#newPassword, #password_confirm').on('keyup', function () {
+  	if ($('#newPassword').val() == $('#password_confirm').val()) {
+    	$('#message').html('correspond').css('color', 'green');
+    	$('#passwordResetbtn').removeAttr("disabled"); 
+  	} else {
+    		$('#message').html('ne correspond pas').css('color', 'red');
+    		$('#passwordResetbtn').prop('disabled', true);; 
+  	}
+});
+}
+$(function(){
+	$('#passwordResetbtn').click(function(e){
+		var formData = {
+				id:'{{$user->id}}',
+				password: $("#newPassword").val()
+		};
+		$.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+        }
+    });
+		$.ajax({
+    	type: "POST",
+ 			url: "{{ url('admin/password/reset')}}",
+    	data:formData,//dataType: "json",
+    	
+    	success:function(data,status, xhr){
+   	  },
+    	error: function(data){
+        console.log(data);                
+      }
+		});
+	});
+});
+</script>
+@endsection
 @section('main-content')
 <div class="row"><h3>Modification de : {{ $user->name }}</h3></div>
 <div class="row">
@@ -14,7 +53,7 @@
 						<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
 							<label class="col-sm-3 control-label no-padding-right" for="nom"><b>Nom:</b></label>
 							<div class="col-sm-9">
-								<input class="col-xs-12 col-sm-12" type="text" name="nom" value="{{ $user->employ->nom }}" placeholder="Nom..."/>
+								<input class="col-xs-12 col-sm-12" type="text" name="nom" value="{{ $user->employ->nom }}" placeholder="Nom..." required/>
 							</div>
 						</div>
 					</div>
@@ -22,7 +61,7 @@
 						<div class="form-group {{ $errors->has('prenom') ? "has-error" : "" }}" >
 							<label class="col-sm-3 control-label no-padding-right" for="prenom"><b>Prénom :</b></label>
 							<div class="col-sm-9">
-								<input class="col-xs-12 col-sm-12" type="text" name="prenom" value="{{ $user->employ->prenom }}" placeholder="Prénom..."/>
+								<input class="col-xs-12 col-sm-12" type="text" name="prenom" value="{{ $user->employ->prenom }}" placeholder="Prénom..." required/>
 							</div>
 						</div>
 					</div>
@@ -32,7 +71,8 @@
 						<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
 							<label class="col-sm-3 control-label no-padding-right" for="datenaissance"><b class="text-nowrap">Né(e) le :</b></label>
 							<div class="col-sm-9">
-								<input class="col-xs-12 col-sm-12 date-picker ltnow" type="text" name="datenaissance" value="{{ $user->employ->Date_Naiss }}" placeholder="Date Naissance..." data-date-format="yyyy-mm-dd"/>
+								<input class="col-xs-12 col-sm-12 date-picker ltnow" type="text" name="datenaissance" value="{{ $user->employ->Date_Naiss }}" placeholder="Date Naissance..." data-date-format="yyyy-mm-dd" autocomplete="off"/>
+								{!! $errors->first('datenaissance', '<small class="alert-danger">:message</small>') !!}
 							</div>	
 						</div>
 					</div>
@@ -40,7 +80,7 @@
 						<div class="form-group {{ $errors->has('lieunaissance') ? "has-error" : "" }}">
 							<label class="col-sm-3 control-label no-padding-right" for="lieunaissance"><b>Né(e) à :</b></label>
 							<div class="col-sm-9">
-									<input class="col-xs-12 col-sm-12" type="text" id="lieunaissance" name="lieunaissance" value="{{ $user->employ->Lieu_Naissance }}" placeholder="Lieu Naissance..."/>
+									<input class="col-xs-12 col-sm-12 autoCommune" type="text" id="lieunaissance" name="lieunaissance" value="{{ $user->employ->Lieu_Naissance }}" placeholder="Lieu Naissance..." required/>
 							</div>	
 						</div>
 					</div>
@@ -72,23 +112,21 @@
 						</div>
 					</div>
 				</div>{{-- row --}}
-				<div class="row">
-					<div class="col-sm-12"><h4 class="header smaller lighter blue">Contact</h4></div>
-				</div>
+				<div class="row"><div class="col-sm-12"><h4 class="header smaller lighter blue">Contact</h4></div></div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group {{ $errors->has('adresse') ? "has-error" : "" }}">
-						<label class="col-sm-3 control-label no-padding-right" for="adresse"><b>Adresse :</b></label>
-						<div class="col-sm-9">
-						<input class="col-xs-12 col-sm-12" type="text" name="adresse" value="{{ $user->employ->Adresse }}" placeholder="Adresse..."/>
+							<label class="col-sm-3 control-label no-padding-right" for="adresse"><b>Adresse :</b></label>
+							<div class="col-sm-9">
+								<input class="col-xs-12 col-sm-12" type="text" name="adresse" value="{{ $user->employ->Adresse }}" placeholder="Adresse..."/>
+							</div>	
 						</div>	
-					</div>	
 					</div>
 					<div class="col-xs-12 col-sm-3">
 						<div class="form-group {{ $errors->has('mobile') ? "has-error" : "" }}">
 							<label class="col-sm-5 control-label no-padding-right no-wrap" for="mobile"><b>Tél mob :</b></label>
 							<div class="col-sm-7">
-							<input type="tel" class="form-control" name="mobile"  value="{{ $user->employ->tele_mobile }}"  placeholder="Tél mobile..."  pattern="[0-9]{10}" maxlength =10 minlength =10 >
+							<input type="tel" class="form-control mobile" name="mobile"  value="{{ $user->employ->tele_mobile }}"  placeholder="Tél mobile..."  max =10 min =10 >
 							</div>	
 						</div>
 					</div>
@@ -96,20 +134,18 @@
 						<div class="form-group {{ $errors->has('fixe') ? "has-error" : "" }}">
 							<label class="col-sm-5 control-label no-padding-right no-wrap" for="fixe"><b>Tél Fixe :</b></label>
 							<div class="col-sm-7">
-								<input type="tel" class="form-control" name="fixe" value="{{ $user->employ->Tele_fixe }}" placeholder="Tél Fixe..."	pattern="[0-9]{9}">
+								<input type="tel" class="form-control telfixe" name="fixe" value="{{ $user->employ->Tele_fixe }}" placeholder="Tél Fixe...">
 							</div>		
 						</div>
 					</div>
 				</div>{{-- row--}}
-				<div class="row">
-					<div class="col-sm-12"><h4 class="header smaller lighter blue">Information de poste</h4></div>
-				</div>
+				<div class="row"><div class="col-sm-12"><h4 class="header smaller lighter blue">Information de poste</h4></div></div>
 				  <div class="row">
 					<div class="col-xs-12 col-sm-4">
 						<div class="form-group {{ $errors->has('mat') ? "has-error" : "" }}">
 							<label class="col-sm-5 control-label no-padding-right no-wrap" for="mat"><b>Matricule :</b></label>
 							<div class="col-sm-7">
-							<input type="text" class="form-control"  name="mat" value="{{ $user->employ->Matricule_dgsn }}" placeholder="Matricule...">
+							<input type="text" class="form-control"  name="mat" value="{{ $user->employ->Matricule_dgsn }}" placeholder="Matricule..." maxlength =5 minlength =5>
 							</div>	
 						</div>
 					</div>
@@ -142,8 +178,7 @@
 				</div>{{-- row --}}
 				<div class="form-actions center">
 					<button type="submit" class="btn btn-sm btn-success">
-					<i class="ace-icon fa fa-save icon-on-left bigger-110"></i>
-						Enregistrer
+						<i class="ace-icon fa fa-save icon-on-left bigger-110"></i>Enregistrer
 					</button>
 				</div>
 			</form>
@@ -155,33 +190,25 @@
 			{{ csrf_field() }}
   		{{ method_field('PUT') }}
   		<div class="form-group">
-				<label class="col-sm-4 control-label no-padding-right" for="username">
-	   			<strong>Login	 :</strong>
-	   		</label>
+				<label class="col-sm-4 control-label no-padding-right" for="username"><strong>Login	:</strong></label>
 				<div class="col-sm-8 input-group">
-				  <div class="input-group-addon">
-				  	<span class="glyphicon glyphicon-user"></span> 
-				  </div>
-				 	<input type="text" name="username" placeholder="Username" value="{{ $user->name }}" class="col-xs-11 col-sm-11" />
+				  <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+				 	<input type="text" name="username" placeholder="Username" value="{{ $user->name }}" class="col-xs-11 col-sm-11" required/>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-4 control-label no-padding-right" for="email">
-					<strong>Email :</strong>
-				</label>
+				<label class="col-sm-4 control-label no-padding-right" for="email"><strong>Email :</strong></label>
 				<div class="col-sm-8 input-group">
-			  	<div class="input-group-addon">
-			  		<span class="glyphicon glyphicon-envelope"></span>
-			  	</div>
-			    <input name="email" type="email" value="{{ $user->email }}" class="col-xs-11 col-sm-11"/>
-			     <!-- class="form-control" -->
+			  	<div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
+			    <input type="email" name="email" value="{{ $user->email }}" class="col-xs-11 col-sm-11"/> <!-- class="form-control" -->
+			    {!! $errors->first('email', '<small class="alert-danger">:message</small>') !!}
 			  </div>
 			</div>
 			<div class="form-group">
 			<label class="col-sm-4 control-label no-padding-right" for="role"><strong>Rôle :&nbsp;</strong></label>
 			<div class="col-sm-8 input-group">
 				<div class="input-group-addon"><i class="menu-icon fa fa-tags"></i></div>
-			  <select class="col-xs-11 col-sm-11" name="role">
+			  <select class="col-xs-11 col-sm-11" name="role" required>
 					@foreach ($roles as $key=>$role)
 					<option value="{{ $key }}"
 					 @if( $key == $user->role_id) selected @endif >
@@ -214,11 +241,24 @@
 				</label>
 			@endif
 		</div>
+		<div class="row">
+			<div class=" col-xs-1 col-sm-1"></div>
+			<div class=" col-xs-10 col-sm-10">
+				<div class="form-group">
+					@if(Auth::user()->is(4))
+						<button id="btnResetPassword" class="btn btn-sm btn-danger col-xs-12 col-sm-12center" data-toggle="modal" data-target="#passwordReset" type="button"><i class="ace-icon fa fa-undo bigger-110"></i>Changer le mot de passe </button>
+					@endif
+				</div>
+			</div><div class=" col-xs-1 col-sm-1"></div>
+		</div>
 		<div class="form-actions center">
 			<button class="btn btn-sm btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp;
 			<button class="btn  btn-sm" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 		</div>
   </form>
 	</div>	
+</div>
+<div class="row">@include('user.ModalFoms.changeUserPassword')
+	
 </div>
 @endsection

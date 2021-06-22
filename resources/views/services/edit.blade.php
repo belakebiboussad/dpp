@@ -1,10 +1,10 @@
 @extends('app')
 @section('main-content')
-	<div class="page-header"><h1>Modifier le service "{{ $service->nom }}"</h1></div>
+	<div class="row"><h3><strong>Actualiser les données du service"{{ $service->nom }}"</strong></h3></div>
 	<div class="row">
 		<div class="col-xs-7">
 			<div class="widget-box" id="widget-box-1">
-				<div class="widget-header"><h5 class="widget-title">Information du Service</h5></div>
+				<div class="widget-header"><h5 class="widget-title">Information du service</h5></div>
 				<div class="widget-body">
 					<div class="widget-main">
 						<form class="form-horizontal" role="form" method="POST" action="{{ route('service.update', $service->id) }}">
@@ -57,7 +57,7 @@
 								</div>
 							</div>
 							<div class="row center">
-								<button class="btn btn-xs btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
+								<button class="btn btn-xs btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Actualiser</button>&nbsp; &nbsp; &nbsp;
 								<button class="btn btn-xs" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 							</div>
 						</form>

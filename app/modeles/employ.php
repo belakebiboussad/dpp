@@ -10,7 +10,7 @@ class employ extends Model
 	protected $fillable = ['nom','prenom','sexe','Date_Naiss','Lieu_Naissance', 'Adresse','Tele_fixe','tele_mobile','specialite','service','Matricule_dgsn','NSS'];
 	public function Service()
 	{
-			 return $this->belongsTo('App\modeles\service','service');
+	     return $this->belongsTo('App\modeles\service','service');
 	} 
 	public function Specialite()
 	{

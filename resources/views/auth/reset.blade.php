@@ -6,7 +6,7 @@
             <div class="widget-main">
                 <h4 class="header blue lighter bigger">
                     <i class="ace-icon fa fa-coffee green"></i>
-                    Reset password
+                    Réinitialiser le mot de passe
                 </h4>
 
                 <div class="space-6"></div>
@@ -47,7 +47,7 @@
                             <button type="submit"
                                     class="width-50 pull-right btn btn-sm btn-primary">
                                 <i class="ace-icon fa fa-key"></i>
-                                <span class="bigger-110">Reset password</span>
+                                <span class="bigger-110">Réinitialiser le mot de passe</span>
                             </button>
                         </div>
 

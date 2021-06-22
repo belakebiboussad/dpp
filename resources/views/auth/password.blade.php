@@ -6,12 +6,12 @@
         <div class="widget-main">
             <h4 class="header red lighter bigger">
                 <i class="ace-icon fa fa-key"></i>
-                Retrieve Password
+                Récupérer mot de passe
             </h4>
 
             <div class="space-6"></div>
             <p>
-                Enter your email and to receive instructions
+                Entrez votre email et recevez les instructions
             </p>
 
             <form role="form" method="POST" action="{{ url('/password/email') }}">
@@ -29,7 +29,7 @@
                     <div class="clearfix">
                         <button type="submit" class="width-35 pull-right btn btn-sm btn-danger">
                             <i class="ace-icon fa fa-lightbulb-o"></i>
-                            <span class="bigger-110">Send Me!</span>
+                            <span class="bigger-110">Envoie-moi!</span>
                         </button>
                     </div>
                 </fieldset>
@@ -39,7 +39,7 @@
 
         <div class="toolbar center">
             <a href="{{ url('/auth/login') }}" data-target="#login-box" class="back-to-login-link">
-                Back to login
+                Retour connexion
                 <i class="ace-icon fa fa-arrow-right"></i>
             </a>
         </div>

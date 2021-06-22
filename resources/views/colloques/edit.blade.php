@@ -22,7 +22,7 @@
 @endsection
 @section('main-content')
 <div class="space-12"></div>
-<div class="page-header"> <h1><strong>Modifier le Colloque du &quot; {{ $colloque->date }} &quot;</strong></h1></div><!-- /.page-header -->
+<div class="page-header"> <h1><strong>Modifier le colloque du &quot; {{ $colloque->date }} &quot;</strong></h1></div><!-- /.page-header -->
 <br><div class="space-12"></div>
 <div class="row"> 
   <div class="col-sm-12">
@@ -31,7 +31,7 @@
       {{ method_field('PUT') }}
       <div class="row">
         <div class="col-xs-5">
-          <label for="liste_membre"> <h4> <strong>Liste des Medecins :</strong></h4></label>&nbsp;
+          <label for="liste_membre"> <h4> <strong>Liste des médecins :</strong></h4></label>&nbsp;
           <select  id="liste_membre" class="form-control" size="7" multiple="multiple">
             @foreach( $listeMeds as $med)
             <option id="id_membre" value="{{$med->id}}" >{{$med->nom}} {{$med->prenom}}</option>
@@ -69,9 +69,9 @@
         <div class="col-xs-7">
              <label for="type_colloque" class= "control-label no-padding-left col-xs-4 col-sm-4"><strong>Type:</strong></label>
              <select id="type_colloque" name="type_colloque" class="col-xs-4 col-sm-4" data-placeholder="sélectionner le type..." required>
-                 {{--  <option value="" selected disabled>sélectionner le type...</option>   --}}
-                  <option value="0" {{ ($colloque->type == 0)?'selected':'' }} >médicale</option>
-                   <option value="1"  {{ ($colloque->type == 1)?'selected':'' }}>chirurgicale</option>
+                 {{--  <option value="" selected disabled>Sélectionner le type...</option>   --}}
+                  <option value="0" {{ ($colloque->type == 0)?'selected':'' }} >Médical</option>
+                   <option value="1"  {{ ($colloque->type == 1)?'selected':'' }}>Chirurgical</option>
               </select>
        </div>
       </div>

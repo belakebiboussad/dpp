@@ -34,4 +34,13 @@ class User extends Authenticatable
     protected $casts = [
         'active' => 'boolean',
     ];
+    public function is($role)
+    {
+        // perform check if the user has the $role
+        if($role == $this->role_id)
+            return true;
+        else
+            return false;
+
+    }
 }

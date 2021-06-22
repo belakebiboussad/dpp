@@ -6,7 +6,7 @@
   <ul class="breadcrumb">
     <li>
       <i class="ace-icon fa fa-home home-icon"></i>
-      <a href="#">Acceuil</a>
+      <a href="#">Accueil</a>
     </li>
     <li class="active">Gestion des {{ $lien}}</li>
   </ul><!-- /.breadcrumb -->

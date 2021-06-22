@@ -8,8 +8,8 @@
 		<thead>
 			<tr>
 				<th>Numéro</th>
-				<th>nom </th>
-				<th>nombre de lits</th>
+				<th>Nom </th>
+				<th>Nombre de lits</th>
 				<th>Etat</th>
 			</tr>
 		</thead>

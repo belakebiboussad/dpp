@@ -1,7 +1,7 @@
 @extends('app')
 @section('main-content')
 	<div class="page-header">
-		<h1 style="display: inline;"><strong>Modifier Antécédant du :</strong> {{ $patient->Nom }} {{ $patient->Prenom }}</h1>
+		<h1 style="display: inline;"><strong>Modifier antécédent du :</strong> {{ $patient->Nom }} {{ $patient->Prenom }}</h1>
 		<div class="pull-right">
         </div>
 	</div>
@@ -13,7 +13,7 @@
 				<div class="widget-body">
 					<div class="widget-main">
 						<div>
-							<label for="type_atcd"><strong>Antécédant :</strong></label>
+							<label for="type_atcd"><strong>Antécédent :</strong></label>
 							<select class="form-control" id="type_atcd" name="type_atcd" onchange="atcd()" required>
 								<option value="Personnels" @if($atcd->Antecedant == "Personnels") selected @endif>Personnels</option>
 								<option value="Familiaux"  @if($atcd->Antecedant == "Familiaux") selected @endif>Familiaux</option>
@@ -22,7 +22,7 @@
 						<hr/>
 						@if($atcd->Antecedant == "Personnels")
 						<div id="sous_type">
-							<label for="sous_type_atcd"><strong>Type  Antécédant :</strong></label>
+							<label for="sous_type_atcd"><strong>Type  antécédent :</strong></label>
 							<select class="form-control" id="sous_type_atcd" name="sous_type_atcd" onchange="atcd()">
 								<option value="Pathologiques" @if($atcd->typeAntecedant == "0") selected @endif>Pathologiques</option>
 								<option value="Physiologiques" @if($atcd->typeAntecedant == "1") selected @endif>Physiologiques</option>

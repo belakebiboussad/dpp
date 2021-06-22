@@ -6,7 +6,7 @@
 			</span>
 			<div class="space space-4"></div>
 			<a href="{{ route('patient.edit', $patient->id) }}" class="btn btn-sm btn-block btn-success">
-				<i class="ace-icon fa fa-pencil bigger-120"></i><span class="bigger-110">Modifier Les Informations</span>
+				<i class="ace-icon fa fa-pencil bigger-120"></i><span class="bigger-110">Modifier les informations</span>
 			</a>
 		</div><!-- /.col -->
 		<div class="col-xs-12 col-sm-9">
@@ -29,7 +29,7 @@
 					</div>
 				</div>
 				<div class="profile-info-row">
-					<div class="profile-info-name">Date Naissance </div>
+					<div class="profile-info-name">Date de naissance </div>
 					<div class="profile-info-value"><span>{{ $homme_c->date_naiss }}</span></div>
 				</div>
 				<div class="profile-info-row">

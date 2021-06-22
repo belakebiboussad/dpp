@@ -2,7 +2,7 @@
 	<div class="modal-dialog modal-lg">
   	<div  id="" class="modal-content custom-height-modal">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Aide au codage CIM10</h4>   		
+        <button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Aide au codage CIM-10</h4>   		
       </div>
       <div class="modal-body">
 		<input type="hidden" id="inputID" value="">
@@ -23,7 +23,7 @@
 			<div class="col-sm-12">
 	      		<label for="chapitre"><strong>S/Chapitre :</strong></label>
 	      		<select class="form-control" id="schapitre" name="schapitre" disabled>
-	      			<option value="0">Selectionner un Sous Chapitre</option>
+	      			<option value="0">Selectionner un sous chapitre</option>
 	      		</select>
 	      		</div>
 		</div>

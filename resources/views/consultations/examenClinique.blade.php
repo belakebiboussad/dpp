@@ -3,12 +3,12 @@
 		<ul class = "nav nav-pills nav-justified navbar-custom1 list-group" role="tablist" id ="cliniq">
 			<li role= "presentation" class="active">
 				<a href="#ExamGen"  name="ExamGen" aria-controls="ExamGen" role="tab" data-toggle="tab" class="jumbotron">
-				<i class="fa fa-stethoscope fa-2x pull-left"></i><span class="bigger-130">  Exemen Génerale</span>
+				<i class="fa fa-stethoscope fa-2x pull-left"></i><span class="bigger-130">  Examen général</span>
 				 </a>
 			 </li>
 			<li role= "presentation" name="appareils">
 			  <a href="#Appareils" aria-controls="Appareils" role="tab" data-toggle="tab" class="jumbotron">
-				<span class="medical medical-icon-i-internal-medicine" aria-hidden="true"></span><span class="bigger-130">Exemen Appareils</span>
+				<span class="medical medical-icon-i-internal-medicine" aria-hidden="true"></span><span class="bigger-130">Examen d'appareils</span>
 			   </a>
 			</li>
 		</ul>
@@ -51,7 +51,7 @@
 					</div>
 					<div class="row">
 						<div class="col-sm-12">
-							<label class="control-label" for="etatgen"><strong>Etat Géneral du patient :</strong></label>
+							<label class="control-label" for="etatgen"><strong>Etat géneral du patient :</strong></label>
 						<textarea type="text" id="etatgen" name="etatgen" placeholder= "Etat Géneral du patient..." class="form-control"></textarea>
 						</div>
 					</div>
@@ -71,6 +71,8 @@
 				<div role="tabpanel" class = "tab-pane" id="Appareils">	@include("consultations.ExamenAppareils")	</div>
 			</div>
 		</div>
-		<div class= "col-md-3 col-sm-9">@include('consultations.actions')</div>
+		<div class= "col-md-3 col-sm-9">
+			<div>@include('consultations.actions')</div>
+		</div>
 	</div>
 </div>

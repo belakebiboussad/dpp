@@ -5,7 +5,7 @@
 			<div class="modal-body">
 			  <form action="#" method="POST">
 			    <div class="row">
-			      <div class="col-xs-12"><br><label for="modeAdmissionHospi"><strong>Mode Admission  :</strong></label>
+			      <div class="col-xs-12"><br><label for="modeAdmissionHospi"><strong>Mode d'admission  :</strong></label>
 			     	  <select class="form-control" id="modeAdmissionHospi" name="modeAdmissionHospi">
 				       	<option value="">Sélectionner...</option>
 				        @foreach($modesAdmission as $mode =>$value)
@@ -18,7 +18,7 @@
 			     	<div class="col-xs-12">
 			     		<label for="specialiteHospi"><strong>Spécialité :</strong></label>
 					   	<select class="form-control" id="specialiteHospi" name="specialiteHospi">
-						    <option value="0">Sélectionner la spécialité...</option>
+						    <option value="0">Sélectionnez la spécialité...</option>
 						    @foreach($specialites as $specialite)
 						   	<option value="{{ $specialite->id}}" @if( $employe->specialite == $specialite->id) selected @endif > {{$specialite->nom}} </option>
 						    @endforeach 
@@ -30,7 +30,7 @@
 			     	<div class="col-xs-12">
 			     	 	<label for="serviceHospi"><b>Service:</b></label>
 					    <select class="form-control" id="serviceHospi" name="serviceHospi">
-							  <option value="">Sélectionner le service...</option>
+							  <option value="">Sélectionnez le service...</option>
 							  @foreach($services as $service)
 							  <option value="{{ $service->id }}" @if( $employe->service == $service->id) selected @endif>{{ $service->nom }}</option>
 							  @endforeach     

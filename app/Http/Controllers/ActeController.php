@@ -11,22 +11,16 @@ class ActeController extends Controller
 {
     //
     public function __construct()
-      {
-          $this->middleware('auth');
-      }
-	  public function choixhospconsigne()
     {
-            return view('consigne.choix_patient_consigne');
-    }
-
+      $this->middleware('auth');
+    }//	  public function choixhospconsigne() {    return view('consigne.choix_patient_consigne');   }
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\modeles\patient  $patient
      * @return \Illuminate\Http\Response
      */
-
-     public function edit($id)
+    public function edit($id)
     {
         $acte = Acte::find($id);//  $consignes = consigne::FindOrFail($id); // return view('consigne.edit_consigne',compact('consignes'));
         return Response::json($acte);
@@ -34,8 +28,8 @@ class ActeController extends Controller
 
      public function show($id)
     {
-        $consigne = consigne::FindOrFail($id);
-        return view('consigne.show_consigne',compact('consigne'));
+      $consigne = consigne::FindOrFail($id);
+      return view('consigne.show_consigne',compact('consigne'));
     }
     public function update(Request $request,$id)
     {

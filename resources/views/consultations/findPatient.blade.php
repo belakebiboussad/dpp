@@ -1,7 +1,7 @@
 
 	<div class="panel panel-default">
 			<div class="panel-heading left" style="height: 40px;">
-				<strong>Rechercher un Patient</strong>
+				<strong>Rechercher un patient</strong>
 			</div>
 			<div class="panel-body">
 				<div class="row">
@@ -17,7 +17,7 @@
 					</div>
 					<div class="col-sm-3 col-xs-3">
 						<div class="form-group">
-							<label class="control-label" for="Prenom" ><strong>Prenom:</strong></label> 
+							<label class="control-label" for="Prenom" ><strong>Prénom:</strong></label> 
 							<div class="input-group">
 						  	<input type="text" class="form-control input-sx autofield" id="Prenom" name="Prenom"  placeholder="prenom du patient..."> 
 						  	<span class="glyphicon glyphicon-search form-control-feedback"></span>
@@ -45,7 +45,7 @@
 				</div>
 				</div>
 			</div>
-			<div class="panel-footer" style="height: 50px;">
-		   	<button type="submit" class="btn btn-xs btn-primary findptient " style="vertical-align: middle"><i class="fa fa-search"></i>&nbsp;Rechercher</button>		
+			<div class="panel-footer">
+		   	<button type="submit" class="btn btn-xs btn-primary findptient "><i class="fa fa-search"></i>&nbsp;Rechercher</button>		
 			</div>
 	</div>

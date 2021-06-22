@@ -31,7 +31,7 @@
     <ul class="nav nav-list">
       <li class="">
         <a href="{{ route('hospitalisation.index') }}">
-          <i class="menu-icon fa fa-university"></i><span class="menu-text"> Acceuil </span>
+          <i class="menu-icon fa fa-university"></i><span class="menu-text">Accueil</span>
         </a>
         <b class="arrow"></b>
       </li>
@@ -44,7 +44,7 @@
         <b class="arrow"></b>
         <ul class="submenu">
           <li class="">
-            <a href="{{ route('hospitalisation.index') }}"> <i class="menu-icon fa fa-caret-right"></i>Liste Hospitalisations</a>          
+            <a href="{{ route('hospitalisation.index') }}"> <i class="menu-icon fa fa-caret-right"></i>Liste des hospitalisations</a>          
             <b class="arrow"></b>
           </li>
         </ul>

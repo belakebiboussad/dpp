@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <title>Gestion Des Patients</title>
+    <title>Gestion des patients</title>
     @include('partials.htmlheader')
 <body class="no-skin">
     @include('partials.scripts')

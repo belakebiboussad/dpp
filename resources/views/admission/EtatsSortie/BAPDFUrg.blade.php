@@ -3,7 +3,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/styles.css">
-   <title>Attestation de Séjour</title>
+   <title>Attestation de séjour</title>
   <style>
     table {
         border-spacing: 0;
@@ -20,7 +20,7 @@
   <div class="container-fluid">
     @include('partials.etatHeader')
     <h3 class="text-uppercase center mt-10"><span style="font-size: xx-large;"><strong><u>{{ $etat->nom}}</u></strong></span></h3>
-    <br><h4>IDENTIFICATION PATIENT</h4>
+    <br><h4>IDENTIFICATION DU PATIENT</h4>
     <section class="table solid" style="width:100%;"> 
       <table>
       <tr><td><strong>&nbsp;N° Admission :</strong><span>&nbsp;{{ $obj->id }}</span></td></tr>
@@ -30,8 +30,8 @@
         <td><strong>Genre :</strong><span>&nbsp; {{ $patient->Sexe }}</span></td>
       </tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
       <tr>
-        <td><strong>&nbsp;Date de Naissance :</strong><span>&nbsp;{{ $patient->Dat_Naissance }}</span></td>
-        <td><strong>&nbsp;Lieu de Naissance  :</strong><span>&nbsp; {{ $patient->lieuNaissance->nom_commune }}</span></td>
+        <td><strong>&nbsp;Date de naissance :</strong><span>&nbsp;{{ $patient->Dat_Naissance }}</span></td>
+        <td><strong>&nbsp;Lieu de naissance  :</strong><span>&nbsp; {{ $patient->lieuNaissance->nom_commune }}</span></td>
         <td><strong>Code Wilaye :</strong><span>&nbsp; {{ $patient->lieuNaissance->daira->wilaya->id }}</span></td>
       </tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
       <tr>
@@ -41,21 +41,21 @@
         @endif
       </tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
       <tr>
-        <td colspan="2"><strong>&nbsp;Adresse de Résidene :</strong><span>&nbsp;{{ $obj->consultation->patient->Adresse}} &nbsp;{{ $patient->commune->nom_commune}}</span></td>
+        <td colspan="2"><strong>&nbsp;Adresse de résidene :</strong><span>&nbsp;{{ $obj->consultation->patient->Adresse}} &nbsp;{{ $patient->commune->nom_commune}}</span></td>
         <td><strong>Code Wilaye :</strong><span>&nbsp; {{ $patient->wilaya->nom }}</span></td>
       </tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
        <tr>
-        <td colspan="2"><strong>&nbsp;Personne à Contacter :</strong><span>&nbsp;{{ $patient->hommesConf[0]->nom }}&nbsp;{{ $patient->hommesConf[0]->prenom }}</span></td>
-        <td><strong>N° Tel :</strong><span>&nbsp;{{ $patient->hommesConf[0]->mob }}</span></td>
+        <td colspan="2"><strong>&nbsp;Personne à contacter :</strong><span>&nbsp;{{ $patient->hommesConf[0]->nom }}&nbsp;{{ $patient->hommesConf[0]->prenom }}</span></td>
+        <td><strong>N° Tél :</strong><span>&nbsp;{{ $patient->hommesConf[0]->mob }}</span></td>
       </tr> 
       </table>
     </section>
-     <br><h4>IDENTIFICATION DE L'ASUURE</h4>
+     <br><h4>IDENTIFICATION DE L'ASSURE</h4>
     <section class="table solid" style="width:100%;">
      <table>
       <tr>
         <td><strong>&nbsp;IMMATRICULATION :</strong><span>&nbsp;{{ $patient->assure->NSS }}</span></td>
-        <td colspan="2"><strong>&nbsp;N° Prise En Charge :</strong><span></span></td>
+        <td colspan="2"><strong>&nbsp;N° de prise en charge :</strong><span></span></td>
       </tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
       <tr>
         <td><strong>&nbsp;Nom :</strong><span>&nbsp;{{ $patient->assure->Nom }}</span></td>
@@ -69,7 +69,7 @@
       </tr>
       </table>
     </section>
-     <br><h4>Hospitalisation</h4>
+     <br><h4>HOSPITALISATION</h4>
     <section class="table solid" style="width:100%;">
      <table>
         <tr>
@@ -78,7 +78,7 @@
           <td><strong>Heure d'entée :</strong><span>{{ Date("H:i")}}</span></td>
         </tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
          <tr>
-          <td><strong>&nbsp;Medecin :</strong>
+          <td><strong>&nbsp;Médecin :</strong>
             <span>&nbsp;{{ $obj->consultation->docteur->nom}}&nbsp;{{ $obj->consultation->docteur->prenom}}</span>
           </td>
           <td><strong>Mode d'entrée :</strong><span>&nbsp;{{ $obj->modeAdmission }}</span></td> 

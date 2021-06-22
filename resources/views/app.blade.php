@@ -124,6 +124,11 @@
                 $('#serviceFonc').removeClass('invisible');   
         });
       });
+       $(function(){
+          $('.filter').change(function() {// if (this.value.trim()) {  // }
+            field = $(this).prop("id"); 
+          });
+       });
       $(document).ready(function(){
           $("select.groupeSanguin").change(function(){//var gs = $(this).children("option:selected").val();
           if($(this).children("option:selected").val() !=="")
@@ -160,6 +165,22 @@
         });
         if($("#Position").val() != "Activité" )
           $('#serviceFonc').addClass('invisible');
+        $(document).on('click', '.selctetat', function(event){
+          event.preventDefault();
+          var formData = {
+            class_name: $('#className').val(),    
+            obj_id: $('#objID').val(),
+            selectDocm :$(this).val(),
+          };
+          $.ajax({
+            type : 'get',
+            url : '{{URL::to('reportprint')}}',
+            data:formData,
+              success(data){
+                $('#EtatSortie').modal('hide');
+              },
+          });
+        });
       }) 
      </script>
         @yield('page-script')
@@ -181,6 +202,8 @@
             @include('partials.sidebar_chef_ser') 
         @elseif(Auth::user()->role_id == 3)
             @include('partials.sidebar_inf')
+         @elseif(Auth::user()->role_id == 11)
+            @include('partials.sidebar_laboanalyses')    
         @elseif(Auth::user()->role_id == 12)
             @include('partials.sidebar_radiologue')
         @elseif(Auth::user()->role_id == 14)

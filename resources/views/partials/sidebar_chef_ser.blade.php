@@ -25,7 +25,7 @@
     </li>
     <ul class="nav nav-list">
       <li class="">
-        <a href="/home"><i class="menu-icon fa fa-university"></i> <span class="menu-text"> Acceuil </span></a>
+        <a href="/home"><i class="menu-icon fa fa-university"></i> <span class="menu-text">Accueil</span></a>
         <b class="arrow"></b>
       </li>
       <li class="">
@@ -37,11 +37,11 @@
         <b class="arrow"></b>
         <ul class="submenu">
           <li class="">
-            <a href="{{ route('demandeproduit.create') }}"><i class="menu-icon fa fa-caret-right"></i>Demande des produits</a>
+            <a href="{{ route('demandeproduit.create') }}"><i class="menu-icon fa fa-caret-right"></i>Demander des produits</a>
             <b class="arrow"></b>
           </li>
           <li class="">
-            <a href="{{ route('demandeproduit.index') }}"><i class="menu-icon fa fa-caret-right"></i> Liste Des Demandes</a>
+            <a href="{{ route('demandeproduit.index') }}"><i class="menu-icon fa fa-caret-right"></i> Liste des demandes</a>
             <b class="arrow"></b>
           </li>              
         </ul>

@@ -37,7 +37,6 @@ $('document').ready(function(){
       		  	});
  			 		produits.push(jsonData);
   		  });
-  		  //alert(JSON.stringify(produits));
   			var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(produits)+"' hidden>");
 				champ.appendTo('#demandform');
      		$('#demandform').submit();
@@ -47,10 +46,10 @@ $('document').ready(function(){
 @endsection
 @section('main-content')
 <div class="page-header">
-	<h1 style="display: inline;"><strong>Modification de la demande de produit du </strong> &quot;{{ $demande->Date}}&quot;</h1>
+	<h1 style="display: inline;"><strong>Modification de la demande du </strong> &quot;{{ $demande->Date}}&quot;</h1>
 	<div class="pull-right">
 		<a href="{{route('demandeproduit.index')}}" class="btn btn-white btn-info btn-bold">
-			<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i> Liste Demandes
+			<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>Demandes
 		</a>
 	</div>
 </div>
@@ -59,7 +58,7 @@ $('document').ready(function(){
 <div class="col-xs-12">
 	<div class="col-xs-12 col-sm-5">
 		<div class="widget-box">
-			<div class="widget-header"><h4 class="widget-title">produits pharmaceutique</h4></div>
+			<div class="widget-header"><h4 class="widget-title">Produits pharmaceutique</h4></div>
 			<div class="widget-body">
 				<div class="widget-main">
 					<div class="row">
@@ -132,7 +131,7 @@ $('document').ready(function(){
 											<th></th>
 											<th>Produits</th>
 											<th>Gamme</th>
-											<th>Spécialité</th>
+											<th>Spécialités</th>
 											<th>Quantité</th>
 										</tr>
 									</thead>
