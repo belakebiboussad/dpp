@@ -45,7 +45,7 @@ $('document').ready(function(){
 <div class="col-xs-12">
 	<div class="col-xs-12 col-sm-5">
 		<div class="widget-box">
-			<div class="widget-header"><h4 class="widget-title">Selectionner un produit</h4></div>
+			<div class="widget-header"><h4 class="widget-title">Sélectionner un produit</h4></div>
 			<div class="widget-body">
 				<div class="widget-main">
 					<div class="row">
@@ -113,7 +113,7 @@ $('document').ready(function(){
 									<thead>
 										<tr>
 											<th></th>
-											<th>Produit</th>
+											<th>Produits</th>
 											<th>Gamme</th>
 											<th>Spécialité</th>
 											<th>Quantité</th>

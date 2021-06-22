@@ -66,7 +66,7 @@
 	   		</div><div class="space-12"></div>
 			  <div class="row">
 				  <div class="col-sm-4 col-xs-12 form-group">
-				    <label class="col-sm-4 col-xs-5 control-label no-padding-right no-wrap" for="medecin"><strong>Medecin Trait.:</strong></label>
+				    <label class="col-sm-4 col-xs-5 control-label no-padding-right no-wrap" for="medecin"><strong>Medecin Traitant:</strong></label>
 				    <div class="col-sm-8 col-xs-7">
 				      <input type="text" id="medecin" class="col-sm-12 col-xs-12" name="medecin" value="{{$demande->medecin->nom}} {{$demande->medecin->prenom}}" disabled/>
 				    </div>  

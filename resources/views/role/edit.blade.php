@@ -1,7 +1,7 @@
 @extends('app')
 @section('main-content')
 <div class="page-header">
-	<h1><strong>Modifier le Rôle : </strong></h1>
+	<h1><strong>Modifier le rôle : </strong></h1>
 </div>
 <div class="row">
 	<div class="col-sm-12">
@@ -10,7 +10,7 @@
 				{{ csrf_field() }}
 				{{ method_field('PUT') }}
 				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="form-field-1"><strong> Nom du role </strong></label>
+					<label class="col-sm-3 control-label no-padding-right" for="form-field-1"><strong> Nom du rôle </strong></label>
 					<div class="col-sm-9">
 						<input type="text" id="rolename" name="rolename" placeholder="Nom du role" class="col-xs-10 col-sm-5"  value="{{ $role->role }}" required/>
 					</div>

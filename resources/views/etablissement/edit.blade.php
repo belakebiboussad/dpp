@@ -1,6 +1,6 @@
 @extends('app')
 @section('main-content')
-	<div class="row"><h3>Modifier Etablissement:</h3></div><div class="space-12 hidden-xs"></div>
+	<div class="row"><h3><strong>Actualiser les données de l'établissement:</strong></h3></div><div class="space-12 hidden-xs"></div>
 		<form id ="editEtab" class="form-horizontal" role="form" method="POST" action="{{ route('etablissement.update', $etablissement->id) }}" enctype="multipart/form-data">
 		<div class="row">
 			<input type="hidden" name="id" value="{{ $etablissement->id }}">
@@ -8,12 +8,12 @@
 			{{ method_field('PUT') }}
 		<div class="col-sm-9 col-xs-12">
 			<div class="widget-box widget-primary" id="widget-box-1">
-				<div class="widget-header" bg="blue"><h5 class="widget-title"><strong>Etablissement </strong></h5></div>
+				<div class="widget-header" bg="blue"><h5 class="widget-title"><strong>Etablissement hospitalier</strong></h5></div>
 				<div class="widget-body">
 					<div class="widget-main">
 						<div class="space-12 hidden-xs"></div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="nom"><strong> Nom: </strong></label>
+							<label class="col-sm-3 control-label no-padding-right" for="nom"><strong> Nom de l'établissement : </strong></label>
 							<div class="col-sm-9">
 								<input type="text" name="nom"  class="col-xs-12 col-sm-12"  value = "{{ $etablissement->nom }} " />
 							</div>

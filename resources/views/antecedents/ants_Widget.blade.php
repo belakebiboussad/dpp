@@ -12,7 +12,7 @@
 						<tr>
 							<th  width="8%">Type </th>
 							<th class="center" width="6%">Date</th>
-							 <th class="center">Code CIM</th>
+							 <th class="center">Code CIM-10</th>
 							<th class="detail-col"class="">Description</th>
 							<th class="center"><em class="fa fa-cog"></em></th>
 						</tr>

@@ -1,10 +1,10 @@
 @extends('app')
 @section('main-content')
-	<div class="row"><h3>Ajouter un service :</h3></div><div class="space-12 hidden-xs"></div>
+	<div class="row"><h3><strong>Ajouter un service :</strong></h3></div><div class="space-12 hidden-xs"></div>
 	<div class="row">
 		<div class="col-sm-6 col-xs-12">
 			<div class="widget-box widget-primary" id="widget-box-1">
-				<div class="widget-header" bg="blue"><h5 class="widget-title"><strong>Ajouter Un Service </strong></h5></div>
+				<div class="widget-header" bg="blue"><h5 class="widget-title"><strong>Ajouter un service </strong></h5></div>
 				<div class="widget-body">
 				<div class="widget-main">
 					<form class="form-horizontal" role="form" method="POST" action="{{ route('service.store') }}">
@@ -20,7 +20,7 @@
 							<label class="col-sm-3 control-label no-padding-right" for="type"><strong>Type:</strong></label>
 							<div class="col-sm-9">
 								<select  name="type"  class="selectpicker show-menu-arrow place_holde col-xs-12 col-sm-12" required >
-									<option value="0">Médicale</option>
+									<option value="0">Médical</option>
 									<option value="1">Chirurgical</option>
 									<option value="2" >Fonctionnel</option>
 								</select>		
@@ -64,7 +64,7 @@
 		<div class="col-sm-6 hidden-xs">
 			<div class="widget-box" id="widget-box-2">
 			<div class="widget-header">
-				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i><span><b>Liste des Services</b></span></h5>
+				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i><span><b>Liste des services</b></span></h5>
 			</div>
 			<div class="widget-body">
 			<ol>

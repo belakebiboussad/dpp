@@ -40,7 +40,7 @@
                           <li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">IMC : <span class="badge badge-pill badge-danger"> {{ $consultation->examensCliniques->IMC  }}</span></span>&nbsp;</li>
                           <li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">Températeur : {{ $consultation->examensCliniques->temp  }}</span>&nbsp;&deg;C</li>
                           <li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">Autre : {{ $consultation->examensCliniques->autre  }}</span>&nbsp;</li>
-                          <li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">Etat Géneral du patient  :</span>{{ $consultation->examensCliniques->Etat }}</li>
+                          <li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">Etat général du patient  :</span>{{ $consultation->examensCliniques->Etat }}</li>
                           <li><i class="message-star ace-icon fa fa-star orange2"></i><span style="font-size:15px;">Peau et phanéres  : {{ $consultation->examensCliniques->peaupha  }}</span>&nbsp;</li>
                      </ul>
                 </div>
@@ -51,13 +51,13 @@
                 @if(isset($consultation->demandeexmbio))
                 <div class="row">
                     <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right">
-                      <strong><span style="font-size:18px;">Demande Examens Biologique</span></strong>
+                      <strong><span style="font-size:18px;">Demande d'examen biologique</span></strong>
                     </div>
                 </div>
                 <div class="row">
                      <div class="col-xs-11 widget-container-col" id="widget-container-col-2">
                           <div class="widget-box widget-color-blue" id="widget-box-2">
-                          <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande Examens Biologique</h5></div>
+                          <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande d'examens biologique</h5></div>
                           <div class="widget-body">
                                <div class="widget-main no-padding">
                                <table class="table table-striped table-bordered table-hover">
@@ -101,13 +101,13 @@
                 @if(isset($consultation->examensradiologiques))
                 <div class="row">
                       <div class="col-xs-11 label label-lg label-danger arrowed-in arrowed-right">
-                          <strong><span style="font-size:18px;">Demande Examens Imagerie</span></strong>
+                          <strong><span style="font-size:18px;">Demande d'examen d'imagerie</span></strong>
                       </div>
                 </div>
                 <div class="row">
                      <div class="col-xs-11 widget-container-col" id="widget-container-col-2">
                      <div class="widget-box widget-color-pink" id="widget-box-2">
-                          <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande Examens Imagerie</h5></div>
+                          <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demande d'examen d'imagerie</h5></div>
                           <div class="widget-body">
                                <div class="widget-main no-padding">
                                 <table class="table table-striped table-bordered table-hover">

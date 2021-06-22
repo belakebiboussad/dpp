@@ -1,12 +1,11 @@
 @extends('app')
 @section('main-content')
-	<div class="page-header">
-		<h1>Ajouter une Chambre :</h1>
+	<div class="row"><h3><strong>Ajouter une chambre :</strong></h3>
 	</div>
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="widget-box">
-			<div class="widget-header"><h5 class="widget-title">Ajouter Une Chambre :</h5></div>
+			<div class="widget-header"><h5 class="widget-title"><strong>Ajouter une chambre :</strong></h5></div>
 			<div class="widget-body">
 			<div class="widget-main">
 			<form class="form-horizontal" role="form" method="POST" action="{{ route('salle.store') }}">
@@ -20,7 +19,7 @@
 					</select>
 					@else
 					<select class="col-xs-10 col-sm-5" id="service" name="service_id">
-						<option value="">Selectionner....</option>
+						<option value="">Selectionnez....</option>
 						@foreach($services as $service)
 						<option value="{{ $service->id }}">{{ $service->nom }}</option>
 						@endforeach
@@ -30,19 +29,19 @@
 			</div>
 				<div class="space-12 hidden-xs"></div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="num"><strong> Numéro Chambre : </strong></label>
+					<label class="col-sm-3 control-label no-padding-right" for="num"><strong> Numéro chambre : </strong></label>
 					<div class="col-sm-9">
 						<input type="number" name="num" placeholder="Numéro de la Chambre" min="1" class="col-xs-10 col-sm-5" />
 					</div>
 				</div><div class="space-12 hidden-xs"></div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="nom"><strong> Nom Chambre : </strong></label>
+					<label class="col-sm-3 control-label no-padding-right" for="nom"><strong> Nom chambre : </strong></label>
 					<div class="col-sm-9">
 						<input type="text" name="nom" placeholder="Nom De La Chambre" class="col-xs-10 col-sm-5" />
 					</div>
 				</div><div class="space-12 hidden-xs"></div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="max_lit"><strong> Max Des Lits : </strong></label>
+					<label class="col-sm-3 control-label no-padding-right" for="max_lit"><strong> Max des lits : </strong></label>
 					<div class="col-sm-9">
 						<input type="number" name="max_lit" placeholder="Max Des Lits" class="col-xs-10 col-sm-5" />
 					</div>
@@ -55,7 +54,7 @@
 				</div>
 				<div class="space-12 hidden-xs"></div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="etage"><strong> N° d'etage : </strong></label>
+					<label class="col-sm-3 control-label no-padding-right" for="etage"><strong> N° d'étage : </strong></label>
 					<div class="col-sm-9">
 						<input type="text" name="etage" placeholder="N° d'etage" class="col-xs-10 col-sm-5" />
 					</div>

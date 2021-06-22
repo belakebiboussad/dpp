@@ -10,7 +10,7 @@
 				<table class="table table-striped table-bordered table-hover">
 					<thead class="thin-border-bottom">
 						<tr>
-							<th>colloque de la semaine du</th>
+							<th>Colloque de la semaine du</th>
 							<th>Date du colloque</th>
 							<th>Membres du colloque</th>
 							<th>Les demandes traitées</th>

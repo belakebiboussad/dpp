@@ -23,7 +23,7 @@
 			    <div class="space-12"></div>
 			    <div class="row">
 			     	<div class="col-xs-12">
-			     	 	<label for="result"><b>Resultat:</b></label>
+			     	 	<label for="result"><b>Résultat:</b></label>
 					    <textarea class="form-control" id="result" rows="6"></textarea>
 			      </div>	
 			    </div>

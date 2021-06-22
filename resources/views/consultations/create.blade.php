@@ -192,7 +192,7 @@
 	jQuery('#btn-add, #AntFamil-add').click(function () {//ADD
 		jQuery('#EnregistrerAntecedant').val("add");
 		jQuery('#modalFormData').trigger("reset");
-		$('#AntecCrudModal').html("Ajouter un Antecedant");
+		$('#AntecCrudModal').html("Ajouter un antécédent");
 		if(this.id == "AntFamil-add")
 		{
 			$("#EnregistrerAntecedant").attr('data-atcd','Famille'); 
@@ -208,7 +208,7 @@
 	jQuery('#btn-addAntPhys').click(function () {//	//antecedant Physiologique
 			jQuery('#EnregistrerAntecedantPhys').val("add");
 			jQuery('#modalFormDataPhysio').trigger("reset");
-			jQuery('#AntecPhysCrudModal').html("Ajouter un Antecedant");
+			jQuery('#AntecPhysCrudModal').html("Ajouter un antécédent");
 			jQuery('#antecedantPhysioModal').modal('show');
 	});	
 	jQuery('body').on('click', '.open-modal', function (event) {//EDIT

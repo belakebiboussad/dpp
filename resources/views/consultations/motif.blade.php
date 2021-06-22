@@ -1,6 +1,6 @@
 <div class="row">		
 	<div class="form-group padding-left">
-		<input  type="checkbox" id="isOriented" name="isOriented" class="ace input-lg"/><span class="lbl lighter red"> <strong>Patient Orienté</strong></span>
+		<input  type="checkbox" id="isOriented" name="isOriented" class="ace input-lg"/><span class="lbl lighter red"> <strong>Patient orienté</strong></span>
 	</div>		
 </div>
 <div class="row">	

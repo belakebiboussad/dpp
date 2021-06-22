@@ -9,7 +9,7 @@
 	<h1 style="display: inline;">Modification de la demande d'hospitalisation</h1>
 	<div class="pull-right">
     <a href="{{route('demandehosp.index')}}" class="btn btn-white btn-info btn-bold">
-      <i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>Liste des Demandes d'hospitalisation'
+      <i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>Liste des demandes d'hospitalisation'
     </a>
   </div>
 </div>
@@ -56,13 +56,13 @@
 					<div class="space-12"></div>
 					<div class="row">
 						<div class="col-sm-12 col-xs-12">
-							<label class = "col-sm-2 col-xs-2 control-label no-padding-right text-right" for="resume"><strong>resumé:</strong></label>
+							<label class = "col-sm-2 col-xs-2 control-label no-padding-right text-right" for="resume"><strong>Résumé:</strong></label>
            	  <div class="col-sm-10 col-xs-10">
 					     <input type="text" id="resume" name="resume" value="{{ $demande->consultation->Resume_OBS }}" class="col-xs-12 col-sm-12" disabled/>
 					    </div>
 						</div>
 	      	</div>
-	     		<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Informations concernant la Demande</h3></div></div>
+	     		<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Informations concernant la demande</h3></div></div>
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="widget-box">
@@ -75,11 +75,11 @@
 										<div class="row">
 											<div class="col-sm-6 col-xs-6">
 										    <label class="col-sm-4 col-xs-4 control-label no-padding-right text-right" for="mode">
-										      <strong>Mode Admission :</strong>
+										      <strong>Mode d'admission :</strong>
 										    </label>
 										    <div class="col-sm-8 col-xs-8">
 						             	<select class="form-control" id="mode" name="mode" class="col-xs-12 col-sm-12">
-						              	<option value="0">Sélectionner le mode d'admission...</option>
+						              	<option value="0">Sélectionnez le mode d'admission...</option>
 											    	@foreach($modesAdmission as $mode)
 													 	<option value="{{ $mode}}" @if($demande->modeAdmission == $mode ) selected @endif>{{ $mode }}</option>
 														@endforeach    
@@ -90,7 +90,7 @@
 											  <label class="col-sm-4 col-xs-4 control-label no-padding-right text-right" for="specialiteDemande"><strong>Specialite :</strong></label>
 											  <div class="col-sm-8 col-xs-8"> 	 
 						   						<select class="form-control" id="specialite" name="specialite" class="col-xs-12 col-sm-12">
-												    <option value="0">Sélectionner la spécialité...</option>
+												    <option value="0">Sélectionnez la spécialité...</option>
 												    @foreach($specialites as $specialite)
 												   	<option value="{{ $specialite->id}}" @if($demande->specialite == $specialite->id ) selected @endif>{{ $specialite->nom }}</option>
 												    @endforeach 

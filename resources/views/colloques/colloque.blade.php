@@ -15,7 +15,7 @@
 	<div class="col-xs-6">
 		<label for="liste_membre">Membres du colloque:</label>&nbsp;
 			<select id="liste_membre" data-placeholder="sélectionner les membres..."  style="width: 300px ">
-				<option value="" selected disabled>sélectionner les membres...</option>
+				<option value="" selected disabled>Sélectionner les membres...</option>
 				@foreach( $membre as $membres)
 				<option id="id_membre" value="{{$membres->id}}" >{{$membres->nom}} {{$membres->prenom}}</option>
 				@endforeach

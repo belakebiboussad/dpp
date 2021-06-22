@@ -1,7 +1,6 @@
 @extends('app')
 @section('main-content')
-	<div class="page-header">
-		<h1>Modifier le Lit :</h1>
+	<div class="row"><h3><strong>Modifier les données du lit :</strong></h3>
 	</div>
 	<div class="row">
 		<div class="col-xs-12">
@@ -10,7 +9,7 @@
 			<h5 class="widget-title"><i class="ace-icon fa fa-bed bigger-120"></i>Lit :</h5>
 			<div class="widget-toolbar widget-toolbar-light no-border">
 					<i class="ace-icon fa fa-table bigger-120"></i>
-			<a href="/lit"> <b>&nbsp;Liste des Lits</b></a>
+			<a href="/lit"> <b>&nbsp;Liste des lits</b></a>
 			</div>
 		</div>
 		<div class="widget-body">
@@ -45,7 +44,7 @@
 				</div>
 				<div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="etatlit"><strong> Lit Bloqué : </strong></label>
+					<label class="col-sm-3 control-label no-padding-right" for="etatlit"><strong> Lit bloqué : </strong></label>
 					<div class="col-sm-9">
 						<div class="checkbox">
 					            <label>

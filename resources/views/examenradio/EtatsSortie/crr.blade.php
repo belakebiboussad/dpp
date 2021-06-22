@@ -19,7 +19,7 @@
              @endif
         </h5>
 	<hr class="mt-2/>
-  	<div class="row" style ="margin-top: -0.8em;" ><div class="col-sm-12 center"><h3><u>Compte Rendu Radiologique</u></h3></div></div>
+  	<div class="row" style ="margin-top: -0.8em;" ><div class="col-sm-12 center"><h3><u>Compte-rendu radiologique</u></h3></div></div>
    	<br/><br/>
 	<div class="row">
     		<div class="center solid"><strong><span style="font-size:20px;">Indication </span></strong>

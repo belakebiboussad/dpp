@@ -72,7 +72,7 @@
 												<th class="center" ><strong>Produit</strong></th>
 												<th class="center"><strong>Spécialité</strong></th>
 												<th class="center"><strong>Gamme </strong></th>
-												<th class="center"><strong>Qte</strong></th>
+												<th class="center"><strong>Quantité</strong></th>
 												@if($demande->etat == "1")
 												<th class="center">Qte Donnée</th>
 												@endif

@@ -79,7 +79,7 @@ $('document').ready(function(){
 							<div class="profile-user-info profile-user-info-striped">
 							<div class="profile-info-row"><div class="profile-info-name"> Etat : </div>
 								<div class="profile-info-value">
-									<span class="badge badge-success">En Cours</span>
+									<span class="badge badge-success">En cours</span>
 								</div>
 							</div>
 							<div class="profile-info-row"><div class="profile-info-name"> Demandeur : </div>
@@ -102,8 +102,8 @@ $('document').ready(function(){
 										<th class="center"><strong>Code Produit</strong></th>
 										<th class="center"><strong>Gamme</strong></th>
 										<th class="center"><strong>Spécialité</strong></th>
-										<th class="center"><strong>Qte</strong></th>
-										<th class="center"><strong>Qte Donnée</strong></th>
+										<th class="center"><strong>Quantité</strong></th>
+										<th class="center"><strong>Quantité Donner</strong></th>
 										<th><em class="fa fa-cog"></em></th>
 									</tr>
 								</thead>

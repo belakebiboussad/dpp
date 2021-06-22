@@ -108,7 +108,7 @@
   			<div class="col-sm-4">
    				<div class="form-group"><label><strong>Etat :</strong></label>
      			 <select id='etat' class="form-control filter" style="width: 200px">
-         			<option value="0">En Cours</option>
+         			<option value="0">En cours</option>
               <option value="1">Validée</option>
             </select>
    				 </div>		
@@ -142,8 +142,8 @@
 				      	<tr>
 				          <th rowspan="2" class="text-center"><h5><strong>Patient</strong></h5></th> 
 				          <th rowspan="2" class="text-center"><h5><strong>Service</strong></h5></th>
-				          <th rowspan="2" class="text-center"><h5><strong>Date Entrée</strong></h5></th>
-				          <th rowspan="2" class="text-center"><h5><strong>Mode Entrée</strong></h5></th>
+				          <th rowspan="2" class="text-center"><h5><strong>Date d'entrée</strong></h5></th>
+				          <th rowspan="2" class="text-center"><h5><strong>Mode d'entrée</strong></h5></th>
 				          <th colspan="3" scope="colgroup" class="text-center"><h5><strong>Hébergement</strong></h5></th> <!-- merge four columns -->
 				          <th rowspan="2" class="text-center"><em class="fa fa-cog"></em></th>	
 				      	</tr>

@@ -1,22 +1,22 @@
 @extends('app_sur')
 @section('main-content')
-<div class="page-header"><h1 style="display: inline;"><strong>Affecter un Lit </strong></h1><div class="pull-right"></div></div>
+<div class="page-header"><h1 style="display: inline;"><strong>Affecter un lit </strong></h1><div class="pull-right"></div></div>
 <div class="space-12"></div>
 <div class="row">
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 widget-container-col">
 	<div class="widget-box widget-color-blue">
-		<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des Rendez-Vous</h5></div>
+		<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des rendez-vous</h5></div>
 		<div class="widget-body">
 			<div class="widget-main no-padding">
 				<table class="table table-striped table-bordered table-hover">
 					<thead class="thin-border-bottom">
 						<tr>
 							<th class="text-center"><h5><strong>Patient</strong></h5></th>
-							<th class="text-center"><h5><strong>Mode Admission</strong></h5></th>
+							<th class="text-center"><h5><strong>Mode d'admission</strong></h5></th>
 							<th class="text-center" width="3%"><h5><strong>Priorité</strong></h5></th>
-							<th class="text-center"><h5><strong>Medecin Trait.</strong></h5></th>
-							<th class="text-center"><h5><strong>Date Entrée</strong></h5></th>
-							<th class="text-center"><h5><strong>Date Sortie Prévue</strong></h5></th>
+							<th class="text-center"><h5><strong>Médecin traitant</strong></h5></th>
+							<th class="text-center"><h5><strong>Date entrée</strong></h5></th>
+							<th class="text-center"><h5><strong>Date sortie prévue</strong></h5></th>
 						  <th class="text-center"><em class="fa fa-cog"></em></th>
 						</tr>
 					</thead>
@@ -67,16 +67,16 @@
 <div class="row">
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 widget-container-col">
 		<div class="widget-box widget-color-blue">
-			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;Demandes Hospitalisations Urgentes</h5></div>
+			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;Demandes d'hospitalisations urgentes</h5></div>
 			<div class="widget-body">
 				<div class="widget-main no-padding">
 					<table class="table table-striped table-bordered table-hover">
 						<thead class="thin-border-bottom">
 							<tr>
 								<th class="text-center"><h5><strong>Patient</strong></h5></th>
-								<th class="text-center"><h5><strong>Mode Admission</strong></h5></th>
-								<th class="text-center"><h5><strong>date</strong></h5></th>
-								<th class="text-center"><h5><strong>spécialité</strong></h5></th>
+								<th class="text-center"><h5><strong>Mode d'admission</strong></h5></th>
+								<th class="text-center"><h5><strong>Date</strong></h5></th>
+								<th class="text-center"><h5><strong>Spécialité</strong></h5></th>
 								<th class="text-center"><em class="fa fa-cog"></em></th>
 							</tr>
 						</thead>

@@ -2,7 +2,7 @@
 <div class="modal-dialog modal-lg">
    	<div class="modal-content custom-height-modal">
 		<div class="modal-header">
-			  <button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title" id="AntecPhysCrudModal">Ajouter un Antecedant</h4>
+			  <button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title" id="AntecPhysCrudModal">Ajouter un antécédent</h4>
 		</div>
 		<div class="modal-body">
 			<form id="modalFormDataPhysio" method="POST" action ="" class="form-horizontal" novalidate="">
@@ -23,7 +23,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-		    	<label class="col-sm-2 control-label" for="codecim"><strong>Code Cim10 :</strong></label>
+		    	<label class="col-sm-2 control-label" for="codecim"><strong>Code Cim-10 :</strong></label>
 					<div class="col-sm-10 input-group">
 						<input type="text" class="form-control" id="phys_cim_code"/><span class="input-group-addon" style=" padding: 0px 6px;">
 						<button class="btn btn-xs CimCode" type="button" value="phys_cim_code"><i class="fa fa-search"></i></button>

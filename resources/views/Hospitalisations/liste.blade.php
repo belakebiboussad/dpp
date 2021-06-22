@@ -9,7 +9,7 @@
 				<table class="table table-striped table-bordered table-hover">
 					<thead class="thin-border-bottom">
 						<tr>
-							<th><strong>Medecin Traitant</strong></th>
+							<th><strong>Médecin traitant</strong></th>
 							<th><strong>Date d'entrée</strong></th>				
 							<th><strong>Date sortie prévue</strong></th>				
 							<th><strong>Date sortie</strong></th>	

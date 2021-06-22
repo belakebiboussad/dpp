@@ -2,7 +2,7 @@
 <div class="widget-header">
 	<h5 class="widget-title bigger lighter">
 		<i class="ace-icon fa fa-table"></i>
-		<span><b>Liste des Lis</b></span>
+		<span><b>Liste des lis</b></span>
 	</h5>
 </div>
 <div class="widget-body">
@@ -11,7 +11,7 @@
 		<thead>
 		<tr>
 			<th>Numéro</th>
-			<th>nom </th>
+			<th>Nom </th>
 			<th>Bloqué</th>
 			<th>Affectation</th>
 		</tr>

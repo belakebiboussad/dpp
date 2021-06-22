@@ -23,7 +23,7 @@
 				</div>
 		</div>
 		<div class="profile-info-row">
-			<div class="profile-info-name">Date naissance</div>
+			<div class="profile-info-name">Date de naissance</div>
 			<div class="profile-info-value">
 				<span class="editable" id="signup">{{ $employe->Date_Naiss }}</span>
 			</div>
@@ -35,7 +35,7 @@
 			</div>
 		</div>
 		<div class="profile-info-row">
-			<div class="profile-info-name"> Lieu Naissance </div>
+			<div class="profile-info-name"> Lieu de naissance </div>
 			<div class="profile-info-value">
 				<i class="fa fa-map-marker light-orange bigger-110"></i>
 				<span class="editable" id="country">{{ $employe->Lieu_Naissance }}</span>
@@ -49,13 +49,13 @@
 			</div>
 		</div>
 		<div class="profile-info-row">
-			<div class="profile-info-name"> N° Télé fixe </div>
+			<div class="profile-info-name"> N° Tél fixe </div>
 			<div class="profile-info-value">
 				<span class="editable" id="age">{{ $employe->Tele_fixe }}</span>
 			</div>
 		</div>
 		<div class="profile-info-row">
-			<div class="profile-info-name"> N° Télé mobile </div>
+			<div class="profile-info-name"> N° Tél mobile </div>
 			<div class="profile-info-value">
 				<span class="editable" id="age">{{ $employe->tele_mobile  }}</span>
 			</div>

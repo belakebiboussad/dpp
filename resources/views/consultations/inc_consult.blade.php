@@ -21,7 +21,7 @@ $('document').ready(function(){
 <div class="row">
 	<ul class="list-unstyled spaced">
 		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Date de la consultation :</strong><span class="badge badge-pill badge-success">{{ $consultation->Date_Consultation }}</span></li>
-		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Motif de la consultation :</strong><span>{{ $consultation->motif }}</span></li>
+		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Motif de consultation :</strong><span>{{ $consultation->motif }}</span></li>
 		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Histoire de la maladie :</strong><span>{{ $consultation->histoire_maladie }}
 		</span></li>
 		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Diagnostic :</strong><span>{{ $consultation->Diagnostic }}</span></li>

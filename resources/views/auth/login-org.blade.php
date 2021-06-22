@@ -6,7 +6,7 @@
   <div class="widget-body">
     <div class="widget-main">
       <div class ="center hidden"><img src="img/logo.png" class="center thumb img-icons" alt="a picture"></div>
-      <h3><a href="#"><img src = "img/policeman.png" class ="img1"></a>&nbsp; Entrez Vos Informations </h3>
+      <h3><a href="#"><img src = "img/policeman.png" class ="img1"></a>&nbsp; Entrez vos informations </h3>
       <div class="space-12"></div>
       <form role="form" method="POST" action="{{ route('login') }}">   <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <fieldset>

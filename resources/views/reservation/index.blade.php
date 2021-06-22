@@ -15,13 +15,13 @@
 </script>
 @endsection
 @section('main-content')
-<div class="page-header"><h1 style="display: inline;"><strong>Réserver un Lit </strong></h1><div class="pull-right"></div></div>
+<div class="page-header"><h1 style="display: inline;"><strong>Réserver un lit </strong></h1><div class="pull-right"></div></div>
 <div class="space-12"></div>
 <div class="row">
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 widget-container-col" id="widget-container-col-2">
 	<div class="widget-box widget-color-blue" id="widget-box-2">
 		<div class="widget-header">
-			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des Rendez-Vous</h5>
+			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des rendez-vous</h5>
 		</div>
 		<div class="widget-body">
 			<div class="widget-main no-padding">
@@ -29,11 +29,11 @@
 					<thead class="thin-border-bottom">
 						<tr>
 							<th class="text-center"><h5><strong>Patient</strong></h5></th>
-							<th class="text-center"><h5><strong>Mode Admission</strong></h5></th>
+							<th class="text-center"><h5><strong>Mode d'admission</strong></h5></th>
 							<th class="text-center" width="3%"><h5><strong>Priorité</strong></h5></th>
-							<th class="text-center"><h5><strong>Medecin Trait.</strong></h5></th>
-							<th class="text-center"><h5><strong>Date Entrée</strong></h5></th>
-							<th class="text-center"><h5><strong>Date Sortie Prévue</strong></h5></th>
+							<th class="text-center"><h5><strong>Médecin Traitant</strong></h5></th>
+							<th class="text-center"><h5><strong>Date d'entrée</strong></h5></th>
+							<th class="text-center"><h5><strong>Date sortie prévue</strong></h5></th>
 						  <th class="text-center"><em class="fa fa-cog"></em></th>
 						</tr>
 					</thead>

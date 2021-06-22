@@ -46,7 +46,7 @@
 	@foreach($patient->antecedants as $atcd)
 		{{ $atcd->description }},
 	@endforeach
-	,qui s'est présenté ce jour pour <span id ="motifCons"></span>, et dont l'éxamen général du patient retouve <span id ="motifO"></span>.Je vous le confir pour une méilleure prise en charge.
+	,qui s'est présenté ce jour pour <span id ="motifCons"></span>, et dont l'éxamen général du patient retouve <span id ="motifO"></span>.Je vous le confie pour une méilleure prise en charge.
 	</p>.
 	</div>
 	<div class="col-sm-12">

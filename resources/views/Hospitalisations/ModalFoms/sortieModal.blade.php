@@ -42,7 +42,7 @@
 			</div>
 			<div class="row hidden transfert">
 				<div class="col-sm-12">
-		   		<label for="structure"><strong>Malade adresé à :</strong></label>
+		   		<label for="structure"><strong>Malade adressé à :</strong></label>
 		   		<input type="text" class="form-control" id="structure" value="" placeholder="saisir structure de Transfert">
 	     	</div>
 	     </div>
@@ -72,7 +72,7 @@
 			</div>
 			<div class="row hidden deces">
 				<div class="col-sm-12">
-					<label for="medecin"><strong>Medecin constatant décès  :</strong></label>
+					<label for="medecin"><strong>Médecin constatant décès  :</strong></label>
 					<select class="form-control" id="medecin">
 					@foreach($medecins as $medecin)
 						<option value="{{ $medecin->id }}">{{$medecin->nom }} {{$medecin->prenom }} </option> 
@@ -82,12 +82,12 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
-			      	<label for="diagSortie"><strong>Diagnostic de Sortie :</strong></label><textarea class="form-control"  id="diagSortie"></textarea>
+			      	<label for="diagSortie"><strong>Diagnostic de sortie :</strong></label><textarea class="form-control"  id="diagSortie"></textarea>
 			     </div>
 		  	</div>
 		  	<div class="row">
 				<div class="col-sm-12">
-			      	<label for="diagSortie"><strong>Code Cim10 :</strong></label>
+			      	<label for="diagSortie"><strong>Code Cim-10 :</strong></label>
 			      	<div class="input-group">
 					    <input type="text" class="form-control" id="ccimdiagSortie"/>
 					     <span class="input-group-addon" style=" padding: 0px 6px;"> 

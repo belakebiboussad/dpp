@@ -2,7 +2,7 @@
 <div class="modal-dialog modal-lg">
    	<div  id="" class="modal-content custom-height-modal">
 		<div class="modal-header">
-			  <button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title" id="AntecCrudModal">Ajouter un Antecedants</h4>
+			  <button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title" id="AntecCrudModal">Ajouter un antécédent</h4>
 		</div>
 		<div class="modal-body">
 			<form id="modalFormData" method="POST" action ="" class="form-horizontal" novalidate="">
@@ -12,7 +12,7 @@
 						<label for="sstypeatcd" class="col-sm-2 control-label">Type:</label>
 						<div class="col-sm-10">
 							<select class="form-control" id="sstypeatcdc" onchange="resetField();">
-								<option value="">Selectionner....</option>
+								<option value="">Selectionnez....</option>
 								<option value="Medicaux" >Médicaux</option>
 								<option value="Chirurigicaux">Chirurigicaux</option>
 							</select>
@@ -25,7 +25,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-			    			<label class="col-sm-2 control-label" for="codecim"><strong>Code Cim10 :</strong></label>
+			    			<label class="col-sm-2 control-label" for="codecim"><strong>Code Cim-10 :</strong></label>
 						<div class="col-sm-10 input-group">
 							<input type="text" class="form-control" id="cim_code"/><span class="input-group-addon" style=" padding: 0px 6px;"> 
 							<button class="btn btn-xs CimCode" type="button" value="cim_code">{{-- data-toggle="modal" data-target="#cim10Modal": --}}

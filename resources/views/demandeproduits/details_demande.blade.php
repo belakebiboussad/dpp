@@ -73,7 +73,7 @@
 												<th>Produit</th>
 												<th>Spécialité</th>
 												<th>Gamme</th>
-												<th>Qte</th>
+												<th>Qté</th>
 											</tr>
 										</thead>
 										<tbody>

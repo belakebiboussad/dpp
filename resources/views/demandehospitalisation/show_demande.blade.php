@@ -1,6 +1,6 @@
 @extends('app')
 @section('main-content')
-<div class="page-header"><h1>Détails De La Demande d'hospitalisation :</h1></div>
+<div class="page-header"><h1>Détails de la demande d'hospitalisation :</h1></div>
 <div class="row">
 	<div class="col-xs-12">
 			<div class="col-sm-10 col-sm-offset-1">
@@ -9,7 +9,7 @@
 						<h3 class="widget-title grey lighter"><i class="ace-icon fa fa-leaf green"></i>Détails :</h3>
 						<div class="widget-toolbar hidden-480">
 						@if( Auth::user()->role->id == 1)
-							<a href="{{ route('demandehosp.index') }}"><i class="ace-icon fa fa-hand-o-left"></i><strong>Liste Des Demandes</strong></a>
+							<a href="{{ route('demandehosp.index') }}"><i class="ace-icon fa fa-hand-o-left"></i><strong>Liste des demandes</strong></a>
 						@endif
 						&nbsp;&nbsp;&nbsp;
 						@if(Auth::User()->employee_id == $demande->Employe_ID_Employe)
@@ -23,7 +23,7 @@
 						<div class="widget-main padding-24">
 							<div class="row">
 								<div class="col-sm-6">
-								<div class="row"><div class="col-xs-11 label label-lg label-info arrowed-in arrowed-right"><b>Les Informations Du Patient :</b></div></div>
+								<div class="row"><div class="col-xs-11 label label-lg label-info arrowed-in arrowed-right"><b>Les informations du patient :</b></div></div>
 								<div>
 									<ul class="list-unstyled spaced">
 										<li>
@@ -33,7 +33,7 @@
 										<i class="ace-icon fa fa-caret-right blue"></i><strong>Prénom :</strong><b class="green">{{ $demande->consultation->patient->Prenom }}</b>
 										</li>
 										<li>
-											<i class="ace-icon fa fa-caret-right blue"></i><strong>Date Naissance :</strong><b class="green">{{ $demande->consultation->patient->Dat_Naissance }}</b>
+											<i class="ace-icon fa fa-caret-right blue"></i><strong>Date de naissance :</strong><b class="green">{{ $demande->consultation->patient->Dat_Naissance }}</b>
 										</li>
 										<li>
 											<i class="ace-icon fa fa-caret-right blue"></i>
@@ -49,16 +49,16 @@
 							       </div><!-- /.col -->
 								<div class="col-sm-6">
 								<div class="row">
-									<div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><b>Les Informations De La Demande :</b></div>
+									<div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><b>Les informations de la demande :</b></div>
 								</div>
 								<div>
 								<ul class="list-unstyled  spaced">
 									<li>
-										<i class="ace-icon fa fa-caret-right green"></i><strong>Motif :</strong>
+										<i class="ace-icon fa fa-caret-right green"></i><strong>Motif de consultation:</strong>
 										<b class="blue">{{ $demande->consultation->motif }}</b>
 									</li>
 									<li>
-										<i class="ace-icon fa fa-caret-right green"></i><strong>Date Consultation :</strong>
+										<i class="ace-icon fa fa-caret-right green"></i><strong>Date de consultation :</strong>
 													<b class="blue">{{ $demande->consultation->Date_Consultation }}</b>
 												</li>
 												<li>
@@ -66,13 +66,13 @@
 													<b class="blue">{{ $demande->Service->nom }}</b>
 												</li>
 												<li>
-													<i class="ace-icon fa fa-caret-right green"></i><strong>Spécialite :</strong>
+													<i class="ace-icon fa fa-caret-right green"></i><strong>Spécialité :</strong>
 													<b class="blue">{{ $demande->Specialite->nom }}</b>
 												</li>
 												<li class="divider"></li>
 												<li>
 													<i class="ace-icon fa fa-caret-right green"></i>
-													<strong>Nom De medcin traitant :</strong>
+													<strong>Nom du médecin traitant :</strong>
 													<b class="blue">{{ $demande->consultation->docteur->nom}} {{ $demande->consultation->docteur->prenom}}</b>
 												</li>
 											</ul>

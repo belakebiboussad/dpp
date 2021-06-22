@@ -70,8 +70,8 @@
              <label for="type_colloque" class= "control-label no-padding-left col-xs-4 col-sm-4"><strong>Type:</strong></label>
              <select id="type_colloque" name="type_colloque" class="col-xs-4 col-sm-4" data-placeholder="sélectionner le type..." required>
                  {{--  <option value="" selected disabled>Sélectionner le type...</option>   --}}
-                  <option value="0" {{ ($colloque->type == 0)?'selected':'' }} >médicale</option>
-                   <option value="1"  {{ ($colloque->type == 1)?'selected':'' }}>chirurgicale</option>
+                  <option value="0" {{ ($colloque->type == 0)?'selected':'' }} >Médical</option>
+                   <option value="1"  {{ ($colloque->type == 1)?'selected':'' }}>Chirurgical</option>
               </select>
        </div>
       </div>

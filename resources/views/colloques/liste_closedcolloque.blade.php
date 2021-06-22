@@ -59,7 +59,7 @@
 									<tr>
 										<td>
 											<div class="profile-info-row profile-user-info-striped">
-											<div class="profile-info-name"><strong>Medecin:</strong></div>
+											<div class="profile-info-name"><strong>Médecin:</strong></div>
 											<div class="profile-info-value"><span>{{ $demande->DemeandeColloque->medecin->nom }} {{ $demande->DemeandeColloque->medecin->prenom }} </span>
 											</div>
 											</div>
@@ -80,7 +80,7 @@
 									</td>
 									<td >
 										<div class="profile-info-row profile-user-info-striped">
-										<div class="profile-info-name"><strong>Specialité:</strong></div>
+										<div class="profile-info-name"><strong>Spécialité:</strong></div>
 										<div class="profile-info-value"><span>{{ $demande->Specialite->nom }}</span></div>
 										</div>
 									</td>

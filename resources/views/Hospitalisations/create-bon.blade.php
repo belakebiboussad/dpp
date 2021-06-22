@@ -64,8 +64,8 @@
 							<th class ="center" width="15%"><strong>Patient</strong></th>
 							<th class ="center"><strong>Mode d'admission</strong></th>
 							<th class ="center"><strong>Service</strong></th>
-							<th class ="center"><strong>Date Entrée</strong></th>
-							<th class ="center"><strong>date Sortie prévue</strong></th>
+							<th class ="center"><strong>Date d'entrée</strong></th>
+							<th class ="center"><strong>Date de sortie prévue</strong></th>
 							<th class ="center" width="10%"><em class="fa fa-cog"></em></th>
 						</thead>
 						<tbody>

@@ -101,21 +101,21 @@
 <div class="page-content">
 	<div class="row panel panel-default">
 		<div class="panel-heading left" style="height: 40px; font-size: 2.3vh;">
-			<strong>Rechercher les Sorties</strong><div class="pull-right" style ="margin-top: -0.5%;"></div>
+			<strong>Rechercher les sorties</strong><div class="pull-right" style ="margin-top: -0.5%;"></div>
 		</div>
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-sm-4">
        				<div class="form-group"><label><strong>Etat :</strong></label>
            			 <select id='etat' class="form-control filter1" style="width: 200px">
-               				 <option value="0">En Cours</option>
+               				 <option value="0">En cours</option>
 			                <option value="1">Validée</option>
 			            </select>
        				  </div>		
     				</div>
         <div class="col-sm-4">
         	<div class="form-group">
-         		<label class="control-label" for="" ><strong>Date Sortie:</strong></label>
+         		<label class="control-label" for="" ><strong>Date sortie:</strong></label>
          		<div class="input-group">
   			      <input type="text" id ="Date_Sortie" class="date-picker form-control filter1"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd" autocomplete="off">
   					  <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>

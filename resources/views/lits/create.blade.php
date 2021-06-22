@@ -25,8 +25,7 @@
 </script>
 @endsection
 @section('main-content')
-	<div class="page-header">
-		<h1>Ajouter un Lit</h1>
+	<div class="row"><h3><strong>Ajouter un nouveau lit</strong></h3>
 	</div>
 	<div class="row">
 		<div class="col-xs-12">
@@ -44,25 +43,25 @@
 				{{ csrf_field() }}
 				<div class="space-12"></div>	
 				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="numlit"><strong> Numéro Lit : </strong>
+					<label class="col-sm-3 control-label no-padding-right" for="numlit"><strong>Numéro lit: </strong>
 					</label>
 					<div class="col-sm-9">
 					<input type="number" id="numlit" name="numlit" placeholder="numéro du  lit" class="col-xs-10 col-sm-5"  min="1" required />
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="nom"><strong> nom   Lit : </strong>
+					<label class="col-sm-3 control-label no-padding-right" for="nom"><strong>Nom lit: </strong>
 					</label>
 					<div class="col-sm-9">
 					<input type="text" id="nom" name="nom" placeholder="nom complet du lit" class="col-xs-10 col-sm-5" />
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="service"><strong>Service :</strong></label>
+					<label class="col-sm-3 control-label no-padding-right" for="service"><strong>Service:</strong></label>
 					<div class="col-sm-9">
 					@if(!isset($id_salle)  && empty($id_salle)) 
 					<select class="col-xs-10 col-sm-5" id="service" name="service" required>
-						<option value="">Selectionner....</option>
+						<option value="">Selectionnez....</option>
 						@foreach($services as $service)
 						<option value="{{ $service->id }}">{{ $service->nom }}</option>
 						@endforeach
@@ -81,7 +80,7 @@
 					<div class="col-sm-9">
 					@if(!isset($id_salle)  && empty($id_salle)) 
 						<select class="col-xs-10 col-sm-5" id="chambre" name="chambre" required>
-						<option value="" selected disabled>Selectionner....</option>
+						<option value="" selected disabled>Selectionnez....</option>
 						</select>
 					@else
 						<select class="col-xs-10 col-sm-5" id="chambre" name="chambre" required>
@@ -93,7 +92,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-				<label class="col-sm-3 control-label no-padding-right" for="etatlit"><strong> Bloquer le Lit : </strong></label>
+				<label class="col-sm-3 control-label no-padding-right" for="etatlit"><strong> Bloquer un lit : </strong></label>
 				<div class="col-sm-9">
 				<div class="checkbox">
 				            <label>

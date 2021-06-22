@@ -3,12 +3,12 @@
 		<ul class = "nav nav-pills nav-justified navbar-custom1 list-group" role="tablist" id ="cliniq">
 			<li role= "presentation" class="active">
 	    			<a href="#ExamGen"  name="ExamGen" aria-controls="ExamGen" role="tab" data-toggle="tab" class="jumbotron">
-	 	 			<i class="fa fa-stethoscope fa-2x pull-left"></i><span class="bigger-130">  Exemen Général</span>
+	 	 			<i class="fa fa-stethoscope fa-2x pull-left"></i><span class="bigger-130">  Exemen général</span>
 	    			 </a>
 	   		 </li>
 			<li role= "presentation" name="appareils">
 			  <a href="#Appareils" aria-controls="Appareils" role="tab" data-toggle="tab" class="jumbotron">
-			  	<span class="medical medical-icon-i-internal-medicine" aria-hidden="true"></span><span class="bigger-130">Exemen Appareils</span>
+			  	<span class="medical medical-icon-i-internal-medicine" aria-hidden="true"></span><span class="bigger-130">Exemen d'appareils</span>
 			   </a>
 			</li>
 		</ul>
@@ -51,7 +51,7 @@
 	           			</div>
         				</div>
 		        		<div class="col-xs-2">
-		        			<label class="col-xs-12 control-label no-padding-right right" for="interpretation"><strong class="text-nowrap">Interpretation :</strong></label>
+		        			<label class="col-xs-12 control-label no-padding-right right" for="interpretation"><strong class="text-nowrap">Interprétation:</strong></label>
 		        		</div>	
 		        		<div class="col-xs-5">
 		        			<div class="input-group">
@@ -71,7 +71,7 @@
 						</div>
 					</div>
 					<div class="col-xs-2">
-        					<label class="col-sm-12 control-label no-padding-right right" for="autre"><strong>Autre :</strong></label>
+        					<label class="col-sm-12 control-label no-padding-right right" for="autre"><strong>Autres :</strong></label>
         				</div>
         				<div class="col-xs-5">
 						<div class="input-group">

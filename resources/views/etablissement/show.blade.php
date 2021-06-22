@@ -34,11 +34,11 @@
 </style>
 @endsection
 @section('main-content')
-{{-- 	<div class="row"><h3>Etablissement:</h3></div><div class="space-12 hidden-xs"></div> --}}
+{{-- 	<div class="row"><h3>Etablissement hospitalier:</h3></div><div class="space-12 hidden-xs"></div> --}}
 	<div class="row">
 		<div class="table-wrapper" style="overflow-x:auto;">
       <div class="table-title">
-        <div class="row"><div class="col-sm-6"><h3> <b>Etablissement</b></h3></div></div>            			 
+        <div class="row"><div class="col-sm-6"><h3> <b>Etablissement hospitalier</b></h3></div></div>            			 
 			</div>
 			<table class="table table-striped table-hover">
         <thead>

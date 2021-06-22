@@ -95,11 +95,11 @@
 	</div>{{-- widget-body --}}
 </div>{{-- widget-box --}}
 </div>{{-- row --}}
-<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Antecedents familiaux</h3></div></div>
+<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Antécédents familiaux</h3></div></div>
 <div class="row">
  	 <div class= "widget-box widget-color-green">
 		<div class="widget-header" >
-		<h5 class="widget-title bigger lighter"><font color="black"> <i class="ace-icon fa fa-table"></i>&nbsp;<b>Antecedents Familiaux</b></font></h5>
+		<h5 class="widget-title bigger lighter"><font color="black"> <i class="ace-icon fa fa-table"></i>&nbsp;<b>Antécédents familiaux</b></font></h5>
 		 <div class="widget-toolbar widget-toolbar-light no-border">
 			<a id="AntFamil-add" class="btn-xs align-middle" data-toggle="modal"><i class="fa fa-plus-circle bigger-180" style="color:black"></i></a>
 		</div>
@@ -178,7 +178,7 @@
 <div class="space-12"></div>
 <div class="row">
       <div class="col-sm-3 col-xs-6">
-	      <label for="autrefact" class="text-nowrap"><strong>Autre élément social</strong></label>
+	      <label for="autrefact" class="text-nowrap"><strong>Autre éléments sociaux</strong></label>
 	      <textarea class="form-control" name="autrefact">@if(isset($patient->facteurRisque)) {{ $patient->facteurRisque->autrefact }} @endif</textarea> 
 			</div>
 	<div class="col-sm-3 col-xs-6">
@@ -190,7 +190,7 @@
 		<textarea class="form-control" name="habitat">@if(isset($patient->facteurRisque)) {{ $patient->facteurRisque->habitat }} @endif</textarea> 
 	</div>
 	<div class="col-sm-3 col-xs-6">
-	      <label for="professionnel" class="text-nowrap"><strong>Facteurs Professionels</strong></label>
+	      <label for="professionnel" class="text-nowrap"><strong>Facteurs professionnels</strong></label>
 	      <textarea class="form-control" name="professionnel">@if(isset($patient->facteurRisque)) {{ $patient->facteurRisque->professionnel }} @endif</textarea> 
 	</div>
 </div>

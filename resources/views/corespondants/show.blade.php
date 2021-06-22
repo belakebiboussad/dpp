@@ -29,7 +29,7 @@
 					</div>
 				</div>
 				<div class="profile-info-row">
-					<div class="profile-info-name">Date Naissance </div>
+					<div class="profile-info-name">Date de naissance </div>
 					<div class="profile-info-value"><span>{{ $homme_c->date_naiss }}</span></div>
 				</div>
 				<div class="profile-info-row">

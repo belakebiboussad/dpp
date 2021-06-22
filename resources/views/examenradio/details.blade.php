@@ -309,7 +309,7 @@ function CRRSave()
 </div>
  <div class="row">
   <div class="col-xs-12 col-sm-12">
-    <div class="col-sm-6"><label class="control-label pull-right"><b>Medecin demandeur :</b></label></div>  
+    <div class="col-sm-6"><label class="control-label pull-right"><b>Médecin demandeur :</b></label></div>  
     <div class="form-group col-sm-6">
       <label class="blue">
       @if(isset($demande->consultation))
@@ -356,7 +356,7 @@ function CRRSave()
 <div class="row">
   <div class="col-sm-12 col-xs-12 widget-container-col">
     <div class="widget-box">
-      <div class="widget-header"><h5 class="widget-title"><b>Demande d'examens radiologiques</b></h5></div>
+      <div class="widget-header"><h5 class="widget-title"><b>Demande d'examen radiologique</b></h5></div>
       <div class="widget-body">
         <div class="widget-main">
          <table class="table table-striped table-bordered">
@@ -365,7 +365,7 @@ function CRRSave()
                 <th class="center" width="10%">#</th>
                 <th>Nom</th>
                 <th class="center"><strong>Type</strong></th>
-                <th class="center"><strong>Attacher le Résultat</strong></th>
+                <th class="center"><strong>Attacher le résultat</strong></th>
                 <td class="center" width="18%"><em class="fa fa-cog"></em></td>
               </tr>
             </thead>

@@ -55,13 +55,13 @@
 					<div class="space-12"></div>
 					<div class="row">
 						<div class="col-sm-12 col-xs-12">
-							<label class ="col-sm-2 col-xs-2 control-label no-padding-right text-right" for="resume"><strong>reumé:</strong></label>	
+							<label class ="col-sm-2 col-xs-2 control-label no-padding-right text-right" for="resume"><strong>Résumé:</strong></label>	
 					    <div class="col-sm-10 col-xs-10">
 					      <input type="text" id="resume" name="resume" value="{{ $demande->consultation->Resume_OBS }}" class="col-xs-12 col-sm-12" disabled/>
 					    </div>
 				    </div>
 	      	</div>
-	      	<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Informations concernant la Demande</h3></div></div>
+	      	<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Informations concernant la demande</h3></div></div>
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="widget-box">

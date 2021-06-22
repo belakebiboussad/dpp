@@ -19,7 +19,7 @@
 				         	</span>
 			          		<span  class ="primary"  style="float: left;">
 			            		<select name="typeH" id="typeH" class="enum list|prevenir|garde">
-							<option value="0">Garde Malade</option>
+							<option value="0">Garde malade</option>
 							<option value="1">Personne à prévenir</option>
 						</select>
 			          		</span>

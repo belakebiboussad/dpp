@@ -1,6 +1,6 @@
 <div class="servive-block servive-block-grey" id="widget-box-2">
 <div class="widget-header">
-	<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i><span><b>Détails du Lit :</b></span>	</h5>
+	<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i><span><b>Détails du lit :</b></span>	</h5>
 </div>
 <div class="widget-body">
 	<div class="widget-main">	

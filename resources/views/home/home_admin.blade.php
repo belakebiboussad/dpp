@@ -28,7 +28,7 @@ $( document ).ready(function() {
 				<div class="panel-heading"><h3>Rechercher un utilisateur:</h3></div>
 				<div class="panel-body">
 					<div class="form-group   has-feedback">
-						<label class="control-label" for="userName" >Nom Utilisateur:</label>
+						<label class="control-label" for="userName" >Nom utilisateur:</label>
 						    <input type="text" class="form-control" id="userName" name="userName"  placeholder="Rechercher..."/>
 						    <span class="glyphicon glyphicon-search form-control-feedback"></span>
 					</div>

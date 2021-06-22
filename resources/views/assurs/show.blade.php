@@ -23,9 +23,9 @@
 @endsection
 @section('main-content')
 <div class="page-header">
-	<h3>Détails du Fonctionnaire : {{ $assure->Nom }} {{ $assure->Prenom }}</h3>
+	<h3>Détails du fonctionnaire : {{ $assure->Nom }} {{ $assure->Prenom }}</h3>
 	<div class="pull-right">
-		<a href="{{ route('assur.index') }}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-search bigger-120 blue"></i>Chercher un Fonctionnire</a>
+		<a href="{{ route('assur.index') }}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-search bigger-120 blue"></i>Rechercher un fonctionnire</a>
 		<a href="{{route('assur.destroy',$assure->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-white btn-warning btn-bold"><i class="ace-icon fa fa-trash-o bigger-120 orange"> Supprimer</i></a>
    </div>
 </div>
@@ -72,7 +72,7 @@
 			@if(isset($assure->commune_res))
 			<div class="profile-user-info profile-user-info-striped">
 				<div class="profile-info-row">
-					<div class="profile-info-name"> Adress </div>
+					<div class="profile-info-name"> Adresse </div>
 						<div class="profile-info-value">
 							<i class="fa fa-map-marker light-orange bigger-110"></i>
 							<span class="editable" id="adress">{{ $assure->adresse }}, {{$assure->commune->nom_commune}} {{$assure->wilaya->nom}}</span>
@@ -137,7 +137,7 @@
 			</div>
 			<div class="profile-user-info profile-user-info-striped">
 				<div class="profile-info-row">
-					<div class="profile-info-name"> sécurité sociale </div>
+					<div class="profile-info-name"> Sécurité sociale </div>
 					<div class="profile-info-value">
 						<span class="editable" id="nom">{{ $assure->NSS }}</span>
 					</div>
@@ -188,7 +188,7 @@
 								<td>
 								 	@switch($patient->Type)
 								 			@case("0")
-     											<span class="label label-sm label-success"><strong>Assure</strong></span>
+     											<span class="label label-sm label-success"><strong>Assuré(e)</strong></span>
         									@break
     									@case("1")
        										<span class="label label-sm label-warning"><strong>Conjoint(e)</strong></span>

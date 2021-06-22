@@ -119,7 +119,7 @@
 </div>	
 <div class="row">
   	<div class="panel panel-default">
-    		<div class="panel-heading">Recherche</div>
+    		<div class="panel-heading">Rechercher</div>
     		<div class="panel-body">
 	  	 <div class="row">
       		<div class="col-sm-4">
@@ -128,8 +128,8 @@
          			<select  id="etat" class="selectpicker show-menu-arrow   col-xs-12 col-sm-12 filter">
 	         			<option selected disabled>Selectionner...</option>
 	         			<option value="">En Cours</option>
-	         			<option value="1">Validé</option>
-	         			<option value="0">Rejeté</option>
+	         			<option value="1">Validée</option>
+	         			<option value="0">Rejetée</option>
          	     		</select>
          		</div>
          	</div>
@@ -168,7 +168,7 @@
 											<tr>
 												<th class="center"><strong>Date</strong></th>
 												<th class="center"><strong>Etat</strong></th>
-												<th class="center"><strong>Medecin</strong></th>
+												<th class="center"><strong>Médecin</strong></th>
 												<th class="center"><strong><em class="fa fa-cog"></em></strong></th>
 											</tr>
 										</thead>

@@ -15,8 +15,7 @@ function getServiceRoom($id)
 </script>
 @endsection
 @section('main-content')
-<div class="page-header">
-	<h1>Liste des chambres</h1>
+<div class="row"><h3><strong>Liste des chambres</strong></h3>
 </div>
 <div class="row">
 	<div class="col-xs-7">

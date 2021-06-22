@@ -7,7 +7,7 @@
 				<strong>Liste des Colloques @if(isset($type)) {{( $type == 0) ? 'Médicaux ' : 'Chirurgicaux' }} @endif 	</strong>
 			</h5>
 			<div class="widget-toolbar widget-toolbar-light no-border">
-			  <div class="fa fa-plus-circle"></div><a href="{{ route('colloque.create')}}"><b>Ajouter Colloque</b></a>
+			  <div class="fa fa-plus-circle"></div><a href="{{route('colloque.create')}}"><b>Ajouter Colloque</b></a>
 			</div>	
 		</div>
 		<div class="widget-body">

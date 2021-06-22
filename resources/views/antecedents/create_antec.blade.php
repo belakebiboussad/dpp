@@ -13,7 +13,7 @@
         		     <div class="widget-header" >
                         <h6 class="widget-title">
                         	<font color="black">
-                        		<b>Antecedants</b>
+                        		<b>Antecedents</b>
                         	</font>
                         </h6>
                         <div class="widget-toolbar">

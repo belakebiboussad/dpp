@@ -94,7 +94,7 @@ $('document').ready(function(){
 									      <tr>
 				                  <th class="center"><strong>Nom(D.C.I )</strong></th>
 				                  <th class="center"><strong>Code</strong></th>
-				                  <th class="center"><strong>specialité</strong></th>
+				                  <th class="center"><strong>Specialité</strong></th>
 				                </tr>
 				                </thead>
 									  </table>

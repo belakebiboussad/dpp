@@ -1,14 +1,13 @@
 @extends('app')
 @section('main-content')
-<div class="page-header">
-	<h1><strong>Liste des Roles :</strong></h1>
+<div class="row"><h3><strong>Liste des rôles :</strong></h3>
 </div>
 <div class="row">
 	
 <div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2">
 <div class="widget-box widget-color-blue" id="widget-box-2">
 	<div class="widget-header">
-		<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des Roles :</h5>
+		<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des rôles :</h5>
 		<div class="widget-toolbar widget-toolbar-light no-border"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 			<a href="/role/create"><b>Rôle</b></a>
 		</div>
@@ -18,7 +17,7 @@
 			<table class="table table-striped table-bordered table-hover">
 			<thead class="thin-border-bottom">
 				<tr>
-					<th>n°</th >
+					<th><strong>N°</strong></th >
 	   				<th><strong style="font-size:14px;"> Nom</strong></th>
 					
 					<th></th>

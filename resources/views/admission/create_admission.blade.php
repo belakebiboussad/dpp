@@ -56,7 +56,7 @@
 			<input type="text" name="id_demande" value="{{$demande->id_demande}}" hidden>
 			<div class="row">
 				<div class="col-sm12">
-					 <h3 class="header smaller lighter blue">informations concernant la demande d'hospitalisation</h3>
+					 <h3 class="header smaller lighter blue">Informations concernant la demande d'hospitalisation</h3>
 				</div>
 			</div>
 			<div class="space-12"></div>
@@ -69,7 +69,7 @@
 			      </div>
 			    </div>
 		   	  <div class="col-xs-4">
-						<label class="col-sm-3 control-label no-padding-right" for="motif"><strong>Specialite :</strong></label>
+						<label class="col-sm-3 control-label no-padding-right" for="motif"><strong>Spécialité :</strong></label>
 						<div class="col-sm-9">
 							<input type="text" id="motif" name="motifhos" value="{{$demande->demandeHosp->Specialite->nom}}" class="col-xs-12 col-sm-12" disabled/>
 						</div>	
@@ -85,7 +85,7 @@
    		<div class="space-12"></div>
 			<div class="row form-group">
 			  <div class="col-xs-4">
-			  	<label class="col-sm-3 control-label no-padding-right" for="motif"><strong>Medecin Traitant:</strong></label>
+			  	<label class="col-sm-3 control-label no-padding-right" for="motif"><strong>Médecin traitant:</strong></label>
 					<div class="col-sm-9">
 						<input type="text" id="motif" name="motifhos" value="{{$demande->medecin->nom}} {{$demande->medecin->prenom}}" class="col-xs-10 col-sm-5" disabled/>
 					</div>	
@@ -111,7 +111,7 @@
 				  </div>
    		  </div>
 				<div class="col-xs-4">
-					<label class="col-sm-3 control-label no-padding-right" for="motif"><strong>observation :</strong></label>
+					<label class="col-sm-3 control-label no-padding-right" for="motif"><strong>Observation :</strong></label>
 						<div class="col-sm-9">
 						<input type="text" id="motif" name="motifhos" value="{{$demande->observation}}" class="col-xs-10 col-sm-5" disabled/>
 					</div>	
@@ -128,17 +128,17 @@
 					</div>
 				</div>
 				<div class="col-xs-4">
-					<label class="col-sm-4 control-label no-padding-right" for="heure_rdvh" style="padding: 0.9%;">	<strong> Heure entrée Prévue :</strong></label>
+					<label class="col-sm-4 control-label no-padding-right" for="heure_rdvh" style="padding: 0.9%;">	<strong> Heure entrée prévue :</strong></label>
 					<div class="input-group col-sm-8" style ="width:35.8%;padding: 0.8%;">	
 					  <input id="heure_rdvh" name="heure_rdvh" class="form-control timepicker" type="text"  required>
 						<span class="input-group-addon">	<i class="fa fa-clock-o bigger-110"></i></span>
 					</div>
 				</div>
 				<div id = "numberofDays" class="col-xs-4">
-					<label class="col-sm-3 control-label no-padding-right" for="numberDays"><strong> Durée Prévue :</strong></label>
+					<label class="col-sm-3 control-label no-padding-right" for="numberDays"><strong> Durée prévue :</strong></label>
 				 	<div class="col-sm-9">
 						<input class="col-xs-5 col-sm-5" id="numberDays" name="" type="number" placeholder="nombre de nuit(s)" min="0" max="50" value="0" required />
-						<label for=""><small>nuit(s)</small></label>
+						<label for=""><small>Nuit(s)</small></label>
 					</div>	
 				</div>
 			</div><!-- row -->
@@ -153,7 +153,7 @@
 			  </div>
 			  <div class="col-xs-4">
 					<div class="form-group">
-						<label class="col-sm-4 control-label no-padding-right" for="heureSortiePrevue" style="padding: 0.9%;"><strong> Heure sortie Prévue :</strong></label>
+						<label class="col-sm-4 control-label no-padding-right" for="heureSortiePrevue" style="padding: 0.9%;"><strong> Heure sortie prévue :</strong></label>
 						<div class="input-group col-sm-8" style ="width:35.8%;padding: 0.8%;">	
 							<input id="heureSortiePrevue" name="heureSortiePrevue" class="form-control timepicker" type="text" required>
 							<span class="input-group-addon">	<i class="fa fa-clock-o bigger-110"></i></span>			
@@ -169,7 +169,7 @@
 			  		<label class="col-sm-4 control-label no-padding-right" for="dateSortie">	<strong> Service :</strong>	</label>
 					 	<div class="col-sm-8">
 							<select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9" placeholder="selectionnez le service d'hospitalisation"/>
-							  <option value="" selected disabled>selectionnez le service d'hospitalisation</option>
+							  <option value="" selected disabled>Selectionnez le service d'hospitalisation</option>
 							  @foreach($services as $service)
 								<option value="{{ $service->id }}">{{ $service->nom }}</option>
 								@endforeach
@@ -180,7 +180,7 @@
 			   		<label class="col-sm-4 control-label no-padding-right" for="salle">	<strong> Salle :</strong>	</label>
 						<div class="col-sm-8">
 							<select id="salle" name="salle" data-placeholder="selectionnez la salle d'hospitalisation" class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9" disabled>
-								<option value="" selected>selectionnez la salle d'hospitalisation</option>
+								<option value="" selected>Selectionnez la salle d'hospitalisation</option>
 						  </select>
 						</div>
 			  </div>
@@ -188,7 +188,7 @@
 			  	<label class="col-sm-3 control-label" for="lit_id">	<strong>Lit : </strong></label>
 						<div class="col-sm-8">
 							<select id="lit_id" name="lit_id" data-placeholder="selectionnez le lit" class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9" disabled>
-								<option value="" selected disabled>selectionnez le lit d'hospitalisation</option>
+								<option value="" selected disabled>Selectionnez le lit d'hospitalisation</option>
 							</select>
 						</div>	
 				</div>

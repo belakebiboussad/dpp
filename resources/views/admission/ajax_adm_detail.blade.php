@@ -26,7 +26,7 @@
 				</div>
 				<div class="row">
 					<div class="form-group">		
-						<label class="col-sm-4 col-xs-4 control-label no-padding-right" for="medecin"><strong>Medecin Trait.. :</strong></label>
+						<label class="col-sm-4 col-xs-4 control-label no-padding-right" for="medecin"><strong>Médecin Traitant :</strong></label>
 						<div class="col-sm-8 col-xs-8">
 							<select name="medecin" id="medecin" class="col-xs-11 col-sm-11">
 							@isset($adm->demandeHospitalisation->DemeandeColloque)
@@ -41,7 +41,7 @@
 				</div>
 				<div class="row">	
 					<div class="form-group">
-						<label class="col-sm-4 col-xs-4 control-label no-padding-right" for="Date_entree"><strong> Date Entrée :</strong></label>
+						<label class="col-sm-4 col-xs-4 control-label no-padding-right" for="Date_entree"><strong> Date d'entrée :</strong></label>
 						<div class="col-sm-8 col-xs-8">
 							<input class="col-xs-11 col-sm-11 date-picker" name="Date_entree" id="Date_entree" type="text" data-date-format="yyyy-mm-dd" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" disabled/>	
 						</div>				
@@ -49,7 +49,7 @@
 				</div>
 				<div class="row">
 					<div class="form-group">
-						<label class="col-sm-4 col-xs-4 control-label no-padding-right" for="numberDays"><strong> Durée Prévue :</strong></label>
+						<label class="col-sm-4 col-xs-4 control-label no-padding-right" for="numberDays"><strong> Durée prévue :</strong></label>
 					  <div class="col-sm-8 col-xs-8 text-nowrap">
 							<input class="col-xs-10 col-sm-10" id="numberDays" type="number" min="0" max="50" value="{{$nbr}}" />
 							<label for=""><small>&nbsp; nuit(s)</small></label>
@@ -70,10 +70,10 @@
 			</div>
 			<div class="row">
 				<div class="form-group">
-					<label class="col-sm-4 control-label no-padding-right text-nowrap" for="mode"><strong>Mode Hospitalis. :</strong></label>
+					<label class="col-sm-4 control-label no-padding-right text-nowrap" for="mode"><strong>Mode d'hospitalisation :</strong></label>
 					<div class="col-sm-8 col-xs-8">
 						<select id="mode" name="mode" value="" class="col-xs-11 col-sm-11" required>
-						<option value="">Selectionner....</option>
+						<option value="">Selectionnez...</option>
 						@foreach($modesHosp as $mode)
 							<option value="{{ $mode->id }}">{{ $mode->nom}}</option>
 						@endforeach
@@ -84,10 +84,10 @@
 			@if($adm->demandeHospitalisation->consultation->patient->hommesConf->count() > 0)
 			<div class="row" id="garde">
 				<div class="form-group">
-					<label class="col-sm-4 control-label no-padding-right" for="garde"><strong>Garde Malade :</strong></label>
+					<label class="col-sm-4 control-label no-padding-right" for="garde"><strong>Garde malade :</strong></label>
 					<div class="col-sm-8 col-xs-8">
 					<select id="garde_id" name="garde_id" placeholder="Ajouter garde malade" value="" class="col-xs-11 col-sm-11">
-							<option value="">Selectionner ....</option>
+							<option value="">Selectionnez...</option>
 							@foreach($adm->demandeHospitalisation->consultation->patient->hommesConf as $hom)
 							<option value="{{ $hom->id}}">{{ $hom->nom }}&nbsp; {{ $hom->prenom }}</option>}
 							option
