@@ -26,14 +26,14 @@ class DemandeExbController extends Controller
         }
         public function createexb($id)
         {
-                $specialites = specialite_exb::all();
-                $consultation = consultation::FindOrFail($id);
-                return view('examenbio.demande_exb', compact('specialites','consultation')); 
+          $specialites = specialite_exb::all();
+          $consultation = consultation::FindOrFail($id);
+          return view('examenbio.demande_exb', compact('specialites','consultation')); 
         }
-       public function index() {
-               $services =service::where('type','!=',"2")->get();
-              $demandesexb = demandeexb::with('consultation.patient')->where('etat',null)->get();
-              return view('examenbio.index', compact('demandesexb','services'));
+        public function index() {
+          $services =service::where('type','!=',"2")->get();
+          $demandesexb = demandeexb::with('consultation.patient','visite.hospitalisation.patient')->where('etat',null)->get();
+          return view('examenbio.index', compact('demandesexb','services'));
         }
   /**
    * Show the form for creating a new resource.
@@ -132,20 +132,23 @@ class DemandeExbController extends Controller
        }
        public function search(Request $request)
       {
-               if($request->field != "service")  
-              {
-                      if(isset($request->value))
-                               $demandes = demandeexb::with('consultation','consultation.patient','consultation.docteur','consultation.docteur.Service')->where($request->field,'LIKE', trim($request->value)."%")->get();
-                      else
-                               $demandes = demandeexb::with('consultation','consultation.patient','consultation.docteur','consultation.docteur.Service')->where($request->field, null)->get();
-              }else
-              {
-                      $serviceID = $request->value;
-                       $demandes = demandeexb::with('consultation','consultation.patient','consultation.docteur','consultation.docteur.Service')->whereHas('consultation.docteur.Service', function($q) use ($serviceID) {
-                                                            $q->where('id', $serviceID);
-                        })->get();
-              }
-              return Response::json($demandes);
+        if($request->field != "service")  
+        {
+          if(isset($request->value))
+            $demandes = demandeexb::with('consultation.patient','consultation.docteur.Service','visite.hospitalisation.patient','visite.hospitalisation.medecin.Service')->where($request->field,'LIKE', trim($request->value)."%")->get();
+          else
+            $demandes = demandeexb::with('consultation.patient','consultation.docteur.Service','visite.hospitalisation.patient','visite.hospitalisation.medecin.Service')->where($request->field, null)->get();
+        }else
+        {
+          $serviceID = $request->value;
+          $demandes = demandeexb::with('consultation.patient','consultation.docteur.Service','visite.hospitalisation.patient','visite.hospitalisation.medecin.Service')
+                                 ->whereHas('consultation.docteur.Service', function($q) use ($serviceID) {
+                                      $q->where('id', $serviceID);
+                                  })->orWhereHas('visite.hospitalisation.medecin.Service', function($q) use ($serviceID) {
+                                      $q->where('id', $serviceID);
+                                  })->get();
+        }
+        return Response::json($demandes);
       }
        public function print($id)
        {
