@@ -1,4 +1,4 @@
-@extends('app')
+@extends('app_inf')
 @section('main-content')
 <?php $patient = $hosp->patient; ?>
 <div class="row">@include('patient._patientInfo', $patient)</div>
@@ -14,6 +14,7 @@
 		@if(in_array(Auth::user()->role_id,[1,14]))
 		<li ><a data-toggle="tab" href="#visites">Visites & Contrôles</a></li>
 		@endif
+		<li ><a data-toggle="tab" href="#constantes">Constantes</a></li>
 	</ul>
 	<div class="tab-content no-border padding-24">
 		<div id="hospi" class="tab-pane in active">
@@ -24,36 +25,38 @@
 					<div class="col-sm-12">
 					<ul class="list-unstyled spaced">
 						<li>
-					    <i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>{{ $hosp->admission->demandeHospitalisation->Service->nom }}
+					    	<i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->Service->nom }}
 						</li>
 						<li>
-			 				<i class="ace-icon fa fa-caret-right blue"></i><strong>Specialite :</strong> {{ $hosp->admission->demandeHospitalisation->Specialite->nom }}
+			 				<i class="ace-icon fa fa-caret-right blue"></i><strong>Specialite :</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->Specialite->nom }}
 						</li>
 						<li>
-							<i class="ace-icon fa fa-caret-right blue"></i><strong>Mode d'admission:</strong>{{ $hosp->admission->demandeHospitalisation->modeAdmission }}
+							<i class="ace-icon fa fa-caret-right blue"></i><strong>Mode d'admission:</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->modeAdmission }}
 						</li>
 						<li>
-							<i class="ace-icon fa fa-caret-right blue"></i><strong>Medecin Traitant:</strong>
+							<i class="ace-icon fa fa-caret-right blue"></i><strong>Medecin Traitant:</strong>&nbsp;&nbsp;
 							{{ $hosp->medecin->nom }}	{{$hosp->medecin->prenom}}		
 						</li>
-						<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Date d'entrée:</strong>{{ $hosp->Date_entree }}</li>	
-						<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Date sortie prévue:</strong>{{ $hosp->Date_Prevu_Sortie }}</li>
+						<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Date d'entrée:</strong>&nbsp;&nbsp;{{ $hosp->Date_entree }}</li>	
+						<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Date sortie prévue:</strong>&nbsp;&nbsp;{{ $hosp->Date_Prevu_Sortie }}</li>
 					</ul>
 					</div>
 				</div>
 			</div>
-		</div><div class="space-12"></div>	
+		</div>
+		<div class="space-12"></div>	
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="row"><div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><strong><span style="font-size:16px;">Hébergement</span></strong></div></div>
 				<div class="row">
 					<div class="col-sm-12">
-					     <ul class="list-inline" style="flex-grow: 1;">
+					     <ul class="list-unstyled spaced" style="flex-grow: 1;">
 					          <li style="width: 300px;" >
-					           	<i class="ace-icon fa fa-caret-right blue"></i><strong>Service:</strong> {{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->salle->service->nom }}
+					           		<i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>&nbsp;&nbsp;
+								   	{{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->salle->service->nom }}
 					          </li>
-					          <li style="width: 300px;"><a href = "#"><i class="ace-icon fa fa-caret-right blue"></i><strong>Salle :</strong> {{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->salle->nom }}</a></li>
-					          <li style="width: 200px;"><a href = "#"><i class="ace-icon fa fa-caret-right blue"></i><strong>Lit :</strong> {{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->nom }}</a></li>
+					          <li style="width: 300px;"><i class="ace-icon fa fa-caret-right"></i><strong>Salle :</strong> {{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->salle->nom }}</li>
+					          <li style="width: 200px;"><i class="ace-icon fa fa-caret-right"></i><strong>Lit :</strong> {{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->nom }}</li>
 					      </ul>
 					</div>
 				</div>
@@ -81,6 +84,531 @@
 		@endif
 		</div>	{{-- tab-pane --}}
 		<div id="visites" class="tab-pane in"><div class="row">@include('visite.liste')</div></div>
+		<div id="constantes" class="tab-pane">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="col-sm-8">
+						<div class="widget-box">
+							<div class="widget-header">
+								<h4 class="widget-title">Patient : {{ $patient->Nom }} {{ $patient->Prenom }}</h4>
+							</div>
+							<div class="widget-body">
+								<div class="widget-main">
+									<canvas id="poid" width="400" height="100"></canvas>
+									<canvas id="taille" width="400" height="100"></canvas>
+									<canvas id="pas" width="400" height="100"></canvas>
+									<canvas id="pad" width="400" height="100"></canvas>
+									<canvas id="pouls" width="400" height="100"></canvas>
+									<canvas id="temp" width="400" height="100"></canvas>
+									<canvas id="glycemie" width="400" height="100"></canvas>
+									<canvas id="cholest" width="400" height="100"></canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="widget-box">
+							<div class="widget-header">
+								<h4 class="widget-title">Nouvelle prise</h4>
+							</div>
+							<div class="widget-body">
+								<div class="widget-main">
+									<div class="text-center">			
+										@if($message = Session::get('succes'))
+											<div class="alert alert-success" role="alert">
+												{{ $message }}
+											</div>
+										@endif 
+										@if($message = Session::get('error'))
+											<div class="alert alert-danger" role="alert">
+												{{ $message }}
+											</div>
+										@endif
+									</div>
+									<form method="POST" action="/storeconstantes">
+									{{ csrf_field() }}
+									<input type="text" name="patient_id" id="patient_id" value="{{ $patient->id }}" hidden>
+									<input type="text" name="hosp_id" id="hosp_id" value="{{ $hosp->id }}" hidden>
+									<div>
+										<label for="poids">Poid (KG)</label>
+										<input type="text" name="poids" class="form-control">			
+									</div>
+									<hr/>
+									<div>
+										<label for="taille">Taille (CM)</label>
+										<input type="text" name="taille" class="form-control">				
+									</div>
+									<hr/>
+									<div>
+										<label for="pas">PAS (mmHg)</label>
+										<input type="text" name="pas" class="form-control">				
+									</div>
+									<hr/>
+									<div>
+										<label for="pad">PAD (mmHg)</label>
+										<input type="text" name="pad" class="form-control">				
+									</div>
+									<hr/>
+									<div>
+										<label for="pouls">Pouls (bpm)</label>
+										<input type="text" name="pouls" class="form-control">				
+									</div>
+									<hr/>
+									<div>
+										<label for="temp">Temp (°C)</label>
+										<input type="text" name="temp" class="form-control">				
+									</div>
+									<hr/>
+									<div>
+										<label for="glycemie">Glycémie (g/l)</label>
+										<input type="text" name="glycemie" class="form-control">				
+									</div>
+									<hr/>
+									<div>
+										<label for="cholest">Cholést (mmol/l)</label>
+										<input type="text" name="cholest" class="form-control">				
+									</div>
+									<hr/>
+								</div>
+							</div>
+							<div class="form-actions center">
+								<button type="submit" class="btn btn-sm btn-success">
+									Enregistrer
+									<i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
+								</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>	
+			</div>
+		</div>
 	</div>	{{-- tab-content --}}
 </div>
+@endsection
+@section('page-script')
+<script type="text/javascript">
+var ctx = document.getElementById('poid').getContext('2d');
+var pd = [];
+var days = [];
+var poidsfun = $.ajax({
+    url: "/getpoids/{{ $hosp->id }}",
+    success: function(result){
+
+        var finalArray = result.map(function (obj) {
+            return obj.poid;
+        });
+
+        Array.prototype.push.apply(pd, finalArray);
+
+        return finalArray;
+    }
+});
+var daysfun = $.ajax({
+    url: "/getdayspoids/{{ $hosp->id }}",
+
+    success: function(result){
+
+        var finalArray = result.map(function (obj) {
+            return obj.date_prise;
+        });
+
+        Array.prototype.push.apply(days, finalArray);
+
+        return finalArray;
+    }
+});
+var poid = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: days,
+        datasets: [{
+            label: 'Poid (KG)',
+            data: pd,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+<script type="text/javascript">
+var ctx = document.getElementById('taille').getContext('2d');
+var tail = [];
+var taillefun = $.ajax({
+    url: "/gettaille/{{ $hosp->id }}",
+    success: function(result){
+
+        var finalArray = result.map(function (obj) {
+            return obj.taille;
+        });
+
+        Array.prototype.push.apply(tail, finalArray);
+
+        return finalArray;
+    }
+});
+var taille = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: days,
+        datasets: [{
+            label: 'Taille (CM)',
+            data: tail,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+<script type="text/javascript">
+var ctx = document.getElementById('pas').getContext('2d');
+var pa = [];
+var pasfun = $.ajax({
+    url: "/getpas/{{ $hosp->id }}",
+    success: function(result){
+
+        var finalArray = result.map(function (obj) {
+            return obj.pas;
+        });
+
+        Array.prototype.push.apply(pa, finalArray);
+
+        return finalArray;
+    }
+});
+var pas = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: days,
+        datasets: [{
+            label: 'PAS (mmHg)',
+            data: pa,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+<script type="text/javascript">
+var ctx = document.getElementById('pad').getContext('2d');
+var pdd = [];
+var padfun = $.ajax({
+    url: "/getpad/{{ $hosp->id }}",
+    success: function(result){
+
+        var finalArray = result.map(function (obj) {
+            return obj.pad;
+        });
+
+        Array.prototype.push.apply(pdd, finalArray);
+
+        return finalArray;
+    }
+});
+var pad = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: days,
+        datasets: [{
+            label: 'PAD (mmHg)',
+            data: pdd,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+<script type="text/javascript">
+var ctx = document.getElementById('pouls').getContext('2d');
+var pou = [];
+var poulsfun = $.ajax({
+    url: "/getpouls/{{ $hosp->id }}",
+    success: function(result){
+
+        var finalArray = result.map(function (obj) {
+            return obj.pouls;
+        });
+
+        Array.prototype.push.apply(pou, finalArray);
+
+        return finalArray;
+    }
+});
+var pouls = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: days,
+        datasets: [{
+            label: 'Pouls (bpm)',
+            data: pou,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+<script type="text/javascript">
+var ctx = document.getElementById('temp').getContext('2d');
+var tem = [];
+var tempfun = $.ajax({
+    url: "/gettemp/{{ $hosp->id }}",
+    success: function(result){
+
+        var finalArray = result.map(function (obj) {
+            return obj.temp;
+        });
+
+        Array.prototype.push.apply(tem, finalArray);
+
+        return finalArray;
+    }
+});
+var temp = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: days,
+        datasets: [{
+            label: 'Temp (°C)',
+            data: tem,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+<script type="text/javascript">
+var ctx = document.getElementById('glycemie').getContext('2d');
+var glyc = [];
+var glycemiefun = $.ajax({
+    url: "/getglycemie/{{ $hosp->id }}",
+    success: function(result){
+
+        var finalArray = result.map(function (obj) {
+            return obj.glycemie;
+        });
+
+        Array.prototype.push.apply(glyc, finalArray);
+
+        return finalArray;
+    }
+});
+var glycemie = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: days,
+        datasets: [{
+            label: 'Glycémie (g/l)',
+            data: glyc,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+<script type="text/javascript">
+var ctx = document.getElementById('cholest').getContext('2d');
+var choles = [];
+var cholestfun = $.ajax({
+    url: "/getcholest/{{ $hosp->id }}",
+    async : false,
+    success: function(result){
+
+        var finalArray = result.map(function (obj) {
+            return obj.cholest;
+        });
+
+        Array.prototype.push.apply(choles, finalArray);
+
+        return finalArray;
+    }
+});
+var cholest = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: days,
+        datasets: [{
+            label: 'Cholést (mmol/l)',
+            data: choles,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
 @endsection

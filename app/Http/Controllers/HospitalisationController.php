@@ -16,6 +16,7 @@ use App\modeles\Etatsortie;
 use App\modeles\CIM\chapitre;
 use Jenssegers\Date\Date;
 use App\modeles\etablissement;
+use App\modeles\Constontes;
 use Carbon\Carbon;
 use PDF;
 use Dompdf\Dompdf;
@@ -233,4 +234,79 @@ class HospitalisationController extends Controller
     
     return $dompdf->stream($name); 
   }
+
+  public function storeconstantes(Request $request)
+  {
+
+    $constontes = Constontes::FirstOrCreate([
+      "poid" => $request->poids,
+      "taille" => $request->taille,
+      "pas" => $request->pas,
+      "pad" => $request->pad,
+      "pouls" => $request->pouls,
+      "temp" => $request->temp,
+      "glycemie" => $request->glycemie,
+      "cholest" => $request->cholest,
+      "date_prise" => Carbon::now(),
+      "patient_id" => $request->patient_id,
+      "hospitalisation_id" => $request->hosp_id,
+    ]);
+
+    return redirect()->back()->with('succes', 'constantes inserer avec success');
+  }
+
+  public function get_poids($id_hosp)
+  {
+    $poids = Constontes::select('poid')->where('hospitalisation_id', $id_hosp)->get();
+    return $poids->toArray();
+  }
+
+  public function get_days_poids($id_hosp)
+  {
+    $poids = Constontes::select('date_prise')->where('hospitalisation_id', $id_hosp)->get();
+    return $poids->toArray();
+  }
+
+  public function get_taille($id_hosp)
+  {
+    $tailles = Constontes::select('taille')->where('hospitalisation_id', $id_hosp)->get();
+    return $tailles->toArray();
+  }
+
+  public function get_pas($id_hosp)
+  {
+    $pas = Constontes::select('pas')->where('hospitalisation_id', $id_hosp)->get();
+    return $pas->toArray();
+  }
+
+  public function get_pad($id_hosp)
+  {
+    $pad = Constontes::select('pad')->where('hospitalisation_id', $id_hosp)->get();
+    return $pad->toArray();
+  }
+
+  public function get_pouls($id_hosp)
+  {
+    $pouls = Constontes::select('pouls')->where('hospitalisation_id', $id_hosp)->get();
+    return $pouls->toArray();
+  }
+
+  public function get_temp($id_hosp)
+  {
+    $temp = Constontes::select('temp')->where('hospitalisation_id', $id_hosp)->get();
+    return $temp->toArray();
+  }
+
+  public function get_glycemie($id_hosp)
+  {
+    $glycemie = Constontes::select('glycemie')->where('hospitalisation_id', $id_hosp)->get();
+    return $glycemie->toArray();
+  }
+
+  public function get_cholest($id_hosp)
+  {
+    $cholest = Constontes::select('cholest')->where('hospitalisation_id', $id_hosp)->get();
+    return $cholest->toArray();
+  }
+
 }

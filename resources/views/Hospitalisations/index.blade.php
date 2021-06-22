@@ -283,7 +283,7 @@ $('.filter').change(function(){// if($(this).attr('id') != "Nom") //getHospitali
            <tbody>
                @foreach ($hospitalisations as $hosp)
                 <tr id="hospi{{ $hosp->id }}">
- {{-- <td><input type="checkbox" class="editor-active check" value="{{ $hosp->id}}"/><span class="lbl"></span></td>--}}
+                    {{-- <td><input type="checkbox" class="editor-active check" value="{{ $hosp->id}}"/><span class="lbl"></span></td>--}}
                     <td>{{ $hosp->patient->Nom }} {{ $hosp->patient->Prenom }}</td>
                     <td class="priority-4">{{ $hosp->admission->demandeHospitalisation->modeAdmission}} </td>
                     <td>{{  $hosp->Date_entree}}</td>

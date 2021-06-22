@@ -2,7 +2,6 @@
 <html lang="en">
  <title>@yield('title','Dossier patient')</title>
 	@include('partials.htmlheader')
-	@include('partials.scripts')
 	<body class="no-skin">
 		@include('partials.navbar')
 		<div class="main-container" id="main-container">
@@ -26,5 +25,6 @@
         </div>
     </div><!-- main-containe -->
 	</body>
+  @include('partials.scripts')
 	@yield('page-script')
 </html>

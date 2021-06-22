@@ -92,7 +92,8 @@
                         { data: "Date_Consultation" , title:'Date' },
                     ],
                     "columnDefs": [
-                      
+                      {"targets": 0 ,  className: "dt-head-center" },
+                      {"targets": 1 ,  className: "dt-head-center" },
                     ]
 
               });
