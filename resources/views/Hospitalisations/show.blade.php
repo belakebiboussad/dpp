@@ -193,6 +193,7 @@ var pd = [];
 var days = [];
 var poidsfun = $.ajax({
     url: "/getpoids/{{ $hosp->id }}",
+    async: false,
     success: function(result){
 
         var finalArray = result.map(function (obj) {
@@ -206,7 +207,7 @@ var poidsfun = $.ajax({
 });
 var daysfun = $.ajax({
     url: "/getdayspoids/{{ $hosp->id }}",
-
+    async: false,
     success: function(result){
 
         var finalArray = result.map(function (obj) {
@@ -258,6 +259,7 @@ var ctx = document.getElementById('taille').getContext('2d');
 var tail = [];
 var taillefun = $.ajax({
     url: "/gettaille/{{ $hosp->id }}",
+    async: false,
     success: function(result){
 
         var finalArray = result.map(function (obj) {
@@ -309,6 +311,7 @@ var ctx = document.getElementById('pas').getContext('2d');
 var pa = [];
 var pasfun = $.ajax({
     url: "/getpas/{{ $hosp->id }}",
+    async: false,
     success: function(result){
 
         var finalArray = result.map(function (obj) {
@@ -360,6 +363,7 @@ var ctx = document.getElementById('pad').getContext('2d');
 var pdd = [];
 var padfun = $.ajax({
     url: "/getpad/{{ $hosp->id }}",
+    async: false,
     success: function(result){
 
         var finalArray = result.map(function (obj) {
@@ -411,6 +415,7 @@ var ctx = document.getElementById('pouls').getContext('2d');
 var pou = [];
 var poulsfun = $.ajax({
     url: "/getpouls/{{ $hosp->id }}",
+    async: false,
     success: function(result){
 
         var finalArray = result.map(function (obj) {
@@ -462,6 +467,7 @@ var ctx = document.getElementById('temp').getContext('2d');
 var tem = [];
 var tempfun = $.ajax({
     url: "/gettemp/{{ $hosp->id }}",
+    async: false,
     success: function(result){
 
         var finalArray = result.map(function (obj) {
@@ -513,6 +519,7 @@ var ctx = document.getElementById('glycemie').getContext('2d');
 var glyc = [];
 var glycemiefun = $.ajax({
     url: "/getglycemie/{{ $hosp->id }}",
+    async: false,
     success: function(result){
 
         var finalArray = result.map(function (obj) {
