@@ -3,7 +3,7 @@
   <div class="row" width="100%"> @include('patient._patientInfo') </div>
   <div class="content">
     <div class="row">
-      <div class="col-sm-5"><h3>Détails de la demande Biologique</h3></div> <div class="col-sm-5"></div>
+      <div class="col-sm-5"><h3>Détails de la demande biologique</h3></div> <div class="col-sm-5"></div>
       <div class="col-sm-7">
         @if($demande->consultation->docteur->id == Auth::user()->employ->id)
         <a href="/dbToPDF/{{ $demande->id }}" title = "Imprimer"  target="_blank" class="btn btn-sm btn-primary pull-right">

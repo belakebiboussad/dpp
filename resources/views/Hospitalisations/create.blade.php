@@ -19,10 +19,10 @@
 @section('title') Nouvelle Hospitalisation
 @endsection
 @section('main-content')
-	<div class="page-header"><h1> Ajouter une hospitalisation</h1>
+	<div class="page-header"><h3><strong>Ajouter une hospitalisation</strong></h3>
 		<div class="pull-right">
 		<a href="{{route('hospitalisation.index')}}" class="btn btn-white btn-info btn-bold">
-			<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>Liste des hospitalisation
+			<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>Liste des hospitalisations
 		</a>
 	</div>
 	</div><div class="space-12"></div>
@@ -38,7 +38,7 @@
 							<th class ="center"><strong>Mode d'admission</strong></th>
 							<th class ="center"><strong>Service</strong></th>
 							<th class ="center"><strong>Médecin traitant</strong></th>
-							<th class ="center" width="1%"><strong>Priorite</strong></th>
+							<th class ="center" width="1%"><strong>Priorité</strong></th>
 							<th class ="center"><strong>Observation</strong></th>
 							<th class ="center"><strong>Date d'entrée</strong></th>
 							<th class ="center"><strong>Date de sortie prévue</strong></th>

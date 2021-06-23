@@ -6,10 +6,10 @@
 <table class="table  table-bordered table-hover">
 	<thead>
 		<tr>
-			<th>Motif De Consultation</th>
-			<th>Date De Consultation</th>
-			<th>Nom Du Patient</th>
-			<th>Nom Du Médecine Traitant</th>
+			<th>Motif de consultation</th>
+			<th>Date de consultation</th>
+			<th>Nom du patient</th>
+			<th>Nom du médecin traitant</th>
 			<th></th>
 		</tr>
 	</thead>

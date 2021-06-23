@@ -204,7 +204,7 @@
 @section('main-content')
 <div class="row">
   <div class="col-sm-12 col-md-12">
-    <h2><strong>Rechercher une hospitalisation</strong></h2>
+    <h3><strong>Rechercher une hospitalisation</strong></h3>
     <div class="panel panel-default">
       <div class="panel-heading">Recherche</div>
       <div class="panel-body">
@@ -224,7 +224,7 @@
              <input type="text" id="IPP" class="form-control filter">
           </div>
            <div class="col-sm-3"><!-- <div class="form-group col-sm-8"></div> -->
-            <label class="control-label" for="" ><strong>Date sortie:</strong></label>
+            <label class="control-label" for="" ><strong>Date de sortie:</strong></label>
             <div class="input-group">
               <input type="text" id ="Date_Sortie" class="date-picker form-control filter ltnow"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
               <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>

@@ -3,7 +3,7 @@
 <div class="row" width="100%"><?php $patient = $demande->consultation->patient; ?> @include('patient._patientInfo')</div>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-4"><h3>Modifier la demande d'examens Radiologiques :</h3></div>
+    <div class="col-sm-4"><h3><strong>Actualiser la demande d'examen Radiologique :</strong></h3></div>
     <div class="col-sm-8 pull-right">
       <a href="/drToPDF/{{ $demande->consultation->examensradiologiques->id }}" target="_blank" class="btn btn-sm btn-primary pull-right">
        <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
@@ -14,7 +14,7 @@
   	<div class="row">
 	<div class="col-xs-12 widget-container-col" id="consultation">
 		<div class="widget-box" id="infopatient">
-			<div class="widget-header"><h5 class="widget-title"><b>Demande d'examen radiologique :</b></h5> </div>
+			<div class="widget-header"><h5 class="widget-title"><b><strong>Demande d'examen radiologique :</strong></b></h5> </div>
 	        </div><!-- widget-box -->
 		<div class="widget-body">
                 <div class="widget-main"><div class="space-12 hidden-xs"></div>
