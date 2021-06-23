@@ -153,7 +153,7 @@ class ConsultationsController extends Controller
             $ord->medicamentes()->attach($trait->med,['posologie' => $trait->posologie]);     
           }
         }
-        if($request->exm  != null)//save ExamBiolo
+        if($request->exm  != null && (count($request->exm)))//save ExamBiolo
         {
             $demandeExamBio = new demandeexb;
             $consult->demandeexmbio()->save($demandeExamBio);
