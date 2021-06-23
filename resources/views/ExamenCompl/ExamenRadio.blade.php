@@ -36,7 +36,7 @@
 	      <div class="row">
 			 <div class= "widget-box widget-color-blue" id="widget-box-2 col-xs-12">
 			 <div class="widget-header" >
-				<h5 class="widget-title bigger lighter"><font color="black"> <i class="ace-icon fa fa-table"></i>&nbsp;<b>Examens Imagerie</b></font></h5>
+				<h5 class="widget-title bigger lighter"><font color="black"> <i class="ace-icon fa fa-table"></i>&nbsp;<b>Examens d'imagerie</b></font></h5>
 				<div class="widget-toolbar widget-toolbar-light no-border" width="5%">
 				 	<a href="#"  name="btn-add" class="btn-xs tooltip-link" data-toggle="modal" data-target="#ExamIgtModal" data-original-title="Ajouter un Examen d'imagerie"><div class="fa fa-plus-circle"></div><h4><strong></strong></h4></a>
 				</div>
@@ -48,7 +48,7 @@
 							 <tr>
                   <th class ="hidden"></th>
 							    <th class ="center" class="nsort" style="background-color: #eee; color; white;"><strong>Examen du </strong></th>
-								  <th class ="center" style="background-color: #eee; color; white;"><strong>Type Examen</strong></th>
+								  <th class ="center" style="background-color: #eee; color; white;"><strong>Type d'examen</strong></th>
 								   <th class="center" width="5%" style="background-color: #eee; color; white;"><em class="fa fa-cog"></em></th>
 						    </tr>
 							</thead>

@@ -2,7 +2,7 @@
 	<div class="col-sm-5 col-xs-12 widget-container-col">
 	<div class="widget-box widget-color-blue">
 		<div class="widget-header">
-			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Listes Des Hospitalisations :</h5>
+			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Listes des hospitalisations :</h5>
 		</div>
 		<div class="widget-body">
 			<div class="widget-main no-padding">

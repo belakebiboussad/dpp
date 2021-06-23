@@ -46,7 +46,7 @@
   </p></div>
   </div>
    <div class="row">
-    <div class="center solid"><strong><span style="font-size:20px;">Resultat</span></strong>
+    <div class="center solid"><strong><span style="font-size:20px;">Résultat</span></strong>
    </div>
   </div><br>
   <div class="row"><div class="col-xs-12"><p  style="font-size:16px;">&nbsp;

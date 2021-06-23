@@ -32,7 +32,7 @@
                <div class="space-12"></div>
               <div class="row">
                 <div class="col-sm-3">
-                  <label for="" class="control-label no-padding-right"><b>Titre du Document :</b></label>
+                  <label for="" class="control-label no-padding-right"><b>Titre du document :</b></label>
                 </div>
                 <div class="col-sm-7">
                   <input  id="titreDoc" name="titreDoc" class="form-control" required/>             </div>  

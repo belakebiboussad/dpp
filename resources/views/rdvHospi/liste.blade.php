@@ -1,9 +1,9 @@
 @extends('app_sur')
 @section('main-content')
-<div class="row"> <h2><strong>Liste des Rendez-Vous d'hospitalisation :</strong></h2></div><!-- /.page-header -->
+<div class="row"> <h3><strong>Liste des rendez-vous d'hospitalisation :</strong></h3></div><!-- /.page-header -->
 <div class="col-xs-12 widget-container-col" id="widget-container-col-2">
      <div class="widget-box widget-color-blue" id="widget-box-2">
-           <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Rendez-Vous</h5></div>
+           <div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Rendez-vous</h5></div>
                 <div class="widget-body">
                     <div class="widget-main no-padding">
                       <table class="table table-striped table-bordered table-hover">
@@ -13,9 +13,9 @@
                             <th class="text-center" width="3%"  rowspan="2"  ></th>
                             <th class="text-center" rowspan="2" width="11%"><h5><strong>Patient</strong></h5></th>
                             <th class="text-center" colspan="2"><h5><strong>Entrée</strong></h5></th>
-                            <th class="text-center" colspan="2"><h5><strong>Sortie Prévue</strong></h5></th>
-                            <th class="font-weight-bold text-center" rowspan="2"><h5><strong>Medecin Traitant</strong></h5></th>
-                            <th class="text-center" colspan="3"><h5><strong>Lit Réservé</strong></h5></th>
+                            <th class="text-center" colspan="2"><h5><strong>Sortie prévue</strong></h5></th>
+                            <th class="font-weight-bold text-center" rowspan="2"><h5><strong>Médecin traitant</strong></h5></th>
+                            <th class="text-center" colspan="3"><h5><strong>Lit réservé</strong></h5></th>
                             {{-- <th class="font-weight-bold text-center" rowspan="2"><strong>Lit</strong></th>
                             <th class="font-weight-bold text-center" rowspan="2"><strong>Salle</strong></th>
                             <th class="font-weight-bold text-center" rowspan="2"><strong>Service</strong></th> --}}

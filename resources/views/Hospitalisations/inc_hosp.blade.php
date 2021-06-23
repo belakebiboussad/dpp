@@ -1,4 +1,4 @@
-<div class="page-header" style="margin-top:-5px;"> <h5><strong>Détails de l'Hospitalisation :</strong></h5></div>
+<div class="page-header" style="margin-top:-5px;"> <h5><strong>Détails de l'hospitalisation :</strong></h5></div>
 <div class="row">
 	<div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right"><strong><span style="font-size:16px;">Hospitalisation</span></strong></div>
 </div>
@@ -6,7 +6,7 @@
 	<ul class="list-unstyled spaced">
 		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Mode d'admission :</strong> {{ $hosp->admission->demandeHospitalisation->modeAdmission }}</li>
 		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Specialité :</strong> {{ $hosp->admission->demandeHospitalisation->Specialite->nom }}</li>
-		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Mode d'hospitalisation :</strong> {{ $hosp->modeHospi->nom }}</li>
+		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Mode d'hospitalisation:</strong> {{ $hosp->modeHospi->nom }}</li>
 		<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Etat :</strong>
 		 	@if($hosp->etat_hosp == "1" )
 		 		<span class="badge badge-pill badge-succes">Cloturé</span>
