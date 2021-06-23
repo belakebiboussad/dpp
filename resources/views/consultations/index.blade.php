@@ -93,7 +93,7 @@
     	<div class="panel-body">
       <div class="row">
       		<div class="col-sm-4">
-        	<div class="form-group"><label><strong>Patient :</strong></label><input type="text" id="Nom" class="form-control filter autofield"></div>
+        	<div class="form-group"><label><strong>  Patient :</strong></label><input type="text" id="Nom" class="form-control filter autofield"></div>
          	</div>
             <div class="col-sm-4">
             <div class="form-group"><label class="control-label"><strong>IPP:</strong></label><input type="text" id="IPP" class="form-control filter"></div>

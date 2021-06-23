@@ -111,10 +111,10 @@
 </script>
 @endsection 	
 @section('main-content')
-<div class="row"><div class="col-sm-12 col-md-12"><h3><strong>Rechercher une demande d'examen biologique</strong></h3></div></div>
+<div class="row"><div class="col-sm-12 col-md-12"><h4><strong>Rechercher une demande d'examen biologique</strong></h4></div></div>
 <div class="row">
   	<div class="panel panel-default">
-    		<div class="panel-heading">Rechercher</div>
+    		<div class="panel-heading"><strong>Rechercher</strong></div>
     		<div class="panel-body">
 	  	 <div class="row">
 	      		<div class="col-sm-4">

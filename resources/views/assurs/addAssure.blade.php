@@ -1,4 +1,4 @@
- <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Informations démographiques</h3></div></div>
+ <div class="row"><div class="col-sm-12"><h4 class="header smaller lighter blue"><strong>Informations démographiques</strong></h4></div></div>
  <div class="row Asdemograph">
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('nomf') ? 'has-error' : '' }}">
@@ -92,7 +92,7 @@
 		</div>
 	</div>
 </div>
-<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div></div>	
+<div class="row"><div class="col-sm-12"><h4 class="header smaller lighter blue"><strong>Contact</strong></h4></div></div>	
 <div class="row Asdemograph"><!-- style="padding-left:7%" -->
 	<div class="col-sm-4">
 		<label class="col-sm-4" for="adressef" ><strong>Adresse:</strong></label>
@@ -110,7 +110,7 @@
 	</div>
 </div>
 <div class="space-12 hidden-xs"></div>
-<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Fonction</h3></div></div>	{{-- row --}}
+<div class="row"><div class="col-sm-12"><h4 class="header smaller lighter blue"><strong>Fonction</strong></h4></div></div>	{{-- row --}}
 <div class="row">
   <div class="col-sm-6" id="statut">
 		<div class="form-group">

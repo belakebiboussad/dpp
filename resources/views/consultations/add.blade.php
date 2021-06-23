@@ -78,7 +78,7 @@ render: function ( data, type, row ) { return row.docteur.nom + ' ' + row.docteu
 </script>
 @endsection
 @section('main-content')
-<div class="page-header"><h4>Sélectionner le patient</h4></div>
+<div class="row"><h4><strong>Sélectionner un patient</strong></h4></div>
 	<div class="row">
 	<div class="col-sm-12">	
 		<div class="col-sm-6 col-xs-12">@include('consultations.findPatient')</div>

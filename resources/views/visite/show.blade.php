@@ -5,15 +5,15 @@
 	<div class="row"><div class="col-sm-12" style="margin-top: -2%;">@include('patient._patientInfo')</div></div>
 </div>
 <div class="row">
-	<h4>Détails de la visite :</h4>
+	<h4><strong>Détails de la visite :</strong></h4>
 	<a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
 	</div>
 	<div class="row">
   	<div class="col-sm-6">
-  		<label for="" class="control-label no-padding-right"><b>Medecin :</b></label><span>{{ $visite->medecin->nom }} {{ $visite->medecin->prenom }}</span>
+  		<label for="" class="control-label no-padding-right"><b>Médecin : </b></label><span> {{ $visite->medecin->nom }} {{ $visite->medecin->prenom }}</span>
   	</div>
   	<div class="col-sm-6">
-  			<label for="" class="control-label no-padding-right"><b>Date :</b></label><span>{{ $visite->date }}</span>
+  			<label for="" class="control-label no-padding-right"><b> Date : </b></label><span> {{ $visite->date }}</span>
   	</div>	
   </div>
   <div class="space-12"></div>

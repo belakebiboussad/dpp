@@ -6,7 +6,7 @@
 <div class="row">
       <div class="col-sm-12">
      <div class="widget-box">
-      <div class="widget-header"><h4 class="widget-title">Patient :</h4> </div>
+      <div class="widget-header"><h4 class="widget-title">  Patient :</h4> </div>
           <div class="widget-body">
           <div class="widget-main">
                 <label class="inline"><span class="blue"><strong>Nom :</strong></span><span class="lbl"> {{ $patient->Nom }}</span></label>&nbsp;&nbsp;&nbsp;

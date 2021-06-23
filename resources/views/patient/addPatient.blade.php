@@ -1,4 +1,4 @@
- <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Informations démographiques</h3></div></div>
+ <div class="row"><div class="col-sm-12"><h4 class="header smaller lighter blue"><strong>Informations démographiques</strong></h4</div></div>
  <div class="row demograph">
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('nom') ? 'has-error' : '' }}">
@@ -98,7 +98,8 @@
 		</div>
 	</div>
 </div>	{{-- row --}}
-<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div></div>
+<div class="space-12 hidden-xs"></div>
+<div class="row"><div class="col-sm-12"><h4 class="header smaller lighter blue"> <strong>Contact</strong></h4></div></div>
 <div class="space-12 hidden-xs"></div>		
 <div  class="row demograph">
 	<div class="col-sm-4">
@@ -153,10 +154,10 @@
 				</div>
 				<div class="col-sm-10">
 					<select class="form-control col-xs-12 col-sm-6" id="type" name="type">
-					<option value="0">Assure</option>
+					<option value="0">Assuré(e)</option>
 					<option value="1" selected>Conjoint(e)</option>
-					<option value="2">Pere</option>
-					<option value="3">Mere</option>
+					<option value="2">Père</option>
+					<option value="3">Mère</option>
 					<option value="4">Enfant</option>
 					<option value="5">Autre</option>
 				</select>
@@ -184,14 +185,14 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-sm-12"><h3 class="header smaller lighter blue">Homme de Confiance</h3></div>
+	<div class="col-sm-12"><h4 class="header smaller lighter blue"><strong>  Homme de Confiance</strong></h4></div>
 </div>
 <div class="row">
  	<div class="col-sm-1"></div>		
 	<div class="col-sm-11">
 		<div class="form-group padding-left">
 			<input  type="checkbox" name = "hommeConf" id="hommeConf" value="1"  class="ace input-lg"/>
-			<span class="lbl lighter blue"><strong>Ajouter un Correspondant</strong></span>
+			<span class="lbl lighter blue"><strong>Ajouter un correspondant</strong></span>
 		</div>
 	</div>				
 </div>		

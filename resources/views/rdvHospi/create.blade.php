@@ -42,7 +42,7 @@
 			<input type="text" name="id_demande" value="{{$demande->id_demande}}" hidden>
 			<input type="text" id="affect" value="0" hidden>
 			<div class="row">
-			  <div class="col-sm-12"><h3 class="header smaller lighter blue">Demande d'Hospitalisation</h3></div>
+			  <div class="col-sm-12"><h3 class="header smaller lighter blue">Demande d'hospitalisation</h3></div>
 			</div><div class="space-12 hidden-xs"></div>
 			<div class="row">
 				<div class="col-sm-4 col-xs-12 form-group">

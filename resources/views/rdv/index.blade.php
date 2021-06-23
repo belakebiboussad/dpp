@@ -148,7 +148,7 @@ $(document).ready(function() {
   </script>
 @endsection
 @section('main-content'){{--  --}}
-<div class="row"><h2 style="display: inline;"><strong>Liste des Rendez-Vous:</strong></h2></div>
+<div class="row"><h4 style="display: inline;"><strong>Liste des rendez-vous:</strong></h4></div>
 <div class="space-12"></div>
 <div class="row"  style="margin-left:-2%;">
   <div class="col-md-12">

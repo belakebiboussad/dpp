@@ -217,7 +217,7 @@
             </select>
           </div>
           <div class="col-sm-3">
-             <label><strong>Patient :</strong></label><input type="text" id="Nom" class="form-control filter">
+             <label><strong>  Patient :</strong></label><input type="text" id="Nom" class="form-control filter">
           </div>
           <div class="col-sm-3">
              <label><strong>IPP :</strong></label>

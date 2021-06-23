@@ -1,5 +1,5 @@
 <div id ="assurePart">
-	 <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Informations démographiques</h3></div></div>
+	 <div class="row"><div class="col-sm-12"><h4 class="header smaller lighter blue"><strong>Informations démographiques</strong></h4></div></div>
 	<div class="row  Asdemograph">
 		<div class="col-sm-6">
 			<div class="form-group">
@@ -127,7 +127,7 @@
 	  </div>
   </div>
 	<div class="row">
-		<div class="col-sm-12"><h3 class="header smaller lighter blue">Fonction</h3>	</div>
+		<div class="col-sm-12"><h4 class="header smaller lighter blue"><strong>Fonction</strong></h4>	</div>
 	</div>	
   <div class="row">
     <div class="col-sm-6" id="statut">
