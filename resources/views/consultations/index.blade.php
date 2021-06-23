@@ -74,7 +74,6 @@
 	  actions +='<a data-toggle="modal" href="#" class ="btn btn-info btn-xs" onclick ="ImprimerEtat(\'consultation\','+data.id+')" data-toggle="tooltip" title="Imprimer un Etat de Sortie" data-placement="bottom"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>';
 	  return actions;
 	}
-/*$(function(){$('.filter').change(function() { if (this.value.trim()) { field = $(this).prop("id"); } }); });*/
  	$('document').ready(function(){
     getConsultations("Date_Consultation",'<?= date("Y-m-j") ?>');
    	field= "Date_Consultation"; 

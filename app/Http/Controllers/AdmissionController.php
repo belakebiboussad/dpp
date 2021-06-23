@@ -46,7 +46,7 @@ class AdmissionController extends Controller
                                                 $q->where('lit_id','!=',null);
                                              })->where('modeAdmission','Urgence')->where('etat','programme')->get();
         $etatsortie = Etatsortie::where('type','1')->get();
-          return view('home.home_agent_admis', compact('rdvs','demandesUrg','etatsortie'));
+        return view('home.home_agent_admis', compact('rdvs','demandesUrg','etatsortie'));
     }
     /**
      * Show the form for creating a new resource.

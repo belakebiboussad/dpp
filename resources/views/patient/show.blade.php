@@ -24,6 +24,7 @@
 	});
   }
     $(function () {
+			/*
 			$(".ordreticketPrint").click(function(){
 				$.connection.hub.url = 'http://ADRESSE_BORNE:90/myhubs';
 			  // Connect Hubs without the generated proxy
@@ -39,7 +40,7 @@
 						}).fail(function () {
 							console.log("Could not connect to Hub.");
 					});
-		});	
+		});*/	
 	});
  $('document').ready(function(){
       $("#accordion" ).accordion({

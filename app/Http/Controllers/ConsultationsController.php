@@ -236,7 +236,6 @@ class ConsultationsController extends Controller
           $consults =consultation::with('patient','docteur')->whereHas('patient',function($q) use ($request){
                                                       $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
                                                   })->get();
-        
         return Response::json($consults);
       }
     }

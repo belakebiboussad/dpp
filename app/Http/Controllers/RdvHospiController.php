@@ -120,13 +120,22 @@ class RdvHospiController extends Controller
         $rdvHospi->save(); 
         return redirect()->action('RdvHospiController@getlisteRDVs');
   }
-  public function getRdvs($date)
+  // public function getRdvs($date)
+  public function getRdvs(Request $request)
   {
+    /*
     $rdvs =  rdv_hospitalisation::with('bedReservation.lit.salle.service','demandeHospitalisation.consultation.patient','demandeHospitalisation.Service')
                                 ->whereHas('demandeHospitalisation', function($q){
                                     $q->where('etat', 'programme');
                                 })->where('date_RDVh','=', $date)->where('etat_RDVh','=',null)->get();
-    return Response::json($rdvs); // if (!empty($rdvs)) {//   return json_encode($rdvs);// }
+    return Response::json($rdvs);
+    */
+    return Response::json($request->field);
+    // if($request->field == 'currentday')
+    //    $rdvs = rdv_hospitalisation::with('bedReservation.lit.salle.service','demandeHospitalisation.consultation.patient','demandeHospitalisation.Service')
+    //                                ->where(trim($request->field),'=',trim($request->value)->get();
+    // return Response::json($rdvs);
+    //return Response::json($request->field);
   }  
   public function print($id)//imprimer rdv d'hospitalisation 
   { 
