@@ -76,8 +76,7 @@
 				</div><!-- body -->
 				<div class="panel-footer" style="height:40px;"> <!-- style ="margin-top:-0.5%;"  -->
 <button type="submit" class="btn btn-xs btn-primary findAssure"><i class="fa fa-search"></i>&nbsp;Rechercher</button> 	
-{{-- <a  class="btn btn-danger btn-xs" href="{{ route('assur.destroy',12) }}" role="button" aria-pressed="true" data-method="DELETE"><i class="ace-icon fa fa-trash-o bigger-110"></i>Supprimer</a>
-<a class="btn btn-danger btn-xs" href="{{ route('assur.edit',12) }}" role="button" aria-pressed="true" >Teste</a>--}}
+{{-- <a class="btn btn-danger btn-xs" href="{{ route('assur.edit',12) }}" role="button" aria-pressed="true" >Teste</a> --}}
 				</div>
 			</div><!-- panel -->
 		</div>
@@ -94,13 +93,13 @@
 					<thead>
 						<tr class="info"><th colspan="12">Détails fonctionnaire</th></tr>
 						<tr class="liste">
-						    <th class="blue" width="9%">Nom</th>
+						  <th class="blue" width="7%">Civilité</th>
+						  <th class="blue" width="9%">Nom</th>
 							<th class="blue" width="9%">Prénom</th>
 							<th class="blue" width="7%">Né(e) le</th>
-							<th class="blue" width="7%">Civilité</th>
-						     <th class="blue" width="5%">Wilaya Résidence</th>
-						     <th class="blue" width="10%">NSS</th>
 							<th class="blue" width="6%">Genre</th>
+							<th class="blue" width="5%">Wilaya Résidence</th>
+						  <th class="blue" width="10%">NSS</th>
 							<th class="blue" width="8%">Position</th>
 							<th class="blue"  width="5%">Matricule</th>
 							<th class="blue" width="11%">Service</th>
