@@ -22,7 +22,7 @@
 	<div class="row">
 		<div class="col-xs-12 page-header">
 			<div class="col-xs-12">
-				<h1>Affectation des Lits </h1>
+				<h1>Affectation des lits </h1>
 			</div>
 		</div><!-- /.page-header -->
 	</div>
@@ -48,9 +48,9 @@
 							<th class="center" width="3%" ></th>
 							<th class="text-center" width="11%"><h5><strong>Patient</strong></h5></th>
 							<th class="text-center" width="15%"><h5><strong>Date RDV</strong></h5></th>
-							<th class="text-center" width="10%">Heure RDV</th>
-							<th width="12%" class="text-center"><h5><strong>Date Sortie Prévue</strong></h5></th>
-							<th class="detail-col text-center"><h5><strong>Heure Sortie Prévue</strong></h5></th>
+							<th class="text-center" width="10%"><h5><strong>Heure RDV</strong></h5></th>
+							<th width="12%" class="text-center"><h5><strong>Date sortie prévue</strong></h5></th>
+							<th class="detail-col text-center"><h5><strong>Heure sortie prévue</strong></h5></th>
 							<th class="detail-col text-center"><h5><strong>Service</strong></h5></th>
 							<th class="detail-col text-center"><h5><strong>Salle</strong></h5></th>
 							<th class="detail-col text-center"><h5><strong>Lit</strong></h5></th>

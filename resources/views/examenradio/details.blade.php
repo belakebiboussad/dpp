@@ -278,7 +278,7 @@ function CRRSave()
 @section('main-content')
 <div class="row" width="100%">@include('patient._patientInfo')</div>
 <div class="row">
-    <div class="col-md-5 col-sm-5"><h3>  Demande Examens Radiologique</h3></div>
+    <div class="col-md-5 col-sm-5"><h3>  Demande d'examen radiologique</h3></div>
     <div class="col-md-7 col-sm-7">
       {{-- <a href="/drToPDF/{{ $demande->consultation->examensradiologiques->id }}" target="_blank" class="btn btn-sm btn-primary pull-right"> --}}
          <a href="/drToPDF/{{ $demande->id }}" target="_blank" class="btn btn-sm btn-primary pull-right">

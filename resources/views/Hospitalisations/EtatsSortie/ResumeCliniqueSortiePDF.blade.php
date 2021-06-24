@@ -3,7 +3,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="css/styles.css">
-  <title>Resume Clinique de Sortie</title>
+  <title><strong>Résumé Clinique de Sortie</strong></title>
   <style>
     table 
     {
@@ -36,8 +36,8 @@
             <td colspan = 2><strong>N° Dossier :</strong><span> &nbsp;{{ $obj->patient->IPP}}</span></td>
           </tr>
           <tr class="noBorder">
-               <td class="first"><strong>Nom et Prenom : </strong>&nbsp;<span> &nbsp;{{ $obj->patient->Nom }}{{ $obj->patient->Prenom }}</span></td>
-                <td><strong>Date de Naissance :<strong>&nbsp;<span> &nbsp;{{ $obj->patient->Dat_Naissance }}</span></td>
+               <td class="first"><strong>Nom et Prénom : </strong>&nbsp;<span> &nbsp;{{ $obj->patient->Nom }}{{ $obj->patient->Prenom }}</span></td>
+                <td><strong>Date de naissance :<strong>&nbsp;<span> &nbsp;{{ $obj->patient->Dat_Naissance }}</span></td>
                 <td><strong>Sexe :<strong>&nbsp;<span> &nbsp;{{ $obj->patient->Sexe }}</span></td>
           </tr >
           <tr class="noBorder">
@@ -49,7 +49,7 @@
             </td>
             <td class="first">
               @if(isset($obj->patient->commune_res))
-                <strong>Commne :<strong>&nbsp;
+                <strong>Commune :<strong>&nbsp;
                 <span> &nbsp;{{ $obj->patient->commune->nom_commune }}
               @endif
             </td>
@@ -61,17 +61,17 @@
             </td>
           </tr>
             <tr class="noBorder">
-                <td class="first"><strong>Date d'Hospitalisation</strong><span> &nbsp;&nbsp;{{ $obj->Date_entree }}</span></td>
-                <td><strong>Mode d'entrer</strong><span> &nbsp;{{ $obj->admission->rdvHosp->demandeHospitalisation->modeAdmission }}</span></td><td></td>
+                <td class="first"><strong>Date d'hospitalisation</strong><span> &nbsp;&nbsp;{{ $obj->Date_entree }}</span></td>
+                <td><strong>Mode d'entrée</strong><span> &nbsp;{{ $obj->admission->rdvHosp->demandeHospitalisation->modeAdmission }}</span></td><td></td>
             </tr>
             <tr class="noBorder">
                 <td class="first"><strong>Service</strong><span> &nbsp;&nbsp;{{ $obj->admission->rdvHosp->demandeHospitalisation->Service->nom }}</span></td>
-                <td ><strong>Date d'entrée au Sce</strong><span> &nbsp;{{ $obj->Date_entree }}</span></td>
-                 <td><strong>Date de Sortie de Sce</strong><span> &nbsp;{{ $obj->Date_Sortie }}</span></td>
+                <td ><strong>Date d'entrée au Service</strong><span> &nbsp;{{ $obj->Date_entree }}</span></td>
+                 <td><strong>Date de Sortie du Service</strong><span> &nbsp;{{ $obj->Date_Sortie }}</span></td>
             </tr>
            <tr><td colspan="3"></td></tr>
                 <tr class="noBorder">
-                      <td colspan="3" class="first"><strong>Motif d'Hôspitalisation</strong><span> &nbsp;{{ $obj->admission->rdvHosp->demandeHospitalisation->consultation->motif }}</span></td>
+                      <td colspan="3" class="first"><strong>Motif d'hospitalisation</strong><span> &nbsp;{{ $obj->admission->rdvHosp->demandeHospitalisation->consultation->motif }}</span></td>
                 </tr>
                  <tr class="noBorder">
                     <td colspan="3" class="first"><strong>Bilan Bioloqique :</strong><span> &nbsp;</span></td></td>
@@ -80,13 +80,13 @@
                     <td colspan="3" class="first"><strong>Bilan Radiologique : </strong> <span> &nbsp;</span></td>
                     </tr>
                 <tr class="noBorder">
-                      <td colspan="3" class="first"><strong>Autre Exmens : </strong>  <span> &nbsp;</span></td>
+                      <td colspan="3" class="first"><strong>Autres Examens : </strong>  <span> &nbsp;</span></td>
                 </tr>
                 <tr class="noBorder">
                       <td colspan="3" class="first"><strong>Dianostic principal de sortie : </strong> <span> &nbsp;{{ $obj->diagSortie }}</span> </td>
                 </tr>
                 <tr class="noBorder">
-                      <td colspan="3" class="first"><strong>Dianostic associés : </strong> <span> &nbsp;</span> </td>
+                      <td colspan="3" class="first"><strong>Dianostic associé : </strong> <span> &nbsp;</span> </td>
               </tr>
           </tbody>
           </table>

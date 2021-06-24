@@ -25,10 +25,10 @@ $( document ).ready(function() {
 		<div class="space-12"></div>
 		<div class="row">
 			<div class="panel panel-default">
-				<div class="panel-heading"><h3>Rechercher un utilisateur:</h3></div>
+				<div class="panel-heading"><h3><strong>Rechercher un utilisateur:</strong></h3></div>
 				<div class="panel-body">
 					<div class="form-group   has-feedback">
-						<label class="control-label" for="userName" >Nom utilisateur:</label>
+						<label class="control-label" for="userName" >Nom de l'utilisateur:</label>
 						    <input type="text" class="form-control" id="userName" name="userName"  placeholder="Rechercher..."/>
 						    <span class="glyphicon glyphicon-search form-control-feedback"></span>
 					</div>
@@ -72,7 +72,7 @@ $( document ).ready(function() {
 			</div>
 			<div class="infobox-data">
 				<span class="infobox-data-number">{{ App\User::where("role_id",5)->get()->count() }}</span>
-				<div class="infobox-content"><b>Surveillants Médicaux</b></div>
+				<div class="infobox-content"><b>Surveillants médicaux</b></div>
 			</div>
 		</div>
 		<div class="space-12"></div>
@@ -85,7 +85,7 @@ $( document ).ready(function() {
 	<div class="col-sm-12">
 		<div class="widget-box transparent">
 			<div class="widget-header widget-header-flat widget-header-small">
-				<h5 class="widget-title"><i class="ace-icon fa fa-user"></i>Resultats: </h5> 
+				<h5 class="widget-title"><i class="ace-icon fa fa-user"></i>Résultats: </h5> 
 				<label for=""><span class="badge badge-info numberUser"></span></label>
 			</div>
 			<div class="widget-body">
@@ -96,10 +96,10 @@ $( document ).ready(function() {
 								<tr>
 									<th class="center">#</th>
 									<th hidden>id</th>
-									<th class="center"><strong style="font-size:16px;">Nom Utilisateur</strong></th>
+									<th class="center"><strong style="font-size:16px;">Nom d'utilisateur</strong></th>
 									<th class="center"><strong style="font-size:16px;">E-mail</strong></th>
 									<th class="center"><strong style="font-size:16px;">Rôle</strong></th>
-									<th><strong>Acive</strong></th>
+									<th class="center"><strong style="font-size:16px;">Acive</strong></th>
 									<th class="center"><em class="fa fa-cog"></em></th>
 								</tr>
 							</thead>

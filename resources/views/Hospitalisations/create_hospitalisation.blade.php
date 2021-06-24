@@ -1,9 +1,8 @@
 @extends('app_sur')
 @section('main-content')
-	<div class="page-header">
-		<h1> {{dd($demande)}}
-			Ajouter un rendez-vous d'hospitalisation :{{ $demande->id }}
-		</h1>
+	<div class="row"><h3> <strong>{{dd($demande)}}
+			Ajouter un rendez-vous d'hospitalisation :{{ $demande->id }}</strong>
+		</h3>
 	</div><!-- /.page-header -->
 	<div class="row">
 		<div class="col-xs-12">		

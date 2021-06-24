@@ -8,13 +8,13 @@
 		  	<input type="hidden" id="hospID" value="">
 	 		<div class="row">
 				<div class="col-sm-12">
-    					<label for="Date_Sortie"><strong>Date de Sortie :</strong></label>
+    					<label for="Date_Sortie"><strong>Date de sortie :</strong></label>
    					<input type="text" id="Date_SortieH" class="form-control date-picker"  data-date-format="yyyy-mm-dd" data-provide="datepicker" required/>
 		 		</div>
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
-  					<label for="Heure_sortie"><strong>Heure de Sortie :</strong></label>
+  					<label for="Heure_sortie"><strong>Heure de sortie :</strong></label>
  						<input type="text" id="Heure_sortie" class="form-control timepicker" />
 	 			</div>
 			</div>
@@ -33,10 +33,10 @@
 	      	<label for="modeSortie"><strong>Mode de Sortie :</strong></label>
 	      	<select class="form-control" id="modeSortie">
 	      		<option value="">Domicile</option>
-						<option value="0">Transfert</option>
-						<option value="1">Contre avis médical</option>
-						<option value="2">Décès</option>
-						<option value="3">Reporter</option>
+				<option value="0">Transfert</option>
+				<option value="1">Contre avis médical</option>
+				<option value="2">Décès</option>
+				<option value="3">Reporter</option>
 	      	</select>
 	      </div>
 			</div>

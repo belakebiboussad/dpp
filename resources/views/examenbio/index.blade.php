@@ -111,10 +111,10 @@
 </script>
 @endsection 	
 @section('main-content')
-<div class="row"><div class="col-sm-12 col-md-12"><h3><strong>Rechercher une demande d'examen Biologique</strong></h3></div></div>
+<div class="row"><div class="col-sm-12 col-md-12"><h3><strong>Rechercher une demande d'examen biologique</strong></h3></div></div>
 <div class="row">
   	<div class="panel panel-default">
-    		<div class="panel-heading">Recherche</div>
+    		<div class="panel-heading">Rechercher</div>
     		<div class="panel-body">
 	  	 <div class="row">
 	      		<div class="col-sm-4">
@@ -148,7 +148,7 @@
 	<div class="col-xs-12">
 		<div class="widget-box">
 			<div class="widget-header">
-				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demandes examen biologique</h5>&nbsp;<label><span class="badge badge-info numberResult"></span></label>
+				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demandes d'examen biologique</h5>&nbsp;<label><span class="badge badge-info numberResult"></span></label>
 				</div>
 			<div class="widget-body">
 				<div class="widget-main">
