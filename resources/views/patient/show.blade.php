@@ -22,23 +22,26 @@
 				 console.log('Error:', data);
 			}
 	});
-  }/*
-      $(function () {
-		$.connection.hub.url = 'http://ADRESSE_BORNE:90/myhubs';
-	    	// Connect Hubs without the generated proxy
-		var chatHubProxy = $.connection.myChatHub;
-		$.connection.hub.start().done(function () {
-					console.log("Hub connected.");
-					$("#print").click(function () {
-						// barcode à envoyer
-						var barcode = "1600|1|030621"; 
-						// Fonction d'envoie
-						chatHubProxy.server.send(barcode);
+  }
+    $(function () {
+			/*
+			$(".ordreticketPrint").click(function(){
+				$.connection.hub.url = 'http://ADRESSE_BORNE:90/myhubs';
+			  // Connect Hubs without the generated proxy
+				var chatHubProxy = $.connection.myChatHub;
+				$.connection.hub.start().done(function () {
+							console.log("Hub connected.");
+							$("#print").click(function () {
+								// barcode à envoyer
+								var barcode = "1600|1|030621"; 
+								// Fonction d'envoie
+								chatHubProxy.server.send(barcode);
+							});
+						}).fail(function () {
+							console.log("Could not connect to Hub.");
 					});
-				}).fail(function () {
-					console.log("Could not connect to Hub.");
-				});
-	});*/
+		});*/	
+	});
  $('document').ready(function(){
       $("#accordion" ).accordion({
 	      collapsible: true ,
@@ -170,7 +173,7 @@
 		{{-- <form  id ="ticketForm" action="#" method="POST" role="form">{{ csrf_field() }} --}}
 		<input type="text" name="id_patient" id="id_patient" value="{{ $patient->id }}" hidden>
 		<div class="modal-header">
-    			<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title"><strong>Ajouter Ticket:</strong></h4>
+    			<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title"><strong>Ajouter un ticket d'enregistrement</strong></h4>
     		</div>
     		<div class="modal-body">
 	    		<div class="row">

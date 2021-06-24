@@ -16,14 +16,14 @@
 						if(data != "")
 						{
 							$('#assure').html(data[0]);
-							 if($('#widget').hasClass('invisible'))
-								$("#widget").removeClass('invisible');
+							 if($('#widget').hasClass('hidden'))
+								$("#widget").removeClass('hidden');
 							 $('#liste_ayants').html(data[1]);	
 						}else
 						{	
 							$("#assure").empty();$("#liste_ayants").empty();
-							if(!$('#widget').hasClass('invisible'))
-								$("#widget").addClass('invisible');
+							if(!$('#widget').hasClass('hidden'))
+								$("#widget").addClass('hidden');
 						}
 						$(".numberResult").html(xhr.getResponseHeader("count"));
 						$('#matricule').val('');$('#nss').val('');		
@@ -35,9 +35,8 @@
 @endsection
 @section('main-content')
 <div class="page-content">
-	<div class="row">
-		{{-- <div class="col-sm-12 center">--}}	
-			<div >
+	<div class="row">	{{-- <div class="col-sm-12 center">--}}	
+		<div >
 			<h3><strong>Bienvenu(e) Docteur:</strong><q class="blue">{{ Auth::User()->employ->nom }} {{ Auth::User()->employ->prenom }}</q></h3>
 		</div>		
 	</div><div class="space-12"></div>
@@ -75,9 +74,7 @@
 					</div><!-- row -->
 				</div><!-- body -->
 				<div class="panel-footer" style="height:40px;"> <!-- style ="margin-top:-0.5%;"  -->
-<button type="submit" class="btn btn-xs btn-primary findAssure"><i class="fa fa-search"></i>&nbsp;Rechercher</button> 	
-{{-- <a  class="btn btn-danger btn-xs" href="{{ route('assur.destroy',12) }}" role="button" aria-pressed="true" data-method="DELETE"><i class="ace-icon fa fa-trash-o bigger-110"></i>Supprimer</a>
-<a class="btn btn-danger btn-xs" href="{{ route('assur.edit',12) }}" role="button" aria-pressed="true" >Teste</a>--}}
+					<button type="submit" class="btn btn-xs btn-primary findAssure"><i class="fa fa-search"></i>&nbsp;Rechercher</button> 	
 				</div>
 			</div><!-- panel -->
 		</div>
@@ -94,13 +91,13 @@
 					<thead>
 						<tr class="info"><th colspan="12">Détails fonctionnaire</th></tr>
 						<tr class="liste">
-						    <th class="blue" width="9%">Nom</th>
+						  <th class="blue" width="7%">Civilité</th>
+						  <th class="blue" width="9%">Nom</th>
 							<th class="blue" width="9%">Prénom</th>
 							<th class="blue" width="7%">Né(e) le</th>
-							<th class="blue" width="7%">Civilité</th>
-						     <th class="blue" width="5%">Wilaya Résidence</th>
-						     <th class="blue" width="10%">NSS</th>
 							<th class="blue" width="6%">Genre</th>
+							<th class="blue" width="5%">Wilaya Résidence</th>
+						  <th class="blue" width="10%">NSS</th>
 							<th class="blue" width="8%">Position</th>
 							<th class="blue"  width="5%">Matricule</th>
 							<th class="blue" width="11%">Service</th>
@@ -113,18 +110,17 @@
 				</div>
 			</div>
 		</div>
-	</div>	{{-- roww --}}
-	<div  class="space-12 "></div>
+	</div><div  class="space-12 "></div>{{-- roww --}}
 	<div class="row">
 		<div class="col-sm-6">
-			<div class="widget-box transparent invisible"  id ="widget">
+			<div class="widget-box transparent hidden" id ="widget">
 				<div class="widget-header widget-header-flat widget-header-small"></div>
 				<div class="bodycontainer scrollable">
 					<table class="table table-striped table-bordered table-condensed table-scrollable">
 						<thead>
 							<tr class="info"><th colspan="12"><i class="ace-icon fa fa-table"></i>Ayants droits</th></tr>
 							<tr class="liste">
-						    		 <th class="blue" width="25%">Prénom</th>
+						    <th class="blue" width="25%">Prénom</th>
 								<th class="blue" width="20%">Relation</th>
 								<th class="blue"><em class="fa fa-cog"></em></th>	
 							</tr>
@@ -133,8 +129,7 @@
 					</table>
 				</div>
 			</div>
-		</div>
-		<div class="col-sm-6"></div>
+		</div><div class="col-sm-6"></div>
 	</div>{{-- row --}}
 </div>
 @endsection

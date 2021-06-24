@@ -13,11 +13,11 @@
 	{
 		$.ajax({
 			url : '{{ URL::to('searchBioRequests') }}',
-			 data: {    
+			data: {    
 			      	"field":field,
 			      	"value":value,
-			 },
-		    	dataType: "json",// recommended response type
+			},
+		  dataType: "json",// recommended response type
 		    	success: function(data) {
 		       		$(".numberResult").html(data.length);
 		       		$("#demandes_table").DataTable ({ 
@@ -120,7 +120,7 @@
 	      		<div class="col-sm-4">
 	      			<div class="form-group">
 	      				<label><strong>Etat :</strong></label>
-	         			<select  id="etat" class="selectpicker show-menu-arrow   col-xs-12 col-sm-12 filter">
+	         			<select  id="etat" class="selectpicker show-menu-arrow  col-xs-12 col-sm-12 filter">
 		         			<option selected disabled>Selectionner...</option>
 		         			<option value="">En Cours</option>
 		         			<option value="1">Validé</option>{{-- <option value="0">Rejeté</option> --}}

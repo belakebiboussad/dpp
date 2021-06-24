@@ -11,7 +11,7 @@
 			  margin: 0px;
 			}
 			@page {
-				size: 2.9cm 4.9cm landscape;
+				size: 30mm 62mm landscape;
 				margin-top: 5px;
 				margin-bottom: -0px;
 				margin-left: +7px;
@@ -23,7 +23,6 @@
 		</style>
 	</head>
 	<body>
-		@for ($i = 0; $i <= 6; $i++)
     <div class="row">
 		  <div class="col-sm-12">
 		   	<div class="mt-20">
@@ -47,9 +46,6 @@
 		  	<small>IPP: {{$hosp->patient->IPP}}</small>
 		  </div>
 		</div>
-		@if($i != 6)
-			<div class="page-break"></div>
-		@endif	
-	@endfor
+
 	</body>
 </html>

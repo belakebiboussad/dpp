@@ -246,10 +246,9 @@ class AssurController extends Controller
                 $action = '<b><span class="badge badge-danger">'.utf8_encode($assure->Position).'</span></b>';
             }//$dateN =  \Carbon\Carbon::parse(trim($assure->Date_Naissance))->format('Y-m-d');
             $wilaya = (Wilaya::findOrFail($assure->WilayaResidence))->nom;
-            $output.='<tr><td>'.$assure->Nom.'</td><td>'.$assure->Prenom.'</td><td>'.$date.'</td><td>'.utf8_encode($assure->SituationFamille).'</td><td>'
-                   .$wilaya.'</td><td>'.$assure->NSS.'</td><td>'.$sexe.'</td><td><span class="badge badge-success">'
-                   .utf8_encode($assure->Position).'</span></td><td><span class="badge">'.$assure->Matricule.'</span></td><td>'
-                   .utf8_encode($assure->Service).'</td><td>'.$assure->Grade.'</td><td class="center">'.$action.'</td></tr>';
+            $output.='<tr><td>'.utf8_encode($assure->SituationFamille).'</td><td>'.$assure->Nom.'</td><td>'.$assure->Prenom.'</td><td>'
+                    .$date.'</td><td>'.$sexe.'</td><td>'.$wilaya.'</td><td>'.$assure->NSS.'</td><td>'.utf8_encode($assure->Position).'</td><td>'
+                    .$assure->Matricule.'</td><td>'.utf8_encode($assure->Service).'</td><td>'.$assure->Grade.'</td><td class="center">'.$action.'</td></tr>';
             if(!in_array(utf8_encode($assure->Position), $positions))//1
             {    
               if($assure->Conjoint != ''){
