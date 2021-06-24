@@ -15,6 +15,9 @@
   </style>
 @endsection
 @section('page-script')
+<!-- <script type="text/javascript" src="http://192.168.1.60:90/Scripts/jquery-1.6.4.min.js"></script>  -->
+<script type="text/javascript" src="http://192.168.1.60:90/Scripts/jquery.signalR-1.1.3.min.js"></script>
+<script type="text/javascript" src="http://192.168.1.60:90/myhubs/hubs"></script>
 <script>
 var rdvs = @json($rdvs);
 function resetaddModIn()
@@ -44,24 +47,38 @@ function getPatient()
 {
   var field = $("select#filtre option").filter(":selected").val();//patientSearch(field,$("#patient").val()); //to call ajax
   $.ajax({
-         url : '{{URL::to('getPatients')}}',
-         data: {    
-               "field":field,
-               "value":$("#patient").val(),
-         },
-         dataType: "json",
-         success: function(data) {
-           $(".es-list").html("");//remove list
-           $(".es-list").addClass("make-scrolling");
-           $.each(data['data'], function(i, v) {
-             $(".es-list").append($('<li></li>').attr('value', v['id']).attr('class','es-visible list-group-item option').text(v['IPP']+"-"+v['Nom']+"-"+v['Prenom']));
-           });
-         },
-        error: function() {
-           alert("can't connect to db");
-        }
+       url : '{{URL::to('getPatients')}}',
+       data: {    
+             "field":field,
+             "value":$("#patient").val(),
+       },
+       dataType: "json",
+       success: function(data) {
+         $(".es-list").html("");//remove list
+         $(".es-list").addClass("make-scrolling");
+         $.each(data['data'], function(i, v) {
+           $(".es-list").append($('<li></li>').attr('value', v['id']).attr('class','es-visible list-group-item option').text(v['IPP']+"-"+v['Nom']+"-"+v['Prenom']));
+         });
+       },
+      error: function() {
+         alert("can't connect to db");
+      }
   });
 }
+$(function () {
+    $.connection.hub.url = 'http://192.168.1.60:90/myhubs';
+    // Connect Hubs without the generated proxy
+    var chatHubProxy = $.connection.myChatHub;
+    $.connection.hub.start().done(function () {
+        console.log("Hub connected.");
+        $("#printTck").click(function(){
+          var barcode = $("#civiliteCode").val()+ $("#idRDV").val()+"|"+$("#specialite").val()+"|"+$("#daterdvHidden").val();
+          chatHubProxy.server.send(barcode);       
+        });
+    }).fail(function () {
+      console.log("Could not connect to Hub.");
+    }); 
+});
 $(document).ready(function() {
     var CurrentDate = (new Date()).setHours(23, 59, 59, 0); 
     var today = (new Date()).setHours(0, 0, 0, 0); 
@@ -100,10 +117,11 @@ $(document).ready(function() {
                           start : '{{ $rdv->Date_RDV }}',
                           end:   '{{ $rdv->Fin_RDV }}',
                           id :'{{ $rdv->id }}',
-                          idPatient:'{{$rdv->patient->id}}',
+                          idPatient:'{{ $rdv->patient->id}}',
                           tel:'{{$rdv->patient->tele_mobile1}}',
                           age:{{ $rdv->patient->getAge() }},
                           specialite: {{ $rdv->employe["specialite"]}},
+                          civ : {{ $rdv->patient->getCiviliteCode() }},
                           key :(isEmpty({{ $rdv->Employe_ID_Employe }}))? "":'{{ $key }}',
                           fixe:  {{ $rdv->fixe }},
                         },
@@ -143,10 +161,9 @@ $(document).ready(function() {
                         }
                     }else
                       $('#calendar').fullCalendar('unselect');
-
                 },
                 eventClick: function(calEvent, jsEvent, view) {
-                    if(Date.parse(calEvent.start) > today )
+                     if(Date.parse(calEvent.start) > today )
                     {
                           $("#lien").attr("href", "{{ route('patient.show',$rdv->patient->id )}}");
                           $('#lien').text(calEvent.title); 
@@ -154,12 +171,20 @@ $(document).ready(function() {
                           $('#agePatient').text(calEvent.age); 
                           $('#idRDV').val(calEvent.id);
                           if($('#doctor').length && !(isEmpty(calEvent.key)))
-                                 $('#doctor').val(rdvs[calEvent.key]['employe'].nom+" "+rdvs[calEvent.key]['employe'].prenom);
+                            $('#doctor').val(rdvs[calEvent.key]['employe'].nom+" "+rdvs[calEvent.key]['employe'].prenom);
                           $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
+                          $("#daterdvHidden").val(calEvent.start.format('DDMMYY'));
+                          $("#specialite").val(calEvent.specialite);
                           (calEvent.fixe==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
+                          $('#civiliteCode').val(calEvent.civ);
                           $('#btnConsulter').attr('href','/consultations/create/'.concat(calEvent.idPatient)); 
-                          if(calEvent.fixe &&(!(isEmpty(calEvent.key))))
+                          if(calEvent.fixe &&(!(isEmpty(calEvent.key))) && (new Date(calEvent.start).setHours(0, 0, 0, 0) >today) )
+                          {
                             $('#printRdv').removeClass('hidden');
+                            $('#printTck').addClass('hidden');
+                          }
+                          if(new Date(calEvent.start).setHours(0, 0, 0, 0)  == today )
+                            $('#printTck').removeClass('hidden');
                           $('#fullCalModal').modal({ show: 'true' });
                     }
               },
@@ -203,12 +228,12 @@ $(document).ready(function() {
         }
         @endif
     });
-    $("#patient").on("keyup", function() {// keyup
+    $("#patient").on("keyup", function() {
          getPatient(); 
     });
     $( "#medecin" ).change(function() {
         if($('#patient').val())
-              $("#btnSave").removeAttr("disabled"); 
+          $("#btnSave").removeAttr("disabled"); 
     });
 });
 </script>

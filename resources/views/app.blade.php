@@ -66,7 +66,7 @@
                 $(".es-list").empty(); 
                 $('#fixe').val(fixe);
                 $('#addRDVModal').modal({
-                      show: 'true'
+                  show: 'true'
                 }); 
           }   
         }

@@ -10,7 +10,7 @@
 		<a class="btn btn-sm btn-block btn-primary" data-toggle="modal" data-target="#ticket">
 				<i class="ace-icon fa fa-plus bigger-120"></i><span class="bigger-110">Ajouter Ticket</span>
 		</a>
-		<a class="btn btn-sm btn-block ordreticketPrint">
+		<a class="btn btn-sm btn-block" href="{{ route('rdv.create') }}">
 				<span class="bigger-110"><i class="ace-icon fa fa-print bigger-120"></i>&nbsp;Imprimer Ticket d'ordre</span>
 		</a>
 	</div><!-- /.col -->

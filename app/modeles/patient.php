@@ -77,4 +77,29 @@ class patient extends Model
  				return "M.";
  		}
  	}
+ 	public function getCiviliteCode()
+ 	{
+ 		$civcode = "";
+ 		switch ($civilite = $this->getCivilite()) {
+        case 'M.':
+          $civcode = 1; 
+    			return $civcode;
+          
+          break;
+        case 'Mlle.':
+          $civcode =2; 
+    			return $civcode;
+          break; 
+        case 'Mme.':
+          $civcode =2;
+    			return $civcode;
+          break; 
+        case 'Enf.':
+          $civcode =3; 
+   				return $civcode;
+          break;   
+    }
+ 	}
+
+
 }

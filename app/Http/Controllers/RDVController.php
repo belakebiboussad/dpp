@@ -93,13 +93,13 @@ class RDVController extends Controller
                  $patient = new patient;
              return view('rdv.create',compact('patient','rdvs'));  // }else //   return view('rdv.create', compact('rdvs'));  
       }else{ 
-          $rdvs = rdv::with(['patient','employe'])->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get();
-          $specialites = specialite::all();
-          if(isset($patient_id) && !empty($patient_id))
-            $patient = patient::FindOrFail($patient_id);
-          else
-            $patient = new patient;  // dd($patient->id); 
-          return view('rdv.create', compact('rdvs','specialites','patient'));  // }elsereturn view('rdv.create', compact('rdvs','specialites'));   
+        $rdvs = rdv::with(['patient','employe'])->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get();
+        $specialites = specialite::all();
+      if(isset($patient_id) && !empty($patient_id))
+          $patient = patient::FindOrFail($patient_id);
+        else
+          $patient = new patient;
+        return view('rdv.create', compact('rdvs','specialites','patient'));  // }elsereturn view('rdv.create', compact('rdvs','specialites'));   
       }
     }
     /**
@@ -140,21 +140,21 @@ class RDVController extends Controller
      */
     public function edit(Request $request,$id)
     {       
-          $Rdv = rdv::with('patient','employe')->FindOrFail($id);
-          if($request->ajax())
-          {
-               $medecins = ($Rdv->employe->Specialite)->employes;
-                if(isset($Rdv->Employe_ID_Employe))
-                    return(Response::json(['rdv'=>$Rdv,'medecins'=>$medecins]));
-                else
-                      return Response::json(['rdv'=>$Rdv,'patient'=>$Rdv->patient]);  
-          }else{
-                $specialite = Auth::user()->employ->specialite;
-                $rdvs = rdv::with('patient','employe')->whereHas('employe.Specialite',function($q) use ($specialite){
-                                                                         $q->where('id',$specialite);
-                                                                    })->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get(); 
-                return view('rdv.edit',compact('Rdv','rdvs'));
-          } 
+      $Rdv = rdv::with('patient','employe')->FindOrFail($id);
+      if($request->ajax())
+      {
+           $medecins = ($Rdv->employe->Specialite)->employes;
+            if(isset($Rdv->Employe_ID_Employe))
+                return(Response::json(['rdv'=>$Rdv,'medecins'=>$medecins]));
+            else
+                  return Response::json(['rdv'=>$Rdv,'patient'=>$Rdv->patient]);  
+      }else{
+            $specialite = Auth::user()->employ->specialite;
+            $rdvs = rdv::with('patient','employe')->whereHas('employe.Specialite',function($q) use ($specialite){
+                                                                     $q->where('id',$specialite);
+                                                                })->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get(); 
+            return view('rdv.edit',compact('Rdv','rdvs'));
+      } 
     }
     /**
      * Update the specified resource in storage.
@@ -203,7 +203,7 @@ class RDVController extends Controller
         } 
       }
       public function print(Request $request,$id)
-      { //$civilite;
+      { 
         $rdv = rdv::findOrFail($id);
         $etablissement = Etablissement::first();
         switch ($civilite = $rdv->patient->getCivilite()) {
@@ -223,7 +223,7 @@ class RDVController extends Controller
         $pdf417 = new PDF417();
         $data = $pdf417->encode($civilite.$rdv->id.'|'.$rdv->employe->specialite.'|'.Carbon::parse($rdv->Date_RDV)->format('dmy'));
         $renderer = new ImageRenderer([
-          'format' => 'png', //'color' => '#FF0000', //'bgColor' => '#00FF00',
+          'format' => 'png', //'color' => '#FF0000',
           'scale' => 1,//1
           'ratio'=>3,//hauteur,largeur
           'padding'=>0,//espace par rapport left

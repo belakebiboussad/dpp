@@ -50,8 +50,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js"></script>
 <script type="text/javascript" src="{{ asset('/js/html2pdf.bundle.min.js') }}"></script>
 <script type="text/javascript">
-     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-      $(document).ready(function(){
+  var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+  $(document).ready(function(){
              $('.timepicker').timepicker({
                       timeFormat: 'HH:mm',
                       interval: 60,
@@ -154,7 +154,7 @@
     $('#printRdv').click(function(){
           $.ajaxSetup({
               headers: {
-                          'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
                 }
           });
           $.ajax({
@@ -166,7 +166,8 @@
                 }
         });
     });
-  });  
+    // $('#printTck').click(function(){
+    // })
   $(function() {
       var checkbox = $("#hommeConf");
       checkbox.change(function() {
@@ -176,6 +177,7 @@
             $("#hommelink").addClass('invisible');  
      })
   });
+});
 </script>
 <script type="text/javascript">
        var active_class = 'active';
@@ -591,28 +593,30 @@ $('#typeexm').on('change', function() {
           $('.daterangepicker.dropdown-menu,.colorpicker.dropdown-menu,.bootstrap-datetimepicker-widget.dropdown-menu').remove();
       });
     });
-        function getMedecinsSpecialite(specialiteId = 0,medId='')
-      {
-            $('#medecin').empty();
-            var specialiteId = 0 ?$('#specialite').val() : specialiteId;
-            $.ajax({
-                    type : 'get',
-                    url : '{{URL::to('DocorsSearch')}}',
-                    data:{'specialiteId': specialiteId },
-                    dataType: 'json',
-                    success:function(data,status, xhr){
-                          var html ='<option value="">Selectionner...</option>';
-                          jQuery(data).each(function(i, med){
-                            html += '<option value="'+med.id+'" >'+med.nom +" "+med.prenom+'</option>';
-                          });
-                          $('#medecin').removeAttr("disabled");  
-                          $('#medecin').append(html);//$("#medecin").val(medId);
-                    },
-                    error:function(data){
-                        console.log(data);
-                    }
-          });   
-      }      
+    function getMedecinsSpecialite(specialiteId = 0,medId='')
+    {
+      $('#medecin').empty();
+      var specialiteId = 0 ?$('#specialite').val() : specialiteId;
+      $.ajax({
+              type : 'get',
+              url : '{{URL::to('DocorsSearch')}}',
+              data:{'specialiteId': specialiteId },
+              dataType: 'json',
+              success:function(data,status, xhr){
+                var html ='<option value="">Selectionner...</option>';
+                jQuery(data).each(function(i, med){
+                  html += '<option value="'+med.id+'" >'+med.nom +" "+med.prenom+'</option>';
+                });
+                $('#medecin').removeAttr("disabled");  
+                $('#medecin').append(html);//$("#medecin").val(medId);
+                if($('#patient').val())
+                  $("#btnSave").removeAttr("disabled"); 
+              },
+              error:function(data){
+                console.log(data);
+              }
+    });   
+    }      
       function edit(event)
       {       
         $('#patient_tel').text(event.tel);

@@ -1,9 +1,6 @@
 @extends('app')
 @section('page-script')
- <!--<script type="text/javascript" src="http://ADRESSE_BORNE:90/Scripts/jquery-1.6.4.min.js"></script> 
-	<script type="text/javascript" src="http://ADRESSE_BORNE:90/Scripts/jquery.signalR-1.1.3.min.js"></script>
-	<script type="text/javascript" src="http://ADRESSE_BORNE:90/myhubs/hubs"></script>-->
-	<script type="text/javascript">
+<script type="text/javascript">
  function deleteDemandeHospi(id)
  {
       event.preventDefault();
@@ -23,25 +20,10 @@
 			}
 	});
   }
-    $(function () {
-			/*
-			$(".ordreticketPrint").click(function(){
-				$.connection.hub.url = 'http://ADRESSE_BORNE:90/myhubs';
-			  // Connect Hubs without the generated proxy
-				var chatHubProxy = $.connection.myChatHub;
-				$.connection.hub.start().done(function () {
-							console.log("Hub connected.");
-							$("#print").click(function () {
-								// barcode à envoyer
-								var barcode = "1600|1|030621"; 
-								// Fonction d'envoie
-								chatHubProxy.server.send(barcode);
-							});
-						}).fail(function () {
-							console.log("Could not connect to Hub.");
-					});
-		});*/	
-	});
+ /*$(function () {$.connection.hub.url = 'http://192.168.1.60:90/myhubs'; // Connect Hubs without the generated proxy
+var chatHubProxy = $.connection.myChatHub;$.connection.hub.start().done(function () {console.log("Hub connected.");
+$(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "1600|1|030621"; // Fonction d'envoie chatHubProxy.server.send(barcode);});
+}).fail(function () {console.log("Could not connect to Hub.");});});*/
  $('document').ready(function(){
       $("#accordion" ).accordion({
 	      collapsible: true ,
@@ -54,7 +36,7 @@
 	      stop: function( event, ui ) {
 		        ui.item.children( ".accordion-header" ).triggerHandler( "focusout" );
       		}
-  	});
+  });
 	var table = $('#consultList').DataTable({
 			"searching":false,
 			"pageLength" : 10,
