@@ -2,17 +2,28 @@
 	<div class="modal-dialog modal-lg" role="document">
    	<div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title"><span class="glyphicon glyphicon-bell"></span>&nbsp;Détails du rendez-Vous de &nbsp; <q><a href="" id="lien" class="white"></a></q></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span></button><hr>
-        <div class="row">
-         	<div class="col-sm-6"> <i class="fa fa-phone" aria-hidden="true"></i><strong>Téléphone:&nbsp;</strong><span id="patient_tel" class="white"></span></div>
-         	<div class="col-sm-6"><strong>Âge:&nbsp;</strong><span id="agePatient" class="white"></span> <small>Ans</small></div>
-          <input type="hidden" id ="civiliteCode" name="" value="">
-        </div>       
+<!-- <h5 class="modal-title"><span class="glyphicon glyphicon-bell"></span>&nbsp;Détails du rendez-vous de &nbsp; <q><a href="" id="lien" class="white"></a></q></h5>-->   
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+        <h4 class="modal-title">Détails du rendez-vous de &nbsp; <q><a href="" id="lien" class="white"></a></q></h4>
       </div>
       <form id ="updateRdv" role="form" method="POST"> 
         <div class="modal-body">
           <input type="hidden" id="idRDV">
+          <input type="hidden" id ="civiliteCode">
+          <div class="well">   
+            <div class="row">
+              <div class="col-sm-6">
+                 <div class="form-group">
+                 <label for="patient_tel" class="col-form-label" ><i class="fa fa-phone" aria-hidden="true"></i><strong>&nbsp;Téléphone :</strong></label>
+                  <div class="input-group col-sm-12"><input type="text"  class="form-control" id="patient_tel"  disabled/> </div>  
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <label for="agePatient" class="col-form-label" ><strong>&nbsp;Âge :</strong></label>
+                <div class="input-group col-sm-12"><input type="text"  class="form-control" id="agePatient" disabled/> </div>  
+              </div>
+            </div>
+          </div>
           <div class="well">   
             <div class="row">
               <div class="col-sm-12">
@@ -22,7 +33,7 @@
                       @foreach($specialites as $specialite)
                         <option value="{{ $specialite->id}}">{{  $specialite->nom }}</option>
                        @endforeach
-                  </select><!-- <input type="text"  class="form-control" id="specialite" name ="specialite"  disabled/> </div>   -->  
+                  </select>
                 </div>
               </div>
             </div>

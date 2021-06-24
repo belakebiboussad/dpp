@@ -2,8 +2,8 @@
   	<div class="modal-dialog" role="document">
    		<div class="modal-content">
         <div class="modal-header">
-      			<h5 class="modal-title" id=""><i class="ace-icon  fa fa-plus-circle fa-lg bigger-110"></i>&nbsp; RDV</h5>
-      			<button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span></button>          
+      		<button type="button" class="close" data-dismiss="modal">&times;</button>
+      		<h4 class="modal-title">Ajouter un rendez-vous</h4>   
     		</div>
       	<form  id ="addRdv" role="form" action="/createRDV" method="POST">
 		      <div class="modal-body">

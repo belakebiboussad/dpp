@@ -10,7 +10,8 @@
 					<tr>
 						<th class ="center"><strong>Date</strong></th>
 						<th class ="center"><strong>Type</strong></th>
-						<th class ="center"><strong>Service</strong></th>
+						<!-- <th class ="center"><strong>Service</strong></th> -->
+						<th class ="center"><strong>Specialité</strong></th>
 						<th class ="center"><strong>Médcine traitant</strong></th>
 						<th class ="center"><strong>Etat</strong></th>
 						<th class ="center"><em class="fa fa-cog"></em></th>
@@ -22,7 +23,7 @@
 					<tr>
 						<td>{{ $rdv->Date_RDV->format('Y-m-d') }}</td>
 						<td>{{ $rdv->fixe ? 'Fixe' : 'Non Fixe' }}</td>
-						<td>{{ $rdv->employe->Service->nom}}</td>
+						<td>{{$rdv->employe->Specialite->nom}} {{-- $rdv->employe->Service->nom --}}</td>
 						<td>{{ $rdv->employe->nom }} {{ $rdv->employe->prenom }}	</td>
 						<td class="center">
 						@if(isset($rdv->Etat_RDV))

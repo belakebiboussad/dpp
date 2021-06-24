@@ -34,8 +34,9 @@ function resetPrintModIn()
 }
 function reset_in()
 {
-      $('#medecin').val('');//$('.es-list').html('');  $('#patient').val('');
-      $('#patient').editableSelect();
+  $('#medecin').val('');//$('.es-list').html('');  $('#patient').val('');
+  $('#specialite').val('');
+  $('#patient').editableSelect('clear');
 }
 function layout()
 {
@@ -111,21 +112,23 @@ $(document).ready(function() {
               displayEventTime : false,
               views: {},
               events :[
-                        @foreach($rdvs as $key =>   $rdv)
-                        {
-                          title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
-                          start : '{{ $rdv->Date_RDV }}',
-                          end:   '{{ $rdv->Fin_RDV }}',
-                          id :'{{ $rdv->id }}',
-                          idPatient:'{{ $rdv->patient->id}}',
-                          tel:'{{$rdv->patient->tele_mobile1}}',
-                          age:{{ $rdv->patient->getAge() }},
-                          specialite: {{ $rdv->employe["specialite"]}},
-                          civ : {{ $rdv->patient->getCiviliteCode() }},
-                          key :(isEmpty({{ $rdv->Employe_ID_Employe }}))? "":'{{ $key }}',
-                          fixe:  {{ $rdv->fixe }},
-                        },
-                        @endforeach   
+                  @foreach($rdvs as $key =>   $rdv)
+                  {
+                    title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
+                    start : '{{ $rdv->Date_RDV }}',
+                    end:   '{{ $rdv->Fin_RDV }}',
+                    id :'{{ $rdv->id }}',
+                    idPatient:'{{ $rdv->patient->id}}',
+                    tel:'{{$rdv->patient->tele_mobile1}}',
+                    age:{{ $rdv->patient->getAge() }},
+                    //specialite: {{ $rdv->employe["specialite"]}},
+                    specialite: (isEmpty({{ $rdv->employe["specialite"] }}))? "":'{{ $key }}',// {{ $rdv->employe["specialite"]}},
+
+                    civ : {{ $rdv->patient->getCiviliteCode() }},
+                    key :(isEmpty({{ $rdv->Employe_ID_Employe }}))? "":'{{ $key }}',
+                    fixe:  {{ $rdv->fixe }},
+                  },
+                  @endforeach   
               ], 
               select: function(start, end) {
                     var minutes = end.diff(start,"minutes"); 
@@ -167,8 +170,8 @@ $(document).ready(function() {
                     {
                           $("#lien").attr("href", "{{ route('patient.show',$rdv->patient->id )}}");
                           $('#lien').text(calEvent.title); 
-                          $('#patient_tel').text(calEvent.tel);
-                          $('#agePatient').text(calEvent.age); 
+                          $('#patient_tel').val(calEvent.tel);
+                          $('#agePatient').val(calEvent.age); 
                           $('#idRDV').val(calEvent.id);
                           if($('#doctor').length && !(isEmpty(calEvent.key)))
                             $('#doctor').val(rdvs[calEvent.key]['employe'].nom+" "+rdvs[calEvent.key]['employe'].prenom);
@@ -212,9 +215,9 @@ $(document).ready(function() {
             eventMouseover: function(event, jsEvent, view) {
             }
     });//calendar //fincalendar 
-       $('#patient').editableSelect({
-      effects: 'slide', 
-      editable: false, 
+    $('#patient').editableSelect({
+      effects: 'default', 
+      editable: true,
     }).on('select.editable-select', function (e, li) {
         $('#last-selected').html(
               li.val() + '. ' + li.text()
@@ -223,8 +226,8 @@ $(document).ready(function() {
           $("#btnSave").removeAttr("disabled");//if(! isEmpty($("#medecin").val()))
         @else
         {
-          if(! isEmpty($("#medecin").val()))//$('#medecin').val() != '';
-             $("#btnSave").removeAttr("disabled");
+          if(! isEmpty($("#specialite").val()))//$('#medecin').val() != '';
+            $("#btnSave").removeAttr("disabled");
         }
         @endif
     });

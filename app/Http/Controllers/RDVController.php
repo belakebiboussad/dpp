@@ -78,25 +78,30 @@ class RDVController extends Controller
      * @return \Illuminate\Http\Response
      */
     // Request $request
-    public function create($patient_id = null)
+    public function create(Request $request)//,$patient_id = null
     {
       if(Auth::user()->role_id == 1)   
-      {   
+      {  
         $specialite = Auth::user()->employ->specialite;
+        $specialites = specialite::all();
         $rdvs = rdv::with('patient','employe')
-                          ->whereHas('employe.Specialite',function($q) use ($specialite){
-                                    $q->where('id',$specialite);
-                          })->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get();                                          
-              if(isset($patient_id) && !empty($patient_id))
-                  $patient = patient::FindOrFail($patient_id);
-              else
-                 $patient = new patient;
-             return view('rdv.create',compact('patient','rdvs'));  // }else //   return view('rdv.create', compact('rdvs'));  
+                    ->whereHas('employe.Specialite',function($q) use ($specialite){
+                        $q->where('id',$specialite);
+                    })->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get();                                          
+        
+        if(isset($request->patient_id))//(isset($patient_id) && !empty($patient_id)) ||(
+          $patient = patient::FindOrFail( $request->patient_id);//$pid = (isset($patient_id))? $patient_id : $request->patient_id;
+        else
+          $patient = new patient;
+        return view('rdv.create',compact('patient','rdvs','specialites'));  // }else //   return view('rdv.create', compact('rdvs'));  
       }else{ 
         $rdvs = rdv::with(['patient','employe'])->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get();
         $specialites = specialite::all();
-      if(isset($patient_id) && !empty($patient_id))
-          $patient = patient::FindOrFail($patient_id);
+        if(isset($request->patient_id))//isset($patient_id) && !empty($patient_id)) ||(
+        {
+          //$pid = (isset($patient_id))? $patient_id : $request->patient_id;
+          $patient = patient::FindOrFail($request->patient_id);
+        }
         else
           $patient = new patient;
         return view('rdv.create', compact('rdvs','specialites','patient'));  // }elsereturn view('rdv.create', compact('rdvs','specialites'));   

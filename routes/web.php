@@ -179,8 +179,7 @@ Route::post('cancel-exam', 'DemandeExamenRadio@examCancel');
 route::get('/homeradiologue',function(){
     $demandesexr = App\modeles\demandeexr::where('etat','E')->get();
     return view('home.home_radiologue', compact('demandesexr'));
-})->name('homeradiologue');
-Route::get('rendezVous/create/{id?}','RDVController@create');
+})->name('homeradiologue');//Route::get('rendezVous/create/{id?}','RDVController@create');
 Route::get('assur/patientAssuree/{NSS}/{Type}/{Prenom}','PatientController@create');
 Route::post('/addpatientAssure','PatientController@storePatient');
 Route::get('assur/patientAedit/{id}/{idA}','PatientController@edit');
