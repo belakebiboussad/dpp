@@ -17,14 +17,17 @@
 			</label>&nbsp;&nbsp;&nbsp;
 			<label class="inline">
 				<span class="lbl">Âge:</span>
-				<span class="badge badge-{{ $patient->getAge() < 18 ? 'danger':'success' }} blue">{{ $patient->getAge() }}</span>
+				<span>
+				{{-- <span class="badge badge-{{ $patient->Old() < 18 ? 'danger':'success' }} blue">
+					{{ (Carbon::createFromDate(date('Y', strtotime($patient->Dat_Naissance)), date('m', strtotime($patient->Dat_Naissance)), date('d', strtotime($patient->Dat_Naissance)))->age) }}</span>
+				</span> --}}
 			</label>&nbsp;&nbsp;&nbsp;
-			@if(isset( $patient->Lieu_Naissance))
+			{{-- @if(isset( $patient->Lieu_Naissance))
 			<label class="inline">
 				<span class="lbl"><span class="glyphicon glyphicon-map-marker"></span>Né(e) à :</span>
 				<span class="blue">{{ $patient->lieuNaissance->nom_commune }}</span>
 			</label>&nbsp;&nbsp;&nbsp;
-			@endif
+			@endif --}}
 			<label class="inline"> 	
 				<span class="lbl"><i class="fa fa-phone"></i>&nbsp;Mobile :</span>
 				<span class="blue">{{ $patient->tele_mobile1 }}</span>
