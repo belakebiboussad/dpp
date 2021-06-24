@@ -12,13 +12,6 @@ class patient extends Model
 	   	 else
 	    		return "NAN";
 	}
-	public function Old()
-	{
-			if(isset($this->Dat_Naissance))
-	    		return (Carbon::createFromDate(date('Y', strtotime($this->Dat_Naissance)), date('m', strtotime($this->Dat_Naissance)), date('d', strtotime($this->Dat_Naissance)))->age);
-	   	 else
-	    		return "NAN";
-	}
 	public function lieuNaissance()
 	{
 		return $this->belongsTo('App\modeles\Commune','Lieu_Naissance');

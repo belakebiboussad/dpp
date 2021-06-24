@@ -64,18 +64,16 @@ class DemandeExbController extends Controller
      */
      public function show($id)
      {
-             $demande = demandeexb::FindOrFail($id);
-              if(isset($demande->consultation))
-              {
-                      $patient = $demande->consultation->patient;
-                      $medecin =  $patient = $demande->consultation->docteur ;     
-               }
-               else
-              {
-                      $patient = $demande->visite->hospitalisation->patient;
-                      $medecin =  $patient = $demande->visite->medecin ;   
-             }
-              return view('examenbio.show', compact('demande','patient','medecin' ));
+        $demande = demandeexb::FindOrFail($id);
+        if(isset($demande->consultation))
+        {//$patient = $demande->consultation->patient;
+          $medecin =  $patient = $demande->consultation->docteur ;     
+         }
+         else
+        {// $patient = $demande->visite->hospitalisation->patient;
+          $medecin =  $patient = $demande->visite->medecin ;//dd($demande->visite->hospitalisation->patient);
+        }// 'patient'
+        return view('examenbio.show', compact('demande','medecin' ));
      }
     /**
      * Show the form for editing the specified resource.
@@ -115,15 +113,13 @@ class DemandeExbController extends Controller
     {
        $demande = demandeexb::FindOrFail($id);
         if(isset($demande->consultation))
-            {
-                    $patient = $demande->consultation->patient;
-                    $medecin =  $patient = $demande->consultation->docteur ;     
-             }
-             else
-            {
-                    $patient = $demande->visite->hospitalisation->patient;
-                    $medecin =  $patient = $demande->visite->medecin ;   
-           }
+        {// $patient = $demande->consultation->patient;
+          $medecin =  $patient = $demande->consultation->docteur ;     
+        }
+        else
+        {// $patient = $demande->visite->hospitalisation->patient;
+          $medecin =  $patient = $demande->visite->medecin ;   
+        }
        return view('examenbio.details', compact('demande','patient','medecin'));
     }
     public function uploadresultat(Request $request)

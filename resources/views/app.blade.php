@@ -160,7 +160,6 @@
                 $("select#gs").val(''); 
               else
                  $("select#gsf").val('');             
-            }
         });
         if($("#Position").val() != "Activité" )
           $('#serviceFonc').addClass('invisible');

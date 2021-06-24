@@ -16,7 +16,13 @@
 </script>
 @endsection
 @section('main-content')
-<div class="row" width="100%"> @include('patient._patientInfo') </div>
+ <?php
+    if(isset($demande->id_consultation))
+      $patient = $demande->consultation->patient;
+    else
+     $patient = $demande->visite->hospitalisation->patient;
+  ?>
+<div class="row" width="100%"> @include('patient._patientInfo',$patient) </div>
 <div class="row">
   <div class="col-md-5 col-sm-5"><h3>Demande d'examen biologique</h3></div>
   <div class="col-md-7 col-sm-7">

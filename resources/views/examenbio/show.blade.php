@@ -1,7 +1,13 @@
 @extends('app')
 @section('main-content')
   <div class="row" width="100%"> 
-  @include('patient._patientInfo') </div>
+  <?php
+    if(isset($demande->id_consultation))
+      $patient = $demande->consultation->patient;
+    else
+     $patient = $demande->visite->hospitalisation->patient;
+  ?>
+  @include('patient._patientInfo', $patient) </div>
   <div class="content">
     <div class="row">
       <div class="col-sm-5"><h3>Détails de la demande biologique</h3></div> <div class="col-sm-5"></div>

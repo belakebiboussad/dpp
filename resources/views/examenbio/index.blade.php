@@ -104,9 +104,9 @@
 		 })
 	}
  	$(function(){
-  		$(".demandeBioSearch").click(function(e){
-  	  		getBioRequests(field,$('#'+field).val().trim());
-  		})
+  	$(".demandeBioSearch").click(function(e){
+  			getBioRequests(field,$('#'+field).val().trim());
+  	})
   })
 </script>
 @endsection 	
