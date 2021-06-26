@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\modeles\salle;
 use App\modeles\lit;
 use App\modeles\service;
+use App\modeles\patient;
 use Validator;
 use Redirect;
 use MessageBag;
@@ -118,7 +119,22 @@ class SalleController extends Controller
     }
     public function getsalles(Request $request)
     {
-      $salles = salle::where('service_id',$request->ServiceID)->where('etat',null)->get();
+      $type = 0;
+      $patient = patient::FindOrFail($request->patient_id);
+
+      $gender = $patient->Sexe;
+
+      if($gender == "M")
+      {
+          $type = 0;
+      }
+      elseif($gender == "F")
+      {
+          $type = 1;
+      }
+
+      $salles = salle::where('service_id',$request->ServiceID)->where('genre', $type)->where('etat',null)->get();
+      
       if( $request->Affect == '0')  
       {
         foreach ($salles as $key1 => $salle) {

@@ -102,7 +102,7 @@ class ServiceController extends Controller
         $view = view("services.ajax_servicerooms",compact('service'))->render();
         return response()->json(['html'=>$view]);
       }
-      public function getsalles( $id)
+      public function getsalles($id)
       { // $service = service::FindOrFail($id);
         $salles = salle::where('service_id',$id)->where('etat',null)->get();
         return $salles;
