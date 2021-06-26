@@ -21,7 +21,7 @@
         selectHelper: true,// eventColor: '#87CEFA',//contentHeight: 700,//700
         editable: true,
         eventLimit: true, // allow "more" link when too many events      // displayEventEnd: true,       
-        hiddenDays: [ 5, 6 ],
+        //hiddenDays: [ 5, 6 ],
         allDaySlot: false,
         weekNumberCalculation: 'ISO',
         aspectRatio: 1.5,
@@ -39,7 +39,7 @@
                     idPatient:'{{$rdv->patient->id}}',
                     tel:'{{$rdv->patient->tele_mobile1}}',
                     age:{{ $rdv->patient->getAge() }},
-                    specialite: {{ $rdv->employe["specialite"] }},
+                    specialite: {{ $rdv->specialite_id }},
                     medecin : (isEmpty({{ $rdv->Employe_ID_Employe}}))? "": '{{ $rdv->Employe_ID_Employe}}',
                     fixe:  {{ $rdv->fixe }},
                     etat : '{{ $rdv->Etat_RDV }}',   

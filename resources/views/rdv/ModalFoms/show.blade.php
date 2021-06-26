@@ -1,10 +1,9 @@
 <div class="modal fade" id="fullCalModal" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
    	<div class="modal-content">
-      <div class="modal-header">
-<!-- <h5 class="modal-title"><span class="glyphicon glyphicon-bell"></span>&nbsp;Détails du rendez-vous de &nbsp; <q><a href="" id="lien" class="white"></a></q></h5>-->   
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
-        <h4 class="modal-title">Détails du rendez-vous de &nbsp; <q><a href="" id="lien" class="white"></a></q></h4>
+      <div class="modal-header">  
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+            <h4 class="modal-title">Détails du rendez-vous du &nbsp; <q><a href="" id="lien" class="white"></a></q></h4>
       </div>
       <form id ="updateRdv" role="form" method="POST"> 
         <div class="modal-body">
@@ -29,7 +28,7 @@
               <div class="col-sm-12">
                 <div class="form-group">
                   <label for="specialite" class="col-form-label" ><strong>&nbsp;Spécialité:</strong></label>
-                  <select class="form-control" id="specialite" name="specialite" disabled>
+                  <select class="form-control" id="specialite" disabled>
                       @foreach($specialites as $specialite)
                         <option value="{{ $specialite->id}}">{{  $specialite->nom }}</option>
                        @endforeach
@@ -38,16 +37,16 @@
               </div>
             </div>
           </div>
-          <div class="well">   
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="form-group">
-                 <label for="doctor" class="col-form-label" ><i class="ace-icon fa  fa-user-md bigger-130"></i><strong>&nbsp;Medecin:</strong></label>
-                  <div class="input-group col-sm-12"><input type="text"  class="form-control" id="doctor" name ="doctor"  disabled/> </div>  
+        {{--   <div class="well">   
+                <div class="row">
+                      <div class="col-sm-12">
+                            <div class="form-group">
+                                   <label for="doctor" class="col-form-label" ><i class="ace-icon fa  fa-user-md bigger-130"></i><strong>&nbsp;Medecin:</strong></label>
+                                    <div class="input-group col-sm-12"><input type="text"  class="form-control" id="doctor" name ="doctor"  disabled/> </div>  
+                            </div>
+                      </div>
                 </div>
-              </div>
-            </div>
-           </div>
+           </div> --}}
            <div class="well">
               <div class="row">
                  <div class="col-sm-6">

@@ -44,8 +44,11 @@ class patient extends Model
  	}
  	public function rdvs()
  	{
- 		 return $this->hasMany('App\modeles\rdv','Patient_ID_Patient');
+ 		 return $this->hasMany('App\modeles\rdv','patient_id');
  	}
+ 	public function rdvsSpecialite ($id) {
+   		return $this->hasMany('App\modeles\rdv')->where('specialite_id', $id);
+	}
  	public function hospitalisations()
  	{
  		 return $this->hasMany('App\modeles\hospitalisation','patient_id');

@@ -53,7 +53,7 @@ $(document).ready(function() {
           selectHelper: true,// eventColor: '#87CEFA',//contentHeight: 700,//700
           editable: true,
           eventLimit: true, // allow "more" link when too many events      // displayEventEnd: true,       
-          hiddenDays: [ 5, 6 ],
+          //hiddenDays: [ 5, 6 ],
           allDaySlot: false,
           weekNumberCalculation: 'ISO',
           aspectRatio: 1.5,
@@ -71,53 +71,51 @@ $(document).ready(function() {
                           idPatient:'{{$rdv->patient->id}}',
                           tel:'{{$rdv->patient->tele_mobile1}}',
                           age:{{ $rdv->patient->getAge() }},
-                          specialite: {{ $rdv->employe["specialite"] }},
+                          specialite: {{ $rdv->specialite_id }},
                           medecin : (isEmpty({{ $rdv->Employe_ID_Employe}}))? "": '{{ $rdv->Employe_ID_Employe}}',
                           fixe:  {{ $rdv->fixe }},
                           etat : '{{ $rdv->Etat_RDV }}',
                     },
                  @endforeach 
-            ],
-            select: function(start, end) {
-                  $('.calendar1').fullCalendar('unselect');
-            },
-            eventClick: function(calEvent, jsEvent, view) {
-              if(Date.parse(calEvent.start) > today && (calEvent.etat != 1) ) 
-              {
-                
-                reset_in();
-                if(calEvent.fixe &&(!(isEmpty(calEvent.medecin))))
-                  $('#printRdv').removeClass('hidden'); 
-                if($('#fixe').length &&(calEvent.fixe))
-                  $("#fixe"). prop("checked", true);
-                $('#idRDV').val(calEvent.id);
-                ajaxEditEvent(calEvent,false);
-
-              }
-           },
-           eventRender: function (event, element, webData) {
-              if((event.start < today) || (event.etat == 1))
-                element.css('background-color', '#D3D3D3'); 
-              else 
-              {
-                if(event.fixe)
-                       element.css('background-color', '#87CEFA'); 
-                else
-                        element.css('background-color', '#378006');   
-                element.css("padding", "5px");
-              }  
-              element.popover({
-                    delay: { "show": 500, "hide": 100 },
-                    content: event.tel,
-                    trigger: 'hover',
-                    animation:true,
-                    placement: 'bottom',
-                    container: 'body',
-                    template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
-              });                   
+              ],
+              select: function(start, end) {
+                        $('.calendar1').fullCalendar('unselect');
+              },
+               eventClick: function(calEvent, jsEvent, view) {
+                      if(Date.parse(calEvent.start) > today && (calEvent.etat != 1) ) 
+                      {
+                              reset_in();
+                              if((calEvent.fixe) && (new Date(calEvent.start).setHours(0, 0, 0, 0) > today))  //&&(!(isEmpty(calEvent.medecin)
+                                     $('#printRdv').removeClass('hidden'); 
+                              if($('#fixe').length &&(calEvent.fixe))
+                                     $("#fixe"). prop("checked", true);
+                             $('#idRDV').val(calEvent.id);
+                              ajaxEditEvent(calEvent,false);
+                      }
+              },
+               eventRender: function (event, element, webData) {
+                      if((event.start < today) || (event.etat == 1))
+                        element.css('background-color', '#D3D3D3'); 
+                      else 
+                      {
+                        if(event.fixe)
+                               element.css('background-color', '#87CEFA'); 
+                        else
+                                element.css('background-color', '#378006');   
+                        element.css("padding", "5px");
+                      }  
+                      element.popover({
+                            delay: { "show": 500, "hide": 100 },
+                            content: event.tel,
+                            trigger: 'hover',
+                            animation:true,
+                            placement: 'bottom',
+                            container: 'body',
+                            template:'<div class="popover" role="tooltip"><div class="arrow"></div><h6 class="popover-header">'+event.tel+'</h6><div class="popover-body"></div></div>',
+                      });                   
           },
           eventAllow: function(dropLocation, draggedEvent) {
-                if (draggedEvent.start < today)  
+               if (draggedEvent.start < today)  
                      return false;
           },
           eventDrop: function(event, delta, revertFunc)
@@ -166,16 +164,10 @@ $(document).ready(function() {
   <div class="modal fade" id="fullCalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  {{-- Modal --}}
   <div class="modal-dialog modal-lg" role="document">
   <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title"><span class="glyphicon glyphicon-bell"></span>Modifier le rendez-vous du&nbsp;
-        <q><a href="" id="lien" class="white"></a></q></h5>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span></button><hr>  
-      <div class="row">
-           <div class="col-sm-6"><i class="fa fa-phone" aria-hidden="true"></i><strong>Téléphone:&nbsp;</strong><span id="patient_tel" class="white"></span> 
-           </div>
-          <div class="col-sm-6"><strong>Âge:&nbsp;</strong><span id="agePatient" class="badge badge-info" ></span><small>Ans</small></div>
+       <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+               <h4 class="modal-title">Modifier le rendez-vous du&nbsp; <q><a href="" id="lien" class="white"></a></q></h4>
        </div>
-    </div>
     <form id ="updateRdv" role="form" action="" method="POST"> 
            <div class="modal-body">
       {{ csrf_field() }}
@@ -183,17 +175,31 @@ $(document).ready(function() {
       <input type="hidden" id="idRDV">
       <input  id="daterdv" name ="daterdv" type="hidden" />
       <input  id="datefinrdv" name ="datefinrdv" type="hidden" />
+             <div class="well">   
+            <div class="row">
+              <div class="col-sm-6">
+                 <div class="form-group">
+                 <label for="patient_tel" class="col-form-label" ><i class="fa fa-phone" aria-hidden="true"></i><strong>&nbsp;Téléphone :</strong></label>
+                  <div class="input-group col-sm-12"><input type="text"  class="form-control" id="patient_tel"  disabled/> </div>  
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <label for="agePatient" class="col-form-label" ><strong>&nbsp;Âge :</strong></label>
+                <div class="input-group col-sm-12"><input type="text"  class="form-control" id="agePatient" disabled/> </div>  
+              </div>
+            </div>
+          </div>
       @if(Auth::user()->role->id == 2)
        <div class="well">
              <div class="row">
                  <div class="col-sm-12">                   
-                      <label for="medecin"><i class="ace-icon fa  fa-user-md bigger-130"></i><strong>&nbsp;Médecin:</strong></label>
-                      <div class="input-group col-sm-12"> {{-- style="width:300px;" --}}
-                            <select  placeholder="Selectionner... " class="form-control" id="medecin" name ="medecin"> </select>
+                      <label for="medecin"><i class="ace-icon fa  fa-user-md bigger-130"></i><strong>&nbsp;Spécialité:</strong></label>
+                      <div class="input-group col-sm-12">
+                            <select  placeholder="Selectionner... " class="form-control" id="specialite" name ="specialite"> </select>
                        </div> 
                   </div>
              </div>
-      </div>
+       </div>
       @endif
       <div class="well">
            <div class="row">

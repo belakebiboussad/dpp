@@ -18,9 +18,7 @@
 			<label class="inline">
 				<span class="lbl">Âge:</span>
 				<span>
-				<span class="badge badge-{{ $patient->getAge() < 18 ? 'danger':'success' }} blue">
-						{{ $patient->getAge() }}
-				</span>
+				<span class="badge badge-{{ $patient->getAge() < 18 ? 'danger':'success' }} blue">{{ $patient->getAge() }}</span>
 			</label>&nbsp;&nbsp;&nbsp;
 			@if(isset( $patient->Lieu_Naissance))
 			<label class="inline">

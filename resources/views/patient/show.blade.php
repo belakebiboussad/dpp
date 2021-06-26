@@ -127,9 +127,8 @@ $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "160
 					</a>
 				</li>
 				@endif
-				<li>
-					<a data-toggle="tab" href="#rdvs">
-						<i class="blue ace-icon fa fa-calendar-o bigger-120"></i>RDV&nbsp;<span class="badge badge-info">{{ $patient->rdvs->count() }}</span>
+				<li><a data-toggle="tab" href="#rdvs">
+					<i class="blue ace-icon fa fa-calendar-o bigger-120"></i>RDV&nbsp;<span class="badge badge-info">{{ $rdvs->count() }}</span>
 					</a>
 				</li>
 				@if (!is_null($correspondants))

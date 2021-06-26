@@ -5,7 +5,7 @@
       		<button type="button" class="close" data-dismiss="modal">&times;</button>
       		<h4 class="modal-title">Ajouter un rendez-vous</h4>   
     		</div>
-      	<form  id ="addRdv" role="form" action="/createRDV" method="POST">
+      	<form  id ="addRdv" role="form" action="/createRDV" method="POST"> 
 		      <div class="modal-body">
 				   {{ csrf_field() }}
 			          <input type="hidden" id="Debut_RDV" name="Debut_RDV" value="">
@@ -42,24 +42,18 @@
 			           	<div class="panel-heading"><i class="ace-icon fa  fa-user-md bigger-110"></i><span>Selectionner un médecin</span></div>
                		<div class="panel-body">
 			           	<div class="row">
-			           	<div class="col-sm-6">
+			           	<div class="col-sm-12">
 			           		<div class="form-group">
-					          	<label class="col-form-label" for=""> <strong>Spécialité :</strong></label>
-			                <select class="form-control" id="specialite" name="specialite" onchange="getMedecinsSpecialite($(this).val());" required>
-                       	<option value="" selected disabled> Selectionner</option>}
-                       	option
-                       	@foreach($specialites as $specialite)
-                     		<option value="{{ $specialite->id}}">{{  $specialite->nom }}</option>
-                      @endforeach
-                      </select>
+					          	<label class="col-form-label" for=""> <strong>Spécialité :</strong></label> {{-- onchange="getMedecinsSpecialite($(this).val());" --}}
+			                		<select class="form-control" id="specialite" name="specialite" required>
+				                       	<option value="" selected disabled> Selectionner</option>
+				                       	@foreach($specialites as $specialite)
+				                     		<option value="{{ $specialite->id}}">{{  $specialite->nom }}</option>
+				                     		 @endforeach
+				                      </select>
 				         		</div>
 			           	</div>
-			           	<div class="col-sm-6">
-			           		<div class="form-group">
-					          	<label class="col-form-label" for=""> <strong>Médecin: </strong></label>
-			                <select class="form-control" id="medecin" name ="medecin" disabled ></select>
-				         		</div>
-			           	</div>
+{{-- 	<div class="col-sm-6"><div class="form-group"><label class="col-form-label" for=""> <strong>Médecin: </strong></label><select class="form-control" id="medecin" name ="medecin" disabled ></select></div></div> --}}
 			           </div>
 			           </div>
 			           </div>

@@ -57,8 +57,7 @@
                       // warpClass: 'ui-select-wrap',
                 });
                 $("#patient").on("keyup", function() {
-                      //to call ajax
-                      remoteSearch();    
+                        remoteSearch();    
                 });
                 $(".es-list").click(function(e) 
                 { 
@@ -100,7 +99,6 @@
             });
       }
       </script>
-
  @endsection
 @section('main-content')
 <div class="container">
@@ -117,8 +115,6 @@
         </div>
     </div>
 </div>
-
-<!-- Modal --> 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
      <div class="modal-dialog" role="document">
      <div class="modal-content">
@@ -138,8 +134,7 @@
               </div>
      </div>
       <div class="modal-body">
-      {{-- {{route('rdv.update',5)}} /rdv/5--}}
-           <form id ="updateRdv" role="form" action="" method="POST">
+            <form id ="updateRdv" role="form" action="" method="POST">
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
                 <input type="hidden" name="id_rdv" id ="id_rdv"/>
@@ -156,7 +151,6 @@
                 </div>
            </form>   
       </div>
- 
       <div class="modal-footer center">
       @if(Auth::user()->role->id == 1)
       <a type="button" id="btnConsulter" class="btn btn btn-sm btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
@@ -172,7 +166,6 @@
     </div>
   </div>
 </div>{{-- modal --}}
-
 <div id="fullCalModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -183,9 +176,8 @@
             </div>
            <form id ="addRdv" role="form" action="/createRDV"method="POST">
                 {{ csrf_field() }}
-                <input type="datetime" id="date_RDV" name="date_RDV" data-date-format='yyyy-mm-dd' value="">{{-- style="display:none;" --}}
-                {{-- <input type="time" id="Temp_rdv" name="Temp_rdv"  value=""  min="8:00" max="18:00" >   --}}
-                <div id="modalBody" class="modal-body">
+                <input type="datetime" id="date_RDV" name="date_RDV" data-date-format='yyyy-mm-dd' value="">
+                  <div id="modalBody" class="modal-body">
                       <div class="row">
                            <fieldset class="inline-fields"> 
                                 <label for="patient"><strong>Selectioner le patient :</strong></label>
