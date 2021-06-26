@@ -72,23 +72,23 @@ class ConsultationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request,$id_patient)
-    {
-      $etablissement = Etablissement::first(); 
-      $employe=Auth::user()->employ;
-      $modesAdmission = config('settings.ModeAdmissions') ;
-      $patient = patient::FindOrFail($id_patient);//$codesim = codesim::all();
-      $chapitres = chapitre::all();
-      $services = service::all();
-      $apareils = appareil::all();
-      $meds = User::where('role_id',1)->get()->all();
-      $specialites = Specialite::orderBy('nom')->get();
-      $specialitesExamBiolo = specialite_exb::all();
-      $infossupp = infosupppertinentes::all();
-      $examens = TypeExam::all();//CT,RMN
-      $examensradio = examenradiologique::all();//pied,poignet
-      return view('consultations.create',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp','examens','examensradio'));
-    }
+      public function create(Request $request,$id_patient)
+      {
+                $etablissement = Etablissement::first(); 
+                $employe=Auth::user()->employ;
+                $modesAdmission = config('settings.ModeAdmissions') ;
+                $patient = patient::FindOrFail($id_patient);//$codesim = codesim::all();
+                $chapitres = chapitre::all();
+                $services = service::all();
+                $apareils = appareil::all();
+                $meds = User::where('role_id',1)->get()->all();
+                $specialites = Specialite::orderBy('nom')->get();
+                $specialitesExamBiolo = specialite_exb::all();
+                $infossupp = infosupppertinentes::all();
+                $examens = TypeExam::all();//CT,RMN
+                $examensradio = examenradiologique::all();//pied,poignet
+                return view('consultations.create',compact('patient','employe','etablissement','chapitres','apareils','meds','specialites','specialitesExamBiolo','modesAdmission','services','infossupp','examens','examensradio'));
+      }
     /**
      * Store a newly created resource in storage.
      *
@@ -96,28 +96,29 @@ class ConsultationsController extends Controller
      * @return \Illuminate\Http\Response
      */
       public function store(Request $request)
-      { //$request->validate([   "motif" => 'required',    "resume" => 'required',     ]);
-        $validator = Validator::make($request->all(), [
-          'motif' => 'required|max:255',
-          'resume' => 'required',
-        ]);
-        if($validator->fails())
-          return redirect()->back()->withErrors($validator)->withInput();
-        $etablissement = Etablissement::first(); 
-        $fact = facteurRisqueGeneral::updateOrCreate( ['patient_id' =>  request('patient_id')], $request->all());
-        $consult = consultation::create([
-            "motif"=>$request->motif,
-            "histoire_maladie"=>$request->histoirem,
-            "Date_Consultation"=>Date::Now(),
-            "Diagnostic"=>$request->diagnostic,
-            "Resume_OBS"=>$request->resume,
-            "isOriented"=> (!empty($request->isOriented) ? 1 : 0),
-            "lettreorientaioncontent"=>(!empty($request->isOriented) ? $request->lettreorientaioncontent  : null),
-            "Employe_ID_Employe"=>Auth::User()->employee_id,
-            "Patient_ID_Patient"=>$request->patient_id,
-            "id_code_sim"=>$request->codesim,
-           "id_lieu"=>$etablissement->id// "id_lieu"=>session('lieu_id'),
-        ]);
+      { 
+                //$request->validate([   "motif" => 'required',    "resume" => 'required',     ]);
+              $validator = Validator::make($request->all(), [
+                'motif' => 'required|max:255',
+                'resume' => 'required',
+              ]);
+              if($validator->fails())
+              return redirect()->back()->withErrors($validator)->withInput();
+            $etablissement = Etablissement::first(); 
+            $fact = facteurRisqueGeneral::updateOrCreate( ['patient_id' =>  request('patient_id')], $request->all());
+            $consult = consultation::create([
+                "motif"=>$request->motif,
+                "histoire_maladie"=>$request->histoirem,
+                "Date_Consultation"=>Date::Now(),
+                "Diagnostic"=>$request->diagnostic,
+                "Resume_OBS"=>$request->resume,
+                "isOriented"=> (!empty($request->isOriented) ? 1 : 0),
+                "lettreorientaioncontent"=>(!empty($request->isOriented) ? $request->lettreorientaioncontent  : null),
+                "Employe_ID_Employe"=>Auth::User()->employee_id,
+                "Patient_ID_Patient"=>$request->patient_id,
+                "id_code_sim"=>$request->codesim,
+               "id_lieu"=>$etablissement->id// "id_lieu"=>session('lieu_id'),
+            ]);
         foreach($consult->patient->rdvs as $rdv)
         {
           if( $rdv->Date_RDV->setTime(0, 0)  == $consult->Date_Consultation->setTime(0, 0) )
@@ -153,8 +154,9 @@ class ConsultationsController extends Controller
             $ord->medicamentes()->attach($trait->med,['posologie' => $trait->posologie]);     
           }
         }
-        if($request->exm  != null && (count($request->exm)))//save ExamBiolo
+        if($request->exm  != null && (count($request->exm) >0 ))//save ExamBiolo
         {
+            dd(count($request->exm));
             $demandeExamBio = new demandeexb;
             $consult->demandeexmbio()->save($demandeExamBio);
             foreach($request->exm as $id_exb) {
@@ -226,17 +228,17 @@ class ConsultationsController extends Controller
     {
        return view('consultations.add');
     }
-    public function getConsultations(Request $request)
-    {
-      if($request->ajax())  
-      {         
-        if($request->field == 'Date_Consultation')//consults =consultation::with('patient','docteur')->where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
-          $consults =consultation::with('patient','docteur')->where(trim($request->field),'=',trim($request->value))->get();
-        else
-          $consults =consultation::with('patient','docteur')->whereHas('patient',function($q) use ($request){
-                                                      $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
-                                                  })->get();
-        return Response::json($consults);
+      public function getConsultations(Request $request)
+      {
+              if($request->ajax())  
+              {         
+                if($request->field == 'Date_Consultation')//consults =consultation::with('patient','docteur')->where(trim($request->field),'LIKE','%'.trim($request->value)."%")->get();
+                  $consults =consultation::with('patient','docteur')->where(trim($request->field),'=',trim($request->value))->get();
+                else
+                  $consults =consultation::with('patient','docteur')->whereHas('patient',function($q) use ($request){
+                                                              $q->where(trim($request->field),'LIKE','%'.trim($request->value)."%");  
+                                                          })->get();
+                return Response::json($consults);
+              }
       }
-    }
 }
