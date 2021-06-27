@@ -15,74 +15,87 @@
   </style>
 @endsection
 @section('page-script')
-{{--<script type="text/javascript" src="http://192.168.1.60:90/Scripts/jquery-1.6.4.min.js"></script><script src="{{asset('/js/jquery.signalR.min.js')}}"></script> --}}
+{{--<script type="text/javascript" src="http://192.168.1.60:90/Scripts/jquery-1.6.4.min.js"></script> 
+<script src="{{asset('/js/jquery.signalR.min.js')}}"></script>--}}
 <script type="text/javascript" src="http://192.168.1.60:90/Scripts/jquery.signalR-1.1.3.min.js" onerror="console.log('error signalR!');" onload="loaded=true;"></script>
 <script type="text/javascript" src="http://192.168.1.60:90/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script>
 <script>
 var rdvs = @json($rdvs);
- var loaded = false;
-function resetaddModIn()
-{
-        $('.es-list').val(''); 
-        $('#patient').val(''); 
-        $('#medecin').val('');
-        $('#specialite').val(''); 
-        $("#medecin").attr("disabled", true);   
-}
+var loaded;
+/*function resetaddModIn(){}*/
 function resetPrintModIn()
 {
-      $('#doctor').val('');$('#printRdv').addClass('hidden')
+  $('#doctor').val('');
+  $('#printRdv').addClass('hidden')
+}
+
+function resetPatin()
+{
+  $('#patient').editableSelect('clear');
+  $('.es-list').val(''); 
+  $('#patient').val('');
 }
 function reset_in()
-{
-  $('#medecin').val('');//$('.es-list').html('');  $('#patient').val('');
-  $('#specialite').val('');
-  $('#patient').editableSelect('clear');
-}
-function layout()
-{
-      reset_in(); 
-      resetaddModIn();//var field = $("select#filtre option").filter(":selected").val();
-      $("#btnSave").attr("disabled", true);
+{ //$('.es-list').html('');  $('#patient').val('');//$('#specialite').val('');
+ // $('#medecin').val(''); //$('#specialite').val(''); //$("#medecin").attr("disabled", true);
+  $("#filtre").val('');
+  if('{{ Auth::user()->role_id == 2 }}')
+  {
+    $('#specialite').val('');
+    $("#filtre").attr("disabled", true);
+  }
+  resetPatin();
+  $("#btnSave").attr("disabled", true);
+  
 }
 function getPatient()
 {
-        var field = $("select#filtre option").filter(":selected").val();//patientSearch(field,$("#patient").val()); //to call ajax
-        $.ajax({
-             url : '{{URL::to('getPatients')}}',
-             data: {    
-                   "field":field,
-                   "value":$("#patient").val(),
-             },
-             dataType: "json",
-             success: function(data) {
-               $(".es-list").html("");//remove list
-               $(".es-list").addClass("make-scrolling");
-               $.each(data['data'], function(i, v) {
-                      $(".es-list").append($('<li></li>').attr('value', v['id']).attr('class','es-visible list-group-item option').text(v['IPP']+"-"+v['Nom']+"-"+v['Prenom']));
-               });
-             },
-            error: function() {
-               alert("can't connect to db");
-            }
-        });
+  var spec ='{{ Auth::user()->role_id ==1 }}' ? '{{ Auth::user()->employ->specialite }}' : $("#specialite") .val(); 
+  var field = $("select#filtre option").filter(":selected").val();//patientSearch(field,$("#patient").val()); //to call ajax
+  $.ajax({
+        url : '{{URL::to('getPatients')}}',
+        data: {    
+            "field":field,
+            "value":$("#patient").val(),
+            "specialite":spec,
+        },
+       dataType: "json",
+       success: function(data) {
+         $(".es-list").html("");//remove list
+         $(".es-list").addClass("make-scrolling");
+         $.each(data['data'], function(i, v) {
+            $(".es-list").append($('<li></li>').attr('value', v['id']).attr('class','es-visible list-group-item option').text(v['IPP']+"-"+v['Nom']+"-"+v['Prenom']));
+         });
+       },
+      error: function() {
+         alert("can't connect to db");
+      }
+  });
 }
 $(function () {
-       if(loaded)
-       {
-               $.connection.hub.url = 'http://192.168.1.60:90/myhubs';
-               // Connect Hubs without the generated proxy
-               var chatHubProxy = $.connection.myChatHub;
-              $.connection.hub.start().done(function (e) {
-               console.log("Hub connected.");
-              $("#printTck").click(function(){
-                       var barcode = $("#civiliteCode").val()+ $("#idRDV").val()+"|"+$("#specialite").val()+"|"+$("#daterdvHidden").val();
-                      chatHubProxy.server.send(barcode);       
-                });
-        }).fail(function () {
-                console.log("Could not connect to Hub.");
-         });
-    }
+  if(loaded)
+  {
+    $.connection.hub.url = 'http://192.168.1.60:90/myhubs';
+     // Connect Hubs without the generated proxy
+     var chatHubProxy = $.connection.myChatHub;
+    $.connection.hub.start().done(function (e) {
+     console.log("Hub connected.");
+    $("#printTck").click(function(){
+        var barcode = $("#civiliteCode").val()+ $("#idRDV").val()+"|"+$("#specialite").val()+"|"+$("#daterdvHidden").val();
+        chatHubProxy.server.send(barcode);       
+      });
+    }).fail(function () {
+      console.log("Could not connect to Hub.");
+    });
+  }
+});
+$(function () {
+  $( "#filtre" ).change(function() {
+    resetPatin();//resetaddModIn();//var field = $("select#filtre option").filter(":selected").val();
+    $("#btnSave").attr("disabled", true);
+    if($(this).val() != '' &&($("#patient").prop('disabled') == true))
+      $("#patient").prop('disabled',false);
+  });
 });
 $(document).ready(function() {
     var CurrentDate = (new Date()).setHours(23, 59, 59, 0); 
@@ -105,7 +118,7 @@ $(document).ready(function() {
               eventColor: '#87CEFA',
               editable: true,
               eventLimit: true,     
-              //hiddenDays: [ 5, 6 ],
+              hiddenDays: [ 5, 6 ],
               allDaySlot: false,
               weekNumberCalculation: 'ISO',
               aspectRatio: 1.5,        // disableDragging: true,
@@ -169,35 +182,41 @@ $(document).ready(function() {
                       $('#calendar').fullCalendar('unselect');
                 },
                 eventClick: function(calEvent, jsEvent, view) {
-                      if(Date.parse(calEvent.start) > today )
-                     {
-                              $("#lien").attr("href", "{{ route('patient.show',$rdv->patient->id )}}");
-                              $('#lien').text(calEvent.title); 
-                              $('#patient_tel').val(calEvent.tel);
-                              $('#agePatient').val(calEvent.age); 
-                              $('#idRDV').val(calEvent.id);
-                              if($('#doctor').length && !(isEmpty(calEvent.key)))
-                                    $('#doctor').val(rdvs[calEvent.key]['employe'].nom+" "+rdvs[calEvent.key]['employe'].prenom);
-                              $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
-                              $("#daterdvHidden").val(calEvent.start.format('DDMMYY'));
-                              $("#specialite").val(calEvent.specialite);
-                              $('#specialite option[value="' + calEvent.specialite+ '"]').attr("selected", "selected");   
-                              (calEvent.fixe==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
-                              $('#civiliteCode').val(calEvent.civ);
-                              $('#btnConsulter').attr('href','/consultations/create/'.concat(calEvent.idPatient)); //if(calEvent.fixe &&(!(isEmpty(calEvent.key)))  )
-                              if( calEvent.fixe && (new Date(calEvent.start).setHours(0, 0, 0, 0) > today) )
-                              {
-                                     if($('#printRdv').hasClass( "hidden" ))
-                                           $('#printRdv').removeClass('hidden');
-                                     if(!$('#printTck').hasClass( "hidden" ))
-                                            $('#printTck').addClass('hidden');
-                              }
-                              if(new Date(calEvent.start).setHours(0, 0, 0, 0)  ==  today )
-                                      if(loaded)
-                                            if($('#printTck').hasClass( "hidden" ))
-                                                    $('#printTck').removeClass('hidden');
-                                    $('#fullCalModal').modal({ show: 'true' });
-                             }
+                      if(Date.parse(calEvent.start) > today)
+                      {
+                          $("#lien").attr("href", '/patient/'+calEvent.idPatient);
+                          $('#lien').text(calEvent.title); 
+                          $('#patient_tel').val(calEvent.tel);
+                          $('#agePatient').val(calEvent.age); 
+                          $('#idRDV').val(calEvent.id);
+                          if($('#doctor').length && !(isEmpty(calEvent.key)))
+                                $('#doctor').val(rdvs[calEvent.key]['employe'].nom+" "+rdvs[calEvent.key]['employe'].prenom);
+                          $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
+                          $("#daterdvHidden").val(calEvent.start.format('DDMMYY'));
+                          $("#specialite").val(calEvent.specialite);
+                          $('#specialite option[value="' + calEvent.specialite+ '"]').attr("selected", "selected");   
+                          (calEvent.fixe==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
+                          $('#civiliteCode').val(calEvent.civ);
+                          $('#btnConsulter').attr('href','/consultations/create/'.concat(calEvent.idPatient)); //if(calEvent.fixe &&(!(isEmpty(calEvent.key)))  )
+                          if( calEvent.fixe && (new Date(calEvent.start).setHours(0, 0, 0, 0) > today) )
+                          {
+                            if($('#printRdv').hasClass( "hidden" ))
+                              $('#printRdv').removeClass('hidden');
+                            if(!$('#printTck').hasClass( "hidden" ))
+                              $('#printTck').addClass('hidden');
+                          }
+                          if(new Date(calEvent.start).setHours(0, 0, 0, 0)  ==  today )
+                          {
+                            if(loaded)
+                            {
+                              if($('#printTck').hasClass( "hidden" ))
+                                $('#printTck').removeClass('hidden');
+                            }
+                            if($('#printRdv').hasClass( "hidden" ))
+                              $('#printRdv').hasClass('hidden');
+                          }  
+                          $('#fullCalModal').modal({ show: 'true' });
+                         }
               },
               eventRender: function (event, element, webData) {
                       if(event.start < today)
@@ -224,28 +243,43 @@ $(document).ready(function() {
             }
     });//calendar //fincalendar 
     $('#patient').editableSelect({
-      effects: 'default', 
-      editable: true,
+        effects: 'default', 
+        editable: true,
     }).on('select.editable-select', function (e, li) {
         $('#last-selected').html(
               li.val() + '. ' + li.text()
         ); 
-        @if(Auth::user()->role_id == 1)
-                 $("#btnSave").removeAttr("disabled");//if(! isEmpty($("#medecin").val()))
-        @else
+        if('{{ Auth::user()->role_id}}' == 1)
+            $("#btnSave").removeAttr("disabled");//if(! isEmpty($("#medecin").val()))
+        else
         {
-               if($('#specialite').val() != null)
-                      $("#btnSave").removeAttr("disabled");
+          if($('#specialite').val() != null)
+            $("#btnSave").removeAttr("disabled");
         }
-        @endif
     });
+    $('#patient').val('');
     $("#patient").on("keyup", function() {
-         getPatient(); 
-    });  /* $( "#medecin" ).change(function() { if($('#patient').val())  $("#btnSave").removeAttr("disabled");   });*/
+        getPatient(); 
+    });/* $( "#medecin" ).change(function() { if($('#patient').val())  $("#btnSave").removeAttr("disabled");   });*/
      $( "#specialite" ).change(function() {
-               if(  $('#patient').val() )
-                    $("#btnSave").removeAttr("disabled"); 
-                });
+        if("#specialite" != '') 
+        {
+          if($("#filtre").prop('disabled') == true)
+            $("#filtre").prop('disabled',false);
+          else
+          {
+            $("#filtre").val('');
+            $("#patient").val('');
+          }
+          if($('#patient').val() != "")
+            $("#btnSave").removeAttr("disabled"); 
+        } 
+        else
+        {
+          $("#filtre").val('');
+          $("#filtre").prop('disabled',true);  
+        }
+        });
       });
 </script>
 @endsection
