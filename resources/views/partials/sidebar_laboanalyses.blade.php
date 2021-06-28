@@ -32,6 +32,22 @@
             <a href="{{ route('demandeexb.index') }}"><i class="menu-icon fa fa-bookmark-o"></i><span class="menu-text">Liste des demandes </span></a>
             <b class="arrow"></b>
         </li>
+        <li class="">
+          <a href="#" class="dropdown-toggle">
+            <i class="menu-icon fa fa-medkit" aria-hidden="true"></i><span class="menu-text">Produits</span>
+            <b class="arrow fa fa-angle-down"></b>
+          </a>
+        <b class="arrow"></b>
+        <ul class="submenu">
+          <li class="">
+            <a href="{{ route('demandeproduit.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter demande</a><b class="arrow"></b>
+          </li>
+          <li>
+            <a href="{{ route('demandeproduit.index') }}"><i class="menu-icon fa fa-eye pink"></i> Liste des demandes</a>
+            <b class="arrow"></b>
+          </li>              
+        </ul>
+      </li>
     </ul><!-- /.nav-list -->
     <!-- #section:basics/sidebar.layout.minimize -->
     <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">

@@ -170,27 +170,27 @@
 			event.preventDefault();
 	  });
 	  $('#medc_table').DataTable({
-		processing: true,
-		serverSide: true,
-		ordering: true,
-		bInfo : false,
-		searching: true,
-		pageLength: 5,
-		bLengthChange: false,
-		nowrap:true,
-		"language": {
-			"url": '/localisation/fr_FR.json'
-		},
-		ajax: '/getmedicaments',
-		columns: [
-		  {data: 'Nom_com'},
-		  {data: 'Forme',className: "priority-3" , orderable: false},
-		  {data: 'Dosage' , orderable: false},
-		  {data: 'action', name: 'action', orderable: false, searchable: false}
-		],
-		columnDefs: [
-		  { "targets": 3 ,  className: "dt-head-center dt-body-center" }
-		],
+				processing: true,
+				serverSide: true,
+				ordering: true,
+				bInfo : false,
+				searching: true,
+				pageLength: 5,
+				bLengthChange: false,
+				nowrap:true,
+				"language": {
+					"url": '/localisation/fr_FR.json'
+				},
+				ajax: '/getmedicaments',
+				columns: [
+				  {data: 'Nom_com'},
+				  {data: 'Forme',className: "priority-3" , orderable: false},
+				  {data: 'Dosage' , orderable: false},
+				  {data: 'action', name: 'action', orderable: false, searchable: false}
+				],
+				columnDefs: [
+				  { "targets": 3 ,  className: "dt-head-center dt-body-center" }
+				],
 	  });
 	jQuery('#btn-add, #AntFamil-add').click(function () {//ADD
 		jQuery('#EnregistrerAntecedant').val("add");
@@ -465,7 +465,7 @@
 						   idPatient:{{$rdv->patient->id}},
 						   tel:'{{$rdv->patient->tele_mobile1}}',
 						   age:{{ $rdv->patient->getAge() }},
-						   specialite: {{ $rdv->employe["specialite"]}},
+						   specialite:{{ $rdv->specialite_id }}, //{{ $rdv->employe["specialite"]}},
 						   fixe:  {{ $rdv->fixe }},
 				},
 			   @endforeach 
