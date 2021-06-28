@@ -2,7 +2,7 @@
 @section('title','Ajouter un patient')
 @section('page-script')
  <script>
-  	$( document ).ready(function() {
+   	$( document ).ready(function() {
   		$('#type').change(function(){
   			if( $('#type').val() == "0")
   			{
@@ -22,26 +22,26 @@
   		 }
   	  });
  	  	$( "#addPatientForm" ).submit(function( event ) {
-			  if( ! checkPatient() )
+				  if( ! checkPatient() )
       		{
-	        	activaTab("Patient");
+			    	activaTab("Patient");
 	        	event.preventDefault();
 	      	}else{
-      		if(($('#type').val() != "5" )){ //if(!($('#autre').is(':checked'))){ 
-      			$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });	
-						if( ! checkAssure() )
-						{
-						  activaTab("Assure");
-					  	event.preventDefault();
-						}else
-						{
-							if($('#hommeConf').is(':checked')){
-							if( ! checkHomme() )
-              					{
-              						  activaTab("Homme_C");
-              						event.preventDefault();
-              					}else
-                						$( "#addPatientForm" ).submit();
+      			if(($('#type').val() != "5" )){ //if(!($('#autre').is(':checked'))){ 
+      				$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });	
+							if( ! checkAssure() )
+							{
+							  activaTab("Assure");
+					  		event.preventDefault();
+							}else
+							{
+								if($('#hommeConf').is(':checked')){
+								if( ! checkHomme() )
+              	{
+              	  activaTab("Homme_C");
+              		event.preventDefault();
+              	}else
+                $( "#addPatientForm" ).submit();
 						}else
 						{
 							$( "#addPatientForm" ).submit();
@@ -77,7 +77,7 @@
 		</div>
   </div>
   <div class="row tabs">
-		<form class="form-horizontal" id = "addPatientForm" action="{{ route('patient.store') }}" method="POST" role="form">
+		<form class="form-horizontal" id ="addPatientForm" action="{{ route('patient.store') }}" method="POST" role="form">
 	    {{ csrf_field() }}
 	    <div class="row">
 			<div class="col-sm-12">

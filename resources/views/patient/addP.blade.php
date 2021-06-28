@@ -2,8 +2,8 @@
 @section('title','Ajouter un patient')
 @section('page-script')
 <script>
-	function checkFormAddPAtient()
- 	{        
+		function checkFormAddPAtient()
+	 	{        
   		if( ! checkPatient() )
    			return false;
    		else{
@@ -21,7 +21,7 @@
 		    	$('input:disabled').removeAttr('disabled');    
 		    	return true;
    		}
- 	}
+ 		}
 		function copyAssure(){//$("#nom").val('{{ $assure->Nom }}');
 			$("#datenaissance").val('{{ $assure->Date_Naissance}}');
 			$("input[name=sexe][value=" + '{{ $assure->Sexe }}' + "]").prop('checked', true);

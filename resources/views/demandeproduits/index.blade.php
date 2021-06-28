@@ -168,14 +168,14 @@
 										<thead>
 											<tr>
 												<th class="center"><strong>Date</strong></th>
-												<th class="center"><strong>Etat</strong></th>
-												{{-- @if(Auth::user()->role_id == 10)@endif --}}
+												<th class="center"><strong>Etat</strong></th>{{-- @if(Auth::user()->role_id == 10)@endif --}}
 												<th class="center"><strong>Service</strong></th>
 												<th class="center"><strong>Chef de service</strong></th>
 												<th class="center"><strong><em class="fa fa-cog"></em></strong></th>
 											</tr>
 										</thead>
 										<tbody>	
+										  @if($demandes->count() >0 )
 									 		 @foreach($demandes as $demande)
 												<tr>
 													<td>{{ $demande->Date }}</td>
@@ -194,7 +194,11 @@
 														           @break
 														@endswitch
 													</td>
-													<td>{{ $demande->demandeur->Service->nom }} </td>
+													<td>
+														@isset($demande->id_employe)
+															{{-- $demande->id_employe --}} {{ $demande->demandeur->Service->nom }} 
+														@endisset
+													</td>
 													<td>{{ $demande->demandeur->nom }} {{ $demande->demandeur->prenom }}</td>
 													<td class="center">
 														<a href="{{ route('demandeproduit.show', $demande->id) }}" class="btn btn-xs btn-success" title="voir détails">
@@ -216,6 +220,7 @@
 													</td>
 												</tr>
 											@endforeach
+											@endif
 										</tbody>
 									</table>
 								</div>

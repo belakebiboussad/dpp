@@ -135,64 +135,6 @@
             $('div#' + sectionActive).removeClass('active');
          }
       }
-      function checkPatient()
-      {
-        var erreur =true;  var nom = $('#nom').val(); var prenom = $('#prenom').val();
-//var idlieunaissance = $('#idlieunaissance').val();//var datenaissance = $('#datenaissance').val();//var mobile1 = $('#mobile1').val();mobile1,"Téléphone mobile 1",  
-        var type = $('#type').val();
-        var inputAssVal = new Array(type,prenom,nom);
-        var inputMessage = new Array('Type',"Prenom","Nom");
-        $('.error').each(function(i, obj) {
-          $(obj).next().remove();
-          $(obj).detach();
-        });
-        jQuery.each( inputAssVal, function( i, val ) {
-          if(val =="" )
-          {
-            erreur =false;
-            $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du Patient </span>'+'<br/>');
-          }
-       });
-       return erreur;
-      }
-      function checkAssure()
-      {
-        var erreur =true;//var NMGSN = $('#NMGSN').val();var idlieunaissancef = $('#idlieunaissancef').val();"Lieu de Naissance",
-        var nomf = $('#nomf').val(); var prenomf = $('#prenomf').val();  var datenaissance = $('#datenaissancef').val(); 
-        var nss = $('#nss').val(); var position = $('#Position').val();//var inputAssVal = new Array(nss,gsf,idlieunaissancef,datenaissance,prenomf,nomf);
-        var inputAssVal = new Array(nss,position,gsf,prenomf,nomf);//var inputMessage = new Array("Numèro de Secruté Social","Groupe Sanguin","Date de Naissance","Prenom","Nom");
-        var inputMessage = new Array("Numèro de Secruté Social","position","Groupe Sanguin","Prenom","Nom");
-        $('.error').each(function(i, obj) { $(obj).next().remove(); $(obj).detach();  });
-        jQuery.each( inputAssVal, function( i, val ) {
-          if(val =="" )
-          {
-             erreur =false;
-             $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
-          }
-       });
-       return erreur;
-      }
-      function  checkHomme(){
-          var erreur =true;
-          var nomA = $('#nomA').val();var prenomA = $('#prenomA').val();
-          var type_piece_id = $('#type_piece_id').val();
-          var npiece_id = $('#npiece_id').val();
-          mobileA = $('#mobileA').val();
-          var inputHomVal = new Array(npiece_id,mobileA,type_piece_id,prenomA,nomA);
-          var inputHomMessage = new Array("Numero de la Pièce","Type de la Pièce","Telephone mobile","Prenom","Nom");
-          $('.error').each(function(i, obj) {
-                $(obj).next().remove();
-                $(obj).detach();
-         });
-          jQuery.each( inputHomVal, function( i, val ) {
-               if(val =="" )
-              {
-                     erreur =false;
-                    $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputHomMessage[i]+' du Correspondant</span>'+'<br/>');
-               }
-          });   
-         return erreur;
-      }
       function checkConsult()
       {
         var erreur =true;
@@ -216,9 +158,6 @@
           }
        });
        return erreur;
-      }
-      function activaTab(tab){
-        $('.nav-pills a[href="#' + tab + '"]').tab('show');
       }
       if ($("#addGardeMalade").length > 0) {  ////avoir
         $("#addGardeMalade").validate({
@@ -286,6 +225,7 @@
               jQuery('#gardeMalade').modal('show');
             });
       }
+      /*
       function getProducts(id_gamme, id_spec=0,med_id = 0)
       {
           var html = '<option value="0">Sélectionner...</option>';
@@ -305,7 +245,7 @@
                   console.log('error');
               }
           });
-      }
+      }*/
       function addCIMCode(code,field)
       {
         $("#"+field).val(code);
@@ -767,53 +707,7 @@
             $('#gardeMalade form')[0].reset();
             $('#addGardeMalade *').prop('disabled', false);
           });
-          $('#gamme').change(function(){
-              switch($(this).val())
-              {
-                case "0":
-                  $('#specialite').val(0);
-                  $('#specialite').prop('disabled', 'disabled');
-                  $('#produit').val(0);
-                  $('#produit').prop('disabled', 'disabled');
-                  break
-                case "1":
-                  if($("#specialiteDiv").is(":hidden"))
-                    $("#specialiteDiv").show();
-                  $("#specialite").removeAttr("disabled");
-                  $("#produit").removeAttr("disabled");
-                  break;
-                case "2":
-                         if(!$("#specialiteDiv").is(":hidden"))
-                                $("#specialiteDiv").hide();
-                                 $("#produit").removeAttr("disabled");
-                                getProducts(2);
-                  break;
-                case "3":
-                  if(!$("#specialiteDiv").is(":hidden"))
-                    $("#specialiteDiv").hide();
-                  getProducts(3);
-                  break;
-                default:
-                  break; 
-              }
-          });
-         $('#specialite').change(function(){
-             if($(this).val() != "0" )
-             {
-                $("#produit").removeAttr("disabled");
-                var id_gamme = $('#gamme').val();
-                var id_spec = $(this).val();
-                getProducts(id_gamme,id_spec);
-              }else
-              {
-                $("#produit").val(0);
-                $("#produit").prop('disabled', 'disabled');
-              }
-          });
-          $('#produit').change(function(){
-             $("#ajoutercmd").removeAttr("disabled");
-          });
-         jQuery('body').on('click', '.CimCode', function (event) {
+        jQuery('body').on('click', '.CimCode', function (event) {
               $('#cim10Modal').trigger("reset");
               $('#inputID').val($(this).val());
               $('#cim10Modal').modal('show');

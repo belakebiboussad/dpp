@@ -13,7 +13,8 @@ $(function(){
 		        confirmButtonColor: '#3085d6',
 		        cancelButtonColor: '#d33',
 		        confirmButtonText: 'Oui, Rejeter!',
-		        cancelButtonText: 'Non'
+		        cancelButtonText: 'Non',
+		        allowOutsideClick: false,
 		 }).then((result) => {
 		        if (result.value) {
 		               window.location.href="/demandeproduit/rejeter/"+id+"/"+result.value;

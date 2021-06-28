@@ -39,10 +39,10 @@ class PatientController extends Controller
     {
         $this->middleware('auth');
     }
-  public function index()
-  {
-    return view('patient.index');
-  }
+    public function index()
+    {
+      return view('patient.index');
+    }
   /**
    * Show the form for creating a new resource.
    *
@@ -89,7 +89,8 @@ class PatientController extends Controller
     $date = Date::Now();
     $rule = array(
               "nom" => 'required',
-              "prenom" => 'required',//"datenaissance" => 'required|date|date_format:Y-m-d',"idlieunaissance" => 'required',"mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],
+              "prenom" => 'required',
+              "datenaissance" => 'required|date|date_format:Y-m-d',//"idlieunaissance" => 'required',"mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],
               "Type_p" =>'required_if:type,Ayant_droit',// "nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|regex:/[0-9]{12}/',
               "nomf" => 'required_if:type,Ayant_droit',
               "prenomf"=> 'required_if:type,Ayant_droit',// "datenaissancef"=> 'required_if:type,Ayant_droit|date|date_format:Y-m-d',//"nss2"=> 'required_if:type,Ayant_droit,unique,',
@@ -154,7 +155,6 @@ class PatientController extends Controller
         ]);           
       }
      }  
-    //dd($assure);   
     $patient = patient::firstOrCreate([
         "Nom"=>$request->nom,// "code_barre"=>$codebarre,
         "Prenom"=>$request->prenom,

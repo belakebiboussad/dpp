@@ -53,10 +53,11 @@ class demandeprodController extends Controller
       }
       else
       {
-        dd(Auth::user()->employ);
-        $demandes = demand_produits::orderBy('Date', 'desc')->get();
-        return view('demandeproduits.index', compact('demandes'));
-           
+        $serviceID =Auth::user()->employ->service;//$demandes = demand_produits::orderBy('Date', 'desc')->get();
+        $demandes = demand_produits::with('demandeur.Service')->whereHas('demandeur.Service', function($q) use ($serviceID) {
+              $q->where('id','=',$serviceID); 
+        })->orderBy('Date', 'desc')->get();
+        return view('demandeproduits.index', compact('demandes'));     
       }
     }
     /**
@@ -80,8 +81,8 @@ class demandeprodController extends Controller
       {
               $date = date('Y-m-d');
               $demande = demand_produits::Create([
-                     "Date" => $date, // "Etat" => "E",
-                    "id_employe" => Auth::user()->employee_id,
+                 "Date" => $date, // "Etat" => "E",
+                "id_employe" => Auth::user()->employee_id,
              ]);
              $listes = json_decode($request->liste);
             for ($i=1; $i < count($listes); $i++) { 
@@ -107,8 +108,8 @@ class demandeprodController extends Controller
      */
       public function show($id)
       {
-             $demande = demand_produits::FindOrFail($id);
-             return view('demandeproduits.show', compact('demande'));
+        $demande = demand_produits::FindOrFail($id);
+        return view('demandeproduits.show', compact('demande'));
       }
     /**
      * Show the form for editing the specified resource.
@@ -116,12 +117,12 @@ class demandeprodController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-       public function edit($id)
-       {
-              $gammes = gamme::all();
-             $specialites = specialite_produit::all();
-             $demande = demand_produits::FindOrFail($id);
-              return view('demandeproduits.edit', compact('gammes','specialites','demande'));
+      public function edit($id)
+      {
+        $gammes = gamme::all();
+        $specialites = specialite_produit::all();
+        $demande = demand_produits::FindOrFail($id);
+        return view('demandeproduits.edit', compact('gammes','specialites','demande'));
       }
        public function run($id)
       {
@@ -215,7 +216,7 @@ class demandeprodController extends Controller
       }
       public function search(Request $request)
       {
-        if(Auth::user()->is(14)) 
+        if(Auth::user()->role_id != 10) 
         {
           $ServiceId = Auth()->user()->employ->service;    
           if(isset($request->value))

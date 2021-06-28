@@ -3,7 +3,7 @@
 	<div class="row  Asdemograph">
 		<div class="col-sm-6">
 			<div class="form-group">
-				<label class="col-sm-3 col-xs-3 control-label" for="nomf"><strong>Nom :</strong></label>
+				<label class="col-sm-3 col-xs-3 control-label" for="nomf"><strong>Nom :<span style="color: red">*</span></strong></label>
 				<div class="col-sm-9">
 					<input type="text" id="nomf" name="nomf"  value="{{ $assure->Nom }}" class="col-xs-12 col-sm-12" autocomplete= "off" required alpha/>
 				</div>
@@ -11,7 +11,7 @@
 		</div>
 		<div class="col-sm-6">
 			<div class="form-group">
-				<label class="col-sm-3 control-label" for="prenomf"><strong>Prénom :</strong></label>
+				<label class="col-sm-3 control-label" for="prenomf"><strong>Prénom :<span style="color: red">*</span></strong></label>
 				<div class="col-sm-9">
 					<input type="text" id="prenomf" name="prenomf"  value="{{ $assure->Prenom }}" class="col-xs-12 col-sm-12" autocomplete= "off" required alpha/>
 				</div>
@@ -58,7 +58,7 @@
        	</div>
    		<div class="col-sm-6">
      		 <div class="form-group">
-	   		<label class="col-sm-3 col-xs-3 control-label text-nowrap" for="gsf"><strong>Groupe sanguin :</strong></label>
+	   		<label class="col-sm-3 col-xs-3 control-label text-nowrap" for="gsf"><strong>Groupe sanguin :<span style="color: red">*</span></strong></label>
 			<div class="col-sm-2">
 			  <select class="form-control groupeSanguin" id="gsf" name="gsf">
 					<option value=""  {{ ($assure->grp_sang=="")? "selected" : "" }} >------</option>
@@ -68,7 +68,7 @@
 					<option value="AB"  {{  (substr($assure->grp_sang,0,strlen($assure->grp_sang)-1) == "AB" )? "selected" : ""  }}>AB</option>	
 				</select>
 			</div>
-			<label class="col-sm-3 control-label no-padding-right" for="rhf"><strong>Rhésus :</strong></label>
+			<label class="col-sm-3 control-label no-padding-right" for="rhf"><strong>Rhésus :<span style="color: red">*</span></strong></label>
 			<div class="col-sm-2">
 				<select id="rhf" name="rhf" class="groupeSanguin" >
 					<option value=""  {{ ($assure->grp_sang=="")? "selected" : "" }} >------</option>
@@ -132,7 +132,7 @@
   <div class="row">
     <div class="col-sm-6" id="statut">
 			<div class="form-group">
-				<label class="col-sm-3 control-label" for="Position"><strong>Position :</strong></label>
+				<label class="col-sm-3 control-label" for="Position"><strong>Position :<span style="color: red">*</span></strong></label>
 				<div class="col-sm-9">
 					 <select name="Position" id="Position" class="col-xs-12 col-sm-12">
 						<option value="">Sélectionner...</option>
@@ -202,7 +202,7 @@
 		</div>
 		<div class="col-sm-6">
 			<div class="form-group">
-				<label class="control-label col-xs-12 col-sm-3" for="nss"><strong>NSS :</strong></label>
+				<label class="control-label col-xs-12 col-sm-3" for="nss"><strong>NSS :<span style="color: red">*</span></strong></label>
 				<div class="col-sm-9">
 				<div class="clearfix">
 			{{--	<input type="text" id="nss" name="nss" class="col-xs-12 col-sm-12" value="{{ $assure->NSS }}" maxlength =12 minlength =12 />

@@ -80,9 +80,16 @@
         }else
           return true; 
     }  
-  }
+  }*/
 	$(document).ready(function(){
 	  showTypeEdit(0);//var value = $("#type").val();
+	    $( "#editPatientForm" ).submit(function( event ) {
+	    	 if( ! checkPatient() )
+      		{
+			    	activaTab("Patient");
+	        	event.preventDefault();
+	      	}
+	    });
 	});     
 </script>
 @endsection
@@ -95,7 +102,7 @@
 		</a>
 	</div>
 </div>
-<form class="form-horizontal" action="{{ route('patient.update',$patient->id) }}" method="POST" role="form" onsubmit="return checkFormAddPAtient(this);">
+<form class="form-horizontal" id ="editPatientForm" action="{{ route('patient.update',$patient->id) }}" method="POST" role="form"><!-- onsubmit="return checkFormAddPAtient(this);" -->
 	{{ csrf_field() }}
 	  {{ method_field('PUT') }}
 	<div class="row">
@@ -139,7 +146,7 @@
     	<div class="row">
 				<div class="col-sm-6">
 					<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
-					<label class="col-sm-3 control-label" for="nom"><strong>Nom :</strong></label>
+					<label class="col-sm-3 control-label" for="nom"><strong>Nom :<span style="color: red">*</span></strong></label>
 					<div class="col-sm-9">
 						<input type="text" id="nom" name="nom" value="{{ $patient->Nom }}" class="col-xs-12 col-sm-12" autocomplete= "off" required alpha />
 					{!! $errors->first('datenaissance', '<small class="alert-danger">:message</small>') !!}
@@ -148,7 +155,7 @@
 			</div>{{-- col-sm-6	 --}}
 			<div class="col-sm-6">
 				<div class="form-group {{ $errors->has('prenom') ? "has-error" : "" }}">
-					<label class="col-sm-3 control-label" for="prenom"><strong>Prénom :</strong></label>
+					<label class="col-sm-3 control-label" for="prenom"><strong>Prénom :<span style="color: red">*</span></strong></label>
 					<div class="col-sm-9">
 						<input type="text" id="prenom" name="prenom" placeholder="Prénom..." value="{{ $patient->Prenom }}" class="form-control form-control-lg col-xs-12 col-sm-12" autocomplete="off" required/>
 						{!! $errors->first('prenom', '<p class="alert-danger">:message</p>') !!}
@@ -159,7 +166,7 @@
     <div class="row">
       <div class="col-sm-6">
 				<div class="form-group {{ $errors->has('datenaissance') ? "has-error" : "" }}">
-					<label class="col-sm-3 control-label" for="datenaissance"><strong>Né(e) le :</strong></label>
+					<label class="col-sm-3 control-label" for="datenaissance"><strong>Né(e) le :<span style="color: red">*</span></strong></label>
 					<div class="col-sm-9">
 					@if(isset($patient->Dat_Naissance)) 
 						<input class="col-xs-12 col-sm-12 date-picker ltnow" id="datenaissance" name="datenaissance" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" value="{{ $patient->Dat_Naissance }}" autocomplete="off"/>
@@ -335,7 +342,7 @@
 					<div class="col-sm-4 col-xs-4">
 						<div class="form-group">
 						<div class="col-sm-2">
-							<label class="control-label no-padding-right pull-right text-nowrap" style=" padding-top: 0px;"><strong>Type:</strong></label>
+							<label class="control-label no-padding-right pull-right text-nowrap" style=" padding-top: 0px;"><strong>Type :<span style="color: red">*</span></strong></label>
 						</div>
 						<div class="col-sm-10">
 							<select class="form-control col-xs-12 col-sm-6" id="type" name="type" onclick="showTypeEdit(1)">
