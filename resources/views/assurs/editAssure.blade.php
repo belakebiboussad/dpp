@@ -5,7 +5,11 @@
 			<div class="form-group">
 				<label class="col-sm-3 col-xs-3 control-label" for="nomf"><strong>Nom :<span style="color: red">*</span></strong></label>
 				<div class="col-sm-9">
-					<input type="text" id="nomf" name="nomf"  value="{{ $assure->Nom }}" class="col-xs-12 col-sm-12" autocomplete= "off" alpha/>
+					@if(isset($assure))
+						<input type="text" id="nomf" name="nomf"  value="{{ $assure->Nom }}" class="col-xs-12 col-sm-12" autocomplete= "off" alpha/>
+					@else
+						<input type="text" id="nomf" name="nomf"  value="" class="col-xs-12 col-sm-12" autocomplete= "off" alpha/>
+					@endif	
 				</div>
 			</div>
 		</div>
@@ -13,7 +17,11 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label" for="prenomf"><strong>Prénom :<span style="color: red">*</span></strong></label>
 				<div class="col-sm-9">
+					@if(isset($assure))
 					<input type="text" id="prenomf" name="prenomf"  value="{{ $assure->Prenom }}" class="col-xs-12 col-sm-12" autocomplete= "off" alpha/>
+					@else
+					<input type="text" id="prenomf" name="prenomf" class="col-xs-12 col-sm-12" autocomplete= "off" alpha/>
+					@endif
 				</div>
 			</div>
 		</div>
@@ -23,7 +31,11 @@
 			<div class="form-group">
 				<label class="col-sm-3 col-xs-3 control-label" for="datenaissancef"><strong class="text-nowrap">Né(e) le :</strong></label>
 				<div class="col-sm-9">
+					@if(isset($assure))
 					<input class="autoCommune col-xs-12 col-sm-12 date-picker ltnow" id="datenaissancef" name="datenaissancef" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd" value="{{ $assure->Date_Naissance }}"/>		
+					@else
+					<input class="autoCommune col-xs-12 col-sm-12 date-picker ltnow" id="datenaissancef" name="datenaissancef" type="text" placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd"/>
+					@endif
 				</div>
 			</div>
 		</div>
@@ -50,8 +62,13 @@
 				<label class="col-sm-3 col-xs-3 control-label no-padding-right" for="sexe"><Strong>Genre: </Strong></label>
   				<div class="col-sm-9">
 	  				<select name="sexef" id="sexef" class="form-control" >
-	  					<option value="M" @if($assure->Sexe == "M") selected @endif>Masculin</option>
+	  					@if(isset($assure))
+	  					<option value="M" @if($assure->Sexe == "M" ) selected @endif>Masculin</option>
 	  					<option value="F"  @if($assure->Sexe == "F")  selected @endif>Féminin</option>
+	  					@else
+	  					<option value="M" selected>Masculin</option>
+	  					<option value="F">Féminin</option>
+	  					@endif
 	  				</select>
   				</div>
   			</div>
@@ -61,19 +78,33 @@
 	   		<label class="col-sm-3 col-xs-3 control-label text-nowrap" for="gsf"><strong>Groupe sanguin :<span style="color: red">*</span></strong></label>
 			<div class="col-sm-2">
 			  <select class="form-control groupeSanguin" id="gsf" name="gsf">
+					@if(isset($assure))
 					<option value=""  {{ ($assure->grp_sang=="")? "selected" : "" }} >------</option>
 					<option value="A"  {{  (substr($assure->grp_sang,0,strlen($assure->grp_sang)-1) == "A" )? "selected" : ""  }}>A</option>
 					<option value="B"  {{  (substr($assure->grp_sang,0,strlen($assure->grp_sang)-1) == "B" )? "selected" : ""  }}>B</option>
 					<option value="O"  {{  (substr($assure->grp_sang,0,strlen($assure->grp_sang)-1) == "O" )? "selected" : ""  }}>O</option>
 					<option value="AB"  {{  (substr($assure->grp_sang,0,strlen($assure->grp_sang)-1) == "AB" )? "selected" : ""  }}>AB</option>	
+					@else
+						<option value="">------</option>
+						<option value="A">A</option>
+						<option value="B">B</option>
+						<option value="O">O</option>
+						<option value="AB" >AB</option>	
+					@endif
 				</select>
 			</div>
 			<label class="col-sm-3 control-label no-padding-right" for="rhf"><strong>Rhésus :<span style="color: red">*</span></strong></label>
 			<div class="col-sm-2">
 				<select id="rhf" name="rhf" class="groupeSanguin" >
+					@if(isset($assure))
 					<option value=""  {{ ($assure->grp_sang=="")? "selected" : "" }} >------</option>
 					<option value="+" {{  (substr($assure->grp_sang,strlen($assure->grp_sang)-1,strlen($assure->grp_sang)) == "+" )? "selected" : ""  }}>+</option>
 					<option value="-" {{  (substr($assure->grp_sang,strlen($assure->grp_sang)-1,strlen($assure->grp_sang)) == "-" )? "selected" : ""  }}>-</option>
+					@else
+					<option value="">------</option>
+					<option value="+">+</option>
+					<option value="-">-</option>
+					@endif
 				</select>
 			</div>
 	   	</div>
@@ -101,7 +132,11 @@
 			<div class="form-group">
 			 	<label class="col-sm-4 col-xs-4" for="adressef"><Strong>Adresse: </Strong></label>
 	  		<div class="col-sm-8">
+	  			@if(isset($assure))
 	  			<input id="adressef" type="text" name="adressef" value="{{ $assure->adresse }}">
+	  			@else
+	  			<input id="adressef" type="text" name="adressef">
+	  			@endif
 	  		</div>
 	  	</div>
 	  </div>
@@ -135,20 +170,22 @@
 				<label class="col-sm-3 control-label" for="Position"><strong>Position :<span style="color: red">*</span></strong></label>
 				<div class="col-sm-9">
 					 <select name="Position" id="Position" class="col-xs-12 col-sm-12">
+					
 						<option value="">Sélectionner...</option>
-						<option value="Activité" {{ ($assure->Position=="Activité") ? "selected" : "" }}>Activité</option>
-						<option value="Détachement" {{ ($assure->Position=="Détachement") ? "selected" : "" }}>Détachement</option>
-						<option value="Mise en Disponibilité" {{ ($assure->Position=="Mise en Disponibilité") ? "selected" : "" }}>Mise en Disponibilité</option>
-						<option value="Licencié" {{ ($assure->Position=="Licencié") ? "selected" : "" }}>Licencié</option>
-						<option value="Démission" {{ ($assure->Position=="Démission") ? "selected" : "" }}>Démission</option>
-						<option value="Retraite" {{ ($assure->Position=="Retraite") ? "selected" : "" }}>Retraite</option>
-						<option value="Congé Longue Durée" {{ ($assure->Position=="Congé Longue Durée") ? "selected" : "" }}>Congé Longue Durée</option>
-						<option value="Assurance Invaliditéé" {{ ($assure->Position=="Assurance Invaliditéé") ? "selected" : "" }}>Assurance Invaliditéé</option>
-						<option value="Décédé" {{ ($assure->Position=="Décédé") ? "selected" : "" }}>Décédé</option>
-						<option value="Service National" {{ ($assure->Position=="Service National") ? "selected" : "" }}>Service National</option>
-						<option value="Contrat résilié" {{ ($assure->Position=="Contrat résilié") ? "selected" : "" }}>Contrat résilié</option>
-						<option value="Congé Maladie" {{ ($assure->Position=="Congé Maladie") ? "selected" : "" }}>Congé Maladie</option>
-						<option value="Révoqué" {{ ($assure->Position=="Révoqué") ? "selected" : "" }}>Révoqué</option>
+						<option value="Activité" {{ (isset($assure)) && ($assure->Position=="Activité") ? "selected" : "" }}>Activité</option>
+						<option value="Détachement" {{ (isset($assure)) && ($assure->Position=="Détachement") ? "selected" : "" }}>Détachement</option>
+						<option value="Mise en Disponibilité" {{ (isset($assure)) &&($assure->Position=="Mise en Disponibilité") ? "selected" : "" }}>Mise en Disponibilité</option>
+						<option value="Licencié" {{ (isset($assure)) && ($assure->Position=="Licencié") ? "selected" : "" }}>Licencié</option>
+						<option value="Démission" {{ (isset($assure)) && ($assure->Position=="Démission") ? "selected" : "" }}>Démission</option>
+						<option value="Retraite" {{(isset($assure)) && ($assure->Position=="Retraite") ? "selected" : "" }}>Retraite</option>
+						<option value="Congé Longue Durée" {{(isset($assure)) && ($assure->Position=="Congé Longue Durée") ? "selected" : "" }}>Congé Longue Durée</option>
+						<option value="Assurance Invaliditéé" {{(isset($assure)) && ($assure->Position=="Assurance Invaliditéé") ? "selected" : "" }}>Assurance Invaliditéé</option>
+						<option value="Décédé" {{ (isset($assure)) && ($assure->Position=="Décédé") ? "selected" : "" }}>Décédé</option>
+						<option value="Service National" {{(isset($assure)) && ($assure->Position=="Service National") ? "selected" : "" }}>Service National</option>
+						<option value="Contrat résilié" {{ (isset($assure)) &&($assure->Position=="Contrat résilié") ? "selected" : "" }}>Contrat résilié</option>
+						<option value="Congé Maladie" {{ (isset($assure)) &&($assure->Position=="Congé Maladie") ? "selected" : "" }}>Congé Maladie</option>
+						<option value="Révoqué" {{ (isset($assure)) && ($assure->Position=="Révoqué") ? "selected" : "" }}>Révoqué</option>
+						
 					</select>
 				</div>
 			</div>
@@ -157,7 +194,11 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label no-padding-right" for="service"><strong>Service :</strong></label>
 				<div class="col-sm-9">
+					@if(isset($assure))
 					<input type="text" name="service" id="service" class="col-xs-12 col-sm-12" value=" {{ $assure->Service}} ">	
+					@else
+					<input type="text" name="service" id="service" class="col-xs-12 col-sm-12">		
+					@endif
 				</div>
 			</div>
 		</div>
@@ -170,7 +211,7 @@
 					<select id="grade" name="grade" class=" col-xs-12 col-sm-6"/>
 					<option value="">Sélectionner...</option>
 						@foreach ($grades as $key=>$grade)
-						<option value="{{ $grade->id }}" {{ $assure->Grade === $grade->id   ? "selected":"" }} >{{ $grade->nom }}</option>
+						<option value="{{ $grade->id }}" {{((isset($assure)) && ($assure->Grade === $grade->id)) ? "selected":"" }} >{{ $grade->nom }}</option>
 						@endforeach
 					</select>
 				</div>
@@ -183,7 +224,11 @@
 				</label>
 				<div class="col-sm-9">
 				<div class="clearfix">
-					<input type="text" id="matf" name="matf" class="col-xs-12 col-sm-6" value="{{ $assure->matricule }}" maxlength="5" />	
+						@if(isset($assure))
+						<input type="text" id="matf" name="matf" class="col-xs-12 col-sm-6" value="{{ $assure->matricule }}" maxlength="5" />	
+						@else
+						<input type="text" id="matf" name="matf" class="col-xs-12 col-sm-6" maxlength="5" />	
+						@endif
 				</div>
 				</div>
 			</div>
@@ -195,7 +240,11 @@
 				<label class="control-label col-xs-12 col-sm-3" for="NMGSN"><strong>NMGSN :</strong>	</label>
 				<div class="col-sm-9">
 					<div class="clearfix">
+					@if(isset($assure))
 						<input type="text" id="NMGSN" name="NMGSN" class="col-xs-12 col-sm-12" value="{{ $assure->NMGSN }}" maxlength =12 minlength =12/>
+					@else
+						<input type="text" id="NMGSN" name="NMGSN" class="col-xs-12 col-sm-12" maxlength =12 minlength =12/>
+					@endif
 					</div>
 				</div>
 			</div>

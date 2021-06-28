@@ -2,6 +2,20 @@
 @section('title','Ajouter un patient')
 @section('page-script')
  <script>
+    function hommeConfCheck()
+    {
+    	if($('#hommeConf').is(':checked')){
+				if( ! checkHomme() )
+      	{
+      	  activaTab("Homme_C");
+      		event.preventDefault();
+      	}else
+        $( "#addPatientForm" ).submit();
+			}else
+			{
+				$( "#addPatientForm" ).submit();
+			}
+    }
    	$( document ).ready(function() {
   		$('#type').change(function(){
   			if( $('#type').val() == "0")
@@ -34,34 +48,10 @@
 							  activaTab("Assure");
 					  		event.preventDefault();
 							}else
-							{
-								if($('#hommeConf').is(':checked')){
-								if( ! checkHomme() )
-              	{
-              	  activaTab("Homme_C");
-              		event.preventDefault();
-              	}else
-                $( "#addPatientForm" ).submit();
-						}else
-						{
-							$( "#addPatientForm" ).submit();
-						}
-					}
-				}
-				else
-				{
-					if($('#hommeConf').is(':checked'))
-					{
-						if( ! checkHomme() )
-					      {
-			            activaTab("Homme_C");
-			           	event.preventDefault();
-					       }else
-					             $( "#addPatientForm" ).submit();
-					}else
-						$( "#addPatientForm" ).submit();
-				}
-			 }    
+								hommeConfCheck();
+						}else//patient derogation
+							hommeConfCheck();
+			 		}    
 		});
 	});
 </script>

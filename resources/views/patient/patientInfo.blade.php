@@ -184,7 +184,9 @@
 							</div>
 							<div class="col-sm-3">
 								<label class="inline">
+								@isset($patient->assure->Grade)
 									<span><b>Grade :</b></span><span class="lbl blue"> {{ $patient->assure->grade->nom }}</span>
+								@endisset
 								</label>
 							</div>
 							<div class="col-sm-6">
