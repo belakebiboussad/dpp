@@ -106,7 +106,7 @@ $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "160
 		<div class="tabbable">
 			<ul class="nav nav-tabs padding-18">
 				<li class="active">
-					<a data-toggle="tab" href="#home"><i class="green ace-icon fa fa-user bigger-120"></i>Informations Administratives</a>
+					<a data-toggle="tab" href="#home"><i class="green ace-icon fa fa-user bigger-120"></i><strong>Informations administratives</strong></a>
 				</li>
 				@if(in_array(Auth::user()->role_id,[1,14]))
 				<li>
@@ -127,12 +127,13 @@ $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "160
 					</a>
 				</li>
 				@endif
+
 				<li><a data-toggle="tab" href="#rdvs">
-					<i class="blue ace-icon fa fa-calendar-o bigger-120"></i>RDV&nbsp;<span class="badge badge-info">{{ $rdvs->count() }}</span>
+					<i class="blue ace-icon fa fa-calendar-o bigger-120"></i>Rendez-vous&nbsp;<span class="badge badge-info">{{ $rdvs->count() }}</span>
 					</a>
 				</li>
 				@if (!is_null($correspondants))
-				<li><a data-toggle="tab" href="#homme_conf"><i class="green ace-icon fa fa-user bigger-120"></i>Homme de confiance</a></li>
+				<li><a data-toggle="tab" href="#homme_conf"><i class="green ace-icon fa fa-user bigger-120"></i><strong>Homme de confiance</strong></a></li>
 				@endif
 			</ul>
 			<div class="tab-content no-border padding-24">

@@ -204,9 +204,9 @@
 @section('main-content')
 <div class="row">
   <div class="col-sm-12 col-md-12">
-    <h3><strong>Rechercher une hospitalisation</strong></h3>
+    <h4><strong>Rechercher une hospitalisation</strong></h4>
     <div class="panel panel-default">
-      <div class="panel-heading">Recherche</div>
+      <div class="panel-heading"><strong>Rechercher</strong></div>
       <div class="panel-body">
         <div class="row">
           <div class="col-sm-3">
@@ -217,7 +217,7 @@
             </select>
           </div>
           <div class="col-sm-3">
-             <label><strong>Patient :</strong></label><input type="text" id="Nom" class="form-control filter">
+             <label><strong>  Patient :</strong></label><input type="text" id="Nom" class="form-control filter">
           </div>
           <div class="col-sm-3">
              <label><strong>IPP :</strong></label>

@@ -47,14 +47,15 @@ class demandeprodController extends Controller
     {
       if(Auth::user()->role_id == 10)
       {
-               $services =service::where('id','!=',14)->get();
-               $demandes = demand_produits::where('Etat',null)->orderBy('Date', 'desc')->get();
-                return view('demandeproduits.index', compact('demandes','services'));
+        $services =service::where('id','!=',14)->get();
+        $demandes = demand_produits::where('Etat',null)->orderBy('Date', 'desc')->get();
+        return view('demandeproduits.index', compact('demandes','services'));
       }
       else
       {
-              $demandes = demand_produits::orderBy('Date', 'desc')->get();
-              return view('demandeproduits.index', compact('demandes'));
+        dd(Auth::user()->employ);
+        $demandes = demand_produits::orderBy('Date', 'desc')->get();
+        return view('demandeproduits.index', compact('demandes'));
            
       }
     }

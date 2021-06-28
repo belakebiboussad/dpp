@@ -10,7 +10,6 @@ $(document).on('click','.findptient',function(event){
 		      data:{'field':field,'value':($('#'+field).val())},
 		      success:function(data,status, xhr){
 		      	$('#'+field).val('');field= "Dat_Naissance"; 
-     			 	$("#liste_patients").DataTable ({
      					"processing": true,
 	  					"paging":   true,
 	  					"destroy": true,
@@ -78,7 +77,7 @@ render: function ( data, type, row ) { return row.docteur.nom + ' ' + row.docteu
 </script>
 @endsection
 @section('main-content')
-<div class="page-header"><h4>Sélectionner le patient</h4></div>
+<div class="row"><h4><strong>Sélectionner un patient</strong></h4></div>
 	<div class="row">
 	<div class="col-sm-12">	
 		<div class="col-sm-6 col-xs-12">@include('consultations.findPatient')</div>

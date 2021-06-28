@@ -4,7 +4,7 @@
   	$("document").ready(function(){
   		field= "currentday";
   		$("#admiSerch").click(function(e){
-  				var op ="";
+  			var op ="";
 		      var frag = "<td><strong>/</strong></td><td><strong>/</strong></td><td><strong>/</strong></td>";
 		      var dt = new Date();
 		      var time = dt.getHours() + ":" + dt.getMinutes();  
@@ -17,8 +17,8 @@
 			      dataType: 'JSON',
 			      success:function(result,status, xhr)
 			      {
-		      		var admissions = $('#rdvs').empty();
-    	        $('#total_records').text(result.length);
+		      			$('#rdvs').empty();
+    	     				   $('#total_records').text(result.length);
 		          if(result.length != 0){
 		         	  var disabled =(areSameDate(dt, filter))?'':'disabled';
 			          for(var i=0; i<result.length; i++){

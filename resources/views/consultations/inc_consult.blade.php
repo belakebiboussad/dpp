@@ -186,7 +186,7 @@ $('document').ready(function(){
 @endif
 @isset($consultation->demandeHospitalisation)
 <div class="row dh">
-	<div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><strong><span style="font-size:16px;">Demande d'Hospitalisation</span></strong>
+	<div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><strong><span style="font-size:16px;">Demande d'hospitalisation</span></strong>
 	</div>
 </div>
 <div class="row dh">

@@ -74,7 +74,7 @@
 			<a href="{{route('patient.index')}}" class="btn btn-white btn-info btn-bold">
 				<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i> Rechercher un patient
 			</a>
-			</div>
+		</div>
   </div>
   <div class="row tabs">
 		<form class="form-horizontal" id = "addPatientForm" action="{{ route('patient.store') }}" method="POST" role="form">

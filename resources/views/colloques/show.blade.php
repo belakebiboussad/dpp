@@ -1,28 +1,12 @@
 @extends('app_dele')
-@section('title','Modifier Colloque')
+@section('title','détails du  colloque')
 @section('page-script')
 <script type="text/javascript">
-    var nowDate = new Date();
-    var now = nowDate.getFullYear() + '-' + (nowDate.getMonth()+1) + '-' + ('0'+ nowDate.getDate()).slice(-2);
-      $(document).ready(function() {
-        window.prettyPrint && prettyPrint();      //$("#date_colloque").datepicker("setDate", now);  
-          $('#liste_membre').multiselect();
-        $('#reset').click(function(){
-            $('#liste_membre_to').empty();       
-        });
-    });
-    function myFunction()
-    {
-      if( $('#liste_membre_to').has('option').length > 0 ) {
-        return true
-      }
-      return false;
-    }
 </script>
 @endsection
 @section('main-content')
 <div class="space-12"></div>
-<div class="page-header"> <h1><strong>Modifier le colloque du &quot; {{ $colloque->date }} &quot;</strong></h1></div><!-- /.page-header -->
+<div class="page-header"> <h1><strong>Détails le colloque du &quot; {{ $colloque->date }} &quot;</strong></h1></div><!-- /.page-header -->
 <br><div class="space-12"></div>
 <div class="row"> 
   <div class="col-sm-12">
@@ -32,7 +16,7 @@
       <div class="row">
         <div class="col-xs-5">
           <label for="liste_membre"> <h4> <strong>Liste des médecins :</strong></h4></label>&nbsp;
-          <select  id="liste_membre" class="form-control" size="7" multiple="multiple">
+          <select  id="liste_membre" class="form-control" size="7" multiple="multiple" disabled>
             @foreach( $listeMeds as $med)
             <option id="id_membre" value="{{$med->id}}" >{{$med->nom}} {{$med->prenom}}</option>
             @endforeach
@@ -48,7 +32,7 @@
         <div class="col-xs-5">
           <label for="liste_membre_to"> <h4> <strong>&nbsp;Liste des membres :</strong></h4></label>&nbsp;
           <br>
-          <select name="membres[]" id="liste_membre_to" class="form-control" size="7" multiple="multiple">
+          <select name="membres[]" id="liste_membre_to" class="form-control" size="7" multiple="multiple" disabled>
             @foreach( $colloque->membres as $med)
             <option id="id_membre" value="{{$med->id}}" >{{$med->nom}} {{$med->prenom}}</option>
             @endforeach
@@ -59,7 +43,7 @@
       <div class="row">
         <div class="col-xs-7">
           <h4><label class= "control-label no-padding-left col-xs-4 col-sm-4" for="date_colloque"><strong>Date:</strong></label></h4>
-          <input class="col-xs-4 col-sm-4 date-picker" id="date_colloque" name="date_colloque" type="text" value="{{ $colloque->date }}" data-date-format="yyyy-mm-dd" required/>
+          <input class="col-xs-4 col-sm-4 date-picker" id="date_colloque" name="date_colloque" type="text" value="{{ $colloque->date }}" data-date-format="yyyy-mm-dd" readonly/>
           <button class="btn btn-sm filelink" onclick="$('#date_colloque').focus()"><i class="fa fa-calendar"></i></button> 
         </div>
         <div class="col-xs-5"></div>
@@ -68,9 +52,8 @@
       <div class="row">
         <div class="col-xs-7">
              <label for="type_colloque" class= "control-label no-padding-left col-xs-4 col-sm-4"><strong>Type:</strong></label>
-             <select id="type_colloque" name="type_colloque" class="col-xs-4 col-sm-4" data-placeholder="sélectionner le type..." required>
-                 {{--  <option value="" selected disabled>Sélectionner le type...</option>   --}}
-                  <option value="0" {{ ($colloque->type == 0)?'selected':'' }} >Médical</option>
+             <select id="type_colloque" name="type_colloque" class="col-xs-4 col-sm-4" data-placeholder="sélectionner le type..."  readonly>
+                   <option value="0" {{ ($colloque->type == 0)?'selected':'' }} >Médical</option>
                    <option value="1"  {{ ($colloque->type == 1)?'selected':'' }}>Chirurgical</option>
               </select>
        </div>

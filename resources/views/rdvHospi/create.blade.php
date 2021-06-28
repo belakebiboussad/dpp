@@ -34,7 +34,7 @@
 <div class="page-header" width="100%">
 	<div class="row"><div class="col-sm-12" style="margin-top: -3%;"><?php $patient = $demande->demandeHosp->consultation->patient; ?>@include('patient._patientInfo')</div></div>
 </div>
-<div class="row"><h3>Ajouter un RDV Hospitalisation</h3></div>
+<div class="row"><h3><strong>Ajouter un Rendez-vous hospitalisation</strong></h3></div>
 <div class="row">
 	<div class="col-xs-12">
 		<form class="form-horizontal" id="RDVForm" role="form" method="POST" action="{{  route('rdvHospi.store') }}">
@@ -42,7 +42,7 @@
 			<input type="text" name="id_demande" value="{{$demande->id_demande}}" hidden>
 			<input type="text" id="affect" value="0" hidden>
 			<div class="row">
-			  <div class="col-sm-12"><h3 class="header smaller lighter blue">Demande d'Hospitalisation</h3></div>
+			  <div class="col-sm-12"><h3 class="header smaller lighter blue">Demande d'hospitalisation</h3></div>
 			</div><div class="space-12 hidden-xs"></div>
 			<div class="row">
 				<div class="col-sm-4 col-xs-12 form-group">

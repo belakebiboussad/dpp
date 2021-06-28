@@ -49,7 +49,11 @@ function getServiceRoom(id)
 							@endif
 						</td>
 						<td>{{ ($service->type ==0) ?'médicale':'chirurgicale' }}	</td>				
-						<td> {{ $service->responsable->nom }} {{ $service->responsable->prenom }}</td>
+						<td>
+							@isset($service->responsable)
+								{{ $service->responsable->nom }} {{ $service->responsable->prenom }}
+							@endisset	
+							</td>
 						<td class="priority-4"> {{($service->hebergement) ?'Oui':'Non' }}</td>
 						<td class="priority-4"> {{($service->urgence) ?'Oui':'Non' }}</td>
 						<td class ="center">

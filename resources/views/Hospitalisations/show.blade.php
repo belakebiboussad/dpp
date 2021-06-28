@@ -7,12 +7,12 @@
 	 <a href="{{route('hospitalisation.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-list bigger-120 blue"></i>Hospitalisations</a>
 </div>
 @endif
-<div class="row"><h3>Détails de l'hospitalisation :</h3></div>
+<div class="row"><h4><strong>Hospitalisation : suivi(e) du patient(e)</strong></h4></div>
 <div class="tabbable"  class="user-profile">
 	<ul class="nav nav-tabs padding-18">
-		<li class="active"><a data-toggle="tab" href="#hospi">Hospitalisation</a></li>
+		<li class="active"><a data-toggle="tab" href="#hospi"><strong>Hospitalisation</strong></a></li>
 		@if(in_array(Auth::user()->role_id,[1,14]))
-		<li ><a data-toggle="tab" href="#visites">Visites & Contrôles</a></li>
+		<li ><a data-toggle="tab" href="#visites"><strong>Visites & Contrôles</strong></a></li>
 		@endif
         @if(in_array(Auth::user()->role_id,[1,14]))
 		<li ><a data-toggle="tab" href="#prescriptionconst">Prescription constantes</a></li>
@@ -124,7 +124,7 @@
 					<div class="col-sm-8">
 						<div class="widget-box">
 							<div class="widget-header">
-								<h4 class="widget-title">Patient : {{ $patient->Nom }} {{ $patient->Prenom }}</h4>
+								<h5 class="widget-title"><strong>Patient : {{ $patient->Nom }} {{ $patient->Prenom }}</strong></h5>
 							</div>
 							<div class="widget-body">
 								<div class="widget-main">
@@ -143,7 +143,7 @@
 					<div class="col-sm-4">
 						<div class="widget-box">
 							<div class="widget-header">
-								<h4 class="widget-title">Nouvelle prise</h4>
+								<h5 class="widget-title"><strong>Nouvelle prise</strong></h5>
 							</div>
 							<div class="widget-body">
 								<div class="widget-main">

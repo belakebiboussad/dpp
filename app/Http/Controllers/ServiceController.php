@@ -26,11 +26,10 @@ class ServiceController extends Controller
     {
       $services = service::all();
       $users = User::whereHas(
-        'role', function($q){
-            $q->where('id', 1)->orWhere('id', 5)->orWhere('id', 6);
-        }
-      )->get();
-      return view('services.create',compact('users','services','types'));
+        'role', function($q){//$q->where('id', 1)->orWhere('id', 5)->orWhere('id', 6);
+          $q->whereIn('id',[1,5,6,10,11,12,13,14]);
+        })->get();
+      return view('services.add',compact('users','services','types'));
     }
 
     /**
@@ -71,7 +70,7 @@ class ServiceController extends Controller
                 $q->where('id', 1)->orWhere('id', 5)->orWhere('id', 6);
           })->get();
         return view('services.edit', compact('service','users'));
-    }
+      }
     /**
      * Update the specified resource in storage.
      *

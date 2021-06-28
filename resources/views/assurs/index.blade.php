@@ -35,16 +35,16 @@
 @endsection
 @section('main-content')
 <div class="page-content">
-	<div class="row">	{{-- <div class="col-sm-12 center">--}}	
+	<div class="row">	
 		<div >
-			<h3><strong>Bienvenu(e) Docteur:</strong><q class="blue">{{ Auth::User()->employ->nom }} {{ Auth::User()->employ->prenom }}</q></h3>
+			<h4><strong>Bienvenu(e) Docteur:</strong><q class="blue">{{ Auth::User()->employ->nom }} {{ Auth::User()->employ->prenom }}</q></h4>
 		</div>		
 	</div><div class="space-12"></div>
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="panel panel-default ">
 				<div class="panel-heading left">
-					<H4><strong>Rechercher un fonctionnaire</strong></H4>
+					<H5><strong>Rechercher un fonctionnaire</strong></H5>
 					@if(in_array(Auth::user()->role->id,[1,2,13,14]))
 					<div class="pull-right"><!-- style ="margin-top:-0.5%;" -->
 						<a href="{{route('patient.index')}}" class ="btn btn-white btn-info btn-bold btn-xs">Rechercher un patient&nbsp;<i class="ace-icon fa fa-arrow-circle-right bigger-120 black"></i></a>
@@ -83,7 +83,7 @@
 		<div class="col-sm-12">
 			<div class="widget-box transparent">
 				<div class="widget-header widget-header-flat widget-header-small">
-					<h5 class="widget-title"><img src="img/policeman.png" class="img1 img-thumbnail"><strong>Resultats:</strong></h5>
+					<h5 class="widget-title"><img src="img/policeman.png" class="img1 img-thumbnail"><strong> Résultats:</strong></h5>
 					<label for=""><span class="badge badge-info numberResult"></span></label>
 				</div>
 				<div class="bodycontainer scrollable">

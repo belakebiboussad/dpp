@@ -8,7 +8,7 @@
 	  		<input type="hidden" id="className" value=""><input type="hidden" id="objID" value="">
 				{{-- 	ici		--}}
 			<section class="list--wrapper">
-			  <h2 class="list--title blue bolder">Sélectionner Le document</h2>
+			  <h2 class="list--title blue bolder">Sélectionner un document</h2>
 			  <div class="hr hr-dotted"></div>
 			  <ol class="list">
 				  @foreach($etatsortie as $etat)

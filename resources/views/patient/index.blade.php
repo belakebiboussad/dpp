@@ -80,7 +80,6 @@
     	 field = $(this).prop("id");	
 		});
 	});
-
 	var field ="Dat_Naissance";
 	$(document).ready(function(){
 		$(document).on('click','.findptient',function(event){
@@ -142,7 +141,6 @@
 								 		  {"targets": 8 ,	"orderable":false,  className: "dt-head-center dt-body-center priority-7"},
 						   	],
 	    				});
-
      			},
      			error:function(){
      				console.log("error");
@@ -216,7 +214,7 @@
 		<div class="col-md-7 col-sm-7">
 			<div class="widget-box transparent">
 				<div class="widget-header widget-header-flat widget-header-small">
-					<h5 class="widget-title"><i class="ace-icon fa fa-user"></i>Résultats:</h5><label><span class="badge badge-info numberResult"></span></label>
+					<h5 class="widget-title"><i class="ace-icon fa fa-user"></i><strong> Résultats</strong>:</h5><label><span class="badge badge-info numberResult"></span></label>
 				</div>
 				<div class="widget-body">
 					<div class="widget-main no-padding"><table id="liste_patients" class="display responsive nowrap" cellspacing="0" width="100%"></table></div>

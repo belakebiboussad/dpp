@@ -10,7 +10,7 @@
   @include('patient._patientInfo', $patient) </div>
   <div class="content">
     <div class="row">
-      <div class="col-sm-5"><h3>Détails de la demande biologique</h3></div> <div class="col-sm-5"></div>
+      <div class="col-sm-5"><h4><strong>Détails de la demande biologique</strong></h4></div> <div class="col-sm-5"></div>
       <div class="col-sm-7">
         @if($medecin->id == Auth::user()->employ->id)
         <a href="/dbToPDF/{{ $demande->id }}" title = "Imprimer"  target="_blank" class="btn btn-sm btn-primary pull-right">
@@ -23,7 +23,7 @@
     <div class="row">
   <div class="col-xs-12">
     <div class="widget-box">
-      <div class="widget-header"><h4 class="widget-title">Détails de la demande :</h4></div>
+      <div class="widget-header"><h5 class="widget-title"><strong>Détails de la demande :</strong></h5></div>
       <div class="widget-body">
         <div class="widget-main">
           <div class="row">

@@ -1,7 +1,7 @@
 <div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-2">
 	<div class="widget-box widget-color-blue" id="widget-box-2">
 		<div class="widget-header">
-			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Gardes Malades/Hommes de Confiance</h5>
+			<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Gardes malade/Homme de confiance</h5>
 			<div class="widget-toolbar widget-toolbar-light no-border">
 				<div class="fa fa-plus-circle"></div><a href="#" id="btn-addCores" class="btn-xs tooltip-link"><strong>Correspondant</strong></a>
 			</div>

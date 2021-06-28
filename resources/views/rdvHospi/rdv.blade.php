@@ -28,7 +28,7 @@
   	<table width="100%" style="line-height:10px">
 			<tr>
 				<td class="col-md-4">
-					<strong>Patient :</strong>
+					<strong> Patient :</strong>
 					<span>{{ $rdv->demandeHospitalisation->consultation->patient->Nom }}{{ $rdv->demandeHospitalisation->consultation->patient->Prenom }}</span>
 				</td>
 				<td class="col-md-8" rowspan="4" >

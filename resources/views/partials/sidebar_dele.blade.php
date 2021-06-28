@@ -73,7 +73,7 @@
     </li>
     <li class="">
         <a href="#" class="dropdown-toggle">  <!-- <i class="ace-icon glyphicon glyphicon-file md"></i>  -->
-             <i class="menu-icon fa fa-hospital-o"></i> <span class="menu-text">Demanades Hosp</span>
+             <i class="menu-icon fa fa-hospital-o"></i> <span class="menu-text">Demandes hosp</span>
         </a>
            <b class="arrow"></b>
         <ul class="submenu">
