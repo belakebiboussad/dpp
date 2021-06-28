@@ -16,7 +16,9 @@ use App\modeles\Etatsortie;
 use App\modeles\CIM\chapitre;
 use Jenssegers\Date\Date;
 use App\modeles\etablissement;
+use App\modeles\prescription_constantes;
 use App\modeles\Constontes;
+use App\modeles\consts;
 use Carbon\Carbon;
 use PDF;
 //use Dompdf\Dompdf;
@@ -108,7 +110,9 @@ class HospitalisationController extends Controller
   public function show($id)
   {
       $hosp = hospitalisation::find($id);
-       return View::make('hospitalisations.show')->with('hosp', $hosp);
+      $consts = consts::all();
+      //dd($hosp->prescreptionconstantes);
+      return View::make('hospitalisations.show', compact('hosp','consts'));
   }
   /**
    * Show the form for editing the specified resource.
@@ -246,6 +250,23 @@ class HospitalisationController extends Controller
     ]);
 
     return redirect()->back()->with('succes', 'constantes inserer avec success');
+  }
+
+  public function store_prescription_constantes(Request $request)
+  {
+      $prescription_constantes = prescription_constantes::FirstOrCreate([
+        "hospitalisation_id" => $request->id_hosp,
+        "date_prescription" => Carbon::now(),
+        "observation" => $request->observation
+      ]);
+
+      if($request->consts != null)
+      {
+        $prescription_constantes->constantes()->attach($request->consts);
+      }
+
+      return redirect()->back()->with('succes', 'prescription inserer avec success');
+      
   }
 
   public function get_poids($id_hosp)

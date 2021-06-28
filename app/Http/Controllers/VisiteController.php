@@ -16,6 +16,7 @@ use App\modeles\TypeExam;
 use App\modeles\demandeexb;
 use App\modeles\demandeexr;
 use App\modeles\Etablissement;
+use App\modeles\consts;
 use App\modeles\NGAP;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -66,7 +67,8 @@ class VisiteController extends Controller
       $examensradio = examenradiologique::all();
       $codesNgap = NGAP::all();
       $visite->save();
-      return view('visite.add',compact('hosp','patient', 'employe','specialitesProd','specialitesExamBiolo','infossupp','examens','examensradio','etablissement','codesNgap'))->with('id',$visite->id);
+      $consts = consts::all();
+      return view('visite.add',compact('consts', 'hosp', 'patient', 'employe','specialitesProd','specialitesExamBiolo','infossupp','examens','examensradio','etablissement','codesNgap'))->with('id',$visite->id);
     }
  /**
      * Show the form for creating a new resource.

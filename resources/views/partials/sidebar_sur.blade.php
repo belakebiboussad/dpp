@@ -155,6 +155,7 @@
                           var formData = { 
                                 ServiceID: $('#serviceh').val(), 
                                 Affect :$('#affect').val(),
+                                patient_id: $('#patient_id').val(),
                           };
                           if($('#affect').val() == '0')
                           {

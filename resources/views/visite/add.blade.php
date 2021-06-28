@@ -269,18 +269,23 @@
 		  <div class="row">
 				<ul class = "nav nav-pills nav-justified list-group" role="tablist" id="menu">
 					<li role= "presentation" class="active col-md-4">
-						<a href="#Actes" aria-controls="Actes" role="tab" data-toggle="tab" class="btn btn-success btn-lg">
+						<a href="#Actes" aria-controls="Actes" role="tab" data-toggle="tab" class="btn btn-success">
 						<span class ="medical medical-icon-immunizations" aria-hidden="true"></span><span class="bigger-160"> Actes</span>
 					</a>
 					</li>
 					<li role= "presentation" class="col-md-4">
-						<a href="#Trait" aria-controls="Trait" role="tab" data-toggle="tab" class="btn btn-primary btn-lg">
+						<a href="#Trait" aria-controls="Trait" role="tab" data-toggle="tab" class="btn btn-primary">
 							<span class ="medical medical-icon-health-services" aria-hidden="true"></span><span class="bigger-160">Traitements</span>
 						</a>
 					</li>
 					<li role= "presentation" class="col-md-4">
-						<a href="#ExamComp" aria-controls="ExamComp" role="tab" data-toggle="tab" class="btn btn-danger btn-lg">
+						<a href="#ExamComp" aria-controls="ExamComp" role="tab" data-toggle="tab" class="btn btn-danger">
 						  <span class ="medical medical-icon-i-imaging-root-category"></span><span class="bigger-160">Examens Complémentaires</span>
+						</a>
+					</li>
+					<li role= "presentation" class="col-md-4">
+						<a href="#constantes" aria-controls="ExamComp" role="tab" data-toggle="tab" class="btn btn-warning">
+						  <span class ="medical medical-icon-i-imaging-root-category"></span><span class="bigger-160">Constantes</span>
 						</a>
 					</li>
 				</ul>
@@ -391,6 +396,36 @@
 				<div role="tabpanel" class ="tab-pane" id="ExamComp">
 					 @include('ExamenCompl.index')
 				</div>
+				<div role="tabpanel" class ="tab-pane" id="constantes"> 
+					<div class= "col-md-12 col-xs-12">
+						<div class="widget-main padding-6 no-padding-left no-padding-right">
+							<div class="space-6"></div>
+							<div class="row">	
+								<input type="hidden" name="id_hosp" value="{{ $hosp->id }}">								
+								@foreach($consts as $const)
+									<div class="col-xs-3">
+										<div class="checkbox">
+											<label>
+												<input name="consts[]" type="checkbox" class="ace" value="{{ $const->id }}" />
+												<span class="lbl"> 
+													{{ $const->name }}
+												</span>
+											</label>
+										</div>
+									</div>
+								@endforeach
+								<div class="col-xs-12">
+									<br><br>
+									<div>
+										<label for="form-field-8">Observation</label>
+
+										<textarea class="form-control" id="observation" name="observation" placeholder="Observation"></textarea>
+									</div>
+								</div>                           
+							</div>
+						</div>
+					</div>
+				</div>
 			</div><!-- tab-content -->
 			</div>
 		</div><!-- tabpanel -->
@@ -405,8 +440,12 @@
 		</div>	
 	</form>
 	<div class="row">@include('visite.ModalFoms.acteModal')</div>
+
 	<div class="row">@include('visite.ModalFoms.TraitModal')</div>
+
 	<div class="row"><div id="bioExamsPdf" class="invisible b"> @include('consultations.EtatsSortie.demandeExamensBioPDF')</div></div>
-<div class="row"><div id="imagExamsPdf" class="invisible">@include('consultations.EtatsSortie.demandeExamensImgPDF')</div></div>
-  </div>
+
+	<div class="row"><div id="imagExamsPdf" class="invisible">@include('consultations.EtatsSortie.demandeExamensImgPDF')</div></div>
+
+  	</div>
   @endsection

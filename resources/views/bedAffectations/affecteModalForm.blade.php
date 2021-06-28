@@ -9,6 +9,7 @@
 			<form id="modalFormData" name="modalFormData" method="POST" action ="" class="form-horizontal" novalidate="">
 				{!! csrf_field() !!}
 			  <input type="hidden" id="demande_id" name="demande_id" value="0">
+			  <input type="hidden" id="patient_id" name="patient_id" value="{{ $demande->consultation->patient->id }}">
 			   <input type="text" id="affect" value="1" hidden>
 				<div class="row">
 			    <div class="col-xs-12">

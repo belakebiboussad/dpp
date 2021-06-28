@@ -212,4 +212,5 @@ route::get('/getpouls/{id}', 'HospitalisationController@get_pouls');
 route::get('/gettemp/{id}', 'HospitalisationController@get_temp');
 route::get('/getglycemie/{id}', 'HospitalisationController@get_glycemie');
 route::get('/getcholest/{id}','HospitalisationController@get_cholest');
+route::post('/storeprescriptionconstantes','HospitalisationController@store_prescription_constantes');
 Route::post('/admin/password/reset','UsersController@passwordReset');
