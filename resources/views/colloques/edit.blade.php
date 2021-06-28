@@ -80,7 +80,7 @@
           <div class="col-xs-6 center">
             <div class="col-md-offset-6 col-md-7"><br/>
               <button class="btn btn-success btn-xs" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer </button>&nbsp; &nbsp; &nbsp; &nbsp;
-              <button class="btn btn-xs" type="reset" id="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Réinitialiser</button>
+              <button class="btn btn-xs" type="reset" id="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
             </div>
           </div>
         </div>

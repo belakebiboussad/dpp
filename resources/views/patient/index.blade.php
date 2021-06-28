@@ -80,7 +80,6 @@
     	 field = $(this).prop("id");	
 		});
 	});
-
 	var field ="Dat_Naissance";
 	$(document).ready(function(){
 		$(document).on('click','.findptient',function(event){
@@ -142,7 +141,6 @@
 								 		  {"targets": 8 ,	"orderable":false,  className: "dt-head-center dt-body-center priority-7"},
 						   	],
 	    				});
-
      			},
      			error:function(){
      				console.log("error");

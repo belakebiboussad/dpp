@@ -33,20 +33,16 @@ class AdmissionController extends Controller
       }
       public function index()
       {
-        $rdvs = rdv_hospitalisation::with('bedReservation','demandeHospitalisation.bedAffectation')->whereHas('demandeHospitalisation', function($q){
-                                           $q->where('etat', 'programme');
-                                    })->whereHas('demandeHospitalisation.bedAffectation', function($q){
-                                                $q->where('lit_id','!=',null);
-                                    })->where('etat_RDVh','=',null)->where('date_RDVh','=',date("Y-m-d"))->get();
-          
-        $demandesUrg = DemandeHospitalisation::with('bedAffectation') //->whereHas('bedAffectation')
-                                             ->whereHas('consultation', function($q){
-                                                $q->where('Date_Consultation', date("Y-m-d"));
-                                             })->whereHas('bedAffectation', function($q){
-                                                $q->where('lit_id','!=',null);
-                                             })->where('modeAdmission','Urgence')->where('etat','programme')->get();
-        $etatsortie = Etatsortie::where('type','1')->get();
-          return view('home.home_agent_admis', compact('rdvs','demandesUrg','etatsortie'));
+            $rdvs = rdv_hospitalisation::with('bedReservation','demandeHospitalisation.bedAffectation')->whereHas('demandeHospitalisation', function($q){
+                                               $q->where('etat', 'programme');
+                                        })->where('etat_RDVh','=',null)->where('date_RDVh','=',date("Y-m-d"))->get();
+              //->whereHas('demandeHospitalisation.bedAffectation', function($q){$q->where('lit_id','!=',null);})
+              $demandesUrg = DemandeHospitalisation::with('bedAffectation') //->whereHas('bedAffectation')
+                                                 ->whereHas('consultation', function($q){
+                                                    $q->where('Date_Consultation', date("Y-m-d"));
+                                                 })->where('modeAdmission','Urgence')->where('etat','programme')->get();
+              $etatsortie = Etatsortie::where('type','1')->get();
+            return view('home.home_agent_admis', compact('rdvs','demandesUrg','etatsortie'));
     }
     /**
      * Show the form for creating a new resource.

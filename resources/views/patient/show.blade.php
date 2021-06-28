@@ -1,9 +1,6 @@
 @extends('app')
 @section('page-script')
- <!--<script type="text/javascript" src="http://ADRESSE_BORNE:90/Scripts/jquery-1.6.4.min.js"></script> 
-	<script type="text/javascript" src="http://ADRESSE_BORNE:90/Scripts/jquery.signalR-1.1.3.min.js"></script>
-	<script type="text/javascript" src="http://ADRESSE_BORNE:90/myhubs/hubs"></script>-->
-	<script type="text/javascript">
+<script type="text/javascript">
  function deleteDemandeHospi(id)
  {
       event.preventDefault();
@@ -22,23 +19,11 @@
 				 console.log('Error:', data);
 			}
 	});
-  }/*
-      $(function () {
-		$.connection.hub.url = 'http://ADRESSE_BORNE:90/myhubs';
-	    	// Connect Hubs without the generated proxy
-		var chatHubProxy = $.connection.myChatHub;
-		$.connection.hub.start().done(function () {
-					console.log("Hub connected.");
-					$("#print").click(function () {
-						// barcode à envoyer
-						var barcode = "1600|1|030621"; 
-						// Fonction d'envoie
-						chatHubProxy.server.send(barcode);
-					});
-				}).fail(function () {
-					console.log("Could not connect to Hub.");
-				});
-	});*/
+  }
+ /*$(function () {$.connection.hub.url = 'http://192.168.1.60:90/myhubs'; // Connect Hubs without the generated proxy
+var chatHubProxy = $.connection.myChatHub;$.connection.hub.start().done(function () {console.log("Hub connected.");
+$(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "1600|1|030621"; // Fonction d'envoie chatHubProxy.server.send(barcode);});
+}).fail(function () {console.log("Could not connect to Hub.");});});*/
  $('document').ready(function(){
       $("#accordion" ).accordion({
 	      collapsible: true ,
@@ -51,7 +36,7 @@
 	      stop: function( event, ui ) {
 		        ui.item.children( ".accordion-header" ).triggerHandler( "focusout" );
       		}
-  	});
+  });
 	var table = $('#consultList').DataTable({
 			"searching":false,
 			"pageLength" : 10,
@@ -142,9 +127,9 @@
 					</a>
 				</li>
 				@endif
-				<li>
-					<a data-toggle="tab" href="#rdvs">
-						<i class="blue ace-icon fa fa-calendar-o bigger-120"></i><strong>Rendez-vous</strong>&nbsp;<span class="badge badge-info">{{ $patient->rdvs->count() }}</span>
+
+				<li><a data-toggle="tab" href="#rdvs">
+					<i class="blue ace-icon fa fa-calendar-o bigger-120"></i>Rendez-vous&nbsp;<span class="badge badge-info">{{ $rdvs->count() }}</span>
 					</a>
 				</li>
 				@if (!is_null($correspondants))
@@ -170,7 +155,7 @@
 		{{-- <form  id ="ticketForm" action="#" method="POST" role="form">{{ csrf_field() }} --}}
 		<input type="text" name="id_patient" id="id_patient" value="{{ $patient->id }}" hidden>
 		<div class="modal-header">
-    			<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title"><strong>Ajouter Ticket:</strong></h4>
+    			<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title"><strong>Ajouter un ticket d'enregistrement</strong></h4>
     		</div>
     		<div class="modal-body">
 	    		<div class="row">

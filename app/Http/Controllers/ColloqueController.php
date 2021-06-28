@@ -37,8 +37,11 @@ class ColloqueController extends Controller
       }
       public function index($type = 0)
        {
-            $colloques=colloque::with('employs')->where('etat','<>','cloturé')->where('type','=',$type)->get();
-             return view('colloques.index', compact('colloques','type'));
+              $colloques=colloque::with('employs')->where('etat','<>','cloturé')->where('type','=',$type)->get();
+             /* $demandes = DemandeHospitalisation::whereHas('Specialite', function ($q) use ($type) {
+                              $q->where('type',$type);
+                })->where('etat','en attente')->where('modeAdmission','<>','Urgence')->get();*/
+               return view('colloques.index', compact('colloques','type','demandes'));
        }
     /**
      * Show the form for creating a new resource.
@@ -52,7 +55,7 @@ class ColloqueController extends Controller
        $membre = employ::whereHas('User', function ($q) use ($rols) {
                                         $q->whereIn('role_id',$rols);                           
                                     })->get();
-          return view('colloques.create',compact('membre'));//,'type_c'
+          return view('colloques.add',compact('membre'));//,'type_c'
     }
  /**
      * Store a newly created resource in storage.
@@ -62,16 +65,18 @@ class ColloqueController extends Controller
      */
       public function store(Request $request)
       {  
-         $colloque=colloque::create([
-                                "date"=>$request->date_colloque,
-                                "etat"=>"en cours",
-                                "date_creation"=>Date::Now(),
-                                "type"=>$request->type_colloque,              
-                              ]);    
-        foreach ($request->membres as $medecin) {
-              $colloque->employs()->attach($medecin);
-        }
-         return redirect()->action('ColloqueController@index',$colloque->type);
+             $colloque=colloque::create([
+                                    "date"=>$request->date_colloque,
+                                    "etat"=>"en cours",
+                                    "date_creation"=>Date::Now(),
+                                    "type"=>$request->type_colloque,              
+               ]); 
+               $type = $colloque->type;
+              foreach ($request->membres as $medecin) {
+                     $colloque->employs()->attach($medecin);
+              }
+              // return redirect()->action('ColloqueController@show',$colloque->id);//
+              return redirect()->action('ColloqueController@index', 'type');//
     }
 //  public function show($id_colloque){ }
   /**
@@ -89,6 +94,12 @@ class ColloqueController extends Controller
                                         })->get();
       $listeMeds = $listeMeds->diff($colloque->employs); //$type_c = type_colloque::all();
        return view('colloques.edit',compact('colloque','listeMeds'));//,'type_c'
+    }
+    public function show($id)
+    {
+              $colloque=colloque::find($id);
+               $listeMeds = $listeMeds->diff($colloque->employs); 
+              return view('colloques.show',compact('colloque','listeMeds'));
     }
     /**
      * Update the specified resource in storage.
@@ -120,7 +131,7 @@ class ColloqueController extends Controller
       public function getClosedColoques($type)
       {
               $colloques =  colloque::with('employs','demandes')->where('etat','cloturé')->where('type',$type)->get();                      
-            return view('colloques.liste_closedcolloque', compact('colloques','type'));                      
+               return view('colloques.liste_closedcolloque', compact('colloques','type'));                      
       }
     public function run($id)
     {  
@@ -157,14 +168,18 @@ class ColloqueController extends Controller
         ]);
         return redirect()->action('ColloqueController@index',$colloque->type);  
   }
-  public function destroy($id){
-    $col = colloque::find($id, ['type']);
-    foreach($col->employs as $employ)
-    {
-      $col->employs()->dettach($employ);
-    }
-    $colloque = colloque::destroy($id);
-    return redirect()->action('ColloqueController@index',$col->type);
-  }
+        public function destroy($id){
+              $col = colloque::find($id, ['type']);
+              if($col->employs->count()>0)
+              {
+                   foreach($col->employs as $employ)
+                     {
+                              $col->employs()->dettach($employ);
+                      }
+               
+               }
+               $colloque = colloque::destroy($id);
+               return redirect()->action('ColloqueController@index',$col->type);
+       }
 }
 

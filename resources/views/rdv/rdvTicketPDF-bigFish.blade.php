@@ -33,9 +33,7 @@
 	<body>
 	  <div class="row">
 		  <div class="col-sm-12">
-		   	<div class="content text-center mt-50">{{-- <h5><strong>{{ $etablissement->tutelle }}</strong></h5><h6 class="mt-5" style =" margin-left: -7px;margin-right:-7px;"><strong>{{ $etablissement->nom }}</strong></h6><h6 class="mt-10"><strong>{{ $etablissement->adresse }}</strong><span> - Tél : {{ $etablissement->tel }}</span></h6> --}}
-					@include('partials.etatHeader-min')  
-		   	</div>
+		   	<div class="content text-center mt-50">@include('partials.etatHeader-min')</div>
 		  </div>
 	  </div>
 	  <div class="row mt-5">
@@ -49,7 +47,7 @@
 	   	<div class="col-md-4 col-sm-4 content text-center pt-21"><h4><strong>Rendez-Vous de Consultation</strong></h4></div>		
 	  </div><br>	
 	  <div class="row mt-10 pt-10">
-		  <div class="col-sm-12">Rendez-vous dans la &nbsp;Spécialitè&nbsp;<strong>{{ $rdv->employe->Specialite->nom}}</strong></div>
+		  <div class="col-sm-12">Rendez-vous dans la &nbsp;Spécialitè&nbsp;<strong>{{ $rdv->specialite->nom}}</strong></div>
 		</div>
 	  <div class="row">
 	   	<div class="col-sm-12">

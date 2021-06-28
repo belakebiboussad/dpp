@@ -74,11 +74,11 @@ class DemandeHospitalisationController extends Controller
      */
       public function edit($id)
       {
-        $demande = DemandeHospitalisation::FindOrFail($id);
-        $services = service::all();
-        $specialites = Specialite::all();
-        $modesAdmission = config('settings.ModeAdmissions') ;
-         return view('demandehospitalisation.edit', compact('demande','services','specialites','modesAdmission'));
+              $demande = DemandeHospitalisation::FindOrFail($id);
+              $services = service::all();
+              $specialites = Specialite::all();
+              $modesAdmission = config('settings.ModeAdmissions') ;
+               return view('demandehospitalisation.edit', compact('demande','services','specialites','modesAdmission'));
     }
     /**
      * Update the specified resource in storage.
@@ -89,13 +89,13 @@ class DemandeHospitalisationController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $demande = DemandeHospitalisation::FindOrFail($id);
-      $demande->update([
-              "service"      =>$request->service,
-              "specialite"  =>$request->specialite,
-              "modeAdmission" =>$request->mode,
-      ]);
-       return redirect()->action('DemandeHospitalisationController@index');
+            $demande = DemandeHospitalisation::FindOrFail($id);
+            $demande->update([
+                    "service"      =>$request->service,
+                    "specialite"  =>$request->specialite,
+                    "modeAdmission" =>$request->mode,
+            ]);
+             return redirect()->action('DemandeHospitalisationController@index');
     }
 
     /**
@@ -106,16 +106,16 @@ class DemandeHospitalisationController extends Controller
      */
       public function destroy(Request $request,$id)
       {
-        if($request->ajax())
-        {
-          $demande = DemandeHospitalisation::destroy($id);
-          return Response::json("d");
-        }
-        else
-        {
-           $demande = DemandeHospitalisation::destroy($id);
-          return redirect()->action('DemandeHospitalisationController@index');// return Response::json($demande);
-        } 
+              if($request->ajax())
+              {
+                $demande = DemandeHospitalisation::destroy($id);
+                return Response::json("d");
+              }
+              else
+              {
+                 $demande = DemandeHospitalisation::destroy($id);
+                return redirect()->action('DemandeHospitalisationController@index');// return Response::json($demande);
+              } 
       }
       public function listedemandes($type)
       {
@@ -126,11 +126,11 @@ class DemandeHospitalisationController extends Controller
       }
       public function valider(Request $request)
       {
-           $dem = dem_colloque::firstOrCreate($request->all());
-           $demande  =  DemandeHospitalisation::FindOrFail($request->id_demande); 
-           $demande->etat ="valide";
-           $demande->save();
-           return Response::json($demande);
+               $dem = dem_colloque::firstOrCreate($request->all());
+               $demande  =  DemandeHospitalisation::FindOrFail($request->id_demande); 
+               $demande->etat ="valide";
+               $demande->save();
+               return Response::json($demande);
       }
     public function invalider(Request $request)
     {
@@ -143,12 +143,12 @@ class DemandeHospitalisationController extends Controller
     }
     public function getUrgDemanades($date)
     {
-      $demandehospitalisations = DemandeHospitalisation::with('consultation.patient','Service')->where('modeAdmission','Urgence')->where('etat','en attente')
-                                                        ->whereHas('consultation',function($q) use($date){
-                                                            $q->where('Date_Consultation', $date);
-                                                        })->get();
-      if (!empty($demandehospitalisations)) {
-       return json_encode($demandehospitalisations);        
-      }
+          $demandehospitalisations = DemandeHospitalisation::with('consultation.patient','Service','bedAffectation.lit.salle.service')->where('modeAdmission','Urgence')->where('etat','programme')
+                                                            ->whereHas('consultation',function($q) use($date){
+                                                                $q->where('Date_Consultation', $date);
+                                                            })->get();
+          if (!empty($demandehospitalisations)) {
+                return json_encode($demandehospitalisations);        
+          }
     }
 }

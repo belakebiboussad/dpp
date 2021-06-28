@@ -15,53 +15,88 @@
   </style>
 @endsection
 @section('page-script')
+{{--<script type="text/javascript" src="http://192.168.1.60:90/Scripts/jquery-1.6.4.min.js"></script> 
+<script src="{{asset('/js/jquery.signalR.min.js')}}"></script>--}}
+<script type="text/javascript" src="http://192.168.1.60:90/Scripts/jquery.signalR-1.1.3.min.js" onerror="console.log('error signalR!');" onload="loaded=true;"></script>
+<script type="text/javascript" src="http://192.168.1.60:90/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script>
 <script>
 var rdvs = @json($rdvs);
-function resetaddModIn()
-{
-      $('.es-list').val(''); 
-      $('#patient').val(''); 
-      $('#medecin').val('');
-      $('#specialite').val(''); 
-      $("#medecin").attr("disabled", true);   
-}
+var loaded;
+/*function resetaddModIn(){}*/
 function resetPrintModIn()
 {
-  $('#doctor').val('');$('#printRdv').addClass('hidden')
+  $('#doctor').val('');
+  $('#printRdv').addClass('hidden')
+}
+
+function resetPatin()
+{
+  $('#patient').editableSelect('clear');
+  $('.es-list').val(''); 
+  $('#patient').val('');
 }
 function reset_in()
-{
-      $('#medecin').val('');//$('.es-list').html('');  $('#patient').val('');
-      $('#patient').editableSelect();
-}
-function layout()
-{
-      reset_in(); 
-      resetaddModIn();//var field = $("select#filtre option").filter(":selected").val();
-      $("#btnSave").attr("disabled", true);
+{ //$('.es-list').html('');  $('#patient').val('');//$('#specialite').val('');
+ // $('#medecin').val(''); //$('#specialite').val(''); //$("#medecin").attr("disabled", true);
+  $("#filtre").val('');
+  if('{{ Auth::user()->role_id == 2 }}')
+  {
+    $('#specialite').val('');
+    $("#filtre").attr("disabled", true);
+  }
+  resetPatin();
+  $("#btnSave").attr("disabled", true);
+  
 }
 function getPatient()
 {
+  var spec ='{{ Auth::user()->role_id ==1 }}' ? '{{ Auth::user()->employ->specialite }}' : $("#specialite") .val(); 
   var field = $("select#filtre option").filter(":selected").val();//patientSearch(field,$("#patient").val()); //to call ajax
   $.ajax({
-         url : '{{URL::to('getPatients')}}',
-         data: {    
-               "field":field,
-               "value":$("#patient").val(),
-         },
-         dataType: "json",
-         success: function(data) {
-           $(".es-list").html("");//remove list
-           $(".es-list").addClass("make-scrolling");
-           $.each(data['data'], function(i, v) {
-             $(".es-list").append($('<li></li>').attr('value', v['id']).attr('class','es-visible list-group-item option').text(v['IPP']+"-"+v['Nom']+"-"+v['Prenom']));
-           });
-         },
-        error: function() {
-           alert("can't connect to db");
-        }
+        url : '{{URL::to('getPatients')}}',
+        data: {    
+            "field":field,
+            "value":$("#patient").val(),
+            "specialite":spec,
+        },
+       dataType: "json",
+       success: function(data) {
+         $(".es-list").html("");//remove list
+         $(".es-list").addClass("make-scrolling");
+         $.each(data['data'], function(i, v) {
+            $(".es-list").append($('<li></li>').attr('value', v['id']).attr('class','es-visible list-group-item option').text(v['IPP']+"-"+v['Nom']+"-"+v['Prenom']));
+         });
+       },
+      error: function() {
+         alert("can't connect to db");
+      }
   });
 }
+$(function () {
+  if(loaded)
+  {
+    $.connection.hub.url = 'http://192.168.1.60:90/myhubs';
+     // Connect Hubs without the generated proxy
+     var chatHubProxy = $.connection.myChatHub;
+    $.connection.hub.start().done(function (e) {
+     console.log("Hub connected.");
+    $("#printTck").click(function(){
+        var barcode = $("#civiliteCode").val()+ $("#idRDV").val()+"|"+$("#specialite").val()+"|"+$("#daterdvHidden").val();
+        chatHubProxy.server.send(barcode);       
+      });
+    }).fail(function () {
+      console.log("Could not connect to Hub.");
+    });
+  }
+});
+$(function () {
+  $( "#filtre" ).change(function() {
+    resetPatin();//resetaddModIn();//var field = $("select#filtre option").filter(":selected").val();
+    $("#btnSave").attr("disabled", true);
+    if($(this).val() != '' &&($("#patient").prop('disabled') == true))
+      $("#patient").prop('disabled',false);
+  });
+});
 $(document).ready(function() {
     var CurrentDate = (new Date()).setHours(23, 59, 59, 0); 
     var today = (new Date()).setHours(0, 0, 0, 0); 
@@ -94,20 +129,21 @@ $(document).ready(function() {
               displayEventTime : false,
               views: {},
               events :[
-                        @foreach($rdvs as $key =>   $rdv)
-                        {
-                          title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
-                          start : '{{ $rdv->Date_RDV }}',
-                          end:   '{{ $rdv->Fin_RDV }}',
-                          id :'{{ $rdv->id }}',
-                          idPatient:'{{$rdv->patient->id}}',
-                          tel:'{{$rdv->patient->tele_mobile1}}',
-                          age:{{ $rdv->patient->getAge() }},
-                          specialite: {{ $rdv->employe["specialite"]}},
-                          key :(isEmpty({{ $rdv->Employe_ID_Employe }}))? "":'{{ $key }}',
-                          fixe:  {{ $rdv->fixe }},
-                        },
-                        @endforeach   
+                      @foreach($rdvs as $key =>   $rdv)
+                      {
+                              title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
+                              start : '{{ $rdv->Date_RDV }}',
+                              end:   '{{ $rdv->Fin_RDV }}',
+                              id :'{{ $rdv->id }}',
+                              idPatient:'{{ $rdv->patient->id}}',
+                              tel:'{{$rdv->patient->tele_mobile1}}',
+                              age:{{ $rdv->patient->getAge() }}, //specialite: (isEmpty({{-- $rdv->employe["specialite"] --}}))? "":'',
+                              specialite: {{ $rdv->specialite_id }},
+                              civ : {{ $rdv->patient->getCiviliteCode() }},
+                              key :(isEmpty({{ $rdv->Employe_ID_Employe }}))? "":'{{ $key }}',
+                              fixe:  {{ $rdv->fixe }},
+                      },
+                     @endforeach   
               ], 
               select: function(start, end) {
                     var minutes = end.diff(start,"minutes"); 
@@ -125,13 +161,14 @@ $(document).ready(function() {
                                  cancelButtonColor: '#d33',
                                  confirmButtonText: 'Oui',
                                  cancelButtonText: "Non",
+                                 allowOutsideClick: false,
                           }).then((result) => {
                               if(!isEmpty(result.value))//result.value indique rdv fixe ou pas
                               {
-                                if('{{ $patient}}' != null)
-                                  createRDVModal(start,end,'{{ $patient->id }}',result.value);
-                                else
-                                  createRDVModal(start,end,0,result.value);
+                                    if('{{ $patient->id}}' != null)
+                                             createRDVModal(start,end,'{{ $patient->id }}',result.value);
+                                    else
+                                           createRDVModal(start,end,0,result.value);
                               }
                           })
                         }else
@@ -143,25 +180,43 @@ $(document).ready(function() {
                         }
                     }else
                       $('#calendar').fullCalendar('unselect');
-
                 },
                 eventClick: function(calEvent, jsEvent, view) {
-                    if(Date.parse(calEvent.start) > today )
-                    {
-                          $("#lien").attr("href", "{{ route('patient.show',$rdv->patient->id )}}");
+                      if(Date.parse(calEvent.start) > today)
+                      {
+                          $("#lien").attr("href", '/patient/'+calEvent.idPatient);
                           $('#lien').text(calEvent.title); 
-                          $('#patient_tel').text(calEvent.tel);
-                          $('#agePatient').text(calEvent.age); 
+                          $('#patient_tel').val(calEvent.tel);
+                          $('#agePatient').val(calEvent.age); 
                           $('#idRDV').val(calEvent.id);
                           if($('#doctor').length && !(isEmpty(calEvent.key)))
-                                 $('#doctor').val(rdvs[calEvent.key]['employe'].nom+" "+rdvs[calEvent.key]['employe'].prenom);
+                                $('#doctor').val(rdvs[calEvent.key]['employe'].nom+" "+rdvs[calEvent.key]['employe'].prenom);
                           $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
+                          $("#daterdvHidden").val(calEvent.start.format('DDMMYY'));
+                          $("#specialite").val(calEvent.specialite);
+                          $('#specialite option[value="' + calEvent.specialite+ '"]').attr("selected", "selected");   
                           (calEvent.fixe==1) ? $("#fixecbx").prop('checked', true):$("#fixecbx").prop('checked', false); 
-                          $('#btnConsulter').attr('href','/consultations/create/'.concat(calEvent.idPatient)); 
-                          if(calEvent.fixe &&(!(isEmpty(calEvent.key))))
-                            $('#printRdv').removeClass('hidden');
+                          $('#civiliteCode').val(calEvent.civ);
+                          $('#btnConsulter').attr('href','/consultations/create/'.concat(calEvent.idPatient)); //if(calEvent.fixe &&(!(isEmpty(calEvent.key)))  )
+                          if( calEvent.fixe && (new Date(calEvent.start).setHours(0, 0, 0, 0) > today) )
+                          {
+                            if($('#printRdv').hasClass( "hidden" ))
+                              $('#printRdv').removeClass('hidden');
+                            if(!$('#printTck').hasClass( "hidden" ))
+                              $('#printTck').addClass('hidden');
+                          }
+                          if(new Date(calEvent.start).setHours(0, 0, 0, 0)  ==  today )
+                          {
+                            if(loaded)
+                            {
+                              if($('#printTck').hasClass( "hidden" ))
+                                $('#printTck').removeClass('hidden');
+                            }
+                            if($('#printRdv').hasClass( "hidden" ))
+                              $('#printRdv').hasClass('hidden');
+                          }  
                           $('#fullCalModal').modal({ show: 'true' });
-                    }
+                         }
               },
               eventRender: function (event, element, webData) {
                       if(event.start < today)
@@ -187,41 +242,55 @@ $(document).ready(function() {
             eventMouseover: function(event, jsEvent, view) {
             }
     });//calendar //fincalendar 
-       $('#patient').editableSelect({
-      effects: 'slide', 
-      editable: false, 
+    $('#patient').editableSelect({
+        effects: 'default', 
+        editable: true,
     }).on('select.editable-select', function (e, li) {
         $('#last-selected').html(
               li.val() + '. ' + li.text()
         ); 
-        @if(Auth::user()->role_id == 1)
-          $("#btnSave").removeAttr("disabled");//if(! isEmpty($("#medecin").val()))
-        @else
+        if('{{ Auth::user()->role_id}}' == 1)
+            $("#btnSave").removeAttr("disabled");//if(! isEmpty($("#medecin").val()))
+        else
         {
-          if(! isEmpty($("#medecin").val()))//$('#medecin').val() != '';
-             $("#btnSave").removeAttr("disabled");
+          if($('#specialite').val() != null)
+            $("#btnSave").removeAttr("disabled");
         }
-        @endif
     });
-    $("#patient").on("keyup", function() {// keyup
-         getPatient(); 
-    });
-    $( "#medecin" ).change(function() {
-        if($('#patient').val())
-              $("#btnSave").removeAttr("disabled"); 
-    });
-});
+    $('#patient').val('');
+    $("#patient").on("keyup", function() {
+        getPatient(); 
+    });/* $( "#medecin" ).change(function() { if($('#patient').val())  $("#btnSave").removeAttr("disabled");   });*/
+     $( "#specialite" ).change(function() {
+        if("#specialite" != '') 
+        {
+          if($("#filtre").prop('disabled') == true)
+            $("#filtre").prop('disabled',false);
+          else
+          {
+            $("#filtre").val('');
+            $("#patient").val('');
+          }
+          if($('#patient').val() != "")
+            $("#btnSave").removeAttr("disabled"); 
+        } 
+        else
+        {
+          $("#filtre").val('');
+          $("#filtre").prop('disabled',true);  
+        }
+        });
+      });
 </script>
 @endsection
 @section('main-content')
-
-<div class="row mt-20"><div class="col-sm-12"> <h4><strong>Ajouter un rendez-vous</strong></h4></div></div>
-<div class="row"> <div class="col-sm-12" id='calendar'></div></div>
-<div class="row">
-  <div class="col-sm-12 col-sm-12">
-    <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><h7><strong>&nbsp;RDV fixe</strong></h7>
-    <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><h7>&nbsp;RDV à fixer<strong></strong></h7>
+  <div class="row mt-20"><div class="col-sm-12"> <h4>Ajouter un Rendez-Vous</h4></div></div>
+  <div class="row"> <div class="col-sm-12" id='calendar'></div></div>
+  <div class="row">
+    <div class="col-sm-12 col-sm-12">
+      <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><h7><strong>&nbsp;RDV fixe</strong></h7>
+      <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><h7>&nbsp;RDV à fixer<strong></strong></h7>
+    </div>
   </div>
-</div>
-<div class="row">@include('rdv.ModalFoms.add')</div><div class="row">@include('rdv.ModalFoms.show')</div>
+  <div class="row">@include('rdv.ModalFoms.add')</div><div class="row">@include('rdv.ModalFoms.show')</div>
 @endsection
