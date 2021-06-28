@@ -1,7 +1,7 @@
 <div id="dialog" title="Confimer">
     <hr>
       <div class="row center">
-        <h4>Confirmez-vous le Rendez-Vous?</h4>
+        <h4>Confirmez-vous le rendez-vous?</h4>
       </div>
       <div class="space-12"></div>
       <div class="row center">

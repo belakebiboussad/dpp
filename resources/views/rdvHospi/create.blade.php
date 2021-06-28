@@ -34,7 +34,7 @@
 <div class="page-header" width="100%">
 	<div class="row"><div class="col-sm-12" style="margin-top: -3%;"><?php $patient = $demande->demandeHosp->consultation->patient; ?>@include('patient._patientInfo')</div></div>
 </div>
-<div class="row"><h3>Ajouter un RDV Hospitalisation</h3></div>
+<div class="row"><h3><strong>Ajouter un Rendez-vous hospitalisation</strong></h3></div>
 <div class="row">
 	<div class="col-xs-12">
 		<form class="form-horizontal" id="RDVForm" role="form" method="POST" action="{{  route('rdvHospi.store') }}">

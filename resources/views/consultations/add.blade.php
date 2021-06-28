@@ -10,7 +10,6 @@ $(document).on('click','.findptient',function(event){
 		      data:{'field':field,'value':($('#'+field).val())},
 		      success:function(data,status, xhr){
 		      	$('#'+field).val('');field= "Dat_Naissance"; 
-     			 	$("#liste_patients").DataTable ({
      					"processing": true,
 	  					"paging":   true,
 	  					"destroy": true,

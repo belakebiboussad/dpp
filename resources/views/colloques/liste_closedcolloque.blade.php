@@ -7,7 +7,7 @@
     	<div class="widget-box widget-color-blue" >
     		<div class="widget-header">
 		    	<h5 class="widget-title bigger lighter">
-		      	<i class="ace-icon fa fa-table"></i><strong>Liste des colloques {{ ($type == 0) ? 'Médicaux ' : 'Chirurgicaux' }} Cloturés</strong>
+		      	<i class="ace-icon fa fa-table"></i><strong>Liste des colloques {{ ($type == "0") ? 'Médicaux ' : 'Chirurgicaux' }} Cloturés</strong>
 	       	</h5>
 		</div>
 		<div class="widget-body">

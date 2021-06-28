@@ -1,10 +1,10 @@
 @extends('app')
 @section('main-content')
-<div class="page-header"><h1>Liste des demande d'hospitalisation :</h1></div>
+<div class="row"><h4><strong>Liste des demande d'hospitalisation :</strong></h4></div>
 <div class="row">
 	<div class="col-sm-12">
 		<div class="widget-box">
-			<div class="widget-header"><h4 class="widget-title">Liste des demandes d'hospitalisation:</h4></div>	<br/>
+			<div class="widget-header"><h5 class="widget-title"><STRONG>Liste des demandes d'hospitalisation:</STRONG></h5></div>	<br/>
 			<table id="simple-table" class="table  table-bordered table-hover">
 				<thead>
 					<tr>

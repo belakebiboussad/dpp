@@ -12,14 +12,14 @@
 			          <input type="hidden" id="Fin_RDV" name="Fin_RDV"  value="" >
 			          <input type="hidden" id="fixe" name="fixe"  value="" >
 			          <div class="panel panel-default">
-                			<div class="panel-heading"><i class="ace-icon fa fa-user"></i><span>Selectionner un Patient</span></div>
+                			<div class="panel-heading"><i class="ace-icon fa fa-user"></i><span>Selectionner un patient</span></div>
 				          <div class="row">
 					          <div class="col-sm-6">
 					          <div class="form-group">
 					          		 <label class="col-form-label" for=""> <strong>Filtre : </strong></label>
 			                          <select class="form-control" id="filtre" onchange="layout();"  {{ isset($patient->id) ? 'disabled' : '' }} ">
 			                             	<option value="Nom">Nom</option>
-			                              	<option value="Prenom">Prenom</option>
+			                              	<option value="Prenom">Prénom</option>
 			                             	 <option value="IPP">IPP</option>
 			                            </select>
 					          </div>

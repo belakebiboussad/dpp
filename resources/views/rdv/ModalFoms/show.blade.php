@@ -2,11 +2,15 @@
 	<div class="modal-dialog modal-lg" role="document">
    	<div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title"><span class="glyphicon glyphicon-bell"></span>&nbsp;Détails du Rendez-Vous de &nbsp; <q><a href="" id="lien" class="white"></a></q></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span></button><hr>
+        <h4 class="modal-title">
+            <span class="glyphicon glyphicon-bell"></span>&nbsp;Détails du rendez-vous de &nbsp; 
+            <q><a href="" id="lien" class="white"></a></q>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span></button>
+        </h4>
+        <hr>
         <div class="row">
          	<div class="col-sm-6"> <i class="fa fa-phone" aria-hidden="true"></i><strong>Téléphone:&nbsp;</strong><span id="patient_tel" class="white"></span></div>
-         	<div class="col-sm-6"><strong>Âge:&nbsp;</strong><span id="agePatient" class="white"></span> <small>Ans</small></div>
+         	<div class="col-sm-6"><strong>Age:&nbsp;</strong><span id="agePatient" class="white"></span> <small>ans</small></div>
         </div>       
       </div>
       <form id ="updateRdv" role="form" method="POST"> 
@@ -16,7 +20,7 @@
                           <div class="row">
                                <div class="col-sm-12">
                                     <div class="form-group">
-                                         <label for="doctor" class="col-form-label" ><i class="ace-icon fa  fa-user-md bigger-130"></i><strong>&nbsp;Medecin:</strong></label>
+                                         <label for="doctor" class="col-form-label" ><i class="ace-icon fa  fa-user-md bigger-130"></i><strong>&nbsp;Médecin:</strong></label>
                                           <div class="input-group col-sm-12"><input type="text"  class="form-control" id="doctor" name ="doctor"  disabled/> </div>  
                                      </div>
                                 </div>
@@ -26,7 +30,7 @@
                           <div class="row">
                                <div class="col-sm-6">
                                <fieldset class="scheduler-border">
-                                     <legend class="scheduler-border">Rendez-Vous</legend>
+                                     <legend class="scheduler-border">Rendez-vous</legend>
                                     <div class="control-group">
                                           <label class="control-label input-label" for="startTime">Date :</label>
                                           <div class="controls bootstrap-timepicker">
@@ -38,7 +42,7 @@
                                 </div>
                                <div class="col-sm-6">
                                     <fieldset class="scheduler-border">
-                                          <legend class="scheduler-border">Type Rendez-Vous</legend>
+                                          <legend class="scheduler-border">Type de rendez-vous</legend>
                                           <div class="control-group">
                                                <label class="control-label input-label">&nbsp;</label>
                                                <div class="controls form-check">
