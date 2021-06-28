@@ -16,7 +16,13 @@
 </script>
 @endsection
 @section('main-content')
-<div class="row" width="100%"> @include('patient._patientInfo') </div>
+ <?php
+    if(isset($demande->id_consultation))
+      $patient = $demande->consultation->patient;
+    else
+     $patient = $demande->visite->hospitalisation->patient;
+  ?>
+<div class="row" width="100%"> @include('patient._patientInfo',$patient) </div>
 <div class="row">
   <div class="col-md-5 col-sm-5"><h3>Demande d'examen biologique</h3></div>
   <div class="col-md-7 col-sm-7">
@@ -41,7 +47,13 @@
               <div class="profile-user-info profile-user-info-striped">
                 <div class="profile-info-row">
                   <div class="profile-info-name">Date : </div>
-                  <div class="profile-info-value"><span class="editable" id="username">{{ $demande->consultation->Date_Consultation }}</span></div>
+                  <div class="profile-info-value"><span class="editable">
+             @if(isset($demande->consultation))
+                    {{  (\Carbon\Carbon::parse($demande->consultation->Date_Consultation))->format('d/m/Y') }}
+                 @else
+                    {{  (\Carbon\Carbon::parse($demande->visite->date))->format('d/m/Y') }}
+                  @endif 
+                  </span></div>
                 </div>
               </div>
               <div class="profile-user-info profile-user-info-striped">
@@ -61,7 +73,7 @@
                 <div class="profile-info-row">
                   <div class="profile-info-name"> Demandeur : </div>
                   <div class="profile-info-value">
-                    <span class="editable" id="username">{{ $demande->consultation->docteur->nom }} {{ $demande->consultation->docteur  ->prenom }}</span>
+                    <span class="editable" id="username">{{ $medecin->nom }} {{ $medecin->prenom }}</span>
                   </div>
                 </div>
               </div><!-- profile-user-info  -->
@@ -91,14 +103,23 @@
       <form class="form-horizontal" method="POST" action="/uploadresultat" enctype="multipart/form-data">
         {{ csrf_field() }}
         <input type="text" name="id_demande" value="{{ $demande->id }}" hidden>
+        {{-- <div class="form-group"><div class="col-xs-2"><label for="resultat">Attacher le Résultat </label></div>
+<div class="col-xs-8"><input type="file" id="resultat" name="resultat" class="form-control" accept="image/*,.pdf" required/></div></div> --}}
         <div class="form-group">
-          <div class="col-xs-2"><label for="resultat">Attacher le Résultat </label></div>
-          <div class="col-xs-8"><input type="file" id="resultat" name="resultat" class="form-control" accept="image/*,.pdf" required/></div>
-        </div>
+              <label class="col-sm-3 control-label no-padding-right" for="nom"><strong> Attacher le Résultat: </strong></label>
+                <div class="col-sm-9"> <input type="file" class="form-control col-xs-12 col-sm-12"   id="resultat" name="resultat" alt="Résultat du l'éxamen"  accept="image/*,.pdf" required/> 
+                </div>
+       </div>
+        <div class="form-group">
+               <label class="col-sm-3 control-label no-padding-right" for="nom"><strong>Compte Rendu : </strong></label>
+                <div class="col-sm-9"> 
+                        <textarea name="crb" name="crb" class="form-control col-xs-12 col-sm-12" placeholder="Compte  rendu des examens" rows=3 ></textarea> 
+               </div>
+       </div>
         <div class="clearfix form-actions">
-          <div class="col-md-offset-5 col-md-7">
-            <button class="btn btn-info" type="submit"><i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>Démarrer l'envoie</button>
-          </div>
+              <div class="col-md-offset-5 col-md-7">
+                 <button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
+              </div>
         </div>
        </form>
             </div>

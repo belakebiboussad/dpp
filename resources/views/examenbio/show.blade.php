@@ -1,11 +1,18 @@
 @extends('app')
 @section('main-content')
-  <div class="row" width="100%"> @include('patient._patientInfo') </div>
+  <div class="row" width="100%"> 
+  <?php
+    if(isset($demande->id_consultation))
+      $patient = $demande->consultation->patient;
+    else
+     $patient = $demande->visite->hospitalisation->patient;
+  ?>
+  @include('patient._patientInfo', $patient) </div>
   <div class="content">
     <div class="row">
       <div class="col-sm-5"><h3>Détails de la demande biologique</h3></div> <div class="col-sm-5"></div>
       <div class="col-sm-7">
-        @if($demande->consultation->docteur->id == Auth::user()->employ->id)
+        @if($medecin->id == Auth::user()->employ->id)
         <a href="/dbToPDF/{{ $demande->id }}" title = "Imprimer"  target="_blank" class="btn btn-sm btn-primary pull-right">
           <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
         </a>
@@ -26,7 +33,13 @@
                   <div class="profile-user-info profile-user-info-striped">
                     <div class="profile-info-row">
                       <div class="profile-info-name">Date : </div>
-                      <div class="profile-info-value"><span class="editable" id="username">{{ $demande->consultation->Date_Consultation }}</span></div>
+                      <div class="profile-info-value"><span class="editable">
+                        @if(isset($demande->consultation))
+                    {{  (\Carbon\Carbon::parse($demande->consultation->Date_Consultation))->format('d/m/Y') }}
+                 @else
+                    {{  (\Carbon\Carbon::parse($demande->visite->date))->format('d/m/Y') }}
+                  @endif 
+                      </span></div>
                     </div>
                   </div>
                   <div class="profile-user-info profile-user-info-striped">
@@ -46,7 +59,9 @@
                     <div class="profile-info-row">
                       <div class="profile-info-name"> Demandeur : </div>
                       <div class="profile-info-value">
-                        <span class="editable" id="username">{{ $demande->consultation->docteur->nom }} {{ $demande->consultation->docteur->prenom }}</span>
+                        <span class="editable">
+                              {{ $medecin->nom }} &nbsp;{{ $medecin->prenom }}
+                        </span>
                       </div>
                     </div>
                   </div><!-- profile-user-info  -->

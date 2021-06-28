@@ -1,24 +1,22 @@
       <div class="modal fade" id="fullCalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  {{-- Modal --}}
        <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
-        <div class="modal-header"  style="padding:35px 50px;">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
-          <h5 class="modal-title" id="myModalLabel">
-            <span class="glyphicon glyphicon-bell"></span> Modifier le Rendez-Vous du
-              <i class="ace-icon fa fa-angle-double-left" style="font-size:20px;"></i>
-              <a href="" id="lien" style="color:#FFFFFF"> <p id="patient"></p></a>
-              <i class="ace-icon fa fa-angle-double-right" style="font-size:20px;"></i>
-          </h5><hr>
-       <div class="row">
-            <div class="col-sm-6">    
-              <i class="fa fa-phone" aria-hidden="true"></i><strong>Téléphone:&nbsp;</strong>
-              <span id="patient_tel" style="color:#FFFFFF"></span>
-            </div>
-            <div class="col-sm-6">
-              <strong>Âge:&nbsp;</strong><span id="agePatient" class="badge badge-info" ></span><small>Ans</small>
-            </div>
-          </div>
-          </div> {{-- modal-header --}}
+                <div class="modal-header" >{{-- style="padding:35px 50px;" --}}
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+                       <h5 class="modal-title" id="myModalLabel">
+                             <span class="glyphicon glyphicon-bell"></span> Modifier le rendez-vous du
+                             <i class="ace-icon fa fa-angle-double-left" style="font-size:20px;"></i>
+                             <a href="" id="lien" style="color:#FFFFFF"> <p id="patient"></p></a>
+                            <i class="ace-icon fa fa-angle-double-right" style="font-size:20px;"></i>
+                       </h5><hr>
+                       <div class="row">
+                            <div class="col-sm-6">    
+                                  <i class="fa fa-phone" aria-hidden="true"></i><strong>Téléphone:&nbsp;</strong><span id="patient_tel" style="color:#FFFFFF"></span>
+                            </div>
+                            <div class="col-sm-6"><strong>Âge:&nbsp;</strong><span id="agePatient" class="badge badge-info" ></span><small>Ans</small>
+                            </div>
+                      </div> 
+              </div>
           <form id ="updateRdv" role="form" action="" method="POST"> 
             <div class="modal-body">
               {{ csrf_field() }}

@@ -276,12 +276,13 @@ class PatientController extends Controller
      */
        public function show($id)
        {  
-          $specialites = Specialite::all();
-          $grades = grade::all(); 
-          $patient = patient::FindOrFail($id);
-          $employe=Auth::user()->employ;
-          $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();//->first();
-          return view('patient.show',compact('patient','employe','correspondants','specialites','grades'));
+                $specialites = Specialite::all();
+                $grades = grade::all(); 
+                $patient = patient::FindOrFail($id);
+                $employe=Auth::user()->employ;
+                $rdvs = (Auth::user()->role_id == 2) ? $patient->rdvs : $patient ->rdvsSpecialite( $employe->specialite)->get();
+                $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
+                return view('patient.show',compact('patient','rdvs','employe','correspondants','specialites','grades'));
         }
     /**
      * Show the form for editing the specified resource.
@@ -574,9 +575,9 @@ class PatientController extends Controller
       foreach ($tickets as $key => $ticket) {
         $ticket->update(["id_patient"=>$patient1->id]);  
       }
-      $rdvs = rdv::where('Patient_ID_Patient',$request->patient2_id)->get();
+      $rdvs = rdv::where('patient_id',$request->patient2_id)->get();
       foreach ($rdvs as $key => $rdv) {
-        $rdv->update(["Patient_ID_Patient"=>$patient1->id]);  
+        $rdv->update(["patient_id"=>$patient1->id]);  
       }
       $patient1 -> update([
             "Nom"=>$request->nom,

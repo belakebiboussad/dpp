@@ -86,8 +86,7 @@ class HomeController extends Controller
                     return redirect()->action('DemandeExbController@index');
                     break;   
             case 12://radiologue
-                $demandesexr = demandeexr::with('consultation','visite')->where('etat','E')->get();
-                return view('home.home_radiologue', compact('demandesexr')); 
+                     return redirect()->action('DemandeExamenRadio@index');
                 break;
             case 14://chef de service
                 return view('patient.index');   // return view('home.home_chef_ser');

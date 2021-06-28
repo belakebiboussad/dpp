@@ -57,7 +57,7 @@
 								</div>
 							</div>
 							<div class="row center">
-								<button class="btn btn-xs btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Actualiser</button>&nbsp; &nbsp; &nbsp;
+								<button class="btn btn-xs btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
 								<button class="btn btn-xs" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 							</div>
 						</form>

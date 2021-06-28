@@ -427,8 +427,8 @@
 				}
 			}	    
 		}); //calendrier  	
-	  var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
-		var today = (new Date()).setHours(0, 0, 0, 0);
+			  var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
+			var today = (new Date()).setHours(0, 0, 0, 0);
 		$('.calendar1').fullCalendar({
 		  plugins: [ 'dayGrid', 'timeGrid' ],
 		  header: {
@@ -470,7 +470,7 @@
 				},
 			   @endforeach 
 		],
-	  eventRender: function (event, element, webData) {
+		  eventRender: function (event, element, webData) {
 		if(event.start < today) // element.find('.fc-title').append("," + event.tel);// element.css("font-size", "1em");
 				 element.css('background-color', '#D3D3D3');
 				else

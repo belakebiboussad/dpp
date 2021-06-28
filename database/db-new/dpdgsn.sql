@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 22 juin 2021 à 21:03
--- Version du serveur :  5.7.23
--- Version de PHP : 7.2.10
+-- Généré le :  sam. 26 juin 2021 à 00:14
+-- Version du serveur :  5.7.21
+-- Version de PHP :  7.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `dpdgsn`
+-- Base de données :  `dpdgsn`
 --
 
 -- --------------------------------------------------------
@@ -3503,7 +3504,7 @@ CREATE TABLE IF NOT EXISTS `demande_produits` (
   `id_employe` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_employe` (`id_employe`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `demande_produits`
@@ -11145,15 +11146,13 @@ INSERT INTO `modes_hospitalisations` (`id`, `nom`) VALUES
 --
 DROP VIEW IF EXISTS `nextrdvs`;
 CREATE TABLE IF NOT EXISTS `nextrdvs` (
-`Id` int(11)
-,`DateRdv` varchar(10)
-,`PatientId` int(11)
-,`Ipp` varchar(100)
+`id` int(11)
+,`Date_RDV` datetime
+,`patientId` int(11)
+,`IPP` varchar(100)
 ,`Nom` varchar(100)
 ,`Prenom` varchar(100)
-,`DateNaissance` date
-,`Sexe` enum('M','F')
-,`SpecialiteId` int(11)
+,`specialite` varchar(70)
 );
 
 -- --------------------------------------------------------
@@ -11781,164 +11780,32 @@ CREATE TABLE IF NOT EXISTS `rdvs` (
   `Date_RDV` datetime DEFAULT NULL,
   `Fin_RDV` datetime DEFAULT NULL,
   `fixe` tinyint(1) NOT NULL DEFAULT '1',
+  `specialite_id` int(11) DEFAULT NULL,
   `Employe_ID_Employe` int(11) DEFAULT NULL,
-  `Patient_ID_Patient` int(11) NOT NULL,
+  `patient_id` int(11) NOT NULL,
   `Etat_RDV` tinyint(1) DEFAULT NULL COMMENT 'null;attente,0:Annuler,1:valide',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `fk_RDV_Employe` (`Employe_ID_Employe`),
-  KEY `fk_RDV_Patient` (`Patient_ID_Patient`)
-) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8;
+  KEY `fk_RDV_Patient` (`patient_id`),
+  KEY `fk_specialite` (`specialite_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=190 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `rdvs`
 --
 
-INSERT INTO `rdvs` (`id`, `Date_RDV`, `Fin_RDV`, `fixe`, `Employe_ID_Employe`, `Patient_ID_Patient`, `Etat_RDV`) VALUES
-(1, '2020-12-30 13:00:00', '2020-12-30 13:15:00', 1, 102, 193, NULL),
-(2, '2020-12-31 12:45:00', '2020-12-31 13:00:00', 1, 103, 203, NULL),
-(3, '2020-12-31 10:30:00', '2020-12-31 10:45:00', 1, 102, 190, NULL),
-(6, '2021-01-12 10:15:00', '2021-01-12 10:30:00', 1, 102, 191, 0),
-(8, '2021-01-12 10:30:00', '2021-01-12 10:45:00', 0, 102, 191, NULL),
-(10, '2021-01-14 11:30:00', '2021-01-14 11:45:00', 1, 102, 205, NULL),
-(11, '2021-01-31 12:15:00', '2021-01-31 12:30:00', 0, 102, 191, NULL),
-(12, '2021-02-09 10:15:00', '2021-02-09 10:30:00', 1, 102, 207, NULL),
-(13, '2021-02-09 11:45:00', '2021-02-09 12:00:00', 1, 102, 190, NULL),
-(14, '2021-02-11 14:30:00', '2021-02-11 14:45:00', 1, 102, 207, NULL),
-(15, '2021-02-09 16:15:00', '2021-02-09 16:30:00', 1, 81, 204, NULL),
-(16, '2021-02-09 08:15:00', '2021-02-09 08:30:00', 1, 1, 210, NULL),
-(17, '2021-02-10 09:30:00', '2021-02-10 09:45:00', 1, 102, 203, NULL),
-(18, '2021-02-09 09:00:00', '2021-02-09 09:15:00', 1, 102, 189, NULL),
-(19, '2021-02-11 15:30:00', '2021-02-11 15:45:00', 0, 102, 191, 0),
-(20, '2021-02-11 16:15:00', '2021-02-11 16:30:00', 0, 102, 191, 0),
-(21, '2021-02-11 16:15:00', '2021-02-11 16:30:00', 0, 102, 191, 0),
-(22, '2021-02-11 16:15:00', '2021-02-11 16:30:00', 1, 102, 191, 0),
-(23, '2021-02-10 12:30:00', '2021-02-10 12:45:00', 1, 1, 205, NULL),
-(24, '2021-02-10 14:30:00', '2021-02-10 14:45:00', 1, 80, 204, NULL),
-(25, '2021-02-11 12:00:00', '2021-02-11 12:15:00', 1, 102, 210, NULL),
-(26, '2021-02-11 16:15:00', '2021-02-11 16:30:00', 1, 102, 206, NULL),
-(27, '2021-02-11 13:30:00', '2021-02-11 13:45:00', 0, 102, 192, 0),
-(28, '2021-02-11 11:15:00', '2021-02-11 11:30:00', 0, 102, 190, 0),
-(29, '2021-02-11 15:00:00', '2021-02-11 15:15:00', 1, 102, 190, NULL),
-(30, '2021-02-11 11:00:00', '2021-02-11 11:15:00', 1, 79, 202, 0),
-(31, '2021-02-11 10:00:00', '2021-02-11 10:15:00', 1, 102, 192, 0),
-(32, '2021-02-11 09:00:00', '2021-02-11 09:15:00', 1, 102, 192, 0),
-(33, '2021-02-11 08:45:00', '2021-02-11 09:00:00', 1, 102, 192, 0),
-(34, '2021-02-11 09:30:00', '2021-02-11 09:45:00', 1, 102, 192, 0),
-(35, '2021-02-11 08:30:00', '2021-02-11 08:45:00', 1, 1, 191, NULL),
-(36, '2021-02-10 16:30:00', '2021-02-10 16:45:00', 1, 1, 202, NULL),
-(37, '2021-02-10 08:15:00', '2021-02-10 08:30:00', 1, 93, 208, NULL),
-(38, '2021-02-10 15:15:00', '2021-02-10 15:30:00', 1, 80, 203, NULL),
-(39, '2021-02-10 10:45:00', '2021-02-10 11:00:00', 1, 68, 204, NULL),
-(48, '2021-02-15 09:00:00', '2021-02-15 09:15:00', 1, 79, 191, NULL),
-(49, '2021-02-16 11:15:00', '2021-02-16 11:30:00', 1, 89, 189, NULL),
-(50, '2021-02-11 09:00:00', '2021-02-11 09:15:00', 1, 102, 191, NULL),
-(51, '2021-02-11 08:00:00', '2021-02-11 08:15:00', 1, 80, 207, NULL),
-(52, '2021-02-11 09:45:00', '2021-02-11 10:00:00', 1, 102, 193, NULL),
-(53, '2021-02-15 11:00:00', '2021-02-15 11:15:00', 1, 89, 207, NULL),
-(54, '2021-02-11 08:00:00', '2021-02-11 08:15:00', 1, 102, 206, 0),
-(55, '2021-02-11 08:30:00', '2021-02-11 08:45:00', 1, 102, 206, NULL),
-(56, '2021-02-11 08:00:00', '2021-02-11 08:15:00', 1, 102, 189, NULL),
-(57, '2021-02-11 11:30:00', '2021-02-11 11:45:00', 1, 102, 190, NULL),
-(58, '2021-02-11 12:15:00', '2021-02-11 12:30:00', 1, 102, 189, NULL),
-(59, '2021-02-11 10:45:00', '2021-02-11 11:00:00', 1, 102, 189, NULL),
-(60, '2021-02-11 11:00:00', '2021-02-11 11:15:00', 1, 102, 189, 0),
-(61, '2021-02-11 13:00:00', '2021-02-11 13:15:00', 1, 102, 207, NULL),
-(62, '2021-02-11 10:15:00', '2021-02-11 10:30:00', 1, 102, 206, NULL),
-(63, '2021-02-16 09:30:00', '2021-02-16 09:45:00', 1, 102, 189, 0),
-(64, '2021-02-16 11:30:00', '2021-02-16 11:45:00', 1, 102, 206, NULL),
-(65, '2021-02-14 08:00:00', '2021-02-14 08:15:00', 0, 102, 190, NULL),
-(66, '2021-02-14 10:30:00', '2021-02-14 10:45:00', 1, 102, 190, 0),
-(67, '2021-02-17 11:15:00', '2021-02-17 11:30:00', 1, 102, 190, 1),
-(68, '2021-02-17 12:30:00', '2021-02-17 12:45:00', 0, 102, 190, 1),
-(69, '2021-02-17 13:30:00', '2021-02-17 13:45:00', 1, 102, 190, 1),
-(70, '2021-02-18 12:45:00', '2021-02-18 13:00:00', 1, 102, 190, NULL),
-(71, '2021-02-18 14:15:00', '2021-02-18 14:30:00', 1, 102, 190, 0),
-(72, '2021-02-18 09:30:00', '2021-02-18 09:45:00', 1, 102, 190, NULL),
-(73, '2021-02-18 11:00:00', '2021-02-18 11:15:00', 1, 102, 190, 0),
-(74, '2021-02-18 11:45:00', '2021-02-18 12:00:00', 1, 102, 190, 0),
-(75, '2021-02-18 10:30:00', '2021-02-18 10:45:00', 1, 102, 190, NULL),
-(76, '2021-02-18 14:30:00', '2021-02-18 14:45:00', 1, 102, 190, 0),
-(77, '2021-02-18 15:30:00', '2021-02-18 15:45:00', 0, 102, 190, NULL),
-(78, '2021-02-14 11:45:00', '2021-02-14 12:00:00', 1, 102, 192, NULL),
-(79, '2021-02-14 14:15:00', '2021-02-14 14:30:00', 0, 102, 192, NULL),
-(80, '2021-02-18 11:30:00', '2021-02-18 11:45:00', 1, 102, 192, NULL),
-(81, '2021-02-18 14:00:00', '2021-02-18 14:15:00', 1, 102, 192, NULL),
-(82, '2021-02-16 11:00:00', '2021-02-16 11:15:00', 1, 102, 192, NULL),
-(83, '2021-02-17 14:30:00', '2021-02-17 14:45:00', 0, 102, 192, 0),
-(84, '2021-02-17 16:30:00', '2021-02-17 16:45:00', 0, 102, 192, NULL),
-(85, '2021-02-16 15:30:00', '2021-02-16 15:45:00', 1, 102, 192, NULL),
-(86, '2021-02-18 16:45:00', '2021-02-18 17:00:00', 0, 102, 192, NULL),
-(87, '2021-02-18 13:15:00', '2021-02-18 13:30:00', 1, 102, 210, NULL),
-(88, '2021-02-21 10:30:00', '2021-02-21 10:45:00', 1, 102, 210, NULL),
-(89, '2021-02-21 13:15:00', '2021-02-21 13:30:00', 0, 102, 210, NULL),
-(90, '2021-02-23 11:15:00', '2021-02-23 11:30:00', 0, 102, 210, 0),
-(91, '2021-02-15 10:15:00', '2021-02-15 10:30:00', 1, 102, 210, NULL),
-(92, '2021-02-21 08:30:00', '2021-02-21 08:45:00', 0, 102, 210, 0),
-(93, '2021-02-17 14:30:00', '2021-02-17 14:45:00', 0, 102, 210, 1),
-(94, '2021-02-17 12:15:00', '2021-02-17 12:30:00', 1, 102, 210, 1),
-(95, '2021-02-23 11:30:00', '2021-02-23 11:45:00', 1, 102, 210, NULL),
-(96, '2021-02-25 11:15:00', '2021-02-25 11:30:00', 1, 102, 210, NULL),
-(97, '2021-02-22 09:15:00', '2021-02-22 09:30:00', 1, 102, 210, NULL),
-(98, '2021-02-22 12:15:00', '2021-02-22 12:30:00', 1, 102, 210, NULL),
-(99, '2021-02-22 10:15:00', '2021-02-22 10:30:00', 1, 102, 210, NULL),
-(100, '2021-02-23 10:00:00', '2021-02-23 10:15:00', 0, 102, 210, NULL),
-(101, '2021-02-11 13:45:00', '2021-02-11 14:00:00', 0, 102, 210, 0),
-(102, '2021-02-17 08:15:00', '2021-02-17 08:30:00', 0, 102, 210, 1),
-(103, '2021-02-24 13:30:00', '2021-02-24 13:45:00', 0, 102, 210, NULL),
-(104, '2021-03-02 11:00:00', '2021-03-02 11:15:00', 0, 102, 210, 0),
-(105, '2021-03-03 08:45:00', '2021-03-03 09:00:00', 0, 102, 210, NULL),
-(106, '2021-03-04 09:45:00', '2021-03-04 10:00:00', 0, 102, 210, NULL),
-(107, '2021-02-23 09:00:00', '2021-02-23 09:15:00', 0, 102, 191, NULL),
-(108, '2021-03-01 09:15:00', '2021-03-01 09:30:00', 0, 102, 191, NULL),
-(109, '2021-03-04 12:30:00', '2021-03-04 12:45:00', 1, 102, 191, NULL),
-(110, '2021-03-01 11:00:00', '2021-03-01 11:15:00', 1, 102, 191, NULL),
-(111, '2021-03-09 10:15:00', '2021-03-09 10:30:00', 0, 102, 191, NULL),
-(112, '2021-02-25 09:30:00', '2021-02-25 09:45:00', 0, 102, 191, NULL),
-(113, '2021-03-09 13:45:00', '2021-03-09 14:00:00', 0, 102, 191, NULL),
-(114, '2021-03-08 11:15:00', '2021-03-08 11:30:00', 0, 102, 191, NULL),
-(115, '2021-03-10 11:45:00', '2021-03-10 12:00:00', 1, 102, 191, NULL),
-(116, '2021-02-25 14:15:00', '2021-02-25 14:30:00', 0, 102, 191, NULL),
-(117, '2021-02-25 15:15:00', '2021-02-25 15:30:00', 0, 102, 191, NULL),
-(118, '2021-03-02 13:45:00', '2021-03-02 14:00:00', 0, 102, 191, NULL),
-(119, '2021-02-25 12:30:00', '2021-02-25 12:45:00', 1, 102, 191, NULL),
-(120, '2021-03-04 12:15:00', '2021-03-04 12:30:00', 0, 102, 191, NULL),
-(121, '2021-02-23 14:00:00', '2021-02-23 14:15:00', 1, 102, 192, NULL),
-(122, '2021-03-03 13:45:00', '2021-03-03 14:00:00', 1, 102, 190, NULL),
-(123, '2021-03-04 14:15:00', '2021-03-04 14:30:00', 0, 102, 190, 0),
-(124, '2021-03-11 13:15:00', '2021-03-11 13:30:00', 1, 102, 190, NULL),
-(125, '2021-02-17 10:30:00', '2021-02-17 10:45:00', 1, 102, 207, NULL),
-(126, '2021-02-24 10:45:00', '2021-02-24 11:00:00', 1, 102, 208, NULL),
-(127, '2021-02-21 15:15:00', '2021-02-21 15:30:00', 1, 102, 189, NULL),
-(128, '2021-02-18 10:00:00', '2021-02-18 10:15:00', 1, 102, 190, NULL),
-(129, '2021-03-02 10:30:00', '2021-03-02 10:45:00', 1, 1, 189, 1),
-(130, '2021-03-28 08:30:00', '2021-03-28 08:45:00', 1, 86, 192, NULL),
-(131, '2021-03-03 11:00:00', '2021-03-03 11:15:00', 1, 102, 191, NULL),
-(132, '2021-03-10 11:30:00', '2021-03-10 11:45:00', 1, 102, 189, 0),
-(133, '2021-03-15 11:30:00', '2021-03-15 11:45:00', 1, 102, 207, NULL),
-(134, '2021-03-10 08:45:00', '2021-03-10 09:00:00', 1, 102, 193, NULL),
-(135, '2021-03-17 09:00:00', '2021-03-17 09:15:00', 1, 102, 207, NULL),
-(136, '2021-03-10 10:00:00', '2021-03-10 10:15:00', 1, 102, 191, NULL),
-(137, '2021-03-09 08:30:00', '2021-03-09 08:45:00', 1, 102, 191, NULL),
-(138, '2021-03-09 09:15:00', '2021-03-09 09:30:00', 1, 102, 191, NULL),
-(139, '2021-03-09 08:15:00', '2021-03-09 08:30:00', 1, 102, 191, NULL),
-(140, '2021-03-11 08:30:00', '2021-03-11 08:45:00', 1, 102, 191, NULL),
-(141, '2021-03-11 08:15:00', '2021-03-11 08:30:00', 1, 102, 191, NULL),
-(142, '2021-03-22 12:15:00', '2021-03-22 12:30:00', 1, 102, 190, NULL),
-(143, '2021-03-11 09:30:00', '2021-03-11 09:45:00', 1, 102, 194, NULL),
-(144, '2021-03-30 11:30:00', '2021-03-30 11:45:00', 1, 102, 191, NULL),
-(145, '2021-03-28 08:15:00', '2021-03-28 08:30:00', 1, 102, 191, NULL),
-(146, '2021-04-04 08:45:00', '2021-04-04 09:00:00', 1, 102, 191, NULL),
-(147, '2021-04-22 10:15:00', '2021-04-22 10:30:00', 1, 102, 191, 1),
-(148, '2021-04-25 10:15:00', '2021-04-25 10:30:00', 1, 102, 191, NULL),
-(149, '2021-05-06 11:15:00', '2021-05-06 11:30:00', 1, 102, 211, NULL),
-(150, '2021-05-06 11:30:00', '2021-05-06 11:45:00', 0, 102, 207, NULL),
-(151, '2021-05-06 12:15:00', '2021-05-06 12:30:00', 1, 102, 211, NULL),
-(152, '2021-05-12 11:30:00', '2021-05-12 11:45:00', 1, 102, 190, NULL),
-(153, '2021-06-08 10:30:00', '2021-05-12 10:45:00', 1, 102, 190, NULL),
-(154, '2021-06-08 13:00:00', '2021-06-03 13:15:00', 1, 102, 190, NULL),
-(155, '2021-06-03 10:45:00', '2021-06-03 11:00:00', 1, 102, 225, NULL),
-(156, '2021-06-10 12:15:00', '2021-06-10 12:30:00', 1, 102, 211, NULL),
-(157, '2021-06-10 11:45:00', '2021-06-10 12:00:00', 1, 102, 225, NULL);
+INSERT INTO `rdvs` (`id`, `Date_RDV`, `Fin_RDV`, `fixe`, `specialite_id`, `Employe_ID_Employe`, `patient_id`, `Etat_RDV`) VALUES
+(177, '2021-06-26 10:45:00', '2021-06-26 11:00:00', 1, 3, NULL, 211, NULL),
+(178, '2021-06-26 13:00:00', '2021-06-26 13:15:00', 1, 15, NULL, 225, NULL),
+(180, '2021-06-26 12:45:00', '2021-06-26 13:00:00', 0, 1, NULL, 190, NULL),
+(182, '2021-06-26 08:45:00', '2021-06-26 09:00:00', 1, 1, NULL, 211, NULL),
+(183, '2021-06-25 12:15:00', '2021-06-25 12:30:00', 1, 3, NULL, 226, 0),
+(184, '2021-06-26 13:15:00', '2021-06-26 13:30:00', 1, 3, NULL, 225, NULL),
+(185, '2021-06-25 13:30:00', '2021-06-25 13:45:00', 0, 3, NULL, 202, NULL),
+(186, '2021-06-26 13:45:00', '2021-06-26 14:00:00', 1, 1, NULL, 206, NULL),
+(187, '2021-06-27 10:30:00', '2021-06-27 10:45:00', 1, 1, NULL, 202, NULL),
+(188, '2021-06-26 12:00:00', '2021-06-26 12:15:00', 1, 3, NULL, 202, NULL),
+(189, '2021-06-28 11:00:00', '2021-06-28 11:15:00', 1, 4, NULL, 252, NULL);
 
 -- --------------------------------------------------------
 
@@ -12290,7 +12157,7 @@ CREATE TABLE IF NOT EXISTS `specialites` (
   `type` tinyint(1) DEFAULT NULL COMMENT 'null:autre,0:medicale,1:chirgical',
   `nbMax` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `specialites`
@@ -12643,11 +12510,11 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
 
 INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `role_id`, `remember_token`, `active`) VALUES
 (3, 'infcar', '$2y$10$iCZWwSL3s9u9Fn/9M.TykeHfUx/CRhmrp069KVhYg34RXohdBaVdy', 'infcar@hop.dz', 1, 3, 'ZAzRX3RayjrjuW0ZQ8jN9OWq1B8yriB7ctdNSUQuJ8BUDqWPefKzen9lhS7F', 1),
-(25, 'admin', '$2y$10$B1bDBc58b2oRAgoTFEqWauKio.yiYSlkmTxC8yNkaG6uaK4SA3HoC', 'mail@live.fr', 65, 4, '30K03HkU3h6dz3J3G9FtPPJW8MQP20tarxdrSXG4BSKyGOwrssYb2mXR9qEY', 1),
+(25, 'admin', '$2y$10$B1bDBc58b2oRAgoTFEqWauKio.yiYSlkmTxC8yNkaG6uaK4SA3HoC', 'mail@live.fr', 65, 4, 'Y9TzxqtENT51dsoXN3Gxj1NtBnCQ9UL6nUqDYHXmL00zKRvDNt8XoN8p72Xf', 1),
 (28, 'medChef', '$2y$10$wovgungFPnDgSHkC9cLGPepjgkS6KLdnGjkFZVqYVL99rrrVMOWG2', 'az@e.fr', 87, 13, 'dv2JHJKB9VFM1Nfg76y821tWLHprv0CujPf0R5pmSDM0cN01JTmzJA811UUF', 1),
 (29, 'surint', '$2y$10$Ve5h8oMwfAmfzHgTLrfJTOmGUiBpZLdxrfEfYC/7g2a1G62ZkM2QO', 'surint@hop.dz', 80, 5, 'gpZZ7n5wZzyDItBNWBgOWJBuHVN9zPFAVCnhFigz3AQFygICRp4ENyCc2B8W', 1),
 (30, 'surped', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'surped@hop.dz', 81, 5, 'abRyKAC759q8jUucTebEooGvkMSb8WWmkzEZKi81osrEtvTc54kcurpb4UZo', 1),
-(31, 'rec', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'rec@gmail.com', 82, 2, 'bj95brzFQJMYmOhW1roNEG4MoWMu4xku7KXYRE9PrlGp5PSm7Ff0jDPUREwA', 1),
+(31, 'rec', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'rec@gmail.com', 82, 2, 'Ym87B0xe8POZVK7cuZAru765TrA4p92eUrqZBO1iyJ1VSWI8vwV5Shfbc6sX', 1),
 (33, 'medorl', '$2y$10$MkXa.6SlrtM.V/6WY.LsFeiWb7qNiUAS.ZEQIn9on2Py7IVSOUYim', 'medOrl@gmail.cpm', 79, 1, 'vi7jdwX1xkuQN9uDXLrwZpygZeXf2cQFy6Nhz26EOLEYulAcw1OGXZ78vpCc', 1),
 (34, 'medint', '$2y$10$.GT6U9nNpDRNokGxPe9BF.HXLl8MpgPZFv3OL8xoK00hHNPgXWhHW', 'admin@gmail.com', 88, 1, 'DprHVUZMvVijtCjI7g5jbzF8KQUgtv9BBHEykRrqsdncd7ZlI31KwepasN8R', 1),
 (35, 'delCol', '$2y$10$j..RcdopH8na8B8kE4yAu.4Div0nHDu97T5iAzFaqU4k4bfzAIG/a', 'll@a.fr', 89, 6, 'ikV3ZQDmJHNUouEw2bfOYFqYGSz8O4gqtGOjidide6KQOo0CSP4QqGS5bpb3', 1),
@@ -12655,12 +12522,12 @@ INSERT INTO `utilisateurs` (`id`, `name`, `password`, `email`, `employee_id`, `r
 (39, 'surcar', '$2y$10$zUdI0W5QV/1fmnBnhmL2TOTqN8GMNEdZZK6o4gclrJ1CKfxVq.Rca', 'bbedeebi@cdta.dz', 94, 5, 'AvzKyw8FAReHWCQ5kHs4LDoDCnT3yam2Sb8W11HF4fE95nCZSvmOFo4XerZK', 1),
 (40, 'agentAdm', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'agentAdm@hop.dz', 95, 9, 'hcEiyOu6lVtRBS0HwhkUkIf2CrZunWTA0omOlazCn1GaTHxQPKkyUnaWSueG', 1),
 (41, 'agent', '$2y$10$RsD.pKjSIV73uBbaLJNE.uXhzCmCixdBf71lcxBq2wmQu0dsRzdmy', 'agent@hop.dz', 96, 9, '5gmcLfU3pl4iNzcFYUztOpRh9wpSlcbfyP7z23oMw2L2JGZpJ7X2Q225KSoc', 1),
-(42, 'laborantin', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'lab@hop.dz', 97, 11, 'leqbBcDMwwqUjWn4BoGi4399B3UgJifmFGiafptSlUw0L9WcNwtyKyuEM5cx', 1),
-(44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, 'fcWZuWTo3vWA9k9SN3Vd1R7RaTbB21uzIifcQgvVww0KAKH66KjuteAx5yGB', 1),
-(45, 'chefcar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'FHxNgaq29t2dXxEtKGH5di3Ri1cYz5JeABn6lI2tlyRteIC2Yv4PwJt9n9HC', 1),
-(46, 'rad', '$2y$10$PNDRMvcnhl1kZ.sxfoq8Yuhoq6ZMQePi9/q1QbLUZ.a.hd5DxvnCS', 'rad@cdta.net', 101, 12, 'r0RR4ZQu9tUXPDYraRNkOgSzBHcnT3g6FPfHzeIE10VeW1GO3HOkCq4JVJDr', 1),
-(47, 'medcar', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'bbedeebi@cdta.dz', 102, 1, '2VjstRwYdO7fTUmqkb94oiFWyWEIGJZ0xsi7f9JYgeBIf1mhjNFd3WeqUDAB', 1),
-(48, 'medped', '$2y$10$lXIIp1ZIWckVgX8YtOqSDethY/JmY8WVIWIert0RsoNyPSa/KYBiK', 'medped@gmail.dz', 103, 1, 'CvAWefy5pKlDceFI092CMBKyVvQiLIAtOhb118Ezhpy3CUb9STK7ACcqMwjK', 1),
+(42, 'laborantin', '$2y$10$SgA3ykOoI6/dL9gKFs7YsegO7ies/2Vw46JCdMThHr6Z0ixXDtf1q', 'lab@hop.dz', 97, 11, 'KzDBCTaVPMuQESSd9SvLRWfnOMrLMkczW7ul9ZiphOqWyy6BFfqVGQztoLhs', 1),
+(44, 'phar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'phar@cdta.net', 99, 10, 'MnYVQ5Bl4kKr4rDGGIBWNy6ojvmQ9ytpPh9wqPlDwIjZTVnbv7FMPdP0vyqf', 1),
+(45, 'chefcar', '$2y$10$DolJGuiS8IGNk2kOiJYsr.h4KpZtF3hcDUaEaCBOqMt5N7S/rkT12', 'chef@cdta.net', 100, 14, 'Pm5MR4KKO4xEda2a1aJYOoLyLcXaEja58fQHi7svCI0amWJrWQNnN3LRM1B0', 1),
+(46, 'rad', '$2y$10$PNDRMvcnhl1kZ.sxfoq8Yuhoq6ZMQePi9/q1QbLUZ.a.hd5DxvnCS', 'rad@cdta.net', 101, 12, '7cou59IVOnGJL0wHuqtE2OIop7oZQDCOsX6AoufWGwgxM4lb15FtS1Y2KszK', 1),
+(47, 'medcar', '$2y$10$xpI1uDeivb4UIYqlbygFGOhuvHg5cKVNrtYk9ZbTQ8B9uzj6QJ2Jm', 'bbedeebi@cdta.dz', 102, 1, 'JAiqNvp0naav4onUS5a05Ep4wMwZi67bidJGv8C7vYwkAWp5Exb52R3kj5u6', 1),
+(48, 'medped', '$2y$10$lXIIp1ZIWckVgX8YtOqSDethY/JmY8WVIWIert0RsoNyPSa/KYBiK', 'medped@gmail.dz', 103, 1, 'ILvZux6PtavnJdn9wM6lCxbU0djfbJt2CL3Du5AZu7dc0AsGNYO8ve4TnA7V', 1),
 (56, 'infped', '$2y$10$P/S8ej3FHSVBfr0YNsVIcOtmxxR3NSxR8X2uOLIq3Qcvv/uCt4eBi', 'infped@hop.dz', 111, 3, NULL, 1),
 (57, 'infint', '$2y$10$f0R.H3xHnM0feyLAr3U4jeo8u237S8gPX9gjRLre.Fq/76uMdcmhe', 'infint@gmail.com', 68, 3, 'YYSiAxEl6bEirML3V8YioMpD2HjwPv2qbwxfjgTLreFN6YwrieUhXSL0zAqu', 1),
 (58, 'chefped', '$2y$10$xQR9srExxRWXFlluv6jsQ.MO6briVw7woDA0d0rRa6TEAfXPrwTwG', 'chefped@hop.com', 113, 14, 'ZLPGvqxvUsFqKGmsDe4wmFuVG3p3iVF35chpdJ3QLUFYVOA4C9sKTVRiJLIv', 1),
@@ -13030,8 +12897,7 @@ INSERT INTO `wilayas` (`id`, `nom`) VALUES
 --
 DROP TABLE IF EXISTS `nextrdvs`;
 
-DROP VIEW IF EXISTS `nextrdvs`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvs`  AS SELECT `rdvs`.`id` AS `Id`, date_format(`rdvs`.`Date_RDV`,'%Y-%m-%d') AS `DateRdv`, `rdvs`.`Patient_ID_Patient` AS `PatientId`, `patients`.`IPP` AS `Ipp`, `patients`.`Nom` AS `Nom`, `patients`.`Prenom` AS `Prenom`, `patients`.`Dat_Naissance` AS `DateNaissance`, `patients`.`Sexe` AS `Sexe`, `employs`.`specialite` AS `SpecialiteId` FROM ((`rdvs` join `patients` on((`rdvs`.`Patient_ID_Patient` = `patients`.`id`))) join `employs` on((`rdvs`.`Employe_ID_Employe` = `employs`.`id`))) WHERE ((cast(`rdvs`.`Date_RDV` as date) = curdate()) AND isnull(`rdvs`.`Etat_RDV`)) ORDER BY `rdvs`.`Date_RDV` DESC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nextrdvs`  AS  select `rdvs`.`id` AS `id`,`rdvs`.`Date_RDV` AS `Date_RDV`,`rdvs`.`patient_id` AS `patientId`,`patients`.`IPP` AS `IPP`,`patients`.`Nom` AS `Nom`,`patients`.`Prenom` AS `Prenom`,`specialites`.`nom` AS `specialite` from ((`rdvs` join `patients` on((`rdvs`.`patient_id` = `patients`.`id`))) join `specialites` on((`rdvs`.`specialite_id` = `specialites`.`id`))) where (`rdvs`.`Date_RDV` between curdate() and (curdate() + interval 1 day)) order by `rdvs`.`Date_RDV` desc ;
 
 --
 -- Contraintes pour les tables déchargées
@@ -13118,6 +12984,13 @@ ALTER TABLE `hospitalisations`
 ALTER TABLE `lettre_oriantations`
   ADD CONSTRAINT `fk_orientation_consultation` FOREIGN KEY (`consultation_id`) REFERENCES `consultations` (`id`),
   ADD CONSTRAINT `fk_orientation_specialite` FOREIGN KEY (`specialite`) REFERENCES `specialites` (`id`);
+
+--
+-- Contraintes pour la table `rdvs`
+--
+ALTER TABLE `rdvs`
+  ADD CONSTRAINT `fk_patient` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`id`),
+  ADD CONSTRAINT `fk_specialite` FOREIGN KEY (`specialite_id`) REFERENCES `specialites` (`id`);
 
 --
 -- Contraintes pour la table `transferts`

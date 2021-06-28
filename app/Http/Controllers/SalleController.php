@@ -32,22 +32,17 @@ class SalleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createsalle()
-    {
-      $services = service::all();
-      return view('Salles.create2', compact('services'));
-    }
+    /*public function createsalle(){$services = service::all();return view('Salles.create2', compact('services'));}*/
     public function create($id = null)
     {
       if(isset($id))
       {
         $service = service::FindOrFail($id);
-        return view('Salles.create', compact('service'));
+        return view('Salles.add', compact('service'));
       }else
       {
-        $services = service::all();
-        // return view('Salles.create2', compact('services'));
-        return view('Salles.create', compact('services'));
+        $services = service::where('hebergement',1)->get();
+        return view('Salles.add', compact('services'));
       }  
     }
 

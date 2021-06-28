@@ -80,6 +80,10 @@ Route::get('getConsultations/{id}','ConsultationsController@listecons');
 Route::get('/createConsultation','ConsultationsController@choix');
 Route::get('/choixpat','ConsultationsController@choix');
 Route::get('/getConsultations','ConsultationsController@getConsultations');
+
+Route::get('/getRdvs/{date}','RdvHospiController@getRdvs')->name('rdvHospi.dayRdvsHosp');
+Route::get('/getRdvs','RdvHospiController@getRdvs');
+
 Route::post('/colloque/store/{id}','ColloqueController@store');// a revoir
 Route::put('/colloque/{membres,id_demh}', 'ColloqueController@store');// a revoir
 Route::get('/listecolloques/{type}','ColloqueController@index');
@@ -87,7 +91,7 @@ Route::get('/listecolloquesCloture/{type}','ColloqueController@getClosedColoques
 Route::get('/runcolloque/{id}','ColloqueController@run');
 Route::get('/endcolloque/{id}','ColloqueController@cloture');
 Route::post('/savecolloque/{id}','ColloqueController@save');
-Route::get('/getRdvs/{date}','RdvHospiController@getRdvs')->name('rdvHospi.dayRdvsHosp');
+
 Route::get('/getUrgdemande/{date}','DemandeHospitalisationController@getUrgDemanades')->name('demandehosp.urg');
 Route::get('/listeRDVs', 'RdvHospiController@getlisteRDVs');
 Route::post('/hospitalisation/{id}','HospitalisationController@update');
@@ -175,8 +179,7 @@ Route::post('cancel-exam', 'DemandeExamenRadio@examCancel');
 route::get('/homeradiologue',function(){
     $demandesexr = App\modeles\demandeexr::where('etat','E')->get();
     return view('home.home_radiologue', compact('demandesexr'));
-})->name('homeradiologue');
-Route::get('rendezVous/create/{id?}','RDVController@create');
+})->name('homeradiologue');//Route::get('rendezVous/create/{id?}','RDVController@create');
 Route::get('assur/patientAssuree/{NSS}/{Type}/{Prenom}','PatientController@create');
 Route::post('/addpatientAssure','PatientController@storePatient');
 Route::get('assur/patientAedit/{id}/{idA}','PatientController@edit');
@@ -209,4 +212,5 @@ route::get('/getpouls/{id}', 'HospitalisationController@get_pouls');
 route::get('/gettemp/{id}', 'HospitalisationController@get_temp');
 route::get('/getglycemie/{id}', 'HospitalisationController@get_glycemie');
 route::get('/getcholest/{id}','HospitalisationController@get_cholest');
+route::post('/storeprescriptionconstantes','HospitalisationController@store_prescription_constantes');
 Route::post('/admin/password/reset','UsersController@passwordReset');

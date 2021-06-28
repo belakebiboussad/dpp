@@ -117,8 +117,7 @@ $('document').ready(function(){
 										<td>{{ $dispositif->pivot->qte }}</td>
 										<td><input type="number" class="form-control" name="" value="{{ (isset($dispositif->pivot->qteDonne)) ? $dispositif->pivot->qteDonne: $dispositif->pivot->qte }}" min="1" max="{{ $dispositif->pivot->qte }}"> </td>
 										<td class="center align-middle" rowspan = "{{ $demande->dispositifs->count() + $demande->medicaments->count() +  $demande->reactifs->count()  }}">
-						{{-- <button type="button" class="btn  btn-warning btn-xs" id="reject" rel1="bjr"><i class="fa fa-ban" aria-hidden="true"></i></button> --}}
-												<a  href="" class="btn  btn-warning btn-xs" id="reject" rel1="bjr"><i class="fa fa-ban" aria-hidden="true"></i></a>
+											<a  href="" class="btn  btn-warning btn-xs" id="reject" rel1="bjr"><i class="fa fa-ban" aria-hidden="true"></i></a>
 										</td>
 									</tr>
 								@endforeach

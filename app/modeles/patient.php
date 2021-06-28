@@ -4,13 +4,13 @@ use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 class patient extends Model
 {
-  public $timestamps = false;
-  protected $fillable = ['IPP','Nom','Prenom','nom_jeune_fille','Dat_Naissance','Lieu_Naissance','Sexe','situation_familiale' ,'Adresse','commune_res','wilaya_res','wilaya_res','tele_mobile1','tele_mobile2','NSS','group_sang','rhesus','Assurs_ID_Assure','Type','description','active','Date_creation','updated_at'];
-  public function getAge(){	
-    if(isset($this->Dat_Naissance))
-    	return (Carbon::createFromDate(date('Y', strtotime($this->Dat_Naissance)), date('m', strtotime($this->Dat_Naissance)), date('d', strtotime($this->Dat_Naissance)))->age);
-    else
-    	return "NAN";
+	  public $timestamps = false;
+	 protected $fillable = ['IPP','Nom','Prenom','nom_jeune_fille','Dat_Naissance','Lieu_Naissance','Sexe','situation_familiale' ,'Adresse','commune_res','wilaya_res','wilaya_res','tele_mobile1','tele_mobile2','NSS','group_sang','rhesus','Assurs_ID_Assure','Type','description','active','Date_creation','updated_at'];
+  	public function getAge(){	
+	 	if(isset($this->Dat_Naissance))
+	    		return (Carbon::createFromDate(date('Y', strtotime($this->Dat_Naissance)), date('m', strtotime($this->Dat_Naissance)), date('d', strtotime($this->Dat_Naissance)))->age);
+	   	 else
+	    		return "NAN";
 	}
 	public function lieuNaissance()
 	{
@@ -44,8 +44,11 @@ class patient extends Model
  	}
  	public function rdvs()
  	{
- 		 return $this->hasMany('App\modeles\rdv','Patient_ID_Patient');
+ 		 return $this->hasMany('App\modeles\rdv','patient_id');
  	}
+ 	public function rdvsSpecialite ($id) {
+   		return $this->hasMany('App\modeles\rdv')->where('specialite_id', $id);
+	}
  	public function hospitalisations()
  	{
  		 return $this->hasMany('App\modeles\hospitalisation','patient_id');
@@ -77,4 +80,29 @@ class patient extends Model
  				return "M.";
  		}
  	}
+ 	public function getCiviliteCode()
+ 	{
+ 		$civcode = "";
+ 		switch ($civilite = $this->getCivilite()) {
+        case 'M.':
+          $civcode = 1; 
+    			return $civcode;
+          
+          break;
+        case 'Mlle.':
+          $civcode =2; 
+    			return $civcode;
+          break; 
+        case 'Mme.':
+          $civcode =2;
+    			return $civcode;
+          break; 
+        case 'Enf.':
+          $civcode =3; 
+   				return $civcode;
+          break;   
+    }
+ 	}
+
+
 }

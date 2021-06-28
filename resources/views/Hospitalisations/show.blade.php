@@ -14,7 +14,10 @@
 		@if(in_array(Auth::user()->role_id,[1,14]))
 		<li ><a data-toggle="tab" href="#visites">Visites & Contrôles</a></li>
 		@endif
-		<li ><a data-toggle="tab" href="#constantes">Constantes</a></li>
+        @if(in_array(Auth::user()->role_id,[1,14]))
+		<li ><a data-toggle="tab" href="#prescriptionconst">Prescription constantes</a></li>
+		@endif
+		<li ><a data-toggle="tab" href="#constantes">Surveillance clinique</a></li>
 	</ul>
 	<div class="tab-content no-border padding-24">
 		<div id="hospi" class="tab-pane in active">
@@ -58,6 +61,37 @@
 					          <li style="width: 300px;"><i class="ace-icon fa fa-caret-right"></i><strong>Salle :</strong> {{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->salle->nom }}</li>
 					          <li style="width: 200px;"><i class="ace-icon fa fa-caret-right"></i><strong>Lit :</strong> {{ $hosp->admission->demandeHospitalisation->bedAffectation->lit->nom }}</li>
 					      </ul>
+					</div>
+				</div>
+			</div>
+		</div>
+        <div class="space-12"></div>
+        <div class="row">
+			<div class="col-sm-12">
+				<div class="row"><div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><strong><span style="font-size:16px;">Liste des prescriptions constantes</span></strong></div></div>
+				<div class="row">
+					<div class="col-sm-12">
+                        <br><br>
+					    <table class="table table-striped table-bordered">
+                            <thead>
+                                <th>Date Prescription</th>
+                                <th>Constantes</th>
+                                <th>Observation</th>
+                            </thead>
+                            <tbody>
+                                @foreach($hosp->prescreptionconstantes as $prescription)
+                                    <tr>
+                                        <td>{{ $prescription->date_prescription }}</td>
+                                        <td>
+                                            @foreach($prescription->constantes as $const)
+                                                {{ $const->name }},&nbsp;
+                                            @endforeach
+                                        </td>
+                                        <td>{{ $prescription->observation }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
 					</div>
 				</div>
 			</div>
@@ -181,6 +215,49 @@
 						</div>
 					</div>
 				</div>	
+			</div>
+		</div>
+        <div class="space-12"></div>
+        <div id="prescriptionconst" class="tab-pane">
+			<div class="row">
+			    <div class="col-sm-12">
+                    <div class="widget-main padding-6 no-padding-left no-padding-right">
+						<div class="space-6"></div>
+						<div class="row">
+							<form class="form-horizontal" role="form" method="POST" action="/storeprescriptionconstantes">
+							{{ csrf_field() }}	
+                            <input type="hidden" name="id_hosp" value="{{ $hosp->id }}">								
+                            @foreach($consts as $const)
+								<div class="col-xs-3">
+									<div class="checkbox">
+										<label>
+											<input name="consts[]" type="checkbox" class="ace" value="{{ $const->id }}" />
+											<span class="lbl"> 
+											    {{ $const->name }}
+											</span>
+										</label>
+									</div>
+								</div>
+							@endforeach
+                            <div class="col-xs-12">
+                                <br><br>
+                                <div>
+									<label for="form-field-8">Observation</label>
+
+									<textarea class="form-control" id="observation" name="observation" placeholder="Observation"></textarea>
+								</div>
+                            </div>                           
+							<div class="col-md-offset-6 col-md-6">
+                                <br><br>
+								<button class="btn btn-info" type="submit">
+									<i class="ace-icon fa fa-check bigger-110"></i>
+									Valider
+								</button>
+							</div>
+                            </form>
+						</div>
+					</div>
+                </div>
 			</div>
 		</div>
 	</div>	{{-- tab-content --}}
