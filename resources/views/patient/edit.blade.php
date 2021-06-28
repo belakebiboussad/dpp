@@ -5,9 +5,9 @@
 	function showTypeEdit(i)
 	{
 	 	var value = $("#type").val();
-  	if( value == "0")
-  	{
-	  	if(i !=0)
+  		if( value == "0")
+  		{
+	  		if(i !=0)
 	 		{
 	 			$('#Assure').find('input').val('');//copyPatient();
 	 			$('#Assure').find("select").prop("selectedIndex",0);
@@ -17,17 +17,14 @@
 			$("#foncform").addClass('hide');
 		}else if(($('#type').val() == "1") ||($('#type').val() == "2")||($('#type').val() == "3")||($('#type').val() == "4"))
   		{
-  			$("#Position").prop("disabled", false);
-				$('#Assure').find('input').prop("disabled", false).attr('required', true);
   			if(i !=0)
 		  	{
 		   		if(('{{ $patient->Type }}' == "0"))
 		  		{
 		  			$('#Assure').find('input').val('');
-			    	$('#Assure').find("select").prop("selectedIndex",0);
-			    	$('#description').val('');
-
-	      	}
+				    	$('#Assure').find("select").prop("selectedIndex",0);
+				    	$('#description').val('');
+				}
 		  	}
 			$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });
 			$("#foncform").removeClass('hide');
@@ -36,34 +33,34 @@
 		}else
   		{
   			$(".starthidden").show(250);$('#description').attr('disabled', false); 
-				$("#foncform").addClass('hide'); 
-				if(! ($( "ul#menuPatient li:eq(0)" ).hasClass("hidden")))
-					$( "ul#menuPatient li:eq(0)" ).addClass("hidden");
-				if(($( "ul#menuPatient li:eq(0)" ).hasClass("active")))
-					$( "ul#menuPatient li:eq(0)" ).removeClass("active");
-				$( "ul#menuPatient li:eq(1)" ).addClass( "active" );
-				$('#Assure').find('input').prop("required",false);
-				$('#Assure').find("select").prop("required",false);
-				$('#nsspatient').attr('disabled', true);  
-  	}
+			$("#foncform").addClass('hide'); 
+			if(! ($( "ul#menuPatient li:eq(0)" ).hasClass("hidden")))
+				$( "ul#menuPatient li:eq(0)" ).addClass("hidden");
+			if(($( "ul#menuPatient li:eq(0)" ).hasClass("active")))
+				$( "ul#menuPatient li:eq(0)" ).removeClass("active");
+			$( "ul#menuPatient li:eq(1)" ).addClass( "active" );
+			$('#Assure').find('input').prop("required",false);
+			$('#Assure').find("select").prop("required",false);
+			$('#nsspatient').attr('disabled', true);  
+  		}
 	}
 	$(function(){
-		  $( "#editPatientForm" ).submit(function( event ) {
-	      if( ! checkPatient() )
-      	{
+		 $( "#editPatientForm" ).submit(function( event ) {
+	      		if( ! checkPatient() )
+      			{
 			   	activaTab("Patient");
 			   	event.preventDefault();
-	      }else{
+	      		}else{
   				if(($('#type').val() != "5" )){ 
   					$('.Asdemograph').find('*').each(function () { 
   						$(this).attr("disabled", false);
   					});	
-						if( ! checkAssure() )
-						{
+					if( ! checkAssure() )
+					{
 					  	activaTab("Assure");
 			  			event.preventDefault();
-						}else
-							$( "#editPatientForm" ).submit();
+					}else
+						$( "#editPatientForm" ).submit();
   				}else
   				{
   					$("#Position").prop("disabled", true);
@@ -114,16 +111,16 @@
 	 	<li class=" @if($patient->Type =="5") active  @endif" ><a data-toggle="tab" href="#Patient">
 	   	 	<span class="bigger-130"><strong>Patient</strong></span></a>
 	   	</li>
-		 <li  id ="hommelink" @if(count($correspondants) == 0)  class="invisible" @endif><a data-toggle="tab" href="#Homme">
+		 {{-- <li  id ="hommelink" @if(count($correspondants) == 0)  class="invisible" @endif><a data-toggle="tab" href="#Homme">
 		  	<span class="bigger-130"><strong>Garde Malde/Homme de Confiance</strong></span></a>
-		  </li>
+		  </li> --}}
 	</ul>	
   <div class="tab-content">
   	<div id="Assure" class='tab-pane fade @if($patient->Type =="5") invisible @else in active  @endif '>
     	@include('assurs.editAssure')
     </div>
-	  <div id="Patient" class="tab-pane fade @if($patient->Type =="5")   in active  @endif">@include('patient.editPatient')</div>
-  	<div id="Homme" class="tab-pane fade hidden_fields"><div class="row">@include('corespondants.widget')</div></div>
+	<div id="Patient" class="tab-pane fade @if($patient->Type =="5")   in active  @endif">@include('patient.editPatient')</div>
+  	{{-- <div id="Homme" class="tab-pane fade hidden_fields"><div class="row">@include('corespondants.widget')</div></div> --}}
   </div> {{-- tab-content --}}<div class="hr hr-dotted"></div>
 	<div class="row">
 		<div class="center"><br>

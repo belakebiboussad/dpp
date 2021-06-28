@@ -290,23 +290,21 @@ class PatientController extends Controller
      * @param  \App\modeles\patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function edit($id,$asure_id =null)
-    {  
-      $patient = patient::FindOrFail($id);
-      $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
-      if(!(isset($asure_id)))
-      {
-        $assure=null ;
-        $grades = grade::all(); 
-        if($patient->Type != "5")
-          $assure =  $patient->assure;
-        return view('patient.edit',compact('patient','assure','correspondants','grades'));
-      }else//ce chemin est introuvable
-      {
-        return view('patient.editP',compact('patient','correspondants'));
-      }
- 
-    }
+      public function edit($id,$asure_id =null)
+      {  
+                $patient = patient::FindOrFail($id);//$correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
+                if(!(isset($asure_id)))
+                {
+                  $assure=null ;
+                  $grades = grade::all(); 
+                  if($patient->Type != "5")
+                    $assure =  $patient->assure;
+                  return view('patient.edit',compact('patient','assure','grades'));
+                }else//ce chemin est introuvable
+                {
+                  return view('patient.editP',compact('patient'));
+                }
+        }
     /**
      * Update the specified resource in storage.
      *

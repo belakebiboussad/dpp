@@ -6,7 +6,7 @@
 				<label class="col-sm-3 col-xs-3 control-label" for="nomf"><strong>Nom :<span style="color: red">*</span></strong></label>
 				<div class="col-sm-9">
 					@if(isset($assure))
-						<input type="text" id="nomf" name="nomf"  value="{{ $assure->Nom }}" class="col-xs-12 col-sm-12" autocomplete= "off" alpha/>
+						<input type="text" id="nomf" name="nomf"  value="{{ $assure->Nom }}" class="req col-xs-12 col-sm-12" autocomplete= "off" alpha/>
 					@else
 						<input type="text" id="nomf" name="nomf"  value="" class="col-xs-12 col-sm-12" autocomplete= "off" alpha/>
 					@endif	
@@ -18,7 +18,7 @@
 				<label class="col-sm-3 control-label" for="prenomf"><strong>Prénom :<span style="color: red">*</span></strong></label>
 				<div class="col-sm-9">
 					@if(isset($assure))
-					<input type="text" id="prenomf" name="prenomf"  value="{{ $assure->Prenom }}" class="col-xs-12 col-sm-12" autocomplete= "off" alpha/>
+					<input type="text" id="prenomf" name="prenomf"  value="{{ $assure->Prenom }}" class="req col-xs-12 col-sm-12" autocomplete= "off" alpha/>
 					@else
 					<input type="text" id="prenomf" name="prenomf" class="col-xs-12 col-sm-12" autocomplete= "off" alpha/>
 					@endif

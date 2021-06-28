@@ -219,7 +219,7 @@
 		var atcd_id = $(this).val();
 		$.get('/atcd/' + atcd_id, function (data) { 
 			$('#atcd_id').val(data.id);
-		  $('#typeAntecedant').val(data.typeAntecedant).change();
+		        $('#typeAntecedant').val(data.typeAntecedant).change();
 			$('#sstypeatcdc').val(data.stypeatcd).change();//if(data.typeAntecedant   === 'Pathologiques')
 			if($( "#atcdsstypehide" ).hasClass( "hidden" ))
 				$( "#atcdsstypehide" ).removeClass("hidden"); 
@@ -266,7 +266,7 @@
 	});
 	$("#EnregistrerAntecedant").click(function (e) {//save
 		e.preventDefault();
-	if($("#EnregistrerAntecedant").attr('data-atcd') == "Perso")
+		if($("#EnregistrerAntecedant").attr('data-atcd') == "Perso")
 		{
 			var tabName = "antsTab";
 			var formData = {
@@ -284,13 +284,13 @@
 			var formData = {
 				Patient_ID_Patient   : '{{ $patient->id }}',
 				  Antecedant         : 'Familiaux',
-					date               : $('#dateAntcd').val(),
-					cim_code					 : $('#cim_code').val(),
-				descrioption       : $("#description").val()
+				date               : $('#dateAntcd').val(),
+				cim_code					 : $('#cim_code').val(),
+				description       : $("#description").val()
 			};
 		}
-	if(!($("#description").val() == ''))
-	  {	
+		if(!($("#description").val() == ''))
+	 	 {	
 			if($('.dataTables_empty').length > 0)
 				$('.dataTables_empty').remove();
 			$.ajaxSetup({
@@ -314,25 +314,24 @@
 			   success: function (data) {
 					if(data.Antecedant == "Personnels")
 					{
-								var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>' + data.stypeatcd +'</td><td>'+ data.date +'</td><td>'+data.cim_code+ '</td><td>' + data.descrioption + '</td>';
-				  atcd += '<td class ="center"><button class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
-					atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
-				}else
-				{
-					var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>' + data.date + '</td><td>' +data.cim_code
+						var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>' + data.stypeatcd +'</td><td>'+ data.date +'</td><td>'+data.cim_code+ '</td><td>' + data.description + '</td>';
+				  		atcd += '<td class ="center"><button class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
+						atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+					}else
+					{
+						var atcd = '<tr id="atcd' + data.id + '"><td class="hidden">' + data.Patient_ID_Patient + '</td><td>' + data.date + '</td><td>' +data.cim_code
 							  +	'</td><td>'	+ data.description + '</td>';
-					atcd += '<td class ="center"><button class="btn btn-xs btn-info open-modalFamil" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
-				atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
-
-				}
-			  if (state == "add") { 
+						atcd += '<td class ="center"><button class="btn btn-xs btn-info open-modalFamil" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
+						atcd += '<button class="btn btn-xs btn-danger delete-atcd" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
+					}
+			  		if (state == "add") { 
 						jQuery('#' + tabName+' tbody').append(atcd);
-			  } else {
-				$("#atcd" + atcd_id).replaceWith(atcd);
-			  }
-				jQuery('#modalFormData').trigger("reset");
-				jQuery('#antecedantModal').modal('hide');
-			 },
+			 		 } else {
+						$("#atcd" + atcd_id).replaceWith(atcd);
+			  		}	
+					jQuery('#modalFormData').trigger("reset");
+					jQuery('#antecedantModal').modal('hide');
+			 	},
 				error: function (data) {
 					  console.log('Error:', data);
 			   }
@@ -427,35 +426,35 @@
 				}
 			}	    
 		}); //calendrier  	
-			  var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
-			var today = (new Date()).setHours(0, 0, 0, 0);
+	        var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
+		var today = (new Date()).setHours(0, 0, 0, 0);
 		$('.calendar1').fullCalendar({
-		  plugins: [ 'dayGrid', 'timeGrid' ],
-		  header: {
+			  plugins: [ 'dayGrid', 'timeGrid' ],
+		  	header: {
 				  left: 'prev,next today',
 				  center: 'title,dayGridMonth,timeGridWeek',
 				  right: 'agendaWeek,agendaDay'
-				},
-		  defaultView: 'agendaWeek',
-		  height: 650,
+			},
+		  	defaultView: 'agendaWeek',
+		  	height: 650,
 			firstDay: 0,
-		  slotDuration: '00:15:00',
-		  minTime:'08:00:00',
+		  	slotDuration: '00:15:00',
+		  	minTime:'08:00:00',
 			maxTime: '17:00:00',
-		navLinks: true,
-		selectable: true,
-		selectHelper: true,
-		eventColor  : '#87CEFA',
-		editable: true,
+			navLinks: true,
+			selectable: true,
+			selectHelper: true,
+			eventColor  : '#87CEFA',
+			editable: true,
 			hiddenDays: [ 5, 6 ],
 			weekNumberCalculation: 'ISO',
 			aspectRatio: 1.5,
 			eventLimit: true,
 			allDaySlot: false,
-		eventDurationEditable : false,
-		  weekNumbers: true,
-		  views: {},
-				events: [
+			eventDurationEditable : false,
+		  	weekNumbers: true,
+		  	views: {},
+			events: [
 			   @foreach($employe->rdvs as $rdv)
 			   {	
 					  title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
@@ -465,7 +464,7 @@
 						   idPatient:{{$rdv->patient->id}},
 						   tel:'{{$rdv->patient->tele_mobile1}}',
 						   age:{{ $rdv->patient->getAge() }},
-						   specialite:{{ $rdv->specialite_id }}, //{{ $rdv->employe["specialite"]}},
+						   specialite:{{ $rdv->specialite_id }}, 
 						   fixe:  {{ $rdv->fixe }},
 				},
 			   @endforeach 
@@ -493,20 +492,23 @@
 			},
 			select: function(start, end,jsEvent, view) {
 				if(start > today){//CurrentDate
-			    Swal.fire({
-				   title: 'Confimer vous  le Rendez-Vous ?',
-				   html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',
-				   input: 'checkbox',
-				   inputPlaceholder: 'Redez-Vous Fixe',
-				   showCancelButton: true,
-				   confirmButtonColor: '#3085d6',
-				   cancelButtonColor: '#d33',
-				   confirmButtonText: 'Oui',
-				   cancelButtonText: "Non",
-			  }).then((result) => {
-				if(!isEmpty(result.value))
-					createRDVModal(start,end,'{{ $patient->id }}',result.value);//createRDVModal(start,end,$('#id').val(),result.value);	
-			  })
+					Swal.fire({
+						   title: 'Confimer vous  le Rendez-Vous ?',
+						   html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',
+						   input: 'checkbox',
+						   inputPlaceholder: 'Redez-Vous Fixe',
+						   showCancelButton: true,
+						   confirmButtonColor: '#3085d6',
+						   cancelButtonColor: '#d33',
+						   confirmButtonText: 'Oui',
+						   cancelButtonText: "Non",
+						 allowOutsideClick: false,  
+					  }).then((result) => {
+						if(!isEmpty(result.value))
+						{
+							createRDVModal(start,end,'{{ $patient->id }}',result.value);//createRDVModal(start,end,$('#id').val(),result.value);	
+						}
+			  		})
 				}else
 					$('.calendar1').fullCalendar('unselect');
 			},

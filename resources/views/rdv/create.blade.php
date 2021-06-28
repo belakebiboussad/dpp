@@ -15,7 +15,6 @@
   </style>
 @endsection
 @section('page-script')
-{{--<script type="text/javascript" src="http://192.168.1.60:90/Scripts/jquery-1.6.4.min.js"></script> 
 <script src="{{asset('/js/jquery.signalR.min.js')}}"></script>--}}
 <script type="text/javascript" src="http://192.168.1.60:90/Scripts/jquery.signalR-1.1.3.min.js" onerror="console.log('error signalR!');" onload="loaded=true;"></script>
 <script type="text/javascript" src="http://192.168.1.60:90/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script>
