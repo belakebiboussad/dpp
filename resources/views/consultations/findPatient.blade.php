@@ -10,7 +10,7 @@
 			    			  <div class="form-group">
 			      				<label class="control-label" for="Nom" ><strong>Nom:</strong></label>
 							<div class="input-group">
-								<input type="text" class="autofield form-control input-sx" id="Nom" name="Nom" placeholder="nom du patient..." autofocus/>
+								<input type="text" class="autofield form-control input-sx" id="Nom" name="Nom" placeholder="Nom du patient..." autofocus/>
 								<span class="glyphicon glyphicon-search form-control-feedback"></span>
 					    </div>
 						</div>
@@ -19,7 +19,7 @@
 						<div class="form-group">
 							<label class="control-label" for="Prenom" ><strong>Prénom:</strong></label> 
 							<div class="input-group">
-						  	<input type="text" class="form-control input-sx autofield" id="Prenom" name="Prenom"  placeholder="prenom du patient..."> 
+						  	<input type="text" class="form-control input-sx autofield" id="Prenom" name="Prenom"  placeholder="Prénom du patient..."> 
 						  	<span class="glyphicon glyphicon-search form-control-feedback"></span>
 			   			</div>		
 						</div>
@@ -37,7 +37,7 @@
 						<div class="form-group">
 							<label class="control-label" for="IPP" ><strong>IPP:</strong></label>
 							<div class="input-group">
-								<input type="text" class="form-control input-sx autofield" id="IPP" name="IPP"  placeholder="IPP du patient..." data-toggle="tooltip" data-placement="left">
+								<input type="text" class="form-control input-sx autofield" id="IPP" name="IPP"  placeholder="Identifiant du patient..." data-toggle="tooltip" data-placement="left">
 					   	  <span class="glyphicon glyphicon-search form-control-feedback"></span>
 							</div>		
 						</div>		

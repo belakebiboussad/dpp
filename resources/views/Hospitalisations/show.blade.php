@@ -31,13 +31,13 @@
 					    	<i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->Service->nom }}
 						</li>
 						<li>
-                            <i class="ace-icon fa fa-caret-right blue"></i><strong>Specialite :</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->Specialite->nom }}
+                            <i class="ace-icon fa fa-caret-right blue"></i><strong>Spécialité :</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->Specialite->nom }}
 						</li>
 						<li>
 							<i class="ace-icon fa fa-caret-right blue"></i><strong>Mode d'admission:</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->modeAdmission }}
 						</li>
 						<li>
-							<i class="ace-icon fa fa-caret-right blue"></i><strong>Medecin Traitant:</strong>&nbsp;&nbsp;
+							<i class="ace-icon fa fa-caret-right blue"></i><strong>Médecin Traitant:</strong>&nbsp;&nbsp;
 							{{ $hosp->medecin->nom }}	{{$hosp->medecin->prenom}}		
 						</li>
 						<li><i class="ace-icon fa fa-caret-right blue"></i><strong>Date d'entrée:</strong>&nbsp;&nbsp;{{ $hosp->Date_entree }}</li>	
@@ -100,7 +100,7 @@
 		<div class="space-12"></div>		
 		<div class="row">
 			<div class="col-sm-12">
-				<div class="row"><div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><span style="font-size:16px;">Garde Malade</span></strong></div></div>
+				<div class="row"><div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><span style="font-size:16px;">Garde malade</span></strong></div></div>
 				<div class="row">
 					<ul class="list-unstyled spaced">
 					  	<li> <i class="ace-icon fa fa-caret-right blue"></i><strong>Nom:</strong> {{ $hosp->garde->nom}}</li>
@@ -165,42 +165,42 @@
 									<input type="text" name="hosp_id" id="hosp_id" value="{{ $hosp->id }}" hidden>
 									<div>
 										<label for="poids">Poid (KG)</label>
-										<input type="text" name="poids" class="form-control">			
+										<input type="number" name="poids" class="form-control" min="2" max="200" placeholder="Entre 2 et 200 (KG)">			
 									</div>
 									<hr/>
 									<div>
 										<label for="taille">Taille (CM)</label>
-										<input type="text" name="taille" class="form-control">				
+										<input type="number" name="taille" class="form-control" min="40" max="300" placeholder="Entre 40 et 300 (CM)">				
 									</div>
 									<hr/>
 									<div>
 										<label for="pas">PAS (mmHg)</label>
-										<input type="text" name="pas" class="form-control">				
+										<input type="number" name="pas" class="form-control" min="50" max="250" placeholder="Entre 50 et 250 (mmHg)">				
 									</div>
 									<hr/>
 									<div>
 										<label for="pad">PAD (mmHg)</label>
-										<input type="text" name="pad" class="form-control">				
+										<input type="number" name="pad" class="form-control" min="10" max="150" placeholder="Entre 10 et 150 (mmHg)">				
 									</div>
 									<hr/>
 									<div>
 										<label for="pouls">Pouls (bpm)</label>
-										<input type="text" name="pouls" class="form-control">				
+										<input type="number" name="pouls" class="form-control" min="0" max="200" placeholder="Entre 0 et 200 (bpm)">				
 									</div>
 									<hr/>
 									<div>
 										<label for="temp">Temp (°C)</label>
-										<input type="text" name="temp" class="form-control">				
+										<input type="number" name="temp" class="form-control" min="0" max="50" placeholder="Entre 0 et 50 (°C)">				
 									</div>
 									<hr/>
 									<div>
 										<label for="glycemie">Glycémie (g/l)</label>
-										<input type="text" name="glycemie" class="form-control">				
+										<input type="number" name="glycemie" class="form-control" min="0" max="7" placeholder="Entre 0 et 7 (g/l)">				
 									</div>
 									<hr/>
 									<div>
-										<label for="cholest">Cholést (mmol/l)</label>
-										<input type="text" name="cholest" class="form-control">				
+										<label for="cholest">Cholést (g/l)</label>
+										<input type="number" name="cholest" class="form-control" min="0" max="7" placeholder="Entre 0 et 7 (g/l)">				
 									</div>
 									<hr/>
 								</div>
