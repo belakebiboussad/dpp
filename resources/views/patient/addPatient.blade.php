@@ -1,4 +1,4 @@
- <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Informations démographiques</h3></div></div>
+ <div class="row"><div class="col-sm-12"><h4 class="header smaller lighter blue"><strong>Informations démographiques</strong></h4></div></div>
  <div class="row demograph">
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('nom') ? 'has-error' : '' }}">
@@ -98,7 +98,7 @@
 		</div>
 	</div>
 </div>	{{-- row --}}
-<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div></div>
+<div class="row"><div class="col-sm-12"><h4 class="header smaller lighter blue"><strong>Contact</strong></h4></div></div>
 <div class="space-12 hidden-xs"></div>		
 <div  class="row demograph">
 	<div class="col-sm-4">
@@ -184,7 +184,7 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-sm-12"><h3 class="header smaller lighter blue">Homme de Confiance</h3></div>
+	<div class="col-sm-12"><h4 class="header smaller lighter blue"><strong>Homme de Confiance</strong></h4></div>
 </div>
 <div class="row">
  	<div class="col-sm-1"></div>		

@@ -97,7 +97,7 @@
 				<div id="Patient" class="tab-pane fade">@include('patient.addPatient')</div>
 				<div id="Homme_C" class="tab-pane fade hidden_fields">
 				<div id ="homme_cPart">
-					<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue"><b>Information Homme de confiance</b></h3></div></div>
+					<div class="row"><div class="col-sm-12"><h4 class="header smaller lighter blue"><strong>Information homme de confiance</strong></h4></div></div>
 					<div class="row">
 					<div class="col-sm-6">
 						<div class="form-group">
@@ -184,7 +184,7 @@
 					</div>
 				</div>	{{-- row --}}
 				<div class="space-12"></div>
-				<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue"><b>Contact</b></h3></div></div>{{-- row --}}
+				<div class="row"><div class="col-sm-12"><h4 class="header smaller lighter blue"><strong>Contact</strong></h4></div></div>{{-- row --}}
 				<div class="space-12"></div>
 				<div class="row">
 					<div class="col-sm-5">
