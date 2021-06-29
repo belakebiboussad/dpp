@@ -43,7 +43,7 @@
 <div class="row demograph">
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('sexe') ? 'has-error' : '' }}">
-			<label class="col-sm-3 control-label" for="sexe"><strong>Genre :</strong></label>
+			<label class="col-sm-3 control-label" for="sexe"><strong>Genre :<span style="color: red">*</span></strong></label>
 			<div class="col-sm-9">
 				<div class="radio">
 					<label><input name="sexe" value="M" type="radio" class="ace" checked /><span class="lbl"> Masculin</span></label>

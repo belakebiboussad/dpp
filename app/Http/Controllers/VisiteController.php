@@ -16,6 +16,8 @@ use App\modeles\TypeExam;
 use App\modeles\demandeexb;
 use App\modeles\demandeexr;
 use App\modeles\Etablissement;
+use App\modeles\prescription_constantes;
+use App\modeles\Constontes;
 use App\modeles\consts;
 use App\modeles\NGAP;
 use Illuminate\Http\Request;
@@ -104,6 +106,17 @@ class VisiteController extends Controller
         foreach (json_decode ($request->ExamsImg) as $key => $value) {       
            $demandeExImg ->examensradios()->attach($value->acteImg, ['examsRelatif' => $value->types]);
         }
+      }
+
+      $prescription_constantes = prescription_constantes::FirstOrCreate([
+        "hospitalisation_id" => $request->id_hosp,
+        "date_prescription" => Carbon\Carbon::now(),
+        "observation" => $request->observation
+      ]);
+
+      if($request->consts != null)
+      {
+        $prescription_constantes->constantes()->attach($request->consts);
       }
       return redirect()->action('HospitalisationController@index');
     }

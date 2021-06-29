@@ -96,7 +96,7 @@
 								<td>{{ $demande->modeAdmission }}</td>
 								<td>{{ $demande->consultation->Date_Consultation }}</td><td>{{ $demande->Specialite->nom }}</td>
 								<td class="text-center">
-									<button class="btn btn-xs btn-success bedAffect" title="Affecter un Lits" value="{{ $demande->id }}">
+									<button class="btn btn-xs btn-success bedAffect" title="Affecter un Lits" value="{{ $demande->id }}" data-Pid = '{{ $demande->consultation->patient->id }}'>
 										<span style="color: red;"><i class="fa fa-bed fa-1x" aria-hidden="true"></i></span>
 									</button>
 									<a href="{{route('rdvHospi.destroy',$demande->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">

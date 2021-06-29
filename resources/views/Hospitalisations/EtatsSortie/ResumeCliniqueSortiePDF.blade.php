@@ -21,8 +21,8 @@
     @include('partials.etatHeader')
     <h3 class="center mt-10"><span style="font-size: xx-large;"><strong>{{ $etat->nom}}</strong></span></h3><!-- mt-20,mt-5 -->
     <div class="row">   <div class="mb-10"><strong>Etablisement : </strong><span>{{ $etablissement->nom}}</span></div></div>
-    <div class="row" ><div class="mb-10"><strong>Service : </strong><span>{{ $obj->admission->rdvHosp->demandeHospitalisation->Service->nom }}</span></div></div>
-    <div class="row" ><div class="mb-10"><strong>Chef de servise : </strong><span>{{ $obj->admission->rdvHosp->demandeHospitalisation->Service->responsable->nom }} {{ $obj->admission->rdvHosp->demandeHospitalisation->Service->responsable->prenom }}</span></div>
+    <div class="row" ><div class="mb-10"><strong>Service : </strong><span>{{ $obj->admission->demandeHospitalisation->Service->nom }}</span></div></div>
+    <div class="row" ><div class="mb-10"><strong>Chef de servise : </strong><span>{{ $obj->admission->demandeHospitalisation->Service->responsable->nom }} {{ $obj->admission->demandeHospitalisation->Service->responsable->prenom }}</span></div>
     </div><br><hr/>
         <section class="table"> 
           <table class="head" style="width:100%;">
@@ -62,16 +62,16 @@
           </tr>
             <tr class="noBorder">
                 <td class="first"><strong>Date d'hospitalisation</strong><span> &nbsp;&nbsp;{{ $obj->Date_entree }}</span></td>
-                <td><strong>Mode d'entrée</strong><span> &nbsp;{{ $obj->admission->rdvHosp->demandeHospitalisation->modeAdmission }}</span></td><td></td>
+                <td><strong>Mode d'entrée</strong><span> &nbsp;{{ $obj->admission->demandeHospitalisation->modeAdmission }}</span></td><td></td>
             </tr>
             <tr class="noBorder">
-                <td class="first"><strong>Service</strong><span> &nbsp;&nbsp;{{ $obj->admission->rdvHosp->demandeHospitalisation->Service->nom }}</span></td>
+                <td class="first"><strong>Service</strong><span> &nbsp;&nbsp;{{ $obj->admission->demandeHospitalisation->Service->nom }}</span></td>
                 <td ><strong>Date d'entrée au Service</strong><span> &nbsp;{{ $obj->Date_entree }}</span></td>
                  <td><strong>Date de Sortie du Service</strong><span> &nbsp;{{ $obj->Date_Sortie }}</span></td>
             </tr>
            <tr><td colspan="3"></td></tr>
                 <tr class="noBorder">
-                      <td colspan="3" class="first"><strong>Motif d'hospitalisation</strong><span> &nbsp;{{ $obj->admission->rdvHosp->demandeHospitalisation->consultation->motif }}</span></td>
+                      <td colspan="3" class="first"><strong>Motif d'hospitalisation</strong><span> &nbsp;{{ $obj->admission->demandeHospitalisation->consultation->motif }}</span></td>
                 </tr>
                  <tr class="noBorder">
                     <td colspan="3" class="first"><strong>Bilan Bioloqique :</strong><span> &nbsp;</span></td></td>

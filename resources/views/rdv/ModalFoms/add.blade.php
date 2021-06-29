@@ -12,8 +12,8 @@
           	<input type="hidden" id="Fin_RDV" name="Fin_RDV" value="">
           	<input type="hidden" id="fixe" name="fixe" value="">
            	@if(Auth::user()->role_id == 2)
-		 <div class="panel panel-default">
-		 	<div class="panel-heading"><i class="ace-icon fa  fa-user-md bigger-110"></i><span>Selectionner une spécialité</span></div>
+					 <div class="panel panel-default">
+		 			<div class="panel-heading"><i class="ace-icon fa  fa-user-md bigger-110"></i><span>Selectionner une spécialité</span></div>
              		<div class="panel-body">
 		         		<div class="row">
 				         	<div class="col-sm-12">
@@ -37,9 +37,8 @@
 	          		<div class="row">
 			          	<div class="col-sm-6">
 				          	<div class="form-group">
-		          		  	<label class="col-form-label" for="filtre"> <strong>Filtre : </strong></label>
-		          		  	 <!-- onchange="layout();"  -->
-		                  <select class="form-control" id="filtre" @if(isset($patient->id)|| (Auth::user()->role_id == 2 )) disabled @endif> 
+		          		  	<label class="col-form-label" for="filtre"> <strong>Filtre : </strong></label> <!-- onchange="layout();"  -->
+		          		  	<select class="form-control" id="filtre" @if(isset($patient->id)|| (Auth::user()->role_id == 2 )) disabled @endif> 
 		                 		<option value="" selected disabled="">Selectionner...	</option>
 		                 		<option value="Nom">Nom</option>
 		                  	<option value="Prenom">Prenom</option>
@@ -50,8 +49,7 @@
 			          	<div class="col-sm-6">
 			          		<div class="form-group">
 			          			<label class="col-form-label" for="patient"> <strong>&nbsp; </strong></label>
-			          			<select class="form-control" id="patient" name = "patient"  disabled required>
-			          			<!-- @if(isset($patient->id) || (Auth::user()->role_id == 2 )) disabled @endif -->
+			          			<select class="form-control" id="patient" name = "patient" required readonly><!-- @if(isset($patient->id) || (Auth::user()->role_id == 2 )) disabled @endif -->
                         @if(isset($patient))
                           <option value="{{$patient->id}}" selected>{{ $patient->IPP }}-{{ $patient->Nom }}-{{ $patient->Prenom }}</option>
                         @endif

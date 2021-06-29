@@ -1,10 +1,10 @@
       <div class="modal fade" id="fullCalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  {{-- Modal --}}
        <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
-                <div class="modal-header" >{{-- style="padding:35px 50px;" --}}
+                <div class="modal-header">
                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
                        <h5 class="modal-title" id="myModalLabel">
-                             <span class="glyphicon glyphicon-bell"></span> Modifier le rendez-vous du
+                             <span class="glyphicon glyphicon-bell"></span>Modifier le rendez-vous du
                              <i class="ace-icon fa fa-angle-double-left" style="font-size:20px;"></i>
                              <a href="" id="lien" style="color:#FFFFFF"> <p id="patient"></p></a>
                             <i class="ace-icon fa fa-angle-double-right" style="font-size:20px;"></i>
@@ -52,8 +52,8 @@
                     </fieldset>
                   </div>
                   <div class="col-sm-6">
-                    <fieldset class="scheduler-border"   style="height:126px;">
-                      <legend class="scheduler-border">Type Rendez-Vous</legend>
+                    <fieldset class="scheduler-border" style="height:126px;">
+                      <legend class="scheduler-border">Type rendez-vous</legend>
                         <div class="form-group">
                           <div class="form-check">
                             <br>

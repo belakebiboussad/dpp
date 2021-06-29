@@ -15,9 +15,8 @@
   </style>
 @endsection
 @section('page-script')
-<script src="{{asset('/js/jquery.signalR.min.js')}}"></script>--}}
-<script type="text/javascript" src="http://192.168.1.60:90/Scripts/jquery.signalR-1.1.3.min.js" onerror="console.log('error signalR!');" onload="loaded=true;"></script>
-<script type="text/javascript" src="http://192.168.1.60:90/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script>
+<!-- <script type="text/javascript" src="http://192.168.1.60:90/Scripts/jquery.signalR-1.1.3.min.js" onerror="console.log('error signalR!');" onload="loaded=true;"></script>
+<script type="text/javascript" src="http://192.168.1.60:90/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script> -->
 <script>
 var rdvs = @json($rdvs);
 var loaded;
@@ -27,7 +26,6 @@ function resetPrintModIn()
   $('#doctor').val('');
   $('#printRdv').addClass('hidden')
 }
-
 function resetPatin()
 {
   $('#patient').editableSelect('clear');
@@ -35,8 +33,7 @@ function resetPatin()
   $('#patient').val('');
 }
 function reset_in()
-{ //$('.es-list').html('');  $('#patient').val('');//$('#specialite').val('');
- // $('#medecin').val(''); //$('#specialite').val(''); //$("#medecin").attr("disabled", true);
+{ //$('.es-list').html('');  $('#patient').val('');//$('#specialite').val('');$('#medecin').val(''); //$('#specialite').val(''); //$("#medecin").attr("disabled", true);
   $("#filtre").val('');
   if('{{ Auth::user()->role_id == 2 }}')
   {
@@ -45,7 +42,6 @@ function reset_in()
   }
   resetPatin();
   $("#btnSave").attr("disabled", true);
-  
 }
 function getPatient()
 {
@@ -99,7 +95,7 @@ $(function () {
 $(document).ready(function() {
     var CurrentDate = (new Date()).setHours(23, 59, 59, 0); 
     var today = (new Date()).setHours(0, 0, 0, 0); 
-    $('#calendar').fullCalendar({//calendar
+    $('.calendar').fullCalendar({
               header: {
                 left: 'prev,next today',
                 center: 'title',
@@ -130,17 +126,17 @@ $(document).ready(function() {
               events :[
                       @foreach($rdvs as $key =>   $rdv)
                       {
-                              title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
-                              start : '{{ $rdv->Date_RDV }}',
-                              end:   '{{ $rdv->Fin_RDV }}',
-                              id :'{{ $rdv->id }}',
-                              idPatient:'{{ $rdv->patient->id}}',
-                              tel:'{{$rdv->patient->tele_mobile1}}',
-                              age:{{ $rdv->patient->getAge() }}, //specialite: (isEmpty({{-- $rdv->employe["specialite"] --}}))? "":'',
-                              specialite: {{ $rdv->specialite_id }},
-                              civ : {{ $rdv->patient->getCiviliteCode() }},
-                              key :(isEmpty({{ $rdv->Employe_ID_Employe }}))? "":'{{ $key }}',
-                              fixe:  {{ $rdv->fixe }},
+                          title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
+                          start : '{{ $rdv->Date_RDV }}',
+                          end:   '{{ $rdv->Fin_RDV }}',
+                          id :'{{ $rdv->id }}',
+                          idPatient:'{{ $rdv->patient->id}}',
+                          tel:'{{$rdv->patient->tele_mobile1}}',
+                          age:{{ $rdv->patient->getAge() }}, //specialite: (isEmpty({{-- $rdv->employe["specialite"] --}}))? "":'',
+                          specialite: {{ $rdv->specialite_id }},
+                          civ : {{ $rdv->patient->getCiviliteCode() }},
+                          key :(isEmpty({{ $rdv->Employe_ID_Employe }}))? "":'{{ $key }}',
+                          fixe:  {{ $rdv->fixe }},
                       },
                      @endforeach   
               ], 
@@ -164,10 +160,10 @@ $(document).ready(function() {
                           }).then((result) => {
                               if(!isEmpty(result.value))//result.value indique rdv fixe ou pas
                               {
-                                    if('{{ $patient->id}}' != null)
-                                             createRDVModal(start,end,'{{ $patient->id }}',result.value);
-                                    else
-                                           createRDVModal(start,end,0,result.value);
+                                if('{{ $patient->id}}' != null)
+                                         createRDVModal(start,end,'{{ $patient->id }}',result.value);
+                                else
+                                       createRDVModal(start,end,0,result.value);
                               }
                           })
                         }else
@@ -178,7 +174,7 @@ $(document).ready(function() {
                             createRDVModal(start,end,0,result.value);//createRDVModal(start,end);  
                         }
                     }else
-                      $('#calendar').fullCalendar('unselect');
+                      $('.calendar').fullCalendar('unselect');
                 },
                 eventClick: function(calEvent, jsEvent, view) {
                       if(Date.parse(calEvent.start) > today)
@@ -188,8 +184,7 @@ $(document).ready(function() {
                           $('#patient_tel').val(calEvent.tel);
                           $('#agePatient').val(calEvent.age); 
                           $('#idRDV').val(calEvent.id);
-                          if($('#doctor').length && !(isEmpty(calEvent.key)))
-                                $('#doctor').val(rdvs[calEvent.key]['employe'].nom+" "+rdvs[calEvent.key]['employe'].prenom);
+//if($('#doctor').length && !(isEmpty(calEvent.key)))$('#doctor').val(rdvs[calEvent.key]['employe'].nom+" "+rdvs[calEvent.key]['employe'].prenom);
                           $("#daterdv").val(calEvent.start.format('YYYY-MM-DD HH:mm'));
                           $("#daterdvHidden").val(calEvent.start.format('DDMMYY'));
                           $("#specialite").val(calEvent.specialite);
@@ -215,7 +210,7 @@ $(document).ready(function() {
                               $('#printRdv').hasClass('hidden');
                           }  
                           $('#fullCalModal').modal({ show: 'true' });
-                         }
+                        }
               },
               eventRender: function (event, element, webData) {
                       if(event.start < today)
@@ -284,7 +279,7 @@ $(document).ready(function() {
 @endsection
 @section('main-content')
   <div class="row mt-20"><div class="col-sm-12"> <h4>Ajouter un Rendez-Vous</h4></div></div>
-  <div class="row"> <div class="col-sm-12" id='calendar'></div></div>
+  <div class="row"> <div class="col-sm-12 calendar" id=''></div></div>
   <div class="row">
     <div class="col-sm-12 col-sm-12">
       <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><h7><strong>&nbsp;RDV fixe</strong></h7>
