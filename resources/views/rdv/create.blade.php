@@ -278,7 +278,7 @@ $(document).ready(function() {
 </script>
 @endsection
 @section('main-content')
-  <div class="row mt-20"><div class="col-sm-12"> <h4>Ajouter un Rendez-Vous</h4></div></div>
+  <div class="row mt-20"><div class="col-sm-12"> <h4><strong>Ajouter un rendez-vous</strong></h4></div></div>
   <div class="row"> <div class="col-sm-12 calendar" id=''></div></div>
   <div class="row">
     <div class="col-sm-12 col-sm-12">

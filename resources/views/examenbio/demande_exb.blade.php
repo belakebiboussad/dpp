@@ -66,7 +66,7 @@
     <div class="row foo">
     <div class="col-sm-12">
       <div class="section">
-        <div class="sec-droite"><span><strong> Docteur :</strong> {{ Auth::user()->employ->nom }} {{ Auth::user()->employ->prenom }}</span></div>
+        <div class="sec-droite"><span><strong> Docteur :</strong> {{ $medecin->nom }} {{ $medecin->prenom }}</span></div>
       </div>
     </div>
   </div>

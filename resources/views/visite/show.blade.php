@@ -24,13 +24,13 @@
       <li class="in active"><a data-toggle="tab" href="#actes">Actes</a> </li>
       @endif
       @if($visite->traitements->count() > 0)
-      <li><a data-toggle="tab" href="#traitement">Traitement</a> </li>
+      <li><a data-toggle="tab" href="#traitement">Traitements</a> </li>
       @endif
       @if(isset($visite->demandeexmbio))
-      <li><a data-toggle="tab" href="#examsBio">Examens Biologique</a> </li>
+      <li><a data-toggle="tab" href="#examsBio">Examens biologiques</a> </li>
       @endif
       @if(isset($visite->examensradiologiques))
-        <li ><a data-toggle="tab" href="#examImg">Examens Imagerie</a></li>
+        <li ><a data-toggle="tab" href="#examImg">Examens d'imagerie</a></li>
       @endif
     </ul>
     <div class="tab-content no-border padding-24">
@@ -47,8 +47,8 @@
 									<th class="center"><strong>Nom</strong></th>
 									<th class="center"><strong>Type</strong></th>
 									<th class="center"><strong>Description</strong></th>
-									<th class="center"><strong>Periodes</strong></th>
-									<th class="center"><strong>Durée</strong></th>
+									<!-- <th class="center"><strong>Periodes</strong></th>
+									<th class="center"><strong>Durée</strong></th> -->
 									<th class="center"><em class="fa fa-cog"></em></th>
 								</tr>
 							</thead>
@@ -58,13 +58,13 @@
 									<td>{{ $acte->nom }}</td>
 									<td>{{ $acte->type }}</td>
 									<td>{{ $acte->description }}</td>
-									<td>
+									{{-- <td>
 									@foreach ($acte->periodes as $periode)
 									     {{ $periode }}
 									     @if (!($loop->last))  ,  @endif
 									@endforeach		
 									</td>
-									<td>{{ $acte->duree }}</td>
+									<td>{{ $acte->duree }}</td> --}}
 									<td></td>
 								</tr>
 							@endforeach
@@ -78,8 +78,8 @@
       @endif
       <div id="traitement" class="tab-pane">
        <div class="col-xs-11 widget-container-col">
-		<div class="widget-box widget-color-info">
-			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Traitements</h5></div>
+		<div class="widget-box widget-color-blue">
+			<div class="widget-header"><h5 class="widget-title bigger"><i class="ace-icon fa fa-table"></i>Traitements</h5></div>
 			<div class="widget-body">
 				<div class="widget-main no-padding">
 					<table class="table table-striped table-bordered table-hover">
@@ -96,15 +96,14 @@
 							@foreach($visite->traitements as $trait)
 							<tr>
 								<td>{{ $trait->medicament->nom }}</td>
-								<td>
-									{{ $trait->posologie }}</td>
-								<td>
+								<td>{{ $trait->posologie }}</td>
+								{{-- <td>
 									@foreach ($trait->periodes as $periode)
 								     		{{ $periode }}
 								     		@if (!($loop->last))  ,  @endif
 									@endforeach
 								</td>
-								<td>{{ $trait->duree }}</td>
+								<td>{{ $trait->duree }}</td> --}}
 								<td></td>
 							</tr>
 							@endforeach
@@ -118,8 +117,8 @@
       @if(isset($visite->demandeexmbio))
       <div id="examsBio" class="tab-pane">
        <div class="col-xs-11 widget-container-col">
-		<div class="widget-box widget-color-info">
-			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Examens Biologiques</h5></div>
+		<div class="widget-box widget-color-pink">
+			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Examens biologiques</h5></div>
 			<div class="widget-body">
 				<div class="widget-main no-padding">
 				<table class="table table-striped table-bordered table-hover">
@@ -144,12 +143,12 @@
 					 <td>{{ $exm->nom_examen }}</td>
 					@if($loop->first)
 		            	<td rowspan ="{{ $visite->demandeexmbio->examensbios->count()}}" class="center align-middle">
-			            	@if($visite->demandeexmbio->etat == "E")
-			                    <span class="badge badge-danger"> En Attente</span>
-			                  @elseif($visite->demandeexmbio->etat == "V")
-			                    <span class="badge badge-success">Validé</span>       
+			            	@if($visite->demandeexmbio->etat == null)
+			                    <span class="badge badge-success"> En Cours</span>
+			                  @elseif($visite->demandeexmbio->etat == 1)
+			                    <span class="badge badge-primary">Validée</span>       
 			                  @else
-			                    <span class="badge badge-success">Rejeté</span>   
+			                    <span class="badge badge-warning">Rejetée</span>   
 			                  @endif
 		            		</td>
 		            	@endif 

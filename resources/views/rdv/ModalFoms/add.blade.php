@@ -32,7 +32,7 @@
 	          </div>
 	          @endif
 	          <div class="panel panel-default">
-          		<div class="panel-heading"><i class="ace-icon fa fa-user"></i><span>Selectionner un Patient</span></div>
+          		<div class="panel-heading"><i class="ace-icon fa fa-user"></i><span>Selectionner un patient</span></div>
 	          	<div class="panel-body">	
 	          		<div class="row">
 			          	<div class="col-sm-6">
