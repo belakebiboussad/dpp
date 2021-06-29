@@ -415,62 +415,62 @@
 						  cancelButtonText: "Non",
 						  closeOnConfirm: true, //timer: 2000,
 					}).then((result) => {
-		             		if(result.value)
-		             		{
-		             			 confirmed = true;
-		             			addExamsImg(this);
-		             			$("#consultForm").submit();
-		             		}else
-		             		 	return false;
-		             	});
+           		if(result.value)
+           		{
+           			 confirmed = true;
+           			addExamsImg(this);
+           			$("#consultForm").submit();
+           		}else
+           		 	return false;
+          });
 				}
 			}	    
 		}); //calendrier  	
-	        var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
+	  var CurrentDate = (new Date()).setHours(23, 59, 59, 0);
 		var today = (new Date()).setHours(0, 0, 0, 0);
-		$('.calendar1').fullCalendar({
+		$('.calendar').fullCalendar({
 			  plugins: [ 'dayGrid', 'timeGrid' ],
 		  	header: {
 				  left: 'prev,next today',
 				  center: 'title,dayGridMonth,timeGridWeek',
 				  right: 'agendaWeek,agendaDay'
-			},
+				},
 		  	defaultView: 'agendaWeek',
 		  	height: 650,
-			firstDay: 0,
+				firstDay: 0,
 		  	slotDuration: '00:15:00',
 		  	minTime:'08:00:00',
-			maxTime: '17:00:00',
-			navLinks: true,
-			selectable: true,
-			selectHelper: true,
-			eventColor  : '#87CEFA',
-			editable: true,
-			hiddenDays: [ 5, 6 ],
-			weekNumberCalculation: 'ISO',
-			aspectRatio: 1.5,
-			eventLimit: true,
-			allDaySlot: false,
-			eventDurationEditable : false,
+				maxTime: '17:00:00',
+				navLinks: true,
+				selectable: true,
+				selectHelper: true,
+				eventColor  : '#87CEFA',
+				editable: true,
+				hiddenDays: [ 5, 6 ],
+				weekNumberCalculation: 'ISO',
+				aspectRatio: 1.5,
+				eventLimit: true,
+				allDaySlot: false,
+				eventDurationEditable : false,
 		  	weekNumbers: true,
 		  	views: {},
-			events: [
-			   @foreach($employe->rdvs as $rdv)
-			   {	
-					  title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
-						  start : '{{ $rdv->Date_RDV }}',
-						   end:   '{{ $rdv->Fin_RDV }}',
-						   id :'{{ $rdv->id }}',
-						   idPatient:{{$rdv->patient->id}},
-						   tel:'{{$rdv->patient->tele_mobile1}}',
-						   age:{{ $rdv->patient->getAge() }},
-						   specialite:{{ $rdv->specialite_id }}, 
-						   fixe:  {{ $rdv->fixe }},
-				},
-			   @endforeach 
-		],
+				events: [
+				   @foreach($employe->rdvs as $rdv)
+				   {	
+						  title : '{{ $rdv->patient->Nom . ' ' . $rdv->patient->Prenom }} ' +', ('+{{ $rdv->patient->getAge() }} +' ans)',
+							  start : '{{ $rdv->Date_RDV }}',
+							   end:   '{{ $rdv->Fin_RDV }}',
+							   id :'{{ $rdv->id }}',
+							   idPatient:{{$rdv->patient->id}},
+							   tel:'{{$rdv->patient->tele_mobile1}}',
+							   age:{{ $rdv->patient->getAge() }},
+							   specialite:{{ $rdv->specialite_id }}, 
+							   fixe:  {{ $rdv->fixe }},
+					},
+				   @endforeach 
+			],
 		  eventRender: function (event, element, webData) {
-		if(event.start < today) // element.find('.fc-title').append("," + event.tel);// element.css("font-size", "1em");
+			if(event.start < today) // element.find('.fc-title').append("," + event.tel);// element.css("font-size", "1em");
 				 element.css('background-color', '#D3D3D3');
 				else
 				{	
@@ -491,7 +491,8 @@
 				});		    
 			},
 			select: function(start, end,jsEvent, view) {
-				if(start > today){//CurrentDate
+				var minutes = end.diff(start,"minutes"); 
+				if((minutes == 15) && (start > today)) {
 					Swal.fire({
 						   title: 'Confimer vous  le Rendez-Vous ?',
 						   html: '<br/><h4><strong id="dateRendezVous">'+start.format('dddd DD-MM-YYYY')+'</strong></h4>',
@@ -510,7 +511,7 @@
 						}
 			  		})
 				}else
-					$('.calendar1').fullCalendar('unselect');
+					$('.calendar').fullCalendar('unselect');//calendar1
 			},
 		eventAllow: function(dropLocation, draggedEvent) {  return false; },
 			eventDrop: function(event, delta, revertFunc) { revertFunc();	},

@@ -33,9 +33,16 @@ function reset_in()
   $('#printRdv').addClass('hidden');
   $("#fixe").prop("checked", false);
 }
+$(function(){
+  $('#updateRdv').submit(function(e){
+    if($("#fixe").prop('disabled') == true)
+      $("#fixe" ).attr("disabled", false);
+    $('#updateRdv').submit();
+  });
+})
 $(document).ready(function() {
-        var today = (new Date()).setHours(0, 0, 0, 0);
-       $('.calendar1').fullCalendar({
+      var today = (new Date()).setHours(0, 0, 0, 0);
+      $('.calendar1').fullCalendar({
           header: {
                   left: 'prev,next today',
                   center: 'title',
@@ -53,7 +60,7 @@ $(document).ready(function() {
           selectHelper: true,// eventColor: '#87CEFA',//contentHeight: 700,//700
           editable: true,
           eventLimit: true, // allow "more" link when too many events      // displayEventEnd: true,       
-          //hiddenDays: [ 5, 6 ],
+          hiddenDays: [ 5, 6 ],
           allDaySlot: false,
           weekNumberCalculation: 'ISO',
           aspectRatio: 1.5,
@@ -84,13 +91,13 @@ $(document).ready(function() {
                eventClick: function(calEvent, jsEvent, view) {
                       if(Date.parse(calEvent.start) > today && (calEvent.etat != 1) ) 
                       {
-                              reset_in();
-                              if((calEvent.fixe) && (new Date(calEvent.start).setHours(0, 0, 0, 0) > today))  //&&(!(isEmpty(calEvent.medecin)
-                                     $('#printRdv').removeClass('hidden'); 
-                              if($('#fixe').length &&(calEvent.fixe))
-                                     $("#fixe"). prop("checked", true);
-                             $('#idRDV').val(calEvent.id);
-                              ajaxEditEvent(calEvent,false);
+                        reset_in();
+                        if((calEvent.fixe) && (new Date(calEvent.start).setHours(0, 0, 0, 0) > today))  //&&(!(isEmpty(calEvent.medecin)
+                               $('#printRdv').removeClass('hidden'); 
+                        if($('#fixe').length &&(calEvent.fixe))
+                               $("#fixe"). prop("checked", true);
+                        $('#idRDV').val(calEvent.id);
+                        ajaxEditEvent(calEvent,false);
                       }
               },
                eventRender: function (event, element, webData) {
@@ -124,13 +131,13 @@ $(document).ready(function() {
                  revertFunc();
             });
             if($('#fixe').length &&(event.fixe))
-                 $("#fixe"). prop("checked", true);
+              $("#fixe"). prop("checked", true);
             ajaxEditEvent(event,true);          
           },      
        }); // calendar
        $('#patient').editableSelect({
-               effects: 'default', 
-                editable: false, 
+          effects: 'default', 
+          editable: false, 
        }).on('select.editable-select', function (e, li) {
                      $('#last-selected').html(
                              li.val() + '. ' + li.text()
@@ -152,7 +159,7 @@ $(document).ready(function() {
   <div class="col-md-12">
      <div class="panel panel-default">
           <div class="panel-heading"><div class="left"> <strong>Liste des rendez-vous</strong></div></div>
-          <div class="panel-body"><div  class="calendar1"></div></div>
+          <div class="panel-body"><div class="calendar1"></div></div>
           <div class="panel-footer">
           <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><strong>&nbsp;RDV fixe</strong></span>
           <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><strong>&nbsp;RDV à fixer</strong></span> 
@@ -164,12 +171,12 @@ $(document).ready(function() {
   <div class="modal fade" id="fullCalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  {{-- Modal --}}
   <div class="modal-dialog modal-lg" role="document">
   <div class="modal-content">
-       <div class="modal-header">
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
-               <h4 class="modal-title">Modifier le rendez-vous du&nbsp; <q><a href="" id="lien" class="white"></a></q></h4>
-       </div>
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+      <h4 class="modal-title">Modifier le rendez-vous du&nbsp; <q><a href="" id="lien" class="white"></a></q></h4>
+    </div>
     <form id ="updateRdv" role="form" action="" method="POST"> 
-           <div class="modal-body">
+      <div class="modal-body">
       {{ csrf_field() }}
       {{ method_field('PUT') }}
       <input type="hidden" id="idRDV">
@@ -202,51 +209,49 @@ $(document).ready(function() {
        </div>
       @endif
       <div class="well">
-           <div class="row">
-                <div class="col-sm-6">
-                <fieldset class="scheduler-border">
-                      <legend class="scheduler-border">Rendez-Vous</legend>
-                       <div class="control-group">
-                            <label class="control-label input-label" for="startTime">Date :</label>
-                            <div class="controls bootstrap-timepicker">
-                                  <input type="text" class="datetime" id="meetingdate" data-date-format="yyyy-mm-dd" readonly/>
-                                  <span class="glyphicon glyphicon-time fa-lg"></span> 
-                              </div>
-                       </div>
-                </fieldset>
+        <div class="row">
+          <div class="col-sm-6">
+            <fieldset class="scheduler-border">
+                  <legend class="scheduler-border">Rendez-Vous</legend>
+                   <div class="control-group">
+                        <label class="control-label input-label" for="startTime">Date :</label>
+                        <div class="controls bootstrap-timepicker">
+                              <input type="text" class="datetime" id="meetingdate" data-date-format="yyyy-mm-dd" readonly/>
+                              <span class="glyphicon glyphicon-time fa-lg"></span> 
+                          </div>
+                   </div>
+            </fieldset>
+          </div>
+          <div class="col-sm-6">
+            <fieldset class="scheduler-border">
+              <legend class="scheduler-border">Type rendez-vous</legend>
+              <div class="control-group">
+                <label class="control-label input-label">&nbsp;</label>
+                <div class="controls form-check">
+                      <label class="block"><input type="checkbox" class="ace" id="fixe" name="fixe" {{ (Auth::user()->role_id == 2) ? 'disabled' : '' }} /> <span class="lbl">Fixe </span></label>
                 </div>
-                          <div class="col-sm-6">
-                          <fieldset class="scheduler-border"> {{-- style="height:126px;" --}}
-                               <legend class="scheduler-border">Type Rendez-Vous</legend>
-                                <div class="control-group">
-                                    <label class="control-label input-label">&nbsp;</label>
-                                    <div class="controls form-check">
-                                          <label class="block"><input type="checkbox" class="ace" id="fixe" name="fixe"/> <span class="lbl">Fixe </span></label>
-                                    </div>
-                               </div>
-                          </fieldset>
-                           </div> 
-                     </div>
-                </div>  
-                </div> {{-- modal-body --}} 
-                <div class="modal-footer">
-                   @if(Auth::user()->role->id == 1)
-                    <a type="button" id="btnConsulter" class="btn btn btn-xs btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
-                    @endif 
-                    <button type="submit" id ="updateRDV" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer
-                    </button>
-                   @if(Auth::user()->role->id == 1)          
-                    <a id="btnDelete" class="btn btn-bold btn-xs btn-danger" data-method="DELETE" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal"> <i class="fa fa-trash" aria-hidden="true"></i> Annuler</a>
-                    @endif
-                   <a id="printRdv" class="btn btn-success btn-xs hidden"  data-dismiss="modal"> <i class="ace-icon fa fa-print"></i>Imprimer</a>
-                   <button type="button" class="btn btn-xs btn-default" data-dismiss="modal"  id ="btnclose" onclick="reset_in();">
-                       <i class="fa fa-close" aria-hidden="true" ></i> Fermer
-                    </button>
-            </div> {{-- modal-header --}}
-          </form>  
-        </div>{{-- modal-content --}}
-      </div>
-    </div>{{-- modal --}}
+             </div>
+            </fieldset>
+           </div> 
+        </div>
+      </div>  
+    </div> {{-- modal-body --}} 
+    <div class="modal-footer">
+       @if(Auth::user()->role->id == 1)
+        <a type="button" id="btnConsulter" class="btn btn btn-xs btn-primary" href="" ><i class="fa fa-file-text" aria-hidden="true"></i> Consulter</a>
+        @endif 
+        <button type="submit" id ="updateRDV" class="btn btn-primary btn-xs"><i class="ace-icon fa fa-save bigger-110" ></i> Enregistrer
+        </button>      
+        <a id="btnDelete" class="btn btn-bold btn-xs btn-danger" data-method="DELETE" data-confirm="Êtes Vous Sur d'annuler Le Rendez-Vous?" data-dismiss="modal"> <i class="fa fa-trash" aria-hidden="true"></i> Annuler</a>
+                          <a id="printRdv" class="btn btn-success btn-xs hidden"  data-dismiss="modal"> <i class="ace-icon fa fa-print"></i>Imprimer</a>
+       <button type="button" class="btn btn-xs btn-default" data-dismiss="modal"  id ="btnclose" onclick="reset_in();">
+           <i class="fa fa-close" aria-hidden="true" ></i> Fermer
+        </button>
+    </div>
+  </form>  
+  </div>{{-- modal-content --}}
+</div>
+</div>{{-- modal --}}
 </div>
 @endsection
 

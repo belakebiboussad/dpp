@@ -37,16 +37,8 @@
               </div>
             </div>
           </div>
-        {{--   <div class="well">   
-                <div class="row">
-                      <div class="col-sm-12">
-                            <div class="form-group">
-                                   <label for="doctor" class="col-form-label" ><i class="ace-icon fa  fa-user-md bigger-130"></i><strong>&nbsp;Medecin:</strong></label>
-                                    <div class="input-group col-sm-12"><input type="text"  class="form-control" id="doctor" name ="doctor"  disabled/> </div>  
-                            </div>
-                      </div>
-                </div>
-           </div> --}}
+{{--<div class="well"><div class="row"><div class="col-sm-12"><div class="form-group"><label for="doctor" class="col-form-label" ><i class="ace-icon fa  fa-user-md bigger-130"></i><strong>&nbsp;Medecin:</strong></label>
+<div class="input-group col-sm-12"><input type="text"  class="form-control" id="doctor" name ="doctor" disabled/></div></div></div></div></div> --}}
            <div class="well">
               <div class="row">
                  <div class="col-sm-6">
@@ -64,7 +56,7 @@
                   </div>
                    <div class="col-sm-6">
                         <fieldset class="scheduler-border">
-                              <legend class="scheduler-border">Type Rendez-Vous</legend>
+                              <legend class="scheduler-border">Type rendez-vous</legend>
                               <div class="control-group">
                                    <label class="control-label input-label">&nbsp;</label>
                                    <div class="controls form-check">

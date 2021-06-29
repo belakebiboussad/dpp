@@ -24,8 +24,8 @@ class RdvHospiController extends Controller
       }
   public function index()
   {
-        $services = service::all();
-        $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) {
+      $services = service::all();
+      $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) {
                                        $q->where('id', Auth::user()->employ->service);                           
                                 })->whereHas('demandeHosp',function ($q){
                                 $q->where('etat','valide'); 

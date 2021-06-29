@@ -37,7 +37,7 @@
     <h3 class="center mt-10"><span style="font-size: xx-large;"><strong>{{ $etat->nom}}</strong></span></h3><!-- mt-20,mt-5 -->
     <section class="borderv">
       <br><br>
-      <span class="marge">&nbsp;&nbsp;&nbsp;&nbsp;je soussigné M ,Mme  :</span><span>{{ $obj->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->nom }}&nbsp;{{ $obj->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->prenom}}<span><br/>
+      <span class="marge">&nbsp;&nbsp;&nbsp;&nbsp;je soussigné M ,Mme  :</span><span>{{ $obj->admission->demandeHospitalisation->DemeandeColloque->medecin->nom }}&nbsp;{{ $obj->admission->demandeHospitalisation->DemeandeColloque->medecin->prenom}}<span><br/>
       <span class="marge">&nbsp;&nbsp;&nbsp;&nbsp;Demande de sortie de l'hopital :</span>
       <span>&nbsp;{{ $etablissement->nom }}</span><br/>	
       <span class="marge">&nbsp;&nbsp;&nbsp;&nbsp;Du patient :</span><span>{{ $obj->patient->Nom }}&nbsp;{{ $obj->patient->Prenom }}</span><br/>

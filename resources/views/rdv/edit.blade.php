@@ -91,9 +91,7 @@
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-heading">
-      <div class="left">
-      	Modifier le Rendez-Vous du&nbsp;<span class= "red"><strong>{{ $Rdv->Date_RDV->format('Y-m-d') }}</strong></span>
-      </div>
+      <div class="left">Modifier le Rendez-Vous du&nbsp;<span class= "red"><strong>{{ $Rdv->Date_RDV->format('Y-m-d') }}</strong></span></div>
       </div>
 	    <div class="panel-body">
 	    	<div class="calendar1"></div>
