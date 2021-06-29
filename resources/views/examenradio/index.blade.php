@@ -41,7 +41,7 @@
 													<td>
 														<span class="badge badge-warning">
 														@if($exr->etat == "E")
-															En Attente
+															En Cours
 														@elseif($exr->etat == "V")
 															Validé
 														@else

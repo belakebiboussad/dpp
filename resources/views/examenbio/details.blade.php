@@ -1,16 +1,17 @@
 @extends('app_laboanalyses')
 @section('page-script')
 <script>
+  function CRBave()
+  {  //$('form#cerbForm').append(
+    $("#crb").val($("#crbm").val());
+  }
   $(function(){
     $(".open-AddCRBilog").click(function () {
-        alert($(this).data('id'));
-        // $('#examId').val($(this).data('id'));
         jQuery('#CRBForm').trigger("reset");
         jQuery('#crbSave').val("add");
         $('#addCRBDialog').modal('show');
     });
   })
-
   $('document').ready(function(){
     $("button").click(function (event) {
          which = '';
@@ -91,9 +92,10 @@
               </div><!-- striped   -->
             </div><!-- col-xs-12 col-sm-3 center   -->
             </div><br/><!-- user-profile row -->
-            <form class="form-horizontal" method="POST" action="/uploadresultat" enctype="multipart/form-data">
+            <form class="form-horizontal" id ="cerbForm" method="POST" action="/uploadresultat" enctype="multipart/form-data">
             {{ csrf_field() }}
             <input type="text" name="id_demande" value="{{ $demande->id }}" hidden>
+            <input type="hidden" name="crb" id ="crb"> 
             <div class="user-profile row">
               <div class="col-xs-12 col-sm-12 center">
                 <table class="table table-striped table-bordered">
@@ -119,9 +121,15 @@
                     @endif
                     @if($loop->first)
                     <td rowspan ="{{ $demande->examensbios->count()}}" class="center align-middle">
-                    <button type="button" class="btn btn-md btn-success open-AddCRBilog" data-toggle="modal" title="ajouter un Compte Rendu" data-id="{{ $demande->id }}" id ="crb-add-{{ $demande->id }}" @if( isset($exm->pivot->crb)) hidden @endif">
-                      <i class="glyphicon glyphicon-plus glyphicon glyphicon-white"></i>
-                    </button>
+                    @if($demande->crb != "")
+                      <button type="button" class="btn btn-md btn-success open-AddCRBilog" data-toggle="modal" title="ajouter un Compte Rendu" data-id="{{ $demande->id }}" id ="crb-add-{{ $demande->id }}" @if( isset($exm->pivot->crb)) hidden @endif">
+                        <i class="glyphicon glyphicon-plus glyphicon glyphicon-white"></i>
+                      </button>
+                    @else
+                      <button type="button" class="btn btn-md btn-success open-AddCRBilog" data-toggle="modal" title="ajouter un Compte Rendu" data-id="{{ $demande->id }}" id ="crb-add-{{ $demande->id }}" @if( isset($exm->pivot->crb)) hidden @endif">
+                         <i class="glyphicon glyphicon-edit glyphicon glyphicon-white"></i>
+                      </button>
+                    @endif
                     </td>
                     @endif 
                   </tr>

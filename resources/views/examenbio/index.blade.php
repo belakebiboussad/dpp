@@ -277,7 +277,7 @@
 													</td>
 													<td>
 														@if($demande->etat == null)
-															En Attente
+															En Cours
 														@elseif($demande->etat == "1")
 															Validé
 														@else
