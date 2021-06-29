@@ -3,14 +3,14 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h5 class="modal-title" id="myModalLabel"><strong>Ajouter un Rendez-Vous</strong></h5>
+        <h5 class="modal-title" id="myModalLabel"><strong>Ajouter un rendez-vous</strong></h5>
       </div>
       <div class="modal-body bodyodal">
         <div class="row">
           <div class="col-md-12">
             <div class="panel panel-default"> &nbsp;&nbsp;&nbsp;&nbsp; 
               <div class="panel-heading" style="margin-top:-20px"> <div class="left"></div></div>
-              <div class="panel-body"><div class="calendar1" id="calendar1"></div> </div>
+              <div class="panel-body"><div class="calendar"></div> </div>
               <div class="panel-footer">
                 <span class="badge" style="background-color:#87CEFA">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><strong>&nbsp;RDV fixe</strong></span>
                 <span class="badge" style="background-color:#378006">&nbsp;&nbsp;&nbsp;</span><span style="font-size:8px"><strong>&nbsp;RDV à fixer</strong></span> 

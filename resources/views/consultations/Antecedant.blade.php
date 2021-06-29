@@ -32,7 +32,7 @@
 						<td>{{ $antcd->cim_code }}</td>
 						<td>{{ $antcd->description }}</td>
 						<td class="center"> 
-							<button type="button" class="btn btn-xs btn-info open-modal" data-atcd ="c" id ="antPerso-edit" value="{{$antcd->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
+							<button type="button" class="btn btn-xs btn-info open-modal" data-atcd ="c"  value="{{$antcd->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
 							 <button type="button" class="btn btn-xs btn-danger delete-atcd" value="{{$antcd->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
 						 </td>
 						</tr>
@@ -74,7 +74,7 @@
 				 	@foreach($patient->antecedants as $antcd)
 						@if(($antcd->Antecedant == "Personnels") &&($antcd->typeAntecedant == "1"))
 						<tr id="{{ 'atcd'.$antcd->id }}">
-							<td class ="hidden" >{{ $antcd->Patient_ID_Patient }}</td><!-- <td>Physiologiques</td>   -->
+							<td class ="hidden" ></td><!-- <td>Physiologiques</td>   -->
 							<td>{{ $antcd->date }}</td>
 							<td>{{ $antcd->cim_code }}</td>
 							<td>{{ $antcd->description }}</td>
@@ -85,7 +85,6 @@
 								<button type="button" class="btn btn-xs btn-info Phys-open-modal" data-atcd ="c"  value="{{$antcd->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
 								<button type="button" class="btn btn-xs btn-danger delete-atcd" value="{{$antcd->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button> 
 						 </td>
-						<table></table>
 						</tr>
 						@endif
 					@endforeach
@@ -127,7 +126,7 @@
 							<td>{{ $antcd->cim_code }}</td>
 							<td>{{ $antcd->description }}</td>
 							<td class="center"> 
-								<button type="button" class="btn btn-xs btn-info open-modalFamil" data-atcd ="d" id ="antFamil-edit" value="{{$antcd->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
+								<button type="button" class="btn btn-xs btn-info open-modalFamil" data-atcd ="d"  value="{{$antcd->id}}"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>
 								<button type="button" class="btn btn-xs btn-danger delete-atcd" value="{{$antcd->id}}" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button>
 							</td>
 						 </tr>

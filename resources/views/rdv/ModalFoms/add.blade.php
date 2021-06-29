@@ -1,20 +1,20 @@
 <div class="modal fade" id="addRDVModal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" role="document">
   	<div class="modal-content">
-      <div class="modal-header">
+       <div class="modal-header">
     		<button type="button" class="close" data-dismiss="modal">&times;</button>
     		<h4 class="modal-title">Ajouter un rendez-vous</h4>   
-  		</div>
-  		<form  id ="addRdv" role="form" action="/createRDV" method="POST"> 
+  	</div>
+  	<form  id ="addRdv" role="form" action="/createRDV" method="POST"> 
 	      <div class="modal-body">
 			   {{ csrf_field() }}
-          <input type="hidden" id="Debut_RDV" name="Debut_RDV" value="">
-          <input type="hidden" id="Fin_RDV" name="Fin_RDV" value="">
-          <input type="hidden" id="fixe" name="fixe" value="">
-           @if(Auth::user()->role_id == 2)
-			      <div class="panel panel-default">
-			       	<div class="panel-heading"><i class="ace-icon fa  fa-user-md bigger-110"></i><span>Selectionner une spécialité</span></div>
-             	<div class="panel-body">
+       		<input type="hidden" id="Debut_RDV" name="Debut_RDV" value="">
+          	<input type="hidden" id="Fin_RDV" name="Fin_RDV" value="">
+          	<input type="hidden" id="fixe" name="fixe" value="">
+           	@if(Auth::user()->role_id == 2)
+					 <div class="panel panel-default">
+		 			<div class="panel-heading"><i class="ace-icon fa  fa-user-md bigger-110"></i><span>Selectionner une spécialité</span></div>
+             		<div class="panel-body">
 		         		<div class="row">
 				         	<div class="col-sm-12">
 			           		<div class="form-group">
@@ -37,9 +37,8 @@
 	          		<div class="row">
 			          	<div class="col-sm-6">
 				          	<div class="form-group">
-		          		  	<label class="col-form-label" for="filtre"> <strong>Filtre : </strong></label>
-		          		  	 <!-- onchange="layout();"  -->
-		                  <select class="form-control" id="filtre" @if(isset($patient->id)|| (Auth::user()->role_id == 2 )) disabled @endif> 
+		          		  	<label class="col-form-label" for="filtre"> <strong>Filtre : </strong></label> <!-- onchange="layout();"  -->
+		          		  	<select class="form-control" id="filtre" @if(isset($patient->id)|| (Auth::user()->role_id == 2 )) disabled @endif> 
 		                 		<option value="" selected disabled="">Selectionner...	</option>
 		                 		<option value="Nom">Nom</option>
 		                  	<option value="Prenom">Prenom</option>
@@ -50,8 +49,7 @@
 			          	<div class="col-sm-6">
 			          		<div class="form-group">
 			          			<label class="col-form-label" for="patient"> <strong>&nbsp; </strong></label>
-			          			<select class="form-control" id="patient" name = "patient"  disabled required>
-			          			<!-- @if(isset($patient->id) || (Auth::user()->role_id == 2 )) disabled @endif -->
+			          			<select class="form-control" id="patient" name = "patient" required readonly><!-- @if(isset($patient->id) || (Auth::user()->role_id == 2 )) disabled @endif -->
                         @if(isset($patient))
                           <option value="{{$patient->id}}" selected>{{ $patient->IPP }}-{{ $patient->Nom }}-{{ $patient->Prenom }}</option>
                         @endif

@@ -232,8 +232,9 @@
             $('#lit_id option[value=0]').prop('selected', true);
         });
         jQuery('body').on('click', '.bedAffect', function (event) {
-          $('#demande_id').val($(this).val());
-          jQuery('#bedAffectModal').modal('show');
+           $('#demande_id').val($(this).val());
+           $('#patient_id').val($(this).attr('data-Pid'));
+           jQuery('#bedAffectModal').modal('show');
         });
         jQuery('body').on('click', '#AffectSave', function (e) {
           e.preventDefault();

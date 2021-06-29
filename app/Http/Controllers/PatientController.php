@@ -39,10 +39,10 @@ class PatientController extends Controller
     {
         $this->middleware('auth');
     }
-  public function index()
-  {
-    return view('patient.index');
-  }
+    public function index()
+    {
+      return view('patient.index');
+    }
   /**
    * Show the form for creating a new resource.
    *
@@ -89,17 +89,20 @@ class PatientController extends Controller
     $date = Date::Now();
     $rule = array(
               "nom" => 'required',
-              "prenom" => 'required',//"datenaissance" => 'required|date|date_format:Y-m-d',"idlieunaissance" => 'required',"mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],
-              "Type_p" =>'required_if:type,Ayant_droit',// "nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|regex:/[0-9]{12}/',
-              "nomf" => 'required_if:type,Ayant_droit',
-              "prenomf"=> 'required_if:type,Ayant_droit',// "datenaissancef"=> 'required_if:type,Ayant_droit|date|date_format:Y-m-d',//"nss2"=> 'required_if:type,Ayant_droit,unique,',
-              //"idlieunaissancef"=> 'required_if:type,Ayant_droit', //"NMGSN"=> 'required_if:type,Ayant_droit',
-              "prenom_homme_c"=>'required_with:nom_homme_c', 
+              "prenom" => 'required',
+              "datenaissance" => 'required|date|date_format:Y-m-d',
+              "nomf" => 'required_if:type,1,2,3,4'
+              /*
+               "prenomf"=> 'required_if:type,Ayant_droit',
+               "prenom_homme_c"=>'required_with:nom_homme_c', 
               "type_piece_id"=>'required_with:nom_homme_c', 
-              "npiece_id"=>'required_with:nom_homme_c', //"lien"=>'required_with:nom_homme_c', //"date_piece_id"=>'required_with:nom_homme_c',    
+              "npiece_id"=>'required_with:nom_homme_c',
               "mobile_homme_c"=>['required_with:nom_homme_c'],
-              "operateur_h"=>'required_with:mobileA',// , 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/' 
-              "nss" => 'regex:/[0-9]{12}/',
+              "operateur_h"=>'required_with:mobileA',
+              "nss" => 'regex:/[0-9]{12}/',*/
+/*"datenaissancef"=> 'required_if:type,Ayant_droit|date|date_format:Y-m-d',"nss2"=> 'required_if:type,Ayant_droit,unique,',"idlieunaissancef"=> 'required_if:type,Ayant_droit',"NMGSN"=> 'required_if:type,Ayant_droit',
+"idlieunaissance" => 'required',"mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'], //"lien"=>'required_with:nom_homme_c', //"date_piece_id"=>'required_with:nom_homme_c',            
+// , 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/',"Type_p" =>'required_if:type,Ayant_droit',// "nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|regex:/[0-9]{12}/',               */
     );  
     $messages = [
       "required"     => "Le champ :attribute est obligatoire.", // "NSSValide"    => 'le numéro du securite sociale est invalide ',
@@ -154,7 +157,6 @@ class PatientController extends Controller
         ]);           
       }
      }  
-    //dd($assure);   
     $patient = patient::firstOrCreate([
         "Nom"=>$request->nom,// "code_barre"=>$codebarre,
         "Prenom"=>$request->prenom,
@@ -206,8 +208,7 @@ class PatientController extends Controller
     $date = Date::Now();
     $rule = array(
         "nom" => 'required',
-        "prenom" => 'required',
-        //"datenaissance" => 'required|date|date_format:Y-m-d',//"idlieunaissance"=>'required',//"mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],//"Type_p" =>'required_if:type,Ayant_droit', //"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
+        "prenom" => 'required',//"datenaissance" => 'required|date|date_format:Y-m-d',//"idlieunaissance"=>'required',//"mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'],//"Type_p" =>'required_if:type,Ayant_droit', //"nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|NSSValide',
         "prenom_homme_c"=>'required_with:nom_homme_c', 
         "type_piece_id"=>'required_with:nom_homme_c', 
         "npiece_id"=>'required_with:nom_homme_c', //"lien"=>'required_with:nom_homme_c', //"date_piece_id"=>'required_with:nom_homme_c',    
@@ -289,23 +290,21 @@ class PatientController extends Controller
      * @param  \App\modeles\patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function edit($id,$asure_id =null)
-    {  
-      $patient = patient::FindOrFail($id);
-      $correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
-      if(!(isset($asure_id)))
-      {
-        $assure=null ;
-        $grades = grade::all(); 
-        if($patient->Type != "5")
-          $assure =  $patient->assure;
-        return view('patient.edit',compact('patient','assure','correspondants','grades'));
-      }else//ce chemin est introuvable
-      {
-        return view('patient.editP',compact('patient','correspondants'));
-      }
- 
-    }
+      public function edit($id,$asure_id =null)
+      {  
+                $patient = patient::FindOrFail($id);//$correspondants = homme_conf::where("id_patient", $id)->where("etat_hc", "actuel")->get();
+                if(!(isset($asure_id)))
+                {
+                  $assure=null ;
+                  $grades = grade::all(); 
+                  if($patient->Type != "5")
+                    $assure =  $patient->assure;
+                  return view('patient.edit',compact('patient','assure','grades'));
+                }else//ce chemin est introuvable
+                {
+                  return view('patient.editP',compact('patient'));
+                }
+        }
     /**
      * Update the specified resource in storage.
      *
@@ -388,8 +387,7 @@ class PatientController extends Controller
                "description"=>isset($request->description)? $request->description: null,
                "NSS"=>($request->type != "Autre" )? (($request->type == "Assure" )? $request->nss : $request->nsspatient) : null,
                "Date_creation"=>$date,  
-        ]);
-        //dd($patient);// Flashy::message('Welcome Aboard!', 'http://your-awesome-link.com');
+        ]);//dd($patient);// Flashy::message('Welcome Aboard!', 'http://your-awesome-link.com');
         return redirect(Route('patient.show',$patient->id));
     }
     public function updateP(Request $request,$id) 

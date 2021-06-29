@@ -2,7 +2,21 @@
 @section('title','Ajouter un patient')
 @section('page-script')
  <script>
-  	$( document ).ready(function() {
+    function hommeConfCheck()
+    {
+    	if($('#hommeConf').is(':checked')){
+				if( ! checkHomme() )
+      	{
+      	  activaTab("Homme_C");
+      		event.preventDefault();
+      	}else
+        $( "#addPatientForm" ).submit();
+			}else
+			{
+				$( "#addPatientForm" ).submit();
+			}
+    }
+   	$( document ).ready(function() {
   		$('#type').change(function(){
   			if( $('#type').val() == "0")
   			{
@@ -22,46 +36,22 @@
   		 }
   	  });
  	  	$( "#addPatientForm" ).submit(function( event ) {
-			  if( ! checkPatient() )
+				  if( ! checkPatient() )
       		{
-	        	activaTab("Patient");
+			    	activaTab("Patient");
 	        	event.preventDefault();
 	      	}else{
-      		if(($('#type').val() != "5" )){ //if(!($('#autre').is(':checked'))){ 
-      			$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });	
-						if( ! checkAssure() )
-						{
-						  activaTab("Assure");
-					  	event.preventDefault();
-						}else
-						{
-							if($('#hommeConf').is(':checked')){
-							if( ! checkHomme() )
-              					{
-              						  activaTab("Homme_C");
-              						event.preventDefault();
-              					}else
-                						$( "#addPatientForm" ).submit();
-						}else
-						{
-							$( "#addPatientForm" ).submit();
-						}
-					}
-				}
-				else
-				{
-					if($('#hommeConf').is(':checked'))
-					{
-						if( ! checkHomme() )
-					      {
-			            activaTab("Homme_C");
-			           	event.preventDefault();
-					       }else
-					             $( "#addPatientForm" ).submit();
-					}else
-						$( "#addPatientForm" ).submit();
-				}
-			 }    
+      			if(($('#type').val() != "5" )){ //if(!($('#autre').is(':checked'))){ 
+      				$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });	
+							if( ! checkAssure() )
+							{
+							  activaTab("Assure");
+					  		event.preventDefault();
+							}else
+								hommeConfCheck();
+						}else//patient derogation
+							hommeConfCheck();
+			 		}    
 		});
 	});
 </script>
@@ -77,7 +67,7 @@
 		</div>
   </div>
   <div class="row tabs">
-		<form class="form-horizontal" id = "addPatientForm" action="{{ route('patient.store') }}" method="POST" role="form">
+		<form class="form-horizontal" id ="addPatientForm" action="{{ route('patient.store') }}" method="POST" role="form">
 	    {{ csrf_field() }}
 	    <div class="row">
 			<div class="col-sm-12">
@@ -107,7 +97,7 @@
 				<div id="Patient" class="tab-pane fade">@include('patient.addPatient')</div>
 				<div id="Homme_C" class="tab-pane fade hidden_fields">
 				<div id ="homme_cPart">
-					<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue"><b>Information Homme de confiance</b></h3></div></div>
+					<div class="row"><div class="col-sm-12"><h4 class="header smaller lighter blue"><strong>Information homme de confiance</strong></h4></div></div>
 					<div class="row">
 					<div class="col-sm-6">
 						<div class="form-group">
@@ -194,7 +184,7 @@
 					</div>
 				</div>	{{-- row --}}
 				<div class="space-12"></div>
-				<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue"><b>Contact</b></h3></div></div>{{-- row --}}
+				<div class="row"><div class="col-sm-12"><h4 class="header smaller lighter blue"><strong>Contact</strong></h4></div></div>{{-- row --}}
 				<div class="space-12"></div>
 				<div class="row">
 					<div class="col-sm-5">

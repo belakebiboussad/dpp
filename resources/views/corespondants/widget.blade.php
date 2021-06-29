@@ -60,7 +60,7 @@
                                              <span class="label label-sm label-success"><strong>Membre de famille</strong></span>
                                            @break
                                       @case ("8")
-                                             <span class="label label-sm label-success"><strong>Ami</strong></span>
+                                             <span class="label label-sm label-success"><strong>Ami(e)</strong></span>
                                             @break             
                                       @case("9")
                                              <span class="label label-sm label-success"><strong>Collègue</strong></span>

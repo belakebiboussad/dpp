@@ -224,10 +224,9 @@ class RDVController extends Controller
       {
         $employeId  ="";$specialite ="";
         if(Auth::user()->role_id ==2)
-        {   // $employeId = (isset($request->medecin)?$request->medecin: null);
+        {   
           $specialite = $request->specialite ;
-        }
-        else
+        }else
         {    //$employeId = Auth::user()->employ->id;
           $specialite = Auth::user()->employ->specialite;
         }
@@ -236,16 +235,16 @@ class RDVController extends Controller
         else
           $patient=patient::where('IPP', explode("-", $request->patient)[0])->first();
         $rdv = rdv::firstOrCreate([
-            "Date_RDV"=>new DateTime($request->Debut_RDV),
-            "Fin_RDV" =>new DateTime($request->Fin_RDV),
-            "fixe"    => $request->fixe, //"Employe_ID_Employe"=>$employeId,
-            "patient_id"=> $patient->id,
-            "specialite_id"=> $specialite
+              "Date_RDV"=>new DateTime($request->Debut_RDV),
+              "Fin_RDV" =>new DateTime($request->Fin_RDV),
+              "fixe"    => $request->fixe,
+              "patient_id"=> $patient->id,
+              "specialite_id"=> $specialite
         ]);       
         if($request->ajax())
-               return Response::json(array('patient'=>$patient, 'age'=>$patient->getAge(),'rdv'=>$rdv));
-         else     
-                return redirect()->route("rdv.create");     
+          return Response::json(array('patient'=>$patient, 'age'=>$patient->getAge(),'rdv'=>$rdv));
+        else     
+          return redirect()->route("rdv.create");     
       }     
       public function checkFullCalendar(Request $request)
       {

@@ -135,64 +135,6 @@
             $('div#' + sectionActive).removeClass('active');
          }
       }
-      function checkPatient()
-      {
-        var erreur =true;  var nom = $('#nom').val(); var prenom = $('#prenom').val();
-//var idlieunaissance = $('#idlieunaissance').val();//var datenaissance = $('#datenaissance').val();//var mobile1 = $('#mobile1').val();mobile1,"Téléphone mobile 1",  
-        var type = $('#type').val();
-        var inputAssVal = new Array(type,prenom,nom);
-        var inputMessage = new Array('Type',"Prenom","Nom");
-        $('.error').each(function(i, obj) {
-          $(obj).next().remove();
-          $(obj).detach();
-        });
-        jQuery.each( inputAssVal, function( i, val ) {
-          if(val =="" )
-          {
-            erreur =false;
-            $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du Patient </span>'+'<br/>');
-          }
-       });
-       return erreur;
-      }
-      function checkAssure()
-      {
-        var erreur =true;//var NMGSN = $('#NMGSN').val();var idlieunaissancef = $('#idlieunaissancef').val();"Lieu de Naissance",
-        var nomf = $('#nomf').val(); var prenomf = $('#prenomf').val();  var datenaissance = $('#datenaissancef').val(); 
-        var nss = $('#nss').val(); var position = $('#Position').val();//var inputAssVal = new Array(nss,gsf,idlieunaissancef,datenaissance,prenomf,nomf);
-        var inputAssVal = new Array(nss,position,gsf,prenomf,nomf);//var inputMessage = new Array("Numèro de Secruté Social","Groupe Sanguin","Date de Naissance","Prenom","Nom");
-        var inputMessage = new Array("Numèro de Secruté Social","position","Groupe Sanguin","Prenom","Nom");
-        $('.error').each(function(i, obj) { $(obj).next().remove(); $(obj).detach();  });
-        jQuery.each( inputAssVal, function( i, val ) {
-          if(val =="" )
-          {
-             erreur =false;
-             $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputMessage[i]+' du l\'Assure </span>'+'<br/>');
-          }
-       });
-       return erreur;
-      }
-      function  checkHomme(){
-          var erreur =true;
-          var nomA = $('#nomA').val();var prenomA = $('#prenomA').val();
-          var type_piece_id = $('#type_piece_id').val();
-          var npiece_id = $('#npiece_id').val();
-          mobileA = $('#mobileA').val();
-          var inputHomVal = new Array(npiece_id,mobileA,type_piece_id,prenomA,nomA);
-          var inputHomMessage = new Array("Numero de la Pièce","Type de la Pièce","Telephone mobile","Prenom","Nom");
-          $('.error').each(function(i, obj) {
-                $(obj).next().remove();
-                $(obj).detach();
-         });
-          jQuery.each( inputHomVal, function( i, val ) {
-               if(val =="" )
-              {
-                     erreur =false;
-                    $('#error').after('<span class="error"> SVP, Veuiller remplir le(la) ' + inputHomMessage[i]+' du Correspondant</span>'+'<br/>');
-               }
-          });   
-         return erreur;
-      }
       function checkConsult()
       {
         var erreur =true;
@@ -216,9 +158,6 @@
           }
        });
        return erreur;
-      }
-      function activaTab(tab){
-        $('.nav-pills a[href="#' + tab + '"]').tab('show');
       }
       if ($("#addGardeMalade").length > 0) {  ////avoir
         $("#addGardeMalade").validate({
@@ -266,29 +205,9 @@
             }
          });             
       }
-      function HommeConfcopy(id)
-      {
-            $.get('/hommeConfiance/'+id+'/edit', function (data) {
-              $('#patientId').val(data.id_patient);
-              $('#typeH option').each(function() {
-                if($(this).val() == data.type) 
-                    $(this).prop("selected", true);
-              });  
-              $('#hom_id').val(data.id);  $('#nom_h').val(data.nom);$('#prenom_h').val(data.prenom);
-              $('#datenaissance_h').val(data.date_naiss);  $('#lien_par').val(data.lien_par).change();    
-              $('#lien_par option').each(function() {
-                if($(this).val() == data.lien_par) 
-                  $(this).prop("selected", true);
-              });       
-              $('#' + data.type_piece).prop('checked',true); $('#num_piece').val(data.num_piece);
-              $('#date_piece_id').val(data.date_deliv);
-              $('#adresse_h').val(data.adresse);$('#mobile_h').val(data.mob);
-              jQuery('#gardeMalade').modal('show');
-            });
-      }
       function getProducts(id_gamme, id_spec=0,med_id = 0)
       {
-          var html = '<option value="0">Sélectionner...</option>';
+         var html = '<option value="0">Sélectionner...</option>';
           $.ajax({
               url : '/getproduits/'+id_gamme+'/'+id_spec,
               type : 'GET',
@@ -613,211 +532,11 @@
                 $('#Div-nomjeuneFille').attr('hidden','');      
           });
 /*$( "#Position" ).change(function(){if($(this).val() != "Activité"){$('#serviceFonc').addClass('invisible'); $('#service option:eq(0)').prop('selected', true);}else$('#serviceFonc').removeClass('invisible');});if($( "#Position" ).val() != "Activité" )$('#serviceFonc').addClass('invisible');*/ 
-          $('#listeGardes').DataTable({ //homme/garde  
-                colReorder: true,
-                stateSave: true,
-                searching:false,
-                'aoColumnDefs': [{
-                  'bSortable': false,
-                  'aTargets': ['nosort']
-                }],
-                "language": {
-                            "url": '/localisation/fr_FR.json'
-                },
-          });
-          $('#btn-addCores').click(function () { ///show modal
-                if( $('#EnregistrerGardeMalade').is(":hidden"))
-                        $('#EnregistrerGardeMalade').show();
-                $('#EnregistrerGardeMalade').val("add"); $('#addGardeMalade').trigger("reset");
-                $('#CoresCrudModal').html("Ajouter un Correspondant(e)"); $('#gardeMalade').modal('show');   
-          });  
-          jQuery('body').on('click', '.show-modal', function () {
-                  HommeConfcopy($(this).val());
-                  jQuery('#EnregistrerGardeMalade').hide();
-                   $('#addGardeMalade').find('input, textarea, select').attr('disabled','disabled');
-          });
-          jQuery('body').on('click', '.open-modal', function () {
-                 HommeConfcopy($(this).val());
-                   if( $('#EnregistrerGardeMalade').is(":hidden"))
-                        $('#EnregistrerGardeMalade').show();
-                  jQuery('#EnregistrerGardeMalade').val("update"); $('#CoresCrudModal').html("Editer un Correspondant(e)"); $('#gardeMalade').modal('toggle');
-         });
-          $("#EnregistrerGardeMalade").click(function (e) {
-                $('#gardeMalade').modal('toggle');
-                $.ajaxSetup({
-                 headers: {
-                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                  }
-                });
-                e.preventDefault();
-                  var formData = {
-                      id_patient:$('#patientId').val(),
-                      nom:$('#nom_h').val(),
-                      prenom : $('#prenom_h').val(),
-                      date_naiss : $('#datenaissance_h').val(),
-                      type:$('#typeH').val(),
-                      lien_par : $('#lien_par').val(),
-                      type_piece : $("input[name='type_piece']:checked").val(),
-                      num_piece : $('#num_piece').val(),
-                      date_deliv : $('#date_piece_id').val(),
-                      adresse : $('#adresse_h').val(),
-                      mob : $('#mobile_h').val(),
-                      created_by: $('#userId').val()
-                  };
-                  var state = jQuery('#EnregistrerGardeMalade').val();
-                  var type = "POST";var hom_id = jQuery('#hom_id').val();var ajaxurl = 'hommeConfiance';
-                  if (state == "update") {
-                    type = "PUT"; ajaxurl = '/hommeConfiance/' + hom_id;
-                  }
-                  if (state == "add") {
-                        ajaxurl ="{{ route('hommeConfiance.store') }}";
-                  }
-          $('#addGardeMalade').trigger("reset");
-            $.ajax({
-                type: type,
-                url: ajaxurl,
-                data: formData,
-                dataType: 'json',
-                success: function (data) { //$('#gardeMalade').hide();   //jQuery('#gardeMalade').modal('hide');
-                       if($('.dataTables_empty').length > 0)
-                        {
-                          $('.dataTables_empty').remove();
-                        }
-                       switch(data.lien_par){
-                              case "0":
-                                    lien='<span class="label label-sm label-success"><strong>Conjoint(e)</strong></span>';
-                                    break;
-                               case "1":
-                                     lien='<span class="label label-sm label-success"><strong>Père</strong></span>';
-                                    break;
-                               case "2":
-                                    lien='<span class="label label-sm label-success"><strong>Mère</strong></span>';
-                                    break;
-                               case "3":
-                                    lien='<span class="label label-sm label-success"><strong>Frère</strong></span>';
-                                     break;
-                               case "4":
-                                    lien='<span class="label label-sm label-success"><strong>Soeur</strong></span>';
-                                    break;
-                              case "5":
-                                    lien='<span class="label label-sm label-success"><strong>Ascendant</strong></span>';
-                                    break;
-                              case "6":
-                                    lien='<span class="label label-sm label-success"><strong>Grand-parent</strong></span>';
-                                    break; 
-                              case "7":
-                                     lien='<span class="label label-sm label-success"><strong>Membre de famille</strong></span>';
-                                    break;
-                              case "8":
-                                    lien=' <span class="label label-sm label-success"><strong>Ami</strong></span>';
-                                    break;              
-                              case "9":
-                                    lien='<span class="label label-sm label-success"><strong>Collègue</strong></span>';
-                                    break; 
-                              case "10":
-                                    lien='<span class="label label-sm label-success"><strong>Employeur</strong></span>';
-                                    break; 
-                              case "11":
-                                    lien='span class="label label-sm label-success"><strong>Employé</strong></span>';
-                                    break; 
-                              case "12":
-                                    lien='<span class="label label-sm label-success"><strong>Tuteur</strong></span>';
-                                    break; 
-                             case "13":
-                                    lien='<span class="label label-sm label-success"><strong>Autre</strong></span>';
-                                    break; 
-                             default:
-                                    break;
-                    }
-                      var homme = '<tr id="garde' + data.id + '"><td class="hidden">' + data.id_patient + '</td><td>' + data.nom + '</td><td>' + data.prenom + '</td><td>'+ data.date_naiss              +'</td><td>' + data.adresse + '</td><td>'+ data.mob + '</td><td>' + lien + '</td><td>' + data.type_piece + '</td><td>' + data.num_piece 
-                                        + '</td><td>' +  data.date_deliv + '</td>';
-                         homme += '<td class ="center"><button type="button" class="btn btn-xs btn-success show-modal" value="' + data.id + '"><i class="ace-icon fa fa-hand-o-up fa-xs"></i></button>&nbsp;'; 
-                    homme += '<button type="button" class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
-                    homme += '<button type="button" class="btn btn-xs btn-danger delete-garde" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
-                    if (state == "add") {
-                      $("#listeGardes tbody").append(homme);
-                    } else {
-                      $("#garde" + hom_id).replaceWith(homme);      
-                    }
-                },
-                error: function (data) {
-                  console.log('Error:', data);
-                }
-            }); 
-          }) 
-          jQuery('body').on('click', '.delete-garde', function () {////----- DELETE a Garde and remove from the page -----////
-                var hom_id = $(this).val();
-                $.ajaxSetup({
-                  headers: {
-                            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                      }
-                });
-                $.ajax({
-                      type: "DELETE",
-                      url: '/hommeConfiance/' + hom_id,
-                      success: function (data) {
-                          $("#garde" + hom_id).remove();
-                      },
-                      error: function (data) {
-                             console.log('Error:', data);
-                      }
-                });
-          });
-          $('#gardeMalade').on('hidden.bs.modal', function () {
-            $('#gardeMalade form')[0].reset();
-            $('#addGardeMalade *').prop('disabled', false);
-          });
-          $('#gamme').change(function(){
-              switch($(this).val())
-              {
-                case "0":
-                  $('#specialite').val(0);
-                  $('#specialite').prop('disabled', 'disabled');
-                  $('#produit').val(0);
-                  $('#produit').prop('disabled', 'disabled');
-                  break
-                case "1":
-                  if($("#specialiteDiv").is(":hidden"))
-                    $("#specialiteDiv").show();
-                  $("#specialite").removeAttr("disabled");
-                  $("#produit").removeAttr("disabled");
-                  break;
-                case "2":
-                         if(!$("#specialiteDiv").is(":hidden"))
-                                $("#specialiteDiv").hide();
-                                 $("#produit").removeAttr("disabled");
-                                getProducts(2);
-                  break;
-                case "3":
-                  if(!$("#specialiteDiv").is(":hidden"))
-                    $("#specialiteDiv").hide();
-                  getProducts(3);
-                  break;
-                default:
-                  break; 
-              }
-          });
-         $('#specialite').change(function(){
-             if($(this).val() != "0" )
-             {
-                $("#produit").removeAttr("disabled");
-                var id_gamme = $('#gamme').val();
-                var id_spec = $(this).val();
-                getProducts(id_gamme,id_spec);
-              }else
-              {
-                $("#produit").val(0);
-                $("#produit").prop('disabled', 'disabled');
-              }
-          });
-          $('#produit').change(function(){
-             $("#ajoutercmd").removeAttr("disabled");
-          });
-         jQuery('body').on('click', '.CimCode', function (event) {
+          jQuery('body').on('click', '.CimCode', function (event) {
               $('#cim10Modal').trigger("reset");
               $('#inputID').val($(this).val());
               $('#cim10Modal').modal('show');
-         });
+          });
          $('#chapitre').click(function(){
               if(! isEmpty($("#chapitre").val()) && $("#chapitre").val()!=0)
               {

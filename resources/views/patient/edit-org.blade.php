@@ -5,9 +5,9 @@
 	function showTypeEdit(i)
 	{
 	 	var value = $("#type").val();
-  		if( value == "0")
-  		{
-	  		if(i !=0)
+  	if( value == "0")
+  	{
+	  	if(i !=0)
 	 		{
 	 			$('#Assure').find('input').val('');//copyPatient();
 	 			$('#Assure').find("select").prop("selectedIndex",0);
@@ -21,10 +21,11 @@
 		  	{
 		   		if(('{{ $patient->Type }}' == "0"))
 		  		{
-		  			$('#Assure').find('input').val('');
-				    	$('#Assure').find("select").prop("selectedIndex",0);
-				    	$('#description').val('');
-				}
+		  			$('#Assure').find('input').val('');//copyPatient();
+			    	$('#Assure').find("select").prop("selectedIndex",0);
+			    	$('#description').val('');
+
+	      		}
 		  	}
 			$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", false); });
 			$("#foncform").removeClass('hide');
@@ -42,37 +43,49 @@
 			$('#Assure').find('input').prop("required",false);
 			$('#Assure').find("select").prop("required",false);
 			$('#nsspatient').attr('disabled', true);  
-  		}
+  	}
 	}
-	$(function(){
-		 $( "#editPatientForm" ).submit(function( event ) {
-	      		if( ! checkPatient() )
-      			{
-			   	activaTab("Patient");
-			   	event.preventDefault();
-	      		}else{
-  				if(($('#type').val() != "5" )){ 
-  					$('.Asdemograph').find('*').each(function () { 
-  						$(this).attr("disabled", false);
-  					});	
-					if( ! checkAssure() )
-					{
-					  	activaTab("Assure");
-			  			event.preventDefault();
-					}else
-						$( "#editPatientForm" ).submit();
-  				}else
-  				{
-  					$("#Position").prop("disabled", true);
-					  $('#Assure').find('input').prop("disabled", true).attr('required', false);
-					  $( "#editPatientForm" ).submit();
-  				}
-	    	}
-	    });
-	})
+  function checkFormAddPAtient()
+  {  
+    if(($('#type').val() != "5" ))
+    { 
+      $('.Asdemograph').find('*').each(function () {
+      	 $(this).attr("disabled", false); 
+      });
+      if( ! checkAssure() )
+      {
+      	activaTab("Assure");
+      	return false;
+      }else{
+     		if($('#hommeConf').is(':checked')){
+       		if( ! checkHomme() )
+       		{
+       			activaTab("Homme_C");
+       			return false;
+       		}else
+            return true;  
+       	}else{
+          return true;   
+        }
+        return true;
+      }
+    }else{
+    	$("#Position").prop("disabled", true);
+			$('#Assure').find('input').prop("disabled", true).attr('required', false);//$('.Asdemograph').find('*').each(function () { $(this).attr("disabled", true); });
+			if($('#hommeConf').is(':checked')){
+          if( ! checkHomme() )
+          {
+            activaTab("Homme_C");
+            return false;
+          }else
+            return true;  
+        }else
+          return true; 
+    }  
+  }
 	$(document).ready(function(){
-	  showTypeEdit(0);	
-	});    
+	  showTypeEdit(0);//var value = $("#type").val();
+	});     
 </script>
 @endsection
 @section('main-content')
@@ -84,9 +97,9 @@
 		</a>
 	</div>
 </div>
-<form class="form-horizontal" id="editPatientForm" action="{{ route('patient.update',$patient->id) }}" method="POST" role="form">
+<form class="form-horizontal" action="{{ route('patient.update',$patient->id) }}" method="POST" role="form" onsubmit="return checkFormAddPAtient(this);">
 	{{ csrf_field() }}
-	{{ method_field('PUT') }}
+	  {{ method_field('PUT') }}
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="form-group" id="error" aria-live="polite">
@@ -111,16 +124,18 @@
 	 	<li class=" @if($patient->Type =="5") active  @endif" ><a data-toggle="tab" href="#Patient">
 	   	 	<span class="bigger-130"><strong>Patient</strong></span></a>
 	   	</li>
-		 {{-- <li  id ="hommelink" @if(count($correspondants) == 0)  class="invisible" @endif><a data-toggle="tab" href="#Homme">
+		 <li  id ="hommelink" @if(count($correspondants) == 0)  class="invisible" @endif><a data-toggle="tab" href="#Homme">
 		  	<span class="bigger-130"><strong>Garde Malde/Homme de Confiance</strong></span></a>
-		  </li> --}}
+		  </li>
 	</ul>	
   <div class="tab-content">
   	<div id="Assure" class='tab-pane fade @if($patient->Type =="5") invisible @else in active  @endif '>
-    	@include('assurs.editAssure')
+    	@isset($assure)
+    		@include('assurs.editAssure')
+    	@endisset
     </div>
-	<div id="Patient" class="tab-pane fade @if($patient->Type =="5")   in active  @endif">@include('patient.editPatient')</div>
-  	{{-- <div id="Homme" class="tab-pane fade hidden_fields"><div class="row">@include('corespondants.widget')</div></div> --}}
+	  <div id="Patient" class="tab-pane fade @if($patient->Type =="5")   in active  @endif">include('patient.editPatient')</div>
+  	<div id="Homme" class="tab-pane fade hidden_fields"><div class="row">@include('corespondants.widget')</div></div>
   </div> {{-- tab-content --}}<div class="hr hr-dotted"></div>
 	<div class="row">
 		<div class="center"><br>
@@ -128,5 +143,5 @@
 			<button class="btn btn-default btn-sm" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 		</div>
 	</div>
-</form>
+	</form><div class="row">@include('corespondants.add')</div>
 @endsection

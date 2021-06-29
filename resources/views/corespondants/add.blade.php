@@ -119,7 +119,7 @@
 		 			<div class="col-sm-6">
 						<div>
 							<i class="fa fa-map-marker light-orange bigger-110"></i><label for="adresse"><b>Adresse :</b></label>
-							<textarea class="form-control" id="adresse_h" name="adresse_h" placeholder="Adresse..." required></textarea>
+							<input class="form-control" id="adresse_h" name="adresse_h" placeholder="Adresse..." />
 						</div>
 					</div>
 					<div class="col-sm-1"></div>
@@ -127,7 +127,7 @@
 							<div class="form-group col-sm-8">
 								<i class="fa fa-phone"></i><label for="mobile_h"><b>Mob : </b></label>
 								<br/>
-								<input type="tel" id="mobile_h" name="mobile_h" placeholder="XX-XX-XX-XX-XX" maxlength="10" minlength="10"  pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"  class="col-sm-12 " required>
+								<input type="tel" id="mobile_h" name="mobile_h" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"  class="col-sm-12 mobile" required>
 								<span class="tel validity"></span>
 							</div>
 					</div>			
@@ -137,8 +137,8 @@
 			</div>
 			<div class="modal-footer">
 				<button type="submit" class="btn btn-info btn-sm btn-submit" id ="EnregistrerGardeMalade" value="add"> <i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
-       			<button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-close bigger-110"></i>Fermer</button>
-        		</div>	
+      	<button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-close bigger-110"></i>Fermer</button>
+      </div>	
 		</div>
 	</div>
 </div>

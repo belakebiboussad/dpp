@@ -24,6 +24,6 @@ class demand_produits extends Model
     }
     public function demandeur()
     {
-        return $this->belongsTo('App\modeles\employ', 'id_employe');
+      return $this->belongsTo('App\modeles\employ', 'id_employe');
     }
 }
