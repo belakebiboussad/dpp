@@ -1,16 +1,6 @@
 @extends('app_laboanalyses')
 @section('page-script')
 <script>
-  $(function(){
-    $(".open-AddCRBilog").click(function () {
-        // $('#examId').val($(this).data('id'));
-        // jQuery('#CRRForm').trigger("reset");
-        // jQuery('#crrSave').val("add");
-        // $('#addCRRDialog').modal('show');
-        alert($(this).data('id'));
-    });
-  })
-
   $('document').ready(function(){
     $("button").click(function (event) {
          which = '';
@@ -53,7 +43,7 @@
         <div class="row">
           <div class="col-xs-12">
             <div class="user-profile row">
-              <div class="col-xs-12 col-sm-3 center">
+            <div class="col-xs-12 col-sm-3 center">
               <div class="profile-user-info profile-user-info-striped">
                 <div class="profile-info-row">
                   <div class="profile-info-name">Date : </div>
@@ -65,9 +55,9 @@
                   @endif 
                   </span></div>
                 </div>
-              </div><!-- striped -->
+              </div>
               <div class="profile-user-info profile-user-info-striped">
-                 <div class="profile-info-row">
+                <div class="profile-info-row">
                   <div class="profile-info-name">Etat :</div>
                   <div class="profile-info-value">
                       @if($demande->etat == null)
@@ -80,30 +70,26 @@
                       </span>
                   </div>
                 </div>
-              </div><!-- striped   -->
-              <div class="profile-user-info profile-user-info-striped">
                 <div class="profile-info-row">
                   <div class="profile-info-name"> Demandeur : </div>
                   <div class="profile-info-value">
                     <span class="editable" id="username">{{ $medecin->nom }} {{ $medecin->prenom }}</span>
                   </div>
                 </div>
-              </div><!-- striped   -->
-            </div><!-- col-xs-12 col-sm-3 center   -->
-            </div><br/><!-- user-profile row -->
-            <form class="form-horizontal" method="POST" action="/uploadresultat" enctype="multipart/form-data">
-            {{ csrf_field() }}
-            <input type="text" name="id_demande" value="{{ $demande->id }}" hidden>
+              </div><!-- profile-user-info  -->
+            </div>
+            </div><br>
             <div class="user-profile row">
-              <div class="col-xs-12 col-sm-12 center">
-                <table class="table table-striped table-bordered">
+            <form class="form-horizontal" method="POST" action="/uploadresultat" enctype="multipart/form-data">
+              {{ csrf_field() }}
+              <input type="text" name="id_demande" value="{{ $demande->id }}" hidden>
+              <table class="table table-striped table-bordered">
                 <thead>
                   <tr>
                     <th class="center" width="5%">#</th>
-                    <th class="center" width="30%">Nom Examen</th>
-                    <th class="center" width="15%">Class Examen</th>
-                    <th class="center" width="40%">Attacher le Résultat:</th>
-                    <th class="center" width="10%"><em class="fa fa-cog"></em></th>
+                    <th class="center" width="35%">Nom Examen</th>
+                    <th class="center" width="20%">Nom Examen</th>
+                    <th class="center" width="40%"><em class="fa fa-cog"></em></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -113,35 +99,35 @@
                     <td>{{ $exm->nom_examen }}</td>
                     <td>{{ $exm->Specialite->specialite }}</td>
                     @if($loop->first)
-                    <td rowspan ="{{ $demande->examensbios->count()}}" class="center align-middle">
-                        <input type="file" class="form-control" id="resultat" name="resultat" alt="Résultat du l'éxamen" accept="image/*,.pdf" required/> 
+                    <td rowspan ="{{ $demande->examensbios->count()}}" class="center">
+                      <label class="control-label no-padding-right" for="resultat"><strong> Attacher le Résultat: </strong></label>
+                      <!-- <div class="form-group"></div>  -->
+                      <input type="file" class="form-control" id="resultat" name="resultat" alt="Résultat du l'éxamen" accept="image/*,.pdf" required/> 
                     </td>
-                    @endif
-                    @if($loop->first)
-                    <td rowspan ="{{ $demande->examensbios->count()}}" class="center align-middle">
-                    <button type="button" class="btn btn-md btn-success open-AddCRBilog" data-toggle="modal" title="ajouter un Compte Rendu" data-id="{{ $demande->id }}" id ="crb-add-{{ $demande->id }}">
-                      <i class="glyphicon glyphicon-plus glyphicon glyphicon-white"></i>
-                    </button>
-                    </td>
-                    @endif 
+                     @endif
                   </tr>
                   @endforeach                         
                 </tbody>
-                </table>
-              </div>
-            </div><br>
-            <div class="row">
-              <div class="col-xs-12 col-sm-12 center">
-                <button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
-               </div>
-            </div>
-          </form>
-          </div><!-- col-xs-12 -->
-        </div><!-- row -->
-        </div><!-- widget-main -->
-      </div><!-- widget-body -->
-    </div><!-- widget-box -->
-  </div><!-- col-xs-12 -->
+      </table>
+      <div class="form-group">
+        <label class="col-sm-3 control-label no-padding-right" for="nom"><strong>Compte Rendu : </strong></label>
+        <div class="col-sm-9"> 
+                <textarea name="crb" name="crb" class="form-control col-xs-12 col-sm-12" placeholder="Compte  rendu des examens" rows=3 ></textarea> 
+        </div>
+      </div>
+      <div class="clearfix form-actions">
+        <div class="col-md-offset-5 col-md-7">
+           <button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  </div>
+  </div><!-- ROW -->
+  
+      </div> <!-- widget-main -->
+      </div> <!-- widget-body -->
+    </div>
+  </div> <!-- col-sm-12 -->
 </div><!-- row -->
-<div class="row jumbotron text-center">@include('examenbio.CRBModal')</div> 
 @endsection

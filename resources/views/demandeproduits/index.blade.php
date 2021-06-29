@@ -110,7 +110,7 @@
 <div class="row">{{-- <h1 style="display: inline;"><strong>Liste des demandes </strong></h1> --}}
 	<div class="col-sm-12 col-md-12"><h3><strong>Rechercher une demande</strong></h3>
 	<div class="pull-right">
-		@if(Auth::user()->is(14))
+		@if(! Auth::user()->is(10))
 		<a href="{{route('demandeproduit.create')}}" class="btn btn-white btn-info btn-bold">
 			<i class="ace-icon fa fa-plus-circle fa-lg bigger-120"></i>Demande
 		</a>

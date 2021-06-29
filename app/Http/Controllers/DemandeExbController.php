@@ -124,20 +124,21 @@ class DemandeExbController extends Controller
     }
     public function uploadresultat(Request $request)
     {
-          $request->validate([
-              'resultat' => 'required',
-          ]);
-          $demande = demandeexb::FindOrFail($request->id_demande);
-          $filename = $request->file('resultat')->getClientOriginalName();
-          $filename =  ToUtf::cleanString($filename);
-          $file = file_get_contents($request->file('resultat')->getRealPath());
-          Storage::disk('local')->put($filename, $file);
-          $demande->update([
-              "etat" => "1",
-              "resultat" =>$filename ,
+      dd($request->all());  
+      $request->validate([
+          'resultat' => 'required',
+      ]);
+      $demande = demandeexb::FindOrFail($request->id_demande);
+      $filename = $request->file('resultat')->getClientOriginalName();
+      $filename =  ToUtf::cleanString($filename);
+      $file = file_get_contents($request->file('resultat')->getRealPath());
+      Storage::disk('local')->put($filename, $file);
+      $demande->update([
+          "etat" => "1",
+          "resultat" =>$filename ,
       ]);
       return  redirect()->action('DemandeExbController@index');//return redirect()->route('homelaboexb');
-       }
+    }
        public function search(Request $request)
       {
         if($request->field != "service")  

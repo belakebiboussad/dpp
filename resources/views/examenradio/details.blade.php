@@ -221,6 +221,7 @@ function CRRSave()
                     cancelButtonColor: '#d33',
                     confirmButtonText: 'Oui',
                     cancelButtonText: "Non",
+                    allowOutsideClick: false,
         }).then((result) => {
           if(!isEmpty(result.value))
           {

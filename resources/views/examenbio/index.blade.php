@@ -209,12 +209,12 @@
 									@endif
 								</td>
 								<td class="center">
-									 <a href="{{ route('demandeexb.show', $demande->id) }}"><i class="fa fa-eye"  class="btn btn-xs btn-secondary"></i></a>
-				    					@if($demande->etat == null)
-				    						<a href="/detailsdemandeexb/{{ $demande->id }}" title="attacher résultat" class="btn btn-xs btn-info">
+									 <a href="{{ route('demandeexb.show', $demande->id) }}" class="btn btn-xs btn-secondary"><i class="fa fa-eye"></i></a>
+			    					@if($demande->etat == null)
+			    					<a href="/detailsdemandeexb/{{ $demande->id }}" title="attacher résultat" class="btn btn-xs btn-info">
 										<i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>
-									</a>
-									@endif	
+										</a>
+										@endif	
 								</td>
 							</tr>
 						@endforeach
