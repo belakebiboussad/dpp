@@ -11,7 +11,7 @@
 <div class="tabbable"  class="user-profile">
 	<ul class="nav nav-tabs padding-18">
 		<li class="active"><a data-toggle="tab" href="#hospi"><strong>Hospitalisation</strong></a></li>
-		@if(in_array(Auth::user()->role_id,[1,14]))
+		@if(in_array(Auth::user()->role_id,[1,3,14]))
 		<li ><a data-toggle="tab" href="#visites"><strong>Visites & Contrôles</strong></a></li>
 		@endif
         @if(in_array(Auth::user()->role_id,[1,14]))
