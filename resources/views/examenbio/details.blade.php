@@ -3,11 +3,11 @@
 <script>
   $(function(){
     $(".open-AddCRBilog").click(function () {
-        // $('#examId').val($(this).data('id'));
-        // jQuery('#CRRForm').trigger("reset");
-        // jQuery('#crrSave').val("add");
-        // $('#addCRRDialog').modal('show');
         alert($(this).data('id'));
+        // $('#examId').val($(this).data('id'));
+        jQuery('#CRBForm').trigger("reset");
+        jQuery('#crbSave').val("add");
+        $('#addCRBDialog').modal('show');
     });
   })
 
@@ -119,7 +119,7 @@
                     @endif
                     @if($loop->first)
                     <td rowspan ="{{ $demande->examensbios->count()}}" class="center align-middle">
-                    <button type="button" class="btn btn-md btn-success open-AddCRBilog" data-toggle="modal" title="ajouter un Compte Rendu" data-id="{{ $demande->id }}" id ="crb-add-{{ $demande->id }}">
+                    <button type="button" class="btn btn-md btn-success open-AddCRBilog" data-toggle="modal" title="ajouter un Compte Rendu" data-id="{{ $demande->id }}" id ="crb-add-{{ $demande->id }}" @if( isset($exm->pivot->crb)) hidden @endif">
                       <i class="glyphicon glyphicon-plus glyphicon glyphicon-white"></i>
                     </button>
                     </td>
