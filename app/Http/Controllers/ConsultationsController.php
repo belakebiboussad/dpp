@@ -156,12 +156,11 @@ class ConsultationsController extends Controller
         }
         if($request->exm  != null && (count($request->exm) >0 ))//save ExamBiolo
         {
-            dd(count($request->exm));
-            $demandeExamBio = new demandeexb;
-            $consult->demandeexmbio()->save($demandeExamBio);
-            foreach($request->exm as $id_exb) {
-              $demandeExamBio->examensbios()->attach($id_exb);
-            }
+          $demandeExamBio = new demandeexb;
+          $consult->demandeexmbio()->save($demandeExamBio);
+          foreach($request->exm as $id_exb) {
+            $demandeExamBio->examensbios()->attach($id_exb);
+          }
         }
         if(!empty($request->ExamsImg) && count(json_decode($request->ExamsImg)) > 0)
         {

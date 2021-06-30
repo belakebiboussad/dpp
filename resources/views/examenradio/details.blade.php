@@ -54,39 +54,30 @@
               }
         })
 }
-
-function ComptRRPrint1()
-{
-  var img = new Image(); // img.src = '{{ asset("/img/logo.png") }}'; // alert('{{ Session::get("etabLogo") }}');
-  img.src = "/img/"+'{{ Session::get("etabLogo") }}';
-    img.onload = function () {
-      CRRPrint(img);
-    };
-}
 function CRRPrint()
 {
-       var indication = $("#indication").val();
-       $("#indicationPDF").text(indication);
-       var techRea = $("#techRea").val();
-       $("#techReaPDF").text(techRea);
-       var result  = $("#result").val();
-       $("#resultPDF").text(result);
-       var conclusion = $("#conclusion").val();
-       $("#conclusionPDF").text(conclusion);// Get the element to print
-      $("#pdfContent").removeClass('invisible'); 
-        var element = document.getElementById('pdfContent');
-       var options = {
-            filename: 'crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+".pdf"
-       };
-       var exporter = new html2pdf(element, options);// Create instance of html2pdf class
-       $("#pdfContent").addClass('invisible');
-       exporter.getPdf(true).then((pdf) => {// Download the PDF or...
-             console.log('pdf file downloaded');
-       });
-      exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it
-            console.log('doing something before downloading pdf file');
-              pdf.save();
-      });
+   var indication = $("#indication").val();
+   $("#indicationPDF").text(indication);
+   var techRea = $("#techRea").val();
+   $("#techReaPDF").text(techRea);
+   var result  = $("#result").val();
+   $("#resultPDF").text(result);
+   var conclusion = $("#conclusion").val();
+   $("#conclusionPDF").text(conclusion);// Get the element to print
+  $("#pdfContent").removeClass('hidden');// invisible
+    var element = document.getElementById('pdfContent');
+   var options = {
+        filename: 'crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+".pdf"
+   };
+   var exporter = new html2pdf(element, options);// Create instance of html2pdf class
+   $("#pdfContent").addClass('hidden');//invisible
+   exporter.getPdf(true).then((pdf) => {// Download the PDF or...
+         console.log('pdf file downloaded');
+   });
+  exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it
+        console.log('doing something before downloading pdf file');
+          pdf.save();
+  });
 }
 function CRRSave()
 {
@@ -294,7 +285,7 @@ function CRRSave()
 <div class="space-12 hidden-xs"></div>
 <input type="hidden" id ="id_demandeexr" value="{{ $demande->id }}">
 <div class="row">
-<div class="col-xs-12 col-sm-9">
+<div class="col-xs-12 col-sm-11">
 <div class="row">
   <div class="col-xs-12 col-sm-12">
     <div class="col-sm-6"><label class="control-label pull-right"><b>Date :</b></label></div>
@@ -412,23 +403,22 @@ function CRRSave()
     </div>
   </div> 
 </div><!-- row tabel  -->
-</div><!-- col-sm-8 -->
-      <div class="col-xs-12 col-sm-3"><div id="pdfContent" class="invisible">@include('examenradio.EtatsSortie.crrClient')</div></div>
+</div><!-- col-sm-9 -->
+  <div class="col-xs-12 col-sm-1">
+    <div id="pdfContent" class="hidden">@include('examenradio.EtatsSortie.crrClient')</div></div><!-- invisible -->
 </div>
 <div class="space-12 hidden-xs"></div>
 <div class="row" style="bottom:0px;">
-  <div class="col-sm-12" >
+  <div class="col-sm-12">
     <form class="form-horizontal" method="POST" action="/uploadexr" enctype="multipart/form-data">
     {{ csrf_field() }}
     <input type="text" name="id_demande" value="{{ $demande->id }}" hidden>
-      <div class="clearfix form-actions">
       <div class="col-md-offset-5 col-md-7">
         <button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>&nbsp;Enregistrer</button>
         <a class="btn btn-warning" href="{{ URL::previous() }}"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</a>
       </div>
-    </div>
     </form>
   </div>
 </div>
-<div class="row jumbotron text-center">@include('examenradio.CRRModal')</div> 
+<div class="row text-center">@include('examenradio.CRRModal')</div> 
 @endsection

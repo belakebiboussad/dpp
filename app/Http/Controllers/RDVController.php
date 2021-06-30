@@ -105,16 +105,16 @@ class RDVController extends Controller
      */
       public function store(Request $request)
       {
-            $request->validate([
-                "daterdv"=> 'required',
-            ]);
-            $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
-            $rdv = rdv::firstOrCreate([
-              "Date_RDV"=>$request->daterdv,
-              "Employe_ID_Employe"=>Auth::user()->employee_id,
-              "patient_id"=>$request->id_patient//"Etat_RDV"=> "en attente", 
-            ]);
-            return redirect()->route("rdv.show",$rdv->id);
+        $request->validate([
+            "daterdv"=> 'required',
+        ]);
+        $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
+        $rdv = rdv::firstOrCreate([
+          "Date_RDV"=>$request->daterdv,
+          "Employe_ID_Employe"=>Auth::user()->employee_id,
+          "patient_id"=>$request->id_patient//"Etat_RDV"=> "en attente", 
+        ]);
+        return redirect()->route("rdv.show",$rdv->id);
     }
     /**
      * Display the specified resource.
@@ -159,10 +159,12 @@ class RDVController extends Controller
      * @return \Illuminate\Http\Response
      */
       public function update(Request $request, $id)
-      { //$fixe=1;
+      { 
+        $fixe=1;
         $rdv = rdv::FindOrFail($id);//$medecinId = (Auth::user()->role_id == 1 )? $rdv->Employe_ID_Employe: $request->medecin;
         $specId = (Auth::user()->role_id == 1 )? Auth::user()->employ->specialite : $request->specialite;
-        $fixe =  (isset($request->fixe)) ? 1: 0;
+        if(Auth::user()->role_id == 1 )
+          $fixe =  (isset($request->fixe)) ? 1: 0;
         $dateRdv = new DateTime($request->daterdv);
         $dateFinRdv = new DateTime($request->datefinrdv);
         $rdv->update([
@@ -184,17 +186,17 @@ class RDVController extends Controller
      */
       public function destroy(Request $request, $id)
       {
-                $rdv = rdv::findOrFail($id); 
-                if($request->ajax())
-                {
-                  $rdv->update(['Etat_RDV'=>0]); //rdv::destroy($id);
-                  return ($rdv);
-                }
-                else
-                {
-                  $rdv->update(['Etat_RDV'=>0]);//rdv::destroy($id);
-                  return redirect()->route('rdv.index'); 
-                } 
+        $rdv = rdv::findOrFail($id); 
+        if($request->ajax())
+        {
+          $rdv->update(['Etat_RDV'=>0]); //rdv::destroy($id);
+          return ($rdv);
+        }
+        else
+        {
+          $rdv->update(['Etat_RDV'=>0]);//rdv::destroy($id);
+          return redirect()->route('rdv.index'); 
+        } 
       }
       public function print(Request $request,$id)
       { 

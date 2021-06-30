@@ -189,14 +189,14 @@
   $('body').on('click', '.edit-trait', function () {//edit traitement
 			  var traitID = $(this).val();
 				$.get('/traitement/'+traitID+'/edit', function (data) {
-					getProducts(1,data.medicament.id_specialite,data.med_id);
-					$('#trait_id').val(data.id);
-					 $("#produit").removeAttr("disabled");
-					$('#TraitCrudModal').html("Editer un Traitement Médical");		
-					$('#specialiteProd').val(data.medicament.id_specialite);
-					$('#posologie').val(data.posologie);/*$.each(data.periodes, function( index, value ){$('#T' + value).prop("checked",true).change();});$('#dureeT').val(data.duree).change();*/
-					jQuery('#EnregistrerTrait').val("update");		
-					jQuery('#traitModal').modal('show');
+						getProducts(1,data.medicament.id_specialite,data.med_id);
+						$('#trait_id').val(data.id);
+						 $("#produit").removeAttr("disabled");
+						$('#TraitCrudModal').html("Editer un Traitement Médical");		
+						$('#specialiteProd').val(data.medicament.id_specialite);
+						$('#posologie').val(data.posologie);/*$.each(data.periodes, function( index, value ){$('#T' + value).prop("checked",true).change();});$('#dureeT').val(data.duree).change();*/
+						jQuery('#EnregistrerTrait').val("update");		
+						jQuery('#traitModal').modal('show');
 		  	});
 	});
 	////----- DELETE a Traitement and remove from the tabele -----////

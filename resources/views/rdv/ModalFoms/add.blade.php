@@ -49,7 +49,7 @@
 			          	<div class="col-sm-6">
 			          		<div class="form-group">
 			          			<label class="col-form-label" for="patient"> <strong>&nbsp; </strong></label>
-			          			<select class="form-control" id="patient" name = "patient" required readonly><!-- @if(isset($patient->id) || (Auth::user()->role_id == 2 )) disabled @endif -->
+			          			<select class="form-control" id="patient" name = "patient" required disabled><!-- @if(isset($patient->id) || (Auth::user()->role_id == 2 )) disabled @endif -->
                         @if(isset($patient))
                           <option value="{{$patient->id}}" selected>{{ $patient->IPP }}-{{ $patient->Nom }}-{{ $patient->Prenom }}</option>
                         @endif

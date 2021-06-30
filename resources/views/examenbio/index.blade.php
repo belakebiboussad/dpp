@@ -124,7 +124,7 @@
 		         			<option selected disabled>Selectionner...</option>
 		         			<option value="">En Cours</option>
 		         			<option value="1">Validé</option>{{-- <option value="0">Rejeté</option> --}}
-	         	     		</select>
+	         	    </select>
 	         		</div>
 	         	</div>
 	         	<div class="col-sm-4">

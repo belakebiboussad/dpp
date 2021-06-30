@@ -357,23 +357,23 @@
         }
         function getProducts(id_gamme, id_spec=0,med_id = 0)
         {
-            var html = '<option value="0">Sélectionner...</option>';
-            $.ajax({
-                url : '/getproduits/'+id_gamme+'/'+id_spec,
-                type : 'GET',
-                dataType : 'json',
-                success : function(data){
-                    $.each(data, function(){
-                      html += "<option value='"+this.id+"'>"+this.nom+"</option>";
-                    });
-                    $('#produit').html(html);
-                    if(med_id != 0)
-                      $('#produit').val(med_id);
-                },
-                error : function(){
-                    console.log('error');
-                }
-            });
+          var html = '<option value="0">Sélectionner...</option>';
+          $.ajax({
+              url : '/getproduits/'+id_gamme+'/'+id_spec,
+              type : 'GET',
+              dataType : 'json',
+              success : function(data){
+                  $.each(data, function(){
+                    html += "<option value='"+this.id+"'>"+this.nom+"</option>";
+                  });
+                  $('#produit').html(html);
+                  if(med_id != 0)
+                    $('#produit').val(med_id);
+              },
+              error : function(){
+                  console.log('error');
+              }
+          });
         }
         $(function () {
           $( "#Position" ).change(function() {
@@ -395,15 +395,15 @@
               switch($(this).val())
               {
                 case "0":
-                  $('#specialite').val(0);
-                  $('#specialite').prop('disabled', 'disabled');
+                  $('#specPrd').val(0);
+                  $('#specPrd').prop('disabled', 'disabled');
                   $('#produit').val(0);
                   $('#produit').prop('disabled', 'disabled');
                   break
                 case "1":
                   if($("#specialiteDiv").is(":hidden"))
                     $("#specialiteDiv").show();
-                  $("#specialite").removeAttr("disabled");
+                  $("#specPrd").removeAttr("disabled");
                   $("#produit").removeAttr("disabled");
                   break;
                 case "2":
@@ -421,7 +421,7 @@
                   break; 
               }
           });
-         $('#specialite').change(function(){
+         $('#specPrd').change(function(){
              if($(this).val() != "0" )
              {
                 $("#produit").removeAttr("disabled");

@@ -111,20 +111,23 @@ class DemandeExbController extends Controller
     }
     public function detailsdemandeexb($id)
     {
-       $demande = demandeexb::FindOrFail($id);
-        if(isset($demande->consultation))
-        {// $patient = $demande->consultation->patient;
-          $medecin =  $patient = $demande->consultation->docteur ;     
-        }
-        else
-        {// $patient = $demande->visite->hospitalisation->patient;
-          $medecin =  $patient = $demande->visite->medecin ;   
-        }
-       return view('examenbio.details', compact('demande','patient','medecin'));
+      $demande = demandeexb::FindOrFail($id);
+      $etablissement = Etablissement::first();
+      if(isset($demande->consultation))
+      {
+        $medecin =  $patient = $demande->consultation->docteur ;     
+        $patient = $demande->consultation->patient;
+      }
+      else
+      {
+        $medecin =  $patient = $demande->visite->medecin ;   
+        $patient = $demande->visite->hospitalisation->patient;   
+      }
+      return view('examenbio.details', compact('demande','patient','medecin','etablissement'));
     }
     public function uploadresultat(Request $request)
     {
-      dd($request->all());  
+      dd($request->all());
       $request->validate([
           'resultat' => 'required',
       ]);
@@ -136,6 +139,7 @@ class DemandeExbController extends Controller
       $demande->update([
           "etat" => "1",
           "resultat" =>$filename ,
+          "crb"  => $request->crb
       ]);
       return  redirect()->action('DemandeExbController@index');//return redirect()->route('homelaboexb');
     }

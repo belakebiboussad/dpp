@@ -11,5 +11,4 @@ class examenbiologique extends Model
   {
   	 return $this->belongsTo('App\modeles\specialite_exb','id_specialite_exb');
   }
-
 }

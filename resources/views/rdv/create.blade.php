@@ -15,8 +15,8 @@
   </style>
 @endsection
 @section('page-script')
-<script type="text/javascript" src="http://192.168.1.60:90/Scripts/jquery.signalR-1.1.3.min.js" onerror="console.log('error signalR!');" onload="loaded=true;"></script>
-<script type="text/javascript" src="http://192.168.1.60:90/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script>
+<!-- <script type="text/javascript" src="http://192.168.1.60:90/Scripts/jquery.signalR-1.1.3.min.js" onerror="console.log('error signalR!');" onload="loaded=true;"></script>
+<script type="text/javascript" src="http://192.168.1.60:90/myhubs/hubs" onerror="console.log('error hubs!');loaded=false;" onload="loaded=true;"></script> -->
 <script>
 var rdvs = @json($rdvs);
 var loaded;
@@ -88,7 +88,7 @@ $(function () {
   $( "#filtre" ).change(function() {
     resetPatin();//resetaddModIn();//var field = $("select#filtre option").filter(":selected").val();
     $("#btnSave").attr("disabled", true);
-    if($(this).val() != '' &&($("#patient").prop('disabled') == true))
+    if($(this).val() != '' && ( $("#patient").prop('disabled') == true))
       $("#patient").prop('disabled',false);
   });
 });
@@ -255,11 +255,13 @@ $(document).ready(function() {
     $("#patient").on("keyup", function() {
         getPatient(); 
     });/* $( "#medecin" ).change(function() { if($('#patient').val())  $("#btnSave").removeAttr("disabled");   });*/
-     $( "#specialite" ).change(function() {
+    $( "#specialite" ).change(function() {
         if("#specialite" != '') 
         {
           if($("#filtre").prop('disabled') == true)
+          {
             $("#filtre").prop('disabled',false);
+          }
           else
           {
             $("#filtre").val('');
@@ -274,7 +276,7 @@ $(document).ready(function() {
           $("#filtre").prop('disabled',true);  
         }
         });
-      });
+  });
 </script>
 @endsection
 @section('main-content')

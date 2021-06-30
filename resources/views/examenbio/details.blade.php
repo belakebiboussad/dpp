@@ -1,13 +1,35 @@
 @extends('app_laboanalyses')
+@section('style')
+@endsection
 @section('page-script')
 <script>
   function CRBave()
-  {  //$('form#cerbForm').append(
+  { //$('form#cerbForm').append(document.getElementById("crbm"));
     $("#crb").val($("#crbm").val());
   }
+  function CRBPrint()
+  {
+      var crbm = $("#crbm").val();
+      $("#crbPDF").text(crbm);
+      $("#pdfContent").removeClass('hidden');//$("#pdfContent").prop('hidden', '');
+      var element = document.getElementById('pdfContent');
+      $("#pdfContent").removeAttr('disabled');
+      var options = {
+            filename: 'crb-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+".pdf"
+      };
+      var exporter = new html2pdf(element, options);// Create instance of html2pdf class
+      $("#pdfContent").addClass('hidden');//$("#pdfContent").prop('hidden', 'hidden');
+      $("#pdfContent").removeAttr('disabled');
+       exporter.getPdf(true).then((pdf) => {// Download the PDF or...
+             console.log('pdf file downloaded');
+       });
+      exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it
+        console.log('doing something before downloading pdf file');
+        pdf.save();
+      });
+  }
   $(function(){
-    $(".open-AddCRBilog").click(function () {
-        jQuery('#CRBForm').trigger("reset");
+    $(".open-AddCRBilog").click(function () {//jQuery('#CRBForm').trigger("reset");
         jQuery('#crbSave').val("add");
         $('#addCRBDialog').modal('show');
     });
@@ -27,13 +49,7 @@
 </script>
 @endsection
 @section('main-content')
- <?php
-   if(isset($demande->id_consultation))
-      $patient = $demande->consultation->patient;
-  else
-    $patient = $demande->visite->hospitalisation->patient;
-  ?>
- <div class="row" width="100%"> @include('patient._patientInfo',$patient) </div>
+<div class="row" width="100%"> @include('patient._patientInfo',$patient) </div>
 <div class="row">
   <div class="col-md-5 col-sm-5"><h3>Demande d'examen biologique</h3></div>
   <div class="col-md-7 col-sm-7">
@@ -46,7 +62,7 @@
   </div>
 </div><hr>
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-xs-11">
     <div class="widget-box">
       <div class="widget-header"><h4 class="widget-title">Détails de la demande :</h4></div>
       <div class="widget-body">
@@ -121,15 +137,9 @@
                     @endif
                     @if($loop->first)
                     <td rowspan ="{{ $demande->examensbios->count()}}" class="center align-middle">
-                    @if($demande->crb != "")
                       <button type="button" class="btn btn-md btn-success open-AddCRBilog" data-toggle="modal" title="ajouter un Compte Rendu" data-id="{{ $demande->id }}" id ="crb-add-{{ $demande->id }}" @if( isset($exm->pivot->crb)) hidden @endif">
                         <i class="glyphicon glyphicon-plus glyphicon glyphicon-white"></i>
                       </button>
-                    @else
-                      <button type="button" class="btn btn-md btn-success open-AddCRBilog" data-toggle="modal" title="ajouter un Compte Rendu" data-id="{{ $demande->id }}" id ="crb-add-{{ $demande->id }}" @if( isset($exm->pivot->crb)) hidden @endif">
-                         <i class="glyphicon glyphicon-edit glyphicon glyphicon-white"></i>
-                      </button>
-                    @endif
                     </td>
                     @endif 
                   </tr>
@@ -150,6 +160,7 @@
       </div><!-- widget-body -->
     </div><!-- widget-box -->
   </div><!-- col-xs-12 -->
+  <div class="col-xs-1"><div id="pdfContent" class="hidden">@include('examenbio.EtatsSortie.crbClient')</div></div>
 </div><!-- row -->
-<div class="row jumbotron text-center">@include('examenbio.CRBModal')</div> 
+<div class="row text-center">@include('examenbio.CRBModal')</div> 
 @endsection
