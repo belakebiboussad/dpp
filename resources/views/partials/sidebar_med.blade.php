@@ -92,7 +92,7 @@
           </a><b class="arrow"></b>
           <ul class="submenu">
             <li>
-              <a href="{{ route('demandeproduit.create') }}"><i class="menu-icon fa fa-plus purple"></i>Demande Produit</a>
+              <a href="{{ route('demandeproduit.create') }}"><i class="menu-icon fa fa-plus purple"></i>Demande produit</a>
               <b class="arrow"></b>
             </li>
           </ul>
@@ -107,7 +107,7 @@
         <b class="arrow"></b>
         <ul class="submenu">
           <li class="">
-            <a href="{{ route('demandeproduit.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter demande</a><b class="arrow"></b>
+            <a href="{{ route('demandeproduit.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter une demande</a><b class="arrow"></b>
           </li>
           <li>
             <a href="{{ route('demandeproduit.index') }}"><i class="menu-icon fa fa-eye pink"></i> Liste des demandes</a>

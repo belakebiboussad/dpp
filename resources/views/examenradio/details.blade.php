@@ -179,7 +179,7 @@ function CRRSave()
       {
         Swal.fire({
               title: 'Compte Rendue ?',
-              html: '<br/><h4><strong>'+'Voulez-Vous ajouter un Compte Rendue ?'+'</strong></h4>',
+              html: '<br/><h4><strong>'+'Voulez-vous ajouter un compte rendue ?'+'</strong></h4>',
               icon: 'info',
               type:'info',
               showCancelButton: true,
@@ -261,7 +261,7 @@ function CRRSave()
         event.preventDefault();
         $('#examId').val($(this).data('id'));
         var crr_id = $(this).val();
-        $('#crrModalTitle').html('Editer un Compte Rendue Radiologique');
+        $('#crrModalTitle').html('Editer un compte rendue radiologique');
         $.get('/crrs/' + crr_id + '/edit', function (data) { 
           $('#crrId').val(data.id);
           $('#indication').val(data.indication);
@@ -278,7 +278,7 @@ function CRRSave()
 @section('main-content')
 <div class="row" width="100%">@include('patient._patientInfo')</div>
 <div class="row">
-    <div class="col-md-5 col-sm-5"><h3>  Demande d'examen radiologique</h3></div>
+    <div class="col-md-5 col-sm-5"><h4> <strong>Demande d'examen radiologique</strong></h4></div>
     <div class="col-md-7 col-sm-7">
       <a href="/drToPDF/{{ $demande->id }}" target="_blank" class="btn btn-sm btn-primary pull-right">
 
@@ -296,7 +296,7 @@ function CRRSave()
 <div class="col-xs-12 col-sm-9">
 <div class="row">
   <div class="col-xs-12 col-sm-12">
-    <div class="col-sm-6"><label class="control-label pull-right"><b>Date :</b></label></div>
+    <div class="col-sm-6"><label class=""><b>Date :</b></label></div>
     <div class="form-group col-sm-6">
       <label class="blue">
       @if(isset($demande->consultation))
@@ -310,7 +310,7 @@ function CRRSave()
 </div>
  <div class="row">
   <div class="col-xs-12 col-sm-12">
-    <div class="col-sm-6"><label class="control-label pull-right"><b>Médecin demandeur :</b></label></div>  
+    <div class="col-sm-6"><label class=""><b>Médecin demandeur :</b></label></div>  
     <div class="form-group col-sm-6">
       <label class="blue">
       @if(isset($demande->consultation))
@@ -324,25 +324,25 @@ function CRRSave()
 </div>
 <div class="row">
   <div class="col-xs-12 col-sm-12">
-    <div class="col-sm-6"><label class="control-label pull-right"><b>Informations cliniques pertinentes :</b></label></div>
+    <div class="col-sm-6"><label class=""><b>Informations cliniques pertinentes :</b></label></div>
      <div class="form-group col-sm-6"><label class="blue">{{ $demande->InfosCliniques }}</label></div>
     </div>
 </div>
 <div class="row">
   <div class="col-xs-12 col-sm-12">
-    <div class="col-sm-6"><label class="control-label pull-right"><b>Explication de la demande de diagnostic :</b></label></div>
+    <div class="col-sm-6"><label class=""><b>Explication de la demande de diagnostic :</b></label></div>
     <div class="form-group col-sm-6"><label class="blue"> {{ $demande->Explecations }} </label> </div>
   </div>
 </div>
 <div class="row">
   <div class="col-xs-12 col-sm-12">
-    <div class="col-sm-6"><label class="control-label pull-right"><b>Explication de la demande de diagnostic :</b></label></div>
+    <div class="col-sm-6"><label class=""><b>Explication de la demande de diagnostic :</b></label></div>
     <div class="form-group col-sm-6"><label class="blue"> {{ $demande->Explecations }} </label> </div>
   </div>
 </div>
 <div class="row">
   <div class="col-xs-12 col-sm-12">
-    <div class="col-sm-6"><label class="control-label pull-right"><b>Informations supplémentaires pertinentes :</b></label></div>
+    <div class="col-sm-6"><label class=""><b>Informations supplémentaires pertinentes :</b></label></div>
     <div class="form-group col-sm-6">
       <label class="blue">
       <ul class="list-inline"> 

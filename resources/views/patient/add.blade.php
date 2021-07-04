@@ -59,7 +59,7 @@
 @section('main-content')
 <div class="container-fluid">
   <div>
-  	<h3><strong>Ajouter un nouveau patient</strong></h3>
+  	<h4><strong>Ajouter un nouveau patient</strong></h4>
   	<div class="pull-right">
 			<a href="{{route('patient.index')}}" class="btn btn-white btn-info btn-bold">
 				<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i> Rechercher un patient

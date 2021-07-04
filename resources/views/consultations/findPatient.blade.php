@@ -1,7 +1,7 @@
 
 	<div class="panel panel-default">
-			<div class="panel-heading left" style="height: 40px;">
-				<strong>Rechercher un patient</strong>
+			<div class="panel-heading left" style="height: 50px;background-color: #F6E3CE;">
+				<h5><strong>Rechercher un patient</strong></h5>
 			</div>
 			<div class="panel-body">
 				<div class="row">
