@@ -35,12 +35,12 @@ class CRRControler extends Controller
               return Response::json($crr);
  	}
  	public function update(Request $request, $id)
-  {
-        $crr = CRR::find($id);
-        $crr->update($request->all()); 
-        $crr->save();
-        return Response::json($crr);  
-  }
+       {
+              $crr = CRR::find($id);
+              $crr->update($request->all()); 
+              $crr->save();
+              return Response::json($crr);  
+       }
   public function print(Request $request)
   {
         $opciones_ssl=array( "ssl"=>array( "verify_peer"=>false, "verify_peer_name"=>false,),);

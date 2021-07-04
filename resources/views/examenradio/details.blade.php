@@ -56,24 +56,24 @@
 }
 function CRRPrint()
 {
-/*var indication = $("#indication").val();$("#indicationPDF").text(indication);var techRea = $("#techRea").val();$("#techReaPDF").text(techRea);var result  = $("#result").val();
-  $("#resultPDF").text(result);*/
-  var conclusion = $("#conclusion").val();
-  $("#conclusionPDF").text(conclusion);// Get the element to print
-  $("#pdfContent").removeClass('hidden');// invisible
-  var element = document.getElementById('pdfContent');
-  var options = {
-    filename: 'crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+".pdf"
-  };
-  var exporter = new html2pdf(element, options);// Create instance of html2pdf class
-  $("#pdfContent").addClass('hidden');//invisible
-  exporter.getPdf(true).then((pdf) => {// Download the PDF or...
-    console.log('pdf file downloaded');
-  });
-  exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it
-    console.log('doing something before downloading pdf file');
-    pdf.save();
-  });
+        /*var indication = $("#indication").val();$("#indicationPDF").text(indication);var techRea = $("#techRea").val();$("#techReaPDF").text(techRea);var result  = $("#result").val();$("#resultPDF").text(result);*/
+        var conclusion = $("#conclusion").val();
+        alert(conclusion);
+        $("#conclusionPDF").text(conclusion);// Get the element to print
+        $("#pdfContent").removeClass('hidden');// invisible
+        var element = document.getElementById('pdfContent');
+        var options = {
+          filename: 'crr-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+".pdf"
+        };
+        var exporter = new html2pdf(element, options);// Create instance of html2pdf class
+        $("#pdfContent").addClass('hidden');//invisible
+        exporter.getPdf(true).then((pdf) => {// Download the PDF or...
+          console.log('pdf file downloaded');
+        });
+        exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it
+          console.log('doing something before downloading pdf file');
+          pdf.save();
+        });
 }
 function CRRSave()
 {
@@ -83,11 +83,9 @@ function CRRSave()
             }
       });
       var formData = {
-       demande_id:'{{$demande->id}}',
+        demande_id:'{{$demande->id}}',
         exam_id:$("#examId").val(),
-        indication:$("#indication").val(),
-        techRea:$("#techRea").val(),
-        result:$("#result").val(),
+       /* indication:$("#indication").val(),techRea:$("#techRea").val(),result:$("#result").val(),*/
         conclusion:$("#conclusion").val(),  
       };
       var state = jQuery('#crrSave').val();

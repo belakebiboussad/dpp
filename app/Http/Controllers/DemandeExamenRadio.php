@@ -146,7 +146,6 @@ class DemandeExamenRadio extends Controller
     public function show($id)
     {      
       $demande = demandeexr::FindOrFail($id);
-      //dd($demande);
       if(isset($demande->consultation))
         $patient = $demande->consultation->patient;
       else
