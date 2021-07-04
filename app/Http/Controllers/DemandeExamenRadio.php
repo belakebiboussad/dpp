@@ -41,33 +41,33 @@ class DemandeExamenRadio extends Controller
        }
       public function upload(Request $request)
       {
-             $demande = demandeexr::with('examensradios','consultation','visite')->FindOrFail($request->id_demandeexr);
-             if($request->TotalFiles >0) { 
-                    if(isset($demande->visite))
-                          $patient = $demande->visite->hospitalisation->patient;
-                    else
-                           $patient = $demande->consultation->patient;
-                    foreach ($demande->examensradios as $key => $exam)
-                    {
-                          if( $exam->pivot->id_examenradio == $request->id_examenradio)
-                          {
-                                for ($x = 0; $x < $request->TotalFiles; $x++) 
-                                {
-                                        if ($request->hasFile('files'.$x)) 
-                                        {
-                                              $file = $request->file('files'.$x);
-                                              $namefile = $file->getClientOriginalName();//$file->move(public_path().'/Patients/'.$patient->Nom.$patient->Prenom.'/examsRadio/'.$request->id_demandeexr.'/'.$request->id_examenradio.'/', $namefile);
-                                              $file->move(public_path().'/Patients/'.$patient->id.'/examsRadio/'.$request->id_demandeexr.'/'.$request->id_examenradio.'/', $namefile);
-                                              $data[] = $namefile;
-                                        }
-                                 }
-                                $exam->pivot->resultat = json_encode($data,JSON_FORCE_OBJECT);
-                                $exam->pivot->etat = 1;
-                                $exam->pivot->save();
-                          }
-                    }
-                    return Response()->json([ "rowID" => $request->id_examenradio, ]);
-            }//if
+         $demande = demandeexr::with('examensradios','consultation','visite')->FindOrFail($request->id_demandeexr);
+         if($request->TotalFiles >0) { 
+                if(isset($demande->visite))
+                      $patient = $demande->visite->hospitalisation->patient;
+                else
+                       $patient = $demande->consultation->patient;
+                foreach ($demande->examensradios as $key => $exam)
+                {
+                      if( $exam->pivot->id_examenradio == $request->id_examenradio)
+                      {
+                            for ($x = 0; $x < $request->TotalFiles; $x++) 
+                            {
+                                    if ($request->hasFile('files'.$x)) 
+                                    {
+                                          $file = $request->file('files'.$x);
+                                          $namefile = $file->getClientOriginalName();//$file->move(public_path().'/Patients/'.$patient->Nom.$patient->Prenom.'/examsRadio/'.$request->id_demandeexr.'/'.$request->id_examenradio.'/', $namefile);
+                                          $file->move(public_path().'/Patients/'.$patient->id.'/examsRadio/'.$request->id_demandeexr.'/'.$request->id_examenradio.'/', $namefile);
+                                          $data[] = $namefile;
+                                    }
+                             }
+                            $exam->pivot->resultat = json_encode($data,JSON_FORCE_OBJECT);
+                            $exam->pivot->etat = 1;
+                            $exam->pivot->save();
+                      }
+                }
+                return Response()->json([ "rowID" => $request->id_examenradio, ]);
+        }//if
       }
       public function examCancel(Request $request)
       {
@@ -99,12 +99,12 @@ class DemandeExamenRadio extends Controller
       }
        public function createexr($id)
       {
-            $infossupp = infosupppertinentes::all();
-              $examens = TypeExam::all();
-              $examensradio = examenradiologique::all();
-              $consultation = consultation::FindOrFail($id);
-              return view('examenradio.demande_exr', compact('consultation','infossupp','examens','examensradio'));
-       }
+        $infossupp = infosupppertinentes::all();
+        $examens = TypeExam::all();
+        $examensradio = examenradiologique::all();
+        $consultation = consultation::FindOrFail($id);
+        return view('examenradio.demande_exr', compact('consultation','infossupp','examens','examensradio'));
+      }
     /**
      * Show the form for creating a new resource.
      *
@@ -145,12 +145,13 @@ class DemandeExamenRadio extends Controller
      */
     public function show($id)
     {      
-          $demande = demandeexr::FindOrFail($id);
-          if(isset($demande->consultation))
-            $patient = $demande->consultation->patient;
-          else
-            $patient = $demande->visite->hospitalisation->patient;
-          return view('examenradio.show', compact('demande','patient'));
+      $demande = demandeexr::FindOrFail($id);
+      //dd($demande);
+      if(isset($demande->consultation))
+        $patient = $demande->consultation->patient;
+      else
+        $patient = $demande->visite->hospitalisation->patient;
+      return view('examenradio.show', compact('demande','patient'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -187,14 +188,20 @@ class DemandeExamenRadio extends Controller
     }
     public function print($id)//imprime
     {
-            $demande = demandeexr::FindOrFail($id); 
-            $etablissement = Etablissement::first();
-            if(isset($demande->consultation))
-              $patient = $demande->consultation->patient;
-            else
-              $patient = $demande->visite->hospitalisation->patient;
-            $filename = "Examens-Radio-".$patient->Nom."-".$patient->Prenom.".pdf";
-            $pdf = PDF::loadView('examenradio.demande_exr', compact('demande','etablissement'));
-            return $pdf->stream($filename);
+      $demande = demandeexr::FindOrFail($id); 
+      $etablissement = Etablissement::first();
+      if(isset($demande->consultation))
+      {
+        $patient = $demande->consultation->patient;
+        $date = $demande->consultation->Date_Consultation;
+      }
+      else
+      {
+        $patient = $demande->visite->hospitalisation->patient;
+        $date = $demande->visite->date;
+      }
+      $filename = "Examens-Radio-".$patient->Nom."-".$patient->Prenom.".pdf";
+      $pdf = PDF::loadView('examenradio.demande_exr', compact('demande','patient','date','etablissement'));
+      return $pdf->stream($filename);
     }
 }

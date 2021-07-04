@@ -1,5 +1,11 @@
 @extends('app_laboanalyses')
 @section('style')
+<style>
+h3.b {
+  word-spacing: 3px !important;
+}
+  
+</style>
 @endsection
 @section('page-script')
 <script>
@@ -9,24 +15,24 @@
   }
   function CRBPrint()
   {
-      var crbm = $("#crbm").val();
-      $("#crbPDF").text(crbm);
-      $("#pdfContent").removeClass('hidden');//$("#pdfContent").prop('hidden', '');
-      var element = document.getElementById('pdfContent');
-      $("#pdfContent").removeAttr('disabled');
-      var options = {
-            filename: 'crb-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+".pdf"
-      };
-      var exporter = new html2pdf(element, options);// Create instance of html2pdf class
-      $("#pdfContent").addClass('hidden');//$("#pdfContent").prop('hidden', 'hidden');
-      $("#pdfContent").removeAttr('disabled');
-       exporter.getPdf(true).then((pdf) => {// Download the PDF or...
-             console.log('pdf file downloaded');
-       });
-      exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it
-        console.log('doing something before downloading pdf file');
-        pdf.save();
-      });
+    var crbm = $("#crbm").val();
+    $("#crbPDF").text(crbm);
+    $("#pdfContent").removeClass('hidden');//$("#pdfContent").prop('hidden', '');
+    var element = document.getElementById('pdfContent');
+    $("#pdfContent").removeAttr('disabled');
+    var options = {
+          filename: 'crb-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+".pdf"
+    };
+    var exporter = new html2pdf(element, options);// Create instance of html2pdf class
+    $("#pdfContent").addClass('hidden');//$("#pdfContent").prop('hidden', 'hidden');
+    $("#pdfContent").removeAttr('disabled');
+     exporter.getPdf(true).then((pdf) => {// Download the PDF or...
+           console.log('pdf file downloaded');
+     });
+    exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it
+      console.log('doing something before downloading pdf file');
+      pdf.save();
+    });
   }
   $(function(){
     $(".open-AddCRBilog").click(function () {//jQuery('#CRBForm').trigger("reset");
@@ -132,14 +138,16 @@
                     <td>{{ $exm->Specialite->specialite }}</td>
                     @if($loop->first)
                     <td rowspan ="{{ $demande->examensbios->count()}}" class="center align-middle">
-                        <input type="file" class="form-control" id="resultat" name="resultat" alt="Résultat du l'éxamen" accept="image/*,.pdf" required/> 
+                      <input type="file" class="form-control" id="resultat" name="resultat" alt="Résultat du l'éxamen" accept="image/*,.pdf" required/> 
                     </td>
                     @endif
                     @if($loop->first)
                     <td rowspan ="{{ $demande->examensbios->count()}}" class="center align-middle">
+                      @if($demande->etat == null)
                       <button type="button" class="btn btn-md btn-success open-AddCRBilog" data-toggle="modal" title="ajouter un Compte Rendu" data-id="{{ $demande->id }}" id ="crb-add-{{ $demande->id }}" @if( isset($exm->pivot->crb)) hidden @endif">
                         <i class="glyphicon glyphicon-plus glyphicon glyphicon-white"></i>
                       </button>
+                      @endif
                     </td>
                     @endif 
                   </tr>

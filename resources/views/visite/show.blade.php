@@ -46,9 +46,7 @@
 								<tr>
 									<th class="center"><strong>Nom</strong></th>
 									<th class="center"><strong>Type</strong></th>
-									<th class="center"><strong>Description</strong></th>
-									<!-- <th class="center"><strong>Periodes</strong></th>
-									<th class="center"><strong>Durée</strong></th> -->
+									<th class="center"><strong>Description</strong></th><!--<th class="center"><strong>Periodes</strong></th><th class="center"><strong>Durée</strong></th> -->
 									<th class="center"><em class="fa fa-cog"></em></th>
 								</tr>
 							</thead>
@@ -118,7 +116,7 @@
       <div id="examsBio" class="tab-pane">
        <div class="col-xs-11 widget-container-col">
 		<div class="widget-box widget-color-pink">
-			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Examens biologiques</h5></div>
+			<div class="widget-header"><h5 class="widget-title bigger"><i class="ace-icon fa fa-table"></i>Examens biologiques</h5></div>
 			<div class="widget-body">
 				<div class="widget-main no-padding">
 				<table class="table table-striped table-bordered table-hover">
@@ -169,9 +167,9 @@
 	@endif
 	@if(isset($demande))
 	<div id="examImg" class="tab-pane row">
-	  <div class="col-lg-6 col-xs-11 widget-container-col">
-			<div class="widget-box widget-color-info">
-				<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Examens Imageries</h5></div>
+	  <div class="col-lg-6 col-xs-11 widget-container-col ">
+			<div class="widget-box widget-color-blue">
+				<div class="widget-header"><h5 class="widget-title bigger"><i class="ace-icon fa fa-table"></i>Examens d'imageries</h5></div>
 				<div class="widget-body">
 					<div class="widget-main no-padding">
 					<table class="table table-striped table-bordered table-hover">

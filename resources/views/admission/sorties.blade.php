@@ -125,8 +125,8 @@
   		</div>
 		</div>
 	</div><!-- panel -->
-	<div class="row"><!-- <div class="col-sm-12"> --><!-- 	</div> -->
-		<div class="widget-box widget-color-blue" id="widget-box-2">
+	<div class="row">
+		<div class="widget-box widget-color-blue">
 			<div class="widget-header">
 				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>
 					Liste des sorties <b><span id="total_records" class = "badge badge-info numberResult" >{{ count($hospitalistions) }}</span></b>

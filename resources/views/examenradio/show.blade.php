@@ -5,7 +5,8 @@
   <div class="row">
     <div class="col-sm-5"><h3> Détails de la demande radiologique</h3></div>
     <div class="col-sm-7 pull-right">
-      <a href="/drToPDF/{{ $demande->consultation->examensradiologiques->id }}" target="_blank" class="btn btn-sm btn-primary pull-right"> <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
+  {{-- <a href="/drToPDF/{{ $demande->consultation->examensradiologiques->id }}" target="_blank" class="btn btn-sm btn-primary pull-right"> <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer--}}
+      a href="/drToPDF/{{ $demande->->id }}" target="_blank" class="btn btn-sm btn-primary pull-right"> <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
       </a>&nbsp;&nbsp;
       <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
     </div>
@@ -56,7 +57,7 @@
 			<div class="row">
 			  <div class="col-xs-12 col-sm-12">
 			    <div class="col-sm-6">
-			      <label class="control-label pull-right"><b>Informations supplémentaires pertinentes :</b></label>
+			      <label class="control-label pull-right"><b>Informations supplémentaires :</b></label>
 			    </div>
 			    <div class="form-group col-sm-6">
 			     	<label class="blue">
