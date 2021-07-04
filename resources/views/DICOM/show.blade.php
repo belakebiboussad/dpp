@@ -111,7 +111,7 @@
   });
 </script>
 <div class="row">
-  <div class="col-sm-4 col-xs-12"><strong>Institusion :</strong><span id="institution"></span></div> 
+  <div class="col-sm-4 col-xs-12"><strong>Institution :</strong><span id="institution"></span></div> 
   <div class="col-sm-4 col-xs-12"><strong>Nom patient :</strong><span id="patientName"></span></div>
   <div class="col-sm-4 col-xs-12"><strong>Code patient :</strong><span id="patientId"></span></div>
 </div>

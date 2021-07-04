@@ -45,7 +45,7 @@ $('document').ready(function(){
 <div class="col-xs-12">
 	<div class="col-xs-12 col-sm-5">
 		<div class="widget-box">
-			<div class="widget-header"><h4 class="widget-title">Sélectionner un produit</h4></div>
+			<div class="widget-header"><h5 class="widget-title"><strong>Sélectionner un produit</strong></h5></div>
 			<div class="widget-body">
 				<div class="widget-main">
 					<div class="row">
@@ -99,7 +99,7 @@ $('document').ready(function(){
 	<div class="col-xs-12 col-sm-7">
 		<div class="widget-box">
 			<div class="widget-header">
-			  <h4 class="widget-title">Produits demandés</h4>
+			  <h5 class="widget-title"><strong>Produits demandés</strong></h5>
 				<div class="widget-toolbar"><a id="deletepod" class="btn btn-xs btn-danger" disabled><i class="ace-icon fa fa-trash-o"></i></a></div>
 			</div>
 			<div class="widget-body">
