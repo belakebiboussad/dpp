@@ -26,18 +26,18 @@ class DemandeExamenRadio extends Controller
      */
         public function index()
         {
-                $demandesexr = demandeexr::with('consultation','visite')->where('etat','E')->get();
-                return view('examenradio.index', compact('demandesexr')); 
+          $demandesexr = demandeexr::with('consultation','visite')->where('etat','E')->get();
+          return view('examenradio.index', compact('demandesexr')); 
         }
         public function details_exr($id)
        {
-             $demande = demandeexr::FindOrFail($id);
-              $etablissement = Etablissement::first();
-              if(isset($demande->consultation))
-                    $patient = $demande->consultation->patient;
-              else
-                    $patient = $demande->visite->hospitalisation->patient;
-               return view('examenradio.details', compact('demande','patient','etablissement'));
+          $demande = demandeexr::FindOrFail($id);
+          $etablissement = Etablissement::first();
+          if(isset($demande->consultation))
+            $patient = $demande->consultation->patient;
+          else
+            $patient = $demande->visite->hospitalisation->patient;
+          return view('examenradio.details', compact('demande','patient','etablissement'));
        }
       public function upload(Request $request)
       {

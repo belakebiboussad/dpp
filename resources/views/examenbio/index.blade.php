@@ -124,7 +124,7 @@
 		         			<option selected disabled>Selectionner...</option>
 		         			<option value="">En Cours</option>
 		         			<option value="1">Validé</option>{{-- <option value="0">Rejeté</option> --}}
-	         	     		</select>
+	         	    </select>
 	         		</div>
 	         	</div>
 	         	<div class="col-sm-4">
@@ -209,12 +209,12 @@
 									@endif
 								</td>
 								<td class="center">
-									 <a href="{{ route('demandeexb.show', $demande->id) }}"><i class="fa fa-eye"  class="btn btn-xs btn-secondary"></i></a>
-				    					@if($demande->etat == null)
-				    						<a href="/detailsdemandeexb/{{ $demande->id }}" title="attacher résultat" class="btn btn-xs btn-info">
+									 <a href="{{ route('demandeexb.show', $demande->id) }}" class="btn btn-xs btn-secondary"><i class="fa fa-eye"></i></a>
+			    					@if($demande->etat == null)
+			    					<a href="/detailsdemandeexb/{{ $demande->id }}" title="attacher résultat" class="btn btn-xs btn-info">
 										<i class="glyphicon glyphicon-upload glyphicon glyphicon-white"></i>
-									</a>
-									@endif	
+										</a>
+										@endif	
 								</td>
 							</tr>
 						@endforeach
@@ -277,7 +277,7 @@
 													</td>
 													<td>
 														@if($demande->etat == null)
-															En Attente
+															En Cours
 														@elseif($demande->etat == "1")
 															Validé
 														@else

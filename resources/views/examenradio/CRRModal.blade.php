@@ -39,8 +39,8 @@
 			<div class="space-12"></div><div class="space-12"></div><div class="space-12"></div>
 		  <div class="modal-footer">
         <button type="submit" class="btn btn-primary btn-sm" id="crrSave" data-dismiss="modal" onclick= "CRRSave();" value="add"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
-        {{--<button type="button" class="btn btn-sm btn-success" onclick="ComptRRPrint()" data-dismiss="modal"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button> --}}
-        <button type="button" class="btn btn-sm btn-success"  id = "" onclick="CRRPrint()" data-dismiss="modal"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button>
+        {{--<button type="button" class="btn btn-sm btn-success" onclick="ComptRRPrint();" data-dismiss="modal"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button> --}}
+        <button type="button" class="btn btn-sm btn-success" onclick="CRRPrint()" data-dismiss="modal"><i class="ace-icon fa fa-print  bigger-110"></i>Imprimer</button>
         <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-close bigger-110"></i>Fermer</button>
       </div>
 		</div>{{-- modal-content --}}

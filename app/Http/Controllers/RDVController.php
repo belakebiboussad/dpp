@@ -33,25 +33,25 @@ class RDVController extends Controller
       }
       public function valider($id)
       {
-              $rdv = rdv::FindOrFail($id);
-              $rdv ->update([
-                  "Etat_RDV"=>"Valider"
-              ]);
-              return redirect()->route("rdv.show",$rdv->id);
+        $rdv = rdv::FindOrFail($id);
+        $rdv ->update([
+            "Etat_RDV"=>"Valider"
+        ]);
+        return redirect()->route("rdv.show",$rdv->id);
       }
       public function reporter($id)
       {
-            $rdv = rdv::FindOrFail($id);
-            $patient = patient::FindOrFail($rdv->patient_id);
-            return view('rdv.reporter_rdv',compact('rdv','patient'));
+        $rdv = rdv::FindOrFail($id);
+        $patient = patient::FindOrFail($rdv->patient_id);
+        return view('rdv.reporter_rdv',compact('rdv','patient'));
       }
       public function storereporte(Request $request,$id)
       {
-              $rdv = rdv::FindOrFail($id);
-              $rdv->update([
-                  "Date_RDV"=>$request->daterdv,
-              ]);
-              return redirect()->route("rdv.show",$rdv->id);
+        $rdv = rdv::FindOrFail($id);
+        $rdv->update([
+            "Date_RDV"=>$request->daterdv,
+        ]);
+        return redirect()->route("rdv.show",$rdv->id);
       }
       public function choixpatient()
       {
@@ -59,15 +59,15 @@ class RDVController extends Controller
       }
       public function index($patientID = null)
       {  
-              if(Auth::user()->role_id == 1)
-              {
-                      $specialite = Auth::user()->employ->specialite;
-                      $rdvs = rdv::with('patient','specialite')->where("specialite_id", $specialite)->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get();
-                      return view('rdv.index', compact('rdvs')); 
-               } else{
-                      $rdvs = rdv::with('patient','specialite')->where("specialite_id",'!=',null)->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get();
-                      return view('rdv.index', compact('rdvs')); 
-            }     
+        if(Auth::user()->role_id == 1)
+        {
+                $specialite = Auth::user()->employ->specialite;
+                $rdvs = rdv::with('patient','specialite')->where("specialite_id", $specialite)->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get();
+                return view('rdv.index', compact('rdvs')); 
+         } else{
+                $rdvs = rdv::with('patient','specialite')->where("specialite_id",'!=',null)->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get();
+                return view('rdv.index', compact('rdvs')); 
+      }     
      }
     /**
      * Show the form for creating a new resource.
@@ -105,16 +105,16 @@ class RDVController extends Controller
      */
       public function store(Request $request)
       {
-            $request->validate([
-                "daterdv"=> 'required',
-            ]);
-            $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
-            $rdv = rdv::firstOrCreate([
-              "Date_RDV"=>$request->daterdv,
-              "Employe_ID_Employe"=>Auth::user()->employee_id,
-              "patient_id"=>$request->id_patient//"Etat_RDV"=> "en attente", 
-            ]);
-            return redirect()->route("rdv.show",$rdv->id);
+        $request->validate([
+            "daterdv"=> 'required',
+        ]);
+        $employe = employ::where("id",Auth::user()->employee_id)->get()->first();
+        $rdv = rdv::firstOrCreate([
+          "Date_RDV"=>$request->daterdv,
+          "Employe_ID_Employe"=>Auth::user()->employee_id,
+          "patient_id"=>$request->id_patient//"Etat_RDV"=> "en attente", 
+        ]);
+        return redirect()->route("rdv.show",$rdv->id);
     }
     /**
      * Display the specified resource.
@@ -137,18 +137,18 @@ class RDVController extends Controller
       {       
         $Rdv = rdv::with('patient','employe')->FindOrFail($id);
         if($request->ajax())
-        {      //$medecins = ($Rdv->specialite)->employes;// $medecins = ($Rdv->employe->Specialite)->employes;
-                $specialites =Specialite::all();//if(isset($Rdv->Employe_ID_Employe)) // return Response::json(['rdv'=>$Rdv,'medecins'=>$medecins]);
-                if(isset($Rdv->specialite_id))
-                       return Response::json(['rdv'=>$Rdv,'specialites'=>$specialites]);
-                else //return Response::json(['rdv'=>$Rdv,'patient'=>$Rdv->patient]);  
-                       return Response::json(['rdv'=>$Rdv,'patient'=>$Rdv->patient]);  
+        { //$medecins = ($Rdv->specialite)->employes;// $medecins = ($Rdv->employe->Specialite)->employes;
+          $specialites =Specialite::all();//if(isset($Rdv->Employe_ID_Employe)) // return Response::json(['rdv'=>$Rdv,'medecins'=>$medecins]);
+          if(isset($Rdv->specialite_id))
+            return Response::json(['rdv'=>$Rdv,'specialites'=>$specialites]);
+          else //return Response::json(['rdv'=>$Rdv,'patient'=>$Rdv->patient]);  
+            return Response::json(['rdv'=>$Rdv,'patient'=>$Rdv->patient]);  
          }else{
-                $specialite = Auth::user()->employ->specialite;
-                $rdvs = rdv::with('patient','employe')->whereHas('specialite',function($q) use ($specialite){//employe.Specialite
+          $specialite = Auth::user()->employ->specialite;
+          $rdvs = rdv::with('patient','employe')->whereHas('specialite',function($q) use ($specialite){//employe.Specialite
                                                                     $q->where('id',$specialite);
                                       })->where('Etat_RDV',null)->orwhere('Etat_RDV',1)->get(); 
-                return view('rdv.edit',compact('Rdv','rdvs'));
+          return view('rdv.edit',compact('Rdv','rdvs'));
         } 
        }
     /**
@@ -159,23 +159,24 @@ class RDVController extends Controller
      * @return \Illuminate\Http\Response
      */
       public function update(Request $request, $id)
-      {  
-              $fixe=1;
-              $rdv = rdv::FindOrFail($id);
-              $medecinId = (Auth::user()->role_id == 1)?$rdv->Employe_ID_Employe:$request->medecin; //if(Auth::user()->role_id == 1)
-              $fixe =  (isset($request->fixe)) ?1:0;
-              $dateRdv = new DateTime($request->daterdv);
-              $dateFinRdv = new DateTime($request->datefinrdv);
-              $rdv->update([
-                  "Date_RDV"=>$dateRdv,
-                  "Fin_RDV"=>$dateFinRdv,
-                  "Employe_ID_Employe"=>(Auth::user()->role_id == 1)?$rdv->Employe_ID_Employe:$request->medecin,
-                  "fixe"=>$fixe,
-              ]);
-              if($request->ajax())
-                return $rdv;
-              else
-                return redirect()->route("rdv.index");//return redirect()->route("rdv.show",$rdv->id);
+      { 
+        $fixe=1;
+        $rdv = rdv::FindOrFail($id);//$medecinId = (Auth::user()->role_id == 1 )? $rdv->Employe_ID_Employe: $request->medecin;
+        $specId = (Auth::user()->role_id == 1 )? Auth::user()->employ->specialite : $request->specialite;
+        if(Auth::user()->role_id == 1 )
+          $fixe =  (isset($request->fixe)) ? 1: 0;
+        $dateRdv = new DateTime($request->daterdv);
+        $dateFinRdv = new DateTime($request->datefinrdv);
+        $rdv->update([
+            "Date_RDV"=>$dateRdv,
+            "Fin_RDV"=>$dateFinRdv,//"Employe_ID_Employe"=>(Auth::user()->role_id == 1)?$rdv->Employe_ID_Employe:$request->medecin,
+            "specialite_id" => $specId,
+            "fixe"=>$fixe,
+        ]);
+        if($request->ajax())
+          return $rdv;
+        else
+          return redirect()->route("rdv.index");//return redirect()->route("rdv.show",$rdv->id);
       }
     /**
      * Remove the specified resource from storage.
@@ -185,17 +186,17 @@ class RDVController extends Controller
      */
       public function destroy(Request $request, $id)
       {
-                $rdv = rdv::findOrFail($id); 
-                if($request->ajax())
-                {
-                  $rdv->update(['Etat_RDV'=>0]); //rdv::destroy($id);
-                  return ($rdv);
-                }
-                else
-                {
-                  $rdv->update(['Etat_RDV'=>0]);//rdv::destroy($id);
-                  return redirect()->route('rdv.index'); 
-                } 
+        $rdv = rdv::findOrFail($id); 
+        if($request->ajax())
+        {
+          $rdv->update(['Etat_RDV'=>0]); //rdv::destroy($id);
+          return ($rdv);
+        }
+        else
+        {
+          $rdv->update(['Etat_RDV'=>0]);//rdv::destroy($id);
+          return redirect()->route('rdv.index'); 
+        } 
       }
       public function print(Request $request,$id)
       { 

@@ -71,7 +71,11 @@
                 <table class="table table-striped table-bordered">
                   <thead>
                     <tr>
-                        <th class="center"><strong>#</strong></th><th class="center"><strong>Nom Examen</strong></th><th class="center">Etat</em></th>
+                        <th class="center"><strong>#</strong></th>
+                        <th class="center"><strong>Nom Examen</strong></th>
+                        <th class="center"><strong>Classe Examen</strong></th>
+                        <th class="center">Etat</em></th>
+                        <th class="center"><em class="fa fa-cog"></em></em></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -79,6 +83,7 @@
                       <tr>
                         <td class="center">{{ $index + 1 }}</td>
                         <td>{{ $exm->nom_examen }}</td>
+                        <td>{{ $exm->Specialite->specialite }}</td>
                         @if($loop->first)
                         <td rowspan ="{{ $demande->examensbios->count()}}" class="center align-middle">
                         @if($demande->etat == null)
@@ -90,6 +95,11 @@
                         @endif
                         </span></td>
                         @endif
+                        <td rowspan ="{{ $demande->examensbios->count()}}" class="center align-middle">
+                           @if($demande->etat == "1")
+                           <span><a href='/download/{{ $demande->resultat }}'>{{ $demande->resultat }} &nbsp;<i class="fa fa-download"></i></a></span>
+                @endif
+                        </td>
                       </tr>
                     @endforeach          
                     </tbody>

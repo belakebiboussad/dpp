@@ -21,7 +21,7 @@
   </head>
   <body>
     <div class="container-fluid">
-      <img src="img/Logo-DGSN.png" class="center thumb img-icons" alt="a picture"></div>
+      <img src="img/Logo1.png" class="center thumb img-icons" alt="Logo1"></div>
     </div>
    </body>
   </style>

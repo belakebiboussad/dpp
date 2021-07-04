@@ -17,13 +17,13 @@ function enableDestry()
 $('document').ready(function(){
  	$("#ajoutercmd").click(function(){
  		if($('#gamme').val() == "1")
-			$('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace' id='chk[]' onClick='enableDestry()'/><span class='lbl'></span></label></td><td hidden>"+$("#produit").val()+"</td><td>"+$("#produit option:selected").text()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+$('#specialite option:selected').text()+"</td><td class='center'>"+$("#quantite").val()+"</td></tr>");
+			$('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace' id='chk[]' onClick='enableDestry()'/><span class='lbl'></span></label></td><td hidden>"+$("#produit").val()+"</td><td>"+$("#produit option:selected").text()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+$('#specPrd option:selected').text()+"</td><td class='center'>"+$("#quantite").val()+"</td></tr>");
     else
     	$('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace' id='chk[]' onClick='enableDestry()'/><span class='lbl'></span></label></td><td hidden>"+$("#produit").val()+"</td><td>"+$("#produit option:selected" ).text()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+"/"+"</td><td class='center'>"+$("#quantite").val()+"</td></tr>");
     $('#produit').val('<option value="0">Sélectionner...</option>');
     $("#quantite").val(1);
     $('#gamme').val('0');
-    $('#specialite').val('0');
+    $('#specPrd').val('0');
     $("#ajoutercmd").prop('disabled', true);
   });	
   $("#savedmd").click(function(){
@@ -65,8 +65,8 @@ $('document').ready(function(){
 					<hr/>
 				</div>
 				<div id = "specialiteDiv">
-					<label for="specialite"><b>Spécialité</b></label>
-					<select class="form-control" id="specialite" disabled><option value="0">Sélectionner...</option>
+					<label for="specPrd"><b>Spécialité</b></label>
+					<select class="form-control" id="specPrd" disabled><option value="0">Sélectionner...</option>
 						<option value="0">Sélectionner...</option>
 						@foreach($specialites as $specialite)
 							<option value="{{ $specialite->id }}">{{ $specialite->nom }}</option>

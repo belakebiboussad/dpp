@@ -11,8 +11,7 @@ class rdv extends Model// implements IdentifiableEvent
 	protected $dates = ['Date_RDV', 'Fin_RDV'];//,'Temp_rdv'
 	public function getId() {
 		return $this->id;
-	}
-	/*public function getTitle(){return $this->patient_id;}*/
+	}/*public function getTitle(){return $this->patient_id;}*/
 	public function isAllDay()
 	 {
 	  	return (bool)$this->all_day;
