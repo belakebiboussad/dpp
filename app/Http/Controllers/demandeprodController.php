@@ -13,6 +13,7 @@ use App\modeles\demand_produits;
 use App\modeles\demande_dispositif;
 use App\modeles\demande_medicaments;
 use Illuminate\Support\Facades\Auth;
+use App\modeles\Consommable;
 use Jenssegers\Date\Date;
 use Response;
 class demandeprodController extends Controller
@@ -41,6 +42,11 @@ class demandeprodController extends Controller
       {
           $produits = reactif::all();
           return $produits;
+      }
+      elseif($id_gamme == 4)
+      {
+          $consommables = Consommable::all();
+          return $consommables;
       }
     }
     public function index()
@@ -86,16 +92,20 @@ class demandeprodController extends Controller
              ]);
              $listes = json_decode($request->liste);
             for ($i=1; $i < count($listes); $i++) { 
+
                     $gamme = gamme::where('nom',$listes[$i]->gamme)->get()->first();
+
                     if($gamme->id == "1")
                     {
-                          $demande->medicaments()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte]);
-                   }
-                    elseif($gamme->id == "2") {
-                           $demande->dispositifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte]);
+                          $demande->medicaments()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
                     }
-                    elseif($gamme->id == "3") {
-                            $demande->reactifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte]);
+                    elseif($gamme->id == "2") 
+                    {
+                           $demande->dispositifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
+                    }
+                    elseif($gamme->id == "3") 
+                    {
+                            $demande->reactifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
                     }
              }
             return redirect()->route('demandeproduit.show',$demande->id); 

@@ -71,6 +71,7 @@
 												@if($demande->etat == "1")
 												<th class="center">Qte Donnée</th>
 												@endif
+												<th class="center"><strong>Unite</strong></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -84,6 +85,7 @@
 													@if($demande->etat == "1")
 													<td  class="center">{{ $dispositif->pivot->qteDonne }}</td>
 													@endif
+													<td class="center">{{ $dispositif->pivot->unite }}</td>
 												</tr>
 											@endforeach
 											@foreach($demande->medicaments as $medicament)
@@ -96,6 +98,7 @@
 													@if($demande->etat == "1")
 													<td  class="center">{{ $medicament->pivot->qteDonne }}</td>
 													@endif
+													<td class="center">{{ $medicament->pivot->unite }}</td>
 												</tr>
 											@endforeach
 											@foreach($demande->reactifs as $reactif)
@@ -108,6 +111,7 @@
 													@if($demande->etat == "1")
 														<td  class="center">{{ $reactif->pivot->qteDonne }}</td>
 													@endif
+													<td class="center">{{ $reactif->pivot->unite }}</td>
 												</tr>
 											@endforeach
 										</tbody>

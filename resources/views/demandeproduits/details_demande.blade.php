@@ -74,6 +74,7 @@
 												<th>Spécialité</th>
 												<th>Gamme</th>
 												<th>Qté</th>
+												<th>Unite</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -84,6 +85,7 @@
 													<td>/</td>
 													<td>DISPOSITIFS MEDICAUX</td>
 													<td>{{ $dispositif->pivot->qte }}</td>
+													<td>{{ $dispositif->pivot->unite }}</td>
 												</tr>
 											@endforeach
 											@foreach($demande->medicaments as $medicament)
@@ -93,6 +95,7 @@
 													<td>{{ $medicament->specialite->specialite_produit }}</td>
 													<td>MEDICAMENTS</td>
 													<td>{{ $medicament->pivot->qte }}</td>
+													<td>{{ $medicament->pivot->unite }}</td>
 												</tr>
 											@endforeach
 											@foreach($demande->reactifs as $reactif)
@@ -102,6 +105,7 @@
 													<td>/</td>
 													<td>Réactifs chimiques et dentaires</td>
 													<td>{{ $reactif->pivot->qte }}</td>
+													<td>{{ $reactif->pivot->unite }}</td>
 												</tr>
 											@endforeach
 										</tbody>
