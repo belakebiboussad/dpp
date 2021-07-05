@@ -31,7 +31,7 @@ $('document').ready(function(){
 		var longueur = arrayLignes.length;   var produits = [];
 		for(var i=1; i<longueur; i++)
 		{
-			produits[i] = { produit: arrayLignes[i].cells[1].innerHTML, gamme: arrayLignes[i].cells[3].innerHTML, qte: arrayLignes[i].cells[5].innerHTML, qte: arrayLignes[i].cells[6].innerHTML}
+			produits[i] = { produit: arrayLignes[i].cells[1].innerHTML, gamme: arrayLignes[i].cells[3].innerHTML, qte: arrayLignes[i].cells[5].innerHTML, unite: arrayLignes[i].cells[6].innerHTML}
 		}
 		var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(produits)+"' hidden>");
 		champ.appendTo('#demandform');
