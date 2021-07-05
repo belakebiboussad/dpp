@@ -5,7 +5,8 @@
   <div class="row">
     <div class="col-sm-5"><h4> <strong>Détails de la demande radiologique</strong></h4></div>
     <div class="col-sm-7 pull-right">
-      <a href="/drToPDF/{{ $demande->consultation->examensradiologiques->id }}" target="_blank" class="btn btn-sm btn-primary pull-right"> <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
+  {{-- <a href="/drToPDF/{{ $demande->consultation->examensradiologiques->id }}" target="_blank" class="btn btn-sm btn-primary pull-right"> <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer--}}
+      a href="/drToPDF/{{ $demande->->id }}" target="_blank" class="btn btn-sm btn-primary pull-right"> <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
       </a>&nbsp;&nbsp;
       <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
     </div>
@@ -117,8 +118,8 @@
 	                       		 <button type="submit" class="btn btn-info btn-xs open-modal" value="{{ $examen->pivot->id_examenradio."/".$f }}"><i class="ace-icon fa fa-eye-slash"></i></button>
 	                        		<a href='/Patients/{{$patient->id}}/examsRadio/{{$demande->id}}/{{$examen->pivot->id_examenradio}}/{{ $f }}' class="btn btn-success btn-xs" target="_blank"><i class="fa fa-download"></i></a>
 	                        		@isset($examen->pivot->crr_id)
-				  										<a href="{{ route('crrs.download',$examen->pivot->crr_id )}}" title="télecharger le compte rendu" class="btn btn-default btn-xs" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
-						  								@endisset 
+				  			<a href="{{ route('crrs.download',$examen->pivot->crr_id )}}" title="télecharger le compte rendu" class="btn btn-default btn-xs" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
+						  @endisset 
 			                       </td>
 			                      	</tr>
 			                      @endforeach

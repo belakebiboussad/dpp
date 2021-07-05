@@ -192,8 +192,12 @@ Route::get('/visite/create/{id}','VisiteController@create');
 Route::post('/visite/store/{id}','VisiteController@store');
 route::post('/saveActe','ActeController@store');
 route::get('/schapitres','CimController@getChapters');
-route::get('/maladies','CimController@getdiseases');//route::post('/acte','AntecedantsController@store');
+route::get('/maladies','CimController@getdiseases');
 Route::get('/crrs/download/{id}', 'CRRControler@download')->name('crrs.download');
+
+Route::get('/crbs/download/{id}', 'DemandeExbController@download')->name('crbs.download');
+
+
 Route::post('/crrPrint','CRRControler@print')->name('crrprint');
 Route::post('/createTicket','ticketController@store');
 Route::get('/404', function () {

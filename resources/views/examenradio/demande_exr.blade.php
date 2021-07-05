@@ -16,16 +16,16 @@
   <h5 class="mt-20 center"><span style="font-size: xx-large;"><strong>Demande d'examen radiologique</strong></span></h5> 
   <br>
   <div class="row"><div class="col-sm-12"><div class="section"><div class="sec-droite"><b><u>Fait le:</u></b>
-        {{   (\Carbon\Carbon::parse($demande->consultation->Date_Consultation))->format('d/m/Y') }}</div></div></div>
+        {{   (\Carbon\Carbon::parse($date))->format('d/m/Y') }}</div></div></div>
   </div>
   <div class="row">
     <div class="col-sm-12">
       <div class="section">
         <div class="sec-gauche">
           <b><u>Patient(e) :</u></b> 
-          <b> {{ $demande->consultation->patient->getCivilite() }} </b> 
-          {{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }},&nbsp;
-          {{ $demande->consultation->patient->getAge() }} ans,{{ $demande->consultation->patient->Sexe }}
+          <b> {{ $patient->getCivilite() }} </b> 
+          {{ $patient->Nom }} {{ $demande->consultation->patient->Prenom }},&nbsp;
+          {{ $patient->getAge() }} ans,{{ $demande->consultation->patient->Sexe }}
         </div>
       </div>
     </div>
@@ -34,8 +34,8 @@
     <div class="col-sm-12">
       <div class="section">
         <div class="sec-gauche">
-            <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($demande->consultation->patient->IPP, 'C128')}}" alt="barcode" /><br>
-            <strong>IPP :</strong>{{ $demande->consultation->patient->IPP }}
+            <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($patient->IPP, 'C128')}}" alt="barcode" /><br>
+            <strong>IPP :</strong>{{ $patient->IPP }}
          </div>
       </div>
     </div>
@@ -50,13 +50,13 @@
               <div class="row">
                 <div class="col-xs-12"><br>
                   <div>
-                    <label for="infosc"><b>Informations cliniques pertinentes</b> </label>
-                    <textarea class="form-control" id="infosc" name="infosc" >{{ $demande->InfosCliniques }}</textarea>
+                    <label for="infosc"><b>Informations cliniques pertinentessssss :</b> </label>
+                    <p class="form-control">{{ $demande->InfosCliniques }}</p>
                   </div>                    
                   <br>                  
                   <div>
                     <label for="infos"><b>Explication de la demande de diagnostic</b></label>
-                    <textarea class="form-control" id="infosc" name="infosc" >{{ $demande->Explecations }}</textarea> 
+                    <p>{{ $demande->Explecations }}</p> 
                   </div>              
                   <br>
                   <div>

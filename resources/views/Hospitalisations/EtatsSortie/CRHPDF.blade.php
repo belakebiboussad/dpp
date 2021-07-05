@@ -21,21 +21,21 @@
   </head>
   <body>
     <div class="container-fluid">
-       @include('partials.etatHeader1')
+{{--<div class="row"><div class="col-sm-12 center"><img src='{{ asset("img/Logo1.png") }}' alt="Logo1"/></div></div>
+  <img src="img/Logo1.png" class="center thumb img-icons" alt="Logo1"></h5>--}}
+    <img src="img/{{ $etablissement->logo }}" class="center thumb img-icons" alt="Logo1"/>
+    <div class="sec-droite"><strong>Alger le :</strong><span>{{ $date }}</span></div>
+    <div>
+      <br><br>
+      <strong>Nom et Prénom du patient(e) : {{ $obj->patient->getCivilite() }}</strong>
+      <span>{{ $obj->patient->Nom }} &nbsp;{{ $obj->patient->Prenom}}</span>.
+    </div><br>
+    <div><strong>Né le :</strong><span>{{ $obj->patient->Dat_Naissance }}</span></div><br>
       <h3 class="center"><span><strong>{{ $etat->nom}}</strong></span></h3>
-      <div class="sec-droite"><strong>Alger LE :</strong><span>{{ $date }}</span></div><br>
-      <div>
-        <strong>Nom et Prénom du patient(e) : {{ $obj->patient->getCivilite() }}</strong>
-        <span>{{ $obj->patient->Nom }} &nbsp;{{ $obj->patient->Prenom}}</span>.
-      </div><br>
-      <div>
-        <strong>Né le :</strong><span>{{ $obj->patient->Dat_Naissance }} </span>
-      </div><br>
-
-      <div>
-        <strong>Motif d’hospitalisation :</strong>
-        <span>{{ $obj->admission->demandeHospitalisation->DemeandeColloque->observation }}</span>
-      </div><br>
+    <div>
+      <strong>Motif d’hospitalisation :</strong>
+      <span>{{ $obj->admission->demandeHospitalisation->DemeandeColloque->observation }}</span>
+    </div><br>
       <div class="rectangle center"><strong>INFORMATION PATIENT</strong></div>
       <div><br>
         <strong>Antécédent :</strong>
@@ -85,9 +85,12 @@
         <strong>Diagnostic :</strong>
         <span>{{ $obj->diagSortie }}</span>
       </div><br>
-      <footer class= "center">
-        <div class="sec-droite"><span><strong>Respectueusement Dr :</strong> {{ $obj->medecin->nom}} {{ $obj->medecin->prenom}}</span></div>
-      </footer>
+      <!-- <footer class= "center"> -->
+      <div class="">
+        <div class="sec-droite"><span><strong>Respectueusement</strong></span></div><br/><br/>
+        <div class="sec-droite"><span><strong>Dr :&nbsp;</strong></span><span>{{ $obj->medecin->nom}} {{ $obj->medecin->prenom}}</span></div>
+      </div><!-- / -->
+      <!-- </footer> -->
     </div>
   </body>
 </html>

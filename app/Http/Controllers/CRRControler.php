@@ -35,27 +35,27 @@ class CRRControler extends Controller
               return Response::json($crr);
  	}
  	public function update(Request $request, $id)
-      {
-            $crr = CRR::find($id);
-            $crr->update($request->all()); 
-            $crr->save();
-            return Response::json($crr);  
-      }
-      public function print(Request $request)
-      {
-            $opciones_ssl=array( "ssl"=>array( "verify_peer"=>false, "verify_peer_name"=>false,),);
-            $indication = $request->indic;
-            $techRea = $request->techRea;
-            $result = $request->result;
-            $conclusion = $request->conclusion;
-            $etablissement = Etablissement::first();
-            $img_path = 'img/' . $etablissement->logo;
-            $extencion = pathinfo($img_path, PATHINFO_EXTENSION);
-            $data = file_get_contents($img_path, false, stream_context_create($opciones_ssl));
-             $img_base_64 = base64_encode($data);
-             $path_img = 'data:image/' . $extencion . ';base64,' . $img_base_64;
-             return view('examenradio.EtatsSortie.crr',compact('indication','techRea','result','conclusion','etablissement','path_img'))->render();
-      }
+       {
+              $crr = CRR::find($id);
+              $crr->update($request->all()); 
+              $crr->save();
+              return Response::json($crr);  
+       }
+  public function print(Request $request)
+  {
+        $opciones_ssl=array( "ssl"=>array( "verify_peer"=>false, "verify_peer_name"=>false,),);
+        $indication = $request->indic;
+        $techRea = $request->techRea;
+        $result = $request->result;
+        $conclusion = $request->conclusion;
+        $etablissement = Etablissement::first();
+        $img_path = 'img/' . $etablissement->logo;
+        $extencion = pathinfo($img_path, PATHINFO_EXTENSION);
+        $data = file_get_contents($img_path, false, stream_context_create($opciones_ssl));
+         $img_base_64 = base64_encode($data);
+         $path_img = 'data:image/' . $extencion . ';base64,' . $img_base_64;
+         return view('examenradio.EtatsSortie.crr',compact('indication','techRea','result','conclusion','etablissement','path_img'))->render();
+  }
       public function download($id)
       {
             $crr = CRR::find($id);
