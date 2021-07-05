@@ -51,8 +51,9 @@
 				<div class="profile-info-row">
 					<div class="profile-info-name"> Type de la pièce </div>
 					<div class="profile-info-value">
-						<span>@if ($homme_c->type_piece=="CNI") Carte d'identité nationale
-							@elseif ($homme_c->type_piece=="Permis") Permis de Conduire
+						<span>
+						 @if ($homme_c->type_piece == "0") Carte d'identité nationale
+							@elseif ($homme_c->type_piece=="1") Permis de Conduire
 							@else Passeport
 							@endif
 						</span>

@@ -86,10 +86,10 @@
 							<div class="col-sm-9">					
 							<div class="radio">
 								<label>
-								<input id="CNI" name="type_piece" value="CNI" type="radio" class="ace" checked /><span class="lbl">Carte nationale d'identité</span>
+								<input id="CNI" name="type_piece" value="0" type="radio" class="ace" checked /><span class="lbl">Carte nationale d'identité</span>
 								</label>
-								<label><input id="Permis" name="type_piece" value="Permis" type="radio" class="ace" /><span class="lbl">Permis de Conduire</span></label>
-								<label><input id="Passeport" name="type_piece" value="Passeport" type="radio" class="ace" /><span class="lbl"> Passeport</span></label>
+								<label><input id="Permis" name="type_piece" value="1" type="radio" class="ace" /><span class="lbl">Permis de Conduire</span></label>
+								<label><input id="Passeport" name="type_piece" value="2" type="radio" class="ace" /><span class="lbl">Passeport</span></label>
 							</div>
 							</div>
 						</div>

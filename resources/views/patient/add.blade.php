@@ -131,14 +131,20 @@
 							<div class="col-sm-9">
 								<select id="lien" name="lien" class="col-xs-12 col-sm-12">
 									<option value="">Sélectionner...</option>
-									<option value="conjoint">Conjoint(e)</option>
-									<option value="père">Père</option>
-									<option value="mère">Mère</option>
-									<option value="frère">Frère </option>
-									<option value="soeur">Soeur </option>
-									<option value="membre_famille">Membre de famille </option>
-									<option value="ami">Ami(e) </option>
-									<option value="Autre">Autre </option>
+									<option value="0">Conjoint(e)</option>
+									<option value="1">Père</option>
+									<option value="2">Mère</option>
+									<option value="3">Frère </option>
+									<option value="4">Soeur </option>
+									<option value="5">Ascendant</option>
+									<option value="6">Grand-parent</option>
+									<option value="7">Membre de famille </option>
+									<option value="8">Ami </option>
+									<option value="9">Collègue</option>
+									<option value="10">Employeur</option>
+									<option value="11">Employé</option>
+									<option value="12">Tuteur</option>
+									<option value="13">Autre </option>
 								</select>
 							</div>
 						</div>
@@ -147,13 +153,13 @@
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="type_piece_id"><strong>Type pièce d'identité:<span style="color: red">*</span></strong></label>
+							<label class="col-sm-3 control-label" for="type_piece_id"><strong>Type pièce:<span style="color: red">*</span></strong></label>
 							<div class="col-sm-9">
 								<select name="type_piece_id" id="type_piece_id" class="col-xs-12 col-sm-12">
-									<option value="">Sélectionner...</option>
-									<option value="CNI">Carte d'identité nationale</option>
-									<option value="Permis">Permis de conduire</option>
-									<option value="Passeport">Passeport </option>
+									<option selected disabled>Sélectionner...</option>
+									<option value="0">Carte d'identité nationale</option>
+									<option value="1">Permis de conduire</option>
+									<option value="2">Passeport</option>
 								</select>
 							</div>
 						</div>
@@ -187,18 +193,18 @@
 				<div class="row"><div class="col-sm-12"><h4 class="header smaller lighter blue"><strong>Contact</strong></h4></div></div>{{-- row --}}
 				<div class="space-12"></div>
 				<div class="row">
-					<div class="col-sm-5">
+					<div class="col-sm-6">
 						<div class="form-group">
 							<label class="control-label col-sm-3" for="adresseA"><b>Adresse :</b></label>
 							<div class="col-sm-9">
-								<textarea class="form-control" id="adresseA" name="adresseA" placeholder="Adresse..."></textarea>	
+								<input class="form-control" id="adresseA" name="adresseA" placeholder="Adresse...">		
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
-							<div class="form-group">
-								<label class="control-label text-nowrap col-sm-2" for="mobileA"><i class="fa fa-phone"></i><b>Mob :<span style="color: red">*</span></b></label>
+							
+								<label class="control-label text-nowrap col-sm-3" for="mobileA"><i class="fa fa-phone"></i><b>Mob :<span style="color: red">*</span></b></label>
 								<div class="col-sm-2">
 									<select name="operateur_h" id="operateur_h" class="form-control" >
 								    <option value="">XX</option>
@@ -207,8 +213,8 @@
 								    <option value="07">07</option>
 	                </select>	
 								</div>
-							<input id="mobileA" name="mobile_homme_c"  maxlength =8 minlength =8  name="mobileA" type="tel" autocomplete="off" class="col-sm-2" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX"/>
-							</div>
+							  <input id="mobileA" name="mobile_homme_c" name="mobileA" type="tel" autocomplete="off" class="col-sm-3 mobileform" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" placeholder="XXXXXXXX"/>
+						
 						</div>
 					</div>
 				</div>	{{-- row --}}	
