@@ -92,14 +92,8 @@ class PatientController extends Controller
               "prenom" => 'required',
               "datenaissance" => 'required|date|date_format:Y-m-d',
               "nomf" => 'required_if:type,1,2,3,4'
-              /*
-               "prenomf"=> 'required_if:type,Ayant_droit',
-               "prenom_homme_c"=>'required_with:nom_homme_c', 
-              "type_piece_id"=>'required_with:nom_homme_c', 
-              "npiece_id"=>'required_with:nom_homme_c',
-              "mobile_homme_c"=>['required_with:nom_homme_c'],
-              "operateur_h"=>'required_with:mobileA',
-              "nss" => 'regex:/[0-9]{12}/',*/
+/*"prenomf"=> 'required_if:type,Ayant_droit',"prenom_homme_c"=>'required_with:nom_homme_c',"type_piece_id"=>'required_with:nom_homme_c', 
+"npiece_id"=>'required_with:nom_homme_c',"mobile_homme_c"=>['required_with:nom_homme_c'],"operateur_h"=>'required_with:mobileA',"nss" => 'regex:/[0-9]{12}/',*/
 /*"datenaissancef"=> 'required_if:type,Ayant_droit|date|date_format:Y-m-d',"nss2"=> 'required_if:type,Ayant_droit,unique,',"idlieunaissancef"=> 'required_if:type,Ayant_droit',"NMGSN"=> 'required_if:type,Ayant_droit',
 "idlieunaissance" => 'required',"mobile1"=> ['required', 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/'], //"lien"=>'required_with:nom_homme_c', //"date_piece_id"=>'required_with:nom_homme_c',            
 // , 'regex:/[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}/',"Type_p" =>'required_if:type,Ayant_droit',// "nss" => 'required_if:type,Assure|required_if:type,Ayant_droit|regex:/[0-9]{12}/',               */
@@ -184,7 +178,6 @@ class PatientController extends Controller
     $patient->update([
            "IPP" => $ipp,
     ]);
-    //dd($patient);
     if(isset($request->nom_homme_c) &&($request->nom_homme_c!="")) 
     {  
       $homme = homme_conf::firstOrCreate([

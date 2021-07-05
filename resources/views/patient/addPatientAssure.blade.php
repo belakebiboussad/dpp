@@ -2,7 +2,7 @@
  <div class="row demograph">
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('nom') ? 'has-error' : '' }}">
-			<label class="col-sm-3 control-label" for="nom"><strong>Nom :</strong></label>
+			<label class="col-sm-3 control-label" for="nom"><strong>Nom :<span style="color: red">*</span></strong></label>
 			<div class="col-sm-9">
 				<input type="text" id="nom" name="nom" placeholder="Nom..." class="col-xs-12 col-sm-12" autocomplete= "off" value="{{ $nom }}" alpha/>
 					{!! $errors->first('nom', '<small class="alert-danger">:message</small>') !!}
@@ -11,7 +11,7 @@
 	</div>	
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('prenom') ? 'has-error' : '' }}">
-			<label class="col-sm-3 control-label" for="prenom"><strong>Prénom :</strong></label>
+			<label class="col-sm-3 control-label" for="prenom"><strong>Prénom :<span style="color: red">*</span></strong></label>
 			<div class="col-sm-9">
 				<input type="text" id="prenom" name="prenom" placeholder="Prénom..." class="col-xs-18 col-sm-12" autocomplete="off" value ="{{ $prenom }}"/>
 				{!! $errors->first('prenom', '<p class="alert-danger">:message</p>') !!}
@@ -23,7 +23,7 @@
 <div class="row demograph">
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('datenaissance') ? 'has-error' : '' }}">
-			<label class="col-sm-3 control-label" for="datenaissance"><strong>Né(e) le :</strong></label>
+			<label class="col-sm-3 control-label" for="datenaissance"><strong>Né(e) le :<span style="color: red">*</span></strong></label>
 			<div class="col-sm-9">
 				<input class="col-xs-12 col-sm-12 date-picker" id="datenaissance" name="datenaissance" type="text" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" autocomplete="off"/>
 				{!! $errors->first('datenaissance', '<p class="alert-danger">:message</p>') !!}
@@ -44,7 +44,7 @@
 <div class="row demograph">
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('sexe') ? 'has-error' : '' }}">
-			<label class="col-sm-3 control-label" for="sexe"><strong>Genre :</strong></label>
+			<label class="col-sm-3 control-label" for="sexe"><strong>Genre :<span style="color: red">*</span></strong></label>
 			<div class="col-sm-9">
 				<div class="radio">
 					<label><input name="sexe" value="M" type="radio" class="ace" checked /><span class="lbl"> Masculin</span></label>
@@ -147,7 +147,7 @@
 		<div class="col-sm-4 col-xs-4">
 			<div class="form-group">
 				<div class="col-sm-2">
-					<label class="control-label no-padding-right pull-right text-nowrap" style=" padding-top: 0px;"><strong>Type:</strong></label>
+					<label class="control-label no-padding-right pull-right text-nowrap" style=" padding-top: 0px;"><strong>Type :<span style="color: red">*</span></strong></label>
 				</div>
 				<div class="col-sm-10">
 					<select class="form-control col-xs-12 col-sm-6" id="type" name="type" disabled >
