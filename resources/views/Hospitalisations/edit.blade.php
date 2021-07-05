@@ -49,7 +49,7 @@
 <div class="pull-right">
   <a href="{{route('hospitalisation.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-list bigger-120 blue"></i>Hospitalisations</a>
 </div>
-<div class="row"><h3>Modifier l'hospitalisation</h3></div><div class="space-12"></div>  
+<div class="row"><h4><strong>Actualiser les données de l'hospitalisation</strong></h4></div><div class="space-12"></div>  
 <div class="row">
   <div class="col-xs-12">
 	  <form class="form-horizontal" role="form" method="POST" action="{{ route('hospitalisation.update',$hosp->id)}}">
@@ -113,7 +113,7 @@
         @endif	
       </div><!-- row -->
 
-      <div class="row text-primary"><h3>Entrée</h3><hr></div>
+      <div class="row text-primary"><h4><strong>Entrée</strong></h4><hr></div>
       <div class="space-12"></div>
 			  <div class="row form-group">
       		<div class="col-xs-4">
@@ -140,7 +140,7 @@
 		        </div>  
         	</div>
         </div> <!-- row -->
-        <div class="row text-primary"><h3>Sortie prévue</h3><hr></div>
+        <div class="row text-primary"><h4><strong>Sortie prévue</strong></h4><hr></div>
      	  <div class="row form-group">
 	        <div class="col-xs-4">
 	          <label class="col-sm-4 control-label no-padding-right" for="Date_Prevu_Sortie"> <strong> Date:</strong></label>
@@ -170,7 +170,7 @@
 						</div>
 					</div>
         </div>
-      <div class="row text-primary"><h3>Hébergement</h3><hr></div>
+      <div class="row text-primary"><h4><strong>Hébergement</strong></h4><hr></div>
          @if(isset($hosp->admission->id_lit))
       <div class="row form group">
 	      <div class="col-xs-4">

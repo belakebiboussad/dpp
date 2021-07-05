@@ -2,7 +2,7 @@
 	<div class="modal-dialog modal-lg">
 		<div  id="" class="modal-content custom-height-modal">
 		<div class="modal-header">
-		    <button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Sortie Patient</h4>
+		    <button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Sortie du patient</h4>
 		</div>
 		  <div class="modal-body">
 		  	<input type="hidden" id="hospID" value="">
@@ -30,7 +30,7 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
-	      	<label for="modeSortie"><strong>Mode de Sortie :</strong></label>
+	      	<label for="modeSortie"><strong>Mode de sortie :</strong></label>
 	      	<select class="form-control" id="modeSortie">
 	      		<option value="">Domicile</option>
 				<option value="0">Transfert</option>

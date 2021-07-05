@@ -10,7 +10,7 @@
 			    			  <div class="form-group">
 			      				<label class="control-label" for="Nom" ><strong>Nom:</strong></label>
 							<div class="input-group">
-								<input type="text" class="autofield form-control input-sx" id="Nom" name="Nom" placeholder="Nom du patient..." autofocus/>
+								<input type="text" class="autofield form-control input-sx" id="Nom" name="Nom" placeholder="Nom" autofocus/>
 								<span class="glyphicon glyphicon-search form-control-feedback"></span>
 					    </div>
 						</div>
@@ -19,7 +19,7 @@
 						<div class="form-group">
 							<label class="control-label" for="Prenom" ><strong>Prénom:</strong></label> 
 							<div class="input-group">
-						  	<input type="text" class="form-control input-sx autofield" id="Prenom" name="Prenom"  placeholder="Prénom du patient..."> 
+						  	<input type="text" class="form-control input-sx autofield" id="Prenom" name="Prenom"  placeholder="Prénom"> 
 						  	<span class="glyphicon glyphicon-search form-control-feedback"></span>
 			   			</div>		
 						</div>
@@ -27,8 +27,8 @@
 					<div class="col-sm-3 col-xs-3">
 						<div class="form-group">
 							<label class="control-label" for="Prenom" ><strong>Né(e):</strong></label> 
-							<div class="input-group">
-						  	<input type="text" class="form-control input-sx date-picker" id="Dat_Naissance" name="Dat_Naissance" data-date-format="yyyy-mm-dd" placeholder="YYYY-MM-DD" data-toggle="tooltip" data-placement="left" title="Date Naissance"> 
+							<div class="input-group" >
+							<input type="text" class="form-control input-sx date-picker" id="Dat_Naissance" name="Dat_Naissance" data-date-format="yyyy-mm-dd" ; placeholder="yyyy-mm-dd" data-toggle="tooltip" data-placement="left" title="Date Naissance"> 
 						  	<span class="glyphicon glyphicon-search form-control-feedback"></span>
 			   			</div>		
 						</div>
@@ -37,7 +37,7 @@
 						<div class="form-group">
 							<label class="control-label" for="IPP" ><strong>IPP:</strong></label>
 							<div class="input-group">
-								<input type="text" class="form-control input-sx autofield" id="IPP" name="IPP"  placeholder="Identifiant du patient..." data-toggle="tooltip" data-placement="left">
+								<input type="text" class="form-control input-sx autofield" id="IPP" name="IPP"  placeholder="Identifiant" data-toggle="tooltip" data-placement="left">
 					   	  <span class="glyphicon glyphicon-search form-control-feedback"></span>
 							</div>		
 						</div>		

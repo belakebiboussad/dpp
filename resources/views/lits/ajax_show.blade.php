@@ -1,6 +1,6 @@
 		<div class="widget-box" id="widget-box-1"><!-- debut -->
 				<div class="widget-header">
-					<h5 class="widget-title"><i class="ace-icon fa fa-bed bigger-120"></i><strong>Détails :</strong>
+					<h5 class="widget-title"><i class="ace-icon fa fa-bed bigger-120"></i><strong> Détails :</strong>
 					</h5>
 				</div>
 				<div class="widget-body">

@@ -15,7 +15,7 @@ function getServiceRoom($id)
 </script>
 @endsection
 @section('main-content')
-<div class="row"><h3><strong>Liste des chambres</strong></h3>
+<div class="row"><h4><strong>Liste des chambres</strong></h4>
 </div>
 <div class="row">
 	<div class="col-xs-7">
@@ -23,7 +23,7 @@ function getServiceRoom($id)
 		<div class="widget-header">
 			<h5 class="widget-title bigger lighter">
 				<i class="ace-icon fa fa-table"></i>
-				<span><b>Liste des chambres</b></span>
+				<span><b>Détails des chambres</b></span>
 			</h5>
 			<div class="widget-toolbar widget-toolbar-primary no-border">
 					<a class="btn btn-primary btn-sm" href="{{ route('salle.create')}}" role="button">
@@ -37,14 +37,14 @@ function getServiceRoom($id)
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
-							<th class ="center">Nom</th>
+							<th class ="center">Dénomination</th>
 							<th class ="center">ِCapacité</th>
-							<th class ="center">Lits(nbr)</th>
-							<th class ="center">n° Bloc</th>
+							<th class ="center">Lits en place</th>
+							<th class ="center">N° Bloc</th>
 							<th class ="center">Etage</th>
-							<th class ="center">Genre</th>
+							<th class ="center">Unité</th>
 							<th class ="center">Etat</th>
-							<th class ="center"><strong>Service</strong>Service</th>
+							<th class ="center"><strong>Service</strong></th>
 							<th class ="center"><em class="fa fa-cog"></em></th>
 						</tr>
 					</thead>

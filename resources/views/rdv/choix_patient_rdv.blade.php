@@ -6,7 +6,7 @@
 @endsection
 
 @section('main-content')
-<div class="page-header"><h1 style="display: inline;">Selectionner un  Patient</h1></div>
+<div class="page-header"><h1 style="display: inline;">Selectionner un  patient</h1></div>
 <hr>
 <div class="space-12"></div>
 <div class="row">
@@ -16,11 +16,11 @@
 			<th hidden>CODE_BARRE</th>
 			<th>Nom</th>
 			<th>Prénom</th>
-			<th>Date Naissance</th>
+			<th>Date de naissance</th>
 			<th>Genre</th>
 			<th>Type</th>
 			<th>Adresse</th>
-			<th>Date Création</th>
+			<th>Date création</th>
 			<th>Age</th>
 			<th></th>
 		</tr>

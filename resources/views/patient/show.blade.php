@@ -165,7 +165,7 @@ $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "160
 						<option value="Normale">Normale</option>
 						<option value="Urgente">Urgente</option>
 						<option value="controle">Contrôle</option>
-						<option value="specialise">Spécialisé</option>
+						<option value="specialise">Spécialisée</option>
 					</select>
 				</div>
 			</div>

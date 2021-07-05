@@ -90,7 +90,7 @@ function getUserdetail(id)
 	<div class="row">
 	  {{--<div class="col-sm-12 center">--}}
 	  <div class ="pull-left">	
-			<h3><strong>Bienvenu(e):</strong><q class="blue"> {{ Auth::User()->employ->nom }} &nbsp;{{ Auth::User()->employ->prenom }}</q></h3>
+			<h4><strong>Bienvenu(e):</strong><q class="blue"> {{ Auth::User()->employ->nom }} &nbsp;{{ Auth::User()->employ->prenom }}</q></h4>
 		</div>		
 	</div>	{{-- row --}}
 	<div class="space-12"></div>
