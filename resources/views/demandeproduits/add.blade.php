@@ -18,25 +18,25 @@ $('document').ready(function(){
  	$("#ajoutercmd").click(function(){
  		if($('#gamme').val() == "1")
 			$('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace' id='chk[]' onClick='enableDestry()'/><span class='lbl'></span></label></td><td hidden>"+$("#produit").val()+"</td><td>"+$("#produit option:selected").text()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+$('#specialite option:selected').text()+"</td><td class='center'>"+$("#quantite").val()+"</td>"+"</td><td class='center'>"+$("#unite").val()+"</tr>");
-    else
-	$('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace' id='chk[]' onClick='enableDestry()'/><span class='lbl'></span></label></td><td hidden>"+$("#produit").val()+"</td><td>"+$("#produit option:selected").text()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+$('#specialite option:selected').text()+"</td><td class='center'>"+$("#quantite").val()+"</td>"+"</td><td class='center'>"+$("#unite").val()+"</tr>");
-    $('#produit').val('<option value="0">Sélectionner...</option>');
-    $("#quantite").val(1);
-    $('#gamme').val('0');
-    $('#specialite').val('0');
-    $("#ajoutercmd").prop('disabled', true);
-  });	
-  $("#savedmd").click(function(){
-      var arrayLignes = document.getElementById("cmd").rows;
-      var longueur = arrayLignes.length;   var produits = [];
-      for(var i=1; i<longueur; i++)
-      {
-        produits[i] = { produit: arrayLignes[i].cells[1].innerHTML, gamme: arrayLignes[i].cells[3].innerHTML, qte: arrayLignes[i].cells[5].innerHTML, unite: arrayLignes[i].cells[6].innerHTML}
-      }
-      var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(produits)+"' hidden>");
-      champ.appendTo('#demandform');
-      $('#demandform').submit();
-   });
+		else
+		$('#cmd').append("<tr><td class='center'><label class='pos-rel'><input type='checkbox' class='ace' id='chk[]' onClick='enableDestry()'/><span class='lbl'></span></label></td><td hidden>"+$("#produit").val()+"</td><td>"+$("#produit option:selected").text()+"</td><td>"+$('#gamme option:selected').text()+"</td><td>"+$('#specialite option:selected').text()+"</td><td class='center'>"+$("#quantite").val()+"</td>"+"</td><td class='center'>"+$("#unite").val()+"</tr>");
+		$('#produit').val('<option value="0">Sélectionner...</option>');
+		$("#quantite").val(1);
+		$('#gamme').val('0');
+		$('#specialite').val('0');
+		$("#ajoutercmd").prop('disabled', true);
+  	});	
+	$("#savedmd").click(function(){
+		var arrayLignes = document.getElementById("cmd").rows;
+		var longueur = arrayLignes.length;   var produits = [];
+		for(var i=1; i<longueur; i++)
+		{
+			produits[i] = { produit: arrayLignes[i].cells[1].innerHTML, gamme: arrayLignes[i].cells[3].innerHTML, qte: arrayLignes[i].cells[5].innerHTML, qte: arrayLignes[i].cells[6].innerHTML}
+		}
+		var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(produits)+"' hidden>");
+		champ.appendTo('#demandform');
+		$('#demandform').submit();
+	});
 });
 </script>
 @endsection

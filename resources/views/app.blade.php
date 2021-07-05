@@ -16,23 +16,38 @@
         try{ace.settings.check('main-container' , 'fixed')}catch(e){}
         function HommeConfcopy(id)
         {
-            $.get('/hommeConfiance/'+id+'/edit', function (data) {
-              $('#patientId').val(data.id_patient);
-              $('#typeH option').each(function() {
-                if($(this).val() == data.type) 
-                    $(this).prop("selected", true);
-              });  
-              $('#hom_id').val(data.id);  $('#nom_h').val(data.nom);$('#prenom_h').val(data.prenom);
-              $('#datenaissance_h').val(data.date_naiss);  $('#lien_par').val(data.lien_par).change();    
-              $('#lien_par option').each(function() {
-                if($(this).val() == data.lien_par) 
-                  $(this).prop("selected", true);
-              });       
-              $('#' + data.type_piece).prop('checked',true); $('#num_piece').val(data.num_piece);
-              $('#date_piece_id').val(data.date_deliv);
-              $('#adresse_h').val(data.adresse);$('#mobile_h').val(data.mob);
-              jQuery('#gardeMalade').modal('show');
+          $.get('/hommeConfiance/'+id+'/edit', function (data) {
+            $('#patientId').val(data.id_patient);
+            $('#typeH option').each(function() {
+              if($(this).val() == data.type) 
+                $(this).prop("selected", true);
+            });  
+            $('#hom_id').val(data.id);  $('#nom_h').val(data.nom);$('#prenom_h').val(data.prenom);
+            $('#datenaissance_h').val(data.date_naiss);  $('#lien_par').val(data.lien_par).change();    
+            $('#lien_par option').each(function() {
+              if($(this).val() == data.lien_par) 
+                $(this).prop("selected", true);
             });
+            switch(data.type_piece)
+            {
+              case "0":
+                $('#CNI').prop('checked',true);
+                break;
+              case "1":
+                $('#Permis').prop('checked',true);
+                break;
+              case "2":
+                $('#Passeport').prop('checked',true);
+                break;
+              default:
+                break;
+            }
+            $('#num_piece').val(data.num_piece);
+            $('#date_piece_id').val(data.date_deliv);
+            $('#adresse_h').val(data.adresse);
+            $('#mobile_h').val(data.mob);
+            jQuery('#gardeMalade').modal('show');
+          });
         }
         $(function(){
             $('#listeGardes').DataTable({ //homme/garde  
@@ -47,22 +62,25 @@
                             "url": '/localisation/fr_FR.json'
                 },
            });
-            $('#btn-addCores').click(function () { ///show modal
-                  if( $('#EnregistrerGardeMalade').is(":hidden"))
-                          $('#EnregistrerGardeMalade').show();
-                  $('#EnregistrerGardeMalade').val("add"); $('#addGardeMalade').trigger("reset");
-                  $('#CoresCrudModal').html("Ajouter un Correspondant(e)"); $('#gardeMalade').modal('show');   
+            $('#btn-addCores').click(function () { 
+                if( $('#EnregistrerGardeMalade').is(":hidden"))
+                  $('#EnregistrerGardeMalade').show();
+                $('#EnregistrerGardeMalade').val("add"); $('#addGardeMalade').trigger("reset");
+                $('#CoresCrudModal').html("Ajouter un Correspondant(e)"); $('#gardeMalade').modal('show');   
             });  
             jQuery('body').on('click', '.show-modal', function () {
-                    HommeConfcopy($(this).val());
-                    jQuery('#EnregistrerGardeMalade').hide();
-                     $('#addGardeMalade').find('input, textarea, select').attr('disabled','disabled');
+              HommeConfcopy($(this).val());
+              jQuery('#EnregistrerGardeMalade').hide();
+              $('#CoresCrudModal').html("Détails du Correspondant(e)");
+              $('#addGardeMalade').find('input, textarea, select').attr('disabled','disabled');
             });
             jQuery('body').on('click', '.open-modal', function () {
-                   HommeConfcopy($(this).val());
-                     if( $('#EnregistrerGardeMalade').is(":hidden"))
-                          $('#EnregistrerGardeMalade').show();
-                    jQuery('#EnregistrerGardeMalade').val("update"); $('#CoresCrudModal').html("Editer un Correspondant(e)"); $('#gardeMalade').modal('toggle');
+              HommeConfcopy($(this).val());
+              if( $('#EnregistrerGardeMalade').is(":hidden"))
+                $('#EnregistrerGardeMalade').show();
+              jQuery('#EnregistrerGardeMalade').val("update"); 
+              $('#CoresCrudModal').html("Editer un Correspondant(e)");
+               $('#gardeMalade').modal('toggle');
            });
            $("#EnregistrerGardeMalade").click(function (e) {
                 $('#gardeMalade').modal('toggle');
@@ -101,59 +119,74 @@
                 data: formData,
                 dataType: 'json',
                 success: function (data) { //$('#gardeMalade').hide();   //jQuery('#gardeMalade').modal('hide');
-                       if($('.dataTables_empty').length > 0)
-                        {
-                          $('.dataTables_empty').remove();
-                        }
-                       switch(data.lien_par){
-                              case "0":
-                                    lien='<span class="label label-sm label-success"><strong>Conjoint(e)</strong></span>';
-                                    break;
-                               case "1":
-                                     lien='<span class="label label-sm label-success"><strong>Père</strong></span>';
-                                    break;
-                               case "2":
-                                    lien='<span class="label label-sm label-success"><strong>Mère</strong></span>';
-                                    break;
-                               case "3":
-                                    lien='<span class="label label-sm label-success"><strong>Frère</strong></span>';
-                                     break;
-                               case "4":
-                                    lien='<span class="label label-sm label-success"><strong>Soeur</strong></span>';
-                                    break;
-                              case "5":
-                                    lien='<span class="label label-sm label-success"><strong>Ascendant</strong></span>';
-                                    break;
-                              case "6":
-                                    lien='<span class="label label-sm label-success"><strong>Grand-parent</strong></span>';
-                                    break; 
-                              case "7":
-                                     lien='<span class="label label-sm label-success"><strong>Membre de famille</strong></span>';
-                                    break;
-                              case "8":
-                                    lien=' <span class="label label-sm label-success"><strong>Ami</strong></span>';
-                                    break;              
-                              case "9":
-                                    lien='<span class="label label-sm label-success"><strong>Collègue</strong></span>';
-                                    break; 
-                              case "10":
-                                    lien='<span class="label label-sm label-success"><strong>Employeur</strong></span>';
-                                    break; 
-                              case "11":
-                                    lien='span class="label label-sm label-success"><strong>Employé</strong></span>';
-                                    break; 
-                              case "12":
-                                    lien='<span class="label label-sm label-success"><strong>Tuteur</strong></span>';
-                                    break; 
-                             case "13":
-                                    lien='<span class="label label-sm label-success"><strong>Autre</strong></span>';
-                                    break; 
-                             default:
-                                    break;
+                      if($('.dataTables_empty').length > 0)
+                      {
+                        $('.dataTables_empty').remove();
+                      }
+                      switch(data.lien_par){
+                        case "0":
+                              lien='<span class="label label-sm label-success"><strong>Conjoint(e)</strong></span>';
+                              break;
+                         case "1":
+                               lien='<span class="label label-sm label-success"><strong>Père</strong></span>';
+                              break;
+                         case "2":
+                              lien='<span class="label label-sm label-success"><strong>Mère</strong></span>';
+                              break;
+                         case "3":
+                              lien='<span class="label label-sm label-success"><strong>Frère</strong></span>';
+                               break;
+                         case "4":
+                              lien='<span class="label label-sm label-success"><strong>Soeur</strong></span>';
+                              break;
+                        case "5":
+                              lien='<span class="label label-sm label-success"><strong>Ascendant</strong></span>';
+                              break;
+                        case "6":
+                              lien='<span class="label label-sm label-success"><strong>Grand-parent</strong></span>';
+                              break; 
+                        case "7":
+                               lien='<span class="label label-sm label-success"><strong>Membre de famille</strong></span>';
+                              break;
+                        case "8":
+                              lien=' <span class="label label-sm label-success"><strong>Ami</strong></span>';
+                              break;              
+                        case "9":
+                              lien='<span class="label label-sm label-success"><strong>Collègue</strong></span>';
+                              break; 
+                        case "10":
+                              lien='<span class="label label-sm label-success"><strong>Employeur</strong></span>';
+                              break; 
+                        case "11":
+                              lien='span class="label label-sm label-success"><strong>Employé</strong></span>';
+                              break; 
+                        case "12":
+                              lien='<span class="label label-sm label-success"><strong>Tuteur</strong></span>';
+                              break; 
+                       case "13":
+                              lien='<span class="label label-sm label-success"><strong>Autre</strong></span>';
+                              break; 
+                       default:
+                              break;
                     }
-                      var homme = '<tr id="garde' + data.id + '"><td class="hidden">' + data.id_patient + '</td><td>' + data.nom + '</td><td>' + data.prenom + '</td><td>'+ data.date_naiss              +'</td><td>' + data.adresse + '</td><td>'+ data.mob + '</td><td>' + lien + '</td><td>' + data.type_piece + '</td><td>' + data.num_piece 
-                                        + '</td><td>' +  data.date_deliv + '</td>';
-                         homme += '<td class ="center"><button type="button" class="btn btn-xs btn-success show-modal" value="' + data.id + '"><i class="ace-icon fa fa-hand-o-up fa-xs"></i></button>&nbsp;'; 
+                    switch(data.type_piece)
+                    {
+                        case "0":
+                               type='<span class="label label-sm label-success"><strong>Carte nationale d\'identité</strong></span>';
+                              break;
+                         case "1":
+                              type='<span class="label label-sm label-success"><strong>Permis de Conduire</strong></span>';
+                              break;
+                         case "2":
+                              type='<span class="label label-sm label-success"><strong>Passeport</strong></span>';
+                              break;
+                        default:
+                              break;
+                    }
+                    var homme = '<tr id="garde' + data.id + '"><td class="hidden">' + data.id_patient + '</td><td>' + data.nom + '</td><td>' + data.prenom
+                              + '</td><td>'+ data.date_naiss+'</td><td>' + data.adresse + '</td><td>'+ data.mob + '</td><td>' + lien + '</td><td>'
+                               + type + '</td><td>' + data.num_piece + '</td><td>' +  data.date_deliv + '</td>';
+                    homme += '<td class ="center"><button type="button" class="btn btn-xs btn-success show-modal" value="' + data.id + '"><i class="ace-icon fa fa-hand-o-up fa-xs"></i></button>&nbsp;'; 
                     homme += '<button type="button" class="btn btn-xs btn-info open-modal" value="' + data.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';
                     homme += '<button type="button" class="btn btn-xs btn-danger delete-garde" value="' + data.id + '" data-confirm="Etes Vous Sur de supprimer?"><i class="fa fa-trash-o fa-xs"></i></button></td></tr>';
                     if (state == "add") {
@@ -340,8 +373,8 @@
             var type_piece_id = $('#type_piece_id').val();
             var npiece_id = $('#npiece_id').val();
             mobileA = $('#mobileA').val();
-            var inputHomVal = new Array(npiece_id,mobileA,type_piece_id,prenomA,nomA);
-            var inputHomMessage = new Array("Numero de la Pièce","Type de la Pièce","Telephone mobile","Prenom","Nom");
+            var inputHomVal = new Array(npiece_id,type_piece_id,mobileA,prenomA,nomA);
+            var inputHomMessage = new Array("Numero de la pièce","Type de la pièce","Téléphone mobile","Prenom","Nom");
             $('.error').each(function(i, obj) {
                   $(obj).next().remove();
                   $(obj).detach();
@@ -357,23 +390,23 @@
         }
         function getProducts(id_gamme, id_spec=0,med_id = 0)
         {
-            var html = '<option value="0">Sélectionner...</option>';
-            $.ajax({
-                url : '/getproduits/'+id_gamme+'/'+id_spec,
-                type : 'GET',
-                dataType : 'json',
-                success : function(data){
-                    $.each(data, function(){
-                      html += "<option value='"+this.id+"'>"+this.nom+"</option>";
-                    });
-                    $('#produit').html(html);
-                    if(med_id != 0)
-                      $('#produit').val(med_id);
-                },
-                error : function(){
-                    console.log('error');
-                }
-            });
+          var html = '<option value="0">Sélectionner...</option>';
+          $.ajax({
+              url : '/getproduits/'+id_gamme+'/'+id_spec,
+              type : 'GET',
+              dataType : 'json',
+              success : function(data){
+                  $.each(data, function(){
+                    html += "<option value='"+this.id+"'>"+this.nom+"</option>";
+                  });
+                  $('#produit').html(html);
+                  if(med_id != 0)
+                    $('#produit').val(med_id);
+              },
+              error : function(){
+                  console.log('error');
+              }
+          });
         }
         $(function () {
           $( "#Position" ).change(function() {
@@ -395,15 +428,15 @@
               switch($(this).val())
               {
                 case "0":
-                  $('#specialite').val(0);
-                  $('#specialite').prop('disabled', 'disabled');
+                  $('#specPrd').val(0);
+                  $('#specPrd').prop('disabled', 'disabled');
                   $('#produit').val(0);
                   $('#produit').prop('disabled', 'disabled');
                   break
                 case "1":
                   if($("#specialiteDiv").is(":hidden"))
                     $("#specialiteDiv").show();
-                  $("#specialite").removeAttr("disabled");
+                  $("#specPrd").removeAttr("disabled");
                   $("#produit").removeAttr("disabled");
                   break;
                 case "2":
@@ -421,7 +454,7 @@
                   break; 
               }
           });
-         $('#specialite').change(function(){
+         $('#specPrd').change(function(){
              if($(this).val() != "0" )
              {
                 $("#produit").removeAttr("disabled");

@@ -24,13 +24,13 @@
       <li class="in active"><a data-toggle="tab" href="#actes">Actes</a> </li>
       @endif
       @if($visite->traitements->count() > 0)
-      <li><a data-toggle="tab" href="#traitement">Traitement</a> </li>
+      <li><a data-toggle="tab" href="#traitement">Traitements</a> </li>
       @endif
       @if(isset($visite->demandeexmbio))
-      <li><a data-toggle="tab" href="#examsBio">Examens Biologique</a> </li>
+      <li><a data-toggle="tab" href="#examsBio">Examens biologiques</a> </li>
       @endif
       @if(isset($visite->examensradiologiques))
-        <li ><a data-toggle="tab" href="#examImg">Examens Imagerie</a></li>
+        <li ><a data-toggle="tab" href="#examImg">Examens d'imagerie</a></li>
       @endif
     </ul>
     <div class="tab-content no-border padding-24">
@@ -46,9 +46,7 @@
 								<tr>
 									<th class="center"><strong>Nom</strong></th>
 									<th class="center"><strong>Type</strong></th>
-									<th class="center"><strong>Description</strong></th>
-									<th class="center"><strong>Periodes</strong></th>
-									<th class="center"><strong>Durée</strong></th>
+									<th class="center"><strong>Description</strong></th><!--<th class="center"><strong>Periodes</strong></th><th class="center"><strong>Durée</strong></th> -->
 									<th class="center"><em class="fa fa-cog"></em></th>
 								</tr>
 							</thead>
@@ -58,13 +56,7 @@
 									<td>{{ $acte->nom }}</td>
 									<td>{{ $acte->type }}</td>
 									<td>{{ $acte->description }}</td>
-									<td>
-									@foreach ($acte->periodes as $periode)
-									     {{ $periode }}
-									     @if (!($loop->last))  ,  @endif
-									@endforeach		
-									</td>
-									<td>{{ $acte->duree }}</td>
+{{-- <td>@foreach ($acte->periodes as $periode){{ $periode }}@if (!($loop->last))  ,  @endif@endforeach</td><td>{{ $acte->duree }}</td> --}}
 									<td></td>
 								</tr>
 							@endforeach
@@ -78,8 +70,8 @@
       @endif
       <div id="traitement" class="tab-pane">
        <div class="col-xs-11 widget-container-col">
-		<div class="widget-box widget-color-info">
-			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Traitements</h5></div>
+		<div class="widget-box widget-color-blue">
+			<div class="widget-header"><h5 class="widget-title bigger"><i class="ace-icon fa fa-table"></i>Traitements</h5></div>
 			<div class="widget-body">
 				<div class="widget-main no-padding">
 					<table class="table table-striped table-bordered table-hover">
@@ -96,15 +88,8 @@
 							@foreach($visite->traitements as $trait)
 							<tr>
 								<td>{{ $trait->medicament->nom }}</td>
-								<td>
-									{{ $trait->posologie }}</td>
-								<td>
-									@foreach ($trait->periodes as $periode)
-								     		{{ $periode }}
-								     		@if (!($loop->last))  ,  @endif
-									@endforeach
-								</td>
-								<td>{{ $trait->duree }}</td>
+								<td>{{ $trait->posologie }}</td>
+{{-- <td>@foreach ($trait->periodes as $periode) {{ $periode }}@if (!($loop->last))  ,  @endif@endforeach	</td><td>{{ $trait->duree }}</td> --}}
 								<td></td>
 							</tr>
 							@endforeach
@@ -118,8 +103,8 @@
       @if(isset($visite->demandeexmbio))
       <div id="examsBio" class="tab-pane">
        <div class="col-xs-11 widget-container-col">
-		<div class="widget-box widget-color-info">
-			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Examens Biologiques</h5></div>
+		<div class="widget-box widget-color-pink">
+			<div class="widget-header"><h5 class="widget-title bigger"><i class="ace-icon fa fa-table"></i>Examens biologiques</h5></div>
 			<div class="widget-body">
 				<div class="widget-main no-padding">
 				<table class="table table-striped table-bordered table-hover">
@@ -144,12 +129,12 @@
 					 <td>{{ $exm->nom_examen }}</td>
 					@if($loop->first)
 		            	<td rowspan ="{{ $visite->demandeexmbio->examensbios->count()}}" class="center align-middle">
-			            	@if($visite->demandeexmbio->etat == "E")
-			                    <span class="badge badge-danger"> En Attente</span>
-			                  @elseif($visite->demandeexmbio->etat == "V")
-			                    <span class="badge badge-success">Validé</span>       
+			            	@if($visite->demandeexmbio->etat == null)
+			                    <span class="badge badge-success"> En Cours</span>
+			                  @elseif($visite->demandeexmbio->etat == 1)
+			                    <span class="badge badge-primary">Validée</span>       
 			                  @else
-			                    <span class="badge badge-success">Rejeté</span>   
+			                    <span class="badge badge-warning">Rejetée</span>   
 			                  @endif
 		            		</td>
 		            	@endif 
@@ -170,20 +155,20 @@
 	@endif
 	@if(isset($demande))
 	<div id="examImg" class="tab-pane row">
-	  <div class="col-lg-6 col-xs-11 widget-container-col">
-			<div class="widget-box widget-color-info">
-				<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Examens Imageries</h5></div>
+	  <div class="col-lg-6 col-xs-11 widget-container-col ">
+			<div class="widget-box widget-color-blue">
+				<div class="widget-header"><h5 class="widget-title bigger"><i class="ace-icon fa fa-table"></i>Examens d'imageries</h5></div>
 				<div class="widget-body">
 					<div class="widget-main no-padding">
 					<table class="table table-striped table-bordered table-hover">
 						<thead class="thin-border-bottom">
 							<tr>
-								<th class="center">#</th>
-								<th class="center"><strong>Date</strong></th>
-								<th class="center"><strong>Nom</strong></th>
-								<th class="center"><strong>Type</strong></th>
-								<th><strong>Etat</strong></th>
-								<th class="center"><em class="fa fa-cog"></em></th>
+								<th class="center" width="2%">#</th>
+								<th class="center" width="11%"><strong>Date</strong></th>
+								<th class="center" width="30%"><strong>Nom</strong></th>
+								<th class="center" width="5%"><strong>Type</strong></th>
+								<th><strong width="14%">Etat</strong></th>
+								<th class="center" width="39%"><em class="fa fa-cog"></em></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -191,16 +176,14 @@
 						<tr>
 							<td class="center">{{ $index + 1 }}</td>
 							@if($loop->first)
-							<td  rowspan ="{{ $demande->examensradios->count()}}" class="center align-middle">
-							{{ $visite->date }}
-							</td>
-					  	@endif	
+							<td  rowspan ="{{ $demande->examensradios->count()}}" class="center align-middle">{{ $visite->date }}</td>
+					 	 	@endif	
 					 		<td>{{ $examen->nom}}</td>
 					 		<td>
 					 			<?php $exams = explode (',',$examen->pivot->examsRelatif) ?>
-	              @foreach($exams as $id)
-	                <span class="badge badge-success">{{ App\modeles\TypeExam::FindOrFail($id)->nom}}</span>
-	              @endforeach
+						              @foreach($exams as $id)
+						                <span class="badge badge-success">{{ App\modeles\TypeExam::FindOrFail($id)->nom}}</span>
+						              @endforeach
 					 		</td>
 							<td>
 								@if(!(isset($examen->pivot->etat)))
@@ -209,17 +192,20 @@
 								 <span class="text-primary">Fait</span>  
 								@endif
 							</td>
-							<td class="center">
+							<td>
 								<table width="100%" height="100%" class="table table-striped table-bordered">
-	                @if($examen->pivot->etat == "1")
-		                @foreach (json_decode($examen->pivot->resultat) as $k=>$f)
-		                <tr>
-		                	<td width="60%">{{ $f}}</td>
-		                	<td width="40%">
-	                      <button type="submit" class="btn btn-info btn-xs open-modal" value="{{ $examen->pivot->id_examenradio."/".$f }}"><i class="ace-icon fa fa-eye-slash"></i></button>
-	                      <a href='/Patients/{{$patient->id}}/examsRadio/{{$demande->id}}/{{$examen->pivot->id_examenradio}}/{{ $f }}' class="btn btn-success btn-xs" target="_blank"> <i class="fa fa-download"></i></a>
-	                    </td>
-		                </tr>
+	               					 @if($examen->pivot->etat == "1")
+		                				@foreach (json_decode($examen->pivot->resultat) as $k=>$f)
+		               				 <tr>
+		                					<td width="50%"><small>{{ $f}}</small></td>
+		                					<td width="50%" class="center">
+	                      						<button type="submit" class="btn btn-info btn-xs open-modal" value="{{ $examen->pivot->id_examenradio."/".$f }}"><i class="ace-icon fa fa-eye-slash"></i></button>
+	                     							 <a href='/Patients/{{$patient->id}}/examsRadio/{{$demande->id}}/{{$examen->pivot->id_examenradio}}/{{ $f }}' class="btn btn-success btn-xs" target="_blank"> <i class="fa fa-download"></i></a>
+	                     							 @isset($examen->pivot->crr_id)
+								  		<a href="{{ route('crrs.download',$examen->pivot->crr_id )}}" title="télecharger le compte rendu" class="btn btn-default btn-xs" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
+										  @endisset
+	                    						</td>
+		                				</tr>
 		                @endforeach
 	                @endif
 	              </table>

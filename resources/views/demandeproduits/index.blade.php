@@ -108,9 +108,9 @@
 @endsection
 @section('main-content')
 <div class="row">{{-- <h1 style="display: inline;"><strong>Liste des demandes </strong></h1> --}}
-	<div class="col-sm-12 col-md-12"><h3><strong>Rechercher une demande</strong></h3>
+	<div class="col-sm-12 col-md-12"><h4><strong>Rechercher une demande</strong></h4>
 	<div class="pull-right">
-		@if(Auth::user()->is(14))
+		@if(! Auth::user()->is(10))
 		<a href="{{route('demandeproduit.create')}}" class="btn btn-white btn-info btn-bold">
 			<i class="ace-icon fa fa-plus-circle fa-lg bigger-120"></i>Demande
 		</a>
@@ -157,7 +157,7 @@
 	<div class="col-xs-12">
 		<div class="widget-box">
 			<div class="widget-header">
-				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Demandes</h5>&nbsp;<label><span class="badge badge-info numberResult"></span></label>
+				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i><strong>Demandes</strong></h5>&nbsp;<label><span class="badge badge-info numberResult"></span></label>
 				</div>
 			<div class="widget-body">
 					<div class="widget-main">

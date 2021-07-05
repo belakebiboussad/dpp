@@ -165,7 +165,7 @@
 					<div class="col-sm-3">
 			      <div class="form-group"><label class="control-label" for="Nom" ><strong>Nom:</strong></label>
 							<div class="input-group col-sm-12 col-xs-12">
-								<input type="text" class="form-control autofield" id="Nom" name="Nom" placeholder="nom du patient..." autofocus/>
+								<input type="text" class="form-control autofield" id="Nom" name="Nom" placeholder="Nom du patient..." autofocus/>
 								<span class="glyphicon glyphicon-search form-control-feedback"></span>
 					    </div>
 						</div>
@@ -173,7 +173,7 @@
 					<div class="col-sm-3">
 						<div class="form-group"><label class="control-label" for="Prenom" ><strong>Prénom:</strong></label> 
 							<div class="input-group col-sm-12 col-xs-12">
-						  	<input type="text" class="form-control autofield" id="Prenom" name="Prenom"  placeholder="prenom du patient..."> 
+						  	<input type="text" class="form-control autofield" id="Prenom" name="Prenom"  placeholder="Prénom du patient..."> 
 						  	<span class="glyphicon glyphicon-search form-control-feedback"></span>
 			   			</div>		
 						</div>
@@ -189,7 +189,7 @@
 					<div class="col-sm-3">
 						<div class="form-group"><label class="control-label" for="IPP" ><strong>IPP:</strong></label>
 						 <div class="input-group col-sm-12 col-xs-12">
-							<input id="IPP" name="IPP" class="form-control autofield" placeholder="IPP du patient..." type="text" data-toggle="tooltip" data-placement="left" title="Code IPP du patient"/> 
+							<input id="IPP" name="IPP" class="form-control autofield" placeholder="Identifiant du patient..." type="text" data-toggle="tooltip" data-placement="left" title="Code IPP du patient"/> 
 							<span class="input-group-btn"> 
 								<button class="btn btn-default" type="button" data-toggle="modal" data-target="#livestream_scanner">
 									<i class="fa fa-barcode"></i>

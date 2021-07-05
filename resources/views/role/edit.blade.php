@@ -1,8 +1,6 @@
 @extends('app')
 @section('main-content')
-<div class="page-header">
-	<h1><strong>Modifier le rôle : </strong></h1>
-</div>
+<div class="row"><h4><strong> Modifier le nom du rôle : </strong></h4></div>
 <div class="row">
 	<div class="col-sm-12">
 		<div class="space-10"></div>

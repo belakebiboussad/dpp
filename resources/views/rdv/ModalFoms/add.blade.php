@@ -32,7 +32,7 @@
 	          </div>
 	          @endif
 	          <div class="panel panel-default">
-          		<div class="panel-heading"><i class="ace-icon fa fa-user"></i><span>Selectionner un Patient</span></div>
+          		<div class="panel-heading"><i class="ace-icon fa fa-user"></i><span>Selectionner un patient</span></div>
 	          	<div class="panel-body">	
 	          		<div class="row">
 			          	<div class="col-sm-6">
@@ -49,7 +49,7 @@
 			          	<div class="col-sm-6">
 			          		<div class="form-group">
 			          			<label class="col-form-label" for="patient"> <strong>&nbsp; </strong></label>
-			          			<select class="form-control" id="patient" name = "patient" required readonly><!-- @if(isset($patient->id) || (Auth::user()->role_id == 2 )) disabled @endif -->
+			          			<select class="form-control" id="patient" name = "patient" required disabled><!-- @if(isset($patient->id) || (Auth::user()->role_id == 2 )) disabled @endif -->
                         @if(isset($patient))
                           <option value="{{$patient->id}}" selected>{{ $patient->IPP }}-{{ $patient->Nom }}-{{ $patient->Prenom }}</option>
                         @endif

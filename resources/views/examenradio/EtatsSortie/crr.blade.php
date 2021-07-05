@@ -18,7 +18,7 @@
                   <img src="img/{{ $etablissement->logo }}" alt="logo" style="width: 80px; height: 80px"/>
              @endif
         </h5>
-	<hr class="mt-2/>
+	<hr class="mt-2"/>
   	<div class="row" style ="margin-top: -0.8em;" ><div class="col-sm-12 center"><h3><u>Compte-rendu radiologique</u></h3></div></div>
    	<br/><br/>
 	<div class="row">

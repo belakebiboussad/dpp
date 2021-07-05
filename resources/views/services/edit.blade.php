@@ -1,10 +1,10 @@
 @extends('app')
 @section('main-content')
-	<div class="row"><h3><strong>Actualiser les données du service"{{ $service->nom }}"</strong></h3></div>
+	<div class="row"><h4><strong>Actualiser les données du service"{{ $service->nom }}"</strong></h4></div>
 	<div class="row">
 		<div class="col-xs-7">
 			<div class="widget-box" id="widget-box-1">
-				<div class="widget-header"><h5 class="widget-title">Information du service</h5></div>
+				<div class="widget-header"><h5 class="widget-title"><strong>Information du service</strong></h5></div>
 				<div class="widget-body">
 					<div class="widget-main">
 						<form class="form-horizontal" role="form" method="POST" action="{{ route('service.update', $service->id) }}">
@@ -68,14 +68,15 @@
 		<div class="col-xs-5">
 			<div class="widget-box" id="widget-box-2">
 				<div class="widget-header">
-				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i><span><b>Chambres</b></span></h5>
+				{{--<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i><span>Chambres</span></h5>--}}
+				<div><h5 class="widget-title"><strong>Chambres</strong></h5></div>
 				</div>
 			<div class="widget-body">
 			<ol>
 				@foreach ($service->salles as $salle)	
 				<tr>
 					<td><li><a href="/salle/{{$salle->id}}" title="detail de la salle">{{ $salle->nom }}</a>	</td>
-					<td class="pull-right">-<span class="badge badge-info">{{ count($salle->lits) }}</span> &nbsp;Lits </li></td>
+					<td class="pull-right">-<span class="badge badge-info">{{ count($salle->lits) }}</span> &nbsp; lits </li></td>
 				</tr>
 				@endforeach
 			</ol><!-- / -->

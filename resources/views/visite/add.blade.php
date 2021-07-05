@@ -189,14 +189,14 @@
   $('body').on('click', '.edit-trait', function () {//edit traitement
 			  var traitID = $(this).val();
 				$.get('/traitement/'+traitID+'/edit', function (data) {
-					getProducts(1,data.medicament.id_specialite,data.med_id);
-					$('#trait_id').val(data.id);
-					 $("#produit").removeAttr("disabled");
-					$('#TraitCrudModal').html("Editer un Traitement Médical");		
-					$('#specialiteProd').val(data.medicament.id_specialite);
-					$('#posologie').val(data.posologie);/*$.each(data.periodes, function( index, value ){$('#T' + value).prop("checked",true).change();});$('#dureeT').val(data.duree).change();*/
-					jQuery('#EnregistrerTrait').val("update");		
-					jQuery('#traitModal').modal('show');
+						getProducts(1,data.medicament.id_specialite,data.med_id);
+						$('#trait_id').val(data.id);
+						 $("#produit").removeAttr("disabled");
+						$('#TraitCrudModal').html("Editer un Traitement Médical");		
+						$('#specialiteProd').val(data.medicament.id_specialite);
+						$('#posologie').val(data.posologie);/*$.each(data.periodes, function( index, value ){$('#T' + value).prop("checked",true).change();});$('#dureeT').val(data.duree).change();*/
+						jQuery('#EnregistrerTrait').val("update");		
+						jQuery('#traitModal').modal('show');
 		  	});
 	});
 	////----- DELETE a Traitement and remove from the tabele -----////
@@ -299,7 +299,7 @@
 						<h5 class="widget-title bigger lighter"><font color="black"> <i class="ace-icon fa fa-table"></i>&nbsp;<b>Actes</b></font></h5>
 						<div class="widget-toolbar widget-toolbar-light no-border" width="20%">
 							<div class="fa fa-plus-circle"></div>
-							<a href="#" id="btn-addActe" class="btn-xs tooltip-link"><h4><strong>Acte Médical</strong></h4>	</a>	
+							<a href="#" id="btn-addActe" class="btn-xs tooltip-link"><h5><strong>Acte Médical</strong></h5>	</a>	
 						</div>
 						</div>
 						<div class="widget-body" id ="ConsigneWidget">
@@ -308,7 +308,7 @@
 							<thead class="thin-border-bottom">
 								<tr class ="center">
 								  <th class ="hidden"></th>
-								  	<th class ="center"><strong>Date Visite</strong></th>
+								  	<th class ="center"><strong>Date visite</strong></th>
 									  <th class ="center sorting_disabled"><strong>Acte</strong></th>
 										<th class ="center sorting_disabled"><strong>Type</strong></th>
 										<th class ="center sorting_disabled"><strong>Code NGAP</strong></th><!-- <th scope="col" class ="center sorting_disabled"><strong>Périodes</strong></th>
@@ -354,7 +354,7 @@
 							</h5>
 							<div class="widget-toolbar widget-toolbar-light no-border" width="20%">
 								<div class="fa fa-plus-circle"></div>
-								<a href="#" id="btn-addTrait" class="btn-xs tooltip-link"><h4><strong>Traitement</strong></h4></a>	
+								<a href="#" id="btn-addTrait" class="btn-xs tooltip-link"><h5><strong>Traitement</strong></h5></a>	
 							</div>
 						</div>	
 						<div class="widget-body" id ="TraitementWidget">
@@ -363,8 +363,8 @@
 							<thead class="thin-border-bottom">
 								<tr class ="center">
 									<th class ="hidden"></th>
-									<th class ="center"><strong>Date Visite</strong></th>												
-									<th class ="center sorting_disabled"><strong>Nom Medicament</strong></th>
+									<th class ="center"><strong>Date visite</strong></th>												
+									<th class ="center sorting_disabled"><strong>Nom médicament</strong></th>
 									<th class ="center sorting_disabled"><strong>Posologie</strong></th><!--<th class ="center"><strong>Périodes</strong></th><th class ="center" width="3%"><strong>Nombre de jours</strong></th> -->	
 									<th class ="center sorting_disabled"><strong>Médecin prescripteur</strong></th>											
 									<th class=" center sorting_disabled"><em class="fa fa-cog"></em></th>

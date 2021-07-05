@@ -1,6 +1,6 @@
 @extends('app')
 @section('main-content')
-	<div class="row"><h3><strong>Modifier les données du lit :</strong></h3>
+	<div class="row"><h4><strong>Modifier les données du lit :</strong></h4>
 	</div>
 	<div class="row">
 		<div class="col-xs-12">

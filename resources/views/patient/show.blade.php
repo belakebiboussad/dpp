@@ -143,8 +143,9 @@ $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "160
 				<div id="rdvs" class="tab-pane"><div class="row">@include('rdv.liste')</div></div>
 				<div id="Hosp" class="tab-pane">@include('hospitalisations.liste')	</div>
 				<div id="homme_conf" class="tab-pane">
-				<div class="row">@include('corespondants.widget')</div><div class="row">@include('corespondants.add')</div>
-				</div>
+				<div class="row">@include('corespondants.widget')</div>
+				<div class="row">@include('corespondants.add')</div>
+			</div>
 			</div>
 		</div>
 	</div>
@@ -165,7 +166,7 @@ $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "160
 						<option value="Normale">Normale</option>
 						<option value="Urgente">Urgente</option>
 						<option value="controle">Contrôle</option>
-						<option value="specialise">Spécialisé</option>
+						<option value="specialise">Spécialisée</option>
 					</select>
 				</div>
 			</div>

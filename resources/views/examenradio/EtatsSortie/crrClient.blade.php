@@ -4,46 +4,12 @@
 <h5 class="center" id="etabTel">Tél : {{ $etablissement->tel }}- {{ $etablissement->tel2 }}</h5>
 <h5 class="mt-10 center" ><img src='{{ asset("img/$etablissement->logo") }}' style="width: 80px; height: 80px" alt="logo"/></h5>
 <hr class="mt-1"/>
-<div class="row mt-20"><div class="col-sm-12 center"><h3>Compte-rendu radiologique</h3></div></div>
+<div class="row mt-20"><div class="col-sm-12 center"><h3>Compte  rendu radiologique</h3></div></div>
 <div class="space-12"></div> <div class="space-12"></div>
- <div class="row">
-   	 <div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right"><strong><span style="font-size:20px;">Indication</span></strong>
-       </div>
-</div><div class="space-12"></div>
-<div class="row"><div class="col-xs-1"></div>
-<div class="col-xs-11"><p id="indicationPDF" style="font-size:16px;">
-  	@isset($crr)
-      		{{ $crr->indication }}
-   	 @endisset
-  </p></div>
-  </div> <div class="space-12"></div>
+ {{--<div class="row"> <div class="col-xs-11 label label-lg label-primary arrowed-in arrowed-right"><strong><span style="font-size:20px;">Indication</span></strong></div></div><div class="space-12"></div><div class="row"><div class="col-xs-1"></div><div class="col-xs-11"><p id="indicationPDF" style="font-size:16px;">@isset($crr){{ $crr->indication }}@endisset</p></div></div> <div class="space-12"></div><div class="row"><div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><strong><span style="font-size:20px;">Technique de réaliation</span></strong></div></div><div class="space-12"></div><div class="row"><div class="col-xs-1"></div><div class="col-xs-11"><p id="techReaPDF" style="font-size:16px;">@isset($crr){{ $crr->techRea }}@endisset</p></div></div><div class="space-12"></div><div class="row"><div class="col-xs-11 label label-lg label-default arrowed-in arrowed-right"><strong><span style="font-size:20px;">Resultat</span></strong></div></div><div class="space-12"></div><div class="row"><div class="col-xs-1"></div><div class="col-xs-11"><p id="resultPDF" style="font-size:16px;">@isset($crr){{ $crr->result }}@endisset</p></div></div>  --}}
    <div class="row">
-	    <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><strong><span style="font-size:20px;">Technique de réaliation</span></strong>
-	   </div>
-  </div><div class="space-12"></div>
-  <div class="row"><div class="col-xs-1"></div>
-	  <div class="col-xs-11">
-	    <p id="techReaPDF" style="font-size:16px;">
-		      @isset($crr)
-		      {{ $crr->techRea }}
-		      @endisset
-	    </p>
-	  </div>
-  </div><div class="space-12"></div>
-   <div class="row">
-    <div class="col-xs-11 label label-lg label-default arrowed-in arrowed-right"><strong><span style="font-size:20px;">Resultat</span></strong>
-   </div>
-  </div><div class="space-12"></div>
-  <div class="row"><div class="col-xs-1"></div>
-    <div class="col-xs-11"><p id="resultPDF" style="font-size:16px;">
-     @isset($crr)
-      {{ $crr->result }}
-      @endisset
-    </p></div>
-  </div>
-   <div class="row">
-    <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><strong><span style="font-size:20px;">Synthèse Conclusion</span></strong>
-   </div>
+   {{--  <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right"><strong><span style="font-size:20px;">Synthèse Conclusion</span></strong>
+   </div> --}}
   </div><div class="space-12"></div>
   <div class="row"><div class="col-xs-1"></div>
   <div class="col-xs-11"><p id="conclusionPDF" style="font-size:16px;">

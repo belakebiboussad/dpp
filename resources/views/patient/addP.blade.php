@@ -86,13 +86,13 @@
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="nomA"><strong>Nom :</strong></label>
+							<label class="col-sm-3 control-label" for="nomA"><strong>Nom :<span style="color: red">*</span></strong></label>
 							<div class="col-sm-9"><input type="text" id="nomA" name="nom_homme_c" placeholder="Nom..." class="col-xs-12 col-sm-12" /></div><br>
 						</div><br>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="prenomA"><strong>Prénom :</strong></label>
+							<label class="col-sm-3 control-label" for="prenomA"><strong>Prénom :<span style="color: red">*</span></strong></label>
 							<div class="col-sm-9">
 								<input type="text" id="prenomA" name="prenom_homme_c" placeholder="Prénom..." class="col-xs-12 col-sm-12" />
 							</div><br>
@@ -114,14 +114,20 @@
 							<div class="col-sm-9">
 								<select id="lien" name="lien" class="col-xs-12 col-sm-12"/>
 									<option value="">Sélectionner...</option>
-									<option value="conjoint">Conjoint(e)</option>
-									<option value="père">Père</option>
-									<option value="mère">Mère</option>
-									<option value="frère">Frère </option>
-									<option value="soeur">Soeur </option>
-									<option value="membre_famille">Membre de famille </option>
-									<option value="ami">Ami </option>
-									<option value="Autre">Autre </option>
+									<option value="0">Conjoint(e)</option>
+									<option value="1">Père</option>
+									<option value="2">Mère</option>
+									<option value="3">Frère </option>
+									<option value="4">Soeur </option>
+									<option value="5">Ascendant</option>
+									<option value="6">Grand-parent</option>
+									<option value="7">Membre de famille </option>
+									<option value="8">Ami </option>
+									<option value="9">Collègue</option>
+									<option value="10">Employeur</option>
+									<option value="11">Employé</option>
+									<option value="12">Tuteur</option>
+									<option value="13">Autre </option>
 								</select>
 							</div>
 						</div>
@@ -131,20 +137,20 @@
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="form-group">
-						<label class="col-sm-3 control-label " for="type_piece_id"><strong>Type  pièce d'identité:</strong></label>
+						<label class="col-sm-3 control-label " for="type_piece_id"><strong>Type  pièce:<span style="color: red">*</span></strong></label>
 						<div class="col-sm-9">
 							<select id="type_piece_id" name="type_piece_id" class="col-xs-12 col-sm-12"/>
-								<option value="">Sélectionner...</option>
-								<option value="CNI">Carte d'identité nationale</option>
-								<option value="Permis">Permis de Conduire</option>
-								<option value="Passeport">Passeport </option>
+								<option value="" selected diasbled>Sélectionner...</option>
+								<option value="0">Carte d'identité nationale</option>
+								<option value="1">Permis de Conduire</option>
+								<option value="2">Passeport </option>
 							</select>
 						</div>
 					</div>
 				</div>
 				<div class="col-sm-6">
 					<div class="form-group">
-						<label class="control-label col-xs-12 col-sm-3 text-nowrap" for="npiece_id"><strong>N° Pièce :</strong></label>
+						<label class="control-label col-xs-12 col-sm-3 text-nowrap" for="npiece_id"><strong>N° Pièce :<span style="color: red">*</span></strong></label>
 						<div class="col-sm-9">
 							<div class="clearfix">
 								<input type="text" id="npiece_id" name="npiece_id" class="col-xs-12 col-sm-12" placeholder="N° de la pièce d'identité..." />
@@ -176,7 +182,7 @@
 				<div class="col-sm-6">
 					<div class="form-group">
 						<div class="form-group">
-							<label class="control-label text-nowrap col-sm-2" for="mobileA"><i class="fa fa-phone"></i><b>Mob :</b></label>
+							<label class="control-label text-nowrap col-sm-2" for="mobileA"><i class="fa fa-phone"></i><b>Mob :<span style="color: red">*</span></b></label>
 							<div class="col-sm-2">
 									<select name="operateur_h" id="operateur_h" class="form-control" >
 								           <option value="">XX</option>

@@ -1,6 +1,45 @@
 @extends('app_laboanalyses')
+@section('style')
+<style>
+h3.b {
+  word-spacing: 3px !important;
+}
+  
+</style>
+@endsection
 @section('page-script')
 <script>
+  function CRBave()
+  { //$('form#cerbForm').append(document.getElementById("crbm"));
+    $("#crb").val($("#crbm").val());
+  }
+  function CRBPrint()
+  {
+    var crbm = $("#crbm").val();
+    $("#crbPDF").text(crbm);
+    $("#pdfContent").removeClass('hidden');//$("#pdfContent").prop('hidden', '');
+    var element = document.getElementById('pdfContent');
+    $("#pdfContent").removeAttr('disabled');
+    var options = {
+          filename: 'crb-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+".pdf"
+    };
+    var exporter = new html2pdf(element, options);// Create instance of html2pdf class
+    $("#pdfContent").addClass('hidden');//$("#pdfContent").prop('hidden', 'hidden');
+    $("#pdfContent").removeAttr('disabled');
+     exporter.getPdf(true).then((pdf) => {// Download the PDF or...
+           console.log('pdf file downloaded');
+     });
+    exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it
+      console.log('doing something before downloading pdf file');
+      pdf.save();
+    });
+  }
+  $(function(){
+    $(".open-AddCRBilog").click(function () {//jQuery('#CRBForm').trigger("reset");
+        jQuery('#crbSave').val("add");
+        $('#addCRBDialog').modal('show');
+    });
+  })
   $('document').ready(function(){
     $("button").click(function (event) {
          which = '';
@@ -16,12 +55,6 @@
 </script>
 @endsection
 @section('main-content')
- <?php
-    if(isset($demande->id_consultation))
-      $patient = $demande->consultation->patient;
-    else
-     $patient = $demande->visite->hospitalisation->patient;
-  ?>
 <div class="row" width="100%"> @include('patient._patientInfo',$patient) </div>
 <div class="row">
   <div class="col-md-5 col-sm-5"><h3>Demande d'examen biologique</h3></div>
@@ -35,7 +68,7 @@
   </div>
 </div><hr>
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-xs-11">
     <div class="widget-box">
       <div class="widget-header"><h4 class="widget-title">Détails de la demande :</h4></div>
       <div class="widget-body">
@@ -43,21 +76,21 @@
         <div class="row">
           <div class="col-xs-12">
             <div class="user-profile row">
-            <div class="col-xs-12 col-sm-3 center">
+              <div class="col-xs-12 col-sm-3 center">
               <div class="profile-user-info profile-user-info-striped">
                 <div class="profile-info-row">
                   <div class="profile-info-name">Date : </div>
                   <div class="profile-info-value"><span class="editable">
-             @if(isset($demande->consultation))
+                  @if(isset($demande->consultation))
                     {{  (\Carbon\Carbon::parse($demande->consultation->Date_Consultation))->format('d/m/Y') }}
-                 @else
+                  @else
                     {{  (\Carbon\Carbon::parse($demande->visite->date))->format('d/m/Y') }}
                   @endif 
                   </span></div>
                 </div>
-              </div>
+              </div><!-- striped -->
               <div class="profile-user-info profile-user-info-striped">
-                <div class="profile-info-row">
+                 <div class="profile-info-row">
                   <div class="profile-info-name">Etat :</div>
                   <div class="profile-info-value">
                       @if($demande->etat == null)
@@ -70,22 +103,31 @@
                       </span>
                   </div>
                 </div>
+              </div><!-- striped   -->
+              <div class="profile-user-info profile-user-info-striped">
                 <div class="profile-info-row">
                   <div class="profile-info-name"> Demandeur : </div>
                   <div class="profile-info-value">
                     <span class="editable" id="username">{{ $medecin->nom }} {{ $medecin->prenom }}</span>
                   </div>
                 </div>
-              </div><!-- profile-user-info  -->
-            </div>
-            </div><br>
+              </div><!-- striped   -->
+            </div><!-- col-xs-12 col-sm-3 center   -->
+            </div><br/><!-- user-profile row -->
+            <form class="form-horizontal" id ="cerbForm" method="POST" action="/uploadresultat" enctype="multipart/form-data">
+            {{ csrf_field() }}
+            <input type="text" name="id_demande" value="{{ $demande->id }}" hidden>
+            <input type="hidden" name="crb" id ="crb"> 
             <div class="user-profile row">
-              <table class="table table-striped table-bordered">
+              <div class="col-xs-12 col-sm-12 center">
+                <table class="table table-striped table-bordered">
                 <thead>
                   <tr>
-                    <th class="center">#</th>
-                    <th class="center">Nom Examen</th>
-                    <th class="center"><em class="fa fa-cog"></em></th>
+                    <th class="center" width="5%">#</th>
+                    <th class="center" width="30%">Nom Examen</th>
+                    <th class="center" width="15%">Class Examen</th>
+                    <th class="center" width="40%">Attacher le Résultat:</th>
+                    <th class="center" width="10%"><em class="fa fa-cog"></em></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -93,41 +135,40 @@
                   <tr>
                     <td class="center">{{ $index + 1 }}</td>
                     <td>{{ $exm->nom_examen }}</td>
+                    <td>{{ $exm->Specialite->specialite }}</td>
                     @if($loop->first)
-                    <td rowspan ="{{ $demande->examensbios->count()}}"></td>
-                     @endif
+                    <td rowspan ="{{ $demande->examensbios->count()}}" class="center align-middle">
+                      <input type="file" class="form-control" id="resultat" name="resultat" alt="Résultat du l'éxamen" accept="image/*,.pdf" required/> 
+                    </td>
+                    @endif
+                    @if($loop->first)
+                    <td rowspan ="{{ $demande->examensbios->count()}}" class="center align-middle">
+                      @if($demande->etat == null)
+                      <button type="button" class="btn btn-md btn-success open-AddCRBilog" data-toggle="modal" title="ajouter un Compte Rendu" data-id="{{ $demande->id }}" id ="crb-add-{{ $demande->id }}" @if( isset($exm->pivot->crb)) hidden @endif">
+                        <i class="glyphicon glyphicon-plus glyphicon glyphicon-white"></i>
+                      </button>
+                      @endif
+                    </td>
+                    @endif 
                   </tr>
                   @endforeach                         
                 </tbody>
-      </table>
-      <form class="form-horizontal" method="POST" action="/uploadresultat" enctype="multipart/form-data">
-        {{ csrf_field() }}
-        <input type="text" name="id_demande" value="{{ $demande->id }}" hidden>
-        {{-- <div class="form-group"><div class="col-xs-2"><label for="resultat">Attacher le Résultat </label></div>
-<div class="col-xs-8"><input type="file" id="resultat" name="resultat" class="form-control" accept="image/*,.pdf" required/></div></div> --}}
-        <div class="form-group">
-              <label class="col-sm-3 control-label no-padding-right" for="nom"><strong> Attacher le Résultat: </strong></label>
-                <div class="col-sm-9"> <input type="file" class="form-control col-xs-12 col-sm-12"   id="resultat" name="resultat" alt="Résultat du l'éxamen"  accept="image/*,.pdf" required/> 
-                </div>
-       </div>
-        <div class="form-group">
-               <label class="col-sm-3 control-label no-padding-right" for="nom"><strong>Compte Rendu : </strong></label>
-                <div class="col-sm-9"> 
-                        <textarea name="crb" name="crb" class="form-control col-xs-12 col-sm-12" placeholder="Compte  rendu des examens" rows=3 ></textarea> 
-               </div>
-       </div>
-        <div class="clearfix form-actions">
-              <div class="col-md-offset-5 col-md-7">
-                 <button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
+                </table>
               </div>
-        </div>
-       </form>
+            </div><br>
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 center">
+                <button class="btn btn-info" type="submit"><i class="ace-icon fa fa-save bigger-110"></i>Enregistrer</button>
+               </div>
             </div>
-          </div>
-        </div><!-- ROW -->
-      </div> <!-- widget-main -->
-      </div> <!-- widget-body -->
-    </div>
-  </div> <!-- col-sm-12 -->
+          </form>
+          </div><!-- col-xs-12 -->
+        </div><!-- row -->
+        </div><!-- widget-main -->
+      </div><!-- widget-body -->
+    </div><!-- widget-box -->
+  </div><!-- col-xs-12 -->
+  <div class="col-xs-1"><div id="pdfContent" class="hidden">@include('examenbio.EtatsSortie.crbClient')</div></div>
 </div><!-- row -->
+<div class="row text-center">@include('examenbio.CRBModal')</div> 
 @endsection

@@ -286,14 +286,14 @@ $(document).ready(function () {
 				</div>
 			</div>
 			@if(count($hommes_c) == 0) 	
-			<div class="row">	<div class="col-sm-12">	<h3 class="header smaller lighter blue">Homme de Confiance</h3></div>
+			<div class="row">	<div class="col-sm-12">	<h4 class="header smaller lighter blue">Homme de confiance</h4></div>
 		  </div>
 		    <div class="row">
 		     	<div class="col-sm-1"></div>		
 				  <div class="col-sm-11">
 					<div class="form-group padding-left">
 						<input  type="checkbox" id="hommeConf" value="1"  class="ace input-lg"/>
-						<span class="lbl lighter blue"> <strong>Ajouter un Correspondant</strong></span>
+						<span class="lbl lighter blue"> <strong>Ajouter un correspondant</strong></span>
 					</div>
 				</div>				
 			</div>		
@@ -313,7 +313,7 @@ $(document).ready(function () {
 									<div class="widget-toolbar widget-toolbar-light no-border">
 										<div class="fa fa-plus-circle"></div>
 											<a href="#" data-target="#gardeMalade" class="btn-xs tooltip-link" data-toggle="modal"  data-toggle="tooltip" data-original-title="Ajouter Garde Malade ou Homme de Confiance" >
-												<strong>Ajouter un Garde Malade</strong>
+												<strong>Ajouter un garde malade</strong>
 											</a>
 									</div>
 								</div>

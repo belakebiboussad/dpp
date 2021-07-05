@@ -36,7 +36,7 @@
 														<div class="profile-info-value">
 															<span class="editable" id="username">
 																@if($demande->etat == "E")
-																	En Attente.
+																	En Cours.
 																@elseif($demande->etat =="V")
 																	Validé
 																@elseif($demande->etat =="R")

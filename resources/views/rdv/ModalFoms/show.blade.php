@@ -43,7 +43,7 @@
               <div class="row">
                  <div class="col-sm-6">
                  <fieldset class="scheduler-border">
-                       <legend class="scheduler-border">Rendez-Vous</legend>
+                       <legend class="scheduler-border">Rendez-vous</legend>
                       <div class="control-group">
                             <label class="control-label input-label" for="startTime">Date :</label>
                             <div class="controls bootstrap-timepicker">

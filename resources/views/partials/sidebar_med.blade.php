@@ -16,9 +16,11 @@
       </div>
     </div>
     <ul class="nav nav-list">
+      @if(Auth::user()->role_id == "14")
       <li class="">
-        <a href="home"><i class="menu-icon fa fa-picture-o"></i><span class="menu-text">Gestion Patients</span></a><b class="arrow"></b>
+        <a href="{{ route('stat.index') }}"><i class="menu-icon fa fa-picture-o"></i><span class="menu-text">Tableau de bord</span></a><b class="arrow"></b>
       </li>
+      @endif
       <li>
         <a href="{{ route('patient.index') }}"><i class="menu-icon fa fa-tachometer"></i><span class="menu-text">Accueil</span></a>
         <b class="arrow"></b>
@@ -92,7 +94,7 @@
           </a><b class="arrow"></b>
           <ul class="submenu">
             <li>
-              <a href="{{ route('demandeproduit.create') }}"><i class="menu-icon fa fa-plus purple"></i>Demande Produit</a>
+              <a href="{{ route('demandeproduit.create') }}"><i class="menu-icon fa fa-plus purple"></i>Demande produit</a>
               <b class="arrow"></b>
             </li>
           </ul>
@@ -107,7 +109,7 @@
         <b class="arrow"></b>
         <ul class="submenu">
           <li class="">
-            <a href="{{ route('demandeproduit.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter demande</a><b class="arrow"></b>
+            <a href="{{ route('demandeproduit.create') }}"><i class="menu-icon fa fa-plus purple"></i>Ajouter une demande</a><b class="arrow"></b>
           </li>
           <li>
             <a href="{{ route('demandeproduit.index') }}"><i class="menu-icon fa fa-eye pink"></i> Liste des demandes</a>
@@ -205,26 +207,7 @@
             }
          });             
       }
-      function getProducts(id_gamme, id_spec=0,med_id = 0)
-      {
-         var html = '<option value="0">Sélectionner...</option>';
-          $.ajax({
-              url : '/getproduits/'+id_gamme+'/'+id_spec,
-              type : 'GET',
-              dataType : 'json',
-              success : function(data){
-                  $.each(data, function(){
-                    html += "<option value='"+this.id+"'>"+this.nom+"</option>";
-                  });
-                  $('#produit').html(html);
-                  if(med_id != 0)
-                    $('#produit').val(med_id);
-              },
-              error : function(){
-                  console.log('error');
-              }
-          });
-      }
+/*function getProducts(id_gamme, id_spec=0,med_id = 0){var html = '<option value="0">Sélectionner...</option>';$.ajax({url : '/getproduits/'+id_gamme+'/'+id_spec,type : 'GET',dataType : 'json',success : function(data){$.each(data, function(){html += "<option value='"+this.id+"'>"+this.nom+"</option>";});$('#produit').html(html);if(med_id != 0) $('#produit').val(med_id);},error : function(){console.log('error');}});}*/
       function addCIMCode(code,field)
       {
         $("#"+field).val(code);

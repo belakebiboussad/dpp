@@ -8,7 +8,7 @@
             <i class="ace-icon fa fa-home home-icon"></i>
             <a href="#">Accueil</a>
         </li>
-        {{-- <li class="active">Gestion Des Utilisateurs</li>--}}
+        {{-- <li class="active">Gestion des utilisateurs</li>--}}
     </ul>
     <!-- #section:basics/content.searchbox -->
     <div class="nav-search" id="nav-search">

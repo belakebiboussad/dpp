@@ -3,9 +3,10 @@
 <div class="row" width="100%">@include('patient._patientInfo')</div>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-5"><h3> Détails de la demande radiologique</h3></div>
+    <div class="col-sm-5"><h4> <strong>Détails de la demande radiologique</strong></h4></div>
     <div class="col-sm-7 pull-right">
-      <a href="/drToPDF/{{ $demande->consultation->examensradiologiques->id }}" target="_blank" class="btn btn-sm btn-primary pull-right"> <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
+  {{-- <a href="/drToPDF/{{ $demande->consultation->examensradiologiques->id }}" target="_blank" class="btn btn-sm btn-primary pull-right"> <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer--}}
+      a href="/drToPDF/{{ $demande->->id }}" target="_blank" class="btn btn-sm btn-primary pull-right"> <i class="ace-icon fa fa-print"></i>&nbsp;Imprimer
       </a>&nbsp;&nbsp;
       <a href="{{ URL::previous() }}" class="btn btn-sm btn-warning pull-right"><i class="ace-icon fa fa-backward"></i>&nbsp; precedant</a>
     </div>
@@ -14,8 +15,9 @@
 	<div class="row no-gutters">
 	  <div class="col-lg-6">
 			<div class="row">
-			  <div class="col-xs-12 col-sm-12">
-			    <div class="col-sm-6"><label class="control-label pull-right"><b>Date :</b></label></div>
+			  {{--<div class="col-xs-12 col-sm-12">--}}
+			  	<div class="">
+			    <div class="col-sm-6"><label class="">Date :</label></div>
 			    <div class="form-group col-sm-6">
 			    	<label class="blue">
 			      @if(isset($demande->consultation))
@@ -28,8 +30,8 @@
 			  </div>
 		  </div>
 			<div class="row">
-			  <div class="col-xs-12 col-sm-12">
-			    <div class="col-sm-6"> <label class="control-label pull-right"><b>Médecin demandeur :</b></label></div>
+			  <div class="">
+			    <div class="col-sm-6"> <label class="">Médecin demandeur :</label></div>
 			    <div class="form-group col-sm-6">
 			    	<label class="blue">
 			      @if(isset($demande->consultation))
@@ -42,21 +44,21 @@
 			  </div>
 		  </div>
 			<div class="row">
-			  <div class="col-xs-12 col-sm-12">
-			    <div class="col-sm-6"><label class="control-label pull-right"><b>Informations cliniques pertinentes :</b></label></div>
+			  <div class="">
+			    <div class="col-sm-6"><label class="">Informations cliniques pertinentes :</label></div>
 			      <div class="form-group col-sm-6"><label class="blue">{{ $demande->InfosCliniques }}</label> </div>
 			  </div>
 			</div>
 			<div class="row">
-			  <div class="col-xs-12 col-sm-12">
-			    <div class="col-sm-6"> <label class="control-label pull-right"><b>Explication de la demande de diagnostic :</b></label></div>
+			  <div class="">
+			    <div class="col-sm-6"> <label class="">Explication de la demande de diagnostic :</label></div>
 			    <div class="form-group col-sm-6"><label class="blue">{{ $demande->Explecations }}</label> </div>
 			  </div>
 			</div>
 			<div class="row">
-			  <div class="col-xs-12 col-sm-12">
+			  <div class="">
 			    <div class="col-sm-6">
-			      <label class="control-label pull-right"><b>Informations supplémentaires pertinentes :</b></label>
+			      <label class="">Informations supplémentaires pertinentes :</label>
 			    </div>
 			    <div class="form-group col-sm-6">
 			     	<label class="blue">
@@ -109,16 +111,16 @@
 			                  </td>
 			                  <td class="center" width="20%">
 			                    <table width="100%" height="100%" class="table">
-			                 	@if($examen->pivot->etat == "1")
-			                   		 @foreach (json_decode($examen->pivot->resultat) as $k=>$f)
-			                      	<tr><!-- <td width="70%">{{-- $f --}}</td> -->
-			                        		<td width="100%">
-			                       		 <button type="submit" class="btn btn-info btn-xs open-modal" value="{{ $examen->pivot->id_examenradio."/".$f }}"><i class="ace-icon fa fa-eye-slash"></i></button>
-			                        		<a href='/Patients/{{$patient->id}}/examsRadio/{{$demande->id}}/{{$examen->pivot->id_examenradio}}/{{ $f }}' class="btn btn-success btn-xs" target="_blank"><i class="fa fa-download"></i></a>
-			                        		@isset($examen->pivot->crr_id)
-						  			<a href="{{ route('crrs.download',$examen->pivot->crr_id )}}" title="télecharger le compte rendu" class="btn btn-default btn-xs" target="_blank"><i class="fa fa-download"></i>CRR</a>
-						  		@endisset 
-			                         		</td>
+			                 		@if($examen->pivot->etat == "1")
+			                   	  @foreach (json_decode($examen->pivot->resultat) as $k=>$f)
+			                     	<tr>
+	                        		<td width="100%">
+	                       		 <button type="submit" class="btn btn-info btn-xs open-modal" value="{{ $examen->pivot->id_examenradio."/".$f }}"><i class="ace-icon fa fa-eye-slash"></i></button>
+	                        		<a href='/Patients/{{$patient->id}}/examsRadio/{{$demande->id}}/{{$examen->pivot->id_examenradio}}/{{ $f }}' class="btn btn-success btn-xs" target="_blank"><i class="fa fa-download"></i></a>
+	                        		@isset($examen->pivot->crr_id)
+				  			<a href="{{ route('crrs.download',$examen->pivot->crr_id )}}" title="télecharger le compte rendu" class="btn btn-default btn-xs" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
+						  @endisset 
+			                       </td>
 			                      	</tr>
 			                      @endforeach
 				                  @elseif($examen->pivot->etat == "0")

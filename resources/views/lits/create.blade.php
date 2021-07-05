@@ -25,13 +25,13 @@
 </script>
 @endsection
 @section('main-content')
-	<div class="row"><h3><strong>Ajouter un nouveau lit</strong></h3>
+	<div class="row"><h4><strong>Ajouter un nouveau lit</strong></h4>
 	</div>
 	<div class="row">
 		<div class="col-xs-12">
 		<div class="widget-box" id="widget-box-1">
 			<div class="widget-header">
-				<h5 class="widget-title"><img src="/img/bed.png" alt="lit"><strong>Lit :</strong></h5>
+				<h5 class="widget-title"><img src="/img/bed.png" alt="lit"><strong> Lit :</strong></h5>
 				<div class="widget-toolbar widget-toolbar-light no-border">
 					<i class="ace-icon fa fa-table"></i>
 					<a href="/lit"> <b>&nbsp;Liste des Lits</b></a>

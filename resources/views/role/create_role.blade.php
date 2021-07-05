@@ -1,7 +1,7 @@
 @extends('app')
 @section('title','Ajouter un Rôle')
 @section('main-content')
-<div class="row"><h3><strong>Ajouter un nouveau rôle :</strong></h3>
+<div class="row"><h4><strong>Ajouter un nouveau rôle :</strong></h4>
 </div>
 <div class="row">
 	<div class="col-sm-12">

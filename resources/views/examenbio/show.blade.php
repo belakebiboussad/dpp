@@ -71,7 +71,11 @@
                 <table class="table table-striped table-bordered">
                   <thead>
                     <tr>
-                        <th class="center"><strong>#</strong></th><th class="center"><strong>Nom Examen</strong></th><th class="center">Etat</em></th>
+                        <th class="center"><strong>#</strong></th>
+                        <th class="center"><strong>Nom Examen</strong></th>
+                        <th class="center"><strong>Classe Examen</strong></th>
+                        <th class="center">Etat</em></th>
+                        <th class="center"><em class="fa fa-cog"></em></em></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -79,6 +83,7 @@
                       <tr>
                         <td class="center">{{ $index + 1 }}</td>
                         <td>{{ $exm->nom_examen }}</td>
+                        <td>{{ $exm->Specialite->specialite }}</td>
                         @if($loop->first)
                         <td rowspan ="{{ $demande->examensbios->count()}}" class="center align-middle">
                         @if($demande->etat == null)
@@ -90,17 +95,28 @@
                         @endif
                         </span></td>
                         @endif
+                        @if($loop->first)
+                        <td rowspan ="{{ $demande->examensbios->count()}}" class="center align-middle">
+                          @if($demande->etat == "1")
+                          <a href='/download/{{ $demande->resultat }}' class="btn btn-info btn-md" data-toggle="tooltip" title="téléchager le résultat" data-placement="bottom">
+                            <i class="fa fa-download"></i></a>
+                            @if( isset($demande->crb))
+                              <a href="{{ route('crbs.download',$demande->id )}}" title="télecharger le compte rendu" class="btn btn-default btn-md" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
+                            @endif
+                          @endif
+                        </td>
+                        @endif
                       </tr>
                     @endforeach          
                     </tbody>
                   </table>
               </div>
+              @if($demande->crb != null)
               <div class="user-profile row">
-                @if($demande->etat == "1")
-                  <label>Résultat :</label>&nbsp;&nbsp;
-                  <span><a href='/download/{{ $demande->resultat }}'>{{ $demande->resultat }} &nbsp;<i class="fa fa-download"></i></a></span>
-                @endif
-              </div> 
+                <div class="profile-info-name">Compte rendu :</div>
+                <div class="profile-info-value col-sm-12"><p>{{ $demande->crb}}</p></div>
+              </div>
+               @endif 
             </div><!-- col-xs-12 -->
           </div><!-- row -->
         </div>

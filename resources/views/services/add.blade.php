@@ -1,10 +1,10 @@
 @extends('app')
 @section('main-content')
-	<div class="row"><h3><strong>Ajouter un service :</strong></h3></div><div class="space-12 hidden-xs"></div>
+	<div class="row"><h4><strong>Ajouter un nouveau service :</strong></h4></div><div class="space-12 hidden-xs"></div>
 	<div class="row">
 		<div class="col-sm-6 col-xs-12">
 			<div class="widget-box widget-primary" id="widget-box-1">
-				<div class="widget-header" bg="blue"><h5 class="widget-title"><strong>Ajouter un service </strong></h5></div>
+				<div class="widget-header" bg="blue"><h5 class="widget-title"><strong>Renseigner les rubriques suivantes ... </strong></h5></div>
 				<div class="widget-body">
 				<div class="widget-main">
 					<form class="form-horizontal" role="form" method="POST" action="{{ route('service.store') }}">
@@ -63,9 +63,9 @@
 		</div>{{-- col-xs-6 --}}
 		<div class="col-sm-6 hidden-xs">
 			<div class="widget-box" id="widget-box-2">
-			<div class="widget-header">
-				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i><span><b>Liste des services</b></span></h5>
-			</div>
+			
+           <div class="widget-header" bg="blue"><h5 class="widget-title"><strong>Liste des services </strong></h5></div>
+
 			<div class="widget-body">
 			<ol>
 				@foreach ($services as $service)	

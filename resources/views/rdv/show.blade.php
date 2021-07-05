@@ -32,7 +32,7 @@
 					<div  class="row">
 						<ul class="list-unstyled spaced">
 							<li>
-								<i class="ace-icon fa fa-caret-right blue"></i><strong>Prenom :</strong>
+								<i class="ace-icon fa fa-caret-right blue"></i><strong>Prénom :</strong>
 								<b class="blue">{{ $rdv->patient->Prenom }}</b>
 							</li>
 						</ul>
@@ -48,7 +48,7 @@
 					<div class="row">
 						<ul class="list-unstyled spaced">
 							<li>
-								<i class="ace-icon fa fa-caret-right blue"></i><strong>Date Naissance :</strong>
+								<i class="ace-icon fa fa-caret-right blue"></i><strong>Date de naissance :</strong>
 								<b class="blue">{{ $rdv->patient->Dat_Naissance }}</b>
 							</li>
 						</ul>
