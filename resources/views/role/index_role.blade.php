@@ -1,6 +1,6 @@
 @extends('app')
 @section('main-content')
-<div class="row"><h3><strong>Liste des rôles :</strong></h3>
+<div class="row"><h4><strong>Liste des rôles :</strong></h4>
 </div>
 <div class="row">
 	

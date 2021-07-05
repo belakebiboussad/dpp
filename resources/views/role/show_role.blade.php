@@ -1,8 +1,6 @@
 @extends('app')
 @section('main-content')
-<div class="page-header">
-	<h1><strong>Détails du rôle : {{ $role->role }}</strong></h1>
-</div>
+<div class="row"><h4><strong> Détails du rôle : {{ $role->role }}</strong></h4></div>
 <div class="row">
 	<div class="col-sm-12">
 		<div class="space-10"></div>

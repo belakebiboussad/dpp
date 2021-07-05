@@ -1,7 +1,7 @@
 @extends('app')
 @section('title','Ajouter un Utilisateure')
 @section('main-content')
-	<div class="row"><h3><strong>Ajouter un nouveau utilisateur </strong></h3></div>
+	<div class="row"><h4><strong>Ajouter un nouveau utilisateur </strong></h4></div>
 	<div class="widget-box" id="widget-box-1">
 		<div class="widget-body">
 			<div class="widget-main">	{{-- "{{route('users.store')}} --}}

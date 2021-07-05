@@ -15,9 +15,9 @@
 		<li ><a data-toggle="tab" href="#visites"><strong>Visites & Contrôles</strong></a></li>
 		@endif
         @if(in_array(Auth::user()->role_id,[1,14]))
-		<li ><a data-toggle="tab" href="#prescriptionconst">Prescription constantes</a></li>
+		<li ><a data-toggle="tab" href="#prescriptionconst"><strong>Prescription constantes</strong></a></li>
 		@endif
-		<li ><a data-toggle="tab" href="#constantes">Surveillance clinique</a></li>
+		<li ><a data-toggle="tab" href="#constantes"><strong>Surveillance clinique</strong></a></li>
 	</ul>
 	<div class="tab-content no-border padding-24">
 		<div id="hospi" class="tab-pane in active">

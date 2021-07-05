@@ -10,12 +10,12 @@ function bedShow(id){
 </script>
 @endsection
 @section('main-content')
-<div class="row"><h3><strong>Liste des lits :</strong></h3></div>
+<div class="row"><h4><strong>Liste des lits :</strong></h4></div>
 <div class="row">
 	<div class="col-xs-6">
 		<div class="widget-box widget-color-blue" id="widget-box-2">
 			<div class="widget-header">
-				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Liste des lits </h5>
+				<h5 class="widget-title bigger lighter"><i class="ace-icon fa fa-table"></i>Détails des lits </h5>
 				<div class="widget-toolbar widget-toolbar-light no-border">
 			  	<a href="{{ route('lit.create') }}" >
 						<div class="fa fa-plus-circle bigger-90"></div><b>&nbsp;Lit</b>

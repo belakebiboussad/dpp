@@ -88,17 +88,17 @@
 @section('main-content')
 <div class="row">
 	<div class="col-sm-12 col-md-12"> <h4><strong>Rechercher une consultation</strong></h4>
-  	<div class="panel panel-default"><div class="panel-heading">Rechercher</div>
+  	<div class="panel panel-default"><div class="panel-heading">Rechercher par :</div>
     	<div class="panel-body">
       <div class="row">
       		<div class="col-sm-4">
-        	<div class="form-group"><label><strong>  Patient :</strong></label><input type="text" id="Nom" class="form-control filter autofield"></div>
+        	<div class="form-group"><label><strong>  Nom du patient :</strong></label><input type="text" id="Nom" class="form-control filter autofield"></div>
          	</div>
             <div class="col-sm-4">
-            <div class="form-group"><label class="control-label"><strong>IPP:</strong></label><input type="text" id="IPP" class="form-control filter"></div>
+            <div class="form-group"><label class="control-label"><strong>Identifiant permanent (IPP):</strong></label><input type="text" id="IPP" class="form-control filter"></div>
           </div>
       		<div class="col-sm-4">
-      			<div class="form-group"><label class="control-label" for="" ><strong>Date :</strong></label>
+      			<div class="form-group"><label class="control-label" for="" ><strong>Date de la consultation:</strong></label>
     			    <div class="input-group">
 			     		  <input type="text" id ="Date_Consultation" class="date-picker form-control ltnow filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
 					       <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>

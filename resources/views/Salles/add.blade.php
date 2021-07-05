@@ -1,6 +1,6 @@
 @extends('app')
 @section('main-content')
-	<div class="row"><h3><strong>Ajouter une chambre :</strong></h3>
+	<div class="row"><h4><strong>Ajouter une nouvelle chambre :</strong></h4>
 	</div>
 	<div class="row">
 		<div class="col-xs-12">
@@ -41,7 +41,7 @@
 					</div>
 				</div><div class="space-12 hidden-xs"></div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="max_lit"><strong> Max des lits : </strong></label>
+					<label class="col-sm-3 control-label no-padding-right" for="max_lit"><strong> Capacité : </strong></label>
 					<div class="col-sm-9">
 						<input type="number" name="max_lit" placeholder="Max Des Lits" class="col-xs-10 col-sm-5" />
 					</div>
@@ -61,10 +61,11 @@
 				</div>
 				<div class="space-12 hidden-xs"></div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label no-padding-right" for="genre"><strong> Genre: </strong></label>
+					<label class="col-sm-3 control-label no-padding-right" for="genre"><strong> Unité: </strong></label>
 					<div class="col-sm-9">
 					<label><input name="genre" value="0" type="radio" class="ace" checked/><span class="lbl">Homme</span></label>&nbsp;&nbsp;
 					<label><input name="genre" value="1" type="radio" class="ace"/><span class="lbl">Femme</span></label>&nbsp;&nbsp;&nbsp;
+					<label><input name="genre" value="1" type="radio" class="ace"/><span class="lbl">Enfant</span></label>&nbsp;&nbsp;&nbsp;
 				  </div>
 				</div><div class="space-12 hidden-xs"></div>
 				<div class="form-group">

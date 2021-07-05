@@ -39,7 +39,7 @@ $(function(){
 </script>
 @endsection
 @section('main-content')
-<div class="row"><h3>Modification de : {{ $user->name }}</h3></div>
+<div class="row"><h4><strong>Modification de : {{ $user->name }}</strong></h4></div>
 <div class="row">
 	<div class="col-sm-9 col-xs-12">
 		<div id="edit-info">
@@ -47,7 +47,7 @@ $(function(){
 				{{ csrf_field() }}
 				{{ method_field('PUT') }}
 				<input type="hidden" name="id" value="{{ $user->employ->id }}">
-				<h4 class="header blue lighter smaller">Informations adminstratives</h4>
+				<h4 class="header blue lighter smaller"><strong>Informations adminstratives</strong></h4>
 				<div class="row">
 					<div class="col-xs-6 col-sm-6">
 						<div class="form-group {{ $errors->has('nom') ? "has-error" : "" }}">
@@ -112,7 +112,7 @@ $(function(){
 						</div>
 					</div>
 				</div>{{-- row --}}
-				<div class="row"><div class="col-sm-12"><h4 class="header smaller lighter blue">Contact</h4></div></div>
+				<div class="row"><div class="col-sm-12"><h4 class="header smaller lighter blue"><strong>Contact</strong></h4></div></div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group {{ $errors->has('adresse') ? "has-error" : "" }}">
@@ -139,7 +139,7 @@ $(function(){
 						</div>
 					</div>
 				</div>{{-- row--}}
-				<div class="row"><div class="col-sm-12"><h4 class="header smaller lighter blue">Information de poste</h4></div></div>
+				<div class="row"><div class="col-sm-12"><h4 class="header smaller lighter blue"><strong>Information de poste</strong></h4></div></div>
 				  <div class="row">
 					<div class="col-xs-12 col-sm-4">
 						<div class="form-group {{ $errors->has('mat') ? "has-error" : "" }}">
@@ -185,7 +185,7 @@ $(function(){
 		</div>
 	</div><!-- col-sm-8 -->
 	<div class="col-sm-3 col-xs-12 well well-sm">	<!-- style="text-align: center;" -->
-		<div class="w-120 p-3 mb-2" style="height:45px;"><h4 class="center">Information d'Authentification</h4></div>
+		<div class="w-120 p-3 mb-2" style="height:45px;"><h4 class="center"><strong>Informations d'authentification</strong></h4></div>
 		<form class="form-horizontal" action="{{route('users.update',$user->id)}}" method="POST">
 			{{ csrf_field() }}
   		{{ method_field('PUT') }}

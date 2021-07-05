@@ -1,6 +1,6 @@
 @extends('app')
 @section('main-content')
-	<div class="row"><h3><strong>Détails du service :</strong></h3></div>
+	<div class="row"><h4><strong>Consultations des détails du service :</strong></h4></div>
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="widget-box" id="widget-box-1">

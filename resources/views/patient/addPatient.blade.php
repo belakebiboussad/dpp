@@ -184,14 +184,14 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-sm-12"><h4 class="header smaller lighter blue"><strong>Homme de Confiance</strong></h4></div>
+	<div class="col-sm-12"><h4 class="header smaller lighter blue"><strong>Homme de confiance</strong></h4></div>
 </div>
 <div class="row">
  	<div class="col-sm-1"></div>		
 	<div class="col-sm-11">
 		<div class="form-group padding-left">
 			<input  type="checkbox" name = "hommeConf" id="hommeConf" value="1"  class="ace input-lg"/>
-			<span class="lbl lighter blue"><strong>Ajouter un Correspondant</strong></span>
+			<span class="lbl lighter blue"><strong>Ajouter un correspondant</strong></span>
 		</div>
 	</div>				
 </div>		

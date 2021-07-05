@@ -2,7 +2,7 @@
 @section('title','Gestion Rendez_Vous & Lits')
 @section('main-content')
 <div class="widget-header">
-	<h5 class="widget-title bigger lighter"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;Demandes Hospitalisations</h5>
+	<h5 class="widget-title bigger lighter"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;<strong>Demandes d'hospitalisations</strong></h5>
 </div>
 <div class="row">
 	<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
@@ -71,7 +71,7 @@
 </div>
 @if(isset($demandesUrg) && $demandesUrg->count() )
 <div class="space-12"></div><div class="space-12"></div>
-<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;Demandes Hospitalisations Urgentes</h5></div>
+<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;<strong>Demandes d'hospitalisations urgentes</strong></h5></div>
 <div class="row">
 	<div class="col-xs-12 widget-container-col" id="widget-container-col-2">
 		<div class="widget-box widget-color-red" id="widget-box-2">
@@ -83,9 +83,9 @@
 						<thead class="thin-border-bottom">
 							<tr>
 								<th class="text-center"><h5><strong>Patient</strong></h5></th>
-								<th class="text-center"><h5><strong>Mode Admission</strong></h5></th>
-								<th class="text-center"><h5><strong>date</strong></h5></th>
-								<th class="text-center"><h5><strong>spécialité</strong></h5></th>
+								<th class="text-center"><h5><strong>Mode d'admission</strong></h5></th>
+								<th class="text-center"><h5><strong>Date</strong></h5></th>
+								<th class="text-center"><h5><strong>Spécialité</strong></h5></th>
 								<th class="text-center"><em class="fa fa-cog"></em></th>
 							</tr>
 						</thead>

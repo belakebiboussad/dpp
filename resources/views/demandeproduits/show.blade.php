@@ -1,8 +1,8 @@
 @extends('app')
 @section('title','Détails demande')
 @section('main-content')
-<div class="page-header">
-	<h1 style="display: inline;"><strong>Détails de la demande du </strong> &quot;{{ $demande->Date}}&quot;</h1>
+<div class="row">
+	<h4 style="display: inline;"><strong>Détails de la demande du</strong> &quot;{{ $demande->Date}}&quot;</h4>
 	<div class="pull-right">
 		<a href="{{route('demandeproduit.index')}}" class="btn btn-info btn-bold"><i class="ace-icon fa fa-arrow-circle-left blue"></i>Demandes</a>
 		@if(!isset($demande->etat) &&( $demande->demandeur->service == Auth::user()->employ->service))
@@ -16,7 +16,7 @@
 <div class="row">
 	<div class="col-xs-12">
 		<div class="widget-box">
-			<div class="widget-header"><h4 class="widget-title">Détails de la demande :</h4></div>
+			<div class="widget-header"><h5 class="widget-title">Détails de la demande :</h5></div>
 				<div class="widget-body">
 					<div class="widget-main">
 						<div class="row">
@@ -63,13 +63,13 @@
 									<table class="table table-striped table-bordered">
 										<thead>
 											<tr>
-												<th class="center"><strong>Code Produit</strong></th>
+												<th class="center"><strong>Code produit</strong></th>
 												<th class="center" ><strong>Produit</strong></th>
 												<th class="center"><strong>Spécialité</strong></th>
 												<th class="center"><strong>Gamme </strong></th>
 												<th class="center"><strong>Quantité</strong></th>
 												@if($demande->etat == "1")
-												<th class="center">Qte Donnée</th>
+												<th class="center">Quantité donnée</th>
 												@endif
 											</tr>
 										</thead>

@@ -1,6 +1,6 @@
 @extends('app')
 @section('main-content')
-<div class="page-header"><h1>Détails : {{ $user->name }}</h1>
+<div class="row"><h4> <strong>Détails : {{ $user->name }}</strong></h4>
 <div class="pull-right">
 	<a href="{{ route('users.edit',$user->id )}}" class="btn btn-info btn-sm" data-toggle="tooltip" title="modifier">
 		<i class="fa fa-edit fa-xs" aria-hidden="true" ></i>
@@ -17,7 +17,7 @@
 	</ul>
 	<div class="tab-content profile-edit-tab-content jumbotron">
 		<div id="info-general" class="tab-pane in active">
-							<h4 class="header blue bolder smaller">Informations administratives</h4>
+							<h5 class="header blue bolder smaller">Informations administratives</h5>
 			<div class="row">
 				<div class="col-xs-12 col-sm-4">
 					<div class="form-group">
@@ -57,7 +57,7 @@
 					</div>
 				</div>
 			</div>
-			<h4 class="header blue bolder smaller">Contacts</h4>
+			<h5 class="header blue bolder smaller">Contacts</h5>
 			<div class="row">
 				<div class="col-xs-12 col-sm-4">
 					<div class="form-group">
@@ -72,7 +72,7 @@
 				  </div>
 				</div>
 			</div>
-			<h4 class="header blue bolder smaller">Informations du poste</h4>
+			<h5 class="header blue bolder smaller">Informations du poste</h5>
 			<div class="row">
 				<div class="col-xs-12 col-sm-4">
 					<div class="form-group">
@@ -97,7 +97,7 @@
 				@endisset	
 				</div>
 			</div>
-			<h4 class="header blue bolder smaller">Informations d'assurance</h4>
+			<h5 class="header blue bolder smaller">Informations d'assurance</h5>
 			<div class="row">
 				<div class="col-xs-12 col-sm-4">
 					<div class="form-group">

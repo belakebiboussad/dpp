@@ -1,27 +1,27 @@
 @extends('app')
 @section('main-content')
-	<div class="row"><h3><strong>Détails de la chambre "{{ $salle->nom }}"</strong></h3></div>
+	<div class="row"><h4><strong>Détails de la chambre "{{ $salle->nom }}"</strong></h4></div>
 	<div class="row">
 		<div class="col-xs-6">
 			<div class="widget-box" id="widget-box-1">
-				<div class="widget-header"><h5 class="widget-title">Détails de la chambre :</h5></div>
+				<div class="widget-header"><h6 class="widget-title"><strong>Détails de la chambre :</strong></h6></div>
 				<div class="widget-body">
 					<div class="widget-main">
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right blue" for="num"><strong> Numéro :</strong></label>
+							<label class="col-sm-3 control-label no-padding-right blue" for="num"><strong> Numéro chambre:</strong></label>
 							<div><strong>{{ $salle->num }}</strong></div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right blue" for="nom"><strong> Nom :</strong></label>
+							<label class="col-sm-3 control-label no-padding-right blue" for="nom"><strong> Dénomination :</strong></label>
 							<div><strong>{{ $salle->nom }}</strong></div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right blue" for="max"><strong> Max lits :</strong></label>
-							<div><strong>{{ $salle->max_lit }} Lits</strong></div>
+							<label class="col-sm-3 control-label no-padding-right blue" for="max"><strong> Capacité :</strong></label>
+							<div><strong>{{ $salle->max_lit }} lits</strong></div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right blue" for="max"><strong> Nombre lits :</strong></label>
-							<div><strong>{{ $salle->lits->count()	}}Lits</strong></div>
+							<label class="col-sm-3 control-label no-padding-right blue" for="max"><strong> Lits en place :</strong></label>
+							<div><strong>{{ $salle->lits->count()	}} lits</strong></div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right blue" for="bloc"><strong> Bloc : </strong></label>
@@ -54,7 +54,7 @@
 		<div class="col-xs-6">
 		  @if( $salle->lits->count() > 0 )
 			<div class="widget-box" id="widget-box-1">
-				<div class="widget-header"><h5 class="widget-title">Liste des lits </strong></h5></div>
+				<div class="widget-header"><h5 class="widget-title"><strong>Liste des lits :</strong> </strong></h5></div>
 				<div class="widget-body">
 					<div class="widget-main">
 						<table class="table table-striped table-bordered table-hover">
