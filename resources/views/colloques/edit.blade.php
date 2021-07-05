@@ -22,7 +22,7 @@
 @endsection
 @section('main-content')
 <div class="space-12"></div>
-<div class="page-header"> <h1><strong>Modifier le colloque du &quot; {{ $colloque->date }} &quot;</strong></h1></div><!-- /.page-header -->
+<div class="row"> <h4><strong>Modifier le colloque du &quot; {{ $colloque->date }} &quot;</strong></h4></div><!-- /.page-header -->
 <br><div class="space-12"></div>
 <div class="row"> 
   <div class="col-sm-12">
@@ -31,7 +31,7 @@
       {{ method_field('PUT') }}
       <div class="row">
         <div class="col-xs-5">
-          <label for="liste_membre"> <h4> <strong>Liste des médecins :</strong></h4></label>&nbsp;
+          <label for="liste_membre"> <h5> <strong>Liste des médecins :</strong></h5></label>&nbsp;
           <select  id="liste_membre" class="form-control" size="7" multiple="multiple">
             @foreach( $listeMeds as $med)
             <option id="id_membre" value="{{$med->id}}" >{{$med->nom}} {{$med->prenom}}</option>
@@ -46,7 +46,7 @@
           <button type="button" id="liste_membre_redo" class="btn btn-warning btn-block"><i class="glyphicon glyphicon-step-forward"></i></button>
         </div>            
         <div class="col-xs-5">
-          <label for="liste_membre_to"> <h4> <strong>&nbsp;Liste des membres :</strong></h4></label>&nbsp;
+          <label for="liste_membre_to"> <h5> <strong>&nbsp;Liste des membres :</strong></h5></label>&nbsp;
           <br>
           <select name="membres[]" id="liste_membre_to" class="form-control" size="7" multiple="multiple">
             @foreach( $colloque->membres as $med)
