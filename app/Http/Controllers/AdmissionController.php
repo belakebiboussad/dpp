@@ -56,14 +56,16 @@ class AdmissionController extends Controller
      * @return \Illuminate\Http\Response
      */
       public function store(Request $request)
-      {       
+      { $now = \Carbon\Carbon::now();
         if(isset($request->id_RDV))
         {
+          
           $demande =  DemandeHospitalisation::find($request->demande_id);
           $adm=admission::create([     
-              "id_rdvHosp"=>$request->id_RDV,
-              "demande_id"=>$request->demande_id,       
-              "id_lit"=>(isset($demande->bedAffectation) ? $demande->bedAffectation->lit_id  : null)
+            "id_rdvHosp"=>$request->id_RDV,
+            "demande_id"=>$request->demande_id,
+            "date"=>$now,        
+            "id_lit"=>(isset($demande->bedAffectation) ? $demande->bedAffectation->lit_id  : null)
           ]);
           $adm->rdvHosp->demandeHospitalisation->update([
                "etat" => "admise",
@@ -75,14 +77,15 @@ class AdmissionController extends Controller
         {
           if(isset($request->demande_id))
           {
-               $demande = DemandeHospitalisation::FindOrFail($request->demande_id); 
-               $adm=admission::create([     
-                     "demande_id"=>$request->demande_id,       
-                     "id_lit"=>$demande->bedAffectation->lit_id
-               ]);
-              $demande->update([
-                  "etat" => "admise",
-               ]);
+            $demande = DemandeHospitalisation::FindOrFail($request->demande_id); 
+            $adm=admission::create([     
+                "demande_id"=>$request->demande_id,
+                "date"=>$now,        
+                "id_lit"=>$demande->bedAffectation->lit_id
+            ]);
+            $demande->update([
+                "etat" => "admise",
+             ]);
           }
         }
         return redirect()->action('AdmissionController@index');

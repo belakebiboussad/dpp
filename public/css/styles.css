@@ -15,8 +15,7 @@
 .section{ margin-bottom: 20px;}
 .center{  text-align: center;}
 .sec-gauche{  float: left; }
-.sec-droite{  float: right; }
-/*.sec-droite1{  padding-left : 10px !important; }*/
+.sec-droite{  float: right; }/*.sec-droite1{  padding-left : 10px !important; }*/
 .mt-1 {  margin-top: 1px !important; }
 .mt-2 {  margin-top: -2px !important; }
 .mt-6 {  margin-top: +6px !important; }
@@ -24,6 +23,7 @@
 .mt-6 {  margin-top: -6px !important; }
 .mt-10 {  margin-top:-10px; }
 .mt-12 { padding-top:-12px;}
+.mt-13 { margin-top:-13px !important; }
 .mt-15 { margin-top:-15px !important; }
 .mt-16 { margin-top:-16px !important;}
 .mt-17 { margin-top:-17px !important;}
@@ -44,7 +44,9 @@
 .pt-17 { padding-top:-17px !important; }
 .pt-18 { padding-top:-18px !important; }
 .pt-21 { padding-top:-21px !important;  }
- tr.noBorder td { border: 0; }
+.mb-20 { margin-buttom:-20px !important;}
+   tr.noBorder td { border: 0; }
+}
 .foo { position: absolute; top: 96%; right: 22%; }
 .modal-backdrop { z-index:0; }
 #RDV {

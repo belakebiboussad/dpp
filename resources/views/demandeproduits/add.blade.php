@@ -27,14 +27,20 @@ $('document').ready(function(){
 		$("#ajoutercmd").prop('disabled', true);
   	});	
 	$("#savedmd").click(function(){
+
 		var arrayLignes = document.getElementById("cmd").rows;
-		var longueur = arrayLignes.length;   var produits = [];
+		var longueur = arrayLignes.length;   
+		var produits = [];
+
 		for(var i=1; i<longueur; i++)
 		{
 			produits[i] = { produit: arrayLignes[i].cells[1].innerHTML, gamme: arrayLignes[i].cells[3].innerHTML, qte: arrayLignes[i].cells[5].innerHTML, unite: arrayLignes[i].cells[6].innerHTML}
 		}
+
 		var champ = $("<input type='text' name ='liste' value='"+JSON.stringify(produits)+"' hidden>");
+
 		champ.appendTo('#demandform');
+		
 		$('#demandform').submit();
 	});
 });
@@ -65,8 +71,8 @@ $('document').ready(function(){
 					<hr/>
 				</div>
 				<div id = "specialiteDiv">
-					<label for="specialite"><b>Spécialité</b></label>
-					<select class="form-control" id="specialite" disabled><option value="0">Sélectionner...</option>
+					<label for="specPrd"><b>Spécialité</b></label>
+					<select class="form-control" id="specPrd" disabled><option value="0">Sélectionner...</option>
 						<option value="0">Sélectionner...</option>
 						@foreach($specialites as $specialite)
 							<option value="{{ $specialite->id }}">{{ $specialite->nom }}</option>
