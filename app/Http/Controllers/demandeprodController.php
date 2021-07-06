@@ -109,7 +109,7 @@ class demandeprodController extends Controller
                     }
                     elseif($gamme->id == "4")
                     {
-
+                        $demande->consomables()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
                     }
              }
             return redirect()->route('demandeproduit.show',$demande->id); 
