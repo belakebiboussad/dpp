@@ -2,7 +2,7 @@
 @section('main-content')
 <?php $patient = $hosp->patient; ?>
 <div class="row">@include('patient._patientInfo', $patient)</div>
-@if(in_array(Auth::user()->role_id,[1,14]))
+{{-- @if(in_array(Auth::user()->role_id,[1,14])) --}}
 <div class="pull-right">
 	 <a href="{{route('hospitalisation.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-list bigger-120 blue"></i>Hospitalisations</a>
 </div>
