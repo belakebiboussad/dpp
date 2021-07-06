@@ -64,8 +64,7 @@ $(document).on('click','.findptient',function(event){
      			},
     		});	
 })
-/*
-$(document).on('click','#getConsults',function(event){event.preventDefault();var patient_id = $(this).val();$.get('/getConsultations/'+patient_id, function (data, status, xhr) {
+/*$(document).on('click','#getConsults',function(event){event.preventDefault();var patient_id = $(this).val();$.get('/getConsultations/'+patient_id, function (data, status, xhr) {
 $("#patient").html(xhr.getResponseHeader("patient"));$('#consultList tbody').empty();	if(data.length != 0){$("#consultList").DataTable ({"processing": true, "paging":   true,
 "destroy": true,"ordering": true,"searching":false,"info" : false,"language":{"url": '/localisation/fr_FR.json'},"data" : data, "columns": [{ data:null,render: function ( data, type, row ) {
 if ( type === 'display' ) {return '<input type="checkbox" class="editor-active check"  value="'+data.id+'" onClick=""/><span class="lbl"></span>';
@@ -77,8 +76,12 @@ render: function ( data, type, row ) { return row.docteur.nom + ' ' + row.docteu
 </script>
 @endsection
 @section('main-content')
-<div class="row"><h4><strong>Sélectionner un patient</strong></h4></div>
-	<div class="row">
+<div class="row">
+	<div class="col-sm-12">	
+		<h4><strong>Sélectionner un patient</strong></h4>
+	</div>	
+</div>
+<div class="row">
 	<div class="col-sm-12">	
 		<div class="col-sm-6 col-xs-12">@include('consultations.findPatient')</div>
 		<div class="col-sm-6 col-xs-12"><table id="liste_patients" class="display table-responsive" width="100%"></table></div>

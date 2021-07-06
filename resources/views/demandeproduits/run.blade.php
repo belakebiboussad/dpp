@@ -115,9 +115,9 @@ $('document').ready(function(){
 										<td>{{ $dispositif->code }}</td>
 										<td>DISPOSITIFS MEDICAUX</td>
 										<td>/</td>
-										<td>{{ $dispositif->pivot->qte }}</td>
+										<td class="center">{{ $dispositif->pivot->qte }}</td>
 										<td><input type="number" class="form-control" name="" value="{{ (isset($dispositif->pivot->qteDonne)) ? $dispositif->pivot->qteDonne: $dispositif->pivot->qte }}" min="1" max="{{ $dispositif->pivot->qte }}"> </td>
-										<td class="center align-middle" rowspan = "{{ $demande->dispositifs->count() + $demande->medicaments->count() +  $demande->reactifs->count()  }}">
+										<td class="center align-middle" rowspan = "{{ $demande->dispositifs->count() + $demande->medicaments->count() +  $demande->reactifs->count() + $demande->consomables->count() }}">
 											<a  href="" class="btn  btn-warning btn-xs" id="reject" rel1="bjr"><i class="fa fa-ban" aria-hidden="true"></i></a>
 										</td>
 									</tr>
@@ -129,7 +129,7 @@ $('document').ready(function(){
 										<td>{{ $medicament->code_produit }}</td>
 										<td> MEDICAMENTS</td>
 										<td>{{ $medicament->specialite->nom }}</td>
-										<td>{{ $medicament->pivot->qte }}</td>
+										<td class="center">{{ $medicament->pivot->qte }}</td>
 										<td><input type="number" class="form-control" name="" value="{{ (isset($medicament->pivot->qteDonne)) ? $medicament->pivot->qteDonne: $medicament->pivot->qte }}"  min="1" max="{{ $medicament->pivot->qte }}"> </td>
 									</tr>
 								@endforeach
@@ -140,9 +140,20 @@ $('document').ready(function(){
 										<td>{{ $reactif->code }}</td>
 										<td>Réactifs chimiques et dentaires</td>
 										<td>/</td>
-										<td>{{ $reactif->pivot->qte }}</td>
+										<td class="center">{{ $reactif->pivot->qte }}</td>
 										<td><input type="number" class="form-control" name="" value="{{ (isset($reactif->pivot->qteDonne)) ? $reactif->pivot->qteDonne: $reactif->pivot->qte }}" placeholder="" min="1" max="{{ $reactif->pivot->qte }}"> </td>
 									</tr>
+								@endforeach
+								@foreach($demande->consomables as $consomable)
+								<tr>
+									<td hidden>{{ $consomable->id }}</td>
+									<td>{{ $consomable->nom }}</td>
+									<td>/</td>
+									<td>Produits consommables de Labo</td>
+									<td>/</td>
+									<td class="center">{{ $consomable->pivot->qte }}</td>
+									<td><input type="number" class="form-control" name="" value="{{ (isset($consomable->pivot->qteDonne)) ? $consomable->pivot->qteDonne: $consomable->pivot->qte }}" placeholder="" min="1" max="{{ $consomable->pivot->qte }}"> </td>
+								</tr>	
 								@endforeach
 								</tbody>
 							</table>
