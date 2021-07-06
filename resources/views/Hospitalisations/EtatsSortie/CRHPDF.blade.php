@@ -21,9 +21,9 @@
   </head>
   <body>
     <div class="container-fluid">
-{{--<div class="row"><div class="col-sm-12 center"><img src='{{ asset("img/Logo1.png") }}' alt="Logo1"/></div></div>
+{{--<div class="row"><div class="col-sm-12 center"><img src='{{ asset("img/entete.png") }}' alt="Logo1"/></div></div>
   <img src="img/Logo1.png" class="center thumb img-icons" alt="Logo1"></h5>--}}
-    <img src="img/{{ $etablissement->logo }}" class="center thumb img-icons" alt="Logo1"/>
+    <img src="{{ asset('img/entete.png') }}" class="center thumb img-icons" alt="Logo1"/>
     <div class="sec-droite"><strong>Alger le :</strong><span>{{ $date }}</span></div>
     <div>
       <br><br>
