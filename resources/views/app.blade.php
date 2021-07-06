@@ -440,10 +440,10 @@
                   $("#produit").removeAttr("disabled");
                   break;
                 case "2":
-                         if(!$("#specialiteDiv").is(":hidden"))
-                                $("#specialiteDiv").hide();
-                                 $("#produit").removeAttr("disabled");
-                                getProducts(2);
+                  if(!$("#specialiteDiv").is(":hidden"))
+                    $("#specialiteDiv").hide();
+                  $("#produit").removeAttr("disabled");
+                  getProducts(2);
                   break;
                 case "3":
                   if(!$("#specialiteDiv").is(":hidden"))

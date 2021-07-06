@@ -6,6 +6,7 @@ use App\modeles\salle;
 use App\modeles\lit;
 use App\modeles\service;
 use App\modeles\patient;
+use App\modeles\DemandeHospitalisation;
 use Validator;
 use Redirect;
 use MessageBag;
@@ -115,57 +116,52 @@ class SalleController extends Controller
     public function getsalles(Request $request)
     {
       $type = 0;
-      $patient = patient::FindOrFail($request->patient_id);
-
-      $gender = $patient->Sexe;
-
-      if($gender == "M")
+      $demande = DemandeHospitalisation::with('consultation.patient')->FindOrFail($request->demande_id);
+      if($demande->consultation->patient->Sexe == "M")
       {
-          $type = 0;
+        $type = 0;
       }
       elseif($gender == "F")
       {
-          $type = 1;
+        $type = 1;
       }
-
       $salles = salle::where('service_id',$request->ServiceID)->where('genre', $type)->where('etat',null)->get();
-      
       if( $request->Affect == '0')  
       {
         foreach ($salles as $key1 => $salle) {
-                  foreach ($salle->lits as $key => $lit) {
-                        $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate)); //$lit->id,
-                        if(! $free)
-                      {
-                          $salle->lits->pull($key);
-                      }
-                }
+          foreach ($salle->lits as $key => $lit) {
+                $free = $lit->isFree(strtotime($request->StartDate),strtotime($request->EndDate)); //$lit->id,
+                if(! $free)
+              {
+                  $salle->lits->pull($key);
+              }
+          }
         }
         foreach ($salles as $key => $salle) {
           if((count($salle->lits) == 0))
             $salles->pull($key);
         }
-      }else{
+        }else{
           foreach ($salles as $key1 => $salle) {
-              foreach ($salle->lits as $key => $lit) {
-                $affect = $lit->affecter($lit->id); 
-                if($affect)
-                {
-                  $salle->lits->pull($key);
-                }
+            foreach ($salle->lits as $key => $lit) {
+              $affect = $lit->affecter($lit->id); 
+              if($affect)
+              {
+                $salle->lits->pull($key);
               }
+            }
           }
           foreach ($salles as $key => $salle) {
                 if((count($salle->lits) == 0))
                        $salles->pull($key);
           }
       }
-      return $salles;
-     }
-        public function getRooms(Request $request)
+      return($salles);
+    }
+    public function getRooms(Request $request)
     { 
-          $lits = lit::where('salle_id',$request->search)->get();
-          $view = view("Salles.ajax_sallerooms",compact('lits'))->render();
-          return response()->json(['html'=>$view]);
+      $lits = lit::where('salle_id',$request->search)->get();
+      $view = view("Salles.ajax_sallerooms",compact('lits'))->render();
+      return response()->json(['html'=>$view]);
     }
 }

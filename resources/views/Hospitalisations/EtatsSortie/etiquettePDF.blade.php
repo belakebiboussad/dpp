@@ -12,40 +12,35 @@
 			}
 			@page {
 				size: 30mm 62mm landscape;
-				margin-top: 5px;
-				margin-bottom: -0px;
-				margin-left: +7px;
-
+				margin-top: 2.5px;
+				margin-bottom: 0px;
+				margin-left: +20px;
 			}
 			.page-break {
  		   page-break-after: always;
 			}
+			div{
+			  line-height: 1;
+			}
 		</style>
 	</head>
 	<body>
-    <div class="row">
-		  <div class="col-sm-12">
-		   	<div class="mt-20">
+    
+		   	<div>
 		   		<small><strong>Nom :</strong> {{ $hosp->patient->Nom }}</small>
-		   	</div>
-		   </div>
-		</div>	
-		<div class="row">
-		 	<div class="col-sm-12">
-			<div class="mt-20">
-		  	<small><strong>Pré :</strong> {{ $hosp->patient->Prenom }}</small>
+		   	</div>	
+		
+			<div>
+		  	<small><strong>Prénom :</strong> {{ $hosp->patient->Prenom }}</small>
 		  </div>
-		 </div> 
+		<div>
+		  <small><strong>DDN :</strong> {{ (\Carbon\Carbon::parse( $hosp->patient->Dat_Naissance))->format('d/m/Y') }}</small>
 		</div>
-		<div class="row">
-		  <div class="col-sm-12"><small><strong>DDN :</strong> {{ (\Carbon\Carbon::parse( $hosp->patient->Dat_Naissance))->format('d/m/Y') }}</small></div>
-		</div>
-		<div class="row">
-		  <div class="col-sm-12">
+		<hr style="visibility: hidden;">
+		  <div>
 		  	<small><img src="data:image/png;base64,{{DNS1D::getBarcodePNG($hosp->patient->IPP, 'C128')}}" alt="barcode"/></small>
 		  	<small>IPP: {{$hosp->patient->IPP}}</small>
 		  </div>
-		</div>
 
 	</body>
 </html>

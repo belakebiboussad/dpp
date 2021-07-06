@@ -7,17 +7,21 @@
 	 <a href="{{route('hospitalisation.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-list bigger-120 blue"></i>Hospitalisations</a>
 </div>
 @endif
-<div class="row"><h4> <strong> Hospitalisation : suivi(e) du patient(e)</strong></h4></div>
+<div class="row">
+	<div class="col-sm-12"><h4> <strong> Hospitalisation : suivi(e) du patient</strong></h4></div>
+</div>
 <div class="tabbable"  class="user-profile">
 	<ul class="nav nav-tabs padding-18">
 		<li class="active"><a data-toggle="tab" href="#hospi"><strong>Hospitalisation</strong></a></li>
 		@if(in_array(Auth::user()->role_id,[1,3,14]))
 		<li ><a data-toggle="tab" href="#visites"><strong>Visites & Contrôles</strong></a></li>
 		@endif
-        @if(in_array(Auth::user()->role_id,[1,14]))
+    @if(in_array(Auth::user()->role_id,[1,14]))
 		<li ><a data-toggle="tab" href="#prescriptionconst"><strong>Prescription constantes</strong></a></li>
 		@endif
+		@if(in_array(Auth::user()->role_id,[1,3,14]))
 		<li ><a data-toggle="tab" href="#constantes"><strong>Surveillance clinique</strong></a></li>
+		@endif
 	</ul>
 	<div class="tab-content no-border padding-24">
 		<div id="hospi" class="tab-pane in active">
@@ -65,8 +69,9 @@
 				</div>
 			</div>
 		</div>
-        <div class="space-12"></div>
-        <div class="row">
+		@if(in_array(Auth::user()->role_id,[1,3,14]))
+    <div class="space-12"></div>
+    <div class="row">
 			<div class="col-sm-12">
 				<div class="row"><div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right"><strong><span style="font-size:16px;">Liste des prescriptions constantes</span></strong></div></div>
 				<div class="row">
@@ -96,6 +101,7 @@
 				</div>
 			</div>
 		</div>
+		@endif
 		@if(isset($hosp->garde_id))	
 		<div class="space-12"></div>		
 		<div class="row">

@@ -29,8 +29,7 @@
 			<td class="col-md-4"><strong>Date :</strong><span>&nbsp;{{ $ticket->date }}</span></td>
 		</tr>
 		<tr>
-			<td class="col-md-4"></td>
-			<!-- <td class="col-md-8" rowspan="4"><strong>N° :</strong><div class="numberCircle">{{ $ticket->num_order }}</div></td> -->
+			<td class="col-md-4"></td><!-- <td class="col-md-8" rowspan="4"><strong>N° :</strong><div class="numberCircle">{{ $ticket->num_order }}</div></td> -->
 		</tr>
 		<tr><td class="col-md-4">&nbsp;</td></tr>	
 		<tr>
@@ -43,8 +42,8 @@
 	</table>
 	<br>
 	<div class="sec-droite"><!-- style="text-align: center;" -->
-		<img src="data:image/png;base64,{{DNS1D::getBarcodePNG($ticket->Patient->code_barre, 'C128',3,33)}}" alt="barcode"/>
-		<br><span>IPP:{{$ticket->Patient->IPP }}</span>
+		<img src="data:image/png;base64,{{ DNS1D::getBarcodePNG( $ticket->Patient->IPP, 'C128')}}" alt="barcode"/>
+	<br><span>IPP:{{$ticket->Patient->IPP }}</span>
 	</div>
 </body>
 </html>

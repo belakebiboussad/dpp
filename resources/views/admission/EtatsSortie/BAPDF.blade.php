@@ -1,114 +1,155 @@
+
 <html>
   <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="css/styles.css">
-   <title>Attestation de Séjour</title>
-  <style>
-    table {
+    <meta charset="utf-8">
+    <title>Bullettin d'admission</title>
+    <link rel="stylesheet" href="css/styles.css"/>
+    <style>
+      table {
         border-spacing: 0;
-        width: 600px;
-    }
-    table >  tr > td > div {
-      margin: 0 auto;
-      border: 0px red solid;
-    }
-    .solid {border-style: solid;}
+        width: 100%;
+      }
+      table >  tr > td > div {
+        margin: 0 auto;
+        border: 0px red solid;
+      }
+      .solid {border-style: solid;}
     </style>
   </head>
   <body>
   <div class="container-fluid">
-    @include('partials.etatHeader')
-    <h3 class="text-uppercase center mt-10"><span style="font-size: xx-large;"><strong><u>{{ $etat->nom}}</u></strong></span></h3>
-    <br><h4>IDENTIFICATION PATIENT</h4>
+    <div class="row mt-12 center"><img src='img/entete2.png' alt="Entete" width="98%"/></div>
+    <br>
+    <div class="center mt-10">
+      <h3 class="text-uppercase"><span style="font-size: xx-large;"><strong><u>{{ $etat->nom}}</u></strong></span></h3>
+      <h4 class="text-uppercase"><strong>(BILLET DE SALLE)</strong></h4>
+    </div><br> 
     <section class="table solid" style="width:100%;"> 
       <table>
-      <tr><td><strong>&nbsp;N° Admission :</strong><span>&nbsp;{{ $obj->id }}</span></td></tr>
-      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
       <tr>
-        <td><strong>&nbsp;Nom :</strong><span>&nbsp;{{ $patient->Nom }}</span></td>
-        <td><strong>Prénom :</strong><span>&nbsp; {{ $patient->Prenom }}</span></td>
-        <td><strong>Genre :</strong><span>&nbsp; {{ $patient->Sexe }}</span></td>
-      </tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
-      <tr>
-        <td><strong>&nbsp;Né(e) le :</strong><span>&nbsp;{{ $patient->Dat_Naissance }}</span></td>
-        <td><strong>&nbsp;Né(e) à  :</strong><span>&nbsp; {{ $patient->lieuNaissance->nom_commune }}</span></td>
-        <td><strong>Code Wilaye :</strong><span>&nbsp; {{ $patient->lieuNaissance->daira->wilaya->id }}</span></td>
-      </tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
-      <tr>
-        <td><strong>&nbsp;Situation familliale :</strong><span>&nbsp;{{ $patient->situation_familiale }}</span></td>
-        @if(($patient->situation_familiale == "M") && ( $patient->Type == "1") )
-        <td><strong>Epoux(se)  :</strong><span>{{ $patient->assure->Nom }} &nbsp; {{ $patient->assure->Prenom }} </span></td>
-        @endif
-      </tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
-      <tr>
-        <td colspan="2"><strong>&nbsp;Adresse de résidene :</strong><span>&nbsp;{{ $patient->Adresse}} &nbsp;{{ $patient->commune->nom_commune}}</span></td>
-        <td><strong>Code Wilaye :</strong><span>&nbsp; {{ $patient->wilaya->nom }}</span></td>
-      </tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
-       <tr>
-        <td colspan="2"><strong>&nbsp;Personne à contacter :</strong><span>&nbsp;{{ $patient->hommesConf[0]->nom }}&nbsp;{{ $patient->hommesConf[0]->prenom }}</span></td>
-        <td><strong>N° Tel :</strong><span>&nbsp;{{ $patient->hommesConf[0]->mob }}</span></td>
-      </tr> 
-      </table>
-    </section>
-     <br><h4>IDENTIFICATION DE L'ASUURE</h4>
-    <section class="table solid" style="width:100%;">
-     <table>
-      <tr>
-        <td><strong>&nbsp;IMMATRICULATION :</strong><span>&nbsp;{{ $patient->assure->NSS }}</span></td>
-        <td colspan="2"><strong>&nbsp;N° Prise En Charge :</strong><span></span></td>
-      </tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
-      <tr>
-        <td><strong>&nbsp;Nom :</strong><span>&nbsp;{{ $patient->assure->Nom }}</span></td>
-        <td><strong>&nbsp;Prénom :</strong><span>&nbsp;{{ $patient->assure->Prenom }}</span></td>
-        <td><strong>Né(e) le :</strong><span>&nbsp;{{ $patient->assure->Date_Naissance }}</span></td>
-      </tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
-      <tr>
-        <td><strong>&nbsp;Matricule :</strong><span>&nbsp;{{ $patient->assure->Matricule }}</span></td>
-        <td><strong>&nbsp;Position :</strong><span>&nbsp;{{ $patient->assure->Position }}</span></td>
-        <td><strong>Service :</strong><span>&nbsp;{{ $patient->assure->Service }}</span></td>
+        <td style="padding-left:5px; height:40px; overflow:hidden; "><strong>Admission N° :&nbsp;</strong><span>&nbsp;{{ $obj->id }}</span></td>
+        <td style="padding-left:5px; height:40px; overflow:hidden; "><strong>Date :</strong><span>&nbsp;{{ $date }}</span></td>
+        <td style="padding-left:5px; height:40px; overflow:hidden; "><strong>Heure :</strong><span>&nbsp;{{ Date("H:i") }}</span></td>
       </tr>
-      </table>
+    </table>
     </section>
-    <br><h4>HOSPITALISATION</h4>
-    <section class="table solid" style="width:100%;">
-     <table>
-        <tr>
-          <td><strong>&nbsp;Service :</strong><span>&nbsp;{{ $obj->demandeHospitalisation->Service->nom }}</span></td>
-          <td>
-            <strong>Date d'entée :</strong>
-            <span>&nbsp;{{  (\Carbon\Carbon::parse($obj->date_RDVh))->format('d/m/Y') }}</span>
-          </td>
-          <td><strong>Heure d'entrée :</strong><span>&nbsp;{{(\Carbon\Carbon::parse($obj->heure_RDVh))->format("H:i")}}</span></td>
-        </tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
-        <tr>
-          <td><strong>&nbsp;Médecin traitant :</strong>
-            <span>&nbsp;{{ $obj->demandeHospitalisation->DemeandeColloque->medecin->nom}} &nbsp;
-              {{ $obj->demandeHospitalisation->DemeandeColloque->medecin->prenom}}
-            </span>
-          </td>
-          <td><strong>Mode d'entrée :</strong>
-            <span>&nbsp;{{ $obj->demandeHospitalisation->modeAdmission }}</span>
-          </td> 
-        </tr>
-      </table>
-    </section>
-    <br><br><h4>HEBERGEMENT</h4>
-    <section class="table solid" style="width:100%;">
+    <h5><u><strong>ASSURE :</strong></u></h5>
+    <section class="table tab-space" style="width:100%;">
       <table>
         <tr>
-          <td><strong>&nbsp;Service :</strong>
-            <span>&nbsp;{{ $obj->demandeHospitalisation->bedAffectation->lit->salle->service->nom}}</span>
+          <td><span>Qualité :&nbsp;</span><span>{{ $patient->assure->Position }}</span></td>
+          <td><span>Détail :</span></td>
+        </tr>
+        <tr>
+          <td><span>Nom :&nbsp;</span><span>{{ $patient->assure->Nom }}</span></td>
+          <td><span>Prénom :&nbsp;</span><span>{{ $patient->assure->Prenom }}</span></td>
+          <td><span>Né(e) le :&nbsp;</span><span>{{ \Carbon\Carbon::parse($patient->assure->Date_Naissance)->format('d/m/Y') }}</span></td>
+        </tr>
+        <tr>
+          <td><span>Adresse :&nbsp;</span><span>{{ $patient->assure->adresse }},
+          @isset($patient->assure->commune_res)
+           {{ $patient->assure->commune->nom_commune }},  {{ $patient->assure->commune->daira->wilaya->nom }}
+           @endisset
+           </span>
           </td>
-          <td><strong>N° de salle :</strong>
-            <span>{{ $obj->demandeHospitalisation->bedAffectation->lit->salle->num }}</span>
-          </td>
-            <td><strong>N° de lit :</strong>
-            <span>{{ $obj->demandeHospitalisation->bedAffectation->lit->num }}</span>
-          </td> 
+        </tr>
+        <tr>
+          <td><span>Tel :&nbsp;</span><span>{{ $patient->tele_mobile1 }}</span></td>
+        </tr>
+        <tr>
+          <td><span>Matricule :&nbsp;</span><span>{{ $patient->assure->matricule }}</span></td>
+          <td><span>Grade :&nbsp;</span><span>{{ $patient->assure->grade->nom }}</span></td>
+          <td><span>Service :&nbsp;</span><span>{{ $patient->assure->Service }}</span></td>
+        </tr>
+        <tr>
+          <td><span>N° SS:&nbsp;</span><span>{{ $patient->assure->NSS }}</span></td>
+          <td><span>MGSN:&nbsp;</span><span>{{ $patient->assure->NMGSN }}</span></td>
         </tr>
       </table>
     </section>
-  </div>
+    <h5><u><strong>MALADE :</strong></u></h5>
+    <section class="table tab-space" style="width:100%;">
+      <table>
+        <tr>
+          <td>
+            <span>Qualité :&nbsp;</span>
+            <span>
+                @switch($patient->Type)
+                @case(0)
+                    Assuré
+                    @break
+                @case(1)
+                    Conjoint(e)
+                   @break
+                @case(2)
+                    Père
+                    @break
+                @case(3)
+                    Mère
+                    @break
+                @case(4)
+                    Enfant
+                    @break
+                @case(5)
+                    Autre
+                    @break
+                @default
+                  Assuré
+                  @break
+                @endswitch
+            </span>
+          </td>
+          <td><span>Détail :</span></td>
+        </tr>
+        <tr>
+          <td><span>Nom :&nbsp;</span><span>{{ $patient->Nom }}</span></td>
+          <td><span>Prénom :&nbsp;</span><span>{{ $patient->Prenom }}</span></td>
+          <td><span>Né(e) le :&nbsp;</span><span>{{ \Carbon\Carbon::parse($patient->Date_Naissance)->format('d/m/Y') }}</span></td>
+        </tr>
+      </table>
+    </section>
+    <h5><u><strong>ADMISSION :</strong></u></h5>
+    <section class="table tab-space" style="width:100%;">
+      <table>
+        <tr>
+         <td><span>&nbsp;Service:</span><span>&nbsp;{{ $obj->demandeHospitalisation->Service->nom }}</span></td>
+         <td><span>&nbsp;Spécialité:</span><span>&nbsp;{{ $obj->demandeHospitalisation->Specialite->nom }}</span></td>
+        </tr>
+        <tr>
+          <td><span>&nbsp;Admis par Dr/SF :</span><span>&nbsp;{{ $obj->demandeHospitalisation->consultation->docteur->nom }}
+              {{ $obj->demandeHospitalisation->consultation->docteur->prenom }}
+          </span></td>
+        </tr>
+        <tr>
+          <td><span>&nbsp;Chargé des admissions :</span>
+            <span>
+              {{ Auth::user()->employ->Service->responsable->nom }} {{ Auth::user()->employ->Service->responsable->prenom }} 
+            </span>
+          </td>
+        </tr>
+       </table>
+    </section>
+    <h5><u><strong>SORTIE :</strong></u></h5>
+    <section class="table tab-space" style="width:100%;">
+      <table>
+        <tr>
+          <td><span>Date :&nbsp;</span><span></span></td>
+          <td><span>Heure :&nbsp;</span><span></span></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><span>Sortie par le médecin :&nbsp;</span><span></span></td>
+        </tr>
+        <tr>
+          <td><span>Motif de sortie :&nbsp;</span><span></span></td>
+        </tr>
+      </table>
+    </section><br>
+    <div class="row">
+      <div class="sec-droite">
+        <div>Alger le:  {{ Carbon\Carbon::parse($date)->format('d/m/Y') }}</div>
+        <div>{{  Auth::user()->employ->Service->nom }}</div>
+    </div>
+  </div><!-- fluid -->
   </body>
-</html>
+</html> 

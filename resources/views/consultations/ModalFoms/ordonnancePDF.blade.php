@@ -15,24 +15,14 @@
 			  margin: 0;
 			  padding: 0;
 			  
-			/*  min-height: 400px;
-   			margin-bottom: 100px;
-   			clear: both;*/
+			/*  min-height: 400px;margin-bottom: 100px;	clear: both;*/
 			}
 			/*body {position: relative;}*/
-			#content-wrap {
- 			/*  min-height: 100%;
-			  height: auto !important;
-				height: 100%;
-				margin: 0 auto -80px;
-				width: 940px;
-				overflow:hidden;*/
+			#content-wrap {/*  min-height: 100%;height: auto !important;height: 100%;margin: 0 auto -80px;width: 940px;overflow:hidden;*/
 				min-height: 400px;
   			margin-bottom: 79px;
    			clear: both;
-			}
-
-			/*footer {position: absolute; bottom: -10; left: 0; right: 0}*/
+			}/*footer {position: absolute; bottom: -10; left: 0; right: 0}*/
 			@media screen {
  				footer {
     			display: none;/*background: url('{{ asset('img/footer.png')}}') no-repeat center top;*/
@@ -47,25 +37,23 @@
 				}
 			}
   	 </style>
-
  </head>
-
 <body>
   <div id="page-container">
     <div id="content-wrap">
 	  	<div class="row mt-12 center"><img src='{{ asset("img/entete.png") }}' alt="Entete" width="98%"/></div>
     	<div class="pull-right"><strong>Alger le :</strong>&nbsp;{{ \Carbon\Carbon::now()->format('d-m-Y') }}</div><br><br> 
 			<div class="row">
-				<div class="col-sm-6"><strong>Médecin prescripteur :</strong>{{ $employe->nom}} {{ $employe->prenom}}</div>
+				<div class="col-sm-6">
+				  <h6><strong>Médecin prescripteur :</strong>{{ $employe->nom}} {{ $employe->prenom}}</h6>
+				 </div>
 			</div>
 			<div class="row"><div class="col-sm-12"><span><strong>Patient(e) :</strong></span></div></div>
 			<div class="row">
 				<div class="col-sm-12 tab-space">
-					<h6>
-						<strong>Nom :&nbsp;</strong><span>{{ $patient->Nom }}</span>
-						<strong>Prenom :&nbsp;</strong><span>{{ $patient->Prenom }}</span>
-						<strong>Né(e) le :&nbsp;</strong><span>{{ \Carbon\Carbon::parse($patient->Dat_Naissance)->format('d-m-Y') }}</span>
-					</h6>
+					<strong>Nom :&nbsp;</strong><span>{{ $patient->Nom }}</span>
+					<strong>Prenom :&nbsp;</strong><span>{{ $patient->Prenom }}</span>
+					<strong>Né(e) le :&nbsp;</strong><span>{{ \Carbon\Carbon::parse($patient->Dat_Naissance)->format('d-m-Y') }}</span>
 				</div>
 			</div>
 			<div class="row">

@@ -65,8 +65,8 @@ $('document').ready(function(){
 					<hr/>
 				</div>
 				<div id = "specialiteDiv">
-					<label for="specialite"><b>Spécialité</b></label>
-					<select class="form-control" id="specialite" disabled><option value="0">Sélectionner...</option>
+					<label for="specPrd"><b>Spécialité</b></label>
+					<select class="form-control" id="specPrd" disabled><option value="0">Sélectionner...</option>
 						<option value="0">Sélectionner...</option>
 						@foreach($specialites as $specialite)
 							<option value="{{ $specialite->id }}">{{ $specialite->nom }}</option>

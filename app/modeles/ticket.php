@@ -14,6 +14,6 @@ class ticket extends Model
     } 
     public function Patient()
     {
-    	return $this->belongsTo('App\modeles\patient','id_patient');
+        return $this->belongsTo('App\modeles\patient','id_patient');
     } 
 }

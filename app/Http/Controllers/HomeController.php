@@ -160,7 +160,7 @@ class HomeController extends Controller
                   $patient = $obj->consultation->patient;
                   $pdf = PDF::loadView('admission.EtatsSortie.BSPDFUrg', compact('patient','etat','obj','date','etablissement')); 
                 }
-                $filename = "BA-". $patient->Nom."-".$patient->Prenom;
+                $filename = "BS-". $patient->Nom."-".$patient->Prenom;
                 break;
             default:
                 return response()->json(['html'=>"unknown"]);

@@ -58,30 +58,30 @@ $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "160
         else
         	$('#print').removeAttr("disabled");
   	});
-	$('#print').click(function(e){//e.preventDefault();//$("#ticketForm").submit();
-            	$("#ticket").hide();
-      	   	  var formData = {
-		  	specialite:$('#specialiteTick').val(),
-		  	typecons:$('#typecons').val(),
-		  	 document:$('#document').val(), 
-		  	  id_patient:$('#id_patient').val()
-	       };
-              $.ajaxSetup({
-                   headers: {
-                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                    }
-              }); 
-              $.ajax({
-                    type : 'POST',
-                    url : '/createTicket',
-                    data:formData,  //dataType: 'json',
-                    success:function(data){         
-                    	location.reload(true);
-                    },
-                    error: function (data) {
-                          console.log('Error:', data);
-                    }
-              });
+		$('#print').click(function(e){
+        $("#ticket").hide();
+      	var formData = {
+			  	specialite:$('#specialiteTick').val(),
+			  	typecons:$('#typecons').val(),
+			  	document:$('#document').val(), 
+			  	id_patient:$('#id_patient').val()
+		    };
+        $.ajaxSetup({
+          headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+          }
+        }); 
+        $.ajax({
+            type : 'POST',
+            url : '/createTicket',
+            data:formData,  //dataType: 'json',
+            success:function(data){ 
+            	location.reload(true);
+            },
+            error: function (data) {
+                  console.log('Error:', data);
+            }
+        });
 	})
   });
  /* var rows = document.getElementById("consultList").children[1].children;var selectedRow = 0;   document.body.onkeydown = function(e){//Prevent page scrolling on keypress
@@ -152,8 +152,7 @@ $(".ordreticketPrint").click(function(){// barcode à envoyer var barcode = "160
 </div>
 <div id="ticket" class="modal fade" role="dialog">
 	<div class="modal-dialog">
-		<div class="modal-content">{{-- route('ticket.store') --}}
-		{{-- <form  id ="ticketForm" action="#" method="POST" role="form">{{ csrf_field() }} --}}
+		<div class="modal-content">{{-- route('ticket.store')  <form  id ="ticketForm" action="#" method="POST" role="form">{{ csrf_field() }} --}}
 		<input type="text" name="id_patient" id="id_patient" value="{{ $patient->id }}" hidden>
 		<div class="modal-header">
     			<button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title"><strong>Ajouter un ticket d'enregistrement</strong></h4>
