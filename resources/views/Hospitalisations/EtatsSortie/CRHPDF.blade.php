@@ -21,8 +21,7 @@
   </head>
   <body>
     <div class="container-fluid">
-{{--<div class="row"><div class="col-sm-12 center"><img src='{{ asset("img/entete.png") }}' alt="Logo1"/></div></div>
-  <img src="img/Logo1.png" class="center thumb img-icons" alt="Logo1"></h5>--}}
+{{--<img src='{{ asset("img/entete.png") }}' alt="Logo1"/></div></div> <img src="img/Logo1.png" class="center thumb img-icons" alt="Logo1"></h5>--}}
     <img src="img/entete.png" class="center thumb img-icons" alt="Logo1"/>
     <br><br>
     <div class="sec-droite"><strong>Alger le :</strong><span>{{ $date }}</span></div>
@@ -35,7 +34,8 @@
       <h3 class="center"><span><strong>{{ $etat->nom}}</strong></span></h3>
     <div>
       <strong>Motif d’hospitalisation :</strong>
-      <span>{{ $obj->admission->demandeHospitalisation->DemeandeColloque->observation }}</span>
+      {{-- DemeandeColloque->observation--}}
+      <span>{{ $obj->admission->demandeHospitalisation->consultation->motif }}</span>
     </div><br>
       <div class="rectangle center"><strong>INFORMATION PATIENT</strong></div>
       <div><br>
@@ -45,7 +45,7 @@
             <tr>
               <th>type</th>
               <th>physio/pathol</th>
-              <th>decription</th>
+              <th>description</th>
               <th>date</th>
             </tr>
           </thead>

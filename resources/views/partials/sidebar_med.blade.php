@@ -264,50 +264,6 @@
         }
       })
     }
-    //function createeximgOrg(nomp,prenomp,age, ipp){var img = new Image();img.src = '{{ asset("/img/logo.png") }}';img.onload = function (){//JsBarcode("#itf",IPP); //bonne(img,nomp,prenomp,age,ipp);};} 
-    function createexbioF(image,nomp,prenomp,age,ipp){ 
-            html2canvas($("#dos"), {
-          onrendered: function(canvas) {
-              moment.locale('fr');//var IPP = ipp.toString();
-              var formattedDate = moment(new Date()).format("l");                     
-              var doc = new jsPDF('p', 'mm');
-              doc.text(105,9,'{{ Session::get('etabTut') }}', null, null, 'center');
-              doc.setFontSize(13);
-              doc.text(105,16,'{{ Session::get('etabname') }}'.replace(/&quot;/g,'"'), null, null, 'center');
-              doc.setFontSize(12);
-              doc.text(105,21,'{{ Session::get('etabAdr') }}', null, null, 'center');
-              doc.text(105,26, 'Tél : {{ Session::get("etabTel") }} - {{ Session::get("etabTel") }}', null, null, 'center');//doc.text(105,26, 'Tél : 023-93-34 - 23-93-58', null, null, 'center');
-              doc.addImage(image, 'JPEG', 95, 27, 20, 20);
-              doc.setFontSize(14);
-              JsBarcode("#itf", ipp.toString(), {
-                lineColor: "#000",
-                width:4,
-                height:40,
-                displayValue: true,
-                text:"IPP :"+ ipp.toString(),
-                fontSize : 28,
-                textAlign: "left"
-              });
-              doc.text(200,60, formattedDate , null, null, 'right'); 
-              doc.text(10,63, 'Nom : '+nomp, null, null);
-              doc.text(10,68, 'Prénom : '+prenomp, null, null);
-              doc.text(10,73, 'Age : '+ age+' ans', null, null); 
-              const img = document.querySelector('img#itf');
-              doc.addImage(img.src, 'JPEG', 10, 75, 50, 15);
-              doc.text(10,100, 'Prière de faire', null, null);
-              doc.setFontSize(16);
-              doc.text(10,115,'Analyses Demandées :',null,null) 
-              var i =0;
-              $('input.ace:checkbox:checked').each(function(index, value) {
-                doc.text(10,125+i, ++index + ' : '+this.nextElementSibling.innerHTML+" . ");
-                i=i+10;
-              });
-              doc.setFontSize(12);
-              doc.text(100,275, 'Docteur : {{ Auth::user()->employ->nom}} {{ Auth::user()->employ->prenom}}', null, null); 
-              doc.save('ExamBiolo-'+nomp+'-'+prenomp+'.pdf');
-          }
-        });
-    }
     function createexbio(nomp,prenomp,age,ipp){ 
       ol = document.getElementById('listBioExam');
       $('input.ace:checkbox:checked').each(function(index, value) {
@@ -349,17 +305,17 @@
     }
     function printExamCom(nom, prenom, age, ipp)
     {
-      var interest = $('ul#compl').find('li.active').data('interest');
-      switch(interest){
-            case 0:
-              createexbio(nom, prenom, age, ipp);
-              break;
-            case 1:
-              createeximg(nom, prenom, age, ipp);
-              break;
-            case 2:
-                break;
-      }
+            var interest = $('ul#compl').find('li.active').data('interest');
+            switch(interest){
+                  case 0:
+                    createexbio(nom, prenom, age, ipp);
+                    break;
+                  case 1:
+                    createeximg(nom, prenom, age, ipp);
+                    break;
+                  case 2:
+                      break;
+            }
       }
       function addExamsImg(form)
       {
