@@ -97,15 +97,19 @@ class demandeprodController extends Controller
 
                     if($gamme->id == "1")
                     {
-                          $demande->medicaments()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
+                        $demande->medicaments()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
                     }
                     elseif($gamme->id == "2") 
                     {
-                           $demande->dispositifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
+                        $demande->dispositifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
                     }
                     elseif($gamme->id == "3") 
                     {
-                            $demande->reactifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
+                        $demande->reactifs()->attach($listes[$i]->produit, ['qte' => $listes[$i]->qte , 'unite' => $listes[$i]->unite]);
+                    }
+                    elseif($gamme->id == "4")
+                    {
+
                     }
              }
             return redirect()->route('demandeproduit.show',$demande->id); 
