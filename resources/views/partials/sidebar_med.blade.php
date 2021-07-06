@@ -48,8 +48,7 @@
           <a href="#" class="dropdown-toggle">
              <i class="menu-icon fa fa-user-md"></i> <span class="menu-text"> Consultations </span><b class="arrow fa fa-angle-down"></b>
           </a><b class="arrow"></b>
-          <ul class="submenu">
-            <li><a href="/createConsultation"><i class="menu-icon fa fa-plus purple"></i>Ajouter une consultation</a><b class="arrow"></b>
+          <ul class="submenu"><!--  <li><a href="/createConsultation"><i class="menu-icon fa fa-plus purple"></i>Ajouter une consultation</a><b class="arrow"></b> -->
             </li>
             <li><a href="{{ route('consultations.index')}}"><i class="menu-icon fa fa-eye pink"></i> Liste des consultations</a><b class="arrow"></b>
             </li>
