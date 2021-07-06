@@ -6,10 +6,10 @@
 <div class="pull-right">
 	 <a href="{{route('hospitalisation.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-list bigger-120 blue"></i>Hospitalisations</a>
 </div>
-@endif
 <div class="row">
 	<div class="col-sm-12"><h4> <strong> Hospitalisation : suivi(e) du patient</strong></h4></div>
 </div>
+
 <div class="tabbable"  class="user-profile">
 	<ul class="nav nav-tabs padding-18">
 		<li class="active"><a data-toggle="tab" href="#hospi"><strong>Hospitalisation</strong></a></li>
