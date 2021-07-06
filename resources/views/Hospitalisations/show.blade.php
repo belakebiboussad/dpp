@@ -7,7 +7,7 @@
 	 <a href="{{route('hospitalisation.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-list bigger-120 blue"></i>Hospitalisations</a>
 </div>
 @endif
-<div class="row"><h4><strong>Hospitalisation : suivi(e) du patient(e)</strong></h4></div>
+<div class="row"><h4> <strong> Hospitalisation : suivi(e) du patient(e)</strong></h4></div>
 <div class="tabbable"  class="user-profile">
 	<ul class="nav nav-tabs padding-18">
 		<li class="active"><a data-toggle="tab" href="#hospi"><strong>Hospitalisation</strong></a></li>
@@ -175,32 +175,32 @@
 									<hr/>
 									<div>
 										<label for="pas">PAS (mmHg)</label>
-										<input type="number" name="pas" class="form-control" min="50" max="250" placeholder="Entre 50 et 250 (mmHg)">				
+										<input type="number" name="pas" class="form-control" min="50" max="250" placeholder="Normal < 130 (mmHg)">				
 									</div>
 									<hr/>
 									<div>
 										<label for="pad">PAD (mmHg)</label>
-										<input type="number" name="pad" class="form-control" min="10" max="150" placeholder="Entre 10 et 150 (mmHg)">				
+										<input type="number" name="pad" class="form-control" min="10" max="150" placeholder="Normal < 85 (mmHg)">				
 									</div>
 									<hr/>
 									<div>
 										<label for="pouls">Pouls (bpm)</label>
-										<input type="number" name="pouls" class="form-control" min="0" max="200" placeholder="Entre 0 et 200 (bpm)">				
+										<input type="number" name="pouls" class="form-control" min="0" max="200" placeholder="Optimal entre 50 et 80 (bpm)">				
 									</div>
 									<hr/>
 									<div>
 										<label for="temp">Temp (°C)</label>
-										<input type="number" name="temp" class="form-control" min="0" max="50" placeholder="Entre 0 et 50 (°C)">				
+										<input type="number" name="temp" class="form-control" min="0" max="50" placeholder="Idéal 37 (°C)">				
 									</div>
 									<hr/>
 									<div>
 										<label for="glycemie">Glycémie (g/l)</label>
-										<input type="number" name="glycemie" class="form-control" min="0" max="7" placeholder="Entre 0 et 7 (g/l)">				
+										<input type="number" name="glycemie" class="form-control" min="0" max="7" placeholder="Normale 0.7 et 1.1 (g/l)">				
 									</div>
 									<hr/>
 									<div>
 										<label for="cholest">Cholést (g/l)</label>
-										<input type="number" name="cholest" class="form-control" min="0" max="7" placeholder="Entre 0 et 7 (g/l)">				
+										<input type="number" name="cholest" class="form-control" min="0" max="7" placeholder="En moyenne entre 1,4 et 2,5 (g/l)">				
 									</div>
 									<hr/>
 								</div>

@@ -76,11 +76,11 @@
 </script>
 @endsection
 @section('main-content')
-<div class="page-header">
-	<h1 style="display: inline;"><strong>Modification du Patient :&nbsp;</strong>{{ $patient->getCivilite() }} {{ $patient->Nom }} {{ $patient->Prenom }}</h1>
+<div class="row">
+	<h4 style="display: inline;"><strong>Modification des données du patient :&nbsp;</strong>{{ $patient->getCivilite() }} {{ $patient->Nom }} {{ $patient->Prenom }}</h4>
 	<div class="pull-right">
 		<a href="{{route('patient.index')}}" class="btn btn-white btn-info btn-bold">
-			<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i> Chercher un Patient
+			<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i> Rechercher un Patient
 		</a>
 	</div>
 </div>
@@ -105,14 +105,14 @@
 	<ul class="nav nav-pills nav-justified list-group" role="tablist" id="menuPatient">
 		<li class=" @if($patient->Type !="5") active @else hidden  @endif">
 		  <a data-toggle="tab" href="#Assure" data-toggle="tab" onclick="copyPatientInfo('{{ $patient->id}}');">
-	    	<span class="bigger-130"><strong>Assure</strong></span>
+	    	<span class="bigger-130"><strong>Assuré(e)</strong></span>
 	    </a>
  		</li>
 	 	<li class=" @if($patient->Type =="5") active  @endif" ><a data-toggle="tab" href="#Patient">
 	   	 	<span class="bigger-130"><strong>Patient</strong></span></a>
 	   	</li>
 		 {{-- <li  id ="hommelink" @if(count($correspondants) == 0)  class="invisible" @endif><a data-toggle="tab" href="#Homme">
-		  	<span class="bigger-130"><strong>Garde Malde/Homme de Confiance</strong></span></a>
+		  	<span class="bigger-130"><strong>Garde Malade/Homme de Confiance</strong></span></a>
 		  </li> --}}
 	</ul>	
   <div class="tab-content">

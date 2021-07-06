@@ -23,7 +23,7 @@ $(document).ready(function () {
 @endsection
 @section('main-content')
 <div class="page-header">
-	<h1 style="display: inline;"><strong>Modification du Patient :&nbsp;</strong>{{ $patient->getCivilite() }} {{ $patient->Nom }} {{ $patient->Prenom }}</h1>
+	<h4 style="display: inline;"><strong>Modification du patient :&nbsp;</strong>{{ $patient->getCivilite() }} {{ $patient->Nom }} {{ $patient->Prenom }}</h4>
 	<div class="pull-right">
 		<a href="{{route('patient.index')}}" class="btn btn-white btn-info btn-bold">
 			<i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>Chercher un Patient		 
@@ -53,7 +53,7 @@ $(document).ready(function () {
 	   	 	<span class="bigger-130"><strong>Patient</strong></span></a>
 	  </li>
 		<li  id ="hommelink" @if(count($hommes_c) == 0)  class="invisible" @endif><a data-toggle="tab" href="#Homme">
-		 	<span class="bigger-130"><strong>Garde Malde/Homme de Confiance</strong></span></a>
+		 	<span class="bigger-130"><strong>Garde Malade/Homme de Confiance</strong></span></a>
 		 </li>
 	</ul>	
   <div class="tab-content">
@@ -281,7 +281,7 @@ $(document).ready(function () {
 			<div class="space-12"></div>
 			<div class="row">
 				<div class="col-sm-6 starthidden">
-					<label for="description"><strong>Autre information :</strong></label>
+					<label for="description"><strong>Autre informations :</strong></label>
 					<textarea class="form-control" id="description" name="description" placeholder="Description" >{{ $patient->description }}</textarea>
 				</div>
 			</div>
@@ -308,7 +308,7 @@ $(document).ready(function () {
 							<div class="widget-box widget-color-blue" id="widget-box-2">
 								<div class="widget-header">
 									<h5 class="widget-title bigger lighter">
-										<i class="ace-icon fa fa-table"></i>Gardes Malades/Hommes de Confiance
+										<i class="ace-icon fa fa-table"></i>Garde Malade/Homme de Confiance
 									</h5>
 									<div class="widget-toolbar widget-toolbar-light no-border">
 										<div class="fa fa-plus-circle"></div>

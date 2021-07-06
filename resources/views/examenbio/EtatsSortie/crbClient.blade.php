@@ -6,8 +6,7 @@
 	<div class="col-sm-3 pull-right"><strong>Alger le :</strong>&nbsp;{{ \Carbon\Carbon::now()->format('d-m-Y') }}</div>	
 </div>
 <div class="row"><div class="col-sm-12 tab-space"><strong>Patient(e) :</strong></div></div>
-<div class="row">
-	<!-- <div class="col-sm-1"></div> -->
+<div class="row"><!-- <div class="col-sm-1"></div> -->
 	<div class="col-sm-2 tab-space"><strong>Nom :&nbsp;</strong><span>{{ $patient->Nom }}</span></div>
 	<div class="col-sm-3"><strong>Prenom :&nbsp;</strong><span>{{ $patient->Prenom }}</span></div>
 	<div class="col-sm-3"><strong>Né(e) le :&nbsp;</strong><span>{{ \Carbon\Carbon::parse($patient->Dat_Naissance)->format('d-m-Y') }}</span></div>

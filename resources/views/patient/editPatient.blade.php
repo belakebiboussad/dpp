@@ -1,5 +1,5 @@
 	<div class="row">
-    		<div class="col-sm-12"><h3 class="header smaller lighter blue">Informations administratives</h3></div>
+    		<div class="col-sm-12"><h5 class="header smaller lighter blue"><strong>Informations administratives</strong></h5></div>
 			</div>
     	<div class="row">
 				<div class="col-sm-6">
@@ -128,7 +128,7 @@
 				</div>		
 			</div>{{-- /nom de jeune fille --}}
 		</div>	{{-- row --}}
-		<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Contact</h3></div></div>
+		<div class="row"><div class="col-sm-12"><h5 class="header smaller lighter blue"><strong>Contact</strong></h5></div></div>
 		<div class="space-12"></div>	
 		<div class="row">
 			<div class="col-sm-4">
