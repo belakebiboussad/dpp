@@ -436,19 +436,24 @@
                 case "1":
                   if($("#specialiteDiv").is(":hidden"))
                     $("#specialiteDiv").show();
-                  $("#specPrd").removeAttr("disabled");
-                  $("#produit").removeAttr("disabled");
-                  break;
+                    $("#specPrd").removeAttr("disabled");
+                    $("#produit").removeAttr("disabled");
+                    break;
                 case "2":
-                  if(!$("#specialiteDiv").is(":hidden"))
-                    $("#specialiteDiv").hide();
-                  $("#produit").removeAttr("disabled");
-                  getProducts(2);
-                  break;
+                    if(!$("#specialiteDiv").is(":hidden"))
+                      $("#specialiteDiv").hide();
+                      $("#produit").removeAttr("disabled");
+                      getProducts(2);
+                    break;
                 case "3":
                   if(!$("#specialiteDiv").is(":hidden"))
                     $("#specialiteDiv").hide();
-                  getProducts(3);
+                    getProducts(3);
+                    break;
+                case "4":
+                  $("#specialiteDiv").hide();
+                  $("#produit").removeAttr("disabled");
+                  getProducts(4);
                   break;
                 default:
                   break; 

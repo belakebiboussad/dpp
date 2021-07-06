@@ -114,6 +114,19 @@
 													<td class="center">{{ $reactif->pivot->unite }}</td>
 												</tr>
 											@endforeach
+											@foreach($demande->consomables as $consomable)
+												<tr>
+													<td>{{ $consomable->code }}</td>
+													<td>{{ $consomable->nom }}</td>
+													<td>/</td>
+													<td>Produits consommables de Labo</td>
+													<td class="center">{{ $consomable->pivot->qte }}</td>
+													@if($demande->etat == "1")
+														<td  class="center">{{ $reactif->pivot->qteDonne }}</td>
+													@endif
+													<td class="center">{{ $consomable->pivot->unite }}</td>
+												</tr>
+											@endforeach
 										</tbody>
 									</table>
 								</div>
