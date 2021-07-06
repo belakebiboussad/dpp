@@ -47,7 +47,7 @@
 <script src="{{asset('/js/JsBarcode.all.min.js')}}"></script>
 <script src="{{asset('/js/ion.rangeSlider.min.js')}}"></script>
 <script src="{{asset('/js/jQuery.print.js')}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js"></script>
+<script src="{{asset('/js//chart.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('/js/html2pdf.bundle.min.js') }}"></script>
 <script type="text/javascript">
   var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
