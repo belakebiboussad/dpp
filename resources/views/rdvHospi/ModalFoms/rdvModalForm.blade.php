@@ -19,7 +19,7 @@
 					    <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
 					  </div>
 				  </div>
-			  </div>
+			  </div><div class="space-12"></div>
 			  <div class="row">
 			    <div class="col-xs-12">
 			    	<label for="heure_rdvh"><strong>Heure entrée :</strong></label>
@@ -27,45 +27,26 @@
 			    		<input type="text" name ="heure_rdvh" class="form-control timepicker" required>
 					 		<div class="input-group-addon"><i class="fa fa-clock-o bigger-110"></i></div>
 					 	</div>	
-			    <!-- 	<input class="form-control timepicker" id="heure_rdvh" name="heure_rdvh" type="text" required/>
-						<span class="input-group-addon"><i class="fa fa-clock-o bigger-110"></i></span>	  -->
-			    
-
-			    </div>
+			   	</div>
 			  </div><div class="space-12"></div>
 			  <div class="row">
-			   	<div class="col-xs-12"><br>
+			   	<div class="col-xs-12">
 			   	  <label for="numberDays"><strong>Durée :</strong></label>
-			    	<input id="numberDays" min="0" max="50" value="0" class="form-control" type="number" required>
-						<span class="input-group-addon">nuit(s)</span>   		
+			    	<div class="input-group">
+			    		<input id="numberDays" min="0" max="50" value="0" class="form-control" type="number" required>
+							<span class="input-group-addon">nuit(s)</span>   		
+						</div>
 			  	</div>
-			  </div>
+			  </div><div class="space-12"></div>
 			  <div class="row">
 			   	<div class="col-xs-12">
-			   		<br><label for="dateSortiePre"><strong>Date sortie :</strong></label>
-			   		<input class="form-control date-picker" id="dateSortiePre" name="dateSortiePre" type="text" data-date-format="yyyy-mm-dd" onchange="updateDureePrevue()" required/>
-						  <span class="input-group-addon" onclick="$('#dateSortie').focus()"><i class="fa fa-calendar bigger-110"></i></span> 
-			   	</div>
-			  </div>
-			  <div class="row">
-			   	<div class="col-xs-12">
-			   		<label for="lit_id"><strong>Durée :</strong></label>
-			  	  <div class="input-group">
-			     	  <input type="text" id ="" class="date-picker form-control ltnow filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
+			   		<label for="dateSortiePre"><strong>Date sortie :</strong></label>
+			   		<div class="input-group">
+			     	  <input type="text" name ="dateSortiePre" id="dateSortiePre" class="date-picker form-control"  data-date-format="yyyy-mm-dd"
+			     	   value="<?= date("Y-m-j") ?>" autocomplete ="off" required>
 					    <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
 					  </div>
-			   	</div>
-			  </div>
-			  <div class="row">
-			   	<div class="col-xs-12">
-			   		<div class="form-group"><label class="control-label" for="" ><strong>Date :</strong></label>
-    			    <div class="input-group">
-			     		  <input type="text" id ="Date_Consultation" class="date-picker form-control ltnow filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
-					       <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
-					    </div>
-		        </div>
-			  		
-			   	</div>
+			  	</div>
 			  </div>
 			  <div class="space-12"></div>
 			    <div class="row">

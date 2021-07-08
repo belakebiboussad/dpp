@@ -4,9 +4,8 @@
 <script type="text/javascript">
 $(function(){
  $("#addRdvh").on('click', function(event) {
- 	//$("#rdvHModal").show();
  	 jQuery('#rdvHModal').modal('show');
- 	// 
+ 	 
  });
 })
 function updateDureePrevue()
@@ -24,11 +23,18 @@ function updateDureePrevue()
 		$('#numberDays').val(iDaysDelta );	
 	}
 }		
-function fct()
-{
-	alert($(this).val());
-
-}
+var nowDate = new Date();
+var now = nowDate.getFullYear() + '-' + (nowDate.getMonth()+1) + '-' + ('0'+ nowDate.getDate()).slice(-2);
+$('document').ready(function(){
+  $("#dateEntree").datepicker("setDate", now);			
+  $("#dateSortiePre").datepicker("setDate", now);
+ 	// $( "#RDVForm" ).submit(function( event ) {  
+ 	// 		$("#dateSortiePre").prop('disabled', false);
+ 	// });
+ 	$('.filelink' ).click( function( e ) {
+    e.preventDefault();  
+  });
+});
 </script>
 @endsection
 @section('main-content')
@@ -97,9 +103,10 @@ function fct()
 								<td>{{ $demande->demandeHosp->Specialite->nom }}</td>
 								<td class="text-center">
 									<div class="btn-group">
-{{-- route('rdvHospi.create',['id' =>$demande->id_demande ]) --}}{{-- <a href="#" class="btn btn-sm btn-success" title="Ajouter Rendez-Vous" onclick="fct();" value="{{ $demande->id }}"><span syle="color:green"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-</a> --}}
-										<button class="btn btn-xs btn-success" id="addRdvh" title="Affecter un Rendez-Vous" value="{{ $demande->id_demande }}">
+										<a href="{{ route('rdvHospi.create',['id' =>$demande->id_demande ]) }}" class="btn btn-sm" value="{{ $demande->id }}">
+											<span syle="color:blue"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+										</a>&nbsp;
+										<button class="btn btn-sm btn-success" id="addRdvh" title="Affecter un Rendez-Vous" value="{{ $demande->id_demande }}">
 											<i class="fa fa-clock-o" aria-hidden="true"></i>
 										</button>
 									</div>

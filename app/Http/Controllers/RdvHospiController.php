@@ -38,7 +38,7 @@ class RdvHospiController extends Controller
   }
   public function create($id)
   {
-    $demande = dem_colloque::where('dem_colloques.id_demande','=',$id)->first(); // dd($demande->demandeHosp->RDVs->where('etat_RDVh', 0));//
+    $demande = dem_colloque::where('dem_colloques.id_demande','=',$id)->first();
     $services = service::all();
     return view('rdvHospi.create', compact('demande','services'));
   }

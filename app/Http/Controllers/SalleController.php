@@ -121,7 +121,7 @@ class SalleController extends Controller
       {
         $type = 0;
       }
-      elseif($gender == "F")
+      elseif($demande->consultation->patient->Sexe == "F")
       {
         $type = 1;
       }
