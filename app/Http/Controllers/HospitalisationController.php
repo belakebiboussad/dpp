@@ -69,7 +69,7 @@ class HospitalisationController extends Controller
                       ->whereHas('demandeHospitalisation.consultation', function($q){
                                           $q->where('Date_Consultation','=',date("Y-m-d"));
                       })->whereHas('demandeHospitalisation',function($q) use ($serviceID) {
-                                        $q->where('service', $serviceID)->where('modeAdmission','Urgence')->where('etat','admise');
+                                        $q->where('service', $serviceID)->where('modeAdmission','2')->where('etat','admise');
                                   })->get();                                                       
       return view('hospitalisations.create', compact('adms','admsUrg'));
   }

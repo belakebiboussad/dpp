@@ -10,9 +10,11 @@
 		<a class="btn btn-sm btn-block btn-primary" data-toggle="modal" data-target="#ticket">
 				<i class="ace-icon fa fa-plus bigger-120"></i><span class="bigger-110">Ajouter Ticket</span>
 		</a>
+		@if(Auth::user()->role_id == 2)
 		<a class="btn btn-sm btn-block" href="{{ route('rdv.create', ["patient_id"=>$patient->id]) }}">
 			<span class="bigger-110"><i class="ace-icon fa fa-print bigger-120"></i>&nbsp;Imprimer Ticket d'ordre</span>
 		</a>
+		@endif
 	</div><!-- /.col -->
 	<div class="col-xs-9 col-sm-9">
 		<h4 class="blue"><span class="middle">{{ $patient->getCivilite()}} {{ $patient->Nom }} {{ $patient->Prenom }}</span>

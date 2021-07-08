@@ -583,7 +583,7 @@ class ComposerStaticInit1038691bb5c38cbc88cf687cd6799558
         'App\\modeles\\medecin_traitant' => __DIR__ . '/../..' . '/app/modeles/medecin_traitant.php',
         'App\\modeles\\medicament' => __DIR__ . '/../..' . '/app/modeles/medicament.php',
         'App\\modeles\\membre' => __DIR__ . '/../..' . '/app/modeles/membre.php',
-        'App\\modeles\\ordennance_medicaments' => __DIR__ . '/../..' . '/app/modeles/ordennance_medicaments.php',
+        'App\\modeles\\ordonnance_medicaments' => __DIR__ . '/../..' . '/app/modeles/ordonnance_medicaments.php',
         'App\\modeles\\ordonnance' => __DIR__ . '/../..' . '/app/modeles/ordonnance.php',
         'App\\modeles\\patient' => __DIR__ . '/../..' . '/app/modeles/patient.php',
         'App\\modeles\\periode' => __DIR__ . '/../..' . '/app/modeles/periode.php',

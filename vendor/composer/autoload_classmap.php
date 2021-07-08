@@ -127,7 +127,7 @@ return array(
     'App\\modeles\\medecin_traitant' => $baseDir . '/app/modeles/medecin_traitant.php',
     'App\\modeles\\medicament' => $baseDir . '/app/modeles/medicament.php',
     'App\\modeles\\membre' => $baseDir . '/app/modeles/membre.php',
-    'App\\modeles\\ordennance_medicaments' => $baseDir . '/app/modeles/ordennance_medicaments.php',
+    'App\\modeles\\ordonnance_medicaments' => $baseDir . '/app/modeles/ordonnance_medicaments.php',
     'App\\modeles\\ordonnance' => $baseDir . '/app/modeles/ordonnance.php',
     'App\\modeles\\patient' => $baseDir . '/app/modeles/patient.php',
     'App\\modeles\\periode' => $baseDir . '/app/modeles/periode.php',

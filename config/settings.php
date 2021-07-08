@@ -9,8 +9,8 @@
               '127.0.0.1'    => 5,// 'customer_manage'   =>  []
             ],
            	'ModeAdmissions'   =>  [
-                'Ambulatoire' => "Ambulatoire",
-                'urgence' => "Urgence",
-                'programme' => "Programme",
+                '0' => "Programme",
+                '1' => "Ambulatoire",
+                '2' => "Urgence"
            	],
   ];

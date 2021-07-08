@@ -34,13 +34,12 @@ class AdmissionController extends Controller
       public function index()
       {
             $rdvs = rdv_hospitalisation::with('bedReservation','demandeHospitalisation.bedAffectation')->whereHas('demandeHospitalisation', function($q){
-                                               $q->where('etat', 'programme');
+                                               $q->where('etat', '0');//programme
                                         })->where('etat_RDVh','=',null)->where('date_RDVh','=',date("Y-m-d"))->get();
-              //->whereHas('demandeHospitalisation.bedAffectation', function($q){$q->where('lit_id','!=',null);})
-              $demandesUrg = DemandeHospitalisation::with('bedAffectation') //->whereHas('bedAffectation')
+            $demandesUrg = DemandeHospitalisation::with('bedAffectation')
                                                  ->whereHas('consultation', function($q){
                                                     $q->where('Date_Consultation', date("Y-m-d"));
-                                                 })->where('modeAdmission','Urgence')->where('etat','programme')->get();
+                                                 })->where('modeAdmission','2')->where('etat','programme')->get();
               $etatsortie = Etatsortie::where('type','1')->get();
             return view('home.home_agent_admis', compact('rdvs','demandesUrg','etatsortie'));
     }
@@ -172,7 +171,7 @@ class AdmissionController extends Controller
       $medecins = employ::where('service',Auth::user()->employ->service)->orderBy('nom')->get();
       $modesHosp = ModeHospitalisation::all();  
       $nbr=0;
-      if($adm->demandeHospitalisation->modeAdmission !="Urgence")
+      if($adm->demandeHospitalisation->modeAdmission !="2")
       {
              $to = \Carbon\Carbon::createFromFormat('Y-m-d', $adm->rdvHosp->date_Prevu_Sortie);
              $from = \Carbon\Carbon::createFromFormat('Y-m-d', $adm->rdvHosp->date_RDVh);

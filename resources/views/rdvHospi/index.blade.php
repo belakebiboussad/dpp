@@ -31,7 +31,19 @@
 							@if(date('d M Y',strtotime(($demande->date).' monday next week')-1) == date('d M Y',strtotime($d)-1))
 							<tr>
 								<td>{{ $demande->demandeHosp->consultation->patient->Nom }} {{ $demande->demandeHosp->consultation->patient->Prenom }}</td>
-								<td>{{ $demande->demandeHosp->modeAdmission }}</td>
+								<td>
+									@switch( $demande->demandeHosp->modeAdmission )
+   							  @case(0)
+     								<span class="label label-sm label-primary">Programme</span>
+        						@break
+        					@case(1)
+     								<span class="label label-sm label-success">Ambulatoire</span>
+        						@break
+        					@case(2)
+     								<span class="label label-sm label-warning">Urgence</span>
+        						@break		
+						  	@endswitch
+								</td>
 								<td>
 									@switch($demande->ordre_priorite)
 										 @case(1)

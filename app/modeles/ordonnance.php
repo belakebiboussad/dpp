@@ -8,7 +8,7 @@ class ordonnance extends Model
     protected $fillable = ['date','duree','id_consultation'];
     public function medicamentes()
     {
-      return $this->belongsToMany('App\modeles\medicament', 'ordennance_medicaments', 'id_ordenannce', 'id_medicament')->withPivot('posologie');       
+      return $this->belongsToMany('App\modeles\medicament', 'ordonnance_medicaments', 'id_ordenannce', 'id_medicament')->withPivot('posologie');       
     }
 
     public function consultation()

@@ -5,7 +5,7 @@
   var now = nowDate.getFullYear() + '-' + (nowDate.getMonth()+1) + '-' + ('0'+ nowDate.getDate()).slice(-2);
  	$('document').ready(function(){
     $("#dateEntree").datepicker("setDate", now);			
-	  $("#dateSortiePre").datepicker("setDate", now);	//$('#dateSortiePre').attr('readonly', true);
+	  $("#dateSortiePre").datepicker("setDate", now);
 	 	$( "#RDVForm" ).submit(function( event ) {  
   			$("#dateSortiePre").prop('disabled', false);
   	});
