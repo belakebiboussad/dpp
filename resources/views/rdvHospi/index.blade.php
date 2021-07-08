@@ -1,5 +1,36 @@
-@extends('app_sur')
+@extends('app')
 @section('title','Gestion Rendez_Vous & Lits')
+@section('page-script')
+<script type="text/javascript">
+$(function(){
+ $("#addRdvh").on('click', function(event) {
+ 	//$("#rdvHModal").show();
+ 	 jQuery('#rdvHModal').modal('show');
+ 	// 
+ });
+})
+function updateDureePrevue()
+{
+	if($("#dateEntree").val() != undefined) {
+		var dEntree = $('#dateEntree').datepicker('getDate');
+ 		var dSortie = $('#dateSortiePre').datepicker('getDate');
+		var iSecondsDelta = dSortie - dEntree;
+		var iDaysDelta = iSecondsDelta / (24 * 60 * 60 * 1000);
+		if(iDaysDelta < 0)
+		{
+			iDaysDelta = 0;
+			$("#dateSortiePre").datepicker("setDate", dEntree); 
+		}
+		$('#numberDays').val(iDaysDelta );	
+	}
+}		
+function fct()
+{
+	alert($(this).val());
+
+}
+</script>
+@endsection
 @section('main-content')
 <div class="widget-header">
 	<h5 class="widget-title bigger lighter"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;<strong>Demandes d'hospitalisations</strong></h5>
@@ -66,9 +97,11 @@
 								<td>{{ $demande->demandeHosp->Specialite->nom }}</td>
 								<td class="text-center">
 									<div class="btn-group">
-										<a href="{{ route('rdvHospi.create',['id' =>$demande->id_demande ]) }}" class="btn btn-sm btn-success" title="Ajouter Rendez-Vous">
-											<span syle="color:green"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-										</a>
+{{-- route('rdvHospi.create',['id' =>$demande->id_demande ]) --}}{{-- <a href="#" class="btn btn-sm btn-success" title="Ajouter Rendez-Vous" onclick="fct();" value="{{ $demande->id }}"><span syle="color:green"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+</a> --}}
+										<button class="btn btn-xs btn-success" id="addRdvh" title="Affecter un Rendez-Vous" value="{{ $demande->id_demande }}">
+											<i class="fa fa-clock-o" aria-hidden="true"></i>
+										</button>
 									</div>
 								</td>
 								</tr>
@@ -124,5 +157,6 @@
 	</div>
 </div>
 @endif
+<div class="row">@include('rdvHospi.ModalFoms.rdvModalForm')</div>
 <div class="row">@include('bedAffectations.affecteModalForm')</div>
 @endsection

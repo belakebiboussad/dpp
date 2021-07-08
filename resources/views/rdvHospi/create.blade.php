@@ -1,4 +1,4 @@
-@extends('app_sur')
+@extends('app')
 @section('page-script')
 <script type="text/javascript">
 	var nowDate = new Date();
