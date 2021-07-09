@@ -3,10 +3,11 @@
 @section('page-script')
 <script type="text/javascript">
 $(function(){
- $("#addRdvh").on('click', function(event) {
- 	 jQuery('#rdvHModal').modal('show');
- 	 
- });
+	 $("#addRdvh").on('click', function(event) {
+	 	 $('#demande_id').val($(this).val());
+	 	 jQuery('#rdvHModal').modal('show');
+	 	 
+	 });
 })
 function updateDureePrevue()
 {
@@ -26,14 +27,14 @@ function updateDureePrevue()
 var nowDate = new Date();
 var now = nowDate.getFullYear() + '-' + (nowDate.getMonth()+1) + '-' + ('0'+ nowDate.getDate()).slice(-2);
 $('document').ready(function(){
-  $("#dateEntree").datepicker("setDate", now);			
-  $("#dateSortiePre").datepicker("setDate", now);
- 	// $( "#RDVForm" ).submit(function( event ) {  
- 	// 		$("#dateSortiePre").prop('disabled', false);
- 	// });
- 	$('.filelink' ).click( function( e ) {
-    e.preventDefault();  
-  });
+ 	$("#dateEntree").datepicker("setDate", now);			
+  	$("#dateSortiePre").datepicker("setDate", now);
+ 	$( "#RDVForm" ).submit(function( event ) {  
+ 			$("#dateSortiePre").prop('disabled', false);
+ 	});
+	$('.filelink' ).click( function( e ) {
+   		 e.preventDefault();  
+  	});
 });
 </script>
 @endsection

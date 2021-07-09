@@ -329,7 +329,7 @@
 			 		 } else {
 						$("#atcd" + atcd_id).replaceWith(atcd);
 			  		}	
-					jQuery('#modalFormData').trigger("reset");
+					jQuery('#modalFormAnt').trigger("reset");
 					jQuery('#antecedantModal').modal('hide');
 			 	},
 				error: function (data) {

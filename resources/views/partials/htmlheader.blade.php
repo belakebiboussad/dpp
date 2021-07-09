@@ -25,7 +25,8 @@
     <link rel="stylesheet" href="{{ asset('/css/wfmi-style.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/bootstrap-toggle.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/jquery.timepicker.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/bootstrap-timepicker.min.css') }}">
+      <link rel="stylesheet" href="{{ asset('/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/plugins/fullcalendar/fullcalendar.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/plugins/fullcalendar/fullcalendar.print.min.css') }}" media='print'>
     <link rel="stylesheet" href="{{ asset('/css/jquery-editable-select.css') }}" media='print'>

@@ -1,34 +1,35 @@
 <div id="rdvHModal" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
    	<div  id="" class="modal-content custom-height-modal">
-			<div class="modal-header">
+		<div class="modal-header">
 			  <button type="button" class="close" data-dismiss="modal">&times;</button>
 			  <h4 class="modal-title"><i class="fa fa-clock-o 2x" aria-hidden="true"></i>&nbsp; Ajouter un Rendez-Vous</h4>
 			</div>
 			<div class="modal-body">
-			<form id="modalFormData" name="modalFormData" method="POST" action ="" class="form-horizontal" novalidate="">
+			<form method="POST"  class="form-horizontal"  action="{{  route('rdvHospi.store') }}">
 				{!! csrf_field() !!}
-			  <input type="hidden" id="demande_id" name="demande_id" value="">
-			  <input type="text" id="affect" value="1" hidden>
+			       <input type="hidden" name="demande_id" >
+			      <input type="hidden" id="affect" value="0">
+				  <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Admissions</h3></div></div>
 				<div class="row">
-			    <div class="col-xs-12">
+			       <div class="col-xs-12">
 			     	<label for="dateEntree"><strong>Date entrée:</strong></label>
 			      <div class="input-group">
-			     	  <input type="text" name ="dateEntree" class="date-picker form-control"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd"
+			     	  <input type="text" name ="dateEntree" id ="dateEntree" class="date-picker form-control" data-date-format="yyyy-mm-dd"
 			     	   autocomplete ="off" required>
 					    <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
 					  </div>
 				  </div>
-			  </div><div class="space-12"></div>
+			  </div>
 			  <div class="row">
 			    <div class="col-xs-12">
 			    	<label for="heure_rdvh"><strong>Heure entrée :</strong></label>
 			    	<div class="input-group">
-			    		<input type="text" name ="heure_rdvh" class="form-control timepicker" required>
-					 		<div class="input-group-addon"><i class="fa fa-clock-o bigger-110"></i></div>
-					 	</div>	
+			    		<input type="text" name ="heure_rdvh" id ="heure_rdvh" class="form-control timepicker1"  required>
+					 <div class="input-group-addon"><i class="fa fa-clock-o bigger-110"></i></div>
+				</div>	
 			   	</div>
-			  </div><div class="space-12"></div>
+			  </div>
 			  <div class="row">
 			   	<div class="col-xs-12">
 			   	  <label for="numberDays"><strong>Durée :</strong></label>
@@ -37,21 +38,63 @@
 							<span class="input-group-addon">nuit(s)</span>   		
 						</div>
 			  	</div>
-			  </div><div class="space-12"></div>
-			  <div class="row">
+			 </div>
+			 <div class="row">
 			   	<div class="col-xs-12">
 			   		<label for="dateSortiePre"><strong>Date sortie :</strong></label>
 			   		<div class="input-group">
-			     	  <input type="text" name ="dateSortiePre" id="dateSortiePre" class="date-picker form-control"  data-date-format="yyyy-mm-dd"
-			     	   value="<?= date("Y-m-j") ?>" autocomplete ="off" required>
+			     	  <input type="text" name ="dateSortiePre" id="dateSortiePre" class="date-picker form-control"  data-date-format="yyyy-mm-dd" autocomplete ="off" required>
 					    <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
 					  </div>
 			  	</div>
+			 </div>
+			  <div class="row">
+			    	<div class="col-xs-12">
+			    	        <label for="heure_rdvh"><strong>Heure sortie :</strong></label>
+			    		<div class="input-group">
+			    			<input type="text" name ="heureSortiePrevue" id ="heureSortiePrevue" class="form-control timepicker1"  required>
+					 	<div class="input-group-addon"><i class="fa fa-clock-o bigger-110"></i></div>
+					</div>	
+			      	</div>
 			  </div>
+		  	<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Hébergement</h3></div></div>
+		  	<div class="row ">
+				<div class="col-sm-12 col-xs-12">
+				  	<label class=" control-label no-padding-right" for="serviceh"><strong> Service :</strong></label>
+					<div class="input-group col-xs-12 col-sm-12">
+					 	<select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12"/>
+							 <option value="0" selected >Selectionnez un service</option>
+							  @foreach($services as $service)
+								<option value="{{ $service->id }}">{{ $service->nom }}</option>
+								@endforeach
+						</select>
+					  </div>
+				  </div>
+			</div>
+			<div class="row ">
+				<div class="col-sm-12 col-xs-12">
+				  	<label class=" control-label no-padding-right" for="salle"><strong>Salle :</strong></label>
+					<div class="input-group col-xs-12 col-sm-12">
+					 	<select id="salle" name="salle" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" disabled/>
+							 <option value="0" selected>Selectionnez une salle</option>
+						</select>
+					  </div>
+				  </div>
+			</div>
+			<div class="row ">
+				<div class="col-sm-12 col-xs-12">
+				  	<label class=" control-label no-padding-right" for="lit_id"><strong>Lit :</strong></label>
+					<div class="input-group col-xs-12 col-sm-12">
+					 	<select id="lit_id" name="lit_id" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" disabled/>
+							<option value="0" selected disabled>Selectionnez un lit</option>
+						</select>
+					  </div>
+				  </div>
+			</div>
 			  <div class="space-12"></div>
 			    <div class="row">
 			    	<div class="col-xs-12 center bottom">
-			    		<button class="btn btn-info btn-xs btn-submit" id='AffectSave' disabled><i class="ace-icon fa fa-save bigger-110" ></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
+			    		<button class="btn btn-info btn-xs btn-submit"><i class="ace-icon fa fa-save bigger-110" ></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
 							<button class="btn btn-xs" data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
 			    	</div>
 			    </div>

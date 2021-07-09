@@ -2,7 +2,7 @@
 @section('page-script')
 <script type="text/javascript">
 	var nowDate = new Date();
-  var now = nowDate.getFullYear() + '-' + (nowDate.getMonth()+1) + '-' + ('0'+ nowDate.getDate()).slice(-2);
+  	var now = nowDate.getFullYear() + '-' + (nowDate.getMonth()+1) + '-' + ('0'+ nowDate.getDate()).slice(-2);
  	$('document').ready(function(){
 	    $("#dateEntree").datepicker("setDate", now);			
 			$("#dateSortie").datepicker("setDate", now);	

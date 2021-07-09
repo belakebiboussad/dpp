@@ -10,8 +10,8 @@
   			$("#dateSortiePre").prop('disabled', false);
   	});
   	$('.filelink' ).click( function( e ) {
-      e.preventDefault();  
-    });
+   		   e.preventDefault();  
+   	 });
 	});
 	function updateDureePrevue()
 	{
@@ -39,8 +39,8 @@
 	<div class="col-xs-12">
 		<form class="form-horizontal" id="RDVForm" role="form" method="POST" action="{{  route('rdvHospi.store') }}">
 			{{ csrf_field() }}
-			<input type="text" name="id_demande" value="{{$demande->id_demande}}" hidden>
-			<input type="text" id="affect" value="0" hidden>
+			<input type="hidden" name="demande_id"  id="demande_id" value="{{$demande->id_demande}}">
+			<input type="hidden" id="affect" value="0" >
 			<div class="row">
 			  <div class="col-sm-12"><h3 class="header smaller lighter blue">Demande d'hospitalisation</h3></div>
 			</div><div class="space-12 hidden-xs"></div>
@@ -138,7 +138,7 @@
 					<div class="col-sm-4 col-xs-12">
 				  	<label class="col-sm-4 control-label no-padding-right" for="dateSortie">	<strong> Service :</strong>	</label>
 						<div class="col-sm-8">
-							<select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" placeholder="Selectionnez le service"/>
+							<select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12"/>
 							  <option value="0" selected >Selectionnez un service</option>
 							  @foreach($services as $service)
 								<option value="{{ $service->id }}">{{ $service->nom }}</option>
@@ -149,15 +149,15 @@
 				  <div class="col-sm-4 col-xs-12">
 			   		<label class="col-sm-4 control-label no-padding-right" for="salle"><strong> Salle :</strong></label>
 					 	<div class="col-sm-8">
-							<select id="salle" name="salle" data-placeholder="selectionnez la salle d'hospitalisation" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" disabled>
+							<select id="salle" name="salle" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" disabled>
 								<option value="0" selected>Selectionnez une salle</option>
 					  	</select>
 						</div>
 				  </div>
 				 	<div class="col-sm-4 col-xs-12">
-				 		<label class="col-sm-4 control-label" for="lit_id">	<strong>Lit : </strong></label>
+				 		<label class="col-sm-4 control-label" for="lit_id"><strong>Lit : </strong></label>
 				  	<div class="col-sm-8">
-							<select id="lit_id" name="lit_id" data-placeholder="selectionnez le lit"  class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" disabled>
+							<select id="lit_id" name="lit_id"  class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" disabled>
 									<option value="0" selected disabled>Selectionnez un lit</option>
 							</select>
 						</div>	

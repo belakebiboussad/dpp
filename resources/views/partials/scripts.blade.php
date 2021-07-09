@@ -1,10 +1,10 @@
 <!-- basic scripts -->
 <!--[if !IE]> -->
 <script src="{{ asset('/js/jquery.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('/js/jspdf.debug.js') }}"></script>
-<script type="text/javascript" src="{{ asset('/js/html2canvas.js') }}"></script>
-<script type="text/javascript" src="{{ asset('/js/html2pdf.bundle.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('/js/jspdf.plugin.autotable.min.js') }}"></script><!-- a commenter -->
+<script src="{{ asset('/js/jspdf.debug.js') }}"></script>
+<script  src="{{ asset('/js/html2canvas.js') }}"></script>
+<script  src="{{ asset('/js/html2pdf.bundle.min.js') }}"></script>
+<script  src="{{ asset('/js/jspdf.plugin.autotable.min.js') }}"></script><!-- a commenter -->
 <script src="{{asset('/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('/js/jquery-ui.min.js')}}"></script> 
 <script src="{{asset('/js/jquery.ui.touch-punch.min.js')}}"></script>
@@ -40,6 +40,7 @@
 <script src="{{ asset('/js/bootstrap-toggle.min.js') }}"></script>
 <script src="{{ asset('/js/ace-extra.min.js') }}"></script>
 <script src="{{ asset('/js/jquery.timepicker.min.js') }}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"></script>
 <script src="{{ asset('/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
 <script src="{{ asset('/plugins/fullcalendar/locale/fr.js') }}"></script>
 <script src="{{ asset('/js/jquery-editable-select.js') }}"></script>
@@ -63,7 +64,15 @@
                       dropdown: true,
                       scrollbar: true
               });
-        $( ".autoCommune" ).autocomplete({
+              $('.timepicker1').timepicker({
+                      minuteStep:30,
+                       minTime: '08',
+                       maxTime: '18',
+                      defaultTime: '08:00',   
+                      startTime: '08:00',
+                      showMeridian: false
+              });
+          $( ".autoCommune" ).autocomplete({
               source: function( request, response ) {
                     $.ajax({
                             url:"{{route('commune.getCommunes')}}",
