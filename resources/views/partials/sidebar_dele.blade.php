@@ -77,19 +77,19 @@
         </a>
            <b class="arrow"></b>
         <ul class="submenu">
-                 @php $x = 1 @endphp
-                <li class="">             
-                    <a href="/demandehosp/listedemandes/{{ $x }}">                 
-                         <i class="menu-icon fa fa-eye pink"></i>Demandes médicales
-                    </a>
-                    <b class="arrow"></b>
-                </li>
-                <li class="">
-                    <a href="/demandehosp/listedemandes/{{ ++$x }}">
-                        <i class="menu-icon fa fa-eye pink"></i>Demandes chirurgicales
-                    </a>
-                    <b class="arrow"></b>
-                </li>
+           @php $x = 1 @endphp
+          <li class="">             
+              <a href="/demandehosp/listedemandes/{{ $x }}">                 
+                   <i class="menu-icon fa fa-eye pink"></i>Demandes médicales
+              </a>
+              <b class="arrow"></b>
+          </li>
+          <li class="">
+              <a href="/demandehosp/listedemandes/{{ ++$x }}">
+                  <i class="menu-icon fa fa-eye pink"></i>Demandes chirurgicales
+              </a>
+              <b class="arrow"></b>
+          </li>
         </ul>       
     </li>
     </ul> <!-- nav-list -->

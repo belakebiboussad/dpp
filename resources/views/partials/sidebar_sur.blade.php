@@ -217,7 +217,7 @@
                       $.each(data,function(){
                         selectLit.append("<option value='"+this.id+"'>"+this.nom+"</option>");
                       });
-                        $('#AffectSave').removeAttr("disabled");
+                      $('#AffectSave').removeAttr("disabled");
                     }else
                     {
                       selectLit.append('<option value="" selected disabled>Pas de Lit libre</option>');

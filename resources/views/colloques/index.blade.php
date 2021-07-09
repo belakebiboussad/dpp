@@ -15,12 +15,12 @@
 			<table class="table table-striped table-bordered table-hover">
 				<thead class="thin-border-bottom">
 					<tr>
-						<th class="center"><h5><strong>Colloque de la semaine du</strong></h5></th>
-						<th class="center"><h5><strong>Date du colloque</strong></h5></th>
-						<th class="center"><h5><strong>Membres du colloque</strong></h5></th>
-						<th class="center"><h5><strong>Colloque créer le</strong></h5></th>
-						<th class="center"><h5><strong>Type du colloque</strong></h5></th>
-						<th class="center"><h5><strong>Etat du colloque</strong></h5></th>
+						<th class="center"><strong>Colloque de la semaine du</strong></th>
+						<th class="center"><strong>Date</strong></th>
+						<th class="center"><strong>Membres</strong></th>
+						<th class="center"><strong>Colloque créer le</strong></th>
+						<th class="center"><strong>Type</strong></h5></th>
+						<th class="center"><strong>Etat</strong></h5></th>
 						<th class="center"><em class="fa fa-cog"></em></th>
 					</tr>
 				</thead>

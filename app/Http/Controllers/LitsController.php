@@ -136,7 +136,7 @@ class LitsController extends Controller
       $lit = lit::FindOrFail( $request->lit_id);
       if($lit->has('bedReservation'))
       {
-        if($demande->modeAdmission !="Urgence" )
+        if($demande->modeAdmission !="2" )
         {
           $free = $lit->isFree(strtotime($rdv->date_RDVh),strtotime($rdv->date_Prevu_Sortie));  
           if(!$free)
@@ -148,7 +148,7 @@ class LitsController extends Controller
           if(!$free)
             $lit->bedReservation()->delete();
           $demande->update([
-            'etat' => 'programme'
+            'etat' => '0'
           ]); 
         }  
       } 
@@ -166,19 +166,18 @@ class LitsController extends Controller
       $rdvs = rdv_hospitalisation::doesntHave('demandeHospitalisation.bedAffectation')
                                  ->whereHas('demandeHospitalisation',function ($q){
                                     $q->where('service',Auth::user()->employ->service)
-                                      ->where('etat','programme');    
+                                      ->where('etat','0');    
                                  })->where('date_RDVh','>=',$now)->get();
       $demandesUrg= DemandeHospitalisation::doesntHave('bedAffectation')
                                           ->whereHas('consultation',function($q) use($now){
                                                $q->where('Date_Consultation', $now);
-                                          })->where('modeAdmission','Urgence')->where('etat','en attente')
+                                          })->where('modeAdmission','2')->where('etat','en attente')
                                             ->where('service',Auth::user()->employ->service)->get(); 
       return view('bedAffectations.index', compact('rdvs','demandesUrg','services'));  
     }
-    //public function destroy($id){}
-    /**
-    //function ajax return lits ,on retourne pas les lits bloque ou reservé  
-    */
+  /**
+  **function ajax return lits ,on retourne pas les lits bloque ou reservé
+  */
     public function getlits(Request $request)
     {
       $lits =array();

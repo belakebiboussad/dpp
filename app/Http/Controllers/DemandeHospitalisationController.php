@@ -134,7 +134,7 @@ class DemandeHospitalisationController extends Controller
       }
     public function invalider(Request $request)
     {
-        $demande  = DemandeHospitalisation::FindOrFail($request->id_demande);       //$dem = dem_colloque::destroy($request->id_demande);  
+        $demande  = DemandeHospitalisation::FindOrFail($request->id_demande);
         $colloque = colloque::find($request->id_colloque);
         $colloque->demandes()->detach($request->id_demande);
         $demande->etat ="en attente";
@@ -143,7 +143,8 @@ class DemandeHospitalisationController extends Controller
     }
     public function getUrgDemanades($date)
     {
-          $demandehospitalisations = DemandeHospitalisation::with('consultation.patient','Service','bedAffectation.lit.salle.service')->where('modeAdmission','Urgence')->where('etat','programme')
+          $demandehospitalisations = DemandeHospitalisation::with('consultation.patient','Service','bedAffectation.lit.salle.service')
+                                                            ->where('modeAdmission','2')->where('etat','0')
                                                             ->whereHas('consultation',function($q) use($date){
                                                                 $q->where('Date_Consultation', $date);
                                                             })->get();

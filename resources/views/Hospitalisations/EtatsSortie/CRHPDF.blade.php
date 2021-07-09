@@ -34,8 +34,13 @@
       <h3 class="center"><span><strong>{{ $etat->nom}}</strong></span></h3>
     <div>
       <strong>Motif d’hospitalisation :</strong>
-      {{-- DemeandeColloque->observation--}}
-      <span>{{ $obj->admission->demandeHospitalisation->consultation->motif }}</span>
+      <span>
+        @if(isset($obj->admission->id_rdvHosp))
+          {{ $obj->admission->demandeHospitalisation->DemeandeColloque->observation }}
+        @else
+          {{ $obj->admission->demandeHospitalisation->consultation->motif }}
+        @endif
+      </span>
     </div><br>
       <div class="rectangle center"><strong>INFORMATION PATIENT</strong></div>
       <div><br>

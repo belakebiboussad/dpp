@@ -1,7 +1,7 @@
 <div id="demandehosp" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
    	<div class="modal-content custom-height-modal">	<!-- Modal content-->
-			<div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button> <h4 class="modal-title">Demande d'hospitalisation </h4></div>
+			<div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button> <h4 class="modal-title">Ajouter une demande d'hospitalisation </h4></div>
 			<div class="modal-body">
 			  <form action="#" method="POST">
 			    <div class="row">

@@ -1,5 +1,42 @@
-@extends('app_sur')
+@extends('app')
 @section('title','Gestion Rendez_Vous & Lits')
+@section('page-script')
+<script type="text/javascript">
+$(function(){
+ $("#addRdvh").on('click', function(event) {
+ 	 jQuery('#rdvHModal').modal('show');
+ 	 
+ });
+})
+function updateDureePrevue()
+{
+	if($("#dateEntree").val() != undefined) {
+		var dEntree = $('#dateEntree').datepicker('getDate');
+ 		var dSortie = $('#dateSortiePre').datepicker('getDate');
+		var iSecondsDelta = dSortie - dEntree;
+		var iDaysDelta = iSecondsDelta / (24 * 60 * 60 * 1000);
+		if(iDaysDelta < 0)
+		{
+			iDaysDelta = 0;
+			$("#dateSortiePre").datepicker("setDate", dEntree); 
+		}
+		$('#numberDays').val(iDaysDelta );	
+	}
+}		
+var nowDate = new Date();
+var now = nowDate.getFullYear() + '-' + (nowDate.getMonth()+1) + '-' + ('0'+ nowDate.getDate()).slice(-2);
+$('document').ready(function(){
+  $("#dateEntree").datepicker("setDate", now);			
+  $("#dateSortiePre").datepicker("setDate", now);
+ 	// $( "#RDVForm" ).submit(function( event ) {  
+ 	// 		$("#dateSortiePre").prop('disabled', false);
+ 	// });
+ 	$('.filelink' ).click( function( e ) {
+    e.preventDefault();  
+  });
+});
+</script>
+@endsection
 @section('main-content')
 <div class="widget-header">
 	<h5 class="widget-title bigger lighter"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;<strong>Demandes d'hospitalisations</strong></h5>
@@ -31,7 +68,19 @@
 							@if(date('d M Y',strtotime(($demande->date).' monday next week')-1) == date('d M Y',strtotime($d)-1))
 							<tr>
 								<td>{{ $demande->demandeHosp->consultation->patient->Nom }} {{ $demande->demandeHosp->consultation->patient->Prenom }}</td>
-								<td>{{ $demande->demandeHosp->modeAdmission }}</td>
+								<td>
+									@switch( $demande->demandeHosp->modeAdmission )
+   							  @case(0)
+     								<span class="label label-sm label-primary">Programme</span>
+        						@break
+        					@case(1)
+     								<span class="label label-sm label-success">Ambulatoire</span>
+        						@break
+        					@case(2)
+     								<span class="label label-sm label-warning">Urgence</span>
+        						@break		
+						  	@endswitch
+								</td>
 								<td>
 									@switch($demande->ordre_priorite)
 										 @case(1)
@@ -54,9 +103,12 @@
 								<td>{{ $demande->demandeHosp->Specialite->nom }}</td>
 								<td class="text-center">
 									<div class="btn-group">
-										<a href="{{ route('rdvHospi.create',['id' =>$demande->id_demande ]) }}" class="btn btn-sm btn-success" title="Ajouter Rendez-Vous">
-											<span syle="color:green"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-										</a>
+										<a href="{{ route('rdvHospi.create',['id' =>$demande->id_demande ]) }}" class="btn btn-sm" value="{{ $demande->id }}">
+											<span syle="color:blue"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+										</a>&nbsp;
+										<button class="btn btn-sm btn-success" id="addRdvh" title="Affecter un Rendez-Vous" value="{{ $demande->id_demande }}">
+											<i class="fa fa-clock-o" aria-hidden="true"></i>
+										</button>
 									</div>
 								</td>
 								</tr>
@@ -112,5 +164,6 @@
 	</div>
 </div>
 @endif
+<div class="row">@include('rdvHospi.ModalFoms.rdvModalForm')</div>
 <div class="row">@include('bedAffectations.affecteModalForm')</div>
 @endsection
