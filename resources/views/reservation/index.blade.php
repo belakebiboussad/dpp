@@ -88,10 +88,10 @@
 		<input type="hidden" id="rdv_id" name="rdv_id">		
 		<div class="row ">
 			<div class="col-sm-12 col-xs-12">
-				<label class="col-sm-4 control-label no-padding-right" for="dateSortie"><strong> Service :</strong>	</label>
+				<label class="col-sm-4 control-label no-padding-right" for=""><strong> Service :</strong>	</label>
 				<div class="col-sm-8">
-					<select id="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" placeholder="Selectionnez le service"/>
-					  <option value="0" selected >Selectionnez un service</option>
+					<select id="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12 serviceHosp" />
+					  <option value="" selected >Selectionnez un service</option>
 					  @foreach($services as $service)
 							<option value="{{ $service->id }}">{{ $service->nom }}</option>
 						@endforeach
@@ -105,7 +105,7 @@
 				<div class="form-group">
 				<label class="col-sm-4 control-label no-padding-right" for="salle"><strong> Salle :</strong></label>
 				<div class="col-sm-8">
-					<select id="salle" data-placeholder="selectionnez la salle d'hospitalisation" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" disabled>
+					<select id="salle" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12 salle" disabled>
 						<option value="0" selected>Selectionnez une salle</option>
 				 	</select>
 				</div>
@@ -116,10 +116,10 @@
 		<div class="row">
 			<div class="col-sm-12 col-xs-12">
 				<div class="form-group">
-					<label class="col-sm-4 control-label" for="lit_id">	<strong>Lit : </strong></label>
+					<label class="col-sm-4 control-label" for="lit_id"><strong>Lit : </strong></label>
 					<div class="col-sm-8">
-						<select id="lit_id" name="lit_id" data-placeholder="selectionnez le lit"  class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" disabled>
-							<option value="0" selected disabled>Selectionnez un lit</option>
+						<select id="lit_id" name="lit_id"  class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12 lit_id" disabled>
+							<option value="" selected disabled>Selectionnez un lit</option>
 						</select>
 					</div>	
 			  </div>

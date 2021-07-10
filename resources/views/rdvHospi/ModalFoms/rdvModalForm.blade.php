@@ -6,10 +6,10 @@
 			  <h4 class="modal-title"><i class="fa fa-clock-o 2x" aria-hidden="true"></i>&nbsp; Ajouter un Rendez-Vous</h4>
 			</div>
 			<div class="modal-body">
-			<form method="POST"  class="form-horizontal"  action="{{  route('rdvHospi.store') }}">
+			<form id"rdvHAddForm" method="POST"  class="form-horizontal"  action="{{  route('rdvHospi.store') }}">
 				{!! csrf_field() !!}
-			       <input type="hidden" name="demande_id" >
-			      <input type="hidden" id="affect" value="0">
+			       <input type="hidden" name="demande_id" id="demande_id"  class="demande_id">
+			      <input type="hidden"  class="affect" value="0">
 				  <div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Admissions</h3></div></div>
 				<div class="row">
 			       <div class="col-xs-12">
@@ -43,7 +43,7 @@
 			   	<div class="col-xs-12">
 			   		<label for="dateSortiePre"><strong>Date sortie :</strong></label>
 			   		<div class="input-group">
-			     	  <input type="text" name ="dateSortiePre" id="dateSortiePre" class="date-picker form-control"  data-date-format="yyyy-mm-dd" autocomplete ="off" required>
+			     	  <input type="text" name ="dateSortiePre" id="dateSortiePre" class="date-picker form-control"  data-date-format="yyyy-mm-dd" autocomplete ="off" onchange="updateDureePrevue()" required>
 					    <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
 					  </div>
 			  	</div>
@@ -62,8 +62,8 @@
 				<div class="col-sm-12 col-xs-12">
 				  	<label class=" control-label no-padding-right" for="serviceh"><strong> Service :</strong></label>
 					<div class="input-group col-xs-12 col-sm-12">
-					 	<select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12"/>
-							 <option value="0" selected >Selectionnez un service</option>
+					 	<select  class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12 serviceHosp"/>
+							 <option value="0" selected  disabled>Selectionnez un service</option>
 							  @foreach($services as $service)
 								<option value="{{ $service->id }}">{{ $service->nom }}</option>
 								@endforeach
@@ -75,7 +75,7 @@
 				<div class="col-sm-12 col-xs-12">
 				  	<label class=" control-label no-padding-right" for="salle"><strong>Salle :</strong></label>
 					<div class="input-group col-xs-12 col-sm-12">
-					 	<select id="salle" name="salle" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" disabled/>
+					 	<select  class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12 salle" disabled/>
 							 <option value="0" selected>Selectionnez une salle</option>
 						</select>
 					  </div>
@@ -85,8 +85,8 @@
 				<div class="col-sm-12 col-xs-12">
 				  	<label class=" control-label no-padding-right" for="lit_id"><strong>Lit :</strong></label>
 					<div class="input-group col-xs-12 col-sm-12">
-					 	<select id="lit_id" name="lit_id" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" disabled/>
-							<option value="0" selected disabled>Selectionnez un lit</option>
+					 	<select name="lit" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12 lit_id" disabled/>
+							<option value="" selected disabled>Selectionnez un lit</option>
 						</select>
 					  </div>
 				  </div>
@@ -94,8 +94,10 @@
 			  <div class="space-12"></div>
 			    <div class="row">
 			    	<div class="col-xs-12 center bottom">
-			    		<button class="btn btn-info btn-xs btn-submit"><i class="ace-icon fa fa-save bigger-110" ></i>Enregistrer</button>&nbsp; &nbsp; &nbsp;
-							<button class="btn btn-xs" data-dismiss="modal"><i class="ace-icon fa fa-undo bigger-110"></i>Annuler</button>
+			    		<button class="btn btn-info btn-xs btn-submit"><i class="ace-icon fa fa-save bigger-110" ></i>Enregistrer</button>&nbsp; &nbsp; 
+					<button class="btn btn-xs" data-dismiss="modal">
+						<i class="ace-icon fa fa-undo bigger-110"></i>Annuler
+					</button>
 			    	</div>
 			    </div>
 			  </form>

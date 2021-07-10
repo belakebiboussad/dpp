@@ -58,31 +58,39 @@
 						<div class="col-sm-12 col-xs-12">
 							<label class = "col-sm-2 col-xs-2 control-label no-padding-right text-right" for="resume"><strong>Résumé:</strong></label>
            	  <div class="col-sm-10 col-xs-10">
-					     <input type="text" id="resume" name="resume" value="{{ $demande->consultation->Resume_OBS }}" class="col-xs-12 col-sm-12" disabled/>
-					    </div>
-						</div>
+		 <input type="text" id="resume" name="resume" value="{{ $demande->consultation->Resume_OBS }}" class="col-xs-12 col-sm-12" disabled/>
+		</div>
+		</div>
 	      	</div>
-	     		<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Informations concernant la demande</h3></div></div>
-					<div class="row">
-						<div class="col-sm-12">
-							<div class="widget-box">
-							  <div class="widget-header"><h4 class="widget-title">Demande d'hospitalisation :</h4></div>
-								<div class="widget-body">
-									<div class="widget-main">
-										<form method="POST" action="{{ route('demandehosp.update',$demande->id) }}">
-										{{ csrf_field() }}
-										{{ method_field('PUT') }}
-										<div class="row">
-											<div class="col-sm-6 col-xs-6">
-										    <label class="col-sm-4 col-xs-4 control-label no-padding-right text-right" for="mode">
-										      <strong>Mode d'admission :</strong>
-										    </label>
-										    <div class="col-sm-8 col-xs-8">
-						             	<select class="form-control" id="mode" name="mode" class="col-xs-12 col-sm-12">
-						              	<option value="0">Sélectionnez le mode d'admission...</option>
-											    	@foreach($modesAdmission as $mode)
-													 	<option value="{{ $mode}}" @if($demande->modeAdmission == $mode ) selected @endif>{{ $mode }}</option>
-														@endforeach    
+	     	<div class="row"><div class="col-sm-12"><h3 class="header smaller lighter blue">Demande d'hospitalisation :</h3></div></div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="widget-box">
+					<div class="widget-header"><h4 class="widget-title">Demande d'hospitalisation :</h4></div>
+					<div class="widget-body">
+					<div class="widget-main">
+					<form method="POST" action="{{ route('demandehosp.update',$demande->id) }}">
+						{{ csrf_field() }}
+						{{ method_field('PUT') }}
+						<div class="row">
+						<div class="col-sm-6 col-xs-6">
+						<label class="col-sm-4 col-xs-4 control-label no-padding-right text-right" for="mode">
+							<strong>Mode d'admission :</strong>
+						</label>
+						 <div class="col-sm-8 col-xs-8">
+				       			<select class="form-control" id="mode" name="mode" class="col-xs-12 col-sm-12">
+				       				<option value="">Sélectionnez le mode d'admission...</option>	
+								@switch($demande->modeAdmission)
+									@case("0")		
+        									<option value="0" @if($demande->modeAdmission == "0" ) selected @endif>Programme</option>
+         									@break
+    									@case("1")
+        	    								<option value="1" @if($demande->modeAdmission == "1" ) selected @endif>Ambulatoire</option>
+        									@break
+         								@case("2")
+        									<option value="2" @if($demande->modeAdmission == "2" ) selected @endif>Urgence</option>
+        									@break	
+								@endswitch		
 						              </select> 
 						            </div>
 		         			   	</div>

@@ -219,8 +219,8 @@
                 });
           });
           $('#gardeMalade').on('hidden.bs.modal', function () {
-            $('#gardeMalade form')[0].reset();
-            $('#addGardeMalade *').prop('disabled', false);
+               $('#gardeMalade form')[0].reset();
+               $('#addGardeMalade *').prop('disabled', false);
           });
         })
         function activaTab(tab){

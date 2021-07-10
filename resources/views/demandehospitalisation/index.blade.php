@@ -29,17 +29,17 @@
 							<td>{{ $demande->consultation->Date_Consultation }}</td>
 							<td>
 								@switch($demande->modeAdmission)
-    									@case("Ambulatoire")
-        									<span class="label label-sm label-warning">
+    									@case("0")		
+        									<span class="label label-sm label-success">Programme
+         									@break
+    									@case("1")
+        									<span class="label label-sm label-warning">Ambulatoire
         									@break
-         								@case("Urgence")
-        									<span class="label label-sm label-danger">
+         								@case("2")
+        									<span class="label label-sm label-danger">Urgence
         									@break
-        								@case("programme")		
-        									<span class="label label-sm label-success">
-        									@break	
 								@endswitch	
-								{{ $demande->modeAdmission }}</span>
+								</span>
 							</td>
 							<td>{{ $demande->Specialite->nom }}</td>
 							<td>{{ $demande->Service->nom }}</td>

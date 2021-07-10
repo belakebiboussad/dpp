@@ -197,7 +197,19 @@ $('document').ready(function(){
 				<div class="widget-main no-padding">
 					<table class="table table-striped table-bordered table-hover">
 						<tr>
-							<td>{{$consultation->demandeHospitalisation->modeAdmission}}</td>
+							<td>
+								@switch($consultation->demandeHospitalisation->modeAdmission)
+			   							  @case(0)
+			     								<span class="label label-sm label-primary">Programme</span>
+			        							@break
+			        						@case(1)
+			     								<span class="label label-sm label-success">Ambulatoire</span>
+			        							@break
+			        						@case(2)
+			     								<span class="label label-sm label-warning">Urgence</span>
+			        							@break		
+									 @endswitch
+							</td>
 							<td>{{$consultation->demandeHospitalisation->Specialite->nom}}</td>
 							<td>{{$consultation->demandeHospitalisation->Service->nom}}</td>
 							<td>{{ $consultation->demandeHospitalisation->etat }}</td>

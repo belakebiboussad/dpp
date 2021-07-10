@@ -77,7 +77,7 @@
         </a>
            <b class="arrow"></b>
         <ul class="submenu">
-           @php $x = 1 @endphp
+           @php $x = 0 @endphp
           <li class="">             
               <a href="/demandehosp/listedemandes/{{ $x }}">                 
                    <i class="menu-icon fa fa-eye pink"></i>Demandes médicales

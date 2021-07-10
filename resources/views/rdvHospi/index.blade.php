@@ -6,7 +6,9 @@ $(function(){
 	 $("#addRdvh").on('click', function(event) {
 	 	 $('#demande_id').val($(this).val());
 	 	 jQuery('#rdvHModal').modal('show');
-	 	 
+	 	 $('#rdvHModal').on('hidden.bs.modal', function (e) {
+                            $('#rdvHModal form')[0].reset();
+           	 });
 	 });
 })
 function updateDureePrevue()
@@ -23,18 +25,13 @@ function updateDureePrevue()
 		}
 		$('#numberDays').val(iDaysDelta );	
 	}
-}		
+}
 var nowDate = new Date();
 var now = nowDate.getFullYear() + '-' + (nowDate.getMonth()+1) + '-' + ('0'+ nowDate.getDate()).slice(-2);
 $('document').ready(function(){
  	$("#dateEntree").datepicker("setDate", now);			
   	$("#dateSortiePre").datepicker("setDate", now);
- 	$( "#RDVForm" ).submit(function( event ) {  
- 			$("#dateSortiePre").prop('disabled', false);
- 	});
-	$('.filelink' ).click( function( e ) {
-   		 e.preventDefault();  
-  	});
+ 	// $( "#RDVForm" ).submit(function( event ) {  $("#dateSortiePre").prop('disabled', false); });	/*$('.filelink' ).click( function( e ) { e.preventDefault();   	});*/
 });
 </script>
 @endsection
@@ -146,10 +143,22 @@ $('document').ready(function(){
 							@foreach($demandesUrg as $demande)
 							<tr id="{{ 'demande'.$demande->id }}">
 								<td>{{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }}</td>
-								<td>{{ $demande->modeAdmission }}</td>
+								<td>
+									@switch($demande->modeAdmission)
+			   							  @case(0)
+			     								<span class="label label-sm label-primary">Programme</span>
+			        							@break
+			        						@case(1)
+			     								<span class="label label-sm label-success">Ambulatoire</span>
+			        							@break
+			        						@case(2)
+			     								<span class="label label-sm label-warning">Urgence</span>
+			        							@break		
+									 @endswitch
+								</td>
 								<td>{{ $demande->consultation->Date_Consultation }}</td><td>{{ $demande->Specialite->nom }}</td>
 								<td class="text-center">
-									<button class="btn btn-xs btn-success bedAffect" title="Affecter un Lits" value="{{ $demande->id }}" data-Pid = '{{ $demande->consultation->patient->id }}'>
+									<button class="btn btn-xs btn-success bedAffect" title="Affecter un lit" value="{{ $demande->id }}" data-Pid = '{{ $demande->consultation->patient->id }}'>
 										<span style="color: red;"><i class="fa fa-bed fa-1x" aria-hidden="true"></i></span>
 									</button>
 									<a href="{{route('rdvHospi.destroy',$demande->id)}}" data-method="DELETE" data-confirm="Etes Vous Sur ?" class="btn btn-xs btn-danger">

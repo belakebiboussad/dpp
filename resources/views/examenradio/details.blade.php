@@ -179,9 +179,9 @@ function CRRSave()
             $('#examId').val($(this).data('id'));
             jQuery('#CRRForm').trigger("reset");
             jQuery('#crrSave').val("add");
-            $('#addCRRDialog').modal('show');
-            $('#addCRRDialog').on('hidden.bs.modal', function (e) {
-              uploadFiles(examId); //upload Files
+              $('#addCRRDialog').modal('show');
+               $('#addCRRDialog').on('hidden.bs.modal', function (e) {
+                     uploadFiles(examId); 
             });
           }else
           {

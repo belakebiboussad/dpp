@@ -67,7 +67,7 @@
 			if (state == "update") {
 				type = "PUT";
 				ajaxurl = '/acte/' + acte_id;
-			}//$('#acteModal form')[0].reset();
+			}
 			$.ajax({
 				type:type,
 				url:ajaxurl,
@@ -78,7 +78,6 @@
 					{
 						$('.dataTables_empty').remove();
 					}
-/*frag ="";$.each( data.acte.periodes, function( key, periode ) {frag +='<span class="badge badge-success">'+periode+'</span>';		});*/
 					var acte = '<tr id="acte'+data.acte.id+'"><td hidden>'+data.acte.id_visite+'</td><td>'+data.visite.date+'</td><td>'+data.acte.nom+'</td><td>'+data.acte.type
 										+'</td><td>'+data.acte.code_ngap+'</td><td>'+data.acte.description+'</td><td>'+data.medecin.nom+' '+data.medecin.prenom+'</td>';
 							acte += '<td class ="center"><button type="button" class="btn btn-xs btn-info open-modal" value="' + data.acte.id + '"><i class="fa fa-edit fa-xs" aria-hidden="true" style="font-size:16px;"></i></button>&nbsp;';    

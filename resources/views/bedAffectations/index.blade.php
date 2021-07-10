@@ -27,7 +27,17 @@
 						 {{ $rdv->demandeHospitalisation->consultation->patient->Prenom }}
 						</td>
 						<td>
-							{{ $rdv->demandeHospitalisation->modeAdmission }}
+							@switch(  $rdv->demandeHospitalisation->modeAdmission )
+   							  @case(0)
+     								<span class="label label-sm label-primary">Programme</span>
+        						@break
+        					@case(1)
+     								<span class="label label-sm label-success">Ambulatoire</span>
+        						@break
+        					@case(2)
+     								<span class="label label-sm label-warning">Urgence</span>
+        						@break		
+						  	@endswitch
 						</td>
 						<td>
 						@switch($rdv->demandeHospitalisation->ordre_priorite)
@@ -46,11 +56,10 @@
 						@endswitch
 						</td>
 						<td>{{ $rdv->demandeHospitalisation->DemeandeColloque->medecin->nom }} &nbsp;{{ $rdv->demandeHospitalisation->DemeandeColloque->medecin->prenom }}</td>
-							
 						<td>{{ $rdv->date_RDVh }} &nbsp;{{ $rdv->heure_RDVh }}</td>
 						<td>{{ $rdv->date_Prevu_Sortie }} &nbsp;{{ $rdv->heure_Prevu_Sortie }}</td>
 						<td>
-							<button class="btn btn-xs btn-success bedAffect" title="Réserver Lit" value="{{ $rdv->demandeHospitalisation->id }}">
+							<button class="btn btn-xs btn-success bedAffect" title="Affecter un lit" value="{{ $rdv->demandeHospitalisation->id }}">
 								<i class="fa fa-bed fa-1x" aria-hidden="true"></i>{{-- addAffect({{$rdv->id}}) --}}
 							</button>
 						</td>
@@ -84,8 +93,20 @@
 							@foreach($demandesUrg as $demande)
 							<tr id="{{ 'demande'.$demande->id }}">
 								<td>{{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }}</td>
-								<td>{{ $demande->modeAdmission }}</td>
-								<td>{{ $demande->consultation->Date_Consultation }}</td>			<td>{{ $demande->Specialite->nom }}</td>
+								<td>
+									@switch($demande->modeAdmission)
+			   							  @case(0)
+			     								<span class="label label-sm label-primary">Programme</span>
+			        							@break
+			        						@case(1)
+			     								<span class="label label-sm label-success">Ambulatoire</span>
+			        							@break
+			        						@case(2)
+			     								<span class="label label-sm label-warning">Urgence</span>
+			        							@break		
+									 @endswitch
+								</td>
+								<td>{{ $demande->consultation->Date_Consultation }}</td><td>{{ $demande->Specialite->nom }}</td>
 								<td class="text-center">
 									<button class="btn btn-xs btn-success bedAffect" title="Affecter un Lits" value="{{ $demande->id }}">
 										<i class="fa fa-bed fa-1x" aria-hidden="true"></i>

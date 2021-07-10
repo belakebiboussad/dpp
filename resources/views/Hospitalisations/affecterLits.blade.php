@@ -20,47 +20,39 @@
 	{{ csrf_field() }}
 	{{ method_field('PUT') }}
 	<div class="row">
-		<div class="col-xs-12 page-header">
-			<div class="col-xs-12">
-				<h1>Affectation des lits </h1>
-			</div>
-		</div><!-- /.page-header -->
+		<div class="col-xs-12 page-header">	<h1>Affectation des lits </h1></div>
 	</div>
 	<div class="row">
-	{{-- <div class="col-xs-12 widget-container-col" id="widget-container-col-1"><br/> --}}
      	<div class="col-xs-12 widget-container-col" id="widget-container-col-12">
      		<div class="widget-box widget-color-blue" id="widget-box-12">
-					<div class="widget-header">
-					    <h3 class="widget-title bigger lighter">
-					      <i class="ace-icon fa fa-table"></i>Liste des admissions :
-				      </h3>
-					</div>
+			<div class="widget-header">
+			    <h3 class="widget-title bigger lighter"> <i class="ace-icon fa fa-table"></i>Liste des admissions :</h3>
+			</div>
     		</div>
-     	  <div class="widget-body">
-				<div class="widget-main no-padding">
-				<div class='table_borderWrap'>
-				</div>{{-- table_borderWrap --}}
-				</div>	{{-- widget-main no-padding --}}
-				<table class="table table-striped table-bordered table-hover" id="table1" aria-describedby="table1_info" role="grid">
-					<thead class="thin-border-bottom">
-				    <tr>
-				     	<th hidden></th>
-							<th class="center" width="3%" ></th>
-							<th class="text-center" width="11%"><h5><strong>Patient</strong></h5></th>
-							<th class="text-center" width="15%"><h5><strong>Date RDV</strong></h5></th>
-							<th class="text-center" width="10%"><h5><strong>Heure RDV</strong></h5></th>
-							<th width="12%" class="text-center"><h5><strong>Date sortie prévue</strong></h5></th>
-							<th class="detail-col text-center"><h5><strong>Heure sortie prévue</strong></h5></th>
-							<th class="detail-col text-center"><h5><strong>Service</strong></h5></th>
-							<th class="detail-col text-center"><h5><strong>Salle</strong></h5></th>
-							<th class="detail-col text-center"><h5><strong>Lit</strong></h5></th>
-							<th class="detail-col text-center"></th>
-		       	</tr>
-		      </thead>
-        <tbody id ="rendez-VousBody" class="bodyClass">
+     	 	 <div class="widget-body">
+			<div class="widget-main no-padding">
+				<div class='table_borderWrap'></div>{{-- table_borderWrap --}}
+			</div>	{{-- widget-main no-padding --}}
+			<table class="table table-striped table-bordered table-hover" id="table1" aria-describedby="table1_info" role="grid">
+				<thead class="thin-border-bottom">
+			         	<tr>
+				     		<th hidden></th>
+						<th class="center" width="3%" ></th>
+						<th class="text-center" width="11%"><h5><strong>Patient</strong></h5></th>
+						<th class="text-center" width="15%"><h5><strong>Date RDV</strong></h5></th>
+						<th class="text-center" width="10%"><h5><strong>Heure RDV</strong></h5></th>
+						<th width="12%" class="text-center"><h5><strong>Date sortie prévue</strong></h5></th>
+						<th class="detail-col text-center"><h5><strong>Heure sortie prévue</strong></h5></th>
+						<th class="detail-col text-center"><h5><strong>Service</strong></h5></th>
+						<th class="detail-col text-center"><h5><strong>Salle</strong></h5></th>
+						<th class="detail-col text-center"><h5><strong>Lit</strong></h5></th>
+						<th class="detail-col text-center"></th>
+		       			</tr>
+		      		</thead>
+        			<tbody id ="rendez-VousBody" class="bodyClass">
 					<?php $j = 0; ?>
 					@foreach( $rdvHospitalisation as $i=>$rdv)
-				  <tr>
+					  <tr>
 						<td hidden>{{$j}}</td>	
 				           	<td class="center">
 					  		<label class="pos-rel">{{-- 1 --}}

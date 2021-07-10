@@ -48,7 +48,19 @@
 							@foreach($adms as $key=>$adm)
 							<tr>
 								<td>{{ $adm->rdvHosp->demandeHospitalisation->consultation->patient->Nom }} {{$adm->rdvHosp->demandeHospitalisation->consultation->patient->Prenom }}</td>
-								<td>{{ $adm->rdvHosp->demandeHospitalisation->modeAdmission }}</td>
+								<td>
+									@switch(  $adm->rdvHosp->demandeHospitalisation->modeAdmission )
+		   							  @case(0)
+		     								<span class="label label-sm label-primary">Programme</span>
+		        							@break
+		        						@case(1)
+		     								<span class="label label-sm label-success">Ambulatoire</span>
+		        							@break
+		        						@case(2)
+		     								<span class="label label-sm label-warning">Urgence</span>
+		        							@break		
+								  	@endswitch
+								</td>
 								<td>{{ $adm->rdvHosp->demandeHospitalisation->Service->nom }}</td>
 								<td>{{ $adm->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->nom }} {{ $adm->rdvHosp->demandeHospitalisation->DemeandeColloque->medecin->prenom }}</td>
 								<td>{{ $adm->rdvHosp->demandeHospitalisation->DemeandeColloque->ordre_priorite }}</td>

@@ -34,7 +34,7 @@ class AdmissionController extends Controller
       public function index()
       {
             $rdvs = rdv_hospitalisation::with('bedReservation','demandeHospitalisation.bedAffectation')->whereHas('demandeHospitalisation', function($q){
-                                               $q->where('etat', '0');//programme
+                                               $q->where('etat', 'programme');//programme
                                         })->where('etat_RDVh','=',null)->where('date_RDVh','=',date("Y-m-d"))->get();
             $demandesUrg = DemandeHospitalisation::with('bedAffectation')
                                                  ->whereHas('consultation', function($q){

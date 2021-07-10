@@ -77,8 +77,8 @@ class DemandeHospitalisationController extends Controller
               $demande = DemandeHospitalisation::FindOrFail($id);
               $services = service::all();
               $specialites = Specialite::all();
-              $modesAdmission = config('settings.ModeAdmissions') ;
-               return view('demandehospitalisation.edit', compact('demande','services','specialites','modesAdmission'));
+              //$modesAdmission = config('settings.ModeAdmissions') ;
+              return view('demandehospitalisation.edit', compact('demande','services','specialites'));
     }
     /**
      * Update the specified resource in storage.
@@ -119,10 +119,10 @@ class DemandeHospitalisationController extends Controller
       }
       public function listedemandes($type)
       {
-             $demandehospitalisations = DemandeHospitalisation::whereHas('Specialite', function ($q) use ($type) {
+              $demandehospitalisations = DemandeHospitalisation::whereHas('Specialite', function ($q) use ($type) {
                                              $q->where('type',$type);                           
                                       })->where('etat','en attente')->get();                      
-             return view('demandehospitalisation.index',compact('demandehospitalisations'));
+              return view('demandehospitalisation.index',compact('demandehospitalisations'));
       }
       public function valider(Request $request)
       {
@@ -134,12 +134,12 @@ class DemandeHospitalisationController extends Controller
       }
     public function invalider(Request $request)
     {
-        $demande  = DemandeHospitalisation::FindOrFail($request->id_demande);
-        $colloque = colloque::find($request->id_colloque);
-        $colloque->demandes()->detach($request->id_demande);
-        $demande->etat ="en attente";
-        $demande->save();
-        return Response::json($demande);   
+              $demande  = DemandeHospitalisation::FindOrFail($request->id_demande);
+              $colloque = colloque::find($request->id_colloque);
+              $colloque->demandes()->detach($request->id_demande);
+              $demande->etat ="en attente";
+              $demande->save();
+              return Response::json($demande);   
     }
     public function getUrgDemanades($date)
     {
