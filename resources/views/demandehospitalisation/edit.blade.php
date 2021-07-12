@@ -78,22 +78,21 @@
 							<strong>Mode d'admission :</strong>
 						</label>
 						 <div class="col-sm-8 col-xs-8">
-				       			<select class="form-control" id="mode" name="mode" class="col-xs-12 col-sm-12">
-				       				<option value="">Sélectionnez le mode d'admission...</option>	
-								@switch($demande->modeAdmission)
+				      <select class="form-control" id="mode" name="mode" class="col-xs-12 col-sm-12" readonly>
+				      	@switch($demande->modeAdmission)
 									@case("0")		
-        									<option value="0" @if($demande->modeAdmission == "0" ) selected @endif>Programme</option>
-         									@break
-    									@case("1")
-        	    								<option value="1" @if($demande->modeAdmission == "1" ) selected @endif>Ambulatoire</option>
-        									@break
-         								@case("2")
-        									<option value="2" @if($demande->modeAdmission == "2" ) selected @endif>Urgence</option>
-        									@break	
+        						<option value="0" @if($demande->modeAdmission == "0" ) selected @endif>Programme</option>
+         						@break
+									@case("1")
+    	    								<option value="1" @if($demande->modeAdmission == "1" ) selected @endif>Ambulatoire</option>
+    									@break
+     								@case("2")
+    									<option value="2" @if($demande->modeAdmission == "2" ) selected @endif>Urgence</option>
+    									@break	
 								@endswitch		
-						              </select> 
-						            </div>
-		         			   	</div>
+						    </select> 
+						  </div>
+		         	</div>
 							        <div class="col-sm-6 col-xs-6">
 											  <label class="col-sm-4 col-xs-4 control-label no-padding-right text-right" for="specialiteDemande"><strong>Specialite :</strong></label>
 											  <div class="col-sm-8 col-xs-8"> 	 

@@ -45,10 +45,10 @@
         });
      }
      function getAction(data, type, dataToSet) {
-      var rols = [ 1,5,13,14 ]; // [ 3, 5,9,,14 ]; 
+      var rols = [ 1,5,13,14 ];
       var actions =  '<a href = "/hospitalisation/'+data.id+'" style="cursor:pointer" class="btn secondary btn-xs" data-toggle="tooltip" title=""><i class="fa fa-hand-o-up fa-xs"></i></a>' ;  
        if($.inArray({{  Auth::user()->role_id }}, rols) > -1){ /* if( data.etat_hosp != "1") { }*/ 
-             if( data.etat_hosp != "1")                    
+            if( data.etat_hosp != "1")                    
             {   
              if({{  Auth::user()->role_id }} != 5)
              { 
@@ -64,12 +64,12 @@
        return actions;
      }
      function getState(data, type, dataToSet) {
-           if(data.etat_hosp == 1)
-                return '<span class="badge badge-pill badge-primary">Cloturé</span>';
-          else
-                 return '<span class="badge badge-pill badge-primary">En Cours</span>'
+       if(data.etat_hosp == 1)
+          return '<span class="badge badge-pill badge-primary">Cloturé</span>';
+        else
+          return '<span class="badge badge-pill badge-primary">En Cours</span>'
      }
-    function loadDataTable(data){// $("#liste_hosptalisations").dataTable().fnDestroy();
+     function loadDataTable(data){
           $('#liste_hosptalisations').dataTable({// "processing": true,
           "paging":   true,
            "destroy": true,
@@ -90,7 +90,18 @@
             },
             { data: "admission.demande_hospitalisation.modeAdmission", 
               render: function ( data, type, row ) {
-                return row.admission.demande_hospitalisation.modeAdmission ;
+                switch(row.admission.demande_hospitalisation.modeAdmission)
+                {
+                  case '0':
+                    return '<span class="badge badge-pill badge-primary">Programme</span>';
+                    break;
+                  case '1':
+                    return '<span class="badge badge-pill badge-primary">Ambulatoire</span>';
+                    break;
+                  case '2':
+                    return '<span class="badge badge-pill badge-primary">Urgence</span>';
+                    break;
+                }
                },
               title:"Mode Admission","orderable": false 
             },//2
@@ -98,11 +109,11 @@
             { data: "Date_Prevu_Sortie" , title:'Date Sortie Prévue', "orderable": true },//4
             { data: "Date_Sortie" , title:'Date Sortie',"orderable": true },//5
             { data: "mode_hospi.nom" , title:'Mode',"orderable": false  },//6
-            {  data: "medecin.nom" ,
+            { data: "medecin.nom" ,
                 render: function ( data, type, row ) {
                   return row.medecin.nom + ' ' + row.medecin.prenom ;
                 },
-                title:'Medecin',"orderable": false   
+              title:'Medecin',"orderable": false   
             },//7
             { data: getState , title:'Etat', "orderable":false },//8
             { data:getAction , title:'<em class="fa fa-cog"></em>', "orderable":false,searchable: false }
@@ -223,7 +234,7 @@
              <label><strong>IPP :</strong></label>
              <input type="text" id="IPP" class="form-control filter">
           </div>
-           <div class="col-sm-3"><!-- <div class="form-group col-sm-8"></div> -->
+           <div class="col-sm-3">
             <label class="control-label" for="" ><strong>Date de sortie:</strong></label>
             <div class="input-group">
               <input type="text" id ="Date_Sortie" class="date-picker form-control filter ltnow"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd">
@@ -248,7 +259,7 @@
       <div class="widget-main no-padding">
         <table class="table display table-responsive table-bordered" id="liste_hosptalisations">
           <thead>
-            <tr><!-- <th class ="center priority-6" width="2%"></th> -->
+            <tr>
               <th class ="center"><strong>Patient</strong></th>
               <th class ="center priority-4"><strong>Mode d'admission</strong></th><th class ="center"><strong>Date d'entrée</strong></th>
               <th class ="center  priority-6"><strong>Date sortie prévue</strong></th><th class ="center priority-4"><strong>Date sortie</strong></th>
@@ -262,7 +273,19 @@
                 <tr id="hospi{{ $hosp->id }}">
                     {{-- <td><input type="checkbox" class="editor-active check" value="{{ $hosp->id}}"/><span class="lbl"></span></td>--}}
                     <td>{{ $hosp->patient->Nom }} {{ $hosp->patient->Prenom }}</td>
-                    <td class="priority-4">{{ $hosp->admission->demandeHospitalisation->modeAdmission}} </td>
+                    <td class="priority-4">
+                      @switch($hosp->admission->demandeHospitalisation->modeAdmission)
+                          @case(0)
+                          <span class="label label-sm label-primary">Programme</span>
+                          @break
+                        @case(1)
+                          <span class="label label-sm label-success">Ambulatoire</span>
+                          @break
+                        @case(2)
+                          <span class="label label-sm label-warning">Urgence</span>
+                          @break    
+                      @endswitch
+                    </td>
                     <td>{{  $hosp->Date_entree}}</td>
                     <td  class="priority-6">{{  $hosp->Date_Prevu_Sortie}}</td>
                     <td class="priority-4">{{  $hosp->Date_Sortie}}</td>

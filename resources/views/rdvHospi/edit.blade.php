@@ -1,4 +1,4 @@
-@extends('app_sur')
+@extends('app')
 @section('page-script')
 <script type="text/javascript">
 	$('document').ready(function(){
@@ -24,9 +24,9 @@
 	});
 </script>
 @endsection
-@section('main-content')<!-- <div class="page-header"></div> --><!-- /.page-header -->
+@section('main-content')
 <div class="page-header">
-  <h1 style="display: inline;">modification du  RDV Hospitalisation du: <strong>&laquo;{{$demande->demandeHosp->consultation->patient->Nom}}
+  <h1 style="display: inline;">Modification du  RDV Hospitalisation du: <strong>&laquo;{{$demande->demandeHosp->consultation->patient->Nom}}
   {{$demande->demandeHosp->consultation->patient->Prenom}}&raquo;</strong></h1>
   <div class="pull-right">
     <a href="{{route('rdvHospi.index')}}" class="btn btn-white btn-info btn-bold"><i class="ace-icon fa fa-arrow-circle-left bigger-120 blue"></i>liste des RDVs</a>
@@ -37,72 +37,45 @@
       <form class="form-horizontal" id="RDVForm" role="form" method="POST" action="{{ route('rdvHospi.update',$rdv->id) }}">
       {{ csrf_field() }}
       {{ method_field('PUT') }}
-      <input type="text" name="id" id ="id" value="{{$rdv->id}}" hidden>
-      <input type="text" id="affect" value="0" hidden>
+      <input type="hidden" name="id" id ="id" value="{{$rdv->id}}">
+      <input type="hidden" class="demande_id" name="demande_id" value="{{ $demande->demandeHosp->id }}">
+     <input type="hidden" id="affect" value="0">
       <div class="row">
-        <div class="col-sm-12"><h4 class="header smaller lighter blue">Informations concernant la demande d'hospitalisation</h4>
-        </div>
+        <div class="col-sm-12"><h4 class="header smaller lighter blue">Informations concernant la demande d'hospitalisation</h4></div>
       </div>
-      <div class="space-12"></div>
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-4 col-xs-4 control-label no-padding-right" for="service"> <strong>Service:</strong></label>
-            <div class="col-sm-8 col-xs-8">
-               <input type="text" id="service" name="service" value="{{ $demande->demandeHosp->Service->nom }}" class="col-xs-12 col-sm-12" disabled/>
-           </div>
+      <div class="profile-user-info">
+        <div class="row">
+          <div class="col-sm-4 profile-info-row">
+            <div class="profile-info-name">Service:</div><div class="profile-info-value"><span>{{ $demande->demandeHosp->Service->nom }}</span></div>
           </div>
-          <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-4 control-label no-padding-right" for="specialite"><strong>Spécialité :</strong> </label>
-            <div class="col-sm-8 col-xs-8">
-              <input type="text" id="specialite" name="specialite" value="{{ $demande->demandeHosp->Specialite->nom }}" class="col-xs-12 col-sm-12" disabled/>
-            </div>  
+          <div class="col-sm-4 profile-info-row">
+            <div class="profile-info-name">Spécialité :</div><div class="profile-info-value"><span>{{ $demande->demandeHosp->Specialite->nom }}</span></div>
           </div>
-          <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-4 control-label no-padding-right no-wrap" for="mode">  <strong>Mode admis.:</strong>  </label>
-            <div class="col-sm-8 col-xs-8">
-               <input  type="text" id="mode" name="mode" value="{{ $demande->demandeHosp->modeAdmission }}" class="col-xs-12 col-sm-12" disabled/>
+           <div class="col-sm-4 profile-info-row">
+            <div class="profile-info-name">Mode admission:</div><div class="profile-info-value">
+              @foreach(config('settings.ModeAdmissions') as $key=>$value)
+                @if($value == $rdv->demandeHospitalisation->modeAdmission)
+                  <span class="badge badge-success">
+                      {{ $key}}
+                  </span>
+                @endif
+              @endforeach 
             </div>
-          </div>
+          </div>  
         </div>
-      </div>
-       <div class="space-12"></div>
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-4 col-xs-4 control-label no-padding-right no-wrap" for="medecin"><strong>Médecin Traitant:</strong></label>
-            <div class="col-sm-8 col-xs-8">
-              <input type="text" id="medecin" name="medecin" value="{{$demande->medecin->nom}} {{$demande->medecin->prenom}}" class="col-xs-12 col-sm-12" disabled/>
-            </div>  
+        <div class="row">
+          <div class="col-sm-4 profile-info-row">
+          <div class="profile-info-name">Médecin Traitant :</div><div class="profile-info-value"><span>{{$demande->medecin->nom}} {{$demande->medecin->prenom}}</span></div>
           </div>
-          <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-4 col-xs-4 control-label no-padding-right" for="priorite"> <strong> Priorité : </strong> </label>
-            <div class="col-sm-8 col-xs-8">
-              <div class="control-group col-sm-12 col-xs-12">
-                <label>
-                  <input name="priorite1" class="ace" type="radio" value="1"  @if($demande->ordre_priorite ==1) checked ="checked" @else false @endif disabled >
-                  <span class="lbl"> 1 </span>
-                </label>&nbsp; &nbsp;
-                <label>
-                  <input name="priorite1" class="ace" type="radio" value="2"  @if($demande->ordre_priorite ==2) checked @endif disabled>
-                  <span class="lbl"> 2 </span>
-                </label>&nbsp; &nbsp;
-                <label>
-                  <input name="priorite1" class="ace" type="radio" value="3"  @if($demande->ordre_priorite==3) checked @endif disabled>
-                  <span class="lbl"> 3 </span>
-                </label>
-              </div>
-            </div>
+          <div class="col-sm-4 profile-info-row">
+          <div class="profile-info-name">Priorité :</div><div class="profile-info-value">
+            <span class="label label-sm label-primary">{{ $demande->ordre_priorite }}</span>
           </div>
-          <div class="col-sm-4 col-xs-4">
-            <label class="col-sm-4 col-xs-4 control-label no-padding-right" for="motif"> <strong>Observation :</strong></label>
-            <div class="col-sm-8 col-xs-8">
-               <input type="text" id="motif" name="motifhos" value="{{$demande->observation}}" class="col-xs-12 col-sm-12" disabled/>
-            </div>
+          </div>
+          <div class="col-sm-4 profile-info-row">
+          <div class="profile-info-name">Observation :</div><div class="profile-info-value"><span>{{$demande->observation}}</span></div>
           </div>
         </div>
-      </div>
-      <div class="space-12"></div>
       <div class="row"><div class="col-sm-12"> <h3 class="header smaller lighter blue">Admissions</h3></div></div>
       <div class="row">
         <div class="col-sm-12">
@@ -116,7 +89,7 @@
           <div class="col-sm-4 col-xs-4">
             <label class="col-sm-7 control-label no-padding-right no-wrap" for="heure_rdvh"><strong> Heure entrée prévue :</strong> </label>
             <div class="input-group col-sm-5 col-xs-5">
-              <input id="heure_rdvh" name="heure_rdvh" class="form-control timepicker" type="text" value = "{{ $rdv->heure_RDVh }}" required />
+              <input id="heure_rdvh" name="heure_rdvh" class="form-control timepicker1" type="text" value = "{{ $rdv->heure_RDVh }}" required />
               <span class="input-group-addon"><i class="fa fa-clock-o bigger-110"></i></span> 
             </div>
           </div>
@@ -142,7 +115,7 @@
           <div class="col-sm-4 col-xs-4">
             <label class="col-sm-7 control-label no-padding-right no-wrap" for="heureSortiePrevue"><strong> Heure sortie prévue :</strong></label>
             <div class="input-group col-sm-5 col-xs-5">
-              <input id="heureSortiePrevue" name="heureSortiePrevue" class="form-control timepicker" type="text" value = "{{ $rdv->heure_Prevu_Sortie }}" required />
+              <input id="heureSortiePrevue" name="heureSortiePrevue" class="form-control timepicker1" type="text" value = "{{ $rdv->heure_Prevu_Sortie }}" required />
               <span class="input-group-addon"><i class="fa fa-clock-o bigger-110"></i> </span> 
             </div>  
           </div>
@@ -156,7 +129,7 @@
           <div class="col-sm-4 col-xs-4">
             <label class="col-sm-4 control-label no-padding-right" for="dateSortie"> <strong> Service:</strong> </label>
             <div class="col-sm-8">
-              <select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12"/>
+              <select name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12 serviceHosp"/>
                 <option value="0" selected>Selectionnez le service d'hospitalisation</option>
                 @foreach($services as $service)
                 <option value="{{ $service->id }}" @if((isset($rdv->bedReservation->id_lit)) && ($rdv->bedReservation->lit->salle->service->id == $service->id)) selected @endif>
@@ -169,7 +142,7 @@
           <div class="col-sm-4 col-xs-4">
             <label class="col-sm-4 control-label no-padding-right" for="salle"> <strong>Salle :</strong></label>
             <div class="col-sm-8">
-              <select id="salle" name="salle" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12">
+              <select id="salle" name="salle" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12 salle">
                 <option value="0" selected>Selectionnez la salle d'hospitalisation</option>      
                 @foreach($rdv->bedReservation->lit->salle->service->salles as $salle)
                 <option value="{{ $salle->id }}" @if($rdv->bedReservation->lit->salle->id == $salle->id) selected @endif >
@@ -200,8 +173,8 @@
         <div class="col-xs-4">
           <label class="col-sm-4 control-label no-padding-right" for="serviceh"><strong> Service :</strong></label>
           <div class="col-sm-8">
-            <select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" placeholder="selectionnez le service d'hospitalisation"/>
-              <option value="0" selected>Selectionnez le service d'hospitalisation</option>
+            <select  name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12 serviceHosp"/>
+              <option value="" selected>Selectionnez le service d'hospitalisation</option>
               @foreach($services as $service)
               <option value="{{ $service->id }}">{{ $service->nom }}</option>
               @endforeach
@@ -211,16 +184,16 @@
         <div class="col-xs-4">
             <label class="col-sm-4 control-label no-padding-right" for="salle"><strong> Salle :</strong></label>
              <div class="col-sm-8">
-              <select id="salle" name="salle" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" disabled>
-                <option value="0" selected>Selectionnez la salle d'hospitalisation</option>      
+              <select name="salle" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12 salle" disabled>
+                <option value="" selected>Selectionnez la salle d'hospitalisation</option>      
               </select>
             </div>
         </div>
         <div class="col-xs-4">
           <label class="col-sm-3 control-label" for="lit_id"><strong>Lit :</strong></label>
           <div class="col-sm-8">
-            <select id="lit_id" name="lit_id" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" disabled>
-              <option value="0" selected disabled>Selectionnez le lit d'hospitalisation</option>      
+            <select name="lit_id" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12 lit_id" disabled>
+              <option value="" selected disabled>Selectionnez le lit d'hospitalisation</option>      
             </select>
           </div>  
         </div>

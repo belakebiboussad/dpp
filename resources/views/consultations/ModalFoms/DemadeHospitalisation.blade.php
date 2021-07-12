@@ -9,7 +9,7 @@
 			     	  <select class="form-control" id="modeAdmissionHospi" name="modeAdmissionHospi">
 				       	<option value="">Sélectionner...</option>
 				        @foreach($modesAdmission as $mode =>$value)
-				       	<option value="{{ $mode}}">{{ $value }}</option>
+				       	<option value="{{ $value}}">{{ $mode }}</option>
 				       	@endforeach
 				      </select>
 				    </div>

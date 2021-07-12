@@ -126,21 +126,21 @@
 <div class="row">
 	<div class="col-sm-12 col-md-12"> <h4><strong>Rechercher une admission</strong></h4>
   	<div class="panel panel-default"><div class="panel-heading">Rechercher</div>
-          	<div class="panel-body">
-                      <div class="row">
-                         <div class="col-sm-4">
-                    			<div class="form-group"><label class="control-label" for="" ><strong>Date :</strong></label>
-                  			    <div class="input-group">
-                  			      <input type="text" id ="date_RDVh" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd" >
-                  					  <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
-                    				</div>
-                	        </div>
-                      	</div>
-                  		 <div class="col-sm-4">
-                        <div class="form-group"><label class="control-label"><strong>IPP:</strong></label><input type="text" id="IPP" class="form-control filter"></div>
-                      </div>	
-                  	</div>
-          	</div>
+    	<div class="panel-body">
+                <div class="row">
+                   <div class="col-sm-4">
+              			<div class="form-group"><label class="control-label" for="" ><strong>Date :</strong></label>
+            			    <div class="input-group">
+            			      <input type="text" id ="date_RDVh" class="date-picker form-control filter"  value="<?= date("Y-m-j") ?>" data-date-format="yyyy-mm-dd" >
+            					  <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
+              				</div>
+          	        </div>
+                	</div>
+            		 <div class="col-sm-4">
+                  <div class="form-group"><label class="control-label"><strong>IPP:</strong></label><input type="text" id="IPP" class="form-control filter"></div>
+                </div>	
+            	</div>
+    	</div>
         	<div class="panel-footer">
         		<button type="submit" class="btn btn-sm btn-primary admiSearch"><i class="fa fa-search"></i>&nbsp;Rechercher</button>
         	</div>
@@ -179,8 +179,15 @@
                                           </td>
                                           <td>{{ $rdv->demandeHospitalisation->Service->nom }}</td>
                                           <td><span class ="text-danger"><strong>{{ $rdv->date_RDVh }}</strong></span></td>
-                                          <td>{{ $rdv->demandeHospitalisation->modeAdmission }}</td>
-                                          
+                                          <td>
+                                              @foreach(config('settings.ModeAdmissions') as $key=>$value)
+                                                @if($value == $rdv->demandeHospitalisation->modeAdmission)
+                                                  <span class="badge badge-success">
+                                                  {{ $key}}
+                                                  </span>
+                                                @endif
+                                              @endforeach
+                                          </td>
                                           @if($rdv->demandeHospitalisation->bedAffectation)
                                             <td>{{ $rdv->demandeHospitalisation->bedAffectation->lit->salle->service->nom}}</td>
                                             <td>{{ $rdv->demandeHospitalisation->bedAffectation->lit->salle->nom}}</td>
@@ -202,7 +209,15 @@
                                                     <td>{{ $demande->consultation->patient->Nom }}&nbsp;{{ $demande->consultation->patient->Prenom }}</td>
                                                     <td>{{ $demande->Service->nom }}</td>
                                                     <td><span class ="text-danger"><strong>{{ $demande->consultation->Date_Consultation }}</strong></span></td>
-                                                    <td><b><span class="badge badge-danger">{{ $demande->modeAdmission }}</span></td>
+                                                    <td>
+                                                     <span class="badge badge-danger">
+                                                      @foreach(config('settings.ModeAdmissions') as $key=>$value)
+                                                        @if($value == $demande->modeAdmission)
+                                                          {{ $key}}
+                                                        @endif
+                                                      @endforeach
+                                                    </span>
+                                                    </td>
                                                     <td>@if(isset($demande->bedAffectation)) {{ $demande->bedAffectation->lit->salle->service->nom}} @else <strong>/</strong> @endif </td>
                                                     <td>@if(isset($demande->bedAffectation)) {{ $demande->bedAffectation->lit->salle->nom}} @else <strong>/</strong> @endif </td>
                                                     <td>@if(isset($demande->bedAffectation)) {{ $demande->bedAffectation->lit->nom}} @else <strong>/</strong> @endif </td>

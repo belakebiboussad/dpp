@@ -32,13 +32,25 @@
 					<div class="col-sm-12">
 					<ul class="list-unstyled spaced">
 						<li>
-					    	<i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->Service->nom }}
+					    <i class="ace-icon fa fa-caret-right blue"></i><strong>Service :</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->Service->nom }}
 						</li>
 						<li>
-                            <i class="ace-icon fa fa-caret-right blue"></i><strong>Spécialité :</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->Specialite->nom }}
+              <i class="ace-icon fa fa-caret-right blue"></i><strong>Spécialité :</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->Specialite->nom }}
 						</li>
 						<li>
-							<i class="ace-icon fa fa-caret-right blue"></i><strong>Mode d'admission:</strong>&nbsp;&nbsp;{{ $hosp->admission->demandeHospitalisation->modeAdmission }}
+							<i class="ace-icon fa fa-caret-right blue"></i>
+							<strong>Mode d'admission:</strong>&nbsp;&nbsp;
+								@switch($hosp->admission->demandeHospitalisation->modeAdmission)
+   							  @case(0)
+     								<span class="label label-sm label-primary">Programme</span>
+        						@break
+        					@case(1)
+     								<span class="label label-sm label-success">Ambulatoire</span>
+        						@break
+        					@case(2)
+     								<span class="label label-sm label-warning">Urgence</span>
+        						@break		
+							  @endswitch
 						</li>
 						<li>
 							<i class="ace-icon fa fa-caret-right blue"></i><strong>Médecin Traitant:</strong>&nbsp;&nbsp;

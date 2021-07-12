@@ -244,7 +244,7 @@ class AssurController extends Controller
                   $action = '<a href="assur/patientAssuree/'.$assure->NSS.'/0/'.$assure->Prenom.'" class="'.'btn btn-primary btn-xs" data-toggle="tooltip" title="Ajouter patient" data-placement="bottom"><i class="fa fa-plus-circle fa-xs"></i></a>';  
               }else
                 $action = '<b><span class="badge badge-danger">'.utf8_encode($assure->Position).'</span></b>';
-            }//$dateN =  \Carbon\Carbon::parse(trim($assure->Date_Naissance))->format('Y-m-d');
+            }
             $wilaya = (Wilaya::findOrFail($assure->WilayaResidence))->nom;
             $output.='<tr><td>'.utf8_encode($assure->SituationFamille).'</td><td>'.$assure->Nom.'</td><td>'.$assure->Prenom.'</td><td>'
                     .$date.'</td><td>'.$sexe.'</td><td>'.$wilaya.'</td><td>'.$assure->NSS.'</td><td>'.utf8_encode($assure->Position).'</td><td>'

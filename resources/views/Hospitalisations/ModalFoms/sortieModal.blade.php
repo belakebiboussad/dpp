@@ -15,7 +15,7 @@
 			<div class="row">
 				<div class="col-sm-12">
   					<label for="Heure_sortie"><strong>Heure de sortie :</strong></label>
- 						<input type="text" id="Heure_sortie" class="form-control timepicker" />
+ 						<input type="text" id="Heure_sortie" class="form-control timepicker1" />
 	 			</div>
 			</div>
 			<div class="row">

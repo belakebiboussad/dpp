@@ -21,8 +21,7 @@
   </head>
   <body>
     <div class="container-fluid">
-{{--<img src='{{ asset("img/entete.png") }}' alt="Logo1"/></div></div> <img src="img/Logo1.png" class="center thumb img-icons" alt="Logo1"></h5>--}}
-    <img src="img/entete.png" class="center thumb img-icons" alt="Logo1"/>
+    <img src="img/entete.png" class="center thumb img-icons" alt="Entete"/>
     <br><br>
     <div class="sec-droite"><strong>Alger le :</strong><span>{{ $date }}</span></div>
     <div>

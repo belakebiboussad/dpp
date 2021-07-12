@@ -76,8 +76,7 @@ class DemandeHospitalisationController extends Controller
       {
               $demande = DemandeHospitalisation::FindOrFail($id);
               $services = service::all();
-              $specialites = Specialite::all();
-              //$modesAdmission = config('settings.ModeAdmissions') ;
+              $specialites = Specialite::all();//$modesAdmission = config('settings.ModeAdmissions') ;
               return view('demandehospitalisation.edit', compact('demande','services','specialites'));
     }
     /**

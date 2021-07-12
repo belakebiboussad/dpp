@@ -61,7 +61,7 @@
       <div class="row">
           <div class="col-sm-7 col-xs-12">
             <label for="type_colloque" class= "control-label no-padding-left col-sm-4 col-xs-4"><strong>Type :</strong></label>
-            <select id="type_colloque" name="type_colloque" class="col-sm-4 col-xs-8" data-placeholder="sélectionner le type..." required>
+            <select id="type_colloque" name="type_colloque" class="col-sm-4 col-xs-8" required>
               <option value="0" selected >Médical</option>
              <option value="1">Chirurgical</option>
             </select>

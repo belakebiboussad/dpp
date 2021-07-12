@@ -75,7 +75,7 @@
 @if(isset($demandesUrg) && $demandesUrg->count())
 <div class="row">
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 widget-container-col">
-		<div class="widget-box widget-color-blue">
+		<div class="widget-box widget-color-red">
 			<div class="widget-header"><h5 class="widget-title bigger lighter"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;Demandes d'hospitalisations urgentes</h5></div>
 			<div class="widget-body">
 				<div class="widget-main no-padding">
@@ -95,15 +95,15 @@
 								<td>{{ $demande->consultation->patient->Nom }} {{ $demande->consultation->patient->Prenom }}</td>
 								<td>
 									@switch($demande->modeAdmission)
-			   							  @case(0)
-			     								<span class="label label-sm label-primary">Programme</span>
-			        							@break
-			        						@case(1)
-			     								<span class="label label-sm label-success">Ambulatoire</span>
-			        							@break
-			        						@case(2)
-			     								<span class="label label-sm label-warning">Urgence</span>
-			        							@break		
+	   							  @case(0)
+	     								<span class="label label-sm label-primary">Programme</span>
+	        						@break
+	        					@case(1)
+	     								<span class="label label-sm label-success">Ambulatoire</span>
+	        						@break
+	        					@case(2)
+	     								<span class="label label-sm label-warning">Urgence</span>
+	        						@break		
 									 @endswitch
 								</td>
 								<td>{{ $demande->consultation->Date_Consultation }}</td><td>{{ $demande->Specialite->nom }}</td>

@@ -24,14 +24,14 @@ class RdvHospiController extends Controller
       }
   public function index()
   {
-        $now = date("Y-m-d", strtotime('now'));    
-       $services = service::where('type','<>',2)->where('hebergement','1')->get();
-      $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) {
+    $now = date("Y-m-d", strtotime('now'));    
+    $services = service::where('type','<>',2)->where('hebergement','1')->get();
+    $demandes = dem_colloque::whereHas('demandeHosp.Service', function ($q) {
                                        $q->where('id', Auth::user()->employ->service);                           
                                 })->whereHas('demandeHosp',function ($q){
                                 $q->where('etat','valide'); 
                             })->get();
-       $demandesUrg= DemandeHospitalisation::doesntHave('bedAffectation')
+    $demandesUrg= DemandeHospitalisation::doesntHave('bedAffectation')
                                           ->whereHas('consultation',function($q) use($now){
                                                $q->where('Date_Consultation', $now);
                                           })->where('modeAdmission','2')->where('etat','en attente')->where('service',Auth::user()->employ->service)->get(); 
@@ -76,10 +76,10 @@ class RdvHospiController extends Controller
   }
   public function edit($id)
   {
-      $rdv =  rdv_hospitalisation::with('bedReservation')->find($id);
-       $demande  = dem_colloque::where('dem_colloques.id_demande','=',$rdv->demandeHospitalisation->id)->first();
-      $services = service::all();
-       return view('rdvHospi.edit', compact('demande','services','rdv'));   // return view('rdvHospi.edit', compact('demande','services','rdv'));         
+    $rdv =  rdv_hospitalisation::with('bedReservation')->find($id);
+    $demande  = dem_colloque::where('dem_colloques.id_demande','=',$rdv->demandeHospitalisation->id)->first();
+    $services = service::where('type','<>',2)->where('hebergement','1')->get();
+    return view('rdvHospi.edit', compact('demande','services','rdv'));   // return view('rdvHospi.edit', compact('demande','services','rdv'));         
   }
   public function update(Request $request,$id)
   {
@@ -112,16 +112,15 @@ class RdvHospiController extends Controller
   }
       public function destroy($id)
       {     
-            $rdvHospi =  rdv_hospitalisation::find($id); 
-            if(isset($rdvHospi->bedReservation))  
-              $rdvHospi->bedReservation()->delete();
-            $rdvHospi->demandeHospitalisation->etat ="valide";
-            $rdvHospi->demandeHospitalisation->save();
-            $rdvHospi->etat_RDVh=0;
-            $rdvHospi->save(); 
-            return redirect()->action('RdvHospiController@getlisteRDVs');
+        $rdvHospi =  rdv_hospitalisation::find($id); 
+        if(isset($rdvHospi->bedReservation))  
+          $rdvHospi->bedReservation()->delete();
+        $rdvHospi->demandeHospitalisation->etat ="valide";
+        $rdvHospi->demandeHospitalisation->save();
+        $rdvHospi->etat_RDVh=0;
+        $rdvHospi->save(); 
+        return redirect()->action('RdvHospiController@getlisteRDVs');
       }
-      // public function getRdvs($date)
       public function getRdvs(Request $request)
       {
         $today = Carbon::now()->format('Y-m-d');
@@ -159,8 +158,7 @@ class RdvHospiController extends Controller
   }
   public function ticketPrint($id)//imprimer rdv d'hospitalisation 
   {
-    $patient = patient::FindOrFail($id);
-    dd($patient);
+    $rdv = rdv_hospitalisation::with('demandeHospitalisation')->FindOrFail($id);
   }
    
 }

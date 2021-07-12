@@ -160,19 +160,18 @@
 											<div class="profile-info-row">
 												<div class="profile-info-name text-center"><strong>Mode d'admission:</strong></div>
 												<div class="profile-info-value"><h4>
-													<span class = "label label-lg label-success">
-														@switch( $demande->modeAdmission )
-								   							 @case(0)
-								     								<span class="label label-sm label-primary">Programme</span>
-								        							@break
-								        						@case(1)
-								     								<span class="label label-sm label-success">Ambulatoire</span>
-								        							@break
-								        						@case(2)
-								     								<span class="label label-sm label-warning">Urgence</span>
-								        							@break		
-														  	@endswitch
-													</span></h4>
+													@switch( $demande->modeAdmission )
+						   							 @case(0)
+						     								<span class="label label-sm label-primary">Programme</span>
+						        							@break
+						        						@case(1)
+						     								<span class="label label-sm label-success">Ambulatoire</span>
+						        							@break
+						        						@case(2)
+						     								<span class="label label-sm label-warning">Urgence</span>
+						        							@break		
+												  	@endswitch
+													</h4>
 												</div>
 											</div>
 											<div class="profile-info-row">

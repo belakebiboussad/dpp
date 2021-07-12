@@ -43,7 +43,7 @@
 					<div class="form-group">
 						<label class="col-sm-4 col-xs-4 control-label no-padding-right" for="Date_entree"><strong> Date d'entrée :</strong></label>
 						<div class="col-sm-8 col-xs-8">
-							<input class="col-xs-11 col-sm-11 date-picker" name="Date_entree" id="Date_entree" type="text" data-date-format="yyyy-mm-dd" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" disabled/>	
+							<input class="col-xs-11 col-sm-11 date-picker" name="Date_entree" id="Date_entree" type="text" data-date-format="yyyy-mm-dd" value="{{ $from }}" disabled/>	
 						</div>				
 					</div>
 				</div>
@@ -63,7 +63,9 @@
 						@if($adm->demandeHospitalisation->modeAdmission =="Urgence")
 						<input class="col-xs-11 col-sm-11 date-picker" id="Date_Prevu_Sortie" name="Date_Prevu_Sortie" type="text" data-date-format="yyyy-mm-dd" onchange="updateDureePrevue()" value="<?= date("Y-m-j") ?>"  autocomplete="off"/> 
 						@else
-						<input class="col-xs-11 col-sm-11 date-picker" id="Date_Prevu_Sortie" name="Date_Prevu_Sortie" type="text" data-date-format="yyyy-mm-dd" value="{{ $adm->rdvHosp->date_Prevu_Sortie}}" onchange="updateDureePrevue()"  autocomplete="off"/>
+						{{-- <input class="col-xs-11 col-sm-11 date-picker" id="Date_Prevu_Sortie" name="Date_Prevu_Sortie" type="text" data-date-format="yyyy-mm-dd" value="{{ $adm->rdvHosp->date_Prevu_Sortie}}" onchange="updateDureePrevue()"  autocomplete="off"/> --}}
+						<input class="col-xs-11 col-sm-11 date-picker" id="Date_Prevu_Sortie" name="Date_Prevu_Sortie" type="text" data-date-format="yyyy-mm-dd" value="{{ $to }}" onchange="updateDureePrevue()"  autocomplete="off"/>
+						
 						@endif
 						</div>
 					</div>

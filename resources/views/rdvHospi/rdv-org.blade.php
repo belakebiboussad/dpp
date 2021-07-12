@@ -1,35 +1,32 @@
-<!-- <div class="row">
-	<img src="img/entete.png" class="mt-12" alt="entete" width="100%"></div>	
-</div>
- <hr> -->
- <html>
-  <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
-  <link rel="stylesheet" href="css/styles.css">
-  <title>Resume Clinique de Sortie</title>
-  <style>
-    table {
-        border-collapse: collapse;
-    }
-    table, th, td {
-        border: 1px solid black;
-        padding: 5px;
-    }
-    .rectangle {
-      width:100%;
-      height:25px;
-      background:#ccc;
-    }
-  </style>
-  </head>
-  <body>
-    <div class="container-fluid">
-    	<img src="img/entete.png"class="mt-12" alt="Entete" width="100%"/>
-    	<div class="space-12"></div><div class="space-12"></div>	
-  		<div class="row">
-  		<table width="100%" style="line-height:10px">
-				<tr>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>RDV</title>
+<style>
+	.marge {
+		position:absolute;
+		left:250px;
+	}
+</style>
+</head>
+<body>
+  <br>
+  <div class="row">
+    <div class="col-xs-6 col-sm-4"></div>
+	  <div class="col-xs-6 col-sm-8" style="line-height:10px">
+  		<h5 style="text-align:center;">{{ $etablissement->nom }}</h5>
+  		<h5 style="text-align:center;">Tél : {{ $etablissement->tel }}</h5>
+	  </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-4 col-sm-4"></div> 
+    <div class="col-xs-4 col-sm-4" style="text-align:center;"><img style="max-width:48px" src="img/logo.png" class="thumb img-icons" alt="logo"></div>
+	  <div class="col-xs-4 col-sm-4"></div>
+  </div>
+  <hr><div class="space-12"></div><div class="space-12"></div>	
+  <div class="row">
+  	<table width="100%" style="line-height:10px">
+			<tr>
 				<td class="col-md-4">
 					<strong> Patient :</strong>
 					<span>{{ $rdv->demandeHospitalisation->consultation->patient->Nom }}{{ $rdv->demandeHospitalisation->consultation->patient->Prenom }}</span>
@@ -75,6 +72,22 @@
 			
 	</div>
 	<div class="row"><p>En vous remerciant, nous vous prions de croire,Monsieur, à l'expression de nous salutations distinguées.</p></div>
-    </div>
-   </body>
- </html>
+	<div class ="row">
+		<table>
+			<tr>
+				<td class="col-md-3"></td><td class="col-md-3"></td>
+				<td class="col-md-3 center"><span></span><span style="margin-left:30px;"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				Le Service {{ $rdv->demandeHospitalisation->Service->nom }}</strong></span></td>
+				<td class="col-md-3"></td>
+			</tr>
+		</table>
+				
+	</div>
+
+</body>
+</html>

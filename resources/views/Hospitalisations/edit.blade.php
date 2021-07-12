@@ -2,7 +2,6 @@
 @section('page-script')
 <script type="text/javascript">
 	var nowDate = new Date();
-  //var now = nowDate.getFullYear() + '-' + (nowDate.getMonth()+1) + '-' + ('0'+ nowDate.getDate()).slice(-2);//var tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
   var dEntree = $('#dateEntree').datepicker('getDate'); 
  	$('document').ready(function(){
     $('.timepicker').timepicker({
@@ -51,72 +50,53 @@
 </div>
 <div class="row"><h4><strong>Actualiser les données de l'hospitalisation</strong></h4></div><div class="space-12"></div>  
 <div class="row">
+  <div class="col-sm-12"><h4 class="header smaller lighter blue">Hospitalisation</h4></div>
+</div>
+<div class="profile-user-info">
+  <div class="row">
+    <div class="col-sm-4 profile-info-row">
+      <div class="profile-info-name">Service:</div><div class="profile-info-value"><span>{{ $hosp->admission->demandeHospitalisation->Service->nom }}</span></div>
+    </div>
+    <div class="col-sm-4 profile-info-row">
+      <div class="profile-info-name">Spécialité :</div><div class="profile-info-value"><span>{{ $hosp->admission->demandeHospitalisation->Specialite->nom }}</span></div>
+    </div>
+     <div class="col-sm-4 profile-info-row">
+      <div class="profile-info-name">Mode admission:</div><div class="profile-info-value">
+        @foreach(config('settings.ModeAdmissions') as $key=>$value)
+          @if($value == $hosp->admission->demandeHospitalisation->modeAdmission)
+            <span class="badge badge-success">{{ $key}}</span>
+          @endif
+        @endforeach 
+      </div>
+    </div>  
+  </div>
+  @if($hosp->admission->demandeHospitalisation->modeAdmission != "2")
+  <div class="row">
+    <div class="col-sm-4 profile-info-row">
+      <div class="profile-info-name">Médecin Traitant :</div><div class="profile-info-value"><span>{{ $hosp->medecin->nom }} {{$hosp->medecin->prenom}}</span></div>
+    </div>
+    <div class="col-sm-4 profile-info-row">
+      <div class="profile-info-name">Priorité :</div><div class="profile-info-value">
+        <span class="label label-sm label-primary">{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->ordre_priorite }}</span>
+      </div>
+    </div>
+    <div class="col-sm-4 profile-info-row">
+      <div class="profile-info-name">Observation :</div><div class="profile-info-value"><span>{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->observation }}</span></div>
+    </div>
+  </div>
+@endif
+</div>
+<div class="row">
   <div class="col-xs-12">
 	  <form class="form-horizontal" role="form" method="POST" action="{{ route('hospitalisation.update',$hosp->id)}}">
       {{ csrf_field() }}
       {{ method_field('PUT') }}
       <input type="text" name="id" value="{{$hosp->id}}" hidden>
-      <div class="row form-group ">
-        <div class="col-xs-4">
-          <label class="col-sm-4 control-label no-padding-right" for="service"><strong>Service :</strong> </label>
-          <div class="col-sm-8">
-            <input type="text" id="service" name="service" value="{{ $hosp->admission->demandeHospitalisation->Service->nom }}" class="col-xs-12 col-sm-12" readonly/>
-          </div>  
-        </div>
-        <div class="col-xs-4">
-          <label class="col-sm-4 control-label no-padding-right" for="specialite"><strong>Spécialité:</strong></label>
-          <div class="col-sm-8">
-            <input type="text" id="specialite" name="specialite" value="{{ $hosp->admission->demandeHospitalisation->Specialite->nom }}" class="col-xs-12 col-sm-12" readonly/>
-          </div>  
-        </div>
-        <div class="col-xs-4">
-          <label class="col-sm-4 control-label no-padding-right" for="modeAdm"><strong>Mode d'admission:</strong></label>
-          <div class="col-sm-8">
-            <input  type="text" id="modeAdm" name="modeAdm" value="{{ $hosp->admission->demandeHospitalisation->modeAdmission }}" class="col-xs-12 col-sm-12" readonly/>
-          </div>  
-        </div>
+      <div class="row">
+        <div class="col-sm-12"><h4 class="header smaller lighter blue">Entrée</h4></div>
       </div>
-			<div class="space-12"></div>
       <div class="row form-group">
       	<div class="col-xs-4">
-          <label class="col-sm-4 control-label no-padding-right" for="medecin"><strong>Médecin traitant:</strong></label>
-          <div class="col-sm-8">
-            <input type="text" id="medecin" name="medecin" value="{{ $hosp->medecin->nom }} {{$hosp->medecin->prenom}}" class="col-xs-12 col-sm-12" readonly/>
-          </div>  
-        </div>
-        @if(isset($hosp->admission->rdvHosp))
-        <div class="col-xs-4">
-          <div class="form-group">
-            <label class="col-sm-4 control-label no-padding-right" for="priorite"><strong> Priorité:</strong></label>
-            <div class="control-group col-sm-8">&nbsp; &nbsp;
-              <label>
-                <input name="priorite" class="ace" type="radio" value="1" disabled @if( $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->ordre_priorite==1)checked="checked"@endif >
-                    <span class="lbl"> 1 </span>
-              </label>&nbsp; &nbsp;
-              <label>
-                <input name="priorite" class="ace" type="radio" value="2" disabled @if( $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->ordre_priorite==2)checked="checked"@endif>
-                  <span class="lbl"> 2 </span>
-              </label>&nbsp; &nbsp;
-              <label>
-                <input name="priorite" class="ace" type="radio" value="3" disabled @if( $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->ordre_priorite==3 )checked="checked"@endif>
-                <span class="lbl"> 3 </span>
-              </label>
-            </div>
-          </div>
-        </div>
-        <div class="col-xs-4">
-          <label class="col-sm-4 control-label no-padding-right" for="observ"><strong>Observation:</strong> </label>
-          <div class="col-sm-8">
-            <input type="text" id="observ" name="observ" value="{{ $hosp->admission->rdvHosp->demandeHospitalisation->DemeandeColloque->observation}}" class="col-xs-12 col-sm-12" disabled/>
-          </div>  
-        </div>
-        @endif	
-      </div><!-- row -->
-
-      <div class="row text-primary"><h4><strong>Entrée</strong></h4><hr></div>
-      <div class="space-12"></div>
-			  <div class="row form-group">
-      		<div class="col-xs-4">
           	<label class="col-sm-4 control-label no-padding-right" for="Date_entree"><strong> Date:</strong> </label>
            	<div class="col-sm-8">
               <input class="col-xs-9 col-sm-9 date-picker" id="dateEntree" name="Date_entree" type="text" value = "{{ $hosp->Date_entree }}" data-date-format="yyyy-mm-dd" readonly="true" disabled />
@@ -128,7 +108,7 @@
 	              <strong> Heure:</strong>
 	          </label>
 	          <div class="col-sm-8">   
-	            <input id="heurEnt" name="heure_entrée" class="col-xs-8 col-sm-8 timepicker" type="text" value = "{{ $hosp->heure_entrée }}" disabled/ >
+	            <input id="heurEnt" name="heure_entrée" class="col-xs-8 col-sm-8 timepicker1" type="text" value = "{{ $hosp->heure_entrée }}" disabled/ >
 		      	  <button class="btn btn-md filelink" onclick="$('#dateEntree').focus()"> <i class="fa fa-clock-o bigger-110"></i></button>	
 		       </div>
         	</div>
@@ -140,7 +120,9 @@
 		        </div>  
         	</div>
         </div> <!-- row -->
-        <div class="row text-primary"><h4><strong>Sortie prévue</strong></h4><hr></div>
+        <div class="row">
+          <div class="col-sm-12"><h4 class="header smaller lighter blue">Sortie prévue</h4></div>
+        </div>
      	  <div class="row form-group">
 	        <div class="col-xs-4">
 	          <label class="col-sm-4 control-label no-padding-right" for="Date_Prevu_Sortie"> <strong> Date:</strong></label>
@@ -152,7 +134,7 @@
 		      <div class="col-xs-4">
 		        <label class="col-sm-4 control-label no-padding-right" for="Heure_Prevu_Sortie"><strong> Heure:</strong></label>
 		        <div class="col-sm-8">   
-		          <input id="heureSortiePrevue" name="Heure_Prevu_Sortie" class="col-xs-9 col-sm-9 timepicker" type="text" value = "{{ $hosp->Heure_Prevu_Sortie }}" @if(in_array(Auth::user()->role->id,[5])) disabled @endif/>
+		          <input id="heureSortiePrevue" name="Heure_Prevu_Sortie" class="col-xs-8 col-sm-8 timepicker1" type="text" value = "{{ $hosp->Heure_Prevu_Sortie }}" @if(in_array(Auth::user()->role->id,[5])) disabled @endif/>
 			      	<button class="btn btn-md filelink" onclick="$('#heureSortiePrevue').focus()"><i class="fa fa-clock-o bigger-110"></i></button>	
 			       </div>
         	</div>
@@ -170,13 +152,15 @@
 						</div>
 					</div>
         </div>
-      <div class="row text-primary"><h4><strong>Hébergement</strong></h4><hr></div>
-         @if(isset($hosp->admission->id_lit))
-      <div class="row form group">
-	      <div class="col-xs-4">
+        @if(isset($hosp->admission->id_lit))    
+        <div class="row">
+          <div class="col-sm-12"><h4 class="header smaller lighter blue">Hébergement</h4></div>
+        </div>
+        <div class="row form group">
+	     <div class="col-xs-4">
 	        <label class="col-sm-4 control-label no-padding-right" for="serviceh"><strong> Service :</strong></label>
 	        <div class="col-sm-8">
-	      		<select id="serviceh" name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12" @if(in_array(Auth::user()->role->id,[1])) disabled @endif />
+	      		<select name="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12 serviceHosp" @if(in_array(Auth::user()->role->id,[1])) disabled @endif />
 	            <option value="0" selected>Selectionnez le service d'hospitalisation</option>
 	            @foreach($services as $service)
 	            <option value="{{ $service->id }}" @if($hosp->admission->lit->salle->service->id == $service->id) selected @endif>
@@ -210,7 +194,7 @@
         </div>
       </div>
       @endif
-      <div class="space-12"></div><div class="space-12"></div><div class="space-12"></div><div class="space-12"></div>
+      <div class="space-12"></div><div class="space-12"></div>
       <div class="row">
         <div class="col-xs-3"></div>
         <div class="col-xs-6 center bottom">

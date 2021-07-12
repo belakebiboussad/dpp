@@ -179,7 +179,7 @@
 			  <div class="col-xs-4">
 			   		<label class="col-sm-4 control-label no-padding-right" for="salle">	<strong> Salle :</strong>	</label>
 						<div class="col-sm-8">
-							<select id="salle" name="salle" data-placeholder="selectionnez la salle d'hospitalisation" class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9" disabled>
+							<select id="salle" name="salle" class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9" disabled>
 								<option value="" selected>Selectionnez la salle d'hospitalisation</option>
 						  </select>
 						</div>
@@ -187,7 +187,7 @@
 			  <div class="col-xs-4">
 			  	<label class="col-sm-3 control-label" for="lit_id">	<strong>Lit : </strong></label>
 						<div class="col-sm-8">
-							<select id="lit_id" name="lit_id" data-placeholder="selectionnez le lit" class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9" disabled>
+							<select id="lit_id" name="lit_id" class="selectpicker show-menu-arrow place_holder col-xs-10 col-sm-9" disabled>
 								<option value="" selected disabled>Selectionnez le lit d'hospitalisation</option>
 							</select>
 						</div>	

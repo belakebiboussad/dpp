@@ -3,9 +3,16 @@
 <script type="text/javascript">
 	function addReserv(rdv_id)
 	{
-		$('#addReservationForm').removeAttr('hidden');
 		$('#rdv_id').val(rdv_id);
+		$('#addReservationForm').removeAttr('hidden');
 	}
+	$(function(){
+		$("#addReserv").click(function(){
+			$('#rdv_id').val($(this).val());
+			$('.demande_id').val($(this).attr('data-demande-id'));
+			$('#addReservationForm').removeAttr('hidden');
+		})
+	})
 	$(document).ready(function(){
 		$("#saveReservation").click(function(){
 			$('#addReservationForm').submit();
@@ -44,7 +51,17 @@
 						 {{ $rdv->demandeHospitalisation->consultation->patient->Prenom }}
 						</td>
 						<td>
-							{{ $rdv->demandeHospitalisation->modeAdmission }}
+							@switch($rdv->demandeHospitalisation->modeAdmission)
+ 							  @case(0)
+   								<span class="label label-sm label-primary">Programme</span>
+      							@break
+      					@case(1)
+   								<span class="label label-sm label-success">Ambulatoire</span>
+      							@break
+      					@case(2)
+   								<span class="label label-sm label-warning">Urgence</span>
+      						@break		
+							@endswitch
 						</td>
 						<td>
 						@switch($rdv->demandeHospitalisation->ordre_priorite)
@@ -69,8 +86,9 @@
 						<td>{{ $rdv->date_RDVh }} &nbsp;{{ $rdv->heure_RDVh }}</td>
 						<td>{{ $rdv->date_Prevu_Sortie }} &nbsp;{{ $rdv->heure_Prevu_Sortie }}</td>
 						<td>
-<!--<a href="#" class="btn btn-xs btn-success" id ="addReserv" title="Réserver Lit"><i class="fa fa-bed fa-1x" aria-hidden="true"></i></a> -->
-							<button class="btn btn-xs btn-success" onclick ="addReserv({{$rdv->id}})" title="Réserver Lit">
+<!--<a href="#" class="btn btn-xs btn-success" id ="addReserv" title="Réserver Lit"><i class="fa fa-bed fa-1x" aria-hidden="true"></i></a> 
+onclick ="addReserv({{$rdv->id}})"-->
+							<button class="btn btn-xs btn-success" id ="addReserv" value ='{{ $rdv->id }}' data-demande-id = "{{ $rdv->demandeHospitalisation->id }}" title="Réserver un lit">
 								<i class="fa fa-bed fa-1x" aria-hidden="true"></i>
 							</button>
 						</td>
@@ -85,13 +103,14 @@
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 	<form id="addReservationForm" action="{{ route('reservation.store') }}" method="POST" accept-charset="utf-8" role="form" hidden>
 		{{ csrf_field() }}
-		<input type="hidden" id="rdv_id" name="rdv_id">		
+		<input type="hidden" id="rdv_id" name="rdv_id">
+		<input type="hidden" class="demande_id">		
 		<div class="row ">
 			<div class="col-sm-12 col-xs-12">
 				<label class="col-sm-4 control-label no-padding-right" for=""><strong> Service :</strong>	</label>
 				<div class="col-sm-8">
 					<select id="serviceh" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12 serviceHosp" />
-					  <option value="" selected >Selectionnez un service</option>
+					  <option value="" selected disabled>Selectionnez un service</option>
 					  @foreach($services as $service)
 							<option value="{{ $service->id }}">{{ $service->nom }}</option>
 						@endforeach
@@ -106,7 +125,7 @@
 				<label class="col-sm-4 control-label no-padding-right" for="salle"><strong> Salle :</strong></label>
 				<div class="col-sm-8">
 					<select id="salle" class="selectpicker show-menu-arrow place_holder col-xs-12 col-sm-12 salle" disabled>
-						<option value="0" selected>Selectionnez une salle</option>
+						<option value="" selected disabled>Selectionnez une salle</option>
 				 	</select>
 				</div>
 				</div>

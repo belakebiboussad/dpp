@@ -27,10 +27,10 @@
                  Conjoint(e)
                  @break
           @case(2)
-                 Pere
+                 Père
                  @break
           @case(3)
-                 Mere
+                 Mère
                       @break  
           @case(4)
                  Enfant 

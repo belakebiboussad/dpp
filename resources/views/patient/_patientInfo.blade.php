@@ -49,16 +49,19 @@
 	             	  Conjoint(e)
 	                @break
               @case(2)
-	             	  Ascendant
+	             	   Père
 	                @break
               @case(3)
-	             	  Descendant
-	                @break  
-              @case(4)
+	             	  Mère
+	                @break
+	            @case(4)
+	             	  Enfant
+	                @break    
+              @case(5)
 	                Autre 
 	                @break       
-            @endswitch  
-						</span>		
+            @endswitch 
+           	</span>		
 					</label>
 				</div>
 			</div>

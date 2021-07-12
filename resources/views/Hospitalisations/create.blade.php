@@ -99,7 +99,19 @@
 						@foreach($admsUrg as $key=>$adm)
 							<tr>
 								<td>{{ $adm->demandeHospitalisation->consultation->patient->Nom }} {{ $adm->demandeHospitalisation->consultation->patient->Prenom }}</td>
-								<td>{{ $adm->demandeHospitalisation->modeAdmission }}</td>
+								<td>
+									@switch( $adm->demandeHospitalisation->modeAdmission )
+		   							  @case(0)
+		     								<span class="label label-sm label-primary">Programme</span>
+		        						@break
+		        					@case(1)
+		     								<span class="label label-sm label-success">Ambulatoire</span>
+		        						@break
+		        					@case(2)
+		     								<span class="label label-sm label-warning">Urgence</span>
+		        						@break		
+								  	@endswitch
+									</td>
 								<td>{{ $adm->demandeHospitalisation->Service->nom }}</td>
 								<td>{{ date("Y-m-d")	}}</td>
 								<td>{{ date("Y-m-d")	}}</td>
