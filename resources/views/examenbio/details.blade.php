@@ -4,7 +4,6 @@
 h3.b {
   word-spacing: 3px !important;
 }
-  
 </style>
 @endsection
 @section('page-script')
@@ -13,26 +12,44 @@ h3.b {
   { //$('form#cerbForm').append(document.getElementById("crbm"));
     $("#crb").val($("#crbm").val());
   }
+  function pdfCallback(pdfObject) {
+         var number_of_pages = pdfObject.internal.getNumberOfPages()
+         alert(number_of_pages);
+        var pdf_pages = pdfObject.internal.pages
+         var myFooter = "Footer info"
+         for (var i = 1; i < pdf_pages.length; i++) {
+                // We are telling our pdfObject that we are now working on this page
+                 pdfObject.setPage(i)
+              // The 10,200 value is only for A4 landscape. You need to define your own for other page sizes
+               pdfObject.text(myFooter, 10, 200)
+    }
+}
+
   function CRBPrint()
   {
-    var crbm = $("#crbm").val();
-    $("#crbPDF").text(crbm);
-    $("#pdfContent").removeClass('hidden');//$("#pdfContent").prop('hidden', '');
-    var element = document.getElementById('pdfContent');
-    $("#pdfContent").removeAttr('disabled');
-    var options = {
-          filename: 'crb-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+".pdf"
-    };
-    var exporter = new html2pdf(element, options);// Create instance of html2pdf class
-    $("#pdfContent").addClass('hidden');//$("#pdfContent").prop('hidden', 'hidden');
-    $("#pdfContent").removeAttr('disabled');
-     exporter.getPdf(true).then((pdf) => {// Download the PDF or...
-           console.log('pdf file downloaded');
-     });
-    exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it
-      console.log('doing something before downloading pdf file');
-      pdf.save();
-    });
+        var crbm = $("#crbm").val();
+        $("#crbPDF").text(crbm);
+        $("#pdfContent").removeClass('hidden');//$("#pdfContent").prop('hidden', '');
+        var element = document.getElementById('pdfContent');
+        $("#pdfContent").removeAttr('disabled');
+        var options = {
+              filename: 'crb-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+".pdf",
+               image: {type: 'jpeg', quality: 1},
+              html2canvas: {dpi: 72, letterRendering: true},
+              jsPDF: {unit: 'mm', format: 'a4', orientation: 'landscape'},
+              pdfCallback: pdfCallback
+        };
+        var exporter = new html2pdf(element, options);// Create instance of html2pdf class
+        $("#pdfContent").addClass('hidden');//$("#pdfContent").prop('hidden', 'hidden');
+        $("#pdfContent").removeAttr('disabled');
+         exporter.getPdf(true).then((pdf) => {// Download the PDF or...
+               console.log('pdf file downloaded');
+         });
+        exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it
+          console.log('doing something before downloading pdf file');
+          pdf.save();
+        });
+        
   }
   $(function(){
     $(".open-AddCRBilog").click(function () {//jQuery('#CRBForm').trigger("reset");

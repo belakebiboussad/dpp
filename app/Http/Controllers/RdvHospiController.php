@@ -148,13 +148,13 @@ class RdvHospiController extends Controller
       }  
   public function print($id)
   { 
-    $t = Carbon::now();
-    $rdv = rdv_hospitalisation::with('demandeHospitalisation')->FindOrFail($id);
-    $patient =  $rdv->demandeHospitalisation->consultation->patient;
-    $etablissement = Etablissement::first();
-    $pdf = PDF::loadView('rdvHospi.rdv', compact('rdv','t','etablissement'))->setPaper('a4','landscape');
-    $name = "rdv-".$patient->Nom."-".$patient->Prenom.".pdf";
-    return $pdf->stream($name);
+        $t = Carbon::now();
+        $rdv = rdv_hospitalisation::with('demandeHospitalisation')->FindOrFail($id);
+        $patient =  $rdv->demandeHospitalisation->consultation->patient;
+        $etablissement = Etablissement::first();
+        $pdf = PDF::loadView('rdvHospi.rdv', compact('rdv','t','etablissement'))->setPaper('a4','landscape');
+        $name = "rdv-".$patient->Nom."-".$patient->Prenom.".pdf";
+        return $pdf->stream($name);
   }
   public function ticketPrint($id)//imprimer rdv d'hospitalisation 
   {

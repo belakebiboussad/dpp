@@ -1,9 +1,9 @@
 <html>
   <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
-  <link rel="stylesheet" href="css/styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Resume Clinique de Sortie</title>
+  <link rel="stylesheet" href="css/styles.css">
   <style>
     table {
         border-collapse: collapse;
@@ -24,8 +24,7 @@
     <img src="img/entete.png" class="center thumb img-icons" alt="Entete"/>
     <br><br>
     <div class="sec-droite"><strong>Alger le :</strong><span>{{ $date }}</span></div>
-    <div>
-      <br><br>
+    <div><br><br>
       <strong>Nom et Prénom du patient(e) : {{ $obj->patient->getCivilite() }}</strong>
       <span>{{ $obj->patient->Nom }} &nbsp;{{ $obj->patient->Prenom}}</span>.
     </div><br>
