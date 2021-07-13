@@ -74,6 +74,9 @@ Route::post('/demandehosp/valider','DemandeHospitalisationController@valider');
 Route::post('/demandehosp/invalider','DemandeHospitalisationController@invalider');
 Route::get('/demandehosp/listedemandes/{type}','DemandeHospitalisationController@listedemandes');
 Route::post('/ordonnaces/print','OrdonnanceController@print');
+
+Route::post('/crbprint','DemandeExbController@crbClientDownload')->name('crbprint');
+
 Route::get('/consultations/detailcons/{id}','ConsultationsController@detailcons')->name('consultDetails');
 Route::get('detailConsXHR/{id}','ConsultationsController@detailconsXHR')->name('consultdetailsXHR');
 Route::get('/consultations/create/{id}','ConsultationsController@create');
@@ -195,7 +198,7 @@ route::get('/schapitres','CimController@getChapters');
 route::get('/maladies','CimController@getdiseases');
 Route::get('/crrs/download/{id}', 'CRRControler@download')->name('crrs.download');
 
-Route::get('/crbs/download/{id}', 'DemandeExbController@download')->name('crbs.download');
+Route::get('/crbs/download/{id}', 'DemandeExbController@downloadcrb')->name('crbs.download');
 
 
 Route::post('/crrPrint','CRRControler@print')->name('crrprint');

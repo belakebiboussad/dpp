@@ -167,5 +167,5 @@ class HomeController extends Controller
                 break;
           }
           return $pdf->download($filename); 
-    }
+    }    
 }

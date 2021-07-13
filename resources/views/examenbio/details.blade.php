@@ -4,52 +4,119 @@
 h3.b {
   word-spacing: 3px !important;
 }
+#footer {
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    width:100%;
+    height:100px;
+}
+
+#footerContainer {
+    position:relative;
+    width:100%;
+    height:100px;
+}
+
+#imginthefooter {       
+    background: url(img/footer.png) no-repeat;
+    width:100px;
+    height:300px;
+    top: -108px;  /* Position element */
+    right: 150px; /* Position element */ 
+    position: absolute;
+}​​​​​​​​​
 </style>
 @endsection
 @section('page-script')
 <script>
   function CRBave()
-  { //$('form#cerbForm').append(document.getElementById("crbm"));
+  { 
     $("#crb").val($("#crbm").val());
   }
-  function pdfCallback(pdfObject) {
-         var number_of_pages = pdfObject.internal.getNumberOfPages()
-         alert(number_of_pages);
-        var pdf_pages = pdfObject.internal.pages
-         var myFooter = "Footer info"
-         for (var i = 1; i < pdf_pages.length; i++) {
-                // We are telling our pdfObject that we are now working on this page
-                 pdfObject.setPage(i)
-              // The 10,200 value is only for A4 landscape. You need to define your own for other page sizes
-               pdfObject.text(myFooter, 10, 200)
-    }
-}
+  // function CRBPrint()
+  // {
+  //   var formData = {
+  //       pid:'{{ $patient->id }}',
+  //       mid:'{{ $medecin->id }}',
+  //       crb:$("#crbm").val(),
+  //   };
+  //   $.ajaxSetup({
+  //         headers: {
+  //           'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+  //         }
+  //     });
+  //   $.ajax({
+  //       type: "POST",
+  //       url: "/crbprint",
+  //       data:formData,//contentType: "application/j-son;charset=UTF-8",
 
+  //       //dataType: "json",
+  //       success: function (data,status, xhr) {      
+  //        //   $('#iframe-pdf').contents().find('html').html(data.html);
+  //       //     alert($('#iframe-pdf').contents().find('html').html());
+  //       // $("#crbBioaModal").modal();
+
+  //       },  
+  //       error: function (data) {
+  //         console.log('Error:', data);
+
+  //       }
+  //   });
+
+  // }
   function CRBPrint()
   {
-        var crbm = $("#crbm").val();
-        $("#crbPDF").text(crbm);
-        $("#pdfContent").removeClass('hidden');//$("#pdfContent").prop('hidden', '');
-        var element = document.getElementById('pdfContent');
-        $("#pdfContent").removeAttr('disabled');
-        var options = {
-              filename: 'crb-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+".pdf",
-               image: {type: 'jpeg', quality: 1},
-              html2canvas: {dpi: 72, letterRendering: true},
-              jsPDF: {unit: 'mm', format: 'a4', orientation: 'landscape'},
-              pdfCallback: pdfCallback
-        };
-        var exporter = new html2pdf(element, options);// Create instance of html2pdf class
-        $("#pdfContent").addClass('hidden');//$("#pdfContent").prop('hidden', 'hidden');
-        $("#pdfContent").removeAttr('disabled');
-         exporter.getPdf(true).then((pdf) => {// Download the PDF or...
-               console.log('pdf file downloaded');
-         });
-        exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it
-          console.log('doing something before downloading pdf file');
-          pdf.save();
-        });
-        
+    var crbm = $("#crbm").val();
+    $("#crbPDF").text(crbm);
+    $("#pdfContent").removeClass('hidden');
+    var element = document.getElementById('pdfContent');
+    var options = {
+      filename: 'crb-'+'{{ $patient->Nom }}'+'-'+"{{ $patient->Prenom }}"+".pdf",
+       image: {type: 'jpeg', quality: 1},
+      html2canvas: {dpi: 72, letterRendering: true},
+      jsPDF: {unit: 'mm', format: 'a4', orientation: 'landscape'},
+          
+    };
+
+     //  var exporter = new html2pdf(element, options);// Create instance of html2pdf class
+     // $("#pdfContent").addClass('hidden'); //$("#pdfContent").removeAttr('disabled');
+    
+    //  exporter.getPdf(true).then((pdf) => {// Download the PDF or...
+    //        console.log('pdf file downloaded');
+    //  });
+    // exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it
+    //   console.log('doing something before downloading pdf file');
+    //   pdf.save();
+    // }); 
+  
+    // Get the element to print
+    var element = document.getElementById('pdfContent');
+    // Define optional configuration
+    var options = {
+      filename: 'my-file.pdf'
+    };
+
+    // Create instance of html2pdf class
+    var exporter = new html2pdf(element, options);
+
+    // Download the PDF or...
+    exporter.getPdf(true).then((pdf) => {
+      console.log('pdf file downloaded');
+    });
+
+    // Get the jsPDF object to work with it
+    exporter.getPdf(false).then((pdf) => {
+      console.log('doing something before downloading pdf file');
+      pdf.save();
+    });
+
+// You can also use static methods for one time use...
+options.source = element;
+options.download = true;
+html2pdf.getPdf(options);
+
   }
   $(function(){
     $(".open-AddCRBilog").click(function () {//jQuery('#CRBForm').trigger("reset");
@@ -187,5 +254,7 @@ h3.b {
   </div><!-- col-xs-12 -->
   <div class="col-xs-1"><div id="pdfContent" class="hidden">@include('examenbio.EtatsSortie.crbClient')</div></div>
 </div><!-- row -->
+  {{-- <div class="row"> @include('examenbio.ModalFoms.crbprint')</div> --}}
+  <object id="pdfviewer" data="/files/sample.pdf" type="application/pdf" style="width:100%;height:500px;"></object>
 <div class="row text-center">@include('examenbio.CRBModal')</div> 
 @endsection

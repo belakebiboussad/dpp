@@ -1,4 +1,3 @@
-<page> 
 <div class="row"><div class="col-sm-12 center"><img src='{{ asset("img/entete.png") }}' alt="Logo1"/></div></div>
 <div class="space-12"></div>
 <div class="row">
@@ -9,7 +8,7 @@
 <div class="row"><div class="col-sm-12 tab-space"><strong>Patient(e) :</strong></div></div>
 <div class="row">
 	<div class="col-sm-2 tab-space"><strong>Nom :&nbsp;</strong><span>{{ $patient->Nom }}</span></div>
-	<div class="col-sm-2"><strong>Prenom :&nbsp;</strong><span>{{ $patient->Prenom }}</span></div>
+	<div class="col-sm-3"><strong>Prenom :&nbsp;</strong><span>{{ $patient->Prenom }}</span></div>
 	<div class="col-sm-3"><strong>Né(e) le :&nbsp;</strong><span>{{ \Carbon\Carbon::parse($patient->Dat_Naissance)->format('d-m-Y') }}</span></div>
 </div>
 <div class="row"><div class="col-sm-3 center"></div>
@@ -19,7 +18,13 @@
 <div class="row">
 	<div class="col-sm-11 tab-space"><span id ="crbPDF"></span></div>
 </div>
-<page_footer> 
+<div class="foo">
 	<div class="col-sm-12 center"><img src='{{ asset("img/footer.png") }}' alt="Logo1"/></div>	
-  </page_footer>
-</page>
+</div><!-- / -->
+<div id="footer">
+  <div id="footerContainer">
+    <div id="imginthefooter"></div>
+
+  
+  </div>
+</div>

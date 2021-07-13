@@ -1,4 +1,4 @@
-<div  id="ordajax" class="modal fade" role="dialog">
+<div  id="crbBioaModal" class="modal fade" role="dialog">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="model-header center"><h4>Voulez vous imprimer?</h4> </div>
