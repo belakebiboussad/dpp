@@ -18,7 +18,8 @@
 <div class="row">
 	<div class="col-sm-11 tab-space"><span id ="crbPDF"></span></div>
 </div>
-<div class="foo">
+<div class="html2pdf__page-break"></div>
+<div class="foo" id="printFooter">
 	<div class="col-sm-12 center"><img src='{{ asset("img/footer.png") }}' alt="Logo1"/></div>	
 </div><!-- / -->
 <div id="footer">

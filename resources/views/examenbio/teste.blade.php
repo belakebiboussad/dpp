@@ -27,128 +27,72 @@ h3.b {
 @endsection
 @section('page-script')
 <script>
-  function CRBave()
-  { 
-    $("#crb").val($("#crbm").val());
-  }
-  // function CRBPrint()
-  // {
-  //   var formData = {
-  //       pid:'{{-- $patient->id --}}',
-  //       mid:'{{-- $medecin->id --}}',
-  //       crb:$("#crbm").val(),
-  //   };
-  //   $.ajaxSetup({
-  //         headers: {
-  //           'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-  //         }
-  //     });
-  //   $.ajax({
-  //       type: "POST",
-  //       url: "/crbprint",
-  //       data:formData,//contentType: "application/j-son;charset=UTF-8",
-
-  //       //dataType: "json",
-  //       success: function (data,status, xhr) {      
-  //        //   $('#iframe-pdf').contents().find('html').html(data.html);
-  //       //     alert($('#iframe-pdf').contents().find('html').html());
-  //       // $("#crbBioaModal").modal();
-
-  //       },  
-  //       error: function (data) {
-  //         console.log('Error:', data);
-
-  //       }
-  //   });
-
-  // }
-  function CRBPrint()
-  {
-    /*
-    var crbm = $("#crbm").val();
-    $("#crbPDF").text(crbm);
-    $("#pdfContent").removeClass('hidden');
-    var element = document.getElementById('pdfContent');
-    var options = {
-      filename: 'crb-'+'{{-- $patient->Nom --}}'+'-'+"{{-- $patient->Prenom --}}"+".pdf",
-       image: {type: 'jpeg', quality: 1},
-      html2canvas: {dpi: 72, letterRendering: true},
-      jsPDF: {unit: 'mm', format: 'a4', orientation: 'landscape'},
-          
-    };
-      var exporter = new html2pdf(element, options);// Create instance of html2pdf class
-     $("#pdfContent").addClass('hidden'); //$("#pdfContent").removeAttr('disabled');
-      exporter.getPdf(true).then((pdf) => {// Download the PDF or...
-           console.log('pdf file downloaded');
-     });
-    exporter.getPdf(false).then((pdf) => {// Get the jsPDF object to work with it
-      console.log('doing something before downloading pdf file');
-      pdf.save();
-    }); 
-    */
-//deb             
-                var crbm = $("#crbm").val();
-                $("#crbPDF").text(crbm);
-              $("#pdfContent").removeClass('hidden');
-              var element = document.getElementById('pdfContent');
-             // html2pdf(element);
-             // var options = {
-             //      margin:       1,
-             //      filename:     'myfile.pdf',
-             //      image:        { type: 'jpeg', quality: 0.98 },
-             //      html2canvas:  { scale: 2 },
-             //        pagebreak:'css',
-             //      jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-             //    };
-            // html2pdf(element, opt);
-            //fin      
-                         // config from your example
-              const config = {
-                    filename:  'test.pdf',
-                    image: {type: 'jpeg',quality: 1.0},
-                    html2canvas: {dpi: 75, scale: 2, letterRendering: true},
-                    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] },
-                    jsPDF: {orientation: 'portrait', unit: 'in', format: 'a4', compressPDF: true},
-                    // pdfCallback: pdfCallback
-                  }
-            // element.style.display = "none";
-
- html2pdf().from(element).set(config).toPdf().get('pdf').then((pdf) => {
-    var totalPages = pdf.internal.getNumberOfPages();
-
-    for (let i = 1; i <= totalPages; i++) {
-      // set footer to every page
-      pdf.setPage(i);
-      // set footer font
-      pdf.setFontSize(10);
-      pdf.setTextColor(150);
-      // this example gets internal pageSize just as an example to locate your text near the borders in case you want to do something like "Page 3 out of 4"
-      pdf.text(pdf.internal.pageSize.getWidth() - 30,                
-        pdf.internal.pageSize.getHeight() - 10, 'YOUR TEXT GOES HERE!');
-       // you can add the line separator as an image, consult the docs below to properly set the place of the image
-      pdf.addImage(img, 'png', 0, 0, 52, 23)
-    } 
-  }).save();
-  this.elementPDF.clear();
-}
-      $(function(){
-          $(".open-AddCRBilog").click(function () {//jQuery('#CRBForm').trigger("reset");
-                   jQuery('#crbSave').val("add");
-                  $('#addCRBDialog').modal('show');
-          });
-      })
-  $('document').ready(function(){
-    $("button").click(function (event) {
-         which = '';
-         str ='send';
-         which = $(this).attr("id");
-         var which = $.trim(which);
-         var str = $.trim(str);
-         if(which==str){
-          return true;
-        }
-    });
+var base64Img = null;
+imgToBase64('img/entete.png', function(base64) {
+    base64Img = base64; 
 });
+
+margins = {
+  top: 100,
+  bottom: 40,
+  left: 30,
+  width: 350
+};
+function generate()
+{
+  var pdf = new jsPDF('p', 'pt', 'a4');
+  pdf.setFontSize(18);
+  pdf.fromHTML(document.getElementById('html-2-pdfwrapper'), 
+    margins.left, // x coord
+    margins.top,
+    {
+      // y coord
+      width: margins.width// max width of content on PDF
+    },function(dispose) {
+      headerFooterFormatting(pdf, pdf.internal.getNumberOfPages());
+      }, 
+        margins);
+  var iframe = document.createElement('iframe');
+  iframe.setAttribute('style','position:absolute;right:0; top:0; bottom:0; height:100%; width:350px; padding:20px;');
+  document.body.appendChild(iframe);
+  iframe.src = pdf.output('datauristring');
+}
+function headerFooterFormatting(doc, totalPages)
+{
+    for(var i = totalPages; i >= 1; i--)
+    {
+        doc.setPage(i);                            
+        footer(doc, i, totalPages);
+        doc.page++;
+    }
+}
+// You could either use a function similar to this or pre convert an image with for example http://dopiaza.org/tools/datauri
+// http://stackoverflow.com/questions/6150289/how-to-convert-image-into-base64-string-using-javascript
+function imgToBase64(url, callback, imgVariable) {
+ 
+    if (!window.FileReader) {
+        callback(null);
+        return;
+    }
+    var xhr = new XMLHttpRequest();
+    xhr.responseType = 'blob';
+    xhr.onload = function() {
+        var reader = new FileReader();
+        reader.onloadend = function() {
+      imgVariable = reader.result.replace('text/xml', 'image/jpeg');
+            callback(imgVariable);
+        };
+        reader.readAsDataURL(xhr.response);
+    };
+    xhr.open('GET', url);
+    xhr.send();
+};
+
+function footer(doc, pageNumber, totalPages){
+    var str = "Page " + pageNumber + " of " + totalPages
+    doc.setFontSize(10);
+    doc.text(str, margins.left, doc.internal.pageSize.height - 20);
+};
 </script>
 @endsection
 @section('main-content')
@@ -267,6 +211,6 @@ h3.b {
   </div><!-- col-xs-12 -->
   <div class="col-xs-1"><div id="pdfContent" class="hidden">@include('examenbio.EtatsSortie.crbClient')</div></div>
 </div><!-- row -->
-  {{-- <div class="row"> @include('examenbio.ModalFoms.crbprint')</div> --}}
+ 
 <div class="row text-center">@include('examenbio.CRBModal')</div> 
 @endsection
