@@ -15,14 +15,14 @@ h3.b {
       page-break-inside: avoid;
       clear:both;
     }
-    #pdfContent{
-      position: absolute; 
-      left: 20px; 
-      top: 50px; 
-      bottom: 0; 
-      overflow: auto; 
-      width: 600px;
-    }
+    header {
+  background: red;
+}
+
+footer {
+  background: blue;
+}
+
 </style>
 @endsection
 @section('page-script')
@@ -62,6 +62,11 @@ h3.b {
   //   });
 
   // }
+  function pdfCallback(pdfObject) {
+     var totalPages = pdf.putTotalPages().internal.getNumberOfPages()
+       alert("Total Pages: " + totalPages);
+     pdfObject.save('my.pdf');
+  }
   function CRBPrint()
   {
     /*
@@ -86,57 +91,73 @@ h3.b {
       pdf.save();
     }); 
     */
-//deb             
-                var crbm = $("#crbm").val();
-                $("#crbPDF").text(crbm);
-              $("#pdfContent").removeClass('hidden');
-              var element = document.getElementById('pdfContent');
-             // html2pdf(element);
-             // var options = {
-             //      margin:       1,
-             //      filename:     'myfile.pdf',
-             //      image:        { type: 'jpeg', quality: 0.98 },
-             //      html2canvas:  { scale: 2 },
-             //        pagebreak:'css',
-             //      jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-             //    };
+//deb         /*sol 2    
+            var crbm = $("#crbm").val();
+            $("#crbPDF").text(crbm);
+            $("#pdfContent").removeClass('hidden');
+            var element = document.getElementById('pdfContent');
+            element.style.display = 'block';
+            // var specialElementHandlers = {
+            //    '#editor': function(element, renderer){
+            //     return true;
+            // }
+            // };
+            // html2pdf(element);
+            // element.style.display = 'none'
+            // console.log('printPDF()');
+            // html2pdf(element);
+            //   var opt = {
+            //       margin:       1,
+            //       filename:     'myfile.pdf',
+            //       image:        { type: 'jpeg', quality: 0.98 },
+            //       html2canvas:  { scale: 2 },
+            //         pagebreak:'css',
+            //       jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            //     };
             // html2pdf(element, opt);
-            //fin      
-                         // config from your example
-              const config = {
-                    filename:  'test.pdf',
-                    image: {type: 'jpeg',quality: 1.0},
-                    html2canvas: {dpi: 75, scale: 2, letterRendering: true},
-                    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] },
-                    jsPDF: {orientation: 'portrait', unit: 'in', format: 'a4', compressPDF: true},
-                    // pdfCallback: pdfCallback
-                  }
-            // element.style.display = "none";
+            //var pdf = new jsPDF('p', 'pt', 'letter');
+            // pdf.fromHTML($('#pdfContent').get(0), 15, 15, {
+            //   'width': 180,
+            //   'margin': 1,
+            //   'pagesplit': true,
+            //   'elementHandlers': specialElementHandlers
+            // }, function (dispose) {
+            //   pdf.save(filename);
+            // });
+          
+          //document.getElementById('#preview').classList.add('hide');
+          var opt = {
+            margin:       0.5,
+            filename:     'ct-scan.pdf',
+            enableLinks:  false,
+            pagebreak:    { mode: 'avoid-all' },
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2 },
+            jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+          };
 
- html2pdf().from(element).set(config).toPdf().get('pdf').then((pdf) => {
-    var totalPages = pdf.internal.getNumberOfPages();
+       html2pdf().from(element).set(opt).toPdf().get('pdf').then(function (pdf) {
+       var totalPages = pdf.internal.getNumberOfPages(); 
 
-    for (let i = 1; i <= totalPages; i++) {
-      // set footer to every page
-      pdf.setPage(i);
-      // set footer font
-      pdf.setFontSize(10);
-      pdf.setTextColor(150);
-      // this example gets internal pageSize just as an example to locate your text near the borders in case you want to do something like "Page 3 out of 4"
-      pdf.text(pdf.internal.pageSize.getWidth() - 30,                
-        pdf.internal.pageSize.getHeight() - 10, 'YOUR TEXT GOES HERE!');
-       // you can add the line separator as an image, consult the docs below to properly set the place of the image
-      pdf.addImage(img, 'png', 0, 0, 52, 23)
-    } 
-  }).save();
-  this.elementPDF.clear();
-}
+       for (var i = 1; i <= totalPages; i++) {
+         pdf.setPage(i);
+         pdf.setFontSize(10);
+         pdf.setTextColor(150);
+         pdf.text('Page ' + i + ' of ' + totalPages, pdf.internal.pageSize.getWidth() - 100, 
+         pdf.internal.pageSize.getHeight() - 30);
+       } 
+ }).save() 
+            document.getElementById('preview').classList.add('show');
+
+////////////////////////
+            $("#pdfContent").addClass('hidden');
+        }
       $(function(){
-          $(".open-AddCRBilog").click(function () {//jQuery('#CRBForm').trigger("reset");
-                   jQuery('#crbSave').val("add");
-                  $('#addCRBDialog').modal('show');
-          });
-      })
+      $(".open-AddCRBilog").click(function () {//jQuery('#CRBForm').trigger("reset");
+               jQuery('#crbSave').val("add");
+              $('#addCRBDialog').modal('show');
+      });
+  })
   $('document').ready(function(){
     $("button").click(function (event) {
          which = '';
@@ -265,7 +286,11 @@ h3.b {
       </div><!-- widget-body -->
     </div><!-- widget-box -->
   </div><!-- col-xs-12 -->
-  <div class="col-xs-1"><div id="pdfContent" class="hidden">@include('examenbio.EtatsSortie.crbClient')</div></div>
+  <div class="col-xs-1">
+    <div id="pdfContent" style="display: none">@include('examenbio.EtatsSortie.crbClient')</div>
+<div id="preview"></div>
+  </div>
+  <!-- class="hidden" -->
 </div><!-- row -->
   {{-- <div class="row"> @include('examenbio.ModalFoms.crbprint')</div> --}}
 <div class="row text-center">@include('examenbio.CRBModal')</div> 

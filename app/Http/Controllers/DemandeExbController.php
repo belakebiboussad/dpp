@@ -114,19 +114,21 @@ class DemandeExbController extends Controller
     }
       public function detailsdemandeexb($id)
       {
-                $demande = demandeexb::FindOrFail($id);
-                $etablissement = Etablissement::first();
-                if(isset($demande->consultation))
-                {
-                  $medecin =  $patient = $demande->consultation->docteur ;     
-                  $patient = $demande->consultation->patient;
-                }
-                else
-                {
-                  $medecin =  $patient = $demande->visite->medecin ;   
-                  $patient = $demande->visite->hospitalisation->patient;   
-                }
-               return view('examenbio.details', compact('demande','patient','medecin','etablissement'));
+          $demande = demandeexb::FindOrFail($id);
+          $etablissement = Etablissement::first();
+          if(isset($demande->consultation))
+          {
+            $medecin =  $patient = $demande->consultation->docteur ;     
+            $patient = $demande->consultation->patient;
+          }
+          else
+          {
+            $medecin =  $patient = $demande->visite->medecin ;   
+            $patient = $demande->visite->hospitalisation->patient;   
+          }
+        // return view('examenbio.details', compact('demande','patient','medecin','etablissement'));
+        return view('examenbio.teste', compact('demande','patient','medecin','etablissement'));
+
        }
     public function uploadresultat(Request $request)
     {
